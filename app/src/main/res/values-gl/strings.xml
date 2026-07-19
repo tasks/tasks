@@ -171,7 +171,6 @@
     <string name="delete">Borrar</string>
     <string name="copy">Copiar</string>
     <string name="filter_settings">Configuración de filtros</string>
-    <string name="show_completed">Amosar finalizadas</string>
     <string name="add_attachment">Anexar ficheiro</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elixir desde a galería</string>
@@ -225,7 +224,6 @@
     <string name="widget_show_title">Amosar título</string>
     <string name="repeat_monthly_first_week">primeiro</string>
     <string name="next_saturday">Próx Sáb</string>
-    <string name="show_unstarted">Amosar sen comezar</string>
     <string name="default_tags">Etiquetas predefinidas</string>
     <string name="default_recurrence">Recurrencia predefinida</string>
     <string name="opacity_header">Opacidade da cabeceira</string>

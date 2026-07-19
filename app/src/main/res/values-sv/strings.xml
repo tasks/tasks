@@ -167,7 +167,6 @@
     <string name="list_settings">Listinställningar</string>
     <string name="delete">Ta bort</string>
     <string name="filter_settings">Filterinställningar</string>
-    <string name="show_completed">Visa slutförda</string>
     <string name="add_attachment">Bifoga filer</string>
     <string name="take_a_picture">Ta en bild</string>
     <string name="pick_from_gallery">Välj från album</string>
@@ -489,7 +488,6 @@
     <string name="default_tags">Standardtaggar</string>
     <string name="no_app_found">Ingen app kunde hantera denna begäran</string>
     <string name="filter_criteria_unstarted">Inte påbörjad</string>
-    <string name="show_unstarted">Visa inte påbörjade</string>
     <string name="header_spacing">Avstånd</string>
     <string name="subtasks">Deluppgifter</string>
     <string name="copied_to_clipboard">%s kopierat till urklipp</string>

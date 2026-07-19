@@ -40,7 +40,6 @@
     <string name="sort_list">Па спісу</string>
     <string name="today">Сёння</string>
     <string name="yesterday">Учора</string>
-    <string name="show_completed">Паказаць завершаныя</string>
     <string name="default_list">Спіс па ўмаўчанні</string>
     <string name="due_date">Дата выканання</string>
     <string name="TEA_timer_est">Прыбл. %s</string>
@@ -52,7 +51,6 @@
     <string name="TEA_control_timer">Кіраванне таймерам</string>
     <string name="none">Няма</string>
     <string name="tomorrow">Заўтра</string>
-    <string name="show_unstarted">Паказаць непачатыя</string>
     <string name="TEA_creation_date">Дата стварэння</string>
     <string name="TEA_control_importance">Прыярытэт</string>
     <string name="FLA_search_filter">Які адпавядае «%s»</string>

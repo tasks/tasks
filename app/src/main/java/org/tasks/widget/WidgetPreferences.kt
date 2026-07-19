@@ -259,10 +259,12 @@ class WidgetPreferences(
         set(ascending) {
             setBoolean(R.string.p_widget_group_ascending, ascending)
         }
-    override val showHidden: Boolean
+    override var showHidden: Boolean
         get() = getBoolean(R.string.p_widget_show_hidden, true)
-    override val showCompleted: Boolean
+        set(value) { setBoolean(R.string.p_widget_show_hidden, value) }
+    override var showCompleted: Boolean
         get() = getBoolean(R.string.p_widget_show_completed, false)
+        set(value) { setBoolean(R.string.p_widget_show_completed, value) }
     override val alwaysDisplayFullDate: Boolean
         get() = preferences.alwaysDisplayFullDate
     override var completedTasksAtBottom: Boolean

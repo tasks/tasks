@@ -258,7 +258,6 @@
     <string name="copy">Kopiuj</string>
     <string name="move">Przenieś</string>
     <string name="filter_settings">Ustawienia filtrów</string>
-    <string name="show_completed">Pokaż ukończone</string>
     <string name="add_attachment">Dodaj załącznik</string>
     <string name="take_a_picture">Wybierz obrazek</string>
     <string name="pick_from_gallery">Wybierz z galerii</string>
@@ -505,7 +504,6 @@
     <string name="decsync_selection_description">Synchronizacja oparta na plikach</string>
     <string name="local_lists">Listy lokalne</string>
     <string name="filter_criteria_unstarted">Nierozpoczęte</string>
-    <string name="show_unstarted">Pokaż nierozpoczęte</string>
     <string name="filter_any_start_date">Dowolna data rozpoczęcia</string>
     <string name="no_start_date">Bez daty rozpoczęcia</string>
     <string name="CFC_startBefore_name">Początek przed…</string>

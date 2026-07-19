@@ -261,7 +261,6 @@
     <string name="copy">Копіювати</string>
     <string name="move">Перемістити</string>
     <string name="filter_settings">Налаштування фільтрів</string>
-    <string name="show_completed">Показати завершені</string>
     <string name="add_attachment">Додати вкладення</string>
     <string name="take_a_picture">Зробити знімок</string>
     <string name="pick_from_gallery">Обрати з галереї</string>
@@ -493,7 +492,6 @@
     <string name="default_tags">Типові мітки</string>
     <string name="no_app_found">Немає застосунків, які можуть опрацювати цей запит</string>
     <string name="filter_criteria_unstarted">Непочаті</string>
-    <string name="show_unstarted">Показати непочаті</string>
     <string name="date_shortcut_tomorrow_night">Завтра вночі</string>
     <string name="date_shortcut_tomorrow_evening">Завтра ввечері</string>
     <string name="header_spacing">Інтервал</string>

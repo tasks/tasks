@@ -240,7 +240,6 @@
     <string name="copy">Kopiëren</string>
     <string name="move">Verplaatsen</string>
     <string name="filter_settings">Filter instellen</string>
-    <string name="show_completed">Voltooide tonen</string>
     <string name="add_attachment">Bijlage toevoegen</string>
     <string name="take_a_picture">Foto maken</string>
     <string name="pick_from_gallery">Uit galerij kiezen</string>
@@ -492,7 +491,6 @@
     <string name="default_due_date">Standaard vervaldatum</string>
     <string name="start_date">Begindatum</string>
     <string name="default_start_date">Standaard begindatum</string>
-    <string name="show_unstarted">Niet-gestarte tonen</string>
     <string name="filter_criteria_unstarted">Niet-gestarte</string>
     <string name="no_start_date">Geen begindatum</string>
     <string name="SSD_sort_start">Op begindatum</string>

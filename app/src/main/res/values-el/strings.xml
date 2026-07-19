@@ -172,7 +172,6 @@
     <string name="persistent_notifications_description">Οι επαναλαμβανόμενες ειδοποιήσεις δεν μπορούν να εξαλειφθούν</string>
     <string name="swipe_to_snooze_title">Τραβήξτε για αναβολή</string>
     <string name="swipe_to_snooze_description">Ώρα αναβολής</string>
-    <string name="show_completed">Εμφάνιση ολοκληρωμένων</string>
     <string name="swipe_to_snooze_time_description">Μια διαγραμμένη ειδοποίηση θα αναβληθεί και δημιουργηθεί εκ νέου %s</string>
     <string name="swipe_to_snooze_time_immediately">κατευθείαν</string>
     <string name="swipe_to_snooze_time_15_minutes">μετά από 15 λεπτά</string>
@@ -551,7 +550,6 @@
     <string name="sync_warning_google_tasks">Δεν συγχρονίζονται όλες οι λεπτομέρειες εργασίας με το Google Tasks</string>
     <string name="button_learn_more">Μάθετε περισσότερα</string>
     <string name="widget_view_more_tasks">Εμφάνιση περισσότερων εργασιών</string>
-    <string name="show_unstarted">Εμφάνιση όσων δεν έχουν ξεκινήσει</string>
     <string name="widget_show_checkboxes">Εμφάνιση πλαισίων ελέγχου (κουτάκια)</string>
     <string name="customize_edit_screen">Προσαρμογή οθόνης επεξεργασίας</string>
     <string name="customize_edit_screen_summary">Αναδιάταξη ή κατάργηση πεδίων</string>

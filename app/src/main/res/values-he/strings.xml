@@ -262,7 +262,6 @@
     <string name="copy">העתקה</string>
     <string name="move">העברה</string>
     <string name="filter_settings">הגדרות מסנן</string>
-    <string name="show_completed">הצג משימות שהושלמו</string>
     <string name="add_attachment">הוספת צרופה</string>
     <string name="take_a_picture">צילום תמונה</string>
     <string name="pick_from_gallery">בחירה מגלריה</string>
@@ -523,7 +522,6 @@
     <string name="open_source">קוד פתוח</string>
     <string name="support">תמיכה</string>
     <string name="subscription">מינוי</string>
-    <string name="show_unstarted">הצגת משימות שלא התחילו</string>
     <string name="widget_show_title">הצגת כותרת</string>
     <string name="next_saturday">שבת הבאה</string>
     <string name="next_friday">שישי הבא</string>

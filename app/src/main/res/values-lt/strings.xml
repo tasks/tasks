@@ -269,7 +269,6 @@
     <string name="copy">Kopijuoti</string>
     <string name="move">Perkelti</string>
     <string name="filter_settings">Filtrų nustatymai</string>
-    <string name="show_completed">Rodyti užbaigtas</string>
     <string name="add_attachment">Pridėti priedą</string>
     <string name="take_a_picture">Nufotografuoti</string>
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
@@ -369,7 +368,6 @@
     <string name="SSD_sort_start">Pagal pradžios datą</string>
     <string name="filter_any_start_date">Bet kokia pradžios data</string>
     <string name="filter_criteria_unstarted">Nepradėtos</string>
-    <string name="show_unstarted">Rodyti nepradėtas</string>
     <string name="always_display_full_date">Rodyti pilną datą</string>
     <string name="default_recurrence">Numatytas pasikartojimas</string>
     <string name="repeat_type_completion_capitalized">Užbaigimo data</string>

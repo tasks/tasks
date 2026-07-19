@@ -55,6 +55,8 @@ import tasks.kmp.generated.resources.sort_grouping
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.sort_not_available
 import tasks.kmp.generated.resources.sort_sorting
+import tasks.kmp.generated.resources.show_completed
+import tasks.kmp.generated.resources.show_unstarted
 import tasks.kmp.generated.resources.subtasks
 
 val sortOptions = linkedMapOf(
@@ -212,11 +214,17 @@ fun BottomSheetContent(
     manualSort: Boolean,
     astridSort: Boolean,
     completedAtBottom: Boolean,
+    showCompleted: Boolean,
+    showHidden: Boolean,
+    showCompletedAndHiddenOptions: Boolean,
+    completedAndHiddenEnabled: Boolean,
     setSortAscending: (Boolean) -> Unit,
     setGroupAscending: (Boolean) -> Unit,
     setCompletedAscending: (Boolean) -> Unit,
     setSubtaskAscending: (Boolean) -> Unit,
     setCompletedAtBottom: (Boolean) -> Unit,
+    setShowCompleted: (Boolean) -> Unit,
+    setShowHidden: (Boolean) -> Unit,
     clickGroupMode: () -> Unit,
     clickSortMode: () -> Unit,
     clickCompletedMode: () -> Unit,
@@ -258,33 +266,73 @@ fun BottomSheetContent(
                 showAscending = subtaskMode != SortHelper.SORT_MANUAL
             )
         }
-        HorizontalDivider()
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .clickable { setCompletedAtBottom(!completedAtBottom) },
-        ) {
-            Text(
-                text = stringResource(Res.string.completed_tasks_at_bottom),
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.weight(1f),
-            )
-            Switch(
-                checked = completedAtBottom,
-                onCheckedChange = { setCompletedAtBottom(it) }
-            )
-        }
-        if (completedAtBottom) {
+        if (showCompletedAndHiddenOptions) {
             HorizontalDivider()
-            SortRow(
-                title = Res.string.completed,
-                ascending = completedAscending,
-                sortMode = completedMode,
-                onClick = clickCompletedMode,
-                setAscending = setCompletedAscending,
+            SwitchRow(
+                title = Res.string.show_unstarted,
+                checked = showHidden || !completedAndHiddenEnabled,
+                enabled = completedAndHiddenEnabled,
+                onCheckedChange = setShowHidden,
+            )
+            SwitchRow(
+                title = Res.string.show_completed,
+                checked = showCompleted || !completedAndHiddenEnabled,
+                enabled = completedAndHiddenEnabled,
+                onCheckedChange = setShowCompleted,
             )
         }
+        val showCompletedSection =
+            !showCompletedAndHiddenOptions || !completedAndHiddenEnabled || showCompleted
+        if (showCompletedSection) {
+            HorizontalDivider()
+            SwitchRow(
+                title = Res.string.completed_tasks_at_bottom,
+                checked = completedAtBottom,
+                onCheckedChange = setCompletedAtBottom,
+            )
+            if (completedAtBottom) {
+                HorizontalDivider()
+                SortRow(
+                    title = Res.string.completed,
+                    ascending = completedAscending,
+                    sortMode = completedMode,
+                    onClick = clickCompletedMode,
+                    setAscending = setCompletedAscending,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SwitchRow(
+    title: StringResource,
+    checked: Boolean,
+    enabled: Boolean = true,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .clickable(enabled = enabled) { onCheckedChange(!checked) },
+    ) {
+        Text(
+            text = stringResource(title),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                color = if (enabled) {
+                    MaterialTheme.colorScheme.onSurface
+                } else {
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                }
+            ),
+            modifier = Modifier.weight(1f),
+        )
+        Switch(
+            checked = checked,
+            enabled = enabled,
+            onCheckedChange = onCheckedChange,
+        )
     }
 }
 

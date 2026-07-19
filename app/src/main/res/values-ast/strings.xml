@@ -322,8 +322,6 @@
     <string name="copy">Copiar</string>
     <string name="move">Mover</string>
     <string name="filter_settings">Axustes de filtros</string>
-    <string name="show_unstarted">Amosar ensin entamar</string>
-    <string name="show_completed">Amosar acabaes</string>
     <string name="filter_criteria_unstarted">Non entamaes</string>
     <string name="no_app_found">Denguna app puede xestionar esta solicitú</string>
     <string name="add_attachment">Amestar ficheru</string>

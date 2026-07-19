@@ -242,7 +242,6 @@
     <string name="copy">복사</string>
     <string name="move">이동</string>
     <string name="filter_settings">필터 설정</string>
-    <string name="show_completed">완료한 할일 표시</string>
     <string name="add_attachment">첨부파일 추가</string>
     <string name="take_a_picture">사진 촬영</string>
     <string name="pick_from_gallery">갤러리에서 선택</string>
@@ -487,7 +486,6 @@
     <string name="no_start_date">시작일 없음</string>
     <string name="CFC_startBefore_name">시작일…</string>
     <string name="CFC_startBefore_text">시작일: \?</string>
-    <string name="show_unstarted">시작하지 않은 할일 표시</string>
     <string name="save_percent">%d%% 절약</string>
     <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
     <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>

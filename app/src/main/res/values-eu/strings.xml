@@ -250,7 +250,6 @@
     <string name="copy">Kopiatu</string>
     <string name="move">Lekuz aldatu</string>
     <string name="filter_settings">Iragazki-ezarpenak</string>
-    <string name="show_completed">Erakutsi burututakoak</string>
     <string name="add_attachment">Gehitu eranskina</string>
     <string name="take_a_picture">Atera argazkia</string>
     <string name="pick_from_gallery">Hautatu galeriatik</string>
@@ -496,7 +495,6 @@
     <string name="local_lists">Zerrenda lokalak</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
     <string name="subscription">Harpidetza</string>
-    <string name="show_unstarted">Erakutsi hasi gabeak</string>
     <string name="filter_criteria_unstarted">Hasi gabea</string>
     <string name="widget_show_title">Erakutsi izenburua</string>
     <string name="filter_any_start_date">Edozein hasiera data</string>

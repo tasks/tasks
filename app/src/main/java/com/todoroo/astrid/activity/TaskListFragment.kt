@@ -719,17 +719,6 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             appBar.inflateMenu(R.menu.menu_location_actions)
         }
         appBar.inflateMenu(R.menu.menu_task_list_fragment_bottom)
-        val hidden = menu.findItem(R.id.menu_show_unstarted)
-        val completed = menu.findItem(R.id.menu_show_completed)
-        if (!taskAdapter.supportsHiddenTasks() || !filter.supportsHiddenTasks()) {
-            completed.isChecked = true
-            completed.isEnabled = false
-            hidden.isChecked = true
-            hidden.isEnabled = false
-        } else {
-            hidden.isChecked = preferences.showHidden
-            completed.isChecked = preferences.showCompleted
-        }
         val sortMenu = menu.findItem(R.id.menu_sort)
         if (!filter.supportsSorting()) {
             sortMenu.isEnabled = false
@@ -780,21 +769,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         requireActivity(),
                         filter.supportsManualSort(),
                         filter is AstridOrderingFilter && preferences.isAstridSortEnabled,
-                        filterKey = filter.key()
+                        filterKey = filter.key(),
+                        completedAndHiddenEnabled =
+                            taskAdapter.supportsHiddenTasks() && filter.supportsHiddenTasks(),
                     )
                 )
-                true
-            }
-            R.id.menu_show_unstarted -> {
-                item.isChecked = !item.isChecked
-                preferences.showHidden = item.isChecked
-                loadTaskListContent()
-                true
-            }
-            R.id.menu_show_completed -> {
-                item.isChecked = !item.isChecked
-                preferences.showCompleted = item.isChecked
-                loadTaskListContent()
                 true
             }
             R.id.menu_clear_completed -> {

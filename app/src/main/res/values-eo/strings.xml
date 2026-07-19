@@ -203,7 +203,6 @@
     <string name="pick_from_storage">Elekti de konservejo</string>
     <string name="pick_from_gallery">Elekti de galerio</string>
     <string name="add_attachment">Aldoni aldonaĵon</string>
-    <string name="show_completed">Vidigi finitajn</string>
     <string name="move">Movi</string>
     <string name="copy">Kopii</string>
     <string name="delete">Forigi</string>
@@ -308,7 +307,6 @@
     <string name="pick_this_location">Elekti ĉi tiun lokon</string>
     <string name="when_overdue">Kiam malfrua</string>
     <string name="auto_dismiss_datetime_list_summary">Aŭtomate fermi kiam elekti per taskolisto</string>
-    <string name="show_unstarted">Vidigi nekomencitajn</string>
     <string name="sort_modified_group">Modifita: %s</string>
     <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taskredaktilo</string>
     <string name="or_choose_a_location">Aŭ elekti lokon</string>

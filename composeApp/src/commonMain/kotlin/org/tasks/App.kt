@@ -28,9 +28,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
@@ -44,6 +42,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
@@ -1033,6 +1032,7 @@ private fun TaskListScreen(
         onDismiss = { showSortSheet = false },
         sortState = sortState,
         sortViewModel = sortViewModel,
+        completedAndHiddenEnabled = state.filter.supportsHiddenTasks(),
     )
 
     newListAccountId?.let { accountId ->
@@ -1399,9 +1399,7 @@ private fun TaskListPane(
         FloatingToolbar(
             showMenuButton = showMenuButton,
             onMenuClick = onMenuClick,
-            onSearchClick = { /* TODO: search */ },
             onSortClick = onShowSortSheet,
-            onMoreClick = { /* TODO: more options */ },
             onAddClick = onCreateTask,
             scrollBehavior = floatingToolbarScrollBehavior,
             fabContainerColor = Color(themeColor.primaryColor),
@@ -1731,6 +1729,7 @@ private fun SortSheetHost(
     onDismiss: () -> Unit,
     sortState: SortSettingsViewModel.ViewState,
     sortViewModel: SortSettingsViewModel,
+    completedAndHiddenEnabled: Boolean,
 ) {
     if (!showSortSheet) return
 
@@ -1740,6 +1739,7 @@ private fun SortSheetHost(
     var showSubtaskPicker by remember { mutableStateOf(false) }
     ModalBottomSheet(
         onDismissRequest = onDismiss,
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Column(
@@ -1759,11 +1759,17 @@ private fun SortSheetHost(
                 manualSort = false,
                 astridSort = false,
                 completedAtBottom = sortState.completedAtBottom,
+                showCompleted = sortState.showCompleted,
+                showHidden = sortState.showHidden,
+                showCompletedAndHiddenOptions = true,
+                completedAndHiddenEnabled = completedAndHiddenEnabled,
                 setSortAscending = { sortViewModel.setSortAscending(it) },
                 setGroupAscending = { sortViewModel.setGroupAscending(it) },
                 setCompletedAscending = { sortViewModel.setCompletedAscending(it) },
                 setSubtaskAscending = { sortViewModel.setSubtaskAscending(it) },
                 setCompletedAtBottom = { sortViewModel.setCompletedAtBottom(it) },
+                setShowCompleted = { sortViewModel.setShowCompleted(it) },
+                setShowHidden = { sortViewModel.setShowHidden(it) },
                 clickGroupMode = { showGroupPicker = true },
                 clickSortMode = { showSortPicker = true },
                 clickCompletedMode = { showCompletedPicker = true },
@@ -2009,7 +2015,7 @@ private fun TaskRow(
             val isOverdue = task.hasDueDate() && !task.isCompleted
                     && task.dueDate < (if (task.hasDueTime()) currentTimeMillis() else currentTimeMillis().startOfDay())
             Row(verticalAlignment = Alignment.CenterVertically) {
-                val titleColor = if (task.isCompleted) {
+                val titleColor = if (task.isCompleted || task.task.isHidden) {
                     MaterialTheme.colorScheme.outline
                 } else {
                     MaterialTheme.colorScheme.onSurface
@@ -2042,7 +2048,11 @@ private fun TaskRow(
                 val lines = content.lines()
                 val hasMore = lines.size > 2
                 val mdColors = markdownColor(
-                    text = MaterialTheme.colorScheme.onSurfaceVariant,
+                    text = if (task.task.isHidden) {
+                        MaterialTheme.colorScheme.outline
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
                 )
                 val mdTypography = markdownTypography(
                     paragraph = MaterialTheme.typography.bodyMedium,
@@ -2158,9 +2168,7 @@ private fun chipColor(seedColor: Int, isDark: Boolean): Color {
 private fun FloatingToolbar(
     showMenuButton: Boolean = true,
     onMenuClick: () -> Unit,
-    onSearchClick: () -> Unit,
     onSortClick: () -> Unit,
-    onMoreClick: () -> Unit,
     onAddClick: () -> Unit,
     scrollBehavior: androidx.compose.material3.FloatingToolbarScrollBehavior? = null,
     fabContainerColor: Color = Color.Unspecified,
@@ -2192,14 +2200,8 @@ private fun FloatingToolbar(
                 Icon(Icons.Outlined.Menu, contentDescription = "Menu")
             }
         }
-        IconButton(onClick = onSearchClick) {
-            Icon(Icons.Outlined.Search, contentDescription = "Search")
-        }
         IconButton(onClick = onSortClick) {
             Icon(Icons.Outlined.SwapVert, contentDescription = "Sort")
-        }
-        IconButton(onClick = onMoreClick) {
-            Icon(Icons.Outlined.MoreVert, contentDescription = "More")
         }
     }
 }

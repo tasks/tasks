@@ -244,7 +244,6 @@
     <string name="copy">Copier</string>
     <string name="move">Déplacer</string>
     <string name="filter_settings">Paramètres du filtre</string>
-    <string name="show_completed">Afficher les tâches terminées</string>
     <string name="add_attachment">Ajouter une pièce jointe</string>
     <string name="take_a_picture">Prendre une photo</string>
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
@@ -507,7 +506,6 @@
     <string name="default_due_date">Date d’échéance par défaut</string>
     <string name="start_date">Date de départ</string>
     <string name="filter_criteria_unstarted">Pas débutées</string>
-    <string name="show_unstarted">Afficher les tâches à venir</string>
     <string name="no_start_date">Pas de date de début</string>
     <string name="default_start_date">Date de début par défaut</string>
     <string name="SSD_sort_start">Par date de début</string>

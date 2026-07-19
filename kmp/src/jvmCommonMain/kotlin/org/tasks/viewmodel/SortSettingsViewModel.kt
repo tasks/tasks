@@ -27,6 +27,8 @@ open class SortSettingsViewModel(
         val completedAscending: Boolean,
         val subtaskMode: Int,
         val subtaskAscending: Boolean,
+        val showCompleted: Boolean,
+        val showHidden: Boolean,
     )
 
     private val initialState = ViewState(
@@ -41,6 +43,8 @@ open class SortSettingsViewModel(
         sortAscending = preferences.sortAscending,
         subtaskMode = preferences.subtaskMode,
         subtaskAscending = preferences.subtaskAscending,
+        showCompleted = preferences.showCompleted,
+        showHidden = preferences.showHidden,
     )
     private val _viewState = MutableStateFlow(initialState)
     val state = _viewState.asStateFlow()
@@ -75,6 +79,16 @@ open class SortSettingsViewModel(
     fun setCompletedAtBottom(completedAtBottom: Boolean) {
         preferences.completedTasksAtBottom = completedAtBottom
         updateAndRefresh { it.copy(completedAtBottom = completedAtBottom) }
+    }
+
+    fun setShowCompleted(showCompleted: Boolean) {
+        preferences.showCompleted = showCompleted
+        updateAndRefresh { it.copy(showCompleted = showCompleted) }
+    }
+
+    fun setShowHidden(showHidden: Boolean) {
+        preferences.showHidden = showHidden
+        updateAndRefresh { it.copy(showHidden = showHidden) }
     }
 
     open fun setGroupMode(groupMode: Int) {

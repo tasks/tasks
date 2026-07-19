@@ -231,7 +231,6 @@
     <string name="copy">克隆</string>
     <string name="move">移动</string>
     <string name="filter_settings">过滤器设置</string>
-    <string name="show_completed">显示已完成任务</string>
     <string name="add_attachment">添加附件</string>
     <string name="take_a_picture">拍张照片</string>
     <string name="pick_from_gallery">从相册选一张</string>
@@ -488,7 +487,6 @@
     <string name="default_due_date">默认截止日期</string>
     <string name="start_date">开始日期</string>
     <string name="filter_criteria_unstarted">尚未开始</string>
-    <string name="show_unstarted">显示未开始项目</string>
     <string name="no_start_date">无开始日期</string>
     <string name="default_start_date">默认的开始日期</string>
     <string name="SSD_sort_start">按开始日期</string>

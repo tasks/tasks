@@ -152,7 +152,6 @@
     <string name="copy">Kopeeri</string>
     <string name="move">Liiguta</string>
     <string name="filter_settings">Filtrite seadistused</string>
-    <string name="show_completed">Näita lõpetatuid</string>
     <string name="add_attachment">Lisa fail</string>
     <string name="take_a_picture">Tee pilt</string>
     <string name="pick_from_gallery">Vali galeriist</string>
@@ -273,7 +272,6 @@
         <item quantity="other">tundi</item>
     </plurals>
     <string name="randomly">Juhuslikult</string>
-    <string name="show_unstarted">Näita alustamata</string>
     <string name="icon">Ikoon</string>
     <string name="theme_dynamic">Dünaamiline</string>
     <string name="theme_system_default">Süsteemi vaikeseade</string>

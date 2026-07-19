@@ -27,6 +27,7 @@ File %1$s contained %2$s.\n\n
   <string name="WID_dateButtonUnset">Click to set</string>
   <string name="TLA_no_items">There are no tasks here.</string>
   <string name="TLA_menu_sort">Sort</string>
+  <string name="sort_options">Sort options</string>
   <string name="TLA_menu_search">Search</string>
   <string name="TLA_menu_settings">Settings</string>
   <string name="app_settings">App settings</string>
@@ -337,8 +338,6 @@ File %1$s contained %2$s.\n\n
   <string name="copy">Copy</string>
   <string name="move">Move</string>
   <string name="filter_settings">Filter settings</string>
-  <string name="show_unstarted">Show unstarted</string>
-  <string name="show_completed">Show completed</string>
   <string name="filter_criteria_unstarted">Not started</string>
   <string name="no_app_found">No app could handle this request</string>
   <string name="add_attachment">Add attachment</string>

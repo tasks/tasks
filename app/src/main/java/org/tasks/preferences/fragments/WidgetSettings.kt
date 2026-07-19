@@ -1,8 +1,6 @@
 package org.tasks.preferences.fragments
 
-import android.app.Activity
 import android.appwidget.AppWidgetManager
-import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
@@ -10,13 +8,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.todoroo.astrid.core.SortHelper.SORT_ALPHA
-import com.todoroo.astrid.core.SortHelper.SORT_CREATED
-import com.todoroo.astrid.core.SortHelper.SORT_DUE
-import com.todoroo.astrid.core.SortHelper.SORT_IMPORTANCE
-import com.todoroo.astrid.core.SortHelper.SORT_LIST
-import com.todoroo.astrid.core.SortHelper.SORT_MODIFIED
-import com.todoroo.astrid.core.SortHelper.SORT_START
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
@@ -42,8 +33,6 @@ import javax.inject.Inject
 class WidgetSettings : InjectingPreferenceFragment() {
 
     companion object {
-        private const val REQUEST_SORT = 1008
-
         const val EXTRA_WIDGET_ID = "extra_widget_id"
         private const val FRAG_TAG_COLOR_PICKER = "frag_tag_color_picker"
         private const val REQUEST_KEY_COLOR = "widget_color_picker_result"
@@ -89,12 +78,6 @@ class WidgetSettings : InjectingPreferenceFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        updateSort()
-    }
-
     override suspend fun setupPreferences(savedInstanceState: Bundle?) {
         appWidgetId = requireArguments().getInt(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         widgetPreferences = WidgetPreferences(requireContext(), preferences, appWidgetId)
@@ -123,8 +106,6 @@ class WidgetSettings : InjectingPreferenceFragment() {
         setupCheckbox(R.string.p_widget_show_lists)
         setupCheckbox(R.string.p_widget_show_tags)
         setupCheckbox(R.string.p_widget_show_full_task_title, false)
-        setupCheckbox(R.string.p_widget_show_hidden, true)
-        setupCheckbox(R.string.p_widget_show_completed, false)
         val showDescription = setupCheckbox(R.string.p_widget_show_description, true)
         setupCheckbox(R.string.p_widget_show_full_description, false).dependency = showDescription.key
         setupList(R.string.p_widget_spacing)
@@ -142,14 +123,14 @@ class WidgetSettings : InjectingPreferenceFragment() {
         findPreference(R.string.p_widget_sort).setOnPreferenceClickListener {
             lifecycleScope.launch {
                 val filter = getFilter()
-                requireActivity().startActivityForResult(
+                requireActivity().startActivity(
                     SortSettingsActivity.getIntent(
                         requireActivity(),
                         filter.supportsManualSort(),
                         filter is AstridOrderingFilter,
                         appWidgetId,
-                    ),
-                    REQUEST_SORT
+                        completedAndHiddenEnabled = filter.supportsHiddenTasks(),
+                    )
                 )
             }
             false
@@ -183,13 +164,6 @@ class WidgetSettings : InjectingPreferenceFragment() {
         updateColor()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_SORT -> if (resultCode == Activity.RESULT_OK) updateSort()
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     override fun onPause() {
         super.onPause()
 
@@ -209,28 +183,6 @@ class WidgetSettings : InjectingPreferenceFragment() {
 
     private fun updateFilter() = lifecycleScope.launch {
         findPreference(R.string.p_widget_filter).summary = getFilter().title
-        updateSort()
-    }
-
-    private fun updateSort() = lifecycleScope.launch {
-        val filter = getFilter()
-        findPreference(R.string.p_widget_sort).setSummary(
-                if (filter.supportsManualSort() && widgetPreferences.isManualSort) {
-                    R.string.SSD_sort_my_order
-                } else if (filter is AstridOrderingFilter && widgetPreferences.isAstridSort) {
-                    R.string.astrid_sort_order
-                } else {
-                    when (widgetPreferences.sortMode) {
-                        SORT_DUE -> R.string.SSD_sort_due
-                        SORT_START -> R.string.SSD_sort_start
-                        SORT_IMPORTANCE -> R.string.SSD_sort_importance
-                        SORT_ALPHA -> R.string.SSD_sort_alpha
-                        SORT_MODIFIED -> R.string.SSD_sort_modified
-                        SORT_CREATED -> R.string.sort_created
-                        SORT_LIST -> R.string.sort_list
-                        else -> R.string.SSD_sort_auto
-                    }
-                })
     }
 
     private suspend fun getFilter(): Filter =

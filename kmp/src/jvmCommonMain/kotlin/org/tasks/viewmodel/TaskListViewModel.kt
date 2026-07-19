@@ -87,8 +87,9 @@ open class TaskListViewModel(
         )
         val completed = taskDao.fetchTasks(
             object : QueryPreferences by queryPreferences {
-                override val showCompleted: Boolean
+                override var showCompleted: Boolean
                     get() = true
+                    set(_) {}
             },
             deleteFilter
         )

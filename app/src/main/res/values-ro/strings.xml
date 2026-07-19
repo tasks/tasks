@@ -138,8 +138,6 @@
     <string name="add_attachment">Adaugă atașament</string>
     <string name="no_app_found">Nici o aplicație nu a putut gestiona această cerere</string>
     <string name="filter_criteria_unstarted">Nu a început</string>
-    <string name="show_completed">Afișează finalizate</string>
-    <string name="show_unstarted">Afișează datele nepornite</string>
     <string name="filter_settings">Setări de filtrare</string>
     <string name="move">Mută</string>
     <string name="copy">Copiază</string>

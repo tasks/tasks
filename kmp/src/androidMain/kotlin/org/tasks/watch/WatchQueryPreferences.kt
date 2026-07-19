@@ -9,11 +9,13 @@ class WatchQueryPreferences(
     private val overrideSortMode: Int? = null,
     private val overrideGroupMode: Int? = null,
 ) : QueryPreferences by delegate {
-    override val showHidden: Boolean
+    override var showHidden: Boolean
         get() = overrideShowHidden
+        set(_) {}
 
-    override val showCompleted: Boolean
+    override var showCompleted: Boolean
         get() = overrideShowCompleted
+        set(_) {}
 
     override var sortMode: Int
         get() = overrideSortMode ?: delegate.sortMode

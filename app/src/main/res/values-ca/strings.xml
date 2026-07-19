@@ -82,7 +82,6 @@
     <string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
     <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
-    <string name="show_completed">Mostra completades</string>
     <string name="language">Idioma</string>
     <string name="settings_localization">Localització</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
@@ -401,7 +400,6 @@
     <string name="randomly_every">Aleatòriament cada %s</string>
     <string name="when_due">Quan venci</string>
     <string name="move">Mou</string>
-    <string name="show_unstarted">Mostra les no iniciades</string>
     <string name="filter_criteria_unstarted">No iniciades</string>
     <string name="add_attachment">Afegeix un adjunt</string>
     <string name="take_a_picture">Pren una foto</string>

@@ -100,7 +100,6 @@
     <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
-    <string name="show_completed">إظهار المهام المكتملة</string>
     <string name="opacity">التعتيم</string>
     <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">نسخ احتياطي الآن</string>
@@ -318,7 +317,6 @@
     <string name="badges">الشارات</string>
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
-    <string name="show_unstarted">إظهار الغير مبدوء</string>
     <string name="discard">تجاهل</string>
     <string name="menu_discard_changes">تجاهل التغييرات</string>
     <string name="discard_changes">تجاهل التغييرات؟</string>

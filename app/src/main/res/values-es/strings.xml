@@ -258,7 +258,6 @@
     <string name="copy">Copiar</string>
     <string name="move">Mover</string>
     <string name="filter_settings">Configuración del filtro</string>
-    <string name="show_completed">Mostrar completadas</string>
     <string name="add_attachment">Adjuntar archivo</string>
     <string name="take_a_picture">Tomar fotografía</string>
     <string name="pick_from_gallery">Elegir desde la galería</string>
@@ -508,7 +507,6 @@
     <string name="start_date">Fecha de inicio</string>
     <string name="no_start_date">Sin fecha de inicio</string>
     <string name="filter_criteria_unstarted">No se ha iniciado</string>
-    <string name="show_unstarted">Mostrar sin comenzar</string>
     <string name="default_start_date">Fecha de inicio predeterminada</string>
     <string name="SSD_sort_start">Por cita de inicio</string>
     <string name="filter_any_start_date">Cualquier fecha de inicio</string>

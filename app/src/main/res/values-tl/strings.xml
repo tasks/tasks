@@ -42,7 +42,6 @@
     <string name="delete_task">Tanggalin gawain</string>
     <string name="translations">Umambag ng pagsasalin</string>
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
-    <string name="show_completed">Ipakita ang natapos</string>
     <string name="user">Gumagamit</string>
     <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
     <string name="location_remind_departure">Ipaalala sa pagdating</string>

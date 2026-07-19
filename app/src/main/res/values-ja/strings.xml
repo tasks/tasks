@@ -245,7 +245,6 @@
     <string name="copy">コピー</string>
     <string name="move">移動</string>
     <string name="filter_settings">フィルター設定</string>
-    <string name="show_completed">完了したタスクを表示</string>
     <string name="add_attachment">添付ファイルを追加</string>
     <string name="take_a_picture">写真を撮影</string>
     <string name="pick_from_gallery">ギャラリーから選択</string>
@@ -420,7 +419,6 @@
     <plurals name="reminder_days">
         <item quantity="other">日</item>
     </plurals>
-    <string name="show_unstarted">着手前のタスクを表示</string>
     <string name="filter_criteria_unstarted">開始前</string>
     <string name="widget_due_date_hidden">非表示</string>
     <string name="no_app_found">使用できるアプリがありません</string>

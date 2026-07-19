@@ -48,9 +48,7 @@
     <string name="action_call">Позив</string>
     <string name="action_open">Отвори</string>
     <string name="SSD_sort_my_order">Мој редослед</string>
-    <string name="show_unstarted">Прикажи незапочете</string>
     <string name="astrid_sort_order">Астрид ручно сортирање</string>
-    <string name="show_completed">Прикажи завршене</string>
     <string name="astrid_sort_order_summary">Омогући Астрид ручни мод сортирања за ,,Моји задаци\'\', ,,Данас\'\' и тагове. Овај мод сортирања ће бити замењен ,,Мој редослед\'\' модом у будућем ажурирању</string>
     <string name="SSD_sort_start">По датуму почетка</string>
     <string name="sort_created">По времену креирања</string>

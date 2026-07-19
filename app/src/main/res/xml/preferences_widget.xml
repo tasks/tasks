@@ -12,15 +12,8 @@
 
   <Preference
     android:key="@string/p_widget_sort"
-    android:title="@string/TLA_menu_sort" />
-
-  <SwitchPreferenceCompat
-    android:key="@string/p_widget_show_hidden"
-    android:title="@string/show_unstarted" />
-
-  <SwitchPreferenceCompat
-    android:key="@string/p_widget_show_completed"
-    android:title="@string/show_completed" />
+    android:icon="@drawable/outline_swap_vert_24"
+    android:title="@string/sort_options" />
 
   <PreferenceCategory
     app:key="@string/preferences_advanced"

@@ -242,8 +242,6 @@
     <string name="add_attachment">เพิ่มสิ่งที่แนบมา</string>
     <string name="no_app_found">ไม่มีแอปใดที่สามารถจัดการคําขอนี้</string>
     <string name="filter_criteria_unstarted">ยังไม่เริ่มต้น</string>
-    <string name="show_completed">การแสดงเสร็จสมบูรณ์</string>
-    <string name="show_unstarted">แสดงสิ่งที่ไม่ได้เริ่มต้น</string>
     <string name="filter_settings">การตั้งค่าตัวกรอง</string>
     <string name="move">ย้าย</string>
     <string name="copy">สำเนา</string>

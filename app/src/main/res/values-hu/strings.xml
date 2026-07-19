@@ -244,7 +244,6 @@
     <string name="copy">Másolás</string>
     <string name="move">Mozgatás</string>
     <string name="filter_settings">Szűrő beállítások</string>
-    <string name="show_completed">Elvégzettek megjelenítése</string>
     <string name="add_attachment">Csatolmány hozzáadása</string>
     <string name="take_a_picture">Kép készítése</string>
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
@@ -494,7 +493,6 @@
     <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
     <string name="subscription">Előfizetés</string>
     <string name="filter_criteria_unstarted">El nem kezdett</string>
-    <string name="show_unstarted">El nem kezdettek mutatása</string>
     <string name="filter_any_start_date">Tetszőleges kezdő dátum</string>
     <string name="no_start_date">Nincs kezdő dátum</string>
     <string name="CFC_startBefore_name">Kezdés…</string>

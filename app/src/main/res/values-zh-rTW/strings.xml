@@ -121,7 +121,6 @@
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
     <string name="filter_settings">過濾器設定</string>
-    <string name="show_completed">顯示已完成</string>
     <string name="default_list">預設清單</string>
     <string name="opacity">透明度</string>
     <string name="theme">主題</string>
@@ -387,7 +386,6 @@
     <string name="back_button_saves_task">返回鈕儲存工作</string>
     <string name="no_title">(無標題)</string>
     <string name="filter_criteria_unstarted">尚未開始</string>
-    <string name="show_unstarted">顯示未開始項</string>
     <string name="widget_show_title">顯示標題</string>
     <plurals name="task_count">
         <item quantity="other">%d 個工作</item>

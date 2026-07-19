@@ -19,8 +19,8 @@ class DataStoreQueryPreferences(
     override var groupAscending: Boolean by pref(Keys.groupAscending, true)
     override var completedAscending: Boolean by pref(Keys.completedAscending, false)
     override var subtaskAscending: Boolean by pref(Keys.subtaskAscending, false)
-    override val showHidden: Boolean = false
-    override val showCompleted: Boolean = true
+    override var showHidden: Boolean by pref(Keys.showHidden, false)
+    override var showCompleted: Boolean by pref(Keys.showCompleted, true)
     override val alwaysDisplayFullDate: Boolean = false
     override var completedTasksAtBottom: Boolean by pref(Keys.completedTasksAtBottom, true)
 
@@ -55,5 +55,7 @@ class DataStoreQueryPreferences(
         val completedAscending = booleanPreferencesKey("completed_ascending")
         val subtaskAscending = booleanPreferencesKey("subtask_ascending")
         val completedTasksAtBottom = booleanPreferencesKey("completed_tasks_at_bottom")
+        val showHidden = booleanPreferencesKey("show_hidden")
+        val showCompleted = booleanPreferencesKey("show_completed")
     }
 }

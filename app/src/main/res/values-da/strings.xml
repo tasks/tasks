@@ -247,7 +247,6 @@
     <string name="pick_from_gallery">Vælg fra galleri</string>
     <string name="take_a_picture">Tag et billede</string>
     <string name="add_attachment">Vedhæft fil</string>
-    <string name="show_completed">Vis fuldførte</string>
     <string name="filter_settings">Filterindstillinger</string>
     <string name="move">Flyt</string>
     <string name="copy">Kopiér</string>
@@ -503,7 +502,6 @@
     <string name="default_recurrence">Standardgentagelse</string>
     <string name="default_tags">Standardtags</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
-    <string name="show_unstarted">Vis ikke-startet</string>
     <string name="header_spacing">Afstand</string>
     <string name="widget_show_title">Vis titel</string>
     <string name="next_saturday">Næste lør</string>

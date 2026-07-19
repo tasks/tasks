@@ -261,7 +261,6 @@
     <string name="copy">Копировать</string>
     <string name="move">Перенести</string>
     <string name="filter_settings">Настройки фильтра</string>
-    <string name="show_completed">Показать завершённые</string>
     <string name="add_attachment">Прикрепить файл</string>
     <string name="take_a_picture">Сделать снимок</string>
     <string name="pick_from_gallery">Выбрать из галереи</string>
@@ -508,7 +507,6 @@
     <string name="default_due_date">Дата окончания по умолчанию</string>
     <string name="start_date">Дата начала</string>
     <string name="filter_criteria_unstarted">Не начавшиеся</string>
-    <string name="show_unstarted">Показать неначатые</string>
     <string name="no_start_date">Нет даты начала</string>
     <string name="default_start_date">Дата начала по умолчанию</string>
     <string name="SSD_sort_start">Дата начала</string>

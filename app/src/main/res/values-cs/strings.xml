@@ -141,7 +141,6 @@
     <string name="tag_settings">Nastavení štítku</string>
     <string name="delete">Smazat</string>
     <string name="filter_settings">Nastavení filtru</string>
-    <string name="show_completed">Zobrazit dokončené</string>
     <string name="add_attachment">Přidat přílohu</string>
     <string name="no_title">(Bez názvu)</string>
     <string name="back_button_saves_task">Tlačítko zpět uloží úkol</string>
@@ -519,7 +518,6 @@
     <string name="foreground_location">Umístění v popředí</string>
     <string name="location_departed">Odchod v %s</string>
     <string name="filter_criteria_unstarted">Nezahájené</string>
-    <string name="show_unstarted">Zobrazit nezahájené</string>
     <string name="filter_any_start_date">Jakékoli datum zahájení</string>
     <string name="no_start_date">Bez data zahájení</string>
     <string name="CFC_startBefore_name">Zahájení…</string>

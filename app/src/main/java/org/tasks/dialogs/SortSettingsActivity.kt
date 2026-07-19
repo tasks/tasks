@@ -104,11 +104,17 @@ class SortSettingsActivity : ComponentActivity() {
                                 manualSort = state.manualSort && manualEnabled,
                                 astridSort = state.astridSort && astridEnabled,
                                 completedAtBottom = state.completedAtBottom,
+                                showCompleted = state.showCompleted,
+                                showHidden = state.showHidden,
+                                showCompletedAndHiddenOptions = showCompletedAndHiddenOptions,
+                                completedAndHiddenEnabled = completedAndHiddenEnabled,
                                 setSortAscending = { viewModel.setSortAscending(it) },
                                 setGroupAscending = { viewModel.setGroupAscending(it) },
                                 setCompletedAscending = { viewModel.setCompletedAscending(it) },
                                 setSubtaskAscending = { viewModel.setSubtaskAscending(it) },
                                 setCompletedAtBottom = { viewModel.setCompletedAtBottom(it) },
+                                setShowCompleted = { viewModel.setShowCompleted(it) },
+                                setShowHidden = { viewModel.setShowHidden(it) },
                                 clickGroupMode = { showGroupPicker = true },
                                 clickSortMode = { showSortPicker = true },
                                 clickCompletedMode = { showCompletedPicker = true },
@@ -276,9 +282,19 @@ class SortSettingsActivity : ComponentActivity() {
         intent.getBooleanExtra(EXTRA_ASTRID_ORDER, false)
     }
 
+    private val showCompletedAndHiddenOptions: Boolean by lazy {
+        intent.getBooleanExtra(EXTRA_SHOW_COMPLETED_AND_HIDDEN_OPTIONS, true)
+    }
+
+    private val completedAndHiddenEnabled: Boolean by lazy {
+        intent.getBooleanExtra(EXTRA_COMPLETED_AND_HIDDEN_ENABLED, true)
+    }
+
     companion object {
         const val EXTRA_MANUAL_ORDER = "extra_manual_order"
         const val EXTRA_ASTRID_ORDER = "extra_astrid_order"
+        const val EXTRA_SHOW_COMPLETED_AND_HIDDEN_OPTIONS = "extra_show_completed_and_hidden_options"
+        const val EXTRA_COMPLETED_AND_HIDDEN_ENABLED = "extra_completed_and_hidden_enabled"
         const val EXTRA_WIDGET_ID = "extra_widget_id"
         const val EXTRA_FILTER_KEY = "extra_filter_key"
         const val EXTRA_FORCE_RELOAD = "extra_force_reload"
@@ -291,10 +307,14 @@ class SortSettingsActivity : ComponentActivity() {
             astridOrderEnabled: Boolean,
             widgetId: Int? = null,
             filterKey: String? = null,
+            showCompletedAndHiddenOptions: Boolean = true,
+            completedAndHiddenEnabled: Boolean = true,
         ) = Intent(context, SortSettingsActivity::class.java)
             .addFlags(FLAG_ACTIVITY_NO_ANIMATION)
             .putExtra(EXTRA_MANUAL_ORDER, manualOrderEnabled)
             .putExtra(EXTRA_ASTRID_ORDER, astridOrderEnabled)
+            .putExtra(EXTRA_SHOW_COMPLETED_AND_HIDDEN_OPTIONS, showCompletedAndHiddenOptions)
+            .putExtra(EXTRA_COMPLETED_AND_HIDDEN_ENABLED, completedAndHiddenEnabled)
             .putExtra(EXTRA_FILTER_KEY, filterKey)
             .apply {
                 widgetId?.let {

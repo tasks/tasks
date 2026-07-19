@@ -250,7 +250,6 @@
     <string name="copy">Копиране</string>
     <string name="move">Преместване</string>
     <string name="filter_settings">Настройки на филтър</string>
-    <string name="show_completed">Завършени</string>
     <string name="add_attachment">Добавяне на прикачен файл</string>
     <string name="take_a_picture">Заснемане</string>
     <string name="pick_from_gallery">Изберете от галерия</string>
@@ -447,7 +446,6 @@
     <string name="widget_due_date_below_title">Под заглавието</string>
     <string name="date_shortcut_tomorrow_evening">Утре вечер</string>
     <string name="date_shortcut_tomorrow_night">Утре през нощта</string>
-    <string name="show_unstarted">Незапочнати</string>
     <string name="menu_discard_changes">Отхвърляне на промените</string>
     <string name="opacity_header">Непрозрачност на заглавката</string>
     <string name="widget_due_date_after_title">След заглавието</string>

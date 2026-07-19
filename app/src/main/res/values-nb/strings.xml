@@ -109,7 +109,6 @@
     <string name="tags">Etiketter</string>
     <string name="filters">Filtre</string>
     <string name="filter_settings">Filterinnstillinger</string>
-    <string name="show_completed">Vis fullførte</string>
     <string name="opacity">Ugjennomsiktighet</string>
     <string name="language">Språk</string>
     <string name="restart_required">Start Tasks om igjen for å ta i bruk endringene</string>
@@ -498,7 +497,6 @@
     <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
-    <string name="show_unstarted">Vis ustartede</string>
     <string name="filter_any_start_date">Vilkårlig startdato</string>
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Start innen …</string>

@@ -181,7 +181,6 @@
     <string name="copy">Salin</string>
     <string name="move">Pindah</string>
     <string name="filter_settings">Pengaturan filter</string>
-    <string name="show_completed">Tampilkan selesai</string>
     <string name="add_attachment">Tambah lampiran</string>
     <string name="take_a_picture">Ambil gambar</string>
     <string name="pick_from_gallery">Pilih dari galeri</string>
@@ -461,7 +460,6 @@
     <string name="opacity_row">Opasitas baris</string>
     <string name="opacity_header">Opasitas tajuk</string>
     <string name="filter_criteria_unstarted">Belum dimulai</string>
-    <string name="show_unstarted">Tampilkan yang belum dimulai</string>
     <string name="date_shortcut_must_come_after">%1$s harus datang setelah %2$s</string>
     <string name="geofence_radius">Radius geofence</string>
     <string name="widget_show_dividers">Tunjukan Batas Waktu</string>

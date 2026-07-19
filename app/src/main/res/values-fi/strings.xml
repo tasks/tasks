@@ -232,7 +232,6 @@
     <string name="delete">Poista</string>
     <string name="copy">Kopio</string>
     <string name="filter_settings">Suodatusasetukset</string>
-    <string name="show_completed">Näytä valmiit</string>
     <string name="add_attachment">Lisää liite</string>
     <string name="take_a_picture">Ota kuva</string>
     <string name="pick_from_gallery">Valitse galleriasta</string>
@@ -489,7 +488,6 @@
     <string name="default_tags">Oletustunnisteet</string>
     <string name="no_app_found">Yksikään sovellus ei pysty käsittelemään tätä pyyntöä</string>
     <string name="filter_criteria_unstarted">Aloittamaton</string>
-    <string name="show_unstarted">Näytä aloittamattomat</string>
     <string name="header_spacing">Välit</string>
     <string name="widget_show_title">Näytä otsikko</string>
     <string name="next_saturday">Seuraava la</string>
