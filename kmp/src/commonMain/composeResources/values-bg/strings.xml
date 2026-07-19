@@ -287,4 +287,8 @@
     <string name="priority_medium">Среден</string>
     <string name="priority_low">Нисък</string>
     <string name="metadata_move">Преместване</string>
+    <string name="edit_task">Променяне на задача</string>
+    <string name="task_title">Заглавие на задача</string>
+    <string name="no_list_available">Липсва списък</string>
+    <string name="add_platform_account">Добавяне на профил на %1$s</string>
 </resources>
