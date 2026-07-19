@@ -1,0 +1,48 @@
+# gitleaks baseline — known-benign UPSTREAM tasks.org artifacts (2026-07-19).
+#
+# Provenance: this repo is a fork of the open-source tasks.org Android app.
+# Every entry below is upstream content, not ours, and not a live Gomu secret:
+#   - google-services.json `gcp-api-key` hits: Firebase Android config files.
+#     These API keys are client-side identifiers upstream ships in the public
+#     repo (standard for google-services.json; not private credentials).
+#   - InventoryTest.kt `generic-api-key` hits: hardcoded fake purchase-token
+#     test fixtures in upstream billing unit tests.
+# Scoped per finding as path:rule:line fingerprints (never blanket paths), so
+# any NEW secret — even in these same files — still fires.
+#
+# Entry format: gitleaks matches the finding fingerprint EXACTLY as computed
+# for the scan invocation:
+#   - `gitleaks dir <path>` fingerprints are prefixed with <path> as given, so
+#     each finding appears twice below: once repo-relative (for in-repo scans,
+#     `gitleaks dir .`) and once with the canonical checkout path used by the
+#     weekly security sweep (`gitleaks dir /Users/gomu/gomu/code/tasks-org`).
+#   - `gitleaks git` fingerprints are commit:path:rule:line (checkout-independent).
+
+# --- dir scan, repo-relative form ---
+app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:111
+app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:112
+app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:113
+app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:114
+app/src/debug/google-services.json:gcp-api-key:24
+app/src/generic/google-services.json:gcp-api-key:24
+app/src/release/google-services.json:gcp-api-key:24
+composeApp/src/debug/google-services.json:gcp-api-key:24
+composeApp/src/release/google-services.json:gcp-api-key:24
+wear/src/debug/google-services.json:gcp-api-key:24
+wear/src/release/google-services.json:gcp-api-key:24
+
+# --- dir scan, canonical gomu-trailer checkout form (weekly sweep invocation) ---
+/Users/gomu/gomu/code/tasks-org/app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:111
+/Users/gomu/gomu/code/tasks-org/app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:112
+/Users/gomu/gomu/code/tasks-org/app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:113
+/Users/gomu/gomu/code/tasks-org/app/src/androidTestGoogleplay/java/org/tasks/billing/InventoryTest.kt:generic-api-key:114
+/Users/gomu/gomu/code/tasks-org/app/src/debug/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/app/src/generic/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/app/src/release/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/composeApp/src/debug/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/composeApp/src/release/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/wear/src/debug/google-services.json:gcp-api-key:24
+/Users/gomu/gomu/code/tasks-org/wear/src/release/google-services.json:gcp-api-key:24
+
+# --- git scan (commit-pinned; upstream sync commit touching a Firebase config) ---
+2a886ad43d4216d41ea6affdb9ac2349f60a6d2c:app/src/generic/google-services.json:gcp-api-key:24
