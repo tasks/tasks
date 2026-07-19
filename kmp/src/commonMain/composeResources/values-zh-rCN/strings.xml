@@ -338,4 +338,9 @@
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
     <string name="metadata_move">移动</string>
+    <string name="sync_metadata">在此存储标签元数据</string>
+    <string name="sync_metadata_summary">存储此账户的标签名、颜色、图标和展示顺序以便跨设备同步</string>
+    <string name="metadata_stored_on_tasks_org">存储在你的 Tasks.org 账户</string>
+    <string name="metadata_stored_on_account">目前存储在 %1$s</string>
+    <string name="metadata_move_message">标签元数据目前存储在 %1$s。把它移动到此账户？</string>
 </resources>
