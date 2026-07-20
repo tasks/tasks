@@ -17,9 +17,10 @@ import org.tasks.data.entity.Alarm
 import org.tasks.dialogs.StartDatePicker
 import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_DAY
 import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
-import org.tasks.dialogs.StartDatePicker.Companion.NO_DAY
-import org.tasks.dialogs.StartDatePicker.Companion.NO_TIME
+import org.tasks.compose.pickers.NO_DAY
+import org.tasks.compose.pickers.NO_TIME
 import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.extensions.hideKeyboardThen
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.kmp.formatTime
@@ -67,21 +68,24 @@ class StartDateControlSet : TaskEditControlFragment() {
                 }
             },
             onClick = {
-                val fragmentManager = parentFragmentManager
-                if (fragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-                    StartDatePicker.newDateTimePicker(
-                        this@StartDateControlSet,
-                        REQUEST_START_DATE,
-                        vm.selectedDay.value,
-                        vm.selectedTime.value,
-                        autoClose = preferences.getBoolean(
-                            R.string.p_auto_dismiss_datetime_edit_screen,
-                            false
-                        ),
-                        showDueDate = !viewModel.viewState.value.list.account.isOpenTasks,
-                    )
-                        .show(fragmentManager, FRAG_TAG_DATE_PICKER)
+                val showPicker = {
+                    if (isAdded && parentFragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
+                        val fragmentManager = parentFragmentManager
+                        StartDatePicker.newDateTimePicker(
+                            this@StartDateControlSet,
+                            REQUEST_START_DATE,
+                            vm.selectedDay.value,
+                            vm.selectedTime.value,
+                            autoClose = preferences.getBoolean(
+                                R.string.p_auto_dismiss_datetime_edit_screen,
+                                false
+                            ),
+                            showDueDate = !viewModel.viewState.value.list.account.isOpenTasks,
+                        )
+                            .show(fragmentManager, FRAG_TAG_DATE_PICKER)
+                    }
                 }
+                activity?.hideKeyboardThen(showPicker) ?: showPicker()
             }
         )
 

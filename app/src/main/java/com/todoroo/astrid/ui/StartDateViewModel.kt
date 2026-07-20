@@ -8,11 +8,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.dialogs.StartDatePicker
-import org.tasks.dialogs.StartDatePicker.Companion.DAY_BEFORE_DUE
-import org.tasks.dialogs.StartDatePicker.Companion.DUE_DATE
-import org.tasks.dialogs.StartDatePicker.Companion.DUE_TIME
-import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
+import org.tasks.compose.pickers.DAY_BEFORE_DUE
+import org.tasks.compose.pickers.DUE_DATE
+import org.tasks.compose.pickers.DUE_TIME
+import org.tasks.compose.pickers.NO_DAY
+import org.tasks.compose.pickers.NO_TIME
+import org.tasks.compose.pickers.WEEK_BEFORE_DUE
 import org.tasks.preferences.Preferences
 import org.tasks.time.millisOfDay
 import org.tasks.time.startOfDay
@@ -22,11 +23,11 @@ import javax.inject.Inject
 class StartDateViewModel @Inject constructor(
     private val preferences: Preferences
 ) : ViewModel() {
-    private val _selectedDay = MutableStateFlow(StartDatePicker.NO_DAY)
+    private val _selectedDay = MutableStateFlow(NO_DAY)
     val selectedDay: StateFlow<Long>
         get() = _selectedDay.asStateFlow()
 
-    private val _selectedTime = MutableStateFlow(StartDatePicker.NO_TIME)
+    private val _selectedTime = MutableStateFlow(NO_TIME)
     val selectedTime: StateFlow<Int>
         get() = _selectedTime.asStateFlow()
 
@@ -49,7 +50,7 @@ class StartDateViewModel @Inject constructor(
             _selectedTime.value = hideUntil.millisOfDay
             _selectedDay.value = when (_selectedDay.value) {
                 dueDay -> if (_selectedTime.value == dueTime) {
-                    _selectedTime.value = StartDatePicker.NO_TIME
+                    _selectedTime.value = NO_TIME
                     DUE_TIME
                 } else {
                     DUE_DATE

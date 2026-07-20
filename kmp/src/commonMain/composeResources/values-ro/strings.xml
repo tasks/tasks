@@ -223,4 +223,18 @@
     <string name="priority_medium">Mediu</string>
     <string name="priority_low">Redus</string>
     <string name="metadata_move">Mută</string>
+    <string name="date_picker_multiple">Multiplu</string>
+    <string name="due_date">Data completării</string>
+    <string name="due_time">Timpul completării</string>
+    <string name="day_before_due">O zi înainte de termen</string>
+    <string name="week_before_due">O săptămâna înainte de termen</string>
+    <string name="next_sunday">Următoarea duminică</string>
+    <string name="next_monday">Lunea viitoare</string>
+    <string name="next_tuesday">Marțea viitoare</string>
+    <string name="next_wednesday">Miercurea viitoare</string>
+    <string name="next_thursday">Joia viitoare</string>
+    <string name="next_friday">Vinerea viitoare</string>
+    <string name="next_saturday">Sâmbăta viitoare</string>
+    <string name="shortcut_pick_time">Ora de preluare</string>
+    <string name="no_time">Fără timp</string>
 </resources>

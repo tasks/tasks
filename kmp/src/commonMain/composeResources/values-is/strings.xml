@@ -22,4 +22,8 @@
     <string name="sort_start_date">Upphafsdagur</string>
     <string name="group_none">Ekkert</string>
     <string name="blog_feed_none">Ekkert</string>
+    <string name="due_date">Skiladagur</string>
+    <string name="due_time">Skilatími</string>
+    <string name="day_before_due">Skilast á morgun</string>
+    <string name="week_before_due">Skilast í næstu viku</string>
 </resources>

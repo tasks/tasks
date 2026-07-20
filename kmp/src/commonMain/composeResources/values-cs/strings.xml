@@ -343,4 +343,18 @@
     <string name="delete_tag_warning">Úkoly s tímto štítkem nebudou smazány</string>
     <string name="delete_list_warning">Všechny úkoly v tomto seznamu budou smazány. Tato akce je nevratná!</string>
     <string name="metadata_move">Přesunout</string>
+    <string name="date_picker_multiple">Vícenásobné</string>
+    <string name="due_date">Termín úkolu</string>
+    <string name="due_time">Čas dokončení</string>
+    <string name="day_before_due">Den před termínem</string>
+    <string name="week_before_due">Týden před termínem</string>
+    <string name="next_sunday">Příští neděle</string>
+    <string name="next_monday">Příští pondělí</string>
+    <string name="next_tuesday">Příští úterý</string>
+    <string name="next_wednesday">Příští středa</string>
+    <string name="next_thursday">Příští čtvrtek</string>
+    <string name="next_friday">Příští pátek</string>
+    <string name="next_saturday">Příští sobota</string>
+    <string name="shortcut_pick_time">Vybrat čas</string>
+    <string name="no_time">Bez času</string>
 </resources>

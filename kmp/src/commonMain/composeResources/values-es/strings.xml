@@ -284,4 +284,18 @@
     <string name="legal">Legal</string>
     <string name="send">Enviar</string>
     <string name="cloud_onboarding_not_now">Ahora no</string>
+    <string name="date_picker_multiple">Múltiples</string>
+    <string name="due_date">Fecha límite</string>
+    <string name="due_time">Hora límite</string>
+    <string name="day_before_due">Día previo al límite</string>
+    <string name="week_before_due">Semana previa al límite</string>
+    <string name="next_sunday">Próximo domingo</string>
+    <string name="next_monday">Próximo lunes</string>
+    <string name="next_tuesday">Próximo martes</string>
+    <string name="next_wednesday">Próximo miércoles</string>
+    <string name="next_thursday">Próximo jueves</string>
+    <string name="next_friday">Próximo viernes</string>
+    <string name="next_saturday">Próximo sábado</string>
+    <string name="shortcut_pick_time">Elegir hora</string>
+    <string name="no_time">Sin hora</string>
 </resources>

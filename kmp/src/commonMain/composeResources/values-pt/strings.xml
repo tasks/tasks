@@ -305,4 +305,18 @@
     <string name="priority_medium">Média</string>
     <string name="priority_low">Baixa</string>
     <string name="metadata_move">Mover</string>
+    <string name="date_picker_multiple">Várias</string>
+    <string name="due_date">Data de fim</string>
+    <string name="due_time">Hora da tarefa</string>
+    <string name="day_before_due">Um dia antes</string>
+    <string name="week_before_due">Semana anterior</string>
+    <string name="next_sunday">Próximo domingo</string>
+    <string name="next_monday">Próxima 2ª-feira</string>
+    <string name="next_tuesday">Próxima 3ª-feira</string>
+    <string name="next_wednesday">Próxima 4ª-feira</string>
+    <string name="next_thursday">Próxima 5ª-feira</string>
+    <string name="next_friday">Próxima 6ª-feira</string>
+    <string name="next_saturday">Próximo sábado</string>
+    <string name="shortcut_pick_time">Escolher hora</string>
+    <string name="no_time">Sem hora</string>
 </resources>

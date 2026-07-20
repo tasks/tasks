@@ -212,4 +212,18 @@
     <string name="priority_medium">Mig</string>
     <string name="priority_low">Baix</string>
     <string name="metadata_move">Mou</string>
+    <string name="date_picker_multiple">Multiple</string>
+    <string name="due_date">Data de venciment</string>
+    <string name="due_time">Hora de venciment</string>
+    <string name="day_before_due">El dia abans del venciment</string>
+    <string name="week_before_due">La setmana abans del venciment</string>
+    <string name="next_sunday">Proper diumenge</string>
+    <string name="next_monday">Proper dll</string>
+    <string name="next_tuesday">Proper dm</string>
+    <string name="next_wednesday">Proper dx</string>
+    <string name="next_thursday">Proper dj</string>
+    <string name="next_friday">Proper dv</string>
+    <string name="next_saturday">Proper ds</string>
+    <string name="shortcut_pick_time">Trieu el temps</string>
+    <string name="no_time">Sense hora</string>
 </resources>

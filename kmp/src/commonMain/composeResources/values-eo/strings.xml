@@ -262,4 +262,18 @@
     <string name="priority_medium">Mezgrava</string>
     <string name="priority_low">Graveta</string>
     <string name="metadata_move">Movi</string>
+    <string name="date_picker_multiple">Pluraj</string>
+    <string name="due_date">Limdato</string>
+    <string name="due_time">Limtempo</string>
+    <string name="day_before_due">Tago antaŭ limdato</string>
+    <string name="week_before_due">Semajno antaŭ limdato</string>
+    <string name="next_sunday">Sekva dim</string>
+    <string name="next_monday">Venonta lun</string>
+    <string name="next_tuesday">Sekva mar</string>
+    <string name="next_wednesday">Sekva mer</string>
+    <string name="next_thursday">Sekva ĵaŭ</string>
+    <string name="next_friday">Sekva ven</string>
+    <string name="next_saturday">Sekva sab</string>
+    <string name="shortcut_pick_time">Elekti horon</string>
+    <string name="no_time">Sen tempo</string>
 </resources>

@@ -37,14 +37,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.compose.pickers.DatePickerBottomSheet
 import org.tasks.compose.pickers.DueDateShortcuts
+import org.tasks.compose.pickers.MULTIPLE_DAYS
+import org.tasks.compose.pickers.MULTIPLE_TIMES
+import org.tasks.compose.pickers.NO_DAY
+import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.TimePickerDialog
 import org.tasks.compose.pickers.TimeShortcuts
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.dialogs.DateTimePicker.Companion.MULTIPLE_TIMES
-import org.tasks.dialogs.DateTimePicker.Companion.NO_TIME
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.notifications.NotificationManager
 import org.tasks.themes.TasksTheme
@@ -76,10 +78,6 @@ class DateTimePicker : BaseDateTimePicker() {
         const val EXTRA_TASKS = "extra_tasks"
         const val EXTRA_TIMESTAMP = "extra_timestamp"
         const val EXTRA_HIDE_NO_DATE = "extra_hide_no_date"
-        const val NO_DAY = 0L
-        const val NO_TIME = 0
-        const val MULTIPLE_DAYS = -1L
-        const val MULTIPLE_TIMES = -1
 
         fun newDateTimePicker(
             autoClose: Boolean,
@@ -353,6 +351,7 @@ fun DueDatePicker(
                 afternoon = afternoon,
                 evening = evening,
                 night = night,
+                is24HourFormat = is24Hour,
                 selectedMillisOfDay = { setTime(it) },
                 pickTime = { showTimePicker = true },
                 clearTime = { setTime(NO_TIME) },

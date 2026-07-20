@@ -345,4 +345,18 @@
     <string name="metadata_move_message">标签元数据目前存储在 %1$s。把它移动到此账户？</string>
     <string name="add_tag">添加标签</string>
     <string name="metadata_not_supported">此服务器不支持标签元数据同步</string>
+    <string name="date_picker_multiple">多个</string>
+    <string name="due_date">截止日期</string>
+    <string name="due_time">截止时间</string>
+    <string name="day_before_due">截止日期前一天</string>
+    <string name="week_before_due">截止日期前一周</string>
+    <string name="next_sunday">下周日</string>
+    <string name="next_monday">下周一</string>
+    <string name="next_tuesday">下周二</string>
+    <string name="next_wednesday">下周三</string>
+    <string name="next_thursday">下周四</string>
+    <string name="next_friday">下周五</string>
+    <string name="next_saturday">下周六</string>
+    <string name="shortcut_pick_time">挑选时间</string>
+    <string name="no_time">无时间</string>
 </resources>

@@ -210,4 +210,18 @@
     <string name="priority_medium">நடுத்தரமான</string>
     <string name="priority_low">குறைந்த</string>
     <string name="metadata_move">நகர்வு</string>
+    <string name="date_picker_multiple">நான்கு</string>
+    <string name="due_date">உரிய தேதி</string>
+    <string name="due_time">உரிய தேதி</string>
+    <string name="day_before_due">செலுத்த வேண்டிய நாள் முன்</string>
+    <string name="week_before_due">செலுத்த வேண்டிய வாரம் முன்</string>
+    <string name="next_sunday">அடுத்த ஞாயிறு</string>
+    <string name="next_monday">அடுத்த திங்கள்</string>
+    <string name="next_tuesday">அடுத்த செவ்வாய்</string>
+    <string name="next_wednesday">அடுத்த புதன்</string>
+    <string name="next_thursday">அடுத்த வியாழன்</string>
+    <string name="next_friday">அடுத்த வெள்ளி</string>
+    <string name="next_saturday">அடுத்த சனி</string>
+    <string name="shortcut_pick_time">நேரத்தைத் தேர்ந்தெடுங்கள்</string>
+    <string name="no_time">நேரம் இல்லை</string>
 </resources>

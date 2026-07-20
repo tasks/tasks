@@ -196,4 +196,18 @@
     <string name="priority_medium">Middels</string>
     <string name="priority_low">Lav</string>
     <string name="metadata_move">Flytt</string>
+    <string name="date_picker_multiple">Flere</string>
+    <string name="due_date">Tidsfristsdato</string>
+    <string name="due_time">Tidsfrist</string>
+    <string name="day_before_due">Dagen før tidsfristen</string>
+    <string name="week_before_due">Uken før tidsfristen</string>
+    <string name="next_sunday">Neste sol</string>
+    <string name="next_monday">Neste man</string>
+    <string name="next_tuesday">Neste tir</string>
+    <string name="next_wednesday">Neste ons</string>
+    <string name="next_thursday">Neste tor</string>
+    <string name="next_friday">Neste fre</string>
+    <string name="next_saturday">Neste lør</string>
+    <string name="shortcut_pick_time">Velg tidspunkt</string>
+    <string name="no_time">Ingen tid</string>
 </resources>

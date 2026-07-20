@@ -268,4 +268,18 @@
     <string name="priority_medium">Media</string>
     <string name="priority_low">Bassa</string>
     <string name="metadata_move">Sposta</string>
+    <string name="date_picker_multiple">Molteplici</string>
+    <string name="due_date">Data di scadenza</string>
+    <string name="due_time">Ora di scadenza</string>
+    <string name="day_before_due">Giorno prima della scadenza</string>
+    <string name="week_before_due">Settimana prima della scadenza</string>
+    <string name="next_sunday">Domenica prossima</string>
+    <string name="next_monday">Lunedì prossimo</string>
+    <string name="next_tuesday">Martedì prossimo</string>
+    <string name="next_wednesday">Mercoledì prossimo</string>
+    <string name="next_thursday">Giovedì prossimo</string>
+    <string name="next_friday">Venerdì prossimo</string>
+    <string name="next_saturday">Sabato prossimo</string>
+    <string name="shortcut_pick_time">Scegli un'ora</string>
+    <string name="no_time">Senza ora</string>
 </resources>

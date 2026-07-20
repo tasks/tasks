@@ -179,4 +179,18 @@
     <string name="priority_medium">මධ්‍යම</string>
     <string name="priority_low">අවම</string>
     <string name="metadata_move">ගෙනයන්න</string>
+    <string name="date_picker_multiple">බහු</string>
+    <string name="due_date">අවසාන දිනය</string>
+    <string name="due_time">නියමිත කාලය</string>
+    <string name="day_before_due">නියමිත දිනට පෙර දිනය</string>
+    <string name="week_before_due">නියමිත දිනට සතියකට පෙර</string>
+    <string name="next_sunday">ඊළඟ ඉරිදා</string>
+    <string name="next_monday">ඊළඟ සඳුදා</string>
+    <string name="next_tuesday">ඊළඟ අඟහරුවාදා</string>
+    <string name="next_wednesday">ඊළඟ බදාදා</string>
+    <string name="next_thursday">ඊළඟ බ්‍රහස්පතින්දා</string>
+    <string name="next_friday">ඊළඟ සිකුරාදා</string>
+    <string name="next_saturday">ඊළඟ සෙනසුරාදා</string>
+    <string name="shortcut_pick_time">කාලය තෝරන්න</string>
+    <string name="no_time">වේලාවක් නැත</string>
 </resources>

@@ -176,4 +176,18 @@
     <string name="priority_medium">ปานกลาง</string>
     <string name="priority_low">ต่ํา</string>
     <string name="metadata_move">ย้าย</string>
+    <string name="date_picker_multiple">หลายเท่า</string>
+    <string name="due_date">วันที่ครบกําหนด</string>
+    <string name="due_time">เวลาครบกําหนด</string>
+    <string name="day_before_due">วันก่อนครบกำหนด</string>
+    <string name="week_before_due">สัปดาห์ก่อนครบกําหนด</string>
+    <string name="next_sunday">อาทิตย์หน้า</string>
+    <string name="next_monday">ม.ถัดไป</string>
+    <string name="next_tuesday">อังคารหน้า</string>
+    <string name="next_wednesday">วันถัดไป</string>
+    <string name="next_thursday">พฤ. ถัดไป</string>
+    <string name="next_friday">ศุกร์ถัดไป</string>
+    <string name="next_saturday">เสาร์หน้า</string>
+    <string name="shortcut_pick_time">เลือกเวลา</string>
+    <string name="no_time">ไม่มีเวลา</string>
 </resources>

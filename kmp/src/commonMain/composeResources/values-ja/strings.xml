@@ -304,4 +304,18 @@
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
     <string name="metadata_move">移動</string>
+    <string name="date_picker_multiple">複数</string>
+    <string name="due_date">締切日</string>
+    <string name="due_time">締切時刻</string>
+    <string name="day_before_due">締切の前日</string>
+    <string name="week_before_due">締切の 1 週間前</string>
+    <string name="next_sunday">次の日曜日</string>
+    <string name="next_monday">次の月曜日</string>
+    <string name="next_tuesday">次の火曜日</string>
+    <string name="next_wednesday">次の水曜日</string>
+    <string name="next_thursday">次の木曜日</string>
+    <string name="next_friday">次の金曜日</string>
+    <string name="next_saturday">次の土曜日</string>
+    <string name="shortcut_pick_time">時間を選択</string>
+    <string name="no_time">時間なし</string>
 </resources>

@@ -326,4 +326,18 @@
     <string name="priority_medium">Medel</string>
     <string name="priority_low">Låg</string>
     <string name="metadata_move">Flytta</string>
+    <string name="date_picker_multiple">Flera</string>
+    <string name="due_date">Förfallodatum</string>
+    <string name="due_time">Förfallotid</string>
+    <string name="day_before_due">Dag före förfallodatum</string>
+    <string name="week_before_due">Vecka före förfallodatum</string>
+    <string name="next_sunday">Nästa sön</string>
+    <string name="next_monday">Nästa mån</string>
+    <string name="next_tuesday">Nästa tis</string>
+    <string name="next_wednesday">Nästa ons</string>
+    <string name="next_thursday">Nästa tors</string>
+    <string name="next_friday">Nästa fre</string>
+    <string name="next_saturday">Nästa lör</string>
+    <string name="shortcut_pick_time">Välj en tid</string>
+    <string name="no_time">Ingen tid</string>
 </resources>

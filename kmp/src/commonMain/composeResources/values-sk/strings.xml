@@ -210,4 +210,18 @@
     <string name="priority_medium">Stredná</string>
     <string name="priority_low">Nízka</string>
     <string name="metadata_move">Presunúť</string>
+    <string name="date_picker_multiple">Viacnásobné</string>
+    <string name="due_date">Do termínu</string>
+    <string name="due_time">Čas dokončenia</string>
+    <string name="day_before_due">Deň pre ukončením</string>
+    <string name="week_before_due">Týždeň pred ukončením</string>
+    <string name="next_sunday">Budúca nedeľa</string>
+    <string name="next_monday">Budúci pondelok</string>
+    <string name="next_tuesday">Budúci utorok</string>
+    <string name="next_wednesday">Budúca streda</string>
+    <string name="next_thursday">Budúci štvrtok</string>
+    <string name="next_friday">Budúci piatok</string>
+    <string name="next_saturday">Budúca sobota</string>
+    <string name="shortcut_pick_time">Vyberte čas</string>
+    <string name="no_time">Bez času</string>
 </resources>

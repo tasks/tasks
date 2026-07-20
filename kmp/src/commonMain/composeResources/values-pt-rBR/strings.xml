@@ -342,4 +342,18 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">Como eu sincronizo com meu computador?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Faça download do app para desktop em tasks.org/download, então faça login com a mesma conta Google.</string>
     <string name="metadata_move">Mover</string>
+    <string name="date_picker_multiple">Várias</string>
+    <string name="due_date">Data de vencimento</string>
+    <string name="due_time">Na hora de vencimento</string>
+    <string name="day_before_due">Um dia antes do vencimento</string>
+    <string name="week_before_due">Semana antes do vencimento</string>
+    <string name="next_sunday">Próximo domingo</string>
+    <string name="next_monday">Próxima segunda</string>
+    <string name="next_tuesday">Próxima terça</string>
+    <string name="next_wednesday">Próxima quarta</string>
+    <string name="next_thursday">Próxima quinta</string>
+    <string name="next_friday">Próxima sexta</string>
+    <string name="next_saturday">Próximo sábado</string>
+    <string name="shortcut_pick_time">Escolher hora</string>
+    <string name="no_time">Sem horário</string>
 </resources>

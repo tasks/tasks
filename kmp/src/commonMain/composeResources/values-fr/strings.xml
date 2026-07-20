@@ -349,4 +349,18 @@
     <string name="metadata_move_message">Les métadonnées des étiquettes sont actuellement enregistrées sur %1$s. Voulez-vous les transférer vers ce compte ?</string>
     <string name="metadata_not_supported">Ce serveur ne prend pas en charge la synchronisation des métadonnées des étiquettes</string>
     <string name="add_tag">Ajouter une étiquette</string>
+    <string name="date_picker_multiple">Plusieurs</string>
+    <string name="due_date">Date d'échéance</string>
+    <string name="due_time">Heure d'échéance</string>
+    <string name="day_before_due">Jour avant échéance</string>
+    <string name="week_before_due">Semaine avant échéance</string>
+    <string name="next_sunday">Dimanche prochain</string>
+    <string name="next_monday">Lundi prochain</string>
+    <string name="next_tuesday">Mardi prochain</string>
+    <string name="next_wednesday">Mercredi prochain</string>
+    <string name="next_thursday">Jeudi prochain</string>
+    <string name="next_friday">Vendredi prochain</string>
+    <string name="next_saturday">Samedi prochain</string>
+    <string name="shortcut_pick_time">Choisir l'heure</string>
+    <string name="no_time">Aucune heure</string>
 </resources>

@@ -253,4 +253,18 @@
     <string name="priority_medium">中</string>
     <string name="priority_low">低</string>
     <string name="metadata_move">移動</string>
+    <string name="date_picker_multiple">多個</string>
+    <string name="due_date">到期日</string>
+    <string name="due_time">到期時間</string>
+    <string name="day_before_due">到期前一天</string>
+    <string name="week_before_due">到期前一週</string>
+    <string name="next_sunday">下週日</string>
+    <string name="next_monday">下週一</string>
+    <string name="next_tuesday">下週二</string>
+    <string name="next_wednesday">下週三</string>
+    <string name="next_thursday">下週四</string>
+    <string name="next_friday">下週五</string>
+    <string name="next_saturday">下週六</string>
+    <string name="shortcut_pick_time">選擇時間</string>
+    <string name="no_time">無時間</string>
 </resources>

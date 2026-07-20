@@ -210,4 +210,18 @@
     <string name="priority_medium">Μεσαία</string>
     <string name="priority_low">Χαμηλή</string>
     <string name="metadata_move">Μετακίνηση αλλού</string>
+    <string name="date_picker_multiple">Πολλαπλά</string>
+    <string name="due_date">Ημερομηνία λήξης</string>
+    <string name="due_time">Ώρα λήξης</string>
+    <string name="day_before_due">Μια ημέρα πριν τη λήξη</string>
+    <string name="week_before_due">Εβδομάδα πριν τη λήξη</string>
+    <string name="next_sunday">Επόμενη Κυρ</string>
+    <string name="next_monday">Επόμενη Δευτ</string>
+    <string name="next_tuesday">Επόμενη Τρι</string>
+    <string name="next_wednesday">Επόμενη Τετ</string>
+    <string name="next_thursday">Επόμενη Πεμ</string>
+    <string name="next_friday">Επόμενη Παρ</string>
+    <string name="next_saturday">Επόμενο Σαβ</string>
+    <string name="shortcut_pick_time">Επιλογή ώρας</string>
+    <string name="no_time">Χωρίς ώρα</string>
 </resources>

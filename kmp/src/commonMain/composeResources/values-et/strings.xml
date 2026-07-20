@@ -340,4 +340,18 @@
     <string name="priority_medium">Keskmine</string>
     <string name="priority_low">Madal</string>
     <string name="metadata_move">Liiguta</string>
+    <string name="date_picker_multiple">Mitmikvalik</string>
+    <string name="due_date">Tähtaeg</string>
+    <string name="due_time">Tähtaeg</string>
+    <string name="day_before_due">Päev enne tähtaega</string>
+    <string name="week_before_due">Nädal enne tähtaega</string>
+    <string name="next_sunday">Järgmine P</string>
+    <string name="next_monday">Järgmine E</string>
+    <string name="next_tuesday">Järgmine T</string>
+    <string name="next_wednesday">Järgkmine K</string>
+    <string name="next_thursday">Järgmine N</string>
+    <string name="next_friday">Järgmine R</string>
+    <string name="next_saturday">Järgmine L</string>
+    <string name="shortcut_pick_time">Vali aeg</string>
+    <string name="no_time">Aega pole</string>
 </resources>

@@ -225,4 +225,18 @@
     <string name="priority_medium">Средний</string>
     <string name="priority_low">Низкий</string>
     <string name="metadata_move">Перенести</string>
+    <string name="date_picker_multiple">Несколько</string>
+    <string name="due_date">Дата завершения</string>
+    <string name="due_time">Время завершения</string>
+    <string name="day_before_due">Сутки до даты завершения</string>
+    <string name="week_before_due">Неделя до даты завершения</string>
+    <string name="next_sunday">Следующее Вс</string>
+    <string name="next_monday">Следующий Пн</string>
+    <string name="next_tuesday">Следующий Вт</string>
+    <string name="next_wednesday">Следующая Ср</string>
+    <string name="next_thursday">Следующий Чт</string>
+    <string name="next_friday">Следующая Пт</string>
+    <string name="next_saturday">Следующая Сб</string>
+    <string name="shortcut_pick_time">Выбрать время</string>
+    <string name="no_time">Без времени</string>
 </resources>

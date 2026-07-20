@@ -29,6 +29,7 @@ import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
+import org.tasks.extensions.hideKeyboardThen
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
@@ -136,18 +137,23 @@ class TaskEditFragment : Fragment() {
                 markdownProvider = remember { MarkdownProvider(context, preferences) },
                 linkify = if (viewState.linkify) linkify else null,
                 onClickDueDate = {
-                    DateTimePicker
-                        .newDateTimePicker(
-                            target = this@TaskEditFragment,
-                            rc = REQUEST_DATE,
-                            current = editViewModel.dueDate.value,
-                            autoClose = preferences.getBoolean(
-                                R.string.p_auto_dismiss_datetime_edit_screen,
-                                false
-                            ),
-                            hideNoDate = viewState.task.isRecurring,
-                        )
-                        .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
+                    val showPicker = {
+                        if (isAdded) {
+                            DateTimePicker
+                                .newDateTimePicker(
+                                    target = this@TaskEditFragment,
+                                    rc = REQUEST_DATE,
+                                    current = editViewModel.dueDate.value,
+                                    autoClose = preferences.getBoolean(
+                                        R.string.p_auto_dismiss_datetime_edit_screen,
+                                        false
+                                    ),
+                                    hideNoDate = editViewModel.viewState.value.task.isRecurring,
+                                )
+                                .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
+                        }
+                    }
+                    activity?.hideKeyboardThen(showPicker) ?: showPicker()
                 },
                 onClickRepeat = {
                     val vs = editViewModel.viewState.value

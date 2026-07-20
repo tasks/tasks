@@ -189,4 +189,18 @@
     <string name="priority_medium">Vidutinis</string>
     <string name="priority_low">Žemas</string>
     <string name="metadata_move">Perkelti</string>
+    <string name="date_picker_multiple">Keleta</string>
+    <string name="due_date">Termino tada</string>
+    <string name="due_time">Termino laikas</string>
+    <string name="day_before_due">Diena iki termino pabaigos</string>
+    <string name="week_before_due">Savaitė iki termino pabaigos</string>
+    <string name="next_sunday">Kitą sekmadienį</string>
+    <string name="next_monday">Kitą pirmadienį</string>
+    <string name="next_tuesday">Kitą antradienį</string>
+    <string name="next_wednesday">Kitą trečiadienį</string>
+    <string name="next_thursday">Kitą ketvirtadienį</string>
+    <string name="next_friday">Kitą penktadienį</string>
+    <string name="next_saturday">Kitą šeštadienį</string>
+    <string name="shortcut_pick_time">Pasirinkite laiką</string>
+    <string name="no_time">Nėra laiko</string>
 </resources>

@@ -288,4 +288,18 @@
     <string name="priority_medium">Mittel</string>
     <string name="priority_low">Niedrig</string>
     <string name="metadata_move">Bewegen</string>
+    <string name="date_picker_multiple">Mehrfach</string>
+    <string name="due_date">Fälligkeitsdatum</string>
+    <string name="due_time">Fälligkeitszeitpunkt</string>
+    <string name="day_before_due">Tag vor Fälligkeit</string>
+    <string name="week_before_due">Woche vor Fälligkeit</string>
+    <string name="next_sunday">Nächsten Sonntag</string>
+    <string name="next_monday">Nächsten Montag</string>
+    <string name="next_tuesday">Nächsten Dienstag</string>
+    <string name="next_wednesday">Nächsten Mittwoch</string>
+    <string name="next_thursday">Nächsten Donnerstag</string>
+    <string name="next_friday">Nächsten Freitag</string>
+    <string name="next_saturday">Nächsten Samstag</string>
+    <string name="shortcut_pick_time">Uhrzeit wählen</string>
+    <string name="no_time">Ohne Uhrzeit</string>
 </resources>

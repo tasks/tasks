@@ -236,4 +236,18 @@
     <string name="priority_medium">Middel</string>
     <string name="priority_low">Lav</string>
     <string name="metadata_move">Flyt</string>
+    <string name="date_picker_multiple">Flere</string>
+    <string name="due_date">Forfaldsdato</string>
+    <string name="due_time">Forfaldstid</string>
+    <string name="day_before_due">Dagen før frist</string>
+    <string name="week_before_due">Ugen før frist</string>
+    <string name="next_sunday">Næste søn</string>
+    <string name="next_monday">Næste man</string>
+    <string name="next_tuesday">Næste tirs</string>
+    <string name="next_wednesday">Næste ons</string>
+    <string name="next_thursday">Næste tors</string>
+    <string name="next_friday">Næste fre</string>
+    <string name="next_saturday">Næste lør</string>
+    <string name="shortcut_pick_time">Vælg tidspunkt</string>
+    <string name="no_time">Intet tidspunkt</string>
 </resources>

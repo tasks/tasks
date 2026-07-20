@@ -202,4 +202,18 @@
     <string name="priority_medium">Średnio ważne</string>
     <string name="priority_low">Mało ważne</string>
     <string name="metadata_move">Przenieś</string>
+    <string name="date_picker_multiple">Wielokrotnie</string>
+    <string name="due_date">Termin wykonania</string>
+    <string name="due_time">Dokładnie o godzinie</string>
+    <string name="day_before_due">Dzień przed terminem</string>
+    <string name="week_before_due">Tydzień przed terminem</string>
+    <string name="next_sunday">Następna niedziela</string>
+    <string name="next_monday">Następny poniedziałek</string>
+    <string name="next_tuesday">Następny wtorek</string>
+    <string name="next_wednesday">Następna środa</string>
+    <string name="next_thursday">Następny czwartek</string>
+    <string name="next_friday">Następny piątek</string>
+    <string name="next_saturday">Następna sobota</string>
+    <string name="shortcut_pick_time">Wybierz czas</string>
+    <string name="no_time">Brak czasu</string>
 </resources>

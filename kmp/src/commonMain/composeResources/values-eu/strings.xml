@@ -187,4 +187,18 @@
     <string name="priority_medium">Ertaina</string>
     <string name="priority_low">Baxua</string>
     <string name="metadata_move">Lekuz aldatu</string>
+    <string name="date_picker_multiple">Hainbat</string>
+    <string name="due_date">Epemuga data</string>
+    <string name="due_time">Epemuga-ordua</string>
+    <string name="day_before_due">Epemugaren aurreko eguna</string>
+    <string name="week_before_due">Epemugaren aurreko astea</string>
+    <string name="next_sunday">Hurrengo igandea</string>
+    <string name="next_monday">Hurrengo astelehena</string>
+    <string name="next_tuesday">Hurrengo asteartea</string>
+    <string name="next_wednesday">Hurrengo asteazkena</string>
+    <string name="next_thursday">Hurrengo osteguna</string>
+    <string name="next_friday">Hurrengo ostirala</string>
+    <string name="next_saturday">Hurrengo larunbata</string>
+    <string name="shortcut_pick_time">Hautatu ordua</string>
+    <string name="no_time">Ordurik ez</string>
 </resources>

@@ -218,4 +218,18 @@
     <string name="priority_medium">متوسط</string>
     <string name="priority_low">منخفض</string>
     <string name="metadata_move">نقل</string>
+    <string name="date_picker_multiple">متعدّد</string>
+    <string name="due_date">التاريخ المحدد</string>
+    <string name="due_time">الوقت المحدد</string>
+    <string name="day_before_due">يوم قبل الموعد</string>
+    <string name="week_before_due">أسبوع قبل الموعد</string>
+    <string name="next_sunday">الأحد القادم</string>
+    <string name="next_monday">الإثنين القادم</string>
+    <string name="next_tuesday">الثلاثاء القادم</string>
+    <string name="next_wednesday">الأربعاء القادم</string>
+    <string name="next_thursday">الخميس القادم</string>
+    <string name="next_friday">الجمعة القادمة</string>
+    <string name="next_saturday">السبت القادم</string>
+    <string name="shortcut_pick_time">اختر الوقت</string>
+    <string name="no_time">لا وقت</string>
 </resources>

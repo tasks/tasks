@@ -56,4 +56,8 @@
     <string name="EPr_edit_screen_options">Налады экрану рэдагавання</string>
     <string name="backup_BPr_header">Рэзервовыя копіі</string>
     <string name="blog_feed_none">Няма</string>
+    <string name="due_date">Дата выканання</string>
+    <string name="due_time">Час выканання</string>
+    <string name="day_before_due">Дзень да даты выканання</string>
+    <string name="week_before_due">Тыдзень да даты выканання</string>
 </resources>

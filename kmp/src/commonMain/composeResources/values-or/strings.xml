@@ -47,4 +47,11 @@
     <string name="invite_invalid">ନିମନ୍ତ୍ରଣ ଅମାନ୍ୟ ଅଟେ</string>
     <string name="email">ଇମେଲ୍</string>
     <string name="color">ରଙ୍ଗ</string>
+    <string name="next_sunday">ଆସନ୍ତା ରଵି</string>
+    <string name="next_monday">ଆସନ୍ତା ସୋମ</string>
+    <string name="next_tuesday">ଆସନ୍ତା ମଙ୍ଗଳ</string>
+    <string name="next_wednesday">ଆସନ୍ତା ବୁଧ</string>
+    <string name="next_thursday">ଆସନ୍ତା ଗୁରୁ</string>
+    <string name="next_friday">ଆସନ୍ତା ଶୁକ୍ର</string>
+    <string name="next_saturday">ଆସନ୍ତା ଶନି</string>
 </resources>

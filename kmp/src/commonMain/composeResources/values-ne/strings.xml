@@ -22,4 +22,13 @@
     <string name="priority_high">उच्च</string>
     <string name="priority_medium">मध्यम</string>
     <string name="priority_low">न्यून</string>
+    <string name="day_before_due">मितिभन्दा अघिल्लो दिन</string>
+    <string name="week_before_due">मितिभन्दा एक हप्ता अगाडि</string>
+    <string name="next_sunday">अर्को आइतबार</string>
+    <string name="next_monday">अर्को सोमबार</string>
+    <string name="next_tuesday">अर्को मंगलबार</string>
+    <string name="next_wednesday">अर्को बुधबार</string>
+    <string name="next_thursday">अर्को बिहिबार</string>
+    <string name="next_friday">अर्को शुक्रबार</string>
+    <string name="next_saturday">अर्को शनिबार</string>
 </resources>

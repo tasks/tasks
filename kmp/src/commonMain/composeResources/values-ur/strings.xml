@@ -123,4 +123,16 @@
     <string name="priority_medium">درمیانہ</string>
     <string name="priority_low">کم</string>
     <string name="metadata_move">منتقل کریں</string>
+    <string name="due_date">آخری تاریخ</string>
+    <string name="due_time">وقت مقرر</string>
+    <string name="day_before_due">مقررہ دن سے ایک دن قبل</string>
+    <string name="week_before_due">وقت مقررہ سے ہفتہ قبل</string>
+    <string name="next_sunday">اگلے اتوار</string>
+    <string name="next_monday">اگلے پیر</string>
+    <string name="next_tuesday">اگلے منگل</string>
+    <string name="next_wednesday">اگلے بدھ</string>
+    <string name="next_thursday">اگلے جمعرات</string>
+    <string name="next_friday">اگلے جمعے</string>
+    <string name="next_saturday">اگلے ہفتے</string>
+    <string name="no_time">کوئی وقت نہیں</string>
 </resources>

@@ -17,4 +17,8 @@
     <string name="sort_completed">အလုပ်ပြီးသောအချိန်ဖြင့်</string>
     <string name="display_name">အမည်</string>
     <string name="backup_BPr_header">အရန်သိမ်းထားသော</string>
+    <string name="due_date">ဆုံးရက်</string>
+    <string name="due_time">ပြီးဆုံးချိန်</string>
+    <string name="day_before_due">မပြီးဆုံးမီတစ်ရက်အလို</string>
+    <string name="week_before_due">မပြီးဆုံးမီတစ်ပတ်အလို</string>
 </resources>

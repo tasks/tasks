@@ -225,4 +225,18 @@
     <string name="priority_medium">Kohtalainen</string>
     <string name="priority_low">Matala</string>
     <string name="metadata_move">Siirrä</string>
+    <string name="date_picker_multiple">monikerta</string>
+    <string name="due_date">Määräpäivä</string>
+    <string name="due_time">Määräaika</string>
+    <string name="day_before_due">Päivä ennen määräpäivää</string>
+    <string name="week_before_due">Viikko ennen määräpäivää</string>
+    <string name="next_sunday">Seuraava su</string>
+    <string name="next_monday">Seuraava ma</string>
+    <string name="next_tuesday">Seuraava ti</string>
+    <string name="next_wednesday">Seuraava ke</string>
+    <string name="next_thursday">Seuraava to</string>
+    <string name="next_friday">Seuraava pe</string>
+    <string name="next_saturday">Seuraava la</string>
+    <string name="shortcut_pick_time">Aseta kellonaika</string>
+    <string name="no_time">Ei kellonaikaa</string>
 </resources>

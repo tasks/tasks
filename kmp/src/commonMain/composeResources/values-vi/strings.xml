@@ -196,4 +196,18 @@
     <string name="priority_medium">Trung bình</string>
     <string name="priority_low">Thấp</string>
     <string name="metadata_move">Di chuyển</string>
+    <string name="date_picker_multiple">Nhiều</string>
+    <string name="due_date">Ngày hạn</string>
+    <string name="due_time">Thời gian hạn</string>
+    <string name="day_before_due">Ngày trước hạn</string>
+    <string name="week_before_due">Tuần trước hạn</string>
+    <string name="next_sunday">Chủ Nhật tuần sau</string>
+    <string name="next_monday">Thứ Hai tuần sau</string>
+    <string name="next_tuesday">Thứ Ba tuần sau</string>
+    <string name="next_wednesday">Thứ Tư tuần sau</string>
+    <string name="next_thursday">Thứ Năm tuần sau</string>
+    <string name="next_friday">Thứ Sáu tuần sau</string>
+    <string name="next_saturday">Thứ Bảy tuần sau</string>
+    <string name="shortcut_pick_time">Chọn thời gian</string>
+    <string name="no_time">Không có thời gian</string>
 </resources>

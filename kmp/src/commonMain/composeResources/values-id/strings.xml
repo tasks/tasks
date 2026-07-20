@@ -335,4 +335,18 @@
     <string name="priority_medium">Sedang</string>
     <string name="priority_low">Rendah</string>
     <string name="metadata_move">Pindah</string>
+    <string name="date_picker_multiple">Banyak</string>
+    <string name="due_date">Tanggal jatuh tempo</string>
+    <string name="due_time">Waktu jatuh tempo</string>
+    <string name="day_before_due">Hari sebelum jatuh tempo</string>
+    <string name="week_before_due">Minggu sebelum jatuh tempo</string>
+    <string name="next_sunday">Minggu Depan</string>
+    <string name="next_monday">Senin Depan</string>
+    <string name="next_tuesday">Selasa Depan</string>
+    <string name="next_wednesday">Rabu Depan</string>
+    <string name="next_thursday">Kamis Depan</string>
+    <string name="next_friday">Jumat Depan</string>
+    <string name="next_saturday">Sabtu Depan</string>
+    <string name="shortcut_pick_time">Pilih waktu</string>
+    <string name="no_time">Tidak ada waktu</string>
 </resources>

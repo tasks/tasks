@@ -2,6 +2,7 @@ package org.tasks.compose.pickers
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -35,58 +36,65 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
-import org.tasks.R
-import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.dialogs.DateTimePicker.Companion.MULTIPLE_DAYS
-import org.tasks.dialogs.DateTimePicker.Companion.MULTIPLE_TIMES
-import org.tasks.dialogs.DateTimePicker.Companion.NO_DAY
-import org.tasks.dialogs.DateTimePicker.Companion.NO_TIME
-import org.tasks.dialogs.StartDatePicker.Companion.DAY_BEFORE_DUE
-import org.tasks.dialogs.StartDatePicker.Companion.DUE_DATE
-import org.tasks.dialogs.StartDatePicker.Companion.DUE_TIME
-import org.tasks.dialogs.StartDatePicker.Companion.WEEK_BEFORE_DUE
-import org.tasks.extensions.Context.is24HourFormat
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
+import org.tasks.kmp.formatTime
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getFullDate
 import org.tasks.kmp.org.tasks.time.getRelativeDay
-import org.tasks.kmp.formatTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.minusDays
 import org.tasks.time.startOfDay
 import org.tasks.time.withMillisOfDay
-import java.util.Calendar.FRIDAY
-import java.util.Calendar.MONDAY
-import java.util.Calendar.SATURDAY
-import java.util.Calendar.SUNDAY
-import java.util.Calendar.THURSDAY
-import java.util.Calendar.TUESDAY
-import java.util.Calendar.WEDNESDAY
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.date_picker_multiple
+import tasks.kmp.generated.resources.day_before_due
+import tasks.kmp.generated.resources.due_date
+import tasks.kmp.generated.resources.due_time
+import tasks.kmp.generated.resources.next_friday
+import tasks.kmp.generated.resources.next_monday
+import tasks.kmp.generated.resources.next_saturday
+import tasks.kmp.generated.resources.next_sunday
+import tasks.kmp.generated.resources.next_thursday
+import tasks.kmp.generated.resources.next_tuesday
+import tasks.kmp.generated.resources.next_wednesday
+import tasks.kmp.generated.resources.no_date
+import tasks.kmp.generated.resources.no_time
+import tasks.kmp.generated.resources.shortcut_pick_time
+import tasks.kmp.generated.resources.today
+import tasks.kmp.generated.resources.tomorrow
+import tasks.kmp.generated.resources.week_before_due
 
 @Composable
 fun DatePickerShortcuts(
     dateShortcuts: @Composable ColumnScope.() -> Unit,
     timeShortcuts: @Composable ColumnScope.() -> Unit,
 ) {
-    Row(
+    BoxWithConstraints(
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .fillMaxWidth(),
     ) {
-        Column(
-            horizontalAlignment = Alignment.Start,
-            modifier = Modifier.widthIn(max = LocalConfiguration.current.screenWidthDp.dp / 2)
+        val maxColumnWidth = maxWidth / 2
+        Row(
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            dateShortcuts()
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Column {
-            timeShortcuts()
+            Column(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier.widthIn(max = maxColumnWidth)
+            ) {
+                dateShortcuts()
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Column {
+                timeShortcuts()
+            }
         }
     }
 }
@@ -112,7 +120,7 @@ fun StartDateShortcuts(
         ShortcutButton(
             icon = Icons.Outlined.Today,
             text = if (custom == MULTIPLE_DAYS) {
-                stringResource(R.string.date_picker_multiple)
+                stringResource(Res.string.date_picker_multiple)
             } else {
                 remember(custom) {
                     runBlocking {
@@ -132,32 +140,32 @@ fun StartDateShortcuts(
     if (showDueDate) {
         ShortcutButton(
             icon = Icons.Outlined.Today,
-            text = stringResource(R.string.due_date),
+            text = stringResource(Res.string.due_date),
             selected = selected == DUE_DATE,
             onClick = { selectedDay(DUE_DATE) },
         )
     }
     ShortcutButton(
         icon = Icons.Outlined.Schedule,
-        text = stringResource(R.string.due_time),
+        text = stringResource(Res.string.due_time),
         selected = selected == DUE_TIME,
         onClick = { selectedDayTime(DUE_TIME, NO_TIME) },
     )
     ShortcutButton(
         icon = Icons.Outlined.WbSunny,
-        text = stringResource(R.string.day_before_due),
+        text = stringResource(Res.string.day_before_due),
         selected = selected == DAY_BEFORE_DUE,
         onClick = { selectedDay(DAY_BEFORE_DUE) },
     )
     ShortcutButton(
         icon = Icons.Outlined.CalendarViewWeek,
-        text = stringResource(R.string.week_before_due),
+        text = stringResource(Res.string.week_before_due),
         selected = selected == WEEK_BEFORE_DUE,
         onClick = { selectedDay(WEEK_BEFORE_DUE) },
     )
     ShortcutButton(
         icon = Icons.Outlined.Block,
-        text = stringResource(R.string.no_date),
+        text = stringResource(Res.string.no_date),
         selected = selected == NO_DAY,
         onClick = { clearDate() },
     )
@@ -186,7 +194,7 @@ fun DueDateShortcuts(
         ShortcutButton(
             icon = Icons.Outlined.Today,
             text = if (custom == MULTIPLE_DAYS) {
-                stringResource(R.string.date_picker_multiple)
+                stringResource(Res.string.date_picker_multiple)
             } else {
                 remember(custom) {
                     runBlocking {
@@ -205,13 +213,13 @@ fun DueDateShortcuts(
     }
     ShortcutButton(
         icon = Icons.Outlined.Today,
-        text = stringResource(R.string.today),
+        text = stringResource(Res.string.today),
         selected = selected == today,
         onClick = { selectedDay(today) },
     )
     ShortcutButton(
         icon = Icons.Outlined.WbSunny,
-        text = stringResource(R.string.tomorrow),
+        text = stringResource(Res.string.tomorrow),
         selected = selected == tomorrow,
         onClick = { selectedDay(tomorrow) },
     )
@@ -219,14 +227,18 @@ fun DueDateShortcuts(
         icon = Icons.AutoMirrored.Outlined.NextWeek,
         text = stringResource(
             remember {
-                when (newDateTime(nextWeek).dayOfWeek) {
-                    SUNDAY -> R.string.next_sunday
-                    MONDAY -> R.string.next_monday
-                    TUESDAY -> R.string.next_tuesday
-                    WEDNESDAY -> R.string.next_wednesday
-                    THURSDAY -> R.string.next_thursday
-                    FRIDAY -> R.string.next_friday
-                    SATURDAY -> R.string.next_saturday
+                when (
+                    Instant.fromEpochMilliseconds(nextWeek)
+                        .toLocalDateTime(TimeZone.currentSystemDefault())
+                        .dayOfWeek
+                ) {
+                    DayOfWeek.SUNDAY -> Res.string.next_sunday
+                    DayOfWeek.MONDAY -> Res.string.next_monday
+                    DayOfWeek.TUESDAY -> Res.string.next_tuesday
+                    DayOfWeek.WEDNESDAY -> Res.string.next_wednesday
+                    DayOfWeek.THURSDAY -> Res.string.next_thursday
+                    DayOfWeek.FRIDAY -> Res.string.next_friday
+                    DayOfWeek.SATURDAY -> Res.string.next_saturday
                     else -> throw IllegalArgumentException()
                 }
             }
@@ -237,7 +249,7 @@ fun DueDateShortcuts(
     if (showNoDate) {
         ShortcutButton(
             icon = Icons.Outlined.Block,
-            text = stringResource(R.string.no_date),
+            text = stringResource(Res.string.no_date),
             selected = selected == NO_DAY,
             onClick = { clearDate() },
         )
@@ -252,6 +264,7 @@ fun TimeShortcuts(
     afternoon: Int,
     evening: Int,
     night: Int,
+    is24HourFormat: Boolean,
     selectedMillisOfDay: (Int) -> Unit,
     pickTime: () -> Unit,
     clearTime: () -> Unit,
@@ -265,13 +278,12 @@ fun TimeShortcuts(
         }
     }
 
-    val is24HourFormat = LocalContext.current.is24HourFormat
     val now = remember { currentTimeMillis() }
     if (custom > 0 || custom == MULTIPLE_TIMES) {
         ShortcutButton(
             icon = Icons.Outlined.AccessTime,
             text = if (custom == MULTIPLE_TIMES) {
-                stringResource(R.string.date_picker_multiple)
+                stringResource(Res.string.date_picker_multiple)
             } else {
                 remember(custom) {
                     formatTime(now.withMillisOfDay(custom), is24HourFormat)
@@ -315,13 +327,13 @@ fun TimeShortcuts(
     )
     ShortcutButton(
         icon = Icons.Outlined.AccessTime,
-        text = stringResource(R.string.shortcut_pick_time),
+        text = stringResource(Res.string.shortcut_pick_time),
         selected = false,
         onClick = { pickTime() },
     )
     ShortcutButton(
         icon = Icons.Outlined.Block,
-        text = stringResource(R.string.no_time),
+        text = stringResource(Res.string.no_time),
         selected = day != DUE_TIME && selected == NO_TIME,
         onClick = { clearTime() },
     )

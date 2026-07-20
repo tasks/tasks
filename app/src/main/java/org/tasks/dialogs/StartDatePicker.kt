@@ -21,7 +21,11 @@ import androidx.compose.runtime.setValue
 import androidx.fragment.app.Fragment
 import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.compose.pickers.DUE_DATE
+import org.tasks.compose.pickers.DUE_TIME
 import org.tasks.compose.pickers.DatePickerBottomSheet
+import org.tasks.compose.pickers.NO_DAY
+import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.StartDateShortcuts
 import org.tasks.compose.pickers.TimePickerDialog
 import org.tasks.compose.pickers.TimeShortcuts
@@ -50,12 +54,6 @@ class StartDatePicker : BaseDateTimePicker() {
         const val EXTRA_DAY = "extra_day"
         const val EXTRA_TIME = "extra_time"
         const val EXTRA_SHOW_DUE_DATE = "extra_show_due_date"
-        const val NO_DAY = 0L
-        const val NO_TIME = 0
-        const val DUE_DATE = -1L
-        const val DAY_BEFORE_DUE = -2L
-        const val WEEK_BEFORE_DUE = -3L
-        const val DUE_TIME = -4L
 
         fun newDateTimePicker(
             target: Fragment,
@@ -149,6 +147,7 @@ class StartDatePicker : BaseDateTimePicker() {
                         afternoon = remember { preferences.dateShortcutAfternoon + 1000 },
                         evening = remember { preferences.dateShortcutEvening + 1000 },
                         night = remember { preferences.dateShortcutNight + 1000 },
+                        is24HourFormat = remember { requireContext().is24HourFormat },
                         selectedMillisOfDay = { returnSelectedTime(it) },
                         pickTime = { showTimePicker = true },
                         clearTime = {

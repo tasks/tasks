@@ -122,4 +122,15 @@
     <string name="priority_medium">Media</string>
     <string name="priority_low">Baxa</string>
     <string name="metadata_move">Mover</string>
+    <string name="due_date">Data de vencimientu</string>
+    <string name="due_time">Hora de vencimientu</string>
+    <string name="day_before_due">Día previu al vencimientu</string>
+    <string name="week_before_due">Selmana previa al vencimientu</string>
+    <string name="next_sunday">Próximu Domingu</string>
+    <string name="next_monday">Próximu Llunes</string>
+    <string name="next_tuesday">Próximu Martes</string>
+    <string name="next_wednesday">Próximu Miércoles</string>
+    <string name="next_thursday">Próximu Xueves</string>
+    <string name="next_friday">Próximu Vienres</string>
+    <string name="next_saturday">Próximu Sábadu</string>
 </resources>

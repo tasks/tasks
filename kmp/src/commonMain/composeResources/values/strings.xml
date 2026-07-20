@@ -347,4 +347,18 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">How do I sync with my computer?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Download the desktop app at tasks.org/download, then sign in with the same Google account.</string>
     <string name="tag_already_exists">Tag already exists</string>
+    <string name="date_picker_multiple">Multiple</string>
+    <string name="due_date">Due date</string>
+    <string name="due_time">Due time</string>
+    <string name="day_before_due">Day before due</string>
+    <string name="week_before_due">Week before due</string>
+    <string name="next_sunday">Next Sun</string>
+    <string name="next_monday">Next Mon</string>
+    <string name="next_tuesday">Next Tue</string>
+    <string name="next_wednesday">Next Wed</string>
+    <string name="next_thursday">Next Thu</string>
+    <string name="next_friday">Next Fri</string>
+    <string name="next_saturday">Next Sat</string>
+    <string name="shortcut_pick_time">Pick time</string>
+    <string name="no_time">No time</string>
 </resources>

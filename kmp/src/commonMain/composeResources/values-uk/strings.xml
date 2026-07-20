@@ -213,4 +213,18 @@
     <string name="priority_medium">Середній</string>
     <string name="priority_low">Низький</string>
     <string name="metadata_move">Перемістити</string>
+    <string name="date_picker_multiple">Декілька</string>
+    <string name="due_date">Дата виконання</string>
+    <string name="due_time">Час виконання</string>
+    <string name="day_before_due">Доба до дати виконання</string>
+    <string name="week_before_due">Тиждень до дати виконання</string>
+    <string name="next_sunday">Наступної Нд</string>
+    <string name="next_monday">Наступного Пн</string>
+    <string name="next_tuesday">Наступного Вт</string>
+    <string name="next_wednesday">Наступної Ср</string>
+    <string name="next_thursday">Наступного Чт</string>
+    <string name="next_friday">Наступної Пт</string>
+    <string name="next_saturday">Наступної Сб</string>
+    <string name="shortcut_pick_time">Оберіть час</string>
+    <string name="no_time">Без часу</string>
 </resources>

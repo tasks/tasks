@@ -12,4 +12,6 @@
     <string name="SSD_sort_alpha">بە ناونیشان</string>
     <string name="SSD_sort_modified">بە کۆتا دەستکاری</string>
     <string name="SSD_sort_auto">ڕیزکردنی ژیرانە</string>
+    <string name="due_date">بەرواری جێبەجێکردن</string>
+    <string name="due_time">کاتی جێبەجێکردن</string>
 </resources>

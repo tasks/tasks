@@ -260,4 +260,18 @@
     <string name="priority_medium">Közepes</string>
     <string name="priority_low">Alacsony</string>
     <string name="metadata_move">Mozgatás</string>
+    <string name="date_picker_multiple">Többszörös</string>
+    <string name="due_date">Határidő</string>
+    <string name="due_time">Esedékesség ideje</string>
+    <string name="day_before_due">Egy nappal a határidő előtt</string>
+    <string name="week_before_due">Egy héttel a határidő előtt</string>
+    <string name="next_sunday">Köv. V</string>
+    <string name="next_monday">Köv. H</string>
+    <string name="next_tuesday">Köv. K</string>
+    <string name="next_wednesday">Köv. Sze</string>
+    <string name="next_thursday">Köv. Cs</string>
+    <string name="next_friday">Köv. P</string>
+    <string name="next_saturday">Köv. Szo</string>
+    <string name="shortcut_pick_time">Időpont kiválasztása</string>
+    <string name="no_time">Időpont nélkül</string>
 </resources>

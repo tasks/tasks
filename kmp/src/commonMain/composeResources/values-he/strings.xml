@@ -257,4 +257,18 @@
     <string name="priority_medium">בינונית</string>
     <string name="priority_low">נמוכה</string>
     <string name="metadata_move">העברה</string>
+    <string name="date_picker_multiple">מרובה</string>
+    <string name="due_date">תאריך יעד</string>
+    <string name="due_time">זמן יעד</string>
+    <string name="day_before_due">יום לפני מועד היעד</string>
+    <string name="week_before_due">שבוע לפני מועד היעד</string>
+    <string name="next_sunday">ראשון הבא</string>
+    <string name="next_monday">שני הבא</string>
+    <string name="next_tuesday">שלישי הבא</string>
+    <string name="next_wednesday">רביעי הבא</string>
+    <string name="next_thursday">חמישי הבא</string>
+    <string name="next_friday">שישי הבא</string>
+    <string name="next_saturday">שבת הבאה</string>
+    <string name="shortcut_pick_time">בחירת זמן</string>
+    <string name="no_time">אין זמן</string>
 </resources>

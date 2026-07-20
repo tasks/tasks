@@ -75,4 +75,9 @@
     <string name="priority_high">زیاد</string>
     <string name="priority_medium">متوسط</string>
     <string name="priority_low">کم</string>
+    <string name="due_date">تاریخ موعود</string>
+    <string name="due_time">زمان موعود</string>
+    <string name="day_before_due">روز قبل از موعود</string>
+    <string name="week_before_due">هفته قبل از موعود</string>
+    <string name="no_time">بدون زمان</string>
 </resources>

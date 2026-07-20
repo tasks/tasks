@@ -291,4 +291,18 @@
     <string name="task_title">Заглавие на задача</string>
     <string name="no_list_available">Липсва списък</string>
     <string name="add_platform_account">Добавяне на профил на %1$s</string>
+    <string name="date_picker_multiple">Няколко</string>
+    <string name="due_date">Крайна дата</string>
+    <string name="due_time">Краен час</string>
+    <string name="day_before_due">Ден преди крайния срок</string>
+    <string name="week_before_due">Седмица преди крайния срок</string>
+    <string name="next_sunday">Следващата неделя</string>
+    <string name="next_monday">Следващият понеделник</string>
+    <string name="next_tuesday">Следващият вторник</string>
+    <string name="next_wednesday">Следващата сряда</string>
+    <string name="next_thursday">Следващият четвъртък</string>
+    <string name="next_friday">Следващият петък</string>
+    <string name="next_saturday">Следващата събота</string>
+    <string name="shortcut_pick_time">Час по избор</string>
+    <string name="no_time">Без час</string>
 </resources>

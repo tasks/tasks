@@ -340,4 +340,18 @@
     <string name="priority_medium">Orta</string>
     <string name="priority_low">Düşük</string>
     <string name="metadata_move">Taşı</string>
+    <string name="date_picker_multiple">Birden çok</string>
+    <string name="due_date">Bitiş tarihi</string>
+    <string name="due_time">Bitiş zamanı</string>
+    <string name="day_before_due">Bitişten önceki gün</string>
+    <string name="week_before_due">Bitişten önceki hafta</string>
+    <string name="next_sunday">Sonraki Pzr</string>
+    <string name="next_monday">Sonraki Pts</string>
+    <string name="next_tuesday">Sonraki Sal</string>
+    <string name="next_wednesday">Sonraki Çar</string>
+    <string name="next_thursday">Sonraki Per</string>
+    <string name="next_friday">Sonraki Cma</string>
+    <string name="next_saturday">Sonraki Cts</string>
+    <string name="shortcut_pick_time">Zaman seç</string>
+    <string name="no_time">Zaman yok</string>
 </resources>

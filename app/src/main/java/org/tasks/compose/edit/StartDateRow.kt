@@ -14,7 +14,12 @@ import androidx.compose.ui.unit.dp
 import com.todoroo.astrid.ui.StartDateControlSet.Companion.getRelativeDateString
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
-import org.tasks.dialogs.StartDatePicker
+import org.tasks.compose.pickers.DAY_BEFORE_DUE
+import org.tasks.compose.pickers.DUE_DATE
+import org.tasks.compose.pickers.DUE_TIME
+import org.tasks.compose.pickers.NO_DAY
+import org.tasks.compose.pickers.NO_TIME
+import org.tasks.compose.pickers.WEEK_BEFORE_DUE
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
@@ -58,10 +63,10 @@ fun StartDate(
 ) {
     Text(
         text = when (selectedDay) {
-            StartDatePicker.DUE_DATE -> getRelativeDateString(R.string.due_date, selectedTime)
-            StartDatePicker.DUE_TIME -> stringResource(R.string.due_time)
-            StartDatePicker.DAY_BEFORE_DUE -> getRelativeDateString(R.string.day_before_due, selectedTime)
-            StartDatePicker.WEEK_BEFORE_DUE -> getRelativeDateString(R.string.week_before_due, selectedTime)
+            DUE_DATE -> getRelativeDateString(R.string.due_date, selectedTime)
+            DUE_TIME -> stringResource(R.string.due_time)
+            DAY_BEFORE_DUE -> getRelativeDateString(R.string.day_before_due, selectedTime)
+            WEEK_BEFORE_DUE -> getRelativeDateString(R.string.week_before_due, selectedTime)
             in 1..Long.MAX_VALUE -> printDate()
             else -> stringResource(R.string.no_start_date)
         },
@@ -85,8 +90,8 @@ fun NoStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 0L,
-            selectedDay = StartDatePicker.NO_DAY,
-            selectedTime = StartDatePicker.NO_TIME,
+            selectedDay = NO_DAY,
+            selectedTime = NO_TIME,
             currentTime = 1657080392000L,
             hasStartAlarm = true,
             hasDueDate = false,
@@ -103,8 +108,8 @@ fun FutureStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
-            selectedDay = StartDatePicker.DUE_DATE,
-            selectedTime = StartDatePicker.NO_TIME,
+            selectedDay = DUE_DATE,
+            selectedTime = NO_TIME,
             currentTime = 1657080392000L,
             hasStartAlarm = true,
             hasDueDate = false,
@@ -121,8 +126,8 @@ fun PastStartDate() {
     TasksTheme {
         StartDateRow(
             startDate = 1657080392000L,
-            selectedDay = StartDatePicker.DUE_TIME,
-            selectedTime = StartDatePicker.NO_TIME,
+            selectedDay = DUE_TIME,
+            selectedTime = NO_TIME,
             currentTime = 1657080392001L,
             hasStartAlarm = true,
             hasDueDate = false,

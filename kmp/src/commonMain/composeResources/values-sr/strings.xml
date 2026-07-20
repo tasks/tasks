@@ -239,4 +239,18 @@
     <string name="priority_medium">Средњи</string>
     <string name="priority_low">Низак</string>
     <string name="metadata_move">Премести</string>
+    <string name="date_picker_multiple">Вишеструко</string>
+    <string name="due_date">Датум доспећа</string>
+    <string name="due_time">Време доспећа</string>
+    <string name="day_before_due">Дан пре доспећа</string>
+    <string name="week_before_due">Седмица пре доспећа</string>
+    <string name="next_sunday">Следеће недеље</string>
+    <string name="next_monday">Следећег понедељка</string>
+    <string name="next_tuesday">Следећег уторка</string>
+    <string name="next_wednesday">Следеће среде</string>
+    <string name="next_thursday">Следећег четвртка</string>
+    <string name="next_friday">Следећег петка</string>
+    <string name="next_saturday">Следеће суботе</string>
+    <string name="shortcut_pick_time">Одабери време</string>
+    <string name="no_time">Без времена</string>
 </resources>

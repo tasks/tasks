@@ -210,4 +210,18 @@
     <string name="priority_medium">Medio</string>
     <string name="priority_low">Baixo</string>
     <string name="metadata_move">Mocer</string>
+    <string name="date_picker_multiple">Múltiple</string>
+    <string name="due_date">Data de vencemento</string>
+    <string name="due_time">Hora de vencemento</string>
+    <string name="day_before_due">Día previo ao vencemento</string>
+    <string name="week_before_due">Semana previa ao vencemento</string>
+    <string name="next_sunday">Próx Dom</string>
+    <string name="next_monday">Próx Luns</string>
+    <string name="next_tuesday">Próx Mar</string>
+    <string name="next_wednesday">Próx Mér</string>
+    <string name="next_thursday">Próx Xov</string>
+    <string name="next_friday">Próx Ven</string>
+    <string name="next_saturday">Próx Sáb</string>
+    <string name="shortcut_pick_time">Escoller hora</string>
+    <string name="no_time">Sen horario</string>
 </resources>

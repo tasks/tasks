@@ -232,4 +232,18 @@
     <string name="priority_medium">Gemiddeld</string>
     <string name="priority_low">Laag</string>
     <string name="metadata_move">Verplaatsen</string>
+    <string name="date_picker_multiple">Meerdere</string>
+    <string name="due_date">Vervaldatum</string>
+    <string name="due_time">Vervaltijd</string>
+    <string name="day_before_due">Dag voor vervaldatum</string>
+    <string name="week_before_due">Week voor vervaldatum</string>
+    <string name="next_sunday">Volgende zondag</string>
+    <string name="next_monday">Volgende maandag</string>
+    <string name="next_tuesday">Volgende dinsdag</string>
+    <string name="next_wednesday">Volgende woensdag</string>
+    <string name="next_thursday">Volgende donderdag</string>
+    <string name="next_friday">Volgende vrijdag</string>
+    <string name="next_saturday">Volgende zaterdag</string>
+    <string name="shortcut_pick_time">Tijd kiezen</string>
+    <string name="no_time">Geen tijd</string>
 </resources>

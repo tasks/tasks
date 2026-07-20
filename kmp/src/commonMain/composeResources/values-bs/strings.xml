@@ -30,4 +30,6 @@
     <string name="priority_high">Visoki</string>
     <string name="priority_medium">Srednji</string>
     <string name="priority_low">Niski</string>
+    <string name="day_before_due">Dan prije roka</string>
+    <string name="week_before_due">Sedmica prije roka</string>
 </resources>

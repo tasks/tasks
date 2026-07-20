@@ -58,4 +58,9 @@
     <string name="backup_BPr_header">ബാക്കപ്പുകൾ</string>
     <string name="app_settings">ആപ്പ് ക്രമീകരണങ്ങൾ</string>
     <string name="blog_feed_none">ഒന്നുമില്ല</string>
+    <string name="due_date">തികയുന്നു തിയതി</string>
+    <string name="due_time">തികയുന്ന സമയം</string>
+    <string name="day_before_due">തികയുന്നതിന് ഒരു ദിവസം മുൻപ്</string>
+    <string name="week_before_due">തികയുന്നതിനു ഒരാഴ്ച മുൻപ്</string>
+    <string name="no_time">സമയമില്ല</string>
 </resources>

@@ -342,4 +342,18 @@
     <string name="priority_medium">Srednji</string>
     <string name="priority_low">Niski</string>
     <string name="metadata_move">Premjesti</string>
+    <string name="date_picker_multiple">Višestruko</string>
+    <string name="due_date">Datum roka</string>
+    <string name="due_time">Vrijeme roka</string>
+    <string name="day_before_due">Dan prije roka</string>
+    <string name="week_before_due">Tjedan prije roka</string>
+    <string name="next_sunday">Sljedeća nedjelja</string>
+    <string name="next_monday">Sljedeći ponedjeljak</string>
+    <string name="next_tuesday">Sljedeći utorak</string>
+    <string name="next_wednesday">Sljedeća srijeda</string>
+    <string name="next_thursday">Sljedeći četvrtak</string>
+    <string name="next_friday">Sljedeći petak</string>
+    <string name="next_saturday">Sljedeća subota</string>
+    <string name="shortcut_pick_time">Odaberi vrijeme</string>
+    <string name="no_time">Bez vremena</string>
 </resources>
