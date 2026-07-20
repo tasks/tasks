@@ -25,8 +25,9 @@ class PriorityPicker : DialogFragment() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var taskSaver: TaskSaver
 
-    private val taskIds: LongArray
-        get() = arguments?.getLongArray(EXTRA_TASKS) ?: longArrayOf()
+    private val taskIds: LongArray by lazy {
+        arguments?.getLongArray(EXTRA_TASKS) ?: longArrayOf()
+    }
 
     companion object {
         const val EXTRA_TASKS = "extra_tasks"
