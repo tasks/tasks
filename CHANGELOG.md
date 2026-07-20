@@ -1,4 +1,4 @@
-### 15.8 (2026-07-18)
+### 15.8 (2026-07-19)
 
 * Sync tag info
   * Sync tag colors, icons, and order across devices
@@ -12,11 +12,18 @@ Desktop:
   * Add tag settings screen
   * Fix backstack crash
 
+Android:
+  * Fix DAVx5 sync loop [#4496](https://github.com/tasks/tasks/issues/4496)
+
 Update translations
   * Brazilian Portuguese - @gregcarmo
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, hamburger2048
   * Czech - Fjuro
   * Danish - ERYpTION
+  * French - @FlorianLeChat
   * Serbian - @vale-decem
+  * Spanish - @FlorianLeChat
 
 ### 15.7.4 (2026-07-10)
 

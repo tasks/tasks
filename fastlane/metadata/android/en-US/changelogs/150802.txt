@@ -3,4 +3,5 @@
   * Renaming or deleting tags syncs across devices
   * Requires Tasks.org Cloud or CalDAV with compatible CalDAV server
   * Opt-in for CalDAV accounts - enable in account settings
+* Fix DAVx5 sync loop
 * Update translations
