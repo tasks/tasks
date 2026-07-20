@@ -59,34 +59,32 @@ private fun org.tasks.data.entity.Task.applyCompletedAt(remote: VTodoTask, local
 }
 
 private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: VTodoTask?) {
-    val localCreated = local?.createdAt?.let { newDateTime(it, UTC) }?.toLocal()?.millis
+    val localCreated = local?.createdAt?.toLocalMillis()
     if (localCreated == null || localCreated == creationDate) {
-        val remoteCreated = remote.createdAt?.let { newDateTime(it, UTC).toLocal().millis }
+        val remoteCreated = remote.createdAt?.toLocalMillis()
         when {
             remoteCreated != null -> creationDate = remoteCreated
-            local == null ->
-                remote.dtStamp?.let {
-                    creationDate = newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis())
-                }
+            local == null -> remote.dtStamp?.let { creationDate = it.toLocalMillisClamped() }
         }
     }
 }
 
 private fun org.tasks.data.entity.Task.applyModified(remote: VTodoTask, local: VTodoTask?) {
-    val localModified = local?.lastModified?.let { newDateTime(it, UTC) }?.toLocal()?.millis
+    val localModified = local?.lastModified?.toLocalMillis()
     if (localModified == null || localModified == modificationDate) {
-        val remoteModified =
-            remote.lastModified?.let { newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis()) } ?: 0L
-        val remoteCreated =
-            remote.createdAt?.let { newDateTime(it, UTC).toLocal().millis } ?: 0L
-        val remoteDtStamp =
-            remote.dtStamp?.let { newDateTime(it, UTC).toLocal().millis.coerceAtMost(currentTimeMillis()) } ?: 0L
+        val remoteModified = remote.lastModified?.toLocalMillisClamped() ?: 0L
+        val remoteCreated = remote.createdAt?.toLocalMillisClamped() ?: 0L
+        val remoteDtStamp = remote.dtStamp?.toLocalMillisClamped() ?: 0L
         modificationDate = maxOf(remoteModified, remoteCreated).takeIf { it > 0 }
             ?: remoteDtStamp.takeIf { it > 0 }
             ?: modificationDate.takeIf { it > 0 }
             ?: currentTimeMillis()
     }
 }
+
+private fun Long.toLocalMillis(): Long = newDateTime(this, UTC).toLocal().millis
+
+private fun Long.toLocalMillisClamped(): Long = toLocalMillis().coerceAtMost(currentTimeMillis())
 
 private fun org.tasks.data.entity.Task.applyTitle(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.summary == title) {
