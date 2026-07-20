@@ -367,11 +367,20 @@ class iCalendar(
             }
 
         // this isn't necessarily the task originator but its the best we can do
-        fun String.supportsReminders(): Boolean =
-            CLIENTS_WITH_REMINDER_SYNC.any { contains(it) }
+        fun String.supportsReminders(): Boolean {
+            if (contains(NEXTCLOUD_TASKS)) {
+                val (major, minor) = NEXTCLOUD_TASKS_VERSION.find(this)?.destructured
+                    ?: return true
+                return major.toInt() > 0 || minor.toInt() >= 17
+            }
+            return CLIENTS_WITH_REMINDER_SYNC.any { contains(it) }
+        }
 
         fun String.prodId(): String? =
             PRODID_MATCHER.matcher(this).takeIf { it.matches() }?.group(1)
+
+        private const val NEXTCLOUD_TASKS = "Nextcloud Tasks"
+        private val NEXTCLOUD_TASKS_VERSION = "Nextcloud Tasks v(\\d+)\\.(\\d+)".toRegex()
 
         private val CLIENTS_WITH_REMINDER_SYNC = listOf(
             "tasks.org",
