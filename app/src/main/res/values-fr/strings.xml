@@ -372,7 +372,7 @@
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
     <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
-    <string name="help_and_feedback">Aide et remarques</string>
+    <string name="help_and_feedback">Aide et remarques</string>
     <string name="documentation">Documentation</string>
     <string name="preferences_advanced">Avancé</string>
     <string name="wearable_notifications">Notifications de la montre</string>
@@ -673,4 +673,5 @@
     <string name="read_more">Lire la suite</string>
     <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
     <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>
+    <string name="sort_options">Options de tri</string>
 </resources>
