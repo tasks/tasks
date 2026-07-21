@@ -1,5 +1,6 @@
 package org.tasks.data.db
 
+import androidx.room.migration.Migration
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
@@ -8,21 +9,12 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-/**
- * Exercises [CommonMigrations.MIGRATION_94_95] with Room's [MigrationTestHelper]: the database is
- * created at v94 from the exported `94.json` schema, the migration runs, and
- * [MigrationTestHelper.runMigrationsAndValidate] validates the result against `95.json` — so any
- * drift between the hand-written DDL and the Room entity fails the test automatically. The
- * assertions below then cover the data-mutating parts Room can't validate: the `normalized_name`
- * backfill, the case-collision merge, and join-row repointing/de-duping.
- *
- * This is the template for future migration tests — copy the [migrate] helper and point it at the
- * relevant versions.
- */
 class CommonMigrationsTest {
     private val tempDir: Path = Files.createTempDirectory("room-migration-test")
 
@@ -34,22 +26,22 @@ class CommonMigrationsTest {
         databaseClass = Database::class,
     )
 
-    /**
-     * Seeds a fresh v94 database via [seed], runs 94→95, validates the schema against `95.json`,
-     * and returns the post-migration connection for assertions (caller closes it).
-     */
-    private fun migrate(seed: SQLiteConnection.() -> Unit): SQLiteConnection {
-        helper.createDatabase(94).use { db ->
-            // Seeding orphan `tags` rows (no backing task) would trip the tags->tasks foreign key.
+    private fun migrate(
+        from: Int,
+        to: Int,
+        migration: Migration,
+        seed: SQLiteConnection.() -> Unit,
+    ): SQLiteConnection {
+        helper.createDatabase(from).use { db ->
             db.execSQL("PRAGMA foreign_keys = OFF")
             db.seed()
         }
-        return helper.runMigrationsAndValidate(95, listOf(CommonMigrations.MIGRATION_94_95))
+        return helper.runMigrationsAndValidate(to, listOf(migration))
     }
 
     @Test
     fun backfillsNormalizedNameLocaleInvariant() {
-        migrate {
+        migrate(94, 95, CommonMigrations.MIGRATION_94_95) {
             insertTag(1, "uuid-1", "Work")
             insertTag(2, "uuid-2", "Mom's") // apostrophe exercises the bound-parameter backfill
             insertTag(3, "uuid-3", "ÉCOLE")
@@ -64,7 +56,7 @@ class CommonMigrationsTest {
 
     @Test
     fun mergesCaseCollisionPreferringDecoratedRow() {
-        migrate {
+        migrate(94, 95, CommonMigrations.MIGRATION_94_95) {
             insertTag(1, "uuid-plain", "work")
             insertTag(2, "uuid-decorated", "Work", color = -12345)
         }.use {
@@ -75,7 +67,7 @@ class CommonMigrationsTest {
 
     @Test
     fun mergeTieBreaksByLowestIdWhenUndecorated() {
-        migrate {
+        migrate(94, 95, CommonMigrations.MIGRATION_94_95) {
             insertTag(5, "uuid-high", "FOO")
             insertTag(3, "uuid-low", "foo")
         }.use {
@@ -85,7 +77,7 @@ class CommonMigrationsTest {
 
     @Test
     fun repointsAndDedupesJoinRows() {
-        migrate {
+        migrate(94, 95, CommonMigrations.MIGRATION_94_95) {
             insertTag(1, "uuid-survivor", "Work", color = -12345)
             insertTag(2, "uuid-loser", "work")
             insertJoin(1, task = 100, tagUid = "uuid-survivor", name = "Work")
@@ -106,7 +98,7 @@ class CommonMigrationsTest {
 
     @Test
     fun uniqueIndexRejectsCaseDuplicatesAtRuntime() {
-        migrate {
+        migrate(94, 95, CommonMigrations.MIGRATION_94_95) {
             insertTag(1, "uuid-1", "Work")
         }.use { db ->
             var threw = false
@@ -121,7 +113,7 @@ class CommonMigrationsTest {
 
     @Test
     fun deletesOrphanedJoinRowsAndAddsMetadataTables() {
-        migrate9596 {
+        migrate(95, 96, CommonMigrations.MIGRATION_95_96) {
             insertTask(100)
             insertJoin(1, task = 100, tagUid = "uuid-live", name = "Work")
             insertJoin(2, task = 999, tagUid = "uuid-orphan", name = "Gone")
@@ -132,19 +124,123 @@ class CommonMigrationsTest {
         }
     }
 
-    private fun migrate9596(seed: SQLiteConnection.() -> Unit): SQLiteConnection {
-        helper.createDatabase(95).use { db ->
-            db.execSQL("PRAGMA foreign_keys = OFF")
-            db.seed()
+    @Test
+    fun seedsOneTaskDirtyRowDespiteDuplicateList() {
+        migrate(92, 93, CommonMigrations.MIGRATION_92_93) {
+            insertTask(100)
+            insertAccount(1, uuid = "acct", type = TYPE_CALDAV)
+            insertList(1, uuid = "list", account = "acct")
+            insertList(2, uuid = "list", account = "acct")
+            insertCaldavTask(10, task = 100, calendar = "list", lastSync = 0)
+        }.use {
+            assertEquals(listOf(Triple(10L, 1L, 0L)), it.taskDirtyRows())
         }
-        return helper.runMigrationsAndValidate(96, listOf(CommonMigrations.MIGRATION_95_96))
     }
 
-    private fun SQLiteConnection.insertTask(id: Long) {
+    @Test
+    fun computesVersionsAndExcludesLocalAndDeleted() {
+        migrate(92, 93, CommonMigrations.MIGRATION_92_93) {
+            insertAccount(1, uuid = "remote", type = TYPE_CALDAV)
+            insertAccount(2, uuid = "local", type = TYPE_LOCAL)
+            insertList(1, uuid = "rlist", account = "remote")
+            insertList(2, uuid = "llist", account = "local")
+            insertTask(100, modified = 50)
+            insertTask(200, modified = 50)
+            insertTask(300, modified = 200)
+            insertCaldavTask(10, task = 100, calendar = "rlist", lastSync = 100)
+            insertCaldavTask(20, task = 300, calendar = "rlist", lastSync = 100)
+            insertCaldavTask(30, task = 200, calendar = "rlist", lastSync = 0)
+            insertCaldavTask(40, task = 100, calendar = "llist", lastSync = 100)
+            insertCaldavTask(50, task = 100, calendar = "rlist", lastSync = 100, deleted = 1)
+            insertTask(400, modified = 100)
+            insertCaldavTask(60, task = 400, calendar = "rlist", lastSync = 100)
+        }.use {
+            assertEquals(
+                listOf(
+                    Triple(10L, 1L, 1L),
+                    Triple(20L, 2L, 1L),
+                    Triple(30L, 1L, 0L),
+                    Triple(60L, 1L, 1L),
+                ),
+                it.taskDirtyRows(),
+            )
+        }
+    }
+
+    @Test
+    fun seedsOneTaskDirtyRowDespiteDuplicateAccount() {
+        migrate(92, 93, CommonMigrations.MIGRATION_92_93) {
+            insertTask(100)
+            insertAccount(1, uuid = "acct", type = TYPE_CALDAV)
+            insertAccount(2, uuid = "acct", type = TYPE_CALDAV)
+            insertList(1, uuid = "list", account = "acct")
+            insertCaldavTask(10, task = 100, calendar = "list", lastSync = 0)
+        }.use {
+            assertEquals(listOf(Triple(10L, 1L, 0L)), it.taskDirtyRows())
+        }
+    }
+
+    @Test
+    fun seedsUnresolvedCalendarLikeTheTrigger() {
+        migrate(92, 93, CommonMigrations.MIGRATION_92_93) {
+            insertTask(100)
+            insertCaldavTask(10, task = 100, calendar = "missing", lastSync = 0)
+        }.use {
+            assertEquals(listOf(Triple(10L, 1L, 0L)), it.taskDirtyRows())
+        }
+    }
+
+    private fun SQLiteConnection.insertTask(id: Long, modified: Long = 0) {
         execSQL(
             "INSERT INTO `tasks` (`_id`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `lastNotified`, `collapsed`, `parent`) " +
-                "VALUES ($id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)"
+                "VALUES ($id, 0, 0, 0, 0, $modified, 0, 0, 0, 0, 0, 0, 0, 0, 0)"
         )
+    }
+
+    private fun SQLiteConnection.insertAccount(id: Long, uuid: String, type: Int) {
+        prepare("INSERT INTO `caldav_accounts` (`cda_id`, `cda_uuid`, `cda_account_type`, `cda_collapsed`, `cda_server_type`) VALUES (?, ?, ?, 0, 0)")
+            .use {
+                it.bindLong(1, id)
+                it.bindText(2, uuid)
+                it.bindLong(3, type.toLong())
+                it.step()
+            }
+    }
+
+    private fun SQLiteConnection.insertList(id: Long, uuid: String, account: String) {
+        prepare("INSERT INTO `caldav_lists` (`cdl_id`, `cdl_account`, `cdl_uuid`, `cdl_color`, `cdl_order`, `cdl_access`, `cdl_last_sync`) VALUES (?, ?, ?, 0, 0, 0, 0)")
+            .use {
+                it.bindLong(1, id)
+                it.bindText(2, account)
+                it.bindText(3, uuid)
+                it.step()
+            }
+    }
+
+    private fun SQLiteConnection.insertCaldavTask(
+        id: Long,
+        task: Long,
+        calendar: String,
+        lastSync: Long,
+        deleted: Int = 0,
+    ) {
+        prepare("INSERT INTO `caldav_tasks` (`cd_id`, `cd_task`, `cd_calendar`, `cd_last_sync`, `cd_deleted`, `gt_moved`, `gt_remote_order`) VALUES (?, ?, ?, ?, ?, 0, 0)")
+            .use {
+                it.bindLong(1, id)
+                it.bindLong(2, task)
+                it.bindText(3, calendar)
+                it.bindLong(4, lastSync)
+                it.bindLong(5, deleted.toLong())
+                it.step()
+            }
+    }
+
+    private fun SQLiteConnection.taskDirtyRows(): List<Triple<Long, Long, Long>> = buildList {
+        prepare("SELECT `caldav_task_id`, `dirty_version`, `synced_version` FROM `task_dirty` ORDER BY `caldav_task_id`").use {
+            while (it.step()) {
+                add(Triple(it.getLong(0), it.getLong(1), it.getLong(2)))
+            }
+        }
     }
 
     private fun SQLiteConnection.rowCount(table: String): Int {
