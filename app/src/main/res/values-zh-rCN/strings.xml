@@ -644,4 +644,5 @@
     <string name="read_more">阅读更多</string>
     <string name="upgrade_desktop_app">Tasks.org 桌面版</string>
     <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>
+    <string name="sort_options">排序选项</string>
 </resources>
