@@ -17,10 +17,12 @@ import org.tasks.compose.components.SearchBar
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.FilterItem
 import org.tasks.compose.drawer.HeaderItem
+import org.tasks.compose.drawer.SignInItem
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.filters.SignInPrompt
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.search
 
@@ -33,17 +35,19 @@ fun SearchableFilterPicker(
     onClick: (FilterListItem) -> Unit,
     getIcon: @Composable (Filter) -> String?,
     getColor: (Filter) -> Int,
-    onAddClick: ((NavigationDrawerSubheader) -> Unit)? = null,
+    onAddClick: (NavigationDrawerSubheader) -> Unit = {},
+    onSignIn: () -> Unit = {},
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surface,
     ) {
-        val showEmptyGroups = onAddClick != null
-        val displayedFilters = if (showEmptyGroups) {
-            filters
-        } else {
-            filters.filterNot { it is NavigationDrawerSubheader && it.childCount == 0 }
+        val displayedFilters = remember(filters) {
+            filters.filterNot {
+                it is NavigationDrawerSubheader &&
+                        it.childCount == 0 &&
+                        it.subheaderType == NavigationDrawerSubheader.SubheaderType.PREFERENCE
+            }
         }
         val cornerRadius = 16.dp
         val islandSpacing = 8.dp
@@ -72,14 +76,18 @@ fun SearchableFilterPicker(
                 key = { _, item ->
                     when (item) {
                         is NavigationDrawerSubheader -> "header_${item.subheaderType}_${item.id}"
+                        is SignInPrompt -> "sign_in"
                         is Filter -> "filter_${item.title}_${item.sql}"
                         else -> item.hashCode()
                     }
                 },
             ) { index, item ->
-                val isFirst = index == 0 || item is NavigationDrawerSubheader
+                val isFirst = index == 0 ||
+                        item is NavigationDrawerSubheader ||
+                        item is SignInPrompt
                 val isLast = index == displayedFilters.lastIndex ||
-                        displayedFilters[index + 1] is NavigationDrawerSubheader
+                        displayedFilters[index + 1] is NavigationDrawerSubheader ||
+                        displayedFilters[index + 1] is SignInPrompt
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
                     isFirst -> RoundedCornerShape(
@@ -117,10 +125,12 @@ fun SearchableFilterPicker(
                             HeaderItem(
                                 item = drawerHeader,
                                 toggleCollapsed = { onClick(item) },
-                                onAddClick = { onAddClick?.invoke(item) },
+                                onAddClick = { onAddClick(item) },
                                 onErrorClick = {},
                             )
                         }
+
+                        is SignInPrompt -> SignInItem(onClick = onSignIn)
 
                         is Filter -> {
                             val icon = getIcon(item)

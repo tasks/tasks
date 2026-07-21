@@ -240,6 +240,7 @@ class ApplicationModule {
         locationDao: LocationDao,
         taskDao: TaskDao,
         tasksPreferences: TasksPreferences,
+        purchaseState: PurchaseState,
     ) = FilterProvider(
         filterDao = filterDao,
         tagDataDao = tagDataDao,
@@ -248,6 +249,7 @@ class ApplicationModule {
         locationDao = locationDao,
         taskDao = taskDao,
         tasksPreferences = tasksPreferences,
+        purchaseState = purchaseState,
     )
 
     @Provides

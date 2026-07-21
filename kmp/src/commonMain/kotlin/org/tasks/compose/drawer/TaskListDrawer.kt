@@ -81,6 +81,10 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.Chevron
+import org.tasks.data.AccountIcon
+import org.tasks.data.composeIcon
+import org.tasks.data.composeTitle
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
@@ -90,7 +94,9 @@ import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.create_a_list
+import tasks.kmp.generated.resources.not_signed_in
 import tasks.kmp.generated.resources.search
+import tasks.kmp.generated.resources.sign_in
 
 @Composable
 fun TaskListDrawer(
@@ -100,6 +106,7 @@ fun TaskListDrawer(
     onClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onErrorClick: () -> Unit,
+    onSignIn: () -> Unit = {},
     expanded: Boolean = true,
     onExpandDrawer: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
@@ -139,9 +146,12 @@ fun TaskListDrawer(
             verticalArrangement = arrangement,
         ) {
             itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
-                val isFirst = index == 0 || item is DrawerItem.Header
+                val isFirst = index == 0 ||
+                        item is DrawerItem.Header ||
+                        item is DrawerItem.SignIn
                 val isLast = index == displayedFilters.lastIndex ||
-                        displayedFilters[index + 1] is DrawerItem.Header
+                        displayedFilters[index + 1] is DrawerItem.Header ||
+                        displayedFilters[index + 1] is DrawerItem.SignIn
                 val cornerRadius = 16.dp
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
@@ -172,6 +182,11 @@ fun TaskListDrawer(
                             onAddClick = { onAddClick(item) },
                             onExpandDrawer = onExpandDrawer,
                             onErrorClick = onErrorClick,
+                        )
+                        is DrawerItem.SignIn -> SignInItem(
+                            expanded = expanded,
+                            onClick = onSignIn,
+                            onExpandDrawer = onExpandDrawer,
                         )
                     }
                 }
@@ -399,96 +414,145 @@ fun HeaderItem(
     val isEmptyListAccount = !item.hasChildren &&
             item.canAdd &&
             item.header.subheaderType != NavigationDrawerSubheader.SubheaderType.PREFERENCE
-    MenuRow(
+    DrawerRow(
         modifier = modifier,
-        padding = PaddingValues(start = 16.dp),
+        icon = item.header.accountIcon,
+        iconLabel = item.header.icon,
+        title = item.title,
+        subtitle = item.header.subtitle?.let { stringResource(it) },
+        expanded = expanded,
         onClick = when {
             !item.hasChildren && item.canAdd -> if (expanded) onAddClick else onExpandDrawer
             collapsible -> toggleCollapsed
             else -> null
         },
     ) {
-            val accountIcon = item.header.accountIcon
-            if (accountIcon != null) {
-                Image(
-                    painter = painterResource(accountIcon.drawable),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp),
-                    colorFilter = if (accountIcon.tinted) {
-                        ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
-                    } else {
-                        null
-                    },
-                )
+        if (collapsible) {
+            IconButton(onClick = toggleCollapsed) {
+                Chevron(item.collapsed)
+            }
+        }
+        if (item.canAdd) {
+            if (isEmptyListAccount) {
+                TextButton(onClick = onAddClick) {
+                    Text(
+                        text = stringResource(Res.string.create_a_list),
+                        style = MaterialTheme.typography.labelLarge,
+                    )
+                }
             } else {
-                TasksIcon(
-                    label = item.header.icon,
-                    tint = MaterialTheme.colorScheme.onSurface,
+                IconButton(onClick = onAddClick) {
+                    Icon(
+                        imageVector = Icons.Outlined.Add,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+        }
+        if (item.hasError) {
+            IconButton(onClick = onErrorClick) {
+                Icon(
+                    imageVector = Icons.Outlined.SyncProblem,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error,
                 )
             }
-            AnimatedVisibility(
-                visible = expanded,
-                enter = fadeIn(),
-                exit = fadeOut(),
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(modifier = Modifier.weight(1f)) {
+        }
+    }
+}
+
+@Composable
+fun SignInItem(
+    modifier: Modifier = Modifier,
+    expanded: Boolean = true,
+    onClick: () -> Unit,
+    onExpandDrawer: () -> Unit = {},
+) {
+    val account = remember { CaldavAccount(accountType = CaldavAccount.TYPE_TASKS) }
+    DrawerRow(
+        modifier = modifier,
+        icon = account.composeIcon,
+        iconLabel = null,
+        title = account.composeTitle?.let { stringResource(it) } ?: "",
+        subtitle = stringResource(Res.string.not_signed_in),
+        expanded = expanded,
+        onClick = if (expanded) onClick else onExpandDrawer,
+    ) {
+        TextButton(onClick = onClick) {
+            Text(
+                text = stringResource(Res.string.sign_in),
+                style = MaterialTheme.typography.labelLarge,
+            )
+        }
+    }
+}
+
+@Composable
+private fun DrawerRow(
+    modifier: Modifier = Modifier,
+    icon: AccountIcon?,
+    iconLabel: String?,
+    title: String,
+    subtitle: String?,
+    expanded: Boolean,
+    onClick: (() -> Unit)?,
+    trailing: @Composable RowScope.() -> Unit = {},
+) {
+    MenuRow(
+        modifier = modifier,
+        padding = PaddingValues(start = 16.dp),
+        onClick = onClick,
+    ) {
+        if (icon != null) {
+            Image(
+                painter = painterResource(icon.drawable),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+                colorFilter = if (icon.tinted) {
+                    ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
+                } else {
+                    null
+                },
+            )
+        } else {
+            TasksIcon(
+                label = iconLabel,
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        AnimatedVisibility(
+            visible = expanded,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Spacer(modifier = Modifier.width(16.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = title,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            lineHeight = MaterialTheme.typography.titleMedium.fontSize,
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                    if (subtitle != null) {
                         Text(
-                            text = item.title,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                lineHeight = MaterialTheme.typography.titleMedium.fontSize,
+                            text = subtitle,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                lineHeight = MaterialTheme.typography.labelSmall.fontSize,
                             ),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
-                        item.header.subtitle?.let {
-                            Text(
-                                text = stringResource(it),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                style = MaterialTheme.typography.labelSmall.copy(
-                                    lineHeight = MaterialTheme.typography.labelSmall.fontSize,
-                                ),
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                            )
-                        }
-                    }
-                    if (collapsible) {
-                        IconButton(onClick = toggleCollapsed) {
-                            Chevron(item.collapsed)
-                        }
-                    }
-                    if (item.canAdd) {
-                        if (isEmptyListAccount) {
-                            TextButton(onClick = onAddClick) {
-                                Text(
-                                    text = stringResource(Res.string.create_a_list),
-                                    style = MaterialTheme.typography.labelLarge,
-                                )
-                            }
-                        } else {
-                            IconButton(onClick = onAddClick) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Add,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.onSurface,
-                                )
-                            }
-                        }
-                    }
-                    if (item.hasError) {
-                        IconButton(onClick = onErrorClick) {
-                            Icon(
-                                imageVector = Icons.Outlined.SyncProblem,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.error,
-                            )
-                        }
                     }
                 }
+                trailing()
             }
+        }
     }
 }
 

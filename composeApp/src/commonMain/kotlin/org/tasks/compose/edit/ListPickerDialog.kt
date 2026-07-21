@@ -22,7 +22,8 @@ fun ListPickerDialog(
     onClick: (FilterListItem) -> Unit,
     getIcon: @Composable (Filter) -> String?,
     getColor: (Filter) -> Int,
-    onAddClick: ((NavigationDrawerSubheader) -> Unit)? = null,
+    onAddClick: (NavigationDrawerSubheader) -> Unit = {},
+    onSignIn: () -> Unit = {},
     onDismiss: () -> Unit,
 ) {
     BasicAlertDialog(
@@ -40,6 +41,7 @@ fun ListPickerDialog(
             getIcon = getIcon,
             getColor = getColor,
             onAddClick = onAddClick,
+            onSignIn = onSignIn,
         )
     }
 }

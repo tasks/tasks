@@ -27,6 +27,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.filters.SignInPrompt
 import org.tasks.preferences.TasksPreferences
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 
@@ -162,6 +163,7 @@ open class DrawerViewModel(
             openTaskApp = openTaskApp,
             header = this,
         )
+        is SignInPrompt -> DrawerItem.SignIn
         else -> throw IllegalArgumentException()
     }
 }

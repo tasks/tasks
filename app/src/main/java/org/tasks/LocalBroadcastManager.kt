@@ -88,6 +88,7 @@ class LocalBroadcastManager @Inject constructor(
 
     fun broadcastPurchasesUpdated() {
         localBroadcastManager.sendBroadcast(Intent(REFRESH_PURCHASES))
+        composeRefreshBroadcaster.broadcastRefresh()
     }
 
     fun reconfigureWidgets() {

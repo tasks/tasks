@@ -152,6 +152,7 @@
     <string name="app_password_last_access">Last used: %1$s</string>
     <string name="generate_new_password">Generate new password</string>
     <string name="sign_in">Sign in</string>
+    <string name="not_signed_in">Not signed in</string>
     <string name="logout">Log out</string>
     <string name="logout_confirmation">Log out of %1$s?</string>
     <string name="logout_warning">All data for this account will be removed from your device</string>

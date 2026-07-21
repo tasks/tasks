@@ -323,7 +323,7 @@ val commonModule = module {
             override suspend fun clearDefaultList() {}
         }
     }
-    factory { FilterProvider(get(), get(), get(), get(), get(), get(), get()) }
+    factory { FilterProvider(get(), get(), get(), get(), get(), get(), get(), get()) }
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)
 

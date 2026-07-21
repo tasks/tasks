@@ -808,10 +808,9 @@ private fun TaskListScreen(
     val selectedTaskId = selectedTask?.taskId
 
     val onAddClick: (DrawerItem.Header) -> Unit = { header ->
-        if (header.header.addIntentRc == REQUEST_NEW_TAGS) {
-            showNewTag = true
-        } else {
-            header.header.id.toLongOrNull()?.let { newListAccountId = it }
+        when (header.header.addIntentRc) {
+            REQUEST_NEW_TAGS -> showNewTag = true
+            else -> header.header.id.toLongOrNull()?.let { newListAccountId = it }
         }
     }
 
@@ -836,6 +835,7 @@ private fun TaskListScreen(
             is DrawerItem.Header -> {
                 drawerViewModel.toggleCollapsed(item.header)
             }
+            is DrawerItem.SignIn -> {}
         }
     }
 
@@ -913,6 +913,7 @@ private fun TaskListScreen(
                                 onClick = onDrawerItemClick,
                                 onAddClick = onAddClick,
                                 onErrorClick = { /* TODO: show sync error */ },
+                                onSignIn = onAddAccount,
                                 expanded = sidebarExpanded,
                                 onExpandDrawer = { drawerViewModel.setSidebarExpanded(true) },
                                 listState = sidebarListState,
@@ -944,6 +945,7 @@ private fun TaskListScreen(
                         taskEditViewModel = taskEditViewModel,
                         listPickerViewModel = listPickerViewModel,
                         onCreateList = onCreateList,
+                        onSignIn = onAddAccount,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -980,6 +982,7 @@ private fun TaskListScreen(
                                     onClick = onDrawerItemClick,
                                     onAddClick = onAddClick,
                                     onErrorClick = { /* TODO: show sync error */ },
+                                    onSignIn = onAddAccount,
                                 )
                                 val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
                                 StatusBarScrim(
@@ -1015,6 +1018,7 @@ private fun TaskListScreen(
                         taskEditViewModel = taskEditViewModel,
                         listPickerViewModel = listPickerViewModel,
                         onCreateList = onCreateList,
+                        onSignIn = onAddAccount,
                         onSettingsClick = onSettingsClick,
                         showListSettings = editableCaldavFilter != null,
                         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
@@ -1178,6 +1182,7 @@ private fun TaskListContent(
     taskEditViewModel: TaskEditViewModel,
     listPickerViewModel: FilterPickerViewModel,
     onCreateList: (accountId: Long) -> Unit,
+    onSignIn: () -> Unit = {},
     onSettingsClick: () -> Unit,
     showListSettings: Boolean = false,
     onListSettingsClick: () -> Unit = {},
@@ -1222,6 +1227,7 @@ private fun TaskListContent(
                     remoteId = key.remoteId,
                     currentFilter = state.filter,
                     onCreateList = onCreateList,
+                    onSignIn = onSignIn,
                     onClose = {
                         scope.launch {
                             navigator.navigateBack(BackNavigationBehavior.PopLatest)

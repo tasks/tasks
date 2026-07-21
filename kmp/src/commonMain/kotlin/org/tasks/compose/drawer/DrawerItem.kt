@@ -30,5 +30,9 @@ sealed class DrawerItem {
         override fun key() = "header_${header.subheaderType}_${header.id}"
     }
 
+    data object SignIn : DrawerItem() {
+        override fun key() = "sign_in"
+    }
+
     abstract fun key(): String
 }

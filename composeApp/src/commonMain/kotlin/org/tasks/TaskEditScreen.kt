@@ -74,6 +74,7 @@ fun TaskEditScreen(
     remoteId: String,
     currentFilter: Filter? = null,
     onCreateList: (accountId: Long) -> Unit = {},
+    onSignIn: () -> Unit = {},
     onClose: () -> Unit,
 ) {
     LaunchedEffect(taskId, remoteId) {
@@ -250,6 +251,7 @@ fun TaskEditScreen(
                                     onCreateList(accountId)
                                 }
                             },
+                            onSignIn = onSignIn,
                             onDismiss = {
                                 showListPicker = false
                                 filterPickerViewModel.onQueryChange("")

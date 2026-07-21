@@ -30,6 +30,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.auth.SignInActivity
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.pickers.SearchableFilterPicker
 import org.tasks.data.dao.CaldavDao
@@ -61,6 +62,13 @@ class FilterSelectionActivity : AppCompatActivity() {
                 val viewModel: FilterPickerHiltViewModel = hiltViewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value
                 val scope = rememberCoroutineScope()
+                val signInLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        this@FilterSelectionActivity.recreate()
+                    }
+                }
                 val createListLauncher = rememberLauncherForActivityResult(
                     ActivityResultContracts.StartActivityForResult()
                 ) { result ->
@@ -107,7 +115,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                             viewModel.getColor(filter.tint, isDark) ?: onSurface
                         },
                         selected = selected,
-                        onAddClick = if (widgetId == -1) { header ->
+                        onAddClick = { header ->
                             scope.launch {
                                 val accountId = header.id.toLongOrNull() ?: return@launch
                                 val account = caldavDao.getAccount(accountId) ?: return@launch
@@ -118,7 +126,12 @@ class FilterSelectionActivity : AppCompatActivity() {
                                     ).putExtra(EXTRA_CALDAV_ACCOUNT, account)
                                 )
                             }
-                        } else null,
+                        },
+                        onSignIn = {
+                            signInLauncher.launch(
+                                Intent(this@FilterSelectionActivity, SignInActivity::class.java)
+                            )
+                        },
                         onClick = { filter ->
                             when (filter) {
                                 is NavigationDrawerSubheader -> {
