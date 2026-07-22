@@ -14,7 +14,6 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
 import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
-import org.tasks.LocalBroadcastManager
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
@@ -32,7 +31,6 @@ class SignInViewModel @Inject constructor(
     private val encryption: KeyStoreEncryption,
     private val debugConnectionBuilder: DebugConnectionBuilder,
     private val environment: TasksServerEnvironment,
-    private val localBroadcastManager: LocalBroadcastManager,
 ) : ViewModel() {
     var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
         private set
@@ -108,7 +106,6 @@ class SignInViewModel @Inject constructor(
                     ).let {
                         it.copy(id = caldavDao.insert(it))
                     }
-            localBroadcastManager.broadcastRefresh()
             account
         } catch (e: Exception) {
             Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")

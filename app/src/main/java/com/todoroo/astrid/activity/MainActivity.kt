@@ -104,7 +104,6 @@ import org.tasks.jobs.WorkManager
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
-import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
 import org.tasks.themes.ColorProvider
@@ -128,7 +127,6 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var alarmDao: AlarmDao
     @Inject lateinit var firebase: Firebase
     @Inject lateinit var caldavDao: CaldavDao
-    @Inject lateinit var syncAdapters: SyncAdapters
     @Inject lateinit var workManager: WorkManager
     @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var serverEnvironment: TasksServerEnvironment
@@ -431,16 +429,6 @@ class MainActivity : AppCompatActivity() {
                             Timber.d("CloudOnboarding: step=$step")
                         }
                         val currentStep = step ?: return@composable
-                        val signInLauncher = rememberLauncherForActivityResult(
-                            ActivityResultContracts.StartActivityForResult()
-                        ) { result ->
-                            Timber.d("CloudOnboarding: sign-in resultCode=${result.resultCode}")
-                            if (result.resultCode == RESULT_OK) {
-                                Timber.d("CloudOnboarding: sign-in succeeded, forcing sync")
-                                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                                workManager.updateBackgroundSync()
-                            }
-                        }
                         val createListLauncher = rememberLauncherForActivityResult(
                             ActivityResultContracts.StartActivityForResult()
                         ) { result ->
@@ -463,7 +451,7 @@ class MainActivity : AppCompatActivity() {
                             onSignIn = {
                                 Timber.d("CloudOnboarding: launching SignInActivity")
                                 onboardingViewModel.onSignInClicked()
-                                signInLauncher.launch(
+                                startActivity(
                                     Intent(this@MainActivity, SignInActivity::class.java)
                                 )
                             },

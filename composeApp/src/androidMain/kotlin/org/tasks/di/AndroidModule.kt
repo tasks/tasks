@@ -45,7 +45,7 @@ actual fun platformModule(): Module = module {
         }
     }
     single<KeyStoreEncryption> { AndroidKeyStoreEncryption() }
-    factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }
+    factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get()) }
     single<Database> {
         val context = androidContext()
         val dbFile = context.getDatabasePath(Database.NAME)

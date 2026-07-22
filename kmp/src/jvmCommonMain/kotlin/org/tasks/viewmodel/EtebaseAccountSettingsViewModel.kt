@@ -20,10 +20,8 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.etebase.EtebaseClientProvider
-import org.tasks.jobs.BackgroundWork
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskDeleter
-import org.tasks.sync.SyncSource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.etebase_url
 import tasks.kmp.generated.resources.error_adding_account
@@ -45,7 +43,6 @@ open class EtebaseAccountSettingsViewModel(
     private val clientProvider: EtebaseClientProvider,
     private val encryption: KeyStoreEncryption,
     private val taskDeleter: TaskDeleter,
-    private val backgroundWork: BackgroundWork,
     private val reporting: Reporting,
 ) : ViewModel() {
 
@@ -239,7 +236,6 @@ open class EtebaseAccountSettingsViewModel(
                     "type" to Constants.SYNC_TYPE_ETEBASE,
                 )
                 onComplete()
-                backgroundWork.sync(SyncSource.ACCOUNT_ADDED)
             } catch (e: Exception) {
                 handleError(e)
             } finally {

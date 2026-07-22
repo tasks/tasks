@@ -9,18 +9,14 @@ import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
-import org.tasks.jobs.BackgroundWork
-import org.tasks.sync.SyncAdapters
 import org.tasks.viewmodel.AddAccountViewModel as BaseAddAccountViewModel
 import kotlin.coroutines.cancellation.CancellationException
 
 class AddAccountViewModel(
     caldavDao: CaldavDao,
     purchaseState: PurchaseState,
-    syncAdapters: SyncAdapters,
-    backgroundWork: BackgroundWork,
     private val signInHandler: SignInHandler,
-) : BaseAddAccountViewModel(caldavDao, purchaseState, syncAdapters, backgroundWork) {
+) : BaseAddAccountViewModel(caldavDao, purchaseState) {
 
     sealed interface SignInState {
         data object Idle : SignInState

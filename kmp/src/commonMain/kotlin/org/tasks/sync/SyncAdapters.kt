@@ -5,7 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.tasks.broadcast.RefreshBroadcaster
@@ -54,6 +56,22 @@ class SyncAdapters(
                 .filter { it }
                 .conflate()
                 .collect { sync(SyncSource.TASK_CHANGE).join() }
+        }
+        scope.launch {
+            var previousCount = -1
+            caldavDao
+                .watchAccounts()
+                .map { it.size }
+                .distinctUntilChanged()
+                .collect { count ->
+                    backgroundWork.updateBackgroundSync()
+                    if (previousCount in 0..<count) {
+                        log.d { "account added ($previousCount -> $count), syncing" }
+                        refreshBroadcaster.broadcastRefresh()
+                        sync(SyncSource.ACCOUNT_ADDED)
+                    }
+                    previousCount = count
+                }
         }
     }
 

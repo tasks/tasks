@@ -12,8 +12,6 @@ import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.security.KeyStoreEncryption
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -29,7 +27,6 @@ class AndroidSignInHandler(
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
-    private val syncAdapters: SyncAdapters,
     private val caldavClientProvider: CaldavClientProvider,
 ) : SignInHandler {
 
@@ -88,7 +85,6 @@ class AndroidSignInHandler(
             provider = caldavClientProvider,
         )
         Logger.i(TAG) { "Account created successfully" }
-        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
         bringAppToForeground()
     }
 

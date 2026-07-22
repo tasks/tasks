@@ -2,6 +2,7 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,6 +15,8 @@ import org.tasks.compose.SubscriptionOnboardingStep
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
+
+private const val TAG = "SubscriptionOnboarding"
 
 open class SubscriptionOnboardingViewModel(
     private val caldavDao: CaldavDao,
@@ -81,6 +84,7 @@ open class SubscriptionOnboardingViewModel(
             resolvedInitialStep = true
             goToStep(state.initialStep)
         } else if (_step.value == SubscriptionOnboardingStep.WELCOME && state.hasTasksOrgAccount) {
+            Logger.d(tag = TAG) { "cloud onboarding sign-in succeeded" }
             reporting.logCloudOnboarding(AnalyticsEvents.CloudOnboarding.SIGNED_IN)
             goToStep(state.stepAfter(SubscriptionOnboardingStep.WELCOME))
         }

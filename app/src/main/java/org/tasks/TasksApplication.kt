@@ -149,7 +149,6 @@ class TasksApplication : Application(), Configuration.Provider {
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
         workManager.get().apply {
-            updateBackgroundSync()
             scheduleBackup()
             scheduleConfigRefresh()
             updatePurchases()

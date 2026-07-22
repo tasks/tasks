@@ -10,8 +10,6 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.googleapis.GoogleTasksTokenData
 import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.security.KeyStoreEncryption
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
@@ -21,7 +19,6 @@ class DesktopSignInHandler(
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
-    private val syncAdapters: SyncAdapters,
     private val caldavClientProvider: CaldavClientProvider,
     private val proxyAuthProvider: ProxyAuthProvider,
 ) : SignInHandler {
@@ -60,7 +57,6 @@ class DesktopSignInHandler(
             }
         }
         Logger.i(TAG) { "Account created successfully" }
-        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
         bringAppToForeground()
     }
 

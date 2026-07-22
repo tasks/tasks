@@ -25,10 +25,8 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
-import org.tasks.jobs.BackgroundWork
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskDeleter
-import org.tasks.sync.SyncSource
 import org.tasks.ui.DisplayableException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
@@ -54,7 +52,6 @@ open class CaldavAccountSettingsViewModel(
     private val caldavClientProvider: CaldavClientProvider,
     private val encryption: KeyStoreEncryption,
     private val taskDeleter: TaskDeleter,
-    private val backgroundWork: BackgroundWork,
     private val reporting: Reporting,
     private val tagMetadataSync: TagMetadataSync,
 ) : ViewModel() {
@@ -407,7 +404,6 @@ open class CaldavAccountSettingsViewModel(
                     }
                     if (!enabled) Logger.w { "metadata enable did not complete after a passing probe" }
                 }
-                backgroundWork.sync(SyncSource.ACCOUNT_ADDED)
                 onComplete()
             } catch (e: Exception) {
                 handleError(e)

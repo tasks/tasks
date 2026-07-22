@@ -440,7 +440,6 @@ val commonModule = module {
             caldavClientProvider = get(),
             encryption = get(),
             taskDeleter = get(),
-            backgroundWork = get(),
             reporting = get(),
             tagMetadataSync = get(),
         )
@@ -522,7 +521,6 @@ val commonModule = module {
             clientProvider = get(),
             encryption = get(),
             taskDeleter = get(),
-            backgroundWork = get(),
             reporting = get(),
         )
     }
