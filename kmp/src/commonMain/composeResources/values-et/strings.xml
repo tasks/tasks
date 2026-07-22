@@ -354,4 +354,5 @@
     <string name="next_saturday">Järgmine L</string>
     <string name="shortcut_pick_time">Vali aeg</string>
     <string name="no_time">Aega pole</string>
+    <string name="sync_metadata">Salvesta sildi metaandmed siia</string>
 </resources>
