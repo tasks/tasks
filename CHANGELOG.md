@@ -1,10 +1,12 @@
-### 15.8 (2026-07-19)
+### 15.8 (2026-07-22)
 
 * Sync tag info
   * Sync tag colors, icons, and order across devices
   * Renaming or deleting tags syncs across devices
   * Requires Tasks.org Cloud or CalDAV with compatible CalDAV server
   * Opt-in for CalDAV accounts - enable in account settings
+* Don't add default reminders to tasks from Nextcloud Tasks 0.17+ [#4498](https://github.com/tasks/tasks/issues/4498)
+* Fix database migration crash
 
 Desktop:
   * Add tag picker to edit screen
