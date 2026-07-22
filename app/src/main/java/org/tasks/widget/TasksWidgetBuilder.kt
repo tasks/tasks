@@ -191,6 +191,7 @@ internal class TasksWidgetBuilder(
                 } else {
                     setViewPadding(R.id.widget_complete_box, hPad, 0, 0, 0)
                     setBackgroundResource(R.id.widget_complete_box, 0)
+                    setImageViewResource(R.id.widget_complete_box, 0)
                 }
                 setViewPadding(R.id.top_padding, 0, settings.vPad, 0, 0)
                 setViewPadding(R.id.bottom_padding, 0, settings.vPad, 0, 0)
