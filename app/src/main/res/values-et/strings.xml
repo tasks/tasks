@@ -653,4 +653,5 @@
     <string name="read_more">Loe lisaks</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="legal_disclosure_prefix_using">Tasks.org-i kasutamisel</string>
+    <string name="sort_options">Järjestuse valikud</string>
 </resources>
