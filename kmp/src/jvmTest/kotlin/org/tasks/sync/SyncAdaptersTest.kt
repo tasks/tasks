@@ -28,6 +28,7 @@ import org.tasks.data.entity.SYNC_ALARMS
 import org.tasks.data.entity.SYNC_LOCATION
 import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.Task
+import org.tasks.wear.WearSyncNotifier
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SyncAdaptersTest {
@@ -48,6 +49,7 @@ class SyncAdaptersTest {
         timerPlugin = mock(),
         backgroundWork = mock(),
         caldavDao = caldavDao,
+        wearSyncNotifier = mock(),
     )
 
     @After

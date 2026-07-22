@@ -14,6 +14,7 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.filterPreferencesKey
 import org.tasks.preferences.FilterPreferences.Companion.delete
 import org.tasks.preferences.TasksPreferences
+import org.tasks.wear.WearSyncNotifier
 
 class TaskDeleter(
     private val deletionDao: DeletionDao,
@@ -23,6 +24,7 @@ class TaskDeleter(
     private val vtodoCache: VtodoCache,
     private val tasksPreferences: TasksPreferences,
     private val taskCleanup: TaskCleanup,
+    private val wearSyncNotifier: WearSyncNotifier,
 ) {
 
     suspend fun markMoved(taskIds: List<Long>) {
@@ -45,6 +47,11 @@ class TaskDeleter(
             cleanup = { taskCleanup.cleanup(it) }
         )
         refreshBroadcaster.broadcastRefresh()
+        ids.forEach { id ->
+            try {
+                wearSyncNotifier.notifyTaskDeleted(id)
+            } catch (_: Exception) {}
+        }
         taskDao.fetch(ids)
     }
 
@@ -59,6 +66,11 @@ class TaskDeleter(
             cleanup = { taskCleanup.cleanup(it) }
         )
         refreshBroadcaster.broadcastRefresh()
+        tasks.forEach { id ->
+            try {
+                wearSyncNotifier.notifyTaskDeleted(id)
+            } catch (_: Exception) {}
+        }
     }
 
     suspend fun delete(list: CaldavCalendar) {

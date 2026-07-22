@@ -7,6 +7,7 @@ import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.service.AndroidCleanup
 import com.todoroo.astrid.timers.TimerPlugin
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +49,9 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.VtodoCache
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.R
+import org.tasks.wear.WearSyncNotifier
+import org.tasks.wear.WearSyncNotifierImpl
+import org.tasks.wear.WearRefresher
 import org.tasks.data.OpenTaskDao
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.opentasks.OpenTasksSynchronizer
@@ -488,6 +492,12 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun providesWearSyncNotifier(
+        wearRefresher: Lazy<WearRefresher>,
+    ): WearSyncNotifier = WearSyncNotifierImpl(wearRefresher)
+
+    @Provides
+    @Singleton
     fun providesTaskSaver(
         taskDao: TaskDao,
         refreshBroadcaster: RefreshBroadcaster,
@@ -496,7 +506,8 @@ class ApplicationModule {
         timerPlugin: TimerPlugin,
         backgroundWork: BackgroundWork,
         caldavDao: CaldavDao,
-    ) = TaskSaver(taskDao, refreshBroadcaster, notifier, locationService, timerPlugin, backgroundWork, caldavDao)
+        wearSyncNotifier: WearSyncNotifier,
+    ) = TaskSaver(taskDao, refreshBroadcaster, notifier, locationService, timerPlugin, backgroundWork, caldavDao, wearSyncNotifier)
 
     @Provides
     fun providesTimerPlugin(
@@ -586,7 +597,8 @@ class ApplicationModule {
         vtodoCache: VtodoCache,
         tasksPreferences: TasksPreferences,
         taskCleanup: TaskCleanup,
-    ) = TaskDeleter(deletionDao, taskDao, caldavDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup)
+        wearSyncNotifier: WearSyncNotifier,
+    ) = TaskDeleter(deletionDao, taskDao, caldavDao, refreshBroadcaster, vtodoCache, tasksPreferences, taskCleanup, wearSyncNotifier)
 
     @Provides
     fun providesTaskMigrator(
