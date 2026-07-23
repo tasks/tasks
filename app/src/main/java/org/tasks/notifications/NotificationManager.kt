@@ -375,18 +375,26 @@ class NotificationManager @Inject constructor(
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 )
         )
-        if (type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT) {
-            val place = locationDao.getPlace(notification.location!!)
-            if (place != null) {
-                builder.setContentText(
-                        context.getString(
-                                if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
-                                place.displayName))
+        when {
+            type == Alarm.TYPE_SNOOZE -> {
+                builder.setContentText(context.getString(R.string.snoozed_reminder))
             }
-        } else if (taskDescription?.isNotBlank() == true) {
-            builder
+            type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT -> {
+                val place = locationDao.getPlace(notification.location!!)
+                if (place != null) {
+                    builder.setContentText(
+                        context.getString(
+                            if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
+                            place.displayName
+                        )
+                    )
+                }
+            }
+            taskDescription?.isNotBlank() == true -> {
+                builder
                     .setContentText(taskDescription)
                     .setStyle(NotificationCompat.BigTextStyle().bigText(taskDescription))
+            }
         }
         val completeIntent = Intent(context, CompleteTaskReceiver::class.java)
         completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id)
