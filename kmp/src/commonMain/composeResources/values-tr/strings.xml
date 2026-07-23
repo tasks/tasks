@@ -354,4 +354,11 @@
     <string name="next_saturday">Sonraki Cts</string>
     <string name="shortcut_pick_time">Zaman seç</string>
     <string name="no_time">Zaman yok</string>
+    <string name="sync_metadata">Etiket üst verilerini burada sakla</string>
+    <string name="sync_metadata_summary">Etiket adlarını, renklerini, simgelerini ve görüntülenme sırasını bu hesapta saklayın, böylece tüm aygıtlarınızda eşzamanlanırlar</string>
+    <string name="metadata_stored_on_tasks_org">Tasks.org hesabınızda saklanıyor</string>
+    <string name="metadata_stored_on_account">%1$s hesabında saklanıyor</string>
+    <string name="metadata_move_message">Etiket üst verileri şu anda %1$s hesabında saklanıyor. Bu hesaba taşımak ister misiniz?</string>
+    <string name="metadata_not_supported">Bu sunucu etiket üst verilerinin eşzamanlanmasını desteklemiyor</string>
+    <string name="add_tag">Etiket ekle</string>
 </resources>
