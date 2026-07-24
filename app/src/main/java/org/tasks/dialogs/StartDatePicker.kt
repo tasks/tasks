@@ -34,7 +34,8 @@ import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.notifications.NotificationManager
 import org.tasks.themes.TasksTheme
-import org.tasks.time.DateTime
+import org.tasks.time.toLocalDateMillis
+import org.tasks.time.toUtcDateMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -164,17 +165,17 @@ class StartDatePicker : BaseDateTimePicker() {
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
-                    state.selectedDateMillis = DateTime.toUtcDateMillis(selectedDay)
+                    state.selectedDateMillis = selectedDay.toUtcDateMillis()
                 } else {
                     state.selectedDateMillis = null
                 }
             }
             LaunchedEffect(state.selectedDateMillis) {
-                if (selectedDay > 0 && state.selectedDateMillis == DateTime.toUtcDateMillis(selectedDay)) {
+                if (selectedDay > 0 && state.selectedDateMillis == selectedDay.toUtcDateMillis()) {
                     return@LaunchedEffect
                 }
                 state.selectedDateMillis?.let {
-                    returnDate(day = DateTime.toLocalDateMillis(it))
+                    returnDate(day = it.toLocalDateMillis())
                 }
             }
         }

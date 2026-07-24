@@ -50,12 +50,13 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.notifications.NotificationManager
 import org.tasks.themes.TasksTheme
-import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.millisOfDay
 import org.tasks.time.noon
 import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
+import org.tasks.time.toLocalDateMillis
+import org.tasks.time.toUtcDateMillis
 import org.tasks.time.withMillisOfDay
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -172,7 +173,7 @@ class DateTimePicker : BaseDateTimePicker() {
             )
             LaunchedEffect(selectedDay) {
                 if (selectedDay > 0) {
-                    DateTime.toUtcDateMillis(selectedDay).let {
+                    selectedDay.toUtcDateMillis().let {
                         datePickerState.displayedMonthMillis = it
                         datePickerState.selectedDateMillis = it
                     }
@@ -181,11 +182,11 @@ class DateTimePicker : BaseDateTimePicker() {
                 }
             }
             LaunchedEffect(datePickerState.selectedDateMillis) {
-                if (selectedDay > 0 && datePickerState.selectedDateMillis == DateTime.toUtcDateMillis(selectedDay)) {
+                if (selectedDay > 0 && datePickerState.selectedDateMillis == selectedDay.toUtcDateMillis()) {
                     return@LaunchedEffect
                 }
                 datePickerState.selectedDateMillis?.let {
-                    returnDate(day = DateTime.toLocalDateMillis(it))
+                    returnDate(day = it.toLocalDateMillis())
                 }
             }
         }

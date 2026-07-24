@@ -5,6 +5,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.atTime
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
@@ -145,6 +146,19 @@ val Long.minuteOfHour: Int
 
 val Long.year: Int
     get() = if (this > 0) toLocalDateTime().year else 0
+
+fun Long.toUtcDateMillis(): Long =
+    toLocalDateTime()
+        .date
+        .atStartOfDayIn(TimeZone.UTC)
+        .toEpochMilliseconds()
+
+fun Long.toLocalDateMillis(): Long =
+    Instant.fromEpochMilliseconds(this)
+        .toLocalDateTime(TimeZone.UTC)
+        .date
+        .atStartOfDayIn(TimeZone.currentSystemDefault())
+        .toEpochMilliseconds()
 
 private fun Long.toLocalDateTime(): LocalDateTime =
     Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.currentSystemDefault())

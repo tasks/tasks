@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.tasks.R
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTime
+import org.tasks.time.toLocalDateMillis
+import org.tasks.time.toUtcDateMillis
 import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +32,7 @@ fun DatePickerDialog(
 ) {
     val initialDateUTC by remember(initialDate) {
         derivedStateOf {
-            DateTime.toUtcDateMillis(initialDate)
+            initialDate.toUtcDateMillis()
         }
     }
     val datePickerState = rememberDatePickerState(
@@ -53,7 +55,7 @@ fun DatePickerDialog(
                     onClick = {
                         datePickerState
                             .selectedDateMillis
-                            ?.let { selected(DateTime.toLocalDateMillis(it)) }
+                            ?.let { selected(it.toLocalDateMillis()) }
                     }
                 ) {
                     Text(text = stringResource(id = R.string.ok))

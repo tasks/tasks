@@ -10,17 +10,17 @@ class DatePickerConversionTest {
         DateTime(year, month, day, timeZone = DateTime.UTC).millis
 
     private fun startOfDay(year: Int, month: Int, day: Int): Long =
-        DateTime(year, month, day).millis
+        DateTime(year, month, day).millis.startOfDay()
 
     private fun assertRoundTrip(year: Int, month: Int, day: Int, msg: String = "") {
         val label = msg.ifEmpty { "$year-${"%02d".format(month)}-${"%02d".format(day)}" }
         val local = startOfDay(year, month, day)
-        assertEquals(label, local, DateTime.toLocalDateMillis(DateTime.toUtcDateMillis(local)))
+        assertEquals(label, local, local.toUtcDateMillis().toLocalDateMillis())
     }
 
     private fun assertForwardGivesMidnightUtc(year: Int, month: Int, day: Int) {
         val local = startOfDay(year, month, day)
-        assertEquals(midnightUtc(year, month, day), DateTime.toUtcDateMillis(local))
+        assertEquals(midnightUtc(year, month, day), local.toUtcDateMillis())
     }
 
     // -- Asia/Beirut: midnight spring-forward, last Sunday of March --
@@ -178,5 +178,17 @@ class DatePickerConversionTest {
     @Test
     fun utc_roundTrip() = withTZ("UTC") {
         assertRoundTrip(2026, 3, 29)
+    }
+
+    @Test
+    fun havana_fallBackThroughMidnight() = withTZ("America/Havana") {
+        assertRoundTrip(2026, 11, 1)
+        assertRoundTrip(2025, 11, 2)
+    }
+
+    @Test
+    fun azores_fallBackThroughMidnight() = withTZ("Atlantic/Azores") {
+        assertRoundTrip(2026, 10, 25)
+        assertRoundTrip(2025, 10, 26)
     }
 }
