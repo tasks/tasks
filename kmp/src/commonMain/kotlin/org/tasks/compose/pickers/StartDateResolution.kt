@@ -51,8 +51,8 @@ fun resolveStartDate(day: StartDate, time: Int, dueDate: Long): Long {
     val due = dueDate.takeIf { it > 0 }
     val resolved = when (day) {
         StartDate.None -> 0L
+        StartDate.DueTime -> return due ?: 0L
         StartDate.DueDate -> due?.withStartTime(time) ?: 0L
-        StartDate.DueTime -> due ?: 0L
         StartDate.DayBeforeDue -> due?.minusDays(1)?.withStartTime(time) ?: 0L
         StartDate.WeekBeforeDue -> due?.minusDays(7)?.withStartTime(time) ?: 0L
         is StartDate.Absolute -> day.startOfDay.withStartTime(time)
@@ -68,6 +68,20 @@ fun Long.withTimeMarkerOr(floor: (Long) -> Long): Long = when {
     Task.hasDueTime(this) -> startOfMinute() + 1000
     else -> floor(this)
 }
+
+fun initialStartSelection(
+    hideUntil: Long,
+    dueDate: Long,
+    isNew: Boolean,
+    defaultHideUntil: Int,
+): Pair<Long, Int> = when {
+    hideUntil > 0 -> startSelectionDays(hideUntil, dueDate)
+    isNew -> defaultHideUntilDay(defaultHideUntil) to NO_TIME
+    else -> NO_DAY to NO_TIME
+}
+
+fun startSelectionDays(hideUntil: Long, dueDate: Long): Pair<Long, Int> =
+    startDateSelection(hideUntil, dueDate).let { it.day.toStartDay() to it.time }
 
 fun startDateSelection(hideUntil: Long, dueDate: Long): StartDateSelection {
     if (hideUntil <= 0) return StartDateSelection(StartDate.None, NO_TIME)

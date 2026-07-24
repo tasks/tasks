@@ -9,13 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
-import kotlinx.serialization.json.Json
 import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
@@ -24,8 +24,11 @@ import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.iCalendar
 import org.tasks.calendars.CalendarHelper
+import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.data.MergedGeofence
+import org.tasks.data.TaskCreator
+import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
@@ -34,24 +37,23 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.TaskCreator
-import org.tasks.data.TaskMover
-import org.tasks.data.getLocalList
-import org.tasks.etebase.EtebaseSynchronizer
-import org.tasks.googleapis.DefaultListProvider
-import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
-import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
+import org.tasks.data.getLocalList
+import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.filters.FilterProvider
+import org.tasks.googleapis.DefaultListProvider
+import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
 import org.tasks.jobs.BackgroundWork
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
+import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DataStoreQueryPreferences
+import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
@@ -61,29 +63,28 @@ import org.tasks.service.TaskDeleter
 import org.tasks.service.TaskMigrator
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
-import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
+import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
+import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
-import org.tasks.viewmodel.LocalListSettingsViewModel
-import org.tasks.viewmodel.OpenTaskAccountViewModel
-import org.tasks.viewmodel.TagSettingsViewModel
-import org.tasks.viewmodel.DrawerViewModel
-import org.tasks.viewmodel.FilterPickerViewModel
-import org.tasks.viewmodel.SortSettingsViewModel
-import org.tasks.tags.TagPickerViewModel
-import org.tasks.viewmodel.TaskEditViewModel
-import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
+import org.tasks.viewmodel.LocalAccountViewModel
+import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
-import org.tasks.viewmodel.TasksAccountViewModel
+import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.viewmodel.TagSettingsViewModel
+import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
+import org.tasks.viewmodel.TasksAccountViewModel
 
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
@@ -158,6 +159,15 @@ val commonModule = module {
             override suspend fun defaultPriority() = 0
             override suspend fun isCurrentlyQuietHours() = false
             override suspend fun adjustForQuietHours(time: Long) = time
+            // TODO: populate the remaining DatePickerPreferences fields
+            override suspend fun datePickerPreferences() = DatePickerPreferences(
+                datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
+                timePickerInputMode = tasksPreferences.get(TasksPreferences.timePickerInputMode, false),
+            )
+            override suspend fun setDatePickerInputMode(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.datePickerInputMode, value)
+            override suspend fun setTimePickerInputMode(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.timePickerInputMode, value)
         }
     }
     factory<TaskCleanup> { object : TaskCleanup {} }
@@ -372,6 +382,8 @@ val commonModule = module {
             taskMover = get(),
             tagDao = get(),
             tagDataDao = get(),
+            appPreferences = get(),
+            externalScope = get(),
         )
     }
     viewModel {

@@ -79,5 +79,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val metadataStoreAccount = longPreferencesKey("metadata_store_account")
         val metadataRev = stringPreferencesKey("metadata_rev")
         val metadataOrderDirty = booleanPreferencesKey("metadata_order_dirty")
+        val datePickerInputMode = booleanPreferencesKey("date_picker_input_mode")
+        val timePickerInputMode = booleanPreferencesKey("time_picker_input_mode")
     }
 }

@@ -9,11 +9,9 @@ import org.tasks.R
 import org.tasks.data.entity.Task
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
-import org.tasks.compose.pickers.defaultHideUntilDay
+import org.tasks.compose.pickers.initialStartSelection
 import org.tasks.compose.pickers.resolveStartDate
-import org.tasks.compose.pickers.startDateSelection
 import org.tasks.compose.pickers.startDayOf
-import org.tasks.compose.pickers.toStartDay
 import org.tasks.preferences.Preferences
 import javax.inject.Inject
 
@@ -30,15 +28,16 @@ class StartDateViewModel @Inject constructor(
         get() = _selectedTime.asStateFlow()
 
     fun init(dueDate: Long, startDate: Long, isNew: Boolean) {
-        if (startDate > 0) {
-            val selection = startDateSelection(startDate, dueDate)
-            _selectedDay.value = selection.day.toStartDay()
-            _selectedTime.value = selection.time
-        } else if (isNew) {
-            _selectedDay.value = defaultHideUntilDay(
-                preferences.getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE)
-            )
-        }
+        val (day, time) = initialStartSelection(
+            hideUntil = startDate,
+            dueDate = dueDate,
+            isNew = isNew,
+            defaultHideUntil = preferences.getIntegerFromString(
+                R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE
+            ),
+        )
+        _selectedDay.value = day
+        _selectedTime.value = time
     }
 
     fun setSelected(selectedDay: Long, selectedTime: Int) {

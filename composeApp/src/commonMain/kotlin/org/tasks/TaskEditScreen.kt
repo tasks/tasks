@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,12 +43,19 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.DescriptionRow
+import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
+import org.tasks.compose.edit.StartDateRow
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
 import org.tasks.compose.edit.TaskEditCardRow
+import org.tasks.compose.pickers.DueDatePickerSheet
+import org.tasks.compose.pickers.StartDatePickerSheet
+import org.tasks.compose.pickers.dueDateFromSelection
+import org.tasks.compose.pickers.dueDateToSelection
+import org.tasks.time.is24HourFormat
 import org.tasks.compose.settings.Toaster
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
@@ -60,6 +68,7 @@ import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.edit_task
+import tasks.kmp.generated.resources.failed_to_load_task
 import tasks.kmp.generated.resources.failed_to_save_task
 import tasks.kmp.generated.resources.new_task
 import tasks.kmp.generated.resources.no_list_available
@@ -87,6 +96,7 @@ fun TaskEditScreen(
         viewModel.closeEvents.collect { currentOnClose() }
     }
     val snackbarHostState = remember { SnackbarHostState() }
+    val loadError by viewModel.loadError.collectAsState()
     val saveError by viewModel.saveError.collectAsState()
     val saveErrorMessage = stringResource(Res.string.failed_to_save_task)
     LaunchedEffect(saveError) {
@@ -131,6 +141,14 @@ fun TaskEditScreen(
                 state.isLoading -> CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center),
                 )
+                loadError -> Text(
+                    text = stringResource(Res.string.failed_to_load_task),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(16.dp),
+                )
                 state.list == null -> Text(
                     text = stringResource(Res.string.no_list_available),
                     style = MaterialTheme.typography.bodyMedium,
@@ -163,7 +181,11 @@ fun TaskEditScreen(
                     }
                     var showListPicker by remember { mutableStateOf(false) }
                     var showTagPicker by remember { mutableStateOf(false) }
+                    var showDueDatePicker by remember { mutableStateOf(false) }
+                    var showStartDatePicker by remember { mutableStateOf(false) }
                     var pickerToken by remember { mutableStateOf(0) }
+                    val is24Hour = is24HourFormat()
+                    val keyboardController = LocalSoftwareKeyboardController.current
                     LaunchedEffect(list) { showListPicker = false }
                     Column(
                         modifier = Modifier
@@ -186,6 +208,29 @@ fun TaskEditScreen(
                             iconTint = listTint,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        StartDateRow(
+                            startDate = state.task.hideUntil,
+                            selectedDay = state.startDay,
+                            selectedTime = state.startTime,
+                            hasDueDate = state.task.dueDate > 0,
+                            is24Hour = is24Hour,
+                            alwaysDisplayFullDate = state.datePickerPreferences.alwaysDisplayFullDate,
+                            onClick = {
+                                keyboardController?.hide()
+                                showStartDatePicker = true
+                            },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        DueDateRow(
+                            dueDate = state.task.dueDate,
+                            is24Hour = is24Hour,
+                            alwaysDisplayFullDate = state.datePickerPreferences.alwaysDisplayFullDate,
+                            onClick = {
+                                keyboardController?.hide()
+                                showDueDatePicker = true
+                            },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
                         TagsSection(
                             tags = state.tags,
                             colorProvider = tagChipColorProvider,
@@ -204,6 +249,45 @@ fun TaskEditScreen(
                         DescriptionRow(
                             description = state.task.notes.orEmpty(),
                             onDescriptionChange = viewModel::setDescription,
+                        )
+                    }
+                    if (showDueDatePicker) {
+                        val (initialDay, initialTime) = dueDateToSelection(state.task.dueDate)
+                        // TODO: both date pickers hard-code autoClose
+                        DueDatePickerSheet(
+                            initialDay = initialDay,
+                            initialTime = initialTime,
+                            is24Hour = is24Hour,
+                            showNoDate = !state.task.isRecurring,
+                            times = state.datePickerPreferences.quickPickTimes,
+                            initialDateInputMode = state.datePickerPreferences.datePickerInputMode,
+                            onDateInputModeChange = viewModel::setDatePickerInputMode,
+                            initialTimeInputMode = state.datePickerPreferences.timePickerInputMode,
+                            onTimeInputModeChange = viewModel::setTimePickerInputMode,
+                            onSelected = { day, time ->
+                                viewModel.setDueDate(dueDateFromSelection(day, time))
+                                showDueDatePicker = false
+                            },
+                            onDismiss = { showDueDatePicker = false },
+                        )
+                    }
+                    if (showStartDatePicker) {
+                        StartDatePickerSheet(
+                            initialDay = state.startDay,
+                            initialTime = state.startTime,
+                            is24Hour = is24Hour,
+                            autoClose = false,
+                            showDueDate = state.list?.account?.isOpenTasks != true,
+                            times = state.datePickerPreferences.quickPickTimes,
+                            initialDateInputMode = state.datePickerPreferences.datePickerInputMode,
+                            onDateInputModeChange = viewModel::setDatePickerInputMode,
+                            initialTimeInputMode = state.datePickerPreferences.timePickerInputMode,
+                            onTimeInputModeChange = viewModel::setTimePickerInputMode,
+                            onSelected = { day, time ->
+                                viewModel.setStartDate(day, time)
+                                showStartDatePicker = false
+                            },
+                            onDismiss = { showStartDatePicker = false },
                         )
                     }
                     if (showTagPicker) {

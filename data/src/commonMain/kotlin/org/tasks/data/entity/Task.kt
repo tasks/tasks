@@ -185,7 +185,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
             false
         } else title == original.title
                 && priority == original.priority
-                && hideUntil == original.hideUntil
                 && dueDate == original.dueDate
                 && completionDate == original.completionDate
                 && deletionDate == original.deletionDate

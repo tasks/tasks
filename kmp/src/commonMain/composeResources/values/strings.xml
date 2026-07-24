@@ -43,6 +43,7 @@
     <string name="no_list_available">No list available</string>
     <string name="save">Save</string>
     <string name="failed_to_save_task">Failed to save task</string>
+    <string name="failed_to_load_task">Failed to load task</string>
     <string name="enter_title">Enter title</string>
     <string name="sort_mode">Sort</string>
     <string name="group_mode">Group</string>

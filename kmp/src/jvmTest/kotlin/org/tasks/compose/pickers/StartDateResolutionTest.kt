@@ -84,10 +84,10 @@ class StartDateResolutionTest {
     }
 
     @Test
-    fun dueTimeOnDateOnlyDueIsNotAnInverse() {
+    fun dueTimeRoundTripsOnDateOnlyDue() {
         val hideUntil = resolveStartDate(StartDate.DueTime, NO_TIME, dueNoon)
-        assertEquals(dueNoon.startOfDay(), hideUntil)
-        assertEquals(StartDateSelection(StartDate.DueDate, NO_TIME), startDateSelection(hideUntil, dueNoon))
+        assertEquals(dueNoon, hideUntil)
+        assertEquals(StartDateSelection(StartDate.DueTime, NO_TIME), startDateSelection(hideUntil, dueNoon))
     }
 
     @Test

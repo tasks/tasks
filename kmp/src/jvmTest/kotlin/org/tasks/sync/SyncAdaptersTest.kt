@@ -311,6 +311,36 @@ class SyncAdaptersTest {
     }
 
     @Test
+    fun caldavSyncsOnStartDateChange() = runTest(testDispatcher) {
+        val task = createTask()
+        setupAccount(task.id, TYPE_CALDAV)
+
+        taskSaver.save(task, task.copy(hideUntil = 12345L))
+
+        assertDirty(task.id)
+    }
+
+    @Test
+    fun googleTasksIgnoresStartDateChange() = runTest(testDispatcher) {
+        val task = createTask()
+        setupAccount(task.id, TYPE_GOOGLE_TASKS)
+
+        taskSaver.save(task, task.copy(hideUntil = 12345L))
+
+        assertNotDirty(task.id)
+    }
+
+    @Test
+    fun microsoftIgnoresStartDateChange() = runTest(testDispatcher) {
+        val task = createTask()
+        setupAccount(task.id, TYPE_MICROSOFT)
+
+        taskSaver.save(task, task.copy(hideUntil = 12345L))
+
+        assertNotDirty(task.id)
+    }
+
+    @Test
     fun tasksOrgSyncsOnTagChange() = runTest(testDispatcher) {
         val task = createTask()
         setupAccount(task.id, TYPE_TASKS)

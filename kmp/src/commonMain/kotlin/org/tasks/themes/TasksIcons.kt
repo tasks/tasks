@@ -8,6 +8,7 @@ object TasksIcons {
     const val LABEL_OFF = "label_off"
     const val HISTORY = "history"
     const val TODAY = "today"
+    const val SCHEDULE = "schedule"
     const val LIST = "list"
     const val PLACE = "location_on"
     const val CLOUD_OFF = "cloud_off"

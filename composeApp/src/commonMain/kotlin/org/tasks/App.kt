@@ -185,6 +185,7 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.dueDateOverdue
 import org.tasks.time.startOfDay
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
@@ -2018,8 +2019,7 @@ private fun TaskRow(
                     getRelativeDateTime(task.dueDate, is24Hour)
                 }
             }
-            val isOverdue = task.hasDueDate() && !task.isCompleted
-                    && task.dueDate < (if (task.hasDueTime()) currentTimeMillis() else currentTimeMillis().startOfDay())
+            val isOverdue = !task.isCompleted && dueDateOverdue(task.dueDate)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val titleColor = if (task.isCompleted || task.task.isHidden) {
                     MaterialTheme.colorScheme.outline

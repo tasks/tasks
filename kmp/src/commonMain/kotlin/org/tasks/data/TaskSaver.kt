@@ -55,6 +55,9 @@ class TaskSaver(
         if (transitoryChanged) {
             return true
         }
+        if (original != null && SyncTrait.START_DATE in traits && task.hideUntil != original.hideUntil) {
+            return true
+        }
         return when (accountType) {
             TYPE_LOCAL -> false
             TYPE_GOOGLE_TASKS -> !task.googleTaskUpToDate(original)
