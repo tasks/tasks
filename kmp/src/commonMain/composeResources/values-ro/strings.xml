@@ -238,4 +238,5 @@
     <string name="shortcut_pick_time">Ora de preluare</string>
     <string name="no_time">Fără timp</string>
     <string name="TEA_note_label">Descriere</string>
+    <string name="start_date">Data începerii</string>
 </resources>

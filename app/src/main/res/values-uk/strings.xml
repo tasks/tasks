@@ -385,8 +385,6 @@
     <string name="calendar_event_created">В календарі створено подію для %s</string>
     <string name="auto_dismiss_datetime_summary">Закривати вибір дати й часу після встановлення дати або часу</string>
     <string name="auto_dismiss_datetime">Автоматично закривати вибір дати й часу</string>
-    <string name="shortcut_pick_time">Оберіть час</string>
-    <string name="no_time">Без часу</string>
     <string name="no_date">Без дати</string>
     <string name="chip_appearance_icon_only">Лише піктограми</string>
     <string name="chip_appearance_text_only">Лише текст</string>
@@ -424,7 +422,6 @@
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
     <string name="custom_filter_is_subtask">Підзавдання</string>
     <string name="custom_filter_has_subtask">Є підзавдання</string>
-    <string name="date_picker_multiple">Декілька</string>
     <string name="multi_select_reschedule">Перенести</string>
     <string name="backup_location_warning">УВАГА: Файли, розташовані у %s, будуть видалені у разі видалення Tasks! Оберіть інше розташування, щоб Android не видалив ваші файли.</string>
     <string name="backups_ignore_warnings_summary">Ігнорувати попередження щодо резервного копіювання, якщо вам не потрібні резервні копії або є власне рішення для резервного копіювання</string>
@@ -526,13 +523,6 @@
     <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
     <string name="upgrade_more_customization">Більше налаштувань</string>
     <string name="pro_free_trial">Нові передплатники отримують 7-денну безплатну пробну версію. Скасувати її можна в будь-який час</string>
-    <string name="next_saturday">Наступної Сб</string>
-    <string name="next_friday">Наступної Пт</string>
-    <string name="next_thursday">Наступного Чт</string>
-    <string name="next_wednesday">Наступної Ср</string>
-    <string name="next_tuesday">Наступного Вт</string>
-    <string name="next_monday">Наступного Пн</string>
-    <string name="next_sunday">Наступної Нд</string>
     <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
     <string name="markdown">Markdown</string>
     <string name="now">Зараз</string>

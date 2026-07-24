@@ -36,7 +36,6 @@
     <string name="TEA_elapsedDuration_label">Χρόνος που ήδη πέρασε</string>
     <string name="TEA_timer_est">Εκτιμώμενο %s</string>
     <string name="TEA_timer_elap">Πέρασε %s</string>
-    <string name="no_time">Χωρίς ώρα</string>
     <string name="due_date">Ημερομηνία λήξης</string>
     <string name="due_time">Ώρα λήξης</string>
     <string name="day_before_due">Μια ημέρα πριν τη λήξη</string>
@@ -273,13 +272,6 @@
         <item quantity="other">%d εργασίες</item>
     </plurals>
     <string name="now">Τώρα</string>
-    <string name="next_sunday">Επόμενη Κυρ</string>
-    <string name="next_monday">Επόμενη Δευτ</string>
-    <string name="next_tuesday">Επόμενη Τρι</string>
-    <string name="next_wednesday">Επόμενη Τετ</string>
-    <string name="next_thursday">Επόμενη Πεμ</string>
-    <string name="next_friday">Επόμενη Παρ</string>
-    <string name="next_saturday">Επόμενο Σαβ</string>
     <string name="yesterday">Εχθές</string>
     <string name="widget_show_header">Εμφάνιση επικεφαλίδας</string>
     <string name="widget_show_settings">Εμφάνιση ρυθμίσεων</string>
@@ -431,7 +423,6 @@
     <string name="chip_appearance_text_and_icon">Κείμενο και εικονίδιο</string>
     <string name="chip_appearance_text_only">Κείμενο μόνο</string>
     <string name="chip_appearance_icon_only">Εικονίδιο μόνο</string>
-    <string name="shortcut_pick_time">Επιλογή ώρας</string>
     <string name="auto_dismiss_datetime">Αυτόματο κλείσιμο επιλογέα ημερομηνίας ώρας</string>
     <string name="auto_dismiss_datetime_list">Λίστα εργασιών</string>
     <string name="auto_dismiss_datetime_list_summary">Αυτόματο κλείσιμο όταν γίνεται επιλογή από τη λίστα εργασιών</string>
@@ -488,7 +479,6 @@
     <string name="backups_ignore_warnings_summary">Αγνοήστε τις προειδοποιήσεις δημιουργίας αντιγράφων ασφαλείας εάν δεν χρειάζεστε αντίγραφα ασφαλείας ή εάν έχετε τη δική σας λύση δημιουργίας αντιγράφων ασφαλείας</string>
     <string name="backup_location_warning">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: Τα αρχεία που βρίσκονται στο %s θα διαγραφούν εάν απεγκατασταθεί το Tasks! Παρακαλούμε επιλέξτε μια προσαρμοσμένη θέση για να αποτρέψετε το Android από τη διαγραφή των αρχείων σας.</string>
     <string name="multi_select_reschedule">Επαναπρογραμματισμός</string>
-    <string name="date_picker_multiple">Πολλαπλά</string>
     <string name="custom_filter_has_subtask">Περιλαμβάνει υποεργασίες</string>
     <string name="custom_filter_is_subtask">Είναι υποεργασία</string>
     <string name="custom_filter_has_reminder">Περιλαμβάνει υπενθύμιση</string>

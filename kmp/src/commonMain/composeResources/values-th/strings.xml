@@ -191,4 +191,5 @@
     <string name="shortcut_pick_time">เลือกเวลา</string>
     <string name="no_time">ไม่มีเวลา</string>
     <string name="TEA_note_label">บันทึกย่อ</string>
+    <string name="start_date">วันที่เริ่มต้น</string>
 </resources>

@@ -387,8 +387,6 @@
     <string name="chip_appearance_text_and_icon">Testua eta ikonoa</string>
     <string name="chip_appearance_text_only">Testua soilik</string>
     <string name="chip_appearance_icon_only">Ikonoa soilik</string>
-    <string name="shortcut_pick_time">Hautatu ordua</string>
-    <string name="no_time">Ordurik ez</string>
     <string name="no_date">Datarik ez</string>
     <string name="auto_dismiss_datetime_summary">Itxi data/ordu hautatzailea behin data eta ordua hautatuta</string>
     <string name="auto_dismiss_datetime">Automatikoki itxi data/ordu hautatzailea</string>
@@ -454,7 +452,6 @@
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>
     <string name="custom_filter_has_subtask">Azpizereginak dauzka</string>
-    <string name="date_picker_multiple">Hainbat</string>
     <string name="multi_select_reschedule">Birprogramatu</string>
     <string name="backup_location_warning">ABISUA: %s helbideko fitxategiak ezabatuko dira Tasks desinstalatzen bada! AUkeratu kokaleku pertsonalizatu bat Androidek zure fitxategiak ezabatzea eragozteko.</string>
     <string name="backups_ignore_warnings_summary">Ezikusi babeskopiari buruzko abisuak ez badituzu babeskopiak behar edo babeskopietarako beste irtenbideren bat ezarri baduzu</string>
@@ -515,13 +512,6 @@
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
-    <string name="next_saturday">Hurrengo larunbata</string>
-    <string name="next_friday">Hurrengo ostirala</string>
-    <string name="next_thursday">Hurrengo osteguna</string>
-    <string name="next_wednesday">Hurrengo asteazkena</string>
-    <string name="next_tuesday">Hurrengo asteartea</string>
-    <string name="next_monday">Hurrengo astelehena</string>
-    <string name="next_sunday">Hurrengo igandea</string>
     <string name="now">Orain</string>
     <string name="when_started">Hasten denean</string>
     <string name="completion_sound">Amaierako soinua erreproduzitu</string>

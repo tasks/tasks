@@ -383,8 +383,6 @@
     <string name="custom_filter_or">ELLER</string>
     <string name="custom_filter_and">OG</string>
     <string name="auto_dismiss_datetime_widget">Miniprogram</string>
-    <string name="shortcut_pick_time">Velg tidspunkt</string>
-    <string name="no_time">Ingen tid</string>
     <string name="no_date">Ingen dato</string>
     <string name="chip_appearance_icon_only">Kun ikon</string>
     <string name="chip_appearance_text_only">Kun tekst</string>
@@ -469,7 +467,6 @@
     <string name="default_location">Forvalgt plassering</string>
     <string name="custom_filter_is_subtask">Er et gjøremålssteg</string>
     <string name="custom_filter_has_subtask">Har gjøremålssteg</string>
-    <string name="date_picker_multiple">Flere</string>
     <string name="multi_select_reschedule">Planlegge</string>
     <string name="always_display_full_date">Vis full dato</string>
     <string name="cancel">Avbryt</string>
@@ -517,13 +514,6 @@
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
     <string name="upgrade_more_customization">Mer tilpasning</string>
     <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
-    <string name="next_saturday">Neste lør</string>
-    <string name="next_friday">Neste fre</string>
-    <string name="next_thursday">Neste tor</string>
-    <string name="next_wednesday">Neste ons</string>
-    <string name="next_tuesday">Neste tir</string>
-    <string name="next_monday">Neste man</string>
-    <string name="next_sunday">Neste sol</string>
     <string name="now">Nå</string>
     <string name="when_started">Når startet</string>
     <string name="completion_sound">Spill fullførelseslyd</string>

@@ -397,8 +397,6 @@
     <string name="chip_appearance_text_and_icon">Texte et icône</string>
     <string name="chip_appearance_text_only">Texte seul</string>
     <string name="chip_appearance_icon_only">Icône seule</string>
-    <string name="shortcut_pick_time">Choisir l\'heure</string>
-    <string name="no_time">Aucune heure</string>
     <string name="no_date">Aucune date</string>
     <string name="auto_dismiss_datetime_summary">Fermer le sélecteur de date après avoir sélectionné une date ou une heure</string>
     <string name="auto_dismiss_datetime">Fermeture automatique du sélecteur de date</string>
@@ -477,7 +475,6 @@
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
     <string name="default_tags">Étiquettes par défaut</string>
     <string name="default_location">Emplacement par défaut</string>
-    <string name="date_picker_multiple">Plusieurs</string>
     <string name="multi_select_reschedule">Replanifier</string>
     <string name="cancel">Annuler</string>
     <string name="ok">Valider</string>
@@ -525,13 +522,6 @@
     <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>
     <string name="upgrade_more_customization">Plus de personnalisation</string>
     <string name="pro_free_trial">Les nouveaux abonnés bénéficient d\'un essai gratuit de 7 jours. Annulez à tout moment</string>
-    <string name="next_sunday">Dimanche prochain</string>
-    <string name="next_saturday">Samedi prochain</string>
-    <string name="next_friday">Vendredi prochain</string>
-    <string name="next_thursday">Jeudi prochain</string>
-    <string name="next_wednesday">Mercredi prochain</string>
-    <string name="next_tuesday">Mardi prochain</string>
-    <string name="next_monday">Lundi prochain</string>
     <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
     <string name="markdown">« Markdown »</string>
     <string name="now">Maintenant</string>

@@ -250,13 +250,6 @@
         <item quantity="other">%d задатака</item>
     </plurals>
     <string name="now">Сада</string>
-    <string name="next_sunday">Следеће недеље</string>
-    <string name="next_monday">Следећег понедељка</string>
-    <string name="next_tuesday">Следећег уторка</string>
-    <string name="next_wednesday">Следеће среде</string>
-    <string name="next_thursday">Следећег четвртка</string>
-    <string name="next_friday">Следећег петка</string>
-    <string name="next_saturday">Следеће суботе</string>
     <string name="widget_show_settings">Прикажи подешавања</string>
     <string name="widget_show_title">Прикажи назив</string>
     <string name="widget_show_menu">Прикажи мени</string>
@@ -413,8 +406,6 @@
     <string name="chip_appearance_text_only">Само текст</string>
     <string name="chip_appearance_icon_only">Само иконица</string>
     <string name="no_date">Без датума</string>
-    <string name="no_time">Без времена</string>
-    <string name="shortcut_pick_time">Одабери време</string>
     <string name="auto_dismiss_datetime">Аутоматски затвори прозор за одабир датума и времена</string>
     <string name="auto_dismiss_datetime_list">Листа задатака</string>
     <string name="auto_dismiss_datetime_widget">Виџет</string>
@@ -568,7 +559,6 @@
     <string name="backups_ignore_warnings_summary">Игнориши упозорења уколико нису потребне резервне копије или постоји лично решење за резервне копије</string>
     <string name="backup_location_warning">УПОЗОРЕЊЕ: Датотеке на локацији %s ће бити обрисане уколико се апликација деинсталира! Молимо одабери локацију како би спречио брисање својих фајлова.</string>
     <string name="multi_select_reschedule">Поново закажи</string>
-    <string name="date_picker_multiple">Вишеструко</string>
     <string name="custom_filter_has_subtask">Садржи подзадатке</string>
     <string name="custom_filter_is_subtask">Јесте подзадатак</string>
     <string name="custom_filter_has_reminder">Садржи подсетник</string>

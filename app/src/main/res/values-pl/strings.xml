@@ -389,8 +389,6 @@
     <string name="back">Wstecz</string>
     <string name="chips">Chipy</string>
     <string name="chip_appearance">Wygląd chipów</string>
-    <string name="shortcut_pick_time">Wybierz czas</string>
-    <string name="no_time">Brak czasu</string>
     <string name="no_date">Brak daty</string>
     <string name="chip_appearance_icon_only">Tylko ikona</string>
     <string name="chip_appearance_text_only">Tylko tekst</string>
@@ -474,7 +472,6 @@
     <string name="no_app_found">Żadna aplikacja nie może obsłużyć tego żądania</string>
     <string name="custom_filter_is_subtask">Jest podzadaniem</string>
     <string name="custom_filter_has_subtask">Ma podzadania</string>
-    <string name="date_picker_multiple">Wielokrotnie</string>
     <string name="multi_select_reschedule">Przełóż</string>
     <string name="default_recurrence">Powtarzanie domyślne</string>
     <string name="default_tags">Domyślne tagi</string>
@@ -527,13 +524,6 @@
     <string name="upgrade_more_customization">Więcej możliwości konfiguracji</string>
     <string name="pro_free_trial">Nowi subskrybenci otrzymują 7-dniowy, darmowy okres próbny. Można anulować w dowolnym momencie</string>
     <string name="open_source">Open source</string>
-    <string name="next_saturday">Następna sobota</string>
-    <string name="next_friday">Następny piątek</string>
-    <string name="next_thursday">Następny czwartek</string>
-    <string name="next_wednesday">Następna środa</string>
-    <string name="next_tuesday">Następny wtorek</string>
-    <string name="next_monday">Następny poniedziałek</string>
-    <string name="next_sunday">Następna niedziela</string>
     <string name="completed">Zakończone</string>
     <plurals name="reminder_week">
         <item quantity="one">Tydzień</item>

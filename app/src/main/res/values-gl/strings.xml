@@ -35,7 +35,6 @@
     <string name="TEA_elapsedDuration_label">Tiempo xa empregado na tarefa</string>
     <string name="save">Gardar</string>
     <string name="TEA_timer_elap">Transcorrido %s</string>
-    <string name="no_time">Sen horario</string>
     <string name="due_date">Data de vencemento</string>
     <string name="due_time">Hora de vencemento</string>
     <string name="day_before_due">Día previo ao vencemento</string>
@@ -223,7 +222,6 @@
     <string name="filter_eisenhower_box_1">Importane e urxente</string>
     <string name="widget_show_title">Amosar título</string>
     <string name="repeat_monthly_first_week">primeiro</string>
-    <string name="next_saturday">Próx Sáb</string>
     <string name="default_tags">Etiquetas predefinidas</string>
     <string name="default_recurrence">Recurrencia predefinida</string>
     <string name="opacity_header">Opacidade da cabeceira</string>
@@ -265,8 +263,6 @@
         <item quantity="one">tempo</item>
         <item quantity="other">tempos</item>
     </plurals>
-    <string name="next_tuesday">Próx Mar</string>
-    <string name="next_wednesday">Próx Mér</string>
     <string name="add_location">Engadir posición</string>
     <string name="randomly_every">Ao chou cada %s</string>
     <string name="when_started">Cando comece</string>
@@ -314,7 +310,6 @@
     <string name="migrate_count">Mover %s a Tasks.org</string>
     <string name="more_options">Máis opcións</string>
     <string name="snackbar_tasks_completed">%d tarefas finalizadas</string>
-    <string name="next_sunday">Próx Dom</string>
     <string name="now">Agora</string>
     <string name="header_spacing">Espazado</string>
     <string name="subtasks">Subtarefas</string>
@@ -338,7 +333,6 @@
     <string name="upgrade_more_customization">Máis opcións</string>
     <string name="upgrade_more_customization_description">Desbloquear todos os temas, cores e iconas</string>
     <string name="markdown">Markdown</string>
-    <string name="shortcut_pick_time">Escoller hora</string>
     <string name="auto_dismiss_datetime">Pechar o selector de data automaticamente</string>
     <string name="lists">Listas</string>
     <string name="last_backup">Última copia de seguranza: %s</string>
@@ -348,9 +342,6 @@
     <string name="sort_created">Por data de creación</string>
     <string name="action_call">Chamar</string>
     <string name="display_name">Mostrar o nome</string>
-    <string name="next_monday">Próx Luns</string>
-    <string name="next_friday">Próx Ven</string>
-    <string name="next_thursday">Próx Xov</string>
     <string name="url">URL</string>
     <string name="repeats_single">Repite %s</string>
     <string name="default_calendar">Calendario por defecto</string>
@@ -434,7 +425,6 @@
     <string name="foreground_location">Posición por defecto</string>
     <string name="background_location">Posición de fondo</string>
     <string name="backups_ignore_warnings">Ignorar as advertencias</string>
-    <string name="date_picker_multiple">Múltiple</string>
     <string name="custom_filter_has_reminder">Ten un recordatorio</string>
     <string name="authorization_cancelled">Cancelouse a autenticación</string>
     <string name="above_average">Por riba da media</string>

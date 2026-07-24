@@ -3,7 +3,6 @@
     <string name="github_sponsor">අනුග්‍රාහකයා</string>
     <string name="custom_filter_is_subtask">උප කාර්යයක්වේද</string>
     <string name="custom_filter_has_subtask">උප කාර්යයන් ඇත</string>
-    <string name="date_picker_multiple">බහු</string>
     <string name="local_lists">පවත්නා ලැයිස්තු</string>
     <string name="open_last_viewed_list">අවසන් වරට බැලූ ලැයිස්තුව විවෘත කරන්න</string>
     <string name="on_launch">ආරම්භ කිරීමේදී</string>
@@ -111,8 +110,6 @@
     <string name="auto_dismiss_datetime_list_summary">කාර්ය ලැයිස්තුවෙන් තෝරාගැනීමේදී ස්වයංක්‍රීයව වසා දමන්න</string>
     <string name="auto_dismiss_datetime_list">කාර්ය ලැයිස්තුව</string>
     <string name="auto_dismiss_datetime">දිනය වේලාව තෝරනය ස්වයංක්‍රීයව වසා දමන්න</string>
-    <string name="shortcut_pick_time">කාලය තෝරන්න</string>
-    <string name="no_time">වේලාවක් නැත</string>
     <string name="no_date">දිනයක් නැත</string>
     <string name="chip_appearance_icon_only">අයිකනය පමණි</string>
     <string name="chip_appearance_text_only">පෙළ පමණි</string>
@@ -168,13 +165,6 @@
     <string name="davx5_selection_description">DAVx⁵ යෙදුම සමඟ ඔබගේ කාර්යයන් සමමුහුර්ත කරන්න</string>
     <string name="decsync_selection_description">ගොනු මත පදනම් වූ සමමුහුර්තකරණය</string>
     <string name="widget_show_checkboxes">පිරික්සුම් කොටු පෙන්වන්න</string>
-    <string name="next_saturday">ඊළඟ සෙනසුරාදා</string>
-    <string name="next_friday">ඊළඟ සිකුරාදා</string>
-    <string name="next_thursday">ඊළඟ බ්‍රහස්පතින්දා</string>
-    <string name="next_wednesday">ඊළඟ බදාදා</string>
-    <string name="next_tuesday">ඊළඟ අඟහරුවාදා</string>
-    <string name="next_monday">ඊළඟ සඳුදා</string>
-    <string name="next_sunday">ඊළඟ ඉරිදා</string>
     <string name="tomorrow">හෙට</string>
     <string name="today">අද</string>
     <plurals name="Ntasks">

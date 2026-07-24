@@ -356,4 +356,5 @@
     <string name="no_time">Aega pole</string>
     <string name="sync_metadata">Salvesta sildi metaandmed siia</string>
     <string name="TEA_note_label">Kirjeldus</string>
+    <string name="start_date">Alguskuupäev</string>
 </resources>

@@ -61,7 +61,6 @@
     <string name="your_subscription_expired">การสมัครใช้งานของคุณหมดอายุแล้ว สมัครสมาชิกตอนนี้เพื่อกลับมาใช้บริการต่อ</string>
     <string name="custom_filter_is_subtask">เป็นงานย่อย</string>
     <string name="custom_filter_has_subtask">มีงานย่อย</string>
-    <string name="date_picker_multiple">หลายเท่า</string>
     <string name="multi_select_reschedule">จัดกําหนดการใหม่</string>
     <string name="backup_location_warning">คําเตือน: แฟ้มที่อยู่ใน %s จะถูกลบถ้างานถูกถอนการติดตั้ง! โปรดเลือกตําแหน่งที่ตั้งที่กําหนดเองเพื่อป้องกันไม่ให้ Android ลบไฟล์ของคุณ</string>
     <string name="backups_ignore_warnings_summary">ละเว้นคําเตือนการสํารองข้อมูลถ้าคุณไม่ต้องการการสํารองข้อมูลหรือมีโซลูชันการสํารองข้อมูลของคุณเอง</string>
@@ -283,13 +282,6 @@
     <string name="widget_show_settings">แสดงการตั้งค่า</string>
     <string name="widget_show_header">แสดงหัวข้อ</string>
     <string name="widget_show_checkboxes">แสดงช่องทำเครื่องหมาย</string>
-    <string name="next_saturday">เสาร์หน้า</string>
-    <string name="next_friday">ศุกร์ถัดไป</string>
-    <string name="next_thursday">พฤ. ถัดไป</string>
-    <string name="next_wednesday">วันถัดไป</string>
-    <string name="next_tuesday">อังคารหน้า</string>
-    <string name="next_monday">ม.ถัดไป</string>
-    <string name="next_sunday">อาทิตย์หน้า</string>
     <plurals name="Ntasks">
         <item quantity="other">%d งาน</item>
     </plurals>
@@ -431,8 +423,6 @@
     <string name="auto_dismiss_datetime_list_summary">ปิดอัตโนมัติเมื่อเลือกจากรายการงาน</string>
     <string name="auto_dismiss_datetime_list">รายการงาน</string>
     <string name="auto_dismiss_datetime">ปิดตัวใช้เลือกวันที่และเวลาอัตโนมัติ</string>
-    <string name="shortcut_pick_time">เลือกเวลา</string>
-    <string name="no_time">ไม่มีเวลา</string>
     <string name="no_date">ไม่มีวันที่</string>
     <string name="chip_appearance_icon_only">ไอคอนเท่านั้น</string>
     <string name="chip_appearance_text_only">เฉพาะข้อความ</string>

@@ -258,13 +258,6 @@
     <string name="now">Agora</string>
     <string name="today">Güei</string>
     <string name="tomorrow">Mañana</string>
-    <string name="next_sunday">Próximu Domingu</string>
-    <string name="next_monday">Próximu Llunes</string>
-    <string name="next_tuesday">Próximu Martes</string>
-    <string name="next_wednesday">Próximu Miércoles</string>
-    <string name="next_thursday">Próximu Xueves</string>
-    <string name="next_friday">Próximu Vienres</string>
-    <string name="next_saturday">Próximu Sábadu</string>
     <string name="yesterday">Ayeri</string>
     <string name="widget_show_checkboxes">Amosar caxines de verificación</string>
     <string name="widget_show_header">Amosar cabeceru</string>

@@ -136,4 +136,5 @@
     <string name="next_saturday">اگلے ہفتے</string>
     <string name="no_time">کوئی وقت نہیں</string>
     <string name="TEA_note_label">تفصیل</string>
+    <string name="start_date">تاریخ آغاز</string>
 </resources>

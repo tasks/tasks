@@ -79,7 +79,6 @@
     <string name="TVA_add_comment">Aldoni komenton…</string>
     <string name="cancel">Nuligi</string>
     <string name="ok">Bone</string>
-    <string name="no_time">Sen tempo</string>
     <string name="no_due_date">Sen limdato</string>
     <string name="default_due_date">Defaŭlta limdato</string>
     <string name="due_time">Limtempo</string>
@@ -232,13 +231,6 @@
     <string name="backup_directory">Dosierujo de savkopioj</string>
     <string name="quiet_hours">Silentaj horoj</string>
     <string name="widget_show_title">Vidigi titolon</string>
-    <string name="next_saturday">Sekva sab</string>
-    <string name="next_friday">Sekva ven</string>
-    <string name="next_wednesday">Sekva mer</string>
-    <string name="next_tuesday">Sekva mar</string>
-    <string name="next_monday">Venonta lun</string>
-    <string name="next_sunday">Sekva dim</string>
-    <string name="next_thursday">Sekva ĵaŭ</string>
     <string name="voice_command_added_task">Tasko Aldonite</string>
     <string name="EPr_voiceInputEnabled_title">Voĉa enigo</string>
     <string name="voice_create_prompt">Diri por krei taskon</string>
@@ -310,7 +302,6 @@
     <string name="sort_modified_group">Modifita: %s</string>
     <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taskredaktilo</string>
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
-    <string name="shortcut_pick_time">Elekti horon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
     <string name="filters">Filtriloj</string>
@@ -560,7 +551,6 @@
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
     <string name="repeats_every">Ripetiĝas ĉiu</string>
     <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
-    <string name="date_picker_multiple">Pluraj</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>

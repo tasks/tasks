@@ -240,4 +240,5 @@
     <string name="shortcut_pick_time">Aseta kellonaika</string>
     <string name="no_time">Ei kellonaikaa</string>
     <string name="TEA_note_label">Kuvaus</string>
+    <string name="start_date">Aloituspäivä</string>
 </resources>

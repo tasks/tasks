@@ -380,8 +380,6 @@
     <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
     <string name="auto_dismiss_datetime_summary">Tarih veya zaman seçince tarih zaman seçiciyi kapat</string>
     <string name="auto_dismiss_datetime">Tarih zaman seçiciyi kendiliğinden kapat</string>
-    <string name="shortcut_pick_time">Zaman seç</string>
-    <string name="no_time">Zaman yok</string>
     <string name="calendar_event_created">%s için takvim olayı oluşturuldu</string>
     <string name="no_date">Tarih yok</string>
     <string name="chip_appearance_icon_only">Yalnızca simge</string>
@@ -462,7 +460,6 @@
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
     <string name="default_tags">Öntanımlı etiketler</string>
     <string name="default_location">Öntanımlı konum</string>
-    <string name="date_picker_multiple">Birden çok</string>
     <string name="multi_select_reschedule">Yeniden zamanla</string>
     <string name="cancel">İptal</string>
     <string name="ok">Tamam</string>
@@ -510,13 +507,6 @@
     <string name="upgrade_tasks_org_account_description">Tasks.org ile eşzamanla ve diğer kullanıcılarla ortak çalış</string>
     <string name="upgrade_more_customization">Daha çok özelleştirme</string>
     <string name="pro_free_trial">Yeni aboneler 7 günlük sınama süresi kazanır. İstendiğinde iptal edilir</string>
-    <string name="next_friday">Sonraki Cma</string>
-    <string name="next_saturday">Sonraki Cts</string>
-    <string name="next_thursday">Sonraki Per</string>
-    <string name="next_wednesday">Sonraki Çar</string>
-    <string name="next_tuesday">Sonraki Sal</string>
-    <string name="next_monday">Sonraki Pts</string>
-    <string name="next_sunday">Sonraki Pzr</string>
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
     <string name="now">Şimdi</string>

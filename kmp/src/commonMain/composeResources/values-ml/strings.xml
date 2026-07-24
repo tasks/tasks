@@ -64,4 +64,5 @@
     <string name="week_before_due">തികയുന്നതിനു ഒരാഴ്ച മുൻപ്</string>
     <string name="no_time">സമയമില്ല</string>
     <string name="TEA_note_label">വിവരണം</string>
+    <string name="start_date">തുടങ്ങുന്ന സമയം</string>
 </resources>

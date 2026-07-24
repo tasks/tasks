@@ -31,7 +31,6 @@
     <string name="TEA_elapsedDuration_label">Porabljen čas</string>
     <string name="TEA_timer_est">Cca. %s</string>
     <string name="TEA_timer_elap">%s je potekel</string>
-    <string name="no_time">Čas ni določen</string>
     <string name="due_date">Dospelost po datumu</string>
     <string name="due_time">Dospelost po času</string>
     <string name="day_before_due">Dan pred dospelostjo</string>

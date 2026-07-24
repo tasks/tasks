@@ -115,8 +115,6 @@
     <string name="auto_dismiss_datetime_list_summary">Luk automatisk, når du vælger fra opgaveliste</string>
     <string name="auto_dismiss_datetime_list">Opgaveliste</string>
     <string name="auto_dismiss_datetime">Luk automatisk dato-/tidsvælger</string>
-    <string name="shortcut_pick_time">Vælg tidspunkt</string>
-    <string name="no_time">Intet tidspunkt</string>
     <string name="no_date">Ingen dato</string>
     <string name="chip_appearance_icon_only">Kun ikon</string>
     <string name="chip_appearance_text_only">Kun tekst</string>
@@ -491,7 +489,6 @@
     <string name="privacy">Privatliv</string>
     <string name="open_source">Open source</string>
     <string name="support">Støtte</string>
-    <string name="date_picker_multiple">Flere</string>
     <string name="multi_select_reschedule">Omlæg</string>
     <string name="android_auto_backup_device_summary">Du skal også tilvælge backup-tjenesten via enhedens indstillinger. Ikke alle enheder tilbyder backup-tjeneste.</string>
     <string name="android_auto_backup">Android Backup-tjeneste</string>
@@ -504,13 +501,6 @@
     <string name="filter_criteria_unstarted">Ikke startet</string>
     <string name="header_spacing">Afstand</string>
     <string name="widget_show_title">Vis titel</string>
-    <string name="next_saturday">Næste lør</string>
-    <string name="next_friday">Næste fre</string>
-    <string name="next_thursday">Næste tors</string>
-    <string name="next_wednesday">Næste ons</string>
-    <string name="next_tuesday">Næste tirs</string>
-    <string name="next_monday">Næste man</string>
-    <string name="next_sunday">Næste søn</string>
     <string name="repeat_type_completion_capitalized">Fuldførelsesdato</string>
     <string name="filter_any_start_date">Enhver startdato</string>
     <string name="no_start_date">Ingen startdato</string>

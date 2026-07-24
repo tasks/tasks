@@ -363,4 +363,5 @@
     <string name="shortcut_pick_time">Pick time</string>
     <string name="no_time">No time</string>
     <string name="TEA_note_label">Description</string>
+    <string name="start_date">Start date</string>
 </resources>

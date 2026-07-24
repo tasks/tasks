@@ -85,7 +85,6 @@
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
     <string name="custom_filter_is_subtask">Là công việc con</string>
     <string name="custom_filter_has_subtask">Có công việc con</string>
-    <string name="date_picker_multiple">Nhiều</string>
     <string name="multi_select_reschedule">Lên lịch lại</string>
     <string name="backup_location_warning">CẢNH BÁO: Các tệp được đặt ở %s sẽ bị xoá nếu Tasks bị gỡ cài đặt! Vui lòng chọn một vị trí tuỳ chỉnh để ngăn Android không xoá các tệp của bạn.</string>
     <string name="backups_ignore_warnings_summary">Bỏ qua các cảnh báo sao lưu nếu bạn không cần sao lưu hoặc bạn có giải pháp sao lưu riêng</string>
@@ -143,8 +142,6 @@
     <string name="auto_dismiss_datetime_list_summary">Tự động đóng khi chọn từ danh sách công việc</string>
     <string name="auto_dismiss_datetime_list">Danh sách công việc</string>
     <string name="auto_dismiss_datetime">Tự động đóng trình chọn ngày và thời gian</string>
-    <string name="shortcut_pick_time">Chọn thời gian</string>
-    <string name="no_time">Không có thời gian</string>
     <string name="no_date">Không có ngày</string>
     <string name="chip_appearance_icon_only">Chỉ biểu tượng</string>
     <string name="chip_appearance_text_only">Chỉ văn bản</string>
@@ -346,13 +343,6 @@
     <string name="widget_show_settings">Hiện cài đặt</string>
     <string name="widget_show_header">Hiện tiêu đề</string>
     <string name="widget_show_checkboxes">Hiện hộp đánh dấu</string>
-    <string name="next_saturday">Thứ Bảy tuần sau</string>
-    <string name="next_friday">Thứ Sáu tuần sau</string>
-    <string name="next_thursday">Thứ Năm tuần sau</string>
-    <string name="next_wednesday">Thứ Tư tuần sau</string>
-    <string name="next_tuesday">Thứ Ba tuần sau</string>
-    <string name="next_monday">Thứ Hai tuần sau</string>
-    <string name="next_sunday">Chủ Nhật tuần sau</string>
     <string name="tomorrow">Ngày mai</string>
     <string name="today">Hôm nay</string>
     <plurals name="Ntasks">

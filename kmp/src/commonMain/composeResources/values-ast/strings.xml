@@ -134,4 +134,5 @@
     <string name="next_friday">Próximu Vienres</string>
     <string name="next_saturday">Próximu Sábadu</string>
     <string name="TEA_note_label">Descripción</string>
+    <string name="start_date">Data d'entamu</string>
 </resources>

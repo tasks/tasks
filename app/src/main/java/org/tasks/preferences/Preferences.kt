@@ -22,6 +22,7 @@ import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.billing.Purchase
 import org.tasks.data.entity.Alarm
+import org.tasks.compose.pickers.QuickPickTimes
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskAttachment
 import org.tasks.extensions.Context.getResourceUri
@@ -138,6 +139,14 @@ class Preferences @JvmOverloads constructor(
 
     val dateShortcutNight: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_night, R.integer.default_night)
+
+    val quickPickTimes: QuickPickTimes
+        get() = QuickPickTimes(
+            dateShortcutMorning,
+            dateShortcutAfternoon,
+            dateShortcutEvening,
+            dateShortcutNight,
+        )
 
     private fun getMillisPerDayPref(resId: Int, defResId: Int): Int {
         val setting = getInt(resId, -1)
@@ -619,6 +628,28 @@ class Preferences @JvmOverloads constructor(
         set(mode) {
             setStringFromInteger(R.string.p_picker_mode_time, if (mode == DisplayMode.Input) 1 else 0)
         }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    override suspend fun datePickerPreferences() = DatePickerPreferences(
+        shortcutMorning = dateShortcutMorning,
+        shortcutAfternoon = dateShortcutAfternoon,
+        shortcutEvening = dateShortcutEvening,
+        shortcutNight = dateShortcutNight,
+        defaultHideUntil = getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE),
+        alwaysDisplayFullDate = alwaysDisplayFullDate,
+        datePickerInputMode = calendarDisplayMode == DisplayMode.Input,
+        timePickerInputMode = timeDisplayMode == DisplayMode.Input,
+    )
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    override suspend fun setDatePickerInputMode(value: Boolean) {
+        calendarDisplayMode = if (value) DisplayMode.Input else DisplayMode.Picker
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    override suspend fun setTimePickerInputMode(value: Boolean) {
+        timeDisplayMode = if (value) DisplayMode.Input else DisplayMode.Picker
+    }
 
     companion object {
         private fun getSharedPreferencesName(context: Context): String =

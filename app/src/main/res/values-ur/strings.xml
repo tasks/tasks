@@ -15,7 +15,6 @@
     <string name="day_before_due">مقررہ دن سے ایک دن قبل</string>
     <string name="due_time">وقت مقرر</string>
     <string name="due_date">آخری تاریخ</string>
-    <string name="no_time">کوئی وقت نہیں</string>
     <string name="TEA_timer_elap">%s گز چکا</string>
     <string name="save">محفوظ کریں</string>
     <string name="TEA_elapsedDuration_label">صرف شدہ وقت</string>
@@ -362,13 +361,6 @@
     <string name="repeats_from">سے دہراتا ہے</string>
     <string name="list">فہرست</string>
     <string name="badges">نشانات</string>
-    <string name="next_saturday">اگلے ہفتے</string>
-    <string name="next_friday">اگلے جمعے</string>
-    <string name="next_thursday">اگلے جمعرات</string>
-    <string name="next_wednesday">اگلے بدھ</string>
-    <string name="next_tuesday">اگلے منگل</string>
-    <string name="next_monday">اگلے پیر</string>
-    <string name="next_sunday">اگلے اتوار</string>
     <string name="button_subscribe">سبسکرائب</string>
     <string name="refresh_purchases">خریداریوں کو ری فریش کریں</string>
     <string name="subscription">سبسکرپشن</string>

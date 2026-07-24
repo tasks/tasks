@@ -359,8 +359,6 @@
     <string name="calendar_event_created">Creato evento nel calendario per %s</string>
     <string name="auto_dismiss_datetime_summary">Chiudi il selettore data/ora al termine della scelta</string>
     <string name="auto_dismiss_datetime">Chiudi automaticamente selettore data/ora</string>
-    <string name="shortcut_pick_time">Scegli un\'ora</string>
-    <string name="no_time">Senza ora</string>
     <string name="no_date">Senza data</string>
     <string name="chip_appearance_icon_only">Solo icona</string>
     <string name="chip_appearance_text_only">Solo testo</string>
@@ -477,7 +475,6 @@
     <string name="repeat_type_completion_capitalized">Data di completamento</string>
     <string name="default_tags">Etichetta predefinita</string>
     <string name="default_location">Posizione predefinita</string>
-    <string name="date_picker_multiple">Molteplici</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
     <string name="always_display_full_date">Mostra data completa</string>
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
@@ -525,13 +522,6 @@
     <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
     <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Puoi recedere in qualsiasi momento</string>
-    <string name="next_saturday">Sabato prossimo</string>
-    <string name="next_friday">Venerdì prossimo</string>
-    <string name="next_thursday">Giovedì prossimo</string>
-    <string name="next_wednesday">Mercoledì prossimo</string>
-    <string name="next_tuesday">Martedì prossimo</string>
-    <string name="next_monday">Lunedì prossimo</string>
-    <string name="next_sunday">Domenica prossima</string>
     <string name="markdown_description">Abilita la formattazione Markdown nel titolo e nella descrizione</string>
     <string name="markdown">Markdown</string>
     <string name="now">Ora</string>

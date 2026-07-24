@@ -28,7 +28,6 @@
     <string name="TEA_elapsedDuration_label">زمان سپری شده</string>
     <string name="save">ذخیره</string>
     <string name="TEA_timer_elap">سپری‌شده %s</string>
-    <string name="no_time">بدون زمان</string>
     <string name="due_date">تاریخ موعود</string>
     <string name="due_time">زمان موعود</string>
     <string name="day_before_due">روز قبل از موعود</string>

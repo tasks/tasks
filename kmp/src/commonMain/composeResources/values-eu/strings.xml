@@ -202,4 +202,5 @@
     <string name="shortcut_pick_time">Hautatu ordua</string>
     <string name="no_time">Ordurik ez</string>
     <string name="TEA_note_label">Deskripzioa</string>
+    <string name="start_date">Hasiera data</string>
 </resources>

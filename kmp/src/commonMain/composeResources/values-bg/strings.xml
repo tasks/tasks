@@ -306,4 +306,5 @@
     <string name="shortcut_pick_time">Час по избор</string>
     <string name="no_time">Без час</string>
     <string name="TEA_note_label">Описание</string>
+    <string name="start_date">Начална дата</string>
 </resources>

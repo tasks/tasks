@@ -308,8 +308,6 @@
     <string name="auto_dismiss_datetime_widget">Wisaya</string>
     <string name="auto_dismiss_datetime_edit">Tugas suntingan</string>
     <string name="auto_dismiss_datetime_list">Daftar tugas</string>
-    <string name="shortcut_pick_time">Pilih waktu</string>
-    <string name="no_time">Tidak ada waktu</string>
     <string name="no_date">Tidak ada tanggal</string>
     <string name="chip_appearance_icon_only">Hanya Ikon</string>
     <string name="chip_appearance_text_only">Hanya Teks</string>
@@ -388,7 +386,6 @@
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
     <string name="custom_filter_is_subtask">Adalah subtugas</string>
     <string name="custom_filter_has_subtask">Memiliki subtugas</string>
-    <string name="date_picker_multiple">Banyak</string>
     <string name="multi_select_reschedule">Jadwalkan Ulang</string>
     <string name="backup_location_warning">PERINGATAN: File yang terletak pada %s akan dihapus jika pemasangan Tasks dihapus! Pilih lokasi khusus untuk mencegah Android menghapus file Anda.</string>
     <string name="backups_ignore_warnings_summary">Abaikan peringatan cadangan jika Anda tidak memerlukan cadangan atau memiliki solusi cadangan Anda sendiri</string>
@@ -500,13 +497,6 @@
     <string name="pro_free_trial">Pelanggan baru menerima percobaan aplikasi gratis selama 7-hari. Batalkan kapan saja</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
-    <string name="next_saturday">Sabtu Depan</string>
-    <string name="next_friday">Jumat Depan</string>
-    <string name="next_thursday">Kamis Depan</string>
-    <string name="next_wednesday">Rabu Depan</string>
-    <string name="next_tuesday">Selasa Depan</string>
-    <string name="next_monday">Senin Depan</string>
-    <string name="next_sunday">Minggu Depan</string>
     <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
     <string name="markdown">Markdown</string>
     <string name="now">Sekarang</string>

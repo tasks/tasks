@@ -227,4 +227,5 @@
     <string name="shortcut_pick_time">Trieu el temps</string>
     <string name="no_time">Sense hora</string>
     <string name="TEA_note_label">Descripció</string>
+    <string name="start_date">Data d'inici</string>
 </resources>

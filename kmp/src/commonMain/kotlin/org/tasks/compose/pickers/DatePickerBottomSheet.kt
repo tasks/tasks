@@ -143,10 +143,10 @@ fun DatePickerBottomSheet(
     }
 }
 
-private const val MORNING = 9 * 60 * 60 * 1000
-private const val AFTERNOON = 13 * 60 * 60 * 1000
-private const val EVENING = 17 * 60 * 60 * 1000
-private const val NIGHT = 20 * 60 * 60 * 1000
+private const val MORNING = DEFAULT_MORNING
+private const val AFTERNOON = DEFAULT_AFTERNOON
+private const val EVENING = DEFAULT_EVENING
+private const val NIGHT = DEFAULT_NIGHT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(name = "Due date picker - Light")

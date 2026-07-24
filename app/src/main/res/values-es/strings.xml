@@ -397,8 +397,6 @@
     <string name="chip_appearance_text_and_icon">Texto e icono</string>
     <string name="chip_appearance_text_only">Sólo texto</string>
     <string name="chip_appearance_icon_only">Sólo icono</string>
-    <string name="shortcut_pick_time">Elegir hora</string>
-    <string name="no_time">Sin hora</string>
     <string name="no_date">Sin fecha</string>
     <string name="auto_dismiss_datetime_summary">Cerrar el selector de fecha y hora después de seleccionar una fecha u hora</string>
     <string name="auto_dismiss_datetime">Cerrar automáticamente el interruptor de selección de fecha y hora</string>
@@ -477,7 +475,6 @@
     <string name="repeat_type_completion_capitalized">Fecha de finalización</string>
     <string name="default_tags">Etiquetas predeterminadas</string>
     <string name="default_location">Ubicación predeterminada</string>
-    <string name="date_picker_multiple">Múltiples</string>
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
@@ -525,13 +522,6 @@
     <string name="upgrade_more_customization_description">Desbloquea todos los temas, colores e iconos</string>
     <string name="upgrade_more_customization">Más personalización</string>
     <string name="pro_free_trial">Los suscriptores nuevos reciben una prueba gratuita de 7 días, cancelable en cualquier momento</string>
-    <string name="next_saturday">Próximo sábado</string>
-    <string name="next_friday">Próximo viernes</string>
-    <string name="next_thursday">Próximo jueves</string>
-    <string name="next_wednesday">Próximo miércoles</string>
-    <string name="next_tuesday">Próximo martes</string>
-    <string name="next_monday">Próximo lunes</string>
-    <string name="next_sunday">Próximo domingo</string>
     <string name="markdown_description">Activar Markdown en el título y la descripción</string>
     <string name="markdown">Markdown</string>
     <string name="now">Ahora</string>

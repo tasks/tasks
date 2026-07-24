@@ -22,4 +22,5 @@
     <string name="day_before_due">မပြီးဆုံးမီတစ်ရက်အလို</string>
     <string name="week_before_due">မပြီးဆုံးမီတစ်ပတ်အလို</string>
     <string name="TEA_note_label">ဖော်ပြချက်</string>
+    <string name="start_date">စရက်</string>
 </resources>

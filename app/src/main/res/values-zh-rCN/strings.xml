@@ -376,8 +376,6 @@
     <string name="hide_unused_places">隐藏不用的地点</string>
     <string name="auto_dismiss_datetime_summary">在选择一个日期或时间后关闭日期时间选择器</string>
     <string name="auto_dismiss_datetime">自动关闭日期时间选择器</string>
-    <string name="shortcut_pick_time">挑选时间</string>
-    <string name="no_time">无时间</string>
     <string name="no_date">无日期</string>
     <string name="chip_appearance_icon_only">仅图标</string>
     <string name="chip_appearance_text_only">仅文本</string>
@@ -458,7 +456,6 @@
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="default_tags">默认标签</string>
     <string name="default_location">默认位置</string>
-    <string name="date_picker_multiple">多个</string>
     <string name="multi_select_reschedule">重新计划</string>
     <string name="always_display_full_date">显示完整日期</string>
     <string name="cancel">取消</string>
@@ -506,13 +503,6 @@
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
     <string name="pro_free_trial">新订阅者可获得 7 天免费试用。随时取消</string>
-    <string name="next_saturday">下周六</string>
-    <string name="next_friday">下周五</string>
-    <string name="next_thursday">下周四</string>
-    <string name="next_wednesday">下周三</string>
-    <string name="next_tuesday">下周二</string>
-    <string name="next_monday">下周一</string>
-    <string name="next_sunday">下周日</string>
     <string name="markdown_description">在任务标题和描述中启用 Markdown</string>
     <string name="markdown">Markdown</string>
     <string name="now">现在</string>

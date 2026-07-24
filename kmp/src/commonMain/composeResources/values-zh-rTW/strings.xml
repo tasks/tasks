@@ -268,4 +268,5 @@
     <string name="shortcut_pick_time">選擇時間</string>
     <string name="no_time">無時間</string>
     <string name="TEA_note_label">描述</string>
+    <string name="start_date">起始日期</string>
 </resources>

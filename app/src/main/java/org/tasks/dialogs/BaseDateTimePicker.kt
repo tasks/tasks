@@ -34,10 +34,6 @@ abstract class BaseDateTimePicker : DialogFragment() {
         onDismissHandler?.onDismiss()
     }
 
-    override fun onCancel(dialog: DialogInterface) = sendSelected()
-
-    protected abstract fun sendSelected()
-
     companion object {
         const val EXTRA_AUTO_CLOSE = "extra_auto_close"
     }

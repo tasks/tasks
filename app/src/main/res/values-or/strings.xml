@@ -10,9 +10,7 @@
     </plurals>
     <string name="TEA_timer_controls">ସମୟ-ନିୟାମକ</string>
     <string name="tomorrow">ଆସନ୍ତାକାଲି</string>
-    <string name="next_monday">ଆସନ୍ତା ସୋମ</string>
     <string name="color">ରଙ୍ଗ</string>
-    <string name="next_saturday">ଆସନ୍ତା ଶନି</string>
     <string name="widget_show_settings">ସେଟିଂ ଦେଖାଅ</string>
     <string name="SSD_sort_importance">ପ୍ରାଥମିକତା ଅନୁଯାୟୀ</string>
     <string name="TLA_menu_sort">ସଜାନ୍ତୁ</string>
@@ -69,11 +67,6 @@
     </plurals>
     <string name="now">ଏବେ</string>
     <string name="today">ଆଜି</string>
-    <string name="next_sunday">ଆସନ୍ତା ରଵି</string>
-    <string name="next_tuesday">ଆସନ୍ତା ମଙ୍ଗଳ</string>
-    <string name="next_wednesday">ଆସନ୍ତା ବୁଧ</string>
-    <string name="next_thursday">ଆସନ୍ତା ଗୁରୁ</string>
-    <string name="next_friday">ଆସନ୍ତା ଶୁକ୍ର</string>
     <string name="widget_show_dividers">ଵିଭାଜକ ଦେଖାଅ</string>
     <string name="date_shortcut_morning">ସକାଳ</string>
     <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>

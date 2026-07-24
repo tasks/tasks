@@ -304,8 +304,6 @@
     <string name="calendar_event_created">Kalenterimerkintä luotu %s varten</string>
     <string name="auto_dismiss_datetime_summary">Päivämäärän ja kellonajan valitsimet sulkeutuvat itsestään valittuasi ajan</string>
     <string name="auto_dismiss_datetime">Sulje päivän ja ajan valitsin itsestään</string>
-    <string name="shortcut_pick_time">Aseta kellonaika</string>
-    <string name="no_time">Ei kellonaikaa</string>
     <string name="no_date">Ei päivämäärää</string>
     <string name="chip_appearance_icon_only">Vain pikkukuvake</string>
     <string name="chip_appearance_text_only">Vain teksti</string>
@@ -466,7 +464,6 @@
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
     <string name="custom_filter_is_subtask">On alitehtävä</string>
     <string name="custom_filter_has_subtask">Sisältää alitehtäviä</string>
-    <string name="date_picker_multiple">monikerta</string>
     <string name="multi_select_reschedule">Aikataulun muuttaminen</string>
     <string name="backup_location_warning">VAROITUS: Tiedostot, jotka sijaitsevat kohdassa %s, poistetaan, jos Tasks poistetaan! Valitse mukautettu sijainti estääksesi Androidia poistamasta tiedostojasi.</string>
     <string name="backups_ignore_warnings">Varoitusten huomiotta jättäminen</string>
@@ -490,10 +487,6 @@
     <string name="filter_criteria_unstarted">Aloittamaton</string>
     <string name="header_spacing">Välit</string>
     <string name="widget_show_title">Näytä otsikko</string>
-    <string name="next_saturday">Seuraava la</string>
-    <string name="next_thursday">Seuraava to</string>
-    <string name="next_wednesday">Seuraava ke</string>
-    <string name="next_sunday">Seuraava su</string>
     <string name="always_display_full_date">Näytä koko päivämäärä</string>
     <string name="start_date">Aloituspäivä</string>
     <string name="SSD_sort_start">Aloituspäivän mukaan</string>
@@ -506,9 +499,6 @@
     <string name="permission_read_tasks">Täysi pääsy Tehtävät-tietokantaan</string>
     <string name="reset_sort_order">Palauta järjestys</string>
     <string name="background_location_permission_required">Tasks kerää sijaintitietoja, jotta se voi lähettää sijaintiin perustuvia muistutuksia, vaikka sovellus olisi suljettu tai sitä ei käytettäisi.</string>
-    <string name="next_friday">Seuraava pe</string>
-    <string name="next_tuesday">Seuraava ti</string>
-    <string name="next_monday">Seuraava ma</string>
     <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
     <string name="filter_any_start_date">Mikä tahansa aloituspäivä</string>
     <string name="no_start_date">Ei alkamispäivää</string>

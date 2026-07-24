@@ -19,6 +19,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Save
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -30,8 +31,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -53,17 +58,22 @@ import org.tasks.R
 import org.tasks.compose.BeastModeBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.EXTRA_FILTER
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.pickers.DueDatePickerSheet
+import org.tasks.compose.pickers.dueDateFromSelection
+import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.UserActivity
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.findActivity
 import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.extensions.hideKeyboardThen
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.fragments.CommentBarFragment
 import org.tasks.kmp.org.tasks.extensions.gesturesDisabled
 import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.CalendarControlSet
 import org.tasks.ui.LocationControlSet
@@ -90,15 +100,17 @@ fun TaskEditScreen(
     delete: () -> Unit,
     dismissBeastMode: () -> Unit,
     deleteComment: (UserActivity) -> Unit,
-    onClickDueDate: () -> Unit,
     onClickRepeat: () -> Unit,
     repeatRuleToString: (String?) -> String?,
     markdownProvider: MarkdownProvider,
     linkify: Linkify?,
     locale: Locale,
+    preferences: Preferences,
     colorProvider: (Int) -> Int,
 ) {
     val context = LocalContext.current
+    val is24Hour = remember(context) { context.is24HourFormat }
+    var showDueDatePicker by rememberSaveable { mutableStateOf(false) }
     DisposableEffect(Unit) {
         val activity = context.findActivity()
         if (atLeastOreoMR1() && viewState.showEditScreenWithoutUnlock) {
@@ -225,9 +237,12 @@ fun TaskEditScreen(
                         hasDueDateAlarm = remember (viewState.alarms) {
                             viewState.alarms.any { it.type == Alarm.TYPE_REL_END }
                         },
-                        is24HourFormat = context.is24HourFormat,
+                        is24HourFormat = is24Hour,
                         alwaysDisplayFullDate = viewState.alwaysDisplayFullDate,
-                        onClick = onClickDueDate,
+                        onClick = {
+                            val showPicker = { showDueDatePicker = true }
+                            context.findActivity()?.hideKeyboardThen(showPicker) ?: showPicker()
+                        },
                     )
                     TAG_PRIORITY ->
                         PriorityRow(
@@ -316,6 +331,31 @@ fun TaskEditScreen(
                     beastMode.launch(Intent(context, BeastModePreferences::class.java))
                 },
                 dismiss = dismissBeastMode,
+            )
+        }
+        if (showDueDatePicker) {
+            val dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value
+            val (initialDay, initialTime) = dueDateToSelection(dueDate)
+            DueDatePickerSheet(
+                initialDay = initialDay,
+                initialTime = initialTime,
+                is24Hour = is24Hour,
+                autoClose = preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false),
+                showNoDate = !viewState.task.isRecurring,
+                times = remember { preferences.quickPickTimes },
+                initialDateInputMode = preferences.calendarDisplayMode == DisplayMode.Input,
+                onDateInputModeChange = {
+                    preferences.calendarDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                initialTimeInputMode = preferences.timeDisplayMode == DisplayMode.Input,
+                onTimeInputModeChange = {
+                    preferences.timeDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                onSelected = { day, time ->
+                    editViewModel.setDueDate(dueDateFromSelection(day, time))
+                    showDueDatePicker = false
+                },
+                onDismiss = { showDueDatePicker = false },
             )
         }
     }

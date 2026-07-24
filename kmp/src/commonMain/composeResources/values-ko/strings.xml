@@ -224,4 +224,5 @@
     <string name="shortcut_pick_time">시간 선택</string>
     <string name="no_time">마감시간 없음</string>
     <string name="TEA_note_label">설명</string>
+    <string name="start_date">시작일</string>
 </resources>

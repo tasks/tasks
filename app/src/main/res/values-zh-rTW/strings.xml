@@ -291,8 +291,6 @@
     <string name="auto_dismiss_datetime_list_summary">當從工作清單挑選時自動關閉</string>
     <string name="auto_dismiss_datetime_list">工作清單</string>
     <string name="auto_dismiss_datetime">自動關閉日期時間選擇器</string>
-    <string name="shortcut_pick_time">選擇時間</string>
-    <string name="no_time">無時間</string>
     <string name="no_date">無日期</string>
     <string name="chip_appearance_text_and_icon">文字與圖示</string>
     <string name="chip_appearance_icon_only">僅圖示</string>
@@ -431,13 +429,6 @@
     <string name="repeats_from">重複開始</string>
     <string name="list">清單</string>
     <string name="opacity_row">行列透明度</string>
-    <string name="next_saturday">下週六</string>
-    <string name="next_friday">下週五</string>
-    <string name="next_thursday">下週四</string>
-    <string name="next_wednesday">下週三</string>
-    <string name="next_tuesday">下週二</string>
-    <string name="next_monday">下週一</string>
-    <string name="next_sunday">下週日</string>
     <string name="CFC_startBefore_name">起始…</string>
     <string name="CFC_startBefore_text">起始: \?</string>
     <string name="now">現在</string>
@@ -542,7 +533,6 @@
     <string name="sort_list">依清單</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支援多層次子任務</string>
     <string name="your_subscription_expired">您的訂閱已過期。立即訂閱以恢復服務。</string>
-    <string name="date_picker_multiple">多個</string>
     <string name="background_location">背景定位</string>
     <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
     <string name="completed">已完成</string>

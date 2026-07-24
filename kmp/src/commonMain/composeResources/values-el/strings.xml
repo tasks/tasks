@@ -225,4 +225,5 @@
     <string name="shortcut_pick_time">Επιλογή ώρας</string>
     <string name="no_time">Χωρίς ώρα</string>
     <string name="TEA_note_label">Περιγραφή</string>
+    <string name="start_date">Ημερομηνία Έναρξης</string>
 </resources>

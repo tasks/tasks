@@ -275,4 +275,5 @@
     <string name="shortcut_pick_time">Időpont kiválasztása</string>
     <string name="no_time">Időpont nélkül</string>
     <string name="TEA_note_label">Leírás</string>
+    <string name="start_date">Kezdő dátum</string>
 </resources>

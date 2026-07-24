@@ -1,31 +1,31 @@
 package com.todoroo.astrid.ui
 
-import android.app.Activity
-import android.content.Intent
+import androidx.compose.material3.DisplayMode
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.edit.StartDateRow
+import org.tasks.compose.pickers.StartDatePickerSheet
+import org.tasks.compose.pickers.labelWithTime
 import org.tasks.data.entity.Alarm
-import org.tasks.dialogs.StartDatePicker
-import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_DAY
-import org.tasks.dialogs.StartDatePicker.Companion.EXTRA_TIME
-import org.tasks.compose.pickers.NO_DAY
-import org.tasks.compose.pickers.NO_TIME
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.hideKeyboardThen
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.formatTime
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import org.tasks.time.withMillisOfDay
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
@@ -45,10 +45,29 @@ class StartDateControlSet : TaskEditControlFragment() {
                 isNew = viewModel.viewState.value.isNew
             )
         }
+        val is24Hour = remember { requireContext().is24HourFormat }
         val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
         val selectedDay = vm.selectedDay.collectAsStateWithLifecycle().value
         val selectedTime = vm.selectedTime.collectAsStateWithLifecycle().value
         val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
+        var showPicker by rememberSaveable { mutableStateOf(false) }
+        val today = currentTimeMillis().startOfDay()
+        val printedStartDate = remember(
+            selectedDay, selectedTime, is24Hour, preferences.alwaysDisplayFullDate, today
+        ) {
+            if (selectedDay > 0) {
+                runBlocking {
+                    getRelativeDateTime(
+                        selectedDay.withMillisOfDay(selectedTime),
+                        is24Hour,
+                        DateStyle.FULL,
+                        alwaysDisplayFullDate = preferences.alwaysDisplayFullDate,
+                    )
+                }
+            } else {
+                ""
+            }
+        }
         StartDateRow(
             startDate = viewModel.startDate.collectAsStateWithLifecycle().value,
             selectedDay = selectedDay,
@@ -57,55 +76,43 @@ class StartDateControlSet : TaskEditControlFragment() {
                 viewState.alarms.any { it.type == Alarm.TYPE_REL_START }
             },
             hasDueDate = dueDate > 0,
-            printDate = {
-                runBlocking {
-                    getRelativeDateTime(
-                        selectedDay + selectedTime,
-                        requireContext().is24HourFormat,
-                        DateStyle.FULL,
-                        alwaysDisplayFullDate = preferences.alwaysDisplayFullDate
-                    )
-                }
-            },
+            printDate = { printedStartDate },
             onClick = {
-                val showPicker = {
-                    if (isAdded && parentFragmentManager.findFragmentByTag(FRAG_TAG_DATE_PICKER) == null) {
-                        val fragmentManager = parentFragmentManager
-                        StartDatePicker.newDateTimePicker(
-                            this@StartDateControlSet,
-                            REQUEST_START_DATE,
-                            vm.selectedDay.value,
-                            vm.selectedTime.value,
-                            autoClose = preferences.getBoolean(
-                                R.string.p_auto_dismiss_datetime_edit_screen,
-                                false
-                            ),
-                            showDueDate = !viewModel.viewState.value.list.account.isOpenTasks,
-                        )
-                            .show(fragmentManager, FRAG_TAG_DATE_PICKER)
-                    }
-                }
-                activity?.hideKeyboardThen(showPicker) ?: showPicker()
+                val show = { showPicker = true }
+                activity?.hideKeyboardThen(show) ?: show()
             }
         )
 
+        if (showPicker) {
+            StartDatePickerSheet(
+                initialDay = selectedDay,
+                initialTime = selectedTime,
+                is24Hour = is24Hour,
+                autoClose = preferences.getBoolean(
+                    R.string.p_auto_dismiss_datetime_edit_screen,
+                    false
+                ),
+                showDueDate = !viewState.list.account.isOpenTasks,
+                times = remember { preferences.quickPickTimes },
+                initialDateInputMode = preferences.calendarDisplayMode == DisplayMode.Input,
+                onDateInputModeChange = {
+                    preferences.calendarDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                initialTimeInputMode = preferences.timeDisplayMode == DisplayMode.Input,
+                onTimeInputModeChange = {
+                    preferences.timeDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                onSelected = { day, time ->
+                    vm.setSelected(day, time)
+                    applySelected()
+                    showPicker = false
+                },
+                onDismiss = { showPicker = false },
+            )
+        }
+
         LaunchedEffect(dueDate) {
             applySelected()
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_START_DATE) {
-            if (resultCode == Activity.RESULT_OK) {
-                vm.setSelected(
-                    selectedDay = data?.getLongExtra(EXTRA_DAY, 0L) ?: NO_DAY,
-                    selectedTime = data?.getIntExtra(EXTRA_TIME, 0) ?: NO_TIME
-                )
-                applySelected()
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
@@ -115,17 +122,9 @@ class StartDateControlSet : TaskEditControlFragment() {
 
     companion object {
         val TAG = R.string.TEA_ctrl_hide_until_pref
-        private const val REQUEST_START_DATE = 11011
-        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
 
         @Composable
-        internal fun getRelativeDateString(resId: Int, time: Int): String {
-            val label = stringResource(resId)
-            return if (time == NO_TIME) {
-                label
-            } else {
-                "$label ${formatTime(currentTimeMillis().withMillisOfDay(time), LocalContext.current.is24HourFormat)}"
-            }
-        }
+        internal fun getRelativeDateString(resId: Int, time: Int): String =
+            labelWithTime(stringResource(resId), time, LocalContext.current.is24HourFormat)
     }
 }

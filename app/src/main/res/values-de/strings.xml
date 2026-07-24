@@ -384,8 +384,6 @@
     <string name="chip_appearance_text_and_icon">Text und Symbol</string>
     <string name="chip_appearance_text_only">Nur Text</string>
     <string name="chip_appearance_icon_only">Nur Symbol</string>
-    <string name="shortcut_pick_time">Uhrzeit wählen</string>
-    <string name="no_time">Ohne Uhrzeit</string>
     <string name="no_date">Kein Datum</string>
     <string name="auto_dismiss_datetime_summary">Nach Auswahl eines Datums oder einer Uhrzeit den Auswahldialog automatisch schließen</string>
     <string name="auto_dismiss_datetime">Terminauswahl automatisch schließen</string>
@@ -462,7 +460,6 @@
     <string name="default_tags">Standardschlagwörter</string>
     <string name="custom_filter_is_subtask">Ist eine Unteraufgabe</string>
     <string name="custom_filter_has_subtask">Hat Unteraufgaben</string>
-    <string name="date_picker_multiple">Mehrfach</string>
     <string name="multi_select_reschedule">Umplanen</string>
     <string name="default_recurrence">Standardwiederholung</string>
     <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
@@ -511,13 +508,6 @@
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
     <string name="pro_free_trial">Neue Abonnent:innen erhalten eine 7-tägige kostenlose Testversion. Kann jederzeit gekündigt werden</string>
-    <string name="next_saturday">Nächsten Samstag</string>
-    <string name="next_friday">Nächsten Freitag</string>
-    <string name="next_thursday">Nächsten Donnerstag</string>
-    <string name="next_wednesday">Nächsten Mittwoch</string>
-    <string name="next_tuesday">Nächsten Dienstag</string>
-    <string name="next_monday">Nächsten Montag</string>
-    <string name="next_sunday">Nächsten Sonntag</string>
     <string name="markdown_description">Markdown in Titel und Beschreibung aktivieren</string>
     <string name="markdown">Markdown</string>
     <string name="now">Jetzt</string>

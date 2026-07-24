@@ -274,13 +274,6 @@ File %1$s contained %2$s.\n\n
   <string name="now">Now</string>
   <string name="today">Today</string>
   <string name="tomorrow">Tomorrow</string>
-  <string name="next_sunday">Next Sun</string>
-  <string name="next_monday">Next Mon</string>
-  <string name="next_tuesday">Next Tue</string>
-  <string name="next_wednesday">Next Wed</string>
-  <string name="next_thursday">Next Thu</string>
-  <string name="next_friday">Next Fri</string>
-  <string name="next_saturday">Next Sat</string>
   <string name="yesterday">Yesterday</string>
   <string name="widget_show_checkboxes">Show checkboxes</string>
   <string name="widget_show_header">Show header</string>
@@ -509,8 +502,6 @@ File %1$s contained %2$s.\n\n
   <string name="chip_appearance_text_only">Text only</string>
   <string name="chip_appearance_icon_only">Icon only</string>
   <string name="no_date">No date</string>
-  <string name="no_time">No time</string>
-  <string name="shortcut_pick_time">Pick time</string>
   <string name="auto_dismiss_datetime">Autoclose date time picker</string>
   <string name="auto_dismiss_datetime_list">Task list</string>
   <string name="auto_dismiss_datetime_list_summary">Autoclose when picking from task list</string>
@@ -575,7 +566,6 @@ File %1$s contained %2$s.\n\n
   <string name="backups_ignore_warnings_summary">Ignore backup warnings if you do not need backups or have your own backup solution</string>
   <string name="backup_location_warning">WARNING: Files located in %s will be deleted if Tasks is uninstalled! Please choose a custom location to prevent Android from deleting your files.</string>
   <string name="multi_select_reschedule">Reschedule</string>
-  <string name="date_picker_multiple">Multiple</string>
   <string name="custom_filter_has_subtask">Has subtasks</string>
   <string name="custom_filter_is_subtask">Is subtask</string>
   <string name="custom_filter_has_reminder">Has reminder</string>

@@ -155,8 +155,6 @@
     <string name="auto_dismiss_datetime_widget">விட்ஜெட்</string>
     <string name="auto_dismiss_datetime_edit">பணி திருத்தம்</string>
     <string name="auto_dismiss_datetime_list">பணி பட்டியல்</string>
-    <string name="shortcut_pick_time">நேரத்தைத் தேர்ந்தெடுங்கள்</string>
-    <string name="no_time">நேரம் இல்லை</string>
     <string name="no_date">தேதி இல்லை</string>
     <string name="chip_appearance_icon_only">படவுரு மட்டுமே</string>
     <string name="chip_appearance_text_only">உரை மட்டும்</string>
@@ -430,14 +428,7 @@
     <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
     <string name="export_toast">%1$s முதல் %2$s வரை நகல் எடுக்கப்பட்டது.</string>
     <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>
-    <string name="next_sunday">அடுத்த ஞாயிறு</string>
-    <string name="next_tuesday">அடுத்த செவ்வாய்</string>
-    <string name="next_friday">அடுத்த வெள்ளி</string>
     <string name="filter_criteria_unstarted">தொடங்கப்படவில்லை</string>
-    <string name="next_monday">அடுத்த திங்கள்</string>
-    <string name="next_wednesday">அடுத்த புதன்</string>
-    <string name="next_thursday">அடுத்த வியாழன்</string>
-    <string name="next_saturday">அடுத்த சனி</string>
     <string name="repeat_monthly_fifth_week">ஐந்தாவது</string>
     <string name="chips">சிப்சு</string>
     <string name="device_settings">சாதன அமைப்புகள்</string>
@@ -529,7 +520,6 @@
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
     <string name="sort_completion_group">நிறைவு %s</string>
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>
-    <string name="date_picker_multiple">நான்கு</string>
     <string name="your_subscription_expired">உங்கள் சந்தா காலாவதியானது. சேவையை மீண்டும் தொடங்க இப்போது குழுசேரவும்.</string>
     <string name="price_per_month_with_currency">%s/மாதம்</string>
     <string name="ok">சரி</string>

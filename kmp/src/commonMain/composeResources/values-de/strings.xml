@@ -303,4 +303,5 @@
     <string name="shortcut_pick_time">Uhrzeit wählen</string>
     <string name="no_time">Ohne Uhrzeit</string>
     <string name="TEA_note_label">Beschreibung</string>
+    <string name="start_date">Starttermin</string>
 </resources>

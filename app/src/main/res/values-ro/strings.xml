@@ -41,7 +41,6 @@
     <string name="your_subscription_expired">Abonamentul a expirat. Abonează-te acum pentru a relua serviciul.</string>
     <string name="custom_filter_is_subtask">Este o sarcină secundară</string>
     <string name="custom_filter_has_subtask">Are sarcini secundare</string>
-    <string name="date_picker_multiple">Multiplu</string>
     <string name="multi_select_reschedule">Reprogramare</string>
     <string name="backup_location_warning">AVERTISMENT: Fișierele localizate în %s vor fi șterse dacă Tasks este dezinstalat! Alege o locație personalizată pentru a împiedica Android să șteargă fișierele.</string>
     <string name="backups_ignore_warnings_summary">Ignoră avertismentele de backup dacă nu ai nevoie de backup-uri sau dacă ai propria soluție de backup</string>
@@ -188,13 +187,6 @@
     <string name="widget_show_settings">Afișează setările</string>
     <string name="widget_show_header">Afișați antetul</string>
     <string name="widget_show_checkboxes">Afișează casetele de selectare</string>
-    <string name="next_saturday">Sâmbăta viitoare</string>
-    <string name="next_friday">Vinerea viitoare</string>
-    <string name="next_thursday">Joia viitoare</string>
-    <string name="next_wednesday">Miercurea viitoare</string>
-    <string name="next_tuesday">Marțea viitoare</string>
-    <string name="next_monday">Lunea viitoare</string>
-    <string name="next_sunday">Următoarea duminică</string>
     <string name="tomorrow">Mâine</string>
     <string name="today">Azi</string>
     <plurals name="Ntasks">
@@ -440,8 +432,6 @@
     <string name="auto_dismiss_datetime_list_summary">Închidere automată la selectarea din lista de sarcini</string>
     <string name="auto_dismiss_datetime_list">Lista de sarcini</string>
     <string name="auto_dismiss_datetime">Închiderea automată a selectorului de dată și oră</string>
-    <string name="shortcut_pick_time">Ora de preluare</string>
-    <string name="no_time">Fără timp</string>
     <string name="no_date">Fără dată</string>
     <string name="chip_appearance_icon_only">Doar pictograma</string>
     <string name="chip_appearance_text_only">Doar text</string>

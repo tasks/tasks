@@ -341,4 +341,5 @@
     <string name="shortcut_pick_time">Välj en tid</string>
     <string name="no_time">Ingen tid</string>
     <string name="TEA_note_label">Beskrivning</string>
+    <string name="start_date">Startdatum</string>
 </resources>

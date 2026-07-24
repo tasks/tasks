@@ -363,7 +363,6 @@
     <string name="icon">סמל</string>
     <string name="name_your_price">מה המחיר שלך</string>
     <string name="places">מקומות</string>
-    <string name="no_time">אין זמן</string>
     <string name="no_date">אין תאריך</string>
     <string name="chip_appearance_text_only">טקסט בלבד</string>
     <string name="more_settings">הגדרות נוספות</string>
@@ -398,7 +397,6 @@
     <string name="widget_id">מזהה יישומון: %d</string>
     <string name="share">שיתוף</string>
     <string name="auto_dismiss_datetime_widget">יישומון</string>
-    <string name="shortcut_pick_time">בחירת זמן</string>
     <string name="chip_appearance_text_and_icon">טקסט וסמל</string>
     <string name="menu_discard_changes">השלכת שינויים</string>
     <string name="subtasks">תתי־משימות</string>
@@ -475,7 +473,6 @@
     <string name="android_auto_backup">שירות הגיבוי של Android</string>
     <string name="no_app_found">אף יישום לא יכל לטפל בבקשה זו</string>
     <string name="header_spacing">ריווח</string>
-    <string name="date_picker_multiple">מרובה</string>
     <string name="multi_select_reschedule">תזמון מחדש</string>
     <string name="default_recurrence">הישנות ברירת מחדל</string>
     <string name="default_tags">תגיות ברירת מחדל</string>
@@ -523,13 +520,6 @@
     <string name="support">תמיכה</string>
     <string name="subscription">מינוי</string>
     <string name="widget_show_title">הצגת כותרת</string>
-    <string name="next_saturday">שבת הבאה</string>
-    <string name="next_friday">שישי הבא</string>
-    <string name="next_thursday">חמישי הבא</string>
-    <string name="next_wednesday">רביעי הבא</string>
-    <string name="next_tuesday">שלישי הבא</string>
-    <string name="next_monday">שני הבא</string>
-    <string name="next_sunday">ראשון הבא</string>
     <string name="filter_any_start_date">כל תאריך התחלה</string>
     <string name="no_start_date">אין תאריך התחלה</string>
     <string name="CFC_startBefore_name">התחלה לפני…</string>

@@ -38,7 +38,6 @@
     <string name="save">Uložiť</string>
     <string name="TEA_timer_est">Spolu %s</string>
     <string name="TEA_timer_elap">Uplynulo %s</string>
-    <string name="no_time">Bez času</string>
     <string name="due_date">Do termínu</string>
     <string name="due_time">Čas dokončenia</string>
     <string name="day_before_due">Deň pre ukončením</string>
@@ -412,7 +411,6 @@
         <item quantity="other">týždňov</item>
     </plurals>
     <string name="delete_comment">komentár</string>
-    <string name="next_thursday">Budúci štvrtok</string>
     <string name="quiet_hours_in_effect">Režim nerušiť je zapnutý</string>
     <string name="header_spacing">Rozstupy</string>
     <string name="when_started">Keď začne</string>
@@ -431,10 +429,6 @@
     <string name="swipe_to_snooze_time_15_minutes">po 15 minútach</string>
     <string name="swipe_to_snooze_time_30_minutes">po 30 minútach</string>
     <string name="now">Teraz</string>
-    <string name="next_sunday">Budúca nedeľa</string>
-    <string name="next_wednesday">Budúca streda</string>
-    <string name="next_friday">Budúci piatok</string>
-    <string name="next_saturday">Budúca sobota</string>
     <string name="yesterday">Včera</string>
     <string name="widget_show_menu">Zobraziť ponuku</string>
     <string name="widget_show_dividers">Zobraziť oddeľovače</string>
@@ -447,14 +441,12 @@
     <string name="repeat_type_completion_capitalized">Dátum dokončenia</string>
     <string name="no_start_date">Bez dátumu spustenia</string>
     <string name="filter_any_start_date">Akýkoľvek dátum spustenia</string>
-    <string name="next_monday">Budúci pondelok</string>
     <string name="astrid_sort_order">Ručné triedenie Astrid</string>
     <string name="start_date">Dátum spustenia</string>
     <string name="theme_system_default">Podľa systému</string>
     <string name="widget_open_list">Otvoriť zoznam</string>
     <string name="astrid_sort_order_summary">Zapne ručné triedenie Astrid pre „Moje úlohy“, „Dnes“ a štítky. Tento režim triedenia bude v budúcnosti nahradený režimom „Vlastné triedenie“</string>
     <string name="display_name">Zobrazované meno</string>
-    <string name="next_tuesday">Budúci utorok</string>
     <string name="date_shortcut_tomorrow_night">Zajtra v noci</string>
     <string name="default_location">Predvolené miesto</string>
     <string name="sort_completion_group">Dokončené %s</string>
@@ -462,7 +454,6 @@
     <string name="repeat_monthly_on_day_number">%1d. deň v mesiaci</string>
     <string name="repeat_monthly_fifth_week">piaty</string>
     <string name="filter_eisenhower_box_3">Naliehavé, ale nedôležité</string>
-    <string name="date_picker_multiple">Viacnásobné</string>
     <string name="google_tasks_add_to_top">Nové úlohy hore</string>
     <string name="last_backup">Posledná záloha: %s</string>
     <string name="this_feature_requires_a_subscription">Táto funkcia vyžaduje predplatné</string>
@@ -563,7 +554,6 @@
     <string name="hide_unused_tags">Skryť nevyužívané štítky</string>
     <string name="place_settings">Nastavenia miesta</string>
     <string name="hide_unused_places">Skryť nevyužívané miesta</string>
-    <string name="shortcut_pick_time">Vyberte čas</string>
     <string name="share">Zdieľať</string>
     <string name="widget_id">ID widgetu: %d</string>
     <string name="copied_to_clipboard">%s skopírované do schránky</string>

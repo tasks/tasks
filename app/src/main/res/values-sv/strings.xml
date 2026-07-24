@@ -361,8 +361,6 @@
     <string name="settings_default">Förvalt</string>
     <string name="share">Dela</string>
     <string name="select_all">Välj alla</string>
-    <string name="shortcut_pick_time">Välj en tid</string>
-    <string name="no_time">Ingen tid</string>
     <string name="no_date">Inget datum</string>
     <string name="chip_appearance_icon_only">Endast ikon</string>
     <string name="chip_appearance_text_only">Endast text</string>
@@ -417,7 +415,6 @@
     <string name="your_subscription_expired">Din prenumeration har löpt ut. Prenumerera nu för att återuppta tjänsten.</string>
     <string name="custom_filter_is_subtask">Är en deluppgift</string>
     <string name="custom_filter_has_subtask">Har deluppgifter</string>
-    <string name="date_picker_multiple">Flera</string>
     <string name="multi_select_reschedule">Planera om</string>
     <string name="backup_location_warning">VARNING: Filer i %s tas bort om Tasks avinstalleras. Välj en annan plats för att förhindra att Android tar bort filerna.</string>
     <string name="backups_ignore_warnings_summary">Ignorera säkerhetskopieringsvarningar om du inte behöver säkerhetskopiera eller har en egen säkerhetskopieringslösning</string>
@@ -495,13 +492,6 @@
     <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>
     <string name="widget_show_title">Visa titel</string>
-    <string name="next_saturday">Nästa lör</string>
-    <string name="next_friday">Nästa fre</string>
-    <string name="next_thursday">Nästa tors</string>
-    <string name="next_wednesday">Nästa ons</string>
-    <string name="next_tuesday">Nästa tis</string>
-    <string name="next_monday">Nästa mån</string>
-    <string name="next_sunday">Nästa sön</string>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
     <string name="filter_any_start_date">Vilket startdatum som helst</string>
     <string name="no_start_date">Inget startdatum</string>

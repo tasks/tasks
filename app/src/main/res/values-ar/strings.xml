@@ -144,7 +144,6 @@
     <string name="notification_disable_battery_optimizations_description">قد يؤدي تحسين البطارية إلى تأخير الإشعارات</string>
     <string name="EPr_reset_preferences_warning">ستتم إعادة تعيين التفضيلات إلى القيم الافتراضية</string>
     <string name="filter_today_only">اليوم فقط</string>
-    <string name="no_time">لا وقت</string>
     <string name="no_date">لا تاريخ</string>
     <string name="more_settings">المزيد من الإعدادات</string>
     <string name="whats_new">ما الجديد</string>
@@ -273,7 +272,6 @@
     <string name="filter_after_today">بعد اليوم</string>
     <string name="select_all">اختيار الكلّ</string>
     <string name="share">مشاركة</string>
-    <string name="shortcut_pick_time">اختر الوقت</string>
     <string name="chip_appearance_icon_only">الأيقونة فقط</string>
     <string name="hide_unused_places">أخفِ الأماكن الغير مستخدمة</string>
     <string name="color_wheel">عجلة الألوان</string>
@@ -320,13 +318,6 @@
     <string name="discard">تجاهل</string>
     <string name="menu_discard_changes">تجاهل التغييرات</string>
     <string name="discard_changes">تجاهل التغييرات؟</string>
-    <string name="next_saturday">السبت القادم</string>
-    <string name="next_friday">الجمعة القادمة</string>
-    <string name="next_thursday">الخميس القادم</string>
-    <string name="next_wednesday">الأربعاء القادم</string>
-    <string name="next_tuesday">الثلاثاء القادم</string>
-    <string name="next_monday">الإثنين القادم</string>
-    <string name="next_sunday">الأحد القادم</string>
     <string name="location_radius_meters">%s م</string>
     <string name="header_spacing">التباعد</string>
     <string name="miscellaneous">متنوّع</string>
@@ -339,7 +330,6 @@
     <string name="migrate_count">انقل %s إلى Tasks.org</string>
     <string name="open_source">مفتوح المصدر</string>
     <string name="your_subscription_expired">لقد انتهى اشتراكك. اشترك الآن لإكمال الخدمة.</string>
-    <string name="date_picker_multiple">متعدّد</string>
     <string name="multi_select_reschedule">غيّر التاريخ</string>
     <string name="sort_modified_group">عُدّل %s</string>
     <string name="sort_created_group">أنشأ %s</string>

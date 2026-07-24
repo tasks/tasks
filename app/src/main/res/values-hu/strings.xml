@@ -382,8 +382,6 @@
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>
     <string name="chip_appearance_text_only">Csak szöveg</string>
     <string name="chip_appearance_icon_only">Csak ikon</string>
-    <string name="shortcut_pick_time">Időpont kiválasztása</string>
-    <string name="no_time">Időpont nélkül</string>
     <string name="no_date">Dátum nélkül</string>
     <string name="auto_dismiss_datetime_summary">Dátum és időpont kiválasztása után zárja be a választó panelt</string>
     <string name="auto_dismiss_datetime">Dátum és időpont választó automatikus bezárása</string>
@@ -462,7 +460,6 @@
     <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
     <string name="default_tags">Alapértelmezett címkék</string>
     <string name="default_location">Alapértelmezett hely</string>
-    <string name="date_picker_multiple">Többszörös</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
@@ -510,13 +507,6 @@
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
     <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>
-    <string name="next_saturday">Köv. Szo</string>
-    <string name="next_friday">Köv. P</string>
-    <string name="next_thursday">Köv. Cs</string>
-    <string name="next_wednesday">Köv. Sze</string>
-    <string name="next_monday">Köv. H</string>
-    <string name="next_sunday">Köv. V</string>
-    <string name="next_tuesday">Köv. K</string>
     <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
     <string name="markdown">Markdown</string>
     <string name="now">Most</string>

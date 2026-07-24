@@ -382,8 +382,6 @@
     <string name="chip_appearance_text_and_icon">Tekst en pictogram</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>
     <string name="chip_appearance_icon_only">Alleen pictogram</string>
-    <string name="shortcut_pick_time">Tijd kiezen</string>
-    <string name="no_time">Geen tijd</string>
     <string name="no_date">Geen datum</string>
     <string name="auto_dismiss_datetime_summary">Datum/tijd kiezer automatisch sluiten na kiezen van datum of tijd</string>
     <string name="auto_dismiss_datetime">Datum/tijd kiezer automatisch sluiten</string>
@@ -463,7 +461,6 @@
     <string name="default_location">Standaardlocatie</string>
     <string name="default_tags">Standaardlabel</string>
     <string name="multi_select_reschedule">Opnieuw inplannen</string>
-    <string name="date_picker_multiple">Meerdere</string>
     <string name="cancel">Annuleren</string>
     <string name="ok">OK</string>
     <string name="always_display_full_date">Volledige datum tonen</string>
@@ -510,13 +507,6 @@
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>
-    <string name="next_saturday">Volgende zaterdag</string>
-    <string name="next_friday">Volgende vrijdag</string>
-    <string name="next_thursday">Volgende donderdag</string>
-    <string name="next_wednesday">Volgende woensdag</string>
-    <string name="next_tuesday">Volgende dinsdag</string>
-    <string name="next_monday">Volgende maandag</string>
-    <string name="next_sunday">Volgende zondag</string>
     <string name="markdown_description">Sta Markdown toe in titel en beschrijving</string>
     <string name="markdown">Markdown</string>
     <string name="now">Nu</string>

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,11 +23,9 @@ import org.tasks.compose.edit.TaskEditScreen
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.dialogs.DateTimePicker
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
-import org.tasks.extensions.hideKeyboardThen
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
@@ -136,25 +132,7 @@ class TaskEditFragment : Fragment() {
                 },
                 markdownProvider = remember { MarkdownProvider(context, preferences) },
                 linkify = if (viewState.linkify) linkify else null,
-                onClickDueDate = {
-                    val showPicker = {
-                        if (isAdded) {
-                            DateTimePicker
-                                .newDateTimePicker(
-                                    target = this@TaskEditFragment,
-                                    rc = REQUEST_DATE,
-                                    current = editViewModel.dueDate.value,
-                                    autoClose = preferences.getBoolean(
-                                        R.string.p_auto_dismiss_datetime_edit_screen,
-                                        false
-                                    ),
-                                    hideNoDate = editViewModel.viewState.value.task.isRecurring,
-                                )
-                                .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
-                        }
-                    }
-                    activity?.hideKeyboardThen(showPicker) ?: showPicker()
-                },
+                preferences = preferences,
                 onClickRepeat = {
                     val vs = editViewModel.viewState.value
                     BasicRecurrenceDialog.newBasicRecurrenceDialog(
@@ -202,23 +180,10 @@ class TaskEditFragment : Fragment() {
         clearTask()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_DATE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    editViewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     companion object {
         const val EXTRA_TASK = "extra_task"
 
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
-        private const val REQUEST_DATE = 504
     }
 }

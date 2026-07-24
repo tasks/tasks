@@ -52,18 +52,11 @@
     <string name="now">अहिले</string>
     <string name="today">आज</string>
     <string name="tomorrow">भोलि</string>
-    <string name="next_sunday">अर्को आइतबार</string>
-    <string name="next_monday">अर्को सोमबार</string>
-    <string name="next_tuesday">अर्को मंगलबार</string>
-    <string name="next_wednesday">अर्को बुधबार</string>
-    <string name="next_thursday">अर्को बिहिबार</string>
-    <string name="next_friday">अर्को शुक्रबार</string>
     <string name="yesterday">हिजो</string>
     <string name="widget_show_checkboxes">चेकबक्सहरू देखाउनुहोस्</string>
     <string name="widget_show_settings">सेटिङहरू देखाउनुहोस्</string>
     <string name="widget_show_title">शीर्षक देखाउनुहोस्</string>
     <string name="widget_show_menu">मेनु देखाउनुहोस्</string>
     <string name="BFE_Active">मेरा कार्यहरू</string>
-    <string name="next_saturday">अर्को शनिबार</string>
     <string name="CFC_importance_text">प्राथमिकता कम्तिमा ?</string>
 </resources>

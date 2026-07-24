@@ -390,8 +390,6 @@
     <string name="back">Назад</string>
     <string name="chips">Индикаторы</string>
     <string name="chip_appearance">Внешний вид индикаторов</string>
-    <string name="shortcut_pick_time">Выбрать время</string>
-    <string name="no_time">Без времени</string>
     <string name="no_date">Без даты</string>
     <string name="chip_appearance_icon_only">Только иконка</string>
     <string name="chip_appearance_text_only">Только текст</string>
@@ -483,7 +481,6 @@
     <string name="always_display_full_date">Показать полную дату</string>
     <string name="cancel">Отмена</string>
     <string name="ok">ОК</string>
-    <string name="date_picker_multiple">Несколько</string>
     <string name="multi_select_reschedule">Перенести</string>
     <string name="current_subscription">Текущая подписка: %s</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
@@ -526,13 +523,6 @@
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
     <string name="pro_free_trial">Новые подписчики получают 7-дневный бесплатный пробный период. Отмена возможна в любое время</string>
-    <string name="next_saturday">Следующая Сб</string>
-    <string name="next_friday">Следующая Пт</string>
-    <string name="next_thursday">Следующий Чт</string>
-    <string name="next_monday">Следующий Пн</string>
-    <string name="next_sunday">Следующее Вс</string>
-    <string name="next_tuesday">Следующий Вт</string>
-    <string name="next_wednesday">Следующая Ср</string>
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
     <string name="now">Сейчас</string>

@@ -100,6 +100,18 @@ fun DatePickerShortcuts(
 }
 
 @Composable
+private fun customDateLabel(millis: Long, today: Long): String =
+    remember(millis, today) {
+        runBlocking {
+            if (millis < today.minusDays(1)) {
+                getFullDate(millis, style = DateStyle.LONG)
+            } else {
+                getRelativeDay(millis, style = DateStyle.LONG)
+            }
+        }
+    }
+
+@Composable
 fun StartDateShortcuts(
     selected: Long,
     selectedDay: (Long) -> Unit,
@@ -115,6 +127,7 @@ fun StartDateShortcuts(
             custom
         }
     }
+    val today = remember { currentTimeMillis().startOfDay() }
 
     if (custom > 0 || custom == MULTIPLE_DAYS) {
         ShortcutButton(
@@ -122,16 +135,7 @@ fun StartDateShortcuts(
             text = if (custom == MULTIPLE_DAYS) {
                 stringResource(Res.string.date_picker_multiple)
             } else {
-                remember(custom) {
-                    runBlocking {
-                        if (custom < currentTimeMillis().startOfDay().minusDays(1)) {
-                            getFullDate(custom, style = DateStyle.LONG)
-                        } else {
-                            getRelativeDay(custom, style = DateStyle.LONG)
-                        }
-
-                    }
-                }
+                customDateLabel(custom, today)
             },
             selected = selected == custom,
             onClick = { selectedDay(custom) },
@@ -196,16 +200,7 @@ fun DueDateShortcuts(
             text = if (custom == MULTIPLE_DAYS) {
                 stringResource(Res.string.date_picker_multiple)
             } else {
-                remember(custom) {
-                    runBlocking {
-                        if (custom < today.minusDays(1)) {
-                            getFullDate(custom, style = DateStyle.LONG)
-                        } else {
-                            getRelativeDay(custom, style = DateStyle.LONG)
-                        }
-
-                    }
-                }
+                customDateLabel(custom, today)
             },
             selected = selected == custom,
             onClick = { selectedDay(custom) },

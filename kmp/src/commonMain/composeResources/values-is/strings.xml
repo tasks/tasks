@@ -27,4 +27,5 @@
     <string name="day_before_due">Skilast á morgun</string>
     <string name="week_before_due">Skilast í næstu viku</string>
     <string name="TEA_note_label">Lýsing</string>
+    <string name="start_date">Upphafsdagur</string>
 </resources>

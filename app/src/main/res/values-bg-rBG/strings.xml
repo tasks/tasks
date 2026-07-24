@@ -38,7 +38,6 @@
     <string name="save">Запазване</string>
     <string name="TEA_timer_est">Прибл. %s</string>
     <string name="TEA_timer_elap">Изминали %s</string>
-    <string name="no_time">Без час</string>
     <string name="due_date">Крайна дата</string>
     <string name="due_time">Краен час</string>
     <string name="day_before_due">Ден преди крайния срок</string>
@@ -391,13 +390,6 @@
     <string name="widget_show_dividers">Разделители</string>
     <string name="widget_show_menu">Меню</string>
     <string name="widget_show_title">Заглавие</string>
-    <string name="next_saturday">Следващата събота</string>
-    <string name="next_friday">Следващият петък</string>
-    <string name="next_thursday">Следващият четвъртък</string>
-    <string name="next_wednesday">Следващата сряда</string>
-    <string name="next_tuesday">Следващият вторник</string>
-    <string name="next_monday">Следващият понеделник</string>
-    <string name="next_sunday">Следващата неделя</string>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
     <string name="CFC_list_name">В списъка…</string>
     <string name="filter_any_start_date">Всяка начална дата</string>
@@ -484,7 +476,6 @@
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="more_options">Допълнителни настройки</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
-    <string name="shortcut_pick_time">Час по избор</string>
     <string name="wearable_notifications">Известия на носими устройства</string>
     <string name="auto_dismiss_datetime_edit_summary">Затваряне след избор от списъка за промяна на задача</string>
     <string name="auto_dismiss_datetime_widget_summary">Затваряне след избор от приспособлението</string>
@@ -539,7 +530,6 @@
     <string name="alarm_after_start">%s след началото</string>
     <string name="snackbar_tasks_completed">%d задачи са завършени</string>
     <string name="alarm_before_due">%s преди</string>
-    <string name="date_picker_multiple">Няколко</string>
     <string name="alarm_after_due">%s след</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="hint_customize_edit_title">Твърде много информация\?</string>

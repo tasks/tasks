@@ -356,9 +356,7 @@
     <string name="show_advanced_settings">고급 설정 표시</string>
     <string name="share">공유</string>
     <string name="select_all">모두 선택</string>
-    <string name="no_time">마감시간 없음</string>
     <string name="no_date">마감일 없음</string>
-    <string name="shortcut_pick_time">시간 선택</string>
     <string name="chip_appearance_icon_only">아이콘만</string>
     <string name="chip_appearance_text_only">글자만</string>
     <string name="chip_appearance_text_and_icon">글자와 아이콘</string>
@@ -473,7 +471,6 @@
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="custom_filter_is_subtask">하위할일</string>
     <string name="custom_filter_has_subtask">하위할일 있음</string>
-    <string name="date_picker_multiple">각각 다양</string>
     <string name="repeat_monthly_fifth_week">다섯번째</string>
     <string name="always_display_full_date">일시 간략화하지 않고 그대로 표시</string>
     <string name="ok">확인</string>
@@ -510,13 +507,6 @@
     <string name="subscription">구독</string>
     <string name="filter_criteria_unstarted">시작하지 않음</string>
     <string name="widget_show_title">제목 표시</string>
-    <string name="next_saturday">다음 토요일</string>
-    <string name="next_friday">다음 금요일</string>
-    <string name="next_thursday">다음 목요일</string>
-    <string name="next_wednesday">다음 수요일</string>
-    <string name="next_tuesday">다음 화요일</string>
-    <string name="next_monday">다음 월요일</string>
-    <string name="next_sunday">다음 일요일</string>
     <string name="foreground_location">전경 위치</string>
     <string name="TEA_creation_date">생성일</string>
     <string name="now">지금</string>

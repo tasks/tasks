@@ -61,4 +61,5 @@
     <string name="day_before_due">Дзень да даты выканання</string>
     <string name="week_before_due">Тыдзень да даты выканання</string>
     <string name="TEA_note_label">Апісанне</string>
+    <string name="start_date">Дата пачатку</string>
 </resources>

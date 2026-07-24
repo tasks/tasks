@@ -357,4 +357,5 @@
     <string name="shortcut_pick_time">Odaberi vrijeme</string>
     <string name="no_time">Bez vremena</string>
     <string name="TEA_note_label">Opis</string>
+    <string name="start_date">Datum početka</string>
 </resources>
