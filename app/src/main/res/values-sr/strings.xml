@@ -667,4 +667,8 @@
     <string name="upgrade_friends_and_family">Пријатељи и породица</string>
     <string name="upgrade_friends_and_family_description">5 бесплатних гостију на заједничкој листи. Ради и са Apple Подсетником</string>
     <string name="read_more">Сазнај више</string>
+    <string name="sort_options">Опције сортирања</string>
+    <string name="rmd_EPr_rmd_time_desc">Обавештења за целодневне задатке ће се појавити у%1$s</string>
+    <string name="p_per_list_sort">Сортирање по листи</string>
+    <string name="per_list_sort_title">Сортирање листе</string>
 </resources>
