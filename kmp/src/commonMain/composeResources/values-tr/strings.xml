@@ -363,4 +363,5 @@
     <string name="add_tag">Etiket ekle</string>
     <string name="TEA_note_label">Açıklama</string>
     <string name="start_date">Başlangıç tarihi</string>
+    <string name="not_signed_in">Oturum açılmadı</string>
 </resources>
