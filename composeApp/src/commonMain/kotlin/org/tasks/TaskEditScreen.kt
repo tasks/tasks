@@ -43,11 +43,11 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.ListPickerDialog
-import org.tasks.compose.edit.ListPickerRow
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
+import org.tasks.compose.edit.TaskEditCardRow
 import org.tasks.compose.settings.Toaster
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
@@ -63,6 +63,7 @@ import tasks.kmp.generated.resources.edit_task
 import tasks.kmp.generated.resources.failed_to_save_task
 import tasks.kmp.generated.resources.new_task
 import tasks.kmp.generated.resources.no_list_available
+import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.task_title
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -176,11 +177,13 @@ fun TaskEditScreen(
                             focusRequester = titleFocusRequester,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        ListPickerRow(
-                            listName = list.title,
-                            icon = listIcon,
-                            tint = listTint,
+                        TaskEditCardRow(
+                            value = list.title,
+                            valueColor = MaterialTheme.colorScheme.onSurface,
                             onClick = { showListPicker = true },
+                            title = stringResource(Res.string.sort_list),
+                            icon = listIcon,
+                            iconTint = listTint,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         TagsSection(

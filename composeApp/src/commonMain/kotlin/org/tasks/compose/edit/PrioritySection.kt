@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,7 +29,6 @@ import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.priorityColor
 import org.tasks.data.entity.Task
@@ -57,22 +55,12 @@ fun PrioritySection(
     onPriorityChange: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(16.dp),
-        tonalElevation = 0.dp,
-    ) {
+    TaskEditCard(modifier = modifier) {
         Column(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp),
         ) {
-            Text(
-                text = stringResource(Res.string.sort_priority).uppercase(),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 0.8.sp,
-                ),
+            TaskEditSectionLabel(
+                text = stringResource(Res.string.sort_priority),
             )
             Spacer(modifier = Modifier.height(12.dp))
             val labels = listOf(

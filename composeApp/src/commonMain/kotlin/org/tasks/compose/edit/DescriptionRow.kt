@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -16,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.stringResource
@@ -32,12 +29,7 @@ fun DescriptionRow(
     val focusRequester = remember { FocusRequester() }
     var focused by remember { mutableStateOf(false) }
     val showPreview = !focused && description.isNotEmpty()
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-        shape = RoundedCornerShape(16.dp),
-        tonalElevation = 0.dp,
-    ) {
+    TaskEditCard(modifier = modifier) {
         Column(
             modifier = Modifier
                 .then(
@@ -46,13 +38,8 @@ fun DescriptionRow(
                 )
                 .padding(top = 20.dp, bottom = if (showPreview) 8.dp else 20.dp),
         ) {
-            Text(
+            TaskEditSectionLabel(
                 text = stringResource(Res.string.TEA_note_label),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 0.8.sp,
-                ),
                 modifier = Modifier.padding(horizontal = 20.dp),
             )
             Spacer(modifier = Modifier.height(6.dp))
