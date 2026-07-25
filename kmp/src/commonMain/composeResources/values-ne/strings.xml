@@ -31,4 +31,5 @@
     <string name="next_thursday">अर्को बिहिबार</string>
     <string name="next_friday">अर्को शुक्रबार</string>
     <string name="next_saturday">अर्को शनिबार</string>
+    <string name="TEA_note_label">विवरण</string>
 </resources>

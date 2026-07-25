@@ -359,4 +359,5 @@
     <string name="next_saturday">下周六</string>
     <string name="shortcut_pick_time">挑选时间</string>
     <string name="no_time">无时间</string>
+    <string name="TEA_note_label">描述</string>
 </resources>

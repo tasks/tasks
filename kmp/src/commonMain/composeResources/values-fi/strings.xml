@@ -239,4 +239,5 @@
     <string name="next_saturday">Seuraava la</string>
     <string name="shortcut_pick_time">Aseta kellonaika</string>
     <string name="no_time">Ei kellonaikaa</string>
+    <string name="TEA_note_label">Kuvaus</string>
 </resources>

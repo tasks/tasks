@@ -340,4 +340,5 @@
     <string name="next_saturday">Nästa lör</string>
     <string name="shortcut_pick_time">Välj en tid</string>
     <string name="no_time">Ingen tid</string>
+    <string name="TEA_note_label">Beskrivning</string>
 </resources>

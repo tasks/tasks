@@ -227,4 +227,5 @@
     <string name="next_saturday">Наступної Сб</string>
     <string name="shortcut_pick_time">Оберіть час</string>
     <string name="no_time">Без часу</string>
+    <string name="TEA_note_label">Опис</string>
 </resources>

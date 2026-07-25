@@ -356,4 +356,5 @@
     <string name="next_saturday">Próximo sábado</string>
     <string name="shortcut_pick_time">Escolher hora</string>
     <string name="no_time">Sem horário</string>
+    <string name="TEA_note_label">Descrição</string>
 </resources>

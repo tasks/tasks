@@ -349,4 +349,5 @@
     <string name="next_saturday">Sabtu Depan</string>
     <string name="shortcut_pick_time">Pilih waktu</string>
     <string name="no_time">Tidak ada waktu</string>
+    <string name="TEA_note_label">Deskripsi</string>
 </resources>

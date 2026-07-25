@@ -237,4 +237,5 @@
     <string name="next_saturday">Sâmbăta viitoare</string>
     <string name="shortcut_pick_time">Ora de preluare</string>
     <string name="no_time">Fără timp</string>
+    <string name="TEA_note_label">Descriere</string>
 </resources>

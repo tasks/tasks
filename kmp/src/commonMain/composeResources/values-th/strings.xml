@@ -190,4 +190,5 @@
     <string name="next_saturday">เสาร์หน้า</string>
     <string name="shortcut_pick_time">เลือกเวลา</string>
     <string name="no_time">ไม่มีเวลา</string>
+    <string name="TEA_note_label">บันทึกย่อ</string>
 </resources>

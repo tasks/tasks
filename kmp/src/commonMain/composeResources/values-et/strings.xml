@@ -355,4 +355,5 @@
     <string name="shortcut_pick_time">Vali aeg</string>
     <string name="no_time">Aega pole</string>
     <string name="sync_metadata">Salvesta sildi metaandmed siia</string>
+    <string name="TEA_note_label">Kirjeldus</string>
 </resources>

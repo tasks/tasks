@@ -210,4 +210,5 @@
     <string name="next_saturday">Thứ Bảy tuần sau</string>
     <string name="shortcut_pick_time">Chọn thời gian</string>
     <string name="no_time">Không có thời gian</string>
+    <string name="TEA_note_label">Mô tả</string>
 </resources>

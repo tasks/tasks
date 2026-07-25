@@ -271,4 +271,5 @@
     <string name="next_saturday">שבת הבאה</string>
     <string name="shortcut_pick_time">בחירת זמן</string>
     <string name="no_time">אין זמן</string>
+    <string name="TEA_note_label">תיאור</string>
 </resources>

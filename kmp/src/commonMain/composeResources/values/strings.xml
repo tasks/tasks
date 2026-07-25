@@ -362,4 +362,5 @@
     <string name="next_saturday">Next Sat</string>
     <string name="shortcut_pick_time">Pick time</string>
     <string name="no_time">No time</string>
+    <string name="TEA_note_label">Description</string>
 </resources>

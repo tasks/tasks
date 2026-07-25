@@ -253,4 +253,5 @@
     <string name="next_saturday">Следеће суботе</string>
     <string name="shortcut_pick_time">Одабери време</string>
     <string name="no_time">Без времена</string>
+    <string name="TEA_note_label">Опис</string>
 </resources>

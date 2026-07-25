@@ -224,4 +224,5 @@
     <string name="next_saturday">Próx Sáb</string>
     <string name="shortcut_pick_time">Escoller hora</string>
     <string name="no_time">Sen horario</string>
+    <string name="TEA_note_label">Descrición</string>
 </resources>

@@ -80,4 +80,5 @@
     <string name="day_before_due">روز قبل از موعود</string>
     <string name="week_before_due">هفته قبل از موعود</string>
     <string name="no_time">بدون زمان</string>
+    <string name="TEA_note_label">توضیحات</string>
 </resources>

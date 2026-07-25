@@ -232,4 +232,5 @@
     <string name="next_saturday">السبت القادم</string>
     <string name="shortcut_pick_time">اختر الوقت</string>
     <string name="no_time">لا وقت</string>
+    <string name="TEA_note_label">وصف</string>
 </resources>

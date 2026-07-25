@@ -193,4 +193,5 @@
     <string name="next_saturday">ඊළඟ සෙනසුරාදා</string>
     <string name="shortcut_pick_time">කාලය තෝරන්න</string>
     <string name="no_time">වේලාවක් නැත</string>
+    <string name="TEA_note_label">විස්තර</string>
 </resources>

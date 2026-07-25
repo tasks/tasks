@@ -223,4 +223,5 @@
     <string name="next_saturday">다음 토요일</string>
     <string name="shortcut_pick_time">시간 선택</string>
     <string name="no_time">마감시간 없음</string>
+    <string name="TEA_note_label">설명</string>
 </resources>
