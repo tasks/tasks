@@ -26,7 +26,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.stringResource
@@ -78,7 +80,7 @@ fun PrioritySection(
                 stringResource(Res.string.priority_low),
                 stringResource(Res.string.priority_medium),
                 stringResource(Res.string.priority_high),
-            ).map { it.uppercase() }
+            ).map { it.toUpperCase(Locale.current) }
             val labelStyle = MaterialTheme.typography.labelMedium.copy(
                 fontWeight = FontWeight.SemiBold,
             )
