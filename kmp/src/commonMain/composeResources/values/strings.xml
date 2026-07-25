@@ -115,6 +115,7 @@
     <string name="sort_ascending">Ascending</string>
     <string name="sort_descending">Descending</string>
     <string name="completed_tasks_at_bottom">Move completed tasks to bottom</string>
+    <string name="only_fully_completed_root_at_bottom">Only move fully completed root task to the bottom</string>
     <string name="subtasks">Subtasks</string>
     <string name="sort_not_available">Not available for tags, filters, or places</string>
     <string name="none">None</string>

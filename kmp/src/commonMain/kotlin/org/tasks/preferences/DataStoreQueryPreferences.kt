@@ -23,6 +23,7 @@ class DataStoreQueryPreferences(
     override var showCompleted: Boolean by pref(Keys.showCompleted, true)
     override val alwaysDisplayFullDate: Boolean = false
     override var completedTasksAtBottom: Boolean by pref(Keys.completedTasksAtBottom, true)
+    override var onlyFullyCompletedRootAtBottom: Boolean by pref(Keys.onlyFullyCompletedRootAtBottom, false)
 
     private inline fun <reified T> pref(
         key: androidx.datastore.preferences.core.Preferences.Key<T>,
@@ -55,6 +56,7 @@ class DataStoreQueryPreferences(
         val completedAscending = booleanPreferencesKey("completed_ascending")
         val subtaskAscending = booleanPreferencesKey("subtask_ascending")
         val completedTasksAtBottom = booleanPreferencesKey("completed_tasks_at_bottom")
+        val onlyFullyCompletedRootAtBottom = booleanPreferencesKey("only_fully_completed_root_at_bottom")
         val showHidden = booleanPreferencesKey("show_hidden")
         val showCompleted = booleanPreferencesKey("show_completed")
     }

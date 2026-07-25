@@ -421,6 +421,10 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_completed_tasks_at_bottom, true)
         set(value) { setBoolean(R.string.p_completed_tasks_at_bottom, value) }
 
+    override var onlyFullyCompletedRootAtBottom: Boolean
+        get() = getBoolean(R.string.p_only_fully_completed_root_at_bottom, false)
+        set(value) { setBoolean(R.string.p_only_fully_completed_root_at_bottom, value) }
+
     val backupDirectory: Uri?
         get() = getDirectory(R.string.p_backup_dir, "backups")
 

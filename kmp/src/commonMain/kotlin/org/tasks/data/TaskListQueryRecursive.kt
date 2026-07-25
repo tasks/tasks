@@ -51,17 +51,48 @@ internal object TaskListQueryRecursive {
         val subtaskAscending =
             preferences.subtaskAscending && subtaskMode != SortHelper.SORT_GTASKS && subtaskMode != SortHelper.SORT_CALDAV
         val completedAtBottom = preferences.completedTasksAtBottom
+        // When enabled, a subtask completed while its root is still active stays nested in place
+        // instead of being detached and sorted to the bottom on its own. Completing the root still
+        // moves the whole branch to the bottom, exactly as it does without this option.
+        val onlyFullyCompletedRootAtBottom = completedAtBottom && preferences.onlyFullyCompletedRootAtBottom
         val parentCompleted = if (completedAtBottom) "tasks.completed > 0" else "0"
+        // Subtasks inherit the root's completed state, so bottom-sorting acts on whole branches
+        // rather than on individual rows.
+        val childParentComplete = if (onlyFullyCompletedRootAtBottom) {
+            "recursive_tasks.parent_complete"
+        } else {
+            parentCompleted
+        }
+        // Nesting is kept instead of flattening a completed subtask to the top level.
+        val childIndent = if (onlyFullyCompletedRootAtBottom) {
+            "recursive_tasks.indent + 1"
+        } else {
+            """
+                CASE
+                    WHEN $parentCompleted AND recursive_tasks.parent_complete = 0 THEN 0
+                    ELSE recursive_tasks.indent + 1
+                END
+            """.trimIndent()
+        }
         val completionSort = if (completedAtBottom) {
             "(CASE WHEN tasks.completed > 0 THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
         } else {
             "0"
+        }
+        // completion_sort is ordered before the subtask sort, so it is applied only to branches
+        // that are actually being moved to the bottom. Otherwise a subtask completed under an
+        // active root would sort ahead of its still-active siblings.
+        val childCompletionSort = if (onlyFullyCompletedRootAtBottom) {
+            "(CASE WHEN recursive_tasks.parent_complete THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
+        } else {
+            completionSort
         }
         val query = """
             WITH RECURSIVE recursive_tasks AS (
                 SELECT 
                     tasks._id AS task,
                     $parentCompleted AS parent_complete,
+                    $parentCompleted AS own_completed,
                     $completionSort AS completion_sort,
                     0 AS parent,
                     tasks.collapsed AS collapsed,
@@ -87,15 +118,13 @@ internal object TaskListQueryRecursive {
                 $parentQuery
                 UNION ALL SELECT
                     tasks._id AS task,
-                    $parentCompleted AS parent_complete,
-                    $completionSort AS completion_sort,
+                    $childParentComplete AS parent_complete,
+                    $parentCompleted AS own_completed,
+                    $childCompletionSort AS completion_sort,
                     recursive_tasks.task AS parent,
                     tasks.collapsed AS collapsed,
                     CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END AS hidden,
-                    CASE 
-                        WHEN $parentCompleted AND recursive_tasks.parent_complete = 0 THEN 0
-                        ELSE recursive_tasks.indent + 1 
-                    END AS indent,
+                    $childIndent AS indent,
                     UPPER(tasks.title) AS sort_title,
                     recursive_tasks.primary_group AS primary_group,
                     recursive_tasks.primary_sort AS primary_sort,
@@ -125,14 +154,14 @@ internal object TaskListQueryRecursive {
                 SELECT
                     parent,
                     task as descendant,
-                    parent_complete as completed
+                    own_completed as completed
                 FROM recursive_tasks
                 WHERE parent > 0
                 UNION
                 SELECT
                     d.parent,
                     r.task as descendant,
-                    r.parent_complete as completed
+                    r.own_completed as completed
                 FROM recursive_tasks r
                     JOIN descendants_recursive d ON r.parent = d.descendant
             ),

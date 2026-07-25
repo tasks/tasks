@@ -17,4 +17,5 @@ class DefaultQueryPreferences : QueryPreferences {
     override var showCompleted = true
     override val alwaysDisplayFullDate = false
     override var completedTasksAtBottom = true
+    override var onlyFullyCompletedRootAtBottom = false
 }

@@ -28,4 +28,6 @@ interface QueryPreferences {
     val alwaysDisplayFullDate: Boolean
 
     var completedTasksAtBottom: Boolean
+
+    var onlyFullyCompletedRootAtBottom: Boolean
 }

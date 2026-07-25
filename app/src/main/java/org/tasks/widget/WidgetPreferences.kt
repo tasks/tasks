@@ -272,6 +272,11 @@ class WidgetPreferences(
         set(value) {
             preferences.setBoolean(R.string.p_completed_tasks_at_bottom, value)
         }
+    override var onlyFullyCompletedRootAtBottom: Boolean
+        get() = preferences.onlyFullyCompletedRootAtBottom
+        set(value) {
+            preferences.setBoolean(R.string.p_only_fully_completed_root_at_bottom, value)
+        }
     override var completedMode: Int
         get() = preferences.completedMode
         set(mode) {

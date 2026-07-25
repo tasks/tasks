@@ -21,6 +21,7 @@ open class SortSettingsViewModel(
         val groupMode: Int,
         val groupAscending: Boolean,
         val completedAtBottom: Boolean,
+        val onlyFullyCompletedRootAtBottom: Boolean,
         val sortMode: Int,
         val sortAscending: Boolean,
         val completedMode: Int,
@@ -39,6 +40,7 @@ open class SortSettingsViewModel(
         completedMode = preferences.completedMode,
         completedAscending = preferences.completedAscending,
         completedAtBottom = preferences.completedTasksAtBottom,
+        onlyFullyCompletedRootAtBottom = preferences.onlyFullyCompletedRootAtBottom,
         sortMode = preferences.sortMode,
         sortAscending = preferences.sortAscending,
         subtaskMode = preferences.subtaskMode,
@@ -79,6 +81,11 @@ open class SortSettingsViewModel(
     fun setCompletedAtBottom(completedAtBottom: Boolean) {
         preferences.completedTasksAtBottom = completedAtBottom
         updateAndRefresh { it.copy(completedAtBottom = completedAtBottom) }
+    }
+
+    fun setOnlyFullyCompletedRootAtBottom(onlyFullyCompletedRootAtBottom: Boolean) {
+        preferences.onlyFullyCompletedRootAtBottom = onlyFullyCompletedRootAtBottom
+        updateAndRefresh { it.copy(onlyFullyCompletedRootAtBottom = onlyFullyCompletedRootAtBottom) }
     }
 
     fun setShowCompleted(showCompleted: Boolean) {

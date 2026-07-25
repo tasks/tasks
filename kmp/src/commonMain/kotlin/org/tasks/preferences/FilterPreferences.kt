@@ -72,6 +72,13 @@ class FilterPreferences(
         get() = getBoolean(KEY_COMPLETED_AT_BOTTOM, globalPreferences.completedTasksAtBottom)
         set(value) = setBoolean(KEY_COMPLETED_AT_BOTTOM, value)
 
+    override var onlyFullyCompletedRootAtBottom: Boolean
+        get() = getBoolean(
+            KEY_ONLY_FULLY_COMPLETED_ROOT_AT_BOTTOM,
+            globalPreferences.onlyFullyCompletedRootAtBottom
+        )
+        set(value) = setBoolean(KEY_ONLY_FULLY_COMPLETED_ROOT_AT_BOTTOM, value)
+
     companion object {
         private const val KEY_SORT_MODE = "sort_mode"
         private const val KEY_GROUP_MODE = "group_mode"
@@ -84,6 +91,7 @@ class FilterPreferences(
         private const val KEY_COMPLETED_ASCENDING = "completed_ascending"
         private const val KEY_SUBTASK_ASCENDING = "subtask_ascending"
         private const val KEY_COMPLETED_AT_BOTTOM = "completed_at_bottom"
+        private const val KEY_ONLY_FULLY_COMPLETED_ROOT_AT_BOTTOM = "only_fully_completed_root_at_bottom"
         private const val KEY_PREFIX = "filter_sort"
 
         suspend fun TasksPreferences.delete(filterKey: String) {

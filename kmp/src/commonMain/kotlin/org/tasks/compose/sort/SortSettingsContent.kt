@@ -47,6 +47,7 @@ import tasks.kmp.generated.resources.astrid_sort_order
 import tasks.kmp.generated.resources.completed
 import tasks.kmp.generated.resources.completed_tasks_at_bottom
 import tasks.kmp.generated.resources.none
+import tasks.kmp.generated.resources.only_fully_completed_root_at_bottom
 import tasks.kmp.generated.resources.sort_ascending
 import tasks.kmp.generated.resources.sort_completed
 import tasks.kmp.generated.resources.sort_created
@@ -214,6 +215,7 @@ fun BottomSheetContent(
     manualSort: Boolean,
     astridSort: Boolean,
     completedAtBottom: Boolean,
+    onlyFullyCompletedRootAtBottom: Boolean,
     showCompleted: Boolean,
     showHidden: Boolean,
     showCompletedAndHiddenOptions: Boolean,
@@ -223,6 +225,7 @@ fun BottomSheetContent(
     setCompletedAscending: (Boolean) -> Unit,
     setSubtaskAscending: (Boolean) -> Unit,
     setCompletedAtBottom: (Boolean) -> Unit,
+    setOnlyFullyCompletedRootAtBottom: (Boolean) -> Unit,
     setShowCompleted: (Boolean) -> Unit,
     setShowHidden: (Boolean) -> Unit,
     clickGroupMode: () -> Unit,
@@ -291,6 +294,12 @@ fun BottomSheetContent(
                 onCheckedChange = setCompletedAtBottom,
             )
             if (completedAtBottom) {
+                HorizontalDivider()
+                SwitchRow(
+                    title = Res.string.only_fully_completed_root_at_bottom,
+                    checked = onlyFullyCompletedRootAtBottom,
+                    onCheckedChange = setOnlyFullyCompletedRootAtBottom,
+                )
                 HorizontalDivider()
                 SortRow(
                     title = Res.string.completed,
