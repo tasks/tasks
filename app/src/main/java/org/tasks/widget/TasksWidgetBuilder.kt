@@ -74,7 +74,6 @@ internal class TasksWidgetBuilder(
             setOnClickFillInIntent(
                 R.id.widget_view_more,
                 Intent(WidgetClickActivity.OPEN_TASK_LIST)
-                    .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
                     .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
             )
         }
@@ -167,7 +166,6 @@ internal class TasksWidgetBuilder(
                 setOnClickFillInIntent(
                     R.id.widget_row,
                     Intent(WidgetClickActivity.EDIT_TASK)
-                        .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
                         .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
                         .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
                 )
