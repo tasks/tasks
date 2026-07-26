@@ -241,4 +241,5 @@
     <string name="no_time">Без времени</string>
     <string name="TEA_note_label">Описание</string>
     <string name="start_date">Дата начала</string>
+    <string name="email_to_task_address">Ваш адрес электронной почты</string>
 </resources>
