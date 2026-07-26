@@ -364,6 +364,21 @@ class iCalendarMergeTest {
     }
 
     @Test
+    fun remoteUpdatesCreatedDespiteSubSecondLocalPrecision() {
+        val lastSync = newDateTime().minusMinutes(10).startOfSecond()
+        val localCreated = lastSync.withMillisOfSecond(907)
+        val remoteCreated = newDateTime().minusMinutes(5)
+        newTask(with(CREATION_TIME, localCreated))
+            .applyRemote(
+                remote = newIcal(with(CREATED_AT, remoteCreated.toUTC())),
+                local = newIcal(with(CREATED_AT, lastSync.toUTC())),
+            )
+            .let {
+                assertEquals(remoteCreated.millis, it.creationDate)
+            }
+    }
+
+    @Test
     fun remoteAddsModified() {
         val modified = newDateTime().minusMinutes(5)
         newTask()
@@ -402,6 +417,21 @@ class iCalendarMergeTest {
             )
             .let {
                 assertEquals(localEdit.millis, it.modificationDate)
+            }
+    }
+
+    @Test
+    fun remoteUpdatesModifiedDespiteSubSecondLocalPrecision() {
+        val lastSync = newDateTime().minusMinutes(10).startOfSecond()
+        val localModDate = lastSync.withMillisOfSecond(907)
+        val remoteUpdate = newDateTime().minusMinutes(5)
+        newTask(with(TaskMaker.MODIFICATION_TIME, localModDate))
+            .applyRemote(
+                remote = newIcal(with(LAST_MODIFIED, remoteUpdate.toUTC())),
+                local = newIcal(with(LAST_MODIFIED, lastSync.toUTC())),
+            )
+            .let {
+                assertEquals(remoteUpdate.millis, it.modificationDate)
             }
     }
 

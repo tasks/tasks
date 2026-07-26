@@ -60,7 +60,7 @@ private fun org.tasks.data.entity.Task.applyCompletedAt(remote: VTodoTask, local
 
 private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: VTodoTask?) {
     val localCreated = local?.createdAt?.toLocalMillis()
-    if (localCreated == null || localCreated == creationDate) {
+    if (localCreated == null || localCreated.startOfSecond() == creationDate.startOfSecond()) {
         val remoteCreated = remote.createdAt?.toLocalMillis()
         when {
             remoteCreated != null -> creationDate = remoteCreated
@@ -71,7 +71,7 @@ private fun org.tasks.data.entity.Task.applyCreatedAt(remote: VTodoTask, local: 
 
 private fun org.tasks.data.entity.Task.applyModified(remote: VTodoTask, local: VTodoTask?) {
     val localModified = local?.lastModified?.toLocalMillis()
-    if (localModified == null || localModified == modificationDate) {
+    if (localModified == null || localModified.startOfSecond() == modificationDate.startOfSecond()) {
         val remoteModified = remote.lastModified?.toLocalMillisClamped() ?: 0L
         val remoteCreated = remote.createdAt?.toLocalMillisClamped() ?: 0L
         val remoteDtStamp = remote.dtStamp?.toLocalMillisClamped() ?: 0L
