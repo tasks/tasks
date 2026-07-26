@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">יומיות</string>
     <string name="default_random_reminder_weekly">שבועיות</string>
     <string name="default_random_reminder_bi_weekly">דו־שבועיות</string>
-    <string name="repeat_option_does_not_repeat">ללא חזרה</string>
-    <string name="repeat_option_every_day">כל יום</string>
-    <string name="repeat_option_every_week">כל שבוע</string>
-    <string name="repeat_option_every_month">כל חודש</string>
-    <string name="repeat_option_every_year">כל שנה</string>
     <string name="repeat_option_custom">התאמה אישית…</string>
     <plurals name="task_count">
         <item quantity="one">משימה אחת</item>
@@ -133,61 +128,30 @@
         <item quantity="two">פעמים</item>
         <item quantity="other">פעמים</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">דקה</item>
-        <item quantity="two">דקות</item>
-        <item quantity="many">דקות</item>
-        <item quantity="other">דקות</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">דקה אחת</item>
         <item quantity="two">%d דקות</item>
         <item quantity="other">%d דקות</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">שעה</item>
-        <item quantity="two">שעות</item>
-        <item quantity="other">שעות</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">שעה אחת</item>
         <item quantity="two">שעתיים</item>
         <item quantity="other">%d שעות</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">יום</item>
-        <item quantity="two">ימים</item>
-        <item quantity="other">ימים</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">יום אחד</item>
         <item quantity="two">יומיים</item>
         <item quantity="other">%d ימים</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">שבוע</item>
-        <item quantity="two">שבועות</item>
-        <item quantity="other">שבועות</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">שבוע אחד</item>
         <item quantity="two">שבועיים</item>
         <item quantity="other">%d שבועות</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">חודש</item>
-        <item quantity="two">חודשים</item>
-        <item quantity="other">חודשים</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">חודש אחד</item>
         <item quantity="two">חודשיים</item>
         <item quantity="other">%d חודשים</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">שנה</item>
-        <item quantity="two">שנים</item>
-        <item quantity="other">שנים</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">שנה אחת</item>
@@ -323,12 +287,6 @@
     <string name="default_calendar">יומן ברירת מחדל</string>
     <string name="badges_description">הצגת מונה משימות על סמל המשגר של Tasks. לא כל המשגרים תומכים בתגים.</string>
     <string name="bundle_notifications_summary">שילוב התראות מרובות לאחת</string>
-    <string name="repeat_monthly_every_day_of_nth_week">כל %2$s ה%1$s</string>
-    <string name="repeat_monthly_first_week">ראשון</string>
-    <string name="repeat_monthly_second_week">שני</string>
-    <string name="repeat_monthly_third_week">שלישי</string>
-    <string name="repeat_monthly_fourth_week">רביעי</string>
-    <string name="repeat_monthly_last_week">אחרון</string>
     <string name="tasker_create_task">יצירת משימה</string>
     <string name="tasker_list_notification">התראת רשימה</string>
     <string name="help">עזרה</string>
@@ -485,7 +443,6 @@
     <string name="your_subscription_expired">תוקף המינוי שלך פג. יש להירשם למינוי כעת כדי להמשיך את השירות.</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>
     <string name="custom_filter_has_subtask">יש תתי־משימות</string>
-    <string name="repeat_monthly_fifth_week">חמישי</string>
     <string name="always_display_full_date">הצגת תאריך מלא</string>
     <string name="migrating_tasks">העברת משימות</string>
     <string name="copied_to_clipboard">%s העותק ללוח</string>
@@ -533,7 +490,6 @@
     <string name="customize_drawer">התאמה אישית של מגירה</string>
     <string name="customize_drawer_summary">יש לגרור ולשחרר כדי לסדר מחדש את פריטי התפריט</string>
     <string name="sort_list">לפי רשימה</string>
-    <string name="repeats_ends">מסתיים</string>
     <string name="alarm_before_due">%s לפני מועד יעד</string>
     <string name="hint_customize_edit_body">באפשרותך להתאים אישית את המסך הזה על ידי סידור מחדש או הסרה של שדות</string>
     <string name="enable_reminders">הפעלת תזכורות</string>
@@ -547,7 +503,6 @@
         <item quantity="two">שבועות</item>
         <item quantity="other">שבועות</item>
     </plurals>
-    <string name="repeats_weekly_on">חוזר ב</string>
     <string name="banner_app_updated_description">היישום Tasks עודכן זה עתה לגרסת %s. האם ברצונך לראות את הערות השחרור?</string>
     <string name="snackbar_task_completed">המשימה הושלמה</string>
     <string name="enable_alarms_description">כדי להבטיח קבלת הודעה בזמן הנכון, יש להעניק הרשאה להגדרת התראות ותזכורות בהגדרות</string>
@@ -565,7 +520,6 @@
     </plurals>
     <string name="customize_edit_screen_summary">יש לסדר מחדש או להסיר שדות</string>
     <string name="when_started">כשהמשימה התחילה</string>
-    <string name="repeats_never">לעולם לא</string>
     <string name="donate_nag">נא לשקול להראות את תמיכתך באמצעות תרומה!</string>
     <string name="completed">הושלמו</string>
     <string name="banner_app_updated_title">היישום עודכן</string>
@@ -586,15 +540,9 @@
     <string name="delete_comment">הערה</string>
     <string name="yesterday">אתמול</string>
     <string name="change_priority">שינוי עדיפות</string>
-    <string name="repeats_on">מופעל</string>
     <string name="alarm_before_start">%s לפני מועד התחלה</string>
     <string name="button_learn_more">ללמוד עוד</string>
     <string name="dismiss">התעלמות</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">התרחשות</item>
-        <item quantity="two">התרחשויות</item>
-        <item quantity="other">התרחשויות</item>
-    </plurals>
     <plurals name="reminder_days">
         <item quantity="one">יום</item>
         <item quantity="two">ימים</item>
@@ -606,8 +554,6 @@
         <item quantity="two">שעות</item>
         <item quantity="other">שעות</item>
     </plurals>
-    <string name="repeats_custom_recurrence">הישנות מותאמת אישית</string>
-    <string name="repeat_monthly_on_day_number">מדי חודש ביום %1d</string>
     <string name="alarm_after_due">%s לאחר מועד יעד</string>
     <string name="multiline_title">אפשור כותרות מרובות שורות</string>
     <string name="sync_warning_google_tasks_title">בנוגע לסנכרון Google Tasks</string>
@@ -615,12 +561,9 @@
     <string name="show_edit_screen_without_unlock">הצגת מסך עריכה ללא ביטול נעילה</string>
     <string name="show_edit_screen_without_unlock_summary">מאפשר שימוש באריח הגדרות מהירות מבלי לבטל את נעילת המכשיר</string>
     <string name="theme_dynamic">דינמי</string>
-    <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
     <string name="cost_money">עלות: $</string>
-    <string name="repeats_every">חוזר כל</string>
-    <string name="repeats_after">לאחר</string>
     <string name="comment">הערה</string>
     <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
     <string name="widget_view_more_tasks">הצג עוד משימות</string>

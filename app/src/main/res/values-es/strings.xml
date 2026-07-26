@@ -116,11 +116,6 @@
     <string name="default_random_reminder_daily">Diariamente</string>
     <string name="default_random_reminder_weekly">Semanalmente</string>
     <string name="default_random_reminder_bi_weekly">Quincenalmente</string>
-    <string name="repeat_option_does_not_repeat">No repetir</string>
-    <string name="repeat_option_every_day">Cada día</string>
-    <string name="repeat_option_every_week">Cada semana</string>
-    <string name="repeat_option_every_month">Cada mes</string>
-    <string name="repeat_option_every_year">Cada año</string>
     <string name="repeat_option_custom">Personalizado…</string>
     <plurals name="task_count">
         <item quantity="one">%d tarea</item>
@@ -132,60 +127,30 @@
         <item quantity="many">veces</item>
         <item quantity="other">veces</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuto</item>
-        <item quantity="many">minutos</item>
-        <item quantity="other">minutos</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">hora</item>
-        <item quantity="many">horas</item>
-        <item quantity="other">horas</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
         <item quantity="many">%d horas</item>
         <item quantity="other">%d horas</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">día</item>
-        <item quantity="many">días</item>
-        <item quantity="other">días</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d día</item>
         <item quantity="many">%d días</item>
         <item quantity="other">%d días</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">semana</item>
-        <item quantity="many">semanas</item>
-        <item quantity="other">semanas</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d semana</item>
         <item quantity="many">%d semanas</item>
         <item quantity="other">%d semanas</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">mes</item>
-        <item quantity="many">meses</item>
-        <item quantity="other">meses</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mes</item>
         <item quantity="many">%d meses</item>
         <item quantity="other">%d meses</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">año</item>
-        <item quantity="many">años</item>
-        <item quantity="other">años</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d año</item>
@@ -317,12 +282,6 @@
     <string name="default_calendar">Calendario predeterminado</string>
     <string name="badges_description">Muestre un recuento de tareas en el icono de iniciador de Tasks. No todos los iniciadores admiten insignias de notificación.</string>
     <string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
-    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">primer</string>
-    <string name="repeat_monthly_second_week">segundo</string>
-    <string name="repeat_monthly_third_week">tercer</string>
-    <string name="repeat_monthly_fourth_week">cuarto</string>
-    <string name="repeat_monthly_last_week">último</string>
     <string name="tasker_create_task">Crear tarea</string>
     <string name="tasker_list_notification">Listar notificación</string>
     <string name="help">Ayuda</string>
@@ -484,7 +443,6 @@
     <string name="current_subscription">Suscripción actual: %s</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para permitir los recordatorios basados en la ubicación aún cuando la aplicación está cerrada o no se utiliza.</string>
-    <string name="repeat_monthly_fifth_week">quinto</string>
     <string name="authorization_cancelled">Autorización cancelada</string>
     <string name="sign_in_with_google">Acceder con Google</string>
     <string name="github_sponsor">Patrocinador</string>
@@ -567,20 +525,6 @@
     <string name="sort_completion_group">Completar %s</string>
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="sort_list">Por lista</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">ocurrencia</item>
-        <item quantity="many">ocurrencias</item>
-        <item quantity="other">ocurrencias</item>
-    </plurals>
-    <string name="repeat_monthly_on_day_number">Mensualmente en el día %1d</string>
-    <string name="repeats_custom_recurrence">Recurrencia personalizada</string>
-    <string name="repeats_on">En</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Mensualmente en el %1$s %2$s</string>
-    <string name="repeats_every">Se repite cada</string>
-    <string name="repeats_weekly_on">Se repite en</string>
-    <string name="repeats_never">Nunca</string>
-    <string name="repeats_after">Después</string>
-    <string name="repeats_ends">Termina</string>
     <string name="change_priority">Prioridad de cambio</string>
     <string name="theme_dynamic">Dinámico</string>
     <string name="swipe_to_snooze_title">Desliza el dedo para repetir</string>

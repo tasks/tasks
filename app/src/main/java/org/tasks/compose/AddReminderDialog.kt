@@ -66,6 +66,8 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Alarm.Companion.whenStarted
 import org.tasks.reminders.AlarmToString.Companion.getRepeatString
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.repeat_option_does_not_repeat
 import java.util.concurrent.TimeUnit
 
 @ExperimentalComposeUiApi
@@ -411,7 +413,7 @@ object AddReminderDialog {
                         alarm.interval
                     )
                 } else {
-                    stringResource(id = R.string.repeat_option_does_not_repeat)
+                    org.jetbrains.compose.resources.stringResource(Res.string.repeat_option_does_not_repeat)
                 }
                 BodyText(
                     text = text,

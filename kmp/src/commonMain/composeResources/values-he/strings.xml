@@ -273,4 +273,62 @@
     <string name="no_time">אין זמן</string>
     <string name="TEA_note_label">תיאור</string>
     <string name="start_date">תאריך התחלה</string>
+    <string name="repeats_custom_recurrence">הישנות מותאמת אישית</string>
+    <string name="repeats_every">חוזר כל</string>
+    <string name="repeats_weekly_on">חוזר ב</string>
+    <string name="repeat_monthly_on_day_number">מדי חודש ביום %1$d</string>
+    <string name="repeat_monthly_first_week">ראשון</string>
+    <string name="repeat_monthly_second_week">שני</string>
+    <string name="repeat_monthly_third_week">שלישי</string>
+    <string name="repeat_monthly_fourth_week">רביעי</string>
+    <string name="repeat_monthly_fifth_week">חמישי</string>
+    <string name="repeat_monthly_last_week">אחרון</string>
+    <string name="repeat_monthly_on_the_nth_weekday">מדי חודש ב%2$s ה%1$s</string>
+    <string name="repeats_ends">מסתיים</string>
+    <string name="repeats_never">לעולם לא</string>
+    <string name="repeats_on">מופעל</string>
+    <string name="repeats_after">לאחר</string>
+    <string name="repeat_option_does_not_repeat">ללא חזרה</string>
+    <string name="repeat_option_every_day">כל יום</string>
+    <string name="repeat_option_every_week">כל שבוע</string>
+    <string name="repeat_option_every_month">כל חודש</string>
+    <string name="repeat_option_every_year">כל שנה</string>
+    <string name="repeat_option_custom">התאמה אישית…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">דקה</item>
+        <item quantity="two">דקות</item>
+        <item quantity="many">דקות</item>
+        <item quantity="other">דקות</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">שעה</item>
+        <item quantity="two">שעות</item>
+        <item quantity="other">שעות</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">יום</item>
+        <item quantity="two">ימים</item>
+        <item quantity="other">ימים</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">שבוע</item>
+        <item quantity="two">שבועות</item>
+        <item quantity="other">שבועות</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">חודש</item>
+        <item quantity="two">חודשים</item>
+        <item quantity="other">חודשים</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">שנה</item>
+        <item quantity="two">שנים</item>
+        <item quantity="other">שנים</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">התרחשות</item>
+        <item quantity="two">התרחשויות</item>
+        <item quantity="other">התרחשויות</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">כל %2$s ה%1$s</string>
 </resources>

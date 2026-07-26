@@ -1,7 +1,5 @@
 package org.tasks.compose.pickers
 
-import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,8 +20,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.DisplayMode
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -35,30 +33,53 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.pluralStringResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.os.ConfigurationCompat
 import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
-import org.tasks.R
+import org.jetbrains.compose.resources.PluralStringResource
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.OutlinedBox
 import org.tasks.compose.OutlinedNumberInput
 import org.tasks.compose.OutlinedSpinner
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.border
+import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.repeats.CustomRecurrenceViewModel
-import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.repeat_days
+import tasks.kmp.generated.resources.repeat_hours
+import tasks.kmp.generated.resources.repeat_minutes
+import tasks.kmp.generated.resources.repeat_monthly_fifth_week
+import tasks.kmp.generated.resources.repeat_monthly_first_week
+import tasks.kmp.generated.resources.repeat_monthly_fourth_week
+import tasks.kmp.generated.resources.repeat_monthly_last_week
+import tasks.kmp.generated.resources.repeat_monthly_on_day_number
+import tasks.kmp.generated.resources.repeat_monthly_on_the_nth_weekday
+import tasks.kmp.generated.resources.repeat_monthly_second_week
+import tasks.kmp.generated.resources.repeat_monthly_third_week
+import tasks.kmp.generated.resources.repeat_months
+import tasks.kmp.generated.resources.repeat_occurrence
+import tasks.kmp.generated.resources.repeat_weeks
+import tasks.kmp.generated.resources.repeat_years
+import tasks.kmp.generated.resources.repeats_after
+import tasks.kmp.generated.resources.repeats_custom_recurrence
+import tasks.kmp.generated.resources.repeats_ends
+import tasks.kmp.generated.resources.repeats_every
+import tasks.kmp.generated.resources.repeats_never
+import tasks.kmp.generated.resources.repeats_on
+import tasks.kmp.generated.resources.repeats_weekly_on
+import tasks.kmp.generated.resources.save
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.Locale
@@ -79,9 +100,7 @@ fun CustomRecurrence(
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
 ) {
-    BackHandler {
-        save()
-    }
+    PlatformBackHandler(enabled = true, onBack = save)
     Scaffold(
         topBar = {
             TopAppBar(
@@ -93,14 +112,14 @@ fun CustomRecurrence(
                 ),
                 title = {
                     Text(
-                        text = stringResource(id = R.string.repeats_custom_recurrence),
+                        text = stringResource(Res.string.repeats_custom_recurrence),
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = save) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = stringResource(id = R.string.save),
+                            contentDescription = stringResource(Res.string.save),
                             tint = MaterialTheme.colorScheme.onSurface,
                         )
                     }
@@ -108,7 +127,7 @@ fun CustomRecurrence(
                 actions = {
                     TextButton(onClick = discard) {
                         Text(
-                            text = stringResource(id = R.string.cancel),
+                            text = stringResource(Res.string.cancel),
                             style = MaterialTheme.typography.bodyLarge.copy(
                                 fontFeatureSettings = "c2sc, smcp"
                             )
@@ -126,7 +145,7 @@ fun CustomRecurrence(
         ) {
             Column {
                 Spacer(modifier = Modifier.height(16.dp))
-                Header(R.string.repeats_every)
+                Header(Res.string.repeats_every)
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -135,19 +154,20 @@ fun CustomRecurrence(
                 ) {
                     OutlinedNumberInput(
                         number = state.interval,
+                        locale = state.locale,
                         onTextChanged = setInterval,
                     )
                     val options = state.frequencyOptions.map {
                         pluralStringResource(
-                            id = it.plural,
-                            count = state.interval,
+                            it.plural,
+                            state.interval,
                             state.interval,
                         )
                     }
                     OutlinedSpinner(
                         text = pluralStringResource(
-                            id = state.frequency.plural,
-                            count = state.interval
+                            state.frequency.plural,
+                            state.interval
                         ),
                         options = options,
                         onSelected = { setSelectedFrequency(state.frequencyOptions[it]) },
@@ -157,6 +177,7 @@ fun CustomRecurrence(
                     WeekdayPicker(
                         daysOfWeek = state.daysOfWeek,
                         selected = state.selectedDays,
+                        locale = state.locale,
                         toggle = toggleDay,
                     )
                 } else if (state.frequency == Recur.Frequency.MONTHLY && !state.isMicrosoftTask) {
@@ -171,7 +192,7 @@ fun CustomRecurrence(
                     )
                 }
                 if (!state.isMicrosoftTask) {
-                    Divider(
+                    HorizontalDivider(
                         modifier = Modifier.padding(vertical = if (state.frequency == Recur.Frequency.WEEKLY) 11.dp else 16.dp),
                         color = border()
                     )
@@ -179,6 +200,7 @@ fun CustomRecurrence(
                         selection = state.endSelection,
                         endDate = state.endDate,
                         endOccurrences = state.endCount,
+                        locale = state.locale,
                         setEndDate = setEndDate,
                         setSelection = setSelectedEndType,
                         setOccurrences = setOccurrences,
@@ -192,9 +214,9 @@ fun CustomRecurrence(
 }
 
 @Composable
-private fun Header(resId: Int) {
+private fun Header(res: StringResource) {
     Text(
-        text = stringResource(id = resId),
+        text = stringResource(res),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.padding(horizontal = 16.dp),
@@ -205,27 +227,21 @@ private fun Header(resId: Int) {
 private fun WeekdayPicker(
     daysOfWeek: List<DayOfWeek>,
     selected: List<DayOfWeek>,
+    locale: Locale,
     toggle: (DayOfWeek) -> Unit,
 ) {
-    val configuration = LocalConfiguration.current
-    val locale = remember(configuration) {
-        ConfigurationCompat
-            .getLocales(configuration)
-            .get(0)
-            ?: Locale.getDefault()
-    }
-    Divider(
+    HorizontalDivider(
         modifier = Modifier.padding(vertical = 16.dp),
         color = border()
     )
-    Header(R.string.repeats_weekly_on)
+    Header(Res.string.repeats_weekly_on)
     Spacer(modifier = Modifier.height(16.dp))
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier.padding(horizontal = 16.dp),
     ) {
         daysOfWeek.forEach { dayOfWeek ->
-            val string = remember(dayOfWeek) {
+            val string = remember(dayOfWeek, locale) {
                 dayOfWeek.getDisplayName(TextStyle.NARROW, locale)
             }
             Box(
@@ -269,40 +285,40 @@ private fun MonthlyPicker(
             else -> 1
         }
     }
-    Divider(
+    HorizontalDivider(
         modifier = Modifier.padding(vertical = 16.dp),
         color = border()
     )
     val dayOfWeekDisplayName = remember(dayOfWeek, locale) {
         dayOfWeek.getDisplayName(TextStyle.FULL, locale)
     }
-    val onDayNumber = stringResource(R.string.repeat_monthly_on_day_number, dayNumber)
+    val onDayNumber = stringResource(Res.string.repeat_monthly_on_day_number, locale.formatNumber(dayNumber))
     val nth = stringResource(
         when (nthWeek - 1) {
-            0 -> R.string.repeat_monthly_first_week
-            1 -> R.string.repeat_monthly_second_week
-            2 -> R.string.repeat_monthly_third_week
-            3 -> R.string.repeat_monthly_fourth_week
-            4 -> R.string.repeat_monthly_fifth_week
+            0 -> Res.string.repeat_monthly_first_week
+            1 -> Res.string.repeat_monthly_second_week
+            2 -> Res.string.repeat_monthly_third_week
+            3 -> Res.string.repeat_monthly_fourth_week
+            4 -> Res.string.repeat_monthly_fifth_week
             else -> throw IllegalArgumentException()
         }
     )
     val onNthWeekday = stringResource(
-        R.string.repeat_monthly_on_the_nth_weekday,
+        Res.string.repeat_monthly_on_the_nth_weekday,
         nth,
         dayOfWeekDisplayName
     )
-    val lastWeekString = stringResource(R.string.repeat_monthly_last_week)
+    val lastWeekString = stringResource(Res.string.repeat_monthly_last_week)
     val onLastWeekday = stringResource(
-        R.string.repeat_monthly_on_the_nth_weekday,
+        Res.string.repeat_monthly_on_the_nth_weekday,
         lastWeekString,
         dayOfWeekDisplayName
     )
-    val options = remember(onDayNumber, onNthWeekday, onLastWeekday, isLastWeek) {
+    val options = remember(onDayNumber, onNthWeekday, onLastWeekday, isLastWeek, selection) {
         ArrayList<String>().apply {
             add(onDayNumber)
             add(onNthWeekday)
-            if (isLastWeek) {
+            if (isLastWeek || selection == 2) {
                 add(onLastWeekday)
             }
         }
@@ -324,31 +340,26 @@ private fun EndsPicker(
     selection: Int,
     endDate: Long,
     endOccurrences: Int,
+    locale: Locale,
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
     setOccurrences: (Int) -> Unit,
     setEndDate: (Long) -> Unit,
     setSelection: (Int) -> Unit,
 ) {
-    Header(R.string.repeats_ends)
+    Header(Res.string.repeats_ends)
     Spacer(modifier = Modifier.height(8.dp))
     RadioRow(selected = selection == 0, onClick = { setSelection(0) }) {
-        Text(text = stringResource(id = R.string.repeats_never))
+        Text(text = stringResource(Res.string.repeats_never))
     }
-    Divider(
+    HorizontalDivider(
         modifier = Modifier.padding(start = 50.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
         color = border()
     )
     RadioRow(selected = selection == 1, onClick = { setSelection(1) }) {
-        Text(text = stringResource(id = R.string.repeats_on))
+        Text(text = stringResource(Res.string.repeats_on))
         Spacer(modifier = Modifier.width(8.dp))
-        val endDateString by remember(endDate) {
-            derivedStateOf {
-                runBlocking {
-                    getRelativeDay(endDate)
-                }
-            }
-        }
+        val endDateString = remember(endDate) { runBlocking { getRelativeDay(endDate) } }
         var showDatePicker by remember { mutableStateOf(false) }
         if (showDatePicker) {
             DatePickerDialog(
@@ -372,20 +383,21 @@ private fun EndsPicker(
             Spacer(modifier = Modifier.width(4.dp))
         }
     }
-    Divider(
+    HorizontalDivider(
         modifier = Modifier.padding(start = 50.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
         color = border()
     )
     RadioRow(selected = selection == 2, onClick = { setSelection(2) }) {
-        Text(text = stringResource(id = R.string.repeats_after))
+        Text(text = stringResource(Res.string.repeats_after))
         Spacer(modifier = Modifier.width(8.dp))
         OutlinedNumberInput(
             number = endOccurrences,
+            locale = locale,
             onTextChanged = setOccurrences,
             onFocus = { setSelection(2) },
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text = pluralStringResource(id = R.plurals.repeat_occurrence, endOccurrences))
+        Text(text = pluralStringResource(Res.plurals.repeat_occurrence, endOccurrences))
     }
 }
 
@@ -409,151 +421,13 @@ fun RadioRow(
     }
 }
 
-private val Recur.Frequency.plural: Int
+private val Recur.Frequency.plural: PluralStringResource
     get() = when (this) {
-        Recur.Frequency.MINUTELY -> R.plurals.repeat_minutes
-        Recur.Frequency.HOURLY -> R.plurals.repeat_hours
-        Recur.Frequency.DAILY -> R.plurals.repeat_days
-        Recur.Frequency.WEEKLY -> R.plurals.repeat_weeks
-        Recur.Frequency.MONTHLY -> R.plurals.repeat_months
-        Recur.Frequency.YEARLY -> R.plurals.repeat_years
+        Recur.Frequency.MINUTELY -> Res.plurals.repeat_minutes
+        Recur.Frequency.HOURLY -> Res.plurals.repeat_hours
+        Recur.Frequency.DAILY -> Res.plurals.repeat_days
+        Recur.Frequency.WEEKLY -> Res.plurals.repeat_weeks
+        Recur.Frequency.MONTHLY -> Res.plurals.repeat_months
+        Recur.Frequency.YEARLY -> Res.plurals.repeat_years
         else -> throw RuntimeException()
     }
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun WeeklyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.WEEKLY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun MonthlyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.MONTHLY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun MinutelyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.MINUTELY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun HourlyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.HOURLY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun DailyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.DAILY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun YearlyPreview() {
-    TasksTheme {
-        CustomRecurrence(
-            state = CustomRecurrenceViewModel.ViewState(frequency = Recur.Frequency.YEARLY),
-            save = {},
-            discard = {},
-            setSelectedFrequency = {},
-            setSelectedEndType = {},
-            setEndDate = {},
-            setInterval = {},
-            setOccurrences = {},
-            toggleDay = {},
-            setMonthSelection = {},
-            calendarDisplayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-        )
-    }
-}

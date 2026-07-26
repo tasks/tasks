@@ -136,11 +136,11 @@
     <string name="about">Despre</string>
     <string name="widget_settings">Setări Widget</string>
     <plurals name="task_count">
-        <item quantity="one">%d sarcină</item>
-        <item quantity="few">%d sarcini</item>
-        <item quantity="other">%d sarcini</item>
+        <item quantity="one">%1$d sarcină</item>
+        <item quantity="few">%1$d sarcini</item>
+        <item quantity="other">%1$d sarcini</item>
     </plurals>
-    <string name="delete_tasks_warning">%s va fi șters. Acest lucru nu poate fi anulat!</string>
+    <string name="delete_tasks_warning">%1$s va fi șters. Acest lucru nu poate fi anulat!</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
     <string name="discard_changes">Renunți la modificări?</string>
     <string name="discard">Modificări</string>
@@ -239,4 +239,61 @@
     <string name="no_time">Fără timp</string>
     <string name="TEA_note_label">Descriere</string>
     <string name="start_date">Data începerii</string>
+    <string name="repeats_custom_recurrence">Repetare personalizată</string>
+    <string name="repeats_every">Se repetă fiecare</string>
+    <string name="repeats_weekly_on">Se repetă la</string>
+    <string name="repeat_monthly_on_day_number">Lunar la %1$d</string>
+    <string name="repeat_monthly_first_week">prima</string>
+    <string name="repeat_monthly_second_week">a doua</string>
+    <string name="repeat_monthly_third_week">a treia</string>
+    <string name="repeat_monthly_fourth_week">a patra</string>
+    <string name="repeat_monthly_fifth_week">a cincea</string>
+    <string name="repeat_monthly_last_week">ultima</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Lunar la %1$s %2$s</string>
+    <string name="repeats_ends">Se încheie</string>
+    <string name="repeats_never">Niciodată</string>
+    <string name="repeats_on">La</string>
+    <string name="repeats_after">După</string>
+    <string name="repeat_option_does_not_repeat">Nu se repetă</string>
+    <string name="repeat_option_every_day">Zilnic</string>
+    <string name="repeat_option_every_week">În fiecare săptămână</string>
+    <string name="repeat_option_every_month">În fiecare lună</string>
+    <string name="repeat_option_every_year">În fiecare an</string>
+    <string name="repeat_option_custom">Personalizat…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minut</item>
+        <item quantity="few">minute</item>
+        <item quantity="other">minute</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">oră</item>
+        <item quantity="few">ore</item>
+        <item quantity="other">ore</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">zi</item>
+        <item quantity="few">zile</item>
+        <item quantity="other">zile</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">săptămâna</item>
+        <item quantity="few">săptămâni</item>
+        <item quantity="other">săptămâni</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">lună</item>
+        <item quantity="few">luni</item>
+        <item quantity="other">luni</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">an</item>
+        <item quantity="few">ani</item>
+        <item quantity="other">ani</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">repetare</item>
+        <item quantity="few">repetări</item>
+        <item quantity="other">repetări</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">în fiecare %1$s %2$s</string>
 </resources>

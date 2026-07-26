@@ -135,9 +135,9 @@
     <string name="about">O</string>
     <string name="widget_settings">Widget - nastavenia</string>
     <plurals name="task_count">
-        <item quantity="one">%d úloha</item>
-        <item quantity="few">%d úlohy</item>
-        <item quantity="other">%d úloh</item>
+        <item quantity="one">%1$d úloha</item>
+        <item quantity="few">%1$d úlohy</item>
+        <item quantity="other">%1$d úloh</item>
     </plurals>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
     <string name="discard_changes">Zahodiť zmeny?</string>
@@ -226,4 +226,61 @@
     <string name="no_time">Bez času</string>
     <string name="TEA_note_label">Popis</string>
     <string name="start_date">Dátum spustenia</string>
+    <string name="repeats_custom_recurrence">Vlastné opakovanie</string>
+    <string name="repeats_every">Opakuje sa každý</string>
+    <string name="repeats_weekly_on">Opakuje sa v</string>
+    <string name="repeat_monthly_on_day_number">%1$d. deň v mesiaci</string>
+    <string name="repeat_monthly_first_week">prvý</string>
+    <string name="repeat_monthly_second_week">druhý</string>
+    <string name="repeat_monthly_third_week">tretí</string>
+    <string name="repeat_monthly_fourth_week">štvrtý</string>
+    <string name="repeat_monthly_fifth_week">piaty</string>
+    <string name="repeat_monthly_last_week">posledný</string>
+    <string name="repeat_monthly_on_the_nth_weekday">%1$s. %2$s v mesiaci</string>
+    <string name="repeats_ends">Končí</string>
+    <string name="repeats_never">Nikdy</string>
+    <string name="repeats_on">V</string>
+    <string name="repeats_after">Po</string>
+    <string name="repeat_option_does_not_repeat">Neopakovať</string>
+    <string name="repeat_option_every_day">Každý deň</string>
+    <string name="repeat_option_every_week">Každý týždeň</string>
+    <string name="repeat_option_every_month">Každý mesiac</string>
+    <string name="repeat_option_every_year">Každý rok</string>
+    <string name="repeat_option_custom">Vlastné…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minúta</item>
+        <item quantity="few">minúty</item>
+        <item quantity="other">minút</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">hodina</item>
+        <item quantity="few">hodiny</item>
+        <item quantity="other">hodín</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">deň</item>
+        <item quantity="few">dni</item>
+        <item quantity="other">dní</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">týždeň</item>
+        <item quantity="few">týždne</item>
+        <item quantity="other">týždňov</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mesiac</item>
+        <item quantity="few">mesiace</item>
+        <item quantity="other">mesiacov</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">rok</item>
+        <item quantity="few">roky</item>
+        <item quantity="other">rokov</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">výskyt</item>
+        <item quantity="few">výskyty</item>
+        <item quantity="other">výskytov</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
 </resources>

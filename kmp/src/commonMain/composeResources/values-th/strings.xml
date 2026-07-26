@@ -114,7 +114,7 @@
     <string name="about">เกี่ยวกับ</string>
     <string name="widget_settings">การตั้งค่าวิดเจ็ต</string>
     <plurals name="task_count">
-        <item quantity="other">%d งาน</item>
+        <item quantity="other">%1$d งาน</item>
     </plurals>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
     <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่?</string>
@@ -192,4 +192,35 @@
     <string name="no_time">ไม่มีเวลา</string>
     <string name="TEA_note_label">บันทึกย่อ</string>
     <string name="start_date">วันที่เริ่มต้น</string>
+    <string name="repeat_monthly_first_week">ก่อน</string>
+    <string name="repeat_monthly_second_week">ที่สอง</string>
+    <string name="repeat_monthly_third_week">ที่สาม</string>
+    <string name="repeat_monthly_fourth_week">ที่สี่</string>
+    <string name="repeat_monthly_fifth_week">ที่ห้า</string>
+    <string name="repeat_monthly_last_week">สุดท้าย</string>
+    <string name="repeat_option_does_not_repeat">ไม่ซ้ำ</string>
+    <string name="repeat_option_every_day">ทุกวัน</string>
+    <string name="repeat_option_every_week">ทุกสัปดาห์</string>
+    <string name="repeat_option_every_month">ทุกเดือน</string>
+    <string name="repeat_option_every_year">ทุกปี</string>
+    <string name="repeat_option_custom">กำหนดเอง…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="other">นาที</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="other">ชั่วโมง</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="other">วัน</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="other">สัปดาห์</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="other">เดือน</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="other">ปี</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">ทุกๆ %1$s %2$s</string>
 </resources>

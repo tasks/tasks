@@ -59,33 +59,9 @@
     <string name="persistent_notifications">Vedvarende varsler</string>
     <string name="persistent_notifications_description">Vedvarende varsler kan ikke fjernes</string>
     <string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">Minutt(er)</item>
-        <item quantity="other">minutter</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutt</item>
         <item quantity="other">%d minutter</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">time</item>
-        <item quantity="other">timer</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">dag</item>
-        <item quantity="other">dager</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">uke</item>
-        <item quantity="other">uker</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">måned</item>
-        <item quantity="other">måneder</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">år</item>
-        <item quantity="other">år</item>
     </plurals>
     <string name="TPl_notification">%s har aktive tidtakere!</string>
     <string name="TEA_timer_controls">Nedtelling</string>
@@ -196,11 +172,6 @@
     <string name="default_random_reminder_daily">Daglig</string>
     <string name="default_random_reminder_weekly">Ukentlig</string>
     <string name="default_random_reminder_bi_weekly">Annenhver uke</string>
-    <string name="repeat_option_does_not_repeat">Gjentas ikke</string>
-    <string name="repeat_option_every_day">Hver dag</string>
-    <string name="repeat_option_every_week">Hver uke</string>
-    <string name="repeat_option_every_month">Månedlig</string>
-    <string name="repeat_option_every_year">Årlig</string>
     <string name="repeat_option_custom">Egendefinert…</string>
     <plurals name="task_count">
         <item quantity="one">%d gjøremål</item>
@@ -312,12 +283,6 @@
     <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
     <string name="default_calendar">Forvalgt kalender</string>
     <string name="badges_description">Vis gjøremålsantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
-    <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">første</string>
-    <string name="repeat_monthly_second_week">andre</string>
-    <string name="repeat_monthly_third_week">tredje</string>
-    <string name="repeat_monthly_fourth_week">fjerde</string>
-    <string name="repeat_monthly_last_week">siste</string>
     <string name="tasker_create_task">Opprett gjøremål</string>
     <string name="tasker_list_notification">Listemerknad</string>
     <string name="help">Hjelp</string>
@@ -474,7 +439,6 @@
     <string name="current_subscription">Nåværende abonnement: %s</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
-    <string name="repeat_monthly_fifth_week">femte</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
     <string name="authorization_cancelled">Identietsbekreftelse avbrutt</string>
     <string name="github_sponsor">Kronerulling</string>
@@ -552,19 +516,9 @@
     <string name="enable_reminders_description">Påminnelser er avskrudd i Android-innstillingene</string>
     <string name="dismiss">Avvis</string>
     <string name="enable_reminders">Skru på påminnelser</string>
-    <string name="repeats_never">Aldri</string>
     <string name="donate_nag">Vurder å vis din støtte med en donasjon!</string>
-    <string name="repeats_custom_recurrence">Tilpasset gjentakelse</string>
-    <string name="repeats_weekly_on">Gjentas på</string>
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Kanskje senere</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">hendelse</item>
-        <item quantity="other">hendelser</item>
-    </plurals>
-    <string name="repeats_on">På</string>
-    <string name="repeats_after">Etter</string>
-    <string name="repeats_ends">Avsluttes</string>
     <string name="customize_drawer">Tilpass meny</string>
     <string name="customize_drawer_summary">Dra og slip for å omkonfigurere menyelementer</string>
     <string name="swipe_to_snooze_time_30_minutes">etter 30 minutter</string>
@@ -579,8 +533,5 @@
     <string name="swipe_to_snooze_time_immediately">umiddelbart</string>
     <string name="swipe_to_snooze_time_1_hour">etter 1 time</string>
     <string name="swipe_to_snooze_time_24_hours">etter 24 timer</string>
-    <string name="repeats_every">Gjentas hver</string>
     <string name="change_priority">Endre prioritet</string>
-    <string name="repeat_monthly_on_day_number">Månedlig på dag %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Månedlig på %1$s %2$s</string>
 </resources>

@@ -127,9 +127,9 @@
     <string name="about">O aplikacji</string>
     <string name="widget_settings">Ustawienie widgetu</string>
     <plurals name="task_count">
-        <item quantity="one">%d zadań</item>
-        <item quantity="few">%d zadania</item>
-        <item quantity="many">%d zadań</item>
+        <item quantity="one">%1$d zadań</item>
+        <item quantity="few">%1$d zadania</item>
+        <item quantity="many">%1$d zadań</item>
     </plurals>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="discard_changes">Odrzuć zmiany?</string>
@@ -218,4 +218,62 @@
     <string name="no_time">Brak czasu</string>
     <string name="TEA_note_label">Opis</string>
     <string name="start_date">Data rozpoczęcia</string>
+    <string name="repeats_custom_recurrence">Powtarzanie własne</string>
+    <string name="repeats_every">Powtarzaj co</string>
+    <string name="repeats_weekly_on">Powtarzaj co</string>
+    <string name="repeat_monthly_on_day_number">Co miesiąc w dniu %1$d</string>
+    <string name="repeat_monthly_first_week">pierwszy</string>
+    <string name="repeat_monthly_second_week">drugi</string>
+    <string name="repeat_monthly_third_week">trzeci</string>
+    <string name="repeat_monthly_fourth_week">czwarty</string>
+    <string name="repeat_monthly_fifth_week">piąty</string>
+    <string name="repeat_monthly_last_week">ostatni</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Co miesiąc %1$s %2$s</string>
+    <string name="repeats_ends">Kończy się</string>
+    <string name="repeats_never">Nigdy</string>
+    <string name="repeats_on">Co</string>
+    <string name="repeats_after">Po</string>
+    <string name="repeat_option_does_not_repeat">Nie powtarza się</string>
+    <string name="repeat_option_every_day">Każdego dnia</string>
+    <string name="repeat_option_every_week">Każdego tygodnia</string>
+    <string name="repeat_option_every_month">Każdego miesiąca</string>
+    <string name="repeat_option_every_year">Każdego roku</string>
+    <string name="repeat_option_custom">Własne ustawienie…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuta</item>
+        <item quantity="few">minuty</item>
+        <item quantity="many">minut</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">godzina</item>
+        <item quantity="few">godziny</item>
+        <item quantity="many">godzin</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dzień</item>
+        <item quantity="few">dni</item>
+        <item quantity="many">dni</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">tydzień</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="many">tygodni</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">miesiąc</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="many">miesięcy</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">rok</item>
+        <item quantity="few">lat</item>
+        <item quantity="many">lat</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">zdarzenie</item>
+        <item quantity="few">zdarzenia</item>
+        <item quantity="many">zdarzeń</item>
+        <item quantity="other">zdarzeń</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
 </resources>

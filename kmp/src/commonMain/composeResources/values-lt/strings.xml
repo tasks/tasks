@@ -118,9 +118,9 @@
     <string name="about">Apie</string>
     <string name="widget_settings">Valdiklio nustatymai</string>
     <plurals name="task_count">
-        <item quantity="one">%d užduotis</item>
-        <item quantity="few">%d užduotys</item>
-        <item quantity="other">%d užduočių</item>
+        <item quantity="one">%1$d užduotis</item>
+        <item quantity="few">%1$d užduotys</item>
+        <item quantity="other">%1$d užduočių</item>
     </plurals>
     <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
     <string name="discard_changes">Atmesti pakeitimus?</string>
@@ -205,4 +205,47 @@
     <string name="no_time">Nėra laiko</string>
     <string name="TEA_note_label">Aprašymas</string>
     <string name="start_date">Pradžios data</string>
+    <string name="repeat_monthly_first_week">pirmą</string>
+    <string name="repeat_monthly_second_week">antrą</string>
+    <string name="repeat_monthly_third_week">trečią</string>
+    <string name="repeat_monthly_fourth_week">ketvirtą</string>
+    <string name="repeat_monthly_fifth_week">penktą</string>
+    <string name="repeat_monthly_last_week">paskutinę</string>
+    <string name="repeat_option_does_not_repeat">Nekartoti</string>
+    <string name="repeat_option_every_day">Kiekvieną dieną</string>
+    <string name="repeat_option_every_week">Kiekvieną savaitę</string>
+    <string name="repeat_option_every_month">Kiekvieną mėnesį</string>
+    <string name="repeat_option_every_year">Kiekvienais metais</string>
+    <string name="repeat_option_custom">Individualizuotas…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minutė</item>
+        <item quantity="few">minutės</item>
+        <item quantity="other">minučių</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">valanda</item>
+        <item quantity="few">valandos</item>
+        <item quantity="other">valandų</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">diena</item>
+        <item quantity="few">dienos</item>
+        <item quantity="other">dienų</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">savaitė</item>
+        <item quantity="few">savaitės</item>
+        <item quantity="other">savaičių</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mėnesis</item>
+        <item quantity="few">mėnesiai</item>
+        <item quantity="other">mėnesių</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">metai</item>
+        <item quantity="few">metai</item>
+        <item quantity="other">metų</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
 </resources>

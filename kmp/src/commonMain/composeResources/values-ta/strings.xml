@@ -136,10 +136,10 @@
     <string name="about">பற்றி</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
     <plurals name="task_count">
-        <item quantity="one">%d பணி</item>
-        <item quantity="other">%d பணிகள்</item>
+        <item quantity="one">%1$d பணி</item>
+        <item quantity="other">%1$d பணிகள்</item>
     </plurals>
-    <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
+    <string name="delete_tasks_warning">%1$s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
     <string name="discard_changes">மாற்றங்களை கைவிடலாமா?</string>
     <string name="discard">நிராகரி</string>
@@ -226,4 +226,54 @@
     <string name="no_time">நேரம் இல்லை</string>
     <string name="TEA_note_label">விவரிப்பு</string>
     <string name="start_date">தொடங்கும் நாள்</string>
+    <string name="repeats_custom_recurrence">தனிப்பயன் மறுநிகழ்வு</string>
+    <string name="repeats_every">ஒவ்வொன்றும் மீண்டும்</string>
+    <string name="repeats_weekly_on">மீது மீண்டும் நிகழும்</string>
+    <string name="repeat_monthly_on_day_number">நாள் %1$d</string>
+    <string name="repeat_monthly_first_week">முதல்</string>
+    <string name="repeat_monthly_second_week">இரண்டாவது</string>
+    <string name="repeat_monthly_third_week">மூன்றாவது</string>
+    <string name="repeat_monthly_fourth_week">நான்காவது</string>
+    <string name="repeat_monthly_fifth_week">ஐந்தாவது</string>
+    <string name="repeat_monthly_last_week">கடந்த</string>
+    <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s இல் மாதாந்திர</string>
+    <string name="repeats_ends">முனைகள்</string>
+    <string name="repeats_never">ஒருபோதும்</string>
+    <string name="repeats_on">ஆன்</string>
+    <string name="repeats_after">பிறகு</string>
+    <string name="repeat_option_does_not_repeat">மீண்டும் செய்யாது</string>
+    <string name="repeat_option_every_day">தினமும்</string>
+    <string name="repeat_option_every_week">ஒவ்வொரு வாரமும்</string>
+    <string name="repeat_option_every_month">ஒவ்வொரு மாதமும்</string>
+    <string name="repeat_option_every_year">ஒவ்வொரு வருடமும்</string>
+    <string name="repeat_option_custom">தனிப்பயன்…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">நிமிடம்</item>
+        <item quantity="other">நிமிடங்கள்</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">மணி</item>
+        <item quantity="other">மணிகள்</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">நாள்</item>
+        <item quantity="other">நாட்கள்</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">வாரம்</item>
+        <item quantity="other">வாரங்கள்</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">மாதம்</item>
+        <item quantity="other">மாதங்கள்</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">ஆண்டு</item>
+        <item quantity="other">ஆண்டுகள்</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">நிகழ்வு</item>
+        <item quantity="other">நிகழ்வுகள்</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">ஒவ்வொரு %1$s %2$s</string>
 </resources>

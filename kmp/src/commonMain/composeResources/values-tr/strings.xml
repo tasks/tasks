@@ -364,4 +364,54 @@
     <string name="TEA_note_label">Açıklama</string>
     <string name="start_date">Başlangıç tarihi</string>
     <string name="not_signed_in">Oturum açılmadı</string>
+    <string name="repeats_custom_recurrence">Özel yineleme</string>
+    <string name="repeats_every">Her ... yineler</string>
+    <string name="repeats_weekly_on">Yineler</string>
+    <string name="repeat_monthly_on_day_number">%1$d. günde aylık</string>
+    <string name="repeat_monthly_first_week">birinci</string>
+    <string name="repeat_monthly_second_week">ikinci</string>
+    <string name="repeat_monthly_third_week">üçüncü</string>
+    <string name="repeat_monthly_fourth_week">dördüncü</string>
+    <string name="repeat_monthly_fifth_week">beşinci</string>
+    <string name="repeat_monthly_last_week">sonuncu</string>
+    <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s günde aylık</string>
+    <string name="repeats_ends">Biter</string>
+    <string name="repeats_never">Asla</string>
+    <string name="repeats_on">Şunda</string>
+    <string name="repeats_after">Sonra</string>
+    <string name="repeat_option_does_not_repeat">Yinelemez</string>
+    <string name="repeat_option_every_day">Her gün</string>
+    <string name="repeat_option_every_week">Her hafta</string>
+    <string name="repeat_option_every_month">Her ay</string>
+    <string name="repeat_option_every_year">Her yıl</string>
+    <string name="repeat_option_custom">Özel…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">dakika</item>
+        <item quantity="other">dakika</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">saat</item>
+        <item quantity="other">saat</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">gün</item>
+        <item quantity="other">gün</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">hafta</item>
+        <item quantity="other">hafta</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">ay</item>
+        <item quantity="other">ay</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">yıl</item>
+        <item quantity="other">yıl</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">gerçekleşim</item>
+        <item quantity="other">gerçekleşim</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
 </resources>

@@ -71,11 +71,6 @@
     <string name="backup_BAc_import">நகலை இறக்குமதி செய்</string>
     <string name="display_name">பெயர்</string>
     <string name="repeat_option_custom">தனிப்பயன்…</string>
-    <string name="repeat_option_every_year">ஒவ்வொரு வருடமும்</string>
-    <string name="repeat_option_every_month">ஒவ்வொரு மாதமும்</string>
-    <string name="repeat_option_every_week">ஒவ்வொரு வாரமும்</string>
-    <string name="repeat_option_every_day">தினமும்</string>
-    <string name="repeat_option_does_not_repeat">மீண்டும் செய்யாது</string>
     <string name="default_random_reminder_bi_weekly">இரு வாராந்திர</string>
     <string name="default_random_reminder_weekly">வாராந்திர</string>
     <string name="default_random_reminder_daily">தினசரி</string>
@@ -218,12 +213,6 @@
     <string name="help">உதவி</string>
     <string name="tasker_list_notification">பட்டியல் அறிவிப்பு</string>
     <string name="tasker_create_task">பணியை உருவாக்கவும்</string>
-    <string name="repeat_monthly_last_week">கடந்த</string>
-    <string name="repeat_monthly_fourth_week">நான்காவது</string>
-    <string name="repeat_monthly_third_week">மூன்றாவது</string>
-    <string name="repeat_monthly_second_week">இரண்டாவது</string>
-    <string name="repeat_monthly_first_week">முதல்</string>
-    <string name="repeat_monthly_every_day_of_nth_week">ஒவ்வொரு %1$s %2$s</string>
     <string name="bundle_notifications_summary">பல அறிவிப்புகளை ஒன்றில் இணைக்கவும்</string>
     <string name="default_calendar">இயல்புநிலை காலண்டர்</string>
     <string name="dont_add_to_calendar">நாள்காட்டியில் சேர்க்க வேண்டாம்</string>
@@ -357,49 +346,25 @@
         <item quantity="one">%d ஆண்டு</item>
         <item quantity="other">%d ஆண்டுகள்</item>
     </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">ஆண்டு</item>
-        <item quantity="other">ஆண்டுகள்</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d திங்கள்</item>
         <item quantity="other">%d திங்கள்கள்</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">மாதம்</item>
-        <item quantity="other">மாதங்கள்</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d வாரம்</item>
         <item quantity="other">%d வாரங்கள்</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">வாரம்</item>
-        <item quantity="other">வாரங்கள்</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d நாள்</item>
         <item quantity="other">%d நாட்கள்</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">நாள்</item>
-        <item quantity="other">நாட்கள்</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d மணி</item>
         <item quantity="other">%d மணிநேரம்</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">மணி</item>
-        <item quantity="other">மணிகள்</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d நிமிடம்</item>
         <item quantity="other">%d நிமிடங்கள்</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">நிமிடம்</item>
-        <item quantity="other">நிமிடங்கள்</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">நேரம்</item>
@@ -429,24 +394,19 @@
     <string name="export_toast">%1$s முதல் %2$s வரை நகல் எடுக்கப்பட்டது.</string>
     <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>
     <string name="filter_criteria_unstarted">தொடங்கப்படவில்லை</string>
-    <string name="repeat_monthly_fifth_week">ஐந்தாவது</string>
     <string name="chips">சிப்சு</string>
     <string name="device_settings">சாதன அமைப்புகள்</string>
     <string name="comment">கருத்து</string>
     <string name="randomly_every">தோராயமாக ஒவ்வொரு %s</string>
     <string name="show_edit_screen_without_unlock">திறக்காமல் திருத்து திரை காண்பி</string>
     <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
-    <string name="repeats_ends">முனைகள்</string>
     <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4$s ஏற்படுகிறது</string>
     <string name="default_location">இயல்புநிலை இடம்</string>
     <string name="account">கணக்கு</string>
     <string name="backups_ignore_warnings_summary">உங்களுக்கு காப்புப்பிரதிகள் தேவையில்லை அல்லது உங்கள் சொந்த காப்புப்பிரதி தீர்வு இருந்தால் காப்புப்பிரதி எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
     <string name="repeats_single_number_of_times">%1$s மீண்டும் நிகழ்கிறது, %2$d %3$s</string>
     <string name="repeats_single_on_until">%2$s இல் %1$s மீண்டும் மீண்டும், %3$s இல் முடிகிறது</string>
-    <string name="repeats_custom_recurrence">தனிப்பயன் மறுநிகழ்வு</string>
-    <string name="repeats_on">ஆன்</string>
     <string name="repeats_plural_number_of_times">ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %2$d %3$s ஏற்படுகிறது</string>
-    <string name="repeat_monthly_on_day_number">நாள் %1d</string>
     <string name="auto_dismiss_datetime_widget_summary">விட்செட்டில் இருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="background_location">பின்னணி இடம்</string>
     <string name="backups_ignore_warnings">எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
@@ -466,10 +426,6 @@
     <string name="CFC_startBefore_text">தொடங்கியவர்:?</string>
     <string name="CFC_startBefore_name">மூலம் தொடங்கவும்…</string>
     <string name="swipe_to_snooze_time_description">அழிக்கப்பட்ட அறிவிப்பு உறக்கநிலை மற்றும் %s மீண்டும் உருவாக்கப்படும்</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">நிகழ்வு</item>
-        <item quantity="other">நிகழ்வுகள்</item>
-    </plurals>
     <plurals name="reminder_days">
         <item quantity="one">நாள்</item>
         <item quantity="other">நாட்கள்</item>
@@ -531,19 +487,14 @@
     <string name="no_app_found">இந்த கோரிக்கையை எந்த பயன்பாடும் கையாள முடியாது</string>
     <string name="default_recurrence">இயல்புநிலை மீண்டும் நிகழ்கிறது</string>
     <string name="repeats_single_on">%2$s இல் %1$s மீண்டும் நிகழ்கிறது</string>
-    <string name="repeats_weekly_on">மீது மீண்டும் நிகழும்</string>
-    <string name="repeats_after">பிறகு</string>
     <string name="repeats_plural_on">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது</string>
     <string name="repeats_plural_until">ஒவ்வொரு %1$s ஐ மீண்டும் மீண்டும், %2$s இல் முடிகிறது</string>
     <string name="badges_description">பணிகளின் துவக்க ஐகானில் பணி எண்ணிக்கையைக் காண்பி. அனைத்து துவக்கிகளும் பேட்ச்களை ஆதரிக்கவில்லை.</string>
-    <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s இல் மாதாந்திர</string>
     <string name="background_location_permission_required">பயன்பாடு மூடப்பட்டிருந்தாலும் அல்லது பயன்பாட்டில் இல்லாவிட்டாலும் கூட, இருப்பிட அடிப்படையிலான நினைவூட்டல்களை இயக்க பணிகள் இருப்பிடத் தரவை சேகரிக்கின்றன.</string>
     <string name="auto_dismiss_datetime_list_summary">பணி பட்டியலிலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="auto_dismiss_datetime_edit_summary">பணி திருத்தத்திலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="default_due_date">இயல்புநிலை காரணமாக தேதி</string>
     <string name="import_summary_message">கோப்பு %1$s %2$s ஐக் கொண்டுள்ளது.\n\n %3$s இறக்குமதி செய்யப்பட்டன,\n %4$s கள் ஏற்கனவே உள்ளன\n %5$s பிழைகள் இருந்தன</string>
-    <string name="repeats_every">ஒவ்வொன்றும் மீண்டும்</string>
-    <string name="repeats_never">ஒருபோதும்</string>
     <string name="price_per_year_with_currency">%s/ஆண்டு</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>

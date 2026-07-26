@@ -116,11 +116,6 @@
     <string name="default_random_reminder_daily">Dagelijks</string>
     <string name="default_random_reminder_weekly">Wekelijks</string>
     <string name="default_random_reminder_bi_weekly">Tweewekelijks</string>
-    <string name="repeat_option_does_not_repeat">Niet herhalen</string>
-    <string name="repeat_option_every_day">Elke dag</string>
-    <string name="repeat_option_every_week">Elke week</string>
-    <string name="repeat_option_every_month">Elke maand</string>
-    <string name="repeat_option_every_year">Elk jaar</string>
     <string name="repeat_option_custom">Aangepast…</string>
     <plurals name="task_count">
         <item quantity="one">%d taak</item>
@@ -130,49 +125,25 @@
         <item quantity="one">maal</item>
         <item quantity="other">maal</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuut</item>
-        <item quantity="other">minuten</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minuut</item>
         <item quantity="other">%d minuten</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">uur</item>
-        <item quantity="other">uren</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d uur</item>
         <item quantity="other">%d uren</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">dag</item>
-        <item quantity="other">dagen</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dag</item>
         <item quantity="other">%d dagen</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">week</item>
-        <item quantity="other">weken</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d week</item>
         <item quantity="other">%d weken</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">maand</item>
-        <item quantity="other">maanden</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d maand</item>
         <item quantity="other">%d maanden</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">jaar</item>
-        <item quantity="other">jaren</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d jaar</item>
@@ -298,12 +269,6 @@
     <string name="default_calendar">Standaardkalender</string>
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
     <string name="bundle_notifications_summary">Combineer meerdere meldingen samen in één</string>
-    <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">eerste</string>
-    <string name="repeat_monthly_second_week">tweede</string>
-    <string name="repeat_monthly_third_week">derde</string>
-    <string name="repeat_monthly_fourth_week">vierde</string>
-    <string name="repeat_monthly_last_week">laatste</string>
     <string name="tasker_create_task">Taak maken</string>
     <string name="tasker_list_notification">Lijst melding</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
@@ -469,7 +434,6 @@
     <string name="current_subscription">Huidig abonnement: %s</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
     <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
-    <string name="repeat_monthly_fifth_week">vijfde</string>
     <string name="authorization_cancelled">Verificatie geannuleerd</string>
     <string name="sign_in_with_google">Log in met Google</string>
     <string name="authentication_required">Verificatie verplicht</string>
@@ -548,19 +512,6 @@
     <string name="TEA_creation_date">Aanmaakdatum</string>
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="sort_list">Op lijstvolgorde</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">gebeurtenis</item>
-        <item quantity="other">gebeurtenissen</item>
-    </plurals>
-    <string name="repeats_custom_recurrence">Aangepaste herhaling</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Maandelijks op de %1$s %2$s</string>
-    <string name="repeats_never">Nooit</string>
-    <string name="repeats_on">Op</string>
-    <string name="repeats_every">Herhaalt iedere</string>
-    <string name="repeats_weekly_on">Herhaalt op</string>
-    <string name="repeats_after">Na</string>
-    <string name="repeats_ends">Eindigt</string>
-    <string name="repeat_monthly_on_day_number">Maandelijks op dag %1d</string>
     <string name="change_priority">Prioriteit veranderen</string>
     <string name="theme_dynamic">Dynamisch</string>
     <string name="show_edit_screen_without_unlock">Toon het bewerkingscherm zonder ontsluiting</string>

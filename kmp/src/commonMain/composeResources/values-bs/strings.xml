@@ -34,4 +34,6 @@
     <string name="week_before_due">Sedmica prije roka</string>
     <string name="TEA_note_label">Opis</string>
     <string name="start_date">Datum početka</string>
+    <string name="repeat_option_every_year">Svake godine</string>
+    <string name="repeat_option_custom">Prilagođeno…</string>
 </resources>

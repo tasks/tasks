@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">Naponta</string>
     <string name="default_random_reminder_weekly">Hetente</string>
     <string name="default_random_reminder_bi_weekly">Kéthetente</string>
-    <string name="repeat_option_does_not_repeat">Nincs ismétlés</string>
-    <string name="repeat_option_every_day">Minden nap</string>
-    <string name="repeat_option_every_week">Minden héten</string>
-    <string name="repeat_option_every_month">Minden hónapban</string>
-    <string name="repeat_option_every_year">Minden évben</string>
     <string name="repeat_option_custom">Egyéni…</string>
     <plurals name="task_count">
         <item quantity="one">%d feladat</item>
@@ -131,49 +126,25 @@
         <item quantity="one">alkalommal</item>
         <item quantity="other">alkalommal</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">perc</item>
-        <item quantity="other">perc</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d perc</item>
         <item quantity="other">%d perc</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">óra</item>
-        <item quantity="other">óra</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d óra</item>
         <item quantity="other">%d óra</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">nap</item>
-        <item quantity="other">nap</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d nap</item>
         <item quantity="other">%d nap</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">hét</item>
-        <item quantity="other">hét</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d hét</item>
         <item quantity="other">%d hét</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">hónap</item>
-        <item quantity="other">hónap</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d hónap</item>
         <item quantity="other">%d hónap</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">év</item>
-        <item quantity="other">év</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d év</item>
@@ -305,12 +276,6 @@
     <string name="default_calendar">Alapértelmezett naptár</string>
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
     <string name="bundle_notifications_summary">Több értesítés összevonása eggyé</string>
-    <string name="repeat_monthly_every_day_of_nth_week">minden %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">első</string>
-    <string name="repeat_monthly_second_week">második</string>
-    <string name="repeat_monthly_third_week">harmadik</string>
-    <string name="repeat_monthly_fourth_week">negyedik</string>
-    <string name="repeat_monthly_last_week">utolsó</string>
     <string name="tasker_create_task">Feladat létrehozása</string>
     <string name="tasker_list_notification">Lista értesítés</string>
     <string name="help">Súgó</string>
@@ -469,7 +434,6 @@
     <string name="cancel">Mégse</string>
     <string name="ok">OK</string>
     <string name="background_location_permission_required">A Tasks a helyinformációkat a helyalapú emlékeztetőkhöz használja fel, még akkor is, ha az app be van zárva vagy nincs használatban.</string>
-    <string name="repeat_monthly_fifth_week">ötödik</string>
     <string name="authorization_cancelled">Azonosítás megszakítva</string>
     <string name="sign_in_with_google">Bejelentkezés Google fiókkal</string>
     <string name="github_sponsor">Szponzor</string>
@@ -549,21 +513,8 @@
     <string name="enable_reminders">Emlékeztetők engedélyezése</string>
     <string name="sort_list">Lista szerint</string>
     <string name="change_priority">Sürgősség módosítása</string>
-    <string name="repeats_every">Ismétlődik minden</string>
-    <string name="repeats_after">Után</string>
-    <string name="repeats_custom_recurrence">Egyedi ismétlődés</string>
-    <string name="repeats_never">Soha</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">előfordulás</item>
-        <item quantity="other">előfordulás</item>
-    </plurals>
-    <string name="repeat_monthly_on_day_number">Minden hónap %1d napján</string>
-    <string name="repeats_ends">Befejeződik</string>
-    <string name="repeats_weekly_on">Ismétlődik</string>
     <string name="donate_today">Adományozzon ma</string>
     <string name="donate_nag">Gondolkodjon el rajta, hogy adományozással támogassa az alkalmazást!</string>
-    <string name="repeats_on">Ekkor</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Havonta ekkor: %1$s %2$s</string>
     <string name="customize_drawer">Menü testreszabása</string>
     <string name="swipe_to_snooze_time_15_minutes">15 perc múlva</string>
     <string name="swipe_to_snooze_time_1_hour">1 óra múlva</string>

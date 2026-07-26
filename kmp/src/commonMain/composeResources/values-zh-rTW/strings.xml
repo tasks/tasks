@@ -171,9 +171,9 @@
     <string name="about">關於</string>
     <string name="widget_settings">小工具設定</string>
     <plurals name="task_count">
-        <item quantity="other">%d 個工作</item>
+        <item quantity="other">%1$d 個工作</item>
     </plurals>
-    <string name="delete_tasks_warning">%s 將被刪除。此操作無法撤銷！</string>
+    <string name="delete_tasks_warning">%1$s 將被刪除。此操作無法撤銷！</string>
     <string name="name_cannot_be_empty">名稱不能為空白</string>
     <string name="discard_changes">要捨棄更改嗎 ?</string>
     <string name="discard">捨棄</string>
@@ -269,4 +269,47 @@
     <string name="no_time">無時間</string>
     <string name="TEA_note_label">描述</string>
     <string name="start_date">起始日期</string>
+    <string name="repeats_custom_recurrence">自訂循環</string>
+    <string name="repeats_every">每次重複</string>
+    <string name="repeats_weekly_on">重複於</string>
+    <string name="repeat_monthly_on_day_number">每月的第 %1$d 天</string>
+    <string name="repeat_monthly_first_week">第一週</string>
+    <string name="repeat_monthly_second_week">第二週</string>
+    <string name="repeat_monthly_third_week">第三週</string>
+    <string name="repeat_monthly_fourth_week">第四週</string>
+    <string name="repeat_monthly_fifth_week">第五週</string>
+    <string name="repeat_monthly_last_week">最後一週</string>
+    <string name="repeat_monthly_on_the_nth_weekday">每月於 %1$s %2$s</string>
+    <string name="repeats_ends">結束</string>
+    <string name="repeats_never">永不</string>
+    <string name="repeats_on">在</string>
+    <string name="repeats_after">在... 之後</string>
+    <string name="repeat_option_does_not_repeat">不重複</string>
+    <string name="repeat_option_every_day">每天</string>
+    <string name="repeat_option_every_week">每星期</string>
+    <string name="repeat_option_every_month">每個月</string>
+    <string name="repeat_option_every_year">每年</string>
+    <string name="repeat_option_custom">自訂…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="other">分鐘</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="other">小時</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="other">週</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="other">月</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="other">年</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="other">事件發生次數</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
 </resources>

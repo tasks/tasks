@@ -149,10 +149,10 @@
     <string name="about">Tietoja sovelluksesta</string>
     <string name="widget_settings">Widgetin asetukset</string>
     <plurals name="task_count">
-        <item quantity="one">%d tehtävä</item>
-        <item quantity="other">%d tehtävät</item>
+        <item quantity="one">%1$d tehtävä</item>
+        <item quantity="other">%1$d tehtävät</item>
     </plurals>
-    <string name="delete_tasks_warning">%s poistetaan. Tätä ei voi perua!</string>
+    <string name="delete_tasks_warning">%1$s poistetaan. Tätä ei voi perua!</string>
     <string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
     <string name="discard_changes">Hylkää muutokset?</string>
     <string name="discard">Hylkää</string>
@@ -241,4 +241,54 @@
     <string name="no_time">Ei kellonaikaa</string>
     <string name="TEA_note_label">Kuvaus</string>
     <string name="start_date">Aloituspäivä</string>
+    <string name="repeats_custom_recurrence">Mukautettu toisto</string>
+    <string name="repeats_every">Toistuu joka</string>
+    <string name="repeats_weekly_on">Toistaa</string>
+    <string name="repeat_monthly_on_day_number">Kuukausittain %1$d päivä</string>
+    <string name="repeat_monthly_first_week">ensimmäinen</string>
+    <string name="repeat_monthly_second_week">toinen</string>
+    <string name="repeat_monthly_third_week">kolmas</string>
+    <string name="repeat_monthly_fourth_week">neljäs</string>
+    <string name="repeat_monthly_fifth_week">viides</string>
+    <string name="repeat_monthly_last_week">viimeinen</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Kuukauden %1$s %2$s</string>
+    <string name="repeats_ends">Loppuu</string>
+    <string name="repeats_never">Ei koskaan</string>
+    <string name="repeats_on">Päällä</string>
+    <string name="repeats_after">Jälkeen</string>
+    <string name="repeat_option_does_not_repeat">Älä toista</string>
+    <string name="repeat_option_every_day">Joka päivä</string>
+    <string name="repeat_option_every_week">Joka viikko</string>
+    <string name="repeat_option_every_month">Joka kuukausi</string>
+    <string name="repeat_option_every_year">Joka vuosi</string>
+    <string name="repeat_option_custom">Valinnainen…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuutti</item>
+        <item quantity="other">minuuttia</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">tunti</item>
+        <item quantity="other">tuntia</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">päivä</item>
+        <item quantity="other">päivää</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">viikko</item>
+        <item quantity="other">viikkoa</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">kuukausi</item>
+        <item quantity="other">kuukausi</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">vuosi</item>
+        <item quantity="other">vuotta</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">tapahtuma</item>
+        <item quantity="other">tapahtumat</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
 </resources>

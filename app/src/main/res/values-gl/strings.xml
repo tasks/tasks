@@ -221,7 +221,6 @@
     <string name="default_start_date">Data de inicio por defecto</string>
     <string name="filter_eisenhower_box_1">Importane e urxente</string>
     <string name="widget_show_title">Amosar título</string>
-    <string name="repeat_monthly_first_week">primeiro</string>
     <string name="default_tags">Etiquetas predefinidas</string>
     <string name="default_recurrence">Recurrencia predefinida</string>
     <string name="opacity_header">Opacidade da cabeceira</string>
@@ -239,21 +238,12 @@
     <string name="repeats_plural_until">Repítese cada %1$s, remata o %2$s</string>
     <string name="repeats_plural_number_of_times">Repetir cada %1$s, ocorre que %2$d %3$s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
-    <string name="repeat_monthly_third_week">terceiro</string>
-    <string name="repeat_monthly_fourth_week">cuarto</string>
-    <string name="repeat_monthly_fifth_week">quinto</string>
-    <string name="repeat_monthly_last_week">último</string>
     <string name="tasker_create_task">Crear tarefa</string>
     <string name="tasker_list_notification">Última notificación</string>
     <string name="subscription">Suscrición</string>
     <string name="action_open">Abrir</string>
     <string name="auto_dismiss_datetime_edit">Edición de tarefas</string>
     <string name="CFC_list_name">Na lista.…</string>
-    <string name="repeat_option_does_not_repeat">Non repetir</string>
-    <string name="repeat_option_every_day">Todos os días</string>
-    <string name="repeat_option_every_week">Todas as semanas</string>
-    <string name="repeat_option_every_month">Todos os meses</string>
     <string name="repeat_option_custom">Personalizado…</string>
     <plurals name="task_count">
         <item quantity="one">%d tarefa</item>
@@ -294,7 +284,6 @@
     <string name="calendar_event_created">Creouse o evento no calendario para %s</string>
     <string name="select_all">Escoller todo</string>
     <string name="date_shortcut_tomorrow_night">Mañá á noite</string>
-    <string name="repeat_monthly_second_week">segundo</string>
     <string name="help">Axuda</string>
     <string name="help_and_feedback">Axuda e soporte</string>
     <string name="refresh_purchases">Anovar as compras</string>
@@ -302,10 +291,6 @@
     <string name="authentication_required">Precísase autenticación</string>
     <string name="custom_notification">Notificación habitual</string>
     <string name="share">Compartir</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuto</item>
-        <item quantity="other">minutos</item>
-    </plurals>
     <string name="settings_default">Predefinido</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>
     <string name="more_options">Máis opcións</string>
@@ -382,7 +367,6 @@
     <string name="default_location_reminder_on_arrival_or_departure">Á chegada e á saída</string>
     <string name="no_start_date">Sen data de inicio</string>
     <string name="snooze_all">Pospoñer todo</string>
-    <string name="repeat_option_every_year">Todos os anos</string>
     <string name="google_drive_backup">Seguranza en Google Drive</string>
     <string name="opacity_row">Opacidade da fila</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
@@ -471,15 +455,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sen desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Activa o uso do mosaico Configuración rápida sen desbloquear o dispositivo</string>
     <string name="theme_dynamic">Dinámico</string>
-    <string name="repeats_custom_recurrence">Recorrencia personalizada</string>
-    <string name="repeats_every">Repítese cada</string>
-    <string name="repeats_weekly_on">Repítese o</string>
-    <string name="repeats_never">Nunca</string>
-    <string name="repeats_on">Aceso</string>
-    <string name="repeats_after">Despois de</string>
-    <string name="repeats_ends">Remata</string>
-    <string name="repeat_monthly_on_day_number">Mensualmente o día %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Mensualmente o %1$s %2$s</string>
     <string name="delete_tasks_warning">%s será eliminado. Isto non se pode desfacer!</string>
     <string name="banner_app_updated_title">Aplicación actualizada</string>
     <string name="banner_app_updated_description">Tarefas acaba de actualizarse a %s. Queres ver as notas da versión?</string>
@@ -542,17 +517,9 @@
     <string name="sync_warning_google_tasks">Non todos os detalles da tarefa se sincronizan con Google Tasks</string>
     <string name="button_learn_more">Máis información</string>
     <string name="widget_view_more_tasks">Ver máis tarefas</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">ocorrencia</item>
-        <item quantity="other">ocorrencias</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minuto</item>
         <item quantity="other">%d minutos</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">hora</item>
-        <item quantity="other">horas</item>
     </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Hora</item>
@@ -562,10 +529,6 @@
         <item quantity="one">%d hora</item>
         <item quantity="other">%d horas</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">día</item>
-        <item quantity="other">días</item>
-    </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Día</item>
         <item quantity="other">Días</item>
@@ -573,10 +536,6 @@
     <plurals name="repeat_n_days">
         <item quantity="one">%d día</item>
         <item quantity="other">%d días</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">semana</item>
-        <item quantity="other">semanas</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Semana</item>
@@ -586,17 +545,9 @@
         <item quantity="one">%d semana</item>
         <item quantity="other">%d semanas</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">mes</item>
-        <item quantity="other">meses</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mes</item>
         <item quantity="other">%d meses</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">ano</item>
-        <item quantity="other">anos</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d ano</item>

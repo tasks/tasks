@@ -126,11 +126,6 @@
     <string name="default_random_reminder_daily">Kas dieną</string>
     <string name="default_random_reminder_weekly">Kas savaitę</string>
     <string name="default_random_reminder_bi_weekly">Du kart savaitėje</string>
-    <string name="repeat_option_does_not_repeat">Nekartoti</string>
-    <string name="repeat_option_every_day">Kiekvieną dieną</string>
-    <string name="repeat_option_every_week">Kiekvieną savaitę</string>
-    <string name="repeat_option_every_month">Kiekvieną mėnesį</string>
-    <string name="repeat_option_every_year">Kiekvienais metais</string>
     <string name="repeat_option_custom">Individualizuotas…</string>
     <plurals name="task_count">
         <item quantity="one">%d užduotis</item>
@@ -142,60 +137,30 @@
         <item quantity="few">kartus</item>
         <item quantity="other">kartų</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minutė</item>
-        <item quantity="few">minutės</item>
-        <item quantity="other">minučių</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutę</item>
         <item quantity="few">%d minutes</item>
         <item quantity="other">%d minučių</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">valanda</item>
-        <item quantity="few">valandos</item>
-        <item quantity="other">valandų</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d valandą</item>
         <item quantity="few">%d valandas</item>
         <item quantity="other">%d valandų</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">diena</item>
-        <item quantity="few">dienos</item>
-        <item quantity="other">dienų</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dieną</item>
         <item quantity="few">%d dienas</item>
         <item quantity="other">%d dienų</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">savaitė</item>
-        <item quantity="few">savaitės</item>
-        <item quantity="other">savaičių</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d savaitę</item>
         <item quantity="few">%d savaites</item>
         <item quantity="other">%d savaičių</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">mėnesis</item>
-        <item quantity="few">mėnesiai</item>
-        <item quantity="other">mėnesių</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mėnesį</item>
         <item quantity="few">%d mėnesius</item>
         <item quantity="other">%d mėnesių</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">metai</item>
-        <item quantity="few">metai</item>
-        <item quantity="other">metų</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d metus</item>
@@ -328,12 +293,6 @@
     <string name="default_calendar">Numatytas kalendorius</string>
     <string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos paleidimo programos palaiko šią funkciją.</string>
     <string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną</string>
-    <string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">pirmą</string>
-    <string name="repeat_monthly_second_week">antrą</string>
-    <string name="repeat_monthly_third_week">trečią</string>
-    <string name="repeat_monthly_fourth_week">ketvirtą</string>
-    <string name="repeat_monthly_last_week">paskutinę</string>
     <string name="tasker_create_task">Sukurti užduotį</string>
     <string name="tasker_list_notification">Rodyti pranešimus</string>
     <string name="help">Pagalba</string>
@@ -401,7 +360,6 @@
     <string name="filter_today_only">Tik šiandien</string>
     <string name="filter_no_tags">Be etikečių</string>
     <string name="subscription">Prenumerata</string>
-    <string name="repeat_monthly_fifth_week">penktą</string>
     <string name="widget_due_date_hidden">Paslėpta</string>
     <string name="settings_default">Numatyta</string>
     <string name="share">Dalintis</string>

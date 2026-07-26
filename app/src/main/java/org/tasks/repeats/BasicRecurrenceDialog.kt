@@ -1,38 +1,34 @@
 package org.tasks.repeats
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.Dialog
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import com.google.common.collect.Lists
 import dagger.hilt.android.AndroidEntryPoint
 import net.fortuna.ical4j.model.Recur
-import org.tasks.R
+import org.tasks.compose.pickers.BasicRecurrence
+import org.tasks.compose.pickers.BasicRecurrenceOption
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.newIntent
 import org.tasks.repeats.RecurrenceUtils.newRecur
-import org.tasks.ui.SingleCheckedArrayAdapter
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class BasicRecurrenceDialog : DialogFragment() {
-    @Inject lateinit var context: Activity
     @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var repeatRuleToString: RepeatRuleToString
+    @Inject lateinit var theme: Theme
 
     private val customRecurrence =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
-                val rrule = it.data?.getStringExtra(EXTRA_RRULE)
-                parentFragmentManager.setFragmentResult(
-                    REQUEST_KEY,
-                    bundleOf(EXTRA_RRULE to rrule)
-                )
+                setResult(it.data?.getStringExtra(EXTRA_RRULE))
             }
             dismiss()
         }
@@ -52,67 +48,58 @@ class BasicRecurrenceDialog : DialogFragment() {
                     }
                 }
         val customPicked = isCustomValue(rrule)
-        val repeatOptions: List<String> =
-            Lists.newArrayList(*requireContext().resources.getStringArray(R.array.repeat_options))
-        val adapter = SingleCheckedArrayAdapter(requireContext(), repeatOptions)
-        var selected = 0
-        if (customPicked) {
-            adapter.insert(repeatRuleToString.toString(rule), 0)
-        } else if (rrule != null) {
-            selected = when (rrule.frequency) {
-                Recur.Frequency.DAILY -> 1
-                Recur.Frequency.WEEKLY -> 2
-                Recur.Frequency.MONTHLY -> 3
-                Recur.Frequency.YEARLY -> 4
-                else -> 0
-            }
-        }
+        val customLabel = if (customPicked) repeatRuleToString.toString(rule) else null
+        val selectedFrequency = if (!customPicked) rrule?.frequency else null
         return dialogBuilder
             .newDialog()
-            .setSingleChoiceItems(adapter, selected) { dialog, selectedIndex: Int ->
-                val i = if (customPicked) {
-                    if (selectedIndex == 0) {
-                        dialog.dismiss()
-                        return@setSingleChoiceItems
-                    }
-                    selectedIndex - 1
-                } else {
-                    selectedIndex
+            .setContent {
+                TasksTheme(
+                    theme = theme.themeBase.index,
+                    primary = theme.themeColor.primaryColor,
+                ) {
+                    BasicRecurrence(
+                        customLabel = customLabel,
+                        selectedFrequency = selectedFrequency,
+                        onSelected = { option -> onSelected(option, rule, args) },
+                    )
                 }
-                val result = when (i) {
-                    0 -> null
-                    5 -> {
-                        customRecurrence.launch(
-                            newIntent(
-                                context = requireContext(),
-                                rrule = rule,
-                                dueDate = args.getLong(EXTRA_DATE),
-                                accountType = args.getInt(EXTRA_ACCOUNT_TYPE)
-                            )
-                        )
-                        return@setSingleChoiceItems
-                    }
-                    else -> {
-                        val frequency = when(i) {
-                            1 -> Recur.Frequency.DAILY
-                            2 -> Recur.Frequency.WEEKLY
-                            3 -> Recur.Frequency.MONTHLY
-                            4 -> Recur.Frequency.YEARLY
-                            else -> throw IllegalArgumentException()
-                        }
-                        newRecur().apply {
-                            interval = 1
-                            setFrequency(frequency.name)
-                        }
-                    }
-                }
-                parentFragmentManager.setFragmentResult(
-                    REQUEST_KEY,
-                    bundleOf(EXTRA_RRULE to result?.toString())
-                )
-                dialog.dismiss()
             }
             .show()
+    }
+
+    private fun onSelected(option: BasicRecurrenceOption, rule: String?, args: Bundle) {
+        when (option) {
+            BasicRecurrenceOption.KeepCustom -> dismiss()
+            BasicRecurrenceOption.DoesNotRepeat -> {
+                setResult(null)
+                dismiss()
+            }
+            is BasicRecurrenceOption.Frequency -> {
+                val recur = newRecur().apply {
+                    interval = 1
+                    setFrequency(option.frequency.name)
+                }
+                setResult(recur.toString())
+                dismiss()
+            }
+            BasicRecurrenceOption.Custom -> {
+                customRecurrence.launch(
+                    newIntent(
+                        context = requireContext(),
+                        rrule = rule,
+                        dueDate = args.getLong(EXTRA_DATE),
+                        accountType = args.getInt(EXTRA_ACCOUNT_TYPE)
+                    )
+                )
+            }
+        }
+    }
+
+    private fun setResult(rrule: String?) {
+        parentFragmentManager.setFragmentResult(
+            REQUEST_KEY,
+            bundleOf(EXTRA_RRULE to rrule)
+        )
     }
 
     private fun isCustomValue(rrule: Recur?): Boolean {

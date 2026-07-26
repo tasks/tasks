@@ -114,11 +114,6 @@
     <string name="default_random_reminder_daily">chaque jour</string>
     <string name="default_random_reminder_weekly">chaque semaine</string>
     <string name="default_random_reminder_bi_weekly">deux fois par semaine</string>
-    <string name="repeat_option_does_not_repeat">Ne pas répéter</string>
-    <string name="repeat_option_every_day">Tous les jours</string>
-    <string name="repeat_option_every_week">Toutes les semaines</string>
-    <string name="repeat_option_every_month">Tous les mois</string>
-    <string name="repeat_option_every_year">Tous les ans</string>
     <string name="repeat_option_custom">Personnalisé…</string>
     <plurals name="task_count">
         <item quantity="one">%d tâche</item>
@@ -130,50 +125,25 @@
         <item quantity="many">fois</item>
         <item quantity="other">fois</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">heure</item>
-        <item quantity="many">heures</item>
-        <item quantity="other">heures</item>
-    </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d heure</item>
         <item quantity="many">%d heures</item>
         <item quantity="other">%d heures</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">jour</item>
-        <item quantity="many">jours</item>
-        <item quantity="other">jours</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d jour</item>
         <item quantity="many">%d jours</item>
         <item quantity="other">%d jours</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">semaine</item>
-        <item quantity="many">semaines</item>
-        <item quantity="other">semaines</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d semaine</item>
         <item quantity="many">%d semaines</item>
         <item quantity="other">%d semaines</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">mois</item>
-        <item quantity="many">mois</item>
-        <item quantity="other">mois</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mois</item>
         <item quantity="many">%d mois</item>
         <item quantity="other">%d mois</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">an</item>
-        <item quantity="many">ans</item>
-        <item quantity="other">ans</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d an</item>
@@ -304,12 +274,6 @@
     <string name="default_calendar">Calendrier par défaut</string>
     <string name="badges_description">Afficher un compteur de tâches sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>
     <string name="bundle_notifications_summary">Regrouper plusieurs notifications en une seule</string>
-    <string name="repeat_monthly_every_day_of_nth_week">par intervalle de %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">premier</string>
-    <string name="repeat_monthly_second_week">deuxième</string>
-    <string name="repeat_monthly_third_week">troisième</string>
-    <string name="repeat_monthly_fourth_week">quatrième</string>
-    <string name="repeat_monthly_last_week">dernier</string>
     <string name="tasker_create_task">Créer une tâche</string>
     <string name="tasker_list_notification">Notification de liste</string>
     <string name="help">Aide</string>
@@ -343,11 +307,6 @@
     <string name="TEA_note_label">Description</string>
     <string name="TEA_control_notes">Description</string>
     <string name="CFC_tag_text">Étiquette : \?</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minute</item>
-        <item quantity="many">minutes</item>
-        <item quantity="other">minutes</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minute</item>
         <item quantity="many">%d minutes</item>
@@ -484,7 +443,6 @@
     <string name="current_subscription">Abonnement en cours : %s</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>
-    <string name="repeat_monthly_fifth_week">cinquième</string>
     <string name="authorization_cancelled">Autorisation annulée</string>
     <string name="sign_in_with_google">Connectez-vous avec « Google »</string>
     <string name="github_sponsor">Parrainer</string>
@@ -567,20 +525,6 @@
     <string name="TEA_creation_date">Date de création</string>
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="sort_list">Par liste</string>
-    <string name="repeats_on">Le</string>
-    <string name="repeats_after">Après</string>
-    <string name="repeats_ends">Se termine</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">occurrence</item>
-        <item quantity="many">occurrences</item>
-        <item quantity="other">occurrences</item>
-    </plurals>
-    <string name="repeats_custom_recurrence">Répétition personnalisée</string>
-    <string name="repeat_monthly_on_day_number">Tous les mois le jour %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Tous les mois sur le %1$s %2$s</string>
-    <string name="repeats_every">Répéter par intervalle de</string>
-    <string name="repeats_weekly_on">Répéter le</string>
-    <string name="repeats_never">Jamais</string>
     <string name="change_priority">Modifier la priorité</string>
     <string name="theme_dynamic">Dynamique</string>
     <string name="donate_nag">Pensez à manifester votre soutien en faisant un don !</string>

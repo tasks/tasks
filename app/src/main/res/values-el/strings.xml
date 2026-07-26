@@ -109,7 +109,6 @@
     <string name="remove">Αφαίρεση</string>
     <string name="add_location">Προσθήκη τοποθεσίας</string>
     <string name="add_reminder">Προσθήκη υπενθύμισης</string>
-    <string name="repeat_option_does_not_repeat">Δεν επαναλαμβάνεται</string>
     <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
     <string name="action_open">Ανοίξτε το</string>
@@ -177,15 +176,7 @@
     <string name="swipe_to_snooze_time_30_minutes">μετά από 30 λεπτά</string>
     <string name="swipe_to_snooze_time_1_hour">μετά από 1 ώρα</string>
     <string name="swipe_to_snooze_time_24_hours">μετά από 24 ώρες</string>
-    <string name="repeat_option_every_day">Κάθε μέρα</string>
-    <string name="repeat_option_every_week">Κάθε εβδομάδα</string>
-    <string name="repeat_option_every_month">Κάθε μήνα</string>
-    <string name="repeat_option_every_year">Κάθε χρόνο</string>
     <string name="repeat_option_custom">Προσαρμογή…</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">Περιστατικό</item>
-        <item quantity="other">Περιστατικά</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d εργασία</item>
         <item quantity="other">%d εργασίες</item>
@@ -193,10 +184,6 @@
     <plurals name="repeat_times">
         <item quantity="one">ώρα</item>
         <item quantity="other">ώρες</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">λεπτό</item>
-        <item quantity="other">λεπτά</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Λεπτό</item>
@@ -206,10 +193,6 @@
         <item quantity="one">%d λεπτό</item>
         <item quantity="other">%d λεπτά</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">ώρα</item>
-        <item quantity="other">ώρες</item>
-    </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Ώρα</item>
         <item quantity="other">Ώρες</item>
@@ -217,10 +200,6 @@
     <plurals name="repeat_n_hours">
         <item quantity="one">%d ώρα</item>
         <item quantity="other">%d ώρες</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">μέρα</item>
-        <item quantity="other">μέρες</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Μέρα</item>
@@ -230,10 +209,6 @@
         <item quantity="one">%d μέρα</item>
         <item quantity="other">%d μέρες</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">εβδομάδα</item>
-        <item quantity="other">εβδομάδες</item>
-    </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Εβδομάδα</item>
         <item quantity="other">Εβδομάδες</item>
@@ -242,17 +217,9 @@
         <item quantity="one">%d εβδομάδα</item>
         <item quantity="other">%d εβδομάδες</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">μήνας</item>
-        <item quantity="other">μήνες</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d μήνας</item>
         <item quantity="other">%d μήνες</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">χρόνος</item>
-        <item quantity="other">χρόνια</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d χρόνος</item>
@@ -325,13 +292,6 @@
     <string name="repeats_weekly">εβδομαδιαία</string>
     <string name="repeats_monthly">μηνιαία</string>
     <string name="repeats_yearly">ετησίως</string>
-    <string name="repeats_custom_recurrence">Προσαρμογή επανάληψης</string>
-    <string name="repeats_every">Επανάληψη κάθε</string>
-    <string name="repeats_weekly_on">Επανάληψη στις</string>
-    <string name="repeats_never">Ποτέ</string>
-    <string name="repeats_on">Στις</string>
-    <string name="repeats_after">Μετά από</string>
-    <string name="repeats_ends">Τελειώνει</string>
     <string name="repeats_plural">Επανάληψη κάθε %s</string>
     <string name="repeats_plural_on">Επανάληψη κάθε %1$s στις %2$s</string>
     <string name="repeats_plural_until">Επανάληψη κάθε %1$s, τελειώνει στις %2$s</string>
@@ -343,15 +303,6 @@
     <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>
     <string name="badges_description">Εμφάνιση αριθμού εργασιών στο εικονίδιο εκκίνησης της εφαρμογής Tasks. Δεν υποστηρίζουν όλοι οι προωθητές (launchers) μετάλλια/ εικονίδια.</string>
     <string name="bundle_notifications_summary">Συνδυασμός πολλαπλών ενημερώσεων σε μία</string>
-    <string name="repeat_monthly_every_day_of_nth_week">κάθε %1$s %2$s</string>
-    <string name="repeat_monthly_on_day_number">Κάθε μήνα την ημέρα %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Κάθε μήνα στις %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">πρώτη</string>
-    <string name="repeat_monthly_second_week">δεύτερη</string>
-    <string name="repeat_monthly_third_week">τρίτη</string>
-    <string name="repeat_monthly_fourth_week">τέταρτη</string>
-    <string name="repeat_monthly_fifth_week">πέμπτη</string>
-    <string name="repeat_monthly_last_week">τελευταία</string>
     <string name="tasker_create_task">Δημιουργία εργασίας</string>
     <string name="tasker_list_notification">Ειδοποίηση λίστας</string>
     <string name="help">Βοήθεια</string>

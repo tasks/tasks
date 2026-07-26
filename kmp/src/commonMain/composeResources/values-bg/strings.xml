@@ -166,10 +166,10 @@
     <string name="about">Относно</string>
     <string name="widget_settings">Настройки на приспособления</string>
     <plurals name="task_count">
-        <item quantity="one">%d задача</item>
-        <item quantity="other">%d задачи</item>
+        <item quantity="one">%1$d задача</item>
+        <item quantity="other">%1$d задачи</item>
     </plurals>
-    <string name="delete_tasks_warning">Задачата %s ще бъде премахната. Действието е необратимо!</string>
+    <string name="delete_tasks_warning">Задачата %1$s ще бъде премахната. Действието е необратимо!</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
     <string name="discard_changes">Отказ от промените?</string>
     <string name="discard">Отказ</string>
@@ -307,4 +307,54 @@
     <string name="no_time">Без час</string>
     <string name="TEA_note_label">Описание</string>
     <string name="start_date">Начална дата</string>
+    <string name="repeats_custom_recurrence">Потребителско повторение</string>
+    <string name="repeats_every">Повтаряне всеки</string>
+    <string name="repeats_weekly_on">Повтаряне в</string>
+    <string name="repeat_monthly_on_day_number">Ежемесечно на %1$d ден</string>
+    <string name="repeat_monthly_first_week">първа</string>
+    <string name="repeat_monthly_second_week">втора</string>
+    <string name="repeat_monthly_third_week">трета</string>
+    <string name="repeat_monthly_fourth_week">четвърта</string>
+    <string name="repeat_monthly_fifth_week">пета</string>
+    <string name="repeat_monthly_last_week">последна</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Ежемесечно в %1$s %2$s</string>
+    <string name="repeats_ends">Край</string>
+    <string name="repeats_never">Никога</string>
+    <string name="repeats_on">В</string>
+    <string name="repeats_after">След</string>
+    <string name="repeat_option_does_not_repeat">Не се повтаря</string>
+    <string name="repeat_option_every_day">всеки ден</string>
+    <string name="repeat_option_every_week">всяка седмица</string>
+    <string name="repeat_option_every_month">всеки месец</string>
+    <string name="repeat_option_every_year">всяка година</string>
+    <string name="repeat_option_custom">По избор…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">минута</item>
+        <item quantity="other">минути</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">час</item>
+        <item quantity="other">часа</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">ден</item>
+        <item quantity="other">дена</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">седмица</item>
+        <item quantity="other">седмици</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">месец</item>
+        <item quantity="other">месеца</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">година</item>
+        <item quantity="other">години</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повторение</item>
+        <item quantity="other">повторения</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">всеки %1$s %2$s</string>
 </resources>

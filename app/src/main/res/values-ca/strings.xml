@@ -133,16 +133,11 @@
     <string name="no_reminders">Sense recordatoris</string>
     <string name="default_location_reminder_on_departure">A la sortida</string>
     <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>
-    <string name="repeat_option_does_not_repeat">No es repeteix</string>
-    <string name="repeat_option_every_day">Cada dia</string>
     <string name="filter_any_start_date">Qualsevol data d\'inici</string>
     <string name="CFC_tag_name">Etiqueta…</string>
     <string name="default_random_reminder_hourly">Cada hora</string>
-    <string name="repeat_option_every_month">Mensualment</string>
     <string name="default_random_reminder_disabled">Deshabilitada</string>
     <string name="default_random_reminder_bi_weekly">Cada dues setmanes</string>
-    <string name="repeat_option_every_week">Setmanalment</string>
-    <string name="repeat_option_every_year">Anualment</string>
     <string name="CFC_startBefore_text">Comença per: \?</string>
     <string name="CFC_startBefore_name">Comença per…</string>
     <string name="CFC_tag_contains_text">El nom de l\'etiqueta conté: \?</string>
@@ -174,30 +169,15 @@
         <item quantity="many">Hores</item>
         <item quantity="other">Hores</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">mes</item>
-        <item quantity="many">mesos</item>
-        <item quantity="other">mesos</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d mes</item>
         <item quantity="many">%d mesos</item>
         <item quantity="other">%d mesos</item>
     </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">any</item>
-        <item quantity="many">anys</item>
-        <item quantity="other">anys</item>
-    </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d any</item>
         <item quantity="many">%d anys</item>
         <item quantity="other">%d anys</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">hora</item>
-        <item quantity="many">hores</item>
-        <item quantity="other">hores</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
@@ -225,30 +205,15 @@
         <item quantity="many">vegades</item>
         <item quantity="other">vegades</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minut</item>
-        <item quantity="many">minuts</item>
-        <item quantity="other">minuts</item>
-    </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
         <item quantity="many">%d hores</item>
         <item quantity="other">%d hores</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">dia</item>
-        <item quantity="many">dies</item>
-        <item quantity="other">dies</item>
-    </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Dia</item>
         <item quantity="many">Dies</item>
         <item quantity="other">Dies</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">setmana</item>
-        <item quantity="many">setmanes</item>
-        <item quantity="other">setmanes</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minut</item>
@@ -264,11 +229,6 @@
     <string name="voice_create_prompt">Parlar per crear una tasca</string>
     <string name="widget_show_header">Mostra la capçalera</string>
     <string name="now">Ara</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">aparició</item>
-        <item quantity="many">aparicions</item>
-        <item quantity="other">aparicions</item>
-    </plurals>
     <string name="voice_command_added_task">Tasca afegida</string>
     <string name="widget_show_checkboxes">Mostra les caselles</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de veu</string>
@@ -296,8 +256,6 @@
     <string name="location_remind_departure">Recordar a la sortida</string>
     <string name="user">Usuari</string>
     <string name="repeats_weekly">cada setmana</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Cada mes el %1$s %2$s</string>
-    <string name="repeat_monthly_fifth_week">cinquè</string>
     <string name="button_subscribe">Subscriu-te</string>
     <string name="refresh_purchases">Actualitza les compres</string>
     <string name="missing_permissions">Falten permisos</string>
@@ -308,18 +266,14 @@
     <string name="list">Llista</string>
     <string name="show_description">Mostra la descripció</string>
     <string name="widget_show_menu">Mostra el menú</string>
-    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
     <string name="change_priority">Canvia la prioritat</string>
     <string name="date_shortcut_hour">Per una hora</string>
     <string name="date_shortcut_night">Nit</string>
     <string name="date_shortcut_morning">Matí</string>
     <string name="date_shortcut_afternoon">Tarda</string>
-    <string name="repeats_never">Mai</string>
-    <string name="repeats_every">Es repeteix cada</string>
     <string name="repeats_yearly">cada any</string>
     <string name="repeats_plural">Es repeteix cada %s</string>
     <string name="repeats_plural_on_number_of_times">Es repeteix cada %1$s el %2$s, ocurreix %3$d%4$s</string>
-    <string name="repeat_monthly_first_week">primer</string>
     <string name="background_location_permission_required">Tasks recopila dades d\'ubicació per permetre els recodatoris basats en la ubicació tot i quan l\'aplicació està tancada o no s\'utilitza.</string>
     <string name="visit_website">Visitar pàgina web</string>
     <string name="location_arrived">Arribat a %s</string>
@@ -330,9 +284,6 @@
     <string name="pick_this_location">Selecciona aquesta ubicació</string>
     <string name="collapse_subtasks">Contraure subtasques</string>
     <string name="invalid_backup_file">Archiu de còpia de seguretat no vàlid</string>
-    <string name="repeat_monthly_third_week">tercer</string>
-    <string name="repeat_monthly_fourth_week">quart</string>
-    <string name="repeat_monthly_last_week">últim</string>
     <string name="action_create_new_task">Crear una tasca nova</string>
     <string name="action_new_task">Tasca nova</string>
     <string name="expand_subtasks">Expandir subtasques</string>
@@ -347,9 +298,6 @@
     <string name="password">Contrasenya</string>
     <string name="repeats_daily">cada dia</string>
     <string name="repeats_monthly">cada mes</string>
-    <string name="repeats_ends">Finalitza</string>
-    <string name="repeat_monthly_second_week">segon</string>
-    <string name="repeat_monthly_on_day_number">Cada mes el dia %1d</string>
     <string name="help_and_feedback">Ajuda i comentaris</string>
     <string name="show_full_description">Mostra la descripció completa</string>
     <string name="location_remind_arrival">Recorda a l\'arribar</string>
@@ -461,10 +409,6 @@
     <string name="repeats_single_number_of_times">Repeteix %1$s, es produeix %2$d %3$s</string>
     <string name="repeats_single_on_until">Repeteix %1$s el %2$s, acaba el %3$s</string>
     <string name="repeats_single_on_number_of_times">Repeteix %1$s el %2$s, es produeix %3$d %4$s</string>
-    <string name="repeats_custom_recurrence">Recurrència personalitzada</string>
-    <string name="repeats_weekly_on">Repeteix en</string>
-    <string name="repeats_on">En</string>
-    <string name="repeats_after">Després</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
     <string name="badges_description">Mostreu un recompte de tasques a la icona del llançador de tasques. No tots els llançadors suporten insígnies.</string>
     <string name="pro_dashclock_extension">Extensió Dashclock</string>

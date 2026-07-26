@@ -364,4 +364,54 @@
     <string name="metadata_stored_on_account">Hetkel salvestatud %1$s kasutajakonto juures</string>
     <string name="metadata_move_message">Hetkel salvestatud %1$s kasutajakonto juures. Kas tõstad ümber selle konto juurde?</string>
     <string name="add_tag">Lisa silt</string>
+    <string name="repeats_custom_recurrence">Vaikimisi kordus</string>
+    <string name="repeats_every">Kordub iga</string>
+    <string name="repeats_weekly_on">Kordub</string>
+    <string name="repeat_monthly_on_day_number">Iga kuu päeval %1$d</string>
+    <string name="repeat_monthly_first_week">esimene</string>
+    <string name="repeat_monthly_second_week">teine</string>
+    <string name="repeat_monthly_third_week">kolmas</string>
+    <string name="repeat_monthly_fourth_week">neljas</string>
+    <string name="repeat_monthly_fifth_week">viies</string>
+    <string name="repeat_monthly_last_week">viimane</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Iga kuu %1$s %2$s</string>
+    <string name="repeats_ends">Lõppeb</string>
+    <string name="repeats_never">Mitte kunagi</string>
+    <string name="repeats_on">Kordub</string>
+    <string name="repeats_after">Kordub peale</string>
+    <string name="repeat_option_does_not_repeat">Ei kordu</string>
+    <string name="repeat_option_every_day">Iga päev</string>
+    <string name="repeat_option_every_week">Iga nädal</string>
+    <string name="repeat_option_every_month">Iga kuu</string>
+    <string name="repeat_option_every_year">Iga aasta</string>
+    <string name="repeat_option_custom">Kohandatud…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minut</item>
+        <item quantity="other">minutit</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">tund</item>
+        <item quantity="other">tundi</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">päev</item>
+        <item quantity="other">päeva</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">nädal</item>
+        <item quantity="other">nädalat</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">kuu</item>
+        <item quantity="other">kuud</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">aasta</item>
+        <item quantity="other">aastat</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">kordus</item>
+        <item quantity="other">kordust</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">iga %1$s %2$s</string>
 </resources>

@@ -116,11 +116,6 @@
     <string name="default_random_reminder_daily">raz dziennie</string>
     <string name="default_random_reminder_weekly">raz w tygodniu</string>
     <string name="default_random_reminder_bi_weekly">raz na dwa tygodnie</string>
-    <string name="repeat_option_does_not_repeat">Nie powtarza się</string>
-    <string name="repeat_option_every_day">Każdego dnia</string>
-    <string name="repeat_option_every_week">Każdego tygodnia</string>
-    <string name="repeat_option_every_month">Każdego miesiąca</string>
-    <string name="repeat_option_every_year">Każdego roku</string>
     <string name="repeat_option_custom">Własne ustawienie…</string>
     <plurals name="task_count">
         <item quantity="one">%d zadań</item>
@@ -132,60 +127,30 @@
         <item quantity="few">razy</item>
         <item quantity="many">razy</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuta</item>
-        <item quantity="few">minuty</item>
-        <item quantity="many">minut</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutę</item>
         <item quantity="few">%d minuty</item>
         <item quantity="many">%d minut</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">godzina</item>
-        <item quantity="few">godziny</item>
-        <item quantity="many">godzin</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d godzinę</item>
         <item quantity="few">%d godziny</item>
         <item quantity="many">%d godzin</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">dzień</item>
-        <item quantity="few">dni</item>
-        <item quantity="many">dni</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dzień</item>
         <item quantity="few">%d dni</item>
         <item quantity="many">%d dni</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">tydzień</item>
-        <item quantity="few">tygodnie</item>
-        <item quantity="many">tygodni</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d tydzień</item>
         <item quantity="few">%d tygodnie</item>
         <item quantity="many">%d tygodni</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">miesiąc</item>
-        <item quantity="few">miesiące</item>
-        <item quantity="many">miesięcy</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d miesiąc</item>
         <item quantity="few">%d miesiące</item>
         <item quantity="many">%d miesięcy</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">rok</item>
-        <item quantity="few">lat</item>
-        <item quantity="many">lat</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d rok</item>
@@ -318,12 +283,6 @@
     <string name="default_calendar">Domyślny kalendarz</string>
     <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>
     <string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno</string>
-    <string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">pierwszy</string>
-    <string name="repeat_monthly_second_week">drugi</string>
-    <string name="repeat_monthly_third_week">trzeci</string>
-    <string name="repeat_monthly_fourth_week">czwarty</string>
-    <string name="repeat_monthly_last_week">ostatni</string>
     <string name="tasker_create_task">Stwórz zadanie</string>
     <string name="tasker_list_notification">Lista powiadomień</string>
     <string name="help">Pomoc</string>
@@ -484,7 +443,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="authentication_required">Wymagane uwierzytelnienie</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
-    <string name="repeat_monthly_fifth_week">piąty</string>
     <string name="background_location_permission_required">Tasks zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
     <string name="copied_to_clipboard">%s skopiowano do schowka</string>
     <string name="app_passwords_more_info">Synchronizuj swoje zadania i kalendarze z aplikacjami komputerowymi i mobilnymi innych firm. Kliknij tutaj, aby uzyskać więcej informacji</string>
@@ -570,21 +528,6 @@
     <string name="TEA_creation_date">Data utworzenia</string>
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">zdarzenie</item>
-        <item quantity="few">zdarzenia</item>
-        <item quantity="many">zdarzeń</item>
-        <item quantity="other">zdarzeń</item>
-    </plurals>
-    <string name="repeats_custom_recurrence">Powtarzanie własne</string>
-    <string name="repeats_every">Powtarzaj co</string>
-    <string name="repeats_weekly_on">Powtarzaj co</string>
-    <string name="repeats_never">Nigdy</string>
-    <string name="repeats_on">Co</string>
-    <string name="repeats_after">Po</string>
-    <string name="repeats_ends">Kończy się</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Co miesiąc %1$s %2$s</string>
-    <string name="repeat_monthly_on_day_number">Co miesiąc w dniu %1d</string>
     <string name="sort_list">Wg listy</string>
     <string name="app_settings">Ustawienia aplikacji</string>
     <string name="swipe_to_snooze_title">Przesuń aby uśpić</string>

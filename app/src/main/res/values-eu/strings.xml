@@ -122,11 +122,6 @@
     <string name="default_random_reminder_daily">Egunero</string>
     <string name="default_random_reminder_weekly">Astero</string>
     <string name="default_random_reminder_bi_weekly">Bi astean behin</string>
-    <string name="repeat_option_does_not_repeat">Ez errepikatu</string>
-    <string name="repeat_option_every_day">Egunero</string>
-    <string name="repeat_option_every_week">Astero</string>
-    <string name="repeat_option_every_month">Hilabetero</string>
-    <string name="repeat_option_every_year">Urtero</string>
     <string name="repeat_option_custom">Pertsonalizatua…</string>
     <plurals name="task_count">
         <item quantity="one">Zeregin %d</item>
@@ -136,49 +131,25 @@
         <item quantity="one">aldiz</item>
         <item quantity="other">aldiz</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minutuero</item>
-        <item quantity="other">minuturik behin</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">minutu %d</item>
         <item quantity="other">%d minutu</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">orduero</item>
-        <item quantity="other">ordurik behin</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">ordu %d</item>
         <item quantity="other">%d ordu</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">egunero</item>
-        <item quantity="other">egunik behin</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">egun %d</item>
         <item quantity="other">%d egun</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">astero</item>
-        <item quantity="other">asterik behin</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">aste %d</item>
         <item quantity="other">%d aste</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">hilabetero</item>
-        <item quantity="other">hilabeterik behin</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">hilabete %d</item>
         <item quantity="other">%d hilabete</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">urtero</item>
-        <item quantity="other">urterik behin</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">urte %d</item>
@@ -312,12 +283,6 @@
     <string name="default_calendar">Lehenetsitako egutegia</string>
     <string name="badges_description">Bistaratu zeregin kopurua abiarazleko Tasks ikonoan. Abiarazle guztiek ez dituzte dominak onartzen.</string>
     <string name="bundle_notifications_summary">Taldekatu hainbat jakinarazpen batean</string>
-    <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
-    <string name="repeat_monthly_first_week">lehen</string>
-    <string name="repeat_monthly_second_week">bigarren</string>
-    <string name="repeat_monthly_third_week">hirugarren</string>
-    <string name="repeat_monthly_fourth_week">laugarren</string>
-    <string name="repeat_monthly_last_week">azken</string>
     <string name="tasker_create_task">Sortu zeregina</string>
     <string name="tasker_list_notification">Zerrenda-jakinarazpena</string>
     <string name="help">Laguntza</string>
@@ -467,7 +432,6 @@
     <string name="automatic_backups">Babeskopia automatikoak</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="background_location_permission_required">Aplikazio honek kokapen datuak jasotzen ditu aplikazioa itxita dagoenean kokapenean oinarritutako oroigarriak gaitu ahal izateko.</string>
-    <string name="repeat_monthly_fifth_week">bostgarrena</string>
     <string name="default_recurrence">Lehenetsitako errepikapena</string>
     <string name="default_tags">Lehenetsitako etiketak</string>
     <string name="no_app_found">Ez dago eskaera bete dezakeen aplikaziorik</string>

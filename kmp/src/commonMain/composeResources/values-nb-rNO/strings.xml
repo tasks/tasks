@@ -127,8 +127,8 @@
     <string name="about">Om</string>
     <string name="widget_settings">Miniprogramsinnstillinger</string>
     <plurals name="task_count">
-        <item quantity="one">%d gjøremål</item>
-        <item quantity="other">%d gjøremål</item>
+        <item quantity="one">%1$d gjøremål</item>
+        <item quantity="other">%1$d gjøremål</item>
     </plurals>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="discard_changes">Forkast endringer?</string>
@@ -212,4 +212,54 @@
     <string name="no_time">Ingen tid</string>
     <string name="TEA_note_label">Beskrivelse</string>
     <string name="start_date">Startdato</string>
+    <string name="repeats_custom_recurrence">Tilpasset gjentakelse</string>
+    <string name="repeats_every">Gjentas hver</string>
+    <string name="repeats_weekly_on">Gjentas på</string>
+    <string name="repeat_monthly_on_day_number">Månedlig på dag %1$d</string>
+    <string name="repeat_monthly_first_week">første</string>
+    <string name="repeat_monthly_second_week">andre</string>
+    <string name="repeat_monthly_third_week">tredje</string>
+    <string name="repeat_monthly_fourth_week">fjerde</string>
+    <string name="repeat_monthly_fifth_week">femte</string>
+    <string name="repeat_monthly_last_week">siste</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Månedlig på %1$s %2$s</string>
+    <string name="repeats_ends">Avsluttes</string>
+    <string name="repeats_never">Aldri</string>
+    <string name="repeats_on">På</string>
+    <string name="repeats_after">Etter</string>
+    <string name="repeat_option_does_not_repeat">Gjentas ikke</string>
+    <string name="repeat_option_every_day">Hver dag</string>
+    <string name="repeat_option_every_week">Hver uke</string>
+    <string name="repeat_option_every_month">Månedlig</string>
+    <string name="repeat_option_every_year">Årlig</string>
+    <string name="repeat_option_custom">Egendefinert…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">Minutt(er)</item>
+        <item quantity="other">minutter</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">time</item>
+        <item quantity="other">timer</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dag</item>
+        <item quantity="other">dager</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">uke</item>
+        <item quantity="other">uker</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">måned</item>
+        <item quantity="other">måneder</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">år</item>
+        <item quantity="other">år</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">hendelse</item>
+        <item quantity="other">hendelser</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
 </resources>

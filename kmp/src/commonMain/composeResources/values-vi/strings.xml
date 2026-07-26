@@ -128,7 +128,7 @@
     <string name="about">Giới thiệu</string>
     <string name="widget_settings">Cài đặt tiện ích</string>
     <plurals name="task_count">
-        <item quantity="other">%d công việc</item>
+        <item quantity="other">%1$d công việc</item>
     </plurals>
     <string name="name_cannot_be_empty">Tên không thể trống</string>
     <string name="discard_changes">Bỏ các thay đổi?</string>
@@ -212,4 +212,47 @@
     <string name="no_time">Không có thời gian</string>
     <string name="TEA_note_label">Mô tả</string>
     <string name="start_date">Ngày bắt đầu</string>
+    <string name="repeats_custom_recurrence">Lặp lại tùy chỉnh</string>
+    <string name="repeats_every">Lặp lại mỗi</string>
+    <string name="repeats_weekly_on">Lặp lại vào</string>
+    <string name="repeat_monthly_on_day_number">Hàng tháng vào ngày %1$d</string>
+    <string name="repeat_monthly_first_week">đầu tiên</string>
+    <string name="repeat_monthly_second_week">thứ hai</string>
+    <string name="repeat_monthly_third_week">thứ ba</string>
+    <string name="repeat_monthly_fourth_week">thứ tư</string>
+    <string name="repeat_monthly_fifth_week">thứ năm</string>
+    <string name="repeat_monthly_last_week">cuối cùng</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Hàng tháng vào %1$s %2$s</string>
+    <string name="repeats_ends">Kết thúc</string>
+    <string name="repeats_never">Không bao giờ</string>
+    <string name="repeats_on">Bật</string>
+    <string name="repeats_after">Sau</string>
+    <string name="repeat_option_does_not_repeat">Không lặp lại</string>
+    <string name="repeat_option_every_day">Mỗi ngày</string>
+    <string name="repeat_option_every_week">Mỗi tuần</string>
+    <string name="repeat_option_every_month">Mỗi tháng</string>
+    <string name="repeat_option_every_year">Mỗi năm</string>
+    <string name="repeat_option_custom">Tuỳ chỉnh…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="other">phút</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="other">tiếng</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="other">ngày</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="other">tuần</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="other">tháng</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="other">năm</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="other">lần xảy ra</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">mỗi %1$s %2$s</string>
 </resources>

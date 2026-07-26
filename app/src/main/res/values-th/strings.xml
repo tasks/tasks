@@ -157,15 +157,8 @@
     <string name="EPr_default_location_reminder_title">การแจ้งเตือนตำแหน่งเริ่มต้น</string>
     <string name="default_due_date">วันที่ครบกําหนดเริ่มต้น</string>
     <string name="tasker_create_task">สร้างงาน</string>
-    <string name="repeat_monthly_last_week">สุดท้าย</string>
     <string name="EPr_default_importance_title">ระดับความสําคัญเริ่มต้น</string>
     <string name="EPr_manage_delete_gcal_status">ลบ %d กิจกรรมในปฏิทิน!</string>
-    <string name="repeat_monthly_fifth_week">ที่ห้า</string>
-    <string name="repeat_monthly_fourth_week">ที่สี่</string>
-    <string name="repeat_monthly_third_week">ที่สาม</string>
-    <string name="repeat_monthly_second_week">ที่สอง</string>
-    <string name="repeat_monthly_first_week">ก่อน</string>
-    <string name="repeat_monthly_every_day_of_nth_week">ทุกๆ %1$s %2$s</string>
     <string name="bundle_notifications_summary">รวมการแจ้งเตือนหลายรายการไว้ในรายการเดียว</string>
     <string name="badges_description">แสดงจํานวนงานบนไอคอนตัวเปิดใช้งาน ตัวเรียกใช้งานไม่รองรับป้ายทั้งหมด</string>
     <string name="default_calendar">ปฏิทินเริ่มต้น</string>
@@ -305,38 +298,20 @@
     <plurals name="repeat_n_years">
         <item quantity="other">%d ปี</item>
     </plurals>
-    <plurals name="repeat_years">
-        <item quantity="other">ปี</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="other">%d เดือน</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="other">เดือน</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d สัปดาห์</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="other">สัปดาห์</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="other">%d วัน</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="other">วัน</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="other">%d ชั่วโมง</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="other">ชั่วโมง</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="other">%d นาที</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="other">นาที</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="other">เวลา</item>
@@ -344,11 +319,6 @@
     <plurals name="task_count">
         <item quantity="other">%d งาน</item>
     </plurals>
-    <string name="repeat_option_every_year">ทุกปี</string>
-    <string name="repeat_option_every_month">ทุกเดือน</string>
-    <string name="repeat_option_every_week">ทุกสัปดาห์</string>
-    <string name="repeat_option_every_day">ทุกวัน</string>
-    <string name="repeat_option_does_not_repeat">ไม่ซ้ำ</string>
     <string name="default_random_reminder_bi_weekly">รายปักษ์</string>
     <string name="default_random_reminder_weekly">รายสัปดาห์</string>
     <string name="default_random_reminder_daily">ทุกวัน</string>

@@ -141,11 +141,11 @@
     <string name="about">О программе</string>
     <string name="widget_settings">Настройки виджета</string>
     <plurals name="task_count">
-        <item quantity="one">%d задача</item>
-        <item quantity="few">%d задачи</item>
-        <item quantity="many">%d задач</item>
+        <item quantity="one">%1$d задача</item>
+        <item quantity="few">%1$d задачи</item>
+        <item quantity="many">%1$d задач</item>
     </plurals>
-    <string name="delete_tasks_warning">%s будет удалена. Это нельзя отменить!</string>
+    <string name="delete_tasks_warning">%1$s будет удалена. Это нельзя отменить!</string>
     <string name="name_cannot_be_empty">Необходимо задать имя</string>
     <string name="discard_changes">Отменить изменения?</string>
     <string name="discard">Отменить</string>
@@ -242,4 +242,62 @@
     <string name="TEA_note_label">Описание</string>
     <string name="start_date">Дата начала</string>
     <string name="email_to_task_address">Ваш адрес электронной почты</string>
+    <string name="repeats_custom_recurrence">Пользовательское повторение</string>
+    <string name="repeats_every">Повторять каждые</string>
+    <string name="repeats_weekly_on">Повторять в</string>
+    <string name="repeat_monthly_on_day_number">Ежемесячно на %1$d день</string>
+    <string name="repeat_monthly_first_week">первая</string>
+    <string name="repeat_monthly_second_week">вторая</string>
+    <string name="repeat_monthly_third_week">третья</string>
+    <string name="repeat_monthly_fourth_week">четвёртая</string>
+    <string name="repeat_monthly_fifth_week">пятая</string>
+    <string name="repeat_monthly_last_week">последняя</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Ежемесячно в %1$s %2$s</string>
+    <string name="repeats_ends">Завершается</string>
+    <string name="repeats_never">Никогда</string>
+    <string name="repeats_on">В</string>
+    <string name="repeats_after">После</string>
+    <string name="repeat_option_does_not_repeat">Не повторять</string>
+    <string name="repeat_option_every_day">Ежедневно</string>
+    <string name="repeat_option_every_week">Еженедельно</string>
+    <string name="repeat_option_every_month">Ежемесячно</string>
+    <string name="repeat_option_every_year">Ежегодно</string>
+    <string name="repeat_option_custom">Другой…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">минута</item>
+        <item quantity="few">минуты</item>
+        <item quantity="many">минут</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">час</item>
+        <item quantity="few">часа</item>
+        <item quantity="many">часов</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">день</item>
+        <item quantity="few">дня</item>
+        <item quantity="many">дней</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">неделю</item>
+        <item quantity="few">недели</item>
+        <item quantity="many">недель</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">месяц</item>
+        <item quantity="few">месяца</item>
+        <item quantity="many">месяцев</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">год</item>
+        <item quantity="few">года</item>
+        <item quantity="many">лет</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повторения</item>
+        <item quantity="few">повторений</item>
+        <item quantity="many">повторений</item>
+        <item quantity="other">повторений</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
 </resources>

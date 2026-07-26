@@ -152,10 +152,6 @@
     <string name="action_new_task">مهمة جديدة</string>
     <string name="help">مساعدة</string>
     <string name="take_a_picture">التقط صورة</string>
-    <string name="repeat_option_every_year">سنويًّا</string>
-    <string name="repeat_option_every_month">شهريًّا</string>
-    <string name="repeat_option_every_week">أسبوعيًّا</string>
-    <string name="repeat_option_every_day">يوميًّا</string>
     <plurals name="task_count">
         <item quantity="zero">%d مهمة</item>
         <item quantity="one">%d مهمة</item>
@@ -198,12 +194,6 @@
     <string name="logout">تسجيل الخروج</string>
     <string name="button_subscribe">اشترك</string>
     <string name="subscription">اشتراك</string>
-    <string name="repeat_monthly_last_week">الأخير</string>
-    <string name="repeat_monthly_fifth_week">الخامس</string>
-    <string name="repeat_monthly_fourth_week">الرّابع</string>
-    <string name="repeat_monthly_third_week">الثّالث</string>
-    <string name="repeat_monthly_second_week">الثّاني</string>
-    <string name="repeat_monthly_first_week">الأوّل</string>
     <string name="list_separator_with_space">"، "</string>
     <string name="repeats_yearly">سنويًّا</string>
     <string name="repeats_monthly">شهريًّا</string>
@@ -226,7 +216,6 @@
     <string name="geofence_radius">نصف القطر</string>
     <string name="backup_directory">مجلّد النّسخ الاحتياطيّة</string>
     <string name="delete_tag_confirmation">احذف %s؟</string>
-    <string name="repeat_option_does_not_repeat">بدون تكرار</string>
     <string name="ring_nonstop">الرنّ بدون توقّف</string>
     <string name="ring_five_times">الرنّ خمس مرات</string>
     <string name="ring_once">الرنّ مرة واحدة</string>
@@ -348,14 +337,6 @@
     <string name="CFC_startBefore_text">بدأ عند: \?</string>
     <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\' و\'اليوم\' والعلامات. وضع الترتيب هذا سيستبدل ب\'ترتيبي\' في تحديثٍ مستقبلي</string>
     <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
-    <plurals name="repeat_minutes">
-        <item quantity="zero">صفر دقيقة</item>
-        <item quantity="one">دقيقة واحدة</item>
-        <item quantity="two">دقيقتين</item>
-        <item quantity="few">دقائق</item>
-        <item quantity="many">دقيقة</item>
-        <item quantity="other">دقيقة</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="zero">%d دقيقة</item>
         <item quantity="one">%d دقيقة</item>
@@ -414,7 +395,6 @@
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>
-    <string name="repeat_monthly_every_day_of_nth_week">كل %1$s %2$s</string>
     <string name="repeats_plural_on_until">كرره كل %1$s في %2$s . ينتهي عند %3$s</string>
     <string name="repeats_plural_number_of_times">كرره كل %1$s، يحدث %2$d %3$s</string>
     <string name="repeats_plural_until">كرره كل %1$s، ينتهي عند %2$s</string>
@@ -521,46 +501,6 @@
     <string name="foreground_location">موقع المقدمة</string>
     <string name="compact">المدمج</string>
     <string name="chip_appearance">مظهر الرقاقة</string>
-    <plurals name="repeat_years">
-        <item quantity="zero">سنة</item>
-        <item quantity="one">سنة</item>
-        <item quantity="two">سنتين</item>
-        <item quantity="few">سنوات</item>
-        <item quantity="many">سنة</item>
-        <item quantity="other">سنة</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="zero">شهر</item>
-        <item quantity="one">شهر</item>
-        <item quantity="two">شهرين</item>
-        <item quantity="few">أشهر</item>
-        <item quantity="many">أشهر</item>
-        <item quantity="other">أشهر</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="zero">أسبوع</item>
-        <item quantity="one">أسبوع</item>
-        <item quantity="two">أسبوعين</item>
-        <item quantity="few">أسابيع</item>
-        <item quantity="many">أسبوع</item>
-        <item quantity="other">أسبوع</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="zero">يوم</item>
-        <item quantity="one">يوم</item>
-        <item quantity="two">يومين</item>
-        <item quantity="few">أيام</item>
-        <item quantity="many">يوم</item>
-        <item quantity="other">يوم</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="zero">ساعة</item>
-        <item quantity="one">‪‫ساعة</item>
-        <item quantity="two">ساعتين</item>
-        <item quantity="few">ساعات</item>
-        <item quantity="many">ساعة</item>
-        <item quantity="other">ساعة</item>
-    </plurals>
     <plurals name="repeat_times">
         <item quantity="zero">مرة</item>
         <item quantity="one">مرة</item>
@@ -616,14 +556,6 @@
     <string name="swipe_to_snooze_time_30_minutes">بعد نصف ساعه</string>
     <string name="swipe_to_snooze_time_1_hour">بعد ساعه</string>
     <string name="swipe_to_snooze_time_24_hours">بعد ٢٤ ساعه</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="zero">مرة</item>
-        <item quantity="one">مرة</item>
-        <item quantity="two">مرة</item>
-        <item quantity="few">مرات</item>
-        <item quantity="many">مرة</item>
-        <item quantity="other">مرة</item>
-    </plurals>
     <plurals name="reminder_minutes">
         <item quantity="zero">صفر دقيقة</item>
         <item quantity="one">دقيقة</item>
@@ -633,11 +565,7 @@
         <item quantity="other">دقيقة</item>
     </plurals>
     <string name="change_priority">تغيير الاولوية</string>
-    <string name="repeats_every">يتكرر كل</string>
-    <string name="repeats_after">بعد</string>
     <string name="dismiss">استبعاد</string>
-    <string name="repeats_ends">ينتهي عند</string>
-    <string name="repeats_never">أبدا</string>
     <string name="app_settings">إعدادات التطبيق</string>
     <string name="show_edit_screen_without_unlock">إظهار شاشة التعديل بدون فتح القفل</string>
     <string name="customize_drawer">تخصيص الدرج</string>
@@ -648,9 +576,6 @@
     <string name="swipe_to_snooze_time_description">سيتم تأجيل الإشعار الذي تم مسحه وإعادة إنشائه %s</string>
     <string name="yesterday">الأمس</string>
     <string name="comment">التعليق</string>
-    <string name="repeats_on">على</string>
-    <string name="repeat_monthly_on_the_nth_weekday">شهرياً على %1$s %2$s</string>
-    <string name="repeat_monthly_on_day_number">شهرياً في اليوم %1d</string>
     <string name="show_edit_screen_without_unlock_summary">تمكين استخدام لوحة الإعدادات السريعة دون إلغاء قفل الجهاز</string>
     <string name="banner_app_updated_description">تم تحديث Tasks للتو إلى %s. هل ترغب في الاطلاع على ملاحظات الإصدار؟</string>
     <string name="banner_app_updated_title">التطبيق محدث</string>
@@ -658,8 +583,6 @@
     <string name="donate_maybe_later">ربما لاحقا</string>
     <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
     <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
-    <string name="repeats_custom_recurrence">التكرار المخصّص</string>
-    <string name="repeats_weekly_on">التكرار على</string>
     <string name="multiline_title">السماح بعناوين متعددة الأسطر</string>
     <string name="multiline_title_on">اضغط على مفتاح Enter لإضافة فواصل الأسطر</string>
     <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>

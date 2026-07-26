@@ -131,16 +131,6 @@
     <string name="default_random_reminder_hourly">Часовно</string>
     <string name="default_random_reminder_daily">Дневно</string>
     <string name="default_random_reminder_weekly">Седмично</string>
-    <string name="repeat_option_does_not_repeat">Без понављања</string>
-    <string name="repeat_option_every_day">Сваки дан</string>
-    <string name="repeat_option_every_week">Сваке седмице</string>
-    <string name="repeat_option_every_month">Сваког месеца</string>
-    <string name="repeat_option_every_year">Сваке године</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">понављање</item>
-        <item quantity="few">понављања</item>
-        <item quantity="other">понављања</item>
-    </plurals>
     <plurals name="task_count">
         <item quantity="one">%d задатак</item>
         <item quantity="few">%d задатка</item>
@@ -150,11 +140,6 @@
         <item quantity="one">време</item>
         <item quantity="few">времена</item>
         <item quantity="other">времена</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">минут</item>
-        <item quantity="few">минута</item>
-        <item quantity="other">минута</item>
     </plurals>
     <plurals name="reminder_minutes">
         <item quantity="one">Минут</item>
@@ -166,11 +151,6 @@
         <item quantity="few">%d минута</item>
         <item quantity="other">%d минута</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">час</item>
-        <item quantity="few">часа</item>
-        <item quantity="other">часова</item>
-    </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Час</item>
         <item quantity="few">Часа</item>
@@ -180,11 +160,6 @@
         <item quantity="one">%d час</item>
         <item quantity="few">%d часа</item>
         <item quantity="other">%d часова</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">дан</item>
-        <item quantity="few">дана</item>
-        <item quantity="other">дана</item>
     </plurals>
     <plurals name="reminder_days">
         <item quantity="one">Дан</item>
@@ -196,11 +171,6 @@
         <item quantity="few">%d дана</item>
         <item quantity="other">%d дана</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">седмица</item>
-        <item quantity="few">седмице</item>
-        <item quantity="other">седмица</item>
-    </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Седмица</item>
         <item quantity="few">Седмице</item>
@@ -211,20 +181,10 @@
         <item quantity="few">%d седмице</item>
         <item quantity="other">%d седмица</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">месец</item>
-        <item quantity="few">месеца</item>
-        <item quantity="other">месеци</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d месец</item>
         <item quantity="few">%d месеца</item>
         <item quantity="other">%d месеци</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">година</item>
-        <item quantity="few">године</item>
-        <item quantity="other">година</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d година</item>
@@ -339,22 +299,9 @@
     <string name="repeats_weekly">седмично</string>
     <string name="repeats_monthly">месечно</string>
     <string name="repeats_yearly">годишње</string>
-    <string name="repeats_every">Понавља се сваког</string>
-    <string name="repeats_weekly_on">Понавља се</string>
-    <string name="repeats_never">Никада</string>
-    <string name="repeats_on">На</string>
-    <string name="repeats_after">Након</string>
     <string name="dont_add_to_calendar">Не додавати у календар</string>
     <string name="default_calendar">Подразумевани календар</string>
     <string name="bundle_notifications_summary">Споји неколико обавештења у једно</string>
-    <string name="repeat_monthly_on_day_number">Месечно на дан %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Месечно на %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">први</string>
-    <string name="repeat_monthly_second_week">други</string>
-    <string name="repeat_monthly_third_week">трећи</string>
-    <string name="repeat_monthly_fourth_week">четврти</string>
-    <string name="repeat_monthly_fifth_week">пети</string>
-    <string name="repeat_monthly_last_week">последњи</string>
     <string name="tasker_create_task">Креирај задатак</string>
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
@@ -477,8 +424,6 @@
     <string name="repeats_single_number_of_times">Понавља се %1$s, појављује се %2$d %3$s</string>
     <string name="repeats_single_on_until">Понавља се %1$s на %2$s, завршава се %3$s</string>
     <string name="repeats_single_on_number_of_times">Понавља се %1$s на %2$s, појављује се %3$d %4$s</string>
-    <string name="repeats_custom_recurrence">Прилагођено понављање</string>
-    <string name="repeats_ends">Завршава се</string>
     <string name="repeats_plural">Понавља се сваких %s</string>
     <string name="repeats_plural_on">Понавља се сваких %1$s на %2$s</string>
     <string name="repeats_plural_until">Понавља се сваких %1$s, завршава се %2$s</string>
@@ -487,7 +432,6 @@
     <string name="repeats_plural_on_number_of_times">Понавља се сваких%1$s на %2$s, појављује се %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="badges_description">Прикажи број задатака на иконици за покретање. Неки покретачи не подржавају беџеве.</string>
-    <string name="repeat_monthly_every_day_of_nth_week">сваки %1$s %2$s</string>
     <string name="tasker_list_notification">Обавештење листе</string>
     <string name="upgrade_to_pro">Пређи на претплату</string>
     <string name="refresh_purchases">Освежи уплате</string>

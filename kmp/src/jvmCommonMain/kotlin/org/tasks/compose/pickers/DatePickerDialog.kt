@@ -1,6 +1,5 @@
 package org.tasks.compose.pickers
 
-import android.content.res.Configuration
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,14 +11,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import org.tasks.R
-import org.tasks.themes.TasksTheme
-import org.tasks.time.DateTime
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.time.toLocalDateMillis
 import org.tasks.time.toUtcDateMillis
-import timber.log.Timber
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.ok
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,14 +37,13 @@ fun DatePickerDialog(
         initialDisplayMode = displayMode,
     )
     LaunchedEffect(datePickerState.displayMode) {
-        Timber.d("Set display mode to ${datePickerState.displayMode}")
         setDisplayMode(datePickerState.displayMode)
     }
     androidx.compose.material3.DatePickerDialog(
         onDismissRequest = { dismiss() },
         dismissButton = {
                 TextButton(onClick = dismiss) {
-                    Text(text = stringResource(id = R.string.cancel))
+                    Text(text = stringResource(Res.string.cancel))
                 }
         },
         confirmButton = {
@@ -58,42 +54,10 @@ fun DatePickerDialog(
                             ?.let { selected(it.toLocalDateMillis()) }
                     }
                 ) {
-                    Text(text = stringResource(id = R.string.ok))
+                    Text(text = stringResource(Res.string.ok))
                 }
             }
     ) {
         DatePicker(state = datePickerState)
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun DatePickerPreview() {
-    TasksTheme {
-        DatePickerDialog(
-            initialDate = DateTime().plusDays(1).millis,
-            displayMode = DisplayMode.Picker,
-            setDisplayMode = {},
-            selected = {},
-            dismiss = {}
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun DatePickerPreviewInput() {
-    TasksTheme {
-        DatePickerDialog(
-            initialDate = DateTime().plusDays(1).millis,
-            displayMode = DisplayMode.Input,
-            setDisplayMode = {},
-            selected = {},
-            dismiss = {}
-        )
     }
 }

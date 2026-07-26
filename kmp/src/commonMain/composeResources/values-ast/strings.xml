@@ -72,10 +72,10 @@
     <string name="about">Tocantes a</string>
     <string name="widget_settings">Axustes de widget</string>
     <plurals name="task_count">
-        <item quantity="one">%d xera</item>
-        <item quantity="other">%d xeres</item>
+        <item quantity="one">%1$d xera</item>
+        <item quantity="other">%1$d xeres</item>
     </plurals>
-    <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
+    <string name="delete_tasks_warning">%1$s desaniciarase. ¡Esto nun se puee desfacer!</string>
     <string name="name_cannot_be_empty">El nome nun puee tar baleru</string>
     <string name="discard_changes">¿Escartar cambeos?</string>
     <string name="discard">Escartar</string>
@@ -135,4 +135,54 @@
     <string name="next_saturday">Próximu Sábadu</string>
     <string name="TEA_note_label">Descripción</string>
     <string name="start_date">Data d'entamu</string>
+    <string name="repeats_custom_recurrence">Recurrencia personalizada</string>
+    <string name="repeats_every">Se repite cada</string>
+    <string name="repeats_weekly_on">Se repite en</string>
+    <string name="repeat_monthly_on_day_number">Mensualmente nel día %1$d</string>
+    <string name="repeat_monthly_first_week">primeru</string>
+    <string name="repeat_monthly_second_week">segundu</string>
+    <string name="repeat_monthly_third_week">terceru</string>
+    <string name="repeat_monthly_fourth_week">cuartu</string>
+    <string name="repeat_monthly_fifth_week">quintu</string>
+    <string name="repeat_monthly_last_week">caberu</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensualmente nel %1$s%2$s</string>
+    <string name="repeats_ends">Acaba</string>
+    <string name="repeats_never">Nunca</string>
+    <string name="repeats_on">En</string>
+    <string name="repeats_after">Dempués</string>
+    <string name="repeat_option_does_not_repeat">Nun se repite</string>
+    <string name="repeat_option_every_day">Tolos díes</string>
+    <string name="repeat_option_every_week">Toles selmanes</string>
+    <string name="repeat_option_every_month">Tolos meses</string>
+    <string name="repeat_option_every_year">Añal</string>
+    <string name="repeat_option_custom">Personalizáu…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minutu</item>
+        <item quantity="other">minutos</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">hora</item>
+        <item quantity="other">hores</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">día</item>
+        <item quantity="other">díes</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">selmana</item>
+        <item quantity="other">selmanes</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mes</item>
+        <item quantity="other">meses</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">añu</item>
+        <item quantity="other">años</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">ocurrencia</item>
+        <item quantity="other">ocurrencies</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s%2$s</string>
 </resources>

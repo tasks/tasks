@@ -153,10 +153,10 @@
     <string name="about">Over</string>
     <string name="widget_settings">Widget instellingen</string>
     <plurals name="task_count">
-        <item quantity="one">%d taak</item>
-        <item quantity="other">%d taken</item>
+        <item quantity="one">%1$d taak</item>
+        <item quantity="other">%1$d taken</item>
     </plurals>
-    <string name="delete_tasks_warning">%s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
+    <string name="delete_tasks_warning">%1$s wordt verwijderd. Dit kan niet ongedaan worden gemaakt!</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="discard_changes">Veranderingen negeren?</string>
     <string name="discard">Negeren</string>
@@ -248,4 +248,54 @@
     <string name="no_time">Geen tijd</string>
     <string name="TEA_note_label">Beschrijving</string>
     <string name="start_date">Begindatum</string>
+    <string name="repeats_custom_recurrence">Aangepaste herhaling</string>
+    <string name="repeats_every">Herhaalt iedere</string>
+    <string name="repeats_weekly_on">Herhaalt op</string>
+    <string name="repeat_monthly_on_day_number">Maandelijks op dag %1$d</string>
+    <string name="repeat_monthly_first_week">eerste</string>
+    <string name="repeat_monthly_second_week">tweede</string>
+    <string name="repeat_monthly_third_week">derde</string>
+    <string name="repeat_monthly_fourth_week">vierde</string>
+    <string name="repeat_monthly_fifth_week">vijfde</string>
+    <string name="repeat_monthly_last_week">laatste</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Maandelijks op de %1$s %2$s</string>
+    <string name="repeats_ends">Eindigt</string>
+    <string name="repeats_never">Nooit</string>
+    <string name="repeats_on">Op</string>
+    <string name="repeats_after">Na</string>
+    <string name="repeat_option_does_not_repeat">Niet herhalen</string>
+    <string name="repeat_option_every_day">Elke dag</string>
+    <string name="repeat_option_every_week">Elke week</string>
+    <string name="repeat_option_every_month">Elke maand</string>
+    <string name="repeat_option_every_year">Elk jaar</string>
+    <string name="repeat_option_custom">Aangepast…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuut</item>
+        <item quantity="other">minuten</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">uur</item>
+        <item quantity="other">uren</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dag</item>
+        <item quantity="other">dagen</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">week</item>
+        <item quantity="other">weken</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">maand</item>
+        <item quantity="other">maanden</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">jaar</item>
+        <item quantity="other">jaren</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">gebeurtenis</item>
+        <item quantity="other">gebeurtenissen</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
 </resources>

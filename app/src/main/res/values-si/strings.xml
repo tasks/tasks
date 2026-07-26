@@ -27,10 +27,6 @@
     <string name="geofence_radius">අරය</string>
     <string name="voice_command_added_task">කාර්යය එකතු කරන ලදි</string>
     <string name="TEA_timer_comment_started">මෙම කාර්යය ආරම්භ කරන ලදි:</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">විනාඩි</item>
-        <item quantity="other">විනාඩි</item>
-    </plurals>
     <string name="snooze_all">සියල්ල මඳකට මගහරින්න</string>
     <string name="rmd_NoA_snooze">මඳකට මගහරින්න</string>
     <string name="rmd_NoA_done">සම්පූර්ණයි</string>
@@ -189,41 +185,21 @@
         <item quantity="one">වසර %dක්</item>
         <item quantity="other">වසර %d</item>
     </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">වසරක්</item>
-        <item quantity="other">වසර</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">මාස %dක්</item>
         <item quantity="other">මාස %d</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">මාසයක්</item>
-        <item quantity="other">මාස</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">සති %dක්</item>
         <item quantity="other">සති %d</item>
     </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">සතියක්</item>
-        <item quantity="other">සති</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">දින %dක්</item>
         <item quantity="other">දින %d</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">දිනක්</item>
-        <item quantity="other">දින</item>
-    </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">පැය %d ක්</item>
         <item quantity="other">පැය %d</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">පැයක්</item>
-        <item quantity="other">පැය</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">විනාඩි %d</item>
@@ -238,10 +214,6 @@
         <item quantity="other">කාර්යයන් %d</item>
     </plurals>
     <string name="repeat_option_custom">අභිරුචි…</string>
-    <string name="repeat_option_every_year">සෑම වසරකම</string>
-    <string name="repeat_option_every_month">සෑම මාසයකම</string>
-    <string name="repeat_option_every_week">සෑම සතියකම</string>
-    <string name="repeat_option_every_day">සෑම දිනම</string>
     <string name="default_random_reminder_bi_weekly">ද්වි-සතිපතා</string>
     <string name="default_random_reminder_weekly">සතිපතා</string>
     <string name="default_random_reminder_daily">දිනපතා</string>
@@ -303,7 +275,6 @@
     <string name="location_arrived">%s වෙත පැමිණියේය</string>
     <string name="pro_dashclock_extension">Dashclock දිගුව</string>
     <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
-    <string name="repeat_monthly_every_day_of_nth_week">සෑම %1$s %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_on_number_of_times">පුනරාවර්තනය සෑම %1$s %2$s, %3$d %4$s සිදු වේ</string>
     <string name="repeats_plural_on_until">පුනරාවර්තනය සෑම %1$s %2$s, %3$s දක්වා</string>
@@ -431,18 +402,11 @@
     <string name="help">උදව්</string>
     <string name="tasker_list_notification">ලැයිස්තු දැනුම්දීම</string>
     <string name="tasker_create_task">කාර්යය සාදන්න</string>
-    <string name="repeat_monthly_last_week">අවසන්</string>
-    <string name="repeat_monthly_fifth_week">පස්වන</string>
-    <string name="repeat_monthly_fourth_week">හතරවන</string>
-    <string name="repeat_monthly_third_week">තෙවන</string>
-    <string name="repeat_monthly_second_week">දෙවැනි</string>
-    <string name="repeat_monthly_first_week">පළමුවන</string>
     <string name="bundle_notifications_summary">බහුවිධ දැනුම්දීම් එකකට ඒකාබද්ධ කරන්න</string>
     <string name="badges_description">Tasks දියත් කිරීමේ නිරූපකයේ කාර්ය ගණන පෙන්වන්න. සියලුම දියත් කරන්නන් (launchers) ලාංඡන සඳහා සහය නොදක්වයි.</string>
     <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>
     <string name="dont_add_to_calendar">දින දර්ශනයට එකතු නොකරන්න</string>
     <string name="repeat_type_due">නියමිත දිනය</string>
-    <string name="repeat_option_does_not_repeat">නැවත නොකෙරේ</string>
     <string name="more_options">තවත් විකල්පයන්</string>
     <string name="opacity_row">පේළි පාරාන්ධතාව</string>
     <string name="opacity_header">ශීර්ෂයේ පාරාන්ධතාව</string>

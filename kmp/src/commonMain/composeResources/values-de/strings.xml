@@ -304,4 +304,54 @@
     <string name="no_time">Ohne Uhrzeit</string>
     <string name="TEA_note_label">Beschreibung</string>
     <string name="start_date">Starttermin</string>
+    <string name="repeats_custom_recurrence">Benutzerdefinierte Wiederholung</string>
+    <string name="repeats_every">Wiederholt sich</string>
+    <string name="repeats_weekly_on">Wiederholt sich am</string>
+    <string name="repeat_monthly_on_day_number">Monatlich an Tag %1$d</string>
+    <string name="repeat_monthly_first_week">ersten</string>
+    <string name="repeat_monthly_second_week">zweiten</string>
+    <string name="repeat_monthly_third_week">dritten</string>
+    <string name="repeat_monthly_fourth_week">vierten</string>
+    <string name="repeat_monthly_fifth_week">fünften</string>
+    <string name="repeat_monthly_last_week">letzten</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Am %1$s %2$s jeden Monats</string>
+    <string name="repeats_ends">Endet</string>
+    <string name="repeats_never">Nie</string>
+    <string name="repeats_on">Am</string>
+    <string name="repeats_after">Nach</string>
+    <string name="repeat_option_does_not_repeat">Wiederholt sich nicht</string>
+    <string name="repeat_option_every_day">Täglich</string>
+    <string name="repeat_option_every_week">Jede Woche</string>
+    <string name="repeat_option_every_month">Jeden Monat</string>
+    <string name="repeat_option_every_year">Jedes Jahr</string>
+    <string name="repeat_option_custom">Eigene…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">Stunde</item>
+        <item quantity="other">Stunden</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">Woche</item>
+        <item quantity="other">Wochen</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">Monat</item>
+        <item quantity="other">Monate</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">Jahr</item>
+        <item quantity="other">Jahre</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">Wiederholung</item>
+        <item quantity="other">Wiederholungen</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">jeden %1$s %2$s</string>
 </resources>

@@ -69,15 +69,6 @@
     <item>@string/default_random_reminder_bi_weekly</item>
   </string-array>
 
-  <string-array name="repeat_options">
-    <item>@string/repeat_option_does_not_repeat</item>
-    <item>@string/repeat_option_every_day</item>
-    <item>@string/repeat_option_every_week</item>
-    <item>@string/repeat_option_every_month</item>
-    <item>@string/repeat_option_every_year</item>
-    <item>@string/repeat_option_custom</item>
-  </string-array>
-
   <string-array name="repeat_type_capitalized">
     <item>@string/due_date</item>
     <item>@string/repeat_type_completion_capitalized</item>

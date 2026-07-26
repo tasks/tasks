@@ -199,11 +199,6 @@
     <string name="default_location_reminder_on_departure">Vid avgång</string>
     <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst eller avgång</string>
     <string name="snooze_all">Senarelägg alla</string>
-    <string name="repeat_option_does_not_repeat">Upprepas inte</string>
-    <string name="repeat_option_every_day">Varje dag</string>
-    <string name="repeat_option_every_week">Varje vecka</string>
-    <string name="repeat_option_every_month">Varje månad</string>
-    <string name="repeat_option_every_year">Varje år</string>
     <string name="repeat_option_custom">Anpassad…</string>
     <plurals name="task_count">
         <item quantity="one">%d uppgift</item>
@@ -213,49 +208,25 @@
         <item quantity="one">gång</item>
         <item quantity="other">gånger</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minut</item>
-        <item quantity="other">minuter</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minuter</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">timme</item>
-        <item quantity="other">timmar</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d timme</item>
         <item quantity="other">%d timmar</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">dag</item>
-        <item quantity="other">dagar</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dag</item>
         <item quantity="other">%d dagar</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">vecka</item>
-        <item quantity="other">veckor</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d vecka</item>
         <item quantity="other">%d veckor</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">månad</item>
-        <item quantity="other">månader</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d månad</item>
         <item quantity="other">%d månader</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">år</item>
-        <item quantity="other">år</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d år</item>
@@ -310,12 +281,6 @@
     <string name="default_calendar">Förvald kalender</string>
     <string name="badges_description">Visa antalet uppgifter på Tasks-appikonen. Alla startprogram stöder inte aviseringsmärken.</string>
     <string name="bundle_notifications_summary">Kombinera flera aviseringar till en</string>
-    <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s varje månad</string>
-    <string name="repeat_monthly_first_week">första</string>
-    <string name="repeat_monthly_second_week">andra</string>
-    <string name="repeat_monthly_third_week">tredje</string>
-    <string name="repeat_monthly_fourth_week">fjärde</string>
-    <string name="repeat_monthly_last_week">sista</string>
     <string name="tasker_create_task">Skapa uppgift</string>
     <string name="tasker_list_notification">Visa avisering</string>
     <string name="help">Hjälp</string>
@@ -489,7 +454,6 @@
     <string name="subtasks">Deluppgifter</string>
     <string name="copied_to_clipboard">%s kopierat till urklipp</string>
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>
-    <string name="repeat_monthly_fifth_week">femte</string>
     <string name="widget_show_dividers">Visa avdelare</string>
     <string name="widget_show_title">Visa titel</string>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
@@ -546,19 +510,6 @@
     <string name="sort_completion_group">Slutfört %s</string>
     <string name="sort_list">Efter lista</string>
     <string name="enable_reminders">Aktivera påminnelser</string>
-    <string name="repeats_every">Upprepas varje</string>
-    <string name="repeats_after">Efter</string>
-    <string name="repeats_never">Aldrig</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">förekomst</item>
-        <item quantity="other">förekomster</item>
-    </plurals>
-    <string name="repeats_ends">Avslutas</string>
-    <string name="repeats_on">På</string>
-    <string name="repeats_weekly_on">Upprepas på</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Månadsvis på %1$s %2$s</string>
-    <string name="repeats_custom_recurrence">Anpassad upprepning</string>
-    <string name="repeat_monthly_on_day_number">Månadsvis på dag %1d</string>
     <string name="change_priority">Ändra prioritet</string>
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>

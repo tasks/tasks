@@ -136,11 +136,11 @@
     <string name="about">Про Tasks</string>
     <string name="widget_settings">Налаштування віджету</string>
     <plurals name="task_count">
-        <item quantity="one">%d завдання</item>
-        <item quantity="few">%d завдання</item>
-        <item quantity="many">%d завдань</item>
+        <item quantity="one">%1$d завдання</item>
+        <item quantity="few">%1$d завдання</item>
+        <item quantity="many">%1$d завдань</item>
     </plurals>
-    <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
+    <string name="delete_tasks_warning">%1$s буде видалено. Дію неможливо скасувати!</string>
     <string name="name_cannot_be_empty">Ім'я не може бути порожнє</string>
     <string name="discard_changes">Скасувати зміни?</string>
     <string name="discard">Скасувати</string>
@@ -229,4 +229,62 @@
     <string name="no_time">Без часу</string>
     <string name="TEA_note_label">Опис</string>
     <string name="start_date">Дата початку</string>
+    <string name="repeats_custom_recurrence">Користувацьке повторення</string>
+    <string name="repeats_every">Повторюється кожні</string>
+    <string name="repeats_weekly_on">Повторюється</string>
+    <string name="repeat_monthly_on_day_number">Щомісяця у %1$d</string>
+    <string name="repeat_monthly_first_week">перший</string>
+    <string name="repeat_monthly_second_week">другий</string>
+    <string name="repeat_monthly_third_week">третій</string>
+    <string name="repeat_monthly_fourth_week">четвертий</string>
+    <string name="repeat_monthly_fifth_week">п’ятий</string>
+    <string name="repeat_monthly_last_week">останній</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
+    <string name="repeats_ends">Завершується</string>
+    <string name="repeats_never">Ніколи</string>
+    <string name="repeats_on"> </string>
+    <string name="repeats_after">Після</string>
+    <string name="repeat_option_does_not_repeat">Не повторювати</string>
+    <string name="repeat_option_every_day">Щодня</string>
+    <string name="repeat_option_every_week">Щотижня</string>
+    <string name="repeat_option_every_month">Щомісяця</string>
+    <string name="repeat_option_every_year">Щороку</string>
+    <string name="repeat_option_custom">Інше…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">хвилина</item>
+        <item quantity="few">хвилини</item>
+        <item quantity="many">хвилин</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">година</item>
+        <item quantity="few">години</item>
+        <item quantity="many">годин</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">день</item>
+        <item quantity="few">дні</item>
+        <item quantity="many">днів</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">тиждень</item>
+        <item quantity="few">тижні</item>
+        <item quantity="many">тижнів</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">місяць</item>
+        <item quantity="few">місяці</item>
+        <item quantity="many">місяців</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">рік</item>
+        <item quantity="few">роки</item>
+        <item quantity="many">років</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">повторення</item>
+        <item quantity="few">повторення</item>
+        <item quantity="many">повторень</item>
+        <item quantity="other">повторень</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
 </resources>

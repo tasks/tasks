@@ -115,8 +115,8 @@
     <string name="about">පිළිබඳව</string>
     <string name="widget_settings">විජට් සැකසුම්</string>
     <plurals name="task_count">
-        <item quantity="one">කාර්යය %d</item>
-        <item quantity="other">කාර්යයන් %d</item>
+        <item quantity="one">කාර්යය %1$d</item>
+        <item quantity="other">කාර්යයන් %1$d</item>
     </plurals>
     <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>
     <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද?</string>
@@ -195,4 +195,41 @@
     <string name="no_time">වේලාවක් නැත</string>
     <string name="TEA_note_label">විස්තර</string>
     <string name="start_date">ආරම්භක දිනය</string>
+    <string name="repeat_monthly_first_week">පළමුවන</string>
+    <string name="repeat_monthly_second_week">දෙවැනි</string>
+    <string name="repeat_monthly_third_week">තෙවන</string>
+    <string name="repeat_monthly_fourth_week">හතරවන</string>
+    <string name="repeat_monthly_fifth_week">පස්වන</string>
+    <string name="repeat_monthly_last_week">අවසන්</string>
+    <string name="repeat_option_does_not_repeat">නැවත නොකෙරේ</string>
+    <string name="repeat_option_every_day">සෑම දිනම</string>
+    <string name="repeat_option_every_week">සෑම සතියකම</string>
+    <string name="repeat_option_every_month">සෑම මාසයකම</string>
+    <string name="repeat_option_every_year">සෑම වසරකම</string>
+    <string name="repeat_option_custom">අභිරුචි…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">විනාඩි</item>
+        <item quantity="other">විනාඩි</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">පැයක්</item>
+        <item quantity="other">පැය</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">දිනක්</item>
+        <item quantity="other">දින</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">සතියක්</item>
+        <item quantity="other">සති</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">මාසයක්</item>
+        <item quantity="other">මාස</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">වසරක්</item>
+        <item quantity="other">වසර</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">සෑම %1$s %2$s</string>
 </resources>

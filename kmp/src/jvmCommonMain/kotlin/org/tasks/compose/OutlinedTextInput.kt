@@ -16,12 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.os.ConfigurationCompat
 import org.tasks.extensions.formatNumber
 import org.tasks.extensions.parseInteger
 import java.util.Locale
@@ -30,18 +28,12 @@ import java.util.Locale
 @Composable
 fun OutlinedNumberInput(
     number: Int,
+    locale: Locale,
     onTextChanged: (Int) -> Unit,
     onFocus: () -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val configuration = LocalConfiguration.current
-    val locale = remember(configuration) {
-        ConfigurationCompat
-            .getLocales(configuration)
-            .get(0)
-            ?: Locale.getDefault()
-    }
-    val numberString = remember(number) {
+    val numberString = remember(number, locale) {
         number.takeIf { it > 0 }?.let { locale.formatNumber(it) } ?: ""
     }
     BasicTextField(

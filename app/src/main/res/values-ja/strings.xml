@@ -121,11 +121,6 @@
     <string name="default_random_reminder_daily">毎日</string>
     <string name="default_random_reminder_weekly">毎週</string>
     <string name="default_random_reminder_bi_weekly">1 週間おき</string>
-    <string name="repeat_option_does_not_repeat">繰り返ししない</string>
-    <string name="repeat_option_every_day">毎日</string>
-    <string name="repeat_option_every_week">毎週</string>
-    <string name="repeat_option_every_month">毎月</string>
-    <string name="repeat_option_every_year">毎年</string>
     <string name="repeat_option_custom">カスタム…</string>
     <plurals name="task_count">
         <item quantity="other">タスク %d 件</item>
@@ -134,47 +129,24 @@
         <item quantity="one">回</item>
         <item quantity="other">回</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">分</item>
-        <item quantity="other">分</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 分</item>
         <item quantity="other">%d 分</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">時間</item>
-        <item quantity="other">時間</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d 時間</item>
         <item quantity="other">%d 時間</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">日</item>
-        <item quantity="other">日</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d 日</item>
         <item quantity="other">%d 日</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">週間</item>
-        <item quantity="other">週間</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d 週間</item>
         <item quantity="other">%d 週間</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="other">か月</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="other">%d か月</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">年</item>
-        <item quantity="other">年</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d 年</item>
@@ -304,12 +276,6 @@
     <string name="default_calendar">デフォルトのカレンダー</string>
     <string name="badges_description">Tasksランチャーアイコンにタスク数を表示します。すべてのランチャーがバッジをサポートしているわけではありません。</string>
     <string name="bundle_notifications_summary">複数の通知を1つの通知にまとめる</string>
-    <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
-    <string name="repeat_monthly_first_week">第一週</string>
-    <string name="repeat_monthly_second_week">第二週</string>
-    <string name="repeat_monthly_third_week">第三週</string>
-    <string name="repeat_monthly_fourth_week">第四週</string>
-    <string name="repeat_monthly_last_week">最終週</string>
     <string name="tasker_create_task">タスクを作成</string>
     <string name="tasker_list_notification">通知のリスト</string>
     <string name="help">ヘルプ</string>
@@ -352,7 +318,6 @@
     <string name="action_new_task">新しいタスク</string>
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
     <string name="subscription">サブスクリプション</string>
-    <string name="repeat_monthly_fifth_week">第五週</string>
     <string name="help_and_feedback">ヘルプとフィードバック</string>
     <string name="widget_open_list">リストをひらく</string>
     <string name="theme_system_default">システムデフォルト</string>
@@ -540,18 +505,6 @@
     <string name="filter_eisenhower_box_1">重要かつ緊急</string>
     <string name="open_source">オープンソース</string>
     <string name="sort_list">リスト</string>
-    <string name="repeat_monthly_on_day_number">毎月 %1d 日</string>
-    <string name="repeats_on">日付</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="other">繰り返し</item>
-    </plurals>
-    <string name="repeats_never">なし</string>
-    <string name="repeats_weekly_on">曜日</string>
-    <string name="repeats_every">繰り返し間隔</string>
-    <string name="repeats_custom_recurrence">繰り返しの設定</string>
-    <string name="repeats_ends">終了</string>
-    <string name="repeats_after">回数</string>
-    <string name="repeat_monthly_on_the_nth_weekday">毎月 %1$s %2$s</string>
     <string name="change_priority">優先度を変更</string>
     <string name="customize_drawer_summary">ドラッグ&amp;ドロップしてメニューを並び替え</string>
     <string name="quiet_hours_in_effect">お休みモードが有効です</string>

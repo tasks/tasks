@@ -136,14 +136,14 @@
     <string name="about">حول</string>
     <string name="widget_settings">إعدادات الودجيت</string>
     <plurals name="task_count">
-        <item quantity="zero">%d مهمة</item>
-        <item quantity="one">%d مهمة</item>
+        <item quantity="zero">%1$d مهمة</item>
+        <item quantity="one">%1$d مهمة</item>
         <item quantity="two">مهمتين</item>
-        <item quantity="few">%d مهام</item>
-        <item quantity="many">%d مهمة</item>
-        <item quantity="other">%d مهمة</item>
+        <item quantity="few">%1$d مهام</item>
+        <item quantity="many">%1$d مهمة</item>
+        <item quantity="other">%1$d مهمة</item>
     </plurals>
-    <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
+    <string name="delete_tasks_warning">%1$s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="name_cannot_be_empty">لا يمكن أن يكون الاسم فارغًا</string>
     <string name="discard_changes">تجاهل التغييرات؟</string>
     <string name="discard">تجاهل</string>
@@ -234,4 +234,82 @@
     <string name="no_time">لا وقت</string>
     <string name="TEA_note_label">وصف</string>
     <string name="start_date">تاريخ البدأ</string>
+    <string name="repeats_custom_recurrence">التكرار المخصّص</string>
+    <string name="repeats_every">يتكرر كل</string>
+    <string name="repeats_weekly_on">التكرار على</string>
+    <string name="repeat_monthly_on_day_number">شهرياً في اليوم %1$d</string>
+    <string name="repeat_monthly_first_week">الأوّل</string>
+    <string name="repeat_monthly_second_week">الثّاني</string>
+    <string name="repeat_monthly_third_week">الثّالث</string>
+    <string name="repeat_monthly_fourth_week">الرّابع</string>
+    <string name="repeat_monthly_fifth_week">الخامس</string>
+    <string name="repeat_monthly_last_week">الأخير</string>
+    <string name="repeat_monthly_on_the_nth_weekday">شهرياً على %1$s %2$s</string>
+    <string name="repeats_ends">ينتهي عند</string>
+    <string name="repeats_never">أبدا</string>
+    <string name="repeats_on">على</string>
+    <string name="repeats_after">بعد</string>
+    <string name="repeat_option_does_not_repeat">بدون تكرار</string>
+    <string name="repeat_option_every_day">يوميًّا</string>
+    <string name="repeat_option_every_week">أسبوعيًّا</string>
+    <string name="repeat_option_every_month">شهريًّا</string>
+    <string name="repeat_option_every_year">سنويًّا</string>
+    <string name="repeat_option_custom">تعديل…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="zero">صفر دقيقة</item>
+        <item quantity="one">دقيقة واحدة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few">دقائق</item>
+        <item quantity="many">دقيقة</item>
+        <item quantity="other">دقيقة</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="zero">ساعة</item>
+        <item quantity="one">‪‫ساعة</item>
+        <item quantity="two">ساعتين</item>
+        <item quantity="few">ساعات</item>
+        <item quantity="many">ساعة</item>
+        <item quantity="other">ساعة</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="zero">يوم</item>
+        <item quantity="one">يوم</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">يوم</item>
+        <item quantity="other">يوم</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="zero">أسبوع</item>
+        <item quantity="one">أسبوع</item>
+        <item quantity="two">أسبوعين</item>
+        <item quantity="few">أسابيع</item>
+        <item quantity="many">أسبوع</item>
+        <item quantity="other">أسبوع</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="zero">شهر</item>
+        <item quantity="one">شهر</item>
+        <item quantity="two">شهرين</item>
+        <item quantity="few">أشهر</item>
+        <item quantity="many">أشهر</item>
+        <item quantity="other">أشهر</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="zero">سنة</item>
+        <item quantity="one">سنة</item>
+        <item quantity="two">سنتين</item>
+        <item quantity="few">سنوات</item>
+        <item quantity="many">سنة</item>
+        <item quantity="other">سنة</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="zero">مرة</item>
+        <item quantity="one">مرة</item>
+        <item quantity="two">مرة</item>
+        <item quantity="few">مرات</item>
+        <item quantity="many">مرة</item>
+        <item quantity="other">مرة</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">كل %1$s %2$s</string>
 </resources>

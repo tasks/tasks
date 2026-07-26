@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">매일</string>
     <string name="default_random_reminder_weekly">매주</string>
     <string name="default_random_reminder_bi_weekly">격주로</string>
-    <string name="repeat_option_does_not_repeat">반복하지 않기</string>
-    <string name="repeat_option_every_day">매일</string>
-    <string name="repeat_option_every_week">매주</string>
-    <string name="repeat_option_every_month">매월</string>
-    <string name="repeat_option_every_year">매년</string>
     <string name="repeat_option_custom">사용자설정…</string>
     <plurals name="task_count">
         <item quantity="one">%d 할일</item>
@@ -131,49 +126,25 @@
         <item quantity="one">회</item>
         <item quantity="other">회</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">분</item>
-        <item quantity="other">분</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 분</item>
         <item quantity="other">%d 분</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">시간</item>
-        <item quantity="other">시간</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d 시간</item>
         <item quantity="other">%d 시간</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">일</item>
-        <item quantity="other">일</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d 일</item>
         <item quantity="other">%d 일</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">주</item>
-        <item quantity="other">주</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d 주</item>
         <item quantity="other">%d 주</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">개월</item>
-        <item quantity="other">개월</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d 개월</item>
         <item quantity="other">%d 개월</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">년</item>
-        <item quantity="other">년</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d 년</item>
@@ -302,12 +273,6 @@
     <string name="default_calendar">기본 달력</string>
     <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
     <string name="bundle_notifications_summary">여러 상태바 알림을 하나로 묶어서 표시합니다</string>
-    <string name="repeat_monthly_every_day_of_nth_week">매 %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">첫번째</string>
-    <string name="repeat_monthly_second_week">두번째</string>
-    <string name="repeat_monthly_third_week">세번째</string>
-    <string name="repeat_monthly_fourth_week">네번째</string>
-    <string name="repeat_monthly_last_week">마지막</string>
     <string name="tasker_create_task">할일 만들기</string>
     <string name="tasker_list_notification">목록 알림</string>
     <string name="help">도움말</string>
@@ -471,7 +436,6 @@
     <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="custom_filter_is_subtask">하위할일</string>
     <string name="custom_filter_has_subtask">하위할일 있음</string>
-    <string name="repeat_monthly_fifth_week">다섯번째</string>
     <string name="always_display_full_date">일시 간략화하지 않고 그대로 표시</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
@@ -543,16 +507,9 @@
         <item quantity="other">주</item>
     </plurals>
     <string name="when_started">시작시</string>
-    <string name="repeats_custom_recurrence">반복 설정</string>
-    <string name="repeats_after">다음</string>
-    <string name="repeats_ends">종료</string>
-    <string name="repeat_monthly_on_the_nth_weekday">매월 %1$s %2$s</string>
     <string name="donate_today">오늘 기부하기</string>
     <string name="donate_maybe_later">나중에</string>
     <string name="donate_nag">기부를 통해 여러분의 지지를 보여주세요!</string>
-    <string name="repeats_weekly_on">반복 요일</string>
-    <string name="repeats_never">없음</string>
-    <string name="repeats_on">날짜</string>
     <string name="change_priority">우선순위 변경</string>
     <string name="show_edit_screen_without_unlock">잠금해제 없이 편집 화면 보이기</string>
     <string name="customize_drawer">서랍 정렬</string>
@@ -562,16 +519,11 @@
     <string name="swipe_to_snooze_time_30_minutes">30분 후에</string>
     <string name="swipe_to_snooze_time_1_hour">1시간 후에</string>
     <string name="swipe_to_snooze_time_24_hours">24시간 후에</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="other">회</item>
-    </plurals>
     <string name="show_edit_screen_without_unlock_summary">잠금 해제 없이 퀵세팅 타일을 사용할 수 있도록 합니다</string>
     <string name="quiet_hours_in_effect">무음 시간 동작 중</string>
-    <string name="repeats_every">반복 주기</string>
     <string name="swipe_to_snooze_title">밀어서 스누즈</string>
     <string name="swipe_to_snooze_description">스누즈 시간</string>
     <string name="swipe_to_snooze_time_description">해제한 알람은 %s 울리게 됩니다</string>
-    <string name="repeat_monthly_on_day_number">매월 %1d</string>
     <string name="enable_alarms">제때 알람 받기</string>
     <string name="enable_alarms_description">놓치지 않고 제때 알람을 받으려면, \"설정\"에서 알람 설정 권한을 부여해주세요</string>
     <string name="theme_dynamic">동적</string>

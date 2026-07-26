@@ -136,10 +136,10 @@
     <string name="about">Σχετικά</string>
     <string name="widget_settings">Ρυθμίσεις γραφικού στοιχείου</string>
     <plurals name="task_count">
-        <item quantity="one">%d εργασία</item>
-        <item quantity="other">%d εργασίες</item>
+        <item quantity="one">%1$d εργασία</item>
+        <item quantity="other">%1$d εργασίες</item>
     </plurals>
-    <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
+    <string name="delete_tasks_warning">%1$s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
     <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
     <string name="discard_changes">Απόρριψη αλλαγών;</string>
     <string name="discard">Απόρριψη</string>
@@ -226,4 +226,54 @@
     <string name="no_time">Χωρίς ώρα</string>
     <string name="TEA_note_label">Περιγραφή</string>
     <string name="start_date">Ημερομηνία Έναρξης</string>
+    <string name="repeats_custom_recurrence">Προσαρμογή επανάληψης</string>
+    <string name="repeats_every">Επανάληψη κάθε</string>
+    <string name="repeats_weekly_on">Επανάληψη στις</string>
+    <string name="repeat_monthly_on_day_number">Κάθε μήνα την ημέρα %1$d</string>
+    <string name="repeat_monthly_first_week">πρώτη</string>
+    <string name="repeat_monthly_second_week">δεύτερη</string>
+    <string name="repeat_monthly_third_week">τρίτη</string>
+    <string name="repeat_monthly_fourth_week">τέταρτη</string>
+    <string name="repeat_monthly_fifth_week">πέμπτη</string>
+    <string name="repeat_monthly_last_week">τελευταία</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Κάθε μήνα στις %1$s %2$s</string>
+    <string name="repeats_ends">Τελειώνει</string>
+    <string name="repeats_never">Ποτέ</string>
+    <string name="repeats_on">Στις</string>
+    <string name="repeats_after">Μετά από</string>
+    <string name="repeat_option_does_not_repeat">Δεν επαναλαμβάνεται</string>
+    <string name="repeat_option_every_day">Κάθε μέρα</string>
+    <string name="repeat_option_every_week">Κάθε εβδομάδα</string>
+    <string name="repeat_option_every_month">Κάθε μήνα</string>
+    <string name="repeat_option_every_year">Κάθε χρόνο</string>
+    <string name="repeat_option_custom">Προσαρμογή…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">λεπτό</item>
+        <item quantity="other">λεπτά</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">ώρα</item>
+        <item quantity="other">ώρες</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">μέρα</item>
+        <item quantity="other">μέρες</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">εβδομάδα</item>
+        <item quantity="other">εβδομάδες</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">μήνας</item>
+        <item quantity="other">μήνες</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">χρόνος</item>
+        <item quantity="other">χρόνια</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">Περιστατικό</item>
+        <item quantity="other">Περιστατικά</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">κάθε %1$s %2$s</string>
 </resources>

@@ -13,5 +13,7 @@ fun Locale.parseInteger(number: String?): Int? {
         NumberFormat.getNumberInstance(this).parse(number).toInt()
     } catch (e: ParseException) {
         null
+    } catch (e: NullPointerException) {
+        null
     }
 }

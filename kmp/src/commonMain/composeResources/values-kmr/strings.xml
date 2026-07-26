@@ -40,4 +40,15 @@
     <string name="priority_medium">Navîn</string>
     <string name="priority_low">Nizm</string>
     <string name="TEA_note_label">Danasîn</string>
+    <string name="repeat_monthly_first_week">Yekemîn</string>
+    <string name="repeat_monthly_second_week">Duyemîn</string>
+    <string name="repeat_monthly_third_week">Sêyemîn</string>
+    <string name="repeat_monthly_fourth_week">Çaremîn</string>
+    <string name="repeat_monthly_fifth_week">Pênçemî</string>
+    <string name="repeat_monthly_last_week">Dawî</string>
+    <string name="repeats_ends">Diqede</string>
+    <string name="repeats_never">Ti carî</string>
+    <string name="repeats_on">Ser</string>
+    <string name="repeats_after">Piştî</string>
+    <string name="repeat_option_custom">Kesane…</string>
 </resources>

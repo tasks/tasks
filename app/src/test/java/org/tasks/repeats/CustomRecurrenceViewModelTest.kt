@@ -1,6 +1,5 @@
 package org.tasks.repeats
 
-import androidx.lifecycle.SavedStateHandle
 import net.fortuna.ical4j.model.Recur.Frequency.DAILY
 import net.fortuna.ical4j.model.Recur.Frequency.HOURLY
 import net.fortuna.ical4j.model.Recur.Frequency.MINUTELY
@@ -9,8 +8,6 @@ import net.fortuna.ical4j.model.Recur.Frequency.SECONDLY
 import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_DATE
-import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_RRULE
 import org.tasks.time.DateTime
 import java.time.DayOfWeek
 import java.util.Locale
@@ -162,12 +159,9 @@ class CustomRecurrenceViewModelTest {
         block: CustomRecurrenceViewModel.() -> Unit = {}
     ) =
         CustomRecurrenceViewModel(
-            savedStateHandle = SavedStateHandle(
-                mapOf(
-                    EXTRA_RRULE to recur,
-                    EXTRA_DATE to dueDate.millis,
-                )
-            ),
-            locale = Locale.getDefault()
+            rrule = recur,
+            dueDate = dueDate.millis,
+            accountType = 0,
+            locale = Locale.getDefault(),
         ).also(block)
 }

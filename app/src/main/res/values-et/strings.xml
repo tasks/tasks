@@ -95,11 +95,6 @@
     <string name="rmd_EPr_rmd_time_title">Meeldetuletuse aeg</string>
     <string name="persistent_notifications">Püsiteavitused</string>
     <string name="default_random_reminder_disabled">Välja lülitatud</string>
-    <string name="repeat_option_does_not_repeat">Ei kordu</string>
-    <string name="repeat_option_every_day">Iga päev</string>
-    <string name="repeat_option_every_week">Iga nädal</string>
-    <string name="repeat_option_every_month">Iga kuu</string>
-    <string name="repeat_option_every_year">Iga aasta</string>
     <string name="repeat_option_custom">Kohandatud…</string>
     <string name="repeat_type_completion">lõpetamise kuupäev</string>
     <string name="new_list">Loo uus nimekiri</string>
@@ -183,11 +178,6 @@
     <string name="url">URL</string>
     <string name="bundle_notifications">Koonda teavitused</string>
     <string name="list">Nimekiri</string>
-    <string name="repeat_monthly_first_week">esimene</string>
-    <string name="repeat_monthly_second_week">teine</string>
-    <string name="repeat_monthly_third_week">kolmas</string>
-    <string name="repeat_monthly_fourth_week">neljas</string>
-    <string name="repeat_monthly_last_week">viimane</string>
     <string name="tasker_create_task">Loo ülesanne</string>
     <string name="help">Abiinfo</string>
     <string name="button_subscribe">Telli</string>
@@ -222,7 +212,6 @@
     </plurals>
     <string name="repeats_weekly">iga nädal</string>
     <string name="repeats_monthly">iga kuu</string>
-    <string name="repeats_every">Kordub iga</string>
     <string name="filter_overdue">Üle tähtaja</string>
     <string name="sort_modified_group">Muudetud %s</string>
     <string name="device_settings">Nutiseadme seadistused</string>
@@ -236,17 +225,9 @@
     <string name="preferences_advanced">Edasijõudnutele</string>
     <string name="multi_select_reschedule">Muuda ajastust</string>
     <string name="rmd_EPr_defaultRemind_title">Juhuslikud meeldetuletused</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">kordus</item>
-        <item quantity="other">kordust</item>
-    </plurals>
     <plurals name="reminder_hours">
         <item quantity="one">Tund</item>
         <item quantity="other">Tundi</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">nädal</item>
-        <item quantity="other">nädalat</item>
     </plurals>
     <plurals name="reminder_week">
         <item quantity="one">Nädal</item>
@@ -258,20 +239,11 @@
         <item quantity="one">Minut</item>
         <item quantity="other">Minutit</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minut</item>
-        <item quantity="other">minutit</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">tund</item>
-        <item quantity="other">tundi</item>
-    </plurals>
     <string name="randomly">Juhuslikult</string>
     <string name="icon">Ikoon</string>
     <string name="theme_dynamic">Dünaamiline</string>
     <string name="theme_system_default">Süsteemi vaikeseade</string>
     <string name="repeats_yearly">iga aasta</string>
-    <string name="repeats_custom_recurrence">Vaikimisi kordus</string>
     <string name="location_remind_departure">Tuleta lahkudes meelde</string>
     <string name="building_notifications">Loon teavitusi</string>
     <string name="whats_new">Mida on uut?</string>
@@ -303,7 +275,6 @@
     <string name="repeats_hourly">igas tunnis</string>
     <string name="bundle_notifications_summary">Liida mitu teavitust üheks</string>
     <string name="repeats_daily">iga päev</string>
-    <string name="repeats_never">Mitte kunagi</string>
     <string name="default_calendar">Vaikekalender</string>
     <string name="refresh_purchases">Värskenda ostud</string>
     <string name="action_new_task">Uus ülesanne</string>
@@ -326,10 +297,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="custom_filter_has_subtask">Alamülesannetega</string>
     <string name="snackbar_task_completed">Ülesanne lõpetatud</string>
-    <plurals name="repeat_months">
-        <item quantity="one">kuu</item>
-        <item quantity="other">kuud</item>
-    </plurals>
     <string name="widget_open_list">Ava loend</string>
     <string name="widget_due_date_below_title">Pealkirja all</string>
     <string name="troubleshooting">Veaotsing</string>
@@ -342,7 +309,6 @@
     <string name="TEA_timer_comment_spent">Kulunud aeg:</string>
     <string name="opacity_header">Päise läbipaistmatus</string>
     <string name="opacity_row">Rea läbipaistmatus</string>
-    <string name="repeat_monthly_fifth_week">viies</string>
     <string name="select_all">Vali kõik</string>
     <string name="share">Jaga</string>
     <string name="last_backup">Viimane varundus: %s</string>
@@ -373,14 +339,6 @@
     <plurals name="repeat_times">
         <item quantity="one">kord</item>
         <item quantity="other">korda</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">päev</item>
-        <item quantity="other">päeva</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">aasta</item>
-        <item quantity="other">aastat</item>
     </plurals>
     <string name="widget_due_date_after_title">Pealkirja järel</string>
     <string name="default_recurrence">Vaikekordus</string>
@@ -498,8 +456,6 @@
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
     <string name="this_feature_requires_a_subscription">See funktsionaalsus eeldab tellimuse olemasolu</string>
     <string name="repeats_single">Kordub %s</string>
-    <string name="repeats_weekly_on">Kordub</string>
-    <string name="repeats_on">Kordub</string>
     <string name="repeats_plural">Kordub iga %s</string>
     <string name="repeats_plural_on">Kordub iga %1$s / %2$s</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
@@ -515,7 +471,6 @@
     <string name="linkify_description">Lisa veebisaitide, aadresside ja telefoninumbrite linke</string>
     <string name="repeats_single_until">Kordub %1$s, lõppeb %2$s</string>
     <string name="repeats_single_number_of_times">Kordub %1$s, toimub %2$d %3$s</string>
-    <string name="repeats_ends">Lõppeb</string>
     <string name="subscription">Tellimus</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
@@ -532,15 +487,11 @@
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
-    <string name="repeat_monthly_every_day_of_nth_week">iga %1$s %2$s</string>
-    <string name="repeats_after">Kordub peale</string>
     <string name="repeats_plural_until">Kordub iga %1$s, lõppeb %2$s</string>
     <string name="repeats_plural_on_until">Kordub iga %1$s / %2$s, lõppeb %3$s</string>
     <string name="repeats_plural_on_number_of_times">Kordub iga %1$s / %2$s, lõppeb %3$d %4$s</string>
     <string name="upgrade_to_pro">Uuenda Pro-versiooniks</string>
     <string name="badges_description">Näita ülesannete arvu Tasks rakenduse ikoonil. Palun arvesta et kõik avalehed ja käivitajad ei toeta seda võimalust.</string>
-    <string name="repeat_monthly_on_day_number">Iga kuu päeval %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Iga kuu %1$s %2$s</string>
     <string name="disable_battery_optimizations">Lülita akukasutuse optimeerimine välja</string>
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>

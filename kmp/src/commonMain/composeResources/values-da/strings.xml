@@ -157,10 +157,10 @@
     <string name="about">Om</string>
     <string name="widget_settings">Widget-indstillinger</string>
     <plurals name="task_count">
-        <item quantity="one">%d opgave</item>
-        <item quantity="other">%d opgaver</item>
+        <item quantity="one">%1$d opgave</item>
+        <item quantity="other">%1$d opgaver</item>
     </plurals>
-    <string name="delete_tasks_warning">%s bliver slettet. Dette kan ikke fortrydes!</string>
+    <string name="delete_tasks_warning">%1$s bliver slettet. Dette kan ikke fortrydes!</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="discard_changes">Kassér ændringer?</string>
     <string name="discard">Kassér</string>
@@ -252,4 +252,54 @@
     <string name="no_time">Intet tidspunkt</string>
     <string name="TEA_note_label">Beskrivelse</string>
     <string name="start_date">Startdato</string>
+    <string name="repeats_custom_recurrence">Brugerdefineret gentagelse</string>
+    <string name="repeats_every">Gentages hver</string>
+    <string name="repeats_weekly_on">Gentages</string>
+    <string name="repeat_monthly_on_day_number">Månedligt på dag %1$d</string>
+    <string name="repeat_monthly_first_week">første</string>
+    <string name="repeat_monthly_second_week">anden</string>
+    <string name="repeat_monthly_third_week">tredje</string>
+    <string name="repeat_monthly_fourth_week">fjerde</string>
+    <string name="repeat_monthly_fifth_week">femte</string>
+    <string name="repeat_monthly_last_week">sidste</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Månedligt på den %1$s %2$s</string>
+    <string name="repeats_ends">Slutter</string>
+    <string name="repeats_never">Aldrig</string>
+    <string name="repeats_on">På</string>
+    <string name="repeats_after">Efter</string>
+    <string name="repeat_option_does_not_repeat">Gentages ikke</string>
+    <string name="repeat_option_every_day">Hver dag</string>
+    <string name="repeat_option_every_week">Hver uge</string>
+    <string name="repeat_option_every_month">Hver måned</string>
+    <string name="repeat_option_every_year">Hvert år</string>
+    <string name="repeat_option_custom">Tilpas…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minut</item>
+        <item quantity="other">minutter</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">time</item>
+        <item quantity="other">timer</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dag</item>
+        <item quantity="other">dage</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">uge</item>
+        <item quantity="other">uger</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">måned</item>
+        <item quantity="other">måneder</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">år</item>
+        <item quantity="other">år</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">forekomst</item>
+        <item quantity="other">forekomster</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">hver %1$s i %2$s</string>
 </resources>

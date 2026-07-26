@@ -182,11 +182,6 @@
     <string name="snooze_all">Odložit vše</string>
     <string name="persistent_notifications">Trvalá upozornění</string>
     <string name="persistent_notifications_description">Trvalá upozornění nemohou být odstraněna</string>
-    <string name="repeat_option_does_not_repeat">Neopakuje se</string>
-    <string name="repeat_option_every_day">Každý den</string>
-    <string name="repeat_option_every_week">Každý týden</string>
-    <string name="repeat_option_every_month">Každý měsíc</string>
-    <string name="repeat_option_every_year">Každý rok</string>
     <string name="repeat_option_custom">Vlastní…</string>
     <plurals name="task_count">
         <item quantity="one">%d úkol</item>
@@ -198,60 +193,30 @@
         <item quantity="few">krát</item>
         <item quantity="other">krát</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuta</item>
-        <item quantity="few">minuty</item>
-        <item quantity="other">minut</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minuta</item>
         <item quantity="few">%d minuty</item>
         <item quantity="other">%d minut</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">hodina</item>
-        <item quantity="few">hodiny</item>
-        <item quantity="other">hodin</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hodina</item>
         <item quantity="few">%d hodiny</item>
         <item quantity="other">%d hodin</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">den</item>
-        <item quantity="few">dny</item>
-        <item quantity="other">dní</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d den</item>
         <item quantity="few">%d dny</item>
         <item quantity="other">%d dní</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">týden</item>
-        <item quantity="few">týdny</item>
-        <item quantity="other">týdnů</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d týden</item>
         <item quantity="few">%d týdny</item>
         <item quantity="other">%d týdnů</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">měsíc</item>
-        <item quantity="few">měsíce</item>
-        <item quantity="other">měsíců</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d měsíc</item>
         <item quantity="few">%d měsíce</item>
         <item quantity="other">%d měsíců</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">rok</item>
-        <item quantity="few">roky</item>
-        <item quantity="other">let</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d rok</item>
@@ -317,12 +282,6 @@
     <string name="default_calendar">Výchozí kalendář</string>
     <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
     <string name="bundle_notifications_summary">Seskupit několik upozornění do jednoho</string>
-    <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">první</string>
-    <string name="repeat_monthly_second_week">druhý</string>
-    <string name="repeat_monthly_third_week">třetí</string>
-    <string name="repeat_monthly_fourth_week">čtvrtý</string>
-    <string name="repeat_monthly_last_week">poslední</string>
     <string name="tasker_create_task">Vytvořit úkol</string>
     <string name="tasker_list_notification">Vypsat upozornění</string>
     <string name="help">Nápověda</string>
@@ -449,7 +408,6 @@
     <string name="calendar_event_created">Událost v kalendáři vytvořena pro %s</string>
     <string name="back">Zpět</string>
     <string name="decsync_selection_description">Synchronizace založená na souborech</string>
-    <string name="repeat_monthly_fifth_week">pátý</string>
     <string name="default_recurrence">Výchozí opakování</string>
     <string name="default_tags">Výchozí štítky</string>
     <string name="header_spacing">Mezery</string>
@@ -568,20 +526,6 @@
     <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
     <string name="sort_list">Podle seznamu</string>
     <string name="change_priority">Změnit prioritu</string>
-    <string name="repeats_every">Opakuje se každý</string>
-    <string name="repeat_monthly_on_the_nth_weekday">%1$s. %2$s v měsíci</string>
-    <string name="repeats_after">Po</string>
-    <string name="repeats_custom_recurrence">Vlastní opakování</string>
-    <string name="repeats_never">Nikdy</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">výskyt</item>
-        <item quantity="few">výskyty</item>
-        <item quantity="other">výskytů</item>
-    </plurals>
-    <string name="repeat_monthly_on_day_number">%1d. den v měsíci</string>
-    <string name="repeats_ends">Končí</string>
-    <string name="repeats_on">V</string>
-    <string name="repeats_weekly_on">Opakuje se v</string>
     <string name="theme_dynamic">Dynamické</string>
     <string name="donate_nag">Zvažte podpoření projektu dobrovolným příspěvkem!</string>
     <string name="donate_today">Přispějte dnes</string>

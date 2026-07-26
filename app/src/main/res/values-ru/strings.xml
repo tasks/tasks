@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">Ежедневно</string>
     <string name="default_random_reminder_weekly">Еженедельно</string>
     <string name="default_random_reminder_bi_weekly">Каждые две недели</string>
-    <string name="repeat_option_does_not_repeat">Не повторять</string>
-    <string name="repeat_option_every_day">Ежедневно</string>
-    <string name="repeat_option_every_week">Еженедельно</string>
-    <string name="repeat_option_every_month">Ежемесячно</string>
-    <string name="repeat_option_every_year">Ежегодно</string>
     <string name="repeat_option_custom">Другой…</string>
     <plurals name="task_count">
         <item quantity="one">%d задача</item>
@@ -133,60 +128,30 @@
         <item quantity="few">раза</item>
         <item quantity="many">раз</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">минута</item>
-        <item quantity="few">минуты</item>
-        <item quantity="many">минут</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d минуту</item>
         <item quantity="few">%d минуты</item>
         <item quantity="many">%d минут</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">час</item>
-        <item quantity="few">часа</item>
-        <item quantity="many">часов</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d час</item>
         <item quantity="few">%d часа</item>
         <item quantity="many">%d часов</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">день</item>
-        <item quantity="few">дня</item>
-        <item quantity="many">дней</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дня</item>
         <item quantity="many">%d дней</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">неделю</item>
-        <item quantity="few">недели</item>
-        <item quantity="many">недель</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d неделя</item>
         <item quantity="few">%d недели</item>
         <item quantity="many">%d недель</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">месяц</item>
-        <item quantity="few">месяца</item>
-        <item quantity="many">месяцев</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d месяц</item>
         <item quantity="few">%d месяца</item>
         <item quantity="many">%d месяцев</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">год</item>
-        <item quantity="few">года</item>
-        <item quantity="many">лет</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d год</item>
@@ -321,12 +286,6 @@
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
     <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно</string>
-    <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">первая</string>
-    <string name="repeat_monthly_second_week">вторая</string>
-    <string name="repeat_monthly_third_week">третья</string>
-    <string name="repeat_monthly_fourth_week">четвёртая</string>
-    <string name="repeat_monthly_last_week">последняя</string>
     <string name="tasker_create_task">Создать задачу</string>
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
@@ -493,7 +452,6 @@
     <string name="github_sponsors">Спонсоры GitHub</string>
     <string name="authorization_cancelled">Авторизация отменена</string>
     <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
-    <string name="repeat_monthly_fifth_week">пятая</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
     <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
@@ -571,21 +529,6 @@
     <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
     <string name="TEA_creation_date">Дата создания</string>
     <string name="sort_completion_group">Готовность %s</string>
-    <string name="repeats_weekly_on">Повторять в</string>
-    <string name="repeats_on">В</string>
-    <string name="repeats_after">После</string>
-    <string name="repeats_ends">Завершается</string>
-    <string name="repeat_monthly_on_day_number">Ежемесячно на %1d день</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Ежемесячно в %1$s %2$s</string>
-    <string name="repeats_never">Никогда</string>
-    <string name="repeats_every">Повторять каждые</string>
-    <string name="repeats_custom_recurrence">Пользовательское повторение</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">повторения</item>
-        <item quantity="few">повторений</item>
-        <item quantity="many">повторений</item>
-        <item quantity="other">повторений</item>
-    </plurals>
     <string name="sort_list">Список</string>
     <string name="comment">Комментарий</string>
     <string name="yesterday">Вчера</string>

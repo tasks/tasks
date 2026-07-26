@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">her gün</string>
     <string name="default_random_reminder_weekly">her hafta</string>
     <string name="default_random_reminder_bi_weekly">haftada 2 kez</string>
-    <string name="repeat_option_does_not_repeat">Yinelemez</string>
-    <string name="repeat_option_every_day">Her gün</string>
-    <string name="repeat_option_every_week">Her hafta</string>
-    <string name="repeat_option_every_month">Her ay</string>
-    <string name="repeat_option_every_year">Her yıl</string>
     <string name="repeat_option_custom">Özel…</string>
     <plurals name="task_count">
         <item quantity="one">%d görev</item>
@@ -131,49 +126,25 @@
         <item quantity="one">kez</item>
         <item quantity="other">kez</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">dakika</item>
-        <item quantity="other">dakika</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d dakikada</item>
         <item quantity="other">%d dakikada</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">saat</item>
-        <item quantity="other">saat</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d saatte</item>
         <item quantity="other">%d saatte</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">gün</item>
-        <item quantity="other">gün</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d günde</item>
         <item quantity="other">%d günde</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">hafta</item>
-        <item quantity="other">hafta</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d haftada</item>
         <item quantity="other">%d haftada</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">ay</item>
-        <item quantity="other">ay</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d ayda</item>
         <item quantity="other">%d ayda</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">yıl</item>
-        <item quantity="other">yıl</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d yılda</item>
@@ -304,12 +275,6 @@
     <string name="default_calendar">Öntanımlı takvim</string>
     <string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>
     <string name="bundle_notifications_summary">Birden çok bildirimi tek bildirime birleştir</string>
-    <string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">birinci</string>
-    <string name="repeat_monthly_second_week">ikinci</string>
-    <string name="repeat_monthly_third_week">üçüncü</string>
-    <string name="repeat_monthly_fourth_week">dördüncü</string>
-    <string name="repeat_monthly_last_week">sonuncu</string>
     <string name="tasker_create_task">Görev oluştur</string>
     <string name="tasker_list_notification">Bildirimi listele</string>
     <string name="help">Yardım</string>
@@ -469,7 +434,6 @@
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
     <string name="current_subscription">Geçerli abonelik: %s</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
-    <string name="repeat_monthly_fifth_week">beşinci</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>
     <string name="github_sponsor">Sponsor</string>
@@ -548,19 +512,6 @@
     <string name="sort_completion_group">Tamamlanma %s</string>
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
     <string name="sort_list">Listeye göre</string>
-    <string name="repeats_ends">Biter</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">gerçekleşim</item>
-        <item quantity="other">gerçekleşim</item>
-    </plurals>
-    <string name="repeats_custom_recurrence">Özel yineleme</string>
-    <string name="repeats_every">Her ... yineler</string>
-    <string name="repeats_weekly_on">Yineler</string>
-    <string name="repeats_never">Asla</string>
-    <string name="repeats_on">Şunda</string>
-    <string name="repeats_after">Sonra</string>
-    <string name="repeat_monthly_on_day_number">%1d. günde aylık</string>
-    <string name="repeat_monthly_on_the_nth_weekday">%1$s %2$s günde aylık</string>
     <string name="change_priority">Önceliği değiştir</string>
     <string name="theme_dynamic">Dinamik</string>
     <string name="swipe_to_snooze_time_immediately">hemen</string>

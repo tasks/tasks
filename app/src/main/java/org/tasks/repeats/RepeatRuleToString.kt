@@ -2,6 +2,7 @@ package org.tasks.repeats
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.runBlocking
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.Recur.Frequency
 import net.fortuna.ical4j.model.Recur.Frequency.DAILY
@@ -18,6 +19,7 @@ import net.fortuna.ical4j.model.WeekDay.Day.SU
 import net.fortuna.ical4j.model.WeekDay.Day.TH
 import net.fortuna.ical4j.model.WeekDay.Day.TU
 import net.fortuna.ical4j.model.WeekDay.Day.WE
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.kmp.org.tasks.time.getFullDate
@@ -27,6 +29,14 @@ import java.text.DateFormatSymbols
 import java.util.Calendar
 import java.util.Locale
 import javax.inject.Inject
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.repeat_monthly_every_day_of_nth_week
+import tasks.kmp.generated.resources.repeat_monthly_fifth_week
+import tasks.kmp.generated.resources.repeat_monthly_first_week
+import tasks.kmp.generated.resources.repeat_monthly_fourth_week
+import tasks.kmp.generated.resources.repeat_monthly_last_week
+import tasks.kmp.generated.resources.repeat_monthly_second_week
+import tasks.kmp.generated.resources.repeat_monthly_third_week
 
 class RepeatRuleToString @Inject constructor(
         @param:ApplicationContext private val context: Context,
@@ -34,6 +44,16 @@ class RepeatRuleToString @Inject constructor(
         private val firebase: Firebase
 ) {
     private val weekdays = listOf(*Day.values())
+
+    private val monthlyStrings: MonthlyStrings by lazy {
+        runBlocking {
+            MonthlyStrings(
+                template = getString(Res.string.repeat_monthly_every_day_of_nth_week),
+                lastWeek = getString(Res.string.repeat_monthly_last_week),
+                nthWeek = NTH_WEEK.map { getString(it) },
+            )
+        }
+    }
 
     fun toString(rrule: String?): String? =
         rrule?.takeIf { it.isNotBlank() }?.let { toString(newRecur(it)) }
@@ -129,21 +149,15 @@ class RepeatRuleToString @Inject constructor(
         } else if (rrule.frequency == MONTHLY) {
             val longWeekdays = dfs.weekdays
             val weekdayNum = rrule.dayList[0]
-            val weekday: String
             val dayOfWeekCalendar = Calendar.getInstance(locale)
             dayOfWeekCalendar[Calendar.DAY_OF_WEEK] = weekdayToCalendarDay(weekdayNum.day)
-            weekday = longWeekdays[dayOfWeekCalendar[Calendar.DAY_OF_WEEK]]
-            if (weekdayNum.offset == -1) {
-                context.getString(
-                        R.string.repeat_monthly_every_day_of_nth_week,
-                        context.getString(R.string.repeat_monthly_last_week),
-                        weekday)
+            val weekday = longWeekdays[dayOfWeekCalendar[Calendar.DAY_OF_WEEK]]
+            val nthWeek = if (weekdayNum.offset == -1) {
+                monthlyStrings.lastWeek
             } else {
-                context.getString(
-                        R.string.repeat_monthly_every_day_of_nth_week,
-                        context.getString(NTH_WEEK[weekdayNum.offset - 1]),
-                        weekday)
+                monthlyStrings.nthWeek[weekdayNum.offset - 1]
             }
+            String.format(locale, monthlyStrings.template, nthWeek, weekday)
         } else {
             throw RuntimeException()
         }
@@ -186,13 +200,19 @@ class RepeatRuleToString @Inject constructor(
         }
     }
 
+    private data class MonthlyStrings(
+        val template: String,
+        val lastWeek: String,
+        val nthWeek: List<String>,
+    )
+
     companion object {
-        private val NTH_WEEK = intArrayOf(
-                R.string.repeat_monthly_first_week,
-                R.string.repeat_monthly_second_week,
-                R.string.repeat_monthly_third_week,
-                R.string.repeat_monthly_fourth_week,
-                R.string.repeat_monthly_fifth_week
+        private val NTH_WEEK = listOf(
+                Res.string.repeat_monthly_first_week,
+                Res.string.repeat_monthly_second_week,
+                Res.string.repeat_monthly_third_week,
+                Res.string.repeat_monthly_fourth_week,
+                Res.string.repeat_monthly_fifth_week,
         )
     }
 }

@@ -55,4 +55,37 @@
     <string name="next_friday">ଆସନ୍ତା ଶୁକ୍ର</string>
     <string name="next_saturday">ଆସନ୍ତା ଶନି</string>
     <string name="TEA_note_label">ଵର୍ଣ୍ଣନା</string>
+    <string name="repeat_monthly_first_week">ପ୍ରଥମ</string>
+    <string name="repeat_monthly_second_week">ଦ୍ୱିତୀୟ</string>
+    <string name="repeat_monthly_third_week">ତୃତୀୟ</string>
+    <string name="repeat_monthly_fourth_week">ଚତୁର୍ଥ</string>
+    <string name="repeat_monthly_fifth_week">ପଞ୍ଚମ</string>
+    <string name="repeat_option_every_day">ପ୍ରତିଦିନ</string>
+    <string name="repeat_option_every_week">ପ୍ରତି ସପ୍ତାହ</string>
+    <string name="repeat_option_every_month">ପ୍ରତି ମାସ</string>
+    <string name="repeat_option_every_year">ପ୍ରତିଵର୍ଷ</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">ମିନିଟ୍</item>
+        <item quantity="other">ମିନିଟ୍</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">ଘଣ୍ଟା</item>
+        <item quantity="other">ଘଣ୍ଟା</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">ଦିନ</item>
+        <item quantity="other">ଦିନ</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">ସପ୍ତାହ</item>
+        <item quantity="other">ସପ୍ତାହ</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">ମାସ</item>
+        <item quantity="other">ମାସ</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">ଵର୍ଷ</item>
+        <item quantity="other">ଵର୍ଷ</item>
+    </plurals>
 </resources>

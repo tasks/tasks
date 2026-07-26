@@ -136,11 +136,11 @@
     <string name="about">Sobre</string>
     <string name="widget_settings">Preferències del giny</string>
     <plurals name="task_count">
-        <item quantity="one">%d tasca</item>
-        <item quantity="many">%d tasques</item>
-        <item quantity="other">%d tasques</item>
+        <item quantity="one">%1$d tasca</item>
+        <item quantity="many">%1$d tasques</item>
+        <item quantity="other">%1$d tasques</item>
     </plurals>
-    <string name="delete_tasks_warning">%s serà eliminat. Això no es pot desfer!</string>
+    <string name="delete_tasks_warning">%1$s serà eliminat. Això no es pot desfer!</string>
     <string name="name_cannot_be_empty">El nom no pot ser buit</string>
     <string name="discard_changes">Descarta els canvis?</string>
     <string name="discard">Descarta</string>
@@ -228,4 +228,61 @@
     <string name="no_time">Sense hora</string>
     <string name="TEA_note_label">Descripció</string>
     <string name="start_date">Data d'inici</string>
+    <string name="repeats_custom_recurrence">Recurrència personalitzada</string>
+    <string name="repeats_every">Es repeteix cada</string>
+    <string name="repeats_weekly_on">Repeteix en</string>
+    <string name="repeat_monthly_on_day_number">Cada mes el dia %1$d</string>
+    <string name="repeat_monthly_first_week">primer</string>
+    <string name="repeat_monthly_second_week">segon</string>
+    <string name="repeat_monthly_third_week">tercer</string>
+    <string name="repeat_monthly_fourth_week">quart</string>
+    <string name="repeat_monthly_fifth_week">cinquè</string>
+    <string name="repeat_monthly_last_week">últim</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Cada mes el %1$s %2$s</string>
+    <string name="repeats_ends">Finalitza</string>
+    <string name="repeats_never">Mai</string>
+    <string name="repeats_on">En</string>
+    <string name="repeats_after">Després</string>
+    <string name="repeat_option_does_not_repeat">No es repeteix</string>
+    <string name="repeat_option_every_day">Cada dia</string>
+    <string name="repeat_option_every_week">Setmanalment</string>
+    <string name="repeat_option_every_month">Mensualment</string>
+    <string name="repeat_option_every_year">Anualment</string>
+    <string name="repeat_option_custom">Personalitza…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minut</item>
+        <item quantity="many">minuts</item>
+        <item quantity="other">minuts</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">hora</item>
+        <item quantity="many">hores</item>
+        <item quantity="other">hores</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">dia</item>
+        <item quantity="many">dies</item>
+        <item quantity="other">dies</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">setmana</item>
+        <item quantity="many">setmanes</item>
+        <item quantity="other">setmanes</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mes</item>
+        <item quantity="many">mesos</item>
+        <item quantity="other">mesos</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">any</item>
+        <item quantity="many">anys</item>
+        <item quantity="other">anys</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">aparició</item>
+        <item quantity="many">aparicions</item>
+        <item quantity="other">aparicions</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">cada %1$s %2$s</string>
 </resources>

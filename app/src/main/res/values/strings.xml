@@ -165,16 +165,7 @@ File %1$s contained %2$s.\n\n
   <string name="default_random_reminder_daily">Daily</string>
   <string name="default_random_reminder_weekly">Weekly</string>
   <string name="default_random_reminder_bi_weekly">Bi-weekly</string>
-  <string name="repeat_option_does_not_repeat">Does not repeat</string>
-  <string name="repeat_option_every_day">Every day</string>
-  <string name="repeat_option_every_week">Every week</string>
-  <string name="repeat_option_every_month">Every month</string>
-  <string name="repeat_option_every_year">Every year</string>
   <string name="repeat_option_custom">Custom…</string>
-  <plurals name="repeat_occurrence">
-    <item quantity="one">occurrence</item>
-    <item quantity="other">occurrences</item>
-  </plurals>
   <plurals name="task_count">
     <item quantity="one">%d task</item>
     <item quantity="other">%d tasks</item>
@@ -182,10 +173,6 @@ File %1$s contained %2$s.\n\n
   <plurals name="repeat_times">
     <item quantity="one">time</item>
     <item quantity="other">times</item>
-  </plurals>
-  <plurals name="repeat_minutes">
-    <item quantity="one">minute</item>
-    <item quantity="other">minutes</item>
   </plurals>
   <plurals name="reminder_minutes">
     <item quantity="one">Minute</item>
@@ -195,10 +182,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d minute</item>
     <item quantity="other">%d minutes</item>
   </plurals>
-  <plurals name="repeat_hours">
-    <item quantity="one">hour</item>
-    <item quantity="other">hours</item>
-  </plurals>
   <plurals name="reminder_hours">
     <item quantity="one">Hour</item>
     <item quantity="other">Hours</item>
@@ -206,10 +189,6 @@ File %1$s contained %2$s.\n\n
   <plurals name="repeat_n_hours">
     <item quantity="one">%d hour</item>
     <item quantity="other">%d hours</item>
-  </plurals>
-  <plurals name="repeat_days">
-    <item quantity="one">day</item>
-    <item quantity="other">days</item>
   </plurals>
   <plurals name="reminder_days">
     <item quantity="one">Day</item>
@@ -219,10 +198,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d day</item>
     <item quantity="other">%d days</item>
   </plurals>
-  <plurals name="repeat_weeks">
-    <item quantity="one">week</item>
-    <item quantity="other">weeks</item>
-  </plurals>
   <plurals name="reminder_week">
     <item quantity="one">Week</item>
     <item quantity="other">Weeks</item>
@@ -231,17 +206,9 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d week</item>
     <item quantity="other">%d weeks</item>
   </plurals>
-  <plurals name="repeat_months">
-    <item quantity="one">month</item>
-    <item quantity="other">months</item>
-  </plurals>
   <plurals name="repeat_n_months">
     <item quantity="one">%d month</item>
     <item quantity="other">%d months</item>
-  </plurals>
-  <plurals name="repeat_years">
-    <item quantity="one">year</item>
-    <item quantity="other">years</item>
   </plurals>
   <plurals name="repeat_n_years">
     <item quantity="one">%d year</item>
@@ -399,13 +366,6 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_weekly">weekly</string>
   <string name="repeats_monthly">monthly</string>
   <string name="repeats_yearly">yearly</string>
-  <string name="repeats_custom_recurrence">Custom recurrence</string>
-  <string name="repeats_every">Repeats every</string>
-  <string name="repeats_weekly_on">Repeats on</string>
-  <string name="repeats_never">Never</string>
-  <string name="repeats_on">On</string>
-  <string name="repeats_after">After</string>
-  <string name="repeats_ends">Ends</string>
   <string name="repeats_plural">Repeats every %s</string>
   <string name="repeats_plural_on">Repeats every %1$s on %2$s</string>
   <string name="repeats_plural_until">Repeats every %1$s, ends on %2$s</string>
@@ -420,15 +380,6 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_time_enabled_off">Do not add default reminders to all day tasks</string>
   <string name="badges_description">Display a task count on Tasks\' launcher icon. Not all launchers support badges.</string>
   <string name="bundle_notifications_summary">Combine multiple notifications into one</string>
-  <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
-  <string name="repeat_monthly_on_day_number">Monthly on day %1d</string>
-  <string name="repeat_monthly_on_the_nth_weekday">Monthly on the %1$s %2$s</string>
-  <string name="repeat_monthly_first_week">first</string>
-  <string name="repeat_monthly_second_week">second</string>
-  <string name="repeat_monthly_third_week">third</string>
-  <string name="repeat_monthly_fourth_week">fourth</string>
-  <string name="repeat_monthly_fifth_week">fifth</string>
-  <string name="repeat_monthly_last_week">last</string>
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
   <string name="help">Help</string>

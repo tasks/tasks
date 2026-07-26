@@ -55,13 +55,6 @@
     <string name="help">Ajutor</string>
     <string name="tasker_list_notification">Listă de notificare</string>
     <string name="tasker_create_task">Crează o sarcină</string>
-    <string name="repeat_monthly_last_week">ultima</string>
-    <string name="repeat_monthly_fifth_week">a cincea</string>
-    <string name="repeat_monthly_fourth_week">a patra</string>
-    <string name="repeat_monthly_third_week">a treia</string>
-    <string name="repeat_monthly_second_week">a doua</string>
-    <string name="repeat_monthly_first_week">prima</string>
-    <string name="repeat_monthly_every_day_of_nth_week">în fiecare %1$s %2$s</string>
     <string name="bundle_notifications_summary">Combină mai multe notificări într-una singură</string>
     <string name="badges_description">Afișarea numărului de sarcini pe pictograma de lansare a aplicației Tasks. Nu toate lansatoarele acceptă insigne.</string>
     <string name="default_calendar">Calendar implicit</string>
@@ -204,50 +197,25 @@
     <string name="TEA_timer_comment_stopped">a încetat să mai facă această sarcină:</string>
     <string name="TEA_timer_comment_started">a început această activitate:</string>
     <string name="TEA_timer_controls">Cronometru</string>
-    <plurals name="repeat_months">
-        <item quantity="one">lună</item>
-        <item quantity="few">luni</item>
-        <item quantity="other">luni</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d săptămână</item>
         <item quantity="few">%d săptămâni</item>
         <item quantity="other">%d săptămâni</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">săptămâna</item>
-        <item quantity="few">săptămâni</item>
-        <item quantity="other">săptămâni</item>
     </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d zi</item>
         <item quantity="few">%d zile</item>
         <item quantity="other">%d zile</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">zi</item>
-        <item quantity="few">zile</item>
-        <item quantity="other">zile</item>
-    </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d oră</item>
         <item quantity="few">%d ore</item>
         <item quantity="other">%d ore</item>
     </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">oră</item>
-        <item quantity="few">ore</item>
-        <item quantity="other">ore</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minut</item>
         <item quantity="few">%d minute</item>
         <item quantity="other">%d minute</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minut</item>
-        <item quantity="few">minute</item>
-        <item quantity="other">minute</item>
     </plurals>
     <plurals name="repeat_times">
         <item quantity="one">dată</item>
@@ -260,11 +228,6 @@
         <item quantity="other">%d sarcini</item>
     </plurals>
     <string name="repeat_option_custom">Personalizat…</string>
-    <string name="repeat_option_every_year">În fiecare an</string>
-    <string name="repeat_option_every_month">În fiecare lună</string>
-    <string name="repeat_option_every_week">În fiecare săptămână</string>
-    <string name="repeat_option_every_day">Zilnic</string>
-    <string name="repeat_option_does_not_repeat">Nu se repetă</string>
     <string name="default_random_reminder_bi_weekly">Bi-săptămânal</string>
     <string name="default_random_reminder_weekly">Săptămânal</string>
     <string name="default_random_reminder_daily">Zilnic</string>
@@ -506,11 +469,6 @@
         <item quantity="few">%d ani</item>
         <item quantity="other">%d ani</item>
     </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">an</item>
-        <item quantity="few">ani</item>
-        <item quantity="other">ani</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d lună</item>
         <item quantity="few">%d luni</item>
@@ -570,23 +528,9 @@
     <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
     <string name="TEA_creation_date">Data creării</string>
     <string name="change_priority">Schimbă prioritatea</string>
-    <string name="repeats_every">Se repetă fiecare</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Lunar la %1$s %2$s</string>
-    <string name="repeats_after">După</string>
     <string name="sort_list">După listă</string>
     <string name="ok">OK</string>
-    <string name="repeats_custom_recurrence">Repetare personalizată</string>
-    <string name="repeats_never">Niciodată</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">repetare</item>
-        <item quantity="few">repetări</item>
-        <item quantity="other">repetări</item>
-    </plurals>
     <string name="cancel">Anulează</string>
-    <string name="repeat_monthly_on_day_number">Lunar la %1d</string>
-    <string name="repeats_ends">Se încheie</string>
-    <string name="repeats_on">La</string>
-    <string name="repeats_weekly_on">Se repetă la</string>
     <string name="show_edit_screen_without_unlock">Afișează ecranul de editare fără deblocare</string>
     <string name="app_settings">Setările aplicației</string>
     <string name="swipe_to_snooze_time_description">O notificare eliminată va fi amânată și recreată %s</string>

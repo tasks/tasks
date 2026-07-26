@@ -117,11 +117,6 @@
     <string name="default_random_reminder_daily">Щоденно</string>
     <string name="default_random_reminder_weekly">Щотижнево</string>
     <string name="default_random_reminder_bi_weekly">Кожні два тижні</string>
-    <string name="repeat_option_does_not_repeat">Не повторювати</string>
-    <string name="repeat_option_every_day">Щодня</string>
-    <string name="repeat_option_every_week">Щотижня</string>
-    <string name="repeat_option_every_month">Щомісяця</string>
-    <string name="repeat_option_every_year">Щороку</string>
     <string name="repeat_option_custom">Інше…</string>
     <plurals name="task_count">
         <item quantity="one">%d завдання</item>
@@ -133,60 +128,30 @@
         <item quantity="few">рази</item>
         <item quantity="many">разів</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">хвилина</item>
-        <item quantity="few">хвилини</item>
-        <item quantity="many">хвилин</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d хвилина</item>
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">година</item>
-        <item quantity="few">години</item>
-        <item quantity="many">годин</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d година</item>
         <item quantity="few">%d години</item>
         <item quantity="many">%d годин</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">день</item>
-        <item quantity="few">дні</item>
-        <item quantity="many">днів</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d день</item>
         <item quantity="few">%d дні</item>
         <item quantity="many">%d днів</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">тиждень</item>
-        <item quantity="few">тижні</item>
-        <item quantity="many">тижнів</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d тиждень</item>
         <item quantity="few">%d тижні</item>
         <item quantity="many">%d тижнів</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">місяць</item>
-        <item quantity="few">місяці</item>
-        <item quantity="many">місяців</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="one">%d місяць</item>
         <item quantity="few">%d місяці</item>
         <item quantity="many">%d місяців</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">рік</item>
-        <item quantity="few">роки</item>
-        <item quantity="many">років</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d рік</item>
@@ -321,12 +286,6 @@
     <string name="default_calendar">Типовий календар</string>
     <string name="badges_description">Показувати кількість завдань на піктограмі запуску Tasks. Не всі лаунчери підтримують такі значки.</string>
     <string name="bundle_notifications_summary">Групувати кілька сповіщень в одне</string>
-    <string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">перший</string>
-    <string name="repeat_monthly_second_week">другий</string>
-    <string name="repeat_monthly_third_week">третій</string>
-    <string name="repeat_monthly_fourth_week">четвертий</string>
-    <string name="repeat_monthly_last_week">останній</string>
     <string name="tasker_create_task">Створити завдання</string>
     <string name="tasker_list_notification">Список повідомлень</string>
     <string name="help">Довідка</string>
@@ -477,7 +436,6 @@
     <string name="whats_new">Що нового</string>
     <string name="background_location_permission_required">Tasks збирає дані геолокації, щоб активувати нагадування на основі розташування навіть коли застосунок закритий або не використовується.</string>
     <string name="action_new_task">Нове завдання</string>
-    <string name="repeat_monthly_fifth_week">п’ятий</string>
     <string name="widget_due_date_hidden">Сховано</string>
     <string name="widget_due_date_below_title">Під назвою</string>
     <string name="widget_due_date_after_title">Після назви</string>
@@ -572,21 +530,6 @@
     <string name="TEA_creation_date">Дата створення</string>
     <string name="sort_completion_group">Завершення %s</string>
     <string name="sort_list">За списком</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">повторення</item>
-        <item quantity="few">повторення</item>
-        <item quantity="many">повторень</item>
-        <item quantity="other">повторень</item>
-    </plurals>
-    <string name="repeats_custom_recurrence">Користувацьке повторення</string>
-    <string name="repeats_every">Повторюється кожні</string>
-    <string name="repeats_weekly_on">Повторюється</string>
-    <string name="repeats_on">" "</string>
-    <string name="repeats_after">Після</string>
-    <string name="repeats_ends">Завершується</string>
-    <string name="repeats_never">Ніколи</string>
-    <string name="repeat_monthly_on_day_number">Щомісяця у %1d</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Щомісяця %1$s %2$s</string>
     <string name="change_priority">Змінити пріоритет</string>
     <string name="theme_dynamic">Динамічна</string>
     <string name="donate_today">Підтримати сьогодні</string>

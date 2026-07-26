@@ -173,9 +173,9 @@
     <string name="about">Tentang</string>
     <string name="widget_settings">Pengaturan wisaya</string>
     <plurals name="task_count">
-        <item quantity="other">%d tugas</item>
+        <item quantity="other">%1$d tugas</item>
     </plurals>
-    <string name="delete_tasks_warning">%s akan dihapus. Ini tidak dapat dibatalkan!</string>
+    <string name="delete_tasks_warning">%1$s akan dihapus. Ini tidak dapat dibatalkan!</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="discard_changes">Buang perubahan?</string>
     <string name="discard">Buang</string>
@@ -351,4 +351,47 @@
     <string name="no_time">Tidak ada waktu</string>
     <string name="TEA_note_label">Deskripsi</string>
     <string name="start_date">Tanggal mulai</string>
+    <string name="repeats_custom_recurrence">Pengulangan kustom</string>
+    <string name="repeats_every">Berulang setiap</string>
+    <string name="repeats_weekly_on">Berulang pada</string>
+    <string name="repeat_monthly_on_day_number">Bulanan pada hari ke-%1$d</string>
+    <string name="repeat_monthly_first_week">pertama</string>
+    <string name="repeat_monthly_second_week">kedua</string>
+    <string name="repeat_monthly_third_week">ketiga</string>
+    <string name="repeat_monthly_fourth_week">keempat</string>
+    <string name="repeat_monthly_fifth_week">kelima</string>
+    <string name="repeat_monthly_last_week">terakhir</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Bulanan pada %1$s %2$s</string>
+    <string name="repeats_ends">Berakhir</string>
+    <string name="repeats_never">Tidak pernah</string>
+    <string name="repeats_on">Pada</string>
+    <string name="repeats_after">Setelah</string>
+    <string name="repeat_option_does_not_repeat">Tidak berulang</string>
+    <string name="repeat_option_every_day">Setiap hari</string>
+    <string name="repeat_option_every_week">Setiap minggu</string>
+    <string name="repeat_option_every_month">Setiap bulan</string>
+    <string name="repeat_option_every_year">Setiap tahun</string>
+    <string name="repeat_option_custom">Khusus…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="other">menit</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="other">jam</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="other">hari</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="other">minggu</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="other">bulan</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="other">tahun</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="other">kemunculan</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">setiap %1$s %2$s</string>
 </resources>

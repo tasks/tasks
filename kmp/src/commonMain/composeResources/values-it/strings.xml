@@ -284,4 +284,61 @@
     <string name="no_time">Senza ora</string>
     <string name="TEA_note_label">Descrizione</string>
     <string name="start_date">Data di inizio</string>
+    <string name="repeats_custom_recurrence">Ricorrenza personalizzata</string>
+    <string name="repeats_every">Si ripete ogni</string>
+    <string name="repeats_weekly_on">Ripeti il</string>
+    <string name="repeat_monthly_on_day_number">Mensilmente il giorno %1$d</string>
+    <string name="repeat_monthly_first_week">primo</string>
+    <string name="repeat_monthly_second_week">secondo</string>
+    <string name="repeat_monthly_third_week">terzo</string>
+    <string name="repeat_monthly_fourth_week">quarto</string>
+    <string name="repeat_monthly_fifth_week">quinto</string>
+    <string name="repeat_monthly_last_week">ultimo</string>
+    <string name="repeat_monthly_on_the_nth_weekday">Mensilmente il %1$s %2$s</string>
+    <string name="repeats_ends">Termina</string>
+    <string name="repeats_never">Mai</string>
+    <string name="repeats_on">Il</string>
+    <string name="repeats_after">Dopo</string>
+    <string name="repeat_option_does_not_repeat">Non si ripete</string>
+    <string name="repeat_option_every_day">Ogni giorno</string>
+    <string name="repeat_option_every_week">Ogni settimana</string>
+    <string name="repeat_option_every_month">Ogni mese</string>
+    <string name="repeat_option_every_year">Ogni anno</string>
+    <string name="repeat_option_custom">Personalizzato…</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuto</item>
+        <item quantity="many">minuti</item>
+        <item quantity="other">minuti</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">ora</item>
+        <item quantity="many">ore</item>
+        <item quantity="other">ore</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">giorno</item>
+        <item quantity="many">giorni</item>
+        <item quantity="other">giorni</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">settimana</item>
+        <item quantity="many">settimane</item>
+        <item quantity="other">settimane</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">mese</item>
+        <item quantity="many">mesi</item>
+        <item quantity="other">mesi</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">anno</item>
+        <item quantity="many">anni</item>
+        <item quantity="other">anni</item>
+    </plurals>
+    <plurals name="repeat_occurrence">
+        <item quantity="one">Occorrenza</item>
+        <item quantity="many">Occorrenze</item>
+        <item quantity="other">Occorrenze</item>
+    </plurals>
+    <string name="repeat_monthly_every_day_of_nth_week">ogni %1$s %2$s</string>
 </resources>

@@ -28,6 +28,7 @@ import tasks.kmp.generated.resources.none
 import tasks.kmp.generated.resources.priority_high
 import tasks.kmp.generated.resources.priority_low
 import tasks.kmp.generated.resources.priority_medium
+import tasks.kmp.generated.resources.repeat_option_does_not_repeat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -83,6 +84,8 @@ class TaskDefaultsViewModel @Inject constructor(
             getString(Res.string.none),
         )
     }
+    private val doesNotRepeat: String =
+        runBlocking { getString(Res.string.repeat_option_does_not_repeat) }
     val importanceValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_importance_values)
     val startDateEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_hideUntil)
     val startDateValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_hideUntil_values)
@@ -279,7 +282,7 @@ class TaskDefaultsViewModel @Inject constructor(
                     null
                 }
             }
-            ?: context.getString(R.string.repeat_option_does_not_repeat)
+            ?: doesNotRepeat
     }
 
     fun refreshReminders() {

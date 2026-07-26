@@ -21,7 +21,7 @@ class CustomRecurrenceActivity : FragmentActivity() {
     @Inject lateinit var theme: Theme
     @Inject lateinit var preferences: Preferences
 
-    val viewModel: CustomRecurrenceViewModel by viewModels()
+    val viewModel: CustomRecurrenceHiltViewModel by viewModels()
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onPostCreate(savedInstanceState: Bundle?) {

@@ -14,30 +14,6 @@
     </plurals>
     <string name="delete_task">Forigi taskon</string>
     <string name="delete_tag_confirmation">Forigi %s\?</string>
-    <plurals name="repeat_years">
-        <item quantity="one">jaro</item>
-        <item quantity="other">jaroj</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">monato</item>
-        <item quantity="other">monatoj</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">semajno</item>
-        <item quantity="other">semajnoj</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">tago</item>
-        <item quantity="other">tagoj</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">horo</item>
-        <item quantity="other">horoj</item>
-    </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuto</item>
-        <item quantity="other">minutoj</item>
-    </plurals>
     <plurals name="repeat_times">
         <item quantity="one">fojo</item>
         <item quantity="other">fojoj</item>
@@ -92,20 +68,8 @@
     <string name="custom_filter_has_subtask">Kun subtaskoj</string>
     <string name="subtasks">Subtaskoj</string>
     <string name="TEA_add_subtask">Aldoni subtaskon</string>
-    <string name="repeat_option_every_year">Ĉiujare</string>
-    <string name="repeat_option_every_month">Ĉiumonate</string>
-    <string name="repeat_option_every_day">Ĉiutage</string>
-    <string name="repeat_option_every_week">Ĉiusemajne</string>
-    <string name="repeat_option_does_not_repeat">Ne ripetiĝas</string>
-    <string name="repeat_monthly_every_day_of_nth_week">ĉiu %1$s %2$s</string>
     <string name="filter_today_only">Nur hodiaŭ</string>
     <string name="chip_appearance_text_only">Nur teksto</string>
-    <string name="repeat_monthly_last_week">lasta</string>
-    <string name="repeat_monthly_fifth_week">kvina</string>
-    <string name="repeat_monthly_fourth_week">kvara</string>
-    <string name="repeat_monthly_third_week">tria</string>
-    <string name="repeat_monthly_second_week">dua</string>
-    <string name="repeat_monthly_first_week">unua</string>
     <string name="repeats_yearly">ĉiujare</string>
     <string name="repeats_monthly">ĉiumonate</string>
     <string name="repeats_weekly">ĉiusemajne</string>
@@ -350,11 +314,7 @@
     <string name="support">Helpo</string>
     <string name="upgrade_open_source_description">Via abono subtenas daŭratan programadon</string>
     <string name="collapse_subtasks">Maletendi subtaskojn</string>
-    <string name="repeats_on">Ĉe</string>
-    <string name="repeats_ends">Finiĝas</string>
     <string name="default_calendar">Defaŭlta kalendaro</string>
-    <string name="repeats_weekly_on">Ripetiĝas ĉe</string>
-    <string name="repeats_after">Post</string>
     <string name="logout">Elsaluti</string>
     <string name="default_location_reminder_on_arrival_or_departure">Post alveno kaj foriro</string>
     <string name="back">Reen</string>
@@ -387,7 +347,6 @@
         <item quantity="other">Tagoj</item>
     </plurals>
     <string name="take_a_picture">Foti</string>
-    <string name="repeats_never">Neniam</string>
     <string name="bundle_notifications_summary">Unuigi multajn sciigojn kiel unu</string>
     <string name="help">Helpo</string>
     <string name="building_notifications">Generas sciigojn</string>
@@ -412,10 +371,6 @@
     <string name="filter_any_start_date">Ajna komencodato</string>
     <string name="rmd_EPr_quiet_hours_start_title">Komenco de kviethoroj</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fino de Kviethoroj</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="one">okazo</item>
-        <item quantity="other">okazoj</item>
-    </plurals>
     <string name="repeat_type_due">limdato</string>
     <string name="repeat_type_completion">plenumiga dato</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos tasknomojn dum memorigi</string>
@@ -530,11 +485,8 @@
     <string name="wearable_notifications_summary">Vidigi sciigojn per via portebla aparato</string>
     <string name="opacity_header">Kapa netravideblo</string>
     <string name="clear_completed_tasks_confirmation">Ĉu forigi finitajn taskojn?</string>
-    <string name="repeat_monthly_on_day_number">Monate ĉe la %1d tago</string>
     <string name="date_shortcut_must_come_before">%1$s devas esti antaŭ %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s devas esti post %2$s</string>
-    <string name="repeats_custom_recurrence">Propra ripetiĝo</string>
-    <string name="repeat_monthly_on_the_nth_weekday">Monate ĉe la %1$s%2$s</string>
     <string name="custom_filter_has_reminder">Kun memorigilo</string>
     <string name="no_google_play_subscription">Ne trovis elekteblan Google Play abonon</string>
     <string name="completion_sound">Ludi plenumigan sonon</string>
@@ -549,7 +501,6 @@
     <string name="repeats_plural_on_number_of_times">Ripetiĝas ĉiu %1$s ĉe %2$s, okazas %3$d%4$s</string>
     <string name="wearable_notifications">Sciigoj per portebla aparataro</string>
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
-    <string name="repeats_every">Ripetiĝas ĉiu</string>
     <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>

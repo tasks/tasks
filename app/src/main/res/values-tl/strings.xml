@@ -15,30 +15,6 @@
     <string name="gcal_TEA_error">Kamalian sa pagdadagdag ng gawain sa kalendaryo!</string>
     <string name="gcal_TEA_showCalendar_label">Buksan ang pangyayari sa kalendaryo</string>
     <string name="gcal_completed_title">%s (naganap)</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">minuto</item>
-        <item quantity="other">mga minuto</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">oras</item>
-        <item quantity="other">hours</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">araw</item>
-        <item quantity="other">mga araw</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">linggo</item>
-        <item quantity="other">mga linggo</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">buwan</item>
-        <item quantity="other">mga buwan</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">taon</item>
-        <item quantity="other">mga taon</item>
-    </plurals>
     <string name="delete_task">Tanggalin gawain</string>
     <string name="translations">Umambag ng pagsasalin</string>
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>

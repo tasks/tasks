@@ -82,30 +82,6 @@
     <string name="default_random_reminder_daily">هر روز</string>
     <string name="default_random_reminder_weekly">هر هفته</string>
     <string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
-    <plurals name="repeat_minutes">
-        <item quantity="one">دقیقه(ها)</item>
-        <item quantity="other">دقیقه ها</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">ساعت</item>
-        <item quantity="other">ساعت ها</item>
-    </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">روز</item>
-        <item quantity="other">روز ها</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">هفته</item>
-        <item quantity="other">هفته ها</item>
-    </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">ماه</item>
-        <item quantity="other">ماه ها</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">سال</item>
-        <item quantity="other">سال ها</item>
-    </plurals>
     <string name="repeat_type_due">تاریخ موعود</string>
     <string name="repeat_type_completion">تاریخ اتمام</string>
     <string name="new_tag">ایجاد تگ جدید</string>

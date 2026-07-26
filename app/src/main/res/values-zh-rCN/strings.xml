@@ -111,11 +111,6 @@
     <string name="default_random_reminder_daily">每天</string>
     <string name="default_random_reminder_weekly">每周</string>
     <string name="default_random_reminder_bi_weekly">每两周</string>
-    <string name="repeat_option_does_not_repeat">不重复</string>
-    <string name="repeat_option_every_day">每天</string>
-    <string name="repeat_option_every_week">每周</string>
-    <string name="repeat_option_every_month">每月</string>
-    <string name="repeat_option_every_year">每年</string>
     <string name="repeat_option_custom">自定义…</string>
     <plurals name="task_count">
         <item quantity="other">%d 个任务</item>
@@ -123,48 +118,24 @@
     <plurals name="repeat_times">
         <item quantity="other">次</item>
     </plurals>
-    <plurals name="repeat_minutes">
-        <item quantity="one">分钟</item>
-        <item quantity="other">分钟</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 分钟</item>
         <item quantity="other">%d 分钟</item>
-    </plurals>
-    <plurals name="repeat_hours">
-        <item quantity="one">小时</item>
-        <item quantity="other">小时</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d 个小时</item>
         <item quantity="other">%d 个小时</item>
     </plurals>
-    <plurals name="repeat_days">
-        <item quantity="one">天</item>
-        <item quantity="other">天</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d 天</item>
         <item quantity="other">%d 天</item>
-    </plurals>
-    <plurals name="repeat_weeks">
-        <item quantity="one">周</item>
-        <item quantity="other">周</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d 周</item>
         <item quantity="other">%d 周</item>
     </plurals>
-    <plurals name="repeat_months">
-        <item quantity="one">月</item>
-        <item quantity="other">月</item>
-    </plurals>
     <plurals name="repeat_n_months">
         <item quantity="other">%d 个月</item>
-    </plurals>
-    <plurals name="repeat_years">
-        <item quantity="one">年</item>
-        <item quantity="other">年</item>
     </plurals>
     <plurals name="repeat_n_years">
         <item quantity="one">%d 年</item>
@@ -292,12 +263,6 @@
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
     <string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
-    <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
-    <string name="repeat_monthly_first_week">第一个</string>
-    <string name="repeat_monthly_second_week">第二个</string>
-    <string name="repeat_monthly_third_week">第三个</string>
-    <string name="repeat_monthly_fourth_week">第四个</string>
-    <string name="repeat_monthly_last_week">最后一个</string>
     <string name="tasker_create_task">创建任务</string>
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
@@ -465,7 +430,6 @@
     <string name="current_subscription">当前订阅：%s</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
     <string name="background_location_permission_required">Tasks 收集位置数据，以启用基于位置的提醒，即使应用已关闭或未使用。</string>
-    <string name="repeat_monthly_fifth_week">第五</string>
     <string name="authorization_cancelled">授权被取消</string>
     <string name="sign_in_with_google">使用 Google 登录</string>
     <string name="github_sponsor">赞助者</string>
@@ -540,18 +504,6 @@
     <string name="TEA_creation_date">创建日期</string>
     <string name="sort_completion_group">完成时间 %s</string>
     <string name="sort_list">按清单</string>
-    <string name="repeats_every">重复频率</string>
-    <string name="repeats_weekly_on">重复于</string>
-    <string name="repeats_never">永不</string>
-    <string name="repeats_on">于</string>
-    <string name="repeats_custom_recurrence">自定义重复周期</string>
-    <plurals name="repeat_occurrence">
-        <item quantity="other">次发生</item>
-    </plurals>
-    <string name="repeats_after">前有</string>
-    <string name="repeats_ends">结束</string>
-    <string name="repeat_monthly_on_day_number">每月 %1d 日</string>
-    <string name="repeat_monthly_on_the_nth_weekday">每月的%1$s%2$s</string>
     <string name="change_priority">更改优先级</string>
     <string name="theme_dynamic">动态</string>
     <string name="swipe_to_snooze_time_description">清除的通知将被推迟并于 %s 被再次创建</string>

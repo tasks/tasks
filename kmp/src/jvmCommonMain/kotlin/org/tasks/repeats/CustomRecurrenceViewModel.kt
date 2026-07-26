@@ -1,8 +1,6 @@
 package org.tasks.repeats
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,9 +17,6 @@ import net.fortuna.ical4j.model.WeekDayList
 import net.fortuna.ical4j.model.property.RRule
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
-import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_DATE
-import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_RRULE
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -32,11 +27,11 @@ import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 import java.util.Locale
-import javax.inject.Inject
 
-@HiltViewModel
-class CustomRecurrenceViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+open class CustomRecurrenceViewModel(
+    rrule: String?,
+    dueDate: Long,
+    accountType: Int,
     locale: Locale,
 ) : ViewModel() {
     data class ViewState(
@@ -77,21 +72,20 @@ class CustomRecurrenceViewModel @Inject constructor(
 
     init {
         val daysOfWeek = locale.daysOfWeek()
-        val recur = savedStateHandle.get<String>(EXTRA_RRULE)
+        val recur = rrule
             ?.takeIf { it.isNotBlank() }
             ?.let { RRule(it) }
             ?.recur
-        val dueDate = savedStateHandle
-            .get<Long>(EXTRA_DATE)
-            ?.takeIf { it > 0 }
+        val resolvedDueDate = dueDate
+            .takeIf { it > 0 }
             ?: currentTimeMillis().startOfDay()
-        val isMicrosoftTask = savedStateHandle.get<Int>(EXTRA_ACCOUNT_TYPE) == TYPE_MICROSOFT
+        val isMicrosoftTask = accountType == TYPE_MICROSOFT
         val frequencies = if (isMicrosoftTask) FREQ_MICROSOFT else FREQ_ALL
         _state.update { state ->
             state.copy(
                 interval = recur?.interval?.takeIf { it > 0 } ?: 1,
                 frequency = recur?.frequency?.takeIf { frequencies.contains(it) } ?: WEEKLY,
-                dueDate = dueDate,
+                dueDate = resolvedDueDate,
                 endSelection = when {
                     isMicrosoftTask -> 0
                     recur == null -> 0
@@ -99,7 +93,7 @@ class CustomRecurrenceViewModel @Inject constructor(
                     recur.count >= 0 -> 2
                     else -> 0
                 },
-                endDate = DateTime(dueDate).plusMonths(1).startOfDay().millis,
+                endDate = DateTime(resolvedDueDate).plusMonths(1).startOfDay().millis,
                 endCount = recur?.count?.takeIf { it >= 0 } ?: 1,
                 daysOfWeek = daysOfWeek,
                 selectedDays = recur
