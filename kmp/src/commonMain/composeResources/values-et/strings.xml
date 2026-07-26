@@ -357,4 +357,11 @@
     <string name="sync_metadata">Salvesta sildi metaandmed siia</string>
     <string name="TEA_note_label">Kirjeldus</string>
     <string name="start_date">Alguskuupäev</string>
+    <string name="metadata_not_supported">See server ei toeta siltide metaandmete sünkroonimist</string>
+    <string name="not_signed_in">Sa pole sisse loginud</string>
+    <string name="sync_metadata_summary">Salvesta siltide nimed, värvid, ikoonid ja kuvamisjärjekord oma kasutajakonto juures ning saad neid pruukida kõikides oma seadmetes</string>
+    <string name="metadata_stored_on_tasks_org">Salvestatud sinu Tasks.org kasutajakonto juures</string>
+    <string name="metadata_stored_on_account">Hetkel salvestatud %1$s kasutajakonto juures</string>
+    <string name="metadata_move_message">Hetkel salvestatud %1$s kasutajakonto juures. Kas tõstad ümber selle konto juurde?</string>
+    <string name="add_tag">Lisa silt</string>
 </resources>
