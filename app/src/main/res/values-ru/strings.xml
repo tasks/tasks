@@ -15,7 +15,7 @@
     <string name="DLG_hour_minutes">Время (часы : минуты)</string>
     <string name="DLG_undo">Отменить</string>
     <string name="WID_dateButtonUnset">Нажмите, чтобы установить</string>
-    <string name="TLA_no_items">Здесь нет задач</string>
+    <string name="TLA_no_items">Здесь нет задач.</string>
     <string name="TLA_menu_sort">Сортировка</string>
     <string name="TLA_menu_search">Поиск</string>
     <string name="TLA_menu_settings">Настройки</string>
@@ -645,4 +645,14 @@
     <string name="default_reminder">Задачи на весь день</string>
     <string name="rmd_time_enabled_on">Добавить напоминания по умолчанию для задач на весь день</string>
     <string name="rmd_time_enabled_off">Не добавлять напоминания по умолчанию для задач на весь день</string>
+    <string name="sort_options">Параметры сортировки</string>
+    <string name="add_default_reminders">Добавить напоминания по умолчанию</string>
+    <string name="banner_subscription_required_title">Необходима подписка</string>
+    <string name="banner_subscription_required_body">Заплатите любую сумму, чтобы разблокировать синхронизацию %s</string>
+    <string name="subscription_required_fdroid">Для использования синхронизации Tasks.org требуется подписка. Оформить подписку можно только через версию Tasks в Google Play.</string>
+    <string name="sponsorship_required_fdroid">Для использования синхронизации Tasks.org требуется спонсорство на GitHub. Нажмите ниже, чтобы стать спонсором.</string>
+    <string name="email_to_task_address">Ваш адрес электронной почты</string>
+    <string name="guest_create_list_message">У вас гостевой доступ к общим спискам. Чтобы создавать и синхронизировать свои приватные списки с облаком, нужна подписка Tasks.org. Также вы можете создать бесплатный локальный список — он будет храниться только на этом устройстве.</string>
+    <string name="upgrade_desktop_app">Tasks.org для компьютера</string>
+    <string name="upgrade_desktop_app_description">Ранний доступ к новому настольному приложению</string>
 </resources>
