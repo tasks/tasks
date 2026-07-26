@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.app.ApplicationExitInfo
@@ -8,9 +9,11 @@ import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.JobIntentService
+import androidx.core.os.ConfigurationCompat
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -50,6 +53,7 @@ import org.tasks.sync.SyncSource
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -76,6 +80,7 @@ class TasksApplication : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+        syncComposeResourceLocale()
         buildSetup.setup()
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -140,6 +145,34 @@ class TasksApplication : Application(), Configuration.Provider {
         } else {
             firebase.registerPrefChangeListener()
         }
+    }
+
+    private fun syncComposeResourceLocale() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return
+        }
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            private fun sync(activity: Activity) {
+                val locale =
+                    ConfigurationCompat.getLocales(activity.resources.configuration)[0] ?: return
+                if (Locale.getDefault() != locale) {
+                    Locale.setDefault(locale)
+                }
+            }
+
+            override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) =
+                sync(activity)
+
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) =
+                sync(activity)
+
+            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityResumed(activity: Activity) {}
+            override fun onActivityPaused(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
     }
 
     private fun backgroundWork() = scope.launch {
