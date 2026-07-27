@@ -55,7 +55,7 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
                             withContext(NonCancellable) {
                                 removeAccount()
                             }
-                            activity?.onBackPressed()
+                            activity?.onBackPressedDispatcher?.onBackPressed()
                         }
                     }
                     .setNegativeButton(R.string.cancel, null)

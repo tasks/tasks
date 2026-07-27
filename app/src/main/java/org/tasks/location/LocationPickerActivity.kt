@@ -9,6 +9,7 @@ import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -97,7 +98,17 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
     private var searchJob: Job? = null
     private val viewModel: PlaceSearchViewModel by viewModels()
     private var systemBarsBottom = 0
-    
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            if (closeSearch()) {
+                return
+            }
+            if (offset != 0) {
+                collapseToolbar()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -142,6 +153,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         search = menu.findItem(R.id.menu_search)
         search.setOnActionExpandListener(this)
         toolbar.setOnMenuItemClickListener(this)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         val dark = theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
@@ -160,6 +172,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
             }
             this.offset = offset
             toolbar.alpha = abs(offset / appBarLayout.totalScrollRange.toFloat())
+            onBackPressedCallback.isEnabled = search.isActionViewExpanded || offset != 0
         }
         coordinatorLayout.addOnLayoutChangeListener(
                 object : View.OnLayoutChangeListener {
@@ -199,17 +212,6 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         mapPosition
                 ?.let { map.movePosition(it, false) }
                 ?: moveToCurrentLocation(false)
-    }
-
-    override fun onBackPressed() {
-        if (closeSearch()) {
-            return
-        }
-        if (offset != 0) {
-            collapseToolbar()
-            return
-        }
-        super.onBackPressed()
     }
 
     private fun closeSearch(): Boolean = search.isActionViewExpanded && search.collapseActionView()
@@ -413,6 +415,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         search.setOnQueryTextListener(this)
         searchAdapter!!.submitList(emptyList())
         recyclerView.adapter = searchAdapter
+        onBackPressedCallback.isEnabled = true
         return true
     }
 
@@ -422,6 +425,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         if (places.isEmpty()) {
             collapseToolbar()
         }
+        onBackPressedCallback.isEnabled = offset != 0
         return true
     }
 
