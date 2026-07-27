@@ -178,7 +178,7 @@
     <string name="caldav_server_other">Alia</string>
     <string name="caldav_server_type">Speco de servilo</string>
     <string name="caldav_server_unknown">Nekonata</string>
-    <string name="error_adding_account">Eraro: %s</string>
+    <string name="error_adding_account">Eraro: %1$s</string>
     <string name="invalid_username_or_password">Nevalida uzantnomo aŭ pasvorto</string>
     <string name="network_error">Ne povas konekti</string>
     <string name="sign_in">Ensaluti</string>

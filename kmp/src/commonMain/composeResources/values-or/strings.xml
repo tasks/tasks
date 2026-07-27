@@ -31,7 +31,7 @@
     <string name="preferences_advanced">ଵିକଶିତ</string>
     <string name="about">ସମ୍ବନ୍ଧରେ</string>
     <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
-    <string name="error_adding_account">ତ୍ରୁଟି: %s</string>
+    <string name="error_adding_account">ତ୍ରୁଟି: %1$s</string>
     <string name="network_error">ସଂଯୋଗ କରିହେଲା ନାହିଁ</string>
     <string name="url_invalid_scheme">http(s):// ସହ ଆରମ୍ଭ ହେବା ଦରକାର</string>
     <string name="url_required">URL ଆଵଶ୍ୟକ</string>

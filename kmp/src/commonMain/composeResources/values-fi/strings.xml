@@ -164,7 +164,7 @@
     <string name="caldav_server_other">Muu</string>
     <string name="caldav_server_type">Palvelimen tyyppi</string>
     <string name="caldav_server_unknown">Tuntematon</string>
-    <string name="error_adding_account">Virhe: %s</string>
+    <string name="error_adding_account">Virhe: %1$s</string>
     <string name="invalid_username_or_password">Virheellinen käyttäjätunnus tai salasana</string>
     <string name="network_error">Yhteyttä ei saatu</string>
     <string name="sign_in">Kirjaudu sisään</string>

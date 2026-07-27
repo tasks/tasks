@@ -188,7 +188,7 @@
     <string name="caldav_server_other">Egyéb</string>
     <string name="caldav_server_type">Szerver típusa</string>
     <string name="caldav_server_unknown">Ismeretlen</string>
-    <string name="error_adding_account">Hiba: %s</string>
+    <string name="error_adding_account">Hiba: %1$s</string>
     <string name="invalid_username_or_password">Hibás felhasználónév vagy jelszó</string>
     <string name="network_error">Sikertelen kapcsolódás</string>
     <string name="sign_in">Bejelentkezés</string>

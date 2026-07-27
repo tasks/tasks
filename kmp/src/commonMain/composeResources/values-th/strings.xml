@@ -123,7 +123,7 @@
     <plurals name="list_count">
         <item quantity="other">รายการ %1$d</item>
     </plurals>
-    <string name="error_adding_account">ข้อผิดพลาด: %s</string>
+    <string name="error_adding_account">ข้อผิดพลาด: %1$s</string>
     <string name="invalid_username_or_password">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
     <string name="network_error">ไม่สามารถเชื่อมต่อได้</string>
     <string name="url_host_name_required">ต้องการชื่อโฮสต์</string>

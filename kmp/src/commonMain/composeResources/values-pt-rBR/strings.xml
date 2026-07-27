@@ -153,7 +153,7 @@
     <string name="caldav_server_other">Outro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconhecido</string>
-    <string name="error_adding_account">Erro: %s</string>
+    <string name="error_adding_account">Erro: %1$s</string>
     <string name="invalid_username_or_password">Nome de usuário ou senha inválido</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="sign_in">Fazer login</string>

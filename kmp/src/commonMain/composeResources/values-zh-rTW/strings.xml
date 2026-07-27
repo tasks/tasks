@@ -184,7 +184,7 @@
     <string name="caldav_server_other">其他</string>
     <string name="caldav_server_type">伺服器類型</string>
     <string name="caldav_server_unknown">未知</string>
-    <string name="error_adding_account">錯誤: %s</string>
+    <string name="error_adding_account">錯誤: %1$s</string>
     <string name="invalid_username_or_password">無效的使用者名稱或密碼</string>
     <string name="network_error">無法連接</string>
     <string name="sign_in">登入</string>

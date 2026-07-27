@@ -132,7 +132,7 @@
     <string name="caldav_server_other">Bestelakoa</string>
     <string name="caldav_server_type">Zerbitzari-mota</string>
     <string name="caldav_server_unknown">Ezezaguna</string>
-    <string name="error_adding_account">Errorea: %s</string>
+    <string name="error_adding_account">Errorea: %1$s</string>
     <string name="invalid_username_or_password">Erabiltzaile-izen edo pasahitz okerra</string>
     <string name="network_error">Ezin izan da konektatu</string>
     <string name="sign_in">Saioa hasi</string>

@@ -168,7 +168,7 @@
     <string name="caldav_server_other">Andere</string>
     <string name="caldav_server_type">Type server</string>
     <string name="caldav_server_unknown">Onbekend</string>
-    <string name="error_adding_account">Fout: %s</string>
+    <string name="error_adding_account">Fout: %1$s</string>
     <string name="invalid_username_or_password">Ongeldige gebruikersnaam of wachtwoord</string>
     <string name="network_error">Verbinding niet gelukt</string>
     <string name="sign_in">Log in</string>

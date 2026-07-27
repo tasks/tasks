@@ -174,7 +174,7 @@
     <string name="caldav_server_other">Друго</string>
     <string name="caldav_server_type">Тип сервера</string>
     <string name="caldav_server_unknown">Непознато</string>
-    <string name="error_adding_account">Грешка: %s</string>
+    <string name="error_adding_account">Грешка: %1$s</string>
     <string name="invalid_username_or_password">Невалидно корисничко име или шифра</string>
     <string name="network_error">Повезивање безуспешно</string>
     <string name="sign_in">Пријави се</string>

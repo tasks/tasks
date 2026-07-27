@@ -141,7 +141,7 @@
     <string name="caldav_server_other">Annet</string>
     <string name="caldav_server_type">Tjenertype</string>
     <string name="caldav_server_unknown">Ukjent</string>
-    <string name="error_adding_account">Feil: %s</string>
+    <string name="error_adding_account">Feil: %1$s</string>
     <string name="invalid_username_or_password">Ugyldig brukernavn eller passord</string>
     <string name="network_error">Kunne ikke koble til</string>
     <string name="sign_in">Logg inn</string>

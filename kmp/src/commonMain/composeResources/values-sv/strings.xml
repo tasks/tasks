@@ -163,7 +163,7 @@
     <string name="caldav_server_other">Annan</string>
     <string name="caldav_server_type">Servertyp</string>
     <string name="caldav_server_unknown">Okänd</string>
-    <string name="error_adding_account">Fel: %s</string>
+    <string name="error_adding_account">Fel: %1$s</string>
     <string name="invalid_username_or_password">Ogiltigt användarnamn eller lösenord</string>
     <string name="network_error">Kunde inte ansluta</string>
     <string name="sign_in">Logga in</string>

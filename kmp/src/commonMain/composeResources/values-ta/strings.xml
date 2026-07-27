@@ -151,7 +151,7 @@
     <string name="caldav_server_other">மற்றொன்று</string>
     <string name="caldav_server_type">சேவையக வகை</string>
     <string name="caldav_server_unknown">தெரியவில்லை</string>
-    <string name="error_adding_account">பிழை: %s</string>
+    <string name="error_adding_account">பிழை: %1$s</string>
     <string name="invalid_username_or_password">தவறான பயனர்பெயர் அல்லது கடவுச்சொல்</string>
     <string name="network_error">இணைக்க முடியவில்லை</string>
     <string name="sign_in">விடுபதிகை</string>

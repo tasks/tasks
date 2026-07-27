@@ -151,7 +151,7 @@
     <string name="caldav_server_other">Άλλο</string>
     <string name="caldav_server_type">Τύπος διακομιστή</string>
     <string name="caldav_server_unknown">Άγνωστο</string>
-    <string name="error_adding_account">Σφάλμα: %s</string>
+    <string name="error_adding_account">Σφάλμα: %1$s</string>
     <string name="invalid_username_or_password">Μη έγκυρο όνομα χρήστη ή κωδικός</string>
     <string name="network_error">Η σύνδεση απέτυχε</string>
     <string name="sign_in">Συνδεθείτε</string>

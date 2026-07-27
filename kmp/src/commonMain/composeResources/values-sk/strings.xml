@@ -151,7 +151,7 @@
     <string name="caldav_server_other">Ďalšie</string>
     <string name="caldav_server_type">Typ servera</string>
     <string name="caldav_server_unknown">Neznámy</string>
-    <string name="error_adding_account">Chyba: %s</string>
+    <string name="error_adding_account">Chyba: %1$s</string>
     <string name="invalid_username_or_password">Neplatné meno používateľa alebo heslo</string>
     <string name="network_error">Chyba pripojenia</string>
     <string name="sign_in">Prihlásiť sa</string>

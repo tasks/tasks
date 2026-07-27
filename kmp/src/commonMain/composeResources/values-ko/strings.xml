@@ -150,7 +150,7 @@
     <string name="caldav_server_other">기타</string>
     <string name="caldav_server_type">서버 유형</string>
     <string name="caldav_server_unknown">미정</string>
-    <string name="error_adding_account">오류: %s</string>
+    <string name="error_adding_account">오류: %1$s</string>
     <string name="invalid_username_or_password">유효하지 않은 사용자명과 비밀번호</string>
     <string name="network_error">연결 실패</string>
     <string name="sign_in">로그인</string>

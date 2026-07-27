@@ -151,7 +151,7 @@
     <string name="caldav_server_other">Outro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconhecido</string>
-    <string name="error_adding_account">Erro: %s</string>
+    <string name="error_adding_account">Erro: %1$s</string>
     <string name="invalid_username_or_password">Nome de utilizador ou palavra-passe inválido</string>
     <string name="network_error">Não foi possível conectar</string>
     <string name="sign_in">Iniciar sessão</string>
@@ -277,7 +277,7 @@
     <string name="error_network">Erro ao conectar. Verifique a sua conexão com a internet.</string>
     <string name="error_no_sponsorship">Patrocínio não encontrado</string>
     <string name="error_sponsorship_delay">Novos patrocínios podem não estar disponíveis imediatamente, tente de novo em alguns minutos.</string>
-    <string name="pricing_from">De %1s</string>
+    <string name="pricing_from">De %1$s</string>
     <string name="pricing_recommended">Recomendado</string>
     <string name="annual">Anual</string>
     <string name="monthly">Mensal</string>

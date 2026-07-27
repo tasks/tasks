@@ -172,7 +172,7 @@
     <string name="caldav_server_other">Andet</string>
     <string name="caldav_server_type">Servertype</string>
     <string name="caldav_server_unknown">Ukendt</string>
-    <string name="error_adding_account">Fejl: %s</string>
+    <string name="error_adding_account">Fejl: %1$s</string>
     <string name="invalid_username_or_password">Ugyldigt brugernavn eller adgangskode</string>
     <string name="network_error">Kunne ikke oprette forbindelse</string>
     <string name="sign_in">Log ind</string>

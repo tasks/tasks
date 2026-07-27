@@ -126,7 +126,7 @@
         <item quantity="one">ලැයිස්තු %1$d</item>
         <item quantity="other">ලැයිස්තුන් %1$d</item>
     </plurals>
-    <string name="error_adding_account">දෝෂය: %s</string>
+    <string name="error_adding_account">දෝෂය: %1$s</string>
     <string name="invalid_username_or_password">අවලංගු පරිශීලක නාමයක් හෝ මුරපදයකි</string>
     <string name="network_error">සම්බන්ධ වීමට නොහැකි විය</string>
     <string name="url_host_name_required">ධාරක නාමය (Hostname) අවශ්‍යයි</string>

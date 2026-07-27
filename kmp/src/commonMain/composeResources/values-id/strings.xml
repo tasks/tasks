@@ -186,7 +186,7 @@
     <string name="caldav_server_other">Lainnya</string>
     <string name="caldav_server_type">Tipe server</string>
     <string name="caldav_server_unknown">Tidak diketahui</string>
-    <string name="error_adding_account">Galat: %s</string>
+    <string name="error_adding_account">Galat: %1$s</string>
     <string name="invalid_username_or_password">Nama pengguna dan kata sandi salah</string>
     <string name="network_error">Tidak dapat terkoneksi</string>
     <string name="sign_in">Masuk</string>

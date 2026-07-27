@@ -88,7 +88,7 @@
         <item quantity="one">%1$d فہرست</item>
         <item quantity="other">%1$d فہسرتیں</item>
     </plurals>
-    <string name="error_adding_account">ایرر:%s</string>
+    <string name="error_adding_account">ایرر:%1$s</string>
     <string name="network_error">رابطہ نہیں ہو سکا</string>
     <string name="url_host_name_required">ہوسٹ کا نام مطلوب ہے</string>
     <string name="url_invalid_scheme">http(s):// کے ساتھ شروع ہونا ضروری ہے</string>

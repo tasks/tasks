@@ -181,7 +181,7 @@
     <string name="caldav_server_other">Друг</string>
     <string name="caldav_server_type">Вид на сървъра</string>
     <string name="caldav_server_unknown">Неизвестен</string>
-    <string name="error_adding_account">Грешка: %s</string>
+    <string name="error_adding_account">Грешка: %1$s</string>
     <string name="invalid_username_or_password">Невалидно потребителско име или парола</string>
     <string name="network_error">Не може да бъде осъществена връзка</string>
     <string name="sign_in">Вход</string>

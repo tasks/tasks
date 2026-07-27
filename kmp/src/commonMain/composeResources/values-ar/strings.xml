@@ -159,7 +159,7 @@
     <string name="caldav_server_other">آخر</string>
     <string name="caldav_server_type">نوع الخادم</string>
     <string name="caldav_server_unknown">غير معروف</string>
-    <string name="error_adding_account">خطأ: %s</string>
+    <string name="error_adding_account">خطأ: %1$s</string>
     <string name="invalid_username_or_password">خطأ في اسم المستخدم أو كلمة مرور</string>
     <string name="network_error">لم يمكن الاتصال</string>
     <string name="sign_in">سجل دخولك</string>
