@@ -263,7 +263,7 @@
     <string name="cloud_onboarding_not_now">Jetzt nicht</string>
     <string name="cloud_onboarding_faq_title">Häufige Fragen</string>
     <string name="cloud_onboarding_welcome_body">Mit Google anmelden, um dein Cloud-Konto für Tasks.org zu erstellen</string>
-    <string name="cloud_onboarding_create_list_title">Los geht\'s</string>
+    <string name="cloud_onboarding_create_list_title">Los geht's</string>
     <string name="cloud_onboarding_create_list_body">Erstelle eine Liste und beginne damit Aufgaben hinzuzufügen.</string>
     <string name="cloud_onboarding_faq_google_access_question">Kann Google auf meine Daten zugreifen?</string>
     <string name="cloud_onboarding_faq_google_access_answer">Nein. Google wird zur Authentifizierung verwendet, deine Daten sind aber auf Servern von Tasks.org gespeichert.</string>

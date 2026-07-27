@@ -240,8 +240,8 @@
     <string name="link_desktop_description">Desbloquea la aplicación de escritorio con tu suscripción a Google Play</string>
     <string name="link_desktop_instructions">Abre la aplicación de escritorio de Tasks.org y ve a Añadir cuenta para ver el código QR. A continuación, pulsa el botón de abajo para escanearlo.</string>
     <string name="link_desktop_step_1">Abre la aplicación de escritorio de Tasks.org</string>
-    <string name="link_desktop_step_2">Haz clic en \'%1$s\' y selecciona \'%2$s\'</string>
-    <string name="link_desktop_step_3">Selecciona \'%1$s\'</string>
+    <string name="link_desktop_step_2">Haz clic en '%1$s' y selecciona '%2$s'</string>
+    <string name="link_desktop_step_3">Selecciona '%1$s'</string>
     <string name="scan_qr_code">Escanear el código QR</string>
     <string name="link_desktop_success">¡El escritorio se ha vinculado correctamente!</string>
     <string name="link_desktop_error">No se ha podido vincular el escritorio. Inténtalo de nuevo.</string>

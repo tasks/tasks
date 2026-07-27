@@ -259,7 +259,7 @@
     <string name="terms_of_service_proper">Kasutustingimustega</string>
     <string name="privacy_policy_proper">Andmekaitsepõhimõtetega</string>
     <string name="gplv3_license">GPLv3 litsentsi</string>
-    <string name="migrate_to_cloud">Tõsta ülesanded Tasks.org\'i pilveteenusesse</string>
+    <string name="migrate_to_cloud">Tõsta ülesanded Tasks.org'i pilveteenusesse</string>
     <string name="this_device_only">Vaid see seade</string>
     <string name="logout_confirmation">Kas logid välja „%1$s“ teenusest?</string>
     <string name="wrong_account">Sisselogimine ei õnnestunud</string>
@@ -320,7 +320,7 @@
     <string name="pricing_sponsor">Või toeta teenuses GitHub Sponsors summas %1$s</string>
     <string name="create_a_list">Koosta loend</string>
     <string name="cloud_onboarding_welcome_title">Tere tulemast kasutama Tasks.org-i pilveteenust (Tasks.org Cloud)</string>
-    <string name="cloud_onboarding_welcome_body">Endale Tasks.org-i pilveteenuse konto lisamiseks logi sisse Google\'i autentimisega</string>
+    <string name="cloud_onboarding_welcome_body">Endale Tasks.org-i pilveteenuse konto lisamiseks logi sisse Google'i autentimisega</string>
     <string name="cloud_onboarding_not_now">Mitte praegu</string>
     <string name="cloud_onboarding_faq_title">Korduma kippuvad küsimused</string>
     <string name="cloud_onboarding_create_list_title">Esimesed tegevused</string>
@@ -328,7 +328,7 @@
     <string name="cloud_onboarding_faq_google_access_question">Kas Google näeb minu andmeid?</string>
     <string name="cloud_onboarding_faq_google_access_answer">Ei. Google on kasutusel autentimiseks, aga andmed on salvestatud Tasks.org-i serverites.</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Kuidas ma saan andmeid sünkroonida töölauarakendusega?</string>
-    <string name="cloud_onboarding_faq_desktop_sync_answer">Laadi töölauarakendus alla tasks.org/download lehelt ja logi sisse sama Google\'i kontoga.</string>
+    <string name="cloud_onboarding_faq_desktop_sync_answer">Laadi töölauarakendus alla tasks.org/download lehelt ja logi sisse sama Google'i kontoga.</string>
     <string name="google_tasks_permission_not_granted">Google Tasksi õigused on puudu. Palun logi uuesti sisse ja luba nõusoleku vaatest kasutada Google Tasksi.</string>
     <string name="new_tag">Loo uus silt</string>
     <string name="enter_tag_name">Sisesta sildi nimi</string>

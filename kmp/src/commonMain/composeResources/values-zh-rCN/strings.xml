@@ -245,12 +245,12 @@
     <string name="pricing_sponsor">或在 GitHub 上以 %1$s 赞助</string>
     <string name="app_settings">应用设置</string>
     <string name="link_desktop_step_1">打开 Tasks.org 桌面应用</string>
-    <string name="link_desktop_step_2">单击 \'%1$s\' 选择 \'%2$s\'</string>
-    <string name="link_desktop_step_3">选择 \'%1$s\'</string>
+    <string name="link_desktop_step_2">单击 '%1$s' 选择 '%2$s'</string>
+    <string name="link_desktop_step_3">选择 '%1$s'</string>
     <string name="unlock_pro_scan_heading">在 Tasks.org 安卓应用中扫描二维码</string>
     <string name="unlock_pro_step_1">在手机上打开 Tasks.org</string>
-    <string name="unlock_pro_step_2">轻触 \'%1$s\'，然后轻触 \'%2$s\'</string>
-    <string name="unlock_pro_step_3">轻触 \'%1$s\'</string>
+    <string name="unlock_pro_step_2">轻触 '%1$s'，然后轻触 '%2$s'</string>
+    <string name="unlock_pro_step_3">轻触 '%1$s'</string>
     <string name="error_no_sponsorship">未发现赞助</string>
     <string name="error_sponsorship_delay">新赞助可能不会立即可用，请几分钟后重试。</string>
     <string name="error_contact_support">如果问题持续，请联系 %1$s</string>

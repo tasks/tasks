@@ -285,12 +285,12 @@
     <string name="caldav_server_synology_calendar">Calendário Synology</string>
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="link_desktop_step_1">Abrir o app Tasks.org no desktop</string>
-    <string name="link_desktop_step_2">Clique em \'%1$s\' e selecione \'%2$s\'</string>
-    <string name="link_desktop_step_3">Selecione \'%1$s\'</string>
+    <string name="link_desktop_step_2">Clique em '%1$s' e selecione '%2$s'</string>
+    <string name="link_desktop_step_3">Selecione '%1$s'</string>
     <string name="unlock_pro_scan_heading">Escaneie o QR code no app Tasks.org no Android</string>
     <string name="unlock_pro_step_1">Abra Tasks.org no seu celular</string>
-    <string name="unlock_pro_step_2">Clique em \'%1$s\', então clique em \'%2$s\'</string>
-    <string name="unlock_pro_step_3">Clique em \'%1$s\'</string>
+    <string name="unlock_pro_step_2">Clique em '%1$s', então clique em '%2$s'</string>
+    <string name="unlock_pro_step_3">Clique em '%1$s'</string>
     <string name="error_no_sponsorship">Patrocínio não encontrado</string>
     <string name="error_sponsorship_delay">Novos patrocínios podem não estar disponíveis imediatamente, tente de novo em alguns minutos.</string>
     <string name="new_tag">Criar nova etiqueta</string>
