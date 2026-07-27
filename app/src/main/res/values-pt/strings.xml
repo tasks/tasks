@@ -132,16 +132,6 @@
         <item quantity="one">%d semana</item>
         <item quantity="other">%d semanas</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mês</item>
-        <item quantity="other">%d meses</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d ano</item>
-        <item quantity="other">%d anos</item>
-    </plurals>
-    <string name="repeat_type_due">data de fim</string>
-    <string name="repeat_type_completion">Data de conclusão</string>
     <string name="repeat_snackbar">%1$s agendada para %2$s</string>
     <string name="new_tag">Criar nova etiqueta</string>
     <string name="new_list">Criar nova lista</string>
@@ -236,24 +226,7 @@
     <string name="bundle_notifications">Agrupar notificações</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Repetir de</string>
-    <string name="repeats_single">Repetir %s</string>
-    <string name="repeats_single_on">Repetir %1$s em %2$s</string>
-    <string name="repeats_single_until">Repetir %1$s, termina em %2$s</string>
-    <string name="repeats_single_number_of_times">Repetir %1$s, ocorre %2$d %3$s</string>
-    <string name="repeats_single_on_until">Repetir %1$s em %2$s, termina em %3$s</string>
-    <string name="repeats_single_on_number_of_times">Repetir %1$s em %2$s, ocorre %3$d %4$s</string>
-    <string name="repeats_minutely">a cada minuto</string>
-    <string name="repeats_hourly">de hora em hora</string>
-    <string name="repeats_daily">diariamente</string>
-    <string name="repeats_weekly">semanalmente</string>
-    <string name="repeats_monthly">mensalmente</string>
-    <string name="repeats_yearly">anualmente</string>
-    <string name="repeats_plural">Repetir a cada %s</string>
-    <string name="repeats_plural_on">Repetir a cada %1$s em %2$s</string>
-    <string name="repeats_plural_until">Repetir a cada %1$s, termina em %2$s</string>
     <string name="repeats_plural_number_of_times">Repetir a cada %1$s, ocorre %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Repetir a cada %1$s em %2$s, termina em %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Repetir a cada %1$s em %2$s, ocorre %3$d %4$s</string>
     <string name="dont_add_to_calendar">Não adicionar ao calendário</string>
     <string name="default_calendar">Calendário predefinido</string>
     <string name="bundle_notifications_summary">Combinar várias notificações numa só</string>

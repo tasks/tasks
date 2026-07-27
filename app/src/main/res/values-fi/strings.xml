@@ -134,16 +134,6 @@
         <item quantity="one">%d viikko</item>
         <item quantity="other">%d viikkoa</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d kuukausi</item>
-        <item quantity="other">%d kuukautta</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d vuosi</item>
-        <item quantity="other">%d vuotta</item>
-    </plurals>
-    <string name="repeat_type_due">määräpäivä</string>
-    <string name="repeat_type_completion">valmistumispäivä</string>
     <string name="repeat_snackbar">%1$s uudelleenajastettu %2$s</string>
     <string name="new_tag">Luo uusi tunniste</string>
     <string name="new_list">Luo uusi lista</string>
@@ -238,24 +228,7 @@
     <string name="badges">Merkit</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Toista alkaen</string>
-    <string name="repeats_single">Toista %s</string>
-    <string name="repeats_single_on">Toista %1$s - %2$s</string>
-    <string name="repeats_single_until">Toistaa %1$s, päättyy %2$s</string>
-    <string name="repeats_single_number_of_times">Toista %1$s, tapahtuu %2$d %3$s</string>
-    <string name="repeats_single_on_until">Toistuu %1$s %2$s:ssa, päättyy %3$s</string>
-    <string name="repeats_single_on_number_of_times">Toista %1$s - %2$s, tapahtuu %3$d %4$s</string>
-    <string name="repeats_minutely">minuuteittain</string>
-    <string name="repeats_hourly">tunneittain</string>
-    <string name="repeats_daily">päivittäin</string>
-    <string name="repeats_weekly">Viikoittain</string>
-    <string name="repeats_monthly">Kuukausittain</string>
-    <string name="repeats_yearly">vuosittain</string>
-    <string name="repeats_plural">Toista joka %s</string>
-    <string name="repeats_plural_on">Toista joka %1$s - %2$s</string>
-    <string name="repeats_plural_until">Toistaa joka %1$s, päättyy %2$s</string>
     <string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Toistaa joka %1$s %2$s:ssa, päättyy %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Toista joka %1$s - %2$s, tapahtuu %3$d %4$s</string>
     <string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
     <string name="default_calendar">Oletus kalenteri</string>
     <string name="badges_description">Näytä tehtävien lukumäärä Tasksin käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>

@@ -373,4 +373,56 @@
         <item quantity="other">okazoj</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">ĉiu %1$s %2$s</string>
+    <string name="repeats_single">Ripetiĝas %1$s</string>
+    <string name="repeats_single_on">Ripetiĝas %1$s je %2$s</string>
+    <string name="repeats_single_until">Ripetiĝas %1$s, finiĝos %2$s</string>
+    <string name="repeats_single_number_of_times">Ripetiĝas %1$s, okazas %2$d %3$s</string>
+    <string name="repeats_single_on_until">Ripetiĝas %1$s je %2$s, finiĝos %3$s</string>
+    <string name="repeats_single_on_number_of_times">Ripetiĝas %1$s je %2$s, okazas %3$d%4$s</string>
+    <string name="repeats_plural">Ripetiĝas ĉiu %1$s</string>
+    <string name="repeats_plural_on">Ripetiĝas ĉiu %1$s je %2$s</string>
+    <string name="repeats_plural_until">Ripetiĝas ĉiu %1$s, finiĝos %2$s</string>
+    <string name="repeats_plural_number_of_times">Ripetiĝas ĉiu %1$s, okazas %2$d%3$s</string>
+    <string name="repeats_plural_on_until">Ripetiĝas ĉiu %1$s ĉe %2$s, finiĝos %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Ripetiĝas ĉiu %1$s ĉe %2$s, okazas %3$d%4$s</string>
+    <string name="repeats_minutely">ĉiuminute</string>
+    <string name="repeats_hourly">ĉiuhore</string>
+    <string name="repeats_daily">ĉiutage</string>
+    <string name="repeats_weekly">ĉiusemajne</string>
+    <string name="repeats_monthly">ĉiumonate</string>
+    <string name="repeats_yearly">ĉiujare</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Ripetiĝas de</string>
+    <string name="repeat_type_due">limdato</string>
+    <string name="repeat_type_completion">plenumiga dato</string>
+    <string name="TEA_control_repeat">Ripeti</string>
+    <plurals name="repeat_times">
+        <item quantity="one">fojo</item>
+        <item quantity="other">fojoj</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="other">%1$d minutoj</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d horo</item>
+        <item quantity="other">%1$d horoj</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d tago</item>
+        <item quantity="other">%1$d tagoj</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d semajno</item>
+        <item quantity="other">%1$d semajnoj</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d monato</item>
+        <item quantity="other">%1$d monatoj</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d jaro</item>
+        <item quantity="other">%1$d jaroj</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Plenumiga dato</string>
 </resources>

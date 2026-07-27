@@ -291,4 +291,56 @@
         <item quantity="other">tapahtumat</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">joka %1$s %2$s</string>
+    <string name="repeats_single">Toista %1$s</string>
+    <string name="repeats_single_on">Toista %1$s - %2$s</string>
+    <string name="repeats_single_until">Toistaa %1$s, päättyy %2$s</string>
+    <string name="repeats_single_number_of_times">Toista %1$s, tapahtuu %2$d %3$s</string>
+    <string name="repeats_single_on_until">Toistuu %1$s %2$s:ssa, päättyy %3$s</string>
+    <string name="repeats_single_on_number_of_times">Toista %1$s - %2$s, tapahtuu %3$d %4$s</string>
+    <string name="repeats_plural">Toista joka %1$s</string>
+    <string name="repeats_plural_on">Toista joka %1$s - %2$s</string>
+    <string name="repeats_plural_until">Toistaa joka %1$s, päättyy %2$s</string>
+    <string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Toistaa joka %1$s %2$s:ssa, päättyy %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Toista joka %1$s - %2$s, tapahtuu %3$d %4$s</string>
+    <string name="repeats_minutely">minuuteittain</string>
+    <string name="repeats_hourly">tunneittain</string>
+    <string name="repeats_daily">päivittäin</string>
+    <string name="repeats_weekly">Viikoittain</string>
+    <string name="repeats_monthly">Kuukausittain</string>
+    <string name="repeats_yearly">vuosittain</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Toista alkaen</string>
+    <string name="repeat_type_due">määräpäivä</string>
+    <string name="repeat_type_completion">valmistumispäivä</string>
+    <string name="TEA_control_repeat">Toista</string>
+    <plurals name="repeat_times">
+        <item quantity="one">aika</item>
+        <item quantity="other">ajat</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minuutti</item>
+        <item quantity="other">%1$d minuuttia</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d tunti</item>
+        <item quantity="other">%1$d tuntia</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d päivä</item>
+        <item quantity="other">%1$d päivää</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d viikko</item>
+        <item quantity="other">%1$d viikkoa</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d kuukausi</item>
+        <item quantity="other">%1$d kuukautta</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d vuosi</item>
+        <item quantity="other">%1$d vuotta</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
 </resources>

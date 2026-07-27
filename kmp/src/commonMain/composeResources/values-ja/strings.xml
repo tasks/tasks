@@ -376,4 +376,55 @@
     <string name="sync_metadata_summary">タグ名や色、アイコンや並び方をこのアカウントに保存し、あなたの他のデバイスで同期</string>
     <string name="metadata_stored_on_tasks_org">あなたのTasks.orgアカウントに保存済み</string>
     <string name="metadata_stored_on_account">現在、%1$sに保存</string>
+    <string name="repeats_single">%1$s 繰り返し</string>
+    <string name="repeats_single_on">%1$s を %2$s に繰り返し</string>
+    <string name="repeats_single_until">%1$s を繰り返し、%2$s に終了</string>
+    <string name="repeats_single_number_of_times">%1$s を %2$d %3$s に繰り返し</string>
+    <string name="repeats_single_on_until">%2$s に %1$s を繰り返し、%3$s に終了</string>
+    <string name="repeats_single_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
+    <string name="repeats_plural">%1$s ごとに繰り返し</string>
+    <string name="repeats_plural_on">%1$s ごとに %2$s に繰り返し</string>
+    <string name="repeats_plural_until">%1$s ごとに %2$s まで繰り返し</string>
+    <string name="repeats_plural_number_of_times">%1$s ごとに %2$d %3$s 繰り返し</string>
+    <string name="repeats_plural_on_until">毎%1$sの%2$sに繰り返し、%3$sに終了</string>
+    <string name="repeats_plural_on_number_of_times">%1$s を %2$s に %3$d %4$s 繰り返し</string>
+    <string name="repeats_minutely">…分ごとに</string>
+    <string name="repeats_hourly">…時間ごとに</string>
+    <string name="repeats_daily">…日ごとに</string>
+    <string name="repeats_weekly">…週ごとに</string>
+    <string name="repeats_monthly">…か月ごとに</string>
+    <string name="repeats_yearly">…年ごとに</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">繰り返し開始</string>
+    <string name="repeat_type_due">締切日時</string>
+    <string name="repeat_type_completion">完了日</string>
+    <string name="TEA_control_repeat">繰り返し</string>
+    <plurals name="repeat_times">
+        <item quantity="one">回</item>
+        <item quantity="other">回</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d 分</item>
+        <item quantity="other">%1$d 分</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d 時間</item>
+        <item quantity="other">%1$d 時間</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d 日</item>
+        <item quantity="other">%1$d 日</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d 週間</item>
+        <item quantity="other">%1$d 週間</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="other">%1$d か月</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d 年</item>
+        <item quantity="other">%1$d 年</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">完了日</string>
 </resources>

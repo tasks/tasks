@@ -24,4 +24,5 @@ object TasksIcons {
     const val TIMER = "timer"
     const val BLOCK = "block"
     const val EVENT = "event"
+    const val REPEAT = "repeat"
 }

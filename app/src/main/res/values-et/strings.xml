@@ -96,7 +96,6 @@
     <string name="persistent_notifications">Püsiteavitused</string>
     <string name="default_random_reminder_disabled">Välja lülitatud</string>
     <string name="repeat_option_custom">Kohandatud…</string>
-    <string name="repeat_type_completion">lõpetamise kuupäev</string>
     <string name="new_list">Loo uus nimekiri</string>
     <string name="TEA_timer_controls">Taimer</string>
     <string name="delete_task">Kustuta ülesanne</string>
@@ -210,8 +209,6 @@
         <item quantity="one">Päev</item>
         <item quantity="other">Päeva</item>
     </plurals>
-    <string name="repeats_weekly">iga nädal</string>
-    <string name="repeats_monthly">iga kuu</string>
     <string name="filter_overdue">Üle tähtaja</string>
     <string name="sort_modified_group">Muudetud %s</string>
     <string name="device_settings">Nutiseadme seadistused</string>
@@ -243,7 +240,6 @@
     <string name="icon">Ikoon</string>
     <string name="theme_dynamic">Dünaamiline</string>
     <string name="theme_system_default">Süsteemi vaikeseade</string>
-    <string name="repeats_yearly">iga aasta</string>
     <string name="location_remind_departure">Tuleta lahkudes meelde</string>
     <string name="building_notifications">Loon teavitusi</string>
     <string name="whats_new">Mida on uut?</string>
@@ -271,10 +267,7 @@
     <string name="widget_due_date_hidden">Peidetud</string>
     <string name="clear_completed_tasks_confirmation">Kas eemaldame täidetud ülesanded?</string>
     <string name="badges">Märgised</string>
-    <string name="repeats_minutely">igas minutis</string>
-    <string name="repeats_hourly">igas tunnis</string>
     <string name="bundle_notifications_summary">Liida mitu teavitust üheks</string>
-    <string name="repeats_daily">iga päev</string>
     <string name="default_calendar">Vaikekalender</string>
     <string name="refresh_purchases">Värskenda ostud</string>
     <string name="action_new_task">Uus ülesanne</string>
@@ -435,29 +428,17 @@
         <item quantity="one">%d nädal</item>
         <item quantity="other">%d nädalat</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d kuu</item>
-        <item quantity="other">%d kuud</item>
-    </plurals>
     <string name="when_started">Kui on alustatud</string>
     <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
     <string name="delete_comment">kommentaar</string>
     <string name="button_learn_more">Loe lisaks</string>
     <string name="repeat_snackbar">%1$s uus ajastus on nüüd %2$s</string>
-    <string name="repeat_type_due">tähtaeg</string>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d tund</item>
         <item quantity="other">%d tundi</item>
     </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d aasta</item>
-        <item quantity="other">%d aastat</item>
-    </plurals>
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
     <string name="this_feature_requires_a_subscription">See funktsionaalsus eeldab tellimuse olemasolu</string>
-    <string name="repeats_single">Kordub %s</string>
-    <string name="repeats_plural">Kordub iga %s</string>
-    <string name="repeats_plural_on">Kordub iga %1$s / %2$s</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="location_arrived">Saabusid: %s</string>
     <string name="cost_money">Hind: $</string>
@@ -465,12 +446,8 @@
     <string name="show_edit_screen_without_unlock_summary">Võimaldab kiirseadistuste paani kasutamist ilma lukustust eemaldamata</string>
     <string name="location_departed">Väljusid: %s</string>
     <string name="randomly_every">Juhuslikult iga %s</string>
-    <string name="repeats_single_on_until">Kordub %1$s / %2$s, lõppeb %3$s</string>
-    <string name="repeats_single_on_number_of_times">Kordub %1$s / %2$s, toimub %3$d %4$s</string>
     <string name="repeats_plural_number_of_times">Kordub iga %1$s, toimub %2$d %3$s</string>
     <string name="linkify_description">Lisa veebisaitide, aadresside ja telefoninumbrite linke</string>
-    <string name="repeats_single_until">Kordub %1$s, lõppeb %2$s</string>
-    <string name="repeats_single_number_of_times">Kordub %1$s, toimub %2$d %3$s</string>
     <string name="subscription">Tellimus</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
@@ -479,7 +456,6 @@
     <string name="multiline_title_on">Kasuta sisestusklahvi reavahetuse lisamiseks</string>
     <string name="sync_warning_microsoft_title">Teave Microsoft To Do sünkroniseerimise kohta</string>
     <string name="sync_warning_microsoft">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Microsoft To Do liidestusega.</string>
-    <string name="repeats_single_on">Kordub %1$s - %2$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="astrid_sort_order">Astridi käsitsi järjestamine</string>
     <string name="astrid_sort_order_summary">Kasuta Astridi käsitsi järjestamist „Minu ülesanded“, „Täna“ ja siltide puhul. Tulevases rakenduse uuenduses see järjestuse viis asendub vaatega „Minu järjestus“</string>
@@ -487,9 +463,6 @@
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
-    <string name="repeats_plural_until">Kordub iga %1$s, lõppeb %2$s</string>
-    <string name="repeats_plural_on_until">Kordub iga %1$s / %2$s, lõppeb %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Kordub iga %1$s / %2$s, lõppeb %3$d %4$s</string>
     <string name="upgrade_to_pro">Uuenda Pro-versiooniks</string>
     <string name="badges_description">Näita ülesannete arvu Tasks rakenduse ikoonil. Palun arvesta et kõik avalehed ja käivitajad ei toeta seda võimalust.</string>
     <string name="disable_battery_optimizations">Lülita akukasutuse optimeerimine välja</string>

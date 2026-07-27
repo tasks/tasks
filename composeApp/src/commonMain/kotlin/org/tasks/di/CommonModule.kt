@@ -17,6 +17,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import org.tasks.analytics.Reporting
 import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
@@ -60,6 +61,8 @@ import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
+import org.tasks.repeats.CustomRecurrenceViewModel
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -91,6 +94,7 @@ import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
+import java.util.Locale
 
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
@@ -352,6 +356,8 @@ val commonModule = module {
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get(), get()) }
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)
+    single { Locale.getDefault() }
+    single { RepeatRuleToString(locale = get(), crashReporting = get<Reporting>()) }
 
     // ViewModels
     viewModelOf(::AppViewModel)
@@ -412,6 +418,14 @@ val commonModule = module {
         TagPickerViewModel(
             tagDataDao = get(),
             syncAdapters = get(),
+        )
+    }
+    viewModel { params ->
+        CustomRecurrenceViewModel(
+            rrule = params.get<String>(),
+            dueDate = params.get<Long>(),
+            accountType = params.get<Int>(),
+            locale = get(),
         )
     }
     viewModel {

@@ -215,24 +215,7 @@
     <string name="default_calendar">Lịch mặc định</string>
     <string name="dont_add_to_calendar">Không thêm vào lịch</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeats_plural_on_number_of_times">Lặp lại mỗi %1$s vào %2$s, xảy ra %3$d %4$s</string>
-    <string name="repeats_plural_on_until">Lặp lại mỗi %1$s vào %2$s đến %3$s</string>
     <string name="repeats_plural_number_of_times">Lặp lại mỗi %1$s, xảy ra %2$d %3$s</string>
-    <string name="repeats_plural_until">Lặp lại mỗi %1$s đến %2$s</string>
-    <string name="repeats_plural_on">Lặp lại mỗi %1$s vào %2$s</string>
-    <string name="repeats_plural">Lặp lại mỗi %s</string>
-    <string name="repeats_yearly">hàng năm</string>
-    <string name="repeats_monthly">hàng tháng</string>
-    <string name="repeats_weekly">hàng tuần</string>
-    <string name="repeats_daily">hàng ngày</string>
-    <string name="repeats_hourly">hàng tiếng</string>
-    <string name="repeats_minutely">hàng phút</string>
-    <string name="repeats_single_on_number_of_times">Lặp lại %1$s vào %2$s, xảy ra %3$d %4$s</string>
-    <string name="repeats_single_on_until">Lặp lại %1$s vào %2$s đến %3$s</string>
-    <string name="repeats_single_number_of_times">Lặp lại %1$s, xảy ra %2$d %3$s</string>
-    <string name="repeats_single_until">Lặp lại %1$s đến %2$s</string>
-    <string name="repeats_single_on">Lặp lại %1$s vào %2$s</string>
-    <string name="repeats_single">Lặp lại %s</string>
     <string name="repeats_from">Lặp lại từ</string>
     <string name="list">Danh sách</string>
     <string name="badges">Huy hiệu</string>
@@ -357,14 +340,6 @@
     <string name="new_tag">Tạo thẻ mới</string>
     <string name="repeat_snackbar">%1$s đã được lên lịch lại cho %2$s</string>
     <string name="repeat_type_completion_capitalized">Ngày hoàn thành</string>
-    <string name="repeat_type_completion">ngày hoàn thành</string>
-    <string name="repeat_type_due">ngày hạn</string>
-    <plurals name="repeat_n_years">
-        <item quantity="other">%d năm</item>
-    </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="other">%d tháng</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d tuần</item>
     </plurals>

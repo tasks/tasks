@@ -24,6 +24,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import net.fortuna.ical4j.model.Recur
+import net.fortuna.ical4j.model.WeekDay
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.initialStartSelection
@@ -45,8 +47,11 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
+import org.tasks.time.startOfDay
 import java.util.concurrent.atomic.AtomicLong
 
 private const val WATCH_MAX_ATTEMPTS = 5
@@ -604,7 +609,52 @@ class TaskEditViewModel(
     fun setDueDate(value: Long) {
         val dueDate = value.withTimeMarkerOr { it.noon() }
         _state.update { it.withStartSelection(it.startDay, it.startTime, dueDate) }
-        // TODO: add default reminders, update recurrence
+        // TODO: add default reminders
+        onDueDateChanged()
+    }
+
+    fun setRecurrence(recurrence: String?) {
+        _state.update { state ->
+            val dueDate = if (!recurrence.isNullOrBlank() && state.task.dueDate == 0L) {
+                currentTimeMillis().startOfDay()
+            } else {
+                state.task.dueDate
+            }
+            state
+                .withStartSelection(state.startDay, state.startTime, dueDate)
+                .let { it.copy(task = it.task.copy(recurrence = recurrence)) }
+        }
+    }
+
+    fun setRepeatFrom(repeatFrom: @Task.RepeatFrom Int) {
+        _state.update { it.copy(task = it.task.copy(repeatFrom = repeatFrom)) }
+    }
+
+    private fun onDueDateChanged() {
+        val state = _state.value
+        val recurrence = state.task.recurrence?.takeIf { it.isNotBlank() } ?: return
+        val recur = try {
+            newRecur(recurrence)
+        } catch (e: Exception) {
+            log.e(e) { "Failed to parse $recurrence" }
+            return
+        }
+        if (recur.frequency != Recur.Frequency.MONTHLY || recur.dayList.isEmpty()) {
+            return
+        }
+        val weekdayNum = recur.dayList[0]
+        val dateTime = DateTime(state.task.dueDate.takeIf { it > 0 } ?: currentTimeMillis())
+        val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
+        val num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
+            if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
+        } else {
+            dayOfWeekInMonth
+        }
+        recur.dayList.let {
+            it.clear()
+            it.add(WeekDay(dateTime.weekDay, num))
+        }
+        setRecurrence(recur.toString())
     }
 
     fun setStartDate(day: Long, time: Int) {

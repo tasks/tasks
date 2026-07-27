@@ -48,6 +48,8 @@ import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
+import org.tasks.compose.edit.RecurrencePickerDialog
+import org.tasks.compose.edit.RepeatRow
 import org.tasks.compose.edit.StartDateRow
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
@@ -181,6 +183,7 @@ fun TaskEditScreen(
                     var showTagPicker by remember { mutableStateOf(false) }
                     var showDueDatePicker by remember { mutableStateOf(false) }
                     var showStartDatePicker by remember { mutableStateOf(false) }
+                    var showRecurrencePicker by remember { mutableStateOf(false) }
                     var pickerToken by remember { mutableStateOf(0) }
                     val is24Hour = is24HourFormat()
                     val keyboardController = LocalSoftwareKeyboardController.current
@@ -227,6 +230,16 @@ fun TaskEditScreen(
                                 keyboardController?.hide()
                                 showDueDatePicker = true
                             },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        RepeatRow(
+                            recurrence = state.task.recurrence,
+                            repeatFrom = state.task.repeatFrom,
+                            onClick = {
+                                keyboardController?.hide()
+                                showRecurrencePicker = true
+                            },
+                            onRepeatFromChanged = viewModel::setRepeatFrom,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         TagsSection(
@@ -286,6 +299,20 @@ fun TaskEditScreen(
                                 showStartDatePicker = false
                             },
                             onDismiss = { showStartDatePicker = false },
+                        )
+                    }
+                    if (showRecurrencePicker) {
+                        RecurrencePickerDialog(
+                            recurrence = state.task.recurrence,
+                            dueDate = state.task.dueDate,
+                            accountType = list.account.accountType,
+                            calendarInputMode = state.datePickerPreferences.datePickerInputMode,
+                            onCalendarInputModeChange = viewModel::setDatePickerInputMode,
+                            onSelected = { recurrence ->
+                                viewModel.setRecurrence(recurrence)
+                                showRecurrencePicker = false
+                            },
+                            onDismiss = { showRecurrencePicker = false },
                         )
                     }
                     if (showTagPicker) {

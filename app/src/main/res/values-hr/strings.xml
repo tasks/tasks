@@ -209,24 +209,7 @@
     <string name="default_calendar">Standardni kalendar</string>
     <string name="dont_add_to_calendar">Nemoj dodati kalendaru</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeats_plural_on_number_of_times">Ponavlja se svakih %1$s na %2$s, događa se %3$d %4$s</string>
-    <string name="repeats_plural_on_until">Ponavlja se svakih %1$s na %2$s, završava %3$s</string>
     <string name="repeats_plural_number_of_times">Ponavlja se svakih %1$s, događa se %2$d %3$s</string>
-    <string name="repeats_plural_until">Ponavlja se svakih %1$s, završava %2$s</string>
-    <string name="repeats_plural_on">Ponavlja se svakih %1$s na %2$s</string>
-    <string name="repeats_plural">Ponavlja se svakih %s</string>
-    <string name="repeats_yearly">godišnje</string>
-    <string name="repeats_monthly">mjesečno</string>
-    <string name="repeats_weekly">tjedno</string>
-    <string name="repeats_daily">dnevno</string>
-    <string name="repeats_hourly">svaki sat</string>
-    <string name="repeats_minutely">svake minute</string>
-    <string name="repeats_single_on_number_of_times">Ponavlja se %1$s na %2$s, događa se %3$d %4$s</string>
-    <string name="repeats_single_on_until">Ponavlja se %1$s na %2$s, završava %3$s</string>
-    <string name="repeats_single_number_of_times">Ponavlja se %1$s, događa se %2$d %3$s</string>
-    <string name="repeats_single_until">Ponavlja se %1$s, završava %2$s</string>
-    <string name="repeats_single_on">Ponavlja se %1$s na %2$s</string>
-    <string name="repeats_single">Ponavlja se %s</string>
     <string name="repeats_from">Ponavlja se od</string>
     <string name="list">Popis</string>
     <string name="badges">Značke</string>
@@ -445,18 +428,6 @@
     <string name="delete_tag_confirmation">Izbrisati %s\?</string>
     <string name="repeat_snackbar">%1$s preraspoređen za %2$s</string>
     <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
-    <string name="repeat_type_completion">datum obavljanja</string>
-    <string name="repeat_type_due">datum roka</string>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d godina</item>
-        <item quantity="few">%d godine</item>
-        <item quantity="other">%d godina</item>
-    </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mjesec</item>
-        <item quantity="few">%d mjeseca</item>
-        <item quantity="other">%d mjeseci</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d tjedan</item>
         <item quantity="few">%d tjedna</item>

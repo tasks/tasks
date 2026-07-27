@@ -298,4 +298,56 @@
         <item quantity="other">gebeurtenissen</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">elke %1$s %2$s</string>
+    <string name="repeats_single">Herhaalt %1$s</string>
+    <string name="repeats_single_on">Herhaalt %1$s op %2$s</string>
+    <string name="repeats_single_until">Herhaalt %1$s, eindigt op %2$s</string>
+    <string name="repeats_single_number_of_times">Herhaalt %1$s, gebeurt %2$d %3$s</string>
+    <string name="repeats_single_on_until">Herhaalt %1$s op %2$s, eindigt op %3$s</string>
+    <string name="repeats_single_on_number_of_times">Herhaalt %1$s op %2$s, gebeurt %3$d %4$s</string>
+    <string name="repeats_plural">Herhaalt elke %1$s</string>
+    <string name="repeats_plural_on">Herhaalt elke %1$s op %2$s</string>
+    <string name="repeats_plural_until">Herhaalt elke %1$s, eindigt op %2$s</string>
+    <string name="repeats_plural_number_of_times">Herhaalt elke %1$s , gebeurt %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Herhaalt elke %1$s op %2$s, eindigt op %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Herhaalt elke %1$s op %2$s, gebeurt %3$d %4$s</string>
+    <string name="repeats_minutely">elke minuut</string>
+    <string name="repeats_hourly">elk uur</string>
+    <string name="repeats_daily">dagelijks</string>
+    <string name="repeats_weekly">wekelijks</string>
+    <string name="repeats_monthly">maandelijks</string>
+    <string name="repeats_yearly">jaarlijks</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Herhaalt vanaf</string>
+    <string name="repeat_type_due">vervaldatum</string>
+    <string name="repeat_type_completion">voltooiingsdatum</string>
+    <string name="TEA_control_repeat">Herhalen</string>
+    <plurals name="repeat_times">
+        <item quantity="one">maal</item>
+        <item quantity="other">maal</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minuut</item>
+        <item quantity="other">%1$d minuten</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d uur</item>
+        <item quantity="other">%1$d uren</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d week</item>
+        <item quantity="other">%1$d weken</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d maand</item>
+        <item quantity="other">%1$d maanden</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d jaar</item>
+        <item quantity="other">%1$d jaren</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
 </resources>

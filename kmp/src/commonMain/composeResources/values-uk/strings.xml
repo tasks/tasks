@@ -287,4 +287,63 @@
         <item quantity="other">повторень</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">що %1$s %2$s</string>
+    <string name="repeats_single">Повторювати %1$s</string>
+    <string name="repeats_single_on">Повторювати %1$s по %2$s</string>
+    <string name="repeats_single_until">Повторювати %1$s, завершується %2$s</string>
+    <string name="repeats_single_number_of_times">Повторювати %1$s, стається %2$d %3$s</string>
+    <string name="repeats_single_on_until">Повторювати %1$s по %2$s, завершується %3$s</string>
+    <string name="repeats_single_on_number_of_times">Повторювати %1$s по %2$s, стається %3$d %4$s</string>
+    <string name="repeats_plural">Повторювати що %1$s</string>
+    <string name="repeats_plural_on">Повторювати що  %1$s по %2$s</string>
+    <string name="repeats_plural_until">Повторювати що %1$s, завершується %2$s</string>
+    <string name="repeats_plural_number_of_times">Повторювати що %1$s, стається %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Повторювати що %1$s по %2$s, завершується %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Повторювати що %1$s по %2$s, станеться %3$d %4$s</string>
+    <string name="repeats_minutely">щохвилини</string>
+    <string name="repeats_hourly">щогодинно</string>
+    <string name="repeats_daily">щодня</string>
+    <string name="repeats_weekly">щотижня</string>
+    <string name="repeats_monthly">щомісяця</string>
+    <string name="repeats_yearly">щороку</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Повторювати з</string>
+    <string name="repeat_type_due">призначеної дати</string>
+    <string name="repeat_type_completion">дати виконання</string>
+    <string name="TEA_control_repeat">Повтор</string>
+    <plurals name="repeat_times">
+        <item quantity="one">раз</item>
+        <item quantity="few">рази</item>
+        <item quantity="many">разів</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d хвилина</item>
+        <item quantity="few">%1$d хвилини</item>
+        <item quantity="many">%1$d хвилин</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d година</item>
+        <item quantity="few">%1$d години</item>
+        <item quantity="many">%1$d годин</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d тиждень</item>
+        <item quantity="few">%1$d тижні</item>
+        <item quantity="many">%1$d тижнів</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d місяць</item>
+        <item quantity="few">%1$d місяці</item>
+        <item quantity="many">%1$d місяців</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d рік</item>
+        <item quantity="few">%1$d роки</item>
+        <item quantity="many">%1$d років</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Дата завершення</string>
 </resources>

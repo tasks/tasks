@@ -141,7 +141,7 @@ class TaskEditFragment : Fragment() {
                         accountType = vs.list.account.accountType,
                     ).show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
                 },
-                repeatRuleToString = { repeatRuleToString.toString(it) },
+                repeatRuleToString = { repeatRuleToString.toStringBlocking(it) },
                 colorProvider = { chipProvider.getColor(it) },
                 locale = remember { locale },
             )

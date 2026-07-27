@@ -213,18 +213,6 @@
         <item quantity="few">%d týdny</item>
         <item quantity="other">%d týdnů</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d měsíc</item>
-        <item quantity="few">%d měsíce</item>
-        <item quantity="other">%d měsíců</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d rok</item>
-        <item quantity="few">%d roky</item>
-        <item quantity="other">%d let</item>
-    </plurals>
-    <string name="repeat_type_due">termínu úkolu</string>
-    <string name="repeat_type_completion">okamžiku dokončení</string>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks bude při upomínce nahlas číst název úkolu</string>
@@ -261,23 +249,7 @@
     <string name="badges">Odznaky</string>
     <string name="list">Seznam</string>
     <string name="repeats_from">Opakuje se od</string>
-    <string name="repeats_single">Opakuje se %s</string>
-    <string name="repeats_single_on">Opakuje se %1$s v %2$s</string>
-    <string name="repeats_single_until">Opakuje se %1$s, až do %2$s</string>
-    <string name="repeats_single_number_of_times">Opakuje se %1$s, ještě %2$d %3$s</string>
-    <string name="repeats_single_on_until">Opakuje se %1$s v %2$s až do %3$s</string>
-    <string name="repeats_single_on_number_of_times">Opakuje se %1$s v %2$s, ještě %3$d %4$s</string>
-    <string name="repeats_minutely">každou minutu</string>
-    <string name="repeats_hourly">každou hodinu</string>
-    <string name="repeats_daily">denně</string>
-    <string name="repeats_weekly">týdně</string>
-    <string name="repeats_monthly">měsíčně</string>
-    <string name="repeats_yearly">každý rok</string>
-    <string name="repeats_plural">Opakuje se každý %s</string>
-    <string name="repeats_plural_on">Opakuje se každý %1$s v %2$s</string>
-    <string name="repeats_plural_until">Opakuje se každý %1$s až do %2$s</string>
     <string name="repeats_plural_number_of_times">Opakuje se každý %1$s, ještě %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Opakuje se každý %1$s v %2$s až do %3$s</string>
     <string name="dont_add_to_calendar">Nepřidávat do kalendáře</string>
     <string name="default_calendar">Výchozí kalendář</string>
     <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
@@ -304,7 +276,6 @@
     <string name="display_name">Zobrazované jméno</string>
     <string name="date_shortcut_hour">Na hodinu</string>
     <string name="list_settings">Nastavení seznamu</string>
-    <string name="repeats_plural_on_number_of_times">Opakuje se každý %1$s v %2$s, ještě %3$d %4$s</string>
     <string name="theme_system_default">Podle systému</string>
     <string name="or_choose_a_location">Nebo vyberte místo</string>
     <string name="missing_permissions">Chybí oprávnění</string>

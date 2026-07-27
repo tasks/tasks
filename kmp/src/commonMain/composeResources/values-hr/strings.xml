@@ -415,4 +415,63 @@
         <item quantity="other">događanja</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">svaki %1$s %2$s</string>
+    <string name="repeats_single">Ponavlja se %1$s</string>
+    <string name="repeats_single_on">Ponavlja se %1$s na %2$s</string>
+    <string name="repeats_single_until">Ponavlja se %1$s, završava %2$s</string>
+    <string name="repeats_single_number_of_times">Ponavlja se %1$s, događa se %2$d %3$s</string>
+    <string name="repeats_single_on_until">Ponavlja se %1$s na %2$s, završava %3$s</string>
+    <string name="repeats_single_on_number_of_times">Ponavlja se %1$s na %2$s, događa se %3$d %4$s</string>
+    <string name="repeats_plural">Ponavlja se svakih %1$s</string>
+    <string name="repeats_plural_on">Ponavlja se svakih %1$s na %2$s</string>
+    <string name="repeats_plural_until">Ponavlja se svakih %1$s, završava %2$s</string>
+    <string name="repeats_plural_number_of_times">Ponavlja se svakih %1$s, događa se %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Ponavlja se svakih %1$s na %2$s, završava %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Ponavlja se svakih %1$s na %2$s, događa se %3$d %4$s</string>
+    <string name="repeats_minutely">svake minute</string>
+    <string name="repeats_hourly">svaki sat</string>
+    <string name="repeats_daily">dnevno</string>
+    <string name="repeats_weekly">tjedno</string>
+    <string name="repeats_monthly">mjesečno</string>
+    <string name="repeats_yearly">godišnje</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Ponavlja se od</string>
+    <string name="repeat_type_due">datum roka</string>
+    <string name="repeat_type_completion">datum obavljanja</string>
+    <string name="TEA_control_repeat">Ponovi</string>
+    <plurals name="repeat_times">
+        <item quantity="one">put</item>
+        <item quantity="few">puta</item>
+        <item quantity="other">puta</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minute</item>
+        <item quantity="other">%1$d minuta</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d sat</item>
+        <item quantity="few">%1$d sata</item>
+        <item quantity="other">%1$d sati</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dan</item>
+        <item quantity="few">%1$d dana</item>
+        <item quantity="other">%1$d dana</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d tjedan</item>
+        <item quantity="few">%1$d tjedna</item>
+        <item quantity="other">%1$d tjedana</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d mjesec</item>
+        <item quantity="few">%1$d mjeseca</item>
+        <item quantity="other">%1$d mjeseci</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d godina</item>
+        <item quantity="few">%1$d godine</item>
+        <item quantity="other">%1$d godina</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
 </resources>

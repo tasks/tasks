@@ -65,4 +65,5 @@
     <string name="no_time">സമയമില്ല</string>
     <string name="TEA_note_label">വിവരണം</string>
     <string name="start_date">തുടങ്ങുന്ന സമയം</string>
+    <string name="TEA_control_repeat">ആവർത്തിക്കുക</string>
 </resources>

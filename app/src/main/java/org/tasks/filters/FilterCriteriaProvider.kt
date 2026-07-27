@@ -8,6 +8,7 @@ import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import dagger.hilt.android.qualifiers.ApplicationContext
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.activities.FilterSettingsActivity.Companion.sql
@@ -29,6 +30,8 @@ import org.tasks.data.sql.Query.Companion.select
 import org.tasks.data.sql.UnaryCriterion.Companion.isNotNull
 import timber.log.Timber
 import javax.inject.Inject
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.repeats_single
 
 class FilterCriteriaProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -89,7 +92,7 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_CALDAV -> caldavFilterCriteria()
         IDENTIFIER_TAG_IS -> tagFilter()
         IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
-        IDENTIFIER_RECUR -> recurringFilter
+        IDENTIFIER_RECUR -> recurringFilter()
         IDENTIFIER_COMPLETED -> completedFilter
         IDENTIFIER_HIDDEN -> hiddenFilter
         IDENTIFIER_PARENT -> parentFilter
@@ -118,7 +121,7 @@ class FilterCriteriaProvider @Inject constructor(
             add(priorityFilter)
             add(taskTitleContainsFilter)
             add(caldavFilterCriteria())
-            add(recurringFilter)
+            add(recurringFilter())
             add(completedFilter)
             add(hiddenFilter)
             add(parentFilter)
@@ -152,15 +155,15 @@ class FilterCriteriaProvider @Inject constructor(
                 context.getString(R.string.CFC_tag_name))
     }
 
-    private val recurringFilter: CustomFilterCriterion
-        get() = BooleanCriterion(
-                    IDENTIFIER_RECUR,
-                    context.getString(R.string.repeats_single, "").trim(),
-                    select(Task.ID)
-                            .from(Task.TABLE)
-                            .where(field("LENGTH(${Task.RECURRENCE})>0").eq(1))
-                            .toString()
-            )
+    private suspend fun recurringFilter(): CustomFilterCriterion =
+        BooleanCriterion(
+                IDENTIFIER_RECUR,
+                getString(Res.string.repeats_single, "").trim(),
+                select(Task.ID)
+                        .from(Task.TABLE)
+                        .where(field("LENGTH(${Task.RECURRENCE})>0").eq(1))
+                        .toString()
+        )
 
     private val completedFilter: CustomFilterCriterion
         get() = BooleanCriterion(

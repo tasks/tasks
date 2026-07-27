@@ -148,18 +148,6 @@
         <item quantity="few">%d тижні</item>
         <item quantity="many">%d тижнів</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d місяць</item>
-        <item quantity="few">%d місяці</item>
-        <item quantity="many">%d місяців</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d рік</item>
-        <item quantity="few">%d роки</item>
-        <item quantity="many">%d років</item>
-    </plurals>
-    <string name="repeat_type_due">призначеної дати</string>
-    <string name="repeat_type_completion">дати виконання</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
     <string name="new_tag">Створити нову мітку</string>
     <string name="new_list">Новий список</string>
@@ -264,24 +252,7 @@
     <string name="badges">Значки</string>
     <string name="list">Список</string>
     <string name="repeats_from">Повторювати з</string>
-    <string name="repeats_single">Повторювати %s</string>
-    <string name="repeats_single_on">Повторювати %1$s по %2$s</string>
-    <string name="repeats_single_until">Повторювати %1$s, завершується %2$s</string>
-    <string name="repeats_single_number_of_times">Повторювати %1$s, стається %2$d %3$s</string>
-    <string name="repeats_single_on_until">Повторювати %1$s по %2$s, завершується %3$s</string>
-    <string name="repeats_single_on_number_of_times">Повторювати %1$s по %2$s, стається %3$d %4$s</string>
-    <string name="repeats_minutely">щохвилини</string>
-    <string name="repeats_hourly">щогодинно</string>
-    <string name="repeats_daily">щодня</string>
-    <string name="repeats_weekly">щотижня</string>
-    <string name="repeats_monthly">щомісяця</string>
-    <string name="repeats_yearly">щороку</string>
-    <string name="repeats_plural">Повторювати що %s</string>
-    <string name="repeats_plural_on">Повторювати що  %1$s по %2$s</string>
-    <string name="repeats_plural_until">Повторювати що %1$s, завершується %2$s</string>
     <string name="repeats_plural_number_of_times">Повторювати що %1$s, стається %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Повторювати що %1$s по %2$s, завершується %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Повторювати що %1$s по %2$s, станеться %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не додавати до календаря</string>
     <string name="default_calendar">Типовий календар</string>
     <string name="badges_description">Показувати кількість завдань на піктограмі запуску Tasks. Не всі лаунчери підтримують такі значки.</string>

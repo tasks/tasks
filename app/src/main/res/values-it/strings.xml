@@ -148,18 +148,6 @@
         <item quantity="many">%d settimane</item>
         <item quantity="other">%d settimane</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mese</item>
-        <item quantity="many">%d mesi</item>
-        <item quantity="other">%d mesi</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d anno</item>
-        <item quantity="many">%d anni</item>
-        <item quantity="other">%d anni</item>
-    </plurals>
-    <string name="repeat_type_due">data di scadenza</string>
-    <string name="repeat_type_completion">data di completamento</string>
     <string name="repeat_snackbar">%1$s ripianificata per %2$s</string>
     <string name="new_tag">Crea nuova etichetta</string>
     <string name="new_list">Crea nuova lista</string>
@@ -260,24 +248,7 @@
     <string name="badges">Badge</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Ripeti a partire da</string>
-    <string name="repeats_single">Ripeti %s</string>
-    <string name="repeats_single_on">Ripeti %1$s il %2$s</string>
-    <string name="repeats_single_until">Ripeti %1$s fino al %2$s</string>
-    <string name="repeats_single_number_of_times">Ripeti %1$s, per %2$d %3$s</string>
-    <string name="repeats_single_on_until">Ripeti %1$s il %2$s fino al %3$s</string>
-    <string name="repeats_single_on_number_of_times">Ripeti %1$s il %2$s, per %3$d %4$s</string>
-    <string name="repeats_minutely">ogni minuto</string>
-    <string name="repeats_hourly">ogni ora</string>
-    <string name="repeats_daily">ogni giorno</string>
-    <string name="repeats_weekly">ogni settimana</string>
-    <string name="repeats_monthly">ogni mese</string>
-    <string name="repeats_yearly">ogni anno</string>
-    <string name="repeats_plural">Ripeti ogni %s</string>
-    <string name="repeats_plural_on">Ripetuta ogni %1$s il %2$s</string>
-    <string name="repeats_plural_until">Ripeti ogni %1$s fino al %2$s</string>
     <string name="repeats_plural_number_of_times">Ripetuta ogni %1$s, cade il %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Ripeti ogni %1$s il %2$s fino al %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Ripetuta ogni %1$s il %2$s, cade il %3$d %4$s</string>
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
     <string name="badges_description">Mostra il contatore delle notifiche sull\'icona di Tasks. Non tutti i launcher supportano questa funzionalità.</string>

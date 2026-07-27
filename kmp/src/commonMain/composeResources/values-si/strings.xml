@@ -232,4 +232,56 @@
         <item quantity="other">වසර</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">සෑම %1$s %2$s</string>
+    <string name="repeats_single">පුනරාවර්තනය %1$s</string>
+    <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
+    <string name="repeats_single_until">%2$s දක්වා %1$s පුනරාවර්තනය වේ</string>
+    <string name="repeats_single_number_of_times">පුනරාවර්තනය %1$s, %2$d %3$s සිදු වේ</string>
+    <string name="repeats_single_on_until">පුනරාවර්තනය %1$s %2$s වනදා, %3$s වන තුරු</string>
+    <string name="repeats_single_on_number_of_times">පුනරාවර්තනය %1$s %2$s දින, %3$d %4$s</string>
+    <string name="repeats_plural">සෑම %1$s පුනරාවර්තනය වේ</string>
+    <string name="repeats_plural_on">පුනරාවර්තනය සෑම %1$s, %2$s</string>
+    <string name="repeats_plural_until">පුනරාවර්තනය සෑම %1$s, %2$s වන තෙක්</string>
+    <string name="repeats_plural_number_of_times">පුනරාවර්තනය සෑම %1$s, %2$d %3$s සිදු වේ</string>
+    <string name="repeats_plural_on_until">පුනරාවර්තනය සෑම %1$s %2$s, %3$s දක්වා</string>
+    <string name="repeats_plural_on_number_of_times">පුනරාවර්තනය සෑම %1$s %2$s, %3$d %4$s සිදු වේ</string>
+    <string name="repeats_minutely">මිනිත්තුවකට</string>
+    <string name="repeats_hourly">පැයට</string>
+    <string name="repeats_daily">දිනපතා</string>
+    <string name="repeats_weekly">සතිපතා</string>
+    <string name="repeats_monthly">මාසිකව</string>
+    <string name="repeats_yearly">වාර්ෂික</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>
+    <string name="repeat_type_due">නියමිත දිනය</string>
+    <string name="repeat_type_completion">සම්පූර්ණ කරන දිනය</string>
+    <string name="TEA_control_repeat">පුනරාවර්තනය</string>
+    <plurals name="repeat_times">
+        <item quantity="one">වරක්</item>
+        <item quantity="other">වාර</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">විනාඩි %1$d</item>
+        <item quantity="other">විනාඩි %1$d</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">පැය %1$d ක්</item>
+        <item quantity="other">පැය %1$d</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">දින %1$dක්</item>
+        <item quantity="other">දින %1$d</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">සති %1$dක්</item>
+        <item quantity="other">සති %1$d</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">මාස %1$dක්</item>
+        <item quantity="other">මාස %1$d</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">වසර %1$dක්</item>
+        <item quantity="other">වසර %1$d</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
 </resources>

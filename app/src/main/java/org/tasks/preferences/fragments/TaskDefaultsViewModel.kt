@@ -277,7 +277,7 @@ class TaskDefaultsViewModel @Inject constructor(
             ?.takeIf { it.isNotBlank() }
             ?.let {
                 try {
-                    repeatRuleToString.toString(it)
+                    repeatRuleToString.toStringBlocking(it)
                 } catch (e: Exception) {
                     null
                 }

@@ -140,18 +140,6 @@
         <item quantity="many">%d semaines</item>
         <item quantity="other">%d semaines</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mois</item>
-        <item quantity="many">%d mois</item>
-        <item quantity="other">%d mois</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d an</item>
-        <item quantity="many">%d ans</item>
-        <item quantity="other">%d ans</item>
-    </plurals>
-    <string name="repeat_type_due">la date d\'échéance</string>
-    <string name="repeat_type_completion">date d\'achèvement</string>
     <string name="repeat_snackbar">%1$s replanifiée à %2$s</string>
     <string name="new_tag">Créer une nouvelle étiquette</string>
     <string name="new_list">Créer une nouvelle liste</string>
@@ -252,24 +240,7 @@
     <string name="bundle_notifications">Regrouper les notifications</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Répéter depuis</string>
-    <string name="repeats_single">Répéter %s</string>
-    <string name="repeats_single_on">Répéter %1$s, le %2$s</string>
-    <string name="repeats_single_until">Répéter %1$s, jusqu\'au %2$s</string>
-    <string name="repeats_single_number_of_times">Répéter %1$s, %2$d %3$s</string>
-    <string name="repeats_single_on_until">Répéter %1$s, le %2$s, jusqu\'au %3$s</string>
-    <string name="repeats_single_on_number_of_times">Répéter %1$s, le %2$s, %3$d %4$s</string>
-    <string name="repeats_minutely">toutes les minutes</string>
-    <string name="repeats_hourly">toutes les heures</string>
-    <string name="repeats_daily">tous les jours</string>
-    <string name="repeats_weekly">toutes les semaines</string>
-    <string name="repeats_monthly">tous les mois</string>
-    <string name="repeats_yearly">tous les ans</string>
-    <string name="repeats_plural">Répéter par intervalle de %s</string>
-    <string name="repeats_plural_on">Répéter par intervalle de %1$s, le %2$s</string>
-    <string name="repeats_plural_until">Répéter par intervalle de %1$s, jusqu\'au %2$s</string>
     <string name="repeats_plural_number_of_times">Répéter par intervalle de %1$s, %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Répéter par intervalle de %1$s, le %2$s, jusqu\'au %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Répéter par intervalle de %1$s, le %2$s, %3$d %4$s</string>
     <string name="dont_add_to_calendar">Ne pas ajouter au calendrier</string>
     <string name="default_calendar">Calendrier par défaut</string>
     <string name="badges_description">Afficher un compteur de tâches sur l\'icône du lanceur de Tasks. Certains lanceurs ne supportent pas les badges.</string>

@@ -300,4 +300,63 @@
         <item quantity="other">повторений</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">каждый %1$s %2$s</string>
+    <string name="repeats_single">Повторять %1$s</string>
+    <string name="repeats_single_on">Повторять %1$s в %2$s</string>
+    <string name="repeats_single_until">Повторять %1$s, завершение %2$s</string>
+    <string name="repeats_single_number_of_times">Повторять %1$s, %2$d %3$s</string>
+    <string name="repeats_single_on_until">Повторять %1$s в %2$s, завершение %3$s</string>
+    <string name="repeats_single_on_number_of_times">Повторять %1$s в %2$s, %3$d %4$s</string>
+    <string name="repeats_plural">Повторять каждые %1$s</string>
+    <string name="repeats_plural_on">Повторять каждые %1$s в %2$s</string>
+    <string name="repeats_plural_until">Повторяется каждые %1$s до %2$s</string>
+    <string name="repeats_plural_number_of_times">Повторять каждые %1$s, %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Повторяется каждые %1$s в %2$s до %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Повторяется каждые %1$s в %2$s, %3$d %4$s</string>
+    <string name="repeats_minutely">ежеминутно</string>
+    <string name="repeats_hourly">ежечасно</string>
+    <string name="repeats_daily">ежедневно</string>
+    <string name="repeats_weekly">еженедельно</string>
+    <string name="repeats_monthly">ежемесячно</string>
+    <string name="repeats_yearly">ежегодно</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Повторять от</string>
+    <string name="repeat_type_due">намеченной даты</string>
+    <string name="repeat_type_completion">даты завершения</string>
+    <string name="TEA_control_repeat">Повтор</string>
+    <plurals name="repeat_times">
+        <item quantity="one">раз</item>
+        <item quantity="few">раза</item>
+        <item quantity="many">раз</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d минуту</item>
+        <item quantity="few">%1$d минуты</item>
+        <item quantity="many">%1$d минут</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d час</item>
+        <item quantity="few">%1$d часа</item>
+        <item quantity="many">%1$d часов</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дня</item>
+        <item quantity="many">%1$d дней</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d неделя</item>
+        <item quantity="few">%1$d недели</item>
+        <item quantity="many">%1$d недель</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d месяц</item>
+        <item quantity="few">%1$d месяца</item>
+        <item quantity="many">%1$d месяцев</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d год</item>
+        <item quantity="few">%1$d года</item>
+        <item quantity="many">%1$d лет</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Дата завершения</string>
 </resources>

@@ -103,14 +103,6 @@
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d minggu</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="other">%d bulan</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="other">%d tahun</item>
-    </plurals>
-    <string name="repeat_type_due">tanggal jatuh tempo</string>
-    <string name="repeat_type_completion">tanggal selesai</string>
     <string name="new_tag">Buat tag baru</string>
     <string name="new_list">Buat daftar baru</string>
     <string name="delete_tag_confirmation">Hapus %s\?</string>
@@ -196,17 +188,6 @@
     <string name="badges">Lencana</string>
     <string name="list">Daftar</string>
     <string name="repeats_from">Ulangi dari</string>
-    <string name="repeats_single">Ulangi %s</string>
-    <string name="repeats_single_on">Ulangi %1$s pada %2$s</string>
-    <string name="repeats_single_until">Berulang %1$s, berakhir pada %2$s</string>
-    <string name="repeats_single_on_until">Berulang %1$s pada %2$s, berakhir pada %3$s</string>
-    <string name="repeats_minutely">per menit</string>
-    <string name="repeats_hourly">per jam</string>
-    <string name="repeats_daily">harian</string>
-    <string name="repeats_weekly">mingguan</string>
-    <string name="repeats_monthly">bulanan</string>
-    <string name="repeats_yearly">tahunan</string>
-    <string name="repeats_plural">Ulangi setiap %s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Jangan tambahkan ke kalender</string>
     <string name="default_calendar">Bawaan kalender</string>
@@ -335,11 +316,7 @@
     <string name="astrid_sort_order">Sortiran manual astrid</string>
     <string name="display_name">Nama tampilan</string>
     <string name="background_location_permission_required">Aplikasi ini mengumpulkan data lokasi untuk mengaktifkan pengingat berdasarkan lokasi bahkan saat aplikasi ditutup atau sedang tidak digunakan.</string>
-    <string name="repeats_plural_on_number_of_times">Ulangi setiap %1$s pada %2$s, terjadi %3$d %4$s</string>
     <string name="repeats_plural_number_of_times">Ulangi setiap %1$s, terjadi %2$d %3$s</string>
-    <string name="repeats_plural_until">Berulang setiap %1$s, berakhir pada %2$s</string>
-    <string name="repeats_single_on_number_of_times">Ulangi %1$s pada %2$s, terjadi %3$d %4$s</string>
-    <string name="repeats_single_number_of_times">Ulangi %1$s, terjadi %2$d %3$s</string>
     <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>
@@ -419,8 +396,6 @@
     <string name="location_departed">Berangkat pada %s</string>
     <string name="location_arrived">Datang pada %s</string>
     <string name="subscription">Langganan</string>
-    <string name="repeats_plural_on_until">Berulang setiap %1$s pada %2$s, berakhir pada %3$s</string>
-    <string name="repeats_plural_on">Ulangi setiap %1$s pada %2$s</string>
     <string name="bundle_notifications">Notifikasi Bundel</string>
     <string name="widget_due_date_below_title">Dibawah judul</string>
     <string name="opacity_footer">Opasitas tajuk bawah</string>

@@ -70,12 +70,6 @@
     <string name="TEA_add_subtask">Aldoni subtaskon</string>
     <string name="filter_today_only">Nur hodiaŭ</string>
     <string name="chip_appearance_text_only">Nur teksto</string>
-    <string name="repeats_yearly">ĉiujare</string>
-    <string name="repeats_monthly">ĉiumonate</string>
-    <string name="repeats_weekly">ĉiusemajne</string>
-    <string name="repeats_daily">ĉiutage</string>
-    <string name="repeats_hourly">ĉiuhore</string>
-    <string name="repeats_minutely">ĉiuminute</string>
     <string name="randomly">Hazarde</string>
     <string name="default_random_reminder_bi_weekly">Ĉiudusemajne</string>
     <string name="default_random_reminder_weekly">Ĉiusemajne</string>
@@ -204,14 +198,6 @@
     <string name="new_list">Krei novan liston</string>
     <string name="new_tag">Krei novan etikedon</string>
     <string name="repeat_snackbar">%1$s replanis por %2$s</string>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d jaro</item>
-        <item quantity="other">%d jaroj</item>
-    </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d monato</item>
-        <item quantity="other">%d monatoj</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d semajno</item>
         <item quantity="other">%d semajnoj</item>
@@ -271,9 +257,6 @@
     <string name="filters">Filtriloj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
     <string name="snoozed_until">Paŭzigite ĝis %s</string>
-    <string name="repeats_plural">Ripetiĝas ĉiu %s</string>
-    <string name="repeats_plural_on">Ripetiĝas ĉiu %1$s je %2$s</string>
-    <string name="repeats_plural_until">Ripetiĝas ĉiu %1$s, finiĝos %2$s</string>
     <string name="randomly_every">Hazarde ĉiu %s</string>
     <string name="alarm_after_due">%s post limdato</string>
     <string name="widget_due_date_after_title">Post titolo</string>
@@ -371,8 +354,6 @@
     <string name="filter_any_start_date">Ajna komencodato</string>
     <string name="rmd_EPr_quiet_hours_start_title">Komenco de kviethoroj</string>
     <string name="rmd_EPr_quiet_hours_end_title">Fino de Kviethoroj</string>
-    <string name="repeat_type_due">limdato</string>
-    <string name="repeat_type_completion">plenumiga dato</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks elparolos tasknomojn dum memorigi</string>
     <string name="attachment_directory">Dosierujo de Aldonaĵoj</string>
     <string name="subtasks_multilevel_google_task">Multnivelaj subtaskoj ne estas subtenataj per Google Tasks</string>
@@ -416,20 +397,15 @@
     <string name="widget_due_date_hidden">Kaŝita</string>
     <string name="widget_row_settings">Agordoj de vico</string>
     <string name="decsync_selection_description">Perdosiersistema sinkronigo</string>
-    <string name="repeats_single_on">Ripetiĝas %1$s je %2$s</string>
     <string name="google_drive_backup">Savkopio de Google Drive</string>
-    <string name="repeats_single_until">Ripetiĝas %1$s, finiĝos %2$s</string>
     <string name="backups_ignore_warnings_summary">Ignori avertojn pri savkopioj se vi ne bezonas savkopiojn aŭ jam havas propran savkopian solvon</string>
     <string name="location_permission_required_location">Por trovi vian aktualan lokon bezonas permesoj pri loko</string>
     <string name="auto_dismiss_datetime_list">Taskolisto</string>
     <string name="filter_low_priority">Malalta prioritato</string>
     <string name="repeats_from">Ripetiĝas de</string>
-    <string name="repeats_single">Ripetiĝas %s</string>
     <string name="opacity_row">Vica travideblo</string>
     <string name="url">URL</string>
     <string name="list">Listo</string>
-    <string name="repeats_single_number_of_times">Ripetiĝas %1$s, okazas %2$d %3$s</string>
-    <string name="repeats_single_on_until">Ripetiĝas %1$s je %2$s, finiĝos %3$s</string>
     <string name="upgrade_to_pro">Altgradigi al profesia</string>
     <string name="requires_pro_subscription">Bezonas profesian abonon</string>
     <string name="linkify_description">Aldoni ligilojn de retejoj, adresoj, kaj telefonnumeroj</string>
@@ -495,10 +471,7 @@
     <string name="opacity_footer">Piedlinia netravideblo</string>
     <string name="widget_due_date_below_title">Subtitola</string>
     <string name="bundle_notifications">Paki sciigojn</string>
-    <string name="repeats_single_on_number_of_times">Ripetiĝas %1$s je %2$s, okazas %3$d%4$s</string>
     <string name="repeats_plural_number_of_times">Ripetiĝas ĉiu %1$s, okazas %2$d%3$s</string>
-    <string name="repeats_plural_on_until">Ripetiĝas ĉiu %1$s ĉe %2$s, finiĝos %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Ripetiĝas ĉiu %1$s ĉe %2$s, okazas %3$d%4$s</string>
     <string name="wearable_notifications">Sciigoj per portebla aparataro</string>
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
     <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>

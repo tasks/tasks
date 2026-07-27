@@ -190,16 +190,6 @@
         <item quantity="one">%d selmana</item>
         <item quantity="other">%d selmanes</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mes</item>
-        <item quantity="other">%d meses</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d añu</item>
-        <item quantity="other">%d años</item>
-    </plurals>
-    <string name="repeat_type_due">data de vencimientu</string>
-    <string name="repeat_type_completion">data de finalización</string>
     <string name="repeat_type_completion_capitalized">Data de finalización</string>
     <string name="repeat_snackbar">%1$s reprogramó esta xera pa %2$s</string>
     <string name="new_tag">Amestar nueva etiqueta</string>
@@ -337,24 +327,7 @@
     <string name="badges">Insignies</string>
     <string name="list">Llista</string>
     <string name="repeats_from">Repetir dende</string>
-    <string name="repeats_single">Repetir %s</string>
-    <string name="repeats_single_on">Repetir %1$s cada %2$s</string>
-    <string name="repeats_single_until">Repetir %1$s, acaba en %2$s</string>
-    <string name="repeats_single_number_of_times">Repetir %1$s, fae que %2$d%3$s</string>
-    <string name="repeats_single_on_until">Repetir %1$s el %2$s, acaba el %3$s</string>
-    <string name="repeats_single_on_number_of_times">Repetir %1$s el %2$s, ocurre %3$d%4$s</string>
-    <string name="repeats_minutely">por minutu</string>
-    <string name="repeats_hourly">por hora</string>
-    <string name="repeats_daily">por día</string>
-    <string name="repeats_weekly">selmanalmente</string>
-    <string name="repeats_monthly">mensualmente</string>
-    <string name="repeats_yearly">añal</string>
-    <string name="repeats_plural">Se repite cada %s</string>
-    <string name="repeats_plural_on">Se repite cada %1$s el %2$s</string>
-    <string name="repeats_plural_until">Se repite cada %1$s, acaba el %2$s</string>
     <string name="repeats_plural_number_of_times">Repetir cada %1$s, ocurre %2$d%3$s</string>
-    <string name="repeats_plural_on_until">Repetir cada %1$s en %2$s, acaba el %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Se repite cada %1$s el %2$s, ocurre que %3$d%4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Non amestar al calendariu</string>
     <string name="default_calendar">Calendariu predetermináu</string>

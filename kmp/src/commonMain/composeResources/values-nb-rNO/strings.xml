@@ -262,4 +262,56 @@
         <item quantity="other">hendelser</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">hver %1$s %2$s</string>
+    <string name="repeats_single">Gjentas %1$s</string>
+    <string name="repeats_single_on">Gjentas %1$s på %2$s</string>
+    <string name="repeats_single_until">Gjentas %1$s, til %2$s</string>
+    <string name="repeats_single_number_of_times">Gjentas %1$s, inntreffer %2$d %3$s</string>
+    <string name="repeats_single_on_until">Gjentas %1$s på %2$s , til %3$s</string>
+    <string name="repeats_single_on_number_of_times">Gjentas %1$s på %2$s, inntreffer %3$d %4$s</string>
+    <string name="repeats_plural">Gjentas hvert %1$s</string>
+    <string name="repeats_plural_on">Gjentas hver(t) %1$s på %2$s</string>
+    <string name="repeats_plural_until">Gjentas hver(t) %1$s, til %2$s</string>
+    <string name="repeats_plural_number_of_times">Gjentas hver(t) %1$s, inntreffer %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Gjentas hver %1$s %2$s, til %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Gjentas hver %1$s %2$s, inntreffer %3$d %4$s</string>
+    <string name="repeats_minutely">hvert minutt</string>
+    <string name="repeats_hourly">hver time</string>
+    <string name="repeats_daily">daglig</string>
+    <string name="repeats_weekly">ukentlig</string>
+    <string name="repeats_monthly">månedlig</string>
+    <string name="repeats_yearly">årlig</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Gjentas fra</string>
+    <string name="repeat_type_due">tidsfristsdato</string>
+    <string name="repeat_type_completion">fullføringsdato</string>
+    <string name="TEA_control_repeat">Gjenta</string>
+    <plurals name="repeat_times">
+        <item quantity="one">gang</item>
+        <item quantity="other">ganger</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minutt</item>
+        <item quantity="other">%1$d minutter</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d time</item>
+        <item quantity="other">%1$d timer</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dager</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d uke</item>
+        <item quantity="other">%1$d uker</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d måned</item>
+        <item quantity="other">%1$d måneder</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d år</item>
+        <item quantity="other">%1$d år</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
 </resources>

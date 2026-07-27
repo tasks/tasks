@@ -51,4 +51,12 @@
     <string name="repeats_on">Ser</string>
     <string name="repeats_after">Piştî</string>
     <string name="repeat_option_custom">Kesane…</string>
+    <string name="repeats_minutely">Her xulek</string>
+    <string name="repeats_hourly">Her demjimêr</string>
+    <string name="repeats_daily">Her roj</string>
+    <string name="repeats_weekly">Her hefte</string>
+    <string name="repeats_monthly">Her meh</string>
+    <string name="repeats_yearly">Her sal</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="TEA_control_repeat">Dubare bike</string>
 </resources>

@@ -118,15 +118,15 @@ class RepeatRuleToStringTest : InjectingTestCase() {
     }
 
     private fun toString(language: String?, rrule: String): String? {
+        val default = Locale.getDefault()
+        val locale = language?.let { Locale.forLanguageTag(it) } ?: default
         return try {
-            val locale = language?.let { Locale.forLanguageTag(it) } ?: Locale.getDefault()
-            val configuration = context.resources.configuration.apply {
-                setLocale(locale)
-            }
-            RepeatRuleToString(context.createConfigurationContext(configuration), locale, firebase)
-                    .toString(rrule)
+            Locale.setDefault(locale)
+            RepeatRuleToString(locale, firebase).toStringBlocking(rrule)
         } catch (e: ParseException) {
             throw RuntimeException(e)
+        } finally {
+            Locale.setDefault(default)
         }
     }
 

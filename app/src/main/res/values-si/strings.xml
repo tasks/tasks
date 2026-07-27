@@ -109,10 +109,6 @@
     <string name="no_date">දිනයක් නැත</string>
     <string name="chip_appearance_icon_only">අයිකනය පමණි</string>
     <string name="chip_appearance_text_only">පෙළ පමණි</string>
-    <string name="repeats_yearly">වාර්ෂික</string>
-    <string name="repeats_monthly">මාසිකව</string>
-    <string name="repeats_weekly">සතිපතා</string>
-    <string name="repeats_daily">දිනපතා</string>
     <string name="list">ලැයිස්තුව</string>
     <string name="badges">ලාංඡන</string>
     <string name="notification_disable_battery_optimizations_description">බැටරි ප්‍රශස්තිකරණය මඟින් දැනුම්දීම් ප්‍රමාද විය හැක</string>
@@ -180,15 +176,6 @@
     <string name="new_list">නව ලැයිස්තුවක් සාදන්න</string>
     <string name="new_tag">නව ටැගයක් සාදන්න</string>
     <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
-    <string name="repeat_type_completion">සම්පූර්ණ කරන දිනය</string>
-    <plurals name="repeat_n_years">
-        <item quantity="one">වසර %dක්</item>
-        <item quantity="other">වසර %d</item>
-    </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">මාස %dක්</item>
-        <item quantity="other">මාස %d</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">සති %dක්</item>
         <item quantity="other">සති %d</item>
@@ -276,19 +263,7 @@
     <string name="pro_dashclock_extension">Dashclock දිගුව</string>
     <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeats_plural_on_number_of_times">පුනරාවර්තනය සෑම %1$s %2$s, %3$d %4$s සිදු වේ</string>
-    <string name="repeats_plural_on_until">පුනරාවර්තනය සෑම %1$s %2$s, %3$s දක්වා</string>
     <string name="repeats_plural_number_of_times">පුනරාවර්තනය සෑම %1$s, %2$d %3$s සිදු වේ</string>
-    <string name="repeats_plural_until">පුනරාවර්තනය සෑම %1$s, %2$s වන තෙක්</string>
-    <string name="repeats_plural_on">පුනරාවර්තනය සෑම %1$s, %2$s</string>
-    <string name="repeats_plural">සෑම %s පුනරාවර්තනය වේ</string>
-    <string name="repeats_hourly">පැයට</string>
-    <string name="repeats_minutely">මිනිත්තුවකට</string>
-    <string name="repeats_single_on_number_of_times">පුනරාවර්තනය %1$s %2$s දින, %3$d %4$s</string>
-    <string name="repeats_single_on_until">පුනරාවර්තනය %1$s %2$s වනදා, %3$s වන තුරු</string>
-    <string name="repeats_single_number_of_times">පුනරාවර්තනය %1$s, %2$d %3$s සිදු වේ</string>
-    <string name="repeats_single_until">%2$s දක්වා %1$s පුනරාවර්තනය වේ</string>
-    <string name="repeats_single">පුනරාවර්තනය %s</string>
     <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>
     <string name="bundle_notifications">බහු දැනුම්දීම්</string>
     <string name="date_shortcut_must_come_after">%1$s, %2$s ට පසුව පැමිණිය යුතුය</string>
@@ -406,7 +381,6 @@
     <string name="badges_description">Tasks දියත් කිරීමේ නිරූපකයේ කාර්ය ගණන පෙන්වන්න. සියලුම දියත් කරන්නන් (launchers) ලාංඡන සඳහා සහය නොදක්වයි.</string>
     <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>
     <string name="dont_add_to_calendar">දින දර්ශනයට එකතු නොකරන්න</string>
-    <string name="repeat_type_due">නියමිත දිනය</string>
     <string name="more_options">තවත් විකල්පයන්</string>
     <string name="opacity_row">පේළි පාරාන්ධතාව</string>
     <string name="opacity_header">ශීර්ෂයේ පාරාන්ධතාව</string>
@@ -469,7 +443,6 @@
     <string name="widget_show_title">මාතෘකාව පෙන්වන්න</string>
     <string name="widget_show_settings">සැකසුම් පෙන්වන්න</string>
     <string name="widget_show_header">ශීර්ෂකය පෙන්වන්න</string>
-    <string name="repeats_single_on">%1$s, %2$s පුනරාවර්තනය වේ</string>
     <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
     <string name="markdown">ලකුණු කිරීම</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>

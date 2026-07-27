@@ -169,16 +169,6 @@
         <item quantity="many">Hores</item>
         <item quantity="other">Hores</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mes</item>
-        <item quantity="many">%d mesos</item>
-        <item quantity="other">%d mesos</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d any</item>
-        <item quantity="many">%d anys</item>
-        <item quantity="other">%d anys</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
         <item quantity="many">%d setmanes</item>
@@ -222,8 +212,6 @@
     </plurals>
     <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
-    <string name="repeat_type_due">data de venciment</string>
-    <string name="repeat_type_completion">data de finalització</string>
     <string name="TEA_creation_date">Data de creació</string>
     <string name="new_list">Creeu una nova llista</string>
     <string name="voice_create_prompt">Parlar per crear una tasca</string>
@@ -244,9 +232,7 @@
     <string name="swipe_to_snooze_time_15_minutes">després de 15 minuts</string>
     <string name="swipe_to_snooze_time_30_minutes">després de 30 minuts</string>
     <string name="url">URL</string>
-    <string name="repeats_hourly">cada hora</string>
     <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
-    <string name="repeats_plural_on_until">Es repeteix cada %1$s el %2$s, finalitza el %3$s</string>
     <string name="tasker_create_task">Crear tasca</string>
     <string name="tasker_list_notification">Notificació de llista</string>
     <string name="upgrade_to_pro">Actualitza a pro</string>
@@ -255,7 +241,6 @@
     <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>
     <string name="location_remind_departure">Recordar a la sortida</string>
     <string name="user">Usuari</string>
-    <string name="repeats_weekly">cada setmana</string>
     <string name="button_subscribe">Subscriu-te</string>
     <string name="refresh_purchases">Actualitza les compres</string>
     <string name="missing_permissions">Falten permisos</string>
@@ -271,9 +256,6 @@
     <string name="date_shortcut_night">Nit</string>
     <string name="date_shortcut_morning">Matí</string>
     <string name="date_shortcut_afternoon">Tarda</string>
-    <string name="repeats_yearly">cada any</string>
-    <string name="repeats_plural">Es repeteix cada %s</string>
-    <string name="repeats_plural_on_number_of_times">Es repeteix cada %1$s el %2$s, ocurreix %3$d%4$s</string>
     <string name="background_location_permission_required">Tasks recopila dades d\'ubicació per permetre els recodatoris basats en la ubicació tot i quan l\'aplicació està tancada o no s\'utilitza.</string>
     <string name="visit_website">Visitar pàgina web</string>
     <string name="location_arrived">Arribat a %s</string>
@@ -296,8 +278,6 @@
     <string name="date_shortcut_tomorrow_evening">Demà pel vespre</string>
     <string name="date_shortcut_tomorrow_night">Demà per la nit</string>
     <string name="password">Contrasenya</string>
-    <string name="repeats_daily">cada dia</string>
-    <string name="repeats_monthly">cada mes</string>
     <string name="help_and_feedback">Ajuda i comentaris</string>
     <string name="show_full_description">Mostra la descripció completa</string>
     <string name="location_remind_arrival">Recorda a l\'arribar</string>
@@ -307,10 +287,7 @@
     <string name="notifications">Notificacions</string>
     <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
     <string name="date_shortcut_evening">Vespre</string>
-    <string name="repeats_minutely">cada minut</string>
-    <string name="repeats_plural_until">Es repeteix cada %1$s, finalitza el %2$s</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeats_plural_on">Es repeteix cada %1$s el %2$s</string>
     <string name="swipe_to_snooze_title">Llisca per posposar</string>
     <string name="add_reminder">Afegeix un recordatori</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
@@ -403,12 +380,6 @@
     <string name="bundle_notifications">Notificacions del paquet</string>
     <string name="badges">Insígnies</string>
     <string name="repeats_from">Repeteix des de</string>
-    <string name="repeats_single">Repeteix %s</string>
-    <string name="repeats_single_on">Repeteix %1$s el %2$s</string>
-    <string name="repeats_single_until">Repeteix %1$s, acaba el %2$s</string>
-    <string name="repeats_single_number_of_times">Repeteix %1$s, es produeix %2$d %3$s</string>
-    <string name="repeats_single_on_until">Repeteix %1$s el %2$s, acaba el %3$s</string>
-    <string name="repeats_single_on_number_of_times">Repeteix %1$s el %2$s, es produeix %3$d %4$s</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
     <string name="badges_description">Mostreu un recompte de tasques a la icona del llançador de tasques. No tots els llançadors suporten insígnies.</string>
     <string name="pro_dashclock_extension">Extensió Dashclock</string>

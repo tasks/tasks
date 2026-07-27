@@ -129,14 +129,6 @@
     <string name="restart_required">重新啟動 Tasks以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
-    <string name="repeats_single">%s重複</string>
-    <string name="repeats_minutely">每分鐘</string>
-    <string name="repeats_hourly">每小時</string>
-    <string name="repeats_daily">每天</string>
-    <string name="repeats_weekly">每週</string>
-    <string name="repeats_monthly">每月</string>
-    <string name="repeats_yearly">每年</string>
-    <string name="repeats_plural">每 %s 重複</string>
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>
     <string name="TLA_no_items">這裡沒有工作。</string>
@@ -215,11 +207,6 @@
     <string name="delete_tag_confirmation">要刪除 %s 嗎 \?</string>
     <string name="repeat_snackbar">%1$s 重新安排至 %2$s</string>
     <string name="repeat_type_completion_capitalized">完成日期</string>
-    <string name="repeat_type_completion">完成日期</string>
-    <string name="repeat_type_due">截止日期</string>
-    <plurals name="repeat_n_years">
-        <item quantity="other">%d 年</item>
-    </plurals>
     <string name="persistent_notifications_description">固定通知將無法被消除</string>
     <string name="persistent_notifications">固定通知</string>
     <string name="snooze_all">全部延遲提醒</string>
@@ -374,9 +361,6 @@
     <plurals name="task_count">
         <item quantity="other">%d 個工作</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="other">%d 每月</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d 週</item>
     </plurals>
@@ -404,18 +388,9 @@
     <string name="now">現在</string>
     <string name="when_started">開始后</string>
     <string name="bundle_notifications">捆綁通知</string>
-    <string name="repeats_plural_on_number_of_times">每%1$s的%2$s重複，總共 %3$d %4$s</string>
-    <string name="repeats_single_until">重複 %1$s，於 %2$s 結束</string>
     <string name="tasker_list_notification">列表通知</string>
-    <string name="repeats_plural_on">每%1$s的%2$s重複</string>
     <string name="repeats_plural_number_of_times">每%1$s重複，總共%2$d %3$s</string>
     <string name="badges">徽章</string>
-    <string name="repeats_plural_until">每 %1$s 重複一次，於 %2$s 結束</string>
-    <string name="repeats_plural_on_until">每 %1$s 在 %2$s 重複一次，在 %3$s 結束</string>
-    <string name="repeats_single_on">%1$s的%2$s重複</string>
-    <string name="repeats_single_number_of_times">%1$s重複，總共%2$d %3$s</string>
-    <string name="repeats_single_on_until">在 %2$s 上重複 %1$s，在 %3$s 結束</string>
-    <string name="repeats_single_on_number_of_times">%1$s的%2$s重複，總共%3$d %4$s</string>
     <string name="badges_description">在Tasks啓動圖標上顯示任務數，不是所有啓動器都支持。</string>
     <string name="randomly_every">每 %s 隨機</string>
     <plurals name="reminder_minutes">

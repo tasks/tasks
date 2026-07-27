@@ -415,4 +415,56 @@
     <string name="add_tag">Tag hinzufügen</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Laden Sie die Desktop-App unter tasks.org/download herunter und melden Sie sich dann mit demselben Google-Konto an.</string>
     <string name="google_tasks_permission_not_granted">Die Berechtigung für Google Tasks wurde nicht erteilt. Bitte melden Sie sich erneut an und gewähren Sie auf dem Zustimmungsbildschirm Zugriff auf Google Tasks.</string>
+    <string name="repeats_single">Wiederholt sich %1$s</string>
+    <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
+    <string name="repeats_single_until">Wiederholt sich %1$s, endet am %2$s</string>
+    <string name="repeats_single_number_of_times">Wiederholt sich %1$s, genau %2$d %3$s</string>
+    <string name="repeats_single_on_until">Wiederholt sich %1$s am %2$s, endet am %3$s</string>
+    <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s %2$s, genau %3$d %4$s</string>
+    <string name="repeats_plural">Wiederholt sich alle %1$s</string>
+    <string name="repeats_plural_on">Wiederholt sich alle %1$s am %2$s</string>
+    <string name="repeats_plural_until">Wiederholt sich alle %1$s bis %2$s</string>
+    <string name="repeats_plural_number_of_times">Wiederholt sich alle %1$s, genau %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Wiederholt sich alle %1$s am %2$s, bis %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Wiederholt sich alle %1$s am %2$s, genau %3$d %4$s</string>
+    <string name="repeats_minutely">minütlich</string>
+    <string name="repeats_hourly">stündlich</string>
+    <string name="repeats_daily">täglich</string>
+    <string name="repeats_weekly">wöchentlich</string>
+    <string name="repeats_monthly">monatlich</string>
+    <string name="repeats_yearly">jährlich</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Wiederholt sich ab</string>
+    <string name="repeat_type_due">Fälligkeitsdatum</string>
+    <string name="repeat_type_completion">Erledigung</string>
+    <string name="TEA_control_repeat">Wiederholen</string>
+    <plurals name="repeat_times">
+        <item quantity="one">-mal</item>
+        <item quantity="other">-mal</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d Stunde</item>
+        <item quantity="other">%1$d Stunden</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d Tag</item>
+        <item quantity="other">%1$d Tage</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d Woche</item>
+        <item quantity="other">%1$d Wochen</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d Monat</item>
+        <item quantity="other">%1$d Monate</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d Jahr</item>
+        <item quantity="other">%1$d Jahre</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
 </resources>

@@ -71,7 +71,7 @@ class RepeatControlSet : TaskEditControlFragment() {
             onDueDateChanged()
         }
         RepeatRow(
-            recurrence = viewState.task.recurrence?.let { repeatRuleToString.toString(it) },
+            recurrence = viewState.task.recurrence?.let { repeatRuleToString.toStringBlocking(it) },
             repeatFrom = viewState.task.repeatFrom,
             onClick = {
                 val accountType = viewState.list.account.accountType

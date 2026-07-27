@@ -83,6 +83,7 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
@@ -129,6 +130,10 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getCrashReporting(reporting: Reporting): CrashReporting = reporting
+
+    @Provides
+    fun getRepeatRuleToString(locale: Locale, crashReporting: CrashReporting) =
+        RepeatRuleToString(locale = locale, crashReporting = crashReporting)
 
     @Provides
     @Singleton

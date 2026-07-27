@@ -217,16 +217,6 @@
         <item quantity="one">%d εβδομάδα</item>
         <item quantity="other">%d εβδομάδες</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d μήνας</item>
-        <item quantity="other">%d μήνες</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d χρόνος</item>
-        <item quantity="other">%d χρόνια</item>
-    </plurals>
-    <string name="repeat_type_due">ημερομηνία προθεσμίας</string>
-    <string name="repeat_type_completion">ημερομηνία ολοκλήρωσης</string>
     <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
     <string name="repeat_snackbar">%1$s επαναπρογραμματισμός για %2$s</string>
     <string name="new_tag">Δημιουργία νέας ετικέτας</string>
@@ -280,24 +270,7 @@
     <string name="badges">Μετάλλια</string>
     <string name="list">Λίστα</string>
     <string name="repeats_from">Επανάληψη από</string>
-    <string name="repeats_single">Επανάληψη %s</string>
-    <string name="repeats_single_on">Επανάληψη %1$s στις %2$s</string>
-    <string name="repeats_single_until">Επανάληψη %1$s, τελειώνει στις %2$s</string>
-    <string name="repeats_single_number_of_times">Επανάληψη %1$s, συμβαίνει %2$d %3$s</string>
-    <string name="repeats_single_on_until">Επανάληψη %1$s στις %2$s, τελειώνει στις %3$s</string>
-    <string name="repeats_single_on_number_of_times">Επανάληψη %1$s στις %2$s, συμβαίνει %3$d %4$s</string>
-    <string name="repeats_minutely">κάθε λεπτό</string>
-    <string name="repeats_hourly">κάθε ώρα</string>
-    <string name="repeats_daily">καθημερινά</string>
-    <string name="repeats_weekly">εβδομαδιαία</string>
-    <string name="repeats_monthly">μηνιαία</string>
-    <string name="repeats_yearly">ετησίως</string>
-    <string name="repeats_plural">Επανάληψη κάθε %s</string>
-    <string name="repeats_plural_on">Επανάληψη κάθε %1$s στις %2$s</string>
-    <string name="repeats_plural_until">Επανάληψη κάθε %1$s, τελειώνει στις %2$s</string>
     <string name="repeats_plural_number_of_times">Επανάληψη κάθε %1$s, συμβαίνει %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Επανάληψη κάθε %1$s στις %2$s, τελειώνει στις %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Επανάληψη κάθε %1$s στις %2$s, συμβαίνει %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Να μην προστεθεί στο ημερολόγιο</string>
     <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>

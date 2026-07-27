@@ -7,9 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import net.fortuna.ical4j.model.Recur
 import org.tasks.compose.pickers.BasicRecurrence
 import org.tasks.compose.pickers.BasicRecurrenceOption
+import org.tasks.compose.pickers.isCustomRecurrence
 import org.tasks.dialogs.DialogBuilder
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.newIntent
@@ -47,8 +47,8 @@ class BasicRecurrenceDialog : DialogFragment() {
                         null
                     }
                 }
-        val customPicked = isCustomValue(rrule)
-        val customLabel = if (customPicked) repeatRuleToString.toString(rule) else null
+        val customPicked = rrule?.isCustomRecurrence() == true
+        val customLabel = if (customPicked) repeatRuleToString.toStringBlocking(rule) else null
         val selectedFrequency = if (!customPicked) rrule?.frequency else null
         return dialogBuilder
             .newDialog()
@@ -100,14 +100,6 @@ class BasicRecurrenceDialog : DialogFragment() {
             REQUEST_KEY,
             bundleOf(EXTRA_RRULE to rrule)
         )
-    }
-
-    private fun isCustomValue(rrule: Recur?): Boolean {
-        if (rrule == null) {
-            return false
-        }
-        val frequency = rrule.frequency
-        return (frequency == Recur.Frequency.WEEKLY || frequency == Recur.Frequency.MONTHLY) && !rrule.dayList.isEmpty() || frequency == Recur.Frequency.HOURLY || frequency == Recur.Frequency.MINUTELY || rrule.until != null || rrule.interval > 1 || rrule.count > 0
     }
 
     companion object {

@@ -276,4 +276,56 @@
         <item quantity="other">நிகழ்வுகள்</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">ஒவ்வொரு %1$s %2$s</string>
+    <string name="repeats_single">%1$s மீண்டும் செய்கிறது</string>
+    <string name="repeats_single_on">%2$s இல் %1$s மீண்டும் நிகழ்கிறது</string>
+    <string name="repeats_single_until">%1$s ஐ மீண்டும் நிகழ்வது, %2$s அன்று முடிகிறது</string>
+    <string name="repeats_single_number_of_times">%1$s மீண்டும் நிகழ்கிறது, %2$d %3$s</string>
+    <string name="repeats_single_on_until">%2$s இல் %1$s மீண்டும் மீண்டும், %3$s இல் முடிகிறது</string>
+    <string name="repeats_single_on_number_of_times">%2$s இல் %1$s, %3$d %4$s ஏற்படுகிறது</string>
+    <string name="repeats_plural">ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது</string>
+    <string name="repeats_plural_on">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது</string>
+    <string name="repeats_plural_until">ஒவ்வொரு %1$s ஐ மீண்டும் மீண்டும், %2$s இல் முடிகிறது</string>
+    <string name="repeats_plural_number_of_times">ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %2$d %3$s ஏற்படுகிறது</string>
+    <string name="repeats_plural_on_until">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் மீண்டும், %3$s இல் முடிகிறது</string>
+    <string name="repeats_plural_on_number_of_times">%2$s இல் ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %3$d %4$s ஏற்படுகிறது</string>
+    <string name="repeats_minutely">மிகச்சிறிய</string>
+    <string name="repeats_hourly">மணிநேர</string>
+    <string name="repeats_daily">தினசரி</string>
+    <string name="repeats_weekly">வாராந்திர</string>
+    <string name="repeats_monthly">மாதாந்திர</string>
+    <string name="repeats_yearly">ஆண்டு</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">இருந்து மீண்டும்</string>
+    <string name="repeat_type_due">உரிய தேதி</string>
+    <string name="repeat_type_completion">நிறைவு தேதி</string>
+    <string name="TEA_control_repeat">மீண்டும் செய்யவும்</string>
+    <plurals name="repeat_times">
+        <item quantity="one">நேரம்</item>
+        <item quantity="other">நேரங்கள்</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d நிமிடம்</item>
+        <item quantity="other">%1$d நிமிடங்கள்</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d மணி</item>
+        <item quantity="other">%1$d மணிநேரம்</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d நாள்</item>
+        <item quantity="other">%1$d நாட்கள்</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d வாரம்</item>
+        <item quantity="other">%1$d வாரங்கள்</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d திங்கள்</item>
+        <item quantity="other">%1$d திங்கள்கள்</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d ஆண்டு</item>
+        <item quantity="other">%1$d ஆண்டுகள்</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
 </resources>

@@ -161,7 +161,6 @@
         <item quantity="other">%d مهمة</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
-    <string name="repeat_type_completion">تاريخ الإكمال</string>
     <string name="above_average">فوق المتوسط</string>
     <string name="icon">الأيقونة</string>
     <string name="copy">نسخ</string>
@@ -195,12 +194,6 @@
     <string name="button_subscribe">اشترك</string>
     <string name="subscription">اشتراك</string>
     <string name="list_separator_with_space">"، "</string>
-    <string name="repeats_yearly">سنويًّا</string>
-    <string name="repeats_monthly">شهريًّا</string>
-    <string name="repeats_weekly">أسبوعيًّا</string>
-    <string name="repeats_daily">يوميًّا</string>
-    <string name="repeats_hourly">كلّ ساعة</string>
-    <string name="repeats_minutely">كلّ دقيقة</string>
     <string name="password">كلمة السّر</string>
     <string name="user">المستعمل</string>
     <string name="copy_selected_tasks">نسخ المهام المختارة؟</string>
@@ -351,9 +344,6 @@
     <string name="gcal_TEA_error">خطأ في إضافة المهمة للتقويم!</string>
     <string name="name_your_price">سمي سعرك</string>
     <string name="pro_dashclock_extension">الاضافة داشكلوك</string>
-    <string name="repeats_plural_on_number_of_times">يتكرر كل %1$s في %2$s، يحدث عند %3$d %4$s</string>
-    <string name="repeats_single_on_number_of_times">يتكرر %1$s في %2$s، يحدث %3$d %4$s</string>
-    <string name="repeats_single_number_of_times">يتكرر %1$s، يحدث %2$d %3$s</string>
     <string name="widget_settings">إعدادات الودجيت</string>
     <string name="CFC_dueBefore_name">تستحق في…</string>
     <string name="EPr_cal_end_or_start_at_due_time">وقت حدث التقويم</string>
@@ -395,15 +385,7 @@
     <string name="upgrade_to_pro">طور لاصدار متقدم</string>
     <string name="help_and_feedback">مساعدة وتبليغات</string>
     <string name="tasker_list_notification">قائمة الاشعارات</string>
-    <string name="repeats_plural_on_until">كرره كل %1$s في %2$s . ينتهي عند %3$s</string>
     <string name="repeats_plural_number_of_times">كرره كل %1$s، يحدث %2$d %3$s</string>
-    <string name="repeats_plural_until">كرره كل %1$s، ينتهي عند %2$s</string>
-    <string name="repeats_plural_on">كرره كل %1$s في %2$s</string>
-    <string name="repeats_plural">كرره كل %s</string>
-    <string name="repeats_single_on_until">أعده %1$s في %2$s أنهه عند %3$s</string>
-    <string name="repeats_single_until">أعده %1$s أنهه عند %2$s</string>
-    <string name="repeats_single_on">أعده %1$s عند %2$s</string>
-    <string name="repeats_single">أعده %s</string>
     <string name="bundle_notifications">حزمة الاشعارات</string>
     <string name="clear_completed_tasks_confirmation">أزل المهام المتممة؟</string>
     <string name="restart_required">أعد تشغيل التطبيق ليأخذ هذا التغيير تأثيره</string>
@@ -422,7 +404,6 @@
     <string name="TEA_timer_comment_stopped">توقف عن القيام بهذه المهمة:</string>
     <string name="TPl_notification">المؤقت نشط ل%s!</string>
     <string name="repeat_snackbar">%1$s اعد جدولته ل %2$s</string>
-    <string name="repeat_type_due">تاريخ الاستحقاق</string>
     <string name="repeat_option_custom">تعديل…</string>
     <string name="persistent_notifications_description">الإشعارات المستمرة لا يمكن محوها</string>
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
@@ -457,22 +438,6 @@
     <string name="auto_dismiss_datetime">الإغلاق التلقائي لمنتقي التاريخ والوقت</string>
     <string name="chip_appearance_text_only">نص فقط</string>
     <string name="persistent_notifications">الإشعارات المستمرة</string>
-    <plurals name="repeat_n_years">
-        <item quantity="zero">%d سنة</item>
-        <item quantity="one">سنة واحدة</item>
-        <item quantity="two">سنتان</item>
-        <item quantity="few">%d سنوات</item>
-        <item quantity="many">%d سنة</item>
-        <item quantity="other">%d سنة</item>
-    </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="zero">%d شهر</item>
-        <item quantity="one">شهر واحد</item>
-        <item quantity="two">شهران</item>
-        <item quantity="few">%d أشهر</item>
-        <item quantity="many">%d شهر</item>
-        <item quantity="other">%d شهر</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="zero">%d أسبوع</item>
         <item quantity="one">أسبوع واحد</item>

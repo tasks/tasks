@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +48,8 @@ class CustomRecurrenceActivity : FragmentActivity() {
                     toggleDay = { viewModel.toggleDay(it) },
                     setMonthSelection = { viewModel.setMonthSelection(it) },
                     calendarDisplayMode = remember { preferences.calendarDisplayMode },
-                    setDisplayMode = { preferences.calendarDisplayMode = it }
+                    setDisplayMode = { preferences.calendarDisplayMode = it },
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }

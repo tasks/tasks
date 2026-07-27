@@ -134,15 +134,6 @@
         <item quantity="one">%d 周</item>
         <item quantity="other">%d 周</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="other">%d 个月</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d 年</item>
-        <item quantity="other">%d 年</item>
-    </plurals>
-    <string name="repeat_type_due">截止日期</string>
-    <string name="repeat_type_completion">完成日期</string>
     <string name="repeat_snackbar">重新安排了 %2$s 的 %1$s</string>
     <string name="new_tag">新建标签</string>
     <string name="new_list">新建清单</string>
@@ -241,24 +232,7 @@
     <string name="badges">角标</string>
     <string name="list">清单</string>
     <string name="repeats_from">重复始于</string>
-    <string name="repeats_single">重复 %s</string>
-    <string name="repeats_single_on">重复 %1$s 于 %2$s</string>
-    <string name="repeats_single_until">重复 %1$s ，结束于 %2$s</string>
-    <string name="repeats_single_number_of_times">重复%1$s，发生 %2$d %3$s</string>
-    <string name="repeats_single_on_until">重复 %1$s 于 %2$s，结束于 %3$s</string>
-    <string name="repeats_single_on_number_of_times">重复 %1$s 于 %2$s，发生 %3$d %4$s</string>
-    <string name="repeats_minutely">每分钟</string>
-    <string name="repeats_hourly">每小时</string>
-    <string name="repeats_daily">每日</string>
-    <string name="repeats_weekly">每周</string>
-    <string name="repeats_monthly">每月</string>
-    <string name="repeats_yearly">每年</string>
-    <string name="repeats_plural">每%s重复</string>
-    <string name="repeats_plural_on">每 %1$s 于 %2$s 重复</string>
-    <string name="repeats_plural_until">每%1$s重复，结束于%2$s</string>
     <string name="repeats_plural_number_of_times">每%1$s重复，发生 %2$d %3$s</string>
-    <string name="repeats_plural_on_until">每 %1$s 于 %2$s 重复，结束于 %3$s</string>
-    <string name="repeats_plural_on_number_of_times">每 %1$s 于 %2$s 重复，发生 %3$d %4$s</string>
     <string name="dont_add_to_calendar">不添加到日历</string>
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>

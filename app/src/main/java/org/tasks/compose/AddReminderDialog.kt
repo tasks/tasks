@@ -68,6 +68,7 @@ import org.tasks.reminders.AlarmToString.Companion.getRepeatString
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.repeat_option_does_not_repeat
+import tasks.kmp.generated.resources.repeats_plural
 import java.util.concurrent.TimeUnit
 
 @ExperimentalComposeUiApi
@@ -447,7 +448,11 @@ object AddReminderDialog {
                 .fillMaxWidth()
                 .verticalScroll(scrollState)
         ) {
-            CenteredH6(text = stringResource(id = R.string.repeats_plural, "").trim())
+            CenteredH6(
+                text = org.jetbrains.compose.resources.stringResource(
+                    Res.string.repeats_plural, ""
+                ).trim()
+            )
             val focusRequester = remember { FocusRequester() }
             OutlinedIntInput(
                 value = intervalAmount,

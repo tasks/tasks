@@ -312,4 +312,63 @@
         <item quantity="other">понављања</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">сваки %1$s %2$s</string>
+    <string name="repeats_single">Понављање %1$s</string>
+    <string name="repeats_single_on">Понавља се %1$s на %2$s</string>
+    <string name="repeats_single_until">Понавља се %1$s, завршава се %2$s</string>
+    <string name="repeats_single_number_of_times">Понавља се %1$s, појављује се %2$d %3$s</string>
+    <string name="repeats_single_on_until">Понавља се %1$s на %2$s, завршава се %3$s</string>
+    <string name="repeats_single_on_number_of_times">Понавља се %1$s на %2$s, појављује се %3$d %4$s</string>
+    <string name="repeats_plural">Понавља се сваких %1$s</string>
+    <string name="repeats_plural_on">Понавља се сваких %1$s на %2$s</string>
+    <string name="repeats_plural_until">Понавља се сваких %1$s, завршава се %2$s</string>
+    <string name="repeats_plural_number_of_times">Понавља се сваких %1$s, појављује се %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Понавља се сваких %1$s на %2$s, завршава се %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Понавља се сваких%1$s на %2$s, појављује се %3$d %4$s</string>
+    <string name="repeats_minutely">по минуту</string>
+    <string name="repeats_hourly">по часу</string>
+    <string name="repeats_daily">дневно</string>
+    <string name="repeats_weekly">седмично</string>
+    <string name="repeats_monthly">месечно</string>
+    <string name="repeats_yearly">годишње</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Понавља се од</string>
+    <string name="repeat_type_due">датум доспећа</string>
+    <string name="repeat_type_completion">датум завршетка</string>
+    <string name="TEA_control_repeat">Понови</string>
+    <plurals name="repeat_times">
+        <item quantity="one">време</item>
+        <item quantity="few">времена</item>
+        <item quantity="other">времена</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d минут</item>
+        <item quantity="few">%1$d минута</item>
+        <item quantity="other">%1$d минута</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d час</item>
+        <item quantity="few">%1$d часа</item>
+        <item quantity="other">%1$d часова</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d дан</item>
+        <item quantity="few">%1$d дана</item>
+        <item quantity="other">%1$d дана</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d седмица</item>
+        <item quantity="few">%1$d седмице</item>
+        <item quantity="other">%1$d седмица</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d месец</item>
+        <item quantity="few">%1$d месеца</item>
+        <item quantity="other">%1$d месеци</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d година</item>
+        <item quantity="few">%1$d године</item>
+        <item quantity="other">%1$d година</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Датум завршетка</string>
 </resources>

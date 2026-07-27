@@ -224,16 +224,6 @@
         <item quantity="one">%d vecka</item>
         <item quantity="other">%d veckor</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d månad</item>
-        <item quantity="other">%d månader</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d år</item>
-        <item quantity="other">%d år</item>
-    </plurals>
-    <string name="repeat_type_due">förfallodatumet</string>
-    <string name="repeat_type_completion">slutförandedatumet</string>
     <string name="TEA_timer_controls">Tidtagning</string>
     <string name="google_drive_backup">Google Drive-säkerhetskopia</string>
     <string name="row_spacing">Radavstånd</string>
@@ -258,24 +248,7 @@
     <string name="badges">Aviseringsmärken</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Upprepas från</string>
-    <string name="repeats_single">Upprepas %s</string>
-    <string name="repeats_single_on">Upprepas %1$s på %2$s</string>
-    <string name="repeats_single_until">Upprepas %1$s till och med %2$s</string>
-    <string name="repeats_single_number_of_times">Upprepas %1$s, totalt %2$d %3$s</string>
-    <string name="repeats_single_on_until">Upprepas %1$s på %2$s till och med %3$s</string>
-    <string name="repeats_single_on_number_of_times">Upprepas %1$s på %2$s, totalt %3$d %4$s</string>
-    <string name="repeats_minutely">Varje minut</string>
-    <string name="repeats_hourly">Varje timme</string>
-    <string name="repeats_daily">Dagligen</string>
-    <string name="repeats_weekly">Veckovis</string>
-    <string name="repeats_monthly">Månadsvis</string>
-    <string name="repeats_yearly">Årligen</string>
-    <string name="repeats_plural">Upprepas varje %s</string>
-    <string name="repeats_plural_on">Upprepas var %1$s på %2$s</string>
-    <string name="repeats_plural_until">Upprepas var %1$s till och med %2$s</string>
     <string name="repeats_plural_number_of_times">Upprepas var %1$s, totalt %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Upprepas var %1$s på %2$s till och med %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Upprepas var %1$s på %2$s, totalt %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Lägg inte till i kalender</string>
     <string name="default_calendar">Förvald kalender</string>

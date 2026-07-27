@@ -240,4 +240,56 @@
         <item quantity="other">urterik behin</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s bakoitzean</string>
+    <string name="repeats_single">Errepikatu %1$s</string>
+    <string name="repeats_single_on">Errepikatu %1$s %2$s</string>
+    <string name="repeats_single_until">Errepikatu %1$s %2$s arte</string>
+    <string name="repeats_single_number_of_times">Errepikatu %1$s, %2$d %3$s</string>
+    <string name="repeats_single_on_until">Errepikatu %1$s %2$s %3$s arte</string>
+    <string name="repeats_single_on_number_of_times">Errepikatu %1$s %2$s, %3$d %4$s</string>
+    <string name="repeats_plural">Errepikatu %1$s</string>
+    <string name="repeats_plural_on">Errepikatu %1$s %2$s denean</string>
+    <string name="repeats_plural_until">Errepikatu %1$s %2$s arte</string>
+    <string name="repeats_plural_number_of_times">Errepikatu %1$s, %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Errepikatu %1$s %2$s %3$s arte</string>
+    <string name="repeats_plural_on_number_of_times">Errepikatu %1$s %2$s denean, %3$d %4$s</string>
+    <string name="repeats_minutely">minutuero</string>
+    <string name="repeats_hourly">orduero</string>
+    <string name="repeats_daily">egunero</string>
+    <string name="repeats_weekly">astero</string>
+    <string name="repeats_monthly">hilabetero</string>
+    <string name="repeats_yearly">urtero</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Errepikatu hemendik</string>
+    <string name="repeat_type_due">epemuga-data</string>
+    <string name="repeat_type_completion">burutze-data</string>
+    <string name="TEA_control_repeat">Errepikatu</string>
+    <plurals name="repeat_times">
+        <item quantity="one">aldiz</item>
+        <item quantity="other">aldiz</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">minutu %1$d</item>
+        <item quantity="other">%1$d minutu</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">ordu %1$d</item>
+        <item quantity="other">%1$d ordu</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">egun %1$d</item>
+        <item quantity="other">%1$d egun</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">aste %1$d</item>
+        <item quantity="other">%1$d aste</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">hilabete %1$d</item>
+        <item quantity="other">%1$d hilabete</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">urte %1$d</item>
+        <item quantity="other">%1$d urte</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Burutze-data</string>
 </resources>

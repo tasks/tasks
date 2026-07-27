@@ -276,4 +276,63 @@
         <item quantity="other">zdarzeń</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">każdy %1$s %2$s</string>
+    <string name="repeats_single">Powtarza się %1$s</string>
+    <string name="repeats_single_on">Powtarza się %1$s w: %2$s</string>
+    <string name="repeats_single_until">Powtarza się %1$s do %2$s</string>
+    <string name="repeats_single_number_of_times">Powtarzane %1$s, występuje %2$d %3$s</string>
+    <string name="repeats_single_on_until">Powtarza się %1$s w %2$s do %3$s</string>
+    <string name="repeats_single_on_number_of_times">Powtarzane %1$s w %2$s, występuje %3$d %4$s</string>
+    <string name="repeats_plural">Powtarzaj co %1$s</string>
+    <string name="repeats_plural_on">Powtarzane co każde %1$s w %2$s</string>
+    <string name="repeats_plural_until">Powtarzane co każde %1$s aż do %2$s</string>
+    <string name="repeats_plural_number_of_times">Powtarzane co każde %1$s, występuje %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Powtarzane co każde %1$s w %2$s aż do %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Powtarzane co każde %1$s w %2$s, występuje %3$d %4$s</string>
+    <string name="repeats_minutely">co minutę</string>
+    <string name="repeats_hourly">co godzinę</string>
+    <string name="repeats_daily">raz dziennie</string>
+    <string name="repeats_weekly">raz w tygodniu</string>
+    <string name="repeats_monthly">raz w miesiącu</string>
+    <string name="repeats_yearly">raz w roku</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Powtarzaj od</string>
+    <string name="repeat_type_due">w terminie</string>
+    <string name="repeat_type_completion">data zakończenia</string>
+    <string name="TEA_control_repeat">Powtórz</string>
+    <plurals name="repeat_times">
+        <item quantity="one">raz</item>
+        <item quantity="few">razy</item>
+        <item quantity="many">razy</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minutę</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="many">%1$d minut</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d godzinę</item>
+        <item quantity="few">%1$d godziny</item>
+        <item quantity="many">%1$d godzin</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dzień</item>
+        <item quantity="few">%1$d dni</item>
+        <item quantity="many">%1$d dni</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d tydzień</item>
+        <item quantity="few">%1$d tygodnie</item>
+        <item quantity="many">%1$d tygodni</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d miesiąc</item>
+        <item quantity="few">%1$d miesiące</item>
+        <item quantity="many">%1$d miesięcy</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d rok</item>
+        <item quantity="few">%1$d lat</item>
+        <item quantity="many">%1$d lat</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Data zakończenia</string>
 </resources>

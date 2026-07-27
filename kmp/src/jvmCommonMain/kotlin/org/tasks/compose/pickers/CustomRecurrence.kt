@@ -13,21 +13,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -57,6 +55,7 @@ import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.repeats.CustomRecurrenceViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.repeat_days
 import tasks.kmp.generated.resources.repeat_hours
 import tasks.kmp.generated.resources.repeat_minutes
@@ -79,10 +78,25 @@ import tasks.kmp.generated.resources.repeats_every
 import tasks.kmp.generated.resources.repeats_never
 import tasks.kmp.generated.resources.repeats_on
 import tasks.kmp.generated.resources.repeats_weekly_on
-import tasks.kmp.generated.resources.save
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 import java.util.Locale
+
+private val DialogHorizontalPadding = 20.dp
+private val RadioButtonVisualInset = 14.dp
+private val RadioButtonSize = 48.dp
+private val TextButtonVisualInset = 12.dp
+
+private val RadioRowPadding = PaddingValues(
+    start = DialogHorizontalPadding - RadioButtonVisualInset,
+    end = DialogHorizontalPadding,
+)
+
+private val RadioContentInset =
+    DialogHorizontalPadding - RadioButtonVisualInset + RadioButtonSize
+
+private val ButtonRowPadding = DialogHorizontalPadding - TextButtonVisualInset
+private val ContentBottomGap = 8.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,9 +113,13 @@ fun CustomRecurrence(
     setMonthSelection: (Int) -> Unit,
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    PlatformBackHandler(enabled = true, onBack = save)
+    PlatformBackHandler(enabled = true, onBack = discard)
     Scaffold(
+        modifier = modifier,
+        containerColor = MaterialTheme.colorScheme.surface,
+        contentColor = MaterialTheme.colorScheme.onSurface,
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -115,42 +133,26 @@ fun CustomRecurrence(
                         text = stringResource(Res.string.repeats_custom_recurrence),
                     )
                 },
-                navigationIcon = {
-                    IconButton(onClick = save) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                            contentDescription = stringResource(Res.string.save),
-                            tint = MaterialTheme.colorScheme.onSurface,
-                        )
-                    }
-                },
-                actions = {
-                    TextButton(onClick = discard) {
-                        Text(
-                            text = stringResource(Res.string.cancel),
-                            style = MaterialTheme.typography.bodyLarge.copy(
-                                fontFeatureSettings = "c2sc, smcp"
-                            )
-                        )
-                    }
-                },
             )
-        }
+        },
     ) { padding ->
-        Surface(
-            color = MaterialTheme.colorScheme.surface,
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding),
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState()),
+            ) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Header(Res.string.repeats_every)
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.padding(horizontal = 16.dp),
+                    modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
                 ) {
                     OutlinedNumberInput(
                         number = state.interval,
@@ -209,6 +211,25 @@ fun CustomRecurrence(
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(ContentBottomGap))
+            Row(
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = ButtonRowPadding,
+                        end = ButtonRowPadding,
+                        bottom = ContentBottomGap,
+                    ),
+            ) {
+                TextButton(onClick = discard) {
+                    Text(text = stringResource(Res.string.cancel))
+                }
+                TextButton(onClick = save) {
+                    Text(text = stringResource(Res.string.ok))
+                }
+            }
         }
     }
 }
@@ -219,7 +240,7 @@ private fun Header(res: StringResource) {
         text = stringResource(res),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurface,
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
     )
 }
 
@@ -238,7 +259,7 @@ private fun WeekdayPicker(
     Spacer(modifier = Modifier.height(16.dp))
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
     ) {
         daysOfWeek.forEach { dayOfWeek ->
             val string = remember(dayOfWeek, locale) {
@@ -324,7 +345,7 @@ private fun MonthlyPicker(
         }
     }
     Row(
-        modifier = Modifier.padding(horizontal = 16.dp),
+        modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
     ) {
         OutlinedSpinner(
             text = options[selection],
@@ -353,7 +374,12 @@ private fun EndsPicker(
         Text(text = stringResource(Res.string.repeats_never))
     }
     HorizontalDivider(
-        modifier = Modifier.padding(start = 50.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+        modifier = Modifier.padding(
+            start = RadioContentInset,
+            end = DialogHorizontalPadding,
+            top = 8.dp,
+            bottom = 8.dp,
+        ),
         color = border()
     )
     RadioRow(selected = selection == 1, onClick = { setSelection(1) }) {
@@ -384,7 +410,12 @@ private fun EndsPicker(
         }
     }
     HorizontalDivider(
-        modifier = Modifier.padding(start = 50.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+        modifier = Modifier.padding(
+            start = RadioContentInset,
+            end = DialogHorizontalPadding,
+            top = 8.dp,
+            bottom = 8.dp,
+        ),
         color = border()
     )
     RadioRow(selected = selection == 2, onClick = { setSelection(2) }) {
@@ -405,13 +436,15 @@ private fun EndsPicker(
 fun RadioRow(
     selected: Boolean,
     onClick: () -> Unit,
+    contentPadding: PaddingValues = RadioRowPadding,
     content: @Composable RowScope.() -> Unit
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .padding(contentPadding),
     ) {
         RadioButton(selected = selected, onClick = onClick)
         Row(

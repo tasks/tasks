@@ -141,16 +141,6 @@
         <item quantity="one">%d week</item>
         <item quantity="other">%d weken</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d maand</item>
-        <item quantity="other">%d maanden</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d jaar</item>
-        <item quantity="other">%d jaren</item>
-    </plurals>
-    <string name="repeat_type_due">vervaldatum</string>
-    <string name="repeat_type_completion">voltooiingsdatum</string>
     <string name="repeat_snackbar">%1$s verplaatst naar %2$s</string>
     <string name="new_tag">Nieuw label aanmaken</string>
     <string name="new_list">Nieuwe lijst maken</string>
@@ -247,24 +237,7 @@
     <string name="badges">Badges</string>
     <string name="list">Lijst</string>
     <string name="repeats_from">Herhaalt vanaf</string>
-    <string name="repeats_single">Herhaalt %s</string>
-    <string name="repeats_single_on">Herhaalt %1$s op %2$s</string>
-    <string name="repeats_single_until">Herhaalt %1$s, eindigt op %2$s</string>
-    <string name="repeats_single_number_of_times">Herhaalt %1$s, gebeurt %2$d %3$s</string>
-    <string name="repeats_single_on_until">Herhaalt %1$s op %2$s, eindigt op %3$s</string>
-    <string name="repeats_single_on_number_of_times">Herhaalt %1$s op %2$s, gebeurt %3$d %4$s</string>
-    <string name="repeats_minutely">elke minuut</string>
-    <string name="repeats_hourly">elk uur</string>
-    <string name="repeats_daily">dagelijks</string>
-    <string name="repeats_weekly">wekelijks</string>
-    <string name="repeats_monthly">maandelijks</string>
-    <string name="repeats_yearly">jaarlijks</string>
-    <string name="repeats_plural">Herhaalt elke %s</string>
-    <string name="repeats_plural_on">Herhaalt elke %1$s op %2$s</string>
-    <string name="repeats_plural_until">Herhaalt elke %1$s, eindigt op %2$s</string>
     <string name="repeats_plural_number_of_times">Herhaalt elke %1$s , gebeurt %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Herhaalt elke %1$s op %2$s, eindigt op %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Herhaalt elke %1$s op %2$s, gebeurt %3$d %4$s</string>
     <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
     <string name="default_calendar">Standaardkalender</string>
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>

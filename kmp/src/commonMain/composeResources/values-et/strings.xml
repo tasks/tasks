@@ -415,4 +415,56 @@
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">iga %1$s %2$s</string>
     <string name="failed_to_load_task">Ülesande laadimine ei õnnestunud</string>
+    <string name="repeats_single">Kordub %1$s</string>
+    <string name="repeats_single_on">Kordub %1$s - %2$s</string>
+    <string name="repeats_single_until">Kordub %1$s, lõppeb %2$s</string>
+    <string name="repeats_single_number_of_times">Kordub %1$s, toimub %2$d %3$s</string>
+    <string name="repeats_single_on_until">Kordub %1$s / %2$s, lõppeb %3$s</string>
+    <string name="repeats_single_on_number_of_times">Kordub %1$s / %2$s, toimub %3$d %4$s</string>
+    <string name="repeats_plural">Kordub iga %1$s</string>
+    <string name="repeats_plural_on">Kordub iga %1$s / %2$s</string>
+    <string name="repeats_plural_until">Kordub iga %1$s, lõppeb %2$s</string>
+    <string name="repeats_plural_number_of_times">Kordub iga %1$s, toimub %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Kordub iga %1$s / %2$s, lõppeb %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Kordub iga %1$s / %2$s, lõppeb %3$d %4$s</string>
+    <string name="repeats_minutely">igas minutis</string>
+    <string name="repeats_hourly">igas tunnis</string>
+    <string name="repeats_daily">iga päev</string>
+    <string name="repeats_weekly">iga nädal</string>
+    <string name="repeats_monthly">iga kuu</string>
+    <string name="repeats_yearly">iga aasta</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Kordub alates</string>
+    <string name="repeat_type_due">tähtaeg</string>
+    <string name="repeat_type_completion">lõpetamise kuupäev</string>
+    <string name="TEA_control_repeat">Korda</string>
+    <plurals name="repeat_times">
+        <item quantity="one">kord</item>
+        <item quantity="other">korda</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minutit</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d tund</item>
+        <item quantity="other">%1$d tundi</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d päev</item>
+        <item quantity="other">%1$d päeva</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d nädal</item>
+        <item quantity="other">%1$d nädalat</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d kuu</item>
+        <item quantity="other">%1$d kuud</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d aasta</item>
+        <item quantity="other">%1$d aastat</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Lõpetamise kuupäev</string>
 </resources>

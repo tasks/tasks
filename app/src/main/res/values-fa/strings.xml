@@ -82,8 +82,6 @@
     <string name="default_random_reminder_daily">هر روز</string>
     <string name="default_random_reminder_weekly">هر هفته</string>
     <string name="default_random_reminder_bi_weekly">یک هفته در میان</string>
-    <string name="repeat_type_due">تاریخ موعود</string>
-    <string name="repeat_type_completion">تاریخ اتمام</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="new_list">ایجاد لیست جدید</string>
     <string name="TEA_timer_controls">تایمر</string>
@@ -148,13 +146,6 @@
     <string name="restart_later">بعدا</string>
     <string name="settings_localization">محلی‌سازی</string>
     <string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>
-    <string name="repeats_single">تکرارها %s</string>
-    <string name="repeats_minutely">هر دقیقه</string>
-    <string name="repeats_hourly">هر ساعت</string>
-    <string name="repeats_daily">روزانه</string>
-    <string name="repeats_weekly">هفتگی</string>
-    <string name="repeats_monthly">ماهانه</string>
-    <string name="repeats_yearly">سالانه</string>
     <string name="default_calendar">تقویم پیش فرض</string>
     <string name="ok">تایید</string>
     <string name="cancel">لغو</string>

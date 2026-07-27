@@ -414,4 +414,54 @@
     <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
     <string name="no_task_selected">未选择任务</string>
     <string name="resize_panes">调整窗格大小</string>
+    <string name="repeats_single">重复 %1$s</string>
+    <string name="repeats_single_on">重复 %1$s 于 %2$s</string>
+    <string name="repeats_single_until">重复 %1$s ，结束于 %2$s</string>
+    <string name="repeats_single_number_of_times">重复%1$s，发生 %2$d %3$s</string>
+    <string name="repeats_single_on_until">重复 %1$s 于 %2$s，结束于 %3$s</string>
+    <string name="repeats_single_on_number_of_times">重复 %1$s 于 %2$s，发生 %3$d %4$s</string>
+    <string name="repeats_plural">每%1$s重复</string>
+    <string name="repeats_plural_on">每 %1$s 于 %2$s 重复</string>
+    <string name="repeats_plural_until">每%1$s重复，结束于%2$s</string>
+    <string name="repeats_plural_number_of_times">每%1$s重复，发生 %2$d %3$s</string>
+    <string name="repeats_plural_on_until">每 %1$s 于 %2$s 重复，结束于 %3$s</string>
+    <string name="repeats_plural_on_number_of_times">每 %1$s 于 %2$s 重复，发生 %3$d %4$s</string>
+    <string name="repeats_minutely">每分钟</string>
+    <string name="repeats_hourly">每小时</string>
+    <string name="repeats_daily">每日</string>
+    <string name="repeats_weekly">每周</string>
+    <string name="repeats_monthly">每月</string>
+    <string name="repeats_yearly">每年</string>
+    <string name="list_separator_with_space">， </string>
+    <string name="repeats_from">重复始于</string>
+    <string name="repeat_type_due">截止日期</string>
+    <string name="repeat_type_completion">完成日期</string>
+    <string name="TEA_control_repeat">重复</string>
+    <plurals name="repeat_times">
+        <item quantity="other">次</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d 分钟</item>
+        <item quantity="other">%1$d 分钟</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d 个小时</item>
+        <item quantity="other">%1$d 个小时</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d 天</item>
+        <item quantity="other">%1$d 天</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d 周</item>
+        <item quantity="other">%1$d 周</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="other">%1$d 个月</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d 年</item>
+        <item quantity="other">%1$d 年</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">完成日期</string>
 </resources>

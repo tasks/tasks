@@ -392,4 +392,56 @@
         <item quantity="other">förekomster</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s varje månad</string>
+    <string name="repeats_single">Upprepas %1$s</string>
+    <string name="repeats_single_on">Upprepas %1$s på %2$s</string>
+    <string name="repeats_single_until">Upprepas %1$s till och med %2$s</string>
+    <string name="repeats_single_number_of_times">Upprepas %1$s, totalt %2$d %3$s</string>
+    <string name="repeats_single_on_until">Upprepas %1$s på %2$s till och med %3$s</string>
+    <string name="repeats_single_on_number_of_times">Upprepas %1$s på %2$s, totalt %3$d %4$s</string>
+    <string name="repeats_plural">Upprepas varje %1$s</string>
+    <string name="repeats_plural_on">Upprepas var %1$s på %2$s</string>
+    <string name="repeats_plural_until">Upprepas var %1$s till och med %2$s</string>
+    <string name="repeats_plural_number_of_times">Upprepas var %1$s, totalt %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Upprepas var %1$s på %2$s till och med %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Upprepas var %1$s på %2$s, totalt %3$d %4$s</string>
+    <string name="repeats_minutely">Varje minut</string>
+    <string name="repeats_hourly">Varje timme</string>
+    <string name="repeats_daily">Dagligen</string>
+    <string name="repeats_weekly">Veckovis</string>
+    <string name="repeats_monthly">Månadsvis</string>
+    <string name="repeats_yearly">Årligen</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Upprepas från</string>
+    <string name="repeat_type_due">förfallodatumet</string>
+    <string name="repeat_type_completion">slutförandedatumet</string>
+    <string name="TEA_control_repeat">Upprepa</string>
+    <plurals name="repeat_times">
+        <item quantity="one">gång</item>
+        <item quantity="other">gånger</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minut</item>
+        <item quantity="other">%1$d minuter</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d timme</item>
+        <item quantity="other">%1$d timmar</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagar</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d vecka</item>
+        <item quantity="other">%1$d veckor</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d månad</item>
+        <item quantity="other">%1$d månader</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d år</item>
+        <item quantity="other">%1$d år</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Slutdatum</string>
 </resources>

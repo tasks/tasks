@@ -248,4 +248,63 @@
         <item quantity="other">metų</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">Kiekvieną %1$s %2$s</string>
+    <string name="repeats_single">Kartosis %1$s</string>
+    <string name="repeats_single_on">Kartosis %1$s šiuo metu: %2$s</string>
+    <string name="repeats_single_until">Kartosis kas %1$s iki %2$s</string>
+    <string name="repeats_single_number_of_times">Kartojasi %1$s, įvyksta %2$d %3$s</string>
+    <string name="repeats_single_on_until">Kartosis %1$s šiuo metu: %2$s, iki %3$s</string>
+    <string name="repeats_single_on_number_of_times">Kartojasi %1$s: %2$s, įvyksta %3$d %4$s</string>
+    <string name="repeats_plural">Kartojasi kiekvieną %1$s</string>
+    <string name="repeats_plural_on">Kartosis kiekvieną %1$s šią dieną: %2$s</string>
+    <string name="repeats_plural_until">Kartosis kiekvieną %1$s iki %2$s</string>
+    <string name="repeats_plural_number_of_times">Kartojasi kiekvieną %1$s, įvyksta %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Kartosis kiekvieną %1$s šią dieną: %2$s iki %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Kartojasi kiekvieną %1$s: %2$s, įvyksta %3$d %4$s</string>
+    <string name="repeats_minutely">kas minutę</string>
+    <string name="repeats_hourly">kas valandą</string>
+    <string name="repeats_daily">kas dieną</string>
+    <string name="repeats_weekly">kas savaitę</string>
+    <string name="repeats_monthly">kas mėnesį</string>
+    <string name="repeats_yearly">kas metus</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Kartosis nuo</string>
+    <string name="repeat_type_due">termino data</string>
+    <string name="repeat_type_completion">Užbaigimo data</string>
+    <string name="TEA_control_repeat">Kartoti</string>
+    <plurals name="repeat_times">
+        <item quantity="one">kartą</item>
+        <item quantity="few">kartus</item>
+        <item quantity="other">kartų</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minutę</item>
+        <item quantity="few">%1$d minutes</item>
+        <item quantity="other">%1$d minučių</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d valandą</item>
+        <item quantity="few">%1$d valandas</item>
+        <item quantity="other">%1$d valandų</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d dieną</item>
+        <item quantity="few">%1$d dienas</item>
+        <item quantity="other">%1$d dienų</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d savaitę</item>
+        <item quantity="few">%1$d savaites</item>
+        <item quantity="other">%1$d savaičių</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d mėnesį</item>
+        <item quantity="few">%1$d mėnesius</item>
+        <item quantity="other">%1$d mėnesių</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d metus</item>
+        <item quantity="few">%1$d metus</item>
+        <item quantity="other">%1$d metų</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Užbaigimo data</string>
 </resources>

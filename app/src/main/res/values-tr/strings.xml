@@ -142,16 +142,6 @@
         <item quantity="one">%d haftada</item>
         <item quantity="other">%d haftada</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d ayda</item>
-        <item quantity="other">%d ayda</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d yılda</item>
-        <item quantity="other">%d yılda</item>
-    </plurals>
-    <string name="repeat_type_due">bitiş tarihi</string>
-    <string name="repeat_type_completion">tamamlanma tarihi</string>
     <string name="repeat_snackbar">%1$s, %2$s için yeniden zamanlandı</string>
     <string name="new_tag">Yeni etiket oluştur</string>
     <string name="new_list">Yeni liste oluştur</string>
@@ -253,24 +243,7 @@
     <string name="badges">Rozetler</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Şundan sonra yinele</string>
-    <string name="repeats_single">%s yineler</string>
-    <string name="repeats_single_on">%2$s gününde %1$s yineler</string>
-    <string name="repeats_single_until">%1$s yineler, %2$s biter</string>
-    <string name="repeats_single_number_of_times">%1$s yineler, %2$d %3$s gerçekleşir</string>
-    <string name="repeats_single_on_until">%2$s gününde %1$s yineler, %3$s biter</string>
-    <string name="repeats_single_on_number_of_times">%2$s gününde %1$s yineler, %3$d %4$s gerçekleşir</string>
-    <string name="repeats_minutely">Dakikalık</string>
-    <string name="repeats_hourly">Saatlik</string>
-    <string name="repeats_daily">Günlük</string>
-    <string name="repeats_weekly">Haftalık</string>
-    <string name="repeats_monthly">Aylık</string>
-    <string name="repeats_yearly">Yıllık</string>
-    <string name="repeats_plural">Her %s yineler</string>
-    <string name="repeats_plural_on">%2$s gününde her %1$s yineler</string>
-    <string name="repeats_plural_until">Her %1$s yineler, %2$s biter</string>
     <string name="repeats_plural_number_of_times">Her %1$s yineler, %2$d %3$s gerçekleşir</string>
-    <string name="repeats_plural_on_until">%2$s gününde her %1$s yineler, %3$s biter</string>
-    <string name="repeats_plural_on_number_of_times">%2$s gününde her %1$s yineler, %3$d %4$s gerçekleşir</string>
     <string name="dont_add_to_calendar">Takvime ekleme</string>
     <string name="default_calendar">Öntanımlı takvim</string>
     <string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>

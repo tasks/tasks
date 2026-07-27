@@ -147,18 +147,6 @@
         <item quantity="few">%d tygodnie</item>
         <item quantity="many">%d tygodni</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d miesiąc</item>
-        <item quantity="few">%d miesiące</item>
-        <item quantity="many">%d miesięcy</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d rok</item>
-        <item quantity="few">%d lat</item>
-        <item quantity="many">%d lat</item>
-    </plurals>
-    <string name="repeat_type_due">w terminie</string>
-    <string name="repeat_type_completion">data zakończenia</string>
     <string name="repeat_snackbar">%1$s przełożone na %2$s</string>
     <string name="new_tag">Stwórz nowy tag</string>
     <string name="new_list">Utwórz nową listę</string>
@@ -261,24 +249,7 @@
     <string name="badges">Plakietki</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Powtarzaj od</string>
-    <string name="repeats_single">Powtarza się %s</string>
-    <string name="repeats_single_on">Powtarza się %1$s w: %2$s</string>
-    <string name="repeats_single_until">Powtarza się %1$s do %2$s</string>
-    <string name="repeats_single_number_of_times">Powtarzane %1$s, występuje %2$d %3$s</string>
-    <string name="repeats_single_on_until">Powtarza się %1$s w %2$s do %3$s</string>
-    <string name="repeats_single_on_number_of_times">Powtarzane %1$s w %2$s, występuje %3$d %4$s</string>
-    <string name="repeats_minutely">co minutę</string>
-    <string name="repeats_hourly">co godzinę</string>
-    <string name="repeats_daily">raz dziennie</string>
-    <string name="repeats_weekly">raz w tygodniu</string>
-    <string name="repeats_monthly">raz w miesiącu</string>
-    <string name="repeats_yearly">raz w roku</string>
-    <string name="repeats_plural">Powtarzaj co %s</string>
-    <string name="repeats_plural_on">Powtarzane co każde %1$s w %2$s</string>
-    <string name="repeats_plural_until">Powtarzane co każde %1$s aż do %2$s</string>
     <string name="repeats_plural_number_of_times">Powtarzane co każde %1$s, występuje %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Powtarzane co każde %1$s w %2$s aż do %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Powtarzane co każde %1$s w %2$s, występuje %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
     <string name="default_calendar">Domyślny kalendarz</string>
     <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>

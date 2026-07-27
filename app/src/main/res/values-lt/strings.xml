@@ -157,18 +157,6 @@
         <item quantity="few">%d savaites</item>
         <item quantity="other">%d savaičių</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mėnesį</item>
-        <item quantity="few">%d mėnesius</item>
-        <item quantity="other">%d mėnesių</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d metus</item>
-        <item quantity="few">%d metus</item>
-        <item quantity="other">%d metų</item>
-    </plurals>
-    <string name="repeat_type_due">termino data</string>
-    <string name="repeat_type_completion">Užbaigimo data</string>
     <string name="repeat_snackbar">%1$s perplanuotas šiai datai: %2$s</string>
     <string name="new_tag">Sukurti naują etiketę</string>
     <string name="new_list">Sukurti naują sąrašą</string>
@@ -271,24 +259,7 @@
     <string name="badges">Ženkleliai</string>
     <string name="list">Sąrašas</string>
     <string name="repeats_from">Kartosis nuo</string>
-    <string name="repeats_single">Kartosis %s</string>
-    <string name="repeats_single_on">Kartosis %1$s šiuo metu: %2$s</string>
-    <string name="repeats_single_until">Kartosis kas %1$s iki %2$s</string>
-    <string name="repeats_single_number_of_times">Kartojasi %1$s, įvyksta %2$d %3$s</string>
-    <string name="repeats_single_on_until">Kartosis %1$s šiuo metu: %2$s, iki %3$s</string>
-    <string name="repeats_single_on_number_of_times">Kartojasi %1$s: %2$s, įvyksta %3$d %4$s</string>
-    <string name="repeats_minutely">kas minutę</string>
-    <string name="repeats_hourly">kas valandą</string>
-    <string name="repeats_daily">kas dieną</string>
-    <string name="repeats_weekly">kas savaitę</string>
-    <string name="repeats_monthly">kas mėnesį</string>
-    <string name="repeats_yearly">kas metus</string>
-    <string name="repeats_plural">Kartojasi kiekvieną %s</string>
-    <string name="repeats_plural_on">Kartosis kiekvieną %1$s šią dieną: %2$s</string>
-    <string name="repeats_plural_until">Kartosis kiekvieną %1$s iki %2$s</string>
     <string name="repeats_plural_number_of_times">Kartojasi kiekvieną %1$s, įvyksta %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Kartosis kiekvieną %1$s šią dieną: %2$s iki %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Kartojasi kiekvieną %1$s: %2$s, įvyksta %3$d %4$s</string>
     <string name="dont_add_to_calendar">Pridėti prie kalendoriaus</string>
     <string name="default_calendar">Numatytas kalendorius</string>
     <string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos paleidimo programos palaiko šią funkciją.</string>

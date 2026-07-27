@@ -417,4 +417,58 @@
     <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
     <string name="no_task_selected">No task selected</string>
     <string name="resize_panes">Resize panes</string>
+    <string name="repeats_single">Repeats %1$s</string>
+    <string name="repeats_single_on">Repeats %1$s on %2$s</string>
+    <string name="repeats_single_until">Repeats %1$s, ends on %2$s</string>
+    <string name="repeats_single_number_of_times">Repeats %1$s, occurs %2$d %3$s</string>
+    <string name="repeats_single_on_until">Repeats %1$s on %2$s, ends on %3$s</string>
+    <string name="repeats_single_on_number_of_times">Repeats %1$s on %2$s, occurs %3$d %4$s</string>
+    <string name="repeats_plural">Repeats every %1$s</string>
+    <string name="repeats_plural_on">Repeats every %1$s on %2$s</string>
+    <string name="repeats_plural_until">Repeats every %1$s, ends on %2$s</string>
+    <string name="repeats_plural_number_of_times">Repeats every %1$s, occurs %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Repeats every %1$s on %2$s, ends on %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Repeats every %1$s on %2$s, occurs %3$d %4$s</string>
+    <string name="repeats_minutely">minutely</string>
+    <string name="repeats_hourly">hourly</string>
+    <string name="repeats_daily">daily</string>
+    <string name="repeats_weekly">weekly</string>
+    <string name="repeats_monthly">monthly</string>
+    <string name="repeats_yearly">yearly</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Repeats from</string>
+    <string name="repeat_type_due">due date</string>
+    <string name="repeat_type_completion">completion date</string>
+    <string name="TEA_control_repeat">Repeat</string>
+    <plurals name="repeat_times">
+        <item quantity="one">time</item>
+        <item quantity="other">times</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d hour</item>
+        <item quantity="other">%1$d hours</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d week</item>
+        <item quantity="other">%1$d weeks</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d month</item>
+        <item quantity="other">%1$d months</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d year</item>
+        <item quantity="other">%1$d years</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Completion date</string>
+    <string name="repeat_type_due_description">The task repeats based on when it was supposed to be done</string>
+    <string name="repeat_type_completion_description">The task repeats based on when you actually finished it</string>
 </resources>

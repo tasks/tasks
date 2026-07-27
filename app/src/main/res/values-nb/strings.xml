@@ -93,20 +93,6 @@
     <string name="settings_localization">Lokalisering</string>
     <string name="notification_disable_battery_optimizations_description">Batterioptimalisering kan føre til forsinkede varsler</string>
     <string name="bundle_notifications">Samle varsler</string>
-    <string name="repeats_single">Gjentas %s</string>
-    <string name="repeats_single_on">Gjentas %1$s på %2$s</string>
-    <string name="repeats_single_until">Gjentas %1$s, til %2$s</string>
-    <string name="repeats_single_on_until">Gjentas %1$s på %2$s , til %3$s</string>
-    <string name="repeats_single_on_number_of_times">Gjentas %1$s på %2$s, inntreffer %3$d %4$s</string>
-    <string name="repeats_minutely">hvert minutt</string>
-    <string name="repeats_hourly">hver time</string>
-    <string name="repeats_daily">daglig</string>
-    <string name="repeats_weekly">ukentlig</string>
-    <string name="repeats_monthly">månedlig</string>
-    <string name="repeats_yearly">årlig</string>
-    <string name="repeats_plural">Gjentas hvert %s</string>
-    <string name="repeats_plural_on">Gjentas hver(t) %1$s på %2$s</string>
-    <string name="repeats_plural_until">Gjentas hver(t) %1$s, til %2$s</string>
     <string name="repeats_plural_number_of_times">Gjentas hver(t) %1$s, inntreffer %2$d %3$s</string>
     <string name="bundle_notifications_summary">Kombiner flere merknader sammen til én</string>
     <string name="actfm_picture_clear">Tøm bilde</string>
@@ -193,16 +179,6 @@
         <item quantity="one">%d uke</item>
         <item quantity="other">%d uker</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d måned</item>
-        <item quantity="other">%d måneder</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d år</item>
-        <item quantity="other">%d år</item>
-    </plurals>
-    <string name="repeat_type_due">tidsfristsdato</string>
-    <string name="repeat_type_completion">fullføringsdato</string>
     <string name="repeat_snackbar">%1$s flyttet til %2$s</string>
     <string name="new_tag">Opprett en ny etikett</string>
     <string name="new_list">Opprett en ny liste</string>
@@ -276,9 +252,6 @@
     <string name="badges">Merker</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Gjentas fra</string>
-    <string name="repeats_single_number_of_times">Gjentas %1$s, inntreffer %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Gjentas hver %1$s %2$s, til %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Gjentas hver %1$s %2$s, inntreffer %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
     <string name="default_calendar">Forvalgt kalender</string>

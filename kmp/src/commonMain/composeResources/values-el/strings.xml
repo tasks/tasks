@@ -276,4 +276,56 @@
         <item quantity="other">Περιστατικά</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">κάθε %1$s %2$s</string>
+    <string name="repeats_single">Επανάληψη %1$s</string>
+    <string name="repeats_single_on">Επανάληψη %1$s στις %2$s</string>
+    <string name="repeats_single_until">Επανάληψη %1$s, τελειώνει στις %2$s</string>
+    <string name="repeats_single_number_of_times">Επανάληψη %1$s, συμβαίνει %2$d %3$s</string>
+    <string name="repeats_single_on_until">Επανάληψη %1$s στις %2$s, τελειώνει στις %3$s</string>
+    <string name="repeats_single_on_number_of_times">Επανάληψη %1$s στις %2$s, συμβαίνει %3$d %4$s</string>
+    <string name="repeats_plural">Επανάληψη κάθε %1$s</string>
+    <string name="repeats_plural_on">Επανάληψη κάθε %1$s στις %2$s</string>
+    <string name="repeats_plural_until">Επανάληψη κάθε %1$s, τελειώνει στις %2$s</string>
+    <string name="repeats_plural_number_of_times">Επανάληψη κάθε %1$s, συμβαίνει %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Επανάληψη κάθε %1$s στις %2$s, τελειώνει στις %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Επανάληψη κάθε %1$s στις %2$s, συμβαίνει %3$d %4$s</string>
+    <string name="repeats_minutely">κάθε λεπτό</string>
+    <string name="repeats_hourly">κάθε ώρα</string>
+    <string name="repeats_daily">καθημερινά</string>
+    <string name="repeats_weekly">εβδομαδιαία</string>
+    <string name="repeats_monthly">μηνιαία</string>
+    <string name="repeats_yearly">ετησίως</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Επανάληψη από</string>
+    <string name="repeat_type_due">ημερομηνία προθεσμίας</string>
+    <string name="repeat_type_completion">ημερομηνία ολοκλήρωσης</string>
+    <string name="TEA_control_repeat">Επανάληψη</string>
+    <plurals name="repeat_times">
+        <item quantity="one">ώρα</item>
+        <item quantity="other">ώρες</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d λεπτό</item>
+        <item quantity="other">%1$d λεπτά</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d ώρα</item>
+        <item quantity="other">%1$d ώρες</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d μέρα</item>
+        <item quantity="other">%1$d μέρες</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d εβδομάδα</item>
+        <item quantity="other">%1$d εβδομάδες</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d μήνας</item>
+        <item quantity="other">%1$d μήνες</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d χρόνος</item>
+        <item quantity="other">%1$d χρόνια</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
 </resources>

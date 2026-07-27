@@ -416,4 +416,63 @@
         <item quantity="other">výskytů</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">každý %1$s %2$s</string>
+    <string name="repeats_single">Opakuje se %1$s</string>
+    <string name="repeats_single_on">Opakuje se %1$s v %2$s</string>
+    <string name="repeats_single_until">Opakuje se %1$s, až do %2$s</string>
+    <string name="repeats_single_number_of_times">Opakuje se %1$s, ještě %2$d %3$s</string>
+    <string name="repeats_single_on_until">Opakuje se %1$s v %2$s až do %3$s</string>
+    <string name="repeats_single_on_number_of_times">Opakuje se %1$s v %2$s, ještě %3$d %4$s</string>
+    <string name="repeats_plural">Opakuje se každý %1$s</string>
+    <string name="repeats_plural_on">Opakuje se každý %1$s v %2$s</string>
+    <string name="repeats_plural_until">Opakuje se každý %1$s až do %2$s</string>
+    <string name="repeats_plural_number_of_times">Opakuje se každý %1$s, ještě %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Opakuje se každý %1$s v %2$s až do %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Opakuje se každý %1$s v %2$s, ještě %3$d %4$s</string>
+    <string name="repeats_minutely">každou minutu</string>
+    <string name="repeats_hourly">každou hodinu</string>
+    <string name="repeats_daily">denně</string>
+    <string name="repeats_weekly">týdně</string>
+    <string name="repeats_monthly">měsíčně</string>
+    <string name="repeats_yearly">každý rok</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Opakuje se od</string>
+    <string name="repeat_type_due">termínu úkolu</string>
+    <string name="repeat_type_completion">okamžiku dokončení</string>
+    <string name="TEA_control_repeat">Opakovat</string>
+    <plurals name="repeat_times">
+        <item quantity="one">krát</item>
+        <item quantity="few">krát</item>
+        <item quantity="other">krát</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minuta</item>
+        <item quantity="few">%1$d minuty</item>
+        <item quantity="other">%1$d minut</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d hodina</item>
+        <item quantity="few">%1$d hodiny</item>
+        <item quantity="other">%1$d hodin</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d den</item>
+        <item quantity="few">%1$d dny</item>
+        <item quantity="other">%1$d dní</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d týden</item>
+        <item quantity="few">%1$d týdny</item>
+        <item quantity="other">%1$d týdnů</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d měsíc</item>
+        <item quantity="few">%1$d měsíce</item>
+        <item quantity="other">%1$d měsíců</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d rok</item>
+        <item quantity="few">%1$d roky</item>
+        <item quantity="other">%1$d let</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
 </resources>

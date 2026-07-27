@@ -48,12 +48,6 @@
     <string name="url">Girêdan</string>
     <string name="list">Lîste</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="repeats_minutely">Her xulek</string>
-    <string name="repeats_hourly">Her demjimêr</string>
-    <string name="repeats_daily">Her roj</string>
-    <string name="repeats_weekly">Her hefte</string>
-    <string name="repeats_monthly">Her meh</string>
-    <string name="repeats_yearly">Her sal</string>
     <string name="help">Alîkarî</string>
     <string name="preferences_advanced">Pêşketî</string>
     <string name="back">Vegere</string>

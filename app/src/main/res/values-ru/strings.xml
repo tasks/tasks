@@ -148,18 +148,6 @@
         <item quantity="few">%d недели</item>
         <item quantity="many">%d недель</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d месяц</item>
-        <item quantity="few">%d месяца</item>
-        <item quantity="many">%d месяцев</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d год</item>
-        <item quantity="few">%d года</item>
-        <item quantity="many">%d лет</item>
-    </plurals>
-    <string name="repeat_type_due">намеченной даты</string>
-    <string name="repeat_type_completion">даты завершения</string>
     <string name="repeat_snackbar">%1$s перенесено на %2$s</string>
     <string name="new_tag">Создать новую метку</string>
     <string name="new_list">Создать новый список</string>
@@ -264,24 +252,7 @@
     <string name="badges">Ярлыки</string>
     <string name="list">Список</string>
     <string name="repeats_from">Повторять от</string>
-    <string name="repeats_single">Повторять %s</string>
-    <string name="repeats_single_on">Повторять %1$s в %2$s</string>
-    <string name="repeats_single_until">Повторять %1$s, завершение %2$s</string>
-    <string name="repeats_single_number_of_times">Повторять %1$s, %2$d %3$s</string>
-    <string name="repeats_single_on_until">Повторять %1$s в %2$s, завершение %3$s</string>
-    <string name="repeats_single_on_number_of_times">Повторять %1$s в %2$s, %3$d %4$s</string>
-    <string name="repeats_minutely">ежеминутно</string>
-    <string name="repeats_hourly">ежечасно</string>
-    <string name="repeats_daily">ежедневно</string>
-    <string name="repeats_weekly">еженедельно</string>
-    <string name="repeats_monthly">ежемесячно</string>
-    <string name="repeats_yearly">ежегодно</string>
-    <string name="repeats_plural">Повторять каждые %s</string>
-    <string name="repeats_plural_on">Повторять каждые %1$s в %2$s</string>
-    <string name="repeats_plural_until">Повторяется каждые %1$s до %2$s</string>
     <string name="repeats_plural_number_of_times">Повторять каждые %1$s, %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Повторяется каждые %1$s в %2$s до %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Повторяется каждые %1$s в %2$s, %3$d %4$s</string>
     <string name="dont_add_to_calendar">Не добавлять в календарь</string>
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>

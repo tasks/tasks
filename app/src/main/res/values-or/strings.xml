@@ -35,10 +35,6 @@
         <item quantity="one">ଦିନ</item>
         <item quantity="other">ଦିନ</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d ମାସ</item>
-        <item quantity="other">%d ମାସ</item>
-    </plurals>
     <string name="now">ଏବେ</string>
     <string name="today">ଆଜି</string>
     <string name="widget_show_dividers">ଵିଭାଜକ ଦେଖାଅ</string>
@@ -58,7 +54,6 @@
     <string name="user">ଉପଭୋକ୍ତା</string>
     <string name="password">ପାସ୍‍ୱର୍ଡ଼</string>
     <string name="url">URL</string>
-    <string name="repeats_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
     <string name="help">ସହାୟତା</string>
     <string name="help_and_feedback">ସାହାଯ୍ୟ ଓ ମତାମତ</string>
     <string name="preferences_advanced">ଵିକଶିତ</string>
@@ -82,10 +77,6 @@
         <item quantity="one">ସପ୍ତାହ</item>
         <item quantity="other">ସପ୍ତାହ</item>
     </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d ଵର୍ଷ</item>
-        <item quantity="other">%d ଵର୍ଷ</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d ସପ୍ତାହ</item>
         <item quantity="other">%d ସପ୍ତାହ</item>
@@ -104,7 +95,6 @@
     <string name="restart_later">ପରେ</string>
     <string name="widget_due_date_after_title">ଆଖ୍ୟା ପରେ</string>
     <string name="widget_due_date_below_title">ଆଖ୍ୟା ତଳେ</string>
-    <string name="repeats_minutely">ପ୍ରତି ମିନିଟ୍</string>
     <string name="show_description">ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
     <string name="show_full_description">ସମ୍ପୂର୍ଣ୍ଣ ଵର୍ଣ୍ଣନା ଦେଖାଅ</string>
     <string name="color_wheel">ରଙ୍ଗ ଚକ୍ର</string>

@@ -147,16 +147,6 @@
         <item quantity="one">aste %d</item>
         <item quantity="other">%d aste</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">hilabete %d</item>
-        <item quantity="other">%d hilabete</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">urte %d</item>
-        <item quantity="other">%d urte</item>
-    </plurals>
-    <string name="repeat_type_due">epemuga-data</string>
-    <string name="repeat_type_completion">burutze-data</string>
     <string name="repeat_snackbar">%1$s %2$s-rako programatuta</string>
     <string name="new_tag">Sortu etiketa berria</string>
     <string name="new_list">Sortu zerrenda berria</string>
@@ -260,24 +250,7 @@
     <string name="badges">Dominak</string>
     <string name="list">Zerrenda</string>
     <string name="repeats_from">Errepikatu hemendik</string>
-    <string name="repeats_single">Errepikatu %s</string>
-    <string name="repeats_single_on">Errepikatu %1$s %2$s</string>
-    <string name="repeats_single_until">Errepikatu %1$s %2$s arte</string>
-    <string name="repeats_single_number_of_times">Errepikatu %1$s, %2$d %3$s</string>
-    <string name="repeats_single_on_until">Errepikatu %1$s %2$s %3$s arte</string>
-    <string name="repeats_single_on_number_of_times">Errepikatu %1$s %2$s, %3$d %4$s</string>
-    <string name="repeats_minutely">minutuero</string>
-    <string name="repeats_hourly">orduero</string>
-    <string name="repeats_daily">egunero</string>
-    <string name="repeats_weekly">astero</string>
-    <string name="repeats_monthly">hilabetero</string>
-    <string name="repeats_yearly">urtero</string>
-    <string name="repeats_plural">Errepikatu %s</string>
-    <string name="repeats_plural_on">Errepikatu %1$s %2$s denean</string>
-    <string name="repeats_plural_until">Errepikatu %1$s %2$s arte</string>
     <string name="repeats_plural_number_of_times">Errepikatu %1$s, %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Errepikatu %1$s %2$s %3$s arte</string>
-    <string name="repeats_plural_on_number_of_times">Errepikatu %1$s %2$s denean, %3$d %4$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Ez gehitu egutegira</string>
     <string name="default_calendar">Lehenetsitako egutegia</string>

@@ -424,4 +424,63 @@
     <string name="repeat_monthly_every_day_of_nth_week">par intervalle de %1$s %2$s</string>
     <string name="failed_to_load_task">Échec de chargement de la tâche</string>
     <string name="not_signed_in">Non connecté</string>
+    <string name="repeats_single">Répéter %1$s</string>
+    <string name="repeats_single_on">Répéter %1$s, le %2$s</string>
+    <string name="repeats_single_until">Répéter %1$s, jusqu'au %2$s</string>
+    <string name="repeats_single_number_of_times">Répéter %1$s, %2$d %3$s</string>
+    <string name="repeats_single_on_until">Répéter %1$s, le %2$s, jusqu'au %3$s</string>
+    <string name="repeats_single_on_number_of_times">Répéter %1$s, le %2$s, %3$d %4$s</string>
+    <string name="repeats_plural">Répéter par intervalle de %1$s</string>
+    <string name="repeats_plural_on">Répéter par intervalle de %1$s, le %2$s</string>
+    <string name="repeats_plural_until">Répéter par intervalle de %1$s, jusqu'au %2$s</string>
+    <string name="repeats_plural_number_of_times">Répéter par intervalle de %1$s, %2$d %3$s</string>
+    <string name="repeats_plural_on_until">Répéter par intervalle de %1$s, le %2$s, jusqu'au %3$s</string>
+    <string name="repeats_plural_on_number_of_times">Répéter par intervalle de %1$s, le %2$s, %3$d %4$s</string>
+    <string name="repeats_minutely">toutes les minutes</string>
+    <string name="repeats_hourly">toutes les heures</string>
+    <string name="repeats_daily">tous les jours</string>
+    <string name="repeats_weekly">toutes les semaines</string>
+    <string name="repeats_monthly">tous les mois</string>
+    <string name="repeats_yearly">tous les ans</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">Répéter depuis</string>
+    <string name="repeat_type_due">la date d'échéance</string>
+    <string name="repeat_type_completion">date d'achèvement</string>
+    <string name="TEA_control_repeat">Répéter</string>
+    <plurals name="repeat_times">
+        <item quantity="one">fois</item>
+        <item quantity="many">fois</item>
+        <item quantity="other">fois</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="one">%1$d minute</item>
+        <item quantity="many">%1$d minutes</item>
+        <item quantity="other">%1$d minutes</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="one">%1$d heure</item>
+        <item quantity="many">%1$d heures</item>
+        <item quantity="other">%1$d heures</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d jours</item>
+        <item quantity="other">%1$d jours</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="one">%1$d semaine</item>
+        <item quantity="many">%1$d semaines</item>
+        <item quantity="other">%1$d semaines</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="one">%1$d mois</item>
+        <item quantity="many">%1$d mois</item>
+        <item quantity="other">%1$d mois</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="one">%1$d an</item>
+        <item quantity="many">%1$d ans</item>
+        <item quantity="other">%1$d ans</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
 </resources>

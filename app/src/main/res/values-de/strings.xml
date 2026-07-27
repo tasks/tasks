@@ -142,16 +142,6 @@
         <item quantity="one">%d Woche</item>
         <item quantity="other">%d Wochen</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d Monat</item>
-        <item quantity="other">%d Monate</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d Jahr</item>
-        <item quantity="other">%d Jahre</item>
-    </plurals>
-    <string name="repeat_type_due">Fälligkeitsdatum</string>
-    <string name="repeat_type_completion">Erledigung</string>
     <string name="repeat_snackbar">%1$s neu geplant für %2$s</string>
     <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="new_list">Neue Liste erstellen</string>
@@ -250,24 +240,7 @@
     <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Wiederholt sich ab</string>
-    <string name="repeats_single">Wiederholt sich %s</string>
-    <string name="repeats_single_on">Wiederholt sich %1$s %2$s</string>
-    <string name="repeats_single_until">Wiederholt sich %1$s, endet am %2$s</string>
-    <string name="repeats_single_number_of_times">Wiederholt sich %1$s, genau %2$d %3$s</string>
-    <string name="repeats_single_on_until">Wiederholt sich %1$s am %2$s, endet am %3$s</string>
-    <string name="repeats_single_on_number_of_times">Wiederholt sich %1$s %2$s, genau %3$d %4$s</string>
-    <string name="repeats_minutely">minütlich</string>
-    <string name="repeats_hourly">stündlich</string>
-    <string name="repeats_daily">täglich</string>
-    <string name="repeats_weekly">wöchentlich</string>
-    <string name="repeats_monthly">monatlich</string>
-    <string name="repeats_yearly">jährlich</string>
-    <string name="repeats_plural">Wiederholt sich alle %s</string>
-    <string name="repeats_plural_on">Wiederholt sich alle %1$s am %2$s</string>
-    <string name="repeats_plural_until">Wiederholt sich alle %1$s bis %2$s</string>
     <string name="repeats_plural_number_of_times">Wiederholt sich alle %1$s, genau %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Wiederholt sich alle %1$s am %2$s, bis %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Wiederholt sich alle %1$s am %2$s, genau %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="default_calendar">Standardkalender</string>
     <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>

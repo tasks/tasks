@@ -142,16 +142,6 @@
         <item quantity="one">%d hét</item>
         <item quantity="other">%d hét</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d hónap</item>
-        <item quantity="other">%d hónap</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d év</item>
-        <item quantity="other">%d év</item>
-    </plurals>
-    <string name="repeat_type_due">határidő</string>
-    <string name="repeat_type_completion">befejezés dátuma</string>
     <string name="repeat_snackbar">%1$s újraütemezve ekkorra: %2$s</string>
     <string name="new_tag">Új címke létrehozása</string>
     <string name="new_list">Új lista létrehozása</string>
@@ -254,24 +244,7 @@
     <string name="badges">Szimbólumok</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Ismétlés ettől:</string>
-    <string name="repeats_single">Ismétlés: %s</string>
-    <string name="repeats_single_on">Ismétlés %1$s ekkor: %2$s</string>
-    <string name="repeats_single_until">Ismétlés %1$s, befejeződik ekkor: %2$s</string>
-    <string name="repeats_single_number_of_times">Ismétlés %1$s, előfordul %2$d %3$s</string>
-    <string name="repeats_single_on_until">Ismétlés %1$s ekkor: %2$s, befejeződik ekkor: %3$s</string>
-    <string name="repeats_single_on_number_of_times">Ismétlés %1$s ekkor: %2$s, előfordul %3$d %4$s</string>
-    <string name="repeats_minutely">percenként</string>
-    <string name="repeats_hourly">óránként</string>
-    <string name="repeats_daily">naponta</string>
-    <string name="repeats_weekly">hetente</string>
-    <string name="repeats_monthly">havonta</string>
-    <string name="repeats_yearly">évente</string>
-    <string name="repeats_plural">Ismétlés minden: %s</string>
-    <string name="repeats_plural_on">Ismétlés minden %1$s ekkor: %2$s</string>
-    <string name="repeats_plural_until">Ismétlés minden %1$s, befejeződik ekkor: %2$s</string>
     <string name="repeats_plural_number_of_times">Ismétlés minden %1$s, előfordul %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Ismétlés minden %1$s ekkor: %2$s, befejezősik ekkor: %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Ismétlés minden %1$s ekkor: %2$s, előfordul %3$d %4$s</string>
     <string name="dont_add_to_calendar">Ne adja hozzá a naptárhoz</string>
     <string name="default_calendar">Alapértelmezett naptár</string>
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>

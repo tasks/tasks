@@ -152,18 +152,6 @@
         <item quantity="few">%d týždne</item>
         <item quantity="other">%d týždňov</item>
     </plurals>
-    <plurals name="repeat_n_months">
-        <item quantity="one">%d mesiac</item>
-        <item quantity="few">%d mesiace</item>
-        <item quantity="other">%d mesiacov</item>
-    </plurals>
-    <plurals name="repeat_n_years">
-        <item quantity="one">%d rok</item>
-        <item quantity="few">%d roky</item>
-        <item quantity="other">%d rokov</item>
-    </plurals>
-    <string name="repeat_type_due">termín</string>
-    <string name="repeat_type_completion">deň dokončenia</string>
     <string name="repeat_snackbar">%1$s preložené na %2$s</string>
     <string name="new_tag">Vytvoriť nový štítok</string>
     <string name="new_list">Vytvoriť nový zoznam</string>
@@ -265,24 +253,7 @@
     <string name="badges">Odznaky</string>
     <string name="list">Zoznam</string>
     <string name="repeats_from">Opakovanie od</string>
-    <string name="repeats_single">Opakovanie %s</string>
-    <string name="repeats_single_on">Opakovanie %1$s na %2$s</string>
-    <string name="repeats_single_until">Opakuje sa %1$s, až do %2$s</string>
-    <string name="repeats_single_number_of_times">Opakovanie %1$s, sa vyskytuje %2$d %3$s</string>
-    <string name="repeats_single_on_until">Opakuje sa %1$s v %2$s až do %3$s</string>
-    <string name="repeats_single_on_number_of_times">Opakovanie %1$s v %2$s, sa vyskytuje %3$d %4$s</string>
-    <string name="repeats_minutely">podrobne</string>
-    <string name="repeats_hourly">každú hodinu</string>
-    <string name="repeats_daily">každý deň</string>
-    <string name="repeats_weekly">každý týždeň</string>
-    <string name="repeats_monthly">každý mesiac</string>
-    <string name="repeats_yearly">ročne</string>
-    <string name="repeats_plural">Opakovanie každý %s</string>
-    <string name="repeats_plural_on">Opakovanie každý %1$s v %2$s</string>
-    <string name="repeats_plural_until">Opakuje sa každý %1$s, až do %2$s</string>
     <string name="repeats_plural_number_of_times">Opakovanie každú %1$s, sa vyskytuje %2$d %3$s</string>
-    <string name="repeats_plural_on_until">Opakuje sa každý %1$s v %2$s, až do %3$s</string>
-    <string name="repeats_plural_on_number_of_times">Opakovanie každý %1$s v %2$s, sa vyskytuje %3$d %4$s</string>
     <string name="dont_add_to_calendar">Nepridávať do kalendára </string>
     <string name="default_calendar">Predvolený kalendár</string>
     <string name="badges_description">Zobraziť počet úloh na pri ikone Tasks. Niektoré spúšťače túto funkciu nepodporujú.</string>

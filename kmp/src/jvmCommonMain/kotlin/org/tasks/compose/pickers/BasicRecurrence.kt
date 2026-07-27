@@ -1,5 +1,6 @@
 package org.tasks.compose.pickers
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -20,6 +21,14 @@ import tasks.kmp.generated.resources.repeat_option_every_month
 import tasks.kmp.generated.resources.repeat_option_every_week
 import tasks.kmp.generated.resources.repeat_option_every_year
 
+fun Recur.isCustomRecurrence(): Boolean =
+    (frequency == Recur.Frequency.WEEKLY || frequency == Recur.Frequency.MONTHLY) && !dayList.isEmpty() ||
+            frequency == Recur.Frequency.HOURLY ||
+            frequency == Recur.Frequency.MINUTELY ||
+            until != null ||
+            interval > 1 ||
+            count > 0
+
 sealed interface BasicRecurrenceOption {
     data object KeepCustom : BasicRecurrenceOption
 
@@ -35,6 +44,7 @@ fun BasicRecurrence(
     customLabel: String?,
     selectedFrequency: Recur.Frequency?,
     onSelected: (BasicRecurrenceOption) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     val rows = buildList {
         if (customLabel != null) {
@@ -67,6 +77,7 @@ fun BasicRecurrence(
             RadioRow(
                 selected = index == selectedIndex,
                 onClick = { onSelected(option) },
+                contentPadding = contentPadding,
             ) {
                 Text(
                     text = label,

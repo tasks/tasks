@@ -312,4 +312,84 @@
         <item quantity="other">مرة</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">كل %1$s %2$s</string>
+    <string name="repeats_single">أعده %1$s</string>
+    <string name="repeats_single_on">أعده %1$s عند %2$s</string>
+    <string name="repeats_single_until">أعده %1$s أنهه عند %2$s</string>
+    <string name="repeats_single_number_of_times">يتكرر %1$s، يحدث %2$d %3$s</string>
+    <string name="repeats_single_on_until">أعده %1$s في %2$s أنهه عند %3$s</string>
+    <string name="repeats_single_on_number_of_times">يتكرر %1$s في %2$s، يحدث %3$d %4$s</string>
+    <string name="repeats_plural">كرره كل %1$s</string>
+    <string name="repeats_plural_on">كرره كل %1$s في %2$s</string>
+    <string name="repeats_plural_until">كرره كل %1$s، ينتهي عند %2$s</string>
+    <string name="repeats_plural_number_of_times">كرره كل %1$s، يحدث %2$d %3$s</string>
+    <string name="repeats_plural_on_until">كرره كل %1$s في %2$s . ينتهي عند %3$s</string>
+    <string name="repeats_plural_on_number_of_times">يتكرر كل %1$s في %2$s، يحدث عند %3$d %4$s</string>
+    <string name="repeats_minutely">كلّ دقيقة</string>
+    <string name="repeats_hourly">كلّ ساعة</string>
+    <string name="repeats_daily">يوميًّا</string>
+    <string name="repeats_weekly">أسبوعيًّا</string>
+    <string name="repeats_monthly">شهريًّا</string>
+    <string name="repeats_yearly">سنويًّا</string>
+    <string name="list_separator_with_space">، </string>
+    <string name="repeats_from">تكرار من</string>
+    <string name="repeat_type_due">تاريخ الاستحقاق</string>
+    <string name="repeat_type_completion">تاريخ الإكمال</string>
+    <string name="TEA_control_repeat">إعادة</string>
+    <plurals name="repeat_times">
+        <item quantity="zero">مرة</item>
+        <item quantity="one">مرة</item>
+        <item quantity="two">مرتين</item>
+        <item quantity="few">مرات</item>
+        <item quantity="many">مرة</item>
+        <item quantity="other">مرة</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="zero">%1$d دقيقة</item>
+        <item quantity="one">%1$d دقيقة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few">%1$d دقائق</item>
+        <item quantity="many">%1$d دقيقة</item>
+        <item quantity="other">%1$d دقيقة</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="zero">%1$d ساعة</item>
+        <item quantity="one">ساعة واحدة</item>
+        <item quantity="two">ساعتان</item>
+        <item quantity="few">%1$d ساعات</item>
+        <item quantity="many">%1$d ساعة</item>
+        <item quantity="other">%1$d ساعة</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="zero">%1$d يوم</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومان</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يوم</item>
+        <item quantity="other">%1$d يوم</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="zero">%1$d أسبوع</item>
+        <item quantity="one">أسبوع واحد</item>
+        <item quantity="two">أسبوعان</item>
+        <item quantity="few">%1$d أسابيع</item>
+        <item quantity="many">%1$d أسبوع</item>
+        <item quantity="other">%1$d أسبوع</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="zero">%1$d شهر</item>
+        <item quantity="one">شهر واحد</item>
+        <item quantity="two">شهران</item>
+        <item quantity="few">%1$d أشهر</item>
+        <item quantity="many">%1$d شهر</item>
+        <item quantity="other">%1$d شهر</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="zero">%1$d سنة</item>
+        <item quantity="one">سنة واحدة</item>
+        <item quantity="two">سنتان</item>
+        <item quantity="few">%1$d سنوات</item>
+        <item quantity="many">%1$d سنة</item>
+        <item quantity="other">%1$d سنة</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
 </resources>

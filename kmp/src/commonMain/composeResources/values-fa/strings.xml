@@ -106,4 +106,14 @@
         <item quantity="one">سال</item>
         <item quantity="other">سال ها</item>
     </plurals>
+    <string name="repeats_single">تکرارها %1$s</string>
+    <string name="repeats_minutely">هر دقیقه</string>
+    <string name="repeats_hourly">هر ساعت</string>
+    <string name="repeats_daily">روزانه</string>
+    <string name="repeats_weekly">هفتگی</string>
+    <string name="repeats_monthly">ماهانه</string>
+    <string name="repeats_yearly">سالانه</string>
+    <string name="repeat_type_due">تاریخ موعود</string>
+    <string name="repeat_type_completion">تاریخ اتمام</string>
+    <string name="TEA_control_repeat">تکرار</string>
 </resources>

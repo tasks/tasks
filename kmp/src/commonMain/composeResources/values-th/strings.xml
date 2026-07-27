@@ -223,4 +223,49 @@
         <item quantity="other">ปี</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">ทุกๆ %1$s %2$s</string>
+    <string name="repeats_single">ทําซ้ํา %1$s</string>
+    <string name="repeats_single_on">ทําซ้ํา %1$s บน %2$s</string>
+    <string name="repeats_single_until">ทําซ้ํา %1$s จนถึง %2$s</string>
+    <string name="repeats_single_number_of_times">ซ้ํา %1$s เกิดขึ้น %2$d %3$s</string>
+    <string name="repeats_single_on_until">ทําซ้ํา %1$s บน %2$s จนถึง %3$s</string>
+    <string name="repeats_single_on_number_of_times">ซ้ํา %1$s บน %2$s เกิดขึ้น %3$d %4$s</string>
+    <string name="repeats_plural">ทําซ้ําทุกๆ %1$s</string>
+    <string name="repeats_plural_on">ทําซ้ําทุกๆ %1$s บน %2$s</string>
+    <string name="repeats_plural_until">ทําซ้ําทุกๆ %1$s จนถึง %2$s</string>
+    <string name="repeats_plural_number_of_times">ซ้ำทุก ๆ %1$s เกิดขึ้น %2$d %3$s</string>
+    <string name="repeats_plural_on_until">ทําซ้ําทุกๆ %1$s บน %2$s จนถึง %3$s</string>
+    <string name="repeats_plural_on_number_of_times">ทําซ้ําทุกๆ %1$s บน %2$s เกิดขึ้น %3$d %4$s</string>
+    <string name="repeats_minutely">นาที</string>
+    <string name="repeats_hourly">รายชั่วโมง</string>
+    <string name="repeats_daily">ทุกวัน</string>
+    <string name="repeats_weekly">รายสัปดาห์</string>
+    <string name="repeats_monthly">รายเดือน</string>
+    <string name="repeats_yearly">รายปี</string>
+    <string name="list_separator_with_space">, </string>
+    <string name="repeats_from">ซ้ำจาก</string>
+    <string name="repeat_type_due">วันที่ครบกําหนด</string>
+    <string name="repeat_type_completion">วันที่เสร็จสมบูรณ์</string>
+    <string name="TEA_control_repeat">ทำซ้ำ</string>
+    <plurals name="repeat_times">
+        <item quantity="other">เวลา</item>
+    </plurals>
+    <plurals name="repeat_n_minutes">
+        <item quantity="other">%1$d นาที</item>
+    </plurals>
+    <plurals name="repeat_n_hours">
+        <item quantity="other">%1$d ชั่วโมง</item>
+    </plurals>
+    <plurals name="repeat_n_days">
+        <item quantity="other">%1$d วัน</item>
+    </plurals>
+    <plurals name="repeat_n_weeks">
+        <item quantity="other">%1$d สัปดาห์</item>
+    </plurals>
+    <plurals name="repeat_n_months">
+        <item quantity="other">%1$d เดือน</item>
+    </plurals>
+    <plurals name="repeat_n_years">
+        <item quantity="other">%1$d ปี</item>
+    </plurals>
+    <string name="repeat_type_completion_capitalized">วันที่เสร็จสมบูรณ์</string>
 </resources>
