@@ -12,6 +12,7 @@ import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.android.billingclient.api.BillingFlowParams.SubscriptionUpdateParams
 import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.ConsumeParams
+import com.android.billingclient.api.PendingPurchasesParams
 import com.android.billingclient.api.Purchase.PurchaseState
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -39,7 +40,11 @@ class BillingClientImpl(
     private val billingClient =
         newBuilder(context!!)
             .setListener(this)
-            .enablePendingPurchases()
+            .enablePendingPurchases(
+                PendingPurchasesParams.newBuilder()
+                    .enableOneTimeProducts()
+                    .build()
+            )
             .build()
     private var connected = false
     private var onPurchased: (() -> Unit)? = null
@@ -58,8 +63,8 @@ class BillingClientImpl(
 
             val productDetailsResult = withContext(Dispatchers.IO) {
                 suspendCoroutine { cont ->
-                    billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
-                        cont.resume(billingResult to productDetailsList)
+                    billingClient.queryProductDetailsAsync(params) { billingResult, result ->
+                        cont.resume(billingResult to result)
                     }
                 }
             }
@@ -70,7 +75,7 @@ class BillingClientImpl(
                 }
             }
 
-            productDetailsResult.second?.map { productDetails ->
+            productDetailsResult.second.productDetailsList.map { productDetails ->
                 Sku(
                     productId = productDetails.productId,
                     price = productDetails.subscriptionOfferDetails?.firstOrNull()?.pricingPhases?.pricingPhaseList?.maxByOrNull { it.priceAmountMicros }?.formattedPrice
@@ -78,7 +83,7 @@ class BillingClientImpl(
                         ?: productDetails.oneTimePurchaseOfferDetails?.formattedPrice
                         ?: ""
                 )
-            } ?: emptyList()
+            }
         }
 
     override suspend fun queryPurchases(throwError: Boolean) = try {
@@ -175,8 +180,8 @@ class BillingClientImpl(
 
             val productDetailsResult = withContext(Dispatchers.IO) {
                 suspendCoroutine { cont ->
-                    billingClient.queryProductDetailsAsync(queryParams) { billingResult, productDetailsList ->
-                        cont.resume(billingResult to productDetailsList)
+                    billingClient.queryProductDetailsAsync(queryParams) { billingResult, result ->
+                        cont.resume(billingResult to result)
                     }
                 }
             }
@@ -187,7 +192,7 @@ class BillingClientImpl(
                 }
             }
 
-            val productDetails = productDetailsResult.second?.firstOrNull()
+            val productDetails = productDetailsResult.second.productDetailsList.firstOrNull()
                 ?: throw IllegalStateException("Product $sku not found")
 
             val productDetailsParamsBuilder = ProductDetailsParams.newBuilder()
