@@ -142,7 +142,7 @@
     <string name="issue_tracker">දෝෂ සෙවීම</string>
     <string name="contact_developer">සංවර්ධකයා අමතන්න</string>
     <string name="follow_reddit">r/tasks හා සම්බන්ධ වන්න</string>
-    <string name="follow_twitter">\@tasks_org අනුගමනය කරන්න</string>
+    <string name="follow_twitter">@tasks_org අනුගමනය කරන්න</string>
     <string name="source_code">ප්‍රභව කේතය</string>
     <string name="third_party_licenses">තෙවන පාර්ශවීය බලපත්‍ර</string>
     <string name="privacy_policy">රහස්‍යතා ප්‍රතිපත්තිය</string>

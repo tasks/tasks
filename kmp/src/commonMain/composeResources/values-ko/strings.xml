@@ -169,7 +169,7 @@
     <string name="contact_developer">개발자에게 연락</string>
     <string name="send_application_logs">앱 로그 보내기</string>
     <string name="follow_reddit">r/tasks 구독</string>
-    <string name="follow_twitter">\@tasks_org 팔로우</string>
+    <string name="follow_twitter">@tasks_org 팔로우</string>
     <string name="source_code">소스 코드</string>
     <string name="third_party_licenses">타사 라이센스</string>
     <string name="privacy_policy">개인정보 보호정책</string>

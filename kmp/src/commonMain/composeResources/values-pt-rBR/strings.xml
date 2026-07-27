@@ -230,7 +230,7 @@
     <string name="contact_developer">Contate o desenvolvedor</string>
     <string name="send_application_logs">Enviar registros do aplicativo</string>
     <string name="follow_reddit">r/tasks (reddit)</string>
-    <string name="follow_twitter">\@tasks_org (𝕏)</string>
+    <string name="follow_twitter">@tasks_org (𝕏)</string>
     <string name="source_code">Código-fonte</string>
     <string name="third_party_licenses">Licenças de Terceiros</string>
     <string name="terms_of_service">Termos de serviço</string>
@@ -367,7 +367,7 @@
     <string name="repeat_monthly_third_week">terceiro</string>
     <string name="repeat_monthly_fourth_week">quarto</string>
     <string name="repeat_monthly_fifth_week">quinto</string>
-    <string name="repeat_monthly_last_week">ultimo </string>
+    <string name="repeat_monthly_last_week">ultimo</string>
     <string name="repeat_monthly_on_the_nth_weekday">Mensalmente na %1$s %2$s</string>
     <string name="repeats_ends">Termina</string>
     <string name="repeats_never">Nunca</string>

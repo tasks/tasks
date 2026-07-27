@@ -169,7 +169,7 @@
     <string name="rate_tasks">Valorar Tasks</string>
     <string name="documentation">Documentación</string>
     <string name="issue_tracker">Seguimiento de problemas</string>
-    <string name="contact_developer">Contactar con el desarrollador </string>
+    <string name="contact_developer">Contactar con el desarrollador</string>
     <string name="send_application_logs">Enviar registros de aplicaciones</string>
     <string name="follow_reddit">Únase a r/tasks</string>
     <string name="follow_twitter">Seguir @tasks_org</string>

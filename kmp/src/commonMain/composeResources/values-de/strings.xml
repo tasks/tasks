@@ -216,7 +216,7 @@
     <string name="contact_developer">Entwickler kontaktieren</string>
     <string name="send_application_logs">Diagnoseprotokolle senden</string>
     <string name="follow_reddit">r/tasks beitreten</string>
-    <string name="follow_twitter">\@tasks_org folgen</string>
+    <string name="follow_twitter">@tasks_org folgen</string>
     <string name="source_code">Quelltext</string>
     <string name="third_party_licenses">Drittsoftware-Lizenzen</string>
     <string name="terms_of_service">Nutzungsbedingungen</string>

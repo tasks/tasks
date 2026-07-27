@@ -139,7 +139,7 @@
         <item quantity="few">%1$d úlohy</item>
         <item quantity="other">%1$d úloh</item>
     </plurals>
-    <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
+    <string name="name_cannot_be_empty">Názov nesmie ostať prázdny</string>
     <string name="discard_changes">Zahodiť zmeny?</string>
     <string name="discard">Zahodiť</string>
     <string name="delete">Zmazať</string>
@@ -158,7 +158,7 @@
     <string name="url_host_name_required">Vyžaduje sa adresa servera</string>
     <string name="url_invalid_scheme">Musí sa začínať http(s)://</string>
     <string name="url_required">Vyžaduje sa URL</string>
-    <string name="username_required">Vyžaduje sa meno užívateľa </string>
+    <string name="username_required">Vyžaduje sa meno užívateľa</string>
     <string name="etesync_account_description">Vyžaduje účet na EteSync.com alebo vlastný server</string>
     <string name="show_advanced_settings">Zobraziť pokročilé možnosti</string>
     <string name="app_settings">Nastavenia aplikácie</string>

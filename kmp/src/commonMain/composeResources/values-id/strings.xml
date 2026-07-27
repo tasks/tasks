@@ -120,7 +120,7 @@
     <string name="supporter">Pendukung</string>
     <string name="price_per_month_with_currency">%1$s/bulan</string>
     <string name="price_per_year_with_currency">%1$s/tahun</string>
-    <string name="supporter_summary">"%1$s -  Terima kasih!"</string>
+    <string name="supporter_summary">%1$s - Terima kasih!</string>
     <string name="sign_in_to_connect">Masuk untuk menghubungkan akun Tasks.org Anda</string>
     <string name="guest">Tamu</string>
     <string name="donate">Donasi</string>

@@ -213,7 +213,7 @@
     <string name="contact_developer">Kapcsolatfelvétel a fejlesztővel</string>
     <string name="send_application_logs">Alkalmazás logok küldése</string>
     <string name="follow_reddit">Csatlakozás r/tasks</string>
-    <string name="follow_twitter">\@tasks_org követése</string>
+    <string name="follow_twitter">@tasks_org követése</string>
     <string name="source_code">Forráskód</string>
     <string name="third_party_licenses">Harmadik fél licenszei</string>
     <string name="terms_of_service">Szolgáltatási feltételek</string>

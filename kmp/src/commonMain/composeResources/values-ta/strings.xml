@@ -170,7 +170,7 @@
     <string name="contact_developer">டெவலப்பரைத் தொடர்பு கொள்ளுங்கள்</string>
     <string name="send_application_logs">பயன்பாட்டு பதிவுகளை அனுப்பவும்</string>
     <string name="follow_reddit">ஆர்/பணிகளில் சேரவும்</string>
-    <string name="follow_twitter">\@Tasks_org ஐப் பின்தொடரவும்</string>
+    <string name="follow_twitter">@Tasks_org ஐப் பின்தொடரவும்</string>
     <string name="source_code">மூல குறியீடு</string>
     <string name="third_party_licenses">மூன்றாம் தரப்பு உரிமங்கள்</string>
     <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>

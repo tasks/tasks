@@ -190,7 +190,7 @@
     <string name="debug">Hata ayıkla</string>
     <string name="link_desktop">Masaüstü uygulamasını bağla</string>
     <string name="link_desktop_description">Google Play aboneliğinizle masaüstü uygulamasının kilidini açın</string>
-    <string name="link_desktop_instructions">Tasks.org masaüstü uygulamasını açın ve QR kodunu görmek için \"Hesap Ekle\" seçeneğine gidin. Ardından, kodu taramak için aşağıdaki düğmeye dokunun.</string>
+    <string name="link_desktop_instructions">Tasks.org masaüstü uygulamasını açın ve QR kodunu görmek için "Hesap Ekle" seçeneğine gidin. Ardından, kodu taramak için aşağıdaki düğmeye dokunun.</string>
     <string name="scan_qr_code">QR Kodunu Tara</string>
     <string name="link_desktop_success">Masaüstü başarıyla bağlandı!</string>
     <string name="link_desktop_error">Masaüstü bağlanamadı. Lütfen yeniden deneyin.</string>
@@ -272,7 +272,7 @@
     <string name="contact_developer">Geliştiriciyle iletişime geç</string>
     <string name="send_application_logs">Uygulama günlüklerini gönder</string>
     <string name="follow_reddit">r/tasks topluluğuna katıl</string>
-    <string name="follow_twitter">\@tasks_org hesabını takip et</string>
+    <string name="follow_twitter">@tasks_org hesabını takip et</string>
     <string name="source_code">Kaynak kodu</string>
     <string name="third_party_licenses">Üçüncü taraf lisanslar</string>
     <string name="terms_of_service">Hizmet koşulları</string>
