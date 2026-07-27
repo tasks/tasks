@@ -414,4 +414,5 @@
         <item quantity="other">gerçekleşim</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
+    <string name="failed_to_load_task">Görev yüklenemedi</string>
 </resources>
