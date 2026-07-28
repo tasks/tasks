@@ -415,4 +415,6 @@
     <item quantity="other">occurrences</item>
   </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
+    <string name="no_task_selected">No task selected</string>
+    <string name="resize_panes">Resize panes</string>
 </resources>

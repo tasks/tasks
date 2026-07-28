@@ -73,6 +73,8 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val blogDismissedPostId = stringPreferencesKey("blog_dismissed_post_id")
         val collectStatistics = booleanPreferencesKey("collect_statistics")
         val sidebarExpanded = booleanPreferencesKey("sidebar_expanded")
+        val sidebarWidth = intPreferencesKey("sidebar_width")
+        val taskListPaneWidth = intPreferencesKey("task_list_pane_width")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")
         val needsCloudOnboarding = booleanPreferencesKey("needs_cloud_onboarding")
         val metadataPrimaryAccount = longPreferencesKey("metadata_primary_account")

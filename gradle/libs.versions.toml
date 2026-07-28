@@ -5,6 +5,12 @@ agp = "9.3.1"
 android-compileSdk = "36"
 android-minSdk = "26"
 android-targetSdk = "36"
+# composeApp only, and compile-only. adaptive-navigation3 publishes AAR metadata requiring its
+# consumers to compile against 37, so composeApp cannot build on the shared 36 above. Nothing
+# depends on composeApp - it is an application module - so the rest of the project stays where it
+# is, and composeApp's targetSdk stays on android-targetSdk: this buys the newer APIs to compile
+# against, not the runtime behaviour changes that come with declaring the app ready for them.
+composeapp-compileSdk = "37"
 accompanist = "0.37.3"
 activity-compose = "1.13.0"
 appauth = "0.11.1"
@@ -29,6 +35,7 @@ hilt = "1.3.0"
 horologist = "0.7.15"
 ical4android = "fcb0311ca7"
 ical4j = "3.2.19"
+jetbrains-adaptive = "1.3.0-beta02"
 junit-junit = "4.13.2"
 junit = "1.3.0"
 kotlin = "2.3.21"
@@ -147,6 +154,10 @@ kermit = { module = "co.touchlab:kermit", version = "2.1.0" }
 markdown-renderer-m3 = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.2" }
 jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version = "1.1.1" }
 jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version = "2.11.0-beta01" }
+jetbrains-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "jetbrains-adaptive" }
+jetbrains-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "jetbrains-adaptive" }
+jetbrains-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "jetbrains-adaptive" }
+jetbrains-adaptive-navigation3 = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation3", version.ref = "jetbrains-adaptive" }
 koin-core = { module = "io.insert-koin:koin-core", version = "4.1.0" }
 koin-android = { module = "io.insert-koin:koin-android", version = "4.1.0" }
 koin-compose = { module = "io.insert-koin:koin-compose", version = "4.1.0" }

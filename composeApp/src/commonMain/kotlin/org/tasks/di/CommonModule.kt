@@ -86,12 +86,15 @@ import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
+import org.tasks.TaskEditDestination
+import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
 
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+    single { PendingTaskSaves(get()) }
     single { Json { ignoreUnknownKeys = true } }
 
     // DAOs - singletons (from Database singleton)
@@ -387,8 +390,13 @@ val commonModule = module {
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }
-    viewModel {
+    viewModel { params ->
+        val destination = params.get<TaskEditDestination>()
         TaskEditViewModel(
+            taskId = destination.taskId,
+            remoteId = destination.remoteId,
+            listId = destination.listId,
+            tagUuid = destination.tagUuid,
             taskDao = get(),
             taskSaver = get(),
             caldavDao = get(),
@@ -397,6 +405,7 @@ val commonModule = module {
             tagDataDao = get(),
             appPreferences = get(),
             externalScope = get(),
+            pendingSaves = get(),
         )
     }
     viewModel {

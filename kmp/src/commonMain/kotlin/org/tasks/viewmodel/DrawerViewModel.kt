@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.tasks.billing.PurchaseState
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.throttleLatest
@@ -52,18 +52,6 @@ open class DrawerViewModel(
     private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
-    private val _sidebarExpanded = MutableStateFlow(
-        runBlocking { tasksPreferences.get(TasksPreferences.sidebarExpanded, true) }
-    )
-    val sidebarExpanded = _sidebarExpanded.asStateFlow()
-
-    fun setSidebarExpanded(expanded: Boolean) {
-        _sidebarExpanded.value = expanded
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.sidebarExpanded, expanded)
-        }
-    }
-
     init {
         updateFilters()
 
@@ -80,16 +68,27 @@ open class DrawerViewModel(
 
     fun updateFilters() {
         viewModelScope.launch(Dispatchers.IO) {
-            val selectedFilter = _state.value.selectedFilter
-            filterProvider
-                .drawerItems()
-                .map { item -> item.toDrawerItem(selectedFilter) }
-                .let { filters ->
-                    _state.update { it.copy(drawerItems = filters.toPersistentList()) }
+            // Nothing above catches this: viewModelScope's SupervisorJob routes a child failure to
+            // the default handler, which on Android takes the process down - over a drawer that
+            // could not be listed.
+            try {
+                val selectedFilter = _state.value.selectedFilter
+                filterProvider
+                    .drawerItems()
+                    .map { item -> item.toDrawerItem(selectedFilter) }
+                    .let { filters ->
+                        _state.update { it.copy(drawerItems = filters.toPersistentList()) }
+                    }
+                val query = _state.value.menuQuery
+                if (query.isNotBlank()) {
+                    updateSearch(query, selectedFilter)
                 }
-            val query = _state.value.menuQuery
-            if (query.isNotBlank()) {
-                updateSearch(query, selectedFilter)
+            } catch (e: CancellationException) {
+                // A RuntimeException on the JVM, so the catch below would log a cancelled scope -
+                // signing out, or the activity going away - as a failure.
+                throw e
+            } catch (e: Exception) {
+                Logger.e(e, tag = TAG) { "Failed to update filters" }
             }
         }
     }
@@ -115,6 +114,8 @@ open class DrawerViewModel(
                     adjustColor = item.tint != 0,
                     count = item.count.takeIf { it != NO_COUNT } ?: try {
                         taskDao.count(item)
+                    } catch (e: CancellationException) {
+                        throw e
                     } catch (e: Exception) {
                         Logger.e(e, tag = TAG) { "Failed to count tasks" }
                         0

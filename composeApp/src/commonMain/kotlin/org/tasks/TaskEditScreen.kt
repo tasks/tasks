@@ -1,5 +1,6 @@
 package org.tasks
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -56,10 +57,8 @@ import org.tasks.compose.pickers.StartDatePickerSheet
 import org.tasks.compose.pickers.dueDateFromSelection
 import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.time.is24HourFormat
-import org.tasks.compose.settings.Toaster
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
-import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.themes.TasksIcons
@@ -69,49 +68,41 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.edit_task
 import tasks.kmp.generated.resources.failed_to_load_task
-import tasks.kmp.generated.resources.failed_to_save_task
 import tasks.kmp.generated.resources.new_task
 import tasks.kmp.generated.resources.no_list_available
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.task_title
+
+val TaskEditIslandInset = 16.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskEditScreen(
     viewModel: TaskEditViewModel,
     filterPickerViewModel: FilterPickerViewModel,
-    taskId: Long?,
-    remoteId: String,
-    currentFilter: Filter? = null,
     onCreateList: (accountId: Long) -> Unit = {},
     onSignIn: () -> Unit = {},
+    showBackButton: Boolean = true,
+    backHandlerEnabled: Boolean = true,
     onClose: () -> Unit,
 ) {
-    LaunchedEffect(taskId, remoteId) {
-        viewModel.initialize(taskId, currentFilter)
-    }
     val state by viewModel.state.collectAsState()
     val currentOnClose by rememberUpdatedState(onClose)
     LaunchedEffect(viewModel) {
         viewModel.closeEvents.collect { currentOnClose() }
     }
-    val snackbarHostState = remember { SnackbarHostState() }
     val loadError by viewModel.loadError.collectAsState()
-    val saveError by viewModel.saveError.collectAsState()
-    val saveErrorMessage = stringResource(Res.string.failed_to_save_task)
-    LaunchedEffect(saveError) {
-        if (saveError) {
-            snackbarHostState.showSnackbar(saveErrorMessage)
-            viewModel.clearSaveError()
-        }
-    }
+    val saving by viewModel.saving.collectAsState()
 
     val saveAndClose = { viewModel.save() }
 
-    PlatformBackHandler(enabled = !state.isLoading) { saveAndClose() }
+    // Armed unless the caller says something is on top of this screen. In a list-detail scene
+    // neither NavDisplay nor the task list chrome has a back handler enabled, so leaving this one
+    // off while the row loads would let back exit the app instead of closing the editor. save() is
+    // a no-op while loading and still emits the close.
+    PlatformBackHandler(enabled = backHandlerEnabled) { saveAndClose() }
 
     Scaffold(
-        snackbarHost = { Toaster(state = snackbarHostState) },
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             TopAppBar(
@@ -122,11 +113,18 @@ fun TaskEditScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = saveAndClose) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(Res.string.back),
-                        )
+                    // Suppressed in a list-detail layout: the list is already on screen beside this
+                    // pane, so a back arrow would point at nothing to go back to.
+                    if (showBackButton) {
+                        // Disabled while a save is in flight: save() ignores repeat presses, and the
+                        // overlay below only covers the body, so an enabled arrow up here would be
+                        // the one dead-looking control on screen.
+                        IconButton(onClick = saveAndClose, enabled = !saving) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(Res.string.back),
+                            )
+                        }
                     }
                 },
             )
@@ -191,7 +189,7 @@ fun TaskEditScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(16.dp),
+                            .padding(TaskEditIslandInset),
                     ) {
                         TitleField(
                             title = state.task.title.orEmpty(),
@@ -345,6 +343,24 @@ fun TaskEditScreen(
                             },
                         )
                     }
+                }
+            }
+            // Saving and closing can wait: a save already in flight for this task holds its lock for
+            // as long as the calendar provider and sync adapters take, and the wait is
+            // uncancellable. Without something on screen, back and escape were consumed and the
+            // editor just sat there looking untouched. Takes the pointer input with it, because a
+            // screen that is on its way out should not still look editable.
+            if (saving) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.2f))
+                        .pointerInput(Unit) {
+                            awaitPointerEventScope { while (true) awaitPointerEvent() }
+                        },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator()
                 }
             }
         }

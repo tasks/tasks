@@ -1053,41 +1053,55 @@
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.3.21 (*)
 +|         +--- org.jetbrains:markdown:0.7.3 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.3.21 (*)
-++--- org.jetbrains.compose.material3.adaptive:adaptive:1.1.2
-+|    \--- org.jetbrains.compose.material3.adaptive:adaptive-desktop:1.1.2
-+|         +--- org.jetbrains.androidx.window:window-core:1.3.1
-+|         |    \--- org.jetbrains.androidx.window:window-core-desktop:1.3.1
-+|         |         +--- org.jetbrains.compose.annotation-internal:annotation:1.7.1
-+|         |         |    +--- androidx.annotation:annotation:1.8.0 -> 1.9.1 (*)
-+|         |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.3.21 (*)
-+|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.3.21 (*)
-+|         +--- org.jetbrains.compose.foundation:foundation:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui-geometry:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.21 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.3.21 (c)
-++--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2
-+|    \--- org.jetbrains.compose.material3.adaptive:adaptive-layout-desktop:1.1.2
-+|         +--- org.jetbrains.androidx.window:window-core:1.3.1 (*)
-+|         +--- org.jetbrains.compose.animation:animation:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.animation:animation-core:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.collection-internal:collection:1.8.2
-+|         |    +--- androidx.collection:collection:1.5.0 (*)
-+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.21 (*)
-+|         +--- org.jetbrains.compose.foundation:foundation:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.foundation:foundation-layout:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.1.2 (*)
-+|         +--- org.jetbrains.compose.ui:ui:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui-geometry:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui-util:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.21 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.3.21 (c)
-++--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.1.2
-+|    \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation-desktop:1.1.2
-+|         +--- org.jetbrains.compose.foundation:foundation:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2 (*)
-+|         +--- org.jetbrains.compose.ui:ui-util:1.8.2 -> 1.11.0 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.21 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.3.21 (c)
+++--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02
++|    \--- org.jetbrains.compose.material3.adaptive:adaptive-desktop:1.3.0-beta02
++|         +--- org.jetbrains.androidx.window:window-core:1.5.0
++|         |    \--- org.jetbrains.androidx.window:window-core-desktop:1.5.0
++|         |         \--- androidx.window:window-core:1.5.0
++|         |              \--- androidx.window:window-core-jvm:1.5.0
++|         |                   +--- androidx.annotation:annotation:1.9.1 (*)
++|         |                   +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.3.21 (*)
++|         |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.3.21 (c)
++|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.21 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (c)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (c)
++|         \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation3:1.3.0-beta02 (c)
+++--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02
++|    \--- org.jetbrains.compose.material3.adaptive:adaptive-layout-desktop:1.3.0-beta02
++|         +--- androidx.collection:collection:1.5.0 (*)
++|         +--- org.jetbrains.androidx.window:window-core:1.5.0 (*)
++|         +--- org.jetbrains.compose.animation:animation:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.animation:animation-core:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.foundation:foundation-layout:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (*)
++|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.ui:ui-geometry:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.21 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (c)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (c)
++|         \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation3:1.3.0-beta02 (c)
+++--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02
++|    \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation-desktop:1.3.0-beta02
++|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (*)
++|         +--- org.jetbrains.compose.ui:ui-util:1.10.0 -> 1.11.0 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.21 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (c)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (c)
++|         \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation3:1.3.0-beta02 (c)
+++--- org.jetbrains.compose.material3.adaptive:adaptive-navigation3:1.3.0-beta02
++|    \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation3-desktop:1.3.0-beta02
++|         +--- androidx.collection:collection:1.5.0 (*)
++|         +--- org.jetbrains.androidx.navigation3:navigation3-ui:1.1.0 -> 1.1.1 (*)
++|         +--- org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.1 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.3.21 (*)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (c)
++|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (c)
++|         \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (c)
 ++--- org.jetbrains.compose.desktop:desktop-jvm-linux-x64:1.11.0
 +|    +--- org.jetbrains.compose.desktop:desktop:1.11.0
 +|    |    \--- org.jetbrains.compose.desktop:desktop-jvm:1.11.0

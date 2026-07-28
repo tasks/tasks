@@ -73,9 +73,10 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.markdown.renderer.m3)
-            implementation("org.jetbrains.compose.material3.adaptive:adaptive:1.1.2")
-            implementation("org.jetbrains.compose.material3.adaptive:adaptive-layout:1.1.2")
-            implementation("org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.1.2")
+            implementation(libs.jetbrains.adaptive)
+            implementation(libs.jetbrains.adaptive.layout)
+            implementation(libs.jetbrains.adaptive.navigation)
+            implementation(libs.jetbrains.adaptive.navigation3)
         }
         androidMain.dependencies {
             implementation(compose.preview)
@@ -94,7 +95,7 @@ kotlin {
 
 android {
     namespace = "org.tasks"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.composeapp.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
