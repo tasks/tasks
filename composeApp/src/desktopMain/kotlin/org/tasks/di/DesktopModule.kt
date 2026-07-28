@@ -44,8 +44,12 @@ import org.tasks.http.OkHttpClientFactory
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
+import org.tasks.data.TaskCreator
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.DesktopKeyProvider
+import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
@@ -114,6 +118,7 @@ actual fun platformModule(): Module = module {
             supportsCaldav = true,
             supportsEteSync = true,
             supportsGoogleTasks = true,
+            supportsMicrosoft = true,
         )
     }
     single<Reporting> {
@@ -136,6 +141,32 @@ actual fun platformModule(): Module = module {
         )
     }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
+    single<MicrosoftClientProvider> {
+        DesktopMicrosoftClientProvider(
+            encryption = get(),
+            caldavDao = get(),
+            okHttpClientFactory = get(),
+        )
+    }
+    factory {
+        val taskCreator = TaskCreator()
+        MicrosoftSynchronizer(
+            caldavDao = get(),
+            taskDao = get(),
+            dirtyDao = get(),
+            taskSaver = get(),
+            refreshBroadcaster = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            clientProvider = get(),
+            tagDao = get(),
+            tagDataDao = get(),
+            appPreferences = get(),
+            vtodoCache = get(),
+            createTask = { taskCreator.createBlankTask() },
+            setDefaultList = { },
+        )
+    }
     factory {
         org.tasks.googleapis.ProxyAuthProvider(
             caldavDao = get(),

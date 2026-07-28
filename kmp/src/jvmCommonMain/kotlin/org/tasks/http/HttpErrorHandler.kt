@@ -1,5 +1,6 @@
 package org.tasks.http
 
+import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpClientPlugin
@@ -10,7 +11,6 @@ import io.ktor.http.isSuccess
 import io.ktor.util.AttributeKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import timber.log.Timber
 
 @Serializable
 data class GraphErrorResponse(
@@ -37,11 +37,11 @@ data class GraphInnerError(
     @SerialName("client-request-id")val clientRequestId: String
 )
 
-open class NetworkException(message: String? = null, cause: Throwable? = null) : Exception(message, cause)
-class UnauthorizedException(message: String? = null, cause: Throwable? = null) : NetworkException(message, cause)
-class NotFoundException(message: String? = null, cause: Throwable? = null) : NetworkException(message, cause)
-class ServiceUnavailableException(message: String? = null, cause: Throwable? = null) : NetworkException(message, cause)
-class HttpException(val code: Int, override val message: String? = null) : NetworkException(message)
+open class NetworkException(message: String? = null, cause: Throwable? = null, val graphCode: String? = null) : Exception(message, cause)
+class UnauthorizedException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
+class NotFoundException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
+class ServiceUnavailableException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
+class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null) : NetworkException(message, graphCode = graphCode)
 
 class HttpErrorHandler {
     class Config {
@@ -64,7 +64,7 @@ class HttpErrorHandler {
                     val errorResponse = try {
                         originalCall.response.body<GraphErrorResponse>()
                     } catch (e: Exception) {
-                        Timber.e(e)
+                        Logger.e(e) { "Failed to parse error response" }
                         null
                     }
 
@@ -81,13 +81,14 @@ class HttpErrorHandler {
                         }
                     }
 
-                    Timber.e(errorMessage)
+                    Logger.e { errorMessage }
 
+                    val graphCode = errorResponse?.error?.code
                     when {
-                        errorResponse?.error?.isTokenError() == true -> throw UnauthorizedException(errorMessage)
-                        originalCall.response.status.value == 404 -> throw NotFoundException(errorMessage)
-                        originalCall.response.status.value in 500..599 -> throw ServiceUnavailableException(errorMessage)
-                        else -> throw HttpException(originalCall.response.status.value, errorMessage)
+                        errorResponse?.error?.isTokenError() == true -> throw UnauthorizedException(errorMessage, graphCode = graphCode)
+                        originalCall.response.status.value == 404 -> throw NotFoundException(errorMessage, graphCode = graphCode)
+                        originalCall.response.status.value in 500..599 -> throw ServiceUnavailableException(errorMessage, graphCode = graphCode)
+                        else -> throw HttpException(originalCall.response.status.value, errorMessage, graphCode = graphCode)
                     }
                 }
 

@@ -57,7 +57,7 @@ class DesktopGoogleTasksSynchronizer(
     suspend fun sync(account: CaldavAccount) {
         if (account.password.isNullOrBlank()) {
             account.error = getString(Res.string.cannot_access_account)
-            caldavDao.update(account)
+            caldavDao.setError(account.id, account.error)
             refreshBroadcaster.broadcastRefresh()
             return
         }

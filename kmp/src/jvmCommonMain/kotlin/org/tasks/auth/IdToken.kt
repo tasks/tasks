@@ -17,8 +17,11 @@ class IdToken(idToken: String) {
     val email: String?
         get() = json["email"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
 
-    val sub: String
-        get() = json["sub"]!!.jsonPrimitive.content
+    val preferredUsername: String?
+        get() = json["preferred_username"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+
+    val sub: String?
+        get() = json["sub"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
 
     val login: String?
         get() = json["login"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }

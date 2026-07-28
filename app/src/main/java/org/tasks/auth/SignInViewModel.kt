@@ -80,7 +80,8 @@ class SignInViewModel @Inject constructor(
         val auth = authService.authStateManager.current
         val tokenString = auth.accessToken ?: return null
         val idToken = auth.idToken?.let { IdToken(it) } ?: return null
-        val username = "${authService.iss}_${idToken.sub}"
+        val sub = idToken.sub ?: return null
+        val username = "${authService.iss}_$sub"
         return try {
             val homeSet = provider
                     .forUrl(

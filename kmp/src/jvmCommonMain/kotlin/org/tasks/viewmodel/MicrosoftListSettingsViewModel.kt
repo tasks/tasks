@@ -7,16 +7,20 @@ import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.googleapis.GtasksInvoker
 import org.tasks.service.TaskDeleter
+import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftService
+import org.tasks.sync.microsoft.TaskLists
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.gtasks_GLA_errorIOAuth
+import tasks.kmp.generated.resources.error_adding_account
+import tasks.kmp.generated.resources.network_error
+import java.io.IOException
 
-open class GoogleTaskListSettingsViewModel(
+open class MicrosoftListSettingsViewModel(
     caldavDao: CaldavDao,
     taskDeleter: TaskDeleter,
     reporting: Reporting,
-    private val invokerFactory: suspend (CaldavAccount) -> GtasksInvoker,
+    private val clientProvider: MicrosoftClientProvider,
     purchaseState: PurchaseState,
     isDark: Boolean,
     account: CaldavAccount,
@@ -41,14 +45,15 @@ open class GoogleTaskListSettingsViewModel(
         color: Int,
         icon: String,
     ): CaldavCalendar {
-        val taskList = invokerFactory(account).createGtaskList(name)!!
+        val taskList = clientProvider.getService(account)
+            .createList(TaskLists.TaskList(displayName = name))
         return CaldavCalendar(
-            uuid = taskList.id,
-            account = account.username,
-            name = taskList.title,
+            account = account.uuid,
             color = color,
             icon = icon,
-        )
+        ).apply {
+            taskList.applyTo(this)
+        }
     }
 
     override suspend fun renameRemoteList(
@@ -56,16 +61,34 @@ open class GoogleTaskListSettingsViewModel(
         calendar: CaldavCalendar,
         name: String,
     ) {
-        invokerFactory(account).renameGtaskList(calendar.uuid, name)
+        val service = clientProvider.getService(account)
+        if (isDefault(service, calendar.uuid!!)) {
+            throw IllegalStateException("The default list cannot be renamed")
+        }
+        service.updateList(calendar.uuid!!, TaskLists.TaskList(displayName = name))
     }
 
     override suspend fun deleteRemoteList(account: CaldavAccount, calendar: CaldavCalendar) {
-        invokerFactory(account).deleteGtaskList(calendar.uuid)
+        val service = clientProvider.getService(account)
+        if (isDefault(service, calendar.uuid!!)) {
+            throw IllegalStateException("The default list cannot be deleted")
+        }
+        service.deleteList(calendar.uuid!!)
     }
 
     override suspend fun handleError(e: Exception) {
-        Logger.e(e) { "Google Tasks list operation failed" }
-        val message = getString(Res.string.gtasks_GLA_errorIOAuth)
+        Logger.e(e) { "Microsoft list operation failed" }
+        val message = when (e) {
+            is IOException -> getString(Res.string.network_error)
+            else -> getString(Res.string.error_adding_account, e.message ?: e::class.simpleName ?: "")
+        }
         stateManager.update { it.copy(snackbar = message) }
+    }
+
+    private suspend fun isDefault(service: MicrosoftService, uuid: String): Boolean = try {
+        service.getList(uuid).isDefaultList
+    } catch (e: Exception) {
+        Logger.e(e) { "Failed to check default list" }
+        false
     }
 }

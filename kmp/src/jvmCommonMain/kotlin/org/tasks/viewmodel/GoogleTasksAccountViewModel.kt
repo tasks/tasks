@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.tasks.auth.isUnauthorized
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.service.TaskDeleter
@@ -54,5 +55,5 @@ data class GoogleTasksAccountState(
         get() = account?.error?.takeIf { it.isNotBlank() }
 
     val isUnauthorized: Boolean
-        get() = account?.error?.startsWith("401 Unauthorized", ignoreCase = true) == true
+        get() = account?.isUnauthorized() == true
 }

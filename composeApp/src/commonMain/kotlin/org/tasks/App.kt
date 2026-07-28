@@ -139,6 +139,8 @@ import org.tasks.compose.settings.EtebaseAccountSettingsDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
 import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
+import org.tasks.compose.settings.MicrosoftAccountSettingsDetail
+import org.tasks.compose.settings.MicrosoftAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
@@ -194,7 +196,9 @@ import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
+import org.tasks.viewmodel.ListSettingsViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
+import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -377,7 +381,7 @@ fun App(
                                     && !addAccountViewModel.hasPro
                                 ) {
                                     when (platform) {
-                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS -> {
+                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS, Platform.MICROSOFT -> {
                                             backStack.add(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
                                             return@AddAccountScreen
                                         }
@@ -596,6 +600,8 @@ fun App(
                                         }
                                         Platform.GOOGLE_TASKS.name ->
                                             addAccountViewModel.signIn(Platform.GOOGLE_TASKS)
+                                        Platform.MICROSOFT.name ->
+                                            addAccountViewModel.signIn(Platform.MICROSOFT)
                                         else -> backStack.removeLastOrNull()
                                     }
                                 }
@@ -1441,6 +1447,15 @@ private fun ListSettingsDialog(
             onSubscribe = onSubscribe,
             viewModelKey = viewModelKey,
         )
+        account.isMicrosoft -> MicrosoftListSettingsDialog(
+            account = account,
+            calendar = calendar,
+            isDark = isDark,
+            onDismiss = onDismiss,
+            onDeleted = onDeleted,
+            onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
+        )
         account.isEtebaseAccount -> EtebaseListSettingsDialog(
             account = account,
             calendar = calendar,
@@ -1600,6 +1615,35 @@ private fun GoogleTaskListSettingsDialog(
         key = viewModelKey,
         parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
     )
+    CaldavListSettingsDialog(viewModel, onDismiss, onDeleted, onSubscribe)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun MicrosoftListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+    viewModelKey: String,
+) {
+    val viewModel = koinViewModel<MicrosoftListSettingsViewModel>(
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
+    )
+    CaldavListSettingsDialog(viewModel, onDismiss, onDeleted, onSubscribe)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CaldavListSettingsDialog(
+    viewModel: ListSettingsViewModel,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit,
+    onSubscribe: () -> Unit,
+) {
     val state by viewModel.state.collectAsState()
 
     val dismiss = { onDismiss(null) }
@@ -2314,6 +2358,14 @@ private fun SettingsScreen(
                                         )
                                     }
                                 }
+                                account.isMicrosoft -> {
+                                    scope.launch {
+                                        navigator.navigateTo(
+                                            ListDetailPaneScaffoldRole.Detail,
+                                            MicrosoftAccountSettingsPane(account),
+                                        )
+                                    }
+                                }
                                 account.isOpenTasks -> {
                                     scope.launch {
                                         navigator.navigateTo(
@@ -2456,6 +2508,14 @@ private fun SettingsScreen(
                     }
                     is GoogleTasksAccountSettingsPane -> {
                         GoogleTasksAccountSettingsDetail(
+                            pane = selectedContent,
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
+                    is MicrosoftAccountSettingsPane -> {
+                        MicrosoftAccountSettingsDetail(
                             pane = selectedContent,
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }

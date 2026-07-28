@@ -134,6 +134,18 @@ ORDER BY CASE cda_account_type
     @Query("UPDATE caldav_accounts SET cda_collapsed = :collapsed WHERE cda_id = :id")
     abstract suspend fun setCollapsed(id: String, collapsed: Boolean)
 
+    @Query("UPDATE caldav_accounts SET cda_password = :password WHERE cda_id = :id")
+    abstract suspend fun setPassword(id: Long, password: String?)
+
+    @Query("UPDATE caldav_accounts SET cda_error = :error WHERE cda_id = :id")
+    abstract suspend fun setError(id: Long, error: String?)
+
+    @Query("UPDATE caldav_accounts SET cda_last_sync = :lastSync WHERE cda_id = :id")
+    abstract suspend fun setLastSync(id: Long, lastSync: Long)
+
+    @Query("UPDATE caldav_accounts SET cda_username = :username, cda_name = :name, cda_password = :password, cda_error = '' WHERE cda_id = :id")
+    abstract suspend fun setMicrosoftReauth(id: Long, username: String?, name: String?, password: String?)
+
     @Query(
         "SELECT * FROM caldav_accounts " +
         "WHERE cda_account_type = $TYPE_TASKS OR (cda_id = :preferredId AND cda_account_type = $TYPE_CALDAV) " +

@@ -94,6 +94,8 @@ import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.watch.WatchServiceLogic
 import com.todoroo.astrid.service.TaskCreator
+import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import kotlinx.serialization.json.Json
 import java.util.Locale
 import java.util.concurrent.Executors
@@ -522,6 +524,44 @@ class ApplicationModule {
     ) = org.tasks.caldav.CaldavSynchronizer(
         caldavDao, dirtyDao, refreshBroadcaster, taskDeleter, reporting,
         provider, iCal, principalDao, vtodoCache, accountDataRepository, tagMetadataSync,
+    )
+
+    @Provides
+    fun providesMicrosoftClientProvider(
+        httpClientFactory: HttpClientFactory,
+    ): MicrosoftClientProvider = httpClientFactory
+
+    @Provides
+    fun providesMicrosoftSynchronizer(
+        caldavDao: CaldavDao,
+        taskDao: TaskDao,
+        dirtyDao: DirtyDao,
+        taskSaver: TaskSaver,
+        refreshBroadcaster: RefreshBroadcaster,
+        taskDeleter: TaskDeleter,
+        reporting: Reporting,
+        clientProvider: MicrosoftClientProvider,
+        tagDao: TagDao,
+        tagDataDao: TagDataDao,
+        appPreferences: AppPreferences,
+        vtodoCache: VtodoCache,
+        taskCreator: TaskCreator,
+        defaultFilterProvider: DefaultFilterProvider,
+    ): MicrosoftSynchronizer = MicrosoftSynchronizer(
+        caldavDao = caldavDao,
+        taskDao = taskDao,
+        dirtyDao = dirtyDao,
+        taskSaver = taskSaver,
+        refreshBroadcaster = refreshBroadcaster,
+        taskDeleter = taskDeleter,
+        reporting = reporting,
+        clientProvider = clientProvider,
+        tagDao = tagDao,
+        tagDataDao = tagDataDao,
+        appPreferences = appPreferences,
+        vtodoCache = vtodoCache,
+        createTask = { taskCreator.createWithValues("") },
+        setDefaultList = { defaultFilterProvider.defaultList = it },
     )
 
     @Provides

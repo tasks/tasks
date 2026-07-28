@@ -7,6 +7,7 @@ import com.todoroo.astrid.timers.TimerPlugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -36,6 +37,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
@@ -44,6 +46,7 @@ import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.jobs.BackgroundWork
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
@@ -77,6 +80,7 @@ import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
+import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
@@ -244,6 +248,15 @@ val commonModule = module {
                             }
                             caldavDao.getAccounts(TYPE_GOOGLE_TASKS).forEach { account ->
                                 get<DesktopGoogleTasksSynchronizer>().sync(account)
+                            }
+                            val microsoftAccounts = caldavDao.getAccounts(TYPE_MICROSOFT)
+                            if (microsoftAccounts.isNotEmpty()) {
+                                val microsoftSynchronizer = get<MicrosoftSynchronizer>()
+                                coroutineScope {
+                                    microsoftAccounts.forEach { account ->
+                                        launch { microsoftSynchronizer.sync(account) }
+                                    }
+                                }
                             }
                             get<OpenTasksSyncer>().sync(hasPro = hasPro)
                         } while (pending.getAndSet(false))
@@ -486,6 +499,18 @@ val commonModule = module {
                     )
                 )
             },
+            isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
+        )
+    }
+    viewModel { params ->
+        MicrosoftListSettingsViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            clientProvider = get(),
+            purchaseState = get(),
             isDark = params.get(),
             account = params.get(),
             calendar = params.get(),

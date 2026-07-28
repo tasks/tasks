@@ -20,6 +20,9 @@ data class TaskLists(
         val wellknownListName: String? = null,
         val id: String? = null,
     ) {
+        val isDefaultList: Boolean
+            get() = wellknownListName == DEFAULT_LIST_NAME
+
         fun applyTo(list: CaldavCalendar) {
             with (list) {
                 name = displayName
@@ -31,6 +34,10 @@ data class TaskLists(
                     else -> CaldavCalendar.ACCESS_UNKNOWN
                 }
             }
+        }
+
+        companion object {
+            const val DEFAULT_LIST_NAME = "defaultList"
         }
     }
 }

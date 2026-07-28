@@ -39,6 +39,7 @@ import tasks.kmp.generated.resources.backup_BPr_header
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.gtasks_GPr_header
+import tasks.kmp.generated.resources.microsoft
 import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
@@ -102,6 +103,12 @@ data class GoogleTasksAccountSettingsPane(
     val account: CaldavAccount,
 ) : SettingsPane {
     override val titleRes: StringResource = Res.string.gtasks_GPr_header
+}
+
+data class MicrosoftAccountSettingsPane(
+    val account: CaldavAccount,
+) : SettingsPane {
+    override val titleRes: StringResource = Res.string.microsoft
 }
 
 data class OpenTaskAccountSettingsPane(

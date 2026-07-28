@@ -1,16 +1,14 @@
 package org.tasks.sync.microsoft
 
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
-import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
-import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
-import com.todoroo.astrid.service.TaskCreator
+import co.touchlab.kermit.Logger
 import io.ktor.client.call.body
-import io.ktor.http.isSuccess
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.Json
-import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
+import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
+import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
+import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
 import org.tasks.analytics.Constants
-import org.tasks.analytics.Firebase
+import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.TaskSaver
@@ -26,59 +24,69 @@ import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_UNKNOWN
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
-import org.tasks.http.HttpClientFactory
+import org.tasks.http.HttpException
+import org.tasks.http.NetworkException
 import org.tasks.http.NotFoundException
-import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
+import org.tasks.http.ServiceUnavailableException
+import org.tasks.http.UnauthorizedException
+import org.jetbrains.compose.resources.getString
+import org.tasks.preferences.AppPreferences
 import org.tasks.service.TaskDeleter
-import org.tasks.sync.microsoft.Error.Companion.toMicrosoftError
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.MicrosoftConverter.applySubtask
 import org.tasks.sync.microsoft.MicrosoftConverter.toChecklistItem
 import org.tasks.sync.microsoft.MicrosoftConverter.toRemote
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import timber.log.Timber
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
-import javax.inject.Inject
 import javax.net.ssl.SSLException
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cannot_access_account
 
 
-class MicrosoftSynchronizer @Inject constructor(
+class MicrosoftSynchronizer(
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val dirtyDao: DirtyDao,
     private val taskSaver: TaskSaver,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
-    private val firebase: Firebase,
-    private val taskCreator: TaskCreator,
-    private val httpClientFactory: HttpClientFactory,
+    private val reporting: Reporting,
+    private val clientProvider: MicrosoftClientProvider,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
-    private val preferences: Preferences,
+    private val appPreferences: AppPreferences,
     private val vtodoCache: VtodoCache,
-    private val defaultFilterProvider: DefaultFilterProvider,
+    private val createTask: suspend () -> Task,
+    private val setDefaultList: suspend (CaldavFilter) -> Unit,
 ) {
     suspend fun sync(account: CaldavAccount) {
-        Timber.d("Synchronizing $account")
+        Logger.d(TAG) { "Synchronizing $account" }
+        if (!clientProvider.hasCredentials(account)) {
+            setError(account, getString(Res.string.cannot_access_account))
+            return
+        }
         try {
             synchronize(account)
             if (account.lastSync == 0L) {
                 val taskCount = caldavDao.getTaskCountForAccount(account.uuid!!)
-                firebase.logEvent(
-                    R.string.event_initial_sync_complete,
-                    R.string.param_type to Constants.SYNC_TYPE_MICROSOFT,
-                    R.string.param_task_count to taskCount
+                reporting.logEvent(
+                    INITIAL_SYNC_COMPLETE,
+                    PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
+                    PARAM_TASK_COUNT to taskCount
                 )
             }
             account.lastSync = currentTimeMillis()
+            caldavDao.setLastSync(account.id, account.lastSync)
             setError(account, "")
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: SocketTimeoutException) {
             setError(account, e.message)
         } catch (e: SSLException) {
@@ -98,24 +106,24 @@ class MicrosoftSynchronizer @Inject constructor(
         } catch (e: IOException) {
             setError(account, e.message)
         } catch (e: HttpException) {
-            val message = when(e.statusCode) {
-                402, in 500..599 -> e.message
+            val message = when (e.code) {
+                402 -> e.message
                 else -> {
-                    firebase.reportException(e)
+                    reporting.reportException(e)
                     e.message
                 }
             }
             setError(account, message)
         } catch (e: Exception) {
             setError(account, e.message)
-            firebase.reportException(e)
+            reporting.reportException(e)
         }
     }
 
     private suspend fun synchronize(account: CaldavAccount) {
-        Timber.d("Synchronize $account")
-        val microsoft = httpClientFactory.getMicrosoftService(account)
-        val taskLists = getTaskLists(account, microsoft) ?: return
+        Logger.d(TAG) { "Synchronize $account" }
+        val microsoft = clientProvider.getService(account)
+        val taskLists = getTaskLists(microsoft)
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, taskLists.map { it.id!! })) {
             taskDeleter.delete(calendar)
         }
@@ -134,40 +142,39 @@ class MicrosoftSynchronizer @Inject constructor(
                     remote.applyTo(this)
                 }
                 caldavDao.insert(local)
-                if (remote.wellknownListName == "defaultList") {
-                    defaultFilterProvider.defaultList = CaldavFilter(local, account)
+                if (remote.isDefaultList) {
+                    setDefaultList(CaldavFilter(local, account))
                 }
             } else if (local.name != remoteName || local.access != access) {
                 remote.applyTo(local)
                 caldavDao.update(local)
                 refreshBroadcaster.broadcastRefresh()
             }
-            syncList(account, local, remote, microsoft)
+            syncList(local, remote, microsoft)
             caldavDao.updateParents(local.uuid!!)
         }
     }
 
     private suspend fun syncList(
-        account: CaldavAccount,
         local: CaldavCalendar,
         remote: TaskLists.TaskList,
         microsoft: MicrosoftService,
         iteration: Int = 0,
     ) {
         if (iteration > MAX_SYNC_ITERATIONS) {
-            Timber.e("Reached max sync iterations for $local")
+            Logger.e(TAG) { "Reached max sync iterations for $local" }
             return
         }
         if (iteration > 0) {
-            Timber.d("syncList iteration ${iteration + 1} for $local")
+            Logger.d(TAG) { "syncList iteration ${iteration + 1} for $local" }
         }
         if (local.ctag?.isNotBlank() == true) {
-            deltaSync(account, local, remote, microsoft)
+            deltaSync(local, remote, microsoft)
         } else {
-            fullSync(account, local, remote, microsoft)
+            fullSync(local, remote, microsoft)
         }
         if (pushLocalChanges(local, microsoft)) {
-            syncList(account, local, remote, microsoft, iteration + 1)
+            syncList(local, remote, microsoft, iteration + 1)
         }
     }
 
@@ -185,7 +192,7 @@ class MicrosoftSynchronizer @Inject constructor(
             try {
                 pushTask(local, taskToPush, microsoft)
             } catch (e: NotFoundException) {
-                Timber.w(e, "Task ${task.id} gone remotely, deleting locally")
+                Logger.w(TAG, e) { "Task ${task.id} gone remotely, deleting locally" }
                 taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
             }
         }
@@ -209,10 +216,10 @@ class MicrosoftSynchronizer @Inject constructor(
                 try {
                     microsoft.deleteTask(listId, taskId)
                 } catch (e: NotFoundException) {
-                    Timber.w(e, "task=$task")
+                    Logger.w(TAG, e) { "task=$task" }
                 } catch (e: org.tasks.http.HttpException) {
                     when (e.code) {
-                        400 -> Timber.w(e, "task=$task")
+                        400 -> Logger.w(TAG, e) { "task=$task" }
                         else -> {
                             throw e
                         }
@@ -224,10 +231,10 @@ class MicrosoftSynchronizer @Inject constructor(
                 try {
                     microsoft.deleteChecklistItem(listId, parentId, taskId)
                 } catch (e: NotFoundException) {
-                    Timber.w(e, "task=$task")
+                    Logger.w(TAG, e) { "task=$task" }
                 } catch (e: org.tasks.http.HttpException) {
                     when (e.code) {
-                        400 -> Timber.w(e, "task=$task")
+                        400 -> Logger.w(TAG, e) { "task=$task" }
                         else -> {
                             throw e
                         }
@@ -250,7 +257,7 @@ class MicrosoftSynchronizer @Inject constructor(
         val task = taskToPush.task
         val caldavTask = caldavDao.getCaldavTaskById(taskToPush.caldavTaskId) ?: return
         if (task.isDeleted) {
-            Timber.d("Deleting $task")
+            Logger.d(TAG) { "Deleting $task" }
             if (deleteRemoteResource(microsoft, list, caldavTask, taskToPush.syncedVersion)) {
                 taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
             }
@@ -271,7 +278,7 @@ class MicrosoftSynchronizer @Inject constructor(
                 val hierarchyChanged = isSubtask != wasSubtask ||
                         (isSubtask && newParentRemoteId != caldavTask.remoteParent)
                 if (hierarchyChanged) {
-                    Timber.d("Hierarchy changed for $task (wasSubtask=$wasSubtask, isSubtask=$isSubtask)")
+                    Logger.d(TAG) { "Hierarchy changed for $task (wasSubtask=$wasSubtask, isSubtask=$isSubtask)" }
                     try {
                         if (wasSubtask) {
                             microsoft.deleteChecklistItem(
@@ -281,10 +288,10 @@ class MicrosoftSynchronizer @Inject constructor(
                             microsoft.deleteTask(list.uuid!!, caldavTask.remoteId!!)
                         }
                     } catch (e: NotFoundException) {
-                        Timber.w(e, "Old remote object already deleted")
+                        Logger.w(TAG, e) { "Old remote object already deleted" }
                     } catch (e: org.tasks.http.HttpException) {
                         when (e.code) {
-                            400 -> Timber.w(e, "Failed to delete old remote object")
+                            400 -> Logger.w(TAG, e) { "Failed to delete old remote object" }
                             else -> throw e
                         }
                     }
@@ -299,10 +306,10 @@ class MicrosoftSynchronizer @Inject constructor(
                     tags = tagDataDao.getTagDataForTask(task.id),
                 )
                 val result: Tasks.Task = if (isNew) {
-                    Timber.d("Uploading new task: $task")
+                    Logger.d(TAG) { "Uploading new task: $task" }
                     microsoft.createTask(list.uuid!!, remoteTask)
                 } else {
-                    Timber.d("Updating existing task: $task")
+                    Logger.d(TAG) { "Updating existing task: $task" }
                     microsoft.updateTask(list.uuid!!, caldavTask.remoteId!!, remoteTask)
                 }
                 caldavTask.remoteId = result.id
@@ -314,10 +321,10 @@ class MicrosoftSynchronizer @Inject constructor(
                 val caldavParent = newParentRemoteId!!
                 val remoteTask = task.toChecklistItem(caldavTask.remoteId)
                 val result: Tasks.Task.ChecklistItem = if (isNew) {
-                    Timber.d("Uploading new checklist item: $task")
+                    Logger.d(TAG) { "Uploading new checklist item: $task" }
                     microsoft.createChecklistItem(list.uuid!!, caldavParent, remoteTask)
                 } else {
-                    Timber.d("Updating existing checklist item: $task")
+                    Logger.d(TAG) { "Updating existing checklist item: $task" }
                     microsoft.updateChecklistItem(list.uuid!!, caldavParent, remoteTask)
                 }
                 caldavTask.remoteId = result.id
@@ -331,57 +338,47 @@ class MicrosoftSynchronizer @Inject constructor(
     }
 
     private suspend fun deltaSync(
-        account: CaldavAccount,
         list: CaldavCalendar,
         remoteList: TaskLists.TaskList,
         microsoft: MicrosoftService
     ) {
-        Timber.d("delta update: $list")
-        val tasks = getTasks(account, list, remoteList, microsoft) ?: return
+        Logger.d(TAG) { "delta update: $list" }
+        val tasks = getTasks(list, remoteList, microsoft) ?: return
         for (remote in tasks) {
             if (remote.removed == null) {
                 updateTask(list, remote)
             } else {
                 val caldavTasks = caldavDao.getTasksByRemoteId(list.uuid!!, listOf(remote.id!!))
                 val taskIds = caldavTasks.map { it.task }.flatMap { taskDao.getChildren(it) + it }
-                Timber.d("Deleting $remote, taskIds=$taskIds")
+                Logger.d(TAG) { "Deleting $remote, taskIds=$taskIds" }
                 taskDeleter.delete(taskIds)
             }
         }
-        Timber.d("UPDATE $list")
+        Logger.d(TAG) { "UPDATE $list" }
         caldavDao.update(list)
         refreshBroadcaster.broadcastRefresh()
     }
 
     private suspend fun getTaskLists(
-        account: CaldavAccount,
         microsoft: MicrosoftService,
-    ): List<TaskLists.TaskList>? {
+    ): List<TaskLists.TaskList> {
         val taskLists = ArrayList<TaskLists.TaskList>()
         var nextPageToken: String? = null
         do {
-            val response = try {
-                if (nextPageToken == null) {
-                    microsoft.getLists()
-                } else {
-                    microsoft.paginateLists(nextPageToken)
-                }
-            } catch (e: Exception) {
-                val error = e.message ?: e.javaClass.simpleName
-                Timber.e(e)
-                setError(account, error)
-                return null
+            val response = if (nextPageToken == null) {
+                microsoft.getLists()
+            } else {
+                microsoft.paginateLists(nextPageToken)
             }
             taskLists.addAll(response.value)
             nextPageToken = response.nextPage
-            Timber.d("nextPageToken: $nextPageToken")
+            Logger.d(TAG) { "nextPageToken: $nextPageToken" }
         } while (nextPageToken?.isNotBlank() == true)
-        Timber.d("response: $taskLists")
+        Logger.d(TAG) { "response: $taskLists" }
         return taskLists
     }
 
     private suspend fun getTasks(
-        account: CaldavAccount,
         local: CaldavCalendar,
         remoteList: TaskLists.TaskList,
         microsoft: MicrosoftService,
@@ -389,29 +386,24 @@ class MicrosoftSynchronizer @Inject constructor(
         val tasks = ArrayList<Tasks.Task>()
         var nextPageToken: String? = null
         do {
-            val response = if (nextPageToken == null) {
-                local.ctag
-                    ?.let { microsoft.paginateTasks(it) }
-                    ?: microsoft.getTasks(remoteList.id!!)
-            } else {
-                microsoft.paginateTasks(nextPageToken)
-            }
-            if (!response.status.isSuccess()) {
-                response.toMicrosoftError()?.let { error ->
-                    when (error.error.code) {
-                        "ResourceNotFound",
-                        "syncStateNotFound" -> {
-                            Timber.e("$local: ${error.error.message}")
-                            local.ctag = null
-                            caldavDao.update(local)
-                            return null
-                        }
-                        else -> {}
-                    }
+            val response = try {
+                if (nextPageToken == null) {
+                    local.ctag
+                        ?.let { microsoft.paginateTasks(it) }
+                        ?: microsoft.getTasks(remoteList.id!!)
+                } else {
+                    microsoft.paginateTasks(nextPageToken)
                 }
-                Timber.e("failed: ${response.status.value} - ${response.status.description}")
-                setError(account, response.status.description)
-                return null
+            } catch (e: NetworkException) {
+                val invalidDeltaToken = local.ctag != null &&
+                    (e.graphCode == "syncStateNotFound" || e.graphCode == "ResourceNotFound")
+                if (invalidDeltaToken) {
+                    Logger.e(TAG) { "$local: delta token no longer valid, resetting ctag: ${e.message}" }
+                    local.ctag = null
+                    caldavDao.update(local)
+                    return null
+                }
+                throw e
             }
             val body = response.body<Tasks>()
             tasks.addAll(body.value)
@@ -422,25 +414,24 @@ class MicrosoftSynchronizer @Inject constructor(
     }
 
     private suspend fun fullSync(
-        account: CaldavAccount,
         list: CaldavCalendar,
         remoteList: TaskLists.TaskList,
         microsoft: MicrosoftService,
     ) {
-        Timber.d("full update: $list")
-        val tasks = getTasks(account, list, remoteList, microsoft) ?: return
+        Logger.d(TAG) { "full update: $list" }
+        val tasks = getTasks(list, remoteList, microsoft) ?: return
         tasks.forEach { updateTask(list, it) }
         caldavDao
             .getTopLevelRemoteIds(list.uuid!!)
             .subtract(tasks.map { it.id }.toSet())
             .takeIf { it.isNotEmpty() }
             ?.let {
-                Timber.d("DELETED $it")
+                Logger.d(TAG) { "DELETED $it" }
                 val caldavTasks = caldavDao.getTasksByRemoteId(list.uuid!!, it.filterNotNull())
                 val taskIds = caldavTasks.map { it.task }.flatMap { taskDao.getChildren(it) + it }
                 taskDeleter.delete(taskIds)
             }
-        Timber.d("UPDATE $list")
+        Logger.d(TAG) { "UPDATE $list" }
         caldavDao.update(list)
         refreshBroadcaster.broadcastRefresh()
     }
@@ -448,7 +439,7 @@ class MicrosoftSynchronizer @Inject constructor(
     private suspend fun updateTask(list: CaldavCalendar, remote: Tasks.Task) {
         val existing = caldavDao.getTaskByRemoteId(list.uuid!!, remote.id!!)
         val task = existing?.task?.let { taskDao.fetch(it) }
-            ?: taskCreator.createWithValues("").apply {
+            ?: createTask().apply {
                 taskDao.createNew(this)
             }
         val caldavTask =
@@ -464,11 +455,11 @@ class MicrosoftSynchronizer @Inject constructor(
         val dirty = !isNew && dirtyDao.isDirty(caldavTask.id) == true
         if (dirty) {
             // TODO: merge with vtodo cached value, similar to iCalendarMerge.kt
-            Timber.w("Ignoring update for dirty taskId=${task.id} remote=$remote")
+            Logger.w(TAG) { "Ignoring update for dirty taskId=${task.id} remote=$remote" }
             return
         }
         val original = task.copy()
-        task.applyRemote(remote, preferences.defaultPriority())
+        task.applyRemote(remote, appPreferences.defaultPriority())
         task.suppressSync()
         task.suppressRefresh()
         taskSaver.save(task, original, dirty = false)
@@ -512,7 +503,7 @@ class MicrosoftSynchronizer @Inject constructor(
                 return@forEach
             }
             val task = existing?.task?.let { taskDao.fetch(it) }
-                ?: taskCreator.createWithValues("").apply {
+                ?: createTask().apply {
                     taskDao.createNew(this)
                 }
             val caldavTask =
@@ -547,14 +538,15 @@ class MicrosoftSynchronizer @Inject constructor(
 
     private suspend fun setError(account: CaldavAccount, message: String?) {
         account.error = message
-        caldavDao.update(account)
+        caldavDao.setError(account.id, message)
         refreshBroadcaster.broadcastRefresh()
-        if (!isNullOrEmpty(message)) {
-            Timber.e(message)
+        if (!message.isNullOrEmpty()) {
+            Logger.e(TAG) { message }
         }
     }
 
     companion object {
+        private const val TAG = "MicrosoftSynchronizer"
         private const val MAX_SYNC_ITERATIONS = 3
         private val json = Json {
             ignoreUnknownKeys = true

@@ -3,14 +3,16 @@ package org.tasks.auth
 import at.bitfire.dav4jvm.okhttp.exception.HttpException
 import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.getString
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.googleapis.GoogleTasksTokenData
+import org.tasks.data.UUIDHelper
 import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.security.KeyStoreEncryption
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
 
@@ -21,12 +23,14 @@ class DesktopSignInHandler(
     private val serverEnvironment: TasksServerEnvironment,
     private val caldavClientProvider: CaldavClientProvider,
     private val proxyAuthProvider: ProxyAuthProvider,
+    private val reporting: Reporting,
 ) : SignInHandler {
 
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             Platform.GOOGLE_TASKS -> OAuthProvider.GOOGLE_TASKS
+            Platform.MICROSOFT -> OAuthProvider.MICROSOFT
             else -> throw UnsupportedOperationException("$platform not supported on desktop")
         }
 
@@ -40,6 +44,7 @@ class DesktopSignInHandler(
 
         when (platform) {
             Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(result)
+            Platform.MICROSOFT -> setupMicrosoftAccount(result)
             else -> try {
                 setupTasksAccount(
                     oauthResult = result,
@@ -75,25 +80,13 @@ class DesktopSignInHandler(
             Logger.i(TAG) { "Granted scopes: $grantedScopes" }
         }
 
-        val tokenData = GoogleTasksTokenData(
-            accessToken = result.accessToken,
-            refreshToken = refreshToken,
-            tokenEndpoint = result.tokenEndpoint
-                ?: throw Exception("No token_endpoint in OAuth result"),
-            clientId = result.clientId
-                ?: throw Exception("No client_id in OAuth result"),
-            expiresAt = result.expiresIn
-                ?.let { currentTimeMillis() + it * 1000 }
-                ?: 0,
-        )
+        val tokenData = result.toOAuthTokenData(refreshToken)
         val encrypted = encryption.encrypt(tokenData.serialize())
 
         val existing = caldavDao.getAccount(CaldavAccount.TYPE_GOOGLE_TASKS, email)
         if (existing != null) {
-            caldavDao.update(existing.copy(
-                password = encrypted,
-                error = "",
-            ))
+            caldavDao.setPassword(existing.id, encrypted)
+            caldavDao.setError(existing.id, "")
         } else {
             val account = CaldavAccount(
                 accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
@@ -103,6 +96,46 @@ class DesktopSignInHandler(
                 password = encrypted,
             )
             caldavDao.insert(account)
+        }
+    }
+
+    private suspend fun setupMicrosoftAccount(result: OAuthResult) {
+        val email = result.idToken?.email
+        val preferredUsername = result.idToken?.preferredUsername
+        val identifier = preferredUsername
+            ?: email
+            ?: throw Exception("No username in Microsoft OAuth response")
+        val subject = result.idToken?.sub
+            ?: throw Exception("No subject in Microsoft OAuth response")
+        val refreshToken = result.refreshToken
+            ?: throw Exception("No refresh_token — consent may not have been granted")
+
+        val tokenData = result.toOAuthTokenData(refreshToken)
+        val encrypted = encryption.encrypt(tokenData.serialize())
+
+        val existing = caldavDao.getAccount(CaldavAccount.TYPE_MICROSOFT, subject)
+            ?: preferredUsername?.let { caldavDao.getAccount(CaldavAccount.TYPE_MICROSOFT, it) }
+            ?: email?.let { caldavDao.getAccount(CaldavAccount.TYPE_MICROSOFT, it) }
+        if (existing != null) {
+            caldavDao.setMicrosoftReauth(
+                id = existing.id,
+                username = subject,
+                name = identifier,
+                password = encrypted,
+            )
+        } else {
+            val account = CaldavAccount(
+                accountType = CaldavAccount.TYPE_MICROSOFT,
+                uuid = UUIDHelper.newUUID(),
+                name = identifier,
+                username = subject,
+                password = encrypted,
+            )
+            caldavDao.insert(account)
+            reporting.logEvent(
+                AnalyticsEvents.SYNC_ADD_ACCOUNT,
+                AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
+            )
         }
     }
 

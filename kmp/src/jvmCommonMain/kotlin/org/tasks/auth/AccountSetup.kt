@@ -16,7 +16,9 @@ suspend fun setupTasksAccount(
 ): CaldavAccount {
     val idToken = oauthResult.idToken
         ?: throw IllegalStateException("id_token required for tasks.org account setup")
-    val username = "${issuer}_${idToken.sub}"
+    val sub = idToken.sub
+        ?: throw IllegalStateException("id_token missing sub claim")
+    val username = "${issuer}_$sub"
     val tokenString = oauthResult.accessToken
     val password = encryption.encrypt(tokenString)
     return caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)

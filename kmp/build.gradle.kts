@@ -70,6 +70,11 @@ kotlin {
                 exclude(group = "org.ogce", module = "xpp3")
             }
             api(libs.google.api.tasks)
+            api(libs.ktor.client.core)
+            implementation(libs.ktor.client.okhttp)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.content.negotiation)
+            implementation(libs.ktor.serialization)
             compileOnly(libs.xpp3)
             compileOnly(files("../libs/client-jvm-2.3.2.jar"))
         }

@@ -25,6 +25,7 @@ object AnalyticsEvents {
     const val SIGN_IN_PROVIDER_SELECTED = "sign_in_provider_selected"
     const val SETTINGS_CLICK = "settings_click"
     const val SORT_CHANGE = "sort_change"
+    const val SYNC_ADD_ACCOUNT = "sync_add_account"
     const val SYNC_UNKNOWN_ACCESS = "sync_unknown_access"
 
     const val PARAM_FROM_BACKGROUND = "from_background"

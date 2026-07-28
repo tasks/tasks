@@ -22,6 +22,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.authentication_required
@@ -39,6 +40,7 @@ fun GoogleTasksAccountScreen(
     accountName: String,
     onSignIn: () -> Unit,
     onDelete: () -> Unit,
+    signInTitle: StringResource = Res.string.sign_in_with_google,
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
@@ -57,7 +59,7 @@ fun GoogleTasksAccountScreen(
                 ) {
                     SettingsItemCard {
                         PreferenceRow(
-                            title = stringResource(Res.string.sign_in_with_google),
+                            title = stringResource(signInTitle),
                             summary = stringResource(Res.string.authentication_required),
                             icon = Icons.Outlined.Login,
                             onClick = onSignIn,

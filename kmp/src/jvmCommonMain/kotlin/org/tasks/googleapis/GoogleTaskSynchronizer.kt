@@ -96,8 +96,9 @@ class GoogleTaskSynchronizer(
                     )
                 }
                 account.lastSync = currentTimeMillis()
+                caldavDao.setLastSync(account.id, account.lastSync)
             }
-            caldavDao.update(account)
+            caldavDao.setError(account.id, account.error)
             refreshBroadcaster.broadcastRefresh()
             Logger.d(TAG) { "$account: end sync" }
         }

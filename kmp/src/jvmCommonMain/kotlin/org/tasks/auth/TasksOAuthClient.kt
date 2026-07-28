@@ -100,8 +100,8 @@ class TasksOAuthClient(
         val body = response.body?.string() ?: throw Exception("Empty token response")
 
         if (!response.isSuccessful) {
-            Logger.e("TasksOAuthClient") { "Token exchange failed: ${response.code} $body" }
-            throw Exception("Token exchange failed: ${response.code}")
+            Logger.e("TasksOAuthClient") { "${TokenError.EXCHANGE_FAILED}: ${response.code} $body" }
+            throw tokenErrorException(TokenError.EXCHANGE_FAILED, response.code, body)
         }
 
         val json = Json.parseToJsonElement(body) as JsonObject
@@ -127,6 +127,7 @@ class TasksOAuthClient(
     data class RefreshResult(
         val accessToken: String,
         val expiresIn: Long?,
+        val refreshToken: String? = null,
     )
 
     fun refreshToken(
@@ -152,14 +153,45 @@ class TasksOAuthClient(
         val body = response.body?.string() ?: throw Exception("Empty refresh response")
 
         if (!response.isSuccessful) {
-            Logger.e("TasksOAuthClient") { "Token refresh failed: ${response.code} $body" }
-            throw Exception("Token refresh failed: ${response.code}")
+            Logger.e("TasksOAuthClient") { "${TokenError.REFRESH_FAILED}: ${response.code} $body" }
+            throw tokenErrorException(TokenError.REFRESH_FAILED, response.code, body)
         }
 
         val json = Json.parseToJsonElement(body) as JsonObject
         val accessToken = json["access_token"]?.jsonPrimitive?.content
             ?: throw Exception("No access_token in refresh response")
         val expiresIn = json["expires_in"]?.jsonPrimitive?.content?.toLongOrNull()
-        return RefreshResult(accessToken = accessToken, expiresIn = expiresIn)
+        val rotatedRefreshToken = json["refresh_token"]?.jsonPrimitive?.content
+        return RefreshResult(
+            accessToken = accessToken,
+            expiresIn = expiresIn,
+            refreshToken = rotatedRefreshToken,
+        )
     }
+}
+
+object TokenError {
+    const val REFRESH_FAILED = "Token refresh failed"
+    const val EXCHANGE_FAILED = "Token exchange failed"
+}
+
+private fun tokenErrorException(prefix: String, code: Int, body: String): Exception {
+    val (error, description) = parseOAuthError(body)
+    ConditionalAccess.devicePolicyException(error, description)?.let { return it }
+    val detail = description ?: error
+    val transient = code == 429 || code in 500..599
+    return if (transient) {
+        Exception(if (detail != null) "Token endpoint unavailable: $detail" else "Token endpoint unavailable: $code")
+    } else {
+        Exception(if (detail != null) "$prefix: $detail" else "$prefix: $code")
+    }
+}
+
+private fun parseOAuthError(body: String): Pair<String?, String?> = try {
+    val json = Json.parseToJsonElement(body) as JsonObject
+    val error = json["error"]?.jsonPrimitive?.content
+    val description = json["error_description"]?.jsonPrimitive?.content
+    error to description
+} catch (_: Exception) {
+    null to null
 }

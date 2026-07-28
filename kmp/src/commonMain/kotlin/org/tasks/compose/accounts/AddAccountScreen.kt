@@ -210,7 +210,7 @@ fun AddAccountScreen(
 
                 val isDesktop = configuration.billingProvider == BillingProvider.PADDLE
                 val freeAccounts = buildList {
-                    if (configuration.supportsMicrosoft) add(Platform.MICROSOFT)
+                    if (configuration.supportsMicrosoft && !isDesktop) add(Platform.MICROSOFT)
                     if (configuration.supportsGoogleTasks && !isDesktop) add(Platform.GOOGLE_TASKS)
                 }
                 if (freeAccounts.isNotEmpty()) {
@@ -250,6 +250,7 @@ fun AddAccountScreen(
                 }
 
                 val proAccounts = buildList {
+                    if (configuration.supportsMicrosoft && isDesktop) add(Platform.MICROSOFT)
                     if (configuration.supportsGoogleTasks && isDesktop) add(Platform.GOOGLE_TASKS)
                     if (configuration.supportsOpenTasks) add(Platform.DAVX5)
                     if (configuration.supportsCaldav) add(Platform.CALDAV)
@@ -276,6 +277,17 @@ fun AddAccountScreen(
                                 position = CardPosition.forIndex(index, proAccounts.size),
                             ) {
                                 when (platform) {
+                                    Platform.MICROSOFT -> AccountTypeRow(
+                                        title = stringResource(Res.string.microsoft),
+                                        icon = Res.drawable.ic_microsoft_tasks,
+                                        description = stringResource(
+                                            if (!configuration.isLibre)
+                                                Res.string.microsoft_selection_description_googleplay
+                                            else
+                                                Res.string.microsoft_selection_description
+                                        ),
+                                        onClick = { signIn(Platform.MICROSOFT) },
+                                    )
                                     Platform.GOOGLE_TASKS -> AccountTypeRow(
                                         title = stringResource(Res.string.gtasks_GPr_header),
                                         icon = Res.drawable.ic_google,

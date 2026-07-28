@@ -26,7 +26,8 @@ class DesktopOAuthFlow(
         extraAuthParams: Map<String, String> = provider.extraAuthParams,
         authHeader: String? = null,
     ): OAuthResult = withContext(Dispatchers.IO) {
-        val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.discoveryPath}"
+        val discoveryUrl = provider.discoveryUrl
+            ?: "${serverEnvironment.caldavUrl}${provider.discoveryPath}"
 
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
@@ -41,8 +42,8 @@ class DesktopOAuthFlow(
         val codeChallenge = PKCE.generateChallenge(codeVerifier)
         val state = PKCE.generateVerifier()
 
-        val (config, code) = listenForCallback(state) { port ->
-            val redirectUri = "http://127.0.0.1:$port"
+        val (config, code) = listenForCallback(state, provider.loopbackHost) { port ->
+            val redirectUri = "http://${provider.loopbackHost}:$port"
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
                 tokenEndpoint = tokenEndpoint,
@@ -67,9 +68,10 @@ class DesktopOAuthFlow(
 
     private suspend fun listenForCallback(
         expectedState: String,
+        loopbackHost: String,
         onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
-        val server = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
+        val server = HttpServer.create(InetSocketAddress(loopbackHost, 0), 0)
         val port = server.address.port
         val config = AtomicReference<OAuthConfig?>(null)
 
@@ -84,6 +86,7 @@ class DesktopOAuthFlow(
 
             val code = params["code"]
             val error = params["error"]
+            val errorDescription = params["error_description"]
             val returnedState = params["state"]
 
             val responseBody = when {
@@ -97,7 +100,7 @@ class DesktopOAuthFlow(
                 else -> """
                     <html><body>
                     <h2>Sign in failed</h2>
-                    <p>${(error ?: "Unknown error").htmlEscape()}</p>
+                    <p>${(errorDescription ?: error ?: "Unknown error").htmlEscape()}</p>
                     </body></html>
                 """.trimIndent()
             }
@@ -120,7 +123,8 @@ class DesktopOAuthFlow(
                 }
             } else {
                 cont.resumeWithException(
-                    Exception(error ?: "Authorization failed")
+                    ConditionalAccess.devicePolicyException(error, errorDescription)
+                        ?: Exception(errorDescription ?: error ?: "Authorization failed")
                 )
             }
         }
@@ -132,6 +136,13 @@ class DesktopOAuthFlow(
             server.stop(0)
         }
 
-        config.set(onReady(port))
+        try {
+            config.set(onReady(port))
+        } catch (e: Throwable) {
+            server.stop(0)
+            if (cont.isActive) {
+                cont.resumeWithException(e)
+            }
+        }
     }
 }
