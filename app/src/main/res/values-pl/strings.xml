@@ -552,4 +552,14 @@
     <string name="location_update_interval_title">Aktualizacja lokalizacji w tle</string>
     <string name="location_update_interval_disabled">Wyłączona</string>
     <string name="customize_drawer_summary">Przeciągnij i upuść, aby zmienić kolejność elementów menu</string>
+    <string name="sort_options">Sortuj opcje</string>
+    <string name="customize_drawer">Dostosuj szufladę</string>
+    <string name="location_update_interval_summary">Okresowe aktualizacje lokalizacji poprawiają niezawodność geofencingu</string>
+    <string name="rmd_EPr_rmd_time_desc">Powiadomienia dla zadań całodniowych pojawia się o %1$s</string>
+    <string name="show_edit_screen_without_unlock">Pokaż ekran edycji bez odblokowywania</string>
+    <string name="default_reminder">Zadania całodniowe</string>
+    <string name="add_default_reminders">Dodaj domyślne powiadomienia</string>
+    <string name="rmd_time_enabled_on">Dodaj domyślne powiadomienia dla zadań całodniowych</string>
+    <string name="rmd_time_enabled_off">Nie dodawaj domyślnych powiadomień do zadań całodniowych</string>
+    <string name="delete_tasks_warning">%s zostanie usunięty. Nie można tego cofnąć.</string>
 </resources>
