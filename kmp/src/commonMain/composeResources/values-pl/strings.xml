@@ -336,6 +336,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data zakończenia</string>
     <string name="no_title">(Bez tytułu)</string>
+    <string name="when_started">Gdy rozpoczęte</string>
+    <string name="when_due">Gdy w terminie</string>
+    <string name="when_overdue">Gdy zaległe</string>
+    <string name="randomly">Losowo</string>
+    <string name="randomly_every">Losowo co %1$s</string>
+    <string name="pick_a_date_and_time">Wybierz datę i czas</string>
+    <string name="add_reminder">Dodaj przypomnienie</string>
+    <string name="custom_notification">Własne powiadomienie</string>
+    <string name="alarm_before_start">%1$s przed startem</string>
+    <string name="alarm_after_start">%1$s po rozpoczęciu</string>
+    <string name="alarm_before_due">%1$s przed zakończeniem</string>
+    <string name="alarm_after_due">%1$s po zakończeniu</string>
+    <string name="snoozed_until">Uśpione do %1$s</string>
+    <string name="ring_once">Dzwoń raz</string>
+    <string name="ring_five_times">Dzwoń pięć razy</string>
+    <string name="ring_nonstop">Dzwoń nonstop</string>
+    <string name="enable_reminders">Włącz przypomnienia</string>
+    <string name="enable_reminders_description">Przypomnienia są wyłączone w Ustawieniach Androida</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuta</item>
+        <item quantity="few">Minuty</item>
+        <item quantity="many">Minut</item>
+        <item quantity="other">Minut</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Godzina</item>
+        <item quantity="few">Godziny</item>
+        <item quantity="many">Godzin</item>
+        <item quantity="other">Godzin</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dzień</item>
+        <item quantity="few">Dni</item>
+        <item quantity="many">Dni</item>
+        <item quantity="other">Dni</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Tydzień</item>
+        <item quantity="few">Tygodnie</item>
+        <item quantity="many">Tygodni</item>
+        <item quantity="other">Tygodni</item>
+    </plurals>
     <string name="delete_task">Usuń zadanie</string>
     <string name="menu_discard_changes">Odrzuć zmiany</string>
     <string name="more_options">Więcej opcji</string>

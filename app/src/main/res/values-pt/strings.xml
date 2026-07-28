@@ -167,12 +167,7 @@
     <string name="customize_edit_screen">Personalizar ecrã de edição</string>
     <string name="translations">Contribuir nas traduções</string>
     <string name="quiet_hours_summary">Sem lembretes nas horas de silêncio</string>
-    <string name="add_reminder">Adicionar lembrete</string>
     <string name="remove">Remover</string>
-    <string name="randomly">Aleatoriamente</string>
-    <string name="pick_a_date_and_time">Escolher a data e a hora</string>
-    <string name="when_overdue">Quando ultrapassado</string>
-    <string name="when_due">Na data de fim</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
     <string name="date_shortcut_hour">Por uma hora</string>
@@ -444,41 +439,15 @@
     <string name="start_date">Data de início</string>
     <string name="SSD_sort_start">Por data de início</string>
     <string name="now">Agora</string>
-    <string name="when_started">Quando iniciado</string>
     <string name="completion_sound">Reproduzir som de conclusão</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarefa terminada</string>
     <string name="snackbar_tasks_completed">%d tarefas terminadas</string>
-    <string name="alarm_before_start">%s antes de começar</string>
-    <string name="alarm_after_start">%s após o início</string>
-    <string name="alarm_before_due">%s antes do término</string>
-    <string name="alarm_after_due">%s após o término</string>
     <string name="custom_filter_has_reminder">Tem lembrete</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuto</item>
-        <item quantity="other">Minutos</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Hora</item>
-        <item quantity="other">Horas</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Dia</item>
-        <item quantity="other">Dias</item>
-    </plurals>
-    <string name="randomly_every">Aleatório a cada %s</string>
-    <string name="snoozed_until">Adiado até %s</string>
-    <plurals name="reminder_week">
-        <item quantity="one">Semana</item>
-        <item quantity="other">Semanas</item>
-    </plurals>
-    <string name="custom_notification">Notificação personalizada</string>
     <string name="customize_edit_screen_summary">Reorganizar ou remover campos</string>
     <string name="hint_customize_edit_title">Demasiada informação\?</string>
     <string name="hint_customize_edit_body">Pode personalizar este ecrã reorganizando ou removendo campos</string>
     <string name="dismiss">Dispensar</string>
-    <string name="enable_reminders">Ativar lembretes</string>
-    <string name="enable_reminders_description">Os lembretes estão desativados nas configurações do Android</string>
     <string name="sort_completion_group">Concluído %s</string>
     <string name="TEA_creation_date">Data de criação</string>
     <string name="sort_list">Por lista</string>
@@ -554,14 +523,11 @@
     <string name="upgrade_email_to_task_description">Transforme emails em tarefas a encaminhá-los para a sua caixa de entrada privada</string>
     <string name="advanced_tools">Ferramentas avançadas</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync e mais!</string>
-    <string name="alarm_before">antes</string>
-    <string name="alarm_after">depois</string>
-    <string name="alarm_start">iniciar</string>
-    <string name="alarm_due">vencimento</string>
     <string name="legal_disclosure_prefix_using">A usar Tasks.org</string>
     <string name="tos_updated_title">Atualizamos os nossos Termos de serviço</string>
     <string name="accept">Aceitar</string>
     <string name="exit">Sair</string>
     <string name="returning_user">Utilizador a retornar?</string>
     <string name="read_more">Ler mais</string>
+    <string name="pick_a_date_and_time">Escolher a data e a hora</string>
 </resources>

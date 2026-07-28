@@ -204,13 +204,8 @@
     <string name="tags">ٹیگز</string>
     <string name="location_radius_meters">%s م</string>
     <string name="geofence_radius">رداس</string>
-    <string name="when_due">جب واجب ہو</string>
-    <string name="when_overdue">جب واجب الادا ہو</string>
-    <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
-    <string name="randomly">بے ترتیب</string>
     <string name="remove">ختم کریں</string>
     <string name="add_location">لوکیشن لگائیں</string>
-    <string name="add_reminder">ہاد دہانی لگائیں</string>
     <string name="quiet_hours_summary">خاموش گھنٹوں کے دوران کوئی یاد دہانی نہیں</string>
     <string name="translations">ترجمہ کریں</string>
     <string name="customize_edit_screen">ایڈٹ سکرین کسٹمائز کریں</string>
@@ -342,4 +337,5 @@
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
+    <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
 </resources>

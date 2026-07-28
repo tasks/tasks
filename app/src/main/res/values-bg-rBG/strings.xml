@@ -181,13 +181,8 @@
     <string name="customize_edit_screen">Настройване на екрана за редактиране</string>
     <string name="translations">Допринасяне с превод</string>
     <string name="quiet_hours_summary">Без напомняния по време на тихите часове</string>
-    <string name="add_reminder">Добавяне на напомняне</string>
     <string name="add_location">Добавяне на място</string>
     <string name="remove">Премахване</string>
-    <string name="randomly">Произволно</string>
-    <string name="pick_a_date_and_time">Избиране на дата и час</string>
-    <string name="when_overdue">След крайния срок</string>
-    <string name="when_due">При краен срок</string>
     <string name="geofence_radius">Радиус на геозащита</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Етикети</string>
@@ -385,27 +380,9 @@
     <string name="filter_medium_priority">Среден приоритет</string>
     <string name="local_lists">Местни списъци</string>
     <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на тази основа, дори и когато приложението е затворено или не се използва.</string>
-    <string name="when_started">При започване</string>
     <string name="wearable_notifications_summary">Показване на известия на носимото устройство</string>
     <string name="color_wheel">Цветно колело</string>
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Час</item>
-        <item quantity="other">Часа</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Ден</item>
-        <item quantity="other">Дни</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Седмица</item>
-        <item quantity="other">Седмици</item>
-    </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Минута</item>
-        <item quantity="other">Минути</item>
-    </plurals>
-    <string name="randomly_every">Произволно на всеки %s</string>
     <string name="multi_select_reschedule">Пренасрочване</string>
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
@@ -445,25 +422,19 @@
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
     <string name="upgrade_more_customization">Повече настройки</string>
     <string name="completion_sound">Възпроизвеждане на звук при завършване</string>
-    <string name="custom_notification">Потребителско известие</string>
-    <string name="snoozed_until">Отложено до %s</string>
     <string name="open_last_viewed_list">Отваряне на последно прегледания списък</string>
     <string name="reset_sort_order">Нулиране на сортирането</string>
     <string name="open_source">Отворен код</string>
     <string name="privacy">Поверителност</string>
     <string name="upgrade_more_customization_description">Отключване на всички теми, цветове и пиктограми</string>
     <string name="snackbar_task_completed">Задачата е завършена</string>
-    <string name="alarm_before_start">%s преди началото</string>
     <string name="completed">Завършена</string>
     <string name="customize_edit_screen_summary">Подреждане или премахване на полета</string>
     <string name="compact">Компакт</string>
     <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>
     <string name="upgrade_tasks_org_account_description">Синхронизиране чрез Tasks.org и сътрудничество с други потребители</string>
-    <string name="alarm_after_start">%s след началото</string>
     <string name="snackbar_tasks_completed">%d задачи са завършени</string>
-    <string name="alarm_before_due">%s преди</string>
-    <string name="alarm_after_due">%s след</string>
     <string name="dismiss">Отхвърляне</string>
     <string name="hint_customize_edit_title">Твърде много информация\?</string>
     <string name="hint_customize_edit_body">Можете да настроите екрана като подреждате или премахвате полета</string>
@@ -476,8 +447,6 @@
     <string name="authorization_cancelled">Удостоверяването е спряно</string>
     <string name="background_location">Местоположение във фонов режим</string>
     <string name="foreground_location">Местоположение на преден план</string>
-    <string name="enable_reminders">Включване на напомнянията</string>
-    <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
     <string name="TEA_creation_date">Дата на създаване</string>
     <string name="sort_completion_group">Завършена %s</string>
     <string name="sort_list">По списък</string>
@@ -533,10 +502,6 @@
     <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
     <string name="banner_subscription_required_title">Изисква абонамент</string>
     <string name="banner_subscription_required_body">Платете сума по желание, за да отключите синхронизиране чрез %s</string>
-    <string name="alarm_before">преди</string>
-    <string name="alarm_after">след</string>
-    <string name="alarm_start">начало</string>
-    <string name="alarm_due">край</string>
     <string name="email_to_task">Задача от писмо</string>
     <string name="email_to_task_address">Адрес на ел. поща</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync и други!</string>
@@ -564,4 +529,5 @@
     <string name="upgrade_friends_and_family_description">5 безплатни достъпа като гост на споделени листове. Работи с Apple Reminders</string>
     <string name="read_more">Прочетете повече</string>
     <string name="sort_options">Настройки на сортиране</string>
+    <string name="pick_a_date_and_time">Избиране на дата и час</string>
 </resources>

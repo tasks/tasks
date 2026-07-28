@@ -315,6 +315,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
     <string name="no_title">(Ingen tittel)</string>
+    <string name="when_started">Når startet</string>
+    <string name="when_due">Ved frist</string>
+    <string name="when_overdue">Når forfalt</string>
+    <string name="randomly">Tilfeldig</string>
+    <string name="randomly_every">Tilfeldig hver/t %1$s</string>
+    <string name="pick_a_date_and_time">Velg dato og tid</string>
+    <string name="add_reminder">Legg til påminnelse</string>
+    <string name="custom_notification">Egendefinert merknad</string>
+    <string name="alarm_before_start">%1$s før start</string>
+    <string name="alarm_after_start">%1$s etter start</string>
+    <string name="alarm_before_due">%1$s før frist</string>
+    <string name="alarm_after_due">%1$s etter frist</string>
+    <string name="snoozed_until">Slumret til %1$s</string>
+    <string name="ring_once">Ring én gang</string>
+    <string name="ring_five_times">Ring fem ganger</string>
+    <string name="ring_nonstop">Ring konstant</string>
+    <string name="enable_reminders">Skru på påminnelser</string>
+    <string name="enable_reminders_description">Påminnelser er avskrudd i Android-innstillingene</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minutt</item>
+        <item quantity="other">Minutter</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Time</item>
+        <item quantity="other">Timer</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dager</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Uke</item>
+        <item quantity="other">Uker</item>
+    </plurals>
     <string name="delete_task">Slett gjøremål</string>
     <string name="menu_discard_changes">Forkast endringer</string>
     <string name="more_options">Flere innstillinger</string>

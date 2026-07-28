@@ -37,4 +37,7 @@
     <string name="repeat_option_every_year">Svake godine</string>
     <string name="repeat_option_custom">Prilagođeno…</string>
     <string name="TEA_control_repeat">Ponovi</string>
+    <string name="ring_once">Zvoni jednom</string>
+    <string name="ring_five_times">Zvoni pet puta</string>
+    <string name="ring_nonstop">Zvoni neprekidno</string>
 </resources>

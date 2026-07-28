@@ -82,7 +82,6 @@
     <string name="today">Danas</string>
     <string name="no_due_date">Bez datuma roka</string>
     <string name="repeat_option_custom">Prilagođeno…</string>
-    <string name="add_reminder">Dodaj podsjetnik</string>
     <string name="gcal_TEA_error">Pogreška pri dodavanju zadatka u kalendar!</string>
     <string name="add_attachment">Dodaj privitak</string>
     <string name="add_location">Dodaj lokaciju</string>
@@ -103,8 +102,6 @@
     <string name="WID_dateButtonUnset">Pritisni za postavljanje</string>
     <string name="DLG_hour_minutes">Vrijeme (sati: minute)</string>
     <string name="import_summary_message">Datoteka %1$s je sadržala %2$s. \n \n %3$s uvezena, \n %4$s već postoje \n %5$s s greškama</string>
-    <string name="when_overdue">Kad prekorači rok</string>
-    <string name="when_due">Kad rok dospije</string>
     <string name="SSD_sort_start">Po datumu početka</string>
     <string name="SSD_sort_modified">Po zadnjoj promjeni</string>
     <string name="TAd_actionEditTask">Uredi</string>
@@ -274,8 +271,6 @@
     <string name="date_shortcut_hour">Sat vremena</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Radijus geografskog područja</string>
-    <string name="pick_a_date_and_time">Odaberi datum i vrijeme</string>
-    <string name="randomly">Slučajno</string>
     <string name="remove">Ukloni</string>
     <string name="quiet_hours_summary">Bez podsjetnika tijekom vremena neobavještavanja</string>
     <string name="translations">Doprinesi prijevodima</string>
@@ -450,45 +445,15 @@
         <item quantity="other">puta</item>
     </plurals>
     <string name="now">Sada</string>
-    <string name="when_started">Kad se pokrene</string>
     <string name="completion_sound">Odsviraj zvuk obavljanja</string>
     <string name="completed">Obavljeno</string>
     <string name="snackbar_task_completed">Zadatak obavljen</string>
     <string name="snackbar_tasks_completed">%d zadaci obavljeni</string>
-    <string name="alarm_before_start">%s prije početka</string>
-    <string name="alarm_after_start">%s nakon početka</string>
-    <string name="alarm_before_due">%s prije roka</string>
-    <string name="alarm_after_due">%s nakon roka</string>
     <string name="custom_filter_has_reminder">Ima podsjetnik</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Sat</item>
-        <item quantity="few">Sata</item>
-        <item quantity="other">Sati</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Dan</item>
-        <item quantity="few">Dana</item>
-        <item quantity="other">Dana</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Tjedan</item>
-        <item quantity="few">Tjedna</item>
-        <item quantity="other">Tjedana</item>
-    </plurals>
-    <string name="snoozed_until">Odgođeno do %s</string>
-    <string name="custom_notification">Prilagođena obavijest</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuta</item>
-        <item quantity="few">Minute</item>
-        <item quantity="other">Minuta</item>
-    </plurals>
-    <string name="randomly_every">Slučajno svakih %s</string>
     <string name="dismiss">Odbaci</string>
     <string name="hint_customize_edit_body">Ovaj ekran možeš prilagoditi mijenjanjem rasporeda polja ili uklanjanjem polja</string>
     <string name="customize_edit_screen_summary">Prerasporedi ili ukloni polja</string>
     <string name="hint_customize_edit_title">Previše informacija\?</string>
-    <string name="enable_reminders">Aktiviraj podsjetnike</string>
-    <string name="enable_reminders_description">Podsjetnici su deaktivirani u Android postavkama</string>
     <string name="sort_completion_group">Završeno %s</string>
     <string name="TEA_creation_date">Datum stvaranja</string>
     <string name="sort_list">Po popisu</string>
@@ -539,10 +504,6 @@
     <string name="banner_subscription_required_body">Plati koliko god želiš za otključavanje %s sinkronizacije</string>
     <string name="subscription_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebna pretplata. Pretplata se mora pokrenuti putem Tasks verzije na Google Playu.</string>
     <string name="sponsorship_required_fdroid">Za korištenje Tasks.org sinkronizacije je potrebno GitHub sponzorstvo. Klikni dolje da postaneš sponzor.</string>
-    <string name="alarm_before">prije</string>
-    <string name="alarm_after">nakon</string>
-    <string name="alarm_start">početak</string>
-    <string name="alarm_due">rok</string>
     <string name="legal_disclosure_prefix_using">Korištenjem Tasks.org-a</string>
     <string name="tos_updated_title">Aktualizirali smo naše uvjete pružanja usluge</string>
     <string name="accept">Prihvati</string>
@@ -574,4 +535,5 @@
     <string name="location_update_interval_summary">Periodična aktualiziranja lokacije poboljšavaju pouzdanost točnosti lokacije</string>
     <string name="location_update_interval_title">Aktualiziranja lokacije u pozadini</string>
     <string name="per_list_sort_summary">Zapamti postavke razvrstavanja i grupiranja za svaki popis zasebno</string>
+    <string name="pick_a_date_and_time">Odaberi datum i vrijeme</string>
 </resources>

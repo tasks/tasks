@@ -9,6 +9,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.millisOfDay
 import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
+import org.tasks.time.startOfMinute
 import org.tasks.time.withMillisOfDay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,6 +20,7 @@ fun DueDatePickerSheet(
     is24Hour: Boolean,
     autoClose: Boolean = false,
     showNoDate: Boolean = true,
+    showNoTime: Boolean = true,
     times: QuickPickTimes = QuickPickTimes(),
     initialDateInputMode: Boolean = false,
     onDateInputModeChange: (Boolean) -> Unit = {},
@@ -77,6 +79,7 @@ fun DueDatePickerSheet(
                     state.selectedTime = NO_TIME
                     state.autoCommit()
                 },
+                showNoTime = showNoTime,
             )
         },
     )
@@ -96,3 +99,13 @@ fun dueDateFromSelection(day: Long, time: Int): Long = when {
 
 fun dueDateToSelection(dueDate: Long): Pair<Long, Int> =
     (if (dueDate > 0) dueDate.startOfDay() else NO_DAY) to dueDate.millisOfDay
+
+fun alarmToSelection(timestamp: Long): Pair<Long, Int> =
+    if (timestamp > 0) {
+        timestamp.startOfDay() to timestamp.startOfMinute().millisOfDay + TIME_MARKER
+    } else {
+        NO_DAY to NO_TIME
+    }
+
+fun alarmFromSelection(day: Long, time: Int): Long =
+    dueDateFromSelection(day, time).takeIf { it > 0 }?.startOfMinute() ?: 0L

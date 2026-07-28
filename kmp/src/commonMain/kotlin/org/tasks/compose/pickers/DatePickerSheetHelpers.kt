@@ -175,6 +175,7 @@ internal fun SheetTimeShortcuts(
     onTimeInputModeChange: (Boolean) -> Unit,
     applyTime: (Int) -> Unit,
     clearTime: () -> Unit,
+    showNoTime: Boolean = true,
 ) {
     var showTimePicker by rememberSaveable { mutableStateOf(false) }
     QuickTimePicker(
@@ -198,6 +199,7 @@ internal fun SheetTimeShortcuts(
         selectedMillisOfDay = { applyTime(it) },
         pickTime = { showTimePicker = true },
         clearTime = clearTime,
+        showNoTime = showNoTime,
     )
 }
 

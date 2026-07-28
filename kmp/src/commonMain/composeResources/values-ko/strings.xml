@@ -327,6 +327,36 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="no_title">(제목 없음)</string>
+    <string name="when_started">시작시</string>
+    <string name="when_due">마감일에</string>
+    <string name="when_overdue">마감일이 지났을 때</string>
+    <string name="randomly">무작위로</string>
+    <string name="randomly_every">매 %1$s마다 무작위로</string>
+    <string name="pick_a_date_and_time">날짜와 시간 선택</string>
+    <string name="add_reminder">알람 추가</string>
+    <string name="custom_notification">사용자정의 상태바 알림</string>
+    <string name="alarm_before_start">시작 %1$s 전</string>
+    <string name="alarm_after_start">시작 후 %1$s</string>
+    <string name="alarm_before_due">마감 %1$s 전</string>
+    <string name="alarm_after_due">마감 후 %1$s</string>
+    <string name="snoozed_until">%1$s까지 알람 잠시 미루기</string>
+    <string name="ring_once">한번 울림</string>
+    <string name="ring_five_times">다섯번 울림</string>
+    <string name="ring_nonstop">계속 울림</string>
+    <string name="enable_reminders">알람 활성화</string>
+    <string name="enable_reminders_description">안드로이드 설정에 알람이 비활성화 되어있습니다</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">분</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">시간</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">일</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">주</item>
+    </plurals>
     <string name="delete_task">할일 지우기</string>
     <string name="menu_discard_changes">변경사항 폐기</string>
     <string name="more_options">더 많은 옵션</string>

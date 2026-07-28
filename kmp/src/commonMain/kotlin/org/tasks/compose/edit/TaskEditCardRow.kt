@@ -22,14 +22,15 @@ import androidx.compose.ui.unit.dp
 import org.tasks.compose.components.TasksIcon
 import org.tasks.compose.settings.CardPosition
 
-private val RowHorizontalPadding = 20.dp
+val TaskEditCardHorizontalPadding = 20.dp
+
 private val RowVerticalPadding = 16.dp
 private val IconChipSize = 40.dp
 private val IconChipRadius = 10.dp
 private val IconTextGap = 16.dp
 private const val IconChipAlpha = 0.12f
 
-private val ContentStartPadding = RowHorizontalPadding + IconChipSize + IconTextGap
+val TaskEditCardContentStartPadding = TaskEditCardHorizontalPadding + IconChipSize + IconTextGap
 
 @Composable
 fun TaskEditCardRow(
@@ -44,7 +45,7 @@ fun TaskEditCardRow(
 ) {
     if (content == null) {
         TaskEditCard(modifier = modifier, onClick = onClick) {
-            RowBody(
+            TaskEditCardRowContent(
                 value = value,
                 valueColor = valueColor,
                 title = title,
@@ -59,7 +60,7 @@ fun TaskEditCardRow(
         verticalArrangement = Arrangement.spacedBy(TaskEditCardGap),
     ) {
         TaskEditCard(onClick = onClick, position = CardPosition.First) {
-            RowBody(
+            TaskEditCardRowContent(
                 value = value,
                 valueColor = valueColor,
                 title = title,
@@ -70,8 +71,8 @@ fun TaskEditCardRow(
         TaskEditCard(position = CardPosition.Last) {
             Column(
                 modifier = Modifier.padding(
-                    start = ContentStartPadding,
-                    end = RowHorizontalPadding,
+                    start = TaskEditCardContentStartPadding,
+                    end = TaskEditCardHorizontalPadding,
                     top = RowVerticalPadding,
                     bottom = RowVerticalPadding,
                 ),
@@ -82,17 +83,18 @@ fun TaskEditCardRow(
 }
 
 @Composable
-private fun RowBody(
+fun TaskEditCardRowContent(
     value: String,
     valueColor: Color,
-    title: String?,
-    icon: String?,
-    iconTint: Color,
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    icon: String? = null,
+    iconTint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
 ) {
     Row(
         verticalAlignment = Alignment.Top,
-        modifier = Modifier.padding(
-            horizontal = RowHorizontalPadding,
+        modifier = modifier.padding(
+            horizontal = TaskEditCardHorizontalPadding,
             vertical = RowVerticalPadding,
         ),
     ) {
@@ -127,3 +129,4 @@ private fun RowBody(
         }
     }
 }
+

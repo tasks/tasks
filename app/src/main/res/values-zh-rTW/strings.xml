@@ -184,13 +184,8 @@
     <string name="date_shortcut_hour">一個小時</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">地理圍欄半徑</string>
-    <string name="when_due">到期時</string>
-    <string name="when_overdue">當過期時</string>
-    <string name="pick_a_date_and_time">選擇時間和日期</string>
-    <string name="randomly">隨機地</string>
     <string name="remove">移除</string>
     <string name="add_location">新增地點</string>
-    <string name="add_reminder">新增提醒</string>
     <string name="quiet_hours_summary">在靜音期間沒有提醒</string>
     <string name="customize_edit_screen">自訂編輯畫面</string>
     <string name="header_spacing">間距</string>
@@ -383,25 +378,11 @@
     <string name="CFC_startBefore_name">起始…</string>
     <string name="CFC_startBefore_text">起始: \?</string>
     <string name="now">現在</string>
-    <string name="when_started">開始后</string>
     <string name="bundle_notifications">捆綁通知</string>
     <string name="tasker_list_notification">列表通知</string>
     <string name="repeats_plural_number_of_times">每%1$s重複，總共%2$d %3$s</string>
     <string name="badges">徽章</string>
     <string name="badges_description">在Tasks啓動圖標上顯示任務數，不是所有啓動器都支持。</string>
-    <string name="randomly_every">每 %s 隨機</string>
-    <plurals name="reminder_minutes">
-        <item quantity="other">分鐘</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="other">小時</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="other">天</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="other">週</item>
-    </plurals>
     <string name="customize_edit_screen_summary">重新排列或移除欄位</string>
     <string name="TEA_creation_date">建立日期</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
@@ -409,8 +390,6 @@
     <string name="markdown">Markdown</string>
     <string name="markdown_description">在標題和描述中啟用 Markdown</string>
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
-    <string name="alarm_before_due">到期前 %s</string>
-    <string name="alarm_after_start">開始後 %s</string>
     <string name="name_your_price">自行設定價格</string>
     <string name="background_location_permission_required">Tasks 收集位置資料以啟用基於位置的提醒，即使應用程式關閉或未使用。</string>
     <string name="upgrade_more_customization_description">解鎖所有主題、顏色和圖示</string>
@@ -425,7 +404,6 @@
     <string name="multi_select_reschedule">重新安排</string>
     <string name="above_average">高於平均</string>
     <string name="dismiss">關閉</string>
-    <string name="custom_notification">自訂通知</string>
     <string name="custom_filter_has_reminder">有提醒</string>
     <string name="no_google_play_subscription">沒有符合資格的 Google Play 訂閱</string>
     <string name="save_percent">儲存 %d%%</string>
@@ -453,7 +431,6 @@
     <string name="open_source">開源</string>
     <string name="app_passwords_more_info">使用第三方桌面和移動應用程式同步您的任務和行事曆。點擊此處了解更多資訊</string>
     <string name="account_not_included">並不包含「隨意價格」訂閱</string>
-    <string name="alarm_after_due">到期後 %s</string>
     <string name="pro_free_trial">新訂閱者享有 7 天免費試用。隨時取消</string>
     <string name="upgrade_tasks_org_account_description">與 Tasks.org 同步，並與其他用戶協作</string>
     <string name="upgrade_more_customization">更多自訂</string>
@@ -466,10 +443,6 @@
     <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
     <string name="completed">已完成</string>
     <string name="hint_customize_edit_title">資訊過多嗎？</string>
-    <string name="snoozed_until">延後至 %s</string>
-    <string name="alarm_before_start">開始前 %s</string>
-    <string name="enable_reminders_description">在 Android 設定中禁用提醒</string>
-    <string name="enable_reminders">啟用提醒</string>
     <string name="android_auto_backup_device_summary">您還必須透過裝置設定選擇備份服務。並非所有裝置都提供備份服務。</string>
     <string name="change_priority">更改優先順序</string>
     <string name="swipe_to_snooze_title">滑動以延後</string>
@@ -514,10 +487,6 @@
     <string name="upgrade_email_to_task_description">將電子郵件轉發至您的私人收件匣即可將其轉為任務</string>
     <string name="advanced_tools">進階工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
-    <string name="alarm_before">之前</string>
-    <string name="alarm_after">之後</string>
-    <string name="alarm_start">開始</string>
-    <string name="alarm_due">到期</string>
     <string name="enable_alarms">在正確的時間收到通知</string>
     <string name="enable_alarms_description">為確保您在正確的時間收到通知，請在設定中授予設定鬧鐘和提醒的權限</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
@@ -540,4 +509,5 @@
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
     <string name="upgrade_friends_and_family">家人和朋友</string>
     <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
+    <string name="pick_a_date_and_time">選擇時間和日期</string>
 </resources>

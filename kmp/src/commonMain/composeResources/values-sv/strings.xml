@@ -445,6 +445,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
     <string name="no_title">(Ingen titel)</string>
+    <string name="when_started">Vid start</string>
+    <string name="when_due">Vid förfallotid</string>
+    <string name="when_overdue">Efter förfallotid</string>
+    <string name="randomly">Slumpmässigt</string>
+    <string name="randomly_every">Slumpmässigt varje %1$s</string>
+    <string name="pick_a_date_and_time">Ställ in datum och tid</string>
+    <string name="add_reminder">Lägg till en påminnelse</string>
+    <string name="custom_notification">Anpassad avisering</string>
+    <string name="alarm_before">före</string>
+    <string name="alarm_after">efter</string>
+    <string name="alarm_start">start</string>
+    <string name="alarm_due">förfaller</string>
+    <string name="alarm_before_start">%1$s före start</string>
+    <string name="alarm_after_start">%1$s efter start</string>
+    <string name="alarm_before_due">%1$s före förfallodatum</string>
+    <string name="alarm_after_due">%1$s efter förfallodatum</string>
+    <string name="snoozed_until">Senarelagd till %1$s</string>
+    <string name="ring_once">Ring en gång</string>
+    <string name="ring_five_times">Ring fem gånger</string>
+    <string name="ring_nonstop">Ring kontinuerligt</string>
+    <string name="enable_reminders">Aktivera påminnelser</string>
+    <string name="enable_reminders_description">Påminnelser är avstängda i Android-inställningarna</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minuter</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Timme</item>
+        <item quantity="other">Timmar</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dag</item>
+        <item quantity="other">Dagar</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Vecka</item>
+        <item quantity="other">Veckor</item>
+    </plurals>
     <string name="delete_task">Ta bort uppgift</string>
     <string name="menu_discard_changes">Ignorera ändringar</string>
     <string name="more_options">Fler alternativ</string>

@@ -476,6 +476,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
     <string name="no_title">(Bez názvu)</string>
+    <string name="when_started">Když začne</string>
+    <string name="when_due">S termínem</string>
+    <string name="when_overdue">Po termínu</string>
+    <string name="randomly">Náhodně</string>
+    <string name="randomly_every">Náhodně každých %1$s</string>
+    <string name="pick_a_date_and_time">Vybrat datum a čas</string>
+    <string name="add_reminder">Přidat upomínku</string>
+    <string name="custom_notification">Vlastní oznámení</string>
+    <string name="alarm_before">před</string>
+    <string name="alarm_after">po</string>
+    <string name="alarm_start">začátek</string>
+    <string name="alarm_due">konec</string>
+    <string name="alarm_before_start">%1$s před začátkem</string>
+    <string name="alarm_after_start">%1$s po začátku</string>
+    <string name="alarm_before_due">%1$s před termínem</string>
+    <string name="alarm_after_due">%1$s po termínu</string>
+    <string name="snoozed_until">Odloženo do %1$s</string>
+    <string name="ring_once">Zazvonit jednou</string>
+    <string name="ring_five_times">Zazvonit pětkrát</string>
+    <string name="ring_nonstop">Zvonit neustále</string>
+    <string name="enable_reminders">Povolit připomínky</string>
+    <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuta</item>
+        <item quantity="few">Minuty</item>
+        <item quantity="other">Minut</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hodina</item>
+        <item quantity="few">Hodiny</item>
+        <item quantity="other">Hodin</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Den</item>
+        <item quantity="few">Dny</item>
+        <item quantity="other">Dní</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Týden</item>
+        <item quantity="few">Týdny</item>
+        <item quantity="other">Týdnů</item>
+    </plurals>
     <string name="delete_task">Smazat úkol</string>
     <string name="menu_discard_changes">Zrušit změny</string>
     <string name="more_options">Další volby</string>

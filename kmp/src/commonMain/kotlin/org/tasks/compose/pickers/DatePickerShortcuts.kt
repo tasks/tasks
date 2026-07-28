@@ -263,6 +263,7 @@ fun TimeShortcuts(
     selectedMillisOfDay: (Int) -> Unit,
     pickTime: () -> Unit,
     clearTime: () -> Unit,
+    showNoTime: Boolean = true,
 ) {
     var custom by remember { mutableIntStateOf(0) }
     LaunchedEffect(selected) {
@@ -326,12 +327,14 @@ fun TimeShortcuts(
         selected = false,
         onClick = { pickTime() },
     )
-    ShortcutButton(
-        icon = Icons.Outlined.Block,
-        text = stringResource(Res.string.no_time),
-        selected = day != DUE_TIME && selected == NO_TIME,
-        onClick = { clearTime() },
-    )
+    if (showNoTime) {
+        ShortcutButton(
+            icon = Icons.Outlined.Block,
+            text = stringResource(Res.string.no_time),
+            selected = day != DUE_TIME && selected == NO_TIME,
+            onClick = { clearTime() },
+        )
+    }
 }
 
 @Composable

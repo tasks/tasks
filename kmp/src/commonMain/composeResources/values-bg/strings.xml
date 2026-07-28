@@ -410,6 +410,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
     <string name="no_title">(Без заглавие)</string>
+    <string name="when_started">При започване</string>
+    <string name="when_due">При краен срок</string>
+    <string name="when_overdue">След крайния срок</string>
+    <string name="randomly">Произволно</string>
+    <string name="randomly_every">Произволно на всеки %1$s</string>
+    <string name="pick_a_date_and_time">Избиране на дата и час</string>
+    <string name="add_reminder">Добавяне на напомняне</string>
+    <string name="custom_notification">Потребителско известие</string>
+    <string name="alarm_before">преди</string>
+    <string name="alarm_after">след</string>
+    <string name="alarm_start">начало</string>
+    <string name="alarm_due">край</string>
+    <string name="alarm_before_start">%1$s преди началото</string>
+    <string name="alarm_after_start">%1$s след началото</string>
+    <string name="alarm_before_due">%1$s преди</string>
+    <string name="alarm_after_due">%1$s след</string>
+    <string name="snoozed_until">Отложено до %1$s</string>
+    <string name="ring_once">Звънене веднъж</string>
+    <string name="ring_five_times">Звънене пет пъти</string>
+    <string name="ring_nonstop">Звънене без прекъсване</string>
+    <string name="enable_reminders">Включване на напомнянията</string>
+    <string name="enable_reminders_description">Напомнянията са изключени в настройките на Андроид</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Минута</item>
+        <item quantity="other">Минути</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Час</item>
+        <item quantity="other">Часа</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Ден</item>
+        <item quantity="other">Дни</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Седмица</item>
+        <item quantity="other">Седмици</item>
+    </plurals>
     <string name="delete_task">Изтриване на задача</string>
     <string name="menu_discard_changes">Отхвърляне на промените</string>
     <string name="more_options">Допълнителни настройки</string>

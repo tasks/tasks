@@ -125,13 +125,8 @@
     <string name="row_spacing">Spasi baris</string>
     <string name="customize_edit_screen">Kostumisasi layar sunting</string>
     <string name="translations">Kontribusi terjemahan</string>
-    <string name="add_reminder">Tambah pengingat</string>
     <string name="add_location">Tambah lokasi</string>
     <string name="remove">Hapus</string>
-    <string name="randomly">Secara acak</string>
-    <string name="pick_a_date_and_time">Pilih tanggal dan waktu</string>
-    <string name="when_overdue">Saat lewat jatuh tempo</string>
-    <string name="when_due">Saat jatuh tempo</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Tag</string>
     <string name="filters">Filter</string>
@@ -441,30 +436,12 @@
     <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
     <string name="markdown">Markdown</string>
     <string name="now">Sekarang</string>
-    <string name="when_started">Ketika dimulai</string>
     <string name="completed">Selesai</string>
     <string name="custom_filter_has_reminder">Berpengingat</string>
     <string name="completion_sound">Mainkan suara selesai</string>
-    <string name="snoozed_until">Tunda sampai %s</string>
-    <plurals name="reminder_week">
-        <item quantity="other">Minggu</item>
-    </plurals>
     <string name="dismiss">Lewati</string>
-    <plurals name="reminder_minutes">
-        <item quantity="other">Menit</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="other">Jam</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="other">Hari</item>
-    </plurals>
-    <string name="randomly_every">Acak setiap %s</string>
     <string name="snackbar_task_completed">Tugas selesai</string>
-    <string name="custom_notification">Notifikasi kustom</string>
     <string name="hint_customize_edit_body">Kamu dapat mengubah bagian ini dengan mengurutkan atau menghapus kolom</string>
-    <string name="alarm_before_start">%s sebelum mulai</string>
-    <string name="alarm_after_start">%s setelah mulai</string>
     <string name="import_failed">Impor gagal</string>
     <string name="import_failed_message">Tidak dapat membaca file cadangan</string>
     <string name="app_settings">Pengaturan aplikasi</string>
@@ -527,15 +504,7 @@
     <string name="advanced_tools">Alat lanjutan</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, dan lainnya!</string>
     <string name="snackbar_tasks_completed">%d tugas diselesaikan</string>
-    <string name="alarm_before_due">%s sebelum jatuh tempo</string>
-    <string name="alarm_after_due">%s setelah jatuh tempo</string>
-    <string name="alarm_before">sebelum</string>
-    <string name="alarm_after">setelah</string>
-    <string name="alarm_start">mulai</string>
-    <string name="alarm_due">jatuh tempo</string>
     <string name="hint_customize_edit_title">Terlalu banyak informasi?</string>
-    <string name="enable_reminders">Aktifkan pengingat</string>
-    <string name="enable_reminders_description">Pengingat dinonaktifkan di Pengaturan Android</string>
     <string name="enable_alarms">Dapatkan notifikasi pada waktu yang tepat</string>
     <string name="enable_alarms_description">Untuk memastikan Anda mendapat notifikasi pada waktu yang tepat, berikan izin untuk mengatur alarm dan pengingat di Pengaturan</string>
     <string name="legal_disclosure_prefix_using">Dengan menggunakan Tasks.org</string>
@@ -555,4 +524,5 @@
     <string name="button_learn_more">Pelajari lebih lanjut</string>
     <string name="widget_view_more_tasks">Lihat lebih banyak tugas</string>
     <string name="read_more">Baca selengkapnya</string>
+    <string name="pick_a_date_and_time">Pilih tanggal dan waktu</string>
 </resources>

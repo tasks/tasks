@@ -465,6 +465,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="no_title">（无标题）</string>
+    <string name="when_started">开始后</string>
+    <string name="when_due">到期时</string>
+    <string name="when_overdue">过期时</string>
+    <string name="randomly">随机</string>
+    <string name="randomly_every">每 %1$s 随机执行</string>
+    <string name="pick_a_date_and_time">选择日期和时间</string>
+    <string name="add_reminder">添加提醒</string>
+    <string name="custom_notification">自定义通知</string>
+    <string name="alarm_before">前</string>
+    <string name="alarm_after">后</string>
+    <string name="alarm_start">开始</string>
+    <string name="alarm_due">到期</string>
+    <string name="alarm_before_start">开始前 %1$s</string>
+    <string name="alarm_after_start">开始后 %1$s</string>
+    <string name="alarm_before_due">到期前 %1$s</string>
+    <string name="alarm_after_due">到期后 %1$s</string>
+    <string name="snoozed_until">在 %1$s 前不显示通知</string>
+    <string name="ring_once">响铃一次</string>
+    <string name="ring_five_times">响铃五次</string>
+    <string name="ring_nonstop">响个不停</string>
+    <string name="enable_reminders">启用提醒</string>
+    <string name="enable_reminders_description">提醒在 Android 设置中被禁用</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">分钟</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">小时</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">天</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">周</item>
+    </plurals>
     <string name="delete_task">删除任务</string>
     <string name="menu_discard_changes">放弃修改</string>
     <string name="more_options">更多选项</string>

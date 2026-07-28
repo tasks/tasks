@@ -182,13 +182,8 @@
     <string name="customize_edit_screen">Pertsonalizatu edizio pantaila</string>
     <string name="translations">Lagundu itzulpenekin</string>
     <string name="quiet_hours_summary">Oroigarririk ez isilune orduetan</string>
-    <string name="add_reminder">Gehitu oroigarria</string>
     <string name="add_location">Gehitu kokalekua</string>
     <string name="remove">Kendu</string>
-    <string name="randomly">Ausaz</string>
-    <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
-    <string name="when_overdue">Epemuga gaindituta badago</string>
-    <string name="when_due">Epemugan</string>
     <string name="geofence_radius">Geoesparruaren erradioa</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Etiketak</string>
@@ -446,43 +441,18 @@
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
     <string name="now">Orain</string>
-    <string name="when_started">Hasten denean</string>
     <string name="completion_sound">Amaierako soinua erreproduzitu</string>
     <string name="completed">Amaituta</string>
     <string name="snackbar_task_completed">Amaitutako zereginak</string>
     <string name="snackbar_tasks_completed">%d atazak osatuta</string>
-    <string name="alarm_before_start">%s hasi aurretik</string>
-    <string name="alarm_after_start">%s hasi ondoren</string>
-    <string name="alarm_before_due">%s epemuga baino lehen</string>
-    <string name="alarm_after_due">%s epemuga ondoren</string>
     <string name="dismiss">Baztertu</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minutu</item>
-        <item quantity="other">Minutu</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Ordu</item>
-        <item quantity="other">Ordu</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Egun</item>
-        <item quantity="other">Egun</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Aste</item>
-        <item quantity="other">Aste</item>
-    </plurals>
     <string name="hint_customize_edit_title">Informazio gehiegi\?</string>
     <string name="cancel">Ezeztatu</string>
     <string name="ok">Ados</string>
     <string name="custom_filter_has_reminder">Oroigarria dauka</string>
-    <string name="custom_notification">Jakinarazpen pertsonalizatua</string>
-    <string name="snoozed_until">%s-rainora atzeratuta</string>
-    <string name="randomly_every">Ausaz, %s bakoitza</string>
     <string name="hint_customize_edit_body">Pantaila pertsonaliza dezakezu, eremuak berrantolatzen edo ezabatzen</string>
     <string name="customize_edit_screen_summary">Eremuak berrantolatu edo kendu</string>
-    <string name="enable_reminders_description">Oroigarriak desgaituta daude Androiden ezarpenetan</string>
-    <string name="enable_reminders">Aktibatu oroigarriak</string>
     <string name="sort_completion_group">Osatu %s</string>
     <string name="TEA_creation_date">Sortze-data</string>
+    <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
 </resources>

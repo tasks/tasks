@@ -372,6 +372,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Датум завршетка</string>
     <string name="no_title">(Без назива)</string>
+    <string name="when_started">Након стартовања</string>
+    <string name="when_due">До доспећа</string>
+    <string name="when_overdue">Након доспећа</string>
+    <string name="randomly">Насумично</string>
+    <string name="randomly_every">Насумично сваки %1$s</string>
+    <string name="pick_a_date_and_time">Одабери датум и време</string>
+    <string name="add_reminder">Додај подсетник</string>
+    <string name="custom_notification">Лична обавештења</string>
+    <string name="alarm_before">пре</string>
+    <string name="alarm_after">након</string>
+    <string name="alarm_start">старт</string>
+    <string name="alarm_due">доспеће</string>
+    <string name="alarm_before_start">%1$s пре почетка</string>
+    <string name="alarm_after_start">%1$s након почетка</string>
+    <string name="alarm_before_due">%1$s пре доспећа</string>
+    <string name="alarm_after_due">%1$s након доспећа</string>
+    <string name="snoozed_until">Одложено до %1$s</string>
+    <string name="ring_once">Зазвони једном</string>
+    <string name="ring_five_times">Зазвони пет пута</string>
+    <string name="ring_nonstop">Звони непрестано</string>
+    <string name="enable_reminders">Омогући подсетнике</string>
+    <string name="enable_reminders_description">Подсетници су онемогућени у подешавањима уређаја</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Минут</item>
+        <item quantity="few">Минута</item>
+        <item quantity="other">Минута</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Час</item>
+        <item quantity="few">Часа</item>
+        <item quantity="other">Часова</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Дан</item>
+        <item quantity="few">Дана</item>
+        <item quantity="other">Дана</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Седмица</item>
+        <item quantity="few">Седмице</item>
+        <item quantity="other">Седмица</item>
+    </plurals>
     <string name="delete_task">Обриши задатак</string>
     <string name="menu_discard_changes">Одбаци измене</string>
     <string name="more_options">Додатне опције</string>

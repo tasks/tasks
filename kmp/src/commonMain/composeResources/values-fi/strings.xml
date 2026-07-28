@@ -344,6 +344,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
     <string name="no_title">(Ei nimikettä)</string>
+    <string name="when_started">Kun aloitettu</string>
+    <string name="when_due">Määräaikana</string>
+    <string name="when_overdue">Kun myöhässä</string>
+    <string name="randomly">Satunnaisesti</string>
+    <string name="randomly_every">Satunnaisesti joka %1$s</string>
+    <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
+    <string name="add_reminder">Lisää muistutus</string>
+    <string name="custom_notification">Mukautettu ilmoitus</string>
+    <string name="alarm_before_start">%1$s ennen aloitusta</string>
+    <string name="alarm_after_start">%1$s aloituksen jälkeen</string>
+    <string name="alarm_before_due">%1$s ennen määräaikaa</string>
+    <string name="alarm_after_due">%1$s määräajan jälkeen</string>
+    <string name="snoozed_until">Torkuta %1$s</string>
+    <string name="ring_once">Soi kerran</string>
+    <string name="ring_five_times">Soi viisi kertaa</string>
+    <string name="ring_nonstop">Soi jatkuvasti</string>
+    <string name="enable_reminders">Salli muistutukset</string>
+    <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minuutti</item>
+        <item quantity="other">Minuuttia</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Tunti</item>
+        <item quantity="other">Tuntia</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Päivä</item>
+        <item quantity="other">Päivää</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Viikko</item>
+        <item quantity="other">Viikkoa</item>
+    </plurals>
     <string name="delete_task">Poista tehtävä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>
     <string name="more_options">Lisää vaihtoehtoja</string>

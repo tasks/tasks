@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -35,18 +34,26 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.todoroo.astrid.ui.ReminderControlSetViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
+import org.tasks.compose.pickers.AddAlarmDialog
+import org.tasks.compose.pickers.AddCustomReminderDialog
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.whenOverdue
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.preferences.Preferences
-import org.tasks.reminders.AlarmToString
+import org.tasks.reminders.ReminderControlSetViewModel
+import org.tasks.reminders.alarmText
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
-import java.util.concurrent.TimeUnit
+import org.tasks.time.ONE_DAY
+import org.tasks.time.ONE_HOUR
+import org.tasks.time.ONE_MINUTE
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_reminder
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -100,7 +107,7 @@ class DefaultRemindersActivity : AppCompatActivity() {
                 )
 
                 if (viewState.showCustomDialog) {
-                    AddReminderDialog.AddCustomReminderDialog(
+                    AddCustomReminderDialog(
                         alarm = viewState.replace,
                         updateAlarm = {
                             viewState.replace?.let { old -> alarms = alarms - old }
@@ -114,6 +121,8 @@ class DefaultRemindersActivity : AppCompatActivity() {
         }
     }
 }
+
+private const val DISABLED_ALPHA = 0.38f
 
 @Composable
 fun DefaultRemindersList(
@@ -138,6 +147,7 @@ fun DefaultRemindersList(
                 color = MaterialTheme.colorScheme.onSurface,
             )
             Spacer(modifier = Modifier.height(16.dp))
+            val is24HourFormat = LocalContext.current.is24HourFormat
             alarms.forEach { alarm ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -146,7 +156,7 @@ fun DefaultRemindersList(
                         .clickable { onAlarmClick(alarm) }
                 ) {
                     Text(
-                        text = AlarmToString(LocalContext.current).toString(alarm),
+                        text = alarmText(alarm, is24HourFormat),
                         modifier = Modifier
                             .padding(vertical = 12.dp)
                             .weight(weight = 1f),
@@ -156,10 +166,8 @@ fun DefaultRemindersList(
                 }
             }
             Text(
-                text = stringResource(R.string.add_reminder),
-                color = MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = ContentAlpha.disabled
-                ),
+                text = composeStringResource(Res.string.add_reminder),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = DISABLED_ALPHA),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier
                     .padding(vertical = 12.dp)
@@ -197,19 +205,19 @@ fun DefaultRemindersCustomPreview() {
         DefaultRemindersList(
             alarms = linkedSetOf(
                 Alarm(
-                    time = -TimeUnit.MINUTES.toMillis(15),
+                    time = -15 * ONE_MINUTE,
                     type = Alarm.TYPE_REL_START,
                 ),
                 Alarm(time = 0, type = Alarm.TYPE_REL_END),
                 Alarm(
-                    time = -TimeUnit.HOURS.toMillis(1),
+                    time = -ONE_HOUR,
                     type = Alarm.TYPE_REL_END,
                 ),
                 Alarm(
-                    time = TimeUnit.DAYS.toMillis(1),
+                    time = ONE_DAY,
                     type = Alarm.TYPE_REL_END,
                     repeat = 6,
-                    interval = TimeUnit.DAYS.toMillis(1),
+                    interval = ONE_DAY,
                 ),
             ),
             onAlarmClick = {},

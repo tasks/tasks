@@ -127,7 +127,6 @@
     <string name="translations">Přispějte k překladu</string>
     <string name="quiet_hours_summary">Žádné připomínky v období nerušení</string>
     <string name="remove">Odstranit</string>
-    <string name="randomly">Náhodně</string>
     <string name="tags">Štítky</string>
     <string name="filters">Filtry</string>
     <string name="date_shortcut_morning">Ráno</string>
@@ -218,10 +217,7 @@
     <string name="google_drive_backup">Záloha na Disk Google</string>
     <string name="row_spacing">Řádkování</string>
     <string name="customize_edit_screen">Přizpůsobit obrazovku úprav</string>
-    <string name="add_reminder">Přidat upomínku</string>
     <string name="add_location">Přidat místo</string>
-    <string name="pick_a_date_and_time">Vybrat datum a čas</string>
-    <string name="when_due">S termínem</string>
     <string name="geofence_radius">Poloměr geofence</string>
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s musí být před %2$s</string>
@@ -264,7 +260,6 @@
     <string name="requires_pro_subscription">Vyžaduje předplatné Pro</string>
     <string name="logout">Odhlásit se</string>
     <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
-    <string name="when_overdue">Po termínu</string>
     <string name="action_create_new_task">Vytvořit nový úkol</string>
     <string name="show_description">Zobrazit popis</string>
     <string name="show_full_description">Zobrazit celý popis</string>
@@ -451,35 +446,7 @@
     <string name="pro_free_trial">Noví předplatitelé dostanou 7 dnů na vyzkoušení zdarma. Předplatné je možné kdykoli zrušit</string>
     <string name="now">Nyní</string>
     <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
-    <string name="randomly_every">Náhodně každých %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuta</item>
-        <item quantity="few">Minuty</item>
-        <item quantity="other">Minut</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Hodina</item>
-        <item quantity="few">Hodiny</item>
-        <item quantity="other">Hodin</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Den</item>
-        <item quantity="few">Dny</item>
-        <item quantity="other">Dní</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Týden</item>
-        <item quantity="few">Týdny</item>
-        <item quantity="other">Týdnů</item>
-    </plurals>
-    <string name="when_started">Když začne</string>
     <string name="custom_filter_has_reminder">Má upomínku</string>
-    <string name="snoozed_until">Odloženo do %s</string>
-    <string name="alarm_after_start">%s po začátku</string>
-    <string name="alarm_before_start">%s před začátkem</string>
-    <string name="alarm_before_due">%s před termínem</string>
-    <string name="alarm_after_due">%s po termínu</string>
-    <string name="custom_notification">Vlastní oznámení</string>
     <string name="completion_sound">Přehrát zvuk dokončení</string>
     <string name="snackbar_task_completed">Úkol splněn</string>
     <string name="completed">Splněný</string>
@@ -489,8 +456,6 @@
     <string name="hint_customize_edit_body">Tuto obrazovku si můžete přizpůsobit přeskupením nebo odebráním polí</string>
     <string name="TEA_creation_date">Datum vytvoření</string>
     <string name="sort_completion_group">Dokončeno %s</string>
-    <string name="enable_reminders">Povolit připomínky</string>
-    <string name="enable_reminders_description">Připomínky jsou zakázány v nastavení Android</string>
     <string name="sort_list">Podle seznamu</string>
     <string name="change_priority">Změnit prioritu</string>
     <string name="theme_dynamic">Dynamické</string>
@@ -544,10 +509,6 @@
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
     <string name="banner_subscription_required_title">Vyžadováno předplatné</string>
     <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
-    <string name="alarm_before">před</string>
-    <string name="alarm_after">po</string>
-    <string name="alarm_start">začátek</string>
-    <string name="alarm_due">konec</string>
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>
     <string name="rmd_EPr_rmd_time_desc">Oznámení o celodenních úkolech se zobrazí v %1$s</string>
@@ -574,4 +535,5 @@
     <string name="read_more">Více informací</string>
     <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
     <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>
+    <string name="pick_a_date_and_time">Vybrat datum a čas</string>
 </resources>

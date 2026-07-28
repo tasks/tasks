@@ -35,6 +35,7 @@
     <string name="sort_start_date">تاریخ شروع</string>
     <string name="group_none">هیچکدام</string>
     <string name="ok">تایید</string>
+    <string name="cancel">لغو</string>
     <string name="no_due_date">مهلت پایان ندارد</string>
     <string name="no_start_date">تاریخ شروع ندارد</string>
     <string name="no_date">بدون تاریخ</string>
@@ -117,5 +118,13 @@
     <string name="repeat_type_completion">تاریخ اتمام</string>
     <string name="TEA_control_repeat">تکرار</string>
     <string name="no_title">(بدون عنوان)</string>
+    <string name="when_due">روز موعود</string>
+    <string name="when_overdue">پس از موعود</string>
+    <string name="randomly">به طور تصادفی</string>
+    <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
+    <string name="add_reminder">اضافه کردن یادآورد</string>
+    <string name="ring_once">یک بار زنگ بزن</string>
+    <string name="ring_five_times">پنج بار زنگ بزن</string>
+    <string name="ring_nonstop">بدون توقف زنگ بزن</string>
     <string name="delete_task">حذف وظیفه</string>
 </resources>

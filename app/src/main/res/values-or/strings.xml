@@ -15,14 +15,6 @@
     <string name="TEA_control_gcal">କ୍ୟାଲେଣ୍ଡର</string>
     <string name="TEA_control_importance">ପ୍ରାଥମିକତା</string>
     <string name="TEA_control_notes">ଵର୍ଣ୍ଣନା</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">ମିନିଟ୍</item>
-        <item quantity="other">ମିନିଟ୍</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">ଘଣ୍ଟା</item>
-        <item quantity="other">ଘଣ୍ଟା</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d ମିନିଟ୍</item>
         <item quantity="other">%d ମିନିଟ୍</item>
@@ -30,10 +22,6 @@
     <plurals name="repeat_n_days">
         <item quantity="one">%d ଦିନ</item>
         <item quantity="other">%d ଦିନ</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">ଦିନ</item>
-        <item quantity="other">ଦିନ</item>
     </plurals>
     <string name="now">ଏବେ</string>
     <string name="today">ଆଜି</string>
@@ -72,10 +60,6 @@
     <plurals name="repeat_n_hours">
         <item quantity="one">%d ଘଣ୍ଟା</item>
         <item quantity="other">%d ଘଣ୍ଟା</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">ସପ୍ତାହ</item>
-        <item quantity="other">ସପ୍ତାହ</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d ସପ୍ତାହ</item>

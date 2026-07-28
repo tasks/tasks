@@ -356,6 +356,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalizare</string>
     <string name="no_title">(Fără titlu)</string>
+    <string name="when_started">Când a început</string>
+    <string name="when_due">La scadență</string>
+    <string name="when_overdue">În caz de întârziere</string>
+    <string name="randomly">Aleatoriu</string>
+    <string name="randomly_every">Aleatoriu la fiecare %1$s</string>
+    <string name="pick_a_date_and_time">Alege o dată și o oră</string>
+    <string name="add_reminder">Adaugă un memento</string>
+    <string name="custom_notification">Notificare personalizată</string>
+    <string name="alarm_before">înainte</string>
+    <string name="alarm_after">după</string>
+    <string name="alarm_start">pornește</string>
+    <string name="alarm_due">scadență</string>
+    <string name="alarm_before_start">%1$s înainte de start</string>
+    <string name="alarm_after_start">%1$s după pornire</string>
+    <string name="alarm_before_due">%1$s înainte de scadență</string>
+    <string name="alarm_after_due">%1$s după scadență</string>
+    <string name="snoozed_until">Amânat până la %1$s</string>
+    <string name="ring_once">Sună o dată</string>
+    <string name="ring_five_times">Sună de cinci ori</string>
+    <string name="ring_nonstop">Sună non-stop</string>
+    <string name="enable_reminders">Activează memento-uri</string>
+    <string name="enable_reminders_description">Reamintirile sunt dezactivate în Setări Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="few">Minute</item>
+        <item quantity="other">Minute</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Oră</item>
+        <item quantity="few">Ore</item>
+        <item quantity="other">Ore</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Zi</item>
+        <item quantity="few">Zile</item>
+        <item quantity="other">Zile</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Săptămână</item>
+        <item quantity="few">Săptămâni</item>
+        <item quantity="other">Săptămâni</item>
+    </plurals>
     <string name="delete_task">Șterge sarcina</string>
     <string name="menu_discard_changes">Renunță la modificări</string>
     <string name="more_options">Mai multe opțiuni</string>

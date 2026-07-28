@@ -1,5 +1,6 @@
 package org.tasks.viewmodel
 
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,6 +26,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.check
 import org.mockito.kotlin.doSuspendableAnswer
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.isNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
@@ -35,10 +37,13 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
+import com.todoroo.astrid.alarms.AlarmService
+import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.SYNC_TAGS
@@ -59,6 +64,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.TagFilter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_HOUR
 import org.tasks.time.minusDays
 import org.tasks.time.noon
 import org.tasks.time.plusDays
@@ -92,6 +98,8 @@ class TaskEditViewModelTest {
     private val taskMover: TaskMover = mock()
     private val tagDao: TagDao = mock()
     private val tagDataDao: TagDataDao = mock()
+    private val alarmDao: AlarmDao = mock()
+    private val alarmService: AlarmService = mock()
     private val appPreferences: AppPreferences = mock()
     private val taskCompleter: TaskCompleter = mock()
     private val taskDeleter: TaskDeleter = mock()
@@ -117,6 +125,12 @@ class TaskEditViewModelTest {
         whenever(tagDataDao.getTagDataForTask(any())).thenReturn(emptyList())
         whenever(appPreferences.datePickerPreferences()).thenReturn(DatePickerPreferences())
         whenever(tagDataDao.getByUuid("tag-work")).thenReturn(workTag)
+        whenever(appPreferences.defaultAlarms()).thenReturn(emptyList())
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(false)
+        whenever(appPreferences.defaultRandomHours()).thenReturn(0)
+        whenever(appPreferences.defaultRingMode()).thenReturn(0)
+        whenever(alarmDao.getAlarms(any<Long>())).thenReturn(emptyList())
+        whenever(alarmDao.watchAlarms(any())).thenReturn(MutableSharedFlow())
         // inTransaction exists only to wrap its block, and a mock would swallow it - taking the
         // row creation the editor does inside it along with it.
         taskDao.stub {
@@ -158,6 +172,8 @@ class TaskEditViewModelTest {
         taskMover = taskMover,
         tagDao = tagDao,
         tagDataDao = tagDataDao,
+        alarmDao = alarmDao,
+        alarmService = alarmService,
         appPreferences = appPreferences,
         externalScope = CoroutineScope(testDispatcher),
         pendingSaves = pendingSaves,
@@ -815,12 +831,6 @@ class TaskEditViewModelTest {
         assertTrue(viewModel.state.value.deleted)
     }
 
-    /**
-     * The save that notices the delete is not always a teardown - ON_STOP commits from an editor
-     * that is still composed - and then the editor is still on screen afterwards. Leaving it there
-     * looked completely normal while every later save short-circuited on `deleted` and reported
-     * success having written nothing.
-     */
     @Test
     fun aSaveThatFindsTheRowHardDeletedClosesTheEditor() = runTest(testDispatcher) {
         initializeExisting(id = 42, title = "Purged")
@@ -2425,6 +2435,376 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao, never()).createNew(any())
+    }
+
+    // endregion
+
+    // region alarms
+
+    @Test
+    fun loadsAlarmsForExistingTask() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = 0, type = Alarm.TYPE_DATE_TIME)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+
+        initializeExisting()
+
+        assertEquals(persistentSetOf(alarm), viewModel.state.value.alarms)
+    }
+
+    @Test
+    fun addAlarmIgnoresEquivalentAlarm() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.addAlarm(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM))
+        viewModel.addAlarm(Alarm(id = 99, time = ONE_HOUR, type = Alarm.TYPE_RANDOM))
+
+        assertEquals(1, viewModel.state.value.alarms.size)
+    }
+
+    @Test
+    fun removeAlarm() = runTest(testDispatcher) {
+        val alarm = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        initializeNew()
+        viewModel.addAlarm(alarm)
+
+        viewModel.removeAlarm(alarm)
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+    }
+
+    @Test
+    fun removeAlarmMatchesOnContent() = runTest(testDispatcher) {
+        val stored = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(stored))
+        initializeExisting()
+
+        viewModel.removeAlarm(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM))
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+    }
+
+    @Test
+    fun replacingAnAlarmWithAnEqualOneIsNotAChange() = runTest(testDispatcher) {
+        val stored = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_DATE_TIME)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(stored))
+        initializeExisting()
+
+        viewModel.removeAlarm(stored)
+        viewModel.addAlarm(Alarm(time = ONE_HOUR, type = Alarm.TYPE_DATE_TIME))
+
+        assertFalse(viewModel.state.value.hasChanges)
+    }
+
+    @Test
+    fun savingSynchronizesAlarms() = runTest(testDispatcher) {
+        val alarm = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        initializeExisting()
+
+        viewModel.addAlarm(alarm)
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf(alarm)))
+    }
+
+    @Test
+    fun addingAlarmAloneCountsAsAChange() = runTest(testDispatcher) {
+        initializeExisting()
+
+        viewModel.addAlarm(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM))
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(taskSaver).save(any(), any(), any())
+    }
+
+    @Test
+    fun savingDropsRelativeAlarmsWithoutTheirDate() = runTest(testDispatcher) {
+        initializeExisting()
+        viewModel.addAlarm(Alarm.whenDue(0))
+        viewModel.addAlarm(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM))
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(
+            eq(42L),
+            eq(mutableSetOf(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM))),
+        )
+    }
+
+    @Test
+    fun savingKeepsRelativeAlarmWhenItsDateIsSet() = runTest(testDispatcher) {
+        initializeExisting()
+        viewModel.setDueDate(currentTimeMillis().noon())
+        viewModel.addAlarm(Alarm.whenDue(0))
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf(Alarm.whenDue(0))))
+    }
+
+    @Test
+    fun alarmsAreNotSynchronizedWhenUnchanged() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+        initializeExisting()
+
+        viewModel.setTitle("Updated")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService, never()).synchronizeAlarms(any(), any())
+    }
+
+    @Test
+    fun datelessRelativeAlarmIsNotAChangeOnItsOwn() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = 0, type = Alarm.TYPE_REL_END)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+
+        initializeExisting()
+
+        assertFalse(viewModel.state.value.hasChanges)
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService, never()).synchronizeAlarms(any(), any())
+    }
+
+    @Test
+    fun savingDropsADatelessRelativeAlarmTheRowStillHas() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = 0, type = Alarm.TYPE_REL_END)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+        initializeExisting()
+
+        viewModel.setTitle("Updated")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf()))
+    }
+
+    @Test
+    fun removingADatelessRelativeAlarmIsSaved() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = 0, type = Alarm.TYPE_REL_END)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+        initializeExisting()
+
+        viewModel.removeAlarm(alarm)
+
+        assertTrue(viewModel.state.value.hasChanges)
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf()))
+    }
+
+    @Test
+    fun clearingTheDueDateRemovesItsAlarm() = runTest(testDispatcher) {
+        val alarm = Alarm(id = 7, task = 42, time = 0, type = Alarm.TYPE_REL_END)
+        val dueDate = currentTimeMillis().noon()
+        whenever(taskDao.fetch(42L)).thenReturn(Task(id = 42, title = "Existing", dueDate = dueDate))
+        whenever(caldavDao.getTask(42L)).thenReturn(null)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(alarm))
+        buildViewModel(taskId = 42)
+        advanceUntilIdle()
+
+        viewModel.setDueDate(0)
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf()))
+    }
+
+    @Test
+    fun alarmAddedBeforeItsDateDoesNotSurviveASave() = runTest(testDispatcher) {
+        initializeExisting()
+
+        viewModel.addAlarm(Alarm.whenDue(0))
+        viewModel.setTitle("Updated")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService, never()).synchronizeAlarms(any(), any())
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+        assertFalse(viewModel.state.value.hasChanges)
+
+        viewModel.setDueDate(currentTimeMillis().noon())
+        viewModel.addAlarm(Alarm.whenDue(0))
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(42L), eq(mutableSetOf(Alarm.whenDue(0))))
+    }
+
+    @Test
+    fun alarmAddedWhileSavingIsNotLost() = runTest(testDispatcher) {
+        val added = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        initializeExisting()
+        whenever(taskSaver.save(any(), anyOrNull(), any())).thenAnswer {
+            viewModel.addAlarm(added)
+            Unit
+        }
+
+        viewModel.setTitle("Updated")
+        viewModel.save()
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(added), viewModel.state.value.alarms)
+    }
+
+    @Test
+    fun externallyAddedAlarmShowsUpInTheEditor() = runTest(testDispatcher) {
+        val existing = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val external = Alarm(id = 8, task = 42, time = 0, type = Alarm.TYPE_DATE_TIME)
+        val alarmFlow = MutableSharedFlow<List<Alarm>>(replay = 1)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(existing))
+        whenever(alarmDao.watchAlarms(42L)).thenReturn(alarmFlow)
+        initializeExisting()
+
+        alarmFlow.emit(listOf(existing, external))
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(existing, external), viewModel.state.value.alarms)
+        assertFalse(viewModel.state.value.hasChanges)
+    }
+
+    @Test
+    fun externalAlarmChangeIsMergedWithLocalEdits() = runTest(testDispatcher) {
+        val existing = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val external = Alarm(id = 8, task = 42, time = 0, type = Alarm.TYPE_DATE_TIME)
+        val local = Alarm(time = 2 * ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val alarmFlow = MutableSharedFlow<List<Alarm>>(replay = 1)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(existing))
+        whenever(alarmDao.watchAlarms(42L)).thenReturn(alarmFlow)
+        initializeExisting()
+        viewModel.addAlarm(local)
+
+        alarmFlow.emit(listOf(existing, external))
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(existing, external, local), viewModel.state.value.alarms)
+        assertTrue(viewModel.state.value.hasChanges)
+    }
+
+    @Test
+    fun externallyAddedAlarmSurvivesTheNextSave() = runTest(testDispatcher) {
+        val existing = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val external = Alarm(id = 8, task = 42, time = 0, type = Alarm.TYPE_DATE_TIME)
+        val local = Alarm(time = 2 * ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val alarmFlow = MutableSharedFlow<List<Alarm>>(replay = 1)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(existing))
+        whenever(alarmDao.watchAlarms(42L)).thenReturn(alarmFlow)
+        initializeExisting()
+        viewModel.addAlarm(local)
+
+        alarmFlow.emit(listOf(existing, external))
+        advanceUntilIdle()
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(
+            eq(42L),
+            eq(mutableSetOf(existing, external, local)),
+        )
+    }
+
+    @Test
+    fun locallyRemovedAlarmStaysRemovedThroughAMerge() = runTest(testDispatcher) {
+        val existing = Alarm(id = 7, task = 42, time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val external = Alarm(id = 8, task = 42, time = 0, type = Alarm.TYPE_DATE_TIME)
+        val alarmFlow = MutableSharedFlow<List<Alarm>>(replay = 1)
+        whenever(alarmDao.getAlarms(42L)).thenReturn(listOf(existing))
+        whenever(alarmDao.watchAlarms(42L)).thenReturn(alarmFlow)
+        initializeExisting()
+        viewModel.removeAlarm(existing)
+
+        alarmFlow.emit(listOf(existing, external))
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(external), viewModel.state.value.alarms)
+    }
+
+    @Test
+    fun mergeDoesNotDuplicateAnAlarmTheDatabaseHasCaughtUpWith() = runTest(testDispatcher) {
+        val local = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        val alarmFlow = MutableSharedFlow<List<Alarm>>(replay = 1)
+        whenever(alarmDao.watchAlarms(42L)).thenReturn(alarmFlow)
+        initializeExisting()
+        viewModel.addAlarm(local)
+
+        alarmFlow.emit(listOf(local.copy(id = 9, task = 42)))
+        advanceUntilIdle()
+
+        assertEquals(1, viewModel.state.value.alarms.size)
+    }
+
+    @Test
+    fun settingTheDueDateAddsTheDefaultReminders() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        initializeNew()
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+
+        viewModel.setDueDate(currentTimeMillis().startOfDay())
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(Alarm.whenDue(0)), viewModel.state.value.alarms)
+    }
+
+    @Test
+    fun settingTheStartDateAddsTheDefaultReminders() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenStarted(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        initializeNew()
+
+        viewModel.setStartDate(currentTimeMillis().startOfDay(), NO_TIME)
+        advanceUntilIdle()
+
+        assertEquals(persistentSetOf(Alarm.whenStarted(0)), viewModel.state.value.alarms)
+    }
+
+    @Test
+    fun newTaskWithDefaultAlarmsIsNotAChangeOnItsOwn() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultRandomHours()).thenReturn(1)
+
+        initializeNew()
+
+        assertFalse(viewModel.state.value.hasChanges)
+
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(taskDao, never()).createNew(any())
+    }
+
+    @Test
+    fun newTaskWritesItsDefaultAlarms() = runTest(testDispatcher) {
+        val default = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
+        whenever(appPreferences.defaultRandomHours()).thenReturn(1)
+        initializeNew()
+
+        viewModel.setTitle("New")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(alarmService).synchronizeAlarms(eq(NEW_TASK_ID), eq(mutableSetOf(default)))
+    }
+
+    @Test
+    fun dateOnlyDueDateEarnsNoDefaultReminderWithoutADefaultDueTime() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(false)
+        initializeNew()
+
+        viewModel.setDueDate(currentTimeMillis().startOfDay())
+        advanceUntilIdle()
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
     }
 
     // endregion

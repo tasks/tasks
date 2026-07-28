@@ -35,16 +35,6 @@ class PendingTaskSaves(private val scope: CoroutineScope) {
     private val locks = mutableMapOf<String, Mutex>()
     private val locksMutex = Mutex()
 
-    /**
-     * Where a per-task lock is held: wherever the saves it serializes run, and so never the main
-     * thread.
-     *
-     * On Android the stop that drives a teardown save blocks the main thread waiting for
-     * [awaitIdle], while the editors that take these locks take them from view model scopes that
-     * resume on that same thread. A lock acquired there could only be released once the block was
-     * over - so the save it was blocking sat out the entire timeout it had been given, and a process
-     * death in that window lost the edit the whole mechanism exists to protect.
-     */
     private val lockDispatcher =
         scope.coroutineContext[ContinuationInterceptor] as? CoroutineDispatcher
             ?: Dispatchers.Default

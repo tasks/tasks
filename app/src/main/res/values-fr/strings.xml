@@ -175,13 +175,9 @@
     <string name="customize_edit_screen">Personnaliser l\'écran d\'édition</string>
     <string name="translations">Contribuer aux traductions</string>
     <string name="quiet_hours_summary">Aucun rappel durant les heures de repos</string>
-    <string name="add_reminder">Ajouter un rappel</string>
     <string name="add_location">Ajouter un emplacement</string>
     <string name="remove">Retirer</string>
-    <string name="randomly">Aléatoirement</string>
     <string name="pick_a_date_and_time">Choisir une date et une heure</string>
-    <string name="when_overdue">En cas de retard</string>
-    <string name="when_due">À l\'échéance</string>
     <string name="geofence_radius">Rayon de la barrière géographique</string>
     <string name="filters">Filtres</string>
     <string name="date_shortcut_hour">Pendant une heure</string>
@@ -450,45 +446,15 @@
     <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
     <string name="markdown">« Markdown »</string>
     <string name="now">Maintenant</string>
-    <string name="when_started">Lorsqu\'il est démarré</string>
     <string name="completion_sound">Jouer le son d\'achèvement</string>
     <string name="completed">Terminé</string>
     <string name="snackbar_task_completed">Tâche terminée</string>
     <string name="snackbar_tasks_completed">%d tâches terminées</string>
-    <string name="alarm_before_start">%s avant le début</string>
-    <string name="alarm_after_start">%s après le début</string>
-    <string name="alarm_before_due">%s avant l\'échéance</string>
-    <string name="alarm_after_due">%s après l\'échéance</string>
     <string name="custom_filter_has_reminder">A un rappel</string>
-    <string name="snoozed_until">Reporter jusqu\'à %s</string>
-    <plurals name="reminder_days">
-        <item quantity="one">Jour</item>
-        <item quantity="many">Jours</item>
-        <item quantity="other">Jours</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Semaine</item>
-        <item quantity="many">Semaines</item>
-        <item quantity="other">Semaines</item>
-    </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minute</item>
-        <item quantity="many">Minutes</item>
-        <item quantity="other">Minutes</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Heure</item>
-        <item quantity="many">Heures</item>
-        <item quantity="other">Heures</item>
-    </plurals>
-    <string name="custom_notification">Notification personnalisée</string>
-    <string name="randomly_every">Aléatoirement, par intervalle de %s</string>
     <string name="dismiss">Rejeter</string>
     <string name="customize_edit_screen_summary">Réorganiser ou supprimer des champs</string>
     <string name="hint_customize_edit_body">Vous pouvez personnaliser cet écran en réorganisant ou en supprimant des champs</string>
     <string name="hint_customize_edit_title">Trop d\'informations \?</string>
-    <string name="enable_reminders_description">Les rappels sont désactivés dans les paramètres Android</string>
-    <string name="enable_reminders">Activer les rappels</string>
     <string name="TEA_creation_date">Date de création</string>
     <string name="sort_completion_group">Achèvement %s</string>
     <string name="sort_list">Par liste</string>
@@ -544,10 +510,6 @@
     <string name="import_failed">Échec de l\'importation</string>
     <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
-    <string name="alarm_before">avant</string>
-    <string name="alarm_after">après</string>
-    <string name="alarm_start">début le</string>
-    <string name="alarm_due">échéance le</string>
     <string name="email_to_task">Courriel en tâche</string>
     <string name="email_to_task_address">Votre adresse électronique</string>
     <string name="rmd_EPr_rmd_time_desc">Les notifications pour toutes les tâches quotidiennes apparaîtront à %1$s</string>

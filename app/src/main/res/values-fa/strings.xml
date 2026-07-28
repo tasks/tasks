@@ -111,12 +111,7 @@
     <string name="row_spacing">فاصله سطرها</string>
     <string name="translations">مشارکت در ترجمه</string>
     <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
-    <string name="add_reminder">اضافه کردن یادآورد</string>
     <string name="remove">حذف</string>
-    <string name="randomly">به طور تصادفی</string>
-    <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
-    <string name="when_overdue">پس از موعود</string>
-    <string name="when_due">روز موعود</string>
     <string name="tags">برچسب ها</string>
     <string name="filters">فیلترها</string>
     <string name="date_shortcut_hour">برای یک ساعت</string>
@@ -201,4 +196,5 @@
     <string name="import_progress_read">درحال خواندن تسک %d…</string>
     <string name="help_and_feedback">راهنما و بازخورد</string>
     <string name="app_settings">تنظیمات برنامه</string>
+    <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
 </resources>

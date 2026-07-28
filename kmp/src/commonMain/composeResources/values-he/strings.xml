@@ -391,6 +391,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
     <string name="no_title">(אין כותרת)</string>
+    <string name="when_started">כשהמשימה התחילה</string>
+    <string name="when_due">כשהגיע היעד</string>
+    <string name="when_overdue">כשהיעד חלף</string>
+    <string name="randomly">באופן אקראי</string>
+    <string name="randomly_every">באופן אקראי כל %1$s</string>
+    <string name="pick_a_date_and_time">בחר תאריך ושעה</string>
+    <string name="add_reminder">הוספת תזכורת</string>
+    <string name="custom_notification">התראה מותאמת אישית</string>
+    <string name="alarm_before">לפני</string>
+    <string name="alarm_after">אחרי</string>
+    <string name="alarm_start">התחלה</string>
+    <string name="alarm_due">יעד</string>
+    <string name="alarm_before_start">%1$s לפני מועד התחלה</string>
+    <string name="alarm_after_start">%1$s לאחר מועד התחלה</string>
+    <string name="alarm_before_due">%1$s לפני מועד יעד</string>
+    <string name="alarm_after_due">%1$s לאחר מועד יעד</string>
+    <string name="snoozed_until">בנמנום עד %1$s</string>
+    <string name="ring_once">צלצל פעם אחת</string>
+    <string name="ring_five_times">צלצל חמש פעמים</string>
+    <string name="ring_nonstop">צלצל ללא הפסקה</string>
+    <string name="enable_reminders">הפעלת תזכורות</string>
+    <string name="enable_reminders_description">תזכורות מושבתות בהגדרות Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">דקה</item>
+        <item quantity="two">דקות</item>
+        <item quantity="other">דקות</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">שעה</item>
+        <item quantity="two">שעות</item>
+        <item quantity="other">שעות</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">יום</item>
+        <item quantity="two">ימים</item>
+        <item quantity="other">ימים</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">שבוע</item>
+        <item quantity="two">שבועות</item>
+        <item quantity="other">שבועות</item>
+    </plurals>
     <string name="delete_task">מחיקת משימה</string>
     <string name="menu_discard_changes">השלכת שינויים</string>
     <string name="more_options">אפשרויות נוספות</string>

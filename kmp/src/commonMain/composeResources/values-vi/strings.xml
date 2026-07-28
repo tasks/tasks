@@ -301,6 +301,36 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Ngày hoàn thành</string>
     <string name="no_title">(Không có tiêu đề)</string>
+    <string name="when_started">Khi bắt đầu</string>
+    <string name="when_due">Khi đến hạn</string>
+    <string name="when_overdue">Khi quá hạn</string>
+    <string name="randomly">Ngẫu nhiên</string>
+    <string name="randomly_every">Ngẫu nhiên mỗi %1$s</string>
+    <string name="pick_a_date_and_time">Chọn ngày và thời gian</string>
+    <string name="add_reminder">Thêm lời nhắc</string>
+    <string name="custom_notification">Thông báo tùy chỉnh</string>
+    <string name="alarm_before_start">%1$s trước bắt đầu</string>
+    <string name="alarm_after_start">%1$s sau bắt đầu</string>
+    <string name="alarm_before_due">%1$s trước hạn</string>
+    <string name="alarm_after_due">%1$s sau hạn</string>
+    <string name="snoozed_until">Đã đặt báo lại cho đến %1$s</string>
+    <string name="ring_once">Đổ chuông một lần</string>
+    <string name="ring_five_times">Đổ chuông năm lần</string>
+    <string name="ring_nonstop">Đổ chuông không ngừng</string>
+    <string name="enable_reminders">Bật lời nhắc</string>
+    <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">Phút</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">Tiếng</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">Ngày</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">Tuần</item>
+    </plurals>
     <string name="delete_task">Xoá công việc</string>
     <string name="menu_discard_changes">Bỏ các thay đổi</string>
     <string name="more_options">Nhiều tuỳ chọn hơn</string>

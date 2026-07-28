@@ -1,4 +1,4 @@
-package com.todoroo.astrid.ui
+package org.tasks.reminders
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

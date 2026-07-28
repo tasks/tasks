@@ -413,13 +413,8 @@
     <string name="filters">පෙරහන්</string>
     <string name="tags">ටැග්</string>
     <string name="location_radius_meters">%s මීටර්</string>
-    <string name="when_due">නියමිත විට</string>
-    <string name="when_overdue">කල් ඉකුත් වූ විට</string>
-    <string name="pick_a_date_and_time">දිනයක් සහ වේලාවක් තෝරන්න</string>
-    <string name="randomly">අහඹු ලෙස</string>
     <string name="remove">ඉවත් කරන්න</string>
     <string name="add_location">ස්ථානය එක් කරන්න</string>
-    <string name="add_reminder">මතක් කිරීමක් එක් කරන්න</string>
     <string name="quiet_hours_summary">නිහඬ කාලය තුළ මතක් කිරීම් නොමැත</string>
     <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
     <string name="customize_edit_screen">සංස්කරණ තිරය අභිරුචිකරණය කරන්න</string>
@@ -448,30 +443,11 @@
     <string name="repeat_snackbar">%1$s, %2$s සඳහා නැවත සකස් කරන ලදි</string>
     <string name="CFC_importance_text">අවම වශයෙන් ප්‍රමුඛතාවය \?</string>
     <string name="now">දැන්</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">පැය</item>
-        <item quantity="other">පැය</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">සතිය</item>
-        <item quantity="other">සති</item>
-    </plurals>
-    <string name="when_started">ආරම්භ කළ විට</string>
-    <string name="randomly_every">අහඹු ලෙස සෑම %s</string>
     <string name="sort_completion_group">සම්පූර්ණ කිරීම %s</string>
     <string name="custom_filter_has_reminder">මතක් කිරීමක් ඇති</string>
     <string name="completion_sound">සම්පූර්ණ කිරීමේ ශබ්දය වාදනය කරන්න</string>
-    <plurals name="reminder_days">
-        <item quantity="one">දිනය</item>
-        <item quantity="other">දින</item>
-    </plurals>
     <string name="customize_edit_screen_summary">ක්ෂේත්‍ර නැවත සැකසීම හෝ ඉවත් කිරීම</string>
     <string name="TEA_creation_date">නිර්මාණය කළ දිනය</string>
     <string name="snackbar_tasks_completed">කාර්යයන් %d සම්පූර්ණ කර ඇත</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">මිනිත්තුව</item>
-        <item quantity="other">මිනිත්තු</item>
-    </plurals>
-    <string name="alarm_before_start">%s ආරම්භයට පෙර</string>
-    <string name="alarm_after_start">%s ආරම්භයෙන් පසුව</string>
+    <string name="pick_a_date_and_time">දිනයක් සහ වේලාවක් තෝරන්න</string>
 </resources>

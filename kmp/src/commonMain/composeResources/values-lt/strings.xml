@@ -44,6 +44,8 @@
     <string name="microsoft_selection_description">Sinchronizuoti su asmenine Microsoft paskyra</string>
     <string name="name_your_price">Nustatykite savo kainą</string>
     <string name="upgrade_to_pro">Atnaujinti į pro versiją</string>
+    <string name="ok">Patvirtinti</string>
+    <string name="cancel">Atšaukti</string>
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
     <string name="davx5_selection_description">Sinchronizuoti užduotis su DAVx⁵ programėle</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
@@ -308,6 +310,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Užbaigimo data</string>
     <string name="no_title">(Be pavadinimo)</string>
+    <string name="when_started">Kai pradedama</string>
+    <string name="when_due">Atėjus terminui</string>
+    <string name="when_overdue">Kai vėluojama</string>
+    <string name="randomly">Atsitiktinai</string>
+    <string name="randomly_every">Atsitiktinai kas %1$s</string>
+    <string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
+    <string name="add_reminder">Pridėti priminimą</string>
+    <string name="custom_notification">Pasirinktinis pranešimas</string>
+    <string name="alarm_before_start">%1$s prieš pradžią</string>
+    <string name="alarm_after_start">%1$s po pradžios</string>
+    <string name="alarm_before_due">%1$s iki termino pabaigos</string>
+    <string name="alarm_after_due">%1$s pasibaigus terminui</string>
+    <string name="snoozed_until">Užmigdyta iki %1$s</string>
+    <string name="ring_once">Suskambėti vieną kartą</string>
+    <string name="ring_five_times">Suskambėti penkis kartus</string>
+    <string name="ring_nonstop">Skambėti nepaliaujant</string>
+    <string name="enable_reminders">Įgalinti priminimus</string>
+    <string name="enable_reminders_description">Priminimai išjungti Android nustatymuose</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minutė</item>
+        <item quantity="few">Minutės</item>
+        <item quantity="other">Minučių</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Valanda</item>
+        <item quantity="few">Valandos</item>
+        <item quantity="other">Valandų</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Diena</item>
+        <item quantity="few">Dienos</item>
+        <item quantity="other">Dienų</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Savaitė</item>
+        <item quantity="few">Savaitės</item>
+        <item quantity="other">Savaičių</item>
+    </plurals>
     <string name="delete_task">Ištrinti užduotį</string>
     <string name="menu_discard_changes">Atmesti pakeitimus</string>
     <string name="more_options">Daugiau pasirinkimų</string>

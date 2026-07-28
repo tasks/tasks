@@ -168,12 +168,7 @@
     <string name="customize_edit_screen">Saadä muokkausnäkymää</string>
     <string name="translations">Osallistu kääntämiseen</string>
     <string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
-    <string name="add_reminder">Lisää muistutus</string>
     <string name="remove">Poista</string>
-    <string name="randomly">Satunnaisesti</string>
-    <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
-    <string name="when_overdue">Kun myöhässä</string>
-    <string name="when_due">Määräaikana</string>
     <string name="tags">Tunnisteet</string>
     <string name="filters">Suodattimet</string>
     <string name="date_shortcut_hour">Tunnin verran</string>
@@ -441,44 +436,18 @@
     <string name="default_due_date">Eräpäivä oletusarvoisesti</string>
     <string name="default_start_date">Oletusarvoinen alkamispäivä</string>
     <string name="ok">OK</string>
-    <string name="when_started">Kun aloitettu</string>
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>
     <string name="custom_filter_has_reminder">Sisältää muistutuksen</string>
-    <string name="randomly_every">Satunnaisesti joka %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuutti</item>
-        <item quantity="other">Minuuttia</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Tunti</item>
-        <item quantity="other">Tuntia</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Päivä</item>
-        <item quantity="other">Päivää</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Viikko</item>
-        <item quantity="other">Viikkoa</item>
-    </plurals>
     <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
     <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>
-    <string name="custom_notification">Mukautettu ilmoitus</string>
-    <string name="snoozed_until">Torkuta %s</string>
     <string name="completed">Valmiit</string>
     <string name="snackbar_task_completed">Tehtävä suoritettu</string>
     <string name="hint_customize_edit_title">Liikaa tietoa?</string>
     <string name="hint_customize_edit_body">Voit muokata tätä näkymää uudelleenjärjestelemällä tai poistamalla kenttiä</string>
-    <string name="enable_reminders">Salli muistutukset</string>
     <string name="dismiss">Hylkää</string>
     <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
-    <string name="enable_reminders_description">Muistutukset on poistettu käytöstä Androidin asetuksista</string>
-    <string name="alarm_after_start">%s aloituksen jälkeen</string>
-    <string name="alarm_before_start">%s ennen aloitusta</string>
-    <string name="alarm_after_due">%s määräajan jälkeen</string>
-    <string name="alarm_before_due">%s ennen määräaikaa</string>
     <string name="change_priority">Vaihda prioriteetti</string>
     <string name="sort_list">Luettelojen mukaan</string>
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
@@ -530,4 +499,5 @@
     <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>
     <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
     <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
+    <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
 </resources>

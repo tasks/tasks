@@ -18,6 +18,7 @@ fun CustomDialog(
     if (!visible) {
         return
     }
+    PlatformBackHandler(enabled = true, onBack = onDismiss)
     Dialog(onDismissRequest = onDismiss) {
         Card(
             shape = MaterialTheme.shapes.medium,

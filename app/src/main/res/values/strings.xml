@@ -174,33 +174,17 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">time</item>
     <item quantity="other">times</item>
   </plurals>
-  <plurals name="reminder_minutes">
-    <item quantity="one">Minute</item>
-    <item quantity="other">Minutes</item>
-  </plurals>
   <plurals name="repeat_n_minutes">
     <item quantity="one">%d minute</item>
     <item quantity="other">%d minutes</item>
-  </plurals>
-  <plurals name="reminder_hours">
-    <item quantity="one">Hour</item>
-    <item quantity="other">Hours</item>
   </plurals>
   <plurals name="repeat_n_hours">
     <item quantity="one">%d hour</item>
     <item quantity="other">%d hours</item>
   </plurals>
-  <plurals name="reminder_days">
-    <item quantity="one">Day</item>
-    <item quantity="other">Days</item>
-  </plurals>
   <plurals name="repeat_n_days">
     <item quantity="one">%d day</item>
     <item quantity="other">%d days</item>
-  </plurals>
-  <plurals name="reminder_week">
-    <item quantity="one">Week</item>
-    <item quantity="other">Weeks</item>
   </plurals>
   <plurals name="repeat_n_weeks">
     <item quantity="one">%d week</item>
@@ -253,15 +237,8 @@ File %1$s contained %2$s.\n\n
   <string name="customize_edit_screen_summary">Rearrange or remove fields</string>
   <string name="translations">Contribute translations</string>
   <string name="quiet_hours_summary">No reminders during quiet hours</string>
-  <string name="add_reminder">Add reminder</string>
   <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
-  <string name="randomly_every">Randomly every %s</string>
-  <string name="randomly">Randomly</string>
-  <string name="pick_a_date_and_time">Pick a date and time</string>
-  <string name="when_overdue">When overdue</string>
-  <string name="when_due">When due</string>
-  <string name="when_started">When started</string>
   <string name="geofence_radius">Geofence radius</string>
   <string name="location_radius_meters">%s m</string>
   <string name="tags">Tags</string>
@@ -535,22 +512,10 @@ File %1$s contained %2$s.\n\n
   <string name="completed">Completed</string>
   <string name="snackbar_task_completed">Task completed</string>
   <string name="snackbar_tasks_completed">%d tasks completed</string>
-  <string name="alarm_before_start">%s before start</string>
-  <string name="alarm_after_start">%s after start</string>
-  <string name="alarm_before_due">%s before due</string>
-  <string name="alarm_after_due">%s after due</string>
-  <string name="alarm_before">before</string>
-  <string name="alarm_after">after</string>
-  <string name="alarm_start">start</string>
-  <string name="alarm_due">due</string>
-  <string name="snoozed_until">Snoozed until %s</string>
   <string name="snoozed_reminder">Snoozed reminder</string>
-  <string name="custom_notification">Custom notification</string>
   <string name="dismiss">Dismiss</string>
   <string name="hint_customize_edit_title">Too much information?</string>
   <string name="hint_customize_edit_body">You can customize this screen by rearranging or removing fields</string>
-  <string name="enable_reminders">Enable reminders</string>
-  <string name="enable_reminders_description">Reminders are disabled in Android Settings</string>
   <string name="enable_alarms">Get notified at the right time</string>
   <string name="enable_alarms_description">To make sure you\'re notified at the right time, grant permission to set alarms and reminders in Settings</string>
   <string name="legal_disclosure_prefix_using">By using Tasks.org</string>
@@ -570,4 +535,5 @@ File %1$s contained %2$s.\n\n
   <string name="button_learn_more">Learn more</string>
   <string name="widget_view_more_tasks">View more tasks</string>
   <string name="read_more">Read more</string>
+  <string name="pick_a_date_and_time">Pick a date and time</string>
 </resources>

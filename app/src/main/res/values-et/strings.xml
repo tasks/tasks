@@ -119,12 +119,9 @@
     <string name="row_spacing">Reavahed</string>
     <string name="customize_edit_screen">Kohanda muutmise vaadet</string>
     <string name="translations">Aita tõlkida</string>
-    <string name="add_reminder">Lisa meeldetuletus</string>
     <string name="add_location">Lisa asukoht</string>
     <string name="remove">Eemalda</string>
     <string name="pick_a_date_and_time">Vali kuupäev ja kellaaeg</string>
-    <string name="when_overdue">Kui on tähtaja ületanud</string>
-    <string name="when_due">Kui on tähtaja ületanud</string>
     <string name="geofence_radius">Geofence\'i raadius</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Sildid</string>
@@ -202,10 +199,6 @@
     <string name="default_random_reminder_weekly">Igal nädalal</string>
     <string name="compact">Kompaktne</string>
     <string name="lists">Loendid</string>
-    <plurals name="reminder_days">
-        <item quantity="one">Päev</item>
-        <item quantity="other">Päeva</item>
-    </plurals>
     <string name="filter_overdue">Üle tähtaja</string>
     <string name="sort_modified_group">Muudetud %s</string>
     <string name="device_settings">Nutiseadme seadistused</string>
@@ -219,21 +212,8 @@
     <string name="preferences_advanced">Edasijõudnutele</string>
     <string name="multi_select_reschedule">Muuda ajastust</string>
     <string name="rmd_EPr_defaultRemind_title">Juhuslikud meeldetuletused</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Tund</item>
-        <item quantity="other">Tundi</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Nädal</item>
-        <item quantity="other">Nädalat</item>
-    </plurals>
     <string name="new_tag">Loo uus silt</string>
     <string name="EPr_voiceInputEnabled_title">Salvesta heli</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minut</item>
-        <item quantity="other">Minutit</item>
-    </plurals>
-    <string name="randomly">Juhuslikult</string>
     <string name="icon">Ikoon</string>
     <string name="theme_dynamic">Dünaamiline</string>
     <string name="theme_system_default">Süsteemi vaikeseade</string>
@@ -293,8 +273,6 @@
     <string name="settings_default">Vaikimisi</string>
     <string name="support">Tugi</string>
     <string name="completed">Lõpetatud</string>
-    <string name="enable_reminders">Luba meeldetuletused</string>
-    <string name="custom_notification">Kohandatud teavitused</string>
     <string name="TEA_timer_comment_spent">Kulunud aeg:</string>
     <string name="opacity_header">Päise läbipaistmatus</string>
     <string name="opacity_row">Rea läbipaistmatus</string>
@@ -321,7 +299,6 @@
     <string name="markdown">Markdown</string>
     <string name="open_last_viewed_list">Ava viimati vaadatud loend</string>
     <string name="backups_ignore_warnings_summary">Eira varundushoiatusi, kui sa koopiaid ei vaja või sul on varundamiseks enda lahendus</string>
-    <string name="enable_reminders_description">Meeldetuletused on Androidi seadistustes keelatud</string>
     <string name="notification_disable_battery_optimizations_description">Aku optimeerimine võib teavitusi edasi lükata</string>
     <string name="notification_troubleshooting_summary">Vajuta siia, kui sul on teavitustega probleeme</string>
     <string name="EPr_voiceRemindersEnabled_title">Hääl-meeldetuletused</string>
@@ -355,7 +332,6 @@
     <string name="tasks_org_account_required">Vajalik on Tasks.org-i konto</string>
     <string name="save_percent">Salvesta %d%%</string>
     <string name="repeats_from">Kordub alates</string>
-    <string name="snoozed_until">Edasilükatud kuni %s</string>
     <string name="default_due_date">Vaikimisi tähtaeg</string>
     <string name="no_due_date">Tähtaeg puudub</string>
     <plurals name="repeat_n_minutes">
@@ -424,7 +400,6 @@
         <item quantity="one">%d nädal</item>
         <item quantity="other">%d nädalat</item>
     </plurals>
-    <string name="when_started">Kui on alustatud</string>
     <string name="quiet_hours_in_effect">Vaiksed tunnid on kasutusel</string>
     <string name="delete_comment">kommentaar</string>
     <string name="button_learn_more">Loe lisaks</string>
@@ -441,7 +416,6 @@
     <string name="restart_required">Selle muudatuse jõustamiseks käivita Tasks uuesti</string>
     <string name="show_edit_screen_without_unlock_summary">Võimaldab kiirseadistuste paani kasutamist ilma lukustust eemaldamata</string>
     <string name="location_departed">Väljusid: %s</string>
-    <string name="randomly_every">Juhuslikult iga %s</string>
     <string name="repeats_plural_number_of_times">Kordub iga %1$s, toimub %2$d %3$s</string>
     <string name="linkify_description">Lisa veebisaitide, aadresside ja telefoninumbrite linke</string>
     <string name="subscription">Tellimus</string>
@@ -465,7 +439,6 @@
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
-    <string name="alarm_before_start">%s enne alustamise tähtaega</string>
     <string name="account_not_included">Ei sisaldu „Paku oma hind“ taseme tellimustes</string>
     <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>
     <string name="filter_eisenhower_box_2">Tähtis ja mittekiire</string>
@@ -477,7 +450,6 @@
     <string name="auto_dismiss_datetime_edit">Ülesande muutmine</string>
     <string name="auto_dismiss_datetime_edit_summary">Ülesande muutmisvaatest valimisel sulge automaatselt</string>
     <string name="auto_dismiss_datetime_list_summary">Ülesannete loendist valimisel sulge automaatselt</string>
-    <string name="alarm_before_due">%s enne lõpptähtaega</string>
     <string name="auto_dismiss_datetime">Sulge kuupäevavalija automaatselt</string>
     <string name="android_auto_backup">Androidi varukoopiateenus</string>
     <string name="calendar_event_created">Kalendrisündmus loodud %s jaoks</string>
@@ -493,7 +465,6 @@
     <string name="upgrade_more_customization_description">Muuda kõik kujundused, värvid ja ikoonid saadavaks</string>
     <string name="android_auto_backup_device_summary">Sa pead varukoopiateenusega nutiseadme seadistustes liituma. Kõikides nutiseadmetes sellist võimalust pole.</string>
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
-    <string name="alarm_after_start">%s peale alustamise tähtaega</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
     <string name="background_location_permission_required">Selleks, et kasutada asukohapõhiseid meeldetuletusi ka siis, kui rakendus on suletud või pole kasutusel, kogub Tasks asukohaandmeid.</string>
     <string name="location_permission_required_location">Sinu praeguse asukoha tuvastamiseks on vaja õiguseid asukohateenuste kasutamiseks</string>
@@ -515,7 +486,6 @@
     <string name="foreground_location">Asukoht esiplaanil</string>
     <string name="upgrade_open_source_description">Sinu tellimus aitab toetada arendustöö jätkamist</string>
     <string name="background_location">Asukoht tagaplaanil</string>
-    <string name="alarm_after_due">%s peale lõpptähtaega</string>
     <string name="app_settings">Rakenduse seadistused</string>
     <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
     <string name="banner_app_updated_title">Rakendus on uuendatud</string>
@@ -532,10 +502,6 @@
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
     <string name="banner_subscription_required_title">Vajalik on tellimus</string>
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
-    <string name="alarm_before">enne</string>
-    <string name="alarm_after">peale</string>
-    <string name="alarm_start">algus</string>
-    <string name="alarm_due">tähtaeg</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>
     <string name="rmd_EPr_rmd_time_desc">Kogu päeva katvate ülesannete teavitused on nähtavad siin: %1$s</string>

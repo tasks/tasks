@@ -113,11 +113,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
@@ -149,11 +147,9 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
-import org.tasks.compose.blockForPendingCommits
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.priorityColor
-import org.tasks.compose.rememberShouldCommitEditsOnStop
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.StatusBarScrim
@@ -344,26 +340,6 @@ fun App(
             val hasAccount by appViewModel.hasAccount.collectAsState()
             val subscriptionProvider = koinInject<SubscriptionProvider>()
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
-
-            val shouldCommitEditsOnStop = rememberShouldCommitEditsOnStop()
-            // Every live editor commits from here rather than from its own composable. A task edit
-            // entry can leave composition while its key is still on the back stack - pushing a
-            // screen the list-detail scene doesn't recognise does exactly that - and an observer
-            // registered down there goes with it, taking the only save-on-background hook along.
-            // The view models outlive composition, so asking PendingTaskSaves still reaches them.
-            LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
-                // Not every stop is a departure: a rotation stops the activity, and on desktop so
-                // does minimizing the window. Committing there would turn a half-typed new task
-                // into a real one - written, synced, and left behind in the list if the user then
-                // abandons the editor.
-                if (shouldCommitEditsOnStop()) {
-                    pendingSaves.flushPending()
-                    // flushPending only posts the save onto an app-scoped dispatcher, and once this
-                    // returns the process can be killed before that ever runs - which would lose the
-                    // edit this hook exists to protect. Bounded, and a no-op off Android.
-                    blockForPendingCommits(COMMIT_ON_STOP_TIMEOUT_MS) { pendingSaves.awaitIdle() }
-                }
-            }
 
             // Layout geometry is read off the main thread; hold the first frame until it lands
             // rather than drawing defaults and animating to the stored values a frame later. Read
@@ -1738,10 +1714,6 @@ private fun TaskEditEntry(
     val isDark = isSystemInDarkTheme()
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
 
-    // Backgrounding is handled at the App level via PendingTaskSaves: this entry is disposed while
-    // its key is still on the back stack, so a lifecycle observer here would be gone exactly when
-    // the process is most likely to be killed.
-
     TaskEditScreen(
         viewModel = taskEditViewModel,
         filterPickerViewModel = filterPickerViewModel,
@@ -1839,14 +1811,6 @@ private fun List<NavKey>.isAddingAccount(): Boolean = any {
         it is CaldavSignInDestination ||
         it is EtebaseSignInDestination
 }
-
-/**
- * How long ON_STOP will hold the main thread waiting for the edit it just asked to be committed.
- *
- * Long enough for a local write and the sync bookkeeping around it, short enough that a stop is
- * never anywhere near the platform's own patience with one.
- */
-private const val COMMIT_ON_STOP_TIMEOUT_MS = 500L
 
 private val TaskListPaneMinWidth = 280.dp
 private val TaskEditPaneMinWidth = 360.dp

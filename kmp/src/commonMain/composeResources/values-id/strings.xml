@@ -440,6 +440,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
     <string name="no_title">(Tanpa judul)</string>
+    <string name="when_started">Ketika dimulai</string>
+    <string name="when_due">Saat jatuh tempo</string>
+    <string name="when_overdue">Saat lewat jatuh tempo</string>
+    <string name="randomly">Secara acak</string>
+    <string name="randomly_every">Acak setiap %1$s</string>
+    <string name="pick_a_date_and_time">Pilih tanggal dan waktu</string>
+    <string name="add_reminder">Tambah pengingat</string>
+    <string name="custom_notification">Notifikasi kustom</string>
+    <string name="alarm_before">sebelum</string>
+    <string name="alarm_after">setelah</string>
+    <string name="alarm_start">mulai</string>
+    <string name="alarm_due">jatuh tempo</string>
+    <string name="alarm_before_start">%1$s sebelum mulai</string>
+    <string name="alarm_after_start">%1$s setelah mulai</string>
+    <string name="alarm_before_due">%1$s sebelum jatuh tempo</string>
+    <string name="alarm_after_due">%1$s setelah jatuh tempo</string>
+    <string name="snoozed_until">Tunda sampai %1$s</string>
+    <string name="ring_once">Dering sekali</string>
+    <string name="ring_five_times">Dering lima kali</string>
+    <string name="ring_nonstop">Dering nonstop</string>
+    <string name="enable_reminders">Aktifkan pengingat</string>
+    <string name="enable_reminders_description">Pengingat dinonaktifkan di Pengaturan Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">Menit</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">Jam</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">Hari</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">Minggu</item>
+    </plurals>
     <string name="delete_task">Hapus tugas</string>
     <string name="menu_discard_changes">Buang perubahan</string>
     <string name="more_options">Opsi lebih banyak</string>

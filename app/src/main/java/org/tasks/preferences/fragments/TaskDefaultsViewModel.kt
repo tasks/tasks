@@ -17,10 +17,13 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.TagData
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.reminders.AlarmToString
+import org.tasks.compose.edit.ringModeString
+import org.tasks.compose.pickers.RING_MODES
+import org.tasks.reminders.getAlarmText
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.filters.CaldavFilter
 import tasks.kmp.generated.resources.Res
@@ -95,7 +98,9 @@ class TaskDefaultsViewModel @Inject constructor(
     val recurrenceFromValues: Array<String> = context.resources.getStringArray(R.array.repeat_type_values)
     val randomReminderEntries: Array<String> = context.resources.getStringArray(R.array.EPr_reminder_random)
     val randomReminderValues: Array<String> = context.resources.getStringArray(R.array.EPr_reminder_random_hours)
-    val remindersModeEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_reminders_mode)
+    val remindersModeEntries: Array<String> = runBlocking {
+        RING_MODES.map { getString(ringModeString(it)) }.toTypedArray()
+    }
     val remindersModeValues: Array<String> = context.resources.getStringArray(R.array.EPr_default_reminders_mode_values)
     val locationReminderEntries: Array<String> = context.resources.getStringArray(R.array.EPr_default_location_reminder)
     val locationReminderValues: Array<String> = context.resources.getStringArray(R.array.EPR_default_location_reminder_values)
@@ -285,15 +290,15 @@ class TaskDefaultsViewModel @Inject constructor(
             ?: doesNotRepeat
     }
 
-    fun refreshReminders() {
-        val alarms = runBlocking { preferences.defaultAlarms() }
+    fun refreshReminders() = viewModelScope.launch {
+        val alarms = preferences.defaultAlarms()
         remindersSummary = if (alarms.isEmpty()) {
             context.getString(R.string.no_reminders)
         } else {
-            val alarmToString = AlarmToString(context)
-            alarms.joinToString("\n") {
-                alarmToString.toString(it).replace("\n", ", ")
-            }
+            val is24HourFormat = context.is24HourFormat
+            alarms
+                .map { getAlarmText(it, is24HourFormat).replace("\n", ", ") }
+                .joinToString("\n")
         }
     }
 

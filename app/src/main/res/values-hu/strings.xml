@@ -177,13 +177,8 @@
     <string name="customize_edit_screen">Szerkesztő képernyő testreszabása</string>
     <string name="translations">Részvétel a fordításban</string>
     <string name="quiet_hours_summary">Emlékeztetők mellőzése csendes órák alatt</string>
-    <string name="add_reminder">Emlékeztető hozzáadása</string>
     <string name="add_location">Hely hozzáadása</string>
     <string name="remove">Eltávolítás</string>
-    <string name="randomly">Véletlenszerűen</string>
-    <string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
-    <string name="when_overdue">Határidő lejárta után</string>
-    <string name="when_due">Határidő elérésekor</string>
     <string name="geofence_radius">Távolság</string>
     <string name="tags">Címkék</string>
     <string name="filters">Szűrők</string>
@@ -443,43 +438,17 @@
     <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
     <string name="markdown">Markdown</string>
     <string name="now">Most</string>
-    <string name="when_started">A kezdetekor</string>
     <string name="completion_sound">Hang lejátszása készre állításkor</string>
     <string name="completed">Elvégzett</string>
     <string name="snackbar_task_completed">Feladat elvégezve</string>
     <string name="snackbar_tasks_completed">%d feladat elvégezve</string>
-    <string name="alarm_before_start">%s kezdés előtt</string>
-    <string name="alarm_after_start">%s kezdés után</string>
-    <string name="alarm_before_due">%s határidő előtt</string>
-    <string name="alarm_after_due">%s határidő után</string>
     <string name="custom_filter_has_reminder">Emlékeztetővel rendelkezik</string>
-    <string name="custom_notification">Egyedi értesítés</string>
-    <plurals name="reminder_days">
-        <item quantity="one">Nap</item>
-        <item quantity="other">Nap</item>
-    </plurals>
-    <string name="snoozed_until">Elhalasztva eddig: %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Perc</item>
-        <item quantity="other">Perc</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Óra</item>
-        <item quantity="other">Óra</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Hét</item>
-        <item quantity="other">Hét</item>
-    </plurals>
-    <string name="randomly_every">Véletlenszerűen minden %s</string>
     <string name="dismiss">Nyugtáz</string>
     <string name="customize_edit_screen_summary">Mezők átrendezése vagy törlése</string>
     <string name="hint_customize_edit_title">Túl sok információ\?</string>
     <string name="hint_customize_edit_body">Ez a képernyő a mezők átrendezésével vagy eltávolításával testre szabható</string>
     <string name="TEA_creation_date">Létrehozás dátuma</string>
     <string name="sort_completion_group">Elkészültség %s</string>
-    <string name="enable_reminders_description">Az emlékeztetők az Android beállításaiban ki vannak kapcsolva</string>
-    <string name="enable_reminders">Emlékeztetők engedélyezése</string>
     <string name="sort_list">Lista szerint</string>
     <string name="change_priority">Sürgősség módosítása</string>
     <string name="donate_today">Adományozzon ma</string>
@@ -533,10 +502,6 @@
     <string name="import_failed">Sikertelen importálás</string>
     <string name="banner_subscription_required_title">Előfizetés szükséges</string>
     <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
-    <string name="alarm_before">előtte</string>
-    <string name="alarm_after">utána</string>
-    <string name="alarm_start">kezdet</string>
-    <string name="alarm_due">esedékes</string>
     <string name="email_to_task">Feladat e-mailből</string>
     <string name="email_to_task_address">E-mail cím</string>
     <string name="rmd_EPr_rmd_time_desc">Az egész napos feladatok emlékeztetője %1$s jelenik meg</string>
@@ -563,4 +528,5 @@
     <string name="read_more">Mutass többet</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
+    <string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
 </resources>

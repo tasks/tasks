@@ -93,10 +93,7 @@
     <string name="customize_edit_screen">تعديل الشاشة</string>
     <string name="translations">ساهم في الترجمة</string>
     <string name="quiet_hours_summary">لا منبهات أثناء أوقات الراحة</string>
-    <string name="add_reminder">أضف منبه</string>
     <string name="remove">حذف</string>
-    <string name="randomly">عشوائياً</string>
-    <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
     <string name="filters">تصفيات</string>
     <string name="filter_settings">إعدادات التصفية</string>
     <string name="opacity">التعتيم</string>
@@ -392,8 +389,6 @@
     <string name="no_app_found">لا تطبيق يستطيع ادارة هذا الطلب</string>
     <string name="date_shortcut_tomorrow_afternoon">غدًا بعد الظهر</string>
     <string name="date_shortcut_afternoon">بعد الظهر</string>
-    <string name="when_due">عند الاستحقاق</string>
-    <string name="when_overdue">عند فوات الموعد</string>
     <string name="google_drive_backup">نسخ احتياطي كوكل درايف</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">تاسكس سيقرأ اسم المهمة أثناء مذكرات المهام</string>
     <string name="EPr_voiceInputEnabled_title">مدخل صوتي</string>
@@ -475,41 +470,11 @@
     <string name="completed">مكتمل</string>
     <string name="snackbar_task_completed">اكتملت المهمة</string>
     <string name="customize_edit_screen_summary">أعد ترتيب أو أزل الحقول</string>
-    <string name="randomly_every">عشوائياً كل %s</string>
     <string name="sort_completion_group">إكمال %s</string>
     <string name="custom_filter_has_reminder">لديه تذكير</string>
-    <string name="alarm_after_start">%s بعد البدئ</string>
-    <string name="alarm_before_due">%s حتى موعد الإنتهاء</string>
     <string name="snackbar_tasks_completed">%d مهمة اكتملت</string>
-    <string name="alarm_before_start">%s قبل البدئ</string>
-    <string name="alarm_after_due">%s بعد موعد الإنتهاء</string>
-    <string name="when_started">عند البدئ</string>
     <string name="completion_sound">تشغيل صوت الإكتمال</string>
     <string name="theme_dynamic">ديناميكى</string>
-    <plurals name="reminder_hours">
-        <item quantity="zero">صفر ساعة</item>
-        <item quantity="one">ساعة</item>
-        <item quantity="two">ساعتين</item>
-        <item quantity="few">ساعات</item>
-        <item quantity="many">ساعة</item>
-        <item quantity="other">ساعة</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="zero">صفر اسبوع</item>
-        <item quantity="one">اسبوع</item>
-        <item quantity="two">اسبوعين</item>
-        <item quantity="few">اسابيع</item>
-        <item quantity="many">اسبوع</item>
-        <item quantity="other">اسبوع</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="zero">صفر يوم</item>
-        <item quantity="one">يوم</item>
-        <item quantity="two">يومين</item>
-        <item quantity="few">أيام</item>
-        <item quantity="many">يوم</item>
-        <item quantity="other">يوم</item>
-    </plurals>
     <string name="sort_list">بالقائمة</string>
     <string name="swipe_to_snooze_title">التمرير للاغفاء</string>
     <string name="swipe_to_snooze_time_immediately">فورا</string>
@@ -517,14 +482,6 @@
     <string name="swipe_to_snooze_time_30_minutes">بعد نصف ساعه</string>
     <string name="swipe_to_snooze_time_1_hour">بعد ساعه</string>
     <string name="swipe_to_snooze_time_24_hours">بعد ٢٤ ساعه</string>
-    <plurals name="reminder_minutes">
-        <item quantity="zero">صفر دقيقة</item>
-        <item quantity="one">دقيقة</item>
-        <item quantity="two">دقيقتين</item>
-        <item quantity="few">دقائق</item>
-        <item quantity="many">دقيقة</item>
-        <item quantity="other">دقيقة</item>
-    </plurals>
     <string name="change_priority">تغيير الاولوية</string>
     <string name="dismiss">استبعاد</string>
     <string name="app_settings">إعدادات التطبيق</string>
@@ -549,10 +506,7 @@
     <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>
     <string name="sync_warning_microsoft">لا تتم مزامنة جميع تفاصيل المهام مع Microsoft To Do.</string>
     <string name="price_per_month_with_currency">%s/شهر</string>
-    <string name="snoozed_until">مؤجل حتى%s</string>
     <string name="button_learn_more">تعرف على المزيد</string>
-    <string name="custom_notification">إشعار مخصص</string>
-    <string name="enable_reminders_description">التذكيرات معطلة في إعدادات أندرويد</string>
     <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
@@ -561,9 +515,9 @@
     <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>
     <string name="sync_warning_google_tasks_title">حول مزامنة مهام جوجل</string>
     <string name="sync_warning_google_tasks">لا تتم مزامنة جميع تفاصيل المهام مع مهام جوجل</string>
-    <string name="enable_reminders">تفعيل التذكيرات</string>
     <string name="price_per_year_with_currency">%s/السنة</string>
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
     <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="widget_view_more_tasks">عرض المزيد من المهام</string>
+    <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
 </resources>

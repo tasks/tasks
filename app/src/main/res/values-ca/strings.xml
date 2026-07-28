@@ -163,30 +163,15 @@
     <string name="ring_five_times">Sona cinc cops</string>
     <string name="ring_nonstop">Sona ininterrompudament</string>
     <string name="snooze_all">Posposa tot</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Hora</item>
-        <item quantity="many">Hores</item>
-        <item quantity="other">Hores</item>
-    </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d setmana</item>
         <item quantity="many">%d setmanes</item>
         <item quantity="other">%d setmanes</item>
     </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Setmana</item>
-        <item quantity="many">Setmanes</item>
-        <item quantity="other">Setmanes</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d dia</item>
         <item quantity="many">%d dies</item>
         <item quantity="other">%d dies</item>
-    </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minut</item>
-        <item quantity="many">Minuts</item>
-        <item quantity="other">Minuts</item>
     </plurals>
     <string name="sort_list">Per llista</string>
     <plurals name="repeat_times">
@@ -198,11 +183,6 @@
         <item quantity="one">%d hora</item>
         <item quantity="many">%d hores</item>
         <item quantity="other">%d hores</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Dia</item>
-        <item quantity="many">Dies</item>
-        <item quantity="other">Dies</item>
     </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minut</item>
@@ -288,16 +268,13 @@
     <string name="date_shortcut_evening">Vespre</string>
     <string name="list_separator_with_space">", "</string>
     <string name="swipe_to_snooze_title">Llisca per posposar</string>
-    <string name="add_reminder">Afegeix un recordatori</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
     <string name="pick_a_date_and_time">Escull una data i hora</string>
-    <string name="when_overdue">En cas d\'haver-se retardat</string>
     <string name="tag_settings">Preferències de les etiquetes</string>
     <string name="font_size">Tamany de la font</string>
     <string name="row_spacing">Espaiat de les files</string>
     <string name="customize_edit_screen">Personalitza la pantalla d\'edició</string>
     <string name="enabled">Activat</string>
-    <string name="when_started">Quan comenci</string>
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s ha d\'anar abans de %2$s</string>
     <string name="discard">Descarta</string>
@@ -310,9 +287,6 @@
     <string name="subtasks">Subtasques</string>
     <string name="header_spacing">Espaiat</string>
     <string name="remove">Elimina</string>
-    <string name="randomly">Aleatòriament</string>
-    <string name="randomly_every">Aleatòriament cada %s</string>
-    <string name="when_due">Quan venci</string>
     <string name="move">Mou</string>
     <string name="filter_criteria_unstarted">No iniciades</string>
     <string name="add_attachment">Afegeix un adjunt</string>
@@ -509,17 +483,9 @@
     <string name="completed">Completat</string>
     <string name="snackbar_task_completed">Tasca completada</string>
     <string name="snackbar_tasks_completed">%d tasques completades</string>
-    <string name="alarm_before_start">%s abans d\'iniciar</string>
-    <string name="alarm_after_start">%s després d\'iniciar</string>
-    <string name="alarm_before_due">%s abans de venciment</string>
-    <string name="alarm_after_due">%s després de venciment</string>
-    <string name="snoozed_until">Posposat fins a %s</string>
-    <string name="custom_notification">Notificació personalitzada</string>
     <string name="dismiss">Descarteu</string>
     <string name="hint_customize_edit_title">Massa informació?</string>
     <string name="hint_customize_edit_body">Podeu personalitzar aquesta pantalla reordenant o eliminant camps</string>
-    <string name="enable_reminders">Habiliteu els recordatoris</string>
-    <string name="enable_reminders_description">Els recordatoris estan desactivats a la configuració de l\'Android</string>
     <string name="enable_alarms">Notifiqueu-vos en el moment adequat</string>
     <string name="enable_alarms_description">Per assegurar-vos que us notifiqueu en el moment adequat, concediu permís per establir alarmes i recordatoris a la configuració</string>
     <string name="cost_money">Cost: $</string>

@@ -21,6 +21,8 @@
     <string name="tomorrow_abbrev_lowercase">rahampitso</string>
     <string name="tomorrow">Rahampitso</string>
     <string name="tomorrow_lowercase">rahampitso</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Miverina</string>
     <string name="display_name">Anaranao isehoana</string>
     <string name="backup_BPr_header">Tahirin'ny zava-bita</string>
 </resources>

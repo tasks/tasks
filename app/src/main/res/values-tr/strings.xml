@@ -177,13 +177,8 @@
     <string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
     <string name="translations">Çeviri katkıları</string>
     <string name="quiet_hours_summary">Sessiz saatlerde anımsatıcı yok</string>
-    <string name="add_reminder">Anımsatıcı ekle</string>
     <string name="add_location">Konum ekle</string>
     <string name="remove">Kaldır</string>
-    <string name="randomly">Gelişigüzel</string>
-    <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
-    <string name="when_overdue">Geciktiğinde</string>
-    <string name="when_due">Zamanı geldiğinde</string>
     <string name="geofence_radius">Coğrafi sınır yarıçapı</string>
     <string name="tags">Etiketler</string>
     <string name="filters">Süzgeçler</string>
@@ -443,41 +438,15 @@
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
     <string name="now">Şimdi</string>
-    <string name="when_started">Başladığında</string>
     <string name="completion_sound">Tamamlandığında ses çal</string>
     <string name="completed">Tamamlandı</string>
     <string name="snackbar_task_completed">Görev tamamlandı</string>
     <string name="snackbar_tasks_completed">%d görev tamamlandı</string>
     <string name="custom_filter_has_reminder">Anımsatıcılı</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Saat</item>
-        <item quantity="other">Saat</item>
-    </plurals>
-    <string name="custom_notification">Özel bildirim</string>
-    <string name="snoozed_until">Şuna dek ertelendi: %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Dakika</item>
-        <item quantity="other">Dakika</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Gün</item>
-        <item quantity="other">Gün</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Hafta</item>
-        <item quantity="other">Hafta</item>
-    </plurals>
-    <string name="alarm_after_start">Başladıktan sonra %s</string>
-    <string name="alarm_before_due">Bitişten önce %s</string>
-    <string name="alarm_after_due">Bitişten sonra %s</string>
-    <string name="alarm_before_start">Başlamadan önce %s</string>
-    <string name="randomly_every">Rastgele her %s</string>
     <string name="customize_edit_screen_summary">Alanları yeniden düzenle veya kaldır</string>
     <string name="dismiss">Kapat</string>
     <string name="hint_customize_edit_title">Çok bilgi mi var\?</string>
     <string name="hint_customize_edit_body">Alanları yeniden düzenleyerek veya kaldırarak bu ekranı özelleştirebilirsiniz</string>
-    <string name="enable_reminders">Anımsatıcıları etkinleştir</string>
-    <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
     <string name="sort_completion_group">Tamamlanma %s</string>
     <string name="TEA_creation_date">Oluşturulma zamanı</string>
     <string name="sort_list">Listeye göre</string>
@@ -533,10 +502,6 @@
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
     <string name="banner_subscription_required_title">Abonelik gereklidir</string>
     <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
-    <string name="alarm_before">önce</string>
-    <string name="alarm_after">sonra</string>
-    <string name="alarm_start">başlangıç</string>
-    <string name="alarm_due">bitiş</string>
     <string name="add_default_reminders">Öntanımlı anımsatıcı ekle</string>
     <string name="default_reminder">Tüm gün görevleri</string>
     <string name="rmd_time_enabled_on">Tüm gün görevlerine öntanımlı anımsatıcı ekle</string>
@@ -565,4 +530,5 @@
     <string name="upgrade_desktop_app_description">Yeni masaüstü uygulamasına erken erişim</string>
     <string name="sort_options">Sıralama seçenekleri</string>
     <string name="snoozed_reminder">Anımsatıcı ertelendi</string>
+    <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
 </resources>

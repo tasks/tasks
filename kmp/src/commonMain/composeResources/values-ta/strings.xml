@@ -329,6 +329,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
     <string name="no_title">(தலைப்பு இல்லை)</string>
+    <string name="when_started">தொடங்கும்போது</string>
+    <string name="when_due">காரணமாக இருக்கும்போது</string>
+    <string name="when_overdue">தாமதமாகும்போது</string>
+    <string name="randomly">சீரற்ற</string>
+    <string name="randomly_every">தோராயமாக ஒவ்வொரு %1$s</string>
+    <string name="pick_a_date_and_time">தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுங்கள்</string>
+    <string name="add_reminder">நினைவூட்டலைச் சேர்க்கவும்</string>
+    <string name="custom_notification">தனிப்பயன் notification</string>
+    <string name="alarm_before">முன்</string>
+    <string name="alarm_after">பிறகு</string>
+    <string name="alarm_start">தொடக்கம்</string>
+    <string name="alarm_due">உரிய</string>
+    <string name="alarm_before_start">தொடங்குவதற்கு முன் %1$s</string>
+    <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %1$s</string>
+    <string name="alarm_before_due">வருவதற்கு முன் %1$s</string>
+    <string name="alarm_after_due">உரிய பிறகு %1$s</string>
+    <string name="snoozed_until">%1$s வரை உறக்கநிலை</string>
+    <string name="ring_once">ஒரு முறை ஒலி</string>
+    <string name="ring_five_times">ஐந்து முறை ஒலி</string>
+    <string name="ring_nonstop">நிறுத்தாமல் ஒலி</string>
+    <string name="enable_reminders">நினைவூட்டல்களை இயக்கவும்</string>
+    <string name="enable_reminders_description">ஆண்ட்ராய்டு அமைப்புகளில் நினைவூட்டல்கள் முடக்கப்பட்டுள்ளன</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">நிமையம்</item>
+        <item quantity="other">நிமையங்கள்</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">மணி</item>
+        <item quantity="other">மணிகள்</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">நாள்</item>
+        <item quantity="other">நாட்கள்</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">வாரம்</item>
+        <item quantity="other">வாரங்கள்</item>
+    </plurals>
     <string name="delete_task">பணியை நீக்கு</string>
     <string name="menu_discard_changes">மாற்றங்களை கைவிடலாமா</string>
     <string name="more_options">மேலும் விருப்பங்கள்</string>

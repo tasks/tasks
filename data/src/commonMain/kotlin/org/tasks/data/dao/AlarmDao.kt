@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Task
@@ -31,6 +32,9 @@ WHERE tasks._id = :taskId
 
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
+
+    @Query("SELECT * FROM alarms WHERE task = :taskId")
+    fun watchAlarms(taskId: Long): Flow<List<Alarm>>
 
     @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
     suspend fun deleteSnoozed(taskIds: List<Long>)

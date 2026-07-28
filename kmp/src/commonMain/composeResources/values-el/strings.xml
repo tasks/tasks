@@ -329,6 +329,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
     <string name="no_title">(Χωρίς τίτλο)</string>
+    <string name="when_started">Πότε ξεκίνησε</string>
+    <string name="when_due">Πότε πρέπει</string>
+    <string name="when_overdue">Όταν έχει καθυστερήσει</string>
+    <string name="randomly">Τυχαία</string>
+    <string name="randomly_every">Τυχαία κάθε %1$s</string>
+    <string name="pick_a_date_and_time">Επιλέξτε μια ημερομηνία και ώρα</string>
+    <string name="add_reminder">Προσθήκη υπενθύμισης</string>
+    <string name="custom_notification">Προσαρμοσμένη ειδοποίηση</string>
+    <string name="alarm_before_start">%1$s πριν την έναρξη</string>
+    <string name="alarm_after_start">%1$s μετά την έναρξη</string>
+    <string name="alarm_before_due">%1$s πριν την προθεσμία</string>
+    <string name="alarm_after_due">%1$s μετά την προθεσμία</string>
+    <string name="snoozed_until">Αναβλήθηκε μέχρι %1$s</string>
+    <string name="ring_once">Μόνο χτύπημα</string>
+    <string name="ring_five_times">Χτύπημα πέντε φορές</string>
+    <string name="ring_nonstop">Ασταμάτητο χτύπημα</string>
+    <string name="enable_reminders">Ενεργοποίηση υπενθυμίσεων</string>
+    <string name="enable_reminders_description">Οι υπενθυμίσεις είναι απενεργοποιημένες στις Ρυθμίσεις Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Λεπτό</item>
+        <item quantity="other">Λεπτά</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Ώρα</item>
+        <item quantity="other">Ώρες</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Μέρα</item>
+        <item quantity="other">Μέρες</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Εβδομάδα</item>
+        <item quantity="other">Εβδομάδες</item>
+    </plurals>
     <string name="delete_task">Διαγραφή καθήκοντος</string>
     <string name="menu_discard_changes">Απόρριψη αλλαγών</string>
     <string name="more_options">Περισσότερες επιλογές</string>

@@ -270,12 +270,6 @@
     <item>@string/theme_system_default</item>
   </string-array>
 
-  <string-array name="EPr_default_reminders_mode">
-    <item>@string/ring_once</item>
-    <item>@string/ring_five_times</item>
-    <item>@string/ring_nonstop</item>
-  </string-array>
-
   <string name="p_collect_statistics">collect_statistics</string>
   <string name="p_back_button_saves_task">back_button_saves_task</string>
 

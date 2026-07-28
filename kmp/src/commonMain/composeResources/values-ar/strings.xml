@@ -393,6 +393,56 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
     <string name="no_title">(لا عنوان)</string>
+    <string name="when_started">عند البدئ</string>
+    <string name="when_due">عند الاستحقاق</string>
+    <string name="when_overdue">عند فوات الموعد</string>
+    <string name="randomly">عشوائياً</string>
+    <string name="randomly_every">عشوائياً كل %1$s</string>
+    <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
+    <string name="add_reminder">أضف منبه</string>
+    <string name="custom_notification">إشعار مخصص</string>
+    <string name="alarm_before_start">%1$s قبل البدئ</string>
+    <string name="alarm_after_start">%1$s بعد البدئ</string>
+    <string name="alarm_before_due">%1$s حتى موعد الإنتهاء</string>
+    <string name="alarm_after_due">%1$s بعد موعد الإنتهاء</string>
+    <string name="snoozed_until">مؤجل حتى%1$s</string>
+    <string name="ring_once">الرنّ مرة واحدة</string>
+    <string name="ring_five_times">الرنّ خمس مرات</string>
+    <string name="ring_nonstop">الرنّ بدون توقّف</string>
+    <string name="enable_reminders">تفعيل التذكيرات</string>
+    <string name="enable_reminders_description">التذكيرات معطلة في إعدادات أندرويد</string>
+    <plurals name="reminder_minutes">
+        <item quantity="zero">صفر دقيقة</item>
+        <item quantity="one">دقيقة</item>
+        <item quantity="two">دقيقتين</item>
+        <item quantity="few">دقائق</item>
+        <item quantity="many">دقيقة</item>
+        <item quantity="other">دقيقة</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="zero">صفر ساعة</item>
+        <item quantity="one">ساعة</item>
+        <item quantity="two">ساعتين</item>
+        <item quantity="few">ساعات</item>
+        <item quantity="many">ساعة</item>
+        <item quantity="other">ساعة</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="zero">صفر يوم</item>
+        <item quantity="one">يوم</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">يوم</item>
+        <item quantity="other">يوم</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="zero">صفر اسبوع</item>
+        <item quantity="one">اسبوع</item>
+        <item quantity="two">اسبوعين</item>
+        <item quantity="few">اسابيع</item>
+        <item quantity="many">اسبوع</item>
+        <item quantity="other">اسبوع</item>
+    </plurals>
     <string name="delete_task">حذف المهمة</string>
     <string name="menu_discard_changes">تجاهل التغييرات</string>
     <string name="more_options">خيارات أكثر</string>

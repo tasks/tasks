@@ -61,6 +61,7 @@ import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
+import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.repeats.CustomRecurrenceViewModel
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCleanup
@@ -409,6 +410,8 @@ val commonModule = module {
             taskMover = get(),
             tagDao = get(),
             tagDataDao = get(),
+            alarmDao = get(),
+            alarmService = get(),
             appPreferences = get(),
             externalScope = get(),
             pendingSaves = get(),
@@ -416,6 +419,7 @@ val commonModule = module {
             taskDeleter = get(),
         )
     }
+    viewModel { ReminderControlSetViewModel() }
     viewModel {
         TagPickerViewModel(
             tagDataDao = get(),

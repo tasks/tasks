@@ -468,6 +468,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
     <string name="no_title">(kein Titel)</string>
+    <string name="when_started">Wenn begonnen</string>
+    <string name="when_due">Wenn fällig</string>
+    <string name="when_overdue">Wenn überfällig</string>
+    <string name="randomly">Zufällig</string>
+    <string name="randomly_every">Zufällig alle %1$s</string>
+    <string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
+    <string name="add_reminder">Erinnerung hinzufügen</string>
+    <string name="custom_notification">Benutzerdefinierte Erinnerung</string>
+    <string name="alarm_before">vor</string>
+    <string name="alarm_after">nach</string>
+    <string name="alarm_start">Start</string>
+    <string name="alarm_due">fällig</string>
+    <string name="alarm_before_start">%1$s vor dem Start</string>
+    <string name="alarm_after_start">%1$s nach dem Start</string>
+    <string name="alarm_before_due">%1$s vor Fälligkeit</string>
+    <string name="alarm_after_due">%1$s nach Fälligkeit</string>
+    <string name="snoozed_until">Pausiert bis %1$s</string>
+    <string name="ring_once">Einmal klingeln</string>
+    <string name="ring_five_times">Fünfmal klingeln</string>
+    <string name="ring_nonstop">Ununterbrochen klingeln</string>
+    <string name="enable_reminders">Erinnerungen aktivieren</string>
+    <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minute</item>
+        <item quantity="other">Minuten</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Stunde</item>
+        <item quantity="other">Stunden</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Woche</item>
+        <item quantity="other">Wochen</item>
+    </plurals>
     <string name="delete_task">Aufgabe löschen</string>
     <string name="menu_discard_changes">Änderungen verwerfen</string>
     <string name="more_options">Weitere Optionen</string>

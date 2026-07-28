@@ -107,7 +107,6 @@
     <string name="tomorrow">Αύριο</string>
     <string name="remove">Αφαίρεση</string>
     <string name="add_location">Προσθήκη τοποθεσίας</string>
-    <string name="add_reminder">Προσθήκη υπενθύμισης</string>
     <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
     <string name="action_open">Ανοίξτε το</string>
@@ -184,33 +183,17 @@
         <item quantity="one">ώρα</item>
         <item quantity="other">ώρες</item>
     </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Λεπτό</item>
-        <item quantity="other">Λεπτά</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d λεπτό</item>
         <item quantity="other">%d λεπτά</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Ώρα</item>
-        <item quantity="other">Ώρες</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d ώρα</item>
         <item quantity="other">%d ώρες</item>
     </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Μέρα</item>
-        <item quantity="other">Μέρες</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d μέρα</item>
         <item quantity="other">%d μέρες</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Εβδομάδα</item>
-        <item quantity="other">Εβδομάδες</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d εβδομάδα</item>
@@ -438,17 +421,9 @@
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="snackbar_task_completed">Η εργασία ολοκληρώθηκε</string>
     <string name="snackbar_tasks_completed">%d ολοκληρωμένες εργασίες</string>
-    <string name="alarm_before_start">%s πριν την έναρξη</string>
-    <string name="alarm_after_start">%s μετά την έναρξη</string>
-    <string name="alarm_before_due">%s πριν την προθεσμία</string>
-    <string name="alarm_after_due">%s μετά την προθεσμία</string>
-    <string name="snoozed_until">Αναβλήθηκε μέχρι %s</string>
-    <string name="custom_notification">Προσαρμοσμένη ειδοποίηση</string>
     <string name="dismiss">Απορρίψτε</string>
     <string name="hint_customize_edit_title">Πάρα πολλές πληροφορίες;</string>
     <string name="hint_customize_edit_body">Μπορείτε να προσαρμόσετε αυτή την οθόνη αναδιατάσσοντας ή αφαιρώντας πεδία</string>
-    <string name="enable_reminders">Ενεργοποίηση υπενθυμίσεων</string>
-    <string name="enable_reminders_description">Οι υπενθυμίσεις είναι απενεργοποιημένες στις Ρυθμίσεις Android</string>
     <string name="enable_alarms">Ενημερωθείτε την κατάλληλη στιγμή</string>
     <string name="enable_alarms_description">Για να βεβαιωθείτε ότι θα ειδοποιηθείτε την κατάλληλη στιγμή, παραχωρήστε άδεια δημιουργίας υπενθυμίσεων και ειδοποιήσεων στις Ρυθμίσεις</string>
     <string name="cost_money">Κόστος: $</string>
@@ -467,12 +442,6 @@
     <string name="customize_edit_screen_summary">Αναδιάταξη ή κατάργηση πεδίων</string>
     <string name="translations">Συνεισφέρετε μεταφράσεις</string>
     <string name="quiet_hours_summary">Καθόλου υπενθυμίσεις κατά τη διάρκεια των ωρών ησυχίας</string>
-    <string name="randomly_every">Τυχαία κάθε %s</string>
-    <string name="randomly">Τυχαία</string>
-    <string name="pick_a_date_and_time">Επιλέξτε μια ημερομηνία και ώρα</string>
-    <string name="when_overdue">Όταν έχει καθυστερήσει</string>
-    <string name="when_due">Πότε πρέπει</string>
-    <string name="when_started">Πότε ξεκίνησε</string>
     <string name="geofence_radius">Ακτίνα γεωφράγματος</string>
     <string name="location_radius_meters">%s μ</string>
     <string name="tags">Ετικέτες</string>
@@ -527,4 +496,5 @@
     <string name="widget_due_date_below_title">Κάτω από τον τίτλο</string>
     <string name="widget_due_date_hidden">Κρυμμένο</string>
     <string name="clear_completed_tasks_confirmation">Διαγραφή ολοκληρωμένων εργασιών;</string>
+    <string name="pick_a_date_and_time">Επιλέξτε μια ημερομηνία και ώρα</string>
 </resources>

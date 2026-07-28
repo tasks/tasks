@@ -44,6 +44,8 @@
     <string name="microsoft_selection_description">Sinkronizatu zure Microsoft kontu pertsonalarekin</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="upgrade_to_pro">Aldatu pro bertsiora</string>
+    <string name="ok">Ados</string>
+    <string name="cancel">Ezeztatu</string>
     <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
@@ -293,6 +295,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
     <string name="no_title">(Izenbururik ez)</string>
+    <string name="when_started">Hasten denean</string>
+    <string name="when_due">Epemugan</string>
+    <string name="when_overdue">Epemuga gaindituta badago</string>
+    <string name="randomly">Ausaz</string>
+    <string name="randomly_every">Ausaz, %1$s bakoitza</string>
+    <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
+    <string name="add_reminder">Gehitu oroigarria</string>
+    <string name="custom_notification">Jakinarazpen pertsonalizatua</string>
+    <string name="alarm_before_start">%1$s hasi aurretik</string>
+    <string name="alarm_after_start">%1$s hasi ondoren</string>
+    <string name="alarm_before_due">%1$s epemuga baino lehen</string>
+    <string name="alarm_after_due">%1$s epemuga ondoren</string>
+    <string name="snoozed_until">%1$s-rainora atzeratuta</string>
+    <string name="ring_once">Doinua behin</string>
+    <string name="ring_five_times">Doinua bost aldiz</string>
+    <string name="ring_nonstop">Doinua etengabe</string>
+    <string name="enable_reminders">Aktibatu oroigarriak</string>
+    <string name="enable_reminders_description">Oroigarriak desgaituta daude Androiden ezarpenetan</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minutu</item>
+        <item quantity="other">Minutu</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Ordu</item>
+        <item quantity="other">Ordu</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Egun</item>
+        <item quantity="other">Egun</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Aste</item>
+        <item quantity="other">Aste</item>
+    </plurals>
     <string name="delete_task">Ezabatu zeregina</string>
     <string name="menu_discard_changes">Baztertu aldaketak</string>
     <string name="more_options">Aukera gehiago</string>

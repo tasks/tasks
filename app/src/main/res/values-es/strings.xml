@@ -183,13 +183,8 @@
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
     <string name="translations">Contribuir con la traducción</string>
     <string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
-    <string name="add_reminder">Añadir recordatorio</string>
     <string name="add_location">Añadir ubicación</string>
     <string name="remove">Eliminar</string>
-    <string name="randomly">Aleatoriamente</string>
-    <string name="pick_a_date_and_time">Elegir fecha y hora</string>
-    <string name="when_overdue">Si está atrasada</string>
-    <string name="when_due">En la fecha límite</string>
     <string name="geofence_radius">Radio de la geocerca</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
@@ -450,45 +445,15 @@
     <string name="markdown_description">Activar Markdown en el título y la descripción</string>
     <string name="markdown">Markdown</string>
     <string name="now">Ahora</string>
-    <string name="when_started">Cuando comience</string>
     <string name="completion_sound">Reproducir el sonido de finalización</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarea terminada</string>
     <string name="snackbar_tasks_completed">%d tareas completadas</string>
-    <string name="alarm_after_due">%s después de la fecha límite</string>
-    <string name="alarm_before_start">%s antes de empezar</string>
-    <string name="alarm_after_start">%s tras el inicio</string>
-    <string name="alarm_before_due">%s antes de la fecha límite</string>
     <string name="custom_filter_has_reminder">Tiene recordatorio</string>
-    <string name="snoozed_until">Pospuesto hasta %s</string>
-    <plurals name="reminder_week">
-        <item quantity="one">Semana</item>
-        <item quantity="many">Semanas</item>
-        <item quantity="other">Semanas</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Hora</item>
-        <item quantity="many">Horas</item>
-        <item quantity="other">Horas</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Día</item>
-        <item quantity="many">Días</item>
-        <item quantity="other">Días</item>
-    </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuto</item>
-        <item quantity="many">Minutos</item>
-        <item quantity="other">Minutos</item>
-    </plurals>
-    <string name="custom_notification">Notificación personalizada</string>
-    <string name="randomly_every">Aleatoriamente cada %s</string>
     <string name="dismiss">Descartar</string>
     <string name="customize_edit_screen_summary">Reorganizar o quitar campos</string>
     <string name="hint_customize_edit_title">¿Demasiada información\?</string>
     <string name="hint_customize_edit_body">Puede personalizar esta pantalla reorganizando o eliminando campos</string>
-    <string name="enable_reminders">Activar los recordatorios</string>
-    <string name="enable_reminders_description">Los recordatorios están deshabilitados en la configuración de Android</string>
     <string name="sort_completion_group">Completar %s</string>
     <string name="TEA_creation_date">Fecha de creación</string>
     <string name="sort_list">Por lista</string>
@@ -550,9 +515,6 @@
     <string name="banner_subscription_required_title">Suscripción necesaria</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_friends_and_family">Amigos y familia</string>
-    <string name="alarm_before">antes</string>
-    <string name="alarm_after">después</string>
-    <string name="alarm_start">inicio</string>
-    <string name="alarm_due">pendiente</string>
     <string name="read_more">Leer más</string>
+    <string name="pick_a_date_and_time">Elegir fecha y hora</string>
 </resources>

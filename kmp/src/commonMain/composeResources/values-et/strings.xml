@@ -468,6 +468,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Lõpetamise kuupäev</string>
     <string name="no_title">(Pealkirjata)</string>
+    <string name="when_started">Kui on alustatud</string>
+    <string name="when_due">Kui on tähtaja ületanud</string>
+    <string name="when_overdue">Kui on tähtaja ületanud</string>
+    <string name="randomly">Juhuslikult</string>
+    <string name="randomly_every">Juhuslikult iga %1$s</string>
+    <string name="pick_a_date_and_time">Vali kuupäev ja kellaaeg</string>
+    <string name="add_reminder">Lisa meeldetuletus</string>
+    <string name="custom_notification">Kohandatud teavitused</string>
+    <string name="alarm_before">enne</string>
+    <string name="alarm_after">peale</string>
+    <string name="alarm_start">algus</string>
+    <string name="alarm_due">tähtaeg</string>
+    <string name="alarm_before_start">%1$s enne alustamise tähtaega</string>
+    <string name="alarm_after_start">%1$s peale alustamise tähtaega</string>
+    <string name="alarm_before_due">%1$s enne lõpptähtaega</string>
+    <string name="alarm_after_due">%1$s peale lõpptähtaega</string>
+    <string name="snoozed_until">Edasilükatud kuni %1$s</string>
+    <string name="ring_once">Helista üks kord</string>
+    <string name="ring_five_times">Helista 5 korda</string>
+    <string name="ring_nonstop">Helista lõputult</string>
+    <string name="enable_reminders">Luba meeldetuletused</string>
+    <string name="enable_reminders_description">Meeldetuletused on Androidi seadistustes keelatud</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="other">Minutit</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Tund</item>
+        <item quantity="other">Tundi</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Päev</item>
+        <item quantity="other">Päeva</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Nädal</item>
+        <item quantity="other">Nädalat</item>
+    </plurals>
     <string name="delete_task">Kustuta ülesanne</string>
     <string name="menu_discard_changes">Loobu muudatustest</string>
     <string name="more_options">Rohkem valikuid</string>

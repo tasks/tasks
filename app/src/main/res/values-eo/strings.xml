@@ -69,7 +69,6 @@
     <string name="TEA_add_subtask">Aldoni subtaskon</string>
     <string name="filter_today_only">Nur hodiaŭ</string>
     <string name="chip_appearance_text_only">Nur teksto</string>
-    <string name="randomly">Hazarde</string>
     <string name="default_random_reminder_bi_weekly">Ĉiudusemajne</string>
     <string name="default_random_reminder_weekly">Ĉiusemajne</string>
     <string name="default_random_reminder_daily">Ĉiutage</string>
@@ -178,7 +177,6 @@
     <string name="geofence_radius">Virtuala periferio</string>
     <string name="pick_a_date_and_time">Elekti daton kaj horon</string>
     <string name="add_location">Aldoni lokon</string>
-    <string name="add_reminder">Memorigi</string>
     <string name="row_spacing">Intervica spaco</string>
     <string name="header_spacing">Interspaco</string>
     <string name="enabled">Ŝaltita</string>
@@ -241,10 +239,7 @@
     <string name="calendar_event_created">Kreis kalendara evento por %s</string>
     <string name="sort_created_group">Kreite: %s</string>
     <string name="EPr_manage_delete_completed_gcal_message">Ĉu vi vere volas forigi ĉiujn de viaj eventoj de finitaj taskoj?</string>
-    <string name="when_due">Kiam atendata</string>
-    <string name="when_started">Kiam komencita</string>
     <string name="pick_this_location">Elekti ĉi tiun lokon</string>
-    <string name="when_overdue">Kiam malfrua</string>
     <string name="auto_dismiss_datetime_list_summary">Aŭtomate fermi kiam elekti per taskolisto</string>
     <string name="sort_modified_group">Modifita: %s</string>
     <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taskredaktilo</string>
@@ -253,9 +248,6 @@
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
     <string name="filters">Filtriloj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
-    <string name="snoozed_until">Paŭzigite ĝis %s</string>
-    <string name="randomly_every">Hazarde ĉiu %s</string>
-    <string name="alarm_after_due">%s post limdato</string>
     <string name="widget_due_date_after_title">Post titolo</string>
     <string name="widget_header_settings">Kapaj agordoj</string>
     <string name="linkify">Vidigi ligilojn</string>
@@ -266,28 +258,14 @@
     <string name="CFC_importance_text">Prioritato almenaŭ estas ?</string>
     <string name="persistent_notifications_description">Daŭraj sciigoj ne povas esti forigitaj</string>
     <string name="action_new_task">Nova tasko</string>
-    <string name="alarm_after_start">%s post komenco</string>
     <string name="astrid_sort_order_summary">Por ebligi manan ordigon de Astrid por \'Miaj Taskoj\', \'Hodiaŭ\', kaj etikedoj. Ĉi tiu maniero de ordigi estos anstataŭigita per \'Mia ordigo\' per estonta ĝisdatigo</string>
     <string name="EPr_default_location_reminder_title">Defaŭltaj lokaj memorigiloj</string>
     <string name="gtasks_error_accountNotFound">Konto de %s ne trovite —bonvolu elsaluti kaj reensaluti per la agordoj de Google Tasks.</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuto</item>
-        <item quantity="other">Minutoj</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Horo</item>
-        <item quantity="other">Horoj</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Semajno</item>
-        <item quantity="other">Semajnoj</item>
-    </plurals>
     <string name="subscription">Abono</string>
     <string name="now">Nun</string>
     <string name="widget_show_dividers">Vidigi dividilojn</string>
     <string name="upgrade_blurb_1">Saluton! Mi nomiĝas Alex. Mi estas la sendependa programisto de Tasks</string>
     <string name="local_lists">Lokaj listoj</string>
-    <string name="custom_notification">Propra sciigo</string>
     <string name="notification_troubleshooting_summary">Batetu ĉi tien se vi havas problemon pri sciigoj</string>
     <string name="more_settings">Aliaj agordoj</string>
     <string name="filter_no_tags">Neniu etikedoj</string>
@@ -321,10 +299,6 @@
     <string name="visit_website">Viziti retejon</string>
     <string name="location_arrived">Alvenis je %s</string>
     <string name="disable_battery_optimizations">Malŝalti optimumigojn</string>
-    <plurals name="reminder_days">
-        <item quantity="one">Tago</item>
-        <item quantity="other">Tagoj</item>
-    </plurals>
     <string name="take_a_picture">Foti</string>
     <string name="bundle_notifications_summary">Unuigi multajn sciigojn kiel unu</string>
     <string name="help">Helpo</string>
@@ -339,7 +313,6 @@
     <string name="places">Lokoj</string>
     <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
     <string name="current_subscription">Aktuala abono: %s</string>
-    <string name="alarm_before_start">%s antaŭ komenco</string>
     <string name="hint_customize_edit_title">Tro da informo?</string>
     <string name="sort_list">Laŭ listo</string>
     <string name="persistent_notifications">Daŭraj sciigoj</string>
@@ -383,11 +356,9 @@
     <string name="privacy">Privateco</string>
     <string name="github_sponsor">Sponsoro</string>
     <string name="migrate_count">Movi %s al Tasks.org</string>
-    <string name="enable_reminders_description">Memorigoj estas malŝaltitaj en Agordoj de Android</string>
     <string name="copied_to_clipboard">%s kopiiĝis al tondujo</string>
     <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>
     <string name="upgrade_more_customization">Pli da adapto</string>
-    <string name="enable_reminders">Ŝalti memorigojn</string>
     <string name="filter_criteria_unstarted">Nekomencita</string>
     <string name="customize_edit_screen_summary">Rearanĝi aŭ forigi kampojn</string>
     <string name="widget_due_date_hidden">Kaŝita</string>
@@ -419,7 +390,6 @@
     <string name="android_auto_backup">Savkopia Servo de Android</string>
     <string name="last_backup">Lasta savkopio: %s</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
-    <string name="alarm_before_due">%s antaŭ limdato</string>
     <string name="no_app_found">Neniu aplikaĵo povis pritrakti ĉi tiun peton</string>
     <string name="launcher_icon">Lanĉila piktogramo</string>
     <string name="refresh_purchases">Reŝargi aĉetojn</string>
@@ -533,10 +503,6 @@
     <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
     <string name="banner_subscription_required_title">Bezonas abonon</string>
     <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
-    <string name="alarm_before">antaŭ</string>
-    <string name="alarm_after">post</string>
-    <string name="alarm_start">komenco</string>
-    <string name="alarm_due">atendate</string>
     <string name="rmd_EPr_rmd_time_desc">Sciigoj de tuttagaj taskoj aperos je %1$s</string>
     <string name="default_reminder">Tuttagaj taskoj</string>
     <string name="add_default_reminders">Aldoni defaŭltajn memorigilojn</string>

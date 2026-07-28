@@ -242,13 +242,8 @@
     <string name="tags">Tags</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Geo-afgrænsningens radius</string>
-    <string name="when_overdue">Når forfalden</string>
-    <string name="when_due">Ved forfald</string>
-    <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
-    <string name="randomly">Tilfældigt</string>
     <string name="remove">Fjern</string>
     <string name="add_location">Tilføj placering</string>
-    <string name="add_reminder">Tilføj påmindelse</string>
     <string name="translations">Bidrag med oversættelser</string>
     <string name="customize_edit_screen">Tilpas redigeringsskærm</string>
     <string name="row_spacing">Linjeafstand</string>
@@ -443,42 +438,16 @@
     <string name="now">Nu</string>
     <string name="cancel">Annuller</string>
     <string name="ok">OK</string>
-    <string name="when_started">Ved start</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minut</item>
-        <item quantity="other">Minutter</item>
-    </plurals>
-    <string name="randomly_every">Tilfældigt hver %s</string>
     <string name="snackbar_task_completed">Opgave fuldført</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">Time</item>
-        <item quantity="other">Timer</item>
-    </plurals>
     <string name="snackbar_tasks_completed">%d opgaver fuldført</string>
-    <string name="snoozed_until">Udsat indtil %s</string>
-    <string name="custom_notification">Brugerdefineret meddelelse</string>
     <string name="custom_filter_has_reminder">Har påmindelse</string>
     <string name="completion_sound">Afspil fuldførelseslyd</string>
     <string name="customize_edit_screen_summary">Omarranger eller fjern felter</string>
     <string name="completed">Fuldført</string>
     <string name="dismiss">Afvis</string>
-    <plurals name="reminder_days">
-        <item quantity="one">Dag</item>
-        <item quantity="other">Dage</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Uge</item>
-        <item quantity="other">Uger</item>
-    </plurals>
     <string name="hint_customize_edit_title">For meget information\?</string>
     <string name="hint_customize_edit_body">Du kan tilpasse denne skærm ved at omarrangere eller fjerne felter</string>
-    <string name="alarm_before_start">%s før start</string>
-    <string name="alarm_after_start">%s efter start</string>
-    <string name="alarm_before_due">%s før forfald</string>
-    <string name="alarm_after_due">%s efter forfald</string>
     <string name="sort_completion_group">Fuldførelse %s</string>
-    <string name="enable_reminders">Aktiver påmindelser</string>
-    <string name="enable_reminders_description">Påmindelser er deaktiveret i Android-indstillinger</string>
     <string name="TEA_creation_date">Oprettelsesdato</string>
     <string name="customize_drawer">Tilpas skuffe</string>
     <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
@@ -543,10 +512,6 @@
     <string name="upgrade_email_to_task_description">Omdan e-mails til opgaver ved at videresende dem til din private indbakke</string>
     <string name="advanced_tools">Avancerede værktøjer</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync og flere!</string>
-    <string name="alarm_before">før</string>
-    <string name="alarm_after">efter</string>
-    <string name="alarm_start">start</string>
-    <string name="alarm_due">forfalden</string>
     <string name="location_update_interval_title">Opdateringer af placering i baggrunden</string>
     <string name="location_update_interval_summary">Periodiske placeringopdateringer forbedrer pålidelighed af geoafgrænsning</string>
     <string name="location_update_interval_disabled">Deaktiveret</string>
@@ -563,4 +528,5 @@
     <string name="upgrade_friends_and_family">Venner og familie</string>
     <string name="upgrade_friends_and_family_description">5 gratis gæster på delte lister. Fungerer med Apple Reminders</string>
     <string name="read_more">Læs mere</string>
+    <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
 </resources>

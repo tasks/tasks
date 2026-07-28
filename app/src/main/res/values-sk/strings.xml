@@ -188,13 +188,8 @@
     <string name="customize_edit_screen">Prispôsobiť zobrazenie úprav</string>
     <string name="translations">Prispieť prekladom</string>
     <string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
-    <string name="add_reminder">Pridať pripomienku</string>
     <string name="add_location">Pridať polohu</string>
     <string name="remove">Odstrániť</string>
-    <string name="randomly">Náhodne</string>
-    <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
-    <string name="when_overdue">Keď po termíne</string>
-    <string name="when_due">Keď v termíne</string>
     <string name="geofence_radius">Polomer geofence</string>
     <string name="tags">Štítky</string>
     <string name="filters">Filtre</string>
@@ -291,7 +286,6 @@
     <string name="CFC_startBefore_text">Spustenie pred: ?</string>
     <string name="default_due_date">Predvolený termín</string>
     <string name="comment">Komentár</string>
-    <string name="randomly_every">Náhodne každých %s</string>
     <string name="widget_due_date_after_title">Za názvom</string>
     <string name="SSD_sort_start">Podľa dátumu spustenia</string>
     <string name="theme_dynamic">Dynamické</string>
@@ -299,11 +293,6 @@
     <string name="opacity_row">Priehľadnosť riadka</string>
     <string name="icon">Ikona</string>
     <string name="sort_created">Podľa dátumu vytvorenia</string>
-    <plurals name="reminder_days">
-        <item quantity="one">deň</item>
-        <item quantity="few">dni</item>
-        <item quantity="other">dní</item>
-    </plurals>
     <string name="no_app_found">Nebola nájdená žiadna vhodná aplikácia</string>
     <string name="show_edit_screen_without_unlock">Umožniť úpravy bez odomknutia zariadenia</string>
     <string name="filter">Filter</string>
@@ -317,25 +306,9 @@
     <string name="swipe_to_snooze_time_1_hour">po hodine</string>
     <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
     <string name="widget_show_title">Zobraziť názov</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">minúta</item>
-        <item quantity="few">minúty</item>
-        <item quantity="other">minút</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">hodina</item>
-        <item quantity="few">hodiny</item>
-        <item quantity="other">hodín</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">týždeň</item>
-        <item quantity="few">týždne</item>
-        <item quantity="other">týždňov</item>
-    </plurals>
     <string name="delete_comment">komentár</string>
     <string name="quiet_hours_in_effect">Režim nerušiť je zapnutý</string>
     <string name="header_spacing">Rozstupy</string>
-    <string name="when_started">Keď začne</string>
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_tomorrow_evening">Zajtra večer</string>
     <string name="show_edit_screen_without_unlock_summary">Umožní používať dlaždice rýchleho nastavenia bez odomknutia zariadenia</string>
@@ -449,7 +422,6 @@
     <string name="snackbar_task_completed">Úloha bola dokončená</string>
     <string name="authorization_cancelled">Autorizácia bola zrušená</string>
     <string name="settings_default">Predvolený</string>
-    <string name="alarm_after_start">%s po začiatku</string>
     <string name="completed">Dokončené</string>
     <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
@@ -474,7 +446,6 @@
     <string name="auto_dismiss_datetime">Automaticky zatvoriť výber dátumu a času</string>
     <string name="chip_appearance_icon_only">Iba ikona</string>
     <string name="auto_dismiss_datetime_list">Zoznam úloh</string>
-    <string name="alarm_before_start">%s pred začiatkom</string>
     <string name="wearable_notifications">Upozornenia na hodinkách</string>
     <string name="wearable_notifications_summary">Zobrazí upozornenia na vašich inteligentných hodinkách</string>
     <string name="troubleshooting">Riešenie problémov</string>
@@ -492,14 +463,10 @@
     <string name="filter_low_priority">Nízka dôležitosť</string>
     <string name="support">Podpora</string>
     <string name="authentication_required">Vyžaduje sa overenie</string>
-    <string name="alarm_after_due">%s po termíne</string>
-    <string name="snoozed_until">Odložené do %s</string>
-    <string name="custom_notification">Vlastné oznámenie</string>
     <string name="button_learn_more">Zistiť viac</string>
     <string name="filter_no_priority">Bez nastavenej dôležitosti</string>
     <string name="filter_no_tags">Bez štítkov</string>
     <string name="privacy">Súkromie</string>
-    <string name="alarm_before_due">%s pred termínom</string>
     <string name="documentation">Dokumentácia</string>
     <string name="color_wheel">Viac farieb</string>
     <string name="custom_filter_criteria">Podmienky filtra</string>
@@ -510,8 +477,6 @@
     <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
-    <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>
-    <string name="enable_reminders">Povoliť pripomienky</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
     <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
@@ -531,4 +496,5 @@
     <string name="multiline_title_off">Pre uloženie úlohy kliknite na Hotovo</string>
     <string name="banner_app_updated_title">Aplikácia bola aktualizovaná</string>
     <string name="banner_app_updated_description">Aplikácia Tasks bola práve aktualizovaná na verziu %s. Chcete vidieť zoznam noviniek?</string>
+    <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 </resources>

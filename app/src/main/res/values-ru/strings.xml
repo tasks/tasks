@@ -185,13 +185,8 @@
     <string name="customize_edit_screen">Настроить экран редактирования</string>
     <string name="translations">Участвовать в переводе программы</string>
     <string name="quiet_hours_summary">Отключить напоминания в тихие часы</string>
-    <string name="add_reminder">Добавить напоминание</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
-    <string name="randomly">Случайно</string>
-    <string name="pick_a_date_and_time">Выберите дату и время</string>
-    <string name="when_overdue">Когда просрочено</string>
-    <string name="when_due">Когда закончится</string>
     <string name="geofence_radius">Радиус геозоны</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
@@ -451,49 +446,15 @@
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
     <string name="now">Сейчас</string>
-    <string name="when_started">После начала</string>
     <string name="completion_sound">Воспроизводить звук завершения</string>
     <string name="completed">Завершено</string>
     <string name="snackbar_task_completed">Задача выполнена</string>
     <string name="snackbar_tasks_completed">%d задач выполнено</string>
     <string name="custom_filter_has_reminder">С напоминанием</string>
-    <string name="snoozed_until">Отложено до %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Минута</item>
-        <item quantity="few">Минуты</item>
-        <item quantity="many">Минут</item>
-        <item quantity="other">Минут</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Неделя</item>
-        <item quantity="few">Недели</item>
-        <item quantity="many">Недель</item>
-        <item quantity="other">Недель</item>
-    </plurals>
-    <string name="custom_notification">Пользовательское уведомление</string>
-    <plurals name="reminder_days">
-        <item quantity="one">День</item>
-        <item quantity="few">Дня</item>
-        <item quantity="many">Дней</item>
-        <item quantity="other">Дней</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Час</item>
-        <item quantity="few">Часа</item>
-        <item quantity="many">Часов</item>
-        <item quantity="other">Часов</item>
-    </plurals>
-    <string name="alarm_before_start">%s перед началом</string>
-    <string name="alarm_before_due">%s до</string>
-    <string name="alarm_after_due">%s после</string>
-    <string name="alarm_after_start">%s после начала</string>
-    <string name="randomly_every">Случайно каждые %s</string>
     <string name="customize_edit_screen_summary">Переупорядочить или удалить поля</string>
     <string name="dismiss">Отклонить</string>
     <string name="hint_customize_edit_title">Слишком много информации\?</string>
     <string name="hint_customize_edit_body">Вы можете настроить этот экран, переставляя или удаляя поля</string>
-    <string name="enable_reminders">Включить напоминания</string>
-    <string name="enable_reminders_description">Напоминания отключены в настройках Android</string>
     <string name="TEA_creation_date">Дата создания</string>
     <string name="sort_completion_group">Готовность %s</string>
     <string name="sort_list">Список</string>
@@ -548,10 +509,6 @@
     <string name="location_update_interval_2_hours">Каждые 2 часа</string>
     <string name="location_update_interval_disabled">Отключено</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
-    <string name="alarm_before">до</string>
-    <string name="alarm_after">после</string>
-    <string name="alarm_start">начала</string>
-    <string name="alarm_due">завершения</string>
     <string name="default_reminder">Задачи на весь день</string>
     <string name="rmd_time_enabled_on">Добавить напоминания по умолчанию для задач на весь день</string>
     <string name="rmd_time_enabled_off">Не добавлять напоминания по умолчанию для задач на весь день</string>
@@ -565,4 +522,5 @@
     <string name="guest_create_list_message">У вас гостевой доступ к общим спискам. Чтобы создавать и синхронизировать свои приватные списки с облаком, нужна подписка Tasks.org. Также вы можете создать бесплатный локальный список — он будет храниться только на этом устройстве.</string>
     <string name="upgrade_desktop_app">Tasks.org для компьютера</string>
     <string name="upgrade_desktop_app_description">Ранний доступ к новому настольному приложению</string>
+    <string name="pick_a_date_and_time">Выберите дату и время</string>
 </resources>

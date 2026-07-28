@@ -3,6 +3,10 @@ package org.tasks.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import com.todoroo.astrid.alarms.AlarmService
+import kotlinx.collections.immutable.ImmutableSet
+import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
@@ -37,11 +41,18 @@ import org.tasks.compose.pickers.withTimeMarkerOr
 import org.tasks.data.TaskCreator
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
+import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
+import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
+import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.SYNC_ALARMS
 import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
@@ -76,6 +87,8 @@ class TaskEditViewModel(
     private val taskMover: TaskMover,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
+    private val alarmDao: AlarmDao,
+    private val alarmService: AlarmService,
     private val appPreferences: AppPreferences,
     private val externalScope: CoroutineScope,
     private val pendingSaves: PendingTaskSaves,
@@ -119,6 +132,8 @@ class TaskEditViewModel(
         val originalList: CaldavFilter? = null,
         val tags: List<TagData> = emptyList(),
         val originalTags: List<TagData> = emptyList(),
+        val alarms: ImmutableSet<Alarm> = persistentSetOf(),
+        val originalAlarms: ImmutableSet<Alarm> = persistentSetOf(),
         val deleted: Boolean = false,
         val startDay: Long = NO_DAY,
         val startTime: Int = NO_TIME,
@@ -136,8 +151,19 @@ class TaskEditViewModel(
         val hasChanges: Boolean
             get() = list != originalList ||
                     tags.toHashSet() != originalTags.toHashSet() ||
+                    alarmsChanged ||
                     startChanged ||
                     !task.copy(hideUntil = originalTask.hideUntil).sameEditableContentAs(originalTask)
+
+        internal val alarmsChanged: Boolean
+            get() = !alarms.sameAlarmsAs(originalAlarms)
+
+        internal val alarmsNeedSaving: Boolean
+            get() = applicableAlarms().let {
+                if (isNew) it.isNotEmpty() else !it.sameAlarmsAs(originalAlarms)
+            }
+
+        internal fun applicableAlarms(): ImmutableSet<Alarm> = alarms.applicableTo(task)
 
         private val startChanged: Boolean
             get() = task.hideUntil != originalTask.hideUntil &&
@@ -156,9 +182,9 @@ class TaskEditViewModel(
     // into it.
     //
     // Buffered so that emitting never suspends. A close is emitted from under the per-task save
-    // lock, and on Android the stop that drives that save blocks the main thread waiting for it - so
-    // an emit that waited for the collector would be waiting on the very thread that is waiting for
-    // it. Dropping the older of two queued closes costs nothing: they carry no payload.
+    // lock, and shutdown waits on that same save - so an emit that waited for a collector which by
+    // then may not exist would hold the lock for the whole of that wait. Dropping the older of two
+    // queued closes costs nothing: they carry no payload.
     private val _closeEvents = MutableSharedFlow<Unit>(
         replay = 1,
         extraBufferCapacity = 1,
@@ -175,12 +201,8 @@ class TaskEditViewModel(
 
     private val pickerModeMutex = Mutex()
 
-    // Guards watchedTaskId. watchTask is reached from the main thread through load() and from
-    // PendingTaskSaves' Dispatchers.Default scope through a teardown save, with no happens-before
-    // edge between them, so a plain check-then-set on a non-volatile field armed two collectors on
-    // the same row - doubling every merge round-trip and every close emitted on a remote delete.
     private val watchMutex = Mutex()
-    private var watchedTaskId: Long? = null
+    private val watchedTaskIds = mutableMapOf<String, Long>()
     private val unregisterFlushHandler: () -> Unit
 
     init {
@@ -235,6 +257,7 @@ class TaskEditViewModel(
         val loaded: Task
         val list: CaldavFilter?
         val tags: List<TagData>
+        val alarms: ImmutableSet<Alarm>
         if (normalized == null) {
             val existing = uuid?.let { taskDao.fetch(it) }
             if (existing != null) {
@@ -242,19 +265,23 @@ class TaskEditViewModel(
                 coroutineScope {
                     val listDeferred = async { caldavListFor(existing.id) }
                     val tagsDeferred = async { tagDataDao.getTagDataForTask(existing.id) }
+                    val alarmsDeferred = async { alarmDao.getAlarms(existing.id).toPersistentSet() }
                     list = listDeferred.await()
                     tags = tagsDeferred.await()
+                    alarms = alarmsDeferred.await()
                 }
             } else {
-                loaded = uuid
+                loaded = (uuid
                     ?.let { taskCreator.createBlankTask(remoteId = it) }
-                    ?: taskCreator.createBlankTask()
+                    ?: taskCreator.createBlankTask())
+                    .apply { setDefaultReminders(appPreferences) }
                 coroutineScope {
                     val listDeferred = async { seedList() }
                     val tagsDeferred = async { seedTags() }
                     list = listDeferred.await()
                     tags = tagsDeferred.await()
                 }
+                alarms = persistentSetOf()
             }
         } else {
             val existing: Task?
@@ -262,9 +289,11 @@ class TaskEditViewModel(
                 val loadedDeferred = async { taskDao.fetch(normalized) }
                 val listDeferred = async { caldavListFor(normalized) }
                 val tagsDeferred = async { tagDataDao.getTagDataForTask(normalized) }
+                val alarmsDeferred = async { alarmDao.getAlarms(normalized).toPersistentSet() }
                 existing = loadedDeferred.await()
                 list = listDeferred.await()
                 tags = tagsDeferred.await()
+                alarms = alarmsDeferred.await()
             }
             // The row this destination names is gone - hard-deleted by a sync purge or by removing
             // its account, which leaves no tombstone for the check below to find. A blank task here
@@ -287,6 +316,11 @@ class TaskEditViewModel(
         } else {
             loaded
         }
+        val initialAlarms = if (loaded.isNew) {
+            task.getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled()).toPersistentSet()
+        } else {
+            alarms
+        }
         return State(
             isLoading = false,
             task = task,
@@ -299,6 +333,8 @@ class TaskEditViewModel(
             originalList = list,
             tags = tags,
             originalTags = tags,
+            alarms = initialAlarms,
+            originalAlarms = initialAlarms,
             startDay = startDay,
             startTime = startTime,
             originalStartDay = startDay,
@@ -316,47 +352,47 @@ class TaskEditViewModel(
      */
     private suspend fun watchTask(id: Long) {
         if (id <= 0) return
-        // Claimed atomically: both call sites are outside the per-task save lock, and they run on
-        // different dispatchers.
+        watchStream(id, "task") {
+            taskDao.watch(id)
+                .filterNotNull()
+                .distinctUntilChanged()
+                .collect { dbTask -> mergeDbUpdate(dbTask) }
+        }
+        watchStream(id, "alarms") {
+            alarmDao.watchAlarms(id)
+                .distinctUntilChanged()
+                .collect { dbAlarms -> mergeAlarmUpdate(dbAlarms) }
+        }
+    }
+
+    private suspend fun watchStream(id: Long, what: String, collect: suspend () -> Unit) {
         val claimed = watchMutex.withLock {
-            if (watchedTaskId == id) false else { watchedTaskId = id; true }
+            if (watchedTaskIds[what] == id) false else { watchedTaskIds[what] = id; true }
         }
         if (!claimed) return
-        viewModelScope.launch {
-            // The query re-runs on every write to the tasks table, so this outlives the load that
-            // started it and can fail long after. Nothing above catches it: viewModelScope's
-            // SupervisorJob routes a child failure to the default handler, which on Android takes
-            // the process down - from a view model whose screen the user left ages ago.
-            //
-            // Retried rather than abandoned. The only other place that arms a watch is a save, and
-            // that runs after the write it should have been warned about, so a single failure here
-            // used to leave the editor blind for as long as it stayed open - and the next save then
-            // overwrote whatever it had missed.
-            var attempts = 0
-            while (true) {
-                try {
-                    taskDao.watch(id)
-                        .filterNotNull()
-                        .distinctUntilChanged()
-                        .collect { dbTask -> mergeDbUpdate(dbTask) }
-                    return@launch
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Exception) {
-                    if (++attempts >= WATCH_MAX_ATTEMPTS) {
-                        log.e(e) { "Gave up watching task $id after $attempts attempts" }
-                        // Cleared so a later save can arm it again. Saves re-read the row under the
-                        // lock either way, so a blind editor can no longer clobber what it missed.
-                        watchMutex.withLock {
-                            if (watchedTaskId == id) {
-                                watchedTaskId = null
-                            }
+        viewModelScope.launch { watchWithRetry(id, what, collect) }
+    }
+
+    private suspend fun watchWithRetry(id: Long, what: String, collect: suspend () -> Unit) {
+        var attempts = 0
+        while (true) {
+            try {
+                collect()
+                return
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                if (++attempts >= WATCH_MAX_ATTEMPTS) {
+                    log.e(e) { "Gave up watching $what for $id after $attempts attempts" }
+                    watchMutex.withLock {
+                        if (watchedTaskIds[what] == id) {
+                            watchedTaskIds.remove(what)
                         }
-                        return@launch
                     }
-                    log.e(e) { "Failed to watch task $id, retrying" }
-                    delay(WATCH_RETRY_DELAY_MS)
+                    return
                 }
+                log.e(e) { "Failed to watch $what for $id, retrying" }
+                delay(WATCH_RETRY_DELAY_MS)
             }
         }
     }
@@ -371,14 +407,7 @@ class TaskEditViewModel(
         outcome.succeeded
     }
 
-    /**
-     * Commits the current edit without closing the editor, for the points where the editor can stop
-     * being interactive without being destroyed first.
-     */
     fun persistCurrentTask() {
-        // Nothing to write, so don't enqueue anything: on Android ON_STOP blocks the main thread
-        // waiting for whatever this enqueues, and backgrounding with an untouched editor open is
-        // the common case. saveIfNeeded would have written nothing either way.
         val current = _state.value
         if (current.isLoading || (!current.hasChanges && !current.pendingSideEffects)) {
             return
@@ -417,24 +446,33 @@ class TaskEditViewModel(
             refreshFromDb(_state.value.task.id)
             val snapshot = _state.value
             val persisted = saveIfNeeded(snapshot)
-            _state.update {
-                it.copy(
+            if (persisted != null) {
+                _state.update {
                     // The save works on its own copy, and the DAO stamps that copy: createNew
                     // writes the row id back, applyTags bumps the modification date. An edit
                     // landing while the save ran replaced state.task with a copy of the
                     // pre-save one, so both have to be carried across by hand - otherwise the
                     // editor keeps writing against id 0, and hasChanges never settles.
-                    task = persisted
-                        ?.let { p -> it.task.copy(id = p.id, modificationDate = p.modificationDate) }
-                        ?: it.task,
-                    originalTask = (persisted ?: snapshot.task).copy(),
-                    originalList = snapshot.list,
-                    originalTags = snapshot.tags,
-                    originalStartDay = snapshot.startDay,
-                    originalStartTime = snapshot.startTime,
-                    // Only now: the row's side effects have run, so there is nothing left owing.
-                    pendingSideEffects = false,
-                )
+                    val task = it.task.copy(
+                        id = persisted.id,
+                        modificationDate = persisted.modificationDate,
+                    )
+                    it.copy(
+                        task = task,
+                        originalTask = persisted.copy(),
+                        originalList = snapshot.list,
+                        originalTags = snapshot.tags,
+                        alarms = it.alarms.applicableTo(task),
+                        originalAlarms = if (snapshot.alarmsNeedSaving) {
+                            snapshot.applicableAlarms()
+                        } else {
+                            it.originalAlarms
+                        },
+                        originalStartDay = snapshot.startDay,
+                        originalStartTime = snapshot.startTime,
+                        pendingSideEffects = false,
+                    )
+                }
             }
             // Creating the task is what gives it a row to watch, so this is the first chance to.
             // Taken from the row that was actually written, not from live state: an edit landing
@@ -477,6 +515,22 @@ class TaskEditViewModel(
         // delete detected but never acted on.
         if (applyDbUpdate(row)) {
             _closeEvents.emit(Unit)
+        }
+    }
+
+    private suspend fun mergeAlarmUpdate(dbAlarms: List<Alarm>) {
+        val alarms = dbAlarms.toPersistentSet()
+        pendingSaves.withLock(saveKey) {
+            _state.update { state ->
+                if (state.isLoading) {
+                    state
+                } else {
+                    state.copy(
+                        alarms = mergeAlarms(state.alarms, state.originalAlarms, alarms),
+                        originalAlarms = alarms,
+                    )
+                }
+            }
         }
     }
 
@@ -615,8 +669,9 @@ class TaskEditViewModel(
 
     fun setDueDate(value: Long) {
         val dueDate = value.withTimeMarkerOr { it.noon() }
+        val previous = _state.value.task.dueDate
         _state.update { it.withStartSelection(it.startDay, it.startTime, dueDate) }
-        // TODO: add default reminders
+        addDefaultAlarms(TYPE_REL_END, previous, dueDate)
         onDueDateChanged()
     }
 
@@ -665,8 +720,34 @@ class TaskEditViewModel(
     }
 
     fun setStartDate(day: Long, time: Int) {
+        val previous = _state.value.task.hideUntil
         _state.update { it.withStartSelection(day, time, it.task.dueDate) }
-        // TODO: add default reminders
+        addDefaultAlarms(TYPE_REL_START, previous, _state.value.task.hideUntil)
+    }
+
+    private fun addDefaultAlarms(type: Int, previous: Long, current: Long) {
+        val hadDate = previous > 0
+        val addedDate = !hadDate && current > 0
+        val addedTime = hadDate && !Task.hasDueTime(previous) && Task.hasDueTime(current)
+        if (!addedDate && !addedTime) return
+        viewModelScope.launch {
+            try {
+                val defaultTime = appPreferences.isDefaultDueTimeEnabled()
+                val wanted = if (addedDate) {
+                    Task.hasDueTime(current) || defaultTime
+                } else {
+                    !defaultTime
+                }
+                if (!wanted) return@launch
+                appPreferences.defaultAlarms()
+                    .filter { it.type == type }
+                    .forEach { addAlarm(it.copy(id = 0, task = 0)) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                log.e(e) { "Failed to read default reminders" }
+            }
+        }
     }
 
     private fun State.withStartSelection(day: Long, time: Int, dueDate: Long): State =
@@ -719,6 +800,22 @@ class TaskEditViewModel(
 
     fun setTags(tags: List<TagData>) {
         _state.update { it.copy(tags = tags) }
+    }
+
+    fun addAlarm(alarm: Alarm) {
+        _state.update { state ->
+            if (state.alarms.any { it.same(alarm) }) {
+                state
+            } else {
+                state.copy(alarms = state.alarms.plus(alarm).toPersistentSet())
+            }
+        }
+    }
+
+    fun removeAlarm(alarm: Alarm) {
+        _state.update { state ->
+            state.copy(alarms = state.alarms.filterNot { it.same(alarm) }.toPersistentSet())
+        }
     }
 
     fun save() {
@@ -822,6 +919,7 @@ class TaskEditViewModel(
                 )
                 applyTagsIfNeeded(snapshot, task)
             }
+            applyAlarmsIfNeeded(snapshot, task)
             _state.update {
                 it.copy(
                     task = it.task.copy(id = task.id, modificationDate = task.modificationDate),
@@ -832,12 +930,20 @@ class TaskEditViewModel(
             taskSaver.save(task, null)
         } else {
             applyTagsIfNeeded(snapshot, task)
+            applyAlarmsIfNeeded(snapshot, task)
             taskSaver.save(task, snapshot.originalTask.takeUnless { snapshot.pendingSideEffects })
             if (snapshot.list != snapshot.originalList) {
                 taskMover.move(listOf(task.id), list)
             }
         }
         return task
+    }
+
+    private suspend fun applyAlarmsIfNeeded(snapshot: State, task: Task) {
+        if (!snapshot.alarmsNeedSaving) return
+        alarmService.synchronizeAlarms(task.id, snapshot.applicableAlarms().toMutableSet())
+        task.putTransitory(SYNC_ALARMS, true)
+        task.modificationDate = currentTimeMillis()
     }
 
     private suspend fun applyTagsIfNeeded(snapshot: State, task: Task) {
@@ -850,6 +956,39 @@ class TaskEditViewModel(
         }
     }
 }
+
+private data class AlarmIdentity(
+    val type: Int,
+    val time: Long,
+    val repeat: Int,
+    val interval: Long,
+)
+
+private fun Alarm.identity() = AlarmIdentity(type, time, repeat, interval)
+
+private fun Iterable<Alarm>.identities(): Set<AlarmIdentity> = mapTo(HashSet()) { it.identity() }
+
+private fun Set<Alarm>.sameAlarmsAs(other: Set<Alarm>): Boolean = identities() == other.identities()
+
+private fun mergeAlarms(
+    current: ImmutableSet<Alarm>,
+    original: ImmutableSet<Alarm>,
+    db: ImmutableSet<Alarm>,
+): ImmutableSet<Alarm> {
+    val originalIdentities = original.identities()
+    val deletedLocally = originalIdentities - current.identities()
+    val addedLocally = current.filterNot { originalIdentities.contains(it.identity()) }
+    return db
+        .filterNot { deletedLocally.contains(it.identity()) }
+        .plus(addedLocally)
+        .distinctBy { it.identity() }
+        .toPersistentSet()
+}
+
+internal fun ImmutableSet<Alarm>.applicableTo(task: Task): ImmutableSet<Alarm> =
+    filterNot { it.type == TYPE_REL_START && !task.hasStartDate() }
+        .filterNot { it.type == TYPE_REL_END && !task.hasDueDate() }
+        .toPersistentSet()
 
 internal fun Task.sameEditableContentAs(other: Task): Boolean =
     copy(

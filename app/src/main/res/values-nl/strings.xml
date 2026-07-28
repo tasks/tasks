@@ -174,13 +174,8 @@
     <string name="customize_edit_screen">Taakscherm aanpassen</string>
     <string name="translations">Vertalingen toevoegen</string>
     <string name="quiet_hours_summary">Geen herinneringen tijdens rusttijd</string>
-    <string name="add_reminder">Herinnering toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
     <string name="remove">Verwijderen</string>
-    <string name="randomly">Willekeurig</string>
-    <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
-    <string name="when_overdue">Bij overtijd</string>
-    <string name="when_due">Bij vervallen</string>
     <string name="geofence_radius">Geofence-straal</string>
     <string name="tags">Labels</string>
     <string name="date_shortcut_hour">Voor een uur</string>
@@ -443,41 +438,15 @@
     <string name="markdown_description">Sta Markdown toe in titel en beschrijving</string>
     <string name="markdown">Markdown</string>
     <string name="now">Nu</string>
-    <string name="when_started">Bij beginnen</string>
     <string name="completion_sound">Geluid afspelen bij afronden</string>
     <string name="completed">Voltooid</string>
     <string name="snackbar_task_completed">Taak voltooid</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
-    <string name="alarm_before_due">%s voor vervallen</string>
-    <string name="alarm_after_due">%s na vervallen</string>
-    <string name="alarm_before_start">%s voor begin</string>
-    <string name="alarm_after_start">%s na begin</string>
     <string name="custom_filter_has_reminder">Bevat herinnering</string>
-    <string name="snoozed_until">Pauzeren tot: %s</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minuut</item>
-        <item quantity="other">Minuten</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Uur</item>
-        <item quantity="other">Uren</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Dag</item>
-        <item quantity="other">Dagen</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Week</item>
-        <item quantity="other">Weken</item>
-    </plurals>
-    <string name="custom_notification">Aangepaste melding</string>
-    <string name="randomly_every">Willekeurig elke %s</string>
     <string name="customize_edit_screen_summary">Velden herschikken of verwijderen</string>
     <string name="dismiss">Sluiten</string>
     <string name="hint_customize_edit_title">Teveel informatie\?</string>
     <string name="hint_customize_edit_body">Taakscherm aanpassen door velden te verschuiven of onderaan te verbergen</string>
-    <string name="enable_reminders">Herinneringen aanzetten</string>
-    <string name="enable_reminders_description">Herinneringen staan uit in Android Instellingen</string>
     <string name="TEA_creation_date">Aanmaakdatum</string>
     <string name="sort_completion_group">Voltooid %s</string>
     <string name="sort_list">Op lijstvolgorde</string>
@@ -538,4 +507,5 @@
     <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
+    <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
 </resources>

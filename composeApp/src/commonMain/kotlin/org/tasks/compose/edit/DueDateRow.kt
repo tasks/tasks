@@ -13,6 +13,7 @@ import tasks.kmp.generated.resources.no_due_date
 @Composable
 fun DueDateRow(
     dueDate: Long,
+    hasDueDateAlarm: Boolean,
     is24Hour: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -28,6 +29,7 @@ fun DueDateRow(
         value = value,
         overdue = overdue,
         isEmpty = dueDate == 0L,
+        missingDate = dueDate == 0L && hasDueDateAlarm,
         title = stringResource(Res.string.due_date),
         icon = TasksIcons.SCHEDULE,
         onClick = onClick,

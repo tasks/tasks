@@ -269,6 +269,14 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">วันที่เสร็จสมบูรณ์</string>
     <string name="no_title">(ไม่มีชื่อเรื่อง)</string>
+    <string name="when_due">เมื่อครบกําหนด</string>
+    <string name="when_overdue">เมื่อพ้นกําหนด</string>
+    <string name="randomly">คว้าง</string>
+    <string name="pick_a_date_and_time">เลือกวันที่และเวลา</string>
+    <string name="add_reminder">เพิ่มตัวเตือน</string>
+    <string name="ring_once">เรียกหนึ่งครั้ง</string>
+    <string name="ring_five_times">แหวนห้าครั้ง</string>
+    <string name="ring_nonstop">แหวนไม่หยุดนิ่ง</string>
     <string name="delete_task">ลบงาน</string>
     <string name="menu_discard_changes">ละทิ้งการเปลี่ยนแปลง</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>

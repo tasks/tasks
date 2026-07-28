@@ -343,6 +343,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Dátum dokončenia</string>
     <string name="no_title">Bez názvu</string>
+    <string name="when_started">Keď začne</string>
+    <string name="when_due">Keď v termíne</string>
+    <string name="when_overdue">Keď po termíne</string>
+    <string name="randomly">Náhodne</string>
+    <string name="randomly_every">Náhodne každých %1$s</string>
+    <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
+    <string name="add_reminder">Pridať pripomienku</string>
+    <string name="custom_notification">Vlastné oznámenie</string>
+    <string name="alarm_before_start">%1$s pred začiatkom</string>
+    <string name="alarm_after_start">%1$s po začiatku</string>
+    <string name="alarm_before_due">%1$s pred termínom</string>
+    <string name="alarm_after_due">%1$s po termíne</string>
+    <string name="snoozed_until">Odložené do %1$s</string>
+    <string name="ring_once">Zvoniť raz</string>
+    <string name="ring_five_times">Zvoniť päť krát</string>
+    <string name="ring_nonstop">Zvoniť neustále</string>
+    <string name="enable_reminders">Povoliť pripomienky</string>
+    <string name="enable_reminders_description">Pripomienky sú zakázané v nastaveniach systému Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">minúta</item>
+        <item quantity="few">minúty</item>
+        <item quantity="other">minút</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">hodina</item>
+        <item quantity="few">hodiny</item>
+        <item quantity="other">hodín</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">deň</item>
+        <item quantity="few">dni</item>
+        <item quantity="other">dní</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">týždeň</item>
+        <item quantity="few">týždne</item>
+        <item quantity="other">týždňov</item>
+    </plurals>
     <string name="delete_task">Zmazať úlohu</string>
     <string name="menu_discard_changes">Zahodiť zmeny</string>
     <string name="more_options">Ďalšie možnosti</string>

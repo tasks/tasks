@@ -17,12 +17,6 @@
     <item>@string/swipe_to_snooze_time_24_hours</item>
   </string-array>
 
-  <string-array name="reminder_ring_modes">
-    <item>@string/ring_once</item>
-    <item>@string/ring_five_times</item>
-    <item>@string/ring_nonstop</item>
-  </string-array>
-
   <string-array name="widget_themes">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>

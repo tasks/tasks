@@ -9,6 +9,7 @@
     <string name="today_lowercase">hodie</string>
     <string name="save">Salvar</string>
     <string name="sort_mode">Ordinar</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancellar</string>
     <string name="help">Adjuta</string>
     <string name="SSD_sort_start">Per data de initio</string>
@@ -20,4 +21,5 @@
     <string name="about">A proposito de</string>
     <string name="privacy_policy">Politica de confidentialitate</string>
     <string name="open_source">Codice aperte</string>
+    <string name="pick_a_date_and_time">Seliger un data e hora</string>
 </resources>

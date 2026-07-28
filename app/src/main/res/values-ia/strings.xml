@@ -19,7 +19,6 @@
     <string name="help">Adjuta</string>
     <string name="help_and_feedback">Adjuta e commentarios</string>
     <string name="notifications">Notificationes</string>
-    <string name="pick_a_date_and_time">Seliger un data e hora</string>
     <string name="filter_today_only">Solmente hodie</string>
     <string name="privacy">Confidentialitate</string>
     <string name="open_source">Codice aperte</string>
@@ -31,4 +30,5 @@
     <string name="sort_list">Per lista</string>
     <string name="SSD_sort_start">Per data de initio</string>
     <string name="read_permission_label">Permissiones de Tasks</string>
+    <string name="pick_a_date_and_time">Seliger un data e hora</string>
 </resources>

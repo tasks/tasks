@@ -67,6 +67,10 @@ import com.todoroo.astrid.core.CriterionInstance
 import kotlinx.collections.immutable.ImmutableList
 import org.tasks.R
 import org.tasks.compose.SwipeOut.SwipeOut
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.help
+import tasks.kmp.generated.resources.ok
 import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
@@ -352,15 +356,15 @@ object FilterCondition {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(contentAlignment = Alignment.CenterStart) {
-                            Constants.TextButton(text = R.string.help, onClick = help)
+                            DialogTextButton(text = Res.string.help, onClick = help)
                         }
                         Box(
                             contentAlignment = Alignment.CenterEnd,
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Row {
-                                Constants.TextButton(text = R.string.cancel, onClick = onCancel)
-                                Constants.TextButton(text = R.string.ok) { onSelected(selected.intValue) }
+                                DialogTextButton(text = Res.string.cancel, onClick = onCancel)
+                                DialogTextButton(text = Res.string.ok) { onSelected(selected.intValue) }
                             }
                         }
                     }
@@ -477,11 +481,11 @@ object FilterCondition {
         AlertDialog(
             onDismissRequest = onCancel,
             confirmButton = {
-                Constants.TextButton(
-                    text = R.string.ok,
+                DialogTextButton(
+                    text = Res.string.ok,
                     onClick = { onDone(text.value) })
             },
-            dismissButton = { Constants.TextButton(text = R.string.cancel, onClick = onCancel) },
+            dismissButton = { DialogTextButton(text = Res.string.cancel, onClick = onCancel) },
             text = {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(

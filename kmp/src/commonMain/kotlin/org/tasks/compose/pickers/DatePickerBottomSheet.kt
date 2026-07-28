@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.previews.PREVIEW_NIGHT_MODE
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -59,6 +60,7 @@ fun DatePickerBottomSheet(
     timeShortcuts: @Composable ColumnScope.() -> Unit,
     state: DatePickerState,
 ) {
+    PlatformBackHandler(enabled = true, onBack = accept)
     ModalBottomSheet(
         modifier = Modifier.statusBarsPadding(),
         sheetState = sheetState,

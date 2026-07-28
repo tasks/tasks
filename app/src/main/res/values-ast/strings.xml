@@ -158,33 +158,17 @@
         <item quantity="one">vuelta</item>
         <item quantity="other">vueltes</item>
     </plurals>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minutu</item>
-        <item quantity="other">Minutos</item>
-    </plurals>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutu</item>
         <item quantity="other">%d minutos</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Hora</item>
-        <item quantity="other">Hores</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d hora</item>
         <item quantity="other">%d hores</item>
     </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Día</item>
-        <item quantity="other">Díes</item>
-    </plurals>
     <plurals name="repeat_n_days">
         <item quantity="one">%d día</item>
         <item quantity="other">%d díes</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Selmana</item>
-        <item quantity="other">Selmanes</item>
     </plurals>
     <plurals name="repeat_n_weeks">
         <item quantity="one">%d selmana</item>
@@ -237,15 +221,8 @@
     <string name="customize_edit_screen_summary">Reorganizar o desaniciar campos</string>
     <string name="translations">Contribuyi cola torna</string>
     <string name="quiet_hours_summary">Ensin recordatorios durante les hores de tranquilidá</string>
-    <string name="add_reminder">Amestar recordatoriu</string>
     <string name="add_location">Amestar allugamientu</string>
     <string name="remove">Desaniciar</string>
-    <string name="randomly_every">Al debalu cada %s</string>
-    <string name="randomly">Al debalu</string>
-    <string name="pick_a_date_and_time">Escueye una data y una hora</string>
-    <string name="when_overdue">Si ta atrasada</string>
-    <string name="when_due">Al acabar</string>
-    <string name="when_started">Al entamar</string>
     <string name="geofence_radius">Radiu de la xeollende</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Etiquetes</string>
@@ -380,4 +357,5 @@
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>
     <string name="davx5_selection_description">Sincroniza les tos xeres cola aplicación DAVx⁵</string>
     <string name="show_advanced_settings">Amosar axustes avanzaos</string>
+    <string name="pick_a_date_and_time">Escueye una data y una hora</string>
 </resources>

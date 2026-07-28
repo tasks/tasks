@@ -9,16 +9,17 @@ internal fun TaskEditDateRow(
     value: String,
     overdue: Boolean,
     isEmpty: Boolean,
+    missingDate: Boolean,
     title: String,
     icon: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val isError = overdue || missingDate
     TaskEditCardRow(
         value = value,
         valueColor = when {
-            overdue -> MaterialTheme.colorScheme.error
-            // TODO: tint when date empty but there is a reminder set
+            isError -> MaterialTheme.colorScheme.error
             isEmpty -> MaterialTheme.colorScheme.onSurfaceVariant
             else -> MaterialTheme.colorScheme.onSurface
         },
@@ -26,7 +27,7 @@ internal fun TaskEditDateRow(
         modifier = modifier,
         title = title,
         icon = icon,
-        iconTint = if (overdue) {
+        iconTint = if (isError) {
             MaterialTheme.colorScheme.error
         } else {
             MaterialTheme.colorScheme.onSurfaceVariant

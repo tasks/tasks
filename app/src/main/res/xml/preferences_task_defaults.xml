@@ -81,9 +81,9 @@
     android:summary="%s"
     android:title="@string/rmd_EPr_defaultRemind_title" />
 
+  <!-- entries live in composeResources now; this file only seeds default values -->
   <ListPreference
     android:defaultValue="0"
-    android:entries="@array/EPr_default_reminders_mode"
     android:entryValues="@array/EPr_default_reminders_mode_values"
     android:key="@string/p_default_reminders_mode_key"
     android:summary="%s"

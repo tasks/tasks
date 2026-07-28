@@ -43,6 +43,7 @@ import kotlinx.coroutines.flow.collect
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.PlatformBackHandler
+import org.tasks.compose.edit.AlarmsSection
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
@@ -58,13 +59,19 @@ import org.tasks.compose.edit.TaskEditActionBarHeight
 import org.tasks.compose.edit.TaskEditCardRow
 import org.tasks.compose.pickers.DueDatePickerSheet
 import org.tasks.compose.pickers.StartDatePickerSheet
+import org.tasks.compose.pickers.alarmFromSelection
+import org.tasks.compose.pickers.alarmToSelection
 import org.tasks.compose.pickers.dueDateFromSelection
 import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.time.is24HourFormat
+import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.NavigationDrawerSubheader
+import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.tags.TagPickerViewModel
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.noon
 import org.tasks.themes.TasksIcons
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
@@ -186,7 +193,10 @@ fun TaskEditScreen(
                     var showDueDatePicker by remember { mutableStateOf(false) }
                     var showStartDatePicker by remember { mutableStateOf(false) }
                     var showRecurrencePicker by remember { mutableStateOf(false) }
+                    var showAlarmDateTimePicker by remember { mutableStateOf(false) }
+                    var alarmToReplace by remember { mutableStateOf<Alarm?>(null) }
                     var pickerToken by remember { mutableStateOf(0) }
+                    val reminderViewModel = koinViewModel<ReminderControlSetViewModel>()
                     val is24Hour = is24HourFormat()
                     val keyboardController = LocalSoftwareKeyboardController.current
                     LaunchedEffect(list) { showListPicker = false }
@@ -216,6 +226,9 @@ fun TaskEditScreen(
                             selectedDay = state.startDay,
                             selectedTime = state.startTime,
                             hasDueDate = state.task.dueDate > 0,
+                            hasStartAlarm = remember(state.alarms) {
+                                state.alarms.any { it.type == Alarm.TYPE_REL_START }
+                            },
                             is24Hour = is24Hour,
                             alwaysDisplayFullDate = state.datePickerPreferences.alwaysDisplayFullDate,
                             onClick = {
@@ -226,11 +239,30 @@ fun TaskEditScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         DueDateRow(
                             dueDate = state.task.dueDate,
+                            hasDueDateAlarm = remember(state.alarms) {
+                                state.alarms.any { it.type == Alarm.TYPE_REL_END }
+                            },
                             is24Hour = is24Hour,
                             alwaysDisplayFullDate = state.datePickerPreferences.alwaysDisplayFullDate,
                             onClick = {
                                 keyboardController?.hide()
                                 showDueDatePicker = true
+                            },
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        AlarmsSection(
+                            vm = reminderViewModel,
+                            alarms = state.alarms,
+                            isNew = state.isNew,
+                            hasStartDate = state.task.hasStartDate(),
+                            hasDueDate = state.task.hasDueDate(),
+                            is24HourFormat = is24Hour,
+                            addAlarm = viewModel::addAlarm,
+                            deleteAlarm = viewModel::removeAlarm,
+                            pickDateAndTime = { replace ->
+                                alarmToReplace = replace
+                                keyboardController?.hide()
+                                showAlarmDateTimePicker = true
                             },
                         )
                         Spacer(modifier = Modifier.height(16.dp))
@@ -335,6 +367,40 @@ fun TaskEditScreen(
                                 showRecurrencePicker = false
                             },
                             onDismiss = { showRecurrencePicker = false },
+                        )
+                    }
+                    if (showAlarmDateTimePicker) {
+                        val existing = alarmToReplace
+                            ?.takeIf { it.type == Alarm.TYPE_DATE_TIME }
+                            ?.time
+                            ?.takeIf { it > 0 }
+                        val (initialDay, initialTime) = alarmToSelection(existing ?: currentTimeMillis().noon())
+                        DueDatePickerSheet(
+                            initialDay = initialDay,
+                            initialTime = initialTime,
+                            is24Hour = is24Hour,
+                            showNoDate = false,
+                            showNoTime = false,
+                            times = state.datePickerPreferences.quickPickTimes,
+                            initialDateInputMode = state.datePickerPreferences.datePickerInputMode,
+                            onDateInputModeChange = viewModel::setDatePickerInputMode,
+                            initialTimeInputMode = state.datePickerPreferences.timePickerInputMode,
+                            onTimeInputModeChange = viewModel::setTimePickerInputMode,
+                            onSelected = { day, time ->
+                                val timestamp = alarmFromSelection(day, time)
+                                if (timestamp > 0) {
+                                    alarmToReplace?.let(viewModel::removeAlarm)
+                                    viewModel.addAlarm(
+                                        Alarm(time = timestamp, type = Alarm.TYPE_DATE_TIME)
+                                    )
+                                }
+                                alarmToReplace = null
+                                showAlarmDateTimePicker = false
+                            },
+                            onDismiss = {
+                                alarmToReplace = null
+                                showAlarmDateTimePicker = false
+                            },
                         )
                     }
                     if (showTagPicker) {

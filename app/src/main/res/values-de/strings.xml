@@ -176,13 +176,9 @@
     <string name="customize_edit_screen">Bearbeitungsbildschirm anpassen</string>
     <string name="translations">Zur Übersetzung beitragen</string>
     <string name="quiet_hours_summary">Keine Erinnerungen während der Ruhezeit</string>
-    <string name="add_reminder">Erinnerung hinzufügen</string>
     <string name="add_location">Ort hinzufügen</string>
     <string name="remove">Entfernen</string>
-    <string name="randomly">Zufällig</string>
     <string name="pick_a_date_and_time">Tag und Uhrzeit auswählen</string>
-    <string name="when_overdue">Wenn überfällig</string>
-    <string name="when_due">Wenn fällig</string>
     <string name="tags">Schlagwörter</string>
     <string name="change_priority">Priorität ändern</string>
     <string name="filters">Filter</string>
@@ -444,43 +440,17 @@
     <string name="markdown_description">Markdown in Titel und Beschreibung aktivieren</string>
     <string name="markdown">Markdown</string>
     <string name="now">Jetzt</string>
-    <string name="when_started">Wenn begonnen</string>
     <string name="completion_sound">Ton bei Erledigung abspielen</string>
     <string name="completed">Abgeschlossen</string>
     <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>
     <string name="snackbar_tasks_completed">%d Aufgaben erledigt</string>
-    <string name="alarm_before_start">%s vor dem Start</string>
-    <string name="alarm_after_start">%s nach dem Start</string>
-    <string name="alarm_before_due">%s vor Fälligkeit</string>
-    <string name="alarm_after_due">%s nach Fälligkeit</string>
     <string name="custom_filter_has_reminder">Hat Erinnerung</string>
-    <string name="snoozed_until">Pausiert bis %s</string>
-    <string name="custom_notification">Benutzerdefinierte Erinnerung</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">Minute</item>
-        <item quantity="other">Minuten</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="one">Stunde</item>
-        <item quantity="other">Stunden</item>
-    </plurals>
-    <plurals name="reminder_days">
-        <item quantity="one">Tag</item>
-        <item quantity="other">Tage</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">Woche</item>
-        <item quantity="other">Wochen</item>
-    </plurals>
-    <string name="randomly_every">Zufällig alle %s</string>
     <string name="customize_edit_screen_summary">Felder neu anordnen oder entfernen</string>
     <string name="dismiss">Schließen</string>
     <string name="hint_customize_edit_title">Zu viele Informationen\?</string>
     <string name="hint_customize_edit_body">Du kannst diese Ansicht anpassen, indem du Felder neu anordnest oder verschiebst</string>
     <string name="sort_completion_group">Vervollständigung %s</string>
     <string name="TEA_creation_date">Erstellungsdatum</string>
-    <string name="enable_reminders">Erinnerungen aktivieren</string>
-    <string name="enable_reminders_description">Erinnerungen sind in den Android-Einstellungen deaktiviert</string>
     <string name="sort_list">Nach Listen</string>
     <string name="theme_dynamic">Dynamisch</string>
     <string name="swipe_to_snooze_time_immediately">sofort</string>
@@ -533,10 +503,6 @@
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
     <string name="banner_subscription_required_title">Abo erforderlich</string>
-    <string name="alarm_after">nach</string>
-    <string name="alarm_start">Start</string>
-    <string name="alarm_due">fällig</string>
-    <string name="alarm_before">vor</string>
     <string name="email_to_task_address">Deine E-Mail-Adresse</string>
     <string name="email_to_task">E-Mail Aufgabenerstellung</string>
     <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %1$s angezeigt</string>

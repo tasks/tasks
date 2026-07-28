@@ -289,13 +289,8 @@
     <string name="tags">Thẻ</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Bán kính</string>
-    <string name="when_due">Khi đến hạn</string>
-    <string name="when_overdue">Khi quá hạn</string>
-    <string name="pick_a_date_and_time">Chọn ngày và thời gian</string>
-    <string name="randomly">Ngẫu nhiên</string>
     <string name="remove">Xoá</string>
     <string name="add_location">Thêm vị trí</string>
-    <string name="add_reminder">Thêm lời nhắc</string>
     <string name="quiet_hours_summary">Không có lời nhắc trong giờ im lặng</string>
     <string name="translations">Đóng góp bản dịch</string>
     <string name="customize_edit_screen">Tuỳ biến màn hình chỉnh sửa</string>
@@ -441,42 +436,21 @@
     <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
     <string name="import_summary_title">Tóm tắt khôi phục</string>
     <string name="now">Bây giờ</string>
-    <string name="when_started">Khi bắt đầu</string>
     <string name="completion_sound">Phát âm thanh hoàn tất</string>
     <string name="completed">Hoàn tất</string>
     <string name="custom_filter_has_reminder">Có lời nhắc</string>
-    <string name="snoozed_until">Đã đặt báo lại cho đến %s</string>
     <string name="snackbar_task_completed">Công việc đã hoàn tất</string>
     <string name="snackbar_tasks_completed">%d công việc đã hoàn tất</string>
-    <string name="alarm_before_start">%s trước bắt đầu</string>
-    <string name="alarm_after_start">%s sau bắt đầu</string>
-    <string name="alarm_before_due">%s trước hạn</string>
-    <string name="alarm_after_due">%s sau hạn</string>
-    <plurals name="reminder_days">
-        <item quantity="other">Ngày</item>
-    </plurals>
-    <string name="custom_notification">Thông báo tùy chỉnh</string>
-    <plurals name="reminder_minutes">
-        <item quantity="other">Phút</item>
-    </plurals>
-    <plurals name="reminder_hours">
-        <item quantity="other">Tiếng</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="other">Tuần</item>
-    </plurals>
-    <string name="randomly_every">Ngẫu nhiên mỗi %s</string>
     <string name="customize_edit_screen_summary">Sắp xếp lại hoặc xóa các trường</string>
     <string name="dismiss">Bỏ qua</string>
     <string name="hint_customize_edit_title">Quá nhiều thông tin\?</string>
     <string name="hint_customize_edit_body">Bạn có thể tùy biến màn hình này bằng cách sắp xếp lại hoặc xóa các trường</string>
     <string name="sort_completion_group">Hoàn thành %s</string>
-    <string name="enable_reminders_description">Lời nhắc bị tắt trong cài đặt Android</string>
-    <string name="enable_reminders">Bật lời nhắc</string>
     <string name="TEA_creation_date">Ngày tạo</string>
     <string name="sort_list">Theo danh sách</string>
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
     <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
+    <string name="pick_a_date_and_time">Chọn ngày và thời gian</string>
 </resources>

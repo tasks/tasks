@@ -428,6 +428,40 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">完了日</string>
     <string name="no_title">(タイトルなし)</string>
+    <string name="when_started">着手時</string>
+    <string name="when_due">締切時</string>
+    <string name="when_overdue">締切を過ぎたとき</string>
+    <string name="randomly">ランダム</string>
+    <string name="randomly_every">%1$s ごとにランダム</string>
+    <string name="pick_a_date_and_time">日付と時間を選択</string>
+    <string name="add_reminder">リマインダーを追加</string>
+    <string name="custom_notification">カスタム通知</string>
+    <string name="alarm_before">前に</string>
+    <string name="alarm_after">後に</string>
+    <string name="alarm_start">着手時間に対して</string>
+    <string name="alarm_due">期限</string>
+    <string name="alarm_before_start">着手 %1$s 前</string>
+    <string name="alarm_after_start">着手 %1$s 後</string>
+    <string name="alarm_before_due">締切 %1$s 前</string>
+    <string name="alarm_after_due">締切 %1$s 後</string>
+    <string name="snoozed_until">%1$s までスヌーズ</string>
+    <string name="ring_once">通知音を 1 回鳴らす</string>
+    <string name="ring_five_times">通知音を 5 回鳴らす</string>
+    <string name="ring_nonstop">通知音を鳴らし続ける</string>
+    <string name="enable_reminders">リマインダーを有効にする</string>
+    <string name="enable_reminders_description">Android の設定によりリマインダーは無効になっています</string>
+    <plurals name="reminder_minutes">
+        <item quantity="other">分</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="other">時間</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="other">日</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="other">週間</item>
+    </plurals>
     <string name="delete_task">タスクを削除</string>
     <string name="menu_discard_changes">変更を破棄</string>
     <string name="more_options">さらなるオプション</string>

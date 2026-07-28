@@ -40,6 +40,8 @@
     <string name="google_tasks_selection_description">بنیادی سروس جو آپ کے گوگل اکاؤنٹ کے ساتھ سنکرونائز ہوتی</string>
     <string name="name_your_price">اپنی قیمت بتائیں</string>
     <string name="upgrade_to_pro">پرو پر اپ گریڈ کریں</string>
+    <string name="ok">ٹھیک ہے</string>
+    <string name="cancel">منسوخ کریں</string>
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="etesync_selection_description">اینڈ ٹو اینڈ انکرپٹڈ سنکرونائزیشن</string>
     <string name="decsync_selection_description">فائل بیسڈ سنکرونائزیشن</string>
@@ -225,6 +227,14 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">تاریخ تکمیل</string>
     <string name="no_title">(کوئی عنوان نہیں)</string>
+    <string name="when_due">جب واجب ہو</string>
+    <string name="when_overdue">جب واجب الادا ہو</string>
+    <string name="randomly">بے ترتیب</string>
+    <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
+    <string name="add_reminder">ہاد دہانی لگائیں</string>
+    <string name="ring_once">ایک بار رنگ بجنا</string>
+    <string name="ring_five_times">پانچ بار رنگ بجنا</string>
+    <string name="ring_nonstop">بغیر رکے رنگ بجنا</string>
     <string name="delete_task">ٹاسک ڈیلیٹ کریں</string>
     <string name="menu_discard_changes">تبدیلیاں مسترد کریں</string>
 </resources>

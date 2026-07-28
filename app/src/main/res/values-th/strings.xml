@@ -228,13 +228,8 @@
     <string name="tags">แท็ก</string>
     <string name="location_radius_meters">%s เมตร</string>
     <string name="geofence_radius">รัศมี</string>
-    <string name="when_due">เมื่อครบกําหนด</string>
-    <string name="when_overdue">เมื่อพ้นกําหนด</string>
-    <string name="pick_a_date_and_time">เลือกวันที่และเวลา</string>
-    <string name="randomly">คว้าง</string>
     <string name="remove">ลบ</string>
     <string name="add_location">เพิ่มตําแหน่งที่ตั้ง</string>
-    <string name="add_reminder">เพิ่มตัวเตือน</string>
     <string name="quiet_hours_summary">ไม่มีการเตือนในช่วงเวลาที่เงียบสงบ</string>
     <string name="translations">สนับสนุนการแปล</string>
     <string name="customize_edit_screen">กําหนดหน้าจอแก้ไขเอง</string>
@@ -438,4 +433,5 @@
     <string name="backup_BAc_export">สํารองข้อมูลเดี๋ยวนี้</string>
     <string name="display_name">ชื่อที่ใช้แสดง</string>
     <string name="TVA_add_comment">เพิ่มข้อคิดเห็น…</string>
+    <string name="pick_a_date_and_time">เลือกวันที่และเวลา</string>
 </resources>

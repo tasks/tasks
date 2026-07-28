@@ -345,6 +345,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
     <string name="no_title">(Sense títol)</string>
+    <string name="when_started">Quan comenci</string>
+    <string name="when_due">Quan venci</string>
+    <string name="when_overdue">En cas d'haver-se retardat</string>
+    <string name="randomly">Aleatòriament</string>
+    <string name="randomly_every">Aleatòriament cada %1$s</string>
+    <string name="pick_a_date_and_time">Escull una data i hora</string>
+    <string name="add_reminder">Afegeix un recordatori</string>
+    <string name="custom_notification">Notificació personalitzada</string>
+    <string name="alarm_before_start">%1$s abans d'iniciar</string>
+    <string name="alarm_after_start">%1$s després d'iniciar</string>
+    <string name="alarm_before_due">%1$s abans de venciment</string>
+    <string name="alarm_after_due">%1$s després de venciment</string>
+    <string name="snoozed_until">Posposat fins a %1$s</string>
+    <string name="ring_once">Sona un cop</string>
+    <string name="ring_five_times">Sona cinc cops</string>
+    <string name="ring_nonstop">Sona ininterrompudament</string>
+    <string name="enable_reminders">Habiliteu els recordatoris</string>
+    <string name="enable_reminders_description">Els recordatoris estan desactivats a la configuració de l'Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minut</item>
+        <item quantity="many">Minuts</item>
+        <item quantity="other">Minuts</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Hora</item>
+        <item quantity="many">Hores</item>
+        <item quantity="other">Hores</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Dia</item>
+        <item quantity="many">Dies</item>
+        <item quantity="other">Dies</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Setmana</item>
+        <item quantity="many">Setmanes</item>
+        <item quantity="other">Setmanes</item>
+    </plurals>
     <string name="delete_task">Eliminar tasca</string>
     <string name="menu_discard_changes">Descarta els canvis</string>
     <string name="more_options">Més opcions</string>

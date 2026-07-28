@@ -285,13 +285,8 @@
     <string name="tags">குறிச்சொற்கள்</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">புவிவேளி ஆரம்</string>
-    <string name="when_due">காரணமாக இருக்கும்போது</string>
-    <string name="when_overdue">தாமதமாகும்போது</string>
-    <string name="pick_a_date_and_time">தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுங்கள்</string>
-    <string name="randomly">சீரற்ற</string>
     <string name="remove">அகற்று</string>
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
-    <string name="add_reminder">நினைவூட்டலைச் சேர்க்கவும்</string>
     <string name="quiet_hours_summary">அமைதியான நேரங்களில் நினைவூட்டல்கள் இல்லை</string>
     <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
     <string name="customize_edit_screen">திருத்து திரையைத் தனிப்பயனாக்குங்கள்</string>
@@ -376,7 +371,6 @@
     <string name="chips">சிப்சு</string>
     <string name="device_settings">சாதன அமைப்புகள்</string>
     <string name="comment">கருத்து</string>
-    <string name="randomly_every">தோராயமாக ஒவ்வொரு %s</string>
     <string name="show_edit_screen_without_unlock">திறக்காமல் திருத்து திரை காண்பி</string>
     <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
     <string name="default_location">இயல்புநிலை இடம்</string>
@@ -401,22 +395,10 @@
     <string name="CFC_startBefore_text">தொடங்கியவர்:?</string>
     <string name="CFC_startBefore_name">மூலம் தொடங்கவும்…</string>
     <string name="swipe_to_snooze_time_description">அழிக்கப்பட்ட அறிவிப்பு உறக்கநிலை மற்றும் %s மீண்டும் உருவாக்கப்படும்</string>
-    <plurals name="reminder_days">
-        <item quantity="one">நாள்</item>
-        <item quantity="other">நாட்கள்</item>
-    </plurals>
-    <plurals name="reminder_week">
-        <item quantity="one">வாரம்</item>
-        <item quantity="other">வாரங்கள்</item>
-    </plurals>
     <string name="quiet_hours_in_effect">அமைதியான நேரம் நடைமுறையில் உள்ளது</string>
     <string name="show_edit_screen_without_unlock_summary">சாதனத்தைத் திறக்காமல் விரைவான அமைப்புகள் ஓடு பயன்படுத்த உதவுகிறது</string>
     <string name="header_spacing">இடைவெளி</string>
     <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
-    <plurals name="reminder_minutes">
-        <item quantity="one">நிமையம்</item>
-        <item quantity="other">நிமையங்கள்</item>
-    </plurals>
     <string name="donate_today">இன்று நன்கொடை</string>
     <string name="subtasks_multilevel_microsoft">மைக்ரோசாப்ட் ஆதரிக்காத பல-நிலை துணைப்பிரிவுகள் செய்ய</string>
     <string name="donate_maybe_later">ஒருவேளை பின்னர்</string>
@@ -440,13 +422,8 @@
     <string name="delete_comment">கருத்து</string>
     <string name="launcher_icon">துவக்கி படவுரு</string>
     <string name="sort_list">பட்டியல் மூலம்</string>
-    <plurals name="reminder_hours">
-        <item quantity="one">மணி</item>
-        <item quantity="other">மணிகள்</item>
-    </plurals>
     <string name="swipe_to_snooze_title">உறக்கநிலைக்கு ச்வைப் செய்யவும்</string>
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
-    <string name="when_started">தொடங்கும்போது</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
     <string name="sort_completion_group">நிறைவு %s</string>
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>
@@ -468,7 +445,6 @@
     <string name="price_per_year_with_currency">%s/ஆண்டு</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>
-    <string name="enable_reminders_description">ஆண்ட்ராய்டு அமைப்புகளில் நினைவூட்டல்கள் முடக்கப்பட்டுள்ளன</string>
     <string name="enable_alarms">சரியான நேரத்தில் அறிவிக்கப்படுங்கள்</string>
     <string name="cost_money">செலவு: $</string>
     <string name="cost_more_money">செலவு: $$$</string>
@@ -478,12 +454,9 @@
     <string name="github_sponsor">ஒப்புரவாளர்</string>
     <string name="completed">முடிந்தது</string>
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
-    <string name="custom_notification">தனிப்பயன் notification</string>
     <string name="support">உதவி</string>
     <string name="tasks_org_account_required">Tasks.org கணக்கு தேவை</string>
     <string name="upgrade_open_source_description">உங்கள் சந்தா தொடர்ச்சியான வளர்ச்சியை ஆதரிக்கிறது</string>
-    <string name="alarm_after_due">உரிய பிறகு %s</string>
-    <string name="snoozed_until">%s வரை உறக்கநிலை</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
     <string name="dismiss">தள்ளுபடி</string>
@@ -496,12 +469,9 @@
     <string name="completion_sound">நிறைவு ஒலி</string>
     <string name="snackbar_tasks_completed">%d பணிகள் முடிந்தது</string>
     <string name="markdown_description">தலைப்பு மற்றும் விளக்கத்தில் மார்க் டவுனை இயக்கவும்</string>
-    <string name="alarm_before_start">தொடங்குவதற்கு முன் %s</string>
-    <string name="alarm_after_start">தொடக்கத்திற்குப் பிறகு %s</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
-    <string name="enable_reminders">நினைவூட்டல்களை இயக்கவும்</string>
     <string name="current_subscription">தற்போதைய சந்தா: %s</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
@@ -510,11 +480,6 @@
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="markdown">மார்க் பேரூர்</string>
-    <string name="alarm_before_due">வருவதற்கு முன் %s</string>
-    <string name="alarm_before">முன்</string>
-    <string name="alarm_after">பிறகு</string>
-    <string name="alarm_start">தொடக்கம்</string>
-    <string name="alarm_due">உரிய</string>
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>
@@ -525,4 +490,5 @@
     <string name="multiline_title_off">பணியைச் சேமிக்க முடிந்தது என்பதை அழுத்தவும்</string>
     <string name="banner_app_updated_description">பணிகள் இப்போதுதான் %s ஆகப் புதுப்பிக்கப்பட்டது. வெளியீட்டுக் குறிப்புகளைப் பார்க்க விரும்புகிறீர்களா?</string>
     <string name="delete_tasks_warning">%s நீக்கப்படும். இதை செயல்தவிர்க்க முடியாது!</string>
+    <string name="pick_a_date_and_time">தேதி மற்றும் நேரத்தைத் தேர்ந்தெடுங்கள்</string>
 </resources>

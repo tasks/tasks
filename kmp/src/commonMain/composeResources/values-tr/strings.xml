@@ -470,6 +470,44 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
     <string name="no_title">(Başlıksız)</string>
+    <string name="when_started">Başladığında</string>
+    <string name="when_due">Zamanı geldiğinde</string>
+    <string name="when_overdue">Geciktiğinde</string>
+    <string name="randomly">Gelişigüzel</string>
+    <string name="randomly_every">Rastgele her %1$s</string>
+    <string name="pick_a_date_and_time">Bir tarih ve zaman seç</string>
+    <string name="add_reminder">Anımsatıcı ekle</string>
+    <string name="custom_notification">Özel bildirim</string>
+    <string name="alarm_before">önce</string>
+    <string name="alarm_after">sonra</string>
+    <string name="alarm_start">başlangıç</string>
+    <string name="alarm_due">bitiş</string>
+    <string name="alarm_before_start">Başlamadan önce %1$s</string>
+    <string name="alarm_after_start">Başladıktan sonra %1$s</string>
+    <string name="alarm_before_due">Bitişten önce %1$s</string>
+    <string name="alarm_after_due">Bitişten sonra %1$s</string>
+    <string name="snoozed_until">Şuna dek ertelendi: %1$s</string>
+    <string name="ring_once">Bir kez çal</string>
+    <string name="ring_five_times">Beş kez çal</string>
+    <string name="ring_nonstop">Durmadan çal</string>
+    <string name="enable_reminders">Anımsatıcıları etkinleştir</string>
+    <string name="enable_reminders_description">Anımsatıcılar Android ayarlarında devre dışı bırakıldı</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Dakika</item>
+        <item quantity="other">Dakika</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Saat</item>
+        <item quantity="other">Saat</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Gün</item>
+        <item quantity="other">Gün</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Hafta</item>
+        <item quantity="other">Hafta</item>
+    </plurals>
     <string name="delete_task">Görevi sil</string>
     <string name="menu_discard_changes">Değişiklikleri göz ardı et</string>
     <string name="more_options">Daha çok seçenek</string>

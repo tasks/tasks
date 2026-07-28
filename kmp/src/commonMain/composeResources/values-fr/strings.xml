@@ -484,6 +484,48 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
     <string name="no_title">(Sans titre)</string>
+    <string name="when_started">Lorsqu'il est démarré</string>
+    <string name="when_due">À l'échéance</string>
+    <string name="when_overdue">En cas de retard</string>
+    <string name="randomly">Aléatoirement</string>
+    <string name="randomly_every">Aléatoirement, par intervalle de %1$s</string>
+    <string name="pick_a_date_and_time">Choisir une date et une heure</string>
+    <string name="add_reminder">Ajouter un rappel</string>
+    <string name="custom_notification">Notification personnalisée</string>
+    <string name="alarm_before">avant</string>
+    <string name="alarm_after">après</string>
+    <string name="alarm_start">début le</string>
+    <string name="alarm_due">échéance le</string>
+    <string name="alarm_before_start">%1$s avant le début</string>
+    <string name="alarm_after_start">%1$s après le début</string>
+    <string name="alarm_before_due">%1$s avant l'échéance</string>
+    <string name="alarm_after_due">%1$s après l'échéance</string>
+    <string name="snoozed_until">Reporter jusqu'à %1$s</string>
+    <string name="ring_once">Sonner une fois</string>
+    <string name="ring_five_times">Sonner cinq fois</string>
+    <string name="ring_nonstop">Sonner en continu</string>
+    <string name="enable_reminders">Activer les rappels</string>
+    <string name="enable_reminders_description">Les rappels sont désactivés dans les paramètres Android</string>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Minute</item>
+        <item quantity="many">Minutes</item>
+        <item quantity="other">Minutes</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">Heure</item>
+        <item quantity="many">Heures</item>
+        <item quantity="other">Heures</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">Jour</item>
+        <item quantity="many">Jours</item>
+        <item quantity="other">Jours</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">Semaine</item>
+        <item quantity="many">Semaines</item>
+        <item quantity="other">Semaines</item>
+    </plurals>
     <string name="delete_task">Supprimer la tâche</string>
     <string name="menu_discard_changes">Ignorer les modifications</string>
     <string name="more_options">Plus d’options</string>

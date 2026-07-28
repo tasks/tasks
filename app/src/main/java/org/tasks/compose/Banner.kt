@@ -14,6 +14,8 @@ import org.tasks.compose.components.Banner
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.davx5
+import tasks.kmp.generated.resources.enable_reminders
+import tasks.kmp.generated.resources.enable_reminders_description
 import tasks.kmp.generated.resources.tasks_org
 
 @Composable
@@ -22,8 +24,8 @@ fun NotificationsDisabledBanner(
     dismiss: () -> Unit,
 ) {
     Banner(
-        title = stringResource(id = R.string.enable_reminders),
-        body = stringResource(id = R.string.enable_reminders_description),
+        title = composeStringResource(Res.string.enable_reminders),
+        body = composeStringResource(Res.string.enable_reminders_description),
         dismissText = stringResource(id = R.string.dismiss),
         onDismiss = dismiss,
         action = stringResource(id = R.string.TLA_menu_settings),

@@ -118,5 +118,21 @@
         <item quantity="one">%1$d ଵର୍ଷ</item>
         <item quantity="other">%1$d ଵର୍ଷ</item>
     </plurals>
+    <plurals name="reminder_minutes">
+        <item quantity="one">ମିନିଟ୍</item>
+        <item quantity="other">ମିନିଟ୍</item>
+    </plurals>
+    <plurals name="reminder_hours">
+        <item quantity="one">ଘଣ୍ଟା</item>
+        <item quantity="other">ଘଣ୍ଟା</item>
+    </plurals>
+    <plurals name="reminder_days">
+        <item quantity="one">ଦିନ</item>
+        <item quantity="other">ଦିନ</item>
+    </plurals>
+    <plurals name="reminder_week">
+        <item quantity="one">ସପ୍ତାହ</item>
+        <item quantity="other">ସପ୍ତାହ</item>
+    </plurals>
     <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
 </resources>

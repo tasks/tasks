@@ -94,6 +94,45 @@ class DatePickerLogicTest {
 
     // endregion
 
+    // region alarmToSelection / alarmFromSelection
+
+    @Test
+    fun alarmTimeSurvivesTheDueDateSheet() {
+        val nineAmExactly = base.withMillisOfDay(9 * HOUR)
+        val (day, time) = alarmToSelection(nineAmExactly)
+
+        assertEquals(base, day)
+        assertEquals(time, initialDueTime(time))
+        assertEquals(nineAmExactly, alarmFromSelection(day, time))
+    }
+
+    @Test
+    fun alarmNoonSurvivesTheDueDateSheet() {
+        val (day, time) = alarmToSelection(noon)
+
+        assertEquals(time, initialDueTime(time))
+        assertEquals(noon, alarmFromSelection(day, time))
+    }
+
+    @Test
+    fun alarmFromSelectionStripsTheTimeMarker() {
+        assertEquals(base.withMillisOfDay(9 * HOUR), alarmFromSelection(base, nineAm))
+        assertEquals(base.withMillisOfDay(17 * HOUR), alarmFromSelection(base, fivePm))
+    }
+
+    @Test
+    fun alarmFromSelectionNoDayIsZero() {
+        assertEquals(0L, alarmFromSelection(NO_DAY, nineAm))
+        assertEquals(0L, alarmFromSelection(NO_DAY, NO_TIME))
+    }
+
+    @Test
+    fun alarmToSelectionNoDate() {
+        assertEquals(NO_DAY to NO_TIME, alarmToSelection(0))
+    }
+
+    // endregion
+
     // region dayForNewTime (today-vs-tomorrow rollover, clock frozen at noon)
 
     @Test
