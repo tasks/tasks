@@ -422,4 +422,6 @@
         <item quantity="other">occurrences</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">par intervalle de %1$s %2$s</string>
+    <string name="failed_to_load_task">Échec de chargement de la tâche</string>
+    <string name="not_signed_in">Non connecté</string>
 </resources>
