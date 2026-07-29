@@ -100,6 +100,7 @@ class Notifications : Fragment() {
                 showBatteryOptimization = viewModel.showBatteryOptimization,
                 completionSoundName = viewModel.completionSoundName,
                 showPreUpsideDownCake = AndroidUtilities.preUpsideDownCake(),
+                showPersistentReminders = AndroidUtilities.allowsNonDismissibleNotifications(context),
                 persistentEnabled = viewModel.persistentEnabled,
                 wearableEnabled = viewModel.wearableEnabled,
                 bundleEnabled = viewModel.bundleEnabled,

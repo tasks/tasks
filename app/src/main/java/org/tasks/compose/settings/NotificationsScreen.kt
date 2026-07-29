@@ -27,6 +27,7 @@ fun NotificationsScreen(
     showBatteryOptimization: Boolean,
     completionSoundName: String,
     showPreUpsideDownCake: Boolean,
+    showPersistentReminders: Boolean,
     persistentEnabled: Boolean,
     wearableEnabled: Boolean,
     bundleEnabled: Boolean,
@@ -108,7 +109,9 @@ fun NotificationsScreen(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
         ) {
-            val total = 3 + (if (showPreUpsideDownCake) 2 else 0)
+            var total = 3
+            if (showPreUpsideDownCake) total += 1
+            if (showPersistentReminders) total += 1
             var i = 0
 
             SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
@@ -118,7 +121,7 @@ fun NotificationsScreen(
                     onClick = onCompletionSound,
                 )
             }
-            if (showPreUpsideDownCake) {
+            if (showPersistentReminders) {
                 SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.persistent_notifications),
@@ -127,6 +130,8 @@ fun NotificationsScreen(
                         onCheckedChange = onPersistent,
                     )
                 }
+            }
+            if (showPreUpsideDownCake) {
                 SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                     SwitchPreferenceRow(
                         title = stringResource(R.string.wearable_notifications),

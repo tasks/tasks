@@ -245,7 +245,7 @@ class NotificationManager @Inject constructor(
             notification.flags = notification.flags or NotificationCompat.FLAG_INSISTENT
             ringTimes = 1
         }
-        if (preferences.usePersistentReminders()) {
+        if (preferences.usePersistentReminders(context)) {
             notification.flags = notification.flags or
                     NotificationCompat.FLAG_NO_CLEAR or
                     NotificationCompat.FLAG_ONGOING_EVENT
