@@ -414,4 +414,5 @@
         <item quantity="other">kordust</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">iga %1$s %2$s</string>
+    <string name="failed_to_load_task">Ülesande laadimine ei õnnestunud</string>
 </resources>
