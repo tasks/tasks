@@ -608,4 +608,5 @@
     <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
     <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>
     <string name="sort_options">Options de tri</string>
+    <string name="snoozed_reminder">Rappel mis en veille</string>
 </resources>
