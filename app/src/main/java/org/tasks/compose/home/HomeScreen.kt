@@ -71,6 +71,7 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.SearchButtonSize
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
 import org.tasks.filters.Filter
@@ -84,6 +85,8 @@ import org.tasks.kmp.org.tasks.compose.rememberImeState
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.MainPreferences
 import timber.log.Timber
+
+private val BottomAppBarHeight = 80.dp
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
@@ -118,6 +121,11 @@ fun HomeScreen(
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.List] == PaneAdaptedValue.Expanded
     val isDetailVisible =
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
+
+    val searchButtonInset = (
+        (BottomAppBarHeight - windowInsets.value.calculateBottomPadding())
+            .coerceAtLeast(SearchButtonSize) - SearchButtonSize
+        ) / 2
 
     val openTaskAppDialog = remember { mutableStateOf<org.tasks.data.OpenTaskApp?>(null) }
     val guestDialog = remember { mutableStateOf(false) }
@@ -275,6 +283,7 @@ fun HomeScreen(
                                     )
                                 }
                             },
+                            searchButtonInset = searchButtonInset,
                         )
 
                         SystemBarScrim(

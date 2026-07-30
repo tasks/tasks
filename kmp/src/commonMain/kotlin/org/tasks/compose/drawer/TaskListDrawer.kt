@@ -69,6 +69,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntRect
 import androidx.compose.ui.unit.IntSize
@@ -100,6 +101,8 @@ import tasks.kmp.generated.resources.sign_in
 
 val DrawerItemInset = 8.dp
 
+val SearchButtonSize = 56.dp
+
 @Composable
 fun TaskListDrawer(
     drawerOpen: Boolean,
@@ -112,6 +115,7 @@ fun TaskListDrawer(
     expanded: Boolean = true,
     onExpandDrawer: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
+    searchButtonInset: Dp = 16.dp,
 ) {
     // The query lives in the view model, not here. Where the sidebar is pinned to a rail the modal
     // sheet's copy of this drawer is composed alongside the sidebar's, and a local copy let the two
@@ -218,7 +222,7 @@ fun TaskListDrawer(
             query = query,
             onQueryChange = onQueryChange,
             modifier = Modifier
-                .padding(bottom = 16.dp + bottomNavPadding),
+                .padding(bottom = searchButtonInset + bottomNavPadding),
         )
         }
     }
@@ -290,7 +294,7 @@ private fun SearchFab(
                 )
             } else {
                 Box(
-                    modifier = Modifier.size(56.dp),
+                    modifier = Modifier.size(SearchButtonSize),
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(

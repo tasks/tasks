@@ -168,6 +168,7 @@ import org.tasks.compose.chips.StartDateChip
 import org.tasks.compose.chips.SubtaskChip
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.DrawerItemInset
+import org.tasks.compose.drawer.SearchButtonSize
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.compose.horizontalResizeCursor
 import org.tasks.compose.platformNavigationBarsPadding
@@ -1405,6 +1406,7 @@ private fun TaskListChrome(
                     // time the drawer closes, and it is not inside a nav entry whose saveable
                     // state the decorator would preserve.
                     listState = modalDrawerListState,
+                    searchButtonInset = SearchButtonInset,
                 )
                 val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
                 StatusBarScrim(
@@ -1468,6 +1470,7 @@ private fun TaskListChrome(
                             }
                         },
                         listState = sidebarListState,
+                        searchButtonInset = SearchButtonInset,
                     )
                     val sidebarScrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
                     StatusBarScrim(
@@ -1851,6 +1854,13 @@ private val SidebarMinWidth = 200.dp
 private val SidebarRailWidth = 72.dp
 
 private val PanelGutterWidth = 24.dp
+
+private val FloatingToolbarHeight = 64.dp
+
+private val FloatingToolbarBottomMargin = 24.dp
+
+private val SearchButtonInset =
+    FloatingToolbarBottomMargin + (FloatingToolbarHeight - SearchButtonSize) / 2
 
 /** Narrowest pane area that can hold a task list and a task editor side by side. */
 private val TwoPaneMinWidth = TaskListPaneMinWidth + PanelGutterWidth + TaskEditPaneMinWidth
