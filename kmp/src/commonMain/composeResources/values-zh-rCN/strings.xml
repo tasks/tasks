@@ -412,4 +412,6 @@
         <item quantity="other">次发生</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">每 %1$s %2$s</string>
+    <string name="no_task_selected">未选择任务</string>
+    <string name="resize_panes">调整窗格大小</string>
 </resources>
