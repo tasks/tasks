@@ -368,4 +368,12 @@
         <item quantity="other">繰り返し</item>
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">%1$s %2$s ごと</string>
+    <string name="failed_to_load_task">タスクが読み込めませんでした</string>
+    <string name="not_signed_in">サインインしていません</string>
+    <string name="delete_tag_warning">このタグのついたタスクは削除されません</string>
+    <string name="delete_list_warning">このリストのタスクは全て削除されます。元に戻すことはできません！</string>
+    <string name="sync_metadata">タグのメタデータをここに保存</string>
+    <string name="sync_metadata_summary">タグ名や色、アイコンや並び方をこのアカウントに保存し、あなたの他のデバイスで同期</string>
+    <string name="metadata_stored_on_tasks_org">あなたのTasks.orgアカウントに保存済み</string>
+    <string name="metadata_stored_on_account">現在、%1$sに保存</string>
 </resources>
