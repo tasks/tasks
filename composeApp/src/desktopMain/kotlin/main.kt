@@ -35,10 +35,13 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.viewmodel.PendingTaskSaves
+import org.tasks.http.EncryptedCookieStore
 import at.bitfire.cert4android.DesktopUserDecisionRegistry
 import org.tasks.ssl.TrustCertificateDialog
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncSource
+import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.di.commonModule
 import org.tasks.di.dataDir
 import org.tasks.di.logDir
@@ -162,12 +165,6 @@ fun main() {
         }
     }
     Runtime.getRuntime().addShutdownHook(Thread {
-        // The last line of defence for an unsaved edit. A SIGTERM from a logout, a `kill`, or any
-        // other exit that never reaches the window's close handler arrives here and nowhere else -
-        // and on a normal quit the flush has already run, so this is a no-op.
-        //
-        // Guarded, because a hook that throws skips everything after it: the lock file would be left
-        // behind, and the next launch would take itself for a second instance and refuse to start.
         try {
             val pendingSaves = koin.get<PendingTaskSaves>()
             pendingSaves.flushPending()
@@ -179,6 +176,8 @@ fun main() {
         } catch (e: Exception) {
             Logger.e(e) { "Failed to commit pending saves during shutdown" }
         }
+        (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()
+        runBlocking { EncryptedCookieStore.flushAll() }
         (koin.get<Reporting>() as? PostHogReporting)?.close()
         ipcServer?.close()
         portFile.delete()

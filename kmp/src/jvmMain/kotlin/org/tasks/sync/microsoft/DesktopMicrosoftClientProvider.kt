@@ -4,7 +4,6 @@ import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpSend
-import io.ktor.client.plugins.cookies.AcceptAllCookiesStorage
 import io.ktor.client.plugins.plugin
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
@@ -13,6 +12,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import org.tasks.auth.OAuthTokenData
 import org.tasks.auth.OAuthTokenRefresh
@@ -20,9 +20,11 @@ import org.tasks.auth.OAuthTokenRefresh.withRefreshResult
 import org.tasks.auth.TasksOAuthClient
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.http.DesktopCookieStorage
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.installMicrosoftGraph
 import org.tasks.security.KeyStoreEncryption
+import java.io.File
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicReference
 
@@ -30,6 +32,7 @@ class DesktopMicrosoftClientProvider(
     private val encryption: KeyStoreEncryption,
     private val caldavDao: CaldavDao,
     private val okHttpClientFactory: OkHttpClientFactory,
+    private val cookieDir: File,
     private val oauthClient: TasksOAuthClient = TasksOAuthClient(),
 ) : MicrosoftClientProvider {
 
@@ -40,14 +43,20 @@ class DesktopMicrosoftClientProvider(
 
     private suspend fun sharedEngine(): OkHttpClient =
         sharedEngine ?: engineMutex.withLock {
-            sharedEngine ?: okHttpClientFactory.newClient(foreground = false).also { sharedEngine = it }
+            sharedEngine ?: okHttpClientFactory
+                .newClient(foreground = false) { it.cookieJar(CookieJar.NO_COOKIES) }
+                .also { sharedEngine = it }
         }
 
     private val clients = ConcurrentHashMap<String, ClientEntry>()
 
     private val tokenCache = ConcurrentHashMap<Long, CachedToken>()
 
-    private class ClientEntry(val client: HttpClient, val token: AtomicReference<String>)
+    private class ClientEntry(
+        val client: HttpClient,
+        val cookies: DesktopCookieStorage,
+        val token: AtomicReference<String>,
+    )
     private class CachedToken(val encrypted: String, val data: OAuthTokenData)
 
     override suspend fun getService(account: CaldavAccount): MicrosoftService = withContext(Dispatchers.IO) {
@@ -55,19 +64,28 @@ class DesktopMicrosoftClientProvider(
         val engine = sharedEngine()
         val key = account.clientKey()
         val entry = clients.computeIfAbsent(key) {
-            buildClient(token, engine, refresh = { getToken(account) })
+            buildClient(
+                initialToken = token,
+                engine = engine,
+                cookies = DesktopCookieStorage.forKey(cookieDir, key, encryption),
+                refresh = { getToken(account) },
+            )
         }
         entry.token.set(token)
         MicrosoftService(client = entry.client)
     }
 
+    fun close() {
+        clients.values.forEach { runCatching { it.cookies.close() } }
+    }
+
     private fun buildClient(
         initialToken: String,
         engine: OkHttpClient,
+        cookies: DesktopCookieStorage,
         refresh: suspend () -> String,
     ): ClientEntry {
         val tokenRef = AtomicReference(initialToken)
-        val cookies = AcceptAllCookiesStorage()
         val client = HttpClient(OkHttp) {
             engine {
                 preconfigured = engine
@@ -91,7 +109,7 @@ class DesktopMicrosoftClientProvider(
             request.headers[HttpHeaders.Authorization] = "Bearer $refreshed"
             execute(request)
         }
-        return ClientEntry(client, tokenRef)
+        return ClientEntry(client, cookies, tokenRef)
     }
 
     private suspend fun getToken(account: CaldavAccount): String {

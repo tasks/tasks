@@ -95,6 +95,8 @@ val dataDir: File by lazy {
     dir.also { it.mkdirs() }
 }
 
+val cookieDir: File by lazy { File(dataDir, "cookies") }
+
 val logDir: File by lazy {
     overrideDir?.let { return@lazy File(it, "logs").also { d -> d.mkdirs() } }
     val home = System.getProperty("user.home")
@@ -130,7 +132,13 @@ actual fun platformModule(): Module = module {
     }
     single { DesktopUserDecisionRegistry() }
     single<CertStore> { DesktopCertStore(dataDir = dataDir, userDecisionRegistry = get()) }
-    factory<OkHttpClientFactory> { DesktopOkHttpClientFactory(certStore = get()) }
+    factory<OkHttpClientFactory> {
+        DesktopOkHttpClientFactory(
+            certStore = get(),
+            encryption = get(),
+            cookieDir = cookieDir,
+        )
+    }
     factory {
         val httpClient = kotlinx.coroutines.runBlocking {
             get<OkHttpClientFactory>().newClient(foreground = true)
@@ -146,6 +154,7 @@ actual fun platformModule(): Module = module {
             encryption = get(),
             caldavDao = get(),
             okHttpClientFactory = get(),
+            cookieDir = cookieDir,
         )
     }
     factory {
