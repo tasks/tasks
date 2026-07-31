@@ -35,6 +35,8 @@ open class TagPickerViewModel(
     private val _tagToCreate = mutableStateOf("")
 
     fun setSelected(selected: List<TagData>, partiallySelected: List<TagData>?) {
+        this.selected.clear()
+        this.partiallySelected.clear()
         selected.forEach { tag -> tag.remoteId?.let { this.selected[it] = tag } }
         partiallySelected?.forEach { tag -> tag.remoteId?.let { this.partiallySelected[it] = tag } }
     }
