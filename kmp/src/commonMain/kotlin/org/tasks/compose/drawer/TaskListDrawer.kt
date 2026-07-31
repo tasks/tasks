@@ -103,6 +103,8 @@ val DrawerItemInset = 8.dp
 
 val SearchButtonSize = 56.dp
 
+private val SearchButtonGap = 16.dp
+
 @Composable
 fun TaskListDrawer(
     drawerOpen: Boolean,
@@ -147,6 +149,8 @@ fun TaskListDrawer(
     val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
     val bottomNavPadding = systemBarPadding.calculateBottomPadding()
+    val topGutter = systemBarPadding.calculateTopPadding() + searchButtonInset
+    val bottomGutter = searchButtonInset + SearchButtonSize + SearchButtonGap + bottomNavPadding
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -157,8 +161,8 @@ fun TaskListDrawer(
             modifier = Modifier.fillMaxSize(),
             state = listState,
             contentPadding = PaddingValues(
-                top = maxOf(systemBarPadding.calculateTopPadding(), 8.dp),
-                bottom = 88.dp + bottomNavPadding,
+                top = topGutter,
+                bottom = bottomGutter,
             ),
             verticalArrangement = arrangement,
         ) {
