@@ -86,6 +86,7 @@ import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.more_options
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.url_sponsor
 
@@ -468,10 +469,11 @@ object PurchaseText {
                             )
                         ) {
                             Text(
-                                text = stringResource(
-                                    if (nameYourPrice) R.string.more_options
-                                    else R.string.name_your_price
-                                ),
+                                text = if (nameYourPrice) {
+                                    org.jetbrains.compose.resources.stringResource(Res.string.more_options)
+                                } else {
+                                    stringResource(R.string.name_your_price)
+                                },
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodyLarge
                             )

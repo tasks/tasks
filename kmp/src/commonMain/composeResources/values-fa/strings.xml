@@ -117,4 +117,5 @@
     <string name="repeat_type_completion">تاریخ اتمام</string>
     <string name="TEA_control_repeat">تکرار</string>
     <string name="no_title">(بدون عنوان)</string>
+    <string name="delete_task">حذف وظیفه</string>
 </resources>

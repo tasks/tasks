@@ -347,4 +347,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата завершення</string>
     <string name="no_title">(без назви)</string>
+    <string name="delete_task">Видалити завдання</string>
+    <string name="menu_discard_changes">Скасувати зміни</string>
+    <string name="more_options">Додаткові параметри</string>
 </resources>

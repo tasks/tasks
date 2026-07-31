@@ -160,7 +160,6 @@
     <string name="EPr_voiceInputEnabled_title">Voce</string>
     <string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
-    <string name="delete_task">Elimina attività</string>
     <string name="voice_command_added_task">Attività aggiunta</string>
     <plurals name="Ntasks">
         <item quantity="one">1 attività</item>
@@ -321,7 +320,6 @@
     <string name="password">Password</string>
     <string name="theme_system_default">Predefinito del sistema</string>
     <string name="icon">Icona</string>
-    <string name="menu_discard_changes">Ignora le modifiche</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
@@ -441,7 +439,6 @@
     <string name="CFC_startBefore_name">Inizia…</string>
     <string name="widget_show_title">Mostra titolo</string>
     <string name="support">Supporto</string>
-    <string name="more_options">Altre opzioni</string>
     <string name="tasks_org_account_required">È richiesto un account Tasks.org</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>

@@ -445,4 +445,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
     <string name="no_title">(Ingen titel)</string>
+    <string name="delete_task">Ta bort uppgift</string>
+    <string name="menu_discard_changes">Ignorera ändringar</string>
+    <string name="more_options">Fler alternativ</string>
 </resources>

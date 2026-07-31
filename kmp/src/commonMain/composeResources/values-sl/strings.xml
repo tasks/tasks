@@ -31,4 +31,5 @@
     <string name="week_before_due">Teden pred dospelostjo</string>
     <string name="no_time">Čas ni določen</string>
     <string name="TEA_note_label">Opis</string>
+    <string name="delete_task">Zbriši opravek</string>
 </resources>

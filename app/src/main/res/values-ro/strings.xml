@@ -13,7 +13,6 @@
     <string name="actfm_picture_clear">Șterge poza</string>
     <string name="markdown_description">Activează Markdown în titlu și descriere</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Mai multe opțiuni</string>
     <string name="upgrade_open_source_description">Abonamentul sprijină dezvoltarea continuă</string>
     <string name="upgrade_tasks_org_account_description">Sincronizează cu Tasks.org și colaborează cu alți utilizatori</string>
     <string name="upgrade_more_customization_description">Deblochează toate temele, culorile și pictogramele</string>
@@ -119,7 +118,6 @@
     <string name="list_settings">Setări listă</string>
     <string name="tag_settings">Setări etichetă</string>
     <string name="discard">Modificări</string>
-    <string name="menu_discard_changes">Renunță la modificări</string>
     <string name="discard_changes">Renunți la modificări\?</string>
     <string name="date_shortcut_must_come_after">%1$s trebuie să vină după %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s trebuie să vină înainte de %2$s</string>
@@ -170,7 +168,6 @@
         <item quantity="other">%d sarcini</item>
     </plurals>
     <string name="voice_command_added_task">Sarcină adăugată</string>
-    <string name="delete_task">Șterge sarcina</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Programul va rosti numele sarcinilor în timpul reamintirii sarcinilor</string>
     <string name="EPr_voiceRemindersEnabled_title">Reamintiri vocale</string>
     <string name="EPr_voiceInputEnabled_title">Intrare vocală</string>

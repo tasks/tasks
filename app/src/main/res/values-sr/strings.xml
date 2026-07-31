@@ -14,7 +14,6 @@
     <string name="CFC_dueBefore_text">По датуму: ?</string>
     <string name="gcal_completed_title">%s (завршено)</string>
     <string name="rmd_EPr_defaultRemind_title">Насумични подсетници</string>
-    <string name="delete_task">Обриши задатак</string>
     <string name="quiet_hours_summary">Без подсетника у мирним сатима</string>
     <string name="filter_settings">Подешавања филтера</string>
     <string name="import_summary_title">Обнови сажетак</string>
@@ -228,7 +227,6 @@
     <string name="date_shortcut_tomorrow_afternoon">Сутра поподне</string>
     <string name="date_shortcut_tomorrow_evening">Сутра увече</string>
     <string name="discard_changes">Одбаци измене?</string>
-    <string name="menu_discard_changes">Одбаци измене</string>
     <string name="discard">Обустави</string>
     <string name="tag_settings">Подешавања тагова</string>
     <string name="list_settings">Подешавања листе</string>
@@ -503,7 +501,6 @@
     <string name="upgrade_more_customization_description">Откључај све теме, боје, и иконице</string>
     <string name="upgrade_tasks_org_account_description">Синхронизуј са Tasks.org и сарађуј са другим корисницима</string>
     <string name="upgrade_open_source_description">Ова претплата омогућава наставак развоја апликације</string>
-    <string name="more_options">Додатне опције</string>
     <string name="markdown">Редукција</string>
     <string name="markdown_description">Омогући Редукцију у називу и опису</string>
     <string name="completion_sound">Произведи звук за завршетак</string>

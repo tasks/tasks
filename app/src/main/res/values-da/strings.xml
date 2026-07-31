@@ -50,7 +50,6 @@
     <string name="rmd_EPr_quiet_hours_start_title">Hviletid begynder</string>
     <string name="rmd_EPr_quiet_hours_end_title">Hviletid slutter</string>
     <string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
-    <string name="delete_task">Slet opgave</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opgave</item>
         <item quantity="other">%d opgaver</item>
@@ -233,7 +232,6 @@
     <string name="list_settings">Listeindstillinger</string>
     <string name="tag_settings">Tag-indstillinger</string>
     <string name="discard">Kassér</string>
-    <string name="menu_discard_changes">Kassér ændringer</string>
     <string name="discard_changes">Kassér ændringer\?</string>
     <string name="date_shortcut_must_come_after">%1$s skal komme efter %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s skal komme før %2$s</string>
@@ -415,7 +413,6 @@
     <string name="no_google_play_subscription">Intet kvalificeret Google Play-abonnement fundet</string>
     <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Flere muligheder</string>
     <string name="upgrade_open_source_description">Dit abonnement støtter den fortsatte udvikling</string>
     <string name="upgrade_tasks_org_account_description">Synkroniser med Tasks.org, og samarbejd med andre brugere</string>
     <string name="upgrade_more_customization_description">Lås op for alle temaer, farver og ikoner</string>

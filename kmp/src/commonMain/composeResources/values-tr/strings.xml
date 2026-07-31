@@ -470,4 +470,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
     <string name="no_title">(Başlıksız)</string>
+    <string name="delete_task">Görevi sil</string>
+    <string name="menu_discard_changes">Değişiklikleri göz ardı et</string>
+    <string name="more_options">Daha çok seçenek</string>
 </resources>

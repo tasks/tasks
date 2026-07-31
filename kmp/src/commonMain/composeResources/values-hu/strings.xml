@@ -379,4 +379,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
     <string name="no_title">(Név nélkül)</string>
+    <string name="delete_task">Feladat törlése</string>
+    <string name="menu_discard_changes">Módosítások elvetése</string>
+    <string name="more_options">Több opció</string>
 </resources>

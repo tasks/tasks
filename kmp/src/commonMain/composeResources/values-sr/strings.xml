@@ -372,4 +372,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Датум завршетка</string>
     <string name="no_title">(Без назива)</string>
+    <string name="delete_task">Обриши задатак</string>
+    <string name="menu_discard_changes">Одбаци измене</string>
+    <string name="more_options">Додатне опције</string>
 </resources>

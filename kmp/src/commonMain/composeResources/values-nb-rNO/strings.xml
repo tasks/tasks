@@ -315,4 +315,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
     <string name="no_title">(Ingen tittel)</string>
+    <string name="delete_task">Slett gjøremål</string>
+    <string name="menu_discard_changes">Forkast endringer</string>
+    <string name="more_options">Flere innstillinger</string>
 </resources>

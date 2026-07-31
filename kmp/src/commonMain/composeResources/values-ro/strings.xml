@@ -356,4 +356,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalizare</string>
     <string name="no_title">(Fără titlu)</string>
+    <string name="delete_task">Șterge sarcina</string>
+    <string name="menu_discard_changes">Renunță la modificări</string>
+    <string name="more_options">Mai multe opțiuni</string>
 </resources>

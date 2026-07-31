@@ -147,7 +147,6 @@
     <string name="EPr_voiceInputEnabled_title">Äänisyöttö</string>
     <string name="EPr_voiceRemindersEnabled_title">Äänimuistutukset</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks kertoo tehtävien nimet muistutusten aikana</string>
-    <string name="delete_task">Poista tehtävä</string>
     <string name="voice_command_added_task">Lisätty tehtävä</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tehtävä</item>
@@ -292,7 +291,6 @@
     <string name="launcher_icon">Käynnistyskuvake</string>
     <string name="icon">Kuvake</string>
     <string name="move">Siirrä</string>
-    <string name="menu_discard_changes">Hylkää muutokset</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Geofence-alue</string>
     <string name="add_location">Lisää sijainti</string>
@@ -378,7 +376,6 @@
     <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
     <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Lisää vaihtoehtoja</string>
     <string name="upgrade_open_source_description">Tilauksesi tukee jatkuvaa kehitystä</string>
     <string name="upgrade_tasks_org_account_description">Synkronoi Tasks.orgin kanssa ja tee yhteistyötä muiden käyttäjien kanssa</string>
     <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>

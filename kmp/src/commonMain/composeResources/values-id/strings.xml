@@ -440,4 +440,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
     <string name="no_title">(Tanpa judul)</string>
+    <string name="delete_task">Hapus tugas</string>
+    <string name="menu_discard_changes">Buang perubahan</string>
+    <string name="more_options">Opsi lebih banyak</string>
 </resources>

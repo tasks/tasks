@@ -161,7 +161,6 @@
     <string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
     <string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks будет произносить название задач во время напоминаний</string>
-    <string name="delete_task">Удалить задачу</string>
     <string name="voice_command_added_task">Добавленная задача</string>
     <plurals name="Ntasks">
         <item quantity="one">%d задача</item>
@@ -327,7 +326,6 @@
     <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
-    <string name="menu_discard_changes">Отменить изменения</string>
     <string name="share">Поделиться</string>
     <string name="select_all">Выбрать всё</string>
     <string name="calendar_event_created">В календаре создано событие для %s</string>
@@ -445,7 +443,6 @@
     <string name="privacy">Конфиденциальность</string>
     <string name="open_source">Открытый исходный код</string>
     <string name="support">Поддержка</string>
-    <string name="more_options">Дополнительные параметры</string>
     <string name="upgrade_open_source_description">Ваша подписка поддерживает продолжающуюся разработку</string>
     <string name="upgrade_tasks_org_account_description">Синхронизируйтесь с Tasks.org и сотрудничайте с другими пользователями</string>
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>

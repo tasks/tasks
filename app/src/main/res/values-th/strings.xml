@@ -36,7 +36,6 @@
     <string name="delete_tag_confirmation">ลบ %s หรือไม่\?</string>
     <string name="markdown_description">เปิดใช้งานการทําเครื่องหมายในชื่อและคําอธิบาย</string>
     <string name="markdown">มาร์กดาวน์</string>
-    <string name="more_options">ตัวเลือกเพิ่มเติม</string>
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
@@ -223,7 +222,6 @@
     <string name="list_settings">การตั้งค่ารายการ</string>
     <string name="tag_settings">การตั้งค่าแท็ก</string>
     <string name="discard">ทิ้ง</string>
-    <string name="menu_discard_changes">ละทิ้งการเปลี่ยนแปลง</string>
     <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่\?</string>
     <string name="date_shortcut_must_come_after">%1$s ต้องมาหลังจาก %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s ต้องมาก่อน %2$s</string>
@@ -261,7 +259,6 @@
         <item quantity="other">%d งาน</item>
     </plurals>
     <string name="voice_command_added_task">งานที่เพิ่ม</string>
-    <string name="delete_task">ลบงาน</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">งานจะพูดชื่องานในระหว่างตัวเตือนงาน</string>
     <string name="EPr_voiceRemindersEnabled_title">ตัวเตือนด้วยเสียง</string>
     <string name="EPr_voiceInputEnabled_title">ป้อนข้อมูลด้วยเสียง</string>

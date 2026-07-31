@@ -329,4 +329,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
     <string name="no_title">(தலைப்பு இல்லை)</string>
+    <string name="delete_task">பணியை நீக்கு</string>
+    <string name="menu_discard_changes">மாற்றங்களை கைவிடலாமா</string>
+    <string name="more_options">மேலும் விருப்பங்கள்</string>
 </resources>

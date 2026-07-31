@@ -165,7 +165,6 @@
     <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
     <string name="EPr_voiceRemindersEnabled_title">Hlasové pripomienky</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks budú pri pripomienke nahlas čítať názov úlohy</string>
-    <string name="delete_task">Zmazať úlohu</string>
     <string name="voice_command_added_task">Pridaná úloha</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úloha</item>
@@ -293,7 +292,6 @@
     <string name="default_due_date">Predvolený termín</string>
     <string name="comment">Komentár</string>
     <string name="randomly_every">Náhodne každých %s</string>
-    <string name="menu_discard_changes">Zahodiť zmeny</string>
     <string name="widget_due_date_after_title">Za názvom</string>
     <string name="SSD_sort_start">Podľa dátumu spustenia</string>
     <string name="theme_dynamic">Dynamické</string>
@@ -444,7 +442,6 @@
     <string name="auto_dismiss_datetime_edit">Úprava úlohy</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="select_all">Vybrať všetko</string>
-    <string name="more_options">Ďalšie možnosti</string>
     <string name="tasks_org_account_required">Vyžaduje sa účet na Tasks.org</string>
     <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
     <string name="auto_dismiss_datetime_list_summary">Automaticky zatvoriť pri výbere zo zoznamu úloh</string>

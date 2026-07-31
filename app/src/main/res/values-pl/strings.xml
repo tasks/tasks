@@ -160,7 +160,6 @@
     <string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
     <string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
-    <string name="delete_task">Usuń zadanie</string>
     <string name="voice_command_added_task">Dodane zadanie</string>
     <plurals name="Ntasks">
         <item quantity="one">1 zadanie</item>
@@ -326,7 +325,6 @@
     <string name="hide_unused_tags">Ukryj nieużywane tagi</string>
     <string name="place_settings">Ustawienia miejsca</string>
     <string name="places">Miejsca</string>
-    <string name="menu_discard_changes">Odrzuć zmiany</string>
     <string name="compact">Kompaktowy</string>
     <string name="settings_default">Domyślny</string>
     <string name="widget_id">Identyfikator widżetu: %d</string>
@@ -445,7 +443,6 @@
     <string name="support">Wsparcie</string>
     <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Więcej opcji</string>
     <string name="upgrade_open_source_description">Twoja subskrypcja wspiera dalszy rozwój aplikacji</string>
     <string name="upgrade_tasks_org_account_description">Synchronizuj z Tasks.org oraz współpracuj z innymi użytkownikami</string>
     <string name="upgrade_more_customization_description">Odblokuj wszystkie motywy, kolory oraz ikony</string>

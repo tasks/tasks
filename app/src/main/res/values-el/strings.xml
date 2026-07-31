@@ -102,7 +102,6 @@
     <string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
     <string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
-    <string name="delete_task">Διαγραφή καθήκοντος</string>
     <string name="voice_command_added_task">Η εργασία προστέθηκε</string>
     <string name="today">Σήμερα</string>
     <string name="tomorrow">Αύριο</string>
@@ -433,7 +432,6 @@
     <string name="upgrade_more_customization_description">Ξεκλειδώστε όλα τα θέματα, χρώματα και εικονίδια</string>
     <string name="upgrade_tasks_org_account_description">Συγχρονίστε με το Tasks.org και συνεργαστείτε με άλλους χρήστες</string>
     <string name="upgrade_open_source_description">Η συνδρομή σας υποστηρίζει τη συνεχή ανάπτυξη</string>
-    <string name="more_options">Περισσότερες επιλογές</string>
     <string name="markdown">Αποτίμηση (Markdown)</string>
     <string name="markdown_description">Ενεργοποίηση αποτίμησης (Markdown) στον τίτλο και την περιγραφή</string>
     <string name="completion_sound">Αναπαραγωγή ήχου ολοκλήρωσης</string>
@@ -492,7 +490,6 @@
     <string name="date_shortcut_must_come_before">%1$s πρέπει να είναι πριν από το %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s πρέπει να είναι μετά από το %2$s</string>
     <string name="discard_changes">Απόρριψη αλλαγών;</string>
-    <string name="menu_discard_changes">Απόρριψη αλλαγών</string>
     <string name="discard">Απόρριψη</string>
     <string name="tag_settings">Ρυθμίσεις ετικέτας</string>
     <string name="list_settings">Ρυθμίσεις λίστας</string>

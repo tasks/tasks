@@ -410,4 +410,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
     <string name="no_title">(Без заглавие)</string>
+    <string name="delete_task">Изтриване на задача</string>
+    <string name="menu_discard_changes">Отхвърляне на промените</string>
+    <string name="more_options">Допълнителни настройки</string>
 </resources>

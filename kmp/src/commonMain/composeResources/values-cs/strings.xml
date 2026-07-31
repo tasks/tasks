@@ -476,4 +476,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Okamžik dokončení</string>
     <string name="no_title">(Bez názvu)</string>
+    <string name="delete_task">Smazat úkol</string>
+    <string name="menu_discard_changes">Zrušit změny</string>
+    <string name="more_options">Další volby</string>
 </resources>

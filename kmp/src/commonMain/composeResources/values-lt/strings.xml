@@ -308,4 +308,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Užbaigimo data</string>
     <string name="no_title">(Be pavadinimo)</string>
+    <string name="delete_task">Ištrinti užduotį</string>
+    <string name="menu_discard_changes">Atmesti pakeitimus</string>
+    <string name="more_options">Daugiau pasirinkimų</string>
 </resources>

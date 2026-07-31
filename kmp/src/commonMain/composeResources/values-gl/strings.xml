@@ -329,4 +329,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalización</string>
     <string name="no_title">(Sen título)</string>
+    <string name="delete_task">Borrar tarefa</string>
+    <string name="menu_discard_changes">Descartar mudanzas</string>
+    <string name="more_options">Máis opcións</string>
 </resources>

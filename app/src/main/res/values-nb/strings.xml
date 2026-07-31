@@ -71,7 +71,6 @@
     <string name="EPr_voiceInputEnabled_title">Taleinndata</string>
     <string name="EPr_voiceRemindersEnabled_title">Talepåminnelser</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks vil lese opp gjøremål ved påminnelse</string>
-    <string name="delete_task">Slett gjøremål</string>
     <plurals name="Ntasks">
         <item quantity="one">ett gjøremål</item>
         <item quantity="other">%d gjøremål</item>
@@ -310,7 +309,6 @@
     <string name="widget_id">Miniprograms-ID: %d</string>
     <string name="color_wheel">Fargehjul</string>
     <string name="widget_open_list">Åpne liste</string>
-    <string name="menu_discard_changes">Forkast endringer</string>
     <string name="widget_show_menu">Vis meny</string>
     <string name="filter_no_priority">Ingen prioritet</string>
     <string name="filter_low_priority">Lav prioritet</string>
@@ -444,7 +442,6 @@
     <string name="support">Støtte</string>
     <string name="markdown_description">Aktiver Markdown i tittel og beskrivelse</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Flere innstillinger</string>
     <string name="upgrade_open_source_description">Abonnementet støtter fortsatt utvikling</string>
     <string name="upgrade_tasks_org_account_description">Synkronisere med Tasks.org og samarbeide med andre brukere</string>
     <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>

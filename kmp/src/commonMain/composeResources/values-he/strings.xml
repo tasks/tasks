@@ -391,4 +391,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
     <string name="no_title">(אין כותרת)</string>
+    <string name="delete_task">מחיקת משימה</string>
+    <string name="menu_discard_changes">השלכת שינויים</string>
+    <string name="more_options">אפשרויות נוספות</string>
 </resources>

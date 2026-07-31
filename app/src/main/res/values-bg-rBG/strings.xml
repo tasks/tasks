@@ -159,7 +159,6 @@
     <string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
     <string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изговаря имената на задачите при напомняне</string>
-    <string name="delete_task">Изтриване на задача</string>
     <string name="voice_command_added_task">Добавена задача</string>
     <plurals name="Ntasks">
         <item quantity="one">1 задача</item>
@@ -374,7 +373,6 @@
     <string name="widget_due_date_below_title">Под заглавието</string>
     <string name="date_shortcut_tomorrow_evening">Утре вечер</string>
     <string name="date_shortcut_tomorrow_night">Утре през нощта</string>
-    <string name="menu_discard_changes">Отхвърляне на промените</string>
     <string name="opacity_header">Непрозрачност на заглавката</string>
     <string name="widget_due_date_after_title">След заглавието</string>
     <string name="widget_open_list">Отваряне на списък</string>
@@ -410,7 +408,6 @@
     <string name="randomly_every">Произволно на всеки %s</string>
     <string name="multi_select_reschedule">Пренасрочване</string>
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
-    <string name="more_options">Допълнителни настройки</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
     <string name="wearable_notifications">Известия на носими устройства</string>
     <string name="auto_dismiss_datetime_edit_summary">Затваряне след избор от списъка за промяна на задача</string>

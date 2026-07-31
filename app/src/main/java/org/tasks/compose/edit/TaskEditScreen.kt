@@ -86,6 +86,9 @@ import org.tasks.ui.TaskEditViewModel.Companion.TAG_LIST
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_PRIORITY
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_TITLE
 import org.tasks.utility.copyToClipboard
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.delete_task
+import tasks.kmp.generated.resources.menu_discard_changes
 import timber.log.Timber
 import java.util.Locale
 
@@ -166,7 +169,9 @@ fun TaskEditScreen(
                         IconButton(onClick = { delete() }) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
-                                contentDescription = stringResource(R.string.delete_task),
+                                contentDescription = org.jetbrains.compose.resources.stringResource(
+                                    Res.string.delete_task
+                                ),
                             )
                         }
                     }
@@ -174,7 +179,9 @@ fun TaskEditScreen(
                         IconButton(onClick = { discard() }) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.menu_discard_changes),
+                                contentDescription = org.jetbrains.compose.resources.stringResource(
+                                    Res.string.menu_discard_changes
+                                ),
                             )
                         }
                     }

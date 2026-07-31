@@ -393,4 +393,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
     <string name="no_title">(لا عنوان)</string>
+    <string name="delete_task">حذف المهمة</string>
+    <string name="menu_discard_changes">تجاهل التغييرات</string>
+    <string name="more_options">خيارات أكثر</string>
 </resources>

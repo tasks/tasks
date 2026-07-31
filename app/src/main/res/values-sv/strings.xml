@@ -123,7 +123,6 @@
     <string name="EPr_voiceInputEnabled_title">Röstindata</string>
     <string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
-    <string name="delete_task">Ta bort uppgift</string>
     <string name="voice_command_added_task">Uppgift skapad</string>
     <plurals name="Ntasks">
         <item quantity="one">1 uppgift</item>
@@ -321,11 +320,9 @@
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
-    <string name="menu_discard_changes">Ignorera ändringar</string>
     <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för ”Mina uppgifter”, ”Idag” och etiketter. Sorteringsläget ersätts av ”Min ordning” i en framtida uppdatering.</string>
     <string name="markdown_description">Aktivera Markdown i titel och beskrivning</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Fler alternativ</string>
     <string name="upgrade_open_source_description">Din prenumeration stöder den fortsatta utvecklingen</string>
     <string name="upgrade_tasks_org_account_description">Synkronisera med Tasks.org och samarbeta med andra användare</string>
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>

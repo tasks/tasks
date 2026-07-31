@@ -327,4 +327,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="no_title">(제목 없음)</string>
+    <string name="delete_task">할일 지우기</string>
+    <string name="menu_discard_changes">변경사항 폐기</string>
+    <string name="more_options">더 많은 옵션</string>
 </resources>

@@ -475,4 +475,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
     <string name="no_title">(bez naslova)</string>
+    <string name="delete_task">Izbriši zadatak</string>
+    <string name="menu_discard_changes">Odbaci promjene</string>
+    <string name="more_options">Više opcija</string>
 </resources>

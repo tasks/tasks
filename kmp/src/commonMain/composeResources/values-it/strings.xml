@@ -401,4 +401,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data di completamento</string>
     <string name="no_title">(nessun titolo)</string>
+    <string name="delete_task">Elimina attività</string>
+    <string name="menu_discard_changes">Ignora le modifiche</string>
+    <string name="more_options">Altre opzioni</string>
 </resources>

@@ -329,4 +329,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
     <string name="no_title">(Χωρίς τίτλο)</string>
+    <string name="delete_task">Διαγραφή καθήκοντος</string>
+    <string name="menu_discard_changes">Απόρριψη αλλαγών</string>
+    <string name="more_options">Περισσότερες επιλογές</string>
 </resources>

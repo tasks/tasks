@@ -345,4 +345,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalització</string>
     <string name="no_title">(Sense títol)</string>
+    <string name="delete_task">Eliminar tasca</string>
+    <string name="menu_discard_changes">Descarta els canvis</string>
+    <string name="more_options">Més opcions</string>
 </resources>

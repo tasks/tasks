@@ -1857,7 +1857,7 @@ private val PanelGutterWidth = 24.dp
 
 private val FloatingToolbarHeight = 64.dp
 
-private val FloatingToolbarBottomMargin = 24.dp
+internal val FloatingToolbarBottomMargin = 24.dp
 
 private val SearchButtonInset =
     FloatingToolbarBottomMargin + (FloatingToolbarHeight - SearchButtonSize) / 2

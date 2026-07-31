@@ -47,6 +47,8 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.service.TaskCompleter
+import org.tasks.service.TaskDeleter
 import org.tasks.compose.pickers.DAY_BEFORE_DUE
 import org.tasks.compose.pickers.DUE_DATE
 import org.tasks.compose.pickers.DUE_TIME
@@ -91,6 +93,8 @@ class TaskEditViewModelTest {
     private val tagDao: TagDao = mock()
     private val tagDataDao: TagDataDao = mock()
     private val appPreferences: AppPreferences = mock()
+    private val taskCompleter: TaskCompleter = mock()
+    private val taskDeleter: TaskDeleter = mock()
 
     private lateinit var viewModel: TaskEditViewModel
     private lateinit var pendingSaves: PendingTaskSaves
@@ -157,6 +161,8 @@ class TaskEditViewModelTest {
         appPreferences = appPreferences,
         externalScope = CoroutineScope(testDispatcher),
         pendingSaves = pendingSaves,
+        taskCompleter = taskCompleter,
+        taskDeleter = taskDeleter,
     ).also { viewModel = it }
 
     @After
@@ -2249,6 +2255,176 @@ class TaskEditViewModelTest {
 
         verify(taskDao, never()).createNew(any())
         verify(taskSaver, never()).save(any(), anyOrNull(), any())
+    }
+
+    // endregion
+
+    // region mark complete
+
+    @Test
+    fun markCompleteSavesEditBeforeCompleting() = runTest(testDispatcher) {
+        initializeExisting(title = "Original")
+        val closed = awaitClose()
+
+        viewModel.setTitle("Edited")
+        viewModel.markComplete()
+        advanceUntilIdle()
+
+        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any())
+        verify(taskCompleter).setComplete(42L, true)
+        assertTrue(closed())
+    }
+
+    @Test
+    fun markCompleteCompletesRowCreatedForNewTask() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setTitle("Created and completed")
+        viewModel.markComplete()
+        advanceUntilIdle()
+
+        verify(taskDao).createNew(check { assertEquals("Created and completed", it.title) })
+        verify(taskCompleter).setComplete(NEW_TASK_ID, true)
+    }
+
+    @Test
+    fun markCompleteOnUntouchedNewTaskCreatesNothing() = runTest(testDispatcher) {
+        initializeNew()
+        val closed = awaitClose()
+
+        viewModel.markComplete()
+        advanceUntilIdle()
+
+        verify(taskDao, never()).createNew(any())
+        verify(taskCompleter, never()).setComplete(any<Long>(), any())
+        assertTrue(closed())
+    }
+
+    @Test
+    fun failedCompletionKeepsEditorOpen() = runTest(testDispatcher) {
+        initializeExisting(title = "Original")
+        whenever(taskCompleter.setComplete(42L, true)).thenThrow(RuntimeException("db error"))
+        val closed = awaitClose()
+        val failures = collectSaveFailures()
+
+        viewModel.markComplete()
+        advanceUntilIdle()
+
+        assertFalse(closed())
+        assertEquals(1, failures())
+    }
+
+    // endregion
+
+    // region delete
+
+    @Test
+    fun deleteMarksTaskDeletedAndCloses() = runTest(testDispatcher) {
+        initializeExisting(title = "Doomed")
+        val closed = awaitClose()
+
+        viewModel.delete()
+        advanceUntilIdle()
+
+        verify(taskDeleter).markDeleted(listOf(42L))
+        assertTrue(viewModel.state.value.deleted)
+        assertTrue(closed())
+    }
+
+    @Test
+    fun deleteDiscardsPendingEditOnTeardown() = runTest(testDispatcher) {
+        initializeExisting(title = "Doomed")
+
+        viewModel.setTitle("Edited before delete")
+        viewModel.delete()
+        advanceUntilIdle()
+        viewModel.onCleared()
+        advanceUntilIdle()
+
+        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+    }
+
+    @Test
+    fun deletingNewTaskNeverCreatesTheRow() = runTest(testDispatcher) {
+        initializeNew()
+        val closed = awaitClose()
+
+        viewModel.setTitle("Typed then deleted")
+        viewModel.delete()
+        advanceUntilIdle()
+        viewModel.onCleared()
+        advanceUntilIdle()
+
+        verify(taskDeleter, never()).markDeleted(any<List<Long>>())
+        verify(taskDao, never()).createNew(any())
+        assertTrue(closed())
+    }
+
+    @Test
+    fun failedDeleteLeavesTaskEditable() = runTest(testDispatcher) {
+        initializeExisting(title = "Doomed")
+        whenever(taskDeleter.markDeleted(listOf(42L))).thenThrow(RuntimeException("db error"))
+        val closed = awaitClose()
+        val failures = collectSaveFailures()
+
+        viewModel.setTitle("Edited")
+        viewModel.delete()
+        advanceUntilIdle()
+
+        assertFalse(closed())
+        assertFalse(viewModel.state.value.deleted)
+        assertEquals(1, failures())
+
+        viewModel.onCleared()
+        advanceUntilIdle()
+
+        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any())
+    }
+
+    // endregion
+
+    // region discard changes
+
+    @Test
+    fun discardChangesRevertsEditAndCloses() = runTest(testDispatcher) {
+        initializeExisting(title = "Original")
+        val closed = awaitClose()
+
+        viewModel.setTitle("Edited")
+        viewModel.setPriority(Task.Priority.HIGH)
+        viewModel.discardChanges()
+        advanceUntilIdle()
+
+        val state = viewModel.state.value
+        assertEquals("Original", state.task.title)
+        assertFalse(state.hasChanges)
+        assertTrue(closed())
+    }
+
+    @Test
+    fun discardedEditIsNotWrittenOnTeardown() = runTest(testDispatcher) {
+        initializeExisting(title = "Original")
+
+        viewModel.setTitle("Edited")
+        viewModel.discardChanges()
+        advanceUntilIdle()
+        viewModel.onCleared()
+        advanceUntilIdle()
+
+        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+    }
+
+    @Test
+    fun discardChangesOnNewTaskCreatesNothing() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setTitle("Typed then discarded")
+        viewModel.discardChanges()
+        advanceUntilIdle()
+        viewModel.onCleared()
+        advanceUntilIdle()
+
+        verify(taskDao, never()).createNew(any())
     }
 
     // endregion

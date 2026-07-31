@@ -118,4 +118,5 @@
         <item quantity="one">%1$d ଵର୍ଷ</item>
         <item quantity="other">%1$d ଵର୍ଷ</item>
     </plurals>
+    <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
 </resources>

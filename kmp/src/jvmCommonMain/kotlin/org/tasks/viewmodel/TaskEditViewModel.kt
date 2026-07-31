@@ -49,6 +49,8 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.service.TaskCompleter
+import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
@@ -77,6 +79,8 @@ class TaskEditViewModel(
     private val appPreferences: AppPreferences,
     private val externalScope: CoroutineScope,
     private val pendingSaves: PendingTaskSaves,
+    private val taskCompleter: TaskCompleter,
+    private val taskDeleter: TaskDeleter,
     private val taskCreator: TaskCreator = TaskCreator(),
 ) : ViewModel() {
 
@@ -728,6 +732,75 @@ class TaskEditViewModel(
                 _saving.value = false
             }
         }
+    }
+
+    fun markComplete() {
+        if (!_saving.compareAndSet(expect = false, update = true)) return
+        viewModelScope.launch {
+            try {
+                if (!saveCurrentTask()) return@launch
+                val snapshot = _state.value
+                if (snapshot.task.id > 0 && !snapshot.deleted) {
+                    try {
+                        pendingSaves.withLock(saveKey) {
+                            taskCompleter.setComplete(snapshot.task.id, true)
+                        }
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        log.e(e) { "Failed to complete task" }
+                        pendingSaves.reportSaveFailure()
+                        return@launch
+                    }
+                }
+                _closeEvents.emit(Unit)
+            } finally {
+                _saving.value = false
+            }
+        }
+    }
+
+    fun delete() {
+        if (!_saving.compareAndSet(expect = false, update = true)) return
+        viewModelScope.launch {
+            try {
+                val id = _state.value.task.id
+                if (id > 0) {
+                    try {
+                        pendingSaves.withLock(saveKey) {
+                            _state.update { it.copy(deleted = true) }
+                            taskDeleter.markDeleted(listOf(id))
+                        }
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        log.e(e) { "Failed to delete task" }
+                        _state.update { it.copy(deleted = false) }
+                        pendingSaves.reportSaveFailure()
+                        return@launch
+                    }
+                } else {
+                    _state.update { it.copy(deleted = true) }
+                }
+                _closeEvents.emit(Unit)
+            } finally {
+                _saving.value = false
+            }
+        }
+    }
+
+    fun discardChanges() {
+        _state.update { state ->
+            if (state.isLoading) return@update state
+            state.copy(
+                task = state.originalTask.copy(),
+                list = state.originalList,
+                tags = state.originalTags,
+                startDay = state.originalStartDay,
+                startTime = state.originalStartTime,
+            )
+        }
+        viewModelScope.launch { _closeEvents.emit(Unit) }
     }
 
     private suspend fun saveIfNeeded(snapshot: State): Task? {

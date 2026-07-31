@@ -170,7 +170,6 @@
     <string name="EPr_voiceInputEnabled_title">Įrašyti balsu</string>
     <string name="EPr_voiceRemindersEnabled_title">Balso priminimai</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks garsu praneš užduoties pavadinimą per priminimus</string>
-    <string name="delete_task">Ištrinti užduotį</string>
     <string name="voice_command_added_task">Pridėta užduotis</string>
     <plurals name="Ntasks">
         <item quantity="one">1 užduotis</item>
@@ -315,7 +314,6 @@
     <string name="opacity_row">Eilutės permatomumas</string>
     <string name="opacity_header">Antraštės permatomumas</string>
     <string name="widget_show_menu">Rodyti meniu</string>
-    <string name="menu_discard_changes">Atmesti pakeitimus</string>
     <string name="theme_system_default">Sistemos numatyta</string>
     <string name="more_notification_settings_summary">Skambučiai, vibracija ir kita</string>
     <string name="more_settings">Papildomi nustatymai</string>
@@ -346,7 +344,6 @@
     <string name="start_date">Pradžios data</string>
     <string name="SSD_sort_my_order">Mano užsakymas</string>
     <string name="upgrade_open_source_description">Jūsų prenumerata palaiko tolesnį kūrimą</string>
-    <string name="more_options">Daugiau pasirinkimų</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
     <string name="upgrade_more_customization_description">Atrakinkite visas temas, spalvas ir piktogramas</string>

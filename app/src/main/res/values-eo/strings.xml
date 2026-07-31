@@ -12,7 +12,6 @@
         <item quantity="one">1 tasko</item>
         <item quantity="other">%d taskoj</item>
     </plurals>
-    <string name="delete_task">Forigi taskon</string>
     <string name="delete_tag_confirmation">Forigi %s\?</string>
     <plurals name="repeat_times">
         <item quantity="one">fojo</item>
@@ -165,7 +164,6 @@
     <string name="list_settings">Agordoj de listo</string>
     <string name="tag_settings">Agordoj de etikedo</string>
     <string name="discard">Forĵeti</string>
-    <string name="menu_discard_changes">Forĵeti ŝanĝojn</string>
     <string name="discard_changes">Ĉu forĵeti ŝanĝojn\?</string>
     <string name="date_shortcut_tomorrow_night">Morgaŭ nokte</string>
     <string name="date_shortcut_tomorrow_evening">Morgaŭ vespere</string>
@@ -314,7 +312,6 @@
     <string name="settings_localization">Traduko</string>
     <string name="device_settings">Agordoj de aparato</string>
     <string name="account">Konto</string>
-    <string name="more_options">Pli da opcioj</string>
     <string name="ring_nonstop">Soni daŭre</string>
     <string name="EPr_show_task_edit_comments">Vidigi komentojn en taskredaktilo</string>
     <string name="EPr_cal_end_at_due_time">Finigi kalendarajn eventoj ĉe limtempo</string>

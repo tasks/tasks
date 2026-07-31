@@ -412,6 +412,8 @@ val commonModule = module {
             appPreferences = get(),
             externalScope = get(),
             pendingSaves = get(),
+            taskCompleter = get(),
+            taskDeleter = get(),
         )
     }
     viewModel {

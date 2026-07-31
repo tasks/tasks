@@ -484,4 +484,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Date d’achèvement</string>
     <string name="no_title">(Sans titre)</string>
+    <string name="delete_task">Supprimer la tâche</string>
+    <string name="menu_discard_changes">Ignorer les modifications</string>
+    <string name="more_options">Plus d’options</string>
 </resources>

@@ -161,7 +161,6 @@
     <string name="EPr_voiceInputEnabled_title">קלט קולי</string>
     <string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks יאמר את שמות המשימות במהלך תזכורות של משימות</string>
-    <string name="delete_task">מחיקת משימה</string>
     <string name="voice_command_added_task">המשימה נוספה</string>
     <plurals name="Ntasks">
         <item quantity="one">משימה אחת</item>
@@ -326,7 +325,6 @@
     <string name="share">שיתוף</string>
     <string name="auto_dismiss_datetime_widget">יישומון</string>
     <string name="chip_appearance_text_and_icon">טקסט וסמל</string>
-    <string name="menu_discard_changes">השלכת שינויים</string>
     <string name="subtasks">תתי־משימות</string>
     <string name="widget_show_dividers">הצגת חוצצים</string>
     <string name="widget_show_menu">הצגת תפריט</string>
@@ -434,7 +432,6 @@
     <string name="filter_criteria_unstarted">לא התחילו</string>
     <string name="markdown_description">אפשור Markdown בכותרת ובתיאור</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">אפשרויות נוספות</string>
     <string name="upgrade_open_source_description">המינוי שלך תומך בהמשך הפיתוח</string>
     <string name="upgrade_tasks_org_account_description">סנכרון עם Tasks.org ושיתוף פעולה עם משתמשים אחרים</string>
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים, והסמלים</string>

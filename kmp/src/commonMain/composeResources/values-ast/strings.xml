@@ -238,4 +238,6 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalización</string>
     <string name="no_title">(Ensin títulu)</string>
+    <string name="delete_task">Desaniciar xera</string>
+    <string name="menu_discard_changes">Escartar cambeos</string>
 </resources>

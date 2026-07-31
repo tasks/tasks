@@ -182,7 +182,6 @@
         <item quantity="other">%d ٹاسکس</item>
     </plurals>
     <string name="voice_command_added_task">ٹاسک جمع کر دیا گیا</string>
-    <string name="delete_task">ٹاسک ڈیلیٹ کریں</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">ٹاسکس یاد دہانیوں کے دوران ٹاسکس کے نام بولیں گے</string>
     <string name="EPr_voiceRemindersEnabled_title">صوتی یاد دہانیاں</string>
     <string name="EPr_voiceInputEnabled_title">وائس ان پٹ</string>
@@ -245,7 +244,6 @@
     <string name="list_settings">لسٹ سیٹنگ</string>
     <string name="tag_settings">ٹیگ سیٹنگ</string>
     <string name="discard">مسترد کریں</string>
-    <string name="menu_discard_changes">تبدیلیاں مسترد کریں</string>
     <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
     <string name="date_shortcut_must_come_after">%1$s کو %2$sسے پہلے آنا چاہیے</string>
     <string name="date_shortcut_must_come_before">%1$s کو %2$s سے پہلے آنا چایئے</string>

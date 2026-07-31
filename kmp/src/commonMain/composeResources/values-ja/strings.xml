@@ -428,4 +428,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">完了日</string>
     <string name="no_title">(タイトルなし)</string>
+    <string name="delete_task">タスクを削除</string>
+    <string name="menu_discard_changes">変更を破棄</string>
+    <string name="more_options">さらなるオプション</string>
 </resources>

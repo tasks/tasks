@@ -160,7 +160,6 @@
     <string name="EPr_voiceInputEnabled_title">Ahotz bidezko sarrera</string>
     <string name="EPr_voiceRemindersEnabled_title">Ahots-oroigarriak</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks aplikazioak zereginen izena esango du oroigarrietan</string>
-    <string name="delete_task">Ezabatu zeregina</string>
     <string name="voice_command_added_task">Zeregina gehituta</string>
     <plurals name="Ntasks">
         <item quantity="one">Zeregin 1</item>
@@ -320,7 +319,6 @@
     <string name="place_settings">Toki-ezarpenak</string>
     <string name="hide_unused_tags">Ezkutatu erabili gabeko etiketak</string>
     <string name="hide_unused_places">Ezkutatu erabili gabeko tokiak</string>
-    <string name="menu_discard_changes">Baztertu aldaketak</string>
     <string name="chip_appearance_text_and_icon">Testua eta ikonoa</string>
     <string name="chip_appearance_text_only">Testua soilik</string>
     <string name="chip_appearance_icon_only">Ikonoa soilik</string>
@@ -442,7 +440,6 @@
     <string name="support">Euskarria</string>
     <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Aukera gehiago</string>
     <string name="upgrade_open_source_description">Harpidetzak etengabeko garapenaren alde egiten du</string>
     <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>

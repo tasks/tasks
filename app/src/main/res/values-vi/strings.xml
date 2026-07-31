@@ -57,7 +57,6 @@
     <string name="TVA_add_comment">Thêm bình luận…</string>
     <string name="actfm_picture_clear">Xoá ảnh</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Nhiều tuỳ chọn hơn</string>
     <string name="upgrade_open_source_description">Việc đăng ký của bạn hỗ trợ cho sự phát triển được tiếp tục</string>
     <string name="upgrade_tasks_org_account_description">Đồng bộ bằng Tasks.org và hợp tác với những người dùng khác</string>
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
@@ -274,7 +273,6 @@
     <string name="list_settings">Cài đặt danh sách</string>
     <string name="tag_settings">Cài đặt thẻ</string>
     <string name="discard">Bỏ</string>
-    <string name="menu_discard_changes">Bỏ các thay đổi</string>
     <string name="discard_changes">Bỏ các thay đổi\?</string>
     <string name="date_shortcut_must_come_after">%1$s phải đến sau %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s phải đến trước %2$s</string>
@@ -324,7 +322,6 @@
         <item quantity="other">%d công việc</item>
     </plurals>
     <string name="voice_command_added_task">Đã thêm công việc</string>
-    <string name="delete_task">Xoá công việc</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks sẽ nói các tên công việc trong các lời nhắc công việc</string>
     <string name="EPr_voiceRemindersEnabled_title">Lời nhắc bằng giọng nói</string>
     <string name="EPr_voiceInputEnabled_title">Giọng nói đầu vào</string>

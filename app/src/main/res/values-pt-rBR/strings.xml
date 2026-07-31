@@ -159,7 +159,6 @@
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
     <string name="EPr_voiceRemindersEnabled_title">Lembretes de voz</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks irá falar o nome das tarefas durante os lembretes</string>
-    <string name="delete_task">Excluir tarefa</string>
     <string name="voice_command_added_task">Tarefa adicionada</string>
     <plurals name="Ntasks">
         <item quantity="one">%d tarefa</item>
@@ -334,7 +333,6 @@
     <string name="widget_due_date_after_title">Depois do título</string>
     <string name="widget_open_list">Abrir lista</string>
     <string name="theme_system_default">Padrão do Sistema</string>
-    <string name="menu_discard_changes">Descartar mudanças</string>
     <string name="CFC_tag_text">Etiqueta: \?</string>
     <string name="icon">Ícone</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
@@ -418,7 +416,6 @@
     <string name="filter_criteria_unstarted">Não iniciadas</string>
     <string name="default_start_date">Data de início padrão</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <string name="more_options">Mais opções</string>
     <string name="upgrade_open_source_description">Sua assinatura ajuda a continuar o desenvolvimento</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com Tasks.org e colabore com outros usuários</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>

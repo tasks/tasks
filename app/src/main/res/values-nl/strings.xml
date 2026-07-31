@@ -153,7 +153,6 @@
     <string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
     <string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks spreekt namen van taken uit bij de herinnering</string>
-    <string name="delete_task">Taak wissen</string>
     <string name="voice_command_added_task">Toegevoegde taak</string>
     <plurals name="Ntasks">
         <item quantity="one">1 taak</item>
@@ -315,7 +314,6 @@
     <string name="place_settings">Locatie instellen</string>
     <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
     <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
-    <string name="menu_discard_changes">Veranderingen negeren</string>
     <string name="chip_appearance_text_and_icon">Tekst en pictogram</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>
     <string name="chip_appearance_icon_only">Alleen pictogram</string>
@@ -439,7 +437,6 @@
     <string name="open_source">Open source</string>
     <string name="upgrade_more_customization">Meer maatwerk</string>
     <string name="upgrade_more_customization_description">Alle thema\'s, kleuren en pictogrammen ontgrendelen</string>
-    <string name="more_options">Meer opties</string>
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>

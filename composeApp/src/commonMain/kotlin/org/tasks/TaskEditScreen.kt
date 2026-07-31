@@ -53,6 +53,8 @@ import org.tasks.compose.edit.RepeatRow
 import org.tasks.compose.edit.StartDateRow
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
+import org.tasks.compose.edit.TaskEditActionBar
+import org.tasks.compose.edit.TaskEditActionBarHeight
 import org.tasks.compose.edit.TaskEditCardRow
 import org.tasks.compose.pickers.DueDatePickerSheet
 import org.tasks.compose.pickers.StartDatePickerSheet
@@ -261,7 +263,27 @@ fun TaskEditScreen(
                             description = state.task.notes.orEmpty(),
                             onDescriptionChange = viewModel::setDescription,
                         )
+                        Spacer(
+                            modifier = Modifier.height(
+                                TaskEditActionBarHeight + FloatingToolbarBottomMargin
+                            )
+                        )
                     }
+                    TaskEditActionBar(
+                        onMarkCompleted = {
+                            keyboardController?.hide()
+                            viewModel.markComplete()
+                        },
+                        onDiscardChanges = viewModel::discardChanges,
+                        onDeleteTask = viewModel::delete,
+                        enabled = !saving,
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(
+                                horizontal = TaskEditIslandInset,
+                                vertical = FloatingToolbarBottomMargin,
+                            ),
+                    )
                     if (showDueDatePicker) {
                         val (initialDay, initialTime) = dueDateToSelection(state.task.dueDate)
                         // TODO: both date pickers hard-code autoClose

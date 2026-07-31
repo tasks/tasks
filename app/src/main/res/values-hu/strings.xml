@@ -155,7 +155,6 @@
     <string name="EPr_voiceInputEnabled_title">Hang bemenet</string>
     <string name="EPr_voiceRemindersEnabled_title">Kimondott emlékeztetők</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">A Tasks kimondja a feladatcímeket emlékeztetőkor</string>
-    <string name="delete_task">Feladat törlése</string>
     <string name="voice_command_added_task">Hozzáadott feladat</string>
     <plurals name="Ntasks">
         <item quantity="one">1 feladat</item>
@@ -315,7 +314,6 @@
     <string name="place_settings">Hely beállítások</string>
     <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
     <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
-    <string name="menu_discard_changes">Módosítások elvetése</string>
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>
     <string name="chip_appearance_text_only">Csak szöveg</string>
     <string name="chip_appearance_icon_only">Csak ikon</string>
@@ -437,7 +435,6 @@
     <string name="privacy">Adatvédelem</string>
     <string name="open_source">Nyílt forráskódú</string>
     <string name="support">Támogatás</string>
-    <string name="more_options">Több opció</string>
     <string name="upgrade_open_source_description">Az előfizetéseddel a folyamatos fejlesztést támogatod</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org szinkronizáció és együttműködés más felhasználókkal</string>
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>

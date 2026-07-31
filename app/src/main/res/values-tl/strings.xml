@@ -15,7 +15,6 @@
     <string name="gcal_TEA_error">Kamalian sa pagdadagdag ng gawain sa kalendaryo!</string>
     <string name="gcal_TEA_showCalendar_label">Buksan ang pangyayari sa kalendaryo</string>
     <string name="gcal_completed_title">%s (naganap)</string>
-    <string name="delete_task">Tanggalin gawain</string>
     <string name="translations">Umambag ng pagsasalin</string>
     <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
     <string name="user">Gumagamit</string>

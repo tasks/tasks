@@ -106,7 +106,6 @@
     <string name="new_tag">Buat tag baru</string>
     <string name="new_list">Buat daftar baru</string>
     <string name="delete_tag_confirmation">Hapus %s\?</string>
-    <string name="delete_task">Hapus tugas</string>
     <plurals name="Ntasks">
         <item quantity="other">%d tugas</item>
     </plurals>
@@ -282,7 +281,6 @@
     <string name="default_recurrence">Pengulangan bawaan</string>
     <string name="default_tags">Tag bawaan</string>
     <string name="no_app_found">Tidak ada aplikasi yang dapat menangani permintaan ini</string>
-    <string name="menu_discard_changes">Buang perubahan</string>
     <string name="date_shortcut_must_come_before">%1$s harus datang sebelum %2$s</string>
     <string name="date_shortcut_tomorrow_night">Besok malam</string>
     <string name="date_shortcut_tomorrow_evening">Besok petang</string>
@@ -433,7 +431,6 @@
     <string name="privacy">Privasi</string>
     <string name="open_source">Sumber Terbuka</string>
     <string name="support">Dukung</string>
-    <string name="more_options">Opsi lebih banyak</string>
     <string name="upgrade_open_source_description">Langganan Anda mendukung kelanjutan pengembangan aplikasi ini</string>
     <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
     <string name="upgrade_more_customization_description">Buka semua tema, warna, dan ikon</string>

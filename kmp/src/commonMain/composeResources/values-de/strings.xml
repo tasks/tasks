@@ -468,4 +468,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
     <string name="no_title">(kein Titel)</string>
+    <string name="delete_task">Aufgabe löschen</string>
+    <string name="menu_discard_changes">Änderungen verwerfen</string>
+    <string name="more_options">Weitere Optionen</string>
 </resources>

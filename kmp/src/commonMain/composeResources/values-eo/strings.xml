@@ -426,4 +426,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Plenumiga dato</string>
     <string name="no_title">(Sen titolo)</string>
+    <string name="delete_task">Forigi taskon</string>
+    <string name="menu_discard_changes">Forĵeti ŝanĝojn</string>
+    <string name="more_options">Pli da opcioj</string>
 </resources>

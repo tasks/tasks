@@ -472,4 +472,8 @@
     <string name="repeat_type_due_description">The task repeats based on when it was supposed to be done</string>
     <string name="repeat_type_completion_description">The task repeats based on when you actually finished it</string>
     <string name="no_title">(No title)</string>
+    <string name="delete_task">Delete task</string>
+    <string name="menu_discard_changes">Discard changes</string>
+    <string name="more_options">More options</string>
+    <string name="mark_completed">Mark completed</string>
 </resources>

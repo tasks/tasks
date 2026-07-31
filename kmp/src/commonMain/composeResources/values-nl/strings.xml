@@ -351,4 +351,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
     <string name="no_title">(geen titel)</string>
+    <string name="delete_task">Taak wissen</string>
+    <string name="menu_discard_changes">Veranderingen negeren</string>
+    <string name="more_options">Meer opties</string>
 </resources>

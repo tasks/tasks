@@ -425,4 +425,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de término</string>
     <string name="no_title">(sem título)</string>
+    <string name="delete_task">Eliminar tarefa</string>
+    <string name="menu_discard_changes">Descartar alterações</string>
+    <string name="more_options">Mais opções</string>
 </resources>

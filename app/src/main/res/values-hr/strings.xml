@@ -77,7 +77,6 @@
     <string name="filters">Filtri</string>
     <string name="discard_changes">Odbaciti promjene\?</string>
     <string name="discard">Odbaci</string>
-    <string name="menu_discard_changes">Odbaci promjene</string>
     <string name="next_month">Sljedeći mjesec</string>
     <string name="next_week">Sljedeći tjedan</string>
     <string name="today">Danas</string>
@@ -128,7 +127,6 @@
     <string name="chips">Čipovi</string>
     <string name="markdown_description">Omogući Markdown u naslovu i opisu</string>
     <string name="markdown">Markdown</string>
-    <string name="more_options">Više opcija</string>
     <string name="upgrade_open_source_description">Tvoja pretplata podržava kontinuirani razvoj</string>
     <string name="upgrade_tasks_org_account_description">Sinkroniziraj s Tasks.org i surađuj s drugim korisnicima</string>
     <string name="upgrade_more_customization_description">Otključaj sve teme, boje i ikone</string>
@@ -414,7 +412,6 @@
         <item quantity="other">%d zadataka</item>
     </plurals>
     <string name="voice_command_added_task">Dodan zadatak</string>
-    <string name="delete_task">Izbriši zadatak</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks će izgovarati imena zadataka tijekom podsjetnika zadataka</string>
     <string name="EPr_voiceRemindersEnabled_title">Govorni podsjetnici</string>
     <string name="EPr_voiceInputEnabled_title">Govorni unos</string>

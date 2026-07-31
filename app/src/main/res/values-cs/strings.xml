@@ -107,7 +107,6 @@
     <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
     <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
     <string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
-    <string name="delete_task">Smazat úkol</string>
     <string name="voice_command_added_task">Přidán úkol</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úkol</item>
@@ -300,7 +299,6 @@
     <string name="disable_battery_optimizations">Vypnout snižování spotřeby energie z akumulátoru</string>
     <string name="more_settings">Další nastavení</string>
     <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
-    <string name="menu_discard_changes">Zrušit změny</string>
     <string name="widget_show_menu">Zobrazit nabídku</string>
     <string name="sort_created">Podle času vytvoření</string>
     <string name="delete_multiple_tasks_confirmation">%s smazáno</string>
@@ -446,7 +444,6 @@
     <string name="ok">OK</string>
     <string name="markdown_description">Zapnout Markdown v nadpisu a popisu</string>
     <string name="markdown">Značkovací jazyk</string>
-    <string name="more_options">Další volby</string>
     <string name="upgrade_open_source_description">Vaše předplatné podporuje pokračování vývoje</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatními uživateli</string>
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>

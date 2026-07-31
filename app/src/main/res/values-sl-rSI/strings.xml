@@ -99,7 +99,6 @@
     <string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
     <string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
-    <string name="delete_task">Zbriši opravek</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opravek</item>
         <item quantity="other">Št. opravkov: %d</item>

@@ -39,4 +39,5 @@
     <string name="repeat_option_every_month">प्रत्येक महिना</string>
     <string name="repeat_option_every_year">प्रत्येक वर्ष</string>
     <string name="TEA_control_repeat">दोहोर्‍याउनुहोस्</string>
+    <string name="delete_task">कार्य मेटाउनुहोस्</string>
 </resources>

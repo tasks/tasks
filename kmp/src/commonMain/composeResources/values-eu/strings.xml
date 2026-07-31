@@ -293,4 +293,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
     <string name="no_title">(Izenbururik ez)</string>
+    <string name="delete_task">Ezabatu zeregina</string>
+    <string name="menu_discard_changes">Baztertu aldaketak</string>
+    <string name="more_options">Aukera gehiago</string>
 </resources>

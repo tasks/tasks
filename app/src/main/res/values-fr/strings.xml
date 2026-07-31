@@ -153,7 +153,6 @@
     <string name="EPr_voiceInputEnabled_title">Saisie vocale</string>
     <string name="EPr_voiceRemindersEnabled_title">Rappels vocaux</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks énoncera les noms des tâches lors des rappels de tâches</string>
-    <string name="delete_task">Supprimer la tâche</string>
     <string name="voice_command_added_task">Tâche ajoutée</string>
     <plurals name="Ntasks">
         <item quantity="one">%d tâche</item>
@@ -322,7 +321,6 @@
     <string name="place_settings">Paramètres de lieu</string>
     <string name="hide_unused_tags">Masquer les étiquettes inutilisées</string>
     <string name="hide_unused_places">Masquer les lieux inutilisés</string>
-    <string name="menu_discard_changes">Ignorer les modifications</string>
     <string name="chip_appearance_text_and_icon">Texte et icône</string>
     <string name="chip_appearance_text_only">Texte seul</string>
     <string name="chip_appearance_icon_only">Icône seule</string>
@@ -444,7 +442,6 @@
     <string name="privacy">Confidentialité</string>
     <string name="open_source">Code source ouvert</string>
     <string name="support">Aide</string>
-    <string name="more_options">Plus d’options</string>
     <string name="upgrade_open_source_description">Votre abonnement soutient le développement continu</string>
     <string name="upgrade_tasks_org_account_description">Synchronisez avec « Tasks.org » et collaborez avec les autres utilisateurs</string>
     <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>

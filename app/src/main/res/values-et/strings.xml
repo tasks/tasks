@@ -98,7 +98,6 @@
     <string name="repeat_option_custom">Kohandatud…</string>
     <string name="new_list">Loo uus nimekiri</string>
     <string name="TEA_timer_controls">Taimer</string>
-    <string name="delete_task">Kustuta ülesanne</string>
     <string name="voice_command_added_task">Lisatud ülesanne</string>
     <plurals name="Ntasks">
         <item quantity="one">1 ülesanne</item>
@@ -199,7 +198,6 @@
     <string name="SSD_sort_my_order">Minu tellimus</string>
     <string name="custom_filter_is_subtask">On alamülesanne</string>
     <string name="upgrade_more_customization">Rohkem kohandusi</string>
-    <string name="more_options">Rohkem valikuid</string>
     <string name="default_random_reminder_daily">Iga päev</string>
     <string name="default_random_reminder_weekly">Igal nädalal</string>
     <string name="compact">Kompaktne</string>
@@ -259,7 +257,6 @@
     <string name="widget_show_title">Kuva pealkirja</string>
     <string name="date_shortcut_tomorrow_evening">Homme õhtul</string>
     <string name="change_priority">Muuda prioriteeti</string>
-    <string name="menu_discard_changes">Loobu muudatustest</string>
     <string name="date_shortcut_tomorrow_night">Homme öösel</string>
     <string name="opacity_footer">Jaluse läbipaistmatus</string>
     <string name="default_tags">Vaikesildid</string>

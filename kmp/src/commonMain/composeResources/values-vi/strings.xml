@@ -301,4 +301,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Ngày hoàn thành</string>
     <string name="no_title">(Không có tiêu đề)</string>
+    <string name="delete_task">Xoá công việc</string>
+    <string name="menu_discard_changes">Bỏ các thay đổi</string>
+    <string name="more_options">Nhiều tuỳ chọn hơn</string>
 </resources>

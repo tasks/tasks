@@ -124,7 +124,6 @@
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
     <string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks diralle os nomes das tarefas durante os avisos</string>
-    <string name="delete_task">Borrar tarefa</string>
     <string name="voice_command_added_task">Tarefa engadida</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tarefa</item>
@@ -283,12 +282,10 @@
     <string name="share">Compartir</string>
     <string name="settings_default">Predefinido</string>
     <string name="migrate_count">Mover %s a Tasks.org</string>
-    <string name="more_options">Máis opcións</string>
     <string name="snackbar_tasks_completed">%d tarefas finalizadas</string>
     <string name="now">Agora</string>
     <string name="header_spacing">Espazado</string>
     <string name="subtasks">Subtarefas</string>
-    <string name="menu_discard_changes">Descartar mudanzas</string>
     <string name="widget_open_list">Abrir lista</string>
     <string name="user">Usuario/a</string>
     <string name="requires_pro_subscription">Precísase dunha subscrición pro</string>

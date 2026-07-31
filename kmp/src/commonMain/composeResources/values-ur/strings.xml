@@ -225,4 +225,6 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">تاریخ تکمیل</string>
     <string name="no_title">(کوئی عنوان نہیں)</string>
+    <string name="delete_task">ٹاسک ڈیلیٹ کریں</string>
+    <string name="menu_discard_changes">تبدیلیاں مسترد کریں</string>
 </resources>

@@ -344,4 +344,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
     <string name="no_title">(Ei nimikettä)</string>
+    <string name="delete_task">Poista tehtävä</string>
+    <string name="menu_discard_changes">Hylkää muutokset</string>
+    <string name="more_options">Lisää vaihtoehtoja</string>
 </resources>

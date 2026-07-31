@@ -285,4 +285,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
     <string name="no_title">(මාතෘකාවක් නැත)</string>
+    <string name="delete_task">කාර්යය මකන්න</string>
+    <string name="menu_discard_changes">වෙනස්කම් අහෝසිකිරීම</string>
+    <string name="more_options">තවත් විකල්පයන්</string>
 </resources>

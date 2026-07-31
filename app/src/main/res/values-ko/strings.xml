@@ -155,7 +155,6 @@
     <string name="EPr_voiceInputEnabled_title">음성 입력</string>
     <string name="EPr_voiceRemindersEnabled_title">음성 알람</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">할일 알람 시 제목을 소리내어 읽어줍니다</string>
-    <string name="delete_task">할일 지우기</string>
     <string name="voice_command_added_task">추가된 할일</string>
     <plurals name="Ntasks">
         <item quantity="other">%d 할일</item>
@@ -317,7 +316,6 @@
     <string name="preferences_advanced">고급</string>
     <string name="help_and_feedback">도움말 및 피드백</string>
     <string name="theme_system_default">시스템 기본설정</string>
-    <string name="menu_discard_changes">변경사항 폐기</string>
     <string name="support_development_subscribe">부가 기능을 해제하고 오픈소스 소프트웨어를 지원하십시오</string>
     <string name="compact">촘촘하게</string>
     <string name="settings_default">기본값</string>
@@ -423,7 +421,6 @@
     <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
     <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>
     <string name="markdown">마크 다운</string>
-    <string name="more_options">더 많은 옵션</string>
     <string name="upgrade_open_source_description">구독하시면 지속적인 개발을 지원합니다</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org와 동기화 및 다른 사용자와 협업</string>
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>

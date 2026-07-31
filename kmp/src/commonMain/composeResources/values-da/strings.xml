@@ -355,4 +355,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">Fuldførelsesdato</string>
     <string name="no_title">(Ingen titel)</string>
+    <string name="delete_task">Slet opgave</string>
+    <string name="menu_discard_changes">Kassér ændringer</string>
+    <string name="more_options">Flere muligheder</string>
 </resources>

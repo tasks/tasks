@@ -69,7 +69,6 @@
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_spent">Temps invertit:</string>
-    <string name="delete_task">Eliminar tasca</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tasca</item>
         <item quantity="many">%d tasques</item>
@@ -293,7 +292,6 @@
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
     <string name="pick_a_date_and_time">Escull una data i hora</string>
     <string name="when_overdue">En cas d\'haver-se retardat</string>
-    <string name="menu_discard_changes">Descarta els canvis</string>
     <string name="tag_settings">Preferències de les etiquetes</string>
     <string name="font_size">Tamany de la font</string>
     <string name="row_spacing">Espaiat de les files</string>
@@ -505,7 +503,6 @@
     <string name="upgrade_more_customization_description">Desbloquegeu tots els temes, colors i icones</string>
     <string name="upgrade_tasks_org_account_description">Sincronitzeu amb Tasks.org i col·labora amb altres usuaris</string>
     <string name="upgrade_open_source_description">La vostra subscripció suporta el desenvolupament continu</string>
-    <string name="more_options">Més opcions</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Habiliteu el Markdown en el títol i la descripció</string>
     <string name="completion_sound">Reproduïu el so de finalització</string>

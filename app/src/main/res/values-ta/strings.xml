@@ -270,7 +270,6 @@
     <string name="list_settings">பட்டியல் அமைப்புகள்</string>
     <string name="tag_settings">குறிச்சொல் அமைப்புகள்</string>
     <string name="discard">நிராகரி</string>
-    <string name="menu_discard_changes">மாற்றங்களை கைவிடலாமா</string>
     <string name="discard_changes">மாற்றங்களை கைவிடலாமா\?</string>
     <string name="date_shortcut_must_come_after">%1$s %2$s க்குப் பிறகு வர வேண்டும்</string>
     <string name="date_shortcut_tomorrow_night">நாளை இரவு</string>
@@ -318,7 +317,6 @@
         <item quantity="other">%d பணிகள்</item>
     </plurals>
     <string name="voice_command_added_task">பணி சேர்க்கப்பட்டது</string>
-    <string name="delete_task">பணியை நீக்கு</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">பணி நினைவூட்டல்களின் போது பணிகள் பணி பெயர்களைப் பேசும்</string>
     <string name="EPr_voiceRemindersEnabled_title">குரல் நினைவூட்டல்கள்</string>
     <string name="EPr_voiceInputEnabled_title">குரல் உள்ளீடு</string>
@@ -510,7 +508,6 @@
     <string name="save_percent">%d %% சேமிக்கவும்</string>
     <string name="account_not_included">\'உங்கள் விலை பெயர்\' சந்தாக்களுடன் சேர்க்கப்படவில்லை</string>
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
-    <string name="more_options">மேலும் விருப்பங்கள்</string>
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="markdown">மார்க் பேரூர்</string>
     <string name="alarm_before_due">வருவதற்கு முன் %s</string>

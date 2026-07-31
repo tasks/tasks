@@ -465,4 +465,7 @@
     </plurals>
     <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="no_title">（无标题）</string>
+    <string name="delete_task">删除任务</string>
+    <string name="menu_discard_changes">放弃修改</string>
+    <string name="more_options">更多选项</string>
 </resources>

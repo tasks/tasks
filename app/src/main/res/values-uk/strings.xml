@@ -161,7 +161,6 @@
     <string name="EPr_voiceInputEnabled_title">Голосове введення</string>
     <string name="EPr_voiceRemindersEnabled_title">Голосові нагадування</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks повинен вимовляти назву завдань під час нагадувань</string>
-    <string name="delete_task">Видалити завдання</string>
     <string name="voice_command_added_task">Додане завдання</string>
     <plurals name="Ntasks">
         <item quantity="one">%d завдання</item>
@@ -290,7 +289,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="url">URL</string>
     <string name="icon">Піктограма</string>
-    <string name="menu_discard_changes">Скасувати зміни</string>
     <string name="subtasks">Підзавдання</string>
     <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="SSD_sort_my_order">Мій порядок</string>
@@ -445,7 +443,6 @@
     <string name="privacy">Приватність</string>
     <string name="open_source">Відкритий джерельний код</string>
     <string name="support">Підтримка</string>
-    <string name="more_options">Додаткові параметри</string>
     <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
     <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>
     <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>

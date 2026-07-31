@@ -206,7 +206,6 @@
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
     <string name="EPr_voiceRemindersEnabled_title">Recordatorios de voz</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nomes de les xeres durante los avisos</string>
-    <string name="delete_task">Desaniciar xera</string>
     <string name="voice_command_added_task">Xera amestada</string>
     <plurals name="Ntasks">
         <item quantity="one">1 xera</item>
@@ -264,7 +263,6 @@
     <string name="date_shortcut_must_come_before">%1$s tien de venir enantes %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s tien de venir dempués %2$s</string>
     <string name="discard_changes">¿Escartar cambeos?</string>
-    <string name="menu_discard_changes">Escartar cambeos</string>
     <string name="discard">Escartar</string>
     <string name="tag_settings">Axustes d\'etiquetes</string>
     <string name="list_settings">Axustes de llistes</string>

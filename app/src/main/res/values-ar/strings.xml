@@ -72,7 +72,6 @@
     <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
     <string name="voice_create_prompt">تحدث لإنشاء مهمة</string>
     <string name="EPr_voiceRemindersEnabled_title">منبهات الصوت</string>
-    <string name="delete_task">حذف المهمة</string>
     <string name="voice_command_added_task">تم إضافة المهمة</string>
     <plurals name="Ntasks">
         <item quantity="zero">لا مهام</item>
@@ -297,7 +296,6 @@
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
     <string name="discard">تجاهل</string>
-    <string name="menu_discard_changes">تجاهل التغييرات</string>
     <string name="discard_changes">تجاهل التغييرات؟</string>
     <string name="location_radius_meters">%s م</string>
     <string name="header_spacing">التباعد</string>
@@ -305,7 +303,6 @@
     <string name="CFC_tag_text">علامة: \?</string>
     <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
-    <string name="more_options">خيارات أكثر</string>
     <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
     <string name="copied_to_clipboard">تم نسخ %s إلى الحافظة</string>
     <string name="migrate_count">انقل %s إلى Tasks.org</string>

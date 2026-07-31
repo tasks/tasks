@@ -163,7 +163,6 @@
         <item quantity="one">කාර්යය 1</item>
         <item quantity="other">කාර්යය %d</item>
     </plurals>
-    <string name="delete_task">කාර්යය මකන්න</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">කාර්යයන් මතක් කිරීම් අතරතුරදී Tasks විසින් කාර්යයන්හි නම් කියවනු ඇත</string>
     <string name="EPr_voiceRemindersEnabled_title">ශ්‍රව්‍ය මතක් කිරීම්</string>
     <string name="EPr_voiceInputEnabled_title">ශ්‍රව්‍ය ආදානය</string>
@@ -381,7 +380,6 @@
     <string name="badges_description">Tasks දියත් කිරීමේ නිරූපකයේ කාර්ය ගණන පෙන්වන්න. සියලුම දියත් කරන්නන් (launchers) ලාංඡන සඳහා සහය නොදක්වයි.</string>
     <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>
     <string name="dont_add_to_calendar">දින දර්ශනයට එකතු නොකරන්න</string>
-    <string name="more_options">තවත් විකල්පයන්</string>
     <string name="opacity_row">පේළි පාරාන්ධතාව</string>
     <string name="opacity_header">ශීර්ෂයේ පාරාන්ධතාව</string>
     <string name="opacity">පාරාන්ධතාව</string>
@@ -402,7 +400,6 @@
     <string name="list_settings">ලැයිස්තු සැකසුම්</string>
     <string name="tag_settings">ටැග් සැකසුම්</string>
     <string name="discard">අහෝසිකරන්න</string>
-    <string name="menu_discard_changes">වෙනස්කම් අහෝසිකිරීම</string>
     <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද\?</string>
     <string name="date_shortcut_tomorrow_night">හෙට රාත්‍රී</string>
     <string name="date_shortcut_tomorrow_evening">හෙට හවස</string>
