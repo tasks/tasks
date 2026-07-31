@@ -415,4 +415,6 @@
     </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">her %1$s %2$s</string>
     <string name="failed_to_load_task">Görev yüklenemedi</string>
+    <string name="no_task_selected">Görev seçilmedi</string>
+    <string name="resize_panes">Pencerelerin boyutunu değiştir</string>
 </resources>
