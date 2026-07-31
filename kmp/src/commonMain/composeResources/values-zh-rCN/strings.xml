@@ -502,4 +502,7 @@
     <string name="delete_task">删除任务</string>
     <string name="menu_discard_changes">放弃修改</string>
     <string name="more_options">更多选项</string>
+    <string name="mark_completed">标记为已完成</string>
+    <string name="repeat_type_due_description">任务根据原定完成时间重复</string>
+    <string name="repeat_type_completion_description">任务根据实际完成时间重复</string>
 </resources>
