@@ -1,0 +1,5 @@
+* Show 'Snoozed reminder' in notification body
+* 'Show checkboxes' widget option refreshes immediately
+* Fix modified and created timestamp sync
+* Fix language override not being applied
+* Update translations
