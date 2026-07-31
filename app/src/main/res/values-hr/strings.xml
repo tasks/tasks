@@ -251,7 +251,6 @@
     <string name="default_recurrence">Standardno ponavljanje</string>
     <string name="default_list">Standardni popis</string>
     <string name="back_button_saves_task">Gumb za natrag sprema zadatak</string>
-    <string name="no_title">(bez naslova)</string>
     <string name="name_cannot_be_empty">Ime ne smije biti prazno</string>
     <string name="pick_from_storage">Odaberi iz spremišta</string>
     <string name="pick_from_gallery">Odaberi iz galerije</string>

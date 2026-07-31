@@ -219,7 +219,6 @@
     <string name="pick_from_gallery">בחירה מגלריה</string>
     <string name="pick_from_storage">בחירה מאחסון</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
-    <string name="no_title">(אין כותרת)</string>
     <string name="back_button_saves_task">לחצן \'חזרה\' שומר משימה</string>
     <string name="default_list">רשימת ברירת מחדל</string>
     <string name="filter">מסנן</string>

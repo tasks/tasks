@@ -226,7 +226,6 @@
     <string name="pick_from_gallery">Pasirinkti iš galerijos</string>
     <string name="pick_from_storage">Pasirinkti iš saugyklos</string>
     <string name="name_cannot_be_empty">Pavadinimas negali būti tuščias</string>
-    <string name="no_title">(Be pavadinimo)</string>
     <string name="back_button_saves_task">Mygtukas „Atgal“ išsaugo užduotį</string>
     <string name="default_list">Numatytas sąrašas</string>
     <string name="filter">Filtras</string>

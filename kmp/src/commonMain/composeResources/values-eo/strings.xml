@@ -425,4 +425,5 @@
         <item quantity="other">%1$d jaroj</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Plenumiga dato</string>
+    <string name="no_title">(Sen titolo)</string>
 </resources>

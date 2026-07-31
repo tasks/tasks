@@ -507,7 +507,6 @@
     <string name="pick_from_gallery">Επιλογή από τη συλλογή</string>
     <string name="pick_from_storage">Επιλογή από την αποθήκη αρχείων</string>
     <string name="name_cannot_be_empty">Το όνομα δεν μπορεί να είναι κενό</string>
-    <string name="no_title">(Χωρίς τίτλο)</string>
     <string name="back_button_saves_task">Το κουμπί \"Πίσω\" αποθηκεύει την εργασία</string>
     <string name="show_edit_screen_without_unlock">Εμφάνιση οθόνης επεξεργασίας χωρίς ξεκλείδωμα</string>
     <string name="show_edit_screen_without_unlock_summary">Ενεργοποιεί τη χρήση του πλακιδίου Γρήγορων Ρυθμίσεων χωρίς ξεκλείδωμα συσκευής</string>

@@ -212,7 +212,6 @@
     <string name="pick_from_gallery">ギャラリーから選択</string>
     <string name="pick_from_storage">ストレージから選択</string>
     <string name="name_cannot_be_empty">名前は空にできません</string>
-    <string name="no_title">(タイトルなし)</string>
     <string name="back_button_saves_task">戻るボタンでタスクを保存</string>
     <string name="default_list">デフォルトリスト</string>
     <string name="filter">フィルター</string>

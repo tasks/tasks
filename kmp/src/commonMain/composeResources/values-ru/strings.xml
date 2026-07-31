@@ -359,4 +359,5 @@
         <item quantity="many">%1$d лет</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата завершения</string>
+    <string name="no_title">(Без заголовка)</string>
 </resources>

@@ -439,4 +439,5 @@
         <item quantity="other">%1$d tahun</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">tanggal selesai</string>
+    <string name="no_title">(Tanpa judul)</string>
 </resources>

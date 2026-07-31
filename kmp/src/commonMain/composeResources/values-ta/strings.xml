@@ -328,4 +328,5 @@
         <item quantity="other">%1$d ஆண்டுகள்</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
+    <string name="no_title">(தலைப்பு இல்லை)</string>
 </resources>

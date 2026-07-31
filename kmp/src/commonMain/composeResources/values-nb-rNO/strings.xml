@@ -314,4 +314,5 @@
         <item quantity="other">%1$d år</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
+    <string name="no_title">(Ingen tittel)</string>
 </resources>

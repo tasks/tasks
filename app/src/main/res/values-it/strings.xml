@@ -216,7 +216,6 @@
     <string name="pick_from_gallery">Scegli dalla galleria</string>
     <string name="pick_from_storage">Scegli dal dispositivo</string>
     <string name="name_cannot_be_empty">Il nome non può essere vuoto</string>
-    <string name="no_title">(nessun titolo)</string>
     <string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
     <string name="default_list">Lista predefinita</string>
     <string name="filter">Filtra</string>

@@ -467,4 +467,5 @@
         <item quantity="other">%1$d Jahre</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Fertigstellungstermin</string>
+    <string name="no_title">(kein Titel)</string>
 </resources>

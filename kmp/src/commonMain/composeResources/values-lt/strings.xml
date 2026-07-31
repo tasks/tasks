@@ -307,4 +307,5 @@
         <item quantity="other">%1$d metų</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Užbaigimo data</string>
+    <string name="no_title">(Be pavadinimo)</string>
 </resources>

@@ -207,7 +207,6 @@
     <string name="pick_from_gallery">Choisir depuis la galerie</string>
     <string name="pick_from_storage">Choisir depuis le stockage</string>
     <string name="name_cannot_be_empty">Le nom doit être renseigné</string>
-    <string name="no_title">(Sans titre)</string>
     <string name="back_button_saves_task">Le bouton « Retour » enregistre la tâche</string>
     <string name="default_list">Liste par défaut</string>
     <string name="filter">Filtre</string>

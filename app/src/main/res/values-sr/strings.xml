@@ -240,7 +240,6 @@
     <string name="pick_from_gallery">Одабери из галерије</string>
     <string name="pick_from_storage">Одабери из меморије</string>
     <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
-    <string name="no_title">(Без назива)</string>
     <string name="default_tags">Подразумевани тагови</string>
     <string name="default_recurrence">Подразумевано враћање</string>
     <string name="filter">Филтер</string>

@@ -215,7 +215,6 @@
     <string name="pick_from_gallery">Изберете от галерия</string>
     <string name="pick_from_storage">Избиране на файл</string>
     <string name="name_cannot_be_empty">Името не може да е празно</string>
-    <string name="no_title">(Без заглавие)</string>
     <string name="back_button_saves_task">Бутон „Назад“ запазва задачата</string>
     <string name="default_list">Списък по подразбиране</string>
     <string name="filter">Филтър</string>

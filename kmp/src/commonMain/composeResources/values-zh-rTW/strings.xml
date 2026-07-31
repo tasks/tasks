@@ -358,4 +358,5 @@
         <item quantity="other">%1$d 年</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">完成日期</string>
+    <string name="no_title">(無標題)</string>
 </resources>

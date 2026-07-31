@@ -350,4 +350,5 @@
         <item quantity="other">%1$d jaren</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
+    <string name="no_title">(geen titel)</string>
 </resources>

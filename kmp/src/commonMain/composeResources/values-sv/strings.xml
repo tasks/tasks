@@ -444,4 +444,5 @@
         <item quantity="other">%1$d år</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Slutdatum</string>
+    <string name="no_title">(Ingen titel)</string>
 </resources>

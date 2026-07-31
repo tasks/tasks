@@ -355,4 +355,5 @@
         <item quantity="other">%1$d ani</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalizare</string>
+    <string name="no_title">(Fără titlu)</string>
 </resources>

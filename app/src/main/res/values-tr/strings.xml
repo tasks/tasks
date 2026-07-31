@@ -210,7 +210,6 @@
     <string name="pick_from_gallery">Galeriden seç</string>
     <string name="pick_from_storage">Depolamadan seç</string>
     <string name="name_cannot_be_empty">Ad boş olamaz</string>
-    <string name="no_title">(Başlıksız)</string>
     <string name="back_button_saves_task">Geri düğmesi görevi kaydeder</string>
     <string name="default_list">Öntanımlı liste</string>
     <string name="filter">Süzgeç</string>

@@ -326,4 +326,5 @@
         <item quantity="other">%1$d 년</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">완료일</string>
+    <string name="no_title">(제목 없음)</string>
 </resources>

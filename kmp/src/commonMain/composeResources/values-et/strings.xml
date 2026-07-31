@@ -467,4 +467,5 @@
         <item quantity="other">%1$d aastat</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Lõpetamise kuupäev</string>
+    <string name="no_title">(Pealkirjata)</string>
 </resources>

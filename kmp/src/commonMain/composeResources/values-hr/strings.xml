@@ -474,4 +474,5 @@
         <item quantity="other">%1$d godina</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Datum obavljanja</string>
+    <string name="no_title">(bez naslova)</string>
 </resources>

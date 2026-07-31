@@ -26,6 +26,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.WeekDay
+import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.initialStartSelection
@@ -53,6 +54,8 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
 import org.tasks.time.startOfDay
 import java.util.concurrent.atomic.AtomicLong
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.no_title
 
 private const val WATCH_MAX_ATTEMPTS = 5
 private const val WATCH_RETRY_DELAY_MS = 1_000L
@@ -715,11 +718,6 @@ class TaskEditViewModel(
     }
 
     fun save() {
-        // Guarded rather than queued. Back, escape and the toolbar arrow all land here, and this can
-        // wait: a save already in flight for the same task holds its lock for as long as the
-        // calendar provider and sync adapters take. Without the guard every repeat press stacked
-        // another coroutine on that lock; with it - and with [saving] on screen - the press is
-        // visibly doing something instead of looking dead.
         if (!_saving.compareAndSet(expect = false, update = true)) return
         viewModelScope.launch {
             try {
@@ -732,25 +730,16 @@ class TaskEditViewModel(
         }
     }
 
-    /**
-     * Writes [snapshot] out if there is anything to write. Returns the task as persisted - stamped
-     * with its row id and modification date - or null if nothing was written.
-     */
     private suspend fun saveIfNeeded(snapshot: State): Task? {
         val list = snapshot.list ?: return null
-        // The task was deleted out from under us; saving would write deletionDate back to 0.
         if (snapshot.deleted) return null
         if (!snapshot.hasChanges && !snapshot.pendingSideEffects) return null
-        // Saved from a copy. Task is mutable exactly where the write path stamps it, and the
-        // instance in the snapshot is the one the editor is still showing - so mutating it here
-        // would bump the modification date under whatever the user is typing right now, leaving
-        // hasChanges stuck true and every later save rewriting the row with a stale timestamp.
         val task = snapshot.task.copy()
+        if (task.title.isNullOrBlank()) {
+            task.title = getString(Res.string.no_title)
+        }
         // TODO: apply calendar changes
         if (snapshot.isNew) {
-            // One transaction: a task row without its caldav row belongs to no list and is
-            // invisible in every filter, and the unique index on remoteId means a retry that tried
-            // to create it again would fail for good rather than repair it.
             taskDao.inTransaction {
                 taskDao.createNew(task)
                 caldavDao.insert(
@@ -760,16 +749,6 @@ class TaskEditViewModel(
                 )
                 applyTagsIfNeeded(snapshot, task)
             }
-            // The row exists now, so record that before anything that can still fail. Otherwise a
-            // save that throws below leaves the editor believing the task is new, and the next
-            // teardown save collides with the row this one just wrote. The id goes onto the live
-            // task too: from here on isNew is false, so every later save updates by id and a task
-            // still holding 0 would match no rows and report success having written nothing.
-            //
-            // pendingSideEffects carries the other half. Marking the state clean here was enough to
-            // make hasChanges false, so a save that then threw below left a created row that
-            // nothing had marked dirty - invisible to every synchronizer - and every retry returned
-            // success having done nothing, because it short-circuited on "no changes".
             _state.update {
                 it.copy(
                     task = it.task.copy(id = task.id, modificationDate = task.modificationDate),
@@ -780,9 +759,6 @@ class TaskEditViewModel(
             taskSaver.save(task, null)
         } else {
             applyTagsIfNeeded(snapshot, task)
-            // original = null where an earlier attempt created the row but never got its save
-            // through: that is what tells TaskSaver this is still a creation, so the row is marked
-            // dirty and handed to the synchronizers rather than compared against itself and skipped.
             taskSaver.save(task, snapshot.originalTask.takeUnless { snapshot.pendingSideEffects })
             if (snapshot.list != snapshot.originalList) {
                 taskMover.move(listOf(task.id), list)
@@ -791,7 +767,6 @@ class TaskEditViewModel(
         return task
     }
 
-    /** Stamps [task] - always the save's private copy, never the instance held in state. */
     private suspend fun applyTagsIfNeeded(snapshot: State, task: Task) {
         val selected = snapshot.tags
         val changed = snapshot.originalTags.toHashSet() != selected.toHashSet()

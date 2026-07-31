@@ -258,7 +258,6 @@
     <string name="filter">வடிகட்டு</string>
     <string name="default_list">இயல்புநிலை பட்டியல்</string>
     <string name="back_button_saves_task">பின் பொத்தான் பணியைச் சேமிக்கிறது</string>
-    <string name="no_title">(தலைப்பு இல்லை)</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
     <string name="pick_from_storage">சேமிப்பிலிருந்து எடுக்கவும்</string>
     <string name="pick_from_gallery">கேலரியில் இருந்து எடுக்கவும்</string>

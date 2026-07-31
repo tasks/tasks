@@ -105,7 +105,6 @@
     <string name="default_tags">Etichete implicite</string>
     <string name="default_list">Listă implicită</string>
     <string name="back_button_saves_task">Butonul Înapoi salvează activitatea</string>
-    <string name="no_title">(Fără titlu)</string>
     <string name="name_cannot_be_empty">Numele nu poate fi gol</string>
     <string name="pick_from_storage">Alege de pe stocare</string>
     <string name="pick_from_gallery">Alege din galerie</string>

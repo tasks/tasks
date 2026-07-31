@@ -342,4 +342,5 @@
         <item quantity="other">%1$d rokov</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Dátum dokončenia</string>
+    <string name="no_title">Bez názvu</string>
 </resources>

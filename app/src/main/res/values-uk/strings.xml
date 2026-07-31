@@ -219,7 +219,6 @@
     <string name="pick_from_gallery">Обрати з галереї</string>
     <string name="pick_from_storage">Обрати зі сховища</string>
     <string name="name_cannot_be_empty">Ім\'я не може бути порожнє</string>
-    <string name="no_title">(без назви)</string>
     <string name="back_button_saves_task">Зберігати завдання кнопкою Назад</string>
     <string name="default_list">Типовий список</string>
     <string name="filter">Фільтр</string>

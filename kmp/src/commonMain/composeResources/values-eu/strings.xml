@@ -292,4 +292,5 @@
         <item quantity="other">%1$d urte</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Burutze-data</string>
+    <string name="no_title">(Izenbururik ez)</string>
 </resources>

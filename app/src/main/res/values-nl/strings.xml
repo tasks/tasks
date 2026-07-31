@@ -206,7 +206,6 @@
     <string name="pick_from_gallery">Uit galerij kiezen</string>
     <string name="pick_from_storage">Uit opslag kiezen</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
-    <string name="no_title">(geen titel)</string>
     <string name="back_button_saves_task">Terug-knop slaat taak op</string>
     <string name="default_list">Standaardlijst</string>
     <string name="opacity">Transparantie</string>

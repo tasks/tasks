@@ -197,7 +197,6 @@
     <string name="pick_from_gallery">Escolher da galeria de imagens</string>
     <string name="pick_from_storage">Escolher do armazenamento</string>
     <string name="name_cannot_be_empty">O nome não pode estar vazio</string>
-    <string name="no_title">(sem título)</string>
     <string name="back_button_saves_task">Botão \'voltar\' guarda a tarefa</string>
     <string name="default_list">Lista padrão</string>
     <string name="filter">Filtro</string>

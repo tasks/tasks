@@ -210,7 +210,6 @@
     <string name="pick_from_gallery">Kiválasztás a galériából</string>
     <string name="pick_from_storage">Kiválasztás a tárhelyről</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
-    <string name="no_title">(Név nélkül)</string>
     <string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
     <string name="default_list">Alapértelmezett lista</string>
     <string name="filter">Szűrő</string>

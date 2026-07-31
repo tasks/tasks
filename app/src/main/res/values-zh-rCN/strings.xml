@@ -198,7 +198,6 @@
     <string name="pick_from_gallery">从相册选一张</string>
     <string name="pick_from_storage">从存储中挑选</string>
     <string name="name_cannot_be_empty">名字不能为空</string>
-    <string name="no_title">（无标题）</string>
     <string name="back_button_saves_task">按返回键时保存任务</string>
     <string name="default_list">默认清单</string>
     <string name="filter">过滤器</string>

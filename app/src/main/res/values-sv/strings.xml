@@ -172,7 +172,6 @@
     <string name="pick_from_gallery">Välj från galleriet</string>
     <string name="pick_from_storage">Välj från lagringsutrymmet</string>
     <string name="name_cannot_be_empty">Namn måste anges</string>
-    <string name="no_title">(Ingen titel)</string>
     <string name="back_button_saves_task">Bakåtknappen sparar uppgiften</string>
     <string name="default_list">Förvald lista</string>
     <string name="opacity">Opacitet</string>

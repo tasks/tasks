@@ -343,4 +343,5 @@
         <item quantity="other">%1$d vuotta</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
+    <string name="no_title">(Ei nimikettä)</string>
 </resources>

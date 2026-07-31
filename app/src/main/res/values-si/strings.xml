@@ -388,7 +388,6 @@
     <string name="filter">පෙරහන</string>
     <string name="default_tags">පෙරනිමි ටැග්</string>
     <string name="default_list">පෙරනිමි ලැයිස්තුව</string>
-    <string name="no_title">(මාතෘකාවක් නැත)</string>
     <string name="name_cannot_be_empty">නම හිස්ව තැබිය නොහැකිය</string>
     <string name="pick_from_storage">මතක ගබඩාවෙන් තෝරන්න</string>
     <string name="pick_from_gallery">ගැලරියෙන් තෝරන්න</string>

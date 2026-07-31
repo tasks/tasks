@@ -303,7 +303,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s ha d\'anar abans de %2$s</string>
     <string name="discard">Descarta</string>
-    <string name="no_title">(Sense títol)</string>
     <string name="copy">Copia</string>
     <string name="widget_show_dividers">Mostra el divisors</string>
     <string name="quiet_hours">Temps de tranquil·litat</string>

@@ -469,4 +469,5 @@
         <item quantity="other">%1$d yılda</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Tamamlanma tarihi</string>
+    <string name="no_title">(Başlıksız)</string>
 </resources>

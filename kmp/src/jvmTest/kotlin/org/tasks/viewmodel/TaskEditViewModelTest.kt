@@ -338,9 +338,10 @@ class TaskEditViewModelTest {
     }
 
     @Test
-    fun saveNewTaskWithPriorityOnly() = runTest(testDispatcher) {
+    fun saveNewTaskWithPriority() = runTest(testDispatcher) {
         initializeNew()
 
+        viewModel.setTitle("Prioritized")
         viewModel.setPriority(Task.Priority.HIGH)
         viewModel.save()
         advanceUntilIdle()
@@ -405,9 +406,10 @@ class TaskEditViewModelTest {
     }
 
     @Test
-    fun saveNewTaskWithDescriptionOnly() = runTest(testDispatcher) {
+    fun saveNewTaskWithDescription() = runTest(testDispatcher) {
         initializeNew()
 
+        viewModel.setTitle("Described")
         viewModel.setDescription("Some notes")
         viewModel.save()
         advanceUntilIdle()
@@ -578,8 +580,9 @@ class TaskEditViewModelTest {
     }
 
     @Test
-    fun switchSavesDescriptionOnly() = runTest(testDispatcher) {
+    fun switchSavesDescription() = runTest(testDispatcher) {
         initializeNew()
+        viewModel.setTitle("Described")
         viewModel.setDescription("Some notes")
 
         viewModel.saveCurrentTask()

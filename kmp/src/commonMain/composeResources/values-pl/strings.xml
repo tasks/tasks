@@ -335,4 +335,5 @@
         <item quantity="many">%1$d lat</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Data zakończenia</string>
+    <string name="no_title">(Bez tytułu)</string>
 </resources>

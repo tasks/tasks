@@ -38,7 +38,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.no_title
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
@@ -334,7 +337,7 @@ class TaskEditViewModel @Inject constructor(
         val viewState = _viewState.value
         val isNew = viewState.isNew
         val original = if (isNew) null else task.copy()
-        task.title = if (viewState.task.title.isNullOrBlank()) resources.getString(R.string.no_title) else viewState.task.title
+        task.title = if (viewState.task.title.isNullOrBlank()) getString(Res.string.no_title) else viewState.task.title
         task.dueDate = dueDate.value
         task.priority = viewState.task.priority
         task.notes = viewState.task.notes

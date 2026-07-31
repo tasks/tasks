@@ -276,7 +276,6 @@
     <string name="default_tags">ڈیفالٹ ٹیگز</string>
     <string name="default_list">ڈیفالٹ فہرست</string>
     <string name="back_button_saves_task">بیک کے بٹن سے ٹاسک محفوظ کرنا</string>
-    <string name="no_title">(کوئی عنوان نہیں)</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
     <string name="bundle_notifications">بنڈل نوٹٰیفیکیشنز</string>
     <string name="notification_disable_battery_optimizations_description">بیٹری کی بچت نوٹیفیکیشنز کو ملتوی کر سکتی ہے</string>

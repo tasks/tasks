@@ -328,4 +328,5 @@
         <item quantity="other">%1$d anos</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalización</string>
+    <string name="no_title">(Sen título)</string>
 </resources>

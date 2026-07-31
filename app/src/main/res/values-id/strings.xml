@@ -155,7 +155,6 @@
     <string name="pick_from_gallery">Pilih dari galeri</string>
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
-    <string name="no_title">(Tanpa judul)</string>
     <string name="back_button_saves_task">Tombol kembali menyimpan tugas</string>
     <string name="default_list">Daftar bawaan</string>
     <string name="filter">Filter</string>

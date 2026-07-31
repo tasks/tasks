@@ -284,4 +284,5 @@
         <item quantity="other">වසර %1$d</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">සම්පූර්ණ කරන දිනය</string>
+    <string name="no_title">(මාතෘකාවක් නැත)</string>
 </resources>

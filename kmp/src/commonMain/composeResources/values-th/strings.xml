@@ -268,4 +268,5 @@
         <item quantity="other">%1$d ปี</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">วันที่เสร็จสมบูรณ์</string>
+    <string name="no_title">(ไม่มีชื่อเรื่อง)</string>
 </resources>

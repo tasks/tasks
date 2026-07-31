@@ -237,4 +237,5 @@
         <item quantity="other">%1$d años</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Data de finalización</string>
+    <string name="no_title">(Ensin títulu)</string>
 </resources>

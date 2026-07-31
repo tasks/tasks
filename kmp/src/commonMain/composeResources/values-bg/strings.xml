@@ -409,4 +409,5 @@
         <item quantity="other">%1$d години</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата на завършване</string>
+    <string name="no_title">(Без заглавие)</string>
 </resources>

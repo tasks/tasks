@@ -378,4 +378,5 @@
         <item quantity="other">%1$d év</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
+    <string name="no_title">(Név nélkül)</string>
 </resources>

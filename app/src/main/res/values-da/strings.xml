@@ -221,7 +221,6 @@
     <string name="opacity">Opacitet</string>
     <string name="filter">Filter</string>
     <string name="default_list">Standardliste</string>
-    <string name="no_title">(Ingen titel)</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="pick_from_storage">Vælg fra lager</string>
     <string name="pick_from_gallery">Vælg fra galleri</string>

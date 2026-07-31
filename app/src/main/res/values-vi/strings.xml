@@ -260,7 +260,6 @@
     <string name="default_tags">Thẻ mặc định</string>
     <string name="default_list">Danh sách mặc định</string>
     <string name="back_button_saves_task">Nút Quay lại sẽ lưu công việc</string>
-    <string name="no_title">(Không có tiêu đề)</string>
     <string name="name_cannot_be_empty">Tên không thể trống</string>
     <string name="pick_from_storage">Chọn từ bộ nhớ</string>
     <string name="pick_from_gallery">Chọn từ thư viện</string>

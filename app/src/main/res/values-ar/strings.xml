@@ -219,7 +219,6 @@
     <string name="widget_due_date_after_title">بعد العنوان</string>
     <string name="default_recurrence">التكرار الافتراضي</string>
     <string name="default_tags">العلامات الافتراضيّة</string>
-    <string name="no_title">(لا عنوان)</string>
     <string name="pick_from_storage">انتقِ من التخزين</string>
     <string name="list_settings">إعدادات القوائم</string>
     <string name="tag_settings">إعدادات العلامات</string>

@@ -390,4 +390,5 @@
         <item quantity="other">%1$d שנים</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
+    <string name="no_title">(אין כותרת)</string>
 </resources>

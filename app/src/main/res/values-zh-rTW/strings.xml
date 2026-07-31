@@ -355,7 +355,6 @@
     <string name="default_recurrence">預設循環</string>
     <string name="default_tags">預設標籤</string>
     <string name="back_button_saves_task">返回鈕儲存工作</string>
-    <string name="no_title">(無標題)</string>
     <string name="filter_criteria_unstarted">尚未開始</string>
     <string name="widget_show_title">顯示標題</string>
     <plurals name="task_count">

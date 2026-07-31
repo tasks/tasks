@@ -224,4 +224,5 @@
         <item quantity="other">%1$d سال</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">تاریخ تکمیل</string>
+    <string name="no_title">(کوئی عنوان نہیں)</string>
 </resources>

@@ -221,7 +221,6 @@
     <string name="pick_from_gallery">Vybrať z galérie</string>
     <string name="pick_from_storage">Vybrať z uložených</string>
     <string name="name_cannot_be_empty">Názov nesmie ostať prázdny </string>
-    <string name="no_title">Bez názvu</string>
     <string name="back_button_saves_task">Uložiť úlohu tlačidlom Späť</string>
     <string name="default_list">Predvolený zoznam</string>
     <string name="opacity">Priehľadnosť</string>

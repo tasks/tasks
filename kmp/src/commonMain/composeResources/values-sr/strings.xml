@@ -371,4 +371,5 @@
         <item quantity="other">%1$d година</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Датум завршетка</string>
+    <string name="no_title">(Без назива)</string>
 </resources>

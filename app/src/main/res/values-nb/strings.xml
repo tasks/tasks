@@ -226,7 +226,6 @@
     <string name="pick_from_gallery">Velg fra galleri</string>
     <string name="pick_from_storage">Velg fra lagring</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
-    <string name="no_title">(Ingen tittel)</string>
     <string name="back_button_saves_task">Tilbakeknapp lagrer gjøremål</string>
     <string name="default_list">Forvalgt liste</string>
     <string name="filter">Filter</string>

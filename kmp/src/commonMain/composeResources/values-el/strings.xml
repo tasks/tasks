@@ -328,4 +328,5 @@
         <item quantity="other">%1$d χρόνια</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
+    <string name="no_title">(Χωρίς τίτλο)</string>
 </resources>

@@ -209,7 +209,6 @@
     <string name="pick_from_gallery">Aus Galerie wählen</string>
     <string name="pick_from_storage">Von Speicher auswählen</string>
     <string name="name_cannot_be_empty">Name darf nicht leer sein</string>
-    <string name="no_title">(kein Titel)</string>
     <string name="back_button_saves_task">„Zurück“ speichert Aufgabe</string>
     <string name="default_list">Standardliste</string>
     <string name="opacity">Deckkraft</string>

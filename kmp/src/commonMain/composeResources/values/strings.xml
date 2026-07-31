@@ -471,4 +471,5 @@
     <string name="repeat_type_completion_capitalized">Completion date</string>
     <string name="repeat_type_due_description">The task repeats based on when it was supposed to be done</string>
     <string name="repeat_type_completion_description">The task repeats based on when you actually finished it</string>
+    <string name="no_title">(No title)</string>
 </resources>

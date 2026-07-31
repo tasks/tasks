@@ -346,4 +346,5 @@
         <item quantity="many">%1$d років</item>
     </plurals>
     <string name="repeat_type_completion_capitalized">Дата завершення</string>
+    <string name="no_title">(без назви)</string>
 </resources>
