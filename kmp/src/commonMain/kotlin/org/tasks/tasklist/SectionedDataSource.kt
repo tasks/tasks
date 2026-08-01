@@ -36,10 +36,12 @@ class SectionedDataSource(
             return getSection(sectionedPosition).firstPosition
         }
 
+        // `sections` is sorted by position, so stop at the first one past the target rather than
+        // walking the whole map. This runs for every item lookup, including inside the diff.
         var offset = 0
-        sections.forEach { (_, section) ->
+        for ((_, section) in sections) {
             if (section.sectionedPosition > sectionedPosition) {
-                return@forEach
+                break
             }
             --offset
         }

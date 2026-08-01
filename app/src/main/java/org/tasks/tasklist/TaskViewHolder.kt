@@ -85,6 +85,24 @@ class TaskViewHolder internal constructor(
     private val debugDirty: View = binding.debugDirty
     private val alwaysDisplayFullDate: Boolean = preferences.alwaysDisplayFullDate
 
+    // Resolved once per view holder rather than on every bind - theme attribute lookups allocate a
+    // TypedArray, and preference reads go through a string resource lookup. Preference changes
+    // restart the activity, which recreates these view holders.
+    private val onSurface: Int =
+        MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
+    private val onSurfaceDim: Int = ColorUtils.setAlphaComponent(onSurface, 0x61)
+    private val onSurfaceVariant: Int =
+        MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, 0)
+    private val chipAppearance: Int = preferences.getIntegerFromString(R.string.p_chip_appearance, 0)
+    private val showDescription: Boolean = preferences.getBoolean(R.string.p_show_description, true)
+    private val linkifyTaskList: Boolean = preferences.getBoolean(R.string.p_linkify_task_list, false)
+    private val showListChip: Boolean = preferences.showListChip
+    private val showSubtaskChip: Boolean = preferences.showSubtaskChip
+    private val showStartDateChip: Boolean = preferences.showStartDateChip
+    private val showPlaceChip: Boolean = preferences.showPlaceChip
+    private val showTagChip: Boolean = preferences.showTagChip
+    private val is24HourFormat: Boolean = context.is24HourFormat
+
     lateinit var task: TaskContainer
 
     var indent = 0
@@ -167,11 +185,11 @@ class TaskViewHolder internal constructor(
             sortByStartDate = sortMode == SORT_START,
             sortByList = sortMode == SORT_LIST
         )
-        if (preferences.getBoolean(R.string.p_show_description, true)) {
+        if (showDescription) {
             markdown.setMarkdown(description, task.notes)
             description.visibility = if (task.task.hasNotes()) View.VISIBLE else View.GONE
         }
-        if (markdown.enabled || preferences.getBoolean(R.string.p_linkify_task_list, false)) {
+        if (markdown.enabled || linkifyTaskList) {
             if (!markdown.enabled) {
                 Linkify.safeLinkify(nameView)
                 Linkify.safeLinkify(description)
@@ -204,8 +222,6 @@ class TaskViewHolder internal constructor(
     }
 
     private fun setupTitleAndCheckbox() {
-        val onSurface = MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
-        val onSurfaceDim = ColorUtils.setAlphaComponent(onSurface, 0x61)
         if (task.isCompleted) {
             nameView.setTextColor(onSurfaceDim)
             nameView.paintFlags = nameView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -223,19 +239,19 @@ class TaskViewHolder internal constructor(
             if (task.task.isOverdue) {
                 dueDate.setTextColor(textColorOverdue)
             } else {
-                dueDate.setTextColor(MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurfaceVariant, 0))
+                dueDate.setTextColor(onSurfaceVariant)
             }
             val dateValue: String? = if (sortByDueDate
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    formatTime(task.dueDate, context.is24HourFormat)
+                    formatTime(task.dueDate, is24HourFormat)
                 }
             } else {
                 runBlocking {
                     getRelativeDateTime(
                         task.dueDate,
-                        context.is24HourFormat,
+                        is24HourFormat,
                         alwaysDisplayFullDate = alwaysDisplayFullDate
                     )
                 }
@@ -257,11 +273,26 @@ class TaskViewHolder internal constructor(
         val place = task.location?.place
         val list = task.caldav
         val tagsString = task.tagsString
-        val appearance = preferences.getIntegerFromString(R.string.p_chip_appearance, 0)
-        val showText = appearance != 2
-        val showIcon = appearance != 1
+        val showText = chipAppearance != 2
+        val showIcon = chipAppearance != 1
         val toggleSubtasks = { task: Long, collapsed: Boolean -> callback.toggleSubtasks(task, collapsed) }
         val onClick = { it: Filter -> callback.onClick(it) }
+        // Deliberately conservative: `indent` is not assigned until after bindView returns, and the
+        // list and tag chips can still resolve to nothing. Over-reporting only costs an empty
+        // chip row, which is what every task rendered before.
+        val hasChips =
+            (children > 0 && showSubtaskChip) ||
+                    (isHidden && showStartDateChip) ||
+                    (place != null && filter !is PlaceFilter && showPlaceChip) ||
+                    (!sortByList && showListChip && filter !is CaldavFilter) ||
+                    (!tagsString.isNullOrBlank() && showTagChip)
+        if (!hasChips) {
+            // Composing a themed, empty chip row for every chipless task is pure overhead on the
+            // scroll path. The view still measures to zero height either way, so clearing the
+            // content leaves the layout unchanged.
+            chipGroup.setContent {}
+            return
+        }
         chipGroup.setContent {
             TasksTheme(
                 theme = theme.themeBase.index,
@@ -273,7 +304,7 @@ class TaskViewHolder internal constructor(
                         bottom = rowPaddingDp.dp
                     )
                 ) {
-                    if (children > 0 && remember { preferences.showSubtaskChip }) {
+                    if (children > 0 && showSubtaskChip) {
                         SubtaskChip(
                             collapsed = collapsed,
                             children = children,
@@ -282,7 +313,7 @@ class TaskViewHolder internal constructor(
                     }
                     if (
                         isHidden &&
-                        remember { preferences.showStartDateChip } &&
+                        showStartDateChip &&
                         startDate != task.dueDate &&
                         startDate != task.dueDate.startOfDay()
                     ) {
@@ -294,7 +325,7 @@ class TaskViewHolder internal constructor(
                             colorProvider = { chipProvider.getColor(it) },
                         )
                     }
-                    if (place != null && filter !is PlaceFilter && remember { preferences.showPlaceChip }) {
+                    if (place != null && filter !is PlaceFilter && showPlaceChip) {
                         FilterChip(
                             filter = PlaceFilter(place),
                             defaultIcon = TasksIcons.PLACE,
@@ -308,7 +339,7 @@ class TaskViewHolder internal constructor(
                     if (
                         indent == 0 &&
                         !sortByList &&
-                        preferences.showListChip &&
+                        showListChip &&
                         filter !is CaldavFilter
                     ) {
                         remember(list, chipProvider.lists.listsCount) {
@@ -324,7 +355,7 @@ class TaskViewHolder internal constructor(
                             )
                         }
                     }
-                    if (!tagsString.isNullOrBlank() && remember { preferences.showTagChip }) {
+                    if (!tagsString.isNullOrBlank() && showTagChip) {
                         remember(tagsString, filter, chipProvider.lists.tagsVersion) {
                             val tags = tagsString.split(",").toHashSet()
                             if (filter is TagFilter) {

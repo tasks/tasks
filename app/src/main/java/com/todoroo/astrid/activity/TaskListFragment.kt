@@ -434,10 +434,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         }
                     }
                 }
+                var submitted: SectionedDataSource? = null
                 listViewModel.state.collect {
                     val results = it.tasks
                     if (results is TasksResults.Results) {
-                        submitList(results.tasks)
+                        // State also changes for things the list doesn't depend on, such as the
+                        // sync indicator. Resubmitting the same results would diff the list
+                        // against itself on every one of those.
+                        if (results.tasks !== submitted) {
+                            submitted = results.tasks
+                            submitList(results.tasks)
+                        }
                         if (results.tasks.isEmpty()) {
                             swipeRefreshLayout.visibility = View.GONE
                             emptyRefreshLayout.visibility = View.VISIBLE

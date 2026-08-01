@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import com.materialkolor.contrast.Contrast
 import com.materialkolor.hct.Hct
 import com.materialkolor.palettes.TonalPalette
+import java.util.concurrent.ConcurrentHashMap
 
 object ColorTone {
     const val LIGHT_CHIP = -1
@@ -22,10 +23,20 @@ object ColorTone {
     const val DARK_APPBAR = 80
 }
 
+/**
+ * Solving a tone or a content color runs HCT/CAM16 conversions, which are expensive relative to
+ * how often they're asked for: every chip on every task list row resolves both. Both functions are
+ * pure over a small set of inputs, so results are cached for the lifetime of the process.
+ */
+private val tonalColorCache = ConcurrentHashMap<Long, Int>()
+private val contentColorCache = ConcurrentHashMap<Int, Int>()
+
 fun tonalColor(seedColor: Int, tone: Int): Int =
     when {
         tone < 0 -> seedColor
-        else -> TonalPalette.fromInt(seedColor).tone(tone)
+        else -> tonalColorCache.getOrPut((seedColor.toLong() shl 32) or tone.toLong()) {
+            TonalPalette.fromInt(seedColor).tone(tone)
+        }
     }
 
 data class ChipColors(val backgroundColor: Int, val contentColor: Int)
@@ -46,7 +57,10 @@ private const val MIN_CONTRAST_RATIO = 4.5
 private const val WHITE = -1         // 0xFFFFFFFF
 private const val BLACK = -16777216  // 0xFF000000
 
-fun contentColor(backgroundColor: Int): Int {
+fun contentColor(backgroundColor: Int): Int =
+    contentColorCache.getOrPut(backgroundColor) { computeContentColor(backgroundColor) }
+
+private fun computeContentColor(backgroundColor: Int): Int {
     val bgTone = Hct.fromInt(backgroundColor).tone
     val palette = TonalPalette.fromInt(backgroundColor)
     val lightRatio = Contrast.ratioOfTones(bgTone, ColorTone.LIGHT_CONTENT.toDouble())

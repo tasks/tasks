@@ -23,6 +23,10 @@ import org.tasks.time.DateTimeUtils2
 
 private const val MAX_TIME = 9999999999999
 
+// Kermit defaults to verbose, so the query logging below runs in release builds too - don't
+// recompile this on every query.
+private val WHITESPACE = Regex("\\s+")
+
 @Dao
 abstract class TaskDao(private val database: Database) {
 
@@ -110,7 +114,7 @@ FROM (
         val start = DateTimeUtils2.currentTimeMillis()
         val result = fetchRaw(RoomRawQuery(query))
         val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
         return result
     }
 
@@ -121,7 +125,7 @@ FROM (
         val start = DateTimeUtils2.currentTimeMillis()
         val result = countRaw(RoomRawQuery(query))
         val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
         return result
     }
 

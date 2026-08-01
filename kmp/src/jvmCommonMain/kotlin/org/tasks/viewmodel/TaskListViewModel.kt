@@ -65,6 +65,14 @@ open class TaskListViewModel(
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
     )
 
+    /** The subset of [State] that the task list query depends on. */
+    private data class QueryKey(
+        val filter: Filter,
+        val now: Long,
+        val searchQuery: String?,
+        val collapsed: Set<Long>,
+    )
+
     private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
@@ -147,7 +155,10 @@ open class TaskListViewModel(
             .launchIn(viewModelScope)
 
         _state
-            .map { it.copy(tasks = TasksResults.Loading) }
+            // Only the fields the query actually depends on may trigger a refetch. Deriving this
+            // from the whole state meant that flipping the sync indicator re-ran the query and
+            // rebuilt the entire list.
+            .map { QueryKey(it.filter, it.now, it.searchQuery, it.collapsed) }
             .distinctUntilChanged()
             .throttleLatest(333)
             .map {

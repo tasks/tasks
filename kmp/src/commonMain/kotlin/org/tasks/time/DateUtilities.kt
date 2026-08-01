@@ -22,6 +22,7 @@ import tasks.kmp.generated.resources.yest
 import tasks.kmp.generated.resources.yesterday
 import tasks.kmp.generated.resources.yesterday_abbrev_lowercase
 import tasks.kmp.generated.resources.yesterday_lowercase
+import kotlin.concurrent.Volatile
 import kotlin.math.abs
 
 suspend fun getRelativeDateTime(
@@ -76,8 +77,22 @@ fun getFullDateTime(
 private fun isAbbreviated(style: DateStyle): Boolean =
     style == DateStyle.SHORT || style == DateStyle.MEDIUM
 
-private fun stripYear(date: String, year: Int): String =
-    date.replace("(?: de |, |/| |\\u00a0)?$year(?:年|년 |[\\s\\u00a0]г\\.)?".toRegex(), "")
+// Compiling this pattern costs more than the replace itself, and the task list strips the year
+// from a date string for every visible row. The pattern only varies by year.
+@Volatile
+private var yearRegex: Pair<Int, Regex>? = null
+
+private fun stripYear(date: String, year: Int): String {
+    val cached = yearRegex
+    val regex = if (cached != null && cached.first == year) {
+        cached.second
+    } else {
+        "(?: de |, |/| |\\u00a0)?$year(?:年|년 |[\\s\\u00a0]г\\.)?"
+            .toRegex()
+            .also { yearRegex = year to it }
+    }
+    return date.replace(regex, "")
+}
 
 private suspend fun getRelativeDay(
     date: Long,

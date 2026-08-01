@@ -18,6 +18,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.Filter
 import org.tasks.filters.TagFilter
 
 class ChipDataProvider(
@@ -48,23 +49,40 @@ class ChipDataProvider(
         accounts: List<CaldavAccount>,
         calendars: List<CaldavCalendar>,
     ) {
-        Logger.d("ChipDataProvider") { "Updating lists" }
-        lists = calendars
+        val updated: Map<String?, CaldavFilter> = calendars
             .mapNotNull { list ->
                 val account = accounts.find { it.uuid == list.account } ?: return@mapNotNull null
                 CaldavFilter(calendar = list, account = account)
             }
             .associateBy { filter -> filter.uuid }
-        listsCount = lists.size
-        refreshBroadcaster.broadcastRefresh()
+        val changed = updated.chipAppearance() != lists.chipAppearance()
+        lists = updated
+        listsCount = updated.size
+        if (changed) {
+            Logger.d("ChipDataProvider") { "Updating lists" }
+            refreshBroadcaster.broadcastRefresh()
+        }
     }
 
     private fun updateTags(updated: List<TagData>) {
-        Logger.d("ChipDataProvider") { "Updating tags" }
-        tagDatas = updated.associateBy({ it.remoteId }) { TagFilter(it) }
-        tagsVersion++
-        refreshBroadcaster.broadcastRefresh()
+        val tags = updated.associateBy({ it.remoteId }) { TagFilter(it) }
+        val changed = tags.chipAppearance() != tagDatas.chipAppearance()
+        tagDatas = tags
+        if (changed) {
+            Logger.d("ChipDataProvider") { "Updating tags" }
+            tagsVersion++
+            refreshBroadcaster.broadcastRefresh()
+        }
     }
+
+    /**
+     * Syncing writes to these tables constantly - sync tokens, ctags, error state, ordering - and
+     * every write emits here. Broadcasting a refresh on each one re-ran the task list query and
+     * rebuilt the whole list repeatedly for the duration of a sync. Only a change to what a chip
+     * actually renders needs to reach the list.
+     */
+    private fun <K> Map<K, Filter>.chipAppearance() =
+        mapValues { (_, filter) -> Triple(filter.title, filter.icon, filter.tint) }
 
     init {
         combine(caldavDao.watchAccounts(), caldavDao.subscribeToCalendars()) { accounts, calendars ->

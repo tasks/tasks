@@ -6,6 +6,10 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.data.dao.CaldavDao
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDay
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.concurrent.Volatile
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.completed
 import tasks.kmp.generated.resources.filter_high_priority
@@ -24,7 +28,16 @@ import tasks.kmp.generated.resources.sort_start_group
 class HeaderFormatter(
     private val caldavDao: CaldavDao,
 ) {
-    private val listCache = HashMap<Long, String?>()
+    /**
+     * [headerStringBlocking] is called from view binding on the main thread, and resolving a header
+     * means a string resource load or - when grouping by list - a database query. Headers repeat
+     * constantly while scrolling, so results are memoized. Relative dates ("today", "tomorrow") are
+     * only valid for the current day, so the cache is dropped when the day rolls over. This is also
+     * what eventually picks up a renamed list.
+     */
+    @Volatile
+    private var cacheDay = Long.MIN_VALUE
+    private val headerCache = ConcurrentHashMap<String, String>()
 
     fun headerStringBlocking(
         value: Long,
@@ -32,8 +45,17 @@ class HeaderFormatter(
         alwaysDisplayFullDate: Boolean = false,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
-    ) = runBlocking {
-        headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
+    ): String {
+        val today = currentTimeMillis().startOfDay()
+        if (today != cacheDay) {
+            cacheDay = today
+            headerCache.clear()
+        }
+        val key = "$value|$groupMode|$alwaysDisplayFullDate|$style|$compact"
+        headerCache[key]?.let { return it }
+        return runBlocking {
+            headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
+        }.also { headerCache[key] = it }
     }
 
     suspend fun headerString(
@@ -49,9 +71,7 @@ class HeaderFormatter(
             groupMode == SortHelper.SORT_IMPORTANCE ->
                 getString(priorityToString(value))
             groupMode == SortHelper.SORT_LIST ->
-                listCache.getOrPut(value) {
-                    caldavDao.getCalendarById(value)?.name
-                } ?: "list: $value"
+                caldavDao.getCalendarById(value)?.name ?: "list: $value"
             value == SectionedDataSource.HEADER_OVERDUE ->
                 getString(Res.string.filter_overdue)
             value == 0L -> getString(
