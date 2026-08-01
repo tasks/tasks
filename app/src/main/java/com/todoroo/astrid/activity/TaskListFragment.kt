@@ -147,7 +147,7 @@ import org.tasks.filters.SearchFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.key
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.TasksBuildConfig
 import org.tasks.preferences.Device
@@ -420,6 +420,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         recyclerView.updatePadding(bottom = baseFooterHeight + additionalFabSpace)
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                viewHolderFactory.dateFormatter = DateFormatter.create(requireContext().is24HourFormat)
                 listViewModel.updateBannerState()
                 launch {
                     listViewModel.banner.collect { banner ->
@@ -1322,9 +1323,8 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 if (isRecurringCompletion) {
                     val task = tasks.first()
                     val fullTitle = markdown.markdown(force = true).toMarkdown(task.title)?.toString() ?: ""
-                    val date = getRelativeDateTime(
+                    val date = DateFormatter.create(context.is24HourFormat).relativeDateTime(
                         task.dueDate,
-                        context.is24HourFormat,
                         DateStyle.LONG,
                         lowercase = true
                     )

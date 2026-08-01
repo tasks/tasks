@@ -18,11 +18,11 @@ import org.tasks.R
 import org.tasks.compose.edit.StartDateRow
 import org.tasks.compose.pickers.StartDatePickerSheet
 import org.tasks.compose.pickers.labelWithTime
+import org.tasks.compose.rememberDateFormatter
 import org.tasks.data.entity.Alarm
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.hideKeyboardThen
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -52,18 +52,17 @@ class StartDateControlSet : TaskEditControlFragment() {
         val viewState = viewModel.viewState.collectAsStateWithLifecycle().value
         var showPicker by rememberSaveable { mutableStateOf(false) }
         val today = currentTimeMillis().startOfDay()
+        val dateFormatter = rememberDateFormatter(is24Hour)
         val printedStartDate = remember(
-            selectedDay, selectedTime, is24Hour, preferences.alwaysDisplayFullDate, today
+            selectedDay, selectedTime, is24Hour, preferences.alwaysDisplayFullDate, today,
+            dateFormatter,
         ) {
             if (selectedDay > 0) {
-                runBlocking {
-                    getRelativeDateTime(
-                        selectedDay.withMillisOfDay(selectedTime),
-                        is24Hour,
-                        DateStyle.FULL,
-                        alwaysDisplayFullDate = preferences.alwaysDisplayFullDate,
-                    )
-                }
+                dateFormatter?.relativeDateTime(
+                    selectedDay.withMillisOfDay(selectedTime),
+                    DateStyle.FULL,
+                    alwaysDisplayFullDate = preferences.alwaysDisplayFullDate,
+                ) ?: ""
             } else {
                 ""
             }

@@ -5,10 +5,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import kotlinx.coroutines.runBlocking
 import org.tasks.data.entity.Task
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.formatTime
 import org.tasks.themes.TasksIcons
 import org.tasks.time.startOfDay
@@ -19,10 +18,10 @@ fun StartDateChip(
     startDate: Long,
     compact: Boolean,
     timeOnly: Boolean,
-    is24HourFormat: Boolean,
     chipColor: Color,
+    dateFormatter: DateFormatter?,
 ) {
-    val text by remember(sortGroup, startDate, timeOnly, compact) {
+    val text by remember(sortGroup, startDate, timeOnly, compact, dateFormatter) {
         derivedStateOf {
             if (
                 timeOnly &&
@@ -30,15 +29,12 @@ fun StartDateChip(
             ) {
                 startDate
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { formatTime(it, is24HourFormat) }
+                    ?.let { dateFormatter?.time(it) }
             } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        startDate,
-                        is24HourFormat,
-                        if (compact) DateStyle.SHORT else DateStyle.MEDIUM,
-                    )
-                }
+                dateFormatter?.relativeDateTime(
+                    startDate,
+                    if (compact) DateStyle.SHORT else DateStyle.MEDIUM,
+                )
             }
         }
     }

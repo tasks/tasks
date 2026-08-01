@@ -5,7 +5,7 @@ import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.tasks.data.dao.CaldavDao
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDay
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.completed
 import tasks.kmp.generated.resources.filter_high_priority
@@ -33,12 +33,20 @@ class HeaderFormatter(
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
     ) = runBlocking {
-        headerString(value, groupMode, alwaysDisplayFullDate, style, compact)
+        headerString(
+            value,
+            groupMode,
+            DateFormatter.create(is24HourFormat = false),
+            alwaysDisplayFullDate,
+            style,
+            compact,
+        )
     }
 
     suspend fun headerString(
         value: Long,
         groupMode: Int,
+        dateFormatter: DateFormatter,
         alwaysDisplayFullDate: Boolean = false,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
@@ -62,7 +70,7 @@ class HeaderFormatter(
                 }
             )
             else -> {
-                val dateString = getRelativeDay(
+                val dateString = dateFormatter.relativeDay(
                     value,
                     style,
                     alwaysDisplayFullDate = alwaysDisplayFullDate,

@@ -45,9 +45,8 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.kmp.formatTime
+import org.tasks.compose.rememberDateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getFullDate
-import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.minusDays
 import org.tasks.time.startOfDay
@@ -100,16 +99,16 @@ fun DatePickerShortcuts(
 }
 
 @Composable
-private fun customDateLabel(millis: Long, today: Long): String =
-    remember(millis, today) {
-        runBlocking {
-            if (millis < today.minusDays(1)) {
-                getFullDate(millis, style = DateStyle.LONG)
-            } else {
-                getRelativeDay(millis, style = DateStyle.LONG)
-            }
+private fun customDateLabel(millis: Long, today: Long): String {
+    val formatter = rememberDateFormatter(is24Hour = false)
+    return remember(millis, today, formatter) {
+        when {
+            formatter == null -> ""
+            millis < today.minusDays(1) -> formatter.fullDate(millis, style = DateStyle.LONG)
+            else -> formatter.relativeDay(millis, style = DateStyle.LONG)
         }
     }
+}
 
 @Composable
 fun StartDateShortcuts(

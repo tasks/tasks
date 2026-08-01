@@ -19,7 +19,6 @@ import com.todoroo.astrid.core.SortHelper.SORT_START
 import com.todoroo.astrid.ui.CheckableImageView
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.color.MaterialColors
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.chips.FilterChip
@@ -36,7 +35,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.preferences.Preferences
@@ -67,6 +66,7 @@ class TaskViewHolder internal constructor(
     private val linkify: Linkify,
     private val markdown: Markdown,
     private val theme: Theme,
+    private val dateFormatter: DateFormatter,
 ) : RecyclerView.ViewHolder(binding.root) {
     private val row: ViewGroup = binding.row
     private val dueDate: TextView = binding.dueDate.apply {
@@ -229,16 +229,13 @@ class TaskViewHolder internal constructor(
                     && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    formatTime(task.dueDate, context.is24HourFormat)
+                    dateFormatter.time(task.dueDate)
                 }
             } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        task.dueDate,
-                        context.is24HourFormat,
-                        alwaysDisplayFullDate = alwaysDisplayFullDate
-                    )
-                }
+                dateFormatter.relativeDateTime(
+                    task.dueDate,
+                    alwaysDisplayFullDate = alwaysDisplayFullDate
+                )
             }
             dueDate.text = dateValue
             dueDate.visibility = View.VISIBLE
@@ -292,6 +289,7 @@ class TaskViewHolder internal constructor(
                             compact = !showText,
                             timeOnly = sortByStartDate,
                             colorProvider = { chipProvider.getColor(it) },
+                            dateFormatter = dateFormatter,
                         )
                     }
                     if (place != null && filter !is PlaceFilter && remember { preferences.showPlaceChip }) {

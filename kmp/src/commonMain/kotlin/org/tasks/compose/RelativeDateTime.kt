@@ -3,6 +3,7 @@ package org.tasks.compose
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,9 +13,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.runBlocking
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
@@ -38,6 +38,14 @@ private val todayFlow: StateFlow<Long> =
         )
 
 @Composable
+fun rememberDateFormatter(is24Hour: Boolean): DateFormatter? {
+    val formatter by produceState<DateFormatter?>(null, is24Hour) {
+        value = DateFormatter.create(is24Hour)
+    }
+    return formatter
+}
+
+@Composable
 fun rememberRelativeDateTime(
     timestamp: Long,
     is24Hour: Boolean,
@@ -45,9 +53,12 @@ fun rememberRelativeDateTime(
     alwaysDisplayFullDate: Boolean = false,
 ): String {
     val today by todayFlow.collectAsState()
-    return remember(timestamp, is24Hour, style, alwaysDisplayFullDate, today) {
-        runBlocking {
-            getRelativeDateTime(timestamp, is24Hour, style, alwaysDisplayFullDate = alwaysDisplayFullDate)
-        }
+    val formatter = rememberDateFormatter(is24Hour)
+    return remember(timestamp, is24Hour, style, alwaysDisplayFullDate, today, formatter) {
+        formatter?.relativeDateTime(
+            timestamp,
+            style,
+            alwaysDisplayFullDate = alwaysDisplayFullDate,
+        ) ?: ""
     }
 }

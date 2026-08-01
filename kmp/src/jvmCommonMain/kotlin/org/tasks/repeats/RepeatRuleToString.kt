@@ -23,7 +23,7 @@ import org.jetbrains.compose.resources.getPluralString
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.CrashReporting
 import org.tasks.extensions.formatNumber
-import org.tasks.kmp.org.tasks.time.getFullDate
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
@@ -76,6 +76,7 @@ class RepeatRuleToString(
     fun toStringBlocking(rrule: String?): String? = runBlocking { toString(rrule) }
 
     private suspend fun toString(rrule: Recur): String = try {
+        val dateFormatter = DateFormatter.create(is24HourFormat = false)
         val interval = rrule.interval
         val frequency = rrule.frequency
         val repeatUntil = if (rrule.until == null) null else DateTime.from(rrule.until)
@@ -100,7 +101,7 @@ class RepeatRuleToString(
                         Res.string.repeats_single_on_until,
                         frequencyString,
                         dayString,
-                        getFullDate(repeatUntil.millis)
+                        dateFormatter.fullDate(repeatUntil.millis)
                     )
                 }
             } else if (count > 0) {
@@ -116,7 +117,7 @@ class RepeatRuleToString(
                 getString(
                     Res.string.repeats_single_until,
                     frequencyString,
-                    getFullDate(repeatUntil.millis)
+                    dateFormatter.fullDate(repeatUntil.millis)
                 )
             }
         } else {
@@ -141,7 +142,7 @@ class RepeatRuleToString(
                         Res.string.repeats_plural_on_until,
                         frequencyPlural,
                         dayString,
-                        getFullDate(repeatUntil.millis)
+                        dateFormatter.fullDate(repeatUntil.millis)
                     )
                 }
             } else if (count > 0) {
@@ -157,7 +158,7 @@ class RepeatRuleToString(
                 getString(
                     Res.string.repeats_plural_until,
                     frequencyPlural,
-                    getFullDate(repeatUntil.millis)
+                    dateFormatter.fullDate(repeatUntil.millis)
                 )
             }
         }

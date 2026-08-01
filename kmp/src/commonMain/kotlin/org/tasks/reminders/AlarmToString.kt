@@ -9,7 +9,8 @@ import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.data.entity.Alarm
 import org.tasks.extensions.localizedNumber
-import org.tasks.kmp.org.tasks.time.getFullDateTime
+import org.tasks.compose.rememberDateFormatter
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.time.ONE_DAY
 import org.tasks.time.ONE_HOUR
 import org.tasks.time.ONE_MINUTE
@@ -78,7 +79,11 @@ private sealed interface AlarmLabel {
     data class WithText(val resource: StringResource, val arg: String) : AlarmLabel
 }
 
-private fun alarmLabel(alarm: Alarm, is24HourFormat: Boolean): AlarmLabel = when (alarm.type) {
+private fun alarmLabel(
+    alarm: Alarm,
+    is24HourFormat: Boolean,
+    dateFormatter: DateFormatter,
+): AlarmLabel = when (alarm.type) {
     Alarm.TYPE_REL_START ->
         if (alarm.time == 0L) {
             AlarmLabel.Simple(Res.string.when_started)
@@ -100,14 +105,15 @@ private fun alarmLabel(alarm: Alarm, is24HourFormat: Boolean): AlarmLabel = when
     Alarm.TYPE_RANDOM ->
         AlarmLabel.WithDuration(Res.string.randomly_every, alarm.time)
     Alarm.TYPE_SNOOZE ->
-        AlarmLabel.WithText(Res.string.snoozed_until, getFullDateTime(alarm.time, is24HourFormat))
+        AlarmLabel.WithText(Res.string.snoozed_until, dateFormatter.fullDateTime(alarm.time))
     else ->
-        AlarmLabel.Literal(getFullDateTime(alarm.time, is24HourFormat))
+        AlarmLabel.Literal(dateFormatter.fullDateTime(alarm.time))
 }
 
 @Composable
 fun alarmText(alarm: Alarm, is24HourFormat: Boolean): String {
-    val reminder = when (val label = alarmLabel(alarm, is24HourFormat)) {
+    val dateFormatter = rememberDateFormatter(is24HourFormat) ?: return ""
+    val reminder = when (val label = alarmLabel(alarm, is24HourFormat, dateFormatter)) {
         is AlarmLabel.Literal -> label.text
         is AlarmLabel.Simple -> stringResource(label.resource)
         is AlarmLabel.WithDuration -> stringResource(label.resource, durationString(label.duration))
@@ -121,7 +127,7 @@ fun alarmText(alarm: Alarm, is24HourFormat: Boolean): String {
 }
 
 suspend fun getAlarmText(alarm: Alarm, is24HourFormat: Boolean): String {
-    val reminder = when (val label = alarmLabel(alarm, is24HourFormat)) {
+    val reminder = when (val label = alarmLabel(alarm, is24HourFormat, DateFormatter.create(is24HourFormat))) {
         is AlarmLabel.Literal -> label.text
         is AlarmLabel.Simple -> getString(label.resource)
         is AlarmLabel.WithDuration -> getString(label.resource, getDurationString(label.duration))

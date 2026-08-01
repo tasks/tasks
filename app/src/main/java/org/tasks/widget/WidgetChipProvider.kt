@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -19,7 +18,7 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.formatNumber
 import org.tasks.kmp.formatTime
 import org.tasks.time.startOfDay
@@ -47,21 +46,23 @@ class WidgetChipProvider @Inject constructor(
         }
     }
 
-    fun getStartDateChip(task: TaskContainer, showFullDate: Boolean, sortByStartDate: Boolean): RemoteViews? {
+    fun getStartDateChip(
+        task: TaskContainer,
+        showFullDate: Boolean,
+        sortByStartDate: Boolean,
+        dateFormatter: DateFormatter,
+    ): RemoteViews? {
         return if (task.task.isHidden) {
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { formatTime(it, context.is24HourFormat) }
+                    ?.let { dateFormatter.time(it) }
                     ?: return null
             } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        task.task.hideUntil,
-                        context.is24HourFormat,
-                        alwaysDisplayFullDate = showFullDate
-                    )
-                }
+                dateFormatter.relativeDateTime(
+                    task.task.hideUntil,
+                    alwaysDisplayFullDate = showFullDate
+                )
             }
             newChip().apply {
                 setTextViewText(R.id.chip_text, time)

@@ -51,7 +51,7 @@ import org.tasks.compose.OutlinedSpinner
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.border
 import org.tasks.extensions.formatNumber
-import org.tasks.kmp.org.tasks.time.getRelativeDay
+import org.tasks.compose.rememberDateFormatter
 import org.tasks.repeats.CustomRecurrenceViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
@@ -385,7 +385,10 @@ private fun EndsPicker(
     RadioRow(selected = selection == 1, onClick = { setSelection(1) }) {
         Text(text = stringResource(Res.string.repeats_on))
         Spacer(modifier = Modifier.width(8.dp))
-        val endDateString = remember(endDate) { runBlocking { getRelativeDay(endDate) } }
+        val dateFormatter = rememberDateFormatter(is24Hour = false)
+        val endDateString = remember(endDate, dateFormatter) {
+            dateFormatter?.relativeDay(endDate) ?: ""
+        }
         var showDatePicker by remember { mutableStateOf(false) }
         if (showDatePicker) {
             DatePickerDialog(

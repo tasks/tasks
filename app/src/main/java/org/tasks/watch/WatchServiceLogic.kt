@@ -23,8 +23,8 @@ import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
 import org.tasks.kmp.formatTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.QueryPreferences
 import org.tasks.service.TaskCompleter
@@ -68,6 +68,7 @@ class WatchServiceLogic(
         collapsed: Set<Long>,
     ): WatchTaskList {
         val effectiveLimit = if (limit > 0) limit else Int.MAX_VALUE
+        val dateFormatter = DateFormatter.create(is24HourTime)
         val filter = resolveFilter(filterPreference)
         val preferences = WatchQueryPreferences(
             delegate = appPreferences,
@@ -98,6 +99,7 @@ class WatchServiceLogic(
                                 title = headerFormatter.headerString(
                                     item.value,
                                     groupMode = preferences.groupMode,
+                                    dateFormatter = dateFormatter,
                                     style = DateStyle.MEDIUM,
                                 ),
                                 collapsed = item.collapsed,
@@ -108,13 +110,10 @@ class WatchServiceLogic(
                                 (item.task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
                             ) {
                                 item.task.takeIf { it.hasDueTime() }?.let {
-                                    formatTime(item.task.dueDate, is24HourTime)
+                                    dateFormatter.time(item.task.dueDate)
                                 }
                             } else if (item.task.hasDueDate()) {
-                                getRelativeDateTime(
-                                    item.task.dueDate,
-                                    is24HourTime,
-                                )
+                                dateFormatter.relativeDateTime(item.task.dueDate)
                             } else {
                                 null
                             }

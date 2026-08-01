@@ -6,13 +6,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.files.FileHelper
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getFullDateTime
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.PreferencesViewModel
 import javax.inject.Inject
@@ -124,17 +126,17 @@ class BackupsViewModel @Inject constructor(
     }
 
     fun refreshLocalBackupSummary(timestamp: Long?, preferencesViewModel: PreferencesViewModel) {
-        lastBackupSummary = formatLastBackup(timestamp)
+        viewModelScope.launch { lastBackupSummary = formatLastBackup(timestamp) }
         showLocalBackupWarning = preferences.showBackupWarnings() && preferencesViewModel.staleLocalBackup
     }
 
     fun refreshDriveBackupSummary(timestamp: Long?, preferencesViewModel: PreferencesViewModel) {
-        lastDriveBackupSummary = formatLastBackup(timestamp)
+        viewModelScope.launch { lastDriveBackupSummary = formatLastBackup(timestamp) }
         showDriveBackupWarning = preferences.showBackupWarnings() && preferencesViewModel.staleRemoteBackup
     }
 
     fun refreshAndroidBackupSummary(timestamp: Long? = null, preferencesViewModel: PreferencesViewModel) {
-        lastAndroidBackupSummary = formatLastBackup(timestamp)
+        viewModelScope.launch { lastAndroidBackupSummary = formatLastBackup(timestamp) }
         showAndroidBackupWarning = preferences.showBackupWarnings() && preferencesViewModel.staleRemoteBackup
     }
 
@@ -153,10 +155,10 @@ class BackupsViewModel @Inject constructor(
         }
     }
 
-    private fun formatLastBackup(timestamp: Long?): String {
+    private suspend fun formatLastBackup(timestamp: Long?): String {
         val time = timestamp
             ?.takeIf { it >= 0 }
-            ?.let { getFullDateTime(it, context.is24HourFormat) }
+            ?.let { DateFormatter.create(context.is24HourFormat).fullDateTime(it) }
             ?: context.getString(R.string.last_backup_never)
         return context.getString(R.string.last_backup, time)
     }

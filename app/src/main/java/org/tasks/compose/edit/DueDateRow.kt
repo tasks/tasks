@@ -13,11 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
+import org.tasks.compose.rememberRelativeDateTime
 import org.tasks.themes.TasksTheme
 import org.tasks.time.dueDateOverdue
 
@@ -34,14 +33,12 @@ fun DueDateRow(
         dueDate = if (dueDate == 0L) {
             stringResource(id = R.string.no_due_date)
         } else {
-            runBlocking {
-                getRelativeDateTime(
-                    dueDate,
-                    is24HourFormat,
-                    DateStyle.FULL,
-                    alwaysDisplayFullDate = alwaysDisplayFullDate
-                )
-            }
+            rememberRelativeDateTime(
+                dueDate,
+                is24HourFormat,
+                DateStyle.FULL,
+                alwaysDisplayFullDate = alwaysDisplayFullDate,
+            )
         },
         color = when {
             overdue -> MaterialTheme.colorScheme.error

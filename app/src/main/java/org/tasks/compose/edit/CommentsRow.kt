@@ -20,11 +20,11 @@ import coil.compose.AsyncImage
 import org.tasks.R
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.TaskEditRow
+import org.tasks.compose.rememberDateFormatter
 import org.tasks.data.entity.UserActivity
 import org.tasks.data.pictureUri
 import androidx.compose.ui.platform.LocalContext
 import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.getFullDateTime
 
 @Composable
 fun CommentsRow(
@@ -91,7 +91,9 @@ fun Comment(
                 )
             }
             Text(
-                text = getFullDateTime(comment.created!!, LocalContext.current.is24HourFormat),
+                text = rememberDateFormatter(LocalContext.current.is24HourFormat)
+                    ?.fullDateTime(comment.created!!)
+                    ?: "",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
             )

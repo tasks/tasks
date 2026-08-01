@@ -109,7 +109,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.isPurchaseTokenInUse
 import org.tasks.data.entity.CaldavAccount.Companion.purchaseTokenInUseAccount
 import org.tasks.viewmodel.TasksAccountState
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDay
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.themes.TasksIcons
 
 data class CalendarItem(
@@ -676,7 +676,7 @@ private fun formatRelativeDay(timestamp: Long?): String? {
         initialValue = null,
         key1 = timestamp,
     ) {
-        value = getRelativeDay(
+        value = DateFormatter.create(is24HourFormat = false).relativeDay(
             timestamp,
             DateStyle.FULL,
             lowercase = true,
