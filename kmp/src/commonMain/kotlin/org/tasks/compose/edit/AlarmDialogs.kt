@@ -33,11 +33,19 @@ fun AlarmDialogs(
         dismiss = { vm.showAddAlarm(visible = false) },
     )
 
+    val cameFromChooser = viewState.replace == null
+
     if (viewState.showCustomDialog) {
         AddCustomReminderDialog(
             alarm = viewState.replace,
             updateAlarm = replaceAlarm,
             closeDialog = { vm.showCustomDialog(visible = false) },
+            cancelDialog = {
+                vm.showCustomDialog(visible = false)
+                if (cameFromChooser) {
+                    vm.showAddAlarm(visible = true)
+                }
+            },
         )
     }
 
@@ -46,6 +54,12 @@ fun AlarmDialogs(
             alarm = viewState.replace,
             updateAlarm = replaceAlarm,
             closeDialog = { vm.showRandomDialog(visible = false) },
+            cancelDialog = {
+                vm.showRandomDialog(visible = false)
+                if (cameFromChooser) {
+                    vm.showAddAlarm(visible = true)
+                }
+            },
         )
     }
 }

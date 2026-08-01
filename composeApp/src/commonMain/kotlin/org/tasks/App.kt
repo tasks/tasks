@@ -628,7 +628,6 @@ fun App(
             val currentHasWritableList by rememberUpdatedState(hasWritableList)
             val currentCanExpandSidebar by rememberUpdatedState(canExpandSidebar)
             val currentSidebarShownExpanded by rememberUpdatedState(sidebarShownExpanded)
-            val currentTwoPaneLayout by rememberUpdatedState(twoPaneLayout)
 
             fun navigateToNewTask(filter: Filter? = currentTaskListState?.filter) {
                 reporting.addTask("fab")
@@ -888,13 +887,6 @@ fun App(
                             TaskEditEntry(
                                 destination = destination,
                                 filterPickerViewModel = filterPickerViewModel,
-                                // The list is already on screen beside this pane in a list-detail
-                                // layout, so the editor must not offer a back arrow there. Read
-                                // through the updated state for the reason above: resizing the
-                                // window collapses the layout to one pane without touching the back
-                                // stack, and a captured false would leave the editor with no way
-                                // back to the list.
-                                showBackButton = !currentTwoPaneLayout,
                                 // The drawer's own handler is registered after this whole subtree
                                 // and so takes precedence - see TaskListChrome. This stands the
                                 // editor down as well, so a back press while the drawer is open
@@ -1701,7 +1693,6 @@ private fun TaskListScreen(
 private fun TaskEditEntry(
     destination: TaskEditDestination,
     filterPickerViewModel: FilterPickerViewModel,
-    showBackButton: Boolean,
     backHandlerEnabled: Boolean,
     onAddAccount: () -> Unit,
     onSubscribe: () -> Unit,
@@ -1719,7 +1710,6 @@ private fun TaskEditEntry(
         filterPickerViewModel = filterPickerViewModel,
         onCreateList = { accountId -> newListAccountId = accountId },
         onSignIn = onAddAccount,
-        showBackButton = showBackButton,
         backHandlerEnabled = backHandlerEnabled,
         onClose = onClose,
     )

@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.data.entity.Task
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.due_date
@@ -46,6 +47,7 @@ fun RepeatFromPickerSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val dismiss = rememberDismissWithAnimation(sheetState)
+    PlatformBackHandler(enabled = true, onBack = { dismiss(onDismiss) })
     ModalBottomSheet(
         sheetState = sheetState,
         onDismissRequest = onDismiss,

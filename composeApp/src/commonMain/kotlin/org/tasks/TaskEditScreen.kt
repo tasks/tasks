@@ -77,9 +77,7 @@ import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
-import tasks.kmp.generated.resources.edit_task
 import tasks.kmp.generated.resources.failed_to_load_task
-import tasks.kmp.generated.resources.new_task
 import tasks.kmp.generated.resources.no_list_available
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.task_title
@@ -93,7 +91,6 @@ fun TaskEditScreen(
     filterPickerViewModel: FilterPickerViewModel,
     onCreateList: (accountId: Long) -> Unit = {},
     onSignIn: () -> Unit = {},
-    showBackButton: Boolean = true,
     backHandlerEnabled: Boolean = true,
     onClose: () -> Unit,
 ) {
@@ -117,25 +114,13 @@ fun TaskEditScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(if (state.isNew) Res.string.new_task else Res.string.edit_task),
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                },
+                title = {},
                 navigationIcon = {
-                    // Suppressed in a list-detail layout: the list is already on screen beside this
-                    // pane, so a back arrow would point at nothing to go back to.
-                    if (showBackButton) {
-                        // Disabled while a save is in flight: save() ignores repeat presses, and the
-                        // overlay below only covers the body, so an enabled arrow up here would be
-                        // the one dead-looking control on screen.
-                        IconButton(onClick = saveAndClose, enabled = !saving) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(Res.string.back),
-                            )
-                        }
+                    IconButton(onClick = saveAndClose, enabled = !saving) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.back),
+                        )
                     }
                 },
             )

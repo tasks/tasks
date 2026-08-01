@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.pickers.TagPicker
 import org.tasks.data.entity.TagData
 import org.tasks.tags.TagPickerViewModel
@@ -30,6 +31,14 @@ fun TagPickerDialog(
         viewModel.search("")
     }
     val commit = { onDismiss(viewModel.getSelected()) }
+    val back = {
+        if (viewModel.searchText.value.isEmpty()) {
+            commit()
+        } else {
+            viewModel.search("")
+        }
+    }
+    PlatformBackHandler(enabled = true, onBack = back)
     BasicAlertDialog(
         onDismissRequest = commit,
         modifier = Modifier
@@ -44,13 +53,7 @@ fun TagPickerDialog(
         ) {
             TagPicker(
                 viewModel = viewModel,
-                onBackClicked = {
-                    if (viewModel.searchText.value.isEmpty()) {
-                        commit()
-                    } else {
-                        viewModel.search("")
-                    }
-                },
+                onBackClicked = back,
                 getTagIcon = getTagIcon,
                 getTagColor = getTagColor,
             )

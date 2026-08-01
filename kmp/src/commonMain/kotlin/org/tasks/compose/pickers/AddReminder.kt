@@ -139,14 +139,15 @@ fun AddRandomReminderDialog(
     alarm: Alarm?,
     updateAlarm: (Alarm) -> Unit,
     closeDialog: () -> Unit,
+    cancelDialog: () -> Unit = closeDialog,
 ) {
     var workingCopy by rememberSaveable(stateSaver = AlarmSaver) {
         mutableStateOf(alarm ?: Alarm(time = 15 * ONE_MINUTE, type = TYPE_RANDOM))
     }
 
-    PlatformBackHandler(enabled = true, onBack = closeDialog)
+    PlatformBackHandler(enabled = true, onBack = cancelDialog)
     AlertDialog(
-        onDismissRequest = closeDialog,
+        onDismissRequest = cancelDialog,
         text = {
             AddRandomReminder(
                 alarm = workingCopy,
@@ -163,7 +164,7 @@ fun AddRandomReminderDialog(
             })
         },
         dismissButton = {
-            DialogTextButton(text = Res.string.cancel, onClick = closeDialog)
+            DialogTextButton(text = Res.string.cancel, onClick = cancelDialog)
         },
     )
 }
@@ -173,6 +174,7 @@ fun AddCustomReminderDialog(
     alarm: Alarm?,
     updateAlarm: (Alarm) -> Unit,
     closeDialog: () -> Unit,
+    cancelDialog: () -> Unit = closeDialog,
 ) {
     var workingCopy by rememberSaveable(stateSaver = AlarmSaver) {
         mutableStateOf(alarm ?: Alarm(time = -15 * ONE_MINUTE, type = TYPE_REL_END))
@@ -181,9 +183,9 @@ fun AddCustomReminderDialog(
     var amountEntered by remember(showRecurringDialog) { mutableStateOf(true) }
 
     if (!showRecurringDialog) {
-        PlatformBackHandler(enabled = true, onBack = closeDialog)
+        PlatformBackHandler(enabled = true, onBack = cancelDialog)
         AlertDialog(
-            onDismissRequest = closeDialog,
+            onDismissRequest = cancelDialog,
             text = {
                 AddCustomReminder(
                     alarm = workingCopy,
@@ -201,7 +203,7 @@ fun AddCustomReminderDialog(
                 })
             },
             dismissButton = {
-                DialogTextButton(text = Res.string.cancel, onClick = closeDialog)
+                DialogTextButton(text = Res.string.cancel, onClick = cancelDialog)
             },
         )
     }

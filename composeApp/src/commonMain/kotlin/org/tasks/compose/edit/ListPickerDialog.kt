@@ -7,6 +7,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.pickers.SearchableFilterPicker
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterListItem
@@ -26,6 +27,7 @@ fun ListPickerDialog(
     onSignIn: () -> Unit = {},
     onDismiss: () -> Unit,
 ) {
+    PlatformBackHandler(enabled = true, onBack = onDismiss)
     BasicAlertDialog(
         onDismissRequest = onDismiss,
         modifier = Modifier

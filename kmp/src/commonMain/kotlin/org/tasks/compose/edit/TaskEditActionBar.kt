@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.PlatformBackHandler
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.delete_task
 import tasks.kmp.generated.resources.mark_completed
@@ -54,6 +55,7 @@ fun TaskEditActionBar(
             expanded = false
         }
     }
+    PlatformBackHandler(enabled = expanded) { expanded = false }
     Surface(
         modifier = modifier.height(TaskEditActionBarHeight),
         shape = CircleShape,

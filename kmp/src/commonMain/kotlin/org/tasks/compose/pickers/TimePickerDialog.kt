@@ -36,6 +36,7 @@ import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.PlatformBackHandler
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.ok
@@ -49,6 +50,7 @@ fun TimePickerDialog(
     selected: (Int) -> Unit,
     dismiss: () -> Unit,
 ) {
+    PlatformBackHandler(enabled = true, onBack = dismiss)
     var displayMode by remember { mutableStateOf(initialDisplayMode) }
     val containerSize = LocalWindowInfo.current.containerSize
     val layoutType = if (containerSize.height < containerSize.width) {
