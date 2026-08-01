@@ -35,6 +35,7 @@ class TasksApplication : Application() {
                 }
             }
         }
+        Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
         Logger.setLogWriters(logcat, FileLogWriter(logDir))
         org.tasks.caldav.CaldavSynchronizer.registerFactories()
         startKoin {

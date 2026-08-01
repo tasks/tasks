@@ -13,6 +13,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -135,6 +136,7 @@ fun main() {
     }
     startIpcServer()
     org.tasks.caldav.CaldavSynchronizer.registerFactories()
+    Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
     Logger.setLogWriters(
         buildList {
             if (TasksBuildConfig.DEBUG) add(platformLogWriter())

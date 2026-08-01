@@ -4,6 +4,7 @@ import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastQ
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.Severity
 import org.tasks.logging.FileLogger
 import org.tasks.logging.TimberLogWriter
 import org.tasks.preferences.Preferences
@@ -17,6 +18,7 @@ class BuildSetup @Inject constructor(
     fun setup() {
         Timber.plant(Timber.DebugTree())
         Timber.plant(fileLogger)
+        Logger.mutableConfig.minSeverity = Severity.Verbose
         Logger.mutableConfig.logWriterList = listOf(TimberLogWriter())
         if (preferences.getBoolean(R.string.p_strict_mode_thread, false)) {
             val builder = StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
