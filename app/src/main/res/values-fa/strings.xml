@@ -73,9 +73,6 @@
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>
     <string name="rmd_NoA_done">کامل</string>
-    <string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
-    <string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
-    <string name="rmd_EPr_rmd_time_title">یادآور پیش فرض</string>
     <string name="rmd_EPr_defaultRemind_title">یادآوری های تصادفی</string>
     <string name="default_random_reminder_disabled">غیرفعال شده</string>
     <string name="default_random_reminder_hourly">هر ساعت</string>
@@ -90,7 +87,6 @@
     <string name="TEA_timer_comment_spent">زمان سپری شده:</string>
     <string name="voice_create_prompt">برای ایجاد یک وظیفه صحبت کنید</string>
     <string name="EPr_voiceInputEnabled_title">ورودی صدا</string>
-    <string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
     <string name="voice_command_added_task">وظیفه اضافه شده</string>
     <plurals name="Ntasks">
         <item quantity="one">۱ وظیفه</item>
@@ -102,7 +98,6 @@
     <string name="widget_show_header">نمایش سربرگ</string>
     <string name="widget_show_settings">نمایش تنظیمات</string>
     <string name="notifications">اعلان ها</string>
-    <string name="quiet_hours">ساعات سکوت</string>
     <string name="attachment_directory">پوشه پیوست</string>
     <string name="backup_directory">پشتیبان گیری از پوشه</string>
     <string name="miscellaneous">سایر</string>
@@ -110,7 +105,6 @@
     <string name="font_size">اندازه فونت</string>
     <string name="row_spacing">فاصله سطرها</string>
     <string name="translations">مشارکت در ترجمه</string>
-    <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
     <string name="remove">حذف</string>
     <string name="tags">برچسب ها</string>
     <string name="filters">فیلترها</string>
@@ -135,7 +129,6 @@
     <string name="restart_now">اکنون ریست کن</string>
     <string name="restart_later">بعدا</string>
     <string name="settings_localization">محلی‌سازی</string>
-    <string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>
     <string name="default_calendar">تقویم پیش فرض</string>
     <string name="ok">تایید</string>
     <string name="cancel">لغو</string>

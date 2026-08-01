@@ -84,9 +84,6 @@
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
     <string name="rmd_NoA_done">Ολοκληρωμένο</string>
     <string name="rmd_NoA_snooze">Αναβολή</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Ξεκίνησε η ώρα ησυχίας </string>
-    <string name="rmd_EPr_quiet_hours_end_title">Τέλος ώρας κοινής ησυχίας</string>
-    <string name="rmd_EPr_rmd_time_title">Ώρα υπενθύμισης</string>
     <string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
     <string name="default_random_reminder_disabled">απενεργοποιημένο</string>
     <string name="default_random_reminder_hourly">Ωριαία</string>
@@ -100,8 +97,6 @@
     <string name="TEA_timer_comment_spent">Χρόνος που πέρασε:</string>
     <string name="voice_create_prompt">Μιλήστε για να δημιουργήσετε εργασία</string>
     <string name="EPr_voiceInputEnabled_title">Εισαγωγή φωνής</string>
-    <string name="EPr_voiceRemindersEnabled_title">Φωνητικές υπενθυμίσεις</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Η εφαρμογή θα λέει να ονόματα των εργασιών κατά την διάρκεια των υπενθυμίσεων</string>
     <string name="voice_command_added_task">Η εργασία προστέθηκε</string>
     <string name="today">Σήμερα</string>
     <string name="tomorrow">Αύριο</string>
@@ -164,16 +159,6 @@
     <string name="ring_five_times">Χτύπημα πέντε φορές</string>
     <string name="ring_nonstop">Ασταμάτητο χτύπημα</string>
     <string name="snooze_all">Αναβολή όλων</string>
-    <string name="persistent_notifications">Επαναλαμβανόμενες ειδοποιήσεις</string>
-    <string name="persistent_notifications_description">Οι επαναλαμβανόμενες ειδοποιήσεις δεν μπορούν να εξαλειφθούν</string>
-    <string name="swipe_to_snooze_title">Τραβήξτε για αναβολή</string>
-    <string name="swipe_to_snooze_description">Ώρα αναβολής</string>
-    <string name="swipe_to_snooze_time_description">Μια διαγραμμένη ειδοποίηση θα αναβληθεί και δημιουργηθεί εκ νέου %s</string>
-    <string name="swipe_to_snooze_time_immediately">κατευθείαν</string>
-    <string name="swipe_to_snooze_time_15_minutes">μετά από 15 λεπτά</string>
-    <string name="swipe_to_snooze_time_30_minutes">μετά από 30 λεπτά</string>
-    <string name="swipe_to_snooze_time_1_hour">μετά από 1 ώρα</string>
-    <string name="swipe_to_snooze_time_24_hours">μετά από 24 ώρες</string>
     <string name="repeat_option_custom">Προσαρμογή…</string>
     <plurals name="task_count">
         <item quantity="one">%d εργασία</item>
@@ -218,8 +203,6 @@
     <string name="widget_show_menu">Εμφάνιση μενού</string>
     <string name="widget_show_dividers">Εμφάνιση χωρισμάτων</string>
     <string name="notifications">Ειδοποιήσεις</string>
-    <string name="quiet_hours">Ώρες ησυχίας</string>
-    <string name="quiet_hours_in_effect">Οι ώρες ησυχίας είναι ενεργές</string>
     <string name="attachment_directory">Φάκελος συνημμένου</string>
     <string name="backup_directory">Φάκελος εφεδρικού αντιγράφου</string>
     <string name="google_drive_backup">Αντίγραφο ασφαλείας Google Drive</string>
@@ -247,8 +230,6 @@
     <string name="user">Χρήστης</string>
     <string name="password">Κωδικός</string>
     <string name="url">Ηλεκτρονική διεύθυνση (URL)</string>
-    <string name="notification_disable_battery_optimizations_description">Οι βελτιστοποιήσεις μπαταρίας ενδέχεται να καθυστερούν τις ειδοποιήσεις</string>
-    <string name="bundle_notifications">Ειδοποιήσεις πακέτου</string>
     <string name="badges">Μετάλλια</string>
     <string name="list">Λίστα</string>
     <string name="repeats_from">Επανάληψη από</string>
@@ -257,7 +238,6 @@
     <string name="dont_add_to_calendar">Να μην προστεθεί στο ημερολόγιο</string>
     <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>
     <string name="badges_description">Εμφάνιση αριθμού εργασιών στο εικονίδιο εκκίνησης της εφαρμογής Tasks. Δεν υποστηρίζουν όλοι οι προωθητές (launchers) μετάλλια/ εικονίδια.</string>
-    <string name="bundle_notifications_summary">Συνδυασμός πολλαπλών ενημερώσεων σε μία</string>
     <string name="tasker_create_task">Δημιουργία εργασίας</string>
     <string name="tasker_list_notification">Ειδοποίηση λίστας</string>
     <string name="help">Βοήθεια</string>
@@ -309,13 +289,6 @@
     <string name="show_advanced_settings">Εμφάνιση σύνθετων ρυθμίσεων</string>
     <string name="preferences_advanced">Συνθέτες</string>
     <string name="documentation">Έγγραφα</string>
-    <string name="wearable_notifications">Ενημερώσεις φορητών συσκευών</string>
-    <string name="wearable_notifications_summary">Εμφάνιση ειδοποιήσεων στις φορητές σας συσκευές</string>
-    <string name="troubleshooting">Αντιμετώπιση προβλημάτων</string>
-    <string name="notification_troubleshooting_summary">Πατήστε εδώ αν έχετε πρόβλημα με τις ειδοποιήσεις</string>
-    <string name="disable_battery_optimizations">Απενεργοποίηση βελτιστοποιήσεων μπαταρίας</string>
-    <string name="more_settings">Περισσότερες ρυθμίσεις</string>
-    <string name="more_notification_settings_summary">Ήχος κλήσης, δόνηση, και άλλα</string>
     <string name="color_wheel">Τροχός χρωμάτων</string>
     <string name="upgrade_blurb_1">Γεια! Με λένε Άλεξ. Είμαι ο ανεξάρτητος προγραμματιστής πίσω από την εφαρμογή Tasks</string>
     <string name="upgrade_blurb_2">Έχω ξοδέψει χιλιάδες ώρες δουλεύοντας στο Tasks, και δημοσιεύω όλο τον πηγαίο κώδικα στο διαδίκτυο δωρεάν. Για να υποστηρίξω τη δουλειά μου, κάποια χαρακτηριστικά χρειάζονται συνδρομή</string>
@@ -417,7 +390,6 @@
     <string name="upgrade_open_source_description">Η συνδρομή σας υποστηρίζει τη συνεχή ανάπτυξη</string>
     <string name="markdown">Αποτίμηση (Markdown)</string>
     <string name="markdown_description">Ενεργοποίηση αποτίμησης (Markdown) στον τίτλο και την περιγραφή</string>
-    <string name="completion_sound">Αναπαραγωγή ήχου ολοκλήρωσης</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="snackbar_task_completed">Η εργασία ολοκληρώθηκε</string>
     <string name="snackbar_tasks_completed">%d ολοκληρωμένες εργασίες</string>
@@ -441,7 +413,6 @@
     <string name="customize_edit_screen">Προσαρμογή οθόνης επεξεργασίας</string>
     <string name="customize_edit_screen_summary">Αναδιάταξη ή κατάργηση πεδίων</string>
     <string name="translations">Συνεισφέρετε μεταφράσεις</string>
-    <string name="quiet_hours_summary">Καθόλου υπενθυμίσεις κατά τη διάρκεια των ωρών ησυχίας</string>
     <string name="geofence_radius">Ακτίνα γεωφράγματος</string>
     <string name="location_radius_meters">%s μ</string>
     <string name="tags">Ετικέτες</string>

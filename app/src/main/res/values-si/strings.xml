@@ -111,7 +111,6 @@
     <string name="chip_appearance_text_only">පෙළ පමණි</string>
     <string name="list">ලැයිස්තුව</string>
     <string name="badges">ලාංඡන</string>
-    <string name="notification_disable_battery_optimizations_description">බැටරි ප්‍රශස්තිකරණය මඟින් දැනුම්දීම් ප්‍රමාද විය හැක</string>
     <string name="url">URL</string>
     <string name="password">මුරපදය</string>
     <string name="user">පරිශීලක</string>
@@ -146,11 +145,6 @@
     <string name="back">ආපසු</string>
     <string name="upgrade_blurb_2">මම Tasks සඳහා පැය දහස් ගණනක් වැඩ කර ඇති අතර, මම සියලු ප්‍රභව කේත නොමිලේ මාර්ගගතව ප්‍රකාශයට පත් කරමි. මගේ කාර්යයට සහාය වීම සඳහා සමහර විශේෂාංග සඳහා දායකත්වයක් අවශ්‍ය වේ</string>
     <string name="upgrade_blurb_1">හායි! මගෙ නම ඇලෙක්ස්. Tasks පිටුපස සිටින ස්වාධීන සංවර්ධකයා මමයි</string>
-    <string name="more_notification_settings_summary">නාද, කම්පන සහ තවත් දේ</string>
-    <string name="more_settings">තවත් සැකසුම්</string>
-    <string name="disable_battery_optimizations">බැටරි ප්‍රශස්තිකරණය අක්‍රීය කරන්න</string>
-    <string name="notification_troubleshooting_summary">ඔබට දැනුම්දීම් වල ගැටළුවක් ඇත්නම් මෙහි තට්ටු කරන්න</string>
-    <string name="troubleshooting">දෝෂගවේෂණය</string>
     <string name="documentation">ප්‍රලේඛනය</string>
     <string name="preferences_advanced">උසස්</string>
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>
@@ -163,8 +157,6 @@
         <item quantity="one">කාර්යය 1</item>
         <item quantity="other">කාර්යය %d</item>
     </plurals>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">කාර්යයන් මතක් කිරීම් අතරතුරදී Tasks විසින් කාර්යයන්හි නම් කියවනු ඇත</string>
-    <string name="EPr_voiceRemindersEnabled_title">ශ්‍රව්‍ය මතක් කිරීම්</string>
     <string name="EPr_voiceInputEnabled_title">ශ්‍රව්‍ය ආදානය</string>
     <string name="voice_create_prompt">කාර්යයක් නිර්මාණය කිරීමට කතා කරන්න</string>
     <string name="TEA_timer_comment_spent">ගතකල කාලය:</string>
@@ -206,9 +198,6 @@
     <string name="default_random_reminder_hourly">පැයකට වතාවක්</string>
     <string name="default_random_reminder_disabled">ක්‍රියාවිරහිතයි</string>
     <string name="rmd_EPr_defaultRemind_title">අහඹු මතක් කිරීම්</string>
-    <string name="persistent_notifications_description">නිරන්තර දැනුම්දීම් ඉවත් කළ නොහැක</string>
-    <string name="persistent_notifications">නිරන්තර දැනුම්දීම්</string>
-    <string name="rmd_EPr_rmd_time_title">පෙරනිමි මතක් කිරීම</string>
     <string name="ring_nonstop">නොනවත්වාම නාද කරන්න</string>
     <string name="ring_once">එක් වරක් නාද කරන්න</string>
     <string name="ring_five_times">පස් වතාවක් නාද කරන්න</string>
@@ -252,8 +241,6 @@
     <string name="EPr_reset_preferences">මනාපයන් යළි පිහිටුවන්න</string>
     <string name="chips">චිප්ස්</string>
     <string name="color_wheel">වර්ණ රෝදය</string>
-    <string name="wearable_notifications_summary">ඔබගේ පැළඳිය හැකි උපාංගයන්හි දැනුම්දීම් පෙන්වන්න</string>
-    <string name="wearable_notifications">පැළඳිය හැකි උපාංග දැනුම්දීම්</string>
     <string name="etesync_selection_description">End-to-end encrypted සමමුහුර්තකරණය</string>
     <string name="caldav_selection_description">විවෘත අන්තර්ජාල ප්‍රමිතීන් මත පදනම් වූ සමමුහුර්තකරණය</string>
     <string name="name_your_price">මිලක් නියම කරන්න</string>
@@ -264,11 +251,8 @@
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">පුනරාවර්තනය සෑම %1$s, %2$d %3$s සිදු වේ</string>
     <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>
-    <string name="bundle_notifications">බහු දැනුම්දීම්</string>
     <string name="date_shortcut_must_come_after">%1$s, %2$s ට පසුව පැමිණිය යුතුය</string>
     <string name="date_shortcut_must_come_before">%2$s පෙර %1$s පැමිණිය යුතුය</string>
-    <string name="rmd_EPr_quiet_hours_end_title">නිහඬ කාලය අවසානය</string>
-    <string name="rmd_EPr_quiet_hours_start_title">නිහඬ කාලය ආරම්භ වේ</string>
     <string name="CFC_gtasks_list_text">ලැයිස්තුවේ :\?</string>
     <string name="CFC_title_contains_text">මාතෘකාවෙහි අඩංගු වන්නේ :\?</string>
     <string name="CFC_title_contains_name">මාතෘකාව තුළ…</string>
@@ -376,7 +360,6 @@
     <string name="help">උදව්</string>
     <string name="tasker_list_notification">ලැයිස්තු දැනුම්දීම</string>
     <string name="tasker_create_task">කාර්යය සාදන්න</string>
-    <string name="bundle_notifications_summary">බහුවිධ දැනුම්දීම් එකකට ඒකාබද්ධ කරන්න</string>
     <string name="badges_description">Tasks දියත් කිරීමේ නිරූපකයේ කාර්ය ගණන පෙන්වන්න. සියලුම දියත් කරන්නන් (launchers) ලාංඡන සඳහා සහය නොදක්වයි.</string>
     <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>
     <string name="dont_add_to_calendar">දින දර්ශනයට එකතු නොකරන්න</string>
@@ -410,7 +393,6 @@
     <string name="location_radius_meters">%s මීටර්</string>
     <string name="remove">ඉවත් කරන්න</string>
     <string name="add_location">ස්ථානය එක් කරන්න</string>
-    <string name="quiet_hours_summary">නිහඬ කාලය තුළ මතක් කිරීම් නොමැත</string>
     <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
     <string name="customize_edit_screen">සංස්කරණ තිරය අභිරුචිකරණය කරන්න</string>
     <string name="row_spacing">පේළි පරතරය</string>
@@ -422,7 +404,6 @@
     <string name="google_drive_backup">ගූගල් ඩ්‍රයිව් උපස්ථය</string>
     <string name="backup_directory">උපස්ථ ෆෝල්ඩරය</string>
     <string name="attachment_directory">ඇමුණුම් ෆෝල්ඩරය</string>
-    <string name="quiet_hours">නිහඬ පැය</string>
     <string name="notifications">දැනුම්දීම්</string>
     <string name="widget_show_dividers">බෙදුම්තීරු පෙන්වන්න</string>
     <string name="widget_show_menu">මෙනුව පෙන්වන්න</string>
@@ -440,7 +421,6 @@
     <string name="now">දැන්</string>
     <string name="sort_completion_group">සම්පූර්ණ කිරීම %s</string>
     <string name="custom_filter_has_reminder">මතක් කිරීමක් ඇති</string>
-    <string name="completion_sound">සම්පූර්ණ කිරීමේ ශබ්දය වාදනය කරන්න</string>
     <string name="customize_edit_screen_summary">ක්ෂේත්‍ර නැවත සැකසීම හෝ ඉවත් කිරීම</string>
     <string name="TEA_creation_date">නිර්මාණය කළ දිනය</string>
     <string name="snackbar_tasks_completed">කාර්යයන් %d සම්පූර්ණ කර ඇත</string>

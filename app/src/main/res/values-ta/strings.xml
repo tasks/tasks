@@ -77,11 +77,6 @@
     <string name="default_random_reminder_hourly">மணி</string>
     <string name="default_random_reminder_disabled">முடக்கப்பட்டது</string>
     <string name="rmd_EPr_defaultRemind_title">சீரற்ற நினைவூட்டல்கள்</string>
-    <string name="persistent_notifications_description">தொடர்ச்சியான அறிவிப்புகளை அழிக்க முடியாது</string>
-    <string name="persistent_notifications">தொடர்ச்சியான அறிவிப்புகள்</string>
-    <string name="rmd_EPr_rmd_time_title">நினைவூட்டல் நேரம்</string>
-    <string name="rmd_EPr_quiet_hours_end_title">அமைதியான நேரம் முடிகிறது</string>
-    <string name="rmd_EPr_quiet_hours_start_title">அமைதியான நேரம் தொடங்கும்</string>
     <string name="snooze_all">அனைத்தையும் உறக்கநிலையில் வைக்கவும்</string>
     <string name="rmd_NoA_snooze">உறக்கநிலை</string>
     <string name="rmd_NoA_done">முழுமை</string>
@@ -163,12 +158,6 @@
     <string name="upgrade_blurb_2">நான் பணிகளில் ஆயிரக்கணக்கான மணிநேரங்களை செலவிட்டேன், மேலும் மூலக் குறியீடு அனைத்தையும் ஆன்லைனில் இலவசமாக வெளியிடுகிறேன். எனது பணியை ஆதரிக்க சில அம்சங்களுக்கு சந்தா தேவை</string>
     <string name="upgrade_blurb_1">வணக்கம்! என் பெயர் அலெக்ஸ். பணிகளுக்குப் பின்னால் உள்ள சுயாதீன டெவலப்பர் நான்</string>
     <string name="color_wheel">வண்ண சக்கரம்</string>
-    <string name="more_notification_settings_summary">ரிங்டோன், அதிர்வுகள் மற்றும் பல</string>
-    <string name="more_settings">மேலும் அமைப்புகள்</string>
-    <string name="disable_battery_optimizations">பேட்டரி மேம்படுத்தல்களை முடக்கு</string>
-    <string name="notification_troubleshooting_summary">அறிவிப்புகளில் சிக்கல் இருந்தால் இங்கே தட்டவும்</string>
-    <string name="troubleshooting">பழுது நீக்கும்</string>
-    <string name="wearable_notifications">அணியக்கூடிய அறிவிப்புகள்</string>
     <string name="documentation">ஆவணம்</string>
     <string name="preferences_advanced">மேம்படுத்தபட்ட</string>
     <string name="show_advanced_settings">மேம்பட்ட அமைப்புகளைக் காட்டு</string>
@@ -213,15 +202,12 @@
     <string name="help">உதவி</string>
     <string name="tasker_list_notification">பட்டியல் அறிவிப்பு</string>
     <string name="tasker_create_task">பணியை உருவாக்கவும்</string>
-    <string name="bundle_notifications_summary">பல அறிவிப்புகளை ஒன்றில் இணைக்கவும்</string>
     <string name="default_calendar">இயல்புநிலை காலண்டர்</string>
     <string name="dont_add_to_calendar">நாள்காட்டியில் சேர்க்க வேண்டாம்</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_from">இருந்து மீண்டும்</string>
     <string name="list">பட்டியல்</string>
     <string name="badges">அடையாளக்குறிகள்</string>
-    <string name="bundle_notifications">மூட்டை அறிவிப்புகள்</string>
-    <string name="notification_disable_battery_optimizations_description">பேட்டரி மேம்படுத்தல்கள் அறிவிப்புகளை தாமதப்படுத்தக்கூடும்</string>
     <string name="url">URL</string>
     <string name="password">கடவுச்சொல்</string>
     <string name="user">பயனர்</string>
@@ -282,7 +268,6 @@
     <string name="geofence_radius">புவிவேளி ஆரம்</string>
     <string name="remove">அகற்று</string>
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
-    <string name="quiet_hours_summary">அமைதியான நேரங்களில் நினைவூட்டல்கள் இல்லை</string>
     <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
     <string name="customize_edit_screen">திருத்து திரையைத் தனிப்பயனாக்குங்கள்</string>
     <string name="row_spacing">வரிசை இடைவெளி</string>
@@ -293,7 +278,6 @@
     <string name="google_drive_backup">Google Driveல் நகலெடுக்கவும்</string>
     <string name="backup_directory">காப்பு கோப்புறை</string>
     <string name="attachment_directory">இணைப்பு கோப்புறை</string>
-    <string name="quiet_hours">அமைதியான நேரம்</string>
     <string name="notifications">அறிவிப்புகள்</string>
     <string name="widget_show_dividers">வகுப்புகளைக் காட்டு</string>
     <string name="widget_show_menu">மெனுவைக் காட்டு</string>
@@ -307,8 +291,6 @@
         <item quantity="other">%d பணிகள்</item>
     </plurals>
     <string name="voice_command_added_task">பணி சேர்க்கப்பட்டது</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">பணி நினைவூட்டல்களின் போது பணிகள் பணி பெயர்களைப் பேசும்</string>
-    <string name="EPr_voiceRemindersEnabled_title">குரல் நினைவூட்டல்கள்</string>
     <string name="EPr_voiceInputEnabled_title">குரல் உள்ளீடு</string>
     <string name="voice_create_prompt">ஒரு பணியை உருவாக்க பேசுங்கள்</string>
     <string name="TEA_timer_comment_spent">செலவிட்ட நேரம்:</string>
@@ -349,7 +331,6 @@
     <string name="FLA_search_filter">பொருந்தும் \'%s\'</string>
     <string name="auto_dismiss_datetime_summary">தேதி தேர்வை, தேர்வுக்கு பின் மூடவும்</string>
     <string name="auto_dismiss_datetime">தேதி தேர்வை தானாகவே மூடவும்</string>
-    <string name="wearable_notifications_summary">நீங்கள் அணிந்திருப்பவற்றில் notifications காட்டவும்</string>
     <string name="ring_nonstop">நிறுத்தாமல் ஒலி</string>
     <string name="ring_five_times">ஐந்து முறை ஒலி</string>
     <string name="ring_once">ஒரு முறை ஒலி</string>
@@ -380,17 +361,12 @@
     <string name="no_google_play_subscription">தகுதியான கூகிள் பிளே சந்தா எதுவும் கிடைக்கவில்லை</string>
     <string name="custom_filter_has_reminder">நினைவூட்டல் உள்ளது</string>
     <string name="donate_nag">நன்கொடை மூலம் உங்கள் ஆதரவைக் காண்பிப்பதைக் கவனியுங்கள்!</string>
-    <string name="swipe_to_snooze_description">உறக்கநிலை நேரம்</string>
-    <string name="swipe_to_snooze_time_immediately">உடனடியாக</string>
-    <string name="swipe_to_snooze_time_15_minutes">15 நிமிடங்களுக்குப் பிறகு</string>
     <string name="repeat_snackbar">%1$s %2$s க்கு மாற்றியமைக்கப்பட்டது</string>
     <string name="decsync_selection_description">கோப்பு அடிப்படையிலான ஒத்திசைவு</string>
     <string name="astrid_sort_order_summary">\'எனது பணிகள்\', \'இன்று\' மற்றும் குறிச்சொற்களுக்கு ஆச்ட்ரிட்டின் கையேடு வரிசை பயன்முறையை இயக்கவும். இந்த வகையான பயன்முறை எதிர்கால புதுப்பிப்பில் \'எனது ஆர்டர்\' மூலம் மாற்றப்படும்</string>
     <string name="app_settings">பயன்பாட்டு அமைப்புகள்</string>
     <string name="CFC_startBefore_text">தொடங்கியவர்:?</string>
     <string name="CFC_startBefore_name">மூலம் தொடங்கவும்…</string>
-    <string name="swipe_to_snooze_time_description">அழிக்கப்பட்ட அறிவிப்பு உறக்கநிலை மற்றும் %s மீண்டும் உருவாக்கப்படும்</string>
-    <string name="quiet_hours_in_effect">அமைதியான நேரம் நடைமுறையில் உள்ளது</string>
     <string name="show_edit_screen_without_unlock_summary">சாதனத்தைத் திறக்காமல் விரைவான அமைப்புகள் ஓடு பயன்படுத்த உதவுகிறது</string>
     <string name="header_spacing">இடைவெளி</string>
     <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
@@ -408,8 +384,6 @@
     <string name="last_backup">கடைசி காப்புப்பிரதி: %s</string>
     <string name="customize_drawer">டிராயரைத் தனிப்பயனாக்குங்கள்</string>
     <string name="customize_drawer_summary">பட்டியல் உருப்படிகளை மறுசீரமைக்க இழுத்து விடுங்கள்</string>
-    <string name="swipe_to_snooze_time_30_minutes">30 நிமிடங்களுக்குப் பிறகு</string>
-    <string name="swipe_to_snooze_time_1_hour">1 மணி நேரம் கழித்து</string>
     <string name="theme_dynamic">மாறும்</string>
     <string name="custom_filter_has_subtask">துணை பணிகள் உள்ளன</string>
     <string name="custom_filter_is_subtask">சப்டாச்க்</string>
@@ -417,8 +391,6 @@
     <string name="delete_comment">கருத்து</string>
     <string name="launcher_icon">துவக்கி படவுரு</string>
     <string name="sort_list">பட்டியல் மூலம்</string>
-    <string name="swipe_to_snooze_title">உறக்கநிலைக்கு ச்வைப் செய்யவும்</string>
-    <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
     <string name="sort_completion_group">நிறைவு %s</string>
     <string name="backup_location_warning">எச்சரிக்கை: பணிகள் நிறுவல் நீக்கப்பட்டால் %s இல் அமைந்துள்ள கோப்புகள் நீக்கப்படும்! உங்கள் கோப்புகளை நீக்குவதைத் தடுக்க தனிப்பயன் இருப்பிடத்தைத் தேர்வுசெய்க.</string>
@@ -461,7 +433,6 @@
     <string name="sync_warning_google_tasks">அனைத்து பணி விவரங்களும் கூகிள் பணிகளுடன் ஒத்திசைக்கவில்லை</string>
     <string name="privacy">தனியுரிமை</string>
     <string name="app_passwords_more_info">மூன்றாம் தரப்பு டெச்க்டாப் மற்றும் மொபைல் பயன்பாடுகளுடன் உங்கள் பணிகள் மற்றும் காலெண்டர்களை ஒத்திசைக்கவும். மேலும் தகவலுக்கு இங்கே தட்டவும்</string>
-    <string name="completion_sound">நிறைவு ஒலி</string>
     <string name="snackbar_tasks_completed">%d பணிகள் முடிந்தது</string>
     <string name="markdown_description">தலைப்பு மற்றும் விளக்கத்தில் மார்க் டவுனை இயக்கவும்</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>

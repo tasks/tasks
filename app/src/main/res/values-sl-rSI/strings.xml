@@ -81,9 +81,6 @@
     <string name="premium_record_audio">Posnemi opombo</string>
     <string name="rmd_NoA_done">Končano</string>
     <string name="rmd_NoA_snooze">Dremež</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
-    <string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
     <string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
     <string name="default_random_reminder_disabled">onemogočen</string>
     <string name="default_random_reminder_hourly">vsako uro</string>
@@ -97,8 +94,6 @@
     <string name="TEA_timer_comment_spent">Porabljen čas:</string>
     <string name="voice_create_prompt">Glasovno ustvari opravek</string>
     <string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
-    <string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opravek</item>
         <item quantity="other">Št. opravkov: %d</item>

@@ -100,11 +100,6 @@
     <string name="ring_nonstop">Ring kontinuerligt</string>
     <string name="rmd_NoA_done">Slutförd</string>
     <string name="rmd_NoA_snooze">Skjut upp</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Tysta timmar börjar</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Tysta timmar slutar</string>
-    <string name="rmd_EPr_rmd_time_title">Tid för påminnelser</string>
-    <string name="persistent_notifications">Beständiga aviseringar</string>
-    <string name="persistent_notifications_description">Beständiga aviseringar kan inte svepas bort</string>
     <string name="rmd_EPr_defaultRemind_title">Slumpmässiga påminnelser</string>
     <string name="default_random_reminder_disabled">Inaktiverad</string>
     <string name="default_random_reminder_hourly">varje timme</string>
@@ -121,8 +116,6 @@
     <string name="TEA_timer_comment_spent">Nedlagd tid:</string>
     <string name="voice_create_prompt">Tala för att skapa en uppgift</string>
     <string name="EPr_voiceInputEnabled_title">Röstindata</string>
-    <string name="EPr_voiceRemindersEnabled_title">Röstpåminnelser</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks läser upp uppgifterna vid påminnelse</string>
     <string name="voice_command_added_task">Uppgift skapad</string>
     <plurals name="Ntasks">
         <item quantity="one">1 uppgift</item>
@@ -134,7 +127,6 @@
     <string name="widget_show_header">Visa rubrik</string>
     <string name="widget_show_settings">Visa inställningsikonen</string>
     <string name="notifications">Aviseringar</string>
-    <string name="quiet_hours">Tysta timmar</string>
     <string name="attachment_directory">Mapp för bilagor</string>
     <string name="backup_directory">Säkerhetskopieringsmapp</string>
     <string name="miscellaneous">Övrigt</string>
@@ -142,7 +134,6 @@
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>
     <string name="translations">Hjälp till att översätta</string>
-    <string name="quiet_hours_summary">Inga påminnelser under tysta timmar</string>
     <string name="remove">Ta bort</string>
     <string name="tags">Etiketter</string>
     <string name="filters">Filter</string>
@@ -233,8 +224,6 @@
     <string name="user">Användare</string>
     <string name="password">Lösenord</string>
     <string name="url">URL</string>
-    <string name="notification_disable_battery_optimizations_description">Batterioptimering kan försena aviseringar</string>
-    <string name="bundle_notifications">Gruppera aviseringar</string>
     <string name="badges">Aviseringsmärken</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Upprepas från</string>
@@ -243,7 +232,6 @@
     <string name="dont_add_to_calendar">Lägg inte till i kalender</string>
     <string name="default_calendar">Förvald kalender</string>
     <string name="badges_description">Visa antalet uppgifter på Tasks-appikonen. Alla startprogram stöder inte aviseringsmärken.</string>
-    <string name="bundle_notifications_summary">Kombinera flera aviseringar till en</string>
     <string name="tasker_create_task">Skapa uppgift</string>
     <string name="tasker_list_notification">Visa avisering</string>
     <string name="help">Hjälp</string>
@@ -297,9 +285,6 @@
     <string name="places">Platser</string>
     <string name="back">Tillbaka</string>
     <string name="color_wheel">Färghjul</string>
-    <string name="more_notification_settings_summary">Ringsignal, vibration med mera</string>
-    <string name="more_settings">Fler inställningar</string>
-    <string name="troubleshooting">Felsökning</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avancerat</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
@@ -384,10 +369,6 @@
     <string name="chip_appearance">Valknapparnas utseende</string>
     <string name="chips">Valknappar</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
-    <string name="disable_battery_optimizations">Inaktivera batterioptimeringar</string>
-    <string name="notification_troubleshooting_summary">Tryck här om du har problem med aviseringar</string>
-    <string name="wearable_notifications_summary">Visa aviseringar på en bärbar enhet</string>
-    <string name="wearable_notifications">Aviseringar på bärbar enhet</string>
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>
@@ -432,7 +413,6 @@
     <string name="display_name">Visningsnamn</string>
     <string name="now">Nu</string>
     <string name="completed">Slutförd</string>
-    <string name="completion_sound">Spela färdigställande ljud</string>
     <string name="snackbar_task_completed">Uppgiften slutförd</string>
     <string name="snackbar_tasks_completed">%d uppgifter slutförda</string>
     <string name="custom_filter_has_reminder">Har påminnelse</string>
@@ -453,16 +433,7 @@
     <string name="show_edit_screen_without_unlock">Visa redigeringsskärm utan upplåsning</string>
     <string name="show_edit_screen_without_unlock_summary">Aktiverar användning av snabbinställningar utan att låsa upp enheten</string>
     <string name="customize_drawer_summary">Dra och släpp för att ordna om menyobjekt</string>
-    <string name="swipe_to_snooze_title">Svep för att senarelägga</string>
-    <string name="swipe_to_snooze_description">Tid för senareläggning</string>
-    <string name="swipe_to_snooze_time_description">När en avisering sveps bort senareläggs den och visas igen %s</string>
-    <string name="swipe_to_snooze_time_immediately">omedelbart</string>
-    <string name="swipe_to_snooze_time_15_minutes">efter 15 minuter</string>
-    <string name="swipe_to_snooze_time_30_minutes">efter 30 minuter</string>
-    <string name="swipe_to_snooze_time_1_hour">efter 1 timme</string>
-    <string name="swipe_to_snooze_time_24_hours">efter 24 timmar</string>
     <string name="customize_drawer">Anpassa navigeringspanelen</string>
-    <string name="quiet_hours_in_effect">Tysta timmar är aktiva</string>
     <string name="enable_alarms">Få aviseringar i rätt tid</string>
     <string name="enable_alarms_description">Bevilja behörighet att ställa in larm och påminnelser i Inställningar så att aviseringarna visas i rätt tid.</string>
     <string name="delete_comment">Ta bort kommentar</string>
@@ -505,10 +476,6 @@
     <string name="email_to_task">E-post till uppgift</string>
     <string name="email_to_task_address">Din e-postadress</string>
     <string name="rmd_EPr_rmd_time_desc">Aviseringar för heldagsuppgifter visas vid %1$s</string>
-    <string name="default_reminder">Heldagsuppgifter</string>
-    <string name="add_default_reminders">Lägg till förvalda påminnelser</string>
-    <string name="rmd_time_enabled_on">Lägg till förvalda påminnelser för heldagsuppgifter</string>
-    <string name="rmd_time_enabled_off">Lägg inte till förvalda påminnelser för heldagsuppgifter</string>
     <string name="banner_subscription_required_title">Prenumeration krävs</string>
     <string name="banner_subscription_required_body">Betala valfritt belopp för att låsa upp synkronisering med %s</string>
     <string name="p_per_list_sort">Sortering per lista</string>

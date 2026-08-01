@@ -7,6 +7,14 @@ import org.tasks.compose.pickers.DEFAULT_NIGHT
 import org.tasks.compose.pickers.QuickPickTimes
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.plusDays
+import org.tasks.time.withMillisOfDay
+
+const val DEFAULT_REMINDER_TIME = 18 * 60 * 60 * 1000
+const val DEFAULT_QUIET_HOURS_START = 22 * 60 * 60 * 1000
+const val DEFAULT_QUIET_HOURS_END = 10 * 60 * 60 * 1000
+const val DEFAULT_SNOOZE_MINUTES = 15
 
 data class DatePickerPreferences(
     val shortcutMorning: Int = DEFAULT_MORNING,
@@ -20,6 +28,53 @@ data class DatePickerPreferences(
 ) {
     val quickPickTimes: QuickPickTimes
         get() = QuickPickTimes(shortcutMorning, shortcutAfternoon, shortcutEvening, shortcutNight)
+}
+
+data class NotificationSettings(
+    val persistentNotifications: Boolean = true,
+    val wearableNotifications: Boolean = true,
+    val bundleNotifications: Boolean = true,
+    val voiceReminders: Boolean = false,
+    val swipeToSnoozeEnabled: Boolean = false,
+    val swipeToSnoozeMinutes: Int = DEFAULT_SNOOZE_MINUTES,
+    val defaultRemindersEnabled: Boolean = true,
+    val defaultReminderTime: Int = DEFAULT_REMINDER_TIME,
+    val quietHoursEnabled: Boolean = false,
+    val quietHoursStart: Int = DEFAULT_QUIET_HOURS_START,
+    val quietHoursEnd: Int = DEFAULT_QUIET_HOURS_END,
+)
+
+fun NotificationSettings.isCurrentlyQuietHours(
+    now: Long = currentTimeMillis(),
+): Boolean {
+    if (!quietHoursEnabled) {
+        return false
+    }
+    val start = now.withMillisOfDay(quietHoursStart)
+    val end = now.withMillisOfDay(quietHoursEnd)
+    return if (start > end) {
+        now < end || now > start
+    } else {
+        now > start && now < end
+    }
+}
+
+fun NotificationSettings.adjustForQuietHours(time: Long): Long {
+    if (!quietHoursEnabled) {
+        return time
+    }
+    val start = time.withMillisOfDay(quietHoursStart)
+    val end = time.withMillisOfDay(quietHoursEnd)
+    if (start > end) {
+        if (time < end) {
+            return end
+        } else if (time > start) {
+            return end.plusDays(1)
+        }
+    } else if (time > start && time < end) {
+        return end
+    }
+    return time
 }
 
 interface AppPreferences {
@@ -43,4 +98,16 @@ interface AppPreferences {
     suspend fun datePickerPreferences(): DatePickerPreferences = DatePickerPreferences()
     suspend fun setDatePickerInputMode(value: Boolean) {}
     suspend fun setTimePickerInputMode(value: Boolean) {}
+    suspend fun notificationSettings(): NotificationSettings
+    suspend fun setPersistentNotifications(value: Boolean)
+    suspend fun setWearableNotifications(value: Boolean)
+    suspend fun setBundleNotifications(value: Boolean)
+    suspend fun setVoiceReminders(value: Boolean)
+    suspend fun setSwipeToSnoozeEnabled(value: Boolean)
+    suspend fun setSwipeToSnoozeMinutes(value: Int)
+    suspend fun setDefaultRemindersEnabled(value: Boolean)
+    suspend fun setDefaultReminderTime(value: Int)
+    suspend fun setQuietHoursEnabled(value: Boolean)
+    suspend fun setQuietHoursStart(value: Int)
+    suspend fun setQuietHoursEnd(value: Int)
 }

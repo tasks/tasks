@@ -127,6 +127,14 @@
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>
     <string name="delete_task">حذف وظیفه</string>
+    <string name="notification_disable_battery_optimizations_description">مدیریت بهینه سازی باتری ممکن است اعلانات را به تاخیر بیاندازد</string>
+    <string name="EPr_voiceRemindersEnabled_title">یادآور صوتی</string>
+    <string name="rmd_EPr_rmd_time_title">یادآور پیش فرض</string>
+    <string name="enabled">فعال شده</string>
+    <string name="quiet_hours">ساعات سکوت</string>
+    <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
+    <string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
+    <string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
     <string name="rmd_NoA_snooze">عقب انداختن</string>
     <string name="date_shortcut_hour">برای یک ساعت</string>
     <string name="date_shortcut_morning">صبح</string>

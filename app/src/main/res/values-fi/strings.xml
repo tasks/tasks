@@ -98,11 +98,6 @@
     <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Torkku</string>
     <string name="snooze_all">Torkuta kaikki</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Hiljainen aika alkaa</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Hiljainen aika loppuu</string>
-    <string name="rmd_EPr_rmd_time_title">Muistutusaika</string>
-    <string name="persistent_notifications">Jatkuvat ilmoitukset</string>
-    <string name="persistent_notifications_description">Jatkuvia ilmoituksia ei voi tyhjentää</string>
     <string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
     <string name="default_random_reminder_disabled">Estetty</string>
     <string name="default_random_reminder_hourly">Tunneittain</string>
@@ -145,8 +140,6 @@
     <string name="TEA_timer_comment_spent">Aikaa käytetty:</string>
     <string name="voice_create_prompt">Puhu luodaksesi tehtävän</string>
     <string name="EPr_voiceInputEnabled_title">Äänisyöttö</string>
-    <string name="EPr_voiceRemindersEnabled_title">Äänimuistutukset</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks kertoo tehtävien nimet muistutusten aikana</string>
     <string name="voice_command_added_task">Lisätty tehtävä</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tehtävä</item>
@@ -158,7 +151,6 @@
     <string name="widget_show_header">Näytä otsikot</string>
     <string name="widget_show_settings">Näytä asetukset</string>
     <string name="notifications">Ilmoitukset</string>
-    <string name="quiet_hours">Hiljainen aika</string>
     <string name="attachment_directory">Liitehakemisto</string>
     <string name="backup_directory">Varmuuskopioiden hakemisto</string>
     <string name="miscellaneous">Sekalaista</string>
@@ -167,7 +159,6 @@
     <string name="row_spacing">Rivinväli</string>
     <string name="customize_edit_screen">Saadä muokkausnäkymää</string>
     <string name="translations">Osallistu kääntämiseen</string>
-    <string name="quiet_hours_summary">Ei ilmoituksia hiljaisena aikana</string>
     <string name="remove">Poista</string>
     <string name="tags">Tunnisteet</string>
     <string name="filters">Suodattimet</string>
@@ -213,8 +204,6 @@
     <string name="delete_multiple_tasks_confirmation">%s poistettu</string>
     <string name="delete_selected_tasks">Poistetaanko valitut tehtävät?</string>
     <string name="copy_selected_tasks">Kopioi valitut tehtävät?</string>
-    <string name="notification_disable_battery_optimizations_description">Akun optimointi voi viivästyttää ilmoituksia</string>
-    <string name="bundle_notifications">Niputa ilmoitukset</string>
     <string name="badges">Merkit</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Toista alkaen</string>
@@ -222,7 +211,6 @@
     <string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
     <string name="default_calendar">Oletus kalenteri</string>
     <string name="badges_description">Näytä tehtävien lukumäärä Tasksin käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
-    <string name="bundle_notifications_summary">Yhdistä useita ilmoituksia yhdeksi</string>
     <string name="tasker_create_task">Luo tehtävä</string>
     <string name="tasker_list_notification">Ilmoituslista</string>
     <string name="help">Apua</string>
@@ -240,10 +228,6 @@
     <string name="chips">Lisätietolaput</string>
     <string name="back">Takaisin</string>
     <string name="color_wheel">Väriympyrä</string>
-    <string name="more_notification_settings_summary">Soittoääni, värinä, yms</string>
-    <string name="more_settings">Lisäasetukset</string>
-    <string name="disable_battery_optimizations">Älä säästä virtaa</string>
-    <string name="notification_troubleshooting_summary">Paina tästä jos ilmoitusten kanssa on ongelmia</string>
     <string name="documentation">Dokumentaatio</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
@@ -342,9 +326,6 @@
     <string name="places">Paikat</string>
     <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Task ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
     <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Task ohjelman takana</string>
-    <string name="troubleshooting">Ongelmien ratkaisu</string>
-    <string name="wearable_notifications_summary">Näytä ilmoitukset puettavassa laitteessasi</string>
-    <string name="wearable_notifications">Puettavan laitteen ilmoitukset</string>
     <string name="preferences_advanced">Kehittyneet</string>
     <string name="whats_new">Mitä uutta</string>
     <string name="location_departed">Lähdit paikasta %s</string>
@@ -434,7 +415,6 @@
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>
     <string name="custom_filter_has_reminder">Sisältää muistutuksen</string>
-    <string name="completion_sound">Toista valmistumisääni</string>
     <string name="TEA_creation_date">Luontipäivä</string>
     <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>
     <string name="completed">Valmiit</string>
@@ -446,23 +426,14 @@
     <string name="change_priority">Vaihda prioriteetti</string>
     <string name="sort_list">Luettelojen mukaan</string>
     <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
-    <string name="swipe_to_snooze_description">Torkutusaika</string>
-    <string name="swipe_to_snooze_title">Pyyhkäise sivulle torkuttaaksesi</string>
     <string name="donate_today">Lahjoita tänään</string>
     <string name="donate_maybe_later">Ehkä myöhemmin</string>
-    <string name="swipe_to_snooze_time_15_minutes">15 minuutin jälkeen</string>
-    <string name="swipe_to_snooze_time_30_minutes">30 minuutin jälkeen</string>
-    <string name="swipe_to_snooze_time_1_hour">Tunnin jälkeen</string>
-    <string name="swipe_to_snooze_time_24_hours">24 tunnin jälkeen</string>
     <string name="show_edit_screen_without_unlock">Näytä muokkaa näyttöä ilman lukituksen avaamista</string>
     <string name="theme_dynamic">Dynaaminen</string>
     <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
     <string name="show_edit_screen_without_unlock_summary">Aktivoi pika-asetusten käyttö ilman laitteen lukituksen avaamista</string>
     <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
-    <string name="quiet_hours_in_effect">Hiljaiset tunnit käytössä</string>
     <string name="sort_completion_group">Valmis %s</string>
-    <string name="swipe_to_snooze_time_description">Kuitattu ilmoitus torkutetaan ja luodaan uudelleen %s</string>
-    <string name="swipe_to_snooze_time_immediately">välittömästi</string>
     <string name="enable_alarms">Saat ilmoituksen oikeaan aikaan</string>
     <string name="enable_alarms_description">Varmista, että saat ilmoituksen oikeaan aikaan, myöntämällä lupa asettaa hälytyksiä ja muistutuksia Asetuksissa</string>
     <string name="app_settings">Sovellusasetukset</string>
@@ -489,9 +460,5 @@
     <string name="import_failed">Tuonti epäonnistui</string>
     <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
     <string name="rmd_EPr_rmd_time_desc">Koko päivän tehtävien ilmoitukset näkyvät klo %1$s</string>
-    <string name="default_reminder">Koko päivän tehtävät</string>
-    <string name="add_default_reminders">Lisää oletusmuistutus</string>
-    <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>
-    <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
     <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
 </resources>

@@ -106,11 +106,6 @@
     <string name="rmd_NoA_done">השלמה</string>
     <string name="rmd_NoA_snooze">נודניק</string>
     <string name="snooze_all">נודניק לכל</string>
-    <string name="rmd_EPr_quiet_hours_start_title">התחלת שעות שקטות</string>
-    <string name="rmd_EPr_quiet_hours_end_title">סיום שעות שקטות</string>
-    <string name="rmd_EPr_rmd_time_title">זמן תזכורת</string>
-    <string name="persistent_notifications">התראות מתמשכות</string>
-    <string name="persistent_notifications_description">התראות מתמשכות אינן ניתנות לניקוי</string>
     <string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
     <string name="default_random_reminder_disabled">מושבתות</string>
     <string name="default_random_reminder_hourly">שעתיות</string>
@@ -159,8 +154,6 @@
     <string name="TEA_timer_comment_spent">זמן שהושקע:</string>
     <string name="voice_create_prompt">יש לדבר כדי ליצור משימה</string>
     <string name="EPr_voiceInputEnabled_title">קלט קולי</string>
-    <string name="EPr_voiceRemindersEnabled_title">תזכורות קוליות</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks יאמר את שמות המשימות במהלך תזכורות של משימות</string>
     <string name="voice_command_added_task">המשימה נוספה</string>
     <plurals name="Ntasks">
         <item quantity="one">משימה אחת</item>
@@ -174,7 +167,6 @@
     <string name="widget_show_header">הצגת כותרת עליונה</string>
     <string name="widget_show_settings">הצגת הגדרות</string>
     <string name="notifications">התראות</string>
-    <string name="quiet_hours">שעות שקטות</string>
     <string name="attachment_directory">תיקיית צרופות</string>
     <string name="backup_directory">תיקיית גיבוי</string>
     <string name="google_drive_backup">גיבוי Google Drive</string>
@@ -184,7 +176,6 @@
     <string name="row_spacing">מרווח בין שורות</string>
     <string name="customize_edit_screen">התאמה אישית של מסך העריכה</string>
     <string name="translations">לתרום תרגומים</string>
-    <string name="quiet_hours_summary">לא היו תזכורות במהלך השעות השקטות</string>
     <string name="add_location">הוספת מיקום</string>
     <string name="remove">הסרה</string>
     <string name="geofence_radius">רדיוס גדר גאוגרפית</string>
@@ -238,8 +229,6 @@
     <string name="user">משתמש</string>
     <string name="password">סיסמה</string>
     <string name="url">URL</string>
-    <string name="notification_disable_battery_optimizations_description">מיטובי סוללה עלולים לעכב התראות</string>
-    <string name="bundle_notifications">צרור התראות</string>
     <string name="badges">תגים</string>
     <string name="list">רשימה</string>
     <string name="repeats_from">חוזר מ</string>
@@ -247,7 +236,6 @@
     <string name="dont_add_to_calendar">אל תוסיף ליומן</string>
     <string name="default_calendar">יומן ברירת מחדל</string>
     <string name="badges_description">הצגת מונה משימות על סמל המשגר של Tasks. לא כל המשגרים תומכים בתגים.</string>
-    <string name="bundle_notifications_summary">שילוב התראות מרובות לאחת</string>
     <string name="tasker_create_task">יצירת משימה</string>
     <string name="tasker_list_notification">התראת רשימה</string>
     <string name="help">עזרה</string>
@@ -284,7 +272,6 @@
     <string name="places">מקומות</string>
     <string name="no_date">אין תאריך</string>
     <string name="chip_appearance_text_only">טקסט בלבד</string>
-    <string name="more_settings">הגדרות נוספות</string>
     <string name="preferences_advanced">מתקדם</string>
     <string name="whats_new">מה חדש</string>
     <string name="collapse_subtasks">כיווץ תתי־משימות</string>
@@ -342,12 +329,6 @@
     <string name="reset_sort_order">איפוס סדר מיון</string>
     <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
     <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks</string>
-    <string name="more_notification_settings_summary">צלצול, סוגי רטט, ועוד</string>
-    <string name="disable_battery_optimizations">השבתת מיטובי סוללה</string>
-    <string name="notification_troubleshooting_summary">יש להקיש כאן אם יש לך בעיה עם התראות</string>
-    <string name="troubleshooting">איתור תקלות</string>
-    <string name="wearable_notifications_summary">הצגת התראות על המחשוב הלביש שלך</string>
-    <string name="wearable_notifications">התראות על מחשוב לביש</string>
     <string name="documentation">תיעוד</string>
     <string name="enjoying_tasks">נהנים מ־Tasks?</string>
     <string name="filter_eisenhower_box_4">לא חשוב ולא דחוף</string>
@@ -440,9 +421,7 @@
     <string name="CFC_startBefore_text">התחלה לפני: ?</string>
     <string name="default_start_date">תאריך התחלה ברירת מחדל</string>
     <string name="SSD_sort_start">לפי תאריך התחלה</string>
-    <string name="swipe_to_snooze_title">יש להחליק לנודניק</string>
     <string name="app_settings">הגדרות יישום</string>
-    <string name="swipe_to_snooze_description">זמן נודניק</string>
     <string name="TEA_creation_date">תאריך יצירה</string>
     <string name="customize_drawer">התאמה אישית של מגירה</string>
     <string name="customize_drawer_summary">יש לגרור ולשחרר כדי לסדר מחדש את פריטי התפריט</string>
@@ -455,12 +434,6 @@
     <string name="snackbar_task_completed">המשימה הושלמה</string>
     <string name="enable_alarms_description">כדי להבטיח קבלת הודעה בזמן הנכון, יש להעניק הרשאה להגדרת התראות ותזכורות בהגדרות</string>
     <string name="sync_warning_microsoft_title">בנוגע לסנכרון Microsoft To Do</string>
-    <string name="swipe_to_snooze_time_description">התראה שנוקתה תנמנם ותיווצר מחדש %s</string>
-    <string name="swipe_to_snooze_time_immediately">באופן מיידי</string>
-    <string name="swipe_to_snooze_time_15_minutes">לאחר 15 דקות</string>
-    <string name="swipe_to_snooze_time_30_minutes">לאחר 30 דקות</string>
-    <string name="swipe_to_snooze_time_1_hour">לאחר שעה אחת</string>
-    <string name="swipe_to_snooze_time_24_hours">לאחר 24 שעות</string>
     <string name="customize_edit_screen_summary">יש לסדר מחדש או להסיר שדות</string>
     <string name="donate_nag">נא לשקול להראות את תמיכתך באמצעות תרומה!</string>
     <string name="completed">הושלמו</string>
@@ -473,8 +446,6 @@
     <string name="custom_filter_has_reminder">יש תזכורת</string>
     <string name="multiline_title_on">יש ללחוץ על מקש Enter כדי להוסיף מעברי שורה</string>
     <string name="multiline_title_off">יש ללחוץ על \"השלמה\" כדי לשמור משימה</string>
-    <string name="completion_sound">ניגון צליל השלמה</string>
-    <string name="quiet_hours_in_effect">שעות שקטות בתוקף</string>
     <string name="hint_customize_edit_title">יותר מדי מידע?</string>
     <string name="delete_comment">הערה</string>
     <string name="yesterday">אתמול</string>
@@ -497,10 +468,6 @@
     <string name="import_failed">הייבוא נכשל</string>
     <string name="import_failed_message">לא היה ניתן לקרוא קובץ גיבוי</string>
     <string name="rmd_EPr_rmd_time_desc">התראות עבור משימות של יום שלם יופיעו ב־%1$s</string>
-    <string name="default_reminder">משימות של יום שלם</string>
-    <string name="add_default_reminders">הוספת תזכורות ברירת מחדל</string>
-    <string name="rmd_time_enabled_on">הוספת תזכורות ברירת מחדל למשימות של יום שלם</string>
-    <string name="rmd_time_enabled_off">אין להוסיף תזכורות ברירת מחדל למשימות של יום שלם</string>
     <string name="banner_subscription_required_title">נדרש מינוי</string>
     <string name="banner_subscription_required_body">שלם כפי רצונך כדי לפתוח סנכרון %s</string>
     <string name="subscription_required_fdroid">נדרש מינוי כדי להשתמש בסנכרון Tasks.org. מינויים מוכרחים להיות מותחלים מגרסת ה־Google Play של Tasks.</string>

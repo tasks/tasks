@@ -155,13 +155,6 @@
     <string name="upgrade_blurb_2">Tôi đã dành hàng nghìn tiếng cho việc hoàn thiện Tasks, và tôi xuất bản tất cả mã nguồn trên mạng miễn phí. Để hỗ trợ công sức của tôi, một số tính năng yêu cầu đăng ký</string>
     <string name="upgrade_blurb_1">Xin chào! Tên tôi là Alex. Tôi là nhà phát triển độc lập đứng sau Tasks</string>
     <string name="color_wheel">Bảng màu</string>
-    <string name="more_notification_settings_summary">Nhạc chuông, rung, và nhiều hơn</string>
-    <string name="more_settings">Nhiều cài đặt hơn</string>
-    <string name="disable_battery_optimizations">Tắt tối ưu hoá pin</string>
-    <string name="notification_troubleshooting_summary">Nhấn vào đây nếu bạn đang gặp vấn đề với các thông báo</string>
-    <string name="troubleshooting">Xử lý sự cố</string>
-    <string name="wearable_notifications_summary">Hiển thị các thông báo trên thiết bị đeo của bạn</string>
-    <string name="wearable_notifications">Thông báo trên thiết bị đeo</string>
     <string name="documentation">Tài liệu</string>
     <string name="show_advanced_settings">Hiện cài đặt nâng cao</string>
     <string name="davx5_selection_description">Đồng bộ hoá các công việc của bạn bằng ứng dụng DAVx⁵</string>
@@ -209,7 +202,6 @@
     <string name="help">Trợ giúp</string>
     <string name="tasker_list_notification">Thông báo danh sách</string>
     <string name="tasker_create_task">Tạo công việc</string>
-    <string name="bundle_notifications_summary">Kết hợp nhiều thông báo thành một</string>
     <string name="badges_description">Hiển thị số lượng công việc trên biểu tượng trên launcher của Tasks. Không phải tất cả launcher đều hỗ trợ huy hiệu.</string>
     <string name="default_calendar">Lịch mặc định</string>
     <string name="dont_add_to_calendar">Không thêm vào lịch</string>
@@ -218,8 +210,6 @@
     <string name="repeats_from">Lặp lại từ</string>
     <string name="list">Danh sách</string>
     <string name="badges">Huy hiệu</string>
-    <string name="bundle_notifications">Gộp các thông báo</string>
-    <string name="notification_disable_battery_optimizations_description">Tối ưu hoá pin có thể sẽ gây trì hoãn các thông báo</string>
     <string name="url">URL</string>
     <string name="password">Mật khẩu</string>
     <string name="user">Người dùng</string>
@@ -286,7 +276,6 @@
     <string name="geofence_radius">Bán kính</string>
     <string name="remove">Xoá</string>
     <string name="add_location">Thêm vị trí</string>
-    <string name="quiet_hours_summary">Không có lời nhắc trong giờ im lặng</string>
     <string name="translations">Đóng góp bản dịch</string>
     <string name="customize_edit_screen">Tuỳ biến màn hình chỉnh sửa</string>
     <string name="row_spacing">Khoảng cách hàng</string>
@@ -298,7 +287,6 @@
     <string name="google_drive_backup">Sao lưu Google Drive</string>
     <string name="backup_directory">Thư mục sao lưu</string>
     <string name="attachment_directory">Thư mục tệp đính kèm</string>
-    <string name="quiet_hours">Giờ im lặng</string>
     <string name="notifications">Thông báo</string>
     <string name="widget_show_dividers">Hiện đường chia tách</string>
     <string name="widget_show_menu">Hiện menu</string>
@@ -312,8 +300,6 @@
         <item quantity="other">%d công việc</item>
     </plurals>
     <string name="voice_command_added_task">Đã thêm công việc</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks sẽ nói các tên công việc trong các lời nhắc công việc</string>
-    <string name="EPr_voiceRemindersEnabled_title">Lời nhắc bằng giọng nói</string>
     <string name="EPr_voiceInputEnabled_title">Giọng nói đầu vào</string>
     <string name="voice_create_prompt">Nói để tạo công việc</string>
     <string name="TEA_timer_comment_spent">Thời gian đã tiêu tốn:</string>
@@ -351,11 +337,6 @@
     <string name="default_random_reminder_hourly">Hàng tiếng</string>
     <string name="default_random_reminder_disabled">Tắt</string>
     <string name="rmd_EPr_defaultRemind_title">Lời nhắc ngẫu nhiên</string>
-    <string name="persistent_notifications_description">Thông báo cố định không thể bị xoá</string>
-    <string name="persistent_notifications">Thông báo cố định</string>
-    <string name="rmd_EPr_rmd_time_title">Thời gian lời nhắc</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Giờ im lặng kết thúc</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Giờ im lặng bắt đầu</string>
     <string name="snooze_all">Báo lại tất cả</string>
     <string name="rmd_NoA_snooze">Báo lại</string>
     <string name="rmd_NoA_done">Hoàn thành</string>
@@ -431,7 +412,6 @@
     <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
     <string name="import_summary_title">Tóm tắt khôi phục</string>
     <string name="now">Bây giờ</string>
-    <string name="completion_sound">Phát âm thanh hoàn tất</string>
     <string name="completed">Hoàn tất</string>
     <string name="custom_filter_has_reminder">Có lời nhắc</string>
     <string name="snackbar_task_completed">Công việc đã hoàn tất</string>

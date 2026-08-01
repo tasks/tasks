@@ -10,6 +10,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -58,8 +59,12 @@ import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.preferences.NotificationSettings
+import org.tasks.preferences.PreferencesSnapshot
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.adjustForQuietHours
+import org.tasks.preferences.isCurrentlyQuietHours
 import org.tasks.reminders.Random
 import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.repeats.CustomRecurrenceViewModel
@@ -86,6 +91,7 @@ import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -162,15 +168,49 @@ val commonModule = module {
                 tasksPreferences.get(TasksPreferences.deviceInstallVersion, 0)
             override suspend fun setDeviceInstallVersion(value: Int) =
                 tasksPreferences.set(TasksPreferences.deviceInstallVersion, value)
-            override suspend fun isDefaultDueTimeEnabled() = false
+            override suspend fun isDefaultDueTimeEnabled() =
+                tasksPreferences.get(
+                    TasksPreferences.defaultRemindersEnabled,
+                    notificationDefaults.defaultRemindersEnabled
+                )
             override suspend fun defaultLocationReminder() = 0
             override suspend fun defaultAlarms() = emptyList<Alarm>()
             override suspend fun defaultRandomHours() = 0
             override suspend fun defaultRingMode() = 0
-            override suspend fun defaultDueTime() = 0
+            override suspend fun defaultDueTime() =
+                tasksPreferences.get(
+                    TasksPreferences.defaultReminderTime,
+                    notificationDefaults.defaultReminderTime
+                )
             override suspend fun defaultPriority() = 0
-            override suspend fun isCurrentlyQuietHours() = false
-            override suspend fun adjustForQuietHours(time: Long) = time
+            override suspend fun isCurrentlyQuietHours() =
+                tasksPreferences.snapshot().notificationSettings().isCurrentlyQuietHours()
+            override suspend fun adjustForQuietHours(time: Long) =
+                tasksPreferences.snapshot().notificationSettings().adjustForQuietHours(time)
+            override suspend fun notificationSettings() =
+                tasksPreferences.snapshot().notificationSettings()
+            override suspend fun setPersistentNotifications(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.persistentNotifications, value)
+            override suspend fun setWearableNotifications(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.wearableNotifications, value)
+            override suspend fun setBundleNotifications(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.bundleNotifications, value)
+            override suspend fun setVoiceReminders(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.voiceReminders, value)
+            override suspend fun setSwipeToSnoozeEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.swipeToSnoozeEnabled, value)
+            override suspend fun setSwipeToSnoozeMinutes(value: Int) =
+                tasksPreferences.set(TasksPreferences.swipeToSnoozeMinutes, value)
+            override suspend fun setDefaultRemindersEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.defaultRemindersEnabled, value)
+            override suspend fun setDefaultReminderTime(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultReminderTime, value)
+            override suspend fun setQuietHoursEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.quietHoursEnabled, value)
+            override suspend fun setQuietHoursStart(value: Int) =
+                tasksPreferences.set(TasksPreferences.quietHoursStart, value)
+            override suspend fun setQuietHoursEnd(value: Int) =
+                tasksPreferences.set(TasksPreferences.quietHoursEnd, value)
             // TODO: populate the remaining DatePickerPreferences fields
             override suspend fun datePickerPreferences() = DatePickerPreferences(
                 datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
@@ -288,7 +328,7 @@ val commonModule = module {
             tokenProvider = getOrNull(),
         )
     }
-    factory { AlarmCalculator(Random(), 0) }
+    factory { AlarmCalculator(Random(), runBlocking { get<AppPreferences>().defaultDueTime() }) }
     factoryOf(::AlarmService)
     factory { RepeatTaskHelper(get(), get(), get()) }
     factory { TaskCompleter(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
@@ -455,6 +495,13 @@ val commonModule = module {
         )
     }
     viewModel {
+        NotificationsViewModel(
+            appPreferences = get(),
+            platformConfiguration = get(),
+            persistenceScope = get(),
+        )
+    }
+    viewModel {
         LocalAccountViewModel(
             caldavDao = get(),
             taskDeleter = get(),
@@ -601,5 +648,45 @@ val commonModule = module {
         )
     }
 }
+
+private val notificationDefaults = NotificationSettings()
+
+private fun PreferencesSnapshot.notificationSettings() = NotificationSettings(
+    persistentNotifications = get(
+        TasksPreferences.persistentNotifications,
+        notificationDefaults.persistentNotifications
+    ),
+    wearableNotifications = get(
+        TasksPreferences.wearableNotifications,
+        notificationDefaults.wearableNotifications
+    ),
+    bundleNotifications = get(
+        TasksPreferences.bundleNotifications,
+        notificationDefaults.bundleNotifications
+    ),
+    voiceReminders = get(TasksPreferences.voiceReminders, notificationDefaults.voiceReminders),
+    swipeToSnoozeEnabled = get(
+        TasksPreferences.swipeToSnoozeEnabled,
+        notificationDefaults.swipeToSnoozeEnabled
+    ),
+    swipeToSnoozeMinutes = get(
+        TasksPreferences.swipeToSnoozeMinutes,
+        notificationDefaults.swipeToSnoozeMinutes
+    ),
+    defaultRemindersEnabled = get(
+        TasksPreferences.defaultRemindersEnabled,
+        notificationDefaults.defaultRemindersEnabled
+    ),
+    defaultReminderTime = get(
+        TasksPreferences.defaultReminderTime,
+        notificationDefaults.defaultReminderTime
+    ),
+    quietHoursEnabled = get(
+        TasksPreferences.quietHoursEnabled,
+        notificationDefaults.quietHoursEnabled
+    ),
+    quietHoursStart = get(TasksPreferences.quietHoursStart, notificationDefaults.quietHoursStart),
+    quietHoursEnd = get(TasksPreferences.quietHoursEnd, notificationDefaults.quietHoursEnd),
+)
 
 expect fun platformModule(): Module

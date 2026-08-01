@@ -130,19 +130,6 @@
     <string name="rmd_NoA_done">Acabada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
     <string name="snooze_all">Posponer too</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Entama l\'horariu de silenciu</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Acaba l\'horariu de silenciu</string>
-    <string name="rmd_EPr_rmd_time_title">Hora del recordatoriu</string>
-    <string name="persistent_notifications">Notificaciones persistentes</string>
-    <string name="persistent_notifications_description">Les notificaciones persistentes nun se pueen desaniciar</string>
-    <string name="swipe_to_snooze_title">Desliza pa posponer</string>
-    <string name="swipe_to_snooze_description">Tiempu de repetición</string>
-    <string name="swipe_to_snooze_time_description">Una notificación desaniciada pospondrase y tornarase a crear %s</string>
-    <string name="swipe_to_snooze_time_immediately">darréu</string>
-    <string name="swipe_to_snooze_time_15_minutes">dempués de 15 minutos</string>
-    <string name="swipe_to_snooze_time_30_minutes">dempués de 30 minutos</string>
-    <string name="swipe_to_snooze_time_1_hour">dempués de 1 hora</string>
-    <string name="swipe_to_snooze_time_24_hours">dempués de 24 hores</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios al debalu</string>
     <string name="default_random_reminder_disabled">Desactiváu</string>
     <string name="default_random_reminder_hourly">Cada hora</string>
@@ -188,8 +175,6 @@
     <string name="TEA_timer_comment_spent">Tiempu dedicáu:</string>
     <string name="voice_create_prompt">Fala p\'amestar una xera</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
-    <string name="EPr_voiceRemindersEnabled_title">Recordatorios de voz</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nomes de les xeres durante los avisos</string>
     <string name="voice_command_added_task">Xera amestada</string>
     <plurals name="Ntasks">
         <item quantity="one">1 xera</item>
@@ -206,8 +191,6 @@
     <string name="widget_show_menu">Amosar menú</string>
     <string name="widget_show_dividers">Amosar divisores</string>
     <string name="notifications">Avisos</string>
-    <string name="quiet_hours">Horariu silenciosu</string>
-    <string name="quiet_hours_in_effect">Les hores de silenciu tán vixentes</string>
     <string name="attachment_directory">Cartafueyu d\'anexos</string>
     <string name="backup_directory">Cartafueyu de copies de seguranza</string>
     <string name="google_drive_backup">Copia de seguranza\'n Google Drive</string>
@@ -220,7 +203,6 @@
     <string name="customize_edit_screen">Personalizar pantalla d\'edición</string>
     <string name="customize_edit_screen_summary">Reorganizar o desaniciar campos</string>
     <string name="translations">Contribuyi cola torna</string>
-    <string name="quiet_hours_summary">Ensin recordatorios durante les hores de tranquilidá</string>
     <string name="add_location">Amestar allugamientu</string>
     <string name="remove">Desaniciar</string>
     <string name="geofence_radius">Radiu de la xeollende</string>
@@ -291,8 +273,6 @@
     <string name="user">Usuariu</string>
     <string name="password">Conseña</string>
     <string name="url">URL</string>
-    <string name="notification_disable_battery_optimizations_description">L\'optimización de batería puee retrasar avisos</string>
-    <string name="bundle_notifications">Axuntar avisos</string>
     <string name="badges">Insignies</string>
     <string name="list">Llista</string>
     <string name="repeats_from">Repetir dende</string>
@@ -301,7 +281,6 @@
     <string name="dont_add_to_calendar">Non amestar al calendariu</string>
     <string name="default_calendar">Calendariu predetermináu</string>
     <string name="badges_description">Amosar un contador de xeres nel iconu de Tasks del llanzador. Non tolos llanzadores soporten insignies.</string>
-    <string name="bundle_notifications_summary">Combinar multiples avisos en uno</string>
     <string name="tasker_create_task">Amestar xera</string>
     <string name="tasker_list_notification">Llistar avisu</string>
     <string name="help">Aida</string>

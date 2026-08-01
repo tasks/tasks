@@ -16,9 +16,7 @@
     <string name="gcal_TEA_showCalendar_label">Buksan ang pangyayari sa kalendaryo</string>
     <string name="gcal_completed_title">%s (naganap)</string>
     <string name="translations">Umambag ng pagsasalin</string>
-    <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
     <string name="user">Gumagamit</string>
-    <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
     <string name="location_remind_departure">Ipaalala sa pagdating</string>
     <string name="location_arrived">Dumating sa %s</string>
     <string name="location_departed">Umalis %s</string>

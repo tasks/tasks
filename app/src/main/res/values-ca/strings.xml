@@ -62,8 +62,6 @@
     <string name="gtasks_GLA_authenticating">S\'està autenticant…</string>
     <string name="rmd_NoA_done">Acabat</string>
     <string name="rmd_NoA_snooze">Adorm</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Inici de Silenci</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Final de Silenci</string>
     <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
@@ -77,7 +75,6 @@
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
     <string name="translations">Contribuir traduccions</string>
-    <string name="quiet_hours_summary">Sense recordatoris durant les hores de silenci</string>
     <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
     <string name="language">Idioma</string>
@@ -143,8 +140,6 @@
     <string name="CFC_gtasks_list_text">En la Llista: \?</string>
     <string name="CFC_list_name">En la llista…</string>
     <string name="ring_once">Sona un cop</string>
-    <string name="persistent_notifications">Notificacions persistents</string>
-    <string name="persistent_notifications_description">Les notificacions persistents no es poden esborrar</string>
     <string name="default_random_reminder_daily">Diariament</string>
     <string name="default_random_reminder_weekly">Setmanalment</string>
     <string name="repeat_option_custom">Personalitza…</string>
@@ -152,7 +147,6 @@
     <string name="CFC_tag_text">Etiqueta: \?</string>
     <string name="CFC_tag_contains_name">El nom de l\'etiqueta conté…</string>
     <string name="calendar_event_not_found">Esdeveniment de calendari no trobat</string>
-    <string name="rmd_EPr_rmd_time_title">Hora del recordatori</string>
     <plurals name="task_count">
         <item quantity="one">%d tasca</item>
         <item quantity="many">%d tasques</item>
@@ -199,17 +193,13 @@
     <string name="voice_command_added_task">Tasca afegida</string>
     <string name="widget_show_checkboxes">Mostra les caselles</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de veu</string>
-    <string name="EPr_voiceRemindersEnabled_title">Recordatori de veu</string>
     <string name="new_tag">Creeu una nova etiqueta</string>
     <string name="delete_tag_confirmation">Esborreu %s?</string>
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
     <string name="default_calendar">Calendari predeterminat</string>
-    <string name="bundle_notifications_summary">Combina diferents notificacions en una sola</string>
     <string name="or_choose_a_location">O escollir una ubicació</string>
-    <string name="swipe_to_snooze_time_15_minutes">després de 15 minuts</string>
-    <string name="swipe_to_snooze_time_30_minutes">després de 30 minuts</string>
     <string name="url">URL</string>
     <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
     <string name="tasker_create_task">Crear tasca</string>
@@ -248,9 +238,6 @@
     <string name="action_new_task">Tasca nova</string>
     <string name="expand_subtasks">Expandir subtasques</string>
     <string name="name_your_price">Preu flexible</string>
-    <string name="swipe_to_snooze_time_1_hour">després d\'1 hora</string>
-    <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
-    <string name="swipe_to_snooze_time_immediately">immediatament</string>
     <string name="tags">Etiquetes</string>
     <string name="password">Contrasenya</string>
     <string name="help_and_feedback">Ajuda i comentaris</string>
@@ -262,7 +249,6 @@
     <string name="notifications">Notificacions</string>
     <string name="date_shortcut_evening">Vespre</string>
     <string name="list_separator_with_space">", "</string>
-    <string name="swipe_to_snooze_title">Llisca per posposar</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
     <string name="tag_settings">Preferències de les etiquetes</string>
     <string name="font_size">Tamany de la font</string>
@@ -274,7 +260,6 @@
     <string name="discard">Descarta</string>
     <string name="copy">Copia</string>
     <string name="widget_show_dividers">Mostra el divisors</string>
-    <string name="quiet_hours">Temps de tranquil·litat</string>
     <string name="attachment_directory">Carpeta d\'adjunts</string>
     <string name="backup_directory">Carpeta de la còpia de seguretat</string>
     <string name="miscellaneous">Miscel·lània</string>
@@ -292,9 +277,6 @@
     <string name="name_cannot_be_empty">El nom no pot ser buit</string>
     <string name="back_button_saves_task">El botó enrere guarda la tasca</string>
     <string name="add_location">Afegeix un lloc</string>
-    <string name="swipe_to_snooze_description">Posposa</string>
-    <string name="swipe_to_snooze_time_description">Es posposarà i es recrearà una notificació eliminada %s</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks reproduirà el nom de les tasques en executà els recordatoris</string>
     <string name="list_settings">Preferències de les llistes</string>
     <string name="delete">Esborra</string>
     <string name="no_app_found">No hi ha cap aplicació que pugui gestionar aquesta sol·licitud</string>
@@ -325,7 +307,6 @@
     <string name="restart_required">Reinicia Tasks per aplicar els canvis</string>
     <string name="restart_now">Reinicia ara</string>
     <string name="restart_later">Després</string>
-    <string name="quiet_hours_in_effect">Les hores tranquil·les són efectives</string>
     <string name="opacity_footer">Opacitat del peu</string>
     <string name="comment">Comentari</string>
     <string name="widget_due_date_below_title">Sota el títol</string>
@@ -336,13 +317,11 @@
     <string name="widget_due_date_after_title">Després del títol</string>
     <string name="widget_open_list">Llista oberta</string>
     <string name="copy_selected_tasks">Voleu copiar les tasques seleccionades?</string>
-    <string name="notification_disable_battery_optimizations_description">Les optimitzacions de la bateria poden retardar les notificacions</string>
     <string name="app_settings">Configuració de l\'aplicació</string>
     <string name="widget_row_settings">Paràmetres de la fila</string>
     <string name="delete_comment">comentari</string>
     <string name="yesterday">Ahir</string>
     <string name="delete_selected_tasks">Voleu suprimir les tasques seleccionades?</string>
-    <string name="bundle_notifications">Notificacions del paquet</string>
     <string name="badges">Insígnies</string>
     <string name="repeats_from">Repeteix des de</string>
     <string name="dont_add_to_calendar">No afegiu al calendari</string>
@@ -365,13 +344,6 @@
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
     <string name="preferences_advanced">Avançat</string>
     <string name="documentation">Documentació</string>
-    <string name="wearable_notifications">Notificacions de rellotge intel·ligent</string>
-    <string name="wearable_notifications_summary">Mostreu les notificacions al vostre rellotge intel·ligent</string>
-    <string name="troubleshooting">Resolució de problemes</string>
-    <string name="notification_troubleshooting_summary">Toqueu aquí si teniu problemes amb les notificacions</string>
-    <string name="disable_battery_optimizations">Desactiveu les optimitzacions de la bateria</string>
-    <string name="more_settings">Més configuracions</string>
-    <string name="more_notification_settings_summary">To de trucada, vibracions i més</string>
     <string name="color_wheel">Roda de color</string>
     <string name="upgrade_blurb_1">Hola! Em dic Alex. Soc el desenvolupador independent darrere de les tasques</string>
     <string name="upgrade_blurb_2">He passat milers d\'hores treballant en tasques, i publico tot el codi font en internet de forma gratuïta. Per tal de donar suport al meu treball algunes funcions requereixen una subscripció</string>
@@ -473,7 +445,6 @@
     <string name="upgrade_open_source_description">La vostra subscripció suporta el desenvolupament continu</string>
     <string name="markdown">Markdown</string>
     <string name="markdown_description">Habiliteu el Markdown en el títol i la descripció</string>
-    <string name="completion_sound">Reproduïu el so de finalització</string>
     <string name="completed">Completat</string>
     <string name="snackbar_task_completed">Tasca completada</string>
     <string name="snackbar_tasks_completed">%d tasques completades</string>

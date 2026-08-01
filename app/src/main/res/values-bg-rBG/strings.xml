@@ -110,11 +110,6 @@
     <string name="rmd_NoA_done">Завършване</string>
     <string name="rmd_NoA_snooze">Отлагане</string>
     <string name="snooze_all">Отлагане на всички</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Начало на тихи часове</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Край на тихи часове</string>
-    <string name="rmd_EPr_rmd_time_title">Време на напомняне</string>
-    <string name="persistent_notifications">Постоянни известия</string>
-    <string name="persistent_notifications_description">Постоянните известия не могат да бъдат изчиствани</string>
     <string name="rmd_EPr_defaultRemind_title">Напомняния на случаен принцип</string>
     <string name="default_random_reminder_disabled">изключени</string>
     <string name="default_random_reminder_hourly">ежечасно</string>
@@ -157,8 +152,6 @@
     <string name="TEA_timer_comment_spent">Отделено време:</string>
     <string name="voice_create_prompt">Говорете, за да създадете задача</string>
     <string name="EPr_voiceInputEnabled_title">Гласово въвеждане</string>
-    <string name="EPr_voiceRemindersEnabled_title">Гласови напомняния</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks ще изговаря имената на задачите при напомняне</string>
     <string name="voice_command_added_task">Добавена задача</string>
     <plurals name="Ntasks">
         <item quantity="one">1 задача</item>
@@ -170,7 +163,6 @@
     <string name="widget_show_header">Заглавка</string>
     <string name="widget_show_settings">Настройки</string>
     <string name="notifications">Известия</string>
-    <string name="quiet_hours">Тихи часове</string>
     <string name="attachment_directory">Папка за прикачени файлове</string>
     <string name="backup_directory">Папка за резервни копия</string>
     <string name="google_drive_backup">Резервно копие в Google Drive</string>
@@ -180,7 +172,6 @@
     <string name="row_spacing">Междуредие</string>
     <string name="customize_edit_screen">Настройване на екрана за редактиране</string>
     <string name="translations">Допринасяне с превод</string>
-    <string name="quiet_hours_summary">Без напомняния по време на тихите часове</string>
     <string name="add_location">Добавяне на място</string>
     <string name="remove">Премахване</string>
     <string name="geofence_radius">Радиус на геозащита</string>
@@ -233,8 +224,6 @@
     <string name="copy_selected_tasks">Копиране на избраните задачи?</string>
     <string name="user">Потребител</string>
     <string name="password">Парола</string>
-    <string name="notification_disable_battery_optimizations_description">Оптимизацията на батерията може да забави известията</string>
-    <string name="bundle_notifications">Обединяване на известия</string>
     <string name="badges">Значки</string>
     <string name="list">Списък</string>
     <string name="repeats_from">Повтаря се от</string>
@@ -242,7 +231,6 @@
     <string name="dont_add_to_calendar">Не се добавя в календар</string>
     <string name="default_calendar">Календар по подразбиране</string>
     <string name="badges_description">Броят на задачите е видим върху иконата на Tasks. Не всички начални екрани го поддържат.</string>
-    <string name="bundle_notifications_summary">Няколко известия се обединяват в едно</string>
     <string name="tasker_create_task">Създаване на задача</string>
     <string name="tasker_list_notification">Списък с известия</string>
     <string name="help">Помощ</string>
@@ -285,7 +273,6 @@
     <string name="filter_no_priority">Без приоритет</string>
     <string name="filter_no_tags">Без етикет</string>
     <string name="filter_today_only">Само днес</string>
-    <string name="more_settings">Повече настройки</string>
     <string name="help_and_feedback">Помощ и обратна връзка</string>
     <string name="theme_system_default">Спрямо системата</string>
     <string name="default_location">Място по подразбиране</string>
@@ -347,8 +334,6 @@
     <string name="auto_dismiss_datetime_list">Списък със задачи</string>
     <string name="chip_appearance_text_only">Само текст</string>
     <string name="chip_appearance_text_and_icon">Текст и икона</string>
-    <string name="more_notification_settings_summary">Звънене, вибрация и други</string>
-    <string name="disable_battery_optimizations">Изключване на оптимизацията на батерията</string>
     <string name="preferences_advanced">Разширени</string>
     <string name="show_advanced_settings">Разширени настройки</string>
     <string name="caldav_selection_description">Синхронизиране посредством отворени стандарти</string>
@@ -357,7 +342,6 @@
     <string name="whats_new">Какво е новото</string>
     <string name="no_app_found">Липсва приложение, което да обработи тази заявка</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
-    <string name="troubleshooting">Отстраняване на неизправности</string>
     <string name="back">Назад</string>
     <string name="now">Сега</string>
     <string name="filter_criteria_unstarted">Незапочнати</string>
@@ -375,13 +359,10 @@
     <string name="filter_medium_priority">Среден приоритет</string>
     <string name="local_lists">Местни списъци</string>
     <string name="background_location_permission_required">Tasks събира данни за местоположението, за да прави напомняния на тази основа, дори и когато приложението е затворено или не се използва.</string>
-    <string name="wearable_notifications_summary">Показване на известия на носимото устройство</string>
     <string name="color_wheel">Цветно колело</string>
-    <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>
     <string name="multi_select_reschedule">Пренасрочване</string>
     <string name="auto_dismiss_datetime">Автоматично затваряне след избор на дата и час</string>
     <string name="auto_dismiss_datetime_list_summary">Затваряне след избор от списъка със задачи</string>
-    <string name="wearable_notifications">Известия на носими устройства</string>
     <string name="auto_dismiss_datetime_edit_summary">Затваряне след избор от списъка за промяна на задача</string>
     <string name="auto_dismiss_datetime_widget_summary">Затваряне след избор от приспособлението</string>
     <string name="auto_dismiss_datetime_summary">Затваряне на екрана за дата и час след избора им</string>
@@ -416,7 +397,6 @@
     <string name="upgrade_open_source_description">Абонаментът поддържа непрекъснатото развитие</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
     <string name="upgrade_more_customization">Повече настройки</string>
-    <string name="completion_sound">Възпроизвеждане на звук при завършване</string>
     <string name="open_last_viewed_list">Отваряне на последно прегледания списък</string>
     <string name="reset_sort_order">Нулиране на сортирането</string>
     <string name="open_source">Отворен код</string>
@@ -447,14 +427,6 @@
     <string name="sort_list">По списък</string>
     <string name="change_priority">Промяна на приоритет</string>
     <string name="theme_dynamic">Динамична</string>
-    <string name="swipe_to_snooze_description">Отлагане на време</string>
-    <string name="swipe_to_snooze_time_immediately">веднага</string>
-    <string name="swipe_to_snooze_time_15_minutes">след 15 минути</string>
-    <string name="swipe_to_snooze_time_30_minutes">след 30 минути</string>
-    <string name="swipe_to_snooze_time_1_hour">след 1 час</string>
-    <string name="swipe_to_snooze_time_24_hours">след 24 часа</string>
-    <string name="swipe_to_snooze_title">Плъзнете за да отложите</string>
-    <string name="swipe_to_snooze_time_description">Изчистеното известие ще бъде отложено и пресъздадено %s</string>
     <string name="show_edit_screen_without_unlock">Показване на екран за редактиране без отключване</string>
     <string name="show_edit_screen_without_unlock_summary">Използва плочката за бързи настройки без отключване на устройството</string>
     <string name="customize_drawer">Настройка на менюто</string>
@@ -462,7 +434,6 @@
     <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
     <string name="donate_today">Даряване днес</string>
     <string name="donate_maybe_later">Може би после</string>
-    <string name="quiet_hours_in_effect">В момента е време за тишина</string>
     <string name="enable_alarms">Получавайте напомнянията навреме</string>
     <string name="enable_alarms_description">За да бъдете сигурни, че ще получите напомняне в точното време дайте разрешение за задаване на будилници и напомняния в настройките</string>
     <string name="price_per_year_with_currency">%s/година</string>
@@ -501,10 +472,6 @@
     <string name="email_to_task_address">Адрес на ел. поща</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync и други!</string>
     <string name="rmd_EPr_rmd_time_desc">Известията за целодневните задачи ще се показват в %1$s</string>
-    <string name="default_reminder">Целодневни задачи</string>
-    <string name="add_default_reminders">Добавяне на стандартно напомняне</string>
-    <string name="rmd_time_enabled_on">Добавяне на стандартно напомняне към целодневните задачи</string>
-    <string name="rmd_time_enabled_off">Без добавяне на стандартно напомняне към целодневните задачи</string>
     <string name="upgrade_email_to_task_description">Създаване на задачи от ел. писма, чрез препращането им към личната ви входяща кутия</string>
     <string name="advanced_tools">Разширени инструменти</string>
     <string name="location_update_interval_title">Обновяване на местоположението във фонов режим</string>

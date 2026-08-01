@@ -9,13 +9,20 @@ import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+
+class PreferencesSnapshot(private val preferences: Preferences) {
+    fun <T> get(key: Preferences.Key<T>, defaultValue: T): T = preferences[key] ?: defaultValue
+}
 
 class TasksPreferences(private val dataStore: DataStore<Preferences>) {
 
     suspend fun <T> get(key: Preferences.Key<T>, defaultValue: T): T =
         dataStore.data.map { it[key] }.firstOrNull() ?: defaultValue
+
+    suspend fun snapshot(): PreferencesSnapshot = PreferencesSnapshot(dataStore.data.first())
 
     fun <T> flow(key: Preferences.Key<T>, defaultValue: T): Flow<T> =
         dataStore.data.map { it[key] ?: defaultValue }
@@ -83,5 +90,16 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val metadataOrderDirty = booleanPreferencesKey("metadata_order_dirty")
         val datePickerInputMode = booleanPreferencesKey("date_picker_input_mode")
         val timePickerInputMode = booleanPreferencesKey("time_picker_input_mode")
+        val persistentNotifications = booleanPreferencesKey("persistent_notifications")
+        val wearableNotifications = booleanPreferencesKey("wearable_notifications")
+        val bundleNotifications = booleanPreferencesKey("bundle_notifications")
+        val voiceReminders = booleanPreferencesKey("voice_reminders")
+        val swipeToSnoozeEnabled = booleanPreferencesKey("swipe_to_snooze_enabled")
+        val swipeToSnoozeMinutes = intPreferencesKey("swipe_to_snooze_minutes")
+        val defaultRemindersEnabled = booleanPreferencesKey("default_reminders_enabled")
+        val defaultReminderTime = intPreferencesKey("default_reminder_time")
+        val quietHoursEnabled = booleanPreferencesKey("quiet_hours_enabled")
+        val quietHoursStart = intPreferencesKey("quiet_hours_start")
+        val quietHoursEnd = intPreferencesKey("quiet_hours_end")
     }
 }

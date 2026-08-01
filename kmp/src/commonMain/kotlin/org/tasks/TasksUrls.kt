@@ -3,6 +3,7 @@ package org.tasks
 object TasksUrls {
     const val CHANGELOG = "https://tasks.org/changelog"
     const val DOCUMENTATION = "https://tasks.org/"
+    const val NOTIFICATIONS = "https://tasks.org/notifications"
     const val ISSUE_TRACKER = "https://github.com/tasks/tasks/issues"
     const val REDDIT = "https://reddit.com/r/tasks"
     const val TWITTER = "https://x.com/tasks_org"

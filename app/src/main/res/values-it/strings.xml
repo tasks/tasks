@@ -106,11 +106,6 @@
     <string name="rmd_NoA_done">Completata</string>
     <string name="rmd_NoA_snooze">Posticipa</string>
     <string name="snooze_all">Posticipa tutti</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Inizio ore di quiete</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Fine ore di quiete</string>
-    <string name="rmd_EPr_rmd_time_title">Ora del promemoria</string>
-    <string name="persistent_notifications">Notifiche persistenti</string>
-    <string name="persistent_notifications_description">Le notifiche persistenti non possono essere cancellate</string>
     <string name="rmd_EPr_defaultRemind_title">Promemoria casuali</string>
     <string name="default_random_reminder_disabled">Disabilitati</string>
     <string name="default_random_reminder_hourly">Ogni ora</string>
@@ -158,8 +153,6 @@
     <string name="TEA_timer_comment_spent">Tempo speso:</string>
     <string name="voice_create_prompt">Detta il nome dell\'attività</string>
     <string name="EPr_voiceInputEnabled_title">Voce</string>
-    <string name="EPr_voiceRemindersEnabled_title">Promemoria vocali</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks pronuncerà il nome dell\'attività durante i promemoria</string>
     <string name="voice_command_added_task">Attività aggiunta</string>
     <plurals name="Ntasks">
         <item quantity="one">1 attività</item>
@@ -172,7 +165,6 @@
     <string name="widget_show_header">Mostra intestazione</string>
     <string name="widget_show_settings">Mostra impostazioni</string>
     <string name="notifications">Notifiche</string>
-    <string name="quiet_hours">Ore di quiete</string>
     <string name="attachment_directory">Cartella degli allegati</string>
     <string name="backup_directory">Cartella di backup</string>
     <string name="google_drive_backup">Backup su Google Drive</string>
@@ -182,7 +174,6 @@
     <string name="row_spacing">Interlinea</string>
     <string name="customize_edit_screen">Personalizza schermata di modifica</string>
     <string name="translations">Contribuisci alla traduzione</string>
-    <string name="quiet_hours_summary">Nessuna notifica durante le ore di quiete</string>
     <string name="add_location">Aggiungi posizione</string>
     <string name="remove">Elimina</string>
     <string name="geofence_radius">Raggio area geografica</string>
@@ -233,8 +224,6 @@
     <string name="delete_selected_tasks">Eliminare le attività selezionate\?</string>
     <string name="copy_selected_tasks">Copio le attività selezionate\?</string>
     <string name="user">Utente</string>
-    <string name="notification_disable_battery_optimizations_description">L\'ottimizzazione della batteria può ritardare le notifiche</string>
-    <string name="bundle_notifications">Raggruppa notifiche</string>
     <string name="badges">Badge</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Ripeti a partire da</string>
@@ -242,7 +231,6 @@
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
     <string name="default_calendar">Calendario predefinito</string>
     <string name="badges_description">Mostra il contatore delle notifiche sull\'icona di Tasks. Non tutti i launcher supportano questa funzionalità.</string>
-    <string name="bundle_notifications_summary">Combina diverse notifiche in una sola</string>
     <string name="tasker_create_task">Crea attività</string>
     <string name="tasker_list_notification">Elenca notifiche</string>
     <string name="help">Aiuto</string>
@@ -291,13 +279,6 @@
     <string name="upgrade_blurb_2">Ho dedicato a Tasks migliaia di ore di lavoro, pubblicando tutto il codice sorgente online, gratuitamente. Per supportare il mio lavoro alcune funzioni richiedono un abbonamento</string>
     <string name="upgrade_blurb_1">Ciao! Mi chiamo Alex. Sono lo sviluppatore indipendente di Tasks</string>
     <string name="color_wheel">Selettore colori avanzato</string>
-    <string name="more_notification_settings_summary">Suoneria, vibrazione ed altro</string>
-    <string name="more_settings">Altre impostazioni</string>
-    <string name="disable_battery_optimizations">Disabilita ottimizzazione batteria</string>
-    <string name="notification_troubleshooting_summary">Tocca qui se stai riscontrando problemi con le notifiche</string>
-    <string name="troubleshooting">Risoluzione problemi</string>
-    <string name="wearable_notifications_summary">Mostra notifiche sul tuo dispositivo indossabile</string>
-    <string name="wearable_notifications">Notifiche dispositivi indossabili</string>
     <string name="documentation">Documentazione (online)</string>
     <string name="preferences_advanced">Avanzate</string>
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
@@ -440,7 +421,6 @@
     <string name="markdown_description">Abilita la formattazione Markdown nel titolo e nella descrizione</string>
     <string name="markdown">Markdown</string>
     <string name="now">Ora</string>
-    <string name="completion_sound">Suono di completamento</string>
     <string name="completed">Completate</string>
     <string name="snackbar_task_completed">Attività completata</string>
     <string name="snackbar_tasks_completed">%d attività completate</string>
@@ -459,17 +439,8 @@
     <string name="donate_maybe_later">Forse più tardi</string>
     <string name="customize_drawer">Personalizza il menù laterale</string>
     <string name="customize_drawer_summary">Trascina e rilascia le voci del menù per riorganizzarlo</string>
-    <string name="swipe_to_snooze_time_24_hours">dopo 24 ore</string>
-    <string name="swipe_to_snooze_time_15_minutes">dopo 15 minuti</string>
     <string name="show_edit_screen_without_unlock">Mostra la schermata di modifica senza sbloccare</string>
-    <string name="swipe_to_snooze_title">Trascina per posticipare</string>
-    <string name="swipe_to_snooze_time_immediately">immediatamente</string>
-    <string name="swipe_to_snooze_time_30_minutes">dopo 30 minuti</string>
-    <string name="swipe_to_snooze_time_1_hour">dopo 1 ora</string>
     <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
-    <string name="swipe_to_snooze_description">Posticipa</string>
-    <string name="swipe_to_snooze_time_description">Una notifica annullata sarà posticipata e ricreata %s</string>
-    <string name="quiet_hours_in_effect">Ore di quiete attive</string>
     <string name="yesterday">Ieri</string>
     <string name="delete_comment">commento</string>
     <string name="price_per_month_with_currency">%s/mese</string>
@@ -507,10 +478,6 @@
     <string name="email_to_task_address">Il tuo indirizzo email</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>
     <string name="rmd_EPr_rmd_time_desc">Le notifiche delle attività per l\'intera giornata verranno visualizzate alle %1$s</string>
-    <string name="default_reminder">Attività per l\'intera giornata</string>
-    <string name="rmd_time_enabled_on">Aggiungi promemoria predefiniti alle attività per l’intera giornata</string>
-    <string name="rmd_time_enabled_off">Non aggiungere promemoria predefiniti alle attività per l’intera giornata</string>
-    <string name="add_default_reminders">Aggiungi promemoria predefiniti</string>
     <string name="email_to_task">Attività da email</string>
     <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
     <string name="advanced_tools">Strumenti avanzati</string>

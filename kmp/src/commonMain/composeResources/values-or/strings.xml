@@ -135,6 +135,7 @@
         <item quantity="other">ସପ୍ତାହ</item>
     </plurals>
     <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="more_settings">ଅଧିକ ସେଟିଂ</string>
     <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
     <string name="date_shortcut_morning">ସକାଳ</string>
     <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>

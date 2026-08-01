@@ -1,5 +1,6 @@
 package org.tasks.injection
 
+import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.PlatformConfiguration
 import dagger.Module
 import dagger.Provides
@@ -32,6 +33,13 @@ class FlavorModule {
         isLibre = true,
         supportsWidgets = true,
         supportsLogExport = true,
+        supportsNotificationTroubleshooting = true,
+        supportsSystemNotificationSettings = true,
+        supportsOngoingNotifications = AndroidUtilities.preUpsideDownCake(),
+        supportsBundledNotifications = true,
+        supportsVoiceReminders = true,
+        supportsCompletionSound = true,
+        supportsSwipeToSnooze = true,
     )
 
     @Provides

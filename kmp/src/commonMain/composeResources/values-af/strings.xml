@@ -8,4 +8,6 @@
     <string name="SSD_sort_modified">Volgens laaste verander</string>
     <string name="SSD_sort_auto">Slim sorteer</string>
     <string name="email">E-pos</string>
+    <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
+    <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
 </resources>

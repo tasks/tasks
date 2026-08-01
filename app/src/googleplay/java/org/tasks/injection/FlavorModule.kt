@@ -2,6 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import com.google.android.gms.wearable.Wearable
+import com.todoroo.andlib.utility.AndroidUtilities
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
@@ -53,6 +54,13 @@ class FlavorModule {
         supportsWidgets = true,
         supportsDesktopLinking = true,
         supportsLogExport = true,
+        supportsNotificationTroubleshooting = true,
+        supportsSystemNotificationSettings = true,
+        supportsOngoingNotifications = AndroidUtilities.preUpsideDownCake(),
+        supportsBundledNotifications = true,
+        supportsVoiceReminders = true,
+        supportsCompletionSound = true,
+        supportsSwipeToSnooze = true,
     )
 
     @Provides

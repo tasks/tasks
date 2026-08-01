@@ -63,14 +63,6 @@
   <string name="p_rmd_swipe_to_snooze_enabled">notif_swipe_to_snooze_enabled</string>
   <string name="p_rmd_swipe_to_snooze_time_minutes">notif_swipe_to_snooze_time_minutes</string>
 
-  <string-array name="swipe_to_snooze_time_values">
-    <item>0</item>
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-    <item>1440</item>
-  </string-array>
-
   <!-- ringtone to use for notifications -->
   <string name="p_completion_ringtone">completion_ringtone</string>
 

@@ -52,15 +52,16 @@ import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sse.SseClient
+import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.sse.SseTokenProvider
 import java.io.File
 
 private val appName: String =
     if (JvmBuildConfig.DEBUG) "Tasks.org.debug" else "Tasks.org"
 
-private enum class Platform { MAC, WINDOWS, LINUX }
+internal enum class Platform { MAC, WINDOWS, LINUX }
 
-private fun platform(): Platform {
+internal fun platform(): Platform {
     val os = System.getProperty("os.name").lowercase()
     return when {
         "mac" in os || "darwin" in os -> Platform.MAC
@@ -121,6 +122,8 @@ actual fun platformModule(): Module = module {
             supportsEteSync = true,
             supportsGoogleTasks = true,
             supportsMicrosoft = true,
+            supportsSwipeToSnooze = false,
+            supportsSystemNotificationSettings = supportsSystemNotificationSettings(),
         )
     }
     single<Reporting> {

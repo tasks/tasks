@@ -88,9 +88,6 @@
     <string name="premium_record_audio">Nahrát poznámku</string>
     <string name="rmd_NoA_done">Dokončeno</string>
     <string name="rmd_NoA_snooze">Odložit</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
-    <string name="rmd_EPr_rmd_time_title">Čas upomínky</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné upomínky</string>
     <string name="default_random_reminder_disabled">Zakázáno</string>
     <string name="default_random_reminder_hourly">Každou hodinu</string>
@@ -106,7 +103,6 @@
     <string name="TEA_timer_comment_spent">Strávený čas:</string>
     <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
     <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
-    <string name="EPr_voiceRemindersEnabled_title">Hlasové upomínky</string>
     <string name="voice_command_added_task">Přidán úkol</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úkol</item>
@@ -119,13 +115,11 @@
     <string name="widget_show_header">Zobrazit záhlaví</string>
     <string name="widget_show_settings">Zobrazit nastavení</string>
     <string name="notifications">Oznámení</string>
-    <string name="quiet_hours">Období nerušení</string>
     <string name="backup_directory">Složka pro zálohy</string>
     <string name="miscellaneous">Různé</string>
     <string name="enabled">Povoleno</string>
     <string name="font_size">Velikost písma</string>
     <string name="translations">Přispějte k překladu</string>
-    <string name="quiet_hours_summary">Žádné připomínky v období nerušení</string>
     <string name="remove">Odstranit</string>
     <string name="tags">Štítky</string>
     <string name="filters">Filtry</string>
@@ -175,8 +169,6 @@
     <string name="ring_five_times">Zazvonit pětkrát</string>
     <string name="ring_nonstop">Zvonit neustále</string>
     <string name="snooze_all">Odložit vše</string>
-    <string name="persistent_notifications">Trvalá upozornění</string>
-    <string name="persistent_notifications_description">Trvalá upozornění nemohou být odstraněna</string>
     <string name="repeat_option_custom">Vlastní…</string>
     <plurals name="task_count">
         <item quantity="one">%d úkol</item>
@@ -210,7 +202,6 @@
     </plurals>
     <string name="repeat_snackbar">Úkol %1$s byl znovu naplánován na %2$s</string>
     <string name="new_list">Vytvořit nový seznam</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks bude při upomínce nahlas číst název úkolu</string>
     <string name="attachment_directory">Složka pro přílohy</string>
     <string name="google_drive_backup">Záloha na Disk Google</string>
     <string name="row_spacing">Řádkování</string>
@@ -236,8 +227,6 @@
     <string name="user">Uživatel</string>
     <string name="password">Heslo</string>
     <string name="url">URL</string>
-    <string name="notification_disable_battery_optimizations_description">Režim snížení spotřeby energie z akumulátoru může zpozdit upozornění</string>
-    <string name="bundle_notifications">Seskupovat upozornění</string>
     <string name="badges">Odznaky</string>
     <string name="list">Seznam</string>
     <string name="repeats_from">Opakuje se od</string>
@@ -245,7 +234,6 @@
     <string name="dont_add_to_calendar">Nepřidávat do kalendáře</string>
     <string name="default_calendar">Výchozí kalendář</string>
     <string name="badges_description">Zobrazit počet úkolů u ikony Tasks. Některé spouštěče tuto funkci nepodporují.</string>
-    <string name="bundle_notifications_summary">Seskupit několik upozornění do jednoho</string>
     <string name="tasker_create_task">Vytvořit úkol</string>
     <string name="tasker_list_notification">Vypsat upozornění</string>
     <string name="help">Nápověda</string>
@@ -284,13 +272,6 @@
     <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
     <string name="documentation">Dokumentace</string>
     <string name="preferences_advanced">Pokročilé možnosti</string>
-    <string name="wearable_notifications">Upozornění na hodinkách</string>
-    <string name="wearable_notifications_summary">Zobrazí upozornění na vašich chytrých hodinkách</string>
-    <string name="troubleshooting">Řešení problémů</string>
-    <string name="notification_troubleshooting_summary">Klepněte sem pokud se vám zpožďují upozornění či se vůbec nezobrazují</string>
-    <string name="disable_battery_optimizations">Vypnout snižování spotřeby energie z akumulátoru</string>
-    <string name="more_settings">Další nastavení</string>
-    <string name="more_notification_settings_summary">Zvuk upozornění, vibrace, atd.</string>
     <string name="widget_show_menu">Zobrazit nabídku</string>
     <string name="sort_created">Podle času vytvoření</string>
     <string name="delete_multiple_tasks_confirmation">%s smazáno</string>
@@ -442,7 +423,6 @@
     <string name="now">Nyní</string>
     <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
     <string name="custom_filter_has_reminder">Má upomínku</string>
-    <string name="completion_sound">Přehrát zvuk dokončení</string>
     <string name="snackbar_task_completed">Úkol splněn</string>
     <string name="completed">Splněný</string>
     <string name="snackbar_tasks_completed">%d úkolů splněno</string>
@@ -461,16 +441,7 @@
     <string name="show_edit_screen_without_unlock_summary">Umožňuje použití dlaždice rychlého nastavení bez odemykání zařízení</string>
     <string name="customize_drawer">Upravit šuplík</string>
     <string name="customize_drawer_summary">Přetažením změníte uspořádání položek nabídky</string>
-    <string name="swipe_to_snooze_time_description">Vymazané oznámení bude odloženo a znovu vytvořeno %s</string>
-    <string name="swipe_to_snooze_time_immediately">okamžitě</string>
-    <string name="swipe_to_snooze_time_1_hour">po 1 hodině</string>
-    <string name="swipe_to_snooze_time_30_minutes">po 30 minutách</string>
-    <string name="swipe_to_snooze_time_15_minutes">po 15 minutách</string>
-    <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
-    <string name="swipe_to_snooze_title">Přejetím prstu odložíte</string>
-    <string name="swipe_to_snooze_description">Čas odložení</string>
     <string name="yesterday">Včera</string>
-    <string name="quiet_hours_in_effect">Režim nerušit je zapnutý</string>
     <string name="delete_comment">komentář</string>
     <string name="price_per_month_with_currency">%s měsíčně</string>
     <string name="price_per_year_with_currency">%s ročně</string>
@@ -507,10 +478,6 @@
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>
     <string name="rmd_EPr_rmd_time_desc">Oznámení o celodenních úkolech se zobrazí v %1$s</string>
-    <string name="default_reminder">Celodenní úkoly</string>
-    <string name="add_default_reminders">Přidat výchozí připomínky</string>
-    <string name="rmd_time_enabled_on">Přidat výchozí připomínky k celodenním úkolům</string>
-    <string name="rmd_time_enabled_off">Nepřidávat výchozí připomínky do celodenních úkolů</string>
     <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
     <string name="advanced_tools">Pokročilé nástroje</string>
     <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>

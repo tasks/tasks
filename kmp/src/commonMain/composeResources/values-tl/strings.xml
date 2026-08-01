@@ -41,4 +41,6 @@
         <item quantity="other">mga taon</item>
     </plurals>
     <string name="delete_task">Tanggalin gawain</string>
+    <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
+    <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
 </resources>

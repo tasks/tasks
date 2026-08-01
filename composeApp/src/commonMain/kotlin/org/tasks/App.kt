@@ -182,6 +182,7 @@ import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.MicrosoftAccountSettingsDetail
 import org.tasks.compose.settings.MicrosoftAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
+import org.tasks.compose.settings.NotificationsDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.TagSettingsScreen
@@ -3113,6 +3114,13 @@ private fun SettingsScreen(
                 when (selectedContent) {
                     is org.tasks.compose.settings.SettingsDestination.HelpAndFeedback -> {
                         HelpAndFeedbackDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.Notifications -> {
+                        NotificationsDetail(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },

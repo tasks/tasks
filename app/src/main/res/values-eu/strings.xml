@@ -111,11 +111,6 @@
     <string name="rmd_NoA_done">Burututa</string>
     <string name="rmd_NoA_snooze">Atzeratu</string>
     <string name="snooze_all">Atzeratu denak</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Isiluneko ordutegiaren hasiera</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Isiluneko ordutegiaren amaiera</string>
-    <string name="rmd_EPr_rmd_time_title">Lehenetsitako oroigarria</string>
-    <string name="persistent_notifications">Jakinarazpen iraunkorrak</string>
-    <string name="persistent_notifications_description">Jakinarazpen iraunkorrak ezin dira kendu</string>
     <string name="rmd_EPr_defaultRemind_title">Ausazko oroigarriak</string>
     <string name="default_random_reminder_disabled">Desgaituta</string>
     <string name="default_random_reminder_hourly">Orduero</string>
@@ -158,8 +153,6 @@
     <string name="TEA_timer_comment_spent">Erabilitako denbora:</string>
     <string name="voice_create_prompt">Hitz egin zeregin bat sortzeko</string>
     <string name="EPr_voiceInputEnabled_title">Ahotz bidezko sarrera</string>
-    <string name="EPr_voiceRemindersEnabled_title">Ahots-oroigarriak</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks aplikazioak zereginen izena esango du oroigarrietan</string>
     <string name="voice_command_added_task">Zeregina gehituta</string>
     <plurals name="Ntasks">
         <item quantity="one">Zeregin 1</item>
@@ -171,7 +164,6 @@
     <string name="widget_show_header">Erakutsi goiburua</string>
     <string name="widget_show_settings">Erakutsi ezarpenak</string>
     <string name="notifications">Jakinarazpenak</string>
-    <string name="quiet_hours">Isilune orduak</string>
     <string name="attachment_directory">Eranskinen karpeta</string>
     <string name="backup_directory">Babes-kopien karpeta</string>
     <string name="google_drive_backup">Google Drive babeskopia</string>
@@ -181,7 +173,6 @@
     <string name="row_spacing">Errenkaden banatze espazioa</string>
     <string name="customize_edit_screen">Pertsonalizatu edizio pantaila</string>
     <string name="translations">Lagundu itzulpenekin</string>
-    <string name="quiet_hours_summary">Oroigarririk ez isilune orduetan</string>
     <string name="add_location">Gehitu kokalekua</string>
     <string name="remove">Kendu</string>
     <string name="geofence_radius">Geoesparruaren erradioa</string>
@@ -235,8 +226,6 @@
     <string name="user">Erabiltzailea</string>
     <string name="password">Pasahitza</string>
     <string name="url">URL-a</string>
-    <string name="notification_disable_battery_optimizations_description">Bateriaren optimizazioek jakinarazpenak atzeratu ditzakete</string>
-    <string name="bundle_notifications">Taldekatu jakinarazpenak</string>
     <string name="badges">Dominak</string>
     <string name="list">Zerrenda</string>
     <string name="repeats_from">Errepikatu hemendik</string>
@@ -245,7 +234,6 @@
     <string name="dont_add_to_calendar">Ez gehitu egutegira</string>
     <string name="default_calendar">Lehenetsitako egutegia</string>
     <string name="badges_description">Bistaratu zeregin kopurua abiarazleko Tasks ikonoan. Abiarazle guztiek ez dituzte dominak onartzen.</string>
-    <string name="bundle_notifications_summary">Taldekatu hainbat jakinarazpen batean</string>
     <string name="tasker_create_task">Sortu zeregina</string>
     <string name="tasker_list_notification">Zerrenda-jakinarazpena</string>
     <string name="help">Laguntza</string>
@@ -293,13 +281,6 @@
     <string name="help_and_feedback">Feedback eta laguntza</string>
     <string name="documentation">Dokumentazioa</string>
     <string name="preferences_advanced">Aurreratua</string>
-    <string name="wearable_notifications">Erlojuaren jakinarazpenak</string>
-    <string name="wearable_notifications_summary">Erakutsi jakinarazpenak erlojuan</string>
-    <string name="troubleshooting">Arazoen konponketa</string>
-    <string name="notification_troubleshooting_summary">Sakatu hemen jakinarazpenekin arazoak badituzu</string>
-    <string name="disable_battery_optimizations">Desgaitu bateriaren optimizazioak</string>
-    <string name="more_settings">Ezarpen gehiago</string>
-    <string name="more_notification_settings_summary">Dei-doinua, bibrazioak, eta gehiago</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
     <string name="color_wheel">Kolore-gurpila</string>
     <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks aplikazioaren garatzaile independentea</string>
@@ -436,7 +417,6 @@
     <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
     <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
     <string name="now">Orain</string>
-    <string name="completion_sound">Amaierako soinua erreproduzitu</string>
     <string name="completed">Amaituta</string>
     <string name="snackbar_task_completed">Amaitutako zereginak</string>
     <string name="snackbar_tasks_completed">%d atazak osatuta</string>

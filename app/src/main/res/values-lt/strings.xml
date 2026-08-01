@@ -115,11 +115,6 @@
     <string name="rmd_NoA_done">Užbaigta</string>
     <string name="rmd_NoA_snooze">Užmigdyti</string>
     <string name="snooze_all">Užmigdyti visus</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Tylaus meto pradžia</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Tylaus meto pabaiga</string>
-    <string name="rmd_EPr_rmd_time_title">Priminimo laikas</string>
-    <string name="persistent_notifications">„Atkaklūs“ pranešimai</string>
-    <string name="persistent_notifications_description">„Atkaklūs“ pranešimai negali būti išvalyti</string>
     <string name="rmd_EPr_defaultRemind_title">Atsitiktiniai priminimai</string>
     <string name="default_random_reminder_disabled">Išjungta</string>
     <string name="default_random_reminder_hourly">Kas valandą</string>
@@ -168,8 +163,6 @@
     <string name="TEA_timer_comment_spent">Praleista laiko:</string>
     <string name="voice_create_prompt">Sukurti užduotį žodžiu</string>
     <string name="EPr_voiceInputEnabled_title">Įrašyti balsu</string>
-    <string name="EPr_voiceRemindersEnabled_title">Balso priminimai</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks garsu praneš užduoties pavadinimą per priminimus</string>
     <string name="voice_command_added_task">Pridėta užduotis</string>
     <plurals name="Ntasks">
         <item quantity="one">1 užduotis</item>
@@ -182,7 +175,6 @@
     <string name="widget_show_header">Rodyti antraštę</string>
     <string name="widget_show_settings">Rodyti nustatymus</string>
     <string name="notifications">Pranešimai</string>
-    <string name="quiet_hours">Tylusis metas</string>
     <string name="attachment_directory">Pridedamo failo aplankas</string>
     <string name="backup_directory">Atsarginių kopijų aplankas</string>
     <string name="google_drive_backup">Google Drive atsarginė kopija</string>
@@ -192,7 +184,6 @@
     <string name="row_spacing">Eilutės plotis</string>
     <string name="customize_edit_screen">Pritaikyti redagavimo ekraną</string>
     <string name="translations">Padėti išversti</string>
-    <string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
     <string name="add_location">Pridėti vietą</string>
     <string name="remove">Išmesti</string>
     <string name="geofence_radius">Geofence spindulys</string>
@@ -244,8 +235,6 @@
     <string name="copy_selected_tasks">Nukopijuoti pažymėtas užduotis?</string>
     <string name="user">Vartotojas</string>
     <string name="password">Slaptažodis</string>
-    <string name="notification_disable_battery_optimizations_description">Baterijos optimizacijos gali uždelsti pranešimus</string>
-    <string name="bundle_notifications">Grupuoti pranešimus</string>
     <string name="badges">Ženkleliai</string>
     <string name="list">Sąrašas</string>
     <string name="repeats_from">Kartosis nuo</string>
@@ -253,7 +242,6 @@
     <string name="dont_add_to_calendar">Pridėti prie kalendoriaus</string>
     <string name="default_calendar">Numatytas kalendorius</string>
     <string name="badges_description">Rodyti užduočių kiekį Tasks paleidimo piktogramoje. Ne visos paleidimo programos palaiko šią funkciją.</string>
-    <string name="bundle_notifications_summary">Sujungti kelis pranešimus į vieną</string>
     <string name="tasker_create_task">Sukurti užduotį</string>
     <string name="tasker_list_notification">Rodyti pranešimus</string>
     <string name="help">Pagalba</string>
@@ -305,9 +293,6 @@
     <string name="opacity_header">Antraštės permatomumas</string>
     <string name="widget_show_menu">Rodyti meniu</string>
     <string name="theme_system_default">Sistemos numatyta</string>
-    <string name="more_notification_settings_summary">Skambučiai, vibracija ir kita</string>
-    <string name="more_settings">Papildomi nustatymai</string>
-    <string name="disable_battery_optimizations">Išjungti baterijos optimizaciją</string>
     <string name="this_feature_requires_a_subscription">Šiai funkcijai reikalinga prenumerata</string>
     <string name="icon">Piktograma</string>
     <string name="chip_appearance_icon_only">Tik piktograma</string>
@@ -354,7 +339,6 @@
     <string name="last_backup_never">niekada</string>
     <string name="lists">Sąrašai</string>
     <string name="places">Vietos</string>
-    <string name="troubleshooting">Trikčių šalinimas</string>
     <string name="copied_to_clipboard">%s nukopijuota į iškarpinę</string>
     <string name="now">Dabar</string>
     <string name="filter_eisenhower_box_4">Nėra svarbu ir neskubu</string>
@@ -435,9 +419,6 @@
     <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
     <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks kūrėjas</string>
     <string name="place_settings">Vietos nustatymai</string>
-    <string name="wearable_notifications_summary">Rodyti pranešimus ant jūsų dėvimo įrenginio</string>
-    <string name="wearable_notifications">Dėvimo įrenginio pranešimai</string>
-    <string name="notification_troubleshooting_summary">Bakstelėkite čia, jei kyla problemų dėl pranešimų</string>
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
@@ -451,7 +432,6 @@
     <string name="completed">Įvykdyta</string>
     <string name="dismiss">Atsisakyti</string>
     <string name="customize_edit_screen_summary">Pertvarkyti arba pašalinti laukus</string>
-    <string name="completion_sound">Groti užbaigimo garsą</string>
     <string name="TEA_creation_date">Sukūrimo data</string>
     <string name="sort_completion_group">Užbaigimas %s</string>
     <string name="snackbar_task_completed">Užduotis įvykdyta</string>

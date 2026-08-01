@@ -24,6 +24,6 @@
     <string name="pricing_sponsor_nyp" translatable="false">$1</string>
     <string name="event_pebble" translatable="false">pebble</string>
     <string name="param_device_model" translatable="false">device_model</string>
-    <string name="not_available_desktop" translatable="false">🚧🚧🚧</string>
+    <string name="not_available_desktop" translatable="false">🚧 UNDER CONSTRUCTION 🚧</string>
     <string name="debug_unlock_pro" translatable="false">Unlock pro</string>
 </resources>

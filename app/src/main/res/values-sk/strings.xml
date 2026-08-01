@@ -110,11 +110,6 @@
     <string name="rmd_NoA_done">Dokončené</string>
     <string name="rmd_NoA_snooze">Odložiť</string>
     <string name="snooze_all">Uspi všetko</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Čas ticha sa začne</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Čas ticha skončí</string>
-    <string name="rmd_EPr_rmd_time_title">Čas pripomienky</string>
-    <string name="persistent_notifications">Trvalé upozornenia </string>
-    <string name="persistent_notifications_description">Trvalé upozornenia nemôžu byť skryté</string>
     <string name="rmd_EPr_defaultRemind_title">Náhodné pripomienky</string>
     <string name="default_random_reminder_disabled">Zablokovaný</string>
     <string name="default_random_reminder_hourly">každú hodinu</string>
@@ -163,8 +158,6 @@
     <string name="TEA_timer_comment_spent">Strávený čas:</string>
     <string name="voice_create_prompt">Nadiktujte úlohu</string>
     <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
-    <string name="EPr_voiceRemindersEnabled_title">Hlasové pripomienky</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks budú pri pripomienke nahlas čítať názov úlohy</string>
     <string name="voice_command_added_task">Pridaná úloha</string>
     <plurals name="Ntasks">
         <item quantity="one">1 úloha</item>
@@ -177,7 +170,6 @@
     <string name="widget_show_header">Zobrazovať záhlavia</string>
     <string name="widget_show_settings">Zobraziť nastavenia</string>
     <string name="notifications">Oznámenia</string>
-    <string name="quiet_hours">Čas ticha</string>
     <string name="attachment_directory">Priečinok pre prílohy</string>
     <string name="backup_directory">Priečinok so zálohami</string>
     <string name="google_drive_backup">Zálohovať na Disk Google</string>
@@ -187,7 +179,6 @@
     <string name="row_spacing">Šírka riadkov</string>
     <string name="customize_edit_screen">Prispôsobiť zobrazenie úprav</string>
     <string name="translations">Prispieť prekladom</string>
-    <string name="quiet_hours_summary">Žiadne upozornenia počas obdobia ticha</string>
     <string name="add_location">Pridať polohu</string>
     <string name="remove">Odstrániť</string>
     <string name="geofence_radius">Polomer geofence</string>
@@ -238,8 +229,6 @@
     <string name="copy_selected_tasks">Kopírovať vybrané úlohy?</string>
     <string name="user">Užívateľ</string>
     <string name="password">Heslo</string>
-    <string name="notification_disable_battery_optimizations_description">Zníženie spotreby môže spôsobiť oneskorenie upozornení</string>
-    <string name="bundle_notifications">Skupinové oznámenia</string>
     <string name="badges">Odznaky</string>
     <string name="list">Zoznam</string>
     <string name="repeats_from">Opakovanie od</string>
@@ -247,7 +236,6 @@
     <string name="dont_add_to_calendar">Nepridávať do kalendára </string>
     <string name="default_calendar">Predvolený kalendár</string>
     <string name="badges_description">Zobraziť počet úloh na pri ikone Tasks. Niektoré spúšťače túto funkciu nepodporujú.</string>
-    <string name="bundle_notifications_summary">Zlúčiť viaceré upozornenia do jednoho</string>
     <string name="tasker_create_task">Vytvoriť úlohu</string>
     <string name="tasker_list_notification">Zoznam upozornení</string>
     <string name="help">Pomoc</string>
@@ -300,11 +288,8 @@
     <string name="customize_drawer">Upraviť zásuvku</string>
     <string name="customize_drawer_summary">Ťahaním zmeníte usporiadanie položiek v ponuke</string>
     <string name="default_start_date">Predvolený dátum spustenia</string>
-    <string name="swipe_to_snooze_time_1_hour">po hodine</string>
-    <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
     <string name="widget_show_title">Zobraziť názov</string>
     <string name="delete_comment">komentár</string>
-    <string name="quiet_hours_in_effect">Režim nerušiť je zapnutý</string>
     <string name="header_spacing">Rozstupy</string>
     <string name="location_radius_meters">%s m</string>
     <string name="show_edit_screen_without_unlock_summary">Umožní používať dlaždice rýchleho nastavenia bez odomknutia zariadenia</string>
@@ -313,12 +298,6 @@
     <string name="opacity_header">Priehľadnosť záhlavia</string>
     <string name="url">URL adresa</string>
     <string name="sort_list">Podľa zoznamu</string>
-    <string name="swipe_to_snooze_title">Prejdením prstom odložíte</string>
-    <string name="swipe_to_snooze_description">Čas odloženia</string>
-    <string name="swipe_to_snooze_time_description">Zrušené oznámenie bude odložené a opätovne vytvorené %s</string>
-    <string name="swipe_to_snooze_time_immediately">okamžite</string>
-    <string name="swipe_to_snooze_time_15_minutes">po 15 minútach</string>
-    <string name="swipe_to_snooze_time_30_minutes">po 30 minútach</string>
     <string name="now">Teraz</string>
     <string name="yesterday">Včera</string>
     <string name="widget_show_menu">Zobraziť ponuku</string>
@@ -396,7 +375,6 @@
     <string name="foreground_location">Umiestnenie na popredí</string>
     <string name="price_per_year_with_currency">%s ročne</string>
     <string name="current_subscription">Súčasné predplatné: %s</string>
-    <string name="more_settings">Ďalšie nastavenia</string>
     <string name="open_source">Otvorený zdrojový kód</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
@@ -428,7 +406,6 @@
     <string name="filter_high_priority">Vysoká dôležitosť</string>
     <string name="filter_medium_priority">Stredná dôležitosť</string>
     <string name="markdown">Markdown</string>
-    <string name="completion_sound">Prehrať zvuk dokončenia</string>
     <string name="hide_unused_tags">Skryť nevyužívané štítky</string>
     <string name="place_settings">Nastavenia miesta</string>
     <string name="hide_unused_places">Skryť nevyužívané miesta</string>
@@ -441,12 +418,6 @@
     <string name="auto_dismiss_datetime">Automaticky zatvoriť výber dátumu a času</string>
     <string name="chip_appearance_icon_only">Iba ikona</string>
     <string name="auto_dismiss_datetime_list">Zoznam úloh</string>
-    <string name="wearable_notifications">Upozornenia na hodinkách</string>
-    <string name="wearable_notifications_summary">Zobrazí upozornenia na vašich inteligentných hodinkách</string>
-    <string name="troubleshooting">Riešenie problémov</string>
-    <string name="notification_troubleshooting_summary">Kliknite sem, ak máte problémy so zobrazovaním upozornení</string>
-    <string name="disable_battery_optimizations">Vypnúť šetrenie batérie</string>
-    <string name="more_notification_settings_summary">Zvuk upozornení, vibrácie atď</string>
     <string name="chips">Známky</string>
     <string name="chip_appearance">Vzhľad známok</string>
     <string name="places">Miesta</string>

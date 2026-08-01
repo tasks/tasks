@@ -106,11 +106,6 @@
     <string name="rmd_NoA_done">Завершено</string>
     <string name="rmd_NoA_snooze">Отложить</string>
     <string name="snooze_all">Отложить все</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Начало тихих часов</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Конец тихих часов</string>
-    <string name="rmd_EPr_rmd_time_title">Время напоминания</string>
-    <string name="persistent_notifications">Постоянные напоминания</string>
-    <string name="persistent_notifications_description">Постоянные уведомления нельзя убрать</string>
     <string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
     <string name="default_random_reminder_disabled">Отключено</string>
     <string name="default_random_reminder_hourly">Ежечасно</string>
@@ -159,8 +154,6 @@
     <string name="TEA_timer_comment_spent">Времени затрачено:</string>
     <string name="voice_create_prompt">Говорите, чтобы создать задачу</string>
     <string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
-    <string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks будет произносить название задач во время напоминаний</string>
     <string name="voice_command_added_task">Добавленная задача</string>
     <plurals name="Ntasks">
         <item quantity="one">%d задача</item>
@@ -174,7 +167,6 @@
     <string name="widget_show_header">Показать заголовок</string>
     <string name="widget_show_settings">Показать настройки</string>
     <string name="notifications">Уведомления</string>
-    <string name="quiet_hours">Тихие часы</string>
     <string name="attachment_directory">Папка вложений</string>
     <string name="backup_directory">Папка резервных копий</string>
     <string name="google_drive_backup">Резервное копирование в Google Drive</string>
@@ -184,7 +176,6 @@
     <string name="row_spacing">Межстрочный интервал</string>
     <string name="customize_edit_screen">Настроить экран редактирования</string>
     <string name="translations">Участвовать в переводе программы</string>
-    <string name="quiet_hours_summary">Отключить напоминания в тихие часы</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
     <string name="geofence_radius">Радиус геозоны</string>
@@ -237,8 +228,6 @@
     <string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
-    <string name="notification_disable_battery_optimizations_description">Оптимизация расхода батареи может задерживать уведомления</string>
-    <string name="bundle_notifications">Группировать уведомления</string>
     <string name="badges">Ярлыки</string>
     <string name="list">Список</string>
     <string name="repeats_from">Повторять от</string>
@@ -246,7 +235,6 @@
     <string name="dont_add_to_calendar">Не добавлять в календарь</string>
     <string name="default_calendar">Календарь по умолчанию</string>
     <string name="badges_description">Отображать количество задач на иконке приложения. Не все лаунчеры это поддерживают.</string>
-    <string name="bundle_notifications_summary">Группировать несколько уведомлений в одно</string>
     <string name="tasker_create_task">Создать задачу</string>
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
@@ -296,13 +284,6 @@
     <string name="help_and_feedback">Помощь и обратная связь</string>
     <string name="documentation">Документация</string>
     <string name="preferences_advanced">Расширенные</string>
-    <string name="wearable_notifications">Уведомления носимых устройств</string>
-    <string name="wearable_notifications_summary">Отображать уведомления на Вашем носимом устройстве</string>
-    <string name="troubleshooting">Решение проблем</string>
-    <string name="notification_troubleshooting_summary">Нажмите здесь в случае проблем с уведомлениями</string>
-    <string name="disable_battery_optimizations">Выключить оптимизацию энергопотребления</string>
-    <string name="more_settings">Прочие настройки</string>
-    <string name="more_notification_settings_summary">Рингтон, вибрация и прочее</string>
     <string name="theme_system_default">Как в системе</string>
     <string name="color_wheel">Палитра</string>
     <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks</string>
@@ -441,7 +422,6 @@
     <string name="markdown_description">Включить Markdown в названии и описании</string>
     <string name="markdown">Markdown</string>
     <string name="now">Сейчас</string>
-    <string name="completion_sound">Воспроизводить звук завершения</string>
     <string name="completed">Завершено</string>
     <string name="snackbar_task_completed">Задача выполнена</string>
     <string name="snackbar_tasks_completed">%d задач выполнено</string>
@@ -455,16 +435,11 @@
     <string name="sort_list">Список</string>
     <string name="comment">Комментарий</string>
     <string name="yesterday">Вчера</string>
-    <string name="swipe_to_snooze_time_immediately">немедленно</string>
-    <string name="swipe_to_snooze_time_24_hours">через 24 часа</string>
-    <string name="swipe_to_snooze_time_1_hour">через 1 час</string>
     <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="donate_maybe_later">Возможно, позже</string>
-    <string name="swipe_to_snooze_time_15_minutes">через 15 минут</string>
     <string name="multiline_title">Разрешить многострочные заголовки</string>
     <string name="sync_warning_google_tasks">Не все подробности задачи синхронизируются с Google Task</string>
     <string name="customize_drawer">Настроить панель</string>
-    <string name="swipe_to_snooze_time_30_minutes">через 30 минут</string>
     <string name="delete_comment">комментарий</string>
     <string name="change_priority">Изменить приоритет</string>
     <string name="price_per_year_with_currency">%s/год</string>
@@ -474,8 +449,6 @@
     <string name="sync_warning_google_tasks_title">О синхронизации с Google Task</string>
     <string name="button_learn_more">Узнать больше</string>
     <string name="enable_alarms">Получайте напоминания вовремя</string>
-    <string name="swipe_to_snooze_title">Смахните, чтобы отложить</string>
-    <string name="swipe_to_snooze_description">Длительность паузы</string>
     <string name="enable_alarms_description">Чтобы получать оповещения в нужное время, разрешите приложению устанавливать будильники и напоминания в Настройках</string>
     <string name="cost_money">Цена: $</string>
     <string name="cost_more_money">Цена: $$$</string>
@@ -484,8 +457,6 @@
     <string name="theme_dynamic">Динамическая</string>
     <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>
     <string name="donate_today">Пожертвовать сегодня</string>
-    <string name="quiet_hours_in_effect">Режим тихих часов включен</string>
-    <string name="swipe_to_snooze_time_description">Удаленное уведомление будет отложено и появится снова %s</string>
     <string name="show_edit_screen_without_unlock">Показывать панель редактирования на заблокированном экране</string>
     <string name="show_edit_screen_without_unlock_summary">Разрешает использовать панель Быстрых Настроек без разблокирования устройства</string>
     <string name="app_settings">Настройки приложения</string>
@@ -504,11 +475,7 @@
     <string name="location_update_interval_2_hours">Каждые 2 часа</string>
     <string name="location_update_interval_disabled">Отключено</string>
     <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
-    <string name="default_reminder">Задачи на весь день</string>
-    <string name="rmd_time_enabled_on">Добавить напоминания по умолчанию для задач на весь день</string>
-    <string name="rmd_time_enabled_off">Не добавлять напоминания по умолчанию для задач на весь день</string>
     <string name="sort_options">Параметры сортировки</string>
-    <string name="add_default_reminders">Добавить напоминания по умолчанию</string>
     <string name="banner_subscription_required_title">Необходима подписка</string>
     <string name="banner_subscription_required_body">Заплатите любую сумму, чтобы разблокировать синхронизацию %s</string>
     <string name="subscription_required_fdroid">Для использования синхронизации Tasks.org требуется подписка. Оформить подписку можно только через версию Tasks в Google Play.</string>

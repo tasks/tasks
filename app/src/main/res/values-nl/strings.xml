@@ -105,11 +105,6 @@
     <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Snoozen</string>
     <string name="snooze_all">Alles snoozen</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Begin rusttijd</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Einde rusttijd</string>
-    <string name="rmd_EPr_rmd_time_title">Herinneringstijd</string>
-    <string name="persistent_notifications">Permanente meldingen</string>
-    <string name="persistent_notifications_description">Permanente meldingen kunnen niet gewist worden</string>
     <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
     <string name="default_random_reminder_disabled">Uitgeschakeld</string>
     <string name="default_random_reminder_hourly">Elk uur</string>
@@ -151,8 +146,6 @@
     <string name="TEA_timer_comment_spent">Bestede tijd:</string>
     <string name="voice_create_prompt">Spreek om taak aan te maken</string>
     <string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
-    <string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks spreekt namen van taken uit bij de herinnering</string>
     <string name="voice_command_added_task">Toegevoegde taak</string>
     <plurals name="Ntasks">
         <item quantity="one">1 taak</item>
@@ -164,7 +157,6 @@
     <string name="widget_show_header">Koptekst tonen</string>
     <string name="widget_show_settings">Instellingen tonen</string>
     <string name="notifications">Meldingen</string>
-    <string name="quiet_hours">Rusttijd</string>
     <string name="attachment_directory">Map voor bijlagen</string>
     <string name="google_drive_backup">Backup naar Google Drive</string>
     <string name="miscellaneous">Diversen</string>
@@ -173,7 +165,6 @@
     <string name="row_spacing">Regelafstand</string>
     <string name="customize_edit_screen">Taakscherm aanpassen</string>
     <string name="translations">Vertalingen toevoegen</string>
-    <string name="quiet_hours_summary">Geen herinneringen tijdens rusttijd</string>
     <string name="add_location">Locatie toevoegen</string>
     <string name="remove">Verwijderen</string>
     <string name="geofence_radius">Geofence-straal</string>
@@ -222,8 +213,6 @@
     <string name="copy_selected_tasks">Geselecteerde taken kopiëren\?</string>
     <string name="user">Gebruiker</string>
     <string name="password">Wachtwoord</string>
-    <string name="notification_disable_battery_optimizations_description">Optimalisatie kan meldingen vertragen</string>
-    <string name="bundle_notifications">Meldingen samenvoegen</string>
     <string name="badges">Badges</string>
     <string name="list">Lijst</string>
     <string name="repeats_from">Herhaalt vanaf</string>
@@ -231,7 +220,6 @@
     <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
     <string name="default_calendar">Standaardkalender</string>
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
-    <string name="bundle_notifications_summary">Combineer meerdere meldingen samen in één</string>
     <string name="tasker_create_task">Taak maken</string>
     <string name="tasker_list_notification">Lijst melding</string>
     <string name="upgrade_to_pro">Opwaarderen naar pro</string>
@@ -288,13 +276,6 @@
     <string name="help_and_feedback">Hulp &amp; feedback</string>
     <string name="documentation">Documentatie (website)</string>
     <string name="preferences_advanced">Geavanceerd</string>
-    <string name="wearable_notifications">Meldingen op \'Wearables\'</string>
-    <string name="wearable_notifications_summary">Laat meldingen zien op \'Wearables\'</string>
-    <string name="troubleshooting">Problemen oplossen</string>
-    <string name="notification_troubleshooting_summary">Tik hier bij problemen met meldingen</string>
-    <string name="disable_battery_optimizations">Batterij-optimalisatie uitzetten</string>
-    <string name="more_settings">Meer instellingen</string>
-    <string name="more_notification_settings_summary">Beltoon, trillen en meer</string>
     <string name="theme_system_default">Systeemstandaard</string>
     <string name="color_wheel">Kleurenschijf</string>
     <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
@@ -433,7 +414,6 @@
     <string name="markdown_description">Sta Markdown toe in titel en beschrijving</string>
     <string name="markdown">Markdown</string>
     <string name="now">Nu</string>
-    <string name="completion_sound">Geluid afspelen bij afronden</string>
     <string name="completed">Voltooid</string>
     <string name="snackbar_task_completed">Taak voltooid</string>
     <string name="snackbar_tasks_completed">%d taken voltooid</string>
@@ -453,16 +433,7 @@
     <string name="donate_maybe_later">Misschien later</string>
     <string name="customize_drawer">Lade personaliseren</string>
     <string name="customize_drawer_summary">Versleep om menu-items opnieuw te ordenen</string>
-    <string name="swipe_to_snooze_time_description">Een overgeslagen melding zal gedempt en opnieuw gecreëerd worden %s</string>
-    <string name="swipe_to_snooze_time_30_minutes">na 30 minuten</string>
-    <string name="swipe_to_snooze_time_1_hour">na 1 uur</string>
-    <string name="swipe_to_snooze_time_24_hours">na 24 uur</string>
-    <string name="swipe_to_snooze_description">Snooze-tijd</string>
-    <string name="swipe_to_snooze_title">Veeg om te snoozen</string>
-    <string name="swipe_to_snooze_time_15_minutes">na 15 minuten</string>
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
-    <string name="swipe_to_snooze_time_immediately">Onmiddellijk</string>
-    <string name="quiet_hours_in_effect">Rusttijd staat aan</string>
     <string name="yesterday">Gisteren</string>
     <string name="cost_money">Kosten: €</string>
     <string name="cost_more_money">Kosten: €€€</string>
@@ -496,10 +467,6 @@
     <string name="email_to_task_address">Je e-mailadres</string>
     <string name="email_to_task">Taak maken per e-mail</string>
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>
-    <string name="default_reminder">Taken zonder tijdsaanduiding</string>
-    <string name="add_default_reminders">Standaardherinneringen toevoegen</string>
-    <string name="rmd_time_enabled_on">Standaardherinneringen toevoegen aan taken zonder tijdsaanduiding</string>
-    <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
 </resources>

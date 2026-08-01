@@ -47,8 +47,6 @@
     <string name="gcal_completed_title">%s (fuldført)</string>
     <string name="rmd_NoA_done">Fuldført</string>
     <string name="rmd_NoA_snooze">Udsæt</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Hviletid begynder</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Hviletid slutter</string>
     <string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opgave</item>
@@ -61,8 +59,6 @@
     <string name="date_shortcut_night">Nat</string>
     <string name="date_shortcut_evening">Aften</string>
     <string name="date_shortcut_afternoon">Eftermiddag</string>
-    <string name="quiet_hours_summary">Ingen påmindelser under hviletid</string>
-    <string name="quiet_hours">Hviletid</string>
     <string name="widget_show_header">Vis topbjælke</string>
     <string name="voice_command_added_task">Tilføjede en opgave</string>
     <string name="gtasks_error_accountNotFound">Konto %s ikke fundet. Log venligst ud og log ind igen fra Google Huskeliste-indstillingerne.</string>
@@ -123,11 +119,6 @@
     <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
     <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
     <string name="color_wheel">Farvehjul</string>
-    <string name="more_notification_settings_summary">Ringetone, vibrér og mere</string>
-    <string name="more_settings">Flere indstillinger</string>
-    <string name="notification_troubleshooting_summary">Tryk her, hvis du har problemer med meddelelser</string>
-    <string name="troubleshooting">Fejlsøgning</string>
-    <string name="wearable_notifications">Wearables-meddelelser</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avanceret</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
@@ -171,7 +162,6 @@
     <string name="help">Hjælp</string>
     <string name="tasker_list_notification">Listemeddelelser</string>
     <string name="tasker_create_task">Opret opgave</string>
-    <string name="bundle_notifications_summary">Saml flere meddelelser i én</string>
     <string name="badges_description">Vis en opgavetæller på Tasks’ app-ikon. Ikke alle platforme understøtter badges.</string>
     <string name="default_calendar">Standardkalender</string>
     <string name="dont_add_to_calendar">Føj ikke til kalender</string>
@@ -180,8 +170,6 @@
     <string name="repeats_from">Gentages fra</string>
     <string name="list">Liste</string>
     <string name="badges">Badges</string>
-    <string name="bundle_notifications">Gruppér meddelelser</string>
-    <string name="notification_disable_battery_optimizations_description">Batterioptimeringer kan forsinke meddelelser</string>
     <string name="url">URL</string>
     <string name="password">Adgangskode</string>
     <string name="user">Bruger</string>
@@ -255,12 +243,8 @@
     <string name="widget_show_settings">Vis indstillinger</string>
     <string name="widget_show_checkboxes">Vis afkrydsningsfelter</string>
     <string name="sort_created_group">Oprettet %s</string>
-    <string name="disable_battery_optimizations">Deaktiver batterioptimeringer</string>
-    <string name="wearable_notifications_summary">Vis meddelelser på din wearable</string>
     <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks læser opgavetitlen højt ved påmindelser</string>
-    <string name="EPr_voiceRemindersEnabled_title">Stemmepåmindelser</string>
     <string name="EPr_voiceInputEnabled_title">Stemmeinput</string>
     <string name="voice_create_prompt">Tal for at oprette en opgave</string>
     <string name="TEA_timer_comment_spent">Tid brugt:</string>
@@ -302,9 +286,6 @@
     <string name="default_random_reminder_daily">Dagligt</string>
     <string name="default_random_reminder_hourly">Hver time</string>
     <string name="default_random_reminder_disabled">Deaktiveret</string>
-    <string name="persistent_notifications_description">Vedvarende meddelelser kan ikke ryddes</string>
-    <string name="persistent_notifications">Vedvarende meddelelser</string>
-    <string name="rmd_EPr_rmd_time_title">Påmindelsestid</string>
     <string name="snooze_all">Udsæt alle</string>
     <string name="ring_nonstop">Ring uafbrudt</string>
     <string name="ring_five_times">Ring fem gange</string>
@@ -436,7 +417,6 @@
     <string name="snackbar_task_completed">Opgave fuldført</string>
     <string name="snackbar_tasks_completed">%d opgaver fuldført</string>
     <string name="custom_filter_has_reminder">Har påmindelse</string>
-    <string name="completion_sound">Afspil fuldførelseslyd</string>
     <string name="customize_edit_screen_summary">Omarranger eller fjern felter</string>
     <string name="completed">Fuldført</string>
     <string name="dismiss">Afvis</string>
@@ -446,15 +426,7 @@
     <string name="TEA_creation_date">Oprettelsesdato</string>
     <string name="customize_drawer">Tilpas skuffe</string>
     <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
-    <string name="swipe_to_snooze_description">Udsættelsestid</string>
     <string name="sort_list">Efter liste</string>
-    <string name="swipe_to_snooze_title">Stryg for at udsætte</string>
-    <string name="swipe_to_snooze_time_immediately">øjeblikkeligt</string>
-    <string name="swipe_to_snooze_time_1_hour">efter 1 time</string>
-    <string name="swipe_to_snooze_time_24_hours">efter 24 timer</string>
-    <string name="swipe_to_snooze_time_15_minutes">efter 15 minutter</string>
-    <string name="swipe_to_snooze_time_30_minutes">efter 30 minutter</string>
-    <string name="swipe_to_snooze_time_description">En ryddet meddelelse udsættes og genoprettes %s</string>
     <string name="show_edit_screen_without_unlock_summary">Aktiverer brug af Hurtigindstillinger-flisen uden at oplåse enheden</string>
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Måske senere</string>
@@ -472,7 +444,6 @@
     <string name="sync_warning_microsoft_title">Om Microsoft To Do-synkronisering</string>
     <string name="sync_warning_google_tasks_title">Om Google Huskeliste-synkronisering</string>
     <string name="delete_comment">kommentar</string>
-    <string name="quiet_hours_in_effect">Hviletid er i gang</string>
     <string name="yesterday">I går</string>
     <string name="sync_warning_microsoft">Ikke alle opgavedetaljer synkroniseres med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Ikke alle opgavedetaljer synkroniseres med Google Huskeliste</string>
@@ -496,10 +467,6 @@
     <string name="exit">Afslut</string>
     <string name="returning_user">Tilbagevendende bruger?</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikationer for alle daglige opgaver vises kl. %1$s</string>
-    <string name="default_reminder">Heldagsopgaver</string>
-    <string name="add_default_reminders">Tilføj standardpåmindelser</string>
-    <string name="rmd_time_enabled_on">Tilføj standardpåmindelser til heldagsopgaver</string>
-    <string name="rmd_time_enabled_off">Tilføj ikke standardpåmindelser til heldagsopgaver</string>
     <string name="banner_subscription_required_title">Abonnement kræves</string>
     <string name="banner_subscription_required_body">Betal hvad du vil for at få adgang til %s-synkronisering</string>
     <string name="email_to_task">E-mail til opgave</string>

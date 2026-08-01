@@ -40,6 +40,8 @@ class Preferences @JvmOverloads constructor(
 ) : QueryPreferences, AppPreferences {
     private val prefs: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
 
+    private val notificationDefaults = NotificationSettings()
+
     fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
@@ -100,13 +102,81 @@ class Preferences @JvmOverloads constructor(
         getBoolean(R.string.p_rmd_time_enabled, true)
 
     override suspend fun defaultDueTime(): Int =
-        getInt(R.string.p_rmd_time, TimeUnit.HOURS.toMillis(18).toInt())
+        getInt(R.string.p_rmd_time, notificationDefaults.defaultReminderTime)
 
     private val quietHoursStart: Int
-        get() = getMillisPerDayPref(R.string.p_rmd_quietStart, R.integer.default_quiet_hours_start)
+        get() = getMillisOfDayPref(R.string.p_rmd_quietStart, notificationDefaults.quietHoursStart)
 
     private val quietHoursEnd: Int
-        get() = getMillisPerDayPref(R.string.p_rmd_quietEnd, R.integer.default_quiet_hours_end)
+        get() = getMillisOfDayPref(R.string.p_rmd_quietEnd, notificationDefaults.quietHoursEnd)
+
+    override suspend fun notificationSettings() = NotificationSettings(
+        persistentNotifications = getBoolean(
+            R.string.p_rmd_persistent,
+            notificationDefaults.persistentNotifications
+        ),
+        wearableNotifications = getBoolean(
+            R.string.p_wearable_notifications,
+            notificationDefaults.wearableNotifications
+        ),
+        bundleNotifications = getBoolean(
+            R.string.p_bundle_notifications,
+            notificationDefaults.bundleNotifications
+        ),
+        voiceReminders = getBoolean(
+            R.string.p_voiceRemindersEnabled,
+            notificationDefaults.voiceReminders
+        ),
+        swipeToSnoozeEnabled = getBoolean(
+            R.string.p_rmd_swipe_to_snooze_enabled,
+            notificationDefaults.swipeToSnoozeEnabled
+        ),
+        swipeToSnoozeMinutes = getIntegerFromString(
+            R.string.p_rmd_swipe_to_snooze_time_minutes,
+            notificationDefaults.swipeToSnoozeMinutes
+        ),
+        defaultRemindersEnabled = getBoolean(
+            R.string.p_rmd_time_enabled,
+            notificationDefaults.defaultRemindersEnabled
+        ),
+        defaultReminderTime = getMillisOfDayPref(
+            R.string.p_rmd_time,
+            notificationDefaults.defaultReminderTime
+        ),
+        quietHoursEnabled = quietHoursEnabled(),
+        quietHoursStart = quietHoursStart,
+        quietHoursEnd = quietHoursEnd,
+    )
+
+    override suspend fun setPersistentNotifications(value: Boolean) =
+        setBoolean(R.string.p_rmd_persistent, value)
+
+    override suspend fun setWearableNotifications(value: Boolean) =
+        setBoolean(R.string.p_wearable_notifications, value)
+
+    override suspend fun setBundleNotifications(value: Boolean) =
+        setBoolean(R.string.p_bundle_notifications, value)
+
+    override suspend fun setVoiceReminders(value: Boolean) =
+        setBoolean(R.string.p_voiceRemindersEnabled, value)
+
+    override suspend fun setSwipeToSnoozeEnabled(value: Boolean) =
+        setBoolean(R.string.p_rmd_swipe_to_snooze_enabled, value)
+
+    override suspend fun setSwipeToSnoozeMinutes(value: Int) =
+        setStringFromInteger(R.string.p_rmd_swipe_to_snooze_time_minutes, value)
+
+    override suspend fun setDefaultRemindersEnabled(value: Boolean) =
+        setBoolean(R.string.p_rmd_time_enabled, value)
+
+    override suspend fun setDefaultReminderTime(value: Int) = setInt(R.string.p_rmd_time, value)
+
+    override suspend fun setQuietHoursEnabled(value: Boolean) =
+        setBoolean(R.string.p_rmd_enable_quiet, value)
+
+    override suspend fun setQuietHoursStart(value: Int) = setInt(R.string.p_rmd_quietStart, value)
+
+    override suspend fun setQuietHoursEnd(value: Int) = setInt(R.string.p_rmd_quietEnd, value)
 
     val dateShortcutMorning: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_morning, R.integer.default_morning)
@@ -148,10 +218,13 @@ class Preferences @JvmOverloads constructor(
             dateShortcutNight,
         )
 
-    private fun getMillisPerDayPref(resId: Int, defResId: Int): Int {
+    private fun getMillisPerDayPref(resId: Int, defResId: Int): Int =
+        getMillisOfDayPref(resId, context.resources.getInteger(defResId))
+
+    private fun getMillisOfDayPref(resId: Int, defaultValue: Int): Int {
         val setting = getInt(resId, -1)
         return if (setting < 0 || setting > DateTime.MAX_MILLIS_PER_DAY) {
-            context.resources.getInteger(defResId)
+            defaultValue
         } else setting
     }
 
@@ -498,7 +571,10 @@ class Preferences @JvmOverloads constructor(
 
     fun swipeToSnoozeIntervalMS(): Long =
         TimeUnit.MINUTES.toMillis(
-            getIntegerFromString(R.string.p_rmd_swipe_to_snooze_time_minutes, 0).toLong()
+            getIntegerFromString(
+                R.string.p_rmd_swipe_to_snooze_time_minutes,
+                DEFAULT_SNOOZE_MINUTES
+            ).toLong()
         )
 
     var lastSync: Long

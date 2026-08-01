@@ -106,11 +106,6 @@
     <string name="rmd_NoA_done">Tamamlandı</string>
     <string name="rmd_NoA_snooze">Ertele</string>
     <string name="snooze_all">Tümünü ertele</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Sessiz saatlerin başlangıcı</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Sessiz saatlerin sonu</string>
-    <string name="rmd_EPr_rmd_time_title">Anımsatıcı zamanı</string>
-    <string name="persistent_notifications">Kalıcı bildirimler</string>
-    <string name="persistent_notifications_description">Kalıcı bildirimler temizlenemez</string>
     <string name="rmd_EPr_defaultRemind_title">Rastgele anımsatıcılar</string>
     <string name="default_random_reminder_disabled">devre dışı</string>
     <string name="default_random_reminder_hourly">saat başı</string>
@@ -153,8 +148,6 @@
     <string name="TEA_timer_comment_spent">Harcanan zaman:</string>
     <string name="voice_create_prompt">Yeni görev için konuş</string>
     <string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
-    <string name="EPr_voiceRemindersEnabled_title">Sesli anımsatıcılar</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks, görevler anımsatılırken adlarını seslendirecek</string>
     <string name="voice_command_added_task">Görev eklendi</string>
     <plurals name="Ntasks">
         <item quantity="one">1 görev</item>
@@ -166,7 +159,6 @@
     <string name="widget_show_header">Üstü göster</string>
     <string name="widget_show_settings">Ayarları göster</string>
     <string name="notifications">Bildirimler</string>
-    <string name="quiet_hours">Sessiz saatler</string>
     <string name="attachment_directory">Ek klasörü</string>
     <string name="backup_directory">Yedekleme klasörü</string>
     <string name="google_drive_backup">Google Drive yedeği</string>
@@ -176,7 +168,6 @@
     <string name="row_spacing">Satır aralığı</string>
     <string name="customize_edit_screen">Düzenleme ekranını özelleştir</string>
     <string name="translations">Çeviri katkıları</string>
-    <string name="quiet_hours_summary">Sessiz saatlerde anımsatıcı yok</string>
     <string name="add_location">Konum ekle</string>
     <string name="remove">Kaldır</string>
     <string name="geofence_radius">Coğrafi sınır yarıçapı</string>
@@ -228,8 +219,6 @@
     <string name="copy_selected_tasks">Seçili görevleri kopyala?</string>
     <string name="user">Kullanıcı</string>
     <string name="password">Parola</string>
-    <string name="notification_disable_battery_optimizations_description">Pil optimizasyonları bildirimleri geciktirebilir</string>
-    <string name="bundle_notifications">Bildirimleri sepetle</string>
     <string name="badges">Rozetler</string>
     <string name="list">Liste</string>
     <string name="repeats_from">Şundan sonra yinele</string>
@@ -237,7 +226,6 @@
     <string name="dont_add_to_calendar">Takvime ekleme</string>
     <string name="default_calendar">Öntanımlı takvim</string>
     <string name="badges_description">Tasks başlatıcı simgesinde görev sayısı göster. Tüm başlatıcılar rozetleri desteklemez.</string>
-    <string name="bundle_notifications_summary">Birden çok bildirimi tek bildirime birleştir</string>
     <string name="tasker_create_task">Görev oluştur</string>
     <string name="tasker_list_notification">Bildirimi listele</string>
     <string name="help">Yardım</string>
@@ -288,13 +276,6 @@
     <string name="help_and_feedback">Yardım ve geri bildirim</string>
     <string name="documentation">Belgelendirme</string>
     <string name="preferences_advanced">Gelişmiş</string>
-    <string name="wearable_notifications">Giyilebilir bildirimleri</string>
-    <string name="wearable_notifications_summary">Giyilebilirinizde bildirim gösterin</string>
-    <string name="troubleshooting">Sorun giderme</string>
-    <string name="notification_troubleshooting_summary">Eğer bildirimlerle sorun yaşıyorsanız buraya dokunun</string>
-    <string name="disable_battery_optimizations">Pil iyileştirmelerini devre dışı bırak</string>
-    <string name="more_settings">Daha çok ayar</string>
-    <string name="more_notification_settings_summary">Zil sesi, titreşimler ve daha çoğu</string>
     <string name="theme_system_default">Sistem öntanımlısı</string>
     <string name="color_wheel">Renk tekeri</string>
     <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks\'ın arkasındaki bağımsız geliştiriciyim</string>
@@ -433,7 +414,6 @@
     <string name="markdown_description">Başlık ve açıklamada Markdown\'ı etkinleştir</string>
     <string name="markdown">Markdown</string>
     <string name="now">Şimdi</string>
-    <string name="completion_sound">Tamamlandığında ses çal</string>
     <string name="completed">Tamamlandı</string>
     <string name="snackbar_task_completed">Görev tamamlandı</string>
     <string name="snackbar_tasks_completed">%d görev tamamlandı</string>
@@ -447,14 +427,6 @@
     <string name="sort_list">Listeye göre</string>
     <string name="change_priority">Önceliği değiştir</string>
     <string name="theme_dynamic">Dinamik</string>
-    <string name="swipe_to_snooze_time_immediately">hemen</string>
-    <string name="swipe_to_snooze_time_30_minutes">30 dakika sonra</string>
-    <string name="swipe_to_snooze_time_1_hour">1 saat sonra</string>
-    <string name="swipe_to_snooze_title">Ertelemek için kaydır</string>
-    <string name="swipe_to_snooze_description">Erteleme zamanı</string>
-    <string name="swipe_to_snooze_time_description">Temizlenen bir bildirim ertelenecek ve %s yeniden oluşturulacak</string>
-    <string name="swipe_to_snooze_time_15_minutes">15 dakika sonra</string>
-    <string name="swipe_to_snooze_time_24_hours">24 saat sonra</string>
     <string name="show_edit_screen_without_unlock">Kilidi açmadan düzenleme ekranını göster</string>
     <string name="show_edit_screen_without_unlock_summary">Aygıtın kilidini açmadan Hızlı Ayarlar kutucuğunun kullanılmasını sağlar</string>
     <string name="customize_drawer">Çekmeceyi özelleştir</string>
@@ -466,7 +438,6 @@
     <string name="cost_money">Ücret: $</string>
     <string name="delete_comment">yorum</string>
     <string name="yesterday">Dün</string>
-    <string name="quiet_hours_in_effect">Sessiz saatler etkin</string>
     <string name="sync_warning_microsoft_title">Microsoft To Do eşzamanlayıcı hakkında</string>
     <string name="sync_warning_microsoft">Tüm görev ayrıntıları Microsoft To Do ile eşzamanlanmaz.</string>
     <string name="sync_warning_google_tasks_title">Google Görevler eşzamanlayıcıyla ilgili</string>
@@ -497,10 +468,6 @@
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
     <string name="banner_subscription_required_title">Abonelik gereklidir</string>
     <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
-    <string name="add_default_reminders">Öntanımlı anımsatıcı ekle</string>
-    <string name="default_reminder">Tüm gün görevleri</string>
-    <string name="rmd_time_enabled_on">Tüm gün görevlerine öntanımlı anımsatıcı ekle</string>
-    <string name="rmd_time_enabled_off">Tüm gün görevlerine öntanımlı anımsatıcı ekleme</string>
     <string name="email_to_task">E-postayla görev</string>
     <string name="email_to_task_address">E-posta adresiniz</string>
     <string name="upgrade_email_to_task_description">E-postaları özel gelen kutunuza yönlendirerek göreve çevirin</string>

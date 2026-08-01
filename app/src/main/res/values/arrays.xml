@@ -9,14 +9,6 @@
     <item>@string/week_before_due</item>
   </string-array>
 
-  <string-array name="swipe_to_snooze_times">
-    <item>@string/swipe_to_snooze_time_immediately</item>
-    <item>@string/swipe_to_snooze_time_15_minutes</item>
-    <item>@string/swipe_to_snooze_time_30_minutes</item>
-    <item>@string/swipe_to_snooze_time_1_hour</item>
-    <item>@string/swipe_to_snooze_time_24_hours</item>
-  </string-array>
-
   <string-array name="widget_themes">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>

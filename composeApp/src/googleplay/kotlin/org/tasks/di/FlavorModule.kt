@@ -20,6 +20,8 @@ val flavorModule = module {
             supportsEteSync = true,
             supportsOpenTasks = true,
             supportsDesktopLinking = true,
+            supportsNotificationTroubleshooting = true,
+            supportsSystemNotificationSettings = true,
         )
     }
     single<FcmTokenProvider> { GooglePlayFcmTokenProvider() }

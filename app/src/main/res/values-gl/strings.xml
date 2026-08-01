@@ -100,11 +100,6 @@
     <string name="ring_nonstop">Soar sen parar</string>
     <string name="rmd_NoA_done">Finalizada</string>
     <string name="rmd_NoA_snooze">Pospoñer</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Comeza o tempo en silencio</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Rematou o tempo en silencio</string>
-    <string name="rmd_EPr_rmd_time_title">Hora de recordatorio</string>
-    <string name="persistent_notifications">Notificacións persistentes</string>
-    <string name="persistent_notifications_description">As notificacións persistentes non se poden borrar</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios ao chou</string>
     <string name="default_random_reminder_disabled">Desactivado</string>
     <string name="default_random_reminder_hourly">Cada hora</string>
@@ -122,8 +117,6 @@
     <string name="TEA_timer_comment_spent">Tempo dedicado:</string>
     <string name="voice_create_prompt">Fale para crear unha tarefa</string>
     <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
-    <string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks diralle os nomes das tarefas durante os avisos</string>
     <string name="voice_command_added_task">Tarefa engadida</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tarefa</item>
@@ -135,7 +128,6 @@
     <string name="widget_show_header">Amosar encabezado</string>
     <string name="widget_show_settings">Amosar configuracións</string>
     <string name="notifications">Notificacións</string>
-    <string name="quiet_hours">Horario silencioso</string>
     <string name="attachment_directory">Cartafol de anexos</string>
     <string name="backup_directory">Cartafol de copias de seguranza</string>
     <string name="miscellaneous">Miscelánea</string>
@@ -144,7 +136,6 @@
     <string name="row_spacing">Espazado de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
     <string name="translations">Contribúe coa tradución</string>
-    <string name="quiet_hours_summary">Sen avisos en horario silencioso</string>
     <string name="remove">Borrar</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
@@ -214,7 +205,6 @@
     <string name="opacity_header">Opacidade da cabeceira</string>
     <string name="widget_due_date_after_title">Despois do título</string>
     <string name="widget_due_date_below_title">Por debaixo do título</string>
-    <string name="notification_disable_battery_optimizations_description">Os optimizadores da batería poden retrasar as notificacións</string>
     <string name="badges">Contadores</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Repetir desde</string>
@@ -300,9 +290,7 @@
     <string name="display_name">Mostrar o nome</string>
     <string name="url">URL</string>
     <string name="default_calendar">Calendario por defecto</string>
-    <string name="bundle_notifications">Lote de notificacións</string>
     <string name="badges_description">Amosar un contador de tarefas na icona de Tasks no panel. Non todos os paneis aceptan os contadores.</string>
-    <string name="bundle_notifications_summary">Xunguir varias notificacións nunha soa</string>
     <string name="show_full_description">Amosar a descrición completa</string>
     <string name="linkify">Amosar as ligazóns</string>
     <string name="linkify_description">Engadir ligazóns ás páxinas web, direccións e números de teléfono</string>
@@ -351,8 +339,6 @@
     <string name="etesync_selection_description">Sincronización con cifrado par a par</string>
     <string name="decsync_selection_description">Sincronización baseada en ficheiros</string>
     <string name="davx5_selection_description">Sincronizar tarefas co aplicativo DAVx⁵</string>
-    <string name="troubleshooting">Soporte técnico</string>
-    <string name="more_settings">Máis opcións</string>
     <string name="color_wheel">Roda de cores</string>
     <string name="chip_appearance_text_and_icon">Texto e iconas</string>
     <string name="chip_appearance_text_only">Só texto</string>
@@ -393,18 +379,9 @@
     <string name="astrid_sort_order_summary">Activar o modo de ordenación manual de Astrid para \'As miñas tarefas\', \'Hoxe\' e as etiquetas. Este modo de ordenación será substituído por \'O meu pedido\' nunha actualización futura</string>
     <string name="sort_list">Por lista</string>
     <string name="TEA_creation_date">Data de creación</string>
-    <string name="swipe_to_snooze_title">Deslizar para pospoñer</string>
-    <string name="swipe_to_snooze_description">Hora de posposición</string>
-    <string name="swipe_to_snooze_time_description">Unha notificación borrada pospoñerase e volverase crear %s</string>
-    <string name="swipe_to_snooze_time_immediately">inmediatamente</string>
-    <string name="swipe_to_snooze_time_15_minutes">despois de 15 minutos</string>
-    <string name="swipe_to_snooze_time_30_minutes">despois de 30 minutos</string>
-    <string name="swipe_to_snooze_time_1_hour">despois de 1 hora</string>
-    <string name="swipe_to_snooze_time_24_hours">despois de 24 horas</string>
     <string name="delete_comment">comentario</string>
     <string name="comment">Comentario</string>
     <string name="yesterday">Onte</string>
-    <string name="quiet_hours_in_effect">As horas de silencio están en vigor</string>
     <string name="customize_edit_screen_summary">Reorganizar ou eliminar campos</string>
     <string name="change_priority">Cambiar prioridade</string>
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sen desbloquear</string>
@@ -415,11 +392,6 @@
     <string name="banner_app_updated_description">Tarefas acaba de actualizarse a %s. Queres ver as notas da versión?</string>
     <string name="name_your_price">Prezo flexible</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinivel non compatibles con Microsoft To Do</string>
-    <string name="wearable_notifications">Notificacións de reloxo intelixente</string>
-    <string name="wearable_notifications_summary">Amosar notificacións no teu reloxo intelixente</string>
-    <string name="notification_troubleshooting_summary">Toca aquí se tes problemas coas notificacións</string>
-    <string name="disable_battery_optimizations">Desactivar optimizacións da batería</string>
-    <string name="more_notification_settings_summary">Tono de chamada, vibracións e máis</string>
     <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks</string>
     <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
     <string name="chips">Distintivos</string>
@@ -453,7 +425,6 @@
     <string name="upgrade_tasks_org_account_description">Sincroniza con Tasks.org e colabora con outros usuarios</string>
     <string name="upgrade_open_source_description">A túa subscrición apoia o desenvolvemento continuo</string>
     <string name="markdown_description">Activa Markdown no título e na descrición</string>
-    <string name="completion_sound">Reproduce son de finalización</string>
     <string name="dismiss">Descartar</string>
     <string name="hint_customize_edit_title">Demasiada información?</string>
     <string name="hint_customize_edit_body">Podes personalizar esta pantalla reorganizando ou eliminando campos</string>

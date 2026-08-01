@@ -105,11 +105,6 @@
     <string name="rmd_NoA_done">Terminada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
     <string name="snooze_all">Posponer todo</string>
-    <string name="rmd_EPr_quiet_hours_start_title">El horario en silencio empieza</string>
-    <string name="rmd_EPr_quiet_hours_end_title">El horario en silencio termina</string>
-    <string name="rmd_EPr_rmd_time_title">Tiempo de recordatorio</string>
-    <string name="persistent_notifications">Notificaciones persistentes</string>
-    <string name="persistent_notifications_description">Las notificaciones persistentes no se pueden borrar</string>
     <string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
     <string name="default_random_reminder_disabled">Desactivado</string>
     <string name="default_random_reminder_hourly">Hora</string>
@@ -158,8 +153,6 @@
     <string name="TEA_timer_comment_spent">Tiempo dedicado:</string>
     <string name="voice_create_prompt">Hable para crear una tarea</string>
     <string name="EPr_voiceInputEnabled_title">Ingreso por voz</string>
-    <string name="EPr_voiceRemindersEnabled_title">Avisos de voz</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks dirá los nombres de las tareas durante los avisos</string>
     <string name="voice_command_added_task">Tarea agregada</string>
     <plurals name="Ntasks">
         <item quantity="one">1 tarea</item>
@@ -172,7 +165,6 @@
     <string name="widget_show_header">Mostrar cabecera</string>
     <string name="widget_show_settings">Mostrar configuración</string>
     <string name="notifications">Notificaciones</string>
-    <string name="quiet_hours">Horario silencioso</string>
     <string name="attachment_directory">Carpeta de datos adjuntos</string>
     <string name="backup_directory">Carpeta de copias de seguridad</string>
     <string name="google_drive_backup">Copia de seguridad en Google Drive</string>
@@ -182,7 +174,6 @@
     <string name="row_spacing">Espaciado de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
     <string name="translations">Contribuir con la traducción</string>
-    <string name="quiet_hours_summary">Sin avisos en horario silencioso</string>
     <string name="add_location">Añadir ubicación</string>
     <string name="remove">Eliminar</string>
     <string name="geofence_radius">Radio de la geocerca</string>
@@ -233,8 +224,6 @@
     <string name="copy_selected_tasks">¿Copiar tareas seleccionadas?</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
-    <string name="notification_disable_battery_optimizations_description">Optimizaciones de batería pueden retrasar notificaciones</string>
-    <string name="bundle_notifications">Agrupar notificaciones</string>
     <string name="badges">Insignias</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Repetir desde </string>
@@ -242,7 +231,6 @@
     <string name="dont_add_to_calendar">No añadir al calendario</string>
     <string name="default_calendar">Calendario predeterminado</string>
     <string name="badges_description">Muestre un recuento de tareas en el icono de iniciador de Tasks. No todos los iniciadores admiten insignias de notificación.</string>
-    <string name="bundle_notifications_summary">Combinar múltiples notificaciones en una sola</string>
     <string name="tasker_create_task">Crear tarea</string>
     <string name="tasker_list_notification">Listar notificación</string>
     <string name="help">Ayuda</string>
@@ -295,13 +283,6 @@
     <string name="help_and_feedback">Ayuda y retroalimentación</string>
     <string name="documentation">Documentación</string>
     <string name="preferences_advanced">Avanzado</string>
-    <string name="wearable_notifications">Notificaciones del reloj</string>
-    <string name="wearable_notifications_summary">Mostrar las notificaciones en su reloj</string>
-    <string name="troubleshooting">Solución de problemas</string>
-    <string name="notification_troubleshooting_summary">Pulse aquí si tiene problemas con las notificaciones</string>
-    <string name="disable_battery_optimizations">Desactivar optimizaciones de batería</string>
-    <string name="more_settings">Más configuración</string>
-    <string name="more_notification_settings_summary">Tono de llamada, vibraciones y más</string>
     <string name="theme_system_default">Valor predeterminado del sistema</string>
     <string name="color_wheel">Rueda de colores</string>
     <string name="upgrade_blurb_1">¡Hola! Me llamo Alex. Soy el desarrollador independiente detrás de Tasks</string>
@@ -440,7 +421,6 @@
     <string name="markdown_description">Activar Markdown en el título y la descripción</string>
     <string name="markdown">Markdown</string>
     <string name="now">Ahora</string>
-    <string name="completion_sound">Reproducir el sonido de finalización</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarea terminada</string>
     <string name="snackbar_tasks_completed">%d tareas completadas</string>
@@ -454,22 +434,13 @@
     <string name="sort_list">Por lista</string>
     <string name="change_priority">Prioridad de cambio</string>
     <string name="theme_dynamic">Dinámico</string>
-    <string name="swipe_to_snooze_title">Desliza el dedo para repetir</string>
-    <string name="swipe_to_snooze_time_1_hour">después de 1 hora</string>
-    <string name="swipe_to_snooze_time_24_hours">después de 24 horas</string>
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sin desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Permite utilizar la ventana de ajustes rápidos sin desbloquear el dispositivo</string>
-    <string name="swipe_to_snooze_description">Tiempo de repetición</string>
-    <string name="swipe_to_snooze_time_description">Una notificación borrada será pospuesta y recreada %s</string>
-    <string name="swipe_to_snooze_time_immediately">inmediatamente</string>
-    <string name="swipe_to_snooze_time_15_minutes">después de 15 minutos</string>
-    <string name="swipe_to_snooze_time_30_minutes">después de 30 minutos</string>
     <string name="customize_drawer">Personalizar menú</string>
     <string name="customize_drawer_summary">Arrastra y suelta para reorganizar los elementos del menú</string>
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="donate_today">Donar ahora</string>
     <string name="donate_maybe_later">Quizas mas tarde</string>
-    <string name="quiet_hours_in_effect">Es el momento de descansar</string>
     <string name="enable_alarms_description">Para asegurarse de recibir notificaciones en el momento adecuado, otorgue permiso para configurar alarmas y recordatorios en Configuración</string>
     <string name="enable_alarms">Recibe notificaciones en el momento adecuado</string>
     <string name="multiline_title">Permitir títulos de varias líneas</string>
@@ -498,7 +469,6 @@
     <string name="legal_disclosure_prefix_using">Al utilizar Tasks.org</string>
     <string name="accept">Aceptar</string>
     <string name="rmd_EPr_rmd_time_desc">Las notificaciones de las tareas de todo el día aparecerán a las %1$s</string>
-    <string name="default_reminder">Todas las tareas diarias</string>
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>

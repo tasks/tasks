@@ -14,7 +14,6 @@
     <string name="CFC_dueBefore_text">По датуму: ?</string>
     <string name="gcal_completed_title">%s (завршено)</string>
     <string name="rmd_EPr_defaultRemind_title">Насумични подсетници</string>
-    <string name="quiet_hours_summary">Без подсетника у мирним сатима</string>
     <string name="filter_settings">Подешавања филтера</string>
     <string name="import_summary_title">Обнови сажетак</string>
     <string name="export_toast">Копија сачувана од %1$s до %2$s.</string>
@@ -115,17 +114,6 @@
     <string name="rmd_NoA_done">Заврши</string>
     <string name="rmd_NoA_snooze">Одложи</string>
     <string name="snooze_all">Одложи све</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Почетак режима без узнемиравања</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Завршетак режима без узнемиравања</string>
-    <string name="persistent_notifications">Перзистентна обавештења</string>
-    <string name="persistent_notifications_description">Перзистентна обавештења се не могу брисати</string>
-    <string name="swipe_to_snooze_title">Превуци за одлагање</string>
-    <string name="swipe_to_snooze_description">Време одлагања</string>
-    <string name="swipe_to_snooze_time_immediately">одмах</string>
-    <string name="swipe_to_snooze_time_15_minutes">након 15 минута</string>
-    <string name="swipe_to_snooze_time_30_minutes">након 30 минута</string>
-    <string name="swipe_to_snooze_time_1_hour">након 1 часа</string>
-    <string name="swipe_to_snooze_time_24_hours">након 24 часа</string>
     <string name="default_random_reminder_disabled">Онемогућено</string>
     <string name="default_random_reminder_hourly">Часовно</string>
     <string name="default_random_reminder_daily">Дневно</string>
@@ -169,7 +157,6 @@
     <string name="comment">Коментар</string>
     <string name="TEA_timer_controls">Тајмер</string>
     <string name="EPr_voiceInputEnabled_title">Гласовни улаз</string>
-    <string name="EPr_voiceRemindersEnabled_title">Гласовни подсетници</string>
     <string name="voice_command_added_task">Додат задатак</string>
     <plurals name="Ntasks">
         <item quantity="one">1 задатак</item>
@@ -246,13 +233,11 @@
     <string name="user">Корисник</string>
     <string name="password">Шифра</string>
     <string name="url">URL</string>
-    <string name="notification_disable_battery_optimizations_description">Оптимизација батерије може одложити обавештења</string>
     <string name="badges">Беџеви</string>
     <string name="list">Листа</string>
     <string name="repeats_from">Понавља се од</string>
     <string name="dont_add_to_calendar">Не додавати у календар</string>
     <string name="default_calendar">Подразумевани календар</string>
-    <string name="bundle_notifications_summary">Споји неколико обавештења у једно</string>
     <string name="tasker_create_task">Креирај задатак</string>
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
@@ -288,11 +273,6 @@
     <string name="show_advanced_settings">Прикажи напредна подешавања</string>
     <string name="preferences_advanced">Напредно</string>
     <string name="documentation">Документација</string>
-    <string name="wearable_notifications">Обавештења ,,Wearable\'\' уређаја</string>
-    <string name="wearable_notifications_summary">Прикажи обавештења на ,,Wearable\'\' уређају</string>
-    <string name="disable_battery_optimizations">Онемогући оптимизацију батерије</string>
-    <string name="more_settings">Додатна подешавања</string>
-    <string name="more_notification_settings_summary">Звук звона, вибрација и додатно</string>
     <string name="upgrade_blurb_1">Здраво! Моје име је Алекс. Ја сам независни развојни инжењер у ,,Tasks.org\'\' апликацији</string>
     <string name="upgrade_blurb_2">Провео сам хиљаде часова радећи на апликацији, коју објављујем онлајн бесплатно. Како бисте подржали мој рад, неке функционалности захтевају претплату</string>
     <string name="back">Назад</string>
@@ -334,8 +314,6 @@
     <string name="CFC_gtasks_list_text">У листи: ?</string>
     <string name="CFC_list_name">У листи…</string>
     <string name="premium_record_audio">Сними белешку</string>
-    <string name="rmd_EPr_rmd_time_title">Време подсетника</string>
-    <string name="swipe_to_snooze_time_description">Обрисано обавештење ће бити одложено и поново креирано %s</string>
     <string name="default_random_reminder_bi_weekly">Једном у две седмице</string>
     <string name="repeat_option_custom">Друго…</string>
     <string name="TPl_notification">Тајмери активни за %s!</string>
@@ -343,12 +321,9 @@
     <string name="TEA_timer_comment_stopped">заустављен задатак:</string>
     <string name="TEA_timer_comment_spent">Време утрошено:</string>
     <string name="voice_create_prompt">Причај како би креирао задатак</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Апликација ће изговорити назив задатка приликом подсећања</string>
     <string name="widget_show_checkboxes">Прикажи чекирана поља</string>
     <string name="widget_show_header">Прикажи заглавље</string>
     <string name="widget_show_dividers">Прикажи разделнике</string>
-    <string name="quiet_hours">Време без узнемиравања</string>
-    <string name="quiet_hours_in_effect">Време без узнемиравања је активно</string>
     <string name="attachment_directory">Директоријум са прилозима</string>
     <string name="customize_edit_screen">Подеси екран измене</string>
     <string name="translations">Допринеси преводима</string>
@@ -364,7 +339,6 @@
     <string name="launcher_icon">Иконица за покретање</string>
     <string name="settings_localization">Локализација</string>
     <string name="widget_due_date_after_title">Након назива</string>
-    <string name="bundle_notifications">Пакет обавештења</string>
     <string name="repeats_plural_number_of_times">Понавља се сваких %1$s, појављује се %2$d %3$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="badges_description">Прикажи број задатака на иконици за покретање. Неки покретачи не подржавају беџеве.</string>
@@ -384,8 +358,6 @@
     <string name="subtasks_multilevel_google_task">Подзадаци у више нивоа нису подржани од стране Гугл Задатака</string>
     <string name="subtasks_multilevel_microsoft">Подзадаци у више нивоа нису подржани од стране ,,Microsoft To Do\'\'</string>
     <string name="caldav_selection_description">Синхронизација заснована на стандардима отвореног интернета</string>
-    <string name="troubleshooting">Решавање проблема</string>
-    <string name="notification_troubleshooting_summary">Тапни овде уколико постоје проблеми са обавештењима</string>
     <string name="color_wheel">Палета боја</string>
     <string name="chips">Апликациони чипови</string>
     <string name="chip_appearance">Изглед апликационих чипова</string>
@@ -471,7 +443,6 @@
     <string name="upgrade_open_source_description">Ова претплата омогућава наставак развоја апликације</string>
     <string name="markdown">Редукција</string>
     <string name="markdown_description">Омогући Редукцију у називу и опису</string>
-    <string name="completion_sound">Произведи звук за завршетак</string>
     <string name="completed">Завршено</string>
     <string name="snackbar_task_completed">Задатак завршен</string>
     <string name="snackbar_tasks_completed">%d задатака завршено</string>
@@ -506,9 +477,6 @@
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и још тога!</string>
     <string name="advanced_tools">Напредна подешавања</string>
     <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>
-    <string name="rmd_time_enabled_off">Без додавања подразумеваних подсетника за целодневне задатке</string>
-    <string name="rmd_time_enabled_on">Додај подразумеване подсетнике за целодневне задатке</string>
-    <string name="add_default_reminders">Додај подразумеване подсетнике</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
     <string name="location_update_interval_disabled">Онемогућено</string>
@@ -516,7 +484,6 @@
     <string name="location_update_interval_30_minutes">Сваких 30 минута</string>
     <string name="location_update_interval_1_hour">Сваког сата</string>
     <string name="location_update_interval_2_hours">Свака 2 сата</string>
-    <string name="default_reminder">Целодневни задаци</string>
     <string name="per_list_sort_summary">Памти сортирање и групна подешавања за сваку листу независно</string>
     <string name="subscription_required_fdroid">Потребна претплата за коришћење Tasks.org синхронизације. Претпала мора да буде иницирана од стране Google Play верзије апликације.</string>
     <string name="guest_create_list_message">Тренутно имаш приступ дељеној листи као гост. За креирање и синхронизацију сопствених приватних листи у облаку, потребна је Tasks.org претплата. Или можеш креирати бесплатну локалну листу која ће остати само на овом уређају.</string>

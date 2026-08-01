@@ -99,13 +99,6 @@
     <string name="upgrade_blurb_2">ฉันใช้เวลาหลายพันชั่วโมงในการทํางานและฉันเผยแพร่ซอร์สโค้ดทั้งหมดออนไลน์ฟรี เพื่อสนับสนุนงานของฉันคุณสมบัติบางอย่างต้องมีการสมัครสมาชิก</string>
     <string name="upgrade_blurb_1">สวัสดี! ฉันชื่ออเล็กซ์ ฉันเป็นนักพัฒนาอิสระที่อยู่เบื้องหลังงาน</string>
     <string name="color_wheel">วงล้อสี</string>
-    <string name="more_notification_settings_summary">เสียงเรียกเข้า การสั่นสะเทือน และอื่นๆ</string>
-    <string name="more_settings">การตั้งค่าเพิ่มเติม</string>
-    <string name="disable_battery_optimizations">ปิดใช้งานการเพิ่มประสิทธิภาพแบตเตอรี่</string>
-    <string name="notification_troubleshooting_summary">แตะที่นี่หากคุณมีปัญหากับการแจ้งเตือน</string>
-    <string name="troubleshooting">แก้ไข ปัญหา</string>
-    <string name="wearable_notifications_summary">แสดงการแจ้งเตือนบนอุปกรณ์สวมใส่ของคุณ</string>
-    <string name="wearable_notifications">การแจ้งเตือนที่สวมใส่ได้</string>
     <string name="documentation">เอกสาร</string>
     <string name="preferences_advanced">ดึก</string>
     <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
@@ -158,7 +151,6 @@
     <string name="tasker_create_task">สร้างงาน</string>
     <string name="EPr_default_importance_title">ระดับความสําคัญเริ่มต้น</string>
     <string name="EPr_manage_delete_gcal_status">ลบ %d กิจกรรมในปฏิทิน!</string>
-    <string name="bundle_notifications_summary">รวมการแจ้งเตือนหลายรายการไว้ในรายการเดียว</string>
     <string name="badges_description">แสดงจํานวนงานบนไอคอนตัวเปิดใช้งาน ตัวเรียกใช้งานไม่รองรับป้ายทั้งหมด</string>
     <string name="default_calendar">ปฏิทินเริ่มต้น</string>
     <string name="dont_add_to_calendar">ไม่ต้องเพิ่มลงในปฏิทิน</string>
@@ -167,8 +159,6 @@
     <string name="repeats_from">ซ้ำจาก</string>
     <string name="list">รายการ</string>
     <string name="badges">ป้าย</string>
-    <string name="bundle_notifications">การแจ้งเตือนบันเดิล</string>
-    <string name="notification_disable_battery_optimizations_description">การเพิ่มประสิทธิภาพแบตเตอรี่อาจทําให้การแจ้งเตือนล่าช้า</string>
     <string name="url">URL</string>
     <string name="password">รหัสผ่าน</string>
     <string name="user">ผู้ใช้</string>
@@ -230,7 +220,6 @@
     <string name="geofence_radius">รัศมี</string>
     <string name="remove">ลบ</string>
     <string name="add_location">เพิ่มตําแหน่งที่ตั้ง</string>
-    <string name="quiet_hours_summary">ไม่มีการเตือนในช่วงเวลาที่เงียบสงบ</string>
     <string name="translations">สนับสนุนการแปล</string>
     <string name="customize_edit_screen">กําหนดหน้าจอแก้ไขเอง</string>
     <string name="row_spacing">ระยะห่างระหว่างแถว</string>
@@ -242,7 +231,6 @@
     <string name="google_drive_backup">การสํารองข้อมูลของ Google ไดรฟ์</string>
     <string name="backup_directory">โฟลเดอร์สำรอง</string>
     <string name="attachment_directory">โฟลเดอร์สิ่งที่แนบมา</string>
-    <string name="quiet_hours">ชั่วโมงเงียบ</string>
     <string name="notifications">แจ้ง เตือน</string>
     <string name="widget_show_dividers">แสดงวงเวียน</string>
     <string name="widget_show_menu">แสดงเมนู</string>
@@ -254,8 +242,6 @@
         <item quantity="other">%d งาน</item>
     </plurals>
     <string name="voice_command_added_task">งานที่เพิ่ม</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">งานจะพูดชื่องานในระหว่างตัวเตือนงาน</string>
-    <string name="EPr_voiceRemindersEnabled_title">ตัวเตือนด้วยเสียง</string>
     <string name="EPr_voiceInputEnabled_title">ป้อนข้อมูลด้วยเสียง</string>
     <string name="voice_create_prompt">พูดเพื่อสร้างงาน</string>
     <string name="TEA_timer_comment_spent">เวลาที่ใช้:</string>
@@ -291,11 +277,6 @@
     <string name="default_random_reminder_hourly">รายชั่วโมง</string>
     <string name="default_random_reminder_disabled">พิการ</string>
     <string name="rmd_EPr_defaultRemind_title">การแจ้งเตือนแบบสุ่ม</string>
-    <string name="persistent_notifications_description">ไม่สามารถล้างการแจ้งเตือนแบบถาวรได้</string>
-    <string name="persistent_notifications">การแจ้งเตือนแบบถาวร</string>
-    <string name="rmd_EPr_rmd_time_title">ตัวเตือนเริ่มต้น</string>
-    <string name="rmd_EPr_quiet_hours_end_title">สิ้นสุดชั่วโมงเงียบ</string>
-    <string name="rmd_EPr_quiet_hours_start_title">ชั่วโมงที่เงียบสงบเริ่มต้น</string>
     <string name="snooze_all">ปิดเสียงเตือนทั้งหมด</string>
     <string name="ring_nonstop">แหวนไม่หยุดนิ่ง</string>
     <string name="ring_five_times">แหวนห้าครั้ง</string>

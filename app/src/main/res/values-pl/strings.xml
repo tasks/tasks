@@ -105,11 +105,6 @@
     <string name="rmd_NoA_done">Gotowe</string>
     <string name="rmd_NoA_snooze">Drzemka</string>
     <string name="snooze_all">Uśpij wszystkie</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Koniec czasu wyciszenia</string>
-    <string name="rmd_EPr_rmd_time_title">Czas przypomnienia</string>
-    <string name="persistent_notifications">Natarczywe powiadomienia</string>
-    <string name="persistent_notifications_description">Natarczywe powiadomienia nie mogą zostać wyczyszczone</string>
     <string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
     <string name="default_random_reminder_disabled">wyłączone</string>
     <string name="default_random_reminder_hourly">co godzinę</string>
@@ -158,8 +153,6 @@
     <string name="TEA_timer_comment_spent">Czas spędzony:</string>
     <string name="voice_create_prompt">Mów by utworzyć zadanie</string>
     <string name="EPr_voiceInputEnabled_title">Polecenia głosowe</string>
-    <string name="EPr_voiceRemindersEnabled_title">Przypomnienia głosowe</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks będzie mówił nazwę zadania podczas przypomnienia</string>
     <string name="voice_command_added_task">Dodane zadanie</string>
     <plurals name="Ntasks">
         <item quantity="one">1 zadanie</item>
@@ -172,7 +165,6 @@
     <string name="widget_show_header">Pokaż nagłówek</string>
     <string name="widget_show_settings">Pokaż ustawienia</string>
     <string name="notifications">Powiadomienia</string>
-    <string name="quiet_hours">Ciche godziny</string>
     <string name="attachment_directory">Katalog załączników</string>
     <string name="backup_directory">Katalog kopii zapasowych</string>
     <string name="google_drive_backup">Kopia zapasowa na Dysku Google</string>
@@ -182,7 +174,6 @@
     <string name="row_spacing">Odstęp wierszy</string>
     <string name="customize_edit_screen">Dostosuj ekran edycji</string>
     <string name="translations">Wspomóż tłumaczenie</string>
-    <string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
     <string name="add_location">Dodaj lokalizację</string>
     <string name="remove">Usuń</string>
     <string name="geofence_radius">Promień</string>
@@ -234,8 +225,6 @@
     <string name="copy_selected_tasks">Skopiować zaznaczone zadania?</string>
     <string name="user">Użytkownik</string>
     <string name="password">Hasło</string>
-    <string name="notification_disable_battery_optimizations_description">Optymalizacja zużycia energii może opóźniać powiadomienia</string>
-    <string name="bundle_notifications">Zarządzaj powiadomieniami</string>
     <string name="badges">Plakietki</string>
     <string name="list">Lista</string>
     <string name="repeats_from">Powtarzaj od</string>
@@ -243,7 +232,6 @@
     <string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
     <string name="default_calendar">Domyślny kalendarz</string>
     <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>
-    <string name="bundle_notifications_summary">Wyświetlaj wiele powiadomień jako jedno</string>
     <string name="tasker_create_task">Stwórz zadanie</string>
     <string name="tasker_list_notification">Lista powiadomień</string>
     <string name="help">Pomoc</string>
@@ -295,13 +283,6 @@
     <string name="help_and_feedback">Pomoc i opinie</string>
     <string name="documentation">Dokumentacja</string>
     <string name="preferences_advanced">Zaawansowane</string>
-    <string name="wearable_notifications">Powiadomienia wearable</string>
-    <string name="wearable_notifications_summary">Wyświetlanie powiadomień na urządzeniu do noszenia</string>
-    <string name="troubleshooting">Rozwiązywanie problemów</string>
-    <string name="notification_troubleshooting_summary">Dotknij tutaj, jeśli masz problemy z powiadomieniami</string>
-    <string name="disable_battery_optimizations">Wyłącz oszczędzanie baterii</string>
-    <string name="more_settings">Więcej ustawień</string>
-    <string name="more_notification_settings_summary">Dzwonek, wibracje i inne</string>
     <string name="theme_system_default">Domyślny systemowy</string>
     <string name="color_wheel">Paleta</string>
     <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
@@ -440,7 +421,6 @@
     <string name="pro_free_trial">Nowi subskrybenci otrzymują 7-dniowy, darmowy okres próbny. Można anulować w dowolnym momencie</string>
     <string name="open_source">Open source</string>
     <string name="completed">Zakończone</string>
-    <string name="completion_sound">Odtwórz dźwięk zakończenia</string>
     <string name="now">Teraz</string>
     <string name="custom_filter_has_reminder">Ma przypomnienie</string>
     <string name="snackbar_task_completed">Zadanie zakończone</string>
@@ -453,13 +433,6 @@
     <string name="sort_completion_group">Ukończono %s</string>
     <string name="sort_list">Wg listy</string>
     <string name="app_settings">Ustawienia aplikacji</string>
-    <string name="swipe_to_snooze_title">Przesuń aby uśpić</string>
-    <string name="swipe_to_snooze_time_immediately">natychmiast</string>
-    <string name="swipe_to_snooze_time_15_minutes">po 15 minutach</string>
-    <string name="swipe_to_snooze_time_30_minutes">po 30 minutach</string>
-    <string name="swipe_to_snooze_time_1_hour">po 1 godzinie</string>
-    <string name="swipe_to_snooze_time_24_hours">po 24 godzinach</string>
-    <string name="swipe_to_snooze_description">Czas drzemki</string>
     <string name="delete_comment">komentarz</string>
     <string name="comment">Komentarz</string>
     <string name="yesterday">Wczoraj</string>
@@ -471,7 +444,6 @@
     <string name="location_update_interval_30_minutes">Co 30 minut</string>
     <string name="location_update_interval_1_hour">Co godzinę</string>
     <string name="location_update_interval_2_hours">Co 2 godziny</string>
-    <string name="swipe_to_snooze_time_description">Zamknięte powiadomienie zostanie uśpione i odtworzone za %s</string>
     <string name="location_update_interval_title">Aktualizacja lokalizacji w tle</string>
     <string name="location_update_interval_disabled">Wyłączona</string>
     <string name="customize_drawer_summary">Przeciągnij i upuść, aby zmienić kolejność elementów menu</string>
@@ -480,9 +452,5 @@
     <string name="location_update_interval_summary">Okresowe aktualizacje lokalizacji poprawiają niezawodność geofencingu</string>
     <string name="rmd_EPr_rmd_time_desc">Powiadomienia dla zadań całodniowych pojawia się o %1$s</string>
     <string name="show_edit_screen_without_unlock">Pokaż ekran edycji bez odblokowywania</string>
-    <string name="default_reminder">Zadania całodniowe</string>
-    <string name="add_default_reminders">Dodaj domyślne powiadomienia</string>
-    <string name="rmd_time_enabled_on">Dodaj domyślne powiadomienia dla zadań całodniowych</string>
-    <string name="rmd_time_enabled_off">Nie dodawaj domyślnych powiadomień do zadań całodniowych</string>
     <string name="delete_tasks_warning">%s zostanie usunięty. Nie można tego cofnąć.</string>
 </resources>

@@ -124,11 +124,6 @@
     <string name="default_random_reminder_hourly">گھنٹہ وار</string>
     <string name="default_random_reminder_disabled">غیرفعال</string>
     <string name="rmd_EPr_defaultRemind_title">بے ترتیب یاد دہانیاں</string>
-    <string name="persistent_notifications_description">مستقل نوٹیفکیشن ختم نہیں ہو سکتے</string>
-    <string name="persistent_notifications">مستقل نوٹیفکیشن</string>
-    <string name="rmd_EPr_rmd_time_title">ڈیفالٹ یاددہانی</string>
-    <string name="rmd_EPr_quiet_hours_end_title">خاموش گھنٹہ ختم کریں</string>
-    <string name="rmd_EPr_quiet_hours_start_title">خاموش گھنٹہ شروع کریں</string>
     <string name="snooze_all">سارا اسنوز کریں</string>
     <string name="rmd_NoA_snooze">اسنوز کریں</string>
     <string name="rmd_NoA_done">مکمل</string>
@@ -182,8 +177,6 @@
         <item quantity="other">%d ٹاسکس</item>
     </plurals>
     <string name="voice_command_added_task">ٹاسک جمع کر دیا گیا</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">ٹاسکس یاد دہانیوں کے دوران ٹاسکس کے نام بولیں گے</string>
-    <string name="EPr_voiceRemindersEnabled_title">صوتی یاد دہانیاں</string>
     <string name="EPr_voiceInputEnabled_title">وائس ان پٹ</string>
     <string name="voice_create_prompt">ٹاسک بنانے کیلئے بولیں</string>
     <string name="TEA_timer_comment_spent">صرف کیا گیا وقت:</string>
@@ -201,7 +194,6 @@
     <string name="geofence_radius">رداس</string>
     <string name="remove">ختم کریں</string>
     <string name="add_location">لوکیشن لگائیں</string>
-    <string name="quiet_hours_summary">خاموش گھنٹوں کے دوران کوئی یاد دہانی نہیں</string>
     <string name="translations">ترجمہ کریں</string>
     <string name="customize_edit_screen">ایڈٹ سکرین کسٹمائز کریں</string>
     <string name="row_spacing">قطاروں کی سپیسنگ</string>
@@ -213,7 +205,6 @@
     <string name="google_drive_backup">گوگل ڈرائیو بیک اپ</string>
     <string name="backup_directory">بیک اپ فولڈر</string>
     <string name="attachment_directory">اٹیچ منٹ فولڈر</string>
-    <string name="quiet_hours">خاموش گھنٹے</string>
     <string name="notifications">نوٹیفیکیشنز</string>
     <string name="widget_show_dividers">ڈیوائیڈر دکھائیں</string>
     <string name="widget_show_menu">مینیو دکھائیں</string>
@@ -265,8 +256,6 @@
     <string name="default_list">ڈیفالٹ فہرست</string>
     <string name="back_button_saves_task">بیک کے بٹن سے ٹاسک محفوظ کرنا</string>
     <string name="name_cannot_be_empty">نام خالی نہیں ہو سکتا</string>
-    <string name="bundle_notifications">بنڈل نوٹٰیفیکیشنز</string>
-    <string name="notification_disable_battery_optimizations_description">بیٹری کی بچت نوٹیفیکیشنز کو ملتوی کر سکتی ہے</string>
     <string name="url">یو آر ایل</string>
     <string name="password">پاسورڈ</string>
     <string name="user">صارف</string>
@@ -280,7 +269,6 @@
     <string name="widget_due_date_after_title">عنوان کے بعد</string>
     <string name="widget_open_list">فہرست کھولیں</string>
     <string name="tasker_create_task">ٹاسک بنائیں</string>
-    <string name="bundle_notifications_summary">متعدد نوٹیفیکیشنز کو ایک میں کر دیں</string>
     <string name="badges_description">ٹاسکس ایپ کے آئیکن پر ٹاسک کی تعداد ظاہر کریں۔ تمام لانچرز نشانات کو سپوڑٹ نہیں کرتے۔</string>
     <string name="default_calendar">ڈیفالٹ کیلںنڈر</string>
     <string name="dont_add_to_calendar">کیلنڈر میں داخل نہ کریں</string>

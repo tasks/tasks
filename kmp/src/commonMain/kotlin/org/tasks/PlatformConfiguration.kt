@@ -22,4 +22,12 @@ data class PlatformConfiguration(
     val supportsWidgets: Boolean = false,
     val supportsDesktopLinking: Boolean = false,
     val supportsLogExport: Boolean = false,
+
+    val supportsNotificationTroubleshooting: Boolean = false,
+    val supportsSystemNotificationSettings: Boolean = false,
+    val supportsOngoingNotifications: Boolean = false,
+    val supportsBundledNotifications: Boolean = false,
+    val supportsVoiceReminders: Boolean = false,
+    val supportsCompletionSound: Boolean = false,
+    val supportsSwipeToSnooze: Boolean = false,
 )

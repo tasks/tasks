@@ -100,11 +100,6 @@
     <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">延后</string>
     <string name="snooze_all">全都稍后提醒</string>
-    <string name="rmd_EPr_quiet_hours_start_title">静音开始时间</string>
-    <string name="rmd_EPr_quiet_hours_end_title">静音结束时间</string>
-    <string name="rmd_EPr_rmd_time_title">提醒时间</string>
-    <string name="persistent_notifications">在通知栏固定通知</string>
-    <string name="persistent_notifications_description">在通知栏固定通知后将无法被清除</string>
     <string name="rmd_EPr_defaultRemind_title">随机提醒</string>
     <string name="default_random_reminder_disabled">已禁用</string>
     <string name="default_random_reminder_hourly">每小时</string>
@@ -145,8 +140,6 @@
     <string name="TEA_timer_comment_spent">已耗时：</string>
     <string name="voice_create_prompt">请说话以建立任务</string>
     <string name="EPr_voiceInputEnabled_title">语音输入</string>
-    <string name="EPr_voiceRemindersEnabled_title">语音提醒</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks 会在任务提醒时读出任务名</string>
     <string name="voice_command_added_task">已添加的任务</string>
     <plurals name="Ntasks">
         <item quantity="other">%d 个任务</item>
@@ -157,7 +150,6 @@
     <string name="widget_show_header">显示标题</string>
     <string name="widget_show_settings">显示设置</string>
     <string name="notifications">通知</string>
-    <string name="quiet_hours">静音时间</string>
     <string name="attachment_directory">附件文件夹</string>
     <string name="backup_directory">备份文件夹</string>
     <string name="miscellaneous">杂项</string>
@@ -166,7 +158,6 @@
     <string name="row_spacing">行间距</string>
     <string name="customize_edit_screen">自定义编辑屏幕</string>
     <string name="translations">贡献翻译</string>
-    <string name="quiet_hours_summary">静音期间不提醒</string>
     <string name="remove">移除</string>
     <string name="tags">标签</string>
     <string name="filters">过滤器</string>
@@ -217,8 +208,6 @@
     <string name="user">用户名</string>
     <string name="password">密码</string>
     <string name="url">网址</string>
-    <string name="notification_disable_battery_optimizations_description">电池优化可能会延迟通知</string>
-    <string name="bundle_notifications">合并通知</string>
     <string name="badges">角标</string>
     <string name="list">清单</string>
     <string name="repeats_from">重复始于</string>
@@ -226,7 +215,6 @@
     <string name="dont_add_to_calendar">不添加到日历</string>
     <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
-    <string name="bundle_notifications_summary">将多个通知合并为一个通知</string>
     <string name="tasker_create_task">创建任务</string>
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
@@ -285,13 +273,6 @@
     <string name="help_and_feedback">帮助和反馈</string>
     <string name="documentation">文档</string>
     <string name="preferences_advanced">高级</string>
-    <string name="wearable_notifications">可穿戴设备提示</string>
-    <string name="wearable_notifications_summary">在你的可穿戴设备上显示通知</string>
-    <string name="troubleshooting">疑难解答</string>
-    <string name="notification_troubleshooting_summary">如果您在通知方面遇到问题，请点按此处</string>
-    <string name="disable_battery_optimizations">禁用电池优化</string>
-    <string name="more_settings">更多设置</string>
-    <string name="more_notification_settings_summary">铃声、振动及更多</string>
     <string name="theme_system_default">系统默认</string>
     <string name="color_wheel">给滚轮着色</string>
     <string name="upgrade_blurb_1">你好！我叫 Alex，是 Tasks 背后的独立开发者</string>
@@ -430,7 +411,6 @@
     <string name="markdown_description">在任务标题和描述中启用 Markdown</string>
     <string name="markdown">Markdown</string>
     <string name="now">现在</string>
-    <string name="completion_sound">播放完成声音</string>
     <string name="completed">已完成</string>
     <string name="snackbar_task_completed">任务已完成</string>
     <string name="snackbar_tasks_completed">完成了 %d 个任务</string>
@@ -444,14 +424,6 @@
     <string name="sort_list">按清单</string>
     <string name="change_priority">更改优先级</string>
     <string name="theme_dynamic">动态</string>
-    <string name="swipe_to_snooze_time_description">清除的通知将被推迟并于 %s 被再次创建</string>
-    <string name="swipe_to_snooze_time_immediately">立即</string>
-    <string name="swipe_to_snooze_time_30_minutes">30 分钟后</string>
-    <string name="swipe_to_snooze_time_1_hour">1 小时后</string>
-    <string name="swipe_to_snooze_time_24_hours">24 小时后</string>
-    <string name="swipe_to_snooze_title">滑动延后</string>
-    <string name="swipe_to_snooze_description">延后时长</string>
-    <string name="swipe_to_snooze_time_15_minutes">15 分钟后</string>
     <string name="show_edit_screen_without_unlock_summary">允许不解锁设备的情况下使用“快速设置”磁贴</string>
     <string name="show_edit_screen_without_unlock">不解锁显示编辑屏</string>
     <string name="customize_drawer">自定义抽屉</string>
@@ -459,7 +431,6 @@
     <string name="donate_maybe_later">也许以后</string>
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="donate_today">现在捐赠</string>
-    <string name="quiet_hours_in_effect">静音时段生效中</string>
     <string name="enable_alarms">在正确的时间收到通知</string>
     <string name="enable_alarms_description">确保你在正确的时间收到通知，在设置中授予设置闹铃和提醒的权限</string>
     <string name="yesterday">昨天</string>
@@ -497,10 +468,6 @@
     <string name="email_to_task_address">您的电子邮件地址</string>
     <string name="email_to_task">邮件转任务</string>
     <string name="rmd_EPr_rmd_time_desc">全天任务的通知将显示在 %1$s</string>
-    <string name="default_reminder">全天任务</string>
-    <string name="add_default_reminders">添加默认提醒</string>
-    <string name="rmd_time_enabled_on">为全天任务添加默认提醒</string>
-    <string name="rmd_time_enabled_off">不为全天任务添加默认提醒</string>
     <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
     <string name="advanced_tools">高级工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
