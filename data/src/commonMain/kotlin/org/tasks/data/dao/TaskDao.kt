@@ -25,14 +25,14 @@ private const val MAX_TIME = 9999999999999
 
 private val WHITESPACE = Regex("\\s+")
 
+private const val LOG_QUERY_TEXT_ABOVE_MS = 100
+
 /**
  * Kermit's minimum severity defaults to verbose and the release build never raises it, so this
  * runs in production. Collapsing several KB of SQL into one line is far too costly to do on every
  * query, and the timing alone answers the usual question. The query text is only worth the cost
  * when it is the slow one.
  */
-private const val LOG_QUERY_TEXT_ABOVE_MS = 100
-
 private fun logQuery(query: String, durationMs: Long) = Logger.v("TaskDao") {
     if (durationMs >= LOG_QUERY_TEXT_ABOVE_MS) {
         "${durationMs}ms: ${query.replace(WHITESPACE, " ").trim()}"
