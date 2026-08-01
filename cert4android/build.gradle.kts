@@ -16,7 +16,11 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
+        }
+    }
 
     sourceSets {
         val jvmCommonMain by creating {

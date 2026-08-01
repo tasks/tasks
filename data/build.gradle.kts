@@ -19,7 +19,11 @@ kotlin {
             freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
         }
     }
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jdk.get()))
+        }
+    }
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room)

@@ -26,7 +26,11 @@ kotlin {
         }
     }
 
-    jvm("desktop")
+    jvm("desktop") {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
+        }
+    }
 
     // iOS requires adding iOS targets to data and kmp modules first
     // listOf(

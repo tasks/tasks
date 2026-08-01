@@ -20,7 +20,11 @@ kotlin {
             freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
         }
     }
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
+        }
+    }
     sourceSets {
         val jvmCommonMain by creating {
             dependsOn(commonMain.get())
