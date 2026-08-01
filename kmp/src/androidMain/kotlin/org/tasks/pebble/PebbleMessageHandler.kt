@@ -8,9 +8,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Analytics
-import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.event_pebble
-import tasks.kmp.generated.resources.param_device_model
 import org.tasks.pebble.PebbleProtocol.CHUNK_SIZE
 import org.tasks.pebble.PebbleProtocol.ITEM_COLLAPSED
 import org.tasks.pebble.PebbleProtocol.ITEM_COMPLETED
@@ -54,6 +51,7 @@ import org.tasks.pebble.PebbleProtocol.MSG_GET_TASKS
 import org.tasks.pebble.PebbleProtocol.MSG_GET_TASK_COUNT
 import org.tasks.pebble.PebbleProtocol.MSG_SAVE_TASK
 import org.tasks.pebble.PebbleProtocol.MSG_TOGGLE_GROUP
+import org.tasks.pebble.PebbleProtocol.MSG_TOGGLE_LIST
 import org.tasks.pebble.PebbleProtocol.RESP_COMPLETE_TASK
 import org.tasks.pebble.PebbleProtocol.RESP_LISTS
 import org.tasks.pebble.PebbleProtocol.RESP_SAVE_TASK
@@ -61,11 +59,15 @@ import org.tasks.pebble.PebbleProtocol.RESP_TASK
 import org.tasks.pebble.PebbleProtocol.RESP_TASKS
 import org.tasks.pebble.PebbleProtocol.RESP_TASK_COUNT
 import org.tasks.pebble.PebbleProtocol.RESP_TOGGLE_GROUP
+import org.tasks.pebble.PebbleProtocol.RESP_TOGGLE_LIST
 import org.tasks.pebble.PebbleProtocol.TYPE_HEADER
 import org.tasks.pebble.PebbleProtocol.TYPE_TASK
 import org.tasks.watch.WatchListItem
 import org.tasks.watch.WatchService
 import org.tasks.watch.WatchUiItem
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.event_pebble
+import tasks.kmp.generated.resources.param_device_model
 import kotlin.math.ceil
 
 class PebbleMessageHandler(
@@ -79,6 +81,7 @@ class PebbleMessageHandler(
     }
 
     private val collapsedGroups = mutableSetOf(HEADER_COMPLETED)
+    private val collapsedLists = mutableSetOf<String>()
     private var lastFilter: String? = null
     // Session-based replay detection. The watch generates a random session ID
     // on each launch and includes it in state-changing messages. Replayed
@@ -99,6 +102,7 @@ class PebbleMessageHandler(
 
         val isStateChanging = msgType == MSG_COMPLETE_TASK
                 || msgType == MSG_SAVE_TASK || msgType == MSG_TOGGLE_GROUP
+                || msgType == MSG_TOGGLE_LIST
         if (isStateChanging) {
             val sessionId = (data[PebbleProtocol.KEY_SESSION_ID] as? Long) ?: 0L
             if (sessionId != currentSessionId) {
@@ -122,6 +126,7 @@ class PebbleMessageHandler(
                     MSG_COMPLETE_TASK -> handleCompleteTask(context, data, protocolTxn)
                     MSG_TOGGLE_GROUP -> handleToggleGroup(context, data, protocolTxn)
                     MSG_GET_LISTS -> handleGetLists(context, data, protocolTxn)
+                    MSG_TOGGLE_LIST -> handleToggleList(context, data, protocolTxn)
                     MSG_GET_TASK -> handleGetTask(context, data, protocolTxn)
                     MSG_SAVE_TASK -> handleSaveTask(context, data, protocolTxn)
                     MSG_GET_TASK_COUNT -> handleGetTaskCount(context, data, protocolTxn)
@@ -281,7 +286,7 @@ class PebbleMessageHandler(
         val position = (data[KEY_POSITION] as? Long)?.toInt() ?: 0
         val limit = (data[KEY_LIMIT] as? Long)?.toInt() ?: 0
 
-        val result = watchService.getLists(position, limit)
+        val result = watchService.getLists(position, limit, collapsedLists)
 
         val chunkCount = ceil(result.items.size.toDouble() / CHUNK_SIZE).toInt()
             .coerceAtLeast(1)
@@ -305,6 +310,8 @@ class PebbleMessageHandler(
                     is WatchListItem.Header -> {
                         dict[base + ITEM_TYPE] = TYPE_HEADER
                         dict[base + ITEM_TITLE] = PebbleProtocol.truncateTitle(item.title)
+                        dict[base + ITEM_EXTRA] = item.id
+                        dict[base + ITEM_COLLAPSED] = if (item.collapsed) 1 else 0
                     }
                     is WatchListItem.FilterItem -> {
                         dict[base + ITEM_TYPE] = TYPE_TASK
@@ -323,6 +330,29 @@ class PebbleMessageHandler(
                 delay(CHUNK_DELAY_MS)
             }
         }
+    }
+
+    private suspend fun handleToggleList(
+        context: Context,
+        data: Map<Int, Any>,
+        transactionId: Int,
+    ) {
+        val id = data[KEY_FILTER] as? String
+        val collapsed = (data[KEY_GROUP_COLLAPSED] as? Long)?.toInt() != 0
+
+        if (id != null) {
+            if (collapsed) {
+                collapsedLists.add(id)
+            } else {
+                collapsedLists.remove(id)
+            }
+        }
+
+        val dict = mapOf<Int, Any>(
+            KEY_MSG_TYPE to RESP_TOGGLE_LIST,
+            KEY_TRANSACTION_ID to transactionId,
+        )
+        PebbleProtocol.sendToPebble(context, dict, transactionId)
     }
 
     private suspend fun handleGetTask(

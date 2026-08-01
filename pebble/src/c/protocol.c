@@ -85,15 +85,35 @@ void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapse
     send_message();
 }
 
-void protocol_send_get_lists(void) {
+bool protocol_send_get_lists(int position, int limit) {
+    DictionaryIterator *out;
+    AppMessageResult result = app_message_outbox_begin(&out);
+    if (result != APP_MSG_OK) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W Outbox begin failed: %d", (int)result);
+        return false;
+    }
+
+    dict_write_uint8(out, KEY_MSG_TYPE, MSG_GET_LISTS);
+    dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    dict_write_uint32(out, KEY_POSITION, (uint32_t)position);
+    dict_write_uint32(out, KEY_LIMIT, (uint32_t)limit);
+
+    send_message();
+    return true;
+}
+
+void protocol_send_toggle_list(const char *id, bool collapsed) {
     DictionaryIterator *out;
     AppMessageResult result = app_message_outbox_begin(&out);
     if (result != APP_MSG_OK) return;
 
-    dict_write_uint8(out, KEY_MSG_TYPE, MSG_GET_LISTS);
+    dict_write_uint8(out, KEY_MSG_TYPE, MSG_TOGGLE_LIST);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
-    dict_write_uint32(out, KEY_POSITION, 0);
-    dict_write_uint32(out, KEY_LIMIT, 0);
+    dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
+    if (id) {
+        dict_write_cstring(out, KEY_FILTER, id);
+    }
+    dict_write_uint8(out, KEY_GROUP_COLLAPSED, collapsed ? 1 : 0);
 
     send_message();
 }
@@ -198,6 +218,7 @@ int protocol_parse_list_items(DictionaryIterator *iter, ListItem *items, int max
 
         item->color = safe_uint(dict_find(iter, base + ITEM_COLOR));
         item->text_color = safe_uint(dict_find(iter, base + ITEM_COMPLETED));
+        item->collapsed = safe_uint(dict_find(iter, base + ITEM_COLLAPSED)) != 0;
 
         count++;
     }

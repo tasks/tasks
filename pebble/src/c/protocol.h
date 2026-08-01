@@ -61,6 +61,7 @@
 #define MSG_GET_TASK        5
 #define MSG_SAVE_TASK       6
 #define MSG_GET_TASK_COUNT  7
+#define MSG_TOGGLE_LIST     8
 
 // Phone -> Watch response types
 #define RESP_TASKS          101
@@ -70,6 +71,7 @@
 #define RESP_TASK           105
 #define RESP_SAVE_TASK      106
 #define RESP_TASK_COUNT     107
+#define RESP_TOGGLE_LIST    108
 
 // Push notification
 #define MSG_REFRESH         200
@@ -103,10 +105,44 @@
 
 // Configuration
 #define CHUNK_SIZE          5
-#define PAGE_SIZE           10
 #define INITIAL_PAGE_SIZE   15
-#define PREFETCH_THRESHOLD  5
+// A refresh replaces the whole window, so ask for half of it rather than a
+// single page. Refreshing into 15 items mid-scroll drops the cursor straight
+// into placeholder rows and forces a burst of catch-up pages.
+#define REFRESH_PAGE_SIZE   (MAX_WINDOW / 2)
+#define REFRESH_LIST_SIZE   (MAX_LISTS / 2)
+
+// Sliding-window caps for the task list and the filter picker.
+//
+// Trimming the window shifts every row underneath the cursor, and the SDK gives
+// no way to compensate the scroll offset, so a trim is always a visible jump.
+// Keep these big enough that an ordinary list fits entirely and never trims.
+// aplite has only 24KB of app RAM and holds both windows at once while the
+// picker is open, so it gets smaller ones and will trim sooner.
+//
+// PREFETCH_THRESHOLD is how many loaded rows must remain below the cursor
+// before the next page is requested -- i.e. the runway the user has left. Too
+// small and a fast scroller reaches the end of the window while the request is
+// still in flight, which pins the cursor to the last row until it lands. It has
+// to stay well clear of the page-up trigger (a cursor below the threshold at the
+// top) or the two fight each other.
+#if defined(PBL_PLATFORM_APLITE)
+#define MAX_WINDOW          30
 #define MAX_LISTS           30
+#define PAGE_SIZE           10
+#define PREFETCH_THRESHOLD  8
+#else
+#define MAX_WINDOW          100
+#define MAX_LISTS           100
+#define PAGE_SIZE           20
+#define PREFETCH_THRESHOLD  25
+#endif
+// Rows a MenuLayer may span. ScrollLayer content height is int16 (GSize), so at
+// 44px a row the hard ceiling is ~744; stay well clear of it. Longer lists are
+// addressed through a base offset that shifts when the cursor nears the edge.
+#define MAX_ROWS            600
+#define REBASE_MARGIN       60
+
 #define MAX_TITLE_LEN       51
 #define MAX_EXTRA_LEN       21
 #define MAX_FILTER_ID_LEN   48
@@ -155,7 +191,8 @@ bool protocol_send_get_tasks(const char *filter, int position, int limit,
                             bool show_hidden, bool show_completed);
 void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool completed);
 void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapsed);
-void protocol_send_get_lists(void);
+bool protocol_send_get_lists(int position, int limit);
+void protocol_send_toggle_list(const char *id, bool collapsed);
 void protocol_send_get_task(uint32_t id_high, uint32_t id_low);
 void protocol_send_save_task(const char *title, const char *filter);
 

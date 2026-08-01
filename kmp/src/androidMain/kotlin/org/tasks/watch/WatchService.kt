@@ -14,7 +14,11 @@ interface WatchService {
 
     suspend fun completeTask(taskId: Long, completed: Boolean, source: String)
 
-    suspend fun getLists(position: Int, limit: Int): WatchListItems
+    suspend fun getLists(
+        position: Int,
+        limit: Int,
+        collapsed: Set<String> = emptySet(),
+    ): WatchListItems
 
     suspend fun getTask(taskId: Long): WatchTaskDetail
 

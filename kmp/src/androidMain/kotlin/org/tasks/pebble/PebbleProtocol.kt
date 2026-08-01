@@ -70,6 +70,7 @@ object PebbleProtocol {
     const val MSG_GET_TASK: Int = 5
     const val MSG_SAVE_TASK: Int = 6
     const val MSG_GET_TASK_COUNT: Int = 7
+    const val MSG_TOGGLE_LIST: Int = 8
 
     // Phone → Watch response types
     const val RESP_TASKS: Int = 101
@@ -79,6 +80,7 @@ object PebbleProtocol {
     const val RESP_TASK: Int = 105
     const val RESP_SAVE_TASK: Int = 106
     const val RESP_TASK_COUNT: Int = 107
+    const val RESP_TOGGLE_LIST: Int = 108
 
     // Push notification
     const val MSG_REFRESH: Int = 200

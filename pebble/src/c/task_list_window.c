@@ -21,9 +21,6 @@ static int s_total_items = 0;
 static int s_window_start = 0;  // position of s_items[0] in the full list
 static bool s_loading = false;
 
-// Maximum items to keep in the window
-#define MAX_WINDOW 100
-
 // Pending buffer for refresh (accumulated while old data stays visible)
 static UiItem *s_pending = NULL;
 static int s_pending_capacity = 0;
@@ -43,11 +40,28 @@ static char s_filter_name[MAX_TITLE_LEN] = "My Tasks";
 static uint32_t s_filter_color = 0;
 static uint32_t s_filter_text_color = 0;
 
+// Absolute list position shown at MenuLayer row TASK_ROW_OFFSET.
+//
+// Rows are absolute, as on Wear (androidx Paging's itemsBefore/itemsAfter):
+// every position in the list gets a row, and positions outside the loaded
+// window draw as placeholders. That way sliding the data window never renumbers
+// rows underneath the cursor, so paging causes no jump at all.
+//
+// The one thing Wear doesn't need is this base. ScrollLayer content height is
+// int16 (GSize), so at 44px a row the ceiling is ~744 rows; MAX_ROWS keeps the
+// span well under it and s_base shifts only when the cursor reaches the edge of
+// that span -- once every few hundred rows rather than once per page.
+static int s_base = 0;
+
 // Chunk assembly for current page request
 static int s_expected_chunks = 0;
 static uint32_t s_received_chunk_mask = 0;
 static uint8_t s_request_txn = 0;
-static int s_page_base = 0;
+// Set while the selection is being reloaded/re-seated.
+// menu_layer_reload_data() and menu_layer_set_selected_index() both re-enter
+// selection_changed(), and a page request started from there would run against
+// half-updated state.
+static bool s_updating_selection = false;
 static AppTimer *s_chunk_timer = NULL;
 static bool s_connection_error = false;
 static AppTimer *s_retry_timer = NULL;
@@ -88,17 +102,38 @@ static void dictation_callback(DictationSession *session, DictationSessionStatus
                                char *transcription, void *context);
 #endif
 
-// Convert a list index (0-based in the full list) to a window index, or -1 if outside
-static int list_to_window(int list_idx) {
+// Absolute position in the full list for a MenuLayer row, or -1 if not a task row
+static int row_to_list(int row) {
+    if (row < TASK_ROW_OFFSET) return -1;
+    return s_base + (row - TASK_ROW_OFFSET);
+}
+
+// MenuLayer row for an absolute list position
+static int list_to_row(int list_idx) {
+    return TASK_ROW_OFFSET + (list_idx - s_base);
+}
+
+// Index into the loaded window for a MenuLayer row, or -1 if that position is
+// not currently loaded (draw it as a placeholder)
+static int row_to_window(int row) {
+    int list_idx = row_to_list(row);
+    if (list_idx < 0) return -1;
     int w = list_idx - s_window_start;
     if (w >= 0 && w < s_num_items) return w;
     return -1;
 }
 
+// Rows the MenuLayer currently spans, clamped to the addressable span
+static int visible_rows(void) {
+    int visible = s_total_items - s_base;
+    if (visible < 0) visible = 0;
+    if (visible > MAX_ROWS) visible = MAX_ROWS;
+    return visible;
+}
+
 static void save_selection(void) {
     s_saved_selection = menu_layer_get_selected_index(s_menu_layer);
-    int list_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
-    int w = list_to_window(list_idx);
+    int w = row_to_window((int)s_saved_selection.row);
     if (w >= 0) {
         s_saved_id_high = s_items[w].id_high;
         s_saved_id_low = s_items[w].id_low;
@@ -117,8 +152,7 @@ static void restore_selection(void) {
 
     // Find the saved item by ID — follow it unless it crossed sections
     if (s_saved_id_high != 0 || s_saved_id_low != 0) {
-        int saved_list_idx = (int)s_saved_selection.row - TASK_ROW_OFFSET;
-        int saved_w = list_to_window(saved_list_idx);
+        int saved_w = row_to_window((int)s_saved_selection.row);
 
         // Find section header above the saved position
         int saved_section = -1;
@@ -147,17 +181,18 @@ static void restore_selection(void) {
                     break;
                 }
                 // Same section — follow it
-                uint16_t new_row = (uint16_t)(TASK_ROW_OFFSET + s_window_start + i);
+                int new_row = list_to_row(s_window_start + i);
+                if (new_row < TASK_ROW_OFFSET) break;
                 menu_layer_set_selected_index(s_menu_layer,
-                    (MenuIndex){0, new_row}, MenuRowAlignNone, false);
+                    (MenuIndex){0, (uint16_t)new_row}, MenuRowAlignNone, false);
                 return;
             }
         }
     }
 
-    // Fallback: keep same row, clamped
-    uint16_t max_row = s_total_items > 0
-        ? (uint16_t)(TASK_ROW_OFFSET - 1 + s_total_items)
+    // Fallback: keep same row, clamped to the addressable span
+    uint16_t max_row = visible_rows() > 0
+        ? (uint16_t)(TASK_ROW_OFFSET - 1 + visible_rows())
         : (uint16_t)FILTER_ROW;
     if (s_saved_selection.row > max_row) {
         s_saved_selection.row = max_row;
@@ -206,7 +241,8 @@ static void free_pending(void) {
 
 static uint16_t get_num_rows(MenuLayer *menu_layer, uint16_t section_index, void *data) {
     if (s_loading && s_num_items == 0) return 0; // hidden during initial load
-    if (s_total_items > 0) return (uint16_t)(TASK_ROW_OFFSET + s_total_items);
+    // Every list position gets a row, loaded or not — see row_to_list()
+    if (s_total_items > 0) return (uint16_t)(TASK_ROW_OFFSET + visible_rows());
     if (s_refreshing) return (uint16_t)TASK_ROW_OFFSET;
     return (uint16_t)(TASK_ROW_OFFSET + 1); // fixed rows + "No tasks"
 }
@@ -217,8 +253,7 @@ static int16_t get_cell_height(MenuLayer *menu_layer, MenuIndex *cell_index, voi
 #endif
     if (cell_index->row == FILTER_ROW) return 28;
     if (s_total_items == 0) return 44; // "No tasks" row
-    int list_idx = cell_index->row - TASK_ROW_OFFSET;
-    int w = list_to_window(list_idx);
+    int w = row_to_window(cell_index->row);
     if (w >= 0) {
         return s_items[w].type == UI_TYPE_HEADER ? 28 : 44;
     }
@@ -294,10 +329,9 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
         return;
     }
 
-    int list_idx = cell_index->row - TASK_ROW_OFFSET;
-    int w = list_to_window(list_idx);
+    int w = row_to_window(cell_index->row);
     if (w < 0) {
-        // Outside the loaded window — draw placeholder
+        // Position exists but isn't loaded yet — draw a placeholder
         GFont font = fonts_get_system_font(FONT_KEY_GOTHIC_14);
         graphics_context_set_text_color(ctx,
             PBL_IF_COLOR_ELSE(GColorDarkGray, GColorBlack));
@@ -415,28 +449,67 @@ static void draw_row(GContext *ctx, const Layer *cell_layer,
     }
 }
 
+// Shift the addressable span when the cursor approaches either edge of it.
+// This is the only thing that renumbers rows, and for a list of a few hundred
+// it never runs at all.
+static void maybe_rebase(int list_idx) {
+    if (s_total_items <= MAX_ROWS) return;
+
+    bool near_end = list_idx >= s_base + MAX_ROWS - REBASE_MARGIN;
+    bool near_start = list_idx < s_base + REBASE_MARGIN;
+    if (!near_end && !near_start) return;
+
+    int max_base = s_total_items - MAX_ROWS;
+    int new_base = list_idx - MAX_ROWS / 2;
+    if (new_base < 0) new_base = 0;
+    if (new_base > max_base) new_base = max_base;
+    if (new_base == s_base) return;
+
+    // Align to the edge being travelled towards so the cursor lands back where
+    // it already was on screen. Computed before s_base moves.
+#ifdef PBL_ROUND
+    MenuRowAlign align = MenuRowAlignCenter; // round keeps the selection centred
+#else
+    MenuRowAlign align = new_base > s_base ? MenuRowAlignBottom : MenuRowAlignTop;
+#endif
+    s_base = new_base;
+
+    s_updating_selection = true;
+    menu_layer_reload_data(s_menu_layer);
+    int new_row = list_to_row(list_idx);
+    int max_row = TASK_ROW_OFFSET + visible_rows() - 1;
+    if (new_row < TASK_ROW_OFFSET) new_row = TASK_ROW_OFFSET;
+    if (new_row > max_row) new_row = max_row;
+    menu_layer_set_selected_index(s_menu_layer,
+                                  (MenuIndex){0, (uint16_t)new_row},
+                                  align, false);
+    s_updating_selection = false;
+}
+
 static void selection_changed(MenuLayer *menu_layer, MenuIndex new_index,
                               MenuIndex old_index, void *data) {
-    if (s_loading || s_refreshing) return;
+    if (s_updating_selection) return;
 
-    int list_idx = (int)new_index.row - TASK_ROW_OFFSET;
+    int list_idx = row_to_list((int)new_index.row);
+    if (list_idx < 0) return;
     int window_end = s_window_start + s_num_items;
 
-    // Page down: near bottom of window and more items exist below
-    if (list_idx >= window_end - PREFETCH_THRESHOLD &&
-        window_end < s_total_items &&
-        !s_loading) {
+    if (s_loading || s_refreshing) return;
+
+    maybe_rebase(list_idx);
+
+    // Page down: near the end of loaded data and more items exist below
+    if (list_idx >= window_end - PREFETCH_THRESHOLD && window_end < s_total_items) {
         int pos = window_end;
         int remaining = s_total_items - pos;
         int limit = remaining < PAGE_SIZE ? remaining : PAGE_SIZE;
         s_paging_up = false;
         request_tasks_page(pos, limit);
+        return;
     }
 
-    // Page up: near top of window and items exist above
-    if (list_idx < s_window_start + PREFETCH_THRESHOLD &&
-        s_window_start > 0 &&
-        !s_loading) {
+    // Page up: near the start of loaded data and items exist above
+    if (list_idx < s_window_start + PREFETCH_THRESHOLD && s_window_start > 0) {
         int limit = s_window_start < PAGE_SIZE ? s_window_start : PAGE_SIZE;
         int pos = s_window_start - limit;
         s_paging_up = true;
@@ -457,8 +530,7 @@ static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index, void *dat
         return;
     }
 
-    int list_idx = cell_index->row - TASK_ROW_OFFSET;
-    int w = list_to_window(list_idx);
+    int w = row_to_window(cell_index->row);
     if (w < 0) return;
 
     UiItem *item = &s_items[w];
@@ -479,8 +551,7 @@ static void select_long_click(MenuLayer *menu_layer, MenuIndex *cell_index, void
     }
     if (cell_index->row < TASK_ROW_OFFSET) return;
 
-    int list_idx = cell_index->row - TASK_ROW_OFFSET;
-    int w = list_to_window(list_idx);
+    int w = row_to_window(cell_index->row);
     if (w < 0) return;
 
     UiItem *item = &s_items[w];
@@ -547,6 +618,7 @@ static void load_screenshot_data(void) {
 #endif
     s_total_items = s_num_items;
     s_window_start = 0;
+    s_base = 0;
     s_first_load = false;
 
     show_loading(false);
@@ -606,6 +678,7 @@ static void window_load(Window *window) {
 
     free_items();
     s_total_items = 0;
+    s_base = 0;
     s_first_load = true;
     s_paging_up = false;
     s_connection_error = false;
@@ -690,10 +763,11 @@ static void request_tasks_page(int position, int limit) {
     }
 
     if (s_num_items == 0 && !s_refreshing) {
-        // Initial load
+        // Initial load — every caller that reaches here starts from the top
         free_items();
         s_total_items = 0;
         s_window_start = position;
+        s_base = 0;
         show_loading(true);
     }
 
@@ -719,7 +793,9 @@ static void request_tasks_page(int position, int limit) {
     }
 }
 
-// Trim the window to MAX_WINDOW items, dropping from the far end
+// Trim the window to MAX_WINDOW items, dropping from the far end. Rows are
+// absolute, so the trimmed positions simply go back to drawing as placeholders
+// — nothing the user can see moves.
 static void trim_window(bool dropped_top) {
     if (s_num_items <= MAX_WINDOW) return;
 
@@ -728,11 +804,9 @@ static void trim_window(bool dropped_top) {
         // Drop from the top (we paged down)
         memmove(s_items, &s_items[excess], MAX_WINDOW * sizeof(UiItem));
         s_window_start += excess;
-        s_num_items = MAX_WINDOW;
-    } else {
-        // Drop from the bottom (we paged up)
-        s_num_items = MAX_WINDOW;
     }
+    // Otherwise drop from the bottom (we paged up)
+    s_num_items = MAX_WINDOW;
 }
 
 static void page_complete(void) {
@@ -768,8 +842,10 @@ static void page_complete(void) {
         s_pending_start = 0;
         s_refreshing = false;
 
+        s_updating_selection = true;
         menu_layer_reload_data(s_menu_layer);
         restore_selection();
+        s_updating_selection = false;
 
         if (s_refresh_pending) {
             s_refresh_pending = false;
@@ -791,6 +867,9 @@ static void page_complete(void) {
         show_loading(false);
     }
 
+    // Rows are absolute, so the newly loaded positions just stop being
+    // placeholders — the selection does not move and needs no correction
+    s_updating_selection = true;
     menu_layer_reload_data(s_menu_layer);
 
     if (s_first_load) {
@@ -799,6 +878,7 @@ static void page_complete(void) {
                                       (MenuIndex){0, FILTER_ROW},
                                       MenuRowAlignNone, false);
     }
+    s_updating_selection = false;
 
     if (s_refresh_pending) {
         s_refresh_pending = false;
@@ -848,12 +928,14 @@ void task_list_window_refresh(void) {
             s_chunk_timer = NULL;
         }
 
-        // Refresh centered on the current selection
+        // Refresh centered on the current selection — the request takes an
+        // absolute position, so map the row back to the full list
         MenuIndex sel = menu_layer_get_selected_index(s_menu_layer);
-        int sel_list_idx = (int)sel.row - TASK_ROW_OFFSET;
-        int refresh_start = sel_list_idx - INITIAL_PAGE_SIZE / 2;
+        int sel_list_idx = row_to_list((int)sel.row);
+        if (sel_list_idx < 0) sel_list_idx = s_window_start;
+        int refresh_limit = REFRESH_PAGE_SIZE;
+        int refresh_start = sel_list_idx - refresh_limit / 2;
         if (refresh_start < 0) refresh_start = 0;
-        int refresh_limit = INITIAL_PAGE_SIZE;
         s_pending_start = refresh_start;
 
         bool sent = protocol_send_get_tasks(

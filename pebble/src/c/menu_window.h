@@ -5,3 +5,4 @@ typedef void (*FilterSelectedCallback)(const char *filter_id, const char *filter
 
 void menu_window_push(FilterSelectedCallback callback);
 void menu_window_handle_lists_response(DictionaryIterator *iter);
+void menu_window_handle_toggle_response(DictionaryIterator *iter);

@@ -4,6 +4,7 @@ sealed class WatchListItem {
     data class Header(
         val id: String,
         val title: String,
+        val collapsed: Boolean = false,
     ) : WatchListItem()
 
     data class FilterItem(

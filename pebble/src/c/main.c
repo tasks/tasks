@@ -31,6 +31,9 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
         case RESP_LISTS:
             menu_window_handle_lists_response(iter);
             break;
+        case RESP_TOGGLE_LIST:
+            menu_window_handle_toggle_response(iter);
+            break;
         case RESP_TASK:
             task_view_handle_task_response(iter);
             break;

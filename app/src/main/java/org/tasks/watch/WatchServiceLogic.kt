@@ -18,12 +18,13 @@ import org.tasks.data.isHidden
 import org.tasks.db.QueryUtils
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.FilterListItem
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.getIcon
+import org.tasks.kmp.formatTime
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.formatTime
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.QueryPreferences
 import org.tasks.service.TaskCompleter
@@ -144,13 +145,30 @@ class WatchServiceLogic(
         taskSaver.setCollapsed(value, collapsed)
     }
 
-    override suspend fun getLists(position: Int, limit: Int): WatchListItems {
+    override suspend fun getLists(
+        position: Int,
+        limit: Int,
+        collapsed: Set<String>,
+    ): WatchListItems {
         val effectiveLimit = if (limit > 0) limit else Int.MAX_VALUE
-        val filters = filterProvider.wearableFilters()
+        val filters = mutableListOf<FilterListItem>()
+        var hiding = false
+        for (item in filterProvider.wearableFilters()) {
+            if (item is NavigationDrawerSubheader) {
+                hiding = collapsed.contains(item.watchId)
+                filters.add(item)
+            } else if (!hiding) {
+                filters.add(item)
+            }
+        }
+        val start = position.coerceIn(0, filters.size)
+        val end = (start.toLong() + effectiveLimit)
+            .coerceAtMost(filters.size.toLong())
+            .toInt()
         return WatchListItems(
             totalItems = filters.size,
             items = filters
-                .subList(position, (position + effectiveLimit).coerceAtMost(filters.size))
+                .subList(start, end)
                 .map { item ->
                     when (item) {
                         is Filter -> {
@@ -172,8 +190,9 @@ class WatchServiceLogic(
 
                         is NavigationDrawerSubheader ->
                             WatchListItem.Header(
-                                id = "${item.subheaderType}_${item.id}",
+                                id = item.watchId,
                                 title = item.title ?: "",
+                                collapsed = collapsed.contains(item.watchId),
                             )
 
                         else -> throw IllegalArgumentException()
@@ -254,5 +273,10 @@ class WatchServiceLogic(
             }
         }
         return 0 to 0
+    }
+
+    companion object {
+        private val NavigationDrawerSubheader.watchId: String
+            get() = "${subheaderType}_${id}"
     }
 }
