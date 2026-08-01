@@ -23,9 +23,23 @@ import org.tasks.time.DateTimeUtils2
 
 private const val MAX_TIME = 9999999999999
 
-// Kermit defaults to verbose, so the query logging below runs in release builds too - don't
-// recompile this on every query.
 private val WHITESPACE = Regex("\\s+")
+
+/**
+ * Kermit's minimum severity defaults to verbose and the release build never raises it, so this
+ * runs in production. Collapsing several KB of SQL into one line is far too costly to do on every
+ * query, and the timing alone answers the usual question. The query text is only worth the cost
+ * when it is the slow one.
+ */
+private const val LOG_QUERY_TEXT_ABOVE_MS = 100
+
+private fun logQuery(query: String, durationMs: Long) = Logger.v("TaskDao") {
+    if (durationMs >= LOG_QUERY_TEXT_ABOVE_MS) {
+        "${durationMs}ms: ${query.replace(WHITESPACE, " ").trim()}"
+    } else {
+        "${durationMs}ms"
+    }
+}
 
 @Dao
 abstract class TaskDao(private val database: Database) {
@@ -113,8 +127,7 @@ FROM (
     suspend fun fetchTasks(query: String): List<TaskContainer> {
         val start = DateTimeUtils2.currentTimeMillis()
         val result = fetchRaw(RoomRawQuery(query))
-        val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
+        logQuery(query, DateTimeUtils2.currentTimeMillis() - start)
         return result
     }
 
@@ -124,8 +137,7 @@ FROM (
     suspend fun count(query: String): Int {
         val start = DateTimeUtils2.currentTimeMillis()
         val result = countRaw(RoomRawQuery(query))
-        val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
+        logQuery(query, DateTimeUtils2.currentTimeMillis() - start)
         return result
     }
 
