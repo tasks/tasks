@@ -529,6 +529,11 @@
     <string name="delete_task">Supprimer la tâche</string>
     <string name="menu_discard_changes">Ignorer les modifications</string>
     <string name="more_options">Plus d’options</string>
+    <string name="no_task_selected">Aucune tâche sélectionnée</string>
+    <string name="repeat_type_due_description">La tâche se répète en fonction de la date à laquelle elle devait être effectuée</string>
+    <string name="repeat_type_completion_description">La tâche se répète en fonction du moment où vous l\'avez réellement terminée</string>
+    <string name="mark_completed">Marquer comme terminé</string>
+    <string name="resize_panes">Redimensionner les volets</string>
     <string name="rmd_NoA_snooze">Reporter</string>
     <string name="date_shortcut_hour">Pendant une heure</string>
     <string name="date_shortcut_morning">Matin</string>
