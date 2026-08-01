@@ -121,15 +121,10 @@
     <string name="discard_changes">Renunți la modificări\?</string>
     <string name="date_shortcut_must_come_after">%1$s trebuie să vină după %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s trebuie să vină înainte de %2$s</string>
-    <string name="date_shortcut_tomorrow_night">Mâine noaptea</string>
-    <string name="date_shortcut_tomorrow_evening">Mâine seara</string>
-    <string name="date_shortcut_tomorrow_afternoon">Mâine după-amiază</string>
-    <string name="date_shortcut_tomorrow_morning">Mâine dimineață</string>
     <string name="date_shortcut_night">Noaptea</string>
     <string name="date_shortcut_evening">Seara</string>
     <string name="date_shortcut_afternoon">După-amiază</string>
     <string name="date_shortcut_morning">Dimineața</string>
-    <string name="date_shortcut_hour">Pentru o oră</string>
     <string name="tags">Etichete</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Raza locației</string>
@@ -539,5 +534,4 @@
     <string name="returning_user">Utilizator care revine?</string>
     <string name="read_more">Citeşte mai mult</string>
     <string name="email_to_task">E-mail către sarcină</string>
-    <string name="pick_a_date_and_time">Alege o dată și o oră</string>
 </resources>

@@ -185,17 +185,13 @@
     <string name="quiet_hours_summary">Brak przypomnień w czasie wyciszenia</string>
     <string name="add_location">Dodaj lokalizację</string>
     <string name="remove">Usuń</string>
-    <string name="pick_a_date_and_time">Wybierz datę i czas</string>
     <string name="geofence_radius">Promień</string>
     <string name="tags">Tagi</string>
     <string name="filters">Filtry</string>
-    <string name="date_shortcut_hour">Na godzinę</string>
     <string name="date_shortcut_morning">Rano</string>
     <string name="date_shortcut_afternoon">Po południu</string>
     <string name="date_shortcut_evening">Wieczór</string>
     <string name="date_shortcut_night">Noc</string>
-    <string name="date_shortcut_tomorrow_morning">Jutro rano</string>
-    <string name="date_shortcut_tomorrow_afternoon">Jutro po południu</string>
     <string name="date_shortcut_must_come_before">%1$s musi być przed %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
     <string name="discard_changes">Odrzuć zmiany\?</string>
@@ -374,8 +370,6 @@
     <string name="lists">Listy</string>
     <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
     <string name="on_launch">Przy uruchomieniu</string>
-    <string name="date_shortcut_tomorrow_night">Jutro w nocy</string>
-    <string name="date_shortcut_tomorrow_evening">Jutro wieczorem</string>
     <string name="CFC_list_name">Na liście…</string>
     <string name="astrid_sort_order_summary">Aktywuje ręczny (jak w Astrid) tryb sortowania dla \'Moich zadań\', \'Dzisiaj\' oraz tagów. Ten tryb sortowania będzie zastąpiony przez \'Ręczne\' w kolejnych aktualizacjach</string>
     <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>

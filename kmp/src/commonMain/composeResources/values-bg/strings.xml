@@ -451,4 +451,14 @@
     <string name="delete_task">Изтриване на задача</string>
     <string name="menu_discard_changes">Отхвърляне на промените</string>
     <string name="more_options">Допълнителни настройки</string>
+    <string name="rmd_NoA_snooze">Отлагане</string>
+    <string name="date_shortcut_hour">За час</string>
+    <string name="date_shortcut_morning">Сутрин</string>
+    <string name="date_shortcut_afternoon">Следобед</string>
+    <string name="date_shortcut_evening">Вечер</string>
+    <string name="date_shortcut_night">През нощта</string>
+    <string name="date_shortcut_tomorrow_morning">Утре сутринта</string>
+    <string name="date_shortcut_tomorrow_afternoon">Утре следобед</string>
+    <string name="date_shortcut_tomorrow_evening">Утре вечер</string>
+    <string name="date_shortcut_tomorrow_night">Утре през нощта</string>
 </resources>

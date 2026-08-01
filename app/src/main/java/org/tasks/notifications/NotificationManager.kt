@@ -5,9 +5,12 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
+import androidx.core.os.ConfigurationCompat
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -30,11 +33,13 @@ import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
 import org.tasks.reminders.SnoozeActivity
-import org.tasks.reminders.SnoozeDialog
+import org.jetbrains.compose.resources.getString
+import org.tasks.reminders.snoozeOptions
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.min
@@ -57,6 +62,21 @@ class NotificationManager @Inject constructor(
         get() = notificationManager.currentInterruptionFilter
 
     private val colorProvider = ColorProvider(context)
+
+    private val localeContext: Context
+        get() {
+            if (atLeastTiramisu()) {
+                return context
+            }
+            val locale = Locale.getDefault()
+            val configuration = context.resources.configuration
+            if (ConfigurationCompat.getLocales(configuration)[0] == locale) {
+                return context
+            }
+            return context.createConfigurationContext(
+                Configuration(configuration).apply { setLocale(locale) }
+            )
+        }
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
@@ -286,7 +306,9 @@ class NotificationManager @Inject constructor(
         Timber.d("Updating summary taskCount=$taskCount notify=$notify nonStop=$nonStop fiveTimes=$fiveTimes newNotifications=$newNotifications")
         val taskIds = tasks.map { it.id }
         var maxPriority = 3
-        val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
+        val localized = localeContext
+        val summaryTitle =
+            localized.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
         val style = NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle)
         val titles: MutableList<String?> = ArrayList()
         val ticker: MutableList<String?> = ArrayList()
@@ -302,7 +324,7 @@ class NotificationManager @Inject constructor(
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(summaryTitle)
                 .setContentText(
-                        titles.joinToString(context.getString(R.string.list_separator_with_space)))
+                        titles.joinToString(localized.getString(R.string.list_separator_with_space)))
                 .setShowWhen(true)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setStyle(style)
@@ -319,14 +341,14 @@ class NotificationManager @Inject constructor(
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
                 .setTicker(
-                        ticker.joinToString(context.getString(R.string.list_separator_with_space)))
+                        ticker.joinToString(localized.getString(R.string.list_separator_with_space)))
                 .setGroupAlertBehavior(
                         if (notify) NotificationCompat.GROUP_ALERT_SUMMARY else NotificationCompat.GROUP_ALERT_CHILDREN)
         notificationDao.latestTimestamp()?.let { builder.setWhen(it) }
         val snoozeIntent = SnoozeActivity.newIntent(context, taskIds)
         builder.addAction(
                 R.drawable.ic_snooze_white_24dp,
-                context.getString(R.string.snooze_all),
+                localized.getString(R.string.snooze_all),
                 PendingIntent.getActivity(
                     context,
                     0,
@@ -353,6 +375,7 @@ class NotificationManager @Inject constructor(
         }
 
         // read properties
+        val localized = localeContext
         val markdown = markdownProvider.markdown(force = true)
         val taskTitle = markdown.toMarkdown(task.title)?.toString()
         val taskDescription = markdown.toMarkdown(task.notes)?.toString()
@@ -377,13 +400,13 @@ class NotificationManager @Inject constructor(
         )
         when {
             type == Alarm.TYPE_SNOOZE -> {
-                builder.setContentText(context.getString(R.string.snoozed_reminder))
+                builder.setContentText(localized.getString(R.string.snoozed_reminder))
             }
             type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT -> {
                 val place = locationDao.getPlace(notification.location!!)
                 if (place != null) {
                     builder.setContentText(
-                        context.getString(
+                        localized.getString(
                             if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
                             place.displayName
                         )
@@ -406,7 +429,7 @@ class NotificationManager @Inject constructor(
         )
         val completeAction = NotificationCompat.Action.Builder(
                 R.drawable.ic_check_white_24dp,
-                context.getString(R.string.rmd_NoA_done),
+                localized.getString(R.string.rmd_NoA_done),
                 completePendingIntent)
                 .build()
         val snoozeIntent = SnoozeActivity.newIntent(context, id)
@@ -420,8 +443,8 @@ class NotificationManager @Inject constructor(
         if (!task.readOnly) {
             wearableExtender.addAction(completeAction)
         }
-        for (snoozeOption in SnoozeDialog.getSnoozeOptions(preferences)) {
-            val timestamp = snoozeOption.dateTime.millis
+        for (snoozeOption in snoozeOptions(preferences.quickPickTimes)) {
+            val timestamp = snoozeOption.timestamp
             val wearableIntent = SnoozeActivity.newIntent(context, id)
             wearableIntent.action = String.format("snooze-%s-%s", id, timestamp)
             wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp)
@@ -434,7 +457,7 @@ class NotificationManager @Inject constructor(
             wearableExtender.addAction(
                     NotificationCompat.Action.Builder(
                             R.drawable.ic_snooze_white_24dp,
-                            context.getString(snoozeOption.resId),
+                            getString(snoozeOption.label),
                             wearablePendingIntent)
                             .build())
         }
@@ -444,7 +467,7 @@ class NotificationManager @Inject constructor(
         return builder
                 .addAction(
                         R.drawable.ic_snooze_white_24dp,
-                        context.getString(R.string.rmd_NoA_snooze),
+                        localized.getString(R.string.rmd_NoA_snooze),
                         snoozePendingIntent)
                 .extend(wearableExtender)
     }
@@ -466,7 +489,7 @@ class NotificationManager @Inject constructor(
                 notifyIntent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
-            val r = context.resources
+            val r = localeContext.resources
             val appName = r.getString(R.string.app_name)
             val text = r.getString(
                 R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count)

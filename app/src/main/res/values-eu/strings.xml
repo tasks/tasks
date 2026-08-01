@@ -188,13 +188,10 @@
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Etiketak</string>
     <string name="filters">Iragazkiak</string>
-    <string name="date_shortcut_hour">Ordubetez</string>
     <string name="date_shortcut_morning">Goiza</string>
     <string name="date_shortcut_afternoon">Eguerdia</string>
     <string name="date_shortcut_evening">Arratsaldea</string>
     <string name="date_shortcut_night">Gaua</string>
-    <string name="date_shortcut_tomorrow_morning">Bihar goizean</string>
-    <string name="date_shortcut_tomorrow_afternoon">Bihar eguerdian</string>
     <string name="date_shortcut_must_come_before">%1$s %2$s aurretik gertatu behar da</string>
     <string name="date_shortcut_must_come_after">%1$s %2$s eta gero gertatu behar da</string>
     <string name="discard_changes">Baztertu aldaketak\?</string>
@@ -372,8 +369,6 @@
     <string name="astrid_sort_order">Eskuzko Astrid ordenatzea</string>
     <string name="astrid_sort_order_summary">Gaitu Astrid-eko eskuzko ordenatze modua \'Nire zereginak\', \'Gaur\', eta etiketentzako. Ordenatze modu honek \'Nire ordena\'-rekin ordezkatuko da etorkizuneko bertsio batean</string>
     <string name="reset_sort_order">Berrezarri ordenatze irizpidea</string>
-    <string name="date_shortcut_tomorrow_night">Bihar gauez</string>
-    <string name="date_shortcut_tomorrow_evening">Bihar arratsaldez</string>
     <string name="CFC_list_name">Zerrendan…</string>
     <string name="permission_read_tasks">Tasks datu-basera sarbide osoa</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
@@ -454,5 +449,4 @@
     <string name="customize_edit_screen_summary">Eremuak berrantolatu edo kendu</string>
     <string name="sort_completion_group">Osatu %s</string>
     <string name="TEA_creation_date">Sortze-data</string>
-    <string name="pick_a_date_and_time">Hautatu data eta ordua</string>
 </resources>

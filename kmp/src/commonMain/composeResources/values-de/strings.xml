@@ -509,4 +509,14 @@
     <string name="delete_task">Aufgabe löschen</string>
     <string name="menu_discard_changes">Änderungen verwerfen</string>
     <string name="more_options">Weitere Optionen</string>
+    <string name="rmd_NoA_snooze">Schlummern</string>
+    <string name="date_shortcut_hour">Für eine Stunde</string>
+    <string name="date_shortcut_morning">Vormittag</string>
+    <string name="date_shortcut_afternoon">Nachmittag</string>
+    <string name="date_shortcut_evening">Abend</string>
+    <string name="date_shortcut_night">Nacht</string>
+    <string name="date_shortcut_tomorrow_morning">Morgen Früh</string>
+    <string name="date_shortcut_tomorrow_afternoon">Morgen Nachmittag</string>
+    <string name="date_shortcut_tomorrow_evening">Morgen Abend</string>
+    <string name="date_shortcut_tomorrow_night">Morgen Nacht</string>
 </resources>

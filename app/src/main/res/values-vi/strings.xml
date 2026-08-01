@@ -276,15 +276,10 @@
     <string name="discard_changes">Bỏ các thay đổi\?</string>
     <string name="date_shortcut_must_come_after">%1$s phải đến sau %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s phải đến trước %2$s</string>
-    <string name="date_shortcut_tomorrow_night">Đêm mai</string>
-    <string name="date_shortcut_tomorrow_evening">Tối mai</string>
-    <string name="date_shortcut_tomorrow_afternoon">Chiều mai</string>
-    <string name="date_shortcut_tomorrow_morning">Sáng mai</string>
     <string name="date_shortcut_night">Ban đêm</string>
     <string name="date_shortcut_evening">Buổi tối</string>
     <string name="date_shortcut_afternoon">Buổi chiều</string>
     <string name="date_shortcut_morning">Buổi sáng</string>
-    <string name="date_shortcut_hour">Một tiếng</string>
     <string name="filters">Bộ lọc</string>
     <string name="tags">Thẻ</string>
     <string name="location_radius_meters">%s m</string>
@@ -452,5 +447,4 @@
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
     <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
-    <string name="pick_a_date_and_time">Chọn ngày và thời gian</string>
 </resources>

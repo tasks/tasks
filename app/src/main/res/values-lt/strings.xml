@@ -198,13 +198,10 @@
     <string name="geofence_radius">Geofence spindulys</string>
     <string name="tags">Etiketė</string>
     <string name="filters">Filtrai</string>
-    <string name="date_shortcut_hour">Valandai</string>
     <string name="date_shortcut_morning">Rytas</string>
     <string name="date_shortcut_afternoon">Popietė</string>
     <string name="date_shortcut_evening">Vakaras</string>
     <string name="date_shortcut_night">Naktis</string>
-    <string name="date_shortcut_tomorrow_morning">Rytojaus rytas</string>
-    <string name="date_shortcut_tomorrow_afternoon">Rytojaus popietė</string>
     <string name="date_shortcut_must_come_before">%1$s turi būti prieš %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s turi būti po %2$s</string>
     <string name="discard_changes">Atmesti pakeitimus\?</string>
@@ -296,8 +293,6 @@
     <string name="header_spacing">Plotis</string>
     <string name="no_app_found">Nerasta programėlė galinti įvykdyti šią užklausą</string>
     <string name="davx5_selection_description">Sinchronizuoti užduotis su DAVx⁵ programėle</string>
-    <string name="date_shortcut_tomorrow_night">Rytojaus naktis</string>
-    <string name="date_shortcut_tomorrow_evening">Rytojaus vakaras</string>
     <string name="action_new_task">Nauja užduotis</string>
     <string name="whats_new">Kas naujo</string>
     <string name="sort_created">Pagal sukūrimo datą</string>
@@ -461,5 +456,4 @@
     <string name="sort_completion_group">Užbaigimas %s</string>
     <string name="snackbar_task_completed">Užduotis įvykdyta</string>
     <string name="snackbar_tasks_completed">%d užduotys įvykdytos</string>
-    <string name="pick_a_date_and_time">Pasirinkti datą ir laiką</string>
 </resources>

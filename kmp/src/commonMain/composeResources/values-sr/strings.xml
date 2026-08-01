@@ -504,4 +504,14 @@
     <string name="cloud_onboarding_faq_desktop_sync_answer">Преузми десктоп апликацију на tasks.org/download, након тога се пријави путем тог истог Google налога.</string>
     <string name="no_task_selected">Ниједан задатак није одабран</string>
     <string name="resize_panes">Промена величине оквира</string>
+    <string name="rmd_NoA_snooze">Одложи</string>
+    <string name="date_shortcut_hour">За час</string>
+    <string name="date_shortcut_morning">Јутро</string>
+    <string name="date_shortcut_afternoon">Подне</string>
+    <string name="date_shortcut_evening">Вече</string>
+    <string name="date_shortcut_night">Ноћ</string>
+    <string name="date_shortcut_tomorrow_morning">Сутра ујутру</string>
+    <string name="date_shortcut_tomorrow_afternoon">Сутра поподне</string>
+    <string name="date_shortcut_tomorrow_evening">Сутра увече</string>
+    <string name="date_shortcut_tomorrow_night">Сутра у току ноћи</string>
 </resources>

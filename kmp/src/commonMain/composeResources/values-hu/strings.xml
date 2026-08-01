@@ -420,4 +420,14 @@
     <string name="delete_task">Feladat törlése</string>
     <string name="menu_discard_changes">Módosítások elvetése</string>
     <string name="more_options">Több opció</string>
+    <string name="rmd_NoA_snooze">Szundi</string>
+    <string name="date_shortcut_hour">Egy órára</string>
+    <string name="date_shortcut_morning">Reggel</string>
+    <string name="date_shortcut_afternoon">Délután</string>
+    <string name="date_shortcut_evening">Este</string>
+    <string name="date_shortcut_night">Éjszaka</string>
+    <string name="date_shortcut_tomorrow_morning">Holnap reggel</string>
+    <string name="date_shortcut_tomorrow_afternoon">Holnap délután</string>
+    <string name="date_shortcut_tomorrow_evening">Holnap este</string>
+    <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
 </resources>

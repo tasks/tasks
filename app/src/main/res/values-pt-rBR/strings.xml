@@ -187,13 +187,10 @@
     <string name="geofence_radius">Raio de Geofence</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
-    <string name="date_shortcut_hour">Por uma hora</string>
     <string name="date_shortcut_morning">Manhã</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Final da tarde</string>
     <string name="date_shortcut_night">Noite</string>
-    <string name="date_shortcut_tomorrow_morning">Amanhã de manhã</string>
-    <string name="date_shortcut_tomorrow_afternoon">Amanhã de tarde</string>
     <string name="date_shortcut_must_come_before">%1$s deve vir antes de %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s deve vir depois de %2$s</string>
     <string name="discard_changes">Descartar alterações?</string>
@@ -333,8 +330,6 @@
     <string name="opacity_footer">Opacidade do rodapé</string>
     <string name="opacity_row">Opacidade da linha</string>
     <string name="opacity_header">Opacidade do cabeçalho</string>
-    <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
-    <string name="date_shortcut_tomorrow_evening">Amanhã ao fim da tarde</string>
     <string name="location_radius_meters">%s m</string>
     <string name="subtasks">Sub-tarefas</string>
     <string name="widget_show_dividers">Mostrar divisórias</string>
@@ -535,5 +530,4 @@
     <string name="returning_user">Usuário retornando?</string>
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
     <string name="read_more">Ler mais</string>
-    <string name="pick_a_date_and_time">Escolher data e hora</string>
 </resources>

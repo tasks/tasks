@@ -260,15 +260,10 @@
     <string name="tag_settings">Postavke oznaka</string>
     <string name="date_shortcut_must_come_after">%1$s mora doći nakon %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s mora doći prije %2$s</string>
-    <string name="date_shortcut_tomorrow_night">Sutra noću</string>
-    <string name="date_shortcut_tomorrow_evening">Sutra uvečer</string>
-    <string name="date_shortcut_tomorrow_afternoon">Sutra popodne</string>
-    <string name="date_shortcut_tomorrow_morning">Sutra ujutro</string>
     <string name="date_shortcut_night">Noć</string>
     <string name="date_shortcut_evening">Večer</string>
     <string name="date_shortcut_afternoon">Popodne</string>
     <string name="date_shortcut_morning">Jutro</string>
-    <string name="date_shortcut_hour">Sat vremena</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Radijus geografskog područja</string>
     <string name="remove">Ukloni</string>
@@ -535,5 +530,4 @@
     <string name="location_update_interval_summary">Periodična aktualiziranja lokacije poboljšavaju pouzdanost točnosti lokacije</string>
     <string name="location_update_interval_title">Aktualiziranja lokacije u pozadini</string>
     <string name="per_list_sort_summary">Zapamti postavke razvrstavanja i grupiranja za svaki popis zasebno</string>
-    <string name="pick_a_date_and_time">Odaberi datum i vrijeme</string>
 </resources>

@@ -268,4 +268,14 @@
     </plurals>
     <string name="delete_task">Desaniciar xera</string>
     <string name="menu_discard_changes">Escartar cambeos</string>
+    <string name="rmd_NoA_snooze">Posponer</string>
+    <string name="date_shortcut_hour">Por una hora</string>
+    <string name="date_shortcut_morning">Mañana</string>
+    <string name="date_shortcut_afternoon">Tarde</string>
+    <string name="date_shortcut_evening">Atardecer</string>
+    <string name="date_shortcut_night">Nueche</string>
+    <string name="date_shortcut_tomorrow_morning">Mañana pela mañana</string>
+    <string name="date_shortcut_tomorrow_afternoon">Mañana pela tarde</string>
+    <string name="date_shortcut_tomorrow_evening">Mañana al atardecer</string>
+    <string name="date_shortcut_tomorrow_night">Mañana a la nueche</string>
 </resources>

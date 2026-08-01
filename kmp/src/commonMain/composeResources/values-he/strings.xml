@@ -436,4 +436,14 @@
     <string name="delete_task">מחיקת משימה</string>
     <string name="menu_discard_changes">השלכת שינויים</string>
     <string name="more_options">אפשרויות נוספות</string>
+    <string name="rmd_NoA_snooze">נודניק</string>
+    <string name="date_shortcut_hour">למשך שעה</string>
+    <string name="date_shortcut_morning">בוקר</string>
+    <string name="date_shortcut_afternoon">אחר הצהריים</string>
+    <string name="date_shortcut_evening">ערב</string>
+    <string name="date_shortcut_night">לילה</string>
+    <string name="date_shortcut_tomorrow_morning">מחר בבוקר</string>
+    <string name="date_shortcut_tomorrow_afternoon">מחר אחרי הצהריים</string>
+    <string name="date_shortcut_tomorrow_evening">מחר בערב</string>
+    <string name="date_shortcut_tomorrow_night">מחר בלילה</string>
 </resources>

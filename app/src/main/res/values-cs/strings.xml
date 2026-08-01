@@ -133,8 +133,6 @@
     <string name="date_shortcut_afternoon">Odpoledne</string>
     <string name="date_shortcut_evening">Večer</string>
     <string name="date_shortcut_night">Noc</string>
-    <string name="date_shortcut_tomorrow_morning">Zítra ráno</string>
-    <string name="date_shortcut_tomorrow_afternoon">Zítra odpoledne</string>
     <string name="discard_changes">Zahodit změny\?</string>
     <string name="tag_settings">Nastavení štítku</string>
     <string name="delete">Smazat</string>
@@ -267,7 +265,6 @@
     <string name="linkify_description">Na webové odkazy, adresy a telefonní čísla bude možné kliknout</string>
     <string name="subtasks">Podúkoly</string>
     <string name="display_name">Zobrazované jméno</string>
-    <string name="date_shortcut_hour">Na hodinu</string>
     <string name="list_settings">Nastavení seznamu</string>
     <string name="theme_system_default">Podle systému</string>
     <string name="or_choose_a_location">Nebo vyberte místo</string>
@@ -331,8 +328,6 @@
     <string name="visit_website">Navštívit webovou stránku</string>
     <string name="location_remind_departure">Připomenout při odchodu</string>
     <string name="location_remind_arrival">Připomenout při příchodu</string>
-    <string name="date_shortcut_tomorrow_night">Zítra v noci</string>
-    <string name="date_shortcut_tomorrow_evening">Zítra večer</string>
     <string name="CFC_list_name">V seznamu…</string>
     <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro „Moje úkoly“, „Dnes“ a štítky. Tento režim řazení bude v budoucnu nahrazen režimem „Vlastní řazení“</string>
     <string name="astrid_sort_order">Ruční řazení Astrid</string>
@@ -535,5 +530,4 @@
     <string name="read_more">Více informací</string>
     <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
     <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>
-    <string name="pick_a_date_and_time">Vybrat datum a čas</string>
 </resources>

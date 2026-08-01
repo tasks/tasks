@@ -180,13 +180,10 @@
     <string name="geofence_radius">반경</string>
     <string name="tags">태그</string>
     <string name="filters">필터</string>
-    <string name="date_shortcut_hour">한 시간동안</string>
     <string name="date_shortcut_morning">아침</string>
     <string name="date_shortcut_afternoon">오후</string>
     <string name="date_shortcut_evening">저녁</string>
     <string name="date_shortcut_night">밤</string>
-    <string name="date_shortcut_tomorrow_morning">내일 아침</string>
-    <string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
     <string name="date_shortcut_must_come_before">%1$s 는 %2$s 보다 이전에 위치해야 합니다</string>
     <string name="date_shortcut_must_come_after">%1$s 는 %2$s 보다 이후에 위치해야 합니다</string>
     <string name="discard_changes">변경 사항을 폐기할까요\?</string>
@@ -380,8 +377,6 @@
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
     <string name="default_tags">기본 태그</string>
     <string name="no_app_found">이 요청을 처리할 앱이 없습니다</string>
-    <string name="date_shortcut_tomorrow_night">내일 밤</string>
-    <string name="date_shortcut_tomorrow_evening">내일 저녁</string>
     <string name="header_spacing">줄 간격</string>
     <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
@@ -489,5 +484,4 @@
     <string name="multiline_title_off">할 일을 저장하려면 완료를 누르세요</string>
     <string name="sync_warning_microsoft">모든 할 일이 Microsoft To Do와 동기화되지는 않습니다.</string>
     <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
-    <string name="pick_a_date_and_time">날짜와 시간 선택</string>
 </resources>

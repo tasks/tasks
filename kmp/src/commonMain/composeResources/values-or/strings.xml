@@ -135,4 +135,13 @@
         <item quantity="other">ସପ୍ତାହ</item>
     </plurals>
     <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
+    <string name="date_shortcut_morning">ସକାଳ</string>
+    <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>
+    <string name="date_shortcut_evening">ସଞ୍ଜ</string>
+    <string name="date_shortcut_night">ରାତି</string>
+    <string name="date_shortcut_tomorrow_morning">ଆସନ୍ତାକାଲି ସକାଳ</string>
+    <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
+    <string name="date_shortcut_tomorrow_evening">ଆସନ୍ତାକାଲି ସଞ୍ଜ</string>
+    <string name="date_shortcut_tomorrow_night">ଆସନ୍ତାକାଲି ରାତି</string>
 </resources>

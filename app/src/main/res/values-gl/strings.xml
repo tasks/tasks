@@ -146,16 +146,12 @@
     <string name="translations">Contribúe coa tradución</string>
     <string name="quiet_hours_summary">Sen avisos en horario silencioso</string>
     <string name="remove">Borrar</string>
-    <string name="pick_a_date_and_time">Elixir unha data e hora</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
-    <string name="date_shortcut_hour">Por unha hora</string>
     <string name="date_shortcut_morning">Mañá</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Amencer</string>
     <string name="date_shortcut_night">Noite</string>
-    <string name="date_shortcut_tomorrow_morning">Mañá pola mañá</string>
-    <string name="date_shortcut_tomorrow_afternoon">Mañá á tarde</string>
     <string name="date_shortcut_must_come_before">%1$s debe vir antes de %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s debe venir depois de %2$s</string>
     <string name="discard_changes">Descartar os cambios\?</string>
@@ -266,7 +262,6 @@
     <string name="filter_eisenhower_box_4">Non importantes ou urxentes</string>
     <string name="calendar_event_created">Creouse o evento no calendario para %s</string>
     <string name="select_all">Escoller todo</string>
-    <string name="date_shortcut_tomorrow_night">Mañá á noite</string>
     <string name="help">Axuda</string>
     <string name="help_and_feedback">Axuda e soporte</string>
     <string name="refresh_purchases">Anovar as compras</string>
@@ -320,7 +315,6 @@
     <string name="multi_select_reschedule">Reprogramar</string>
     <string name="SSD_sort_my_order">O meu pedido</string>
     <string name="TEA_control_location">Posición</string>
-    <string name="date_shortcut_tomorrow_evening">Mañá ao amencer</string>
     <string name="move">Mocer</string>
     <string name="widget_due_date_hidden">Agochar</string>
     <string name="password">Contrasinal</string>

@@ -114,13 +114,10 @@
     <string name="remove">حذف</string>
     <string name="tags">برچسب ها</string>
     <string name="filters">فیلترها</string>
-    <string name="date_shortcut_hour">برای یک ساعت</string>
     <string name="date_shortcut_morning">صبح</string>
     <string name="date_shortcut_afternoon">بعدازظهر</string>
     <string name="date_shortcut_evening">عصر</string>
     <string name="date_shortcut_night">شب</string>
-    <string name="date_shortcut_tomorrow_morning">فردا صبح</string>
-    <string name="date_shortcut_tomorrow_afternoon">فردا بعداز ظهر</string>
     <string name="discard_changes">چشم پوشی از تغییرات؟</string>
     <string name="discard">چشم پوشی</string>
     <string name="tag_settings">تنظیمات تگ</string>
@@ -196,5 +193,4 @@
     <string name="import_progress_read">درحال خواندن تسک %d…</string>
     <string name="help_and_feedback">راهنما و بازخورد</string>
     <string name="app_settings">تنظیمات برنامه</string>
-    <string name="pick_a_date_and_time">انتخاب یک تاریخ و زمان</string>
 </resources>

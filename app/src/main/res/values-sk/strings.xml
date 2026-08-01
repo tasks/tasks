@@ -193,13 +193,10 @@
     <string name="geofence_radius">Polomer geofence</string>
     <string name="tags">Štítky</string>
     <string name="filters">Filtre</string>
-    <string name="date_shortcut_hour">Za hodinu</string>
     <string name="date_shortcut_morning">Ráno</string>
     <string name="date_shortcut_afternoon">Popoludní</string>
     <string name="date_shortcut_evening">Večer</string>
     <string name="date_shortcut_night">Noc</string>
-    <string name="date_shortcut_tomorrow_morning">Zajtra ráno</string>
-    <string name="date_shortcut_tomorrow_afternoon">Zajtra poobede</string>
     <string name="date_shortcut_must_come_before">%1$s musí predchádzať %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musí nasledovať po %2$s</string>
     <string name="discard_changes">Zahodiť zmeny?</string>
@@ -310,7 +307,6 @@
     <string name="quiet_hours_in_effect">Režim nerušiť je zapnutý</string>
     <string name="header_spacing">Rozstupy</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="date_shortcut_tomorrow_evening">Zajtra večer</string>
     <string name="show_edit_screen_without_unlock_summary">Umožní používať dlaždice rýchleho nastavenia bez odomknutia zariadenia</string>
     <string name="default_tags">Predvolené štítky</string>
     <string name="default_recurrence">Predvolené opakovanie</string>
@@ -342,7 +338,6 @@
     <string name="widget_open_list">Otvoriť zoznam</string>
     <string name="astrid_sort_order_summary">Zapne ručné triedenie Astrid pre „Moje úlohy“, „Dnes“ a štítky. Tento režim triedenia bude v budúcnosti nahradený režimom „Vlastné triedenie“</string>
     <string name="display_name">Zobrazované meno</string>
-    <string name="date_shortcut_tomorrow_night">Zajtra v noci</string>
     <string name="default_location">Predvolené miesto</string>
     <string name="sort_completion_group">Dokončené %s</string>
     <string name="reset_sort_order">Obnoviť triedenie</string>
@@ -496,5 +491,4 @@
     <string name="multiline_title_off">Pre uloženie úlohy kliknite na Hotovo</string>
     <string name="banner_app_updated_title">Aplikácia bola aktualizovaná</string>
     <string name="banner_app_updated_description">Aplikácia Tasks bola práve aktualizovaná na verziu %s. Chcete vidieť zoznam noviniek?</string>
-    <string name="pick_a_date_and_time">Vybrať dátum a čas</string>
 </resources>

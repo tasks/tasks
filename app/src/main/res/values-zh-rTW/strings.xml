@@ -115,8 +115,6 @@
     <string name="translations">貢獻翻譯</string>
     <string name="tags">標籤</string>
     <string name="filters">過濾</string>
-    <string name="date_shortcut_tomorrow_morning">明天早上</string>
-    <string name="date_shortcut_tomorrow_afternoon">明天下午</string>
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
     <string name="filter_settings">過濾器設定</string>
@@ -175,13 +173,10 @@
     <string name="tag_settings">標籤設定</string>
     <string name="discard_changes">要捨棄更改嗎 \?</string>
     <string name="discard">捨棄</string>
-    <string name="date_shortcut_tomorrow_night">明天晚上</string>
-    <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
     <string name="date_shortcut_night">晚上</string>
     <string name="date_shortcut_evening">傍晚</string>
     <string name="date_shortcut_afternoon">下午</string>
     <string name="date_shortcut_morning">早上</string>
-    <string name="date_shortcut_hour">一個小時</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">地理圍欄半徑</string>
     <string name="remove">移除</string>
@@ -509,5 +504,4 @@
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
     <string name="upgrade_friends_and_family">家人和朋友</string>
     <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
-    <string name="pick_a_date_and_time">選擇時間和日期</string>
 </resources>

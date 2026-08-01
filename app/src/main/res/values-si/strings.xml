@@ -401,15 +401,10 @@
     <string name="tag_settings">ටැග් සැකසුම්</string>
     <string name="discard">අහෝසිකරන්න</string>
     <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද\?</string>
-    <string name="date_shortcut_tomorrow_night">හෙට රාත්‍රී</string>
-    <string name="date_shortcut_tomorrow_evening">හෙට හවස</string>
-    <string name="date_shortcut_tomorrow_afternoon">හෙට හවස</string>
-    <string name="date_shortcut_tomorrow_morning">හෙට උදෑසන</string>
     <string name="date_shortcut_night">රාත්‍රී</string>
     <string name="date_shortcut_evening">සවස</string>
     <string name="date_shortcut_afternoon">දහවල්</string>
     <string name="date_shortcut_morning">උදෑසන</string>
-    <string name="date_shortcut_hour">පැයකට</string>
     <string name="filters">පෙරහන්</string>
     <string name="tags">ටැග්</string>
     <string name="location_radius_meters">%s මීටර්</string>
@@ -449,5 +444,4 @@
     <string name="customize_edit_screen_summary">ක්ෂේත්‍ර නැවත සැකසීම හෝ ඉවත් කිරීම</string>
     <string name="TEA_creation_date">නිර්මාණය කළ දිනය</string>
     <string name="snackbar_tasks_completed">කාර්යයන් %d සම්පූර්ණ කර ඇත</string>
-    <string name="pick_a_date_and_time">දිනයක් සහ වේලාවක් තෝරන්න</string>
 </resources>

@@ -178,13 +178,10 @@
     <string name="remove">Verwijderen</string>
     <string name="geofence_radius">Geofence-straal</string>
     <string name="tags">Labels</string>
-    <string name="date_shortcut_hour">Voor een uur</string>
     <string name="date_shortcut_morning">Ochtend</string>
     <string name="date_shortcut_afternoon">Middag</string>
     <string name="date_shortcut_evening">Namiddag</string>
     <string name="date_shortcut_night">Nacht</string>
-    <string name="date_shortcut_tomorrow_morning">Morgenochtend</string>
-    <string name="date_shortcut_tomorrow_afternoon">Morgenmiddag</string>
     <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Veranderingen negeren\?</string>
@@ -367,8 +364,6 @@
     <string name="lists">Lijsten</string>
     <string name="open_last_viewed_list">Laatst bekeken lijst openen</string>
     <string name="CFC_list_name">In de lijst…</string>
-    <string name="date_shortcut_tomorrow_night">Morgennacht</string>
-    <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
     <string name="reset_sort_order">Sorteervolgorde terugzetten</string>
     <string name="permission_read_tasks">Toegang verlenen tot Tasks-database</string>
     <string name="davx5_selection_description">Synchroniseren met de DAVx⁵-app</string>
@@ -507,5 +502,4 @@
     <string name="rmd_time_enabled_off">Geen standaardherinnering toevoegen aan taken zonder tijdsaanduiding</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
-    <string name="pick_a_date_and_time">Datum en tijd kiezen</string>
 </resources>

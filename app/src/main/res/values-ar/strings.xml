@@ -160,9 +160,6 @@
     <string name="above_average">فوق المتوسط</string>
     <string name="icon">الأيقونة</string>
     <string name="copy">نسخ</string>
-    <string name="date_shortcut_tomorrow_night">ليلة غد</string>
-    <string name="date_shortcut_tomorrow_evening">مساء غد</string>
-    <string name="date_shortcut_tomorrow_morning">صباح غد</string>
     <string name="date_shortcut_night">ليلًا</string>
     <string name="date_shortcut_evening">مساءً</string>
     <string name="date_shortcut_morning">صباحًا</string>
@@ -201,7 +198,6 @@
     <string name="delete">حذف</string>
     <string name="date_shortcut_must_come_after">يجب أن يكون %1$s بعد %2$s</string>
     <string name="date_shortcut_must_come_before">يجب أن يكون %1$s قبل %2$s</string>
-    <string name="date_shortcut_hour">لساعة</string>
     <string name="geofence_radius">نصف القطر</string>
     <string name="backup_directory">مجلّد النّسخ الاحتياطيّة</string>
     <string name="delete_tag_confirmation">احذف %s؟</string>
@@ -387,7 +383,6 @@
     <string name="opacity_row">عتمة الصف</string>
     <string name="pick_from_gallery">التقط من المعرض</string>
     <string name="no_app_found">لا تطبيق يستطيع ادارة هذا الطلب</string>
-    <string name="date_shortcut_tomorrow_afternoon">غدًا بعد الظهر</string>
     <string name="date_shortcut_afternoon">بعد الظهر</string>
     <string name="google_drive_backup">نسخ احتياطي كوكل درايف</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">تاسكس سيقرأ اسم المهمة أثناء مذكرات المهام</string>
@@ -519,5 +514,4 @@
     <string name="enable_alarms_description">للتأكد من إخطارك في الوقت المناسب، امنح الإذن لضبط التنبيهات والتذكيرات في الإعدادات</string>
     <string name="delete_tasks_warning">%s سيتم حذفها. لا يمكن التراجع عن ذلك!</string>
     <string name="widget_view_more_tasks">عرض المزيد من المهام</string>
-    <string name="pick_a_date_and_time">اختر التاريخ والوقت</string>
 </resources>

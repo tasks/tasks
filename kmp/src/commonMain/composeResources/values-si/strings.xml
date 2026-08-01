@@ -318,4 +318,14 @@
     <string name="delete_task">කාර්යය මකන්න</string>
     <string name="menu_discard_changes">වෙනස්කම් අහෝසිකිරීම</string>
     <string name="more_options">තවත් විකල්පයන්</string>
+    <string name="rmd_NoA_snooze">මඳකට මගහරින්න</string>
+    <string name="date_shortcut_hour">පැයකට</string>
+    <string name="date_shortcut_morning">උදෑසන</string>
+    <string name="date_shortcut_afternoon">දහවල්</string>
+    <string name="date_shortcut_evening">සවස</string>
+    <string name="date_shortcut_night">රාත්‍රී</string>
+    <string name="date_shortcut_tomorrow_morning">හෙට උදෑසන</string>
+    <string name="date_shortcut_tomorrow_afternoon">හෙට හවස</string>
+    <string name="date_shortcut_tomorrow_evening">හෙට හවස</string>
+    <string name="date_shortcut_tomorrow_night">හෙට රාත්‍රී</string>
 </resources>

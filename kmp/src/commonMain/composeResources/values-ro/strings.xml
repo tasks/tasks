@@ -401,4 +401,14 @@
     <string name="delete_task">Șterge sarcina</string>
     <string name="menu_discard_changes">Renunță la modificări</string>
     <string name="more_options">Mai multe opțiuni</string>
+    <string name="rmd_NoA_snooze">Amână</string>
+    <string name="date_shortcut_hour">Pentru o oră</string>
+    <string name="date_shortcut_morning">Dimineața</string>
+    <string name="date_shortcut_afternoon">După-amiază</string>
+    <string name="date_shortcut_evening">Seara</string>
+    <string name="date_shortcut_night">Noaptea</string>
+    <string name="date_shortcut_tomorrow_morning">Mâine dimineață</string>
+    <string name="date_shortcut_tomorrow_afternoon">Mâine după-amiază</string>
+    <string name="date_shortcut_tomorrow_evening">Mâine seara</string>
+    <string name="date_shortcut_tomorrow_night">Mâine noaptea</string>
 </resources>

@@ -447,15 +447,10 @@
     <string name="tags">Ετικέτες</string>
     <string name="change_priority">Αλλαγή προτεραιότητας</string>
     <string name="filters">Φίλτρα</string>
-    <string name="date_shortcut_hour">Για μια ώρα</string>
     <string name="date_shortcut_morning">Πρωί</string>
     <string name="date_shortcut_afternoon">Μεσημέρι</string>
     <string name="date_shortcut_evening">Απόγευμα</string>
     <string name="date_shortcut_night">Βράδυ</string>
-    <string name="date_shortcut_tomorrow_morning">Αύριο το πρωί</string>
-    <string name="date_shortcut_tomorrow_afternoon">Αύριο το μεσημέρι</string>
-    <string name="date_shortcut_tomorrow_evening">Αύριο το απόγευμα</string>
-    <string name="date_shortcut_tomorrow_night">Αύριο το βράδυ</string>
     <string name="date_shortcut_must_come_before">%1$s πρέπει να είναι πριν από το %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s πρέπει να είναι μετά από το %2$s</string>
     <string name="discard_changes">Απόρριψη αλλαγών;</string>
@@ -496,5 +491,4 @@
     <string name="widget_due_date_below_title">Κάτω από τον τίτλο</string>
     <string name="widget_due_date_hidden">Κρυμμένο</string>
     <string name="clear_completed_tasks_confirmation">Διαγραφή ολοκληρωμένων εργασιών;</string>
-    <string name="pick_a_date_and_time">Επιλέξτε μια ημερομηνία και ώρα</string>
 </resources>

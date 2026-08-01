@@ -191,13 +191,10 @@
     <string name="location_radius_meters">%s מ\'</string>
     <string name="tags">תגיות</string>
     <string name="filters">מסננים</string>
-    <string name="date_shortcut_hour">למשך שעה</string>
     <string name="date_shortcut_morning">בוקר</string>
     <string name="date_shortcut_afternoon">אחר הצהריים</string>
     <string name="date_shortcut_evening">ערב</string>
     <string name="date_shortcut_night">לילה</string>
-    <string name="date_shortcut_tomorrow_morning">מחר בבוקר</string>
-    <string name="date_shortcut_tomorrow_afternoon">מחר אחרי הצהריים</string>
     <string name="date_shortcut_must_come_before">%1$s חייב לבוא לפני %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s חייב לבוא אחרי %2$s</string>
     <string name="discard_changes">להשליך שינויים?</string>
@@ -337,8 +334,6 @@
     <string name="opacity_footer">אטימות כותרת תחתונה</string>
     <string name="opacity_header">אטימות כותרת עליונה</string>
     <string name="opacity_row">אטימות שורה</string>
-    <string name="date_shortcut_tomorrow_night">מחר בלילה</string>
-    <string name="date_shortcut_tomorrow_evening">מחר בערב</string>
     <string name="CFC_list_name">ברשימה…</string>
     <string name="display_name">שם תצוגה</string>
     <string name="lists">רשימות</string>
@@ -536,5 +531,4 @@
     <string name="upgrade_desktop_app">Tasks.org למחשב שולחני</string>
     <string name="upgrade_desktop_app_description">גישה מוקדמת ליישומון החדש למחשב שולחני</string>
     <string name="read_more">לקרוא עוד</string>
-    <string name="pick_a_date_and_time">בחר תאריך ושעה</string>
 </resources>

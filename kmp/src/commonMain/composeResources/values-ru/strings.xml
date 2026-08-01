@@ -409,4 +409,14 @@
     <string name="delete_task">Удалить задачу</string>
     <string name="menu_discard_changes">Отменить изменения</string>
     <string name="more_options">Дополнительные параметры</string>
+    <string name="rmd_NoA_snooze">Отложить</string>
+    <string name="date_shortcut_hour">На час</string>
+    <string name="date_shortcut_morning">Утро</string>
+    <string name="date_shortcut_afternoon">Обед</string>
+    <string name="date_shortcut_evening">Вечер</string>
+    <string name="date_shortcut_night">Ночь</string>
+    <string name="date_shortcut_tomorrow_morning">Завтра утром</string>
+    <string name="date_shortcut_tomorrow_afternoon">Завтра в обед</string>
+    <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
+    <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
 </resources>

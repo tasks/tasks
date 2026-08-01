@@ -360,4 +360,14 @@
     <string name="delete_task">할일 지우기</string>
     <string name="menu_discard_changes">변경사항 폐기</string>
     <string name="more_options">더 많은 옵션</string>
+    <string name="rmd_NoA_snooze">알림 잠시 미루기</string>
+    <string name="date_shortcut_hour">한 시간동안</string>
+    <string name="date_shortcut_morning">아침</string>
+    <string name="date_shortcut_afternoon">오후</string>
+    <string name="date_shortcut_evening">저녁</string>
+    <string name="date_shortcut_night">밤</string>
+    <string name="date_shortcut_tomorrow_morning">내일 아침</string>
+    <string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
+    <string name="date_shortcut_tomorrow_evening">내일 저녁</string>
+    <string name="date_shortcut_tomorrow_night">내일 밤</string>
 </resources>

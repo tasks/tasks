@@ -467,4 +467,14 @@
     <string name="delete_task">Forigi taskon</string>
     <string name="menu_discard_changes">Forĵeti ŝanĝojn</string>
     <string name="more_options">Pli da opcioj</string>
+    <string name="rmd_NoA_snooze">Paŭzigi</string>
+    <string name="date_shortcut_hour">Unu horo</string>
+    <string name="date_shortcut_morning">Mateno</string>
+    <string name="date_shortcut_afternoon">Posttagmezo</string>
+    <string name="date_shortcut_evening">Vespero</string>
+    <string name="date_shortcut_night">Nokto</string>
+    <string name="date_shortcut_tomorrow_morning">Morgaŭ matene</string>
+    <string name="date_shortcut_tomorrow_afternoon">Morgaŭ posttagmeze</string>
+    <string name="date_shortcut_tomorrow_evening">Morgaŭ vespere</string>
+    <string name="date_shortcut_tomorrow_night">Morgaŭ nokte</string>
 </resources>

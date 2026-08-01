@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.JobIntentService
+import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.ConfigurationCompat
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -150,6 +151,11 @@ class TasksApplication : Application(), Configuration.Provider {
     private fun syncComposeResourceLocale() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             return
+        }
+        LocaleManagerCompat.getApplicationLocales(this)[0]?.let {
+            if (Locale.getDefault() != it) {
+                Locale.setDefault(it)
+            }
         }
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             private fun sync(activity: Activity) {

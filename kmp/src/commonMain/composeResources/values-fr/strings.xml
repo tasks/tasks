@@ -529,4 +529,14 @@
     <string name="delete_task">Supprimer la tâche</string>
     <string name="menu_discard_changes">Ignorer les modifications</string>
     <string name="more_options">Plus d’options</string>
+    <string name="rmd_NoA_snooze">Reporter</string>
+    <string name="date_shortcut_hour">Pendant une heure</string>
+    <string name="date_shortcut_morning">Matin</string>
+    <string name="date_shortcut_afternoon">Après-midi</string>
+    <string name="date_shortcut_evening">Soir</string>
+    <string name="date_shortcut_night">Nuit</string>
+    <string name="date_shortcut_tomorrow_morning">Demain matin</string>
+    <string name="date_shortcut_tomorrow_afternoon">Demain après-midi</string>
+    <string name="date_shortcut_tomorrow_evening">Demain soir</string>
+    <string name="date_shortcut_tomorrow_night">La nuit prochaine</string>
 </resources>

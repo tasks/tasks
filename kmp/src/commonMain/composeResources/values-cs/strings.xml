@@ -521,4 +521,14 @@
     <string name="delete_task">Smazat úkol</string>
     <string name="menu_discard_changes">Zrušit změny</string>
     <string name="more_options">Další volby</string>
+    <string name="rmd_NoA_snooze">Odložit</string>
+    <string name="date_shortcut_hour">Na hodinu</string>
+    <string name="date_shortcut_morning">Ráno</string>
+    <string name="date_shortcut_afternoon">Odpoledne</string>
+    <string name="date_shortcut_evening">Večer</string>
+    <string name="date_shortcut_night">Noc</string>
+    <string name="date_shortcut_tomorrow_morning">Zítra ráno</string>
+    <string name="date_shortcut_tomorrow_afternoon">Zítra odpoledne</string>
+    <string name="date_shortcut_tomorrow_evening">Zítra večer</string>
+    <string name="date_shortcut_tomorrow_night">Zítra v noci</string>
 </resources>

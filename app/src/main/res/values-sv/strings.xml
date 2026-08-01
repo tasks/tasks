@@ -146,13 +146,10 @@
     <string name="remove">Ta bort</string>
     <string name="tags">Etiketter</string>
     <string name="filters">Filter</string>
-    <string name="date_shortcut_hour">En timme</string>
     <string name="date_shortcut_morning">På morgonen</string>
     <string name="date_shortcut_afternoon">På eftermiddagen</string>
     <string name="date_shortcut_evening">Tidigt på kvällen</string>
     <string name="date_shortcut_night">På natten</string>
-    <string name="date_shortcut_tomorrow_morning">Imorgon på morgonen</string>
-    <string name="date_shortcut_tomorrow_afternoon">Imorgon på eftermiddagen</string>
     <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
     <string name="discard_changes">Kassera ändringarna?</string>
@@ -310,8 +307,6 @@
     <string name="help_and_feedback">Hjälp och återkoppling</string>
     <string name="widget_due_date_hidden">Dold</string>
     <string name="widget_open_list">Öppna lista</string>
-    <string name="date_shortcut_tomorrow_night">Imorgon natt</string>
-    <string name="date_shortcut_tomorrow_evening">Imorgon kväll</string>
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
@@ -528,5 +523,4 @@
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync med mera</string>
     <string name="read_more">Läs mer</string>
     <string name="per_list_sort_title">Sortering per lista</string>
-    <string name="pick_a_date_and_time">Ställ in datum och tid</string>
 </resources>

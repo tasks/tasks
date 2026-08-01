@@ -30,5 +30,4 @@
     <string name="sort_list">Per lista</string>
     <string name="SSD_sort_start">Per data de initio</string>
     <string name="read_permission_label">Permissiones de Tasks</string>
-    <string name="pick_a_date_and_time">Seliger un data e hora</string>
 </resources>

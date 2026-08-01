@@ -191,13 +191,10 @@
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Мітки</string>
     <string name="filters">Фільтри</string>
-    <string name="date_shortcut_hour">На годину</string>
     <string name="date_shortcut_morning">Зранку</string>
     <string name="date_shortcut_afternoon">Вдень</string>
     <string name="date_shortcut_evening">Ввечері</string>
     <string name="date_shortcut_night">Вночі</string>
-    <string name="date_shortcut_tomorrow_morning">Завтра зранку</string>
-    <string name="date_shortcut_tomorrow_afternoon">Завтра вдень</string>
     <string name="date_shortcut_must_come_before">%1$s має бути до %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
     <string name="discard_changes">Скасувати зміни\?</string>
@@ -410,8 +407,6 @@
     <string name="default_tags">Типові мітки</string>
     <string name="no_app_found">Немає застосунків, які можуть опрацювати цей запит</string>
     <string name="filter_criteria_unstarted">Непочаті</string>
-    <string name="date_shortcut_tomorrow_night">Завтра вночі</string>
-    <string name="date_shortcut_tomorrow_evening">Завтра ввечері</string>
     <string name="header_spacing">Інтервал</string>
     <string name="widget_show_dividers">Показати розділювачі</string>
     <string name="widget_show_menu">Показати меню</string>
@@ -499,5 +494,4 @@
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
-    <string name="pick_a_date_and_time">Обрати дату й час</string>
 </resources>

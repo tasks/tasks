@@ -231,7 +231,6 @@
     <string name="show_description">Mostra la descripció</string>
     <string name="widget_show_menu">Mostra el menú</string>
     <string name="change_priority">Canvia la prioritat</string>
-    <string name="date_shortcut_hour">Per una hora</string>
     <string name="date_shortcut_night">Nit</string>
     <string name="date_shortcut_morning">Matí</string>
     <string name="date_shortcut_afternoon">Tarda</string>
@@ -253,9 +252,6 @@
     <string name="swipe_to_snooze_time_24_hours">després de 24 hores</string>
     <string name="swipe_to_snooze_time_immediately">immediatament</string>
     <string name="tags">Etiquetes</string>
-    <string name="date_shortcut_tomorrow_morning">Demà pel matí</string>
-    <string name="date_shortcut_tomorrow_evening">Demà pel vespre</string>
-    <string name="date_shortcut_tomorrow_night">Demà per la nit</string>
     <string name="password">Contrasenya</string>
     <string name="help_and_feedback">Ajuda i comentaris</string>
     <string name="show_full_description">Mostra la descripció completa</string>
@@ -264,12 +260,10 @@
     <string name="widget_show_settings">Mostra la configuració</string>
     <string name="widget_show_title">Mostra el títol</string>
     <string name="notifications">Notificacions</string>
-    <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
     <string name="date_shortcut_evening">Vespre</string>
     <string name="list_separator_with_space">", "</string>
     <string name="swipe_to_snooze_title">Llisca per posposar</string>
     <string name="google_drive_backup">Còpia de seguretat a Google Drive</string>
-    <string name="pick_a_date_and_time">Escull una data i hora</string>
     <string name="tag_settings">Preferències de les etiquetes</string>
     <string name="font_size">Tamany de la font</string>
     <string name="row_spacing">Espaiat de les files</string>

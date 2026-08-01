@@ -40,4 +40,5 @@
     <string name="ring_once">Zvoni jednom</string>
     <string name="ring_five_times">Zvoni pet puta</string>
     <string name="ring_nonstop">Zvoni neprekidno</string>
+    <string name="rmd_NoA_snooze">Odgodi</string>
 </resources>

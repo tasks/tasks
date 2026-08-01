@@ -280,4 +280,14 @@
     <string name="delete_task">ลบงาน</string>
     <string name="menu_discard_changes">ละทิ้งการเปลี่ยนแปลง</string>
     <string name="more_options">ตัวเลือกเพิ่มเติม</string>
+    <string name="rmd_NoA_snooze">หลับ..</string>
+    <string name="date_shortcut_hour">เป็นเวลาหนึ่งชั่วโมง</string>
+    <string name="date_shortcut_morning">เช้า</string>
+    <string name="date_shortcut_afternoon">บ่าย</string>
+    <string name="date_shortcut_evening">ตอนเย็น</string>
+    <string name="date_shortcut_night">กลางคืน</string>
+    <string name="date_shortcut_tomorrow_morning">พรุ่งนี้เช้า</string>
+    <string name="date_shortcut_tomorrow_afternoon">พรุ่งนี้บ่าย</string>
+    <string name="date_shortcut_tomorrow_evening">พรุ่งนี้เย็น</string>
+    <string name="date_shortcut_tomorrow_night">คืนพรุ่งนี้</string>
 </resources>

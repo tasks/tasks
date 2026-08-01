@@ -170,13 +170,10 @@
     <string name="remove">移除</string>
     <string name="tags">标签</string>
     <string name="filters">过滤器</string>
-    <string name="date_shortcut_hour">一个小时</string>
     <string name="date_shortcut_morning">上午</string>
     <string name="date_shortcut_afternoon">下午</string>
     <string name="date_shortcut_evening">傍晚</string>
     <string name="date_shortcut_night">晚上</string>
-    <string name="date_shortcut_tomorrow_morning">明天上午</string>
-    <string name="date_shortcut_tomorrow_afternoon">明天下午</string>
     <string name="date_shortcut_must_come_before">%1$s 必须在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必须在 %2$s 之后</string>
     <string name="discard_changes">是否放弃修改？</string>
@@ -364,8 +361,6 @@
     <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用 Astrid 的手动排序模式。在以后的更新中，此排序模式将被“我的顺序”代替</string>
     <string name="astrid_sort_order">Astrid 手动排序</string>
     <string name="CFC_list_name">在某清单中…</string>
-    <string name="date_shortcut_tomorrow_night">明天晚上</string>
-    <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
     <string name="reset_sort_order">重置排列顺序</string>
     <string name="permission_read_tasks">对 Tasks 数据库的完全访问</string>
     <string name="davx5_selection_description">使用 DAVx⁵ 应用同步您的任务</string>
@@ -527,5 +522,4 @@
     <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>
     <string name="sort_options">排序选项</string>
     <string name="snoozed_reminder">已推迟的提醒</string>
-    <string name="pick_a_date_and_time">选择日期和时间</string>
 </resources>

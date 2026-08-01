@@ -182,13 +182,10 @@
     <string name="geofence_radius">Távolság</string>
     <string name="tags">Címkék</string>
     <string name="filters">Szűrők</string>
-    <string name="date_shortcut_hour">Egy órára</string>
     <string name="date_shortcut_morning">Reggel</string>
     <string name="date_shortcut_afternoon">Délután</string>
     <string name="date_shortcut_evening">Este</string>
     <string name="date_shortcut_night">Éjszaka</string>
-    <string name="date_shortcut_tomorrow_morning">Holnap reggel</string>
-    <string name="date_shortcut_tomorrow_afternoon">Holnap délután</string>
     <string name="date_shortcut_must_come_before">%1$s-nek %2$s előtt kell jönnie</string>
     <string name="date_shortcut_must_come_after">	%1$s-nek %2$s után kell jönnie</string>
     <string name="discard_changes">Változások elvetése?</string>
@@ -367,8 +364,6 @@
     <string name="astrid_sort_order_summary">Astrid egyéni sorbarendezés engedélyezése a \"Saját Feladatok\" és a \"Ma\" listákra illetve a címkékre. Ezt a sorbarendezési módot egy jövőbeni frissítésben fel fogja váltani a \"Saját sorrend\"</string>
     <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
     <string name="CFC_list_name">Ebben a listában…</string>
-    <string name="date_shortcut_tomorrow_night">Holnap éjszaka</string>
-    <string name="date_shortcut_tomorrow_evening">Holnap este</string>
     <string name="reset_sort_order">Sorbarendezés visszaállítása</string>
     <string name="permission_read_tasks">Teljes hozzáférés a Tasks adatbázishoz</string>
     <string name="davx5_selection_description">Feladatok szinkronizálása DAVx⁵ alkalmazással</string>
@@ -528,5 +523,4 @@
     <string name="read_more">Mutass többet</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
-    <string name="pick_a_date_and_time">Válasszon dátumot és időpontot</string>
 </resources>

@@ -171,13 +171,10 @@
     <string name="remove">Poista</string>
     <string name="tags">Tunnisteet</string>
     <string name="filters">Suodattimet</string>
-    <string name="date_shortcut_hour">Tunnin verran</string>
     <string name="date_shortcut_morning">Aamu</string>
     <string name="date_shortcut_afternoon">Iltapäivä</string>
     <string name="date_shortcut_evening">Ilta</string>
     <string name="date_shortcut_night">Yö</string>
-    <string name="date_shortcut_tomorrow_morning">Huomenna aamulla</string>
-    <string name="date_shortcut_tomorrow_afternoon">Huomenna iltapäivälllä</string>
     <string name="date_shortcut_must_come_before">%1$s on oltava ennen %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s on oltava jälkeen %2$s</string>
     <string name="discard_changes">Hylkää muutokset?</string>
@@ -365,10 +362,8 @@
     <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
     <string name="on_launch">Käynnistettäessä</string>
     <string name="CFC_list_name">listalla…</string>
-    <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
-    <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
     <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
     <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Tilauksesi tukee jatkuvaa kehitystä</string>
@@ -499,5 +494,4 @@
     <string name="rmd_time_enabled_on">Lisää oletusmuistutus koko päivän tehtäville</string>
     <string name="rmd_time_enabled_off">Älä lisää oletusmuistutusta koko päivän tehtäville</string>
     <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
-    <string name="pick_a_date_and_time">Valitse päivä ja aika</string>
 </resources>

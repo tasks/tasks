@@ -244,15 +244,10 @@ File %1$s contained %2$s.\n\n
   <string name="tags">Tags</string>
   <string name="change_priority">Change priority</string>
   <string name="filters">Filters</string>
-  <string name="date_shortcut_hour">For an hour</string>
   <string name="date_shortcut_morning">Morning</string>
   <string name="date_shortcut_afternoon">Afternoon</string>
   <string name="date_shortcut_evening">Evening</string>
   <string name="date_shortcut_night">Night</string>
-  <string name="date_shortcut_tomorrow_morning">Tomorrow morning</string>
-  <string name="date_shortcut_tomorrow_afternoon">Tomorrow afternoon</string>
-  <string name="date_shortcut_tomorrow_evening">Tomorrow evening</string>
-  <string name="date_shortcut_tomorrow_night">Tomorrow night</string>
   <string name="date_shortcut_must_come_before">%1$s must come before %2$s</string>
   <string name="date_shortcut_must_come_after">%1$s must come after %2$s</string>
   <string name="discard_changes">Discard changes?</string>
@@ -535,5 +530,4 @@ File %1$s contained %2$s.\n\n
   <string name="button_learn_more">Learn more</string>
   <string name="widget_view_more_tasks">View more tasks</string>
   <string name="read_more">Read more</string>
-  <string name="pick_a_date_and_time">Pick a date and time</string>
 </resources>

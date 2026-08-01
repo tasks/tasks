@@ -58,9 +58,6 @@
     <string name="tomorrow">I morgen</string>
     <string name="opacity_header">Header-opacitet</string>
     <string name="back_button_saves_task">Tilbage-knappen gemmer opgaven</string>
-    <string name="date_shortcut_tomorrow_night">I morgen nat</string>
-    <string name="date_shortcut_tomorrow_evening">I morgen aften</string>
-    <string name="date_shortcut_tomorrow_afternoon">I morgen eftermiddag</string>
     <string name="date_shortcut_night">Nat</string>
     <string name="date_shortcut_evening">Aften</string>
     <string name="date_shortcut_afternoon">Eftermiddag</string>
@@ -235,9 +232,7 @@
     <string name="discard_changes">Kassér ændringer\?</string>
     <string name="date_shortcut_must_come_after">%1$s skal komme efter %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s skal komme før %2$s</string>
-    <string name="date_shortcut_tomorrow_morning">I morgen tidlig</string>
     <string name="date_shortcut_morning">Morgen</string>
-    <string name="date_shortcut_hour">I en time</string>
     <string name="filters">Filtre</string>
     <string name="tags">Tags</string>
     <string name="location_radius_meters">%s m</string>
@@ -528,5 +523,4 @@
     <string name="upgrade_friends_and_family">Venner og familie</string>
     <string name="upgrade_friends_and_family_description">5 gratis gæster på delte lister. Fungerer med Apple Reminders</string>
     <string name="read_more">Læs mere</string>
-    <string name="pick_a_date_and_time">Vælg dato og tidspunkt</string>
 </resources>

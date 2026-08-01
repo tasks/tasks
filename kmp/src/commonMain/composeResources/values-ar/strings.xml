@@ -446,4 +446,14 @@
     <string name="delete_task">حذف المهمة</string>
     <string name="menu_discard_changes">تجاهل التغييرات</string>
     <string name="more_options">خيارات أكثر</string>
+    <string name="rmd_NoA_snooze">غفوة</string>
+    <string name="date_shortcut_hour">لساعة</string>
+    <string name="date_shortcut_morning">صباحًا</string>
+    <string name="date_shortcut_afternoon">بعد الظهر</string>
+    <string name="date_shortcut_evening">مساءً</string>
+    <string name="date_shortcut_night">ليلًا</string>
+    <string name="date_shortcut_tomorrow_morning">صباح غد</string>
+    <string name="date_shortcut_tomorrow_afternoon">غدًا بعد الظهر</string>
+    <string name="date_shortcut_tomorrow_evening">مساء غد</string>
+    <string name="date_shortcut_tomorrow_night">ليلة غد</string>
 </resources>

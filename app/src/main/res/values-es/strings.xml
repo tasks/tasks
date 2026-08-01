@@ -188,13 +188,10 @@
     <string name="geofence_radius">Radio de la geocerca</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
-    <string name="date_shortcut_hour">Por una hora</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Atardecer</string>
     <string name="date_shortcut_night">Noche</string>
-    <string name="date_shortcut_tomorrow_morning">Mañana a la mañana</string>
-    <string name="date_shortcut_tomorrow_afternoon">Mañana a la tarde</string>
     <string name="date_shortcut_must_come_before">%1$s debe venir antes de %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s debe venir después de %2$s</string>
     <string name="discard_changes">¿Descartar cambios?</string>
@@ -374,8 +371,6 @@
     <string name="astrid_sort_order_summary">Active el modo de ordenación manual de Astrid para «Mis tareas», «Hoy» y las etiquetas. Este modo de ordenación se reemplazará por «Mi orden» en una futura actualización</string>
     <string name="astrid_sort_order">Clasificación manual de Astrid</string>
     <string name="CFC_list_name">En la lista…</string>
-    <string name="date_shortcut_tomorrow_night">Mañana por la noche</string>
-    <string name="date_shortcut_tomorrow_evening">Mañana por la tarde</string>
     <string name="reset_sort_order">Restablecer orden de clasificación</string>
     <string name="permission_read_tasks">Acceso completo a la base de datos de Tasks</string>
     <string name="davx5_selection_description">Sincronice sus tareas con la aplicación DAVx⁵</string>
@@ -516,5 +511,4 @@
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_friends_and_family">Amigos y familia</string>
     <string name="read_more">Leer más</string>
-    <string name="pick_a_date_and_time">Elegir fecha y hora</string>
 </resources>

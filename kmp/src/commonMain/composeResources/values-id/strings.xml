@@ -477,4 +477,14 @@
     <string name="delete_task">Hapus tugas</string>
     <string name="menu_discard_changes">Buang perubahan</string>
     <string name="more_options">Opsi lebih banyak</string>
+    <string name="rmd_NoA_snooze">Tunda</string>
+    <string name="date_shortcut_hour">Selama satu jam</string>
+    <string name="date_shortcut_morning">Pagi</string>
+    <string name="date_shortcut_afternoon">Siang</string>
+    <string name="date_shortcut_evening">Petang</string>
+    <string name="date_shortcut_night">Malam</string>
+    <string name="date_shortcut_tomorrow_morning">Besok pagi</string>
+    <string name="date_shortcut_tomorrow_afternoon">Besok siang</string>
+    <string name="date_shortcut_tomorrow_evening">Besok petang</string>
+    <string name="date_shortcut_tomorrow_night">Besok malam</string>
 </resources>

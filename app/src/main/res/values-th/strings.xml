@@ -376,15 +376,10 @@
     <string name="EPr_fullTask_title">แสดงชื่องานแบบเต็ม</string>
     <string name="EPr_beastMode_reset">รีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="none">ไม่มีใคร</string>
-    <string name="date_shortcut_tomorrow_night">คืนพรุ่งนี้</string>
-    <string name="date_shortcut_tomorrow_evening">พรุ่งนี้เย็น</string>
-    <string name="date_shortcut_tomorrow_afternoon">พรุ่งนี้บ่าย</string>
-    <string name="date_shortcut_tomorrow_morning">พรุ่งนี้เช้า</string>
     <string name="date_shortcut_night">กลางคืน</string>
     <string name="date_shortcut_evening">ตอนเย็น</string>
     <string name="date_shortcut_afternoon">บ่าย</string>
     <string name="date_shortcut_morning">เช้า</string>
-    <string name="date_shortcut_hour">เป็นเวลาหนึ่งชั่วโมง</string>
     <string name="filters">ตัวกรอง</string>
     <string name="TEA_control_hidden_section">----ไฮด์----</string>
     <string name="TEA_control_timer">การควบคุมตัวจับเวลา</string>
@@ -433,5 +428,4 @@
     <string name="backup_BAc_export">สํารองข้อมูลเดี๋ยวนี้</string>
     <string name="display_name">ชื่อที่ใช้แสดง</string>
     <string name="TVA_add_comment">เพิ่มข้อคิดเห็น…</string>
-    <string name="pick_a_date_and_time">เลือกวันที่และเวลา</string>
 </resources>

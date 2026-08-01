@@ -184,13 +184,10 @@
     <string name="geofence_radius">ジオフェンスの半径</string>
     <string name="tags">タグ</string>
     <string name="filters">フィルター</string>
-    <string name="date_shortcut_hour">1 時間</string>
     <string name="date_shortcut_morning">朝</string>
     <string name="date_shortcut_afternoon">昼</string>
     <string name="date_shortcut_evening">夕方</string>
     <string name="date_shortcut_night">夜</string>
-    <string name="date_shortcut_tomorrow_morning">明日の朝</string>
-    <string name="date_shortcut_tomorrow_afternoon">明日の昼</string>
     <string name="date_shortcut_must_come_before">%1$s は %2$s の前に来る必要があります</string>
     <string name="date_shortcut_must_come_after">%1$s は %2$s の後に来る必要があります</string>
     <string name="discard_changes">変更を破棄しますか？</string>
@@ -292,8 +289,6 @@
     <string name="opacity_footer">フッターの透明度</string>
     <string name="opacity_header">ヘッダーの透明度</string>
     <string name="default_tags">デフォルトのタグ</string>
-    <string name="date_shortcut_tomorrow_night">明日の夜</string>
-    <string name="date_shortcut_tomorrow_evening">明日の夕方</string>
     <string name="widget_show_menu">メニューを表示</string>
     <string name="widget_show_title">タイトルを表示</string>
     <string name="repeat_type_completion_capitalized">完了日</string>
@@ -524,5 +519,4 @@
     <string name="upgrade_desktop_app">デスクトップ版Tasks.org</string>
     <string name="upgrade_desktop_app_description">新しいデスクトップアプリの早期利用</string>
     <string name="read_more">より詳しく</string>
-    <string name="pick_a_date_and_time">日付と時間を選択</string>
 </resources>

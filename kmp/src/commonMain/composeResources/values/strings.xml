@@ -514,4 +514,14 @@
     <string name="menu_discard_changes">Discard changes</string>
     <string name="more_options">More options</string>
     <string name="mark_completed">Mark completed</string>
+    <string name="rmd_NoA_snooze">Snooze</string>
+    <string name="date_shortcut_hour">For an hour</string>
+    <string name="date_shortcut_morning">Morning</string>
+    <string name="date_shortcut_afternoon">Afternoon</string>
+    <string name="date_shortcut_evening">Evening</string>
+    <string name="date_shortcut_night">Night</string>
+    <string name="date_shortcut_tomorrow_morning">Tomorrow morning</string>
+    <string name="date_shortcut_tomorrow_afternoon">Tomorrow afternoon</string>
+    <string name="date_shortcut_tomorrow_evening">Tomorrow evening</string>
+    <string name="date_shortcut_tomorrow_night">Tomorrow night</string>
 </resources>

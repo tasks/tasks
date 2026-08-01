@@ -177,16 +177,12 @@
     <string name="quiet_hours_summary">Aucun rappel durant les heures de repos</string>
     <string name="add_location">Ajouter un emplacement</string>
     <string name="remove">Retirer</string>
-    <string name="pick_a_date_and_time">Choisir une date et une heure</string>
     <string name="geofence_radius">Rayon de la barrière géographique</string>
     <string name="filters">Filtres</string>
-    <string name="date_shortcut_hour">Pendant une heure</string>
     <string name="date_shortcut_morning">Matin</string>
     <string name="date_shortcut_afternoon">Après-midi</string>
     <string name="date_shortcut_evening">Soir</string>
     <string name="date_shortcut_night">Nuit</string>
-    <string name="date_shortcut_tomorrow_morning">Demain matin</string>
-    <string name="date_shortcut_tomorrow_afternoon">Demain après-midi</string>
     <string name="date_shortcut_must_come_before">%1$s doit venir avant %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
     <string name="discard_changes">Ignorer les modifications \?</string>
@@ -375,8 +371,6 @@
     <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode de tri sera remplacé par « Mon tri » dans une future mise à jour</string>
     <string name="astrid_sort_order">Tri manuel Astrid</string>
     <string name="CFC_list_name">Dans la liste…</string>
-    <string name="date_shortcut_tomorrow_evening">Demain soir</string>
-    <string name="date_shortcut_tomorrow_night">La nuit prochaine</string>
     <string name="reset_sort_order">Réinitialiser l’ordre de tri</string>
     <string name="permission_read_tasks">Accès complet à la base de données de Tasks</string>
     <string name="davx5_selection_description">Synchroniser vos tâches avec l’application « DAVx⁵ »</string>

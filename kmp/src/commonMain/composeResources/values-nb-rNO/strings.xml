@@ -352,4 +352,14 @@
     <string name="delete_task">Slett gjøremål</string>
     <string name="menu_discard_changes">Forkast endringer</string>
     <string name="more_options">Flere innstillinger</string>
+    <string name="rmd_NoA_snooze">Slumre</string>
+    <string name="date_shortcut_hour">En time</string>
+    <string name="date_shortcut_morning">Morgen</string>
+    <string name="date_shortcut_afternoon">Ettermiddag</string>
+    <string name="date_shortcut_evening">Kveld</string>
+    <string name="date_shortcut_night">Natt</string>
+    <string name="date_shortcut_tomorrow_morning">I morgen på morgenen</string>
+    <string name="date_shortcut_tomorrow_afternoon">I morgen på ettermiddagen</string>
+    <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
+    <string name="date_shortcut_tomorrow_night">I morgen på natten</string>
 </resources>

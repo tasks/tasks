@@ -187,13 +187,10 @@
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Етикети</string>
     <string name="filters">Филтри</string>
-    <string name="date_shortcut_hour">За час</string>
     <string name="date_shortcut_morning">Сутрин</string>
     <string name="date_shortcut_afternoon">Следобед</string>
     <string name="date_shortcut_evening">Вечер</string>
     <string name="date_shortcut_night">През нощта</string>
-    <string name="date_shortcut_tomorrow_morning">Утре сутринта</string>
-    <string name="date_shortcut_tomorrow_afternoon">Утре следобед</string>
     <string name="date_shortcut_must_come_before">%1$s трябва да дойде преди %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s трябва да дойде след %2$s</string>
     <string name="discard_changes">Отказ от промените\?</string>
@@ -366,8 +363,6 @@
     <string name="filter_criteria_unstarted">Незапочнати</string>
     <string name="opacity_row">Непрозрачност на реда</string>
     <string name="widget_due_date_below_title">Под заглавието</string>
-    <string name="date_shortcut_tomorrow_evening">Утре вечер</string>
-    <string name="date_shortcut_tomorrow_night">Утре през нощта</string>
     <string name="opacity_header">Непрозрачност на заглавката</string>
     <string name="widget_due_date_after_title">След заглавието</string>
     <string name="widget_open_list">Отваряне на списък</string>
@@ -529,5 +524,4 @@
     <string name="upgrade_friends_and_family_description">5 безплатни достъпа като гост на споделени листове. Работи с Apple Reminders</string>
     <string name="read_more">Прочетете повече</string>
     <string name="sort_options">Настройки на сортиране</string>
-    <string name="pick_a_date_and_time">Избиране на дата и час</string>
 </resources>

@@ -396,4 +396,14 @@
     <string name="delete_task">Slet opgave</string>
     <string name="menu_discard_changes">Kassér ændringer</string>
     <string name="more_options">Flere muligheder</string>
+    <string name="rmd_NoA_snooze">Udsæt</string>
+    <string name="date_shortcut_hour">I en time</string>
+    <string name="date_shortcut_morning">Morgen</string>
+    <string name="date_shortcut_afternoon">Eftermiddag</string>
+    <string name="date_shortcut_evening">Aften</string>
+    <string name="date_shortcut_night">Nat</string>
+    <string name="date_shortcut_tomorrow_morning">I morgen tidlig</string>
+    <string name="date_shortcut_tomorrow_afternoon">I morgen eftermiddag</string>
+    <string name="date_shortcut_tomorrow_evening">I morgen aften</string>
+    <string name="date_shortcut_tomorrow_night">I morgen nat</string>
 </resources>

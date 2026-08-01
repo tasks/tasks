@@ -170,13 +170,10 @@
     <string name="remove">Remover</string>
     <string name="tags">Etiquetas</string>
     <string name="filters">Filtros</string>
-    <string name="date_shortcut_hour">Por uma hora</string>
     <string name="date_shortcut_morning">Manhã</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Fim de dia</string>
     <string name="date_shortcut_night">Noite</string>
-    <string name="date_shortcut_tomorrow_morning">Amanhã de manhã</string>
-    <string name="date_shortcut_tomorrow_afternoon">Amanhã à tarde</string>
     <string name="date_shortcut_must_come_before">%1$s tem que ser antes de %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s tem que ser depois de %2$s</string>
     <string name="discard_changes">Descartar alterações?</string>
@@ -275,8 +272,6 @@
     <string name="no_reminders">Sem lembretes</string>
     <string name="EPr_default_location_reminder_title">Lembretes de localização predefinidos</string>
     <string name="TEA_control_location">Localização</string>
-    <string name="date_shortcut_tomorrow_night">Amanhã à noite</string>
-    <string name="date_shortcut_tomorrow_evening">Amanhã ao fim do dia</string>
     <string name="CFC_list_name">Na lista…</string>
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\' e etiquetas. Este modo de ordenação eventualmente será substituído por \'Minha ordenação\' numa futura atualização</string>
@@ -529,5 +524,4 @@
     <string name="exit">Sair</string>
     <string name="returning_user">Utilizador a retornar?</string>
     <string name="read_more">Ler mais</string>
-    <string name="pick_a_date_and_time">Escolher a data e a hora</string>
 </resources>

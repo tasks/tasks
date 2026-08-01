@@ -392,4 +392,14 @@
     <string name="delete_task">Видалити завдання</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
     <string name="more_options">Додаткові параметри</string>
+    <string name="rmd_NoA_snooze">Відкласти</string>
+    <string name="date_shortcut_hour">На годину</string>
+    <string name="date_shortcut_morning">Зранку</string>
+    <string name="date_shortcut_afternoon">Вдень</string>
+    <string name="date_shortcut_evening">Ввечері</string>
+    <string name="date_shortcut_night">Вночі</string>
+    <string name="date_shortcut_tomorrow_morning">Завтра зранку</string>
+    <string name="date_shortcut_tomorrow_afternoon">Завтра вдень</string>
+    <string name="date_shortcut_tomorrow_evening">Завтра ввечері</string>
+    <string name="date_shortcut_tomorrow_night">Завтра вночі</string>
 </resources>

@@ -127,4 +127,12 @@
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>
     <string name="delete_task">حذف وظیفه</string>
+    <string name="rmd_NoA_snooze">عقب انداختن</string>
+    <string name="date_shortcut_hour">برای یک ساعت</string>
+    <string name="date_shortcut_morning">صبح</string>
+    <string name="date_shortcut_afternoon">بعدازظهر</string>
+    <string name="date_shortcut_evening">عصر</string>
+    <string name="date_shortcut_night">شب</string>
+    <string name="date_shortcut_tomorrow_morning">فردا صبح</string>
+    <string name="date_shortcut_tomorrow_afternoon">فردا بعداز ظهر</string>
 </resources>

@@ -199,13 +199,10 @@
     <string name="remove">Fjern</string>
     <string name="geofence_radius">Radius for geogjerde</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="date_shortcut_hour">En time</string>
     <string name="date_shortcut_morning">Morgen</string>
     <string name="date_shortcut_afternoon">Ettermiddag</string>
     <string name="date_shortcut_evening">Kveld</string>
     <string name="date_shortcut_night">Natt</string>
-    <string name="date_shortcut_tomorrow_morning">I morgen på morgenen</string>
-    <string name="date_shortcut_tomorrow_afternoon">I morgen på ettermiddagen</string>
     <string name="date_shortcut_must_come_before">%1$s må komme før %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s må komme etter %2$s</string>
     <string name="discard_changes">Forkast endringer\?</string>
@@ -368,12 +365,10 @@
     <string name="enjoying_tasks">Liker du Tasks\?</string>
     <string name="whats_new">Hva er nytt</string>
     <string name="CFC_list_name">På listen…</string>
-    <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
     <string name="action_new_task">Nytt gjøremål</string>
     <string name="permission_read_tasks">Full tilgang til Tasks-database</string>
     <string name="open_last_viewed_list">Åpne sist viste liste</string>
     <string name="support_development_subscribe">Lås opp ytterligere funksjoner og støtt fri programvare</string>
-    <string name="date_shortcut_tomorrow_night">I morgen på natten</string>
     <string name="astrid_sort_order_summary">Skru på Astrids manuelle sorteringsmodus for \"Mine gjøremål\", \"I dag\", og tagger. Denne sorteringsmodusen erstattes av \"Min rekkefølge\" i en fremtidig oppdatering</string>
     <string name="astrid_sort_order">Astrids manuelle sorteringsmodus</string>
     <string name="davx5_selection_description">Synkroniser dine gjøremål med DAVx⁵-programmet</string>
@@ -472,5 +467,4 @@
     <string name="swipe_to_snooze_time_1_hour">etter 1 time</string>
     <string name="swipe_to_snooze_time_24_hours">etter 24 timer</string>
     <string name="change_priority">Endre prioritet</string>
-    <string name="pick_a_date_and_time">Velg dato og tid</string>
 </resources>

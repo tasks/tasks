@@ -30,9 +30,6 @@
     <string name="date_shortcut_afternoon">ଅପରାହ୍ଣ</string>
     <string name="date_shortcut_evening">ସଞ୍ଜ</string>
     <string name="date_shortcut_night">ରାତି</string>
-    <string name="date_shortcut_tomorrow_evening">ଆସନ୍ତାକାଲି ସଞ୍ଜ</string>
-    <string name="date_shortcut_tomorrow_night">ଆସନ୍ତାକାଲି ରାତି</string>
-    <string name="date_shortcut_tomorrow_morning">ଆସନ୍ତାକାଲି ସକାଳ</string>
     <string name="filters">ଶୋଧକ</string>
     <string name="name_cannot_be_empty">ନାମ ଖାଲି ଛଡ଼ା ଯାଇପାରିବ ନାହିଁ</string>
     <string name="theme">ଥିମ୍</string>
@@ -71,8 +68,6 @@
     </plurals>
     <string name="widget_show_menu">ମେନୁ ଦେଖାଅ</string>
     <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
-    <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
-    <string name="date_shortcut_tomorrow_afternoon">ଆସନ୍ତାକାଲି ଅପରାହ୍ଣ</string>
     <string name="theme_black">କଳା</string>
     <string name="language">ଭାଷା</string>
     <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>

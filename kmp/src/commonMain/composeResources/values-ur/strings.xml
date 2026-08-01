@@ -237,4 +237,14 @@
     <string name="ring_nonstop">بغیر رکے رنگ بجنا</string>
     <string name="delete_task">ٹاسک ڈیلیٹ کریں</string>
     <string name="menu_discard_changes">تبدیلیاں مسترد کریں</string>
+    <string name="rmd_NoA_snooze">اسنوز کریں</string>
+    <string name="date_shortcut_hour">ایک گھنٹے کیلئے</string>
+    <string name="date_shortcut_morning">صبح</string>
+    <string name="date_shortcut_afternoon">سہ پہر</string>
+    <string name="date_shortcut_evening">شام</string>
+    <string name="date_shortcut_night">رات</string>
+    <string name="date_shortcut_tomorrow_morning">کل صبح</string>
+    <string name="date_shortcut_tomorrow_afternoon">کل سہ پہر</string>
+    <string name="date_shortcut_tomorrow_evening">کل شام</string>
+    <string name="date_shortcut_tomorrow_night">کل رات</string>
 </resources>

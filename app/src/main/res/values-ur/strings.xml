@@ -191,15 +191,10 @@
     <string name="TEA_timer_comment_started">یہ ٹاسک شروع کیا:</string>
     <string name="TEA_timer_controls">ٹائمر</string>
     <string name="TPl_notification">%s کیلئے ٹائمرز فعال ہو گئے!</string>
-    <string name="date_shortcut_tomorrow_night">کل رات</string>
-    <string name="date_shortcut_tomorrow_evening">کل شام</string>
-    <string name="date_shortcut_tomorrow_afternoon">کل سہ پہر</string>
-    <string name="date_shortcut_tomorrow_morning">کل صبح</string>
     <string name="date_shortcut_night">رات</string>
     <string name="date_shortcut_evening">شام</string>
     <string name="date_shortcut_afternoon">سہ پہر</string>
     <string name="date_shortcut_morning">صبح</string>
-    <string name="date_shortcut_hour">ایک گھنٹے کیلئے</string>
     <string name="filters">فلٹرز</string>
     <string name="tags">ٹیگز</string>
     <string name="location_radius_meters">%s م</string>
@@ -337,5 +332,4 @@
     <string name="caldav_selection_description">اوپن انٹرنیٹ میعارات پر مبنی سنکرونائزیشن</string>
     <string name="choose_synchronization_service">پلیٹ فارم منتخب کریں</string>
     <string name="missing_permissions">حذف شدہ اجازتیں</string>
-    <string name="pick_a_date_and_time">تاریخ اور وقت مقرر کریں</string>
 </resources>

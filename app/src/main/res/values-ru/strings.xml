@@ -191,13 +191,10 @@
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
     <string name="filters">Фильтры</string>
-    <string name="date_shortcut_hour">На час</string>
     <string name="date_shortcut_morning">Утро</string>
     <string name="date_shortcut_afternoon">Обед</string>
     <string name="date_shortcut_evening">Вечер</string>
     <string name="date_shortcut_night">Ночь</string>
-    <string name="date_shortcut_tomorrow_morning">Завтра утром</string>
-    <string name="date_shortcut_tomorrow_afternoon">Завтра в обед</string>
     <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
     <string name="discard_changes">Отменить изменения\?</string>
@@ -374,8 +371,6 @@
     <string name="lists">Списки</string>
     <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
     <string name="on_launch">При запуске</string>
-    <string name="date_shortcut_tomorrow_night">Завтра ночью</string>
-    <string name="date_shortcut_tomorrow_evening">Завтра вечером</string>
     <string name="CFC_list_name">В списке…</string>
     <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и меток. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
     <string name="astrid_sort_order">Ручная сортировка Astrid</string>
@@ -522,5 +517,4 @@
     <string name="guest_create_list_message">У вас гостевой доступ к общим спискам. Чтобы создавать и синхронизировать свои приватные списки с облаком, нужна подписка Tasks.org. Также вы можете создать бесплатный локальный список — он будет храниться только на этом устройстве.</string>
     <string name="upgrade_desktop_app">Tasks.org для компьютера</string>
     <string name="upgrade_desktop_app_description">Ранний доступ к новому настольному приложению</string>
-    <string name="pick_a_date_and_time">Выберите дату и время</string>
 </resources>

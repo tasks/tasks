@@ -351,4 +351,14 @@
     <string name="delete_task">Ištrinti užduotį</string>
     <string name="menu_discard_changes">Atmesti pakeitimus</string>
     <string name="more_options">Daugiau pasirinkimų</string>
+    <string name="rmd_NoA_snooze">Užmigdyti</string>
+    <string name="date_shortcut_hour">Valandai</string>
+    <string name="date_shortcut_morning">Rytas</string>
+    <string name="date_shortcut_afternoon">Popietė</string>
+    <string name="date_shortcut_evening">Vakaras</string>
+    <string name="date_shortcut_night">Naktis</string>
+    <string name="date_shortcut_tomorrow_morning">Rytojaus rytas</string>
+    <string name="date_shortcut_tomorrow_afternoon">Rytojaus popietė</string>
+    <string name="date_shortcut_tomorrow_evening">Rytojaus vakaras</string>
+    <string name="date_shortcut_tomorrow_night">Rytojaus naktis</string>
 </resources>

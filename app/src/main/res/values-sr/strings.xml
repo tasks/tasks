@@ -199,9 +199,6 @@
     <string name="date_shortcut_afternoon">Подне</string>
     <string name="date_shortcut_evening">Вече</string>
     <string name="date_shortcut_night">Ноћ</string>
-    <string name="date_shortcut_tomorrow_morning">Сутра ујутру</string>
-    <string name="date_shortcut_tomorrow_afternoon">Сутра поподне</string>
-    <string name="date_shortcut_tomorrow_evening">Сутра увече</string>
     <string name="discard_changes">Одбаци измене?</string>
     <string name="discard">Обустави</string>
     <string name="tag_settings">Подешавања тагова</string>
@@ -357,8 +354,6 @@
     <string name="translations">Допринеси преводима</string>
     <string name="geofence_radius">Радијус геоограде</string>
     <string name="location_radius_meters">%s м</string>
-    <string name="date_shortcut_hour">За час</string>
-    <string name="date_shortcut_tomorrow_night">Сутра у току ноћи</string>
     <string name="date_shortcut_must_come_before">%1$s мора бити пре %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s мора бити након %2$s</string>
     <string name="filter_criteria_unstarted">Није започето</string>
@@ -533,5 +528,4 @@
     <string name="rmd_EPr_rmd_time_desc">Обавештења за целодневне задатке ће се појавити у%1$s</string>
     <string name="p_per_list_sort">Сортирање по листи</string>
     <string name="per_list_sort_title">Сортирање листе</string>
-    <string name="pick_a_date_and_time">Одабери датум и време</string>
 </resources>

@@ -505,4 +505,14 @@
     <string name="mark_completed">标记为已完成</string>
     <string name="repeat_type_due_description">任务根据原定完成时间重复</string>
     <string name="repeat_type_completion_description">任务根据实际完成时间重复</string>
+    <string name="rmd_NoA_snooze">延后</string>
+    <string name="date_shortcut_hour">一个小时</string>
+    <string name="date_shortcut_morning">上午</string>
+    <string name="date_shortcut_afternoon">下午</string>
+    <string name="date_shortcut_evening">傍晚</string>
+    <string name="date_shortcut_night">晚上</string>
+    <string name="date_shortcut_tomorrow_morning">明天上午</string>
+    <string name="date_shortcut_tomorrow_afternoon">明天下午</string>
+    <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
+    <string name="date_shortcut_tomorrow_night">明天晚上</string>
 </resources>

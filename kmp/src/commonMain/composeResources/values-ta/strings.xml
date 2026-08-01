@@ -370,4 +370,14 @@
     <string name="delete_task">பணியை நீக்கு</string>
     <string name="menu_discard_changes">மாற்றங்களை கைவிடலாமா</string>
     <string name="more_options">மேலும் விருப்பங்கள்</string>
+    <string name="rmd_NoA_snooze">உறக்கநிலை</string>
+    <string name="date_shortcut_hour">ஒரு மணி நேரத்திற்கு</string>
+    <string name="date_shortcut_morning">காலை</string>
+    <string name="date_shortcut_afternoon">மதியம்</string>
+    <string name="date_shortcut_evening">மாலை</string>
+    <string name="date_shortcut_night">இரவு</string>
+    <string name="date_shortcut_tomorrow_morning">நாளை காலை</string>
+    <string name="date_shortcut_tomorrow_afternoon">நாளை மதியம்</string>
+    <string name="date_shortcut_tomorrow_evening">நாளை மாலை</string>
+    <string name="date_shortcut_tomorrow_night">நாளை இரவு</string>
 </resources>

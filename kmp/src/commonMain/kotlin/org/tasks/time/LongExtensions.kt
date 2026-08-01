@@ -32,9 +32,7 @@ fun Long.startOfDay(): Long =
 
 fun Long.startOfMinute(): Long =
     if (this > 0) {
-        toLocalDateTime()
-            .let { LocalDateTime(it.year, it.month, it.dayOfMonth, it.hour, it.minute, 0, 0) }
-            .toEpochMilliseconds()
+        this - this % ONE_MINUTE
     } else {
         0
     }

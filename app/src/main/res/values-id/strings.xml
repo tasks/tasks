@@ -134,8 +134,6 @@
     <string name="date_shortcut_afternoon">Siang</string>
     <string name="date_shortcut_evening">Petang</string>
     <string name="date_shortcut_night">Malam</string>
-    <string name="date_shortcut_tomorrow_morning">Besok pagi</string>
-    <string name="date_shortcut_tomorrow_afternoon">Besok siang</string>
     <string name="discard_changes">Buang perubahan\?</string>
     <string name="discard">Buang</string>
     <string name="tag_settings">Pengaturan tag</string>
@@ -277,9 +275,6 @@
     <string name="default_tags">Tag bawaan</string>
     <string name="no_app_found">Tidak ada aplikasi yang dapat menangani permintaan ini</string>
     <string name="date_shortcut_must_come_before">%1$s harus datang sebelum %2$s</string>
-    <string name="date_shortcut_tomorrow_night">Besok malam</string>
-    <string name="date_shortcut_tomorrow_evening">Besok petang</string>
-    <string name="date_shortcut_hour">Selama satu jam</string>
     <string name="quiet_hours_summary">Tidak ada pengingat selama jam tenang</string>
     <string name="header_spacing">Jarak spasi</string>
     <string name="quiet_hours">Jam Tenang</string>
@@ -524,5 +519,4 @@
     <string name="button_learn_more">Pelajari lebih lanjut</string>
     <string name="widget_view_more_tasks">Lihat lebih banyak tugas</string>
     <string name="read_more">Baca selengkapnya</string>
-    <string name="pick_a_date_and_time">Pilih tanggal dan waktu</string>
 </resources>

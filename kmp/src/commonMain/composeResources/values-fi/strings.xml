@@ -381,4 +381,14 @@
     <string name="delete_task">Poista tehtävä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>
     <string name="more_options">Lisää vaihtoehtoja</string>
+    <string name="rmd_NoA_snooze">Torkku</string>
+    <string name="date_shortcut_hour">Tunnin verran</string>
+    <string name="date_shortcut_morning">Aamu</string>
+    <string name="date_shortcut_afternoon">Iltapäivä</string>
+    <string name="date_shortcut_evening">Ilta</string>
+    <string name="date_shortcut_night">Yö</string>
+    <string name="date_shortcut_tomorrow_morning">Huomenna aamulla</string>
+    <string name="date_shortcut_tomorrow_afternoon">Huomenna iltapäivälllä</string>
+    <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
+    <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
 </resources>

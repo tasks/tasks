@@ -381,4 +381,14 @@
     <string name="delete_task">Usuń zadanie</string>
     <string name="menu_discard_changes">Odrzuć zmiany</string>
     <string name="more_options">Więcej opcji</string>
+    <string name="rmd_NoA_snooze">Drzemka</string>
+    <string name="date_shortcut_hour">Na godzinę</string>
+    <string name="date_shortcut_morning">Rano</string>
+    <string name="date_shortcut_afternoon">Po południu</string>
+    <string name="date_shortcut_evening">Wieczór</string>
+    <string name="date_shortcut_night">Noc</string>
+    <string name="date_shortcut_tomorrow_morning">Jutro rano</string>
+    <string name="date_shortcut_tomorrow_afternoon">Jutro po południu</string>
+    <string name="date_shortcut_tomorrow_evening">Jutro wieczorem</string>
+    <string name="date_shortcut_tomorrow_night">Jutro w nocy</string>
 </resources>

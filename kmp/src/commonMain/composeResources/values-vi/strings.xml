@@ -334,4 +334,14 @@
     <string name="delete_task">Xoá công việc</string>
     <string name="menu_discard_changes">Bỏ các thay đổi</string>
     <string name="more_options">Nhiều tuỳ chọn hơn</string>
+    <string name="rmd_NoA_snooze">Báo lại</string>
+    <string name="date_shortcut_hour">Một tiếng</string>
+    <string name="date_shortcut_morning">Buổi sáng</string>
+    <string name="date_shortcut_afternoon">Buổi chiều</string>
+    <string name="date_shortcut_evening">Buổi tối</string>
+    <string name="date_shortcut_night">Ban đêm</string>
+    <string name="date_shortcut_tomorrow_morning">Sáng mai</string>
+    <string name="date_shortcut_tomorrow_afternoon">Chiều mai</string>
+    <string name="date_shortcut_tomorrow_evening">Tối mai</string>
+    <string name="date_shortcut_tomorrow_night">Đêm mai</string>
 </resources>

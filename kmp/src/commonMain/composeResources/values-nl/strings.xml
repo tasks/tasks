@@ -388,4 +388,14 @@
     <string name="delete_task">Taak wissen</string>
     <string name="menu_discard_changes">Veranderingen negeren</string>
     <string name="more_options">Meer opties</string>
+    <string name="rmd_NoA_snooze">Snoozen</string>
+    <string name="date_shortcut_hour">Voor een uur</string>
+    <string name="date_shortcut_morning">Ochtend</string>
+    <string name="date_shortcut_afternoon">Middag</string>
+    <string name="date_shortcut_evening">Namiddag</string>
+    <string name="date_shortcut_night">Nacht</string>
+    <string name="date_shortcut_tomorrow_morning">Morgenochtend</string>
+    <string name="date_shortcut_tomorrow_afternoon">Morgenmiddag</string>
+    <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
+    <string name="date_shortcut_tomorrow_night">Morgennacht</string>
 </resources>

@@ -520,4 +520,14 @@
     <string name="delete_task">Izbriši zadatak</string>
     <string name="menu_discard_changes">Odbaci promjene</string>
     <string name="more_options">Više opcija</string>
+    <string name="rmd_NoA_snooze">Odgodi</string>
+    <string name="date_shortcut_hour">Sat vremena</string>
+    <string name="date_shortcut_morning">Jutro</string>
+    <string name="date_shortcut_afternoon">Popodne</string>
+    <string name="date_shortcut_evening">Večer</string>
+    <string name="date_shortcut_night">Noć</string>
+    <string name="date_shortcut_tomorrow_morning">Sutra ujutro</string>
+    <string name="date_shortcut_tomorrow_afternoon">Sutra popodne</string>
+    <string name="date_shortcut_tomorrow_evening">Sutra uvečer</string>
+    <string name="date_shortcut_tomorrow_night">Sutra noću</string>
 </resources>

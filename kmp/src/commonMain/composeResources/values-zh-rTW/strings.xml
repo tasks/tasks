@@ -396,4 +396,14 @@
     <string name="delete_task">刪除工作</string>
     <string name="menu_discard_changes">捨棄更改</string>
     <string name="more_options">更多選項</string>
+    <string name="rmd_NoA_snooze">晚點提醒</string>
+    <string name="date_shortcut_hour">一個小時</string>
+    <string name="date_shortcut_morning">早上</string>
+    <string name="date_shortcut_afternoon">下午</string>
+    <string name="date_shortcut_evening">傍晚</string>
+    <string name="date_shortcut_night">晚上</string>
+    <string name="date_shortcut_tomorrow_morning">明天早上</string>
+    <string name="date_shortcut_tomorrow_afternoon">明天下午</string>
+    <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
+    <string name="date_shortcut_tomorrow_night">明天晚上</string>
 </resources>

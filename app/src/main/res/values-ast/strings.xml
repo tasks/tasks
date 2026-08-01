@@ -228,15 +228,10 @@
     <string name="tags">Etiquetes</string>
     <string name="change_priority">Camudar prioridá</string>
     <string name="filters">Filtros</string>
-    <string name="date_shortcut_hour">Por una hora</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Atardecer</string>
     <string name="date_shortcut_night">Nueche</string>
-    <string name="date_shortcut_tomorrow_morning">Mañana pela mañana</string>
-    <string name="date_shortcut_tomorrow_afternoon">Mañana pela tarde</string>
-    <string name="date_shortcut_tomorrow_evening">Mañana al atardecer</string>
-    <string name="date_shortcut_tomorrow_night">Mañana a la nueche</string>
     <string name="date_shortcut_must_come_before">%1$s tien de venir enantes %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s tien de venir dempués %2$s</string>
     <string name="discard_changes">¿Escartar cambeos?</string>
@@ -357,5 +352,4 @@
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>
     <string name="davx5_selection_description">Sincroniza les tos xeres cola aplicación DAVx⁵</string>
     <string name="show_advanced_settings">Amosar axustes avanzaos</string>
-    <string name="pick_a_date_and_time">Escueye una data y una hora</string>
 </resources>

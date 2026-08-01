@@ -366,4 +366,14 @@
     <string name="delete_task">Διαγραφή καθήκοντος</string>
     <string name="menu_discard_changes">Απόρριψη αλλαγών</string>
     <string name="more_options">Περισσότερες επιλογές</string>
+    <string name="rmd_NoA_snooze">Αναβολή</string>
+    <string name="date_shortcut_hour">Για μια ώρα</string>
+    <string name="date_shortcut_morning">Πρωί</string>
+    <string name="date_shortcut_afternoon">Μεσημέρι</string>
+    <string name="date_shortcut_evening">Απόγευμα</string>
+    <string name="date_shortcut_night">Βράδυ</string>
+    <string name="date_shortcut_tomorrow_morning">Αύριο το πρωί</string>
+    <string name="date_shortcut_tomorrow_afternoon">Αύριο το μεσημέρι</string>
+    <string name="date_shortcut_tomorrow_evening">Αύριο το απόγευμα</string>
+    <string name="date_shortcut_tomorrow_night">Αύριο το βράδυ</string>
 </resources>
