@@ -15,16 +15,13 @@ import java.util.concurrent.ConcurrentHashMap
 
 const val BLUE = -14575885
 
-/**
- * Generating a scheme runs the full HCT tonal palette derivation, which is far too expensive to
- * repeat per composition. There are only a handful of (theme, seed) combinations in practice, and
- * the schemes are immutable, so they're cached for the lifetime of the process.
- *
- * This matters most on the task list, where every row hosts its own composition for the chip row.
- */
 private val colorSchemeCache = ConcurrentHashMap<Triple<Int, Int, Boolean>, ColorScheme>()
 
 private fun getColorScheme(theme: Int, seedColor: Int, isDark: Boolean): ColorScheme =
+    // Generating a scheme runs the full HCT tonal palette derivation, which is far too expensive
+    // to repeat per composition. There are only a handful of (theme, seed) combinations in
+    // practice, and the schemes are immutable, so they're cached for the lifetime of the process.
+    // This matters most on the task list, where every row hosts its own composition for the chips.
     colorSchemeCache.getOrPut(Triple(theme, seedColor, isDark)) {
         generateColorScheme(theme, seedColor, isDark)
     }

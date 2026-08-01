@@ -28,17 +28,17 @@ import tasks.kmp.generated.resources.sort_start_group
 class HeaderFormatter(
     private val caldavDao: CaldavDao,
 ) {
-    /**
-     * [headerStringBlocking] is called from view binding on the main thread, and resolving a header
-     * means a string resource load or - when grouping by list - a database query. Headers repeat
-     * constantly while scrolling, so results are memoized. Relative dates ("today", "tomorrow") are
-     * only valid for the current day, so the cache is dropped when the day rolls over. This is also
-     * what eventually picks up a renamed list.
-     */
     @Volatile
     private var cacheDay = Long.MIN_VALUE
     private val headerCache = ConcurrentHashMap<String, String>()
 
+    /**
+     * Called from view binding on the main thread, and resolving a header means a string resource
+     * load or - when grouping by list - a database query. Headers repeat constantly while
+     * scrolling, so results are memoized. Relative dates ("today", "tomorrow") are only valid for
+     * the current day, so the cache is dropped when the day rolls over. That is also what
+     * eventually picks up a renamed list.
+     */
     fun headerStringBlocking(
         value: Long,
         groupMode: Int,

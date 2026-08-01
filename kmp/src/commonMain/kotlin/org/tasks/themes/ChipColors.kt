@@ -23,14 +23,14 @@ object ColorTone {
     const val DARK_APPBAR = 80
 }
 
-/**
- * Solving a tone or a content color runs HCT/CAM16 conversions, which are expensive relative to
- * how often they're asked for: every chip on every task list row resolves both. Both functions are
- * pure over a small set of inputs, so results are cached for the lifetime of the process.
- */
 private val tonalColorCache = ConcurrentHashMap<Long, Int>()
 private val contentColorCache = ConcurrentHashMap<Int, Int>()
 
+/**
+ * Solving a tone runs HCT/CAM16 conversions, which are expensive relative to how often they're
+ * asked for: every chip on every task list row resolves one. This is pure over a small set of
+ * inputs, so results are cached for the lifetime of the process.
+ */
 fun tonalColor(seedColor: Int, tone: Int): Int =
     when {
         tone < 0 -> seedColor
@@ -57,6 +57,7 @@ private const val MIN_CONTRAST_RATIO = 4.5
 private const val WHITE = -1         // 0xFFFFFFFF
 private const val BLACK = -16777216  // 0xFF000000
 
+/** Cached for the same reason as [tonalColor] - every chip resolves one per composition. */
 fun contentColor(backgroundColor: Int): Int =
     contentColorCache.getOrPut(backgroundColor) { computeContentColor(backgroundColor) }
 

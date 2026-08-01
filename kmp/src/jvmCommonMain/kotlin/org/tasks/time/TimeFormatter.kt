@@ -14,18 +14,17 @@ private val AM_PM_BEFORE_TIME = setOf("zh", "ja", "ko", "vi", "as", "brx", "ee",
 private val AM_PM_MARKER = Regex("[\\s\\u202F]*a[\\s\\u202F]*")
 private val MINUTES = Regex("[:.]mm")
 
-/**
- * Building the pattern and compiling a [DateTimeFormatter] costs more than the formatting itself,
- * and the task list formats a time for every visible row. The result depends only on the locale
- * and the two booleans, so formatters are cached.
- */
 private val timeFormatters = ConcurrentHashMap<String, DateTimeFormatter>()
 
 private fun timeFormatter(
     locale: Locale,
     is24HourFormat: Boolean,
     omitMinutes: Boolean,
-): DateTimeFormatter = timeFormatters.getOrPut("$locale|$is24HourFormat|$omitMinutes") {
+): DateTimeFormatter =
+    // Building the pattern and compiling a DateTimeFormatter costs more than the formatting
+    // itself, and the task list formats a time for every visible row. The result depends only on
+    // the locale and the two booleans, so formatters are cached.
+    timeFormatters.getOrPut("$locale|$is24HourFormat|$omitMinutes") {
     var pattern = DateTimeFormatterBuilder
         .getLocalizedDateTimePattern(null, FormatStyle.SHORT, IsoChronology.INSTANCE, locale)
     if (is24HourFormat && !pattern.contains("H")) {

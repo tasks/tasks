@@ -41,14 +41,14 @@ fun TasksIcon(
     }
 }
 
+private val iconCache = ConcurrentHashMap<String, Optional<ImageVector>>()
+
 /**
  * Resolving an icon means a [Class.forName] plus reflective invocation, and a miss additionally
  * costs a thrown [ClassNotFoundException]. Chips call this during composition on the main thread,
  * so results (including misses) are memoized for the lifetime of the process. The icon set is
  * static, so entries never need invalidating.
  */
-private val iconCache = ConcurrentHashMap<String, Optional<ImageVector>>()
-
 fun imageVectorByName(label: String?): ImageVector? {
     if (label == null) {
         return null

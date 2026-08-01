@@ -55,6 +55,10 @@ class ChipDataProvider(
                 CaldavFilter(calendar = list, account = account)
             }
             .associateBy { filter -> filter.uuid }
+        // Syncing writes to the calendar and account tables constantly - sync tokens, ctags, error
+        // state - and every write emits here. Broadcasting a refresh on each one re-ran the task
+        // list query and rebuilt the whole list repeatedly for the duration of a sync. Only a
+        // change to what a chip actually renders needs to reach the list.
         val changed = updated.chipAppearance() != lists.chipAppearance()
         lists = updated
         listsCount = updated.size
@@ -66,6 +70,7 @@ class ChipDataProvider(
 
     private fun updateTags(updated: List<TagData>) {
         val tags = updated.associateBy({ it.remoteId }) { TagFilter(it) }
+        // As above: only refresh the list when a tag chip would actually look different.
         val changed = tags.chipAppearance() != tagDatas.chipAppearance()
         tagDatas = tags
         if (changed) {
@@ -75,12 +80,6 @@ class ChipDataProvider(
         }
     }
 
-    /**
-     * Syncing writes to these tables constantly - sync tokens, ctags, error state, ordering - and
-     * every write emits here. Broadcasting a refresh on each one re-ran the task list query and
-     * rebuilt the whole list repeatedly for the duration of a sync. Only a change to what a chip
-     * actually renders needs to reach the list.
-     */
     private fun <K> Map<K, Filter>.chipAppearance() =
         mapValues { (_, filter) -> Triple(filter.title, filter.icon, filter.tint) }
 
