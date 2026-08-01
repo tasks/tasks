@@ -190,6 +190,29 @@ class CommonMigrationsTest {
         }
     }
 
+    @Test
+    fun addsCaldavJoinIndicesAndKeepsRows() {
+        migrate(96, 97, CommonMigrations.MIGRATION_96_97) {
+            insertAccount(1, uuid = "acct", type = TYPE_CALDAV)
+            insertList(1, uuid = "list", account = "acct")
+        }.use { db ->
+            assertEquals(1, db.rowCount("caldav_accounts"))
+            assertEquals(1, db.rowCount("caldav_lists"))
+            assertTrue(db.hasIndex("caldav_lists", "index_caldav_lists_cdl_uuid"))
+            assertTrue(db.hasIndex("caldav_lists", "index_caldav_lists_cdl_account"))
+            assertTrue(db.hasIndex("caldav_accounts", "index_caldav_accounts_cda_uuid"))
+        }
+    }
+
+    private fun SQLiteConnection.hasIndex(table: String, index: String): Boolean {
+        prepare("PRAGMA index_list(`$table`)").use { stmt ->
+            while (stmt.step()) {
+                if (stmt.getText(1) == index) return true
+            }
+        }
+        return false
+    }
+
     private fun SQLiteConnection.insertTask(id: Long, modified: Long = 0) {
         execSQL(
             "INSERT INTO `tasks` (`_id`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `lastNotified`, `collapsed`, `parent`) " +
