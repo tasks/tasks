@@ -511,6 +511,9 @@
     <string name="delete_task">Görevi sil</string>
     <string name="menu_discard_changes">Değişiklikleri göz ardı et</string>
     <string name="more_options">Daha çok seçenek</string>
+    <string name="repeat_type_due_description">Görev, yapılması gereken zamana göre tekrarlanır</string>
+    <string name="repeat_type_completion_description">Görev, onu ne zaman tamamladığınıza göre tekrarlanır</string>
+    <string name="mark_completed">Tamamlandı olarak işaretle</string>
     <string name="rmd_NoA_snooze">Ertele</string>
     <string name="date_shortcut_hour">Bir saatliğine</string>
     <string name="date_shortcut_morning">Sabah</string>
