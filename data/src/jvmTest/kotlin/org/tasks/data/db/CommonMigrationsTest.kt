@@ -15,6 +15,9 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+private const val CALDAV_LISTS = "caldav_lists"
+private const val CALDAV_ACCOUNTS = "caldav_accounts"
+
 class CommonMigrationsTest {
     private val tempDir: Path = Files.createTempDirectory("room-migration-test")
 
@@ -196,11 +199,11 @@ class CommonMigrationsTest {
             insertAccount(1, uuid = "acct", type = TYPE_CALDAV)
             insertList(1, uuid = "list", account = "acct")
         }.use { db ->
-            assertEquals(1, db.rowCount("caldav_accounts"))
-            assertEquals(1, db.rowCount("caldav_lists"))
-            assertTrue(db.hasIndex("caldav_lists", "index_caldav_lists_cdl_uuid"))
-            assertTrue(db.hasIndex("caldav_lists", "index_caldav_lists_cdl_account"))
-            assertTrue(db.hasIndex("caldav_accounts", "index_caldav_accounts_cda_uuid"))
+            assertEquals(1, db.rowCount(CALDAV_ACCOUNTS))
+            assertEquals(1, db.rowCount(CALDAV_LISTS))
+            assertTrue(db.hasIndex(CALDAV_LISTS, "index_caldav_lists_cdl_uuid"))
+            assertTrue(db.hasIndex(CALDAV_LISTS, "index_caldav_lists_cdl_account"))
+            assertTrue(db.hasIndex(CALDAV_ACCOUNTS, "index_caldav_accounts_cda_uuid"))
         }
     }
 
