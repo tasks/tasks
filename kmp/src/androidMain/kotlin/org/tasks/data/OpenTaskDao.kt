@@ -96,9 +96,7 @@ open class OpenTaskDao(
 
     fun delete(listId: Long, uid: String): ContentProviderOperation =
             newDelete(tasks)
-                    .withSelection(
-                            "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
-                            null)
+                    .withSelection(TASK_BY_UID, taskByUidArgs(listId, uid))
                     .build()
 
 
@@ -112,8 +110,8 @@ open class OpenTaskDao(
         cr.query(
                 tasks.buildUpon().appendQueryParameter(LOAD_PROPERTIES, "1").build(),
                 null,
-                "${Tasks.LIST_ID} = $listId AND ${Tasks._UID} = '$uid'",
-                null,
+                TASK_BY_UID,
+                taskByUidArgs(listId, uid),
                 null)?.use {
             if (it.moveToFirst()) {
                 MyAndroidTask(it)
@@ -125,6 +123,10 @@ open class OpenTaskDao(
 
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
+        private val TASK_BY_UID = "${Tasks.LIST_ID} = ? AND ${Tasks._UID} = ?"
+
+        private fun taskByUidArgs(listId: Long, uid: String) =
+                arrayOf(listId.toString(), uid)
         val SUPPORTED_TYPES = OpenTaskProvider.SUPPORTED_TYPES
 
         suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
