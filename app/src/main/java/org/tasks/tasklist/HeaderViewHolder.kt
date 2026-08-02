@@ -10,7 +10,6 @@ import org.tasks.filters.Filter
 
 class HeaderViewHolder(
         private val context: Context,
-        private val headerFormatter: HeaderFormatter,
         view: View,
         callback: (Long) -> Unit
 ) : RecyclerView.ViewHolder(view) {
@@ -22,11 +21,7 @@ class HeaderViewHolder(
 
     fun bind(filter: Filter, groupMode: Int, section: AdapterSection) {
         sortGroup = section.value
-        val header = if (filter.supportsSorting()) {
-            headerFormatter.headerStringBlocking(section.value, groupMode)
-        } else {
-            null
-        }
+        val header = if (filter.supportsSorting()) section.header else null
 
         if (header == null) {
             row.visibility = View.GONE

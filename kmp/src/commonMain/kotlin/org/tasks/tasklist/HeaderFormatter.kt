@@ -1,7 +1,6 @@
 package org.tasks.tasklist
 
 import com.todoroo.astrid.core.SortHelper
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.tasks.data.dao.CaldavDao
 import org.tasks.kmp.org.tasks.time.DateStyle
@@ -25,23 +24,6 @@ class HeaderFormatter(
     private val caldavDao: CaldavDao,
 ) {
     private val listCache = HashMap<Long, String?>()
-
-    fun headerStringBlocking(
-        value: Long,
-        groupMode: Int,
-        alwaysDisplayFullDate: Boolean = false,
-        style: DateStyle = DateStyle.FULL,
-        compact: Boolean = false,
-    ) = runBlocking {
-        headerString(
-            value,
-            groupMode,
-            DateFormatter.create(is24HourFormat = false),
-            alwaysDisplayFullDate,
-            style,
-            compact,
-        )
-    }
 
     suspend fun headerString(
         value: Long,

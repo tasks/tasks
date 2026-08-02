@@ -80,17 +80,7 @@ internal class TasksWidgetBuilder(
 
     private fun buildHeader(section: AdapterSection): RemoteViews {
         val sortGroup = section.value
-        val header: String? = if (filter.supportsSorting()) {
-            headerFormatter.headerStringBlocking(
-                value = section.value,
-                groupMode = settings.groupMode,
-                alwaysDisplayFullDate = settings.showFullDate,
-                style = DateStyle.MEDIUM,
-                compact = settings.compact,
-            )
-        } else {
-            null
-        }
+        val header: String? = if (filter.supportsSorting()) section.header else null
         return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_header).apply {
             setTextViewText(R.id.header, header)
             setImageViewResource(
@@ -309,6 +299,18 @@ internal class TasksWidgetBuilder(
             collapsed,
             widgetPreferences.completedTasksAtBottom,
         )
+        if (filter.supportsSorting()) {
+            tasks.formatHeaders {
+                headerFormatter.headerString(
+                    value = it,
+                    dateFormatter = dateFormatter,
+                    groupMode = settings.groupMode,
+                    alwaysDisplayFullDate = settings.showFullDate,
+                    style = DateStyle.MEDIUM,
+                    compact = settings.compact,
+                )
+            }
+        }
         collapsed.toMutableSet().let {
             if (it.retainAll(tasks.getSectionValues().toSet())) {
                 widgetPreferences.collapsed = it

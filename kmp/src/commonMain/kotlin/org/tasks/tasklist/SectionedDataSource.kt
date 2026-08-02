@@ -196,7 +196,7 @@ class SectionedDataSource(
         val newSectionedPosition = old.sectionedPosition + offset
         val previousSection = if (isHeader(newSectionedPosition - 1)) sections[newSectionedPosition - 1] else null
         val newFirstPosition = previousSection?.firstPosition ?: (old.firstPosition + offset)
-        val new = AdapterSection(newFirstPosition, old.value, newSectionedPosition, old.collapsed)
+        val new = AdapterSection(newFirstPosition, old.value, newSectionedPosition, old.collapsed, old.header)
         sections[new.sectionedPosition] = new
     }
 
@@ -210,6 +210,10 @@ class SectionedDataSource(
         }
 
     fun getSectionValues(): List<Long> = sections.map { (_, header) -> header.value }
+
+    suspend fun formatHeaders(format: suspend (Long) -> String?) {
+        sections.values.forEach { it.header = format(it.value) }
+    }
 
     companion object {
         const val HEADER_OVERDUE = -1L

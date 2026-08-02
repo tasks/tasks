@@ -433,6 +433,7 @@ val commonModule = module {
             taskSaver = get(),
             taskCompleter = get(),
             tasksPreferences = get(),
+            headerFormatter = get(),
             queryPreferences = get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )

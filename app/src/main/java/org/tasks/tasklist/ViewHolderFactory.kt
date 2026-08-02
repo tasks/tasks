@@ -26,7 +26,6 @@ class ViewHolderFactory @Inject constructor(
     private val chipProvider: ChipProvider,
     private val checkBoxProvider: CheckBoxProvider,
     private val linkify: Linkify,
-    private val headerFormatter: HeaderFormatter,
     private val theme: Theme,
 ) {
     private val textColorOverdue: Int = context.getColor(R.color.overdue)
@@ -44,7 +43,6 @@ class ViewHolderFactory @Inject constructor(
     fun newHeaderViewHolder(parent: ViewGroup?, callback: (Long) -> Unit) =
             HeaderViewHolder(
                     context,
-                    headerFormatter,
                     LayoutInflater.from(context).inflate(R.layout.task_adapter_header, parent, false),
                     callback,
             )

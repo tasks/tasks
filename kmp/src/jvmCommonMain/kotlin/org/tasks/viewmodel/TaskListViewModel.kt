@@ -30,6 +30,7 @@ import org.tasks.filters.FilterImpl
 import org.tasks.filters.MyTasksFilter
 import org.tasks.filters.SearchFilter
 import org.tasks.filters.key
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.preferences.DefaultQueryPreferences
 import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.QueryPreferences
@@ -37,6 +38,7 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncSource
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -48,6 +50,7 @@ open class TaskListViewModel(
     private val taskSaver: TaskSaver,
     private val taskCompleter: TaskCompleter,
     private val tasksPreferences: TasksPreferences,
+    private val headerFormatter: HeaderFormatter,
     private val queryPreferences: QueryPreferences = DefaultQueryPreferences(),
     private val isPerListSortEnabled: Boolean = false,
     private val createSearchFilter: (String) -> Filter = { query ->
@@ -164,22 +167,24 @@ open class TaskListViewModel(
                 Pair(taskDao.fetchTasks(getQuery(prefs, filter)), prefs)
             }
             .onEach { (tasks, prefs) ->
-                _state.update {
-                    it.copy(
-                        tasks = TasksResults.Results(
-                            SectionedDataSource(
-                                tasks = tasks,
-                                disableHeaders = it.filter.disableHeaders()
-                                        || (it.filter.supportsManualSort() && prefs.isManualSort)
-                                        || (it.filter is AstridOrderingFilter && prefs.isAstridSort),
-                                groupMode = prefs.groupMode,
-                                subtaskMode = prefs.subtaskMode,
-                                collapsed = it.collapsed,
-                                completedAtBottom = prefs.completedTasksAtBottom,
-                            )
-                        )
-                    )
+                val current = _state.value
+                val dataSource = SectionedDataSource(
+                    tasks = tasks,
+                    disableHeaders = current.filter.disableHeaders()
+                            || (current.filter.supportsManualSort() && prefs.isManualSort)
+                            || (current.filter is AstridOrderingFilter && prefs.isAstridSort),
+                    groupMode = prefs.groupMode,
+                    subtaskMode = prefs.subtaskMode,
+                    collapsed = current.collapsed,
+                    completedAtBottom = prefs.completedTasksAtBottom,
+                )
+                if (current.filter.supportsSorting()) {
+                    val dateFormatter = DateFormatter.create(is24HourFormat = false)
+                    dataSource.formatHeaders {
+                        headerFormatter.headerString(it, prefs.groupMode, dateFormatter)
+                    }
                 }
+                _state.update { it.copy(tasks = TasksResults.Results(dataSource)) }
             }
             .flowOn(Dispatchers.Default)
             .launchIn(viewModelScope)

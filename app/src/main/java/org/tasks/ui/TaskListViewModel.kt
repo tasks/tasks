@@ -32,6 +32,7 @@ import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.service.TaskDeleter
+import org.tasks.tasklist.HeaderFormatter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
@@ -70,6 +71,7 @@ class TaskListViewModel @Inject constructor(
     private val firebase: Firebase,
     private val permissionChecker: PermissionChecker,
     private val caldavDao: CaldavDao,
+    headerFormatter: HeaderFormatter,
 ) : org.tasks.viewmodel.TaskListViewModel(
     taskDao = taskDao,
     taskDeleter = taskDeleter,
@@ -77,6 +79,7 @@ class TaskListViewModel @Inject constructor(
     taskSaver = taskSaver,
     taskCompleter = taskCompleter,
     tasksPreferences = tasksPreferences,
+    headerFormatter = headerFormatter,
     queryPreferences = preferences,
     isPerListSortEnabled = preferences.isPerListSortEnabled,
     createSearchFilter = { query ->
