@@ -2,7 +2,7 @@ package org.tasks.tasklist
 
 import com.todoroo.astrid.core.SortHelper
 import org.jetbrains.compose.resources.getString
-import org.tasks.data.dao.CaldavDao
+import org.tasks.filters.CaldavListCache
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.DateFormatter
 import tasks.kmp.generated.resources.Res
@@ -21,10 +21,8 @@ import tasks.kmp.generated.resources.sort_modified_group
 import tasks.kmp.generated.resources.sort_start_group
 
 class HeaderFormatter(
-    private val caldavDao: CaldavDao,
+    private val caldavLists: CaldavListCache,
 ) {
-    private val listCache = HashMap<Long, String?>()
-
     suspend fun headerString(
         value: Long,
         groupMode: Int,
@@ -32,16 +30,14 @@ class HeaderFormatter(
         alwaysDisplayFullDate: Boolean = false,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
-    ): String =
+    ): String? =
         when {
             value == SectionedDataSource.HEADER_COMPLETED ->
                 getString(Res.string.completed)
             groupMode == SortHelper.SORT_IMPORTANCE ->
                 getString(priorityToString(value))
             groupMode == SortHelper.SORT_LIST ->
-                listCache.getOrPut(value) {
-                    caldavDao.getCalendarById(value)?.name
-                } ?: "list: $value"
+                caldavLists.getById(value)?.title?.takeIf { it.isNotBlank() }
             value == SectionedDataSource.HEADER_OVERDUE ->
                 getString(Res.string.filter_overdue)
             value == 0L -> getString(

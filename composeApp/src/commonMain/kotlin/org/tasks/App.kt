@@ -2642,6 +2642,7 @@ private fun TaskList(
                     collapsed = section.collapsed,
                     groupMode = tasks.groupMode,
                     headerFormatter = headerFormatter,
+                    dateFormatter = dateFormatter,
                     onToggle = { onToggleGroup(section.value) },
                 )
                 return@items
@@ -2669,14 +2670,13 @@ private fun SectionHeader(
     collapsed: Boolean,
     groupMode: Int,
     headerFormatter: HeaderFormatter,
+    dateFormatter: DateFormatter?,
     onToggle: () -> Unit,
 ) {
-    val headerText by produceState("", headerValue, groupMode) {
-        value = headerFormatter.headerString(
-            headerValue,
-            groupMode,
-            DateFormatter.create(is24HourFormat = false),
-        )
+    val headerText by produceState("", headerValue, groupMode, dateFormatter) {
+        value = dateFormatter
+            ?.let { headerFormatter.headerString(headerValue, groupMode, it) }
+            ?: ""
     }
     val rotation by animateFloatAsState(
         targetValue = if (collapsed) -180f else 0f,

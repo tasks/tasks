@@ -45,6 +45,7 @@ import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.data.getLocalList
 import org.tasks.etebase.EtebaseSynchronizer
+import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
@@ -395,6 +396,7 @@ val commonModule = module {
         }
     }
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get(), get()) }
+    singleOf(::CaldavListCache)
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)
     single { Locale.getDefault() }

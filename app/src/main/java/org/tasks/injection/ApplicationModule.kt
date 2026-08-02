@@ -23,6 +23,7 @@ import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.tasks.analytics.Firebase
 import org.tasks.audio.SoundPlayer
 import org.tasks.calendars.CalendarHelper
+import org.tasks.filters.CaldavListCache
 import org.tasks.service.TaskCompleter
 import org.tasks.billing.PurchaseState
 import org.tasks.viewmodel.DrawerViewModel
@@ -666,15 +667,19 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providesHeaderFormatter(caldavDao: CaldavDao) = HeaderFormatter(caldavDao)
+    fun providesCaldavListCache(caldavDao: CaldavDao) = CaldavListCache(caldavDao)
+
+    @Provides
+    @Singleton
+    fun providesHeaderFormatter(caldavLists: CaldavListCache) = HeaderFormatter(caldavLists)
 
     @Provides
     @Singleton
     fun providesChipDataProvider(
-        caldavDao: CaldavDao,
+        caldavLists: CaldavListCache,
         tagDataDao: TagDataDao,
         refreshBroadcaster: RefreshBroadcaster,
-    ) = ChipDataProvider(caldavDao, tagDataDao, refreshBroadcaster)
+    ) = ChipDataProvider(caldavLists, tagDataDao, refreshBroadcaster)
 
     @Provides
     fun providesWatchServiceLogic(
