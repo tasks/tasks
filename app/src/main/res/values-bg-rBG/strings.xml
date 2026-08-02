@@ -491,4 +491,5 @@
     <string name="upgrade_friends_and_family_description">5 безплатни достъпа като гост на споделени листове. Работи с Apple Reminders</string>
     <string name="read_more">Прочетете повече</string>
     <string name="sort_options">Настройки на сортиране</string>
+    <string name="snoozed_reminder">Напомняне за отложени</string>
 </resources>
