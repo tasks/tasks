@@ -101,7 +101,7 @@ class WatchServiceLogic(
                                     groupMode = preferences.groupMode,
                                     dateFormatter = dateFormatter,
                                     style = DateStyle.MEDIUM,
-                                ) ?: "",
+                                ),
                                 collapsed = item.collapsed,
                             )
 

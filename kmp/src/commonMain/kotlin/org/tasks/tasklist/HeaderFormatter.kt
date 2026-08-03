@@ -30,14 +30,14 @@ class HeaderFormatter(
         alwaysDisplayFullDate: Boolean = false,
         style: DateStyle = DateStyle.FULL,
         compact: Boolean = false,
-    ): String? =
+    ): String =
         when {
             value == SectionedDataSource.HEADER_COMPLETED ->
                 getString(Res.string.completed)
             groupMode == SortHelper.SORT_IMPORTANCE ->
                 getString(priorityToString(value))
             groupMode == SortHelper.SORT_LIST ->
-                caldavLists.getById(value)?.title?.takeIf { it.isNotBlank() }
+                caldavLists.getById(value)?.title?.takeIf { it.isNotBlank() } ?: "list: $value"
             value == SectionedDataSource.HEADER_OVERDUE ->
                 getString(Res.string.filter_overdue)
             value == 0L -> getString(
