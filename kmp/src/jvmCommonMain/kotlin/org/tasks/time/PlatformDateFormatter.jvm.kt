@@ -3,6 +3,8 @@ package org.tasks.kmp.org.tasks.time
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
+actual fun currentLocaleTag(): String = Locale.getDefault().toLanguageTag()
+
 actual class PlatformDateFormatter actual constructor() {
     private val locale: Locale = Locale.getDefault()
 

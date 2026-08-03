@@ -127,9 +127,30 @@ class DateFormatter internal constructor(
         return abs((startOfToday - startOfDate).toDouble()) <= ONE_DAY * 6
     }
 
+    private class Cache(
+        val localeTag: String,
+        val formatters: Map<Boolean, DateFormatter>,
+    )
+
     companion object {
-        suspend fun create(is24HourFormat: Boolean): DateFormatter =
-            DateFormatter(RelativeDayStrings.load(), PlatformDateFormatter(), is24HourFormat)
+        @Volatile
+        private var cache: Cache? = null
+
+        fun cachedOrNull(is24HourFormat: Boolean): DateFormatter? =
+            cache
+                ?.takeIf { it.localeTag == currentLocaleTag() }
+                ?.formatters
+                ?.get(is24HourFormat)
+
+        suspend fun create(is24HourFormat: Boolean): DateFormatter {
+            cachedOrNull(is24HourFormat)?.let { return it }
+            val formatter =
+                DateFormatter(RelativeDayStrings.load(), PlatformDateFormatter(), is24HourFormat)
+            val localeTag = currentLocaleTag()
+            val existing = cache?.takeIf { it.localeTag == localeTag }?.formatters.orEmpty()
+            cache = Cache(localeTag, existing + (is24HourFormat to formatter))
+            return formatter
+        }
     }
 }
 
