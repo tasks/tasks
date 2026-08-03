@@ -1,6 +1,7 @@
 package org.tasks.themes
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,8 +11,20 @@ import androidx.compose.ui.graphics.toArgb
 import com.materialkolor.dynamicColorScheme
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLACK
 import org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE
+import java.util.concurrent.ConcurrentHashMap
 
 const val BLUE = -14575885
+
+private val colorSchemeCache = ConcurrentHashMap<Triple<Int, Int, Boolean>, ColorScheme>()
+
+private fun getColorScheme(theme: Int, seedColor: Int, isDark: Boolean): ColorScheme =
+    // Generating a scheme runs the full HCT tonal palette derivation, which is far too expensive
+    // to repeat per composition. There are only a handful of (theme, seed) combinations in
+    // practice, and the schemes are immutable, so they're cached for the lifetime of the process.
+    // This matters most on the task list, where every row hosts its own composition for the chips.
+    colorSchemeCache.getOrPut(Triple(theme, seedColor, isDark)) {
+        generateColorScheme(theme, seedColor, isDark)
+    }
 
 @Composable
 fun colorOn(color: Color) = colorOn(color.toArgb())
@@ -31,11 +44,20 @@ fun TasksTheme(
         else -> isSystemInDarkTheme()
     }
     val seedColor = if (primary == WHITE) BLACK else primary
+    val colorScheme = remember(theme, seedColor, isDark) {
+        getColorScheme(theme, seedColor, isDark)
+    }
+    MaterialTheme(colorScheme = colorScheme) {
+        content()
+    }
+}
+
+private fun generateColorScheme(theme: Int, seedColor: Int, isDark: Boolean): ColorScheme {
     val generated = dynamicColorScheme(
         seedColor = Color(seedColor),
         isDark = isDark,
     )
-    val colorScheme = when (theme) {
+    return when (theme) {
         0 -> generated.copy(
             surface = Color(0xFFF0F0F0),
             background = Color.White,
@@ -64,9 +86,6 @@ fun TasksTheme(
             background = Color.White,
             surfaceContainerLowest = Color.White,
         )
-    }
-    MaterialTheme(colorScheme = colorScheme) {
-        content()
     }
 }
 
