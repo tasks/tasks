@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
-import org.tasks.data.dao.NotificationDao
 import org.tasks.data.entity.Alarm
 import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
@@ -24,14 +23,18 @@ class NotificationClearedReceiver : BroadcastReceiver() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var notificationDao: NotificationDao
 
     override fun onReceive(context: Context, intent: Intent) {
         val notificationId = intent.getLongExtra(NotificationManager.EXTRA_NOTIFICATION_ID, -1L)
         Timber.d("cleared $notificationId")
         if (notificationId <= 0L) return
+        val isLocationReminder =
+            when (intent.getIntExtra(NotificationManager.EXTRA_NOTIFICATION_TYPE, UNKNOWN_TYPE)) {
+                Alarm.TYPE_GEO_ENTER, Alarm.TYPE_GEO_EXIT -> true
+                else -> false
+            }
         scope.launch {
-            if (preferences.useSwipeToSnooze() && !isLocationReminder(notificationId)) {
+            if (preferences.useSwipeToSnooze() && !isLocationReminder) {
                 firebase.logEvent(R.string.event_notification, R.string.param_type to "auto_snooze")
                 var snoozeTime = preferences.swipeToSnoozeIntervalMS()
                 // snoozing for 0ms will cause the alarm service to miss this notification
@@ -48,9 +51,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
         }
     }
 
-    private suspend fun isLocationReminder(taskId: Long) =
-        when (notificationDao.getType(taskId)) {
-            Alarm.TYPE_GEO_ENTER, Alarm.TYPE_GEO_EXIT -> true
-            else -> false
-        }
+    companion object {
+        private const val UNKNOWN_TYPE = -1
+    }
 }

@@ -28,7 +28,4 @@ interface NotificationDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM notification WHERE task = :taskId)")
     suspend fun hasNotification(taskId: Long): Boolean
-
-    @Query("SELECT type FROM notification WHERE task = :taskId")
-    suspend fun getType(taskId: Long): Int?
 }
