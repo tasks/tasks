@@ -59,11 +59,7 @@ open class OpenTaskDao(
                         name = it.getString(TaskLists.LIST_NAME),
                         color = it.getInt(TaskLists.LIST_COLOR),
                         url = it.getString(CommonSyncColumns._SYNC_ID),
-                        ctag = it.getString(TaskLists.SYNC_VERSION)?.let { json ->
-                            runCatching { JSONObject(json).getString("value") }
-                                .onFailure { Logger.w("OpenTaskDao") { "Failed to parse ${TaskLists.SYNC_VERSION}: $json" } }
-                                .getOrNull()
-                        },
+                        ctag = it.getString(TaskLists.SYNC_VERSION)?.let(::toChangeStamp),
                         access = when (it.getInt(TaskLists.ACCESS_LEVEL)) {
                             TaskLists.ACCESS_LEVEL_OWNER -> CaldavCalendar.ACCESS_OWNER
                             TaskLists.ACCESS_LEVEL_READ -> CaldavCalendar.ACCESS_READ_ONLY
@@ -127,6 +123,27 @@ open class OpenTaskDao(
 
         private fun taskByUidArgs(listId: Long, uid: String) =
                 arrayOf(listId.toString(), uid)
+
+        private fun toChangeStamp(syncVersion: String): String =
+                // DAVx5 serializes a SyncState here, {"type":...,"value":...}. Anything else - an
+                // older DAVx5, a different OpenTasks backed provider, a format change - used to end
+                // up as a null ctag, and a null ctag never equals the stored one, so the up to date
+                // check never short circuited and every sync walked every etag in every list. The
+                // raw column works just as well as a change stamp, so keep it.
+                //
+                // The type is part of the stamp because CTAG and SYNC_TOKEN values live in separate
+                // namespaces: without it a collection switching between the two can report the same
+                // stamp for a different state.
+                runCatching {
+                    val syncState = JSONObject(syncVersion)
+                    "${syncState.optString("type")}:${syncState.getString("value")}"
+                }.getOrElse {
+                    Logger.d("OpenTaskDao") {
+                        "Unrecognized ${TaskLists.SYNC_VERSION}, using it verbatim: $syncVersion"
+                    }
+                    syncVersion
+                }
+
         val SUPPORTED_TYPES = OpenTaskProvider.SUPPORTED_TYPES
 
         suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
