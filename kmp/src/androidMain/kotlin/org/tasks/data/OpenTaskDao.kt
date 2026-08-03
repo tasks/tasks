@@ -122,7 +122,8 @@ open class OpenTaskDao(
     }
 
     /**
-     * Loads several tasks, with their properties, in one query per [UID_BATCH_LIMIT] uids.
+     * Loads several tasks, with their properties, in one query per [UID_BATCH_LIMIT] uids - one
+     * selection argument short of [OPENTASK_BATCH_LIMIT], since the list id takes one.
      *
      * Callers used to ask for one uid at a time, which is a binder round trip and a cursor window
      * per task on every sync that saw a change.
@@ -152,7 +153,6 @@ open class OpenTaskDao(
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
 
-        /** One selection argument of the batch is spent on the list id. */
         private const val UID_BATCH_LIMIT = OPENTASK_BATCH_LIMIT - 1
 
         private val TASK_BY_UID = "${Tasks.LIST_ID} = ? AND ${Tasks._UID} = ?"
