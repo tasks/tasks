@@ -122,9 +122,43 @@ open class OpenTaskDao(
         }
     }
 
+    /**
+     * Loads several tasks, with their properties, in one query per [UID_BATCH_LIMIT] uids.
+     *
+     * Callers used to ask for one uid at a time, which is a binder round trip and a cursor window
+     * per task on every sync that saw a change.
+     */
+    suspend fun getTasks(listId: Long, uids: List<String>): Map<String, MyAndroidTask> =
+            withContext(Dispatchers.IO) {
+                val result = HashMap<String, MyAndroidTask>(uids.size)
+                uids.chunked(UID_BATCH_LIMIT).forEach { chunk ->
+                    cr.query(
+                            tasks.buildUpon().appendQueryParameter(LOAD_PROPERTIES, "1").build(),
+                            null,
+                            "${Tasks.LIST_ID} = ? AND ${Tasks._UID} IN (${chunk.placeholders()})",
+                            arrayOf(listId.toString()) + chunk,
+                            // MyAndroidTask reads a task and its properties as one contiguous run
+                            // of rows. The property view returns a row per property and sorts by
+                            // due date by default, which does not keep a run together.
+                            Tasks._ID)?.use { cursor ->
+                        while (cursor.moveToNext()) {
+                            val uid = cursor.getString(Tasks._UID) ?: continue
+                            result[uid] = MyAndroidTask(cursor)
+                        }
+                    }
+                }
+                result
+            }
+
     companion object {
         private const val OPENTASK_BATCH_LIMIT = 499
+
+        /** One selection argument of the batch is spent on the list id. */
+        private const val UID_BATCH_LIMIT = OPENTASK_BATCH_LIMIT - 1
+
         private val TASK_BY_UID = "${Tasks.LIST_ID} = ? AND ${Tasks._UID} = ?"
+
+        private fun List<String>.placeholders() = joinToString(",") { "?" }
 
         private fun taskByUidArgs(listId: Long, uid: String) =
                 arrayOf(listId.toString(), uid)
