@@ -3,10 +3,10 @@ package org.tasks.filters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.tasks.compose.throttleLatest
@@ -25,7 +25,7 @@ class CaldavListCache(
 
     private val _version = MutableStateFlow(0)
 
-    val updates: StateFlow<Int> = _version.asStateFlow()
+    val updates: Flow<Int> = _version.filter { it > 0 }
 
     val size: Int
         get() = byUuid.size
