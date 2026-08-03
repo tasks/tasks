@@ -184,7 +184,16 @@ open class TaskListViewModel(
                         headerFormatter.headerString(it, prefs.groupMode, dateFormatter)
                     }
                 }
-                _state.update { it.copy(tasks = TasksResults.Results(dataSource)) }
+                _state.update {
+                    if (it.filter == current.filter &&
+                        it.searchQuery == current.searchQuery &&
+                        it.collapsed == current.collapsed
+                    ) {
+                        it.copy(tasks = TasksResults.Results(dataSource))
+                    } else {
+                        it
+                    }
+                }
             }
             .flowOn(Dispatchers.Default)
             .launchIn(viewModelScope)
