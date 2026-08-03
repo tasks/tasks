@@ -263,7 +263,7 @@ class PebbleMessageHandler(
         val high = (data[KEY_GROUP_VALUE_HIGH] as? Long)?.toInt() ?: 0
         val low = (data[KEY_GROUP_VALUE_LOW] as? Long)?.toInt() ?: 0
         val value = PebbleProtocol.combineLong(high, low)
-        val collapsed = (data[KEY_GROUP_COLLAPSED] as? Long)?.toInt() != 0
+        val collapsed = (data[KEY_GROUP_COLLAPSED] as? Long)?.toInt() == 1
 
         if (collapsed) {
             collapsedGroups.add(value)
@@ -338,7 +338,7 @@ class PebbleMessageHandler(
         transactionId: Int,
     ) {
         val id = data[KEY_FILTER] as? String
-        val collapsed = (data[KEY_GROUP_COLLAPSED] as? Long)?.toInt() != 0
+        val collapsed = (data[KEY_GROUP_COLLAPSED] as? Long)?.toInt() == 1
 
         if (id != null) {
             if (collapsed) {
