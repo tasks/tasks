@@ -39,8 +39,10 @@ private val todayFlow: StateFlow<Long> =
 
 @Composable
 fun rememberDateFormatter(is24Hour: Boolean): DateFormatter? {
-    val formatter by produceState<DateFormatter?>(null, is24Hour) {
-        value = DateFormatter.create(is24Hour)
+    val formatter by produceState(DateFormatter.cachedOrNull(is24Hour), is24Hour) {
+        if (value == null) {
+            value = DateFormatter.create(is24Hour)
+        }
     }
     return formatter
 }

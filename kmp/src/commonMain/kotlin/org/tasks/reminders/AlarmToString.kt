@@ -81,9 +81,8 @@ private sealed interface AlarmLabel {
 
 private fun alarmLabel(
     alarm: Alarm,
-    is24HourFormat: Boolean,
-    dateFormatter: DateFormatter,
-): AlarmLabel = when (alarm.type) {
+    dateFormatter: DateFormatter?,
+): AlarmLabel? = when (alarm.type) {
     Alarm.TYPE_REL_START ->
         if (alarm.time == 0L) {
             AlarmLabel.Simple(Res.string.when_started)
@@ -105,15 +104,17 @@ private fun alarmLabel(
     Alarm.TYPE_RANDOM ->
         AlarmLabel.WithDuration(Res.string.randomly_every, alarm.time)
     Alarm.TYPE_SNOOZE ->
-        AlarmLabel.WithText(Res.string.snoozed_until, dateFormatter.fullDateTime(alarm.time))
+        dateFormatter?.let {
+            AlarmLabel.WithText(Res.string.snoozed_until, it.fullDateTime(alarm.time))
+        }
     else ->
-        AlarmLabel.Literal(dateFormatter.fullDateTime(alarm.time))
+        dateFormatter?.let { AlarmLabel.Literal(it.fullDateTime(alarm.time)) }
 }
 
 @Composable
 fun alarmText(alarm: Alarm, is24HourFormat: Boolean): String {
-    val dateFormatter = rememberDateFormatter(is24HourFormat) ?: return ""
-    val reminder = when (val label = alarmLabel(alarm, is24HourFormat, dateFormatter)) {
+    val reminder = when (val label = alarmLabel(alarm, rememberDateFormatter(is24HourFormat))) {
+        null -> return ""
         is AlarmLabel.Literal -> label.text
         is AlarmLabel.Simple -> stringResource(label.resource)
         is AlarmLabel.WithDuration -> stringResource(label.resource, durationString(label.duration))
@@ -127,7 +128,8 @@ fun alarmText(alarm: Alarm, is24HourFormat: Boolean): String {
 }
 
 suspend fun getAlarmText(alarm: Alarm, is24HourFormat: Boolean): String {
-    val reminder = when (val label = alarmLabel(alarm, is24HourFormat, DateFormatter.create(is24HourFormat))) {
+    val reminder = when (val label = alarmLabel(alarm, DateFormatter.create(is24HourFormat))) {
+        null -> return ""
         is AlarmLabel.Literal -> label.text
         is AlarmLabel.Simple -> getString(label.resource)
         is AlarmLabel.WithDuration -> getString(label.resource, getDurationString(label.duration))
