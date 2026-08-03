@@ -491,5 +491,4 @@
     <string name="upgrade_desktop_app_description">Vorabzugang zur neuen Desktop-App</string>
     <string name="p_per_list_sort">sortierung_nach_liste</string>
     <string name="sort_options">Sortieroptionen</string>
-    <string name="snoozed_reminder">Schlummernder Reminder</string>
 </resources>
