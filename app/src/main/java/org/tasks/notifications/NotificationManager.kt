@@ -399,9 +399,6 @@ class NotificationManager @Inject constructor(
                 )
         )
         when {
-            type == Alarm.TYPE_SNOOZE -> {
-                builder.setContentText(localized.getString(R.string.snoozed_reminder))
-            }
             type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT -> {
                 val place = locationDao.getPlace(notification.location!!)
                 if (place != null) {
