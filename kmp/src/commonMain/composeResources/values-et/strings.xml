@@ -553,4 +553,9 @@
     <string name="date_shortcut_tomorrow_afternoon">Homme pärastlõunal</string>
     <string name="date_shortcut_tomorrow_evening">Homme õhtul</string>
     <string name="date_shortcut_tomorrow_night">Homme öösel</string>
+    <string name="no_task_selected">Ühtegi ülesannet pole valitud</string>
+    <string name="resize_panes">Muuda paanide suurust</string>
+    <string name="repeat_type_due_description">Ülesanne kordub sõltuvalt tähtajast</string>
+    <string name="repeat_type_completion_description">Ülesanne kordub sõltuvalt tegelikust täitmisest</string>
+    <string name="mark_completed">Märgi tehtuks</string>
 </resources>
