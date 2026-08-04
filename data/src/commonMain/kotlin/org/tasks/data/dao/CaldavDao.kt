@@ -466,7 +466,7 @@ ORDER BY primary_sort
     @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
     abstract suspend fun setTaskOrder(id: Long, order: Long?)
 
-    @Query("UPDATE caldav_lists SET cdl_last_sync = 0 WHERE cdl_account = :account")
+    @Query("UPDATE caldav_lists SET cdl_last_sync = 0, cdl_ctag = NULL WHERE cdl_account = :account")
     abstract suspend fun resetLastSync(account: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
