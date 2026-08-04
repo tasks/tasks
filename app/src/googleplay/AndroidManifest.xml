@@ -39,6 +39,28 @@
       </intent-filter>
     </service>
 
+    <!-- Listener service for sync data from Wear -->
+    <service
+        android:name=".wear.WearSyncListenerService"
+        android:exported="true"
+        tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
+        <data
+            android:host="*"
+            android:pathPrefix="/outbox/watch/"
+            android:scheme="wear" />
+        <data
+            android:host="*"
+            android:pathPrefix="/sync/request"
+            android:scheme="wear" />
+        <data
+            android:host="*"
+            android:pathPrefix="/ack/phone/"
+            android:scheme="wear" />
+      </intent-filter>
+    </service>
+
     <activity
         android:name="com.microsoft.identity.client.BrowserTabActivity"
         android:exported="true">

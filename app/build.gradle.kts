@@ -102,7 +102,12 @@ android {
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
-            signingConfig = signingConfigs.getByName("release")
+            val tasksStoreFile: String? by project
+            if (tasksStoreFile != null) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
         }
     }
 

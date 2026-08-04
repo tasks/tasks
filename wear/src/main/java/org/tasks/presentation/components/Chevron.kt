@@ -1,3 +1,13 @@
+/**
+ * Chevron.kt — Expand/collapse chevron indicator.
+ *
+ * Displays a small down-pointing or up-pointing chevron icon
+ * to indicate whether a group of subtasks is collapsed or expanded.
+ *
+ * Used inside [TaskCard] when the task has subtasks ([numSubtasks] > 0).
+ *
+ * @param collapsed `true` → shows ExpandMore (▼); `false` → shows ExpandLess (▲).
+ */
 package org.tasks.presentation.components
 
 import androidx.compose.animation.core.animateFloatAsState

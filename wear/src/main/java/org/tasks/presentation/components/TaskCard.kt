@@ -1,3 +1,25 @@
+/**
+ * TaskCard.kt — Visual card for a single task in the Wear OS task list.
+ *
+ * Layout:
+ * ```
+ * ┌──────────────────────────────────────────────┐
+ * │ [icon]  Task title text       Timestamp / ▼  │
+ * │                              (subtask count)  │
+ * └──────────────────────────────────────────────┘
+ * ```
+ *
+ * Features:
+ * - Leading [icon] slot (typically a [Checkbox] from [TaskRow]).
+ * - Two-line ellipsised title with optional 60 % opacity for hidden tasks.
+ * - If the task has subtasks, a clickable button with a [Chevron] and subtask
+ *   count replaces the plain timestamp.
+ * - Otherwise a small [Timestamp] label is rendered on the right.
+ *
+ * @see TaskRow   — Convenience wrapper that plugs a [Checkbox] into the icon slot.
+ * @see Chevron   — Animated expand/collapse arrow.
+ * @see Timestamp — Tiny caption showing the task's due date/time.
+ */
 package org.tasks.presentation.components
 
 import androidx.compose.foundation.layout.Column
