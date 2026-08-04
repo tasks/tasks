@@ -171,14 +171,31 @@ class OpenTasksSynchronizer(
         Logger.d("OpenTasksSynchronizer") { "SYNC $calendar" }
 
         val etags = openTaskDao.getEtags(listId)
-        etags.forEach { (uid, sync1, version) ->
-            val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, uid)
+        val uids = etags.map { it.first }
+        // One query for the whole list rather than one per task. This runs for every task in the
+        // list whenever anything in it changed, so on a few thousand tasks it was the bulk of the
+        // sync.
+        val local = caldavDao
+                .getTasksByRemoteId(calendar.uuid!!, uids)
+                .associateBy { it.remoteId }
+        val changed = etags.mapNotNull { (uid, sync1, version) ->
             val etag = if (account.isEteSync || account.isDecSync) version else sync1
+            val caldavTask = local[uid]
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
-                applyChanges(account, calendar, listId, uid, etag, caldavTask)
+                Triple(uid, etag, caldavTask)
+            } else {
+                null
             }
         }
-        removeDeleted(calendar.uuid!!, etags.map { it.first })
+        if (changed.isNotEmpty()) {
+            Logger.d("OpenTasksSynchronizer") { "CHANGED ${changed.size} of ${etags.size}" }
+            // Likewise, one cross process query for the changed set instead of one per task.
+            val remote = openTaskDao.getTasks(listId, changed.map { it.first })
+            changed.forEach { (uid, etag, caldavTask) ->
+                remote[uid]?.let { applyChanges(account, calendar, it, uid, etag, caldavTask) }
+            }
+        }
+        removeDeleted(calendar.uuid!!, uids)
 
         calendar.ctag = ctag
         Logger.d("OpenTasksSynchronizer") { "UPDATE $calendar" }
@@ -252,16 +269,14 @@ class OpenTasksSynchronizer(
     private suspend fun applyChanges(
         account: CaldavAccount,
         calendar: CaldavCalendar,
-        listId: Long,
+        androidTask: MyAndroidTask,
         uid: String,
         etag: String?,
         existing: CaldavTask?
     ) {
-        openTaskDao.getTask(listId, uid)?.let { androidTask ->
-            val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            val vtodo = adapted.serialize()
-            iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, CaldavTask.objectName(uid), etag)
-        }
+        val adapted = Ical4androidTaskAdapter(androidTask.task!!)
+        val vtodo = adapted.serialize()
+        iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, CaldavTask.objectName(uid), etag)
     }
 
     companion object {
