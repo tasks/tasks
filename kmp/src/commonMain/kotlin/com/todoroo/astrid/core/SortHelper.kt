@@ -12,6 +12,7 @@ import org.tasks.db.QueryUtils.showCompleted
 import org.tasks.db.QueryUtils.showHidden
 import org.tasks.preferences.QueryPreferences
 
+@Suppress("StringLiteralDuplication")
 object SortHelper {
     const val GROUP_NONE: Int = -1
     const val SORT_AUTO: Int = 0
@@ -52,6 +53,24 @@ object SortHelper {
     private val ORDER_TITLE = asc(upper(Task.TITLE))
     private val ORDER_LIST = asc(upper(CaldavCalendar.ORDER))
         .addSecondaryExpression(asc(CaldavCalendar.NAME))
+
+    private const val SMART_ORDER = ("(CASE WHEN (dueDate=0) "
+            +  // if no due date
+            "THEN (strftime('%s','now')*1000)*2 "
+            +  // then now * 2
+            "ELSE ("
+            + ADJUSTED_DUE_DATE
+            + ") END) "
+            +  // else due time
+            // add slightly less than 2 days * importance to give due date priority over importance in case of tie
+            "+ 172799999 * importance "
+            + // if all else is equal, prioritize tasks that have been waiting for longer
+            "+ (CASE WHEN hideUntil != 0 then hideUntil ELSE created END) / 1000")
+    private val RECURSIVE_SMART_ORDER = SMART_ORDER
+        .replace("dueDate", "tasks.dueDate")
+        .replace("importance", "tasks.importance")
+        .replace("hideUntil", "tasks.hideUntil")
+        .replace("created", "tasks.created")
 
     /** Takes a SQL query, and if there isn't already an order, creates an order.  */
     fun adjustQueryForFlagsAndSort(
@@ -107,18 +126,7 @@ object SortHelper {
             SORT_MODIFIED -> desc(Task.MODIFICATION_DATE)
             SORT_CREATED -> desc(Task.CREATION_DATE)
             SORT_LIST -> ORDER_LIST
-            else -> asc(
-                "(CASE WHEN (dueDate=0) "
-                        +  // if no due date
-                        "THEN (strftime('%s','now')*1000)*2 "
-                        +  // then now * 2
-                        "ELSE ("
-                        + ADJUSTED_DUE_DATE
-                        + ") END) "
-                        +  // else due time
-                        // add slightly less than 2 days * importance to give due date priority over importance in case of tie
-                        "+ 172799999 * importance"
-            )
+            else -> asc(SMART_ORDER)
         }
         if (sortType != SORT_ALPHA) {
             order.addSecondaryExpression(ORDER_TITLE)
@@ -156,16 +164,7 @@ object SortHelper {
             SORT_CALDAV -> ORDER_BY_MANUAL
             SORT_LIST -> "CASE WHEN cdl_order = -1 THEN cdl_name ELSE cdl_order END"
             SORT_COMPLETED -> "tasks.completed"
-            else -> ("(CASE WHEN (tasks.dueDate=0) "
-                    +  // if no due date
-                    "THEN (strftime('%s','now')*1000)*2 "
-                    +  // then now * 2
-                    "ELSE ("
-                    + ADJUSTED_DUE_DATE.replace("dueDate", "tasks.dueDate")
-                    + ") END) "
-                    +  // else due time
-                    // add slightly less than 2 days * importance to give due date priority over importance in case of tie
-                    "+ 172799999 * tasks.importance")
+            else -> RECURSIVE_SMART_ORDER
         }
     }
 
