@@ -23,6 +23,7 @@ data class PlatformConfiguration(
     val supportsDesktopLinking: Boolean = false,
     val supportsLogExport: Boolean = false,
 
+    val showNotificationSettings: Boolean = true,
     val supportsNotificationTroubleshooting: Boolean = false,
     val supportsSystemNotificationSettings: Boolean = false,
     val supportsOngoingNotifications: Boolean = false,

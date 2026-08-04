@@ -124,6 +124,7 @@ fun MainSettingsScreen(
     environmentLabel: String? = null,
     showBackupWarning: Boolean,
     showWidgets: Boolean,
+    showNotifications: Boolean = true,
     isDebug: Boolean = false,
     onAccountClick: (CaldavAccount) -> Unit,
     onAddAccountClick: () -> Unit,
@@ -204,6 +205,7 @@ fun MainSettingsScreen(
         SettingsCategories(
             showBackupWarning = showBackupWarning,
             showWidgets = showWidgets,
+            showNotifications = showNotifications,
             isDebug = isDebug,
             onSettingsClick = onSettingsClick,
         )
@@ -216,6 +218,7 @@ fun MainSettingsScreen(
 fun SettingsCategories(
     showBackupWarning: Boolean,
     showWidgets: Boolean,
+    showNotifications: Boolean,
     isDebug: Boolean,
     onSettingsClick: (SettingsDestination) -> Unit,
 ) {
@@ -224,19 +227,23 @@ fun SettingsCategories(
         modifier = Modifier.padding(horizontal = SettingsContentPadding),
         verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
     ) {
-        SettingsItemCard(position = CardPosition.First) {
+        SettingsItemCard(
+            position = if (showNotifications) CardPosition.First else CardPosition.Only,
+        ) {
             PreferenceRow(
                 title = stringResource(Res.string.preferences_look_and_feel),
                 icon = Icons.Outlined.Palette,
                 onClick = { onSettingsClick(SettingsDestination.LookAndFeel) }
             )
         }
-        SettingsItemCard(position = CardPosition.Last) {
-            PreferenceRow(
-                title = stringResource(Res.string.notifications),
-                icon = Icons.Outlined.Notifications,
-                onClick = { onSettingsClick(SettingsDestination.Notifications) }
-            )
+        if (showNotifications) {
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(Res.string.notifications),
+                    icon = Icons.Outlined.Notifications,
+                    onClick = { onSettingsClick(SettingsDestination.Notifications) }
+                )
+            }
         }
     }
 

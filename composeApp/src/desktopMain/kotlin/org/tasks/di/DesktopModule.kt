@@ -123,6 +123,7 @@ actual fun platformModule(): Module = module {
             supportsGoogleTasks = true,
             supportsMicrosoft = true,
             supportsSwipeToSnooze = false,
+            showNotificationSettings = TasksBuildConfig.DEBUG,
             supportsSystemNotificationSettings = supportsSystemNotificationSettings(),
         )
     }
