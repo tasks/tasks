@@ -15,6 +15,9 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+private const val CALDAV_LISTS = "caldav_lists"
+private const val CALDAV_ACCOUNTS = "caldav_accounts"
+
 class CommonMigrationsTest {
     private val tempDir: Path = Files.createTempDirectory("room-migration-test")
 
@@ -188,6 +191,29 @@ class CommonMigrationsTest {
         }.use {
             assertEquals(listOf(Triple(10L, 1L, 0L)), it.taskDirtyRows())
         }
+    }
+
+    @Test
+    fun addsCaldavJoinIndicesAndKeepsRows() {
+        migrate(96, 97, CommonMigrations.MIGRATION_96_97) {
+            insertAccount(1, uuid = "acct", type = TYPE_CALDAV)
+            insertList(1, uuid = "list", account = "acct")
+        }.use { db ->
+            assertEquals(1, db.rowCount(CALDAV_ACCOUNTS))
+            assertEquals(1, db.rowCount(CALDAV_LISTS))
+            assertTrue(db.hasIndex(CALDAV_LISTS, "index_caldav_lists_cdl_uuid"))
+            assertTrue(db.hasIndex(CALDAV_LISTS, "index_caldav_lists_cdl_account"))
+            assertTrue(db.hasIndex(CALDAV_ACCOUNTS, "index_caldav_accounts_cda_uuid"))
+        }
+    }
+
+    private fun SQLiteConnection.hasIndex(table: String, index: String): Boolean {
+        prepare("PRAGMA index_list(`$table`)").use { stmt ->
+            while (stmt.step()) {
+                if (stmt.getText(1) == index) return true
+            }
+        }
+        return false
     }
 
     private fun SQLiteConnection.insertTask(id: Long, modified: Long = 0) {
