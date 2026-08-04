@@ -604,7 +604,7 @@ class ApplicationModule {
         backgroundWork = backgroundWork,
         caldavDao = caldavDao,
         dirtyDao = dirtyDao,
-        openTaskSyncCheck = { openTaskDao.shouldSync() },
+        openTaskListsActive = { openTaskDao.hasActiveLists() },
         tasksPreferences = tasksPreferences,
         refreshBroadcaster = refreshBroadcaster,
         coroutineContext = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),

@@ -157,7 +157,7 @@ class GoogleTaskSynchronizer(
             val pushed = listId in pushedTo
             val unchanged = remoteEtag != null && list.ctag == remoteEtag && !pushed
             Logger.d(TAG) {
-                "${list.name}: ctag=${list.ctag} etag=$remoteEtag pushed=$pushed" +
+                "$listId: ctag=${list.ctag} etag=$remoteEtag pushed=$pushed" +
                         " -> ${if (unchanged) "skip" else "fetch"}"
             }
             if (unchanged) {
@@ -223,8 +223,12 @@ class GoogleTaskSynchronizer(
             } catch (e: RetryTaskException) {
                 return e.taskId
             } catch (e: HttpNotFoundException) {
-                Logger.w(TAG, e) { "Task ${toPush.task.id} gone remotely" }
-                dirtyDao.markPushed(toPush.caldavTaskId, toPush.dirtyVersion)
+                val neverCreated =
+                    caldavDao.getCaldavTaskById(toPush.caldavTaskId)?.remoteId.isNullOrEmpty()
+                Logger.w(TAG, e) { "Task ${toPush.task.id} gone remotely (created=${!neverCreated})" }
+                if (!neverCreated) {
+                    dirtyDao.markPushed(toPush.caldavTaskId, toPush.dirtyVersion)
+                }
             }
         }
         return null

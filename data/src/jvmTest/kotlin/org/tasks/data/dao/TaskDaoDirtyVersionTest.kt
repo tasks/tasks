@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
@@ -77,41 +78,73 @@ class TaskDaoDirtyVersionTest {
     }
 
     @Test
-    fun syncableDirtyTaskIdsIgnoresLocalAccount() = runBlocking {
+    fun syncableDirtyVersionsIgnoreLocalAccount() = runBlocking {
         createTaskWithCaldavTask(accountType = TYPE_LOCAL)
 
-        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
     }
 
     @Test
-    fun syncableDirtyTaskIdsReturnsDirty() = runBlocking {
+    fun syncableDirtyVersionsReturnDirty() = runBlocking {
         val (_, ctId) = createTaskWithCaldavTask()
 
-        assertEquals(listOf(ctId), dirtyDao.getSyncableDirtyTaskIds().first())
+        assertEquals(
+            listOf(DirtyTaskVersion(ctId, dirtyVersion = 1)),
+            dirtyDao.getSyncableDirtyVersions()
+        )
     }
 
     @Test
-    fun syncableDirtyTaskIdsExcludesClean() = runBlocking {
+    fun syncableDirtyVersionsExcludeClean() = runBlocking {
         val (_, ctId) = createTaskWithCaldavTask()
         dirtyDao.markSynced(ctId)
 
-        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
     }
 
     @Test
-    fun syncableDirtyTaskIdsIgnoresReadOnlyList() = runBlocking {
+    fun syncableDirtyVersionsIgnoreReadOnlyList() = runBlocking {
         createTaskWithCaldavTask(access = ACCESS_READ_ONLY)
 
-        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
     }
 
     @Test
-    fun syncableDirtyTaskIdsAreOrdered() = runBlocking {
+    fun syncableDirtyVersionsAreOrdered() = runBlocking {
         val calUuid = setupCalendar(TYPE_CALDAV)
         val (_, first) = createTaskWithCaldavTask(calendar = calUuid)
         val (_, second) = createTaskWithCaldavTask(calendar = calUuid)
 
-        assertEquals(listOf(first, second).sorted(), dirtyDao.getSyncableDirtyTaskIds().first())
+        assertEquals(
+            listOf(first, second).sorted(),
+            dirtyDao.getSyncableDirtyVersions().map { it.caldavTaskId }
+        )
+    }
+
+    @Test
+    fun syncableDirtyVersionsChangeWhenRedirtied() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        val before = dirtyDao.getSyncableDirtyVersions()
+
+        dirtyDao.setDirty(listOf(taskId))
+
+        val after = dirtyDao.getSyncableDirtyVersions()
+        assertEquals(listOf(ctId), after.map { it.caldavTaskId })
+        assertNotEquals(before, after)
+    }
+
+    @Test
+    fun syncableDirtyVersionsSurviveStalePush() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        val staleVersion = dirtyVersion(ctId)!!
+        dirtyDao.setDirty(listOf(taskId))
+
+        dirtyDao.markPushed(ctId, staleVersion)
+
+        assertEquals(
+            listOf(DirtyTaskVersion(ctId, dirtyVersion = staleVersion + 1)),
+            dirtyDao.getSyncableDirtyVersions()
+        )
     }
 
     @Test

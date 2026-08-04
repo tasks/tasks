@@ -35,8 +35,9 @@ open class OpenTaskDao(
     val properties: Uri = Properties.getContentUri(authority)
 
     suspend fun shouldSync() =
-        caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty() ||
-                getListsByAccount().filterActive(caldavDao).isNotEmpty()
+        caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty() || hasActiveLists()
+
+    suspend fun hasActiveLists() = getListsByAccount().filterActive(caldavDao).isNotEmpty()
 
     suspend fun getListsByAccount(): Map<String, List<CaldavCalendar>> =
             getLists().groupBy { it.account!! }
