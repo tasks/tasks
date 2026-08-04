@@ -22,6 +22,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.getDefaultAlarms
+import org.tasks.data.setDefaultReminders
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.preferences.AppPreferences
 import org.tasks.service.TaskCompleter
@@ -463,7 +464,13 @@ class GoogleTaskSynchronizer(
                 gtask.updated?.let { task.modificationDate = DateTime(it).value }
             }
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
-                write(task, googleTask, original, recreate = recreate)
+                write(
+                    task = task,
+                    googleTask = googleTask,
+                    original = original,
+                    recreate = recreate,
+                    initialSync = list.ctag.isNullOrBlank(),
+                )
             }
         }
         return lastSyncDate
@@ -480,10 +487,15 @@ class GoogleTaskSynchronizer(
         googleTask: CaldavTask,
         original: org.tasks.data.entity.Task? = null,
         recreate: Boolean = false,
+        initialSync: Boolean = false,
     ) {
         task.suppressSync()
         task.suppressRefresh()
         if (task.isNew) {
+            task.setDefaultReminders(appPreferences)
+            if (initialSync) {
+                task.reminderLast = currentTimeMillis()
+            }
             taskDao.createNew(task)
             alarmDao.insert(task.getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled()))
         }
