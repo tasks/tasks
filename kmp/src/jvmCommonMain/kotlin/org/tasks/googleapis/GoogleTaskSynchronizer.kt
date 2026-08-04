@@ -108,16 +108,15 @@ class GoogleTaskSynchronizer(
     private suspend fun synchronize(account: CaldavAccount, gtasksInvoker: GtasksInvoker) {
         val gtaskLists: MutableList<TaskList> = ArrayList()
         var nextPageToken: String? = null
-        var eTag: String? = null
         do {
             val remoteLists = gtasksInvoker.allGtaskLists(nextPageToken) ?: break
-            eTag = remoteLists.etag
             val items = remoteLists.items
             if (items != null) {
                 gtaskLists.addAll(items)
             }
             nextPageToken = remoteLists.nextPageToken
         } while (!nextPageToken.isNullOrEmpty())
+        val remoteEtags = gtaskLists.associate { it.id to it.etag }
         gtasksListService.updateLists(account, gtaskLists)
         val defaultRemoteList = defaultListProvider.getDefaultList()
         if (defaultRemoteList.isGoogleTasks) {
@@ -134,7 +133,8 @@ class GoogleTaskSynchronizer(
             }
             .filterNot { it.uuid.isNullOrEmpty() }
         val failedTasks = mutableSetOf<Long>()
-        var retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker)
+        val pushedTo = mutableSetOf<String>()
+        var retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker, pushedTo)
 
         while (retryTaskId != null) {
             if (failedTasks.contains(retryTaskId)) {
@@ -148,11 +148,23 @@ class GoogleTaskSynchronizer(
 
             delay(1000)
 
-            retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker)
+            retryTaskId = pushLocalChanges(account, calendars, gtasksInvoker, pushedTo)
         }
         for (list in calendars) {
-            fetchAndApplyRemoteChanges(gtasksInvoker, list)
-            gtasksInvoker.updatePositions(list.uuid!!)
+            val listId = list.uuid!!
+            val remoteEtag = remoteEtags[listId]
+            val pushed = listId in pushedTo
+            val unchanged = remoteEtag != null && list.ctag == remoteEtag && !pushed
+            Logger.d(TAG) {
+                "${list.name}: ctag=${list.ctag} etag=$remoteEtag pushed=$pushed" +
+                        " -> ${if (unchanged) "skip" else "fetch"}"
+            }
+            if (unchanged) {
+                continue
+            }
+            val lastSync = fetchAndApplyRemoteChanges(gtasksInvoker, list) ?: continue
+            gtasksInvoker.updatePositions(listId)
+            caldavDao.insertOrReplace(list.copy(lastSync = lastSync, ctag = remoteEtag))
         }
         account.error = ""
     }
@@ -185,6 +197,7 @@ class GoogleTaskSynchronizer(
         account: CaldavAccount,
         calendars: List<CaldavCalendar>,
         gtasksInvoker: GtasksInvoker,
+        pushedTo: MutableSet<String>,
     ): Long? {
         for (deleted in caldavDao.getMovedByAccount(account.uuid!!)) {
             deleted.remoteId?.let {
@@ -197,9 +210,12 @@ class GoogleTaskSynchronizer(
                     }
                 }
             }
+            deleted.calendar?.let(pushedTo::add)
             googleTaskDao.delete(deleted)
         }
-        val tasks = calendars.flatMap { dirtyDao.getTasksToPush(it.uuid!!) }
+        val tasks = calendars.flatMap { calendar ->
+            dirtyDao.getTasksToPush(calendar.uuid!!).onEach { pushedTo.add(calendar.uuid!!) }
+        }
         for (toPush in tasks) {
             try {
                 pushTask(toPush.task, toPush.caldavTaskId, toPush.dirtyVersion, gtasksInvoker)
@@ -357,7 +373,7 @@ class GoogleTaskSynchronizer(
     private suspend fun fetchAndApplyRemoteChanges(
         gtasksInvoker: GtasksInvoker,
         list: CaldavCalendar
-    ) {
+    ): Long? {
         val listId = list.uuid
         var lastSyncDate = list.lastSync
         val tasks: MutableList<Task> = ArrayList()
@@ -367,7 +383,7 @@ class GoogleTaskSynchronizer(
                 gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken)
             } catch (e: HttpNotFoundException) {
                 reporting.reportException(e)
-                return
+                return null
             } ?: break
 
             val items = taskList.items
@@ -446,11 +462,7 @@ class GoogleTaskSynchronizer(
                 write(task, googleTask, original, recreate = recreate)
             }
         }
-        caldavDao.insertOrReplace(
-            list.copy(
-                lastSync = lastSyncDate
-            )
-        )
+        return lastSyncDate
     }
 
     private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task, local: org.tasks.data.entity.Task) {
