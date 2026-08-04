@@ -26,6 +26,7 @@ class TaskDaoDirtyVersionTest {
     private lateinit var taskDao: TaskDao
     private lateinit var caldavDao: CaldavDao
     private lateinit var dirtyDao: DirtyDao
+    private lateinit var googleTaskDao: GoogleTaskDao
 
     @Before
     fun setUp() {
@@ -36,6 +37,7 @@ class TaskDaoDirtyVersionTest {
         taskDao = db.taskDao()
         caldavDao = db.caldavDao()
         dirtyDao = db.dirtyDao()
+        googleTaskDao = db.googleTaskDao()
     }
 
     @After
@@ -407,6 +409,37 @@ class TaskDaoDirtyVersionTest {
         caldavDao.delete(caldavDao.getTask(taskId)!!)
 
         assertNull(dirtyVersion(ctId))
+    }
+
+    @Test
+    fun getByRemoteIdInAccountFindsTaskInAnotherList() = runBlocking {
+        val other = setupCalendar(TYPE_GOOGLE_TASKS)
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = other, remoteId = "moved-1")
+
+        val found = googleTaskDao.getByRemoteIdInAccount("moved-1", "account-$TYPE_GOOGLE_TASKS")
+
+        assertEquals(other, found?.calendar)
+    }
+
+    @Test
+    fun getByRemoteIdInAccountIgnoresOtherAccounts() = runBlocking {
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = setupCalendar(TYPE_CALDAV), remoteId = "moved-2")
+
+        assertNull(googleTaskDao.getByRemoteIdInAccount("moved-2", "account-$TYPE_GOOGLE_TASKS"))
+    }
+
+    @Test
+    fun getByRemoteIdInAccountIgnoresTombstones() = runBlocking {
+        val calendar = setupCalendar(TYPE_GOOGLE_TASKS)
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = calendar, deleted = true, remoteId = "moved-3")
+
+        assertNull(googleTaskDao.getByRemoteIdInAccount("moved-3", "account-$TYPE_GOOGLE_TASKS"))
     }
 
     private suspend fun dirtyVersion(ctId: Long): Long? = dirtyDao.getDirtyState(ctId)?.dirtyVersion

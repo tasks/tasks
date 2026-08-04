@@ -396,6 +396,10 @@ class GoogleTaskSynchronizer(
         for (gtask in tasks) {
             val remoteId = gtask.id
             var googleTask = googleTaskDao.getByRemoteId(remoteId, listId!!)
+                ?: list.account
+                    ?.let { googleTaskDao.getByRemoteIdInAccount(remoteId, it) }
+                    ?.also { Logger.d(TAG) { "$remoteId moved from ${it.calendar} to $listId" } }
+                    ?.copy(calendar = listId)
             var task: org.tasks.data.entity.Task? = null
             if (googleTask == null) {
                 googleTask = CaldavTask(

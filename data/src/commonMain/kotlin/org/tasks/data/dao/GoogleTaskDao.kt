@@ -96,6 +96,16 @@ abstract class GoogleTaskDao(private val database: Database) {
     @Query("SELECT * FROM caldav_tasks WHERE cd_remote_id = :remoteId AND cd_calendar = :calendar")
     abstract suspend fun getByRemoteId(remoteId: String, calendar: String): CaldavTask?
 
+    @Query("""
+        SELECT caldav_tasks.* FROM caldav_tasks
+        INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+        WHERE cd_remote_id = :remoteId
+          AND cdl_account = :account
+          AND cd_deleted = 0
+        LIMIT 1
+    """)
+    abstract suspend fun getByRemoteIdInAccount(remoteId: String, account: String): CaldavTask?
+
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
     abstract suspend fun getAllByTaskId(taskId: Long): List<CaldavTask>
 
