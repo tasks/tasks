@@ -51,9 +51,10 @@ class SyncAdapters(
     init {
         scope.launch {
             dirtyDao
-                .hasDirtyTasks()
-                .onEach { log.d { "dirty table changed: hasDirty=$it" } }
-                .filter { it }
+                .getSyncableDirtyTaskIds()
+                .distinctUntilChanged()
+                .onEach { log.d { "dirty tasks changed: ${it.size} pending" } }
+                .filter { it.isNotEmpty() }
                 .conflate()
                 .collect { sync(SyncSource.TASK_CHANGE).join() }
         }

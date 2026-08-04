@@ -110,13 +110,6 @@ abstract class Database : RoomDatabase() {
     companion object {
         const val NAME = "database"
 
-        // Seeds a task_dirty row for every new caldav_tasks row so freshly created tasks are
-        // marked dirty (pending push). Re-created idempotently on every database open (CREATE
-        // TRIGGER IF NOT EXISTS), so it survives caldav_tasks table rebuilds from future
-        // destructive auto-migrations (a rebuild drops triggers bound to the table, and Room does
-        // not recreate app-defined triggers). Local-account rows are excluded: they never sync, so
-        // seeding them dirty would pin hasDirtyTasks() to true forever. The WHEN uses `IS NOT` so an
-        // unresolved account (NULL) still seeds — better to over-sync than to silently drop a push.
         val TASK_DIRTY_TRIGGER = """
             CREATE TRIGGER IF NOT EXISTS task_dirty_after_insert
             AFTER INSERT ON caldav_tasks

@@ -32,17 +32,16 @@ data class TaskToPush(
 abstract class DirtyDao {
 
     @Query("""
-        SELECT EXISTS(
-            SELECT 1 FROM task_dirty
-            INNER JOIN caldav_tasks ON cd_id = caldav_task_id
-            LEFT JOIN caldav_lists ON cdl_uuid = cd_calendar
-            LEFT JOIN caldav_accounts ON cda_uuid = cdl_account
-            WHERE dirty_version > synced_version
-              AND (cdl_access IS NULL OR cdl_access != $ACCESS_READ_ONLY)
-              AND (cda_account_type IS NULL OR cda_account_type != $TYPE_LOCAL)
-        )
+        SELECT caldav_task_id FROM task_dirty
+        INNER JOIN caldav_tasks ON cd_id = caldav_task_id
+        LEFT JOIN caldav_lists ON cdl_uuid = cd_calendar
+        LEFT JOIN caldav_accounts ON cda_uuid = cdl_account
+        WHERE dirty_version > synced_version
+          AND (cdl_access IS NULL OR cdl_access != $ACCESS_READ_ONLY)
+          AND (cda_account_type IS NULL OR cda_account_type != $TYPE_LOCAL)
+        ORDER BY caldav_task_id
     """)
-    abstract fun hasDirtyTasks(): Flow<Boolean>
+    abstract fun getSyncableDirtyTaskIds(): Flow<List<Long>>
 
     @Query("""
         SELECT cd_task FROM task_dirty

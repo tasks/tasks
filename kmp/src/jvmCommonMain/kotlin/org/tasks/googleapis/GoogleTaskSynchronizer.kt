@@ -207,6 +207,7 @@ class GoogleTaskSynchronizer(
                 return e.taskId
             } catch (e: HttpNotFoundException) {
                 Logger.w(TAG, e) { "Task ${toPush.task.id} gone remotely" }
+                dirtyDao.markPushed(toPush.caldavTaskId, toPush.dirtyVersion)
             }
         }
         return null
@@ -226,6 +227,7 @@ class GoogleTaskSynchronizer(
             return
         }
         if (newlyCreated && task.title.isNullOrEmpty()) {
+            dirtyVersion?.let { dirtyDao.markPushed(caldavTaskId, it) }
             return
         }
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {

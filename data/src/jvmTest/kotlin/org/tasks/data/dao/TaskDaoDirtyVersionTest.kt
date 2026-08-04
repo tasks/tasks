@@ -16,6 +16,8 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 
@@ -73,10 +75,41 @@ class TaskDaoDirtyVersionTest {
     }
 
     @Test
-    fun hasDirtyTasksIgnoresLocalAccount() = runBlocking {
+    fun syncableDirtyTaskIdsIgnoresLocalAccount() = runBlocking {
         createTaskWithCaldavTask(accountType = TYPE_LOCAL)
 
-        assertEquals(false, dirtyDao.hasDirtyTasks().first())
+        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+    }
+
+    @Test
+    fun syncableDirtyTaskIdsReturnsDirty() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+
+        assertEquals(listOf(ctId), dirtyDao.getSyncableDirtyTaskIds().first())
+    }
+
+    @Test
+    fun syncableDirtyTaskIdsExcludesClean() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+    }
+
+    @Test
+    fun syncableDirtyTaskIdsIgnoresReadOnlyList() = runBlocking {
+        createTaskWithCaldavTask(access = ACCESS_READ_ONLY)
+
+        assertEquals(emptyList<Long>(), dirtyDao.getSyncableDirtyTaskIds().first())
+    }
+
+    @Test
+    fun syncableDirtyTaskIdsAreOrdered() = runBlocking {
+        val calUuid = setupCalendar(TYPE_CALDAV)
+        val (_, first) = createTaskWithCaldavTask(calendar = calUuid)
+        val (_, second) = createTaskWithCaldavTask(calendar = calUuid)
+
+        assertEquals(listOf(first, second).sorted(), dirtyDao.getSyncableDirtyTaskIds().first())
     }
 
     @Test
@@ -382,21 +415,22 @@ class TaskDaoDirtyVersionTest {
         accountType: Int = TYPE_CALDAV,
         calendar: String? = null,
         deleted: Boolean = false,
+        access: Int = ACCESS_OWNER,
     ): Pair<Long, Long> {
-        val calUuid = calendar ?: setupCalendar(accountType)
+        val calUuid = calendar ?: setupCalendar(accountType, access)
         val task = Task()
         taskDao.createNew(task)
         val ctId = insertCaldavTask(task.id, calUuid, deleted)
         return task.id to ctId
     }
 
-    private suspend fun setupCalendar(accountType: Int): String {
+    private suspend fun setupCalendar(accountType: Int, access: Int = ACCESS_OWNER): String {
         val accountUuid = "account-$accountType"
         if (caldavDao.getAccountByUuid(accountUuid) == null) {
             caldavDao.insert(CaldavAccount(accountType = accountType, uuid = accountUuid))
         }
         val calUuid = "calendar-${System.nanoTime()}"
-        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid))
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid, access = access))
         return calUuid
     }
 
