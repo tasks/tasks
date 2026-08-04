@@ -400,11 +400,15 @@ class GoogleTaskSynchronizer(
         Collections.sort(tasks, PARENTS_FIRST)
         for (gtask in tasks) {
             val remoteId = gtask.id
-            var googleTask = googleTaskDao.getByRemoteId(remoteId, listId!!)
-                ?: list.account
+            val inList = googleTaskDao.getByRemoteId(remoteId, listId!!)
+            val movedFrom = if (inList != null) {
+                null
+            } else {
+                list.account
                     ?.let { googleTaskDao.getByRemoteIdInAccount(remoteId, it) }
                     ?.also { Logger.d(TAG) { "$remoteId moved from ${it.calendar} to $listId" } }
-                    ?.copy(calendar = listId)
+            }
+            var googleTask = inList ?: movedFrom?.copy(calendar = listId)
             var task: org.tasks.data.entity.Task? = null
             if (googleTask == null) {
                 googleTask = CaldavTask(
@@ -423,7 +427,13 @@ class GoogleTaskSynchronizer(
             var recreate = false
             if (isDeleted != null && isDeleted) {
                 if (task != null) {
-                    taskDeleter.delete(task)
+                    if (movedFrom == null) {
+                        taskDeleter.delete(task)
+                    } else {
+                        Logger.d(TAG) {
+                            "$remoteId deleted in $listId but lives in ${movedFrom.calendar}, keeping"
+                        }
+                    }
                 }
                 continue
             } else if (isHidden != null && isHidden) {
@@ -432,6 +442,11 @@ class GoogleTaskSynchronizer(
                 }
                 if (task.isRecurring) {
                     recreate = true
+                } else if (movedFrom != null) {
+                    Logger.d(TAG) {
+                        "$remoteId hidden in $listId but lives in ${movedFrom.calendar}, keeping"
+                    }
+                    continue
                 } else {
                     taskDeleter.delete(task)
                     continue
