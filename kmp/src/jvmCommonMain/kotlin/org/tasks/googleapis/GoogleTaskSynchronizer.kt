@@ -223,11 +223,20 @@ class GoogleTaskSynchronizer(
             } catch (e: RetryTaskException) {
                 return e.taskId
             } catch (e: HttpNotFoundException) {
-                val neverCreated =
-                    caldavDao.getCaldavTaskById(toPush.caldavTaskId)?.remoteId.isNullOrEmpty()
-                Logger.w(TAG, e) { "Task ${toPush.task.id} gone remotely (created=${!neverCreated})" }
-                if (!neverCreated) {
-                    dirtyDao.markPushed(toPush.caldavTaskId, toPush.dirtyVersion)
+                val caldavTask = caldavDao.getCaldavTaskById(toPush.caldavTaskId)
+                when {
+                    caldavTask == null ->
+                        Logger.w(TAG, e) { "Task ${toPush.task.id} has no caldav task" }
+
+                    caldavTask.remoteId.isNullOrEmpty() ->
+                        Logger.w(TAG, e) {
+                            "Failed to create task ${toPush.task.id}, list ${caldavTask.calendar} not found"
+                        }
+
+                    else -> {
+                        Logger.w(TAG, e) { "Task ${toPush.task.id} deleted remotely, deleting local copy" }
+                        taskDeleter.delete(toPush.task)
+                    }
                 }
             }
         }
@@ -364,8 +373,7 @@ class GoogleTaskSynchronizer(
                         }
                     }
                 } catch (e: HttpNotFoundException) {
-                    Logger.w(TAG) { "HTTP 404, deleting $gtasksMetadata" }
-                    googleTaskDao.delete(gtasksMetadata)
+                    Logger.w(TAG) { "HTTP 404 for $gtasksMetadata" }
                     throw e
                 }
             }
