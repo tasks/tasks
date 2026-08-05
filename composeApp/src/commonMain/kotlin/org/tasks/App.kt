@@ -225,7 +225,6 @@ import org.tasks.kmp.formatTime
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.kmp.org.tasks.time.DateFormatter
-import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.themes.BLUE
@@ -1583,7 +1582,6 @@ private fun TaskListScreen(
     onMenuClick: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    val headerFormatter = koinInject<HeaderFormatter>()
     val chipDataProvider = koinInject<ChipDataProvider>()
     val reporting = koinInject<Reporting>()
     val sortViewModel = koinViewModel<SortSettingsViewModel>()
@@ -1609,7 +1607,6 @@ private fun TaskListScreen(
 
     TaskListPane(
         state = state,
-        headerFormatter = headerFormatter,
         chipDataProvider = chipDataProvider,
         reporting = reporting,
         viewModel = viewModel,
@@ -1934,7 +1931,6 @@ private fun resolvePersistedWidth(dragged: Dp, stored: Dp, maxWidth: Dp): Dp =
 @Composable
 private fun TaskListPane(
     state: TaskListViewModel.State,
-    headerFormatter: HeaderFormatter,
     chipDataProvider: ChipDataProvider,
     reporting: org.tasks.analytics.Reporting,
     viewModel: TaskListViewModel,
@@ -2041,7 +2037,6 @@ private fun TaskListPane(
             is TasksResults.Results -> TaskList(
                 tasks = results.tasks,
                 filter = state.filter,
-                headerFormatter = headerFormatter,
                 chipDataProvider = chipDataProvider,
                 listState = listState,
                 topPadding = topBarHeight,
@@ -2611,7 +2606,6 @@ private fun SortSheetHost(
 private fun TaskList(
     tasks: SectionedDataSource,
     filter: Filter,
-    headerFormatter: HeaderFormatter,
     chipDataProvider: ChipDataProvider,
     listState: LazyListState = rememberLazyListState(),
     topPadding: Dp = 0.dp,
@@ -2638,11 +2632,8 @@ private fun TaskList(
             if (tasks.isHeader(index)) {
                 val section = tasks.getSection(index)
                 SectionHeader(
-                    headerValue = section.value,
+                    header = if (filter.supportsSorting()) section.header else null,
                     collapsed = section.collapsed,
-                    groupMode = tasks.groupMode,
-                    headerFormatter = headerFormatter,
-                    dateFormatter = dateFormatter,
                     onToggle = { onToggleGroup(section.value) },
                 )
                 return@items
@@ -2666,17 +2657,12 @@ private fun TaskList(
 
 @Composable
 private fun SectionHeader(
-    headerValue: Long,
+    header: String?,
     collapsed: Boolean,
-    groupMode: Int,
-    headerFormatter: HeaderFormatter,
-    dateFormatter: DateFormatter?,
     onToggle: () -> Unit,
 ) {
-    val headerText by produceState("", headerValue, groupMode, dateFormatter) {
-        value = dateFormatter
-            ?.let { headerFormatter.headerString(headerValue, groupMode, it) }
-            ?: ""
+    if (header == null) {
+        return
     }
     val rotation by animateFloatAsState(
         targetValue = if (collapsed) -180f else 0f,
@@ -2690,7 +2676,7 @@ private fun SectionHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = headerText,
+            text = header,
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f),
