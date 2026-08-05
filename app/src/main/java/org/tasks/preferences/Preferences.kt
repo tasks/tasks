@@ -62,39 +62,11 @@ class Preferences @JvmOverloads constructor(
 
     fun backButtonSavesTask(): Boolean = getBoolean(R.string.p_back_button_saves_task, false)
 
-    override suspend fun isCurrentlyQuietHours(): Boolean {
-            if (quietHoursEnabled()) {
-                val dateTime = DateTime()
-                val start = dateTime.withMillisOfDay(quietHoursStart)
-                val end = dateTime.withMillisOfDay(quietHoursEnd)
-                return if (start.isAfter(end)) {
-                    dateTime.isBefore(end) || dateTime.isAfter(start)
-                } else {
-                    dateTime.isAfter(start) && dateTime.isBefore(end)
-                }
-            }
-            return false
-        }
+    override suspend fun isCurrentlyQuietHours(): Boolean =
+        notificationSettings().isCurrentlyQuietHours()
 
-    override suspend fun adjustForQuietHours(time: Long): Long {
-        if (quietHoursEnabled()) {
-            val dateTime = DateTime(time)
-            val start = dateTime.withMillisOfDay(quietHoursStart)
-            val end = dateTime.withMillisOfDay(quietHoursEnd)
-            if (start.isAfter(end)) {
-                if (dateTime.isBefore(end)) {
-                    return end.millis
-                } else if (dateTime.isAfter(start)) {
-                    return end.plusDays(1).millis
-                }
-            } else {
-                if (dateTime.isAfter(start) && dateTime.isBefore(end)) {
-                    return end.millis
-                }
-            }
-        }
-        return time
-    }
+    override suspend fun adjustForQuietHours(time: Long): Long =
+        notificationSettings().adjustForQuietHours(time)
 
     private fun quietHoursEnabled(): Boolean = getBoolean(R.string.p_rmd_enable_quiet, false)
 
