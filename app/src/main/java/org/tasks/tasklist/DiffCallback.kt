@@ -43,7 +43,10 @@ internal class DiffCallback(
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
         return try {
             if (new.isHeader(newPosition)) {
-                old.getSection(oldPosition).collapsed == new.getSection(newPosition).collapsed
+                val oldSection = old.getSection(oldPosition)
+                val newSection = new.getSection(newPosition)
+                oldSection.collapsed == newSection.collapsed
+                        && oldSection.header == newSection.header
             } else {
                 val oldItem = old.getItem(oldPosition)
                 val newItem = new.getItem(newPosition)
