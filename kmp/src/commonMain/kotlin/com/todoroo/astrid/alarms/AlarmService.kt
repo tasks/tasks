@@ -102,12 +102,13 @@ class AlarmService(
         val overdue = ArrayList<Notification>()
         val future = ArrayList<Notification>()
         val nextMinute = currentTimeMillis().startOfMinute() + 60_000
+        val defaultDueTime = preferences.defaultDueTime()
         alarmDao.getActiveAlarms()
             .groupBy { it.task }
             .forEach { (taskId, alarms) ->
                 val task = taskDao.fetch(taskId) ?: return@forEach
                 val alarmEntries = alarms.mapNotNull {
-                    alarmCalculator.toAlarmEntry(task, it)
+                    alarmCalculator.toAlarmEntry(task, it, defaultDueTime)
                 }
                 val (now, later) = alarmEntries.partition {
                     it.timestamp < nextMinute

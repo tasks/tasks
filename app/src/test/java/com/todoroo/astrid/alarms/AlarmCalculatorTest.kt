@@ -36,6 +36,7 @@ import java.util.concurrent.TimeUnit.DAYS
 import java.util.concurrent.TimeUnit.MINUTES
 
 class AlarmCalculatorTest {
+    private val defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt()
     private lateinit var random: RandomStub
     private lateinit var alarmCalculator: AlarmCalculator
     private val now = newDateTime()
@@ -43,10 +44,7 @@ class AlarmCalculatorTest {
     @Before
     fun setUp() {
         random = RandomStub()
-        alarmCalculator = AlarmCalculator(
-            random = random,
-            defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
-        )
+        alarmCalculator = AlarmCalculator(random = random)
     }
 
     @Test
@@ -54,7 +52,8 @@ class AlarmCalculatorTest {
         assertNull(
             alarmCalculator.toAlarmEntry(
                 newTask(with(REMINDER_LAST, now)),
-                Alarm(time = now.millis, type = TYPE_DATE_TIME)
+                Alarm(time = now.millis, type = TYPE_DATE_TIME),
+                defaultDueTime,
             )
         )
     }
@@ -63,7 +62,8 @@ class AlarmCalculatorTest {
     fun dateTimeReminder() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(REMINDER_LAST, now)),
-            Alarm(time = now.millis + 1, type = TYPE_DATE_TIME)
+            Alarm(time = now.millis + 1, type = TYPE_DATE_TIME),
+            defaultDueTime,
         )
 
         assertEquals(Notification(timestamp = now.millis + 1, type = TYPE_DATE_TIME), alarm)
@@ -73,7 +73,8 @@ class AlarmCalculatorTest {
     fun dontIgnoreOldSnooze() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(REMINDER_LAST, now)),
-            Alarm(time = now.millis, type = TYPE_SNOOZE)
+            Alarm(time = now.millis, type = TYPE_SNOOZE),
+            defaultDueTime,
         )
 
         assertEquals(Notification(timestamp = now.millis, type = TYPE_SNOOZE), alarm)
@@ -81,7 +82,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleReminderAtDefaultDue() {
-        val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_DATE, now)), whenDue(0L))
+        val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_DATE, now)), whenDue(0L), defaultDueTime)
 
         assertEquals(
             Notification(
@@ -94,7 +95,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun scheduleReminderAtDefaultDueTime() {
-        val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_TIME, now)), whenDue(0L))
+        val alarm = alarmCalculator.toAlarmEntry(newTask(with(DUE_TIME, now)), whenDue(0L), defaultDueTime)
 
         assertEquals(
             Notification(
@@ -109,7 +110,8 @@ class AlarmCalculatorTest {
     fun scheduleReminderAtDefaultStart() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_DATE, now), with(HIDE_TYPE, HIDE_UNTIL_DUE)),
-            whenStarted(0L)
+            whenStarted(0L),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -125,7 +127,8 @@ class AlarmCalculatorTest {
     fun scheduleReminerAtDefaultStartTime() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, now), with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME)),
-            whenStarted(0L)
+            whenStarted(0L),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -142,7 +145,8 @@ class AlarmCalculatorTest {
         freezeAt(DateTime(2023, 11, 3, 17, 13)) {
             val alarm = alarmCalculator.toAlarmEntry(
                 newTask(with(DUE_DATE, newDateTime())),
-                Alarm(time = DAYS.toMillis(1), type = TYPE_REL_END)
+                Alarm(time = DAYS.toMillis(1), type = TYPE_REL_END),
+                defaultDueTime,
             )
 
             assertEquals(
@@ -159,7 +163,8 @@ class AlarmCalculatorTest {
     fun scheduleRelativeAfterDueTime() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, now)),
-            Alarm(time = DAYS.toMillis(1), type = TYPE_REL_END)
+            Alarm(time = DAYS.toMillis(1), type = TYPE_REL_END),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -176,7 +181,8 @@ class AlarmCalculatorTest {
         freezeAt(DateTime(2023, 11, 3, 17, 13)) {
             val alarm = alarmCalculator.toAlarmEntry(
                 newTask(with(DUE_DATE, newDateTime()), with(HIDE_TYPE, HIDE_UNTIL_DUE)),
-                Alarm(time = DAYS.toMillis(1), type = TYPE_REL_START)
+                Alarm(time = DAYS.toMillis(1), type = TYPE_REL_START),
+                defaultDueTime,
             )
 
             assertEquals(
@@ -193,7 +199,8 @@ class AlarmCalculatorTest {
     fun scheduleRelativeAfterStartTime() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, now), with(HIDE_TYPE, HIDE_UNTIL_DUE_TIME)),
-            Alarm(time = DAYS.toMillis(1), type = TYPE_REL_START)
+            Alarm(time = DAYS.toMillis(1), type = TYPE_REL_START),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -209,7 +216,8 @@ class AlarmCalculatorTest {
     fun scheduleFirstRepeatReminder() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, now), with(REMINDER_LAST, now.plusMinutes(4))),
-            Alarm(type = TYPE_REL_END, repeat = 1, interval = MINUTES.toMillis(5))
+            Alarm(type = TYPE_REL_END, repeat = 1, interval = MINUTES.toMillis(5)),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -225,7 +233,8 @@ class AlarmCalculatorTest {
     fun scheduleSecondRepeatReminder() {
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, now), with(REMINDER_LAST, now.plusMinutes(6))),
-            Alarm(type = TYPE_REL_END, repeat = 2, interval = MINUTES.toMillis(5))
+            Alarm(type = TYPE_REL_END, repeat = 2, interval = MINUTES.toMillis(5)),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -243,7 +252,8 @@ class AlarmCalculatorTest {
             val now = newDateTime()
             val alarm = alarmCalculator.toAlarmEntry(
                 newTask(with(DUE_TIME, now), with(REMINDER_LAST, now.plusMinutes(10))),
-                Alarm(type = TYPE_REL_END, repeat = 2, interval = MINUTES.toMillis(5))
+                Alarm(type = TYPE_REL_END, repeat = 2, interval = MINUTES.toMillis(5)),
+                defaultDueTime,
             )
 
             assertNull(alarm)
@@ -252,7 +262,7 @@ class AlarmCalculatorTest {
 
     @Test
     fun dontScheduleRelativeEndWithNoEnd() {
-        assertNull(alarmCalculator.toAlarmEntry(newTask(), whenDue(0L)))
+        assertNull(alarmCalculator.toAlarmEntry(newTask(), whenDue(0L), defaultDueTime))
     }
 
     @Test
@@ -260,7 +270,8 @@ class AlarmCalculatorTest {
         assertNull(
             alarmCalculator.toAlarmEntry(
                 newTask(with(DUE_DATE, newDateTime())),
-                whenStarted(0L)
+                whenStarted(0L),
+                defaultDueTime,
             )
         )
     }
@@ -272,7 +283,8 @@ class AlarmCalculatorTest {
                 .toDateTime()
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, dueDate), with(REMINDER_LAST, dueDate.plusDays(6))),
-            whenOverdue(0L)
+            whenOverdue(0L),
+            defaultDueTime,
         )
 
         assertEquals(
@@ -288,7 +300,8 @@ class AlarmCalculatorTest {
                 .toDateTime()
         val alarm = alarmCalculator.toAlarmEntry(
             newTask(with(DUE_TIME, dueDate), with(REMINDER_LAST, dueDate.plusDays(7))),
-            whenOverdue(0L)
+            whenOverdue(0L),
+            defaultDueTime,
         )
 
         assertNull(alarm)
@@ -303,7 +316,8 @@ class AlarmCalculatorTest {
                     with(REMINDER_LAST, now.minusDays(14)),
                     with(CREATION_TIME, now.minusDays(30)),
                 ),
-                Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
+                Alarm(time = ONE_WEEK, type = TYPE_RANDOM),
+                defaultDueTime,
             )
 
             assertEquals(
@@ -327,7 +341,8 @@ class AlarmCalculatorTest {
             )
             val alarm = alarmCalculator.toAlarmEntry(
                 task,
-                Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
+                Alarm(time = ONE_WEEK, type = TYPE_RANDOM),
+                defaultDueTime,
             )
 
             assertEquals(Notification(timestamp = task.dueDate, type = TYPE_RANDOM), alarm)
@@ -344,7 +359,8 @@ class AlarmCalculatorTest {
                     with(REMINDER_LAST, null as DateTime?),
                     with(CREATION_TIME, now.minusDays(1)),
                 ),
-                Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
+                Alarm(time = ONE_WEEK, type = TYPE_RANDOM),
+                defaultDueTime,
             )
 
             assertEquals(
@@ -367,7 +383,8 @@ class AlarmCalculatorTest {
                     with(REMINDER_LAST, now.minusDays(1)),
                     with(CREATION_TIME, now.minusDays(30)),
                 ),
-                Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
+                Alarm(time = ONE_WEEK, type = TYPE_RANDOM),
+                defaultDueTime,
             )
 
             assertEquals(
@@ -382,17 +399,14 @@ class AlarmCalculatorTest {
 
     @Test
     fun randomReminderIsDeterministic() {
-        val calculator = AlarmCalculator(
-            random = Random(),
-            defaultDueTime = TimeUnit.HOURS.toMillis(13).toInt(),
-        )
+        val calculator = AlarmCalculator(random = Random())
 
         freezeAt(now) {
             val task = newTask(with(CREATION_TIME, now.minusDays(1)))
             val alarm = Alarm(time = ONE_WEEK, type = TYPE_RANDOM)
 
-            val first = calculator.toAlarmEntry(task, alarm)
-            val second = calculator.toAlarmEntry(task, alarm)
+            val first = calculator.toAlarmEntry(task, alarm, defaultDueTime)
+            val second = calculator.toAlarmEntry(task, alarm, defaultDueTime)
 
             assertEquals(first, second)
         }

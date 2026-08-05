@@ -8,9 +8,8 @@ import org.tasks.time.withMillisOfDay
 
 class AlarmCalculator(
     private val random: Random,
-    private val defaultDueTime: Int,
 ) {
-    fun toAlarmEntry(task: Task, alarm: Alarm): Notification? {
+    fun toAlarmEntry(task: Task, alarm: Alarm, defaultDueTime: Int): Notification? {
         val trigger = when (alarm.type) {
             Alarm.TYPE_SNOOZE,
             Alarm.TYPE_DATE_TIME ->

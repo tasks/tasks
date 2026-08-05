@@ -10,7 +10,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -329,7 +328,7 @@ val commonModule = module {
             tokenProvider = getOrNull(),
         )
     }
-    factory { AlarmCalculator(Random(), runBlocking { get<AppPreferences>().defaultDueTime() }) }
+    factory { AlarmCalculator(Random()) }
     factoryOf(::AlarmService)
     factory { RepeatTaskHelper(get(), get(), get()) }
     factory { TaskCompleter(get(), get(), get(), get(), get(), get(), get(), get(), get()) }

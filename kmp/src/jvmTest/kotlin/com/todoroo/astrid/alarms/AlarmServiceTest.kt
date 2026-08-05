@@ -34,7 +34,7 @@ class AlarmServiceTest : DatabaseTest() {
         dirtyDao = dirtyDao,
         refreshBroadcaster = mock(),
         notifier = notifier,
-        alarmCalculator = AlarmCalculator(Random(), defaultDueTime = 0),
+        alarmCalculator = AlarmCalculator(Random()),
         preferences = mock(),
     )
 

@@ -16,7 +16,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -451,8 +450,8 @@ class ApplicationModule {
         preferences
 
     @Provides
-    fun providesAlarmCalculator(preferences: AppPreferences): AlarmCalculator =
-        AlarmCalculator(Random(), runBlocking { preferences.defaultDueTime() })
+    fun providesAlarmCalculator(): AlarmCalculator =
+        AlarmCalculator(Random())
 
     @Provides
     fun providesAlarmService(
