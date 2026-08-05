@@ -192,7 +192,9 @@ bool protocol_send_get_tasks(const char *filter, int position, int limit,
 void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool completed);
 void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapsed);
 bool protocol_send_get_lists(int position, int limit);
-void protocol_send_toggle_list(const char *id, bool collapsed);
+// Returns false if the message could not be queued, in which case no
+// transaction id was allocated and no response will arrive
+bool protocol_send_toggle_list(const char *id, bool collapsed);
 void protocol_send_get_task(uint32_t id_high, uint32_t id_low);
 void protocol_send_save_task(const char *title, const char *filter);
 

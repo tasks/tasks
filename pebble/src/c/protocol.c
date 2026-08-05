@@ -102,10 +102,12 @@ bool protocol_send_get_lists(int position, int limit) {
     return true;
 }
 
-void protocol_send_toggle_list(const char *id, bool collapsed) {
+bool protocol_send_toggle_list(const char *id, bool collapsed) {
     DictionaryIterator *out;
     AppMessageResult result = app_message_outbox_begin(&out);
-    if (result != APP_MSG_OK) return;
+    // No transaction was allocated, so the caller must not record one — the
+    // active id still belongs to some earlier request
+    if (result != APP_MSG_OK) return false;
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_TOGGLE_LIST);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
@@ -116,6 +118,7 @@ void protocol_send_toggle_list(const char *id, bool collapsed) {
     dict_write_uint8(out, KEY_GROUP_COLLAPSED, collapsed ? 1 : 0);
 
     send_message();
+    return true;
 }
 
 void protocol_send_get_task(uint32_t id_high, uint32_t id_low) {

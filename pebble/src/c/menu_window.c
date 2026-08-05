@@ -17,7 +17,6 @@ static int s_num_lists = 0;
 static int s_total_lists = 0;
 static int s_window_start = 0;
 static bool s_loading = false;
-static bool s_first_load = true;
 
 // Page-up chunks accumulate here, then get prepended once the page is complete
 static ListItem *s_pending = NULL;
@@ -27,7 +26,14 @@ static int s_pending_count = 0;
 static FilterSelectedCallback s_callback = NULL;
 
 static int s_expected_chunks = 0;
+// Width of s_received_chunk_mask — a chunk index at or past this would shift
+// out of the mask entirely
+#define MAX_CHUNKS 32
 static uint32_t s_received_chunk_mask = 0;
+// Items parsed out of each chunk of the page in flight. A chunk that arrives
+// ahead of an earlier one must not advance s_num_lists over the slots that
+// earlier chunk will fill, or those rows draw whatever realloc handed back.
+static uint8_t s_chunk_counts[MAX_CHUNKS];
 static uint8_t s_request_txn = 0;
 static AppTimer *s_chunk_timer = NULL;
 static bool s_paging_up = false;
@@ -40,15 +46,29 @@ static int s_base = 0;
 // task_list_window.c for why re-entry here is destructive
 static bool s_updating_selection = false;
 
-// Absolute position of the header whose collapse we asked the phone to toggle
+// Absolute position of the header whose collapse we asked the phone to toggle,
+// and the transaction it belongs to. Only one toggle can be outstanding: the
+// position is what tells the response where to truncate, so a second tap would
+// overwrite it and the first response would then cut the window at the wrong row.
 static int s_toggle_position = -1;
+static uint8_t s_toggle_txn = 0;
+static AppTimer *s_toggle_timer = NULL;
 
 static void show_loading(bool show);
 // reset_view starts a fresh list from the top; otherwise the current base,
 // total and selection are left alone and the window is refilled in place
 static void request_lists_page(int position, int limit, bool reset_view);
 static void chunk_timeout_handler(void *data);
+static void toggle_timeout_handler(void *data);
 static void page_complete(void);
+
+static void clear_pending_toggle(void) {
+    s_toggle_position = -1;
+    if (s_toggle_timer) {
+        app_timer_cancel(s_toggle_timer);
+        s_toggle_timer = NULL;
+    }
+}
 
 // Absolute list position for a MenuLayer row
 static int row_to_list(int row) {
@@ -283,9 +303,17 @@ static void select_click(MenuLayer *menu_layer, MenuIndex *cell_index,
 
     if (item->type == UI_TYPE_HEADER) {
         // Collapse state lives on the phone so it can fold the section out of
-        // the paged results — the watch can't count children it hasn't loaded
-        s_toggle_position = row_to_list(cell_index->row);
-        protocol_send_toggle_list(item->filter_id, !item->collapsed);
+        // the paged results — the watch can't count children it hasn't loaded.
+        // Ignore the tap if a page or an earlier toggle is still outstanding,
+        // rather than clobbering the position that response is going to need.
+        if (s_loading || s_toggle_position >= 0) return;
+        int pos = row_to_list(cell_index->row);
+        if (!protocol_send_toggle_list(item->filter_id, !item->collapsed)) return;
+        s_toggle_position = pos;
+        s_toggle_txn = protocol_get_active_transaction_id();
+        // Without this a dropped response would leave the toggle pending forever
+        // and every later header tap would be ignored
+        s_toggle_timer = app_timer_register(5000, toggle_timeout_handler, NULL);
     } else if (item->type == UI_TYPE_TASK) {
         if (s_callback) {
             s_callback(item->filter_id[0] ? item->filter_id : NULL,
@@ -301,7 +329,6 @@ static void load_screenshot_lists(void) {
     s_num_lists = screenshot_populate_lists(s_lists, MAX_LISTS);
     s_total_lists = s_num_lists;
     s_window_start = 0;
-    s_first_load = false;
     show_loading(false);
     menu_layer_reload_data(s_menu_layer);
     menu_layer_set_selected_index(s_menu_layer,
@@ -342,7 +369,10 @@ static void window_load(Window *window) {
 
     free_lists();
     s_total_lists = 0;
-    s_first_load = true;
+    // A window closed mid-page-up leaves this set, which would route the initial
+    // page's chunks through the prepend path — see the same reset in
+    // task_list_window.c
+    s_paging_up = false;
 #ifdef SCREENSHOT_MODE
     load_screenshot_lists();
 #else
@@ -355,6 +385,7 @@ static void window_unload(Window *window) {
         app_timer_cancel(s_chunk_timer);
         s_chunk_timer = NULL;
     }
+    clear_pending_toggle();
     menu_layer_destroy(s_menu_layer);
     text_layer_destroy(s_loading_layer);
     free_lists();
@@ -377,6 +408,10 @@ static void request_lists_page(int position, int limit, bool reset_view) {
 
     s_expected_chunks = 0;
     s_received_chunk_mask = 0;
+    memset(s_chunk_counts, 0, sizeof(s_chunk_counts));
+    // Chunks overwrite from offset 0, so a count left over from a page that
+    // timed out part-way would prepend stale tail items on the next page up
+    s_pending_count = 0;
     s_page_position = position;
 
     if (s_chunk_timer) {
@@ -418,7 +453,6 @@ static void page_complete(void) {
     // placeholders — the selection does not move and needs no correction
     s_updating_selection = true;
     menu_layer_reload_data(s_menu_layer);
-    s_first_load = false;
     s_updating_selection = false;
 }
 
@@ -428,6 +462,18 @@ static void chunk_timeout_handler(void *data) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "List chunk timeout, showing %d filters",
                 s_num_lists);
         page_complete();
+    }
+}
+
+// The phone never answered. Drop the pending toggle so header taps work again —
+// the collapse state stays whatever the phone decided, and the next page request
+// picks it up.
+static void toggle_timeout_handler(void *data) {
+    s_toggle_timer = NULL;
+    if (s_toggle_position >= 0) {
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Toggle response timeout at %d",
+                s_toggle_position);
+        s_toggle_position = -1;
     }
 }
 
@@ -459,10 +505,15 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
     Tuple *chunk_index_t = dict_find(iter, KEY_CHUNK_INDEX);
     int chunk_index = chunk_index_t ? (int)chunk_index_t->value->uint32 : 0;
 
-    if (s_received_chunk_mask & (1 << chunk_index)) {
+    if (chunk_index < 0 || chunk_index >= MAX_CHUNKS) {
+        APP_LOG(APP_LOG_LEVEL_WARNING, "Ignoring chunk index %d", chunk_index);
         return;
     }
-    s_received_chunk_mask |= (1 << chunk_index);
+
+    if (s_received_chunk_mask & ((uint32_t)1 << chunk_index)) {
+        return;
+    }
+    s_received_chunk_mask |= (uint32_t)1 << chunk_index;
 
     Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
     if (total_t) {
@@ -485,8 +536,9 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
         }
     } else {
         // Append: items land after the current window
-        int abs_offset = (s_page_position - s_window_start) + chunk_offset;
-        if (abs_offset < 0) abs_offset = 0;
+        int base_offset = s_page_position - s_window_start;
+        if (base_offset < 0) base_offset = 0;
+        int abs_offset = base_offset + chunk_offset;
 
         int needed = abs_offset + CHUNK_SIZE;
         if (!ensure_capacity_for(&s_lists, &s_lists_capacity, needed)) {
@@ -496,9 +548,22 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
 
         int space = s_lists_capacity - abs_offset;
         int parsed = protocol_parse_list_items(iter, &s_lists[abs_offset], space);
-        int end = abs_offset + parsed;
-        if (end > s_num_lists) {
-            s_num_lists = end;
+        s_chunk_counts[chunk_index] = (uint8_t)parsed;
+
+        // Extend only over the leading run of chunks that have actually landed.
+        // Rows past it stay outside the window and draw as placeholders until
+        // the missing chunk fills them in.
+        int contiguous = 0;
+        while (contiguous < s_expected_chunks &&
+               (s_received_chunk_mask & ((uint32_t)1 << contiguous))) {
+            contiguous++;
+        }
+        if (contiguous > 0) {
+            int end = base_offset + (contiguous - 1) * CHUNK_SIZE +
+                      s_chunk_counts[contiguous - 1];
+            if (end > s_num_lists) {
+                s_num_lists = end;
+            }
         }
 
         trim_window(true);
@@ -530,23 +595,28 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
 void menu_window_handle_toggle_response(DictionaryIterator *iter) {
     if (!s_window) return;
 
+    // A stale or duplicated response carries an old transaction — acting on it
+    // would truncate the window using a position that no longer applies
+    Tuple *txn_t = dict_find(iter, KEY_TRANSACTION_ID);
+    if (txn_t && (uint8_t)txn_t->value->uint32 != s_toggle_txn) {
+        return;
+    }
+
+    // select_click only ever stores a position >= 0, so a negative one means the
+    // toggle already timed out and there is nothing left to reconcile. Falling
+    // through would throw the user back to the top of the list, and would clear
+    // s_loading out from under whatever page request is now in flight. The
+    // phone's collapse state arrives with the next page either way.
+    if (s_toggle_position < 0) {
+        return;
+    }
+
     int pos = s_toggle_position;
-    s_toggle_position = -1;
+    clear_pending_toggle();
 
     free_pending();
     s_paging_up = false;
     s_loading = false;
-
-    if (pos < 0) {
-        // Don't know which header moved — start over
-        free_lists();
-        s_total_lists = 0;
-        s_first_load = true;
-        s_base = 0;
-        menu_layer_reload_data(s_menu_layer);
-        request_lists_page(0, INITIAL_PAGE_SIZE, true);
-        return;
-    }
 
     // Folding a section only moves the positions below its header — the header
     // itself and everything above it stay exactly where they were. Keep that
