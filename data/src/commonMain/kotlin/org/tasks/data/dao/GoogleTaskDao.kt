@@ -102,6 +102,7 @@ abstract class GoogleTaskDao(private val database: Database) {
         WHERE cd_remote_id = :remoteId
           AND cdl_account = :account
           AND cd_deleted = 0
+        ORDER BY cd_id
         LIMIT 1
     """)
     abstract suspend fun getByRemoteIdInAccount(remoteId: String, account: String): CaldavTask?
