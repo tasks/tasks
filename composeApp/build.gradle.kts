@@ -2,9 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-version = libs.versions.versionName.get().let {
-    if (it.count { c -> c == '.' } < 2) "$it.0" else it
-}
+version = libs.versions.versionName.get()
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
