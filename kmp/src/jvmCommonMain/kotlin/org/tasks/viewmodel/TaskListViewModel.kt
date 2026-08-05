@@ -2,6 +2,8 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -179,8 +181,17 @@ open class TaskListViewModel(
                 )
                 if (queriedState.filter.supportsSorting()) {
                     val dateFormatter = DateFormatter.create(is24HourFormat = false)
-                    dataSource.formatHeaders {
-                        headerFormatter.headerString(it, prefs.groupMode, dateFormatter)
+                    dataSource.formatHeaders { value ->
+                        try {
+                            headerFormatter.headerString(value, prefs.groupMode, dateFormatter)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            log.e(e) {
+                                "Failed to format header $value (groupMode=${prefs.groupMode})"
+                            }
+                            null
+                        }
                     }
                 }
                 _state.update {
@@ -196,5 +207,9 @@ open class TaskListViewModel(
             }
             .flowOn(Dispatchers.Default)
             .launchIn(viewModelScope)
+    }
+
+    companion object {
+        private val log = Logger.withTag("TaskListViewModel")
     }
 }
