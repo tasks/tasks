@@ -1,0 +1,9 @@
+* Google Tasks sync performance improvements
+* Add default reminders to incoming Google Tasks
+* Detect moves from native Google Task apps
+* Prevent stuck dirty tasks from causing a sync loop
+* Task list scrolling performance improvements
+* Logging performance improvements - @toxicphreAK
+* OpenTask query hardening - @toxicphreAK
+* Collapsed grouping fix for Pebble watches
+* Update translations

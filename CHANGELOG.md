@@ -1,3 +1,20 @@
+### 15.9.1 (2026-08-05)
+
+* Google Tasks sync performance improvements
+* Add default reminders to incoming Google Tasks
+* Detect moves from native Google Task apps
+* Prevent stuck dirty tasks from causing a sync loop
+* Task list scrolling performance improvements
+* Logging performance improvements - @toxicphreAK
+
+Android:
+  * OpenTask query hardening - @toxicphreAK [#4539](https://github.com/tasks/tasks/pull/4539)
+  * Collapsed grouping fix for Pebble watches
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Estonian - Priit Jõerüüt
+
 ### 15.9 (2026-08-05)
 
 * Fix modified and created timestamp sync
