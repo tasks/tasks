@@ -63,6 +63,9 @@ class NotificationManager @Inject constructor(
 
     private val colorProvider = ColorProvider(context)
 
+    @Volatile
+    private var cachedLocaleContext: Pair<Locale, Context>? = null
+
     private val localeContext: Context
         get() {
             if (atLeastTiramisu()) {
@@ -73,9 +76,12 @@ class NotificationManager @Inject constructor(
             if (ConfigurationCompat.getLocales(configuration)[0] == locale) {
                 return context
             }
-            return context.createConfigurationContext(
-                Configuration(configuration).apply { setLocale(locale) }
-            )
+            cachedLocaleContext?.takeIf { it.first == locale }?.let { return it.second }
+            return context
+                .createConfigurationContext(
+                    Configuration(configuration).apply { setLocale(locale) }
+                )
+                .also { cachedLocaleContext = locale to it }
         }
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
