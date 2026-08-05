@@ -155,16 +155,15 @@ class GoogleTaskSynchronizer(
             val listId = list.uuid!!
             val remoteEtag = remoteEtags[listId]
             val pushed = listId in pushedTo
-            val unchanged = remoteEtag != null && list.ctag == remoteEtag && !pushed
+            val positionsUnchanged = remoteEtag != null && list.ctag == remoteEtag && !pushed
             Logger.d(TAG) {
                 "$listId: ctag=${list.ctag} etag=$remoteEtag pushed=$pushed" +
-                        " -> ${if (unchanged) "skip" else "fetch"}"
-            }
-            if (unchanged) {
-                continue
+                        " -> ${if (positionsUnchanged) "skip positions" else "fetch positions"}"
             }
             val lastSync = fetchAndApplyRemoteChanges(gtasksInvoker, list) ?: continue
-            gtasksInvoker.updatePositions(listId)
+            if (!positionsUnchanged) {
+                gtasksInvoker.updatePositions(listId)
+            }
             caldavDao.insertOrReplace(list.copy(lastSync = lastSync, ctag = remoteEtag))
         }
         account.error = ""
