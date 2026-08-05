@@ -1,4 +1,4 @@
-### 15.9 (2026-07-31)
+### 15.9 (2026-08-05)
 
 * Fix modified and created timestamp sync
 * Fix language override not being applied
@@ -16,7 +16,8 @@ Desktop:
   * Fix tag picker automatically selecting tags
 
 Android:
-  * Show 'Snoozed reminder' in notification body
+  * Disable swipe-to-snooze for location reminders
+  * Pagination improvements for Pebble watches
   * 'Show checkboxes' widget option refreshes immediately [#4494](https://github.com/tasks/tasks/issues/4494)
 
 Update translations:
