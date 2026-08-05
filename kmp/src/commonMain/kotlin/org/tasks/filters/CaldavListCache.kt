@@ -13,7 +13,7 @@ import org.tasks.compose.throttleLatest
 import org.tasks.data.dao.CaldavDao
 
 class CaldavListCache(
-    caldavDao: CaldavDao,
+    private val caldavDao: CaldavDao,
 ) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -32,7 +32,9 @@ class CaldavListCache(
 
     fun getByUuid(uuid: String?): CaldavFilter? = byUuid[uuid]
 
-    fun getById(id: Long): CaldavFilter? = byId[id]
+    suspend fun getListTitle(id: Long): String? =
+        byId[id]?.title?.takeIf { it.isNotBlank() }
+            ?: caldavDao.getCalendarById(id)?.name?.takeIf { it.isNotBlank() }
 
     init {
         combine(caldavDao.watchAccounts(), caldavDao.subscribeToCalendars()) { accounts, calendars ->

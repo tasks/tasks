@@ -3,8 +3,8 @@ package org.tasks.tasklist
 import com.todoroo.astrid.core.SortHelper
 import org.jetbrains.compose.resources.getString
 import org.tasks.filters.CaldavListCache
-import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.kmp.org.tasks.time.DateStyle
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.completed
 import tasks.kmp.generated.resources.filter_high_priority
@@ -37,7 +37,7 @@ class HeaderFormatter(
             groupMode == SortHelper.SORT_IMPORTANCE ->
                 getString(priorityToString(value))
             groupMode == SortHelper.SORT_LIST ->
-                caldavLists.getById(value)?.title?.takeIf { it.isNotBlank() } ?: "list: $value"
+                caldavLists.getListTitle(value) ?: "list: $value"
             value == SectionedDataSource.HEADER_OVERDUE ->
                 getString(Res.string.filter_overdue)
             value == 0L -> getString(
