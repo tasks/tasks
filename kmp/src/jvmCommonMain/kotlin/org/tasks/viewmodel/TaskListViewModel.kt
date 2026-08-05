@@ -153,41 +153,40 @@ open class TaskListViewModel(
             .map { it.copy(tasks = TasksResults.Loading) }
             .distinctUntilChanged()
             .throttleLatest(333)
-            .map {
+            .map { queriedState ->
                 val filter = when {
-                    it.searchQuery == null -> it.filter
-                    it.searchQuery.isBlank() -> MyTasksFilter(title = "My Tasks")
-                    else -> createSearchFilter(it.searchQuery)
+                    queriedState.searchQuery == null -> queriedState.filter
+                    queriedState.searchQuery.isBlank() -> MyTasksFilter(title = "My Tasks")
+                    else -> createSearchFilter(queriedState.searchQuery)
                 }
                 val prefs = if (isPerListSortEnabled) {
                     FilterPreferences(queryPreferences, tasksPreferences, filter.key())
                 } else {
                     queryPreferences
                 }
-                Pair(taskDao.fetchTasks(getQuery(prefs, filter)), prefs)
+                Triple(taskDao.fetchTasks(getQuery(prefs, filter)), prefs, queriedState)
             }
-            .onEach { (tasks, prefs) ->
-                val current = _state.value
+            .onEach { (tasks, prefs, queriedState) ->
                 val dataSource = SectionedDataSource(
                     tasks = tasks,
-                    disableHeaders = current.filter.disableHeaders()
-                            || (current.filter.supportsManualSort() && prefs.isManualSort)
-                            || (current.filter is AstridOrderingFilter && prefs.isAstridSort),
+                    disableHeaders = queriedState.filter.disableHeaders()
+                            || (queriedState.filter.supportsManualSort() && prefs.isManualSort)
+                            || (queriedState.filter is AstridOrderingFilter && prefs.isAstridSort),
                     groupMode = prefs.groupMode,
                     subtaskMode = prefs.subtaskMode,
-                    collapsed = current.collapsed,
+                    collapsed = queriedState.collapsed,
                     completedAtBottom = prefs.completedTasksAtBottom,
                 )
-                if (current.filter.supportsSorting()) {
+                if (queriedState.filter.supportsSorting()) {
                     val dateFormatter = DateFormatter.create(is24HourFormat = false)
                     dataSource.formatHeaders {
                         headerFormatter.headerString(it, prefs.groupMode, dateFormatter)
                     }
                 }
                 _state.update {
-                    if (it.filter == current.filter &&
-                        it.searchQuery == current.searchQuery &&
-                        it.collapsed == current.collapsed
+                    if (it.filter == queriedState.filter &&
+                        it.searchQuery == queriedState.searchQuery &&
+                        it.collapsed == queriedState.collapsed
                     ) {
                         it.copy(tasks = TasksResults.Results(dataSource))
                     } else {
