@@ -7,9 +7,7 @@
     <string name="TLA_menu_settings">सेटिङहरू</string>
     <string name="DLG_undo">पूर्ववत गर्नुहोस्</string>
     <string name="start_date">सुरु मिति</string>
-    <string name="EPr_default_importance_title">पूर्वनिर्धारित प्राथमिकता</string>
     <string name="voice_command_added_task">कार्य थपियो</string>
-    <string name="default_location">पूर्वनिर्धारित स्थान</string>
     <string name="TEA_control_importance">प्राथमिकता</string>
     <string name="translations">अनुवादहरू योगदान गर्नुहोस्</string>
     <string name="CFA_button_add">मापदण्ड थप्नुहोस्</string>
@@ -17,7 +15,6 @@
     <string name="day_before_due">मितिभन्दा अघिल्लो दिन</string>
     <string name="display_name">डिस्प्ले नाम</string>
     <string name="TEA_estimatedDuration_label">कति समय लाग्नेछ?</string>
-    <string name="default_random_reminder_bi_weekly">दुई-साप्ताहिक</string>
     <string name="subtasks">उपकार्यहरू</string>
     <string name="action_open">खुल्ला</string>
     <string name="TEA_title_hint">कार्यको नाम</string>
@@ -32,17 +29,13 @@
     <string name="TEA_control_notes">विवरण</string>
     <string name="TEA_creation_date">सिर्जना मिति</string>
     <string name="always_display_full_date">पूरा मिति देखाउनुहोस्</string>
-    <string name="default_start_date">पूर्वनिर्धारित सुरु मिति</string>
-    <string name="EPr_default_reminders_mode_title">पूर्वनिर्धारित घण्टी/कम्पन प्रकार</string>
     <string name="day_after_tomorrow">पर्सिपल्ट</string>
     <string name="next_week">अर्को हप्ता</string>
-    <string name="default_location_reminder_on_arrival">आगमनमा</string>
     <string name="no_start_date">सुरु मिति छैन</string>
     <string name="filter_any_start_date">कुनै पनि सुरु मिति</string>
     <string name="next_month">अर्को महिना</string>
     <string name="ring_nonstop">निरन्तर घण्टी बजाउनुहोस्</string>
     <string name="rmd_NoA_done">पूरा</string>
-    <string name="default_random_reminder_weekly">साप्ताहिक</string>
     <string name="now">अहिले</string>
     <string name="today">आज</string>
     <string name="tomorrow">भोलि</string>

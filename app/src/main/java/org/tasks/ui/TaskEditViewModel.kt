@@ -190,9 +190,6 @@ class TaskEditViewModel @Inject constructor(
                             else -> add(alarm)
                         }
                     }
-                    if (task.randomReminder > 0) {
-                        add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
-                    }
                 }
             } else {
                 emptyList()

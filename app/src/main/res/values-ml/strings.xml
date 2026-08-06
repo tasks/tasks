@@ -7,7 +7,6 @@
     <string name="EPr_delete_task_data_warning">എല്ലാ ടാസ്കുകളും ശാശ്വതമായി ഇല്ലാതാക്കപ്പെടും</string>
     <string name="day_after_tomorrow">മറ്റന്നാൾ</string>
     <string name="next_week">അടുത്ത ആഴ്ച</string>
-    <string name="no_reminders">ഓർമ്മപ്പെടുത്തലുകളൊന്നുമില്ല</string>
     <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ\?</string>
     <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
     <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ\?</string>
@@ -71,8 +70,6 @@
     <string name="due_time">തികയുന്ന സമയം</string>
     <string name="TEA_control_importance">മുൻഗണന</string>
     <string name="EPr_cal_start_at_due_time">കലണ്ടർ ഇൻവന്റുകൾ സമയം തികയുമ്പോൾ തുടങ്ങുക</string>
-    <string name="EPr_default_importance_title">ഡിഫോൾട്ട് മുൻഗണന</string>
-    <string name="default_start_date">ഡിഫോൾട്ട് ആരംഭ തീയതി</string>
     <string name="today">ഇന്ന്</string>
     <string name="TEA_creation_date">സൃഷ്ടിച്ച തീയതി</string>
     <string name="customize_drawer_summary">മെനു ഇനങ്ങൾ പുനഃക്രമീകരിക്കാൻ വലിച്ചിടുക</string>
@@ -86,7 +83,6 @@
     <string name="EPr_manage_delete_gcal_status">%d കലണ്ടർ ഇവന്റുകൾ ഇല്ലാതാക്കി!</string>
     <string name="EPr_manage_delete_all_gcal">ടാസ്‌ക്കുകൾക്കുള്ള എല്ലാ കലണ്ടർ ഇവന്റുകളും ഇല്ലാതാക്കുക</string>
     <string name="EPr_manage_delete_all_gcal_message">ടാസ്‌ക്കുകൾക്കുള്ള എല്ലാ ഇവന്റുകളും ഇല്ലാതാക്കണോ?</string>
-    <string name="default_list">സ്വമേധയാ ഉള്ള പട്ടിക</string>
     <string name="sort_list">ലിസ്റ്റ് പ്രകാരം</string>
     <string name="FLA_search_filter">യോജിക്കുന്നു \'%s\'</string>
     <string name="TEA_timer_est">ഏകദേശം %s</string>

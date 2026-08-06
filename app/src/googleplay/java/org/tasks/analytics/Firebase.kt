@@ -103,7 +103,6 @@ class Firebase @Inject constructor(
         R.string.p_default_recurrence,
         R.string.p_default_recurrence_from,
         R.string.p_default_reminders_key,
-        R.string.p_rmd_default_random_hours,
         R.string.p_default_reminders_mode_key,
         R.string.p_default_location,
         R.string.p_default_location_reminder_key,

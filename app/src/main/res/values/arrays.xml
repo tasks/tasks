@@ -1,28 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="EPr_default_hideUntil">
-    <item>@string/no_start_date</item>
-    <item>@string/due_date</item>
-    <item>@string/due_time</item>
-    <item>@string/day_before_due</item>
-    <item>@string/week_before_due</item>
-  </string-array>
-
   <string-array name="widget_themes">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>
     <item>@string/theme_dark</item>
     <item>@string/theme_system_default</item>
     <item>@string/theme_dynamic</item>
-  </string-array>
-
-  <string-array name="EPr_default_urgency">
-    <item>@string/no_due_date</item>
-    <item>@string/today</item>
-    <item>@string/tomorrow</item>
-    <item>@string/day_after_tomorrow</item>
-    <item>@string/next_week</item>
   </string-array>
 
   <string-array name="CFC_dueBefore_entries">
@@ -45,54 +29,6 @@
     <item>@string/next_week</item>
     <item>@string/next_month</item>
     <item>@string/now</item>
-  </string-array>
-
-  <string-array name="EPr_reminder_random">
-    <item>@string/default_random_reminder_disabled</item>
-    <item>@string/default_random_reminder_hourly</item>
-    <item>@string/default_random_reminder_daily</item>
-    <item>@string/default_random_reminder_weekly</item>
-    <item>@string/default_random_reminder_bi_weekly</item>
-  </string-array>
-
-  <string-array name="repeat_type_capitalized">
-    <item>@string/due_date</item>
-    <item>@string/repeat_type_completion_capitalized</item>
-  </string-array>
-
-  <string-array name="repeat_type_values">
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
-  <string-array name="EPr_default_location_reminder">
-    <item>@string/no_reminders</item>
-    <item>@string/default_location_reminder_on_arrival</item>
-    <item>@string/default_location_reminder_on_departure</item>
-    <item>@string/default_location_reminder_on_arrival_or_departure</item>
-  </string-array>
-
-  <string-array name="EPR_default_location_reminder_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
-
-  <string-array name="location_update_interval_entries">
-    <item>@string/location_update_interval_disabled</item>
-    <item>@string/location_update_interval_15_minutes</item>
-    <item>@string/location_update_interval_30_minutes</item>
-    <item>@string/location_update_interval_1_hour</item>
-    <item>@string/location_update_interval_2_hours</item>
-  </string-array>
-
-  <string-array name="location_update_interval_values">
-    <item>0</item>
-    <item>15</item>
-    <item>30</item>
-    <item>60</item>
-    <item>120</item>
   </string-array>
 
   <string-array name="chip_appearance">

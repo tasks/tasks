@@ -60,4 +60,5 @@
     <string name="list_separator_with_space">, </string>
     <string name="TEA_control_repeat">Dubare bike</string>
     <string name="swipe_to_snooze_time_immediately">Zû</string>
+    <string name="TEA_control_location">Cih</string>
 </resources>

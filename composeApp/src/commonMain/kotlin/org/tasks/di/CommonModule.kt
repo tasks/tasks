@@ -42,7 +42,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
-import org.tasks.data.getLocalList
+import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterProvider
@@ -57,14 +57,18 @@ import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.NotificationSettings
 import org.tasks.preferences.PreferencesSnapshot
 import org.tasks.preferences.QueryPreferences
+import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.adjustForQuietHours
 import org.tasks.preferences.isCurrentlyQuietHours
+import org.tasks.preferences.toAlarmJson
+import org.tasks.preferences.toAlarms
 import org.tasks.reminders.Random
 import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.repeats.CustomRecurrenceViewModel
@@ -96,6 +100,7 @@ import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
+import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.TaskEditDestination
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.TaskEditViewModel
@@ -173,16 +178,108 @@ val commonModule = module {
                     TasksPreferences.defaultRemindersEnabled,
                     notificationDefaults.defaultRemindersEnabled
                 )
-            override suspend fun defaultLocationReminder() = 0
-            override suspend fun defaultAlarms() = emptyList<Alarm>()
-            override suspend fun defaultRandomHours() = 0
-            override suspend fun defaultRingMode() = 0
+            override suspend fun defaultLocationReminder() =
+                tasksPreferences.get(
+                    TasksPreferences.defaultLocationReminder,
+                    taskSettingDefaults.defaultLocationReminder
+                )
+            override suspend fun defaultAlarms() =
+                tasksPreferences.get(TasksPreferences.defaultAlarms, DEFAULT_ALARMS_JSON).toAlarms()
+            override suspend fun defaultRingMode() =
+                tasksPreferences.get(TasksPreferences.defaultRingMode, taskSettingDefaults.defaultRingMode)
             override suspend fun defaultDueTime() =
                 tasksPreferences.get(
                     TasksPreferences.defaultReminderTime,
                     notificationDefaults.defaultReminderTime
                 )
-            override suspend fun defaultPriority() = 0
+            override suspend fun defaultPriority() =
+                tasksPreferences.get(
+                    TasksPreferences.defaultPriority,
+                    taskSettingDefaults.defaultPriority
+                )
+            override suspend fun locationUpdateIntervalMinutes() =
+                tasksPreferences.get(
+                    TasksPreferences.locationUpdateInterval,
+                    taskSettingDefaults.locationUpdateIntervalMinutes
+                )
+            override suspend fun addTasksToTop() =
+                tasksPreferences.get(TasksPreferences.addTasksToTop, taskSettingDefaults.addTasksToTop)
+            override suspend fun taskDefaults(): TaskDefaultSettings {
+                val prefs = tasksPreferences.snapshot()
+                return TaskDefaultSettings(
+                    addTasksToTop = prefs.get(
+                        TasksPreferences.addTasksToTop,
+                        taskSettingDefaults.addTasksToTop
+                    ),
+                    defaultList = prefs.get(TasksPreferences.defaultList, "").orNull(),
+                    defaultTags = prefs
+                        .get(TasksPreferences.defaultTags, "")
+                        .split(",")
+                        .filter { it.isNotBlank() },
+                    defaultPriority = prefs.get(
+                        TasksPreferences.defaultPriority,
+                        taskSettingDefaults.defaultPriority
+                    ),
+                    defaultHideUntil = prefs.get(
+                        TasksPreferences.defaultHideUntil,
+                        taskSettingDefaults.defaultHideUntil
+                    ),
+                    defaultDueDate = prefs.get(
+                        TasksPreferences.defaultDueDate,
+                        taskSettingDefaults.defaultDueDate
+                    ),
+                    defaultCalendar = prefs.get(TasksPreferences.defaultCalendar, "").orNull(),
+                    defaultRecurrence = prefs.get(TasksPreferences.defaultRecurrence, "").orNull(),
+                    defaultRecurrenceFrom = prefs.get(
+                        TasksPreferences.defaultRecurrenceFrom,
+                        taskSettingDefaults.defaultRecurrenceFrom
+                    ),
+                    defaultAlarms = prefs
+                        .get(TasksPreferences.defaultAlarms, DEFAULT_ALARMS_JSON)
+                        .toAlarms(),
+                    defaultRingMode = prefs.get(
+                        TasksPreferences.defaultRingMode,
+                        taskSettingDefaults.defaultRingMode
+                    ),
+                    defaultLocation = prefs.get(TasksPreferences.defaultLocation, "").orNull(),
+                    defaultLocationReminder = prefs.get(
+                        TasksPreferences.defaultLocationReminder,
+                        taskSettingDefaults.defaultLocationReminder
+                    ),
+                    locationUpdateIntervalMinutes = prefs.get(
+                        TasksPreferences.locationUpdateInterval,
+                        taskSettingDefaults.locationUpdateIntervalMinutes
+                    ),
+                )
+            }
+            override suspend fun setAddTasksToTop(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.addTasksToTop, value)
+            override suspend fun setDefaultList(value: String?) =
+                tasksPreferences.set(TasksPreferences.defaultList, value.orEmpty())
+            override suspend fun setDefaultTags(value: List<String>) =
+                tasksPreferences.set(TasksPreferences.defaultTags, value.joinToString(","))
+            override suspend fun setDefaultPriority(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultPriority, value)
+            override suspend fun setDefaultHideUntil(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultHideUntil, value)
+            override suspend fun setDefaultDueDate(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultDueDate, value)
+            override suspend fun setDefaultCalendar(value: String?) =
+                tasksPreferences.set(TasksPreferences.defaultCalendar, value.orEmpty())
+            override suspend fun setDefaultRecurrence(value: String?) =
+                tasksPreferences.set(TasksPreferences.defaultRecurrence, value.orEmpty())
+            override suspend fun setDefaultRecurrenceFrom(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultRecurrenceFrom, value)
+            override suspend fun setDefaultAlarms(value: List<Alarm>) =
+                tasksPreferences.set(TasksPreferences.defaultAlarms, value.toAlarmJson())
+            override suspend fun setDefaultRingMode(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultRingMode, value)
+            override suspend fun setDefaultLocation(value: String?) =
+                tasksPreferences.set(TasksPreferences.defaultLocation, value.orEmpty())
+            override suspend fun setDefaultLocationReminder(value: Int) =
+                tasksPreferences.set(TasksPreferences.defaultLocationReminder, value)
+            override suspend fun setLocationUpdateIntervalMinutes(value: Int) =
+                tasksPreferences.set(TasksPreferences.locationUpdateInterval, value)
             override suspend fun isCurrentlyQuietHours() =
                 tasksPreferences.snapshot().notificationSettings().isCurrentlyQuietHours()
             override suspend fun adjustForQuietHours(time: Long) =
@@ -371,27 +468,16 @@ val commonModule = module {
     }
     factory<DefaultListProvider> {
         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+        val tasksPreferences = get<TasksPreferences>()
         object : DefaultListProvider {
-            override suspend fun getDefaultList(): org.tasks.filters.CaldavFilter {
-                val calendar = caldavDao.getCalendars()
-                    .filterNot { it.readOnly() }
-                    .firstOrNull()
-                    ?.let { list ->
-                        list.account
-                            ?.let { caldavDao.getAccountByUuid(it) }
-                            ?.let { account ->
-                                org.tasks.filters.CaldavFilter(calendar = list, account = account)
-                            }
-                    }
-                if (calendar != null) return calendar
-                val localList = caldavDao.getLocalList()
-                val localAccount = caldavDao.getAccountByUuid(localList.account!!)!!
-                return org.tasks.filters.CaldavFilter(
-                    calendar = localList,
-                    account = localAccount,
+            override suspend fun getDefaultList(): org.tasks.filters.CaldavFilter =
+                caldavDao.getOrCreateDefaultListFilter(
+                    tasksPreferences.get(TasksPreferences.defaultList, "").orNull()
                 )
+
+            override suspend fun clearDefaultList() {
+                tasksPreferences.set(TasksPreferences.defaultList, "")
             }
-            override suspend fun clearDefaultList() {}
         }
     }
     factory { FilterProvider(get(), get(), get(), get(), get(), get(), get(), get()) }
@@ -501,6 +587,17 @@ val commonModule = module {
             appPreferences = get(),
             platformConfiguration = get(),
             persistenceScope = get(),
+        )
+    }
+    viewModel {
+        TaskDefaultsViewModel(
+            appPreferences = get(),
+            platformConfiguration = get(),
+            persistenceScope = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            locationDao = get(),
+            repeatRuleToString = get(),
         )
     }
     viewModel {
@@ -653,6 +750,8 @@ val commonModule = module {
 
 private val notificationDefaults = NotificationSettings()
 
+private val taskSettingDefaults = TaskDefaultSettings()
+
 private fun PreferencesSnapshot.notificationSettings() = NotificationSettings(
     persistentNotifications = get(
         TasksPreferences.persistentNotifications,
@@ -690,5 +789,7 @@ private fun PreferencesSnapshot.notificationSettings() = NotificationSettings(
     quietHoursStart = get(TasksPreferences.quietHoursStart, notificationDefaults.quietHoursStart),
     quietHoursEnd = get(TasksPreferences.quietHoursEnd, notificationDefaults.quietHoursEnd),
 )
+
+private fun String.orNull(): String? = takeIf { it.isNotBlank() }
 
 expect fun platformModule(): Module

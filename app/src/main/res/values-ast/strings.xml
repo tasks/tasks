@@ -82,19 +82,8 @@
     <string name="EPr_manage_delete_gcal_status">¡Desaniciaronse %d xeres del calendariu!</string>
     <string name="EPr_manage_delete_all_gcal">Desaniciar tolos eventos de calendariu de les xeres</string>
     <string name="EPr_manage_delete_all_gcal_message">¿De xuru que quies desaniciar tolos tos eventos pa les xeres?</string>
-    <string name="EPr_default_importance_title">Prioridá predeterminada</string>
-    <string name="default_start_date">Data d\'entamu predeterminada</string>
-    <string name="default_due_date">Data de vencimientu predeterminada</string>
-    <string name="EPr_default_reminders_title">Recordatorios predeterminados</string>
-    <string name="EPr_default_location_reminder_title">Recordatorios d\'allugamientu predeterminaos</string>
-    <string name="EPr_default_reminders_mode_title">Tipu predetermináu de timbre/vibración</string>
-    <string name="default_location">Allugamientu predetermináu</string>
     <string name="day_after_tomorrow">Pasáu mañana</string>
     <string name="next_week">La selmana que vien</string>
-    <string name="no_reminders">Ensin recordatorios</string>
-    <string name="default_location_reminder_on_arrival">En llegando</string>
-    <string name="default_location_reminder_on_departure">En marchando</string>
-    <string name="default_location_reminder_on_arrival_or_departure">En llegando y en marchando</string>
     <string name="BFE_Active">Les mios xeres</string>
     <string name="BFE_Recent">Modificaes apocayá</string>
     <string name="CFA_button_add">Amestar criteriu</string>
@@ -130,12 +119,6 @@
     <string name="rmd_NoA_done">Acabada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
     <string name="snooze_all">Posponer too</string>
-    <string name="rmd_EPr_defaultRemind_title">Recordatorios al debalu</string>
-    <string name="default_random_reminder_disabled">Desactiváu</string>
-    <string name="default_random_reminder_hourly">Cada hora</string>
-    <string name="default_random_reminder_daily">Caldía</string>
-    <string name="default_random_reminder_weekly">Selmanal</string>
-    <string name="default_random_reminder_bi_weekly">Bi-selmanal</string>
     <string name="repeat_option_custom">Personalizáu…</string>
     <plurals name="task_count">
         <item quantity="one">%d xera</item>
@@ -161,7 +144,6 @@
         <item quantity="one">%d selmana</item>
         <item quantity="other">%d selmanes</item>
     </plurals>
-    <string name="repeat_type_completion_capitalized">Data de finalización</string>
     <string name="repeat_snackbar">%1$s reprogramó esta xera pa %2$s</string>
     <string name="new_tag">Amestar nueva etiqueta</string>
     <string name="new_list">Amestar nueva llista</string>
@@ -234,9 +216,6 @@
     <string name="back_button_saves_task">El botón Atrás guarda la xera</string>
     <string name="show_edit_screen_without_unlock">Amosar la pantalla d\'edición ensin desbloquiar</string>
     <string name="show_edit_screen_without_unlock_summary">Activa l\'usu del mosaicu d\'Axustes rápidos ensin desbloquiar el dispositivu</string>
-    <string name="default_list">Llista predeterminada</string>
-    <string name="default_tags">Etiquetes predetermináes</string>
-    <string name="default_recurrence">Recurrencia predeterminada</string>
     <string name="filter">Filtru</string>
     <string name="opacity">Opacidá</string>
     <string name="opacity_header">Opacidá del cabeceru</string>
@@ -279,7 +258,6 @@
     <string name="repeats_plural_number_of_times">Repetir cada %1$s, ocurre %2$d%3$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Non amestar al calendariu</string>
-    <string name="default_calendar">Calendariu predetermináu</string>
     <string name="badges_description">Amosar un contador de xeres nel iconu de Tasks del llanzador. Non tolos llanzadores soporten insignies.</string>
     <string name="tasker_create_task">Amestar xera</string>
     <string name="tasker_list_notification">Llistar avisu</string>
@@ -319,7 +297,6 @@
     <string name="banner_app_updated_description">Tasks ta acabantes d\'anovase a %s. Quies ver les notes de la versión?</string>
     <string name="whats_new">Novedaes</string>
     <string name="invalid_backup_file">Copia de seguranza invalida</string>
-    <string name="google_tasks_add_to_top">Nueves xeres enrriba</string>
     <string name="name_your_price">Preciu flexible</string>
     <string name="expand_subtasks">Espander subxeres</string>
     <string name="collapse_subtasks">Encoyer subxeres</string>

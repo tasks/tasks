@@ -16,7 +16,7 @@ import javax.inject.Inject
 class Upgrade_14_11 @Inject constructor(
     private val preferences: Preferences,
 ) {
-    internal fun migrateDefaultAlarms() {
+    internal suspend fun migrateDefaultAlarms() {
         val flags = preferences
             .getStringSet(
                 R.string.p_default_reminders_key,

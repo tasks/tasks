@@ -14,7 +14,6 @@
     <string name="CFC_importance_text">Prioriteit ten minste ?</string>
     <string name="CFC_title_contains_text">Titel bevat: ?</string>
     <string name="gcal_TEA_error">Kon nie taak by kalender voeg nie!</string>
-    <string name="rmd_EPr_defaultRemind_title">Ewekansige herinneringe</string>
     <string name="translations">Dra by tot vertalings</string>
     <string name="cancel">Kanselleer</string>
 </resources>

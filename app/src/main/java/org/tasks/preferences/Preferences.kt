@@ -16,7 +16,6 @@ import androidx.preference.PreferenceManager
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.core.SortHelper
-import kotlinx.serialization.json.Json
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
@@ -261,35 +260,98 @@ class Preferences @JvmOverloads constructor(
     }
 
     override suspend fun defaultAlarms(): List<Alarm> =
-        getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS)
-            .mapNotNull {
-                try {
-                    Json.decodeFromString<Alarm>(it)
-                } catch (e: Exception) {
-                    Timber.e(e)
-                    null
-                }
-            }
-            .sortedWith(compareBy({ it.type }, { it.time }))
+        getStringSet(R.string.p_default_alarms, DEFAULT_ALARMS_JSON).toAlarms()
 
-    fun setDefaultAlarms(alarms: List<Alarm>) {
-        setStringSet(
-            R.string.p_default_alarms,
-            alarms.map { Json.encodeToString(it) }.toHashSet()
-        )
+    override suspend fun setDefaultAlarms(value: List<Alarm>) {
+        setStringSet(R.string.p_default_alarms, value.toAlarmJson())
     }
 
     override suspend fun defaultRingMode(): Int =
         getIntegerFromString(R.string.p_default_reminders_mode_key, 0)
 
     override suspend fun defaultLocationReminder(): Int =
-        getIntegerFromString(R.string.p_default_location_reminder_key, 1)
+        getIntegerFromString(
+            R.string.p_default_location_reminder_key,
+            taskSettingDefaults.defaultLocationReminder
+        )
 
     override suspend fun locationUpdateIntervalMinutes(): Int =
-        getIntegerFromString(R.string.p_location_update_interval, 15)
+        getIntegerFromString(R.string.p_location_update_interval, DEFAULT_LOCATION_UPDATE_INTERVAL)
 
-    override suspend fun defaultRandomHours(): Int =
-        getIntegerFromString(R.string.p_rmd_default_random_hours, 0)
+    private val taskSettingDefaults = TaskDefaultSettings()
+
+    override suspend fun taskDefaults() = TaskDefaultSettings(
+        addTasksToTop = addTasksToTop(),
+        defaultList = defaultListUuid(),
+        defaultTags = defaultTags,
+        defaultPriority = defaultPriority(),
+        defaultHideUntil = getIntegerFromString(
+            R.string.p_default_hideUntil_key,
+            taskSettingDefaults.defaultHideUntil
+        ),
+        defaultDueDate = getIntegerFromString(
+            R.string.p_default_urgency_key,
+            taskSettingDefaults.defaultDueDate
+        ),
+        defaultCalendar = defaultCalendar,
+        defaultRecurrence = getStringValue(R.string.p_default_recurrence)?.takeIf { it.isNotBlank() },
+        defaultRecurrenceFrom = getIntegerFromString(
+            R.string.p_default_recurrence_from,
+            taskSettingDefaults.defaultRecurrenceFrom
+        ),
+        defaultAlarms = defaultAlarms(),
+        defaultRingMode = defaultRingMode(),
+        defaultLocation = getStringValue(R.string.p_default_location),
+        defaultLocationReminder = defaultLocationReminder(),
+        locationUpdateIntervalMinutes = locationUpdateIntervalMinutes(),
+    )
+
+    override suspend fun setAddTasksToTop(value: Boolean) = setBoolean(R.string.p_add_to_top, value)
+
+    private fun defaultListUuid(): String? =
+        getStringValue(R.string.p_default_list)?.substringAfter(':')?.takeIf { it.isNotBlank() }
+
+    override suspend fun setDefaultList(value: String?) =
+        setString(R.string.p_default_list, value?.let { "${DefaultFilterProvider.TYPE_CALDAV}:$it" })
+
+    private var defaultTags: List<String>
+        get() = getStringValue(R.string.p_default_tags)
+            ?.split(",")
+            ?.filter { it.isNotBlank() }
+            ?: emptyList()
+        set(value) = setString(R.string.p_default_tags, value.joinToString(","))
+
+    override suspend fun setDefaultTags(value: List<String>) { defaultTags = value }
+
+    override suspend fun setDefaultPriority(value: Int) =
+        setStringFromInteger(R.string.p_default_importance_key, value)
+
+    override suspend fun setDefaultHideUntil(value: Int) =
+        setStringFromInteger(R.string.p_default_hideUntil_key, value)
+
+    override suspend fun setDefaultDueDate(value: Int) =
+        setStringFromInteger(R.string.p_default_urgency_key, value)
+
+    override suspend fun setDefaultCalendar(value: String?) =
+        setString(R.string.gcal_p_default, value)
+
+    override suspend fun setDefaultRecurrence(value: String?) =
+        setString(R.string.p_default_recurrence, value)
+
+    override suspend fun setDefaultRecurrenceFrom(value: Int) =
+        setStringFromInteger(R.string.p_default_recurrence_from, value)
+
+    override suspend fun setDefaultRingMode(value: Int) =
+        setStringFromInteger(R.string.p_default_reminders_mode_key, value)
+
+    override suspend fun setDefaultLocation(value: String?) =
+        setString(R.string.p_default_location, value)
+
+    override suspend fun setDefaultLocationReminder(value: Int) =
+        setStringFromInteger(R.string.p_default_location_reminder_key, value)
+
+    override suspend fun setLocationUpdateIntervalMinutes(value: Int) =
+        setStringFromInteger(R.string.p_location_update_interval, value)
 
     val fontSize: Int
         get() = getInt(R.string.p_fontSize, 16)
@@ -683,7 +745,6 @@ class Preferences @JvmOverloads constructor(
         shortcutAfternoon = dateShortcutAfternoon,
         shortcutEvening = dateShortcutEvening,
         shortcutNight = dateShortcutNight,
-        defaultHideUntil = getIntegerFromString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_NONE),
         alwaysDisplayFullDate = alwaysDisplayFullDate,
         datePickerInputMode = calendarDisplayMode == DisplayMode.Input,
         timePickerInputMode = timeDisplayMode == DisplayMode.Input,
@@ -702,11 +763,5 @@ class Preferences @JvmOverloads constructor(
     companion object {
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"
-
-        private val DEFAULT_ALARMS: Set<String> = setOf(
-            Json.encodeToString(Alarm(time = 0, type = Alarm.TYPE_REL_START)),
-            Json.encodeToString(Alarm(time = 0, type = Alarm.TYPE_REL_END)),
-            Json.encodeToString(Alarm.whenOverdue(0)),
-        )
     }
 }

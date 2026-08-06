@@ -66,16 +66,8 @@
     <string name="EPr_manage_delete_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
     <string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
     <string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
-    <string name="EPr_default_importance_title">Domyślny priorytet</string>
-    <string name="EPr_default_reminders_title">Przypomnienia (domyślnie)</string>
-    <string name="EPr_default_location_reminder_title">Domyślne powiadomienia o lokalizacji</string>
-    <string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
-    <string name="no_reminders">Brak przypomnień</string>
-    <string name="default_location_reminder_on_arrival">Po przybyciu</string>
-    <string name="default_location_reminder_on_departure">Przy wyruszaniu</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Po przybyciu i przy wyruszeniu</string>
     <string name="BFE_Active">Moje zadania</string>
     <string name="BFE_Recent">Niedawno zmodyfikowane</string>
     <string name="CFA_button_add">Dodaj kryterium</string>
@@ -105,12 +97,6 @@
     <string name="rmd_NoA_done">Gotowe</string>
     <string name="rmd_NoA_snooze">Drzemka</string>
     <string name="snooze_all">Uśpij wszystkie</string>
-    <string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
-    <string name="default_random_reminder_disabled">wyłączone</string>
-    <string name="default_random_reminder_hourly">co godzinę</string>
-    <string name="default_random_reminder_daily">raz dziennie</string>
-    <string name="default_random_reminder_weekly">raz w tygodniu</string>
-    <string name="default_random_reminder_bi_weekly">raz na dwa tygodnie</string>
     <string name="repeat_option_custom">Własne ustawienie…</string>
     <plurals name="task_count">
         <item quantity="one">%d zadań</item>
@@ -199,7 +185,6 @@
     <string name="pick_from_storage">Wybierz z pamięci</string>
     <string name="name_cannot_be_empty">Nazwa nie może być pusta</string>
     <string name="back_button_saves_task">Przycisk Cofnij zapisuje zadanie</string>
-    <string name="default_list">Domyślna lista</string>
     <string name="filter">Filtr</string>
     <string name="opacity">Nieprzezroczystość</string>
     <string name="theme">Motyw</string>
@@ -230,7 +215,6 @@
     <string name="repeats_from">Powtarzaj od</string>
     <string name="repeats_plural_number_of_times">Powtarzane co każde %1$s, występuje %2$d %3$s</string>
     <string name="dont_add_to_calendar">Nie dodawaj do kalendarza</string>
-    <string name="default_calendar">Domyślny kalendarz</string>
     <string name="badges_description">Wyświetl liczbę zadań na ikonie Tasks. Nie wszystkie launchery to wspierają.</string>
     <string name="tasker_create_task">Stwórz zadanie</string>
     <string name="tasker_list_notification">Lista powiadomień</string>
@@ -265,7 +249,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="pro_dashclock_extension">Rozszerzenie do Dashclock</string>
     <string name="invalid_backup_file">Nieprawidłowy plik kopii zapasowej</string>
-    <string name="google_tasks_add_to_top">Nowe zadania na górze</string>
     <string name="icon">Ikona</string>
     <string name="name_your_price">Nazwij swoją cenę</string>
     <string name="SSD_sort_my_order">Ręczne</string>
@@ -371,11 +354,7 @@
     <string name="custom_filter_is_subtask">Jest podzadaniem</string>
     <string name="custom_filter_has_subtask">Ma podzadania</string>
     <string name="multi_select_reschedule">Przełóż</string>
-    <string name="default_recurrence">Powtarzanie domyślne</string>
-    <string name="default_tags">Domyślne tagi</string>
     <string name="header_spacing">Rozstaw</string>
-    <string name="repeat_type_completion_capitalized">Data zakończenia</string>
-    <string name="default_location">Domyślna lokalizacja</string>
     <string name="always_display_full_date">Pokaż pełną datę</string>
     <string name="cancel">Anuluj</string>
     <string name="ok">OK</string>
@@ -402,8 +381,6 @@
     <string name="no_start_date">Bez daty rozpoczęcia</string>
     <string name="CFC_startBefore_name">Początek przed…</string>
     <string name="CFC_startBefore_text">Początek przed: \?</string>
-    <string name="default_due_date">Domyślny termin</string>
-    <string name="default_start_date">Domyślna data rozpoczęcia</string>
     <string name="start_date">Data rozpoczęcia</string>
     <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
     <string name="subscription">Subskrypcja</string>
@@ -440,12 +417,6 @@
     <string name="theme_dynamic">Dynamiczny</string>
     <string name="import_failed">Import nie powiódł się</string>
     <string name="import_failed_message">Nie udało się odczytać pliku kopii zapasowej</string>
-    <string name="location_update_interval_15_minutes">Co 15 minut</string>
-    <string name="location_update_interval_30_minutes">Co 30 minut</string>
-    <string name="location_update_interval_1_hour">Co godzinę</string>
-    <string name="location_update_interval_2_hours">Co 2 godziny</string>
-    <string name="location_update_interval_title">Aktualizacja lokalizacji w tle</string>
-    <string name="location_update_interval_disabled">Wyłączona</string>
     <string name="customize_drawer_summary">Przeciągnij i upuść, aby zmienić kolejność elementów menu</string>
     <string name="sort_options">Sortuj opcje</string>
     <string name="customize_drawer">Dostosuj szufladę</string>

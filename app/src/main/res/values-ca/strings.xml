@@ -62,7 +62,6 @@
     <string name="gtasks_GLA_authenticating">S\'està autenticant…</string>
     <string name="rmd_NoA_done">Acabat</string>
     <string name="rmd_NoA_snooze">Adorm</string>
-    <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
@@ -97,11 +96,6 @@
     <string name="TEA_control_repeat">Repeteix</string>
     <string name="due_time">Hora de venciment</string>
     <string name="TEA_timer_elap">Transcorregut %s</string>
-    <string name="EPr_default_location_reminder_title">Recordatoris d\'ubicació per defecte</string>
-    <string name="EPr_default_reminders_title">Recordatoris predeterminats</string>
-    <string name="default_due_date">Data de venciment predeterminada</string>
-    <string name="default_start_date">Data d\'inici predeterminada</string>
-    <string name="EPr_default_importance_title">Prioritat predeterminada</string>
     <string name="EPr_manage_delete_all_gcal_message">Esteu segur que voleu suprimir tots els esdeveniments per a les tasques\?</string>
     <string name="EPr_manage_delete_all_gcal">Suprimeix tots els esdeveniments del calendari de les tasques</string>
     <string name="EPr_manage_delete_gcal_status">S\'han eliminat %d esdeveniments de calendari!</string>
@@ -123,25 +117,14 @@
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="cancel">Cancel·la</string>
     <string name="ok">OK</string>
-    <string name="default_location">Ubicació predeterminada</string>
-    <string name="EPr_default_reminders_mode_title">So / vibració predeterminat</string>
-    <string name="default_location_reminder_on_arrival">En arribar</string>
-    <string name="no_reminders">Sense recordatoris</string>
-    <string name="default_location_reminder_on_departure">A la sortida</string>
-    <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>
     <string name="filter_any_start_date">Qualsevol data d\'inici</string>
     <string name="CFC_tag_name">Etiqueta…</string>
-    <string name="default_random_reminder_hourly">Cada hora</string>
-    <string name="default_random_reminder_disabled">Deshabilitada</string>
-    <string name="default_random_reminder_bi_weekly">Cada dues setmanes</string>
     <string name="CFC_startBefore_text">Comença per: \?</string>
     <string name="CFC_startBefore_name">Comença per…</string>
     <string name="CFC_tag_contains_text">El nom de l\'etiqueta conté: \?</string>
     <string name="CFC_gtasks_list_text">En la Llista: \?</string>
     <string name="CFC_list_name">En la llista…</string>
     <string name="ring_once">Sona un cop</string>
-    <string name="default_random_reminder_daily">Diariament</string>
-    <string name="default_random_reminder_weekly">Setmanalment</string>
     <string name="repeat_option_custom">Personalitza…</string>
     <string name="no_start_date">Sense data d\'inici</string>
     <string name="CFC_tag_text">Etiqueta: \?</string>
@@ -184,7 +167,6 @@
         <item quantity="other">%d minuts</item>
     </plurals>
     <string name="repeat_snackbar">%1$s reprogramat pel %2$s</string>
-    <string name="repeat_type_completion_capitalized">Data de finalització</string>
     <string name="TEA_creation_date">Data de creació</string>
     <string name="new_list">Creeu una nova llista</string>
     <string name="voice_create_prompt">Parlar per crear una tasca</string>
@@ -198,7 +180,6 @@
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
     <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
-    <string name="default_calendar">Calendari predeterminat</string>
     <string name="or_choose_a_location">O escollir una ubicació</string>
     <string name="url">URL</string>
     <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
@@ -215,7 +196,6 @@
     <string name="missing_permissions">Falten permisos</string>
     <string name="choose_new_location">Escollir una nova ubicació</string>
     <string name="location_permission_required_location">Es necessiten els permisos de ubicació per trobar la teva ubicació actual</string>
-    <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
     <string name="help">Ajuda</string>
     <string name="list">Llista</string>
     <string name="show_description">Mostra la descripció</string>
@@ -282,12 +262,9 @@
     <string name="no_app_found">No hi ha cap aplicació que pugui gestionar aquesta sol·licitud</string>
     <string name="date_shortcut_must_come_after">%1$s ha d\'anar després de %2$s</string>
     <string name="discard_changes">Descarta els canvis?</string>
-    <string name="default_list">Llista per defecte</string>
     <string name="theme_dynamic">Dinàmic</string>
     <string name="theme_wallpaper">Fons de pantalla</string>
     <string name="geofence_radius">Radi Geofence</string>
-    <string name="default_tags">Etiquetes per defecte</string>
-    <string name="default_recurrence">Recurrència predeterminada</string>
     <string name="filter">Filtre</string>
     <string name="show_edit_screen_without_unlock_summary">Habilita l\'ús de la fitxa de configuració ràpida sense desbloquejar el dispositiu</string>
     <string name="theme_light">Clar</string>

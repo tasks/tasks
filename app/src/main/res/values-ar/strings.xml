@@ -39,8 +39,6 @@
     <string name="EPr_manage_delete_completed_gcal">حذف أحداث التقويم للمهام المُتَممه</string>
     <string name="EPr_manage_delete_all_gcal">حذف جميع أحداث المهام من التقوييم</string>
     <string name="EPr_manage_delete_all_gcal_message">هل فعلا تريد حذف جميع الأحداث للمهام؟</string>
-    <string name="EPr_default_reminders_title">التذكير الافتراضى</string>
-    <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
     <string name="day_after_tomorrow">بعد غد</string>
     <string name="next_week">الأسبوع القادم</string>
     <string name="BFE_Active">مهامي</string>
@@ -59,11 +57,6 @@
     <string name="premium_record_audio">تسجيل ملاحظة</string>
     <string name="rmd_NoA_done">أكمل</string>
     <string name="rmd_NoA_snooze">غفوة</string>
-    <string name="rmd_EPr_defaultRemind_title">تذكيرات عشوائية</string>
-    <string name="default_random_reminder_disabled">معطل</string>
-    <string name="default_random_reminder_daily">يومي</string>
-    <string name="default_random_reminder_weekly">أسبوعي</string>
-    <string name="default_random_reminder_bi_weekly">مرتين في الأسبوع</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
     <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
@@ -120,8 +113,6 @@
     <string name="widget_open_list">فتح قائمة</string>
     <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
     <string name="on_launch">عند فتح التطبيق</string>
-    <string name="default_list">القائمة الافتراضية</string>
-    <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
     <string name="building_notifications">توليد الإخطارات</string>
     <string name="TEA_control_location">الموقع</string>
     <string name="EPr_show_task_edit_comments">إظهار التعليقات في شاشة تحرير المهمة</string>
@@ -145,15 +136,12 @@
         <item quantity="many">%d مهمة</item>
         <item quantity="other">%d مهمة</item>
     </plurals>
-    <string name="repeat_type_completion_capitalized">تاريخ الإكمال</string>
     <string name="above_average">فوق المتوسط</string>
     <string name="icon">الأيقونة</string>
     <string name="copy">نسخ</string>
     <string name="date_shortcut_night">ليلًا</string>
     <string name="date_shortcut_evening">مساءً</string>
     <string name="date_shortcut_morning">صباحًا</string>
-    <string name="default_random_reminder_hourly">كل ساعة</string>
-    <string name="no_reminders">بدون تذكير</string>
     <string name="always_display_full_date">أظهر التاريخ الكامل</string>
     <string name="SSD_sort_my_order">ترتيبي</string>
     <string name="cancel">إلغاء</string>
@@ -167,7 +155,6 @@
     <string name="display_name">اسم العرض</string>
     <string name="filter_any_start_date">أيّ تاريخ بدأ</string>
     <string name="no_start_date">بدون تاريخ بدأ</string>
-    <string name="default_start_date">تاريخ البدأ الافتراضي</string>
     <string name="EPr_delete_task_data">حذف معلومات المهام</string>
     <string name="EPr_reset_preferences">إعادة ضبط الإعدادات</string>
     <string name="TEA_timer_est">تقريبًا %s</string>
@@ -198,8 +185,6 @@
     <string name="list">قائمة</string>
     <string name="widget_due_date_below_title">تحت العنوان</string>
     <string name="widget_due_date_after_title">بعد العنوان</string>
-    <string name="default_recurrence">التكرار الافتراضي</string>
-    <string name="default_tags">العلامات الافتراضيّة</string>
     <string name="pick_from_storage">انتقِ من التخزين</string>
     <string name="list_settings">إعدادات القوائم</string>
     <string name="tag_settings">إعدادات العلامات</string>
@@ -213,8 +198,6 @@
     <string name="snooze_all">غفو الكل</string>
     <string name="CFC_tag_contains_name">اسم العلامة يحتوي…</string>
     <string name="CFC_tag_name">علامة…</string>
-    <string name="default_location">الموقع الافتراضي</string>
-    <string name="EPr_default_importance_title">الأولويّة الافتراضيّة</string>
     <string name="FLA_new_filter">أنشأ تصفيةً جديدة</string>
     <string name="sort_created">بتاريخ الإنشاء</string>
     <string name="app_password">كلمة سرّ التطبيق</string>
@@ -246,9 +229,6 @@
     <string name="CFC_list_name">في القائمة…</string>
     <string name="calendar_event_not_found">لم يوجد حدث التقويم</string>
     <string name="CFC_tag_contains_text">اسم العلامة يحتوي: \?</string>
-    <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
-    <string name="default_location_reminder_on_departure">عند المغادرة</string>
-    <string name="default_location_reminder_on_arrival">عند الوصول</string>
     <string name="EPr_manage_delete_completed_gcal_message">هل حقًّا تريد حذف كل أحداثك للمهام المتمّمة؟</string>
     <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
@@ -270,7 +250,6 @@
     <string name="action_create_new_task">أنشأ مهمّة جديدة</string>
     <string name="this_feature_requires_a_subscription">هذه الميزة تحتاج إلى اشتراك</string>
     <string name="tasker_create_task">أنشأ مهمّة</string>
-    <string name="default_calendar">التقويم الافتراضي</string>
     <string name="dont_add_to_calendar">لا تضف إلى التقويم</string>
     <string name="repeats_from">تكرار من</string>
     <string name="badges">الشارات</string>
@@ -376,8 +355,6 @@
     <string name="repeat_option_custom">تعديل…</string>
     <string name="gtasks_GLA_authenticating">قيد المصادقة…</string>
     <string name="no_due_date">بدون تاريخ استحقاق</string>
-    <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
-    <string name="default_due_date">وقت الاستحقاق الافتراضي</string>
     <string name="EPr_cal_start_at_due_time">بدء أحداث التقويم عند الوقت المحدد</string>
     <string name="EPr_cal_end_at_due_time">إنهاء أحداث التقويم عند الوقت المحدد</string>
     <string name="none">لا شيء</string>

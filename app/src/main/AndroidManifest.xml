@@ -229,12 +229,6 @@
         android:theme="@style/TranslucentDialog" />
 
     <activity
-        android:name=".compose.DefaultRemindersActivity"
-        android:excludeFromRecents="true"
-        android:taskAffinity=""
-        android:theme="@style/TranslucentDialog" />
-
-    <activity
       android:name=".activities.CameraActivity"
       android:theme="@style/TranslucentDialog"/>
 

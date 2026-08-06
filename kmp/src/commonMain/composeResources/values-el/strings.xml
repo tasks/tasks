@@ -406,4 +406,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Αύριο το μεσημέρι</string>
     <string name="date_shortcut_tomorrow_evening">Αύριο το απόγευμα</string>
     <string name="date_shortcut_tomorrow_night">Αύριο το βράδυ</string>
+    <string name="google_tasks_add_to_top">Νέες εργασίες στο πάνω μέρος</string>
+    <string name="default_tags">Προεπιλεγμένες ετικέτες</string>
+    <string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
+    <string name="default_start_date">Προεπιλεγμένη Ημερομηνία έναρξης</string>
+    <string name="default_due_date">Προεπιλεγμένη προθεσμία ολοκλήρωσης</string>
+    <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>
+    <string name="TEA_control_reminders">Υπενθυμίσεις</string>
+    <string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
+    <string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
+    <string name="default_recurrence">Προεπιλεγμένη επανάληψη</string>
+    <string name="TEA_control_location">Τοποθεσία</string>
+    <string name="default_location">Προεπιλεγμένη τοποθεσία</string>
+    <string name="EPr_default_location_reminder_title">Υπενθυμίσεις προεπιλεγμένης τοποθεσίας</string>
+    <string name="dont_add_to_calendar">Να μην προστεθεί στο ημερολόγιο</string>
+    <string name="no_reminders">Καθόλου υπενθυμίσεις</string>
+    <string name="day_after_tomorrow">Μεθαύριο</string>
+    <string name="next_week">Επόμενη εβδομάδα</string>
+    <string name="default_location_reminder_on_arrival">Κατά την άφιξη</string>
+    <string name="default_location_reminder_on_departure">Κατά την αναχώρηση</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Κατά την άφιξη και την αναχώρηση</string>
 </resources>

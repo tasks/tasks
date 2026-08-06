@@ -13,7 +13,6 @@
     <string name="CFA_button_add">Додај критеријум</string>
     <string name="CFC_dueBefore_text">По датуму: ?</string>
     <string name="gcal_completed_title">%s (завршено)</string>
-    <string name="rmd_EPr_defaultRemind_title">Насумични подсетници</string>
     <string name="filter_settings">Подешавања филтера</string>
     <string name="import_summary_title">Обнови сажетак</string>
     <string name="export_toast">Копија сачувана од %1$s до %2$s.</string>
@@ -26,7 +25,6 @@
     <string name="import_progress_read">Учитавам задатак %d…</string>
     <string name="TLA_menu_settings">Подешавања</string>
     <string name="import_summary_message">Датотека %1$s садржи %2$s.\n\n %3$s увезених,\n %4$s већ постојећих\n %5$s са грешкама</string>
-    <string name="default_list">Подразумевана листа</string>
     <string name="help_and_feedback">Помоћ и повратне информације</string>
     <string name="discard_confirmation">Да ли желиш да одбациш промене?</string>
     <string name="keep_editing">Настави уређивање</string>
@@ -84,15 +82,8 @@
     <string name="EPr_reset_preferences_warning">Подешавања ће бити ресетована на подразумевано</string>
     <string name="EPr_delete_task_data">Обриши податке задатка</string>
     <string name="EPr_delete_task_data_warning">Сви задаци ће бити обрисани</string>
-    <string name="EPr_default_importance_title">Подразумевани приоритет</string>
-    <string name="default_start_date">Подразумевани датум почетка</string>
-    <string name="default_due_date">Подразумевани датум доспећа</string>
-    <string name="EPr_default_reminders_title">Подразумевани подсетници</string>
-    <string name="EPr_default_reminders_mode_title">Подразумевани тип звона/вибрације</string>
-    <string name="default_location">Подразумевана локација</string>
     <string name="day_after_tomorrow">Дан после сутра</string>
     <string name="next_week">Следећа седмица</string>
-    <string name="no_reminders">Нема подсетника</string>
     <string name="BFE_Active">Моји задаци</string>
     <string name="BFE_Recent">Недавно модификовани</string>
     <string name="CFC_dueBefore_name">Доспеће до…</string>
@@ -114,10 +105,6 @@
     <string name="rmd_NoA_done">Заврши</string>
     <string name="rmd_NoA_snooze">Одложи</string>
     <string name="snooze_all">Одложи све</string>
-    <string name="default_random_reminder_disabled">Онемогућено</string>
-    <string name="default_random_reminder_hourly">Часовно</string>
-    <string name="default_random_reminder_daily">Дневно</string>
-    <string name="default_random_reminder_weekly">Седмично</string>
     <plurals name="task_count">
         <item quantity="one">%d задатак</item>
         <item quantity="few">%d задатка</item>
@@ -148,7 +135,6 @@
         <item quantity="few">%d седмице</item>
         <item quantity="other">%d седмица</item>
     </plurals>
-    <string name="repeat_type_completion_capitalized">Датум завршетка</string>
     <string name="repeat_snackbar">%1$s одложен за %2$s</string>
     <string name="new_tag">Креирај нови таг</string>
     <string name="new_list">Креирај нову листу</string>
@@ -198,8 +184,6 @@
     <string name="pick_from_gallery">Одабери из галерије</string>
     <string name="pick_from_storage">Одабери из меморије</string>
     <string name="name_cannot_be_empty">Поље имена не може бити празно</string>
-    <string name="default_tags">Подразумевани тагови</string>
-    <string name="default_recurrence">Подразумевано враћање</string>
     <string name="filter">Филтер</string>
     <string name="opacity">Непрозирност</string>
     <string name="opacity_header">Непрозирност заглавља</string>
@@ -237,7 +221,6 @@
     <string name="list">Листа</string>
     <string name="repeats_from">Понавља се од</string>
     <string name="dont_add_to_calendar">Не додавати у календар</string>
-    <string name="default_calendar">Подразумевани календар</string>
     <string name="tasker_create_task">Креирај задатак</string>
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
@@ -264,7 +247,6 @@
     <string name="banner_app_updated_title">Апликација је ажурирана</string>
     <string name="whats_new">Шта је ново</string>
     <string name="invalid_backup_file">Невалидна датотека резерве</string>
-    <string name="google_tasks_add_to_top">Нови задаци на врх</string>
     <string name="expand_subtasks">Прошири подзадатке</string>
     <string name="choose_synchronization_service">Одабери платформу</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
@@ -300,10 +282,6 @@
     <string name="EPr_manage_delete_gcal_status">Обрисано %d догађаја календара!</string>
     <string name="EPr_manage_delete_all_gcal">Обриши све догађаје календара за задатке</string>
     <string name="EPr_manage_delete_all_gcal_message">Обрисати све догађаје за задатке?</string>
-    <string name="EPr_default_location_reminder_title">Подразумевани подсетник локације</string>
-    <string name="default_location_reminder_on_arrival">У тренутку доласка</string>
-    <string name="default_location_reminder_on_departure">У тренутку одласка</string>
-    <string name="default_location_reminder_on_arrival_or_departure">У тренутку доласка и одласка</string>
     <string name="CFC_startBefore_text">Крени од: ?</string>
     <string name="CFC_startBefore_name">Крени од…</string>
     <string name="CFC_tag_contains_name">Назив тага садржи…</string>
@@ -314,7 +292,6 @@
     <string name="CFC_gtasks_list_text">У листи: ?</string>
     <string name="CFC_list_name">У листи…</string>
     <string name="premium_record_audio">Сними белешку</string>
-    <string name="default_random_reminder_bi_weekly">Једном у две седмице</string>
     <string name="repeat_option_custom">Друго…</string>
     <string name="TPl_notification">Тајмери активни за %s!</string>
     <string name="TEA_timer_comment_started">започет задатак:</string>
@@ -479,11 +456,6 @@
     <string name="upgrade_email_to_task_description">Претвори мејлове у задатке прослеђивањем истих у своје поштанско сандуче</string>
     <string name="email_to_task_address">Твоја мејл адреса</string>
     <string name="email_to_task">Мејл у задатак</string>
-    <string name="location_update_interval_disabled">Онемогућено</string>
-    <string name="location_update_interval_15_minutes">Сваких 15 минута</string>
-    <string name="location_update_interval_30_minutes">Сваких 30 минута</string>
-    <string name="location_update_interval_1_hour">Сваког сата</string>
-    <string name="location_update_interval_2_hours">Свака 2 сата</string>
     <string name="per_list_sort_summary">Памти сортирање и групна подешавања за сваку листу независно</string>
     <string name="subscription_required_fdroid">Потребна претплата за коришћење Tasks.org синхронизације. Претпала мора да буде иницирана од стране Google Play верзије апликације.</string>
     <string name="guest_create_list_message">Тренутно имаш приступ дељеној листи као гост. За креирање и синхронизацију сопствених приватних листи у облаку, потребна је Tasks.org претплата. Или можеш креирати бесплатну локалну листу која ће остати само на овом уређају.</string>

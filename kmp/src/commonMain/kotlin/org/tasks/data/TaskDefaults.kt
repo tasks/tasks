@@ -6,12 +6,16 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Task
 import org.tasks.preferences.AppPreferences
-import org.tasks.time.ONE_HOUR
+import org.tasks.preferences.TaskDefaultSettings
 
 suspend fun Task.setDefaultReminders(preferences: AppPreferences) {
-    randomReminder = ONE_HOUR * preferences.defaultRandomHours()
     putTransitory(Task.TRANS_DEFAULT_ALARMS, preferences.defaultAlarms())
     ringFlags = preferences.defaultRingMode()
+}
+
+fun Task.setDefaultReminders(defaults: TaskDefaultSettings) {
+    putTransitory(Task.TRANS_DEFAULT_ALARMS, defaults.defaultAlarms)
+    ringFlags = defaults.defaultRingMode
 }
 
 fun Task.getDefaultAlarms(defaultRemindersEnabled: Boolean): List<Alarm> = buildList {
@@ -24,9 +28,7 @@ fun Task.getDefaultAlarms(defaultRemindersEnabled: Boolean): List<Alarm> = build
             TYPE_REL_END ->
                 if (hasDueDate() && (hasDueTime() || defaultRemindersEnabled))
                     add(alarm.copy(task = id))
+            TYPE_RANDOM -> add(alarm.copy(task = id))
         }
-    }
-    if (randomReminder > 0) {
-        add(Alarm(task = id, time = randomReminder, type = TYPE_RANDOM))
     }
 }

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="no_reminders">நினைவூட்டல்கள் இல்லை</string>
     <string name="next_week">அடுத்த வாரம்</string>
     <string name="day_after_tomorrow">நாளை மறுநாள்</string>
-    <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
-    <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
-    <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
     <string name="EPr_manage_delete_all_gcal_message">பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
     <string name="EPr_manage_delete_all_gcal">பணிகளுக்கான அனைத்து நாள்காட்டி நிகழ்வுகளையும் நீக்கு</string>
     <string name="EPr_manage_delete_completed_gcal_message">பூர்த்தி செய்யப்பட்ட பணிகளுக்காக உங்கள் எல்லா நிகழ்வுகளையும் நீக்க விரும்புகிறீர்களா\?</string>
@@ -71,12 +67,6 @@
     <string name="backup_BAc_import">நகலை இறக்குமதி செய்</string>
     <string name="display_name">பெயர்</string>
     <string name="repeat_option_custom">தனிப்பயன்…</string>
-    <string name="default_random_reminder_bi_weekly">இரு வாராந்திர</string>
-    <string name="default_random_reminder_weekly">வாராந்திர</string>
-    <string name="default_random_reminder_daily">தினசரி</string>
-    <string name="default_random_reminder_hourly">மணி</string>
-    <string name="default_random_reminder_disabled">முடக்கப்பட்டது</string>
-    <string name="rmd_EPr_defaultRemind_title">சீரற்ற நினைவூட்டல்கள்</string>
     <string name="snooze_all">அனைத்தையும் உறக்கநிலையில் வைக்கவும்</string>
     <string name="rmd_NoA_snooze">உறக்கநிலை</string>
     <string name="rmd_NoA_done">முழுமை</string>
@@ -102,10 +92,6 @@
     <string name="CFC_dueBefore_name">காரணமாக…</string>
     <string name="CFC_dueBefore_text">காரணமாக :\?</string>
     <string name="CFA_button_add">அளவுகோல்களைச் சேர்க்கவும்</string>
-    <string name="default_location_reminder_on_arrival_or_departure">வருகை மற்றும் புறப்படும் போது</string>
-    <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
-    <string name="default_location_reminder_on_arrival">வந்தவுடன்</string>
-    <string name="EPr_default_reminders_mode_title">இயல்புநிலை வளையம் / அதிர்வு வகை</string>
     <string name="gcal_TEA_error">வேலையை நாட்காட்டியில் சேர்க்க முடியவில்லை!</string>
     <string name="BFE_Recent">சமீபத்தில் மாற்றியவை</string>
     <string name="BFE_Active">என் வேலைகள்</string>
@@ -168,7 +154,6 @@
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
     <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
-    <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>
     <string name="whats_new">புதியது என்ன</string>
     <string name="choose_new_location">புதிய இருப்பிடத்தைத் தேர்வுசெய்க</string>
@@ -202,7 +187,6 @@
     <string name="help">உதவி</string>
     <string name="tasker_list_notification">பட்டியல் அறிவிப்பு</string>
     <string name="tasker_create_task">பணியை உருவாக்கவும்</string>
-    <string name="default_calendar">இயல்புநிலை காலண்டர்</string>
     <string name="dont_add_to_calendar">நாள்காட்டியில் சேர்க்க வேண்டாம்</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_from">இருந்து மீண்டும்</string>
@@ -242,7 +226,6 @@
     <string name="opacity_header">தலைப்பு ஒளிபுகாநிலை</string>
     <string name="opacity">ஒளிபுகா தன்மை</string>
     <string name="filter">வடிகட்டு</string>
-    <string name="default_list">இயல்புநிலை பட்டியல்</string>
     <string name="back_button_saves_task">பின் பொத்தான் பணியைச் சேமிக்கிறது</string>
     <string name="name_cannot_be_empty">பெயர் காலியாக இருக்க முடியாது</string>
     <string name="pick_from_storage">சேமிப்பிலிருந்து எடுக்கவும்</string>
@@ -340,7 +323,6 @@
     <string name="no_start_date">தொடங்கும் தேதி இல்லை</string>
     <string name="always_display_full_date">முழு தேதியை காண்பி</string>
     <string name="widget_show_title">தலைப்பு காட்டு</string>
-    <string name="repeat_type_completion_capitalized">முடியும் தேதி</string>
     <string name="export_toast">%1$s முதல் %2$s வரை நகல் எடுக்கப்பட்டது.</string>
     <string name="SSD_sort_start">தொடங்கும் நாள் கொண்டு</string>
     <string name="filter_criteria_unstarted">தொடங்கப்படவில்லை</string>
@@ -348,8 +330,6 @@
     <string name="device_settings">சாதன அமைப்புகள்</string>
     <string name="comment">கருத்து</string>
     <string name="show_edit_screen_without_unlock">திறக்காமல் திருத்து திரை காண்பி</string>
-    <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
-    <string name="default_location">இயல்புநிலை இடம்</string>
     <string name="account">கணக்கு</string>
     <string name="backups_ignore_warnings_summary">உங்களுக்கு காப்புப்பிரதிகள் தேவையில்லை அல்லது உங்கள் சொந்த காப்புப்பிரதி தீர்வு இருந்தால் காப்புப்பிரதி எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
     <string name="repeats_plural_number_of_times">ஒவ்வொரு %1$s ஐ மீண்டும் நிகழ்கிறது, %2$d %3$s ஏற்படுகிறது</string>
@@ -399,15 +379,12 @@
     <string name="ok">சரி</string>
     <string name="cancel">கைவிடு</string>
     <string name="TEA_creation_date">உருவாக்கும் தேதி</string>
-    <string name="default_start_date">இயல்புநிலை தொடக்க தேதி</string>
     <string name="customize_edit_screen_summary">புலங்களை மறுசீரமைக்க அல்லது அகற்றவும்</string>
     <string name="no_app_found">இந்த கோரிக்கையை எந்த பயன்பாடும் கையாள முடியாது</string>
-    <string name="default_recurrence">இயல்புநிலை மீண்டும் நிகழ்கிறது</string>
     <string name="badges_description">பணிகளின் துவக்க ஐகானில் பணி எண்ணிக்கையைக் காண்பி. அனைத்து துவக்கிகளும் பேட்ச்களை ஆதரிக்கவில்லை.</string>
     <string name="background_location_permission_required">பயன்பாடு மூடப்பட்டிருந்தாலும் அல்லது பயன்பாட்டில் இல்லாவிட்டாலும் கூட, இருப்பிட அடிப்படையிலான நினைவூட்டல்களை இயக்க பணிகள் இருப்பிடத் தரவை சேகரிக்கின்றன.</string>
     <string name="auto_dismiss_datetime_list_summary">பணி பட்டியலிலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
     <string name="auto_dismiss_datetime_edit_summary">பணி திருத்தத்திலிருந்து எடுக்கும்போது ஆட்டோக்ளோச்</string>
-    <string name="default_due_date">இயல்புநிலை காரணமாக தேதி</string>
     <string name="import_summary_message">கோப்பு %1$s %2$s ஐக் கொண்டுள்ளது.\n\n %3$s இறக்குமதி செய்யப்பட்டன,\n %4$s கள் ஏற்கனவே உள்ளன\n %5$s பிழைகள் இருந்தன</string>
     <string name="price_per_year_with_currency">%s/ஆண்டு</string>
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>

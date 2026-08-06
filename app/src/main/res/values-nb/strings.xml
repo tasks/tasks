@@ -36,8 +36,6 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_hidden_section">----Skjul alltid----</string>
-    <string name="EPr_default_importance_title">Forvalgsprioritert</string>
-    <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
     <string name="BFE_Active">Mine gjøremål</string>
     <string name="BFE_Recent">Nylig endret</string>
     <string name="CFA_button_add">Legg til kriterium</string>
@@ -54,7 +52,6 @@
     <string name="gtasks_GTA_clear_completed">Fjern fullførte</string>
     <string name="rmd_NoA_done">Utført</string>
     <string name="rmd_NoA_snooze">Slumre</string>
-    <string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutt</item>
         <item quantity="other">%d minutter</item>
@@ -120,14 +117,8 @@
     <string name="EPr_manage_delete_gcal_status">Slettet %d kalenderhendelser!</string>
     <string name="EPr_manage_delete_all_gcal">Slett alle kalenderhendelser for gjøremål</string>
     <string name="EPr_manage_delete_all_gcal_message">Ønsker du virkelig å slette alle dine hendelser for gjøremål\?</string>
-    <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
-    <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
     <string name="day_after_tomorrow">I overmorgen</string>
     <string name="next_week">Neste uke</string>
-    <string name="no_reminders">Ingen påminnelser</string>
-    <string name="default_location_reminder_on_arrival">Ved ankomst</string>
-    <string name="default_location_reminder_on_departure">Ved avgang</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
     <string name="no_due_date">Ingen tidsfristdato</string>
     <string name="next_month">Neste måned</string>
     <string name="CFC_tag_text">Etikett: \?</string>
@@ -142,11 +133,6 @@
     <string name="ring_five_times">Ring fem ganger</string>
     <string name="ring_nonstop">Ring konstant</string>
     <string name="snooze_all">Slumre alle</string>
-    <string name="default_random_reminder_disabled">Avskrudd</string>
-    <string name="default_random_reminder_hourly">Hver time</string>
-    <string name="default_random_reminder_daily">Daglig</string>
-    <string name="default_random_reminder_weekly">Ukentlig</string>
-    <string name="default_random_reminder_bi_weekly">Annenhver uke</string>
     <string name="repeat_option_custom">Egendefinert…</string>
     <plurals name="task_count">
         <item quantity="one">%d gjøremål</item>
@@ -206,7 +192,6 @@
     <string name="pick_from_storage">Velg fra lagring</string>
     <string name="name_cannot_be_empty">Navn kan ikke stå tomt</string>
     <string name="back_button_saves_task">Tilbakeknapp lagrer gjøremål</string>
-    <string name="default_list">Forvalgt liste</string>
     <string name="filter">Filter</string>
     <string name="theme">Drakt</string>
     <string name="color">Farge</string>
@@ -232,7 +217,6 @@
     <string name="repeats_from">Gjentas fra</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
-    <string name="default_calendar">Forvalgt kalender</string>
     <string name="badges_description">Vis gjøremålsantall i Task-oppstarterikonet. Ikke alle oppstartere støtter merker.</string>
     <string name="tasker_create_task">Opprett gjøremål</string>
     <string name="tasker_list_notification">Listemerknad</string>
@@ -263,7 +247,6 @@
     <string name="open_map">Åpne kart</string>
     <string name="choose_new_location">Velg nytt sted</string>
     <string name="invalid_backup_file">Ugyldig sikkerhetskopifil</string>
-    <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
     <string name="icon">Ikon</string>
     <string name="name_your_price">Betal det du vil</string>
     <string name="SSD_sort_my_order">Min bestilling</string>
@@ -367,10 +350,6 @@
     <string name="foreground_location">Forgrunnsposisjon</string>
     <string name="no_app_found">Ingen programmer kunne håndtere forespørselen</string>
     <string name="header_spacing">Avstad</string>
-    <string name="default_recurrence">Forvalgt gjentagelse</string>
-    <string name="default_tags">Forvalgte etiketter</string>
-    <string name="repeat_type_completion_capitalized">Fullføringsdato</string>
-    <string name="default_location">Forvalgt plassering</string>
     <string name="custom_filter_is_subtask">Er et gjøremålssteg</string>
     <string name="custom_filter_has_subtask">Har gjøremålssteg</string>
     <string name="multi_select_reschedule">Planlegge</string>
@@ -394,7 +373,6 @@
     <string name="app_passwords_more_info">Synkroniser dine gjøremål og kalendre med tredjepartsprogrammer for skrivebord og mobil. Trykk her for mer info</string>
     <string name="app_password">Programpassord</string>
     <string name="local_lists">Lokale lister</string>
-    <string name="default_due_date">Forvalgt fristdato</string>
     <string name="copied_to_clipboard">%s kopiert til utklippstavlen</string>
     <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
     <string name="subscription">Abonnement</string>
@@ -403,7 +381,6 @@
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Start innen …</string>
     <string name="CFC_startBefore_text">Start innen: \?</string>
-    <string name="default_start_date">Forvalgt startdato</string>
     <string name="SSD_sort_start">I henhold til startdato</string>
     <string name="start_date">Startdato</string>
     <string name="widget_show_title">Vis tittel</string>

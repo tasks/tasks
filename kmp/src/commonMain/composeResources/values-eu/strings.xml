@@ -363,4 +363,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Bihar eguerdian</string>
     <string name="date_shortcut_tomorrow_evening">Bihar arratsaldez</string>
     <string name="date_shortcut_tomorrow_night">Bihar gauez</string>
+    <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
+    <string name="default_tags">Lehenetsitako etiketak</string>
+    <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
+    <string name="default_start_date">Lehenetsitako hasiera data</string>
+    <string name="default_due_date">Lehenetsitako epemuga data</string>
+    <string name="default_calendar">Lehenetsitako egutegia</string>
+    <string name="TEA_control_reminders">Oroigarriak</string>
+    <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
+    <string name="EPr_default_reminders_mode_title">Lehenetsitako doinua/bibrazio mota</string>
+    <string name="default_recurrence">Lehenetsitako errepikapena</string>
+    <string name="TEA_control_location">Kokalekua</string>
+    <string name="default_location">Lehenetsitako kokalekua</string>
+    <string name="EPr_default_location_reminder_title">Lehenetsitako kokaleku-oroigarriak</string>
+    <string name="dont_add_to_calendar">Ez gehitu egutegira</string>
+    <string name="no_reminders">Oroigarririk ez</string>
+    <string name="day_after_tomorrow">Etzi</string>
+    <string name="next_week">Datorren astean</string>
+    <string name="default_location_reminder_on_arrival">Heltzean</string>
+    <string name="default_location_reminder_on_departure">Ateratzean</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Ateratzean eta heltzean</string>
 </resources>

@@ -48,9 +48,6 @@
     <string name="EPr_manage_delete_gcal_status">清除%d個日曆事件!</string>
     <string name="EPr_manage_delete_all_gcal">刪除所有日程表</string>
     <string name="EPr_manage_delete_all_gcal_message">您真的想刪除您所有事件中的各項任務工作嗎？</string>
-    <string name="EPr_default_importance_title">預設優先權</string>
-    <string name="EPr_default_reminders_title">預設提醒</string>
-    <string name="EPr_default_reminders_mode_title">預設鈴聲 / 震動類型</string>
     <string name="day_after_tomorrow">後天</string>
     <string name="next_week">下週</string>
     <string name="BFE_Active">我的工作</string>
@@ -75,12 +72,6 @@
     <string name="ring_nonstop">不斷響鈴</string>
     <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">晚點提醒</string>
-    <string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
-    <string name="default_random_reminder_disabled">停用</string>
-    <string name="default_random_reminder_hourly">每小時</string>
-    <string name="default_random_reminder_daily">每天</string>
-    <string name="default_random_reminder_weekly">每週</string>
-    <string name="default_random_reminder_bi_weekly">每2週</string>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 分鐘</item>
         <item quantity="other">%d 分鐘</item>
@@ -113,7 +104,6 @@
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
     <string name="filter_settings">過濾器設定</string>
-    <string name="default_list">預設清單</string>
     <string name="opacity">透明度</string>
     <string name="theme">主題</string>
     <string name="color">色彩</string>
@@ -187,7 +177,6 @@
     <string name="voice_command_added_task">已新增的任務</string>
     <string name="delete_tag_confirmation">要刪除 %s 嗎 \?</string>
     <string name="repeat_snackbar">%1$s 重新安排至 %2$s</string>
-    <string name="repeat_type_completion_capitalized">完成日期</string>
     <string name="snooze_all">全部延遲提醒</string>
     <string name="CFC_list_name">在清單中…</string>
     <string name="calendar_event_not_found">找不到日曆活動</string>
@@ -197,12 +186,6 @@
     <string name="CFC_tag_text">標籤: \?</string>
     <string name="CFC_importance_name">優先級…</string>
     <string name="CFC_importance_text">優先級至少是？</string>
-    <string name="default_location_reminder_on_arrival_or_departure">於出發與抵達時</string>
-    <string name="default_location_reminder_on_departure">出發時</string>
-    <string name="default_location_reminder_on_arrival">到達時</string>
-    <string name="no_reminders">沒有提醒</string>
-    <string name="default_location">默認位置</string>
-    <string name="EPr_default_location_reminder_title">默認位置提醒</string>
     <string name="always_display_full_date">顯示完整日期</string>
     <string name="copied_to_clipboard">%s 已複製至剪貼簿</string>
     <string name="app_password">應用程式密碼</string>
@@ -262,7 +245,6 @@
     <string name="choose_synchronization_service">選擇一個平臺</string>
     <string name="collapse_subtasks">收起次工作</string>
     <string name="expand_subtasks">展開副工作</string>
-    <string name="google_tasks_add_to_top">新任務置頂</string>
     <string name="invalid_backup_file">無效的備份檔</string>
     <string name="whats_new">有什麼新鮮事</string>
     <string name="choose_new_location">選擇心地點</string>
@@ -294,7 +276,6 @@
     <string name="help_and_feedback">幫助與回饋</string>
     <string name="help">幫助</string>
     <string name="tasker_create_task">建立工作</string>
-    <string name="default_calendar">預設日曆</string>
     <string name="dont_add_to_calendar">不要新增至日曆</string>
     <string name="list_separator_with_space">", "</string>
     <string name="url">URL</string>
@@ -324,8 +305,6 @@
     <string name="opacity_footer">註腳透明度</string>
     <string name="opacity_header">標頭透明度</string>
     <string name="filter">過濾器</string>
-    <string name="default_recurrence">預設循環</string>
-    <string name="default_tags">預設標籤</string>
     <string name="back_button_saves_task">返回鈕儲存工作</string>
     <string name="filter_criteria_unstarted">尚未開始</string>
     <string name="widget_show_title">顯示標題</string>
@@ -347,8 +326,6 @@
     <string name="repeat_option_custom">自訂…</string>
     <string name="filter_any_start_date">任何起始日期</string>
     <string name="no_start_date">無起始日期</string>
-    <string name="default_due_date">預設到期日</string>
-    <string name="default_start_date">預設起始日期</string>
     <string name="start_date">起始日期</string>
     <string name="SSD_sort_start">根據起始日期</string>
     <string name="repeats_from">重複開始</string>

@@ -310,4 +310,24 @@
     <string name="date_shortcut_tomorrow_afternoon">พรุ่งนี้บ่าย</string>
     <string name="date_shortcut_tomorrow_evening">พรุ่งนี้เย็น</string>
     <string name="date_shortcut_tomorrow_night">คืนพรุ่งนี้</string>
+    <string name="google_tasks_add_to_top">งานใหม่อยู่บนสุด</string>
+    <string name="default_tags">แท็กเริ่มต้น</string>
+    <string name="EPr_default_importance_title">ระดับความสําคัญเริ่มต้น</string>
+    <string name="default_start_date">วันที่เริ่มต้นเริ่มต้น</string>
+    <string name="default_due_date">วันที่ครบกําหนดเริ่มต้น</string>
+    <string name="default_calendar">ปฏิทินเริ่มต้น</string>
+    <string name="TEA_control_reminders">จดหมายเตือนชําระเงิน</string>
+    <string name="EPr_default_reminders_title">ตัวเตือนเริ่มต้น</string>
+    <string name="EPr_default_reminders_mode_title">ประเภทเสียงกริ่ง/การสั่นเริ่มต้นvi</string>
+    <string name="default_recurrence">การเกิดซ้ําเริ่มต้น</string>
+    <string name="TEA_control_location">สถานที่</string>
+    <string name="default_location">ตำแหน่งเริ่มต้น</string>
+    <string name="EPr_default_location_reminder_title">การแจ้งเตือนตำแหน่งเริ่มต้น</string>
+    <string name="dont_add_to_calendar">ไม่ต้องเพิ่มลงในปฏิทิน</string>
+    <string name="no_reminders">ไม่มีตัวเตือน</string>
+    <string name="day_after_tomorrow">วันหลังจากวันพรุ่งนี้</string>
+    <string name="next_week">อาทิตย์หน้า</string>
+    <string name="default_location_reminder_on_arrival">เมื่อมาถึง</string>
+    <string name="default_location_reminder_on_departure">เมื่อออกเดินทาง</string>
+    <string name="default_location_reminder_on_arrival_or_departure">เมื่อมาถึงและออกเดินทาง</string>
 </resources>

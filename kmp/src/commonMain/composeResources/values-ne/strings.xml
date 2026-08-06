@@ -41,4 +41,12 @@
     <string name="TEA_control_repeat">दोहोर्‍याउनुहोस्</string>
     <string name="ring_nonstop">निरन्तर घण्टी बजाउनुहोस्</string>
     <string name="delete_task">कार्य मेटाउनुहोस्</string>
+    <string name="EPr_default_importance_title">पूर्वनिर्धारित प्राथमिकता</string>
+    <string name="default_start_date">पूर्वनिर्धारित सुरु मिति</string>
+    <string name="EPr_default_reminders_mode_title">पूर्वनिर्धारित घण्टी/कम्पन प्रकार</string>
+    <string name="TEA_control_location">स्थान</string>
+    <string name="default_location">पूर्वनिर्धारित स्थान</string>
+    <string name="day_after_tomorrow">पर्सिपल्ट</string>
+    <string name="next_week">अर्को हप्ता</string>
+    <string name="default_location_reminder_on_arrival">आगमनमा</string>
 </resources>

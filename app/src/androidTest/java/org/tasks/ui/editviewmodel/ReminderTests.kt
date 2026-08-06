@@ -288,7 +288,7 @@ class ReminderTests : BaseTaskEditViewModelTest() {
         preferences.setBoolean(R.string.p_rmd_time_enabled, false)
     }
 
-    private fun setupWithDefaultAlarms(vararg alarms: Alarm): Task {
+    private suspend fun setupWithDefaultAlarms(vararg alarms: Alarm): Task {
         preferences.setDefaultAlarms(alarms.toList())
         val task = newTask()
         setup(task)

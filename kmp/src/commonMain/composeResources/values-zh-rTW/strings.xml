@@ -440,4 +440,24 @@
     <string name="date_shortcut_tomorrow_afternoon">明天下午</string>
     <string name="date_shortcut_tomorrow_evening">明天傍晚</string>
     <string name="date_shortcut_tomorrow_night">明天晚上</string>
+    <string name="google_tasks_add_to_top">新任務置頂</string>
+    <string name="default_tags">預設標籤</string>
+    <string name="EPr_default_importance_title">預設優先權</string>
+    <string name="default_start_date">預設起始日期</string>
+    <string name="default_due_date">預設到期日</string>
+    <string name="default_calendar">預設日曆</string>
+    <string name="TEA_control_reminders">提醒</string>
+    <string name="EPr_default_reminders_title">預設提醒</string>
+    <string name="EPr_default_reminders_mode_title">預設鈴聲 / 震動類型</string>
+    <string name="default_recurrence">預設循環</string>
+    <string name="TEA_control_location">地點</string>
+    <string name="default_location">默認位置</string>
+    <string name="EPr_default_location_reminder_title">默認位置提醒</string>
+    <string name="dont_add_to_calendar">不要新增至日曆</string>
+    <string name="no_reminders">沒有提醒</string>
+    <string name="day_after_tomorrow">後天</string>
+    <string name="next_week">下週</string>
+    <string name="default_location_reminder_on_arrival">到達時</string>
+    <string name="default_location_reminder_on_departure">出發時</string>
+    <string name="default_location_reminder_on_arrival_or_departure">於出發與抵達時</string>
 </resources>

@@ -63,9 +63,6 @@
     <string name="EPr_manage_delete_gcal_status">Borráronse %d eventos do calendario!</string>
     <string name="EPr_manage_delete_all_gcal">Borrar todos os eventos do calendario das tarefas</string>
     <string name="EPr_manage_delete_all_gcal_message">Seguro que queres borrar todos os teus eventos para as tarefas\?</string>
-    <string name="EPr_default_importance_title">Prioridade por defecto</string>
-    <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
-    <string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
     <string name="day_after_tomorrow">Pasado mañá</string>
     <string name="next_week">Semana seguinte</string>
     <string name="BFE_Active">As miñas tarefas</string>
@@ -100,12 +97,6 @@
     <string name="ring_nonstop">Soar sen parar</string>
     <string name="rmd_NoA_done">Finalizada</string>
     <string name="rmd_NoA_snooze">Pospoñer</string>
-    <string name="rmd_EPr_defaultRemind_title">Recordatorios ao chou</string>
-    <string name="default_random_reminder_disabled">Desactivado</string>
-    <string name="default_random_reminder_hourly">Cada hora</string>
-    <string name="default_random_reminder_daily">Diariamente</string>
-    <string name="default_random_reminder_weekly">Semanalmente</string>
-    <string name="default_random_reminder_bi_weekly">Quincenalmente</string>
     <string name="repeat_snackbar">%1$s reprogramou esta tarefa para %2$s</string>
     <string name="new_tag">Crear nova etiqueta</string>
     <string name="new_list">Crea unha nova lista</string>
@@ -158,7 +149,6 @@
     <string name="pick_from_storage">Elixir desde o almacenamento</string>
     <string name="name_cannot_be_empty">O nome non pode quedar valeiro</string>
     <string name="back_button_saves_task">Botón atrás garda a tarefa</string>
-    <string name="default_list">Lista por defecto</string>
     <string name="filter">Filtro</string>
     <string name="opacity">Opacidade</string>
     <string name="theme">Tema</string>
@@ -182,7 +172,6 @@
     <string name="delete_selected_tasks">Borrar as tarefas seleccionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tareas seleccionadas\?</string>
     <string name="ok">Aceptar</string>
-    <string name="default_due_date">Data de fin por defecto</string>
     <string name="upgrade_to_pro">Anovar a pro</string>
     <string name="icon">Icona</string>
     <string name="documentation">Documentación</string>
@@ -197,11 +186,8 @@
     <string name="start_date">Data de inicio</string>
     <string name="SSD_sort_start">Por data de inicio</string>
     <string name="TEA_add_subtask">Engadir subtarefa</string>
-    <string name="default_start_date">Data de inicio por defecto</string>
     <string name="filter_eisenhower_box_1">Importane e urxente</string>
     <string name="widget_show_title">Amosar título</string>
-    <string name="default_tags">Etiquetas predefinidas</string>
-    <string name="default_recurrence">Recurrencia predefinida</string>
     <string name="opacity_header">Opacidade da cabeceira</string>
     <string name="widget_due_date_after_title">Despois do título</string>
     <string name="widget_due_date_below_title">Por debaixo do título</string>
@@ -289,7 +275,6 @@
     <string name="action_call">Chamar</string>
     <string name="display_name">Mostrar o nome</string>
     <string name="url">URL</string>
-    <string name="default_calendar">Calendario por defecto</string>
     <string name="badges_description">Amosar un contador de tarefas na icona de Tasks no panel. Non todos os paneis aceptan os contadores.</string>
     <string name="show_full_description">Amosar a descrición completa</string>
     <string name="linkify">Amosar as ligazóns</string>
@@ -314,12 +299,6 @@
     <string name="auto_dismiss_datetime_list">Lista de tarefas</string>
     <string name="cancel">Cancelar</string>
     <string name="always_display_full_date">Amosar data completa</string>
-    <string name="EPr_default_location_reminder_title">Recordatorios de posición por defecto</string>
-    <string name="default_location">Posición por defecto</string>
-    <string name="no_reminders">Sen recordatorios</string>
-    <string name="default_location_reminder_on_arrival">Á chegada</string>
-    <string name="default_location_reminder_on_departure">Á saída</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Á chegada e á saída</string>
     <string name="no_start_date">Sen data de inicio</string>
     <string name="snooze_all">Pospoñer todo</string>
     <string name="google_drive_backup">Seguranza en Google Drive</string>
@@ -332,7 +311,6 @@
     <string name="location_permission_required_location">Non se precisa de permisos de posición para facer a busca da posición actual</string>
     <string name="whats_new">Que hai novo</string>
     <string name="invalid_backup_file">Copia de seguranza non válida</string>
-    <string name="google_tasks_add_to_top">Novas tarefas na cima</string>
     <string name="expand_subtasks">Desencoller as subtarefas</string>
     <string name="collapse_subtasks">Encoller as subtarefas</string>
     <string name="choose_synchronization_service">Escolle unha plataforma</string>
@@ -371,7 +349,6 @@
     <string name="CFC_startBefore_text">Comeza con: \?</string>
     <string name="CFC_startBefore_name">Comezar por…</string>
     <string name="filter_any_start_date">Calquera data de inicio</string>
-    <string name="repeat_type_completion_capitalized">Data de finalización</string>
     <string name="app_settings">Configuración da aplicación</string>
     <string name="customize_drawer">Personalizar caixón</string>
     <string name="customize_drawer_summary">Arrastrar e soltar para reorganizar os elementos do menú</string>

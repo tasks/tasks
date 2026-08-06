@@ -260,4 +260,24 @@
     <string name="date_shortcut_tomorrow_afternoon">کل سہ پہر</string>
     <string name="date_shortcut_tomorrow_evening">کل شام</string>
     <string name="date_shortcut_tomorrow_night">کل رات</string>
+    <string name="google_tasks_add_to_top">نئے ٹاسکس اوپر رکھیں</string>
+    <string name="default_tags">ڈیفالٹ ٹیگز</string>
+    <string name="EPr_default_importance_title">ڈیفالٹ ترجیح</string>
+    <string name="default_start_date">ڈیفالٹ تاریخ آغاز</string>
+    <string name="default_due_date">ڈیفالٹ مقررہ تاریخ</string>
+    <string name="default_calendar">ڈیفالٹ کیلںنڈر</string>
+    <string name="TEA_control_reminders">یاد دہانی</string>
+    <string name="EPr_default_reminders_title">ڈیفالٹ یاددہانی</string>
+    <string name="EPr_default_reminders_mode_title">ڈیفالٹ رنگ ٹون / وائبریشن ٹائپ</string>
+    <string name="default_recurrence">ڈیفالٹ تکرار</string>
+    <string name="TEA_control_location">جگہ</string>
+    <string name="default_location">ڈیفالٹ لوکیشن</string>
+    <string name="EPr_default_location_reminder_title">ڈیفالٹ لوکیشن کی یاد دہانیاں</string>
+    <string name="dont_add_to_calendar">کیلنڈر میں داخل نہ کریں</string>
+    <string name="no_reminders">کوئی یاددہانی نہیں</string>
+    <string name="day_after_tomorrow">پرسوں</string>
+    <string name="next_week">اگلے ہفتے</string>
+    <string name="default_location_reminder_on_arrival">آمد پر</string>
+    <string name="default_location_reminder_on_departure">روانگی پر</string>
+    <string name="default_location_reminder_on_arrival_or_departure">آمد اور روانگی پر</string>
 </resources>

@@ -365,4 +365,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Chiều mai</string>
     <string name="date_shortcut_tomorrow_evening">Tối mai</string>
     <string name="date_shortcut_tomorrow_night">Đêm mai</string>
+    <string name="google_tasks_add_to_top">Công việc mới ở trên đầu</string>
+    <string name="default_tags">Thẻ mặc định</string>
+    <string name="EPr_default_importance_title">Sự ưu tiên mặc định</string>
+    <string name="default_start_date">Ngày bắt đầu mặc định</string>
+    <string name="default_due_date">Ngày hạn mặc định</string>
+    <string name="default_calendar">Lịch mặc định</string>
+    <string name="TEA_control_reminders">Lời nhắc</string>
+    <string name="EPr_default_reminders_title">Lời nhắc mặc định</string>
+    <string name="EPr_default_reminders_mode_title">Loại đổ chuông/rung mặc định</string>
+    <string name="default_recurrence">Sự lặp lại mặc định</string>
+    <string name="TEA_control_location">Vị trí</string>
+    <string name="default_location">Vị trí mặc định</string>
+    <string name="EPr_default_location_reminder_title">Lời nhắc vị trí mặc định</string>
+    <string name="dont_add_to_calendar">Không thêm vào lịch</string>
+    <string name="no_reminders">Không có lời nhắc</string>
+    <string name="day_after_tomorrow">Ngày kia</string>
+    <string name="next_week">Tuần sau</string>
+    <string name="default_location_reminder_on_arrival">Khi đến</string>
+    <string name="default_location_reminder_on_departure">Khi khởi hành</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Khi đến và khởi hành</string>
 </resources>

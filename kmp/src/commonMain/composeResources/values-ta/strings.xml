@@ -410,4 +410,24 @@
     <string name="date_shortcut_tomorrow_afternoon">நாளை மதியம்</string>
     <string name="date_shortcut_tomorrow_evening">நாளை மாலை</string>
     <string name="date_shortcut_tomorrow_night">நாளை இரவு</string>
+    <string name="google_tasks_add_to_top">மேலே புதிய பணிகள்</string>
+    <string name="default_tags">இயல்புநிலை குறிச்சொற்கள்</string>
+    <string name="EPr_default_importance_title">இயல்புநிலை முன்னுரிமை</string>
+    <string name="default_start_date">இயல்புநிலை தொடக்க தேதி</string>
+    <string name="default_due_date">இயல்புநிலை காரணமாக தேதி</string>
+    <string name="default_calendar">இயல்புநிலை காலண்டர்</string>
+    <string name="TEA_control_reminders">நினைவூட்டல்கள்</string>
+    <string name="EPr_default_reminders_title">இயல்புநிலை நினைவூட்டல்கள்</string>
+    <string name="EPr_default_reminders_mode_title">இயல்புநிலை வளையம் / அதிர்வு வகை</string>
+    <string name="default_recurrence">இயல்புநிலை மீண்டும் நிகழ்கிறது</string>
+    <string name="TEA_control_location">இடம்</string>
+    <string name="default_location">இயல்புநிலை இடம்</string>
+    <string name="EPr_default_location_reminder_title">இயல்புநிலை இருப்பிட நினைவூட்டல்கள்</string>
+    <string name="dont_add_to_calendar">நாள்காட்டியில் சேர்க்க வேண்டாம்</string>
+    <string name="no_reminders">நினைவூட்டல்கள் இல்லை</string>
+    <string name="day_after_tomorrow">நாளை மறுநாள்</string>
+    <string name="next_week">அடுத்த வாரம்</string>
+    <string name="default_location_reminder_on_arrival">வந்தவுடன்</string>
+    <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
+    <string name="default_location_reminder_on_arrival_or_departure">வருகை மற்றும் புறப்படும் போது</string>
 </resources>

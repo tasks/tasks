@@ -65,16 +65,8 @@
     <string name="EPr_manage_delete_gcal_status">%d kalender-items gewist!</string>
     <string name="EPr_manage_delete_all_gcal">Alle kalender-items voor taken wissen</string>
     <string name="EPr_manage_delete_all_gcal_message">Alle items voor taken permanent verwijderen?</string>
-    <string name="EPr_default_importance_title">Standaard prioriteit</string>
-    <string name="EPr_default_reminders_title">Standaard herinneringen</string>
-    <string name="EPr_default_location_reminder_title">Locatieherinneringen</string>
-    <string name="EPr_default_reminders_mode_title">Standaard beltoon/trillingstype</string>
     <string name="day_after_tomorrow">Overmorgen</string>
     <string name="next_week">Volgende week</string>
-    <string name="no_reminders">Geen herinneringen</string>
-    <string name="default_location_reminder_on_arrival">Bij aankomst</string>
-    <string name="default_location_reminder_on_departure">Bij vertrek</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Bij aankomst en vertrek</string>
     <string name="BFE_Active">Mijn Taken</string>
     <string name="BFE_Recent">Onlangs aangepast</string>
     <string name="CFA_button_add">Criteria toevoegen</string>
@@ -105,12 +97,6 @@
     <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Snoozen</string>
     <string name="snooze_all">Alles snoozen</string>
-    <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
-    <string name="default_random_reminder_disabled">Uitgeschakeld</string>
-    <string name="default_random_reminder_hourly">Elk uur</string>
-    <string name="default_random_reminder_daily">Dagelijks</string>
-    <string name="default_random_reminder_weekly">Wekelijks</string>
-    <string name="default_random_reminder_bi_weekly">Tweewekelijks</string>
     <string name="repeat_option_custom">Aangepast…</string>
     <plurals name="task_count">
         <item quantity="one">%d taak</item>
@@ -189,7 +175,6 @@
     <string name="pick_from_storage">Uit opslag kiezen</string>
     <string name="name_cannot_be_empty">Naam mag niet leeg zijn</string>
     <string name="back_button_saves_task">Terug-knop slaat taak op</string>
-    <string name="default_list">Standaardlijst</string>
     <string name="opacity">Transparantie</string>
     <string name="theme">Thema</string>
     <string name="color">Kleur</string>
@@ -218,7 +203,6 @@
     <string name="repeats_from">Herhaalt vanaf</string>
     <string name="repeats_plural_number_of_times">Herhaalt elke %1$s , gebeurt %2$d %3$s</string>
     <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
-    <string name="default_calendar">Standaardkalender</string>
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
     <string name="tasker_create_task">Taak maken</string>
     <string name="tasker_list_notification">Lijst melding</string>
@@ -248,7 +232,6 @@
     <string name="open_map">Kaart openen</string>
     <string name="choose_new_location">Nieuwe locatie kiezen</string>
     <string name="invalid_backup_file">Ongeldig backupbestand</string>
-    <string name="google_tasks_add_to_top">Nieuwe taken boven</string>
     <string name="action_open">Openen</string>
     <string name="TEA_timer_controls">Tijdklok</string>
     <string name="backup_directory">Backup-map</string>
@@ -362,10 +345,6 @@
     <string name="backups_ignore_warnings_summary">Negeer backup-waarschuwingen als er geen backup nodig is of bij gebruik van eigen backup-oplossing</string>
     <string name="backups_ignore_warnings">Negeer waarschuwingen</string>
     <string name="header_spacing">Tussenruimte</string>
-    <string name="default_recurrence">Herhaling</string>
-    <string name="repeat_type_completion_capitalized">Voltooiingsdatum</string>
-    <string name="default_location">Standaardlocatie</string>
-    <string name="default_tags">Standaardlabel</string>
     <string name="multi_select_reschedule">Opnieuw inplannen</string>
     <string name="cancel">Annuleren</string>
     <string name="ok">OK</string>
@@ -390,9 +369,7 @@
     <string name="app_passwords_more_info">Taken en kalenders met andere desktop / mobiele apps synchroniseren. Tik hier voor meer info</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
-    <string name="default_due_date">Standaard vervaldatum</string>
     <string name="start_date">Begindatum</string>
-    <string name="default_start_date">Standaard begindatum</string>
     <string name="filter_criteria_unstarted">Niet-gestarte</string>
     <string name="no_start_date">Geen begindatum</string>
     <string name="SSD_sort_start">Op begindatum</string>

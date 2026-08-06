@@ -400,4 +400,24 @@
     <string name="date_shortcut_tomorrow_afternoon">내일 오후</string>
     <string name="date_shortcut_tomorrow_evening">내일 저녁</string>
     <string name="date_shortcut_tomorrow_night">내일 밤</string>
+    <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>
+    <string name="default_tags">기본 태그</string>
+    <string name="EPr_default_importance_title">기본 우선순위</string>
+    <string name="default_start_date">기본 시작일</string>
+    <string name="default_due_date">기본 마감일</string>
+    <string name="default_calendar">기본 달력</string>
+    <string name="TEA_control_reminders">알람</string>
+    <string name="EPr_default_reminders_title">기본 알람</string>
+    <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
+    <string name="default_recurrence">기본 반복</string>
+    <string name="TEA_control_location">위치</string>
+    <string name="default_location">기본 위치</string>
+    <string name="EPr_default_location_reminder_title">기본 위치 알람</string>
+    <string name="dont_add_to_calendar">달력에 일정 추가하지 않기</string>
+    <string name="no_reminders">알람 없음</string>
+    <string name="day_after_tomorrow">모레</string>
+    <string name="next_week">다음 주</string>
+    <string name="default_location_reminder_on_arrival">도착 시</string>
+    <string name="default_location_reminder_on_departure">출발 시</string>
+    <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
 </resources>

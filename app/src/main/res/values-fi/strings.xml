@@ -63,9 +63,6 @@
     <string name="EPr_manage_delete_gcal_status">Poistettu %d kanteritapahtumaa!</string>
     <string name="EPr_manage_delete_all_gcal">Poista kaikki kalenteritapahtumat tehtäville</string>
     <string name="EPr_manage_delete_all_gcal_message">Haluatko todella poistaa kaikki tapahtumat tehtävistä?</string>
-    <string name="EPr_default_importance_title">Oletusprioriteetti</string>
-    <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
-    <string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
     <string name="BFE_Active">Omat tehtävät</string>
@@ -98,12 +95,6 @@
     <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Torkku</string>
     <string name="snooze_all">Torkuta kaikki</string>
-    <string name="rmd_EPr_defaultRemind_title">Satunnainen muistutus</string>
-    <string name="default_random_reminder_disabled">Estetty</string>
-    <string name="default_random_reminder_hourly">Tunneittain</string>
-    <string name="default_random_reminder_daily">Päivittäin</string>
-    <string name="default_random_reminder_weekly">Viikoittain</string>
-    <string name="default_random_reminder_bi_weekly">Jokatoinen viikko</string>
     <string name="repeat_option_custom">Valinnainen…</string>
     <plurals name="task_count">
         <item quantity="one">%d tehtävä</item>
@@ -181,7 +172,6 @@
     <string name="pick_from_storage">Valitse muistista</string>
     <string name="name_cannot_be_empty">Nimi ei voi olla tyhjä</string>
     <string name="back_button_saves_task">Takaisin -painike tallentaa tehtävän</string>
-    <string name="default_list">Oletuslista</string>
     <string name="filter">Suodatin</string>
     <string name="opacity">Läpinäkyvyys</string>
     <string name="theme">Teema</string>
@@ -209,7 +199,6 @@
     <string name="repeats_from">Toista alkaen</string>
     <string name="repeats_plural_number_of_times">Toista joka %1$s, tapahtuu %2$d %3$s</string>
     <string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
-    <string name="default_calendar">Oletus kalenteri</string>
     <string name="badges_description">Näytä tehtävien lukumäärä Tasksin käynnistyskuvakkeessa. Kaikki käynnistimet eivät tue merkkejä.</string>
     <string name="tasker_create_task">Luo tehtävä</string>
     <string name="tasker_list_notification">Ilmoituslista</string>
@@ -236,7 +225,6 @@
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
     <string name="name_your_price">Nimeä hintasi</string>
-    <string name="google_tasks_add_to_top">Uudet tehtävät ylimmäisenä</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
     <string name="choose_new_location">Valitse uusi sijainti</string>
     <string name="open_map">Avaa kartta</string>
@@ -272,11 +260,6 @@
     <string name="add_location">Lisää sijainti</string>
     <string name="subtasks">Alitehtävät</string>
     <string name="google_drive_backup">Google Driven varmuuskopio</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Saavuttaessa ja lähdettäessä</string>
-    <string name="default_location_reminder_on_departure">Lähdettäessä</string>
-    <string name="default_location_reminder_on_arrival">Saavuttaessa</string>
-    <string name="no_reminders">Ei muistutuksia</string>
-    <string name="EPr_default_location_reminder_title">Oletussijaintimuistutukset</string>
     <string name="TEA_control_location">Sijainti</string>
     <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="SSD_sort_my_order">Oma järjestys</string>
@@ -385,8 +368,6 @@
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="decsync_selection_description">Tiedostopohjainen synkronointi</string>
     <string name="subscription">Tilaus</string>
-    <string name="default_recurrence">Oletusarvoinen toistuvuus</string>
-    <string name="default_tags">Oletustunnisteet</string>
     <string name="no_app_found">Yksikään sovellus ei pysty käsittelemään tätä pyyntöä</string>
     <string name="filter_criteria_unstarted">Aloittamaton</string>
     <string name="header_spacing">Välit</string>
@@ -403,14 +384,10 @@
     <string name="permission_read_tasks">Täysi pääsy Tehtävät-tietokantaan</string>
     <string name="reset_sort_order">Palauta järjestys</string>
     <string name="background_location_permission_required">Tasks kerää sijaintitietoja, jotta se voi lähettää sijaintiin perustuvia muistutuksia, vaikka sovellus olisi suljettu tai sitä ei käytettäisi.</string>
-    <string name="repeat_type_completion_capitalized">Valmistumispäivä</string>
     <string name="filter_any_start_date">Mikä tahansa aloituspäivä</string>
     <string name="no_start_date">Ei alkamispäivää</string>
     <string name="CFC_startBefore_name">Aloita…</string>
     <string name="CFC_startBefore_text">Aloita: \?</string>
-    <string name="default_location">Oletussijainti</string>
-    <string name="default_due_date">Eräpäivä oletusarvoisesti</string>
-    <string name="default_start_date">Oletusarvoinen alkamispäivä</string>
     <string name="ok">OK</string>
     <string name="now">Nyt</string>
     <string name="cancel">Peruuta</string>

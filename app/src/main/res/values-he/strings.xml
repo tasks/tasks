@@ -66,16 +66,8 @@
     <string name="EPr_manage_delete_gcal_status">%d אירועי יומן נמחקו!</string>
     <string name="EPr_manage_delete_all_gcal">מחיקת כל אירועי היומן עבור משימות</string>
     <string name="EPr_manage_delete_all_gcal_message">האם באמת ברצונך למחוק את כל האירועים שלך עבור משימות?</string>
-    <string name="EPr_default_importance_title">עדיפות ברירת מחדל</string>
-    <string name="EPr_default_reminders_title">תזכורות ברירת מחדל</string>
-    <string name="EPr_default_location_reminder_title">תזכורות מיקום ברירת מחדל</string>
-    <string name="EPr_default_reminders_mode_title">סוג צלצול/רטט ברירת מחדל</string>
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">שבוע הבא</string>
-    <string name="no_reminders">אין תזכורות</string>
-    <string name="default_location_reminder_on_arrival">בעת הגעה</string>
-    <string name="default_location_reminder_on_departure">בעת יציאה</string>
-    <string name="default_location_reminder_on_arrival_or_departure">בעת הגעה ויציאה</string>
     <string name="BFE_Active">המשימות שלי</string>
     <string name="BFE_Recent">השתנו לאחרונה</string>
     <string name="CFA_button_add">הוספת קריטריונים</string>
@@ -106,12 +98,6 @@
     <string name="rmd_NoA_done">השלמה</string>
     <string name="rmd_NoA_snooze">נודניק</string>
     <string name="snooze_all">נודניק לכל</string>
-    <string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
-    <string name="default_random_reminder_disabled">מושבתות</string>
-    <string name="default_random_reminder_hourly">שעתיות</string>
-    <string name="default_random_reminder_daily">יומיות</string>
-    <string name="default_random_reminder_weekly">שבועיות</string>
-    <string name="default_random_reminder_bi_weekly">דו־שבועיות</string>
     <string name="repeat_option_custom">התאמה אישית…</string>
     <plurals name="task_count">
         <item quantity="one">משימה אחת</item>
@@ -202,7 +188,6 @@
     <string name="pick_from_storage">בחירה מאחסון</string>
     <string name="name_cannot_be_empty">השם לא יכול להיות ריק</string>
     <string name="back_button_saves_task">לחצן \'חזרה\' שומר משימה</string>
-    <string name="default_list">רשימת ברירת מחדל</string>
     <string name="filter">מסנן</string>
     <string name="opacity">אטימות</string>
     <string name="theme">ערכת נושא</string>
@@ -234,7 +219,6 @@
     <string name="repeats_from">חוזר מ</string>
     <string name="repeats_plural_number_of_times">חוזר כל %1$s, מתרחש %2$d %3$s</string>
     <string name="dont_add_to_calendar">אל תוסיף ליומן</string>
-    <string name="default_calendar">יומן ברירת מחדל</string>
     <string name="badges_description">הצגת מונה משימות על סמל המשגר של Tasks. לא כל המשגרים תומכים בתגים.</string>
     <string name="tasker_create_task">יצירת משימה</string>
     <string name="tasker_list_notification">התראת רשימה</string>
@@ -265,7 +249,6 @@
     <string name="open_map">פתיחת מפה</string>
     <string name="choose_new_location">בחירת מיקום חדש</string>
     <string name="invalid_backup_file">קובץ גיבוי לא תקין</string>
-    <string name="google_tasks_add_to_top">משימות חדשות למעלה</string>
     <string name="list_separator_with_space">",‏ "</string>
     <string name="icon">סמל</string>
     <string name="name_your_price">מה המחיר שלך</string>
@@ -371,10 +354,6 @@
     <string name="no_app_found">אף יישום לא יכל לטפל בבקשה זו</string>
     <string name="header_spacing">ריווח</string>
     <string name="multi_select_reschedule">תזמון מחדש</string>
-    <string name="default_recurrence">הישנות ברירת מחדל</string>
-    <string name="default_tags">תגיות ברירת מחדל</string>
-    <string name="repeat_type_completion_capitalized">תאריך השלמה</string>
-    <string name="default_location">מיקום ברירת מחדל</string>
     <string name="cancel">ביטול</string>
     <string name="ok">אישור</string>
     <string name="background_location_permission_required">היישום Tasks אוסף נתוני מיקום כדי לאפשר תזכורות מבוססות מיקום, אפילו כאשר היישום סגור או לא בשימוש.</string>
@@ -398,7 +377,6 @@
     <string name="no_google_play_subscription">לא נמצא מינוי Google Play זכאי</string>
     <string name="local_lists">רשימות מקומיות</string>
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
-    <string name="default_due_date">תאריך יעד ברירת מחדל</string>
     <string name="start_date">תאריך התחלה</string>
     <string name="filter_criteria_unstarted">לא התחילו</string>
     <string name="markdown_description">אפשור Markdown בכותרת ובתיאור</string>
@@ -419,7 +397,6 @@
     <string name="no_start_date">אין תאריך התחלה</string>
     <string name="CFC_startBefore_name">התחלה לפני…</string>
     <string name="CFC_startBefore_text">התחלה לפני: ?</string>
-    <string name="default_start_date">תאריך התחלה ברירת מחדל</string>
     <string name="SSD_sort_start">לפי תאריך התחלה</string>
     <string name="app_settings">הגדרות יישום</string>
     <string name="TEA_creation_date">תאריך יצירה</string>
@@ -485,13 +462,7 @@
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>
     <string name="returning_user">משתמש/ת חוזר/ת?</string>
-    <string name="location_update_interval_title">עדכון מיקום ברקע</string>
     <string name="location_update_interval_summary">עדכוני מיקום תקופתיים משפרים את אמינות Geofence</string>
-    <string name="location_update_interval_disabled">מושבת</string>
-    <string name="location_update_interval_15_minutes">כל 15 דקות</string>
-    <string name="location_update_interval_30_minutes">כל 30 דקות</string>
-    <string name="location_update_interval_1_hour">כל שעה</string>
-    <string name="location_update_interval_2_hours">כל שעתיים</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">מיון לפי רשימה</string>
     <string name="per_list_sort_summary">זכור הגדרות מיון וקיבוץ עבור כל רשימה בנפרד</string>

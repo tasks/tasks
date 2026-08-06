@@ -406,4 +406,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Mañá á tarde</string>
     <string name="date_shortcut_tomorrow_evening">Mañá ao amencer</string>
     <string name="date_shortcut_tomorrow_night">Mañá á noite</string>
+    <string name="google_tasks_add_to_top">Novas tarefas na cima</string>
+    <string name="default_tags">Etiquetas predefinidas</string>
+    <string name="EPr_default_importance_title">Prioridade por defecto</string>
+    <string name="default_start_date">Data de inicio por defecto</string>
+    <string name="default_due_date">Data de fin por defecto</string>
+    <string name="default_calendar">Calendario por defecto</string>
+    <string name="TEA_control_reminders">Recordatorios</string>
+    <string name="EPr_default_reminders_title">Recordatorios por defecto</string>
+    <string name="EPr_default_reminders_mode_title">Tipo predeterminado de timbre/vibración</string>
+    <string name="default_recurrence">Recurrencia predefinida</string>
+    <string name="TEA_control_location">Posición</string>
+    <string name="default_location">Posición por defecto</string>
+    <string name="EPr_default_location_reminder_title">Recordatorios de posición por defecto</string>
+    <string name="dont_add_to_calendar">Non engadir ao calendario</string>
+    <string name="no_reminders">Sen recordatorios</string>
+    <string name="day_after_tomorrow">Pasado mañá</string>
+    <string name="next_week">Semana seguinte</string>
+    <string name="default_location_reminder_on_arrival">Á chegada</string>
+    <string name="default_location_reminder_on_departure">Á saída</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Á chegada e á saída</string>
 </resources>

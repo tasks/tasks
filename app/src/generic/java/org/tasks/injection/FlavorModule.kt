@@ -40,6 +40,7 @@ class FlavorModule {
         supportsVoiceReminders = true,
         supportsCompletionSound = true,
         supportsSwipeToSnooze = true,
+        supportsRingMode = true,
     )
 
     @Provides

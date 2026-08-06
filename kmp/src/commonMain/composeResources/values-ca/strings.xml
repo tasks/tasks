@@ -426,4 +426,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Demà per la tarda</string>
     <string name="date_shortcut_tomorrow_evening">Demà pel vespre</string>
     <string name="date_shortcut_tomorrow_night">Demà per la nit</string>
+    <string name="google_tasks_add_to_top">Noves tasques a sobre</string>
+    <string name="default_tags">Etiquetes per defecte</string>
+    <string name="EPr_default_importance_title">Prioritat predeterminada</string>
+    <string name="default_start_date">Data d'inici predeterminada</string>
+    <string name="default_due_date">Data de venciment predeterminada</string>
+    <string name="default_calendar">Calendari predeterminat</string>
+    <string name="TEA_control_reminders">Recordatoris</string>
+    <string name="EPr_default_reminders_title">Recordatoris predeterminats</string>
+    <string name="EPr_default_reminders_mode_title">So / vibració predeterminat</string>
+    <string name="default_recurrence">Recurrència predeterminada</string>
+    <string name="TEA_control_location">Ubicació</string>
+    <string name="default_location">Ubicació predeterminada</string>
+    <string name="EPr_default_location_reminder_title">Recordatoris d'ubicació per defecte</string>
+    <string name="dont_add_to_calendar">No afegiu al calendari</string>
+    <string name="no_reminders">Sense recordatoris</string>
+    <string name="day_after_tomorrow">Demà passat</string>
+    <string name="next_week">La setmana que ve</string>
+    <string name="default_location_reminder_on_arrival">En arribar</string>
+    <string name="default_location_reminder_on_departure">A la sortida</string>
+    <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>
 </resources>

@@ -11,7 +11,7 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
-import org.tasks.data.getLocalList
+import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
@@ -81,25 +81,8 @@ class DefaultFilterProvider @Inject constructor(
     suspend fun getFilterFromPreference(prefString: String?): Filter =
         getFilterFromPreference(prefString, MyTasksFilter.create())!!
 
-    private suspend fun getAnyList(): CaldavFilter {
-        val filter = caldavDao
-            .getCalendars()
-            .filterNot { it.readOnly() }
-            .getOrNull(0)
-            ?.let { list ->
-                list.account
-                    ?.let { caldavDao.getAccountByUuid(it) }
-                    ?.let { account -> CaldavFilter(calendar = list, account = account) }
-            }
-            ?: caldavDao.getLocalList().let { list ->
-                CaldavFilter(
-                    calendar = list,
-                    account = caldavDao.getAccountByUuid(list.account!!)!!
-                )
-            }
-        defaultList = filter
-        return filter
-    }
+    private suspend fun getAnyList(): CaldavFilter =
+        caldavDao.getOrCreateDefaultListFilter(null).also { defaultList = it }
 
     private suspend fun getFilterFromPreference(preferenceValue: String?, def: Filter?) = try {
         preferenceValue?.let { loadFilter(it) } ?: def
@@ -209,7 +192,7 @@ class DefaultFilterProvider @Inject constructor(
         private const val TYPE_CUSTOM_FILTER = 1
         private const val TYPE_TAG = 2
         @Deprecated("use TYPE_CALDAV") const val TYPE_GOOGLE_TASKS = 3
-        private const val TYPE_CALDAV = 4
+        const val TYPE_CALDAV = 4
         private const val TYPE_LOCATION = 5
         private const val FILTER_MY_TASKS = 0
         private const val FILTER_TODAY = 1

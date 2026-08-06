@@ -391,4 +391,24 @@
     <string name="date_shortcut_tomorrow_afternoon">I morgen på ettermiddagen</string>
     <string name="date_shortcut_tomorrow_evening">I morgen på kvelden</string>
     <string name="date_shortcut_tomorrow_night">I morgen på natten</string>
+    <string name="google_tasks_add_to_top">Nye gjøremål øverst</string>
+    <string name="default_tags">Forvalgte etiketter</string>
+    <string name="EPr_default_importance_title">Forvalgsprioritert</string>
+    <string name="default_start_date">Forvalgt startdato</string>
+    <string name="default_due_date">Forvalgt fristdato</string>
+    <string name="default_calendar">Forvalgt kalender</string>
+    <string name="TEA_control_reminders">Påminnelser</string>
+    <string name="EPr_default_reminders_title">Forvalgte påminnelser</string>
+    <string name="EPr_default_reminders_mode_title">Forvalgt ringe/vibrasjonstype</string>
+    <string name="default_recurrence">Forvalgt gjentagelse</string>
+    <string name="TEA_control_location">Sted</string>
+    <string name="default_location">Forvalgt plassering</string>
+    <string name="EPr_default_location_reminder_title">Forvalgte stedspåminnelser</string>
+    <string name="dont_add_to_calendar">Ikke legg til i kalender</string>
+    <string name="no_reminders">Ingen påminnelser</string>
+    <string name="day_after_tomorrow">I overmorgen</string>
+    <string name="next_week">Neste uke</string>
+    <string name="default_location_reminder_on_arrival">Ved ankomst</string>
+    <string name="default_location_reminder_on_departure">Ved avgang</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
 </resources>

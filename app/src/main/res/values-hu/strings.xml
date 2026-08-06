@@ -66,16 +66,8 @@
     <string name="EPr_manage_delete_gcal_status">%d naptárbejegyzés törölve!</string>
     <string name="EPr_manage_delete_all_gcal">Feladatok naptárbejegyzésének törlése</string>
     <string name="EPr_manage_delete_all_gcal_message">Biztosan törölni akarja a feladatokhoz tartozó eseményeket?</string>
-    <string name="EPr_default_importance_title">Alapértelmezett prioritás</string>
-    <string name="EPr_default_reminders_title">Alapértelmezett emlékeztetők</string>
-    <string name="EPr_default_location_reminder_title">Alapértelmezett hely emlékeztetők</string>
-    <string name="EPr_default_reminders_mode_title">Alapértelmezett csengetés/rezgés típusa</string>
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="next_week">Következő hét</string>
-    <string name="no_reminders">Nincs emlékeztető</string>
-    <string name="default_location_reminder_on_arrival">Megérkezéskor</string>
-    <string name="default_location_reminder_on_departure">Elinduláskor</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Megérkezéskor és elinduláskor</string>
     <string name="BFE_Active">Saját Feladatok</string>
     <string name="BFE_Recent">Nemrég módosítva</string>
     <string name="CFA_button_add">Kritérium hozzáadása</string>
@@ -106,12 +98,6 @@
     <string name="rmd_NoA_done">Befejezve</string>
     <string name="rmd_NoA_snooze">Szundi</string>
     <string name="snooze_all">Szundi mind</string>
-    <string name="rmd_EPr_defaultRemind_title">Véletlenszerű emlékeztetők</string>
-    <string name="default_random_reminder_disabled">Letiltva</string>
-    <string name="default_random_reminder_hourly">Óránként</string>
-    <string name="default_random_reminder_daily">Naponta</string>
-    <string name="default_random_reminder_weekly">Hetente</string>
-    <string name="default_random_reminder_bi_weekly">Kéthetente</string>
     <string name="repeat_option_custom">Egyéni…</string>
     <plurals name="task_count">
         <item quantity="one">%d feladat</item>
@@ -193,7 +179,6 @@
     <string name="pick_from_storage">Kiválasztás a tárhelyről</string>
     <string name="name_cannot_be_empty">A cím nem lehet üres</string>
     <string name="back_button_saves_task">A vissza gomb elmenti a feladatot</string>
-    <string name="default_list">Alapértelmezett lista</string>
     <string name="filter">Szűrő</string>
     <string name="opacity">Átlátszóság</string>
     <string name="theme">Téma</string>
@@ -225,7 +210,6 @@
     <string name="repeats_from">Ismétlés ettől:</string>
     <string name="repeats_plural_number_of_times">Ismétlés minden %1$s, előfordul %2$d %3$s</string>
     <string name="dont_add_to_calendar">Ne adja hozzá a naptárhoz</string>
-    <string name="default_calendar">Alapértelmezett naptár</string>
     <string name="badges_description">Feladatok számának megjelenítése a Tasks ikonon. Nem minden launcher által támogatott funkció.</string>
     <string name="tasker_create_task">Feladat létrehozása</string>
     <string name="tasker_list_notification">Lista értesítés</string>
@@ -256,7 +240,6 @@
     <string name="open_map">Térkép megnyitása</string>
     <string name="choose_new_location">Új hely kiválasztása</string>
     <string name="invalid_backup_file">Érvénytelen mentési file</string>
-    <string name="google_tasks_add_to_top">Az új feladatok felül</string>
     <string name="location_radius_meters">%s m</string>
     <string name="list_separator_with_space">", "</string>
     <string name="icon">Ikon</string>
@@ -361,11 +344,7 @@
     <string name="backup_location_warning">FIGYELMEZTETÉS: A %s könyvtárban tárolt file-ok a Tasks uninstallálásával törlésre kerülnek! Válassz egy másik könyvtárat, hogy az Android ne törölje a file-jaidat.</string>
     <string name="backups_ignore_warnings_summary">Mentési figyelmeztetések ignorálása, ha a mentés szükségtelen vagy más módszerrel megoldott</string>
     <string name="backups_ignore_warnings">Figyelmeztetések ignorálása</string>
-    <string name="default_recurrence">Alapértelmezett ismétlődés</string>
     <string name="header_spacing">Szóköz</string>
-    <string name="repeat_type_completion_capitalized">Befejezés dátuma</string>
-    <string name="default_tags">Alapértelmezett címkék</string>
-    <string name="default_location">Alapértelmezett hely</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
     <string name="current_subscription">Jelenlegi előfizetés: %s</string>
@@ -390,7 +369,6 @@
     <string name="copied_to_clipboard">%s a vágólapra másolva</string>
     <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
     <string name="local_lists">Helyi listák</string>
-    <string name="default_due_date">Alapértelmezett határidő</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="account_not_included">A \"Nevezd meg az árat\" előfizetés nem tartalmazza</string>
     <string name="subscription">Előfizetés</string>
@@ -399,7 +377,6 @@
     <string name="no_start_date">Nincs kezdő dátum</string>
     <string name="CFC_startBefore_name">Kezdés…</string>
     <string name="CFC_startBefore_text">Kezdés: \?</string>
-    <string name="default_start_date">Alapértelmezett kezdő dátum</string>
     <string name="SSD_sort_start">Kezdés dátuma szerint</string>
     <string name="widget_show_title">Cím megjelenítése</string>
     <string name="tasks_org_account_required">Tasks.org fiók szükséges</string>
@@ -480,13 +457,7 @@
     <string name="per_list_sort_title">Listánkénti rendezés</string>
     <string name="p_per_list_sort">listánkénti_rendezés</string>
     <string name="per_list_sort_summary">Listánként eltérő rendezési és csoportosítási beállítások eltárolása</string>
-    <string name="location_update_interval_title">Helyadatok frissítése a háttérben</string>
     <string name="location_update_interval_summary">A rendszeres helyadat frissítés javítja a geokerítés megbízhatóságát</string>
-    <string name="location_update_interval_disabled">Letiltva</string>
-    <string name="location_update_interval_15_minutes">15 percenként</string>
-    <string name="location_update_interval_30_minutes">30 percenként</string>
-    <string name="location_update_interval_1_hour">Óránként</string>
-    <string name="location_update_interval_2_hours">2 óránként</string>
     <string name="read_more">Mutass többet</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>

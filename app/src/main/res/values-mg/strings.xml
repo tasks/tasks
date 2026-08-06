@@ -11,7 +11,6 @@
     <string name="import_summary_title">Fanerenana ny famintinana</string>
     <string name="import_summary_message">Ny rakitra %1$s dia misy %2$s.\n\n. %3$s nafarana,\n. %4$s efa misy\n. %5$s dia nanana hadisoana</string>
     <string name="import_progress_read">Eo am-pamakiana ny asa voatondro %d…</string>
-    <string name="default_list">Araka ny mahazatra</string>
     <string name="import_failed">Tsy nety ny fampidirana ny Zava-bitanao voatahiry</string>
     <string name="help_and_feedback">Fangatahana fanampiana &amp; Fanehoan-kevitra avy aminao mombanay</string>
     <string name="import_failed_message">Tsy voasokatra ny zava-bitanao voatahiry</string>

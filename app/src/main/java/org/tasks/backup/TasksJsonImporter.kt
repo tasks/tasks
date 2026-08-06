@@ -15,6 +15,7 @@ import com.todoroo.astrid.service.Upgrade_13_11.Companion.migrateLegacyIcon
 import com.todoroo.astrid.service.Upgrade_13_2
 import com.todoroo.astrid.service.Upgrade_14_11
 import com.todoroo.astrid.service.Upgrade_14_13
+import com.todoroo.astrid.service.Upgrade_15_10
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -89,6 +90,7 @@ class TasksJsonImporter @Inject constructor(
     private val vtodoCache: VtodoCache,
     private val filterCriteriaProvider: FilterCriteriaProvider,
     private val firebase: Firebase,
+    private val upgrade_15_10: Upgrade_15_10,
 ) {
     suspend fun importTasks(
         context: Context,
@@ -122,6 +124,9 @@ class TasksJsonImporter @Inject constructor(
             }
             if (version < Upgrader.V9_6) {
                 taskMover.migrateLocalTasks()
+            }
+            if (version < Upgrade_15_10.VERSION) {
+                upgrade_15_10.migrateRandomReminder()
             }
             Timber.d("Updating parents")
             caldavDao.updateParents(force = true)

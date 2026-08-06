@@ -166,7 +166,6 @@
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>
     <string name="name_your_price">Đặt giá của bạn</string>
-    <string name="google_tasks_add_to_top">Công việc mới ở trên đầu</string>
     <string name="invalid_backup_file">Tệp sao lưu không hợp lệ</string>
     <string name="whats_new">Có gì mới</string>
     <string name="choose_new_location">Chọn vị trí mới</string>
@@ -203,7 +202,6 @@
     <string name="tasker_list_notification">Thông báo danh sách</string>
     <string name="tasker_create_task">Tạo công việc</string>
     <string name="badges_description">Hiển thị số lượng công việc trên biểu tượng trên launcher của Tasks. Không phải tất cả launcher đều hỗ trợ huy hiệu.</string>
-    <string name="default_calendar">Lịch mặc định</string>
     <string name="dont_add_to_calendar">Không thêm vào lịch</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">Lặp lại mỗi %1$s, xảy ra %2$d %3$s</string>
@@ -245,9 +243,6 @@
     <string name="opacity_header">Độ mờ của tiêu đề</string>
     <string name="opacity">Độ mờ</string>
     <string name="filter">Lọc</string>
-    <string name="default_recurrence">Sự lặp lại mặc định</string>
-    <string name="default_tags">Thẻ mặc định</string>
-    <string name="default_list">Danh sách mặc định</string>
     <string name="back_button_saves_task">Nút Quay lại sẽ lưu công việc</string>
     <string name="name_cannot_be_empty">Tên không thể trống</string>
     <string name="pick_from_storage">Chọn từ bộ nhớ</string>
@@ -311,7 +306,6 @@
     <string name="new_list">Tạo danh sách mới</string>
     <string name="new_tag">Tạo thẻ mới</string>
     <string name="repeat_snackbar">%1$s đã được lên lịch lại cho %2$s</string>
-    <string name="repeat_type_completion_capitalized">Ngày hoàn thành</string>
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d tuần</item>
     </plurals>
@@ -331,12 +325,6 @@
         <item quantity="other">%d công việc</item>
     </plurals>
     <string name="repeat_option_custom">Tuỳ chỉnh…</string>
-    <string name="default_random_reminder_bi_weekly">Mỗi hai tuần</string>
-    <string name="default_random_reminder_weekly">Hàng tuần</string>
-    <string name="default_random_reminder_daily">Hàng ngày</string>
-    <string name="default_random_reminder_hourly">Hàng tiếng</string>
-    <string name="default_random_reminder_disabled">Tắt</string>
-    <string name="rmd_EPr_defaultRemind_title">Lời nhắc ngẫu nhiên</string>
     <string name="snooze_all">Báo lại tất cả</string>
     <string name="rmd_NoA_snooze">Báo lại</string>
     <string name="rmd_NoA_done">Hoàn thành</string>
@@ -373,20 +361,9 @@
     <string name="CFA_button_add">Thêm tiêu chí</string>
     <string name="BFE_Recent">Sửa đổi gần đây</string>
     <string name="BFE_Active">Công việc của tôi</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Khi đến và khởi hành</string>
-    <string name="default_location_reminder_on_departure">Khi khởi hành</string>
-    <string name="default_location_reminder_on_arrival">Khi đến</string>
-    <string name="no_reminders">Không có lời nhắc</string>
     <string name="preferences_advanced">Nâng cao</string>
     <string name="next_week">Tuần sau</string>
     <string name="day_after_tomorrow">Ngày kia</string>
-    <string name="default_location">Vị trí mặc định</string>
-    <string name="EPr_default_reminders_mode_title">Loại đổ chuông/rung mặc định</string>
-    <string name="EPr_default_location_reminder_title">Lời nhắc vị trí mặc định</string>
-    <string name="EPr_default_reminders_title">Lời nhắc mặc định</string>
-    <string name="default_due_date">Ngày hạn mặc định</string>
-    <string name="default_start_date">Ngày bắt đầu mặc định</string>
-    <string name="EPr_default_importance_title">Sự ưu tiên mặc định</string>
     <string name="EPr_manage_delete_all_gcal_message">Bạn có thực sự muốn xoá tất cả các sự kiện đối với các công việc không\?</string>
     <string name="EPr_manage_delete_all_gcal">Xoá tất cả sự kiện trong lịch đối với các công việc</string>
     <string name="EPr_manage_delete_gcal_status">Đã xoá %d sự kiện trong lịch!</string>

@@ -111,7 +111,6 @@
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
     <string name="name_your_price">ตั้งชื่อราคาของคุณ</string>
-    <string name="google_tasks_add_to_top">งานใหม่อยู่บนสุด</string>
     <string name="invalid_backup_file">แฟ้มสํารองข้อมูลไม่ถูกต้อง</string>
     <string name="whats_new">มีอะไรใหม่</string>
     <string name="choose_new_location">เลือกตําแหน่งที่ตั้งใหม่</string>
@@ -144,15 +143,9 @@
     <string name="help_and_feedback">ความช่วยเหลือและคําติชม</string>
     <string name="help">วิธีใช้</string>
     <string name="tasker_list_notification">รายการแจ้งเตือน</string>
-    <string name="default_location">ตำแหน่งเริ่มต้น</string>
-    <string name="EPr_default_reminders_mode_title">ประเภทเสียงกริ่ง/การสั่นเริ่มต้นvi</string>
-    <string name="EPr_default_location_reminder_title">การแจ้งเตือนตำแหน่งเริ่มต้น</string>
-    <string name="default_due_date">วันที่ครบกําหนดเริ่มต้น</string>
     <string name="tasker_create_task">สร้างงาน</string>
-    <string name="EPr_default_importance_title">ระดับความสําคัญเริ่มต้น</string>
     <string name="EPr_manage_delete_gcal_status">ลบ %d กิจกรรมในปฏิทิน!</string>
     <string name="badges_description">แสดงจํานวนงานบนไอคอนตัวเปิดใช้งาน ตัวเรียกใช้งานไม่รองรับป้ายทั้งหมด</string>
-    <string name="default_calendar">ปฏิทินเริ่มต้น</string>
     <string name="dont_add_to_calendar">ไม่ต้องเพิ่มลงในปฏิทิน</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">ซ้ำทุก ๆ %1$s เกิดขึ้น %2$d %3$s</string>
@@ -194,9 +187,6 @@
     <string name="opacity_header">ความทึบของส่วนหัว</string>
     <string name="opacity">ความทึบ</string>
     <string name="filter">กรอง</string>
-    <string name="default_recurrence">การเกิดซ้ําเริ่มต้น</string>
-    <string name="default_tags">แท็กเริ่มต้น</string>
-    <string name="default_list">รายการเริ่มต้น</string>
     <string name="back_button_saves_task">ปุ่มย้อนกลับจะบันทึกงาน</string>
     <string name="name_cannot_be_empty">ชื่อไม่สามารถปล่อยให้ว่างได้</string>
     <string name="pick_from_storage">เบิกสินค้าจากที่เก็บข้อมูล</string>
@@ -252,7 +242,6 @@
     <string name="new_list">สร้างรายการใหม่</string>
     <string name="new_tag">สร้างแท็กใหม่</string>
     <string name="repeat_snackbar">%1$s จัดกําหนดการใหม่สําหรับ %2$s</string>
-    <string name="repeat_type_completion_capitalized">วันที่เสร็จสมบูรณ์</string>
     <plurals name="repeat_n_weeks">
         <item quantity="other">%d สัปดาห์</item>
     </plurals>
@@ -271,12 +260,6 @@
     <plurals name="task_count">
         <item quantity="other">%d งาน</item>
     </plurals>
-    <string name="default_random_reminder_bi_weekly">รายปักษ์</string>
-    <string name="default_random_reminder_weekly">รายสัปดาห์</string>
-    <string name="default_random_reminder_daily">ทุกวัน</string>
-    <string name="default_random_reminder_hourly">รายชั่วโมง</string>
-    <string name="default_random_reminder_disabled">พิการ</string>
-    <string name="rmd_EPr_defaultRemind_title">การแจ้งเตือนแบบสุ่ม</string>
     <string name="snooze_all">ปิดเสียงเตือนทั้งหมด</string>
     <string name="ring_nonstop">แหวนไม่หยุดนิ่ง</string>
     <string name="ring_five_times">แหวนห้าครั้ง</string>
@@ -300,14 +283,8 @@
     <string name="CFC_startBefore_text">เริ่มโดย: \?</string>
     <string name="CFC_dueBefore_name">ครบกําหนดเมื่อ…</string>
     <string name="CFC_dueBefore_text">ครบกําหนดเมื่อ: \?</string>
-    <string name="default_location_reminder_on_arrival_or_departure">เมื่อมาถึงและออกเดินทาง</string>
-    <string name="default_location_reminder_on_departure">เมื่อออกเดินทาง</string>
-    <string name="default_location_reminder_on_arrival">เมื่อมาถึง</string>
-    <string name="no_reminders">ไม่มีตัวเตือน</string>
     <string name="next_week">อาทิตย์หน้า</string>
     <string name="day_after_tomorrow">วันหลังจากวันพรุ่งนี้</string>
-    <string name="EPr_default_reminders_title">ตัวเตือนเริ่มต้น</string>
-    <string name="default_start_date">วันที่เริ่มต้นเริ่มต้น</string>
     <string name="account_not_included">ไม่รวมอยู่ในการสมัครสมาชิก \'ตั้งชื่อราคาของคุณ\'</string>
     <string name="upgrade_open_source_description">การสมัครใช้งานของคุณสนับสนุนการพัฒนาอย่างต่อเนื่อง</string>
     <string name="upgrade_more_customization_description">ปลดล็อกธีม สี และไอคอนทั้งหมด</string>

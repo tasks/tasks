@@ -66,9 +66,6 @@
   <!-- ringtone to use for notifications -->
   <string name="p_completion_ringtone">completion_ringtone</string>
 
-  <!-- default random reminder setting (in hours) -->
-  <string name="p_rmd_default_random_hours">notif_default_reminder</string>
-
   <!-- filters to show -->
   <string name="p_filters_enabled">drawer_filters_enabled</string>
   <string name="p_show_today_filter">p_show_today_f</string>
@@ -83,15 +80,6 @@
   <string name="p_show_task_edit_comments">p_show_task_edit_comments</string>
   <string name="p_show_edit_screen_without_unlock">show_edit_screen_without_unlock</string>
 
-  <string-array name="EPr_reminder_random_hours">
-    <!-- values (in hours) associated with random reminders above. -->
-    <item>0</item>
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-  </string-array>
-
   <!-- ======================================================= APPEARANCE == -->
 
   <string name="p_fontSize">font_size_v2</string>
@@ -105,14 +93,6 @@
 
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->
   <string name="p_default_urgency_key">p_def_urg</string>
-
-  <string-array name="EPr_default_importance_values">
-    <!-- importance: labels that map EPr_default_importance items to task importance values. -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
 
   <string-array name="widget_spacing_titles">
     <item>@string/settings_default</item>
@@ -136,32 +116,6 @@
     <item>@string/widget_due_date_after_title</item>
     <item>@string/widget_due_date_below_title</item>
     <item>@string/widget_due_date_hidden</item>
-  </string-array>
-
-  <string-array name="EPr_default_urgency_values">
-    <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-    <item>4</item>
-    <item>5</item>
-  </string-array>
-
-  <string-array name="EPr_default_hideUntil_values">
-    <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
-    <item>0</item>
-    <item>1</item>
-    <item>6</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
-
-  <string-array name="EPr_default_reminders_mode_values">
-    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
-    <item>0</item>
-    <item>16</item>
-    <item>8</item>
   </string-array>
 
   <!-- default importance setting (corresponds to task setting) -->

@@ -90,26 +90,9 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_delete_gcal_status">Deleted %d calendar events!</string>
   <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_default_importance_title">Default priority</string>
-  <string name="default_start_date">Default start date</string>
-  <string name="default_due_date">Default due date</string>
-  <string name="EPr_default_reminders_title">Default reminders</string>
-  <string name="EPr_default_location_reminder_title">Default location reminders</string>
-  <string name="EPr_default_reminders_mode_title">Default ring/vibrate type</string>
-  <string name="default_location">Default location</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
-  <string name="no_reminders">No reminders</string>
-  <string name="default_location_reminder_on_arrival">On arrival</string>
-  <string name="default_location_reminder_on_departure">On departure</string>
-  <string name="default_location_reminder_on_arrival_or_departure">On arrival and departure</string>
-  <string name="location_update_interval_title">Background location updates</string>
   <string name="location_update_interval_summary">Periodic location updates improve geofence reliability</string>
-  <string name="location_update_interval_disabled">Disabled</string>
-  <string name="location_update_interval_15_minutes">Every 15 minutes</string>
-  <string name="location_update_interval_30_minutes">Every 30 minutes</string>
-  <string name="location_update_interval_1_hour">Every hour</string>
-  <string name="location_update_interval_2_hours">Every 2 hours</string>
   <string name="BFE_Active">My Tasks</string>
   <string name="BFE_Recent">Recently modified</string>
   <string name="CFA_button_add">Add Criteria</string>
@@ -146,12 +129,6 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_NoA_snooze">Snooze</string>
   <string name="snooze_all">Snooze all</string>
   <string name="rmd_EPr_rmd_time_desc">Notifications for all day tasks will appear at %1$s</string>
-  <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
-  <string name="default_random_reminder_disabled">Disabled</string>
-  <string name="default_random_reminder_hourly">Hourly</string>
-  <string name="default_random_reminder_daily">Daily</string>
-  <string name="default_random_reminder_weekly">Weekly</string>
-  <string name="default_random_reminder_bi_weekly">Bi-weekly</string>
   <string name="repeat_option_custom">Custom…</string>
   <plurals name="task_count">
     <item quantity="one">%d task</item>
@@ -177,7 +154,6 @@ File %1$s contained %2$s.\n\n
     <item quantity="one">%d week</item>
     <item quantity="other">%d weeks</item>
   </plurals>
-  <string name="repeat_type_completion_capitalized">Completion date</string>
   <string name="repeat_snackbar">%1$s rescheduled for %2$s</string>
   <string name="new_tag">Create new tag</string>
   <string name="new_list">Create new list</string>
@@ -250,9 +226,6 @@ File %1$s contained %2$s.\n\n
   <string name="back_button_saves_task">Back button saves task</string>
   <string name="show_edit_screen_without_unlock">Show edit screen without unlock</string>
   <string name="show_edit_screen_without_unlock_summary">Enables use of Quick Settings tile without unlocking device</string>
-  <string name="default_list">Default list</string>
-  <string name="default_tags">Default tags</string>
-  <string name="default_recurrence">Default recurrence</string>
   <string name="filter">Filter</string>
   <string name="opacity">Opacity</string>
   <string name="opacity_header">Header opacity</string>
@@ -295,7 +268,6 @@ File %1$s contained %2$s.\n\n
   <string name="repeats_plural_number_of_times">Repeats every %1$s, occurs %2$d %3$s</string>
   <string name="list_separator_with_space">,\u0020</string>
   <string name="dont_add_to_calendar">Don\'t add to calendar</string>
-  <string name="default_calendar">Default calendar</string>
   <string name="badges_description">Display a task count on Tasks\' launcher icon. Not all launchers support badges.</string>
   <string name="tasker_create_task">Create task</string>
   <string name="tasker_list_notification">List notification</string>
@@ -335,7 +307,6 @@ File %1$s contained %2$s.\n\n
   <string name="banner_app_updated_description">Tasks was just updated to %s. Would you like to see the release notes?</string>
   <string name="whats_new">What\'s New</string>
   <string name="invalid_backup_file">Invalid backup file</string>
-  <string name="google_tasks_add_to_top">New tasks on top</string>
   <string name="name_your_price">Name your price</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>

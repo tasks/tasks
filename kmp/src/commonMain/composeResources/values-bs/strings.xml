@@ -48,4 +48,15 @@
     <string name="rmd_EPr_quiet_hours_start_title">Početak mirnih sati</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj mirnih sati</string>
     <string name="rmd_NoA_snooze">Odgodi</string>
+    <string name="EPr_default_importance_title">Uobičajeni prioritet</string>
+    <string name="default_start_date">Uobičajeni datum početka</string>
+    <string name="TEA_control_reminders">Podsjetnici</string>
+    <string name="EPr_default_reminders_title">Uobičajeni podsjetnici</string>
+    <string name="EPr_default_reminders_mode_title">Uobičajena vrsta zvona/vibracije</string>
+    <string name="TEA_control_location">Lokacija</string>
+    <string name="default_location">Uobičajena lokacija</string>
+    <string name="EPr_default_location_reminder_title">Uobičajeni podsjetnici lokacija</string>
+    <string name="no_reminders">Nema podsjetnika</string>
+    <string name="day_after_tomorrow">Preksutra</string>
+    <string name="next_week">Slijedeće sedmice</string>
 </resources>

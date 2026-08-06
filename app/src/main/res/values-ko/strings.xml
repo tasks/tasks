@@ -66,16 +66,8 @@
     <string name="EPr_manage_delete_gcal_status">%d 달력 일정을 삭제했습니다!</string>
     <string name="EPr_manage_delete_all_gcal">할일의 모든 달력 일정 삭제</string>
     <string name="EPr_manage_delete_all_gcal_message">할일의 모든 이벤트를 정말 삭제할까요?</string>
-    <string name="EPr_default_importance_title">기본 우선순위</string>
-    <string name="EPr_default_reminders_title">기본 알람</string>
-    <string name="EPr_default_location_reminder_title">기본 위치 알람</string>
-    <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 형식</string>
     <string name="day_after_tomorrow">모레</string>
     <string name="next_week">다음 주</string>
-    <string name="no_reminders">알람 없음</string>
-    <string name="default_location_reminder_on_arrival">도착 시</string>
-    <string name="default_location_reminder_on_departure">출발 시</string>
-    <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
     <string name="BFE_Active">나의 할일</string>
     <string name="BFE_Recent">최근에 변경한 할일</string>
     <string name="CFA_button_add">조건 추가</string>
@@ -106,12 +98,6 @@
     <string name="rmd_NoA_done">완료</string>
     <string name="rmd_NoA_snooze">알림 잠시 미루기</string>
     <string name="snooze_all">모든 알람 잠시 미루기</string>
-    <string name="rmd_EPr_defaultRemind_title">무작위 알람</string>
-    <string name="default_random_reminder_disabled">비활성화</string>
-    <string name="default_random_reminder_hourly">매시간</string>
-    <string name="default_random_reminder_daily">매일</string>
-    <string name="default_random_reminder_weekly">매주</string>
-    <string name="default_random_reminder_bi_weekly">격주로</string>
     <string name="repeat_option_custom">사용자설정…</string>
     <plurals name="task_count">
         <item quantity="one">%d 할일</item>
@@ -191,7 +177,6 @@
     <string name="pick_from_storage">저장소에서 가져오기</string>
     <string name="name_cannot_be_empty">이름은 필수 입력항목입니다</string>
     <string name="back_button_saves_task">뒤로가기 버튼으로 할일 저장</string>
-    <string name="default_list">기본 목록</string>
     <string name="filter">필터</string>
     <string name="opacity">불투명도</string>
     <string name="theme">테마</string>
@@ -222,7 +207,6 @@
     <string name="repeats_from">반복 시작 기준</string>
     <string name="repeats_plural_number_of_times">%1$s 주기로 %2$d %3$s 더 반복</string>
     <string name="dont_add_to_calendar">달력에 일정 추가하지 않기</string>
-    <string name="default_calendar">기본 달력</string>
     <string name="badges_description">Tasks 앱 아이콘 위에 할일 개수를 표시합니다. 모든 런처가 배지 기능을 지원하지는 않습니다. </string>
     <string name="tasker_create_task">할일 만들기</string>
     <string name="tasker_list_notification">목록 알림</string>
@@ -256,7 +240,6 @@
     <string name="open_map">지도 열기</string>
     <string name="choose_new_location">새 위치 선택</string>
     <string name="invalid_backup_file">부적합한 백업 파일</string>
-    <string name="google_tasks_add_to_top">새 할일을 가장 위로</string>
     <string name="icon">아이콘</string>
     <string name="name_your_price">구독 금액 정하기</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
@@ -337,9 +320,7 @@
     <string name="widget_show_dividers">할일 구분선 표시</string>
     <string name="widget_show_menu">메뉴 표시</string>
     <string name="sort_created">생성일시 기준</string>
-    <string name="default_recurrence">기본 반복</string>
     <string name="CFC_list_name">목록…</string>
-    <string name="default_location">기본 위치</string>
     <string name="multi_select_reschedule">기한 변경</string>
     <string name="backup_location_warning">경고: Tasks 삭제 시 %s의 파일도 삭제됩니다! 파일 삭제를 방지하려면 다른 위치를 지정하세요.</string>
     <string name="backups_ignore_warnings_summary">백업이 필요 없거나 앱 사용자가 직접 백업을 하고 있는 경우, 백업 경고를 무시합니다</string>
@@ -356,10 +337,8 @@
     <string name="lists">목록</string>
     <string name="open_last_viewed_list">마지막으로 보던 목록 열기</string>
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
-    <string name="default_tags">기본 태그</string>
     <string name="no_app_found">이 요청을 처리할 앱이 없습니다</string>
     <string name="header_spacing">줄 간격</string>
-    <string name="repeat_type_completion_capitalized">완료일</string>
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
     <string name="authorization_cancelled">인증 취소됨</string>
@@ -380,8 +359,6 @@
     <string name="always_display_full_date">일시 간략화하지 않고 그대로 표시</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
-    <string name="default_due_date">기본 마감일</string>
-    <string name="default_start_date">기본 시작일</string>
     <string name="start_date">시작일</string>
     <string name="SSD_sort_start">시작일 기준</string>
     <string name="filter_any_start_date">시작일 있음</string>

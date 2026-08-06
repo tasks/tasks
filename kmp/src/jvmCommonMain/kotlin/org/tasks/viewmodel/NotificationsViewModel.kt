@@ -66,12 +66,16 @@ open class NotificationsViewModel(
 
     private var quietHoursRefreshJob: Job? = null
 
-    private var pendingWrite: Job? = null
+    private val writes = PreferenceWriteQueue(
+        viewModelScope = viewModelScope,
+        persistenceScope = persistenceScope,
+        tag = TAG,
+        reload = { reloadSafely() },
+    )
 
     init {
         viewModelScope.launch {
-            reload()
-            scheduleQuietHoursRefresh()
+            reloadSafely()
         }
     }
 
@@ -80,40 +84,22 @@ open class NotificationsViewModel(
         timePickerInputMode = appPreferences.datePickerPreferences().timePickerInputMode
         isCurrentlyQuietHours = settings.isCurrentlyQuietHours()
         loaded = true
+        scheduleQuietHoursRefresh()
     }
 
-    open fun refreshState() {
-        viewModelScope.launch {
-            while (true) {
-                val write = pendingWrite ?: break
-                write.join()
-                if (pendingWrite === write) {
-                    break
-                }
-            }
+    private suspend fun reloadSafely() {
+        try {
             reload()
-            scheduleQuietHoursRefresh()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Logger.e(e, tag = TAG) { "Failed to reload notification settings" }
         }
     }
 
-    private fun persist(block: suspend () -> Unit) {
-        val previous = pendingWrite
-        pendingWrite = persistenceScope.launch {
-            previous?.join()
-            try {
-                block()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Logger.e(e, tag = TAG) { "Failed to save notification settings" }
-                try {
-                    reload()
-                } catch (reloadError: Exception) {
-                    Logger.e(reloadError, tag = TAG) { "Failed to reload notification settings" }
-                }
-            }
-        }
-    }
+    open fun refreshState() = writes.refresh()
+
+    private fun persist(block: suspend () -> Unit) = writes.write(block)
 
     protected open fun rescheduleNotifications(cancelExisting: Boolean) {}
 

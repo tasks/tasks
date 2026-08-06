@@ -52,9 +52,6 @@
     <string name="EPr_manage_delete_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
     <string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
     <string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
-    <string name="EPr_default_importance_title">Privzeta dospelost</string>
-    <string name="EPr_default_reminders_title">Privzeti opomniki</string>
-    <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
     <string name="BFE_Active">Moji Opravki</string>
@@ -81,12 +78,6 @@
     <string name="premium_record_audio">Posnemi opombo</string>
     <string name="rmd_NoA_done">Končano</string>
     <string name="rmd_NoA_snooze">Dremež</string>
-    <string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
-    <string name="default_random_reminder_disabled">onemogočen</string>
-    <string name="default_random_reminder_hourly">vsako uro</string>
-    <string name="default_random_reminder_daily">dnevno</string>
-    <string name="default_random_reminder_weekly">tedensko</string>
-    <string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
     <string name="TPl_notification">Merilniki časa aktivni za %s!</string>
     <string name="TEA_timer_controls">Merilnik časa</string>
     <string name="TEA_timer_comment_started">ta opravek začel:</string>

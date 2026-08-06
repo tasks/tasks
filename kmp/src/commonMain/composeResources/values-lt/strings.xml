@@ -382,4 +382,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Rytojaus popietė</string>
     <string name="date_shortcut_tomorrow_evening">Rytojaus vakaras</string>
     <string name="date_shortcut_tomorrow_night">Rytojaus naktis</string>
+    <string name="google_tasks_add_to_top">Naujos užduotys viršuje</string>
+    <string name="default_tags">Numatytos etiketės</string>
+    <string name="EPr_default_importance_title">Numatytas prioritetas</string>
+    <string name="default_start_date">Numatyta pradžios data</string>
+    <string name="default_due_date">Numatyta pabaigos data</string>
+    <string name="default_calendar">Numatytas kalendorius</string>
+    <string name="TEA_control_reminders">Priminimai</string>
+    <string name="EPr_default_reminders_title">Numatyti priminimai</string>
+    <string name="EPr_default_reminders_mode_title">Numatytas skambučio/vibracijos tipas</string>
+    <string name="default_recurrence">Numatytas pasikartojimas</string>
+    <string name="TEA_control_location">Vieta</string>
+    <string name="default_location">Numatyta geografinė vieta</string>
+    <string name="EPr_default_location_reminder_title">Numatyti vietų priminimai</string>
+    <string name="dont_add_to_calendar">Pridėti prie kalendoriaus</string>
+    <string name="no_reminders">Jokių priminimų</string>
+    <string name="day_after_tomorrow">Poryt</string>
+    <string name="next_week">Kitą savaitę</string>
+    <string name="default_location_reminder_on_arrival">Atvykus</string>
+    <string name="default_location_reminder_on_departure">Išvykstant</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Atvykus ir išvykstant</string>
 </resources>

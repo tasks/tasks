@@ -52,6 +52,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.compose.pickers.DAY_BEFORE_DUE
@@ -78,6 +79,7 @@ class TaskEditViewModelTest {
 
     /** The row id the fake [TaskDao.createNew] stamps onto a newly created task. */
     private val NEW_TASK_ID = 55L
+    private val NEW_TASK_ORDER = -1L
 
     private val mergedFields = setOf(
         "title", "priority", "dueDate", "hideUntil", "completionDate", "deletionDate", "notes",
@@ -126,11 +128,21 @@ class TaskEditViewModelTest {
         whenever(appPreferences.datePickerPreferences()).thenReturn(DatePickerPreferences())
         whenever(tagDataDao.getByUuid("tag-work")).thenReturn(workTag)
         whenever(appPreferences.defaultAlarms()).thenReturn(emptyList())
+        whenever(appPreferences.taskDefaults()).thenReturn(TaskDefaultSettings(defaultAlarms = emptyList()))
         whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(false)
-        whenever(appPreferences.defaultRandomHours()).thenReturn(0)
         whenever(appPreferences.defaultRingMode()).thenReturn(0)
         whenever(alarmDao.getAlarms(any<Long>())).thenReturn(emptyList())
         whenever(alarmDao.watchAlarms(any())).thenReturn(MutableSharedFlow())
+        caldavDao.stub {
+            onBlocking { insert(task = any(), caldavTask = any(), addToTop = any()) }
+                .doSuspendableAnswer { invocation ->
+                    val task = invocation.arguments[0] as Task
+                    if (invocation.arguments[2] as Boolean) {
+                        task.order = NEW_TASK_ORDER
+                    }
+                    1L
+                }
+        }
         // inTransaction exists only to wrap its block, and a mock would swallow it - taking the
         // row creation the editor does inside it along with it.
         taskDao.stub {
@@ -187,6 +199,22 @@ class TaskEditViewModelTest {
     }
 
     // region helpers
+
+    private suspend fun stubTaskDefaults(
+        defaultAlarms: List<Alarm> = emptyList(),
+        defaultList: String? = null,
+        defaultHideUntil: Int = Task.HIDE_UNTIL_NONE,
+        addTasksToTop: Boolean = true,
+    ) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(
+                defaultAlarms = defaultAlarms,
+                defaultList = defaultList,
+                defaultHideUntil = defaultHideUntil,
+                addTasksToTop = addTasksToTop,
+            )
+        )
+    }
 
     private fun TestScope.initializeNew() {
         buildViewModel()
@@ -290,6 +318,112 @@ class TaskEditViewModelTest {
         assertEquals(
             CaldavFilter(calendar = testCalendar, account = testAccount),
             viewModel.state.value.list,
+        )
+    }
+
+    @Test
+    fun newTaskWithoutASeedListUsesTheDefaultList() = runTest(testDispatcher) {
+        stubTaskDefaults(defaultList = seedCalendar.uuid)
+        whenever(caldavDao.getCalendarByUuid(seedCalendar.uuid!!)).thenReturn(seedCalendar)
+
+        initializeNewWith()
+
+        assertEquals(
+            CaldavFilter(calendar = seedCalendar, account = testAccount),
+            viewModel.state.value.list,
+        )
+    }
+
+    @Test
+    fun newTaskSkipsAReadOnlyDefaultList() = runTest(testDispatcher) {
+        val readOnly = seedCalendar.copy(access = CaldavCalendar.ACCESS_READ_ONLY)
+        stubTaskDefaults(defaultList = readOnly.uuid)
+        whenever(caldavDao.getCalendarByUuid(readOnly.uuid!!)).thenReturn(readOnly)
+
+        initializeNewWith()
+
+        assertEquals(
+            CaldavFilter(calendar = testCalendar, account = testAccount),
+            viewModel.state.value.list,
+        )
+    }
+
+    @Test
+    fun newTaskWithoutADestinationTagUsesTheDefaultTags() = runTest(testDispatcher) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(defaultAlarms = emptyList(), defaultTags = listOf(workTag.remoteId!!))
+        )
+        whenever(tagDataDao.getByUuid(listOf(workTag.remoteId!!))).thenReturn(listOf(workTag))
+
+        initializeNew()
+
+        assertEquals(listOf(workTag), viewModel.state.value.tags)
+    }
+
+    @Test
+    fun aDestinationTagBeatsTheDefaultTags() = runTest(testDispatcher) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(defaultAlarms = emptyList(), defaultTags = listOf("tag-other"))
+        )
+
+        initializeNewWith(tagUuid = workTag.remoteId)
+
+        assertEquals(listOf(workTag), viewModel.state.value.tags)
+    }
+
+    @Test
+    fun newTaskSeedsPriorityDueDateAndRecurrenceFromDefaults() = runTest(testDispatcher) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(
+                defaultAlarms = emptyList(),
+                defaultPriority = Task.Priority.HIGH,
+                defaultDueDate = Task.URGENCY_TODAY,
+                defaultRecurrence = "FREQ=DAILY",
+                defaultRecurrenceFrom = Task.RepeatFrom.COMPLETION_DATE,
+            )
+        )
+
+        initializeNew()
+
+        val task = viewModel.state.value.task
+        assertEquals(Task.Priority.HIGH, task.priority)
+        assertEquals(currentTimeMillis().startOfDay(), task.dueDate.startOfDay())
+        assertEquals("FREQ=DAILY", task.recurrence)
+        assertEquals(Task.RepeatFrom.COMPLETION_DATE, task.repeatFrom)
+    }
+
+    @Test
+    fun aDefaultRecurrenceGivesANewTaskADueDateToRecurFrom() = runTest(testDispatcher) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(
+                defaultAlarms = emptyList(),
+                defaultDueDate = Task.URGENCY_NONE,
+                defaultRecurrence = "FREQ=DAILY",
+            )
+        )
+
+        initializeNew()
+
+        val task = viewModel.state.value.task
+        assertEquals("FREQ=DAILY", task.recurrence)
+        assertEquals(currentTimeMillis().startOfDay(), task.dueDate.startOfDay())
+    }
+
+    @Test
+    fun aDefaultRecurrenceLeavesAConfiguredDefaultDueDateAlone() = runTest(testDispatcher) {
+        whenever(appPreferences.taskDefaults()).thenReturn(
+            TaskDefaultSettings(
+                defaultAlarms = emptyList(),
+                defaultDueDate = Task.URGENCY_TOMORROW,
+                defaultRecurrence = "FREQ=DAILY",
+            )
+        )
+
+        initializeNew()
+
+        assertEquals(
+            currentTimeMillis().plusDays(1).startOfDay(),
+            viewModel.state.value.task.dueDate.startOfDay(),
         )
     }
 
@@ -399,8 +533,36 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao).createNew(check { assertEquals("New Task", it.title) })
-        verify(caldavDao).insert(task = any(), caldavTask = any(), addToTop = any())
+        verify(caldavDao).insert(
+            task = check { assertEquals("New Task", it.title) },
+            caldavTask = check { assertEquals(testCalendar.uuid, it.calendar) },
+            addToTop = eq(true),
+        )
         verify(taskSaver).save(check { assertEquals("New Task", it.title) }, anyOrNull(), any())
+    }
+
+    @Test
+    fun newTaskGoesToTheBottomWhenTheDefaultSaysSo() = runTest(testDispatcher) {
+        stubTaskDefaults(addTasksToTop = false)
+        initializeNew()
+
+        viewModel.setTitle("New Task")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(caldavDao).insert(task = any(), caldavTask = any(), addToTop = eq(false))
+    }
+
+    @Test
+    fun theOrderStampedByTheInsertIsKept() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setTitle("New Task")
+        viewModel.save()
+        advanceUntilIdle()
+
+        assertEquals(NEW_TASK_ORDER, viewModel.state.value.task.order)
+        assertFalse(viewModel.state.value.hasChanges)
     }
 
     @Test
@@ -1853,8 +2015,7 @@ class TaskEditViewModelTest {
     // region default hide-until seeding
 
     private suspend fun TestScope.initializeNewWithDefaultHideUntil(setting: Int) {
-        whenever(appPreferences.datePickerPreferences())
-            .thenReturn(DatePickerPreferences(defaultHideUntil = setting))
+        stubTaskDefaults(defaultHideUntil = setting)
         buildViewModel()
         advanceUntilIdle()
     }
@@ -1867,6 +2028,75 @@ class TaskEditViewModelTest {
         assertEquals(DUE_DATE, state.startDay)
         assertEquals(NO_TIME, state.startTime)
         assertEquals(0L, state.task.hideUntil)
+    }
+
+    @Test
+    fun aDefaultStartDateEarnsItsReminderOnceADueDateResolvesIt() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms())
+            .thenReturn(listOf(Alarm.whenStarted(0), Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        stubTaskDefaults(defaultAlarms = listOf(Alarm.whenStarted(0), Alarm.whenDue(0)))
+        initializeNewWithDefaultHideUntil(Task.HIDE_UNTIL_DUE)
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+
+        viewModel.setDueDate(currentTimeMillis().startOfDay())
+        advanceUntilIdle()
+
+        assertEquals(
+            persistentSetOf(Alarm.whenStarted(0), Alarm.whenDue(0)),
+            viewModel.state.value.alarms,
+        )
+    }
+
+    @Test
+    fun theDueDateARecurrenceForcesEarnsTheDefaultReminders() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms())
+            .thenReturn(listOf(Alarm.whenStarted(0), Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        stubTaskDefaults(defaultAlarms = listOf(Alarm.whenStarted(0), Alarm.whenDue(0)))
+        initializeNewWithDefaultHideUntil(Task.HIDE_UNTIL_DUE)
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+
+        viewModel.setRecurrence("FREQ=DAILY")
+        advanceUntilIdle()
+
+        assertEquals(
+            persistentSetOf(Alarm.whenStarted(0), Alarm.whenDue(0)),
+            viewModel.state.value.alarms,
+        )
+    }
+
+    @Test
+    fun aRecurrenceOnADatedTaskLeavesRemindersAlone() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        initializeNew()
+        viewModel.setDueDate(currentTimeMillis().startOfDay())
+        advanceUntilIdle()
+        viewModel.removeAlarm(Alarm.whenDue(0))
+
+        viewModel.setRecurrence("FREQ=DAILY")
+        advanceUntilIdle()
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
+    }
+
+    @Test
+    fun clearingTheDueDateOnAMonthlyRuleAddsNoReminders() = runTest(testDispatcher) {
+        whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenDue(0)))
+        whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)
+        initializeNew()
+        viewModel.setDueDate(currentTimeMillis().startOfDay())
+        viewModel.setRecurrence("FREQ=MONTHLY;BYDAY=2WE")
+        advanceUntilIdle()
+        viewModel.removeAlarm(Alarm.whenDue(0))
+
+        viewModel.setDueDate(0)
+        advanceUntilIdle()
+
+        assertTrue(viewModel.state.value.alarms.isEmpty())
     }
 
     @Test
@@ -1895,8 +2125,7 @@ class TaskEditViewModelTest {
 
     @Test
     fun doesNotSeedDefaultHideUntilForExistingTask() = runTest(testDispatcher) {
-        whenever(appPreferences.datePickerPreferences())
-            .thenReturn(DatePickerPreferences(defaultHideUntil = Task.HIDE_UNTIL_DUE))
+        stubTaskDefaults(defaultHideUntil = Task.HIDE_UNTIL_DUE)
         whenever(taskDao.fetch(42)).thenReturn(Task(id = 42, title = "t"))
         whenever(caldavDao.getTask(42)).thenReturn(null)
 
@@ -1908,8 +2137,7 @@ class TaskEditViewModelTest {
 
     @Test
     fun doesNotSeedDefaultHideUntilForRequestedButMissingTask() = runTest(testDispatcher) {
-        whenever(appPreferences.datePickerPreferences())
-            .thenReturn(DatePickerPreferences(defaultHideUntil = Task.HIDE_UNTIL_DAY_BEFORE))
+        stubTaskDefaults(defaultHideUntil = Task.HIDE_UNTIL_DAY_BEFORE)
         whenever(taskDao.fetch(99)).thenReturn(null)
         whenever(caldavDao.getTask(99)).thenReturn(null)
 
@@ -2770,7 +2998,7 @@ class TaskEditViewModelTest {
 
     @Test
     fun newTaskWithDefaultAlarmsIsNotAChangeOnItsOwn() = runTest(testDispatcher) {
-        whenever(appPreferences.defaultRandomHours()).thenReturn(1)
+        stubTaskDefaults(defaultAlarms = listOf(Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)))
 
         initializeNew()
 
@@ -2785,7 +3013,7 @@ class TaskEditViewModelTest {
     @Test
     fun newTaskWritesItsDefaultAlarms() = runTest(testDispatcher) {
         val default = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
-        whenever(appPreferences.defaultRandomHours()).thenReturn(1)
+        stubTaskDefaults(defaultAlarms = listOf(default))
         initializeNew()
 
         viewModel.setTitle("New")

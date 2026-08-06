@@ -7,8 +7,6 @@
     <string name="FLA_search_filter">Tumutugma \'%s\'</string>
     <string name="TEA_title_hint">Pangalan ng gawain</string>
     <string name="TEA_importance_label">Prayoridad</string>
-    <string name="no_reminders">Walang paalala</string>
-    <string name="default_location_reminder_on_arrival">Sa pagdating</string>
     <string name="custom_filter_or">o</string>
     <string name="custom_filter_not">hindi</string>
     <string name="CFC_title_contains_text">Pamagat naglalaman ng: ?</string>

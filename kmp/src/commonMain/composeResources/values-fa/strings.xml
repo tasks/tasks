@@ -143,4 +143,20 @@
     <string name="date_shortcut_night">شب</string>
     <string name="date_shortcut_tomorrow_morning">فردا صبح</string>
     <string name="date_shortcut_tomorrow_afternoon">فردا بعداز ظهر</string>
+    <string name="EPr_default_importance_title">اولویت پیش فرض</string>
+    <string name="default_start_date">تاریخ شروع دیفالت</string>
+    <string name="default_due_date">تاریخ پایان دیفالت</string>
+    <string name="default_calendar">تقویم پیش فرض</string>
+    <string name="TEA_control_reminders">یادآوری ها</string>
+    <string name="EPr_default_reminders_title">یادآورهای پیش فرض</string>
+    <string name="EPr_default_reminders_mode_title">نوع زنگ/ویبره دیفالت</string>
+    <string name="TEA_control_location">مکان</string>
+    <string name="default_location">موقعیت مکانی دیفالت</string>
+    <string name="EPr_default_location_reminder_title">یادآور های دیفالت مکانی</string>
+    <string name="no_reminders">یادآوری نیست</string>
+    <string name="day_after_tomorrow">پس فردا</string>
+    <string name="next_week">هفته بعد</string>
+    <string name="default_location_reminder_on_arrival">موقع رسیدن</string>
+    <string name="default_location_reminder_on_departure">موقع رفتن</string>
+    <string name="default_location_reminder_on_arrival_or_departure">موقع رسیدن و رفتن</string>
 </resources>

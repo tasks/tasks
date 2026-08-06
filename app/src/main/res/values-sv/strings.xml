@@ -63,9 +63,6 @@
     <string name="EPr_manage_delete_gcal_status">%d kalenderhändelser togs bort</string>
     <string name="EPr_manage_delete_all_gcal">Ta bort alla kalenderhändelser för uppgifter</string>
     <string name="EPr_manage_delete_all_gcal_message">Vill du ta bort alla kalenderhändelser för uppgifter?</string>
-    <string name="EPr_default_importance_title">Förvald prioritet</string>
-    <string name="EPr_default_reminders_title">Förvalda påminnelser</string>
-    <string name="EPr_default_reminders_mode_title">Förvalt ljud- och vibrationsläge</string>
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
     <string name="BFE_Active">Mina uppgifter</string>
@@ -100,12 +97,6 @@
     <string name="ring_nonstop">Ring kontinuerligt</string>
     <string name="rmd_NoA_done">Slutförd</string>
     <string name="rmd_NoA_snooze">Skjut upp</string>
-    <string name="rmd_EPr_defaultRemind_title">Slumpmässiga påminnelser</string>
-    <string name="default_random_reminder_disabled">Inaktiverad</string>
-    <string name="default_random_reminder_hourly">varje timme</string>
-    <string name="default_random_reminder_daily">varje dag</string>
-    <string name="default_random_reminder_weekly">varje vecka</string>
-    <string name="default_random_reminder_bi_weekly">varannan vecka</string>
     <string name="repeat_snackbar">%1$s schemalades om till %2$s</string>
     <string name="new_tag">Skapa en ny etikett</string>
     <string name="new_list">Skapa en ny lista</string>
@@ -155,7 +146,6 @@
     <string name="pick_from_storage">Välj från lagringsutrymmet</string>
     <string name="name_cannot_be_empty">Namn måste anges</string>
     <string name="back_button_saves_task">Bakåtknappen sparar uppgiften</string>
-    <string name="default_list">Förvald lista</string>
     <string name="opacity">Opacitet</string>
     <string name="theme">Tema</string>
     <string name="color">Färg</string>
@@ -174,11 +164,6 @@
     <string name="action_call">Ring</string>
     <string name="action_open">Öppna</string>
     <string name="TEA_control_location">Plats</string>
-    <string name="EPr_default_location_reminder_title">Förvald platspåminnelse</string>
-    <string name="no_reminders">Inga påminnelser</string>
-    <string name="default_location_reminder_on_arrival">Vid ankomst</string>
-    <string name="default_location_reminder_on_departure">Vid avgång</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Vid ankomst eller avgång</string>
     <string name="snooze_all">Senarelägg alla</string>
     <string name="repeat_option_custom">Anpassad…</string>
     <plurals name="task_count">
@@ -230,7 +215,6 @@
     <string name="repeats_plural_number_of_times">Upprepas var %1$s, totalt %2$d %3$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Lägg inte till i kalender</string>
-    <string name="default_calendar">Förvald kalender</string>
     <string name="badges_description">Visa antalet uppgifter på Tasks-appikonen. Alla startprogram stöder inte aviseringsmärken.</string>
     <string name="tasker_create_task">Skapa uppgift</string>
     <string name="tasker_list_notification">Visa avisering</string>
@@ -261,7 +245,6 @@
     <string name="open_map">Öppna karta</string>
     <string name="choose_new_location">Välj en ny plats</string>
     <string name="invalid_backup_file">Ogiltig säkerhetskopieringsfil</string>
-    <string name="google_tasks_add_to_top">Nya uppgifter överst</string>
     <string name="icon">Ikon</string>
     <string name="name_your_price">Ange ditt pris</string>
     <string name="SSD_sort_my_order">Min ordning</string>
@@ -386,8 +369,6 @@
     <string name="opacity_footer">Opacitet för sidfot</string>
     <string name="opacity_row">Radens opacitet</string>
     <string name="opacity_header">Opacitet för rubriken</string>
-    <string name="default_recurrence">Förvald upprepning</string>
-    <string name="default_tags">Förvalda etiketter</string>
     <string name="no_app_found">Ingen app kunde hantera denna begäran</string>
     <string name="filter_criteria_unstarted">Inte påbörjad</string>
     <string name="header_spacing">Avstånd</string>
@@ -396,14 +377,10 @@
     <string name="background_location_permission_required">Tasks samlar in platsdata för att möjliggöra platsbaserade påminnelser, även när appen är stängd eller inte används.</string>
     <string name="widget_show_dividers">Visa avdelare</string>
     <string name="widget_show_title">Visa titel</string>
-    <string name="repeat_type_completion_capitalized">Slutdatum</string>
     <string name="filter_any_start_date">Vilket startdatum som helst</string>
     <string name="no_start_date">Inget startdatum</string>
     <string name="CFC_startBefore_name">Börjar vid…</string>
     <string name="CFC_startBefore_text">Börjar vid: ?</string>
-    <string name="default_location">Förvald plats</string>
-    <string name="default_due_date">Förvalt förfallodatum</string>
-    <string name="default_start_date">Förvalt startdatum</string>
     <string name="always_display_full_date">Visa hela datumet</string>
     <string name="start_date">Startdatum</string>
     <string name="TEA_add_subtask">Lägg till deluppgift</string>
@@ -466,13 +443,7 @@
     <string name="accept">Acceptera</string>
     <string name="exit">Avsluta</string>
     <string name="returning_user">Har du använt appen tidigare?</string>
-    <string name="location_update_interval_title">Uppdatering av plats i bakgrunden</string>
     <string name="location_update_interval_summary">Regelbundna platsuppdateringar förbättrar geofence-funktionens tillförlitlighet</string>
-    <string name="location_update_interval_disabled">Inaktiverad</string>
-    <string name="location_update_interval_15_minutes">Var 15:e minut</string>
-    <string name="location_update_interval_30_minutes">Var 30:e minut</string>
-    <string name="location_update_interval_1_hour">Varje timme</string>
-    <string name="location_update_interval_2_hours">Varannan timme</string>
     <string name="email_to_task">E-post till uppgift</string>
     <string name="email_to_task_address">Din e-postadress</string>
     <string name="rmd_EPr_rmd_time_desc">Aviseringar för heldagsuppgifter visas vid %1$s</string>

@@ -26,4 +26,6 @@
     <string name="TEA_note_label">ဖော်ပြချက်</string>
     <string name="start_date">စရက်</string>
     <string name="TEA_control_repeat">ထပ်လုပ်မည်</string>
+    <string name="TEA_control_reminders">သတိပေးမှုများ</string>
+    <string name="TEA_control_location">တည်နေရာ</string>
 </resources>

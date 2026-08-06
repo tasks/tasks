@@ -432,4 +432,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Morgenmiddag</string>
     <string name="date_shortcut_tomorrow_evening">Morgenavond</string>
     <string name="date_shortcut_tomorrow_night">Morgennacht</string>
+    <string name="google_tasks_add_to_top">Nieuwe taken boven</string>
+    <string name="default_tags">Standaardlabel</string>
+    <string name="EPr_default_importance_title">Standaard prioriteit</string>
+    <string name="default_start_date">Standaard begindatum</string>
+    <string name="default_due_date">Standaard vervaldatum</string>
+    <string name="default_calendar">Standaardkalender</string>
+    <string name="TEA_control_reminders">Herinneringen</string>
+    <string name="EPr_default_reminders_title">Standaard herinneringen</string>
+    <string name="EPr_default_reminders_mode_title">Standaard beltoon/trillingstype</string>
+    <string name="default_recurrence">Herhaling</string>
+    <string name="TEA_control_location">Locatie</string>
+    <string name="default_location">Standaardlocatie</string>
+    <string name="EPr_default_location_reminder_title">Locatieherinneringen</string>
+    <string name="dont_add_to_calendar">Niet aan kalender toevoegen</string>
+    <string name="no_reminders">Geen herinneringen</string>
+    <string name="day_after_tomorrow">Overmorgen</string>
+    <string name="next_week">Volgende week</string>
+    <string name="default_location_reminder_on_arrival">Bij aankomst</string>
+    <string name="default_location_reminder_on_departure">Bij vertrek</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Bij aankomst en vertrek</string>
 </resources>

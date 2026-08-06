@@ -300,4 +300,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Mañana pela tarde</string>
     <string name="date_shortcut_tomorrow_evening">Mañana al atardecer</string>
     <string name="date_shortcut_tomorrow_night">Mañana a la nueche</string>
+    <string name="google_tasks_add_to_top">Nueves xeres enrriba</string>
+    <string name="default_tags">Etiquetes predetermináes</string>
+    <string name="EPr_default_importance_title">Prioridá predeterminada</string>
+    <string name="default_start_date">Data d'entamu predeterminada</string>
+    <string name="default_due_date">Data de vencimientu predeterminada</string>
+    <string name="default_calendar">Calendariu predetermináu</string>
+    <string name="TEA_control_reminders">Recordatorios</string>
+    <string name="EPr_default_reminders_title">Recordatorios predeterminados</string>
+    <string name="EPr_default_reminders_mode_title">Tipu predetermináu de timbre/vibración</string>
+    <string name="default_recurrence">Recurrencia predeterminada</string>
+    <string name="TEA_control_location">Allugamientu</string>
+    <string name="default_location">Allugamientu predetermináu</string>
+    <string name="EPr_default_location_reminder_title">Recordatorios d'allugamientu predeterminaos</string>
+    <string name="dont_add_to_calendar">Non amestar al calendariu</string>
+    <string name="no_reminders">Ensin recordatorios</string>
+    <string name="day_after_tomorrow">Pasáu mañana</string>
+    <string name="next_week">La selmana que vien</string>
+    <string name="default_location_reminder_on_arrival">En llegando</string>
+    <string name="default_location_reminder_on_departure">En marchando</string>
+    <string name="default_location_reminder_on_arrival_or_departure">En llegando y en marchando</string>
 </resources>

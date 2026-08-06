@@ -31,4 +31,5 @@ data class PlatformConfiguration(
     val supportsVoiceReminders: Boolean = false,
     val supportsCompletionSound: Boolean = false,
     val supportsSwipeToSnooze: Boolean = false,
+    val supportsRingMode: Boolean = false,
 )

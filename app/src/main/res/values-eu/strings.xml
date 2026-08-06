@@ -71,16 +71,8 @@
     <string name="EPr_manage_delete_gcal_status">%d gertaera ezabatuta egutegitik!</string>
     <string name="EPr_manage_delete_all_gcal">Ezabatu zereginen gertaera guztiak egutegitik</string>
     <string name="EPr_manage_delete_all_gcal_message">Ziur zure zereginen gertaera guztiak ezabatu nahi dituzula egutegitik\?</string>
-    <string name="EPr_default_importance_title">Lehenetsitako lehentasuna</string>
-    <string name="EPr_default_reminders_title">Lehenetsitako oroigarriak</string>
-    <string name="EPr_default_location_reminder_title">Lehenetsitako kokaleku-oroigarriak</string>
-    <string name="EPr_default_reminders_mode_title">Lehenetsitako doinua/bibrazio mota</string>
     <string name="day_after_tomorrow">Etzi</string>
     <string name="next_week">Datorren astean</string>
-    <string name="no_reminders">Oroigarririk ez</string>
-    <string name="default_location_reminder_on_arrival">Heltzean</string>
-    <string name="default_location_reminder_on_departure">Ateratzean</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Ateratzean eta heltzean</string>
     <string name="BFE_Active">Nire zereginak</string>
     <string name="BFE_Recent">Aldatutako azkenak</string>
     <string name="CFA_button_add">Gehitu irizpidea</string>
@@ -111,12 +103,6 @@
     <string name="rmd_NoA_done">Burututa</string>
     <string name="rmd_NoA_snooze">Atzeratu</string>
     <string name="snooze_all">Atzeratu denak</string>
-    <string name="rmd_EPr_defaultRemind_title">Ausazko oroigarriak</string>
-    <string name="default_random_reminder_disabled">Desgaituta</string>
-    <string name="default_random_reminder_hourly">Orduero</string>
-    <string name="default_random_reminder_daily">Egunero</string>
-    <string name="default_random_reminder_weekly">Astero</string>
-    <string name="default_random_reminder_bi_weekly">Bi astean behin</string>
     <string name="repeat_option_custom">Pertsonalizatua…</string>
     <plurals name="task_count">
         <item quantity="one">Zeregin %d</item>
@@ -199,7 +185,6 @@
     <string name="pick_from_storage">Hautatu biltegiratzetik</string>
     <string name="name_cannot_be_empty">Izena ezin da hutsik egon</string>
     <string name="back_button_saves_task">Atzera botoiak zeregina gordetzen du</string>
-    <string name="default_list">Zerrenda nagusia</string>
     <string name="filter">Iragazkia</string>
     <string name="opacity">Opakutasuna</string>
     <string name="theme">Azala</string>
@@ -232,7 +217,6 @@
     <string name="repeats_plural_number_of_times">Errepikatu %1$s, %2$d %3$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Ez gehitu egutegira</string>
-    <string name="default_calendar">Lehenetsitako egutegia</string>
     <string name="badges_description">Bistaratu zeregin kopurua abiarazleko Tasks ikonoan. Abiarazle guztiek ez dituzte dominak onartzen.</string>
     <string name="tasker_create_task">Sortu zeregina</string>
     <string name="tasker_list_notification">Zerrenda-jakinarazpena</string>
@@ -263,7 +247,6 @@
     <string name="open_map">Ireki mapa</string>
     <string name="choose_new_location">Hautatu kokaleku berria</string>
     <string name="invalid_backup_file">Baliogabeko babes-kopia fitxategia</string>
-    <string name="google_tasks_add_to_top">Zeregin berriak goialdean</string>
     <string name="icon">Ikonoa</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="SSD_sort_my_order">Nire eskaria</string>
@@ -373,12 +356,8 @@
     <string name="automatic_backups">Babeskopia automatikoak</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="background_location_permission_required">Aplikazio honek kokapen datuak jasotzen ditu aplikazioa itxita dagoenean kokapenean oinarritutako oroigarriak gaitu ahal izateko.</string>
-    <string name="default_recurrence">Lehenetsitako errepikapena</string>
-    <string name="default_tags">Lehenetsitako etiketak</string>
     <string name="no_app_found">Ez dago eskaera bete dezakeen aplikaziorik</string>
     <string name="header_spacing">Espazioa</string>
-    <string name="repeat_type_completion_capitalized">Burutze-data</string>
-    <string name="default_location">Lehenetsitako kokalekua</string>
     <string name="always_display_full_date">Erakutsi data osoa</string>
     <string name="start_date">Hasiera data</string>
     <string name="SSD_sort_start">Hasiera dataren arabera</string>
@@ -403,8 +382,6 @@
     <string name="no_start_date">Hasiera data gabe</string>
     <string name="CFC_startBefore_name">Hasiera…</string>
     <string name="CFC_startBefore_text">Hasiera: \?</string>
-    <string name="default_due_date">Lehenetsitako epemuga data</string>
-    <string name="default_start_date">Lehenetsitako hasiera data</string>
     <string name="tasks_org_account_required">Tasks.org kontua behar da</string>
     <string name="privacy">Pribatutasuna</string>
     <string name="open_source">Kode irekia</string>

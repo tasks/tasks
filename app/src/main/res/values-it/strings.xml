@@ -66,16 +66,8 @@
     <string name="EPr_manage_delete_gcal_status">%d eventi del calendario sono stati eliminati!</string>
     <string name="EPr_manage_delete_all_gcal">Elimina tutti gli eventi del calendario in Tasks</string>
     <string name="EPr_manage_delete_all_gcal_message">Vuoi davvero eliminare tutti i tuoi eventi in programma\?</string>
-    <string name="EPr_default_importance_title">Priorità predefinita</string>
-    <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
-    <string name="EPr_default_location_reminder_title">Posizione promemoria predefinita</string>
-    <string name="EPr_default_reminders_mode_title">Tipo di squillo/vibrazione predefinito</string>
     <string name="day_after_tomorrow">Dopodomani</string>
     <string name="next_week">Settimana prossima</string>
-    <string name="no_reminders">Nessun promemoria</string>
-    <string name="default_location_reminder_on_arrival">All\'arrivo</string>
-    <string name="default_location_reminder_on_departure">Alla partenza</string>
-    <string name="default_location_reminder_on_arrival_or_departure">All\'arrivo ed alla partenza</string>
     <string name="BFE_Active">Le mie attività</string>
     <string name="BFE_Recent">Modificate di recente</string>
     <string name="CFA_button_add">Aggiungi Criteri</string>
@@ -106,12 +98,6 @@
     <string name="rmd_NoA_done">Completata</string>
     <string name="rmd_NoA_snooze">Posticipa</string>
     <string name="snooze_all">Posticipa tutti</string>
-    <string name="rmd_EPr_defaultRemind_title">Promemoria casuali</string>
-    <string name="default_random_reminder_disabled">Disabilitati</string>
-    <string name="default_random_reminder_hourly">Ogni ora</string>
-    <string name="default_random_reminder_daily">Quotidianamente</string>
-    <string name="default_random_reminder_weekly">Settimanale</string>
-    <string name="default_random_reminder_bi_weekly">Bisettimanale</string>
     <string name="repeat_option_custom">Personalizzato…</string>
     <plurals name="task_count">
         <item quantity="one">%d attività</item>
@@ -199,7 +185,6 @@
     <string name="pick_from_storage">Scegli dal dispositivo</string>
     <string name="name_cannot_be_empty">Il nome non può essere vuoto</string>
     <string name="back_button_saves_task">Il tasto indietro salva l\'attività</string>
-    <string name="default_list">Lista predefinita</string>
     <string name="filter">Filtra</string>
     <string name="opacity">Opacità</string>
     <string name="theme">Tema</string>
@@ -229,7 +214,6 @@
     <string name="repeats_from">Ripeti a partire da</string>
     <string name="repeats_plural_number_of_times">Ripetuta ogni %1$s, cade il %2$d %3$s</string>
     <string name="dont_add_to_calendar">Non  aggiungere al calendario</string>
-    <string name="default_calendar">Calendario predefinito</string>
     <string name="badges_description">Mostra il contatore delle notifiche sull\'icona di Tasks. Non tutti i launcher supportano questa funzionalità.</string>
     <string name="tasker_create_task">Crea attività</string>
     <string name="tasker_list_notification">Elenca notifiche</string>
@@ -295,7 +279,6 @@
     <string name="icon">Icona</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
-    <string name="google_tasks_add_to_top">Nuove attività in cima alla lista</string>
     <string name="invalid_backup_file">File di backup non valido</string>
     <string name="list_separator_with_space">", "</string>
     <string name="location_radius_meters">%s m</string>
@@ -369,10 +352,6 @@
     <string name="automatic_backups">Backup automatici</string>
     <string name="no_app_found">Nessuna app è in grado di gestire questa richiesta</string>
     <string name="header_spacing">Spaziatura</string>
-    <string name="default_recurrence">Ricorrenza predefinita</string>
-    <string name="repeat_type_completion_capitalized">Data di completamento</string>
-    <string name="default_tags">Etichetta predefinita</string>
-    <string name="default_location">Posizione predefinita</string>
     <string name="multi_select_reschedule">Modifica pianificazione</string>
     <string name="always_display_full_date">Mostra data completa</string>
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
@@ -396,8 +375,6 @@
     <string name="filter_any_start_date">Qualsiasi data di inizio</string>
     <string name="no_start_date">Nessuna data di inizio</string>
     <string name="filter_criteria_unstarted">Non iniziate</string>
-    <string name="default_due_date">Scadenza predefinita</string>
-    <string name="default_start_date">Data di inizio predefinita</string>
     <string name="SSD_sort_start">Per data di inizio</string>
     <string name="start_date">Data di inizio</string>
     <string name="app_passwords_more_info">Sincronizza le tue attività e i calendari con applicazioni di terze parti. Tocca qui per maggiori informazioni</string>
@@ -486,13 +463,7 @@
     <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>
     <string name="per_list_sort_title">Ordinamento per lista</string>
     <string name="per_list_sort_summary">Consente ordinamento e raggruppamento indipendenti per ogni lista</string>
-    <string name="location_update_interval_title">Aggiornamenti della posizione in background</string>
     <string name="location_update_interval_summary">Gli aggiornamenti periodici della posizione migliorano l\'affidabilità del geofence</string>
-    <string name="location_update_interval_disabled">Disabilitato</string>
-    <string name="location_update_interval_15_minutes">Ogni 15 minuti</string>
-    <string name="location_update_interval_30_minutes">Ogni 30 minuti</string>
-    <string name="location_update_interval_1_hour">Ogni ora</string>
-    <string name="location_update_interval_2_hours">Ogni 2 ore</string>
     <string name="read_more">Leggi di più</string>
     <string name="upgrade_desktop_app">Tasks.org per desktop</string>
     <string name="upgrade_desktop_app_description">Accesso in anteprima alla nuova app per desktop</string>

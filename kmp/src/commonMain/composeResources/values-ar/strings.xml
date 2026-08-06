@@ -486,4 +486,24 @@
     <string name="date_shortcut_tomorrow_afternoon">غدًا بعد الظهر</string>
     <string name="date_shortcut_tomorrow_evening">مساء غد</string>
     <string name="date_shortcut_tomorrow_night">ليلة غد</string>
+    <string name="google_tasks_add_to_top">اضف المهام الجديدة لاعلى القائمة</string>
+    <string name="default_tags">العلامات الافتراضيّة</string>
+    <string name="EPr_default_importance_title">الأولويّة الافتراضيّة</string>
+    <string name="default_start_date">تاريخ البدأ الافتراضي</string>
+    <string name="default_due_date">وقت الاستحقاق الافتراضي</string>
+    <string name="default_calendar">التقويم الافتراضي</string>
+    <string name="TEA_control_reminders">تذكيرات</string>
+    <string name="EPr_default_reminders_title">التذكير الافتراضى</string>
+    <string name="EPr_default_reminders_mode_title">نوع رنين/اهتزاز افتراضي</string>
+    <string name="default_recurrence">التكرار الافتراضي</string>
+    <string name="TEA_control_location">الموقع</string>
+    <string name="default_location">الموقع الافتراضي</string>
+    <string name="EPr_default_location_reminder_title">مذكرات الموقع الافتراضية</string>
+    <string name="dont_add_to_calendar">لا تضف إلى التقويم</string>
+    <string name="no_reminders">بدون تذكير</string>
+    <string name="day_after_tomorrow">بعد غد</string>
+    <string name="next_week">الأسبوع القادم</string>
+    <string name="default_location_reminder_on_arrival">عند الوصول</string>
+    <string name="default_location_reminder_on_departure">عند المغادرة</string>
+    <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
 </resources>

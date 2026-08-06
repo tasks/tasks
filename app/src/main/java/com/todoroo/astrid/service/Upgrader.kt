@@ -75,6 +75,7 @@ class Upgrader @Inject constructor(
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
     private val upgrade_14_11: Lazy<Upgrade_14_11>,
     private val upgrade_14_13: Lazy<Upgrade_14_13>,
+    private val upgrade_15_10: Lazy<Upgrade_15_10>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -168,6 +169,9 @@ class Upgrader @Inject constructor(
             }
             run(from, Upgrade_14_13.VERSION) {
                 upgrade_14_13.get().deleteAlarmsForAllDayTasks()
+            }
+            run(from, Upgrade_15_10.VERSION) {
+                upgrade_15_10.get().migrateRandomReminder()
             }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {

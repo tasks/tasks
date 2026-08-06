@@ -52,11 +52,8 @@
     <string name="EPr_manage_delete_completed_gcal">Hapus acara kalender untuk tugas yang telah selesai</string>
     <string name="EPr_manage_delete_completed_gcal_message">Apakah anda benar-benar ingin menghapus semua acara untuk tugas yang telah selesai\?</string>
     <string name="EPr_manage_delete_gcal_status">Menghapus %d acara kalender!</string>
-    <string name="EPr_default_importance_title">Prioritas bawaan</string>
-    <string name="EPr_default_reminders_title">Pengingat bawaan</string>
     <string name="day_after_tomorrow">Lusa</string>
     <string name="next_week">Minggu depan</string>
-    <string name="no_reminders">Tidak ada pengingat</string>
     <string name="BFE_Active">Tugas Saya</string>
     <string name="BFE_Recent">Baru-baru ini diubah</string>
     <string name="CFA_button_add">Tambah Kriteria</string>
@@ -80,12 +77,6 @@
     <string name="rmd_NoA_done">Selesai</string>
     <string name="rmd_NoA_snooze">Tunda</string>
     <string name="snooze_all">Tunda semua</string>
-    <string name="rmd_EPr_defaultRemind_title">Pengingat acak</string>
-    <string name="default_random_reminder_disabled">Nonaktif</string>
-    <string name="default_random_reminder_hourly">Per jam</string>
-    <string name="default_random_reminder_daily">Harian</string>
-    <string name="default_random_reminder_weekly">Mingguan</string>
-    <string name="default_random_reminder_bi_weekly">Dua mingguan</string>
     <string name="repeat_option_custom">Khusus…</string>
     <plurals name="task_count">
         <item quantity="other">%d tugas</item>
@@ -147,7 +138,6 @@
     <string name="pick_from_storage">Pilih dari penyimpanan</string>
     <string name="name_cannot_be_empty">Nama tidak boleh kosong</string>
     <string name="back_button_saves_task">Tombol kembali menyimpan tugas</string>
-    <string name="default_list">Daftar bawaan</string>
     <string name="filter">Filter</string>
     <string name="opacity">Opasitas</string>
     <string name="theme">Tema</string>
@@ -179,7 +169,6 @@
     <string name="repeats_from">Ulangi dari</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Jangan tambahkan ke kalender</string>
-    <string name="default_calendar">Bawaan kalender</string>
     <string name="import_summary_message">Berkas %1$s berisi %2$s.
 \n
 \n %3$s diimpor,
@@ -221,7 +210,6 @@
     <string name="open_map">Buka peta</string>
     <string name="choose_new_location">Pilih lokasi baru</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
-    <string name="google_tasks_add_to_top">Tugas baru di atas</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
@@ -260,8 +248,6 @@
     <string name="widget_due_date_after_title">Sesudah judul</string>
     <string name="widget_open_list">Buka daftar</string>
     <string name="theme_system_default">Bawaan sistem</string>
-    <string name="default_recurrence">Pengulangan bawaan</string>
-    <string name="default_tags">Tag bawaan</string>
     <string name="no_app_found">Tidak ada aplikasi yang dapat menangani permintaan ini</string>
     <string name="date_shortcut_must_come_before">%1$s harus datang sebelum %2$s</string>
     <string name="header_spacing">Jarak spasi</string>
@@ -269,9 +255,6 @@
     <string name="voice_command_added_task">Menambahkan tugas</string>
     <string name="CFC_dueBefore_name">Jatuh tempo pada…</string>
     <string name="no_due_date">Tidak ada tanggal jatuh tempo</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Pada saat kedatangan dan keberangkatan</string>
-    <string name="default_location">Lokasi bawaan</string>
-    <string name="EPr_default_location_reminder_title">Pengingat lokasi bawaan</string>
     <string name="TEA_control_timer">Atur Pengingat</string>
     <string name="week_before_due">Minggu sebelum jatuh tempo</string>
     <string name="TEA_timer_elap">Terlewat %s</string>
@@ -380,7 +363,6 @@
     <string name="TEA_timer_controls">Pencatat Waktu</string>
     <string name="TPl_notification">Pencatat Waktu Aktif untuk %s!</string>
     <string name="repeat_snackbar">%1$s dijadwalkan ulang untuk %2$s</string>
-    <string name="repeat_type_completion_capitalized">tanggal selesai</string>
     <string name="gtasks_GTA_clear_completed">Hapus Telah Selesai</string>
     <string name="CFC_list_name">Dalam daftar…</string>
     <string name="CFC_title_contains_text">Judul mengandung: \?</string>
@@ -391,11 +373,6 @@
     <string name="CFC_startBefore_name">Mulai pada…</string>
     <string name="CFC_startBefore_text">Mulai pada: \?</string>
     <string name="CFC_dueBefore_text">Jatuh tempo pada:\?</string>
-    <string name="default_location_reminder_on_departure">Saat keberangkatan</string>
-    <string name="default_location_reminder_on_arrival">Pada kedatangan</string>
-    <string name="EPr_default_reminders_mode_title">Tipe dering/getar bawaan</string>
-    <string name="default_due_date">Tanggal jatuh tempo bawaan</string>
-    <string name="default_start_date">Tanggal mulai bawaan</string>
     <string name="always_display_full_date">Tampilkan tanggal penuh</string>
     <string name="widget_show_title">Tampilkan judul</string>
     <string name="tasks_org_account_required">Akun Tasks.org Dibutuhkan</string>
@@ -424,13 +401,7 @@
     <string name="customize_drawer_summary">Seret dan lepas untuk mengatur ulang item menu</string>
     <string name="sort_list">Berdasarkan daftar</string>
     <string name="TEA_creation_date">Tanggal pembuatan</string>
-    <string name="location_update_interval_title">Pembaruan lokasi latar belakang</string>
     <string name="location_update_interval_summary">Pembaruan lokasi berkala meningkatkan keandalan geofence</string>
-    <string name="location_update_interval_disabled">Dinonaktifkan</string>
-    <string name="location_update_interval_15_minutes">Setiap 15 menit</string>
-    <string name="location_update_interval_30_minutes">Setiap 30 menit</string>
-    <string name="location_update_interval_1_hour">Setiap jam</string>
-    <string name="location_update_interval_2_hours">Setiap 2 jam</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikasi untuk tugas sepanjang hari akan muncul pada pukul %1$s</string>
     <string name="delete_comment">komentar</string>
     <string name="comment">Komentar</string>

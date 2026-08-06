@@ -425,4 +425,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Huomenna iltapäivälllä</string>
     <string name="date_shortcut_tomorrow_evening">Huomenna illalla</string>
     <string name="date_shortcut_tomorrow_night">Huomenna illalla</string>
+    <string name="google_tasks_add_to_top">Uudet tehtävät ylimmäisenä</string>
+    <string name="default_tags">Oletustunnisteet</string>
+    <string name="EPr_default_importance_title">Oletusprioriteetti</string>
+    <string name="default_start_date">Oletusarvoinen alkamispäivä</string>
+    <string name="default_due_date">Eräpäivä oletusarvoisesti</string>
+    <string name="default_calendar">Oletus kalenteri</string>
+    <string name="TEA_control_reminders">Muistutukset</string>
+    <string name="EPr_default_reminders_title">Oletusmuistutukset</string>
+    <string name="EPr_default_reminders_mode_title">Oletussoittoääni/värinä -tyyppi</string>
+    <string name="default_recurrence">Oletusarvoinen toistuvuus</string>
+    <string name="TEA_control_location">Sijainti</string>
+    <string name="default_location">Oletussijainti</string>
+    <string name="EPr_default_location_reminder_title">Oletussijaintimuistutukset</string>
+    <string name="dont_add_to_calendar">Älä lisää kalenteriin</string>
+    <string name="no_reminders">Ei muistutuksia</string>
+    <string name="day_after_tomorrow">Ylihuomenna</string>
+    <string name="next_week">Ensi viikko</string>
+    <string name="default_location_reminder_on_arrival">Saavuttaessa</string>
+    <string name="default_location_reminder_on_departure">Lähdettäessä</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Saavuttaessa ja lähdettäessä</string>
 </resources>

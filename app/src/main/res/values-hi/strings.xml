@@ -14,7 +14,6 @@
     <string name="import_progress_read">कार्य %d पढ़ा जा रहा है…</string>
     <string name="import_failed">इम्पोर्ट असफल</string>
     <string name="import_failed_message">बैकअप फ़ाइल पढ़ नहीं सका</string>
-    <string name="default_list">डिफ़ॉल्ट सूची</string>
     <string name="read_permission_label">टास्क की अनुमति</string>
     <string name="help_and_feedback">मदद और फ़ीडबैक</string>
     <string name="discard_confirmation">क्या आप वाकई अपने बदलावों को रद्द करना चाहते हैं?</string>

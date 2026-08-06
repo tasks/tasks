@@ -65,9 +65,6 @@
     <string name="EPr_manage_delete_gcal_status">已删除 %d 个日历事件！</string>
     <string name="EPr_manage_delete_all_gcal">删除所有的日历事件</string>
     <string name="EPr_manage_delete_all_gcal_message">您真的要删除所有任务的日历事件吗？</string>
-    <string name="EPr_default_importance_title">默认优先级</string>
-    <string name="EPr_default_reminders_title">默认提醒</string>
-    <string name="EPr_default_reminders_mode_title">默认铃声 / 振动类型</string>
     <string name="day_after_tomorrow">后天</string>
     <string name="next_week">下周</string>
     <string name="BFE_Active">我的任务</string>
@@ -100,12 +97,6 @@
     <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">延后</string>
     <string name="snooze_all">全都稍后提醒</string>
-    <string name="rmd_EPr_defaultRemind_title">随机提醒</string>
-    <string name="default_random_reminder_disabled">已禁用</string>
-    <string name="default_random_reminder_hourly">每小时</string>
-    <string name="default_random_reminder_daily">每天</string>
-    <string name="default_random_reminder_weekly">每周</string>
-    <string name="default_random_reminder_bi_weekly">每两周</string>
     <string name="repeat_option_custom">自定义…</string>
     <plurals name="task_count">
         <item quantity="other">%d 个任务</item>
@@ -181,7 +172,6 @@
     <string name="pick_from_storage">从存储中挑选</string>
     <string name="name_cannot_be_empty">名字不能为空</string>
     <string name="back_button_saves_task">按返回键时保存任务</string>
-    <string name="default_list">默认清单</string>
     <string name="filter">过滤器</string>
     <string name="opacity">不透明度</string>
     <string name="theme">主题</string>
@@ -213,7 +203,6 @@
     <string name="repeats_from">重复始于</string>
     <string name="repeats_plural_number_of_times">每%1$s重复，发生 %2$d %3$s</string>
     <string name="dont_add_to_calendar">不添加到日历</string>
-    <string name="default_calendar">默认日历</string>
     <string name="badges_description">在 Tasks 启动图标上显示任务计数。不是所有的启动器都支持角标。</string>
     <string name="tasker_create_task">创建任务</string>
     <string name="tasker_list_notification">列出通知</string>
@@ -231,11 +220,6 @@
     <string name="linkify">显示链接</string>
     <string name="linkify_description">添加网站，地址，电话号码等链接</string>
     <string name="TEA_control_location">位置</string>
-    <string name="EPr_default_location_reminder_title">默认位置提醒</string>
-    <string name="no_reminders">无提醒</string>
-    <string name="default_location_reminder_on_arrival">到达时</string>
-    <string name="default_location_reminder_on_departure">出发时</string>
-    <string name="default_location_reminder_on_arrival_or_departure">出发和到达时</string>
     <string name="google_drive_backup">备份到 Google Drive</string>
     <string name="add_location">添加位置</string>
     <string name="geofence_radius">地理围栏半径</string>
@@ -254,7 +238,6 @@
     <string name="open_map">打开地图</string>
     <string name="choose_new_location">选择新位置</string>
     <string name="invalid_backup_file">备份文件无效</string>
-    <string name="google_tasks_add_to_top">新任务显示在顶部</string>
     <string name="icon">图标</string>
     <string name="name_your_price">您愿意支付多少费用</string>
     <string name="list_separator_with_space">"， "</string>
@@ -359,10 +342,6 @@
     <string name="backups_ignore_warnings_summary">如果不需要备份或有自己的备份解决方案，请忽略备份警告</string>
     <string name="backups_ignore_warnings">忽略警告</string>
     <string name="header_spacing">间距</string>
-    <string name="default_recurrence">默认重复周期</string>
-    <string name="repeat_type_completion_capitalized">完成日期</string>
-    <string name="default_tags">默认标签</string>
-    <string name="default_location">默认位置</string>
     <string name="multi_select_reschedule">重新计划</string>
     <string name="always_display_full_date">显示完整日期</string>
     <string name="cancel">取消</string>
@@ -387,11 +366,9 @@
     <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
     <string name="app_password">应用密码</string>
     <string name="local_lists">本地清单</string>
-    <string name="default_due_date">默认截止日期</string>
     <string name="start_date">开始日期</string>
     <string name="filter_criteria_unstarted">尚未开始</string>
     <string name="no_start_date">无开始日期</string>
-    <string name="default_start_date">默认的开始日期</string>
     <string name="SSD_sort_start">按开始日期</string>
     <string name="CFC_startBefore_name">开始于…</string>
     <string name="CFC_startBefore_text">开始于：?</string>
@@ -477,13 +454,7 @@
     <string name="per_list_sort_title">清单单独排序</string>
     <string name="per_list_sort_summary">记住每个清单不同的排序和分组设置</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="location_update_interval_title">后台位置更新</string>
     <string name="location_update_interval_summary">定期位置更新可提高地理围栏的可靠性</string>
-    <string name="location_update_interval_disabled">已禁用</string>
-    <string name="location_update_interval_15_minutes">每 15 分钟</string>
-    <string name="location_update_interval_30_minutes">每 30 分钟</string>
-    <string name="location_update_interval_1_hour">每小时</string>
-    <string name="location_update_interval_2_hours">每 2 小时</string>
     <string name="read_more">阅读更多</string>
     <string name="upgrade_desktop_app">Tasks.org 桌面版</string>
     <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>

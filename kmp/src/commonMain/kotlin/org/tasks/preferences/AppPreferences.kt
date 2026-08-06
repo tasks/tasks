@@ -1,5 +1,7 @@
 package org.tasks.preferences
 
+import co.touchlab.kermit.Logger
+import kotlinx.serialization.json.Json
 import org.tasks.compose.pickers.DEFAULT_AFTERNOON
 import org.tasks.compose.pickers.DEFAULT_EVENING
 import org.tasks.compose.pickers.DEFAULT_MORNING
@@ -15,13 +17,36 @@ const val DEFAULT_REMINDER_TIME = 18 * 60 * 60 * 1000
 const val DEFAULT_QUIET_HOURS_START = 22 * 60 * 60 * 1000
 const val DEFAULT_QUIET_HOURS_END = 10 * 60 * 60 * 1000
 const val DEFAULT_SNOOZE_MINUTES = 15
+const val DEFAULT_LOCATION_UPDATE_INTERVAL = 15
+
+val DEFAULT_ALARMS: List<Alarm> = listOf(
+    Alarm.whenStarted(0),
+    Alarm.whenDue(0),
+    Alarm.whenOverdue(0),
+)
+
+val DEFAULT_ALARMS_JSON: Set<String> = DEFAULT_ALARMS.toAlarmJson()
+
+val alarmOrder: Comparator<Alarm> = compareBy({ it.type }, { it.time })
+
+fun List<Alarm>.toAlarmJson(): Set<String> = map { Json.encodeToString(it) }.toSet()
+
+fun Set<String>.toAlarms(): List<Alarm> =
+    mapNotNull {
+        try {
+            Json.decodeFromString<Alarm>(it)
+        } catch (e: Exception) {
+            Logger.e(e, tag = "AppPreferences") { "Failed to decode alarm: $it" }
+            null
+        }
+    }
+        .sortedWith(alarmOrder)
 
 data class DatePickerPreferences(
     val shortcutMorning: Int = DEFAULT_MORNING,
     val shortcutAfternoon: Int = DEFAULT_AFTERNOON,
     val shortcutEvening: Int = DEFAULT_EVENING,
     val shortcutNight: Int = DEFAULT_NIGHT,
-    val defaultHideUntil: Int = Task.HIDE_UNTIL_NONE,
     val alwaysDisplayFullDate: Boolean = false,
     val datePickerInputMode: Boolean = false,
     val timePickerInputMode: Boolean = false,
@@ -42,6 +67,23 @@ data class NotificationSettings(
     val quietHoursEnabled: Boolean = false,
     val quietHoursStart: Int = DEFAULT_QUIET_HOURS_START,
     val quietHoursEnd: Int = DEFAULT_QUIET_HOURS_END,
+)
+
+data class TaskDefaultSettings(
+    val addTasksToTop: Boolean = true,
+    val defaultList: String? = null,
+    val defaultTags: List<String> = emptyList(),
+    val defaultPriority: Int = Task.Priority.LOW,
+    val defaultHideUntil: Int = Task.HIDE_UNTIL_NONE,
+    val defaultDueDate: Int = Task.URGENCY_NONE,
+    val defaultCalendar: String? = null,
+    val defaultRecurrence: String? = null,
+    val defaultRecurrenceFrom: Int = 0,
+    val defaultAlarms: List<Alarm> = DEFAULT_ALARMS,
+    val defaultRingMode: Int = 0,
+    val defaultLocation: String? = null,
+    val defaultLocationReminder: Int = 0,
+    val locationUpdateIntervalMinutes: Int = DEFAULT_LOCATION_UPDATE_INTERVAL,
 )
 
 fun NotificationSettings.isCurrentlyQuietHours(
@@ -87,14 +129,28 @@ interface AppPreferences {
     suspend fun isDefaultDueTimeEnabled(): Boolean
     suspend fun defaultLocationReminder(): Int
     suspend fun defaultAlarms(): List<Alarm>
-    suspend fun defaultRandomHours(): Int
     suspend fun defaultRingMode(): Int
     suspend fun defaultDueTime(): Int
     suspend fun defaultPriority(): Int
     suspend fun isCurrentlyQuietHours(): Boolean
     suspend fun adjustForQuietHours(time: Long): Long
-    suspend fun locationUpdateIntervalMinutes(): Int = 15
+    suspend fun locationUpdateIntervalMinutes(): Int = DEFAULT_LOCATION_UPDATE_INTERVAL
     suspend fun addTasksToTop(): Boolean = true
+    suspend fun taskDefaults(): TaskDefaultSettings
+    suspend fun setAddTasksToTop(value: Boolean)
+    suspend fun setDefaultList(value: String?)
+    suspend fun setDefaultTags(value: List<String>)
+    suspend fun setDefaultPriority(value: Int)
+    suspend fun setDefaultHideUntil(value: Int)
+    suspend fun setDefaultDueDate(value: Int)
+    suspend fun setDefaultCalendar(value: String?)
+    suspend fun setDefaultRecurrence(value: String?)
+    suspend fun setDefaultRecurrenceFrom(value: Int)
+    suspend fun setDefaultAlarms(value: List<Alarm>)
+    suspend fun setDefaultRingMode(value: Int)
+    suspend fun setDefaultLocation(value: String?)
+    suspend fun setDefaultLocationReminder(value: Int)
+    suspend fun setLocationUpdateIntervalMinutes(value: Int)
     suspend fun datePickerPreferences(): DatePickerPreferences = DatePickerPreferences()
     suspend fun setDatePickerInputMode(value: Boolean) {}
     suspend fun setTimePickerInputMode(value: Boolean) {}

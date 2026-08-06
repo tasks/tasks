@@ -349,4 +349,24 @@
     <string name="date_shortcut_tomorrow_afternoon">හෙට හවස</string>
     <string name="date_shortcut_tomorrow_evening">හෙට හවස</string>
     <string name="date_shortcut_tomorrow_night">හෙට රාත්‍රී</string>
+    <string name="google_tasks_add_to_top">නව කාර්යයන් ඉහළින් පෙන්වන්න</string>
+    <string name="default_tags">පෙරනිමි ටැග්</string>
+    <string name="EPr_default_importance_title">පෙරනිමි ප්‍රමුඛතාවය</string>
+    <string name="default_start_date">පෙරනිමි ආරම්භක දිනය</string>
+    <string name="default_due_date">පෙරනිමි නියමිත දිනය</string>
+    <string name="default_calendar">පෙරනිමි දින දර්ශනය</string>
+    <string name="TEA_control_reminders">මතක් කිරීම්</string>
+    <string name="EPr_default_reminders_title">පෙරනිමි මතක් කිරීම්</string>
+    <string name="EPr_default_reminders_mode_title">පෙරනිමි නාද / කම්පන වර්ගය</string>
+    <string name="default_recurrence">පෙරනිමි පුනරාවර්තනය</string>
+    <string name="TEA_control_location">ස්ථානය</string>
+    <string name="default_location">පෙරනිමි ස්ථානය</string>
+    <string name="EPr_default_location_reminder_title">පෙරනිමි ස්ථාන මතක් කිරීම්</string>
+    <string name="dont_add_to_calendar">දින දර්ශනයට එකතු නොකරන්න</string>
+    <string name="no_reminders">මතක් කිරීම් නොමැත</string>
+    <string name="day_after_tomorrow">අනිද්දා</string>
+    <string name="next_week">ලබන සතිය</string>
+    <string name="default_location_reminder_on_arrival">පැමිණි විට</string>
+    <string name="default_location_reminder_on_departure">පිටත්ව යන විට</string>
+    <string name="default_location_reminder_on_arrival_or_departure">පැමිණිවිට සහ පිටත්වනවිට</string>
 </resources>

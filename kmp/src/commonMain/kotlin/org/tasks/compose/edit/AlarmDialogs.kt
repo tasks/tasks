@@ -17,6 +17,7 @@ fun AlarmDialogs(
     addAlarm: (Alarm) -> Unit,
     deleteAlarm: (Alarm) -> Unit,
     pickDateAndTime: (replace: Alarm?) -> Unit,
+    showDateTimePicker: Boolean = true,
 ) {
     val replaceAlarm: (Alarm) -> Unit = {
         viewState.replace?.let(deleteAlarm)
@@ -31,6 +32,7 @@ fun AlarmDialogs(
         addCustom = { vm.showCustomDialog(visible = true) },
         pickDateAndTime = { pickDateAndTime(viewState.replace) },
         dismiss = { vm.showAddAlarm(visible = false) },
+        showDateTimePicker = showDateTimePicker,
     )
 
     val cameFromChooser = viewState.replace == null

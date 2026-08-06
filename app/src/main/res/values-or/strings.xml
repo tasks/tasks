@@ -52,7 +52,6 @@
     <string name="FLA_new_filter">ନୂଆ ଶୋଧକ ସୃଷ୍ଟି କରିବା</string>
     <string name="TEA_note_label">ଵର୍ଣ୍ଣନା</string>
     <string name="TEA_importance_label">ପ୍ରାଥମିକତା</string>
-    <string name="default_random_reminder_hourly">ପ୍ରତି ଘଣ୍ଟା</string>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d ଘଣ୍ଟା</item>
         <item quantity="other">%d ଘଣ୍ଟା</item>

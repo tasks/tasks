@@ -432,4 +432,24 @@
     <string name="date_shortcut_tomorrow_afternoon">Завтра вдень</string>
     <string name="date_shortcut_tomorrow_evening">Завтра ввечері</string>
     <string name="date_shortcut_tomorrow_night">Завтра вночі</string>
+    <string name="google_tasks_add_to_top">Нові завдання зверху</string>
+    <string name="default_tags">Типові мітки</string>
+    <string name="EPr_default_importance_title">Типовий пріоритет</string>
+    <string name="default_start_date">Типова дата початку</string>
+    <string name="default_due_date">Типова дата виконання</string>
+    <string name="default_calendar">Типовий календар</string>
+    <string name="TEA_control_reminders">Нагадування</string>
+    <string name="EPr_default_reminders_title">Типові нагадування</string>
+    <string name="EPr_default_reminders_mode_title">Типовий звук/вібраця</string>
+    <string name="default_recurrence">Типове повторювання</string>
+    <string name="TEA_control_location">Місце</string>
+    <string name="default_location">Типове розташування</string>
+    <string name="EPr_default_location_reminder_title">Типові нагадування про розташування</string>
+    <string name="dont_add_to_calendar">Не додавати до календаря</string>
+    <string name="no_reminders">Без нагадувань</string>
+    <string name="day_after_tomorrow">Післязавтра</string>
+    <string name="next_week">Наступного тижня</string>
+    <string name="default_location_reminder_on_arrival">Після прибуття</string>
+    <string name="default_location_reminder_on_departure">Під час покиданні місця</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Після прибуття та під час покиданні місця</string>
 </resources>

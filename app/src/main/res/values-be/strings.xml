@@ -40,7 +40,6 @@
     <string name="sort_list">Па спісу</string>
     <string name="today">Сёння</string>
     <string name="yesterday">Учора</string>
-    <string name="default_list">Спіс па ўмаўчанні</string>
     <string name="due_date">Дата выканання</string>
     <string name="TEA_timer_est">Прыбл. %s</string>
     <string name="TEA_timer_elap">Прайшло %s</string>

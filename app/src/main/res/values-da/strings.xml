@@ -31,8 +31,6 @@
     <string name="TEA_control_files">Filer</string>
     <string name="TEA_control_reminders">Påmindelser</string>
     <string name="TEA_control_hidden_section">----Skjul altid----</string>
-    <string name="EPr_default_importance_title">Standardprioritet</string>
-    <string name="EPr_default_reminders_title">Standardpåmindelser</string>
     <string name="BFE_Active">Mine opgaver</string>
     <string name="BFE_Recent">Senest ændret</string>
     <string name="CFA_button_add">Tilføj kriterier</string>
@@ -47,7 +45,6 @@
     <string name="gcal_completed_title">%s (fuldført)</string>
     <string name="rmd_NoA_done">Fuldført</string>
     <string name="rmd_NoA_snooze">Udsæt</string>
-    <string name="rmd_EPr_defaultRemind_title">Tilfældige påmindelser</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opgave</item>
         <item quantity="other">%d opgaver</item>
@@ -130,7 +127,6 @@
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
     <string name="name_your_price">Bestem din pris</string>
-    <string name="google_tasks_add_to_top">Nye opgaver øverst</string>
     <string name="invalid_backup_file">Ugyldig sikkerhedskopi-fil</string>
     <string name="whats_new">Hvad er nyt</string>
     <string name="choose_new_location">Vælg ny placering</string>
@@ -163,7 +159,6 @@
     <string name="tasker_list_notification">Listemeddelelser</string>
     <string name="tasker_create_task">Opret opgave</string>
     <string name="badges_description">Vis en opgavetæller på Tasks’ app-ikon. Ikke alle platforme understøtter badges.</string>
-    <string name="default_calendar">Standardkalender</string>
     <string name="dont_add_to_calendar">Føj ikke til kalender</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">Gentages hver %1$s, stopper efter %2$d %3$s</string>
@@ -204,7 +199,6 @@
     <string name="opacity_row">Rækkeopacitet</string>
     <string name="opacity">Opacitet</string>
     <string name="filter">Filter</string>
-    <string name="default_list">Standardliste</string>
     <string name="name_cannot_be_empty">Navnet må ikke være tomt</string>
     <string name="pick_from_storage">Vælg fra lager</string>
     <string name="pick_from_gallery">Vælg fra galleri</string>
@@ -281,11 +275,6 @@
         <item quantity="other">%d opgaver</item>
     </plurals>
     <string name="repeat_option_custom">Tilpas…</string>
-    <string name="default_random_reminder_bi_weekly">Hver anden uge</string>
-    <string name="default_random_reminder_weekly">Ugentligt</string>
-    <string name="default_random_reminder_daily">Dagligt</string>
-    <string name="default_random_reminder_hourly">Hver time</string>
-    <string name="default_random_reminder_disabled">Deaktiveret</string>
     <string name="snooze_all">Udsæt alle</string>
     <string name="ring_nonstop">Ring uafbrudt</string>
     <string name="ring_five_times">Ring fem gange</string>
@@ -302,14 +291,8 @@
     <string name="CFC_tag_text">Tag: \?</string>
     <string name="next_month">Næste måned</string>
     <string name="no_due_date">Ingen forfaldsdato</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og afgang</string>
-    <string name="default_location_reminder_on_departure">Ved afgang</string>
-    <string name="default_location_reminder_on_arrival">Ved ankomst</string>
-    <string name="no_reminders">Ingen påmindelser</string>
     <string name="next_week">Næste uge</string>
     <string name="day_after_tomorrow">I overmorgen</string>
-    <string name="EPr_default_reminders_mode_title">Standard for ring-/vibrationstype</string>
-    <string name="EPr_default_location_reminder_title">Standardplaceringspåmindelser</string>
     <string name="EPr_manage_delete_all_gcal_message">Vil du virkelig slette alle dine begivenheder for opgaver?</string>
     <string name="EPr_manage_delete_all_gcal">Slet alle kalenderbegivenheder for opgaver</string>
     <string name="EPr_manage_delete_gcal_status">Slettede %d kalenderbegivenheder!</string>
@@ -361,10 +344,7 @@
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="authorization_cancelled">Autorisation annulleret</string>
     <string name="current_subscription">Nuværende abonnement: %s</string>
-    <string name="default_location">Standardplacering</string>
     <string name="start_date">Startdato</string>
-    <string name="default_due_date">Standardforfaldsdato</string>
-    <string name="default_start_date">Standardstartdato</string>
     <string name="always_display_full_date">Vis fuld dato</string>
     <string name="automatic_backups">Automatiske sikkerhedskopier</string>
     <string name="device_settings">Enhedsindstillinger</string>
@@ -400,12 +380,9 @@
     <string name="decsync_selection_description">Filbaseret synkronisering</string>
     <string name="background_location_permission_required">Tasks indsamler lokationsdata for at kunne give lokationsbaserede påmindelser, selv når appen er lukket eller ikke er i brug.</string>
     <string name="subscription">Abonnement</string>
-    <string name="default_recurrence">Standardgentagelse</string>
-    <string name="default_tags">Standardtags</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
     <string name="header_spacing">Afstand</string>
     <string name="widget_show_title">Vis titel</string>
-    <string name="repeat_type_completion_capitalized">Fuldførelsesdato</string>
     <string name="filter_any_start_date">Enhver startdato</string>
     <string name="no_start_date">Ingen startdato</string>
     <string name="CFC_startBefore_name">Starter…</string>
@@ -474,13 +451,7 @@
     <string name="upgrade_email_to_task_description">Omdan e-mails til opgaver ved at videresende dem til din private indbakke</string>
     <string name="advanced_tools">Avancerede værktøjer</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync og flere!</string>
-    <string name="location_update_interval_title">Opdateringer af placering i baggrunden</string>
     <string name="location_update_interval_summary">Periodiske placeringopdateringer forbedrer pålidelighed af geoafgrænsning</string>
-    <string name="location_update_interval_disabled">Deaktiveret</string>
-    <string name="location_update_interval_15_minutes">Hvert 15. minut</string>
-    <string name="location_update_interval_30_minutes">Hvert 30. minut</string>
-    <string name="location_update_interval_1_hour">Hver time</string>
-    <string name="location_update_interval_2_hours">Hver 2 timer</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">Per-list sortering</string>
     <string name="per_list_sort_summary">Husk indstillingerne for sortering og gruppering for hver liste separat</string>

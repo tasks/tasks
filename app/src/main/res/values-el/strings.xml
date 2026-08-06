@@ -57,9 +57,6 @@
     <string name="EPr_manage_delete_gcal_status">Διαγράφτηκαν %d γεγονότα ημερολογίου!</string>
     <string name="EPr_manage_delete_all_gcal">Διαγραφή όλων των γεγονότων ημερολογίου για εργασίες</string>
     <string name="EPr_manage_delete_all_gcal_message">Θέλετε στα αλήθεια την διαγραφή όλων των γεγονότων για τις εργασίες σας;</string>
-    <string name="EPr_default_importance_title">Προκαθορισμένη προτεραιότητα</string>
-    <string name="EPr_default_reminders_title">Προκαθορισμένες υπενθυμίσεις</string>
-    <string name="EPr_default_reminders_mode_title">Προκαθορισμένος ήχος/τύπος δόνησης</string>
     <string name="day_after_tomorrow">Μεθαύριο</string>
     <string name="next_week">Επόμενη εβδομάδα</string>
     <string name="custom_filter_or">ή</string>
@@ -84,12 +81,6 @@
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
     <string name="rmd_NoA_done">Ολοκληρωμένο</string>
     <string name="rmd_NoA_snooze">Αναβολή</string>
-    <string name="rmd_EPr_defaultRemind_title">Τυχαίες υπενθυμίσεις</string>
-    <string name="default_random_reminder_disabled">απενεργοποιημένο</string>
-    <string name="default_random_reminder_hourly">Ωριαία</string>
-    <string name="default_random_reminder_daily">Ημερήσια</string>
-    <string name="default_random_reminder_weekly">Εβδομαδιαία</string>
-    <string name="default_random_reminder_bi_weekly">κάθε δυο εβδομάδες</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
     <string name="TEA_timer_controls">Χρονοδιακόπτης</string>
     <string name="TEA_timer_comment_started">ξεκίνησε αυτή την εργασία:</string>
@@ -112,7 +103,6 @@
     <string name="cancel">Ακύρωση</string>
     <string name="ok">OK</string>
     <string name="display_name">Εμφανιζόμενο όνομα</string>
-    <string name="default_list">Προεπιλεγμένη λίστα</string>
     <string name="help_and_feedback">Βοήθεια &amp; Καταχώρηση απόψεων</string>
     <string name="app_settings">Ρυθμίσεις Εφαρμογής</string>
     <string name="customize_drawer">Προσαρμογή συρταριού</string>
@@ -135,14 +125,6 @@
     <string name="EPr_reset_preferences_warning">Θα γίνει επαναφορά των προτιμήσεων στις προεπιλεγμένες τιμές</string>
     <string name="EPr_delete_task_data">Διαγραφή δεδομένων εργασίας</string>
     <string name="EPr_delete_task_data_warning">Όλες οι εργασίες θα διαγραφούν μόνιμα</string>
-    <string name="default_start_date">Προεπιλεγμένη Ημερομηνία έναρξης</string>
-    <string name="default_due_date">Προεπιλεγμένη προθεσμία ολοκλήρωσης</string>
-    <string name="EPr_default_location_reminder_title">Υπενθυμίσεις προεπιλεγμένης τοποθεσίας</string>
-    <string name="default_location">Προεπιλεγμένη τοποθεσία</string>
-    <string name="no_reminders">Καθόλου υπενθυμίσεις</string>
-    <string name="default_location_reminder_on_arrival">Κατά την άφιξη</string>
-    <string name="default_location_reminder_on_departure">Κατά την αναχώρηση</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Κατά την άφιξη και την αναχώρηση</string>
     <string name="BFE_Active">Οι Εργασίες μου</string>
     <string name="BFE_Recent">Πρόσφατα επεξεργασμένα</string>
     <string name="CFC_startBefore_text">Έναρξη από: ?</string>
@@ -184,7 +166,6 @@
         <item quantity="one">%d εβδομάδα</item>
         <item quantity="other">%d εβδομάδες</item>
     </plurals>
-    <string name="repeat_type_completion_capitalized">Ημερομηνία ολοκλήρωσης</string>
     <string name="repeat_snackbar">%1$s επαναπρογραμματισμός για %2$s</string>
     <string name="new_tag">Δημιουργία νέας ετικέτας</string>
     <string name="new_list">Δημιουργία νέας λίστας</string>
@@ -236,7 +217,6 @@
     <string name="repeats_plural_number_of_times">Επανάληψη κάθε %1$s, συμβαίνει %2$d %3$s</string>
     <string name="list_separator_with_space">", "</string>
     <string name="dont_add_to_calendar">Να μην προστεθεί στο ημερολόγιο</string>
-    <string name="default_calendar">Προεπιλεγμένο ημερολόγιο</string>
     <string name="badges_description">Εμφάνιση αριθμού εργασιών στο εικονίδιο εκκίνησης της εφαρμογής Tasks. Δεν υποστηρίζουν όλοι οι προωθητές (launchers) μετάλλια/ εικονίδια.</string>
     <string name="tasker_create_task">Δημιουργία εργασίας</string>
     <string name="tasker_list_notification">Ειδοποίηση λίστας</string>
@@ -275,7 +255,6 @@
     <string name="banner_app_updated_description">Η Tasks μόλις ενημερώθηκε στο %s. Θα θέλατε να δείτε της σημειώσεις έκδοσης;</string>
     <string name="whats_new">Τι καινούργιο υπάρχει</string>
     <string name="invalid_backup_file">Μη έγκυρο αρχείο αντιγράφου ασφαλείας</string>
-    <string name="google_tasks_add_to_top">Νέες εργασίες στο πάνω μέρος</string>
     <string name="name_your_price">Καθορίστε την τιμή σας</string>
     <string name="expand_subtasks">Άνοιγμα υποεργασιών</string>
     <string name="collapse_subtasks">Κλείσιμο υποεργασιών</string>
@@ -442,8 +421,6 @@
     <string name="back_button_saves_task">Το κουμπί \"Πίσω\" αποθηκεύει την εργασία</string>
     <string name="show_edit_screen_without_unlock">Εμφάνιση οθόνης επεξεργασίας χωρίς ξεκλείδωμα</string>
     <string name="show_edit_screen_without_unlock_summary">Ενεργοποιεί τη χρήση του πλακιδίου Γρήγορων Ρυθμίσεων χωρίς ξεκλείδωμα συσκευής</string>
-    <string name="default_tags">Προεπιλεγμένες ετικέτες</string>
-    <string name="default_recurrence">Προεπιλεγμένη επανάληψη</string>
     <string name="filter">Φίλτρο</string>
     <string name="opacity">Αδιαφάνεια</string>
     <string name="opacity_header">Αδιαφάνεια κεφαλίδας</string>

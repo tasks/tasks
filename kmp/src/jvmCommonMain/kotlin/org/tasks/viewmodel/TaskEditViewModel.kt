@@ -39,9 +39,11 @@ import org.tasks.compose.pickers.startDayOf
 import org.tasks.compose.pickers.startSelectionDays
 import org.tasks.compose.pickers.withTimeMarkerOr
 import org.tasks.data.TaskCreator
+import org.tasks.data.createDueDate
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.getDefaultAlarms
+import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -59,6 +61,7 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -140,6 +143,7 @@ class TaskEditViewModel(
         val originalStartDay: Long = NO_DAY,
         val originalStartTime: Int = NO_TIME,
         val datePickerPreferences: DatePickerPreferences = DatePickerPreferences(),
+        val addTasksToTop: Boolean = TaskDefaultSettings().addTasksToTop,
         /**
          * True between the row for a new task being created and the save that follows it
          * succeeding. It forces the next save even when nothing has changed since: the row exists,
@@ -228,13 +232,14 @@ class TaskEditViewModel(
                 // departing editor's teardown save, on desktop past the shutdown timeout, which
                 // loses the edit outright.
                 val prefs = appPreferences.datePickerPreferences()
+                val defaults = appPreferences.taskDefaults()
                 // The ordering the lock alone doesn't provide. A save that couldn't claim the lock
                 // synchronously only joins its queue once a worker thread picks it up, so a withLock
                 // here could still queue ahead of the flush above and read the pre-save row. The
                 // flush's own bookkeeping is what this waits on instead.
                 pendingSaves.awaitPending(saveKey)
                 // Still taken, so the read can't interleave with a save enqueued after the flush.
-                val loaded = pendingSaves.withLock(saveKey) { readTask(normalized, prefs) }
+                val loaded = pendingSaves.withLock(saveKey) { readTask(normalized, prefs, defaults) }
                 _state.value = loaded
                 // The row this editor was opened on is a tombstone: there is nothing to edit, and
                 // staying would let the teardown save write onto a deleted row.
@@ -253,7 +258,11 @@ class TaskEditViewModel(
         }
     }
 
-    private suspend fun readTask(normalized: Long?, prefs: DatePickerPreferences): State {
+    private suspend fun readTask(
+        normalized: Long?,
+        prefs: DatePickerPreferences,
+        defaults: TaskDefaultSettings,
+    ): State {
         val loaded: Task
         val list: CaldavFilter?
         val tags: List<TagData>
@@ -263,7 +272,7 @@ class TaskEditViewModel(
             if (existing != null) {
                 loaded = existing
                 coroutineScope {
-                    val listDeferred = async { caldavListFor(existing.id) }
+                    val listDeferred = async { caldavListFor(existing.id, defaults.defaultList) }
                     val tagsDeferred = async { tagDataDao.getTagDataForTask(existing.id) }
                     val alarmsDeferred = async { alarmDao.getAlarms(existing.id).toPersistentSet() }
                     list = listDeferred.await()
@@ -274,10 +283,13 @@ class TaskEditViewModel(
                 loaded = (uuid
                     ?.let { taskCreator.createBlankTask(remoteId = it) }
                     ?: taskCreator.createBlankTask())
-                    .apply { setDefaultReminders(appPreferences) }
+                    .apply {
+                        applyDefaults(defaults)
+                        setDefaultReminders(defaults)
+                    }
                 coroutineScope {
-                    val listDeferred = async { seedList() }
-                    val tagsDeferred = async { seedTags() }
+                    val listDeferred = async { seedList(defaults.defaultList) }
+                    val tagsDeferred = async { seedTags(defaults.defaultTags) }
                     list = listDeferred.await()
                     tags = tagsDeferred.await()
                 }
@@ -287,7 +299,7 @@ class TaskEditViewModel(
             val existing: Task?
             coroutineScope {
                 val loadedDeferred = async { taskDao.fetch(normalized) }
-                val listDeferred = async { caldavListFor(normalized) }
+                val listDeferred = async { caldavListFor(normalized, defaults.defaultList) }
                 val tagsDeferred = async { tagDataDao.getTagDataForTask(normalized) }
                 val alarmsDeferred = async { alarmDao.getAlarms(normalized).toPersistentSet() }
                 existing = loadedDeferred.await()
@@ -309,7 +321,7 @@ class TaskEditViewModel(
             hideUntil = loaded.hideUntil,
             dueDate = loaded.dueDate,
             isNew = loaded.isNew,
-            defaultHideUntil = prefs.defaultHideUntil,
+            defaultHideUntil = defaults.defaultHideUntil,
         )
         val task = if (loaded.hideUntil <= 0) {
             loaded.copy(hideUntil = resolveStartDate(startDayOf(startDay), startTime, loaded.dueDate))
@@ -340,6 +352,7 @@ class TaskEditViewModel(
             originalStartDay = startDay,
             originalStartTime = startTime,
             datePickerPreferences = prefs,
+            addTasksToTop = defaults.addTasksToTop,
         )
     }
 
@@ -624,34 +637,60 @@ class TaskEditViewModel(
     private fun <T> merge(current: T, original: T, db: T): T =
         if (current == original) db else current
 
-    private suspend fun seedList(): CaldavFilter? {
+    private fun Task.applyDefaults(defaults: TaskDefaultSettings) {
+        priority = defaults.defaultPriority
+        dueDate = defaultDueDate(defaults.defaultDueDate)
+        defaults.defaultRecurrence?.let {
+            recurrence = it
+            repeatFrom = if (defaults.defaultRecurrenceFrom == Task.RepeatFrom.COMPLETION_DATE) {
+                Task.RepeatFrom.COMPLETION_DATE
+            } else {
+                Task.RepeatFrom.DUE_DATE
+            }
+            if (dueDate == 0L) {
+                dueDate = createDueDate(Task.URGENCY_TODAY, 0)
+            }
+        }
+    }
+
+    private fun defaultDueDate(setting: Int): Long = try {
+        createDueDate(setting, 0)
+    } catch (e: IllegalArgumentException) {
+        log.e(e) { "Unknown default due date $setting" }
+        0
+    }
+
+    private suspend fun seedList(defaultList: String?): CaldavFilter? {
         // A read-only list can't take a new task, so fall back the same way an unknown list does.
         val calendar = listId
             ?.let { caldavDao.getCalendarById(it) }
             ?.takeIf { !it.readOnly() }
-            ?: return firstCaldavList()
-        val account = calendar.account?.let { caldavDao.getAccountByUuid(it) } ?: return firstCaldavList()
+            ?: return fallbackList(defaultList)
+        val account = calendar.account?.let { caldavDao.getAccountByUuid(it) }
+            ?: return fallbackList(defaultList)
         return CaldavFilter(calendar = calendar, account = account)
     }
 
-    private suspend fun seedTags(): List<TagData> =
-        listOfNotNull(tagUuid?.let { tagDataDao.getByUuid(it) })
-
-    private suspend fun firstCaldavList(): CaldavFilter? {
-        val calendar = caldavDao.getCalendars()
-            .firstOrNull { !it.readOnly() } ?: return null
-        val account = calendar.account?.let { caldavDao.getAccountByUuid(it) } ?: return null
-        return CaldavFilter(calendar = calendar, account = account)
+    private suspend fun seedTags(defaultTags: List<String>): List<TagData> {
+        tagUuid?.let { uuid -> tagDataDao.getByUuid(uuid)?.let { return listOf(it) } }
+        return defaultTags
+            .takeIf { it.isNotEmpty() }
+            ?.let { tagDataDao.getByUuid(it) }
+            ?.sortedBy { it.name }
+            ?: emptyList()
     }
 
-    private suspend fun caldavListFor(taskId: Long): CaldavFilter? {
+    private suspend fun fallbackList(defaultList: String?): CaldavFilter =
+        caldavDao.getOrCreateDefaultListFilter(defaultList)
+
+    private suspend fun caldavListFor(taskId: Long, defaultList: String?): CaldavFilter? {
         val caldavTask = caldavDao.getTask(taskId)
         val calendar = caldavTask?.calendar?.let { caldavDao.getCalendarByUuid(it) }
         val account = calendar?.account?.let { caldavDao.getAccountByUuid(it) }
         return if (calendar != null && account != null) {
             CaldavFilter(calendar = calendar, account = account)
         } else {
-            firstCaldavList()
+            fallbackList(defaultList)
         }
     }
 
@@ -670,12 +709,20 @@ class TaskEditViewModel(
     fun setDueDate(value: Long) {
         val dueDate = value.withTimeMarkerOr { it.noon() }
         val previous = _state.value.task.dueDate
+        val previousStart = _state.value.task.hideUntil
         _state.update { it.withStartSelection(it.startDay, it.startTime, dueDate) }
-        addDefaultAlarms(TYPE_REL_END, previous, dueDate)
+        addDefaultAlarmsForDates(previous, previousStart)
         onDueDateChanged()
     }
 
     fun setRecurrence(recurrence: String?) {
+        val previousDue = _state.value.task.dueDate
+        val previousStart = _state.value.task.hideUntil
+        applyRecurrence(recurrence)
+        addDefaultAlarmsForDates(previousDue, previousStart)
+    }
+
+    private fun applyRecurrence(recurrence: String?) {
         _state.update { state ->
             val dueDate = if (!recurrence.isNullOrBlank() && state.task.dueDate == 0L) {
                 currentTimeMillis().startOfDay()
@@ -685,6 +732,14 @@ class TaskEditViewModel(
             state
                 .withStartSelection(state.startDay, state.startTime, dueDate)
                 .let { it.copy(task = it.task.copy(recurrence = recurrence)) }
+        }
+    }
+
+    private fun addDefaultAlarmsForDates(previousDue: Long, previousStart: Long) {
+        val state = _state.value
+        addDefaultAlarms(TYPE_REL_END, previousDue, state.task.dueDate)
+        if (state.isNew) {
+            addDefaultAlarms(TYPE_REL_START, previousStart, state.task.hideUntil)
         }
     }
 
@@ -716,7 +771,7 @@ class TaskEditViewModel(
             it.clear()
             it.add(WeekDay(dateTime.weekDay, num))
         }
-        setRecurrence(recur.toString())
+        applyRecurrence(recur.toString())
     }
 
     fun setStartDate(day: Long, time: Int) {
@@ -915,14 +970,18 @@ class TaskEditViewModel(
                 caldavDao.insert(
                     task = task,
                     caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
-                    addToTop = false,
+                    addToTop = snapshot.addTasksToTop,
                 )
                 applyTagsIfNeeded(snapshot, task)
             }
             applyAlarmsIfNeeded(snapshot, task)
             _state.update {
                 it.copy(
-                    task = it.task.copy(id = task.id, modificationDate = task.modificationDate),
+                    task = it.task.copy(
+                        id = task.id,
+                        order = task.order,
+                        modificationDate = task.modificationDate,
+                    ),
                     originalTask = task.copy(),
                     pendingSideEffects = true,
                 )

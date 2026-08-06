@@ -183,6 +183,7 @@ import org.tasks.compose.settings.MicrosoftAccountSettingsDetail
 import org.tasks.compose.settings.MicrosoftAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.NotificationsDetail
+import org.tasks.compose.settings.TaskDefaultsDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.TagSettingsScreen
@@ -1731,7 +1732,7 @@ private fun TaskEditEntry(
  * the filter for the created list, or null if the dialog was cancelled or the account is gone.
  */
 @Composable
-private fun NewListDialogHost(
+internal fun NewListDialogHost(
     accountId: Long?,
     isDark: Boolean,
     onDismiss: (CaldavFilter?) -> Unit,
@@ -3119,6 +3120,16 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.TaskDefaults -> {
+                        TaskDefaultsDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            onSignIn = onAddAccountClick,
+                            onSubscribe = onUpgradeClick,
+                            onAddAccount = onAddAccountClick,
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.Debug -> {
