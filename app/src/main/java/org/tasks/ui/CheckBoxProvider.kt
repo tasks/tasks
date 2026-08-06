@@ -14,14 +14,24 @@ class CheckBoxProvider @Inject constructor(
     @param:ActivityContext private val context: Context,
     private val colorProvider: ColorProvider
 ) {
+    private val cache = mutableMapOf<Long, Drawable>()
+
+    /**
+     * Inflating and mutating a vector drawable is expensive, and the task list asks for one on
+     * every row bind. There are only a handful of (icon, priority) combinations, so tinted
+     * drawables are cached and shared via their constant state.
+     */
     fun getCheckBox(task: Task) = getDrawable(task.getCheckboxRes(), task.priority)
 
-    private fun getDrawable(@DrawableRes resId: Int, priority: Int): Drawable {
-        val original = AppCompatResources.getDrawable(context, resId)
-        val wrapped = original!!.mutate()
-        wrapped.setTint(colorProvider.getPriorityColor(priority))
-        return wrapped
-    }
+    private fun getDrawable(@DrawableRes resId: Int, priority: Int): Drawable =
+        cache
+            .getOrPut((resId.toLong() shl 32) or (priority.toLong() and 0xFFFFFFFFL)) {
+                val original = AppCompatResources.getDrawable(context, resId)
+                val wrapped = original!!.mutate()
+                wrapped.setTint(colorProvider.getPriorityColor(priority))
+                wrapped
+            }
+            .let { it.constantState?.newDrawable(context.resources) ?: it }
 
     companion object {
         fun Task.getCheckboxRes() = getCheckboxRes(isCompleted, isRecurring)

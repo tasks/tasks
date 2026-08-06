@@ -39,11 +39,22 @@ class ChipDataProvider(
     fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     private fun updateTags(updated: List<TagData>) {
-        Logger.d("ChipDataProvider") { "Updating tags" }
-        tagDatas = updated.associateBy({ it.remoteId }) { TagFilter(it) }
-        tagsVersion++
-        refreshBroadcaster.broadcastRefresh()
+        val tags = updated.associateBy({ it.remoteId }) { TagFilter(it) }
+        // Syncing writes to the tag tables constantly and every write lands here. Refreshing on
+        // each one re-runs the task list query and rebuilds the whole list, repeatedly, for the
+        // duration of a sync. Only a change to what a chip actually renders needs to reach the
+        // list. Same gate as the one in CaldavListCache.
+        val changed = tags.appearance() != tagDatas.appearance()
+        tagDatas = tags
+        if (changed) {
+            Logger.d("ChipDataProvider") { "Updating tags" }
+            tagsVersion++
+            refreshBroadcaster.broadcastRefresh()
+        }
     }
+
+    private fun Map<String?, TagFilter>.appearance() =
+        mapValues { (_, filter) -> Triple(filter.title, filter.icon, filter.tint) }
 
     init {
         caldavLists.updates

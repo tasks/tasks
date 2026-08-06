@@ -46,10 +46,22 @@ class CaldavListCache(
                     val account = accounts.find { it.uuid == list.account } ?: return@mapNotNull null
                     CaldavFilter(calendar = list, account = account)
                 }
-                byUuid = filters.associateBy { it.uuid }
+                val updated: Map<String?, CaldavFilter> = filters.associateBy { it.uuid }
+                // Syncing writes to the calendar and account tables constantly - sync tokens,
+                // ctags, error state - and every write reaches here. Bumping the version on each
+                // one re-runs the task list query and rebuilds the whole list, repeatedly, for
+                // the duration of a sync. The cache itself is still refreshed either way; only a
+                // change to what a list actually renders as needs to reach its subscribers.
+                val changed = updated.appearance() != byUuid.appearance()
+                byUuid = updated
                 byId = filters.associateBy { it.calendar.id }
-                _version.value++
+                if (changed) {
+                    _version.value++
+                }
             }
             .launchIn(scope)
     }
+
+    private fun Map<String?, CaldavFilter>.appearance() =
+        mapValues { (_, filter) -> Triple(filter.title, filter.icon, filter.tint) }
 }
