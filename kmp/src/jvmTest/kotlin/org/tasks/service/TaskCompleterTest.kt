@@ -82,7 +82,7 @@ class TaskCompleterTest : DatabaseTest() {
     }
 
     @Test
-    fun unCompletingLeavesADescendantFinishedOnItsOwnAccount() = runBlocking {
+    fun unCompletingAParentResetsTheWholeChecklist() = runBlocking {
         val a = newTask("a")
         val cascaded = newTask("cascaded", parent = a.id)
         val ownAccount = newTask("ownAccount", parent = a.id, completedAt = EARLIER)
@@ -90,24 +90,22 @@ class TaskCompleterTest : DatabaseTest() {
 
         completer.setComplete(taskDao.fetch(a.id)!!, false)
 
+        assertFalse(taskDao.fetch(a.id)!!.isCompleted)
         assertFalse(taskDao.fetch(cascaded.id)!!.isCompleted)
-        assertEquals(EARLIER, completionOf(ownAccount))
+        assertFalse(taskDao.fetch(ownAccount.id)!!.isCompleted)
     }
 
     @Test
-    fun unCompletingStopsAtADescendantThatKeptItsOwnDate() = runBlocking {
+    fun unCompletingReachesPastADescendantFinishedOnItsOwnAccount() = runBlocking {
         val a = newTask("a")
         val skipped = newTask("skipped", parent = a.id, completedAt = EARLIER)
         val underneath = newTask("underneath", parent = skipped.id)
         completer.setComplete(a, true)
-        assertEquals(EARLIER, completionOf(skipped))
-        assertEquals(completionOf(a), completionOf(underneath))
 
         completer.setComplete(taskDao.fetch(a.id)!!, false)
 
-        assertEquals(EARLIER, completionOf(skipped))
-        assertTrue(taskDao.fetch(underneath.id)!!.isCompleted)
-        assertFalse(taskDao.fetch(a.id)!!.isCompleted)
+        assertFalse(taskDao.fetch(skipped.id)!!.isCompleted)
+        assertFalse(taskDao.fetch(underneath.id)!!.isCompleted)
     }
 
     @Test
