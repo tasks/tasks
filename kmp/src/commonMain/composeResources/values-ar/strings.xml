@@ -506,4 +506,7 @@
     <string name="default_location_reminder_on_arrival">عند الوصول</string>
     <string name="default_location_reminder_on_departure">عند المغادرة</string>
     <string name="default_location_reminder_on_arrival_or_departure">عند الوصول والمغادرة</string>
+    <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
+    <string name="keep_editing">استمر في التعديل</string>
+    <string name="DLG_delete_this_task_question">حذف هذه المهمة؟</string>
 </resources>

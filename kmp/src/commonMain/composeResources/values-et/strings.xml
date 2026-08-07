@@ -584,4 +584,7 @@
     <string name="location_update_interval_30_minutes">Iga 30 minuti järel</string>
     <string name="location_update_interval_1_hour">Kord tunnis</string>
     <string name="location_update_interval_2_hours">Kord kahe tunni jooksul</string>
+    <string name="discard_confirmation">Oled sa kindel, et soovid muudatustest loobuda?</string>
+    <string name="keep_editing">Jätka muutmist</string>
+    <string name="DLG_delete_this_task_question">Kustuta see ülesanne?</string>
 </resources>

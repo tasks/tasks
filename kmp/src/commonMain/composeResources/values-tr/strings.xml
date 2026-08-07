@@ -584,4 +584,7 @@
     <string name="location_update_interval_30_minutes">Her 30 dakika</string>
     <string name="location_update_interval_1_hour">Her saat</string>
     <string name="location_update_interval_2_hours">Her 2 saat</string>
+    <string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
+    <string name="keep_editing">Düzenlemeyi sürdür</string>
+    <string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
 </resources>

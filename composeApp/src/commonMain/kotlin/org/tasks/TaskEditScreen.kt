@@ -44,7 +44,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.AlarmsSection
+import org.tasks.compose.edit.DeleteTaskDialog
 import org.tasks.compose.edit.DescriptionRow
+import org.tasks.compose.edit.DiscardChangesDialog
 import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.MarkdownEditField
@@ -179,6 +181,8 @@ fun TaskEditScreen(
                     var showStartDatePicker by remember { mutableStateOf(false) }
                     var showRecurrencePicker by remember { mutableStateOf(false) }
                     var showAlarmDateTimePicker by remember { mutableStateOf(false) }
+                    var showDiscardConfirmation by remember { mutableStateOf(false) }
+                    var showDeleteConfirmation by remember { mutableStateOf(false) }
                     var alarmToReplace by remember { mutableStateOf<Alarm?>(null) }
                     var pickerToken by remember { mutableStateOf(0) }
                     val reminderViewModel = koinViewModel<ReminderControlSetViewModel>()
@@ -291,8 +295,18 @@ fun TaskEditScreen(
                             keyboardController?.hide()
                             viewModel.markComplete()
                         },
-                        onDiscardChanges = viewModel::discardChanges,
-                        onDeleteTask = viewModel::delete,
+                        onDiscardChanges = {
+                            keyboardController?.hide()
+                            if (state.hasChanges) {
+                                showDiscardConfirmation = true
+                            } else {
+                                viewModel.discardChanges()
+                            }
+                        },
+                        onDeleteTask = {
+                            keyboardController?.hide()
+                            showDeleteConfirmation = true
+                        },
                         enabled = !saving,
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
@@ -301,6 +315,24 @@ fun TaskEditScreen(
                                 vertical = FloatingToolbarBottomMargin,
                             ),
                     )
+                    if (showDiscardConfirmation) {
+                        DiscardChangesDialog(
+                            onDiscard = {
+                                showDiscardConfirmation = false
+                                viewModel.discardChanges()
+                            },
+                            onDismiss = { showDiscardConfirmation = false },
+                        )
+                    }
+                    if (showDeleteConfirmation) {
+                        DeleteTaskDialog(
+                            onDelete = {
+                                showDeleteConfirmation = false
+                                viewModel.delete()
+                            },
+                            onDismiss = { showDeleteConfirmation = false },
+                        )
+                    }
                     if (showDueDatePicker) {
                         val (initialDay, initialTime) = dueDateToSelection(state.task.dueDate)
                         // TODO: both date pickers hard-code autoClose

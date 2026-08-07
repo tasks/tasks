@@ -12,7 +12,6 @@
 \n</string>
     <string name="import_progress_read">Leser gjøremål %d…</string>
     <string name="read_permission_label">Tasks-tillatelse</string>
-    <string name="DLG_delete_this_task_question">Slett dette gjøremålet\?</string>
     <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
     <string name="WID_dateButtonUnset">Klikk for å sette</string>
     <string name="TLA_menu_sort">Sorter</string>
@@ -84,8 +83,6 @@
     <string name="repeats_plural_number_of_times">Gjentas hver(t) %1$s, inntreffer %2$d %3$s</string>
     <string name="actfm_picture_clear">Tøm bilde</string>
     <string name="TVA_add_comment">Legg til kommentar…</string>
-    <string name="discard_confirmation">Er du sikker på at du vil forkaste dine endringer\?</string>
-    <string name="keep_editing">Fortsett å redigere</string>
     <string name="DLG_undo">Angre</string>
     <string name="TLA_no_items">Det er ingen gjøremål her.</string>
     <string name="TLA_menu_search">Søk</string>
@@ -180,7 +177,6 @@
     <string name="date_shortcut_must_come_before">%1$s må komme før %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s må komme etter %2$s</string>
     <string name="discard_changes">Forkast endringer\?</string>
-    <string name="discard">Forkast</string>
     <string name="tag_settings">Etikettinnstillinger</string>
     <string name="list_settings">Listeinnstillinger</string>
     <string name="delete">Slett</string>

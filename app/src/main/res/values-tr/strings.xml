@@ -9,9 +9,6 @@
     <string name="import_summary_message">%1$s dosyası %2$s içeriyor. \n \n %3$s içe aktarıldı,\n %4$s zaten var,\n %5$s hata var.</string>
     <string name="import_progress_read">%d görev okunuyor…</string>
     <string name="read_permission_label">Tasks İzni</string>
-    <string name="discard_confirmation">Değişikliklerinizi gözden çıkarmak istediğinize emin misiniz?</string>
-    <string name="keep_editing">Düzenlemeyi sürdür</string>
-    <string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
     <string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
     <string name="DLG_undo">Geri al</string>
     <string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
@@ -166,7 +163,6 @@
     <string name="date_shortcut_must_come_before">%1$s, %2$s öncesinden gelmelidir</string>
     <string name="date_shortcut_must_come_after">%1$s, %2$s ardından gelmelidir</string>
     <string name="discard_changes">Değişiklikleri gözden çıkar?</string>
-    <string name="discard">Gözden çıkar</string>
     <string name="tag_settings">Etiket ayarları</string>
     <string name="list_settings">Liste ayarları</string>
     <string name="delete">Sil</string>

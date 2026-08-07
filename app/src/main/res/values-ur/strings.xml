@@ -44,9 +44,6 @@
     <string name="WID_dateButtonUnset">سیٹ کرنے کیلئے کلک کریں</string>
     <string name="DLG_undo">ان ڈو کریں</string>
     <string name="DLG_hour_minutes">وقت (گھنٹے : منٹس)</string>
-    <string name="DLG_delete_this_task_question">اس ٹاسک کو ڈیلیٹ کریں؟</string>
-    <string name="keep_editing">ترمیم کرتے رہیں</string>
-    <string name="discard_confirmation">کیا آپ واقعی اپنی تبدیلیوں کو منسوخ کرنا چاہتے ہیں؟</string>
     <string name="read_permission_label">ٹاسک کی اجازت</string>
     <string name="cancel">منسوخ کریں</string>
     <string name="ok">ٹھیک ہے</string>
@@ -206,7 +203,6 @@
     <string name="delete">ڈیلیٹ کریں</string>
     <string name="list_settings">لسٹ سیٹنگ</string>
     <string name="tag_settings">ٹیگ سیٹنگ</string>
-    <string name="discard">مسترد کریں</string>
     <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
     <string name="date_shortcut_must_come_after">%1$s کو %2$sسے پہلے آنا چاہیے</string>
     <string name="date_shortcut_must_come_before">%1$s کو %2$s سے پہلے آنا چایئے</string>

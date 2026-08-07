@@ -445,4 +445,7 @@
     <string name="default_location_reminder_on_arrival">Saavuttaessa</string>
     <string name="default_location_reminder_on_departure">Lähdettäessä</string>
     <string name="default_location_reminder_on_arrival_or_departure">Saavuttaessa ja lähdettäessä</string>
+    <string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
+    <string name="keep_editing">Jatka muokkausta</string>
+    <string name="DLG_delete_this_task_question">Poista tämä tehtävä?</string>
 </resources>

@@ -7,9 +7,6 @@
     <string name="EPr_delete_task_data_warning">എല്ലാ ടാസ്കുകളും ശാശ്വതമായി ഇല്ലാതാക്കപ്പെടും</string>
     <string name="day_after_tomorrow">മറ്റന്നാൾ</string>
     <string name="next_week">അടുത്ത ആഴ്ച</string>
-    <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ\?</string>
-    <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
-    <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ\?</string>
     <string name="DLG_hour_minutes">സമയം (മണിക്കൂർ: മിനിറ്റ്)</string>
     <string name="WID_dateButtonUnset">സജ്ജമാക്കാൻ ക്ലിക്കുചെയ്യുക</string>
     <string name="TLA_no_items">ഇവിടെ ടാസ്‌ക്കുകളൊന്നുമില്ല.</string>

@@ -590,4 +590,7 @@
     <string name="location_update_interval_30_minutes">Svakih 30 minuta</string>
     <string name="location_update_interval_1_hour">Svakih sat</string>
     <string name="location_update_interval_2_hours">Svaka 2 sata</string>
+    <string name="discard_confirmation">Stvarno želiš odbaciti promjene?</string>
+    <string name="keep_editing">Nastavi uređivati</string>
+    <string name="DLG_delete_this_task_question">Ovaj zadatak izbrisati?</string>
 </resources>

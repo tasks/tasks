@@ -14,9 +14,6 @@
 \n</string>
     <string name="import_progress_read">Nuskaitoma užduotis %d…</string>
     <string name="read_permission_label">Tasks leidimas</string>
-    <string name="discard_confirmation">Ar tikrai norite atmesti pakeitimus?</string>
-    <string name="keep_editing">Tęsti redagavimą</string>
-    <string name="DLG_delete_this_task_question">Ištrinti šią užduotį?</string>
     <string name="DLG_hour_minutes">Laikas (valandos : minutės)</string>
     <string name="DLG_undo">Atstatyti</string>
     <string name="WID_dateButtonUnset">Spustelėti, kad nustatyti</string>
@@ -182,7 +179,6 @@
     <string name="date_shortcut_must_come_before">%1$s turi būti prieš %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s turi būti po %2$s</string>
     <string name="discard_changes">Atmesti pakeitimus\?</string>
-    <string name="discard">Atmesti</string>
     <string name="tag_settings">Etikečių nustatymai</string>
     <string name="list_settings">Sąrašo nustatymai</string>
     <string name="delete">Ištrinti</string>

@@ -591,4 +591,7 @@
     <string name="location_update_interval_30_minutes">Každých 30 minut</string>
     <string name="location_update_interval_1_hour">Každou hodinu</string>
     <string name="location_update_interval_2_hours">Každé 2 hodiny</string>
+    <string name="discard_confirmation">Opravdu chcete provedené změny zahodit?</string>
+    <string name="keep_editing">Pokračovat v úpravách</string>
+    <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
 </resources>

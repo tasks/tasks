@@ -30,4 +30,7 @@
     <string name="yesterday">कल</string>
     <string name="sort_mode">सॉर्ट करें</string>
     <string name="app_settings">ऐप सेटिंग</string>
+    <string name="discard_confirmation">क्या आप वाकई अपने बदलावों को रद्द करना चाहते हैं?</string>
+    <string name="keep_editing">बदलाव करना जारी रखें</string>
+    <string name="DLG_delete_this_task_question">इस टास्क को मिटाएँ?</string>
 </resources>

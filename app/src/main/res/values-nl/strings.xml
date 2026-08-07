@@ -9,9 +9,6 @@
     <string name="import_summary_message">Bestand %1$s bevat %2$s.\n\n%3$s geïmporteerd,\n%4$s bestaan al\n%5$s bevatten fouten</string>
     <string name="import_progress_read">Taak %d lezen…</string>
     <string name="read_permission_label">App-recht Taken</string>
-    <string name="discard_confirmation">Afbreken en wijzigingen negeren\?</string>
-    <string name="keep_editing">Blijf bewerken</string>
-    <string name="DLG_delete_this_task_question">Deze taak wissen\?</string>
     <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
     <string name="DLG_undo">Ongedaan maken</string>
     <string name="WID_dateButtonUnset">Tik om in te stellen</string>
@@ -162,7 +159,6 @@
     <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Veranderingen negeren\?</string>
-    <string name="discard">Negeren</string>
     <string name="tag_settings">Label instellen</string>
     <string name="list_settings">Lijst instellen</string>
     <string name="delete">Wissen</string>

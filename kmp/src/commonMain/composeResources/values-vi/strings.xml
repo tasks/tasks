@@ -385,4 +385,7 @@
     <string name="default_location_reminder_on_arrival">Khi đến</string>
     <string name="default_location_reminder_on_departure">Khi khởi hành</string>
     <string name="default_location_reminder_on_arrival_or_departure">Khi đến và khởi hành</string>
+    <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không?</string>
+    <string name="keep_editing">Tiếp tục chỉnh sửa</string>
+    <string name="DLG_delete_this_task_question">Xoá công việc này?</string>
 </resources>

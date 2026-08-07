@@ -452,4 +452,7 @@
     <string name="default_location_reminder_on_arrival">Після прибуття</string>
     <string name="default_location_reminder_on_departure">Під час покиданні місця</string>
     <string name="default_location_reminder_on_arrival_or_departure">Після прибуття та під час покиданні місця</string>
+    <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
+    <string name="keep_editing">Продовжити редагування</string>
+    <string name="DLG_delete_this_task_question">Видалити це завдання?</string>
 </resources>

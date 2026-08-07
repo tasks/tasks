@@ -547,4 +547,7 @@
     <string name="location_update_interval_30_minutes">Setiap 30 menit</string>
     <string name="location_update_interval_1_hour">Setiap jam</string>
     <string name="location_update_interval_2_hours">Setiap 2 jam</string>
+    <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat?</string>
+    <string name="keep_editing">Tetap menyunting</string>
+    <string name="DLG_delete_this_task_question">Hapus tugas ini?</string>
 </resources>

@@ -9,9 +9,6 @@
     <string name="import_summary_message">Файл %1$s містив %2$s. \n \n %3$s імпортовано, \n %4$s вже існувало, \n %5$s з помилками</string>
     <string name="import_progress_read">Читання завдання %d…</string>
     <string name="read_permission_label">Дозволи Tasks</string>
-    <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
-    <string name="keep_editing">Продовжити редагування</string>
-    <string name="DLG_delete_this_task_question">Видалити це завдання\?</string>
     <string name="DLG_hour_minutes">Час (години : хвилини)</string>
     <string name="DLG_undo">Повернути</string>
     <string name="WID_dateButtonUnset">Натисніть для встановлення</string>
@@ -175,7 +172,6 @@
     <string name="date_shortcut_must_come_before">%1$s має бути до %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
     <string name="discard_changes">Скасувати зміни\?</string>
-    <string name="discard">Скасувати</string>
     <string name="tag_settings">Налаштування міток</string>
     <string name="list_settings">Налаштування списку</string>
     <string name="delete">Видалити</string>

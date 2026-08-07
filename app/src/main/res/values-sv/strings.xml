@@ -9,9 +9,6 @@
     <string name="import_summary_message">Filen %1$s innehöll %2$s. %3$s importerades %4$s fanns redan %5$s innehöll fel</string>
     <string name="import_progress_read">Läser uppgift %d…</string>
     <string name="read_permission_label">Tasks-behörighet</string>
-    <string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
-    <string name="keep_editing">Fortsätt redigera</string>
-    <string name="DLG_delete_this_task_question">Ta bort denna uppgift\?</string>
     <string name="DLG_hour_minutes">Tid (timmar:minuter)</string>
     <string name="DLG_undo">Ångra</string>
     <string name="WID_dateButtonUnset">Tryck för att ange</string>
@@ -135,7 +132,6 @@
     <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
     <string name="discard_changes">Kassera ändringarna?</string>
-    <string name="discard">Kassera</string>
     <string name="tag_settings">Etikettinställningar</string>
     <string name="list_settings">Listinställningar</string>
     <string name="delete">Ta bort</string>

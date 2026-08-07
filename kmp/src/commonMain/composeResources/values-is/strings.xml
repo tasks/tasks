@@ -31,4 +31,7 @@
     <string name="TEA_control_repeat">Endurtaka</string>
     <string name="TEA_control_reminders">Áminningar</string>
     <string name="TEA_control_location">Staðsetning</string>
+    <string name="discard_confirmation">Ertu viss um að þú viljir hætta við breytingarnar?</string>
+    <string name="keep_editing">Halda áfram að breyta</string>
+    <string name="DLG_delete_this_task_question">Eyða þessu verkefni?</string>
 </resources>

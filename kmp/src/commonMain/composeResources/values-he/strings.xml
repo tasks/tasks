@@ -506,4 +506,7 @@
     <string name="location_update_interval_30_minutes">כל 30 דקות</string>
     <string name="location_update_interval_1_hour">כל שעה</string>
     <string name="location_update_interval_2_hours">כל שעתיים</string>
+    <string name="discard_confirmation">האם ברצונך להשליך את השינויים שלך בוודאות?</string>
+    <string name="keep_editing">להמשיך לערוך</string>
+    <string name="DLG_delete_this_task_question">למחוק משימה זו?</string>
 </resources>

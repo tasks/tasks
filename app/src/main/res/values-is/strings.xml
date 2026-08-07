@@ -14,9 +14,6 @@
     <string name="import_failed">Innflutningur mistókst</string>
     <string name="import_failed_message">Gat ekki lesið afritsskránna</string>
     <string name="read_permission_label">Aðgangur að verkefnum</string>
-    <string name="discard_confirmation">Ertu viss um að þú viljir hætta við breytingarnar?</string>
-    <string name="keep_editing">Halda áfram að breyta</string>
-    <string name="DLG_delete_this_task_question">Eyða þessu verkefni?</string>
     <string name="DLG_hour_minutes">Tími (klukkustundir : mínútur)</string>
     <string name="DLG_undo">Afturkalla</string>
     <string name="WID_dateButtonUnset">Smelltu til að velja</string>

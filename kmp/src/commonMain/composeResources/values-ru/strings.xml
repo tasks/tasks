@@ -479,4 +479,7 @@
     <string name="location_update_interval_30_minutes">Каждые 30 минут</string>
     <string name="location_update_interval_1_hour">Каждый час</string>
     <string name="location_update_interval_2_hours">Каждые 2 часа</string>
+    <string name="discard_confirmation">Отменить сделанные изменения?</string>
+    <string name="keep_editing">Нет</string>
+    <string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
 </resources>

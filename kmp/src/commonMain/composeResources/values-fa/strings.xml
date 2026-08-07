@@ -159,4 +159,7 @@
     <string name="default_location_reminder_on_arrival">موقع رسیدن</string>
     <string name="default_location_reminder_on_departure">موقع رفتن</string>
     <string name="default_location_reminder_on_arrival_or_departure">موقع رسیدن و رفتن</string>
+    <string name="discard_confirmation">آیا مطمئن هستید که می خواهید تغییرات خود را حذف کنید؟</string>
+    <string name="keep_editing">ادامه ویرایش</string>
+    <string name="DLG_delete_this_task_question">حذف این وظیفه</string>
 </resources>

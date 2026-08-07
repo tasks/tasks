@@ -9,9 +9,6 @@
     <string name="import_summary_message">ファイル %1$s の%2$s中\n\n %3$sをインポート\n %4$sがすでに存在\n %5$sが失敗</string>
     <string name="import_progress_read">タスク %d を読み込み中…</string>
     <string name="read_permission_label">Tasks へのアクセス</string>
-    <string name="discard_confirmation">本当に変更を破棄しますか？</string>
-    <string name="keep_editing">編集を続ける</string>
-    <string name="DLG_delete_this_task_question">このタスクを削除しますか？</string>
     <string name="DLG_hour_minutes">時間 (時 : 分)</string>
     <string name="DLG_undo">元に戻す</string>
     <string name="WID_dateButtonUnset">タップして設定</string>
@@ -168,7 +165,6 @@
     <string name="date_shortcut_must_come_before">%1$s は %2$s の前に来る必要があります</string>
     <string name="date_shortcut_must_come_after">%1$s は %2$s の後に来る必要があります</string>
     <string name="discard_changes">変更を破棄しますか？</string>
-    <string name="discard">破棄</string>
     <string name="tag_settings">タグ設定</string>
     <string name="list_settings">リスト設定</string>
     <string name="delete">削除</string>

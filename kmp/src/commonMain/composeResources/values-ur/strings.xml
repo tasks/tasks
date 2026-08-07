@@ -280,4 +280,7 @@
     <string name="default_location_reminder_on_arrival">آمد پر</string>
     <string name="default_location_reminder_on_departure">روانگی پر</string>
     <string name="default_location_reminder_on_arrival_or_departure">آمد اور روانگی پر</string>
+    <string name="discard_confirmation">کیا آپ واقعی اپنی تبدیلیوں کو منسوخ کرنا چاہتے ہیں؟</string>
+    <string name="keep_editing">ترمیم کرتے رہیں</string>
+    <string name="DLG_delete_this_task_question">اس ٹاسک کو ڈیلیٹ کریں؟</string>
 </resources>

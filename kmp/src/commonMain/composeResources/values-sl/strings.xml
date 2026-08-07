@@ -44,4 +44,5 @@
     <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
+    <string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
 </resources>

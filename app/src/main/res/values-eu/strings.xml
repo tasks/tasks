@@ -14,9 +14,6 @@
 \n</string>
     <string name="import_progress_read">%d zeregina irakurtzen…</string>
     <string name="read_permission_label">Tasks aplikazioaren baimenak</string>
-    <string name="discard_confirmation">Ziur zure aldaketak baztertu nahi dituzula\?</string>
-    <string name="keep_editing">Jarraitu editatzen</string>
-    <string name="DLG_delete_this_task_question">Ezabatu zeregin hau\?</string>
     <string name="DLG_hour_minutes">Denbora (orduak : minutuak)</string>
     <string name="DLG_undo">Desegin</string>
     <string name="WID_dateButtonUnset">Sakatu ezartzeko</string>
@@ -172,7 +169,6 @@
     <string name="date_shortcut_must_come_before">%1$s %2$s aurretik gertatu behar da</string>
     <string name="date_shortcut_must_come_after">%1$s %2$s eta gero gertatu behar da</string>
     <string name="discard_changes">Baztertu aldaketak\?</string>
-    <string name="discard">Baztertu</string>
     <string name="tag_settings">Etiketa-ezarpenak</string>
     <string name="list_settings">Zerrenda-ezarpenak</string>
     <string name="delete">Ezabatu</string>

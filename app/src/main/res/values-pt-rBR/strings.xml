@@ -9,9 +9,6 @@
     <string name="import_summary_message">O arquivo %1$s continha %2$s. \n \n %3$s importadas, \n %4$s já existiam, \n %5$s tinham erros</string>
     <string name="import_progress_read">Lendo tarefa %d…</string>
     <string name="read_permission_label">Permissões do Tasks</string>
-    <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
-    <string name="keep_editing">Continuar editando</string>
-    <string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
     <string name="DLG_hour_minutes">Horário (horas : minutos)</string>
     <string name="DLG_undo">Desfazer</string>
     <string name="WID_dateButtonUnset">Toque para definir</string>
@@ -171,7 +168,6 @@
     <string name="date_shortcut_must_come_before">%1$s deve vir antes de %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s deve vir depois de %2$s</string>
     <string name="discard_changes">Descartar alterações?</string>
-    <string name="discard">Descartar</string>
     <string name="tag_settings">Configurações de etiquetas</string>
     <string name="list_settings">Configurações da lista</string>
     <string name="delete">Excluir</string>

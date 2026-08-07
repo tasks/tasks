@@ -17,13 +17,11 @@ import com.todoroo.astrid.activity.MainActivity.Companion.finishAffinity
 import com.todoroo.astrid.activity.MainActivity.Companion.removeTask
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.edit.TaskEditScreen
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
 import org.tasks.markdown.MarkdownProvider
@@ -43,7 +41,6 @@ import javax.inject.Inject
 class TaskEditFragment : Fragment() {
     @Inject lateinit var userActivityDao: UserActivityDao
     @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var locale: Locale
@@ -101,28 +98,14 @@ class TaskEditFragment : Fragment() {
                 },
                 discard = {
                     keyboard?.hide()
-                    if (editViewModel.hasChanges()) {
-                        dialogBuilder
-                            .newDialog(R.string.discard_confirmation)
-                            .setPositiveButton(R.string.keep_editing, null)
-                            .setNegativeButton(R.string.discard) { _, _ -> discard() }
-                            .show()
-                    } else {
-                        discard()
-                    }
+                    discard()
                 },
                 delete = {
                     keyboard?.hide()
-                    dialogBuilder
-                        .newDialog(R.string.DLG_delete_this_task_question)
-                        .setPositiveButton(R.string.ok) { _, _ ->
-                            lifecycleScope.launch {
-                                editViewModel.delete()
-                                clearTask()
-                            }
-                        }
-                        .setNegativeButton(R.string.cancel, null)
-                        .show()
+                    lifecycleScope.launch {
+                        editViewModel.delete()
+                        clearTask()
+                    }
                 },
                 dismissBeastMode = { editViewModel.hideBeastModeHint(click = false) },
                 deleteComment = {

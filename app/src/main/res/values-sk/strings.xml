@@ -9,9 +9,6 @@
     <string name="import_summary_message">Súbor %1$s obsahoval %2$s.\n\n %3$s importovaných,\n %4$s už existuje\n%5$s je chybných</string>
     <string name="import_progress_read">Načítavam úlohu %d…</string>
     <string name="read_permission_label">Povolenia pre Tasks</string>
-    <string name="discard_confirmation">Naozaj chcete zahodiť vykonané zmeny?</string>
-    <string name="keep_editing">Pokračuj v úpravách</string>
-    <string name="DLG_delete_this_task_question">Odstrániť túto úlohu?</string>
     <string name="DLG_hour_minutes">Čas (hodiny : minúty)</string>
     <string name="DLG_undo">Späť</string>
     <string name="WID_dateButtonUnset">Kliknúť pre nastavenie</string>
@@ -177,7 +174,6 @@
     <string name="date_shortcut_must_come_before">%1$s musí predchádzať %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musí nasledovať po %2$s</string>
     <string name="discard_changes">Zahodiť zmeny?</string>
-    <string name="discard">Zahodiť</string>
     <string name="tag_settings">Nastavenie štítku</string>
     <string name="list_settings">Nastavenia zoznamu</string>
     <string name="delete">Zmazať</string>

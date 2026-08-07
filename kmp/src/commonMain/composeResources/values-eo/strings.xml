@@ -537,4 +537,7 @@
     <string name="location_update_interval_30_minutes">Ĉiu 30 minutoj</string>
     <string name="location_update_interval_1_hour">Ĉiu 1 horo</string>
     <string name="location_update_interval_2_hours">Ĉiu 2 horoj</string>
+    <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn?</string>
+    <string name="keep_editing">Plu redakti</string>
+    <string name="DLG_delete_this_task_question">Forigi la taskon?</string>
 </resources>

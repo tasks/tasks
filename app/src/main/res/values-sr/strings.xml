@@ -26,9 +26,6 @@
     <string name="TLA_menu_settings">Подешавања</string>
     <string name="import_summary_message">Датотека %1$s садржи %2$s.\n\n %3$s увезених,\n %4$s већ постојећих\n %5$s са грешкама</string>
     <string name="help_and_feedback">Помоћ и повратне информације</string>
-    <string name="discard_confirmation">Да ли желиш да одбациш промене?</string>
-    <string name="keep_editing">Настави уређивање</string>
-    <string name="DLG_delete_this_task_question">Обрисати задатак?</string>
     <string name="DLG_hour_minutes">Време (сати : минути)</string>
     <string name="DLG_undo">Поништи</string>
     <string name="WID_dateButtonUnset">Кликни да поставиш</string>
@@ -173,7 +170,6 @@
     <string name="date_shortcut_evening">Вече</string>
     <string name="date_shortcut_night">Ноћ</string>
     <string name="discard_changes">Одбаци измене?</string>
-    <string name="discard">Обустави</string>
     <string name="tag_settings">Подешавања тагова</string>
     <string name="list_settings">Подешавања листе</string>
     <string name="delete">Обриши</string>

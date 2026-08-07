@@ -450,4 +450,7 @@
     <string name="location_update_interval_30_minutes">Co 30 minut</string>
     <string name="location_update_interval_1_hour">Co godzinę</string>
     <string name="location_update_interval_2_hours">Co 2 godziny</string>
+    <string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
+    <string name="keep_editing">Kontynuuj edycję</string>
+    <string name="DLG_delete_this_task_question">Usunąć to zadanie?</string>
 </resources>

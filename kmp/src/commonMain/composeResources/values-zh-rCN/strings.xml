@@ -575,4 +575,7 @@
     <string name="location_update_interval_30_minutes">每 30 分钟</string>
     <string name="location_update_interval_1_hour">每小时</string>
     <string name="location_update_interval_2_hours">每 2 小时</string>
+    <string name="discard_confirmation">确定要放弃你的修改吗？</string>
+    <string name="keep_editing">继续编辑</string>
+    <string name="DLG_delete_this_task_question">确认删除？</string>
 </resources>

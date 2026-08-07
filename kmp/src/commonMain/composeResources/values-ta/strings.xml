@@ -430,4 +430,7 @@
     <string name="default_location_reminder_on_arrival">வந்தவுடன்</string>
     <string name="default_location_reminder_on_departure">புறப்படும் போது</string>
     <string name="default_location_reminder_on_arrival_or_departure">வருகை மற்றும் புறப்படும் போது</string>
+    <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா?</string>
+    <string name="keep_editing">திருத்துவதைத் தொடருங்கள்</string>
+    <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா?</string>
 </resources>

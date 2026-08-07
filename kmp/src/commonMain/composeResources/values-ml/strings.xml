@@ -73,4 +73,7 @@
     <string name="no_reminders">ഓർമ്മപ്പെടുത്തലുകളൊന്നുമില്ല</string>
     <string name="day_after_tomorrow">മറ്റന്നാൾ</string>
     <string name="next_week">അടുത്ത ആഴ്ച</string>
+    <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?</string>
+    <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
+    <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ?</string>
 </resources>

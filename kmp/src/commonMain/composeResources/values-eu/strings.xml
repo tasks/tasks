@@ -383,4 +383,7 @@
     <string name="default_location_reminder_on_arrival">Heltzean</string>
     <string name="default_location_reminder_on_departure">Ateratzean</string>
     <string name="default_location_reminder_on_arrival_or_departure">Ateratzean eta heltzean</string>
+    <string name="discard_confirmation">Ziur zure aldaketak baztertu nahi dituzula?</string>
+    <string name="keep_editing">Jarraitu editatzen</string>
+    <string name="DLG_delete_this_task_question">Ezabatu zeregin hau?</string>
 </resources>

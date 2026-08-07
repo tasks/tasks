@@ -579,4 +579,7 @@
     <string name="location_update_interval_30_minutes">Alle 30 Minuten</string>
     <string name="location_update_interval_1_hour">Jede Stunde</string>
     <string name="location_update_interval_2_hours">Alle 2 Stunden</string>
+    <string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
+    <string name="keep_editing">Weiter bearbeiten</string>
+    <string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
 </resources>

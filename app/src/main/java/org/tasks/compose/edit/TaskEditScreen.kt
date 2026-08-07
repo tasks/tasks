@@ -114,6 +114,8 @@ fun TaskEditScreen(
     val context = LocalContext.current
     val is24Hour = remember(context) { context.is24HourFormat }
     var showDueDatePicker by rememberSaveable { mutableStateOf(false) }
+    var showDiscardConfirmation by rememberSaveable { mutableStateOf(false) }
+    var showDeleteConfirmation by rememberSaveable { mutableStateOf(false) }
     DisposableEffect(Unit) {
         val activity = context.findActivity()
         if (atLeastOreoMR1() && viewState.showEditScreenWithoutUnlock) {
@@ -126,11 +128,23 @@ fun TaskEditScreen(
             }
         }
     }
+    val requestDiscard = {
+        if (editViewModel.hasChanges()) {
+            val prompt = { showDiscardConfirmation = true }
+            context.findActivity()?.hideKeyboardThen(prompt) ?: prompt()
+        } else {
+            discard()
+        }
+    }
+    val requestDelete = {
+        val prompt = { showDeleteConfirmation = true }
+        context.findActivity()?.hideKeyboardThen(prompt) ?: prompt()
+    }
     val onBackPressed = {
         if (viewState.backButtonSavesTask) {
             save()
         } else {
-            discard()
+            requestDiscard()
         }
     }
     BackHandler {
@@ -166,7 +180,7 @@ fun TaskEditScreen(
                         return@TopAppBar
                     }
                     if (!viewState.isNew) {
-                        IconButton(onClick = { delete() }) {
+                        IconButton(onClick = { requestDelete() }) {
                             Icon(
                                 imageVector = Icons.Outlined.Delete,
                                 contentDescription = org.jetbrains.compose.resources.stringResource(
@@ -176,7 +190,7 @@ fun TaskEditScreen(
                         }
                     }
                     if (viewState.backButtonSavesTask) {
-                        IconButton(onClick = { discard() }) {
+                        IconButton(onClick = { requestDiscard() }) {
                             Icon(
                                 imageVector = Icons.Outlined.Clear,
                                 contentDescription = org.jetbrains.compose.resources.stringResource(
@@ -363,6 +377,24 @@ fun TaskEditScreen(
                     showDueDatePicker = false
                 },
                 onDismiss = { showDueDatePicker = false },
+            )
+        }
+        if (showDiscardConfirmation) {
+            DiscardChangesDialog(
+                onDiscard = {
+                    showDiscardConfirmation = false
+                    discard()
+                },
+                onDismiss = { showDiscardConfirmation = false },
+            )
+        }
+        if (showDeleteConfirmation) {
+            DeleteTaskDialog(
+                onDelete = {
+                    showDeleteConfirmation = false
+                    delete()
+                },
+                onDismiss = { showDeleteConfirmation = false },
             )
         }
     }

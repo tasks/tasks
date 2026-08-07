@@ -426,4 +426,7 @@
     <string name="default_location_reminder_on_arrival">Á chegada</string>
     <string name="default_location_reminder_on_departure">Á saída</string>
     <string name="default_location_reminder_on_arrival_or_departure">Á chegada e á saída</string>
+    <string name="discard_confirmation">Queres descartar os cambios?</string>
+    <string name="keep_editing">Seguir editando</string>
+    <string name="DLG_delete_this_task_question">Borrar esta tarefa?</string>
 </resources>

@@ -2,9 +2,6 @@
 <resources>
     <string name="display_name">Prikazano ime</string>
     <string name="read_permission_label">Odobrenja Zadataka</string>
-    <string name="discard_confirmation">Stvarno odbaci izmjene?</string>
-    <string name="keep_editing">Nastavi uređivati</string>
-    <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
     <string name="DLG_hour_minutes">Vrijeme (sati:minute)</string>
     <string name="DLG_undo">Vrati</string>
     <string name="WID_dateButtonUnset">Klikni za postavljanje</string>

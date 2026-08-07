@@ -516,4 +516,7 @@
     <string name="location_update_interval_30_minutes">Ogni 30 minuti</string>
     <string name="location_update_interval_1_hour">Ogni ora</string>
     <string name="location_update_interval_2_hours">Ogni 2 ore</string>
+    <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche?</string>
+    <string name="keep_editing">No, continua la modifica</string>
+    <string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
 </resources>

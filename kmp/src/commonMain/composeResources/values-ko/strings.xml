@@ -420,4 +420,7 @@
     <string name="default_location_reminder_on_arrival">도착 시</string>
     <string name="default_location_reminder_on_departure">출발 시</string>
     <string name="default_location_reminder_on_arrival_or_departure">도착 및 출발 시</string>
+    <string name="discard_confirmation">변경 사항을 폐기할까요?</string>
+    <string name="keep_editing">계속 편집</string>
+    <string name="DLG_delete_this_task_question">이 할일을 삭제할까요?</string>
 </resources>

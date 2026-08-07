@@ -2,7 +2,6 @@
 <resources>
     <string name="TVA_add_comment">Adder un commento…</string>
     <string name="actfm_picture_clear">Rader le imagine</string>
-    <string name="keep_editing">Sequer le edition</string>
     <string name="DLG_undo">Disfacer</string>
     <string name="display_name">Monstrar le nomine</string>
     <string name="action_open">Aperir</string>

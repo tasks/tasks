@@ -590,4 +590,7 @@
     <string name="location_update_interval_30_minutes">A cada 30 minutos</string>
     <string name="location_update_interval_1_hour">A cada hora</string>
     <string name="location_update_interval_2_hours">A cada 2 horas</string>
+    <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
+    <string name="keep_editing">Continuar editando</string>
+    <string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
 </resources>

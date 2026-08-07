@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">ล้างภาพ</string>
     <string name="import_progress_read">กำลังอ่านแผนงาน %d…</string>
-    <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
     <string name="DLG_hour_minutes">เวลา (ชั่วโมง : นาที)</string>
     <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
     <string name="TLA_menu_sort">Sort &amp; Hidden</string>
@@ -201,7 +200,6 @@
     <string name="delete">ลบ</string>
     <string name="list_settings">การตั้งค่ารายการ</string>
     <string name="tag_settings">การตั้งค่าแท็ก</string>
-    <string name="discard">ทิ้ง</string>
     <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่\?</string>
     <string name="date_shortcut_must_come_after">%1$s ต้องมาหลังจาก %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s ต้องมาก่อน %2$s</string>
@@ -371,8 +369,6 @@
     <string name="TLA_menu_search">ค้น</string>
     <string name="TLA_no_items">ไม่มีงานที่นี่</string>
     <string name="DLG_undo">เลิกทำ</string>
-    <string name="keep_editing">แก้ไขต่อไป</string>
-    <string name="discard_confirmation">คุณแน่ใจหรือไม่ว่าคุณต้องการละทิ้งการเปลี่ยนแปลงของคุณ\?</string>
     <string name="read_permission_label">สิทธิ์ของงาน</string>
     <string name="import_summary_message">แฟ้ม %1$s มี %2$s อักขระ [3] อักขระ และแฟ้ม [3]
 \n

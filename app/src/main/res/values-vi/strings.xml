@@ -40,9 +40,6 @@
     <string name="WID_dateButtonUnset">Nhấn để đặt</string>
     <string name="DLG_undo">Hoàn tác</string>
     <string name="DLG_hour_minutes">Thời gian (giờ : phút)</string>
-    <string name="DLG_delete_this_task_question">Xoá công việc này\?</string>
-    <string name="keep_editing">Tiếp tục chỉnh sửa</string>
-    <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không\?</string>
     <string name="read_permission_label">Quyền Tasks</string>
     <string name="import_progress_read">Đang đọc công việc %d…</string>
     <string name="import_summary_message">Tệp %1$s đã chứa %2$s.
@@ -257,7 +254,6 @@
     <string name="delete">Xoá</string>
     <string name="list_settings">Cài đặt danh sách</string>
     <string name="tag_settings">Cài đặt thẻ</string>
-    <string name="discard">Bỏ</string>
     <string name="discard_changes">Bỏ các thay đổi\?</string>
     <string name="date_shortcut_must_come_after">%1$s phải đến sau %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s phải đến trước %2$s</string>

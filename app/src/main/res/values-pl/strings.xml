@@ -9,9 +9,6 @@
     <string name="import_summary_message">Plik %1$s zawiera %2$s.\n\n %3$s zaimportowanych,\n %4$s już istnieje\n %5$s zawiera błędy</string>
     <string name="import_progress_read">Czytanie zadania %d…</string>
     <string name="read_permission_label">Uprawnienia Tasks</string>
-    <string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
-    <string name="keep_editing">Kontynuuj edycję</string>
-    <string name="DLG_delete_this_task_question">Usunąć to zadanie?</string>
     <string name="DLG_hour_minutes">Czas (godziny : minuty)</string>
     <string name="DLG_undo">Cofnij</string>
     <string name="WID_dateButtonUnset">Kliknij, aby ustawić</string>
@@ -172,7 +169,6 @@
     <string name="date_shortcut_must_come_before">%1$s musi być przed %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
     <string name="discard_changes">Odrzuć zmiany\?</string>
-    <string name="discard">Odrzuć</string>
     <string name="tag_settings">Ustawienia taga</string>
     <string name="list_settings">Ustawienie listy</string>
     <string name="delete">Usuń</string>

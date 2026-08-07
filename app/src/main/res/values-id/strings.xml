@@ -6,9 +6,6 @@
     <string name="export_toast">Cadangkan %1$s ke %2$s.</string>
     <string name="import_summary_title">Pulihkan ringkasan</string>
     <string name="import_progress_read">Membaca tugas %d …</string>
-    <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat\?</string>
-    <string name="keep_editing">Tetap menyunting</string>
-    <string name="DLG_delete_this_task_question">Hapus tugas ini\?</string>
     <string name="DLG_hour_minutes">Waktu (jam : menit)</string>
     <string name="DLG_undo">Urungkan</string>
     <string name="TLA_menu_sort">Urutkan</string>
@@ -125,7 +122,6 @@
     <string name="date_shortcut_evening">Petang</string>
     <string name="date_shortcut_night">Malam</string>
     <string name="discard_changes">Buang perubahan\?</string>
-    <string name="discard">Buang</string>
     <string name="tag_settings">Pengaturan tag</string>
     <string name="list_settings">Pengaturan daftar</string>
     <string name="delete">Hapus</string>

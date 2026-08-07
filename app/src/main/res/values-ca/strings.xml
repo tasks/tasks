@@ -7,7 +7,6 @@
     <string name="import_summary_title">Resum de la restauració</string>
     <string name="import_progress_read">S\'està llegint la tasca %d…</string>
     <string name="read_permission_label">Permisos del Tasks</string>
-    <string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
     <string name="DLG_hour_minutes">Temps (hores : minuts)</string>
     <string name="DLG_undo">Desfés</string>
     <string name="WID_dateButtonUnset">Premeu per a establir</string>
@@ -80,8 +79,6 @@
     <string name="settings_localization">Localització</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. \n \n %3$s importades \n %4$s ja existien \n %5$s tenien errors</string>
-    <string name="discard_confirmation">Esteu segur que voleu descartar els canvis\?</string>
-    <string name="keep_editing">Continua l\'edició</string>
     <string name="TLA_no_items">No hi ha cap tasca aquí.</string>
     <string name="action_call">Truca</string>
     <string name="action_open">Obre</string>
@@ -237,7 +234,6 @@
     <string name="enabled">Activat</string>
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s ha d\'anar abans de %2$s</string>
-    <string name="discard">Descarta</string>
     <string name="copy">Copia</string>
     <string name="widget_show_dividers">Mostra el divisors</string>
     <string name="attachment_directory">Carpeta d\'adjunts</string>

@@ -5,8 +5,6 @@
     <string name="backup_BAc_import">لود کردن بکاپ</string>
     <string name="backup_BAc_export">بکاپ از تسک ها</string>
     <string name="import_summary_title">بازگرداندن خلاصه</string>
-    <string name="keep_editing">ادامه ویرایش</string>
-    <string name="DLG_delete_this_task_question">حذف این وظیفه</string>
     <string name="DLG_undo">بازگرداندن</string>
     <string name="WID_dateButtonUnset">کلیک برای تنظیم</string>
     <string name="TLA_no_items">هیچ وظیفه ای وجود ندارد.</string>
@@ -105,7 +103,6 @@
     <string name="date_shortcut_evening">عصر</string>
     <string name="date_shortcut_night">شب</string>
     <string name="discard_changes">چشم پوشی از تغییرات؟</string>
-    <string name="discard">چشم پوشی</string>
     <string name="tag_settings">تنظیمات تگ</string>
     <string name="delete">حذف</string>
     <string name="filter_settings">تنظیمات فیلتر</string>
@@ -124,7 +121,6 @@
     <string name="cancel">لغو</string>
     <string name="read_permission_label">مجوز وظایف</string>
     <string name="display_name">نام نمایشی</string>
-    <string name="discard_confirmation">آیا مطمئن هستید که می خواهید تغییرات خود را حذف کنید؟</string>
     <string name="DLG_hour_minutes">وقت</string>
     <string name="astrid_sort_order">راهنمای خودی آسترید</string>
     <string name="SSD_sort_my_order">خرید من</string>

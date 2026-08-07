@@ -4,9 +4,6 @@
     <string name="backup_BAc_import">Impordi varukoopia</string>
     <string name="backup_BAc_export">Varunda kohe</string>
     <string name="read_permission_label">Ülesande õigused</string>
-    <string name="discard_confirmation">Oled sa kindel, et soovid muudatustest loobuda\?</string>
-    <string name="keep_editing">Jätka muutmist</string>
-    <string name="DLG_delete_this_task_question">Kustuta see ülesanne\?</string>
     <string name="DLG_hour_minutes">Aeg (tunnid : minutid)</string>
     <string name="DLG_undo">Võta tagasi</string>
     <string name="WID_dateButtonUnset">Määramiseks kliki</string>
@@ -117,7 +114,6 @@
     <string name="date_shortcut_evening">Õhtu</string>
     <string name="date_shortcut_night">Öö</string>
     <string name="discard_changes">Loobud muudatustest\?</string>
-    <string name="discard">Loobu</string>
     <string name="tag_settings">Siltide seadistused</string>
     <string name="list_settings">Loendi seadistused</string>
     <string name="delete">Kustuta</string>

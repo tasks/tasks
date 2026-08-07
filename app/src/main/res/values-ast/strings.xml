@@ -11,9 +11,6 @@
     <string name="import_summary_message">El ficheru %1$s contenía %2$s\n\n %3$s importaes\n%4$s yá esiste\n %5$s teníen errores</string>
     <string name="import_progress_read">Lleendo xera %d…</string>
     <string name="read_permission_label">Permisos de Tasks</string>
-    <string name="discard_confirmation">¿Quies escartar los tos cambeos?</string>
-    <string name="keep_editing">Siguir editando</string>
-    <string name="DLG_delete_this_task_question">¿Esborriar esta xera?</string>
     <string name="DLG_hour_minutes">Tiempu (hores : minutos)</string>
     <string name="DLG_undo">Desfacer</string>
     <string name="WID_dateButtonUnset">Calcar p\'establecer</string>
@@ -199,7 +196,6 @@
     <string name="date_shortcut_must_come_before">%1$s tien de venir enantes %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s tien de venir dempués %2$s</string>
     <string name="discard_changes">¿Escartar cambeos?</string>
-    <string name="discard">Escartar</string>
     <string name="tag_settings">Axustes d\'etiquetes</string>
     <string name="list_settings">Axustes de llistes</string>
     <string name="delete">Esborriar</string>

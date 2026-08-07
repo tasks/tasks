@@ -12,9 +12,6 @@
     <string name="ok">Добра</string>
     <string name="cancel">Адмена</string>
     <string name="read_permission_label">Правы дазволу Tasks</string>
-    <string name="discard_confirmation">Вы ўпэўнены, што хочаце адхіліць змены?</string>
-    <string name="keep_editing">Працягнуць змены</string>
-    <string name="DLG_delete_this_task_question">Выдаліць гэтую задачу?</string>
     <string name="DLG_hour_minutes">Час (гадзіны : хвіліны)</string>
     <string name="DLG_undo">Адмяніць</string>
     <string name="WID_dateButtonUnset">Націсніце, каб наставіць</string>

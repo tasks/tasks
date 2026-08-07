@@ -320,4 +320,7 @@
     <string name="default_location_reminder_on_arrival">En llegando</string>
     <string name="default_location_reminder_on_departure">En marchando</string>
     <string name="default_location_reminder_on_arrival_or_departure">En llegando y en marchando</string>
+    <string name="discard_confirmation">¿Quies escartar los tos cambeos?</string>
+    <string name="keep_editing">Siguir editando</string>
+    <string name="DLG_delete_this_task_question">¿Esborriar esta xera?</string>
 </resources>

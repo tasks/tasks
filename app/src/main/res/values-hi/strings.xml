@@ -16,9 +16,6 @@
     <string name="import_failed_message">बैकअप फ़ाइल पढ़ नहीं सका</string>
     <string name="read_permission_label">टास्क की अनुमति</string>
     <string name="help_and_feedback">मदद और फ़ीडबैक</string>
-    <string name="discard_confirmation">क्या आप वाकई अपने बदलावों को रद्द करना चाहते हैं?</string>
-    <string name="keep_editing">बदलाव करना जारी रखें</string>
-    <string name="DLG_delete_this_task_question">इस टास्क को मिटाएँ?</string>
     <string name="DLG_hour_minutes">समय (घंटे : मिनट)</string>
     <string name="DLG_undo">पूर्ववत् करें</string>
     <string name="TLA_no_items">यहाँ कोई काम नहीं है।</string>

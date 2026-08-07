@@ -49,7 +49,6 @@
     <string name="WID_dateButtonUnset">Alklaku por ŝanĝi</string>
     <string name="DLG_undo">Malfari</string>
     <string name="DLG_hour_minutes">Tempo (horoj : minutoj)</string>
-    <string name="DLG_delete_this_task_question">Forigi la taskon\?</string>
     <string name="display_name">Nomo</string>
     <string name="TVA_add_comment">Aldoni komenton…</string>
     <string name="cancel">Nuligi</string>
@@ -106,8 +105,6 @@
     <string name="SSD_sort_alpha">Laŭ titolo</string>
     <string name="SSD_sort_auto">Saĝe</string>
     <string name="TLA_menu_sort">Ordigi</string>
-    <string name="keep_editing">Plu redakti</string>
-    <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn\?</string>
     <string name="import_summary_message">Dosiero %1$s enhavis %2$s.\n\n%3$s importitaj,\n%4$s jam ekzistas\n%5$s havis erarojn</string>
     <string name="export_toast">Savkopiis %1$s al %2$s.</string>
     <string name="backup_BAc_import">Importi savkopion</string>
@@ -148,7 +145,6 @@
     <string name="delete">Forigi</string>
     <string name="list_settings">Agordoj de listo</string>
     <string name="tag_settings">Agordoj de etikedo</string>
-    <string name="discard">Forĵeti</string>
     <string name="discard_changes">Ĉu forĵeti ŝanĝojn\?</string>
     <string name="date_shortcut_night">Nokto</string>
     <string name="date_shortcut_evening">Vespero</string>

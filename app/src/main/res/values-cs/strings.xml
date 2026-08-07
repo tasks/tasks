@@ -9,7 +9,6 @@
     <string name="import_summary_message">Soubor %1$s obsahoval %2$s.\n\n%3$s importováno\n%4$s již existovalo\n%5$s obsahovalo chyby</string>
     <string name="import_progress_read">Načítání úkolu %d…</string>
     <string name="read_permission_label">Oprávnění pro Tasks</string>
-    <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
     <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
     <string name="DLG_undo">Vrátit změny</string>
     <string name="WID_dateButtonUnset">Nastavíte kliknutím</string>
@@ -139,8 +138,6 @@
     <string name="restart_later">Později</string>
     <string name="settings_localization">Překlad</string>
     <string name="widget_settings">Nastavení ovládacího prvku</string>
-    <string name="discard_confirmation">Opravdu chcete provedené změny zahodit\?</string>
-    <string name="keep_editing">Pokračovat v úpravách</string>
     <string name="action_call">Volat</string>
     <string name="action_open">Otevřít</string>
     <string name="TEA_control_location">Umístění</string>
@@ -196,7 +193,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="date_shortcut_must_come_before">%1$s musí být před %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s musí být po %2$s</string>
-    <string name="discard">Zahodit</string>
     <string name="copy">Kopírovat</string>
     <string name="move">Přesunout</string>
     <string name="take_a_picture">Pořídit fotografii</string>

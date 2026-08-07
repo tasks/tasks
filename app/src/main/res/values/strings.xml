@@ -19,9 +19,6 @@ File %1$s contained %2$s.\n\n
   <string name="import_failed">Import failed</string>
   <string name="import_failed_message">Could not read backup file</string>
   <string name="read_permission_label">Tasks Permission</string>
-  <string name="discard_confirmation">Are you sure you want to discard your changes?</string>
-  <string name="keep_editing">Keep editing</string>
-  <string name="DLG_delete_this_task_question">Delete this task?</string>
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
   <string name="DLG_undo">Undo</string>
   <string name="WID_dateButtonUnset">Click to set</string>
@@ -209,7 +206,6 @@ File %1$s contained %2$s.\n\n
   <string name="date_shortcut_must_come_before">%1$s must come before %2$s</string>
   <string name="date_shortcut_must_come_after">%1$s must come after %2$s</string>
   <string name="discard_changes">Discard changes?</string>
-  <string name="discard">Discard</string>
   <string name="tag_settings">Tag settings</string>
   <string name="list_settings">List settings</string>
   <string name="delete">Delete</string>

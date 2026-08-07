@@ -9,9 +9,6 @@
     <string name="import_summary_message">Il file %1$s contiene %2$s. \n \n %3$s importate, \n %4$s già esistenti \n %5$s con errori</string>
     <string name="import_progress_read">Lettura attività %d…</string>
     <string name="read_permission_label">Permessi di Tasks</string>
-    <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche\?</string>
-    <string name="keep_editing">No, continua la modifica</string>
-    <string name="DLG_delete_this_task_question">Eliminare questa attività\?</string>
     <string name="DLG_hour_minutes">Tempo (ore : minuti)</string>
     <string name="DLG_undo">Annulla l\'ultima azione</string>
     <string name="WID_dateButtonUnset">Clicca per impostare</string>
@@ -172,7 +169,6 @@
     <string name="date_shortcut_must_come_before">%1$s deve precedere %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s deve essere successiva a %2$s</string>
     <string name="discard_changes">Annullare le modifiche\?</string>
-    <string name="discard">Sì, annulla</string>
     <string name="tag_settings">Impostazioni etichetta</string>
     <string name="list_settings">Impostazioni lista</string>
     <string name="delete">Elimina</string>

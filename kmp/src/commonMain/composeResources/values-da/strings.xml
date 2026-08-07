@@ -466,4 +466,7 @@
     <string name="location_update_interval_30_minutes">Hvert 30. minut</string>
     <string name="location_update_interval_1_hour">Hver time</string>
     <string name="location_update_interval_2_hours">Hver 2 timer</string>
+    <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer?</string>
+    <string name="keep_editing">Fortsæt redigering</string>
+    <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
 </resources>

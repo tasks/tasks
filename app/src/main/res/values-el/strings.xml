@@ -14,7 +14,6 @@
 \n</string>
     <string name="import_progress_read">Ανάγνωση εργασίας %d…</string>
     <string name="read_permission_label">Άδεια εργασιών</string>
-    <string name="DLG_delete_this_task_question">Διαγραφή εργασίας;</string>
     <string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
     <string name="DLG_undo">Αναίρεση</string>
     <string name="WID_dateButtonUnset">Κλικ για καθορισμό</string>
@@ -98,8 +97,6 @@
     <string name="action_open">Ανοίξτε το</string>
     <string name="action_call">Καλέστε</string>
     <string name="TLA_no_items">Δεν υπάρχουν καθήκοντα.</string>
-    <string name="keep_editing">Συνέχεια επεξεργασίας</string>
-    <string name="discard_confirmation">Θέλετε σίγουρα να απορρίψετε τις αλλαγές;</string>
     <string name="cancel">Ακύρωση</string>
     <string name="ok">OK</string>
     <string name="display_name">Εμφανιζόμενο όνομα</string>
@@ -404,7 +401,6 @@
     <string name="date_shortcut_must_come_before">%1$s πρέπει να είναι πριν από το %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s πρέπει να είναι μετά από το %2$s</string>
     <string name="discard_changes">Απόρριψη αλλαγών;</string>
-    <string name="discard">Απόρριψη</string>
     <string name="tag_settings">Ρυθμίσεις ετικέτας</string>
     <string name="list_settings">Ρυθμίσεις λίστας</string>
     <string name="delete">Διαγραφή</string>

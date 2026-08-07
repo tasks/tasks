@@ -110,7 +110,6 @@
     <string name="delete">Șterge</string>
     <string name="list_settings">Setări listă</string>
     <string name="tag_settings">Setări etichetă</string>
-    <string name="discard">Modificări</string>
     <string name="discard_changes">Renunți la modificări\?</string>
     <string name="date_shortcut_must_come_after">%1$s trebuie să vină după %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s trebuie să vină înainte de %2$s</string>
@@ -270,9 +269,6 @@
     <string name="WID_dateButtonUnset">Clic pentru setare</string>
     <string name="DLG_undo">Anulare</string>
     <string name="DLG_hour_minutes">Timp (oră : minute)</string>
-    <string name="DLG_delete_this_task_question">Ștergi sarcina\?</string>
-    <string name="keep_editing">Continuă editarea</string>
-    <string name="discard_confirmation">Ești siguri că vrei să renunți la modificările făcute\?</string>
     <string name="read_permission_label">Permisiune sarcini</string>
     <string name="import_progress_read">Citirea sarcinii %d…</string>
     <string name="import_summary_message">Fișierul %1$s conținea %2$s.

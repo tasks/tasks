@@ -446,4 +446,7 @@
     <string name="default_location_reminder_on_arrival">En arribar</string>
     <string name="default_location_reminder_on_departure">A la sortida</string>
     <string name="default_location_reminder_on_arrival_or_departure">A l’arribada i sortida</string>
+    <string name="discard_confirmation">Esteu segur que voleu descartar els canvis?</string>
+    <string name="keep_editing">Continua l'edició</string>
+    <string name="DLG_delete_this_task_question">Voleu suprimir aquesta tasca?</string>
 </resources>

@@ -460,4 +460,7 @@
     <string name="default_location_reminder_on_arrival">到達時</string>
     <string name="default_location_reminder_on_departure">出發時</string>
     <string name="default_location_reminder_on_arrival_or_departure">於出發與抵達時</string>
+    <string name="discard_confirmation">您要放棄更改嗎？</string>
+    <string name="keep_editing">繼續編輯</string>
+    <string name="DLG_delete_this_task_question">刪除這項工作？</string>
 </resources>

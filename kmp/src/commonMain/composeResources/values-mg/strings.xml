@@ -25,4 +25,7 @@
     <string name="cancel">Miverina</string>
     <string name="display_name">Anaranao isehoana</string>
     <string name="backup_BPr_header">Tahirin'ny zava-bita</string>
+    <string name="discard_confirmation">Tena te hanafoana ny fanovàna vitanao ve ianao?</string>
+    <string name="keep_editing">Toizana ny fanitsiana</string>
+    <string name="DLG_delete_this_task_question">Tianao fafàna ilay asa?</string>
 </resources>

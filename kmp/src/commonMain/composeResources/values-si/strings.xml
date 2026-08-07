@@ -369,4 +369,7 @@
     <string name="default_location_reminder_on_arrival">පැමිණි විට</string>
     <string name="default_location_reminder_on_departure">පිටත්ව යන විට</string>
     <string name="default_location_reminder_on_arrival_or_departure">පැමිණිවිට සහ පිටත්වනවිට</string>
+    <string name="discard_confirmation">ඔබගේ වෙනස්කම් ඉවත දැමීමට ඔබට අවශ්‍යද?</string>
+    <string name="keep_editing">දිගටම සංස්කරණය කරන්න</string>
+    <string name="DLG_delete_this_task_question">මෙම කාර්යය ඉවත්කරනවාද?</string>
 </resources>

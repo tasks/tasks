@@ -534,4 +534,7 @@
     <string name="location_update_interval_30_minutes">30分ごとに</string>
     <string name="location_update_interval_1_hour">1時間ごとに</string>
     <string name="location_update_interval_2_hours">2時間ごとに</string>
+    <string name="discard_confirmation">本当に変更を破棄しますか？</string>
+    <string name="keep_editing">編集を続ける</string>
+    <string name="DLG_delete_this_task_question">このタスクを削除しますか？</string>
 </resources>

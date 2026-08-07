@@ -14,4 +14,7 @@
     <string name="SSD_sort_auto">ڕیزکردنی ژیرانە</string>
     <string name="due_date">بەرواری جێبەجێکردن</string>
     <string name="due_time">کاتی جێبەجێکردن</string>
+    <string name="discard_confirmation">دڵنیایت دەتەوێت گۆڕانکارییەکانت هەڵوەشێنیتەوە؟</string>
+    <string name="keep_editing">بەردەوام بە لە دەستکاریکردن</string>
+    <string name="DLG_delete_this_task_question">دەتەوێت ئەم ئەرکە بسڕیتەوە؟</string>
 </resources>

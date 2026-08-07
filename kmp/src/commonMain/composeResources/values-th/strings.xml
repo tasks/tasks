@@ -330,4 +330,7 @@
     <string name="default_location_reminder_on_arrival">เมื่อมาถึง</string>
     <string name="default_location_reminder_on_departure">เมื่อออกเดินทาง</string>
     <string name="default_location_reminder_on_arrival_or_departure">เมื่อมาถึงและออกเดินทาง</string>
+    <string name="discard_confirmation">คุณแน่ใจหรือไม่ว่าคุณต้องการละทิ้งการเปลี่ยนแปลงของคุณ?</string>
+    <string name="keep_editing">แก้ไขต่อไป</string>
+    <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
 </resources>

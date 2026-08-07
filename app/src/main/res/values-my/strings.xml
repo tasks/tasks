@@ -5,8 +5,6 @@
     <string name="backup_BAc_import">အရန်သိမ်းထားသည်များကိုပြန်သွင်းမည်</string>
     <string name="import_progress_read">လုပ်စရာကိုကြည့်နေသည် %d…</string>
     <string name="export_toast">အရန်သိမ်းပြီး %1$s to %2$s.</string>
-    <string name="keep_editing">ဆက် ပြုပြင်</string>
-    <string name="DLG_delete_this_task_question">ဒီအလုပ်ကို ဖျက်မည်</string>
     <string name="DLG_hour_minutes">အချိန် (နာရီ : မိနစ်)</string>
     <string name="DLG_undo">မလုပ်တော့</string>
     <string name="WID_dateButtonUnset">ဖန်တီးမည်</string>
@@ -47,7 +45,6 @@
 \n %4$s ရိှပြီးသား
 \n %5$s ချို့ယွင်းမှုများရိှ
 \n</string>
-    <string name="discard_confirmation">သင်ပြောင်းလဲထားတာတွေကို ပယ်ဖျက်မှာလား</string>
     <string name="action_call">ဖုန်းခေါ်မည်</string>
     <string name="action_open">ဖွင့်မည်</string>
     <string name="TLA_no_items">မှတ်ထားသော အလုပ် မရိှပါဘူး။</string>

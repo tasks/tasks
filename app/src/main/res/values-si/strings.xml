@@ -288,9 +288,6 @@
     <string name="WID_dateButtonUnset">සැකසීමට ක්ලික් කරන්න</string>
     <string name="DLG_undo">අහෝසි කරන්න</string>
     <string name="DLG_hour_minutes">කාලය (පැය: මිනිත්තු)</string>
-    <string name="DLG_delete_this_task_question">මෙම කාර්යය ඉවත්කරනවාද\?</string>
-    <string name="keep_editing">දිගටම සංස්කරණය කරන්න</string>
-    <string name="discard_confirmation">ඔබගේ වෙනස්කම් ඉවත දැමීමට ඔබට අවශ්‍යද\?</string>
     <string name="read_permission_label">කාර්ය අවසරය</string>
     <string name="import_progress_read">කියවීමේ කාර්යය %d…</string>
     <string name="import_summary_message">%1$s ගොනුවේ %2$s අඩංගු වේ.
@@ -359,7 +356,6 @@
     <string name="delete">මකන්න</string>
     <string name="list_settings">ලැයිස්තු සැකසුම්</string>
     <string name="tag_settings">ටැග් සැකසුම්</string>
-    <string name="discard">අහෝසිකරන්න</string>
     <string name="discard_changes">වෙනස්කම් අහෝසිකරනවාද\?</string>
     <string name="date_shortcut_night">රාත්‍රී</string>
     <string name="date_shortcut_evening">සවස</string>

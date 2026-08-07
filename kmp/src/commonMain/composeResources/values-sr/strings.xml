@@ -573,4 +573,7 @@
     <string name="location_update_interval_30_minutes">Сваких 30 минута</string>
     <string name="location_update_interval_1_hour">Сваког сата</string>
     <string name="location_update_interval_2_hours">Свака 2 сата</string>
+    <string name="discard_confirmation">Да ли желиш да одбациш промене?</string>
+    <string name="keep_editing">Настави уређивање</string>
+    <string name="DLG_delete_this_task_question">Обрисати задатак?</string>
 </resources>

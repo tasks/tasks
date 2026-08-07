@@ -9,9 +9,6 @@
     <string name="import_summary_message">A(z) %1$s file %2$s-t tartalmazott.\n\n %3$s importálva,\n %4$s már létezett\n %5$s hibás</string>
     <string name="import_progress_read">%d feladat felolvasása…</string>
     <string name="read_permission_label">Tasks engedélyek</string>
-    <string name="discard_confirmation">Biztosan el akarod vetni a változtatásokat?</string>
-    <string name="keep_editing">Vissza a szerkesztéshez</string>
-    <string name="DLG_delete_this_task_question">Feladat törlése?</string>
     <string name="DLG_hour_minutes">Idő (óra : perc)</string>
     <string name="DLG_undo">Visszavonás</string>
     <string name="WID_dateButtonUnset">Érintsd meg a beállításhoz</string>
@@ -166,7 +163,6 @@
     <string name="date_shortcut_must_come_before">%1$s-nek %2$s előtt kell jönnie</string>
     <string name="date_shortcut_must_come_after">	%1$s-nek %2$s után kell jönnie</string>
     <string name="discard_changes">Változások elvetése?</string>
-    <string name="discard">Elvetés</string>
     <string name="tag_settings">Címkék beállításai</string>
     <string name="list_settings">Lista beállításai</string>
     <string name="delete">Törlés</string>

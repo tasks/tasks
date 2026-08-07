@@ -65,4 +65,7 @@
     <string name="TEA_control_repeat">Паўтараць</string>
     <string name="TEA_control_reminders">Напаміны</string>
     <string name="TEA_control_location">Месца</string>
+    <string name="discard_confirmation">Вы ўпэўнены, што хочаце адхіліць змены?</string>
+    <string name="keep_editing">Працягнуць змены</string>
+    <string name="DLG_delete_this_task_question">Выдаліць гэтую задачу?</string>
 </resources>

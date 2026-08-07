@@ -59,4 +59,7 @@
     <string name="no_reminders">Nema podsjetnika</string>
     <string name="day_after_tomorrow">Preksutra</string>
     <string name="next_week">Slijedeće sedmice</string>
+    <string name="discard_confirmation">Stvarno odbaci izmjene?</string>
+    <string name="keep_editing">Nastavi uređivati</string>
+    <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
 </resources>

@@ -5,7 +5,6 @@
     <string name="backup_BAc_import">استعادة نسخة احتياطية</string>
     <string name="import_summary_title"> إستعادة المُلخَّص</string>
     <string name="read_permission_label">إذن المهام</string>
-    <string name="DLG_delete_this_task_question">حذف هذه المهمة؟</string>
     <string name="DLG_hour_minutes">الوقت (ساعة : دقيقة)</string>
     <string name="DLG_undo">تراجع</string>
     <string name="WID_dateButtonUnset">اضغط للتعيين</string>
@@ -93,8 +92,6 @@
     <string name="theme_dark">داكن</string>
     <string name="theme_light">فاتح</string>
     <string name="theme">المظهر</string>
-    <string name="keep_editing">استمر في التعديل</string>
-    <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="language">اللغة</string>
     <string name="restart_later">لاحقاً</string>
     <string name="action_call">اتصل</string>
@@ -255,7 +252,6 @@
     <string name="badges">الشارات</string>
     <string name="url">رابط</string>
     <string name="widget_due_date_hidden">مخفي</string>
-    <string name="discard">تجاهل</string>
     <string name="discard_changes">تجاهل التغييرات؟</string>
     <string name="location_radius_meters">%s م</string>
     <string name="header_spacing">التباعد</string>

@@ -471,4 +471,7 @@
     <string name="location_update_interval_30_minutes">La fiecare 30 de minute</string>
     <string name="location_update_interval_1_hour">În fiecare oră</string>
     <string name="location_update_interval_2_hours">La fiecare 2 ore</string>
+    <string name="discard_confirmation">Ești siguri că vrei să renunți la modificările făcute?</string>
+    <string name="keep_editing">Continuă editarea</string>
+    <string name="DLG_delete_this_task_question">Ștergi sarcina?</string>
 </resources>
