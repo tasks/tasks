@@ -167,6 +167,24 @@ FROM recursive_tasks
     abstract suspend fun getChildren(ids: List<Long>): List<Long>
 
     @Query("""
+WITH RECURSIVE carried (task) AS (
+    SELECT _id
+    FROM tasks
+    WHERE parent = :id
+    AND deleted = 0
+    AND completed = :completionDate
+    UNION ALL
+    SELECT tasks._id
+    FROM tasks
+             INNER JOIN carried ON carried.task = tasks.parent
+    WHERE tasks.deleted = 0
+    AND tasks.completed = :completionDate)
+SELECT task
+FROM carried
+    """)
+    abstract suspend fun getChildrenCompletedAt(id: Long, completionDate: Long): List<Long>
+
+    @Query("""
 WITH RECURSIVE recursive_tasks (task, parent) AS (
     SELECT _id, parent FROM tasks WHERE _id = :parent
     UNION ALL
