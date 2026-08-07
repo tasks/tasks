@@ -50,8 +50,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
+      - name: Install Compose test dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libx11-6
+
       - name: Run JVM tests
-        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest
+        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest composeApp:desktopTest
 
       - name: Upload test reports
         uses: actions/upload-artifact@v7
@@ -62,6 +65,7 @@ jobs:
             app/build/reports/**
             data/build/reports/**
             kmp/build/reports/**
+            composeApp/build/reports/**
 
   instrumentedTest:
     runs-on: ubuntu-latest
