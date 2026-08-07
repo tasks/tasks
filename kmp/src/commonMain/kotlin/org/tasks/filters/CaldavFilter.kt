@@ -65,9 +65,9 @@ data class CaldavFilter(
     val isGoogleTasks: Boolean
         get() = account.accountType == TYPE_GOOGLE_TASKS
 
-    val isIcalendar: Boolean
-        get() = account.accountType !in listOf(TYPE_GOOGLE_TASKS, TYPE_MICROSOFT)
-
     val isSingleLevel: Boolean
         get() = isGoogleTasks || account.accountType == TYPE_MICROSOFT
+
+    val isIcalendar: Boolean
+        get() = !isSingleLevel
 }
