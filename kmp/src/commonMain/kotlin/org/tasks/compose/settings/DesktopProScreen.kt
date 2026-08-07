@@ -52,6 +52,7 @@ import io.github.alexzhirkevich.qrose.options.QrBrush
 import io.github.alexzhirkevich.qrose.options.QrColors
 import io.github.alexzhirkevich.qrose.options.solid
 import io.github.alexzhirkevich.qrose.rememberQrCodePainter
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource
@@ -72,6 +73,7 @@ import tasks.kmp.generated.resources.error_create_link_failed
 import tasks.kmp.generated.resources.error_github_verification_failed
 import tasks.kmp.generated.resources.error_no_sponsorship
 import tasks.kmp.generated.resources.error_sponsorship_delay
+import tasks.kmp.generated.resources.error_encryption_failed
 import tasks.kmp.generated.resources.github_sponsorship
 import tasks.kmp.generated.resources.google_play_subscription
 import tasks.kmp.generated.resources.ic_google
@@ -112,7 +114,7 @@ fun DesktopProScreen(
     onBack: () -> Unit,
     onCreateLink: suspend () -> LinkResult?,
     onPollStatus: suspend (code: String) -> StatusResult?,
-    onLinkSuccess: suspend (jwt: String, refreshToken: String, sku: String?, formattedPrice: String?) -> Unit,
+    onLinkSuccess: suspend (jwt: String, refreshToken: String, sku: String?, formattedPrice: String?) -> Boolean,
     onGitHubSignIn: suspend () -> GitHubSponsorClient.VerifyResult,
     onOpenSponsorPage: () -> Unit,
     onGooglePlaySelected: () -> Unit = {},
@@ -128,6 +130,7 @@ fun DesktopProScreen(
     var gitHubState by remember { mutableStateOf<GitHubProState>(GitHubProState.Idle) }
     var linkGeneration by remember { mutableIntStateOf(0) }
     val errorMessage = stringResource(Res.string.error_create_link_failed)
+    val storeFailedMessage = stringResource(Res.string.error_encryption_failed)
     val scope = rememberCoroutineScope()
 
     // Create or refresh link when Google Play is selected
@@ -162,12 +165,20 @@ fun DesktopProScreen(
             }
             consecutiveErrors = 0
             if (status.status == "confirmed" && status.jwt != null && status.refreshToken != null) {
-                try {
+                val stored = try {
                     onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
+                } catch (e: CancellationException) {
+                    throw e
                 } catch (e: Exception) {
                     Logger.e(e) { "Failed to store entitlement" }
+                    false
                 }
-                qrState = DesktopProState.Success
+                qrState = if (stored) {
+                    DesktopProState.Success
+                } else {
+                    onLinkError()
+                    DesktopProState.Error(storeFailedMessage)
+                }
                 break
             }
         }

@@ -985,11 +985,16 @@ fun App(
                             onCreateLink = { desktopLinkClient.createLink() },
                             onPollStatus = { code -> desktopLinkClient.pollStatus(code) },
                             onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_SUCCESS,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
-                                )
-                                desktopLinkClient.onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
+                                desktopLinkClient
+                                    .onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
+                                    .also { stored ->
+                                        if (stored) {
+                                            reporting.logEvent(
+                                                AnalyticsEvents.RESTORE_SUCCESS,
+                                                AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
+                                            )
+                                        }
+                                    }
                             },
                             onGitHubSignIn = { gitHubSponsorClient.signIn(openUrl) },
                             onOpenSponsorPage = {

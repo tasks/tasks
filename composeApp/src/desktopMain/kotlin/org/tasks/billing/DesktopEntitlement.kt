@@ -1,28 +1,37 @@
 package org.tasks.billing
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.http.EncryptedFile
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.io.File
 import java.security.KeyFactory
 import java.security.Signature
 import java.security.spec.X509EncodedKeySpec
 import java.util.Base64
+import java.util.concurrent.TimeUnit
 
 class DesktopEntitlement(
     dataDir: File,
@@ -31,11 +40,18 @@ class DesktopEntitlement(
     private val scope: CoroutineScope,
     private val json: Json,
     private val encryption: KeyStoreEncryption,
+    private val syncAdapters: SyncAdapters,
+    private val publicKeyBase64: String = TASKS_PUBLIC_KEY,
+    private val refreshCallTimeoutMillis: Long = REFRESH_CALL_TIMEOUT_MILLIS,
+    private val readyTimeoutMillis: Long = READY_TIMEOUT_MILLIS,
 ) {
-    private val entitlementFile = File(dataDir, FILE_NAME)
-    private val fileLock = Any()
+    private val storage = EncryptedFile(File(dataDir, FILE_NAME), encryption)
     private val logger = Logger.withTag("DesktopEntitlement")
+    private val checkLock = Mutex()
     private var refreshJob: Job? = null
+
+    @Volatile
+    private var lastRefreshAttempt = 0L
 
     private val _hasPro = MutableStateFlow(false)
     val hasPro: Flow<Boolean> = _hasPro
@@ -50,10 +66,7 @@ class DesktopEntitlement(
     val provider: Flow<EntitlementProvider?> = _provider
 
     private val publicKey by lazy {
-        val keyBase64 =
-            "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1ZGBhWUqfRRg78YGyVchzC0y9Ugh" +
-            "SXVw/oVv5itVIzZHovcXs8di7X7zeDfNYlHv+nHaGExFI7y6QxjJ/+NasQ=="
-        val keyBytes = Base64.getDecoder().decode(keyBase64)
+        val keyBytes = Base64.getDecoder().decode(publicKeyBase64)
         val keySpec = X509EncodedKeySpec(keyBytes)
         KeyFactory.getInstance("EC").generatePublic(keySpec)
     }
@@ -69,8 +82,6 @@ class DesktopEntitlement(
 
     @Serializable
     private data class JwtPayload(
-        val iss: String? = null,
-        val iat: Long? = null,
         val exp: Long? = null,
     )
 
@@ -85,103 +96,213 @@ class DesktopEntitlement(
         val refresh_token: String? = null,
         val sku: String? = null,
         val formatted_price: String? = null,
-        val error: String? = null,
     )
+
+    private sealed interface LoadResult {
+        data class Loaded(val entitlement: StoredEntitlement) : LoadResult
+
+        object Missing : LoadResult
+
+        object KeyUnavailable : LoadResult
+    }
+
+    private enum class StoreResult { REJECTED, GRANTED_NOT_PERSISTED, STORED }
+
+    private sealed interface RefreshResult {
+        data class Success(
+            val jwt: String,
+            val refreshToken: String,
+            val sku: String?,
+            val formattedPrice: String?,
+        ) : RefreshResult
+
+        object Revoked : RefreshResult
+
+        object Failed : RefreshResult
+    }
 
     companion object {
         const val FILE_NAME = "entitlement.json"
 
+        private const val TASKS_PUBLIC_KEY =
+            "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE1ZGBhWUqfRRg78YGyVchzC0y9Ugh" +
+            "SXVw/oVv5itVIzZHovcXs8di7X7zeDfNYlHv+nHaGExFI7y6QxjJ/+NasQ=="
         private const val REFRESH_LEAD_SECONDS = 24 * 60 * 60L
         private const val GRACE_PERIOD_SECONDS = 7 * 24 * 60 * 60L
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L
+        private const val READY_TIMEOUT_MILLIS = 30_000L
+        private const val REFRESH_CALL_TIMEOUT_MILLIS = 20_000L
     }
 
-    suspend fun getJwt(): String? = load()?.jwt
+    suspend fun getJwt(): String? = (load() as? LoadResult.Loaded)?.entitlement?.jwt
 
-    fun initialize() = scope.launch {
-        val stored = load() ?: return@launch
-        if (!verifySignature(stored.jwt)) return@launch
-        val payload = parsePayload(stored.jwt) ?: return@launch
-        val exp = payload.exp ?: return@launch
+    fun initialize() = scope.launch { checkLock.withLock { check() } }
+
+    suspend fun awaitReady(): Boolean {
+        val answered = withTimeoutOrNull(readyTimeoutMillis) { checkLock.withLock { check() } }
+        if (answered == null) {
+            logger.e { "Timed out checking entitlement" }
+            return false
+        }
+        return answered
+    }
+
+    private suspend fun check(): Boolean {
+        if (_hasPro.value) return true
+        val stored = when (val result = load()) {
+            is LoadResult.Loaded -> result.entitlement
+            LoadResult.KeyUnavailable -> return false
+            LoadResult.Missing -> return true
+        }
+        if (!verifySignature(stored.jwt)) {
+            logger.e { "Stored entitlement failed signature verification, ignoring it" }
+            return true
+        }
+        val exp = parsePayload(stored.jwt)?.exp
+        if (exp == null) {
+            logger.e { "Stored entitlement has no expiration, ignoring it" }
+            return true
+        }
+        _sku.value = stored.sku
+        _formattedPrice.value = stored.formattedPrice
+        _provider.value = stored.provider
         val now = currentTimeMillis() / 1000
         if (now < exp + GRACE_PERIOD_SECONDS) {
             _hasPro.value = true
-            _sku.value = stored.sku
-            _formattedPrice.value = stored.formattedPrice
-            _provider.value = stored.provider
             scheduleRefresh(stored, exp)
+            return true
         }
+        if (now < lastRefreshAttempt + RETRY_INTERVAL_SECONDS) {
+            logger.e { "Grace period exceeded and refresh failed, syncing without pro" }
+            return false
+        }
+        return attemptRefresh(stored)
     }
 
-    suspend fun storeEntitlement(jwt: String, refreshToken: String, sku: String? = null, formattedPrice: String? = null, provider: EntitlementProvider) {
-        if (!verifySignature(jwt)) return
-        val payload = parsePayload(jwt) ?: return
+    suspend fun storeEntitlement(
+        jwt: String,
+        refreshToken: String,
+        sku: String? = null,
+        formattedPrice: String? = null,
+        provider: EntitlementProvider,
+    ): Boolean = checkLock.withLock {
+        grantEntitlement(jwt, refreshToken, sku, formattedPrice, provider) == StoreResult.STORED
+    }
+
+    private suspend fun grantEntitlement(
+        jwt: String,
+        refreshToken: String,
+        sku: String?,
+        formattedPrice: String?,
+        provider: EntitlementProvider,
+    ): StoreResult {
+        if (!verifySignature(jwt)) {
+            logger.e { "Refusing to store entitlement that failed signature verification" }
+            return StoreResult.REJECTED
+        }
+        val payload = parsePayload(jwt)
+        if (payload == null) {
+            logger.e { "Refusing to store entitlement with an unreadable payload" }
+            return StoreResult.REJECTED
+        }
         val entitlement = StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider)
-        val plainText = json.encodeToString(StoredEntitlement.serializer(), entitlement)
-        val encrypted = encryption.encrypt(plainText)
-        if (encrypted == null) {
-            logger.e { "Failed to encrypt entitlement" }
-            return
+        val persisted =
+            storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))
+        if (!persisted) {
+            logger.e { "Failed to persist entitlement, pro will not survive a restart" }
         }
-        withContext(Dispatchers.IO) {
-            synchronized(fileLock) { entitlementFile.writeText(encrypted) }
-        }
-        _hasPro.value = true
+        val wasPro = _hasPro.getAndUpdate { true }
         _sku.value = sku
         _formattedPrice.value = formattedPrice
         _provider.value = provider
-        val exp = payload.exp
-        if (exp != null) {
-            scheduleRefresh(entitlement, exp)
+        if (!wasPro) {
+            syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
         }
+        payload.exp?.let { scheduleRefresh(entitlement, it) }
+        return if (persisted) StoreResult.STORED else StoreResult.GRANTED_NOT_PERSISTED
     }
 
     private fun scheduleRefresh(entitlement: StoredEntitlement, exp: Long) {
         refreshJob?.cancel()
         refreshJob = scope.launch {
-            // Wait until 24h before expiry
-            val refreshAt = exp - REFRESH_LEAD_SECONDS
-            val now = currentTimeMillis() / 1000
-            if (refreshAt > now) {
-                delay((refreshAt - now) * 1000)
-            }
-            // Retry until refreshed, 402, or grace period exceeded
             while (true) {
-                val currentTime = currentTimeMillis() / 1000
-                if (currentTime >= exp + GRACE_PERIOD_SECONDS) {
-                    logger.i { "Grace period exceeded, revoking pro" }
-                    _hasPro.value = false
-                    synchronized(fileLock) { entitlementFile.delete() }
-                    return@launch
+                val now = currentTimeMillis() / 1000
+                val refreshAt = maxOf(
+                    exp - REFRESH_LEAD_SECONDS,
+                    lastRefreshAttempt + RETRY_INTERVAL_SECONDS,
+                )
+                if (refreshAt > now) {
+                    delay((refreshAt - now) * 1000)
                 }
-                try {
-                    val result = callRefresh(entitlement.refreshToken, entitlement.provider)
-                    if (result != null) {
-                        storeEntitlement(result.jwt!!, result.refresh_token!!, result.sku, result.formatted_price, entitlement.provider)
-                        logger.i { "Desktop entitlement refreshed" }
-                        return@launch
+                val answered = checkLock.withLock {
+                    attemptRefresh(entitlement).also {
+                        if (!it && currentTimeMillis() / 1000 >= exp + GRACE_PERIOD_SECONDS) {
+                            logger.i { "Grace period exceeded, dropping to free tier" }
+                            _hasPro.value = false
+                        }
                     }
-                } catch (e: Exception) {
-                    logger.e(e) { "Failed to refresh desktop entitlement" }
                 }
-                // callRefresh sets hasPro=false on 402
-                if (!_hasPro.value) return@launch
-                delay(RETRY_INTERVAL_SECONDS * 1000)
+                if (answered) break
             }
         }
     }
 
-    private suspend fun load(): StoredEntitlement? {
-        return try {
-            val encrypted = synchronized(fileLock) {
-                if (!entitlementFile.exists()) return null
-                entitlementFile.readText()
+    private suspend fun attemptRefresh(entitlement: StoredEntitlement): Boolean {
+        lastRefreshAttempt = currentTimeMillis() / 1000
+        return when (val result = callRefresh(entitlement.refreshToken, entitlement.provider)) {
+            is RefreshResult.Success -> {
+                val granted = grantEntitlement(
+                    jwt = result.jwt,
+                    refreshToken = result.refreshToken,
+                    sku = result.sku,
+                    formattedPrice = result.formattedPrice,
+                    provider = entitlement.provider,
+                )
+                if (granted == StoreResult.REJECTED) {
+                    logger.e { "Refreshed entitlement was rejected, keeping the stored one" }
+                    false
+                } else {
+                    logger.i { "Desktop entitlement refreshed" }
+                    true
+                }
             }
-            val decrypted = encryption.decrypt(encrypted) ?: return null
-            json.decodeFromString(StoredEntitlement.serializer(), decrypted)
+            RefreshResult.Revoked -> {
+                logger.i { "Subscription no longer active, clearing entitlement" }
+                if (!storage.delete()) {
+                    logger.e { "Failed to clear revoked entitlement, retrying on next launch" }
+                }
+                _hasPro.value = false
+                _sku.value = null
+                _formattedPrice.value = null
+                _provider.value = null
+                true
+            }
+            RefreshResult.Failed -> false
+        }
+    }
+
+    private suspend fun load(): LoadResult {
+        val decrypted = try {
+            storage.read()
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
-            logger.e(e) { "Failed to load entitlement" }
-            null
+            logger.e(e) { "Cannot read entitlement, encryption key unavailable" }
+            return LoadResult.KeyUnavailable
+        }
+        if (decrypted == null) {
+            if (storage.exists()) {
+                logger.e { "Entitlement is empty or could not be decrypted, ignoring it" }
+            }
+            return LoadResult.Missing
+        }
+        return try {
+            LoadResult.Loaded(json.decodeFromString(StoredEntitlement.serializer(), decrypted))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to parse entitlement, ignoring it" }
+            LoadResult.Missing
         }
     }
 
@@ -208,6 +329,7 @@ class DesktopEntitlement(
             val payloadJson = String(Base64.getUrlDecoder().decode(jwt.split(".")[1]))
             json.decodeFromString(JwtPayload.serializer(), payloadJson)
         } catch (e: Exception) {
+            logger.e(e) { "Failed to parse JWT payload" }
             null
         }
     }
@@ -248,30 +370,49 @@ class DesktopEntitlement(
         return if (start == 0) this else sliceArray(start until size)
     }
 
-    private suspend fun callRefresh(refreshToken: String, provider: EntitlementProvider): RefreshResponse? =
+    private suspend fun callRefresh(refreshToken: String, provider: EntitlementProvider): RefreshResult =
         withContext(Dispatchers.IO) {
-            val client = httpClientFactory.newClient()
-            val url = when (provider) {
-                EntitlementProvider.GITHUB_SPONSOR -> "${serverEnvironment.caldavUrl}/desktop/github/refresh"
-                EntitlementProvider.PLAY -> "${serverEnvironment.caldavUrl}/desktop/refresh"
-            }
-            val body = json.encodeToString(
-                RefreshRequest.serializer(),
-                RefreshRequest(refresh_token = refreshToken)
-            ).toRequestBody("application/json".toMediaType())
-            val request = Request.Builder().url(url).post(body).build()
-            val response = client.newCall(request).execute()
-            response.use {
-                if (!it.isSuccessful) {
-                    if (it.code == 402) {
-                        synchronized(fileLock) { entitlementFile.delete() }
-                        _hasPro.value = false
-                    }
-                    return@withContext null
+            try {
+                val client = httpClientFactory.newClient {
+                    it.callTimeout(refreshCallTimeoutMillis, TimeUnit.MILLISECONDS)
                 }
-                val responseBody = it.body?.string() ?: return@withContext null
-                val result = json.decodeFromString(RefreshResponse.serializer(), responseBody)
-                if (result.jwt != null && result.refresh_token != null) result else null
+                val url = when (provider) {
+                    EntitlementProvider.GITHUB_SPONSOR -> "${serverEnvironment.caldavUrl}/desktop/github/refresh"
+                    EntitlementProvider.PLAY -> "${serverEnvironment.caldavUrl}/desktop/refresh"
+                }
+                val body = json.encodeToString(
+                    RefreshRequest.serializer(),
+                    RefreshRequest(refresh_token = refreshToken)
+                ).toRequestBody("application/json".toMediaType())
+                val request = Request.Builder().url(url).post(body).build()
+                val response = client.newCall(request).execute()
+                response.use {
+                    if (!it.isSuccessful) {
+                        return@withContext if (it.code == 402) {
+                            RefreshResult.Revoked
+                        } else {
+                            logger.w { "Entitlement refresh failed: HTTP ${it.code}" }
+                            RefreshResult.Failed
+                        }
+                    }
+                    val responseBody = it.body.string()
+                    val result = json.decodeFromString(RefreshResponse.serializer(), responseBody)
+                    if (result.jwt == null || result.refresh_token == null) {
+                        logger.w { "Entitlement refresh response has no jwt or refresh token" }
+                        return@withContext RefreshResult.Failed
+                    }
+                    RefreshResult.Success(
+                        jwt = result.jwt,
+                        refreshToken = result.refresh_token,
+                        sku = result.sku,
+                        formattedPrice = result.formatted_price,
+                    )
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                logger.e(e) { "Failed to refresh desktop entitlement" }
+                RefreshResult.Failed
             }
         }
 }

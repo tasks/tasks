@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -9,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
@@ -107,6 +109,8 @@ import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
 import java.util.Locale
+
+private const val SYNC_TAG = "BackgroundWork"
 
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
@@ -385,10 +389,18 @@ val commonModule = module {
                             val etebaseSynchronizer = get<EtebaseSynchronizer>()
                             val caldavDao = get<org.tasks.data.dao.CaldavDao>()
                             val subscriptionProvider = get<org.tasks.billing.SubscriptionProvider>()
-                            val hasPro = get<org.tasks.billing.PurchaseState>().hasPro
+                            val caldavAccounts = caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS)
+                            val hasTasksOrg = caldavAccounts.any { it.isTasksOrg }
+                            if (!hasTasksOrg && !subscriptionProvider.awaitVerification()) {
+                                Logger.e(tag = SYNC_TAG) {
+                                    "Could not confirm subscription, syncing without pro"
+                                }
+                            }
+                            val hasPro = hasTasksOrg ||
+                                    subscriptionProvider.subscription.first() != null
                             val googleAndMicrosoftPro =
                                 hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro
-                            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).forEach { account ->
+                            caldavAccounts.forEach { account ->
                                 caldavSynchronizer.sync(account, hasPro = hasPro)
                             }
                             caldavDao.getAccounts(TYPE_ETEBASE).forEach { account ->

@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.junit)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.mockito.kotlin)
+            implementation(libs.okhttp.mockwebserver)
         }
 
         commonMain.dependencies {

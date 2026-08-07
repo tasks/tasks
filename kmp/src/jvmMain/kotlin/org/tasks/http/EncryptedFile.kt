@@ -1,6 +1,7 @@
 package org.tasks.http
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.KSerializer
@@ -13,7 +14,7 @@ import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 
-internal class EncryptedFile(
+class EncryptedFile(
     private val file: File,
     private val encryption: KeyStoreEncryption,
 ) {
@@ -29,7 +30,14 @@ internal class EncryptedFile(
     }
 
     suspend fun write(plain: String): Boolean {
-        val encrypted = encryption.encrypt(plain)
+        val encrypted = try {
+            encryption.encrypt(plain)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to encrypt ${file.name}" }
+            return false
+        }
         if (encrypted == null) {
             logger.e { "Failed to encrypt ${file.name}" }
             return false
@@ -60,6 +68,19 @@ internal class EncryptedFile(
                     logger.e(e) { "Failed to persist ${file.name}" }
                     false
                 }
+            }
+        }
+    }
+
+    fun exists(): Boolean = file.exists()
+
+    suspend fun delete(): Boolean = withContext(Dispatchers.IO) {
+        synchronized(lock) {
+            if (file.exists() && !file.delete()) {
+                logger.e { "Failed to delete ${file.name}" }
+                false
+            } else {
+                true
             }
         }
     }

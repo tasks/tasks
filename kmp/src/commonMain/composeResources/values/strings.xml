@@ -249,6 +249,7 @@
     <string name="qr_code">QR Code</string>
     <string name="error_create_link_failed">Failed to create link. Please check your internet connection and try again.</string>
     <string name="error_confirmation_failed">Failed to confirm link. The code may be invalid or expired.</string>
+    <string name="error_encryption_failed">Encryption failed. Check that Tasks.org can access your system keychain, then try again.</string>
     <string name="error_network">Unable to connect. Please check your internet connection.</string>
     <string name="error_no_sponsorship">No sponsorship found</string>
     <string name="error_sponsorship_delay">New sponsorships might not be available immediately, try again in a few minutes.</string>

@@ -89,7 +89,6 @@ class DesktopLinkClientImpl(
         }
     }
 
-    override suspend fun onLinkSuccess(jwt: String, refreshToken: String, sku: String?, formattedPrice: String?) {
+    override suspend fun onLinkSuccess(jwt: String, refreshToken: String, sku: String?, formattedPrice: String?): Boolean =
         desktopEntitlement.storeEntitlement(jwt, refreshToken, sku, formattedPrice, EntitlementProvider.PLAY)
-    }
 }

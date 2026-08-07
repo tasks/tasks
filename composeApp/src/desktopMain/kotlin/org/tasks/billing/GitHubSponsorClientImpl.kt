@@ -166,14 +166,18 @@ class GitHubSponsorClientImpl(
                             val responseBody = it.body?.string()
                                 ?: return@withContext GitHubSponsorClient.VerifyResult.Failed
                             val result = json.decodeFromString(VerifyResponse.serializer(), responseBody)
-                            desktopEntitlement.storeEntitlement(
+                            val stored = desktopEntitlement.storeEntitlement(
                                 jwt = result.jwt,
                                 refreshToken = result.refresh_token,
                                 sku = result.sku,
                                 formattedPrice = result.formatted_price,
                                 provider = EntitlementProvider.GITHUB_SPONSOR,
                             )
-                            GitHubSponsorClient.VerifyResult.Success
+                            if (stored) {
+                                GitHubSponsorClient.VerifyResult.Success
+                            } else {
+                                GitHubSponsorClient.VerifyResult.Failed
+                            }
                         }
                         it.code == 402 -> {
                             logger.i { "Not a sponsor" }

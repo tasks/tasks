@@ -242,6 +242,7 @@ actual fun platformModule(): Module = module {
             scope = get(),
             json = get(),
             encryption = get(),
+            syncAdapters = get(),
         ).also { it.initialize() }
     }
     single<SubscriptionProvider> {
@@ -272,6 +273,8 @@ actual fun platformModule(): Module = module {
                         else -> null
                     }
                 }
+
+            override suspend fun awaitVerification(): Boolean = entitlement.awaitReady()
 
             override val googleAndMicrosoftRequirePro: Boolean get() = true
 
