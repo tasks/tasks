@@ -39,12 +39,7 @@ class TaskCompleter(
         ArrayList<Task?>()
             .apply {
                 if (includeChildren) {
-                    val children = if (completed) {
-                        taskDao.getChildren(item.id)
-                    } else {
-                        taskDao.getChildrenCompletedAt(item.id, item.completionDate)
-                    }
-                    addAll(taskDao.fetch(children))
+                    addAll(taskDao.getChildren(item.id).let { taskDao.fetch(it) })
                 }
                 if (!completed) {
                     addAll(taskDao.getParents(item.id).let { taskDao.fetch(it) })
