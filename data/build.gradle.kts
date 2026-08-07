@@ -79,7 +79,8 @@ android {
 
 redacted {
     redactedAnnotation = "org/tasks/data/Redacted"
-    enabled = gradle.startParameter.taskNames.any { it.contains("Release") }
+    enabled = gradle.startParameter.taskNames.any { it.contains("Release") } ||
+        providers.gradleProperty("release").isPresent
 }
 
 dependencies {
