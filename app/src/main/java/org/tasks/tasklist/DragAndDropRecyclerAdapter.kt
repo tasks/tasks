@@ -163,8 +163,9 @@ class DragAndDropRecyclerAdapter(
         private fun updateIndents(source: TaskViewHolder?, from: Int, to: Int) {
             val task = source!!.task
             val previousIsHeader = to > 0 && isHeader(to - 1)
-            source.minIndent = if (to == 0 || to == itemCount - 1 || previousIsHeader) 0 else adapter.minIndent(if (from <= to) to + 1 else to, task)
-            source.maxIndent = if (to == 0 || previousIsHeader) 0 else adapter.maxIndent(if (from >= to) to - 1 else to, task)
+            val maxIndent = if (to == 0 || previousIsHeader) 0 else adapter.maxIndent(if (from >= to) to - 1 else to, task)
+            source.maxIndent = maxIndent
+            source.minIndent = if (to == 0 || to == itemCount - 1 || previousIsHeader) 0 else adapter.minIndent(if (from <= to) to + 1 else to, task, maxIndent)
         }
 
         override fun onChildDraw(

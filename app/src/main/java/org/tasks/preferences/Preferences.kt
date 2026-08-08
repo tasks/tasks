@@ -520,6 +520,10 @@ class Preferences @JvmOverloads constructor(
         get() = getBoolean(R.string.p_show_completed_tasks, true)
         set(value) { setBoolean(R.string.p_show_completed_tasks, value) }
 
+    override var showCompletedSubtasks: Boolean
+        get() = getBoolean(R.string.p_show_completed_subtasks, true)
+        set(value) { setBoolean(R.string.p_show_completed_subtasks, value) }
+
     override var alwaysDisplayFullDate: Boolean
         get() = getBoolean(R.string.p_always_display_full_date, false)
         set(value) { setBoolean(R.string.p_always_display_full_date, value)}

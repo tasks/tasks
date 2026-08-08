@@ -26,7 +26,7 @@ internal object TaskListQueryNonRecursive {
     private val FIELDS =
         TaskListQuery.FIELDS.plus(listOf(
             TAGS,
-            field("tasks.completed > 0").`as`("parentComplete")
+            field("tasks.completed > 0").`as`("parent_complete")
         )).toTypedArray()
 
     fun getNonRecursiveQuery(filter: Filter, preferences: QueryPreferences, limit: Int? = null): String {
@@ -35,7 +35,7 @@ internal object TaskListQueryNonRecursive {
         val groupMode = preferences.groupMode
         val sortGroup = field(SortHelper.getSortGroup(groupMode) ?: "NULL").`as`("sortGroup")
         val query = SortHelper.adjustQueryForFlagsAndSort(preferences, joinedQuery, sortMode)
-        val completeAtBottom = if (preferences.completedTasksAtBottom) "parentComplete ASC," else ""
+        val completeAtBottom = if (preferences.completedTasksAtBottom) "parent_complete ASC," else ""
         val completionSort = if (preferences.completedTasksAtBottom) {
                 "tasks.completed DESC,"
             } else {

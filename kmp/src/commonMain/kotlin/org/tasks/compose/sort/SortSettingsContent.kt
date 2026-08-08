@@ -54,6 +54,7 @@ import tasks.kmp.generated.resources.sort_descending
 import tasks.kmp.generated.resources.sort_grouping
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.sort_not_available
+import tasks.kmp.generated.resources.show_completed_subtasks
 import tasks.kmp.generated.resources.sort_sorting
 import tasks.kmp.generated.resources.show_completed
 import tasks.kmp.generated.resources.show_unstarted
@@ -215,6 +216,7 @@ fun BottomSheetContent(
     astridSort: Boolean,
     completedAtBottom: Boolean,
     showCompleted: Boolean,
+    showCompletedSubtasks: Boolean,
     showHidden: Boolean,
     showCompletedAndHiddenOptions: Boolean,
     completedAndHiddenEnabled: Boolean,
@@ -224,6 +226,7 @@ fun BottomSheetContent(
     setSubtaskAscending: (Boolean) -> Unit,
     setCompletedAtBottom: (Boolean) -> Unit,
     setShowCompleted: (Boolean) -> Unit,
+    setShowCompletedSubtasks: (Boolean) -> Unit,
     setShowHidden: (Boolean) -> Unit,
     clickGroupMode: () -> Unit,
     clickSortMode: () -> Unit,
@@ -285,6 +288,11 @@ fun BottomSheetContent(
             !showCompletedAndHiddenOptions || !completedAndHiddenEnabled || showCompleted
         if (showCompletedSection) {
             HorizontalDivider()
+            SwitchRow(
+                title = Res.string.show_completed_subtasks,
+                checked = showCompletedSubtasks,
+                onCheckedChange = setShowCompletedSubtasks,
+            )
             SwitchRow(
                 title = Res.string.completed_tasks_at_bottom,
                 checked = completedAtBottom,

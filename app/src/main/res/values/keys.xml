@@ -195,6 +195,7 @@
   <string name="TEA_ctrl_creation_date">TEA_ctrl_creation_date</string>
   <string name="p_show_hidden_tasks">show_hidden_tasks</string>
   <string name="p_show_completed_tasks">show_completed_tasks</string>
+  <string name="p_show_completed_subtasks">show_completed_subtasks</string>
   <string name="p_sort_ascending">sort_ascending</string>
   <string name="p_group_ascending">group_ascending</string>
   <string name="p_completed_ascending">completed_ascending</string>
@@ -241,6 +242,7 @@
   <string name="p_widget_sort_astrid">widget-sort-astrid-</string>
   <string name="p_widget_show_hidden">widget-hidden-</string>
   <string name="p_widget_show_completed">widget-completed-</string>
+  <string name="p_widget_show_completed_subtasks">widget-completed-subtasks-</string>
   <string name="p_widget_compact">widget-compact-</string>
   <string name="p_widget_color">widget-color-</string>
   <string name="p_widget_color_v2">widget-color-v2</string>

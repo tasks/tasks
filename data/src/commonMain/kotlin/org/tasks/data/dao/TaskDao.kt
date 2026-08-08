@@ -241,7 +241,10 @@ WHERE cd_id IS NULL
         fun activeAndVisible(): Criterion = Criterion.and(
             Task.COMPLETION_DATE.lte(0),
             Task.DELETION_DATE.lte(0),
-            Task.HIDE_UNTIL.lte(Functions.now())
+            Criterion.or(
+                Task.HIDE_UNTIL.lte(Functions.now()),
+                Task.COMPLETION_DATE.gt(0),
+            )
         )
     }
 }

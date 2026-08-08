@@ -17,6 +17,10 @@ class WatchQueryPreferences(
         get() = overrideShowCompleted
         set(_) {}
 
+    override var showCompletedSubtasks: Boolean
+        get() = overrideShowCompleted
+        set(_) {}
+
     override var sortMode: Int
         get() = overrideSortMode ?: delegate.sortMode
         set(_) {}

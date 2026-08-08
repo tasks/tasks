@@ -14,7 +14,7 @@ suspend fun TaskDao.fetchTasks(preferences: QueryPreferences, filter: Filter): L
 
 suspend fun TaskDao.setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
     fetchTasks(preferences, filter)
-        .filter(TaskContainer::hasChildren)
+        .filter { if (collapsed) it.hasChildren() && !it.isCollapsed else it.isCollapsed }
         .map(TaskContainer::id)
         .eachChunk { setCollapsed(it, collapsed) }
 }

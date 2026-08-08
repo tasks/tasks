@@ -5,7 +5,6 @@ import com.todoroo.astrid.timers.TimerPlugin
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TaskDao
-import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
@@ -97,10 +96,7 @@ class TaskSaver(
     }
 
     suspend fun setCollapsed(preferences: QueryPreferences, filter: Filter, collapsed: Boolean) {
-        taskDao.fetchTasks(TaskListQuery.getQuery(preferences, filter))
-            .filter(TaskContainer::hasChildren)
-            .map(TaskContainer::id)
-            .eachChunk { taskDao.setCollapsed(it, collapsed) }
+        taskDao.setCollapsed(preferences, filter, collapsed)
         refreshBroadcaster.broadcastRefresh()
     }
 }

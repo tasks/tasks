@@ -22,6 +22,7 @@ import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.DeletionDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.entity.Task
 import org.tasks.data.fetchTasks
 import org.tasks.db.QueryUtils
@@ -44,6 +45,32 @@ import org.tasks.tasklist.HeaderFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+
+internal fun QueryPreferences.showingEveryCompletedTask(): QueryPreferences =
+    object : QueryPreferences by this {
+        override var showCompleted: Boolean
+            get() = true
+            set(_) {}
+
+        override var showCompletedSubtasks: Boolean
+            get() = true
+            set(_) {}
+    }
+
+internal suspend fun TaskDao.completedTasksToClear(
+    preferences: QueryPreferences,
+    filter: Filter,
+): List<Task> {
+    val deleteFilter = FilterImpl(
+        sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
+    )
+    val visible = fetchTasks(preferences.showingEveryCompletedTask(), deleteFilter)
+    val folded = visible.filter(TaskContainer::isCollapsed).map(TaskContainer::id)
+    return (visible.map(TaskContainer::task) + fetch(folded.chunkedMap { getChildren(it) }))
+        .distinctBy(Task::id)
+        .filter(Task::isCompleted)
+        .filterNot(Task::readOnly)
+}
 
 open class TaskListViewModel(
     private val taskDao: TaskDao,
@@ -87,24 +114,20 @@ open class TaskListViewModel(
 
     suspend fun getTasksToClear(): List<Long> {
         val filter = _state.value.filter
-        val deleteFilter = FilterImpl(
-            sql = QueryUtils.removeOrder(QueryUtils.showHiddenAndCompleted(filter.sql!!)),
-        )
-        val completed = taskDao.fetchTasks(
-            object : QueryPreferences by queryPreferences {
-                override var showCompleted: Boolean
-                    get() = true
-                    set(_) {}
-            },
-            deleteFilter
-        )
-            .filter(TaskContainer::isCompleted)
-            .filterNot(TaskContainer::isReadOnly)
-            .map(TaskContainer::id)
+        val completed = taskDao
+            .completedTasksToClear(queryPreferences(filter), filter)
+            .map(Task::id)
             .toMutableList()
         completed.removeAll(deletionDao.hasRecurringAncestors(completed))
         return completed
     }
+
+    fun queryPreferences(filter: Filter): QueryPreferences =
+        if (isPerListSortEnabled) {
+            FilterPreferences(queryPreferences, tasksPreferences, filter.key())
+        } else {
+            queryPreferences
+        }
 
     fun onCompleteTask(taskContainer: TaskContainer, newState: Boolean) {
         viewModelScope.launch {
@@ -161,11 +184,7 @@ open class TaskListViewModel(
                     queriedState.searchQuery.isBlank() -> MyTasksFilter(title = "My Tasks")
                     else -> createSearchFilter(queriedState.searchQuery)
                 }
-                val prefs = if (isPerListSortEnabled) {
-                    FilterPreferences(queryPreferences, tasksPreferences, filter.key())
-                } else {
-                    queryPreferences
-                }
+                val prefs = queryPreferences(filter)
                 Triple(taskDao.fetchTasks(getQuery(prefs, filter)), prefs, queriedState)
             }
             .onEach { (tasks, prefs, queriedState) ->

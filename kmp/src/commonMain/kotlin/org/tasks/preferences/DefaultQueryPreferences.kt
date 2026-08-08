@@ -15,6 +15,7 @@ class DefaultQueryPreferences : QueryPreferences {
     override var subtaskAscending = false
     override var showHidden = false
     override var showCompleted = true
+    override var showCompletedSubtasks = true
     override val alwaysDisplayFullDate = false
     override var completedTasksAtBottom = true
 }

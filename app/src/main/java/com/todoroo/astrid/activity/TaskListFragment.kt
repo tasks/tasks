@@ -80,6 +80,7 @@ import org.tasks.data.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -835,13 +836,17 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_expand_subtasks -> {
                 lifecycleScope.launch {
-                    taskSaver.setCollapsed(preferences, filter, false)
+                    withContext(Dispatchers.Default) {
+                        taskSaver.setCollapsed(listViewModel.queryPreferences(filter), filter, false)
+                    }
                 }
                 true
             }
             R.id.menu_collapse_subtasks -> {
                 lifecycleScope.launch {
-                    taskSaver.setCollapsed(preferences, filter, true)
+                    withContext(Dispatchers.Default) {
+                        taskSaver.setCollapsed(listViewModel.queryPreferences(filter), filter, true)
+                    }
                 }
                 true
             }
@@ -851,7 +856,10 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_share -> {
                 lifecycleScope.launch {
-                    send(taskDao.fetchTasks(preferences, filter))
+                    val tasks = withContext(Dispatchers.Default) {
+                        taskDao.fetchTasks(listViewModel.queryPreferences(filter), filter)
+                    }
+                    send(tasks)
                 }
                 true
             }
@@ -1093,26 +1101,32 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             R.id.menu_select_all -> {
                 logMultiSelect("select_all", selected.size)
                 lifecycleScope.launch {
-                    setSelected(taskDao.fetchTasks(preferences, filter)
-                        .map(TaskContainer::id))
+                    val ids = withContext(Dispatchers.Default) {
+                        taskDao.fetchTasks(listViewModel.queryPreferences(filter), filter)
+                            .map(TaskContainer::id)
+                    }
+                    setSelected(ids)
                 }
                 true
             }
             R.id.menu_share -> {
                 logMultiSelect("share", selected.size)
                 lifecycleScope.launch {
-                    selected
-                        .chunkedMap {
-                            taskDao.fetchTasks(
-                                preferences,
-                                FilterImpl(
-                                    sql = QueryTemplate()
-                                        .where(Task.ID.`in`(it))
-                                        .toString()
+                    val tasks = withContext(Dispatchers.Default) {
+                        val queryPreferences = listViewModel.queryPreferences(filter)
+                        selected
+                            .chunkedMap {
+                                taskDao.fetchTasks(
+                                    queryPreferences,
+                                    FilterImpl(
+                                        sql = QueryTemplate()
+                                            .where(Task.ID.`in`(it))
+                                            .toString()
+                                    )
                                 )
-                            )
-                        }
-                        .let { send(it) }
+                            }
+                    }
+                    send(tasks)
                 }
                 true
             }

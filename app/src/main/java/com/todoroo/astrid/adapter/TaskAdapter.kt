@@ -28,6 +28,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.millisOfDay
+import kotlin.math.min
 
 open class TaskAdapter(
     private val newTasksOnTop: Boolean,
@@ -87,11 +88,17 @@ open class TaskAdapter(
 
     open fun maxIndent(previousPosition: Int, task: TaskContainer): Int {
         val previous = getTask(previousPosition)
-        return if (previous.isSingleLevelSubtask) {
+        var indent = if (previous.isSingleLevelSubtask) {
             if (task.hasChildren()) 0 else 1
         } else {
             previous.indent + 1
         }
+        while (!task.isCompleted && indent > 0 &&
+            findParent(indent, previousPosition + 1)?.isCompleted == true
+        ) {
+            indent--
+        }
+        return indent
     }
 
     fun minIndent(nextPosition: Int, task: TaskContainer): Int {
@@ -109,6 +116,9 @@ open class TaskAdapter(
         }
         return 0
     }
+
+    fun minIndent(nextPosition: Int, task: TaskContainer, maxIndent: Int): Int =
+        min(minIndent(nextPosition, task), maxIndent)
 
     fun isSelected(task: TaskContainer): Boolean = selected.contains(task.id)
 

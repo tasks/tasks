@@ -265,6 +265,9 @@ class WidgetPreferences(
     override var showCompleted: Boolean
         get() = getBoolean(R.string.p_widget_show_completed, false)
         set(value) { setBoolean(R.string.p_widget_show_completed, value) }
+    override var showCompletedSubtasks: Boolean
+        get() = getBoolean(R.string.p_widget_show_completed_subtasks, true)
+        set(value) { setBoolean(R.string.p_widget_show_completed_subtasks, value) }
     override val alwaysDisplayFullDate: Boolean
         get() = preferences.alwaysDisplayFullDate
     override var completedTasksAtBottom: Boolean

@@ -3,7 +3,6 @@ package org.tasks.data
 import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
-import org.tasks.data.db.Table
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
@@ -14,8 +13,6 @@ import org.tasks.filters.Filter
 import org.tasks.preferences.QueryPreferences
 
 internal object TaskListQueryRecursive {
-    private val RECURSIVE = Table("recursive_tasks")
-
     fun getRecursiveQuery(
         filter: Filter,
         preferences: QueryPreferences,
@@ -52,6 +49,16 @@ internal object TaskListQueryRecursive {
             preferences.subtaskAscending && subtaskMode != SortHelper.SORT_GTASKS && subtaskMode != SortHelper.SORT_CALDAV
         val completedAtBottom = preferences.completedTasksAtBottom
         val parentCompleted = if (completedAtBottom) "tasks.completed > 0" else "0"
+        val hideCompletedSubtasks = if (preferences.showCompletedSubtasks) {
+            ""
+        } else {
+            "AND NOT (tasks.completed > 0 AND indent > 0)"
+        }
+        val hideCompletedFromCount = if (preferences.showCompletedSubtasks) {
+            ""
+        } else {
+            "AND NOT r.subtask_complete"
+        }
         val completionSort = if (completedAtBottom) {
             "(CASE WHEN tasks.completed > 0 THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
         } else {
@@ -59,9 +66,10 @@ internal object TaskListQueryRecursive {
         }
         val query = """
             WITH RECURSIVE recursive_tasks AS (
-                SELECT 
+                SELECT
                     tasks._id AS task,
                     $parentCompleted AS parent_complete,
+                    0 AS subtask_complete,
                     $completionSort AS completion_sort,
                     0 AS parent,
                     tasks.collapsed AS collapsed,
@@ -87,15 +95,13 @@ internal object TaskListQueryRecursive {
                 $parentQuery
                 UNION ALL SELECT
                     tasks._id AS task,
-                    $parentCompleted AS parent_complete,
+                    recursive_tasks.parent_complete AS parent_complete,
+                    tasks.completed > 0 AS subtask_complete,
                     $completionSort AS completion_sort,
                     recursive_tasks.task AS parent,
                     tasks.collapsed AS collapsed,
                     CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END AS hidden,
-                    CASE 
-                        WHEN $parentCompleted AND recursive_tasks.parent_complete = 0 THEN 0
-                        ELSE recursive_tasks.indent + 1 
-                    END AS indent,
+                    recursive_tasks.indent + 1 AS indent,
                     UPPER(tasks.title) AS sort_title,
                     recursive_tasks.primary_group AS primary_group,
                     recursive_tasks.primary_sort AS primary_sort,
@@ -110,6 +116,7 @@ internal object TaskListQueryRecursive {
                 ORDER BY
                     parent_complete,
                     indent DESC,
+                    ${if (completedAtBottom) "subtask_complete," else ""}
                     completion_sort ${if (preferences.completedAscending) "" else "DESC"},
                     ${SortHelper.orderForGroupTypeRecursive(groupMode, groupAscending)},
                     ${SortHelper.orderForSortTypeRecursive(sortMode, sortAscending, subtaskMode, subtaskAscending)}
@@ -123,24 +130,21 @@ internal object TaskListQueryRecursive {
             ),
             descendants_recursive AS (
                 SELECT
-                    parent,
-                    task as descendant,
-                    parent_complete as completed
-                FROM recursive_tasks
-                WHERE parent > 0
+                    r.parent,
+                    r.task as descendant
+                FROM recursive_tasks r
+                WHERE r.parent > 0 $hideCompletedFromCount
                 UNION
                 SELECT
                     d.parent,
-                    r.task as descendant,
-                    r.parent_complete as completed
+                    r.task as descendant
                 FROM recursive_tasks r
-                    JOIN descendants_recursive d ON r.parent = d.descendant
+                    JOIN descendants_recursive d ON r.parent = d.descendant $hideCompletedFromCount
             ),
             descendants AS (
                 SELECT
                     parent,
-                    COUNT(DISTINCT CASE WHEN completed > 0 THEN descendant ELSE NULL END) as completed_children,
-                    COUNT(DISTINCT CASE WHEN completed = 0 THEN descendant ELSE NULL END) as uncompleted_children
+                    COUNT(DISTINCT descendant) as children
                 FROM descendants_recursive
                 GROUP BY parent
             )
@@ -149,10 +153,7 @@ internal object TaskListQueryRecursive {
                 group_concat(distinct(tag_uid)) AS tags,
                 indent,
                 sort_group,
-                CASE
-                    WHEN parent_complete > 0 THEN completed_children
-                    ELSE uncompleted_children
-                END as children,
+                children,
                 primary_sort,
                 secondary_sort,
                 parent_complete
@@ -161,6 +162,7 @@ internal object TaskListQueryRecursive {
                     ON tasks._id = max_indent.task
                     AND indent = max_indent
                     AND hidden = 0
+                    $hideCompletedSubtasks
                 LEFT JOIN descendants ON descendants.parent = tasks._id
                 LEFT JOIN tags ON tags.task = tasks._id
                 ${TaskListQuery.JOINS}
