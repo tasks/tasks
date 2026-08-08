@@ -66,7 +66,7 @@
     <string name="EPr_manage_delete_all_gcal_message">本当にタスクのイベントをすべて削除しますか？</string>
     <string name="day_after_tomorrow">2 日後</string>
     <string name="next_week">1 週間後</string>
-    <string name="BFE_Active">マイ タスク</string>
+    <string name="BFE_Active">マイタスク</string>
     <string name="BFE_Recent">最近変更したタスク</string>
     <string name="custom_filter_or">または</string>
     <string name="custom_filter_not">除外</string>
@@ -89,7 +89,7 @@
     <string name="calendar_event_not_found">カレンダーイベントが見つかりません</string>
     <string name="gcal_completed_title">%s (完了)</string>
     <string name="CFC_gtasks_list_text">リストに含む: \?</string>
-    <string name="gtasks_GTA_clear_completed">完了したタスクをクリア</string>
+    <string name="gtasks_GTA_clear_completed">完了したタスクを削除</string>
     <string name="gtasks_GLA_authenticating">認証中…</string>
     <string name="gtasks_error_accountNotFound">アカウント %s が見つかりません－ログアウトして、もう一度 Google ToDo リスト設定からログインしてください。</string>
     <string name="premium_record_audio">録音する</string>
@@ -136,7 +136,7 @@
     <string name="EPr_voiceInputEnabled_title">音声入力</string>
     <string name="voice_command_added_task">追加されたタスク</string>
     <plurals name="Ntasks">
-        <item quantity="other">%d 件のタスク</item>
+        <item quantity="other">%d件のタスク</item>
     </plurals>
     <string name="today">今日</string>
     <string name="tomorrow">明日</string>
@@ -152,7 +152,7 @@
     <string name="font_size">フォントサイズ</string>
     <string name="row_spacing">行間隔</string>
     <string name="customize_edit_screen">編集画面をカスタマイズ</string>
-    <string name="translations">翻訳に貢献する</string>
+    <string name="translations">翻訳に協力する</string>
     <string name="add_location">場所を追加</string>
     <string name="remove">削除</string>
     <string name="geofence_radius">ジオフェンスの半径</string>
@@ -195,9 +195,9 @@
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>
-    <string name="clear_completed_tasks_confirmation">完了したタスクをクリアしますか？</string>
+    <string name="clear_completed_tasks_confirmation">完了したタスクを削除しますか？</string>
     <string name="copy_multiple_tasks_confirmation">%s コピー済</string>
-    <string name="delete_multiple_tasks_confirmation">%s 削除しました</string>
+    <string name="delete_multiple_tasks_confirmation">%sを削除しました</string>
     <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
     <string name="copy_selected_tasks">選択したタスクをコピーしますか？</string>
     <string name="user">ユーザー</string>
@@ -205,7 +205,7 @@
     <string name="badges">バッジ</string>
     <string name="list">リスト</string>
     <string name="repeats_from">繰り返し開始</string>
-    <string name="repeats_plural_number_of_times">%1$s ごとに %2$d %3$s 繰り返し</string>
+    <string name="repeats_plural_number_of_times">%1$sごとに繰り返し、%2$d%3$sで終了</string>
     <string name="dont_add_to_calendar">カレンダーに追加しない</string>
     <string name="badges_description">Tasksランチャーアイコンにタスク数を表示します。すべてのランチャーがバッジをサポートしているわけではありません。</string>
     <string name="tasker_create_task">タスクを作成</string>
@@ -250,7 +250,7 @@
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
     <string name="subscription">サブスクリプション</string>
     <string name="help_and_feedback">ヘルプとフィードバック</string>
-    <string name="widget_open_list">リストをひらく</string>
+    <string name="widget_open_list">開くリスト</string>
     <string name="theme_system_default">システムデフォルト</string>
     <string name="opacity_row">行の透明度</string>
     <string name="opacity_footer">フッターの透明度</string>
@@ -411,7 +411,7 @@
     <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>
     <string name="price_per_month_with_currency">%s/月</string>
     <string name="price_per_year_with_currency">%s/年</string>
-    <string name="donate_nag">寄付で私たちをサポートしてください！</string>
+    <string name="donate_nag">寄付による支援をご検討ください！</string>
     <string name="sync_warning_microsoft">すべてのタスクの詳細が Microsoft To Do と同期されるわけではありません。</string>
     <string name="button_learn_more">詳細を見る</string>
     <string name="enable_alarms">適切なタイミングで通知を受け取る</string>
