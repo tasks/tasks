@@ -55,6 +55,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
+        manifestPlaceholders["appAuthRedirectScheme"] = "org.tasks"
     }
 
     signingConfigs {
@@ -130,6 +131,9 @@ android {
                     systemImageSource = "aosp-atd"
                 }
             }
+        }
+        unitTests {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -284,5 +288,6 @@ dependencies {
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
     testImplementation(libs.xpp3)
 }
