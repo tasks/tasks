@@ -30,6 +30,7 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
 import org.tasks.PlatformConfiguration
 import org.tasks.preferences.AppPreferences
@@ -323,19 +324,21 @@ fun main() {
             val serverEnv = koinInject<TasksServerEnvironment>()
             val scope = rememberCoroutineScope()
             var currentEnv by remember { mutableStateOf(serverEnv.currentEnvironment) }
-            App(
-                openUrl = { url ->
-                    openInBrowser(url)
-                },
-                environments = serverEnv.environments,
-                currentEnvironment = currentEnv,
-                onSelectEnvironment = { env ->
-                    scope.launch {
-                        serverEnv.setEnvironment(env)
-                        currentEnv = env
-                    }
-                },
-            )
+            StableWindowSize {
+                App(
+                    openUrl = { url ->
+                        openInBrowser(url)
+                    },
+                    environments = serverEnv.environments,
+                    currentEnvironment = currentEnv,
+                    onSelectEnvironment = { env ->
+                        scope.launch {
+                            serverEnv.setEnvironment(env)
+                            currentEnv = env
+                        }
+                    },
+                )
+            }
         }
     }
 }
