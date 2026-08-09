@@ -49,6 +49,7 @@ import org.tasks.di.dataDir
 import org.tasks.di.logDir
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
+import org.tasks.logging.logStartup
 import java.awt.Desktop
 import java.awt.Dimension
 import java.awt.EventQueue
@@ -144,6 +145,7 @@ fun main() {
             add(FileLogWriter(logDir))
         }
     )
+    logStartup()
 
     startKoin {
         modules(commonModule, platformModule())

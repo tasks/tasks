@@ -12,6 +12,7 @@ import org.koin.core.context.startKoin
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
+import org.tasks.logging.logStartup
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
@@ -37,6 +38,7 @@ class TasksApplication : Application() {
         }
         Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
         Logger.setLogWriters(logcat, FileLogWriter(logDir))
+        logStartup()
         org.tasks.caldav.CaldavSynchronizer.registerFactories()
         startKoin {
             androidContext(this@TasksApplication)
