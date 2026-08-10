@@ -580,4 +580,5 @@
     <string name="discard_confirmation">确定要放弃你的修改吗？</string>
     <string name="keep_editing">继续编辑</string>
     <string name="DLG_delete_this_task_question">确认删除？</string>
+    <string name="show_completed_subtasks">显示已完成的子任务</string>
 </resources>
