@@ -12,6 +12,7 @@ class DesktopKeyProvider(
     private val serviceName: String,
     private val accountName: String,
     private val fallbackKeyFile: File,
+    private val hasEncryptedData: () -> Boolean = { false },
 ) : KeyProvider {
     private val logger = Logger.withTag("DesktopKeyProvider")
 
@@ -26,9 +27,11 @@ class DesktopKeyProvider(
     }
 
     private fun loadKey(): SecretKey {
-        val encoded = readFromKeychain()
-            ?: readFromFile()
-            ?: generateKey().also { storeKey(it) }
+        val existing = readFromKeychain() ?: readFromFile()
+        check(existing != null || !hasEncryptedData()) {
+            "Encryption key unavailable, refusing to replace key for existing data"
+        }
+        val encoded = existing ?: generateKey().also { storeKey(it) }
         return SecretKeySpec(Base64.getDecoder().decode(encoded), "AES")
     }
 

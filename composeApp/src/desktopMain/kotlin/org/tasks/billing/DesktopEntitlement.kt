@@ -32,7 +32,7 @@ class DesktopEntitlement(
     private val json: Json,
     private val encryption: KeyStoreEncryption,
 ) {
-    private val entitlementFile = File(dataDir, "entitlement.json")
+    private val entitlementFile = File(dataDir, FILE_NAME)
     private val fileLock = Any()
     private val logger = Logger.withTag("DesktopEntitlement")
     private var refreshJob: Job? = null
@@ -89,6 +89,8 @@ class DesktopEntitlement(
     )
 
     companion object {
+        const val FILE_NAME = "entitlement.json"
+
         private const val REFRESH_LEAD_SECONDS = 24 * 60 * 60L
         private const val GRACE_PERIOD_SECONDS = 7 * 24 * 60 * 60L
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L

@@ -193,6 +193,7 @@ actual fun platformModule(): Module = module {
                 serviceName = "Tasks.org",
                 accountName = "encryption-key",
                 fallbackKeyFile = File(dataDir, ".key"),
+                hasEncryptedData = { File(dataDir, DesktopEntitlement.FILE_NAME).exists() },
             )
         )
     }
