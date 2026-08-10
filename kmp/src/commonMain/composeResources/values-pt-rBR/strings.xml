@@ -595,4 +595,18 @@
     <string name="discard_confirmation">Você tem certeza que deseja descartar suas mudanças?</string>
     <string name="keep_editing">Continuar editando</string>
     <string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
+    <string name="show_completed_subtasks">Mostrar subtarefas concluídas</string>
+    <string name="repeat_type_completion_description">A tarefa se repete com base em quando você realmente a terminou</string>
+    <string name="repeat_type_due_description">A tarefa se repete com base em quando deveria ter sido concluída</string>
+    <string name="resize_panes">Redimensionar painéis</string>
+    <string name="no_task_selected">Nenhum tarefa selecionada</string>
+    <string name="failed_to_load_task">Não foi possível carregar a tarefa</string>
+    <string name="not_signed_in">Não conectado</string>
+    <string name="add_tag">Adicionar etiqueta</string>
+    <string name="metadata_not_supported">Este servidor não suporta a sincronização de metadados de etiquetas</string>
+    <string name="metadata_move_message">Os metadados de etiquetas estão atualmente armazenados em %1$s. Move-los para esta conta?</string>
+    <string name="metadata_stored_on_account">Atualmente armazenado em %1$s</string>
+    <string name="metadata_stored_on_tasks_org">Armazenado na sua conta Tasks.org</string>
+    <string name="sync_metadata_summary">Armazene nomes de etiquetas, cores, ícones e ordem de exibição nesta conta para que eles sejam sincronizados entre seus dispositivos</string>
+    <string name="sync_metadata">Armazenar metadados de etiquetas aqui</string>
 </resources>
