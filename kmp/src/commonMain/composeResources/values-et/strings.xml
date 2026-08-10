@@ -589,4 +589,5 @@
     <string name="discard_confirmation">Oled sa kindel, et soovid muudatustest loobuda?</string>
     <string name="keep_editing">Jätka muutmist</string>
     <string name="DLG_delete_this_task_question">Kustuta see ülesanne?</string>
+    <string name="show_completed_subtasks">Näita täidetud alamülesandeid</string>
 </resources>
