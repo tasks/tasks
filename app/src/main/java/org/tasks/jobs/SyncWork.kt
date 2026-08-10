@@ -158,7 +158,7 @@ class SyncWork @AssistedInject constructor(
                     TYPE_ETEBASE -> etebaseSynchronizer.get().sync(it, inventory.hasPro)
                     TYPE_TASKS,
                     TYPE_CALDAV -> caldavSynchronizer.get().sync(it, inventory.hasPro)
-                    TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it)
+                    TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it, hasPro = true)
                 }
             }
         }

@@ -384,7 +384,10 @@ val commonModule = module {
                             val caldavSynchronizer = get<CaldavSynchronizer>()
                             val etebaseSynchronizer = get<EtebaseSynchronizer>()
                             val caldavDao = get<org.tasks.data.dao.CaldavDao>()
+                            val subscriptionProvider = get<org.tasks.billing.SubscriptionProvider>()
                             val hasPro = get<org.tasks.billing.PurchaseState>().hasPro
+                            val googleAndMicrosoftPro =
+                                hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro
                             caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS).forEach { account ->
                                 caldavSynchronizer.sync(account, hasPro = hasPro)
                             }
@@ -392,14 +395,18 @@ val commonModule = module {
                                 etebaseSynchronizer.sync(account, hasPro = hasPro)
                             }
                             caldavDao.getAccounts(TYPE_GOOGLE_TASKS).forEach { account ->
-                                get<DesktopGoogleTasksSynchronizer>().sync(account)
+                                get<DesktopGoogleTasksSynchronizer>()
+                                    .sync(account, hasPro = googleAndMicrosoftPro)
                             }
                             val microsoftAccounts = caldavDao.getAccounts(TYPE_MICROSOFT)
                             if (microsoftAccounts.isNotEmpty()) {
                                 val microsoftSynchronizer = get<MicrosoftSynchronizer>()
                                 coroutineScope {
                                     microsoftAccounts.forEach { account ->
-                                        launch { microsoftSynchronizer.sync(account) }
+                                        launch {
+                                            microsoftSynchronizer
+                                                .sync(account, hasPro = googleAndMicrosoftPro)
+                                        }
                                     }
                                 }
                             }

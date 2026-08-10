@@ -48,6 +48,7 @@ import java.security.NoSuchAlgorithmException
 import javax.net.ssl.SSLException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cannot_access_account
+import tasks.kmp.generated.resources.requires_pro_subscription
 
 
 class MicrosoftSynchronizer(
@@ -66,8 +67,12 @@ class MicrosoftSynchronizer(
     private val createTask: suspend () -> Task,
     private val setDefaultList: suspend (CaldavFilter) -> Unit,
 ) {
-    suspend fun sync(account: CaldavAccount) {
+    suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Logger.d(TAG) { "Synchronizing $account" }
+        if (!hasPro) {
+            setError(account, getString(Res.string.requires_pro_subscription))
+            return
+        }
         if (!clientProvider.hasCredentials(account)) {
             setError(account, getString(Res.string.cannot_access_account))
             return

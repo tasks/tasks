@@ -271,6 +271,9 @@ actual fun platformModule(): Module = module {
                         else -> null
                     }
                 }
+
+            override val googleAndMicrosoftRequirePro: Boolean get() = true
+
             override suspend fun getFormattedPrice(sku: String): String? =
                 entitlement.formattedPrice.first()
         }
