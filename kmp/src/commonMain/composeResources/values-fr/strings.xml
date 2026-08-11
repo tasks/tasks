@@ -568,7 +568,9 @@
     <string name="swipe_to_snooze_time_30_minutes">après 30 minutes</string>
     <string name="swipe_to_snooze_time_1_hour">après 1 heure</string>
     <string name="swipe_to_snooze_time_24_hours">après 24 heures</string>
+    <string name="rmd_NoA_done">Déjà fait</string>
     <string name="rmd_NoA_snooze">Reporter</string>
+    <string name="action_open">Ouvrir</string>
     <string name="date_shortcut_hour">Pendant une heure</string>
     <string name="date_shortcut_morning">Matin</string>
     <string name="date_shortcut_afternoon">Après-midi</string>

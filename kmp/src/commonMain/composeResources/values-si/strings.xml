@@ -339,7 +339,9 @@
     <string name="quiet_hours_summary">නිහඬ කාලය තුළ මතක් කිරීම් නොමැත</string>
     <string name="rmd_EPr_quiet_hours_start_title">නිහඬ කාලය ආරම්භ වේ</string>
     <string name="rmd_EPr_quiet_hours_end_title">නිහඬ කාලය අවසානය</string>
+    <string name="rmd_NoA_done">සම්පූර්ණයි</string>
     <string name="rmd_NoA_snooze">මඳකට මගහරින්න</string>
+    <string name="action_open">විවෘත කරන්න</string>
     <string name="date_shortcut_hour">පැයකට</string>
     <string name="date_shortcut_morning">උදෑසන</string>
     <string name="date_shortcut_afternoon">දහවල්</string>

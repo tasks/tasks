@@ -430,7 +430,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 分鐘後</string>
     <string name="swipe_to_snooze_time_1_hour">1 小時後</string>
     <string name="swipe_to_snooze_time_24_hours">24 小時後</string>
+    <string name="rmd_NoA_done">已完成</string>
     <string name="rmd_NoA_snooze">晚點提醒</string>
+    <string name="action_open">開啟</string>
     <string name="date_shortcut_hour">一個小時</string>
     <string name="date_shortcut_morning">早上</string>
     <string name="date_shortcut_afternoon">下午</string>

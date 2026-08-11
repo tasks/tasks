@@ -485,7 +485,9 @@
     <string name="swipe_to_snooze_time_30_minutes">след 30 минути</string>
     <string name="swipe_to_snooze_time_1_hour">след 1 час</string>
     <string name="swipe_to_snooze_time_24_hours">след 24 часа</string>
+    <string name="rmd_NoA_done">Завършване</string>
     <string name="rmd_NoA_snooze">Отлагане</string>
+    <string name="action_open">Отваряне</string>
     <string name="date_shortcut_hour">За час</string>
     <string name="date_shortcut_morning">Сутрин</string>
     <string name="date_shortcut_afternoon">Следобед</string>

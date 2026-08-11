@@ -454,7 +454,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 perc múlva</string>
     <string name="swipe_to_snooze_time_1_hour">1 óra múlva</string>
     <string name="swipe_to_snooze_time_24_hours">24 óra múlva</string>
+    <string name="rmd_NoA_done">Befejezve</string>
     <string name="rmd_NoA_snooze">Szundi</string>
+    <string name="action_open">Megnyitás</string>
     <string name="date_shortcut_hour">Egy órára</string>
     <string name="date_shortcut_morning">Reggel</string>
     <string name="date_shortcut_afternoon">Délután</string>

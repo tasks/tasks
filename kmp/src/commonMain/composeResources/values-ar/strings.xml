@@ -476,7 +476,9 @@
     <string name="swipe_to_snooze_time_30_minutes">بعد نصف ساعه</string>
     <string name="swipe_to_snooze_time_1_hour">بعد ساعه</string>
     <string name="swipe_to_snooze_time_24_hours">بعد ٢٤ ساعه</string>
+    <string name="rmd_NoA_done">أكمل</string>
     <string name="rmd_NoA_snooze">غفوة</string>
+    <string name="action_open">افتح</string>
     <string name="date_shortcut_hour">لساعة</string>
     <string name="date_shortcut_morning">صباحًا</string>
     <string name="date_shortcut_afternoon">بعد الظهر</string>

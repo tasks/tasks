@@ -23,4 +23,5 @@
     <string name="discard_confirmation">ನಿಮ್ಮ ಬದಲಾವಣೆಗಳನ್ನು ನೀವು ತ್ಯಜಿಸಲು ಖಚಿತವಾಗಿರುವಿರಾ?</string>
     <string name="keep_editing">ಸಂಪಾದನೆ ಮಾಡುತ್ತಲೇ ಇರಿ</string>
     <string name="DLG_delete_this_task_question">ಈ ಕಾರ್ಯವನ್ನು ಅಳಿಸಿ?</string>
+    <string name="action_open">ತೆರೆ</string>
 </resources>

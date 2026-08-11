@@ -414,7 +414,9 @@
     <string name="swipe_to_snooze_time_30_minutes">po 30 minútach</string>
     <string name="swipe_to_snooze_time_1_hour">po hodine</string>
     <string name="swipe_to_snooze_time_24_hours">po 24 hodinách</string>
+    <string name="rmd_NoA_done">Dokončené</string>
     <string name="rmd_NoA_snooze">Odložiť</string>
+    <string name="action_open">Otvoriť</string>
     <string name="date_shortcut_hour">Za hodinu</string>
     <string name="date_shortcut_morning">Ráno</string>
     <string name="date_shortcut_afternoon">Popoludní</string>

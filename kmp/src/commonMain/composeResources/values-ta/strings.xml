@@ -400,7 +400,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 நிமிடங்களுக்குப் பிறகு</string>
     <string name="swipe_to_snooze_time_1_hour">1 மணி நேரம் கழித்து</string>
     <string name="swipe_to_snooze_time_24_hours">24 மணி நேரம் கழித்து</string>
+    <string name="rmd_NoA_done">முழுமை</string>
     <string name="rmd_NoA_snooze">உறக்கநிலை</string>
+    <string name="action_open">திற</string>
     <string name="date_shortcut_hour">ஒரு மணி நேரத்திற்கு</string>
     <string name="date_shortcut_morning">காலை</string>
     <string name="date_shortcut_afternoon">மதியம்</string>

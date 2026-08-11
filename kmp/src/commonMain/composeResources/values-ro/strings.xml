@@ -435,7 +435,9 @@
     <string name="swipe_to_snooze_time_30_minutes">după 30 de minute</string>
     <string name="swipe_to_snooze_time_1_hour">după o oră</string>
     <string name="swipe_to_snooze_time_24_hours">după 24 de ore</string>
+    <string name="rmd_NoA_done">Finalizat</string>
     <string name="rmd_NoA_snooze">Amână</string>
+    <string name="action_open">Deschide</string>
     <string name="date_shortcut_hour">Pentru o oră</string>
     <string name="date_shortcut_morning">Dimineața</string>
     <string name="date_shortcut_afternoon">După-amiază</string>

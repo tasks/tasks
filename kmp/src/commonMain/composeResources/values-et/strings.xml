@@ -543,7 +543,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 minuti pärast</string>
     <string name="swipe_to_snooze_time_1_hour">1 tunni pärast</string>
     <string name="swipe_to_snooze_time_24_hours">24 tunni pärast</string>
+    <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Lükka edasi</string>
+    <string name="action_open">Ava</string>
     <string name="date_shortcut_hour">Tunniks</string>
     <string name="date_shortcut_morning">Hommik</string>
     <string name="date_shortcut_afternoon">Pärastlõuna</string>

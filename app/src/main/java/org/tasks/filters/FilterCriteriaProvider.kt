@@ -32,6 +32,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.repeats_single
+import tasks.kmp.generated.resources.rmd_NoA_done
 
 class FilterCriteriaProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
@@ -93,7 +94,7 @@ class FilterCriteriaProvider @Inject constructor(
         IDENTIFIER_TAG_IS -> tagFilter()
         IDENTIFIER_TAG_CONTAINS -> tagNameContainsFilter
         IDENTIFIER_RECUR -> recurringFilter()
-        IDENTIFIER_COMPLETED -> completedFilter
+        IDENTIFIER_COMPLETED -> completedFilter()
         IDENTIFIER_HIDDEN -> hiddenFilter
         IDENTIFIER_PARENT -> parentFilter
         IDENTIFIER_SUBTASK -> subtaskFilter
@@ -122,7 +123,7 @@ class FilterCriteriaProvider @Inject constructor(
             add(taskTitleContainsFilter)
             add(caldavFilterCriteria())
             add(recurringFilter())
-            add(completedFilter)
+            add(completedFilter())
             add(hiddenFilter)
             add(parentFilter)
             add(subtaskFilter)
@@ -165,10 +166,10 @@ class FilterCriteriaProvider @Inject constructor(
                         .toString()
         )
 
-    private val completedFilter: CustomFilterCriterion
-        get() = BooleanCriterion(
+    private suspend fun completedFilter(): CustomFilterCriterion =
+        BooleanCriterion(
                 IDENTIFIER_COMPLETED,
-                context.getString(R.string.rmd_NoA_done),
+                getString(Res.string.rmd_NoA_done),
                 select(Task.ID)
                         .from(Task.TABLE)
                         .where(field("${Task.COMPLETION_DATE.lt(1)}").eq(0))
@@ -362,6 +363,8 @@ class FilterCriteriaProvider @Inject constructor(
     }
 
     companion object {
+        private const val TAG = "FilterCriteriaProvider"
+
         private const val IDENTIFIER_UNIVERSE = "active"
         private const val IDENTIFIER_TITLE = "title"
         private const val IDENTIFIER_IMPORTANCE = "importance"
@@ -373,6 +376,7 @@ class FilterCriteriaProvider @Inject constructor(
         private const val IDENTIFIER_TAG_CONTAINS = "tag_contains"
         private const val IDENTIFIER_RECUR = "recur"
         private const val IDENTIFIER_COMPLETED = "completed"
+
         private const val IDENTIFIER_HIDDEN = "hidden"
         private const val IDENTIFIER_PARENT = "parent"
         private const val IDENTIFIER_SUBTASK = "subtask"

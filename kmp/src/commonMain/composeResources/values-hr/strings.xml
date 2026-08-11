@@ -554,7 +554,9 @@
     <string name="swipe_to_snooze_time_30_minutes">nakon 30 minuta</string>
     <string name="swipe_to_snooze_time_1_hour">nakon jednog sata</string>
     <string name="swipe_to_snooze_time_24_hours">nakon 24 sata</string>
+    <string name="rmd_NoA_done">Obavljeno</string>
     <string name="rmd_NoA_snooze">Odgodi</string>
+    <string name="action_open">Otvori</string>
     <string name="date_shortcut_hour">Sat vremena</string>
     <string name="date_shortcut_morning">Jutro</string>
     <string name="date_shortcut_afternoon">Popodne</string>

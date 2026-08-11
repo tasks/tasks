@@ -250,7 +250,9 @@
     <string name="quiet_hours_summary">خاموش گھنٹوں کے دوران کوئی یاد دہانی نہیں</string>
     <string name="rmd_EPr_quiet_hours_start_title">خاموش گھنٹہ شروع کریں</string>
     <string name="rmd_EPr_quiet_hours_end_title">خاموش گھنٹہ ختم کریں</string>
+    <string name="rmd_NoA_done">مکمل</string>
     <string name="rmd_NoA_snooze">اسنوز کریں</string>
+    <string name="action_open">کھولیں</string>
     <string name="date_shortcut_hour">ایک گھنٹے کیلئے</string>
     <string name="date_shortcut_morning">صبح</string>
     <string name="date_shortcut_afternoon">سہ پہر</string>

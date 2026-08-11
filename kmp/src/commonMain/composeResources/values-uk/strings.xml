@@ -422,7 +422,9 @@
     <string name="swipe_to_snooze_time_30_minutes">за 30 хвилин</string>
     <string name="swipe_to_snooze_time_1_hour">за 1 годину</string>
     <string name="swipe_to_snooze_time_24_hours">за 24 години</string>
+    <string name="rmd_NoA_done">Виконано</string>
     <string name="rmd_NoA_snooze">Відкласти</string>
+    <string name="action_open">Відкрити</string>
     <string name="date_shortcut_hour">На годину</string>
     <string name="date_shortcut_morning">Зранку</string>
     <string name="date_shortcut_afternoon">Вдень</string>

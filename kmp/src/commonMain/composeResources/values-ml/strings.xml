@@ -76,4 +76,5 @@
     <string name="discard_confirmation">നിങ്ങളുടെ മാറ്റങ്ങൾ നിരസിക്കണമെന്ന് നിങ്ങൾക്ക് ഉറപ്പാണോ?</string>
     <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
     <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ?</string>
+    <string name="action_open">തുറക്കുക</string>
 </resources>

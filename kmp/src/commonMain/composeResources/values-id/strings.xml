@@ -550,4 +550,6 @@
     <string name="discard_confirmation">Apakah anda yakin ingin membatalkan perubahan yang anda buat?</string>
     <string name="keep_editing">Tetap menyunting</string>
     <string name="DLG_delete_this_task_question">Hapus tugas ini?</string>
+    <string name="rmd_NoA_done">Selesai</string>
+    <string name="action_open">Buka</string>
 </resources>

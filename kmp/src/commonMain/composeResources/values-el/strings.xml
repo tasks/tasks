@@ -396,7 +396,9 @@
     <string name="swipe_to_snooze_time_30_minutes">μετά από 30 λεπτά</string>
     <string name="swipe_to_snooze_time_1_hour">μετά από 1 ώρα</string>
     <string name="swipe_to_snooze_time_24_hours">μετά από 24 ώρες</string>
+    <string name="rmd_NoA_done">Ολοκληρωμένο</string>
     <string name="rmd_NoA_snooze">Αναβολή</string>
+    <string name="action_open">Ανοίξτε το</string>
     <string name="date_shortcut_hour">Για μια ώρα</string>
     <string name="date_shortcut_morning">Πρωί</string>
     <string name="date_shortcut_afternoon">Μεσημέρι</string>

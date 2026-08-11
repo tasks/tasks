@@ -300,7 +300,9 @@
     <string name="quiet_hours_summary">ไม่มีการเตือนในช่วงเวลาที่เงียบสงบ</string>
     <string name="rmd_EPr_quiet_hours_start_title">ชั่วโมงที่เงียบสงบเริ่มต้น</string>
     <string name="rmd_EPr_quiet_hours_end_title">สิ้นสุดชั่วโมงเงียบ</string>
+    <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว</string>
     <string name="rmd_NoA_snooze">หลับ..</string>
+    <string name="action_open">เปิด</string>
     <string name="date_shortcut_hour">เป็นเวลาหนึ่งชั่วโมง</string>
     <string name="date_shortcut_morning">เช้า</string>
     <string name="date_shortcut_afternoon">บ่าย</string>

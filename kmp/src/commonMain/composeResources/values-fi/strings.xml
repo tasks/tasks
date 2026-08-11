@@ -415,7 +415,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 minuutin jälkeen</string>
     <string name="swipe_to_snooze_time_1_hour">Tunnin jälkeen</string>
     <string name="swipe_to_snooze_time_24_hours">24 tunnin jälkeen</string>
+    <string name="rmd_NoA_done">Valmis</string>
     <string name="rmd_NoA_snooze">Torkku</string>
+    <string name="action_open">Avaa</string>
     <string name="date_shortcut_hour">Tunnin verran</string>
     <string name="date_shortcut_morning">Aamu</string>
     <string name="date_shortcut_afternoon">Iltapäivä</string>

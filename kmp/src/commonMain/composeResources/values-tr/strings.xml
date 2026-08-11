@@ -548,7 +548,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30 dakika sonra</string>
     <string name="swipe_to_snooze_time_1_hour">1 saat sonra</string>
     <string name="swipe_to_snooze_time_24_hours">24 saat sonra</string>
+    <string name="rmd_NoA_done">Tamamlandı</string>
     <string name="rmd_NoA_snooze">Ertele</string>
+    <string name="action_open">Aç</string>
     <string name="date_shortcut_hour">Bir saatliğine</string>
     <string name="date_shortcut_morning">Sabah</string>
     <string name="date_shortcut_afternoon">Öğle</string>

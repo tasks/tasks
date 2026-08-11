@@ -135,7 +135,9 @@
     <string name="quiet_hours_summary">بدون یادآور در ساعات سکوت</string>
     <string name="rmd_EPr_quiet_hours_start_title">شروع ساعات خلوتی</string>
     <string name="rmd_EPr_quiet_hours_end_title">پایان ساعات خلوتی</string>
+    <string name="rmd_NoA_done">کامل</string>
     <string name="rmd_NoA_snooze">عقب انداختن</string>
+    <string name="action_open">باز</string>
     <string name="date_shortcut_hour">برای یک ساعت</string>
     <string name="date_shortcut_morning">صبح</string>
     <string name="date_shortcut_afternoon">بعدازظهر</string>

@@ -353,7 +353,9 @@
     <string name="quiet_hours_summary">Oroigarririk ez isilune orduetan</string>
     <string name="rmd_EPr_quiet_hours_start_title">Isiluneko ordutegiaren hasiera</string>
     <string name="rmd_EPr_quiet_hours_end_title">Isiluneko ordutegiaren amaiera</string>
+    <string name="rmd_NoA_done">Burututa</string>
     <string name="rmd_NoA_snooze">Atzeratu</string>
+    <string name="action_open">Ireki</string>
     <string name="date_shortcut_hour">Ordubetez</string>
     <string name="date_shortcut_morning">Goiza</string>
     <string name="date_shortcut_afternoon">Eguerdia</string>

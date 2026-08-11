@@ -543,7 +543,9 @@
     <string name="swipe_to_snooze_time_30_minutes">nach 30 Minuten</string>
     <string name="swipe_to_snooze_time_1_hour">nach 1 Stunde</string>
     <string name="swipe_to_snooze_time_24_hours">nach 24 Stunden</string>
+    <string name="rmd_NoA_done">Abgeschlossen</string>
     <string name="rmd_NoA_snooze">Schlummern</string>
+    <string name="action_open">Öffnen</string>
     <string name="date_shortcut_hour">Für eine Stunde</string>
     <string name="date_shortcut_morning">Vormittag</string>
     <string name="date_shortcut_afternoon">Nachmittag</string>

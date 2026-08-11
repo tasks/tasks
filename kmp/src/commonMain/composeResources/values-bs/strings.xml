@@ -47,6 +47,7 @@
     <string name="swipe_to_snooze_description">Vrijeme odgađanja</string>
     <string name="rmd_EPr_quiet_hours_start_title">Početak mirnih sati</string>
     <string name="rmd_EPr_quiet_hours_end_title">Kraj mirnih sati</string>
+    <string name="rmd_NoA_done">Završeno</string>
     <string name="rmd_NoA_snooze">Odgodi</string>
     <string name="EPr_default_importance_title">Uobičajeni prioritet</string>
     <string name="default_start_date">Uobičajeni datum početka</string>
@@ -62,4 +63,5 @@
     <string name="discard_confirmation">Stvarno odbaci izmjene?</string>
     <string name="keep_editing">Nastavi uređivati</string>
     <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
+    <string name="action_open">Otvori</string>
 </resources>

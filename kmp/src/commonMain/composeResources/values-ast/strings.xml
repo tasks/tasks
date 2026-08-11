@@ -290,7 +290,9 @@
     <string name="swipe_to_snooze_time_30_minutes">dempués de 30 minutos</string>
     <string name="swipe_to_snooze_time_1_hour">dempués de 1 hora</string>
     <string name="swipe_to_snooze_time_24_hours">dempués de 24 hores</string>
+    <string name="rmd_NoA_done">Acabada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
+    <string name="action_open">Abrir</string>
     <string name="date_shortcut_hour">Por una hora</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>

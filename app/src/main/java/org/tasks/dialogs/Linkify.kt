@@ -12,8 +12,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.text.util.LinkifyCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import dagger.hilt.android.qualifiers.ActivityContext
+import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.extensions.Context.safeStartActivity
+import org.jetbrains.compose.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.action_open
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
@@ -60,6 +69,13 @@ class Linkify @Inject constructor(
         }
     }
 
+    private suspend fun Uri.actionLabel(): String =
+        if (scheme == "tel") {
+            context.getString(R.string.action_call)
+        } else {
+            getString(Res.string.action_open)
+        }
+
     private inner class ClickHandlingURLSpan(
         url: String?,
         private val linkClickHandler: ((String) -> Boolean),
@@ -86,18 +102,37 @@ class Linkify @Inject constructor(
                 }
                 else -> url
             }
-            dialogBuilder
-                .newDialog(title)
-                .setItems(
-                    listOf(uri.action, R.string.TAd_actionEditTask).map { context.getString(it) }
-                ) { _, selected ->
-                    if (selected == 0) {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
-                    } else {
-                        rowClickHandler()
-                    }
+            val owner = widget.findViewTreeLifecycleOwner() ?: context as? LifecycleOwner
+            if (owner == null) {
+                Timber.d("No lifecycle owner for $uri, opening it directly")
+                context.safeStartActivity(Intent(Intent.ACTION_VIEW, uri))
+                return
+            }
+            owner.lifecycleScope.launch {
+                val actionLabel = uri.actionLabel()
+                if (actionLabel == null) {
+                    Timber.d("No action label for $uri, opening it directly")
+                    context.safeStartActivity(Intent(Intent.ACTION_VIEW, uri))
+                    return@launch
                 }
-                .show()
+                owner.withStarted {
+                    dialogBuilder
+                        .newDialog(title)
+                        .setItems(
+                            listOf(
+                                actionLabel,
+                                context.getString(R.string.TAd_actionEditTask),
+                            )
+                        ) { _, selected ->
+                            if (selected == 0) {
+                                context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+                            } else {
+                                rowClickHandler()
+                            }
+                        }
+                        .show()
+                }
+            }
         }
     }
 
@@ -109,8 +144,5 @@ class Linkify @Inject constructor(
                 Timber.e(e)
             }
         }
-
-        val Uri.action: Int
-            get() = if (scheme == "tel") R.string.action_call else R.string.action_open
     }
 }

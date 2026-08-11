@@ -443,7 +443,9 @@
     <string name="swipe_to_snooze_time_30_minutes">через 30 минут</string>
     <string name="swipe_to_snooze_time_1_hour">через 1 час</string>
     <string name="swipe_to_snooze_time_24_hours">через 24 часа</string>
+    <string name="rmd_NoA_done">Завершено</string>
     <string name="rmd_NoA_snooze">Отложить</string>
+    <string name="action_open">Открыть</string>
     <string name="date_shortcut_hour">На час</string>
     <string name="date_shortcut_morning">Утро</string>
     <string name="date_shortcut_afternoon">Обед</string>

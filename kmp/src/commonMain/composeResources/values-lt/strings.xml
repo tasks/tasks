@@ -372,7 +372,9 @@
     <string name="quiet_hours_summary">Tylos valandomis - be priminimų</string>
     <string name="rmd_EPr_quiet_hours_start_title">Tylaus meto pradžia</string>
     <string name="rmd_EPr_quiet_hours_end_title">Tylaus meto pabaiga</string>
+    <string name="rmd_NoA_done">Užbaigta</string>
     <string name="rmd_NoA_snooze">Užmigdyti</string>
+    <string name="action_open">Atidaryti</string>
     <string name="date_shortcut_hour">Valandai</string>
     <string name="date_shortcut_morning">Rytas</string>
     <string name="date_shortcut_afternoon">Popietė</string>

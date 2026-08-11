@@ -17,4 +17,5 @@
     <string name="discard_confirmation">دڵنیایت دەتەوێت گۆڕانکارییەکانت هەڵوەشێنیتەوە؟</string>
     <string name="keep_editing">بەردەوام بە لە دەستکاریکردن</string>
     <string name="DLG_delete_this_task_question">دەتەوێت ئەم ئەرکە بسڕیتەوە؟</string>
+    <string name="action_open">بکەوە</string>
 </resources>

@@ -499,7 +499,9 @@
     <string name="swipe_to_snooze_time_30_minutes">30分後</string>
     <string name="swipe_to_snooze_time_1_hour">1時間後</string>
     <string name="swipe_to_snooze_time_24_hours">24時間後</string>
+    <string name="rmd_NoA_done">完了</string>
     <string name="rmd_NoA_snooze">スヌーズ</string>
+    <string name="action_open">開く</string>
     <string name="date_shortcut_hour">1 時間</string>
     <string name="date_shortcut_morning">朝</string>
     <string name="date_shortcut_afternoon">昼</string>

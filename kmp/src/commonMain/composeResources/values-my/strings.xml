@@ -31,4 +31,5 @@
     <string name="discard_confirmation">သင်ပြောင်းလဲထားတာတွေကို ပယ်ဖျက်မှာလား</string>
     <string name="keep_editing">ဆက် ပြုပြင်</string>
     <string name="DLG_delete_this_task_question">ဒီအလုပ်ကို ဖျက်မည်</string>
+    <string name="action_open">ဖွင့်မည်</string>
 </resources>

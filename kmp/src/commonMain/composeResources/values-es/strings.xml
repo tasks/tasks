@@ -493,7 +493,9 @@
     <string name="swipe_to_snooze_time_30_minutes">después de 30 minutos</string>
     <string name="swipe_to_snooze_time_1_hour">después de 1 hora</string>
     <string name="swipe_to_snooze_time_24_hours">después de 24 horas</string>
+    <string name="rmd_NoA_done">Terminada</string>
     <string name="rmd_NoA_snooze">Posponer</string>
+    <string name="action_open">Abrir</string>
     <string name="date_shortcut_hour">Por una hora</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>

@@ -422,7 +422,9 @@
     <string name="swipe_to_snooze_time_30_minutes">na 30 minuten</string>
     <string name="swipe_to_snooze_time_1_hour">na 1 uur</string>
     <string name="swipe_to_snooze_time_24_hours">na 24 uur</string>
+    <string name="rmd_NoA_done">Voltooid</string>
     <string name="rmd_NoA_snooze">Snoozen</string>
+    <string name="action_open">Openen</string>
     <string name="date_shortcut_hour">Voor een uur</string>
     <string name="date_shortcut_morning">Ochtend</string>
     <string name="date_shortcut_afternoon">Middag</string>

@@ -355,7 +355,9 @@
     <string name="quiet_hours_summary">Không có lời nhắc trong giờ im lặng</string>
     <string name="rmd_EPr_quiet_hours_start_title">Giờ im lặng bắt đầu</string>
     <string name="rmd_EPr_quiet_hours_end_title">Giờ im lặng kết thúc</string>
+    <string name="rmd_NoA_done">Hoàn thành</string>
     <string name="rmd_NoA_snooze">Báo lại</string>
+    <string name="action_open">Mở</string>
     <string name="date_shortcut_hour">Một tiếng</string>
     <string name="date_shortcut_morning">Buổi sáng</string>
     <string name="date_shortcut_afternoon">Buổi chiều</string>

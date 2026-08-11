@@ -11,4 +11,5 @@
     <string name="discard_confirmation">তুমি নিশ্চিত যে তুমি নিজের পরিবর্তনগুলো বাতিল করতে চাও?</string>
     <string name="keep_editing">সম্পাদনা করতে থাকো</string>
     <string name="DLG_delete_this_task_question">এই কাজটি মুছবে?</string>
+    <string name="action_open">খুলো</string>
 </resources>

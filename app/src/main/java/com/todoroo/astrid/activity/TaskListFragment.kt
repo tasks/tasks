@@ -80,6 +80,7 @@ import org.tasks.data.TaskMover
 import com.todoroo.astrid.timers.TimerPlugin
 import com.todoroo.astrid.utility.Flags
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.launchIn
@@ -136,6 +137,7 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.hideKeyboard
+import org.jetbrains.compose.resources.getString
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.CaldavFilter
@@ -175,6 +177,8 @@ import org.tasks.ui.Banner
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
 import org.tasks.ui.TaskListViewModel
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.action_open
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -271,13 +275,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
         }
 
-    private fun process(event: TaskListEvent) = when (event) {
+    private suspend fun process(event: TaskListEvent) = when (event) {
         is TaskListEvent.TaskCreated ->
             onTaskCreated(event.uuid)
-        is TaskListEvent.CalendarEventCreated ->
+        is TaskListEvent.CalendarEventCreated -> {
+            val open = getString(Res.string.action_open)
             makeSnackbar(R.string.calendar_event_created, event.title)
-                ?.setAction(R.string.action_open) { context?.openUri(event.uri) }
+                ?.setAction(open) { context?.openUri(event.uri) }
                 ?.show()
+        }
     }
 
     override fun onRefresh() {
@@ -309,7 +315,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         super.onViewCreated(view, savedInstanceState)
 
         taskListEventBus
-            .onEach(this::process)
+            .onEach { event ->
+                try {
+                    process(event)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Throwable) {
+                    Timber.e(e, "Failed to handle a task list event")
+                }
+            }
             .launchIn(viewLifecycleOwner.lifecycleScope)
 
         caldavDao.watchHasWritableList()

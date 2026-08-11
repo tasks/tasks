@@ -501,7 +501,9 @@
     <string name="swipe_to_snooze_time_30_minutes">post 30 minutoj</string>
     <string name="swipe_to_snooze_time_1_hour">post 1 horo</string>
     <string name="swipe_to_snooze_time_24_hours">post 24 horoj</string>
+    <string name="rmd_NoA_done">Finite</string>
     <string name="rmd_NoA_snooze">Paŭzigi</string>
+    <string name="action_open">Malfermi</string>
     <string name="date_shortcut_hour">Unu horo</string>
     <string name="date_shortcut_morning">Mateno</string>
     <string name="date_shortcut_afternoon">Posttagmezo</string>

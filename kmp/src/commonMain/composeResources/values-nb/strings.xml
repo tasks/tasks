@@ -381,7 +381,9 @@
     <string name="swipe_to_snooze_time_30_minutes">etter 30 minutter</string>
     <string name="swipe_to_snooze_time_1_hour">etter 1 time</string>
     <string name="swipe_to_snooze_time_24_hours">etter 24 timer</string>
+    <string name="rmd_NoA_done">Utført</string>
     <string name="rmd_NoA_snooze">Slumre</string>
+    <string name="action_open">Åpne</string>
     <string name="date_shortcut_hour">En time</string>
     <string name="date_shortcut_morning">Morgen</string>
     <string name="date_shortcut_afternoon">Ettermiddag</string>
