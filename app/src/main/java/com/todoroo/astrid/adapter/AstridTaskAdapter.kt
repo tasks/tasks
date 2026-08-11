@@ -31,7 +31,6 @@ class AstridTaskAdapter internal constructor(
     private val refreshBroadcaster: RefreshBroadcaster,
     taskMover: TaskMover,
 ) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, refreshBroadcaster, taskMover) {
-
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
 
     override fun getIndent(task: TaskContainer) = updater.getIndentForTask(task.uuid)

@@ -17,8 +17,8 @@ class GoogleTaskManualSortAdapter internal constructor(
     localBroadcastManager: LocalBroadcastManager,
     taskMover: TaskMover,
 ) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager, taskMover) {
-
     override suspend fun moved(from: Int, to: Int, indent: Int) {
+        openForArrival(findParent(indent, to))
         moveGoogleTask(from, to, indent)
     }
 }

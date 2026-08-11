@@ -222,6 +222,7 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
+import org.tasks.data.INDENT_STEP_DP
 import org.tasks.data.isHidden
 import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
@@ -2754,7 +2755,7 @@ private fun TaskRow(
             .fillMaxWidth()
             .clickable(onClick = onClick)
             .padding(
-                start = (20 * task.indent).dp,
+                start = (INDENT_STEP_DP * task.indent).dp,
                 end = 16.dp,
             ),
         verticalAlignment = Alignment.Top,

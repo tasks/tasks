@@ -18,6 +18,8 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
+import org.tasks.data.deepestNestingUnder
+import org.tasks.data.findParentIndex
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
 import org.tasks.data.dao.DirtyDao
@@ -91,7 +93,7 @@ open class TaskAdapter(
         var indent = if (previous.isSingleLevelSubtask) {
             if (task.hasChildren()) 0 else 1
         } else {
-            previous.indent + 1
+            deepestNestingUnder(previous.indent)
         }
         while (!task.isCompleted && indent > 0 &&
             findParent(indent, previousPosition + 1)?.isCompleted == true
@@ -136,6 +138,7 @@ open class TaskAdapter(
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
+        openForArrival(newParent)
         if ((newParent?.id ?: 0) == task.parent || (indent > 0 && dataSource.subtaskSortMode == SORT_MANUAL)) {
             if (indent == 0) {
                 changeSortGroup(task, if (from < to) to - 1 else to)
@@ -190,17 +193,13 @@ open class TaskAdapter(
         return false
     }
 
-    private fun findParent(indent: Int, to: Int): TaskContainer? {
-        if (indent == 0 || to == 0) {
-            return null
+    protected fun findParent(indent: Int, to: Int): TaskContainer? =
+        findParentIndex(indent, to) { getTask(it).indent }?.let { getTask(it) }
+
+    protected suspend fun openForArrival(newParent: TaskContainer?) {
+        if (newParent != null && newParent.isCollapsed) {
+            taskDao.setCollapsed(listOf(newParent.id), false)
         }
-        for (i in to - 1 downTo 0) {
-            val previous = getTask(i)
-            if (indent > previous.indent) {
-                return previous
-            }
-        }
-        return null
     }
 
     private suspend fun changeSortGroup(task: TaskContainer, pos: Int) {

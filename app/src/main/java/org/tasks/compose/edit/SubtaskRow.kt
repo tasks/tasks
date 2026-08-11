@@ -40,6 +40,7 @@ import org.tasks.compose.DisabledText
 import org.tasks.compose.chips.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
+import org.tasks.data.INDENT_STEP_DP
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -208,7 +209,7 @@ fun ExistingSubtaskRow(
             .clickable { onRowClick() }
             .padding(end = 16.dp)
     ) {
-        Spacer(modifier = Modifier.width((indent * 20).dp))
+        Spacer(modifier = Modifier.width((indent * INDENT_STEP_DP).dp))
         CheckBox(
             task = task.task,
             onCompleteClick = onCompleteClick,

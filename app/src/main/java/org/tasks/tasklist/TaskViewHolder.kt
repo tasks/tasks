@@ -24,6 +24,7 @@ import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.chips.FilterChip
 import org.tasks.compose.StartDateChip
 import org.tasks.compose.chips.SubtaskChip
+import org.tasks.data.INDENT_STEP_DP
 import org.tasks.data.TaskContainer
 import org.tasks.data.hasNotes
 import org.tasks.data.isHidden
@@ -146,7 +147,7 @@ class TaskViewHolder internal constructor(
     }
 
     val shiftSize: Float
-        get() = 20 * metrics.density
+        get() = INDENT_STEP_DP * metrics.density
 
     private fun getIndentSize(indent: Int) = (indent * shiftSize).roundToInt()
 
