@@ -17,6 +17,7 @@ internal object TaskListQueryRecursive {
         filter: Filter,
         preferences: QueryPreferences,
         limit: Int? = null,
+        showCollapsed: Boolean = false,
     ): String {
         val parentQuery = when (filter) {
             is CaldavFilter -> newCaldavQuery(filter.uuid)
@@ -59,6 +60,7 @@ internal object TaskListQueryRecursive {
         } else {
             "AND NOT r.subtask_complete"
         }
+        val folded = if (showCollapsed) "0" else "recursive_tasks.collapsed > 0"
         val completionSort = if (completedAtBottom) {
             "(CASE WHEN tasks.completed > 0 THEN ${SortHelper.orderSelectForSortTypeRecursive(completedMode, false)} ELSE 0 END)"
         } else {
@@ -100,7 +102,7 @@ internal object TaskListQueryRecursive {
                     $completionSort AS completion_sort,
                     recursive_tasks.task AS parent,
                     tasks.collapsed AS collapsed,
-                    CASE WHEN recursive_tasks.collapsed > 0 OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END AS hidden,
+                    CASE WHEN $folded OR recursive_tasks.hidden > 0 THEN 1 ELSE 0 END AS hidden,
                     recursive_tasks.indent + 1 AS indent,
                     UPPER(tasks.title) AS sort_title,
                     recursive_tasks.primary_group AS primary_group,

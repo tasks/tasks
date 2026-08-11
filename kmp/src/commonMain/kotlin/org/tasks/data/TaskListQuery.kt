@@ -41,17 +41,18 @@ object TaskListQuery {
         preferences: QueryPreferences,
         filter: Filter,
         limit: Int? = null,
+        showCollapsed: Boolean = false,
     ): String {
         val start = currentTimeMillis()
         return when {
             filter.supportsManualSort() && preferences.isManualSort ->
-                getRecursiveQuery(filter, preferences, limit)
+                getRecursiveQuery(filter, preferences, limit, showCollapsed)
 
             filter is AstridOrderingFilter && preferences.isAstridSort ->
                 getNonRecursiveQuery(filter, preferences, limit)
 
             filter.supportsSorting() ->
-                getRecursiveQuery(filter, preferences, limit)
+                getRecursiveQuery(filter, preferences, limit, showCollapsed)
 
             else -> getNonRecursiveQuery(filter, preferences, limit)
         }.also { Logger.v("TaskListQuery") { "Building query took ${currentTimeMillis() - start}ms" } }
