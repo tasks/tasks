@@ -56,7 +56,7 @@ import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.sse.SseTokenProvider
 import java.io.File
 
-private val appName: String =
+internal val appName: String =
     if (JvmBuildConfig.DEBUG) "Tasks.org.debug" else "Tasks.org"
 
 internal enum class Platform { MAC, WINDOWS, LINUX }
@@ -70,20 +70,50 @@ internal fun platform(): Platform {
     }
 }
 
-private val overrideDir: File? by lazy {
+private val directoryLock = Any()
+
+private var overrideResolved = false
+private var cachedOverrideDir: File? = null
+private var cachedDataDir: File? = null
+private var cachedCookieDir: File? = null
+private var cachedLogDir: File? = null
+
+internal fun resetDirectories() = synchronized(directoryLock) {
+    overrideResolved = false
+    cachedOverrideDir = null
+    cachedDataDir = null
+    cachedCookieDir = null
+    cachedLogDir = null
+}
+
+private val overrideDir: File?
+    get() = synchronized(directoryLock) {
+        if (!overrideResolved) {
+            cachedOverrideDir = resolveOverrideDir()
+            overrideResolved = true
+        }
+        cachedOverrideDir
+    }
+
+private fun resolveOverrideDir(): File? {
     val path = System.getProperty("tasks.dataDir")?.takeIf { it.isNotBlank() }
         ?: System.getenv("TASKS_DATA_DIR")?.takeIf { it.isNotBlank() }
-    path?.let { File(it) }?.also {
+    return path?.let { File(it) }?.also {
         require(it.exists() || it.mkdirs()) { "Failed to create data directory: $it" }
         require(it.isDirectory) { "Data directory path is not a directory: $it" }
     }
 }
 
-val dataDir: File by lazy {
-    overrideDir?.let { return@lazy it }
+val dataDir: File
+    get() = synchronized(directoryLock) {
+        cachedDataDir ?: resolveDataDir().also { cachedDataDir = it }
+    }
+
+private fun resolveDataDir(): File {
+    overrideDir?.let { return it }
     val home = System.getProperty("user.home")
     val legacyDir = File(home, ".tasks.org")
-    if (legacyDir.exists()) return@lazy legacyDir
+    if (legacyDir.exists()) return legacyDir
     val dir = when (platform()) {
         Platform.MAC -> File(home, "Library/Application Support/$appName")
         Platform.WINDOWS ->
@@ -93,13 +123,21 @@ val dataDir: File by lazy {
             File(xdgData, appName.lowercase())
         }
     }
-    dir.also { it.mkdirs() }
+    return dir.also { it.mkdirs() }
 }
 
-val cookieDir: File by lazy { File(dataDir, "cookies") }
+val cookieDir: File
+    get() = synchronized(directoryLock) {
+        cachedCookieDir ?: File(dataDir, "cookies").also { cachedCookieDir = it }
+    }
 
-val logDir: File by lazy {
-    overrideDir?.let { return@lazy File(it, "logs").also { d -> d.mkdirs() } }
+val logDir: File
+    get() = synchronized(directoryLock) {
+        cachedLogDir ?: resolveLogDir().also { cachedLogDir = it }
+    }
+
+private fun resolveLogDir(): File {
+    overrideDir?.let { return File(it, "logs").also { d -> d.mkdirs() } }
     val home = System.getProperty("user.home")
     val dir = when (platform()) {
         Platform.MAC -> File(home, "Library/Logs/$appName")
@@ -109,7 +147,7 @@ val logDir: File by lazy {
             File(xdgState, "${appName.lowercase()}/logs")
         }
     }
-    dir.also { it.mkdirs() }
+    return dir.also { it.mkdirs() }
 }
 
 actual fun platformModule(): Module = module {

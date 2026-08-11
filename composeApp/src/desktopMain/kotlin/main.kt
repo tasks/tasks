@@ -65,6 +65,9 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.nio.channels.FileChannel
 import org.tasks.extensions.openInBrowser
+import org.tasks.extensions.step
+
+private const val TAG = "main"
 
 private val portFile = File(dataDir, ".ipc_port")
 private val lockFile = File(dataDir, ".lock")
@@ -161,7 +164,7 @@ fun main() {
         }
     }
     Runtime.getRuntime().addShutdownHook(Thread {
-        try {
+        step(TAG, "commit pending saves") {
             val pendingSaves = koin.get<PendingTaskSaves>()
             pendingSaves.flushPending()
             runBlocking {
@@ -169,16 +172,18 @@ fun main() {
                     Logger.w { "Timed out waiting for pending saves during shutdown" }
                 }
             }
-        } catch (e: Exception) {
-            Logger.e(e) { "Failed to commit pending saves during shutdown" }
         }
-        (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()
-        runBlocking { EncryptedCookieStore.flushAll() }
-        (koin.get<Reporting>() as? PostHogReporting)?.close()
-        ipcServer?.close()
-        portFile.delete()
-        lockChannel?.close()
-        lockFile.delete()
+        step(TAG, "close the Microsoft client") {
+            (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()
+        }
+        step(TAG, "flush cookies") { runBlocking { EncryptedCookieStore.flushAll() } }
+        step(TAG, "close reporting") { (koin.get<Reporting>() as? PostHogReporting)?.close() }
+        step(TAG, "release the single instance lock") {
+            ipcServer?.close()
+            portFile.delete()
+            lockChannel?.close()
+            lockFile.delete()
+        }
     })
 
     application {

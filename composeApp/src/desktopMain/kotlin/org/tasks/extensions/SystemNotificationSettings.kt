@@ -12,10 +12,8 @@ import java.io.File
 
 private val logger = Logger.withTag("SystemNotificationSettings")
 
-internal fun supportsSystemNotificationSettings(): Boolean = when (platform()) {
-    Platform.MAC, Platform.WINDOWS -> true
-    Platform.LINUX -> linuxCandidates() != null
-}
+internal fun supportsSystemNotificationSettings(): Boolean =
+    systemNotificationSettingsCommand() != null
 
 private fun systemNotificationSettingsCommand(): List<String>? = when (platform()) {
     Platform.MAC ->
@@ -25,7 +23,7 @@ private fun systemNotificationSettingsCommand(): List<String>? = when (platform(
         )
     Platform.WINDOWS ->
         listOf("cmd", "/c", "start", "", "ms-settings:notifications")
-    Platform.LINUX -> linuxCandidates()?.firstOrNull { onPath(it.first()) }
+    Platform.LINUX -> linuxCandidates().firstOrNull { onPath(it.first()) }
 }
 
 private val macNotificationsPane: String
@@ -41,26 +39,48 @@ private val macNotificationsPane: String
         }
     }
 
-private val GNOME_COMMANDS = listOf(
-    listOf("gnome-control-center", "notifications"),
+private class DesktopSettings(val desktops: Set<String>, val commands: List<List<String>>)
+
+private val LINUX_SETTINGS = listOf(
+    DesktopSettings(
+        setOf("kde", "plasma"),
+        listOf(
+            listOf("systemsettings", "kcm_notifications"),
+            listOf("systemsettings5", "kcm_notifications"),
+            listOf("kcmshell6", "kcm_notifications"),
+            listOf("kcmshell5", "kcm_notifications"),
+        ),
+    ),
+    DesktopSettings(
+        setOf("gnome", "unity"),
+        listOf(listOf("gnome-control-center", "notifications")),
+    ),
+    DesktopSettings(
+        setOf("xfce"),
+        listOf(listOf("xfce4-notifyd-config")),
+    ),
+    DesktopSettings(
+        setOf("cinnamon"),
+        listOf(listOf("cinnamon-settings", "notifications")),
+    ),
+    DesktopSettings(
+        setOf("mate"),
+        listOf(listOf("mate-notification-properties")),
+    ),
+    DesktopSettings(
+        setOf("lxqt"),
+        listOf(listOf("lxqt-config-notificationd")),
+    ),
 )
 
-private val KDE_COMMANDS = listOf(
-    listOf("systemsettings", "kcm_notifications"),
-    listOf("systemsettings5", "kcm_notifications"),
-    listOf("kcmshell6", "kcm_notifications"),
-    listOf("kcmshell5", "kcm_notifications"),
-)
-
-private fun linuxCandidates(): List<List<String>>? {
+private fun linuxCandidates(): List<List<String>> {
     val desktop = (System.getenv("XDG_CURRENT_DESKTOP") ?: System.getenv("DESKTOP_SESSION"))
         .orEmpty()
         .lowercase()
-    return when {
-        "kde" in desktop || "plasma" in desktop -> KDE_COMMANDS
-        "gnome" in desktop || "unity" in desktop -> GNOME_COMMANDS
-        else -> null
+    val (matching, rest) = LINUX_SETTINGS.partition { settings ->
+        settings.desktops.any { it in desktop }
     }
+    return (matching + rest).flatMap { it.commands }
 }
 
 private fun onPath(binary: String): Boolean =
@@ -76,17 +96,20 @@ actual fun openSystemNotificationSettings() {
             logger.w { "No system notification settings command available" }
             return@launch
         }
-        try {
-            val process = ProcessBuilder(command).redirectErrorStream(true).start()
-            process.inputStream.bufferedReader().use { reader ->
-                reader.lineSequence().forEach { logger.d { "${command.first()}: $it" } }
-            }
-            val exitCode = process.waitFor()
+        val process = try {
+            ProcessBuilder(command)
+                .redirectOutput(ProcessBuilder.Redirect.DISCARD)
+                .redirectError(ProcessBuilder.Redirect.DISCARD)
+                .start()
+        } catch (e: Exception) {
+            logger.w(e) { "Failed to start $command" }
+            return@launch
+        }
+        process.onExit().thenAccept { finished ->
+            val exitCode = finished.exitValue()
             if (exitCode != 0) {
                 logger.w { "$command exited with $exitCode" }
             }
-        } catch (e: Exception) {
-            logger.w(e) { "Failed to open notification settings: $command" }
         }
     }
 }
