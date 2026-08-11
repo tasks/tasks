@@ -141,12 +141,20 @@ class NotificationManager @Inject constructor(
                     fiveTimes = false,
                     newNotifications = emptyList(),
                 )
-            createNotifications(
+            val posted = createNotifications(
                     notifications = notifications,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
             )
+            if (posted.size != notifications.size) {
+                updateSummary(
+                        notify = false,
+                        nonStop = false,
+                        fiveTimes = false,
+                        newNotifications = emptyList(),
+                    )
+            }
         } else {
             createNotifications(
                     notifications = notifications,
@@ -165,15 +173,20 @@ class NotificationManager @Inject constructor(
         alert: Boolean,
         nonstop: Boolean,
         fiveTimes: Boolean
-    ) {
+    ): Collection<Long> {
         if (!permissionChecker.canNotify()) {
-            return
+            Timber.w("Notifications disabled, holding ${newNotifications.size}")
+            return emptyList()
         }
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
-        when {
-            totalCount == 0 -> cancelSummaryNotification()
+        var summariseAfterCleanup = false
+        val posted = when {
+            totalCount == 0 -> {
+                cancelSummaryNotification()
+                emptyList()
+            }
             preferences.bundleNotifications() -> {
                 updateSummary(
                         notify = false,
@@ -189,21 +202,20 @@ class NotificationManager @Inject constructor(
                             fiveTimes = false,
                     )
                 }
-                if (newNotifications.size == 1) {
-                    createNotifications(
+                when {
+                    newNotifications.size == 1 -> createNotifications(
                         notifications = newNotifications,
                         alert = alert,
                         nonstop = nonstop,
                         fiveTimes = fiveTimes,
                     )
-                } else if (newNotifications.size > 1) {
-                    createNotifications(
+                    newNotifications.size > 1 -> createNotifications(
                             notifications = newNotifications,
                             alert = false,
                             nonstop = false,
                             fiveTimes = false,
-                        )
-                    updateSummary(alert, nonstop, fiveTimes, newNotifications)
+                        ).also { summariseAfterCleanup = true }
+                    else -> emptyList()
                 }
             }
             else -> createNotifications(
@@ -214,7 +226,27 @@ class NotificationManager @Inject constructor(
                 useGroupKey = false,
             )
         }
+        val discarded = undeliveredRows(
+            attempted = newNotifications.map { it.taskId },
+            delivered = posted,
+            existing = existingNotifications.mapTo(mutableSetOf()) { it.taskId },
+        )
+        if (discarded.isNotEmpty()) {
+            Timber.w("Undelivered, dropping rows: $discarded")
+            notificationDao.deleteAll(discarded)
+        }
+        if (summariseAfterCleanup && posted.isNotEmpty()) {
+            updateSummary(alert, nonstop, fiveTimes, newNotifications)
+        } else if (discarded.isNotEmpty() && preferences.bundleNotifications()) {
+            updateSummary(
+                notify = false,
+                nonStop = false,
+                fiveTimes = false,
+                newNotifications = emptyList(),
+            )
+        }
         refreshBroadcaster.broadcastRefresh()
+        return posted
     }
 
     @SuppressLint("MissingPermission")
@@ -224,37 +256,57 @@ class NotificationManager @Inject constructor(
         nonstop: Boolean,
         fiveTimes: Boolean,
         useGroupKey: Boolean = true,
-    ) {
+    ): List<Long> {
         if (permissionChecker.canNotify()) {
             preferences.warnNotificationsDisabled = true
         } else {
             Timber.w("Notifications disabled")
-            return
+            return emptyList()
         }
         if (notifications.isEmpty()) {
             Timber.d("No notifications to post")
-            return
+            return emptyList()
         }
         Timber.d("Posting notifications alert=$alert nonstop=$nonstop fiveTimes=$fiveTimes useGroupKey=$useGroupKey\n${notifications.joinToString("\n")}")
         var alert = alert
+        val posted = mutableListOf<Long>()
         for (notification in notifications) {
-            val builder = getTaskNotification(notification)
-            if (builder == null) {
-                Timber.d("Cancelling notification for ${notification.taskId} reason=${CancelReason.STALE}")
-                notificationManager.cancel(notification.taskId.toInt())
-                notificationDao.delete(notification.taskId)
-            } else {
-                builder
-                        .setGroup(if (useGroupKey) GROUP_KEY else notification.taskId.toString())
-                        .setGroupAlertBehavior(
-                                if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
-                notify(notification.taskId, builder, alert, nonstop, fiveTimes, notification.type)
-                val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
-                taskDao.setLastNotified(notification.taskId, reminderTime)
-                alert = false
+            when (val result = buildTaskNotification(notification)) {
+                TaskNotification.Stale -> {
+                    Timber.d("Cancelling notification for ${notification.taskId} reason=${CancelReason.STALE}")
+                    notificationManager.cancel(notification.taskId.toInt())
+                    notificationDao.delete(notification.taskId)
+                }
+                is TaskNotification.Ready -> {
+                    val builder = result.builder
+                    builder
+                            .setGroup(if (useGroupKey) GROUP_KEY else notification.taskId.toString())
+                            .setGroupAlertBehavior(
+                                    if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
+                    val notifyResult = notify(
+                        notification.taskId,
+                        builder,
+                        alert,
+                        nonstop,
+                        fiveTimes,
+                        notification.type,
+                    )
+                    if (notifyResult.posted) {
+                        val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
+                        taskDao.setLastNotified(notification.taskId, reminderTime)
+                        posted.add(notification.taskId)
+                    }
+                    if (notifyResult.evicted.isNotEmpty()) {
+                        posted.removeAll(notifyResult.evicted.toSet())
+                    }
+                    alert = false
+                }
             }
         }
+        return posted
     }
+
+    data class NotifyResult(val posted: Boolean, val evicted: List<Long> = emptyList())
 
     @SuppressLint("MissingPermission")
     suspend fun notify(
@@ -264,9 +316,9 @@ class NotificationManager @Inject constructor(
             nonstop: Boolean,
             fiveTimes: Boolean,
             type: Int? = null,
-    ) {
+    ): NotifyResult {
         if (!permissionChecker.canNotify()) {
-            return
+            return NotifyResult(posted = false)
         }
         if (preUpsideDownCake()) {
             builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
@@ -301,6 +353,7 @@ class NotificationManager @Inject constructor(
             }
             notificationManager.notify(notificationId.toInt(), notification)
         }
+        return NotifyResult(posted = true, evicted = evicted)
     }
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -398,19 +451,28 @@ class NotificationManager @Inject constructor(
     private var cachedActionLabels:
             Pair<Pair<Locale, List<StringResource>>, ActionLabels>? = null
 
-    suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? {
+    sealed interface TaskNotification {
+        data class Ready(val builder: NotificationCompat.Builder) : TaskNotification
+
+        data object Stale : TaskNotification
+    }
+
+    suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? =
+        (buildTaskNotification(notification) as? TaskNotification.Ready)?.builder
+
+    suspend fun buildTaskNotification(notification: Notification): TaskNotification {
         val id = notification.taskId
         val type = notification.type
         val `when` = notification.timestamp
         val task = taskDao.fetch(id)
         if (task == null) {
             Timber.e("Could not find %s", id)
-            return null
+            return TaskNotification.Stale
         }
 
         // you're done, or not yours - don't sound, do delete
         if (task.isCompleted || task.isDeleted) {
-            return null
+            return TaskNotification.Stale
         }
 
         val snoozeOptions = snoozeOptions(preferences.quickPickTimes)
@@ -503,12 +565,14 @@ class NotificationManager @Inject constructor(
         if (!task.readOnly) {
             builder.addAction(completeAction)
         }
-        return builder
-                .addAction(
-                        R.drawable.ic_snooze_white_24dp,
-                        snoozeActionLabel,
-                        snoozePendingIntent)
-                .extend(wearableExtender)
+        return TaskNotification.Ready(
+                builder
+                        .addAction(
+                                R.drawable.ic_snooze_white_24dp,
+                                snoozeActionLabel,
+                                snoozePendingIntent)
+                        .extend(wearableExtender)
+        )
     }
 
     @SuppressLint("MissingPermission")
@@ -562,7 +626,6 @@ class NotificationManager @Inject constructor(
         const val NOTIFICATION_CHANNEL_TASKER = "notifications_tasker"
         const val NOTIFICATION_CHANNEL_TIMERS = "notifications_timers"
         const val NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous"
-        const val MAX_NOTIFICATIONS = 21
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val EXTRA_NOTIFICATION_TYPE = "extra_notification_type"
         const val SUMMARY_NOTIFICATION_ID = 0

@@ -72,7 +72,7 @@ class AlarmService(
     }
 
     suspend fun triggerAlarms(
-        trigger: suspend (List<Notification>) -> Unit
+        trigger: suspend (List<Notification>) -> Collection<Long>,
     ): Long {
         if (preferences.isCurrentlyQuietHours()) {
             return preferences.adjustForQuietHours(currentTimeMillis())

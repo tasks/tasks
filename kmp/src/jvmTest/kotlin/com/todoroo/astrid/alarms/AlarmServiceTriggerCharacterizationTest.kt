@@ -47,7 +47,7 @@ class AlarmServiceTriggerCharacterizationTest : DatabaseTest() {
         val before = currentTimeMillis()
         var delivered: List<Notification> = emptyList()
 
-        alarmService.triggerAlarms { delivered = it }
+        alarmService.triggerAlarms { delivered = it; it.handled() }
 
         assertEquals(listOf(task.id), delivered.map { it.taskId })
         assertTrue(delivered.single().timestamp >= before)
@@ -60,7 +60,7 @@ class AlarmServiceTriggerCharacterizationTest : DatabaseTest() {
             Alarm(task = task.id, time = currentTimeMillis() - ONE_HOUR, type = TYPE_SNOOZE)
         )
 
-        alarmService.triggerAlarms { }
+        alarmService.triggerAlarms { it.handled() }
 
         assertTrue(alarmDao.getAlarms(task.id).none { it.type == TYPE_SNOOZE })
     }
@@ -69,7 +69,7 @@ class AlarmServiceTriggerCharacterizationTest : DatabaseTest() {
     fun aScanThatDeliveredNothingSchedulesNothing() = runTest(testDispatcher) {
         overdueTask()
 
-        val next = alarmService.triggerAlarms { }
+        val next = alarmService.triggerAlarms { it.handled() }
 
         assertEquals(0L, next)
     }
@@ -81,7 +81,7 @@ class AlarmServiceTriggerCharacterizationTest : DatabaseTest() {
         val future = currentTimeMillis() + 2 * ONE_HOUR
         alarmDao.insert(Alarm(task = later.id, time = future, type = TYPE_DATE_TIME))
 
-        val next = alarmService.triggerAlarms { }
+        val next = alarmService.triggerAlarms { it.handled() }
 
         assertEquals(future, next)
     }
@@ -99,12 +99,14 @@ class AlarmServiceTriggerCharacterizationTest : DatabaseTest() {
         )
         var triggered = false
 
-        val next = alarmService.triggerAlarms { triggered = true }
+        val next = alarmService.triggerAlarms { triggered = true; it.handled() }
 
         assertEquals(wakeUp, next)
         assertTrue(!triggered)
         assertTrue(alarmDao.getAlarms(task.id).any { it.type == TYPE_SNOOZE })
     }
+
+    private fun List<Notification>.handled(): Collection<Long> = map { it.taskId }
 
     private suspend fun overdueTask(): Task = createTask().also {
         alarmDao.insert(

@@ -86,7 +86,8 @@ class Notifier @Inject constructor(
                     }
                     .let { triggerNotifications(it) }
 
-    suspend fun triggerNotifications(entries: List<Notification>) {
+    suspend fun triggerNotifications(entries: List<Notification>): Collection<Long> {
+        val handled = entries.map { it.taskId }
         var ringFiveTimes = false
         var ringNonstop = false
         val notifications = entries
@@ -103,7 +104,7 @@ class Notifier @Inject constructor(
                 }
 
         if (notifications.isEmpty()) {
-            return
+            return handled
         }
 
         Timber.d("Triggering $notifications")
@@ -123,5 +124,6 @@ class Notifier @Inject constructor(
                         voiceOutputAssistant.speak(it)
                     }
         }
+        return handled
     }
 }

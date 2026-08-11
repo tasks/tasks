@@ -1,5 +1,7 @@
 package org.tasks.notifications
 
+const val MAX_NOTIFICATIONS = 21
+
 enum class CancelReason {
     COMPLETE,
     CLEANUP,
