@@ -22,7 +22,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.CaldavDao.Companion.toAppleEpoch
 import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
@@ -281,10 +281,7 @@ open class TaskAdapter(
             calendar = list,
         )
         val newParentId = newParent?.id ?: 0
-        // Don't update remoteParent for Microsoft tasks — the sync code
-        // compares task.parent with remoteParent to detect hierarchy changes
-        // between Task and ChecklistItem API objects
-        if (task.accountType != TYPE_MICROSOFT) {
+        if (CaldavAccount.pushesRemoteParent(task.accountType)) {
             if (newParentId == 0L) {
                 caldavTask.remoteParent = ""
             } else {
@@ -439,9 +436,7 @@ open class TaskAdapter(
 
     private suspend fun changeCaldavParent(task: TaskContainer, newParent: Long) {
         val caldavTask = task.caldavTask ?: return
-        // Don't update remoteParent for Microsoft tasks — the sync code
-        // compares task.parent with remoteParent to detect hierarchy changes
-        val skipRemoteParentUpdate = task.accountType == TYPE_MICROSOFT
+        val skipRemoteParentUpdate = !CaldavAccount.pushesRemoteParent(task.accountType)
         if (newParent == 0L) {
             if (!skipRemoteParentUpdate) {
                 caldavTask.remoteParent = ""

@@ -148,7 +148,7 @@ class TaskMover(
                         }
                         ?.let { googleTaskDao.insert(it) }
             }
-            else -> createCaldavSubtree(task, children, selected.uuid, flatten = selected.isSingleLevel)
+            else -> createCaldavSubtree(task, children, selected)
         }
     }
 
@@ -161,28 +161,33 @@ class TaskMover(
         taskDeleter.markMoved(childIds + id)
         when {
             selected.isGoogleTasks -> moveToGoogleTasks(id, childIds, selected)
-            else -> createCaldavSubtree(task, childIds, selected.uuid, flatten = selected.isSingleLevel)
+            else -> createCaldavSubtree(task, childIds, selected)
         }
     }
 
     private suspend fun moveLocalTask(task: Task, selected: CaldavFilter) {
         when {
             selected.isGoogleTasks -> moveToGoogleTasks(task.id, taskDao.getChildren(task.id), selected)
-            else -> createCaldavSubtree(task, taskDao.getChildren(task.id), selected.uuid, flatten = selected.isSingleLevel)
+            else -> createCaldavSubtree(task, taskDao.getChildren(task.id), selected)
         }
     }
 
-    private suspend fun createCaldavSubtree(task: Task, childIds: List<Long>, listId: String, flatten: Boolean) {
+    private suspend fun createCaldavSubtree(task: Task, childIds: List<Long>, selected: CaldavFilter) {
+        val listId = selected.uuid
+        val pushesParent = selected.account.pushesRemoteParent
         val root = CaldavTask(task = task.id, calendar = listId)
-        val caldavChildren = if (flatten) {
+        val caldavChildren = if (selected.isSingleLevel) {
             taskDao.setParent(task.id, childIds)
-            childIds.map { CaldavTask(task = it, calendar = listId).apply { remoteParent = root.remoteId } }
+            childIds.map { child ->
+                CaldavTask(task = child, calendar = listId)
+                    .apply { if (pushesParent) remoteParent = root.remoteId }
+            }
         } else {
             val byId = taskDao.fetch(childIds).associateBy { it.id }
             val remoteIds = hashMapOf(task.id to root.remoteId)
             childIds.mapNotNull { byId[it] }.map { child ->
                 CaldavTask(task = child.id, calendar = listId)
-                    .apply { remoteParent = remoteIds[child.parent] }
+                    .apply { if (pushesParent) remoteParent = remoteIds[child.parent] }
                     .also { remoteIds[child.id] = it.remoteId }
             }
         }

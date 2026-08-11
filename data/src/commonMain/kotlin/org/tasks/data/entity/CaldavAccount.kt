@@ -63,6 +63,9 @@ data class CaldavAccount(
     val isMicrosoft: Boolean
         get() = accountType == TYPE_MICROSOFT
 
+    val pushesRemoteParent: Boolean
+        get() = pushesRemoteParent(accountType)
+
     val isGoogleTasks: Boolean
         get() = accountType == TYPE_GOOGLE_TASKS
 
@@ -118,6 +121,9 @@ data class CaldavAccount(
         )
 
         val TYPES_NON_LOCAL = ALL_ACCOUNT_TYPES.filter { it != TYPE_LOCAL }
+
+        fun pushesRemoteParent(accountType: Int?): Boolean =
+            accountType != TYPE_MICROSOFT && accountType != TYPE_GOOGLE_TASKS
 
         fun syncTraits(accountType: Int): Set<SyncTrait> = when (accountType) {
             TYPE_MICROSOFT -> setOf(SyncTrait.TAGS)

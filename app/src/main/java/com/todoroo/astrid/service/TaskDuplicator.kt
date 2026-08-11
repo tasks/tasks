@@ -13,6 +13,7 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount.Companion.pushesRemoteParent
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
 import org.tasks.data.entity.Task
@@ -35,7 +36,6 @@ class TaskDuplicator @Inject constructor(
     private val preferences: Preferences,
     private val taskAttachmentDao: TaskAttachmentDao,
 ) {
-
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
         return taskIds
             .dbchunk()
@@ -80,9 +80,8 @@ class TaskDuplicator @Inject constructor(
                 task = clone.id,
                 calendar = caldavTask.calendar
             )
-            if (parentId != 0L) {
-                val remoteParent = caldavDao.getRemoteIdForTask(parentId)
-                newDavTask.remoteParent = remoteParent
+            if (parentId != 0L && pushesRemoteParent(caldavDao.getAccountType(task.id))) {
+                newDavTask.remoteParent = caldavDao.getRemoteIdForTask(parentId)
             }
             caldavDao.insert(clone, newDavTask, preferences.addTasksToTop())
         }

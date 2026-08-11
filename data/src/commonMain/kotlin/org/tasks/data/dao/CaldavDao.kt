@@ -229,6 +229,35 @@ WHERE cd_calendar = :calendar
     @Query("UPDATE caldav_tasks SET cd_remote_parent = :remoteParent WHERE cd_id = :id")
     abstract suspend fun update(id: Long, remoteParent: String?)
 
+    @Query(
+        """
+UPDATE caldav_tasks
+SET cd_remote_parent = :remoteParent
+WHERE cd_task IN (:tasks)
+  AND cd_calendar = :calendar
+  AND cd_deleted = 0
+"""
+    )
+    internal abstract suspend fun setRemoteParentInternal(
+        tasks: List<Long>,
+        remoteParent: String?,
+        calendar: String,
+    )
+
+    @Transaction
+    open suspend fun setRemoteParent(
+        tasks: List<Long>,
+        parentId: Long,
+        account: CaldavAccount,
+        calendar: String,
+    ) {
+        if (tasks.isEmpty() || !account.pushesRemoteParent) {
+            return
+        }
+        val remoteParent = getRemoteIdForTask(parentId)
+        tasks.eachChunk { setRemoteParentInternal(it, remoteParent, calendar) }
+    }
+
     @Update
     abstract suspend fun update(tasks: Iterable<CaldavTask>)
 
@@ -361,7 +390,8 @@ SELECT EXISTS(SELECT 1
     @Query("SELECT caldav_accounts.* from caldav_accounts"
             + " INNER JOIN caldav_tasks ON cd_task = :task"
             + " INNER JOIN caldav_lists ON cd_calendar = cdl_uuid"
-            + " WHERE cdl_account = cda_uuid")
+            + " WHERE cdl_account = cda_uuid AND cd_deleted = 0"
+            + " LIMIT 1")
     abstract suspend fun getAccountForTask(task: Long): CaldavAccount?
 
     @Query("""
