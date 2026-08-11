@@ -32,7 +32,10 @@ import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
+import org.tasks.requestForeground
+import org.tasks.setQuitting
 import org.tasks.PlatformConfiguration
+import org.tasks.TaskRequests
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
@@ -52,8 +55,6 @@ import org.tasks.logging.FileLogWriter
 import org.tasks.logging.logStartup
 import java.awt.Desktop
 import java.awt.Dimension
-import java.awt.EventQueue
-import java.awt.Frame
 import java.awt.desktop.QuitStrategy
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
@@ -101,17 +102,7 @@ private fun startIpcServer() {
         while (true) {
             try {
                 server.accept().use { it.getInputStream().read() }
-                EventQueue.invokeLater {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().requestForeground(true)
-                    }
-                    Frame.getFrames().forEach { frame ->
-                        frame.isVisible = true
-                        frame.extendedState = frame.extendedState and Frame.ICONIFIED.inv()
-                        frame.toFront()
-                        frame.requestFocus()
-                    }
-                }
+                requestForeground()
             } catch (e: Exception) {
                 Logger.w(e) { "IPC server stopped" }
                 break
@@ -193,6 +184,7 @@ fun main() {
     application {
         val preferences = koinInject<TasksPreferences>()
         val pendingSaves = koinInject<PendingTaskSaves>()
+        val taskRequests = koinInject<TaskRequests>()
         val shutdownScope = rememberCoroutineScope()
         var closing by remember { mutableStateOf(false) }
         val windowState = rememberWindowState(size = DpSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
@@ -235,6 +227,8 @@ fun main() {
             onCloseRequest = {
                 if (!closing) {
                     closing = true
+                    setQuitting(true)
+                    taskRequests.acceptOpenRequests(false)
                     // The monotonic count, not the one the snackbar acknowledges: that one goes
                     // down too, and App's snackbar loop is still running while this waits below - so
                     // an acknowledgement landing in between made a real shutdown failure compare
@@ -259,6 +253,8 @@ fun main() {
                                 pendingSaves.reportSaveFailure()
                             }
                             closing = false
+                            setQuitting(false)
+                            taskRequests.acceptOpenRequests(true)
                             return@launch
                         }
                         exitApplication()

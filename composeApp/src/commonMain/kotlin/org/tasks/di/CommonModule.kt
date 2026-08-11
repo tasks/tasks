@@ -117,6 +117,7 @@ private const val SYNC_TAG = "BackgroundWork"
 val commonModule = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
     single { PendingTaskSaves(get()) }
+    single { org.tasks.TaskRequests() }
     single { Json { ignoreUnknownKeys = true } }
 
     // DAOs - singletons (from Database singleton)

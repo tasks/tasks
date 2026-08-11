@@ -24,7 +24,6 @@ import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.ONE_MINUTE
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -95,7 +94,7 @@ class SnoozeActivity : AppCompatActivity() {
         val intent = Intent(this, DateAndTimePickerActivity::class.java)
         intent.putExtra(
             DateAndTimePickerActivity.EXTRA_TIMESTAMP,
-            currentTimeMillis() + PICKER_OFFSET,
+            currentTimeMillis() + SNOOZE_PICKER_OFFSET,
         )
         startActivityForResult(intent, REQUEST_DATE_TIME)
     }
@@ -119,8 +118,6 @@ class SnoozeActivity : AppCompatActivity() {
         const val EXTRA_SNOOZE_TIME = "snooze_time"
         private const val EXTRA_PICKING_DATE_TIME = "extra_picking_date_time"
         private const val REQUEST_DATE_TIME = 10101
-
-        private val PICKER_OFFSET = 30 * ONE_MINUTE
 
         fun newIntent(context: Context?, id: Long?): Intent =
                 Intent(context, SnoozeActivity::class.java).apply {

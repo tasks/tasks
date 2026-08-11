@@ -133,7 +133,16 @@ import com.todoroo.astrid.core.SortHelper
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import com.todoroo.astrid.alarms.AlarmService
+import org.tasks.compose.pickers.DueDatePickerSheet
+import org.tasks.compose.pickers.SnoozeDialog
+import org.tasks.compose.pickers.alarmFromSelection
+import org.tasks.compose.pickers.alarmToSelection
+import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.DatePickerPreferences
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -214,6 +223,7 @@ import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
 import org.tasks.data.isHidden
+import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
@@ -231,6 +241,7 @@ import org.tasks.tasklist.TasksResults
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.reminders.SNOOZE_PICKER_OFFSET
 import org.tasks.time.dueDateOverdue
 import org.tasks.time.startOfDay
 import org.tasks.viewmodel.AppViewModel
@@ -352,6 +363,9 @@ fun App(
             // below - the back stack, and every view model hanging off it - lives inside this
             // branch, and re-entering the gate would dispose the lot.
             val layout = appViewModel.layout.collectAsState().value
+
+            SnoozeRequests()
+
             if (hasAccount == null || layout == null) {
                 return@Surface
             }
@@ -589,12 +603,12 @@ fun App(
                 }
             }
 
-            fun openTask(destination: TaskEditDestination) {
+            fun openTask(destination: TaskEditDestination): Boolean {
                 // The detail entry has to sit directly on the list entry: ListDetailSceneStrategy
                 // walks back from the top and stops at the first entry belonging to another scene,
                 // so anything wedged in between collapses the scene to the editor alone and leaves
                 // back pointing at that screen instead of the list.
-                Snapshot.withMutableSnapshot {
+                return Snapshot.withMutableSnapshot {
                     val listIndex = backStack.indexOfLast { it is TaskListDestination }
                     // No task list on the stack at all means this request has outlived the screen it
                     // came from: the last account went away and onboarding replaced everything.
@@ -602,7 +616,7 @@ fun App(
                     // - and dropped an accountless user onto a task list and editor that have no
                     // view models to render with.
                     if (listIndex < 0) {
-                        return@withMutableSnapshot
+                        return@withMutableSnapshot false
                     }
                     // Only ever displaces another editor. Callers can suspend on the way here - the
                     // FAB waits for a list to be created first - and the user can have opened
@@ -610,12 +624,30 @@ fun App(
                     // state and drop them into an editor they never asked for. A request that stale
                     // is dropped instead.
                     if (backStack.drop(listIndex + 1).any { it !is TaskEditDestination }) {
-                        return@withMutableSnapshot
+                        return@withMutableSnapshot false
                     }
                     while (backStack.size > listIndex + 1) {
                         backStack.removeLastOrNull()
                     }
                     backStack.add(destination)
+                    true
+                }
+            }
+
+            //
+            val taskRequests = koinInject<TaskRequests>()
+            LaunchedEffect(taskRequests) {
+                taskRequests.openRequests.collect { request ->
+                    //
+                    request.complete(
+                        guarded(
+                            tag = "App",
+                            what = "Failed to open ${request.destination}",
+                            fallback = false,
+                        ) {
+                            openTask(request.destination)
+                        }
+                    )
                 }
             }
 
@@ -1994,11 +2026,9 @@ private fun TaskListPane(
     // When switching to another list, reveal the overlay top bar and floating toolbar
     // again — otherwise a new list that doesn't fill the screen can leave them stuck
     // hidden from a prior scroll.
-    //
     // Only a real switch counts. This effect also runs on first composition, and opening a task in
     // single-pane disposes this pane while its key stays on the back stack, so treating that first
     // run as a switch threw away the scroll position the nav entry had just restored.
-    //
     // Saved rather than remembered, and by key rather than by value: listState survives that
     // disposal via the entry's SaveableStateHolder while a plain remember does not, so a list
     // switched from the drawer over an open task - the sheet is one edge-swipe away there - came
@@ -3252,6 +3282,83 @@ private fun <T> MutableList<T>.replaceAllWith(item: T) {
     Snapshot.withMutableSnapshot {
         clear()
         add(item)
+    }
+}
+
+private data class SnoozeRequest(val taskId: Long, val picking: Boolean = false)
+
+@Composable
+private fun SnoozeRequests() {
+    val taskRequests = koinInject<TaskRequests>()
+    val alarmService = koinInject<AlarmService>()
+    val appPreferences = koinInject<AppPreferences>()
+    val scope = rememberCoroutineScope()
+    var request by remember { mutableStateOf<SnoozeRequest?>(null) }
+    var datePrefs by remember { mutableStateOf(DatePickerPreferences()) }
+    LaunchedEffect(taskRequests) {
+        taskRequests.snoozeRequests.collect { taskId ->
+            try {
+                snapshotFlow { request }.first { it == null }
+                request = SnoozeRequest(taskId)
+            } catch (e: CancellationException) {
+                taskRequests.snooze(taskId)
+                throw e
+            }
+            datePrefs = guarded(
+                tag = "App",
+                what = "Failed to read date picker preferences",
+                fallback = datePrefs,
+                warnOnly = true,
+            ) {
+                appPreferences.datePickerPreferences()
+            }
+        }
+    }
+    DisposableEffect(taskRequests) {
+        onDispose {
+            request?.let { taskRequests.snooze(it.taskId) }
+        }
+    }
+    val current = request ?: return
+    fun snooze(timestamp: Long) {
+        request = null
+        scope.launch(NonCancellable) {
+            guarded(
+                tag = "App",
+                what = "Failed to snooze ${current.taskId}",
+                fallback = Unit,
+                onFailure = { taskRequests.snooze(current.taskId) },
+            ) {
+                alarmService.snooze(timestamp, listOf(current.taskId))
+            }
+        }
+    }
+    if (current.picking) {
+        val (initialDay, initialTime) = remember(current) {
+            alarmToSelection(currentTimeMillis() + SNOOZE_PICKER_OFFSET)
+        }
+        DueDatePickerSheet(
+            initialDay = initialDay,
+            initialTime = initialTime,
+            is24Hour = org.tasks.time.is24HourFormat(),
+            showNoDate = false,
+            showNoTime = false,
+            times = datePrefs.quickPickTimes,
+            onSelected = { day, time ->
+                val timestamp = alarmFromSelection(day, time)
+                if (timestamp > 0) snooze(timestamp) else request = null
+            },
+            onDismiss = { request = null },
+        )
+    } else {
+        SnoozeDialog(
+            visible = true,
+            loadTimes = { appPreferences.datePickerPreferences().quickPickTimes },
+            is24Hour = org.tasks.time.is24HourFormat(),
+            onSelected = { snooze(it) },
+            onPickDateTime = { request = current.copy(picking = true) },
+            onDismiss = { request = null },
+        )
     }
 }
 
