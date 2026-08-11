@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +26,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -36,10 +34,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
@@ -107,7 +103,6 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -125,11 +120,6 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import co.touchlab.kermit.Logger
-import com.mikepenz.markdown.m3.Markdown
-import com.mikepenz.markdown.m3.markdownColor
-import com.mikepenz.markdown.m3.markdownTypography
-import com.mikepenz.markdown.model.markdownAnimations
-import com.todoroo.astrid.core.SortHelper
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
@@ -158,7 +148,6 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
-import org.tasks.compose.priorityColor
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.StatusBarScrim
@@ -166,11 +155,8 @@ import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
-import org.tasks.compose.chips.Chip
 import org.tasks.compose.chips.ChipDataProvider
-import org.tasks.compose.chips.ChipGroup
-import org.tasks.compose.chips.StartDateChip
-import org.tasks.compose.chips.SubtaskChip
+import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.DrawerItemInset
 import org.tasks.compose.drawer.SearchButtonSize
@@ -222,8 +208,6 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
-import org.tasks.data.INDENT_STEP_DP
-import org.tasks.data.isHidden
 import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.EmptyFilter
@@ -231,20 +215,15 @@ import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.key
 import org.tasks.filters.MyTasksFilter
-import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
-import org.tasks.kmp.formatTime
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.compose.rememberDateFormatter
-import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.themes.BLUE
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.reminders.SNOOZE_PICKER_OFFSET
-import org.tasks.time.dueDateOverdue
-import org.tasks.time.startOfDay
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
@@ -277,8 +256,6 @@ import tasks.kmp.generated.resources.not_available_desktop
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.resize_panes
 import tasks.kmp.generated.resources.settings
-import tasks.kmp.generated.resources.show_less
-import tasks.kmp.generated.resources.show_more
 import tasks.kmp.generated.resources.subscription_not_found
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
@@ -2727,211 +2704,6 @@ private fun SectionHeader(
             modifier = Modifier
                 .size(24.dp)
                 .graphicsLayer { rotationZ = rotation },
-        )
-    }
-}
-
-@Composable
-private fun TaskRow(
-    task: TaskContainer,
-    filter: Filter,
-    groupMode: Int,
-    chipDataProvider: ChipDataProvider,
-    is24Hour: Boolean,
-    dateFormatter: DateFormatter?,
-    onClick: () -> Unit,
-    onToggleComplete: () -> Unit,
-    onToggleSubtasks: () -> Unit,
-    onFilterClick: (Filter) -> Unit,
-) {
-    val isDark = isSystemInDarkTheme()
-    val checkColor = if (task.isCompleted) {
-        MaterialTheme.colorScheme.outline
-    } else {
-        priorityColor(task.priority)
-    }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-            .padding(
-                start = (INDENT_STEP_DP * task.indent).dp,
-                end = 16.dp,
-            ),
-        verticalAlignment = Alignment.Top,
-    ) {
-        IconButton(
-            onClick = onToggleComplete,
-            modifier = Modifier.size(48.dp),
-        ) {
-            Icon(
-                imageVector = if (task.isCompleted)
-                    Icons.Filled.CheckCircle
-                else
-                    Icons.Outlined.RadioButtonUnchecked,
-                contentDescription = null,
-                tint = checkColor,
-                modifier = Modifier.size(24.dp),
-            )
-        }
-        Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
-            val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter) {
-                if (!task.hasDueDate()) {
-                    null
-                } else if (groupMode == SortHelper.SORT_DUE
-                    && (task.sortGroup ?: 0) >= currentTimeMillis().startOfDay()
-                ) {
-                    if (task.hasDueTime()) formatTime(task.dueDate, is24Hour) else null
-                } else {
-                    dateFormatter?.relativeDateTime(task.dueDate)
-                }
-            }
-            val isOverdue = !task.isCompleted && dueDateOverdue(task.dueDate)
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                val titleColor = if (task.isCompleted || task.task.isHidden) {
-                    MaterialTheme.colorScheme.outline
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                }
-                Markdown(
-                    content = task.title ?: "",
-                    colors = markdownColor(text = titleColor),
-                    typography = markdownTypography(
-                        paragraph = MaterialTheme.typography.bodyLarge.copy(
-                            textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
-                        ),
-                    ),
-                    animations = markdownAnimations(animateTextSize = { this }),
-                    modifier = Modifier.weight(1f),
-                )
-                if (dueDateText != null) {
-                    Text(
-                        text = dueDateText!!,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = if (isOverdue) MaterialTheme.colorScheme.error
-                                else MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        modifier = Modifier.padding(start = 8.dp),
-                    )
-                }
-            }
-            if (!task.notes.isNullOrBlank()) {
-                val content = task.notes!!.trim()
-                var expanded by remember { mutableStateOf(false) }
-                val lines = content.lines()
-                val hasMore = lines.size > 2
-                val mdColors = markdownColor(
-                    text = if (task.task.isHidden) {
-                        MaterialTheme.colorScheme.outline
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
-                    },
-                )
-                val mdTypography = markdownTypography(
-                    paragraph = MaterialTheme.typography.bodyMedium,
-                )
-                Markdown(
-                    content = if (expanded || !hasMore) content
-                              else lines.take(2).joinToString("\n"),
-                    colors = mdColors,
-                    typography = mdTypography,
-                    animations = markdownAnimations(
-                        animateTextSize = { this },
-                    ),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                if (hasMore) {
-                    Text(
-                        text = stringResource(if (expanded) Res.string.show_less else Res.string.show_more),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .defaultMinSize(minHeight = 36.dp)
-                            .clickable { expanded = !expanded }
-                            .wrapContentHeight(Alignment.CenterVertically),
-                    )
-                }
-            }
-            val startDate = task.task.hideUntil
-            val showStartDate = task.task.isHidden
-                    && startDate != task.dueDate
-                    && startDate != task.dueDate.startOfDay()
-            val showList = task.indent == 0
-                    && filter !is CaldavFilter
-                    && chipDataProvider.getCaldavList(task.caldav) != null
-            val showPlace = task.hasLocation()
-                    && filter !is PlaceFilter
-            val tags = task.tagsString
-                ?.takeIf { it.isNotBlank() }
-                ?.split(",")
-                ?.let { uuids ->
-                    if (filter is TagFilter) uuids - filter.uuid else uuids
-                }
-                ?.mapNotNull { chipDataProvider.getTag(it) }
-                ?.sortedBy { it.title }
-                ?: emptyList()
-            val hasChips = task.hasChildren() || showStartDate || showList || showPlace || tags.isNotEmpty()
-            if (hasChips) {
-                ChipGroup(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
-                    if (task.hasChildren()) {
-                        SubtaskChip(
-                            collapsed = task.isCollapsed,
-                            children = task.children,
-                            onClick = onToggleSubtasks,
-                        )
-                    }
-                    if (showStartDate) {
-                        StartDateChip(
-                            sortGroup = task.sortGroup,
-                            startDate = startDate,
-                            compact = true,
-                            timeOnly = false,
-                            chipColor = chipColor(0, isDark),
-                            dateFormatter = dateFormatter,
-                        )
-                    }
-                    if (showPlace) {
-                        task.location?.let { location ->
-                            Chip(
-                                text = location.place.displayName,
-                                icon = location.place.icon ?: "place",
-                                color = chipColor(location.place.color, isDark),
-                                onClick = { onFilterClick(PlaceFilter(location.place)) },
-                            )
-                        }
-                    }
-                    if (showList) {
-                        chipDataProvider.getCaldavList(task.caldav)?.let { list ->
-                            Chip(
-                                text = list.title,
-                                icon = list.icon ?: "list",
-                                color = chipColor(list.tint, isDark),
-                                onClick = { onFilterClick(list) },
-                            )
-                        }
-                    }
-                    tags.forEach { tag ->
-                        Chip(
-                            text = tag.title,
-                            icon = tag.icon ?: "label",
-                            color = chipColor(tag.tint, isDark),
-                            onClick = { onFilterClick(tag) },
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun chipColor(seedColor: Int, isDark: Boolean): Color {
-    return if (seedColor == 0) {
-        MaterialTheme.colorScheme.surfaceContainerHighest
-    } else {
-        Color(
-            org.tasks.themes.chipColors(seedColor, isDark).backgroundColor
-                    or 0xFF000000.toInt()
         )
     }
 }
