@@ -31,6 +31,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.io.IOException
 import java.util.Collections
 import kotlin.math.max
+import org.tasks.extensions.truncate
 
 class GoogleTaskSynchronizer(
     private val caldavDao: CaldavDao,
@@ -542,12 +543,12 @@ class GoogleTaskSynchronizer(
             }
         }
 
-        fun truncate(string: String?, max: Int): String? =
-            if (string == null || string.length <= max) string else string.substring(0, max)
+        fun truncate(string: String?, max: Int): String? = string?.truncate(max)
 
         fun getTruncatedValue(currentValue: String?, newValue: String?, maxLength: Int): String? =
             if (newValue.isNullOrEmpty()
-                || newValue.length < maxLength || currentValue.isNullOrEmpty()
-                || !currentValue.startsWith(newValue)) newValue else currentValue
+                || currentValue.isNullOrEmpty()
+                || !currentValue.startsWith(newValue)
+                || newValue != truncate(currentValue, maxLength)) newValue else currentValue
     }
 }

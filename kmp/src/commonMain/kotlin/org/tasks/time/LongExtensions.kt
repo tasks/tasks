@@ -71,6 +71,7 @@ fun Long.endOfMinute(): Long =
                 )
             }
             .toEpochMilliseconds()
+            .coerceAtLeast(this)
     } else {
         0
     }

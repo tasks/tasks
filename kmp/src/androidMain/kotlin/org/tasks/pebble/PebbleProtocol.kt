@@ -4,6 +4,7 @@ import android.content.Context
 import com.getpebble.android.kit.PebbleKit
 import com.getpebble.android.kit.util.PebbleDictionary
 import java.util.UUID
+import org.tasks.extensions.truncate
 
 object PebbleProtocol {
     val APP_UUID: UUID = UUID.fromString("a1b2c3d4-1234-5678-abcd-1a5c500e9001")
@@ -105,13 +106,7 @@ object PebbleProtocol {
         return (high.toLong() and 0xFFFFFFFFL shl 32) or (low.toLong() and 0xFFFFFFFFL)
     }
 
-    fun truncateTitle(title: String?): String {
-        return when {
-            title == null -> ""
-            title.length > MAX_TITLE_LENGTH -> title.substring(0, MAX_TITLE_LENGTH)
-            else -> title
-        }
-    }
+    fun truncateTitle(title: String?): String = title.orEmpty().truncate(MAX_TITLE_LENGTH)
 
     fun toMap(dict: PebbleDictionary): Map<Int, Any> {
         val result = mutableMapOf<Int, Any>()
