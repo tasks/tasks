@@ -6,5 +6,5 @@ interface GitHubSponsorClient {
         data object NotSponsor : VerifyResult
         data object Failed : VerifyResult
     }
-    suspend fun signIn(openUrl: (String) -> Unit): VerifyResult
+    suspend fun signIn(): VerifyResult
 }

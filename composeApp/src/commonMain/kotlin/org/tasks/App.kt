@@ -996,7 +996,7 @@ fun App(
                                         }
                                     }
                             },
-                            onGitHubSignIn = { gitHubSponsorClient.signIn(openUrl) },
+                            onGitHubSignIn = { gitHubSponsorClient.signIn() },
                             onOpenSponsorPage = {
                                 reporting.logEvent(AnalyticsEvents.RESTORE_SPONSOR_CLICK)
                                 openUrl("https://github.com/sponsors/abaker")

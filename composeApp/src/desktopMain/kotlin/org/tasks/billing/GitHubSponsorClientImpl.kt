@@ -13,7 +13,9 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.extensions.htmlEscape
+import org.tasks.extensions.openInBrowser
 import org.tasks.http.OkHttpClientFactory
+import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -26,6 +28,11 @@ class GitHubSponsorClientImpl(
     private val serverEnvironment: TasksServerEnvironment,
     private val desktopEntitlement: DesktopEntitlement,
     private val json: Json,
+    private val openUrl: (String) -> Unit = { url ->
+        if (!openInBrowser(url)) {
+            throw IOException("Nothing on this system could open $url")
+        }
+    },
 ) : GitHubSponsorClient {
     private val logger = Logger.withTag("GitHubSponsorClient")
 
@@ -49,10 +56,10 @@ class GitHubSponsorClientImpl(
         private const val SIGN_IN_TIMEOUT_MS = 5 * 60 * 1000L
     }
 
-    override suspend fun signIn(openUrl: (String) -> Unit): GitHubSponsorClient.VerifyResult {
+    override suspend fun signIn(): GitHubSponsorClient.VerifyResult {
         val (code, redirectUri) = try {
             withTimeout(SIGN_IN_TIMEOUT_MS) {
-                listenForCallback(openUrl)
+                listenForCallback()
             }
         } catch (e: Exception) {
             logger.e(e) { "GitHub OAuth flow failed" }
@@ -61,9 +68,7 @@ class GitHubSponsorClientImpl(
         return verify(code, redirectUri)
     }
 
-    private suspend fun listenForCallback(
-        openUrl: (String) -> Unit,
-    ): Pair<String, String> = suspendCancellableCoroutine { cont ->
+    private suspend fun listenForCallback(): Pair<String, String> = suspendCancellableCoroutine { cont ->
         val server = HttpServer.create(InetSocketAddress("127.0.0.1", 0), 0)
         val port = server.address.port
         val redirectUri = "http://127.0.0.1:$port/callback"
@@ -137,7 +142,14 @@ class GitHubSponsorClientImpl(
             append("&state=")
             append(URLEncoder.encode(state, "UTF-8"))
         }
-        openUrl(authUrl)
+        try {
+            openUrl(authUrl)
+        } catch (e: Throwable) {
+            server.stop(0)
+            if (cont.isActive) {
+                cont.resumeWith(Result.failure(e))
+            }
+        }
     }
 
     private fun generateState(): String {

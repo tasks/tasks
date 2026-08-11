@@ -8,6 +8,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.extensions.openInBrowser
+import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.URLDecoder
 import java.util.concurrent.atomic.AtomicReference
@@ -19,7 +20,11 @@ private const val TAG = "DesktopOAuthFlow"
 class DesktopOAuthFlow(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
-    private val openUrl: (String) -> Unit = { url -> openInBrowser(url) },
+    private val openUrl: (String) -> Unit = { url ->
+        if (!openInBrowser(url)) {
+            throw IOException("Nothing on this system could open $url")
+        }
+    },
 ) {
     suspend fun signIn(
         provider: OAuthProvider,
