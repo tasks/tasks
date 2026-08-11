@@ -51,4 +51,5 @@
     <string name="default_location_reminder_on_arrival">आगमनमा</string>
     <string name="rmd_NoA_done">पूरा</string>
     <string name="action_open">खुल्ला</string>
+    <string name="TEA_add_subtask">उपकार्य थप्नुहोस्</string>
 </resources>

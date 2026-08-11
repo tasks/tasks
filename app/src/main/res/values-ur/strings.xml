@@ -21,7 +21,6 @@
     <string name="TEA_estimatedDuration_label">یہ کتنی دیر لے گا؟</string>
     <string name="TEA_note_label">تفصیل</string>
     <string name="no_date">کوئی تاریخ نہیں</string>
-    <string name="TEA_add_subtask">ذیلی ٹاسک بنائیں</string>
     <string name="TEA_importance_label">ترجیح</string>
     <string name="TEA_title_hint">ٹاسک کا نام</string>
     <string name="FLA_new_filter">نیا فلٹر بنائیں</string>
@@ -274,7 +273,6 @@
     <string name="this_feature_requires_a_subscription">یہ فیچر سبسکرپشن سے چلے گا</string>
     <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>
     <string name="pro_dashclock_extension">ڈیش لاک ایکسٹنشن</string>
-    <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>
     <string name="name_your_price">اپنی قیمت بتائیں</string>

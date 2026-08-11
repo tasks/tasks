@@ -123,7 +123,6 @@
     <string name="EPr_delete_task_data">刪除工作數據</string>
     <string name="EPr_delete_task_data_warning">所有工作將永久刪除</string>
     <string name="SSD_sort_my_order">我的排序</string>
-    <string name="TEA_add_subtask">加入副工作</string>
     <string name="action_call">通話</string>
     <string name="display_name">顯示名稱</string>
     <string name="filter_no_priority">無優先級</string>
@@ -382,7 +381,6 @@
     <string name="local_lists">本機清單</string>
     <string name="sort_modified_group">修改於 %s</string>
     <string name="sort_list">依清單</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks 不支援多層次子任務</string>
     <string name="your_subscription_expired">您的訂閱已過期。立即訂閱以恢復服務。</string>
     <string name="background_location">背景定位</string>
     <string name="backups_ignore_warnings_summary">如果你不需要備份或有自己的備份解決方案，請忽略備份警告</string>
@@ -407,7 +405,6 @@
     <string name="yesterday">昨天</string>
     <string name="delete_tasks_warning">%s 將被刪除。此操作無法撤銷！</string>
     <string name="banner_app_updated_description">Tasks 已更新至 %s。是否要查看更新說明？</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支援多層級子任務</string>
     <string name="banner_subscription_required_title">需要訂閱</string>
     <string name="banner_subscription_required_body">支付您想要的金額以解鎖 %s 同步</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要訂閱。訂閱必須從 Google Play 版本的 Tasks 應用程式發起。</string>

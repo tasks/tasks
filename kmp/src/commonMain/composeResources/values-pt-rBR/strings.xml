@@ -609,4 +609,7 @@
     <string name="metadata_stored_on_tasks_org">Armazenado na sua conta Tasks.org</string>
     <string name="sync_metadata_summary">Armazene nomes de etiquetas, cores, ícones e ordem de exibição nesta conta para que eles sejam sincronizados entre seus dispositivos</string>
     <string name="sync_metadata">Armazenar metadados de etiquetas aqui</string>
+    <string name="TEA_add_subtask">Adicionar sub-tarefa</string>
+    <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
+    <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
 </resources>

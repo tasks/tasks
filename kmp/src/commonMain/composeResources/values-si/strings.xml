@@ -374,4 +374,6 @@
     <string name="discard_confirmation">ඔබගේ වෙනස්කම් ඉවත දැමීමට ඔබට අවශ්‍යද?</string>
     <string name="keep_editing">දිගටම සංස්කරණය කරන්න</string>
     <string name="DLG_delete_this_task_question">මෙම කාර්යය ඉවත්කරනවාද?</string>
+    <string name="TEA_add_subtask">උප කාර්යයක් එක් කරන්න</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
 </resources>

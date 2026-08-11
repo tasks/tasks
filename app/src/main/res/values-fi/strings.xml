@@ -215,7 +215,6 @@
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="choose_synchronization_service">Valitse alusta</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
     <string name="name_your_price">Nimeä hintasi</string>
@@ -255,7 +254,6 @@
     <string name="subtasks">Alitehtävät</string>
     <string name="google_drive_backup">Google Driven varmuuskopio</string>
     <string name="TEA_control_location">Sijainti</string>
-    <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="SSD_sort_my_order">Oma järjestys</string>
     <string name="action_call">Soita</string>
     <string name="display_name">Näytetään nimellä</string>
@@ -413,7 +411,6 @@
     <string name="delete_tasks_warning">%s poistetaan. Tätä ei voi perua!</string>
     <string name="banner_app_updated_title">Sovellus päivitetty</string>
     <string name="banner_app_updated_description">Sovellus päivitettiin juuri %s. Haluatko lukea julkaisutiedot?</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do ei tue monitasoisia alitehtäviä</string>
     <string name="price_per_month_with_currency">%s/kuukausi</string>
     <string name="price_per_year_with_currency">%s/vuosi</string>
     <string name="cost_money">Hinta: $</string>

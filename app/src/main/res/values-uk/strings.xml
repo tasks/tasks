@@ -246,7 +246,6 @@
     <string name="url">URL</string>
     <string name="icon">Піктограма</string>
     <string name="subtasks">Підзавдання</string>
-    <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="SSD_sort_my_order">Мій порядок</string>
     <string name="display_name">Показувана назва</string>
     <string name="preferences_advanced">Розширені</string>
@@ -256,7 +255,6 @@
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
     <string name="choose_synchronization_service">Обрати платформу</string>
-    <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="name_your_price">Назвіть свою ціну</string>
@@ -415,7 +413,6 @@
     <string name="delete_comment">коментар</string>
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
-    <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
     <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>

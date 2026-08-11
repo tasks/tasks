@@ -164,4 +164,5 @@
     <string name="discard_confirmation">آیا مطمئن هستید که می خواهید تغییرات خود را حذف کنید؟</string>
     <string name="keep_editing">ادامه ویرایش</string>
     <string name="DLG_delete_this_task_question">حذف این وظیفه</string>
+    <string name="TEA_add_subtask">اضافه کردن زیر وظیفه</string>
 </resources>

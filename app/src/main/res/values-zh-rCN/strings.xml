@@ -237,9 +237,7 @@
     <string name="SSD_sort_my_order">我的顺序</string>
     <string name="expand_subtasks">展开子任务</string>
     <string name="collapse_subtasks">收起子任务</string>
-    <string name="TEA_add_subtask">添加子任务</string>
     <string name="subtasks">子任务</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
     <string name="display_name">显示名称</string>
     <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
@@ -417,7 +415,6 @@
     <string name="sync_warning_google_tasks_title">关于 Google Task 同步</string>
     <string name="sync_warning_google_tasks">不是所有任务详情都和 Google Tasks 同步</string>
     <string name="button_learn_more">了解更多</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支持多层级子任务</string>
     <string name="app_settings">应用设置</string>
     <string name="banner_app_updated_description">Tasks 刚刚更新至 %s。是否要查看更新说明？</string>
     <string name="banner_app_updated_title">应用已更新</string>

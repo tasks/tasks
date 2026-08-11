@@ -449,4 +449,7 @@
     <string name="discard_confirmation">Naozaj chcete zahodiť vykonané zmeny?</string>
     <string name="keep_editing">Pokračuj v úpravách</string>
     <string name="DLG_delete_this_task_question">Odstrániť túto úlohu?</string>
+    <string name="TEA_add_subtask">Pridať podúlohu</string>
+    <string name="subtasks_multilevel_google_task">Úlohy Google nepodporujú viacúrovňové podúlohy</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do nepodporujú viacúrovňové podúlohy</string>
 </resources>

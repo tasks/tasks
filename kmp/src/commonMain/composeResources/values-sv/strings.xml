@@ -561,4 +561,7 @@
     <string name="discard_confirmation">Är du säker på att du inte vill spara dina ändringar?</string>
     <string name="keep_editing">Fortsätt redigera</string>
     <string name="DLG_delete_this_task_question">Ta bort denna uppgift?</string>
+    <string name="TEA_add_subtask">Lägg till deluppgift</string>
+    <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Deluppgifter på flera nivåer stöds inte av Microsoft To Do</string>
 </resources>

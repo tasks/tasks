@@ -30,7 +30,6 @@
     <string name="day_before_due">செலுத்த வேண்டிய நாள் முன்</string>
     <string name="due_time">உரிய தேதி</string>
     <string name="due_date">உரிய தேதி</string>
-    <string name="TEA_add_subtask">துணை பணி சேர்க்கவும்</string>
     <string name="FLA_new_filter">புதிய வடிப்பானை உருவாக்கவும்</string>
     <string name="sort_created">படைப்பு நேரம் மூலம்</string>
     <string name="SSD_sort_modified">கடைசியாக மாற்றியமைக்கப்பட்டது</string>
@@ -144,7 +143,6 @@
     <string name="etesync_selection_description">திறந்த மூல, இறுதி முதல் இறுதி மறைகுறியாக்க ஒத்திசைவு</string>
     <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
     <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
-    <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
     <string name="name_your_price">உங்கள் விலைக்கு பெயரிடுங்கள்</string>
@@ -344,7 +342,6 @@
     <string name="header_spacing">இடைவெளி</string>
     <string name="davx5_selection_description">உங்கள் பணிகளை DAVX⁵ பயன்பாட்டுடன் ஒத்திசைக்கவும்</string>
     <string name="donate_today">இன்று நன்கொடை</string>
-    <string name="subtasks_multilevel_microsoft">மைக்ரோசாப்ட் ஆதரிக்காத பல-நிலை துணைப்பிரிவுகள் செய்ய</string>
     <string name="donate_maybe_later">ஒருவேளை பின்னர்</string>
     <string name="support_development_subscribe">கூடுதல் அம்சங்களைத் திறந்து திறந்த மூல மென்பொருளை ஆதரிக்கவும்</string>
     <string name="local_lists">உள்ளக பட்டியல்கள்</string>

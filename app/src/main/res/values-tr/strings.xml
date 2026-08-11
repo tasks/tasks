@@ -240,9 +240,7 @@
     <string name="SSD_sort_my_order">Düzenim</string>
     <string name="expand_subtasks">Alt görevleri genişlet</string>
     <string name="collapse_subtasks">Alt görevleri gizle</string>
-    <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks">Alt görevler</string>
-    <string name="subtasks_multilevel_google_task">Google Görevler, çok düzeyli alt görevleri desteklemez</string>
     <string name="display_name">Gösterim adı</string>
     <string name="this_feature_requires_a_subscription">Bu özellik abonelik gerektiriyor</string>
     <string name="choose_synchronization_service">Platform seç</string>
@@ -420,7 +418,6 @@
     <string name="cost_more_money">Ücret: $$$</string>
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
     <string name="app_settings">Uygulama ayarları</string>
     <string name="banner_app_updated_description">Tasks %s sürümüne güncellendi. Dağıtım notlarını görmek ister misiniz?</string>
     <string name="banner_app_updated_title">Uygulama güncellendi</string>

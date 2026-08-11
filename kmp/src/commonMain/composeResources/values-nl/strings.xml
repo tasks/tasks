@@ -457,4 +457,7 @@
     <string name="discard_confirmation">Afbreken en wijzigingen negeren?</string>
     <string name="keep_editing">Blijf bewerken</string>
     <string name="DLG_delete_this_task_question">Deze taak wissen?</string>
+    <string name="TEA_add_subtask">Subtaak toevoegen</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks ondersteunt geen subtaken op meerdere niveaus</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ondersteunt geen subtaken op meerdere niveaus</string>
 </resources>

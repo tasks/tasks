@@ -413,4 +413,6 @@
     <string name="default_location_reminder_on_arrival">Ved ankomst</string>
     <string name="default_location_reminder_on_departure">Ved avgang</string>
     <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
+    <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
+    <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
 </resources>

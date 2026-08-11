@@ -241,7 +241,6 @@
     <string name="location_permission_required_location">Pre učenie súčasnej polohy sú potrebné povolenia</string>
     <string name="open_map">Otvoriť mapu</string>
     <string name="choose_new_location">Zvoliť novú polohu</string>
-    <string name="TEA_add_subtask">Pridať podúlohu</string>
     <string name="SSD_sort_my_order">Vlastné poradie</string>
     <string name="ok">OK</string>
     <string name="cancel">Zrušiť</string>
@@ -306,7 +305,6 @@
     <string name="your_subscription_expired">Platnosť vášho predplatného skončila. Ak chcete službu používať i naďalej, obnovte odber.</string>
     <string name="backup_location_warning">VAROVANIE: Súbory umiestnené v %s budú odstránené pri odinštalovaní aplikácie! Prosím, vyberte iné umiestnenie, aby ste tak predišli strate údajov.</string>
     <string name="subscription">Predplatné</string>
-    <string name="subtasks_multilevel_google_task">Úlohy Google nepodporujú viacúrovňové podúlohy</string>
     <string name="local_lists">Zoznamy iba na tomto zariadení</string>
     <string name="background_location">Umiestnenie na pozadí</string>
     <string name="backups_ignore_warnings_summary">Ignorujte varovania týkajúce sa zálohovania, ak ich nepotrebujete alebo riešite zálohovanie po svojom</string>
@@ -427,7 +425,6 @@
     <string name="enable_alarms_description">Ak chcete byť informovaný včas, udeľte v nastaveniach oprávnenia k nastaveniu budíka a pripomienok</string>
     <string name="hint_customize_edit_title">Príliš veľa informácií?</string>
     <string name="help_and_feedback">Pomoc a spätná väzba</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do nepodporujú viacúrovňové podúlohy</string>
     <string name="app_settings">Nastavenia aplikácie</string>
     <string name="multiline_title_off">Pre uloženie úlohy kliknite na Hotovo</string>
     <string name="banner_app_updated_title">Aplikácia bola aktualizovaná</string>

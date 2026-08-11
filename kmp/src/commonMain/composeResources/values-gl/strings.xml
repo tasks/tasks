@@ -431,4 +431,7 @@
     <string name="discard_confirmation">Queres descartar os cambios?</string>
     <string name="keep_editing">Seguir editando</string>
     <string name="DLG_delete_this_task_question">Borrar esta tarefa?</string>
+    <string name="TEA_add_subtask">Engadir subtarefa</string>
+    <string name="subtasks_multilevel_google_task">Gootle Tasks non acepta as subtarefas a múltiples niveis</string>
+    <string name="subtasks_multilevel_microsoft">Subtarefas multinivel non compatibles con Microsoft To Do</string>
 </resources>

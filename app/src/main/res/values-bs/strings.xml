@@ -25,7 +25,6 @@
     <string name="save">Spremi</string>
     <string name="TEA_timer_est">Oko %s</string>
     <string name="TEA_timer_elap">Prošlo %s</string>
-    <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="always_display_full_date">Prikaži puni datum</string>
     <string name="EPr_reset_preferences_warning">Preference će se resetovati na uobičajene vrijednosti</string>
     <string name="EPr_delete_task_data">Ižbriši podatke zadatka</string>

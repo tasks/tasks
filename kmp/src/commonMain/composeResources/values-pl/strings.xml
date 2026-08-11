@@ -455,4 +455,6 @@
     <string name="discard_confirmation">Czy jesteś pewien, że chcesz porzucić zmiany?</string>
     <string name="keep_editing">Kontynuuj edycję</string>
     <string name="DLG_delete_this_task_question">Usunąć to zadanie?</string>
+    <string name="TEA_add_subtask">Dodaj podzadanie</string>
+    <string name="subtasks_multilevel_google_task">Wielopoziomowe podzadania nie są obsługiwane przez Google Tasks</string>
 </resources>

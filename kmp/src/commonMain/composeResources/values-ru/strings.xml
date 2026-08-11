@@ -484,4 +484,7 @@
     <string name="discard_confirmation">Отменить сделанные изменения?</string>
     <string name="keep_editing">Нет</string>
     <string name="DLG_delete_this_task_question">Удалить эту задачу?</string>
+    <string name="TEA_add_subtask">Добавить подзадачу</string>
+    <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>
 </resources>

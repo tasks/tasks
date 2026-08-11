@@ -265,7 +265,6 @@
     <string name="TEA_elapsedDuration_label">දැනටමත් ගත කළ කාලය</string>
     <string name="TEA_estimatedDuration_label">එයට කොපමණ වේලාවක් ගතවේ ද\?</string>
     <string name="TEA_note_label">විස්තර</string>
-    <string name="TEA_add_subtask">උප කාර්යයක් එක් කරන්න</string>
     <string name="TEA_importance_label">ප්‍රමුඛතාවය</string>
     <string name="TEA_title_hint">කාර්යයේ නම</string>
     <string name="FLA_new_filter">නව පෙරණයක් සැකසීම</string>
@@ -300,7 +299,6 @@
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="ok">හරි</string>
     <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks විසින් බහු මට්ටමේ උප කාර්යයන් සඳහා සහාය නොදක්වයි</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
     <string name="expand_subtasks">උප කාර්යයන් පුළුල් කරන්න</string>
     <string name="invalid_backup_file">වලංගු නොවන උපස්ථ ගොනුවකි</string>

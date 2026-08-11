@@ -242,9 +242,7 @@
     <string name="always_display_full_date">Datum ganz anzeigen</string>
     <string name="expand_subtasks">Teilaufgaben ausklappen</string>
     <string name="collapse_subtasks">Teilaufgaben einklappen</string>
-    <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>
     <string name="subtasks">Teilaufgaben</string>
-    <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="display_name">Anzeigename</string>
     <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
     <string name="help_and_feedback">Hilfe &amp; Rückmeldung</string>
@@ -420,7 +418,6 @@
     <string name="button_learn_more">Mehr erfahren</string>
     <string name="sync_warning_microsoft">Nicht alle Aufgabendetails können mit Microsoft To Do synchronisiert werden.</string>
     <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
-    <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
     <string name="app_settings">App-Einstellungen</string>
     <string name="banner_app_updated_title">App aktualisiert</string>
     <string name="banner_app_updated_description">Tasks wurde gerade auf %s aktualisiert. Möchtest du dir die Änderungsnotizen ansehen?</string>

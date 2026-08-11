@@ -325,4 +325,7 @@
     <string name="discard_confirmation">¿Quies escartar los tos cambeos?</string>
     <string name="keep_editing">Siguir editando</string>
     <string name="DLG_delete_this_task_question">¿Esborriar esta xera?</string>
+    <string name="TEA_add_subtask">Añader subxera</string>
+    <string name="subtasks_multilevel_google_task">Subxeres multi-nivel non soportaes por Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Subxeres multi-nivel non soportaes por Microsoft To Do</string>
 </resources>

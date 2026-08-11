@@ -511,4 +511,7 @@
     <string name="discard_confirmation">هل أنت متأكد أنك تريد تجاهل تغييراتك؟</string>
     <string name="keep_editing">استمر في التعديل</string>
     <string name="DLG_delete_this_task_question">حذف هذه المهمة؟</string>
+    <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
+    <string name="subtasks_multilevel_google_task">مهام فرعية متعددة المراحل غير مدعومة بواسطة مهام كوكل</string>
+    <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
 </resources>

@@ -435,4 +435,7 @@
     <string name="discard_confirmation">உங்கள் மாற்றங்களை நிராகரிக்க விரும்புகிறீர்களா?</string>
     <string name="keep_editing">திருத்துவதைத் தொடருங்கள்</string>
     <string name="DLG_delete_this_task_question">இந்த வேலையை நீக்கலாமா?</string>
+    <string name="TEA_add_subtask">துணை பணி சேர்க்கவும்</string>
+    <string name="subtasks_multilevel_google_task">கூகிள் பணிகளால் பல நிலை துணை பணிகள் ஆதரிக்கப்படவில்லை</string>
+    <string name="subtasks_multilevel_microsoft">மைக்ரோசாப்ட் ஆதரிக்காத பல-நிலை துணைப்பிரிவுகள் செய்ய</string>
 </resources>

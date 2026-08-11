@@ -246,7 +246,6 @@
     <string name="settings_localization">Kohalikustamine</string>
     <string name="custom_filter_has_reminder">Meeldetuletusega</string>
     <string name="privacy">Privaatsus</string>
-    <string name="TEA_add_subtask">Lisa alamülesanne</string>
     <string name="sort_list">Loendi alusel</string>
     <string name="due_time">Tähtaeg</string>
     <string name="filter_today_only">Ainult täna</string>
@@ -355,8 +354,6 @@
     <string name="repeats_plural_number_of_times">Kordub iga %1$s, toimub %2$d %3$s</string>
     <string name="linkify_description">Lisa veebisaitide, aadresside ja telefoninumbrite linke</string>
     <string name="subscription">Tellimus</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
     <string name="cost_more_money">Hind: $$$</string>
     <string name="multiline_title">Kasuta mitmerealisi pealkirju</string>
     <string name="multiline_title_on">Kasuta sisestusklahvi reavahetuse lisamiseks</string>

@@ -77,4 +77,5 @@
     <string name="keep_editing">എഡിറ്റുചെയ്യുന്നത് തുടരുക</string>
     <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ?</string>
     <string name="action_open">തുറക്കുക</string>
+    <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
 </resources>

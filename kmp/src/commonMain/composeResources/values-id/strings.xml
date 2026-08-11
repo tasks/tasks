@@ -552,4 +552,7 @@
     <string name="DLG_delete_this_task_question">Hapus tugas ini?</string>
     <string name="rmd_NoA_done">Selesai</string>
     <string name="action_open">Buka</string>
+    <string name="TEA_add_subtask">Tambah subtugas</string>
+    <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Subtugas bertingkat tidak didukung oleh Microsoft To Do</string>
 </resources>

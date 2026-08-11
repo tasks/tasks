@@ -542,4 +542,7 @@
     <string name="discard_confirmation">Ĉu vi certas ke vi volas nuligi viajn ŝanĝojn?</string>
     <string name="keep_editing">Plu redakti</string>
     <string name="DLG_delete_this_task_question">Forigi la taskon?</string>
+    <string name="TEA_add_subtask">Aldoni subtaskon</string>
+    <string name="subtasks_multilevel_google_task">Multnivelaj subtaskoj ne estas subtenataj per Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
 </resources>

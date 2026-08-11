@@ -104,7 +104,6 @@
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
-    <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
     <string name="name_your_price">ตั้งชื่อราคาของคุณ</string>
@@ -352,7 +351,6 @@
     <string name="save">บันทึก</string>
     <string name="TEA_elapsedDuration_label">เวลาที่ใช้ไปแล้ว</string>
     <string name="TEA_estimatedDuration_label">ใช้เวลานานแค่ไหน\?</string>
-    <string name="TEA_add_subtask">เพิ่มงานย่อย</string>
     <string name="FLA_new_filter">สร้างตัวกรองข้อมูลใหม่</string>
     <string name="FLA_search_filter">การจับคู่ \'%s\'</string>
     <string name="sort_created">โดยเวลาการสร้าง</string>

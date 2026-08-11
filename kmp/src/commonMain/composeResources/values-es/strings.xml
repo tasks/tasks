@@ -533,4 +533,7 @@
     <string name="discard_confirmation">¿Confirme que desea descartar los cambios?</string>
     <string name="keep_editing">Continuar editando</string>
     <string name="DLG_delete_this_task_question">¿Desea eliminar esta tarea?</string>
+    <string name="TEA_add_subtask">Añadir subtarea</string>
+    <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
 </resources>

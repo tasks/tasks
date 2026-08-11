@@ -465,4 +465,7 @@
     <string name="discard_confirmation">您要放棄更改嗎？</string>
     <string name="keep_editing">繼續編輯</string>
     <string name="DLG_delete_this_task_question">刪除這項工作？</string>
+    <string name="TEA_add_subtask">加入副工作</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks 不支援多層次子任務</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支援多層級子任務</string>
 </resources>

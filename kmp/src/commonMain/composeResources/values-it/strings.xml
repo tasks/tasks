@@ -521,4 +521,7 @@
     <string name="discard_confirmation">Vuoi davvero annullare tutte le modifiche?</string>
     <string name="keep_editing">No, continua la modifica</string>
     <string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
+    <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
+    <string name="subtasks_multilevel_microsoft">Attività secondarie multilivello non supportate da Microsoft To Do</string>
 </resources>

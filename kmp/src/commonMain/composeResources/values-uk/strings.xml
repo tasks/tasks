@@ -457,4 +457,7 @@
     <string name="discard_confirmation">Дійсно хочете скасувати ваші зміни?</string>
     <string name="keep_editing">Продовжити редагування</string>
     <string name="DLG_delete_this_task_question">Видалити це завдання?</string>
+    <string name="TEA_add_subtask">Додати підзавдання</string>
+    <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
 </resources>

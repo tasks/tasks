@@ -285,4 +285,6 @@
     <string name="discard_confirmation">کیا آپ واقعی اپنی تبدیلیوں کو منسوخ کرنا چاہتے ہیں؟</string>
     <string name="keep_editing">ترمیم کرتے رہیں</string>
     <string name="DLG_delete_this_task_question">اس ٹاسک کو ڈیلیٹ کریں؟</string>
+    <string name="TEA_add_subtask">ذیلی ٹاسک بنائیں</string>
+    <string name="subtasks_multilevel_google_task">کثیر الدرجی ذیلی ٹاسکس کو گوگل ٹاسکس سپورٹ نہیں کرتا</string>
 </resources>

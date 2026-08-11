@@ -240,9 +240,7 @@
     <string name="SSD_sort_my_order">Egyéni sorrend</string>
     <string name="expand_subtasks">Részfeladatok kibontása</string>
     <string name="collapse_subtasks">Részfeladatok összecsukása</string>
-    <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
     <string name="subtasks">Részfeladatok</string>
-    <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
     <string name="display_name">Megjelenített név</string>
     <string name="this_feature_requires_a_subscription">Ez a funkció csak előfizetéssel vehető igénybe</string>
     <string name="choose_synchronization_service">Platform választása</string>
@@ -420,7 +418,6 @@
     <string name="sync_warning_microsoft_title">A Microsoft To Do szinkronizálásról</string>
     <string name="sync_warning_google_tasks">A Google Task nem képes a feladatok összes részletének szinkronizálására</string>
     <string name="button_learn_more">Tudj meg többet</string>
-    <string name="subtasks_multilevel_microsoft">A Microsoft To Do nem támogatja a többszintű részfeladatokat</string>
     <string name="app_settings">Alkalmazás beállításai</string>
     <string name="banner_app_updated_title">Alkalmazás frissítve</string>
     <string name="banner_app_updated_description">A Tasks frissítve lett a(z) %s verzióra. Szeretné látni a változások listáját?</string>

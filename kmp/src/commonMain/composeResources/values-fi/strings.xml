@@ -450,4 +450,7 @@
     <string name="discard_confirmation">Oletko varma että haluat hylätä muutokset?</string>
     <string name="keep_editing">Jatka muokkausta</string>
     <string name="DLG_delete_this_task_question">Poista tämä tehtävä?</string>
+    <string name="TEA_add_subtask">Lisää alitehtävä</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ei tue monitasoisia alitehtäviä</string>
 </resources>

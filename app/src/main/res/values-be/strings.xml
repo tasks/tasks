@@ -57,7 +57,6 @@
     <string name="FLA_new_filter">Стварыць новы фільтр</string>
     <string name="TEA_title_hint">Назва задання</string>
     <string name="TEA_importance_label">Прыярытэт</string>
-    <string name="TEA_add_subtask">Дадаць падзаданне</string>
     <string name="TEA_note_label">Апісанне</string>
     <string name="save">Захаваць</string>
     <string name="TEA_control_location">Месца</string>

@@ -17,7 +17,6 @@
     <string name="TEA_elapsedDuration_label">Thời gian đã tiêu tốn</string>
     <string name="TEA_estimatedDuration_label">Sẽ mất bao lâu\?</string>
     <string name="TEA_note_label">Mô tả</string>
-    <string name="TEA_add_subtask">Thêm công việc con</string>
     <string name="TEA_importance_label">Sự ưu tiên</string>
     <string name="TEA_title_hint">Tên công việc</string>
     <string name="FLA_new_filter">Tạo bộ lọc mới</string>
@@ -158,7 +157,6 @@
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="caldav_selection_description">Đồng bộ hoá dựa trên các tiêu chuẩn internet mở</string>
     <string name="choose_synchronization_service">Chọn nền tảng</string>
-    <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>
     <string name="name_your_price">Đặt giá của bạn</string>

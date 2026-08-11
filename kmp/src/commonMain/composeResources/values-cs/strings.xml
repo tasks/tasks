@@ -596,4 +596,7 @@
     <string name="discard_confirmation">Opravdu chcete provedené změny zahodit?</string>
     <string name="keep_editing">Pokračovat v úpravách</string>
     <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
+    <string name="TEA_add_subtask">Přidat podúkol</string>
+    <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
+    <string name="subtasks_multilevel_microsoft">Víceúrovňové dílčí úkoly nejsou podporované službou Microsoft To Do</string>
 </resources>

@@ -64,4 +64,5 @@
     <string name="keep_editing">Nastavi uređivati</string>
     <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
     <string name="action_open">Otvori</string>
+    <string name="TEA_add_subtask">Dodaj podzadatak</string>
 </resources>

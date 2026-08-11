@@ -247,9 +247,7 @@
     <string name="SSD_sort_my_order">Mi orden</string>
     <string name="expand_subtasks">Expandir subtareas</string>
     <string name="collapse_subtasks">Contraer subtareas</string>
-    <string name="TEA_add_subtask">Añadir subtarea</string>
     <string name="subtasks">Subtareas</string>
-    <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="display_name">Mostrar el nombre</string>
     <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
     <string name="choose_synchronization_service">Seleccione una plataforma</string>
@@ -421,7 +419,6 @@
     <string name="yesterday">Ayer</string>
     <string name="banner_app_updated_title">Actualización de la aplicación</string>
     <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de esta versión?</string>
-    <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
     <string name="cost_money">Precio: $</string>
     <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Tasks</string>
     <string name="cost_more_money">Precio: $$$</string>

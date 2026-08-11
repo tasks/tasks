@@ -388,4 +388,6 @@
     <string name="discard_confirmation">Ziur zure aldaketak baztertu nahi dituzula?</string>
     <string name="keep_editing">Jarraitu editatzen</string>
     <string name="DLG_delete_this_task_question">Ezabatu zeregin hau?</string>
+    <string name="TEA_add_subtask">Gehitu azpi-zeregina</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks-ek ez ditu hainbat mailako azpi-zereginak onartzen</string>
 </resources>

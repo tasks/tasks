@@ -179,7 +179,7 @@
     <string name="custom_filter_is_subtask">É unha subtarefa</string>
     <string name="start_date">Data de inicio</string>
     <string name="SSD_sort_start">Por data de inicio</string>
-    <string name="TEA_add_subtask">Engadir subtarefa</string>
+    <string name="default_start_date">Data de inicio por defecto</string>
     <string name="filter_eisenhower_box_1">Importane e urxente</string>
     <string name="widget_show_title">Amosar título</string>
     <string name="opacity_header">Opacidade da cabeceira</string>
@@ -220,7 +220,6 @@
     <string name="pick_this_location">Escoller esta posición</string>
     <string name="or_choose_a_location">Ou escolle unha posición</string>
     <string name="missing_permissions">Sen permisos</string>
-    <string name="subtasks_multilevel_google_task">Gootle Tasks non acepta as subtarefas a múltiples niveis</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abertos de internet</string>
     <string name="chip_appearance_icon_only">Só iconas</string>
     <string name="add_tags">Engadir etiquetas</string>
@@ -361,7 +360,6 @@
     <string name="banner_app_updated_title">Aplicación actualizada</string>
     <string name="banner_app_updated_description">Tarefas acaba de actualizarse a %s. Queres ver as notas da versión?</string>
     <string name="name_your_price">Prezo flexible</string>
-    <string name="subtasks_multilevel_microsoft">Subtarefas multinivel non compatibles con Microsoft To Do</string>
     <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks</string>
     <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
     <string name="chips">Distintivos</string>

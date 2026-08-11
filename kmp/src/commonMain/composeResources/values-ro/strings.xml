@@ -476,4 +476,7 @@
     <string name="discard_confirmation">Ești siguri că vrei să renunți la modificările făcute?</string>
     <string name="keep_editing">Continuă editarea</string>
     <string name="DLG_delete_this_task_question">Ștergi sarcina?</string>
+    <string name="TEA_add_subtask">Adaugă o sarcină secundară</string>
+    <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Subsarcini pe mai multe niveluri nu sunt acceptate de Microsoft To Do</string>
 </resources>

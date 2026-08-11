@@ -592,4 +592,7 @@
     <string name="discard_confirmation">Are you sure you want to discard your changes?</string>
     <string name="keep_editing">Keep editing</string>
     <string name="DLG_delete_this_task_question">Delete this task?</string>
+    <string name="TEA_add_subtask">Add subtask</string>
+    <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
 </resources>

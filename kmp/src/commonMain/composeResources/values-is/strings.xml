@@ -35,4 +35,5 @@
     <string name="keep_editing">Halda áfram að breyta</string>
     <string name="DLG_delete_this_task_question">Eyða þessu verkefni?</string>
     <string name="action_open">Opna</string>
+    <string name="TEA_add_subtask">Bæta við undirverkefni</string>
 </resources>

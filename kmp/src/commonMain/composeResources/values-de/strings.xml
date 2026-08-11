@@ -584,4 +584,7 @@
     <string name="discard_confirmation">Änderungen wirklich verwerfen?</string>
     <string name="keep_editing">Weiter bearbeiten</string>
     <string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
+    <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>
+    <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
+    <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
 </resources>

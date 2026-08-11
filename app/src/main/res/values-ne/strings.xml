@@ -18,7 +18,6 @@
     <string name="subtasks">उपकार्यहरू</string>
     <string name="TEA_title_hint">कार्यको नाम</string>
     <string name="TEA_importance_label">प्राथमिकता</string>
-    <string name="TEA_add_subtask">उपकार्य थप्नुहोस्</string>
     <string name="TEA_note_label">विवरण</string>
     <string name="save">सुरक्षित गर्नुहोस्</string>
     <string name="week_before_due">मितिभन्दा एक हप्ता अगाडि</string>

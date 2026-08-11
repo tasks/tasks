@@ -41,7 +41,6 @@
     <string name="FLA_new_filter">Búa til nýja síu</string>
     <string name="TEA_title_hint">Nafn verkefnis</string>
     <string name="TEA_importance_label">Mikilvægi</string>
-    <string name="TEA_add_subtask">Bæta við undirverkefni</string>
     <string name="TEA_note_label">Lýsing</string>
     <string name="TEA_estimatedDuration_label">Hvað tekur þetta langan tíma?</string>
     <string name="TEA_elapsedDuration_label">Tími eytt</string>

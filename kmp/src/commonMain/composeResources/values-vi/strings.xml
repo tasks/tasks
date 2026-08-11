@@ -390,4 +390,6 @@
     <string name="discard_confirmation">Bạn có chắc bạn muốn bỏ những thay đổi của bạn không?</string>
     <string name="keep_editing">Tiếp tục chỉnh sửa</string>
     <string name="DLG_delete_this_task_question">Xoá công việc này?</string>
+    <string name="TEA_add_subtask">Thêm công việc con</string>
+    <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
 </resources>

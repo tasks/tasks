@@ -18,7 +18,6 @@
     <string name="FLA_new_filter">പുതിയ ഫിൽട്ടർ സൃഷ്ടിക്കുക</string>
     <string name="TEA_title_hint">ടാസ്‌ക് നാമം</string>
     <string name="TEA_importance_label">മുൻഗണന</string>
-    <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
     <string name="no_date">തീയതിയില്ല</string>
     <string name="TEA_note_label">വിവരണം</string>
     <string name="TEA_estimatedDuration_label">എത്ര സമയമെടുക്കും\?</string>

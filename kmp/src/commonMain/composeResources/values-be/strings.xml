@@ -69,4 +69,5 @@
     <string name="keep_editing">Працягнуць змены</string>
     <string name="DLG_delete_this_task_question">Выдаліць гэтую задачу?</string>
     <string name="action_open">Адкрыць</string>
+    <string name="TEA_add_subtask">Дадаць падзаданне</string>
 </resources>

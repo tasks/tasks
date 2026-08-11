@@ -407,4 +407,6 @@
     <string name="discard_confirmation">Ar tikrai norite atmesti pakeitimus?</string>
     <string name="keep_editing">Tęsti redagavimą</string>
     <string name="DLG_delete_this_task_question">Ištrinti šią užduotį?</string>
+    <string name="TEA_add_subtask">Pridėti antrinę užduotį</string>
+    <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
 </resources>

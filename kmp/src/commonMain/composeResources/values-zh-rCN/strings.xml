@@ -583,4 +583,7 @@
     <string name="show_completed_subtasks">显示已完成的子任务</string>
     <string name="error_encryption_failed">加密失败。检查 Tasks.org 是否可以访问系统 keychain，然后重试。</string>
     <string name="snoozed_reminder">延后的提醒</string>
+    <string name="TEA_add_subtask">添加子任务</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支持多层级子任务</string>
 </resources>

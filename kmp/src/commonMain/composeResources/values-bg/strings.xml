@@ -526,4 +526,7 @@
     <string name="discard_confirmation">Сигурни ли сте, че желаете да отхвърлите промените?</string>
     <string name="keep_editing">Редактиране</string>
     <string name="DLG_delete_this_task_question">Изтриване на задачата?</string>
+    <string name="TEA_add_subtask">Добавяне на задача</string>
+    <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">Вложени задачи не се поддържат от Microsoft To Do</string>
 </resources>

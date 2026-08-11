@@ -425,4 +425,7 @@
     <string name="discard_confirmation">변경 사항을 폐기할까요?</string>
     <string name="keep_editing">계속 편집</string>
     <string name="DLG_delete_this_task_question">이 할일을 삭제할까요?</string>
+    <string name="TEA_add_subtask">하위할일 추가</string>
+    <string name="subtasks_multilevel_google_task">구글 태스크는 다단계 하위할일을 지원하지 않습니다</string>
+    <string name="subtasks_multilevel_microsoft">마이크로소프트 To Do는 다단계 하위할일을 지원하지 않습니다</string>
 </resources>

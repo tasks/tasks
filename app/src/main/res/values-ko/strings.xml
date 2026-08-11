@@ -238,9 +238,7 @@
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
     <string name="expand_subtasks">하위할일 펼치기</string>
     <string name="collapse_subtasks">하위할일 접기</string>
-    <string name="TEA_add_subtask">하위할일 추가</string>
     <string name="subtasks">하위할일</string>
-    <string name="subtasks_multilevel_google_task">구글 태스크는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
@@ -415,7 +413,6 @@
     <string name="button_learn_more">더 알아보기</string>
     <string name="sync_warning_google_tasks_title">Google Task 동기화에 대하여</string>
     <string name="multiline_title">여러 줄 제목 허용</string>
-    <string name="subtasks_multilevel_microsoft">마이크로소프트 To Do는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="app_settings">앱 설정</string>
     <string name="delete_comment">코멘트</string>
     <string name="comment">코멘트</string>

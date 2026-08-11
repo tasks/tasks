@@ -120,7 +120,6 @@
     <string name="etesync_selection_description">End-to-end-krypteret synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baseret på åbne internetstandarder</string>
     <string name="choose_synchronization_service">Vælg tjeneste</string>
-    <string name="subtasks_multilevel_google_task">Underopgaver på flere niveauer understøttes ikke af Google Huskeliste</string>
     <string name="collapse_subtasks">Skjul underopgaver</string>
     <string name="expand_subtasks">Udvid underopgaver</string>
     <string name="name_your_price">Bestem din pris</string>
@@ -315,7 +314,6 @@
     <string name="TEA_timer_elap">Brugt %s</string>
     <string name="TEA_timer_est">Ca. %s</string>
     <string name="save">Gem</string>
-    <string name="TEA_add_subtask">Tilføj underopgave</string>
     <string name="FLA_new_filter">Opret nyt filter</string>
     <string name="sort_created">Efter oprettelsestidspunkt</string>
     <string name="astrid_sort_order_summary">Aktiver Astrids manuelle sortering for ‘Mine opgaver’, ‘I dag’ og tags. Denne sorteringsmetode erstattes af ‘Min rækkefølge’ i en kommende opdatering</string>
@@ -403,7 +401,6 @@
     <string name="comment">Kommentar</string>
     <string name="change_priority">Ændr prioritet</string>
     <string name="theme_dynamic">Dynamisk</string>
-    <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
     <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
     <string name="price_per_month_with_currency">%s/måned</string>
     <string name="price_per_year_with_currency">%s/år</string>

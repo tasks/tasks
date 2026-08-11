@@ -595,4 +595,7 @@
     <string name="discard_confirmation">Stvarno želiš odbaciti promjene?</string>
     <string name="keep_editing">Nastavi uređivati</string>
     <string name="DLG_delete_this_task_question">Ovaj zadatak izbrisati?</string>
+    <string name="TEA_add_subtask">Dodaj podzadatak</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ne podržava višerazinske podzadatke</string>
 </resources>

@@ -569,4 +569,7 @@
     <string name="pricing_cloud_annual_note">בתשלום שנתי (%1$s)</string>
     <string name="rmd_NoA_done">השלמה</string>
     <string name="action_open">פתיחה</string>
+    <string name="TEA_add_subtask">הוספת תת־משימה</string>
+    <string name="subtasks_multilevel_google_task">תתי־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
+    <string name="subtasks_multilevel_microsoft">תתי־משימות מקוננות אינן נתמכות על ידי Microsoft To Do</string>
 </resources>

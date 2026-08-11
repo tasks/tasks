@@ -245,7 +245,6 @@
     <string name="TEA_elapsedDuration_label">Timp deja alocat</string>
     <string name="TEA_estimatedDuration_label">Cât timp va dura\?</string>
     <string name="TEA_note_label">Descriere</string>
-    <string name="TEA_add_subtask">Adaugă o sarcină secundară</string>
     <string name="TEA_importance_label">Prioritate</string>
     <string name="FLA_new_filter">Crează filtru nou</string>
     <string name="FLA_search_filter">Potrivire \'%s\'</string>
@@ -348,7 +347,6 @@
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
     <string name="choose_synchronization_service">Selectează o platformă</string>
-    <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="collapse_subtasks">Restrânge sub-sarcinile</string>
     <string name="expand_subtasks">Extinde sub-sarcinile</string>
     <string name="name_your_price">Spune prețul</string>
@@ -425,7 +423,6 @@
     <string name="sync_warning_microsoft">Nu toate detaliile sarcinii se sincronizează cu Microsoft To Do.</string>
     <string name="donate_today">Donează astăzi</string>
     <string name="donate_nag">Exprimă-ți sprijinul cu ajutorul unei donații!</string>
-    <string name="subtasks_multilevel_microsoft">Subsarcini pe mai multe niveluri nu sunt acceptate de Microsoft To Do</string>
     <string name="donate_maybe_later">Poate mai târziu</string>
     <string name="cost_money">Preț: $</string>
     <string name="sync_warning_microsoft_title">Despre sincronizarea Microsoft To Do</string>

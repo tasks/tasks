@@ -139,7 +139,10 @@
     <string name="action_call">Volat</string>
     <string name="TEA_control_location">Umístění</string>
     <string name="SSD_sort_my_order">Vlastní pořadí</string>
-    <string name="TEA_add_subtask">Přidat podúkol</string>
+    <string name="EPr_default_location_reminder_title">Výchozí upomínky podle polohy</string>
+    <string name="default_location_reminder_on_arrival">Při příchodu</string>
+    <string name="default_location_reminder_on_departure">Při odchodu</string>
+    <string name="default_location_reminder_on_arrival_or_departure">Při příchodu a odchodu</string>
     <string name="CFC_tag_text">Štítek: \?</string>
     <string name="CFC_tag_contains_name">Název štítku obsahuje…</string>
     <string name="CFC_tag_contains_text">Název štítku obsahuje: \?</string>
@@ -241,7 +244,6 @@
     <string name="name_your_price">Zaplaťte libovolnou částku</string>
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
-    <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
     <string name="choose_synchronization_service">Zvolte službu</string>
     <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
     <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>
@@ -428,7 +430,6 @@
     <string name="multiline_title">Povolit víceřádkové názvy</string>
     <string name="multiline_title_on">Stisknutím Enter přidáte konce řádků</string>
     <string name="app_settings">Nastavení aplikace</string>
-    <string name="subtasks_multilevel_microsoft">Víceúrovňové dílčí úkoly nejsou podporované službou Microsoft To Do</string>
     <string name="multiline_title_off">Stiskněte tlačítko Hotovo pro uložení úkolu</string>
     <string name="banner_app_updated_title">Aplikace aktualizována</string>
     <string name="banner_app_updated_description">Aplikace Tasks byla aktualizována na %s. Chcete zobrazit seznam změn?</string>

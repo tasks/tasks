@@ -471,4 +471,7 @@
     <string name="discard_confirmation">Er du sikker på, at du vil kassere dine ændringer?</string>
     <string name="keep_editing">Fortsæt redigering</string>
     <string name="DLG_delete_this_task_question">Slet denne opgave?</string>
+    <string name="TEA_add_subtask">Tilføj underopgave</string>
+    <string name="subtasks_multilevel_google_task">Underopgaver på flere niveauer understøttes ikke af Google Huskeliste</string>
+    <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
 </resources>

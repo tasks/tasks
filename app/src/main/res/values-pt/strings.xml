@@ -299,9 +299,7 @@
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
     <string name="display_name">Mostrar nome</string>
-    <string name="subtasks_multilevel_google_task">As subtarefas em vários níveis não são suportadas pelo Google Tasks</string>
     <string name="subtasks">Subtarefas</string>
-    <string name="TEA_add_subtask">Adicionar subtarefa</string>
     <string name="collapse_subtasks">Colapsar subtarefas</string>
     <string name="expand_subtasks">Expandir subtarefas</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
@@ -421,7 +419,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="banner_app_updated_description">O Tasks foi atualizado para a versão %s. Gostaria de ver as notas de lançamento?</string>
     <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
-    <string name="subtasks_multilevel_microsoft">Subtarefas de múltiplos níveis não são suportadas pelo Microsoft To Do</string>
     <string name="donate_today">Doe hoje</string>
     <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
     <string name="app_settings">Configurações da aplicação</string>

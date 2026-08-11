@@ -495,4 +495,7 @@
     <string name="discard_confirmation">Biztosan el akarod vetni a változtatásokat?</string>
     <string name="keep_editing">Vissza a szerkesztéshez</string>
     <string name="DLG_delete_this_task_question">Feladat törlése?</string>
+    <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
+    <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
+    <string name="subtasks_multilevel_microsoft">A Microsoft To Do nem támogatja a többszintű részfeladatokat</string>
 </resources>

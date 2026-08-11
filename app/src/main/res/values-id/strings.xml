@@ -20,7 +20,6 @@
     <string name="FLA_new_filter">Buat filter baru</string>
     <string name="TEA_title_hint">Nama tugas</string>
     <string name="TEA_importance_label">Prioritas</string>
-    <string name="TEA_add_subtask">Tambah subtugas</string>
     <string name="TEA_note_label">Deskripsi</string>
     <string name="save">Simpan</string>
     <string name="TEA_control_repeat">Ulangi</string>
@@ -204,7 +203,6 @@
     <string name="choose_new_location">Pilih lokasi baru</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
-    <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
     <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
     <string name="choose_synchronization_service">Pilih sebuah platform</string>
     <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>
@@ -407,7 +405,6 @@
     <string name="delete_tasks_warning">%s akan dihapus. Ini tidak dapat dibatalkan!</string>
     <string name="banner_app_updated_title">Aplikasi diperbarui</string>
     <string name="banner_app_updated_description">Tasks baru saja diperbarui ke %s. Apakah Anda ingin melihat catatan rilis?</string>
-    <string name="subtasks_multilevel_microsoft">Subtugas bertingkat tidak didukung oleh Microsoft To Do</string>
     <string name="banner_subscription_required_title">Langganan diperlukan</string>
     <string name="banner_subscription_required_body">Bayar sesuai keinginan Anda untuk membuka kunci sinkronisasi %s</string>
     <string name="donate_nag">Pertimbangkan untuk menunjukkan dukungan Anda dengan donasi!</string>

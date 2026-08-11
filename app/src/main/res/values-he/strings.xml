@@ -283,7 +283,6 @@
     <string name="subtasks">תתי־משימות</string>
     <string name="widget_show_dividers">הצגת חוצצים</string>
     <string name="widget_show_menu">הצגת תפריט</string>
-    <string name="TEA_add_subtask">הוספת תת־משימה</string>
     <string name="sort_created">לפי זמן יצירה</string>
     <string name="SSD_sort_my_order">הסדר שלי</string>
     <string name="color_wheel">גלגל צבעים</string>
@@ -291,7 +290,6 @@
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
-    <string name="subtasks_multilevel_google_task">תתי־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
     <string name="widget_open_list">פתיחת רשימה</string>
     <string name="theme_system_default">ברירת מחדל של המערכת</string>
     <string name="opacity_footer">אטימות כותרת תחתונה</string>
@@ -411,7 +409,6 @@
     <string name="enable_alarms">קבלת הודעה בזמן הנכון</string>
     <string name="cost_more_money">עלות: $$$</string>
     <string name="sync_warning_microsoft">לא כל פרטי המשימה מסתנכרנים עם Microsoft To Do.</string>
-    <string name="subtasks_multilevel_microsoft">תתי־משימות מקוננות אינן נתמכות על ידי Microsoft To Do</string>
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
     <string name="multiline_title_on">יש ללחוץ על מקש Enter כדי להוסיף מעברי שורה</string>

@@ -247,9 +247,7 @@
     <string name="SSD_sort_my_order">Mon tri</string>
     <string name="expand_subtasks">Développer les sous-tâches</string>
     <string name="collapse_subtasks">Réduire les sous-tâches</string>
-    <string name="TEA_add_subtask">Ajouter une sous-tâche</string>
     <string name="subtasks">Sous-tâches</string>
-    <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par « Google Tasks »</string>
     <string name="display_name">Afficher le nom</string>
     <string name="this_feature_requires_a_subscription">Cette fonctionnalité nécessite un abonnement</string>
     <string name="choose_synchronization_service">Sélectionner une plate-forme</string>
@@ -427,7 +425,6 @@
     <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
     <string name="cost_money">Coût : $</string>
     <string name="cost_more_money">Coût : $$$</string>
-    <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
     <string name="banner_app_updated_title">Application mise à jour</string>

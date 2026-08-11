@@ -590,4 +590,7 @@
     <string name="keep_editing">Jätka muutmist</string>
     <string name="DLG_delete_this_task_question">Kustuta see ülesanne?</string>
     <string name="show_completed_subtasks">Näita täidetud alamülesandeid</string>
+    <string name="TEA_add_subtask">Lisa alamülesanne</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
 </resources>

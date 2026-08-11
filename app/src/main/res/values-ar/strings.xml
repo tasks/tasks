@@ -224,7 +224,6 @@
     <string name="calendar_event_not_found">لم يوجد حدث التقويم</string>
     <string name="CFC_tag_contains_text">اسم العلامة يحتوي: \?</string>
     <string name="EPr_manage_delete_completed_gcal_message">هل حقًّا تريد حذف كل أحداثك للمهام المتمّمة؟</string>
-    <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
     <string name="tasks_org_account_required">حساب Tasks.org مطلوب</string>
     <string name="support">دعم</string>
     <string name="backups_ignore_warnings">تجاهل التحذيرات</string>
@@ -318,7 +317,6 @@
     <string name="decsync_selection_description">مزامنة على اساس الملف</string>
     <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>
     <string name="caldav_selection_description">التزامن على أساس معايير الإنترنت المفتوحة</string>
-    <string name="subtasks_multilevel_google_task">مهام فرعية متعددة المراحل غير مدعومة بواسطة مهام كوكل</string>
     <string name="collapse_subtasks">طي المهام الفرعية</string>
     <string name="expand_subtasks">وسع المهام الفرعية</string>
     <string name="location_permission_required_location">يتطلب صلاحيات الموقع لمعرفة موقعك الحالي</string>
@@ -436,7 +434,6 @@
     <string name="donate_today">تبرع اليوم</string>
     <string name="donate_maybe_later">ربما لاحقا</string>
     <string name="donate_nag">فكِّر في إظهار دعمك بالتبرع!</string>
-    <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
     <string name="multiline_title">السماح بعناوين متعددة الأسطر</string>
     <string name="multiline_title_on">اضغط على مفتاح Enter لإضافة فواصل الأسطر</string>
     <string name="multiline_title_off">اضغط على تم لحفظ المهمة</string>

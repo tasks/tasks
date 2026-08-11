@@ -539,4 +539,7 @@
     <string name="discard_confirmation">本当に変更を破棄しますか？</string>
     <string name="keep_editing">編集を続ける</string>
     <string name="DLG_delete_this_task_question">このタスクを削除しますか？</string>
+    <string name="TEA_add_subtask">サブタスクを追加</string>
+    <string name="subtasks_multilevel_google_task">Google Tasks は多層式のサブタスクに対応していません</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>
 </resources>

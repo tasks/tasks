@@ -18,7 +18,6 @@
     <string name="FLA_search_filter">ကိုက်ညီသည် \'%s\'</string>
     <string name="FLA_new_filter">စစ်ထုတ်မည်</string>
     <string name="TEA_title_hint">အလုပ်ခေါင်းစဥ်</string>
-    <string name="TEA_add_subtask">အလုပ်ခွဲထည့်မယ်</string>
     <string name="TEA_elapsedDuration_label">အချိန်ကုန်ပြီးသား</string>
     <string name="save">သိမ်းမည်</string>
     <string name="TEA_timer_est">Est. %s</string>

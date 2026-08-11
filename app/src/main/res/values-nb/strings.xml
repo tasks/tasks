@@ -245,9 +245,7 @@
     <string name="SSD_sort_my_order">Min bestilling</string>
     <string name="expand_subtasks">Fold ut gjøremålssteg</string>
     <string name="collapse_subtasks">Fold sammen gjøremålssteg</string>
-    <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
-    <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
     <string name="display_name">Visningsnavn</string>
     <string name="this_feature_requires_a_subscription">Denne funksjonen krever abonnement</string>
     <string name="choose_synchronization_service">Velg en plattform</string>

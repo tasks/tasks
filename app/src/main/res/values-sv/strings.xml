@@ -350,7 +350,6 @@
     <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
     <string name="choose_synchronization_service">Välj synkroniseringstjänst</string>
-    <string name="subtasks_multilevel_google_task">Deluppgifter på flera nivåer stöds inte av Google Tasks</string>
     <string name="collapse_subtasks">Fäll in deluppgifter</string>
     <string name="expand_subtasks">Fäll ut deluppgifter</string>
     <string name="whats_new">Vad är nytt</string>
@@ -376,7 +375,6 @@
     <string name="CFC_startBefore_text">Börjar vid: ?</string>
     <string name="always_display_full_date">Visa hela datumet</string>
     <string name="start_date">Startdatum</string>
-    <string name="TEA_add_subtask">Lägg till deluppgift</string>
     <string name="sort_created">Efter skapandetid</string>
     <string name="SSD_sort_start">Efter startdatum</string>
     <string name="astrid_sort_order">Manuell sortering från Astrid</string>
@@ -420,7 +418,6 @@
     <string name="sync_warning_microsoft_title">Om synkronisering med Microsoft To Do</string>
     <string name="sync_warning_microsoft">Alla uppgiftsdetaljer synkroniseras inte med Microsoft To Do.</string>
     <string name="sync_warning_google_tasks">Alla uppgiftsdetaljer synkroniseras inte med Google Tasks.</string>
-    <string name="subtasks_multilevel_microsoft">Deluppgifter på flera nivåer stöds inte av Microsoft To Do</string>
     <string name="app_settings">Appinställningar</string>
     <string name="banner_app_updated_title">Appen har uppdaterats</string>
     <string name="banner_app_updated_description">Tasks har uppdaterats till %s. Vill du se vad som är nytt?</string>

@@ -237,7 +237,6 @@
     <string name="open_map">Apri mappa</string>
     <string name="choose_new_location">Scegli nuova posizione</string>
     <string name="display_name">Nome visualizzato</string>
-    <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
     <string name="SSD_sort_my_order">Personalizzato</string>
     <string name="share">Condividi</string>
     <string name="select_all">Seleziona tutto</string>
@@ -270,7 +269,6 @@
     <string name="password">Password</string>
     <string name="theme_system_default">Predefinito del sistema</string>
     <string name="icon">Icona</string>
-    <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="expand_subtasks">Espandi attività secondarie</string>
     <string name="invalid_backup_file">File di backup non valido</string>
     <string name="list_separator_with_space">", "</string>
@@ -427,7 +425,6 @@
     <string name="sync_warning_microsoft_title">Informazioni su Microsoft To Do</string>
     <string name="sync_warning_microsoft">Non tutti i dettagli delle attività saranno sincronizzati con Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">Informazioni su Google Task sync</string>
-    <string name="subtasks_multilevel_microsoft">Attività secondarie multilivello non supportate da Microsoft To Do</string>
     <string name="app_settings">Impostazioni app</string>
     <string name="banner_app_updated_title">App aggiornata</string>
     <string name="banner_app_updated_description">Tasks è stata aggiornata a %s. Vuoi vedere le note di rilascio?</string>

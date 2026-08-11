@@ -47,7 +47,6 @@
     <string name="sort_list">По листи</string>
     <string name="FLA_search_filter">Поклапање \'%s\'</string>
     <string name="FLA_new_filter">Креирај нови филтер</string>
-    <string name="TEA_add_subtask">Додај подзадатак</string>
     <string name="TEA_note_label">Опис</string>
     <string name="TEA_estimatedDuration_label">Колико ће трајати?</string>
     <string name="TEA_elapsedDuration_label">Утрошено време</string>
@@ -325,8 +324,6 @@
     <string name="banner_app_updated_description">Апликација је ажурирана на %s. Приказати белешке о ажурирању?</string>
     <string name="name_your_price">Наведи цену</string>
     <string name="collapse_subtasks">Споји подзадатке</string>
-    <string name="subtasks_multilevel_google_task">Подзадаци у више нивоа нису подржани од стране Гугл Задатака</string>
-    <string name="subtasks_multilevel_microsoft">Подзадаци у више нивоа нису подржани од стране ,,Microsoft To Do\'\'</string>
     <string name="caldav_selection_description">Синхронизација заснована на стандардима отвореног интернета</string>
     <string name="color_wheel">Палета боја</string>
     <string name="chips">Апликациони чипови</string>

@@ -106,7 +106,6 @@
     <string name="sort_created">Ανά ώρα δημιουργίας</string>
     <string name="sort_list">Ανά λίστα</string>
     <string name="FLA_new_filter">Δημιουργία νέου φίλτρου</string>
-    <string name="TEA_add_subtask">Προσθήκη υποεργασίας</string>
     <string name="save">Αποθήκευση</string>
     <string name="start_date">Ημερομηνία Έναρξης</string>
     <string name="TEA_control_repeat">Επανάληψη</string>
@@ -252,8 +251,6 @@
     <string name="name_your_price">Καθορίστε την τιμή σας</string>
     <string name="expand_subtasks">Άνοιγμα υποεργασιών</string>
     <string name="collapse_subtasks">Κλείσιμο υποεργασιών</string>
-    <string name="subtasks_multilevel_google_task">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Google Tasks</string>
-    <string name="subtasks_multilevel_microsoft">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Microsoft To Do</string>
     <string name="choose_synchronization_service">Επιλογή πλατφόρμας</string>
     <string name="caldav_selection_description">Συγχρονισμός βασισμένος σε ανοιχτά πρότυπα διαδικτύου</string>
     <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>

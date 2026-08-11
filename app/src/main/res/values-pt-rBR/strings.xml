@@ -266,7 +266,6 @@
     <string name="etesync_selection_description">Sincronização criptografada de ponta a ponta</string>
     <string name="caldav_selection_description">Sincronização usando protocolos padrões e livres da Internet</string>
     <string name="choose_synchronization_service">Escolha uma plataforma</string>
-    <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="collapse_subtasks">Recolher sub-tarefas</string>
     <string name="expand_subtasks">Expandir sub-tarefas</string>
     <string name="name_your_price">Dê o seu preço</string>
@@ -293,7 +292,6 @@
     <string name="widget_show_menu">Mostrar menu</string>
     <string name="CFC_list_name">Na lista…</string>
     <string name="TEA_timer_est">Est. %s</string>
-    <string name="TEA_add_subtask">Adicionar sub-tarefa</string>
     <string name="sort_created">Por hora de criação</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\', e etiquetas. Esse modo de ordenação será substituído por \'Minhas ordenações\' em uma atualização futura</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
@@ -415,7 +413,6 @@
     <string name="cost_money">Preço: $</string>
     <string name="app_settings">Configurações do aplicativo</string>
     <string name="cost_more_money">Preço: $$$</string>
-    <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
     <string name="enable_alarms_description">Para garantir que você seja notificado no momento certo, conceda permissão para definir alarmes e lembretes em \'Configurações\'</string>
     <string name="multiline_title_on">Pressione a tecla \'Enter\' para adicionar quebras de linha</string>
     <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>

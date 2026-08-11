@@ -335,4 +335,6 @@
     <string name="discard_confirmation">คุณแน่ใจหรือไม่ว่าคุณต้องการละทิ้งการเปลี่ยนแปลงของคุณ?</string>
     <string name="keep_editing">แก้ไขต่อไป</string>
     <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
+    <string name="TEA_add_subtask">เพิ่มงานย่อย</string>
+    <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
 </resources>

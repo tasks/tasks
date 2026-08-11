@@ -592,4 +592,7 @@
     <string name="show_completed_subtasks">Tamamlanan alt görevleri göster</string>
     <string name="error_encryption_failed">Şifreleme başarısız oldu. Tasks.org\'un sistem anahtar zincirinize erişebildiğinden emin olun, ardından tekrar deneyin.</string>
     <string name="snoozed_reminder">Ertelenen anımsatıcı</string>
+    <string name="TEA_add_subtask">Alt görev ekle</string>
+    <string name="subtasks_multilevel_google_task">Google Görevler, çok düzeyli alt görevleri desteklemez</string>
+    <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
 </resources>
