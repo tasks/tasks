@@ -21,6 +21,17 @@ WHERE tasks.completed = 0
     suspend fun getActiveAlarms(): List<Alarm>
 
     @Query("""
+SELECT EXISTS(
+    SELECT 1
+    FROM alarms
+             INNER JOIN tasks ON tasks._id = alarms.task
+    WHERE tasks.completed = 0
+      AND tasks.deleted = 0
+)
+""")
+    suspend fun hasActiveAlarms(): Boolean
+
+    @Query("""
 SELECT alarms.*
 FROM alarms
          INNER JOIN tasks ON tasks._id = alarms.task

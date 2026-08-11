@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Notification
 
 @Dao
@@ -20,14 +21,19 @@ interface NotificationDao {
     @Query("DELETE FROM notification WHERE task = :taskId")
     suspend fun delete(taskId: Long)
 
+    suspend fun deleteAll(taskIds: List<Long>) = taskIds.eachChunk { deleteAllInternal(it) }
+
     @Query("DELETE FROM notification WHERE task IN(:taskIds)")
-    suspend fun deleteAll(taskIds: List<Long>)
+    suspend fun deleteAllInternal(taskIds: List<Long>)
 
     @Query("SELECT MAX(timestamp) FROM notification")
     suspend fun latestTimestamp(): Long?
 
     @Query("SELECT EXISTS(SELECT 1 FROM notification WHERE task = :taskId)")
     suspend fun hasNotification(taskId: Long): Boolean
+
+    @Query("SELECT * FROM notification WHERE task = :taskId")
+    suspend fun get(taskId: Long): Notification?
 
     @Query("SELECT type FROM notification WHERE task = :taskId")
     suspend fun getType(taskId: Long): Int?

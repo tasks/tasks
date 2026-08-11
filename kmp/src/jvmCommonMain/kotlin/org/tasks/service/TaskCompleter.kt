@@ -61,7 +61,7 @@ class TaskCompleter(
         if (tasks.isEmpty()) {
             return
         }
-        tasks.forEach { notifier.cancel(it.id, CancelReason.COMPLETE) }
+        notifier.cancel(tasks.map { it.id }, CancelReason.COMPLETE)
         val completed = completionDate > 0
         val repeated = ArrayList<Task>()
         Logger.d(TAG) { "Completing $tasks" }
