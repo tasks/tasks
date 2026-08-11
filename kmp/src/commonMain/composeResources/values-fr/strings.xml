@@ -609,4 +609,5 @@
     <string name="discard_confirmation">Voulez-vous vraiment annuler vos modifications ?</string>
     <string name="keep_editing">Poursuivre l'édition</string>
     <string name="DLG_delete_this_task_question">Voulez-vous vraiment supprimer cette tâche ?</string>
+    <string name="show_completed_subtasks">Afficher les sous-tâches terminées</string>
 </resources>
