@@ -7,6 +7,7 @@ import org.tasks.data.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
@@ -414,6 +415,19 @@ class GoogleTaskManualSortAdapterTest : InjectingTestCase() {
         checkOrder(0, 0)
         checkOrder(1, 1)
         checkOrder(2, 2)
+    }
+
+    @Test
+    fun droppingIntoAFoldedRowLeavesItFolded() = runBlocking {
+        val parent = addTask()
+        addTask(with(PARENT, parent))
+        val dragged = addTask()
+        taskDao.setCollapsed(listOf(parent), true)
+
+        move(1, 1, 1)
+
+        assertEquals(parent, taskDao.fetch(dragged)!!.parent)
+        assertTrue(taskDao.fetch(parent)!!.isCollapsed)
     }
 
     @Before

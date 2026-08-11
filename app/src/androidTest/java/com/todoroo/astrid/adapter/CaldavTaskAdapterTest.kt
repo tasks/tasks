@@ -49,9 +49,6 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         adapter.setDataSource(dataSource)
     }
 
-    private fun manualAdapter(adapter: TaskAdapter): TaskAdapter =
-        adapter.apply { setDataSource(dataSource) }
-
     @Test
     fun canMoveTask() {
         addTask()
@@ -221,54 +218,6 @@ class CaldavTaskAdapterTest : InjectingTestCase() {
         adapter.moved(3, 3, 1)
 
         assertEquals(tasks[0].id, taskDao.fetch(tasks[3].id)!!.parent)
-    }
-
-    @Test
-    fun droppingIntoAFoldedRowOpensItBackUp() = runBlocking {
-        addTask()
-        addTask()
-        taskDao.setCollapsed(listOf(tasks[0].id), true)
-        tasks[0] = tasks[0].collapsedWith(children = 1)
-
-        adapter.moved(1, 1, 1)
-
-        assertFalse(taskDao.fetch(tasks[0].id)!!.isCollapsed)
-    }
-
-    @Test
-    fun droppingIntoAFoldedRowOpensItBackUpOnAManuallySortedCaldavList() = runBlocking {
-        val manual = manualAdapter(
-            CaldavManualSortTaskAdapter(
-                googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager,
-                taskMover,
-            )
-        )
-        addTask()
-        addTask()
-        taskDao.setCollapsed(listOf(tasks[0].id), true)
-        tasks[0] = tasks[0].collapsedWith(children = 1)
-
-        manual.moved(1, 1, 1)
-
-        assertFalse(taskDao.fetch(tasks[0].id)!!.isCollapsed)
-    }
-
-    @Test
-    fun droppingIntoAFoldedRowOpensItBackUpOnAManuallySortedGoogleTasksList() = runBlocking {
-        val manual = manualAdapter(
-            GoogleTaskManualSortAdapter(
-                googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager,
-                taskMover,
-            )
-        )
-        addTask()
-        addTask()
-        taskDao.setCollapsed(listOf(tasks[0].id), true)
-        tasks[0] = tasks[0].collapsedWith(children = 1)
-
-        manual.moved(1, 1, 1)
-
-        assertFalse(taskDao.fetch(tasks[0].id)!!.isCollapsed)
     }
 
     private fun TaskContainer.collapsedWith(children: Int) = copy(

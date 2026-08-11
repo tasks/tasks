@@ -138,7 +138,6 @@ open class TaskAdapter(
     open suspend fun moved(from: Int, to: Int, indent: Int) {
         val task = getTask(from)
         val newParent = findParent(indent, to)
-        openForArrival(newParent)
         if ((newParent?.id ?: 0) == task.parent || (indent > 0 && dataSource.subtaskSortMode == SORT_MANUAL)) {
             if (indent == 0) {
                 changeSortGroup(task, if (from < to) to - 1 else to)
@@ -193,14 +192,8 @@ open class TaskAdapter(
         return false
     }
 
-    protected fun findParent(indent: Int, to: Int): TaskContainer? =
+    private fun findParent(indent: Int, to: Int): TaskContainer? =
         findParentIndex(indent, to) { getTask(it).indent }?.let { getTask(it) }
-
-    protected suspend fun openForArrival(newParent: TaskContainer?) {
-        if (newParent != null && newParent.isCollapsed) {
-            taskDao.setCollapsed(listOf(newParent.id), false)
-        }
-    }
 
     private suspend fun changeSortGroup(task: TaskContainer, pos: Int) {
         when(dataSource.sortMode) {
