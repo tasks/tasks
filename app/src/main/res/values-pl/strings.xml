@@ -416,5 +416,5 @@
     <string name="location_update_interval_summary">Okresowe aktualizacje lokalizacji poprawiają niezawodność geofencingu</string>
     <string name="rmd_EPr_rmd_time_desc">Powiadomienia dla zadań całodniowych pojawia się o %1$s</string>
     <string name="show_edit_screen_without_unlock">Pokaż ekran edycji bez odblokowywania</string>
-    <string name="delete_tasks_warning">%s zostanie usunięty. Nie można tego cofnąć.</string>
+    <string name="delete_tasks_warning">%s zostanie usunięty. Nie można tego cofnąć!</string>
 </resources>
