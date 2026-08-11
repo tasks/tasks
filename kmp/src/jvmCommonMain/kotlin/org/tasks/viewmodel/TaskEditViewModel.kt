@@ -10,9 +10,7 @@ import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,17 +31,13 @@ import net.fortuna.ical4j.model.WeekDay
 import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
-import org.tasks.compose.pickers.initialStartSelection
 import org.tasks.compose.pickers.resolveStartDate
 import org.tasks.compose.pickers.startDayOf
-import org.tasks.compose.pickers.startSelectionDays
 import org.tasks.compose.pickers.withTimeMarkerOr
 import org.tasks.data.TaskCreator
-import org.tasks.data.createDueDate
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.getDefaultAlarms
-import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
@@ -209,6 +203,20 @@ class TaskEditViewModel(
     private val watchedTaskIds = mutableMapOf<String, Long>()
     private val unregisterFlushHandler: () -> Unit
 
+    private val loader = TaskEditLoader(
+        taskId = this.taskId,
+        uuid = uuid,
+        listId = listId,
+        tagUuid = tagUuid,
+        taskDao = taskDao,
+        caldavDao = caldavDao,
+        tagDataDao = tagDataDao,
+        alarmDao = alarmDao,
+        appPreferences = appPreferences,
+        taskCreator = taskCreator,
+        log = log,
+    )
+
     init {
         load()
         // Quitting the desktop app tears down the JVM while this editor is still composed, so
@@ -218,7 +226,6 @@ class TaskEditViewModel(
     }
 
     private fun load() {
-        val normalized = taskId
         viewModelScope.launch {
             _loadError.value = false
             _state.value = State(isLoading = true)
@@ -239,7 +246,7 @@ class TaskEditViewModel(
                 // flush's own bookkeeping is what this waits on instead.
                 pendingSaves.awaitPending(saveKey)
                 // Still taken, so the read can't interleave with a save enqueued after the flush.
-                val loaded = pendingSaves.withLock(saveKey) { readTask(normalized, prefs, defaults) }
+                val loaded = pendingSaves.withLock(saveKey) { loader.read(prefs, defaults) }
                 _state.value = loaded
                 // The row this editor was opened on is a tombstone: there is nothing to edit, and
                 // staying would let the teardown save write onto a deleted row.
@@ -256,104 +263,6 @@ class TaskEditViewModel(
                 _state.value = State(isLoading = false)
             }
         }
-    }
-
-    private suspend fun readTask(
-        normalized: Long?,
-        prefs: DatePickerPreferences,
-        defaults: TaskDefaultSettings,
-    ): State {
-        val loaded: Task
-        val list: CaldavFilter?
-        val tags: List<TagData>
-        val alarms: ImmutableSet<Alarm>
-        if (normalized == null) {
-            val existing = uuid?.let { taskDao.fetch(it) }
-            if (existing != null) {
-                loaded = existing
-                coroutineScope {
-                    val listDeferred = async { caldavListFor(existing.id, defaults.defaultList) }
-                    val tagsDeferred = async { tagDataDao.getTagDataForTask(existing.id) }
-                    val alarmsDeferred = async { alarmDao.getAlarms(existing.id).toPersistentSet() }
-                    list = listDeferred.await()
-                    tags = tagsDeferred.await()
-                    alarms = alarmsDeferred.await()
-                }
-            } else {
-                loaded = (uuid
-                    ?.let { taskCreator.createBlankTask(remoteId = it) }
-                    ?: taskCreator.createBlankTask())
-                    .apply {
-                        applyDefaults(defaults)
-                        setDefaultReminders(defaults)
-                    }
-                coroutineScope {
-                    val listDeferred = async { seedList(defaults.defaultList) }
-                    val tagsDeferred = async { seedTags(defaults.defaultTags) }
-                    list = listDeferred.await()
-                    tags = tagsDeferred.await()
-                }
-                alarms = persistentSetOf()
-            }
-        } else {
-            val existing: Task?
-            coroutineScope {
-                val loadedDeferred = async { taskDao.fetch(normalized) }
-                val listDeferred = async { caldavListFor(normalized, defaults.defaultList) }
-                val tagsDeferred = async { tagDataDao.getTagDataForTask(normalized) }
-                val alarmsDeferred = async { alarmDao.getAlarms(normalized).toPersistentSet() }
-                existing = loadedDeferred.await()
-                list = listDeferred.await()
-                tags = tagsDeferred.await()
-                alarms = alarmsDeferred.await()
-            }
-            // The row this destination names is gone - hard-deleted by a sync purge or by removing
-            // its account, which leaves no tombstone for the check below to find. A blank task here
-            // would look like a new one, and it carries a freshly generated remoteId that has
-            // nothing to do with the one this editor is locked on, so typing into it would create
-            // an unrelated duplicate every time the destination is opened.
-            if (existing == null) {
-                return State(isLoading = false, deleted = true)
-            }
-            loaded = existing
-        }
-        val (startDay, startTime) = initialStartSelection(
-            hideUntil = loaded.hideUntil,
-            dueDate = loaded.dueDate,
-            isNew = loaded.isNew,
-            defaultHideUntil = defaults.defaultHideUntil,
-        )
-        val task = if (loaded.hideUntil <= 0) {
-            loaded.copy(hideUntil = resolveStartDate(startDayOf(startDay), startTime, loaded.dueDate))
-        } else {
-            loaded
-        }
-        val initialAlarms = if (loaded.isNew) {
-            task.getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled()).toPersistentSet()
-        } else {
-            alarms
-        }
-        return State(
-            isLoading = false,
-            task = task,
-            originalTask = task.copy(),
-            // Neither lookup filters deleted rows, and a new-task destination keeps resolving by
-            // remoteId after its own save created the row - so a task deleted in between loads
-            // here as if it were live.
-            deleted = task.isDeleted,
-            list = list,
-            originalList = list,
-            tags = tags,
-            originalTags = tags,
-            alarms = initialAlarms,
-            originalAlarms = initialAlarms,
-            startDay = startDay,
-            startTime = startTime,
-            originalStartDay = startDay,
-            originalStartTime = startTime,
-            datePickerPreferences = prefs,
-            addTasksToTop = defaults.addTasksToTop,
-        )
     }
 
     /**
@@ -555,144 +464,7 @@ class TaskEditViewModel(
     }
 
     private fun applyDbUpdate(dbTask: Task): Boolean =
-        _state.updateAndGet { state ->
-            if (state.isLoading) return@updateAndGet state
-            val current = state.task
-            val original = state.originalTask
-            if (dbTask.sameEditableContentAs(original)) return@updateAndGet state
-            if (dbTask.isDeleted && !original.isDeleted) {
-                return@updateAndGet state.copy(deleted = true)
-            }
-            val merged = current.copy(
-                title = merge(current.title, original.title, dbTask.title),
-                priority = merge(current.priority, original.priority, dbTask.priority),
-                dueDate = merge(current.dueDate, original.dueDate, dbTask.dueDate),
-                completionDate = merge(current.completionDate, original.completionDate, dbTask.completionDate),
-                deletionDate = merge(current.deletionDate, original.deletionDate, dbTask.deletionDate),
-                notes = merge(current.notes, original.notes, dbTask.notes),
-                estimatedSeconds = merge(current.estimatedSeconds, original.estimatedSeconds, dbTask.estimatedSeconds),
-                elapsedSeconds = merge(current.elapsedSeconds, original.elapsedSeconds, dbTask.elapsedSeconds),
-                timerStart = merge(current.timerStart, original.timerStart, dbTask.timerStart),
-                ringFlags = merge(current.ringFlags, original.ringFlags, dbTask.ringFlags),
-                recurrence = merge(current.recurrence, original.recurrence, dbTask.recurrence),
-                repeatFrom = merge(current.repeatFrom, original.repeatFrom, dbTask.repeatFrom),
-                calendarURI = merge(current.calendarURI, original.calendarURI, dbTask.calendarURI),
-                isCollapsed = merge(current.isCollapsed, original.isCollapsed, dbTask.isCollapsed),
-                parent = merge(current.parent, original.parent, dbTask.parent),
-                order = merge(current.order, original.order, dbTask.order),
-                readOnly = merge(current.readOnly, original.readOnly, dbTask.readOnly),
-                modificationDate = dbTask.modificationDate,
-                reminderLast = dbTask.reminderLast,
-            )
-            val start = reconcileStartDate(state, dbTask, merged.dueDate)
-            state.copy(
-                task = merged.copy(hideUntil = start.hideUntil),
-                originalTask = dbTask,
-                startDay = start.selectedDay,
-                startTime = start.selectedTime,
-                originalStartDay = start.baselineDay,
-                originalStartTime = start.baselineTime,
-            )
-        }.deleted
-
-    private fun reconcileStartDate(state: State, dbTask: Task, mergedDueDate: Long): StartReconciliation {
-        val localStartDate = startDayOf(state.startDay)
-        val startModifiedLocally = state.startDay != state.originalStartDay ||
-            state.startTime != state.originalStartTime
-        val startModifiedExternally = dbTask.hideUntil != state.originalTask.hideUntil
-        val dueModifiedLocally = state.task.dueDate != state.originalTask.dueDate
-        val backendStoresStartDate = state.originalList?.account?.syncsStartDate == true
-        val keepLocalStart = startModifiedLocally ||
-            (dueModifiedLocally && localStartDate.isRelative) ||
-            (!startModifiedExternally && !backendStoresStartDate)
-        val selectedDay: Long
-        val selectedTime: Int
-        val hideUntil: Long
-        if (keepLocalStart) {
-            hideUntil = resolveStartDate(localStartDate, state.startTime, mergedDueDate)
-            selectedDay = state.startDay
-            selectedTime = state.startTime
-        } else {
-            val (day, time) = startSelectionDays(dbTask.hideUntil, mergedDueDate)
-            selectedDay = day
-            selectedTime = time
-            hideUntil = dbTask.hideUntil
-        }
-        val (baselineDay, baselineTime) = if (startModifiedLocally) {
-            startSelectionDays(dbTask.hideUntil, dbTask.dueDate)
-        } else {
-            selectedDay to selectedTime
-        }
-        return StartReconciliation(hideUntil, selectedDay, selectedTime, baselineDay, baselineTime)
-    }
-
-    private data class StartReconciliation(
-        val hideUntil: Long,
-        val selectedDay: Long,
-        val selectedTime: Int,
-        val baselineDay: Long,
-        val baselineTime: Int,
-    )
-
-    private fun <T> merge(current: T, original: T, db: T): T =
-        if (current == original) db else current
-
-    private fun Task.applyDefaults(defaults: TaskDefaultSettings) {
-        priority = defaults.defaultPriority
-        dueDate = defaultDueDate(defaults.defaultDueDate)
-        defaults.defaultRecurrence?.let {
-            recurrence = it
-            repeatFrom = if (defaults.defaultRecurrenceFrom == Task.RepeatFrom.COMPLETION_DATE) {
-                Task.RepeatFrom.COMPLETION_DATE
-            } else {
-                Task.RepeatFrom.DUE_DATE
-            }
-            if (dueDate == 0L) {
-                dueDate = createDueDate(Task.URGENCY_TODAY, 0)
-            }
-        }
-    }
-
-    private fun defaultDueDate(setting: Int): Long = try {
-        createDueDate(setting, 0)
-    } catch (e: IllegalArgumentException) {
-        log.e(e) { "Unknown default due date $setting" }
-        0
-    }
-
-    private suspend fun seedList(defaultList: String?): CaldavFilter? {
-        // A read-only list can't take a new task, so fall back the same way an unknown list does.
-        val calendar = listId
-            ?.let { caldavDao.getCalendarById(it) }
-            ?.takeIf { !it.readOnly() }
-            ?: return fallbackList(defaultList)
-        val account = calendar.account?.let { caldavDao.getAccountByUuid(it) }
-            ?: return fallbackList(defaultList)
-        return CaldavFilter(calendar = calendar, account = account)
-    }
-
-    private suspend fun seedTags(defaultTags: List<String>): List<TagData> {
-        tagUuid?.let { uuid -> tagDataDao.getByUuid(uuid)?.let { return listOf(it) } }
-        return defaultTags
-            .takeIf { it.isNotEmpty() }
-            ?.let { tagDataDao.getByUuid(it) }
-            ?.sortedBy { it.name }
-            ?: emptyList()
-    }
-
-    private suspend fun fallbackList(defaultList: String?): CaldavFilter =
-        caldavDao.getOrCreateDefaultListFilter(defaultList)
-
-    private suspend fun caldavListFor(taskId: Long, defaultList: String?): CaldavFilter? {
-        val caldavTask = caldavDao.getTask(taskId)
-        val calendar = caldavTask?.calendar?.let { caldavDao.getCalendarByUuid(it) }
-        val account = calendar?.account?.let { caldavDao.getAccountByUuid(it) }
-        return if (calendar != null && account != null) {
-            CaldavFilter(calendar = calendar, account = account)
-        } else {
-            fallbackList(defaultList)
-        }
-    }
+        _state.updateAndGet { it.mergedWith(dbTask) }.deleted
 
     fun setTitle(title: String) {
         _state.update { it.copy(task = it.task.copy(title = title)) }
@@ -1016,43 +788,7 @@ class TaskEditViewModel(
     }
 }
 
-private data class AlarmIdentity(
-    val type: Int,
-    val time: Long,
-    val repeat: Int,
-    val interval: Long,
-)
-
-private fun Alarm.identity() = AlarmIdentity(type, time, repeat, interval)
-
-private fun Iterable<Alarm>.identities(): Set<AlarmIdentity> = mapTo(HashSet()) { it.identity() }
-
-private fun Set<Alarm>.sameAlarmsAs(other: Set<Alarm>): Boolean = identities() == other.identities()
-
-private fun mergeAlarms(
-    current: ImmutableSet<Alarm>,
-    original: ImmutableSet<Alarm>,
-    db: ImmutableSet<Alarm>,
-): ImmutableSet<Alarm> {
-    val originalIdentities = original.identities()
-    val deletedLocally = originalIdentities - current.identities()
-    val addedLocally = current.filterNot { originalIdentities.contains(it.identity()) }
-    return db
-        .filterNot { deletedLocally.contains(it.identity()) }
-        .plus(addedLocally)
-        .distinctBy { it.identity() }
-        .toPersistentSet()
-}
-
 internal fun ImmutableSet<Alarm>.applicableTo(task: Task): ImmutableSet<Alarm> =
     filterNot { it.type == TYPE_REL_START && !task.hasStartDate() }
         .filterNot { it.type == TYPE_REL_END && !task.hasDueDate() }
         .toPersistentSet()
-
-internal fun Task.sameEditableContentAs(other: Task): Boolean =
-    copy(
-        transitoryData = null,
-        id = other.id,
-        creationDate = other.creationDate,
-        remoteId = other.remoteId,
-    ) == other.copy(transitoryData = null)
