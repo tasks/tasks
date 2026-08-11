@@ -26,6 +26,8 @@ import org.tasks.http.OkHttpClientFactory
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.kmp.createDataStore
+import org.tasks.notifications.CancelReason
+import org.tasks.notifications.Notifier
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
@@ -33,6 +35,15 @@ import org.tasks.security.KeyStoreEncryption
 actual fun platformModule(): Module = module {
     includes(flavorModule)
     singleOf(::TasksServerEnvironment)
+    factory<Notifier> {
+        object : Notifier {
+            override suspend fun cancel(id: Long, reason: CancelReason) {}
+            override suspend fun cancel(ids: List<Long>, reason: CancelReason) {}
+            override suspend fun cancelAll(reason: CancelReason) {}
+            override fun triggerNotifications() {}
+            override suspend fun updateTimerNotification() {}
+        }
+    }
     factory<Reporting> {
         val tasksPreferences = get<TasksPreferences>()
         object : Reporting {

@@ -119,6 +119,10 @@ class Preferences @JvmOverloads constructor(
         quietHoursEnd = quietHoursEnd,
     )
 
+    override suspend fun setNotificationsEnabled(value: Boolean) {
+        Timber.w("Ignoring notificationsEnabled=%s; the OS permission is the switch here", value)
+    }
+
     override suspend fun setPersistentNotifications(value: Boolean) =
         setBoolean(R.string.p_rmd_persistent, value)
 

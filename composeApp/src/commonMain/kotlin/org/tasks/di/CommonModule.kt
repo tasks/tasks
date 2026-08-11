@@ -46,6 +46,7 @@ import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.etebase.EtebaseSynchronizer
+import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
@@ -98,6 +99,7 @@ import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.NotificationsViewModel
+import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -140,14 +142,6 @@ val commonModule = module {
     // No-op implementations
     single { ComposeRefreshBroadcaster() }
     factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
-    factory<Notifier> {
-        object : Notifier {
-            override suspend fun cancel(id: Long, reason: CancelReason) {}
-            override suspend fun cancel(ids: List<Long>, reason: CancelReason) {}
-            override fun triggerNotifications() {}
-            override suspend fun updateTimerNotification() {}
-        }
-    }
     factory<LocationService> {
         object : LocationService {
             override val locationDao = get<org.tasks.data.dao.LocationDao>()
@@ -188,7 +182,9 @@ val commonModule = module {
                     taskSettingDefaults.defaultLocationReminder
                 )
             override suspend fun defaultAlarms() =
-                tasksPreferences.get(TasksPreferences.defaultAlarms, DEFAULT_ALARMS_JSON).toAlarms()
+                tasksPreferences
+                    .get(TasksPreferences.defaultAlarms, DEFAULT_ALARMS_JSON)
+                    .toAlarms()
             override suspend fun defaultRingMode() =
                 tasksPreferences.get(TasksPreferences.defaultRingMode, taskSettingDefaults.defaultRingMode)
             override suspend fun defaultDueTime() =
@@ -290,6 +286,8 @@ val commonModule = module {
                 tasksPreferences.snapshot().notificationSettings().adjustForQuietHours(time)
             override suspend fun notificationSettings() =
                 tasksPreferences.snapshot().notificationSettings()
+            override suspend fun setNotificationsEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.notificationsEnabled, value)
             override suspend fun setPersistentNotifications(value: Boolean) =
                 tasksPreferences.set(TasksPreferences.persistentNotifications, value)
             override suspend fun setWearableNotifications(value: Boolean) =
@@ -602,10 +600,19 @@ val commonModule = module {
         )
     }
     viewModel {
+        val notifier = get<Notifier>()
         NotificationsViewModel(
             appPreferences = get(),
             platformConfiguration = get(),
             persistenceScope = get(),
+            rescheduleNotifications = { change ->
+                if (change == ReminderChange.OFF) {
+                    guarded("CommonModule", "Failed to take down notifications", Unit) {
+                        notifier.cancelAll(CancelReason.DISABLED)
+                    }
+                }
+                notifier.triggerNotifications()
+            },
         )
     }
     viewModel {
@@ -772,6 +779,10 @@ private val notificationDefaults = NotificationSettings()
 private val taskSettingDefaults = TaskDefaultSettings()
 
 private fun PreferencesSnapshot.notificationSettings() = NotificationSettings(
+    notificationsEnabled = get(
+        TasksPreferences.notificationsEnabled,
+        notificationDefaults.notificationsEnabled
+    ),
     persistentNotifications = get(
         TasksPreferences.persistentNotifications,
         notificationDefaults.persistentNotifications

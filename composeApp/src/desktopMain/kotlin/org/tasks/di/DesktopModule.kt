@@ -115,6 +115,7 @@ val logDir: File by lazy {
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
     single {
+        val notificationsEnabled = TasksBuildConfig.DEBUG
         PlatformConfiguration(
             versionCode = JvmBuildConfig.VERSION_CODE,
             billingProvider = BillingProvider.PADDLE,
@@ -123,8 +124,9 @@ actual fun platformModule(): Module = module {
             supportsGoogleTasks = true,
             supportsMicrosoft = true,
             supportsSwipeToSnooze = false,
-            showNotificationSettings = TasksBuildConfig.DEBUG,
+            supportsNotifications = notificationsEnabled,
             supportsSystemNotificationSettings = supportsSystemNotificationSettings(),
+            showNotificationsEnabledSwitch = true,
         )
     }
     single<Reporting> {

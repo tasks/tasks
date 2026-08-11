@@ -56,6 +56,7 @@ data class DatePickerPreferences(
 }
 
 data class NotificationSettings(
+    val notificationsEnabled: Boolean = true,
     val persistentNotifications: Boolean = true,
     val wearableNotifications: Boolean = true,
     val bundleNotifications: Boolean = true,
@@ -146,6 +147,7 @@ interface AppPreferences {
     suspend fun setDefaultCalendar(value: String?)
     suspend fun setDefaultRecurrence(value: String?)
     suspend fun setDefaultRecurrenceFrom(value: Int)
+
     suspend fun setDefaultAlarms(value: List<Alarm>)
     suspend fun setDefaultRingMode(value: Int)
     suspend fun setDefaultLocation(value: String?)
@@ -155,6 +157,7 @@ interface AppPreferences {
     suspend fun setDatePickerInputMode(value: Boolean) {}
     suspend fun setTimePickerInputMode(value: Boolean) {}
     suspend fun notificationSettings(): NotificationSettings
+    suspend fun setNotificationsEnabled(value: Boolean)
     suspend fun setPersistentNotifications(value: Boolean)
     suspend fun setWearableNotifications(value: Boolean)
     suspend fun setBundleNotifications(value: Boolean)

@@ -3012,7 +3012,7 @@ private fun SettingsScreen(
                         environmentLabel = environmentLabel,
                         showBackupWarning = false,
                         showWidgets = viewModel.supportsWidgets,
-                        showNotifications = configuration.showNotificationSettings,
+                        showNotifications = configuration.supportsNotifications,
                         isDebug = viewModel.isDebug,
                         showDesktopLinking = configuration.supportsDesktopLinking
                                 && !purchaseState.hasTasksAccount,

@@ -22,6 +22,7 @@ import org.tasks.extensions.Context.getResourceUri
 import org.tasks.preferences.Preferences
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.viewmodel.NotificationsViewModel
+import org.tasks.viewmodel.ReminderChange
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -36,6 +37,12 @@ class NotificationsHiltViewModel @Inject constructor(
     appPreferences = preferences,
     platformConfiguration = platformConfiguration,
     persistenceScope = persistenceScope,
+    rescheduleNotifications = { change ->
+        NotificationSchedulerIntentService.enqueueWork(
+            context,
+            cancelNotifications = change == ReminderChange.ON_SCREEN,
+        )
+    },
 ) {
 
     private val ttsChecks = Channel<Unit>(Channel.CONFLATED)
@@ -55,10 +62,6 @@ class NotificationsHiltViewModel @Inject constructor(
         showBatteryOptimization =
             !powerManager.isIgnoringBatteryOptimizations(context.packageName)
         refreshCompletionSoundName()
-    }
-
-    override fun rescheduleNotifications(cancelExisting: Boolean) {
-        NotificationSchedulerIntentService.enqueueWork(context, cancelExisting)
     }
 
     override fun updateVoice(enabled: Boolean) {

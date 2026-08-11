@@ -96,6 +96,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val voiceReminders = booleanPreferencesKey("voice_reminders")
         val swipeToSnoozeEnabled = booleanPreferencesKey("swipe_to_snooze_enabled")
         val swipeToSnoozeMinutes = intPreferencesKey("swipe_to_snooze_minutes")
+        val notificationsEnabled = booleanPreferencesKey("notifications_enabled")
         val defaultRemindersEnabled = booleanPreferencesKey("default_reminders_enabled")
         val defaultReminderTime = intPreferencesKey("default_reminder_time")
         val quietHoursEnabled = booleanPreferencesKey("quiet_hours_enabled")

@@ -118,6 +118,10 @@ class NotificationManager @Inject constructor(
         }
     }
 
+    @SuppressLint("CheckResult")
+    override suspend fun cancelAll(reason: CancelReason) =
+        cancel(SUMMARY_NOTIFICATION_ID.toLong(), reason)
+
     override fun triggerNotifications() {
         workManager.triggerNotifications()
     }

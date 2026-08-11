@@ -44,6 +44,7 @@ import tasks.kmp.generated.resources.enabled
 import tasks.kmp.generated.resources.more_settings
 import tasks.kmp.generated.resources.notification_disable_battery_optimizations_description
 import tasks.kmp.generated.resources.notification_troubleshooting_summary
+import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.persistent_notifications
 import tasks.kmp.generated.resources.persistent_notifications_description
 import tasks.kmp.generated.resources.quiet_hours
@@ -86,6 +87,7 @@ fun NotificationsScreen(
     isCurrentlyQuietHours: Boolean,
     showTroubleshooting: Boolean,
     showBatteryOptimization: Boolean,
+    showNotificationsEnabled: Boolean,
     showCompletionSound: Boolean,
     completionSoundName: String,
     showOngoingNotifications: Boolean,
@@ -94,6 +96,7 @@ fun NotificationsScreen(
     showSystemNotificationSettings: Boolean,
     moreSettingsSummary: String?,
     showSwipeToSnooze: Boolean,
+    notificationsEnabled: Boolean,
     persistentEnabled: Boolean,
     wearableEnabled: Boolean,
     bundleEnabled: Boolean,
@@ -107,6 +110,7 @@ fun NotificationsScreen(
     quietHoursEnd: Int,
     onTroubleshooting: () -> Unit,
     onBatteryOptimization: () -> Unit,
+    onNotificationsEnabled: (Boolean) -> Unit,
     onCompletionSound: () -> Unit,
     onPersistent: (Boolean) -> Unit,
     onWearable: (Boolean) -> Unit,
@@ -166,6 +170,7 @@ fun NotificationsScreen(
 
         CardGroup(
             listOfNotNull(
+                NotificationRow.ENABLED.takeIf { showNotificationsEnabled },
                 NotificationRow.COMPLETION_SOUND.takeIf { showCompletionSound },
                 NotificationRow.PERSISTENT.takeIf { showOngoingNotifications },
                 NotificationRow.WEARABLE.takeIf { showOngoingNotifications },
@@ -174,6 +179,12 @@ fun NotificationsScreen(
             )
         ) { row ->
             when (row) {
+                NotificationRow.ENABLED ->
+                    SwitchPreferenceRow(
+                        title = stringResource(Res.string.notifications),
+                        checked = notificationsEnabled,
+                        onCheckedChange = onNotificationsEnabled,
+                    )
                 NotificationRow.COMPLETION_SOUND ->
                     PreferenceRow(
                         title = stringResource(Res.string.completion_sound),
@@ -325,6 +336,7 @@ private enum class TroubleshootingRow {
 }
 
 private enum class NotificationRow {
+    ENABLED,
     COMPLETION_SOUND,
     PERSISTENT,
     WEARABLE,

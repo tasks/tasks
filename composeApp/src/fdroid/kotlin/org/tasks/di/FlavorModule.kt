@@ -12,8 +12,9 @@ val flavorModule = module {
             supportsCaldav = true,
             supportsEteSync = true,
             supportsOpenTasks = true,
-            supportsNotificationTroubleshooting = true,
-            supportsSystemNotificationSettings = true,
+            supportsNotifications = false,
+            supportsNotificationTroubleshooting = false,
+            supportsSystemNotificationSettings = false,
         )
     }
     single<QrScanner> { object : QrScanner { override suspend fun scan(): String? = null } }
