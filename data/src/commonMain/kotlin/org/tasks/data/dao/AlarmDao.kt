@@ -39,6 +39,12 @@ WHERE tasks._id = :taskId
     @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
     suspend fun deleteSnoozed(taskIds: List<Long>)
 
+    @Query("SELECT * FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds) AND time < :before")
+    suspend fun getSnoozed(taskIds: List<Long>, before: Long): List<Alarm>
+
+    @Query("DELETE FROM alarms WHERE _id IN (:ids)")
+    suspend fun deleteByIds(ids: List<Long>)
+
     @Delete
     suspend fun delete(alarm: Alarm)
 
