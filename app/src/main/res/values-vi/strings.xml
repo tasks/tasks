@@ -30,7 +30,6 @@
     <string name="SSD_sort_alpha">Theo tiêu đề</string>
     <string name="SSD_sort_auto">Sắp xếp thông minh</string>
     <string name="astrid_sort_order_summary">Bật chế độ sắp xếp thủ công của Astrid đối với \'Công việc của tôi\', \'Hôm nay\', và các thẻ. Chế độ sắp xếp này sẽ được \'Thứ tự của tôi\' thay thế ở một bản cập nhật trong tương lai</string>
-    <string name="action_open">Mở</string>
     <string name="action_call">Gọi</string>
     <string name="TAd_actionEditTask">Chỉnh sửa</string>
     <string name="TLA_menu_settings">Cài đặt</string>
@@ -322,8 +321,6 @@
     </plurals>
     <string name="repeat_option_custom">Tuỳ chỉnh…</string>
     <string name="snooze_all">Báo lại tất cả</string>
-    <string name="rmd_NoA_snooze">Báo lại</string>
-    <string name="rmd_NoA_done">Hoàn thành</string>
     <string name="CFC_startBefore_name">Bắt đầu trước…</string>
     <string name="CFC_startBefore_text">Bắt đầu trước: \?</string>
     <string name="CFC_dueBefore_name">Hạn trước…</string>

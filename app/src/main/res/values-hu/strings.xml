@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Beállítások</string>
     <string name="TAd_actionEditTask">Szerkesztés</string>
     <string name="action_call">Hívás</string>
-    <string name="action_open">Megnyitás</string>
     <string name="SSD_sort_auto">Intelligens rendezés</string>
     <string name="SSD_sort_alpha">Név alapján</string>
     <string name="SSD_sort_due">Határidő alapján</string>
@@ -92,8 +91,6 @@
     <string name="ring_once">Egy csengés</string>
     <string name="ring_five_times">Öt csengés</string>
     <string name="ring_nonstop">Folyamatos csengés</string>
-    <string name="rmd_NoA_done">Befejezve</string>
-    <string name="rmd_NoA_snooze">Szundi</string>
     <string name="snooze_all">Szundi mind</string>
     <string name="repeat_option_custom">Egyéni…</string>
     <plurals name="task_count">

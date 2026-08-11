@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Настройки</string>
     <string name="TAd_actionEditTask">Редактиране</string>
     <string name="action_call">Обаждане</string>
-    <string name="action_open">Отваряне</string>
     <string name="SSD_sort_auto">Интелигентно сортиране</string>
     <string name="SSD_sort_alpha">По заглавие</string>
     <string name="SSD_sort_due">По крайна дата</string>
@@ -96,8 +95,6 @@
     <string name="ring_once">Звънене веднъж</string>
     <string name="ring_five_times">Звънене пет пъти</string>
     <string name="ring_nonstop">Звънене без прекъсване</string>
-    <string name="rmd_NoA_done">Завършване</string>
-    <string name="rmd_NoA_snooze">Отлагане</string>
     <string name="snooze_all">Отлагане на всички</string>
     <string name="repeat_option_custom">По избор…</string>
     <plurals name="task_count">

@@ -92,8 +92,6 @@
     <string name="ring_once">Ring en gång</string>
     <string name="ring_five_times">Ring fem gånger</string>
     <string name="ring_nonstop">Ring kontinuerligt</string>
-    <string name="rmd_NoA_done">Slutförd</string>
-    <string name="rmd_NoA_snooze">Skjut upp</string>
     <string name="repeat_snackbar">%1$s schemalades om till %2$s</string>
     <string name="new_tag">Skapa en ny etikett</string>
     <string name="new_list">Skapa en ny lista</string>
@@ -158,7 +156,6 @@
     <string name="widget_settings">Widgetinställningar</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>
-    <string name="action_open">Öppna</string>
     <string name="TEA_control_location">Plats</string>
     <string name="snooze_all">Senarelägg alla</string>
     <string name="repeat_option_custom">Anpassad…</string>

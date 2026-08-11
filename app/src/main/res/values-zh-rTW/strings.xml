@@ -69,8 +69,6 @@
     <string name="ring_once">響鈴一次</string>
     <string name="ring_five_times">響鈴五次</string>
     <string name="ring_nonstop">不斷響鈴</string>
-    <string name="rmd_NoA_done">已完成</string>
-    <string name="rmd_NoA_snooze">晚點提醒</string>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d 分鐘</item>
         <item quantity="other">%d 分鐘</item>
@@ -111,7 +109,6 @@
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
     <string name="TLA_no_items">這裡沒有工作。</string>
-    <string name="action_open">開啟</string>
     <string name="save">儲存</string>
     <string name="due_time">到期時間</string>
     <string name="day_before_due">到期前一天</string>

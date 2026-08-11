@@ -23,7 +23,6 @@
     <string name="TLA_menu_settings">Ezarpenak</string>
     <string name="TAd_actionEditTask">Editatu</string>
     <string name="action_call">Deitu</string>
-    <string name="action_open">Ireki</string>
     <string name="SSD_sort_auto">Ordenatze adimentsua</string>
     <string name="SSD_sort_alpha">Izenburuaren arabera</string>
     <string name="SSD_sort_due">Epemugaren arabera</string>
@@ -97,8 +96,6 @@
     <string name="ring_once">Doinua behin</string>
     <string name="ring_five_times">Doinua bost aldiz</string>
     <string name="ring_nonstop">Doinua etengabe</string>
-    <string name="rmd_NoA_done">Burututa</string>
-    <string name="rmd_NoA_snooze">Atzeratu</string>
     <string name="snooze_all">Atzeratu denak</string>
     <string name="repeat_option_custom">Pertsonalizatua…</string>
     <plurals name="task_count">

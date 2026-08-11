@@ -27,8 +27,6 @@
     <string name="CFC_title_contains_text">ชื่อที่มีคำว่า: ?</string>
     <string name="gcal_TEA_showCalendar_label">เปิดเหตุการณ์ปฏิทิน</string>
     <string name="gcal_completed_title">%s (เสร็จสิ้นแล้ว)</string>
-    <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว</string>
-    <string name="rmd_NoA_snooze">หลับ..</string>
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
     <string name="repeat_option_custom">กำหนดเอง…</string>
@@ -363,7 +361,6 @@
     <string name="astrid_sort_order_summary">เปิดใช้งานโหมดการเรียงลําดับด้วยตนเองของ Astrid สําหรับ \'งานของฉัน\', \'วันนี้\' และแท็ก โหมดการเรียงลําดับนี้จะถูกแทนที่ด้วย \'ใบสั่งของฉัน\' ในการอัปเดตในอนาคต</string>
     <string name="astrid_sort_order">การเรียงลําดับด้วยตนเองของ Astrid</string>
     <string name="SSD_sort_my_order">ใบสั่งของฉัน</string>
-    <string name="action_open">เปิด</string>
     <string name="action_call">โทร</string>
     <string name="TLA_menu_settings">การตั้งค่า</string>
     <string name="TLA_menu_search">ค้น</string>

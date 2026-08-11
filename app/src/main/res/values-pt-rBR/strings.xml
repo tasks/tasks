@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Configurações</string>
     <string name="TAd_actionEditTask">Editar</string>
     <string name="action_call">Chamar</string>
-    <string name="action_open">Abrir</string>
     <string name="SSD_sort_auto">Ordenação inteligente</string>
     <string name="SSD_sort_alpha">Por título</string>
     <string name="SSD_sort_due">Por data de vencimento</string>
@@ -90,8 +89,6 @@
     <string name="ring_once">Reproduzir uma vez</string>
     <string name="ring_five_times">Reproduzir cinco vezes</string>
     <string name="ring_nonstop">Reproduzir sem parar</string>
-    <string name="rmd_NoA_done">Concluída</string>
-    <string name="rmd_NoA_snooze">Adiar</string>
     <string name="snooze_all">Adiar todos</string>
     <string name="repeat_option_custom">Personalizado…</string>
     <plurals name="task_count">

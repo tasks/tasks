@@ -40,7 +40,6 @@
     <string name="no_date">Sen dato</string>
     <string name="TEA_title_hint">Tasknomo</string>
     <string name="SSD_sort_my_order">Propra ordo</string>
-    <string name="action_open">Malfermi</string>
     <string name="action_call">Telefoni</string>
     <string name="TAd_actionEditTask">Redakti</string>
     <string name="TLA_menu_settings">Agordoj</string>
@@ -186,8 +185,6 @@
         <item quantity="other">%d minutoj</item>
     </plurals>
     <string name="snooze_all">Paŭzigi ĉiujn</string>
-    <string name="rmd_NoA_snooze">Paŭzigi</string>
-    <string name="rmd_NoA_done">Finite</string>
     <string name="premium_record_audio">Registri noton</string>
     <string name="gtasks_GLA_authenticating">Aŭtentikigas…</string>
     <string name="gtasks_GTA_clear_completed">Forigi finitajn</string>

@@ -33,11 +33,16 @@ import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
 import org.tasks.reminders.SnoozeActivity
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
+import org.tasks.reminders.SnoozeOption
 import org.tasks.reminders.snoozeOptions
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.rmd_NoA_done
+import tasks.kmp.generated.resources.rmd_NoA_snooze
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -367,6 +372,32 @@ class NotificationManager @Inject constructor(
         notify(SUMMARY_NOTIFICATION_ID.toLong(), builder, notify, nonStop, fiveTimes)
     }
 
+    data class ActionLabels(
+        val complete: String,
+        val snooze: String,
+        val snoozeOptions: List<String>,
+    )
+
+    private suspend fun actionLabels(options: List<SnoozeOption>): ActionLabels {
+        val wanted = buildList {
+            add(Res.string.rmd_NoA_done)
+            add(Res.string.rmd_NoA_snooze)
+            options.forEach { add(it.label) }
+        }
+        val locale = Locale.getDefault()
+        cachedActionLabels?.let { (key, labels) -> if (key == locale to wanted) return labels }
+        val resolved = wanted.map { getString(it) }
+        return ActionLabels(
+            complete = resolved[0],
+            snooze = resolved[1],
+            snoozeOptions = resolved.drop(2),
+        ).also { cachedActionLabels = (locale to wanted) to it }
+    }
+
+    @Volatile
+    private var cachedActionLabels:
+            Pair<Pair<Locale, List<StringResource>>, ActionLabels>? = null
+
     suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? {
         val id = notification.taskId
         val type = notification.type
@@ -381,6 +412,9 @@ class NotificationManager @Inject constructor(
         if (task.isCompleted || task.isDeleted) {
             return null
         }
+
+        val snoozeOptions = snoozeOptions(preferences.quickPickTimes)
+        val (completeLabel, snoozeActionLabel, snoozeLabels) = actionLabels(snoozeOptions)
 
         // read properties
         val localized = localeContext
@@ -434,7 +468,7 @@ class NotificationManager @Inject constructor(
         )
         val completeAction = NotificationCompat.Action.Builder(
                 R.drawable.ic_check_white_24dp,
-                localized.getString(R.string.rmd_NoA_done),
+                completeLabel,
                 completePendingIntent)
                 .build()
         val snoozeIntent = SnoozeActivity.newIntent(context, id)
@@ -448,7 +482,7 @@ class NotificationManager @Inject constructor(
         if (!task.readOnly) {
             wearableExtender.addAction(completeAction)
         }
-        for (snoozeOption in snoozeOptions(preferences.quickPickTimes)) {
+        for ((snoozeOption, snoozeLabel) in snoozeOptions.zip(snoozeLabels)) {
             val timestamp = snoozeOption.timestamp
             val wearableIntent = SnoozeActivity.newIntent(context, id)
             wearableIntent.action = String.format("snooze-%s-%s", id, timestamp)
@@ -462,7 +496,7 @@ class NotificationManager @Inject constructor(
             wearableExtender.addAction(
                     NotificationCompat.Action.Builder(
                             R.drawable.ic_snooze_white_24dp,
-                            getString(snoozeOption.label),
+                            snoozeLabel,
                             wearablePendingIntent)
                             .build())
         }
@@ -472,7 +506,7 @@ class NotificationManager @Inject constructor(
         return builder
                 .addAction(
                         R.drawable.ic_snooze_white_24dp,
-                        localized.getString(R.string.rmd_NoA_snooze),
+                        snoozeActionLabel,
                         snoozePendingIntent)
                 .extend(wearableExtender)
     }

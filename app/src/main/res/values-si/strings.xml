@@ -27,8 +27,6 @@
     <string name="voice_command_added_task">කාර්යය එකතු කරන ලදි</string>
     <string name="TEA_timer_comment_started">මෙම කාර්යය ආරම්භ කරන ලදි:</string>
     <string name="snooze_all">සියල්ල මඳකට මගහරින්න</string>
-    <string name="rmd_NoA_snooze">මඳකට මගහරින්න</string>
-    <string name="rmd_NoA_done">සම්පූර්ණයි</string>
     <string name="gtasks_GTA_clear_completed">ඉවත්කිරීම සම්පූර්ණයි</string>
     <string name="CFC_tag_name">ටැගය…</string>
     <string name="CFC_tag_text">ටැගය:\?</string>
@@ -279,7 +277,6 @@
     <string name="SSD_sort_alpha">මාතෘකාව අනුව</string>
     <string name="SSD_sort_auto">ස්මාර්ට් වර්ග කිරීම</string>
     <string name="SSD_sort_my_order">මාගේ පිලිවෙල</string>
-    <string name="action_open">විවෘත කරන්න</string>
     <string name="TAd_actionEditTask">සංස්කරණය කරන්න</string>
     <string name="TLA_menu_settings">සැකසුම්</string>
     <string name="TLA_menu_search">සොයන්න</string>

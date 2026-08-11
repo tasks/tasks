@@ -26,7 +26,6 @@
     <string name="customize_drawer">Sérstilla skúffu</string>
     <string name="customize_drawer_summary">Draga og sleppa til að raða valmynd</string>
     <string name="action_call">Hringja</string>
-    <string name="action_open">Opna</string>
     <string name="SSD_sort_my_order">Mín röðun</string>
     <string name="astrid_sort_order">Handvirk Astrid-röðun</string>
     <string name="astrid_sort_order_summary">Virkja handvirka Astrid-röðun fyrir „Mín verkefni“, „Í dag“ og tögg. Þessari röðun verður skipt út fyrir „Mín röðun“ í væntanlegri uppfærslu</string>

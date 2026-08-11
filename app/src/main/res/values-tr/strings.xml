@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Ayarlar</string>
     <string name="TAd_actionEditTask">Düzenle</string>
     <string name="action_call">Ara</string>
-    <string name="action_open">Aç</string>
     <string name="SSD_sort_auto">Tasks akıllı sıralama</string>
     <string name="SSD_sort_alpha">Başlığa göre</string>
     <string name="SSD_sort_due">Bitiş tarihine göre</string>
@@ -92,8 +91,6 @@
     <string name="ring_once">Bir kez çal</string>
     <string name="ring_five_times">Beş kez çal</string>
     <string name="ring_nonstop">Durmadan çal</string>
-    <string name="rmd_NoA_done">Tamamlandı</string>
-    <string name="rmd_NoA_snooze">Ertele</string>
     <string name="snooze_all">Tümünü ertele</string>
     <string name="repeat_option_custom">Özel…</string>
     <plurals name="task_count">

@@ -12,7 +12,6 @@
     <string name="TLA_menu_search">Bigere</string>
     <string name="TLA_menu_settings">Sazkarî</string>
     <string name="TAd_actionEditTask">Serrast bike</string>
-    <string name="action_open">Veke</string>
     <string name="TEA_note_label">Danasîn</string>
     <string name="save">Tomar bike</string>
     <string name="TEA_control_repeat">Dubare bike</string>
@@ -21,7 +20,6 @@
     <string name="TEA_control_notes">Danasîn</string>
     <string name="TEA_control_files">Pel</string>
     <string name="none">Ne yek</string>
-    <string name="rmd_NoA_done">Qediya</string>
     <string name="repeat_option_custom">Kesane…</string>
     <string name="now">Niha</string>
     <string name="today">Îro</string>

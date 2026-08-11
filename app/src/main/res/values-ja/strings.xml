@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">設定</string>
     <string name="TAd_actionEditTask">編集</string>
     <string name="action_call">電話</string>
-    <string name="action_open">開く</string>
     <string name="SSD_sort_auto">自動</string>
     <string name="SSD_sort_alpha">タイトル</string>
     <string name="SSD_sort_due">締切日時</string>
@@ -96,8 +95,6 @@
     <string name="ring_once">通知音を 1 回鳴らす</string>
     <string name="ring_five_times">通知音を 5 回鳴らす</string>
     <string name="ring_nonstop">通知音を鳴らし続ける</string>
-    <string name="rmd_NoA_done">完了</string>
-    <string name="rmd_NoA_snooze">スヌーズ</string>
     <string name="snooze_all">すべてスヌーズ</string>
     <string name="repeat_option_custom">カスタム…</string>
     <plurals name="task_count">

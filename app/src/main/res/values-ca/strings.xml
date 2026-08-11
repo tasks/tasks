@@ -59,8 +59,6 @@
     <string name="gcal_completed_title">%s (completada)</string>
     <string name="gtasks_GTA_clear_completed">Neteja les tasques completades</string>
     <string name="gtasks_GLA_authenticating">S\'està autenticant…</string>
-    <string name="rmd_NoA_done">Acabat</string>
-    <string name="rmd_NoA_snooze">Adorm</string>
     <string name="TPl_notification">Temporitzadors actius per %s!</string>
     <string name="TEA_timer_comment_started">inici d\'aquesta tasca:</string>
     <string name="TEA_timer_comment_stopped">finalització d\'aquesta tasca:</string>
@@ -81,7 +79,6 @@
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. \n \n %3$s importades \n %4$s ja existien \n %5$s tenien errors</string>
     <string name="TLA_no_items">No hi ha cap tasca aquí.</string>
     <string name="action_call">Truca</string>
-    <string name="action_open">Obre</string>
     <string name="FLA_new_filter">Crea un filtre</string>
     <string name="save">Desa</string>
     <string name="TEA_timer_est">Est. %s</string>

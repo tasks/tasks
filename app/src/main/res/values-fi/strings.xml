@@ -89,8 +89,6 @@
     <string name="ring_once">Soi kerran</string>
     <string name="ring_five_times">Soi viisi kertaa</string>
     <string name="ring_nonstop">Soi jatkuvasti</string>
-    <string name="rmd_NoA_done">Valmis</string>
-    <string name="rmd_NoA_snooze">Torkku</string>
     <string name="snooze_all">Torkuta kaikki</string>
     <string name="repeat_option_custom">Valinnainen…</string>
     <plurals name="task_count">
@@ -259,7 +257,6 @@
     <string name="TEA_control_location">Sijainti</string>
     <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="SSD_sort_my_order">Oma järjestys</string>
-    <string name="action_open">Avaa</string>
     <string name="action_call">Soita</string>
     <string name="display_name">Näytetään nimellä</string>
     <string name="filter_eisenhower_box_4">Ei tärkeää eikä kiireellistä</string>

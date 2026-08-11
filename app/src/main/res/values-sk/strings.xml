@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Nastavenia</string>
     <string name="TAd_actionEditTask">Upraviť</string>
     <string name="action_call">Volať</string>
-    <string name="action_open">Otvoriť</string>
     <string name="SSD_sort_auto">Inteligentné triedenie</string>
     <string name="SSD_sort_alpha">Podľa názvu</string>
     <string name="SSD_sort_due">Podľa dátumu</string>
@@ -96,8 +95,6 @@
     <string name="ring_once">Zvoniť raz</string>
     <string name="ring_five_times">Zvoniť päť krát</string>
     <string name="ring_nonstop">Zvoniť neustále</string>
-    <string name="rmd_NoA_done">Dokončené</string>
-    <string name="rmd_NoA_snooze">Odložiť</string>
     <string name="snooze_all">Uspi všetko</string>
     <string name="repeat_option_custom">Vlastné…</string>
     <plurals name="task_count">

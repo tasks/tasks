@@ -24,7 +24,6 @@
     <string name="SSD_sort_importance">Po prioritetu</string>
     <string name="SSD_sort_auto">Pametno razvrstavanje</string>
     <string name="astrid_sort_order">Astridovo ručno razvrstavanje</string>
-    <string name="action_open">Otvori</string>
     <string name="TLA_menu_search">Traži</string>
     <string name="TLA_menu_settings">Postavke</string>
     <string name="TLA_menu_sort">Razvrstaj</string>
@@ -272,8 +271,6 @@
         <item quantity="other">%d zadataka</item>
     </plurals>
     <string name="snooze_all">Odgodi sve</string>
-    <string name="rmd_NoA_snooze">Odgodi</string>
-    <string name="rmd_NoA_done">Obavljeno</string>
     <string name="ring_nonstop">Zvoni neprekidno</string>
     <string name="ring_five_times">Zvoni pet puta</string>
     <string name="ring_once">Zvoni jednom</string>

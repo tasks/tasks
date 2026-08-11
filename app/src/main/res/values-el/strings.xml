@@ -78,8 +78,6 @@
     <string name="gtasks_GLA_authenticating">Αυθεντικοποίηση…</string>
     <string name="gtasks_error_accountNotFound">Λογαριασμός %s δεν βρέθηκε - παρακαλώ αποσυνδεθείτε και συνδεθείτε πάλι απο τις ρυθμίσεις του Google Tasks.</string>
     <string name="premium_record_audio">Ηχογράφηση σημείωσης</string>
-    <string name="rmd_NoA_done">Ολοκληρωμένο</string>
-    <string name="rmd_NoA_snooze">Αναβολή</string>
     <string name="TPl_notification">Χρονοδιακόπτες ενεργοί για %s!</string>
     <string name="TEA_timer_controls">Χρονοδιακόπτης</string>
     <string name="TEA_timer_comment_started">ξεκίνησε αυτή την εργασία:</string>
@@ -94,7 +92,6 @@
     <string name="add_location">Προσθήκη τοποθεσίας</string>
     <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
-    <string name="action_open">Ανοίξτε το</string>
     <string name="action_call">Καλέστε</string>
     <string name="TLA_no_items">Δεν υπάρχουν καθήκοντα.</string>
     <string name="cancel">Ακύρωση</string>

@@ -92,8 +92,6 @@
     <string name="ring_once">Soar unha vez</string>
     <string name="ring_five_times">Soar cinco veces</string>
     <string name="ring_nonstop">Soar sen parar</string>
-    <string name="rmd_NoA_done">Finalizada</string>
-    <string name="rmd_NoA_snooze">Pospoñer</string>
     <string name="repeat_snackbar">%1$s reprogramou esta tarefa para %2$s</string>
     <string name="new_tag">Crear nova etiqueta</string>
     <string name="new_list">Crea unha nova lista</string>
@@ -195,7 +193,6 @@
     <string name="tasker_create_task">Crear tarefa</string>
     <string name="tasker_list_notification">Última notificación</string>
     <string name="subscription">Suscrición</string>
-    <string name="action_open">Abrir</string>
     <string name="auto_dismiss_datetime_edit">Edición de tarefas</string>
     <string name="CFC_list_name">Na lista.…</string>
     <string name="repeat_option_custom">Personalizado…</string>

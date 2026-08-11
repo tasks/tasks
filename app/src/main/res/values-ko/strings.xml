@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">설정</string>
     <string name="TAd_actionEditTask">편집</string>
     <string name="action_call">전화</string>
-    <string name="action_open">열기</string>
     <string name="SSD_sort_auto">Tasks 스마트 정렬</string>
     <string name="SSD_sort_alpha">제목 기준</string>
     <string name="SSD_sort_due">마감일 기준</string>
@@ -92,8 +91,6 @@
     <string name="ring_once">한번 울림</string>
     <string name="ring_five_times">다섯번 울림</string>
     <string name="ring_nonstop">계속 울림</string>
-    <string name="rmd_NoA_done">완료</string>
-    <string name="rmd_NoA_snooze">알림 잠시 미루기</string>
     <string name="snooze_all">모든 알람 잠시 미루기</string>
     <string name="repeat_option_custom">사용자설정…</string>
     <plurals name="task_count">

@@ -23,7 +23,6 @@
     <string name="customize_drawer">Personalizar caxón</string>
     <string name="customize_drawer_summary">Arrastrar y soltar pa reorganizar los elementos del menú</string>
     <string name="action_call">Llamar</string>
-    <string name="action_open">Abrir</string>
     <string name="SSD_sort_my_order">El mio orden</string>
     <string name="astrid_sort_order">Ordenación manual d\'Astrid</string>
     <string name="astrid_sort_order_summary">Activar el mou d\'ordenación manual d\'Astris pa \'Les mis xeres\', \'Güei\', y etiquetes. Esti mou d\'ordenación sedrá sustituyíu por \'El mio orden\' nun anovamientu futuru</string>
@@ -113,8 +112,6 @@
     <string name="ring_once">Sonar una vuelta</string>
     <string name="ring_five_times">Sonar cinco vueltes</string>
     <string name="ring_nonstop">Sonar ensin parar</string>
-    <string name="rmd_NoA_done">Acabada</string>
-    <string name="rmd_NoA_snooze">Posponer</string>
     <string name="snooze_all">Posponer too</string>
     <string name="repeat_option_custom">Personalizáu…</string>
     <plurals name="task_count">

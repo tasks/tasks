@@ -49,8 +49,6 @@
     <string name="gcal_completed_title">%s (fullført)</string>
     <string name="CFC_gtasks_list_text">I listen\?</string>
     <string name="gtasks_GTA_clear_completed">Fjern fullførte</string>
-    <string name="rmd_NoA_done">Utført</string>
-    <string name="rmd_NoA_snooze">Slumre</string>
     <plurals name="repeat_n_minutes">
         <item quantity="one">%d minutt</item>
         <item quantity="other">%d minutter</item>
@@ -87,7 +85,6 @@
     <string name="TLA_no_items">Det er ingen gjøremål her.</string>
     <string name="TLA_menu_search">Søk</string>
     <string name="action_call">Ring</string>
-    <string name="action_open">Åpne</string>
     <string name="FLA_new_filter">Opprett nytt filter</string>
     <string name="save">Lagre</string>
     <string name="due_date">Tidsfristsdato</string>

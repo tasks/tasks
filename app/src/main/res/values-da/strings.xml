@@ -42,8 +42,6 @@
     <string name="gcal_TEA_error">Fejl med at føje opgave til kalender!</string>
     <string name="gcal_TEA_showCalendar_label">Åbn kalenderbegivenhed</string>
     <string name="gcal_completed_title">%s (fuldført)</string>
-    <string name="rmd_NoA_done">Fuldført</string>
-    <string name="rmd_NoA_snooze">Udsæt</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opgave</item>
         <item quantity="other">%d opgaver</item>
@@ -322,7 +320,6 @@
     <string name="sort_created">Efter oprettelsestidspunkt</string>
     <string name="astrid_sort_order_summary">Aktiver Astrids manuelle sortering for ‘Mine opgaver’, ‘I dag’ og tags. Denne sorteringsmetode erstattes af ‘Min rækkefølge’ i en kommende opdatering</string>
     <string name="SSD_sort_my_order">Min rækkefølge</string>
-    <string name="action_open">Åbn</string>
     <string name="action_call">Ring</string>
     <string name="TLA_menu_search">Søg</string>
     <string name="TLA_no_items">Der er ingen opgaver her.</string>

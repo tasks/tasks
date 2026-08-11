@@ -16,7 +16,6 @@
     <string name="display_name">डिस्प्ले नाम</string>
     <string name="TEA_estimatedDuration_label">कति समय लाग्नेछ?</string>
     <string name="subtasks">उपकार्यहरू</string>
-    <string name="action_open">खुल्ला</string>
     <string name="TEA_title_hint">कार्यको नाम</string>
     <string name="TEA_importance_label">प्राथमिकता</string>
     <string name="TEA_add_subtask">उपकार्य थप्नुहोस्</string>
@@ -35,7 +34,6 @@
     <string name="filter_any_start_date">कुनै पनि सुरु मिति</string>
     <string name="next_month">अर्को महिना</string>
     <string name="ring_nonstop">निरन्तर घण्टी बजाउनुहोस्</string>
-    <string name="rmd_NoA_done">पूरा</string>
     <string name="now">अहिले</string>
     <string name="today">आज</string>
     <string name="tomorrow">भोलि</string>

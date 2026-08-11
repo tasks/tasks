@@ -13,7 +13,6 @@
     <string name="TLA_menu_settings">Seadistused</string>
     <string name="TAd_actionEditTask">Muuda</string>
     <string name="action_call">Helista</string>
-    <string name="action_open">Ava</string>
     <string name="SSD_sort_auto">Nutikas järjestus</string>
     <string name="SSD_sort_alpha">Pealkirja järgi</string>
     <string name="SSD_sort_due">Tähtaja järgi</string>
@@ -77,8 +76,6 @@
     <string name="ring_once">Helista üks kord</string>
     <string name="ring_five_times">Helista 5 korda</string>
     <string name="ring_nonstop">Helista lõputult</string>
-    <string name="rmd_NoA_done">Valmis</string>
-    <string name="rmd_NoA_snooze">Lükka edasi</string>
     <string name="snooze_all">Lükka kõik edasi</string>
     <string name="repeat_option_custom">Kohandatud…</string>
     <string name="new_list">Loo uus nimekiri</string>

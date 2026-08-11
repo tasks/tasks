@@ -68,7 +68,6 @@
     <string name="ring_once">یک بار زنگ بزن</string>
     <string name="ring_five_times">پنج بار زنگ بزن</string>
     <string name="ring_nonstop">بدون توقف زنگ بزن</string>
-    <string name="rmd_NoA_done">کامل</string>
     <string name="new_tag">ایجاد تگ جدید</string>
     <string name="new_list">ایجاد لیست جدید</string>
     <string name="TEA_timer_controls">تایمر</string>
@@ -125,7 +124,6 @@
     <string name="astrid_sort_order">راهنمای خودی آسترید</string>
     <string name="SSD_sort_my_order">خرید من</string>
     <string name="action_call">زنگ</string>
-    <string name="action_open">باز</string>
     <string name="TEA_control_location">مکان</string>
     <string name="EPr_delete_task_data_warning">همه وظایف به شکل دائم حذف خواهند شد</string>
     <string name="start_date">تاریخ شروع</string>
@@ -156,7 +154,6 @@
     <string name="EPr_manage_delete_completed_gcal_message">مطمعنی میخوای تمام چیزای مربوط به تسک های تموم شده رو پاک کنی؟</string>
     <string name="CFC_tag_text">برچسب: ?</string>
     <string name="CFC_tag_contains_name">نام برچسب شامل …</string>
-    <string name="rmd_NoA_snooze">عقب انداختن</string>
     <string name="calendar_event_not_found">اتفاقی توی تقویم پیدا نشد</string>
     <string name="CFC_list_name">توی لیست …</string>
     <string name="export_toast">پشتیبان گیری شد %1$s تا %2$s</string>

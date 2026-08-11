@@ -23,7 +23,6 @@
     <string name="TLA_menu_settings">Nustatymai</string>
     <string name="TAd_actionEditTask">Redaguoti</string>
     <string name="action_call">Skambinti</string>
-    <string name="action_open">Atidaryti</string>
     <string name="SSD_sort_auto">Gudrus eiliškumas</string>
     <string name="SSD_sort_alpha">Pagal pavadinimą</string>
     <string name="SSD_sort_due">Pagal pabaigos datą</string>
@@ -101,8 +100,6 @@
     <string name="ring_once">Suskambėti vieną kartą</string>
     <string name="ring_five_times">Suskambėti penkis kartus</string>
     <string name="ring_nonstop">Skambėti nepaliaujant</string>
-    <string name="rmd_NoA_done">Užbaigta</string>
-    <string name="rmd_NoA_snooze">Užmigdyti</string>
     <string name="snooze_all">Užmigdyti visus</string>
     <string name="repeat_option_custom">Individualizuotas…</string>
     <plurals name="task_count">

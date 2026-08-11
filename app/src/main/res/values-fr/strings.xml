@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Paramètres</string>
     <string name="TAd_actionEditTask">Modifier</string>
     <string name="action_call">Appeler</string>
-    <string name="action_open">Ouvrir</string>
     <string name="SSD_sort_auto">Tri intelligent</string>
     <string name="SSD_sort_alpha">Par titre</string>
     <string name="SSD_sort_due">Par date d\'échéance</string>
@@ -89,8 +88,6 @@
     <string name="ring_once">Sonner une fois</string>
     <string name="ring_five_times">Sonner cinq fois</string>
     <string name="ring_nonstop">Sonner en continu</string>
-    <string name="rmd_NoA_done">Déjà fait</string>
-    <string name="rmd_NoA_snooze">Reporter</string>
     <string name="snooze_all">Tout reporter</string>
     <string name="repeat_option_custom">Personnalisé…</string>
     <plurals name="task_count">

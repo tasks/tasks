@@ -12,7 +12,6 @@
     <string name="TLA_menu_search">Cari</string>
     <string name="TLA_menu_settings">Pengaturan</string>
     <string name="TAd_actionEditTask">Sunting</string>
-    <string name="action_open">Buka</string>
     <string name="SSD_sort_my_order">Urutan saya</string>
     <string name="SSD_sort_auto">Urutan cerdas</string>
     <string name="SSD_sort_alpha">Berdasarkan judul</string>
@@ -71,8 +70,6 @@
     <string name="ring_once">Dering sekali</string>
     <string name="ring_five_times">Dering lima kali</string>
     <string name="ring_nonstop">Dering nonstop</string>
-    <string name="rmd_NoA_done">Selesai</string>
-    <string name="rmd_NoA_snooze">Tunda</string>
     <string name="snooze_all">Tunda semua</string>
     <string name="repeat_option_custom">Khusus…</string>
     <plurals name="task_count">

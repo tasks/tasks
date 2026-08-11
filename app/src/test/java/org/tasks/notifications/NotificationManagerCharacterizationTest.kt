@@ -20,6 +20,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyBlocking
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.pickers.QuickPickTimes
@@ -35,6 +36,9 @@ import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.rmd_NoA_done
+import tasks.kmp.generated.resources.rmd_NoA_snooze
 
 @RunWith(RobolectricTestRunner::class)
 class NotificationManagerCharacterizationTest {
@@ -267,7 +271,7 @@ class NotificationManagerCharacterizationTest {
             posted.extras.getCharSequence(android.app.Notification.EXTRA_TITLE)?.toString(),
         )
         assertEquals(
-            listOf(context.getString(R.string.rmd_NoA_done), context.getString(R.string.rmd_NoA_snooze)),
+            listOf(getString(Res.string.rmd_NoA_done), getString(Res.string.rmd_NoA_snooze)),
             posted.actions.orEmpty().map { it.title.toString() },
         )
     }
@@ -279,7 +283,7 @@ class NotificationManagerCharacterizationTest {
         notificationManager.notifyTasks(listOf(notification(1L)), alert = true, nonstop = false, fiveTimes = false)
 
         assertEquals(
-            listOf(context.getString(R.string.rmd_NoA_snooze)),
+            listOf(getString(Res.string.rmd_NoA_snooze)),
             built.getValue(1).actions.orEmpty().map { it.title.toString() },
         )
     }

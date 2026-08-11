@@ -88,7 +88,6 @@
     <string name="ring_once">Tocar uma vez</string>
     <string name="ring_five_times">Tocar 5 vezes</string>
     <string name="ring_nonstop">Tocar sem parar</string>
-    <string name="rmd_NoA_done">Terminada</string>
     <string name="snooze_all">Suspender todos</string>
     <string name="repeat_option_custom">Personalizado…</string>
     <plurals name="task_count">
@@ -194,7 +193,6 @@
     <string name="repeats_plural_number_of_times">Repetir a cada %1$s, ocorre %2$d %3$s</string>
     <string name="dont_add_to_calendar">Não adicionar ao calendário</string>
     <string name="action_call">Ligar</string>
-    <string name="action_open">Abrir</string>
     <string name="TEA_timer_est">Duração %s</string>
     <string name="icon">Ícone</string>
     <string name="invalid_backup_file">O ficheiro de cópia de segurança é inválido</string>
@@ -237,7 +235,6 @@
     <string name="geofence_radius">Raio da cerca geográfica</string>
     <string name="add_location">Adicionar local</string>
     <string name="google_drive_backup">Cópia de segurança no Google Drive</string>
-    <string name="rmd_NoA_snooze">Adiar</string>
     <string name="TEA_control_location">Localização</string>
     <string name="CFC_list_name">Na lista…</string>
     <string name="lists">Listas</string>

@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">הגדרות</string>
     <string name="TAd_actionEditTask">עריכה</string>
     <string name="action_call">שיחה</string>
-    <string name="action_open">פתיחה</string>
     <string name="SSD_sort_auto">מיון חכם</string>
     <string name="SSD_sort_alpha">לפי כותרת</string>
     <string name="SSD_sort_due">לפי תאריך יעד</string>
@@ -92,8 +91,6 @@
     <string name="ring_once">צלצל פעם אחת</string>
     <string name="ring_five_times">צלצל חמש פעמים</string>
     <string name="ring_nonstop">צלצל ללא הפסקה</string>
-    <string name="rmd_NoA_done">השלמה</string>
-    <string name="rmd_NoA_snooze">נודניק</string>
     <string name="snooze_all">נודניק לכל</string>
     <string name="repeat_option_custom">התאמה אישית…</string>
     <plurals name="task_count">

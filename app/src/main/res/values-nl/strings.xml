@@ -91,8 +91,6 @@
     <string name="ring_once">Een keer bellen</string>
     <string name="ring_five_times">Vijf keer bellen</string>
     <string name="ring_nonstop">Non-stop bellen</string>
-    <string name="rmd_NoA_done">Voltooid</string>
-    <string name="rmd_NoA_snooze">Snoozen</string>
     <string name="snooze_all">Alles snoozen</string>
     <string name="repeat_option_custom">Aangepast…</string>
     <plurals name="task_count">
@@ -228,7 +226,6 @@
     <string name="open_map">Kaart openen</string>
     <string name="choose_new_location">Nieuwe locatie kiezen</string>
     <string name="invalid_backup_file">Ongeldig backupbestand</string>
-    <string name="action_open">Openen</string>
     <string name="TEA_timer_controls">Tijdklok</string>
     <string name="backup_directory">Backup-map</string>
     <string name="location_radius_meters">%s m</string>

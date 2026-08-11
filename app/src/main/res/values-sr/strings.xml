@@ -39,7 +39,6 @@
     <string name="customize_drawer_summary">Превуци и пусти за прерасподелу ставки менија</string>
     <string name="today">Данас</string>
     <string name="action_call">Позив</string>
-    <string name="action_open">Отвори</string>
     <string name="SSD_sort_my_order">Мој редослед</string>
     <string name="astrid_sort_order">Астрид ручно сортирање</string>
     <string name="astrid_sort_order_summary">Омогући Астрид ручни мод сортирања за ,,Моји задаци\'\', ,,Данас\'\' и тагове. Овај мод сортирања ће бити замењен ,,Мој редослед\'\' модом у будућем ажурирању</string>
@@ -99,8 +98,6 @@
     <string name="ring_once">Зазвони једном</string>
     <string name="ring_five_times">Зазвони пет пута</string>
     <string name="ring_nonstop">Звони непрестано</string>
-    <string name="rmd_NoA_done">Заврши</string>
-    <string name="rmd_NoA_snooze">Одложи</string>
     <string name="snooze_all">Одложи све</string>
     <plurals name="task_count">
         <item quantity="one">%d задатак</item>

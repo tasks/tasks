@@ -54,8 +54,6 @@
     <string name="CFC_gtasks_list_text">في القائمة: \?</string>
     <string name="gtasks_GTA_clear_completed">حذف المتمم</string>
     <string name="premium_record_audio">تسجيل ملاحظة</string>
-    <string name="rmd_NoA_done">أكمل</string>
-    <string name="rmd_NoA_snooze">غفوة</string>
     <string name="TEA_timer_controls">مؤقت</string>
     <string name="TEA_timer_comment_started">بدء هذه المهمة:</string>
     <string name="TEA_timer_comment_spent">الوقت المنقضي:</string>
@@ -96,7 +94,6 @@
     <string name="restart_later">لاحقاً</string>
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
-    <string name="action_open">افتح</string>
     <string name="color">اللون</string>
     <string name="import_progress_read">قراءة المهمة %d…</string>
     <string name="EPr_delete_task_data_warning">سيتم حذف جميع المهام بشكل دائم</string>

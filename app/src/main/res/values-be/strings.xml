@@ -25,7 +25,6 @@
     <string name="SSD_sort_auto">Разумнае сартаванне</string>
     <string name="customize_drawer">Наладзіць панэль</string>
     <string name="customize_drawer_summary">Перацягніце элементы меню, каб іх пераставіць</string>
-    <string name="action_open">Адкрыць</string>
     <string name="SSD_sort_my_order">Мой парадак</string>
     <string name="astrid_sort_order_summary">Уключыце рэжым ручнога сартавання Astrid для «Маіх задач», «Сёння» і тэгаў. Гэты рэжым будзе заменены на «Мой парадак» у будучым абнаўленні</string>
     <string name="SSD_sort_alpha">Па назве</string>

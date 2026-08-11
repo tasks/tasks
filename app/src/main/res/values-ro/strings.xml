@@ -186,8 +186,6 @@
     </plurals>
     <string name="repeat_option_custom">Personalizat…</string>
     <string name="snooze_all">Amână tot</string>
-    <string name="rmd_NoA_snooze">Amână</string>
-    <string name="rmd_NoA_done">Finalizat</string>
     <string name="ring_nonstop">Sună non-stop</string>
     <string name="ring_five_times">Sună de cinci ori</string>
     <string name="ring_once">Sună o dată</string>
@@ -260,7 +258,6 @@
     <string name="TLA_no_items">Nu există sarcini aici.</string>
     <string name="astrid_sort_order">Sortare manuală Astrid</string>
     <string name="SSD_sort_my_order">Sortarea mea</string>
-    <string name="action_open">Deschide</string>
     <string name="action_call">Sună</string>
     <string name="TAd_actionEditTask">Editare</string>
     <string name="TLA_menu_settings">Setări</string>

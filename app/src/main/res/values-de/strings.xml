@@ -18,7 +18,6 @@
     <string name="TLA_menu_settings">Einstellungen</string>
     <string name="TAd_actionEditTask">Bearbeiten</string>
     <string name="action_call">Anrufen</string>
-    <string name="action_open">Öffnen</string>
     <string name="SSD_sort_auto">Intelligente Sortierung</string>
     <string name="SSD_sort_alpha">Nach Titel</string>
     <string name="SSD_sort_due">Nach Fälligkeitsdatum</string>
@@ -92,8 +91,6 @@
     <string name="ring_once">Einmal klingeln</string>
     <string name="ring_five_times">Fünfmal klingeln</string>
     <string name="ring_nonstop">Ununterbrochen klingeln</string>
-    <string name="rmd_NoA_done">Abgeschlossen</string>
-    <string name="rmd_NoA_snooze">Schlummern</string>
     <string name="snooze_all">Alle schlummern</string>
     <string name="repeat_option_custom">Eigene…</string>
     <plurals name="task_count">
