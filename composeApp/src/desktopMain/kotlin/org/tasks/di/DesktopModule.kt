@@ -13,6 +13,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
+import org.tasks.notifications.NoNotifications
+import org.tasks.notifications.Notifier
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.auth.DesktopOAuthFlow
@@ -152,6 +154,8 @@ private fun resolveLogDir(): File {
 
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
+    factory<Notifier> { NoNotifications }
+
     single {
         val notificationsEnabled = TasksBuildConfig.DEBUG
         PlatformConfiguration(
