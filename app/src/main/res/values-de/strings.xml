@@ -6,7 +6,7 @@
     <string name="backup_BAc_export">Jetzt sichern</string>
     <string name="export_toast">%1$s nach %2$s gesichert.</string>
     <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
-    <string name="import_summary_message">Datei %1$s enthält: %2$s.\n\n %3$s importiert,\n %4$s bereits vorhanden\n %5$s fehlerhaft</string>
+    <string name="import_summary_message">Datei %1$s enthielt %2$s.\n\n %3$s importiert,\n %4$s bereits vorhanden\n %5$s fehlerhaft</string>
     <string name="import_progress_read">Aufgabe %d wird gelesen …</string>
     <string name="read_permission_label">Tasks-Zugriffsrechte</string>
     <string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
@@ -34,7 +34,7 @@
     <string name="TEA_timer_est">Geschätzt %s</string>
     <string name="TEA_timer_elap">%s verstrichen</string>
     <string name="due_date">Fälligkeitsdatum</string>
-    <string name="due_time">Fälligkeitszeitpunkt</string>
+    <string name="due_time">Ablaufzeit</string>
     <string name="day_before_due">Tag vor Fälligkeit</string>
     <string name="week_before_due">Woche vor Fälligkeit</string>
     <string name="TEA_control_repeat">Wiederholen</string>
@@ -98,12 +98,12 @@
         <item quantity="other">%d Aufgaben</item>
     </plurals>
     <plurals name="repeat_times">
-        <item quantity="one">-mal</item>
-        <item quantity="other">-mal</item>
+        <item quantity="one">Zeit</item>
+        <item quantity="other">Zeiten</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%d Minute</item>
-        <item quantity="other">%d Minuten</item>
+        <item quantity="one">%d Die Minute</item>
+        <item quantity="other">%d Die Minuten</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%d Stunde</item>
@@ -196,7 +196,7 @@
     <string name="password">Passwort</string>
     <string name="badges">Benachrichtigungspunkte</string>
     <string name="list">Liste</string>
-    <string name="repeats_from">Wiederholt sich ab</string>
+    <string name="repeats_from">Wiederholung ab</string>
     <string name="repeats_plural_number_of_times">Wiederholt sich alle %1$s, genau %2$d %3$s</string>
     <string name="dont_add_to_calendar">Nicht im Kalender eintragen</string>
     <string name="badges_description">Anzeige eines Aufgabenzählers am Tasks Launcher Icon. Nicht alle Launcher unterstützen Badges.</string>
@@ -235,7 +235,7 @@
     <string name="filter">Filter</string>
     <string name="theme">Design</string>
     <string name="url">URL</string>
-    <string name="list_separator_with_space">", "</string>
+    <string name="list_separator_with_space">", • "</string>
     <string name="icon">Symbol</string>
     <string name="name_your_price">Nenn deinen Preis</string>
     <string name="SSD_sort_my_order">Eigene Sortierung</string>
@@ -310,7 +310,7 @@
     <string name="filter_eisenhower_box_4">Unwichtig und nicht dringend</string>
     <string name="filter_eisenhower_box_3">Unwichtig und dringend</string>
     <string name="filter_eisenhower_box_2">Wichtig und nicht dringend</string>
-    <string name="filter_eisenhower_box_1">Wichtig und dringend</string>
+    <string name="filter_eisenhower_box_1">Dringend &amp; Wichtig</string>
     <string name="action_new_task">Neue Aufgabe</string>
     <string name="support_development_subscribe">Schalte zusätzliche Funktionen frei und unterstütze freie Software</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>
@@ -404,7 +404,7 @@
     <string name="show_edit_screen_without_unlock">Bearbeitungsbildschirm ohne Entsperren anzeigen</string>
     <string name="enable_alarms">Rechtzeitig benachrichtigt werden</string>
     <string name="enable_alarms_description">Um rechtzeitig benachrichtigt zu werden, musst du in den Einstellungen die Berechtigung erteilen, dass Alarme und Erinnerungen eingerichtet werden dürfen</string>
-    <string name="price_per_month_with_currency">%s/Monat</string>
+    <string name="price_per_month_with_currency">%s/Der Monat</string>
     <string name="price_per_year_with_currency">%s/Jahr</string>
     <string name="delete_comment">Kommentar</string>
     <string name="yesterday">Gestern</string>
@@ -414,7 +414,7 @@
     <string name="multiline_title_on">Eingabetaste drücken, um Zeilenumbrüche einzufügen</string>
     <string name="comment">Kommentar</string>
     <string name="sync_warning_google_tasks_title">Über die Synchronisierung mit „Google Tasks“</string>
-    <string name="sync_warning_google_tasks">Nicht alle Aufgabendetails können mit Google Tasks synchronisiert werden.</string>
+    <string name="sync_warning_google_tasks">Nicht alle Aufgabendetails können mit Google Tasks synchronisiert werden</string>
     <string name="button_learn_more">Mehr erfahren</string>
     <string name="sync_warning_microsoft">Nicht alle Aufgabendetails können mit Microsoft To Do synchronisiert werden.</string>
     <string name="sync_warning_microsoft_title">Über die Synchronisierung mit „Microsoft To Do“</string>
