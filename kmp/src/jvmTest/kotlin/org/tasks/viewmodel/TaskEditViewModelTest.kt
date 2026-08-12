@@ -444,6 +444,7 @@ class TaskEditViewModelTest {
             check { assertTrue(it.checkTransitory(SYNC_TAGS)) },
             anyOrNull(),
             any(),
+            any(),
         )
     }
 
@@ -517,6 +518,7 @@ class TaskEditViewModelTest {
             check { assertEquals(Task.Priority.MEDIUM, it.priority) },
             any(),
             any(),
+            any(),
         )
     }
 
@@ -538,7 +540,7 @@ class TaskEditViewModelTest {
             caldavTask = check { assertEquals(testCalendar.uuid, it.calendar) },
             addToTop = eq(true),
         )
-        verify(taskSaver).save(check { assertEquals("New Task", it.title) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals("New Task", it.title) }, anyOrNull(), any(), any())
     }
 
     @Test
@@ -574,7 +576,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao, never()).createNew(any())
-        verify(taskSaver).save(check { assertEquals("Updated", it.title) }, any(), any())
+        verify(taskSaver).save(check { assertEquals("Updated", it.title) }, any(), any(), any())
     }
 
     @Test
@@ -586,7 +588,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -661,7 +663,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
         verify(taskDao, never()).createNew(any())
 
         gate.complete(Unit)
@@ -750,7 +752,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao).createNew(check { assertEquals("Unsaved work", it.title) })
-        verify(taskSaver).save(check { assertEquals("Unsaved work", it.title) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals("Unsaved work", it.title) }, anyOrNull(), any(), any())
     }
 
     @Test
@@ -760,7 +762,7 @@ class TaskEditViewModelTest {
         viewModel.saveCurrentTask()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -797,7 +799,7 @@ class TaskEditViewModelTest {
         departing.setTitle("Modified")
         // Park the save mid-flight so the replacement's load has something to race.
         val saveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { invocation ->
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { invocation ->
             saveGate.await()
             val saved = invocation.arguments[0] as Task
             whenever(taskDao.fetch(42L)).thenReturn(Task(id = 42, title = saved.title))
@@ -829,7 +831,7 @@ class TaskEditViewModelTest {
         initializeExisting(id = 42, title = "Original")
         val departing = viewModel
         val firstSaveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { invocation ->
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { invocation ->
             val saved = invocation.arguments[0] as Task
             if (saved.title == "First") {
                 firstSaveGate.await()
@@ -865,7 +867,7 @@ class TaskEditViewModelTest {
         val slow = viewModel
         slow.setTitle("Slow edit")
         val saveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { saveGate.await() }
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { saveGate.await() }
 
         slow.persistCurrentTask()
         advanceUntilIdle()
@@ -895,7 +897,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
         slow.setTitle("Slow edit")
         val saveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { saveGate.await() }
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { saveGate.await() }
 
         slow.persistCurrentTask()
         advanceUntilIdle()
@@ -943,7 +945,7 @@ class TaskEditViewModelTest {
         initializeExisting(id = 42, title = "Original")
         val departing = viewModel
         departing.setTitle("Modified")
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { invocation ->
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { invocation ->
             val saved = invocation.arguments[0] as Task
             whenever(taskDao.fetch(42L)).thenReturn(Task(id = 42, title = saved.title))
             Unit
@@ -976,7 +978,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     /** Hard deletes leave no tombstone to find, so the missing row is the only signal. */
@@ -989,7 +991,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
         assertTrue(viewModel.state.value.deleted)
     }
 
@@ -1004,7 +1006,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     /** The same, for a delete that left a tombstone the re-read can see. */
@@ -1020,7 +1022,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         assertTrue(closed())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     /**
@@ -1037,7 +1039,7 @@ class TaskEditViewModelTest {
         viewModel.persistCurrentTask()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
         assertEquals(1, failures())
     }
 
@@ -1060,6 +1062,7 @@ class TaskEditViewModelTest {
             },
             anyOrNull(),
             any(),
+            any(),
         )
     }
 
@@ -1073,7 +1076,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
         departing.setTitle("Modified")
         val saveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer { invocation ->
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer { invocation ->
             saveGate.await()
             val saved = invocation.arguments[0] as Task
             whenever(taskDao.fetch(42L))
@@ -1121,7 +1124,7 @@ class TaskEditViewModelTest {
         viewModel.saveCurrentTask()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
         verify(taskDao, never()).createNew(any())
     }
 
@@ -1144,7 +1147,7 @@ class TaskEditViewModelTest {
     fun failureAfterTheRowExistsDoesNotCreateTheTaskTwice() = runTest(testDispatcher) {
         initializeNew()
         viewModel.setTitle("Created")
-        whenever(taskSaver.save(any(), anyOrNull(), any()))
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any()))
             .thenThrow(RuntimeException("sync error"))
 
         viewModel.saveCurrentTask()
@@ -1165,7 +1168,7 @@ class TaskEditViewModelTest {
     fun failedNewTaskSaveIsRetriedAsACreation() = runTest(testDispatcher) {
         initializeNew()
         viewModel.setTitle("Created")
-        whenever(taskSaver.save(any(), anyOrNull(), any()))
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any()))
             .thenThrow(RuntimeException("sync error"))
 
         viewModel.saveCurrentTask()
@@ -1177,6 +1180,7 @@ class TaskEditViewModelTest {
             check { assertEquals("Created", it.title) },
             isNull(),
             any(),
+            any(),
         )
     }
 
@@ -1185,7 +1189,7 @@ class TaskEditViewModelTest {
     fun successfulRetryLeavesNothingOwing() = runTest(testDispatcher) {
         initializeNew()
         viewModel.setTitle("Created")
-        whenever(taskSaver.save(any(), anyOrNull(), any()))
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any()))
             .thenThrow(RuntimeException("sync error"))
         viewModel.saveCurrentTask()
         advanceUntilIdle()
@@ -1196,7 +1200,7 @@ class TaskEditViewModelTest {
         viewModel.saveCurrentTask()
         advanceUntilIdle()
 
-        verify(taskSaver, times(1)).save(any(), anyOrNull(), any())
+        verify(taskSaver, times(1)).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1230,6 +1234,7 @@ class TaskEditViewModelTest {
         verify(taskSaver).save(
             check { assertEquals("Modified", it.title) },
             check { assertEquals("Original", it.title) },
+            any(),
             any(),
         )
         assertEquals("Other Task", viewModel.state.value.task.title)
@@ -1515,7 +1520,7 @@ class TaskEditViewModelTest {
 
         viewModel.saveCurrentTask()
         advanceUntilIdle()
-        verify(taskSaver).save(check { assertEquals(localStart, it.hideUntil) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals(localStart, it.hideUntil) }, anyOrNull(), any(), any())
     }
 
     @Test
@@ -1716,7 +1721,7 @@ class TaskEditViewModelTest {
 
         viewModel.saveCurrentTask()
         advanceUntilIdle()
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1736,7 +1741,7 @@ class TaskEditViewModelTest {
 
         viewModel.saveCurrentTask()
         advanceUntilIdle()
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1778,7 +1783,7 @@ class TaskEditViewModelTest {
 
         viewModel.saveCurrentTask()
         advanceUntilIdle()
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1835,7 +1840,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao, never()).createNew(any())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1929,7 +1934,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver).save(check { assertEquals("Edited on the way out", it.title) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals("Edited on the way out", it.title) }, anyOrNull(), any(), any())
     }
 
     @Test
@@ -1939,7 +1944,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1956,7 +1961,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -1979,7 +1984,7 @@ class TaskEditViewModelTest {
     fun awaitIdleWaitsForTheTeardownSave() = runTest(testDispatcher) {
         initializeExisting()
         val saveGate = CompletableDeferred<Unit>()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).doSuspendableAnswer {
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).doSuspendableAnswer {
             saveGate.await()
         }
 
@@ -2205,7 +2210,7 @@ class TaskEditViewModelTest {
 
         viewModel.saveCurrentTask()
         advanceUntilIdle()
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -2492,7 +2497,7 @@ class TaskEditViewModelTest {
         advanceUntilIdle()
 
         verify(taskDao, never()).createNew(any())
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     // endregion
@@ -2508,7 +2513,7 @@ class TaskEditViewModelTest {
         viewModel.markComplete()
         advanceUntilIdle()
 
-        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any(), any())
         verify(taskCompleter).setComplete(42L, true)
         assertTrue(closed())
     }
@@ -2579,7 +2584,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -2616,7 +2621,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any())
+        verify(taskSaver).save(check { assertEquals("Edited", it.title) }, anyOrNull(), any(), any())
     }
 
     // endregion
@@ -2649,7 +2654,7 @@ class TaskEditViewModelTest {
         viewModel.onCleared()
         advanceUntilIdle()
 
-        verify(taskSaver, never()).save(any(), anyOrNull(), any())
+        verify(taskSaver, never()).save(any(), anyOrNull(), any(), any())
     }
 
     @Test
@@ -2743,7 +2748,7 @@ class TaskEditViewModelTest {
         viewModel.save()
         advanceUntilIdle()
 
-        verify(taskSaver).save(any(), any(), any())
+        verify(taskSaver).save(any(), any(), any(), any())
     }
 
     @Test
@@ -2872,7 +2877,7 @@ class TaskEditViewModelTest {
     fun alarmAddedWhileSavingIsNotLost() = runTest(testDispatcher) {
         val added = Alarm(time = ONE_HOUR, type = Alarm.TYPE_RANDOM)
         initializeExisting()
-        whenever(taskSaver.save(any(), anyOrNull(), any())).thenAnswer {
+        whenever(taskSaver.save(any(), anyOrNull(), any(), any())).thenAnswer {
             viewModel.addAlarm(added)
             Unit
         }

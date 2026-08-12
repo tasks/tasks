@@ -32,9 +32,26 @@ class TaskSaver(
     private val backgroundWork: BackgroundWork,
     private val caldavDao: CaldavDao,
 ) {
-    suspend fun save(task: Task, original: Task?, dirty: Boolean = true) {
-        val markDirty = dirty && needsSync(task, original)
-        if (taskDao.update(task, original, updateTimestamp = dirty, markDirty)) {
+    suspend fun save(
+        task: Task,
+        original: Task?,
+        dirty: Boolean = true,
+        preserveHierarchy: Boolean = false,
+    ) {
+        val changes = if (preserveHierarchy && original != null) {
+            task.copy(parent = original.parent, order = original.order)
+        } else {
+            task
+        }
+        val markDirty = dirty && needsSync(changes, original)
+        if (taskDao.update(
+                task,
+                original,
+                updateTimestamp = dirty,
+                markDirty = markDirty,
+                preserveHierarchy = preserveHierarchy,
+            )
+        ) {
             Logger.d("TaskSaver") { "Saved $task" }
             afterSave(task, original)
         }
