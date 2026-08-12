@@ -258,9 +258,10 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
     @Test
     fun droppingIntoAFoldedRowLeavesItFolded() = runBlocking {
-        val parent = addTask()
-        addTask(with(PARENT, parent))
-        val dragged = addTask()
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        val parent = addTask(with(CREATION_TIME, created))
+        addTask(with(CREATION_TIME, created.plusSeconds(1)), with(PARENT, parent))
+        val dragged = addTask(with(CREATION_TIME, created.plusSeconds(2)))
         taskDao.setCollapsed(listOf(parent), true)
 
         move(1, 1, 1)
