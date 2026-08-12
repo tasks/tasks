@@ -794,7 +794,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             }
             R.id.menu_clear_completed -> {
                 lifecycleScope.launch {
-                    val tasks = listViewModel.getTasksToClear()
+                    val tasks = withContext(Dispatchers.Default) {
+                        listViewModel.getTasksToClear()
+                    }
                     val countString = requireContext().resources.getQuantityString(R.plurals.Ntasks, tasks.size, tasks.size)
                     if (tasks.isEmpty()) {
                         context?.toast(R.string.delete_multiple_tasks_confirmation, countString)

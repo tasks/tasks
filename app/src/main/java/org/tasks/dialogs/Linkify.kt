@@ -110,11 +110,6 @@ class Linkify @Inject constructor(
             }
             owner.lifecycleScope.launch {
                 val actionLabel = uri.actionLabel()
-                if (actionLabel == null) {
-                    Timber.d("No action label for $uri, opening it directly")
-                    context.safeStartActivity(Intent(Intent.ACTION_VIEW, uri))
-                    return@launch
-                }
                 owner.withStarted {
                     dialogBuilder
                         .newDialog(title)
