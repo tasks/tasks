@@ -138,6 +138,8 @@ import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
+import org.tasks.data.SubtaskTreeRegistry
+import org.tasks.data.deletions
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
@@ -156,7 +158,9 @@ import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskRow
+import org.tasks.compose.tasklist.rowState
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.DrawerItemInset
 import org.tasks.compose.drawer.SearchButtonSize
@@ -277,6 +281,7 @@ data class TaskEditDestination(
     val remoteId: String,
     val listId: Long? = null,
     val tagUuid: String? = null,
+    val isSubtaskDraft: Boolean = false,
 ) : NavKey
 
 @Serializable
@@ -328,6 +333,7 @@ fun App(
             val configuration = koinInject<PlatformConfiguration>()
             val reporting = koinInject<Reporting>()
             val pendingSaves = koinInject<PendingTaskSaves>()
+            val subtaskTrees = koinInject<SubtaskTreeRegistry>()
             val hasAccount by appViewModel.hasAccount.collectAsState()
             val subscriptionProvider = koinInject<SubscriptionProvider>()
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
@@ -629,6 +635,43 @@ fun App(
                 }
             }
 
+            fun applyOpen(action: OpenTask, destination: TaskEditDestination) {
+                when (action) {
+                    is OpenTask.Ignore -> Unit
+                    is OpenTask.Replace -> openTask(destination)
+                    is OpenTask.Stack -> Snapshot.withMutableSnapshot {
+                        backStack.add(destination)
+                    }
+                    is OpenTask.Resume -> Snapshot.withMutableSnapshot {
+                        while (backStack.size > action.index + 1) {
+                            backStack.removeLastOrNull()
+                        }
+                    }
+                }
+            }
+
+            fun openSubtask(destination: TaskEditDestination) {
+                applyOpen(openSubtask(backStack, destination), destination)
+            }
+
+            fun openTaskFromList(destination: TaskEditDestination) {
+                applyOpen(
+                    openTaskFromList(
+                        backStack = backStack,
+                        destination = destination,
+                        heldByEditor = subtaskTrees.holds(
+                            destination.taskId,
+                            destination.remoteId,
+                        ),
+                        doomedByEditor = subtaskTrees.isDoomed(
+                            destination.taskId,
+                            destination.remoteId,
+                        ),
+                    ),
+                    destination,
+                )
+            }
+
             // The filter is passed in rather than read from taskListState: a caller that just
             // called setFilter still sees the previous value here, because the collector that
             // publishes it hasn't been dispatched yet.
@@ -883,7 +926,7 @@ fun App(
                                 onSettingsClick = { backStack.push(SettingsDestination) },
                                 onSubscribe = { backStack.push(PricingDestination()) },
                                 onAddAccount = { backStack.push(AddAccountDestination) },
-                                onTaskClick = { destination -> openTask(destination) },
+                                onTaskClick = { destination -> openTaskFromList(destination) },
                                 onCreateTask = onCreateTask,
                                 onMenuClick = onMenuClick,
                             )
@@ -899,6 +942,15 @@ fun App(
                             TaskEditEntry(
                                 destination = destination,
                                 filterPickerViewModel = filterPickerViewModel,
+                                onOpenSubtask = { taskId, remoteId, isDraft ->
+                                    openSubtask(
+                                        TaskEditDestination(
+                                            taskId = taskId,
+                                            remoteId = remoteId,
+                                            isSubtaskDraft = isDraft,
+                                        )
+                                    )
+                                },
                                 // The drawer's own handler is registered after this whole subtree
                                 // and so takes precedence - see TaskListChrome. This stands the
                                 // editor down as well, so a back press while the drawer is open
@@ -1712,6 +1764,7 @@ private fun TaskEditEntry(
     onAddAccount: () -> Unit,
     onSubscribe: () -> Unit,
     onListsChanged: () -> Unit,
+    onOpenSubtask: (taskId: Long, remoteId: String, isDraft: Boolean) -> Unit,
     onClose: () -> Unit,
 ) {
     val taskEditViewModel = koinViewModel<TaskEditViewModel> {
@@ -1726,6 +1779,7 @@ private fun TaskEditEntry(
         onCreateList = { accountId -> newListAccountId = accountId },
         onSignIn = onAddAccount,
         backHandlerEnabled = backHandlerEnabled,
+        onOpenSubtask = onOpenSubtask,
         onClose = onClose,
     )
 
@@ -2633,6 +2687,9 @@ private fun TaskList(
     is24Hour: Boolean = false,
 ) {
     val dateFormatter = rememberDateFormatter(is24Hour)
+    val subtaskTrees = koinInject<SubtaskTreeRegistry>()
+    val deletions by remember(subtaskTrees) { subtaskTrees.deletions }
+        .collectAsState(initial = emptyMap())
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
@@ -2655,8 +2712,13 @@ private fun TaskList(
                 return@items
             }
             val task = tasks.getItem(index)
+            val state = rowState(deletions, task)
+            if (state == RowState.Hidden) {
+                return@items
+            }
             TaskRow(
                 task = task,
+                doomed = state == RowState.Doomed,
                 filter = filter,
                 groupMode = tasks.groupMode,
                 chipDataProvider = chipDataProvider,

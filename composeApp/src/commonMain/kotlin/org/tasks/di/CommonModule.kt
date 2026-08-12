@@ -554,6 +554,7 @@ val commonModule = module {
             remoteId = destination.remoteId,
             listId = destination.listId,
             tagUuid = destination.tagUuid,
+            isSubtaskDraft = destination.isSubtaskDraft,
             taskDao = get(),
             taskSaver = get(),
             caldavDao = get(),

@@ -1,6 +1,7 @@
 package org.tasks.compose.tasklist
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -40,6 +42,7 @@ import org.tasks.compose.chips.ChipGroup
 import org.tasks.compose.chips.StartDateChip
 import org.tasks.compose.chips.SubtaskChip
 import org.tasks.data.TaskContainer
+import org.tasks.data.subtaskKey
 import org.tasks.data.isHidden
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
@@ -54,9 +57,27 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.show_less
 import tasks.kmp.generated.resources.show_more
 
+internal enum class RowState {
+    Draw,
+
+    Doomed,
+
+    Hidden,
+}
+
+internal fun rowState(deletions: Map<String, Boolean>, task: TaskContainer): RowState =
+    when (deletions[subtaskKey(task.id, task.task.remoteId)]) {
+        null -> RowState.Draw
+        true -> RowState.Doomed
+        false -> RowState.Hidden
+    }
+
+internal const val COMPLETE_BUTTON_TAG = "task-row-complete"
+
 @Composable
 internal fun TaskRow(
     task: TaskContainer,
+    doomed: Boolean,
     filter: Filter,
     groupMode: Int,
     chipDataProvider: ChipDataProvider,
@@ -76,7 +97,14 @@ internal fun TaskRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick)
+            .clickable(enabled = !doomed, onClick = onClick)
+            .then(
+                if (doomed) {
+                    Modifier.background(MaterialTheme.colorScheme.errorContainer)
+                } else {
+                    Modifier
+                }
+            )
             .padding(
                 start = (INDENT_STEP_DP * task.indent).dp,
                 end = 16.dp,
@@ -85,7 +113,8 @@ internal fun TaskRow(
     ) {
         IconButton(
             onClick = onToggleComplete,
-            modifier = Modifier.size(48.dp),
+            enabled = !doomed,
+            modifier = Modifier.size(48.dp).testTag(COMPLETE_BUTTON_TAG),
         ) {
             Icon(
                 imageVector = if (task.isCompleted)
@@ -111,17 +140,22 @@ internal fun TaskRow(
             }
             val isOverdue = !task.isCompleted && dueDateOverdue(task.dueDate)
             Row(verticalAlignment = Alignment.CenterVertically) {
-                val titleColor = if (task.isCompleted || task.task.isHidden) {
-                    MaterialTheme.colorScheme.outline
-                } else {
-                    MaterialTheme.colorScheme.onSurface
+                val titleColor = when {
+                    doomed -> MaterialTheme.colorScheme.onErrorContainer
+                    task.isCompleted || task.task.isHidden ->
+                        MaterialTheme.colorScheme.outline
+                    else -> MaterialTheme.colorScheme.onSurface
                 }
                 Markdown(
                     content = task.title ?: "",
                     colors = markdownColor(text = titleColor),
                     typography = markdownTypography(
                         paragraph = MaterialTheme.typography.bodyLarge.copy(
-                            textDecoration = if (task.isCompleted) TextDecoration.LineThrough else null,
+                            textDecoration = if (task.isCompleted || doomed) {
+                                TextDecoration.LineThrough
+                            } else {
+                                null
+                            },
                         ),
                     ),
                     animations = markdownAnimations(animateTextSize = { this }),
@@ -201,6 +235,7 @@ internal fun TaskRow(
                             collapsed = task.isCollapsed,
                             children = task.children,
                             onClick = onToggleSubtasks,
+                            enabled = !doomed,
                         )
                     }
                     if (showStartDate) {
