@@ -46,8 +46,9 @@ internal fun ProcessBuilder.runToCompletion(
         null
     } finally {
         if (process.isAlive) {
-            process.descendants().forEach { it.destroyForcibly() }
+            val descendants = process.descendants().toList()
             process.destroyForcibly()
+            descendants.forEach { it.destroyForcibly() }
         }
     }
 }
