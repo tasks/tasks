@@ -1,0 +1,4 @@
+* Completed subtasks now remain under the parent task
+* Add 'Show completed subtasks' toggle to sort menu
+* Subtask sorting bug fixes
+* Update translations

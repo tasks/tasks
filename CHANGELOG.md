@@ -1,3 +1,32 @@
+### 15.10 (2026-08-12)
+
+* Completed subtasks now remain under the parent task
+* Add 'Show completed subtasks' toggle to sort menu
+* Subtask sorting bug fixes
+
+Desktop:
+  * Add subtasks to the edit screen
+    * Supports drag and drop to reorder and nest
+    * Tab and shift-tab to change nesting
+    * Edit subtask titles from the parent task
+    * Edit subtasks without leaving the parent task
+  * Add Task defaults settings page
+  * Prompt before discarding or deleting tasks from the editor
+  * Fix Windows and Linux ARM builds
+  * Fix window size crashes on Windows
+  * Fix desktop app losing subscription status
+
+Update translations:
+  * Brazilian Portuguese - @restlessSangoLeelo
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @zhx000
+  * Hebrew - @ginger-co, @omeritzics
+  * Japanese - akira7095
+  * Polish - @pawerak
+  * Turkish - @oersen
+
 ### 15.9.1 (2026-08-05)
 
 * Google Tasks sync performance improvements
