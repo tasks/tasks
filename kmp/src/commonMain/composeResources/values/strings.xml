@@ -212,6 +212,7 @@
     <string name="discard_changes">Discard changes?</string>
     <string name="discard">Discard</string>
     <string name="delete">Delete</string>
+    <string name="undo_delete">Undo delete</string>
     <string name="delete_tasks_warning">%1$s will be deleted. This cannot be undone!</string>
     <plurals name="task_count">
         <item quantity="one">%1$d task</item>
@@ -595,4 +596,6 @@
     <string name="TEA_add_subtask">Add subtask</string>
     <string name="subtasks_multilevel_google_task">Multi-level subtasks not supported by Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
+    <string name="subtasks_will_be_flattened">This list doesn't support nested subtasks. Saving will move them all to the top level.</string>
+    <string name="subtask_list_locked">New subtasks use the parent's list</string>
 </resources>

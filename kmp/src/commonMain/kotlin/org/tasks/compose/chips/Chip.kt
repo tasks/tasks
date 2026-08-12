@@ -55,6 +55,7 @@ fun Chip(
     icon: String? = null,
     color: Color,
     onClick: () -> Unit = {},
+    enabled: Boolean = true,
     clear: (() -> Unit)? = null,
 ) {
     val onColor = Color(contentColor(color.toArgb()))
@@ -63,6 +64,7 @@ fun Chip(
     ) {
         Surface(
             onClick = onClick,
+            enabled = enabled,
             shape = MaterialTheme.shapes.small,
             color = color,
             modifier = Modifier.defaultMinSize(minHeight = 26.dp),

@@ -13,6 +13,7 @@ fun SubtaskChip(
     collapsed: Boolean,
     children: Int,
     onClick: () -> Unit,
+    enabled: Boolean = true,
     chipColor: Color = defaultChipColor(),
 ) {
     Chip(
@@ -23,6 +24,7 @@ fun SubtaskChip(
         text = formatNumber(children),
         color = chipColor,
         onClick = onClick,
+        enabled = enabled,
     )
 }
 

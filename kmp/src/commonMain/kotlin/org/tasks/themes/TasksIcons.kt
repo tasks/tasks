@@ -15,6 +15,7 @@ object TasksIcons {
     const val CLEAR = "clear"
     const val ADD = "add"
     const val EDIT = "edit"
+    const val WARNING = "warning"
     const val DELETE = "delete"
     const val NOTIFICATIONS = "notifications"
     const val PENDING_ACTIONS = "pending_actions"
@@ -25,4 +26,5 @@ object TasksIcons {
     const val BLOCK = "block"
     const val EVENT = "event"
     const val REPEAT = "repeat"
+    const val SUBTASK = "subdirectory_arrow_right"
 }

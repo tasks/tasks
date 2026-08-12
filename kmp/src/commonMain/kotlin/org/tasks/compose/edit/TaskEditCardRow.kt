@@ -90,6 +90,7 @@ fun TaskEditCardRowContent(
     title: String? = null,
     icon: String? = null,
     iconTint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    trailing: @Composable (() -> Unit)? = null,
 ) {
     Row(
         verticalAlignment = Alignment.Top,
@@ -126,6 +127,15 @@ fun TaskEditCardRowContent(
                 base.copy(color = valueColor, fontWeight = FontWeight.Medium)
             }
             Text(text = value, style = valueStyle)
+        }
+        if (trailing != null) {
+            Spacer(modifier = Modifier.size(IconTextGap))
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.size(IconChipSize),
+            ) {
+                trailing()
+            }
         }
     }
 }
