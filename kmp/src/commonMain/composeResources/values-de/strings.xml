@@ -51,7 +51,7 @@
     <string name="all_done">Alles erledigt!</string>
     <string name="sort_list">Liste</string>
     <string name="password_required">Passwort benötigt</string>
-    <string name="caldav_home_set_not_found">CalDAV-Home-Set nicht gefunden</string>
+    <string name="caldav_home_set_not_found">Standard-Set nicht gefunden</string>
     <string name="add_account">Konto hinzufügen</string>
     <string name="continue_without_sync">Weiter ohne Synchronisierung</string>
     <string name="legal_disclosure_prefix_continuing">Durch Fortfahren mit einer der folgenden Schaltflächen</string>
@@ -118,7 +118,7 @@
     <string name="display_name">Anzeigename</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
     <string name="supporter">Unterstützer:in</string>
-    <string name="price_per_month_with_currency">%1$s/Monat</string>
+    <string name="price_per_month_with_currency">%1$s/Der Monat</string>
     <string name="price_per_year_with_currency">%1$s/Jahr</string>
     <string name="supporter_summary">%1$s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
@@ -275,10 +275,10 @@
     <string name="logout_confirmation">Von %1$s abmelden?</string>
     <string name="wrong_account">Anmeldung fehlgeschlagen</string>
     <string name="wrong_account_message">Ihr Abonnement ist bereits mit %1$s. verknüpft. Wenn Sie glauben, dass es sich um einen Fehler handelt, wenden Sie sich bitte an %2$s</string>
-    <string name="caldav_server_owncloud">ownCloud</string>
+    <string name="caldav_server_owncloud">ownCloud-Konto</string>
     <string name="caldav_server_sabredav">caldav_server_sabredav</string>
-    <string name="caldav_server_openxchange">Open-Xchange</string>
-    <string name="caldav_server_nextcloud">Nextcloud</string>
+    <string name="caldav_server_openxchange">Open-Xchange-Konto</string>
+    <string name="caldav_server_nextcloud">Nextcloud-Konto</string>
     <string name="link_desktop">Desktop-App verknüpfen</string>
     <string name="new_tag">Neues Schlagwort erstellen</string>
     <string name="enter_tag_name">Schlagwort eingeben</string>
@@ -290,7 +290,7 @@
     <string name="metadata_move">Bewegen</string>
     <string name="date_picker_multiple">Mehrfach</string>
     <string name="due_date">Fälligkeitsdatum</string>
-    <string name="due_time">Fälligkeitszeitpunkt</string>
+    <string name="due_time">Ablaufzeit</string>
     <string name="day_before_due">Tag vor Fälligkeit</string>
     <string name="week_before_due">Woche vor Fälligkeit</string>
     <string name="next_sunday">Nächsten Sonntag</string>
@@ -434,17 +434,17 @@
     <string name="repeats_monthly">monatlich</string>
     <string name="repeats_yearly">jährlich</string>
     <string name="list_separator_with_space">, </string>
-    <string name="repeats_from">Wiederholt sich ab</string>
+    <string name="repeats_from">Wiederholung ab</string>
     <string name="repeat_type_due">Fälligkeitsdatum</string>
     <string name="repeat_type_completion">Erledigung</string>
     <string name="TEA_control_repeat">Wiederholen</string>
     <plurals name="repeat_times">
-        <item quantity="one">-mal</item>
-        <item quantity="other">-mal</item>
+        <item quantity="one">Zeit</item>
+        <item quantity="other">Zeiten</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%1$d Minute</item>
-        <item quantity="other">%1$d Minuten</item>
+        <item quantity="one">%1$d Die Minute</item>
+        <item quantity="other">%1$d Die Minuten</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%1$d Stunde</item>
@@ -587,4 +587,12 @@
     <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
+    <string name="show_completed_subtasks">Erledigte Unteraufgaben anzeigen</string>
+    <string name="error_encryption_failed">Verschlüsselung fehlgeschlagen. Überprüfen Sie, ob Tasks.org auf Ihren System-Schlüsselbund zugreifen kann, und versuchen Sie es erneut.</string>
+    <string name="no_task_selected">Keine Aufgabe ausgewählt</string>
+    <string name="resize_panes">Bereichsgröße ändern</string>
+    <string name="repeat_type_due_description">Die Aufgabe wiederholt sich basierend darauf, wann sie erledigt sein sollte</string>
+    <string name="repeat_type_completion_description">Die Aufgabe wiederholt sich basierend darauf, wann du sie tatsächlich erledigt hast</string>
+    <string name="mark_completed">Als erledigt markieren</string>
+    <string name="snoozed_reminder">Schlummernde Erinnerung</string>
 </resources>
