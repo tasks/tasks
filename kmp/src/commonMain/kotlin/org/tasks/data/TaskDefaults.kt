@@ -32,3 +32,7 @@ fun Task.getDefaultAlarms(defaultRemindersEnabled: Boolean): List<Alarm> = build
         }
     }
 }
+
+internal fun Iterable<Alarm>.applicableTo(task: Task): List<Alarm> =
+    filterNot { it.type == TYPE_REL_START && !task.hasStartDate() }
+        .filterNot { it.type == TYPE_REL_END && !task.hasDueDate() }

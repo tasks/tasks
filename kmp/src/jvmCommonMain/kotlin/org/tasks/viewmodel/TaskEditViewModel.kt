@@ -37,6 +37,7 @@ import org.tasks.compose.pickers.withTimeMarkerOr
 import org.tasks.data.TaskCreator
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
+import org.tasks.data.applicableTo
 import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
@@ -161,7 +162,8 @@ class TaskEditViewModel(
                 if (isNew) it.isNotEmpty() else !it.sameAlarmsAs(originalAlarms)
             }
 
-        internal fun applicableAlarms(): ImmutableSet<Alarm> = alarms.applicableTo(task)
+        internal fun applicableAlarms(): ImmutableSet<Alarm> =
+            alarms.applicableTo(task).toPersistentSet()
 
         private val startChanged: Boolean
             get() = task.hideUntil != originalTask.hideUntil &&
@@ -384,7 +386,7 @@ class TaskEditViewModel(
                         originalTask = persisted.copy(),
                         originalList = snapshot.list,
                         originalTags = snapshot.tags,
-                        alarms = it.alarms.applicableTo(task),
+                        alarms = it.alarms.applicableTo(task).toPersistentSet(),
                         originalAlarms = if (snapshot.alarmsNeedSaving) {
                             snapshot.applicableAlarms()
                         } else {
@@ -787,8 +789,3 @@ class TaskEditViewModel(
         }
     }
 }
-
-internal fun ImmutableSet<Alarm>.applicableTo(task: Task): ImmutableSet<Alarm> =
-    filterNot { it.type == TYPE_REL_START && !task.hasStartDate() }
-        .filterNot { it.type == TYPE_REL_END && !task.hasDueDate() }
-        .toPersistentSet()
