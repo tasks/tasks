@@ -351,7 +351,6 @@
     <string name="filter_eisenhower_box_2">重要だが緊急ではない</string>
     <string name="current_subscription">現在のサブスクリプション: %s</string>
     <string name="upgrade_more_customization_description">すべてのテーマ、カラー、アイコンが使用可能</string>
-    <string name="default_recurrence">デフォルトの繰り返し</string>
     <string name="back">戻る</string>
     <string name="auto_dismiss_datetime_edit_summary">タスク編集から選択時に自動で閉じる</string>
     <string name="auto_dismiss_datetime_edit">タスク編集</string>

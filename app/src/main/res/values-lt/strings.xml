@@ -300,8 +300,6 @@
     <string name="no_start_date">Be pradžios datos</string>
     <string name="CFC_startBefore_name">Pradėti iki…</string>
     <string name="CFC_startBefore_text">Pradėti iki: \?</string>
-    <string name="default_location">Numatyta geografinė vieta</string>
-    <string name="default_start_date">Numatyta pradžios data</string>
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">Atšaukti</string>
     <string name="ok">Patvirtinti</string>

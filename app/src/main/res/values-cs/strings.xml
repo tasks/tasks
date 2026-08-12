@@ -139,10 +139,6 @@
     <string name="action_call">Volat</string>
     <string name="TEA_control_location">Umístění</string>
     <string name="SSD_sort_my_order">Vlastní pořadí</string>
-    <string name="EPr_default_location_reminder_title">Výchozí upomínky podle polohy</string>
-    <string name="default_location_reminder_on_arrival">Při příchodu</string>
-    <string name="default_location_reminder_on_departure">Při odchodu</string>
-    <string name="default_location_reminder_on_arrival_or_departure">Při příchodu a odchodu</string>
     <string name="CFC_tag_text">Štítek: \?</string>
     <string name="CFC_tag_contains_name">Název štítku obsahuje…</string>
     <string name="CFC_tag_contains_text">Název štítku obsahuje: \?</string>
