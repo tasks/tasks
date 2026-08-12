@@ -46,8 +46,8 @@
     <string name="enter_title">输入标题</string>
     <string name="group_mode">群组</string>
     <string name="sort_alphabetical">字母顺序</string>
-    <string name="sort_created">已创建</string>
-    <string name="sort_modified">已修改</string>
+    <string name="sort_created">创建时间</string>
+    <string name="sort_modified">修改时间</string>
     <string name="all_done">完成！</string>
     <string name="sort_list">清单</string>
     <string name="password_required">请填写密码</string>
@@ -586,4 +586,7 @@
     <string name="TEA_add_subtask">添加子任务</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支持多层级子任务</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支持多层级子任务</string>
+    <string name="undo_delete">撤销删除</string>
+    <string name="subtask_list_locked">新建的子任务将使用父任务的清单</string>
+    <string name="subtasks_will_be_flattened">此清单不支持嵌套子任务。保存后，所有子任务都将移至顶层。</string>
 </resources>
