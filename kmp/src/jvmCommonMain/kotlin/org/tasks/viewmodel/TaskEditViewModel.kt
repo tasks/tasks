@@ -9,17 +9,26 @@ import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
@@ -34,10 +43,26 @@ import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.resolveStartDate
 import org.tasks.compose.pickers.startDayOf
 import org.tasks.compose.pickers.withTimeMarkerOr
+import org.tasks.data.TaskContainer
 import org.tasks.data.TaskCreator
+import org.tasks.data.applicableTo
+import org.tasks.data.PendingTask
+import org.tasks.data.SubtaskNode
+import org.tasks.data.SubtaskRow
+import org.tasks.data.StagedSubtaskEdits
+import org.tasks.data.SubtaskTreeWriter
+import org.tasks.data.SubtaskTreeRegistry
+import org.tasks.data.SubtaskTrees
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
-import org.tasks.data.applicableTo
+import org.tasks.data.resolveMove
+import org.tasks.data.nested
+import org.tasks.data.visible
+import org.tasks.data.isRearranged
+import org.tasks.data.rowsOf
+import org.tasks.data.subtaskQuery
+import org.tasks.data.subtaskKey
+import org.tasks.data.fetchTasks
 import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
@@ -68,7 +93,7 @@ import java.util.concurrent.atomic.AtomicLong
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.no_title
 
-private const val WATCH_MAX_ATTEMPTS = 5
+internal const val WATCH_MAX_ATTEMPTS = 5
 private const val WATCH_RETRY_DELAY_MS = 1_000L
 
 /** Distinguishes editors on a destination that names no task at all - see [TaskEditViewModel]. */
@@ -79,6 +104,7 @@ class TaskEditViewModel(
     private val remoteId: String,
     private val listId: Long?,
     private val tagUuid: String?,
+    private val isSubtaskDraft: Boolean = false,
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
@@ -92,9 +118,12 @@ class TaskEditViewModel(
     private val pendingSaves: PendingTaskSaves,
     private val taskCompleter: TaskCompleter,
     private val taskDeleter: TaskDeleter,
+    private val treeRegistry: SubtaskTreeRegistry,
+    private val subtaskWriter: SubtaskTreeWriter,
+    private val refreshFlow: Flow<Unit> = emptyFlow(),
     private val taskCreator: TaskCreator = TaskCreator(),
+    private val untitled: suspend () -> String = { getString(Res.string.no_title) },
 ) : ViewModel() {
-
     private val taskId: Long? = taskId.takeIf { it != Task.NO_ID && it > 0 }
 
     /**
@@ -122,6 +151,17 @@ class TaskEditViewModel(
 
     private val log = Logger.withTag("TaskEditViewModel")
 
+    private val borrowedTree: SubtaskTrees? =
+        uuid?.let { key ->
+            treeRegistry.holding(key)?.takeIf { it.get(key)?.isNew == true }
+        }
+
+    private val subtaskTrees: SubtaskTrees = borrowedTree ?: treeRegistry.open()
+
+    private val ownsTree: Boolean get() = borrowedTree == null
+
+    private fun nodeTree(): SubtaskTrees? = treeRegistry.holding(treeKey.value)
+
     data class State(
         val isLoading: Boolean = true,
         val task: Task = Task(),
@@ -139,6 +179,11 @@ class TaskEditViewModel(
         val originalStartTime: Int = NO_TIME,
         val datePickerPreferences: DatePickerPreferences = DatePickerPreferences(),
         val addTasksToTop: Boolean = TaskDefaultSettings().addTasksToTop,
+        val subtasks: List<SubtaskRow> = emptyList(),
+        val subtasksNested: Boolean = false,
+        val subtasksChanged: Boolean = false,
+        val focusSubtask: String? = null,
+        val isDraft: Boolean = false,
         /**
          * True between the row for a new task being created and the save that follows it
          * succeeding. It forces the next save even when nothing has changed since: the row exists,
@@ -152,7 +197,13 @@ class TaskEditViewModel(
                     tags.toHashSet() != originalTags.toHashSet() ||
                     alarmsChanged ||
                     startChanged ||
+                    subtasksChanged ||
                     !task.copy(hideUntil = originalTask.hideUntil).sameEditableContentAs(originalTask)
+
+        val allowsNesting: Boolean
+            get() = listOfNotNull(originalList, list).let { lists ->
+                lists.isEmpty() || lists.any { !it.isSingleLevel }
+            }
 
         internal val alarmsChanged: Boolean
             get() = !alarms.sameAlarmsAs(originalAlarms)
@@ -205,11 +256,34 @@ class TaskEditViewModel(
     private val watchedTaskIds = mutableMapOf<String, Long>()
     private val unregisterFlushHandler: () -> Unit
 
+    private val treeKey = MutableStateFlow(saveKey)
+
+    private val lockKey: String get() = saveKey
+
+    private fun retainTree(key: String) {
+        treeKey.value = key
+    }
+
+    private fun releaseTree() {
+        if (ownsTree) {
+            treeRegistry.close(subtaskTrees)
+        }
+    }
+
+    private var draft: SubtaskNode? = null
+
+    private var draftSealed = false
+
+    private var adopting = false
+
+    private val staged = StagedSubtaskEdits(subtaskTrees) { treeKey.value }
+
     private val loader = TaskEditLoader(
         taskId = this.taskId,
         uuid = uuid,
         listId = listId,
         tagUuid = tagUuid,
+        isSubtaskDraft = isSubtaskDraft,
         taskDao = taskDao,
         caldavDao = caldavDao,
         tagDataDao = tagDataDao,
@@ -220,7 +294,11 @@ class TaskEditViewModel(
     )
 
     init {
+        retainTree(saveKey)
         load()
+        watchSubtaskTree()
+        watchSubtasks()
+        watchPendingEdits()
         // Quitting the desktop app tears down the JVM while this editor is still composed, so
         // nothing has cleared or stopped it. Shutdown asks for the commit through here instead, and
         // so does an editor loading this same task - see load().
@@ -232,6 +310,14 @@ class TaskEditViewModel(
             _loadError.value = false
             _state.value = State(isLoading = true)
             try {
+                subtaskTrees.get(uuid)?.takeIf { it.isNew }?.let { existing ->
+                    draft = existing
+                    retainTree(existing.key)
+                    _state.value = existing
+                        .toState(appPreferences.datePickerPreferences())
+                        .withTree(existing.key)
+                    return@launch
+                }
                 // Any editor still alive on this same task is holding an edit that is not in the
                 // row yet: the nav host builds this editor before it disposes the one it replaces.
                 // Asked for first, so it runs while this reads preferences.
@@ -248,8 +334,9 @@ class TaskEditViewModel(
                 // flush's own bookkeeping is what this waits on instead.
                 pendingSaves.awaitPending(saveKey)
                 // Still taken, so the read can't interleave with a save enqueued after the flush.
-                val loaded = pendingSaves.withLock(saveKey) { loader.read(prefs, defaults) }
-                _state.value = loaded
+                val loaded = pendingSaves.withLock(lockKey) { loader.read(prefs, defaults) }
+                retainTree(subtaskKey(loaded.task))
+                _state.value = loaded.withStagedTitle().withTree(treeKey.value)
                 // The row this editor was opened on is a tombstone: there is nothing to edit, and
                 // staying would let the teardown save write onto a deleted row.
                 if (loaded.deleted) {
@@ -263,6 +350,297 @@ class TaskEditViewModel(
                 log.e(e) { "Failed to initialize task editor" }
                 _loadError.value = true
                 _state.value = State(isLoading = false)
+            }
+        }
+    }
+
+    private fun watchSubtaskTree() {
+        combine(subtaskTrees.nodes, treeKey) { nodes, key -> nodes to key }
+            .distinctUntilChanged()
+            .onEach { (nodes, key) ->
+                _state.update { if (it.isLoading) it else it.withTree(key, nodes) }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun State.withTree(
+        key: String,
+        nodes: Map<String, SubtaskNode> = subtaskTrees.nodes.value,
+    ): State = nodes.rowsOf(key).let { rows ->
+        copy(
+            subtasks = rows.visible(),
+            subtasksNested = rows.nested(),
+            subtasksChanged = nodes.isRearranged(key),
+        )
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private fun watchSubtasks() {
+        combine(
+            _state.map { it.task.id }.distinctUntilChanged(),
+            _state.map { it.list?.isGoogleTasks == true }.distinctUntilChanged(),
+            refreshFlow.onStart { emit(Unit) },
+        ) { id, isGoogleTasks, _ -> id to isGoogleTasks }
+            .mapLatest { (id, isGoogleTasks) ->
+                if (id <= 0) {
+                    return@mapLatest
+                }
+                val rows = fetchSubtasks(id, isGoogleTasks) ?: return@mapLatest
+                subtaskTrees.merge(treeKey.value, id, rows)
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private suspend fun fetchSubtasks(id: Long, isGoogleTasks: Boolean): List<TaskContainer>? =
+        try {
+            taskDao.fetchTasks(subtaskQuery(parentId = id, isGoogleTasks = isGoogleTasks))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            log.e(e) { "Failed to load subtasks" }
+            null
+        }
+
+    private fun watchPendingEdits() {
+        _state
+            .onEach { state ->
+                if (state.isDraft && !state.isLoading) {
+                    writePending(state)
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun writePending(state: State) {
+        if (draftSealed) {
+            return
+        }
+        val key = draft?.key ?: return
+        var settled: SubtaskNode? = null
+        val written = subtaskTrees.update(key) { identity ->
+            if (!identity.isNew) {
+                settled = identity
+                return@update identity
+            }
+            identity.copy(
+                task = state.task,
+                stagedTitle = null,
+                stagedCompleted = null,
+                pending = PendingTask(
+                    list = state.list,
+                    tags = state.tags,
+                    alarms = state.alarms,
+                    startDay = state.startDay,
+                    startTime = state.startTime,
+                ),
+            )
+        }
+        if (written == null || settled != null) {
+            adoptCreatedRow(settled?.task)
+        }
+    }
+
+    private fun adoptCreatedRow(row: Task?) {
+        if (adopting) {
+            return
+        }
+        adopting = true
+        viewModelScope.launch {
+            val created = row?.takeIf { it.id > 0 }
+                ?: uuid?.let { runCatching { taskDao.fetch(it) }.getOrNull() }
+            if (created == null || created.id <= 0) {
+                adopting = false
+                return@launch
+            }
+            draft = null
+            _state.update { state ->
+                if (!state.isDraft) {
+                    return@update state
+                }
+                state.copy(
+                    task = state.task.copy(
+                        id = created.id,
+                        creationDate = created.creationDate,
+                        modificationDate = created.modificationDate,
+                        remoteId = created.remoteId,
+                        parent = created.parent,
+                        order = created.order,
+                    ),
+                    originalTask = created.copy(),
+                    isDraft = false,
+                )
+            }
+            watchTask(created.id)
+        }
+    }
+
+    private fun State.withStagedTitle(): State {
+        val staged = nodeTree()?.get(treeKey.value)?.stagedTitle ?: return this
+        return if (staged == task.title) this else copy(task = task.copy(title = staged))
+    }
+
+    private fun SubtaskNode.toState(prefs: DatePickerPreferences): State {
+        val drafted = task.copy(title = title).withCompletion(completed, currentTimeMillis())
+        return State(
+            isLoading = false,
+            task = drafted,
+            originalTask = drafted.copy(),
+            list = pending?.list,
+            originalList = pending?.list,
+            tags = pending?.tags.orEmpty(),
+            originalTags = pending?.tags.orEmpty(),
+            alarms = pending?.alarms ?: persistentSetOf(),
+            originalAlarms = pending?.alarms ?: persistentSetOf(),
+            startDay = pending?.startDay ?: NO_DAY,
+            startTime = pending?.startTime ?: NO_TIME,
+            originalStartDay = pending?.startDay ?: NO_DAY,
+            originalStartTime = pending?.startTime ?: NO_TIME,
+            datePickerPreferences = prefs,
+            isDraft = true,
+        )
+    }
+
+    fun addSubtask(after: SubtaskNode? = null) {
+        val task = taskCreator.createBlankTask()
+        val list = _state.value.list
+        val sibling = after?.let { subtaskTrees.get(it.key) }
+        val node = if (sibling != null) {
+            subtaskTrees.addAfter(sibling = sibling, task = task, list = list)
+        } else {
+            subtaskTrees.add(rootKey = treeKey.value, task = task, list = list)
+        }
+        staged.added(node.key)
+        _state.update {
+            if (it.isLoading) it else it.withTree(treeKey.value).copy(focusSubtask = node.key)
+        }
+        viewModelScope.launch {
+            val defaults = try {
+                task.copy().apply { setDefaultReminders(appPreferences) }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                log.e(e) { "Failed to read default reminders" }
+                return@launch
+            }
+            val alarms = defaults
+                .getDefaultAlarms(appPreferences.isDefaultDueTimeEnabled())
+                .toPersistentSet()
+            subtaskTrees.update(node.key) { current ->
+                val pending = current.pending ?: return@update current
+                val ringFlags = defaults.ringFlags.takeIf { it != current.task.ringFlags }
+                val takesAlarms = alarms.isNotEmpty() && pending.alarms.isEmpty()
+                if (ringFlags == null && !takesAlarms) {
+                    return@update current
+                }
+                current.copy(
+                    task = if (ringFlags == null) {
+                        current.task
+                    } else {
+                        current.task.copy(ringFlags = ringFlags)
+                    },
+                    pending = if (takesAlarms) pending.copy(alarms = alarms) else pending,
+                )
+            }
+        }
+    }
+
+    fun onSubtaskFocused(key: String) {
+        _state.update { if (it.focusSubtask == key) it.copy(focusSubtask = null) else it }
+    }
+
+    fun setSubtaskTitle(node: SubtaskNode, title: String) {
+        staged.edited(subtaskTrees.setTitle(node.key, title))
+        refreshSubtasks()
+    }
+
+    private fun refreshSubtasks() {
+        val key = treeKey.value
+        _state.update { if (it.isLoading) it else it.withTree(key) }
+    }
+
+    fun toggleSubtaskComplete(node: SubtaskNode) {
+        val completed = _state.value.subtasks.firstOrNull { it.key == node.key }?.completed
+            ?: node.completed
+        staged.edited(subtaskTrees.setCompleted(key = node.key, completed = !completed))
+        refreshSubtasks()
+    }
+
+    fun removeSubtask(node: SubtaskNode) {
+        staged.deletionStaged(node.key)
+        subtaskTrees.delete(node.key)
+        refreshSubtasks()
+    }
+
+    fun backspaceSubtask(node: SubtaskNode) {
+        if (node.isNew) {
+            subtaskTrees.drop(node.key)
+            staged.dropped(node.key)
+        } else {
+            staged.deletionStaged(node.key)
+            staged.edited(subtaskTrees.revertTitle(node.key))
+            subtaskTrees.delete(node.key)
+        }
+        refreshSubtasks()
+    }
+
+    fun restoreSubtask(node: SubtaskNode) {
+        staged.deletionStaged(node.key)
+        subtaskTrees.restore(node.key)
+        refreshSubtasks()
+    }
+
+    fun moveSubtask(fromKey: String, toKey: String, indent: Int? = null) {
+        val rows = _state.value.subtasks
+        val from = rows.indexOfFirst { it.key == fromKey }
+        val to = rows.indexOfFirst { it.key == toKey }
+        val landing = rows.resolveMove(
+            from = from,
+            to = to,
+            rootKey = treeKey.value,
+            desiredIndent = indent,
+        ) ?: return
+        staged.rememberArrangement()
+        subtaskTrees.move(key = fromKey, parentKey = landing.parentKey, after = landing.after)
+        refreshSubtasks()
+    }
+
+    fun indentSubtask(node: SubtaskNode, steps: Int) {
+        if (steps > 0 && !_state.value.allowsNesting) {
+            return
+        }
+        repeat(kotlin.math.abs(steps)) {
+            val before = subtaskTrees.arrangementUnder(treeKey.value)
+            val moved = if (steps > 0) {
+                subtaskTrees.indent(node.key)
+            } else {
+                subtaskTrees.outdent(rootKey = treeKey.value, key = node.key)
+            }
+            if (!moved) {
+                refreshSubtasks()
+                return
+            }
+            staged.rememberArrangement(before)
+        }
+        refreshSubtasks()
+    }
+
+    fun toggleSubtaskCollapsed(node: SubtaskNode) {
+        val collapsed = !node.task.isCollapsed
+        subtaskTrees.setCollapsed(node.key, collapsed)
+        refreshSubtasks()
+        val id = node.id
+        if (id <= 0) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                taskSaver.setCollapsed(id, collapsed)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                log.e(e) { "Failed to collapse subtask" }
+                subtaskTrees.setCollapsed(node.key, !collapsed)
+                refreshSubtasks()
             }
         }
     }
@@ -326,27 +704,47 @@ class TaskEditViewModel(
         // load() holds this same lock, so waiting for it would leave the editor unable to close
         // while the row is still being read.
         if (_state.value.isLoading) return@withContext true
-        val outcome = pendingSaves.withLock(saveKey) { saveWhileLocked() }
+        if (_state.value.isDraft) {
+            writePending(_state.value)
+            return@withContext true
+        }
+        val outcome = pendingSaves.withLock(lockKey) { saveWhileLocked() }
         watchTask(outcome.taskId)
         outcome.succeeded
     }
 
-    fun persistCurrentTask() {
+    fun persistCurrentTask(): Boolean = persistCurrentTask(andThen = null)
+
+    private fun persistCurrentTask(andThen: (() -> Unit)?): Boolean {
         val current = _state.value
-        if (current.isLoading || (!current.hasChanges && !current.pendingSideEffects)) {
-            return
+        if (current.isLoading) {
+            return false
         }
-        pendingSaves.enqueueLocked(saveKey) {
-            if (_state.value.isLoading) return@enqueueLocked
-            val outcome = saveWhileLocked()
-            watchTask(outcome.taskId)
+        if (current.isDraft) {
+            writePending(current)
+            return false
         }
+        if (!current.hasChanges && !current.pendingSideEffects) {
+            return false
+        }
+        pendingSaves.enqueueLocked(key = saveKey) {
+            try {
+                if (_state.value.isLoading) return@enqueueLocked
+                val outcome = saveWhileLocked()
+                watchTask(outcome.taskId)
+            } finally {
+                andThen?.invoke()
+            }
+        }
+        return true
     }
 
     // Public so tests can drive the teardown save; the framework calls this via clear().
     public override fun onCleared() {
         unregisterFlushHandler()
-        persistCurrentTask()
+        if (!persistCurrentTask(andThen = ::releaseTree)) {
+            releaseTree()
+        }
     }
 
     private data class SaveOutcome(val succeeded: Boolean, val taskId: Long)
@@ -444,7 +842,7 @@ class TaskEditViewModel(
 
     private suspend fun mergeAlarmUpdate(dbAlarms: List<Alarm>) {
         val alarms = dbAlarms.toPersistentSet()
-        pendingSaves.withLock(saveKey) {
+        pendingSaves.withLock(lockKey) {
             _state.update { state ->
                 if (state.isLoading) {
                     state
@@ -459,7 +857,7 @@ class TaskEditViewModel(
     }
 
     private suspend fun mergeDbUpdate(dbTask: Task) {
-        val shouldClose = pendingSaves.withLock(saveKey) { applyDbUpdate(dbTask) }
+        val shouldClose = pendingSaves.withLock(lockKey) { applyDbUpdate(dbTask) }
         if (shouldClose) {
             _closeEvents.emit(Unit)
         }
@@ -625,6 +1023,8 @@ class TaskEditViewModel(
 
     fun setList(list: CaldavFilter) {
         _state.update { it.copy(list = list) }
+        subtaskTrees.setList(treeKey.value, list)
+        refreshSubtasks()
     }
 
     fun setTags(tags: List<TagData>) {
@@ -664,11 +1064,22 @@ class TaskEditViewModel(
         if (!_saving.compareAndSet(expect = false, update = true)) return
         viewModelScope.launch {
             try {
+                if (_state.value.isDraft) {
+                    writePending(_state.value)
+                    draft?.key?.let { key ->
+                        draftSealed = true
+                        staged.edited(
+                            subtaskTrees.setCompleted(key = key, completed = true)
+                        )
+                    }
+                    _closeEvents.emit(Unit)
+                    return@launch
+                }
                 if (!saveCurrentTask()) return@launch
                 val snapshot = _state.value
                 if (snapshot.task.id > 0 && !snapshot.deleted) {
                     try {
-                        pendingSaves.withLock(saveKey) {
+                        pendingSaves.withLock(lockKey) {
                             taskCompleter.setComplete(snapshot.task.id, true)
                         }
                     } catch (e: CancellationException) {
@@ -690,10 +1101,20 @@ class TaskEditViewModel(
         if (!_saving.compareAndSet(expect = false, update = true)) return
         viewModelScope.launch {
             try {
+                val above = nodeTree()
+                if (above != null) {
+                    if (_state.value.isDraft) {
+                        draftSealed = true
+                    }
+                    above.delete(treeKey.value)
+                    _state.update { it.copy(deleted = true) }
+                    _closeEvents.emit(Unit)
+                    return@launch
+                }
                 val id = _state.value.task.id
                 if (id > 0) {
                     try {
-                        pendingSaves.withLock(saveKey) {
+                        pendingSaves.withLock(lockKey) {
                             _state.update { it.copy(deleted = true) }
                             taskDeleter.markDeleted(listOf(id))
                         }
@@ -708,6 +1129,7 @@ class TaskEditViewModel(
                 } else {
                     _state.update { it.copy(deleted = true) }
                 }
+                dropSubtasks()
                 _closeEvents.emit(Unit)
             } finally {
                 _saving.value = false
@@ -716,26 +1138,48 @@ class TaskEditViewModel(
     }
 
     fun discardChanges() {
+        if (_state.value.isDraft) {
+            discardDraft()
+            viewModelScope.launch { _closeEvents.emit(Unit) }
+            return
+        }
         _state.update { state ->
             if (state.isLoading) return@update state
             state.copy(
                 task = state.originalTask.copy(),
                 list = state.originalList,
                 tags = state.originalTags,
+                alarms = state.originalAlarms,
                 startDay = state.originalStartDay,
                 startTime = state.originalStartTime,
             )
         }
+        staged.discard()
+        refreshSubtasks()
         viewModelScope.launch { _closeEvents.emit(Unit) }
+    }
+
+    private fun discardDraft() {
+        draftSealed = true
+        staged.discard()
+        draft?.let { subtaskTrees.drop(it.key) }
+    }
+
+    private fun dropSubtasks() {
+        staged.clear()
+        if (ownsTree) {
+            subtaskTrees.clear()
+        }
     }
 
     private suspend fun saveIfNeeded(snapshot: State): Task? {
         val list = snapshot.list ?: return null
         if (snapshot.deleted) return null
         if (!snapshot.hasChanges && !snapshot.pendingSideEffects) return null
+        val supersededTitle = nodeTree()?.get(treeKey.value)?.stagedTitle
         val task = snapshot.task.copy()
         if (task.title.isNullOrBlank()) {
-            task.title = getString(Res.string.no_title)
+            task.title = untitled()
         }
         // TODO: apply calendar changes
         if (snapshot.isNew) {
@@ -764,12 +1208,40 @@ class TaskEditViewModel(
         } else {
             applyTagsIfNeeded(snapshot, task)
             applyAlarmsIfNeeded(snapshot, task)
-            taskSaver.save(task, snapshot.originalTask.takeUnless { snapshot.pendingSideEffects })
+            taskSaver.save(
+                task,
+                snapshot.originalTask.takeUnless { snapshot.pendingSideEffects },
+                preserveHierarchy = true,
+            )
             if (snapshot.list != snapshot.originalList) {
                 taskMover.move(listOf(task.id), list)
             }
         }
+        writeSubtasks(task, list, supersededTitle)
         return task
+    }
+
+    private suspend fun writeSubtasks(task: Task, list: CaldavFilter, supersededTitle: String?) {
+        val key = treeKey.value
+        val result = subtaskWriter.write(
+            trees = subtaskTrees,
+            rootKey = key,
+            parent = task,
+            list = list,
+            untitled = untitled(),
+        )
+        subtaskTrees.clearWritten(result.staged)
+        staged.clearWritten(result.staged.map { it.key })
+        val read = result.read
+        if (!result.wrote && read != null) {
+            subtaskTrees.merge(key, task.id, read)
+        }
+        nodeTree()?.update(key) { node ->
+            node.copy(
+                task = task.copy(),
+                stagedTitle = node.stagedTitle?.takeUnless { it == supersededTitle },
+            )
+        }
     }
 
     private suspend fun applyAlarmsIfNeeded(snapshot: State, task: Task) {
@@ -788,4 +1260,10 @@ class TaskEditViewModel(
             task.modificationDate = currentTimeMillis()
         }
     }
+}
+
+private fun Task.withCompletion(completed: Boolean, at: Long): Task = when {
+    completed == isCompleted -> this
+    completed -> copy(completionDate = at)
+    else -> copy(completionDate = 0L)
 }

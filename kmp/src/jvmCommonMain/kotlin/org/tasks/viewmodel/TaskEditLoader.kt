@@ -31,6 +31,7 @@ internal class TaskEditLoader(
     private val uuid: String?,
     private val listId: Long?,
     private val tagUuid: String?,
+    private val isSubtaskDraft: Boolean,
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
     private val tagDataDao: TagDataDao,
@@ -60,6 +61,9 @@ internal class TaskEditLoader(
                     alarms = alarmsDeferred.await()
                 }
             } else {
+                if (isSubtaskDraft) {
+                    return TaskEditViewModel.State(isLoading = false, deleted = true)
+                }
                 loaded = (uuid
                     ?.let { taskCreator.createBlankTask(remoteId = it) }
                     ?: taskCreator.createBlankTask())

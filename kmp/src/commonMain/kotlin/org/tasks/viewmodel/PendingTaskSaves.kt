@@ -30,7 +30,6 @@ private const val TAG = "PendingTaskSaves"
  * the next editor's load.
  */
 class PendingTaskSaves(private val scope: CoroutineScope) {
-
     /** Per-task locks, keyed by save key, and the lock that guards the map itself. */
     private val locks = mutableMapOf<String, Mutex>()
     private val locksMutex = Mutex()
@@ -118,13 +117,6 @@ class PendingTaskSaves(private val scope: CoroutineScope) {
         flushHandlers.value.forEach { if (it.key == key) it.flush() }
     }
 
-    /**
-     * Runs [save] on the app scope while holding [key]'s lock, tracking it so [awaitIdle] and
-     * [awaitPending] can wait for it. [save] must not take that lock itself - it is already held.
-     *
-     * The counters are bumped here, synchronously, and that - not the lock - is what orders this
-     * save against a replacement editor's load: see [awaitPending].
-     */
     fun enqueueLocked(key: String, save: suspend () -> Unit) {
         inFlight.update { it + 1 }
         inFlightByKey.update { current -> current + (key to (current[key] ?: 0) + 1) }

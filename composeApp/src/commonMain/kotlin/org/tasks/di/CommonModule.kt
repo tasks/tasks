@@ -32,6 +32,8 @@ import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.data.MergedGeofence
 import org.tasks.data.TaskCreator
+import org.tasks.data.SubtaskTreeWriter
+import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
@@ -452,6 +454,8 @@ val commonModule = module {
     factoryOf(::TaskMigrator)
     factoryOf(::TaskSaver)
     factoryOf(::TaskMover)
+    factoryOf(::SubtaskTreeWriter)
+    single { SubtaskTreeRegistry() }
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)
     single {
@@ -563,6 +567,9 @@ val commonModule = module {
             pendingSaves = get(),
             taskCompleter = get(),
             taskDeleter = get(),
+            treeRegistry = get(),
+            subtaskWriter = get(),
+            refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }
     viewModel { ReminderControlSetViewModel() }
