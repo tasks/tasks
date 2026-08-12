@@ -51,6 +51,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.mockito.kotlin)
             implementation(libs.okhttp.mockwebserver)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(compose.desktop.currentOs)
         }
 
         commonMain.dependencies {
@@ -76,6 +79,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.markdown.renderer.m3)
+            implementation(libs.reorderable)
             implementation(libs.jetbrains.adaptive)
             implementation(libs.jetbrains.adaptive.layout)
             implementation(libs.jetbrains.adaptive.navigation)
