@@ -613,4 +613,9 @@
     <string name="TEA_add_subtask">Ajouter une sous-tâche</string>
     <string name="subtasks_multilevel_google_task">Les sous-tâches multi-niveaux ne sont pas prises en charge par « Google Tasks »</string>
     <string name="subtasks_multilevel_microsoft">Les sous-tâches à plusieurs niveaux ne sont pas prises en charge par Microsoft To Do</string>
+    <string name="undo_delete">Annuler la suppression</string>
+    <string name="error_encryption_failed">Échec du chiffrement. Vérifiez que Tasks.org peut accéder au porte-clés de votre système, puis réessayez.</string>
+    <string name="snoozed_reminder">Rappel mis en veille</string>
+    <string name="subtasks_will_be_flattened">Cette liste ne prend pas en charge les sous-tâches imbriquées. En enregistrant, toutes les sous-tâches seront déplacées au niveau supérieur.</string>
+    <string name="subtask_list_locked">Les nouvelles sous-tâches utilisent la liste de la tâche parente</string>
 </resources>
