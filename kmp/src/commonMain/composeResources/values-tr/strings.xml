@@ -595,4 +595,7 @@
     <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks_multilevel_google_task">Google Görevler, çok düzeyli alt görevleri desteklemez</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do, çok düzeyli alt görevleri desteklemez</string>
+    <string name="undo_delete">Silmeyi geri al</string>
+    <string name="subtasks_will_be_flattened">Bu liste iç içe geçen alt görevleri desteklemez. Kaydettiğinizde tüm görevler en üst düzeye taşınacaktır.</string>
+    <string name="subtask_list_locked">Yeni alt görevler, üst görev listesini kullanır</string>
 </resources>
