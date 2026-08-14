@@ -593,4 +593,9 @@
     <string name="TEA_add_subtask">Lisa alamülesanne</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ei võimalda mitmetasemeliste alamülesannete kasutamist</string>
+    <string name="undo_delete">Võta kustutamine tagasi</string>
+    <string name="error_encryption_failed">Krüptimine ei õnnestunud. Kontrolli, et rakendusel Tasks.org oleks ligipääs süsteemi võrmerõngale ja proovi siis uuesti.</string>
+    <string name="snoozed_reminder">Edasilükatud meeldetuletus</string>
+    <string name="subtasks_will_be_flattened">See loend ei toeta hierarhilise alamülesandeid. Salvestades tõstetakse nad ülemisele tasemele.</string>
+    <string name="subtask_list_locked">Uued alamülesanded kasutavad ülemloendit</string>
 </resources>
