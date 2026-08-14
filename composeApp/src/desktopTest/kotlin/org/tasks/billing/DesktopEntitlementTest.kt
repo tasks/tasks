@@ -32,6 +32,7 @@ import org.tasks.security.KeyProvider
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.time.DateTimeUtils2
 import java.io.File
 import java.nio.file.Files
 import java.security.KeyPairGenerator
@@ -96,6 +97,7 @@ class DesktopEntitlementTest {
 
     @After
     fun tearDown() {
+        DateTimeUtils2.setCurrentMillisSystem()
         scope.cancel()
         httpClient.dispatcher.cancelAll()
         server.shutdown()
@@ -237,14 +239,17 @@ class DesktopEntitlementTest {
 
     @Test
     fun dropsToFreeTierWhenGracePeriodLapsesMidSession() = runBlocking {
-        storeOnDisk(jwt(exp = now() - GRACE_SECONDS + 1))
+        val start = System.currentTimeMillis()
+        DateTimeUtils2.setCurrentMillisFixed(start)
+        storeOnDisk(jwt(exp = start / 1000 - GRACE_SECONDS + 60))
         server.enqueue(MockResponse().setResponseCode(500).setHeadersDelay(2, TimeUnit.SECONDS))
 
         val entitlement = entitlement()
-        entitlement.initialize()
 
         assertTrue(entitlement.awaitReady())
         assertTrue(entitlement.hasPro.first())
+
+        DateTimeUtils2.setCurrentMillisFixed(start + 61_000)
 
         withTimeout(10_000) { entitlement.hasPro.first { !it } }
 
