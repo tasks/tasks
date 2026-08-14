@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
@@ -411,6 +412,7 @@ class DesktopEntitlement(
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
+                ensureActive()
                 logger.e(e) { "Failed to refresh desktop entitlement" }
                 RefreshResult.Failed
             }

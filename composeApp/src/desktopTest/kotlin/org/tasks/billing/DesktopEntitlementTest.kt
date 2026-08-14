@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
@@ -76,12 +77,14 @@ class DesktopEntitlementTest {
             if (locked) throw IllegalStateException("Encryption key unavailable") else key
     }
 
+    private val httpClient = OkHttpClient()
+
     private val clientFactory = object : OkHttpClientFactory {
         override suspend fun newClient(
             foreground: Boolean,
             cookieKey: String?,
             block: (OkHttpClient.Builder) -> Unit,
-        ) = OkHttpClient.Builder().apply(block).build()
+        ) = httpClient.newBuilder().apply(block).build()
     }
 
     @Before
@@ -94,7 +97,11 @@ class DesktopEntitlementTest {
     @After
     fun tearDown() {
         scope.cancel()
+        httpClient.dispatcher.cancelAll()
         server.shutdown()
+        runBlocking { withTimeout(5_000) { scope.coroutineContext.job.join() } }
+        httpClient.connectionPool.evictAll()
+        httpClient.dispatcher.executorService.shutdown()
         dir.deleteRecursively()
     }
 
