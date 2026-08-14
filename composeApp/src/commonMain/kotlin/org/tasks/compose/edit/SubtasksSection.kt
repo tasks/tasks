@@ -180,6 +180,7 @@ fun SubtasksSection(
                                         indent = drag.indent,
                                         indentRange = { drag.range },
                                         children = row.children,
+                                        chipCount = row.chipCount,
                                         collapsed = row.collapsed,
                                         onToggleCollapsed = { onToggleCollapsed(node) },
                                         carrying = if (block.isDragging(index)) row.children else 0,
@@ -284,6 +285,7 @@ private fun SubtaskRowContent(
     indent: Int,
     indentRange: () -> IntRange,
     children: Int,
+    chipCount: Int,
     collapsed: Boolean,
     onToggleCollapsed: () -> Unit,
     carrying: Int,
@@ -391,7 +393,7 @@ private fun SubtaskRowContent(
             AgainstFirstLine {
                 SubtaskChip(
                     collapsed = collapsed,
-                    children = children,
+                    children = chipCount,
                     onClick = onToggleCollapsed,
                 )
             }

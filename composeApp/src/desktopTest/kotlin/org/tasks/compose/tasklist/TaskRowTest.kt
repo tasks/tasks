@@ -37,10 +37,18 @@ class TaskRowTest {
     private fun task(
         title: String = "Buy milk",
         children: Int = 0,
+        uncompletedChildren: Int = children,
+        completed: Boolean = false,
         indent: Int = 0,
     ) = TaskContainer(
-        task = Task(id = 1, title = title, remoteId = "uuid-1"),
+        task = Task(
+            id = 1,
+            title = title,
+            remoteId = "uuid-1",
+            completionDate = if (completed) 1 else 0,
+        ),
         children = children,
+        uncompletedChildren = uncompletedChildren,
         indent = indent,
     )
 
@@ -119,6 +127,40 @@ class TaskRowTest {
         onNodeWithText("2").assertIsEnabled().performClick()
 
         assertEquals(1, clicks.foldedAway)
+    }
+
+    @Test
+    fun theSubtaskChipCountsWhatIsLeftToDo() = runComposeUiTest {
+        setContent {
+            Row(task(children = 13, uncompletedChildren = 5), doomed = false, clicks = Clicks())
+        }
+
+        onNodeWithText("5").assertIsEnabled()
+    }
+
+    @Test
+    fun aRowWithNothingLeftToDoKeepsItsChip() = runComposeUiTest {
+        val clicks = Clicks()
+        setContent {
+            Row(task(children = 3, uncompletedChildren = 0), doomed = false, clicks = clicks)
+        }
+
+        onNodeWithText("0").assertIsEnabled().performClick()
+
+        assertEquals(1, clicks.foldedAway)
+    }
+
+    @Test
+    fun aTickedOffRowCountsWhatIsUnderItInstead() = runComposeUiTest {
+        setContent {
+            Row(
+                task(children = 13, uncompletedChildren = 0, completed = true),
+                doomed = false,
+                clicks = Clicks(),
+            )
+        }
+
+        onNodeWithText("13").assertIsEnabled()
     }
 
     @Test

@@ -99,6 +99,7 @@ internal fun Map<String, List<SubtaskNode>>.rowsUnder(
                 children = nested.drawable(),
                 completed = (node.stagedCompleted ?: nodes.carriedTo(node.key) ?: node.task.isCompleted) &&
                         nested.all { it.completed },
+                remaining = nested.remaining(),
             )
         ).plus(nested)
     }
@@ -118,6 +119,14 @@ internal inline fun List<SubtaskRow>.eachSwallowed(action: (SubtaskRow, Boolean)
 internal fun List<SubtaskRow>.drawable(): Int {
     var count = 0
     eachSwallowed { _, swallowed -> if (!swallowed) count++ }
+    return count
+}
+
+internal fun List<SubtaskRow>.remaining(): Int {
+    var count = 0
+    eachSwallowed { row, swallowed ->
+        if (!swallowed && !row.node.deleted && !row.completed) count++
+    }
     return count
 }
 

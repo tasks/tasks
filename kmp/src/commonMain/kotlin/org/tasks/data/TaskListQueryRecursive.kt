@@ -133,20 +133,23 @@ internal object TaskListQueryRecursive {
             descendants_recursive AS (
                 SELECT
                     r.parent,
-                    r.task as descendant
+                    r.task as descendant,
+                    r.subtask_complete as descendant_complete
                 FROM recursive_tasks r
                 WHERE r.parent > 0 $hideCompletedFromCount
                 UNION
                 SELECT
                     d.parent,
-                    r.task as descendant
+                    r.task as descendant,
+                    r.subtask_complete as descendant_complete
                 FROM recursive_tasks r
                     JOIN descendants_recursive d ON r.parent = d.descendant $hideCompletedFromCount
             ),
             descendants AS (
                 SELECT
                     parent,
-                    COUNT(DISTINCT descendant) as children
+                    COUNT(*) as children,
+                    SUM(NOT descendant_complete) as uncompleted_children
                 FROM descendants_recursive
                 GROUP BY parent
             )
@@ -156,6 +159,7 @@ internal object TaskListQueryRecursive {
                 indent,
                 sort_group,
                 children,
+                uncompleted_children,
                 primary_sort,
                 secondary_sort,
                 parent_complete

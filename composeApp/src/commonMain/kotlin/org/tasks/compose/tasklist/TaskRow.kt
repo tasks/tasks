@@ -233,7 +233,7 @@ internal fun TaskRow(
                     if (task.hasChildren()) {
                         SubtaskChip(
                             collapsed = task.isCollapsed,
-                            children = task.children,
+                            children = task.chipCount,
                             onClick = onToggleSubtasks,
                             enabled = !doomed,
                         )

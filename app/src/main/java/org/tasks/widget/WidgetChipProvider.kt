@@ -34,7 +34,7 @@ class WidgetChipProvider @Inject constructor(
 
     fun getSubtaskChip(task: TaskContainer): RemoteViews {
         return newChip().apply {
-            setTextViewText(R.id.chip_text, formatNumber(task.children))
+            setTextViewText(R.id.chip_text, formatNumber(task.chipCount))
             setImageViewResource(
                 R.id.chip_icon,
                 if (task.isCollapsed) {

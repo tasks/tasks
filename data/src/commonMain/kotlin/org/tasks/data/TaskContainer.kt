@@ -16,6 +16,7 @@ data class TaskContainer(
     @ColumnInfo(name = "parent_complete") val parentComplete: Boolean = false,
     @ColumnInfo(name = "tags") val tagsString: String? = null,
     val children: Int = 0,
+    @ColumnInfo(name = "uncompleted_children") val uncompletedChildren: Int = 0,
     @ColumnInfo(name = "sort_group") val sortGroup: Long? = null,
     @ColumnInfo(name = "primary_sort") val primarySort: Long = 0,
     @ColumnInfo(name = "secondary_sort") val secondarySort: Long = 0,
@@ -71,6 +72,9 @@ data class TaskContainer(
     fun hasParent(): Boolean = parent > 0
 
     fun hasChildren(): Boolean = children > 0
+
+    val chipCount: Int
+        get() = if (isCompleted) children else uncompletedChildren
 
     fun hasLocation(): Boolean = location != null
 

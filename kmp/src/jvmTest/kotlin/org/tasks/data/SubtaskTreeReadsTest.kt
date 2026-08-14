@@ -40,6 +40,70 @@ class SubtaskTreeReadsTest {
 
     private fun completions(): List<Boolean> = trees.rowsOf(root).map { it.completed }
 
+    private fun remaining(title: String): Int =
+        trees.rowsOf(root).first { it.node.title == title }.remaining
+
+    private fun children(title: String): Int =
+        trees.rowsOf(root).first { it.node.title == title }.children
+
+    @Test
+    fun theChipCountsWhatIsLeftUnderASubtask() {
+        merge(
+            row(1, "a"),
+            row(2, "b", parent = 1, indent = 1),
+            row(3, "c", parent = 1, indent = 1, completed = true),
+        )
+
+        assertEquals(1, remaining("a"))
+        assertEquals(2, children("a"))
+    }
+
+    @Test
+    fun theChipCountsWhatIsLeftAtEveryDepth() {
+        merge(
+            row(1, "a"),
+            row(2, "b", parent = 1, indent = 1),
+            row(3, "c", parent = 2, indent = 2, completed = true),
+        )
+
+        assertEquals(1, remaining("a"))
+        assertEquals(2, children("a"))
+    }
+
+    @Test
+    fun aTickedSubtaskHoldingUnfinishedWorkIsItselfStillLeftToDo() {
+        merge(
+            row(1, "a"),
+            row(2, "b", parent = 1, indent = 1, completed = true),
+            row(3, "c", parent = 2, indent = 2),
+        )
+
+        assertEquals(2, remaining("a"))
+    }
+
+    @Test
+    fun aFinishedSubtaskCountsWhatIsUnderItInstead() {
+        merge(
+            row(1, "a", completed = true),
+            row(2, "b", parent = 1, indent = 1, completed = true),
+            row(3, "c", parent = 2, indent = 2, completed = true),
+        )
+
+        val row = trees.rowsOf(root).first { it.node.title == "a" }
+
+        assertEquals(2, row.chipCount)
+        assertEquals(0, row.remaining)
+    }
+
+    @Test
+    fun aSubtaskOnItsWayOutIsNotLeftToDo() {
+        merge(row(1, "a"), row(2, "b", parent = 1, indent = 1))
+
+        trees.delete(key("b"))
+
+        assertEquals(0, remaining("a"))
+    }
+
     @Test
     fun aDeletedSubtaskIsStillShownButWhatIsInsideItIsNot() {
         merge(row(1, "a"), row(2, "b", parent = 1, indent = 1))

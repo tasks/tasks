@@ -125,7 +125,7 @@ class WatchServiceLogic(
                                 hidden = item.task.task.isHidden,
                                 indent = item.task.indent,
                                 collapsed = item.task.isCollapsed,
-                                numSubtasks = item.task.children,
+                                numSubtasks = item.task.uncompletedChildren,
                                 timestamp = timestamp,
                                 repeating = item.task.task.isRecurring,
                             )

@@ -59,8 +59,10 @@ data class SubtaskRow(
     val indent: Int,
     val children: Int = 0,
     val completed: Boolean = node.completed,
+    val remaining: Int = 0,
 ) {
     val key: String get() = node.key
+    val chipCount: Int get() = if (completed) children else remaining
     val collapsed: Boolean get() = node.task.isCollapsed
 }
 
