@@ -1,5 +1,5 @@
 [versions]
-versionCode = "151000" # increment by 2
+versionCode = "151002" # increment by 2
 versionName = "15.10"
 applicationId = "org.tasks"
 agp = "9.3.1"

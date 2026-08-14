@@ -1,4 +1,4 @@
-### 15.10 (2026-08-12)
+### 15.10 (2026-08-14)
 
 * Completed subtasks now remain under the parent task
 * Add 'Show completed subtasks' toggle to sort menu
