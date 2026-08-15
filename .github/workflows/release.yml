@@ -128,7 +128,6 @@ jobs:
             composeApp/output/*.msix
             composeApp/output/*.deb
             composeApp/output/*.delta
-            composeApp/output/launch.mac
             artifacts/*.AppImage
             artifacts/*.AppImage.zsync
 
@@ -148,7 +147,6 @@ jobs:
           composeApp/output/*.exe
           composeApp/output/*.crt
           composeApp/output/*.appinstaller
-          composeApp/output/launch.mac
           $(ls composeApp/output/*.delta 2>/dev/null)
           composeApp/output/metadata.properties
           composeApp/output/appcast-*.rss
