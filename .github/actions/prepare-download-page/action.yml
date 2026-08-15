@@ -1,0 +1,56 @@
+name: Prepare Download Page
+description: Build the Pages site from Conveyor's download.html, injecting the AppImage buttons
+
+inputs:
+  output-dir:
+    description: Directory holding Conveyor's site output
+    required: true
+    default: "composeApp/output"
+  pages-dir:
+    description: Directory to write the Pages site into
+    required: true
+    default: "pages"
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare download page
+      shell: bash
+      env:
+        OUTPUT_DIR: ${{ inputs.output-dir }}
+        PAGES_DIR: ${{ inputs.pages-dir }}
+      run: |
+        test -f "$OUTPUT_DIR/download.html" || {
+          echo "::error::download.html missing from $OUTPUT_DIR"; exit 1; }
+        mkdir -p "$PAGES_DIR"
+        cp "$OUTPUT_DIR/download.html" "$PAGES_DIR/index.html"
+        cp "$OUTPUT_DIR/icon.png" "$PAGES_DIR/icon.png"
+        python3 << 'PYEOF'
+        import os, sys
+
+        index = os.path.join(os.environ['PAGES_DIR'], 'index.html')
+        with open(index) as f:
+            html = f.read()
+        with open('composeApp/appimage-button-amd64.html') as f:
+            amd64 = f.read()
+        with open('composeApp/appimage-button-aarch64.html') as f:
+            aarch64 = f.read()
+
+        for marker in ('<div class="linux-all"><br></div>', '<p class="smaller-fonts">'):
+            if marker not in html:
+                sys.exit(f'::error::marker not found in download.html, '
+                         f'AppImage buttons would be dropped: {marker}')
+
+        html = html.replace(
+            '<div class="linux-all"><br></div>',
+            amd64 + '\n                <div class="linux-all"><br></div>',
+            1
+        )
+        html = html.replace(
+            '<p class="smaller-fonts">',
+            aarch64 + '\n                <p class="smaller-fonts">',
+            1
+        )
+        with open(index, 'w') as f:
+            f.write(html)
+        PYEOF

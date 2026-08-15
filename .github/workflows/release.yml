@@ -158,30 +158,7 @@ jobs:
           artifacts/*.AppImage.zsync
 
       - name: Prepare download page
-        run: |
-          mkdir -p pages
-          cp composeApp/output/download.html pages/index.html
-          cp composeApp/output/icon.png pages/icon.png
-          python3 << 'PYEOF'
-          with open('pages/index.html') as f:
-              html = f.read()
-          with open('composeApp/appimage-button-amd64.html') as f:
-              amd64 = f.read()
-          with open('composeApp/appimage-button-aarch64.html') as f:
-              aarch64 = f.read()
-          html = html.replace(
-              '<div class="linux-all"><br></div>',
-              amd64 + '\n                <div class="linux-all"><br></div>',
-              1
-          )
-          html = html.replace(
-              '<p class="smaller-fonts">',
-              aarch64 + '\n                <p class="smaller-fonts">',
-              1
-          )
-          with open('pages/index.html', 'w') as f:
-              f.write(html)
-          PYEOF
+        uses: ./.github/actions/prepare-download-page
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

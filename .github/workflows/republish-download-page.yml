@@ -1,0 +1,53 @@
+name: Republish Download Page
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'GitHub Release run ID to pull composeApp/output from'
+        required: true
+      ref:
+        description: 'Ref for the AppImage button snippets (blank = branch dispatched from)'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Download desktop output
+        uses: actions/download-artifact@v8
+        with:
+          name: desktop-notarized
+          path: composeApp/output
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Prepare download page
+        uses: ./.github/actions/prepare-download-page
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+  deploy-download-page:
+    runs-on: ubuntu-latest
+    needs: [ prepare ]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
