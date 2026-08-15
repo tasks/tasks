@@ -38,7 +38,7 @@ jobs:
       - uses: ./.github/actions/install-conveyor
 
       - name: Cache Conveyor downloads
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/hydraulic/conveyor
           key: conveyor-release
@@ -161,7 +161,7 @@ jobs:
         uses: ./.github/actions/prepare-download-page
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: pages
 
@@ -174,4 +174,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
