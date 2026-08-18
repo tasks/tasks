@@ -21,8 +21,14 @@ data class TaskContainer(
     @ColumnInfo(name = "primary_sort") val primarySort: Long = 0,
     @ColumnInfo(name = "secondary_sort") val secondarySort: Long = 0,
     var indent: Int = 0,
-    var targetIndent: Int = 0,
 ){
+    /**
+     * Where a drag would drop this row. Written on every bind and while dragging, never
+     * selected by the query, so it is kept off the primary constructor to stay out of
+     * [equals]: a bound row and a freshly queried one must still compare equal.
+     */
+    var targetIndent: Int = 0
+
     val isGoogleTask: Boolean
         get() = accountType == TYPE_GOOGLE_TASKS
 
