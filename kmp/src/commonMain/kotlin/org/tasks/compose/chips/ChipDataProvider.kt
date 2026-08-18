@@ -15,6 +15,7 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.CaldavListCache
+import org.tasks.filters.appearances
 import org.tasks.filters.TagFilter
 
 class ChipDataProvider(
@@ -39,10 +40,16 @@ class ChipDataProvider(
     fun getTag(tag: String?): TagFilter? = tagDatas[tag]
 
     private fun updateTags(updated: List<TagData>) {
-        Logger.d("ChipDataProvider") { "Updating tags" }
-        tagDatas = updated.associateBy({ it.remoteId }) { TagFilter(it) }
-        tagsVersion++
-        refreshBroadcaster.broadcastRefresh()
+        val tags = updated.associateBy({ it.remoteId }) { TagFilter(it) }
+        // Same gate as the one in CaldavListCache: the tag tables are written on every
+        // sync, and only a change to what a chip draws needs to reach the task list.
+        val changed = tags.appearances() != tagDatas.appearances()
+        tagDatas = tags
+        if (changed) {
+            Logger.d("ChipDataProvider") { "Updating tags" }
+            tagsVersion++
+            refreshBroadcaster.broadcastRefresh()
+        }
     }
 
     init {

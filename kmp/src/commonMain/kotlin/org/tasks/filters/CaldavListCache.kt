@@ -46,9 +46,15 @@ class CaldavListCache(
                     val account = accounts.find { it.uuid == list.account } ?: return@mapNotNull null
                     CaldavFilter(calendar = list, account = account)
                 }
-                byUuid = filters.associateBy { it.uuid }
+                val updated: Map<String?, CaldavFilter> = filters.associateBy { it.uuid }
+                // Only a rebuild that changes what a list draws is worth refreshing the
+                // task list for. See [appearances].
+                val changed = updated.appearances() != byUuid.appearances()
+                byUuid = updated
                 byId = filters.associateBy { it.calendar.id }
-                _version.value++
+                if (changed) {
+                    _version.value++
+                }
             }
             .launchIn(scope)
     }
