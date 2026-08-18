@@ -612,4 +612,7 @@
     <string name="TEA_add_subtask">Adicionar sub-tarefa</string>
     <string name="subtasks_multilevel_google_task">Subtarefas em vários níveis não são suportadas pelo Google Tarefas</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinível não suportadas pelo Microsoft To Do</string>
+    <string name="subtask_list_locked">Novas subtarefas usam a lista dos pais</string>
+    <string name="subtasks_will_be_flattened">Esta lista não suporta subtarefas aninhadas. Salvar irá movê-los todos para o nível superior.</string>
+    <string name="undo_delete">Desfazer exclusão</string>
 </resources>
