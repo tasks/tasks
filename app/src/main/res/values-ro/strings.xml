@@ -462,4 +462,5 @@
     <string name="returning_user">Utilizator care revine?</string>
     <string name="read_more">Citeşte mai mult</string>
     <string name="email_to_task">E-mail către sarcină</string>
+    <string name="sort_options">Opțiuni de sortare</string>
 </resources>
