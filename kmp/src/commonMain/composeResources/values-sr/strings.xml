@@ -581,4 +581,6 @@
     <string name="TEA_add_subtask">Додај подзадатак</string>
     <string name="subtasks_multilevel_google_task">Подзадаци у више нивоа нису подржани од стране Гугл Задатака</string>
     <string name="subtasks_multilevel_microsoft">Подзадаци у више нивоа нису подржани од стране ,,Microsoft To Do''</string>
+    <string name="subtasks_will_be_flattened">Ова листа не подржава угњеждене подзадатке. Снимање ће их пребацити на први ниво.</string>
+    <string name="subtask_list_locked">Нови подзадаци користе родитељске листе</string>
 </resources>
