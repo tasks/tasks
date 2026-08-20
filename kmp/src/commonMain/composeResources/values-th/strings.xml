@@ -337,4 +337,5 @@
     <string name="DLG_delete_this_task_question">ลบงานนี้?</string>
     <string name="TEA_add_subtask">เพิ่มงานย่อย</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
+    <string name="app_settings">การตั้งค่าแอป</string>
 </resources>
