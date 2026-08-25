@@ -451,4 +451,5 @@
     <string name="read_more">Mutass többet</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
+    <string name="sort_options">Rendezési lehetőségek</string>
 </resources>
