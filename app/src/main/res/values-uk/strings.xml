@@ -12,7 +12,7 @@
     <string name="DLG_hour_minutes">Час (години : хвилини)</string>
     <string name="DLG_undo">Повернути</string>
     <string name="WID_dateButtonUnset">Натисніть для встановлення</string>
-    <string name="TLA_no_items">Тут немає завдань</string>
+    <string name="TLA_no_items">Тут немає завдань.</string>
     <string name="TLA_menu_sort">Сортувати</string>
     <string name="TLA_menu_search">Пошук</string>
     <string name="TLA_menu_settings">Налаштування</string>
@@ -432,4 +432,5 @@
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
+    <string name="banner_subscription_required_title">Потрібна передплата</string>
 </resources>
