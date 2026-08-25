@@ -116,5 +116,9 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val defaultLocation = stringPreferencesKey("default_location")
         val defaultLocationReminder = intPreferencesKey("default_location_reminder")
         val locationUpdateInterval = intPreferencesKey("location_update_interval")
+        val aiTaskCreationEnabled = booleanPreferencesKey("ai_task_creation_enabled")
+        val aiApiKey = stringPreferencesKey("ai_api_key")
+        val aiModel = stringPreferencesKey("ai_model")
+        val aiDisclosureVersion = intPreferencesKey("ai_disclosure_version")
     }
 }

@@ -288,6 +288,7 @@ class MainSettingsComposeFragment : Fragment() {
             SettingsDestination.TaskDefaults -> TaskDefaults()
             SettingsDestination.TaskList -> TaskListPreferences()
             SettingsDestination.TaskEdit -> TaskEditPreferences()
+            SettingsDestination.AiTaskCreation -> AiTaskCreation()
             SettingsDestination.DateAndTime -> DateAndTime()
             SettingsDestination.NavigationDrawer -> NavigationDrawer()
             SettingsDestination.Backups -> Backups()

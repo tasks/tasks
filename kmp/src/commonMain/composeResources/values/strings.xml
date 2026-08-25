@@ -598,4 +598,26 @@
     <string name="subtasks_multilevel_microsoft">Multi-level subtasks not supported by Microsoft To Do</string>
     <string name="subtasks_will_be_flattened">This list doesn't support nested subtasks. Saving will move them all to the top level.</string>
     <string name="subtask_list_locked">New subtasks use the parent's list</string>
+    <string name="ai_task_creation">AI task creation</string>
+    <string name="ai_task_creation_enable">Enable AI task creation</string>
+    <string name="ai_api_key">OpenRouter API key</string>
+    <string name="ai_model">Model</string>
+    <string name="ai_model_none">Enter an API key to load models</string>
+    <string name="ai_disclosure_title">Your task text is sent to OpenRouter</string>
+    <string name="ai_disclosure_body">When you use AI task creation, what you type or dictate — along with the names of your lists and tags — is sent to OpenRouter and the model provider you select. Free models may retain and train on what you send, according to each provider's own policy. Nothing is sent unless you start an AI task.</string>
+    <string name="ai_disclosure_accept">I understand</string>
+    <string name="ai_privacy_policy">OpenRouter privacy policy</string>
+    <string name="ai_key_invalid">Couldn't verify that key</string>
+    <string name="ai_no_compatible_models">No models on your account support structured output</string>
+    <string name="ai_add_task">AI task</string>
+    <string name="ai_input_hint">Describe your tasks…</string>
+    <string name="ai_thinking">Thinking…</string>
+    <string name="ai_add_n">Add %1$d</string>
+    <string name="ai_error_unauthorized">Your OpenRouter key was rejected. Check it in Settings.</string>
+    <string name="ai_error_rate_limited">OpenRouter rate limit reached. Try again shortly.</string>
+    <string name="ai_error_unavailable">OpenRouter is unavailable right now.</string>
+    <string name="ai_error_bad_response">The model returned something unusable. Try rephrasing.</string>
+    <string name="ai_error_no_tasks">Couldn't find any tasks in that.</string>
+    <string name="ai_error_network">No connection.</string>
+    <string name="ai_not_configured">Set up AI task creation in Settings first.</string>
 </resources>

@@ -29,6 +29,11 @@
         android:title="@string/TLA_menu_sort"
         app:showAsAction="always" />
     <item
+        android:id="@+id/menu_ai_add"
+        android:icon="@drawable/outline_auto_awesome_24"
+        android:title="@string/ai_add_task"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menu_voice_add"
         android:icon="@drawable/ic_outline_mic_none_24px"
         android:title="@string/EPr_voiceInputEnabled_title"

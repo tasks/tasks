@@ -12,6 +12,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Edit
@@ -35,6 +36,7 @@ import org.tasks.data.entity.CaldavAccount
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.ai_task_creation
 import tasks.kmp.generated.resources.backup_BPr_header
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.etesync
@@ -66,6 +68,7 @@ sealed class SettingsDestination(override val titleRes: StringResource) : Settin
     data object TaskDefaults : SettingsDestination(Res.string.task_defaults)
     data object TaskList : SettingsDestination(Res.string.task_list_options)
     data object TaskEdit : SettingsDestination(Res.string.EPr_edit_screen_options)
+    data object AiTaskCreation : SettingsDestination(Res.string.ai_task_creation)
     data object DateAndTime : SettingsDestination(Res.string.date_and_time)
     data object NavigationDrawer : SettingsDestination(Res.string.navigation_drawer)
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)
@@ -268,11 +271,18 @@ fun SettingsCategories(
                 onClick = { onSettingsClick(SettingsDestination.TaskList) }
             )
         }
-        SettingsItemCard(position = CardPosition.Last) {
+        SettingsItemCard(position = CardPosition.Middle) {
             PreferenceRow(
                 title = stringResource(Res.string.EPr_edit_screen_options),
                 icon = Icons.Outlined.Edit,
                 onClick = { onSettingsClick(SettingsDestination.TaskEdit) }
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            PreferenceRow(
+                title = stringResource(Res.string.ai_task_creation),
+                icon = Icons.Outlined.AutoAwesome,
+                onClick = { onSettingsClick(SettingsDestination.AiTaskCreation) }
             )
         }
     }

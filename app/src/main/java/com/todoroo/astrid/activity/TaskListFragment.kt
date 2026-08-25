@@ -83,6 +83,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -176,6 +178,9 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.Banner
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
+import org.tasks.ai.AiGate
+import org.tasks.compose.ai.AiCaptureSheet
+import org.tasks.ui.AiCaptureViewModel
 import org.tasks.ui.TaskListViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
@@ -200,6 +205,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     @Inject lateinit var viewHolderFactory: ViewHolderFactory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var device: Device
+    @Inject lateinit var aiGate: AiGate
     @Inject lateinit var taskMover: TaskMover
     @Inject lateinit var taskAdapterProvider: TaskAdapterProvider
     @Inject lateinit var taskDao: TaskDao
@@ -221,6 +227,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     private val listViewModel: TaskListViewModel by viewModels()
     private val mainViewModel: MainActivityViewModel by activityViewModels()
+    private val aiCaptureViewModel: AiCaptureViewModel by viewModels()
+    private val showAiSheetState: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private var showAiSheet: Boolean
+        get() = showAiSheetState.value
+        set(value) { showAiSheetState.value = value }
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
     private var dirtyTaskIds: Set<Long> = emptySet()
@@ -675,6 +686,42 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 }
             }
         }
+        binding.aiCaptureCompose.setContent {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
+                val visible = showAiSheetState.collectAsStateWithLifecycle().value
+                if (visible) {
+                    val captureState = aiCaptureViewModel.state.collectAsStateWithLifecycle().value
+                    val captureInput = aiCaptureViewModel.input.collectAsStateWithLifecycle().value
+                    AiCaptureSheet(
+                        state = captureState,
+                        input = captureInput,
+                        onInputChange = { aiCaptureViewModel.onInputChange(it) },
+                        onSubmit = { aiCaptureViewModel.submit() },
+                        onToggle = { aiCaptureViewModel.toggle(it) },
+                        onOpenInEditor = { index ->
+                            val task = aiCaptureViewModel.openInEditor(index)
+                            showAiSheet = false
+                            onTaskListItemClicked(task)
+                        },
+                        onConfirm = {
+                            lifecycleScope.launch {
+                                val created = aiCaptureViewModel.confirm()
+                                showAiSheet = false
+                                aiCaptureViewModel.reset()
+                                onTaskCreated(created)
+                            }
+                        },
+                        onDismiss = {
+                            showAiSheet = false
+                            aiCaptureViewModel.reset()
+                        },
+                    )
+                }
+            }
+        }
         ViewCompat.requestApplyInsets(binding.toolbar)
         return binding.root
     }
@@ -745,6 +792,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
             menu.findItem(R.id.menu_expand_subtasks).isVisible = false
         }
         menu.findItem(R.id.menu_voice_add).isVisible = device.voiceInputAvailable() && filter.isWritable
+        menu.findItem(R.id.menu_ai_add).isVisible = filter.isWritable
         menu.findItem(R.id.menu_clear_completed).isVisible = filter.isWritable
     }
 
@@ -760,6 +808,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                     search.isVisible = true
                     search.expandActionView()
                 }
+                true
+            }
+            R.id.menu_ai_add -> {
+                aiCaptureViewModel.reset()
+                showAiSheet = true
                 true
             }
             R.id.menu_voice_add -> {
@@ -987,7 +1040,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         recognizedSpeech = (recognizedSpeech.substring(0, 1)
                             .uppercase(Locale.getDefault())
                                 + recognizedSpeech.substring(1).lowercase(Locale.getDefault()))
-                        onTaskListItemClicked(addTask(recognizedSpeech))
+                        if (aiGate.canCall()) {
+                            aiCaptureViewModel.reset()
+                            showAiSheet = true
+                            aiCaptureViewModel.submit(recognizedSpeech)
+                        } else {
+                            onTaskListItemClicked(addTask(recognizedSpeech))
+                        }
                         firebase.addTask("voice")
                     }
                 }

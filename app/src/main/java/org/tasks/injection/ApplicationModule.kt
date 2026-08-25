@@ -20,6 +20,11 @@ import org.tasks.LocalBroadcastManager
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.tasks.analytics.Firebase
+import org.tasks.ai.AiCredentialStore
+import org.tasks.ai.AiTaskParser
+import org.tasks.ai.AiGate
+import org.tasks.ai.AndroidOpenRouterClientProvider
+import org.tasks.ai.OpenRouterClientProvider
 import org.tasks.audio.SoundPlayer
 import org.tasks.calendars.CalendarHelper
 import org.tasks.filters.CaldavListCache
@@ -282,6 +287,48 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesKeyStoreEncryption(): KeyStoreEncryption = AndroidKeyStoreEncryption()
+
+    @Provides
+    @Singleton
+    fun providesAiCredentialStore(
+        tasksPreferences: TasksPreferences,
+        encryption: KeyStoreEncryption,
+    ) = AiCredentialStore(
+        tasksPreferences = tasksPreferences,
+        encryption = encryption,
+    )
+
+    @Provides
+    @Singleton
+    fun providesAiGate(
+        tasksPreferences: TasksPreferences,
+        credentials: AiCredentialStore,
+    ) = AiGate(
+        tasksPreferences = tasksPreferences,
+        credentials = credentials,
+    )
+
+    @Provides
+    @Singleton
+    fun providesOpenRouterClientProvider(
+        provider: AndroidOpenRouterClientProvider,
+    ): OpenRouterClientProvider = provider
+
+    @Provides
+    @Singleton
+    fun providesAiTaskParser(
+        clientProvider: OpenRouterClientProvider,
+        filterProvider: FilterProvider,
+        tagDataDao: TagDataDao,
+        tasksPreferences: TasksPreferences,
+        json: Json,
+    ) = AiTaskParser(
+        clientProvider = clientProvider,
+        filterProvider = filterProvider,
+        tagDataDao = tagDataDao,
+        tasksPreferences = tasksPreferences,
+        json = json,
+    )
 
     @Provides
     fun providesBroadcastRefresh(localBroadcastManager: LocalBroadcastManager): RefreshBroadcaster =

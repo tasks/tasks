@@ -42,6 +42,10 @@ class UnauthorizedException(message: String? = null, cause: Throwable? = null, g
 class NotFoundException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class ServiceUnavailableException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null) : NetworkException(message, graphCode = graphCode)
+class RateLimitedException(
+    message: String? = null,
+    val retryAfterSeconds: Long? = null,
+) : NetworkException(message)
 
 class HttpErrorHandler {
     class Config {

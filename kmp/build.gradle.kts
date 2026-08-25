@@ -65,6 +65,9 @@ kotlin {
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room)
                 implementation(libs.androidx.sqlite)
+                implementation(libs.ktor.client.mock)
+                implementation(libs.ktor.content.negotiation)
+                implementation(libs.ktor.serialization)
             }
         }
         jvmCommonMain.dependencies {

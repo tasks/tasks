@@ -10,6 +10,7 @@ object TasksUrls {
     const val SOURCE_CODE = "https://tasks.org/source"
     const val TOS = "https://tasks.org/terms"
     const val PRIVACY_POLICY = "https://tasks.org/privacy"
+    const val OPENROUTER_PRIVACY = "https://openrouter.ai/privacy"
     const val LICENSE = "https://tasks.org/license"
     const val SUPPORT_EMAIL = "support@tasks.org"
     const val GOOGLE_PLAY_SUBSCRIPTIONS = "https://play.google.com/store/account/subscriptions"
