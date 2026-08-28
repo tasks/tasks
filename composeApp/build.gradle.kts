@@ -161,6 +161,22 @@ compose.desktop {
             packageVersion = libs.versions.versionName.get().let {
                 if (it.count { c -> c == '.' } < 2) "$it.0" else it
             }
+            // Without an explicit module list, jlink builds the runtime image from the
+            // Compose plugin defaults (java.base, java.desktop, java.logging, jdk.crypto.ec)
+            // and the packaged app dies with NoClassDefFoundError: sun/misc/Unsafe at
+            // startup (DataStore protobuf) and com/sun/net/httpserver/HttpServer when the
+            // GitHub sponsor flow opens its OAuth callback listener.
+            // This is the list reported by ./gradlew :composeApp:suggestRuntimeModules.
+            modules(
+                "java.compiler",
+                "java.instrument",
+                "java.management",
+                "java.security.jgss",
+                "java.sql",
+                "jdk.httpserver",
+                "jdk.security.auth",
+                "jdk.unsupported",
+            )
         }
     }
 }
