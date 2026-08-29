@@ -137,6 +137,12 @@ android {
         }
     }
 
+    sourceSets {
+        // Shared test helpers replace Android-test symlinks, which are not portable to Windows.
+        getByName("test").java.directories.add("src/sharedTest/java")
+        getByName("androidTest").java.directories.add("src/sharedTest/java")
+    }
+
     namespace = "org.tasks"
 }
 
