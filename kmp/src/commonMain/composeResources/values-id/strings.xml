@@ -555,4 +555,27 @@
     <string name="TEA_add_subtask">Tambah subtugas</string>
     <string name="subtasks_multilevel_google_task">Subtugas level-ganda tidak didukung oleh Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Subtugas bertingkat tidak didukung oleh Microsoft To Do</string>
+    <string name="show_completed_subtasks">Tampilkan subtask yang selesai</string>
+    <string name="failed_to_load_task">Gagal memuat tugas</string>
+    <string name="not_signed_in">Belum masuk</string>
+    <string name="delete_tag_warning">Tugas dengan tag ini tidak akan dihapus</string>
+    <string name="delete_list_warning">Semua tugas dalam daftar ini akan dihapus. Ini tidak dapat dibatalkan!</string>
+    <string name="undo_delete">Batalkan penghapusan</string>
+    <string name="sync_metadata">Simpan metadata tag di sini</string>
+    <string name="sync_metadata_summary">Simpan nama tag, warna, ikon, dan urutan tampilan di akun ini agar tersinkronisasi di seluruh perangkat Anda</string>
+    <string name="metadata_stored_on_tasks_org">Disimpan di akun Tasks.org Anda</string>
+    <string name="metadata_stored_on_account">Saat ini disimpan di %1$s</string>
+    <string name="metadata_move_message">Metadata tag saat ini disimpan di %1$s. Pindahkan ke akun ini?</string>
+    <string name="metadata_not_supported">Server ini tidak mendukung sinkronisasi metadata tag</string>
+    <string name="error_encryption_failed">Enkripsi gagal. Periksa apakah Tasks.org dapat mengakses keychain sistem Anda, lalu coba lagi.</string>
+    <string name="add_tag">Tambahkan tag</string>
+    <string name="google_tasks_permission_not_granted">Izin Google Tasks tidak diberikan. Silakan masuk lagi dan berikan akses ke Google Tasks pada layar persetujuan.</string>
+    <string name="no_task_selected">Tidak ada tugas yang dipilih</string>
+    <string name="resize_panes">Ubah ukuran panel</string>
+    <string name="repeat_type_due_description">Tugas berulang berdasarkan waktu seharusnya diselesaikan</string>
+    <string name="repeat_type_completion_description">Tugas berulang berdasarkan waktu Anda benar-benar menyelesaikannya</string>
+    <string name="mark_completed">Tandai selesai</string>
+    <string name="snoozed_reminder">Pengingat ditunda</string>
+    <string name="subtasks_will_be_flattened">Daftar ini tidak mendukung subtask bersarang. Menyimpan akan memindahkan semuanya ke tingkat teratas.</string>
+    <string name="subtask_list_locked">Subtask baru menggunakan daftar induk</string>
 </resources>
