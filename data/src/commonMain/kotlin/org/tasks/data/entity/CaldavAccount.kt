@@ -2,6 +2,7 @@ package org.tasks.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -12,7 +13,10 @@ import org.tasks.data.db.Table
 
 @Serializable
 @CommonParcelize
-@Entity(tableName = "caldav_accounts")
+@Entity(
+    tableName = "caldav_accounts",
+    indices = [Index(value = ["cda_uuid"])],
+)
 data class CaldavAccount(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cda_id")

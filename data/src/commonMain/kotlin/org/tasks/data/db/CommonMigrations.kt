@@ -121,9 +121,19 @@ object CommonMigrations {
         }
     }
 
+    val MIGRATION_96_97 = object : Migration(96, 97) {
+        override fun migrate(connection: SQLiteConnection) {
+            // Both are join keys in the task list query but were never indexed.
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_lists_cdl_uuid` ON `caldav_lists` (`cdl_uuid`)")
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_lists_cdl_account` ON `caldav_lists` (`cdl_account`)")
+            connection.execSQL("CREATE INDEX IF NOT EXISTS `index_caldav_accounts_cda_uuid` ON `caldav_accounts` (`cda_uuid`)")
+        }
+    }
+
     val all: Array<Migration> = arrayOf(
         MIGRATION_92_93,
         MIGRATION_94_95,
         MIGRATION_95_96,
+        MIGRATION_96_97,
     )
 }
