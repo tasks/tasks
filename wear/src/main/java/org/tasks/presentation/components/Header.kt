@@ -1,3 +1,12 @@
+/**
+ * Header.kt — Section header for Wear OS scrollable lists.
+ *
+ * Renders a centered, horizontally-padded row that can optionally be tappable.
+ * There are two overloads:
+ * - `Header(text)` — Non-clickable; just renders a centered [Text].
+ * - `Header(clickable, onClick, content)` — Optionally clickable; accepts
+ *   arbitrary composable content (used by [CollapsibleHeader]).
+ */
 package org.tasks.presentation.components
 
 import androidx.compose.foundation.clickable

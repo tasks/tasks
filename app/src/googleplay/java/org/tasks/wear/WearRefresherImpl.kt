@@ -1,50 +1,76 @@
 package org.tasks.wear
 
-import com.google.android.gms.wearable.MessageClient
+import androidx.datastore.core.DataStore
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.ProtoDataStoreHelper.protoDataStore
+import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.tasks.await
+import org.tasks.GrpcProto.LastUpdate
+import org.tasks.copy
 import timber.log.Timber
 
 @OptIn(ExperimentalHorologistApi::class)
 class WearRefresherImpl(
     phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    private val messageClient: MessageClient,
+    private val registry: WearDataLayerRegistry,
     private val scope: CoroutineScope,
+    private val phoneSyncManager: PhoneSyncManager? = null,
 ) : WearRefresher {
 
-    private var connectedNodeIds: List<String> = emptyList()
+    private var watchConnected = false
 
     init {
         phoneDataLayerAppHelper
             .connectedAndInstalledNodes
             .catch { Timber.e("${it.message}") }
             .onEach { nodes ->
-                connectedNodeIds = nodes.map { it.id }
-                sendRefreshMessage()
+                Timber.d("Connected nodes: ${nodes.joinToString()}")
+                watchConnected = nodes.isNotEmpty()
+                lastUpdate.update()
             }
             .launchIn(scope)
+
+        // Start listening for sync events from watch
+        phoneSyncManager?.startListening()
+    }
+
+    private val lastUpdate: DataStore<LastUpdate> by lazy {
+        registry.protoDataStore<LastUpdate>(scope)
     }
 
     override suspend fun refresh() {
-        sendRefreshMessage()
-    }
-
-    private suspend fun sendRefreshMessage() {
-        for (nodeId in connectedNodeIds) {
+        if (watchConnected) {
+            lastUpdate.update()
+            // Push all tasks to watch for bidirectional sync
             try {
-                messageClient.sendMessage(nodeId, PATH_REFRESH, byteArrayOf()).await()
+                phoneSyncManager?.sendTaskSnapshot()
             } catch (e: Exception) {
-                Timber.e(e, "Failed to send refresh message to $nodeId")
+                Timber.e(e, "Failed to push tasks to watch on refresh")
             }
         }
     }
 
-    companion object {
-        const val PATH_REFRESH = "/tasks/refresh"
+    /**
+     * Notify watch about a specific task change.
+     * This is called after task updates to sync changes to watch.
+     */
+    override suspend fun notifyTaskChanged(taskId: Long) {
+        if (watchConnected) {
+            phoneSyncManager?.notifyTaskChanged(taskId)
+        }
     }
+
+    override suspend fun notifyTaskDeleted(taskId: Long) {
+        if (watchConnected) {
+            phoneSyncManager?.notifyTaskDeleted(taskId)
+        }
+    }
+}
+
+private suspend fun DataStore<LastUpdate>.update() {
+    updateData { it.copy { now = System.currentTimeMillis() } }
 }
