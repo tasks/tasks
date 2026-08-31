@@ -6,6 +6,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -24,7 +26,7 @@ class FileLogWriter(
     val logDirectory: File,
 ) : LogWriter() {
 
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO.limitedParallelism(1))
     private val fileHandler = FileHandler(
         "${logDirectory.absolutePath}/log.%g.txt",
         20 * 1024 * 1024,
@@ -43,22 +45,36 @@ class FileLogWriter(
             }
         }
     }
-    private val logger = Logger.getLogger("tasks").apply {
+
+    private val logger = Logger.getAnonymousLogger().apply {
         useParentHandlers = false
         addHandler(fileHandler)
     }
 
+    @Volatile
+    private var shuttingDown = false
+
     override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-        scope.launch {
+        val write = scope.launch {
             logger.info("${tag.truncateOrPad()} ${severity.name[0]} $message")
             throwable?.let {
                 logger.info(it.stackTraceToString())
             }
         }
+        if (shuttingDown) {
+            runBlocking { write.join() }
+            flush()
+        }
     }
 
     fun flush() {
         fileHandler.flush()
+    }
+
+    fun beginShutdown() {
+        shuttingDown = true
+        runBlocking { withTimeoutOrNull(DRAIN_TIMEOUT_MS) { scope.launch { }.join() } }
+        flush()
     }
 
     suspend fun zipLogFiles(
@@ -88,6 +104,8 @@ class FileLogWriter(
     }
 
     companion object {
+        private const val DRAIN_TIMEOUT_MS = 2_000L
+
         private const val MAX_LENGTH = 23
         private const val TAG_PART = (MAX_LENGTH - 3) / 2
 

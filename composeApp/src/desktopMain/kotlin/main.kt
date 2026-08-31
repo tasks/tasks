@@ -108,7 +108,9 @@ private fun startIpcServer() {
                 server.accept().use { it.getInputStream().read() }
                 requestForeground()
             } catch (e: Exception) {
-                Logger.w(e) { "IPC server stopped" }
+                if (!server.isClosed) {
+                    Logger.w(e) { "IPC server stopped" }
+                }
                 break
             }
         }
@@ -134,10 +136,11 @@ fun main() {
     startIpcServer()
     org.tasks.caldav.CaldavSynchronizer.registerFactories()
     Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
+    val fileLogWriter = FileLogWriter(logDir)
     Logger.setLogWriters(
         buildList {
             if (TasksBuildConfig.DEBUG) add(platformLogWriter())
-            add(FileLogWriter(logDir))
+            add(fileLogWriter)
         }
     )
     logStartup()
@@ -166,6 +169,8 @@ fun main() {
         }
     }
     Runtime.getRuntime().addShutdownHook(Thread {
+        fileLogWriter.beginShutdown()
+        Logger.i(tag = TAG) { "Shutting down" }
         step(TAG, "commit pending saves") {
             val pendingSaves = koin.get<PendingTaskSaves>()
             pendingSaves.flushPending()
@@ -186,6 +191,7 @@ fun main() {
             lockChannel?.close()
             lockFile.delete()
         }
+        Logger.i(tag = TAG) { "Shutdown complete" }
     })
 
     application {
