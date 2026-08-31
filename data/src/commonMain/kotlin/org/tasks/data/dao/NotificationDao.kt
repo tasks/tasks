@@ -37,4 +37,13 @@ interface NotificationDao {
 
     @Query("SELECT type FROM notification WHERE task = :taskId")
     suspend fun getType(taskId: Long): Int?
+
+    @Query("UPDATE notification SET platform_id = :platformId WHERE task = :taskId")
+    suspend fun setPlatformId(taskId: Long, platformId: Long?)
+
+    @Query("SELECT * FROM notification WHERE platform_id IS NOT NULL")
+    suspend fun withPlatformIds(): List<Notification>
+
+    @Query("UPDATE notification SET platform_id = NULL")
+    suspend fun clearPlatformIds()
 }

@@ -121,9 +121,16 @@ object CommonMigrations {
         }
     }
 
+    val MIGRATION_96_97 = object : Migration(96, 97) {
+        override fun migrate(connection: SQLiteConnection) {
+            connection.execSQL("ALTER TABLE `notification` ADD COLUMN `platform_id` INTEGER")
+        }
+    }
+
     val all: Array<Migration> = arrayOf(
         MIGRATION_92_93,
         MIGRATION_94_95,
         MIGRATION_95_96,
+        MIGRATION_96_97,
     )
 }

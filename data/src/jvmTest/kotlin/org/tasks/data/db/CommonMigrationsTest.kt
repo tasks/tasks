@@ -190,6 +190,24 @@ class CommonMigrationsTest {
         }
     }
 
+    @Test
+    fun addsPlatformIdKeepingExistingNotifications() {
+        migrate(96, 97, CommonMigrations.MIGRATION_96_97) {
+            insertTask(100)
+            execSQL(
+                "INSERT INTO `notification` (`uid`, `task`, `timestamp`, `type`, `location`) " +
+                        "VALUES (1, 100, 12345, 2, NULL)"
+            )
+        }.use { db ->
+            assertEquals(1, db.rowCount("notification"))
+            db.prepare("SELECT `task`, `platform_id` FROM `notification`").use {
+                assertTrue(it.step())
+                assertEquals(100L, it.getLong(0))
+                assertTrue("platform_id should start null", it.isNull(1))
+            }
+        }
+    }
+
     private fun SQLiteConnection.insertTask(id: Long, modified: Long = 0) {
         execSQL(
             "INSERT INTO `tasks` (`_id`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `lastNotified`, `collapsed`, `parent`) " +

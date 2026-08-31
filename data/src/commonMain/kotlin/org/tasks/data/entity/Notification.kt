@@ -33,6 +33,8 @@ data class Notification(
     val type: Int = 0,
     @ColumnInfo(name = "location")
     val location: Long? = null,
+    @ColumnInfo(name = "platform_id")
+    val platformId: Long? = null,
 ) {
     companion object {
         const val TABLE_NAME = "notification"
