@@ -50,7 +50,9 @@ import com.todoroo.astrid.alarms.AlarmService
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationActionHandler
 import org.tasks.notifications.NotificationScheduler
+import org.tasks.notifications.NucleusLinuxNotifications
 import org.tasks.notifications.Notifier
+import org.tasks.notifications.notificationSessionToken
 import org.tasks.service.DesktopCleanup
 import org.tasks.service.TaskCleanup
 import org.tasks.preferences.TasksPreferences
@@ -396,7 +398,18 @@ actual fun platformModule(): Module = module {
                 get<TasksPreferences>()
                     .getAndSet(TasksPreferences.screenClearedAtShutdown, false) == true
             },
-            createBackend = { null },
+            claimPlatformIds = {
+                val current = notificationSessionToken()
+                current != null && get<TasksPreferences>()
+                    .getAndSet(TasksPreferences.notificationSession, current) == current
+            },
+            createBackend = {
+                val listener = get<NotificationActionHandler>()
+                when (platform()) {
+                    Platform.LINUX -> NucleusLinuxNotifications.create(listener)
+                    Platform.WINDOWS, Platform.MAC -> null
+                }
+            },
         )
     }
     factory<Notifier> { get<DesktopNotifier>() }
