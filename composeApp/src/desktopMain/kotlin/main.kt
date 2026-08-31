@@ -15,8 +15,10 @@ import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -30,8 +32,11 @@ import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
+import org.tasks.notifications.DesktopNotifier
+import org.tasks.notifications.NotificationScheduler
 import org.tasks.requestForeground
 import org.tasks.setQuitting
 import org.tasks.PlatformConfiguration
@@ -180,6 +185,12 @@ fun main() {
                 }
             }
         }
+        step(TAG, "stop the notification scheduler") {
+            runBlocking { koin.get<NotificationScheduler>().stop() }
+        }
+        step(TAG, "close notifications") {
+            runBlocking { koin.get<DesktopNotifier>().shutdown() }
+        }
         step(TAG, "close the Microsoft client") {
             (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()
         }
@@ -285,6 +296,10 @@ fun main() {
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
             val backgroundWork = koinInject<BackgroundWork>()
+            val platformConfig = koinInject<PlatformConfiguration>()
+            val notificationScheduler = koinInject<NotificationScheduler>()
+            val notifier = koinInject<DesktopNotifier>()
+            val refreshBroadcaster = koinInject<ComposeRefreshBroadcaster>()
             val lifecycleScope = rememberCoroutineScope()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
@@ -295,6 +310,35 @@ fun main() {
                     AnalyticsEvents.PARAM_FROM_BACKGROUND to false,
                 )
                 sseClient.start()
+                if (platformConfig.supportsNotifications) {
+                    notificationScheduler.start(lifecycleScope, Dispatchers.Default) {
+                        notifier.reconcileNotifications()
+                    }
+                }
+            }
+            LaunchedEffect(Unit) {
+                if (!platformConfig.supportsNotifications) {
+                    return@LaunchedEffect
+                }
+                launch { notifier.requestPermissionIfNeeded() }
+                refreshBroadcaster.refreshes.collect {
+                    launch { notifier.requestPermissionIfNeeded() }
+                }
+            }
+            LaunchedEffect(Unit) {
+                if (!platformConfig.supportsNotifications) {
+                    return@LaunchedEffect
+                }
+                refreshBroadcaster.refreshes.collect { notificationScheduler.signal() }
+            }
+            LaunchedEffect(Unit) {
+                if (!platformConfig.supportsNotifications) {
+                    return@LaunchedEffect
+                }
+                preferences.flow(TasksPreferences.notificationsEnabled, true)
+                    .distinctUntilChanged()
+                    .drop(1)
+                    .collect { notificationScheduler.signal() }
             }
             DisposableEffect(window) {
                 var backgrounded = false
@@ -307,6 +351,7 @@ fun main() {
                                 AnalyticsEvents.PARAM_FROM_BACKGROUND to true,
                             )
                             sseClient.reconnect()
+                            notificationScheduler.signal()
                             lifecycleScope.launch {
                                 backgroundWork.sync(SyncSource.APP_RESUME)
                             }

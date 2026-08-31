@@ -13,8 +13,6 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
-import org.tasks.notifications.NoNotifications
-import org.tasks.notifications.Notifier
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
 import org.tasks.auth.DesktopOAuthFlow
@@ -48,6 +46,13 @@ import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.data.TaskCreator
+import com.todoroo.astrid.alarms.AlarmService
+import org.tasks.notifications.DesktopNotifier
+import org.tasks.notifications.NotificationActionHandler
+import org.tasks.notifications.NotificationScheduler
+import org.tasks.notifications.Notifier
+import org.tasks.service.DesktopCleanup
+import org.tasks.service.TaskCleanup
 import org.tasks.preferences.TasksPreferences
 import org.tasks.service.Upgrader
 import org.tasks.security.DesktopKeyProvider
@@ -156,7 +161,6 @@ private fun resolveLogDir(): File {
 
 actual fun platformModule(): Module = module {
     singleOf(::TasksServerEnvironment)
-    factory<Notifier> { NoNotifications }
 
     single {
         val notificationsEnabled = TasksBuildConfig.DEBUG
@@ -363,6 +367,46 @@ actual fun platformModule(): Module = module {
             environment = get(),
             httpClientFactory = get(),
             tokenProvider = get(),
+        )
+    }
+    single {
+        NotificationActionHandler(
+            scope = get(),
+            taskDao = get(),
+            taskCompleter = get(),
+            notifier = { get<Notifier>() },
+            taskRequests = get(),
+        )
+    }
+    single {
+        DesktopNotifier(
+            taskDao = get(),
+            notificationDao = get(),
+            alarmDao = get(),
+            refreshBroadcaster = get(),
+            signalScheduler = { get<NotificationScheduler>().signal() },
+            gatesOnPermission = { platform() == Platform.MAC },
+            notificationsEnabled = {
+                get<TasksPreferences>().get(TasksPreferences.notificationsEnabled, true)
+            },
+            recordScreenCleared = {
+                get<TasksPreferences>().set(TasksPreferences.screenClearedAtShutdown, true)
+            },
+            takeScreenCleared = {
+                get<TasksPreferences>()
+                    .getAndSet(TasksPreferences.screenClearedAtShutdown, false) == true
+            },
+            createBackend = { null },
+        )
+    }
+    factory<Notifier> { get<DesktopNotifier>() }
+    factory<TaskCleanup> { DesktopCleanup(notifier = get<DesktopNotifier>()) }
+    single {
+        val alarmService = lazy { get<AlarmService>() }
+        NotificationScheduler(
+            alarmService = alarmService::value,
+            trigger = { get<DesktopNotifier>().triggerNotifications(it) },
+            hold = { get<DesktopNotifier>().hold() },
         )
     }
 }

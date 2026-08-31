@@ -78,7 +78,6 @@ import org.tasks.reminders.Random
 import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.repeats.CustomRecurrenceViewModel
 import org.tasks.repeats.RepeatRuleToString
-import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.service.TaskMigrator
@@ -324,7 +323,6 @@ val commonModule = module {
                 tasksPreferences.set(TasksPreferences.timePickerInputMode, value)
         }
     }
-    factory<TaskCleanup> { object : TaskCleanup {} }
     factory<CalendarHelper> { object : CalendarHelper {} }
     factory<SoundPlayer> { object : SoundPlayer {} }
     factory<org.tasks.compose.drawer.DrawerConfiguration> {

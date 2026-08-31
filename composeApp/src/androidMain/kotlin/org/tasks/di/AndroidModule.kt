@@ -31,6 +31,7 @@ import org.tasks.notifications.Notifier
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.service.TaskCleanup
 
 actual fun platformModule(): Module = module {
     includes(flavorModule)
@@ -44,6 +45,7 @@ actual fun platformModule(): Module = module {
             override suspend fun updateTimerNotification() {}
         }
     }
+    factory<TaskCleanup> { object : TaskCleanup {} }
     factory<Reporting> {
         val tasksPreferences = get<TasksPreferences>()
         object : Reporting {
