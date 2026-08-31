@@ -51,6 +51,7 @@ import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationActionHandler
 import org.tasks.notifications.NotificationScheduler
 import org.tasks.notifications.NucleusLinuxNotifications
+import org.tasks.notifications.NucleusMacNotifications
 import org.tasks.notifications.NucleusWindowsNotifications
 import org.tasks.notifications.Notifier
 import org.tasks.notifications.notificationSessionToken
@@ -409,7 +410,7 @@ actual fun platformModule(): Module = module {
                 when (platform()) {
                     Platform.LINUX -> NucleusLinuxNotifications.create(listener)
                     Platform.WINDOWS -> NucleusWindowsNotifications.create(listener)
-                    Platform.MAC -> null
+                    Platform.MAC -> NucleusMacNotifications.create(listener)
                 }
             },
         )
