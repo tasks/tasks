@@ -51,6 +51,7 @@ import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationActionHandler
 import org.tasks.notifications.NotificationScheduler
 import org.tasks.notifications.NucleusLinuxNotifications
+import org.tasks.notifications.NucleusWindowsNotifications
 import org.tasks.notifications.Notifier
 import org.tasks.notifications.notificationSessionToken
 import org.tasks.service.DesktopCleanup
@@ -407,7 +408,8 @@ actual fun platformModule(): Module = module {
                 val listener = get<NotificationActionHandler>()
                 when (platform()) {
                     Platform.LINUX -> NucleusLinuxNotifications.create(listener)
-                    Platform.WINDOWS, Platform.MAC -> null
+                    Platform.WINDOWS -> NucleusWindowsNotifications.create(listener)
+                    Platform.MAC -> null
                 }
             },
         )
