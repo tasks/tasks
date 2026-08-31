@@ -1,6 +1,7 @@
 package com.todoroo.astrid.alarms
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -13,6 +14,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verifyBlocking
 import org.tasks.DatabaseTest
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.preferences.AppPreferences
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
@@ -203,6 +205,29 @@ class AlarmServiceTest : DatabaseTest() {
         val next = alarmService.triggerAlarms { entries -> entries.map { it.taskId } }
 
         assertEquals(0L, next)
+    }
+
+    @Test
+    fun theRefreshAfterASnoozeCanAlreadySeeIt() = runTest(testDispatcher) {
+        val task = createTask()
+        val snoozedWhenRefreshed = mutableListOf<Int>()
+        val service = AlarmService(
+            alarmDao = alarmDao,
+            taskDao = taskDao,
+            dirtyDao = dirtyDao,
+            refreshBroadcaster = object : RefreshBroadcaster {
+                override fun broadcastRefresh() {
+                    snoozedWhenRefreshed.add(runBlocking { taskDao.snoozedReminders() })
+                }
+            },
+            notifier = notifier,
+            alarmCalculator = AlarmCalculator(Random()),
+            preferences = preferences,
+        )
+
+        service.snooze(currentTimeMillis() + ONE_HOUR, listOf(task.id))
+
+        assertEquals(listOf(1), snoozedWhenRefreshed)
     }
 
     @After

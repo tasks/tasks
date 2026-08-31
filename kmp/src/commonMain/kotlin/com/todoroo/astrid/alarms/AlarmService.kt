@@ -70,6 +70,7 @@ class AlarmService(
             taskDao.touch(taskIds)
             dirtyDao.setDirty(taskIds, TYPES_ALARMS)
         }
+        refreshBroadcaster.broadcastRefresh()
         notifier.triggerNotifications()
     }
 
