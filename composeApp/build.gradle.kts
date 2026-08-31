@@ -54,6 +54,7 @@ kotlin {
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.uiTest)
             implementation(compose.desktop.currentOs)
+            implementation(project(path = ":kmp", configuration = "jvmTestOutput"))
         }
 
         commonMain.dependencies {

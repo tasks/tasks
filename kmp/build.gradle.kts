@@ -105,6 +105,21 @@ kotlin {
     tasks.register("testClasses")
 }
 
+val jvmTestJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("jvm-test")
+    from(kotlin.jvm().compilations.getByName("test").output.allOutputs)
+}
+
+val jvmTestOutput: Configuration by configurations.creating {
+    isCanBeResolved = false
+    isCanBeConsumed = true
+    extendsFrom(configurations.getByName("jvmTestImplementation"))
+}
+
+artifacts {
+    add(jvmTestOutput.name, jvmTestJar)
+}
+
 val generateJvmBuildConfig by tasks.registering {
     val outputDir = layout.buildDirectory.dir("generated/jvmBuildConfig")
     val versionCode = libs.versions.versionCode.get()
