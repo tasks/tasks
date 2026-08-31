@@ -50,6 +50,7 @@ markwon = "4.6.2"
 material = "1.12.0"
 material-kolor = "4.1.1"
 mockito = "5.23.0"
+nucleus = "2.0.0-alpha-202607130836"
 okhttp = "5.3.2"
 osmdroid = "6.1.20"
 oss-licenses-plugin = "0.10.10"
@@ -193,6 +194,9 @@ microsoft-authentication = { module = "com.microsoft.identity.client:msal", vers
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.4.0" }
+nucleus-notification-linux = { module = "dev.nucleusframework:nucleus.notification-linux", version.ref = "nucleus" }
+nucleus-notification-macos = { module = "dev.nucleusframework:nucleus.notification-macos", version.ref = "nucleus" }
+nucleus-notification-windows = { module = "dev.nucleusframework:nucleus.notification-windows", version.ref = "nucleus" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }

@@ -96,6 +96,9 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.java.keyring)
             implementation(libs.posthog)
+            implementation(libs.nucleus.notification.linux)
+            implementation(libs.nucleus.notification.macos)
+            implementation(libs.nucleus.notification.windows)
         }
     }
 }
