@@ -3,6 +3,7 @@ package org.tasks.caldav
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.getLocal
+import org.tasks.caldav.iCalendar.Companion.matches
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.toMillis
@@ -111,13 +112,13 @@ private fun org.tasks.data.entity.Task.applyRecurrence(remote: VTodoTask, local:
 }
 
 private fun org.tasks.data.entity.Task.applyDue(remote: VTodoTask, local: VTodoTask?) {
-    if (local == null || local.due.toMillis() == dueDate) {
+    if (local == null || local.due.matches(this)) {
         dueDate = remote.due.toMillis()
     }
 }
 
 private fun org.tasks.data.entity.Task.applyStart(remote: VTodoTask, local: VTodoTask?) {
-    if (local == null || local.dtStart.toMillis(this) == hideUntil) {
+    if (local == null || local.dtStart.matches(this)) {
         hideUntil = remote.dtStart.toMillis(this)
     }
 }

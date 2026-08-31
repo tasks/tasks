@@ -57,6 +57,7 @@ import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.repeats.RecurrenceUtils.newRRule
 import org.tasks.time.DateTimeUtils.toDate
+import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
 import org.tasks.time.startOfMinute
 import java.io.ByteArrayOutputStream
@@ -355,6 +356,16 @@ class iCalendar(
                 )
             }
 
+        fun Due?.matches(task: org.tasks.data.entity.Task): Boolean =
+            when (this?.date) {
+                null -> task.dueDate == 0L
+                is DateTime -> toMillis() == task.dueDate
+                else ->
+                    !task.hasDueTime() &&
+                            task.dueDate > 0 &&
+                            date?.toString() == task.dueDate.startOfDay().toDate()?.toString()
+            }
+
         fun DtStart?.apply(task: org.tasks.data.entity.Task) {
             task.hideUntil = toMillis(task)
         }
@@ -364,6 +375,16 @@ class iCalendar(
                 null -> 0
                 is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
                 else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, getLocal(this))
+            }
+
+        fun DtStart?.matches(task: org.tasks.data.entity.Task): Boolean =
+            when (this?.date) {
+                null -> task.hideUntil == 0L
+                is DateTime -> toMillis(task) == task.hideUntil
+                else ->
+                    !task.hasStartTime() &&
+                            task.hideUntil > 0 &&
+                            date?.toString() == (task.hideUntil + ONE_DAY / 2).toDate()?.toString()
             }
 
         // this isn't necessarily the task originator but its the best we can do
