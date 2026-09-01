@@ -190,8 +190,8 @@ fun CustomRecurrence(
                         dayNumber = state.dueDayOfMonth,
                         dayOfWeek = state.dueDayOfWeek,
                         nthWeek = state.nthWeek,
-                        isLastWeek = state.lastWeekDayOfMonth,
-                        isLastDay = state.dueIsLastDayOfMonth,
+                        isLastWeek = state.showLastWeekOfMonth,
+                        isLastDay = state.showLastDayOfMonth,
                         locale = state.locale,
                         onSelected = setMonthSelection,
                     )

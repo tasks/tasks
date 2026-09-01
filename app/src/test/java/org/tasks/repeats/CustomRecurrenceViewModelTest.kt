@@ -8,6 +8,7 @@ import net.fortuna.ical4j.model.Recur.Frequency.SECONDLY
 import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.time.DateTime
 import java.time.DayOfWeek
@@ -209,6 +210,62 @@ class CustomRecurrenceViewModelTest {
             ) {
                 setMonthSelection(1)
             }.getRecur()
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthStaysSelectableAfterSwitchingAway() {
+        val vm = newVM(recur = "FREQ=MONTHLY;BYMONTHDAY=-1", dueDate = DateTime(2023, 7, 15))
+        assertTrue(vm.state.value.showLastDayOfMonth)
+        vm.setMonthSelection(0)
+        assertTrue(vm.state.value.showLastDayOfMonth)
+    }
+
+    @Test
+    fun lastDayOfMonthNotSelectableForMidMonthDueDate() {
+        assertFalse(
+            newVM(recur = "FREQ=MONTHLY", dueDate = DateTime(2023, 7, 15))
+                .state
+                .value
+                .showLastDayOfMonth
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthSelectableWhenDueOnLastDayOfMonth() {
+        assertTrue(
+            newVM(recur = "FREQ=MONTHLY", dueDate = DateTime(2023, 7, 31))
+                .state
+                .value
+                .showLastDayOfMonth
+        )
+    }
+
+    @Test
+    fun lastWeekStaysSelectableAfterSwitchingAway() {
+        val vm = newVM(recur = "FREQ=MONTHLY;BYDAY=-1SA", dueDate = DateTime(2023, 7, 15))
+        assertTrue(vm.state.value.showLastWeekOfMonth)
+        vm.setMonthSelection(0)
+        assertTrue(vm.state.value.showLastWeekOfMonth)
+    }
+
+    @Test
+    fun lastWeekNotSelectableForMidMonthDueDate() {
+        assertFalse(
+            newVM(recur = "FREQ=MONTHLY;BYDAY=3SA", dueDate = DateTime(2023, 7, 15))
+                .state
+                .value
+                .showLastWeekOfMonth
+        )
+    }
+
+    @Test
+    fun lastWeekSelectableWhenDueInLastWeekOfMonth() {
+        assertTrue(
+            newVM(recur = "FREQ=MONTHLY", dueDate = DateTime(2023, 7, 29))
+                .state
+                .value
+                .showLastWeekOfMonth
         )
     }
 

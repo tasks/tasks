@@ -50,6 +50,8 @@ open class CustomRecurrenceViewModel(
         val locale: Locale = Locale.getDefault(),
         val monthDay: WeekDay? = null,
         val lastDayOfMonth: Boolean = false,
+        val openedWithLastDayOfMonth: Boolean = false,
+        val openedWithLastWeekOfMonth: Boolean = false,
         val isMicrosoftTask: Boolean = false,
     ) {
         val dueDayOfWeek: DayOfWeek
@@ -60,6 +62,9 @@ open class CustomRecurrenceViewModel(
 
         val dueIsLastDayOfMonth: Boolean
             get() = DateTime(dueDate).isLastDayOfMonth
+
+        val showLastDayOfMonth: Boolean
+            get() = dueIsLastDayOfMonth || openedWithLastDayOfMonth
 
         val nthWeek: Int
             get() =
@@ -72,6 +77,9 @@ open class CustomRecurrenceViewModel(
                 Calendar.getInstance(locale)
                     .apply { timeInMillis = dueDate }
                     .let { it[DAY_OF_WEEK_IN_MONTH] == it.getActualMaximum(DAY_OF_WEEK_IN_MONTH) }
+
+        val showLastWeekOfMonth: Boolean
+            get() = lastWeekDayOfMonth || openedWithLastWeekOfMonth
     }
 
     private val _state = MutableStateFlow(ViewState())
@@ -88,6 +96,14 @@ open class CustomRecurrenceViewModel(
             ?: currentTimeMillis().startOfDay()
         val isMicrosoftTask = accountType == TYPE_MICROSOFT
         val frequencies = if (isMicrosoftTask) FREQ_MICROSOFT else FREQ_ALL
+        val lastDayOfMonth = recur
+            ?.takeIf { !isMicrosoftTask }
+            ?.isLastDayOfMonth
+            ?: false
+        val monthDay = recur
+            ?.dayList
+            ?.takeIf { recur.frequency == MONTHLY && !isMicrosoftTask }
+            ?.firstOrNull()
         _state.update { state ->
             state.copy(
                 interval = recur?.interval?.takeIf { it > 0 } ?: 1,
@@ -109,14 +125,10 @@ open class CustomRecurrenceViewModel(
                     ?.toDaysOfWeek()
                     ?: emptyList(),
                 locale = locale,
-                monthDay = recur
-                    ?.dayList
-                    ?.takeIf { recur.frequency == MONTHLY && !isMicrosoftTask }
-                    ?.firstOrNull(),
-                lastDayOfMonth = recur
-                    ?.takeIf { !isMicrosoftTask }
-                    ?.isLastDayOfMonth
-                    ?: false,
+                monthDay = monthDay,
+                lastDayOfMonth = lastDayOfMonth,
+                openedWithLastDayOfMonth = lastDayOfMonth,
+                openedWithLastWeekOfMonth = monthDay?.offset == -1,
                 isMicrosoftTask = isMicrosoftTask,
                 frequencyOptions = frequencies,
             )
