@@ -48,6 +48,7 @@ import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.data.TaskCreator
 import org.tasks.preferences.TasksPreferences
+import org.tasks.service.Upgrader
 import org.tasks.security.DesktopKeyProvider
 import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
@@ -253,6 +254,7 @@ actual fun platformModule(): Module = module {
         val dataStoreFile = File(dataDir, dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
+    factory { Upgrader(get(), emptyList()) }
     factory {
         FileStorage(dataDir.absolutePath)
     }

@@ -39,6 +39,7 @@ import org.tasks.TaskRequests
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
+import org.tasks.service.Upgrader
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.http.EncryptedCookieStore
 import at.bitfire.cert4android.DesktopUserDecisionRegistry
@@ -146,8 +147,9 @@ fun main() {
     }
     val koin = KoinPlatform.getKoin()
     runBlocking {
-        koin.get<AppPreferences>()
-            .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
+        val versionCode = koin.get<PlatformConfiguration>().versionCode
+        koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
+        koin.get<Upgrader>().upgrade(versionCode)
     }
     // Cmd+Q on macOS goes through here rather than through the window: the JDK's default quit
     // strategy calls System.exit directly, so no window ever sees a close request and none of the
@@ -277,15 +279,10 @@ fun main() {
             val reporting = koinInject<Reporting>()
             val sseClient = koinInject<SseClient>()
             val backgroundWork = koinInject<BackgroundWork>()
-            val platformConfig = koinInject<PlatformConfiguration>()
             val lifecycleScope = rememberCoroutineScope()
             LaunchedEffect(Unit) {
                 Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
                     reporting.reportException(throwable, fatal = true)
-                }
-                val versionCode = platformConfig.versionCode
-                if (versionCode > 0) {
-                    preferences.set(TasksPreferences.currentVersion, versionCode)
                 }
                 reporting.logEvent(
                     AnalyticsEvents.APP_OPENED,
