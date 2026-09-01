@@ -68,7 +68,7 @@
     <string name="CFC_list_name">En listo…</string>
     <string name="CFC_gtasks_list_text">En Listo: \?</string>
     <string name="calendar_event_not_found">Kalendara evento ne trovita</string>
-    <string name="gcal_TEA_showCalendar_label">Malfermi Kalendara Evento</string>
+    <string name="gcal_TEA_showCalendar_label">Malfermi Kalendaran Eventon</string>
     <string name="CFC_title_contains_text">Titolo enhavas: \?</string>
     <string name="CFC_title_contains_name">Titolo enhavas…</string>
     <string name="CFC_tag_contains_text">Etikeda nomo enhavas: \?</string>
@@ -160,7 +160,7 @@
     <string name="widget_show_title">Vidigi titolon</string>
     <string name="voice_command_added_task">Tasko Aldonite</string>
     <string name="EPr_voiceInputEnabled_title">Voĉa enigo</string>
-    <string name="voice_create_prompt">Diri por krei taskon</string>
+    <string name="voice_create_prompt">Paroli por krei taskon</string>
     <string name="TEA_timer_comment_stopped">ĉesigis ĉi tiun taskon:</string>
     <string name="TEA_timer_comment_started">komencis ĉi tiun taskon:</string>
     <string name="TEA_timer_controls">Tempumilo</string>
