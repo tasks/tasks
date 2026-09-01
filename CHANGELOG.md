@@ -1,3 +1,31 @@
+### 15.11 (2026-09-01)
+
+* Add 'last day of month' recurrence option
+* Drawer rendering performance improvement - @toxicphreAK [#4570](https://github.com/tasks/tasks/pull/4570)
+* Fix running tests on Windows - @przemhb [#4591](https://github.com/tasks/tasks/pull/4591)
+* Fix all-day dates edited across two devices and two time zones from wedging sync
+
+Desktop:
+  * Display reminders on macOS, Windows, and Linux
+  * Fix packaging app from source - @CR0CKER [#4589](https://github.com/tasks/tasks/pull/4589)
+
+Android:
+  * Task list rendering performance improvement - @toxicphreAK [#4569](https://github.com/tasks/tasks/pull/4569)
+  * Fix time display when ICU data is missing
+
+Update translations:
+  * Brazilian Portuguese - @restlessSangoLeelo
+  * Czech - @p-bo
+  * Esperanto - @Rajzin
+  * Estonian - Priit Jõerüüt
+  * Hungarian - Kaci
+  * Indonesian - @arifpedia
+  * Romanian - @ygorigor
+  * Serbian - @vale-decem
+  * Swedish - Jonatan Nyberg
+  * Thai - @KuroisKitsune
+  * Ukrainian - @IhorHordiichuk
+
 ### 15.10 (2026-08-14)
 
 * Completed subtasks now remain under the parent task

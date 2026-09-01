@@ -1,0 +1,6 @@
+* Add 'last day of month' recurrence option
+* Task list rendering performance improvement - @toxicphreAK [#4569](https://github.com/tasks/tasks/pull/4569)
+* Drawer rendering performance improvement - @toxicphreAK [#4570](https://github.com/tasks/tasks/pull/4570)
+* Fix running tests on Windows - @przemhb [#4591](https://github.com/tasks/tasks/pull/4591)
+* Fix all-day dates edited across two devices and two time zones from wedging sync
+* Fix time display when ICU data is missing
