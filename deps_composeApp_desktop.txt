@@ -1190,16 +1190,16 @@
 +|    +--- com.squareup.okhttp3:okhttp-bom:4.11.0
 +|    |    \--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
 +|    \--- com.squareup.okhttp3:okhttp -> 5.3.2 (*)
-++--- dev.nucleusframework:nucleus.notification-linux:2.0.0-alpha-202607130836
-+|    +--- dev.nucleusframework:nucleus.core-runtime:2.0.0-alpha-202607130836
+++--- dev.nucleusframework:nucleus.notification-linux:2.5.12
++|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.12
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
-+|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (c)
-+|    +--- dev.nucleusframework:nucleus.freedesktop-icons:2.0.0-alpha-202607130836
-+|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
-++--- dev.nucleusframework:nucleus.notification-macos:2.0.0-alpha-202607130836
-+|    +--- dev.nucleusframework:nucleus.core-runtime:2.0.0-alpha-202607130836 (*)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
-+\--- dev.nucleusframework:nucleus.notification-windows:2.0.0-alpha-202607130836
-+     +--- dev.nucleusframework:nucleus.core-runtime:2.0.0-alpha-202607130836 (*)
-+     \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (c)
++|    +--- dev.nucleusframework:nucleus.freedesktop-icons:2.5.12
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
+++--- dev.nucleusframework:nucleus.notification-macos:2.5.12
++|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.12 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++\--- dev.nucleusframework:nucleus.notification-windows:2.5.12
++     +--- dev.nucleusframework:nucleus.core-runtime:2.5.12 (*)
++     \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
