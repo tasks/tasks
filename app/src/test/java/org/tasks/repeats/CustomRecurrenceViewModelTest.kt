@@ -7,6 +7,7 @@ import net.fortuna.ical4j.model.Recur.Frequency.MONTHLY
 import net.fortuna.ical4j.model.Recur.Frequency.SECONDLY
 import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Test
 import org.tasks.time.DateTime
 import java.time.DayOfWeek
@@ -137,6 +138,64 @@ class CustomRecurrenceViewModelTest {
                 recur = "FREQ=MONTHLY;BYDAY=-1TH",
                 dueDate = DateTime(2023, 7, 27)
             ).getRecur()
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthSelection() {
+        assertEquals(
+            "FREQ=MONTHLY;BYMONTHDAY=-1",
+            newVM(dueDate = DateTime(2023, 7, 31)) {
+                setFrequency(MONTHLY)
+                setMonthSelection(3)
+            }.getRecur()
+        )
+    }
+
+    @Test
+    fun restoreLastDayOfMonth() {
+        assertEquals(
+            "FREQ=MONTHLY;BYMONTHDAY=-1",
+            newVM(
+                recur = "FREQ=MONTHLY;BYMONTHDAY=-1",
+                dueDate = DateTime(2023, 7, 31)
+            ).getRecur()
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthReplacesWeekdaySelection() {
+        assertEquals(
+            "FREQ=MONTHLY;BYMONTHDAY=-1",
+            newVM(
+                recur = "FREQ=MONTHLY;BYDAY=-1MO",
+                dueDate = DateTime(2023, 7, 31)
+            ) {
+                setMonthSelection(3)
+            }.getRecur()
+        )
+    }
+
+    @Test
+    fun switchingAwayFromLastDayOfMonthClearsIt() {
+        assertEquals(
+            "FREQ=MONTHLY",
+            newVM(
+                recur = "FREQ=MONTHLY;BYMONTHDAY=-1",
+                dueDate = DateTime(2023, 7, 31)
+            ) {
+                setMonthSelection(0)
+            }.getRecur()
+        )
+    }
+
+    @Test
+    fun multipleMonthDaysAreNotLastDayOfMonth() {
+        assertFalse(
+            newVM(
+                recur = "FREQ=MONTHLY;BYMONTHDAY=1,-1",
+                dueDate = DateTime(2023, 7, 31)
+            ).state.value.lastDayOfMonth
         )
     }
 

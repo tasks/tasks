@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import net.fortuna.ical4j.model.Date
+import net.fortuna.ical4j.model.NumberList
 import net.fortuna.ical4j.model.Recur
 import net.fortuna.ical4j.model.Recur.Frequency.DAILY
 import net.fortuna.ical4j.model.Recur.Frequency.HOURLY
@@ -17,6 +18,8 @@ import net.fortuna.ical4j.model.WeekDayList
 import net.fortuna.ical4j.model.property.RRule
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.repeats.RecurrenceUtils.LAST_DAY_OF_MONTH
+import org.tasks.repeats.RecurrenceUtils.isLastDayOfMonth
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -46,6 +49,7 @@ open class CustomRecurrenceViewModel(
         val selectedDays: List<DayOfWeek> = emptyList(),
         val locale: Locale = Locale.getDefault(),
         val monthDay: WeekDay? = null,
+        val lastDayOfMonth: Boolean = false,
         val isMicrosoftTask: Boolean = false,
     ) {
         val dueDayOfWeek: DayOfWeek
@@ -53,6 +57,9 @@ open class CustomRecurrenceViewModel(
 
         val dueDayOfMonth: Int
             get() = DateTime(dueDate).dayOfMonth
+
+        val dueIsLastDayOfMonth: Boolean
+            get() = DateTime(dueDate).isLastDayOfMonth
 
         val nthWeek: Int
             get() =
@@ -106,6 +113,10 @@ open class CustomRecurrenceViewModel(
                     ?.dayList
                     ?.takeIf { recur.frequency == MONTHLY && !isMicrosoftTask }
                     ?.firstOrNull(),
+                lastDayOfMonth = recur
+                    ?.takeIf { !isMicrosoftTask }
+                    ?.isLastDayOfMonth
+                    ?: false,
                 isMicrosoftTask = isMicrosoftTask,
                 frequencyOptions = frequencies,
             )
@@ -160,7 +171,11 @@ open class CustomRecurrenceViewModel(
         if (state.frequency == WEEKLY) {
             builder.dayList(state.selectedDays.toWeekDayList())
         } else if (state.frequency == MONTHLY) {
-            state.monthDay?.let { builder.dayList(WeekDayList(it)) }
+            if (state.lastDayOfMonth) {
+                builder.monthDayList(NumberList(LAST_DAY_OF_MONTH.toString()))
+            } else {
+                state.monthDay?.let { builder.dayList(WeekDayList(it)) }
+            }
         }
         if (state.interval > 1) {
             builder.interval(state.interval)
@@ -180,11 +195,12 @@ open class CustomRecurrenceViewModel(
         _state.update {
             it.copy(
                 monthDay = when (selection) {
-                    0 -> null
+                    0, 3 -> null
                     1 -> WeekDay(it.dueDayOfWeek.weekDay, it.nthWeek)
                     2 -> WeekDay(it.dueDayOfWeek.weekDay, -1)
                     else -> throw IllegalArgumentException()
                 },
+                lastDayOfMonth = selection == 3,
             )
         }
     }

@@ -23,6 +23,7 @@ import tasks.kmp.generated.resources.repeat_option_every_year
 
 fun Recur.isCustomRecurrence(): Boolean =
     (frequency == Recur.Frequency.WEEKLY || frequency == Recur.Frequency.MONTHLY) && !dayList.isEmpty() ||
+            frequency == Recur.Frequency.MONTHLY && !monthDayList.isEmpty() ||
             frequency == Recur.Frequency.HOURLY ||
             frequency == Recur.Frequency.MINUTELY ||
             until != null ||

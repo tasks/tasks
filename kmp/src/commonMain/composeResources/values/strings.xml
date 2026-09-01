@@ -379,6 +379,7 @@
     <string name="repeat_monthly_fifth_week">fifth</string>
     <string name="repeat_monthly_last_week">last</string>
     <string name="repeat_monthly_on_the_nth_weekday">Monthly on the %1$s %2$s</string>
+    <string name="repeat_monthly_on_last_day">Monthly on the last day</string>
     <string name="repeats_ends">Ends</string>
     <string name="repeats_never">Never</string>
     <string name="repeats_on">On</string>
@@ -418,6 +419,7 @@
     <item quantity="other">occurrences</item>
   </plurals>
     <string name="repeat_monthly_every_day_of_nth_week">every %1$s %2$s</string>
+    <string name="repeat_monthly_last_day">the last day</string>
     <string name="no_task_selected">No task selected</string>
     <string name="resize_panes">Resize panes</string>
     <string name="repeats_single">Repeats %1$s</string>

@@ -64,6 +64,7 @@ import tasks.kmp.generated.resources.repeat_monthly_first_week
 import tasks.kmp.generated.resources.repeat_monthly_fourth_week
 import tasks.kmp.generated.resources.repeat_monthly_last_week
 import tasks.kmp.generated.resources.repeat_monthly_on_day_number
+import tasks.kmp.generated.resources.repeat_monthly_on_last_day
 import tasks.kmp.generated.resources.repeat_monthly_on_the_nth_weekday
 import tasks.kmp.generated.resources.repeat_monthly_second_week
 import tasks.kmp.generated.resources.repeat_monthly_third_week
@@ -185,10 +186,12 @@ fun CustomRecurrence(
                 } else if (state.frequency == Recur.Frequency.MONTHLY && !state.isMicrosoftTask) {
                     MonthlyPicker(
                         monthDay = state.monthDay,
+                        lastDayOfMonth = state.lastDayOfMonth,
                         dayNumber = state.dueDayOfMonth,
                         dayOfWeek = state.dueDayOfWeek,
                         nthWeek = state.nthWeek,
                         isLastWeek = state.lastWeekDayOfMonth,
+                        isLastDay = state.dueIsLastDayOfMonth,
                         locale = state.locale,
                         onSelected = setMonthSelection,
                     )
@@ -292,17 +295,20 @@ private fun WeekdayPicker(
 @Composable
 private fun MonthlyPicker(
     monthDay: WeekDay?,
+    lastDayOfMonth: Boolean,
     dayNumber: Int,
     dayOfWeek: DayOfWeek,
     nthWeek: Int,
     isLastWeek: Boolean,
+    isLastDay: Boolean,
     locale: Locale,
     onSelected: (Int) -> Unit,
 ) {
-    val selection = remember(monthDay) {
-        when (monthDay?.offset) {
-            null -> 0
-            -1 -> 2
+    val selection = remember(monthDay, lastDayOfMonth) {
+        when {
+            lastDayOfMonth -> 3
+            monthDay == null -> 0
+            monthDay.offset == -1 -> 2
             else -> 1
         }
     }
@@ -335,22 +341,24 @@ private fun MonthlyPicker(
         lastWeekString,
         dayOfWeekDisplayName
     )
-    val options = remember(onDayNumber, onNthWeekday, onLastWeekday, isLastWeek, selection) {
-        ArrayList<String>().apply {
-            add(onDayNumber)
-            add(onNthWeekday)
-            if (isLastWeek || selection == 2) {
-                add(onLastWeekday)
-            }
+    val onLastDay = stringResource(Res.string.repeat_monthly_on_last_day)
+    val options = buildList {
+        add(0 to onDayNumber)
+        add(1 to onNthWeekday)
+        if (isLastWeek || selection == 2) {
+            add(2 to onLastWeekday)
+        }
+        if (isLastDay || selection == 3) {
+            add(3 to onLastDay)
         }
     }
     Row(
         modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
     ) {
         OutlinedSpinner(
-            text = options[selection],
-            options = options,
-            onSelected = onSelected,
+            text = options.first { it.first == selection }.second,
+            options = options.map { it.second },
+            onSelected = { onSelected(options[it].first) },
         )
     }
 }

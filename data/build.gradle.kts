@@ -26,7 +26,7 @@ kotlin {
     }
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.androidx.room)
+            api(libs.androidx.room)
             implementation(libs.androidx.sqlite)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)

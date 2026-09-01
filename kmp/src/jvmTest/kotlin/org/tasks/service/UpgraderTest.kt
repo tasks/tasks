@@ -1,16 +1,22 @@
 package org.tasks.service
 
+import com.todoroo.astrid.service.CommonUpgrades
+import com.todoroo.astrid.service.Upgrade_15_11
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+import org.tasks.DatabaseTest
+import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.preferences.TasksPreferences
+import org.tasks.time.DateTime
 import java.io.File
 
-class UpgraderTest {
+class UpgraderTest : DatabaseTest() {
     @get:Rule val folder = TemporaryFolder()
 
     private val preferences: TasksPreferences by lazy {
@@ -28,7 +34,22 @@ class UpgraderTest {
 
     private fun upgrader(vararg steps: UpgradeStep) = Upgrader(preferences, steps.toList())
 
+    private fun commonUpgrader() =
+        Upgrader(preferences, CommonUpgrades.all(db))
+
     private suspend fun currentVersion() = preferences.get(TasksPreferences.currentVersion, 0)
+
+    private suspend fun monthEndTask(): Task {
+        val task = Task(
+            title = "rent",
+            recurrence = "FREQ=MONTHLY",
+            dueDate = createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2026, 1, 31).millis),
+        )
+        db.taskDao().createNew(task)
+        return task
+    }
+
+    private suspend fun recurrence(task: Task) = db.taskDao().fetch(task.id)!!.recurrence
 
     @Test
     fun runsOnlyStepsNewerThanStoredVersion() = runBlocking {
@@ -98,6 +119,38 @@ class UpgraderTest {
 
         assertEquals(listOf(200), ran)
         assertEquals(200, currentVersion())
+    }
+
+    @Test
+    fun commonUpgradesMigrateRecurrence() = runBlocking {
+        preferences.set(TasksPreferences.currentVersion, 151000)
+        val task = monthEndTask()
+
+        commonUpgrader().upgrade(TO)
+
+        assertEquals("FREQ=MONTHLY;BYMONTHDAY=-1", recurrence(task))
+        assertEquals(TO, currentVersion())
+    }
+
+    @Test
+    fun commonUpgradeAlreadyAppliedIsNotRepeated() = runBlocking {
+        preferences.set(TasksPreferences.currentVersion, Upgrade_15_11.VERSION)
+        val task = monthEndTask()
+
+        commonUpgrader().upgrade(TO)
+
+        assertEquals("FREQ=MONTHLY", recurrence(task))
+        assertEquals(TO, currentVersion())
+    }
+
+    @Test
+    fun freshInstallHasNothingToMigrate() = runBlocking {
+        val task = monthEndTask()
+
+        commonUpgrader().upgrade(TO)
+
+        assertEquals("FREQ=MONTHLY", recurrence(task))
+        assertEquals(TO, currentVersion())
     }
 
     companion object {

@@ -171,20 +171,31 @@ class RepeatTaskHelper(
             }
         }
 
-        @Deprecated("Properly support last day of month and remove this")
         private fun handleMonthlyRepeat(
                 original: DateTime, startDateAsDV: Date, hasDueTime: Boolean, recur: Recur): Long {
-            return if (original.isLastDayOfMonth) {
-                val interval = recur.interval.coerceAtLeast(1)
-                val newDateTime = original.plusMonths(interval)
-                val time = newDateTime.withDayOfMonth(newDateTime.numberOfDaysInMonth).millis
-                if (hasDueTime) {
-                    createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time)
-                } else {
-                    createDueDate(Task.URGENCY_SPECIFIC_DAY, time)
-                }
+            if (recur.monthList.isNotEmpty()) {
+                return invokeRecurrence(recur, original, startDateAsDV)
+            }
+            val monthDays = recur.monthDayList
+            val anchor = when {
+                monthDays.isEmpty() -> original.dayOfMonth
+                monthDays.size == 1 && monthDays[0] > 0 -> monthDays[0]
+                else -> return invokeRecurrence(recur, original, startDateAsDV)
+            }
+            val interval = recur.interval.coerceAtLeast(1)
+            val newDateTime = original.plusMonths(interval)
+            if (anchor <= newDateTime.numberOfDaysInMonth) {
+                return invokeRecurrence(recur, original, startDateAsDV)
+            }
+            val time = newDateTime.withDayOfMonth(newDateTime.numberOfDaysInMonth).millis
+            val until = recur.until?.let { DateTime.from(it).endOfDay().millis }
+            if (until != null && time > until) {
+                return -1
+            }
+            return if (hasDueTime) {
+                createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time)
             } else {
-                invokeRecurrence(recur, original, startDateAsDV)
+                createDueDate(Task.URGENCY_SPECIFIC_DAY, time)
             }
         }
 

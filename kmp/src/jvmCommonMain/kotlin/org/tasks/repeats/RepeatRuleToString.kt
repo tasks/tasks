@@ -24,6 +24,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.CrashReporting
 import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.repeats.RecurrenceUtils.isLastDayOfMonth
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
@@ -35,6 +36,7 @@ import tasks.kmp.generated.resources.repeat_monthly_every_day_of_nth_week
 import tasks.kmp.generated.resources.repeat_monthly_fifth_week
 import tasks.kmp.generated.resources.repeat_monthly_first_week
 import tasks.kmp.generated.resources.repeat_monthly_fourth_week
+import tasks.kmp.generated.resources.repeat_monthly_last_day
 import tasks.kmp.generated.resources.repeat_monthly_last_week
 import tasks.kmp.generated.resources.repeat_monthly_second_week
 import tasks.kmp.generated.resources.repeat_monthly_third_week
@@ -70,6 +72,10 @@ class RepeatRuleToString(
 ) {
     private val weekdays = listOf(*Day.values())
 
+    private val Recur.hasDayString: Boolean
+        get() = (frequency == WEEKLY || frequency == MONTHLY) && !dayList.isEmpty() ||
+                isLastDayOfMonth
+
     suspend fun toString(rrule: String?): String? =
         rrule?.takeIf { it.isNotBlank() }?.let { toString(newRecur(it)) }
 
@@ -85,7 +91,7 @@ class RepeatRuleToString(
         val countNumber = if (count > 0) locale.formatNumber(count) else ""
         if (interval <= 1) {
             val frequencyString = getString(getSingleFrequencyResource(frequency))
-            if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.dayList.isEmpty()) {
+            if (rrule.hasDayString) {
                 val dayString = getDayString(rrule)
                 when {
                     count > 0 -> getString(
@@ -126,7 +132,7 @@ class RepeatRuleToString(
                 interval,
                 locale.formatNumber(interval)
             )
-            if ((frequency == WEEKLY || frequency == MONTHLY) && !rrule.dayList.isEmpty()) {
+            if (rrule.hasDayString) {
                 val dayString = getDayString(rrule)
                 when {
                     count > 0 -> getString(
@@ -169,7 +175,9 @@ class RepeatRuleToString(
 
     private suspend fun getDayString(rrule: Recur): String {
         val dfs = DateFormatSymbols(locale)
-        return if (rrule.frequency == WEEKLY) {
+        return if (rrule.isLastDayOfMonth) {
+            getString(Res.string.repeat_monthly_last_day)
+        } else if (rrule.frequency == WEEKLY) {
             val shortWeekdays = dfs.shortWeekdays
             val days: MutableList<String?> = ArrayList()
             for (weekday in rrule.dayList) {

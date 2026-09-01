@@ -78,6 +78,30 @@ class RepeatRuleToStringTest : InjectingTestCase() {
     }
 
     @Test
+    fun lastDayOfMonth() {
+        assertEquals(
+                "Repeats monthly on the last day",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=-1")
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthPlural() {
+        assertEquals(
+                "Repeats every 6 months on the last day",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=6;BYMONTHDAY=-1")
+        )
+    }
+
+    @Test
+    fun explicitDayOfMonthIsNotTreatedAsLastDay() {
+        assertEquals(
+                "Repeats monthly",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=31")
+        )
+    }
+
+    @Test
     fun repeatUntilPositiveOffset() {
         Freeze.freezeAt(DateTime(2021, 1, 4)) {
             withTZ(BERLIN) {

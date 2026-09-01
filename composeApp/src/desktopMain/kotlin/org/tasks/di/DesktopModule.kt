@@ -29,6 +29,7 @@ import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorClientImpl
 import org.tasks.billing.SubscriptionProvider
+import com.todoroo.astrid.service.CommonUpgrades
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.db.CommonMigrations
@@ -254,7 +255,7 @@ actual fun platformModule(): Module = module {
         val dataStoreFile = File(dataDir, dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
-    factory { Upgrader(get(), emptyList()) }
+    factory { Upgrader(get(), CommonUpgrades.all(get())) }
     factory {
         FileStorage(dataDir.absolutePath)
     }
