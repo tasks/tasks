@@ -18,7 +18,7 @@ appauth = "0.11.1"
 appcompat = "1.7.1"
 coil = "2.7.0"
 compose = "2026.03.00"
-compose-multiplatform = "1.11.0"
+compose-multiplatform = "1.12.0"
 confettikit = "0.8.0"
 constraintlayout = "2.2.1"
 dagger-hilt = "2.59.2"
@@ -43,7 +43,7 @@ junit = "1.3.0"
 kotlin = "2.3.21"
 kotlinx-coroutines = "1.11.0"
 ktor = "3.4.1"
-lifecycle = "2.11.0-beta01"
+lifecycle = "2.11.0"
 locale = "1.0.4"
 make-it-easy = "4.0.1"
 markwon = "4.6.2"
@@ -157,7 +157,7 @@ kermit = { module = "co.touchlab:kermit", version = "2.1.0" }
 markdown-renderer-m3 = { module = "com.mikepenz:multiplatform-markdown-renderer-m3", version = "0.39.2" }
 reorderable = { module = "sh.calvin.reorderable:reorderable", version = "3.1.0" }
 jetbrains-navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version = "1.1.1" }
-jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version = "2.11.0-beta01" }
+jetbrains-lifecycle-viewmodel-navigation3 = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycle" }
 jetbrains-adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive", version.ref = "jetbrains-adaptive" }
 jetbrains-adaptive-layout = { module = "org.jetbrains.compose.material3.adaptive:adaptive-layout", version.ref = "jetbrains-adaptive" }
 jetbrains-adaptive-navigation = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation", version.ref = "jetbrains-adaptive" }
