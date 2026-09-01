@@ -3,15 +3,9 @@ versionCode = "151100" # increment by 2
 versionName = "15.11"
 applicationId = "org.tasks"
 agp = "9.3.1"
-android-compileSdk = "36"
+android-compileSdk = "37"
 android-minSdk = "26"
 android-targetSdk = "36"
-# composeApp only, and compile-only. adaptive-navigation3 publishes AAR metadata requiring its
-# consumers to compile against 37, so composeApp cannot build on the shared 36 above. Nothing
-# depends on composeApp - it is an application module - so the rest of the project stays where it
-# is, and composeApp's targetSdk stays on android-targetSdk: this buys the newer APIs to compile
-# against, not the runtime behaviour changes that come with declaring the app ready for them.
-composeapp-compileSdk = "37"
 accompanist = "0.37.3"
 activity-compose = "1.13.0"
 appauth = "0.11.1"

@@ -106,7 +106,7 @@ kotlin {
 
 android {
     namespace = "org.tasks"
-    compileSdk = libs.versions.composeapp.compileSdk.get().toInt()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
