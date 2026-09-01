@@ -201,17 +201,42 @@ class TimeFormatterTest {
         assertEquals("minutes not dropped in ${first[3]}", false, first[3].contains(":00"))
     }
 
+    @Test
+    fun cachedFullDateTimeFormattersVaryByStyleAndTimePattern() = withLocale(us) {
+        val combos = dateStyles.flatMap { dateStyle ->
+            listOf(dateTime to true, dateTime to false, onTheHour to false)
+                .map { (value, is24Hour) -> Triple(value, is24Hour, dateStyle) }
+        }
+        val first = combos.map { (value, is24Hour, dateStyle) ->
+            formatFullDateTimeString(value, is24Hour, dateStyle)
+        }
+        val cached = combos.map { (value, is24Hour, dateStyle) ->
+            formatFullDateTimeString(value, is24Hour, dateStyle)
+        }
+        assertEquals(first, cached)
+        assertEquals(combos.size, first.distinct().size)
+    }
+
+    @Test
+    fun cachedFullDateTimeFormattersVaryByLocale() {
+        val en = withLocale(us) { formatFullDateTimeString(dateTime, true, FormatStyle.LONG) }
+        val jp = withLocale(ja) { formatFullDateTimeString(dateTime, true, FormatStyle.LONG) }
+        assertEquals(en, withLocale(us) { formatFullDateTimeString(dateTime, true, FormatStyle.LONG) })
+        assertEquals(jp, withLocale(ja) { formatFullDateTimeString(dateTime, true, FormatStyle.LONG) })
+        assertEquals("$en and $jp are not localized separately", false, en == jp)
+    }
+
     private fun missingResource() =
         MissingResourceException("no data", "DateTimePatternGenerator", "time")
 
     private fun assertContains(expected: String, actual: String) =
         assertEquals("$expected not found in $actual", true, actual.contains(expected))
 
-    private fun withLocale(locale: Locale, block: () -> Unit) {
+    private fun <T> withLocale(locale: Locale, block: () -> T): T {
         val previous = Locale.getDefault()
         Locale.setDefault(locale)
         try {
-            block()
+            return block()
         } finally {
             Locale.setDefault(previous)
         }

@@ -20,7 +20,10 @@ private class TimeFormat(val pattern: String, val formatter: DateTimeFormatter)
 
 private val timeFormats = ConcurrentHashMap<Triple<Locale, Boolean, Boolean>, TimeFormat>()
 
-private val dateTimePatterns = ConcurrentHashMap<Triple<Locale, FormatStyle, String>, String>()
+private class DateTimeFormat(val formatter: DateTimeFormatter?)
+
+private val dateTimeFormats =
+    ConcurrentHashMap<Triple<Locale, FormatStyle, String>, DateTimeFormat>()
 
 internal fun fallbackTimePattern(locale: Locale): String =
     if (locale.language in AM_PM_BEFORE_TIME) "ah:mm" else "h:mm a"
@@ -124,22 +127,23 @@ internal fun fullDateTimePattern(
     .takeIf { rawTime.isNotBlank() && it.contains(rawTime) }
     ?.replace(rawTime, timePattern)
 
-private fun localizedDateTimePattern(
+private fun localizedDateTimeFormat(
     locale: Locale,
     dateStyle: FormatStyle,
     timePattern: String,
-): String = dateTimePatterns.getOrPut(Triple(locale, dateStyle, timePattern)) {
-    try {
-        fullDateTimePattern(
-            dateTimePattern = rawDateTimePattern(dateStyle, locale),
-            rawTime = rawTimePattern(locale),
-            timePattern = timePattern,
-        )
-            ?.takeIf { formatter(it, locale, PROBE) != null }
-            .orEmpty()
-    } catch (e: Exception) {
-        ""
-    }
+): DateTimeFormat = dateTimeFormats.getOrPut(Triple(locale, dateStyle, timePattern)) {
+    DateTimeFormat(
+        try {
+            fullDateTimePattern(
+                dateTimePattern = rawDateTimePattern(dateStyle, locale),
+                rawTime = rawTimePattern(locale),
+                timePattern = timePattern,
+            )
+                ?.let { formatter(it, locale, PROBE) }
+        } catch (e: Exception) {
+            null
+        }
+    )
 }
 
 fun formatFullDateTimeString(
@@ -150,9 +154,8 @@ fun formatFullDateTimeString(
     val locale = Locale.getDefault()
     val onTheHour = !is24HourFormat && dateTime.minute == 0
     val time = timeFormat(locale, is24HourFormat, onTheHour)
-    val fullPattern = localizedDateTimePattern(locale, dateStyle, time.pattern)
-    if (fullPattern.isNotEmpty()) {
-        return dateTime.format(DateTimeFormatter.ofPattern(fullPattern, locale))
+    localizedDateTimeFormat(locale, dateStyle, time.pattern).formatter?.let {
+        return dateTime.format(it)
     }
     val date = DateTimeFormatter.ofLocalizedDate(dateStyle).withLocale(locale).format(dateTime)
     return "$date ${dateTime.format(time.formatter)}"
