@@ -770,7 +770,7 @@
 +|         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
 +|         |         \--- org.jetbrains.compose.foundation:foundation-layout:1.12.0 (c)
 +|         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.11.0 (*)
-++--- project :wear-datalayer
+++--- project ':wear-datalayer'
 +|    +--- io.grpc:grpc-kotlin-stub:1.5.0
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2 -> 1.11.0 (*)
@@ -1010,7 +1010,7 @@
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.11.0 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    \--- com.google.protobuf:protobuf-kotlin-lite:4.33.2 (*)
-++--- project :kmp
+++--- project ':kmp'
 +|    +--- com.etebase:client:2.3.2
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.11.0
@@ -1083,7 +1083,7 @@
 +|    +--- org.dmfs:lib-recur:0.11.4
 +|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
 +|    +--- org.dmfs:jems:1.33
-+|    +--- project :cert4android
++|    +--- project ':cert4android'
 +|    |    +--- androidx.activity:activity-compose:1.13.0 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.7.1
 +|    |    |    +--- androidx.activity:activity:1.8.0 -> 1.13.0 (*)
@@ -1251,7 +1251,7 @@
 +|    |              \--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
 +|    +--- org.jetbrains.compose.components:components-resources:1.12.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
-+|    +--- project :data
++|    +--- project ':data'
 +|    |    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0
 +|    |    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.18.0
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
