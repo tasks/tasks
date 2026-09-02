@@ -63,6 +63,7 @@ class RepeatTaskHelper(
             task.setRecurrence(rrule)
         }
         task.reminderLast = 0L
+        task.reminderDismissed = 0L
         task.completionDate = 0L
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(newDueDate)

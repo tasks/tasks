@@ -70,6 +70,8 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     var ringFlags: Int = 0,
     @ColumnInfo(name = "lastNotified")
     var reminderLast: Long = 0L,
+    @ColumnInfo(name = "reminderDismissed", defaultValue = "0")
+    var reminderDismissed: Long = 0L,
     @ColumnInfo(name = "recurrence")
     var recurrence: String? = null,
     @ColumnInfo(name = "repeat_from", defaultValue = RepeatFrom.DUE_DATE.toString())

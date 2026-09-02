@@ -91,7 +91,7 @@ class NucleusLinuxNotifications internal constructor(
                     Logger.i(tag = TAG) {
                         "Notification server restarted, dropped ${dropped.size} id(s)"
                     }
-                    dropped.forEach { listener.onDismissed(it) }
+                    dropped.forEach { listener.onEvicted(it) }
                 }
                 ids.posted(taskId = taskId, id = id)
                 true

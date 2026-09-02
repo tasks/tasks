@@ -47,6 +47,7 @@ class NotificationClearedReceiver : BroadcastReceiver() {
             } else {
                 firebase.logEvent(R.string.event_notification, R.string.param_type to "clear")
                 notificationManager.cancel(notificationId, CancelReason.DISMISS)
+                alarmService.markDismissed(listOf(notificationId))
             }
         }
     }

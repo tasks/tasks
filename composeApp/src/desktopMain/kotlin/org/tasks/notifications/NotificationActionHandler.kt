@@ -1,6 +1,7 @@
 package org.tasks.notifications
 
 import co.touchlab.kermit.Logger
+import com.todoroo.astrid.alarms.AlarmService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.TaskEditDestination
@@ -15,6 +16,7 @@ private const val TAG = "NotificationActions"
 class NotificationActionHandler(
     private val scope: CoroutineScope,
     private val taskDao: TaskDao,
+    private val alarmService: () -> AlarmService,
     private val taskCompleter: TaskCompleter,
     private val notifier: () -> Notifier,
     private val taskRequests: TaskRequests,
@@ -40,6 +42,16 @@ class NotificationActionHandler(
         scope.launch {
             guarded(TAG, "Failed to clear $taskId", Unit) {
                 notifier().cancel(taskId, CancelReason.DISMISS)
+                alarmService().markDismissed(listOf(taskId))
+            }
+        }
+    }
+
+    override fun onEvicted(taskId: Long) {
+        Logger.d(tag = TAG) { "Evicted $taskId" }
+        scope.launch {
+            guarded(TAG, "Failed to clear $taskId", Unit) {
+                notifier().cancel(taskId, CancelReason.EVICTED)
             }
         }
     }

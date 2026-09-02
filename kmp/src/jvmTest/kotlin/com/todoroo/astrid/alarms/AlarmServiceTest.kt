@@ -19,6 +19,10 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
@@ -34,6 +38,7 @@ class AlarmServiceTest : DatabaseTest() {
     private val alarmDao = db.alarmDao()
     private val taskDao = db.taskDao()
     private val dirtyDao = db.dirtyDao()
+    private val caldavDao = db.caldavDao()
     private val notifier: Notifier = mock()
     private val testDispatcher = UnconfinedTestDispatcher()
     private val preferences: AppPreferences = mock {
@@ -231,6 +236,57 @@ class AlarmServiceTest : DatabaseTest() {
     }
 
     @Test
+    fun dismissingRecordsTheTime() = runTest(testDispatcher) {
+        val now = currentTimeMillis()
+        DateTimeUtils2.setCurrentMillisFixed(now)
+        val task = createTask()
+
+        alarmService.markDismissed(listOf(task.id))
+
+        assertEquals(now, taskDao.fetch(task.id)!!.reminderDismissed)
+    }
+
+    @Test
+    fun dismissingDirtiesTheTaskForSync() = runTest(testDispatcher) {
+        val (task, caldavTaskId) = createSyncedTask()
+        assertEquals(false, dirtyDao.isDirty(caldavTaskId))
+
+        alarmService.markDismissed(listOf(task.id))
+
+        assertEquals(true, dirtyDao.isDirty(caldavTaskId))
+    }
+
+    @Test
+    fun dismissalTimeNeverGoesBackwards() = runTest(testDispatcher) {
+        val task = createTask()
+        alarmService.markDismissed(listOf(task.id), time = 2000L)
+
+        alarmService.markDismissed(listOf(task.id), time = 1000L)
+
+        assertEquals(2000L, taskDao.fetch(task.id)!!.reminderDismissed)
+    }
+
+    @Test
+    fun snoozingCountsAsDismissal() = runTest(testDispatcher) {
+        val now = currentTimeMillis()
+        DateTimeUtils2.setCurrentMillisFixed(now)
+        val task = createTask()
+
+        alarmService.snooze(now + ONE_HOUR, listOf(task.id))
+
+        assertEquals(now, taskDao.fetch(task.id)!!.reminderDismissed)
+    }
+
+    @Test
+    fun dismissingDoesNotModifyTheTask() = runTest(testDispatcher) {
+        val task = createTask(modificationDate = 1000L)
+
+        alarmService.markDismissed(listOf(task.id))
+
+        assertEquals(1000L, taskDao.fetch(task.id)!!.modificationDate)
+    }
+
+    @Test
     fun snoozingDoesNotModifyTheTask() = runTest(testDispatcher) {
         val task = createTask(modificationDate = 1000L)
 
@@ -248,6 +304,15 @@ class AlarmServiceTest : DatabaseTest() {
         val task = Task(modificationDate = modificationDate)
         taskDao.createNew(task)
         return task
+    }
+
+    private suspend fun createSyncedTask(): Pair<Task, Long> {
+        caldavDao.insert(CaldavAccount(accountType = TYPE_CALDAV, uuid = "account"))
+        caldavDao.insert(CaldavCalendar(account = "account", uuid = "calendar"))
+        val task = createTask()
+        val caldavTaskId = caldavDao.insert(CaldavTask(task = task.id, calendar = "calendar"))
+        dirtyDao.setDirtyState(caldavTaskId, dirtyVersion = 1, syncedVersion = 1)
+        return task to caldavTaskId
     }
 
     private fun futureSnooze() =

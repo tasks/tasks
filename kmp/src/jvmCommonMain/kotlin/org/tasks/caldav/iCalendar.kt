@@ -48,7 +48,6 @@ import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
-import org.tasks.date.DateTimeUtils.toLocal
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
@@ -179,6 +178,7 @@ class iCalendar(
         if (localGeo == null || !localGeo.equalish(remoteModel.geoPosition)) {
             remoteModel.geoPosition = localGeo
         }
+        remoteModel.lastAck = max(task.reminderDismissed, remoteModel.lastAck ?: 0)
         if (account.reminderSync) {
             remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
             val alarms = alarmDao.getAlarms(task.id)
@@ -246,13 +246,16 @@ class iCalendar(
         caldavTask.applyRemote(remote, local)
         val remoteModificationDate = task.modificationDate
 
+        val remoteAck = remote.lastAck ?: 0
         if (task.isCompleted) {
             notifier.cancel(task.id, CancelReason.REMOTE_COMPLETION)
         } else if (task.isDeleted) {
             notifier.cancel(task.id, CancelReason.REMOTE_DELETION)
-        } else if ((remote.lastAck ?: 0) > task.reminderLast) {
+        } else if (acknowledgesLastReminder(remoteAck, task.reminderLast)) {
             notifier.cancel(task.id, CancelReason.REMOTE_CLEAR)
         }
+        task.reminderDismissed = max(task.reminderDismissed, remoteAck)
+        task.reminderLast = max(task.reminderLast, remoteAck)
 
         if (local != null) {
             val place = locationDao.getPlaceForTask(task.id)
@@ -320,6 +323,9 @@ class iCalendar(
     }
 
     companion object {
+        internal fun acknowledgesLastReminder(remoteAck: Long, reminderLast: Long): Boolean =
+            reminderLast > 0 && remoteAck >= reminderLast.startOfMinute()
+
         private const val APPLE_SORT_ORDER = "X-APPLE-SORT-ORDER"
         private const val OC_HIDESUBTASKS = "X-OC-HIDESUBTASKS"
         private const val MOZ_SNOOZE_TIME = "X-MOZ-SNOOZE-TIME"
@@ -475,6 +481,7 @@ class iCalendar(
             }
             set(value) {
                 value
+                    ?.takeIf { it > 0 }
                     ?.toDateTime()
                     ?.toUTC()
                     ?.let { DateTime(true).apply { time = it.millis } }
@@ -503,7 +510,6 @@ class iCalendar(
                                     ?: unknownProperties.add(
                                             XProperty(MOZ_SNOOZE_TIME, utc.toString())
                                     )
-                            lastAck = lastModified?.toLocal()
                         }
                         ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
             }

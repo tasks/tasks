@@ -64,13 +64,30 @@ class AlarmService(
 
     suspend fun snooze(time: Long, taskIds: List<Long>) {
         notifier.cancel(taskIds, CancelReason.SNOOZE)
-        taskDao.inTransaction {
+        recordDismissal(taskIds, currentTimeMillis()) {
             alarmDao.deleteSnoozed(taskIds)
             alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
+        }
+        notifier.triggerNotifications()
+    }
+
+    suspend fun markDismissed(taskIds: List<Long>, time: Long = currentTimeMillis()) =
+        recordDismissal(taskIds, time)
+
+    private suspend fun recordDismissal(
+        taskIds: List<Long>,
+        time: Long,
+        alsoInTransaction: suspend () -> Unit = {},
+    ) {
+        if (taskIds.isEmpty()) {
+            return
+        }
+        taskDao.inTransaction {
+            alsoInTransaction()
+            taskDao.setReminderDismissed(taskIds, time)
             dirtyDao.setDirty(taskIds, TYPES_ALARMS)
         }
         refreshBroadcaster.broadcastRefresh()
-        notifier.triggerNotifications()
     }
 
     suspend fun triggerAlarms(

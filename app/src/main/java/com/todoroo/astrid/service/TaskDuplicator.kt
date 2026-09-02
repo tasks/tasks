@@ -54,6 +54,7 @@ class TaskDuplicator @Inject constructor(
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
             reminderLast = 0,
+            reminderDismissed = 0,
             completionDate = 0L,
             calendarURI = "",
             parent = parentId,

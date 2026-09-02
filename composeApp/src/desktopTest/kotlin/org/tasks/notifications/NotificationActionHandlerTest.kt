@@ -1,5 +1,7 @@
 package org.tasks.notifications
 
+import com.todoroo.astrid.alarms.AlarmCalculator
+import com.todoroo.astrid.alarms.AlarmService
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +26,7 @@ import org.mockito.kotlin.verifyBlocking
 import org.tasks.DatabaseTest
 import org.tasks.TaskRequests
 import org.tasks.data.entity.Task
+import org.tasks.reminders.Random
 import org.tasks.service.TaskCompleter
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -34,10 +37,20 @@ class NotificationActionHandlerTest : DatabaseTest() {
     private val taskRequests = TaskRequests()
     private var foregroundRequests = 0
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val alarmService = AlarmService(
+        alarmDao = db.alarmDao(),
+        taskDao = taskDao,
+        dirtyDao = db.dirtyDao(),
+        refreshBroadcaster = mock(),
+        notifier = notifier,
+        alarmCalculator = AlarmCalculator(Random()),
+        preferences = mock(),
+    )
 
     private val handler = NotificationActionHandler(
         scope = scope,
         taskDao = taskDao,
+        alarmService = { alarmService },
         taskCompleter = taskCompleter,
         notifier = { notifier },
         taskRequests = taskRequests,
@@ -123,6 +136,39 @@ class NotificationActionHandlerTest : DatabaseTest() {
     }
 
     @Test
+    fun dismissingSyncsSoOtherClientsStopShowingIt() = runTest {
+        val task = createTask()
+
+        handler.onDismissed(task.id)
+        idle()
+
+        assertTrue(taskDao.fetch(task.id)!!.reminderDismissed > 0)
+    }
+
+    @Test
+    fun aNotificationTheServerDroppedIsNotADismissal() = runTest {
+        val task = createTask()
+
+        handler.onEvicted(task.id)
+        idle()
+
+        verifyBlocking(notifier) { cancel(task.id, CancelReason.EVICTED) }
+        assertEquals(0L, taskDao.fetch(task.id)!!.reminderDismissed)
+    }
+
+    @Test
+    fun openingDoesNotCountAsDismissal() = runTest {
+        val task = createTask()
+        val answering = answerOpenWith(true)
+
+        handler.onAction(task.id, NotificationAction.OPEN)
+        answering.join()
+        idle()
+
+        assertEquals(0L, taskDao.fetch(task.id)!!.reminderDismissed)
+    }
+
+    @Test
     fun anActionOnATaskThatIsGoneDoesNothing() = runTest {
         handler.onAction(404L, NotificationAction.OPEN)
         handler.onAction(404L, NotificationAction.SNOOZE)
@@ -145,6 +191,7 @@ class NotificationActionHandlerTest : DatabaseTest() {
         val failing = NotificationActionHandler(
             scope = scope,
             taskDao = taskDao,
+            alarmService = { alarmService },
             taskCompleter = failingCompleter,
             notifier = { error("the transport is gone") },
             taskRequests = taskRequests,

@@ -64,6 +64,7 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
         "title", "priority", "dueDate", "hideUntil", "completionDate", "deletionDate", "notes",
         "estimatedSeconds", "elapsedSeconds", "timerStart", "ringFlags", "recurrence", "repeatFrom",
         "calendarURI", "isCollapsed", "parent", "order", "readOnly", "modificationDate", "reminderLast",
+        "reminderDismissed",
     )
     private val notMergedFields = setOf(
         "id", "creationDate", "remoteId", "transitoryData",
@@ -1182,6 +1183,7 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
             timerStart = 800L,
             ringFlags = 1,
             reminderLast = 900L,
+            reminderDismissed = 950L,
             recurrence = "FREQ=DAILY",
             repeatFrom = 1,
             calendarURI = "content://cal/1",

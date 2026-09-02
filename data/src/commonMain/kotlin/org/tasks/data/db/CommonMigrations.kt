@@ -127,10 +127,17 @@ object CommonMigrations {
         }
     }
 
+    val MIGRATION_97_98 = object : Migration(97, 98) {
+        override fun migrate(connection: SQLiteConnection) {
+            connection.execSQL("ALTER TABLE `tasks` ADD COLUMN `reminderDismissed` INTEGER NOT NULL DEFAULT 0")
+        }
+    }
+
     val all: Array<Migration> = arrayOf(
         MIGRATION_92_93,
         MIGRATION_94_95,
         MIGRATION_95_96,
         MIGRATION_96_97,
+        MIGRATION_97_98,
     )
 }

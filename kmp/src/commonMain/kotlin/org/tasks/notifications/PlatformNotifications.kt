@@ -105,4 +105,6 @@ interface NotificationActionListener {
     fun onAction(taskId: Long, action: NotificationAction)
 
     fun onDismissed(taskId: Long)
+
+    fun onEvicted(taskId: Long)
 }

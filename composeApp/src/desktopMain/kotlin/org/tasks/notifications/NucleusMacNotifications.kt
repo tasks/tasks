@@ -3,6 +3,7 @@ package org.tasks.notifications
 import co.touchlab.kermit.Logger
 import dev.nucleusframework.notification.AuthorizationOption
 import dev.nucleusframework.notification.AuthorizationStatus
+import dev.nucleusframework.notification.CategoryOption
 import dev.nucleusframework.notification.DeliveredNotification
 import dev.nucleusframework.notification.InterruptionLevel
 import dev.nucleusframework.notification.NotificationCenter
@@ -171,31 +172,10 @@ class NucleusMacNotifications private constructor(
                 return
             }
             NotificationCenter.setNotificationCategories(
-                setOf(
-                    MacCategory(
-                        identifier = CATEGORY_ACTIONABLE,
-                        actions = listOf(
-                            MacAction(
-                                identifier = NotificationAction.COMPLETE.key,
-                                title = complete ?: NotificationAction.COMPLETE.fallbackLabel,
-                            ),
-                            MacAction(
-                                identifier = NotificationAction.SNOOZE.key,
-                                title = snooze ?: NotificationAction.SNOOZE.fallbackLabel,
-                            ),
-                        ),
-                    ),
-
-                    MacCategory(
-                        identifier = CATEGORY_SNOOZE_ONLY,
-                        actions = listOf(
-                            MacAction(
-                                identifier = NotificationAction.SNOOZE.key,
-                                title = snooze ?: NotificationAction.SNOOZE.fallbackLabel,
-                            ),
-                        ),
-                    ),
-                ),
+                categories(
+                    complete = complete ?: NotificationAction.COMPLETE.fallbackLabel,
+                    snooze = snooze ?: NotificationAction.SNOOZE.fallbackLabel,
+                )
             )
 
             categoriesRegistered = complete != null && snooze != null
@@ -210,6 +190,26 @@ class NucleusMacNotifications private constructor(
 
         internal fun categoryFor(actions: List<NotificationAction>): String =
             if (NotificationAction.COMPLETE in actions) CATEGORY_ACTIONABLE else CATEGORY_SNOOZE_ONLY
+
+        private val REPORTS_DISMISSAL = setOf(CategoryOption.CUSTOM_DISMISS_ACTION)
+
+        internal fun categories(complete: String, snooze: String): Set<MacCategory> = setOf(
+            MacCategory(
+                identifier = CATEGORY_ACTIONABLE,
+                actions = listOf(
+                    MacAction(identifier = NotificationAction.COMPLETE.key, title = complete),
+                    MacAction(identifier = NotificationAction.SNOOZE.key, title = snooze),
+                ),
+                options = REPORTS_DISMISSAL,
+            ),
+            MacCategory(
+                identifier = CATEGORY_SNOOZE_ONLY,
+                actions = listOf(
+                    MacAction(identifier = NotificationAction.SNOOZE.key, title = snooze),
+                ),
+                options = REPORTS_DISMISSAL,
+            ),
+        )
 
         private val AUTHORIZATION_OPTIONS =
             setOf(AuthorizationOption.ALERT, AuthorizationOption.SOUND)
@@ -241,8 +241,25 @@ class NucleusMacNotifications private constructor(
 
         private const val PROMPT_TIMEOUT_MS = 5 * 60_000L
 
+        private const val BUNDLE_CONTENTS = ".app/Contents/"
+
+        private const val BUNDLE_LAUNCHER = ".app/Contents/MacOS/"
+
+        internal fun someoneElsesBundle(command: String?): Boolean =
+            command != null &&
+                    command.contains(BUNDLE_CONTENTS) &&
+                    !command.contains(BUNDLE_LAUNCHER)
+
         fun create(listener: NotificationActionListener): NucleusMacNotifications? = try {
-            if (!NotificationCenter.isAvailable) {
+            val command = ProcessHandle.current().info().command().orElse(null)
+            if (someoneElsesBundle(command)) {
+                Logger.i(tag = TAG) {
+                    "Running on a JVM inside somebody else's app bundle ($command). " +
+                            "UNUserNotificationCenter aborts the process there, so notifications " +
+                            "are off. Use ./gradlew runDistributable to exercise them."
+                }
+                null
+            } else if (!NotificationCenter.isAvailable) {
                 Logger.i(tag = TAG) { "Not running from an app bundle, or the bridge did not load" }
                 null
             } else {

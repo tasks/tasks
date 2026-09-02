@@ -12,6 +12,7 @@ import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.Ical4androidTaskAdapter
 import org.tasks.caldav.iCalendar.Companion.collapsed
+import org.tasks.caldav.iCalendar.Companion.lastAck
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.caldav.iCalendar.Companion.snooze
@@ -273,6 +274,43 @@ class OpenTasksPropertiesTests : OpenTasksTest() {
         }
 
         assertNull(Ical4androidTaskAdapter(openTaskDao.getTask(listId, "abcd")?.task!!).snooze)
+    }
+
+    @Test
+    fun readDismissedTime() = runBlocking {
+        val (_, list) = withVtodo(SNOOZED)
+
+        withTZ(CHICAGO) {
+            synchronizer.sync(hasPro = true)
+        }
+
+        val task = caldavDao
+            .getTaskByRemoteId(list.uuid!!, "4CBBC669-70E3-474D-A0A3-0FC42A14A5A5")
+            ?.let { taskDao.fetch(it.task) }
+
+        assertEquals(1612970555000, task!!.reminderDismissed)
+    }
+
+    @Test
+    fun pushDismissedTime() = withTZ(CHICAGO) {
+        val (listId, list) = openTaskDao.insertList()
+        val taskId = taskDao.createNew(newTask())
+        taskDao.setReminderDismissed(listOf(taskId), DateTime(2021, 2, 4, 12, 30).millis)
+
+        caldavDao.insert(newCaldavTask(
+                with(CALENDAR, list.uuid),
+                with(CaldavTaskMaker.TASK, taskId),
+                with(REMOTE_ID, "abcd")
+        ))
+
+        freezeAt(DateTime(2021, 2, 4, 12, 30, 45, 125)) {
+            synchronizer.sync(hasPro = true)
+        }
+
+        assertEquals(
+            1612463400000,
+            Ical4androidTaskAdapter(openTaskDao.getTask(listId, "abcd")?.task!!).lastAck
+        )
     }
 
     @Test

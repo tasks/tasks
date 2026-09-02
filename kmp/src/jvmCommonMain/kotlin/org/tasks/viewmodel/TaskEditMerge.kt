@@ -40,6 +40,7 @@ internal fun TaskEditViewModel.State.mergedWith(dbTask: Task): TaskEditViewModel
         readOnly = merge(current.readOnly, original.readOnly, dbTask.readOnly),
         modificationDate = dbTask.modificationDate,
         reminderLast = dbTask.reminderLast,
+        reminderDismissed = dbTask.reminderDismissed,
     )
     val start = reconcileStartDate(dbTask, merged.dueDate)
     return copy(

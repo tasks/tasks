@@ -375,6 +375,7 @@ actual fun platformModule(): Module = module {
         NotificationActionHandler(
             scope = get(),
             taskDao = get(),
+            alarmService = { get<AlarmService>() },
             taskCompleter = get(),
             notifier = { get<Notifier>() },
             taskRequests = get(),
