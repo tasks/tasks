@@ -34,6 +34,7 @@ import org.tasks.App
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.StableWindowSize
+import org.tasks.desktop.isQuitShortcut
 import org.tasks.jobs.BackgroundWork
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationScheduler
@@ -244,11 +245,14 @@ fun main() {
                     }
                 }
         }
-        Window(
-            // This fires while the composition is still alive, so no editor has been cleared or
-            // stopped and nothing is enqueued yet: ask any open editor to commit first, then give
-            // that save a moment to land before tearing the JVM down.
-            onCloseRequest = {
+        // Named so the Ctrl+Q handler below can go through the exact same shutdown path as the
+        // window's close button - including the "a save failed, stay open and report it" branch.
+        // A shortcut that called exitApplication() directly would silently drop an unsaved edit.
+        //
+        // This fires while the composition is still alive, so no editor has been cleared or
+        // stopped and nothing is enqueued yet: ask any open editor to commit first, then give
+        // that save a moment to land before tearing the JVM down.
+        val requestClose: () -> Unit = {
                 if (!closing) {
                     closing = true
                     setQuitting(true)
@@ -283,6 +287,18 @@ fun main() {
                         }
                         exitApplication()
                     }
+                }
+        }
+        Window(
+            onCloseRequest = requestClose,
+            // Preview, so the shortcut still works while a text field has focus. Consuming the
+            // event (true) keeps the "q" from also being typed into whatever is focused.
+            onPreviewKeyEvent = { event ->
+                if (isQuitShortcut(event)) {
+                    requestClose()
+                    true
+                } else {
+                    false
                 }
             },
             title = "Tasks",
