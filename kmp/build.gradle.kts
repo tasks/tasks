@@ -33,6 +33,7 @@ kotlin {
             dependsOn(jvmCommonMain)
             dependencies {
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.androidx.sqlite)
                 implementation(libs.androidx.ui.tooling.preview.android)
                 implementation(libs.bitfire.ical4android.get().toString()) {
                     exclude(group = "commons-logging")
@@ -61,6 +62,16 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit)
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.mockito.kotlin)
+                implementation(libs.androidx.room)
+                implementation(libs.androidx.sqlite)
+            }
+        }
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(libs.junit)
+                implementation(libs.robolectric)
                 implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room)
@@ -192,6 +203,13 @@ android {
                 "META-INF/INDEX.LIST",
                 "META-INF/DEPENDENCIES",
             )
+        }
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
         }
     }
 

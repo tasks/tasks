@@ -41,6 +41,9 @@ WHERE tasks._id = :taskId
 """)
     suspend fun getActiveAlarms(taskId: Long): List<Alarm>
 
+    @Query("SELECT * FROM alarms WHERE _id = :id")
+    suspend fun getAlarm(id: Long): Alarm?
+
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 

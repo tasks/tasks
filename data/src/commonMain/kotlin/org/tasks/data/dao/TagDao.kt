@@ -28,6 +28,9 @@ abstract class TagDao(private val database: Database) {
     @Query("SELECT * FROM tags WHERE tag_uid = :tagUid")
     abstract suspend fun getByTagUid(tagUid: String): List<Tag>
 
+    @Query("SELECT * FROM tags WHERE _id = :id")
+    abstract suspend fun getTagById(id: Long): Tag?
+
     @Query("SELECT * FROM tags WHERE task = :taskId")
     abstract suspend fun getTagsForTask(taskId: Long): List<Tag>
 

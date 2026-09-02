@@ -197,6 +197,10 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    fun getApiDao(db: Database): org.tasks.data.dao.ApiDao = db.apiDao()
+
+    @Provides
+    @Singleton
     fun getUpgraderDao(db: Database) = db.upgraderDao()
 
     @Provides
@@ -620,6 +624,67 @@ class ApplicationModule {
         caldavClientProvider: CaldavClientProvider,
         @ApplicationScope scope: CoroutineScope,
     ) = PushTokenManager(tokenProvider, caldavDao, caldavClientProvider, scope)
+
+    @Provides
+    fun providesApiTaskFactory(impl: org.tasks.api.AppApiTaskFactory): org.tasks.api.ApiTaskFactory = impl
+
+    @Provides
+    @Singleton
+    fun providesApiQueryEngine(database: Database) = org.tasks.api.ApiQueryEngine(database)
+
+    @Provides
+    @Singleton
+    fun providesApiListManager(
+        caldavDao: CaldavDao,
+        taskDeleter: TaskDeleter,
+        caldavClientProvider: CaldavClientProvider,
+        etebaseClientProvider: EtebaseClientProvider,
+        microsoftClientProvider: MicrosoftClientProvider,
+        invokerFactory: org.tasks.googleapis.InvokerFactory,
+    ) = org.tasks.api.ApiListManager(
+        caldavDao = caldavDao,
+        taskDeleter = taskDeleter,
+        caldavClientProvider = caldavClientProvider,
+        etebaseClientProvider = etebaseClientProvider,
+        microsoftClientProvider = microsoftClientProvider,
+        gtasksInvoker = { invokerFactory.getGtasksInvoker(it.username!!) },
+    )
+
+    @Provides
+    @Singleton
+    fun providesApiWriter(
+        apiDao: org.tasks.data.dao.ApiDao,
+        taskDao: TaskDao,
+        caldavDao: CaldavDao,
+        tagDao: TagDao,
+        tagDataDao: TagDataDao,
+        alarmDao: AlarmDao,
+        locationDao: LocationDao,
+        taskFactory: org.tasks.api.ApiTaskFactory,
+        taskSaver: TaskSaver,
+        taskCompleter: TaskCompleter,
+        taskMover: org.tasks.data.TaskMover,
+        taskDeleter: TaskDeleter,
+        alarmService: AlarmService,
+        locationService: LocationService,
+        listManager: org.tasks.api.ApiListManager,
+    ) = org.tasks.api.ApiWriter(
+        apiDao = apiDao,
+        taskDao = taskDao,
+        caldavDao = caldavDao,
+        tagDao = tagDao,
+        tagDataDao = tagDataDao,
+        alarmDao = alarmDao,
+        locationDao = locationDao,
+        taskFactory = taskFactory,
+        taskSaver = taskSaver,
+        taskCompleter = taskCompleter,
+        taskMover = taskMover,
+        taskDeleter = taskDeleter,
+        alarmService = alarmService,
+        locationService = locationService,
+        listManager = listManager,
+    )
 
     @Provides
     fun providesTaskCleanup(impl: AndroidCleanup): TaskCleanup = impl

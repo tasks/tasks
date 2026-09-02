@@ -61,6 +61,9 @@ abstract class TagDataDao(private val database: Database) {
     @Query("SELECT * FROM tagdata")
     abstract suspend fun getAll(): List<TagData>
 
+    @Query("SELECT * FROM tagdata WHERE _id = :id LIMIT 1")
+    abstract suspend fun getById(id: Long): TagData?
+
     @Query("SELECT * FROM tagdata WHERE remoteId = :uuid LIMIT 1")
     abstract suspend fun getByUuid(uuid: String): TagData?
 

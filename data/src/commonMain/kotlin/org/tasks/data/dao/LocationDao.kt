@@ -102,6 +102,9 @@ interface LocationDao {
     @Query("SELECT * FROM places WHERE uid = :uid LIMIT 1")
     suspend fun getByUid(uid: String): Place?
 
+    @Query("SELECT * FROM geofences WHERE geofence_id = :id")
+    suspend fun getGeofence(id: Long): Geofence?
+
     @Query("SELECT * FROM geofences WHERE task = :taskId")
     suspend fun getGeofencesForTask(taskId: Long): List<Geofence>
 

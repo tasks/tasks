@@ -130,9 +130,17 @@ data class Icon(
 }
 
 val String.label: String
-    get() = (if (this[0].isDigit()) "_" else "") + this
-        .split("_")
-        .joinToString(separator = "") { it.uppercaseFirstLetter() }
+    get() = removePrefix(LEGACY_ICON_PREFIX).let { name ->
+        if (name.isEmpty()) {
+            ""
+        } else {
+            (if (name[0].isDigit()) "_" else "") + name
+                .split("_")
+                .joinToString(separator = "") { it.uppercaseFirstLetter() }
+        }
+    }
+
+private const val LEGACY_ICON_PREFIX = "gmo_"
 
 
 fun String.uppercaseFirstLetter(): String {

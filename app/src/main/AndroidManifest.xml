@@ -129,8 +129,8 @@
     android:protectionLevel="dangerous"/>
 
   <permission
-    android:description="@string/permission_read_tasks"
-    android:label="@string/read_permission_label"
+    android:description="@string/permission_write_tasks"
+    android:label="@string/write_permission_label"
     android:name="${applicationId}.permission.WRITE_TASKS"
     android:permissionGroup="${applicationId}.permission-group"
     android:protectionLevel="dangerous"/>
@@ -397,6 +397,13 @@
       android:exported="true"
       android:name="org.tasks.provider.TasksContentProvider"
       android:readPermission="${applicationId}.permission.READ_TASKS"/>
+
+    <provider
+      android:authorities="${applicationId}.api"
+      android:exported="true"
+      android:name="org.tasks.api.TasksApiHiltProvider"
+      android:readPermission="${applicationId}.permission.READ_TASKS"
+      android:writePermission="${applicationId}.permission.WRITE_TASKS"/>
 
     <provider
       android:authorities="${applicationId}.file_provider"

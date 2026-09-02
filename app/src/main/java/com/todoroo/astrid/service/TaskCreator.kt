@@ -51,8 +51,15 @@ class TaskCreator @Inject constructor(
     private val locationDao: LocationDao,
     private val alarmDao: AlarmDao,
 ) {
-    suspend fun basicQuickAddTask(title: String, filter: Filter? = null): Task {
-        val task = createWithValues(filter, title.trim { it <= ' ' })
+    suspend fun basicQuickAddTask(
+        title: String,
+        filter: Filter? = null,
+        parseTitle: Boolean = true,
+        applyDefaults: Boolean = true,
+        configure: (Task) -> Unit = {},
+    ): Task {
+        val task = createWithValues(filter, title.trim { it <= ' ' }, parseTitle, applyDefaults)
+        configure(task)
         taskDao.createNew(task)
         val gcalCreateEventEnabled = preferences.isDefaultCalendarSet && task.hasDueDate() // $NON-NLS-1$
         if (!isNullOrEmpty(task.title)
@@ -122,35 +129,47 @@ class TaskCreator @Inject constructor(
         return create(null, title)
     }
 
-    suspend fun createWithValues(filter: Filter?, title: String?): Task =
-        create(mapFromSerializedString(filter?.valuesForNewTasks), title)
+    suspend fun createWithValues(
+        filter: Filter?,
+        title: String?,
+        parseTitle: Boolean = true,
+        applyDefaults: Boolean = true,
+    ): Task =
+        create(mapFromSerializedString(filter?.valuesForNewTasks), title, parseTitle, applyDefaults)
 
     /**
      * Create task from the given content values, saving it. This version doesn't need to start with a
      * base task model.
      */
-    internal suspend fun create(values: Map<String, Any>?, title: String?): Task {
+    internal suspend fun create(
+        values: Map<String, Any>?,
+        title: String?,
+        parseTitle: Boolean = true,
+        applyDefaults: Boolean = true,
+    ): Task {
         val task = Task(
             title = title?.trim { it <= ' ' },
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
             remoteId = UUIDHelper.newUUID(),
-            priority = preferences.defaultPriority(),
+            priority = if (applyDefaults) preferences.defaultPriority() else Task.Priority.NONE,
         )
-        preferences.getStringValue(R.string.p_default_recurrence)
-                ?.takeIf { it.isNotBlank() }
-                ?.let {
-                    task.recurrence = it
-                    task.repeatFrom = if (preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1) {
-                        Task.RepeatFrom.COMPLETION_DATE
-                    } else {
-                        Task.RepeatFrom.DUE_DATE
+        if (applyDefaults) {
+            preferences.getStringValue(R.string.p_default_recurrence)
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let {
+                        task.recurrence = it
+                        task.repeatFrom = if (preferences.getIntegerFromString(R.string.p_default_recurrence_from, 0) == 1) {
+                            Task.RepeatFrom.COMPLETION_DATE
+                        } else {
+                            Task.RepeatFrom.DUE_DATE
+                        }
                     }
-                }
-        preferences.getStringValue(R.string.p_default_location)
-                ?.takeIf { it.isNotBlank() }
-                ?.let { task.putTransitory(Place.KEY, it) }
-        task.setDefaultReminders(preferences)
+            preferences.getStringValue(R.string.p_default_location)
+                    ?.takeIf { it.isNotBlank() }
+                    ?.let { task.putTransitory(Place.KEY, it) }
+            task.setDefaultReminders(preferences)
+        }
         val tags = ArrayList<String>()
         values?.entries?.forEach { (key, value) ->
             when (key) {
@@ -163,28 +182,30 @@ class TaskCreator @Inject constructor(
                     value.substitute()?.toLongOrNull()?.let { task.hideUntil = it.startOfDay() }
             }
         }
-        if (values?.containsKey(DUE_DATE.name) != true) {
+        if (applyDefaults && values?.containsKey(DUE_DATE.name) != true) {
             task.dueDate = createDueDate(
                     preferences.getIntegerFromString(R.string.p_default_urgency_key, Task.URGENCY_NONE),
                     0)
         }
-        if (values?.containsKey(HIDE_UNTIL.name) != true) {
+        if (applyDefaults && values?.containsKey(HIDE_UNTIL.name) != true) {
             task.hideUntil = task.createHideUntil(
                     preferences.getIntegerFromString(R.string.p_default_hideUntil_key, HIDE_UNTIL_NONE),
                     0
             )
         }
-        if (tags.isEmpty()) {
+        if (applyDefaults && tags.isEmpty()) {
             preferences.getStringValue(R.string.p_default_tags)
                     ?.split(",")
                     ?.map { tagDataDao.getByUuid(it) }
                     ?.mapNotNull { it?.name }
                     ?.let { tags.addAll(it) }
         }
-        try {
-            parse(tagDataDao, task, tags)
-        } catch (e: Throwable) {
-            Timber.e(e)
+        if (parseTitle) {
+            try {
+                parse(tagDataDao, task, tags)
+            } catch (e: Throwable) {
+                Timber.e(e)
+            }
         }
         task.putTransitory(Tag.KEY, tags)
         return task

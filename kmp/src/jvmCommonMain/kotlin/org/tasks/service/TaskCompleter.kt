@@ -34,8 +34,16 @@ class TaskCompleter(
             ?.let { setComplete(it, completed) }
             ?: Logger.e(tag = TAG) { "Could not find task $taskId" }
 
-    suspend fun setComplete(item: Task, completed: Boolean, includeChildren: Boolean = true) {
-        val completionDate = if (completed) currentTimeMillis() else 0L
+    suspend fun setComplete(item: Task, completed: Boolean, includeChildren: Boolean = true) =
+        setComplete(item, completed, includeChildren, currentTimeMillis())
+
+    suspend fun setComplete(
+        item: Task,
+        completed: Boolean,
+        includeChildren: Boolean,
+        completedAt: Long,
+    ) {
+        val completionDate = if (completed) completedAt.takeIf { it > 0 } ?: currentTimeMillis() else 0L
         ArrayList<Task?>()
             .apply {
                 if (includeChildren) {
