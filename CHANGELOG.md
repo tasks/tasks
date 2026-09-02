@@ -1,8 +1,9 @@
 ### 15.11 (2026-09-01)
 
-* Add 'last day of month' recurrence option
+* Add 'last day of month' recurrence option [#2411](https://github.com/tasks/tasks/issues/2411)
 * Drawer rendering performance improvement - @toxicphreAK [#4570](https://github.com/tasks/tasks/pull/4570)
 * Fix running tests on Windows - @przemhb [#4591](https://github.com/tasks/tasks/pull/4591)
+* Make sure recurrence doesn't skip short months [#4135](https://github.com/tasks/tasks/issues/4135)
 * Fix all-day dates edited across two devices and two time zones from wedging sync
 
 Desktop:
