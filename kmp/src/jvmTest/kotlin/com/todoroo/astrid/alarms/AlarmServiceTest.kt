@@ -230,13 +230,22 @@ class AlarmServiceTest : DatabaseTest() {
         assertEquals(listOf(1), snoozedWhenRefreshed)
     }
 
+    @Test
+    fun snoozingDoesNotModifyTheTask() = runTest(testDispatcher) {
+        val task = createTask(modificationDate = 1000L)
+
+        alarmService.snooze(currentTimeMillis() + ONE_HOUR, listOf(task.id))
+
+        assertEquals(1000L, taskDao.fetch(task.id)!!.modificationDate)
+    }
+
     @After
     fun restoreClock() {
         DateTimeUtils2.setCurrentMillisSystem()
     }
 
-    private suspend fun createTask(): Task {
-        val task = Task()
+    private suspend fun createTask(modificationDate: Long = 0L): Task {
+        val task = Task(modificationDate = modificationDate)
         taskDao.createNew(task)
         return task
     }

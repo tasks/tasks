@@ -67,7 +67,6 @@ class AlarmService(
         taskDao.inTransaction {
             alarmDao.deleteSnoozed(taskIds)
             alarmDao.insert(taskIds.map { Alarm(task = it, time = time, type = TYPE_SNOOZE) })
-            taskDao.touch(taskIds)
             dirtyDao.setDirty(taskIds, TYPES_ALARMS)
         }
         refreshBroadcaster.broadcastRefresh()
