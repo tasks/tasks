@@ -2121,7 +2121,7 @@
 ++--- com.twofortyfouram:android-plugin-api-for-locale:1.0.4
 ++--- com.rubiconproject.oss:jchronic:0.2.6
 ++--- me.leolin:ShortcutBadger:1.1.22
-++--- com.google.apis:google-api-services-drive:v3-rev20260305-2.0.0
+++--- com.google.apis:google-api-services-drive:v3-rev20260823-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.39.0 (*)
 ++--- androidx.work:work-runtime-ktx:2.11.0
