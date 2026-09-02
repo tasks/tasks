@@ -4,8 +4,8 @@
 +|         |    \--- androidx.annotation:annotation-jvm:1.9.1
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.4.10
 +|         |              +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|         |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
-+|         |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
++|         |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
++|         |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
 +|         +--- androidx.compose.ui:ui-tooling-preview:1.12.0
 +|         |    \--- androidx.compose.ui:ui-tooling-preview-android:1.12.0
 +|         |         +--- androidx.annotation:annotation:1.9.1 (*)
@@ -86,7 +86,7 @@
 +|    |    |    |    |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |    |    |         +--- org.jspecify:jspecify:1.0.0
++|    |    |    |    |         +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-common-java8:2.11.0 (c)
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.11.0 (c)
@@ -122,7 +122,7 @@
 +|    |    |    |    |         |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
-+|    |    |    |    |         +--- org.jspecify:jspecify:1.0.0
++|    |    |    |    |         +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-common-java8:2.11.0 (c)
 +|    |    |    |    |         +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
@@ -144,7 +144,7 @@
 +|    |    |    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
 +|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |    |    +--- org.jspecify:jspecify:1.0.0
++|    |    |    |    +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |    |    \--- androidx.core:core-ktx:1.18.0 (c)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    \--- androidx.core:core:1.18.0 (c)
@@ -184,7 +184,7 @@
 +|    |    |         |    +--- androidx.arch.core:core-runtime:2.2.0 (*)
 +|    |    |         |    +--- androidx.lifecycle:lifecycle-common:2.11.0 (*)
 +|    |    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    |    |         |    +--- org.jspecify:jspecify:1.0.0
++|    |    |         |    +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |         |    +--- androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|    |    |         |    +--- androidx.lifecycle:lifecycle-common-java8:2.11.0 (c)
 +|    |    |         |    +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
@@ -491,13 +491,13 @@
 +|    |         |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (c)
 +|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 -> 1.11.0 (*)
-+|    |         |    +--- org.jspecify:jspecify:1.0.0
++|    |         |    +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |         |    +--- androidx.window:window-core:1.5.0 (c)
 +|    |         |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |         +--- org.jspecify:jspecify:1.0.0
++|    |         +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |         +--- androidx.compose.ui:ui-geometry:1.12.0 (c)
 +|    |         +--- androidx.compose.ui:ui-graphics:1.12.0 (c)
 +|    |         +--- androidx.compose.ui:ui-text:1.12.0 (c)
@@ -643,7 +643,7 @@
 +|    |    |    |    |    |    \--- androidx.lifecycle:lifecycle-process:2.11.0 (c)
 +|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |    |    |    +--- org.jspecify:jspecify:1.0.0
++|    |    |    |    |    +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |    |    |    +--- androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|    |    |    |    |    +--- androidx.lifecycle:lifecycle-common-java8:2.11.0 (c)
 +|    |    |    |    |    +--- androidx.lifecycle:lifecycle-livedata-core:2.11.0 (c)
@@ -729,7 +729,7 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1 -> 1.11.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.11.0 (*)
-+|    |         +--- org.jspecify:jspecify:1.0.0
++|    |         +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |         +--- androidx.room:room-common:2.8.4 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (c)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
@@ -1034,7 +1034,7 @@
 +|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |         |         |         |         |         +--- org.jspecify:jspecify:1.0.0
++|    |    |         |         |         |         |         +--- org.jspecify:jspecify:1.0.0 -> 1.0.1
 +|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
 +|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
 +|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
@@ -1290,31 +1290,37 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.4.10 (*)
 +|    |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.12.0 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19 (*)
-+|    +--- com.github.bitfireAT:dav4jvm:af443c2f
-+|    |    +--- io.ktor:ktor-client-encoding:3.5.0
-+|    |    |    \--- io.ktor:ktor-client-encoding-jvm:3.5.0
++|    +--- com.github.bitfireAT:dav4jvm:4.1.0
++|    |    +--- com.google.guava:guava:33.7.1-jre
++|    |    |    +--- com.google.guava:failureaccess:1.0.3
++|    |    |    +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
++|    |    |    +--- org.jspecify:jspecify:1.0.1
++|    |    |    +--- com.google.errorprone:error_prone_annotations:2.50.0
++|    |    |    \--- com.google.j2objc:j2objc-annotations:3.1
++|    |    +--- io.ktor:ktor-client-auth:3.5.2
++|    |    |    \--- io.ktor:ktor-client-auth-jvm:3.5.2
 +|    |    |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         +--- io.ktor:ktor-client-core:3.5.0
-+|    |    |         |    \--- io.ktor:ktor-client-core-jvm:3.5.0
++|    |    |         +--- io.ktor:ktor-client-core:3.5.2
++|    |    |         |    \--- io.ktor:ktor-client-core-jvm:3.5.2
 +|    |    |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         +--- io.ktor:ktor-http:3.5.0
-+|    |    |         |         |    \--- io.ktor:ktor-http-jvm:3.5.0
++|    |    |         |         +--- io.ktor:ktor-http:3.5.2
++|    |    |         |         |    \--- io.ktor:ktor-http-jvm:3.5.2
 +|    |    |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.0
-+|    |    |         |         |         |    \--- io.ktor:ktor-utils-jvm:3.5.0
++|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.2
++|    |    |         |         |         |    \--- io.ktor:ktor-utils-jvm:3.5.2
 +|    |    |         |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         |         +--- io.ktor:ktor-io:3.5.0
-+|    |    |         |         |         |         |    \--- io.ktor:ktor-io-jvm:3.5.0
++|    |    |         |         |         |         +--- io.ktor:ktor-io:3.5.2
++|    |    |         |         |         |         |    \--- io.ktor:ktor-io-jvm:3.5.2
 +|    |    |         |         |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-core:0.9.0
-+|    |    |         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-core-jvm:0.9.0
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-bytestring:0.9.0
-+|    |    |         |         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-bytestring-jvm:0.9.0
++|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-core:0.9.1
++|    |    |         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-core-jvm:0.9.1
++|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-io-bytestring:0.9.1
++|    |    |         |         |         |         |         |         |    \--- org.jetbrains.kotlinx:kotlinx-io-bytestring-jvm:0.9.1
 +|    |    |         |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    |    |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    |    |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
@@ -1322,47 +1328,47 @@
 +|    |    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
-+|    |    |         |         +--- io.ktor:ktor-http-cio:3.5.0
-+|    |    |         |         |    \--- io.ktor:ktor-http-cio-jvm:3.5.0
++|    |    |         |         +--- io.ktor:ktor-http-cio:3.5.2
++|    |    |         |         |    \--- io.ktor:ktor-http-cio-jvm:3.5.2
 +|    |    |         |         |         +--- org.slf4j:slf4j-api:2.0.18
-+|    |    |         |         |         +--- io.ktor:ktor-network:3.5.0
-+|    |    |         |         |         |    \--- io.ktor:ktor-network-jvm:3.5.0
++|    |    |         |         |         +--- io.ktor:ktor-network:3.5.2
++|    |    |         |         |         |    \--- io.ktor:ktor-network-jvm:3.5.2
 +|    |    |         |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         |         +--- io.ktor:ktor-utils:3.5.0 (*)
++|    |    |         |         |         |         +--- io.ktor:ktor-utils:3.5.2 (*)
 +|    |    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-http:3.5.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-io:3.5.0 (*)
++|    |    |         |         |         +--- io.ktor:ktor-http:3.5.2 (*)
++|    |    |         |         |         +--- io.ktor:ktor-io:3.5.2 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
-+|    |    |         |         +--- io.ktor:ktor-events:3.5.0
-+|    |    |         |         |    \--- io.ktor:ktor-events-jvm:3.5.0
++|    |    |         |         +--- io.ktor:ktor-events:3.5.2
++|    |    |         |         |    \--- io.ktor:ktor-events-jvm:3.5.2
 +|    |    |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.0 (*)
++|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.2 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
-+|    |    |         |         +--- io.ktor:ktor-websocket-serialization:3.5.0
-+|    |    |         |         |    \--- io.ktor:ktor-websocket-serialization-jvm:3.5.0
++|    |    |         |         +--- io.ktor:ktor-websocket-serialization:3.5.2
++|    |    |         |         |    \--- io.ktor:ktor-websocket-serialization-jvm:3.5.2
 +|    |    |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-serialization:3.5.0
-+|    |    |         |         |         |    \--- io.ktor:ktor-serialization-jvm:3.5.0
++|    |    |         |         |         +--- io.ktor:ktor-serialization:3.5.2
++|    |    |         |         |         |    \--- io.ktor:ktor-serialization-jvm:3.5.2
 +|    |    |         |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         |         +--- io.ktor:ktor-websockets:3.5.0
-+|    |    |         |         |         |         |    \--- io.ktor:ktor-websockets-jvm:3.5.0
++|    |    |         |         |         |         +--- io.ktor:ktor-websockets:3.5.2
++|    |    |         |         |         |         |    \--- io.ktor:ktor-websockets-jvm:3.5.2
 +|    |    |         |         |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         |         |         +--- io.ktor:ktor-utils:3.5.0 (*)
-+|    |    |         |         |         |         |         +--- io.ktor:ktor-http:3.5.0 (*)
++|    |    |         |         |         |         |         +--- io.ktor:ktor-utils:3.5.2 (*)
++|    |    |         |         |         |         |         +--- io.ktor:ktor-http:3.5.2 (*)
 +|    |    |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
-+|    |    |         |         +--- io.ktor:ktor-sse:3.5.0
-+|    |    |         |         |    \--- io.ktor:ktor-sse-jvm:3.5.0
++|    |    |         |         +--- io.ktor:ktor-sse:3.5.2
++|    |    |         |         |    \--- io.ktor:ktor-sse-jvm:3.5.2
 +|    |    |         |         |         +--- org.slf4j:slf4j-api:2.0.18
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.0 (*)
++|    |    |         |         |         +--- io.ktor:ktor-utils:3.5.2 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    |    |         |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.11.0
@@ -1371,12 +1377,17 @@
 +|    |    |         |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
 +|    |    |         |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
-+|    |    +--- io.ktor:ktor-client-core:3.5.0 (*)
-+|    |    +--- com.squareup.okhttp3:okhttp:5.3.2 (*)
-+|    |    +--- com.github.spotbugs:spotbugs-annotations:4.9.8
-+|    |    |    +--- org.junit:junit-bom:5.14.0
++|    |    +--- io.ktor:ktor-client-encoding:3.5.2
++|    |    |    \--- io.ktor:ktor-client-encoding-jvm:3.5.2
++|    |    |         +--- org.slf4j:slf4j-api:2.0.18
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
++|    |    |         +--- io.ktor:ktor-client-core:3.5.2 (*)
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
++|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
++|    |    +--- io.ktor:ktor-client-core:3.5.2 (*)
++|    |    +--- com.github.spotbugs:spotbugs-annotations:4.10.4
 +|    |    |    \--- com.google.code.findbugs:jsr305:3.0.2
-+|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
++|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 +|    +--- com.google.apis:google-api-services-tasks:v1-rev20251102-2.0.0
 +|    |    \--- com.google.api-client:google-api-client:2.7.2
 +|    |         +--- commons-codec:commons-codec:1.17.1
@@ -1388,26 +1399,20 @@
 +|    |         |    |    |    \--- commons-codec:commons-codec:1.11 -> 1.17.1
 +|    |         |    |    +--- org.apache.httpcomponents:httpcore:4.4.16
 +|    |         |    |    +--- com.google.code.findbugs:jsr305:3.0.2
-+|    |         |    |    +--- com.google.errorprone:error_prone_annotations:2.36.0
-+|    |         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.3.1-android
-+|    |         |    |    |    +--- com.google.guava:failureaccess:1.0.2
-+|    |         |    |    |    +--- com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
-+|    |         |    |    |    +--- com.google.code.findbugs:jsr305:3.0.2
-+|    |         |    |    |    +--- org.checkerframework:checker-qual:3.43.0
-+|    |         |    |    |    +--- com.google.errorprone:error_prone_annotations:2.28.0 -> 2.36.0
-+|    |         |    |    |    \--- com.google.j2objc:j2objc-annotations:3.0.0
-+|    |         |    |    +--- com.google.j2objc:j2objc-annotations:3.0.0
++|    |         |    |    +--- com.google.errorprone:error_prone_annotations:2.36.0 -> 2.50.0
++|    |         |    |    +--- com.google.guava:guava:30.1.1-android -> 33.7.1-jre (*)
++|    |         |    |    +--- com.google.j2objc:j2objc-annotations:3.0.0 -> 3.1
 +|    |         |    |    +--- io.grpc:grpc-context:1.68.2
 +|    |         |    |    |    \--- io.grpc:grpc-api:1.68.2
 +|    |         |    |    +--- io.opencensus:opencensus-api:0.31.1
 +|    |         |    |    |    \--- io.grpc:grpc-context:1.27.2 -> 1.68.2 (*)
 +|    |         |    |    \--- io.opencensus:opencensus-contrib-http-util:0.31.1
 +|    |         |    |         +--- io.opencensus:opencensus-api:0.31.1 (*)
-+|    |         |    |         \--- com.google.guava:guava:29.0-android -> 33.3.1-android (*)
++|    |         |    |         \--- com.google.guava:guava:29.0-android -> 33.7.1-jre (*)
 +|    |         |    +--- com.google.http-client:google-http-client-gson:1.43.3 -> 1.45.2
 +|    |         |    |    +--- com.google.http-client:google-http-client:1.45.2 (*)
 +|    |         |    |    \--- com.google.code.gson:gson:2.11.0
-+|    |         |    \--- com.google.guava:guava:31.1-android -> 33.3.1-android (*)
++|    |         |    \--- com.google.guava:guava:31.1-android -> 33.7.1-jre (*)
 +|    |         +--- com.google.auth:google-auth-library-credentials:1.30.0
 +|    |         +--- com.google.auth:google-auth-library-oauth2-http:1.30.0
 +|    |         |    +--- com.google.auto.value:auto-value-annotations:1.11.0
@@ -1415,10 +1420,10 @@
 +|    |         |    +--- com.google.auth:google-auth-library-credentials:1.30.0
 +|    |         |    +--- com.google.http-client:google-http-client:1.45.0 -> 1.45.2 (*)
 +|    |         |    +--- com.google.http-client:google-http-client-gson:1.45.0 -> 1.45.2 (*)
-+|    |         |    +--- com.google.guava:guava:33.3.1-android (*)
-+|    |         |    \--- com.google.errorprone:error_prone_annotations:2.35.1 -> 2.36.0
++|    |         |    +--- com.google.guava:guava:33.3.1-android -> 33.7.1-jre (*)
++|    |         |    \--- com.google.errorprone:error_prone_annotations:2.35.1 -> 2.50.0
 +|    |         +--- com.google.http-client:google-http-client-gson:1.45.2 (*)
-+|    |         +--- com.google.guava:guava:33.1.0-jre -> 33.3.1-android (*)
++|    |         +--- com.google.guava:guava:33.1.0-jre -> 33.7.1-jre (*)
 +|    |         +--- com.google.http-client:google-http-client-apache-v2:1.45.2
 +|    |         |    +--- com.google.http-client:google-http-client:1.45.2 (*)
 +|    |         |    +--- org.apache.httpcomponents:httpclient:4.5.14 (*)
@@ -1426,11 +1431,11 @@
 +|    |         +--- org.apache.httpcomponents:httpcore:4.4.16
 +|    |         +--- org.apache.httpcomponents:httpclient:4.5.14 (*)
 +|    |         \--- com.google.http-client:google-http-client:1.45.2 (*)
-+|    +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.0 (*)
++|    +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.2 (*)
 +|    +--- io.ktor:ktor-client-okhttp:3.4.1
 +|    |    \--- io.ktor:ktor-client-okhttp-jvm:3.4.1
 +|    |         +--- org.slf4j:slf4j-api:2.0.17 -> 2.0.18
-+|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.0 (*)
++|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.2 (*)
 +|    |         +--- com.squareup.okhttp3:okhttp:5.3.2 (*)
 +|    |         +--- com.squareup.okio:okio:3.16.4 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 -> 1.11.0 (*)
@@ -1440,14 +1445,14 @@
 +|    |         +--- org.slf4j:slf4j-api:2.0.17 -> 2.0.18
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.10.2 -> 1.11.0 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 -> 1.11.0 (*)
-+|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.0 (*)
++|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.2 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    +--- io.ktor:ktor-client-content-negotiation:3.4.1
 +|    |    \--- io.ktor:ktor-client-content-negotiation-jvm:3.4.1
 +|    |         +--- org.slf4j:slf4j-api:2.0.17 -> 2.0.18
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 -> 1.11.0 (*)
-+|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.0 (*)
-+|    |         +--- io.ktor:ktor-serialization:3.4.1 -> 3.5.0 (*)
++|    |         +--- io.ktor:ktor-client-core:3.4.1 -> 3.5.2 (*)
++|    |         +--- io.ktor:ktor-serialization:3.4.1 -> 3.5.2 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    +--- io.ktor:ktor-serialization-kotlinx-json:3.4.1
 +|    |    \--- io.ktor:ktor-serialization-kotlinx-json-jvm:3.4.1
@@ -1457,7 +1462,7 @@
 +|    |         |    \--- io.ktor:ktor-serialization-kotlinx-jvm:3.4.1
 +|    |         |         +--- org.slf4j:slf4j-api:2.0.17 -> 2.0.18
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2 -> 1.11.0 (*)
-+|    |         |         +--- io.ktor:ktor-serialization:3.4.1 -> 3.5.0 (*)
++|    |         |         +--- io.ktor:ktor-serialization:3.4.1 -> 3.5.2 (*)
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0 -> 1.11.0 (*)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0 -> 1.11.0 (*)
@@ -1467,7 +1472,7 @@
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.10 (*)
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0 (*)
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
-+|    |         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.6.0 -> 0.9.0 (*)
++|    |         |         \--- org.jetbrains.kotlinx:kotlinx-io-core:0.6.0 -> 0.9.1 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
 ++--- androidx.room:room-runtime:2.8.4 (*)
@@ -1726,7 +1731,7 @@
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0
 +|    |    |    |    \--- javax.inject:javax.inject:1
 +|    |    |    +--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
-+|    |    |    \--- com.google.errorprone:error_prone_annotations:2.26.0 -> 2.36.0
++|    |    |    \--- com.google.errorprone:error_prone_annotations:2.26.0 -> 2.50.0
 +|    |    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
 +|    |    +--- androidx.datastore:datastore-preferences:1.1.7 -> 1.2.1 (*)
 +|    |    +--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
@@ -1802,7 +1807,7 @@
 +|    |    |    \--- androidx.print:print:1.0.0
 +|    |    |         \--- androidx.annotation:annotation:1.0.0 -> 1.9.1 (*)
 +|    |    \--- com.google.android.gms:play-services-basement:18.0.0 -> 18.8.0 (*)
-+|    +--- com.google.errorprone:error_prone_annotations:2.26.0 -> 2.36.0
++|    +--- com.google.errorprone:error_prone_annotations:2.26.0 -> 2.50.0
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
 ++--- com.google.android.gms:play-services-code-scanner:16.1.0
 +|    +--- androidx.activity:activity:1.3.1 -> 1.13.0 (*)
