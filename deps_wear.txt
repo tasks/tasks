@@ -121,9 +121,11 @@
 +|         |         |         |         |         |         |    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|         |         |         |         |         |         |    |    |    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
 +|         |         |         |         |         |         |    |    |    |    +--- androidx.collection:collection:1.4.2 -> 1.5.0 (*)
-+|         |         |         |         |         |         |    |    |    |    +--- androidx.concurrent:concurrent-futures:1.0.0 -> 1.1.0
-+|         |         |         |         |         |         |    |    |    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|         |         |         |         |         |         |    |    |    |    |    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|         |         |         |         |         |         |    |    |    |    +--- androidx.concurrent:concurrent-futures:1.0.0 -> 1.3.0
++|         |         |         |         |         |         |    |    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|         |         |         |         |         |         |    |    |    |    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|         |         |         |         |         |         |    |    |    |    |    +--- org.jspecify:jspecify:1.0.0
++|         |         |         |         |         |         |    |    |    |    |    \--- androidx.concurrent:concurrent-futures-ktx:1.3.0 (c)
 +|         |         |         |         |         |         |    |    |    |    +--- androidx.core:core-viewtree:1.0.0
 +|         |         |         |         |         |         |    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|         |         |         |         |         |         |    |    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (c)
@@ -162,7 +164,7 @@
 +|         |         |         |         |         |         |    |    |    |    |         +--- androidx.lifecycle:lifecycle-common:2.11.0 (*)
 +|         |         |         |         |         |         |    |    |    |    |         +--- androidx.profileinstaller:profileinstaller:1.4.0
 +|         |         |         |         |         |         |    |    |    |    |         |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|         |         |         |         |         |         |    |    |    |    |         |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
++|         |         |         |         |         |         |    |    |    |    |         |    +--- androidx.concurrent:concurrent-futures:1.1.0 -> 1.3.0 (*)
 +|         |         |         |         |         |         |    |    |    |    |         |    +--- androidx.startup:startup-runtime:1.1.1 -> 1.2.0
 +|         |         |         |         |         |         |    |    |    |    |         |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|         |         |         |         |         |         |    |    |    |    |         |    |    \--- androidx.tracing:tracing:1.0.0 -> 1.2.0
@@ -999,10 +1001,12 @@
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.6.0 -> 2.4.10 (*)
 +|    |    \--- androidx.wear:wear-remote-interactions:1.1.0
 +|    |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |         +--- androidx.concurrent:concurrent-futures-ktx:1.1.0
-+|    |         |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
-+|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.3.71 -> 2.4.10 (*)
-+|    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4 -> 1.11.0 (*)
++|    |         +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 -> 1.3.0
++|    |         |    +--- androidx.concurrent:concurrent-futures:1.3.0 (*)
++|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1 -> 1.11.0 (*)
++|    |         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (c)
++|    |         |    \--- androidx.concurrent:concurrent-futures:1.3.0 (c)
 +|    |         +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.8.0 (*)
 +|    |         +--- com.google.android.gms:play-services-wearable:17.1.0 -> 19.0.0 (*)
 +|    |         +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
@@ -1572,7 +1576,7 @@
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
 +|    |    |    +--- androidx.datastore:datastore-preferences:1.1.7 -> 1.2.1 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
-+|    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
++|    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 -> 1.3.0 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
 +|    |    |    +--- com.google.android.gms:play-services-basement:18.3.0 -> 18.8.0 (*)
 +|    |    |    \--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.4.0 (*)
@@ -1678,41 +1682,47 @@
 +|    |    |    |    +--- androidx.core:core:1.1.0 -> 1.18.0 (*)
 +|    |    |    |    +--- androidx.preference:preference:1.1.0 (*)
 +|    |    |    |    +--- androidx.versionedparcelable:versionedparcelable:1.1.0 -> 1.1.1 (*)
-+|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.0.0-beta01 -> 1.3.0
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.0.0-beta01 -> 1.4.2
 +|    |    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    |    |    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
 +|    |    |    |    |    +--- androidx.collection:collection:1.4.2 -> 1.5.0 (*)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2
 +|    |    |    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.3.0
-+|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.3.0 (c)
-+|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (c)
-+|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.3.0 (c)
-+|    |    |    |    |    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.3.0 (c)
-+|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.3.0 (c)
-+|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (c)
-+|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.3.0 (c)
-+|    |    |    |    |    |    \--- androidx.wear.protolayout:protolayout-expression-pipeline:1.3.0 (c)
-+|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2
++|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    |    |    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    |    |    |    \--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.3.0 (c)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.3.0 (c)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.3.0 (c)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0 (c)
-+|    |    |    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (c)
-+|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.0.0-beta01 -> 1.3.0
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    |    |    |    \--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.0.0-beta01 -> 1.4.2
 +|    |    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |    |    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
 +|    |    |    |    |    +--- androidx.collection:collection:1.4.2 -> 1.5.0 (*)
-+|    |    |    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
 +|    |    |    |    |    +--- androidx.core:core:1.7.0 -> 1.18.0 (*)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (*)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0 (*)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (*)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (*)
++|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    |    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.3.0 (c)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (c)
-+|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.3.0 (c)
-+|    |    |    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.3.0 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    |    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
 +|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (*)
 +|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1 -> 1.11.0 (*)
 +|    |    |    |    +--- androidx.wear.watchface:watchface-complications:1.2.1 (c)
@@ -1980,29 +1990,62 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.11.0 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (c)
-+|    +--- androidx.wear.tiles:tiles:1.5.0
-+|    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    +--- androidx.wear.tiles:tiles:1.5.0 -> 1.6.2
++|    |    +--- androidx.annotation:annotation:1.7.0 -> 1.9.1 (*)
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
-+|    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
-+|    |    +--- androidx.wear.protolayout:protolayout:1.3.0
++|    |    +--- androidx.concurrent:concurrent-futures:1.1.0 -> 1.3.0 (*)
++|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.3.0 (*)
++|    |    +--- androidx.wear.protolayout:protolayout:1.4.2
 +|    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (*)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0 (*)
++|    |    |    +--- androidx.core:core:1.12.0 -> 1.18.0 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (*)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (c)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.3.0 (c)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.3.0 (c)
-+|    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.3.0 (c)
-+|    |    +--- androidx.wear.protolayout:protolayout-expression:1.3.0 (*)
-+|    |    +--- androidx.wear.tiles:tiles-proto:1.5.0
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    |    \--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (*)
++|    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2
++|    |    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
++|    |    |    +--- androidx.core:core:1.15.0 -> 1.18.0 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-material-core:1.4.2
++|    |    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (*)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (*)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (*)
++|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |    |    |    +--- org.jspecify:jspecify:1.0.0
++|    |    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    |    +--- androidx.wear.protolayout:protolayout-material3:1.4.2 (c)
++|    |    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |    |    +--- org.jspecify:jspecify:1.0.0
++|    |    |    +--- androidx.wear.protolayout:protolayout:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-expression-pipeline:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-external-protobuf:1.4.2 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-material-core:1.4.2 (c)
++|    |    |    \--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    +--- androidx.wear.tiles:tiles-proto:1.6.2
 +|    |    |    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0 (*)
-+|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.3.0 (c)
-+|    |    |    \--- androidx.wear.tiles:tiles:1.5.0 (c)
++|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (*)
++|    |    |    +--- androidx.wear.protolayout:protolayout-proto:1.4.2 (c)
++|    |    |    \--- androidx.wear.tiles:tiles:1.6.2 (c)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    \--- androidx.wear.tiles:tiles-proto:1.5.0 (c)
++|    |    \--- androidx.wear.tiles:tiles-proto:1.6.2 (c)
 +|    +--- com.google.android.horologist:horologist-annotations:0.7.15 (*)
 +|    \--- com.google.android.gms:play-services-wearable:19.0.0 (*)
 ++--- com.google.android.horologist:horologist-datalayer:0.7.15 (*)
@@ -2024,7 +2067,7 @@
 ++--- androidx.work:work-runtime-ktx:2.11.0
 +|    +--- androidx.work:work-runtime:2.11.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.0 (*)
-+|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
++|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 -> 1.3.0 (*)
 +|    |    +--- androidx.core:core:1.12.0 -> 1.18.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-livedata:2.6.2 -> 2.11.0 (*)
 +|    |    +--- androidx.lifecycle:lifecycle-service:2.6.2 -> 2.11.0 (*)
@@ -2041,4 +2084,4 @@
 +|    |    +--- androidx.work:work-runtime-ktx:2.11.0 (c)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (c)
 +|    \--- androidx.work:work-runtime:2.11.0 (c)
-+\--- androidx.wear.tiles:tiles-proto:1.5.0 (*)
++\--- androidx.wear.tiles:tiles-proto:1.6.2 (*)
