@@ -1261,9 +1261,9 @@
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
 +|    +--- co.touchlab:kermit:2.1.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 -> 0.5.1
++|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.1
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0 -> 1.11.0 (*)
 +|    +--- com.materialkolor:material-kolor:4.1.1
 +|    |    \--- com.materialkolor:material-kolor-android:4.1.1
@@ -1585,7 +1585,7 @@
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (c)
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
-++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 (*)
+++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 -> 0.5.1 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0 -> 1.11.0 (*)
 ++--- co.touchlab:kermit:2.1.0 (*)
 ++--- io.insert-koin:koin-core:4.1.0 (*)
@@ -1603,17 +1603,18 @@
 +|         +--- io.insert-koin:koin-core-viewmodel:4.1.0 (*)
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.0-beta01 -> 2.11.0 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-++--- com.mikepenz:multiplatform-markdown-renderer-m3:0.39.2
-+|    \--- com.mikepenz:multiplatform-markdown-renderer-m3-android:0.39.2
-+|         +--- com.mikepenz:multiplatform-markdown-renderer:0.39.2
-+|         |    \--- com.mikepenz:multiplatform-markdown-renderer-android:0.39.2
-+|         |         +--- org.jetbrains:markdown:0.7.3
-+|         |         |    \--- org.jetbrains:markdown-jvm:0.7.3
+++--- com.mikepenz:multiplatform-markdown-renderer-m3:0.45.0
++|    \--- com.mikepenz:multiplatform-markdown-renderer-m3-android:0.45.0
++|         +--- com.mikepenz:multiplatform-markdown-renderer:0.45.0
++|         |    \--- com.mikepenz:multiplatform-markdown-renderer-android:0.45.0
++|         |         +--- org.jetbrains:markdown:0.7.9
++|         |         |    \--- org.jetbrains:markdown-jvm:0.7.9
 +|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.4.10 (*)
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 (*)
-+|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
-+|         +--- org.jetbrains:markdown:0.7.3 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.1 (*)
++|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|         +--- org.jetbrains:markdown:0.7.9 (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 ++--- sh.calvin.reorderable:reorderable:3.1.0
 +|    \--- sh.calvin.reorderable:reorderable-android:3.1.0
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0
