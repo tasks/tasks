@@ -1449,7 +1449,7 @@
 +|         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.11.0 (*)
 +|         +--- androidx.navigation:navigation-common:2.10.0 (c)
 +|         \--- androidx.navigation:navigation-runtime:2.10.0 (c)
-++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.2.0 -> 1.3.0
+++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.3.0
 +|    +--- androidx.activity:activity-compose:1.10.1 -> 1.13.0 (*)
 +|    +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
 +|    +--- androidx.annotation:annotation-experimental:1.5.1 (*)
@@ -1481,8 +1481,8 @@
 +|    |         \--- androidx.compose.material3.adaptive:adaptive:1.3.0 (c)
 +|    +--- androidx.compose.ui:ui-util:1.9.0 -> 1.12.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    +--- androidx.compose.material3.adaptive:adaptive:1.3.0 (c)
-+|    \--- androidx.compose.material3.adaptive:adaptive-layout:1.3.0 (c)
++|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.3.0 (c)
++|    \--- androidx.compose.material3.adaptive:adaptive:1.3.0 (c)
 ++--- com.github.tasks:ical4android:fcb0311ca7 (*)
 ++--- com.github.tasks.opentasks:opentasks-provider:44e5ce6b82
 ++--- org.dmfs:rfc5545-datetime:0.2.4
@@ -1736,6 +1736,7 @@
 +|    +--- androidx.compose.material:material:1.12.0 (c)
 +|    +--- androidx.compose.material:material-icons-extended:1.7.8 (c)
 +|    +--- androidx.compose.material3:material3:1.4.0 -> 1.5.0-alpha22 (c)
++|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.3.0 (c)
 +|    +--- androidx.compose.material3.adaptive:adaptive-layout-android:1.3.0 (c)
 +|    +--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.3.0 (c)
 +|    +--- androidx.compose.runtime:runtime:1.12.0 (c)
@@ -1744,6 +1745,7 @@
 +|    +--- androidx.compose.ui:ui:1.12.0 (c)
 +|    +--- androidx.compose.ui:ui-tooling-preview:1.12.0 (c)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.12.0 (c)
++|    +--- androidx.compose.ui:ui-util:1.12.0 (c)
 +|    +--- androidx.compose.animation:animation:1.12.0 (c)
 +|    +--- androidx.compose.animation:animation-core:1.12.0 (c)
 +|    +--- androidx.compose.foundation:foundation-layout:1.12.0 (c)
@@ -1755,8 +1757,6 @@
 +|    +--- androidx.compose.material:material-icons-extended-android:1.7.8 (c)
 +|    +--- androidx.compose.material3.adaptive:adaptive:1.3.0 (c)
 +|    +--- androidx.compose.ui:ui-geometry:1.12.0 (c)
-+|    +--- androidx.compose.material3.adaptive:adaptive-layout:1.3.0 (c)
-+|    +--- androidx.compose.ui:ui-util:1.12.0 (c)
 +|    +--- androidx.compose.runtime:runtime-android:1.12.0 (c)
 +|    +--- androidx.compose.runtime:runtime-saveable-android:1.12.0 (c)
 +|    +--- androidx.compose.ui:ui-android:1.12.0 (c)
