@@ -99,7 +99,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 androidx-room = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room"}
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
-androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.6.2" }
+androidx-sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.7.0" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
