@@ -47,10 +47,10 @@
 +|         |         |         \--- org.jetbrains.compose.runtime:runtime:1.9.0 -> 1.12.0 (c)
 +|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|         |         +--- androidx.compose.ui:ui:1.12.0 (c)
-+|         |         +--- androidx.compose.ui:ui-geometry:1.12.0 (c)
-+|         |         +--- androidx.compose.ui:ui-graphics:1.12.0 (c)
 +|         |         +--- androidx.compose.ui:ui-text:1.12.0 (c)
 +|         |         +--- androidx.compose.ui:ui-util:1.12.0 (c)
++|         |         +--- androidx.compose.ui:ui-geometry:1.12.0 (c)
++|         |         +--- androidx.compose.ui:ui-graphics:1.12.0 (c)
 +|         |         \--- androidx.compose.ui:ui-unit:1.12.0 (c)
 +|         +--- org.jetbrains.compose.runtime:runtime:1.12.0
 +|         |    \--- org.jetbrains.compose.runtime:runtime-android:1.12.0
@@ -769,7 +769,7 @@
 +|    |                   |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0 (*)
-+|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.12.0 (*)
++|    +--- androidx.compose.ui:ui-tooling-preview-android:1.12.0 (*)
 +|    +--- com.github.tasks:ical4android:fcb0311ca7
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|    |    +--- androidx.core:core-ktx:1.16.0 -> 1.18.0 (*)
