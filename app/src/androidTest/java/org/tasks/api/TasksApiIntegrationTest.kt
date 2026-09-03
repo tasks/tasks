@@ -59,7 +59,7 @@ class TasksApiIntegrationTest : InjectingTestCase() {
     }
 
     @Test
-    fun aNewTaskInheritsTheUsersDefaultReminders() {
+    fun aNewTaskDoesNotInheritTheUsersDefaultReminders() {
         runBlocking { preferences.setDefaultAlarms(listOf(Alarm.whenDue(0))) }
 
         val id = newTask(
@@ -69,7 +69,7 @@ class TasksApiIntegrationTest : InjectingTestCase() {
         )
 
         assertEquals(
-            listOf(Alarms.TYPE_RELATIVE_DUE),
+            emptyList<String>(),
             query(Alarms.PATH, "?task_id=$id").strings(Alarms.TYPE),
         )
     }

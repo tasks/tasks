@@ -11,7 +11,8 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.CancellationSignal
-import androidx.room.withTransaction
+import androidx.room.immediateTransaction
+import androidx.room.useWriterConnection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -205,28 +206,30 @@ abstract class TasksApiProvider : ContentProvider() {
         try {
             runBlocking {
                 try {
-                    dependencies.database.withTransaction {
-                        worker = thread(name = "tasks-api-batch") {
-                            batchDispatch.set { block ->
-                                BatchCall(block)
-                                    .also { calls.trySend(it) }
-                                    .await()
-                            }
-                            try {
-                                operations.forEachIndexed { index, operation ->
-                                    results[index] = operation.apply(this@TasksApiProvider, results, index)
+                    dependencies.database.useWriterConnection { transactor ->
+                        transactor.immediateTransaction {
+                            worker = thread(name = "tasks-api-batch") {
+                                batchDispatch.set { block ->
+                                    BatchCall(block)
+                                        .also { calls.trySend(it) }
+                                        .await()
                                 }
-                            } catch (t: Throwable) {
-                                failure.set(t)
-                            } finally {
-                                batchDispatch.remove()
-                                calls.close()
+                                try {
+                                    operations.forEachIndexed { index, operation ->
+                                        results[index] = operation.apply(this@TasksApiProvider, results, index)
+                                    }
+                                } catch (t: Throwable) {
+                                    failure.set(t)
+                                } finally {
+                                    batchDispatch.remove()
+                                    calls.close()
+                                }
                             }
+                            for (call in calls) {
+                                call.run()
+                            }
+                            failure.get()?.let { throw it }
                         }
-                        for (call in calls) {
-                            call.run()
-                        }
-                        failure.get()?.let { throw it }
                     }
                 } finally {
                     calls.close()
