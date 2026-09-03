@@ -1,3 +1,13 @@
+### 15.12 (2026-09-03)
+
+* Sync reminder dismissals across devices
+* Don't bump modification date when snoozing
+
+Android:
+  * Add new content provider API and [specification](https://github.com/tasks/tasks/blob/main/CONTENT_PROVIDER.md)
+    * Build your own widgets, apps, and tools with the Tasks.org data on your device
+  * Reduce sync delay after changes from 60 to 30 seconds
+
 ### 15.11 (2026-09-01)
 
 * Add 'last day of month' recurrence option [#2411](https://github.com/tasks/tasks/issues/2411)

@@ -1,0 +1,6 @@
+* Sync reminder dismissals across devices
+* Don't bump modification date when snoozing
+* Add new content provider API
+  * Build your own widgets, apps, and tools with the Tasks.org data on your device
+  * Specification: https://github.com/tasks/tasks/blob/main/CONTENT_PROVIDER.md
+* Reduce sync delay after changes from 60 -> 30 seconds
