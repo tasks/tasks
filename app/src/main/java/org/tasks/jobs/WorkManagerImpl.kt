@@ -106,7 +106,7 @@ class WorkManagerImpl(
             builder.setConstraints(networkConstraints)
         }
         if (!immediate) {
-            builder.setInitialDelay(1, TimeUnit.MINUTES)
+            builder.setInitialDelay(SYNC_CHANGE_DEBOUNCE_SECONDS, TimeUnit.SECONDS)
         }
         val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
         Timber.d("sync source=$source immediate=$immediate append=$append")
@@ -282,6 +282,8 @@ class WorkManagerImpl(
         workManager.getWorkInfosForUniqueWork(TAG_SYNC).get()
     }
 }
+
+private const val SYNC_CHANGE_DEBOUNCE_SECONDS = 30L
 
 private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
     vararg pairs: Pair<String, Any?>
