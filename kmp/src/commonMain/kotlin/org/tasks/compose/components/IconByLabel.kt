@@ -16,6 +16,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.compose.pickers.label
+import java.util.Optional
+import java.util.concurrent.ConcurrentHashMap
 
 @Composable
 fun TasksIcon(
@@ -39,10 +41,30 @@ fun TasksIcon(
     }
 }
 
-fun imageVectorByName(label: String?): ImageVector? = label?.let {
-    val iconName = it.label
-    loadIcon("androidx.compose.material.icons.outlined.${iconName}Kt", Icons.Outlined)
-        ?: loadIcon("androidx.compose.material.icons.automirrored.outlined.${iconName}Kt", Icons.AutoMirrored.Outlined)
+private val iconCache = ConcurrentHashMap<String, Optional<ImageVector>>()
+
+/**
+ * Resolving an icon means a [Class.forName] plus reflective invocation, and a miss additionally
+ * costs a thrown [ClassNotFoundException]. Chips call this during composition on the main thread,
+ * so results (including misses) are memoized for the lifetime of the process. The icon set is
+ * static, so entries never need invalidating.
+ */
+fun imageVectorByName(label: String?): ImageVector? {
+    if (label == null) {
+        return null
+    }
+    return iconCache
+        .getOrPut(label) {
+            val iconName = label.label
+            Optional.ofNullable(
+                loadIcon("androidx.compose.material.icons.outlined.${iconName}Kt", Icons.Outlined)
+                    ?: loadIcon(
+                        "androidx.compose.material.icons.automirrored.outlined.${iconName}Kt",
+                        Icons.AutoMirrored.Outlined
+                    )
+            )
+        }
+        .orElse(null)
 }
 
 private fun loadIcon(className: String, receiver: Any): ImageVector? =
