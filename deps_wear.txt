@@ -1551,18 +1551,19 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
 ++--- com.google.android.gms:play-services-wearable:19.0.0 (*)
-++--- androidx.paging:paging-compose:3.3.6
-+|    \--- androidx.paging:paging-compose-android:3.3.6
-+|         +--- androidx.compose.foundation:foundation:1.5.0 -> 1.12.0 (*)
-+|         +--- androidx.compose.runtime:runtime:1.5.0 -> 1.12.0 (*)
-+|         +--- androidx.paging:paging-common:3.3.6
-+|         |    \--- androidx.paging:paging-common-android:3.3.6
-+|         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
+++--- androidx.paging:paging-compose:3.5.1
++|    \--- androidx.paging:paging-compose-android:3.5.1
++|         +--- androidx.compose.runtime:runtime:1.9.0 -> 1.12.0 (*)
++|         +--- androidx.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|         +--- androidx.paging:paging-common:3.5.1
++|         |    \--- androidx.paging:paging-common-android:3.5.1
++|         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|         |         +--- androidx.arch.core:core-common:2.2.0 (*)
-+|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (*)
-+|         |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3 -> 1.11.0 (*)
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (*)
-+|         \--- androidx.paging:paging-common:3.3.6 (c)
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
++|         |         \--- androidx.paging:paging-compose:3.5.1 (c)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|         \--- androidx.paging:paging-common:3.5.1 (c)
 ++--- androidx.compose.ui:ui -> 1.12.0 (*)
 ++--- androidx.compose.ui:ui-graphics -> 1.12.0 (*)
 ++--- androidx.compose.ui:ui-tooling-preview -> 1.12.0 (*)
@@ -1923,7 +1924,7 @@
 +|    +--- androidx.wear.compose:compose-material:1.5.0-rc01 -> 1.5.6 (*)
 +|    +--- androidx.wear.compose:compose-foundation:1.5.0-rc01 -> 1.5.6 (*)
 +|    +--- androidx.lifecycle:lifecycle-runtime-compose:2.9.2 -> 2.11.0 (*)
-+|    +--- androidx.paging:paging-compose:3.3.6 (*)
++|    +--- androidx.paging:paging-compose:3.3.6 -> 3.5.1 (*)
 +|    +--- androidx.wear:wear:1.3.0
 +|    |    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
 +|    |    +--- androidx.core:core:1.6.0 -> 1.18.0 (*)
