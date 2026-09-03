@@ -1,7 +1,7 @@
 ++--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10
 +|    +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.8.22 (c)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.8.22 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.21 (c)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.21 (c)
 ++--- androidx.compose:compose-bom:2026.08.00
 +|    +--- androidx.compose.material:material-icons-extended:1.7.8 (c)
 +|    +--- androidx.compose.ui:ui:1.12.0 (c)
@@ -1013,17 +1013,17 @@
 ++--- project ':kmp'
 +|    +--- com.etebase:client:2.3.2
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
-+|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.11.0
-+|    |         +--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2
++|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.12.0
++|    |         +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.3.2
 +|    |         |    \--- com.squareup.okhttp3:okhttp-android:5.3.2
 +|    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |         |         +--- androidx.startup:startup-runtime:1.2.0 (*)
 +|    |         |         +--- com.squareup.okio:okio:3.16.4 (*)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.10 (*)
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10 -> 1.8.22
-+|    |              +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (*)
-+|    |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22
-+|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.10 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.1.21
++|    |              +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
++|    |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
++|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0
 +|    |    +--- androidx.activity:activity:1.13.0 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.7.0 -> 1.12.0 (*)
@@ -1584,7 +1584,7 @@
 +|    |    +--- com.google.firebase:firebase-encoders:17.0.0
 +|    |    |    \--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    +--- com.google.firebase:firebase-encoders-json:18.0.1
-+|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 1.8.22 (*)
++|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10 -> 2.1.21 (*)
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    |    \--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
@@ -1613,7 +1613,7 @@
 +|    |    |    |    +--- com.google.firebase:firebase-encoders-json:18.0.0 -> 18.0.1 (*)
 +|    |    |    |    \--- androidx.annotation:annotation:1.1.0 -> 1.9.1 (*)
 +|    |    |    +--- com.google.android.datatransport:transport-runtime:3.2.0 -> 3.3.0 (*)
-+|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 (*)
++|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 2.1.21 (*)
 +|    |    +--- com.google.android.datatransport:transport-api:3.2.0 (*)
 +|    |    +--- javax.inject:javax.inject:1
 +|    |    +--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
@@ -1638,19 +1638,19 @@
 +|    +--- com.google.android.datatransport:transport-backend-cct:3.3.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:3.3.0 (*)
 +|    \--- androidx.annotation:annotation:1.5.0 -> 1.9.1 (*)
-++--- com.posthog:posthog-android:3.28.0
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 (*)
+++--- com.posthog:posthog-android:3.61.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
 +|    +--- androidx.lifecycle:lifecycle-process:2.6.2 -> 2.11.0 (*)
 +|    +--- androidx.lifecycle:lifecycle-common-java8:2.6.2 -> 2.11.0 (*)
 +|    +--- androidx.core:core:1.5.0 -> 1.18.0 (*)
 +|    +--- com.squareup.curtains:curtains:1.2.5
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.21 -> 2.4.10 (*)
-+|    \--- com.posthog:posthog:6.0.0
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 (*)
++|    \--- com.posthog:posthog:6.34.1
++|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
 +|         +--- com.google.code.gson:gson:2.10.1 -> 2.11.0 (*)
-+|         +--- com.squareup.okhttp3:okhttp-bom:4.11.0
-+|         |    +--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
-+|         |    \--- com.squareup.okhttp3:logging-interceptor:4.11.0 (c)
++|         +--- com.squareup.okhttp3:okhttp-bom:4.12.0
++|         |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.3.2 (c)
++|         |    \--- com.squareup.okhttp3:logging-interceptor:4.12.0 (c)
 +|         \--- com.squareup.okhttp3:okhttp -> 5.3.2 (*)
 ++--- androidx.wear.watchface:watchface-complications-data-source-ktx:1.2.1
 +|    +--- androidx.core:core:1.1.0 -> 1.18.0 (*)
