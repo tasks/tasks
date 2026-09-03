@@ -6,16 +6,16 @@
 +|    |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.4.10 (c)
 +|    |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.4.10 (c)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.4.10 (*)
-++--- com.google.firebase:firebase-bom:34.10.0
-+|    +--- com.google.firebase:firebase-config:23.0.1 (c)
-+|    +--- com.google.firebase:firebase-crashlytics:20.0.4 (c)
-+|    +--- com.google.firebase:firebase-messaging:25.0.1 (c)
+++--- com.google.firebase:firebase-bom:34.18.0
++|    +--- com.google.firebase:firebase-config:23.1.0 (c)
++|    +--- com.google.firebase:firebase-crashlytics:20.1.0 (c)
++|    +--- com.google.firebase:firebase-messaging:25.1.2 (c)
 +|    +--- com.google.firebase:firebase-encoders:17.0.0 (c)
-+|    +--- com.google.firebase:firebase-common:22.0.1 (c)
-+|    \--- com.google.firebase:firebase-installations:19.1.0 (c)
-++--- com.google.firebase:firebase-crashlytics -> 20.0.4
-+|    +--- com.google.firebase:firebase-sessions:3.0.4
-+|    |    +--- com.google.firebase:firebase-common:22.0.1
++|    +--- com.google.firebase:firebase-common:22.2.0 (c)
++|    \--- com.google.firebase:firebase-installations:19.1.2 (c)
+++--- com.google.firebase:firebase-crashlytics -> 20.1.0
++|    +--- com.google.firebase:firebase-sessions:3.0.7
++|    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0 -> 1.11.0
 +|    |    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0
 +|    |    |    |    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0
@@ -442,8 +442,8 @@
 +|    |    |    +--- androidx.annotation:annotation:1.5.0 -> 1.10.0 (*)
 +|    |    |    +--- androidx.concurrent:concurrent-futures:1.1.0 (*)
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
-+|    |    |    +--- com.google.android.gms:play-services-basement:18.3.0 -> 18.9.0 (*)
-+|    |    |    \--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.4.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
++|    |    |    \--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    |    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    |    +--- com.google.firebase:firebase-installations-interop:17.2.0 -> 17.3.0
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
@@ -459,12 +459,13 @@
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
 +|    |    |    \--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
-+|    |    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.0
++|    |    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.2
 +|    |    |    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
-+|    |    |    +--- com.google.firebase:firebase-common:22.0.1 (*)
++|    |    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-installations-interop:17.3.0 (*)
++|    |    |    +--- androidx.datastore:datastore-preferences:1.1.7 -> 1.2.1 (*)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
 +|    |    +--- com.google.firebase:firebase-datatransport:19.0.0
 +|    |    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
@@ -492,14 +493,14 @@
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 -> 1.11.0 (*)
 +|    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
-+|    +--- com.google.firebase:firebase-common:22.0.1 (*)
++|    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
 +|    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    +--- com.google.firebase:firebase-config-interop:16.0.1
 +|    |    +--- com.google.firebase:firebase-encoders-json:18.0.1 (*)
 +|    |    \--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    +--- com.google.firebase:firebase-encoders:17.0.0 (*)
 +|    +--- com.google.firebase:firebase-encoders-json:18.0.1 (*)
-+|    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.0 (*)
++|    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.2 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:17.2.0 -> 17.3.0 (*)
 +|    +--- com.google.firebase:firebase-measurement-connector:20.0.1
 +|    |    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.9.0 (*)
@@ -561,7 +562,7 @@
 +|                   +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.10 (*)
 +|                   +--- androidx.annotation:annotation:1.10.0 (*)
 +|                   \--- androidx.startup:startup-runtime:1.2.0 (*)
-++--- com.google.firebase:firebase-config -> 23.0.1
+++--- com.google.firebase:firebase-config -> 23.1.0
 +|    +--- com.google.firebase:firebase-config-interop:16.0.1 (*)
 +|    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:17.1.0 -> 17.3.0 (*)
@@ -569,14 +570,14 @@
 +|    |    +--- com.google.firebase:firebase-measurement-connector:18.0.0 -> 20.0.1 (*)
 +|    |    \--- com.google.android.gms:play-services-basement:18.1.0 -> 18.9.0 (*)
 +|    +--- com.google.firebase:firebase-measurement-connector:18.0.0 -> 20.0.1 (*)
-+|    +--- com.google.firebase:firebase-common:22.0.1 (*)
++|    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
 +|    +--- com.google.firebase:firebase-components:19.0.0 (*)
-+|    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.0 (*)
-+|    +--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.4.0 (*)
++|    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.2 (*)
++|    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (*)
 +|    \--- androidx.annotation:annotation:1.5.0 -> 1.10.0 (*)
-++--- com.google.firebase:firebase-messaging -> 25.0.1
-+|    +--- com.google.firebase:firebase-common:22.0.1 (*)
+++--- com.google.firebase:firebase-messaging -> 25.1.2
++|    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
 +|    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    +--- com.google.firebase:firebase-datatransport:18.2.0 -> 19.0.0 (*)
 +|    +--- com.google.firebase:firebase-encoders:17.0.0 (*)
@@ -585,24 +586,25 @@
 +|    +--- com.google.firebase:firebase-iid-interop:17.1.0
 +|    |    +--- com.google.android.gms:play-services-basement:17.0.0 -> 18.9.0 (*)
 +|    |    \--- com.google.android.gms:play-services-tasks:17.0.0 -> 18.4.0 (*)
-+|    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.0 (*)
++|    +--- com.google.firebase:firebase-installations:19.1.1 -> 19.1.2 (*)
 +|    +--- com.google.firebase:firebase-installations-interop:17.1.0 -> 17.3.0 (*)
 +|    +--- com.google.firebase:firebase-measurement-connector:19.0.0 -> 20.0.1 (*)
 +|    +--- androidx.annotation:annotation:1.5.0 -> 1.10.0 (*)
 +|    +--- com.google.android.datatransport:transport-api:3.1.0 -> 3.2.0 (*)
 +|    +--- com.google.android.datatransport:transport-backend-cct:3.1.8 -> 3.3.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:3.1.8 -> 3.3.0 (*)
-+|    +--- com.google.android.gms:play-services-base:18.1.0 -> 18.9.0
++|    +--- com.google.android.gms:play-services-base:18.9.0
 +|    |    +--- androidx.collection:collection:1.0.0 -> 1.6.0 (*)
 +|    |    +--- androidx.core:core:1.9.0 -> 1.18.0 (*)
 +|    |    +--- androidx.fragment:fragment:1.1.0 -> 1.9.0 (*)
 +|    |    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
 +|    |    \--- com.google.android.gms:play-services-tasks:18.4.0 (*)
-+|    +--- com.google.android.gms:play-services-basement:18.3.0 -> 18.9.0 (*)
-+|    +--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.4.0 (*)
-+|    +--- com.google.android.gms:play-services-cloud-messaging:17.2.0
-+|    |    +--- com.google.android.gms:play-services-basement:18.3.0 -> 18.9.0 (*)
-+|    |    \--- com.google.android.gms:play-services-tasks:18.1.0 -> 18.4.0 (*)
++|    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
++|    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
++|    +--- com.google.android.gms:play-services-cloud-messaging:17.4.0
++|    |    +--- com.google.android.gms:play-services-base:18.9.0 (*)
++|    |    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
++|    |    \--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    +--- com.google.android.gms:play-services-stats:17.0.2
 +|    |    +--- androidx.legacy:legacy-support-core-utils:1.0.0
 +|    |    |    +--- androidx.annotation:annotation:1.0.0 -> 1.10.0 (*)
