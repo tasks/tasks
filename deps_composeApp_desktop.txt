@@ -44,17 +44,17 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |         +--- androidx.sqlite:sqlite:2.6.2 (c)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (c)
-+|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.7.1-0.6.x-compat
++|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.8.0-0.6.x-compat
++|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.8.0-0.6.x-compat
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0 -> 1.11.0
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.11.0
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.11.0
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:1.11.0 (c)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0 (c)
++|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.11.0 (c)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (c)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-io:1.11.0 (c)
-+|    |         |    +--- org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.11.0 (c)
 +|    |         |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json-io-jvm:1.11.0 (c)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.10 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0
@@ -461,7 +461,7 @@
 +|    |    |         +--- org.jetbrains.compose.ui:ui-util:1.9.3 -> 1.12.0 (*)
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |    |         +--- org.jetbrains.kotlinx:atomicfu:0.23.2 -> 0.28.0 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1 -> 0.7.1-0.6.x-compat (*)
++|    |    |         +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1 -> 0.8.0-0.6.x-compat (*)
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (c)
 +|    |    +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 +|    |    \--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0
@@ -575,11 +575,11 @@
 +|    |         \--- androidx.datastore:datastore-preferences-external-protobuf:1.2.1 (c)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
 +|    +--- co.touchlab:kermit:2.1.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.4.0
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0 -> 1.11.0 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-datetime:0.8.0-0.6.x-compat (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
++|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 +|    +--- com.materialkolor:material-kolor:4.1.1
 +|    |    \--- com.materialkolor:material-kolor-jvm:4.1.1
 +|    |         +--- com.materialkolor:material-color-utilities:4.1.1
@@ -1042,8 +1042,8 @@
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (c)
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
-++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 (*)
-++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0 -> 1.11.0 (*)
+++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2 (*)
+++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 ++--- co.touchlab:kermit:2.1.0 (*)
 ++--- io.insert-koin:koin-core:4.2.2
 +|    \--- io.insert-koin:koin-core-jvm:4.2.2
@@ -1082,7 +1082,7 @@
 +|         |         +--- org.jetbrains:markdown:0.7.3
 +|         |         |    \--- org.jetbrains:markdown-jvm:0.7.3
 +|         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.4.10 (*)
-+|         |         +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 (*)
++|         |         +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.4.0 -> 0.5.2 (*)
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|         +--- org.jetbrains:markdown:0.7.3 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
