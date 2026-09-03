@@ -1,7 +1,7 @@
 ++--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10
 +|    +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
-+|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 2.1.21 (c)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 2.1.21 (c)
 ++--- project ':data'
 +|    +--- androidx.room:room-runtime:2.8.4
 +|    |    \--- androidx.room:room-runtime-jvm:2.8.4
@@ -1088,10 +1088,10 @@
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 ++--- sh.calvin.reorderable:reorderable:3.1.0
 +|    \--- sh.calvin.reorderable:reorderable-jvm:3.1.0
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0
-+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 2.4.10 (*)
-+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0
-+|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.0 -> 2.4.10 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 -> 2.1.21
++|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
++|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
++|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
 +|         +--- org.jetbrains.compose.runtime:runtime:1.7.0 -> 1.12.0 (*)
 +|         +--- org.jetbrains.compose.animation:animation:1.7.0 -> 1.12.0 (*)
 +|         \--- org.jetbrains.compose.foundation:foundation:1.7.0 -> 1.12.0 (*)
@@ -1184,11 +1184,11 @@
 +|    |    \--- net.java.dev.jna:jna:5.13.0
 +|    +--- org.slf4j:slf4j-api:2.0.7 -> 2.0.18
 +|    \--- pt.davidafsilva.apple:jkeychain:1.1.0
-++--- com.posthog:posthog:3.19.1
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22 -> 1.9.0 (*)
+++--- com.posthog:posthog:6.34.1
++|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
 +|    +--- com.google.code.gson:gson:2.10.1 -> 2.11.0 (*)
-+|    +--- com.squareup.okhttp3:okhttp-bom:4.11.0
-+|    |    \--- com.squareup.okhttp3:okhttp:4.11.0 -> 5.3.2 (c)
++|    +--- com.squareup.okhttp3:okhttp-bom:4.12.0
++|    |    \--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.3.2 (c)
 +|    \--- com.squareup.okhttp3:okhttp -> 5.3.2 (*)
 ++--- dev.nucleusframework:nucleus.notification-linux:2.5.12
 +|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.12
