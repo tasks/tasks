@@ -4,8 +4,8 @@
 +|         |    \--- androidx.annotation:annotation-jvm:1.9.1
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:1.9.24 -> 2.4.10
 +|         |              +--- org.jetbrains:annotations:13.0 -> 23.0.0
-+|         |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
-+|         |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
++|         |              +--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 -> 1.9.0 (c)
++|         |              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 -> 1.9.0 (c)
 +|         +--- androidx.compose.ui:ui-tooling-preview:1.12.0
 +|         |    \--- androidx.compose.ui:ui-tooling-preview-android:1.12.0
 +|         |         +--- androidx.annotation:annotation:1.9.1 (*)
@@ -1071,16 +1071,16 @@
 +|    |    |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    |         +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
 +|    |    |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         +--- androidx.compose.material3:material3:1.5.0-alpha22
-+|    |    |         |    \--- androidx.compose.material3:material3-android:1.5.0-alpha22
++|    |    |         +--- androidx.compose.material3:material3:1.5.0-alpha22 -> 1.5.0-alpha27
++|    |    |         |    \--- androidx.compose.material3:material3-android:1.5.0-alpha27
 +|    |    |         |         +--- androidx.activity:activity-compose:1.8.2 -> 1.13.0 (*)
 +|    |    |         |         +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
 +|    |    |         |         +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
 +|    |    |         |         +--- androidx.collection:collection:1.4.5 -> 1.5.0 (*)
-+|    |    |         |         +--- androidx.compose.animation:animation-core:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.foundation:foundation:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.foundation:foundation-layout:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.material:material-ripple:1.12.0-alpha03 -> 1.12.0
++|    |    |         |         +--- androidx.compose.animation:animation-core:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.foundation:foundation:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.foundation:foundation-layout:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.material:material-ripple:1.12.0-beta01 -> 1.12.0
 +|    |    |         |         |    \--- androidx.compose.material:material-ripple-android:1.12.0
 +|    |    |         |         |         +--- androidx.collection:collection:1.5.0 (*)
 +|    |    |         |         |         +--- androidx.compose.animation:animation:1.7.1 -> 1.12.0 (*)
@@ -1088,10 +1088,19 @@
 +|    |    |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (*)
 +|    |    |         |         |         +--- androidx.compose.ui:ui-util:1.7.1 -> 1.12.0 (*)
 +|    |    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
-+|    |    |         |         +--- androidx.compose.runtime:runtime:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.ui:ui:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.ui:ui-text:1.12.0-alpha03 -> 1.12.0 (*)
-+|    |    |         |         +--- androidx.compose.ui:ui-util:1.12.0-alpha03 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.material3:material3-ripple:1.5.0-alpha27
++|    |    |         |         |    \--- androidx.compose.material3:material3-ripple-android:1.5.0-alpha27
++|    |    |         |         |         +--- androidx.collection:collection:1.5.0 (*)
++|    |    |         |         |         +--- androidx.compose.animation:animation:1.11.4 -> 1.12.0 (*)
++|    |    |         |         |         +--- androidx.compose.foundation:foundation:1.11.4 -> 1.12.0 (*)
++|    |    |         |         |         +--- androidx.compose.runtime:runtime:1.11.4 -> 1.12.0 (*)
++|    |    |         |         |         +--- androidx.compose.ui:ui-util:1.11.4 -> 1.12.0 (*)
++|    |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |    |         |         |         \--- androidx.compose.material3:material3:1.5.0-alpha27 (c)
++|    |    |         |         +--- androidx.compose.runtime:runtime:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.ui:ui:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.ui:ui-text:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- androidx.compose.ui:ui-util:1.12.0-beta01 -> 1.12.0 (*)
 +|    |    |         |         +--- androidx.graphics:graphics-shapes:1.0.1 -> 1.1.0
 +|    |    |         |         |    \--- androidx.graphics:graphics-shapes-android:1.1.0
 +|    |    |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
@@ -1116,7 +1125,8 @@
 +|    |    |         |         |    +--- androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0 (c)
 +|    |    |         |         |    +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
 +|    |    |         |         |    \--- androidx.lifecycle:lifecycle-process:2.11.0 (c)
-+|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    |    |         |         \--- androidx.compose.material3:material3-ripple:1.5.0-alpha27 (c)
 +|    |    |         +--- androidx.graphics:graphics-shapes:1.1.0 (*)
 +|    |    |         +--- androidx.lifecycle:lifecycle-common-java8:2.6.1 -> 2.11.0 (*)
 +|    |    |         +--- org.jetbrains.compose.animation:animation-core:1.12.0-beta01 -> 1.12.0 (*)
@@ -1454,7 +1464,7 @@
 ++--- androidx.datastore:datastore-preferences:1.2.1 (*)
 ++--- org.jetbrains.compose.components:components-resources:1.12.0 (*)
 ++--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
-++--- androidx.compose.material3:material3:1.5.0-alpha15 -> 1.5.0-alpha22 (*)
+++--- androidx.compose.material3:material3:1.5.0-alpha27 (*)
 ++--- org.jetbrains.compose.material:material-icons-extended:1.7.3 (*)
 ++--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 ++--- org.jetbrains.compose.ui:ui:1.12.0 (*)
