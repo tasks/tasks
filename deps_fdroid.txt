@@ -581,6 +581,7 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    +--- androidx.activity:activity:1.13.0 (c)
 +|    |    \--- androidx.activity:activity-ktx:1.13.0 (c)
++|    +--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.12.0
 +|    |    +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
 +|    |    +--- androidx.compose.runtime:runtime:1.12.0 (*)

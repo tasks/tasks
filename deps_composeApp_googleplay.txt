@@ -765,6 +765,7 @@
 +|    |                   |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.10 (*)
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.10 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0 (*)
++|    +--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.12.0 (*)
 +|    +--- com.github.tasks:ical4android:fcb0311ca7
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
