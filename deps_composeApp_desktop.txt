@@ -419,9 +419,8 @@
 +|    |    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.11.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 +|    |    +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
-+|    |    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.10.0-alpha05
-+|    |    |    \--- org.jetbrains.compose.material3:material3-desktop:1.10.0-alpha05
-+|    |    |         +--- androidx.annotation:annotation:1.9.1 (*)
++|    |    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.12.0-alpha03
++|    |    |    \--- org.jetbrains.compose.material3:material3-desktop:1.12.0-alpha03
 +|    |    |         +--- androidx.collection:collection:1.5.0 (*)
 +|    |    |         +--- androidx.graphics:graphics-shapes:1.1.0
 +|    |    |         |    \--- androidx.graphics:graphics-shapes-desktop:1.1.0
@@ -429,10 +428,10 @@
 +|    |    |         |         +--- androidx.collection:collection:1.5.0 (*)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
 +|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.10 (c)
-+|    |    |         +--- org.jetbrains.compose.animation:animation-core:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.foundation:foundation:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.foundation:foundation-layout:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.material:material-ripple:1.9.3 -> 1.12.0
++|    |    |         +--- org.jetbrains.compose.animation:animation-core:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.foundation:foundation:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.foundation:foundation-layout:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.material:material-ripple:1.12.0-beta01 -> 1.12.0
 +|    |    |         |    \--- org.jetbrains.compose.material:material-ripple-desktop:1.12.0
 +|    |    |         |         +--- androidx.collection:collection:1.5.0 (*)
 +|    |    |         |         +--- org.jetbrains.compose.animation:animation:1.12.0 (*)
@@ -440,8 +439,9 @@
 +|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 +|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
 +|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
-+|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-backhandler:1.9.3 -> 1.12.0
++|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui-backhandler:1.12.0-beta01 -> 1.12.0
 +|    |    |         |    \--- org.jetbrains.compose.ui:ui-backhandler-desktop:1.12.0
 +|    |    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         +--- org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0 (*)
@@ -456,13 +456,11 @@
 +|    |    |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
 +|    |    |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
 +|    |    |         |         \--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-graphics:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-text:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-util:1.9.3 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.10 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:atomicfu:0.23.2 -> 0.28.0 (*)
-+|    |    |         +--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1 -> 0.8.0-0.6.x-compat (*)
-+|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (c)
++|    |    |         +--- org.jetbrains.compose.ui:ui-text:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui-util:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
++|    |    |         +--- org.jetbrains.kotlinx:atomicfu:0.28.0 (*)
++|    |    |         \--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1 -> 0.8.0-0.6.x-compat (*)
 +|    |    +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 +|    |    \--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0
 +|    |         \--- org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.12.0
@@ -480,7 +478,7 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 +|    +--- project ':data' (*)
 +|    +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
-+|    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.10.0-alpha05 (*)
++|    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.12.0-alpha03 (*)
 +|    +--- org.jetbrains.compose.material:material-icons-extended:1.7.3
 +|    |    \--- org.jetbrains.compose.material:material-icons-extended-desktop:1.7.3
 +|    |         +--- org.jetbrains.compose.material:material-icons-core:1.7.3
@@ -580,18 +578,19 @@
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
-+|    +--- com.materialkolor:material-kolor:4.1.1
-+|    |    \--- com.materialkolor:material-kolor-jvm:4.1.1
-+|    |         +--- com.materialkolor:material-color-utilities:4.1.1
-+|    |         |    \--- com.materialkolor:material-color-utilities-jvm:4.1.1
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
-+|    |         |         \--- dev.drewhamilton.poko:poko-annotations:0.21.1
-+|    |         |              \--- dev.drewhamilton.poko:poko-annotations-jvm:0.21.1
-+|    |         |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
-+|    |         +--- org.jetbrains.compose.material3:material3:1.10.0-alpha05 (*)
-+|    |         +--- org.jetbrains.compose.runtime:runtime:1.10.0 -> 1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|    +--- com.materialkolor:material-kolor:5.0.1
++|    |    \--- com.materialkolor:material-kolor-jvm:5.0.1
++|    |         +--- com.materialkolor:material-color-utilities:5.0.1
++|    |         |    \--- com.materialkolor:material-color-utilities-jvm:5.0.1
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|    |         |         \--- dev.drewhamilton.poko:poko-annotations:0.23.1
++|    |         |              \--- dev.drewhamilton.poko:poko-annotations-jvm:0.23.1
++|    |         |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.10 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|    |         +--- org.jetbrains.compose.material3:material3:1.12.0-alpha03 (*)
++|    |         +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
++|    |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.4.10 (*)
