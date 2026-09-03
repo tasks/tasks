@@ -595,14 +595,14 @@
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.4.10 (*)
-+|    +--- io.github.alexzhirkevich:qrose:1.0.1
-+|    |    \--- io.github.alexzhirkevich:qrose-desktop:1.0.1
-+|    |         +--- io.github.alexzhirkevich:qrose-core:1.0.1
-+|    |         |    \--- io.github.alexzhirkevich:qrose-core-desktop:1.0.1
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.4.10 (*)
-+|    |         |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.12.0 (*)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:1.9.22 -> 2.4.10 (*)
-+|    |         \--- org.jetbrains.compose.ui:ui:1.6.0 -> 1.12.0 (*)
++|    +--- io.github.alexzhirkevich:qrose:1.1.2
++|    |    \--- io.github.alexzhirkevich:qrose-desktop:1.1.2
++|    |         +--- io.github.alexzhirkevich:qrose-core:1.1.2
++|    |         |    \--- io.github.alexzhirkevich:qrose-core-desktop:1.1.2
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
++|    |         |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.10 (*)
++|    |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19
 +|    |    +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.18
 +|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1
