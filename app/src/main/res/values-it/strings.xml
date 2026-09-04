@@ -152,7 +152,6 @@
     <string name="font_size">Dimensione carattere</string>
     <string name="row_spacing">Interlinea</string>
     <string name="customize_edit_screen">Personalizza schermata di modifica</string>
-    <string name="translations">Contribuisci alla traduzione</string>
     <string name="add_location">Aggiungi posizione</string>
     <string name="remove">Elimina</string>
     <string name="geofence_radius">Raggio area geografica</string>
@@ -180,17 +179,14 @@
     <string name="opacity">Opacità</string>
     <string name="theme">Tema</string>
     <string name="color">Colore</string>
-    <string name="launcher_icon">Icona del launcher</string>
     <string name="theme_black">Nero</string>
     <string name="theme_light">Chiaro</string>
     <string name="theme_dark">Scuro</string>
     <string name="theme_wallpaper">Sfondo</string>
     <string name="theme_day_night">Giorno/Notte</string>
-    <string name="language">Lingua</string>
     <string name="restart_required">Riavvia Tasks per rendere effettiva la modifica</string>
     <string name="restart_now">Riavvia ora</string>
     <string name="restart_later">Dopo</string>
-    <string name="settings_localization">Localizzazione</string>
     <string name="widget_settings">Impostazioni widget</string>
     <string name="widget_header_settings">Impostazioni intestazione</string>
     <string name="widget_row_settings">Impostazioni riga</string>
@@ -294,7 +290,6 @@
     <string name="widget_due_date_hidden">Nascosto</string>
     <string name="widget_due_date_below_title">Sotto il titolo</string>
     <string name="widget_due_date_after_title">Dopo il titolo</string>
-    <string name="widget_open_list">Apri lista</string>
     <string name="CFC_list_name">Nella lista…</string>
     <string name="astrid_sort_order_summary">Abilita la modalità di ordinamento manuale di Astrid per \"Attività personali\", \"Oggi\" ed etichette. Questa modalità di ordinamento verrà sostituita da \"Ordine personalizzato\" in un futuro aggiornamento</string>
     <string name="custom_filter_criteria">Criteri del filtro</string>
@@ -306,8 +301,6 @@
     <string name="opacity_header">Opacità intestazione</string>
     <string name="widget_show_dividers">Mostra separatori</string>
     <string name="lists">Liste</string>
-    <string name="open_last_viewed_list">Apri l\'ultima lista visualizzata</string>
-    <string name="on_launch">All\'avvio</string>
     <string name="sort_modified_group">Modificato %s</string>
     <string name="sort_created_group">Creato %s</string>
     <string name="support_development_subscribe">Sblocca funzionalità aggiuntive e supporta il software open source</string>
@@ -382,8 +375,6 @@
     <string name="upgrade_more_customization_description">Sblocca tutti i temi, i colori e le icone</string>
     <string name="upgrade_more_customization">Maggiore personalizzazione</string>
     <string name="pro_free_trial">I nuovi abbonati ricevono 7 giorni di prova gratuita. Puoi recedere in qualsiasi momento</string>
-    <string name="markdown_description">Abilita la formattazione Markdown nel titolo e nella descrizione</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Ora</string>
     <string name="completed">Completate</string>
     <string name="snackbar_task_completed">Attività completata</string>

@@ -154,7 +154,6 @@
     <string name="font_size">Размер шрифта</string>
     <string name="row_spacing">Межстрочный интервал</string>
     <string name="customize_edit_screen">Настроить экран редактирования</string>
-    <string name="translations">Участвовать в переводе программы</string>
     <string name="add_location">Добавить место</string>
     <string name="remove">Удалить</string>
     <string name="geofence_radius">Радиус геозоны</string>
@@ -183,17 +182,14 @@
     <string name="opacity">Непрозрачность</string>
     <string name="theme">Цветовая тема</string>
     <string name="color">Цвет</string>
-    <string name="launcher_icon">Иконка запуска</string>
     <string name="theme_black">Чёрная</string>
     <string name="theme_light">Светлая</string>
     <string name="theme_dark">Тёмная</string>
     <string name="theme_wallpaper">Как обои</string>
     <string name="theme_day_night">День / ночь</string>
-    <string name="language">Язык</string>
     <string name="restart_required">Перезапустите Tasks для применения изменений</string>
     <string name="restart_now">Перезапустить сейчас</string>
     <string name="restart_later">Позже</string>
-    <string name="settings_localization">Локализация</string>
     <string name="widget_settings">Настройки виджета</string>
     <string name="widget_header_settings">Настройки заголовка</string>
     <string name="widget_row_settings">Настройки строк</string>
@@ -286,7 +282,6 @@
     <string name="widget_due_date_hidden">Спрятано</string>
     <string name="widget_due_date_below_title">Под названием</string>
     <string name="widget_due_date_after_title">После названия</string>
-    <string name="widget_open_list">Открыть список</string>
     <string name="opacity_footer">Непрозрачность футера</string>
     <string name="opacity_row">Непрозрачность строки</string>
     <string name="opacity_header">Непрозрачность заголовка</string>
@@ -320,8 +315,6 @@
     <string name="permission_read_tasks">Полный доступ к базе данных Tasks</string>
     <string name="reset_sort_order">Сбросить порядок сортировки</string>
     <string name="lists">Списки</string>
-    <string name="open_last_viewed_list">Открыть последний просмотренный список</string>
-    <string name="on_launch">При запуске</string>
     <string name="CFC_list_name">В списке…</string>
     <string name="astrid_sort_order_summary">Включите режим ручной сортировки Astrid для «Моих задач», «Сегодня» и меток. Этот режим сортировки будет заменён на «Мой порядок» в будущем обновлении</string>
     <string name="astrid_sort_order">Ручная сортировка Astrid</string>
@@ -383,8 +376,6 @@
     <string name="upgrade_more_customization_description">Разблокировать все темы, цвета и иконки</string>
     <string name="upgrade_more_customization">Больше настроек</string>
     <string name="pro_free_trial">Новые подписчики получают 7-дневный бесплатный пробный период. Отмена возможна в любое время</string>
-    <string name="markdown_description">Включить Markdown в названии и описании</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Сейчас</string>
     <string name="completed">Завершено</string>
     <string name="snackbar_task_completed">Задача выполнена</string>

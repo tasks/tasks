@@ -13,7 +13,6 @@
     <string name="gcal_TEA_error">Kamalian sa pagdadagdag ng gawain sa kalendaryo!</string>
     <string name="gcal_TEA_showCalendar_label">Buksan ang pangyayari sa kalendaryo</string>
     <string name="gcal_completed_title">%s (naganap)</string>
-    <string name="translations">Umambag ng pagsasalin</string>
     <string name="user">Gumagamit</string>
     <string name="location_remind_departure">Ipaalala sa pagdating</string>
     <string name="location_arrived">Dumating sa %s</string>

@@ -141,7 +141,6 @@
     <string name="font_size">字体大小</string>
     <string name="row_spacing">行间距</string>
     <string name="customize_edit_screen">自定义编辑屏幕</string>
-    <string name="translations">贡献翻译</string>
     <string name="remove">移除</string>
     <string name="tags">标签</string>
     <string name="date_shortcut_morning">上午</string>
@@ -167,17 +166,14 @@
     <string name="opacity">不透明度</string>
     <string name="theme">主题</string>
     <string name="color">颜色</string>
-    <string name="launcher_icon">启动器图标</string>
     <string name="theme_black">黑色</string>
     <string name="theme_light">亮色</string>
     <string name="theme_dark">暗色</string>
     <string name="theme_wallpaper">壁纸</string>
     <string name="theme_day_night">日/夜</string>
-    <string name="language">语言</string>
     <string name="restart_required">必须重新启动 Tasks 才能使更改生效</string>
     <string name="restart_now">马上重启</string>
     <string name="restart_later">稍后</string>
-    <string name="settings_localization">本地化</string>
     <string name="widget_settings">插件设置</string>
     <string name="widget_header_settings">标题设置</string>
     <string name="widget_row_settings">行设置</string>
@@ -267,7 +263,6 @@
     <string name="settings_default">默认</string>
     <string name="widget_id">部件ID：%d</string>
     <string name="widget_show_menu">显示菜单</string>
-    <string name="widget_open_list">打开清单</string>
     <string name="auto_dismiss_datetime_widget_summary">从小部件中选择时自动关闭</string>
     <string name="auto_dismiss_datetime_widget">小部件</string>
     <string name="auto_dismiss_datetime_edit_summary">从任务编辑中选择时自动关闭</string>
@@ -307,8 +302,6 @@
     <string name="sort_modified_group">修改时间 %s</string>
     <string name="sort_created_group">创建时间 %s</string>
     <string name="lists">清单</string>
-    <string name="open_last_viewed_list">打开上次查看的清单</string>
-    <string name="on_launch">启动时</string>
     <string name="astrid_sort_order_summary">为“我的任务”，“今天”和标签启用 Astrid 的手动排序模式。在以后的更新中，此排序模式将被“我的顺序”代替</string>
     <string name="astrid_sort_order">Astrid 手动排序</string>
     <string name="CFC_list_name">在某清单中…</string>
@@ -372,8 +365,6 @@
     <string name="upgrade_more_customization_description">解锁所有主题、颜色和图标</string>
     <string name="upgrade_more_customization">更多自定义</string>
     <string name="pro_free_trial">新订阅者可获得 7 天免费试用。随时取消</string>
-    <string name="markdown_description">在任务标题和描述中启用 Markdown</string>
-    <string name="markdown">Markdown</string>
     <string name="now">现在</string>
     <string name="completed">已完成</string>
     <string name="snackbar_task_completed">任务已完成</string>

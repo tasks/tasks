@@ -146,7 +146,6 @@
     <string name="font_size">Karakter méret</string>
     <string name="row_spacing">Sorköz</string>
     <string name="customize_edit_screen">Szerkesztő képernyő testreszabása</string>
-    <string name="translations">Részvétel a fordításban</string>
     <string name="add_location">Hely hozzáadása</string>
     <string name="remove">Eltávolítás</string>
     <string name="geofence_radius">Távolság</string>
@@ -174,17 +173,14 @@
     <string name="opacity">Átlátszóság</string>
     <string name="theme">Téma</string>
     <string name="color">Szín</string>
-    <string name="launcher_icon">Launcher ikon</string>
     <string name="theme_black">Fekete</string>
     <string name="theme_light">Világos</string>
     <string name="theme_dark">Sötét</string>
     <string name="theme_wallpaper">Háttérkép</string>
     <string name="theme_day_night">Nappal/Éjszaka</string>
-    <string name="language">Nyelv</string>
     <string name="restart_required">Indítsd újra a Tasks appot a változás érvényesítéséhez</string>
     <string name="restart_now">Újraindítás most</string>
     <string name="restart_later">Később</string>
-    <string name="settings_localization">Lokalizáció</string>
     <string name="widget_settings">Widget beállításai</string>
     <string name="widget_header_settings">Fejléc beállításai</string>
     <string name="widget_row_settings">Sorok beállíátsai</string>
@@ -273,7 +269,6 @@
     <string name="widget_due_date_hidden">Elrejtve</string>
     <string name="widget_due_date_below_title">Cím alatt</string>
     <string name="widget_due_date_after_title">Cím után</string>
-    <string name="widget_open_list">Lista megnyitása</string>
     <string name="opacity_footer">Lábléc átlátszóság</string>
     <string name="opacity_row">Sor átlátszóság</string>
     <string name="opacity_header">Fejléc átlátszóság</string>
@@ -310,8 +305,6 @@
     <string name="sort_modified_group">%s módosítva</string>
     <string name="sort_created_group">%s létrehozva</string>
     <string name="lists">Listák</string>
-    <string name="open_last_viewed_list">Utoljára használt lista megnyitása</string>
-    <string name="on_launch">Indításkor</string>
     <string name="astrid_sort_order_summary">Astrid egyéni sorbarendezés engedélyezése a \"Saját Feladatok\" és a \"Ma\" listákra illetve a címkékre. Ezt a sorbarendezési módot egy jövőbeni frissítésben fel fogja váltani a \"Saját sorrend\"</string>
     <string name="astrid_sort_order">Astrid egyéni sorbarendezés</string>
     <string name="CFC_list_name">Ebben a listában…</string>
@@ -375,8 +368,6 @@
     <string name="upgrade_more_customization_description">Az összes téma, szín és ikon feloldása</string>
     <string name="upgrade_more_customization">Még nagyobb testreszabhatóság</string>
     <string name="pro_free_trial">Az új előfizetők 7 napos ingyenes kipróbálási lehetőséget kapnak. Az előfizetés bármikor lemondható</string>
-    <string name="markdown_description">Markdown engedélyezése címben és leírásban</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Most</string>
     <string name="completed">Elvégzett</string>
     <string name="snackbar_task_completed">Feladat elvégezve</string>

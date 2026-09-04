@@ -51,7 +51,6 @@
     <string name="backup_BAc_export">Sao lưu ngay</string>
     <string name="TVA_add_comment">Thêm bình luận…</string>
     <string name="actfm_picture_clear">Xoá ảnh</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Việc đăng ký của bạn hỗ trợ cho sự phát triển được tiếp tục</string>
     <string name="upgrade_tasks_org_account_description">Đồng bộ bằng Tasks.org và hợp tác với những người dùng khác</string>
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
@@ -96,8 +95,6 @@
     <string name="reset_sort_order">Đặt lại thứ tự sắp xếp</string>
     <string name="lists">Danh sách</string>
     <string name="local_lists">Danh sách cục bộ</string>
-    <string name="open_last_viewed_list">Mở danh sách đã xem lần cuối</string>
-    <string name="on_launch">Khi khởi động</string>
     <string name="sort_modified_group">Đã sửa đổi %s</string>
     <string name="sort_created_group">Đã tạo %s</string>
     <string name="support_development_subscribe">Mở khoá các tính năng bổ sung và hỗ trợ phần mềm mã nguồn mở</string>
@@ -211,22 +208,18 @@
     <string name="widget_due_date_hidden">Ẩn</string>
     <string name="widget_due_date_below_title">Dưới tiêu đề</string>
     <string name="widget_due_date_after_title">Sau tiêu đề</string>
-    <string name="widget_open_list">Mở danh sách</string>
     <string name="widget_row_settings">Cài đặt hàng</string>
     <string name="widget_header_settings">Cài đặt tiêu đề</string>
     <string name="widget_settings">Cài đặt tiện ích</string>
-    <string name="settings_localization">Ngôn ngữ</string>
     <string name="restart_later">Để sau</string>
     <string name="restart_now">Khởi động lại ngay</string>
     <string name="restart_required">Khởi động lại Tasks để thay đổi này có hiệu lực</string>
-    <string name="language">Ngôn ngữ</string>
     <string name="theme_system_default">Mặc định hệ thống</string>
     <string name="theme_day_night">Ngày/Đêm</string>
     <string name="theme_wallpaper">Hình nền</string>
     <string name="theme_dark">Tối</string>
     <string name="theme_light">Sáng</string>
     <string name="theme_black">Đen</string>
-    <string name="launcher_icon">Biểu tượng trên launcher</string>
     <string name="icon">Biểu tượng</string>
     <string name="color">Màu</string>
     <string name="theme">Chủ đề</string>
@@ -261,7 +254,6 @@
     <string name="geofence_radius">Bán kính</string>
     <string name="remove">Xoá</string>
     <string name="add_location">Thêm vị trí</string>
-    <string name="translations">Đóng góp bản dịch</string>
     <string name="customize_edit_screen">Tuỳ biến màn hình chỉnh sửa</string>
     <string name="row_spacing">Khoảng cách hàng</string>
     <string name="header_spacing">Khoảng cách</string>
@@ -373,7 +365,6 @@
     <string name="TEA_timer_est">Ước tính %s</string>
     <string name="astrid_sort_order">Sắp xếp thủ công của Astrid</string>
     <string name="SSD_sort_my_order">Thứ tự của tôi</string>
-    <string name="markdown_description">Bật Markdown trong tiêu đề và mô tả</string>
     <string name="import_summary_title">Tóm tắt khôi phục</string>
     <string name="now">Bây giờ</string>
     <string name="completed">Hoàn tất</string>

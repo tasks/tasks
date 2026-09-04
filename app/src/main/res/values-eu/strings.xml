@@ -151,7 +151,6 @@
     <string name="font_size">Letraren tamaina</string>
     <string name="row_spacing">Errenkaden banatze espazioa</string>
     <string name="customize_edit_screen">Pertsonalizatu edizio pantaila</string>
-    <string name="translations">Lagundu itzulpenekin</string>
     <string name="add_location">Gehitu kokalekua</string>
     <string name="remove">Kendu</string>
     <string name="geofence_radius">Geoesparruaren erradioa</string>
@@ -180,17 +179,14 @@
     <string name="opacity">Opakutasuna</string>
     <string name="theme">Azala</string>
     <string name="color">Kolorea</string>
-    <string name="launcher_icon">Abiarazlearen ikonoa</string>
     <string name="theme_black">Beltza</string>
     <string name="theme_light">Argia</string>
     <string name="theme_dark">Iluna</string>
     <string name="theme_wallpaper">Horma-papera</string>
     <string name="theme_day_night">Eguna/Gaua</string>
-    <string name="language">Hizkuntza</string>
     <string name="restart_required">Berrabiarazi Tasks aldaketa aplikatzeko</string>
     <string name="restart_now">Berrabiarazi orain</string>
     <string name="restart_later">Geroago</string>
-    <string name="settings_localization">Lokalizazioa</string>
     <string name="widget_settings">Trepetaren ezarpenak</string>
     <string name="widget_header_settings">Goiburuaren ezarpenak</string>
     <string name="widget_row_settings">Errenkadaren ezarpenak</string>
@@ -301,7 +297,6 @@
     <string name="widget_due_date_hidden">Ezkutatuta</string>
     <string name="widget_due_date_below_title">Izenburuaren azpian</string>
     <string name="widget_due_date_after_title">Izenburua eta gero</string>
-    <string name="widget_open_list">Ireki zerrenda</string>
     <string name="opacity_footer">Oinaren opakotasuna</string>
     <string name="opacity_row">Errenkadaren opakotasuna</string>
     <string name="opacity_header">Goiburuaren opakotasuna</string>
@@ -315,8 +310,6 @@
     <string name="sort_modified_group">Aldaketa %s</string>
     <string name="sort_created_group">Sorrera %s</string>
     <string name="lists">Zerrendak</string>
-    <string name="open_last_viewed_list">Ireki ikusitako azkenen zerrenda</string>
-    <string name="on_launch">Abioan</string>
     <string name="astrid_sort_order">Eskuzko Astrid ordenatzea</string>
     <string name="astrid_sort_order_summary">Gaitu Astrid-eko eskuzko ordenatze modua \'Nire zereginak\', \'Gaur\', eta etiketentzako. Ordenatze modu honek \'Nire ordena\'-rekin ordezkatuko da etorkizuneko bertsio batean</string>
     <string name="reset_sort_order">Berrezarri ordenatze irizpidea</string>
@@ -373,8 +366,6 @@
     <string name="privacy">Pribatutasuna</string>
     <string name="open_source">Kode irekia</string>
     <string name="support">Euskarria</string>
-    <string name="markdown_description">Markdown gaitu izenburuan eta deskribapenean</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Harpidetzak etengabeko garapenaren alde egiten du</string>
     <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
     <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>

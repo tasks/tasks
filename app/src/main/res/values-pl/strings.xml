@@ -152,7 +152,6 @@
     <string name="font_size">Rozmiar czcionki</string>
     <string name="row_spacing">Odstęp wierszy</string>
     <string name="customize_edit_screen">Dostosuj ekran edycji</string>
-    <string name="translations">Wspomóż tłumaczenie</string>
     <string name="add_location">Dodaj lokalizację</string>
     <string name="remove">Usuń</string>
     <string name="geofence_radius">Promień</string>
@@ -180,17 +179,14 @@
     <string name="opacity">Nieprzezroczystość</string>
     <string name="theme">Motyw</string>
     <string name="color">Kolor</string>
-    <string name="launcher_icon">Ikona programu startowego</string>
     <string name="theme_black">Czarny</string>
     <string name="theme_light">Jasny</string>
     <string name="theme_dark">Ciemny</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Dzień/noc</string>
-    <string name="language">Język</string>
     <string name="restart_required">Zrestartuj Tasks aby wprowadzić zmiany</string>
     <string name="restart_now">Zrestartuj teraz</string>
     <string name="restart_later">Póżniej</string>
-    <string name="settings_localization">Ustawienia regionalne</string>
     <string name="widget_settings">Ustawienie widgetu</string>
     <string name="widget_header_settings">Ustawienia nagłówka</string>
     <string name="widget_row_settings">Ustawienia rzędu</string>
@@ -285,7 +281,6 @@
     <string name="widget_due_date_hidden">Ukryte</string>
     <string name="widget_due_date_below_title">Poniżej tytułu</string>
     <string name="widget_due_date_after_title">Po tytule</string>
-    <string name="widget_open_list">Otwórz listę</string>
     <string name="opacity_footer">Nieprzezroczystość stopki</string>
     <string name="opacity_row">Nieprzezroczystość wierszy</string>
     <string name="opacity_header">Nieprzezroczystość nagłówka</string>
@@ -319,8 +314,6 @@
     <string name="permission_read_tasks">Pełny dostęp do bazy danych Tasks</string>
     <string name="reset_sort_order">Resetuj porządek sortowania</string>
     <string name="lists">Listy</string>
-    <string name="open_last_viewed_list">Otwórz ostatnio przeglądaną listę</string>
-    <string name="on_launch">Przy uruchomieniu</string>
     <string name="CFC_list_name">Na liście…</string>
     <string name="astrid_sort_order_summary">Aktywuje ręczny (jak w Astrid) tryb sortowania dla \'Moich zadań\', \'Dzisiaj\' oraz tagów. Ten tryb sortowania będzie zastąpiony przez \'Ręczne\' w kolejnych aktualizacjach</string>
     <string name="astrid_sort_order">Ręczne sortowanie (jak w Astrid)</string>
@@ -376,8 +369,6 @@
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
     <string name="privacy">Prywatność</string>
     <string name="support">Wsparcie</string>
-    <string name="markdown_description">Włącz Markdown w tytule i opisie</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Twoja subskrypcja wspiera dalszy rozwój aplikacji</string>
     <string name="upgrade_tasks_org_account_description">Synchronizuj z Tasks.org oraz współpracuj z innymi użytkownikami</string>
     <string name="upgrade_more_customization_description">Odblokuj wszystkie motywy, kolory oraz ikony</string>

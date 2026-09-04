@@ -94,7 +94,6 @@
     <string name="miscellaneous">雜項設定</string>
     <string name="enabled">啟用</string>
     <string name="row_spacing">行距</string>
-    <string name="translations">貢獻翻譯</string>
     <string name="tags">標籤</string>
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
@@ -102,7 +101,6 @@
     <string name="opacity">透明度</string>
     <string name="theme">主題</string>
     <string name="color">色彩</string>
-    <string name="language">語言</string>
     <string name="restart_required">重新啟動 Tasks以使變更生效</string>
     <string name="restart_now">馬上重新啟動</string>
     <string name="restart_later">稍後</string>
@@ -198,8 +196,6 @@
     <string name="automatic_backups">自動備份</string>
     <string name="reset_sort_order">重設排序次序</string>
     <string name="lists">清單</string>
-    <string name="open_last_viewed_list">開器最後觀看的清單</string>
-    <string name="on_launch">啟動時</string>
     <string name="support_development_subscribe">解鎖附加功能和支持開源軟體</string>
     <string name="enjoying_tasks">喜歡 Tasks 嗎？</string>
     <string name="filter_eisenhower_box_4">不重要不急迫</string>
@@ -277,18 +273,15 @@
     <string name="widget_due_date_hidden">隱藏</string>
     <string name="widget_due_date_below_title">標題之下</string>
     <string name="widget_due_date_after_title">標題之後</string>
-    <string name="widget_open_list">開啟清單</string>
     <string name="widget_row_settings">行設定</string>
     <string name="widget_header_settings">標頭設定</string>
     <string name="widget_settings">小工具設定</string>
-    <string name="settings_localization">在地化</string>
     <string name="theme_system_default">系統預設</string>
     <string name="theme_day_night">日/夜</string>
     <string name="theme_wallpaper">桌布</string>
     <string name="theme_dark">深色</string>
     <string name="theme_black">黑色</string>
     <string name="theme_light">亮色</string>
-    <string name="launcher_icon">啟動器圖示</string>
     <string name="icon">圖示</string>
     <string name="opacity_footer">註腳透明度</string>
     <string name="opacity_header">標頭透明度</string>
@@ -329,8 +322,6 @@
     <string name="customize_edit_screen_summary">重新排列或移除欄位</string>
     <string name="TEA_creation_date">建立日期</string>
     <string name="decsync_selection_description">基於檔案的同步</string>
-    <string name="markdown">Markdown</string>
-    <string name="markdown_description">在標題和描述中啟用 Markdown</string>
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
     <string name="name_your_price">自行設定價格</string>
     <string name="background_location_permission_required">Tasks 收集位置資料以啟用基於位置的提醒，即使應用程式關閉或未使用。</string>

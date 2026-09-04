@@ -92,7 +92,6 @@
     <string name="enabled">فعال شده</string>
     <string name="font_size">اندازه فونت</string>
     <string name="row_spacing">فاصله سطرها</string>
-    <string name="translations">مشارکت در ترجمه</string>
     <string name="remove">حذف</string>
     <string name="tags">برچسب ها</string>
     <string name="date_shortcut_morning">صبح</string>
@@ -110,10 +109,8 @@
     <string name="color">رنگ</string>
     <string name="theme_light">روشن</string>
     <string name="theme_dark">تیره</string>
-    <string name="language">زبان</string>
     <string name="restart_now">اکنون ریست کن</string>
     <string name="restart_later">بعدا</string>
-    <string name="settings_localization">محلی‌سازی</string>
     <string name="ok">تایید</string>
     <string name="cancel">لغو</string>
     <string name="read_permission_label">مجوز وظایف</string>

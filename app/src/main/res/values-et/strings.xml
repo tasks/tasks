@@ -98,7 +98,6 @@
     <string name="font_size">Teksti suurus</string>
     <string name="row_spacing">Reavahed</string>
     <string name="customize_edit_screen">Kohanda muutmise vaadet</string>
-    <string name="translations">Aita tõlkida</string>
     <string name="add_location">Lisa asukoht</string>
     <string name="remove">Eemalda</string>
     <string name="geofence_radius">Geofence\'i raadius</string>
@@ -125,13 +124,11 @@
     <string name="opacity">Läbipaistvus</string>
     <string name="theme">Teema</string>
     <string name="color">Värv</string>
-    <string name="launcher_icon">Rakenduse ikoon</string>
     <string name="theme_black">Must</string>
     <string name="theme_light">Hele</string>
     <string name="theme_dark">Tume</string>
     <string name="theme_wallpaper">Taustapilt</string>
     <string name="theme_day_night">Päev/Öö</string>
-    <string name="language">Keel</string>
     <string name="restart_now">Taaskäivita kohe</string>
     <string name="restart_later">Hiljem</string>
     <string name="widget_settings">Vidina seadistused</string>
@@ -224,7 +221,6 @@
     <string name="github_sponsor">Sponsor</string>
     <string name="custom_filter_has_subtask">Alamülesannetega</string>
     <string name="snackbar_task_completed">Ülesanne lõpetatud</string>
-    <string name="widget_open_list">Ava loend</string>
     <string name="widget_due_date_below_title">Pealkirja all</string>
     <string name="custom_filter_criteria">Filtreerimise alus</string>
     <string name="settings_default">Vaikimisi</string>
@@ -241,7 +237,6 @@
     <string name="customize_drawer">Kohanda menüüriba</string>
     <string name="CFC_startBefore_name">Algusajaks…</string>
     <string name="CFC_list_name">Nimekirjas…</string>
-    <string name="settings_localization">Kohalikustamine</string>
     <string name="custom_filter_has_reminder">Meeldetuletusega</string>
     <string name="privacy">Privaatsus</string>
     <string name="sort_list">Loendi alusel</string>
@@ -250,8 +245,6 @@
     <string name="filter_no_priority">Prioriteedita</string>
     <string name="filter_criteria_unstarted">Alustamata</string>
     <string name="local_lists">Seadme loendid</string>
-    <string name="markdown">Markdown</string>
-    <string name="open_last_viewed_list">Ava viimati vaadatud loend</string>
     <string name="backups_ignore_warnings_summary">Eira varundushoiatusi, kui sa koopiaid ei vaja või sul on varundamiseks enda lahendus</string>
     <plurals name="repeat_times">
         <item quantity="one">kord</item>
@@ -268,10 +261,8 @@
     <string name="help_and_feedback">Abi ja tagasiside</string>
     <string name="ok">Ok</string>
     <string name="cancel">Tühista</string>
-    <string name="markdown_description">Luba Markdown pealkirjas ja kirjelduses</string>
     <string name="now">Kohe</string>
     <string name="sort_created_group">Loodud %s</string>
-    <string name="on_launch">Käivitamisel</string>
     <string name="always_display_full_date">Näita pikka kuupäeva</string>
     <string name="no_start_date">Alguskuupäev puudub</string>
     <string name="SSD_sort_start">Alguskuupäeva alusel</string>

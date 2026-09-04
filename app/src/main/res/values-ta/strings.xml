@@ -91,8 +91,6 @@
     <string name="permission_read_tasks">பணிகள் தரவுத்தளத்திற்கான முழு அணுகல்</string>
     <string name="reset_sort_order">வரிசை வரிசையை மீட்டமைக்கவும்</string>
     <string name="lists">பட்டியல்கள்</string>
-    <string name="open_last_viewed_list">கடைசியாகப் பார்த்த பட்டியலைத் திறக்கவும்</string>
-    <string name="on_launch">தொடங்கும்போது</string>
     <string name="sort_modified_group">மாற்றியமைக்கப்பட்ட %s</string>
     <string name="sort_created_group">%s உருவாக்கப்பட்டது</string>
     <string name="enjoying_tasks">பணிகளை அனுபவிக்கிறீர்களா\?</string>
@@ -192,15 +190,12 @@
     <string name="widget_due_date_hidden">மறைக்கப்பட்டுள்ளது</string>
     <string name="widget_due_date_below_title">தலைப்புக்கு கீழே</string>
     <string name="widget_due_date_after_title">தலைப்புக்குப் பிறகு</string>
-    <string name="widget_open_list">திறந்த பட்டியல்</string>
     <string name="widget_row_settings">வரிசை அமைப்புகள்</string>
     <string name="widget_header_settings">தலைப்பு அமைப்புகள்</string>
     <string name="widget_settings">விட்ஜெட் அமைப்புகள்</string>
-    <string name="settings_localization">உள்ளூர்மயமாக்கல்</string>
     <string name="restart_later">பின்னர்</string>
     <string name="restart_now">இப்போது மறுதொடக்கம் செய்யுங்கள்</string>
     <string name="restart_required">இந்த மாற்றம் நடைமுறைக்கு வருவதற்கான பணிகளை மறுதொடக்கம் செய்யுங்கள்</string>
-    <string name="language">மொழி</string>
     <string name="theme_system_default">கணினி இயல்புநிலை</string>
     <string name="theme_day_night">பகல் / இரவு</string>
     <string name="theme_wallpaper">சுவர்</string>
@@ -238,7 +233,6 @@
     <string name="geofence_radius">புவிவேளி ஆரம்</string>
     <string name="remove">அகற்று</string>
     <string name="add_location">இருப்பிடத்தைச் சேர்க்கவும்</string>
-    <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
     <string name="customize_edit_screen">திருத்து திரையைத் தனிப்பயனாக்குங்கள்</string>
     <string name="row_spacing">வரிசை இடைவெளி</string>
     <string name="font_size">எழுத்துரு அளவு</string>
@@ -354,7 +348,6 @@
     <string name="custom_filter_is_subtask">சப்டாச்க்</string>
     <string name="subscription">சந்தா</string>
     <string name="delete_comment">கருத்து</string>
-    <string name="launcher_icon">துவக்கி படவுரு</string>
     <string name="sort_list">பட்டியல் மூலம்</string>
     <string name="change_priority">முன்னுரிமையை மாற்றவும்</string>
     <string name="sort_completion_group">நிறைவு %s</string>
@@ -396,7 +389,6 @@
     <string name="privacy">தனியுரிமை</string>
     <string name="app_passwords_more_info">மூன்றாம் தரப்பு டெச்க்டாப் மற்றும் மொபைல் பயன்பாடுகளுடன் உங்கள் பணிகள் மற்றும் காலெண்டர்களை ஒத்திசைக்கவும். மேலும் தகவலுக்கு இங்கே தட்டவும்</string>
     <string name="snackbar_tasks_completed">%d பணிகள் முடிந்தது</string>
-    <string name="markdown_description">தலைப்பு மற்றும் விளக்கத்தில் மார்க் டவுனை இயக்கவும்</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
@@ -407,7 +399,6 @@
     <string name="account_not_included">\'உங்கள் விலை பெயர்\' சந்தாக்களுடன் சேர்க்கப்படவில்லை</string>
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
-    <string name="markdown">மார்க் பேரூர்</string>
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>

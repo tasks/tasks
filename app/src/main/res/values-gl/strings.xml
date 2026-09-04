@@ -120,7 +120,6 @@
     <string name="font_size">Tamaño da fonte</string>
     <string name="row_spacing">Espazado de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla de edición</string>
-    <string name="translations">Contribúe coa tradución</string>
     <string name="remove">Borrar</string>
     <string name="tags">Etiquetas</string>
     <string name="date_shortcut_morning">Mañá</string>
@@ -150,11 +149,9 @@
     <string name="theme_dark">Escuro</string>
     <string name="theme_wallpaper">Fondo de pantalla</string>
     <string name="theme_day_night">Día/Noite</string>
-    <string name="language">Lingua</string>
     <string name="restart_required">Debe reiniciar Tasks para que as mudanzas xordan efecto</string>
     <string name="restart_now">Reiniciar ahora</string>
     <string name="restart_later">Máis tarde</string>
-    <string name="settings_localization">Localización</string>
     <string name="widget_settings">Configuración de widgets</string>
     <string name="widget_header_settings">Configuración de cabeceiras</string>
     <string name="widget_row_settings">Configuración de filas</string>
@@ -239,7 +236,6 @@
     <string name="now">Agora</string>
     <string name="header_spacing">Espazado</string>
     <string name="subtasks">Subtarefas</string>
-    <string name="widget_open_list">Abrir lista</string>
     <string name="user">Usuario/a</string>
     <string name="requires_pro_subscription">Precísase dunha subscrición pro</string>
     <string name="this_feature_requires_a_subscription">Esta característica necesita dunha suscrición</string>
@@ -252,7 +248,6 @@
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
     <string name="upgrade_more_customization">Máis opcións</string>
     <string name="upgrade_more_customization_description">Desbloquear todos os temas, cores e iconas</string>
-    <string name="markdown">Markdown</string>
     <string name="auto_dismiss_datetime">Pechar o selector de data automaticamente</string>
     <string name="lists">Listas</string>
     <string name="last_backup">Última copia de seguranza: %s</string>
@@ -291,7 +286,6 @@
     <string name="google_drive_backup">Seguranza en Google Drive</string>
     <string name="opacity_row">Opacidade da fila</string>
     <string name="opacity_footer">Opacidade do rodapé</string>
-    <string name="launcher_icon">Icona de escritorio</string>
     <string name="theme_system_default">Predefinido do sistema</string>
     <string name="dont_add_to_calendar">Non engadir ao calendario</string>
     <string name="background_location_permission_required">Tasks recolle información de posicións para ser quen de amosar os recordatorios con información de posicións, incluído cando o aplicativo non estea aberto.</string>
@@ -318,7 +312,6 @@
     <string name="filter_after_today">Despois de hoxe</string>
     <string name="filter_no_tags">Sen etiquetas</string>
     <string name="filter_eisenhower_box_3">Non importantes e urxentes</string>
-    <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="local_lists">Listas locais</string>
     <string name="reset_sort_order">Reiniciar a forma de ordenar</string>
     <string name="automatic_backups">Copias de seguranza automáticas</string>
@@ -366,7 +359,6 @@
     <string name="donate_maybe_later">Quizais máis tarde</string>
     <string name="support_development_subscribe">Desbloquea funcións adicionais e apoia software de código aberto</string>
     <string name="sort_completion_group">Completado %s</string>
-    <string name="on_launch">Ao iniciar</string>
     <string name="permission_read_tasks">Acceso completo á base de datos de Tasks</string>
     <string name="android_auto_backup">Servicio de Copias de Seguridade de Android</string>
     <string name="android_auto_backup_device_summary">Tamén debes activar o servizo de copia de seguridade a través da configuración do teu dispositivo. Non todos os dispositivos ofrecen servizo de copia de seguridade.</string>
@@ -386,7 +378,6 @@
     <string name="pro_free_trial">Os novos subscritores reciben unha proba gratuíta de 7 días. Cancela en calquera momento</string>
     <string name="upgrade_tasks_org_account_description">Sincroniza con Tasks.org e colabora con outros usuarios</string>
     <string name="upgrade_open_source_description">A túa subscrición apoia o desenvolvemento continuo</string>
-    <string name="markdown_description">Activa Markdown no título e na descrición</string>
     <string name="dismiss">Descartar</string>
     <string name="hint_customize_edit_title">Demasiada información?</string>
     <string name="hint_customize_edit_body">Podes personalizar esta pantalla reorganizando ou eliminando campos</string>

@@ -4,8 +4,6 @@
     <string name="custom_filter_is_subtask">උප කාර්යයක්වේද</string>
     <string name="custom_filter_has_subtask">උප කාර්යයන් ඇත</string>
     <string name="local_lists">පවත්නා ලැයිස්තු</string>
-    <string name="open_last_viewed_list">අවසන් වරට බැලූ ලැයිස්තුව විවෘත කරන්න</string>
-    <string name="on_launch">ආරම්භ කිරීමේදී</string>
     <string name="sort_modified_group">වෙනස් කරන ලද %s</string>
     <string name="sort_created_group">සැකසූ %s</string>
     <string name="filter_overdue">නියමිත දිනය පසුවූ</string>
@@ -113,21 +111,17 @@
     <string name="delete_multiple_tasks_confirmation">%s මකා දමන ලදි</string>
     <string name="copy_multiple_tasks_confirmation">%s පිටපත් කරන ලදි</string>
     <string name="clear_completed_tasks_confirmation">සම්පුර්ණ කරන ලද කාර්යයන් ඉවත් කරනවාද\?</string>
-    <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
     <string name="widget_row_settings">පේළි සැකසුම්</string>
     <string name="widget_header_settings">ශීර්ෂ සැකසුම්</string>
-    <string name="settings_localization">ප්‍රාදේශීයකරණය</string>
     <string name="restart_later">පසුව</string>
     <string name="restart_now">නැවත ආරම්භ කරන්න</string>
     <string name="restart_required">මෙම වෙනස බලාත්මක කිරීම සඳහා Tasks නැවත අරඹන්න</string>
-    <string name="language">භාෂාව</string>
     <string name="theme_system_default">පද්ධති පෙරනිමිය</string>
     <string name="theme_day_night">දිවා / රාත්‍රි</string>
     <string name="theme_wallpaper">බිතුපත (Wallpaper)</string>
     <string name="theme_dark">අඳුරු පැහැති</string>
     <string name="theme_light">ලා පැහැති</string>
     <string name="theme_black">කලු පැහැය</string>
-    <string name="launcher_icon">දියත් කිරීමේ අයිකනය</string>
     <string name="icon">අයිකනය</string>
     <string name="color">වර්ණය</string>
     <string name="theme">තේමාව</string>
@@ -357,7 +351,6 @@
     <string name="location_radius_meters">%s මීටර්</string>
     <string name="remove">ඉවත් කරන්න</string>
     <string name="add_location">ස්ථානය එක් කරන්න</string>
-    <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
     <string name="customize_edit_screen">සංස්කරණ තිරය අභිරුචිකරණය කරන්න</string>
     <string name="row_spacing">පේළි පරතරය</string>
     <string name="header_spacing">පරතරය</string>
@@ -374,8 +367,6 @@
     <string name="widget_show_title">මාතෘකාව පෙන්වන්න</string>
     <string name="widget_show_settings">සැකසුම් පෙන්වන්න</string>
     <string name="widget_show_header">ශීර්ෂකය පෙන්වන්න</string>
-    <string name="markdown_description">මාතෘකාව සහ විස්තරය තුළ ලකුණු කිරීම සක්‍රිය කරන්න</string>
-    <string name="markdown">ලකුණු කිරීම</string>
     <string name="migrating_tasks">සංක්‍රමණික කාර්යයන්</string>
     <string name="background_location">පසුබිම් ස්ථානය</string>
     <string name="foreground_location">පෙරබිම ස්ථානය</string>

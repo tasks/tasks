@@ -106,7 +106,6 @@
     <string name="miscellaneous">Různé</string>
     <string name="enabled">Povoleno</string>
     <string name="font_size">Velikost písma</string>
-    <string name="translations">Přispějte k překladu</string>
     <string name="remove">Odstranit</string>
     <string name="tags">Štítky</string>
     <string name="date_shortcut_morning">Ráno</string>
@@ -128,11 +127,9 @@
     <string name="theme_dark">Tmavý</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Den/Noc</string>
-    <string name="language">Jazyk</string>
     <string name="restart_required">Restartujte aplikaci, aby se tato změna projevila</string>
     <string name="restart_now">Restartovat nyní</string>
     <string name="restart_later">Později</string>
-    <string name="settings_localization">Překlad</string>
     <string name="widget_settings">Nastavení ovládacího prvku</string>
     <string name="action_call">Volat</string>
     <string name="TEA_control_location">Umístění</string>
@@ -193,7 +190,6 @@
     <string name="pick_from_gallery">Vybrat z galerie</string>
     <string name="pick_from_storage">Vybrat z úložiště</string>
     <string name="name_cannot_be_empty">Název nemůže být prázdný</string>
-    <string name="launcher_icon">Ikona na domovské obrazovce</string>
     <string name="widget_header_settings">Nastavení záhlaví</string>
     <string name="widget_row_settings">Nastavení řádku</string>
     <string name="clear_completed_tasks_confirmation">Smazat splněné úkoly\?</string>
@@ -271,7 +267,6 @@
     <string name="widget_due_date_hidden">Skrytý</string>
     <string name="widget_due_date_below_title">Pod názvem</string>
     <string name="widget_due_date_after_title">Za názvem</string>
-    <string name="widget_open_list">Otevřít seznam</string>
     <string name="widget_show_dividers">Zobrazit oddělovače</string>
     <string name="whats_new">Co je nového</string>
     <string name="pick_this_location">Vybrat toto místo</string>
@@ -282,8 +277,6 @@
     <string name="CFC_list_name">V seznamu…</string>
     <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro „Moje úkoly“, „Dnes“ a štítky. Tento režim řazení bude v budoucnu nahrazen režimem „Vlastní řazení“</string>
     <string name="astrid_sort_order">Ruční řazení Astrid</string>
-    <string name="open_last_viewed_list">Otevřít poslední prohlížený seznam</string>
-    <string name="on_launch">Při spuštění</string>
     <string name="lists">Seznamy</string>
     <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
     <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks</string>
@@ -377,8 +370,6 @@
     <string name="start_date">Datum zahájení</string>
     <string name="SSD_sort_start">Podle data zahájení</string>
     <string name="ok">OK</string>
-    <string name="markdown_description">Zapnout Markdown v nadpisu a popisu</string>
-    <string name="markdown">Značkovací jazyk</string>
     <string name="upgrade_open_source_description">Vaše předplatné podporuje pokračování vývoje</string>
     <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatními uživateli</string>
     <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>

@@ -144,7 +144,6 @@
     <string name="font_size">Lettergrootte</string>
     <string name="row_spacing">Regelafstand</string>
     <string name="customize_edit_screen">Taakscherm aanpassen</string>
-    <string name="translations">Vertalingen toevoegen</string>
     <string name="add_location">Locatie toevoegen</string>
     <string name="remove">Verwijderen</string>
     <string name="geofence_radius">Geofence-straal</string>
@@ -171,16 +170,13 @@
     <string name="opacity">Transparantie</string>
     <string name="theme">Thema</string>
     <string name="color">Kleur</string>
-    <string name="launcher_icon">Startpictogram</string>
     <string name="theme_black">Zwart</string>
     <string name="theme_light">Licht</string>
     <string name="theme_dark">Donker</string>
     <string name="theme_wallpaper">Achtergrond</string>
     <string name="theme_day_night">Dag/Nacht</string>
-    <string name="language">Taal</string>
     <string name="restart_required">Start Tasks opnieuw om wijzigingen door te voeren</string>
     <string name="restart_now">Herstart nu</string>
-    <string name="settings_localization">Localisatie</string>
     <string name="widget_settings">Widget instellingen</string>
     <string name="widget_header_settings">Koptekst instellingen</string>
     <string name="widget_row_settings">Regel instellingen</string>
@@ -270,7 +266,6 @@
     <string name="settings_default">Standaardwaarde</string>
     <string name="widget_id">Widget ID: %d</string>
     <string name="widget_show_menu">Menu tonen</string>
-    <string name="widget_open_list">Lijst openen</string>
     <string name="widget_due_date_hidden">Verborgen</string>
     <string name="widget_due_date_below_title">Onder titel</string>
     <string name="widget_due_date_after_title">Na titel</string>
@@ -311,9 +306,7 @@
     <string name="sort_modified_group">Bewerkt %s</string>
     <string name="astrid_sort_order_summary">Schakel Astrids handmatige sorteermodus in voor \'Mijn taken\', \'Vandaag\' en tags. Deze sorteermodus wordt in een toekomstige update vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
-    <string name="on_launch">Bij het starten</string>
     <string name="lists">Lijsten</string>
-    <string name="open_last_viewed_list">Laatst bekeken lijst openen</string>
     <string name="CFC_list_name">In de lijst…</string>
     <string name="reset_sort_order">Sorteervolgorde terugzetten</string>
     <string name="permission_read_tasks">Toegang verlenen tot Tasks-database</string>
@@ -375,8 +368,6 @@
     <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
     <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
     <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>
-    <string name="markdown_description">Sta Markdown toe in titel en beschrijving</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Nu</string>
     <string name="completed">Voltooid</string>
     <string name="snackbar_task_completed">Taak voltooid</string>

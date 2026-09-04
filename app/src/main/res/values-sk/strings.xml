@@ -157,7 +157,6 @@
     <string name="font_size">Veľkosť písma</string>
     <string name="row_spacing">Šírka riadkov</string>
     <string name="customize_edit_screen">Prispôsobiť zobrazenie úprav</string>
-    <string name="translations">Prispieť prekladom</string>
     <string name="add_location">Pridať polohu</string>
     <string name="remove">Odstrániť</string>
     <string name="geofence_radius">Polomer geofence</string>
@@ -184,17 +183,14 @@
     <string name="opacity">Priehľadnosť</string>
     <string name="theme">Téma</string>
     <string name="color">Farba</string>
-    <string name="launcher_icon">Ikona</string>
     <string name="theme_black">Čierna</string>
     <string name="theme_light">Svetlá</string>
     <string name="theme_dark">Tmavá</string>
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Deň/Noc</string>
-    <string name="language">Jazyk</string>
     <string name="restart_required">Reštartujte aplikáciu, aby sa zmena prejavila</string>
     <string name="restart_now">Reštartovať teraz</string>
     <string name="restart_later">Neskôr</string>
-    <string name="settings_localization">Preklad</string>
     <string name="widget_settings">Widget - nastavenia</string>
     <string name="widget_header_settings">Nastavenie záhlavia </string>
     <string name="widget_row_settings">Nastavenie riadka</string>
@@ -282,7 +278,6 @@
     <string name="astrid_sort_order">Ručné triedenie Astrid</string>
     <string name="start_date">Dátum spustenia</string>
     <string name="theme_system_default">Podľa systému</string>
-    <string name="widget_open_list">Otvoriť zoznam</string>
     <string name="astrid_sort_order_summary">Zapne ručné triedenie Astrid pre „Moje úlohy“, „Dnes“ a štítky. Tento režim triedenia bude v budúcnosti nahradený režimom „Vlastné triedenie“</string>
     <string name="display_name">Zobrazované meno</string>
     <string name="sort_completion_group">Dokončené %s</string>
@@ -293,7 +288,6 @@
     <string name="lists">Zoznamy</string>
     <string name="multi_select_reschedule">Preložiť</string>
     <string name="custom_filter_has_subtask">Má podúlohy</string>
-    <string name="on_launch">Pri spustení</string>
     <string name="sort_created_group">Vytvorené %s</string>
     <string name="caldav_selection_description">Synchronizácia založená na otvorených štandardoch</string>
     <string name="collapse_subtasks">Zbaliť podúlohy</string>
@@ -333,7 +327,6 @@
     <string name="donate_today">Prispejte dnes</string>
     <string name="donate_maybe_later">Možno neskôr</string>
     <string name="sort_modified_group">Zmenené %s</string>
-    <string name="open_last_viewed_list">Otvoriť posledný zobr. zoznam</string>
     <string name="android_auto_backup">Android služba zálohovania</string>
     <string name="last_backup_never">nikdy</string>
     <string name="device_settings">Nastavenia zariadenia</string>
@@ -346,7 +339,6 @@
     <string name="migrate_count">Presunúť %s do Tasks.org</string>
     <string name="above_average">Nadpriemerné</string>
     <string name="account_not_included">Nezahrnuté v predplatnom type „Zaplaťte koľko chcete“</string>
-    <string name="markdown_description">Zapnúť Markdown v nadpise a popise</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
     <string name="cost_money">Cena: $</string>
     <string name="cost_more_money">Cena: $$$</string>
@@ -370,7 +362,6 @@
     <string name="add_tags">Pridať štítky</string>
     <string name="filter_high_priority">Vysoká dôležitosť</string>
     <string name="filter_medium_priority">Stredná dôležitosť</string>
-    <string name="markdown">Markdown</string>
     <string name="place_settings">Nastavenia miesta</string>
     <string name="share">Zdieľať</string>
     <string name="widget_id">ID widgetu: %d</string>

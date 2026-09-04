@@ -185,7 +185,6 @@
     <string name="header_spacing">Κενά μεταξύ γραμμάτων</string>
     <string name="row_spacing">Κενά μεταξύ σειρών</string>
     <string name="icon">Εικονίδιο</string>
-    <string name="launcher_icon">Εικονίδιο Launcher (προωθητή)</string>
     <string name="theme_black">Μαύρο</string>
     <string name="theme_light">Λευκό</string>
     <string name="theme_dark">Σκοτεινό</string>
@@ -193,7 +192,6 @@
     <string name="theme_day_night">Μέρα/Νύχτα</string>
     <string name="theme_system_default">Προεπιλογή Συστήματος</string>
     <string name="theme_dynamic">Δυναμικό</string>
-    <string name="language">Γλώσσα</string>
     <string name="restart_required">Επανεκκινήστε τις Εργασίες για να εφαρμοστεί αυτή η αλλαγή</string>
     <string name="copy_multiple_tasks_confirmation">%s αντιγράφηκε</string>
     <string name="delete_multiple_tasks_confirmation">%s διαγράφηκε</string>
@@ -305,8 +303,6 @@
     <string name="sort_created_group">Δημιουργήθηκε %s</string>
     <string name="sort_modified_group">Τροποποιήθηκε %s</string>
     <string name="sort_completion_group">Ολοκλήρωση %s</string>
-    <string name="on_launch">Κατά την εκκίνηση</string>
-    <string name="open_last_viewed_list">Άνοιγμα λίστας όσων προβλήθηκαν τελευταία</string>
     <string name="local_lists">Τοπικές λίστες</string>
     <string name="lists">Λίστες</string>
     <string name="reset_sort_order">Επαναφορά σειράς ταξινόμησης</string>
@@ -354,8 +350,6 @@
     <string name="upgrade_more_customization_description">Ξεκλειδώστε όλα τα θέματα, χρώματα και εικονίδια</string>
     <string name="upgrade_tasks_org_account_description">Συγχρονίστε με το Tasks.org και συνεργαστείτε με άλλους χρήστες</string>
     <string name="upgrade_open_source_description">Η συνδρομή σας υποστηρίζει τη συνεχή ανάπτυξη</string>
-    <string name="markdown">Αποτίμηση (Markdown)</string>
-    <string name="markdown_description">Ενεργοποίηση αποτίμησης (Markdown) στον τίτλο και την περιγραφή</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="snackbar_task_completed">Η εργασία ολοκληρώθηκε</string>
     <string name="snackbar_tasks_completed">%d ολοκληρωμένες εργασίες</string>
@@ -378,7 +372,6 @@
     <string name="widget_show_checkboxes">Εμφάνιση πλαισίων ελέγχου (κουτάκια)</string>
     <string name="customize_edit_screen">Προσαρμογή οθόνης επεξεργασίας</string>
     <string name="customize_edit_screen_summary">Αναδιάταξη ή κατάργηση πεδίων</string>
-    <string name="translations">Συνεισφέρετε μεταφράσεις</string>
     <string name="geofence_radius">Ακτίνα γεωφράγματος</string>
     <string name="location_radius_meters">%s μ</string>
     <string name="tags">Ετικέτες</string>
@@ -415,11 +408,9 @@
     <string name="color">Χρώμα</string>
     <string name="restart_now">Επανεκκίνηση τώρα</string>
     <string name="restart_later">Αργότερα</string>
-    <string name="settings_localization">Εντοπισμός</string>
     <string name="widget_settings">Ρυθμίσεις γραφικού στοιχείου</string>
     <string name="widget_header_settings">Ρυθμίσεις κεφαλίδας</string>
     <string name="widget_row_settings">Ρυθμίσεις σειράς</string>
-    <string name="widget_open_list">Άνοιγμα λίστας</string>
     <string name="widget_due_date_after_title">Μετά τον τίτλο</string>
     <string name="widget_due_date_below_title">Κάτω από τον τίτλο</string>
     <string name="widget_due_date_hidden">Κρυμμένο</string>

@@ -69,10 +69,7 @@
     </plurals>
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
-    <string name="translations">Contribuir traduccions</string>
     <string name="filter_settings">Configuració dels filtres</string>
-    <string name="language">Idioma</string>
-    <string name="settings_localization">Localització</string>
     <string name="export_toast">Recolzades %1$s de %2$s.</string>
     <string name="import_summary_message">El fitxer %1$s contenia %2$s. \n \n %3$s importades \n %4$s ja existien \n %5$s tenien errors</string>
     <string name="TLA_no_items">No hi ha cap tasca aquí.</string>
@@ -262,7 +259,6 @@
     <string name="opacity_header">Opacitat de la capçalera</string>
     <string name="opacity_row">Opacitat de la fila</string>
     <string name="theme">Tema</string>
-    <string name="launcher_icon">Icona del llançador</string>
     <string name="theme_black">Negre</string>
     <string name="widget_settings">Preferències del giny</string>
     <string name="color">Color</string>
@@ -281,7 +277,6 @@
     <string name="copy_multiple_tasks_confirmation">%s copiat</string>
     <string name="delete_multiple_tasks_confirmation">%s esborrat</string>
     <string name="widget_due_date_after_title">Després del títol</string>
-    <string name="widget_open_list">Llista oberta</string>
     <string name="copy_selected_tasks">Voleu copiar les tasques seleccionades?</string>
     <string name="app_settings">Configuració de l\'aplicació</string>
     <string name="widget_row_settings">Paràmetres de la fila</string>
@@ -356,8 +351,6 @@
     <string name="sort_created_group">S\'ha creat %s</string>
     <string name="sort_modified_group">S\'ha modificat %s</string>
     <string name="sort_completion_group">Finalització %s</string>
-    <string name="on_launch">En iniciar</string>
-    <string name="open_last_viewed_list">Obriu la darrera llista vista</string>
     <string name="local_lists">Llistes locals</string>
     <string name="lists">Llistes</string>
     <string name="reset_sort_order">Restabliu l\'ordre d\'ordenació</string>
@@ -405,8 +398,6 @@
     <string name="upgrade_more_customization_description">Desbloquegeu tots els temes, colors i icones</string>
     <string name="upgrade_tasks_org_account_description">Sincronitzeu amb Tasks.org i col·labora amb altres usuaris</string>
     <string name="upgrade_open_source_description">La vostra subscripció suporta el desenvolupament continu</string>
-    <string name="markdown">Markdown</string>
-    <string name="markdown_description">Habiliteu el Markdown en el títol i la descripció</string>
     <string name="completed">Completat</string>
     <string name="snackbar_task_completed">Tasca completada</string>
     <string name="snackbar_tasks_completed">%d tasques completades</string>

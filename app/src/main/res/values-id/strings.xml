@@ -106,7 +106,6 @@
     <string name="font_size">Ukuran huruf</string>
     <string name="row_spacing">Spasi baris</string>
     <string name="customize_edit_screen">Kostumisasi layar sunting</string>
-    <string name="translations">Kontribusi terjemahan</string>
     <string name="add_location">Tambah lokasi</string>
     <string name="remove">Hapus</string>
     <string name="location_radius_meters">%s m</string>
@@ -133,16 +132,13 @@
     <string name="theme">Tema</string>
     <string name="color">Warna</string>
     <string name="icon">Ikon</string>
-    <string name="launcher_icon">Ikon peluncur</string>
     <string name="theme_black">Hitam</string>
     <string name="theme_light">Cerah</string>
     <string name="theme_dark">Gelap</string>
     <string name="theme_day_night">Siang/Malam</string>
-    <string name="language">Bahasa</string>
     <string name="restart_required">Mulai ulang Tasks supaya perubahan ini diterapkan</string>
     <string name="restart_now">Mulai ulang sekarang</string>
     <string name="restart_later">Nanti</string>
-    <string name="settings_localization">Pelokalan bahasa</string>
     <string name="widget_settings">Pengaturan wisaya</string>
     <string name="widget_header_settings">Pengaturan tajuk</string>
     <string name="widget_row_settings">Pengaturan baris</string>
@@ -234,7 +230,6 @@
     <string name="tasker_list_notification">Daftar Notifikasi</string>
     <string name="widget_due_date_hidden">Tersembunyi</string>
     <string name="widget_due_date_after_title">Sesudah judul</string>
-    <string name="widget_open_list">Buka daftar</string>
     <string name="theme_system_default">Bawaan sistem</string>
     <string name="no_app_found">Tidak ada aplikasi yang dapat menangani permintaan ini</string>
     <string name="date_shortcut_must_come_before">%1$s harus datang sebelum %2$s</string>
@@ -297,8 +292,6 @@
     <string name="reset_sort_order">Setel ulang sortir urutan</string>
     <string name="lists">Daftar</string>
     <string name="local_lists">Daftar lokal</string>
-    <string name="open_last_viewed_list">Buka daftar yang terakhir dilihat</string>
-    <string name="on_launch">Pada awal peluncuran</string>
     <string name="sort_modified_group">Diubah %s</string>
     <string name="sort_created_group">Dibuat %s</string>
     <string name="support_development_subscribe">Temukan fitur tambahan dan dukung perangkat lunak sumber terbuka</string>
@@ -373,8 +366,6 @@
     <string name="pro_free_trial">Pelanggan baru menerima percobaan aplikasi gratis selama 7-hari. Batalkan kapan saja</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
-    <string name="markdown_description">Aktifkan Markdown di judul dan keterangan</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Sekarang</string>
     <string name="completed">Selesai</string>
     <string name="custom_filter_has_reminder">Berpengingat</string>

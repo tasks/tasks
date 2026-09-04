@@ -154,7 +154,6 @@
     <string name="font_size">גודל גופן</string>
     <string name="row_spacing">מרווח בין שורות</string>
     <string name="customize_edit_screen">התאמה אישית של מסך העריכה</string>
-    <string name="translations">לתרום תרגומים</string>
     <string name="add_location">הוספת מיקום</string>
     <string name="remove">הסרה</string>
     <string name="geofence_radius">רדיוס גדר גאוגרפית</string>
@@ -183,17 +182,14 @@
     <string name="opacity">אטימות</string>
     <string name="theme">ערכת נושא</string>
     <string name="color">צבע</string>
-    <string name="launcher_icon">סמל משגר</string>
     <string name="theme_black">שחור</string>
     <string name="theme_light">בהיר</string>
     <string name="theme_dark">כהה</string>
     <string name="theme_wallpaper">תמונת רקע</string>
     <string name="theme_day_night">יום/לילה</string>
-    <string name="language">שפה</string>
     <string name="restart_required">יש להפעיל מחדש את Tasks כדי ששינוי זה ייכנס לתוקף</string>
     <string name="restart_now">הפעלה מחדש כעת</string>
     <string name="restart_later">מאוחר יותר</string>
-    <string name="settings_localization">לוקליזציה</string>
     <string name="widget_settings">הגדרות יישומון</string>
     <string name="widget_header_settings">הגדרות כותרת עליונה</string>
     <string name="widget_row_settings">הגדרות שורה</string>
@@ -288,7 +284,6 @@
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
     <string name="choose_synchronization_service">בחירת פלטפורמה</string>
-    <string name="widget_open_list">פתיחת רשימה</string>
     <string name="theme_system_default">ברירת מחדל של המערכת</string>
     <string name="opacity_footer">אטימות כותרת תחתונה</string>
     <string name="opacity_header">אטימות כותרת עליונה</string>
@@ -296,7 +291,6 @@
     <string name="CFC_list_name">ברשימה…</string>
     <string name="display_name">שם תצוגה</string>
     <string name="lists">רשימות</string>
-    <string name="open_last_viewed_list">פתיחת הרשימה האחרונה שנצפתה</string>
     <string name="permission_read_tasks">גישה מלאה למסד הנתונים של Tasks</string>
     <string name="reset_sort_order">איפוס סדר מיון</string>
     <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
@@ -318,7 +312,6 @@
     <string name="auto_dismiss_datetime_list">רשימת משימות</string>
     <string name="auto_dismiss_datetime">לסגור אוטומטית את בוחר התאריך והשעה</string>
     <string name="auto_dismiss_datetime_edit_summary">לסגור אוטומטית בעת בחירה מעריכת משימה</string>
-    <string name="on_launch">בעת שיגור</string>
     <string name="astrid_sort_order_summary">הפעל מצב מיון ידני של Astrid עבור \'המשימות שלי\', \'היום\', ותגיות. מצב מיון זה יוחלף ב\'הסדר שלי\' בעדכון עתידי</string>
     <string name="astrid_sort_order">מיון ידני של Astrid</string>
     <string name="sort_modified_group">השתנה %s</string>
@@ -366,8 +359,6 @@
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
     <string name="start_date">תאריך התחלה</string>
     <string name="filter_criteria_unstarted">לא התחילו</string>
-    <string name="markdown_description">אפשור Markdown בכותרת ובתיאור</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">המינוי שלך תומך בהמשך הפיתוח</string>
     <string name="upgrade_tasks_org_account_description">סנכרון עם Tasks.org ושיתוף פעולה עם משתמשים אחרים</string>
     <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים, והסמלים</string>

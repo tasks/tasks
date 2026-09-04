@@ -167,7 +167,6 @@
     <string name="geofence_radius">رداس</string>
     <string name="remove">ختم کریں</string>
     <string name="add_location">لوکیشن لگائیں</string>
-    <string name="translations">ترجمہ کریں</string>
     <string name="customize_edit_screen">ایڈٹ سکرین کسٹمائز کریں</string>
     <string name="row_spacing">قطاروں کی سپیسنگ</string>
     <string name="header_spacing">سپیسنگ</string>
@@ -203,18 +202,15 @@
     <string name="widget_row_settings">قطار کی سیٹنگ</string>
     <string name="widget_header_settings">ہیڈر کی سیٹنگ</string>
     <string name="widget_settings">ویجٹ سیٹنگ</string>
-    <string name="settings_localization">لوکلائزیشن</string>
     <string name="restart_later">بعد میں</string>
     <string name="restart_now">ابھی ری سٹارٹ کریں</string>
     <string name="restart_required">اس تبدیلی کو اثردار بنانے کیلئے ایپ ری سٹارٹ کریں</string>
-    <string name="language">زبان</string>
     <string name="theme_system_default">سسٹم ڈیفالٹ</string>
     <string name="theme_day_night">دن/رات</string>
     <string name="theme_wallpaper">وال پیپر</string>
     <string name="theme_dark">ڈارک</string>
     <string name="theme_light">سفید</string>
     <string name="theme_black">سیاہ</string>
-    <string name="launcher_icon">لانچر آئیکن</string>
     <string name="icon">آئیکن</string>
     <string name="color">رنگ</string>
     <string name="theme">تھیم</string>
@@ -236,7 +232,6 @@
     <string name="widget_due_date_hidden">چھپا ہوا</string>
     <string name="widget_due_date_below_title">عنوان کے نیچے</string>
     <string name="widget_due_date_after_title">عنوان کے بعد</string>
-    <string name="widget_open_list">فہرست کھولیں</string>
     <string name="tasker_create_task">ٹاسک بنائیں</string>
     <string name="badges_description">ٹاسکس ایپ کے آئیکن پر ٹاسک کی تعداد ظاہر کریں۔ تمام لانچرز نشانات کو سپوڑٹ نہیں کرتے۔</string>
     <string name="dont_add_to_calendar">کیلنڈر میں داخل نہ کریں</string>

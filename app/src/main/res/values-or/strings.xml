@@ -64,9 +64,7 @@
         <item quantity="other">ଥର</item>
     </plurals>
     <string name="widget_show_menu">ମେନୁ ଦେଖାଅ</string>
-    <string name="translations">ଅନୁଵାଦରେ ଯୋଗଦାନ କରନ୍ତୁ</string>
     <string name="theme_black">କଳା</string>
-    <string name="language">ଭାଷା</string>
     <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>
     <string name="restart_later">ପରେ</string>
     <string name="widget_due_date_after_title">ଆଖ୍ୟା ପରେ</string>

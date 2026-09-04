@@ -162,7 +162,6 @@
     <string name="font_size">Šrifto dydis</string>
     <string name="row_spacing">Eilutės plotis</string>
     <string name="customize_edit_screen">Pritaikyti redagavimo ekraną</string>
-    <string name="translations">Padėti išversti</string>
     <string name="add_location">Pridėti vietą</string>
     <string name="remove">Išmesti</string>
     <string name="geofence_radius">Geofence spindulys</string>
@@ -190,17 +189,14 @@
     <string name="opacity">Permatomumas</string>
     <string name="theme">Tema</string>
     <string name="color">Spalva</string>
-    <string name="launcher_icon">Paleidimo piktograma</string>
     <string name="theme_black">Juoda</string>
     <string name="theme_light">Šviesi</string>
     <string name="theme_dark">Tamsi</string>
     <string name="theme_wallpaper">Fono vaizdas</string>
     <string name="theme_day_night">Diena/Naktis</string>
-    <string name="language">Kalba</string>
     <string name="restart_required">Iš naujo paleiskite Tasks, kad šis pakeitimas įsigaliotų</string>
     <string name="restart_now">Perkrauti dabar</string>
     <string name="restart_later">Vėliau</string>
-    <string name="settings_localization">Lokalizacija</string>
     <string name="widget_settings">Valdiklio nustatymai</string>
     <string name="widget_header_settings">Antraščių nustatymai</string>
     <string name="widget_row_settings">Eilutės nustatymai</string>
@@ -287,12 +283,9 @@
     <string name="filter_medium_priority">Vidutinis prioritetas</string>
     <string name="preferences_advanced">Išplėstiniai</string>
     <string name="show_advanced_settings">Rodyti išplėstinius nustatymus</string>
-    <string name="widget_open_list">Atidaryti sąrašą</string>
     <string name="start_date">Pradžios data</string>
     <string name="SSD_sort_my_order">Mano užsakymas</string>
     <string name="upgrade_open_source_description">Jūsų prenumerata palaiko tolesnį kūrimą</string>
-    <string name="markdown">Markdown</string>
-    <string name="markdown_description">Įgalinti Markdown pavadinime ir aprašyme</string>
     <string name="upgrade_more_customization_description">Atrakinkite visas temas, spalvas ir piktogramas</string>
     <string name="CFC_list_name">Yra sąraše…</string>
     <string name="no_start_date">Be pradžios datos</string>
@@ -363,8 +356,6 @@
     <string name="permission_read_tasks">Pilna prieiga prie Tasks duomenų bazės</string>
     <string name="reset_sort_order">Iš naujo nustatyti rūšiavimo tvarką</string>
     <string name="local_lists">Vietiniai sąrašai</string>
-    <string name="open_last_viewed_list">Atidaryti paskutinį peržiūrėtą sąrašą</string>
-    <string name="on_launch">Paleidžiant</string>
     <string name="sort_modified_group">Modifikuota %s</string>
     <string name="sort_created_group">Sukurta %s</string>
     <string name="support_development_subscribe">Atrakinkite papildomas funkcijas ir palaikykite atvirojo kodo programinę įrangą</string>

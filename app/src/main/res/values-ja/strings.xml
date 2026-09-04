@@ -148,7 +148,6 @@
     <string name="font_size">フォントサイズ</string>
     <string name="row_spacing">行間隔</string>
     <string name="customize_edit_screen">編集画面をカスタマイズ</string>
-    <string name="translations">翻訳に協力する</string>
     <string name="add_location">場所を追加</string>
     <string name="remove">削除</string>
     <string name="geofence_radius">ジオフェンスの半径</string>
@@ -176,17 +175,14 @@
     <string name="opacity">透明度</string>
     <string name="theme">テーマ</string>
     <string name="color">色</string>
-    <string name="launcher_icon">ランチャーアイコン</string>
     <string name="theme_black">黒</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
     <string name="theme_wallpaper">壁紙</string>
     <string name="theme_day_night">デイナイト</string>
-    <string name="language">言語</string>
     <string name="restart_required">変更を反映するために Tasks を再起動します</string>
     <string name="restart_now">今すぐ再起動</string>
     <string name="restart_later">あとで</string>
-    <string name="settings_localization">ローカライズ</string>
     <string name="widget_settings">ウィジェット設定</string>
     <string name="widget_header_settings">ヘッダー設定</string>
     <string name="widget_row_settings">行設定</string>
@@ -244,7 +240,6 @@
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
     <string name="subscription">サブスクリプション</string>
     <string name="help_and_feedback">ヘルプとフィードバック</string>
-    <string name="widget_open_list">開くリスト</string>
     <string name="theme_system_default">システムデフォルト</string>
     <string name="opacity_row">行の透明度</string>
     <string name="opacity_footer">フッターの透明度</string>
@@ -284,7 +279,6 @@
     <string name="no_app_found">使用できるアプリがありません</string>
     <string name="background_location_permission_required">Tasks は場所に関連したリマインダーを有効にするため、アプリを閉じているときでも位置情報を取得します。</string>
     <string name="authentication_required">認証が必要です</string>
-    <string name="markdown">マークダウン</string>
     <string name="auto_dismiss_datetime_widget">ウィジェット</string>
     <string name="lists">リスト</string>
     <string name="migrating_tasks">タスクを移行する</string>
@@ -305,14 +299,12 @@
     <string name="filter_any_due_date">締切あり</string>
     <string name="filter_medium_priority">優先度 中</string>
     <string name="support_development_subscribe">追加機能を利用可能にし、オープンソースソフトウェアを支援する</string>
-    <string name="open_last_viewed_list">最後に表示したリストを開く</string>
     <string name="last_backup">最新のバックアップ: %s</string>
     <string name="reset_sort_order">並び順をリセット</string>
     <string name="backups_ignore_warnings">警告を無視する</string>
     <string name="save_percent">%d%% オフ</string>
     <string name="github_sponsors">GitHub スポンサー</string>
     <string name="github_sponsor">スポンサー</string>
-    <string name="markdown_description">タイトル欄と説明欄でマークダウン記法を有効にします</string>
     <string name="snackbar_task_completed">タスク完了</string>
     <string name="hint_customize_edit_title">情報量が多すぎる？</string>
     <string name="hint_customize_edit_body">この画面は、フィールドを並べ替えたり削除してカスタマイズすることができます</string>
@@ -367,7 +359,6 @@
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
     <string name="sort_modified_group">変更: %s</string>
-    <string name="on_launch">起動時</string>
     <string name="sort_completion_group">完了: %s</string>
     <string name="automatic_backups">自動バックアップ</string>
     <string name="your_subscription_expired">サブスクリプションの有効期限が切れています。サービスを引き続き利用するには、サブスクリプションを更新してください。</string>

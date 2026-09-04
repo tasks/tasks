@@ -75,11 +75,9 @@
     <string name="enabled">مفعّل</string>
     <string name="font_size">حجم الخط</string>
     <string name="customize_edit_screen">تعديل الشاشة</string>
-    <string name="translations">ساهم في الترجمة</string>
     <string name="remove">حذف</string>
     <string name="filter_settings">إعدادات التصفية</string>
     <string name="opacity">التعتيم</string>
-    <string name="settings_localization">تخصيص اللغة و الجهة</string>
     <string name="backup_BAc_export">نسخ احتياطي الآن</string>
     <string name="theme_system_default">افتراضيات النظام</string>
     <string name="theme_day_night">صباحي/مسائي</string>
@@ -88,7 +86,6 @@
     <string name="theme_dark">داكن</string>
     <string name="theme_light">فاتح</string>
     <string name="theme">المظهر</string>
-    <string name="language">اللغة</string>
     <string name="restart_later">لاحقاً</string>
     <string name="action_call">اتصل</string>
     <string name="TLA_no_items">لا يوجد مهمات هنا.</string>
@@ -102,9 +99,6 @@
     <string name="show_description">عرض الوصف</string>
     <string name="widget_show_menu">إظهار القائمة</string>
     <string name="row_spacing">المسافة بين السطور</string>
-    <string name="widget_open_list">فتح قائمة</string>
-    <string name="open_last_viewed_list">فتح آخر قائمة تم عرضها</string>
-    <string name="on_launch">عند فتح التطبيق</string>
     <string name="building_notifications">توليد الإخطارات</string>
     <string name="TEA_control_location">الموقع</string>
     <string name="EPr_show_task_edit_comments">إظهار التعليقات في شاشة تحرير المهمة</string>
@@ -268,12 +262,10 @@
     <string name="refresh_purchases">تحديث عمليات الشراء</string>
     <string name="delete_multiple_tasks_confirmation">%s حذفت</string>
     <string name="copy_multiple_tasks_confirmation">%s نسخت</string>
-    <string name="launcher_icon">أيقونة المشغّل</string>
     <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
     <string name="CFC_startBefore_name">بدأ عند…</string>
     <string name="CFC_startBefore_text">بدأ عند: \?</string>
     <string name="astrid_sort_order_summary">تشغيل وضع ترتيب Astrid اليدوي ل\'مهامي\' و\'اليوم\' والعلامات. وضع الترتيب هذا سيستبدل ب\'ترتيبي\' في تحديثٍ مستقبلي</string>
-    <string name="markdown_description">تشغيل الماركداون في العنوان والوصف</string>
     <plurals name="repeat_n_minutes">
         <item quantity="zero">%d دقيقة</item>
         <item quantity="one">%d دقيقة</item>
@@ -291,7 +283,6 @@
     <string name="widget_settings">إعدادات الودجيت</string>
     <string name="CFC_dueBefore_name">تستحق في…</string>
     <string name="EPr_cal_end_or_start_at_due_time">وقت حدث التقويم</string>
-    <string name="markdown">ماركداون</string>
     <string name="upgrade_tasks_org_account_description">قم بالمزامنة مع Tasks.org وتعاون مع مستخدمين آخرين</string>
     <string name="upgrade_more_customization_description">افتح جميع الثيمات والألوان والرموز</string>
     <string name="upgrade_more_customization">المزيد من التخصيص</string>

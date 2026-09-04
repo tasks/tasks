@@ -144,7 +144,6 @@
     <string name="font_size">글자 크기</string>
     <string name="row_spacing">줄 간격</string>
     <string name="customize_edit_screen">할일 편집화면 레이아웃 설정하기</string>
-    <string name="translations">번역 참여하기</string>
     <string name="add_location">위치 추가</string>
     <string name="remove">지우기</string>
     <string name="geofence_radius">반경</string>
@@ -172,17 +171,14 @@
     <string name="opacity">불투명도</string>
     <string name="theme">테마</string>
     <string name="color">색상</string>
-    <string name="launcher_icon">런처 아이콘</string>
     <string name="theme_black">검정</string>
     <string name="theme_light">밝게</string>
     <string name="theme_dark">어둡게</string>
     <string name="theme_wallpaper">바탕화면</string>
     <string name="theme_day_night">주간/야간</string>
-    <string name="language">언어</string>
     <string name="restart_required">이 변경사항을 적용하려면 Tasks 앱을 재시작하세요</string>
     <string name="restart_now">지금 재시작하기</string>
     <string name="restart_later">나중에</string>
-    <string name="settings_localization">현지화</string>
     <string name="widget_settings">위젯 설정</string>
     <string name="widget_header_settings">헤더 설정</string>
     <string name="widget_row_settings">줄 설정</string>
@@ -300,7 +296,6 @@
     <string name="action_new_task">새 할일</string>
     <string name="widget_due_date_hidden">숨기기</string>
     <string name="widget_due_date_below_title">제목 밑</string>
-    <string name="widget_open_list">목록 열기</string>
     <string name="opacity_footer">푸터 불투명도</string>
     <string name="opacity_row">줄 불투명도</string>
     <string name="opacity_header">헤더 불투명도</string>
@@ -319,10 +314,8 @@
     <string name="android_auto_backup_device_summary">기기 환경설정에서 백업 서비스 사용에 동의해야 합니다. 모든 기기가 백업 서비스를 제공하지는 않습니다.</string>
     <string name="android_auto_backup">안드로이드 백업 서비스</string>
     <string name="automatic_backups">자동 백업</string>
-    <string name="on_launch">앱 구동 시</string>
     <string name="reset_sort_order">정렬 순서 초기화</string>
     <string name="lists">목록</string>
-    <string name="open_last_viewed_list">마지막으로 보던 목록 열기</string>
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
     <string name="no_app_found">이 요청을 처리할 앱이 없습니다</string>
     <string name="header_spacing">줄 간격</string>
@@ -354,8 +347,6 @@
     <string name="CFC_startBefore_text">시작일: \?</string>
     <string name="save_percent">%d%% 절약</string>
     <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
-    <string name="markdown_description">제목과 설명에 마크다운 방식 가능</string>
-    <string name="markdown">마크 다운</string>
     <string name="upgrade_open_source_description">구독하시면 지속적인 개발을 지원합니다</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org와 동기화 및 다른 사용자와 협업</string>
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>

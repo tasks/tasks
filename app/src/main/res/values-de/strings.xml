@@ -145,7 +145,6 @@
     <string name="font_size">Schriftgröße</string>
     <string name="row_spacing">Zeilenabstand</string>
     <string name="customize_edit_screen">Bearbeitungsbildschirm anpassen</string>
-    <string name="translations">Zur Übersetzung beitragen</string>
     <string name="add_location">Ort hinzufügen</string>
     <string name="remove">Entfernen</string>
     <string name="tags">Schlagwörter</string>
@@ -171,17 +170,14 @@
     <string name="back_button_saves_task">„Zurück“ speichert Aufgabe</string>
     <string name="opacity">Deckkraft</string>
     <string name="color">Farbe</string>
-    <string name="launcher_icon">Launcher-Symbol</string>
     <string name="theme_black">Schwarz</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
     <string name="theme_wallpaper">Hintergrundbild</string>
     <string name="theme_day_night">Tag/Nacht</string>
-    <string name="language">Sprache</string>
     <string name="restart_required">Tasks muss neugestartet werden, um die Änderungen zu übernehmen</string>
     <string name="restart_now">Jetzt neustarten</string>
     <string name="restart_later">Später</string>
-    <string name="settings_localization">Übersetzung</string>
     <string name="widget_settings">Widget-Einstellungen</string>
     <string name="widget_header_settings">Kopfleisteneinstellungen</string>
     <string name="widget_row_settings">Zeileneinstellungen</string>
@@ -278,7 +274,6 @@
     <string name="widget_due_date_hidden">Verborgen</string>
     <string name="widget_due_date_after_title">Hinter dem Titel</string>
     <string name="widget_due_date_below_title">Unter dem Titel</string>
-    <string name="widget_open_list">Liste öffnen</string>
     <string name="widget_show_menu">Menü anzeigen</string>
     <string name="auto_dismiss_datetime_widget_summary">Automatisch schließen wenn aus dem Widget gewählt</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
@@ -310,9 +305,7 @@
     <string name="action_new_task">Neue Aufgabe</string>
     <string name="support_development_subscribe">Schalte zusätzliche Funktionen frei und unterstütze freie Software</string>
     <string name="astrid_sort_order_summary">Astrids manuelle Sortiermethode für „Meine Aufgaben“, „Heute“ und Schlagwörter aktivieren. Diese Sortiermethode wird in einer zukünftigen Version „Meine Sortierung“ ersetzen</string>
-    <string name="open_last_viewed_list">Zuletzt betrachtete Liste öffnen</string>
     <string name="lists">Listen</string>
-    <string name="on_launch">Beim Start</string>
     <string name="CFC_list_name">In der Liste…</string>
     <string name="astrid_sort_order">Manuelle Sortierung nach Astrid</string>
     <string name="sort_modified_group">%s bearbeitet</string>
@@ -376,8 +369,6 @@
     <string name="upgrade_more_customization_description">Schalte alle Themen, Farben und Symbole frei</string>
     <string name="upgrade_more_customization">Mehr Anpassungsmöglichkeiten</string>
     <string name="pro_free_trial">Neue Abonnent:innen erhalten eine 7-tägige kostenlose Testversion. Kann jederzeit gekündigt werden</string>
-    <string name="markdown_description">Markdown in Titel und Beschreibung aktivieren</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Jetzt</string>
     <string name="completed">Abgeschlossen</string>
     <string name="snackbar_task_completed">Aufgabe abgeschlossen</string>

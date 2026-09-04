@@ -186,7 +186,6 @@ File %1$s contained %2$s.\n\n
   <string name="row_spacing">Row spacing</string>
   <string name="customize_edit_screen">Customize edit screen</string>
   <string name="customize_edit_screen_summary">Rearrange or remove fields</string>
-  <string name="translations">Contribute translations</string>
   <string name="add_location">Add location</string>
   <string name="remove">Remove</string>
   <string name="geofence_radius">Geofence radius</string>
@@ -224,7 +223,6 @@ File %1$s contained %2$s.\n\n
   <string name="theme">Theme</string>
   <string name="color">Color</string>
   <string name="icon">Icon</string>
-  <string name="launcher_icon">Launcher icon</string>
   <string name="theme_black">Black</string>
   <string name="theme_light">Light</string>
   <string name="theme_dark">Dark</string>
@@ -232,15 +230,12 @@ File %1$s contained %2$s.\n\n
   <string name="theme_day_night">Day/Night</string>
   <string name="theme_system_default">System default</string>
   <string name="theme_dynamic">Dynamic</string>
-  <string name="language">Language</string>
   <string name="restart_required">Restart Tasks for this change to take effect</string>
   <string name="restart_now">Restart now</string>
   <string name="restart_later">Later</string>
-  <string name="settings_localization">Localization</string>
   <string name="widget_settings">Widget settings</string>
   <string name="widget_header_settings">Header settings</string>
   <string name="widget_row_settings">Row settings</string>
-  <string name="widget_open_list">Open list</string>
   <string name="widget_due_date_after_title">After title</string>
   <string name="widget_due_date_below_title">Below title</string>
   <string name="widget_due_date_hidden">Hidden</string>
@@ -365,8 +360,6 @@ File %1$s contained %2$s.\n\n
   <string name="sort_created_group">Created %s</string>
   <string name="sort_modified_group">Modified %s</string>
   <string name="sort_completion_group">Completion %s</string>
-  <string name="on_launch">On launch</string>
-  <string name="open_last_viewed_list">Open last viewed list</string>
   <string name="local_lists">Local lists</string>
   <string name="lists">Lists</string>
   <string name="reset_sort_order">Reset sort order</string>
@@ -427,8 +420,6 @@ File %1$s contained %2$s.\n\n
   <string name="upgrade_email_to_task_description">Turn emails into tasks by forwarding them to your private inbox</string>
   <string name="advanced_tools">Advanced tools</string>
   <string name="advanced_tools_description">Google Places, CalDAV, EteSync, and more!</string>
-  <string name="markdown">Markdown</string>
-  <string name="markdown_description">Enable Markdown in title and description</string>
   <string name="completed">Completed</string>
   <string name="snackbar_task_completed">Task completed</string>
   <string name="snackbar_tasks_completed">%d tasks completed</string>

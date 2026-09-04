@@ -154,7 +154,6 @@
     <string name="font_size">Розмір шрифту</string>
     <string name="row_spacing">Відстань між рядками</string>
     <string name="customize_edit_screen">Налаштувати вікно редагування</string>
-    <string name="translations">Допомогти перекласти</string>
     <string name="add_location">Додати місце</string>
     <string name="remove">Вилучити</string>
     <string name="geofence_radius">Радіус геозони</string>
@@ -183,17 +182,14 @@
     <string name="opacity">Прозорість</string>
     <string name="theme">Тема</string>
     <string name="color">Колір</string>
-    <string name="launcher_icon">Піктограма запуску</string>
     <string name="theme_black">Чорна</string>
     <string name="theme_light">Світла</string>
     <string name="theme_dark">Темна</string>
     <string name="theme_wallpaper">Шпалери</string>
     <string name="theme_day_night">День/Ніч</string>
-    <string name="language">Мова</string>
     <string name="restart_required">Перезапустіть Tasks для вступу змін в дію</string>
     <string name="restart_now">Перезапустити зараз</string>
     <string name="restart_later">Пізніше</string>
-    <string name="settings_localization">Локалізація</string>
     <string name="widget_settings">Налаштування віджету</string>
     <string name="widget_header_settings">Налаштування заголовку</string>
     <string name="widget_row_settings">Налаштування рядку</string>
@@ -309,8 +305,6 @@
     <string name="reset_sort_order">Скинути порядок сортування</string>
     <string name="lists">Списки</string>
     <string name="local_lists">Локальні списки</string>
-    <string name="open_last_viewed_list">Відкрити останній переглянутий список</string>
-    <string name="on_launch">Під час запуску</string>
     <string name="sort_modified_group">Змінено %s</string>
     <string name="sort_created_group">Створено %s</string>
     <string name="support_development_subscribe">Розблокувати додаткові функції та підтримати програмне забезпечення з відкритим джерельним кодом</string>
@@ -350,7 +344,6 @@
     <string name="widget_due_date_hidden">Сховано</string>
     <string name="widget_due_date_below_title">Під назвою</string>
     <string name="widget_due_date_after_title">Після назви</string>
-    <string name="widget_open_list">Відкрити список</string>
     <string name="opacity_footer">Непрозорість споду</string>
     <string name="opacity_row">Непрозорість строки</string>
     <string name="opacity_header">Непрозорість заголовка</string>
@@ -383,8 +376,6 @@
     <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
     <string name="upgrade_more_customization">Більше налаштувань</string>
     <string name="pro_free_trial">Нові передплатники отримують 7-денну безплатну пробну версію. Скасувати її можна в будь-який час</string>
-    <string name="markdown_description">Увімкнути Markdown у заголовку та описі</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Зараз</string>
     <string name="completed">Виконано</string>
     <string name="snackbar_task_completed">Завдання виконано</string>

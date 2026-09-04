@@ -143,7 +143,6 @@
     <string name="font_size">Kirjasimen koko</string>
     <string name="row_spacing">Rivinväli</string>
     <string name="customize_edit_screen">Saadä muokkausnäkymää</string>
-    <string name="translations">Osallistu kääntämiseen</string>
     <string name="remove">Poista</string>
     <string name="tags">Tunnisteet</string>
     <string name="date_shortcut_morning">Aamu</string>
@@ -173,11 +172,9 @@
     <string name="theme_dark">Tumma</string>
     <string name="theme_wallpaper">Taustakuva</string>
     <string name="theme_day_night">Päivä/Yö</string>
-    <string name="language">Kieli</string>
     <string name="restart_required">Käynnistä Tasks uusiksi jotta muutos tulee voimaan</string>
     <string name="restart_now">Käynnistä uudelleen nyt</string>
     <string name="restart_later">Myöhemmin</string>
-    <string name="settings_localization">Paikallistaminen</string>
     <string name="widget_settings">Widgetin asetukset</string>
     <string name="widget_header_settings">Otsikon asetukset</string>
     <string name="widget_row_settings">Rivin asetukset</string>
@@ -241,7 +238,6 @@
     <string name="password">Salasana</string>
     <string name="user">Käyttäjä</string>
     <string name="theme_system_default">Järjestelmän oletus</string>
-    <string name="launcher_icon">Käynnistyskuvake</string>
     <string name="icon">Kuvake</string>
     <string name="move">Siirrä</string>
     <string name="location_radius_meters">%s m</string>
@@ -304,19 +300,14 @@
     <string name="widget_due_date_hidden">Piilotettu</string>
     <string name="widget_due_date_below_title">Otsikon alle</string>
     <string name="widget_due_date_after_title">Otsikon jälkeen</string>
-    <string name="widget_open_list">Avaa lista</string>
     <string name="opacity_row">Rivin läpinäkyvyys</string>
     <string name="opacity_header">Ylätunnisteen läpinäkyvyys</string>
     <string name="sort_modified_group">Muutettu %s</string>
     <string name="sort_created_group">Luotu %s</string>
     <string name="lists">Listat</string>
-    <string name="open_last_viewed_list">Avaa viimeksi katsottu lista</string>
-    <string name="on_launch">Käynnistettäessä</string>
     <string name="CFC_list_name">listalla…</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
-    <string name="markdown_description">Ota Markdown käyttöön otsikossa ja kuvauksessa</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Tilauksesi tukee jatkuvaa kehitystä</string>
     <string name="upgrade_tasks_org_account_description">Synkronoi Tasks.orgin kanssa ja tee yhteistyötä muiden käyttäjien kanssa</string>
     <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>

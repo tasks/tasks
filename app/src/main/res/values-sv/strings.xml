@@ -118,7 +118,6 @@
     <string name="enabled">Aktiverad</string>
     <string name="font_size">Teckenstorlek</string>
     <string name="customize_edit_screen">Anpassa redigeringsvyn</string>
-    <string name="translations">Hjälp till att översätta</string>
     <string name="remove">Ta bort</string>
     <string name="tags">Etiketter</string>
     <string name="date_shortcut_morning">På morgonen</string>
@@ -146,11 +145,9 @@
     <string name="theme_dark">Mörkt</string>
     <string name="theme_wallpaper">Bakgrundsbild</string>
     <string name="theme_day_night">Dag/natt</string>
-    <string name="language">Språk</string>
     <string name="restart_required">Starta om Tasks för att ändringen ska börja gälla</string>
     <string name="restart_now">Starta om nu</string>
     <string name="restart_later">Senare</string>
-    <string name="settings_localization">Språk och region</string>
     <string name="widget_settings">Widgetinställningar</string>
     <string name="clear_completed_tasks_confirmation">Rensa bort slutförda uppgifter?</string>
     <string name="action_call">Ring</string>
@@ -190,7 +187,6 @@
     <string name="copy">Kopiera</string>
     <string name="move">Flytta</string>
     <string name="filter">Filter</string>
-    <string name="launcher_icon">Appikon</string>
     <string name="widget_header_settings">Rubrikinställningar</string>
     <string name="widget_row_settings">Radinställningar</string>
     <string name="copy_multiple_tasks_confirmation">%s kopierades</string>
@@ -265,13 +261,10 @@
     <string name="action_new_task">Ny uppgift</string>
     <string name="help_and_feedback">Hjälp och synpunkter</string>
     <string name="widget_due_date_hidden">Dolt</string>
-    <string name="widget_open_list">Öppna lista</string>
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
     <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för ”Mina uppgifter”, ”Idag” och etiketter. Sorteringsläget ersätts av ”Min ordning” i en framtida uppdatering.</string>
-    <string name="markdown_description">Aktivera Markdown i titel och beskrivning</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Din prenumeration stöder den fortsatta utvecklingen</string>
     <string name="upgrade_tasks_org_account_description">Synkronisera med Tasks.org och samarbeta med andra användare</string>
     <string name="upgrade_more_customization_description">Lås upp alla teman, färger och ikoner</string>
@@ -314,8 +307,6 @@
     <string name="permission_read_tasks">Fullständig åtkomst till Tasks-databasen</string>
     <string name="reset_sort_order">Återställ sorteringsordningen</string>
     <string name="local_lists">Lokala listor</string>
-    <string name="open_last_viewed_list">Öppna den senast visade listan</string>
-    <string name="on_launch">Vid start</string>
     <string name="support_development_subscribe">Lås upp fler funktioner och stöd utvecklingen av fri programvara</string>
     <string name="enjoying_tasks">Gillar du Tasks\?</string>
     <string name="filter_eisenhower_box_4">Inte viktigt och inte brådskande</string>

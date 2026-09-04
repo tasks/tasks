@@ -144,7 +144,6 @@
     <string name="font_size">Taille de police</string>
     <string name="row_spacing">Espacement des lignes</string>
     <string name="customize_edit_screen">Personnaliser l\'écran d\'édition</string>
-    <string name="translations">Contribuer aux traductions</string>
     <string name="add_location">Ajouter un emplacement</string>
     <string name="remove">Retirer</string>
     <string name="geofence_radius">Rayon de la barrière géographique</string>
@@ -171,17 +170,14 @@
     <string name="opacity">Transparence</string>
     <string name="theme">Thème</string>
     <string name="color">Couleur</string>
-    <string name="launcher_icon">Icône du lanceur</string>
     <string name="theme_black">Noir</string>
     <string name="theme_light">Clair</string>
     <string name="theme_dark">Sombre</string>
     <string name="theme_wallpaper">Fond d\'écran</string>
     <string name="theme_day_night">Jour/Nuit</string>
-    <string name="language">Langue</string>
     <string name="restart_required">Redémarrer Tasks pour que cette modification prenne effet</string>
     <string name="restart_now">Redémarrer maintenant</string>
     <string name="restart_later">Plus tard</string>
-    <string name="settings_localization">Localisation</string>
     <string name="widget_settings">Paramètres du widget</string>
     <string name="widget_header_settings">Paramètres de l\'en-tête</string>
     <string name="widget_row_settings">Paramètres de la ligne</string>
@@ -277,7 +273,6 @@
     <string name="settings_default">Par défaut</string>
     <string name="widget_id">Identifiant du widget : %d</string>
     <string name="widget_show_menu">Afficher le menu</string>
-    <string name="widget_open_list">Ouvrir la liste</string>
     <string name="widget_due_date_hidden">Masquée</string>
     <string name="widget_due_date_below_title">Sous le titre</string>
     <string name="widget_due_date_after_title">Après le titre</string>
@@ -316,8 +311,6 @@
     <string name="action_new_task">Nouvelle tâche</string>
     <string name="sort_modified_group">Modifié %s</string>
     <string name="sort_created_group">Créé %s</string>
-    <string name="open_last_viewed_list">Ouvrir la dernière liste consultée</string>
-    <string name="on_launch">Au lancement</string>
     <string name="lists">Listes</string>
     <string name="astrid_sort_order_summary">Activez le mode de tri manuel d’Astrid pour « Mes tâches », « Aujourd\'hui », et les étiquettes. Ce mode de tri sera remplacé par « Mon tri » dans une future mise à jour</string>
     <string name="astrid_sort_order">Tri manuel Astrid</string>
@@ -382,8 +375,6 @@
     <string name="upgrade_more_customization_description">Déverrouillez tous les thèmes, couleurs et icônes</string>
     <string name="upgrade_more_customization">Plus de personnalisation</string>
     <string name="pro_free_trial">Les nouveaux abonnés bénéficient d\'un essai gratuit de 7 jours. Annulez à tout moment</string>
-    <string name="markdown_description">Activer « Markdown » dans le titre et la description</string>
-    <string name="markdown">« Markdown »</string>
     <string name="now">Maintenant</string>
     <string name="completed">Terminé</string>
     <string name="snackbar_task_completed">Tâche terminée</string>

@@ -175,7 +175,6 @@
     <string name="row_spacing">Espaciáu de fila</string>
     <string name="customize_edit_screen">Personalizar pantalla d\'edición</string>
     <string name="customize_edit_screen_summary">Reorganizar o desaniciar campos</string>
-    <string name="translations">Contribuyi cola torna</string>
     <string name="add_location">Amestar allugamientu</string>
     <string name="remove">Desaniciar</string>
     <string name="geofence_radius">Radiu de la xeollende</string>
@@ -213,7 +212,6 @@
     <string name="theme">Tema</string>
     <string name="color">Color</string>
     <string name="icon">Iconu</string>
-    <string name="launcher_icon">Iconu del llanzador</string>
     <string name="theme_black">Prietu</string>
     <string name="theme_light">Claru</string>
     <string name="theme_dark">Escuru</string>
@@ -221,15 +219,12 @@
     <string name="theme_day_night">Día/Nueche</string>
     <string name="theme_system_default">Predetermináu pol sistema</string>
     <string name="theme_dynamic">Dinámicu</string>
-    <string name="language">Llingua</string>
     <string name="restart_required">Reanicia Tasks pa qu\'esti cambeu tenga efeutu</string>
     <string name="restart_now">Reaniciar agora</string>
     <string name="restart_later">Dempués</string>
-    <string name="settings_localization">Llocalización</string>
     <string name="widget_settings">Axustes de widget</string>
     <string name="widget_header_settings">Axustes del cabeceru</string>
     <string name="widget_row_settings">Axustes de la fila</string>
-    <string name="widget_open_list">Abrir llista</string>
     <string name="widget_due_date_after_title">Dempués del títulu</string>
     <string name="widget_due_date_below_title">Debaxu del títulu</string>
     <string name="widget_due_date_hidden">Anubríu</string>

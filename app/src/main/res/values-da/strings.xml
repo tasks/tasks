@@ -61,8 +61,6 @@
     <string name="permission_read_tasks">Fuld adgang til Tasks-databasen</string>
     <string name="reset_sort_order">Nulstil rækkefølge</string>
     <string name="lists">Lister</string>
-    <string name="open_last_viewed_list">Åbn sidst viste liste</string>
-    <string name="on_launch">Ved opstart</string>
     <string name="sort_modified_group">Redigeret %s</string>
     <string name="support_development_subscribe">Lås op for ekstra funktioner og støt open source-software</string>
     <string name="enjoying_tasks">Nyder du Tasks\?</string>
@@ -169,21 +167,17 @@
     <string name="widget_due_date_hidden">Skjult</string>
     <string name="widget_due_date_below_title">Under titel</string>
     <string name="widget_due_date_after_title">Efter titel</string>
-    <string name="widget_open_list">Åbn liste</string>
     <string name="widget_row_settings">Rækkeindstillinger</string>
     <string name="widget_header_settings">Header-indstillinger</string>
     <string name="widget_settings">Widget-indstillinger</string>
-    <string name="settings_localization">Oversættelse</string>
     <string name="restart_later">Senere</string>
     <string name="restart_now">Genstart nu</string>
     <string name="restart_required">Genstart Tasks for at ændringerne træder i kraft</string>
-    <string name="language">Sprog</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="theme_day_night">Dag/nat</string>
     <string name="theme_wallpaper">Baggrund</string>
     <string name="theme_dark">Mørk</string>
     <string name="theme_light">Lys</string>
-    <string name="launcher_icon">App-ikon</string>
     <string name="theme_black">Sort</string>
     <string name="icon">Ikon</string>
     <string name="color">Farve</string>
@@ -212,7 +206,6 @@
     <string name="geofence_radius">Geo-afgrænsningens radius</string>
     <string name="remove">Fjern</string>
     <string name="add_location">Tilføj placering</string>
-    <string name="translations">Bidrag med oversættelser</string>
     <string name="customize_edit_screen">Tilpas redigeringsskærm</string>
     <string name="row_spacing">Linjeafstand</string>
     <string name="font_size">Skriftstørrelse</string>
@@ -349,8 +342,6 @@
     <string name="custom_filter_is_subtask">Er underopgave</string>
     <string name="custom_filter_has_subtask">Har underopgaver</string>
     <string name="no_google_play_subscription">Intet kvalificeret Google Play-abonnement fundet</string>
-    <string name="markdown_description">Aktivér Markdown i titel og beskrivelse</string>
-    <string name="markdown">Markdown</string>
     <string name="upgrade_open_source_description">Dit abonnement støtter den fortsatte udvikling</string>
     <string name="upgrade_tasks_org_account_description">Synkroniser med Tasks.org, og samarbejd med andre brugere</string>
     <string name="upgrade_more_customization_description">Lås op for alle temaer, farver og ikoner</string>

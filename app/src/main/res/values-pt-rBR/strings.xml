@@ -151,7 +151,6 @@
     <string name="font_size">Tamanho do texto</string>
     <string name="row_spacing">Espaçamento da linha</string>
     <string name="customize_edit_screen">Personalizar tela de edição</string>
-    <string name="translations">Ajude com as traduções</string>
     <string name="add_location">Adicionar localização</string>
     <string name="remove">Remover</string>
     <string name="geofence_radius">Raio de Geofence</string>
@@ -179,17 +178,14 @@
     <string name="opacity">Opacidade</string>
     <string name="theme">Tema</string>
     <string name="color">Cor</string>
-    <string name="launcher_icon">Ícone do lançador</string>
     <string name="theme_black">Preto</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Escuro</string>
     <string name="theme_wallpaper">Plano de fundo</string>
     <string name="theme_day_night">Dia/Noite</string>
-    <string name="language">Idioma</string>
     <string name="restart_required">Reinicie o Tasks para que esta alteração tenha efeito</string>
     <string name="restart_now">Reiniciar agora</string>
     <string name="restart_later">Depois</string>
-    <string name="settings_localization">Localização</string>
     <string name="widget_settings">Configurações de Widget</string>
     <string name="widget_header_settings">Configurações do cabeçalho</string>
     <string name="widget_row_settings">Configurações de linhas</string>
@@ -275,7 +271,6 @@
     <string name="widget_due_date_hidden">Escondido</string>
     <string name="widget_due_date_below_title">Abaixo do título</string>
     <string name="widget_due_date_after_title">Depois do título</string>
-    <string name="widget_open_list">Abrir lista</string>
     <string name="theme_system_default">Padrão do Sistema</string>
     <string name="CFC_tag_text">Etiqueta: \?</string>
     <string name="icon">Ícone</string>
@@ -296,8 +291,6 @@
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
     <string name="reset_sort_order">Redefinir ordenação</string>
     <string name="lists">Listas</string>
-    <string name="open_last_viewed_list">Abrir a última lista visualizada</string>
-    <string name="on_launch">Ao iniciar</string>
     <string name="sort_modified_group">Modificado em %s</string>
     <string name="sort_created_group">Criado em %s</string>
     <string name="support_development_subscribe">Desbloquear funcionalidades adicionais e oferecer suporte a software de código aberto</string>
@@ -382,8 +375,6 @@
     <string name="no_start_date">Sem data de início</string>
     <string name="CFC_startBefore_name">Iniciar por…</string>
     <string name="CFC_startBefore_text">Iniciar por: ?</string>
-    <string name="markdown_description">Habilitar Markdown no título e descrição</string>
-    <string name="markdown">Markdown</string>
     <string name="now">Agora</string>
     <string name="completed">Concluída</string>
     <string name="custom_filter_has_reminder">Tem lembrete</string>

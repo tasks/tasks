@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="remove">Forigi</string>
-    <string name="translations">Helpi traduki</string>
     <string name="font_size">Tipara grando</string>
     <string name="notifications">Sciigoj</string>
     <string name="widget_show_menu">Vidigi menuon</string>
@@ -121,10 +120,8 @@
     <string name="delete_selected_tasks">Ĉu forigi elektitajn taskojn\?</string>
     <string name="delete_multiple_tasks_confirmation">%s forigitaj</string>
     <string name="copy_multiple_tasks_confirmation">%s kopitaj</string>
-    <string name="widget_open_list">Malfermi liston</string>
     <string name="widget_settings">Agordoj de fenestraĵo</string>
     <string name="restart_later">Poste</string>
-    <string name="language">Lingvo</string>
     <string name="theme_system_default">Laŭ operaciumo</string>
     <string name="theme_day_night">Tago/Nokto</string>
     <string name="theme_wallpaper">Ekranfono</string>
@@ -245,7 +242,6 @@
     <string name="auto_dismiss_datetime_widget">Fenestraĵo</string>
     <string name="widget_show_checkboxes">Vidigi elektobutonojn</string>
     <string name="widget_show_header">Vidigi kapon</string>
-    <string name="settings_localization">Traduko</string>
     <string name="device_settings">Agordoj de aparato</string>
     <string name="account">Konto</string>
     <string name="ring_nonstop">Soni daŭre</string>
@@ -335,7 +331,6 @@
     <string name="last_backup">Lasta savkopio: %s</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
     <string name="no_app_found">Neniu aplikaĵo povis pritrakti ĉi tiun peton</string>
-    <string name="launcher_icon">Lanĉila piktogramo</string>
     <string name="refresh_purchases">Reŝargi aĉetojn</string>
     <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la aplikaĵo estas fermita aŭ ne uzata.</string>
     <string name="dismiss">Fermi</string>
@@ -350,10 +345,8 @@
     <string name="snackbar_task_completed">Tasko finita</string>
     <string name="snackbar_tasks_completed">%d taskoj estas finitaj</string>
     <string name="above_average">Super meznombra</string>
-    <string name="on_launch">Je lanĉi</string>
     <string name="save_percent">Ŝpari je %d%%</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
-    <string name="open_last_viewed_list">Malfermi liston de laste rigardita</string>
     <string name="permission_read_tasks">Tuta atingorajto al Tasks datumbazo</string>
     <string name="foreground_location">Malfona loko</string>
     <string name="background_location">Fona loko</string>
@@ -386,8 +379,6 @@
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>
-    <string name="markdown">Simpla Marklingo</string>
-    <string name="markdown_description">Ebligi simplan markadon en titolo kaj priskribo</string>
     <string name="chips">Elementoj</string>
     <string name="chip_appearance">Aspekto de elemento</string>
     <string name="theme_dynamic">Dinamika</string>

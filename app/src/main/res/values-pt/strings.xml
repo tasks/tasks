@@ -143,7 +143,6 @@
     <string name="font_size">Tamanho das letras</string>
     <string name="row_spacing">Espaçamento entre linhas</string>
     <string name="customize_edit_screen">Personalizar ecrã de edição</string>
-    <string name="translations">Contribuir nas traduções</string>
     <string name="remove">Remover</string>
     <string name="tags">Etiquetas</string>
     <string name="date_shortcut_morning">Manhã</string>
@@ -173,11 +172,9 @@
     <string name="theme_dark">Escuro</string>
     <string name="theme_wallpaper">Fundo</string>
     <string name="theme_day_night">Dia/noite</string>
-    <string name="language">Idioma</string>
     <string name="restart_required">Reinicie o Tasks para que esta alteração tenha efeito</string>
     <string name="restart_now">Reiniciar agora</string>
     <string name="restart_later">Mais tarde</string>
-    <string name="settings_localization">Tradução</string>
     <string name="widget_settings">Definições do widget</string>
     <string name="widget_header_settings">Definições de cabeçalho</string>
     <string name="widget_row_settings">Definições de linhas</string>
@@ -228,7 +225,6 @@
     <string name="url">URL</string>
     <string name="password">Palavra-passe</string>
     <string name="user">Utilizador</string>
-    <string name="launcher_icon">Ícone do lançador</string>
     <string name="move">Mover</string>
     <string name="geofence_radius">Raio da cerca geográfica</string>
     <string name="add_location">Adicionar local</string>
@@ -238,7 +234,6 @@
     <string name="lists">Listas</string>
     <string name="astrid_sort_order_summary">Ativar ordenação manual do Astrid para \'Minhas tarefas\', \'Hoje\' e etiquetas. Este modo de ordenação eventualmente será substituído por \'Minha ordenação\' numa futura atualização</string>
     <string name="astrid_sort_order">Ordenação manual do Astrid</string>
-    <string name="on_launch">Ao abrir a aplicação</string>
     <string name="sort_modified_group">Alterado %s</string>
     <string name="sort_created_group">Criado %s</string>
     <string name="action_new_task">Nova tarefa</string>
@@ -258,7 +253,6 @@
     <string name="auto_dismiss_datetime_edit">Editar tarefa</string>
     <string name="auto_dismiss_datetime_list_summary">Fechar quando escolher da lista de tarefas automaticamente</string>
     <string name="auto_dismiss_datetime_list">Lista de tarefas</string>
-    <string name="widget_open_list">Abrir lista</string>
     <string name="widget_due_date_hidden">Escondido</string>
     <string name="widget_due_date_below_title">Abaixo do título</string>
     <string name="widget_due_date_after_title">Depois do título</string>
@@ -304,7 +298,6 @@
     <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>
     <string name="reset_sort_order">Repor ordenação</string>
-    <string name="open_last_viewed_list">Abrir a última lista vista</string>
     <string name="support_development_subscribe">Desbloqueie funcionalidades adicionais e apoie programas de código-fonte aberto</string>
     <string name="enjoying_tasks">Gosta do Tasks\?</string>
     <string name="filter_eisenhower_box_4">Não é importante e não é urgente</string>
@@ -336,8 +329,6 @@
     <string name="header_spacing">Espaçamento</string>
     <string name="ok">Aceitar</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <string name="markdown_description">Ativar código Markdown no título e descrição</string>
-    <string name="markdown">Código Markdown</string>
     <string name="upgrade_open_source_description">A sua subscrição ajuda a continuar o desenvolvimento</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com o Tasks.org e colabore com outros utilizadores</string>
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
