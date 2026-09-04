@@ -415,4 +415,13 @@
     <string name="default_location_reminder_on_arrival_or_departure">Ved ankomst og avgang</string>
     <string name="TEA_add_subtask">Legg til gjøremålssteg</string>
     <string name="subtasks_multilevel_google_task">Gjøremålssteg med flere nivåer støttes ikke av Google Tasks</string>
+    <string name="customize_drawer">Tilpass meny</string>
+    <string name="theme">Drakt</string>
+    <string name="theme_dynamic">Dynamisk</string>
+    <string name="theme_light">Lys</string>
+    <string name="theme_black">Svart</string>
+    <string name="theme_dark">Mørk</string>
+    <string name="theme_wallpaper">Bakgrunnsbilde</string>
+    <string name="theme_day_night">Dag/natt</string>
+    <string name="theme_system_default">Systemforvalg</string>
 </resources>
