@@ -447,4 +447,6 @@
     <string name="upgrade_desktop_app">Masaüstü için Tasks.org</string>
     <string name="upgrade_desktop_app_description">Yeni masaüstü uygulamasına erken erişim</string>
     <string name="sort_options">Sıralama seçenekleri</string>
+    <string name="write_permission_label">Görevleri Değiştir</string>
+    <string name="permission_write_tasks">Görevlerinizi, listelerinizi, etiketlerinizi ve konumlarınızı ekleyin, değiştirin ve silin</string>
 </resources>
