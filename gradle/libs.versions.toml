@@ -201,7 +201,7 @@ markwon-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markw
 markwon-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwon" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 material-kolor = { module = "com.materialkolor:material-kolor", version.ref = "material-kolor" }
-microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "8.2.3" }
+microsoft-authentication = { module = "com.microsoft.identity.client:msal", version = "8.4.2" }
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockito" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "5.4.0" }
