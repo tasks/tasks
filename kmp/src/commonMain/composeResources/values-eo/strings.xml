@@ -560,4 +560,10 @@
     <string name="theme_dynamic">Dinamika</string>
     <string name="translations">Helpi traduki</string>
     <string name="widget_open_list">Malfermi liston</string>
+    <string name="theme_light">Hela</string>
+    <string name="theme_black">Nigra</string>
+    <string name="theme_dark">Malhela</string>
+    <string name="theme_wallpaper">Ekranfono</string>
+    <string name="theme_day_night">Tago/Nokto</string>
+    <string name="theme_system_default">Laŭ operaciumo</string>
 </resources>

@@ -483,4 +483,10 @@
     <string name="theme_dynamic">動態</string>
     <string name="translations">貢獻翻譯</string>
     <string name="widget_open_list">開啟清單</string>
+    <string name="theme_light">亮色</string>
+    <string name="theme_black">黑色</string>
+    <string name="theme_dark">深色</string>
+    <string name="theme_wallpaper">桌布</string>
+    <string name="theme_day_night">日/夜</string>
+    <string name="theme_system_default">系統預設</string>
 </resources>

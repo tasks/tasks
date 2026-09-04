@@ -467,4 +467,10 @@
     <string name="theme_dynamic">Dynamické</string>
     <string name="translations">Prispieť prekladom</string>
     <string name="widget_open_list">Otvoriť zoznam</string>
+    <string name="theme_light">Svetlá</string>
+    <string name="theme_black">Čierna</string>
+    <string name="theme_dark">Tmavá</string>
+    <string name="theme_wallpaper">Tapeta</string>
+    <string name="theme_day_night">Deň/Noc</string>
+    <string name="theme_system_default">Podľa systému</string>
 </resources>

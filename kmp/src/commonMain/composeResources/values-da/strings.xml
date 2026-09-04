@@ -489,4 +489,10 @@
     <string name="theme_dynamic">Dynamisk</string>
     <string name="translations">Bidrag med oversættelser</string>
     <string name="widget_open_list">Åbn liste</string>
+    <string name="theme_light">Lys</string>
+    <string name="theme_black">Sort</string>
+    <string name="theme_dark">Mørk</string>
+    <string name="theme_wallpaper">Baggrund</string>
+    <string name="theme_day_night">Dag/nat</string>
+    <string name="theme_system_default">Systemstandard</string>
 </resources>

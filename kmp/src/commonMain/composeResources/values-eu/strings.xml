@@ -402,4 +402,10 @@
     <string name="theme">Azala</string>
     <string name="translations">Lagundu itzulpenekin</string>
     <string name="widget_open_list">Ireki zerrenda</string>
+    <string name="theme_light">Argia</string>
+    <string name="theme_black">Beltza</string>
+    <string name="theme_dark">Iluna</string>
+    <string name="theme_wallpaper">Horma-papera</string>
+    <string name="theme_day_night">Eguna/Gaua</string>
+    <string name="theme_system_default">Sisteman lehenetsia</string>
 </resources>

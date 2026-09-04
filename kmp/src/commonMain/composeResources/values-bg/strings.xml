@@ -544,4 +544,10 @@
     <string name="theme_dynamic">Динамична</string>
     <string name="translations">Допринасяне с превод</string>
     <string name="widget_open_list">Отваряне на списък</string>
+    <string name="theme_light">Светла</string>
+    <string name="theme_black">Черна</string>
+    <string name="theme_dark">Тъмна</string>
+    <string name="theme_wallpaper">Тапет</string>
+    <string name="theme_day_night">Ден/нощ</string>
+    <string name="theme_system_default">Спрямо системата</string>
 </resources>

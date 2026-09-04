@@ -469,4 +469,10 @@
     <string name="theme_dynamic">Dinàmic</string>
     <string name="translations">Contribuir traduccions</string>
     <string name="widget_open_list">Llista oberta</string>
+    <string name="theme_light">Clar</string>
+    <string name="theme_black">Negre</string>
+    <string name="theme_dark">Fosc</string>
+    <string name="theme_wallpaper">Fons de pantalla</string>
+    <string name="theme_day_night">Dia/Nit</string>
+    <string name="theme_system_default">Predeterminat del sistema</string>
 </resources>

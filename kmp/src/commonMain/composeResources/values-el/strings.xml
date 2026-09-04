@@ -449,4 +449,10 @@
     <string name="theme_dynamic">Δυναμικό</string>
     <string name="translations">Συνεισφέρετε μεταφράσεις</string>
     <string name="widget_open_list">Άνοιγμα λίστας</string>
+    <string name="theme_light">Λευκό</string>
+    <string name="theme_black">Μαύρο</string>
+    <string name="theme_dark">Σκοτεινό</string>
+    <string name="theme_wallpaper">Ταπετσαρία</string>
+    <string name="theme_day_night">Μέρα/Νύχτα</string>
+    <string name="theme_system_default">Προεπιλογή Συστήματος</string>
 </resources>

@@ -293,4 +293,10 @@
     <string name="theme">تھیم</string>
     <string name="translations">ترجمہ کریں</string>
     <string name="widget_open_list">فہرست کھولیں</string>
+    <string name="theme_light">سفید</string>
+    <string name="theme_black">سیاہ</string>
+    <string name="theme_dark">ڈارک</string>
+    <string name="theme_wallpaper">وال پیپر</string>
+    <string name="theme_day_night">دن/رات</string>
+    <string name="theme_system_default">سسٹم ڈیفالٹ</string>
 </resources>

@@ -615,4 +615,10 @@
     <string name="theme_dynamic">Dynamic</string>
     <string name="translations">Contribute translations</string>
     <string name="widget_open_list">Open list</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_black">Black</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_wallpaper">Wallpaper</string>
+    <string name="theme_day_night">Day/Night</string>
+    <string name="theme_system_default">System default</string>
 </resources>

@@ -604,4 +604,10 @@
     <string name="theme_dynamic">动态</string>
     <string name="translations">贡献翻译</string>
     <string name="widget_open_list">打开清单</string>
+    <string name="theme_light">亮色</string>
+    <string name="theme_black">黑色</string>
+    <string name="theme_dark">暗色</string>
+    <string name="theme_wallpaper">壁纸</string>
+    <string name="theme_day_night">日/夜</string>
+    <string name="theme_system_default">系统默认</string>
 </resources>

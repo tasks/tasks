@@ -171,4 +171,6 @@
     <string name="settings_localization">محلی‌سازی</string>
     <string name="theme">تم</string>
     <string name="translations">مشارکت در ترجمه</string>
+    <string name="theme_light">روشن</string>
+    <string name="theme_dark">تیره</string>
 </resources>

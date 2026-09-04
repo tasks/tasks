@@ -633,4 +633,10 @@
     <string name="theme_dynamic">Dynamique</string>
     <string name="translations">Contribuer aux traductions</string>
     <string name="widget_open_list">Ouvrir la liste</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_black">Noir</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="theme_wallpaper">Fond d'écran</string>
+    <string name="theme_day_night">Jour/Nuit</string>
+    <string name="theme_system_default">Valeur par défaut du système</string>
 </resources>

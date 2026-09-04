@@ -177,6 +177,8 @@ actual fun platformModule(): Module = module {
             supportsSwipeToSnooze = false,
             supportsSystemNotificationSettings = supportsSystemNotificationSettings(),
             showNotificationsEnabledSwitch = true,
+            supportsLanguageSelection = true,
+            localeChangeRequiresRestart = true,
         )
     }
     single<Reporting> {

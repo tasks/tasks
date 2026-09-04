@@ -529,4 +529,10 @@
     <string name="theme_dynamic">ديناميكى</string>
     <string name="translations">ساهم في الترجمة</string>
     <string name="widget_open_list">فتح قائمة</string>
+    <string name="theme_light">فاتح</string>
+    <string name="theme_black">أسود</string>
+    <string name="theme_dark">داكن</string>
+    <string name="theme_wallpaper">خلفية</string>
+    <string name="theme_day_night">صباحي/مسائي</string>
+    <string name="theme_system_default">افتراضيات النظام</string>
 </resources>

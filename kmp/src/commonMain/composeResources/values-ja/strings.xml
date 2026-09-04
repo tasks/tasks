@@ -557,4 +557,10 @@
     <string name="theme_dynamic">ダイナミック</string>
     <string name="translations">翻訳に協力する</string>
     <string name="widget_open_list">開くリスト</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_black">黒</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="theme_wallpaper">壁紙</string>
+    <string name="theme_day_night">デイナイト</string>
+    <string name="theme_system_default">システムデフォルト</string>
 </resources>

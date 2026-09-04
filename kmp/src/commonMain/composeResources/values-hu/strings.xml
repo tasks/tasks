@@ -513,4 +513,10 @@
     <string name="theme_dynamic">Dinamikus</string>
     <string name="translations">Részvétel a fordításban</string>
     <string name="widget_open_list">Lista megnyitása</string>
+    <string name="theme_light">Világos</string>
+    <string name="theme_black">Fekete</string>
+    <string name="theme_dark">Sötét</string>
+    <string name="theme_wallpaper">Háttérkép</string>
+    <string name="theme_day_night">Nappal/Éjszaka</string>
+    <string name="theme_system_default">Alapértelmezett</string>
 </resources>

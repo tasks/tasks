@@ -20,16 +20,19 @@ fun colorOn(color: Color) = colorOn(color.toArgb())
 fun colorOn(color: Int) = remember (color) { contentColorFor(color) }
 
 @Composable
+fun isDarkTheme(theme: Int): Boolean = when (theme) {
+    BaseTheme.LIGHT -> false
+    BaseTheme.BLACK, BaseTheme.DARK, BaseTheme.WALLPAPER -> true
+    else -> isSystemInDarkTheme()
+}
+
+@Composable
 fun TasksTheme(
-    theme: Int = 5,
+    theme: Int = BaseTheme.DEFAULT,
     primary: Int = BLUE,
     content: @Composable () -> Unit,
 ) {
-    val isDark = when (theme) {
-        0 -> false
-        1, 2, 3 -> true
-        else -> isSystemInDarkTheme()
-    }
+    val isDark = isDarkTheme(theme)
     val seedColor = if (primary == WHITE) BLACK else primary
     val generated = dynamicColorScheme(
         seedColor = Color(seedColor),

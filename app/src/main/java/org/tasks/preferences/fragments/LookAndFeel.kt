@@ -13,16 +13,15 @@ import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
-import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.compose.settings.LookAndFeelScreen
+import org.tasks.compose.settings.baseThemeName
 import org.tasks.dialogs.ColorPalettePicker
 import org.tasks.dialogs.ColorPalettePicker.Companion.newColorPalette
 import org.tasks.dialogs.ColorPickerAdapter
@@ -43,10 +42,10 @@ class LookAndFeel : Fragment() {
 
     @Inject lateinit var theme: Theme
 
-    private val viewModel: LookAndFeelViewModel by viewModels()
+    private val viewModel: LookAndFeelHiltViewModel by viewModels()
 
     private val listPickerLauncher = registerForFilterPickerResult {
-        viewModel.setDefaultFilter(it)
+        viewModel.setDefaultOpenFilter(it)
     }
 
     private val purchaseLauncher = registerForActivityResult(StartActivityForResult()) { result ->
@@ -65,10 +64,10 @@ class LookAndFeel : Fragment() {
                 ThemeBase.DEFAULT_BASE_THEME
             )
             when (val result = viewModel.handleThemePickerResult(selectedIndex)) {
-                is LookAndFeelViewModel.ThemePickerResult.ApplyTheme -> {
+                is LookAndFeelHiltViewModel.ThemePickerResult.ApplyTheme -> {
                     applyBaseTheme(result.index)
                 }
-                is LookAndFeelViewModel.ThemePickerResult.PurchaseRequired -> {
+                is LookAndFeelHiltViewModel.ThemePickerResult.PurchaseRequired -> {
                     purchaseLauncher.launch(
                         Intent(context, PurchaseActivity::class.java)
                             .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
@@ -113,14 +112,14 @@ class LookAndFeel : Fragment() {
             primary = theme.themeColor.primaryColor,
         ) {
             LookAndFeelScreen(
-                themeName = viewModel.themeName,
+                themeName = baseThemeName(viewModel.themeIndex),
                 dynamicColorAvailable = viewModel.dynamicColorAvailable,
                 dynamicColorEnabled = viewModel.dynamicColorEnabled,
                 dynamicColorProOnly = viewModel.dynamicColorProOnly,
-                themeColor = viewModel.currentThemeColor,
-                launcherColor = viewModel.currentLauncherColor,
-                markdownEnabled = viewModel.markdownEnabled,
-                openLastViewedList = viewModel.openLastViewedList,
+                themeColor = viewModel.themeColor,
+                launcherColor = viewModel.launcherColor,
+                markdownEnabled = viewModel.settings.markdown,
+                openLastViewedList = viewModel.settings.openLastViewedList,
                 defaultFilterName = viewModel.defaultFilterName,
                 localeName = viewModel.localeName,
                 onTheme = {
@@ -140,23 +139,21 @@ class LookAndFeel : Fragment() {
                 onLauncher = {
                     newColorPalette(
                         REQUEST_KEY_LAUNCHER,
-                        viewModel.currentLauncherColor,
+                        viewModel.launcherColor,
                         ColorPickerAdapter.Palette.LAUNCHERS,
                     ).show(parentFragmentManager, FRAG_TAG_COLOR_PICKER)
                 },
                 onMarkdown = { enabled ->
-                    viewModel.updateMarkdown(enabled)
+                    viewModel.setMarkdown(enabled)
                 },
                 onOpenLastViewedList = { enabled ->
-                    viewModel.updateOpenLastViewedList(enabled)
+                    viewModel.setOpenLastViewedList(enabled)
                 },
                 onDefaultFilter = {
-                    lifecycleScope.launch {
-                        listPickerLauncher.launch(
-                            context = requireContext(),
-                            selectedFilter = viewModel.getDefaultOpenFilter(),
-                        )
-                    }
+                    listPickerLauncher.launch(
+                        context = requireContext(),
+                        selectedFilter = viewModel.defaultFilter,
+                    )
                 },
                 onLanguage = {
                     if (atLeastTiramisu()) {

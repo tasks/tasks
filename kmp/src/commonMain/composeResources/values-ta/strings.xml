@@ -453,4 +453,10 @@
     <string name="theme_dynamic">மாறும்</string>
     <string name="translations">மொழிபெயர்ப்புகளை பங்களிக்கவும்</string>
     <string name="widget_open_list">திறந்த பட்டியல்</string>
+    <string name="theme_light">ஒளி</string>
+    <string name="theme_black">கருப்பு</string>
+    <string name="theme_dark">இருள்</string>
+    <string name="theme_wallpaper">சுவர்</string>
+    <string name="theme_day_night">பகல் / இரவு</string>
+    <string name="theme_system_default">கணினி இயல்புநிலை</string>
 </resources>

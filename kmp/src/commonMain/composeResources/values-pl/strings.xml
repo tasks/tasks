@@ -472,4 +472,10 @@
     <string name="theme_dynamic">Dynamiczny</string>
     <string name="translations">Wspomóż tłumaczenie</string>
     <string name="widget_open_list">Otwórz listę</string>
+    <string name="theme_light">Jasny</string>
+    <string name="theme_black">Czarny</string>
+    <string name="theme_dark">Ciemny</string>
+    <string name="theme_wallpaper">Tapeta</string>
+    <string name="theme_day_night">Dzień/noc</string>
+    <string name="theme_system_default">Domyślny systemowy</string>
 </resources>

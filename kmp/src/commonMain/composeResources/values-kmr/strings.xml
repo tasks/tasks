@@ -66,4 +66,9 @@
     <string name="language">Ziman</string>
     <string name="settings_localization">Herêmîkirin</string>
     <string name="theme">Rûkar</string>
+    <string name="theme_light">Ron</string>
+    <string name="theme_black">Reş</string>
+    <string name="theme_dark">Tarî</string>
+    <string name="theme_wallpaper">Wêneya dîwêr</string>
+    <string name="theme_day_night">Roj/Êvar</string>
 </resources>

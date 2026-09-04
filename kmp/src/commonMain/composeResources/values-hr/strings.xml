@@ -613,4 +613,10 @@
     <string name="theme_dynamic">Dinamično</string>
     <string name="translations">Doprinesi prijevodima</string>
     <string name="widget_open_list">Otvori popis</string>
+    <string name="theme_light">Svjetla</string>
+    <string name="theme_black">Crna</string>
+    <string name="theme_dark">Tamna</string>
+    <string name="theme_wallpaper">Pozadinska slika</string>
+    <string name="theme_day_night">Dan/Noć</string>
+    <string name="theme_system_default">Standardne postavke sustava</string>
 </resources>

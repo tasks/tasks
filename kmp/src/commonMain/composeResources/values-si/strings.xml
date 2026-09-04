@@ -388,4 +388,10 @@
     <string name="theme">තේමාව</string>
     <string name="translations">පරිවර්තන සඳහා දායක වන්න</string>
     <string name="widget_open_list">ලැයිස්තුව විවෘත කරන්න</string>
+    <string name="theme_light">ලා පැහැති</string>
+    <string name="theme_black">කලු පැහැය</string>
+    <string name="theme_dark">අඳුරු පැහැති</string>
+    <string name="theme_wallpaper">බිතුපත (Wallpaper)</string>
+    <string name="theme_day_night">දිවා / රාත්‍රි</string>
+    <string name="theme_system_default">පද්ධති පෙරනිමිය</string>
 </resources>

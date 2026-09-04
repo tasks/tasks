@@ -494,4 +494,10 @@
     <string name="theme_dynamic">Dinamic</string>
     <string name="translations">Contribuie la traduceri</string>
     <string name="widget_open_list">Listă deschisă</string>
+    <string name="theme_light">Luminoasă</string>
+    <string name="theme_black">Neagră</string>
+    <string name="theme_dark">Întunecată</string>
+    <string name="theme_wallpaper">Imagine de fundal</string>
+    <string name="theme_day_night">Zi/Noapte</string>
+    <string name="theme_system_default">Implicit</string>
 </resources>

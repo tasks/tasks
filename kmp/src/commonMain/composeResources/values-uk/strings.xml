@@ -475,4 +475,10 @@
     <string name="theme_dynamic">Динамічна</string>
     <string name="translations">Допомогти перекласти</string>
     <string name="widget_open_list">Відкрити список</string>
+    <string name="theme_light">Світла</string>
+    <string name="theme_black">Чорна</string>
+    <string name="theme_dark">Темна</string>
+    <string name="theme_wallpaper">Шпалери</string>
+    <string name="theme_day_night">День/Ніч</string>
+    <string name="theme_system_default">За системними налаштуваннями</string>
 </resources>

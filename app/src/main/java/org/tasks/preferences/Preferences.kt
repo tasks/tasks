@@ -43,6 +43,8 @@ class Preferences @JvmOverloads constructor(
 
     private val drawerDefaults = DrawerSettings()
 
+    private val lookAndFeelDefaults = LookAndFeelSettings()
+
     fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
@@ -191,6 +193,36 @@ class Preferences @JvmOverloads constructor(
 
     override suspend fun setHideUnusedPlaces(value: Boolean) =
         setBoolean(R.string.p_places_hide_unused, value)
+
+    override suspend fun lookAndFeelSettings() = LookAndFeelSettings(
+        theme = getInt(R.string.p_theme, lookAndFeelDefaults.theme),
+        themeColor = getInt(R.string.p_theme_color, lookAndFeelDefaults.themeColor),
+        dynamicColor = getBoolean(R.string.p_dynamic_color, lookAndFeelDefaults.dynamicColor),
+        markdown = getBoolean(R.string.p_markdown, lookAndFeelDefaults.markdown),
+        openLastViewedList = getBoolean(
+            R.string.p_open_last_viewed_list,
+            lookAndFeelDefaults.openLastViewedList
+        ),
+        defaultOpenFilter = getStringValue(R.string.p_default_open_filter),
+        languageTag = null,
+    )
+
+    override suspend fun setTheme(value: Int) = setInt(R.string.p_theme, value)
+
+    override suspend fun setThemeColor(value: Int) = setInt(R.string.p_theme_color, value)
+
+    override suspend fun setDynamicColor(value: Boolean) =
+        setBoolean(R.string.p_dynamic_color, value)
+
+    override suspend fun setMarkdown(value: Boolean) = setBoolean(R.string.p_markdown, value)
+
+    override suspend fun setOpenLastViewedList(value: Boolean) =
+        setBoolean(R.string.p_open_last_viewed_list, value)
+
+    override suspend fun setDefaultOpenFilter(value: String?) =
+        setString(R.string.p_default_open_filter, value)
+
+    override suspend fun setLanguageTag(value: String?) = Unit
 
     val dateShortcutMorning: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_morning, R.integer.default_morning)

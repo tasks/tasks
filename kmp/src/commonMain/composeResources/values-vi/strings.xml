@@ -406,4 +406,10 @@
     <string name="theme">Chủ đề</string>
     <string name="translations">Đóng góp bản dịch</string>
     <string name="widget_open_list">Mở danh sách</string>
+    <string name="theme_light">Sáng</string>
+    <string name="theme_black">Đen</string>
+    <string name="theme_dark">Tối</string>
+    <string name="theme_wallpaper">Hình nền</string>
+    <string name="theme_day_night">Ngày/Đêm</string>
+    <string name="theme_system_default">Mặc định hệ thống</string>
 </resources>

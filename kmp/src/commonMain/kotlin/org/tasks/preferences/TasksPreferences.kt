@@ -125,5 +125,13 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val tagsHideUnused = booleanPreferencesKey("drawer_tags_hide_unused")
         val placesEnabled = booleanPreferencesKey("drawer_places_enabled")
         val placesHideUnused = booleanPreferencesKey("drawer_places_hide_unused")
+        val theme = intPreferencesKey("theme")
+        val themeColor = intPreferencesKey("theme_color")
+        val dynamicColor = booleanPreferencesKey("dynamic_color")
+        val markdown = booleanPreferencesKey("markdown")
+        val openLastViewedList = booleanPreferencesKey("open_last_viewed_list")
+        val defaultOpenFilter = stringPreferencesKey("default_open_filter")
+        val lastViewedList = stringPreferencesKey("last_viewed_list")
+        val languageTag = stringPreferencesKey("language_tag")
     }
 }

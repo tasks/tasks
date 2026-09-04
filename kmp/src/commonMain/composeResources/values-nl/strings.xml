@@ -475,4 +475,10 @@
     <string name="theme_dynamic">Dynamisch</string>
     <string name="translations">Vertalingen toevoegen</string>
     <string name="widget_open_list">Lijst openen</string>
+    <string name="theme_light">Licht</string>
+    <string name="theme_black">Zwart</string>
+    <string name="theme_dark">Donker</string>
+    <string name="theme_wallpaper">Achtergrond</string>
+    <string name="theme_day_night">Dag/Nacht</string>
+    <string name="theme_system_default">Systeemstandaard</string>
 </resources>

@@ -7,6 +7,8 @@ import org.tasks.compose.pickers.DEFAULT_EVENING
 import org.tasks.compose.pickers.DEFAULT_MORNING
 import org.tasks.compose.pickers.DEFAULT_NIGHT
 import org.tasks.compose.pickers.QuickPickTimes
+import org.tasks.kmp.org.tasks.themes.ColorProvider
+import org.tasks.themes.BaseTheme
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Task
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -78,6 +80,16 @@ data class DrawerSettings(
     val hideUnusedTags: Boolean = false,
     val placesEnabled: Boolean = true,
     val hideUnusedPlaces: Boolean = false,
+)
+
+data class LookAndFeelSettings(
+    val theme: Int = BaseTheme.DEFAULT,
+    val themeColor: Int = ColorProvider.BLUE_500,
+    val dynamicColor: Boolean = false,
+    val markdown: Boolean = false,
+    val openLastViewedList: Boolean = true,
+    val defaultOpenFilter: String? = null,
+    val languageTag: String? = null,
 )
 
 data class TaskDefaultSettings(
@@ -174,6 +186,14 @@ interface AppPreferences {
     suspend fun setHideUnusedTags(value: Boolean)
     suspend fun setPlacesEnabled(value: Boolean)
     suspend fun setHideUnusedPlaces(value: Boolean)
+    suspend fun lookAndFeelSettings(): LookAndFeelSettings
+    suspend fun setTheme(value: Int)
+    suspend fun setThemeColor(value: Int)
+    suspend fun setDynamicColor(value: Boolean)
+    suspend fun setMarkdown(value: Boolean)
+    suspend fun setOpenLastViewedList(value: Boolean)
+    suspend fun setDefaultOpenFilter(value: String?)
+    suspend fun setLanguageTag(value: String?)
     suspend fun notificationSettings(): NotificationSettings
     suspend fun setNotificationsEnabled(value: Boolean)
     suspend fun setPersistentNotifications(value: Boolean)

@@ -2,6 +2,7 @@ package org.tasks.injection
 
 import android.content.Context
 import com.google.android.gms.wearable.Wearable
+import com.google.android.material.color.DynamicColors
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
@@ -62,6 +63,12 @@ class FlavorModule {
         supportsCompletionSound = true,
         supportsSwipeToSnooze = true,
         supportsRingMode = true,
+        supportsDynamicColor = DynamicColors.isDynamicColorAvailable(),
+        supportsLauncherIcon = true,
+        supportsMarkdownToggle = true,
+        supportsWallpaperTheme = true,
+        supportsAutoNightTheme = true,
+        supportsLanguageSelection = true,
     )
 
     @Provides

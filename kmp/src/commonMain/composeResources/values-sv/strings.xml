@@ -613,4 +613,10 @@
     <string name="theme_dynamic">Dynamisk</string>
     <string name="translations">Hjälp till att översätta</string>
     <string name="widget_open_list">Öppna lista</string>
+    <string name="theme_light">Ljust</string>
+    <string name="theme_black">Svart</string>
+    <string name="theme_dark">Mörkt</string>
+    <string name="theme_wallpaper">Bakgrundsbild</string>
+    <string name="theme_day_night">Dag/natt</string>
+    <string name="theme_system_default">Följ systemet</string>
 </resources>

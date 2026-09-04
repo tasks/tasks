@@ -613,4 +613,10 @@
     <string name="theme_dynamic">Dünaamiline</string>
     <string name="translations">Aita tõlkida</string>
     <string name="widget_open_list">Ava loend</string>
+    <string name="theme_light">Hele</string>
+    <string name="theme_black">Must</string>
+    <string name="theme_dark">Tume</string>
+    <string name="theme_wallpaper">Taustapilt</string>
+    <string name="theme_day_night">Päev/Öö</string>
+    <string name="theme_system_default">Süsteemi vaikeseade</string>
 </resources>

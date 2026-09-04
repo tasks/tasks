@@ -587,4 +587,10 @@
     <string name="theme_dynamic">דינמי</string>
     <string name="translations">לתרום תרגומים</string>
     <string name="widget_open_list">פתיחת רשימה</string>
+    <string name="theme_light">בהיר</string>
+    <string name="theme_black">שחור</string>
+    <string name="theme_dark">כהה</string>
+    <string name="theme_wallpaper">תמונת רקע</string>
+    <string name="theme_day_night">יום/לילה</string>
+    <string name="theme_system_default">ברירת מחדל של המערכת</string>
 </resources>

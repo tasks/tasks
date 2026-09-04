@@ -443,4 +443,10 @@
     <string name="theme_dynamic">동적</string>
     <string name="translations">번역 참여하기</string>
     <string name="widget_open_list">목록 열기</string>
+    <string name="theme_light">밝게</string>
+    <string name="theme_black">검정</string>
+    <string name="theme_dark">어둡게</string>
+    <string name="theme_wallpaper">바탕화면</string>
+    <string name="theme_day_night">주간/야간</string>
+    <string name="theme_system_default">시스템 기본설정</string>
 </resources>

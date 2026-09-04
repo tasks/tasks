@@ -630,4 +630,10 @@
     <string name="theme_dynamic">Dinâmico</string>
     <string name="translations">Ajude com as traduções</string>
     <string name="widget_open_list">Abrir lista</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_black">Preto</string>
+    <string name="theme_dark">Escuro</string>
+    <string name="theme_wallpaper">Plano de fundo</string>
+    <string name="theme_day_night">Dia/Noite</string>
+    <string name="theme_system_default">Padrão do Sistema</string>
 </resources>

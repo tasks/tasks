@@ -614,4 +614,10 @@
     <string name="theme_dynamic">Dynamické</string>
     <string name="translations">Přispějte k překladu</string>
     <string name="widget_open_list">Otevřít seznam</string>
+    <string name="theme_light">Světlý</string>
+    <string name="theme_black">Černý</string>
+    <string name="theme_dark">Tmavý</string>
+    <string name="theme_wallpaper">Tapeta</string>
+    <string name="theme_day_night">Den/Noc</string>
+    <string name="theme_system_default">Podle systému</string>
 </resources>

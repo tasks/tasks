@@ -593,4 +593,10 @@
     <string name="theme_dynamic">Dinamis</string>
     <string name="translations">Kontribusi terjemahan</string>
     <string name="widget_open_list">Buka daftar</string>
+    <string name="theme_light">Cerah</string>
+    <string name="theme_black">Hitam</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_wallpaper">Latar</string>
+    <string name="theme_day_night">Siang/Malam</string>
+    <string name="theme_system_default">Bawaan sistem</string>
 </resources>

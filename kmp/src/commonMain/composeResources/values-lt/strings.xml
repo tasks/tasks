@@ -421,4 +421,10 @@
     <string name="theme">Tema</string>
     <string name="translations">Padėti išversti</string>
     <string name="widget_open_list">Atidaryti sąrašą</string>
+    <string name="theme_light">Šviesi</string>
+    <string name="theme_black">Juoda</string>
+    <string name="theme_dark">Tamsi</string>
+    <string name="theme_wallpaper">Fono vaizdas</string>
+    <string name="theme_day_night">Diena/Naktis</string>
+    <string name="theme_system_default">Sistemos numatyta</string>
 </resources>

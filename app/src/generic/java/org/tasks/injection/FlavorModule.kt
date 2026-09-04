@@ -1,5 +1,6 @@
 package org.tasks.injection
 
+import com.google.android.material.color.DynamicColors
 import com.todoroo.andlib.utility.AndroidUtilities
 import org.tasks.PlatformConfiguration
 import dagger.Module
@@ -41,6 +42,12 @@ class FlavorModule {
         supportsCompletionSound = true,
         supportsSwipeToSnooze = true,
         supportsRingMode = true,
+        supportsDynamicColor = DynamicColors.isDynamicColorAvailable(),
+        supportsLauncherIcon = true,
+        supportsMarkdownToggle = true,
+        supportsWallpaperTheme = true,
+        supportsAutoNightTheme = true,
+        supportsLanguageSelection = true,
     )
 
     @Provides

@@ -598,4 +598,10 @@
     <string name="theme_dynamic">Динамично</string>
     <string name="translations">Допринеси преводима</string>
     <string name="widget_open_list">Отвори листу</string>
+    <string name="theme_light">Светло</string>
+    <string name="theme_black">Црно</string>
+    <string name="theme_dark">Тамно</string>
+    <string name="theme_wallpaper">Позадина</string>
+    <string name="theme_day_night">Дан/Ноћ</string>
+    <string name="theme_system_default">Системски подразумевано</string>
 </resources>

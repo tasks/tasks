@@ -73,7 +73,7 @@ public class ThemeBase implements Parcelable {
   }
 
   public boolean isFree() {
-    return index < 3 || index == 5;
+    return BaseTheme.INSTANCE.isFree(index);
   }
 
   public int getIndex() {

@@ -350,4 +350,10 @@
     <string name="theme">หัวข้อ</string>
     <string name="translations">สนับสนุนการแปล</string>
     <string name="widget_open_list">เปิดรายการ</string>
+    <string name="theme_light">แสง</string>
+    <string name="theme_black">ดำ</string>
+    <string name="theme_dark">รูปแบบสีดำ</string>
+    <string name="theme_wallpaper">วอลเปเปอร์</string>
+    <string name="theme_day_night">กลางวัน/กลางคืน</string>
+    <string name="theme_system_default">ค่าเริ่มต้นของระบบ</string>
 </resources>
