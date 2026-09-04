@@ -1,13 +1,21 @@
 package org.tasks.themes
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.SpringSpec
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import com.materialkolor.dynamicColorScheme
+import org.tasks.kmp.org.tasks.themes.ThemeColor
+import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLACK
 import org.tasks.kmp.org.tasks.themes.ColorProvider.WHITE
 
@@ -18,6 +26,33 @@ fun colorOn(color: Color) = colorOn(color.toArgb())
 
 @Composable
 fun colorOn(color: Int) = remember (color) { contentColorFor(color) }
+
+val ThemeColorSpring: SpringSpec<Color> = spring(stiffness = Spring.StiffnessMedium)
+
+private val LocalIsDarkTheme = compositionLocalOf<Boolean?> { null }
+
+private val LocalThemeColor = compositionLocalOf { BLUE }
+
+@Composable
+@ReadOnlyComposable
+private fun currentThemeColor(): Int = LocalThemeColor.current
+
+@Composable
+fun rememberThemeColor(filterTint: Int): ThemeColor {
+    val isDark = isDarkTheme()
+    val appColor = currentThemeColor()
+    return remember(filterTint, isDark, appColor) {
+        if (filterTint != 0) {
+            ColorProvider.themeColor(seedColor = filterTint, isDark = isDark)
+        } else {
+            ColorProvider.themeColor(seedColor = appColor, isDark = isDark, adjust = false)
+        }
+    }
+}
+
+@Composable
+@ReadOnlyComposable
+fun isDarkTheme(): Boolean = LocalIsDarkTheme.current ?: isSystemInDarkTheme()
 
 @Composable
 fun isDarkTheme(theme: Int): Boolean = when (theme) {
@@ -69,7 +104,12 @@ fun TasksTheme(
         )
     }
     MaterialTheme(colorScheme = colorScheme) {
-        content()
+        CompositionLocalProvider(
+            LocalIsDarkTheme provides isDark,
+            LocalThemeColor provides seedColor,
+        ) {
+            content()
+        }
     }
 }
 

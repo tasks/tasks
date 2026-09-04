@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -24,10 +25,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.themes.floatingBarColors
 import org.tasks.compose.PlatformBackHandler
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.delete_task
@@ -48,6 +51,7 @@ fun TaskEditActionBar(
     onDeleteTask: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    filterTint: Int = 0,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(enabled) {
@@ -56,10 +60,12 @@ fun TaskEditActionBar(
         }
     }
     PlatformBackHandler(enabled = expanded) { expanded = false }
+    val barColors = floatingBarColors(filterTint)
     Surface(
         modifier = modifier.height(TaskEditActionBarHeight),
         shape = CircleShape,
-        color = MaterialTheme.colorScheme.surfaceContainerLowest,
+        color = barColors.container,
+        contentColor = barColors.content,
         shadowElevation = BarElevation,
     ) {
         Row(
@@ -71,6 +77,7 @@ fun TaskEditActionBar(
                 onClick = onMarkCompleted,
                 enabled = enabled,
                 shape = CircleShape,
+                colors = ButtonDefaults.textButtonColors(contentColor = barColors.content),
                 modifier = Modifier.fillMaxHeight(),
             ) {
                 Icon(

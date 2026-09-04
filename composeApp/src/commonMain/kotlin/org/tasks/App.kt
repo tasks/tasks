@@ -1,7 +1,10 @@
 package org.tasks
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
@@ -11,7 +14,6 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -230,8 +232,10 @@ import org.tasks.compose.rememberDateFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
-import org.tasks.themes.BLUE
 import org.tasks.themes.BaseTheme
+import org.tasks.themes.ThemeColorSpring
+import org.tasks.themes.floatingBarColors
+import org.tasks.themes.rememberThemeColor
 import org.tasks.themes.isDarkTheme
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -570,7 +574,7 @@ fun App(
             val chromeScope = rememberCoroutineScope()
             val chromeCaldavDao = koinInject<CaldavDao>()
             val tasksAccountDataRepository = koinInject<TasksAccountDataRepository>()
-            val isDarkChrome = isSystemInDarkTheme()
+            val isDarkChrome = isDarkTheme()
             var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
             var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
             var showNewTag by rememberSaveable { mutableStateOf(false) }
@@ -964,6 +968,7 @@ fun App(
                             TaskEditEntry(
                                 destination = destination,
                                 filterPickerViewModel = filterPickerViewModel,
+                                filterTint = taskListState?.filter?.tint ?: 0,
                                 onOpenSubtask = { taskId, remoteId, isDraft ->
                                     openSubtask(
                                         TaskEditDestination(
@@ -1531,7 +1536,7 @@ private fun TaskListChrome(
                         listState = sidebarListState,
                         searchButtonInset = SearchButtonInset,
                     )
-                    val sidebarScrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+                    val sidebarScrimColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                     StatusBarScrim(
                         color = sidebarScrimColor,
                         modifier = Modifier.align(Alignment.TopCenter),
@@ -1682,15 +1687,10 @@ private fun TaskListScreen(
     val caldavDao = koinInject<CaldavDao>()
     val tagDataDao = koinInject<TagDataDao>()
     val scope = rememberCoroutineScope()
-    val isDark = isSystemInDarkTheme()
+    val isDark = isDarkTheme()
 
     val filterTint = state.filter.tint
-    val themeColor = remember(filterTint, isDark) {
-        ColorProvider.themeColor(
-            seedColor = if (filterTint != 0) filterTint else BLUE,
-            isDark = isDark,
-        )
-    }
+    val themeColor = rememberThemeColor(filterTint)
 
     val editableCaldavFilter = state.filter as? CaldavFilter
     val editableTagFilter = state.filter as? TagFilter
@@ -1786,13 +1786,14 @@ private fun TaskEditEntry(
     onAddAccount: () -> Unit,
     onSubscribe: () -> Unit,
     onListsChanged: () -> Unit,
+    filterTint: Int = 0,
     onOpenSubtask: (taskId: Long, remoteId: String, isDraft: Boolean) -> Unit,
     onClose: () -> Unit,
 ) {
     val taskEditViewModel = koinViewModel<TaskEditViewModel> {
         org.koin.core.parameter.parametersOf(destination)
     }
-    val isDark = isSystemInDarkTheme()
+    val isDark = isDarkTheme()
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
 
     TaskEditScreen(
@@ -1801,6 +1802,7 @@ private fun TaskEditEntry(
         onCreateList = { accountId -> newListAccountId = accountId },
         onSignIn = onAddAccount,
         backHandlerEnabled = backHandlerEnabled,
+        filterTint = filterTint,
         onOpenSubtask = onOpenSubtask,
         onClose = onClose,
     )
@@ -2149,6 +2151,11 @@ private fun TaskListPane(
         }
 
         val statusBarTop = platformStatusBarInsets().calculateTopPadding()
+        val titleColor by animateColorAsState(
+            targetValue = Color(themeColor.primaryColor),
+            animationSpec = ThemeColorSpring,
+            label = "titleContentColor",
+        )
         TopAppBar(
             modifier = Modifier
                 .onSizeChanged { size ->
@@ -2175,13 +2182,13 @@ private fun TaskListPane(
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.background,
-                scrolledContainerColor = MaterialTheme.colorScheme.background,
-                titleContentColor = Color(themeColor.primaryColor),
+                containerColor = MaterialTheme.colorScheme.surface,
+                scrolledContainerColor = MaterialTheme.colorScheme.surface,
+                titleContentColor = titleColor,
             ),
         )
 
-        val scrimColor = MaterialTheme.colorScheme.background.copy(alpha = 0.8f)
+        val scrimColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
         StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
         NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
 
@@ -2193,6 +2200,7 @@ private fun TaskListPane(
             scrollBehavior = floatingToolbarScrollBehavior,
             fabContainerColor = Color(themeColor.primaryColor),
             fabContentColor = Color(themeColor.onPrimaryColor),
+            filterTint = state.filter.tint,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .platformNavigationBarsPadding()
@@ -2802,10 +2810,20 @@ private fun FloatingToolbar(
     scrollBehavior: androidx.compose.material3.FloatingToolbarScrollBehavior? = null,
     fabContainerColor: Color = Color.Unspecified,
     fabContentColor: Color = Color.Unspecified,
+    filterTint: Int = 0,
     modifier: Modifier = Modifier,
 ) {
-    val resolvedFabContainer = fabContainerColor.takeOrElse { MaterialTheme.colorScheme.primaryContainer }
-    val resolvedFabContent = fabContentColor.takeOrElse { MaterialTheme.colorScheme.onPrimaryContainer }
+    val barColors = floatingBarColors(filterTint)
+    val resolvedFabContainer by animateColorAsState(
+        targetValue = fabContainerColor.takeOrElse { MaterialTheme.colorScheme.primaryContainer },
+        animationSpec = ThemeColorSpring,
+        label = "fabContainerColor",
+    )
+    val resolvedFabContent by animateColorAsState(
+        targetValue = fabContentColor.takeOrElse { MaterialTheme.colorScheme.onPrimaryContainer },
+        animationSpec = ThemeColorSpring,
+        label = "fabContentColor",
+    )
     HorizontalFloatingToolbar(
         expanded = true,
         floatingActionButton = {
@@ -2818,8 +2836,8 @@ private fun FloatingToolbar(
             }
         },
         colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
-            toolbarContainerColor = MaterialTheme.colorScheme.surfaceContainer,
-            toolbarContentColor = MaterialTheme.colorScheme.onSurface,
+            toolbarContainerColor = barColors.container,
+            toolbarContentColor = barColors.content,
         ),
         scrollBehavior = scrollBehavior,
         modifier = modifier,

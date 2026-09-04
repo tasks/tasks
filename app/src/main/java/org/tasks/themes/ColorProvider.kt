@@ -2,6 +2,7 @@ package org.tasks.themes
 
 import android.content.Context
 import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatDelegate
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
 import org.tasks.kmp.org.tasks.themes.ColorProvider as KmpColorProvider
@@ -11,7 +12,12 @@ import javax.inject.Inject
 class ColorProvider @Inject constructor(
     @param:ApplicationContext private val context: Context,
 ) {
-    private val isDark = context.resources.getBoolean(R.bool.is_dark)
+    private val isDark: Boolean
+        get() = when (AppCompatDelegate.getDefaultNightMode()) {
+            AppCompatDelegate.MODE_NIGHT_YES -> true
+            AppCompatDelegate.MODE_NIGHT_NO -> false
+            else -> context.resources.getBoolean(R.bool.is_dark)
+        }
 
     fun isPresetColor(@ColorInt color: Int) = KmpColorProvider.isPresetColor(color)
 

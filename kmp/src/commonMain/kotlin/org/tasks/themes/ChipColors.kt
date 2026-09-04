@@ -1,8 +1,13 @@
 package org.tasks.themes
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.graphics.toArgb
 import com.materialkolor.contrast.Contrast
 import com.materialkolor.hct.Hct
 import com.materialkolor.palettes.TonalPalette
@@ -32,8 +37,36 @@ data class ChipColors(val backgroundColor: Int, val contentColor: Int)
 
 @Composable
 fun chipColors(seedColor: Int): ChipColors {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isDarkTheme()
     return remember(seedColor, isDark) { chipColors(seedColor, isDark) }
+}
+
+const val AccentTintAlpha = 0.12f
+
+@Composable
+fun accentSurface(color: Color): Color {
+    val raised = MaterialTheme.colorScheme.surfaceContainerLowest
+    return remember(color, raised) {
+        color.copy(alpha = AccentTintAlpha).compositeOver(raised)
+    }
+}
+
+data class FloatingBarColors(val container: Color, val content: Color)
+
+@Composable
+fun floatingBarColors(filterTint: Int): FloatingBarColors {
+    val target = accentSurface(Color(rememberThemeColor(filterTint).primaryColor))
+    val container by animateColorAsState(
+        targetValue = target,
+        animationSpec = ThemeColorSpring,
+        label = "floatingBarContainer",
+    )
+    val content by animateColorAsState(
+        targetValue = Color(contentColor(target.toArgb())),
+        animationSpec = ThemeColorSpring,
+        label = "floatingBarContent",
+    )
+    return FloatingBarColors(container, content)
 }
 
 fun chipColors(seedColor: Int, isDark: Boolean): ChipColors {

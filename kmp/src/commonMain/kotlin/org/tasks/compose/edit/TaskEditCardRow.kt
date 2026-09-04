@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import org.tasks.themes.accentSurface
 import org.tasks.compose.components.TasksIcon
 import org.tasks.compose.settings.CardPosition
 
@@ -28,7 +29,6 @@ private val RowVerticalPadding = 16.dp
 private val IconChipSize = 40.dp
 private val IconChipRadius = 10.dp
 private val IconTextGap = 16.dp
-private const val IconChipAlpha = 0.12f
 
 val TaskEditCardContentStartPadding = TaskEditCardHorizontalPadding + IconChipSize + IconTextGap
 
@@ -105,7 +105,7 @@ fun TaskEditCardRowContent(
                 modifier = Modifier
                     .size(IconChipSize)
                     .background(
-                        color = iconTint.copy(alpha = IconChipAlpha),
+                        color = accentSurface(iconTint),
                         shape = RoundedCornerShape(IconChipRadius),
                     ),
             ) {

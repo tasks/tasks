@@ -90,7 +90,10 @@ import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
 import org.tasks.kmp.formatNumber
-import androidx.compose.foundation.isSystemInDarkTheme
+import org.tasks.themes.contentColor
+import org.tasks.themes.ThemeColorSpring
+import org.tasks.themes.rememberThemeColor
+import org.tasks.themes.isDarkTheme
 import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
 import tasks.kmp.generated.resources.Res
@@ -221,6 +224,7 @@ fun TaskListDrawer(
                 .align(Alignment.BottomEnd),
         ) {
         SearchFab(
+            accentColor = rememberThemeColor(drawerState.selectedFilter?.tint ?: 0).primaryColor,
             expanded = searchExpanded,
             onExpandedChange = { searchRequested = it },
             query = query,
@@ -234,6 +238,7 @@ fun TaskListDrawer(
 
 @Composable
 private fun SearchFab(
+    accentColor: Int,
     expanded: Boolean,
     onExpandedChange: (Boolean) -> Unit,
     query: String,
@@ -244,14 +249,14 @@ private fun SearchFab(
 
     val containerColor by animateColorAsState(
         targetValue = if (expanded) MaterialTheme.colorScheme.surfaceContainerHigh
-                      else MaterialTheme.colorScheme.primary,
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
+                      else Color(accentColor),
+        animationSpec = ThemeColorSpring,
         label = "containerColor",
     )
     val contentColor by animateColorAsState(
         targetValue = if (expanded) MaterialTheme.colorScheme.onSurface
-                      else MaterialTheme.colorScheme.onPrimary,
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
+                      else Color(contentColor(accentColor)),
+        animationSpec = ThemeColorSpring,
         label = "contentColor",
     )
     val elevation by animateDpAsState(
@@ -370,7 +375,7 @@ fun FilterItem(
             label = item.icon,
             tint = when {
                 item.color == 0 -> MaterialTheme.colorScheme.onSurface
-                item.adjustColor && isSystemInDarkTheme() ->
+                item.adjustColor && isDarkTheme() ->
                     Color(tonalColor(item.color, ColorTone.DARK_DRAWER))
                 item.adjustColor ->
                     Color(tonalColor(item.color, ColorTone.LIGHT_DRAWER))

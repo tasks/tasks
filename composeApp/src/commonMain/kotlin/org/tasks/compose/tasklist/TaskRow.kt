@@ -2,7 +2,6 @@ package org.tasks.compose.tasklist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -34,6 +33,7 @@ import com.mikepenz.markdown.m3.markdownTypography
 import com.mikepenz.markdown.model.markdownAnimations
 import com.todoroo.astrid.core.SortHelper
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.themes.isDarkTheme
 import org.tasks.data.INDENT_STEP_DP
 import org.tasks.compose.priorityColor
 import org.tasks.compose.chips.Chip
@@ -88,7 +88,7 @@ internal fun TaskRow(
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
 ) {
-    val isDark = isSystemInDarkTheme()
+    val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
         MaterialTheme.colorScheme.outline
     } else {

@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,6 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.tasks.themes.isDarkTheme
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.edit.ListPickerDialog
@@ -89,7 +89,7 @@ fun LookAndFeelDetail(
     }
 
     if (showColorPicker) {
-        val isDark = isSystemInDarkTheme()
+        val isDark = isDarkTheme()
         val purchaseState = koinInject<PurchaseState>()
         val colors = remember(isDark) { buildPickerColors(isDark) }
         ColorPickerDialog(
@@ -106,7 +106,7 @@ fun LookAndFeelDetail(
     }
 
     if (showFilterPicker && viewModel.loaded) {
-        val isDark = isSystemInDarkTheme()
+        val isDark = isDarkTheme()
         val pickerViewModel = koinViewModel<FilterPickerViewModel>(
             key = "look_and_feel_filter_picker",
             parameters = { parametersOf(false) },

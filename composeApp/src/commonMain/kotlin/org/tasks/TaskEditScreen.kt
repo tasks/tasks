@@ -1,7 +1,6 @@
 package org.tasks
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -43,6 +42,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.themes.isDarkTheme
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.AlarmsSection
 import org.tasks.compose.edit.DeleteTaskDialog
@@ -102,6 +102,7 @@ fun TaskEditScreen(
     onCreateList: (accountId: Long) -> Unit = {},
     onSignIn: () -> Unit = {},
     backHandlerEnabled: Boolean = true,
+    filterTint: Int = 0,
     onOpenSubtask: (taskId: Long, remoteId: String, isDraft: Boolean) -> Unit = { _, _, _ -> },
     onClose: () -> Unit,
 ) {
@@ -170,7 +171,7 @@ fun TaskEditScreen(
                         }
                     }
                     val list = state.list!!
-                    val isDark = isSystemInDarkTheme()
+                    val isDark = isDarkTheme()
                     val onSurface = MaterialTheme.colorScheme.onSurface
                     val listTint = remember(list, isDark) {
                         val color = filterPickerViewModel.getColor(list.tint, isDark)
@@ -350,6 +351,7 @@ fun TaskEditScreen(
                         )
                     }
                     TaskEditActionBar(
+                        filterTint = filterTint,
                         onMarkCompleted = {
                             keyboardController?.hide()
                             viewModel.markComplete()

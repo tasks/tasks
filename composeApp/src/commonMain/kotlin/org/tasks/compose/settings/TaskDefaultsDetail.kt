@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,6 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.tasks.themes.isDarkTheme
 import org.tasks.NewListDialogHost
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.ComposeRefreshBroadcaster
@@ -63,7 +63,7 @@ fun TaskDefaultsDetail(
     var showRecurrencePicker by rememberSaveable { mutableStateOf(false) }
     var showDefaultReminders by rememberSaveable { mutableStateOf(false) }
     var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
-    val isDark = isSystemInDarkTheme()
+    val isDark = isDarkTheme()
     val is24HourFormat = is24HourFormat()
     val refreshBroadcaster = koinInject<ComposeRefreshBroadcaster>()
 
