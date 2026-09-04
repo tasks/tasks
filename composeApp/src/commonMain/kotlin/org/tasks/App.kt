@@ -189,6 +189,7 @@ import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.TagSettingsScreen
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
+import org.tasks.compose.settings.LookAndFeelDetail
 import org.tasks.compose.settings.MainSettingsScreen
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.settings.OpenTaskAccountSettingsDetail
@@ -219,13 +220,19 @@ import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
 import org.tasks.filters.key
+import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.MyTasksFilter
+import org.tasks.filters.SearchFilter
+import org.tasks.preferences.TasksPreferences
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
+import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
 import org.tasks.themes.BLUE
+import org.tasks.themes.BaseTheme
+import org.tasks.themes.isDarkTheme
 import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.reminders.SNOOZE_PICKER_OFFSET
@@ -325,7 +332,13 @@ fun App(
             }
         }
     }
-    TasksTheme {
+    val themePreferences = koinInject<TasksPreferences>()
+    val baseTheme by remember { themePreferences.flow(TasksPreferences.theme, BaseTheme.DEFAULT) }
+        .collectAsState(initial = BaseTheme.DEFAULT)
+    val storedColor by remember { themePreferences.flow(TasksPreferences.themeColor, BLUE_500) }
+        .collectAsState(initial = BLUE_500)
+    val themeColor = ColorProvider.getColor(storedColor, isDarkTheme(baseTheme), adjust = true)
+    TasksTheme(theme = baseTheme, primary = themeColor) {
         androidx.compose.runtime.CompositionLocalProvider(
             androidx.compose.ui.platform.LocalUriHandler provides uriHandler,
         ) {
@@ -566,11 +579,12 @@ fun App(
 
             // Seeded here rather than in the task list nav entry: that entry is disposed whenever a
             // task is opened in single-pane, and re-running this on back would undo the user's pick.
+            val filterCodec = koinInject<FilterPreferenceCodec>()
             LaunchedEffect(taskListViewModel) {
                 if (taskListViewModel != null &&
                     taskListViewModel.state.value.filter is EmptyFilter
                 ) {
-                    taskListViewModel.setFilter(MyTasksFilter.create())
+                    taskListViewModel.setFilter(startupFilter(themePreferences, filterCodec))
                 }
             }
 
@@ -579,7 +593,14 @@ fun App(
             // goes through the task list view model, so mirroring it here rather than at each of
             // those call sites leaves nothing to keep in sync by hand.
             LaunchedEffect(taskListState?.filter) {
-                taskListState?.filter?.let { drawerViewModel?.setSelectedFilter(it) }
+                taskListState?.filter?.let { filter ->
+                    drawerViewModel?.setSelectedFilter(filter)
+                    if (filter !is EmptyFilter && filter !is SearchFilter) {
+                        filterCodec.encode(filter)?.let {
+                            themePreferences.set(TasksPreferences.lastViewedList, it)
+                        }
+                    }
+                }
             }
 
             fun closeDetail() {
@@ -3005,6 +3026,14 @@ private fun SettingsScreen(
                             onAddAccount = onAddAccountClick,
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.LookAndFeel -> {
+                        LookAndFeelDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            onSubscribe = onUpgradeClick,
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {
                         NavigationDrawerDetail(
                             onNavigateBack = {
@@ -3219,3 +3248,14 @@ private fun MutableList<NavKey>.push(key: NavKey) {
     }
 }
 
+private suspend fun startupFilter(
+    tasksPreferences: TasksPreferences,
+    filterCodec: FilterPreferenceCodec,
+): Filter {
+    val stored = if (tasksPreferences.get(TasksPreferences.openLastViewedList, true)) {
+        tasksPreferences.get(TasksPreferences.lastViewedList, "")
+    } else {
+        tasksPreferences.get(TasksPreferences.defaultOpenFilter, "")
+    }
+    return filterCodec.decode(stored.takeIf { it.isNotBlank() }) ?: MyTasksFilter.create()
+}

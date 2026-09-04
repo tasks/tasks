@@ -20,6 +20,7 @@ import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.settings.LookAndFeelScreen
 import org.tasks.compose.settings.baseThemeName
 import org.tasks.dialogs.ColorPalettePicker
@@ -34,6 +35,8 @@ import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeBase
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_translations
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
 import javax.inject.Inject
 
@@ -111,6 +114,7 @@ class LookAndFeel : Fragment() {
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
         ) {
+            val translationsUrl = stringResource(Res.string.url_translations)
             LookAndFeelScreen(
                 themeName = baseThemeName(viewModel.themeIndex),
                 dynamicColorAvailable = viewModel.dynamicColorAvailable,
@@ -173,7 +177,7 @@ class LookAndFeel : Fragment() {
                     }
                 },
                 onTranslations = {
-                    context?.openUri(R.string.url_translations)
+                    context?.openUri(translationsUrl)
                 },
             )
         }

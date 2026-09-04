@@ -65,6 +65,7 @@ import java.awt.desktop.QuitStrategy
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 import java.io.File
+import java.util.Locale
 import java.io.RandomAccessFile
 import java.net.InetAddress
 import java.net.ServerSocket
@@ -158,6 +159,12 @@ fun main() {
         val versionCode = koin.get<PlatformConfiguration>().versionCode
         koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
         koin.get<Upgrader>().upgrade(versionCode)
+        koin.get<TasksPreferences>()
+            .get(TasksPreferences.languageTag, "")
+            .takeIf { it.isNotBlank() }
+            ?.let { runCatching { Locale.forLanguageTag(it) }.getOrNull() }
+            ?.takeIf { it.language.isNotBlank() }
+            ?.let { Locale.setDefault(it) }
     }
     // Cmd+Q on macOS goes through here rather than through the window: the JDK's default quit
     // strategy calls System.exit directly, so no window ever sees a close request and none of the

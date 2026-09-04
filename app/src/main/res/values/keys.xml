@@ -26,7 +26,6 @@
   <string name="url_donate">https://tasks.org/donate</string>
   <string name="url_filters">https://tasks.org/filters</string>
   <string name="url_backups">https://tasks.org/backups</string>
-  <string name="url_translations">https://tasks.org/translations</string>
   <string name="url_notifications">https://tasks.org/notifications</string>
   <string name="url_troubleshoot_intents">https://tasks.org/intents</string>
   <string name="url_google_tasks">https://tasks.org/docs/sync_google_tasks</string>
