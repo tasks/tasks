@@ -93,6 +93,7 @@ import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
+import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
@@ -563,6 +564,14 @@ val commonModule = module {
             refreshBroadcaster = get<ComposeRefreshBroadcaster>(),
             listsOnly = params.get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
+    single {
+        FilterPreferenceCodec(
+            filterDao = get(),
+            tagDataDao = get(),
+            caldavDao = get(),
+            locationDao = get(),
         )
     }
     single<QueryPreferences> { DataStoreQueryPreferences(get()) }

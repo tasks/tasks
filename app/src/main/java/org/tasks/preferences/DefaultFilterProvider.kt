@@ -2,36 +2,25 @@ package org.tasks.preferences
 
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.GoogleTask
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.FilterDao
-import org.tasks.data.dao.LocationDao
-import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.filters.CaldavFilter
-import org.tasks.filters.CustomFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.MyTasksFilter
-import org.tasks.filters.NotificationsFilter
-import org.tasks.filters.PlaceFilter
-import org.tasks.filters.RecentlyModifiedFilter
-import org.tasks.filters.SnoozedFilter
-import org.tasks.filters.TagFilter
-import org.tasks.filters.TodayFilter
 import timber.log.Timber
 import javax.inject.Inject
 
 class DefaultFilterProvider @Inject constructor(
     private val preferences: Preferences,
-    private val filterDao: FilterDao,
-    private val tagDataDao: TagDataDao,
     private val caldavDao: CaldavDao,
-    private val locationDao: LocationDao,
+    private val codec: FilterPreferenceCodec,
 ) {
+
     var dashclockFilter: Filter
         @Deprecated("use coroutines") get() = runBlocking { getFilterFromPreference(R.string.p_dashclock_filter) }
         set(filter) = setFilterPreference(filter, R.string.p_dashclock_filter)
@@ -91,64 +80,13 @@ class DefaultFilterProvider @Inject constructor(
         def
     }
 
-    private suspend fun loadFilter(preferenceValue: String): Filter? {
-        val split = preferenceValue.split(":")
-        return when (split[0].toInt()) {
-            TYPE_FILTER -> getBuiltInFilter(split[1].toInt())
-            TYPE_CUSTOM_FILTER -> filterDao.getById(split[1].toLong())?.let(::CustomFilter)
-            TYPE_TAG -> {
-                val tag = tagDataDao.getByUuid(split[1])
-                if (tag == null || isNullOrEmpty(tag.name)) null else TagFilter(tag)
-            }
-            TYPE_GOOGLE_TASKS, // TODO: convert filters from old ID to uuid?
-            TYPE_CALDAV ->
-                caldavDao.getCalendarByUuid(split[1])
-                    ?.let { CaldavFilter(it, caldavDao.getAccountByUuid(it.account!!)!!) }
-            TYPE_LOCATION -> locationDao.getPlace(split[1])?.let { PlaceFilter(it) }
-            else -> null
-        }
-    }
+    private suspend fun loadFilter(preferenceValue: String): Filter? =
+            codec.decode(preferenceValue)
 
     private fun setFilterPreference(filter: Filter, prefId: Int) =
             getFilterPreferenceValue(filter).let { preferences.setString(prefId, it) }
 
-    fun getFilterPreferenceValue(filter: Filter): String? = when (val filterType = getFilterType(filter)) {
-        TYPE_FILTER -> getFilterPreference(filterType, getBuiltInFilterId(filter))
-        TYPE_CUSTOM_FILTER -> getFilterPreference(filterType, (filter as CustomFilter).id)
-        TYPE_TAG -> getFilterPreference(filterType, (filter as TagFilter).uuid)
-        TYPE_GOOGLE_TASKS,
-        TYPE_CALDAV -> getFilterPreference(filterType, (filter as CaldavFilter).uuid)
-        TYPE_LOCATION -> getFilterPreference(filterType, (filter as PlaceFilter).uid)
-        else -> null
-    }
-
-    private fun <T> getFilterPreference(type: Int, value: T) = "$type:$value"
-
-    private fun getFilterType(filter: Filter) = when (filter) {
-        is TagFilter -> TYPE_TAG
-        is CustomFilter -> TYPE_CUSTOM_FILTER
-        is CaldavFilter -> TYPE_CALDAV
-        is PlaceFilter -> TYPE_LOCATION
-        else -> TYPE_FILTER
-    }
-
-    private suspend fun getBuiltInFilter(id: Int): Filter = when (id) {
-        FILTER_TODAY -> TodayFilter.create()
-        FILTER_RECENTLY_MODIFIED -> RecentlyModifiedFilter.create()
-        FILTER_SNOOZED -> SnoozedFilter.create()
-        FILTER_NOTIFICATIONS -> NotificationsFilter.create()
-        else -> MyTasksFilter.create()
-    }
-
-    private fun getBuiltInFilterId(filter: Filter) = with(filter) {
-        when {
-            isToday() -> FILTER_TODAY
-            isRecentlyModified() -> FILTER_RECENTLY_MODIFIED
-            isSnoozed() -> FILTER_SNOOZED
-            isNotifications() -> FILTER_NOTIFICATIONS
-            else -> FILTER_MY_TASKS
-        }
-    }
+    fun getFilterPreferenceValue(filter: Filter): String? = codec.encode(filter)
 
     suspend fun getList(task: Task): CaldavFilter {
         var originalList: CaldavFilter? = null
@@ -179,26 +117,11 @@ class DefaultFilterProvider @Inject constructor(
         return originalList ?: getDefaultList()
     }
 
-    private fun Filter.isToday() = this is TodayFilter
-
-    private fun Filter.isRecentlyModified() = this is RecentlyModifiedFilter
-
-    private fun Filter.isSnoozed() = this is SnoozedFilter
-
-    private fun Filter.isNotifications() = this is NotificationsFilter
-
     companion object {
-        private const val TYPE_FILTER = 0
-        private const val TYPE_CUSTOM_FILTER = 1
-        private const val TYPE_TAG = 2
-        @Deprecated("use TYPE_CALDAV") const val TYPE_GOOGLE_TASKS = 3
-        const val TYPE_CALDAV = 4
-        private const val TYPE_LOCATION = 5
-        private const val FILTER_MY_TASKS = 0
-        private const val FILTER_TODAY = 1
-        @Suppress("unused") private const val FILTER_UNCATEGORIZED = 2
-        private const val FILTER_RECENTLY_MODIFIED = 3
-        private const val FILTER_SNOOZED = 4
-        private const val FILTER_NOTIFICATIONS = 5
+        const val TYPE_CALDAV = FilterPreferenceCodec.TYPE_CALDAV
+
+        @Suppress("DEPRECATION")
+        @Deprecated("use TYPE_CALDAV")
+        const val TYPE_GOOGLE_TASKS = FilterPreferenceCodec.TYPE_GOOGLE_TASKS
     }
 }

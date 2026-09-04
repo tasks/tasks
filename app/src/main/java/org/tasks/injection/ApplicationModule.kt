@@ -69,6 +69,7 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.data.db.Database
+import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.FilterProvider
 import org.tasks.filters.PreferenceDrawerConfiguration
 import org.tasks.jobs.BackgroundWork
@@ -294,6 +295,20 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun providesComposeRefreshBroadcaster() = ComposeRefreshBroadcaster()
+
+    @Provides
+    @Singleton
+    fun providesFilterPreferenceCodec(
+        filterDao: FilterDao,
+        tagDataDao: TagDataDao,
+        caldavDao: CaldavDao,
+        locationDao: LocationDao,
+    ) = FilterPreferenceCodec(
+        filterDao = filterDao,
+        tagDataDao = tagDataDao,
+        caldavDao = caldavDao,
+        locationDao = locationDao,
+    )
 
     @Provides
     fun providesPurchaseState(inventory: Inventory): PurchaseState = inventory
