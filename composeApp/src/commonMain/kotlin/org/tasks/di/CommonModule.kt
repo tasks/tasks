@@ -67,6 +67,7 @@ import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.NotificationSettings
+import org.tasks.preferences.DrawerSettings
 import org.tasks.preferences.PreferencesSnapshot
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TaskDefaultSettings
@@ -288,6 +289,22 @@ val commonModule = module {
                 tasksPreferences.snapshot().notificationSettings().isCurrentlyQuietHours()
             override suspend fun adjustForQuietHours(time: Long) =
                 tasksPreferences.snapshot().notificationSettings().adjustForQuietHours(time)
+            override suspend fun drawerSettings() =
+                tasksPreferences.snapshot().drawerSettings()
+            override suspend fun setFiltersEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.filtersEnabled, value)
+            override suspend fun setTodayFilter(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.showTodayFilter, value)
+            override suspend fun setRecentlyModifiedFilter(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.showRecentlyModifiedFilter, value)
+            override suspend fun setTagsEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.tagsEnabled, value)
+            override suspend fun setHideUnusedTags(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.tagsHideUnused, value)
+            override suspend fun setPlacesEnabled(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.placesEnabled, value)
+            override suspend fun setHideUnusedPlaces(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.placesHideUnused, value)
             override suspend fun notificationSettings() =
                 tasksPreferences.snapshot().notificationSettings()
             override suspend fun setNotificationsEnabled(value: Boolean) =
@@ -641,8 +658,9 @@ val commonModule = module {
     }
     viewModel {
         NavigationDrawerViewModel(
-            tasksPreferences = get(),
+            appPreferences = get(),
             refreshBroadcaster = get(),
+            persistenceScope = get(),
         )
     }
     viewModel {
@@ -805,6 +823,21 @@ val commonModule = module {
 }
 
 private val notificationDefaults = NotificationSettings()
+
+private val drawerDefaults = DrawerSettings()
+
+private fun PreferencesSnapshot.drawerSettings() = DrawerSettings(
+    filtersEnabled = get(TasksPreferences.filtersEnabled, drawerDefaults.filtersEnabled),
+    todayFilter = get(TasksPreferences.showTodayFilter, drawerDefaults.todayFilter),
+    recentlyModifiedFilter = get(
+        TasksPreferences.showRecentlyModifiedFilter,
+        drawerDefaults.recentlyModifiedFilter
+    ),
+    tagsEnabled = get(TasksPreferences.tagsEnabled, drawerDefaults.tagsEnabled),
+    hideUnusedTags = get(TasksPreferences.tagsHideUnused, drawerDefaults.hideUnusedTags),
+    placesEnabled = get(TasksPreferences.placesEnabled, drawerDefaults.placesEnabled),
+    hideUnusedPlaces = get(TasksPreferences.placesHideUnused, drawerDefaults.hideUnusedPlaces),
+)
 
 private val taskSettingDefaults = TaskDefaultSettings()
 

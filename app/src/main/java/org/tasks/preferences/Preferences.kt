@@ -41,6 +41,8 @@ class Preferences @JvmOverloads constructor(
 
     private val notificationDefaults = NotificationSettings()
 
+    private val drawerDefaults = DrawerSettings()
+
     fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
@@ -152,6 +154,43 @@ class Preferences @JvmOverloads constructor(
     override suspend fun setQuietHoursStart(value: Int) = setInt(R.string.p_rmd_quietStart, value)
 
     override suspend fun setQuietHoursEnd(value: Int) = setInt(R.string.p_rmd_quietEnd, value)
+
+    override suspend fun drawerSettings() = DrawerSettings(
+        filtersEnabled = getBoolean(R.string.p_filters_enabled, drawerDefaults.filtersEnabled),
+        todayFilter = getBoolean(R.string.p_show_today_filter, drawerDefaults.todayFilter),
+        recentlyModifiedFilter = getBoolean(
+            R.string.p_show_recently_modified_filter,
+            drawerDefaults.recentlyModifiedFilter
+        ),
+        tagsEnabled = getBoolean(R.string.p_tags_enabled, drawerDefaults.tagsEnabled),
+        hideUnusedTags = getBoolean(R.string.p_tags_hide_unused, drawerDefaults.hideUnusedTags),
+        placesEnabled = getBoolean(R.string.p_places_enabled, drawerDefaults.placesEnabled),
+        hideUnusedPlaces = getBoolean(
+            R.string.p_places_hide_unused,
+            drawerDefaults.hideUnusedPlaces
+        ),
+    )
+
+    override suspend fun setFiltersEnabled(value: Boolean) =
+        setBoolean(R.string.p_filters_enabled, value)
+
+    override suspend fun setTodayFilter(value: Boolean) =
+        setBoolean(R.string.p_show_today_filter, value)
+
+    override suspend fun setRecentlyModifiedFilter(value: Boolean) =
+        setBoolean(R.string.p_show_recently_modified_filter, value)
+
+    override suspend fun setTagsEnabled(value: Boolean) =
+        setBoolean(R.string.p_tags_enabled, value)
+
+    override suspend fun setHideUnusedTags(value: Boolean) =
+        setBoolean(R.string.p_tags_hide_unused, value)
+
+    override suspend fun setPlacesEnabled(value: Boolean) =
+        setBoolean(R.string.p_places_enabled, value)
+
+    override suspend fun setHideUnusedPlaces(value: Boolean) =
+        setBoolean(R.string.p_places_hide_unused, value)
 
     val dateShortcutMorning: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_morning, R.integer.default_morning)

@@ -5,122 +5,95 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.preferences.TasksPreferences
+import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.DrawerSettings
 
 open class NavigationDrawerViewModel(
-    private val tasksPreferences: TasksPreferences,
+    private val appPreferences: AppPreferences,
     private val refreshBroadcaster: RefreshBroadcaster,
+    persistenceScope: CoroutineScope,
 ) : ViewModel() {
 
-    var filtersEnabled by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.filtersEnabled, true) }
-    )
+    var settings by mutableStateOf(DrawerSettings())
         private set
 
-    var showToday by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.showTodayFilter, true) }
-    )
+    var loaded by mutableStateOf(false)
         private set
 
-    var showRecentlyModified by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.showRecentlyModifiedFilter, true) }
+    private val writes = PreferenceWriteQueue(
+        viewModelScope = viewModelScope,
+        persistenceScope = persistenceScope,
+        tag = TAG,
+        reload = { reloadSafely() },
     )
-        private set
 
-    var tagsEnabled by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.tagsEnabled, true) }
-    )
-        private set
-
-    var hideUnusedTags by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.tagsHideUnused, false) }
-    )
-        private set
-
-    var placesEnabled by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.placesEnabled, true) }
-    )
-        private set
-
-    var hideUnusedPlaces by mutableStateOf(
-        runBlocking { tasksPreferences.get(TasksPreferences.placesHideUnused, false) }
-    )
-        private set
-
-    fun refreshState() {
+    init {
         viewModelScope.launch {
-            filtersEnabled = tasksPreferences.get(TasksPreferences.filtersEnabled, true)
-            showToday = tasksPreferences.get(TasksPreferences.showTodayFilter, true)
-            showRecentlyModified = tasksPreferences.get(
-                TasksPreferences.showRecentlyModifiedFilter, true,
-            )
-            tagsEnabled = tasksPreferences.get(TasksPreferences.tagsEnabled, true)
-            hideUnusedTags = tasksPreferences.get(TasksPreferences.tagsHideUnused, false)
-            placesEnabled = tasksPreferences.get(TasksPreferences.placesEnabled, true)
-            hideUnusedPlaces = tasksPreferences.get(TasksPreferences.placesHideUnused, false)
+            reloadSafely()
         }
     }
 
-    private fun refresh() {
+    private suspend fun reload() {
+        settings = appPreferences.drawerSettings()
+        loaded = true
+    }
+
+    private suspend fun reloadSafely() {
+        try {
+            reload()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Logger.e(e, tag = TAG) { "Failed to reload navigation drawer settings" }
+        }
+    }
+
+    open fun refreshState() = writes.refresh()
+
+    private fun persist(block: suspend () -> Unit) = writes.write {
+        block()
         refreshBroadcaster.broadcastRefresh()
     }
 
     fun updateFiltersEnabled(enabled: Boolean) {
-        filtersEnabled = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.filtersEnabled, enabled)
-            refresh()
-        }
+        settings = settings.copy(filtersEnabled = enabled)
+        persist { appPreferences.setFiltersEnabled(enabled) }
     }
 
     fun updateShowToday(enabled: Boolean) {
-        showToday = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.showTodayFilter, enabled)
-            refresh()
-        }
+        settings = settings.copy(todayFilter = enabled)
+        persist { appPreferences.setTodayFilter(enabled) }
     }
 
     fun updateShowRecentlyModified(enabled: Boolean) {
-        showRecentlyModified = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.showRecentlyModifiedFilter, enabled)
-            refresh()
-        }
+        settings = settings.copy(recentlyModifiedFilter = enabled)
+        persist { appPreferences.setRecentlyModifiedFilter(enabled) }
     }
 
     fun updateTagsEnabled(enabled: Boolean) {
-        tagsEnabled = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.tagsEnabled, enabled)
-            refresh()
-        }
+        settings = settings.copy(tagsEnabled = enabled)
+        persist { appPreferences.setTagsEnabled(enabled) }
     }
 
     fun updateHideUnusedTags(enabled: Boolean) {
-        hideUnusedTags = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.tagsHideUnused, enabled)
-            refresh()
-        }
+        settings = settings.copy(hideUnusedTags = enabled)
+        persist { appPreferences.setHideUnusedTags(enabled) }
     }
 
     fun updatePlacesEnabled(enabled: Boolean) {
-        placesEnabled = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.placesEnabled, enabled)
-            refresh()
-        }
+        settings = settings.copy(placesEnabled = enabled)
+        persist { appPreferences.setPlacesEnabled(enabled) }
     }
 
     fun updateHideUnusedPlaces(enabled: Boolean) {
-        hideUnusedPlaces = enabled
-        viewModelScope.launch {
-            tasksPreferences.set(TasksPreferences.placesHideUnused, enabled)
-            refresh()
-        }
+        settings = settings.copy(hideUnusedPlaces = enabled)
+        persist { appPreferences.setHideUnusedPlaces(enabled) }
     }
 }
+
+private const val TAG = "NavigationDrawerViewModel"
