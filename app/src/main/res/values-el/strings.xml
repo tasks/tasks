@@ -100,7 +100,6 @@
     <string name="help_and_feedback">Βοήθεια &amp; Καταχώρηση απόψεων</string>
     <string name="app_settings">Ρυθμίσεις Εφαρμογής</string>
     <string name="customize_drawer">Προσαρμογή συρταριού</string>
-    <string name="customize_drawer_summary">Τραβήξτε και αφήστε για ανακατάταξη των αντικειμένων του μενού</string>
     <string name="astrid_sort_order_summary">Ενεργοποιήστε τη χειροκίνητη λειτουργία ταξινόμησης του Astrid για τις κατηγορίες \'Οι Εργασίες μου\', \'Σήμερα\', και τις ετικέτες. Αυτή η μέθοδος ταξινόμησης θα αντικατασταθεί από την \'Η σειρά μου\' σε μελλοντική ενημέρωση της εφαρμογής</string>
     <string name="SSD_sort_start">Ανά ημερομηνία έναρξης</string>
     <string name="sort_created">Ανά ώρα δημιουργίας</string>
@@ -119,7 +118,6 @@
     <string name="EPr_delete_task_data">Διαγραφή δεδομένων εργασίας</string>
     <string name="EPr_delete_task_data_warning">Όλες οι εργασίες θα διαγραφούν μόνιμα</string>
     <string name="BFE_Active">Οι Εργασίες μου</string>
-    <string name="BFE_Recent">Πρόσφατα επεξεργασμένα</string>
     <string name="CFC_startBefore_text">Έναρξη από: ?</string>
     <string name="CFC_startBefore_name">Έναρξη από…</string>
     <string name="no_start_date">Καθόλου ημερομηνία έναρξης</string>
@@ -267,8 +265,6 @@
     <string name="chip_appearance">Εμφάνιση τσιπ</string>
     <string name="places">Μέρη/ τοποθεσίες</string>
     <string name="place_settings">Ρυθμίσεις μέρους/ τοποθεσίας</string>
-    <string name="hide_unused_tags">Απόκρυψη μη χρησιμοποιημένων ετικετών</string>
-    <string name="hide_unused_places">Απόκρυψη μη χρησιμοποιημένων μερών/ τοποθεσιών</string>
     <string name="chip_appearance_text_and_icon">Κείμενο και εικονίδιο</string>
     <string name="chip_appearance_text_only">Κείμενο μόνο</string>
     <string name="chip_appearance_icon_only">Εικονίδιο μόνο</string>
@@ -387,7 +383,6 @@
     <string name="location_radius_meters">%s μ</string>
     <string name="tags">Ετικέτες</string>
     <string name="change_priority">Αλλαγή προτεραιότητας</string>
-    <string name="filters">Φίλτρα</string>
     <string name="date_shortcut_morning">Πρωί</string>
     <string name="date_shortcut_afternoon">Μεσημέρι</string>
     <string name="date_shortcut_evening">Απόγευμα</string>

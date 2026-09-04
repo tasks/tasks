@@ -536,4 +536,8 @@
     <string name="TEA_add_subtask">Añadir subtarea</string>
     <string name="subtasks_multilevel_google_task">Subtareas multinivel no compatibles con Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do no admite subtareas de múltiples niveles</string>
+    <string name="customize_drawer">Personalizar menú</string>
+    <string name="customize_drawer_summary">Arrastra y suelta para reorganizar los elementos del menú</string>
+    <string name="hide_unused_tags">Ocultar etiquetas no utilizadas</string>
+    <string name="hide_unused_places">Ocultar lugares inusuales</string>
 </resources>

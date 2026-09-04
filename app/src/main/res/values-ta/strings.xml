@@ -86,7 +86,6 @@
     <string name="CFC_dueBefore_text">காரணமாக :\?</string>
     <string name="CFA_button_add">அளவுகோல்களைச் சேர்க்கவும்</string>
     <string name="gcal_TEA_error">வேலையை நாட்காட்டியில் சேர்க்க முடியவில்லை!</string>
-    <string name="BFE_Recent">சமீபத்தில் மாற்றியவை</string>
     <string name="BFE_Active">என் வேலைகள்</string>
     <string name="import_progress_read">%d வேலையைப் படிக்கிறது…</string>
     <string name="permission_read_tasks">பணிகள் தரவுத்தளத்திற்கான முழு அணுகல்</string>
@@ -128,8 +127,6 @@
     <string name="chip_appearance_icon_only">படவுரு மட்டுமே</string>
     <string name="chip_appearance_text_only">உரை மட்டும்</string>
     <string name="chip_appearance_text_and_icon">உரை மற்றும் படவுரு</string>
-    <string name="hide_unused_places">பயன்படுத்தப்படாத இடங்களை மறைக்கவும்</string>
-    <string name="hide_unused_tags">பயன்படுத்தப்படாத குறிச்சொற்களை மறைக்கவும்</string>
     <string name="place_settings">அமைப்புகளை வை</string>
     <string name="places">இடங்கள்</string>
     <string name="chip_appearance">சிப் தோற்றம்</string>
@@ -236,7 +233,6 @@
     <string name="date_shortcut_evening">மாலை</string>
     <string name="date_shortcut_afternoon">மதியம்</string>
     <string name="date_shortcut_morning">காலை</string>
-    <string name="filters">வடிப்பான்கள்</string>
     <string name="tags">குறிச்சொற்கள்</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">புவிவேளி ஆரம்</string>
@@ -353,7 +349,6 @@
     <string name="android_auto_backup">ஆண்ட்ராய்டு காப்பு பணி</string>
     <string name="last_backup">கடைசி காப்புப்பிரதி: %s</string>
     <string name="customize_drawer">டிராயரைத் தனிப்பயனாக்குங்கள்</string>
-    <string name="customize_drawer_summary">பட்டியல் உருப்படிகளை மறுசீரமைக்க இழுத்து விடுங்கள்</string>
     <string name="theme_dynamic">மாறும்</string>
     <string name="custom_filter_has_subtask">துணை பணிகள் உள்ளன</string>
     <string name="custom_filter_is_subtask">சப்டாச்க்</string>

@@ -65,4 +65,6 @@
     <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
     <string name="action_open">Otvori</string>
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
+    <string name="customize_drawer">Prilagodi meni</string>
+    <string name="customize_drawer_summary">Povuci i pusti za promjenu rasporeda u meniju</string>
 </resources>

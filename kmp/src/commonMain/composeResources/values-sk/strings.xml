@@ -452,4 +452,8 @@
     <string name="TEA_add_subtask">Pridať podúlohu</string>
     <string name="subtasks_multilevel_google_task">Úlohy Google nepodporujú viacúrovňové podúlohy</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do nepodporujú viacúrovňové podúlohy</string>
+    <string name="customize_drawer">Upraviť zásuvku</string>
+    <string name="customize_drawer_summary">Ťahaním zmeníte usporiadanie položiek v ponuke</string>
+    <string name="hide_unused_tags">Skryť nevyužívané štítky</string>
+    <string name="hide_unused_places">Skryť nevyužívané miesta</string>
 </resources>

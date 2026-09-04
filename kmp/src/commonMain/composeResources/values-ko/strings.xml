@@ -428,4 +428,8 @@
     <string name="TEA_add_subtask">하위할일 추가</string>
     <string name="subtasks_multilevel_google_task">구글 태스크는 다단계 하위할일을 지원하지 않습니다</string>
     <string name="subtasks_multilevel_microsoft">마이크로소프트 To Do는 다단계 하위할일을 지원하지 않습니다</string>
+    <string name="customize_drawer">서랍 정렬</string>
+    <string name="customize_drawer_summary">끌어다 놓기로 메뉴 항목 재배열</string>
+    <string name="hide_unused_tags">사용하지 않는 태그 숨기기</string>
+    <string name="hide_unused_places">사용하지 않는 장소 숨기기</string>
 </resources>

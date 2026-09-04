@@ -409,4 +409,6 @@
     <string name="DLG_delete_this_task_question">Ištrinti šią užduotį?</string>
     <string name="TEA_add_subtask">Pridėti antrinę užduotį</string>
     <string name="subtasks_multilevel_google_task">„Google Tasks“ nepalaiko kelių lygių antrinių užduočių</string>
+    <string name="hide_unused_tags">Slėpti nenaudojamas etiketes</string>
+    <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
 </resources>

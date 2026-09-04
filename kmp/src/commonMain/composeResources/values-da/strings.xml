@@ -474,4 +474,8 @@
     <string name="TEA_add_subtask">Tilføj underopgave</string>
     <string name="subtasks_multilevel_google_task">Underopgaver på flere niveauer understøttes ikke af Google Huskeliste</string>
     <string name="subtasks_multilevel_microsoft">Underopgaver på flere niveauer understøttes ikke af Microsoft To Do</string>
+    <string name="customize_drawer">Tilpas skuffe</string>
+    <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
+    <string name="hide_unused_tags">Skjul ubrugte tags</string>
+    <string name="hide_unused_places">Skjul ubrugte steder</string>
 </resources>

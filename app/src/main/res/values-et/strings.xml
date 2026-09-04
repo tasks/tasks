@@ -52,7 +52,6 @@
     <string name="day_after_tomorrow">Ülehomme</string>
     <string name="next_week">Järgmisel nädalal</string>
     <string name="BFE_Active">Minu ülesanded</string>
-    <string name="BFE_Recent">Hiljuti muudetud</string>
     <string name="custom_filter_or">või</string>
     <string name="custom_filter_not">pole</string>
     <string name="custom_filter_and">samuti</string>
@@ -105,7 +104,6 @@
     <string name="geofence_radius">Geofence\'i raadius</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Sildid</string>
-    <string name="filters">Filtrid</string>
     <string name="date_shortcut_morning">Hommik</string>
     <string name="date_shortcut_afternoon">Pärastlõuna</string>
     <string name="date_shortcut_evening">Õhtu</string>
@@ -287,9 +285,7 @@
     </plurals>
     <string name="display_name">Kuvatav nimi</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
-    <string name="hide_unused_tags">Peida kasutamata sildid</string>
     <string name="name_your_price">Ütle oma hind</string>
-    <string name="hide_unused_places">Peida kasutamata asukohad</string>
     <string name="widget_id">Vidina ID: %d</string>
     <string name="current_subscription">Pregune tellimus:%s</string>
     <string name="hint_customize_edit_title">Liiga palju infot?</string>
@@ -309,7 +305,6 @@
     <string name="import_progress_read">Loeme ülesannet %d…</string>
     <string name="import_summary_message">%1$s fail sisdaldas%2$s.\n\n %3$s imporditud,\n %4$s on juba olemas,\n %5$s oli vigadega</string>
     <string name="actfm_picture_clear">Eemalda pilt</string>
-    <string name="customize_drawer_summary">Menüükirjeid saad muuta lohistades</string>
     <string name="TEA_control_timer">Ajastamise haldus</string>
     <string name="EPr_manage_delete_completed_gcal">Kustuta täidetud ülesannete kalendrikirjed</string>
     <string name="EPr_manage_delete_all_gcal_message">Kas sa tõesti soovid kustutada kõikide ülesannete kalendrisse märgitud sündmused?</string>

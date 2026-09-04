@@ -514,4 +514,8 @@
     <string name="TEA_add_subtask">أضف مهمّة فرعيّة</string>
     <string name="subtasks_multilevel_google_task">مهام فرعية متعددة المراحل غير مدعومة بواسطة مهام كوكل</string>
     <string name="subtasks_multilevel_microsoft">المهام الفرعية متعددة المستويات غير مدعومة من قبل Microsoft To Do</string>
+    <string name="customize_drawer">تخصيص الدرج</string>
+    <string name="customize_drawer_summary">اسحب وأفلِت لإعادة ترتيب عناصر القائمة</string>
+    <string name="hide_unused_tags">أخفِ العلامات الغير مستعملة</string>
+    <string name="hide_unused_places">أخفِ الأماكن الغير مستخدمة</string>
 </resources>

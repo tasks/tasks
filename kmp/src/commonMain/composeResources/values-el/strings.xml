@@ -434,4 +434,8 @@
     <string name="TEA_add_subtask">Προσθήκη υποεργασίας</string>
     <string name="subtasks_multilevel_google_task">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Οι πολυεπίπεδες υποεργασίες δεν υποστηρίζονται από το Microsoft To Do</string>
+    <string name="customize_drawer">Προσαρμογή συρταριού</string>
+    <string name="customize_drawer_summary">Τραβήξτε και αφήστε για ανακατάταξη των αντικειμένων του μενού</string>
+    <string name="hide_unused_tags">Απόκρυψη μη χρησιμοποιημένων ετικετών</string>
+    <string name="hide_unused_places">Απόκρυψη μη χρησιμοποιημένων μερών/ τοποθεσιών</string>
 </resources>

@@ -78,4 +78,6 @@
     <string name="DLG_delete_this_task_question">ഈ ടാസ്ക് ഇല്ലാതാക്കണോ?</string>
     <string name="action_open">തുറക്കുക</string>
     <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
+    <string name="customize_drawer">ഡ്രോയർ ഇഷ്ടാനുസൃതമാക്കുക</string>
+    <string name="customize_drawer_summary">മെനു ഇനങ്ങൾ പുനഃക്രമീകരിക്കാൻ വലിച്ചിടുക</string>
 </resources>

@@ -460,4 +460,8 @@
     <string name="TEA_add_subtask">Subtaak toevoegen</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ondersteunt geen subtaken op meerdere niveaus</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ondersteunt geen subtaken op meerdere niveaus</string>
+    <string name="customize_drawer">Lade personaliseren</string>
+    <string name="customize_drawer_summary">Versleep om menu-items opnieuw te ordenen</string>
+    <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
+    <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
 </resources>

@@ -615,4 +615,8 @@
     <string name="subtask_list_locked">Novas subtarefas usam a lista dos pais</string>
     <string name="subtasks_will_be_flattened">Esta lista não suporta subtarefas aninhadas. Salvar irá movê-los todos para o nível superior.</string>
     <string name="undo_delete">Desfazer exclusão</string>
+    <string name="customize_drawer">Personalizar menu</string>
+    <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
+    <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
+    <string name="hide_unused_places">Ocultar lugares não utilizados</string>
 </resources>

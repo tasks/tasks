@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Послезавтра</string>
     <string name="next_week">Следующая неделя</string>
     <string name="BFE_Active">Мои задачи</string>
-    <string name="BFE_Recent">Недавно изменённые</string>
     <string name="CFA_button_add">Добавить условие</string>
     <string name="CFC_dueBefore_text">Дата завершения: \?</string>
     <string name="CFC_dueBefore_name">Дата завершения…</string>
@@ -161,7 +160,6 @@
     <string name="geofence_radius">Радиус геозоны</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
-    <string name="filters">Фильтры</string>
     <string name="date_shortcut_morning">Утро</string>
     <string name="date_shortcut_afternoon">Обед</string>
     <string name="date_shortcut_evening">Вечер</string>
@@ -269,8 +267,6 @@
     <string name="chip_appearance_icon_only">Только иконка</string>
     <string name="chip_appearance_text_only">Только текст</string>
     <string name="chip_appearance_text_and_icon">Текст и иконка</string>
-    <string name="hide_unused_places">Скрыть неиспользуемые места</string>
-    <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
     <string name="place_settings">Настройки места</string>
     <string name="places">Места</string>
     <string name="share">Поделиться</string>
@@ -403,7 +399,6 @@
     <string name="sort_list">Список</string>
     <string name="comment">Комментарий</string>
     <string name="yesterday">Вчера</string>
-    <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
     <string name="donate_maybe_later">Возможно, позже</string>
     <string name="multiline_title">Разрешить многострочные заголовки</string>
     <string name="sync_warning_google_tasks">Не все подробности задачи синхронизируются с Google Task</string>

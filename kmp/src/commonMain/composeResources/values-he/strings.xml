@@ -572,4 +572,8 @@
     <string name="TEA_add_subtask">הוספת תת־משימה</string>
     <string name="subtasks_multilevel_google_task">תתי־משימות מקוננות אינן נתמכות על ידי Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">תתי־משימות מקוננות אינן נתמכות על ידי Microsoft To Do</string>
+    <string name="customize_drawer">התאמה אישית של מגירה</string>
+    <string name="customize_drawer_summary">יש לגרור ולשחרר כדי לסדר מחדש את פריטי התפריט</string>
+    <string name="hide_unused_tags">הסתרת תגיות שאינן בשימוש</string>
+    <string name="hide_unused_places">הסתרת מקומות שאינן בשימוש</string>
 </resources>

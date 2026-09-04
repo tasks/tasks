@@ -598,4 +598,8 @@
     <string name="undo_delete">Silmeyi geri al</string>
     <string name="subtasks_will_be_flattened">Bu liste iç içe geçen alt görevleri desteklemez. Kaydettiğinizde tüm görevler en üst düzeye taşınacaktır.</string>
     <string name="subtask_list_locked">Yeni alt görevler, üst görev listesini kullanır</string>
+    <string name="customize_drawer">Çekmeceyi özelleştir</string>
+    <string name="customize_drawer_summary">Menü ögelerini yeniden düzenlemek için sürükleyip bırakın</string>
+    <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
+    <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
 </resources>

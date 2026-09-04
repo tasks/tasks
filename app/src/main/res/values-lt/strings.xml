@@ -71,7 +71,6 @@
     <string name="day_after_tomorrow">Poryt</string>
     <string name="next_week">Kitą savaitę</string>
     <string name="BFE_Active">Mano užduotys</string>
-    <string name="BFE_Recent">Neseniai redaguotos</string>
     <string name="custom_filter_or">ARBA</string>
     <string name="custom_filter_not">NE</string>
     <string name="custom_filter_and">IR</string>
@@ -168,7 +167,6 @@
     <string name="remove">Išmesti</string>
     <string name="geofence_radius">Geofence spindulys</string>
     <string name="tags">Etiketė</string>
-    <string name="filters">Filtrai</string>
     <string name="date_shortcut_morning">Rytas</string>
     <string name="date_shortcut_afternoon">Popietė</string>
     <string name="date_shortcut_evening">Vakaras</string>
@@ -383,8 +381,6 @@
     <string name="widget_id">Valdiklio ID: %d</string>
     <string name="add_tags">Pridėti etiketes</string>
     <string name="auto_dismiss_datetime">Automatiškai uždaryti datos ir laiko parinkiklį</string>
-    <string name="hide_unused_places">Slėpti nenaudojamas vietas</string>
-    <string name="hide_unused_tags">Slėpti nenaudojamas etiketes</string>
     <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
     <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks kūrėjas</string>
     <string name="place_settings">Vietos nustatymai</string>

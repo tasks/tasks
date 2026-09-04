@@ -82,7 +82,6 @@
     <string name="CFC_dueBefore_name">Ĝis…</string>
     <string name="CFC_dueBefore_text">Ĝis: \?</string>
     <string name="CFA_button_add">Aldoni Kriteriojn</string>
-    <string name="BFE_Recent">Lastatempe ŝanĝitaj</string>
     <string name="next_week">Sekvanta semajno</string>
     <string name="EPr_manage_delete_gcal_status">Forigis %d kalendarajn eventojn!</string>
     <string name="EPr_delete_task_data">Forigi taskan datumon</string>
@@ -215,7 +214,6 @@
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
     <string name="auto_dismiss_datetime">Aŭtomate fermi datan/horan elektilon</string>
-    <string name="filters">Filtriloj</string>
     <string name="filter_after_today">Post hodiaŭ</string>
     <string name="widget_due_date_after_title">Post titolo</string>
     <string name="widget_header_settings">Kapaj agordoj</string>
@@ -268,7 +266,6 @@
     <string name="missing_permissions">Permesoj mankas</string>
     <string name="documentation">Dokumentado</string>
     <string name="places">Lokoj</string>
-    <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
     <string name="current_subscription">Aktuala abono: %s</string>
     <string name="hint_customize_edit_title">Tro da informo?</string>
     <string name="sort_list">Laŭ listo</string>
@@ -287,7 +284,6 @@
     <string name="choose_a_location">Elekti lokon</string>
     <string name="open_map">Malfermi mapon</string>
     <string name="choose_synchronization_service">Elekti platformon</string>
-    <string name="hide_unused_tags">Kaŝi neuzatajn etikedojn</string>
     <string name="place_settings">Agordoj de loko</string>
     <string name="settings_default">Defaŭlta</string>
     <string name="upgrade_blurb_2">Mi laboris milojn da horoj pri Tasks, kaj mi rete eldonas senpage ĉiun da la fontkodo. Por subteni mian laboron, kelkaj funkcioj postulas abonon</string>
@@ -401,7 +397,6 @@
     <string name="donate_nag">Bonvolu doni subtenon per donaco!</string>
     <string name="donate_maybe_later">Eble poste</string>
     <string name="customize_drawer">Adapti tirkeston</string>
-    <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
     <string name="delete_comment">komento</string>
     <string name="yesterday">Hieraŭ</string>
     <string name="enable_alarms_description">Por certigi ke vi sciiĝos je la ĝusta horo, permesu agordi alarmojn kaj memorigilojn per Agordoj</string>

@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Pojutrze</string>
     <string name="next_week">Przyszły tydzień</string>
     <string name="BFE_Active">Moje zadania</string>
-    <string name="BFE_Recent">Niedawno zmodyfikowane</string>
     <string name="CFA_button_add">Dodaj kryterium</string>
     <string name="CFC_dueBefore_text">Termin wykonania: ?</string>
     <string name="CFC_dueBefore_name">Termin wykonania…</string>
@@ -158,7 +157,6 @@
     <string name="remove">Usuń</string>
     <string name="geofence_radius">Promień</string>
     <string name="tags">Tagi</string>
-    <string name="filters">Filtry</string>
     <string name="date_shortcut_morning">Rano</string>
     <string name="date_shortcut_afternoon">Po południu</string>
     <string name="date_shortcut_evening">Wieczór</string>
@@ -268,8 +266,6 @@
     <string name="chip_appearance_icon_only">Tylko ikona</string>
     <string name="chip_appearance_text_only">Tylko tekst</string>
     <string name="chip_appearance_text_and_icon">Tekst i ikona</string>
-    <string name="hide_unused_places">Ukryj nieużywane miejsca</string>
-    <string name="hide_unused_tags">Ukryj nieużywane tagi</string>
     <string name="place_settings">Ustawienia miejsca</string>
     <string name="places">Miejsca</string>
     <string name="compact">Kompaktowy</string>
@@ -408,7 +404,6 @@
     <string name="theme_dynamic">Dynamiczny</string>
     <string name="import_failed">Import nie powiódł się</string>
     <string name="import_failed_message">Nie udało się odczytać pliku kopii zapasowej</string>
-    <string name="customize_drawer_summary">Przeciągnij i upuść, aby zmienić kolejność elementów menu</string>
     <string name="sort_options">Sortuj opcje</string>
     <string name="customize_drawer">Dostosuj szufladę</string>
     <string name="location_update_interval_summary">Okresowe aktualizacje lokalizacji poprawiają niezawodność geofencingu</string>

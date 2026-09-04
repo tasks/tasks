@@ -453,4 +453,8 @@
     <string name="TEA_add_subtask">Lisää alitehtävä</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ei tue monitasoisia alitehtäviä</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ei tue monitasoisia alitehtäviä</string>
+    <string name="customize_drawer">Muokkaa vetolaatikkoa</string>
+    <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
+    <string name="hide_unused_tags">Piilota käyttämättömät tunnistimet</string>
+    <string name="hide_unused_places">Piilota käyttämättömät paikat</string>
 </resources>

@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">모레</string>
     <string name="next_week">다음 주</string>
     <string name="BFE_Active">나의 할일</string>
-    <string name="BFE_Recent">최근에 변경한 할일</string>
     <string name="CFA_button_add">조건 추가</string>
     <string name="CFC_dueBefore_text">마감일: ?</string>
     <string name="CFC_dueBefore_name">마감일…</string>
@@ -150,7 +149,6 @@
     <string name="remove">지우기</string>
     <string name="geofence_radius">반경</string>
     <string name="tags">태그</string>
-    <string name="filters">필터</string>
     <string name="date_shortcut_morning">아침</string>
     <string name="date_shortcut_afternoon">오후</string>
     <string name="date_shortcut_evening">저녁</string>
@@ -250,8 +248,6 @@
     <string name="chip_appearance_icon_only">아이콘만</string>
     <string name="chip_appearance_text_only">글자만</string>
     <string name="chip_appearance_text_and_icon">글자와 아이콘</string>
-    <string name="hide_unused_places">사용하지 않는 장소 숨기기</string>
-    <string name="hide_unused_tags">사용하지 않는 태그 숨기기</string>
     <string name="place_settings">장소 설정</string>
     <string name="places">장소</string>
     <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
@@ -398,7 +394,6 @@
     <string name="change_priority">우선순위 변경</string>
     <string name="show_edit_screen_without_unlock">잠금해제 없이 편집 화면 보이기</string>
     <string name="customize_drawer">서랍 정렬</string>
-    <string name="customize_drawer_summary">끌어다 놓기로 메뉴 항목 재배열</string>
     <string name="show_edit_screen_without_unlock_summary">잠금 해제 없이 퀵세팅 타일을 사용할 수 있도록 합니다</string>
     <string name="enable_alarms">제때 알람 받기</string>
     <string name="enable_alarms_description">놓치지 않고 제때 알람을 받으려면, \"설정\"에서 알람 설정 권한을 부여해주세요</string>

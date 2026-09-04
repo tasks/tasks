@@ -36,7 +36,6 @@
     <string name="TEA_control_reminders">Påminnelser</string>
     <string name="TEA_control_hidden_section">----Skjul alltid----</string>
     <string name="BFE_Active">Mine gjøremål</string>
-    <string name="BFE_Recent">Nylig endret</string>
     <string name="CFA_button_add">Legg til kriterium</string>
     <string name="CFC_dueBefore_text">Frist til: ?</string>
     <string name="CFC_dueBefore_name">Frist til…</string>
@@ -70,7 +69,6 @@
     <string name="notifications"> Varsler</string>
     <string name="row_spacing">Radmellomrom</string>
     <string name="tags">Etiketter</string>
-    <string name="filters">Filtre</string>
     <string name="filter_settings">Filterinnstillinger</string>
     <string name="opacity">Ugjennomsiktighet</string>
     <string name="language">Språk</string>
@@ -288,8 +286,6 @@
     <string name="auto_dismiss_datetime_summary">Lukk datovelger etter å ha valgt dato eller tid</string>
     <string name="auto_dismiss_datetime_widget_summary">Lukk automatisk når valgt fra miniprogram</string>
     <string name="auto_dismiss_datetime">Lukk datovelger automatisk</string>
-    <string name="hide_unused_places">Skjul ubrukte steder</string>
-    <string name="hide_unused_tags">Skjul ubrukte etiketter</string>
     <string name="chip_appearance">Flisutseende</string>
     <string name="chips">Flis</string>
     <string name="upgrade_blurb_2">Jeg har brukt tusenvis av timer på å jobbe med Tasks, og jeg offentliggjør all kildekoden på nettet gratis. For å støtte mitt arbeid krever noen funksjoner et abonnement</string>
@@ -401,7 +397,6 @@
     <string name="donate_today">Donér i dag</string>
     <string name="donate_maybe_later">Kanskje senere</string>
     <string name="customize_drawer">Tilpass meny</string>
-    <string name="customize_drawer_summary">Dra og slip for å omkonfigurere menyelementer</string>
     <string name="show_edit_screen_without_unlock">Vis redigeringsskjerm uten opplåsning</string>
     <string name="show_edit_screen_without_unlock_summary">Aktiverer bruken av knapp i hurtiginnstillinger uten å låse opp enheten</string>
     <string name="theme_dynamic">Dynamisk</string>

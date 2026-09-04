@@ -54,7 +54,6 @@
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
     <string name="BFE_Active">Moji Opravki</string>
-    <string name="BFE_Recent">Nedavno spremenjeno</string>
     <string name="custom_filter_or">na dan</string>
     <string name="custom_filter_not">ne</string>
     <string name="custom_filter_and">tudi</string>

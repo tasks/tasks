@@ -468,4 +468,8 @@
     <string name="TEA_add_subtask">加入副工作</string>
     <string name="subtasks_multilevel_google_task">Google Tasks 不支援多層次子任務</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do 不支援多層級子任務</string>
+    <string name="customize_drawer">自訂抽屜</string>
+    <string name="customize_drawer_summary">拖放以重新排列選單項目</string>
+    <string name="hide_unused_tags">隱藏未使用標籤</string>
+    <string name="hide_unused_places">隱藏未使用地點</string>
 </resources>

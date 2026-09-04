@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">מחרתיים</string>
     <string name="next_week">שבוע הבא</string>
     <string name="BFE_Active">המשימות שלי</string>
-    <string name="BFE_Recent">השתנו לאחרונה</string>
     <string name="CFA_button_add">הוספת קריטריונים</string>
     <string name="CFC_dueBefore_text">יעד לפני: ?</string>
     <string name="CFC_dueBefore_name">יעד לפני…</string>
@@ -161,7 +160,6 @@
     <string name="geofence_radius">רדיוס גדר גאוגרפית</string>
     <string name="location_radius_meters">%s מ\'</string>
     <string name="tags">תגיות</string>
-    <string name="filters">מסננים</string>
     <string name="date_shortcut_morning">בוקר</string>
     <string name="date_shortcut_afternoon">אחר הצהריים</string>
     <string name="date_shortcut_evening">ערב</string>
@@ -313,8 +311,6 @@
     <string name="select_all">לבחור הכול</string>
     <string name="calendar_event_created">נוצר אירוע יומן עבור %s</string>
     <string name="place_settings">הגדרות מקום</string>
-    <string name="hide_unused_tags">הסתרת תגיות שאינן בשימוש</string>
-    <string name="hide_unused_places">הסתרת מקומות שאינן בשימוש</string>
     <string name="auto_dismiss_datetime_summary">לסגור את בוחר התאריך והשעה לאחר בחירת תאריך או שעה</string>
     <string name="auto_dismiss_datetime_widget_summary">לסגור אוטומטית בעת בחירה מיישומון</string>
     <string name="auto_dismiss_datetime_edit">עריכת משימה</string>
@@ -392,7 +388,6 @@
     <string name="app_settings">הגדרות יישום</string>
     <string name="TEA_creation_date">תאריך יצירה</string>
     <string name="customize_drawer">התאמה אישית של מגירה</string>
-    <string name="customize_drawer_summary">יש לגרור ולשחרר כדי לסדר מחדש את פריטי התפריט</string>
     <string name="sort_list">לפי רשימה</string>
     <string name="hint_customize_edit_body">באפשרותך להתאים אישית את המסך הזה על ידי סידור מחדש או הסרה של שדות</string>
     <string name="snackbar_tasks_completed">%d משימות הושלמו</string>

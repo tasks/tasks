@@ -63,7 +63,6 @@
     <string name="day_after_tomorrow">Ylihuomenna</string>
     <string name="next_week">Ensi viikko</string>
     <string name="BFE_Active">Omat tehtävät</string>
-    <string name="BFE_Recent">Äskettäin muokattu</string>
     <string name="CFA_button_add">Lisää kriteeri</string>
     <string name="CFC_dueBefore_text">Mennessä: ?</string>
     <string name="CFC_dueBefore_name">Mennessä…</string>
@@ -147,7 +146,6 @@
     <string name="translations">Osallistu kääntämiseen</string>
     <string name="remove">Poista</string>
     <string name="tags">Tunnisteet</string>
-    <string name="filters">Suodattimet</string>
     <string name="date_shortcut_morning">Aamu</string>
     <string name="date_shortcut_afternoon">Iltapäivä</string>
     <string name="date_shortcut_evening">Ilta</string>
@@ -197,8 +195,6 @@
     <string name="tasker_create_task">Luo tehtävä</string>
     <string name="tasker_list_notification">Ilmoituslista</string>
     <string name="help">Apua</string>
-    <string name="hide_unused_places">Piilota käyttämättömät paikat</string>
-    <string name="hide_unused_tags">Piilota käyttämättömät tunnistimet</string>
     <string name="reinitialize_account">Uudelleenalustus</string>
     <string name="calendar_event_created">Kalenterimerkintä luotu %s varten</string>
     <string name="auto_dismiss_datetime_summary">Päivämäärän ja kellonajan valitsimet sulkeutuvat itsestään valittuasi ajan</string>
@@ -393,7 +389,6 @@
     <string name="customize_edit_screen_summary">Uudelleenjärjestä tai poista kenttiä</string>
     <string name="change_priority">Vaihda prioriteetti</string>
     <string name="sort_list">Luettelojen mukaan</string>
-    <string name="customize_drawer_summary">Vedä ja pudota valikon kohteita järjestääksesi ne uudelleen</string>
     <string name="donate_today">Lahjoita tänään</string>
     <string name="donate_maybe_later">Ehkä myöhemmin</string>
     <string name="show_edit_screen_without_unlock">Näytä muokkaa näyttöä ilman lukituksen avaamista</string>

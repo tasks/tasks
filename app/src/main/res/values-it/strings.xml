@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Dopodomani</string>
     <string name="next_week">Settimana prossima</string>
     <string name="BFE_Active">Le mie attività</string>
-    <string name="BFE_Recent">Modificate di recente</string>
     <string name="CFA_button_add">Aggiungi Criteri</string>
     <string name="CFC_dueBefore_text">Entro: ?</string>
     <string name="CFC_dueBefore_name">Entro…</string>
@@ -158,7 +157,6 @@
     <string name="remove">Elimina</string>
     <string name="geofence_radius">Raggio area geografica</string>
     <string name="tags">Etichette</string>
-    <string name="filters">Filtri</string>
     <string name="date_shortcut_morning">Mattina</string>
     <string name="date_shortcut_afternoon">Pomeriggio</string>
     <string name="date_shortcut_evening">Sera</string>
@@ -247,8 +245,6 @@
     <string name="chip_appearance_icon_only">Solo icona</string>
     <string name="chip_appearance_text_only">Solo testo</string>
     <string name="chip_appearance_text_and_icon">Testo e icona</string>
-    <string name="hide_unused_places">Nascondi luoghi non usati</string>
-    <string name="hide_unused_tags">Nascondi etichette non usate</string>
     <string name="place_settings">Impostazioni luogo</string>
     <string name="places">Luoghi</string>
     <string name="back">Indietro</string>
@@ -406,7 +402,6 @@
     <string name="donate_nag">Dimostra il tuo sostegno con una donazione!</string>
     <string name="donate_maybe_later">Forse più tardi</string>
     <string name="customize_drawer">Personalizza il menù laterale</string>
-    <string name="customize_drawer_summary">Trascina e rilascia le voci del menù per riorganizzarlo</string>
     <string name="show_edit_screen_without_unlock">Mostra la schermata di modifica senza sbloccare</string>
     <string name="show_edit_screen_without_unlock_summary">Consente l\'uso delle impostazioni rapide senza sbloccare il dispositivo</string>
     <string name="yesterday">Ieri</string>

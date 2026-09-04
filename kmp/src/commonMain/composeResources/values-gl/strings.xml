@@ -434,4 +434,8 @@
     <string name="TEA_add_subtask">Engadir subtarefa</string>
     <string name="subtasks_multilevel_google_task">Gootle Tasks non acepta as subtarefas a múltiples niveis</string>
     <string name="subtasks_multilevel_microsoft">Subtarefas multinivel non compatibles con Microsoft To Do</string>
+    <string name="customize_drawer">Personalizar caixón</string>
+    <string name="customize_drawer_summary">Arrastrar e soltar para reorganizar os elementos do menú</string>
+    <string name="hide_unused_tags">Agochar etiquetas sen usar</string>
+    <string name="hide_unused_places">Agochar lugares sen usar</string>
 </resources>

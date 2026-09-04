@@ -529,4 +529,8 @@
     <string name="TEA_add_subtask">Добавяне на задача</string>
     <string name="subtasks_multilevel_google_task">Вложени задачи не се поддържат от Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Вложени задачи не се поддържат от Microsoft To Do</string>
+    <string name="customize_drawer">Настройка на менюто</string>
+    <string name="customize_drawer_summary">Пренаредете елементите с плъзгане и пускане</string>
+    <string name="hide_unused_tags">Скриване на неизползвани етикети</string>
+    <string name="hide_unused_places">Скриване на неизползвани места</string>
 </resources>

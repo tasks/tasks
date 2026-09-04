@@ -66,7 +66,6 @@
     <string name="day_after_tomorrow">2 日後</string>
     <string name="next_week">1 週間後</string>
     <string name="BFE_Active">マイタスク</string>
-    <string name="BFE_Recent">最近変更したタスク</string>
     <string name="custom_filter_or">または</string>
     <string name="custom_filter_not">除外</string>
     <string name="custom_filter_and">かつ</string>
@@ -154,7 +153,6 @@
     <string name="remove">削除</string>
     <string name="geofence_radius">ジオフェンスの半径</string>
     <string name="tags">タグ</string>
-    <string name="filters">フィルター</string>
     <string name="date_shortcut_morning">朝</string>
     <string name="date_shortcut_afternoon">昼</string>
     <string name="date_shortcut_evening">夕方</string>
@@ -242,7 +240,6 @@
     <string name="cancel">キャンセル</string>
     <string name="add_tags">タグを追加</string>
     <string name="filter_no_tags">タグなし</string>
-    <string name="hide_unused_tags">使われていないタグを隠す</string>
     <string name="action_new_task">新しいタスク</string>
     <string name="this_feature_requires_a_subscription">この機能はサブスクリプションが必要です</string>
     <string name="subscription">サブスクリプション</string>
@@ -268,7 +265,6 @@
     <string name="sort_created">作成日時</string>
     <string name="display_name">表示名</string>
     <string name="copied_to_clipboard">%sをクリップボードにコピーしました</string>
-    <string name="hide_unused_places">使われていない場所を隠す</string>
     <string name="place_settings">場所の設定</string>
     <string name="places">場所</string>
     <string name="local_lists">ローカルリスト</string>
@@ -392,7 +388,6 @@
     <string name="open_source">オープンソース</string>
     <string name="sort_list">リスト</string>
     <string name="change_priority">優先度を変更</string>
-    <string name="customize_drawer_summary">ドラッグ&amp;ドロップしてメニューを並び替え</string>
     <string name="delete_comment">コメント</string>
     <string name="comment">コメント</string>
     <string name="multiline_title">複数行のタイトルを許可</string>

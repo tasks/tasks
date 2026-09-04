@@ -63,7 +63,6 @@
     <string name="day_after_tomorrow">Pozítří</string>
     <string name="next_week">Příští týden</string>
     <string name="BFE_Active">Moje úkoly</string>
-    <string name="BFE_Recent">Nedávno upravené</string>
     <string name="CFA_button_add">Přidat podmínku</string>
     <string name="CFC_dueBefore_text">Podle termínu: ?</string>
     <string name="CFC_dueBefore_name">Podle termínu…</string>
@@ -110,7 +109,6 @@
     <string name="translations">Přispějte k překladu</string>
     <string name="remove">Odstranit</string>
     <string name="tags">Štítky</string>
-    <string name="filters">Filtry</string>
     <string name="date_shortcut_morning">Ráno</string>
     <string name="date_shortcut_afternoon">Odpoledne</string>
     <string name="date_shortcut_evening">Večer</string>
@@ -260,8 +258,6 @@
     <string name="chip_appearance_icon_only">Pouze ikona</string>
     <string name="chip_appearance_text_only">Pouze text</string>
     <string name="chip_appearance_text_and_icon">Text a ikona</string>
-    <string name="hide_unused_places">Skrýt nevyužitá místa</string>
-    <string name="hide_unused_tags">Skrýt nevyužité štítky</string>
     <string name="place_settings">Nastavení místa</string>
     <string name="places">Místa</string>
     <string name="action_new_task">Nový úkol</string>
@@ -408,7 +404,6 @@
     <string name="show_edit_screen_without_unlock">Umožnit úpravy bez odemčení zařízení</string>
     <string name="show_edit_screen_without_unlock_summary">Umožňuje použití dlaždice rychlého nastavení bez odemykání zařízení</string>
     <string name="customize_drawer">Upravit šuplík</string>
-    <string name="customize_drawer_summary">Přetažením změníte uspořádání položek nabídky</string>
     <string name="yesterday">Včera</string>
     <string name="delete_comment">komentář</string>
     <string name="price_per_month_with_currency">%s měsíčně</string>

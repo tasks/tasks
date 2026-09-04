@@ -599,4 +599,8 @@
     <string name="TEA_add_subtask">Přidat podúkol</string>
     <string name="subtasks_multilevel_google_task">Úkoly Google nepodporují víceúrovňové podúkoly</string>
     <string name="subtasks_multilevel_microsoft">Víceúrovňové dílčí úkoly nejsou podporované službou Microsoft To Do</string>
+    <string name="customize_drawer">Upravit šuplík</string>
+    <string name="customize_drawer_summary">Přetažením změníte uspořádání položek nabídky</string>
+    <string name="hide_unused_tags">Skrýt nevyužité štítky</string>
+    <string name="hide_unused_places">Skrýt nevyužitá místa</string>
 </resources>

@@ -578,4 +578,8 @@
     <string name="snoozed_reminder">Pengingat ditunda</string>
     <string name="subtasks_will_be_flattened">Daftar ini tidak mendukung subtask bersarang. Menyimpan akan memindahkan semuanya ke tingkat teratas.</string>
     <string name="subtask_list_locked">Subtask baru menggunakan daftar induk</string>
+    <string name="customize_drawer">Kustomisasi laci</string>
+    <string name="customize_drawer_summary">Seret dan lepas untuk mengatur ulang item menu</string>
+    <string name="hide_unused_tags">Sembunyikan tag yang tidak digunakan</string>
+    <string name="hide_unused_places">Sembunyikan tempat yang tidak digunakan</string>
 </resources>

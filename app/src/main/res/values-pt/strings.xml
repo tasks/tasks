@@ -62,7 +62,6 @@
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
     <string name="BFE_Active">Minhas tarefas</string>
-    <string name="BFE_Recent">Alteradas recentemente</string>
     <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Data de fim: \?</string>
     <string name="CFC_dueBefore_name">Data de fim…</string>
@@ -147,7 +146,6 @@
     <string name="translations">Contribuir nas traduções</string>
     <string name="remove">Remover</string>
     <string name="tags">Etiquetas</string>
-    <string name="filters">Filtros</string>
     <string name="date_shortcut_morning">Manhã</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Fim de dia</string>
@@ -280,8 +278,6 @@
     <string name="chip_appearance_icon_only">Apenas ícone</string>
     <string name="chip_appearance_text_only">Apenas texto</string>
     <string name="chip_appearance_text_and_icon">Texto e ícone</string>
-    <string name="hide_unused_places">Ocultar locais não usados</string>
-    <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
     <string name="place_settings">Configuração de locais</string>
     <string name="places">Locais</string>
     <string name="chip_appearance">Aparência da ficha</string>
@@ -420,7 +416,6 @@
     <string name="banner_app_updated_description">O Tasks foi atualizado para a versão %s. Gostaria de ver as notas de lançamento?</string>
     <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
     <string name="donate_today">Doe hoje</string>
-    <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
     <string name="app_settings">Configurações da aplicação</string>
     <string name="comment">Comentário</string>
     <string name="delete_tasks_warning">%s será apagado. Isso não poderá ser desfeito!</string>

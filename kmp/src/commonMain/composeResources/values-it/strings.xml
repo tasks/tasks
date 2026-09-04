@@ -524,4 +524,8 @@
     <string name="TEA_add_subtask">Aggiungi attività secondaria</string>
     <string name="subtasks_multilevel_google_task">Google Tasks non supporta attività secondarie su più livelli</string>
     <string name="subtasks_multilevel_microsoft">Attività secondarie multilivello non supportate da Microsoft To Do</string>
+    <string name="customize_drawer">Personalizza il menù laterale</string>
+    <string name="customize_drawer_summary">Trascina e rilascia le voci del menù per riorganizzarlo</string>
+    <string name="hide_unused_tags">Nascondi etichette non usate</string>
+    <string name="hide_unused_places">Nascondi luoghi non usati</string>
 </resources>

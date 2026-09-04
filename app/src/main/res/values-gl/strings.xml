@@ -63,7 +63,6 @@
     <string name="day_after_tomorrow">Pasado mañá</string>
     <string name="next_week">Semana seguinte</string>
     <string name="BFE_Active">As miñas tarefas</string>
-    <string name="BFE_Recent">Modificadas recentemente</string>
     <string name="custom_filter_or">OU</string>
     <string name="custom_filter_not">NON</string>
     <string name="custom_filter_and">E</string>
@@ -124,7 +123,6 @@
     <string name="translations">Contribúe coa tradución</string>
     <string name="remove">Borrar</string>
     <string name="tags">Etiquetas</string>
-    <string name="filters">Filtros</string>
     <string name="date_shortcut_morning">Mañá</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Amencer</string>
@@ -249,8 +247,6 @@
     <string name="preferences_advanced">Avanzada</string>
     <string name="places">Lugares</string>
     <string name="place_settings">Configuración de posición</string>
-    <string name="hide_unused_tags">Agochar etiquetas sen usar</string>
-    <string name="hide_unused_places">Agochar lugares sen usar</string>
     <string name="account">Conta</string>
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
@@ -342,7 +338,6 @@
     <string name="filter_any_start_date">Calquera data de inicio</string>
     <string name="app_settings">Configuración da aplicación</string>
     <string name="customize_drawer">Personalizar caixón</string>
-    <string name="customize_drawer_summary">Arrastrar e soltar para reorganizar os elementos do menú</string>
     <string name="astrid_sort_order">Ordenación manual de Astrid</string>
     <string name="astrid_sort_order_summary">Activar o modo de ordenación manual de Astrid para \'As miñas tarefas\', \'Hoxe\' e as etiquetas. Este modo de ordenación será substituído por \'O meu pedido\' nunha actualización futura</string>
     <string name="sort_list">Por lista</string>

@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Overmorgen</string>
     <string name="next_week">Volgende week</string>
     <string name="BFE_Active">Mijn Taken</string>
-    <string name="BFE_Recent">Onlangs aangepast</string>
     <string name="CFA_button_add">Criteria toevoegen</string>
     <string name="CFC_dueBefore_text">Vervalt op: \?</string>
     <string name="CFC_dueBefore_name">Vervalt op …</string>
@@ -229,7 +228,6 @@
     <string name="TEA_timer_controls">Tijdklok</string>
     <string name="backup_directory">Backup-map</string>
     <string name="location_radius_meters">%s m</string>
-    <string name="filters">Filters</string>
     <string name="filter">Filter</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
     <string name="restart_later">Later</string>
@@ -259,8 +257,6 @@
     <string name="chip_appearance">Uiterlijk van chip</string>
     <string name="places">Locaties</string>
     <string name="place_settings">Locatie instellen</string>
-    <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
-    <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
     <string name="chip_appearance_text_and_icon">Tekst en pictogram</string>
     <string name="chip_appearance_text_only">Alleen tekst</string>
     <string name="chip_appearance_icon_only">Alleen pictogram</string>
@@ -400,7 +396,6 @@
     <string name="donate_today">Doe vandaag een schenking</string>
     <string name="donate_maybe_later">Misschien later</string>
     <string name="customize_drawer">Lade personaliseren</string>
-    <string name="customize_drawer_summary">Versleep om menu-items opnieuw te ordenen</string>
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="yesterday">Gisteren</string>
     <string name="cost_money">Kosten: €</string>

@@ -24,4 +24,6 @@
     <string name="keep_editing">ಸಂಪಾದನೆ ಮಾಡುತ್ತಲೇ ಇರಿ</string>
     <string name="DLG_delete_this_task_question">ಈ ಕಾರ್ಯವನ್ನು ಅಳಿಸಿ?</string>
     <string name="action_open">ತೆರೆ</string>
+    <string name="customize_drawer">ಡ್ರಾಯರ್ ಅನ್ನು ಕಸ್ಟಮೈಸ್ ಮಾಡಿ</string>
+    <string name="customize_drawer_summary">ಮೆನು ಐಟಂಗಳನ್ನು ಮರುಜೋಡಿಸಲು ಎಳೆದು ಬಿಡಿ</string>
 </resources>

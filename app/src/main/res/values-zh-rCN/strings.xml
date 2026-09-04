@@ -64,7 +64,6 @@
     <string name="day_after_tomorrow">后天</string>
     <string name="next_week">下周</string>
     <string name="BFE_Active">我的任务</string>
-    <string name="BFE_Recent">最近修改过的</string>
     <string name="CFA_button_add">添加条件</string>
     <string name="CFC_dueBefore_text">截止于：?</string>
     <string name="CFC_dueBefore_name">截止于…</string>
@@ -145,7 +144,6 @@
     <string name="translations">贡献翻译</string>
     <string name="remove">移除</string>
     <string name="tags">标签</string>
-    <string name="filters">过滤器</string>
     <string name="date_shortcut_morning">上午</string>
     <string name="date_shortcut_afternoon">下午</string>
     <string name="date_shortcut_evening">傍晚</string>
@@ -256,8 +254,6 @@
     <string name="chip_appearance">纸片外观</string>
     <string name="places">地点</string>
     <string name="place_settings">地点设置</string>
-    <string name="hide_unused_tags">隐藏不用的标签</string>
-    <string name="hide_unused_places">隐藏不用的地点</string>
     <string name="auto_dismiss_datetime_summary">在选择一个日期或时间后关闭日期时间选择器</string>
     <string name="auto_dismiss_datetime">自动关闭日期时间选择器</string>
     <string name="no_date">无日期</string>
@@ -395,7 +391,6 @@
     <string name="show_edit_screen_without_unlock_summary">允许不解锁设备的情况下使用“快速设置”磁贴</string>
     <string name="show_edit_screen_without_unlock">不解锁显示编辑屏</string>
     <string name="customize_drawer">自定义抽屉</string>
-    <string name="customize_drawer_summary">通过拖放重新安排菜单项</string>
     <string name="donate_maybe_later">也许以后</string>
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="donate_today">现在捐赠</string>

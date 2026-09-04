@@ -66,9 +66,7 @@
     <string name="documentation">Dokumentacija</string>
     <string name="BFE_Active">Moji zadaci</string>
     <string name="lists">Popisi</string>
-    <string name="hide_unused_tags">Sakrij nekorištene oznake</string>
     <string name="tags">Oznake</string>
-    <string name="filters">Filtri</string>
     <string name="discard_changes">Odbaciti promjene\?</string>
     <string name="next_month">Sljedeći mjesec</string>
     <string name="next_week">Sljedeći tjedan</string>
@@ -106,7 +104,6 @@
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>
     <string name="choose_synchronization_service">Odaberi platformu</string>
-    <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
     <string name="place_settings">Postavke mjesta</string>
     <string name="places">Mjesta</string>
     <string name="color_wheel">Krug boja</string>
@@ -296,7 +293,6 @@
     <string name="CFC_dueBefore_name">Rok …</string>
     <string name="CFC_dueBefore_text">Rok: \?</string>
     <string name="CFA_button_add">Dodaj kriterije</string>
-    <string name="BFE_Recent">Nedavno promijenjeni</string>
     <string name="day_after_tomorrow">Prekosutra</string>
     <string name="EPr_manage_delete_all_gcal_message">Stvarno želiš izbrisati sve tvoje događaje za zadatke\?</string>
     <string name="EPr_manage_delete_all_gcal">Izbriši kalendarske događaje za zadatke</string>
@@ -405,7 +401,6 @@
     <string name="show_edit_screen_without_unlock">Prikaži ekran za uređivanje bez otključavanja</string>
     <string name="show_edit_screen_without_unlock_summary">Omogućuje korištenje ploče „Brze postavke” bez otključavanja uređaja</string>
     <string name="customize_drawer">Prilagodi izbornik</string>
-    <string name="customize_drawer_summary">Povuci i ispusti stavke za mijenjanje rasporeda u izborniku</string>
     <string name="donate_nag">Podrži projekt donacijom!</string>
     <string name="donate_today">Doniraj danas</string>
     <string name="donate_maybe_later">Možda kasnije</string>

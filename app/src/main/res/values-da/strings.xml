@@ -31,7 +31,6 @@
     <string name="TEA_control_reminders">Påmindelser</string>
     <string name="TEA_control_hidden_section">----Skjul altid----</string>
     <string name="BFE_Active">Mine opgaver</string>
-    <string name="BFE_Recent">Senest ændret</string>
     <string name="CFA_button_add">Tilføj kriterier</string>
     <string name="CFC_dueBefore_text">Forfalder: ?</string>
     <string name="CFC_dueBefore_name">Forfalder…</string>
@@ -103,8 +102,6 @@
     <string name="chip_appearance_icon_only">Kun ikon</string>
     <string name="chip_appearance_text_only">Kun tekst</string>
     <string name="chip_appearance_text_and_icon">Tekst og ikon</string>
-    <string name="hide_unused_places">Skjul ubrugte steder</string>
-    <string name="hide_unused_tags">Skjul ubrugte tags</string>
     <string name="place_settings">Indstillinger for steder</string>
     <string name="places">Steder</string>
     <string name="chip_appearance">Boble-udseende</string>
@@ -210,7 +207,6 @@
     <string name="date_shortcut_must_come_after">%1$s skal komme efter %2$s</string>
     <string name="date_shortcut_must_come_before">%1$s skal komme før %2$s</string>
     <string name="date_shortcut_morning">Morgen</string>
-    <string name="filters">Filtre</string>
     <string name="tags">Tags</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Geo-afgrænsningens radius</string>
@@ -393,7 +389,6 @@
     <string name="sort_completion_group">Fuldførelse %s</string>
     <string name="TEA_creation_date">Oprettelsesdato</string>
     <string name="customize_drawer">Tilpas skuffe</string>
-    <string name="customize_drawer_summary">Træk og slip for at omarrangere menupunkter</string>
     <string name="sort_list">Efter liste</string>
     <string name="show_edit_screen_without_unlock_summary">Aktiverer brug af Hurtigindstillinger-flisen uden at oplåse enheden</string>
     <string name="donate_today">Donér i dag</string>

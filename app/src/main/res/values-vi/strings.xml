@@ -140,8 +140,6 @@
     <string name="chip_appearance_icon_only">Chỉ biểu tượng</string>
     <string name="chip_appearance_text_only">Chỉ văn bản</string>
     <string name="chip_appearance_text_and_icon">Văn bản và biểu tượng</string>
-    <string name="hide_unused_places">Ẩn các địa điểm chưa sử dụng</string>
-    <string name="hide_unused_tags">Ẩn các thẻ chưa sử dụng</string>
     <string name="place_settings">Cài đặt địa điểm</string>
     <string name="places">Địa điểm</string>
     <string name="chip_appearance">Ngoại hình nhãn</string>
@@ -258,7 +256,6 @@
     <string name="date_shortcut_evening">Buổi tối</string>
     <string name="date_shortcut_afternoon">Buổi chiều</string>
     <string name="date_shortcut_morning">Buổi sáng</string>
-    <string name="filters">Bộ lọc</string>
     <string name="tags">Thẻ</string>
     <string name="location_radius_meters">%s m</string>
     <string name="geofence_radius">Bán kính</string>
@@ -350,7 +347,6 @@
     <string name="no_start_date">Không có ngày bắt đầu</string>
     <string name="no_due_date">Không có ngày hạn</string>
     <string name="CFA_button_add">Thêm tiêu chí</string>
-    <string name="BFE_Recent">Sửa đổi gần đây</string>
     <string name="BFE_Active">Công việc của tôi</string>
     <string name="preferences_advanced">Nâng cao</string>
     <string name="next_week">Tuần sau</string>
@@ -394,5 +390,4 @@
     <string name="change_priority">Thay đổi mức độ ưu tiên</string>
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
-    <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
 </resources>

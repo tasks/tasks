@@ -63,7 +63,6 @@
     <string name="day_after_tomorrow">I övermorgon</string>
     <string name="next_week">Nästa vecka</string>
     <string name="BFE_Active">Mina uppgifter</string>
-    <string name="BFE_Recent">Nyligen ändrade</string>
     <string name="custom_filter_or">ELLER</string>
     <string name="custom_filter_not">INTE</string>
     <string name="custom_filter_and">OCH</string>
@@ -122,7 +121,6 @@
     <string name="translations">Hjälp till att översätta</string>
     <string name="remove">Ta bort</string>
     <string name="tags">Etiketter</string>
-    <string name="filters">Filter</string>
     <string name="date_shortcut_morning">På morgonen</string>
     <string name="date_shortcut_afternoon">På eftermiddagen</string>
     <string name="date_shortcut_evening">På kvällen</string>
@@ -340,8 +338,6 @@
     <string name="auto_dismiss_datetime_list_summary">Stäng automatiskt vid val från uppgiftslistan</string>
     <string name="auto_dismiss_datetime_list">Uppgiftslista</string>
     <string name="auto_dismiss_datetime">Automatisk stängning av datum- och tidsväljare</string>
-    <string name="hide_unused_places">Dölj oanvända platser</string>
-    <string name="hide_unused_tags">Dölj oanvända etiketter</string>
     <string name="chip_appearance">Valknapparnas utseende</string>
     <string name="chips">Valknappar</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
@@ -400,7 +396,6 @@
     <string name="donate_maybe_later">Kanske senare</string>
     <string name="show_edit_screen_without_unlock">Visa redigeringsskärm utan upplåsning</string>
     <string name="show_edit_screen_without_unlock_summary">Gör det möjligt att använda en ruta i snabbinställningarna utan att låsa upp enheten.</string>
-    <string name="customize_drawer_summary">Dra och släpp för att ordna om menyobjekt</string>
     <string name="customize_drawer">Anpassa navigeringspanelen</string>
     <string name="enable_alarms">Få aviseringar i rätt tid</string>
     <string name="enable_alarms_description">Bevilja behörighet att ställa in larm och påminnelser i Inställningar så att aviseringarna visas i rätt tid.</string>

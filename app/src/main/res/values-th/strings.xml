@@ -16,7 +16,6 @@
     <string name="TEA_control_importance">ความสำคัญ</string>
     <string name="TEA_control_notes">บันทึกย่อ</string>
     <string name="BFE_Active">แผนงานตอนนี้</string>
-    <string name="BFE_Recent">เพิ่งถูกแก้ไข</string>
     <string name="custom_filter_or">หรือ</string>
     <string name="custom_filter_not">ไม่ใช่</string>
     <string name="custom_filter_and">รวมถึง</string>
@@ -316,8 +315,6 @@
     <string name="chip_appearance_icon_only">ไอคอนเท่านั้น</string>
     <string name="chip_appearance_text_only">เฉพาะข้อความ</string>
     <string name="chip_appearance_text_and_icon">ข้อความและไอคอน</string>
-    <string name="hide_unused_places">ซ่อนสถานที่ที่ไม่ได้ใช้</string>
-    <string name="hide_unused_tags">ซ่อนแท็กที่ไม่ได้ใช้</string>
     <string name="place_settings">การตั้งค่าสถานที่</string>
     <string name="EPr_reset_preferences_warning">การกําหนดลักษณะจะถูกรีเซ็ตเป็นค่าเริ่มต้น</string>
     <string name="EPr_reset_preferences">รีเซ็ตการกําหนดลักษณะ</string>
@@ -333,7 +330,6 @@
     <string name="date_shortcut_evening">ตอนเย็น</string>
     <string name="date_shortcut_afternoon">บ่าย</string>
     <string name="date_shortcut_morning">เช้า</string>
-    <string name="filters">ตัวกรอง</string>
     <string name="TEA_control_hidden_section">----ไฮด์----</string>
     <string name="TEA_control_timer">การควบคุมตัวจับเวลา</string>
     <string name="TEA_control_reminders">จดหมายเตือนชําระเงิน</string>

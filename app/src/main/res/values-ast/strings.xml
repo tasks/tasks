@@ -21,7 +21,6 @@
     <string name="app_settings">Axustes de l\'aplicación</string>
     <string name="TAd_actionEditTask">Editar</string>
     <string name="customize_drawer">Personalizar caxón</string>
-    <string name="customize_drawer_summary">Arrastrar y soltar pa reorganizar los elementos del menú</string>
     <string name="action_call">Llamar</string>
     <string name="SSD_sort_my_order">El mio orden</string>
     <string name="astrid_sort_order">Ordenación manual d\'Astrid</string>
@@ -80,7 +79,6 @@
     <string name="day_after_tomorrow">Pasáu mañana</string>
     <string name="next_week">La selmana que vien</string>
     <string name="BFE_Active">Les mios xeres</string>
-    <string name="BFE_Recent">Modificaes apocayá</string>
     <string name="CFA_button_add">Amestar criteriu</string>
     <string name="CFC_dueBefore_text">Vence el: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>
@@ -184,7 +182,6 @@
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Etiquetes</string>
     <string name="change_priority">Camudar prioridá</string>
-    <string name="filters">Filtros</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Atardecer</string>

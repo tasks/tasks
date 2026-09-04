@@ -542,4 +542,8 @@
     <string name="TEA_add_subtask">サブタスクを追加</string>
     <string name="subtasks_multilevel_google_task">Google Tasks は多層式のサブタスクに対応していません</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do は多層式のサブタスクに対応していません</string>
+    <string name="customize_drawer">ドロワーのカスタマイズ</string>
+    <string name="customize_drawer_summary">ドラッグ&amp;ドロップしてメニューを並び替え</string>
+    <string name="hide_unused_tags">使われていないタグを隠す</string>
+    <string name="hide_unused_places">使われていない場所を隠す</string>
 </resources>

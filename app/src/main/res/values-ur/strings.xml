@@ -54,7 +54,6 @@
     <string name="custom_filter_and">بھی</string>
     <string name="custom_filter_not">نہیں</string>
     <string name="custom_filter_or">یا</string>
-    <string name="BFE_Recent">حالیہ ترمییم شدہ</string>
     <string name="BFE_Active">میرے ٹاسکس</string>
     <string name="next_week">اگلے ہفتے</string>
     <string name="day_after_tomorrow">پرسوں</string>
@@ -163,7 +162,6 @@
     <string name="date_shortcut_evening">شام</string>
     <string name="date_shortcut_afternoon">سہ پہر</string>
     <string name="date_shortcut_morning">صبح</string>
-    <string name="filters">فلٹرز</string>
     <string name="tags">ٹیگز</string>
     <string name="location_radius_meters">%s م</string>
     <string name="geofence_radius">رداس</string>

@@ -64,7 +64,6 @@
     <string name="day_after_tomorrow">Pasado mañana</string>
     <string name="next_week">Semana siguiente</string>
     <string name="BFE_Active">Mis tareas</string>
-    <string name="BFE_Recent">Recién modificadas</string>
     <string name="CFA_button_add">Añadir Criterio</string>
     <string name="CFC_dueBefore_text">Vence el: ?</string>
     <string name="CFC_dueBefore_name">Vence el…</string>
@@ -158,7 +157,6 @@
     <string name="remove">Eliminar</string>
     <string name="geofence_radius">Radio de la geocerca</string>
     <string name="tags">Etiquetas</string>
-    <string name="filters">Filtros</string>
     <string name="date_shortcut_morning">Mañana</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Atardecer</string>
@@ -266,8 +264,6 @@
     <string name="chip_appearance">Apariencia de los distintivos</string>
     <string name="places">Lugares</string>
     <string name="place_settings">Ajustes de lugar</string>
-    <string name="hide_unused_tags">Ocultar etiquetas no utilizadas</string>
-    <string name="hide_unused_places">Ocultar lugares inusuales</string>
     <string name="chip_appearance_text_and_icon">Texto e icono</string>
     <string name="chip_appearance_text_only">Sólo texto</string>
     <string name="chip_appearance_icon_only">Sólo icono</string>
@@ -405,7 +401,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar pantalla de edición sin desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Permite utilizar la ventana de ajustes rápidos sin desbloquear el dispositivo</string>
     <string name="customize_drawer">Personalizar menú</string>
-    <string name="customize_drawer_summary">Arrastra y suelta para reorganizar los elementos del menú</string>
     <string name="donate_nag">¡Considera mostrar tu apoyo con una donación!</string>
     <string name="donate_today">Donar ahora</string>
     <string name="donate_maybe_later">Quizas mas tarde</string>

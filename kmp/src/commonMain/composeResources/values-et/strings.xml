@@ -598,4 +598,8 @@
     <string name="snoozed_reminder">Edasilükatud meeldetuletus</string>
     <string name="subtasks_will_be_flattened">See loend ei toeta hierarhilise alamülesandeid. Salvestades tõstetakse nad ülemisele tasemele.</string>
     <string name="subtask_list_locked">Uued alamülesanded kasutavad ülemloendit</string>
+    <string name="customize_drawer">Kohanda menüüriba</string>
+    <string name="customize_drawer_summary">Menüükirjeid saad muuta lohistades</string>
+    <string name="hide_unused_tags">Peida kasutamata sildid</string>
+    <string name="hide_unused_places">Peida kasutamata asukohad</string>
 </resources>

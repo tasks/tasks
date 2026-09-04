@@ -70,4 +70,6 @@
     <string name="DLG_delete_this_task_question">Выдаліць гэтую задачу?</string>
     <string name="action_open">Адкрыць</string>
     <string name="TEA_add_subtask">Дадаць падзаданне</string>
+    <string name="customize_drawer">Наладзіць панэль</string>
+    <string name="customize_drawer_summary">Перацягніце элементы меню, каб іх пераставіць</string>
 </resources>

@@ -479,4 +479,8 @@
     <string name="TEA_add_subtask">Adaugă o sarcină secundară</string>
     <string name="subtasks_multilevel_google_task">Sub-sarcinile pe mai multe niveluri nu sunt acceptate de Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Subsarcini pe mai multe niveluri nu sunt acceptate de Microsoft To Do</string>
+    <string name="customize_drawer">Personalizează sertarul</string>
+    <string name="customize_drawer_summary">Trage și plasează pentru a rearanja elementele din meniu</string>
+    <string name="hide_unused_tags">Ascunde etichetele nefolosite</string>
+    <string name="hide_unused_places">Ascunde locurile nefolosite</string>
 </resources>

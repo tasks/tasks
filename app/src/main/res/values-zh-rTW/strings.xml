@@ -50,7 +50,6 @@
     <string name="day_after_tomorrow">後天</string>
     <string name="next_week">下週</string>
     <string name="BFE_Active">我的工作</string>
-    <string name="BFE_Recent">最近修改過</string>
     <string name="CFA_button_add">加入條件</string>
     <string name="CFC_dueBefore_text">期限: ?</string>
     <string name="CFC_dueBefore_name">期限…</string>
@@ -97,7 +96,6 @@
     <string name="row_spacing">行距</string>
     <string name="translations">貢獻翻譯</string>
     <string name="tags">標籤</string>
-    <string name="filters">過濾</string>
     <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
     <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
     <string name="filter_settings">過濾器設定</string>
@@ -229,8 +227,6 @@
     <string name="chip_appearance_text_and_icon">文字與圖示</string>
     <string name="chip_appearance_icon_only">僅圖示</string>
     <string name="chip_appearance_text_only">僅文字</string>
-    <string name="hide_unused_places">隱藏未使用地點</string>
-    <string name="hide_unused_tags">隱藏未使用標籤</string>
     <string name="color_wheel">色輪</string>
     <string name="documentation">檔案</string>
     <string name="preferences_advanced">進階</string>
@@ -390,7 +386,6 @@
     <string name="change_priority">更改優先順序</string>
     <string name="theme_dynamic">動態</string>
     <string name="show_edit_screen_without_unlock">無需解除鎖定即可顯示編輯螢幕</string>
-    <string name="customize_drawer_summary">拖放以重新排列選單項目</string>
     <string name="donate_today">今天捐贈</string>
     <string name="donate_maybe_later">也許稍後</string>
     <string name="customize_drawer">自訂抽屜</string>

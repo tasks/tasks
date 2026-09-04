@@ -64,7 +64,6 @@
     <string name="day_after_tomorrow">Depois de amanhã</string>
     <string name="next_week">Próxima semana</string>
     <string name="BFE_Active">Minhas tarefas</string>
-    <string name="BFE_Recent">Modificadas recentemente</string>
     <string name="CFA_button_add">Adicionar critério</string>
     <string name="CFC_dueBefore_text">Vencimento: ?</string>
     <string name="CFC_dueBefore_name">Vencimento…</string>
@@ -157,7 +156,6 @@
     <string name="remove">Remover</string>
     <string name="geofence_radius">Raio de Geofence</string>
     <string name="tags">Etiquetas</string>
-    <string name="filters">Filtros</string>
     <string name="date_shortcut_morning">Manhã</string>
     <string name="date_shortcut_afternoon">Tarde</string>
     <string name="date_shortcut_evening">Final da tarde</string>
@@ -250,8 +248,6 @@
     <string name="chip_appearance_icon_only">Somente o ícone</string>
     <string name="chip_appearance_text_only">Somente o texto</string>
     <string name="chip_appearance_text_and_icon">Texto e ícone</string>
-    <string name="hide_unused_places">Ocultar lugares não utilizados</string>
-    <string name="hide_unused_tags">Ocultar etiquetas não usadas</string>
     <string name="place_settings">Configuração de lugares</string>
     <string name="places">Lugares</string>
     <string name="chip_appearance">Aparência da Pastilha</string>
@@ -405,7 +401,6 @@
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="show_edit_screen_without_unlock_summary">Permite o uso do bloco \"Configurações Rápidas\" sem desbloquear o dispositivo</string>
     <string name="customize_drawer">Personalizar menu</string>
-    <string name="customize_drawer_summary">Arraste e solte para reorganizar os itens do menu</string>
     <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
     <string name="donate_maybe_later">Talvez mais tarde</string>
     <string name="donate_today">Faça sua doação hoje</string>

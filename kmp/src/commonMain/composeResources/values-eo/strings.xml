@@ -545,4 +545,8 @@
     <string name="TEA_add_subtask">Aldoni subtaskon</string>
     <string name="subtasks_multilevel_google_task">Multnivelaj subtaskoj ne estas subtenataj per Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ne subtenas plurnivelajn subtaskojn</string>
+    <string name="customize_drawer">Adapti tirkeston</string>
+    <string name="customize_drawer_summary">Ŝovu kaj demetu por rearanĝi menuerojn</string>
+    <string name="hide_unused_tags">Kaŝi neuzatajn etikedojn</string>
+    <string name="hide_unused_places">Kaŝi neuzatajn lokojn</string>
 </resources>

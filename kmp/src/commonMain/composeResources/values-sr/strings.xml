@@ -583,4 +583,8 @@
     <string name="subtasks_multilevel_microsoft">Подзадаци у више нивоа нису подржани од стране ,,Microsoft To Do''</string>
     <string name="subtasks_will_be_flattened">Ова листа не подржава угњеждене подзадатке. Снимање ће их пребацити на први ниво.</string>
     <string name="subtask_list_locked">Нови подзадаци користе родитељске листе</string>
+    <string name="customize_drawer">Прилагоди навигациони мени</string>
+    <string name="customize_drawer_summary">Превуци и пусти за прерасподелу ставки менија</string>
+    <string name="hide_unused_tags">Сакриј некоришћене тагове</string>
+    <string name="hide_unused_places">Сакриј некоришћена места</string>
 </resources>

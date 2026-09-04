@@ -598,4 +598,8 @@
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="subtasks_multilevel_google_task">Google Tasks ne podržava višerazinske podzadatke</string>
     <string name="subtasks_multilevel_microsoft">Microsoft To Do ne podržava višerazinske podzadatke</string>
+    <string name="customize_drawer">Prilagodi izbornik</string>
+    <string name="customize_drawer_summary">Povuci i ispusti stavke za mijenjanje rasporeda u izborniku</string>
+    <string name="hide_unused_tags">Sakrij nekorištene oznake</string>
+    <string name="hide_unused_places">Sakrij nekorištena mjesta</string>
 </resources>

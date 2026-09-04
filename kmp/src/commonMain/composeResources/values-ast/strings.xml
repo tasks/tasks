@@ -328,4 +328,6 @@
     <string name="TEA_add_subtask">Añader subxera</string>
     <string name="subtasks_multilevel_google_task">Subxeres multi-nivel non soportaes por Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Subxeres multi-nivel non soportaes por Microsoft To Do</string>
+    <string name="customize_drawer">Personalizar caxón</string>
+    <string name="customize_drawer_summary">Arrastrar y soltar pa reorganizar los elementos del menú</string>
 </resources>

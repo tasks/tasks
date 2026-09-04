@@ -48,7 +48,6 @@
     <string name="day_after_tomorrow">پس فردا</string>
     <string name="next_week">هفته بعد</string>
     <string name="BFE_Active">وظایف من</string>
-    <string name="BFE_Recent">اخیرا ویرایش شده</string>
     <string name="custom_filter_or">يا</string>
     <string name="custom_filter_not">نه</string>
     <string name="custom_filter_and">همچنین</string>
@@ -96,7 +95,6 @@
     <string name="translations">مشارکت در ترجمه</string>
     <string name="remove">حذف</string>
     <string name="tags">برچسب ها</string>
-    <string name="filters">فیلترها</string>
     <string name="date_shortcut_morning">صبح</string>
     <string name="date_shortcut_afternoon">بعدازظهر</string>
     <string name="date_shortcut_evening">عصر</string>
@@ -149,7 +147,6 @@
     <string name="EPr_manage_delete_all_gcal">تمام اتفاقای تقویم برای تسک ها پاک بشه</string>
     <string name="no_start_date">تاریخ شروع ندارد</string>
     <string name="customize_drawer">شخصی سازی منوی کشویی</string>
-    <string name="customize_drawer_summary">با کشیدن و رها کردن آیتم های منو را تغییر دهید</string>
     <string name="EPr_manage_delete_completed_gcal_message">مطمعنی میخوای تمام چیزای مربوط به تسک های تموم شده رو پاک کنی؟</string>
     <string name="CFC_tag_text">برچسب: ?</string>
     <string name="CFC_tag_contains_name">نام برچسب شامل …</string>

@@ -338,4 +338,6 @@
     <string name="TEA_add_subtask">เพิ่มงานย่อย</string>
     <string name="subtasks_multilevel_google_task">งานย่อยหลายระดับไม่ได้รับการสนับสนุนโดย Google Tasks</string>
     <string name="app_settings">การตั้งค่าแอป</string>
+    <string name="hide_unused_tags">ซ่อนแท็กที่ไม่ได้ใช้</string>
+    <string name="hide_unused_places">ซ่อนสถานที่ที่ไม่ได้ใช้</string>
 </resources>

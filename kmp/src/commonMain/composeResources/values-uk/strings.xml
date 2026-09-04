@@ -460,4 +460,8 @@
     <string name="TEA_add_subtask">Додати підзавдання</string>
     <string name="subtasks_multilevel_google_task">Багаторівневі підзавдання не підтримуються Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Багаторівневі підзавдання, які не підтримуються Microsoft To Do</string>
+    <string name="customize_drawer">Змінити панель</string>
+    <string name="customize_drawer_summary">Перетягніть елементи меню, щоб перевпорядкувати їх</string>
+    <string name="hide_unused_tags">Сховати не використовувані мітки</string>
+    <string name="hide_unused_places">Сховати місця, що не використовуються</string>
 </resources>

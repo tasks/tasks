@@ -487,4 +487,8 @@
     <string name="TEA_add_subtask">Добавить подзадачу</string>
     <string name="subtasks_multilevel_google_task">Многоуровневые подзадачи не поддерживаются Google Tasks</string>
     <string name="subtasks_multilevel_microsoft">Многоуровневые подзадачи не поддерживаются Microsoft To Do</string>
+    <string name="customize_drawer">Настроить панель</string>
+    <string name="customize_drawer_summary">Перетаскивайте элементы меню, чтобы изменить их порядок</string>
+    <string name="hide_unused_tags">Скрыть неиспользуемые метки</string>
+    <string name="hide_unused_places">Скрыть неиспользуемые места</string>
 </resources>

@@ -595,4 +595,8 @@
     <string name="repeat_type_completion_description">Die Aufgabe wiederholt sich basierend darauf, wann du sie tatsächlich erledigt hast</string>
     <string name="mark_completed">Als erledigt markieren</string>
     <string name="snoozed_reminder">Schlummernde Erinnerung</string>
+    <string name="customize_drawer">Drawer anpassen</string>
+    <string name="customize_drawer_summary">Menüelemente können per Drag &amp; Drop neu angeordnet werden</string>
+    <string name="hide_unused_tags">Ungenutzte Schlagwörter ausblenden</string>
+    <string name="hide_unused_places">Ungenutzte Orte ausblenden</string>
 </resources>

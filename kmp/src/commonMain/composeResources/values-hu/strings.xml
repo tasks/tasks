@@ -498,4 +498,8 @@
     <string name="TEA_add_subtask">Részfeladat hozzáadása</string>
     <string name="subtasks_multilevel_google_task">A Google Tasks nem támogatja a többszintű részfeladatokat</string>
     <string name="subtasks_multilevel_microsoft">A Microsoft To Do nem támogatja a többszintű részfeladatokat</string>
+    <string name="customize_drawer">Menü testreszabása</string>
+    <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
+    <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
+    <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
 </resources>

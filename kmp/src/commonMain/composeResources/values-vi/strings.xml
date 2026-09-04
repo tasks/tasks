@@ -392,4 +392,8 @@
     <string name="DLG_delete_this_task_question">Xoá công việc này?</string>
     <string name="TEA_add_subtask">Thêm công việc con</string>
     <string name="subtasks_multilevel_google_task">Các công việc con có nhiều cấp không được Google Tasks hỗ trợ</string>
+    <string name="customize_drawer">Tùy chỉnh ngăn kéo</string>
+    <string name="customize_drawer_summary">Kéo và thả để sắp xếp lại các mục danh sách</string>
+    <string name="hide_unused_tags">Ẩn các thẻ chưa sử dụng</string>
+    <string name="hide_unused_places">Ẩn các địa điểm chưa sử dụng</string>
 </resources>

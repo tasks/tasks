@@ -50,7 +50,6 @@
     <string name="day_after_tomorrow">Lusa</string>
     <string name="next_week">Minggu depan</string>
     <string name="BFE_Active">Tugas Saya</string>
-    <string name="BFE_Recent">Baru-baru ini diubah</string>
     <string name="CFA_button_add">Tambah Kriteria</string>
     <string name="next_month">Bulan Depan</string>
     <string name="CFC_importance_name">Prioritas…</string>
@@ -112,7 +111,6 @@
     <string name="remove">Hapus</string>
     <string name="location_radius_meters">%s m</string>
     <string name="tags">Tag</string>
-    <string name="filters">Filter</string>
     <string name="date_shortcut_morning">Pagi</string>
     <string name="date_shortcut_afternoon">Siang</string>
     <string name="date_shortcut_evening">Petang</string>
@@ -224,7 +222,6 @@
     <string name="chip_appearance_icon_only">Hanya Ikon</string>
     <string name="chip_appearance_text_only">Hanya Teks</string>
     <string name="chip_appearance_text_and_icon">Teks dan ikon</string>
-    <string name="hide_unused_tags">Sembunyikan tag yang tidak digunakan</string>
     <string name="chip_appearance">Penampilan chip</string>
     <string name="back">Kembali</string>
     <string name="davx5_selection_description">Sinkronkan tugas Anda dengan aplikasi DAVx⁵</string>
@@ -331,7 +328,6 @@
     <string name="auto_dismiss_datetime_edit_summary">Tutup otomatis ketika mengambil dari tugas suntingan</string>
     <string name="auto_dismiss_datetime_list_summary">Tutup otomatis ketika mengambil dari daftar tugas</string>
     <string name="auto_dismiss_datetime">Tutup otomatis tabel tanggal dan waktu</string>
-    <string name="hide_unused_places">Sembunyikan tempat yang tidak digunakan</string>
     <string name="place_settings">Pengaturan tempat</string>
     <string name="places">Tempat</string>
     <string name="chips">Chip</string>
@@ -389,7 +385,6 @@
     <string name="import_failed_message">Tidak dapat membaca file cadangan</string>
     <string name="app_settings">Pengaturan aplikasi</string>
     <string name="customize_drawer">Kustomisasi laci</string>
-    <string name="customize_drawer_summary">Seret dan lepas untuk mengatur ulang item menu</string>
     <string name="sort_list">Berdasarkan daftar</string>
     <string name="TEA_creation_date">Tanggal pembuatan</string>
     <string name="location_update_interval_summary">Pembaruan lokasi berkala meningkatkan keandalan geofence</string>

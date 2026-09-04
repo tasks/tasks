@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Yarından Sonra</string>
     <string name="next_week">Gelecek Hafta</string>
     <string name="BFE_Active">Görevlerim</string>
-    <string name="BFE_Recent">Yakında değiştirilenler</string>
     <string name="CFA_button_add">Ölçüt Ekle</string>
     <string name="CFC_dueBefore_text">Bitiş: \?</string>
     <string name="CFC_dueBefore_name">Bitiş…</string>
@@ -152,7 +151,6 @@
     <string name="remove">Kaldır</string>
     <string name="geofence_radius">Coğrafi sınır yarıçapı</string>
     <string name="tags">Etiketler</string>
-    <string name="filters">Süzgeçler</string>
     <string name="date_shortcut_morning">Sabah</string>
     <string name="date_shortcut_afternoon">Öğle</string>
     <string name="date_shortcut_evening">Akşam</string>
@@ -259,8 +257,6 @@
     <string name="chip_appearance">Yonga görünümü</string>
     <string name="places">Yerler</string>
     <string name="place_settings">Yer ayarları</string>
-    <string name="hide_unused_tags">Kullanılmayan etiketleri gizle</string>
-    <string name="hide_unused_places">Kullanılmayan yerleri gizle</string>
     <string name="auto_dismiss_datetime_summary">Tarih veya zaman seçince tarih zaman seçiciyi kapat</string>
     <string name="auto_dismiss_datetime">Tarih zaman seçiciyi kendiliğinden kapat</string>
     <string name="calendar_event_created">%s için takvim olayı oluşturuldu</string>
@@ -398,7 +394,6 @@
     <string name="show_edit_screen_without_unlock">Kilidi açmadan düzenleme ekranını göster</string>
     <string name="show_edit_screen_without_unlock_summary">Aygıtın kilidini açmadan Hızlı Ayarlar kutucuğunun kullanılmasını sağlar</string>
     <string name="customize_drawer">Çekmeceyi özelleştir</string>
-    <string name="customize_drawer_summary">Menü ögelerini yeniden düzenlemek için sürükleyip bırakın</string>
     <string name="donate_today">Bugün bağış yapın</string>
     <string name="donate_maybe_later">Belki daha sonra</string>
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>

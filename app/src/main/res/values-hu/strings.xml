@@ -65,7 +65,6 @@
     <string name="day_after_tomorrow">Holnapután</string>
     <string name="next_week">Következő hét</string>
     <string name="BFE_Active">Saját Feladatok</string>
-    <string name="BFE_Recent">Nemrég módosítva</string>
     <string name="CFA_button_add">Kritérium hozzáadása</string>
     <string name="CFC_dueBefore_text">Határidő: ?</string>
     <string name="CFC_dueBefore_name">Határidő…</string>
@@ -152,7 +151,6 @@
     <string name="remove">Eltávolítás</string>
     <string name="geofence_radius">Távolság</string>
     <string name="tags">Címkék</string>
-    <string name="filters">Szűrők</string>
     <string name="date_shortcut_morning">Reggel</string>
     <string name="date_shortcut_afternoon">Délután</string>
     <string name="date_shortcut_evening">Este</string>
@@ -259,8 +257,6 @@
     <string name="chip_appearance">Jelölő kinézete</string>
     <string name="places">Helyek</string>
     <string name="place_settings">Hely beállítások</string>
-    <string name="hide_unused_tags">Használaton kívüli címkék elrejtése</string>
-    <string name="hide_unused_places">Használaton kívüli helyek elrejtése</string>
     <string name="chip_appearance_text_and_icon">Szöveg és ikon</string>
     <string name="chip_appearance_text_only">Csak szöveg</string>
     <string name="chip_appearance_icon_only">Csak ikon</string>
@@ -402,7 +398,6 @@
     <string name="enable_alarms_description">Ahhoz, hogy az értesítések időben megjelenjenek, adjon jogot a Beállításokban riasztások és emlékeztetők létrehozásához</string>
     <string name="show_edit_screen_without_unlock">A szerkesztőképernyő megjelenítése feloldás nélkül</string>
     <string name="theme_dynamic">Dinamikus</string>
-    <string name="customize_drawer_summary">A menüelemek húzással történő átrendezése</string>
     <string name="show_edit_screen_without_unlock_summary">Gyorsbeállítások ikon engedélyezése a telefon feloldása nélkül</string>
     <string name="cost_money">Ár: $</string>
     <string name="cost_more_money">Ár: $$$</string>

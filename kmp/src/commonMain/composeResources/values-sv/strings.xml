@@ -598,4 +598,8 @@
     <string name="snoozed_reminder">Senarelagd påminnelse</string>
     <string name="subtasks_will_be_flattened">Den här listan stöder inte deluppgifter i flera nivåer. När du sparar flyttas alla till den översta nivån.</string>
     <string name="subtask_list_locked">Nya deluppgifter använder den överordnade uppgiftens lista</string>
+    <string name="customize_drawer">Anpassa navigeringspanelen</string>
+    <string name="customize_drawer_summary">Dra och släpp för att ordna om menyobjekt</string>
+    <string name="hide_unused_tags">Dölj oanvända etiketter</string>
+    <string name="hide_unused_places">Dölj oanvända platser</string>
 </resources>

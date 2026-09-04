@@ -5,7 +5,6 @@
     <string name="TEA_control_notes">Descriere</string>
     <string name="TEA_control_files">Fișiere</string>
     <string name="custom_filter_or">SAU</string>
-    <string name="filters">Filtre</string>
     <string name="compact">Compact</string>
     <string name="TEA_timer_est">Estim. %s</string>
     <string name="TEA_control_gcal">Calendar</string>
@@ -216,7 +215,6 @@
     <string name="CFC_dueBefore_name">Scadent la…</string>
     <string name="CFC_dueBefore_text">Scadent la:\?</string>
     <string name="CFA_button_add">Adaugă criterii</string>
-    <string name="BFE_Recent">Modificat recent</string>
     <string name="BFE_Active">Sarcinile mele</string>
     <string name="next_week">Săptămâna viitoare</string>
     <string name="day_after_tomorrow">Poimâine</string>
@@ -329,8 +327,6 @@
     <string name="chip_appearance_icon_only">Doar pictograma</string>
     <string name="chip_appearance_text_only">Doar text</string>
     <string name="chip_appearance_text_and_icon">Text și pictogramă</string>
-    <string name="hide_unused_places">Ascunde locurile nefolosite</string>
-    <string name="hide_unused_tags">Ascunde etichetele nefolosite</string>
     <string name="place_settings">Setări de locație</string>
     <string name="places">Locuri</string>
     <string name="chip_appearance">Aspect fragmentat</string>
@@ -411,7 +407,6 @@
     <string name="show_edit_screen_without_unlock_summary">Permite utilizarea dalelor setărilor rapide fără a debloca dispozitivul</string>
     <string name="theme_dynamic">Dinamic</string>
     <string name="customize_drawer">Personalizează sertarul</string>
-    <string name="customize_drawer_summary">Trage și plasează pentru a rearanja elementele din meniu</string>
     <string name="yesterday">Ieri</string>
     <string name="delete_comment">comentariu</string>
     <string name="comment">Comentariu</string>

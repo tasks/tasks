@@ -41,7 +41,6 @@
     <string name="day_after_tomorrow">Demà passat</string>
     <string name="next_week">La setmana que ve</string>
     <string name="BFE_Active">Tasques actives</string>
-    <string name="BFE_Recent">Modificades fa poc</string>
     <string name="custom_filter_or">o</string>
     <string name="custom_filter_not">no</string>
     <string name="custom_filter_and">també</string>
@@ -71,7 +70,6 @@
     <string name="today">Avui</string>
     <string name="tomorrow">Demà</string>
     <string name="translations">Contribuir traduccions</string>
-    <string name="filters">Filtres</string>
     <string name="filter_settings">Configuració dels filtres</string>
     <string name="language">Idioma</string>
     <string name="settings_localization">Localització</string>
@@ -172,7 +170,6 @@
     <string name="delete_tag_confirmation">Esborreu %s?</string>
     <string name="TEA_timer_controls">Temporitzador</string>
     <string name="customize_drawer">Personalitza el calaix</string>
-    <string name="customize_drawer_summary">Arrossegueu i deixeu anar per reordenar els elements del menú</string>
     <string name="or_choose_a_location">O escollir una ubicació</string>
     <string name="url">URL</string>
     <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
@@ -319,8 +316,6 @@
     <string name="chip_appearance">Aparença del distintiu</string>
     <string name="places">Llocs</string>
     <string name="place_settings">Paràmetres del lloc</string>
-    <string name="hide_unused_tags">Amagueu les etiquetes no utilitzades</string>
-    <string name="hide_unused_places">Amagueu els llocs no utilitzats</string>
     <string name="chip_appearance_text_and_icon">Text i icona</string>
     <string name="chip_appearance_text_only">Només text</string>
     <string name="chip_appearance_icon_only">Només icones</string>

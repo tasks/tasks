@@ -63,7 +63,6 @@
     <string name="day_after_tomorrow">Après-demain</string>
     <string name="next_week">La semaine prochaine</string>
     <string name="BFE_Active">Mes tâches</string>
-    <string name="BFE_Recent">Récemment modifiée</string>
     <string name="CFA_button_add">Ajouter un critère</string>
     <string name="CFC_dueBefore_text">Échue le : \?</string>
     <string name="CFC_dueBefore_name">Échue le…</string>
@@ -149,7 +148,6 @@
     <string name="add_location">Ajouter un emplacement</string>
     <string name="remove">Retirer</string>
     <string name="geofence_radius">Rayon de la barrière géographique</string>
-    <string name="filters">Filtres</string>
     <string name="date_shortcut_morning">Matin</string>
     <string name="date_shortcut_afternoon">Après-midi</string>
     <string name="date_shortcut_evening">Soir</string>
@@ -266,8 +264,6 @@
     <string name="chip_appearance">Apparence de l\'étiquette</string>
     <string name="places">Lieux</string>
     <string name="place_settings">Paramètres de lieu</string>
-    <string name="hide_unused_tags">Masquer les étiquettes inutilisées</string>
-    <string name="hide_unused_places">Masquer les lieux inutilisés</string>
     <string name="chip_appearance_text_and_icon">Texte et icône</string>
     <string name="chip_appearance_text_only">Texte seul</string>
     <string name="chip_appearance_icon_only">Icône seule</string>
@@ -408,7 +404,6 @@
     <string name="customize_drawer">Personnaliser le tiroir</string>
     <string name="show_edit_screen_without_unlock">Afficher l\'écran d\'édition sans déverrouillage</string>
     <string name="show_edit_screen_without_unlock_summary">Permet d\'utiliser la fenêtre des réglages rapides sans déverrouiller l\'appareil</string>
-    <string name="customize_drawer_summary">Glisser-déposer pour réorganiser les éléments du menu</string>
     <string name="multiline_title">Permettre des titres sur plusieurs lignes</string>
     <string name="multiline_title_on">Appuyer sur la touche Entrée pour ajouter des sauts de ligne</string>
     <string name="comment">Commentaire</string>

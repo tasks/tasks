@@ -66,7 +66,6 @@
     <string name="day_after_tomorrow">Вдругиден</string>
     <string name="next_week">Следваща седмица</string>
     <string name="BFE_Active">Мои задачи</string>
-    <string name="BFE_Recent">Последно променени</string>
     <string name="custom_filter_or">ИЛИ</string>
     <string name="custom_filter_not">НЕ</string>
     <string name="custom_filter_and">И</string>
@@ -157,7 +156,6 @@
     <string name="geofence_radius">Радиус на геозащита</string>
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Етикети</string>
-    <string name="filters">Филтри</string>
     <string name="date_shortcut_morning">Сутрин</string>
     <string name="date_shortcut_afternoon">Следобед</string>
     <string name="date_shortcut_evening">Вечер</string>
@@ -238,8 +236,6 @@
     <string name="choose_new_location">Избиране на ново местоположение</string>
     <string name="invalid_backup_file">Невалидно резервно копие</string>
     <string name="action_new_task">Нова задача</string>
-    <string name="hide_unused_places">Скриване на неизползвани места</string>
-    <string name="hide_unused_tags">Скриване на неизползвани етикети</string>
     <string name="support">Поддръжка</string>
     <string name="enjoying_tasks">Харесвате ли Tasks\?</string>
     <string name="filter_eisenhower_box_4">Не важни и не спешни</string>
@@ -398,7 +394,6 @@
     <string name="show_edit_screen_without_unlock">Показване на екран за редактиране без отключване</string>
     <string name="show_edit_screen_without_unlock_summary">Използва плочката за бързи настройки без отключване на устройството</string>
     <string name="customize_drawer">Настройка на менюто</string>
-    <string name="customize_drawer_summary">Пренаредете елементите с плъзгане и пускане</string>
     <string name="donate_nag">Помислете дали да не покажете подкрепата си чрез дарение!</string>
     <string name="donate_today">Даряване днес</string>
     <string name="donate_maybe_later">Може би после</string>

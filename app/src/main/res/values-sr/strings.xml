@@ -36,7 +36,6 @@
     <string name="app_settings">Подешавања апликације</string>
     <string name="TAd_actionEditTask">Преправи</string>
     <string name="yesterday">Јуче</string>
-    <string name="customize_drawer_summary">Превуци и пусти за прерасподелу ставки менија</string>
     <string name="today">Данас</string>
     <string name="action_call">Позив</string>
     <string name="SSD_sort_my_order">Мој редослед</string>
@@ -80,7 +79,6 @@
     <string name="day_after_tomorrow">Дан после сутра</string>
     <string name="next_week">Следећа седмица</string>
     <string name="BFE_Active">Моји задаци</string>
-    <string name="BFE_Recent">Недавно модификовани</string>
     <string name="CFC_dueBefore_name">Доспеће до…</string>
     <string name="no_due_date">Без датума доспећа</string>
     <string name="no_start_date">Без датума почетка</string>
@@ -160,7 +158,6 @@
     <string name="remove">Избриши</string>
     <string name="tags">Тагови</string>
     <string name="change_priority">Промени приоритет</string>
-    <string name="filters">Филтери</string>
     <string name="date_shortcut_morning">Јутро</string>
     <string name="date_shortcut_afternoon">Подне</string>
     <string name="date_shortcut_evening">Вече</string>
@@ -252,8 +249,6 @@
     <string name="back">Назад</string>
     <string name="places">Места</string>
     <string name="place_settings">Подешавања места</string>
-    <string name="hide_unused_tags">Сакриј некоришћене тагове</string>
-    <string name="hide_unused_places">Сакриј некоришћена места</string>
     <string name="chip_appearance_text_and_icon">Текст и иконица</string>
     <string name="chip_appearance_text_only">Само текст</string>
     <string name="chip_appearance_icon_only">Само иконица</string>
