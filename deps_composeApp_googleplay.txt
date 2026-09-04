@@ -689,13 +689,17 @@
 +|    |    \--- androidx.fragment:fragment:1.8.9 (c)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 -> 2.11.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.10 (*)
-++--- androidx.browser:browser:1.7.0
-+|    +--- androidx.annotation:annotation:1.2.0 -> 1.9.1 (*)
-+|    +--- androidx.collection:collection:1.1.0 -> 1.5.0 (*)
+++--- androidx.browser:browser:1.10.0
++|    +--- androidx.activity:activity:1.9.0 -> 1.13.0 (*)
++|    +--- androidx.annotation:annotation:1.8.1 -> 1.9.1 (*)
++|    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
++|    +--- androidx.collection:collection:1.4.2 -> 1.5.0 (*)
 +|    +--- androidx.concurrent:concurrent-futures:1.0.0 -> 1.1.0 (*)
-+|    +--- androidx.core:core:1.1.0 -> 1.18.0 (*)
++|    +--- androidx.core:core:1.10.0 -> 1.18.0 (*)
 +|    +--- androidx.interpolator:interpolator:1.0.0 (*)
-+|    \--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    \--- org.jspecify:jspecify:1.0.0
 ++--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 ++--- project ':data'
 +|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0
