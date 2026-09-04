@@ -458,4 +458,7 @@
     <string name="read_more">Citeşte mai mult</string>
     <string name="email_to_task">E-mail către sarcină</string>
     <string name="sort_options">Opțiuni de sortare</string>
+    <string name="write_permission_label">Modificare sarcini</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="permission_write_tasks">Adaugă modifică și șterge sarcinile, listele, etichetele și locurile</string>
 </resources>
