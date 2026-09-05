@@ -266,6 +266,7 @@ import tasks.kmp.generated.resources.local_list_description
 import tasks.kmp.generated.resources.local_list_title
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.etesync
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.failed_to_save_task
 import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.not_available_desktop
@@ -300,7 +301,7 @@ data class TaskEditDestination(
 data object CaldavSignInDestination : NavKey
 
 @Serializable
-data object EtebaseSignInDestination : NavKey
+data class EtebaseSignInDestination(val silentSuite: Boolean = false) : NavKey
 
 @Serializable
 data object SettingsDestination : NavKey
@@ -883,7 +884,7 @@ fun App(
                                     && !addAccountViewModel.hasPro
                                 ) {
                                     when (platform) {
-                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS, Platform.MICROSOFT -> {
+                                        Platform.CALDAV, Platform.ETEBASE, Platform.SILENTSUITE, Platform.GOOGLE_TASKS, Platform.MICROSOFT -> {
                                             backStack.push(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
                                             return@AddAccountScreen
                                         }
@@ -895,7 +896,8 @@ fun App(
                                         backStack.push(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = platform.name))
                                     }
                                     Platform.CALDAV -> backStack.push(CaldavSignInDestination)
-                                    Platform.ETEBASE -> backStack.push(EtebaseSignInDestination)
+                                    Platform.ETEBASE -> backStack.push(EtebaseSignInDestination())
+                                    Platform.SILENTSUITE -> backStack.push(EtebaseSignInDestination(silentSuite = true))
                                     else -> addAccountViewModel.signIn(platform)
                                 }
                             },
@@ -923,8 +925,9 @@ fun App(
                             },
                         )
                     }
-                    entry<EtebaseSignInDestination> {
+                    entry<EtebaseSignInDestination> { destination ->
                         org.tasks.compose.settings.EtebaseSignInScreen(
+                            silentSuite = destination.silentSuite,
                             onNavigateBack = { backStack.removeLastOrNull() },
                             onAccountCreated = {
                                 if (backStack.lastOrNull() is EtebaseSignInDestination) {
@@ -1066,6 +1069,7 @@ fun App(
                         val successButtonText = when (destination.source) {
                             Platform.CALDAV.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
                             Platform.ETEBASE.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.etesync))
+                            Platform.SILENTSUITE.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.silentsuite))
                             Platform.GOOGLE_TASKS.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.gtasks_GPr_header))
                             else -> null
                         }
@@ -1166,7 +1170,12 @@ fun App(
                                         }
                                         Platform.ETEBASE.name -> {
                                             if (popPricing()) {
-                                                backStack.push(EtebaseSignInDestination)
+                                                backStack.push(EtebaseSignInDestination())
+                                            }
+                                        }
+                                        Platform.SILENTSUITE.name -> {
+                                            if (popPricing()) {
+                                                backStack.push(EtebaseSignInDestination(silentSuite = true))
                                             }
                                         }
                                         Platform.GOOGLE_TASKS.name ->

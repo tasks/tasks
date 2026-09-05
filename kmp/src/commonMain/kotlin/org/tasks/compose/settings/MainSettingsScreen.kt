@@ -37,6 +37,7 @@ import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.backup_BPr_header
 import tasks.kmp.generated.resources.caldav
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.microsoft
@@ -96,7 +97,7 @@ data class CaldavAccountSettingsPane(
 data class EtebaseAccountSettingsPane(
     val account: CaldavAccount,
 ) : SettingsPane {
-    override val titleRes: StringResource = Res.string.etesync
+    override val titleRes: StringResource = if (account.isSilentSuite) Res.string.silentsuite else Res.string.etesync
 }
 
 data class GoogleTasksAccountSettingsPane(

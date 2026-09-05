@@ -7,6 +7,14 @@ import com.etebase.client.exceptions.UrlParseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.IOException
+import java.nio.file.FileVisitResult
+import java.nio.file.Files
+import java.nio.file.NoSuchFileException
+import java.nio.file.Path
+import java.nio.file.SimpleFileVisitor
+import java.nio.file.attribute.BasicFileAttributes
 import java.util.*
 
 class EtebaseLocalCache private constructor(filesDir: String, username: String) {
@@ -87,32 +95,68 @@ class EtebaseLocalCache private constructor(filesDir: String, username: String) 
     }
 
     companion object {
-        private val localCacheCache: HashMap<String, EtebaseLocalCache> = HashMap()
+        private val localCacheCache: HashMap<Pair<String, String>, EtebaseLocalCache> = HashMap()
 
         fun getInstance(filesDir: String, username: String): EtebaseLocalCache {
             synchronized(localCacheCache) {
-                val cached = localCacheCache[username]
+                val key = EtebaseCacheLocation.key(filesDir, username)
+                val cached = localCacheCache[key]
                 return if (cached != null) {
                     cached
                 } else {
                     val ret = EtebaseLocalCache(filesDir, username)
-                    localCacheCache[username] = ret
+                    localCacheCache[key] = ret
                     ret
                 }
             }
         }
 
         fun clear(filesDir: String) = runBlocking {
+            val root = File(filesDir).absoluteFile
+            val scopedRoot = root.resolve("etebase-accounts").toPath()
             val users = synchronized(localCacheCache) {
                 localCacheCache.keys.toList()
             }
-            users.forEach { clear(filesDir, it) }
+            // Preserve legacy clearing: only opened users at the application root.
+            users.filter { (path, _) -> path == root.path }
+                .forEach { (path, username) -> clear(path, username) }
+            withContext(Dispatchers.IO) {
+                // Scoped caches can survive a restart without any registered wrappers.
+                // walkFileTree does not follow links, including a linked namespace root.
+                Files.walkFileTree(scopedRoot, object : SimpleFileVisitor<Path>() {
+                    override fun visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult {
+                        Files.delete(file)
+                        return FileVisitResult.CONTINUE
+                    }
+
+                    override fun postVisitDirectory(dir: Path, exc: IOException?): FileVisitResult {
+                        if (exc != null) throw exc
+                        Files.delete(dir)
+                        return FileVisitResult.CONTINUE
+                    }
+
+                    override fun visitFileFailed(file: Path, exc: IOException): FileVisitResult {
+                        if (file == scopedRoot && exc is NoSuchFileException) {
+                            return FileVisitResult.CONTINUE
+                        }
+                        throw exc
+                    }
+                })
+            }
+            synchronized(localCacheCache) {
+                localCacheCache.keys.removeAll { (path, _) ->
+                    File(path).toPath().normalize().startsWith(scopedRoot.normalize())
+                }
+            }
+            Unit
         }
 
         suspend fun clear(filesDir: String, username: String) {
             val localCache = getInstance(filesDir, username)
             localCache.clearUserCache()
-            localCacheCache.remove(username)
+            synchronized(localCacheCache) {
+                localCacheCache.remove(EtebaseCacheLocation.key(filesDir, username))
+            }
         }
     }
 }
