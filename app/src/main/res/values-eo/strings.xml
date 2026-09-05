@@ -438,4 +438,6 @@
     <string name="upgrade_desktop_app_description">Frua atingo de la nova labortabla aplikaĵo</string>
     <string name="read_more">Legi pli</string>
     <string name="sort_options">Agordoj de ordigo</string>
+    <string name="write_permission_label">Modifi Taskojn</string>
+    <string name="permission_write_tasks">Aldoni, ŝanĝi kaj forigi viajn taskojn, listojn, etikedojn, kaj lokojn</string>
 </resources>
