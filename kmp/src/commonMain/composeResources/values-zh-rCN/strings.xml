@@ -610,4 +610,6 @@
     <string name="theme_wallpaper">壁纸</string>
     <string name="theme_day_night">日/夜</string>
     <string name="theme_system_default">系统默认</string>
+    <string name="repeat_monthly_on_last_day">每月最后一天</string>
+    <string name="repeat_monthly_last_day">最后一天</string>
 </resources>
