@@ -619,4 +619,6 @@
     <string name="theme_wallpaper">Taustapilt</string>
     <string name="theme_day_night">Päev/Öö</string>
     <string name="theme_system_default">Süsteemi vaikeseade</string>
+    <string name="repeat_monthly_on_last_day">Kord kuus viimasel päeval</string>
+    <string name="repeat_monthly_last_day">viimasel päeval</string>
 </resources>
