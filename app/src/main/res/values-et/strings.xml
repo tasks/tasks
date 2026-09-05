@@ -438,4 +438,6 @@
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="legal_disclosure_prefix_using">Tasks.org-i kasutamisel</string>
     <string name="sort_options">Järjestuse valikud</string>
+    <string name="write_permission_label">Muuda ülesandeid</string>
+    <string name="permission_write_tasks">Lisa, muuda ja kustuta oma ülesandeid, loendeid, silte ja kohti</string>
 </resources>
