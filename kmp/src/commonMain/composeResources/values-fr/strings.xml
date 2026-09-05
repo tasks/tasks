@@ -639,4 +639,6 @@
     <string name="theme_wallpaper">Fond d'écran</string>
     <string name="theme_day_night">Jour/Nuit</string>
     <string name="theme_system_default">Valeur par défaut du système</string>
+    <string name="repeat_monthly_on_last_day">Chaque mois, le dernier jour</string>
+    <string name="repeat_monthly_last_day">le dernier jour</string>
 </resources>
