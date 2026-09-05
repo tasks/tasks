@@ -445,4 +445,6 @@
     <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
     <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>
     <string name="sort_options">Options de tri</string>
+    <string name="permission_write_tasks">Ajoutez, modifiez et supprimez vos tâches, vos listes, vos étiquettes et vos lieux</string>
+    <string name="write_permission_label">Modifier les tâches</string>
 </resources>
