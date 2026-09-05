@@ -23,6 +23,7 @@ import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.etesync
 import javax.inject.Inject
 
@@ -51,7 +52,9 @@ class EtebaseAccountFragment : Fragment() {
             val state by viewModel.state.collectAsStateWithLifecycle()
             var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
             val navigateBack = { parentFragmentManager.popBackStack(); Unit }
-            val etesyncFallback = stringResource(Res.string.etesync)
+            val etesyncFallback = stringResource(
+                if (state.account?.isSilentSuite == true) Res.string.silentsuite else Res.string.etesync
+            )
             val accountName = state.account?.name?.takeIf { it.isNotBlank() } ?: etesyncFallback
 
             EtebaseAccountScreen(

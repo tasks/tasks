@@ -24,6 +24,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.etesync
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +37,9 @@ fun EtebaseAccountSettingsDetail(
     LaunchedEffect(pane.account.id) { viewModel.setAccount(pane.account) }
     val state by viewModel.state.collectAsState()
     var showDiscardDialog by remember { mutableStateOf(false) }
-    val etesyncFallback = stringResource(Res.string.etesync)
+    val etesyncFallback = stringResource(
+        if (state.account?.isSilentSuite == true) Res.string.silentsuite else Res.string.etesync
+    )
     val accountName = state.account?.name?.takeIf { it.isNotBlank() } ?: etesyncFallback
 
     Scaffold(

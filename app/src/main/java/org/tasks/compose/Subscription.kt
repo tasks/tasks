@@ -142,6 +142,12 @@ object PurchaseText {
             iconStyle = IconStyle.ORIGINAL
         ),
         CarouselItem(
+            R.string.silentsuite,
+            R.drawable.ic_silentsuite,
+            R.string.silentsuite_selection_description,
+            iconStyle = IconStyle.ORIGINAL
+        ),
+        CarouselItem(
             R.string.decsync,
             R.drawable.ic_decsync,
             R.string.decsync_selection_description,

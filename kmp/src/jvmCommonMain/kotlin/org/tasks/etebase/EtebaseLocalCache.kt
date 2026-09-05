@@ -87,16 +87,17 @@ class EtebaseLocalCache private constructor(filesDir: String, username: String) 
     }
 
     companion object {
-        private val localCacheCache: HashMap<String, EtebaseLocalCache> = HashMap()
+        private val localCacheCache: HashMap<Pair<String, String>, EtebaseLocalCache> = HashMap()
 
         fun getInstance(filesDir: String, username: String): EtebaseLocalCache {
             synchronized(localCacheCache) {
-                val cached = localCacheCache[username]
+                val key = EtebaseCacheLocation.key(filesDir, username)
+                val cached = localCacheCache[key]
                 return if (cached != null) {
                     cached
                 } else {
                     val ret = EtebaseLocalCache(filesDir, username)
-                    localCacheCache[username] = ret
+                    localCacheCache[key] = ret
                     ret
                 }
             }
@@ -106,13 +107,18 @@ class EtebaseLocalCache private constructor(filesDir: String, username: String) 
             val users = synchronized(localCacheCache) {
                 localCacheCache.keys.toList()
             }
-            users.forEach { clear(filesDir, it) }
+            users.filter { (root, _) ->
+                root == java.io.File(filesDir).absolutePath ||
+                    root.startsWith(java.io.File(filesDir, "etebase-accounts").absolutePath + java.io.File.separator)
+            }.forEach { (root, username) -> clear(root, username) }
         }
 
         suspend fun clear(filesDir: String, username: String) {
             val localCache = getInstance(filesDir, username)
             localCache.clearUserCache()
-            localCacheCache.remove(username)
+            synchronized(localCacheCache) {
+                localCacheCache.remove(EtebaseCacheLocation.key(filesDir, username))
+            }
         }
     }
 }

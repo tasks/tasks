@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.EtebaseService
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.discard
@@ -51,6 +52,7 @@ import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 
 data class EtebaseAccountState(
+    val service: EtebaseService = EtebaseService.ETESYNC,
     val url: String = "",
     val username: String = "",
     val password: String = "",
@@ -129,7 +131,7 @@ fun EtebaseAccountScreen(
                     value = state.url,
                     onValueChange = onUrlChange,
                     label = stringResource(Res.string.url),
-                    placeholder = "https://api.etebase.com",
+                    placeholder = state.service.defaultUrl,
                     error = state.urlError,
                     position = CardPosition.First,
                     keyboardOptions = KeyboardOptions(
