@@ -40,6 +40,7 @@ import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.discard
 import tasks.kmp.generated.resources.discard_changes
 import tasks.kmp.generated.resources.display_name
+import tasks.kmp.generated.resources.email
 import tasks.kmp.generated.resources.logout
 import tasks.kmp.generated.resources.logout_confirmation
 import tasks.kmp.generated.resources.logout_warning
@@ -142,7 +143,9 @@ fun EtebaseAccountScreen(
                 TextInputCard(
                     value = state.username,
                     onValueChange = onUsernameChange,
-                    label = stringResource(Res.string.user),
+                    label = stringResource(
+                        if (state.service == EtebaseService.SILENTSUITE) Res.string.email else Res.string.user
+                    ),
                     error = state.usernameError,
                     position = CardPosition.Middle,
                     contentType = ContentType.Username,
@@ -154,7 +157,9 @@ fun EtebaseAccountScreen(
                 TextInputCard(
                     value = state.username,
                     onValueChange = onUsernameChange,
-                    label = stringResource(Res.string.user),
+                    label = stringResource(
+                        if (state.service == EtebaseService.SILENTSUITE) Res.string.email else Res.string.user
+                    ),
                     error = state.usernameError,
                     position = CardPosition.First,
                     contentType = ContentType.Username,
