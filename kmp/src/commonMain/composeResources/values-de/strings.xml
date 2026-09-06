@@ -163,9 +163,9 @@
     <string name="migrate_count">Verschiebe %1$s zu Tasks.org</string>
     <string name="preferences_look_and_feel">Erscheinungsbild</string>
     <string name="notifications">Benachrichtigungen</string>
-    <string name="task_defaults">Vorgaben für Aufgaben</string>
+    <string name="task_defaults">Standards für Aufgaben</string>
     <string name="task_list_options">Aufgabenlisten-Optionen</string>
-    <string name="EPr_edit_screen_options">Bildschirmeinstellungen bearbeiten</string>
+    <string name="EPr_edit_screen_options">Bearbeitungsbildschirm-Optionen</string>
     <string name="date_and_time">Datum und Uhrzeit</string>
     <string name="navigation_drawer">Navigationsmenü</string>
     <string name="backup_BPr_header">Sicherungen</string>
