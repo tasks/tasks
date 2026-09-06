@@ -616,4 +616,9 @@
     <string name="theme_wallpaper">Hintergrundbild</string>
     <string name="theme_day_night">Tag/Nacht</string>
     <string name="theme_system_default">Systemstandard</string>
+    <string name="undo_delete">Löschen rückgängig machen</string>
+    <string name="repeat_monthly_on_last_day">Monatlich am letzten Tag</string>
+    <string name="repeat_monthly_last_day">Der letzte Tag</string>
+    <string name="subtasks_will_be_flattened">Diese Liste unterstützt keine verschachtelten Teilaufgaben. Beim Speichern werden sie alle auf die höchste Stufe verschoben.</string>
+    <string name="subtask_list_locked">Neue Teilaufgaben werden in die Liste des übergeordneten Elements aufgenommen</string>
 </resources>
