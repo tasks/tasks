@@ -118,7 +118,7 @@
     <string name="display_name">Anzeigename</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
     <string name="supporter">Unterstützer:in</string>
-    <string name="price_per_month_with_currency">%1$s/Der Monat</string>
+    <string name="price_per_month_with_currency">%1$s/Monat</string>
     <string name="price_per_year_with_currency">%1$s/Jahr</string>
     <string name="supporter_summary">%1$s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
@@ -443,8 +443,8 @@
         <item quantity="other">Zeiten</item>
     </plurals>
     <plurals name="repeat_n_minutes">
-        <item quantity="one">%1$d Die Minute</item>
-        <item quantity="other">%1$d Die Minuten</item>
+        <item quantity="one">%1$d Minute</item>
+        <item quantity="other">%1$d Minuten</item>
     </plurals>
     <plurals name="repeat_n_hours">
         <item quantity="one">%1$d Stunde</item>
@@ -587,7 +587,7 @@
     <string name="TEA_add_subtask">Teilaufgabe hinzufügen</string>
     <string name="subtasks_multilevel_google_task">Mehrstufige Teilaufgaben werden von Google Tasks nicht unterstützt</string>
     <string name="subtasks_multilevel_microsoft">Mehrstufige Teilaufgaben werden von Microsoft To Do nicht unterstützt</string>
-    <string name="show_completed_subtasks">Erledigte Unteraufgaben anzeigen</string>
+    <string name="show_completed_subtasks">Abgeschlossene Teilaufgaben anzeigen</string>
     <string name="error_encryption_failed">Verschlüsselung fehlgeschlagen. Überprüfen Sie, ob Tasks.org auf Ihren System-Schlüsselbund zugreifen kann, und versuchen Sie es erneut.</string>
     <string name="no_task_selected">Keine Aufgabe ausgewählt</string>
     <string name="resize_panes">Bereichsgröße ändern</string>
