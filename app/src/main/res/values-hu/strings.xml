@@ -438,4 +438,6 @@
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>
     <string name="sort_options">Rendezési lehetőségek</string>
+    <string name="write_permission_label">Feledat módosítása</string>
+    <string name="permission_write_tasks">Feladatok, listák, címkék és helyek hozzáadása, módosítása vagy törlése</string>
 </resources>
