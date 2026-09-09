@@ -1,6 +1,7 @@
 package org.tasks.api
 
 import android.content.ContentProvider
+import android.content.ContentResolver
 import android.content.ContentProviderOperation
 import android.content.ContentProviderResult
 import android.content.ContentUris
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Analytics
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.api.TasksContract.Alarms
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
@@ -101,12 +103,21 @@ abstract class TasksApiProvider : ContentProvider() {
         val resolver = context?.contentResolver
         val collectionUri = collectionUri(table.path)
         return blocking {
-            if (match.isItem) {
+            val item = match.isItem
+            val rows = if (item) {
                 ApiQueryArgs.parse(uri, queryArgs, emptyList())
-                engine.queryItem(table, projection, uri.itemId, resolver, collectionUri)
+                engine.queryItem(table, uri.itemId)
             } else {
                 val args = ApiQueryArgs.parse(uri, queryArgs, TasksContract.paramsFor(table.path))
-                engine.queryCollection(table, projection, args, resolver, collectionUri)
+                engine.queryCollection(table, args)
+            }
+            rows.toCursor(projection).apply {
+                if (!item) {
+                    extras = Bundle().apply {
+                        putInt(ContentResolver.EXTRA_TOTAL_COUNT, rows.total)
+                    }
+                }
+                resolver?.let { setNotificationUri(it, collectionUri) }
             }
         }
     }
@@ -116,7 +127,7 @@ abstract class TasksApiProvider : ContentProvider() {
         rejectParameters(uri)
         val match = URI_MATCHER.match(uri)
         val writer = dependencies.writer
-        val row = values ?: ContentValues()
+        val row = (values ?: ContentValues()).toApiValues()
         val path = when (match) {
             TASKS -> Tasks.PATH
             ALARMS -> Alarms.PATH
@@ -148,7 +159,7 @@ abstract class TasksApiProvider : ContentProvider() {
         ApiQueryArgs.rejectSql(selection, selectionArgs)
         onFirstUse()
         val writer = dependencies.writer
-        val row = values ?: ContentValues()
+        val row = (values ?: ContentValues()).toApiValues()
         return when (URI_MATCHER.match(uri)) {
             TASK -> rejectParameters(uri).let { blocking { writer.updateTask(uri.itemId, row) } }
             ALARM -> rejectParameters(uri).let { blocking { writer.updateAlarm(uri.itemId, row) } }
@@ -282,7 +293,14 @@ abstract class TasksApiProvider : ContentProvider() {
     private fun onFirstUse() {
         checkPermissionOwnership()
         val dependencies = dependencies
-        scope.launch { dependencies.analytics.logEventOncePerDay(ANALYTICS_EVENT) }
+        val caller = runCatching { callingPackage }.getOrNull() ?: UNKNOWN_CALLER
+        scope.launch {
+            dependencies.analytics.logEventOncePerDay(
+                event = AnalyticsEvents.CONTENT_PROVIDER_API,
+                dedupeBy = caller,
+                AnalyticsEvents.PARAM_PACKAGE to caller,
+            )
+        }
         startWatching(dependencies.database)
     }
 
@@ -365,7 +383,7 @@ abstract class TasksApiProvider : ContentProvider() {
         get() = this in ITEM_MATCHES
 
     companion object {
-        private const val ANALYTICS_EVENT = "cp_api"
+        internal const val UNKNOWN_CALLER = "unknown"
 
         private const val TASKS = 1
         private const val TASK = 2

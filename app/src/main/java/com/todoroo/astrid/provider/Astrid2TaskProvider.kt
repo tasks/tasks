@@ -19,6 +19,11 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Firebase
 import org.tasks.data.ContentProviderDaoBlocking
 import timber.log.Timber
@@ -35,7 +40,10 @@ import java.security.NoSuchAlgorithmException
  *
  * @author Tim Su <tim></tim>@todoroo.com>
  */
+@Deprecated("See CONTENT_PROVIDER.md")
 class Astrid2TaskProvider : ContentProvider() {
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
     @EntryPoint
     @InstallIn(SingletonComponent::class)
     interface Astrid2TaskProviderEntryPoint {
@@ -174,10 +182,25 @@ class Astrid2TaskProvider : ContentProvider() {
             selectionArgs: Array<String>?,
             sortOrder: String?
     ): Cursor {
-        return when (URI_MATCHER.match(uri)) {
-            URI_TASKS -> tasks
-            URI_TAGS -> tags
+        val collection = when (URI_MATCHER.match(uri)) {
+            URI_TASKS -> "tasks"
+            URI_TAGS -> "tags"
             else -> throw IllegalStateException("Unrecognized URI:$uri")
+        }
+        logUse(collection)
+        return if (collection == "tasks") tasks else tags
+    }
+
+    private fun logUse(collection: String) {
+        val caller = runCatching { callingPackage }.getOrNull() ?: "unknown"
+        val analytics = hilt().firebase
+        scope.launch {
+            analytics.logEventOncePerDay(
+                event = AnalyticsEvents.CONTENT_PROVIDER_ASTRID2,
+                dedupeBy = caller,
+                AnalyticsEvents.PARAM_PACKAGE to caller,
+                AnalyticsEvents.PARAM_COLLECTION to collection,
+            )
         }
     }
 

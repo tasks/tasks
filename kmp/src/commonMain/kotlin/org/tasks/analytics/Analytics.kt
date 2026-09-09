@@ -13,8 +13,15 @@ interface Analytics {
     fun completeTask(source: String)
     fun identify(distinctId: String)
 
-    suspend fun logEventOncePerDay(event: String, vararg params: Pair<String, Any>) {
-        val prefKey = longPreferencesKey("last_logged_$event")
+    suspend fun logEventOncePerDay(event: String, vararg params: Pair<String, Any>) =
+        logEventOncePerDay(event, dedupeBy = event, params = params)
+
+    suspend fun logEventOncePerDay(
+        event: String,
+        dedupeBy: String,
+        vararg params: Pair<String, Any>,
+    ) {
+        val prefKey = longPreferencesKey("last_logged_$event:$dedupeBy")
         val today = currentTimeMillis().startOfDay()
         if (tasksPreferences.get(prefKey, 0L) < today) {
             tasksPreferences.set(prefKey, today)

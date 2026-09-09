@@ -3,6 +3,16 @@ package org.tasks.analytics
 object AnalyticsEvents {
     const val APP_OPENED = "Application Opened"
     const val APP_BACKGROUNDED = "Application Backgrounded"
+    const val CONTENT_PROVIDER_API = "cp_api"
+    const val CONTENT_PROVIDER_TASKS = "cp_tasks"
+    const val CONTENT_PROVIDER_ASTRID2 = "cp_astrid2"
+
+    const val MCP_TOOL_CALL = "mcp_tool_call"
+
+    const val PARAM_PACKAGE = "package"
+    const val PARAM_COLLECTION = "collection"
+    const val PARAM_ACCESS = "access"
+
     const val ADD_ACCOUNT = "add_account"
     const val ADD_TASK = "add_task"
     const val COMPLETE_TASK = "complete_task"

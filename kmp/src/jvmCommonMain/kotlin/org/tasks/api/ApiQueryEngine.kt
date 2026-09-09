@@ -1,10 +1,5 @@
 package org.tasks.api
 
-import android.content.ContentResolver
-import android.database.Cursor
-import android.database.MatrixCursor
-import android.net.Uri
-import android.os.Bundle
 import androidx.room.useReaderConnection
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Alarms
@@ -15,16 +10,65 @@ import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.db.Database
 
+class ApiRows(
+    val columns: List<String>,
+    val rows: List<Array<Any?>>,
+    val total: Int,
+) : Iterable<ApiRow> {
+    private val indices: Map<String, Int> = columns.withIndex().associate { it.value to it.index }
+
+    val size: Int get() = rows.size
+
+    val isEmpty: Boolean get() = rows.isEmpty()
+
+    operator fun get(index: Int) = ApiRow(indices, rows[index])
+
+    fun firstOrNull(): ApiRow? = if (rows.isEmpty()) null else get(0)
+
+    override fun iterator(): Iterator<ApiRow> = rows.indices.asSequence().map { get(it) }.iterator()
+}
+
+class ApiRow(
+    private val indices: Map<String, Int>,
+    private val values: Array<Any?>,
+) {
+    fun value(column: String): Any? = values[
+        indices[column] ?: throw IllegalArgumentException("No column '$column'")
+    ]
+
+    fun long(column: String): Long = when (val value = value(column)) {
+        null -> 0L
+        is Number -> value.toLong()
+        else -> throw IllegalArgumentException("$column is not a number: $value")
+    }
+
+    fun int(column: String): Int = long(column).toInt()
+
+    fun double(column: String): Double = when (val value = value(column)) {
+        null -> 0.0
+        is Number -> value.toDouble()
+        else -> throw IllegalArgumentException("$column is not a number: $value")
+    }
+
+    fun boolean(column: String): Boolean = long(column) != 0L
+
+    fun string(column: String): String = value(column)?.toString().orEmpty()
+
+    fun stringOrNull(column: String): String? = string(column).takeIf { it.isNotEmpty() }
+
+    fun longOrNull(column: String): Long? = long(column).takeIf { it != 0L }
+}
+
 class ApiQueryEngine(
     private val database: Database,
 ) {
-    internal suspend fun queryCollection(
-        table: ApiTable,
-        projection: Array<out String>?,
-        args: ApiQueryArgs,
-        resolver: ContentResolver?,
-        notificationUri: Uri,
-    ): Cursor {
+    suspend fun query(path: String, args: ApiQueryArgs): ApiRows =
+        queryCollection(ApiTables.byPath(path), args)
+
+    suspend fun queryById(path: String, id: Long): ApiRows =
+        queryItem(ApiTables.byPath(path), id)
+
+    internal suspend fun queryCollection(table: ApiTable, args: ApiQueryArgs): ApiRows {
         val parts = table.parts(args)
         val order = buildOrder(table, args)
         val rows = if (args.limit == 0 || parts.isEmpty()) {
@@ -39,19 +83,10 @@ class ApiQueryEngine(
             rows.isEmpty() && args.offset == 0 -> 0
             else -> count(parts)
         }
-        return cursor(table, projection, rows).apply {
-            extras = Bundle().apply { putInt(ContentResolver.EXTRA_TOTAL_COUNT, total) }
-            resolver?.let { setNotificationUri(it, notificationUri) }
-        }
+        return ApiRows(table.columns, rows, total)
     }
 
-    internal suspend fun queryItem(
-        table: ApiTable,
-        projection: Array<out String>?,
-        id: Long,
-        resolver: ContentResolver?,
-        notificationUri: Uri,
-    ): Cursor {
+    internal suspend fun queryItem(table: ApiTable, id: Long): ApiRows {
 
         val parts = table.sources.mapNotNull { source ->
             source.byId(id)?.let { source to it.prependBase(source) }
@@ -61,9 +96,7 @@ class ApiQueryEngine(
         } else {
             select(table, parts, ORDER_BY_ID, limit = 1, offset = 0)
         }
-        return cursor(table, projection, rows).apply {
-            resolver?.let { setNotificationUri(it, notificationUri) }
-        }
+        return ApiRows(table.columns, rows, rows.size)
     }
 
     private suspend fun select(
@@ -90,18 +123,6 @@ class ApiQueryEngine(
                 if (prepared.step()) prepared.getInt(0) else 0
             }
         }
-    }
-
-    private fun cursor(
-        table: ApiTable,
-        projection: Array<out String>?,
-        rows: List<Array<Any?>>,
-    ): MatrixCursor {
-        val names = projection?.filter { it in table.columns } ?: table.columns
-        val indices = names.map { table.indexOf(it) }
-        val cursor = MatrixCursor(names.toTypedArray(), rows.size)
-        rows.forEach { row -> cursor.addRow(indices.map { row[it] }) }
-        return cursor
     }
 
     companion object {
@@ -237,7 +258,7 @@ internal fun List<Any>.bindTo(statement: androidx.sqlite.SQLiteStatement) {
             is Int -> statement.bindLong(position, value.toLong())
             is Double -> statement.bindDouble(position, value)
             is String -> statement.bindText(position, value)
-            else -> throw IllegalArgumentException("Cannot bind ${value::class.java.simpleName}")
+            else -> throw IllegalArgumentException("Cannot bind ${value::class.simpleName}")
         }
     }
 }

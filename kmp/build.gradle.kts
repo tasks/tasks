@@ -79,6 +79,7 @@ kotlin {
             }
         }
         jvmCommonMain.dependencies {
+            implementation(libs.androidx.sqlite)
             api(libs.ical4j)
             api(libs.bitfire.dav4jvm.get().toString()) {
                 exclude(group = "junit")

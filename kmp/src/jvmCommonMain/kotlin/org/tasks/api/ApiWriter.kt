@@ -1,6 +1,5 @@
 package org.tasks.api
 
-import android.content.ContentValues
 import com.todoroo.astrid.alarms.AlarmService
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Alarms
@@ -53,7 +52,7 @@ class ApiWriter(
     private val locationService: LocationService,
     private val listManager: ApiListManager,
 ) {
-    suspend fun insertTask(values: ContentValues): Long {
+    suspend fun insertTask(values: ApiValues): Long {
         values.reject(Tasks.PATH, Tasks.INSERT_ONLY + Tasks.WRITABLE)
         val title = values.name(Tasks.TITLE)
             ?: throw IllegalArgumentException("${Tasks.TITLE} is required")
@@ -85,7 +84,7 @@ class ApiWriter(
         return task.id
     }
 
-    suspend fun updateTask(id: Long, values: ContentValues): Int {
+    suspend fun updateTask(id: Long, values: ApiValues): Int {
         values.reject(Tasks.PATH, Tasks.WRITABLE)
         val original = liveTask(id) ?: return 0
         requireWritable(listFor(id))
@@ -150,7 +149,7 @@ class ApiWriter(
         return 1
     }
 
-    private fun applyTaskValues(task: Task, values: ContentValues) {
+    private fun applyTaskValues(task: Task, values: ApiValues) {
         values.name(Tasks.TITLE)?.let { task.title = it }
         values.text(Tasks.NOTES)?.let { task.notes = it }
         values.enum(Tasks.PRIORITY, Priorities.FROM_API, Task.Priority.NONE)?.let { task.priority = it }
@@ -161,12 +160,13 @@ class ApiWriter(
         val due = values.number(Tasks.DUE_DATE)
         val dueAllDay = values.flag(Tasks.DUE_ALL_DAY)
         if (due != null || dueAllDay != null) {
-            task.dueDate = encodeDue(due ?: task.dueDate, dueAllDay)
+            task.dueDate = encodeDue(due ?: task.dueDate, dueAllDay ?: task.isDueAllDay())
         }
         val start = values.number(Tasks.START_DATE)
         val startAllDay = values.flag(Tasks.START_ALL_DAY)
         if (start != null || startAllDay != null) {
-            task.hideUntil = task.encodeStart(start ?: task.hideUntil, startAllDay)
+            task.hideUntil =
+                task.encodeStart(start ?: task.hideUntil, startAllDay ?: task.isStartAllDay())
         }
         values.number(Tasks.PARENT_ID)?.let { task.parent = it }
     }
@@ -204,15 +204,19 @@ class ApiWriter(
         markSynced(task, SYNC_LOCATION)
     }
 
-    private fun encodeDue(millis: Long, allDay: Boolean?): Long = when {
+    private fun Task.isDueAllDay(): Boolean = hasDueDate() && !hasDueTime()
+
+    private fun Task.isStartAllDay(): Boolean = hasStartDate() && !hasStartTime()
+
+    private fun encodeDue(millis: Long, allDay: Boolean): Long = when {
         millis <= 0 -> 0
-        allDay == true -> createDueDate(Task.URGENCY_SPECIFIC_DAY, millis)
+        allDay -> createDueDate(Task.URGENCY_SPECIFIC_DAY, millis)
         else -> createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, millis)
     }
 
-    private fun Task.encodeStart(millis: Long, allDay: Boolean?): Long = when {
+    private fun Task.encodeStart(millis: Long, allDay: Boolean): Long = when {
         millis <= 0 -> 0
-        allDay == true -> createHideUntil(Task.HIDE_UNTIL_SPECIFIC_DAY, millis)
+        allDay -> createHideUntil(Task.HIDE_UNTIL_SPECIFIC_DAY, millis)
         else -> createHideUntil(Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, millis)
     }
 
@@ -227,7 +231,7 @@ class ApiWriter(
         }
     }
 
-    suspend fun insertAlarm(values: ContentValues): Long {
+    suspend fun insertAlarm(values: ApiValues): Long {
         values.reject(Alarms.PATH, Alarms.INSERT_ONLY + Alarms.WRITABLE)
         val taskId = values.number(Alarms.TASK_ID)
             ?: throw IllegalArgumentException("${Alarms.TASK_ID} is required")
@@ -257,7 +261,7 @@ class ApiWriter(
         return alarmDao.getAlarms(taskId).first { it.same(alarm) }.id
     }
 
-    suspend fun updateAlarm(id: Long, values: ContentValues): Int {
+    suspend fun updateAlarm(id: Long, values: ApiValues): Int {
         values.reject(Alarms.PATH, Alarms.WRITABLE)
         if (Alarms.isLocationId(id)) {
             throw IllegalArgumentException(
@@ -293,7 +297,7 @@ class ApiWriter(
         return 1
     }
 
-    private fun ContentValues.alarmTime(type: Int, current: Long?): Long {
+    private fun ApiValues.alarmTime(type: Int, current: Long?): Long {
         val absolute = type in AlarmTypes.ABSOLUTE
         val wrong = if (absolute) Alarms.OFFSET_MS else Alarms.TRIGGER_AT
         val right = if (absolute) Alarms.TRIGGER_AT else Alarms.OFFSET_MS
@@ -314,7 +318,7 @@ class ApiWriter(
         return number(right) ?: current ?: 0L
     }
 
-    suspend fun insertTaskTag(values: ContentValues): Long {
+    suspend fun insertTaskTag(values: ApiValues): Long {
         values.reject(TaskTags.PATH, TaskTags.INSERT_ONLY)
         val taskId = values.number(TaskTags.TASK_ID)
             ?: throw IllegalArgumentException("${TaskTags.TASK_ID} is required")
@@ -353,7 +357,7 @@ class ApiWriter(
 
     private suspend fun insertLocationAlarm(
         task: Task,
-        values: ContentValues,
+        values: ApiValues,
         arrival: Boolean,
     ): Long {
         val apiType = if (arrival) Alarms.TYPE_LOCATION_ARRIVAL else Alarms.TYPE_LOCATION_DEPARTURE
@@ -373,7 +377,7 @@ class ApiWriter(
 
             throw IllegalArgumentException(
                 "Task ${task.id} is already at another place, and a task can only be at one." +
-                        " Move it by writing ${Tasks.PLACE_ID} on /${Tasks.PATH}/${task.id} first"
+                        " Set ${Tasks.PLACE_ID} on the task first to move it."
             )
         }
 
@@ -421,7 +425,7 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun insertList(values: ContentValues): Long {
+    suspend fun insertList(values: ApiValues): Long {
         values.reject(Lists.PATH, Lists.INSERT_ONLY + Lists.WRITABLE)
         val accountId = values.number(Lists.ACCOUNT_ID)
             ?: throw IllegalArgumentException("${Lists.ACCOUNT_ID} is required")
@@ -438,7 +442,7 @@ class ApiWriter(
         return created.id
     }
 
-    suspend fun updateList(id: Long, values: ContentValues): Int {
+    suspend fun updateList(id: Long, values: ApiValues): Int {
         values.reject(Lists.PATH, Lists.WRITABLE)
         val calendar = caldavDao.getCalendarById(id) ?: return 0
         requireWritable(calendar)
@@ -461,7 +465,7 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun insertTag(values: ContentValues): Long {
+    suspend fun insertTag(values: ApiValues): Long {
         values.reject(Tags.PATH, Tags.WRITABLE)
         val name = values.name(Tags.NAME)
             ?: throw IllegalArgumentException("${Tags.NAME} is required")
@@ -476,7 +480,7 @@ class ApiWriter(
         return created?.id ?: throw IllegalStateException("Failed to create tag")
     }
 
-    suspend fun updateTag(id: Long, values: ContentValues): Int {
+    suspend fun updateTag(id: Long, values: ApiValues): Int {
         values.reject(Tags.PATH, Tags.WRITABLE)
         val tag = apiDao.getTag(id) ?: return 0
         val remoteId = tag.remoteId ?: return 0
@@ -509,7 +513,7 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun insertPlace(values: ContentValues): Long {
+    suspend fun insertPlace(values: ApiValues): Long {
         values.reject(Places.PATH, Places.INSERT_ONLY + Places.WRITABLE)
         val latitude = values.decimal(Places.LATITUDE)
             ?: throw IllegalArgumentException("${Places.LATITUDE} is required")
@@ -530,7 +534,7 @@ class ApiWriter(
         return locationDao.insert(place)
     }
 
-    suspend fun updatePlace(id: Long, values: ContentValues): Int {
+    suspend fun updatePlace(id: Long, values: ApiValues): Int {
         values.reject(Places.PATH, Places.WRITABLE)
         val place = locationDao.getPlace(id) ?: return 0
         val updated = place.copy(
@@ -605,74 +609,5 @@ class ApiWriter(
 
     companion object {
         private const val DEFAULT_RADIUS = 250
-    }
-}
-
-private fun ContentValues.text(key: String): String? =
-    if (containsKey(key)) get(key)?.toString() ?: "" else null
-
-private fun ContentValues.name(key: String): String? = text(key)?.let {
-    it.trim().ifEmpty { throw IllegalArgumentException("$key must not be empty") }
-}
-
-private fun ContentValues.number(key: String): Long? {
-    if (!containsKey(key)) return null
-    return when (val value = get(key)) {
-        null -> 0L
-        is Number -> value.toLong()
-        is Boolean -> if (value) 1L else 0L
-        is CharSequence -> value.toString().takeIf { it.isNotEmpty() }?.toLongOrNull()
-            ?: if (value.isEmpty()) 0L else throw IllegalArgumentException("$key must be a number, was '$value'")
-        else -> throw IllegalArgumentException("$key must be a number")
-    }
-}
-
-private fun ContentValues.decimal(key: String): Double? {
-    if (!containsKey(key)) return null
-    return when (val value = get(key)) {
-        null -> 0.0
-        is Number -> value.toDouble()
-        is CharSequence -> value.toString().toDoubleOrNull()
-            ?: throw IllegalArgumentException("$key must be a number, was '$value'")
-        else -> throw IllegalArgumentException("$key must be a number")
-    }
-}
-
-private fun ContentValues.flag(key: String): Boolean? {
-    if (!containsKey(key)) return null
-    return when (val value = get(key)) {
-        null -> false
-        is Boolean -> value
-        is Number -> value.toLong() != 0L
-        is CharSequence -> when (value.toString()) {
-            "1", "true" -> true
-            "0", "false", "" -> false
-            else -> throw IllegalArgumentException("$key must be 0 or 1, was '$value'")
-        }
-        else -> throw IllegalArgumentException("$key must be 0 or 1")
-    }
-}
-
-private fun <T> ContentValues.enum(key: String, allowed: Map<String, T>, empty: T): T? {
-    val value = text(key) ?: return null
-    if (value.isEmpty()) return empty
-    return allowed[value] ?: throw IllegalArgumentException(
-        "Unknown value for $key: '$value'. Expected one of ${allowed.keys.joinToString("|")}"
-    )
-}
-
-private fun <T> ContentValues.requiredEnum(key: String, allowed: Map<String, T>): T {
-    val value = text(key)?.takeIf { it.isNotEmpty() }
-        ?: throw IllegalArgumentException("$key is required")
-    return allowed[value] ?: throw IllegalArgumentException(
-        "Unknown value for $key: '$value'. Expected one of ${allowed.keys.joinToString("|")}"
-    )
-}
-
-private fun ContentValues.reject(path: String, allowed: Set<String>) {
-    keySet().firstOrNull { it !in allowed }?.let {
-        throw IllegalArgumentException(
-            "'$it' is not writable on /$path here. Writable: ${allowed.sorted().joinToString(", ")}"
-        )
     }
 }

@@ -238,8 +238,12 @@ val listId = resolver.query(
 All timestamps are epoch milliseconds. `0` means unset.
 
 A date with no time of day is flagged by a companion column: `due_date` + `due_all_day`,
-`start_date` + `start_all_day`. The flags default to `0` on write, so always write the pair
-together.
+`start_date` + `start_all_day`.
+
+On `insert` an omitted flag means `0`, a date carrying a time of day. On `update` an omitted
+flag keeps whatever the row already was, so writing `due_date` on its own moves an all-day
+task to another all-day date instead of quietly giving it a time. Send the flag when you want
+to change it — including when you want to change it back.
 
 All-day dates are in the device's local time zone; only the calendar day survives. Compute
 from local midnight, not UTC.
@@ -423,7 +427,6 @@ update content://org.tasks.api/v0/tasks/{id}
 
 Requires `WRITE_TASKS`. A **patch**: only the keys you supply change, and a key mapped to
 `null` or to the column's empty value clears that field. Returns the number of rows changed.
-
 A return of 0 means the id no longer exists.
 
 Four values are not plain column writes:
