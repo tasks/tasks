@@ -22,7 +22,7 @@
     <string name="SSD_sort_alpha">Op titel</string>
     <string name="SSD_sort_due">Op vervaldatum</string>
     <string name="SSD_sort_importance">Op prioriteit</string>
-    <string name="SSD_sort_modified">Op datum gewijzigd</string>
+    <string name="SSD_sort_modified">Op wijzigingsdatum</string>
     <string name="FLA_search_filter">Bevat \'%s\'</string>
     <string name="FLA_new_filter">Nieuw filter maken</string>
     <string name="TEA_title_hint">Taaknaam</string>
@@ -155,7 +155,7 @@
     <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
     <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
     <string name="discard_changes">Veranderingen negeren\?</string>
-    <string name="tag_settings">Label instellen</string>
+    <string name="tag_settings">Label-instellingen</string>
     <string name="list_settings">Lijst instellen</string>
     <string name="delete">Wissen</string>
     <string name="copy">Kopiëren</string>
@@ -199,7 +199,7 @@
     <string name="refresh_purchases">Aankopen bijwerken</string>
     <string name="button_subscribe">Abonneren</string>
     <string name="pro_dashclock_extension">Dashclock extensie</string>
-    <string name="requires_pro_subscription">Pro abonnement vereist</string>
+    <string name="requires_pro_subscription">Vereist Pro-abonnement</string>
     <string name="logout">Uitloggen</string>
     <string name="reinitialize_account">Herinitialiseren</string>
     <string name="action_create_new_task">Nieuwe taak maken</string>
@@ -303,8 +303,8 @@
     <string name="enjoying_tasks">Gebruik je Tasks graag\?</string>
     <string name="action_new_task">Nieuwe taak</string>
     <string name="sort_created_group">Gemaakt %s</string>
-    <string name="sort_modified_group">Bewerkt %s</string>
-    <string name="astrid_sort_order_summary">Schakel Astrids handmatige sorteermodus in voor \'Mijn taken\', \'Vandaag\' en tags. Deze sorteermodus wordt in een toekomstige update vervangen door \'Mijn volgorde\'</string>
+    <string name="sort_modified_group">%s gewijzigd</string>
+    <string name="astrid_sort_order_summary">Schakel Astrids handmatige sorteermodus in voor \'Mijn taken\', \'Vandaag\' en labels. Deze sorteermodus wordt in een toekomstige update vervangen door \'Mijn volgorde\'</string>
     <string name="astrid_sort_order">Astrid\'s handmatig sorteren</string>
     <string name="lists">Lijsten</string>
     <string name="CFC_list_name">In de lijst…</string>
@@ -332,7 +332,7 @@
     <string name="custom_filter_is_subtask">Is subtaak</string>
     <string name="custom_filter_has_subtask">Heeft subtaken</string>
     <string name="current_subscription">Huidig abonnement: %s</string>
-    <string name="your_subscription_expired">Je abonnement is verlopen. Abonneer nu om deze dienst te hervatten.</string>
+    <string name="your_subscription_expired">Je abonnement is verlopen. Verleng je abonnement om deze dienst te hervatten.</string>
     <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
     <string name="authorization_cancelled">Verificatie geannuleerd</string>
     <string name="sign_in_with_google">Log in met Google</string>
@@ -346,7 +346,7 @@
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
-    <string name="app_passwords_more_info">Taken en kalenders met andere desktop / mobiele apps synchroniseren. Tik hier voor meer info</string>
+    <string name="app_passwords_more_info">Synchroniseert taken en kalenders met andere desktop- en mobiele apps. Tik hier voor meer info</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
     <string name="start_date">Begindatum</string>
@@ -383,7 +383,7 @@
     <string name="change_priority">Prioriteit veranderen</string>
     <string name="theme_dynamic">Dynamisch</string>
     <string name="show_edit_screen_without_unlock">Toon het bewerkingscherm zonder ontsluiting</string>
-    <string name="donate_nag">Overweeg om uw steun te tonen met een schenking!</string>
+    <string name="donate_nag">Overweeg om ons te steunen met een schenking!</string>
     <string name="donate_today">Doe vandaag een schenking</string>
     <string name="donate_maybe_later">Misschien later</string>
     <string name="customize_drawer">Lade personaliseren</string>
@@ -422,4 +422,22 @@
     <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
+    <string name="write_permission_label">Taken wijzigen</string>
+    <string name="sort_options">Sorteringsopties</string>
+    <string name="location_update_interval_summary">Periodieke locatie-updates verbeteren de betrouwbaarheid van de geofence</string>
+    <string name="banner_subscription_required_title">Abonnement vereist</string>
+    <string name="banner_subscription_required_body">Betaal wat je wilt om de synchronisatie met %s vrij te geven</string>
+    <string name="p_per_list_sort">sortering_op_lijst</string>
+    <string name="permission_write_tasks">Taken, lijsten, labels en plaatsen toevoegen, wijzigen en verwijderen</string>
+    <string name="guest_create_list_message">Je hebt momenteel gasttoegang tot gedeelde lijsten. Om je eigen privélijsten te maken en te synchroniseren met de cloud, heb je een Tasks.org-abonnement nodig. Of je kunt een gratis lokale lijst maken die op dit apparaat blijft staan.</string>
+    <string name="upgrade_email_to_task_description">Vorm e-mails om tot taken door ze door te sturen naar je privé-inbox</string>
+    <string name="subscription_required_fdroid">Een abonnement is vereist om Tasks.org sync te gebruiken. Abonnementen moeten worden geïnitieerd vanuit de Google Play-versie van Tasks.</string>
+    <string name="sponsorship_required_fdroid">Een GitHub sponsoring is vereist om Tasks.org sync te gebruiken. Klik hieronder om sponsor te worden.</string>
+    <string name="upgrade_desktop_app">Tasks.org voor desktop</string>
+    <string name="upgrade_desktop_app_description">Vroegtijdige toegang tot de nieuwe desktop-app</string>
+    <string name="upgrade_friends_and_family">Vrienden &amp; familie</string>
+    <string name="upgrade_friends_and_family_description">5 gratis gasten op gedeelde lijsten. Werkt met Apple Reminders</string>
+    <string name="advanced_tools">Geavanceerde tools</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync en meer!</string>
+    <string name="read_more">Meer informatie</string>
 </resources>
