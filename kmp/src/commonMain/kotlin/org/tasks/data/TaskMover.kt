@@ -3,6 +3,7 @@ package org.tasks.data
 import co.touchlab.kermit.Logger
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.db.DbUtils.dbchunk
@@ -17,6 +18,7 @@ class TaskMover(
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
     private val googleTaskDao: GoogleTaskDao,
+    private val dirtyDao: DirtyDao,
     private val appPreferences: AppPreferences,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val taskDeleter: TaskDeleter,
@@ -70,6 +72,7 @@ class TaskMover(
                 log.d { "Updating parents for ${selectedList.uuid}" }
                 caldavDao.updateParents(selectedList.uuid, force = true)
             }
+            dirtyDao.setDirty(taskIds + taskDao.getChildren(taskIds))
         }
         refreshBroadcaster.broadcastRefresh()
     }

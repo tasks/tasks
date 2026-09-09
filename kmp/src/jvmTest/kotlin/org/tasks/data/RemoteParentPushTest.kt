@@ -3,6 +3,7 @@ package org.tasks.data
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -38,6 +39,7 @@ class RemoteParentPushTest : DatabaseTest() {
         taskDao = taskDao,
         caldavDao = caldavDao,
         googleTaskDao = db.googleTaskDao(),
+        dirtyDao = db.dirtyDao(),
         appPreferences = appPreferences,
         refreshBroadcaster = mock(),
         taskDeleter = taskDeleter,
@@ -100,6 +102,43 @@ class RemoteParentPushTest : DatabaseTest() {
 
         assertEquals(TYPE_MICROSOFT, caldavDao.getAccountForTask(task.id)!!.accountType)
     }
+
+    @Test
+    fun reparentingWithinAListMarksTheTaskForSync() = runBlocking {
+        val parent = newTask("parent")
+        val child = newTask("child")
+        markEverythingSynced()
+
+        mover.move(listOf(child.id), fromList(), newParent = parent.id)
+
+        assertTrue("re-parented task should be queued for sync", isPending(child.id))
+    }
+
+    @Test
+    fun movingASubtreeMarksTheChildrenForSyncAsWell() = runBlocking {
+        val parent = newTask("parent")
+        val child = newTask("child", parent = parent.id)
+        markEverythingSynced()
+
+        mover.move(listOf(parent.id), destination(TYPE_CALDAV))
+
+        assertTrue("parent should be queued", isPending(parent.id))
+        assertTrue("child should be queued", isPending(child.id))
+    }
+
+    private suspend fun fromList() = CaldavFilter(
+        calendar = caldavDao.getCalendar(FROM_LIST)!!,
+        account = caldavDao.getAccountByUuid(FROM_ACCOUNT)!!,
+    )
+
+    private suspend fun markEverythingSynced() = db.dirtyDao()
+        .getSyncableDirtyVersions()
+        .forEach { db.dirtyDao().markSynced(it.caldavTaskId) }
+
+    private suspend fun isPending(taskId: Long): Boolean =
+        db.dirtyDao().getDirtyStateByTaskIds(listOf(taskId))[taskId]
+            ?.let { it.dirtyVersion > it.syncedVersion }
+            ?: false
 
     companion object {
         private const val FROM_ACCOUNT = "account-from"
