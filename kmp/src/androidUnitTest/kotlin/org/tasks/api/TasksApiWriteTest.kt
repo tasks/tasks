@@ -142,16 +142,6 @@ class TasksApiWriteTest : ApiTestCase() {
     }
 
     @Test
-    fun ifModifiedAtGuardsAgainstAConcurrentEdit() {
-        val id = newTask("t")
-        val modified = resolver.query(itemUri(Tasks.PATH, id), null, null, null, null)!!.long(Tasks.MODIFIED_AT)
-
-        assertEquals(1, update(Tasks.PATH, id, Tasks.TITLE to "first", query = "?if_modified_at=$modified"))
-        assertEquals(0, update(Tasks.PATH, id, Tasks.TITLE to "second", query = "?if_modified_at=$modified"))
-        assertEquals("first", query(Tasks.PATH).string(Tasks.TITLE))
-    }
-
-    @Test
     fun updatingAMissingTaskReturnsZero() {
         assertEquals(0, update(Tasks.PATH, 9999, Tasks.TITLE to "nope"))
     }

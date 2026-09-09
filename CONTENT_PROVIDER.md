@@ -424,12 +424,7 @@ update content://org.tasks.api/v0/tasks/{id}
 Requires `WRITE_TASKS`. A **patch**: only the keys you supply change, and a key mapped to
 `null` or to the column's empty value clears that field. Returns the number of rows changed.
 
-| Parameter | Description |
-| --- | --- |
-| `if_modified_at` | Optional. Returns 0 without writing if the task's `modified_at` differs — use it to make read-modify-write safe against concurrent edits |
-
-A return of 0 covers both a stale `if_modified_at` and an id that no longer exists; re-read
-the item URI to tell them apart.
+A return of 0 means the id no longer exists.
 
 Four values are not plain column writes:
 
@@ -450,9 +445,9 @@ resolver.update(task, contentValuesOf("title" to "Renew passport", "priority" to
 // Move to another list and file under a place
 resolver.update(task, contentValuesOf("list_id" to listId, "place_id" to placeId), null, null)
 
-// Complete, only if untouched since it was read
+// Complete
 val changed = resolver.update(
-    "$task?if_modified_at=$lastSeen".toUri(),
+    task,
     contentValuesOf("completed_at" to System.currentTimeMillis()),
     null, null
 )
@@ -946,8 +941,7 @@ A batch is one binder transaction, limited to roughly a megabyte for the operati
 their results together. Exceeding it throws `TransactionTooLargeException`, often wrapped in
 a `RuntimeException`.
 
-An update that changes nothing (a stale `if_modified_at`, or a missing row) returns 0 and
-does not abort the batch. Add `.withExpectedCount(1)` to any operation whose failure should
+An update that matches no row returns 0 and does not abort the batch. Add `.withExpectedCount(1)` to any operation whose failure should
 roll it back.
 
 Insert, update and delete on `/v0/lists` throw `IllegalArgumentException` in a batch.

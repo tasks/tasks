@@ -24,7 +24,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Analytics
 import org.tasks.api.TasksContract.Alarms
 import org.tasks.api.TasksContract.Lists
-import org.tasks.api.TasksContract.PARAM_IF_MODIFIED_AT
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
@@ -151,10 +150,7 @@ abstract class TasksApiProvider : ContentProvider() {
         val writer = dependencies.writer
         val row = values ?: ContentValues()
         return when (URI_MATCHER.match(uri)) {
-            TASK -> {
-                val args = ApiQueryArgs.parse(uri, null, listOf(PARAM_IF_MODIFIED_AT))
-                blocking { writer.updateTask(uri.itemId, row, args.long(PARAM_IF_MODIFIED_AT)) }
-            }
+            TASK -> rejectParameters(uri).let { blocking { writer.updateTask(uri.itemId, row) } }
             ALARM -> rejectParameters(uri).let { blocking { writer.updateAlarm(uri.itemId, row) } }
             LIST -> rejectParameters(uri).let { blocking { writer.updateList(uri.itemId, row) } }
             TAG -> rejectParameters(uri).let { blocking { writer.updateTag(uri.itemId, row) } }

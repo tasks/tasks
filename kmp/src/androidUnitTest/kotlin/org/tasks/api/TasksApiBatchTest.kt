@@ -146,8 +146,8 @@ class TasksApiBatchTest : ApiTestCase() {
     }
 
     @Test
-    fun expectedCountTurnsAStaleUpdateIntoARollback() {
-        val id = newTask("original")
+    fun expectedCountTurnsAMissingUpdateIntoARollback() {
+        newTask("original")
 
         assertThrows<OperationApplicationException> {
             resolver.applyBatch(
@@ -156,7 +156,7 @@ class TasksApiBatchTest : ApiTestCase() {
                     ContentProviderOperation.newInsert(uri(Tasks.PATH))
                         .withValue(Tasks.TITLE, "second")
                         .build(),
-                    ContentProviderOperation.newUpdate(staleUri(id))
+                    ContentProviderOperation.newUpdate(missingUri())
                         .withValue(Tasks.TITLE, "renamed")
                         .withExpectedCount(1)
                         .build(),
@@ -168,8 +168,8 @@ class TasksApiBatchTest : ApiTestCase() {
     }
 
     @Test
-    fun aConditionalUpdateAloneDoesNotRollBack() {
-        val id = newTask("original")
+    fun anUpdateThatMatchesNothingAloneDoesNotRollBack() {
+        newTask("original")
 
         val results = resolver.applyBatch(
             TasksContract.AUTHORITY,
@@ -177,7 +177,7 @@ class TasksApiBatchTest : ApiTestCase() {
                 ContentProviderOperation.newInsert(uri(Tasks.PATH))
                     .withValue(Tasks.TITLE, "second")
                     .build(),
-                ContentProviderOperation.newUpdate(staleUri(id))
+                ContentProviderOperation.newUpdate(missingUri())
                     .withValue(Tasks.TITLE, "renamed")
                     .build(),
             ),
@@ -187,8 +187,7 @@ class TasksApiBatchTest : ApiTestCase() {
         assertEquals(2, query(Tasks.PATH).rows())
     }
 
-    private fun staleUri(id: Long) =
-        "${itemUri(Tasks.PATH, id)}?${TasksContract.PARAM_IF_MODIFIED_AT}=1".toUri()
+    private fun missingUri() = itemUri(Tasks.PATH, 999_999L)
 
     @Test
     fun listWritesAreRejectedInABatch() = runBlockingTest {

@@ -75,8 +75,7 @@ class TasksContractDocTest {
         val used = (QUERY_PARAM.findAll(text) + BUILT_PARAM.findAll(text))
             .map { it.groupValues[1] }
             .toSet()
-        val known = TasksContract.COLLECTIONS.flatMap { TasksContract.paramsFor(it) }.toSet() +
-                TasksContract.PARAM_IF_MODIFIED_AT
+        val known = TasksContract.COLLECTIONS.flatMap { TasksContract.paramsFor(it) }.toSet()
         assertEquals(emptySet<String>(), used - known)
     }
 

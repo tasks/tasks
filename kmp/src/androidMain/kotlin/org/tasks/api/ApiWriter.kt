@@ -81,12 +81,9 @@ class ApiWriter(
         return task.id
     }
 
-    suspend fun updateTask(id: Long, values: ContentValues, ifModifiedAt: Long?): Int {
+    suspend fun updateTask(id: Long, values: ContentValues): Int {
         values.reject(Tasks.PATH, Tasks.WRITABLE)
         val original = liveTask(id) ?: return 0
-        if (ifModifiedAt != null && original.modificationDate != ifModifiedAt) {
-            return 0
-        }
         requireWritable(listFor(id))
 
         val task = original.copy()

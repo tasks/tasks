@@ -17,7 +17,6 @@ object TasksContract {
     const val PARAM_LIMIT = "limit"
     const val PARAM_OFFSET = "offset"
 
-    const val PARAM_IF_MODIFIED_AT = "if_modified_at"
 
     object Tasks {
         const val PATH = "tasks"
