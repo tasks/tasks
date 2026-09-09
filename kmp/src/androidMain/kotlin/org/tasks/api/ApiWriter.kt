@@ -57,12 +57,16 @@ class ApiWriter(
         values.reject(Tasks.PATH, Tasks.INSERT_ONLY + Tasks.WRITABLE)
         val title = values.name(Tasks.TITLE)
             ?: throw IllegalArgumentException("${Tasks.TITLE} is required")
-        val filter = resolveList(values.number(Tasks.LIST_ID))
-        requireWritable(filter.calendar)
         val parent = values.number(Tasks.PARENT_ID) ?: 0L
         if (parent != 0L) {
             liveTask(parent) ?: throw IllegalArgumentException("${Tasks.PARENT_ID} $parent not found")
         }
+        val filter = if (parent != 0L) {
+            resolveListByUuid(caldavDao.getTask(parent)?.calendar)
+        } else {
+            resolveList(values.number(Tasks.LIST_ID))
+        }
+        requireWritable(filter.calendar)
         val task = taskFactory.create(title, filter) {
             it.parent = parent
             applyTaskValues(it, values)
@@ -115,7 +119,12 @@ class ApiWriter(
                 ?: throw IllegalArgumentException("No list with ${TasksContract.ID} $it")
         }
         if ((newListUuid != null && newListUuid != currentListUuid) || newParent != null) {
-            val filter = resolveListByUuid(newListUuid ?: currentListUuid)
+            val destination = if (newParent != null && newParent != 0L) {
+                caldavDao.getTask(newParent)?.calendar
+            } else {
+                newListUuid ?: currentListUuid
+            }
+            val filter = resolveListByUuid(destination)
             requireWritable(filter.calendar)
             taskMover.move(listOf(id), filter, newParent ?: 0L)
         }
