@@ -83,22 +83,22 @@ private fun deletion(rows: Int, alsoAffected: Int) =
 data class ReminderEdit(
     val addedIds: List<Long>,
     val removed: Int,
-    val reminders: List<AlarmRow>,
+    val reminders: List<ReminderRow>,
 )
 
 suspend fun ApiQueryEngine.setTaskReminders(
     writer: ApiWriter,
     taskId: Long,
     add: List<ReminderWrite>,
-    removeAlarmIds: List<Long>,
+    removeReminderIds: List<Long>,
 ): ReminderEdit {
-    val removals = removeAlarmIds.distinct()
+    val removals = removeReminderIds.distinct()
     val edit = transaction {
         add.map { writer.insertAlarm(it.toValues()) } to removals.sumOf { writer.deleteAlarm(it) }
     }
     return ReminderEdit(
         addedIds = edit.first,
         removed = edit.second,
-        reminders = findAlarms(AlarmQuery(taskIds = listOf(taskId))).rows,
+        reminders = findReminders(ReminderQuery(taskIds = listOf(taskId))).rows,
     )
 }

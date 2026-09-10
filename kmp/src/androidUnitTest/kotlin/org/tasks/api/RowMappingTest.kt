@@ -22,10 +22,10 @@ class RowMappingTest : ApiTestCase() {
     private fun <T> one(path: String, id: Long, map: (ApiRow) -> T): T =
         runBlocking { engine.queryById(path, id).first().let(map) }
 
-    private fun alarm(taskId: Long): AlarmRow =
+    private fun reminder(taskId: Long): ReminderRow =
         runBlocking { engine.query(Alarms.PATH, args(Alarms.PARAM_TASK to taskId.toString())) }
             .single()
-            .toAlarmRow()
+            .toReminderRow()
 
     private fun args(vararg pairs: Pair<String, String>) =
         ApiQueryArgs.build(TasksContract.paramsFor(Alarms.PATH)) {
@@ -89,7 +89,7 @@ class RowMappingTest : ApiTestCase() {
             Alarms.OFFSET_MS to -HOUR,
         )
 
-        val row = alarm(id)
+        val row = reminder(id)
 
         assertEquals(Alarms.TYPE_RELATIVE_START, row.type)
         assertEquals(-HOUR, row.offsetMs)
@@ -108,7 +108,7 @@ class RowMappingTest : ApiTestCase() {
             Alarms.TRIGGER_AT to DAY,
         )
 
-        val row = alarm(id)
+        val row = reminder(id)
 
         assertEquals(DAY, row.triggerAt)
         assertNull(row.offsetMs)
@@ -126,7 +126,7 @@ class RowMappingTest : ApiTestCase() {
             Alarms.PLACE_ID to place,
         )
 
-        val row = alarm(id)
+        val row = reminder(id)
 
         assertEquals(Alarms.TYPE_LOCATION_ARRIVAL, row.type)
         assertEquals(place, row.placeId)

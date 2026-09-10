@@ -27,7 +27,7 @@ data class TaskRow(
     val isReadOnly: Boolean,
 )
 
-data class AlarmRow(
+data class ReminderRow(
     val id: Long,
     val taskId: Long,
     val type: String,
@@ -107,11 +107,11 @@ fun ApiRow.toTaskRow(): TaskRow {
     )
 }
 
-fun ApiRow.toAlarmRow(): AlarmRow {
+fun ApiRow.toReminderRow(): ReminderRow {
     val a = TasksContract.Alarms
     val type = string(a.TYPE)
     val offset = longOrNull(a.OFFSET_MS)
-    return AlarmRow(
+    return ReminderRow(
         id = long(TasksContract.ID),
         taskId = long(a.TASK_ID),
         type = type,

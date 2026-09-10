@@ -19,7 +19,7 @@ class ApiPagingTest : ApiTestCase() {
 
     private fun places(query: PlaceQuery) = runBlocking { engine.findPlaces(query) }
 
-    private fun alarms(query: AlarmQuery) = runBlocking { engine.findAlarms(query) }
+    private fun reminders(query: ReminderQuery) = runBlocking { engine.findReminders(query) }
 
     private fun accounts(query: AccountQuery) = runBlocking { engine.findAccounts(query) }
 
@@ -126,10 +126,10 @@ class ApiPagingTest : ApiTestCase() {
             Alarms.PLACE_ID to place,
         )
 
-        assertEquals(2, alarms(AlarmQuery()).total)
-        assertEquals(1, alarms(AlarmQuery(taskIds = listOf(timed))).total)
-        assertEquals(1, alarms(AlarmQuery(types = listOf(Alarms.TYPE_LOCATION_ARRIVAL))).total)
-        assertEquals(1, alarms(AlarmQuery(placeIds = listOf(place))).total)
+        assertEquals(2, reminders(ReminderQuery()).total)
+        assertEquals(1, reminders(ReminderQuery(taskIds = listOf(timed))).total)
+        assertEquals(1, reminders(ReminderQuery(types = listOf(Alarms.TYPE_LOCATION_ARRIVAL))).total)
+        assertEquals(1, reminders(ReminderQuery(placeIds = listOf(place))).total)
     }
 
     private companion object {

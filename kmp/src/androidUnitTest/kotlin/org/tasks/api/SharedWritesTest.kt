@@ -168,7 +168,7 @@ class SharedWritesTest : ApiTestCase() {
             add = listOf(
                 ReminderWrite(taskId = id, type = Alarms.TYPE_RELATIVE_DUE, offsetMs = -HOUR)
             ),
-            removeAlarmIds = listOf(existing, existing),
+            removeReminderIds = listOf(existing, existing),
         )
 
         assertEquals(1, edit.addedIds.size)
@@ -194,12 +194,12 @@ class SharedWritesTest : ApiTestCase() {
                     add = listOf(
                         ReminderWrite(taskId = id, type = Alarms.TYPE_LOCATION_ARRIVAL, placeId = 9_999L)
                     ),
-                    removeAlarmIds = listOf(existing),
+                    removeReminderIds = listOf(existing),
                 )
             }
         }
 
-        assertEquals(1, runBlocking { engine.findAlarms(AlarmQuery(taskIds = listOf(id))) }.total)
+        assertEquals(1, runBlocking { engine.findReminders(ReminderQuery(taskIds = listOf(id))) }.total)
     }
 
     @Test

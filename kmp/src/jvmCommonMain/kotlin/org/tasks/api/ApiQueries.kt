@@ -39,7 +39,7 @@ data class PlaceQuery(
     val offset: Int? = null,
 )
 
-data class AlarmQuery(
+data class ReminderQuery(
     val taskIds: List<Long> = emptyList(),
     val types: List<String> = emptyList(),
     val placeIds: List<Long> = emptyList(),
@@ -70,8 +70,8 @@ suspend fun ApiQueryEngine.findPlaces(query: PlaceQuery): ApiPage<PlaceRow> =
         putEach(Places.PARAM_ID, query.ids)
     }
 
-suspend fun ApiQueryEngine.findAlarms(query: AlarmQuery): ApiPage<AlarmRow> =
-    find(Alarms.PATH, query.limit, query.offset, { it.toAlarmRow() }) {
+suspend fun ApiQueryEngine.findReminders(query: ReminderQuery): ApiPage<ReminderRow> =
+    find(Alarms.PATH, query.limit, query.offset, { it.toReminderRow() }) {
         putEach(Alarms.PARAM_TASK, query.taskIds)
         putEach(Alarms.PARAM_TYPE, query.types)
         putEach(Alarms.PARAM_PLACE, query.placeIds)
