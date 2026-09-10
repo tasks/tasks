@@ -337,6 +337,30 @@ suspend fun ApiWriter.editTaskTags(
     )
 }
 
+suspend fun ApiQueryEngine.taskRow(id: Long): TaskRow? =
+    queryById(TasksContract.Tasks.PATH, id).firstOrNull()?.toTaskRow()
+
+data class Completion(
+    val rowsChanged: List<Int>,
+    val advancedTaskIds: List<Long>,
+)
+
+suspend fun ApiQueryEngine.completeTasks(
+    ids: List<Long>,
+    completed: Boolean,
+    completedAt: Long?,
+    write: suspend (ApiValues) -> List<Int>,
+): Completion {
+    val stamp = if (completed) completedAt ?: System.currentTimeMillis() else 0L
+    val before = ids.associateWith { taskRow(it)?.recurrence }
+    val changed = write(ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp))
+    val after = ids.associateWith { taskRow(it)?.completed }
+    return Completion(
+        rowsChanged = changed,
+        advancedTaskIds = if (completed) advancedSeries(before, after) else emptyList(),
+    )
+}
+
 fun advancedSeries(
     recurrenceBefore: Map<Long, String?>,
     completedAfter: Map<Long, Long?>,
