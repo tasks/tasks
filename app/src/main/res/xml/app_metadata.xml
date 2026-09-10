@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:description="Tasks.org manages the user's tasks, lists, tags, saved places and reminders on this device.
+
+Things about this data model that are easy to get wrong:
+- Ids are local to this install. Never store them; resolve names to ids each session.
+- Rows reference each other by id, never by name. Resolve a name the user said to an id before acting on it, and do not read an id back to them.
+- A task belongs to exactly one list and sits at no more than one place, but carries any number of tags.
+- Reminders are one collection covering both kinds: a time reminder carries a trigger time or an offset, a location reminder carries a place and no timing. Arrival and departure are separate, independent reminders.
+- Every read is paged: it takes a limit and an offset, reports a total that ignores both, and flags whether more remain. There is no way to ask for all of them, so do not assume one call saw everything - a user can have hundreds of tags.
+- To count, ask for a limit of zero: the total comes back with no rows. Never list rows in order to count them.
+- Text search is a regular expression over a task's own title and notes. Narrow it to one of the two when you mean one, and escape a literal dot or slash.
+- Some lists are read-only. A task on one says so, and writing to it fails rather than quietly doing nothing.
+- Creating, updating and completing tasks are batch operations: each takes a list of tasks and runs as one transaction. Send the whole set rather than calling once per task.
+- A new task gets nothing you do not send - no priority, dates, recurrence, reminders or tags - and lands in the user's default list unless you name one.
+- Deleting a task deletes its subtasks with it, and no delete can be undone." />
