@@ -155,13 +155,13 @@ class SharedWritesTest : ApiTestCase() {
     @Test
     fun changingSomethingThatIsNotThereSaysSoRatherThanReportingNoChange() {
         assertThrows<ApiRowNotFound> {
-            runBlocking { writer.changeTag(9_999L, TagWrite(name = "Gone")) }
+            runBlocking { engine.changeTag(writer, 9_999L, TagWrite(name = "Gone")) }
         }
         assertThrows<ApiRowNotFound> {
-            runBlocking { writer.changePlace(9_999L, PlaceWrite(name = "Gone")) }
+            runBlocking { engine.changePlace(writer, 9_999L, PlaceWrite(name = "Gone")) }
         }
         val notFound = assertThrows<ApiRowNotFound> {
-            runBlocking { writer.changeList(9_999L, ListWrite(title = "Gone")) }
+            runBlocking { engine.changeList(writer, 9_999L, ListWrite(title = "Gone")) }
         }
 
         assertEquals(Lists.PATH, notFound.path)
@@ -169,13 +169,26 @@ class SharedWritesTest : ApiTestCase() {
     }
 
     @Test
-    fun changingARowThatIsThereReportsTheChange() = runBlockingTest {
+    fun changingARowHandsBackTheRowAsItIsAfterwards() = runBlockingTest {
         val id = newList("Renovation")
 
-        assertEquals(1, writer.changeList(id, ListWrite(title = "Kitchen")))
+        val row = engine.changeList(writer, id, ListWrite(title = "Kitchen"))
 
-        val row = runBlocking { engine.queryById(Lists.PATH, id).first().toListRow() }
+        assertEquals(id, row.id)
         assertEquals("Kitchen", row.title)
+        assertEquals("Kitchen", engine.queryById(Lists.PATH, id).first().toListRow().title)
+    }
+
+    @Test
+    fun creatingARowHandsItBackWithItsId() = runBlockingTest {
+        val list = engine.createList(writer, ListWrite(title = "Garage", accountId = account().id))
+        val tag = engine.createTag(writer, TagWrite(name = "errands", color = 7))
+        val place = engine.createPlace(writer, PlaceWrite(name = "Yard", latitude = 1.0, longitude = 2.0))
+
+        assertEquals("Garage", engine.queryById(Lists.PATH, list.id).first().toListRow().title)
+        assertEquals(7, tag.color)
+        assertEquals("Yard", place.name)
+        assertEquals("a repeated tag name resolves to the same row", tag, engine.createTag(writer, TagWrite(name = "Errands")))
     }
 
     @Test
@@ -198,6 +211,23 @@ class SharedWritesTest : ApiTestCase() {
         assertEquals(1, edit.addedIds.size)
         assertEquals("a repeated removal is collapsed", 1, edit.removed)
         assertEquals(listOf(Reminders.TYPE_RELATIVE_DUE), edit.reminders.map { it.type })
+        assertEquals(id, edit.reminders.single().taskId)
+        assertEquals(id, edit.task!!.id)
+    }
+
+    @Test
+    fun theFirstLocationReminderFilesTheTaskAndTheEditShowsIt() = runBlockingTest {
+        val place = insert(Places.PATH, Places.LATITUDE to 1.0, Places.LONGITUDE to 2.0)
+        val id = newTask("Buy paint")
+
+        val edit = engine.setTaskReminders(
+            writer,
+            taskId = id,
+            add = listOf(ReminderWrite(type = Reminders.TYPE_LOCATION_ARRIVAL, placeId = place)),
+            removeReminderIds = emptyList(),
+        )
+
+        assertEquals(place, edit.task!!.placeId)
     }
 
     @Test

@@ -381,7 +381,10 @@ data class Completion(
     val taskIds: List<Long>,
     val rowsChanged: List<Int>,
     val advancedTaskIds: List<Long>,
-)
+    val tasks: List<TaskRow>,
+) {
+    val unchangedIds: List<Long> get() = taskIds.zip(rowsChanged).filter { it.second == 0 }.map { it.first }
+}
 
 fun advancedSeries(
     recurrenceBefore: Map<Long, String?>,

@@ -1,5 +1,9 @@
 package org.tasks.api
 
+import org.tasks.api.TasksContract.Lists
+import org.tasks.api.TasksContract.Places
+import org.tasks.api.TasksContract.Tags
+
 data class TaskUpdate(
     val id: Long,
     val patch: TaskWrite,
@@ -13,16 +17,49 @@ fun requireChanges(updates: List<TaskUpdate>) {
     }
 }
 
-suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>): List<Long> {
+data class Creation(
+    val ids: List<Long>,
+    val tasks: List<TaskRow>,
+    val movedToParentListIds: List<Long>,
+)
+
+suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>): Creation {
     requireBatch(tasks.size)
-    return transaction { tasks.map { writer.insertTask(it.toValues()) } }
+    val ids = transaction { tasks.map { writer.insertTask(it.toValues()) } }
+    val created = tasksById(ids)
+    val landedOn = created.associate { it.id to it.listId }
+    return Creation(
+        ids = ids,
+        tasks = created,
+        movedToParentListIds = tasks.zip(ids)
+            .filter { (write, id) -> movedToParentList(write.parentId, write.listId, landedOn[id]) }
+            .map { it.second },
+    )
 }
 
-suspend fun ApiQueryEngine.updateTasks(writer: ApiWriter, updates: List<TaskUpdate>): List<Int> {
+data class Revision(
+    val rowsChanged: List<Int>,
+    val tasks: List<TaskRow>,
+    val unchangedIds: List<Long>,
+    val movedToParentListIds: List<Long>,
+)
+
+suspend fun ApiQueryEngine.updateTasks(writer: ApiWriter, updates: List<TaskUpdate>): Revision {
     requireBatch(updates.size, "updates")
     requireDistinct(updates.map { it.id })
     requireChanges(updates)
-    return transaction { updates.map { writer.updateTask(it.id, it.patch.toValues()) } }
+    val changed = transaction { updates.map { writer.updateTask(it.id, it.patch.toValues()) } }
+    val applied = updates.zip(changed).filter { it.second > 0 }.map { it.first }
+    val after = tasksById(applied.map { it.id })
+    val landedOn = after.associate { it.id to it.listId }
+    return Revision(
+        rowsChanged = changed,
+        tasks = after,
+        unchangedIds = updates.zip(changed).filter { it.second == 0 }.map { it.first.id },
+        movedToParentListIds = applied
+            .filter { movedToParentList(it.patch.parentId, it.patch.listId, landedOn[it.id]) }
+            .map { it.id },
+    )
 }
 
 suspend fun ApiQueryEngine.completeTasks(
@@ -37,12 +74,24 @@ suspend fun ApiQueryEngine.completeTasks(
     val values = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp)
     val before = unique.associateWith { taskRow(it)?.recurrence }
     val changed = transaction { unique.map { writer.updateTask(it, values) } }
-    val after = unique.associateWith { taskRow(it)?.completed }
+    val tasks = tasksById(unique)
+    val byId = tasks.associateBy { it.id }
+    val after = unique.associateWith { byId[it]?.completed }
     return Completion(
         taskIds = unique,
         rowsChanged = changed,
         advancedTaskIds = if (completed) advancedSeries(before, after) else emptyList(),
+        tasks = tasks,
     )
+}
+
+data class TagChange(
+    val edits: List<TagEdit>,
+    val tasks: List<TaskRow>,
+) {
+    val added: Int get() = edits.sumOf { it.added }
+
+    val removed: Int get() = edits.sumOf { it.removed }
 }
 
 suspend fun ApiQueryEngine.setTaskTags(
@@ -50,7 +99,7 @@ suspend fun ApiQueryEngine.setTaskTags(
     taskIds: List<Long>,
     add: List<Long>,
     remove: List<Long>,
-): List<TagEdit> {
+): TagChange {
     val unique = taskIds.distinct()
     requireBatch(unique.size)
     val adds = add.distinct()
@@ -59,9 +108,10 @@ suspend fun ApiQueryEngine.setTaskTags(
         "Nothing to change - send tags to add, tags to remove, or both."
     }
     val current = unique.associateWith { taskRow(it)?.tagIds.orEmpty().toSet() }
-    return transaction {
+    val edits = transaction {
         unique.map { writer.editTaskTags(it, current.getValue(it), adds, removes) }
     }
+    return TagChange(edits, tasksById(unique))
 }
 
 data class Deletion(
@@ -92,22 +142,42 @@ suspend fun ApiQueryEngine.deletePlace(writer: ApiWriter, id: Long): Deletion {
 private fun deletion(rows: Int, alsoAffected: Int) =
     Deletion(rows, if (rows > 0) alsoAffected else 0)
 
-suspend fun ApiWriter.changeList(id: Long, write: ListWrite): Int =
-    updateList(id, write.toValues()).orNotFound(TasksContract.Lists.PATH, id)
+suspend fun ApiQueryEngine.createList(writer: ApiWriter, write: ListWrite): ListRow =
+    row(Lists.PATH, writer.insertList(write.toValues())) { it.toListRow() }
 
-suspend fun ApiWriter.changeTag(id: Long, write: TagWrite): Int =
-    updateTag(id, write.toValues()).orNotFound(TasksContract.Tags.PATH, id)
+suspend fun ApiQueryEngine.changeList(writer: ApiWriter, id: Long, write: ListWrite): ListRow {
+    writer.updateList(id, write.toValues()).orNotFound(Lists.PATH, id)
+    return row(Lists.PATH, id) { it.toListRow() }
+}
 
-suspend fun ApiWriter.changePlace(id: Long, write: PlaceWrite): Int =
-    updatePlace(id, write.toValues()).orNotFound(TasksContract.Places.PATH, id)
+suspend fun ApiQueryEngine.createTag(writer: ApiWriter, write: TagWrite): TagRow =
+    row(Tags.PATH, writer.insertTag(write.toValues())) { it.toTagRow() }
 
-private fun Int.orNotFound(path: String, id: Long): Int =
-    also { if (it == 0) throw ApiRowNotFound(path, id) }
+suspend fun ApiQueryEngine.changeTag(writer: ApiWriter, id: Long, write: TagWrite): TagRow {
+    writer.updateTag(id, write.toValues()).orNotFound(Tags.PATH, id)
+    return row(Tags.PATH, id) { it.toTagRow() }
+}
+
+suspend fun ApiQueryEngine.createPlace(writer: ApiWriter, write: PlaceWrite): PlaceRow =
+    row(Places.PATH, writer.insertPlace(write.toValues())) { it.toPlaceRow() }
+
+suspend fun ApiQueryEngine.changePlace(writer: ApiWriter, id: Long, write: PlaceWrite): PlaceRow {
+    writer.updatePlace(id, write.toValues()).orNotFound(Places.PATH, id)
+    return row(Places.PATH, id) { it.toPlaceRow() }
+}
+
+private fun Int.orNotFound(path: String, id: Long) {
+    if (this == 0) throw ApiRowNotFound(path, id)
+}
+
+private suspend fun <T> ApiQueryEngine.row(path: String, id: Long, map: (ApiRow) -> T): T =
+    queryById(path, id).firstOrNull()?.let(map) ?: throw ApiRowNotFound(path, id)
 
 data class ReminderEdit(
     val addedIds: List<Long>,
     val removed: Int,
     val reminders: List<ReminderRow>,
+    val task: TaskRow?,
 )
 
 suspend fun ApiQueryEngine.setTaskReminders(
@@ -125,5 +195,6 @@ suspend fun ApiQueryEngine.setTaskReminders(
         addedIds = edit.first,
         removed = edit.second,
         reminders = findReminders(ReminderQuery(taskIds = listOf(taskId))).rows,
+        task = taskRow(taskId),
     )
 }
