@@ -1016,6 +1016,6 @@ val remindersByTask: Map<Long, List<String>> = resolver.query(
 
 Newest first, headed `versionName (versionCode)`.
 
-## Unreleased
+## 15.12
 
 - Initial `v0` API.

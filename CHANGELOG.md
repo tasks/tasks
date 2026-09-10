@@ -1,5 +1,6 @@
-### 15.12 (2026-09-03)
+### 15.12 (2026-09-11)
 
+* Add 'Works with Tasks.org' in app settings
 * Sync reminder dismissals across devices
 * Don't bump modification date when snoozing
 
@@ -7,6 +8,26 @@ Android:
   * Add new content provider API and [specification](https://github.com/tasks/tasks/blob/main/CONTENT_PROVIDER.md)
     * Build your own widgets, apps, and tools with the Tasks.org data on your device
   * Reduce sync delay after changes from 60 to 30 seconds
+  * Add support for AppFunctions
+
+Desktop:
+  * Add an MCP server
+    * Allows AI assistants to connect to Tasks.org
+  * Look & feel settings - @jheld [#4360](https://github.com/tasks/tasks/pull/4360)
+  * Navigation drawer settings - @jheld [#4407](https://github.com/tasks/tasks/pull/4407)
+  * Theme fixes and updates
+  * Fix stale times [#4663](https://github.com/tasks/tasks/issues/4663)
+
+Update translations:
+  * Chinese (Simplified) - hamburger2048
+  * Dutch - @Stephan-P
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @fm-sys, @felicia-b @Kachelkaiser
+  * Hungarian - Kaci
+  * Romanian - @ygorigor
+  * Turkish - @oersen
 
 ### 15.11 (2026-09-01)
 
