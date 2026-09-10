@@ -403,8 +403,11 @@ fun taskStatus(name: String?, completionBounded: Boolean = false): Boolean? = wh
 
 const val MAX_BATCH = 50
 
-fun requireBatch(size: Int, noun: String = "tasks") = require(size <= MAX_BATCH) {
-    "A batch takes at most $MAX_BATCH $noun, was $size. Send the rest in another call."
+fun requireBatch(size: Int, noun: String = "tasks") {
+    require(size > 0) { "A batch of $noun needs at least one entry." }
+    require(size <= MAX_BATCH) {
+        "A batch takes at most $MAX_BATCH $noun, was $size. Send the rest in another call."
+    }
 }
 
 fun requireDistinct(ids: List<Long>) {

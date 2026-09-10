@@ -123,6 +123,32 @@ class ApiBatchTest : ApiTestCase() {
     }
 
     @Test
+    fun aBatchWithNothingInItIsRefused() {
+        val message = assertThrows<IllegalArgumentException> {
+            runBlocking { engine.createTasks(writer, emptyList()) }
+        }.message.orEmpty()
+
+        assertTrue(message, message.contains("at least one entry"))
+        assertThrows<IllegalArgumentException> {
+            runBlocking { engine.updateTasks(writer, emptyList()) }
+        }
+        assertThrows<IllegalArgumentException> {
+            runBlocking { engine.completeTasks(writer, emptyList(), completed = true) }
+        }
+    }
+
+    @Test
+    fun aTagEditThatChangesNothingIsRefused() {
+        val id = newTask("one")
+
+        val message = assertThrows<IllegalArgumentException> {
+            runBlocking { engine.setTaskTags(writer, listOf(id), emptyList(), emptyList()) }
+        }.message.orEmpty()
+
+        assertTrue(message, message.contains("Nothing to change"))
+    }
+
+    @Test
     fun aBatchIsCappedAndSaysSo() {
         val message = assertThrows<IllegalArgumentException> {
             runBlocking {

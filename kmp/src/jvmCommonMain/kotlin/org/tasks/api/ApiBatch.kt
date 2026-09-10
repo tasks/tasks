@@ -46,6 +46,9 @@ suspend fun ApiQueryEngine.setTaskTags(
     requireBatch(unique.size)
     val adds = add.distinct()
     val removes = remove.distinct()
+    require(adds.isNotEmpty() || removes.isNotEmpty()) {
+        "Nothing to change - send tags to add, tags to remove, or both."
+    }
     val current = unique.associateWith { taskRow(it)?.tagIds.orEmpty().toSet() }
     return transaction {
         unique.map { writer.editTaskTags(it, current.getValue(it), adds, removes) }
