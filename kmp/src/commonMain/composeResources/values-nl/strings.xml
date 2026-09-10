@@ -517,4 +517,5 @@
     <string name="sort_created">Aangemaakt</string>
     <string name="all_done">Alles gedaan!</string>
     <string name="add_platform_account">%1$s account toevoegen</string>
+    <string name="works_with_desktop">Tasks.org voor desktop</string>
 </resources>
