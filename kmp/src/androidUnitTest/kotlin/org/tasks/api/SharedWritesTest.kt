@@ -125,6 +125,84 @@ class SharedWritesTest : ApiTestCase() {
     }
 
     @Test
+    fun aDeleteReportsWhatWentWithIt() = runBlockingTest {
+        val place = insert(Places.PATH, Places.LATITUDE to 1.0, Places.LONGITUDE to 2.0)
+        val tag = insert(Tags.PATH, Tags.NAME to "errands")
+        val list = newList("Doomed")
+        val parent = insert(Tasks.PATH, Tasks.TITLE to "parent", Tasks.LIST_ID to list)
+        insert(Tasks.PATH, Tasks.TITLE to "child", Tasks.PARENT_ID to parent)
+        val done = insert(
+            Tasks.PATH,
+            Tasks.TITLE to "done",
+            Tasks.LIST_ID to list,
+            Tasks.COMPLETED_AT to DAY,
+        )
+        insert(TasksContract.TaskTags.PATH, TasksContract.TaskTags.TASK_ID to done, TasksContract.TaskTags.TAG_ID to tag)
+        insert(Tasks.PATH, Tasks.TITLE to "filed", Tasks.LIST_ID to list, Tasks.PLACE_ID to place)
+
+        assertEquals(Deletion(1, 1), engine.deleteTask(writer, parent))
+        assertEquals(Deletion(1, 1), engine.deleteTag(writer, tag))
+        assertEquals(Deletion(1, 1), engine.deletePlace(writer, place))
+        assertEquals("a completed task still goes", Deletion(1, 2), engine.deleteList(writer, list))
+    }
+
+    @Test
+    fun deletingSomethingThatIsNotThereAffectsNothing() = runBlockingTest {
+        assertEquals(Deletion(0, 0), engine.deleteTask(writer, 9_999L))
+        assertEquals(Deletion(0, 0), engine.deleteList(writer, 9_999L))
+    }
+
+    @Test
+    fun remindersAreAddedAndRemovedInOneCall() = runBlockingTest {
+        val id = newTask("Dentist", Tasks.DUE_DATE to DAY)
+        val existing = insert(
+            Alarms.PATH,
+            Alarms.TASK_ID to id,
+            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
+            Alarms.TRIGGER_AT to DAY,
+        )
+
+        val edit = engine.setTaskReminders(
+            writer,
+            taskId = id,
+            add = listOf(
+                ReminderWrite(taskId = id, type = Alarms.TYPE_RELATIVE_DUE, offsetMs = -HOUR)
+            ),
+            removeAlarmIds = listOf(existing, existing),
+        )
+
+        assertEquals(1, edit.addedIds.size)
+        assertEquals("a repeated removal is collapsed", 1, edit.removed)
+        assertEquals(listOf(Alarms.TYPE_RELATIVE_DUE), edit.reminders.map { it.type })
+    }
+
+    @Test
+    fun aRejectedReminderAddLeavesTheExistingOnesAlone() = runBlockingTest {
+        val id = newTask("Dentist", Tasks.DUE_DATE to DAY)
+        val existing = insert(
+            Alarms.PATH,
+            Alarms.TASK_ID to id,
+            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
+            Alarms.TRIGGER_AT to DAY,
+        )
+
+        assertThrows<IllegalArgumentException> {
+            runBlocking {
+                engine.setTaskReminders(
+                    writer,
+                    taskId = id,
+                    add = listOf(
+                        ReminderWrite(taskId = id, type = Alarms.TYPE_LOCATION_ARRIVAL, placeId = 9_999L)
+                    ),
+                    removeAlarmIds = listOf(existing),
+                )
+            }
+        }
+
+        assertEquals(1, runBlocking { engine.findAlarms(AlarmQuery(taskIds = listOf(id))) }.total)
+    }
+
+    @Test
     fun deletedTasksAreInvisible() {
         val id = newTask("gone")
 
@@ -167,5 +245,7 @@ class SharedWritesTest : ApiTestCase() {
 
     private companion object {
         const val DAY = 24L * 60 * 60 * 1000
+
+        const val HOUR = 60L * 60 * 1000
     }
 }

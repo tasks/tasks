@@ -13,21 +13,38 @@ class TaskQueryTest : ApiTestCase() {
 
     private fun titles(query: TaskQuery): List<String> = find(query).rows.map { it.title }
 
+    private fun message(block: () -> Unit): String =
+        runCatching(block).exceptionOrNull()?.message.orEmpty()
+
     @Test
     fun openIsTheDefault() {
         newTask("Open")
         newTask("Done", Tasks.COMPLETED_AT to DAY)
 
-        assertEquals(listOf("Open"), titles(TaskQuery(completed = taskStatus(null))))
-        assertEquals(listOf("Done"), titles(TaskQuery(completed = taskStatus("completed"))))
-        assertEquals(2, find(TaskQuery(completed = taskStatus("any"))).total)
+        assertEquals(listOf("Open"), titles(TaskQuery()))
+        assertEquals(listOf("Done"), titles(TaskQuery(status = "completed")))
+        assertEquals(2, find(TaskQuery(status = "any")).total)
     }
 
     @Test
     fun anUnknownStatusNamesTheLegalValues() {
-        val message = runCatching { taskStatus("pending") }.exceptionOrNull()?.message.orEmpty()
+        val message = message { TaskQuery(status = "pending") }
 
         assertTrue(message, message.contains("open|completed|any"))
+    }
+
+    @Test
+    fun anUnknownDueFilterNamesTheLegalValues() {
+        val message = message { TaskQuery(due = "tomorow") }
+
+        assertTrue(message, message.contains(DUE_FILTERS.joinToString("|")))
+    }
+
+    @Test
+    fun anUnusablePatternSaysSoRatherThanThrowingRaw() {
+        val message = message { TaskQuery(matches = "[unclosed") }
+
+        assertTrue(message, message.contains("'matches' is not a valid regular expression"))
     }
 
     @Test
@@ -39,23 +56,19 @@ class TaskQueryTest : ApiTestCase() {
     }
 
     @Test
-    fun theNoDueDateWindowStillFindsUnscheduledTasks() {
+    fun theNoDueDateFilterStillFindsUnscheduledTasks() {
         newTask("Someday")
         newTask("Due", Tasks.DUE_DATE to DAY)
 
-        val window = dueWindow("no_due_date")!!
-
-        assertEquals(
-            listOf("Someday"),
-            titles(TaskQuery(dueAfter = window.first, dueBefore = window.second)),
-        )
+        assertEquals(listOf("Someday"), titles(TaskQuery(due = "no_due_date")))
+        assertEquals(listOf("Due"), titles(TaskQuery(due = "has_due_date")))
     }
 
     @Test
-    fun anUnknownDueFilterNamesTheLegalValues() {
-        val message = runCatching { dueWindow("tomorow") }.exceptionOrNull()?.message.orEmpty()
+    fun anExplicitBoundWinsOverTheConvenienceFilter() {
+        newTask("Due", Tasks.DUE_DATE to DAY)
 
-        assertTrue(message, message.contains(DUE_FILTERS.joinToString("|")))
+        assertEquals(listOf("Due"), titles(TaskQuery(due = "no_due_date", dueBefore = DAY * 2)))
     }
 
     @Test
@@ -70,7 +83,7 @@ class TaskQueryTest : ApiTestCase() {
         )
 
         assertEquals(listOf("Errand"), titles(TaskQuery(tagIds = listOf(errands))))
-        assertEquals(1, find(TaskQuery(tagIds = listOf(errands), limit = 0)).total)
+        assertEquals(1, runBlocking { engine.countTasks(TaskQuery(tagIds = listOf(errands))) })
     }
 
     @Test
@@ -78,9 +91,7 @@ class TaskQueryTest : ApiTestCase() {
         newTask("Open")
         newTask("Done", Tasks.COMPLETED_AT to DAY)
 
-        val completed = taskStatus(null, completionBounded = true)
-
-        assertEquals(listOf("Done"), titles(TaskQuery(completed = completed, completedBefore = DAY * 2)))
+        assertEquals(listOf("Done"), titles(TaskQuery(completedBefore = DAY * 2)))
     }
 
     @Test
@@ -88,7 +99,7 @@ class TaskQueryTest : ApiTestCase() {
         newTask("Pack tent")
         newTask("Buy firewood", Tasks.NOTES to "from the camp store")
 
-        assertEquals(listOf("Buy firewood"), titles(TaskQuery(matches = Regex("camp store"))))
+        assertEquals(listOf("Buy firewood"), titles(TaskQuery(matches = "camp store")))
     }
 
     @Test
@@ -97,8 +108,16 @@ class TaskQueryTest : ApiTestCase() {
 
         assertEquals(
             emptyList<String>(),
-            titles(TaskQuery(matches = Regex("camp store"), matchFields = setOf(TaskText.Title))),
+            titles(TaskQuery(matches = "camp store", matchFields = listOf("title"))),
         )
+    }
+
+    @Test
+    fun matchingIgnoresCaseUnlessToldOtherwise() {
+        newTask("Renew Passport")
+
+        assertEquals(1, find(TaskQuery(matches = "passport")).total)
+        assertEquals(0, find(TaskQuery(matches = "passport", matchCase = true)).total)
     }
 
     @Test
@@ -106,15 +125,15 @@ class TaskQueryTest : ApiTestCase() {
         newTask("Pack tent")
         newTask("Repack tent")
 
-        assertEquals(2, find(TaskQuery(matches = Regex("Pack tent", IGNORE_CASE))).total)
-        assertEquals(listOf("Pack tent"), titles(TaskQuery(matches = Regex("^Pack tent$"))))
+        assertEquals(2, find(TaskQuery(matches = "Pack tent")).total)
+        assertEquals(listOf("Pack tent"), titles(TaskQuery(matches = "^Pack tent$")))
     }
 
     @Test
     fun aScannedPageStillReportsTheTrueTotal() {
         repeat(3) { newTask("Task $it") }
 
-        val page = find(TaskQuery(matches = Regex("Task"), limit = 1))
+        val page = find(TaskQuery(matches = "Task", limit = 1))
 
         assertEquals(1, page.rows.size)
         assertEquals(3, page.total)
@@ -138,8 +157,16 @@ class TaskQueryTest : ApiTestCase() {
         assertFalse(find(TaskQuery(limit = 2, offset = 2)).hasMore)
     }
 
+    @Test
+    fun aSubtaskThatLandedOnItsParentsListIsReported() {
+        assertTrue(movedToParentList(parentId = 5L, listId = 2L, landedOn = 3L))
+        assertFalse(movedToParentList(parentId = 5L, listId = 2L, landedOn = 2L))
+        assertFalse(movedToParentList(parentId = 0L, listId = 2L, landedOn = 3L))
+        assertFalse(movedToParentList(parentId = null, listId = 2L, landedOn = 3L))
+        assertFalse(movedToParentList(parentId = 5L, listId = null, landedOn = 3L))
+    }
+
     private companion object {
         const val DAY = 24L * 60 * 60 * 1000
-        val IGNORE_CASE = setOf(RegexOption.IGNORE_CASE)
     }
 }

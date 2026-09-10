@@ -264,7 +264,11 @@ data class TaskQuery(
     val priorities: List<String> = emptyList(),
     val parentIds: List<Long> = emptyList(),
     val search: String? = null,
-    val completed: Boolean? = null,
+    val status: String? = null,
+    val due: String? = null,
+    val matches: String? = null,
+    val matchCase: Boolean = false,
+    val matchFields: List<String> = emptyList(),
     val dueBefore: Long? = null,
     val dueAfter: Long? = null,
     val startBefore: Long? = null,
@@ -277,11 +281,52 @@ data class TaskQuery(
     val modifiedAfter: Long? = null,
     val sort: String? = null,
     val sortDesc: Boolean = false,
-    val matches: Regex? = null,
-    val matchFields: Set<TaskText> = TaskText.BOTH,
-    val limit: Int = TasksContract.DEFAULT_LIMIT,
-    val offset: Int = 0,
-)
+    val limit: Int? = null,
+    val offset: Int? = null,
+) {
+    val completed: Boolean? =
+        taskStatus(status, completedBefore != null || completedAfter != null)
+
+    val pattern: Regex? = taskPattern(matches, matchCase)
+
+    val fields: Set<TaskText> = taskTextFields(matchFields)
+
+    val take: Int = pageLimit(limit)
+
+    val skip: Int = pageOffset(offset)
+
+    private val window: Pair<Long?, Long?>? = dueWindow(due)
+
+    fun args(chunk: Int, from: Int): ApiQueryArgs {
+        val t = TasksContract.Tasks
+        val until = dueBefore ?: window?.second
+        val since = dueAfter ?: window?.first
+        return ApiQueryArgs.build(TasksContract.paramsFor(t.PATH)) {
+            putEach(t.PARAM_ID, ids)
+            putEach(t.PARAM_LIST, listIds)
+            putEach(t.PARAM_TAG, tagIds)
+            putEach(t.PARAM_PLACE, placeIds)
+            putEach(t.PARAM_PRIORITY, priorities)
+            putEach(t.PARAM_PARENT, parentIds)
+            putIfNotNull(t.PARAM_SEARCH, search)
+            putIfNotNull(t.PARAM_COMPLETED, completed?.let { if (it) "1" else "0" })
+            putIfNotNull(t.PARAM_DUE_BEFORE, until)
+            putIfNotNull(t.PARAM_DUE_AFTER, since ?: scheduledOnly(until))
+            putIfNotNull(t.PARAM_START_BEFORE, startBefore)
+            putIfNotNull(t.PARAM_START_AFTER, startAfter ?: scheduledOnly(startBefore))
+            putIfNotNull(t.PARAM_COMPLETED_BEFORE, completedBefore)
+            putIfNotNull(t.PARAM_COMPLETED_AFTER, completedAfter)
+            putIfNotNull(t.PARAM_CREATED_BEFORE, createdBefore)
+            putIfNotNull(t.PARAM_CREATED_AFTER, createdAfter)
+            putIfNotNull(t.PARAM_MODIFIED_BEFORE, modifiedBefore)
+            putIfNotNull(t.PARAM_MODIFIED_AFTER, modifiedAfter)
+            putIfNotNull(t.PARAM_SORT, sort)
+            if (sortDesc) put(t.PARAM_SORT_DESC, "1")
+            put(TasksContract.PARAM_LIMIT, chunk.toString())
+            put(TasksContract.PARAM_OFFSET, from.toString())
+        }
+    }
+}
 
 fun dueWindow(name: String?): Pair<Long?, Long?>? {
     val zone = ZoneId.systemDefault()
@@ -380,42 +425,33 @@ val DUE_FILTERS = listOf("today", "tomorrow", "overdue", "this_week", "has_due_d
 private fun scheduledOnly(before: Long?): Long? =
     if (before != null && before != UNSCHEDULED_BOUND) 0L else null
 
-fun TaskQuery.args(pageLimit: Int, pageOffset: Int): ApiQueryArgs {
-    val t = TasksContract.Tasks
-    return ApiQueryArgs.build(TasksContract.paramsFor(t.PATH)) {
-        putEach(t.PARAM_ID, ids)
-        putEach(t.PARAM_LIST, listIds)
-        putEach(t.PARAM_TAG, tagIds)
-        putEach(t.PARAM_PLACE, placeIds)
-        putEach(t.PARAM_PRIORITY, priorities)
-        putEach(t.PARAM_PARENT, parentIds)
-        putIfNotNull(t.PARAM_SEARCH, search)
-        putIfNotNull(t.PARAM_COMPLETED, completed?.let { if (it) "1" else "0" })
-        putIfNotNull(t.PARAM_DUE_BEFORE, dueBefore)
-        putIfNotNull(t.PARAM_DUE_AFTER, dueAfter ?: scheduledOnly(dueBefore))
-        putIfNotNull(t.PARAM_START_BEFORE, startBefore)
-        putIfNotNull(t.PARAM_START_AFTER, startAfter ?: scheduledOnly(startBefore))
-        putIfNotNull(t.PARAM_COMPLETED_BEFORE, completedBefore)
-        putIfNotNull(t.PARAM_COMPLETED_AFTER, completedAfter)
-        putIfNotNull(t.PARAM_CREATED_BEFORE, createdBefore)
-        putIfNotNull(t.PARAM_CREATED_AFTER, createdAfter)
-        putIfNotNull(t.PARAM_MODIFIED_BEFORE, modifiedBefore)
-        putIfNotNull(t.PARAM_MODIFIED_AFTER, modifiedAfter)
-        putIfNotNull(t.PARAM_SORT, sort)
-        if (sortDesc) put(t.PARAM_SORT_DESC, "1")
-        put(TasksContract.PARAM_LIMIT, pageLimit.toString())
-        put(TasksContract.PARAM_OFFSET, pageOffset.toString())
+suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
+    val pattern = query.pattern
+        ?: return query.args(query.take, query.skip)
+            .let { this.query(TasksContract.Tasks.PATH, it) }
+            .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, query.skip) }
+    val scan = scanTasks(pattern, query.fields, query.take, query.skip, query::args)
+    return ApiPage(scan.rows, scan.total, query.skip)
+}
+
+suspend fun ApiQueryEngine.countTasks(query: TaskQuery): Int =
+    findTasks(query.copy(limit = 0)).total
+
+fun taskPattern(pattern: String?, caseSensitive: Boolean): Regex? {
+    val text = pattern?.takeIf { it.isNotBlank() } ?: return null
+    val options = if (caseSensitive) emptySet() else setOf(RegexOption.IGNORE_CASE)
+    return try {
+        Regex(text, options)
+    } catch (e: IllegalArgumentException) {
+        throw IllegalArgumentException("'matches' is not a valid regular expression: ${e.message}")
     }
 }
 
-suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
-    val pattern = query.matches
-        ?: return query.args(query.limit, query.offset)
-            .let { this.query(TasksContract.Tasks.PATH, it) }
-            .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, query.offset) }
-    val scan = scanTasks(pattern, query.matchFields, query.limit, query.offset, query::args)
-    return ApiPage(scan.rows, scan.total, query.offset)
-}
+fun taskTextFields(names: List<String>): Set<TaskText> =
+    names.map { TaskText.of(it) }.toSet().ifEmpty { TaskText.BOTH }
+
+fun movedToParentList(parentId: Long?, listId: Long?, landedOn: Long?): Boolean =
+    parentId != null && parentId != 0L && listId != null && landedOn != listId
 
 data class ListWrite(
     val title: String? = null,

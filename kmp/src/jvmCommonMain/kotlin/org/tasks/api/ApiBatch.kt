@@ -51,3 +51,54 @@ suspend fun ApiQueryEngine.setTaskTags(
         unique.map { writer.editTaskTags(it, current.getValue(it), adds, removes) }
     }
 }
+
+data class Deletion(
+    val rowsDeleted: Int,
+    val alsoAffected: Int,
+)
+
+suspend fun ApiQueryEngine.deleteTask(writer: ApiWriter, id: Long): Deletion {
+    val subtasks = taskRow(id)?.childCount ?: 0
+    return deletion(writer.deleteTask(id), subtasks)
+}
+
+suspend fun ApiQueryEngine.deleteList(writer: ApiWriter, id: Long): Deletion {
+    val tasks = countTasks(TaskQuery(listIds = listOf(id), status = "any"))
+    return deletion(writer.deleteList(id), tasks)
+}
+
+suspend fun ApiQueryEngine.deleteTag(writer: ApiWriter, id: Long): Deletion {
+    val tagged = countTasks(TaskQuery(tagIds = listOf(id), status = "any"))
+    return deletion(writer.deleteTag(id), tagged)
+}
+
+suspend fun ApiQueryEngine.deletePlace(writer: ApiWriter, id: Long): Deletion {
+    val filed = countTasks(TaskQuery(placeIds = listOf(id), status = "any"))
+    return deletion(writer.deletePlace(id), filed)
+}
+
+private fun deletion(rows: Int, alsoAffected: Int) =
+    Deletion(rows, if (rows > 0) alsoAffected else 0)
+
+data class ReminderEdit(
+    val addedIds: List<Long>,
+    val removed: Int,
+    val reminders: List<AlarmRow>,
+)
+
+suspend fun ApiQueryEngine.setTaskReminders(
+    writer: ApiWriter,
+    taskId: Long,
+    add: List<ReminderWrite>,
+    removeAlarmIds: List<Long>,
+): ReminderEdit {
+    val removals = removeAlarmIds.distinct()
+    val edit = transaction {
+        add.map { writer.insertAlarm(it.toValues()) } to removals.sumOf { writer.deleteAlarm(it) }
+    }
+    return ReminderEdit(
+        addedIds = edit.first,
+        removed = edit.second,
+        reminders = findAlarms(AlarmQuery(taskIds = listOf(taskId))).rows,
+    )
+}
