@@ -44,6 +44,13 @@ class ApiErrorsTest {
     }
 
     @Test
+    fun aDetailThatAlreadyEndsTheSentenceIsNotDoubled() {
+        val explained = ApiErrors.explain(IllegalArgumentException("Send at least one entry."))
+
+        assertTrue(explained, explained.contains("at least one entry. Retrying"))
+    }
+
+    @Test
     fun aMissingRowNamesTheCollectionAndTheId() {
         val gone = ApiErrors.explain(ApiRowNotFound(TasksContract.Places.PATH, 9_999L))
 

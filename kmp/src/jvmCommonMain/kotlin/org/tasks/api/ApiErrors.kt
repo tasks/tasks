@@ -21,7 +21,7 @@ object ApiErrors {
     }
 
     fun explain(error: Throwable): String {
-        val detail = error.message.orEmpty()
+        val detail = error.message.orEmpty().trimEnd('.')
         return when (classify(error)) {
             ApiFailure.NotFound ->
                 "$detail. Nothing was written, and the same id will fail again - read the " +
