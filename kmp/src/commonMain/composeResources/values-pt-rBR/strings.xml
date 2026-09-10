@@ -636,4 +636,5 @@
     <string name="theme_wallpaper">Plano de fundo</string>
     <string name="theme_day_night">Dia/Noite</string>
     <string name="theme_system_default">Padrão do Sistema</string>
+    <string name="works_with_desktop">Tasks.org para desktop</string>
 </resources>
