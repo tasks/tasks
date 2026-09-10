@@ -5,6 +5,14 @@ data class TaskUpdate(
     val patch: TaskWrite,
 )
 
+fun requireChanges(updates: List<TaskUpdate>) {
+    updates.firstOrNull { it.patch.isEmpty }?.let {
+        throw IllegalArgumentException(
+            "The entry for task ${it.id} has no fields to change - send at least one."
+        )
+    }
+}
+
 suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>): List<Long> {
     requireBatch(tasks.size)
     return transaction { tasks.map { writer.insertTask(it.toValues()) } }
@@ -13,6 +21,7 @@ suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>
 suspend fun ApiQueryEngine.updateTasks(writer: ApiWriter, updates: List<TaskUpdate>): List<Int> {
     requireBatch(updates.size, "updates")
     requireDistinct(updates.map { it.id })
+    requireChanges(updates)
     return transaction { updates.map { writer.updateTask(it.id, it.patch.toValues()) } }
 }
 

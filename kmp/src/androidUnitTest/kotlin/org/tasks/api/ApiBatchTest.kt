@@ -138,6 +138,28 @@ class ApiBatchTest : ApiTestCase() {
     }
 
     @Test
+    fun aPatchWithNothingToChangeIsRefusedAndTheRestOfTheBatchStaysPut() {
+        val id = newTask("One")
+        val before = task(id)!!.modified
+
+        val message = assertThrows<IllegalArgumentException> {
+            runBlocking {
+                engine.updateTasks(
+                    writer,
+                    listOf(
+                        TaskUpdate(id, TaskWrite(title = "Two")),
+                        TaskUpdate(id + 1, TaskWrite()),
+                    ),
+                )
+            }
+        }.message.orEmpty()
+
+        assertTrue(message, message.contains("no fields to change"))
+        assertEquals("One", task(id)!!.title)
+        assertEquals("an empty patch must not touch the row", before, task(id)!!.modified)
+    }
+
+    @Test
     fun aTagEditThatChangesNothingIsRefused() {
         val id = newTask("one")
 
