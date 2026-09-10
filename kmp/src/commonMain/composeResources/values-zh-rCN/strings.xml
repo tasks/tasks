@@ -612,4 +612,5 @@
     <string name="theme_system_default">系统默认</string>
     <string name="repeat_monthly_on_last_day">每月最后一天</string>
     <string name="repeat_monthly_last_day">最后一天</string>
+    <string name="works_with_desktop">Tasks.org 桌面版</string>
 </resources>
