@@ -149,7 +149,7 @@ abstract class ApiTestCase {
 
     protected val taskFactory = TestTaskFactory()
 
-    private val writer: ApiWriter by lazy {
+    protected val writer: ApiWriter by lazy {
         ApiWriter(
             apiDao = db.apiDao(),
             taskDao = db.taskDao(),
@@ -176,10 +176,12 @@ abstract class ApiTestCase {
         )
     }
 
+    protected val engine: ApiQueryEngine by lazy { ApiQueryEngine(db) }
+
     private val dependencies by lazy {
         object : TasksApiProvider.Dependencies {
             override val database = db
-            override val queryEngine = ApiQueryEngine(db)
+            override val queryEngine = engine
             override val writer = this@ApiTestCase.writer
             override val analytics: Analytics = mock()
         }

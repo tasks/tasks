@@ -81,6 +81,44 @@ class TasksApiWriteTest : ApiTestCase() {
     }
 
     @Test
+    fun patchingAnAllDayDateLeavesItAllDay() {
+        val id = newTask("Anniversary", Tasks.DUE_DATE to day(1), Tasks.DUE_ALL_DAY to 1)
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to day(2))
+
+        assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+    }
+
+    @Test
+    fun patchingATimedDateLeavesItTimed() {
+        val id = newTask("Standup", Tasks.DUE_DATE to day(1), Tasks.DUE_ALL_DAY to 0)
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to day(2))
+
+        assertEquals(0, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+    }
+
+    @Test
+    fun theAllDayFlagCanBeFlippedWithoutTheDate() {
+        val id = newTask("Anniversary", Tasks.DUE_DATE to day(1), Tasks.DUE_ALL_DAY to 1)
+        val stored = query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE)
+
+        update(Tasks.PATH, id, Tasks.DUE_ALL_DAY to 0)
+
+        assertEquals(0, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+        assertEquals(stored, query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE))
+    }
+
+    @Test
+    fun aTaskWithNoDateYetStillDefaultsToTimed() {
+        val id = newTask("Someday")
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to day(1))
+
+        assertEquals(0, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+    }
+
+    @Test
     fun anAbsentAllDayFlagMeansTimed() {
         val wholeMinute = (currentTimeMillis() / 60_000L) * 60_000L
         val id = newTask("t", Tasks.DUE_DATE to wholeMinute)
