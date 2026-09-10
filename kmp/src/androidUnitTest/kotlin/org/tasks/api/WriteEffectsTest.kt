@@ -3,11 +3,16 @@ package org.tasks.api
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.jetbrains.compose.resources.getString
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tasks
+import org.tasks.data.UUIDHelper
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.local_lists
 
 class WriteEffectsTest : ApiTestCase() {
 
@@ -63,6 +68,24 @@ class WriteEffectsTest : ApiTestCase() {
     }
 
     @Test
+    fun aZeroOffsetIsAValueNotAnAbsence() = runBlockingTest {
+        val id = newTask("Dentist", Tasks.DUE_DATE to day(1))
+        reminder(id, Reminders.TYPE_RELATIVE_DUE, offset = 0L)
+
+        val row = engine.findReminders(ReminderQuery(taskIds = listOf(id))).rows.single()
+
+        assertEquals(0L, row.offsetMs)
+        assertEquals("at due time", describeOffset(row.offsetMs!!, row.type))
+    }
+
+    @Test
+    fun aRandomReminderIsDescribedAsRandom() {
+        assertEquals("randomly, about every 1 day", describeOffset(86_400_000L, Reminders.TYPE_RANDOM))
+        assertEquals("randomly, about every 12 hours", describeOffset(43_200_000L, Reminders.TYPE_RANDOM))
+        assertEquals("1 day after due", describeOffset(86_400_000L, Reminders.TYPE_RELATIVE_DUE))
+    }
+
+    @Test
     fun tagsRemindersListsAndParentsAllCountAsChanges() = runBlockingTest {
         val id = newTask("Dentist", Tasks.DUE_DATE to day(1))
         val parent = newTask("Health")
@@ -107,6 +130,41 @@ class WriteEffectsTest : ApiTestCase() {
         assertEquals(listOf("All day, yesterday", "Timed, passed"), titles)
         assertEquals(titles, raw)
         assertTrue(old is IllegalArgumentException)
+    }
+
+    @Test
+    fun aRefusedBatchNamesTheEntry() = runBlockingTest {
+        val error = runCatching {
+            engine.createTasks(
+                writer,
+                listOf(TaskWrite(title = "Fine"), TaskWrite(title = "Orphan", parentId = 999L), TaskWrite(title = "Also fine")),
+            )
+        }.exceptionOrNull()
+
+        assertTrue(error is IllegalArgumentException)
+        assertTrue(error!!.message!!, error.message!!.startsWith("Entry 2 of 3 (Orphan): "))
+        assertTrue(error.message!!, "999 not found" in error.message!!)
+        assertEquals(0, engine.findTasks(TaskQuery(limit = 0)).total)
+    }
+
+    @Test
+    fun aSingleEntryIsNotNumbered() = runBlockingTest {
+        val error = runCatching {
+            engine.createTasks(writer, listOf(TaskWrite(title = "Orphan", parentId = 999L)))
+        }.exceptionOrNull()
+
+        assertTrue(error!!.message!!, error.message!!.startsWith("parent_id 999"))
+    }
+
+    @Test
+    fun aNamelessLocalAccountIsCalledWhatTheAppCallsIt() = runBlockingTest {
+        caldavDao.insert(CaldavAccount(uuid = UUIDHelper.newUUID(), accountType = CaldavAccount.TYPE_LOCAL))
+
+        val names = engine.findAccounts(AccountQuery()).rows.map { it.name }
+        val raw = query(TasksContract.Accounts.PATH).strings(TasksContract.Accounts.NAME)
+
+        assertEquals(listOf(getString(Res.string.local_lists)), names.distinct())
+        assertEquals(names, raw)
     }
 
     @Test

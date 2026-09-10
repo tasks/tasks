@@ -533,7 +533,7 @@ content://org.tasks.api/v0/reminders/{id}
 | `task_id` | long | insert | The task this row belongs to |
 | `type` | string | insert | `date_time`, `relative_start`, `relative_due`, `random`, `snooze`, `location_arrival`, `location_departure` |
 | `trigger_at` | long | • | Absolute time. `date_time` and `snooze` only. Writes also take a local date string |
-| `offset_ms` | long | • | Signed offset from the start or due date; negative is *before*. Relative and random types only |
+| `offset_ms` | long | • | Signed offset from the start or due date; negative is *before*. For `random`, the period: each reminder lands about that long after the last. Relative and random types only |
 | `repeat_count` | int | • | How many times to repeat after the first trigger |
 | `interval_ms` | long | • | Gap between repeats |
 | `place_id` | long | insert | The place that triggers this reminder. Location types only; `0` on a time reminder |
@@ -879,7 +879,7 @@ content://org.tasks.api/v0/accounts/{id}
 | Column | Type | W | Description |
 | --- | --- | :-: | --- |
 | `_id` | long |  | Row id. Local to this install |
-| `name` | string |  | Display name |
+| `name` | string |  | Display name. A local account with none gets the app's own label, in the device's language |
 | `type` | string |  | `caldav`, `tasks_org`, `google_tasks`, `microsoft`, `etebase`, `opentasks`, `local` |
 | `username` | string |  | Account username, `""` for local accounts |
 | `url` | string |  | Server URL, `""` for local |

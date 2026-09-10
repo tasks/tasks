@@ -110,14 +110,13 @@ fun ApiRow.toTaskRow(): TaskRow {
 fun ApiRow.toReminderRow(): ReminderRow {
     val a = TasksContract.Reminders
     val type = string(a.TYPE)
-    val offset = longOrNull(a.OFFSET_MS)
     return ReminderRow(
         id = long(TasksContract.ID),
         taskId = long(a.TASK_ID),
         type = type,
         placeId = longOrNull(a.PLACE_ID)?.takeIf { type in TasksContract.Reminders.LOCATION_TYPES },
         triggerAt = longOrNull(a.TRIGGER_AT)?.takeIf { type in TasksContract.Reminders.ABSOLUTE_TYPES },
-        offsetMs = offset?.takeIf { type in TasksContract.Reminders.RELATIVE_TYPES },
+        offsetMs = long(a.OFFSET_MS).takeIf { type in TasksContract.Reminders.RELATIVE_TYPES },
         repeatCount = int(a.REPEAT_COUNT).takeIf { it != 0 },
         intervalMs = longOrNull(a.INTERVAL_MS),
     )
@@ -178,29 +177,32 @@ fun ApiRow.toAccountRow(): AccountRow {
 }
 
 fun describeOffset(offsetMs: Long, type: String): String {
+    if (type == TasksContract.Reminders.TYPE_RANDOM) {
+        return "randomly, about every ${describeSpan(kotlin.math.abs(offsetMs))}"
+    }
     val anchor = when (type) {
         TasksContract.Reminders.TYPE_RELATIVE_START -> "start"
         TasksContract.Reminders.TYPE_RELATIVE_DUE -> "due"
         else -> "due"
     }
     if (offsetMs == 0L) return "at $anchor time"
-    val abs = kotlin.math.abs(offsetMs)
     val direction = if (offsetMs < 0) "before" else "after"
-    val amount = when {
-        abs % TimeUnit.DAYS.toMillis(1) == 0L -> {
-            val d = TimeUnit.MILLISECONDS.toDays(abs)
-            "$d day${if (d == 1L) "" else "s"}"
-        }
-        abs % TimeUnit.HOURS.toMillis(1) == 0L -> {
-            val h = TimeUnit.MILLISECONDS.toHours(abs)
-            "$h hour${if (h == 1L) "" else "s"}"
-        }
-        else -> {
-            val m = TimeUnit.MILLISECONDS.toMinutes(abs)
-            "$m minute${if (m == 1L) "" else "s"}"
-        }
+    return "${describeSpan(kotlin.math.abs(offsetMs))} $direction $anchor"
+}
+
+private fun describeSpan(abs: Long): String = when {
+    abs % TimeUnit.DAYS.toMillis(1) == 0L -> {
+        val d = TimeUnit.MILLISECONDS.toDays(abs)
+        "$d day${if (d == 1L) "" else "s"}"
     }
-    return "$amount $direction $anchor"
+    abs % TimeUnit.HOURS.toMillis(1) == 0L -> {
+        val h = TimeUnit.MILLISECONDS.toHours(abs)
+        "$h hour${if (h == 1L) "" else "s"}"
+    }
+    else -> {
+        val m = TimeUnit.MILLISECONDS.toMinutes(abs)
+        "$m minute${if (m == 1L) "" else "s"}"
+    }
 }
 
 enum class TaskText {

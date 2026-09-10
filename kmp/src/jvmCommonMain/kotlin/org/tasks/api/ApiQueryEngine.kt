@@ -3,6 +3,7 @@ package org.tasks.api
 import androidx.room.immediateTransaction
 import androidx.room.useReaderConnection
 import androidx.room.useWriterConnection
+import org.jetbrains.compose.resources.getString
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
@@ -13,6 +14,8 @@ import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.db.Database
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.local_lists
 
 class ApiRows(
     val columns: List<String>,
@@ -114,12 +117,24 @@ class ApiQueryEngine(
         offset: Int,
     ): List<Array<Any?>> {
         val statement = "${unionSql(parts)} ORDER BY $order LIMIT $limit OFFSET $offset"
-        return database.useReaderConnection { transactor ->
+        val rows = database.useReaderConnection { transactor ->
             transactor.usePrepared(statement) { prepared ->
                 parts.bindArgs().bindTo(prepared)
                 buildList { while (prepared.step()) add(table.read(prepared)) }
             }
         }
+        return if (table.path == Accounts.PATH) rows.nameLocalAccounts() else rows
+    }
+
+    private suspend fun List<Array<Any?>>.nameLocalAccounts(): List<Array<Any?>> {
+        val name = Accounts.COLUMNS.indexOf(Accounts.NAME)
+        val type = Accounts.COLUMNS.indexOf(Accounts.TYPE)
+        val nameless = filter { it[type] == Accounts.TYPE_LOCAL && (it[name] as? String).isNullOrBlank() }
+        if (nameless.isNotEmpty()) {
+            val local = getString(Res.string.local_lists)
+            nameless.forEach { it[name] = local }
+        }
+        return this
     }
 
     private suspend fun count(parts: List<Part>): Int {

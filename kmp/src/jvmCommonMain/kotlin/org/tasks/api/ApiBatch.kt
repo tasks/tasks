@@ -25,7 +25,11 @@ data class Creation(
 
 suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>): Creation {
     requireBatch(tasks.size)
-    val ids = transaction { tasks.map { writer.insertTask(it.toValues()) } }
+    val ids = transaction {
+        tasks.mapIndexed { index, task ->
+            entry(index, tasks.size, task.title) { writer.insertTask(task.toValues()) }
+        }
+    }
     val created = tasksById(ids)
     val landedOn = created.associate { it.id to it.listId }
     return Creation(
@@ -35,6 +39,13 @@ suspend fun ApiQueryEngine.createTasks(writer: ApiWriter, tasks: List<TaskWrite>
             .filter { (write, id) -> movedToParentList(write.parentId, write.listId, landedOn[id]) }
             .map { it.second },
     )
+}
+
+private inline fun <T> entry(index: Int, of: Int, label: String?, block: () -> T): T = try {
+    block()
+} catch (e: IllegalArgumentException) {
+    if (of == 1) throw e
+    throw IllegalArgumentException("Entry ${index + 1} of $of (${label ?: "untitled"}): ${e.message}", e)
 }
 
 data class Revision(
@@ -50,7 +61,11 @@ suspend fun ApiQueryEngine.updateTasks(writer: ApiWriter, updates: List<TaskUpda
     requireDistinct(updates.map { it.id })
     requireChanges(updates)
     val parentsBefore = tasksById(updates.map { it.id }).associate { it.id to it.parentId }
-    val changed = transaction { updates.map { writer.updateTask(it.id, it.patch.toValues()) } }
+    val changed = transaction {
+        updates.mapIndexed { index, update ->
+            entry(index, updates.size, "task ${update.id}") { writer.updateTask(update.id, update.patch.toValues()) }
+        }
+    }
     val applied = updates.zip(changed).filter { it.second > 0 }.map { it.first }
     val after = tasksById(applied.map { it.id })
     val landedOn = after.associate { it.id to it.listId }
@@ -211,7 +226,7 @@ suspend fun ApiQueryEngine.setTaskReminders(
             removals.sumOf { writer.deleteReminder(it) }
     }
     return ReminderEdit(
-        addedIds = edit.first,
+        addedIds = edit.first.distinct(),
         removed = edit.second,
         reminders = findReminders(ReminderQuery(taskIds = listOf(taskId))).rows,
         task = taskRow(taskId),

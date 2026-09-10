@@ -127,7 +127,7 @@ class ApiWriter(
         }
         val newListUuid = newListId?.let {
             caldavDao.getCalendarById(it)?.uuid
-                ?: throw IllegalArgumentException("No list with ${TasksContract.ID} $it")
+                ?: throw IllegalArgumentException("No list with id $it")
         }
         if ((newListUuid != null && newListUuid != currentListUuid) || newParent != null) {
             val destination = if (newParent != null && newParent != 0L) {
@@ -219,7 +219,7 @@ class ApiWriter(
             return
         }
         val placeUid = locationDao.getPlace(placeId)?.uid
-            ?: throw IllegalArgumentException("No place with ${TasksContract.ID} $placeId")
+            ?: throw IllegalArgumentException("No place with id $placeId")
         if (existing?.place?.uid == placeUid && !resetTriggers) {
             return
         }
@@ -367,7 +367,7 @@ class ApiWriter(
         val task = requireLiveTask(taskId)
         requireWritable(listFor(taskId))
         val tagData = apiDao.getTag(tagId)
-            ?: throw IllegalArgumentException("No tag with ${TasksContract.ID} $tagId")
+            ?: throw IllegalArgumentException("No tag with id $tagId")
         val tagUid = tagData.remoteId
             ?: throw IllegalArgumentException("Tag $tagId has no identifier")
         tagDao.getTagByTaskAndTagUid(taskId, tagUid)?.let { return it.id }
@@ -410,7 +410,7 @@ class ApiWriter(
         val placeId = values.number(Reminders.PLACE_ID)?.takeIf { it != 0L }
             ?: throw IllegalArgumentException("${Reminders.PLACE_ID} is required for a $apiType reminder")
         val placeUid = locationDao.getPlace(placeId)?.uid
-            ?: throw IllegalArgumentException("No place with ${TasksContract.ID} $placeId")
+            ?: throw IllegalArgumentException("No place with id $placeId")
 
         val existing = locationDao.getGeofencesForTask(task.id).firstOrNull()
         if (existing != null && existing.place != placeUid) {
@@ -472,7 +472,7 @@ class ApiWriter(
         val title = values.name(Lists.TITLE)
             ?: throw IllegalArgumentException("${Lists.TITLE} is required")
         val account = caldavDao.getAccount(accountId)
-            ?: throw IllegalArgumentException("No account with ${TasksContract.ID} $accountId")
+            ?: throw IllegalArgumentException("No account with id $accountId")
         val created = listManager.create(
             account = account,
             title = title,
@@ -541,7 +541,7 @@ class ApiWriter(
             val clash = tagDataDao.getTagByName(name)
             throw IllegalArgumentException(
                 "A tag named '$name' already exists" +
-                        (clash?.id?.let { " with ${TasksContract.ID} $it" } ?: "")
+                        (clash?.id?.let { " with id $it" } ?: "")
             )
         }
         return 1
@@ -625,7 +625,7 @@ class ApiWriter(
             )
         }
         val calendar = caldavDao.getCalendarById(id)
-            ?: throw IllegalArgumentException("No list with ${TasksContract.ID} $id")
+            ?: throw IllegalArgumentException("No list with id $id")
         return filterFor(calendar)
     }
 
