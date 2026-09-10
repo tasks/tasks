@@ -265,7 +265,6 @@ data class TaskQuery(
     val placeIds: List<Long> = emptyList(),
     val priorities: List<String> = emptyList(),
     val parentIds: List<Long> = emptyList(),
-    val search: String? = null,
     val status: String? = null,
     val due: String? = null,
     val matches: String? = null,
@@ -310,7 +309,6 @@ data class TaskQuery(
             putEach(t.PARAM_PLACE, placeIds)
             putEach(t.PARAM_PRIORITY, priorities)
             putEach(t.PARAM_PARENT, parentIds)
-            putIfNotNull(t.PARAM_SEARCH, search)
             putIfNotNull(t.PARAM_COMPLETED, completed?.let { if (it) "1" else "0" })
             putIfNotNull(t.PARAM_DUE_BEFORE, until)
             putIfNotNull(t.PARAM_DUE_AFTER, since ?: scheduledOnly(until))
