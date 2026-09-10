@@ -69,7 +69,9 @@ data class PlaceRow(
     val radius: Int,
     val color: Int?,
     val icon: String?,
-)
+) {
+    val label: String get() = name ?: displayName
+}
 
 data class AccountRow(
     val id: Long,

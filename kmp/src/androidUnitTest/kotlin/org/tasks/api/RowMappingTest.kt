@@ -181,9 +181,14 @@ class RowMappingTest : ApiTestCase() {
             Places.NAME to "Trailhead",
         )
 
-        assertNull(one(Places.PATH, unnamed) { it.toPlaceRow() }.name)
-        assertTrue(one(Places.PATH, unnamed) { it.toPlaceRow() }.displayName.isNotEmpty())
-        assertEquals("Trailhead", one(Places.PATH, named) { it.toPlaceRow() }.name)
+        val without = one(Places.PATH, unnamed) { it.toPlaceRow() }
+        val named2 = one(Places.PATH, named) { it.toPlaceRow() }
+
+        assertNull(without.name)
+        assertTrue(without.displayName.isNotEmpty())
+        assertEquals(without.displayName, without.label)
+        assertEquals("Trailhead", named2.name)
+        assertEquals("Trailhead", named2.label)
     }
 
     @Test
