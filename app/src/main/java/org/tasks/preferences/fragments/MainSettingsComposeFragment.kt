@@ -296,6 +296,7 @@ class MainSettingsComposeFragment : Fragment() {
             SettingsDestination.WorksWith -> WorksWith()
             SettingsDestination.HelpAndFeedback -> HelpAndFeedback()
             SettingsDestination.Debug -> Debug()
+            SettingsDestination.McpServer -> return
         }
         viewLifecycleOwner.lifecycleScope.launch {
             activity.startPreference(

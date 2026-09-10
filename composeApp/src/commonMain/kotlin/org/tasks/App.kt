@@ -2919,6 +2919,7 @@ private fun SettingsScreen(
                         showBackupWarning = false,
                         showWidgets = viewModel.supportsWidgets,
                         showNotifications = configuration.supportsNotifications,
+                        showMcpServer = configuration.supportsMcpServer,
                         isDebug = viewModel.isDebug,
                         showDesktopLinking = configuration.supportsDesktopLinking
                                 && !purchaseState.hasTasksAccount,
@@ -3028,6 +3029,13 @@ private fun SettingsScreen(
                             },
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.McpServer -> {
+                        org.tasks.compose.settings.McpServerDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination.Notifications -> {
                         NotificationsDetail(
                             onNavigateBack = {
@@ -3066,7 +3074,14 @@ private fun SettingsScreen(
                                 scope.launch { navigator.navigateBack() }
                             },
                             onPricingClick = onUpgradeClick,
-                            onMcpSettingsClick = {},
+                            onMcpSettingsClick = {
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        ListDetailPaneScaffoldRole.Detail,
+                                        org.tasks.compose.settings.SettingsDestination.McpServer,
+                                    )
+                                }
+                            },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.Debug -> {

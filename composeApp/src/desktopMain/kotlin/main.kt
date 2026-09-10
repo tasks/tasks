@@ -36,6 +36,7 @@ import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.RefreshScheduler
+import org.tasks.mcp.DesktopMcpServerController
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationScheduler
 import org.tasks.requestForeground
@@ -166,6 +167,9 @@ fun main() {
             ?.let { runCatching { Locale.forLanguageTag(it) }.getOrNull() }
             ?.takeIf { it.language.isNotBlank() }
             ?.let { Locale.setDefault(it) }
+        step(TAG, "start the MCP server") {
+            koin.get<DesktopMcpServerController>().initialize()
+        }
     }
     // Cmd+Q on macOS goes through here rather than through the window: the JDK's default quit
     // strategy calls System.exit directly, so no window ever sees a close request and none of the
@@ -198,6 +202,9 @@ fun main() {
         }
         step(TAG, "close notifications") {
             runBlocking { koin.get<DesktopNotifier>().shutdown() }
+        }
+        step(TAG, "stop the MCP server") {
+            runBlocking { koin.get<DesktopMcpServerController>().shutdown() }
         }
         step(TAG, "close the Microsoft client") {
             (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()

@@ -95,6 +95,10 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.mcp.kotlin.sdk)
+            implementation(libs.ktor.server.core)
+            implementation(libs.ktor.server.cio)
+            implementation(libs.ktor.server.sse)
             implementation(libs.java.keyring)
             implementation(libs.posthog)
             implementation(libs.nucleus.notification.linux)

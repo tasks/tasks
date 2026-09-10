@@ -25,6 +25,8 @@ data class PlatformConfiguration(
     val supportsDesktopLinking: Boolean = false,
     val supportsLogExport: Boolean = false,
 
+    val supportsMcpServer: Boolean = false,
+
     val supportsNotifications: Boolean = true,
 
     val showNotificationsEnabledSwitch: Boolean = false,
