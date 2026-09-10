@@ -153,6 +153,32 @@ class SharedWritesTest : ApiTestCase() {
     }
 
     @Test
+    fun changingSomethingThatIsNotThereSaysSoRatherThanReportingNoChange() {
+        assertThrows<ApiRowNotFound> {
+            runBlocking { writer.changeTag(9_999L, TagWrite(name = "Gone")) }
+        }
+        assertThrows<ApiRowNotFound> {
+            runBlocking { writer.changePlace(9_999L, PlaceWrite(name = "Gone")) }
+        }
+        val notFound = assertThrows<ApiRowNotFound> {
+            runBlocking { writer.changeList(9_999L, ListWrite(title = "Gone")) }
+        }
+
+        assertEquals(Lists.PATH, notFound.path)
+        assertEquals(9_999L, notFound.id)
+    }
+
+    @Test
+    fun changingARowThatIsThereReportsTheChange() = runBlockingTest {
+        val id = newList("Renovation")
+
+        assertEquals(1, writer.changeList(id, ListWrite(title = "Kitchen")))
+
+        val row = runBlocking { engine.queryById(Lists.PATH, id).first().toListRow() }
+        assertEquals("Kitchen", row.title)
+    }
+
+    @Test
     fun remindersAreAddedAndRemovedInOneCall() = runBlockingTest {
         val id = newTask("Dentist", Tasks.DUE_DATE to DAY)
         val existing = insert(

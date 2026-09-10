@@ -92,6 +92,18 @@ suspend fun ApiQueryEngine.deletePlace(writer: ApiWriter, id: Long): Deletion {
 private fun deletion(rows: Int, alsoAffected: Int) =
     Deletion(rows, if (rows > 0) alsoAffected else 0)
 
+suspend fun ApiWriter.changeList(id: Long, write: ListWrite): Int =
+    updateList(id, write.toValues()).orNotFound(TasksContract.Lists.PATH, id)
+
+suspend fun ApiWriter.changeTag(id: Long, write: TagWrite): Int =
+    updateTag(id, write.toValues()).orNotFound(TasksContract.Tags.PATH, id)
+
+suspend fun ApiWriter.changePlace(id: Long, write: PlaceWrite): Int =
+    updatePlace(id, write.toValues()).orNotFound(TasksContract.Places.PATH, id)
+
+private fun Int.orNotFound(path: String, id: Long): Int =
+    also { if (it == 0) throw ApiRowNotFound(path, id) }
+
 data class ReminderEdit(
     val addedIds: List<Long>,
     val removed: Int,
