@@ -59,8 +59,8 @@ The collection URI lists and creates; `/{id}` applies to one row.
 | --- | --- | --- | --- | --- | --- |
 | `/v0/tasks` | • | • | | | Tasks |
 | `/v0/tasks/{id}` | • | | • | • | |
-| `/v0/alarms` | • | • | | | Reminders on a task, by time or by location |
-| `/v0/alarms/{id}` | • | | • | • | |
+| `/v0/reminders` | • | • | | | Reminders on a task, by time or by location |
+| `/v0/reminders/{id}` | • | | • | • | |
 | `/v0/task_tags` | • | • | | • | Which tags are on which tasks |
 | `/v0/task_tags/{id}` | • | | | • | |
 | `/v0/lists` | • | • | | | Task lists, local and synced |
@@ -177,7 +177,7 @@ The notification carries no payload.
 
 - Notifications go to collection URIs only; registering on `/v0/tasks/42` never fires.
 - `selfChange` is always `false`; a client that writes wakes itself.
-- Anything that touches a task notifies `/v0/tasks`, `/v0/alarms` and `/v0/task_tags`.
+- Anything that touches a task notifies `/v0/tasks`, `/v0/reminders` and `/v0/task_tags`.
   `/v0/tags`, `/v0/places`, `/v0/lists` and `/v0/accounts` are independent.
 
 Register on the base URI for one signal covering everything:
@@ -309,10 +309,10 @@ Returns everything not deleted, including completed and hidden tasks. Common com
 | Has a due date | `due_after=0` |
 | Today's unfinished tasks | `due_after=<start of day>&due_before=<end of day>&completed=0` |
 | Recently modified | `modified_after=<timestamp>` |
-| Snoozed | `/v0/alarms?type=snooze`, then read the `task_id`s |
+| Snoozed | `/v0/reminders?type=snooze`, then read the `task_id`s |
 | In a list, tag or place | `list_id=`, `tag_id=`, `place_id=` |
 | Has a place or tags | read `place_id` and `tag_ids` off the row |
-| Has reminders | `/v0/alarms?task_id=` |
+| Has reminders | `/v0/reminders?task_id=` |
 
 ### Columns
 
@@ -342,7 +342,7 @@ read-only.
 | `uncompleted_child_count` | int |  | Of those, the ones not completed |
 | `is_read_only` | 0/1 |  | Writes will be refused |
 
-Reminders are not on the row; query [`/v0/alarms`](#alarms) with `?task_id=`.
+Reminders are not on the row; query [`/v0/reminders`](#reminders) with `?task_id=`.
 
 Change a task's tags on `/v0/task_tags`, or a child's parent by writing the child's
 `parent_id`. `tag_ids` is comma-joined in no particular order.
@@ -494,16 +494,16 @@ Deleting a task on a read-only list throws `UnsupportedOperationException`.
 
 ---
 
-# Alarms
+# Reminders
 
 Reminders attached to a task. Time reminders fire at a time; location reminders fire on
 arriving at or leaving the task's place.
 
-## List alarms
+## List reminders
 
 ```
-content://org.tasks.api/v0/alarms
-content://org.tasks.api/v0/alarms/{id}
+content://org.tasks.api/v0/reminders
+content://org.tasks.api/v0/reminders/{id}
 ```
 
 | Parameter | Type | Description |
@@ -534,27 +534,27 @@ Which columns apply depends on the type. Sending one that does not apply throws:
 | `relative_start`, `relative_due`, `random` | `offset_ms` | `repeat_count`, `interval_ms` |
 | `location_arrival`, `location_departure` | none | `place_id`, required |
 
-## Create, update, delete an alarm
+## Create, update, delete a reminder
 
 ```
-insert content://org.tasks.api/v0/alarms
-update content://org.tasks.api/v0/alarms/{id}
-delete content://org.tasks.api/v0/alarms/{id}
+insert content://org.tasks.api/v0/reminders
+update content://org.tasks.api/v0/reminders/{id}
+delete content://org.tasks.api/v0/reminders/{id}
 ```
 
 Requires `WRITE_TASKS`. `task_id` and `type` are required on insert. An insert matching an
-existing alarm on the same task in every field returns that row's URI.
+existing reminder on the same task in every field returns that row's URI.
 
 ```kotlin
 // Two hours before it's due
-resolver.insert("content://org.tasks.api/v0/alarms".toUri(), contentValuesOf(
+resolver.insert("content://org.tasks.api/v0/reminders".toUri(), contentValuesOf(
     "task_id" to taskId,
     "type" to "relative_due",
     "offset_ms" to -TimeUnit.HOURS.toMillis(2),
 ))
 
 // A day after it's due, then daily for six more days
-resolver.insert("content://org.tasks.api/v0/alarms".toUri(), contentValuesOf(
+resolver.insert("content://org.tasks.api/v0/reminders".toUri(), contentValuesOf(
     "task_id" to taskId,
     "type" to "relative_due",
     "offset_ms" to TimeUnit.DAYS.toMillis(1),
@@ -569,7 +569,7 @@ The place must exist first — see [Places](#places).
 
 ```kotlin
 // "Remind me when I leave home"
-resolver.insert("content://org.tasks.api/v0/alarms".toUri(), contentValuesOf(
+resolver.insert("content://org.tasks.api/v0/reminders".toUri(), contentValuesOf(
     "task_id" to taskId,
     "type" to "location_departure",
     "place_id" to homeId,
@@ -601,7 +601,7 @@ resolver.applyBatch("org.tasks.api", arrayListOf(
     ContentProviderOperation.newInsert("content://org.tasks.api/v0/tasks".toUri())
         .withValue("title", "Water the plants")
         .build(),
-    ContentProviderOperation.newInsert("content://org.tasks.api/v0/alarms".toUri())
+    ContentProviderOperation.newInsert("content://org.tasks.api/v0/reminders".toUri())
         .withValueBackReference("task_id", 0)
         .withValue("type", "location_arrival")
         .withValue("place_id", home)
@@ -925,7 +925,7 @@ val ops = arrayListOf(
         .withValue("due_all_day", 1)
         .withValue("list_id", listId)
         .build(),
-    ContentProviderOperation.newInsert("content://org.tasks.api/v0/alarms".toUri())
+    ContentProviderOperation.newInsert("content://org.tasks.api/v0/reminders".toUri())
         .withValueBackReference("task_id", 1)      // the id from operation 1
         .withValue("type", "relative_due")
         .withValue("offset_ms", -TimeUnit.DAYS.toMillis(7))
@@ -976,8 +976,8 @@ val tasks = resolver.query(
 
 // Size the limit for the rows coming back, not the ids going out
 val idParams = tasks.joinToString("&") { (id, _, _) -> "task_id=$id" }
-val alarmsByTask: Map<Long, List<String>> = resolver.query(
-    "content://org.tasks.api/v0/alarms?$idParams&limit=1000".toUri(), null, null, null, null
+val remindersByTask: Map<Long, List<String>> = resolver.query(
+    "content://org.tasks.api/v0/reminders?$idParams&limit=1000".toUri(), null, null, null, null
 )!!.use { c ->
     val taskId = c.getColumnIndexOrThrow("task_id")
     val type = c.getColumnIndexOrThrow("type")

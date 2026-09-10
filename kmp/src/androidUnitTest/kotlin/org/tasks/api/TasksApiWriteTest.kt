@@ -4,7 +4,7 @@ import android.content.ContentValues
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -289,27 +289,27 @@ class TasksApiWriteTest : ApiTestCase() {
     fun alarmsSplitTheStoredUnion() {
         val task = newTask("t")
         val absolute = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
-            Alarms.TRIGGER_AT to 123456789L,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_DATE_TIME,
+            Reminders.TRIGGER_AT to 123456789L,
         )
         val relative = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
         )
 
-        resolver.query(itemUri(Alarms.PATH, absolute), null, null, null, null)!!.use {
+        resolver.query(itemUri(Reminders.PATH, absolute), null, null, null, null)!!.use {
             it.moveToFirst()
-            assertEquals(123456789L, it.getLong(it.getColumnIndexOrThrow(Alarms.TRIGGER_AT)))
-            assertEquals(0L, it.getLong(it.getColumnIndexOrThrow(Alarms.OFFSET_MS)))
+            assertEquals(123456789L, it.getLong(it.getColumnIndexOrThrow(Reminders.TRIGGER_AT)))
+            assertEquals(0L, it.getLong(it.getColumnIndexOrThrow(Reminders.OFFSET_MS)))
         }
-        resolver.query(itemUri(Alarms.PATH, relative), null, null, null, null)!!.use {
+        resolver.query(itemUri(Reminders.PATH, relative), null, null, null, null)!!.use {
             it.moveToFirst()
-            assertEquals(0L, it.getLong(it.getColumnIndexOrThrow(Alarms.TRIGGER_AT)))
-            assertEquals(-TimeUnit.HOURS.toMillis(2), it.getLong(it.getColumnIndexOrThrow(Alarms.OFFSET_MS)))
+            assertEquals(0L, it.getLong(it.getColumnIndexOrThrow(Reminders.TRIGGER_AT)))
+            assertEquals(-TimeUnit.HOURS.toMillis(2), it.getLong(it.getColumnIndexOrThrow(Reminders.OFFSET_MS)))
         }
     }
 
@@ -317,36 +317,36 @@ class TasksApiWriteTest : ApiTestCase() {
     fun identicalAlarmsAreNotDuplicated() {
         val task = newTask("t")
         val first = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -1000L,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -1000L,
         )
         val second = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -1000L,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -1000L,
         )
 
         assertEquals(first, second)
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
     fun updatingAnAlarmKeepsItsId() {
         val task = newTask("t")
         val id = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -1000L,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -1000L,
         )
 
-        assertEquals(1, update(Alarms.PATH, id, Alarms.OFFSET_MS to -2000L))
+        assertEquals(1, update(Reminders.PATH, id, Reminders.OFFSET_MS to -2000L))
 
-        assertEquals(-2000L, resolver.query(itemUri(Alarms.PATH, id), null, null, null, null)!!.long(Alarms.OFFSET_MS))
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(-2000L, resolver.query(itemUri(Reminders.PATH, id), null, null, null, null)!!.long(Reminders.OFFSET_MS))
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
@@ -355,10 +355,10 @@ class TasksApiWriteTest : ApiTestCase() {
 
         assertThrows<IllegalArgumentException> {
             insert(
-                Alarms.PATH,
-                Alarms.TASK_ID to task,
-                Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-                Alarms.TRIGGER_AT to 1000L,
+                Reminders.PATH,
+                Reminders.TASK_ID to task,
+                Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+                Reminders.TRIGGER_AT to 1000L,
             )
         }
     }
@@ -366,11 +366,11 @@ class TasksApiWriteTest : ApiTestCase() {
     @Test
     fun alarmsAreFilteredByType() {
         val task = newTask("t")
-        insert(Alarms.PATH, Alarms.TASK_ID to task, Alarms.TYPE to Alarms.TYPE_SNOOZE, Alarms.TRIGGER_AT to 999L)
-        insert(Alarms.PATH, Alarms.TASK_ID to task, Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE, Alarms.OFFSET_MS to -1L)
+        insert(Reminders.PATH, Reminders.TASK_ID to task, Reminders.TYPE to Reminders.TYPE_SNOOZE, Reminders.TRIGGER_AT to 999L)
+        insert(Reminders.PATH, Reminders.TASK_ID to task, Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE, Reminders.OFFSET_MS to -1L)
 
-        assertEquals(listOf(task), query(Alarms.PATH, "?type=snooze").longs(Alarms.TASK_ID))
-        assertEquals(2, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(listOf(task), query(Reminders.PATH, "?type=snooze").longs(Reminders.TASK_ID))
+        assertEquals(2, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
@@ -510,7 +510,7 @@ class TasksApiWriteTest : ApiTestCase() {
         assertEquals(placeId, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
         assertEquals(listOf("t"), query(Tasks.PATH, "?place_id=$placeId").strings(Tasks.TITLE))
 
-        assertEquals(0, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(0, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
@@ -519,21 +519,21 @@ class TasksApiWriteTest : ApiTestCase() {
         val placeId = newPlace()
 
         val id = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
 
         assertEquals(placeId, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
         assertEquals(
-            Alarms.TYPE_LOCATION_ARRIVAL,
-            query(Alarms.PATH, "?task_id=$task").string(Alarms.TYPE),
+            Reminders.TYPE_LOCATION_ARRIVAL,
+            query(Reminders.PATH, "?task_id=$task").string(Reminders.TYPE),
         )
-        assertEquals(placeId, query(Alarms.PATH, "?task_id=$task").long(Alarms.PLACE_ID))
+        assertEquals(placeId, query(Reminders.PATH, "?task_id=$task").long(Reminders.PLACE_ID))
 
-        assertEquals(id, resolver.query(itemUri(Alarms.PATH, id), null, null, null, null)!!
+        assertEquals(id, resolver.query(itemUri(Reminders.PATH, id), null, null, null, null)!!
             .long(TasksContract.ID))
     }
 
@@ -543,34 +543,34 @@ class TasksApiWriteTest : ApiTestCase() {
         val placeId = newPlace()
 
         val arrival = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
         val departure = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_DEPARTURE,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_DEPARTURE,
+            Reminders.PLACE_ID to placeId,
         )
 
         assertTrue(arrival != departure)
-        assertEquals(2, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(2, query(Reminders.PATH, "?task_id=$task").rows())
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_ARRIVAL, Alarms.TYPE_LOCATION_DEPARTURE),
-            query(Alarms.PATH, "?task_id=$task").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_ARRIVAL, Reminders.TYPE_LOCATION_DEPARTURE),
+            query(Reminders.PATH, "?task_id=$task").strings(Reminders.TYPE),
         )
 
-        assertEquals(1, delete(Alarms.PATH, arrival))
+        assertEquals(1, delete(Reminders.PATH, arrival))
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_DEPARTURE),
-            query(Alarms.PATH, "?task_id=$task").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_DEPARTURE),
+            query(Reminders.PATH, "?task_id=$task").strings(Reminders.TYPE),
         )
         assertEquals(placeId, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
 
-        assertEquals(1, delete(Alarms.PATH, departure))
-        assertEquals(0, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(1, delete(Reminders.PATH, departure))
+        assertEquals(0, query(Reminders.PATH, "?task_id=$task").rows())
         assertEquals(placeId, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
     }
 
@@ -580,20 +580,20 @@ class TasksApiWriteTest : ApiTestCase() {
         val placeId = newPlace()
 
         val first = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
         val second = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
 
         assertEquals(first, second)
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
@@ -601,14 +601,14 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t")
         val placeId = newPlace()
         val id = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
 
-        assertEquals(1, delete(Alarms.PATH, id))
-        assertEquals(0, delete(Alarms.PATH, id))
+        assertEquals(1, delete(Reminders.PATH, id))
+        assertEquals(0, delete(Reminders.PATH, id))
     }
 
     @Test
@@ -616,9 +616,9 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t")
         assertThrows<IllegalArgumentException> {
             insert(
-                Alarms.PATH,
-                Alarms.TASK_ID to task,
-                Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
+                Reminders.PATH,
+                Reminders.TASK_ID to task,
+                Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
             )
         }
     }
@@ -629,11 +629,11 @@ class TasksApiWriteTest : ApiTestCase() {
         val placeId = newPlace()
         assertThrows<IllegalArgumentException> {
             insert(
-                Alarms.PATH,
-                Alarms.TASK_ID to task,
-                Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-                Alarms.OFFSET_MS to -1000L,
-                Alarms.PLACE_ID to placeId,
+                Reminders.PATH,
+                Reminders.TASK_ID to task,
+                Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+                Reminders.OFFSET_MS to -1000L,
+                Reminders.PLACE_ID to placeId,
             )
         }
     }
@@ -644,11 +644,11 @@ class TasksApiWriteTest : ApiTestCase() {
         val placeId = newPlace()
         assertThrows<IllegalArgumentException> {
             insert(
-                Alarms.PATH,
-                Alarms.TASK_ID to task,
-                Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-                Alarms.PLACE_ID to placeId,
-                Alarms.OFFSET_MS to -1000L,
+                Reminders.PATH,
+                Reminders.TASK_ID to task,
+                Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+                Reminders.PLACE_ID to placeId,
+                Reminders.OFFSET_MS to -1000L,
             )
         }
     }
@@ -658,14 +658,14 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t")
         val placeId = newPlace()
         val id = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
 
         assertThrows<IllegalArgumentException> {
-            update(Alarms.PATH, id, Alarms.OFFSET_MS to 5L)
+            update(Reminders.PATH, id, Reminders.OFFSET_MS to 5L)
         }
     }
 
@@ -675,21 +675,21 @@ class TasksApiWriteTest : ApiTestCase() {
         val home = newPlace(name = "Home", latitude = 1.0)
         val office = newPlace(name = "Office", latitude = 2.0)
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to home,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to home,
         )
 
         assertThrows<IllegalArgumentException> {
             insert(
-                Alarms.PATH,
-                Alarms.TASK_ID to task,
-                Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-                Alarms.PLACE_ID to office,
+                Reminders.PATH,
+                Reminders.TASK_ID to task,
+                Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+                Reminders.PLACE_ID to office,
             )
         }
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
         assertEquals(home, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
     }
 
@@ -700,23 +700,23 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t", Tasks.PLACE_ID to home)
 
         assertEquals(home, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
-        assertEquals(0, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(0, query(Reminders.PATH, "?task_id=$task").rows())
 
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_DEPARTURE,
-            Alarms.PLACE_ID to home,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_DEPARTURE,
+            Reminders.PLACE_ID to home,
         )
 
         assertEquals(1, update(Tasks.PATH, task, Tasks.PLACE_ID to office))
         assertEquals(office, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
-        assertEquals(1, query(Alarms.PATH, "?task_id=$task").rows())
-        assertEquals(office, query(Alarms.PATH, "?task_id=$task").long(Alarms.PLACE_ID))
+        assertEquals(1, query(Reminders.PATH, "?task_id=$task").rows())
+        assertEquals(office, query(Reminders.PATH, "?task_id=$task").long(Reminders.PLACE_ID))
 
         assertEquals(1, update(Tasks.PATH, task, Tasks.PLACE_ID to 0L))
         assertEquals(0L, query(Tasks.PATH, "?_id=$task").long(Tasks.PLACE_ID))
-        assertEquals(0, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(0, query(Reminders.PATH, "?task_id=$task").rows())
     }
 
     @Test
@@ -724,31 +724,31 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t")
         val placeId = newPlace()
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
         )
 
-        assertEquals(2, query(Alarms.PATH, "?task_id=$task").rows())
+        assertEquals(2, query(Reminders.PATH, "?task_id=$task").rows())
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_ARRIVAL),
-            query(Alarms.PATH, "?type=${Alarms.TYPE_LOCATION_ARRIVAL}").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_ARRIVAL),
+            query(Reminders.PATH, "?type=${Reminders.TYPE_LOCATION_ARRIVAL}").strings(Reminders.TYPE),
         )
         assertEquals(
-            listOf(Alarms.TYPE_RELATIVE_DUE),
-            query(Alarms.PATH, "?type=${Alarms.TYPE_RELATIVE_DUE}").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_RELATIVE_DUE),
+            query(Reminders.PATH, "?type=${Reminders.TYPE_RELATIVE_DUE}").strings(Reminders.TYPE),
         )
 
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_ARRIVAL),
-            query(Alarms.PATH, "?place_id=$placeId").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_ARRIVAL),
+            query(Reminders.PATH, "?place_id=$placeId").strings(Reminders.TYPE),
         )
     }
 
@@ -757,30 +757,30 @@ class TasksApiWriteTest : ApiTestCase() {
         val task = newTask("t")
         val placeId = newPlace()
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to placeId,
         )
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_DEPARTURE,
-            Alarms.PLACE_ID to placeId,
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_DEPARTURE,
+            Reminders.PLACE_ID to placeId,
         )
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_DUE,
-            Alarms.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE,
+            Reminders.OFFSET_MS to -TimeUnit.HOURS.toMillis(2),
         )
 
-        val counted = query(Alarms.PATH, "?task_id=$task&limit=0")
+        val counted = query(Reminders.PATH, "?task_id=$task&limit=0")
         assertEquals(0, counted.rows())
         assertEquals(3, counted.total())
 
-        val first = query(Alarms.PATH, "?task_id=$task&limit=2").longs(TasksContract.ID)
-        val second = query(Alarms.PATH, "?task_id=$task&limit=2&offset=2").longs(TasksContract.ID)
+        val first = query(Reminders.PATH, "?task_id=$task&limit=2").longs(TasksContract.ID)
+        val second = query(Reminders.PATH, "?task_id=$task&limit=2&offset=2").longs(TasksContract.ID)
         assertEquals(2, first.size)
         assertEquals(1, second.size)
         assertEquals(3, (first + second).distinct().size)
@@ -861,29 +861,29 @@ class TasksApiWriteTest : ApiTestCase() {
     fun repeatsOnlyApplyToRelativeAlarms() {
         val task = newTask("t")
 
-        listOf(Alarms.TYPE_DATE_TIME, Alarms.TYPE_SNOOZE).forEach { type ->
+        listOf(Reminders.TYPE_DATE_TIME, Reminders.TYPE_SNOOZE).forEach { type ->
             assertThrows<IllegalArgumentException> {
                 insert(
-                    Alarms.PATH,
-                    Alarms.TASK_ID to task,
-                    Alarms.TYPE to type,
-                    Alarms.TRIGGER_AT to day(1),
-                    Alarms.REPEAT_COUNT to 6,
-                    Alarms.INTERVAL_MS to TimeUnit.DAYS.toMillis(1),
+                    Reminders.PATH,
+                    Reminders.TASK_ID to task,
+                    Reminders.TYPE to type,
+                    Reminders.TRIGGER_AT to day(1),
+                    Reminders.REPEAT_COUNT to 6,
+                    Reminders.INTERVAL_MS to TimeUnit.DAYS.toMillis(1),
                 )
             }
         }
 
         val id = insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to task,
-            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
-            Alarms.TRIGGER_AT to day(1),
+            Reminders.PATH,
+            Reminders.TASK_ID to task,
+            Reminders.TYPE to Reminders.TYPE_DATE_TIME,
+            Reminders.TRIGGER_AT to day(1),
         )
         assertThrows<IllegalArgumentException> {
-            update(Alarms.PATH, id, Alarms.REPEAT_COUNT to 6)
+            update(Reminders.PATH, id, Reminders.REPEAT_COUNT to 6)
         }
-        assertEquals(0, query(Alarms.PATH, "?task_id=$task").int(Alarms.REPEAT_COUNT))
+        assertEquals(0, query(Reminders.PATH, "?task_id=$task").int(Reminders.REPEAT_COUNT))
     }
 
     private fun newPlace(name: String = "Home", latitude: Double = 51.5): Long = insert(

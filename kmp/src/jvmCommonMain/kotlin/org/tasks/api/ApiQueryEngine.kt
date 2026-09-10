@@ -4,7 +4,7 @@ import androidx.room.immediateTransaction
 import androidx.room.useReaderConnection
 import androidx.room.useWriterConnection
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags

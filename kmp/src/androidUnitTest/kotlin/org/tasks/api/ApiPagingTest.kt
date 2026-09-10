@@ -5,7 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -114,21 +114,21 @@ class ApiPagingTest : ApiTestCase() {
         val filed = newTask("filed", Tasks.PLACE_ID to place)
         val timed = newTask("timed")
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to timed,
-            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
-            Alarms.TRIGGER_AT to DAY,
+            Reminders.PATH,
+            Reminders.TASK_ID to timed,
+            Reminders.TYPE to Reminders.TYPE_DATE_TIME,
+            Reminders.TRIGGER_AT to DAY,
         )
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to filed,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to place,
+            Reminders.PATH,
+            Reminders.TASK_ID to filed,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to place,
         )
 
         assertEquals(2, reminders(ReminderQuery()).total)
         assertEquals(1, reminders(ReminderQuery(taskIds = listOf(timed))).total)
-        assertEquals(1, reminders(ReminderQuery(types = listOf(Alarms.TYPE_LOCATION_ARRIVAL))).total)
+        assertEquals(1, reminders(ReminderQuery(types = listOf(Reminders.TYPE_LOCATION_ARRIVAL))).total)
         assertEquals(1, reminders(ReminderQuery(placeIds = listOf(place))).total)
     }
 

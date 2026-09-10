@@ -10,7 +10,7 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -23,12 +23,12 @@ class RowMappingTest : ApiTestCase() {
         runBlocking { engine.queryById(path, id).first().let(map) }
 
     private fun reminder(taskId: Long): ReminderRow =
-        runBlocking { engine.query(Alarms.PATH, args(Alarms.PARAM_TASK to taskId.toString())) }
+        runBlocking { engine.query(Reminders.PATH, args(Reminders.PARAM_TASK to taskId.toString())) }
             .single()
             .toReminderRow()
 
     private fun args(vararg pairs: Pair<String, String>) =
-        ApiQueryArgs.build(TasksContract.paramsFor(Alarms.PATH)) {
+        ApiQueryArgs.build(TasksContract.paramsFor(Reminders.PATH)) {
             pairs.forEach { (key, value) -> put(key, value) }
         }
 
@@ -83,15 +83,15 @@ class RowMappingTest : ApiTestCase() {
     fun aRelativeReminderCarriesAnOffsetAndNoTrigger() {
         val id = newTask("Dentist", Tasks.DUE_DATE to DAY)
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to id,
-            Alarms.TYPE to Alarms.TYPE_RELATIVE_START,
-            Alarms.OFFSET_MS to -HOUR,
+            Reminders.PATH,
+            Reminders.TASK_ID to id,
+            Reminders.TYPE to Reminders.TYPE_RELATIVE_START,
+            Reminders.OFFSET_MS to -HOUR,
         )
 
         val row = reminder(id)
 
-        assertEquals(Alarms.TYPE_RELATIVE_START, row.type)
+        assertEquals(Reminders.TYPE_RELATIVE_START, row.type)
         assertEquals(-HOUR, row.offsetMs)
         assertNull(row.triggerAt)
         assertNull(row.placeId)
@@ -102,10 +102,10 @@ class RowMappingTest : ApiTestCase() {
     fun aTimeReminderCarriesATriggerAndNoOffset() {
         val id = newTask("Dentist")
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to id,
-            Alarms.TYPE to Alarms.TYPE_DATE_TIME,
-            Alarms.TRIGGER_AT to DAY,
+            Reminders.PATH,
+            Reminders.TASK_ID to id,
+            Reminders.TYPE to Reminders.TYPE_DATE_TIME,
+            Reminders.TRIGGER_AT to DAY,
         )
 
         val row = reminder(id)
@@ -120,15 +120,15 @@ class RowMappingTest : ApiTestCase() {
         val place = insert(Places.PATH, Places.LATITUDE to 1.0, Places.LONGITUDE to 2.0)
         val id = newTask("Pick up parcel", Tasks.PLACE_ID to place)
         insert(
-            Alarms.PATH,
-            Alarms.TASK_ID to id,
-            Alarms.TYPE to Alarms.TYPE_LOCATION_ARRIVAL,
-            Alarms.PLACE_ID to place,
+            Reminders.PATH,
+            Reminders.TASK_ID to id,
+            Reminders.TYPE to Reminders.TYPE_LOCATION_ARRIVAL,
+            Reminders.PLACE_ID to place,
         )
 
         val row = reminder(id)
 
-        assertEquals(Alarms.TYPE_LOCATION_ARRIVAL, row.type)
+        assertEquals(Reminders.TYPE_LOCATION_ARRIVAL, row.type)
         assertEquals(place, row.placeId)
         assertNull(row.triggerAt)
         assertNull(row.offsetMs)
@@ -136,11 +136,11 @@ class RowMappingTest : ApiTestCase() {
 
     @Test
     fun anOffsetIsDescribedInWords() {
-        assertEquals("1 hour before start", describeOffset(-HOUR, Alarms.TYPE_RELATIVE_START))
-        assertEquals("2 hours after due", describeOffset(2 * HOUR, Alarms.TYPE_RELATIVE_DUE))
-        assertEquals("1 day before due", describeOffset(-DAY, Alarms.TYPE_RELATIVE_DUE))
-        assertEquals("15 minutes before due", describeOffset(-15 * MINUTE, Alarms.TYPE_RELATIVE_DUE))
-        assertEquals("at due time", describeOffset(0, Alarms.TYPE_RELATIVE_DUE))
+        assertEquals("1 hour before start", describeOffset(-HOUR, Reminders.TYPE_RELATIVE_START))
+        assertEquals("2 hours after due", describeOffset(2 * HOUR, Reminders.TYPE_RELATIVE_DUE))
+        assertEquals("1 day before due", describeOffset(-DAY, Reminders.TYPE_RELATIVE_DUE))
+        assertEquals("15 minutes before due", describeOffset(-15 * MINUTE, Reminders.TYPE_RELATIVE_DUE))
+        assertEquals("at due time", describeOffset(0, Reminders.TYPE_RELATIVE_DUE))
     }
 
     @Test

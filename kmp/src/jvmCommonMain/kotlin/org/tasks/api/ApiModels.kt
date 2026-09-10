@@ -37,7 +37,7 @@ data class ReminderRow(
     val repeatCount: Int?,
     val intervalMs: Long?,
 ) {
-    val isRelative: Boolean get() = type in TasksContract.Alarms.RELATIVE_TYPES
+    val isRelative: Boolean get() = type in TasksContract.Reminders.RELATIVE_TYPES
 }
 
 data class ListRow(
@@ -110,16 +110,16 @@ fun ApiRow.toTaskRow(): TaskRow {
 }
 
 fun ApiRow.toReminderRow(): ReminderRow {
-    val a = TasksContract.Alarms
+    val a = TasksContract.Reminders
     val type = string(a.TYPE)
     val offset = longOrNull(a.OFFSET_MS)
     return ReminderRow(
         id = long(TasksContract.ID),
         taskId = long(a.TASK_ID),
         type = type,
-        placeId = longOrNull(a.PLACE_ID)?.takeIf { type in TasksContract.Alarms.LOCATION_TYPES },
-        triggerAt = longOrNull(a.TRIGGER_AT)?.takeIf { type in TasksContract.Alarms.ABSOLUTE_TYPES },
-        offsetMs = offset?.takeIf { type in TasksContract.Alarms.RELATIVE_TYPES },
+        placeId = longOrNull(a.PLACE_ID)?.takeIf { type in TasksContract.Reminders.LOCATION_TYPES },
+        triggerAt = longOrNull(a.TRIGGER_AT)?.takeIf { type in TasksContract.Reminders.ABSOLUTE_TYPES },
+        offsetMs = offset?.takeIf { type in TasksContract.Reminders.RELATIVE_TYPES },
         repeatCount = int(a.REPEAT_COUNT).takeIf { it != 0 },
         intervalMs = longOrNull(a.INTERVAL_MS),
     )
@@ -181,8 +181,8 @@ fun ApiRow.toAccountRow(): AccountRow {
 
 fun describeOffset(offsetMs: Long, type: String): String {
     val anchor = when (type) {
-        TasksContract.Alarms.TYPE_RELATIVE_START -> "start"
-        TasksContract.Alarms.TYPE_RELATIVE_DUE -> "due"
+        TasksContract.Reminders.TYPE_RELATIVE_START -> "start"
+        TasksContract.Reminders.TYPE_RELATIVE_DUE -> "due"
         else -> "due"
     }
     if (offsetMs == 0L) return "at $anchor time"
@@ -523,7 +523,7 @@ data class ReminderWrite(
     val placeId: Long? = null,
 ) {
     fun toValues(): ApiValues {
-        val a = TasksContract.Alarms
+        val a = TasksContract.Reminders
         return ApiValues.ofNotNull(
             a.TASK_ID to taskId,
             a.TYPE to type,

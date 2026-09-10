@@ -2,7 +2,7 @@ package org.tasks.api
 
 import com.todoroo.astrid.alarms.AlarmService
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -231,28 +231,28 @@ class ApiWriter(
         }
     }
 
-    suspend fun insertAlarm(values: ApiValues): Long {
-        values.reject(Alarms.PATH, Alarms.INSERT_ONLY + Alarms.WRITABLE)
-        val taskId = values.number(Alarms.TASK_ID)
-            ?: throw IllegalArgumentException("${Alarms.TASK_ID} is required")
+    suspend fun insertReminder(values: ApiValues): Long {
+        values.reject(Reminders.PATH, Reminders.INSERT_ONLY + Reminders.WRITABLE)
+        val taskId = values.number(Reminders.TASK_ID)
+            ?: throw IllegalArgumentException("${Reminders.TASK_ID} is required")
         val task = requireLiveTask(taskId)
         requireWritable(listFor(taskId))
-        val type = values.requiredEnum(Alarms.TYPE, AlarmTypes.FROM_API)
+        val type = values.requiredEnum(Reminders.TYPE, AlarmTypes.FROM_API)
         if (AlarmTypes.isLocation(type)) {
             return insertLocationAlarm(task, values, arrival = type == Alarm.TYPE_GEO_ENTER)
         }
-        values.number(Alarms.PLACE_ID)?.takeIf { it != 0L }?.let {
+        values.number(Reminders.PLACE_ID)?.takeIf { it != 0L }?.let {
             throw IllegalArgumentException(
-                "${Alarms.PLACE_ID} only applies to a" +
-                        " ${Alarms.TYPE_LOCATION_ARRIVAL} or ${Alarms.TYPE_LOCATION_DEPARTURE} alarm"
+                "${Reminders.PLACE_ID} only applies to a" +
+                        " ${Reminders.TYPE_LOCATION_ARRIVAL} or ${Reminders.TYPE_LOCATION_DEPARTURE} reminder"
             )
         }
         val alarm = Alarm(
             task = taskId,
             time = values.alarmTime(type, null),
             type = type,
-            repeat = values.number(Alarms.REPEAT_COUNT)?.toInt() ?: 0,
-            interval = values.number(Alarms.INTERVAL_MS) ?: 0,
+            repeat = values.number(Reminders.REPEAT_COUNT)?.toInt() ?: 0,
+            interval = values.number(Reminders.INTERVAL_MS) ?: 0,
         )
         val existing = alarmDao.getAlarms(taskId)
         existing.firstOrNull { it.same(alarm) }?.let { return it.id }
@@ -261,9 +261,9 @@ class ApiWriter(
         return alarmDao.getAlarms(taskId).first { it.same(alarm) }.id
     }
 
-    suspend fun updateAlarm(id: Long, values: ApiValues): Int {
-        values.reject(Alarms.PATH, Alarms.WRITABLE)
-        if (Alarms.isLocationId(id)) {
+    suspend fun updateReminder(id: Long, values: ApiValues): Int {
+        values.reject(Reminders.PATH, Reminders.WRITABLE)
+        if (Reminders.isLocationId(id)) {
             throw IllegalArgumentException(
                 "A location reminder has nothing to update - it is identified entirely by its" +
                         " task, place and direction. Delete it and insert the other type instead."
@@ -274,8 +274,8 @@ class ApiWriter(
         requireWritable(listFor(existing.task))
         val updated = existing.copy(
             time = values.alarmTime(existing.type, existing.time),
-            repeat = values.number(Alarms.REPEAT_COUNT)?.toInt() ?: existing.repeat,
-            interval = values.number(Alarms.INTERVAL_MS) ?: existing.interval,
+            repeat = values.number(Reminders.REPEAT_COUNT)?.toInt() ?: existing.repeat,
+            interval = values.number(Reminders.INTERVAL_MS) ?: existing.interval,
         )
         if (updated == existing) {
             return 1
@@ -286,8 +286,8 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun deleteAlarm(id: Long): Int {
-        Alarms.decodeLocationId(id)?.let { return deleteLocationAlarm(it) }
+    suspend fun deleteReminder(id: Long): Int {
+        Reminders.decodeLocationId(id)?.let { return deleteLocationAlarm(it) }
         val existing = apiDao.getAlarm(id) ?: return 0
         val task = liveTask(existing.task) ?: return 0
         requireWritable(listFor(existing.task))
@@ -299,18 +299,18 @@ class ApiWriter(
 
     private fun ApiValues.alarmTime(type: Int, current: Long?): Long {
         val absolute = type in AlarmTypes.ABSOLUTE
-        val wrong = if (absolute) Alarms.OFFSET_MS else Alarms.TRIGGER_AT
-        val right = if (absolute) Alarms.TRIGGER_AT else Alarms.OFFSET_MS
+        val wrong = if (absolute) Reminders.OFFSET_MS else Reminders.TRIGGER_AT
+        val right = if (absolute) Reminders.TRIGGER_AT else Reminders.OFFSET_MS
         number(wrong)?.takeIf { it != 0L }?.let {
             throw IllegalArgumentException(
-                "$wrong does not apply to a ${AlarmTypes.toApi(type)} alarm; use $right"
+                "$wrong does not apply to a ${AlarmTypes.toApi(type)} reminder; use $right"
             )
         }
         if (absolute) {
-            listOf(Alarms.REPEAT_COUNT, Alarms.INTERVAL_MS).forEach { key ->
+            listOf(Reminders.REPEAT_COUNT, Reminders.INTERVAL_MS).forEach { key ->
                 number(key)?.takeIf { it != 0L }?.let {
                     throw IllegalArgumentException(
-                        "$key does not apply to a ${AlarmTypes.toApi(type)} alarm"
+                        "$key does not apply to a ${AlarmTypes.toApi(type)} reminder"
                     )
                 }
             }
@@ -360,15 +360,15 @@ class ApiWriter(
         values: ApiValues,
         arrival: Boolean,
     ): Long {
-        val apiType = if (arrival) Alarms.TYPE_LOCATION_ARRIVAL else Alarms.TYPE_LOCATION_DEPARTURE
-        listOf(Alarms.TRIGGER_AT, Alarms.OFFSET_MS, Alarms.REPEAT_COUNT, Alarms.INTERVAL_MS)
+        val apiType = if (arrival) Reminders.TYPE_LOCATION_ARRIVAL else Reminders.TYPE_LOCATION_DEPARTURE
+        listOf(Reminders.TRIGGER_AT, Reminders.OFFSET_MS, Reminders.REPEAT_COUNT, Reminders.INTERVAL_MS)
             .forEach { key ->
                 values.number(key)?.takeIf { it != 0L }?.let {
-                    throw IllegalArgumentException("$key does not apply to a $apiType alarm")
+                    throw IllegalArgumentException("$key does not apply to a $apiType reminder")
                 }
             }
-        val placeId = values.number(Alarms.PLACE_ID)?.takeIf { it != 0L }
-            ?: throw IllegalArgumentException("${Alarms.PLACE_ID} is required for a $apiType alarm")
+        val placeId = values.number(Reminders.PLACE_ID)?.takeIf { it != 0L }
+            ?: throw IllegalArgumentException("${Reminders.PLACE_ID} is required for a $apiType reminder")
         val placeUid = locationDao.getPlace(placeId)?.uid
             ?: throw IllegalArgumentException("No place with ${TasksContract.ID} $placeId")
 
@@ -399,16 +399,16 @@ class ApiWriter(
                 existing.copy(isDeparture = true)
             }
             if (updated == existing) {
-                return Alarms.encodeLocationId(id, arrival)
+                return Reminders.encodeLocationId(id, arrival)
             }
             locationDao.update(updated)
         }
         locationService.updateGeofences(placeUid)
         markSynced(task, SYNC_LOCATION)
-        return Alarms.encodeLocationId(id, arrival)
+        return Reminders.encodeLocationId(id, arrival)
     }
 
-    private suspend fun deleteLocationAlarm(id: Alarms.LocationId): Int {
+    private suspend fun deleteLocationAlarm(id: Reminders.LocationId): Int {
         val existing = apiDao.getGeofence(id.geofenceId) ?: return 0
         val task = liveTask(existing.task) ?: return 0
         requireWritable(listFor(existing.task))

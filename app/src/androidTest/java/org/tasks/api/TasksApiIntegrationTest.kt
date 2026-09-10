@@ -14,7 +14,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.dao.CaldavDao
@@ -70,7 +70,7 @@ class TasksApiIntegrationTest : InjectingTestCase() {
 
         assertEquals(
             emptyList<String>(),
-            query(Alarms.PATH, "?task_id=$id").strings(Alarms.TYPE),
+            query(Reminders.PATH, "?task_id=$id").strings(Reminders.TYPE),
         )
     }
 
@@ -104,10 +104,10 @@ class TasksApiIntegrationTest : InjectingTestCase() {
                     .withValue(Tasks.TITLE, "Renew passport")
                     .withValue(Tasks.LIST_ID, listId)
                     .build(),
-                ContentProviderOperation.newInsert(uri(Alarms.PATH))
-                    .withValueBackReference(Alarms.TASK_ID, 0)
-                    .withValue(Alarms.TYPE, Alarms.TYPE_RELATIVE_DUE)
-                    .withValue(Alarms.OFFSET_MS, -1000L)
+                ContentProviderOperation.newInsert(uri(Reminders.PATH))
+                    .withValueBackReference(Reminders.TASK_ID, 0)
+                    .withValue(Reminders.TYPE, Reminders.TYPE_RELATIVE_DUE)
+                    .withValue(Reminders.OFFSET_MS, -1000L)
                     .build(),
             ),
         )
@@ -116,7 +116,7 @@ class TasksApiIntegrationTest : InjectingTestCase() {
         assertEquals("Renew passport", query(Tasks.PATH).string(Tasks.TITLE))
         resolver.query(results[1].uri!!, null, null, null, null)!!.use {
             assertTrue(it.moveToFirst())
-            assertEquals(taskId, it.getLong(it.getColumnIndexOrThrow(Alarms.TASK_ID)))
+            assertEquals(taskId, it.getLong(it.getColumnIndexOrThrow(Reminders.TASK_ID)))
         }
     }
 

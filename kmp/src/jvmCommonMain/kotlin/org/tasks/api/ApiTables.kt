@@ -2,7 +2,7 @@ package org.tasks.api
 
 import androidx.sqlite.SQLiteStatement
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -120,16 +120,16 @@ internal object AccountErrors {
 internal object AlarmTypes {
 
     val STORED = mapOf(
-        Alarm.TYPE_DATE_TIME to Alarms.TYPE_DATE_TIME,
-        Alarm.TYPE_REL_START to Alarms.TYPE_RELATIVE_START,
-        Alarm.TYPE_REL_END to Alarms.TYPE_RELATIVE_DUE,
-        Alarm.TYPE_RANDOM to Alarms.TYPE_RANDOM,
-        Alarm.TYPE_SNOOZE to Alarms.TYPE_SNOOZE,
+        Alarm.TYPE_DATE_TIME to Reminders.TYPE_DATE_TIME,
+        Alarm.TYPE_REL_START to Reminders.TYPE_RELATIVE_START,
+        Alarm.TYPE_REL_END to Reminders.TYPE_RELATIVE_DUE,
+        Alarm.TYPE_RANDOM to Reminders.TYPE_RANDOM,
+        Alarm.TYPE_SNOOZE to Reminders.TYPE_SNOOZE,
     )
 
     val LOCATION = mapOf(
-        Alarm.TYPE_GEO_ENTER to Alarms.TYPE_LOCATION_ARRIVAL,
-        Alarm.TYPE_GEO_EXIT to Alarms.TYPE_LOCATION_DEPARTURE,
+        Alarm.TYPE_GEO_ENTER to Reminders.TYPE_LOCATION_ARRIVAL,
+        Alarm.TYPE_GEO_EXIT to Reminders.TYPE_LOCATION_DEPARTURE,
     )
 
     val TO_API = STORED + LOCATION
@@ -139,7 +139,7 @@ internal object AlarmTypes {
 
     val ABSOLUTE = setOf(Alarm.TYPE_DATE_TIME, Alarm.TYPE_SNOOZE)
 
-    fun toApi(stored: Int) = TO_API[stored] ?: Alarms.TYPE_DATE_TIME
+    fun toApi(stored: Int) = TO_API[stored] ?: Reminders.TYPE_DATE_TIME
 
     fun isLocation(stored: Int) = stored in LOCATION
 }
@@ -210,33 +210,33 @@ private const val GEOFENCE_PLACE_ID =
 private fun locationSource(arrival: Boolean): ApiSource {
     val flag = if (arrival) "geofences.arrival" else "geofences.departure"
     val storedType = if (arrival) Alarm.TYPE_GEO_ENTER else Alarm.TYPE_GEO_EXIT
-    val apiType = if (arrival) Alarms.TYPE_LOCATION_ARRIVAL else Alarms.TYPE_LOCATION_DEPARTURE
+    val apiType = if (arrival) Reminders.TYPE_LOCATION_ARRIVAL else Reminders.TYPE_LOCATION_DEPARTURE
     val offset = if (arrival) 0 else 1
-    val id = "(${Alarms.LOCATION_ID_BASE} + geofences.geofence_id * 2 + $offset)"
+    val id = "(${Reminders.LOCATION_ID_BASE} + geofences.geofence_id * 2 + $offset)"
     return ApiSource(
         select = "geofences.task, $storedType, 0, 0, 0, $GEOFENCE_PLACE_ID",
         from = "geofences INNER JOIN tasks ON tasks._id = geofences.task",
         baseWhere = "tasks.deleted = 0 AND $flag > 0",
         idExpression = id,
         filter = { args ->
-            if (args.has(Alarms.PARAM_TYPE) && apiType !in args.all(Alarms.PARAM_TYPE)) {
+            if (args.has(Reminders.PARAM_TYPE) && apiType !in args.all(Reminders.PARAM_TYPE)) {
                 return@ApiSource null
             }
             SqlWhere().apply {
-                if (args.has(Alarms.PARAM_TASK)) {
-                    inLongs("geofences.task", args.longs(Alarms.PARAM_TASK))
+                if (args.has(Reminders.PARAM_TASK)) {
+                    inLongs("geofences.task", args.longs(Reminders.PARAM_TASK))
                 }
-                if (args.has(Alarms.PARAM_PLACE)) {
+                if (args.has(Reminders.PARAM_PLACE)) {
                     and(
                         "EXISTS (SELECT 1 FROM places WHERE places.uid = geofences.place" +
                                 " AND places.place_id IN" +
-                                " (${args.longs(Alarms.PARAM_PLACE).joinToString(",")}))"
+                                " (${args.longs(Reminders.PARAM_PLACE).joinToString(",")}))"
                     )
                 }
             }
         },
         byId = { value ->
-            Alarms.decodeLocationId(value)
+            Reminders.decodeLocationId(value)
                 ?.takeIf { it.arrival == arrival }
                 ?.let { SqlWhere().and("geofences.geofence_id = ?", it.geofenceId) }
         },
@@ -244,13 +244,13 @@ private fun locationSource(arrival: Boolean): ApiSource {
 }
 
 private fun ApiQueryArgs.storedAlarmTypes(): List<Int>? {
-    if (!has(Alarms.PARAM_TYPE)) return emptyList()
-    val requested = all(Alarms.PARAM_TYPE)
+    if (!has(Reminders.PARAM_TYPE)) return emptyList()
+    val requested = all(Reminders.PARAM_TYPE)
     requested.forEach {
         if (it !in AlarmTypes.FROM_API) {
             throw IllegalArgumentException(
-                "Unknown value for ${Alarms.PARAM_TYPE}: '$it'." +
-                        " Expected one of ${Alarms.TYPES.joinToString("|")}"
+                "Unknown value for ${Reminders.PARAM_TYPE}: '$it'." +
+                        " Expected one of ${Reminders.TYPES.joinToString("|")}"
             )
         }
     }
@@ -298,9 +298,9 @@ internal object ApiTables {
         },
     )
 
-    val ALARMS = ApiTable(
-        path = Alarms.PATH,
-        columns = Alarms.COLUMNS,
+    val REMINDERS = ApiTable(
+        path = Reminders.PATH,
+        columns = Reminders.COLUMNS,
         sources = listOf(
             ApiSource(
                 select = "alarms.task, alarms.type, alarms.time," +
@@ -311,17 +311,17 @@ internal object ApiTables {
                 idExpression = "alarms._id",
                 filter = { args ->
 
-                    if (args.has(Alarms.PARAM_PLACE)) return@ApiSource null
+                    if (args.has(Reminders.PARAM_PLACE)) return@ApiSource null
                     val types = args.storedAlarmTypes() ?: return@ApiSource null
                     SqlWhere().apply {
-                        if (args.has(Alarms.PARAM_TASK)) {
-                            inLongs("alarms.task", args.longs(Alarms.PARAM_TASK))
+                        if (args.has(Reminders.PARAM_TASK)) {
+                            inLongs("alarms.task", args.longs(Reminders.PARAM_TASK))
                         }
                         types?.let { inInts("alarms.type", it) }
                     }
                 },
                 byId = { id ->
-                    if (id >= Alarms.LOCATION_ID_BASE) null
+                    if (id >= Reminders.LOCATION_ID_BASE) null
                     else SqlWhere().and("alarms._id = ?", id)
                 },
             ),
@@ -449,7 +449,7 @@ internal object ApiTables {
         },
     )
 
-    val ALL = listOf(TASKS, ALARMS, TASK_TAGS, LISTS, TAGS, PLACES, ACCOUNTS)
+    val ALL = listOf(TASKS, REMINDERS, TASK_TAGS, LISTS, TAGS, PLACES, ACCOUNTS)
 
     fun byPath(path: String) = ALL.first { it.path == path }
 }

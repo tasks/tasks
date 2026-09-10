@@ -112,11 +112,11 @@ object TasksContract {
         val REPEAT_FROMS = listOf(REPEAT_FROM_DUE_DATE, REPEAT_FROM_COMPLETION_DATE)
     }
 
-    object Alarms {
-        const val PATH = "alarms"
+    object Reminders {
+        const val PATH = "reminders"
         val CONTENT_URI = "${TasksContract.CONTENT_URI}/$PATH"
-        const val TYPE_DIR = "vnd.android.cursor.dir/vnd.org.tasks.alarm"
-        const val TYPE_ITEM = "vnd.android.cursor.item/vnd.org.tasks.alarm"
+        const val TYPE_DIR = "vnd.android.cursor.dir/vnd.org.tasks.reminder"
+        const val TYPE_ITEM = "vnd.android.cursor.item/vnd.org.tasks.reminder"
 
         const val TASK_ID = "task_id"
         const val TYPE = "type"
@@ -317,13 +317,13 @@ object TasksContract {
     }
 
     val COLLECTIONS = listOf(
-        Tasks.PATH, Alarms.PATH, TaskTags.PATH, Lists.PATH, Tags.PATH, Places.PATH,
+        Tasks.PATH, Reminders.PATH, TaskTags.PATH, Lists.PATH, Tags.PATH, Places.PATH,
         Accounts.PATH,
     )
 
     fun columnsFor(path: String): List<String> = when (path) {
         Tasks.PATH -> Tasks.COLUMNS
-        Alarms.PATH -> Alarms.COLUMNS
+        Reminders.PATH -> Reminders.COLUMNS
         TaskTags.PATH -> TaskTags.COLUMNS
         Lists.PATH -> Lists.COLUMNS
         Tags.PATH -> Tags.COLUMNS
@@ -334,7 +334,7 @@ object TasksContract {
 
     fun paramsFor(path: String): List<String> = when (path) {
         Tasks.PATH -> Tasks.PARAMS
-        Alarms.PATH -> Alarms.PARAMS
+        Reminders.PATH -> Reminders.PARAMS
         TaskTags.PATH -> TaskTags.PARAMS
         Lists.PATH -> Lists.PARAMS
         Tags.PATH -> Tags.PARAMS

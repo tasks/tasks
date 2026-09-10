@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.AnalyticsEvents
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -64,8 +64,8 @@ abstract class TasksApiProvider : ContentProvider() {
     override fun getType(uri: Uri): String = when (URI_MATCHER.match(uri)) {
         TASKS -> Tasks.TYPE_DIR
         TASK -> Tasks.TYPE_ITEM
-        ALARMS -> Alarms.TYPE_DIR
-        ALARM -> Alarms.TYPE_ITEM
+        REMINDERS -> Reminders.TYPE_DIR
+        REMINDER -> Reminders.TYPE_ITEM
         TASK_TAGS -> TaskTags.TYPE_DIR
         TASK_TAG -> TaskTags.TYPE_ITEM
         LISTS -> Lists.TYPE_DIR
@@ -130,7 +130,7 @@ abstract class TasksApiProvider : ContentProvider() {
         val row = (values ?: ContentValues()).toApiValues()
         val path = when (match) {
             TASKS -> Tasks.PATH
-            ALARMS -> Alarms.PATH
+            REMINDERS -> Reminders.PATH
             TASK_TAGS -> TaskTags.PATH
             LISTS -> Lists.PATH
             TAGS -> Tags.PATH
@@ -140,7 +140,7 @@ abstract class TasksApiProvider : ContentProvider() {
         val id = blocking {
             when (match) {
                 TASKS -> writer.insertTask(row)
-                ALARMS -> writer.insertAlarm(row)
+                REMINDERS -> writer.insertReminder(row)
                 TASK_TAGS -> writer.insertTaskTag(row)
                 LISTS -> writer.insertList(row)
                 TAGS -> writer.insertTag(row)
@@ -162,7 +162,7 @@ abstract class TasksApiProvider : ContentProvider() {
         val row = (values ?: ContentValues()).toApiValues()
         return when (URI_MATCHER.match(uri)) {
             TASK -> rejectParameters(uri).let { blocking { writer.updateTask(uri.itemId, row) } }
-            ALARM -> rejectParameters(uri).let { blocking { writer.updateAlarm(uri.itemId, row) } }
+            REMINDER -> rejectParameters(uri).let { blocking { writer.updateReminder(uri.itemId, row) } }
             LIST -> rejectParameters(uri).let { blocking { writer.updateList(uri.itemId, row) } }
             TAG -> rejectParameters(uri).let { blocking { writer.updateTag(uri.itemId, row) } }
             PLACE -> rejectParameters(uri).let { blocking { writer.updatePlace(uri.itemId, row) } }
@@ -175,13 +175,13 @@ abstract class TasksApiProvider : ContentProvider() {
         onFirstUse()
         val writer = dependencies.writer
         return when (val match = URI_MATCHER.match(uri)) {
-            TASK, ALARM, TASK_TAG, LIST, TAG, PLACE -> {
+            TASK, REMINDER, TASK_TAG, LIST, TAG, PLACE -> {
                 rejectParameters(uri)
                 val id = uri.itemId
                 blocking {
                     when (match) {
                         TASK -> writer.deleteTask(id)
-                        ALARM -> writer.deleteAlarm(id)
+                        REMINDER -> writer.deleteReminder(id)
                         TASK_TAG -> writer.deleteTaskTag(id)
                         LIST -> writer.deleteList(id)
                         TAG -> writer.deleteTag(id)
@@ -341,7 +341,7 @@ abstract class TasksApiProvider : ContentProvider() {
 
     private fun tableFor(match: Int, uri: Uri): ApiTable = when (match) {
         TASKS, TASK -> ApiTables.TASKS
-        ALARMS, ALARM -> ApiTables.ALARMS
+        REMINDERS, REMINDER -> ApiTables.REMINDERS
         TASK_TAGS, TASK_TAG -> ApiTables.TASK_TAGS
         LISTS, LIST -> ApiTables.LISTS
         TAGS, TAG -> ApiTables.TAGS
@@ -387,8 +387,8 @@ abstract class TasksApiProvider : ContentProvider() {
 
         private const val TASKS = 1
         private const val TASK = 2
-        private const val ALARMS = 3
-        private const val ALARM = 4
+        private const val REMINDERS = 3
+        private const val REMINDER = 4
         private const val TASK_TAGS = 5
         private const val TASK_TAG = 6
         private const val LISTS = 9
@@ -400,7 +400,7 @@ abstract class TasksApiProvider : ContentProvider() {
         private const val ACCOUNTS = 15
         private const val ACCOUNT = 16
 
-        private val ITEM_MATCHES = setOf(TASK, ALARM, TASK_TAG, LIST, TAG, PLACE, ACCOUNT)
+        private val ITEM_MATCHES = setOf(TASK, REMINDER, TASK_TAG, LIST, TAG, PLACE, ACCOUNT)
 
         private val LIST_MATCHES = setOf(LISTS, LIST)
 
@@ -408,7 +408,7 @@ abstract class TasksApiProvider : ContentProvider() {
             val v = TasksContract.VERSION
             listOf(
                 Tasks.PATH to (TASKS to TASK),
-                Alarms.PATH to (ALARMS to ALARM),
+                Reminders.PATH to (REMINDERS to REMINDER),
                 TaskTags.PATH to (TASK_TAGS to TASK_TAG),
                 Lists.PATH to (LISTS to LIST),
                 Tags.PATH to (TAGS to TAG),
@@ -421,14 +421,14 @@ abstract class TasksApiProvider : ContentProvider() {
         }
 
         private val TASK_SCOPED =
-            listOf(Tasks.PATH, Alarms.PATH, TaskTags.PATH)
+            listOf(Tasks.PATH, Reminders.PATH, TaskTags.PATH)
 
         private val NOTIFY: Map<String, List<String>> = mapOf(
             "tasks" to TASK_SCOPED,
             "caldav_tasks" to TASK_SCOPED,
-            "alarms" to listOf(Alarms.PATH),
+            "alarms" to listOf(Reminders.PATH),
             "tags" to listOf(TaskTags.PATH, Tasks.PATH),
-            "geofences" to listOf(Alarms.PATH, Tasks.PATH),
+            "geofences" to listOf(Reminders.PATH, Tasks.PATH),
             "tagdata" to listOf(Tags.PATH),
             "places" to listOf(Places.PATH),
             "caldav_lists" to listOf(Lists.PATH),

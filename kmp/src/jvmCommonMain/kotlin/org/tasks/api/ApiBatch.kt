@@ -97,7 +97,7 @@ suspend fun ApiQueryEngine.setTaskReminders(
 ): ReminderEdit {
     val removals = removeReminderIds.distinct()
     val edit = transaction {
-        add.map { writer.insertAlarm(it.toValues()) } to removals.sumOf { writer.deleteAlarm(it) }
+        add.map { writer.insertReminder(it.toValues()) } to removals.sumOf { writer.deleteReminder(it) }
     }
     return ReminderEdit(
         addedIds = edit.first,

@@ -5,7 +5,7 @@ import androidx.core.net.toUri
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.Tasks
 
@@ -28,7 +28,7 @@ class TasksApiErrorTest : ApiTestCase() {
 
     @Test
     fun anUnknownParameterIsAnError() {
-        assertThrows<IllegalArgumentException> { query(Alarms.PATH, "?tasks=1") }
+        assertThrows<IllegalArgumentException> { query(Reminders.PATH, "?tasks=1") }
         assertThrows<IllegalArgumentException> { query(Tasks.PATH, "?state=active") }
         assertThrows<IllegalArgumentException> { query(Tags.PATH, "?search=admin") }
     }
@@ -48,7 +48,7 @@ class TasksApiErrorTest : ApiTestCase() {
     fun badEnumValuesAreRejected() {
         assertThrows<IllegalArgumentException> { query(Tasks.PATH, "?priority=urgent") }
         assertThrows<IllegalArgumentException> { query(Tasks.PATH, "?sort=manual") }
-        assertThrows<IllegalArgumentException> { query(Alarms.PATH, "?type=geo_enter") }
+        assertThrows<IllegalArgumentException> { query(Reminders.PATH, "?type=geo_enter") }
         assertThrows<IllegalArgumentException> { query(TasksContract.Lists.PATH, "?access=admin") }
     }
 
@@ -115,7 +115,7 @@ class TasksApiErrorTest : ApiTestCase() {
         assertThrows<IllegalArgumentException> { insert(Tasks.PATH, Tasks.TITLE to "  ") }
         assertThrows<IllegalArgumentException> { insert(Tags.PATH, Tags.COLOR to 1) }
         assertThrows<IllegalArgumentException> {
-            insert(Alarms.PATH, Alarms.TYPE to Alarms.TYPE_SNOOZE, Alarms.TRIGGER_AT to 1L)
+            insert(Reminders.PATH, Reminders.TYPE to Reminders.TYPE_SNOOZE, Reminders.TRIGGER_AT to 1L)
         }
     }
 
@@ -137,8 +137,8 @@ class TasksApiErrorTest : ApiTestCase() {
     @Test
     fun writingToAnUnknownTaskIsRejected() {
         assertThrows<IllegalArgumentException> {
-            insert(Alarms.PATH, Alarms.TASK_ID to 9999L, Alarms.TYPE to Alarms.TYPE_SNOOZE)
+            insert(Reminders.PATH, Reminders.TASK_ID to 9999L, Reminders.TYPE to Reminders.TYPE_SNOOZE)
         }
-        assertEquals(0, resolver.delete(itemUri(Alarms.PATH, 9999), null, null))
+        assertEquals(0, resolver.delete(itemUri(Reminders.PATH, 9999), null, null))
     }
 }

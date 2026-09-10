@@ -1,7 +1,7 @@
 package org.tasks.api
 
 import org.tasks.api.TasksContract.Accounts
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -71,10 +71,10 @@ suspend fun ApiQueryEngine.findPlaces(query: PlaceQuery): ApiPage<PlaceRow> =
     }
 
 suspend fun ApiQueryEngine.findReminders(query: ReminderQuery): ApiPage<ReminderRow> =
-    find(Alarms.PATH, query.limit, query.offset, { it.toReminderRow() }) {
-        putEach(Alarms.PARAM_TASK, query.taskIds)
-        putEach(Alarms.PARAM_TYPE, query.types)
-        putEach(Alarms.PARAM_PLACE, query.placeIds)
+    find(Reminders.PATH, query.limit, query.offset, { it.toReminderRow() }) {
+        putEach(Reminders.PARAM_TASK, query.taskIds)
+        putEach(Reminders.PARAM_TYPE, query.types)
+        putEach(Reminders.PARAM_PLACE, query.placeIds)
     }
 
 suspend fun ApiQueryEngine.findAccounts(query: AccountQuery): ApiPage<AccountRow> =

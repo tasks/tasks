@@ -7,7 +7,7 @@ import androidx.core.net.toUri
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.api.TasksContract.Alarms
+import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
@@ -30,10 +30,10 @@ class TasksApiBatchTest : ApiTestCase() {
                     .withValue(Tasks.DUE_ALL_DAY, 1)
                     .withValue(Tasks.LIST_ID, listId)
                     .build(),
-                ContentProviderOperation.newInsert(uri(Alarms.PATH))
-                    .withValueBackReference(Alarms.TASK_ID, 0)
-                    .withValue(Alarms.TYPE, Alarms.TYPE_RELATIVE_DUE)
-                    .withValue(Alarms.OFFSET_MS, -TimeUnit.DAYS.toMillis(7))
+                ContentProviderOperation.newInsert(uri(Reminders.PATH))
+                    .withValueBackReference(Reminders.TASK_ID, 0)
+                    .withValue(Reminders.TYPE, Reminders.TYPE_RELATIVE_DUE)
+                    .withValue(Reminders.OFFSET_MS, -TimeUnit.DAYS.toMillis(7))
                     .build(),
                 ContentProviderOperation.newInsert(uri(TaskTags.PATH))
                     .withValueBackReference(TaskTags.TASK_ID, 0)
@@ -46,13 +46,13 @@ class TasksApiBatchTest : ApiTestCase() {
         val taskId = ContentUris.parseId(results[0].uri!!)
         assertEquals("Renew passport", query(Tasks.PATH).string(Tasks.TITLE))
         assertEquals("$tagId", query(Tasks.PATH, "?_id=$taskId").string(Tasks.TAG_IDS))
-        assertEquals(1, query(Alarms.PATH, "?task_id=$taskId").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$taskId").rows())
         resolver.query(results[1].uri!!, null, null, null, null)!!.use {
             assertTrue(it.moveToFirst())
-            assertEquals(taskId, it.getLong(it.getColumnIndexOrThrow(Alarms.TASK_ID)))
+            assertEquals(taskId, it.getLong(it.getColumnIndexOrThrow(Reminders.TASK_ID)))
             assertEquals(
                 -TimeUnit.DAYS.toMillis(7),
-                it.getLong(it.getColumnIndexOrThrow(Alarms.OFFSET_MS)),
+                it.getLong(it.getColumnIndexOrThrow(Reminders.OFFSET_MS)),
             )
         }
     }
@@ -77,10 +77,10 @@ class TasksApiBatchTest : ApiTestCase() {
                     .withValueBackReference(TaskTags.TASK_ID, 2)
                     .withValueBackReference(TaskTags.TAG_ID, 0)
                     .build(),
-                ContentProviderOperation.newInsert(uri(Alarms.PATH))
-                    .withValueBackReference(Alarms.TASK_ID, 2)
-                    .withValueBackReference(Alarms.PLACE_ID, 1)
-                    .withValue(Alarms.TYPE, Alarms.TYPE_LOCATION_ARRIVAL)
+                ContentProviderOperation.newInsert(uri(Reminders.PATH))
+                    .withValueBackReference(Reminders.TASK_ID, 2)
+                    .withValueBackReference(Reminders.PLACE_ID, 1)
+                    .withValue(Reminders.TYPE, Reminders.TYPE_LOCATION_ARRIVAL)
                     .build(),
             ),
         )
@@ -94,8 +94,8 @@ class TasksApiBatchTest : ApiTestCase() {
             assertEquals(placeId, it.getLong(it.getColumnIndexOrThrow(Tasks.PLACE_ID)))
         }
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_ARRIVAL),
-            query(Alarms.PATH, "?task_id=$taskId").strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_ARRIVAL),
+            query(Reminders.PATH, "?task_id=$taskId").strings(Reminders.TYPE),
         )
     }
 
@@ -110,17 +110,17 @@ class TasksApiBatchTest : ApiTestCase() {
                 ContentProviderOperation.newInsert(uri(Tasks.PATH))
                     .withValue(Tasks.TITLE, "Buy milk")
                     .build(),
-                ContentProviderOperation.newInsert(uri(Alarms.PATH))
-                    .withValueBackReference(Alarms.TASK_ID, 0)
-                    .withValue(Alarms.PLACE_ID, placeId)
-                    .withValue(Alarms.TYPE, Alarms.TYPE_LOCATION_DEPARTURE)
+                ContentProviderOperation.newInsert(uri(Reminders.PATH))
+                    .withValueBackReference(Reminders.TASK_ID, 0)
+                    .withValue(Reminders.PLACE_ID, placeId)
+                    .withValue(Reminders.TYPE, Reminders.TYPE_LOCATION_DEPARTURE)
                     .build(),
             ),
         )
 
         assertEquals(
-            listOf(Alarms.TYPE_LOCATION_DEPARTURE),
-            query(Alarms.PATH).strings(Alarms.TYPE),
+            listOf(Reminders.TYPE_LOCATION_DEPARTURE),
+            query(Reminders.PATH).strings(Reminders.TYPE),
         )
         assertEquals(listOf("Buy milk"), query(Tasks.PATH, "?place_id=$placeId").strings(Tasks.TITLE))
     }

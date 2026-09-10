@@ -39,10 +39,10 @@ class TasksApiReadTest : ApiTestCase() {
     fun deletedTaskIsInvisibleEverywhere() {
         val id = newTask("gone")
         insert(
-            TasksContract.Alarms.PATH,
-            TasksContract.Alarms.TASK_ID to id,
-            TasksContract.Alarms.TYPE to TasksContract.Alarms.TYPE_RELATIVE_DUE,
-            TasksContract.Alarms.OFFSET_MS to -1000L,
+            TasksContract.Reminders.PATH,
+            TasksContract.Reminders.TASK_ID to id,
+            TasksContract.Reminders.TYPE to TasksContract.Reminders.TYPE_RELATIVE_DUE,
+            TasksContract.Reminders.OFFSET_MS to -1000L,
         )
 
         assertEquals(1, delete(Tasks.PATH, id))
@@ -50,7 +50,7 @@ class TasksApiReadTest : ApiTestCase() {
         assertEquals(0, query(Tasks.PATH).rows())
         assertEquals(0, query(Tasks.PATH, "?limit=0").total())
         assertEquals(0, resolver.query(itemUri(Tasks.PATH, id), null, null, null, null)!!.rows())
-        assertEquals(0, query(TasksContract.Alarms.PATH).rows())
+        assertEquals(0, query(TasksContract.Reminders.PATH).rows())
     }
 
     @Test
@@ -252,10 +252,10 @@ class TasksApiReadTest : ApiTestCase() {
         newTask("done child", Tasks.PARENT_ID to parent, Tasks.COMPLETED_AT to currentTimeMillis())
         newTask("open child", Tasks.PARENT_ID to parent)
         insert(
-            TasksContract.Alarms.PATH,
-            TasksContract.Alarms.TASK_ID to parent,
-            TasksContract.Alarms.TYPE to TasksContract.Alarms.TYPE_LOCATION_ARRIVAL,
-            TasksContract.Alarms.PLACE_ID to placeId,
+            TasksContract.Reminders.PATH,
+            TasksContract.Reminders.TASK_ID to parent,
+            TasksContract.Reminders.TYPE to TasksContract.Reminders.TYPE_LOCATION_ARRIVAL,
+            TasksContract.Reminders.PLACE_ID to placeId,
         )
 
         resolver.query(itemUri(Tasks.PATH, parent), null, null, null, null)!!.use {

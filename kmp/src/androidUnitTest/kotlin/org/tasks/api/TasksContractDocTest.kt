@@ -49,7 +49,7 @@ class TasksContractDocTest {
         val values = TasksContract.Tasks.PRIORITIES +
                 TasksContract.Tasks.REPEAT_FROMS +
                 TasksContract.Tasks.SORTS +
-                TasksContract.Alarms.TYPES +
+                TasksContract.Reminders.TYPES +
                 TasksContract.Lists.ACCESS_LEVELS +
                 TasksContract.Accounts.TYPES +
                 TasksContract.Accounts.ERRORS
@@ -117,7 +117,7 @@ class TasksContractDocTest {
 
         private val SECTIONS = mapOf(
             "Tasks" to TasksContract.Tasks.PATH,
-            "Alarms" to TasksContract.Alarms.PATH,
+            "Reminders" to TasksContract.Reminders.PATH,
             "Task tags" to TasksContract.TaskTags.PATH,
             "Lists" to TasksContract.Lists.PATH,
             "Tags" to TasksContract.Tags.PATH,
