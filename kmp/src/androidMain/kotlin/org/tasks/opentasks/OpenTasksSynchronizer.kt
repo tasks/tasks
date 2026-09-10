@@ -173,7 +173,14 @@ class OpenTasksSynchronizer(
         val etags = openTaskDao.getEtags(listId)
         etags.forEach { (uid, sync1, version) ->
             val caldavTask = caldavDao.getTaskByRemoteId(calendar.uuid!!, uid)
-            val etag = if (account.isEteSync || account.isDecSync) version else sync1
+            // Fall back to the row version when there is no sync1. A null etag makes the check below
+            // permanently true, so a task DAVx5 has not assigned an etag to yet - anything created
+            // locally and not uploaded, or written while AccountSettingsMigration8 had the etag
+            // parked in SYNC_VERSION - is re-read, re-parsed and re-written on every sync for the
+            // life of the install. The version is the provider's own revision counter, so it is a
+            // usable stamp: at worst a push we made ourselves bumps it and costs one extra pass,
+            // instead of never converging.
+            val etag = if (account.isEteSync || account.isDecSync) version else (sync1 ?: version)
             if (caldavTask?.etag == null || caldavTask.etag != etag) {
                 applyChanges(account, calendar, listId, uid, etag, caldavTask)
             }
