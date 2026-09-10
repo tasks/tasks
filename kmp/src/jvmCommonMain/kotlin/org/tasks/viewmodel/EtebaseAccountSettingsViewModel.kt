@@ -23,7 +23,7 @@ import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.etebase_url
+import org.tasks.data.entity.EtebaseService
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.invalid_username_or_password
 import tasks.kmp.generated.resources.network_error
@@ -61,11 +61,17 @@ open class EtebaseAccountSettingsViewModel(
         }
     }
 
+    fun setService(service: EtebaseService) {
+        if (_state.value.account == null) _state.update { it.copy(service = service) }
+    }
+
     suspend fun setAccount(account: CaldavAccount) {
-        val defaultUrl = getString(Res.string.etebase_url)
+        val service = EtebaseService.fromServerType(account.serverType)
+        val defaultUrl = service.defaultUrl
         val hasCustomUrl = !account.url.isNullOrBlank() && account.url != defaultUrl
         accountId.value = account.id
         _state.value = EtebaseAccountState(
+            service = service,
             url = account.url.orEmpty(),
             username = account.username.orEmpty(),
             password = "",
@@ -168,13 +174,18 @@ open class EtebaseAccountSettingsViewModel(
     }
 
     private suspend fun submit(onComplete: () -> Unit) {
+        // Snapshot all identity inputs before login: completion may update the watched state.
         val s = _state.value
+        val service = s.service
         val usernameValue = s.username.trim()
         val passwordValue = s.password
         val nameValue = s.displayName.trim()
         val effectiveName = nameValue.ifEmpty { usernameValue }
-        val isEditing = s.account != null
-        val urlValue = if (s.showUrl) s.url.trim().ifEmpty { getString(Res.string.etebase_url) } else getString(Res.string.etebase_url)
+        val currentAccount = s.account
+        val isEditing = currentAccount != null
+        val accountScope = currentAccount?.let { if (it.isSilentSuite) it.uuid else null }
+            ?: service.takeIf { it == EtebaseService.SILENTSUITE }?.let { UUIDHelper.newUUID() }
+        val urlValue = service.effectiveUrl(s.url, s.showUrl)
 
         if (isEditing) {
             val currentAccount = s.account!!
@@ -194,6 +205,7 @@ open class EtebaseAccountSettingsViewModel(
                                 password = null,
                                 session = currentSession,
                                 foreground = true,
+                                accountScope = accountScope,
                             )
                             .getSession()
                     } else {
@@ -203,6 +215,7 @@ open class EtebaseAccountSettingsViewModel(
                                 username = usernameValue,
                                 password = passwordValue,
                                 foreground = true,
+                                accountScope = accountScope,
                             )
                             .getSession()
                     }
@@ -228,9 +241,10 @@ open class EtebaseAccountSettingsViewModel(
                         username = usernameValue,
                         password = passwordValue,
                         foreground = true,
+                        accountScope = accountScope,
                     )
                     .getSession()
-                addAccount(urlValue, effectiveName, usernameValue, session)
+                addAccount(urlValue, effectiveName, usernameValue, session, service, accountScope)
                 reporting.logEvent(
                     "sync_add_account",
                     "type" to Constants.SYNC_TYPE_ETEBASE,
@@ -249,15 +263,18 @@ open class EtebaseAccountSettingsViewModel(
         name: String,
         username: String,
         session: String,
+        service: EtebaseService,
+        accountScope: String?,
     ) {
         caldavDao.insert(
             CaldavAccount(
                 accountType = CaldavAccount.TYPE_ETEBASE,
+                serverType = service.serverType,
                 name = name,
                 url = url,
                 username = username,
                 password = encryption.encrypt(session),
-                uuid = UUIDHelper.newUUID(),
+                uuid = accountScope ?: UUIDHelper.newUUID(),
             )
         )
     }

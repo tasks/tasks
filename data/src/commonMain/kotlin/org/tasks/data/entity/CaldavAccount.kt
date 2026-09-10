@@ -53,6 +53,9 @@ data class CaldavAccount(
     val isEtebaseAccount: Boolean
         get() = accountType == TYPE_ETEBASE
 
+    val isSilentSuite: Boolean
+        get() = isEtebaseAccount && serverType == EtebaseService.SILENTSUITE.serverType
+
     val isOpenTasks: Boolean
         get() = accountType == TYPE_OPENTASKS
 

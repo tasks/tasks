@@ -9,6 +9,7 @@ val Platform.featureTitle: Int get() = when (this) {
     Platform.DAVX5 -> R.string.davx5
     Platform.CALDAV -> R.string.caldav
     Platform.ETEBASE -> R.string.etesync
+    Platform.SILENTSUITE -> R.string.silentsuite
     Platform.DECSYNC_CC -> R.string.decsync
     else -> 0
 }

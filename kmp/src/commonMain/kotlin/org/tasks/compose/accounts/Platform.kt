@@ -7,5 +7,6 @@ enum class Platform {
     DAVX5,
     CALDAV,
     ETEBASE,
+    SILENTSUITE,
     DECSYNC_CC,
 }
