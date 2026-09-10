@@ -191,9 +191,7 @@ class SharedWritesTest : ApiTestCase() {
         val edit = engine.setTaskReminders(
             writer,
             taskId = id,
-            add = listOf(
-                ReminderWrite(taskId = id, type = Reminders.TYPE_RELATIVE_DUE, offsetMs = -HOUR)
-            ),
+            add = listOf(ReminderWrite(type = Reminders.TYPE_RELATIVE_DUE, offsetMs = -HOUR)),
             removeReminderIds = listOf(existing, existing),
         )
 
@@ -218,7 +216,7 @@ class SharedWritesTest : ApiTestCase() {
                     writer,
                     taskId = id,
                     add = listOf(
-                        ReminderWrite(taskId = id, type = Reminders.TYPE_LOCATION_ARRIVAL, placeId = 9_999L)
+                        ReminderWrite(type = Reminders.TYPE_LOCATION_ARRIVAL, placeId = 9_999L)
                     ),
                     removeReminderIds = listOf(existing),
                 )

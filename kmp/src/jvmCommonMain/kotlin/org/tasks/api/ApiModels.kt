@@ -514,7 +514,6 @@ data class PlaceWrite(
 }
 
 data class ReminderWrite(
-    val taskId: Long,
     val type: String,
     val triggerAt: Long? = null,
     val offsetMs: Long? = null,
@@ -522,7 +521,7 @@ data class ReminderWrite(
     val intervalMs: Long? = null,
     val placeId: Long? = null,
 ) {
-    fun toValues(): ApiValues {
+    fun toValues(taskId: Long): ApiValues {
         val a = TasksContract.Reminders
         return ApiValues.ofNotNull(
             a.TASK_ID to taskId,
