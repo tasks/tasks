@@ -10,6 +10,8 @@ import org.tasks.data.sql.QueryTemplate
 @CommonParcelize
 data class SubtaskFilter(
     private val parent: Long,
+    val calendarUuid: String? = null,
+    val isGoogleTasks: Boolean = false,
 ) : Filter() {
     @CommonIgnoredOnParcel
     override val title: String = "subtasks"
@@ -26,6 +28,10 @@ data class SubtaskFilter(
             .toString()
 
     override fun disableHeaders() = true
+    
+    // Manual sort is supported when the subtask belongs to a CalDAV calendar,
+    // allowing it to use the same ordering as the parent task list
+    override fun supportsManualSort(): Boolean = calendarUuid != null
 
     override fun areItemsTheSame(other: FilterListItem): Boolean =
         other is SubtaskFilter && parent == other.parent
