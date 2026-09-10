@@ -62,6 +62,19 @@ class ApiPagingTest : ApiTestCase() {
     }
 
     @Test
+    fun aBatchReadsBackInTheOrderItWasAskedFor() = runBlockingTest {
+        val one = newTask("one")
+        val two = newTask("two")
+        val three = newTask("three")
+        delete(Tasks.PATH, two)
+
+        val rows = engine.tasksById(listOf(three, two, one))
+
+        assertEquals(listOf("three", "one"), rows.map { it.title })
+        assertEquals(emptyList<TaskRow>(), engine.tasksById(emptyList()))
+    }
+
+    @Test
     fun everyCollectionFiltersById() = runBlockingTest {
         val tag = insert(Tags.PATH, Tags.NAME to "errands")
         insert(Tags.PATH, Tags.NAME to "calls")

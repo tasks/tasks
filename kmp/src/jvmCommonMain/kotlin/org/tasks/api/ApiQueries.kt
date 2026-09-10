@@ -107,3 +107,11 @@ internal fun ApiQueryArgs.Builder.putEach(key: String, values: Collection<Any>) 
 internal fun ApiQueryArgs.Builder.putIfNotNull(key: String, value: Any?) {
     if (value != null) put(key, value.toString())
 }
+
+suspend fun ApiQueryEngine.tasksById(ids: List<Long>): List<TaskRow> {
+    if (ids.isEmpty()) return emptyList()
+    val found = findTasks(TaskQuery(ids = ids, status = "any", limit = ids.size))
+        .rows
+        .associateBy { it.id }
+    return ids.mapNotNull { found[it] }
+}
