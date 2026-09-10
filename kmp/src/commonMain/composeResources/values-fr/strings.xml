@@ -641,4 +641,5 @@
     <string name="theme_system_default">Valeur par défaut du système</string>
     <string name="repeat_monthly_on_last_day">Chaque mois, le dernier jour</string>
     <string name="repeat_monthly_last_day">le dernier jour</string>
+    <string name="works_with_desktop">Tasks.org pour bureau</string>
 </resources>
