@@ -52,6 +52,28 @@ class TaskQueryTest : ApiTestCase() {
     }
 
     @Test
+    fun anUnknownDueFilterNamesTheLegalValues() {
+        val message = runCatching { dueWindow("tomorow") }.exceptionOrNull()?.message.orEmpty()
+
+        assertTrue(message, message.contains(DUE_FILTERS.joinToString("|")))
+    }
+
+    @Test
+    fun tagIdsNarrowsToTasksCarryingThoseTags() {
+        val tagged = newTask("Errand")
+        newTask("Untagged")
+        val errands = insert(TasksContract.Tags.PATH, TasksContract.Tags.NAME to "errands")
+        insert(
+            TasksContract.TaskTags.PATH,
+            TasksContract.TaskTags.TASK_ID to tagged,
+            TasksContract.TaskTags.TAG_ID to errands,
+        )
+
+        assertEquals(listOf("Errand"), titles(TaskQuery(tagIds = listOf(errands))))
+        assertEquals(1, find(TaskQuery(tagIds = listOf(errands), limit = 0)).total)
+    }
+
+    @Test
     fun filteringOnCompletionDatesImpliesCompletedTasks() {
         newTask("Open")
         newTask("Done", Tasks.COMPLETED_AT to DAY)
