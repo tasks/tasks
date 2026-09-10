@@ -15,6 +15,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material.icons.outlined.BugReport
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Extension
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Palette
@@ -55,6 +56,8 @@ import tasks.kmp.generated.resources.task_list_options
 import tasks.kmp.generated.resources.link_desktop
 import tasks.kmp.generated.resources.link_desktop_description
 import tasks.kmp.generated.resources.widget_settings
+import tasks.kmp.generated.resources.works_with_tasks
+import tasks.kmp.generated.resources.works_with_tasks_description
 
 sealed interface SettingsPane {
     val titleRes: StringResource
@@ -71,6 +74,7 @@ sealed class SettingsDestination(override val titleRes: StringResource) : Settin
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)
     data object Widgets : SettingsDestination(Res.string.widget_settings)
     data object Advanced : SettingsDestination(Res.string.preferences_advanced)
+    data object WorksWith : SettingsDestination(Res.string.works_with_tasks)
     data object HelpAndFeedback : SettingsDestination(Res.string.about)
     data object Debug : SettingsDestination(Res.string.debug)
 }
@@ -186,11 +190,12 @@ fun MainSettingsScreen(
             Spacer(modifier = Modifier.height(SettingsContentPadding))
         }
 
-        if (showDesktopLinking) {
-            Column(
-                modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            ) {
-                SettingsItemCard(position = CardPosition.Only) {
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            if (showDesktopLinking) {
+                SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
                         title = stringResource(Res.string.link_desktop),
                         summary = stringResource(Res.string.link_desktop_description),
@@ -199,8 +204,18 @@ fun MainSettingsScreen(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
+            SettingsItemCard(
+                position = if (showDesktopLinking) CardPosition.Last else CardPosition.Only,
+            ) {
+                PreferenceRow(
+                    title = stringResource(Res.string.works_with_tasks),
+                    summary = stringResource(Res.string.works_with_tasks_description),
+                    icon = Icons.Outlined.Extension,
+                    onClick = { onSettingsClick(SettingsDestination.WorksWith) },
+                )
+            }
         }
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
 
         SettingsCategories(
             showBackupWarning = showBackupWarning,

@@ -9,6 +9,18 @@
     <string name="davx5" translatable="false">DAVx⁵</string>
     <string name="ksync" translatable="false">kSync</string>
     <string name="decsync" translatable="false">DecSync CC</string>
+    <string name="kvaesitso" translatable="false">Kvaesitso</string>
+    <string name="radicale" translatable="false">Radicale</string>
+    <string name="thunderbird" translatable="false">Thunderbird</string>
+    <string name="apple_reminders" translatable="false">Apple Reminders</string>
+    <string name="acalendar" translatable="false">aCalendar+</string>
+    <string name="todoagenda" translatable="false">ToDo Agenda</string>
+    <string name="tasker" translatable="false">Tasker</string>
+    <string name="mcp_server" translatable="false">MCP server</string>
+    <string name="android" translatable="false">Android</string>
+    <string name="ios" translatable="false">iOS</string>
+    <string name="wear_os" translatable="false">Wear OS</string>
+    <string name="pebble" translatable="false">Pebble</string>
     <string name="etesync" translatable="false">EteSync</string>
     <string name="gtasks_GPr_header" translatable="false">Google Tasks</string>
     <string name="microsoft" translatable="false">Microsoft To&#xA0;Do</string>

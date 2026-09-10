@@ -2,6 +2,7 @@ package org.tasks.injection
 
 import com.google.android.material.color.DynamicColors
 import com.todoroo.andlib.utility.AndroidUtilities
+import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,8 @@ class FlavorModule {
         supportsBackupImport = true,
         supportsGeofences = true,
         supportsCalendarEvents = true,
+        appStore = AppStore.FDROID,
+        isAndroid = true,
         isLibre = true,
         supportsWidgets = true,
         supportsLogExport = true,

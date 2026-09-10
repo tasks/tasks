@@ -18,6 +18,8 @@ data class PlatformConfiguration(
     val supportsGeofences: Boolean = false,
     val supportsCalendarEvents: Boolean = false,
     val billingProvider: BillingProvider? = null,
+    val appStore: AppStore = AppStore.NONE,
+    val isAndroid: Boolean = false,
     val isLibre: Boolean = false,
     val supportsWidgets: Boolean = false,
     val supportsDesktopLinking: Boolean = false,

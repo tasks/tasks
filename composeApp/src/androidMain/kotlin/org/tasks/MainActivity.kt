@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,9 +28,14 @@ class MainActivity : ComponentActivity() {
                 var currentEnv by remember { mutableStateOf(serverEnv.currentEnvironment) }
                 App(
                     openUrl = { url ->
-                        CustomTabsIntent.Builder()
-                            .build()
-                            .launchUrl(this@MainActivity, url.toUri())
+                        val uri = url.toUri()
+                        if (uri.scheme.equals("https", true) || uri.scheme.equals("http", true)) {
+                            CustomTabsIntent.Builder()
+                                .build()
+                                .launchUrl(this@MainActivity, uri)
+                        } else {
+                            startActivity(Intent(Intent.ACTION_VIEW, uri))
+                        }
                     },
                     environments = serverEnv.environments,
                     currentEnvironment = currentEnv,

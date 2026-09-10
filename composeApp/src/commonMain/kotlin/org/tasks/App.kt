@@ -201,6 +201,7 @@ import org.tasks.compose.settings.SettingsMenuButton
 import org.tasks.compose.settings.SettingsPane
 import org.tasks.compose.settings.TasksAccountSettingsDetail
 import org.tasks.compose.settings.TasksAccountSettingsPane
+import org.tasks.compose.settings.WorksWithDetail
 import org.tasks.compose.sort.BottomSheetContent
 import org.tasks.compose.sort.SortPicker
 import org.tasks.compose.sort.SortSheetContent
@@ -3057,6 +3058,15 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.WorksWith -> {
+                        WorksWithDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            onPricingClick = onUpgradeClick,
+                            onMcpSettingsClick = {},
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.Debug -> {
