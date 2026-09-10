@@ -309,6 +309,34 @@ fun dueWindow(name: String?): Pair<Long?, Long?>? {
     }
 }
 
+data class TagEdit(
+    val taskId: Long,
+    val added: Int,
+    val removed: Int,
+)
+
+suspend fun ApiWriter.editTaskTags(
+    taskId: Long,
+    current: Set<Long>,
+    add: List<Long>,
+    remove: List<Long>,
+): TagEdit {
+    val toAdd = add.filterNot { it in current }
+    toAdd.forEach {
+        insertTaskTag(
+            ApiValues.of(
+                TasksContract.TaskTags.TASK_ID to taskId,
+                TasksContract.TaskTags.TAG_ID to it,
+            )
+        )
+    }
+    return TagEdit(
+        taskId = taskId,
+        added = toAdd.size,
+        removed = remove.distinct().sumOf { deleteTaskTag(taskId, it) },
+    )
+}
+
 fun advancedSeries(
     recurrenceBefore: Map<Long, String?>,
     completedAfter: Map<Long, Long?>,
@@ -317,8 +345,9 @@ fun advancedSeries(
     .keys
     .toList()
 
-fun taskStatus(name: String?): Boolean? = when (name) {
-    null, "open" -> false
+fun taskStatus(name: String?, completionBounded: Boolean = false): Boolean? = when (name) {
+    null -> if (completionBounded) true else false
+    "open" -> false
     "completed" -> true
     "any" -> null
     else -> throw IllegalArgumentException(
@@ -378,6 +407,84 @@ suspend fun ApiQueryEngine.findTasks(query: TaskQuery): TaskPage {
             .let { TaskPage(it.map { row -> row.toTaskRow() }, it.total, query.offset) }
     val scan = scanTasks(pattern, query.matchFields, query.limit, query.offset, query::args)
     return TaskPage(scan.rows, scan.total, query.offset)
+}
+
+data class ListWrite(
+    val title: String? = null,
+    val accountId: Long? = null,
+    val color: Int? = null,
+    val icon: String? = null,
+) {
+    fun toValues(): ApiValues {
+        val l = TasksContract.Lists
+        return ApiValues.ofNotNull(
+            l.TITLE to title,
+            l.ACCOUNT_ID to accountId,
+            l.COLOR to color,
+            l.ICON to icon,
+        )
+    }
+}
+
+data class TagWrite(
+    val name: String? = null,
+    val color: Int? = null,
+    val icon: String? = null,
+) {
+    fun toValues(): ApiValues {
+        val t = TasksContract.Tags
+        return ApiValues.ofNotNull(t.NAME to name, t.COLOR to color, t.ICON to icon)
+    }
+}
+
+data class PlaceWrite(
+    val name: String? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    val address: String? = null,
+    val phone: String? = null,
+    val url: String? = null,
+    val radius: Int? = null,
+    val color: Int? = null,
+    val icon: String? = null,
+) {
+    fun toValues(): ApiValues {
+        val p = TasksContract.Places
+        return ApiValues.ofNotNull(
+            p.NAME to name,
+            p.LATITUDE to latitude,
+            p.LONGITUDE to longitude,
+            p.ADDRESS to address,
+            p.PHONE to phone,
+            p.URL to url,
+            p.RADIUS to radius,
+            p.COLOR to color,
+            p.ICON to icon,
+        )
+    }
+}
+
+data class ReminderWrite(
+    val taskId: Long,
+    val type: String,
+    val triggerAt: Long? = null,
+    val offsetMs: Long? = null,
+    val repeatCount: Int? = null,
+    val intervalMs: Long? = null,
+    val placeId: Long? = null,
+) {
+    fun toValues(): ApiValues {
+        val a = TasksContract.Alarms
+        return ApiValues.ofNotNull(
+            a.TASK_ID to taskId,
+            a.TYPE to type,
+            a.TRIGGER_AT to triggerAt,
+            a.OFFSET_MS to offsetMs,
+            a.REPEAT_COUNT to repeatCount,
+            a.INTERVAL_MS to intervalMs,
+            a.PLACE_ID to placeId,
+        )
+    }
 }
 
 data class TaskWrite(
