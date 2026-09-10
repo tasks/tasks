@@ -1,6 +1,8 @@
 package org.tasks.api
 
+import androidx.room.immediateTransaction
 import androidx.room.useReaderConnection
+import androidx.room.useWriterConnection
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Alarms
 import org.tasks.api.TasksContract.Lists
@@ -64,6 +66,9 @@ class ApiQueryEngine(
 ) {
     suspend fun query(path: String, args: ApiQueryArgs): ApiRows =
         queryCollection(ApiTables.byPath(path), args)
+
+    suspend fun <T> transaction(block: suspend () -> T): T =
+        database.useWriterConnection { it.immediateTransaction { block() } }
 
     suspend fun queryById(path: String, id: Long): ApiRows =
         queryItem(ApiTables.byPath(path), id)

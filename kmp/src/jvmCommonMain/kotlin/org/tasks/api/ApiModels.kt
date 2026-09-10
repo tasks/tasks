@@ -341,25 +341,10 @@ suspend fun ApiQueryEngine.taskRow(id: Long): TaskRow? =
     queryById(TasksContract.Tasks.PATH, id).firstOrNull()?.toTaskRow()
 
 data class Completion(
+    val taskIds: List<Long>,
     val rowsChanged: List<Int>,
     val advancedTaskIds: List<Long>,
 )
-
-suspend fun ApiQueryEngine.completeTasks(
-    ids: List<Long>,
-    completed: Boolean,
-    completedAt: Long?,
-    write: suspend (ApiValues) -> List<Int>,
-): Completion {
-    val stamp = if (completed) completedAt ?: System.currentTimeMillis() else 0L
-    val before = ids.associateWith { taskRow(it)?.recurrence }
-    val changed = write(ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp))
-    val after = ids.associateWith { taskRow(it)?.completed }
-    return Completion(
-        rowsChanged = changed,
-        advancedTaskIds = if (completed) advancedSeries(before, after) else emptyList(),
-    )
-}
 
 fun advancedSeries(
     recurrenceBefore: Map<Long, String?>,
@@ -383,6 +368,15 @@ const val MAX_BATCH = 50
 
 fun requireBatch(size: Int, noun: String = "tasks") = require(size <= MAX_BATCH) {
     "A batch takes at most $MAX_BATCH $noun, was $size. Send the rest in another call."
+}
+
+fun requireDistinct(ids: List<Long>) {
+    ids.groupingBy { it }.eachCount().entries.firstOrNull { it.value > 1 }?.let { (id, count) ->
+        throw IllegalArgumentException(
+            "Task $id appears $count times. A task may be updated once per batch - merge those " +
+                "changes into one entry."
+        )
+    }
 }
 
 val TASK_STATUSES = listOf("open", "completed", "any")
