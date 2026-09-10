@@ -203,6 +203,17 @@ class SharedWritesTest : ApiTestCase() {
     }
 
     @Test
+    fun aBlankEnumFieldIsNotWritten() = runBlockingTest {
+        val id = newTask("Pack tent", Tasks.PRIORITY to Tasks.PRIORITY_HIGH)
+        val before = task(id)!!
+
+        writer.updateTask(id, TaskWrite(priority = "", repeatFrom = "").toValues())
+
+        assertEquals(before.priority, task(id)!!.priority)
+        assertEquals(before.repeatFrom, task(id)!!.repeatFrom)
+    }
+
+    @Test
     fun deletedTasksAreInvisible() {
         val id = newTask("gone")
 

@@ -48,6 +48,14 @@ class TaskQueryTest : ApiTestCase() {
     }
 
     @Test
+    fun aBlankArgumentMeansTheSameAsAnAbsentOne() {
+        newTask("Open")
+        newTask("Done", Tasks.COMPLETED_AT to DAY)
+
+        assertEquals(listOf("Open"), titles(TaskQuery(status = "", due = "", sort = "", matches = "")))
+    }
+
+    @Test
     fun aDueBeforeBoundOnItsOwnSkipsUnscheduledTasks() {
         newTask("Someday")
         newTask("Due", Tasks.DUE_DATE to DAY)

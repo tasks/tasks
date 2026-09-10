@@ -285,7 +285,7 @@ data class TaskQuery(
     val offset: Int? = null,
 ) {
     val completed: Boolean? =
-        taskStatus(status, completedBefore != null || completedAfter != null)
+        taskStatus(status.orNullIfBlank(), completedBefore != null || completedAfter != null)
 
     val pattern: Regex? = taskPattern(matches, matchCase)
 
@@ -295,7 +295,7 @@ data class TaskQuery(
 
     val skip: Int = pageOffset(offset)
 
-    private val window: Pair<Long?, Long?>? = dueWindow(due)
+    private val window: Pair<Long?, Long?>? = dueWindow(due.orNullIfBlank())
 
     fun args(chunk: Int, from: Int): ApiQueryArgs {
         val t = TasksContract.Tasks
@@ -320,7 +320,7 @@ data class TaskQuery(
             putIfNotNull(t.PARAM_CREATED_AFTER, createdAfter)
             putIfNotNull(t.PARAM_MODIFIED_BEFORE, modifiedBefore)
             putIfNotNull(t.PARAM_MODIFIED_AFTER, modifiedAfter)
-            putIfNotNull(t.PARAM_SORT, sort)
+            putIfNotNull(t.PARAM_SORT, sort.orNullIfBlank())
             if (sortDesc) put(t.PARAM_SORT_DESC, "1")
             put(TasksContract.PARAM_LIMIT, chunk.toString())
             put(TasksContract.PARAM_OFFSET, from.toString())
@@ -437,8 +437,10 @@ suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
 suspend fun ApiQueryEngine.countTasks(query: TaskQuery): Int =
     findTasks(query.copy(limit = 0)).total
 
+fun String?.orNullIfBlank(): String? = this?.takeIf { it.isNotBlank() }
+
 fun taskPattern(pattern: String?, caseSensitive: Boolean): Regex? {
-    val text = pattern?.takeIf { it.isNotBlank() } ?: return null
+    val text = pattern.orNullIfBlank() ?: return null
     val options = if (caseSensitive) emptySet() else setOf(RegexOption.IGNORE_CASE)
     return try {
         Regex(text, options)
@@ -556,13 +558,13 @@ data class TaskWrite(
         return ApiValues.ofNotNull(
             t.TITLE to title,
             t.NOTES to notes,
-            t.PRIORITY to priority,
+            t.PRIORITY to priority.orNullIfBlank(),
             t.DUE_DATE to due,
             t.DUE_ALL_DAY to dueAllDay?.let { if (it) 1 else 0 },
             t.START_DATE to start,
             t.START_ALL_DAY to startAllDay?.let { if (it) 1 else 0 },
             t.RECURRENCE to recurrence,
-            t.REPEAT_FROM to repeatFrom,
+            t.REPEAT_FROM to repeatFrom.orNullIfBlank(),
             t.PARENT_ID to parentId,
             t.LIST_ID to listId,
             t.PLACE_ID to placeId,
