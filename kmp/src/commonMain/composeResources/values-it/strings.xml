@@ -545,4 +545,5 @@
     <string name="theme_wallpaper">Sfondo</string>
     <string name="theme_day_night">Giorno/Notte</string>
     <string name="theme_system_default">Predefinito del sistema</string>
+    <string name="works_with_desktop">Tasks.org per desktop</string>
 </resources>
