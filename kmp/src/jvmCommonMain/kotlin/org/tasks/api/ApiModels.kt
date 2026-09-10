@@ -283,14 +283,6 @@ data class TaskQuery(
     val offset: Int = 0,
 )
 
-data class TaskPage(
-    val rows: List<TaskRow>,
-    val total: Int,
-    val offset: Int,
-) {
-    val hasMore: Boolean get() = offset + rows.size < total
-}
-
 fun dueWindow(name: String?): Pair<Long?, Long?>? {
     val zone = ZoneId.systemDefault()
     val today = LocalDate.now(zone)
@@ -388,14 +380,6 @@ val DUE_FILTERS = listOf("today", "tomorrow", "overdue", "this_week", "has_due_d
 private fun scheduledOnly(before: Long?): Long? =
     if (before != null && before != UNSCHEDULED_BOUND) 0L else null
 
-private fun ApiQueryArgs.Builder.putEach(key: String, values: Collection<Any>) {
-    values.forEach { put(key, it.toString()) }
-}
-
-private fun ApiQueryArgs.Builder.putIfNotNull(key: String, value: Any?) {
-    if (value != null) put(key, value.toString())
-}
-
 fun TaskQuery.args(pageLimit: Int, pageOffset: Int): ApiQueryArgs {
     val t = TasksContract.Tasks
     return ApiQueryArgs.build(TasksContract.paramsFor(t.PATH)) {
@@ -424,13 +408,13 @@ fun TaskQuery.args(pageLimit: Int, pageOffset: Int): ApiQueryArgs {
     }
 }
 
-suspend fun ApiQueryEngine.findTasks(query: TaskQuery): TaskPage {
+suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
     val pattern = query.matches
         ?: return query.args(query.limit, query.offset)
             .let { this.query(TasksContract.Tasks.PATH, it) }
-            .let { TaskPage(it.map { row -> row.toTaskRow() }, it.total, query.offset) }
+            .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, query.offset) }
     val scan = scanTasks(pattern, query.matchFields, query.limit, query.offset, query::args)
-    return TaskPage(scan.rows, scan.total, query.offset)
+    return ApiPage(scan.rows, scan.total, query.offset)
 }
 
 data class ListWrite(

@@ -9,7 +9,7 @@ import org.tasks.api.TasksContract.Tasks
 
 class TaskQueryTest : ApiTestCase() {
 
-    private fun find(query: TaskQuery): TaskPage = runBlocking { engine.findTasks(query) }
+    private fun find(query: TaskQuery): ApiPage<TaskRow> = runBlocking { engine.findTasks(query) }
 
     private fun titles(query: TaskQuery): List<String> = find(query).rows.map { it.title }
 

@@ -12,6 +12,8 @@ object TasksContract {
 
     const val DEFAULT_LIMIT = 100
 
+    const val MAX_LIMIT = 1000
+
     const val ID = "_id"
 
     const val PARAM_LIMIT = "limit"
