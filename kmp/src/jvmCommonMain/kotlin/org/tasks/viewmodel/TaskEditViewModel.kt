@@ -36,7 +36,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
 import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
@@ -83,6 +82,7 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.repeats.anchoredToDueDate
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTime
@@ -931,19 +931,7 @@ class TaskEditViewModel(
         if (recur.frequency != Recur.Frequency.MONTHLY || recur.dayList.isEmpty()) {
             return
         }
-        val weekdayNum = recur.dayList[0]
-        val dateTime = DateTime(state.task.dueDate.takeIf { it > 0 } ?: currentTimeMillis())
-        val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
-        val num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
-            if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
-        } else {
-            dayOfWeekInMonth
-        }
-        recur.dayList.let {
-            it.clear()
-            it.add(WeekDay(dateTime.weekDay, num))
-        }
-        applyRecurrence(recur.toString())
+        applyRecurrence(recurrence.anchoredToDueDate(state.task.dueDate))
     }
 
     fun setStartDate(day: Long, time: Int) {

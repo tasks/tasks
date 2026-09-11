@@ -31,6 +31,7 @@ import org.tasks.data.entity.Task
 import org.tasks.data.TaskMover
 import org.tasks.filters.CaldavFilter
 import org.tasks.location.LocationService
+import org.tasks.repeats.anchoredToDueDate
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -68,7 +69,7 @@ class ApiWriter(
         requireWritable(filter.calendar)
         val task = taskFactory.create(title, filter) {
             it.parent = parent
-            applyTaskValues(it, values)
+            applyTaskValues(it, Task(), values)
         }
         if (parent != 0L) {
             taskMover.move(listOf(task.id), filter, parent)
@@ -90,7 +91,7 @@ class ApiWriter(
         requireWritable(listFor(id))
 
         val task = original.copy()
-        applyTaskValues(task, values)
+        applyTaskValues(task, original, values)
         task.completionDate = original.completionDate
         task.parent = original.parent
         taskSaver.save(task, original)
@@ -149,7 +150,7 @@ class ApiWriter(
         return 1
     }
 
-    private fun applyTaskValues(task: Task, values: ApiValues) {
+    private fun applyTaskValues(task: Task, original: Task, values: ApiValues) {
         values.name(Tasks.TITLE)?.let { task.title = it }
         values.text(Tasks.NOTES)?.let { task.notes = it }
         values.enum(Tasks.PRIORITY, Priorities.FROM_API, Task.Priority.NONE)?.let { task.priority = it }
@@ -161,6 +162,9 @@ class ApiWriter(
         val dueAllDay = values.flag(Tasks.DUE_ALL_DAY)
         if (due != null || dueAllDay != null) {
             task.dueDate = encodeDue(due ?: task.dueDate, dueAllDay ?: task.isDueAllDay())
+        }
+        if (task.dueDate != original.dueDate && task.hasDueDate()) {
+            task.recurrence = task.recurrence.anchoredToDueDate(task.dueDate)
         }
         val start = values.number(Tasks.START_DATE)
         val startAllDay = values.flag(Tasks.START_ALL_DAY)
