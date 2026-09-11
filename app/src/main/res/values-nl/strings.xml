@@ -423,7 +423,7 @@
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
     <string name="write_permission_label">Taken wijzigen</string>
-    <string name="sort_options">Sorteringsopties</string>
+    <string name="sort_options">Sortering</string>
     <string name="location_update_interval_summary">Periodieke locatie-updates verbeteren de betrouwbaarheid van de geofence</string>
     <string name="banner_subscription_required_title">Abonnement vereist</string>
     <string name="banner_subscription_required_body">Betaal wat je wilt om de synchronisatie met %s vrij te geven</string>
