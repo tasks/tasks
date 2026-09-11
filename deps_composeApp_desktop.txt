@@ -751,6 +751,7 @@
 +|    |         +--- org.apache.httpcomponents:httpclient:4.5.14 (*)
 +|    |         \--- com.google.http-client:google-http-client:1.45.2 (*)
 +|    +--- io.ktor:ktor-client-core:3.5.2 (*)
++|    +--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
 +|    +--- io.ktor:ktor-client-okhttp:3.5.2
 +|    |    \--- io.ktor:ktor-client-okhttp-jvm:3.5.2
 +|    |         +--- org.slf4j:slf4j-api:2.0.18
