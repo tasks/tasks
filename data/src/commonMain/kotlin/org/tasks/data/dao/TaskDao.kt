@@ -16,6 +16,9 @@ import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavAccount.Companion.TYPES_CALDAV
+import org.tasks.data.entity.SYNC_ALARMS
+import org.tasks.data.entity.SYNC_LOCATION
+import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
@@ -217,7 +220,7 @@ FROM recursive_tasks
                 task.order = it.order
             }
         }
-        if (updateTimestamp && !task.insignificantChange(original)) {
+        if (updateTimestamp && (!task.insignificantChange(original) || task.checkTransitory(SYNC_TAGS, SYNC_ALARMS, SYNC_LOCATION))) {
             task.modificationDate = DateTimeUtils2.currentTimeMillis()
         }
         if (original == null || task.reminderDismissed >= original.reminderDismissed) {

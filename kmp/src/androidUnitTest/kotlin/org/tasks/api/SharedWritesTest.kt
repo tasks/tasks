@@ -2,6 +2,7 @@ package org.tasks.api
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -186,9 +187,14 @@ class SharedWritesTest : ApiTestCase() {
         val place = engine.createPlace(writer, PlaceWrite(name = "Yard", latitude = 1.0, longitude = 2.0))
 
         assertEquals("Garage", engine.queryById(Lists.PATH, list.id).first().toListRow().title)
-        assertEquals(7, tag.color)
-        assertEquals("Yard", place.name)
-        assertEquals("a repeated tag name resolves to the same row", tag, engine.createTag(writer, TagWrite(name = "Errands")))
+        assertEquals(7, tag.row.color)
+        assertTrue(tag.created)
+        assertEquals("Yard", place.row.name)
+        assertTrue(place.created)
+        val again = engine.createTag(writer, TagWrite(name = "Errands"))
+        assertEquals("a repeated tag name resolves to the same row", tag.row, again.row)
+        assertFalse("and says it created nothing", again.created)
+        assertFalse(engine.createPlace(writer, PlaceWrite(name = "Shed", latitude = 1.0, longitude = 2.0)).created)
     }
 
     @Test

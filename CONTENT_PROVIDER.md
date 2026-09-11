@@ -335,7 +335,7 @@ read-only.
 | `start_all_day` | 0/1 | • | 1 means the start date carries no time of day |
 | `completed_at` | long | • | `0` when not completed. Writable — see [Update a task](#update-a-task) |
 | `created_at` | long |  | When the task was created |
-| `modified_at` | long |  | When the task row last changed |
+| `modified_at` | long |  | When the task last changed, counting its tags, reminders, list and parent |
 | `recurrence` | string | • | RFC 5545 `RRULE`. `""` when the task does not repeat — see [Recurring tasks](#recurring-tasks) |
 | `repeat_from` | string | • | `due_date`, `completion_date` |
 | `parent_id` | long | • | `0` for a top-level task |
@@ -437,11 +437,11 @@ Some values are not plain column writes:
 
 | Value | Effect |
 | --- | --- |
-| `completed_at` | Completing, not a column assignment. A timestamp completes the task with that date; `0` uncompletes it. Cascades to subtasks, un-completes parents when uncompleting, cancels pending notifications, and advances a recurring task rather than leaving it done — see [Recurring tasks](#recurring-tasks) |
+| `completed_at` | Completing, not a column assignment. A timestamp completes the task with that date; `0` uncompletes it. Cascades to subtasks either way, un-completes parents when uncompleting, cancels pending notifications, and advances a recurring task rather than leaving it done — see [Recurring tasks](#recurring-tasks) |
 | `due_date` | A start date on the due date, the day before or the week before moves with it; any other start date stays put. Send `start_date` too to set it explicitly. A monthly `BYDAY` rule is re-anchored to the new date's weekday and week (`2TU` → `3WE`). `0` clears a relative start date and removes reminders relative to the due date |
 | `start_date` | `0` removes reminders relative to the start date |
 | `recurrence` | A task with no due date gets today's date |
-| `list_id` | Moves the task, and its subtasks, to another list. `0` throws `IllegalArgumentException` |
+| `list_id` | Moves the task, and its subtasks, to another list. A subtask moved on its own becomes top-level there — send `parent_id` too to keep it under a task. `0` throws `IllegalArgumentException` |
 | `place_id` | Files the task under a place, keeping any reminders it already had. `0` removes the place and its reminders |
 | `parent_id` | Re-parents the task. `0` moves it to the top level. |
 

@@ -57,6 +57,12 @@ class ApiWriter(
     private val locationService: LocationService,
     private val listManager: ApiListManager,
 ) {
+    data class Insertion(val id: Long, val created: Boolean)
+
+    suspend fun descendantsOf(ids: List<Long>): List<Long> = taskDao.getChildren(ids)
+
+    suspend fun ancestorsOf(id: Long): List<Long> = taskDao.getParents(id).filter { it != id }
+
     suspend fun insertTask(values: ApiValues): Long {
         values.reject(Tasks.PATH, Tasks.INSERT_ONLY + Tasks.WRITABLE)
         val title = values.name(Tasks.TITLE)
@@ -132,6 +138,7 @@ class ApiWriter(
             val filter = resolveListByUuid(destination)
             requireWritable(filter.calendar)
             taskMover.move(listOf(id), filter, newParent ?: 0L)
+            taskDao.fetch(id)?.let { touch(it) }
         }
 
         values.number(Tasks.PLACE_ID)?.let { placeId ->
@@ -495,11 +502,11 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun insertTag(values: ApiValues): Long {
+    suspend fun insertTag(values: ApiValues): Insertion {
         values.reject(Tags.PATH, Tags.WRITABLE)
         val name = values.name(Tags.NAME)
             ?: throw IllegalArgumentException("${Tags.NAME} is required")
-        tagDataDao.getTagByName(name)?.let { return it.id!! }
+        tagDataDao.getTagByName(name)?.let { return Insertion(it.id!!, created = false) }
         val created = tagDataDao.createDirty(
             TagData(
                 name = name,
@@ -507,7 +514,7 @@ class ApiWriter(
                 icon = values.text(Tags.ICON)?.takeIf { it.isNotEmpty() },
             )
         ) ?: tagDataDao.getTagByName(name)
-        return created?.id ?: throw IllegalStateException("Failed to create tag")
+        return Insertion(created?.id ?: throw IllegalStateException("Failed to create tag"), created = true)
     }
 
     suspend fun updateTag(id: Long, values: ApiValues): Int {
@@ -543,13 +550,15 @@ class ApiWriter(
         return 1
     }
 
-    suspend fun insertPlace(values: ApiValues): Long {
+    suspend fun insertPlace(values: ApiValues): Insertion {
         values.reject(Places.PATH, Places.INSERT_ONLY + Places.WRITABLE)
         val latitude = values.decimal(Places.LATITUDE)
             ?: throw IllegalArgumentException("${Places.LATITUDE} is required")
         val longitude = values.decimal(Places.LONGITUDE)
             ?: throw IllegalArgumentException("${Places.LONGITUDE} is required")
-        locationDao.findPlace(latitude.toLikeString(), longitude.toLikeString())?.let { return it.id }
+        locationDao.findPlace(latitude.toLikeString(), longitude.toLikeString())?.let {
+            return Insertion(it.id, created = false)
+        }
         val place = Place(
             name = values.text(Places.NAME),
             address = values.text(Places.ADDRESS),
@@ -561,7 +570,7 @@ class ApiWriter(
             color = values.number(Places.COLOR)?.toInt() ?: 0,
             icon = values.text(Places.ICON)?.takeIf { it.isNotEmpty() },
         )
-        return locationDao.insert(place)
+        return Insertion(locationDao.insert(place), created = true)
     }
 
     suspend fun updatePlace(id: Long, values: ApiValues): Int {
@@ -635,6 +644,12 @@ class ApiWriter(
     private suspend fun markSynced(task: Task, trait: String) {
         task.putTransitory(trait, true)
         taskSaver.save(task, task.copy())
+    }
+
+    private suspend fun touch(task: Task) {
+        val original = task.copy()
+        task.modificationDate = currentTimeMillis()
+        taskSaver.save(task, original)
     }
 
     companion object {

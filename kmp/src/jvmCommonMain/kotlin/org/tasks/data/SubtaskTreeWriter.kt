@@ -19,7 +19,6 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 data class SubtaskWriteResult(
     val wrote: Boolean,
@@ -250,7 +249,6 @@ class SubtaskTreeWriter(
                     tagDao.applyTags(row.task, tags)
                     row.task.putTransitory(SYNC_TAGS, true)
                 }
-                row.task.modificationDate = currentTimeMillis()
                 taskSaver.save(row.task, null)
                 wrote = true
             }

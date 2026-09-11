@@ -42,22 +42,28 @@ data class Revision(
     val tasks: List<TaskRow>,
     val unchangedIds: List<Long>,
     val movedToParentListIds: List<Long>,
+    val detachedIds: List<Long>,
 )
 
 suspend fun ApiQueryEngine.updateTasks(writer: ApiWriter, updates: List<TaskUpdate>): Revision {
     requireBatch(updates.size, "updates")
     requireDistinct(updates.map { it.id })
     requireChanges(updates)
+    val parentsBefore = tasksById(updates.map { it.id }).associate { it.id to it.parentId }
     val changed = transaction { updates.map { writer.updateTask(it.id, it.patch.toValues()) } }
     val applied = updates.zip(changed).filter { it.second > 0 }.map { it.first }
     val after = tasksById(applied.map { it.id })
     val landedOn = after.associate { it.id to it.listId }
+    val parentsAfter = after.associate { it.id to it.parentId }
     return Revision(
         rowsChanged = changed,
         tasks = after,
         unchangedIds = updates.zip(changed).filter { it.second == 0 }.map { it.first.id },
         movedToParentListIds = applied
             .filter { movedToParentList(it.patch.parentId, it.patch.listId, landedOn[it.id]) }
+            .map { it.id },
+        detachedIds = applied
+            .filter { it.patch.parentId == null && parentsBefore[it.id] != null && parentsAfter[it.id] == null }
             .map { it.id },
     )
 }
@@ -73,14 +79,21 @@ suspend fun ApiQueryEngine.completeTasks(
     val stamp = if (completed) completedAt ?: System.currentTimeMillis() else 0L
     val values = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp)
     val before = unique.associateWith { taskRow(it)?.recurrence }
+    val related = (writer.descendantsOf(unique) + unique.flatMap { writer.ancestorsOf(it) })
+        .distinct()
+        .filter { it !in unique }
+    val relatedBefore = tasksById(related).associate { it.id to (it.completed != null) }
     val changed = transaction { unique.map { writer.updateTask(it, values) } }
     val tasks = tasksById(unique)
     val byId = tasks.associateBy { it.id }
     val after = unique.associateWith { byId[it]?.completed }
+    val relatedAfter = tasksById(related).associate { it.id to (it.completed != null) }
     return Completion(
         taskIds = unique,
         rowsChanged = changed,
         advancedTaskIds = if (completed) advancedSeries(before, after) else emptyList(),
+        alsoCompletedTaskIds = related.filter { relatedBefore[it] == false && relatedAfter[it] == true },
+        reopenedTaskIds = related.filter { relatedBefore[it] == true && relatedAfter[it] == false },
         tasks = tasks,
     )
 }
@@ -120,7 +133,7 @@ data class Deletion(
 )
 
 suspend fun ApiQueryEngine.deleteTask(writer: ApiWriter, id: Long): Deletion {
-    val subtasks = taskRow(id)?.childCount ?: 0
+    val subtasks = writer.descendantsOf(listOf(id)).size
     return deletion(writer.deleteTask(id), subtasks)
 }
 
@@ -150,16 +163,22 @@ suspend fun ApiQueryEngine.changeList(writer: ApiWriter, id: Long, write: ListWr
     return row(Lists.PATH, id) { it.toListRow() }
 }
 
-suspend fun ApiQueryEngine.createTag(writer: ApiWriter, write: TagWrite): TagRow =
-    row(Tags.PATH, writer.insertTag(write.toValues())) { it.toTagRow() }
+data class Created<T>(val row: T, val created: Boolean)
+
+suspend fun ApiQueryEngine.createTag(writer: ApiWriter, write: TagWrite): Created<TagRow> {
+    val insertion = writer.insertTag(write.toValues())
+    return Created(row(Tags.PATH, insertion.id) { it.toTagRow() }, insertion.created)
+}
 
 suspend fun ApiQueryEngine.changeTag(writer: ApiWriter, id: Long, write: TagWrite): TagRow {
     writer.updateTag(id, write.toValues()).orNotFound(Tags.PATH, id)
     return row(Tags.PATH, id) { it.toTagRow() }
 }
 
-suspend fun ApiQueryEngine.createPlace(writer: ApiWriter, write: PlaceWrite): PlaceRow =
-    row(Places.PATH, writer.insertPlace(write.toValues())) { it.toPlaceRow() }
+suspend fun ApiQueryEngine.createPlace(writer: ApiWriter, write: PlaceWrite): Created<PlaceRow> {
+    val insertion = writer.insertPlace(write.toValues())
+    return Created(row(Places.PATH, insertion.id) { it.toPlaceRow() }, insertion.created)
+}
 
 suspend fun ApiQueryEngine.changePlace(writer: ApiWriter, id: Long, write: PlaceWrite): PlaceRow {
     writer.updatePlace(id, write.toValues()).orNotFound(Places.PATH, id)

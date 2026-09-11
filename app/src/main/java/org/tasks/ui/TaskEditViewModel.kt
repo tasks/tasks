@@ -352,13 +352,11 @@ class TaskEditViewModel @Inject constructor(
                 locationService.updateGeofences(place)
             }
             task.putTransitory(SYNC_LOCATION, true)
-            task.modificationDate = currentTimeMillis()
         }
         val selectedTags = _viewState.value.tags
         if ((isNew && selectedTags.isNotEmpty()) || originalState.value.tags.toHashSet() != selectedTags.toHashSet()) {
             tagDao.applyTags(task, selectedTags)
             task.putTransitory(SYNC_TAGS, true)
-            task.modificationDate = currentTimeMillis()
         }
 
         if (!task.hasStartDate()) {
@@ -382,7 +380,6 @@ class TaskEditViewModel @Inject constructor(
         ) {
             alarmService.synchronizeAlarms(task.id, _viewState.value.alarms.toMutableSet())
             task.putTransitory(SYNC_ALARMS, true)
-            task.modificationDate = currentTimeMillis()
         }
 
         taskSaver.save(task, original)

@@ -143,8 +143,8 @@ abstract class TasksApiProvider : ContentProvider() {
                 REMINDERS -> writer.insertReminder(row)
                 TASK_TAGS -> writer.insertTaskTag(row)
                 LISTS -> writer.insertList(row)
-                TAGS -> writer.insertTag(row)
-                else -> writer.insertPlace(row)
+                TAGS -> writer.insertTag(row).id
+                else -> writer.insertPlace(row).id
             }
         }
         return ContentUris.withAppendedId(collectionUri(path), id)

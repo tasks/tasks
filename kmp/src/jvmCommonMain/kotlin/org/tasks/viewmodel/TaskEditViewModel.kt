@@ -1236,7 +1236,6 @@ class TaskEditViewModel(
         if (!snapshot.alarmsNeedSaving) return
         alarmService.synchronizeAlarms(task.id, snapshot.applicableAlarms().toMutableSet())
         task.putTransitory(SYNC_ALARMS, true)
-        task.modificationDate = currentTimeMillis()
     }
 
     private suspend fun applyTagsIfNeeded(snapshot: State, task: Task) {
@@ -1245,7 +1244,6 @@ class TaskEditViewModel(
         if ((snapshot.isNew && selected.isNotEmpty()) || changed) {
             tagDao.applyTags(task, selected)
             task.putTransitory(SYNC_TAGS, true)
-            task.modificationDate = currentTimeMillis()
         }
     }
 }

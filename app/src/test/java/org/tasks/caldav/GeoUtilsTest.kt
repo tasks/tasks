@@ -25,6 +25,10 @@ class GeoUtilsTest {
             assertEquals("-12.68", newGeo(-37.3, -12.68).longitudeLike())
 
     @Test
+    fun getWholeNumberLikeMatchesTheStoredReal() =
+            assertEquals("1.0", newGeo(1.0, -12.68).latitudeLike())
+
+    @Test
     fun compareGeo() =
             assertTrue(newGeo(-37.3, -12.68).equalish(newGeo(-37.3, -12.68)))
 
