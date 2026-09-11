@@ -56,6 +56,7 @@
 +|    |         |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0 (c)
 +|    |         |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0 (c)
 +|    |         |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (c)
++|    |         |    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.11.0 (c)
 +|    |         |    |         |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.11.0 (c)
 +|    |         |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
 +|    |         |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
@@ -1601,6 +1602,33 @@
 ++--- androidx.room:room-runtime:2.8.4 (*)
 ++--- androidx.sqlite:sqlite-bundled:2.7.0 (*)
 ++--- androidx.appcompat:appcompat:1.8.0 (*)
+++--- androidx.appfunctions:appfunctions:1.0.0-alpha11
++|    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
++|    +--- androidx.appsearch:appsearch:1.1.0
++|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
++|    |    +--- androidx.collection:collection:1.4.2 -> 1.6.0 (*)
++|    |    +--- androidx.concurrent:concurrent-futures:1.0.0 -> 1.1.0 (*)
++|    |    +--- androidx.core:core:1.9.0 -> 1.18.0 (*)
++|    |    +--- com.google.auto.service:auto-service-annotations:1.0-rc6
++|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
++|    |    +--- org.jspecify:jspecify:1.0.0
++|    |    \--- androidx.appsearch:appsearch-platform-storage:1.1.0 (c)
++|    +--- androidx.appsearch:appsearch-platform-storage:1.1.0
++|    |    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
++|    |    +--- androidx.appsearch:appsearch:1.1.0 (*)
++|    |    +--- androidx.collection:collection:1.4.2 -> 1.6.0 (*)
++|    |    +--- androidx.concurrent:concurrent-futures:1.0.0 -> 1.1.0 (*)
++|    |    +--- androidx.core:core:1.0.0 -> 1.18.0 (*)
++|    |    +--- org.jspecify:jspecify:1.0.0
++|    |    \--- androidx.appsearch:appsearch:1.1.0 (c)
++|    +--- com.google.guava:guava:32.0.1-android -> 33.4.0-android (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.9.0 -> 1.11.0
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
++|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
++|         +--- com.google.guava:guava:32.0.0-jre -> 33.4.0-android (*)
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
 ++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
