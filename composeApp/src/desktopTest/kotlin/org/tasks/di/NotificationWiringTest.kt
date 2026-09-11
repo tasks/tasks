@@ -15,6 +15,8 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.tasks.data.db.Database
 import org.tasks.extensions.closeQuietly
+import org.tasks.jobs.BackgroundWork
+import org.tasks.jobs.RefreshScheduler
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationActionHandler
 import org.tasks.notifications.NotificationScheduler
@@ -82,6 +84,14 @@ class NotificationWiringTest {
         assertSame(koin.get<NotificationScheduler>(), koin.get<NotificationScheduler>())
         assertSame(koin.get<DesktopNotifier>(), koin.get<DesktopNotifier>())
         assertSame(koin.get<NotificationActionHandler>(), koin.get<NotificationActionHandler>())
+    }
+
+    @Test
+    fun resolvesRefreshGraph() {
+        val koin = start()
+
+        koin.get<BackgroundWork>()
+        assertSame(koin.get<RefreshScheduler>(), koin.get<RefreshScheduler>())
     }
 
     private fun start(): Koin =

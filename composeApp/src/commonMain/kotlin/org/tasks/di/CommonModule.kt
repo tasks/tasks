@@ -56,6 +56,7 @@ import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.jobs.BackgroundWork
+import org.tasks.jobs.RefreshScheduler
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
@@ -412,13 +413,21 @@ val commonModule = module {
     }
 
     // Stateful singletons
+    single {
+        RefreshScheduler(
+            nextRefresh = { get<org.tasks.data.dao.TaskDao>().nextRefresh(it) },
+            refresh = { get<RefreshBroadcaster>().broadcastRefresh() },
+        )
+    }
     single<BackgroundWork> {
         val scope = get<CoroutineScope>()
         val mutex = kotlinx.coroutines.sync.Mutex()
         val pending = java.util.concurrent.atomic.AtomicBoolean(false)
+        val refreshScheduler = get<RefreshScheduler>()
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
-            override suspend fun scheduleRefresh(timestamp: Long) {}
+            override suspend fun scheduleRefresh(timestamp: Long) =
+                refreshScheduler.schedule(timestamp)
             override suspend fun scheduleBlogFeedCheck() {}
             override fun migrateLocalTasks(
                 localAccount: CaldavAccount,

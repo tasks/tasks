@@ -35,6 +35,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
+import org.tasks.jobs.RefreshScheduler
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationScheduler
 import org.tasks.requestForeground
@@ -305,6 +306,7 @@ fun main() {
             val backgroundWork = koinInject<BackgroundWork>()
             val platformConfig = koinInject<PlatformConfiguration>()
             val notificationScheduler = koinInject<NotificationScheduler>()
+            val refreshScheduler = koinInject<RefreshScheduler>()
             val notifier = koinInject<DesktopNotifier>()
             val refreshBroadcaster = koinInject<ComposeRefreshBroadcaster>()
             val lifecycleScope = rememberCoroutineScope()
@@ -317,6 +319,7 @@ fun main() {
                     AnalyticsEvents.PARAM_FROM_BACKGROUND to false,
                 )
                 sseClient.start()
+                refreshScheduler.start(lifecycleScope, Dispatchers.Default)
                 if (platformConfig.supportsNotifications) {
                     notificationScheduler.start(lifecycleScope, Dispatchers.Default) {
                         notifier.reconcileNotifications()
@@ -358,6 +361,7 @@ fun main() {
                                 AnalyticsEvents.PARAM_FROM_BACKGROUND to true,
                             )
                             sseClient.reconnect()
+                            refreshScheduler.signal()
                             notificationScheduler.signal()
                             lifecycleScope.launch {
                                 backgroundWork.sync(SyncSource.APP_RESUME)
