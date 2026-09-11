@@ -621,4 +621,5 @@
     <string name="theme_system_default">Sistem öntanımlısı</string>
     <string name="repeat_monthly_on_last_day">Son günde aylık</string>
     <string name="repeat_monthly_last_day">son gün</string>
+    <string name="works_with_desktop">Masaüstü için Tasks.org</string>
 </resources>

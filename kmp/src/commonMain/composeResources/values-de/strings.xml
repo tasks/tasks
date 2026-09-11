@@ -621,4 +621,5 @@
     <string name="repeat_monthly_last_day">Der letzte Tag</string>
     <string name="subtasks_will_be_flattened">Diese Liste unterstützt keine verschachtelten Teilaufgaben. Beim Speichern werden sie alle auf die höchste Stufe verschoben.</string>
     <string name="subtask_list_locked">Neue Teilaufgaben werden in die Liste des übergeordneten Elements aufgenommen</string>
+    <string name="works_with_desktop">Tasks.org für Desktop</string>
 </resources>
