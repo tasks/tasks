@@ -112,11 +112,10 @@ class WriteEffectsTest : ApiTestCase() {
         val tag = engine.createTag(writer, TagWrite(name = "urgent")).row.id
         var last = modifiedOf(id)
 
-        fun advanced(what: String): Long {
+        fun advanced(what: String) {
             val now = modifiedOf(id)
             assertTrue("$what did not bump modified", now > last)
             last = now
-            return now
         }
 
         pause()

@@ -103,6 +103,7 @@ class TasksApiIntegrationTest : InjectingTestCase() {
                 ContentProviderOperation.newInsert(uri(Tasks.PATH))
                     .withValue(Tasks.TITLE, "Renew passport")
                     .withValue(Tasks.LIST_ID, listId)
+                    .withValue(Tasks.DUE_DATE, "2026-10-01")
                     .build(),
                 ContentProviderOperation.newInsert(uri(Reminders.PATH))
                     .withValueBackReference(Reminders.TASK_ID, 0)
