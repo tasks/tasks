@@ -248,6 +248,10 @@ to change it — including when you want to change it back.
 All-day dates are in the device's local time zone; only the calendar day survives. Compute
 from local midnight, not UTC.
 
+`due_date` and `start_date` also accept a local date string on write: `2026-09-12` is an
+all-day date, `2026-09-12T19:00:00` a date and time, both in the device's time zone. A
+date-only string sets the all-day flag unless you send the flag yourself.
+
 ### Errors
 
 | Exception | Means |
@@ -325,9 +329,9 @@ read-only.
 | `title` | string | • | Task title |
 | `notes` | string | • | Markdown, as the user typed it |
 | `priority` | string | • | `high`, `medium`, `low`, `none` |
-| `due_date` | long | • | `0` when unset |
+| `due_date` | long | • | `0` when unset. Writes also take a local date string — see [Timestamps](#timestamps) |
 | `due_all_day` | 0/1 | • | 1 means the date carries no time of day |
-| `start_date` | long | • | Task is hidden until this time. `0` when unset |
+| `start_date` | long | • | Task is hidden until this time. `0` when unset. Writes also take a local date string |
 | `start_all_day` | 0/1 | • | 1 means the start date carries no time of day |
 | `completed_at` | long | • | `0` when not completed. Writable — see [Update a task](#update-a-task) |
 | `created_at` | long |  | When the task was created |

@@ -12,9 +12,18 @@ import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 class TasksApiWriteTest : ApiTestCase() {
+    private fun Long.toLocalDateTime(): LocalDateTime =
+        Instant.ofEpochMilli(this).atZone(ZoneId.systemDefault()).toLocalDateTime()
+
+    private fun Long.toLocalDate(): LocalDate = toLocalDateTime().toLocalDate()
+
     @Test
     fun createReturnsAnItemUri() {
         val uri = resolver.insert(
@@ -133,6 +142,48 @@ class TasksApiWriteTest : ApiTestCase() {
         val due = query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE)
         assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
         assertEquals(day(1).startOfDay(), due.startOfDay())
+    }
+
+    @Test
+    fun aLocalDateStringIsAnAllDayDate() {
+        val id = newTask("t", Tasks.DUE_DATE to "2026-09-12")
+
+        assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+        assertEquals(LocalDate.of(2026, 9, 12), query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE).toLocalDate())
+    }
+
+    @Test
+    fun aLocalDateTimeStringIsATimedDate() {
+        val id = newTask("t", Tasks.DUE_DATE to "2026-09-12T19:00:00", Tasks.START_DATE to "2026-09-12T08:30")
+
+        assertEquals(0, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+        assertEquals(LocalDateTime.of(2026, 9, 12, 19, 0), query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE).toLocalDateTime())
+        assertEquals(LocalDateTime.of(2026, 9, 12, 8, 30), query(Tasks.PATH, "?_id=$id").long(Tasks.START_DATE).toLocalDateTime())
+    }
+
+    @Test
+    fun anExplicitAllDayFlagWinsOverTheStringForm() {
+        val id = newTask("t", Tasks.DUE_DATE to "2026-09-12T19:00:00", Tasks.DUE_ALL_DAY to 1)
+
+        assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
+    }
+
+    @Test
+    fun aDateReadBackCanBeWrittenBackAsItsLocalForm() {
+        val id = newTask("t", Tasks.DUE_DATE to "2026-09-12T19:00:00")
+        val stored = query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE)
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to stored.toLocalDateTime().plusDays(1).toString())
+
+        assertEquals(LocalDateTime.of(2026, 9, 13, 19, 0), query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE).toLocalDateTime())
+    }
+
+    @Test
+    fun aDateThatIsNeitherFormIsRejected() {
+        val error = runCatching { newTask("t", Tasks.DUE_DATE to "next tuesday") }.exceptionOrNull()
+
+        assertTrue(error is IllegalArgumentException)
+        assertTrue(error!!.message!!, "2026-09-12T19:00:00" in error.message!!)
     }
 
     @Test

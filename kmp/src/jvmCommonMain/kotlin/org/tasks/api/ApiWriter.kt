@@ -163,10 +163,10 @@ class ApiWriter(
         values.enum(Tasks.REPEAT_FROM, RepeatFrom.FROM_API, Task.RepeatFrom.DUE_DATE)
             ?.let { task.repeatFrom = it }
 
-        val due = values.number(Tasks.DUE_DATE)
-        val dueAllDay = values.flag(Tasks.DUE_ALL_DAY)
+        val due = values.date(Tasks.DUE_DATE)
+        val dueAllDay = values.flag(Tasks.DUE_ALL_DAY) ?: due?.allDay
         if (due != null || dueAllDay != null) {
-            task.dueDate = encodeDue(due ?: task.dueDate, dueAllDay ?: task.isDueAllDay())
+            task.dueDate = encodeDue(due?.millis ?: task.dueDate, dueAllDay ?: task.isDueAllDay())
         }
         if (task.dueDate != original.dueDate) {
             task.hideUntil = startDateFollowingDue(task.hideUntil, original.dueDate, task.dueDate)
@@ -174,11 +174,11 @@ class ApiWriter(
                 task.recurrence = task.recurrence.anchoredToDueDate(task.dueDate)
             }
         }
-        val start = values.number(Tasks.START_DATE)
-        val startAllDay = values.flag(Tasks.START_ALL_DAY)
+        val start = values.date(Tasks.START_DATE)
+        val startAllDay = values.flag(Tasks.START_ALL_DAY) ?: start?.allDay
         if (start != null || startAllDay != null) {
             task.hideUntil =
-                task.encodeStart(start ?: task.hideUntil, startAllDay ?: task.isStartAllDay())
+                task.encodeStart(start?.millis ?: task.hideUntil, startAllDay ?: task.isStartAllDay())
         }
         if (values.text(Tasks.RECURRENCE)?.isNotBlank() == true && !task.hasDueDate()) {
             task.dueDate = currentTimeMillis().startOfDay()
