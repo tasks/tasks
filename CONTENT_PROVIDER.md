@@ -435,6 +435,7 @@ Some values are not plain column writes:
 | --- | --- |
 | `completed_at` | Completing, not a column assignment. A timestamp completes the task with that date; `0` uncompletes it. Cascades to subtasks, un-completes parents when uncompleting, cancels pending notifications, and advances a recurring task rather than leaving it done — see [Recurring tasks](#recurring-tasks) |
 | `due_date` | A monthly `BYDAY` rule is re-anchored to the new date's weekday and week (`2TU` → `3WE`) |
+| `recurrence` | A task with no due date gets today's date |
 | `list_id` | Moves the task, and its subtasks, to another list. `0` throws `IllegalArgumentException` |
 | `place_id` | Files the task under a place, keeping any reminders it already had. `0` removes the place and its reminders |
 | `parent_id` | Re-parents the task. `0` moves it to the top level. |

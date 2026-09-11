@@ -3,6 +3,8 @@ package org.tasks.api
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.api.TasksContract.Tasks
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 import java.time.LocalDate
 import java.time.ZoneId
 
@@ -48,6 +50,14 @@ class DateEditRulesTest : ApiTestCase() {
         update(Tasks.PATH, id, Tasks.DUE_DATE to day(2))
 
         assertEquals("FREQ=WEEKLY;BYDAY=TH", recurrenceOf(id))
+    }
+
+    @Test
+    fun aRuleOnADatelessTaskDatesItToday() {
+        val id = newTask("Water plants", Tasks.RECURRENCE to "FREQ=DAILY")
+
+        assertEquals(currentTimeMillis().startOfDay(), dueOf(id).startOfDay())
+        assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
     }
 
     private fun dueOf(id: Long): Long = query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE)

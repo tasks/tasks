@@ -35,6 +35,8 @@ import org.tasks.repeats.anchoredToDueDate
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 
 class ApiWriter(
     private val apiDao: ApiDao,
@@ -171,6 +173,9 @@ class ApiWriter(
         if (start != null || startAllDay != null) {
             task.hideUntil =
                 task.encodeStart(start ?: task.hideUntil, startAllDay ?: task.isStartAllDay())
+        }
+        if (values.text(Tasks.RECURRENCE)?.isNotBlank() == true && !task.hasDueDate()) {
+            task.dueDate = currentTimeMillis().startOfDay()
         }
         values.number(Tasks.PARENT_ID)?.let { task.parent = it }
     }
