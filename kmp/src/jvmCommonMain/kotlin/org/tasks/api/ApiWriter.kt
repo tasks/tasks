@@ -9,6 +9,7 @@ import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.compose.pickers.startDateFollowingDue
 import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
@@ -165,8 +166,11 @@ class ApiWriter(
         if (due != null || dueAllDay != null) {
             task.dueDate = encodeDue(due ?: task.dueDate, dueAllDay ?: task.isDueAllDay())
         }
-        if (task.dueDate != original.dueDate && task.hasDueDate()) {
-            task.recurrence = task.recurrence.anchoredToDueDate(task.dueDate)
+        if (task.dueDate != original.dueDate) {
+            task.hideUntil = startDateFollowingDue(task.hideUntil, original.dueDate, task.dueDate)
+            if (task.hasDueDate()) {
+                task.recurrence = task.recurrence.anchoredToDueDate(task.dueDate)
+            }
         }
         val start = values.number(Tasks.START_DATE)
         val startAllDay = values.flag(Tasks.START_ALL_DAY)

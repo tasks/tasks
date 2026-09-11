@@ -4,11 +4,80 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
 import java.time.LocalDate
 import java.time.ZoneId
 
 class DateEditRulesTest : ApiTestCase() {
+
+    @Test
+    fun aStartOnTheDueDateMovesWithIt() {
+        val id = newTask("Trash", Tasks.DUE_DATE to day(1))
+        val due = dueOf(id)
+        update(Tasks.PATH, id, Tasks.START_DATE to due)
+        assertEquals(due, startOf(id))
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to due + ONE_DAY)
+
+        assertEquals(dueOf(id), startOf(id))
+        assertEquals(due + ONE_DAY, dueOf(id))
+    }
+
+    @Test
+    fun aStartTheDayBeforeDueStaysTheDayBefore() {
+        val id = newTask("Pack", Tasks.DUE_DATE to day(3), Tasks.DUE_ALL_DAY to 1)
+        val due = dueOf(id)
+        update(Tasks.PATH, id, Tasks.START_DATE to due - ONE_DAY, Tasks.START_ALL_DAY to 1)
+        assertEquals((due - ONE_DAY).startOfDay(), startOf(id))
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to due + 3 * ONE_DAY)
+
+        assertEquals((dueOf(id) - ONE_DAY).startOfDay(), startOf(id))
+    }
+
+    @Test
+    fun anAbsoluteStartStaysWhereItIs() {
+        val id = newTask("Taxes", Tasks.DUE_DATE to day(10), Tasks.DUE_ALL_DAY to 1)
+        val start = (dueOf(id) - 3 * ONE_DAY).startOfDay()
+        update(Tasks.PATH, id, Tasks.START_DATE to start, Tasks.START_ALL_DAY to 1)
+
+        update(Tasks.PATH, id, Tasks.DUE_DATE to dueOf(id) + 2 * ONE_DAY)
+
+        assertEquals(start, startOf(id))
+    }
+
+    @Test
+    fun aStartSentWithTheDueDateIsTheOneKept() {
+        val id = newTask("Trash", Tasks.DUE_DATE to day(1))
+        val due = dueOf(id)
+        update(Tasks.PATH, id, Tasks.START_DATE to due)
+        val chosen = (due - 5 * ONE_DAY).startOfDay()
+
+        update(
+            Tasks.PATH, id,
+            Tasks.DUE_DATE to due + ONE_DAY,
+            Tasks.START_DATE to chosen,
+            Tasks.START_ALL_DAY to 1,
+        )
+
+        assertEquals(chosen, startOf(id))
+    }
+
+    @Test
+    fun clearingTheDueDateClearsARelativeStartAndKeepsAnAbsoluteOne() {
+        val relative = newTask("Trash", Tasks.DUE_DATE to day(1))
+        update(Tasks.PATH, relative, Tasks.START_DATE to dueOf(relative))
+        val absolute = newTask("Taxes", Tasks.DUE_DATE to day(10), Tasks.DUE_ALL_DAY to 1)
+        val start = (dueOf(absolute) - 3 * ONE_DAY).startOfDay()
+        update(Tasks.PATH, absolute, Tasks.START_DATE to start, Tasks.START_ALL_DAY to 1)
+
+        update(Tasks.PATH, relative, Tasks.DUE_DATE to 0L)
+        update(Tasks.PATH, absolute, Tasks.DUE_DATE to 0L)
+
+        assertEquals(0L, startOf(relative))
+        assertEquals(start, startOf(absolute))
+    }
 
     @Test
     fun aMonthlyWeekdayRuleFollowsTheDueDate() {
@@ -61,6 +130,8 @@ class DateEditRulesTest : ApiTestCase() {
     }
 
     private fun dueOf(id: Long): Long = query(Tasks.PATH, "?_id=$id").long(Tasks.DUE_DATE)
+
+    private fun startOf(id: Long): Long = query(Tasks.PATH, "?_id=$id").long(Tasks.START_DATE)
 
     private fun recurrenceOf(id: Long): String = query(Tasks.PATH, "?_id=$id").string(Tasks.RECURRENCE)
 

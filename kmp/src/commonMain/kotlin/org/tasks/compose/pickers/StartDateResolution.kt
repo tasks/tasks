@@ -63,6 +63,11 @@ fun resolveStartDate(day: StartDate, time: Int, dueDate: Long): Long {
 private fun Long.withStartTime(time: Int): Long =
     if (time > NO_TIME) withMillisOfDay(time) else startOfDay()
 
+fun startDateFollowingDue(hideUntil: Long, from: Long, to: Long): Long {
+    val selection = startDateSelection(hideUntil, from)
+    return resolveStartDate(selection.day, selection.time, to)
+}
+
 fun Long.withTimeMarkerOr(floor: (Long) -> Long): Long = when {
     this <= 0 -> 0L
     Task.hasDueTime(this) -> startOfMinute() + 1000
