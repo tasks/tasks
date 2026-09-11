@@ -621,4 +621,5 @@
     <string name="snoozed_reminder">Paŭzigis memorigilon</string>
     <string name="subtasks_will_be_flattened">Ĉi tiu listo ne subtenas nestitajn subtaskojn. Konservi kaŭzos ke ili ĉiuj moviĝos al la supra nivelo.</string>
     <string name="subtask_list_locked">Novaj subtaskoj uzas la patran liston</string>
+    <string name="works_with_desktop">Tasks.org por labortablo</string>
 </resources>
