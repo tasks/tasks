@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:displayDescription="Read and manage your tasks, lists, tags, places, and reminders"
     appfn:description="Tasks.org manages the user's tasks, lists, tags, saved places and reminders on this device.
 
 Things about this data model that are easy to get wrong:
