@@ -145,7 +145,7 @@ class TaskQueryTest : ApiTestCase() {
 
         assertEquals(1, page.rows.size)
         assertEquals(3, page.total)
-        assertTrue(page.hasMore)
+        assertEquals(true, page.hasMore)
     }
 
     @Test
@@ -162,7 +162,7 @@ class TaskQueryTest : ApiTestCase() {
     fun theLastPageReportsNoMore() {
         repeat(3) { newTask("Task $it") }
 
-        assertFalse(find(TaskQuery(limit = 2, offset = 2)).hasMore)
+        assertEquals(false, find(TaskQuery(limit = 2, offset = 2)).hasMore)
     }
 
     @Test

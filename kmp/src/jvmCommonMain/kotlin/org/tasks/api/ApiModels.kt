@@ -435,9 +435,9 @@ suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
     val pattern = query.pattern
         ?: return query.args(query.take, query.skip)
             .let { this.query(TasksContract.Tasks.PATH, it) }
-            .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, query.skip) }
+            .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, query.take, query.skip) }
     val scan = scanTasks(pattern, query.fields, query.take, query.skip, query::args)
-    return ApiPage(scan.rows, scan.total, query.skip)
+    return ApiPage(scan.rows, scan.total, query.take, query.skip)
 }
 
 suspend fun ApiQueryEngine.countTasks(query: TaskQuery): Int =

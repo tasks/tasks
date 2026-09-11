@@ -9,10 +9,13 @@ import org.tasks.api.TasksContract.Tags
 data class ApiPage<T>(
     val rows: List<T>,
     val total: Int,
-    val offset: Int,
+    val offset: Int?,
 ) {
-    val hasMore: Boolean get() = offset + rows.size < total
+    val hasMore: Boolean? get() = offset?.let { it + rows.size < total }
 }
+
+fun <T> ApiPage(rows: List<T>, total: Int, limit: Int, offset: Int): ApiPage<T> =
+    ApiPage(rows, total, offset.takeIf { limit > 0 })
 
 fun pageLimit(limit: Int?): Int =
     (limit ?: TasksContract.DEFAULT_LIMIT).coerceIn(0, TasksContract.MAX_LIMIT)
@@ -97,7 +100,7 @@ private suspend fun <T> ApiQueryEngine.find(
         put(TasksContract.PARAM_OFFSET, skip.toString())
     }
     val rows = query(path, args)
-    return ApiPage(rows.map { map(it) }, rows.total, skip)
+    return ApiPage(rows.map { map(it) }, rows.total, take, skip)
 }
 
 internal fun ApiQueryArgs.Builder.putEach(key: String, values: Collection<Any>) {

@@ -2,7 +2,7 @@ package org.tasks.api
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.api.TasksContract.Reminders
@@ -24,14 +24,15 @@ class ApiPagingTest : ApiTestCase() {
     private fun accounts(query: AccountQuery) = runBlocking { engine.findAccounts(query) }
 
     @Test
-    fun aLimitOfZeroCountsWithoutCollectingAnything() {
+    fun aLimitOfZeroCountsWithoutCollectingOrPagingAnything() {
         repeat(7) { insert(Tags.PATH, Tags.NAME to "tag $it") }
 
         val counted = tags(TagQuery(limit = 0))
 
         assertEquals(7, counted.total)
         assertTrue(counted.rows.isEmpty())
-        assertTrue(counted.hasMore)
+        assertNull(counted.offset)
+        assertNull(counted.hasMore)
     }
 
     @Test
@@ -44,10 +45,10 @@ class ApiPagingTest : ApiTestCase() {
         assertEquals(3, first.rows.size)
         assertEquals(7, first.total)
         assertEquals(0, first.offset)
-        assertTrue(first.hasMore)
+        assertEquals(true, first.hasMore)
         assertEquals(1, last.rows.size)
         assertEquals(6, last.offset)
-        assertFalse(last.hasMore)
+        assertEquals(false, last.hasMore)
     }
 
     @Test
