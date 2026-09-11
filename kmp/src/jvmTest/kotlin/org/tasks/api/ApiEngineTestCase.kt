@@ -1,15 +1,21 @@
 package org.tasks.api
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.data.MergedGeofence
 import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
@@ -25,6 +31,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskCompleter
@@ -150,6 +157,20 @@ abstract class ApiEngineTestCase {
         }
     }
 
+    private val tagMetadataSync: TagMetadataSync by lazy {
+        TagMetadataSync(caldavDao, db.tagDataDao(), mock(), mock(), TasksPreferences(InMemoryDataStore()))
+    }
+
+    private class InMemoryDataStore : DataStore<Preferences> {
+        private val state = MutableStateFlow(emptyPreferences())
+        override val data: Flow<Preferences> = state
+        override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences {
+            val updated = transform(state.value)
+            state.value = updated
+            return updated
+        }
+    }
+
     protected val writer: ApiWriter by lazy {
         ApiWriter(
             apiDao = db.apiDao(),
@@ -174,6 +195,7 @@ abstract class ApiEngineTestCase {
                 microsoftClientProvider = mock(),
                 gtasksInvoker = { mock() },
             ),
+            tagMetadataSync = tagMetadataSync,
         )
     }
 

@@ -901,6 +901,33 @@ class TagMetadataSyncTest : DatabaseTest() {
     }
 
     @Test
+    fun `a store abandoned by a sign-out is not replayed against the next account`() = runBlocking {
+        val signedOut = caldavDao.getAccount(
+            caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_TASKS, uuid = "tasks-org"))
+        )!!
+        preferences.set(TasksPreferences.metadataStoreAccount, signedOut.id)
+        preferences.set(TasksPreferences.metadataRev, "v1")
+        tagDataDao.insert(TagData(name = "Work"))
+        sync.deleteTag(tagDataDao.getAll().single())
+        db.deletionDao().delete(caldavAccount = signedOut, cleanup = {})
+        assertEquals(listOf("work"), tagDataDao.getTombstoneKeys())
+
+        val client = mock<CaldavClient> {
+            onBlocking { tagMetadataVersion(any()) } doReturn "v1"
+            onBlocking { tagMetadata(any()) } doReturn
+                    """{"rev":"v1","version":1,"tags":{"work":{"name":"Work"}},"order":[]}"""
+        }
+        val signedIn = caldavDao.getAccount(
+            caldavDao.insert(CaldavAccount(accountType = CaldavAccount.TYPE_TASKS, uuid = "tasks-org-again"))
+        )!!
+        sync.pull(signedIn, client, principal)
+
+        verify(client, never()).pushTagMetadata(any(), any(), any())
+        assertTrue(tagDataDao.getTombstoneKeys().isEmpty())
+        assertEquals("Work", tagDataDao.getAll().single().name)
+    }
+
+    @Test
     fun `reapOrphaned is a no-op for a non-primary account`() = runBlocking {
         tagDataDao.insert(TagData(name = "Work"))
         sync.applyRemote("""{"version":1,"tags":{"work":{"deleted":true,"ts":1}}}""")

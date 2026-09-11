@@ -435,10 +435,16 @@ class TagMetadataSync(
     }
 
     private suspend fun adoptStore(account: CaldavAccount) {
+        val abandoned = storeAbandoned()
         resetHeldStore(clearDirty = false)
+        if (abandoned) tagDataDao.clearAllTombstones()
         vtodoCache.putTagMetadata(account, null)
         preferences.set(TasksPreferences.metadataStoreAccount, account.id!!)
     }
+
+    private suspend fun storeAbandoned(): Boolean =
+        preferences.get(TasksPreferences.metadataStoreAccount, 0L)
+            .let { it != 0L && caldavDao.getAccount(it) == null }
 
     private suspend fun ensureStoreHeld(account: CaldavAccount) {
         if (!holdsStore(account)) adoptStore(account)

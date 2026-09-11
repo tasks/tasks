@@ -301,6 +301,7 @@ actual fun platformModule(): Module = module {
             alarmService = get(),
             locationService = get(),
             listManager = get(),
+            tagMetadataSync = get(),
         )
     }
     single { DatabaseTasksApi(engine = get(), writer = get()) }

@@ -1,6 +1,7 @@
 package org.tasks.api
 
 import android.content.ContentValues
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -10,6 +11,7 @@ import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import java.time.Instant
@@ -482,6 +484,29 @@ class TasksApiWriteTest : ApiTestCase() {
         assertEquals(1, delete(Tags.PATH, id))
         assertEquals(0, query(Tags.PATH).rows())
         assertEquals(0, query(TaskTags.PATH).rows())
+    }
+
+    @Test
+    fun deletingATagQueuesNoTombstoneWithoutAMetadataStore() {
+        val id = insert(Tags.PATH, Tags.NAME to "admin")
+
+        assertEquals(1, delete(Tags.PATH, id))
+
+        assertEquals(emptyList<String>(), runBlocking { db.tagDataDao().getTombstoneKeys() })
+    }
+
+    @Test
+    fun deletingATagQueuesATombstoneForTheMetadataStore() {
+        runBlocking {
+            caldavDao.insert(
+                CaldavAccount(accountType = CaldavAccount.TYPE_TASKS, uuid = "tasks-org")
+            )
+        }
+        val id = insert(Tags.PATH, Tags.NAME to "admin")
+
+        assertEquals(1, delete(Tags.PATH, id))
+
+        assertEquals(listOf("admin"), runBlocking { db.tagDataDao().getTombstoneKeys() })
     }
 
     @Test
