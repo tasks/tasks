@@ -23,6 +23,10 @@ object TasksContract {
     object Tasks {
         const val PATH = "tasks"
         val CONTENT_URI = "${TasksContract.CONTENT_URI}/$PATH"
+
+        fun idIn(uri: String): Long? =
+            uri.removePrefix("$CONTENT_URI/").takeIf { it != uri && '/' !in it }?.toLongOrNull()
+
         const val TYPE_DIR = "vnd.android.cursor.dir/vnd.org.tasks.task"
         const val TYPE_ITEM = "vnd.android.cursor.item/vnd.org.tasks.task"
 

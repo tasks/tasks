@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.tasks.api.TasksContract
 import org.tasks.data.dao.TaskDao
 import org.tasks.intents.TaskIntents
 import org.tasks.provider.TasksContentProvider
@@ -21,20 +22,14 @@ class UriHandler : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        when (TasksContentProvider.URI_MATCHER.match(intent.data ?: Uri.EMPTY)) {
-            URI_OPEN_TASK -> {
-                val id = intent.data?.lastPathSegment?.toLongOrNull() ?: 0
-                if (id > 0) {
-                    lifecycleScope.launch {
-                        val task = taskDao.fetch(id)
-                        task?.let {
-                            startActivity(TaskIntents.getEditTaskIntent(this@UriHandler, null, it))
-                        }
-                        finish()
-                    }
-                } else {
-                    newTask()
-                }
+        val data = intent.data ?: Uri.EMPTY
+        val apiTask = TasksContract.Tasks.idIn(data.toString())
+        when {
+            apiTask != null -> open(apiTask)
+            data.toString() == TasksContract.Tasks.CONTENT_URI -> newTask()
+            TasksContentProvider.URI_MATCHER.match(data) == URI_OPEN_TASK -> {
+                val id = data.lastPathSegment?.toLongOrNull() ?: 0
+                if (id > 0) open(id) else newTask()
             }
             else -> {
                 if (intent.type == "vnd.android.cursor.item/task") {
@@ -45,6 +40,15 @@ class UriHandler : AppCompatActivity() {
                     finish()
                 }
             }
+        }
+    }
+
+    private fun open(id: Long) {
+        lifecycleScope.launch {
+            taskDao.fetch(id)?.let {
+                startActivity(TaskIntents.getEditTaskIntent(this@UriHandler, null, it))
+            }
+            finish()
         }
     }
 

@@ -387,6 +387,15 @@ content://org.tasks.api/v0/tasks/{id}
 
 Same columns. Returns an empty cursor if the id does not exist or has been deleted.
 
+### Open a task in the app
+
+The item URI is also viewable: an `ACTION_VIEW` intent on it opens the task's edit screen, and
+one on the collection URI opens a new task.
+
+```kotlin
+startActivity(Intent(Intent.ACTION_VIEW, "content://org.tasks.api/v0/tasks/$taskId".toUri()))
+```
+
 ## Create a task
 
 ```

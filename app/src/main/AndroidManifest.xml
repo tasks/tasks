@@ -247,6 +247,15 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:mimeType="vnd.android.cursor.item/task"/>
       </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+          android:scheme="content"
+          android:host="${applicationId}.api"
+          android:mimeType="vnd.android.cursor.item/vnd.org.tasks.task" />
+        <data android:mimeType="vnd.android.cursor.dir/vnd.org.tasks.task" />
+      </intent-filter>
     </activity>
 
     <!-- Activity for selecting Android shortcut -->
