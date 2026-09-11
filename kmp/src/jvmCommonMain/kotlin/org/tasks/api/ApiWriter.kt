@@ -87,7 +87,7 @@ class ApiWriter(
         values.number(Tasks.PLACE_ID)?.let { placeId ->
             taskDao.fetch(task.id)?.let { applyPlace(it, placeId, resetTriggers = true) }
         }
-        values.number(Tasks.COMPLETED_AT)?.takeIf { it > 0 }?.let { completedAt ->
+        values.instant(Tasks.COMPLETED_AT)?.takeIf { it > 0 }?.let { completedAt ->
             taskDao.fetch(task.id)?.let {
                 taskCompleter.setComplete(it, completed = true, includeChildren = true, completedAt = completedAt)
             }
@@ -144,7 +144,7 @@ class ApiWriter(
         values.number(Tasks.PLACE_ID)?.let { placeId ->
             taskDao.fetch(id)?.let { applyPlace(it, placeId) }
         }
-        values.number(Tasks.COMPLETED_AT)?.let { completedAt ->
+        values.instant(Tasks.COMPLETED_AT)?.let { completedAt ->
             val completed = completedAt > 0
             if (completed != original.isCompleted) {
                 taskDao.fetch(id)?.let {
@@ -338,7 +338,7 @@ class ApiWriter(
         val absolute = type in AlarmTypes.ABSOLUTE
         val wrong = if (absolute) Reminders.OFFSET_MS else Reminders.TRIGGER_AT
         val right = if (absolute) Reminders.TRIGGER_AT else Reminders.OFFSET_MS
-        number(wrong)?.takeIf { it != 0L }?.let {
+        timing(wrong)?.takeIf { it != 0L }?.let {
             throw IllegalArgumentException(
                 "$wrong does not apply to a ${AlarmTypes.toApi(type)} reminder; use $right"
             )
@@ -352,8 +352,11 @@ class ApiWriter(
                 }
             }
         }
-        return number(right) ?: current ?: 0L
+        return timing(right) ?: current ?: 0L
     }
+
+    private fun ApiValues.timing(key: String): Long? =
+        if (key == Reminders.TRIGGER_AT) instant(key) else number(key)
 
     suspend fun insertTaskTag(values: ApiValues): Long {
         values.reject(TaskTags.PATH, TaskTags.INSERT_ONLY)
@@ -400,7 +403,7 @@ class ApiWriter(
         val apiType = if (arrival) Reminders.TYPE_LOCATION_ARRIVAL else Reminders.TYPE_LOCATION_DEPARTURE
         listOf(Reminders.TRIGGER_AT, Reminders.OFFSET_MS, Reminders.REPEAT_COUNT, Reminders.INTERVAL_MS)
             .forEach { key ->
-                values.number(key)?.takeIf { it != 0L }?.let {
+                values.timing(key)?.takeIf { it != 0L }?.let {
                     throw IllegalArgumentException("$key does not apply to a $apiType reminder")
                 }
             }

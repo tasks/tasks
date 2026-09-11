@@ -25,6 +25,14 @@ class ApiQueryArgs private constructor(
 
     fun long(key: String): Long? = single(key)?.toLongOrThrow(key)
 
+    fun instant(key: String): Long? = single(key)?.let { parseDate(key, it).millis }
+
+    fun flag(key: String): Boolean = when (val value = single(key)) {
+        null, "0", "false" -> false
+        "1", "true" -> true
+        else -> throw IllegalArgumentException("$key must be 0 or 1, was '$value'")
+    }
+
     fun <T> enums(key: String, allowed: Map<String, T>): List<T> = all(key).map {
         allowed[it] ?: throw IllegalArgumentException(
             "Unknown value for $key: '$it'. Expected one of ${allowed.keys.joinToString("|")}"

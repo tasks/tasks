@@ -1,7 +1,5 @@
 package org.tasks.api
 
-import java.time.LocalDate
-import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 data class TaskRow(
@@ -270,16 +268,16 @@ data class TaskQuery(
     val matches: String? = null,
     val matchCase: Boolean = false,
     val matchFields: List<String> = emptyList(),
-    val dueBefore: Long? = null,
-    val dueAfter: Long? = null,
-    val startBefore: Long? = null,
-    val startAfter: Long? = null,
-    val completedBefore: Long? = null,
-    val completedAfter: Long? = null,
-    val createdBefore: Long? = null,
-    val createdAfter: Long? = null,
-    val modifiedBefore: Long? = null,
-    val modifiedAfter: Long? = null,
+    val dueBefore: Any? = null,
+    val dueAfter: Any? = null,
+    val startBefore: Any? = null,
+    val startAfter: Any? = null,
+    val completedBefore: Any? = null,
+    val completedAfter: Any? = null,
+    val createdBefore: Any? = null,
+    val createdAfter: Any? = null,
+    val modifiedBefore: Any? = null,
+    val modifiedAfter: Any? = null,
     val sort: String? = null,
     val sortDesc: Boolean = false,
     val limit: Int? = null,
@@ -296,12 +294,17 @@ data class TaskQuery(
 
     val skip: Int = pageOffset(offset)
 
-    private val window: Pair<Long?, Long?>? = dueWindow(due.orNullIfBlank())
+    private val dueFilter: String? = due.orNullIfBlank()?.also {
+        if (it !in DUE_FILTERS) {
+            throw IllegalArgumentException(
+                "Unknown due filter '$it'. Supported: ${DUE_FILTERS.joinToString("|")}"
+            )
+        }
+    }
 
     fun args(chunk: Int, from: Int): ApiQueryArgs {
         val t = TasksContract.Tasks
-        val until = dueBefore ?: window?.second
-        val since = dueAfter ?: window?.first
+        val until = dueBefore ?: UNSCHEDULED_BOUND.takeIf { dueFilter == DUE_NONE }
         return ApiQueryArgs.build(TasksContract.paramsFor(t.PATH)) {
             putEach(t.PARAM_ID, ids)
             putEach(t.PARAM_LIST, listIds)
@@ -310,8 +313,9 @@ data class TaskQuery(
             putEach(t.PARAM_PRIORITY, priorities)
             putEach(t.PARAM_PARENT, parentIds)
             putIfNotNull(t.PARAM_COMPLETED, completed?.let { if (it) "1" else "0" })
+            if (dueFilter == DUE_OVERDUE) put(t.PARAM_OVERDUE, "1")
             putIfNotNull(t.PARAM_DUE_BEFORE, until)
-            putIfNotNull(t.PARAM_DUE_AFTER, since ?: scheduledOnly(until))
+            putIfNotNull(t.PARAM_DUE_AFTER, dueAfter ?: scheduledOnly(until))
             putIfNotNull(t.PARAM_START_BEFORE, startBefore)
             putIfNotNull(t.PARAM_START_AFTER, startAfter ?: scheduledOnly(startBefore))
             putIfNotNull(t.PARAM_COMPLETED_BEFORE, completedBefore)
@@ -325,24 +329,6 @@ data class TaskQuery(
             put(TasksContract.PARAM_LIMIT, chunk.toString())
             put(TasksContract.PARAM_OFFSET, from.toString())
         }
-    }
-}
-
-fun dueWindow(name: String?): Pair<Long?, Long?>? {
-    val zone = ZoneId.systemDefault()
-    val today = LocalDate.now(zone)
-    fun startOf(date: LocalDate) = date.atStartOfDay(zone).toInstant().toEpochMilli()
-    return when (name) {
-        null -> null
-        "today" -> (startOf(today) - 1) to startOf(today.plusDays(1))
-        "tomorrow" -> (startOf(today.plusDays(1)) - 1) to startOf(today.plusDays(2))
-        "overdue" -> 0L to System.currentTimeMillis()
-        "this_week" -> (startOf(today) - 1) to startOf(today.plusDays(7))
-        "has_due_date" -> 0L to null
-        "no_due_date" -> null to UNSCHEDULED_BOUND
-        else -> throw IllegalArgumentException(
-            "Unknown due filter '$name'. Supported: ${DUE_FILTERS.joinToString("|")}"
-        )
     }
 }
 
@@ -428,10 +414,14 @@ val TASK_STATUSES = listOf("open", "completed", "any")
 
 const val UNSCHEDULED_BOUND = 1L
 
-val DUE_FILTERS = listOf("today", "tomorrow", "overdue", "this_week", "has_due_date", "no_due_date")
+const val DUE_OVERDUE = "overdue"
 
-private fun scheduledOnly(before: Long?): Long? =
-    if (before != null && before != UNSCHEDULED_BOUND) 0L else null
+const val DUE_NONE = "no_due_date"
+
+val DUE_FILTERS = listOf(DUE_OVERDUE, DUE_NONE)
+
+private fun scheduledOnly(before: Any?): Long? =
+    if (before != null && before.toString() != UNSCHEDULED_BOUND.toString()) 0L else null
 
 suspend fun ApiQueryEngine.findTasks(query: TaskQuery): ApiPage<TaskRow> {
     val pattern = query.pattern
@@ -520,7 +510,7 @@ data class PlaceWrite(
 
 data class ReminderWrite(
     val type: String,
-    val triggerAt: Long? = null,
+    val triggerAt: Any? = null,
     val offsetMs: Long? = null,
     val repeatCount: Int? = null,
     val intervalMs: Long? = null,

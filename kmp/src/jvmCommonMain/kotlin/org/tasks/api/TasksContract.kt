@@ -67,6 +67,7 @@ object TasksContract {
         const val PARAM_PRIORITY = "priority"
         const val PARAM_PARENT = "parent_id"
         const val PARAM_COMPLETED = "completed"
+        const val PARAM_OVERDUE = "overdue"
         const val PARAM_SORT = "sort"
         const val PARAM_SORT_DESC = "sort_desc"
 
@@ -83,7 +84,7 @@ object TasksContract {
 
         val PARAMS = listOf(
             PARAM_ID, PARAM_SEARCH, PARAM_LIST, PARAM_TAG, PARAM_PLACE, PARAM_PRIORITY,
-            PARAM_PARENT, PARAM_COMPLETED,
+            PARAM_PARENT, PARAM_COMPLETED, PARAM_OVERDUE,
             PARAM_DUE_BEFORE, PARAM_DUE_AFTER, PARAM_START_BEFORE, PARAM_START_AFTER,
             PARAM_COMPLETED_BEFORE, PARAM_COMPLETED_AFTER, PARAM_CREATED_BEFORE, PARAM_CREATED_AFTER,
             PARAM_MODIFIED_BEFORE, PARAM_MODIFIED_AFTER, PARAM_SORT, PARAM_SORT_DESC,

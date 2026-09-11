@@ -6,6 +6,8 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.api.TasksContract.Tasks
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class TaskQueryTest : ApiTestCase() {
 
@@ -69,7 +71,19 @@ class TaskQueryTest : ApiTestCase() {
         newTask("Due", Tasks.DUE_DATE to DAY)
 
         assertEquals(listOf("Someday"), titles(TaskQuery(due = "no_due_date")))
-        assertEquals(listOf("Due"), titles(TaskQuery(due = "has_due_date")))
+        assertEquals(listOf("Due"), titles(TaskQuery(dueAfter = 0L)))
+    }
+
+    @Test
+    fun aBoundTakesALocalDate() {
+        newTask("Before", Tasks.DUE_DATE to local("2026-09-11T09:00:00"))
+        newTask("Sep 12", Tasks.DUE_DATE to local("2026-09-12T09:00:00"))
+        newTask("After", Tasks.DUE_DATE to local("2026-09-13T09:00:00"))
+
+        assertEquals(listOf("Sep 12"), titles(TaskQuery(dueAfter = "2026-09-12", dueBefore = "2026-09-13")))
+        assertEquals(listOf("Before"), titles(TaskQuery(dueBefore = "2026-09-12T08:00:00")))
+        assertEquals(listOf("Sep 12"), query(Tasks.PATH, "?due_after=2026-09-12&due_before=2026-09-13").strings(Tasks.TITLE))
+        assertTrue(message { find(TaskQuery(dueBefore = "next week")) }.contains("due_before must be"))
     }
 
     @Test
@@ -173,6 +187,9 @@ class TaskQueryTest : ApiTestCase() {
         assertFalse(movedToParentList(parentId = null, listId = 2L, landedOn = 3L))
         assertFalse(movedToParentList(parentId = 5L, listId = null, landedOn = 3L))
     }
+
+    private fun local(text: String): Long =
+        LocalDateTime.parse(text).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
 
     private companion object {
         const val DAY = 24L * 60 * 60 * 1000

@@ -72,7 +72,7 @@ suspend fun ApiQueryEngine.completeTasks(
     writer: ApiWriter,
     ids: List<Long>,
     completed: Boolean,
-    completedAt: Long? = null,
+    completedAt: Any? = null,
 ): Completion {
     val unique = ids.distinct()
     requireBatch(unique.size)

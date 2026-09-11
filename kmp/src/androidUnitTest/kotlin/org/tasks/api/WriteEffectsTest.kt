@@ -5,6 +5,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tasks
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_DAY
+import org.tasks.time.startOfDay
 
 class WriteEffectsTest : ApiTestCase() {
 
@@ -87,6 +90,23 @@ class WriteEffectsTest : ApiTestCase() {
         update(Tasks.PATH, parent, Tasks.LIST_ID to elsewhere)
         update(Tasks.PATH, id, Tasks.PARENT_ID to parent)
         advanced("re-parenting")
+    }
+
+    @Test
+    fun overdueIsWhatTheAppCallsOverdue() = runBlockingTest {
+        val now = currentTimeMillis()
+        newTask("Timed, passed", Tasks.DUE_DATE to now - 60_000)
+        newTask("Timed, ahead", Tasks.DUE_DATE to now + 60_000)
+        newTask("All day, yesterday", Tasks.DUE_DATE to now.startOfDay() - ONE_DAY, Tasks.DUE_ALL_DAY to 1)
+        newTask("All day, today", Tasks.DUE_DATE to now, Tasks.DUE_ALL_DAY to 1)
+
+        val titles = engine.findTasks(TaskQuery(due = "overdue")).rows.map { it.title }.sorted()
+        val raw = query(Tasks.PATH, "?overdue=1").strings(Tasks.TITLE).sorted()
+        val old = runCatching { TaskQuery(due = "today") }.exceptionOrNull()
+
+        assertEquals(listOf("All day, yesterday", "Timed, passed"), titles)
+        assertEquals(titles, raw)
+        assertTrue(old is IllegalArgumentException)
     }
 
     @Test

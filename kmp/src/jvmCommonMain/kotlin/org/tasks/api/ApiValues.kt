@@ -51,7 +51,7 @@ internal fun ApiValues.date(key: String): ApiDate? {
     }
 }
 
-private fun parseDate(key: String, text: String): ApiDate {
+internal fun parseDate(key: String, text: String): ApiDate {
     if (text.isEmpty()) return ApiDate(0L, null)
     text.toLongOrNull()?.let { return ApiDate(it, null) }
     val zone = ZoneId.systemDefault()
@@ -66,6 +66,8 @@ private fun parseDate(key: String, text: String): ApiDate {
             "like 2026-09-12T19:00:00, was '$text'"
     )
 }
+
+internal fun ApiValues.instant(key: String): Long? = date(key)?.millis
 
 internal fun ApiValues.decimal(key: String): Double? {
     if (!containsKey(key)) return null

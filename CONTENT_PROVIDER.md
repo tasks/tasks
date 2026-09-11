@@ -151,7 +151,7 @@ and `sort=start`, unset dates sort first ascending, last descending.
 
 ```kotlin
 val overdue = resolver.query(
-    "content://org.tasks.api/v0/tasks?limit=0&due_after=0&due_before=$now&completed=0".toUri(),
+    "content://org.tasks.api/v0/tasks?limit=0&overdue=1&completed=0".toUri(),
     null, null, null, null
 )?.use { it.extras.getInt(ContentResolver.EXTRA_TOTAL_COUNT, 0) } ?: 0
 ```
@@ -248,9 +248,11 @@ to change it — including when you want to change it back.
 All-day dates are in the device's local time zone; only the calendar day survives. Compute
 from local midnight, not UTC.
 
-`due_date` and `start_date` also accept a local date string on write: `2026-09-12` is an
-all-day date, `2026-09-12T19:00:00` a date and time, both in the device's time zone. A
-date-only string sets the all-day flag unless you send the flag yourself.
+Every timestamp you send — `due_date`, `start_date`, `completed_at`, `trigger_at` and the
+`_before` / `_after` query parameters — also takes a local date string: `2026-09-12` is a
+date, `2026-09-12T19:00:00` a date and time, both in the device's time zone. Written to
+`due_date` or `start_date`, a date-only string sets the all-day flag unless you send the flag
+yourself; everywhere else it means local midnight.
 
 ### Errors
 
@@ -288,11 +290,12 @@ content://org.tasks.api/v0/tasks
 | `priority` | enum | `high`, `medium`, `low`, `none`. Repeatable |
 | `parent_id` | long | Children of that task. `parent_id=0` returns top-level tasks. Repeatable |
 | `completed` | 0/1 | `0` for open tasks, `1` for completed ones. Omit for both |
-| `due_before` / `due_after` | long | Epoch millis, exclusive |
-| `start_before` / `start_after` | long | Epoch millis, exclusive |
-| `completed_before` / `completed_after` | long | Epoch millis, exclusive |
-| `created_before` / `created_after` | long | Epoch millis, exclusive |
-| `modified_before` / `modified_after` | long | Epoch millis, exclusive |
+| `overdue` | 0/1 | `1` for tasks the app shows as overdue: due with a time that has passed, or due all day on an earlier day |
+| `due_before` / `due_after` | timestamp | Exclusive. Epoch millis or a local date string — see [Timestamps](#timestamps) |
+| `start_before` / `start_after` | timestamp | Exclusive |
+| `completed_before` / `completed_after` | timestamp | Exclusive |
+| `created_before` / `created_after` | timestamp | Exclusive |
+| `modified_before` / `modified_after` | timestamp | Exclusive |
 | `sort` | enum | `due`, `start`, `created`, `modified`, `priority`, `title`. `_id` is always the final tiebreaker |
 | `sort_desc` | 0/1 | 1 reverses the sort. Default 0 |
 | `limit` | int | Default 100, no maximum |
@@ -311,7 +314,9 @@ Returns everything not deleted, including completed and hidden tasks. Common com
 | Completed | `completed=1` |
 | Not hidden | `start_before=<now>` |
 | Has a due date | `due_after=0` |
-| Today's unfinished tasks | `due_after=<start of day>&due_before=<end of day>&completed=0` |
+| No due date | `due_before=1` |
+| Overdue | `overdue=1&completed=0` |
+| Today's unfinished tasks | `due_after=<today>&due_before=<tomorrow>&completed=0`, as dates |
 | Recently modified | `modified_after=<timestamp>` |
 | Snoozed | `/v0/reminders?type=snooze`, then read the `task_id`s |
 | In a list, tag or place | `list_id=`, `tag_id=`, `place_id=` |
@@ -527,7 +532,7 @@ content://org.tasks.api/v0/reminders/{id}
 | `_id` | long |  | Row id. Local to this install |
 | `task_id` | long | insert | The task this row belongs to |
 | `type` | string | insert | `date_time`, `relative_start`, `relative_due`, `random`, `snooze`, `location_arrival`, `location_departure` |
-| `trigger_at` | long | • | Absolute time. `date_time` and `snooze` only |
+| `trigger_at` | long | • | Absolute time. `date_time` and `snooze` only. Writes also take a local date string |
 | `offset_ms` | long | • | Signed offset from the start or due date; negative is *before*. Relative and random types only |
 | `repeat_count` | int | • | How many times to repeat after the first trigger |
 | `interval_ms` | long | • | Gap between repeats |

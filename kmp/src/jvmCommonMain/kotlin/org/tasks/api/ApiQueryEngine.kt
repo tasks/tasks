@@ -11,6 +11,8 @@ import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.db.Database
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.startOfDay
 
 class ApiRows(
     val columns: List<String>,
@@ -177,8 +179,8 @@ class ApiQueryEngine(
         }
 
         private fun SqlWhere.range(column: String, args: ApiQueryArgs, before: String, after: String) = apply {
-            args.long(before)?.let { and("$column < ?", it) }
-            args.long(after)?.let { and("$column > ?", it) }
+            args.instant(before)?.let { and("$column < ?", it) }
+            args.instant(after)?.let { and("$column > ?", it) }
         }
 
         private fun SqlWhere.tasks(args: ApiQueryArgs) = apply {
@@ -219,6 +221,14 @@ class ApiQueryEngine(
                             " INNER JOIN places ON places.uid = geofences.place" +
                             " WHERE geofences.task = tasks._id" +
                             " AND places.place_id IN (${args.longs(Tasks.PARAM_PLACE).joinToString(",")}))"
+                )
+            }
+            if (args.flag(Tasks.PARAM_OVERDUE)) {
+                val now = currentTimeMillis()
+                and(
+                    "tasks.dueDate > 0 AND tasks.dueDate < CASE WHEN tasks.dueDate % 60000 > 0 THEN ? ELSE ? END",
+                    now,
+                    now.startOfDay(),
                 )
             }
             range("tasks.dueDate", args, Tasks.PARAM_DUE_BEFORE, Tasks.PARAM_DUE_AFTER)
