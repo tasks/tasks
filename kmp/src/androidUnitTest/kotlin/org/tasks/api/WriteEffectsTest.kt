@@ -1,9 +1,11 @@
 package org.tasks.api
 
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.jetbrains.compose.resources.getString
+import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.UUIDHelper
@@ -65,6 +67,23 @@ class WriteEffectsTest : ApiTestCase() {
         val completion = engine.completeTasks(writer, listOf(root), completed = false)
 
         assertEquals(listOf(child, grandchild).sorted(), completion.reopenedTaskIds.sorted())
+    }
+
+    @Test
+    fun aRelativeReminderNeedsItsDate() {
+        val dateless = newTask("Someday")
+        val dated = newTask("Dentist", Tasks.DUE_DATE to day(1))
+
+        val dueError = runCatching { reminder(dateless, Reminders.TYPE_RELATIVE_DUE) }.exceptionOrNull()
+        val startError = runCatching { reminder(dated, Reminders.TYPE_RELATIVE_START) }.exceptionOrNull()
+        reminder(dated, Reminders.TYPE_RELATIVE_DUE)
+
+        assertTrue(dueError is IllegalArgumentException)
+        assertTrue(dueError!!.message!!, "no due date" in dueError.message!!)
+        assertTrue(startError is IllegalArgumentException)
+        assertTrue(startError!!.message!!, "no start date" in startError.message!!)
+        assertEquals(0, query(Reminders.PATH, "?task_id=$dateless").rows())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$dated").rows())
     }
 
     @Test
@@ -165,6 +184,59 @@ class WriteEffectsTest : ApiTestCase() {
 
         assertEquals(listOf(getString(Res.string.local_lists)), names.distinct())
         assertEquals(names, raw)
+    }
+
+    @Test
+    fun aReminderThatCouldNeverFireIsRefused() {
+        val id = newTask("Dentist", Tasks.DUE_DATE to day(1))
+
+        val timeless = runCatching { insert(Reminders.PATH, Reminders.TASK_ID to id, Reminders.TYPE to Reminders.TYPE_DATE_TIME) }.exceptionOrNull()
+        val backwards = runCatching { reminder(id, Reminders.TYPE_RANDOM, offset = -60_000L) }.exceptionOrNull()
+        val gapless = runCatching {
+            insert(Reminders.PATH, Reminders.TASK_ID to id, Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE, Reminders.OFFSET_MS to 0L, Reminders.REPEAT_COUNT to 3)
+        }.exceptionOrNull()
+        val frantic = runCatching {
+            insert(Reminders.PATH, Reminders.TASK_ID to id, Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE, Reminders.OFFSET_MS to 0L, Reminders.REPEAT_COUNT to 3, Reminders.INTERVAL_MS to 15L)
+        }.exceptionOrNull()
+        val jittery = runCatching { reminder(id, Reminders.TYPE_RANDOM, offset = 15L) }.exceptionOrNull()
+
+        assertTrue(timeless?.message ?: "no error", "trigger_at is required" in timeless?.message.orEmpty())
+        assertTrue(backwards?.message ?: "no error", "must be positive" in backwards?.message.orEmpty())
+        assertTrue(gapless?.message ?: "no error", "interval_ms is required" in gapless?.message.orEmpty())
+        assertTrue(frantic?.message ?: "no error", "at least a minute" in frantic?.message.orEmpty())
+        assertTrue(jittery?.message ?: "no error", "at least a minute" in jittery?.message.orEmpty())
+        assertEquals(0, query(Reminders.PATH, "?task_id=$id").rows())
+    }
+
+    @Test
+    fun aReminderIsOnlyRemovedThroughItsOwnTask() = runBlockingTest {
+        val mine = newTask("Dentist", Tasks.DUE_DATE to day(1))
+        val other = newTask("Taxes")
+        val id = reminder(mine, Reminders.TYPE_RELATIVE_DUE)
+
+        val error = runCatching { engine.setTaskReminders(writer, other, emptyList(), listOf(id)) }.exceptionOrNull()
+
+        assertTrue(error?.message ?: "no error", "belongs to task $mine" in error?.message.orEmpty())
+        assertEquals(1, query(Reminders.PATH, "?task_id=$mine").rows())
+    }
+
+    @Test
+    fun aPlaceIsOnTheMapWithARealRadius() {
+        val offMap = runCatching { insert(Places.PATH, Places.LATITUDE to 91.0, Places.LONGITUDE to 0.0) }.exceptionOrNull()
+        val flat = runCatching { insert(Places.PATH, Places.LATITUDE to 1.0, Places.LONGITUDE to 2.0, Places.RADIUS to 0) }.exceptionOrNull()
+        val id = insert(Places.PATH, Places.LATITUDE to 1.0, Places.LONGITUDE to 2.0, Places.NAME to "   ", Places.ADDRESS to "1 Main St")
+        val shrunk = runCatching { update(Places.PATH, id, Places.RADIUS to -10) }.exceptionOrNull()
+
+        assertTrue(offMap?.message ?: "no error", "not on the map" in offMap?.message.orEmpty())
+        assertTrue(flat?.message ?: "no error", "radius" in flat?.message.orEmpty())
+        assertTrue(shrunk?.message ?: "no error", "radius" in shrunk?.message.orEmpty())
+        assertEquals("1 Main St", query(Places.PATH, "?_id=$id").string(Places.DISPLAY_NAME))
+    }
+
+    @Test
+    fun negativePagingIsRefusedRatherThanReadAsACount() {
+        assertTrue(runCatching { TaskQuery(limit = -1) }.exceptionOrNull() is IllegalArgumentException)
+        assertTrue(runCatching { TaskQuery(offset = -1) }.exceptionOrNull() is IllegalArgumentException)
     }
 
     @Test

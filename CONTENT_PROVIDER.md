@@ -531,11 +531,11 @@ content://org.tasks.api/v0/reminders/{id}
 | --- | --- | :-: | --- |
 | `_id` | long |  | Row id. Local to this install |
 | `task_id` | long | insert | The task this row belongs to |
-| `type` | string | insert | `date_time`, `relative_start`, `relative_due`, `random`, `snooze`, `location_arrival`, `location_departure` |
-| `trigger_at` | long | • | Absolute time. `date_time` and `snooze` only. Writes also take a local date string |
-| `offset_ms` | long | • | Signed offset from the start or due date; negative is *before*. For `random`, the period: each reminder lands about that long after the last. Relative and random types only |
-| `repeat_count` | int | • | How many times to repeat after the first trigger |
-| `interval_ms` | long | • | Gap between repeats |
+| `type` | string | insert | `date_time`, `relative_start`, `relative_due`, `random`, `snooze`, `location_arrival`, `location_departure`. A `snooze` quiets the task's other reminders until it fires |
+| `trigger_at` | long | • | Absolute time, required. `date_time` and `snooze` only. Writes also take a local date string |
+| `offset_ms` | long | • | Signed offset from the start or due date; negative is *before*. For `random`, the period: each reminder lands about that long after the last, so it must be at least a minute. Relative and random types only |
+| `repeat_count` | int | • | How many times to repeat after the first trigger. Needs `interval_ms` |
+| `interval_ms` | long | • | Gap between repeats, at least a minute |
 | `place_id` | long | insert | The place that triggers this reminder. Location types only; `0` on a time reminder |
 
 Which columns apply depends on the type. Sending one that does not apply throws:
@@ -821,9 +821,9 @@ content://org.tasks.api/v0/places/{id}
 | `address` | string | • | Street address as saved |
 | `phone` | string | • | Phone number saved on the place |
 | `url` | string | • | URL saved on the place |
-| `latitude` | double | insert | Decimal degrees |
-| `longitude` | double | insert | Decimal degrees |
-| `radius` | int | • | Trigger radius in meters for location reminders, default 250 |
+| `latitude` | double | insert | Decimal degrees, -90 to 90 |
+| `longitude` | double | insert | Decimal degrees, -180 to 180 |
+| `radius` | int | • | Trigger radius in meters for location reminders, default 250. Must be positive; the app's own picker offers 75–1000 |
 | `color` | int | • | ARGB, 0 when unset |
 | `icon` | string | • | [Icon name](#icons), `""` when unset |
 | `order` | int |  | Display order in the app's drawer |

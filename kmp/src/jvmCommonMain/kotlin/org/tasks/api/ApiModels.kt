@@ -222,16 +222,42 @@ enum class TaskText {
     }
 }
 
-fun Regex.matchesAny(task: TaskRow, fields: Set<TaskText>): Boolean = fields.any {
+fun Regex.matchesAny(task: TaskRow, fields: Set<TaskText>, deadline: Deadline = Deadline.none()): Boolean = fields.any {
     when (it) {
-        TaskText.Title -> containsMatchIn(task.title)
-        TaskText.Notes -> task.notes?.let { notes -> containsMatchIn(notes) } == true
+        TaskText.Title -> containsMatchIn(deadline.watch(task.title))
+        TaskText.Notes -> task.notes?.let { notes -> containsMatchIn(deadline.watch(notes)) } == true
+    }
+}
+
+class Deadline(private val expiresAt: Long) {
+    private var calls = 0
+
+    fun watch(text: CharSequence): CharSequence = if (expiresAt == Long.MAX_VALUE) text else Watched(text)
+
+    private inner class Watched(private val text: CharSequence) : CharSequence by text {
+        override fun get(index: Int): Char {
+            if (++calls and 0x3FF == 0 && System.nanoTime() > expiresAt) throw Expired()
+            return text[index]
+        }
+
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
+            Watched(text.subSequence(startIndex, endIndex))
+    }
+
+    class Expired : RuntimeException()
+
+    companion object {
+        fun none() = Deadline(Long.MAX_VALUE)
+
+        fun after(millis: Long) = Deadline(System.nanoTime() + millis * 1_000_000)
     }
 }
 
 class ScanResult(val rows: List<TaskRow>, val total: Int)
 
 const val SCAN_CHUNK = 500
+
+const val SCAN_BUDGET_MS = 2_000L
 
 suspend fun ApiQueryEngine.scanTasks(
     matches: Regex,
@@ -243,12 +269,21 @@ suspend fun ApiQueryEngine.scanTasks(
     var seen = 0
     var matched = 0
     val page = ArrayList<TaskRow>()
+    val deadline = Deadline.after(SCAN_BUDGET_MS)
     while (true) {
         val rows = query(TasksContract.Tasks.PATH, args(SCAN_CHUNK, seen))
         if (rows.isEmpty) break
         for (row in rows) {
             val task = row.toTaskRow()
-            if (!matches.matchesAny(task, matchFields)) continue
+            val hit = try {
+                matches.matchesAny(task, matchFields, deadline)
+            } catch (e: Deadline.Expired) {
+                throw IllegalArgumentException(
+                    "'matches' took more than ${SCAN_BUDGET_MS / 1000} seconds to evaluate - " +
+                        "simplify the pattern or narrow the search"
+                )
+            }
+            if (!hit) continue
             if (matched >= offset && page.size < limit) page += task
             matched++
         }

@@ -43,6 +43,15 @@ class TaskQueryTest : ApiTestCase() {
     }
 
     @Test
+    fun aRunawayPatternIsCutOffRatherThanPeggingACore() {
+        newTask("Notes", Tasks.NOTES to "n".repeat(200_000))
+
+        val message = message { find(TaskQuery(matches = "(n+)+x", matchFields = listOf("notes"))) }
+
+        assertTrue(message, message.contains("simplify the pattern"))
+    }
+
+    @Test
     fun anUnusablePatternSaysSoRatherThanThrowingRaw() {
         val message = message { TaskQuery(matches = "[unclosed") }
 

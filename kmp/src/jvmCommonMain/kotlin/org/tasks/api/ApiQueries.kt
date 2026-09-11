@@ -17,10 +17,15 @@ data class ApiPage<T>(
 fun <T> ApiPage(rows: List<T>, total: Int, limit: Int, offset: Int): ApiPage<T> =
     ApiPage(rows, total, offset.takeIf { limit > 0 })
 
-fun pageLimit(limit: Int?): Int =
-    (limit ?: TasksContract.DEFAULT_LIMIT).coerceIn(0, TasksContract.MAX_LIMIT)
+fun pageLimit(limit: Int?): Int {
+    if (limit != null && limit < 0) throw IllegalArgumentException("limit must not be negative, was $limit")
+    return (limit ?: TasksContract.DEFAULT_LIMIT).coerceAtMost(TasksContract.MAX_LIMIT)
+}
 
-fun pageOffset(offset: Int?): Int = (offset ?: 0).coerceAtLeast(0)
+fun pageOffset(offset: Int?): Int {
+    if (offset != null && offset < 0) throw IllegalArgumentException("offset must not be negative, was $offset")
+    return offset ?: 0
+}
 
 data class ListQuery(
     val ids: List<Long> = emptyList(),

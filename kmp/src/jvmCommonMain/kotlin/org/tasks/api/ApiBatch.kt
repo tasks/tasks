@@ -91,7 +91,8 @@ suspend fun ApiQueryEngine.completeTasks(
 ): Completion {
     val unique = ids.distinct()
     requireBatch(unique.size)
-    val stamp = if (completed) completedAt ?: System.currentTimeMillis() else 0L
+    val at = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to completedAt).instant(TasksContract.Tasks.COMPLETED_AT)
+    val stamp = if (completed) at?.takeIf { it > 0 } ?: System.currentTimeMillis() else 0L
     val values = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp)
     val before = unique.associateWith { taskRow(it)?.recurrence }
     val related = (writer.descendantsOf(unique) + unique.flatMap { writer.ancestorsOf(it) })
@@ -135,6 +136,10 @@ suspend fun ApiQueryEngine.setTaskTags(
     require(adds.isNotEmpty() || removes.isNotEmpty()) {
         "Nothing to change - send tags to add, tags to remove, or both."
     }
+    adds.intersect(removes.toSet()).firstOrNull()?.let {
+        throw IllegalArgumentException("Tag $it is in both the tags to add and the tags to remove")
+    }
+    (adds + removes).forEach { writer.requireTag(it) }
     val current = unique.associateWith { taskRow(it)?.tagIds.orEmpty().toSet() }
     val edits = transaction {
         unique.map { writer.editTaskTags(it, current.getValue(it), adds, removes) }
@@ -221,6 +226,12 @@ suspend fun ApiQueryEngine.setTaskReminders(
     removeReminderIds: List<Long>,
 ): ReminderEdit {
     val removals = removeReminderIds.distinct()
+    removals.forEach { id ->
+        val owner = writer.reminderOwner(id)
+        if (owner != null && owner != taskId) {
+            throw IllegalArgumentException("Reminder $id belongs to task $owner, not task $taskId")
+        }
+    }
     val edit = transaction {
         add.map { writer.insertReminder(it.toValues(taskId)) } to
             removals.sumOf { writer.deleteReminder(it) }

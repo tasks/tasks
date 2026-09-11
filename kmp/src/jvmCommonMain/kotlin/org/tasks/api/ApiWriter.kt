@@ -38,6 +38,7 @@ import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_MINUTE
 import org.tasks.time.startOfDay
 
 class ApiWriter(
@@ -278,6 +279,18 @@ class ApiWriter(
         if (AlarmTypes.isLocation(type)) {
             return insertLocationAlarm(task, values, arrival = type == Alarm.TYPE_GEO_ENTER)
         }
+        if (type == Alarm.TYPE_REL_END && !task.hasDueDate()) {
+            throw IllegalArgumentException(
+                "Task $taskId has no due date, so a ${Reminders.TYPE_RELATIVE_DUE} reminder would " +
+                        "never fire. Set ${Tasks.DUE_DATE} first."
+            )
+        }
+        if (type == Alarm.TYPE_REL_START && !task.hasStartDate()) {
+            throw IllegalArgumentException(
+                "Task $taskId has no start date, so a ${Reminders.TYPE_RELATIVE_START} reminder " +
+                        "would never fire. Set ${Tasks.START_DATE} first."
+            )
+        }
         values.number(Reminders.PLACE_ID)?.takeIf { it != 0L }?.let {
             throw IllegalArgumentException(
                 "${Reminders.PLACE_ID} only applies to a" +
@@ -290,7 +303,7 @@ class ApiWriter(
             type = type,
             repeat = values.number(Reminders.REPEAT_COUNT)?.toInt() ?: 0,
             interval = values.number(Reminders.INTERVAL_MS) ?: 0,
-        )
+        ).requireCanFire()
         val existing = alarmDao.getAlarms(taskId)
         existing.firstOrNull { it.same(alarm) }?.let { return it.id }
         alarmService.synchronizeAlarms(taskId, (existing + alarm).toMutableSet())
@@ -313,7 +326,7 @@ class ApiWriter(
             time = values.alarmTime(existing.type, existing.time),
             repeat = values.number(Reminders.REPEAT_COUNT)?.toInt() ?: existing.repeat,
             interval = values.number(Reminders.INTERVAL_MS) ?: existing.interval,
-        )
+        ).requireCanFire()
         if (updated == existing) {
             return 1
         }
@@ -321,6 +334,47 @@ class ApiWriter(
         alarmService.synchronizeAlarms(existing.task, alarms.toMutableSet())
         markSynced(task, SYNC_ALARMS)
         return 1
+    }
+
+    private fun Alarm.requireCanFire(): Alarm {
+        val apiType = AlarmTypes.toApi(type)
+        if (type in AlarmTypes.ABSOLUTE && time <= 0) {
+            throw IllegalArgumentException("${Reminders.TRIGGER_AT} is required for a $apiType reminder")
+        }
+        if (type == Alarm.TYPE_RANDOM && time <= 0) {
+            throw IllegalArgumentException(
+                "${Reminders.OFFSET_MS} must be positive for a $apiType reminder - it is how often it fires"
+            )
+        }
+        if (type == Alarm.TYPE_RANDOM && time < ONE_MINUTE) {
+            throw IllegalArgumentException(
+                "${Reminders.OFFSET_MS} is in milliseconds; the shortest $apiType period is a minute ($ONE_MINUTE)"
+            )
+        }
+        if (repeat < 0 || interval < 0) {
+            throw IllegalArgumentException(
+                "${Reminders.REPEAT_COUNT} and ${Reminders.INTERVAL_MS} must not be negative"
+            )
+        }
+        if (repeat > 0 && interval <= 0) {
+            throw IllegalArgumentException(
+                "${Reminders.INTERVAL_MS} is required when ${Reminders.REPEAT_COUNT} is set"
+            )
+        }
+        if (repeat > 0 && interval < ONE_MINUTE) {
+            throw IllegalArgumentException(
+                "${Reminders.INTERVAL_MS} is in milliseconds; the shortest repeat is a minute ($ONE_MINUTE)"
+            )
+        }
+        return this
+    }
+
+    suspend fun reminderOwner(id: Long): Long? =
+        Reminders.decodeLocationId(id)?.let { apiDao.getGeofence(it.geofenceId)?.task }
+            ?: apiDao.getAlarm(id)?.task
+
+    suspend fun requireTag(id: Long) {
+        apiDao.getTag(id) ?: throw IllegalArgumentException("No tag with id $id")
     }
 
     suspend fun deleteReminder(id: Long): Int {
@@ -559,17 +613,23 @@ class ApiWriter(
             ?: throw IllegalArgumentException("${Places.LATITUDE} is required")
         val longitude = values.decimal(Places.LONGITUDE)
             ?: throw IllegalArgumentException("${Places.LONGITUDE} is required")
+        if (latitude !in -90.0..90.0 || longitude !in -180.0..180.0) {
+            throw IllegalArgumentException(
+                "$latitude, $longitude is not on the map: ${Places.LATITUDE} runs -90 to 90 and " +
+                        "${Places.LONGITUDE} -180 to 180"
+            )
+        }
         locationDao.findPlace(latitude.toLikeString(), longitude.toLikeString())?.let {
             return Insertion(it.id, created = false)
         }
         val place = Place(
-            name = values.text(Places.NAME),
+            name = values.text(Places.NAME)?.trim()?.takeIf { it.isNotEmpty() },
             address = values.text(Places.ADDRESS),
             phone = values.text(Places.PHONE),
             url = values.text(Places.URL),
             latitude = latitude,
             longitude = longitude,
-            radius = values.number(Places.RADIUS)?.toInt() ?: DEFAULT_RADIUS,
+            radius = values.radius() ?: DEFAULT_RADIUS,
             color = values.number(Places.COLOR)?.toInt() ?: 0,
             icon = values.text(Places.ICON)?.takeIf { it.isNotEmpty() },
         )
@@ -580,17 +640,21 @@ class ApiWriter(
         values.reject(Places.PATH, Places.WRITABLE)
         val place = locationDao.getPlace(id) ?: return 0
         val updated = place.copy(
-            name = values.text(Places.NAME) ?: place.name,
+            name = values.text(Places.NAME)?.trim() ?: place.name,
             address = values.text(Places.ADDRESS) ?: place.address,
             phone = values.text(Places.PHONE) ?: place.phone,
             url = values.text(Places.URL) ?: place.url,
-            radius = values.number(Places.RADIUS)?.toInt() ?: place.radius,
+            radius = values.radius() ?: place.radius,
             color = values.number(Places.COLOR)?.toInt() ?: place.color,
             icon = values.text(Places.ICON) ?: place.icon,
         )
         locationDao.update(updated)
         place.uid?.let { locationService.updateGeofences(it) }
         return 1
+    }
+
+    private fun ApiValues.radius(): Int? = number(Places.RADIUS)?.toInt()?.also {
+        if (it <= 0) throw IllegalArgumentException("${Places.RADIUS} must be a positive number of metres, was $it")
     }
 
     suspend fun deletePlace(id: Long): Int {
