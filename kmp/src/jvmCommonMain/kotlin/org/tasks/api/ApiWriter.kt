@@ -11,6 +11,7 @@ import org.tasks.api.TasksContract.Tasks
 import org.tasks.caldav.GeoUtils.toLikeString
 import org.tasks.compose.pickers.startDateFollowingDue
 import org.tasks.data.TaskSaver
+import org.tasks.data.applicableTo
 import org.tasks.data.createDueDate
 import org.tasks.data.createHideUntil
 import org.tasks.data.dao.AlarmDao
@@ -98,6 +99,7 @@ class ApiWriter(
         task.completionDate = original.completionDate
         task.parent = original.parent
         taskSaver.save(task, original)
+        dropOrphanedReminders(task, original)
 
         val currentListUuid = caldavDao.getTask(id)?.calendar
         val newListId = values.number(Tasks.LIST_ID)?.also {
@@ -182,6 +184,21 @@ class ApiWriter(
             task.dueDate = currentTimeMillis().startOfDay()
         }
         values.number(Tasks.PARENT_ID)?.let { task.parent = it }
+    }
+
+    private suspend fun dropOrphanedReminders(task: Task, original: Task) {
+        val dueCleared = original.hasDueDate() && !task.hasDueDate()
+        val startCleared = original.hasStartDate() && !task.hasStartDate()
+        if (!dueCleared && !startCleared) {
+            return
+        }
+        val existing = alarmDao.getAlarms(task.id)
+        val kept = existing.applicableTo(task)
+        if (kept.size == existing.size) {
+            return
+        }
+        alarmService.synchronizeAlarms(task.id, kept.toMutableSet())
+        markSynced(task, SYNC_ALARMS)
     }
 
     private suspend fun applyPlace(task: Task, placeId: Long, resetTriggers: Boolean = false) {

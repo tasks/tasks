@@ -128,7 +128,7 @@ abstract class ApiTestCase {
         )
     }
 
-    private val appPreferences: AppPreferences = mock {
+    protected val appPreferences: AppPreferences = mock {
         onBlocking { addTasksToTop() } doReturn false
         onBlocking { locationUpdateIntervalMinutes() } doReturn 15
         onBlocking { isDefaultDueTimeEnabled() } doReturn false
