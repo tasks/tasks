@@ -81,7 +81,7 @@ class RowMappingTest : ApiTestCase() {
 
     @Test
     fun aRelativeReminderCarriesAnOffsetAndNoTrigger() {
-        val id = newTask("Dentist", Tasks.DUE_DATE to DAY)
+        val id = newTask("Dentist", Tasks.DUE_DATE to DAY, Tasks.START_DATE to DAY)
         insert(
             Reminders.PATH,
             Reminders.TASK_ID to id,
@@ -160,7 +160,7 @@ class RowMappingTest : ApiTestCase() {
         caldavDao.insert(
             CaldavAccount(
                 uuid = UUIDHelper.newUUID(),
-                accountType = CaldavAccount.TYPE_LOCAL,
+                accountType = CaldavAccount.TYPE_CALDAV,
                 name = "",
             )
         )
@@ -168,7 +168,7 @@ class RowMappingTest : ApiTestCase() {
         val rows = runBlocking { engine.query(Accounts.PATH, ApiQueryArgs.build(TasksContract.paramsFor(Accounts.PATH)) {}) }
             .map { it.toAccountRow() }
 
-        assertNull(rows.single { it.name != "Local" }.name)
+        assertNull(rows.single { it.type == Accounts.TYPE_CALDAV }.name)
     }
 
     @Test

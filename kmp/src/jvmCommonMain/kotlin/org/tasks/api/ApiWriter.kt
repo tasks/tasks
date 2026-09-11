@@ -348,7 +348,7 @@ class ApiWriter(
         }
         if (type == Alarm.TYPE_RANDOM && time < ONE_MINUTE) {
             throw IllegalArgumentException(
-                "${Reminders.OFFSET_MS} is in milliseconds; the shortest $apiType period is a minute ($ONE_MINUTE)"
+                "${Reminders.OFFSET_MS} is in milliseconds and a $apiType period must be at least a minute ($ONE_MINUTE)"
             )
         }
         if (repeat < 0 || interval < 0) {
@@ -363,7 +363,7 @@ class ApiWriter(
         }
         if (repeat > 0 && interval < ONE_MINUTE) {
             throw IllegalArgumentException(
-                "${Reminders.INTERVAL_MS} is in milliseconds; the shortest repeat is a minute ($ONE_MINUTE)"
+                "${Reminders.INTERVAL_MS} is in milliseconds and must be at least a minute ($ONE_MINUTE)"
             )
         }
         return this

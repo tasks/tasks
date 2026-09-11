@@ -338,7 +338,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun alarmsSplitTheStoredUnion() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val absolute = insert(
             Reminders.PATH,
             Reminders.TASK_ID to task,
@@ -366,7 +366,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun identicalAlarmsAreNotDuplicated() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val first = insert(
             Reminders.PATH,
             Reminders.TASK_ID to task,
@@ -386,7 +386,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun updatingAnAlarmKeepsItsId() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val id = insert(
             Reminders.PATH,
             Reminders.TASK_ID to task,
@@ -402,7 +402,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun theWrongTimeColumnForTheTypeIsRejected() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
 
         assertThrows<IllegalArgumentException> {
             insert(
@@ -416,7 +416,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun alarmsAreFilteredByType() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         insert(Reminders.PATH, Reminders.TASK_ID to task, Reminders.TYPE to Reminders.TYPE_SNOOZE, Reminders.TRIGGER_AT to 999L)
         insert(Reminders.PATH, Reminders.TASK_ID to task, Reminders.TYPE to Reminders.TYPE_RELATIVE_DUE, Reminders.OFFSET_MS to -1L)
 
@@ -676,7 +676,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun aTimeAlarmCannotCarryAPlace() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val placeId = newPlace()
         assertThrows<IllegalArgumentException> {
             insert(
@@ -772,7 +772,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun locationRemindersAreFilterableByTypeAndPlace() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val placeId = newPlace()
         insert(
             Reminders.PATH,
@@ -805,7 +805,7 @@ class TasksApiWriteTest : ApiTestCase() {
 
     @Test
     fun countingRemindersSpansTheUnion() {
-        val task = newTask("t")
+        val task = newTask("t", Tasks.DUE_DATE to day(1))
         val placeId = newPlace()
         insert(
             Reminders.PATH,

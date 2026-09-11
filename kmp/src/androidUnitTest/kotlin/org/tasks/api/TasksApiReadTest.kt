@@ -37,7 +37,7 @@ class TasksApiReadTest : ApiTestCase() {
 
     @Test
     fun deletedTaskIsInvisibleEverywhere() {
-        val id = newTask("gone")
+        val id = newTask("gone", Tasks.DUE_DATE to day(1))
         insert(
             TasksContract.Reminders.PATH,
             TasksContract.Reminders.TASK_ID to id,

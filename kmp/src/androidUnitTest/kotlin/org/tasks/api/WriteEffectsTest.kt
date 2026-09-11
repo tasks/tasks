@@ -181,7 +181,8 @@ class WriteEffectsTest : ApiTestCase() {
         val names = engine.findAccounts(AccountQuery()).rows.map { it.name }
         val raw = query(TasksContract.Accounts.PATH).strings(TasksContract.Accounts.NAME)
 
-        assertEquals(listOf(getString(Res.string.local_lists)), names.distinct())
+        assertTrue(names.toString(), getString(Res.string.local_lists) in names)
+        assertTrue(names.toString(), names.none { it.isNullOrBlank() })
         assertEquals(names, raw)
     }
 

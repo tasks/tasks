@@ -57,8 +57,8 @@ class ApiPagingTest : ApiTestCase() {
 
         assertEquals(TasksContract.DEFAULT_LIMIT, pageLimit(null))
         assertEquals(TasksContract.MAX_LIMIT, pageLimit(1_000_000))
-        assertEquals(0, pageLimit(-1))
-        assertEquals(0, pageOffset(-5))
+        assertTrue(runCatching { pageLimit(-1) }.exceptionOrNull() is IllegalArgumentException)
+        assertTrue(runCatching { pageOffset(-5) }.exceptionOrNull() is IllegalArgumentException)
         assertEquals(3, tags(TagQuery(limit = 1_000_000)).rows.size)
     }
 
