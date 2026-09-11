@@ -481,7 +481,7 @@
     <string name="theme_wallpaper">Achtergrond</string>
     <string name="theme_day_night">Dag/Nacht</string>
     <string name="theme_system_default">Systeemstandaard</string>
-    <string name="sort_modified">Gewijzigd</string>
+    <string name="sort_modified">Wijzigingsdatum</string>
     <string name="delete_tag_warning">Taken met dit label worden niet verwijderd</string>
     <string name="sync_metadata">Label-metagegevens hier opslaan</string>
     <string name="sync_metadata_summary">Sla labelnamen, kleuren, pictogrammen en weergavevolgorde op dit account op, zodat ze op je apparaten worden gesynchroniseerd</string>
@@ -515,7 +515,7 @@
     <string name="group_mode">Groep</string>
     <string name="sort_alphabetical">Alfabetisch</string>
     <string name="sort_created">Aangemaakt</string>
-    <string name="all_done">Alles gedaan!</string>
+    <string name="all_done">Alles klaar!</string>
     <string name="add_platform_account">%1$s account toevoegen</string>
     <string name="works_with_desktop">Tasks.org voor desktop</string>
 </resources>
