@@ -14,6 +14,8 @@ import kotlinx.coroutines.withContext
 import org.tasks.api.AccountQuery
 import org.tasks.api.ReminderQuery
 import org.tasks.api.ApiQueryEngine
+import org.tasks.analytics.Analytics
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.api.ApiWriter
 import org.tasks.api.ListQuery
 import org.tasks.api.ListWrite
@@ -56,6 +58,8 @@ abstract class TasksAppFunctions : AppFunctionService() {
     @Inject internal lateinit var writer: ApiWriter
 
     @Inject internal lateinit var engine: ApiQueryEngine
+
+    @Inject internal lateinit var analytics: Analytics
 
     /**
      * Search tasks.
@@ -655,6 +659,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
 
     private suspend fun <T> io(block: suspend () -> T): T = withContext(Dispatchers.IO) {
         try {
+            analytics.logEventOncePerDay(AnalyticsEvents.APP_FUNCTION_CALL)
             block()
         } catch (e: AppFunctionException) {
             throw e

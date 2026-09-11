@@ -8,6 +8,7 @@ object AnalyticsEvents {
     const val CONTENT_PROVIDER_ASTRID2 = "cp_astrid2"
 
     const val MCP_TOOL_CALL = "mcp_tool_call"
+    const val APP_FUNCTION_CALL = "app_function_call"
 
     const val PARAM_PACKAGE = "package"
     const val PARAM_COLLECTION = "collection"
