@@ -43,7 +43,7 @@
     <string name="filter">Filter</string>
     <string name="sort_list">Lijst</string>
     <string name="password_required">Wachtwoord vereist</string>
-    <string name="caldav_home_set_not_found">CalDAV-home niet gevonden</string>
+    <string name="caldav_home_set_not_found">Standaardset niet gevonden</string>
     <string name="add_account">Account toevoegen</string>
     <string name="continue_without_sync">Doorgaan zonder synchronisatie</string>
     <string name="terms_of_service_proper">Gebruiksvoorwaarden</string>
@@ -104,7 +104,7 @@
     <string name="help">Hulp</string>
     <string name="display_name">Weergavenaam</string>
     <string name="supporter">Supporter</string>
-    <string name="price_per_month_with_currency">%1$s per maand</string>
+    <string name="price_per_month_with_currency">%1$s/maand</string>
     <string name="price_per_year_with_currency">%1$s per jaar</string>
     <string name="donate">Doneren</string>
     <string name="donate_nag">Overweeg om ons te steunen met een schenking!</string>
@@ -148,7 +148,7 @@
     <string name="EPr_edit_screen_options">Schermopties bewerken</string>
     <string name="date_and_time">Datum en tijd</string>
     <string name="navigation_drawer">Menu</string>
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">Back-ups</string>
     <string name="preferences_advanced">Geavanceerd</string>
     <string name="about">Over</string>
     <string name="widget_settings">Widget instellingen</string>
