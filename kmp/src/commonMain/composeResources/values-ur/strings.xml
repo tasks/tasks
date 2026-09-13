@@ -299,4 +299,7 @@
     <string name="theme_wallpaper">وال پیپر</string>
     <string name="theme_day_night">دن/رات</string>
     <string name="theme_system_default">سسٹم ڈیفالٹ</string>
+    <string name="mcp_tools_group_tags">ٹیگز</string>
+    <string name="mcp_tools_group_reminders">یاد دہانی</string>
+    <string name="mcp_copy">کاپی کریں</string>
 </resources>
