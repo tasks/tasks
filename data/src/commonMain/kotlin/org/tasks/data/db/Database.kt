@@ -7,9 +7,6 @@ import androidx.room3.RoomDatabase
 import androidx.room3.RoomDatabaseConstructor
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.ApiDao
 import org.tasks.data.dao.Astrid2ContentProviderDao
@@ -141,15 +138,10 @@ abstract class Database : RoomDatabase() {
             END
         """.trimIndent()
 
-        private val _opened = MutableStateFlow(false)
-
-        val opened: StateFlow<Boolean> = _opened.asStateFlow()
-
         val CALLBACK = object : RoomDatabase.Callback() {
             override suspend fun onOpen(connection: SQLiteConnection) {
                 connection.execSQL(TASK_DIRTY_TRIGGER)
                 connection.execSQL(TAG_METADATA_STATE_CLEANUP_TRIGGER)
-                _opened.value = true
             }
         }
     }
