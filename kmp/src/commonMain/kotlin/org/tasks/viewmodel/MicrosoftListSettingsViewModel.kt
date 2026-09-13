@@ -1,6 +1,7 @@
 package org.tasks.viewmodel
 
 import co.touchlab.kermit.Logger
+import kotlinx.io.IOException
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
@@ -14,7 +15,6 @@ import org.tasks.sync.microsoft.TaskLists
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.network_error
-import java.io.IOException
 
 open class MicrosoftListSettingsViewModel(
     caldavDao: CaldavDao,

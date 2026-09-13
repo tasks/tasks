@@ -102,7 +102,6 @@ import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
-import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
@@ -306,18 +305,6 @@ val commonModule = module {
                     )
                 )
             },
-            isDark = params.get(),
-            account = params.get(),
-            calendar = params.get(),
-        )
-    }
-    viewModel { params ->
-        MicrosoftListSettingsViewModel(
-            caldavDao = get(),
-            taskDeleter = get(),
-            reporting = get(),
-            clientProvider = get(),
-            purchaseState = get(),
             isDark = params.get(),
             account = params.get(),
             calendar = params.get(),
