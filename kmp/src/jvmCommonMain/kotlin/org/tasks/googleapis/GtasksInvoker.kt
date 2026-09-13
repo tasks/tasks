@@ -11,7 +11,7 @@ import java.io.IOException
 
 class GtasksInvoker(
     credentials: CredentialsAdapter,
-) : BaseInvoker(credentials) {
+) : BaseInvoker(credentials), GoogleTaskListClient {
     private val service =
         Tasks.Builder(NetHttpTransport(), GsonFactory(), credentials)
             .setApplicationName(APP_NAME)
@@ -88,7 +88,7 @@ class GtasksInvoker(
     }
 
     @Throws(IOException::class)
-    suspend fun deleteGtaskList(listId: String?) {
+    override suspend fun deleteGtaskList(listId: String) {
         try {
             execute(service.tasklists().delete(listId))
         } catch (_: HttpNotFoundException) {
@@ -96,12 +96,15 @@ class GtasksInvoker(
     }
 
     @Throws(IOException::class)
-    suspend fun renameGtaskList(listId: String?, title: String?): TaskList? =
+    override suspend fun renameGtaskList(listId: String, title: String) {
         execute(service.tasklists().patch(listId, TaskList().setTitle(title)))
+    }
 
     @Throws(IOException::class)
-    suspend fun createGtaskList(title: String?): TaskList? =
+    override suspend fun createGtaskList(title: String): GoogleTaskList =
         execute(service.tasklists().insert(TaskList().setTitle(title)))
+            ?.let { GoogleTaskList(id = it.id, title = it.title) }
+            ?: throw IllegalStateException("Google Tasks did not return a list")
 
     @Throws(IOException::class)
     suspend fun deleteGtask(listId: String?, taskId: String?) {

@@ -45,7 +45,6 @@ class ApiListManager(
                 )
                 account.isGoogleTasks -> {
                     val list = gtasksInvoker(account).createGtaskList(title)
-                        ?: throw IllegalStateException("Google Tasks did not return a list")
                     CaldavCalendar(
                         uuid = list.id,
                         account = account.username,
@@ -99,7 +98,7 @@ class ApiListManager(
                     account.isLocalList -> Unit
                     account.isGoogleTasks ->
                         if (renamed) {
-                            gtasksInvoker(account).renameGtaskList(calendar.uuid, title)
+                            gtasksInvoker(account).renameGtaskList(calendar.uuid!!, title)
                         }
                     account.isMicrosoft ->
                         if (renamed) {
@@ -127,7 +126,7 @@ class ApiListManager(
         remote("delete") {
             when {
                 account.isLocalList -> Unit
-                account.isGoogleTasks -> gtasksInvoker(account).deleteGtaskList(calendar.uuid)
+                account.isGoogleTasks -> gtasksInvoker(account).deleteGtaskList(calendar.uuid!!)
                 account.isMicrosoft ->
                     microsoftClientProvider.getService(account).deleteList(calendar.uuid!!)
                 account.isEtebaseAccount ->

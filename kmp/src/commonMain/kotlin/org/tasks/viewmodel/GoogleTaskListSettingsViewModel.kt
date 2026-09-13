@@ -7,7 +7,7 @@ import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.googleapis.GtasksInvoker
+import org.tasks.googleapis.GoogleTaskListClient
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.gtasks_GLA_errorIOAuth
@@ -16,7 +16,7 @@ open class GoogleTaskListSettingsViewModel(
     caldavDao: CaldavDao,
     taskDeleter: TaskDeleter,
     reporting: Reporting,
-    private val invokerFactory: suspend (CaldavAccount) -> GtasksInvoker,
+    private val invokerFactory: suspend (CaldavAccount) -> GoogleTaskListClient,
     purchaseState: PurchaseState,
     isDark: Boolean,
     account: CaldavAccount,
@@ -41,7 +41,7 @@ open class GoogleTaskListSettingsViewModel(
         color: Int,
         icon: String,
     ): CaldavCalendar {
-        val taskList = invokerFactory(account).createGtaskList(name)!!
+        val taskList = invokerFactory(account).createGtaskList(name)
         return CaldavCalendar(
             uuid = taskList.id,
             account = account.username,
@@ -56,11 +56,11 @@ open class GoogleTaskListSettingsViewModel(
         calendar: CaldavCalendar,
         name: String,
     ) {
-        invokerFactory(account).renameGtaskList(calendar.uuid, name)
+        invokerFactory(account).renameGtaskList(calendar.uuid!!, name)
     }
 
     override suspend fun deleteRemoteList(account: CaldavAccount, calendar: CaldavCalendar) {
-        invokerFactory(account).deleteGtaskList(calendar.uuid)
+        invokerFactory(account).deleteGtaskList(calendar.uuid!!)
     }
 
     override suspend fun handleError(e: Exception) {
