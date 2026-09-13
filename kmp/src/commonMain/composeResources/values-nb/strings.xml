@@ -436,4 +436,10 @@
     <string name="theme_wallpaper">Bakgrunnsbilde</string>
     <string name="theme_day_night">Dag/natt</string>
     <string name="theme_system_default">Systemforvalg</string>
+    <string name="mcp_access_advanced">Avansert</string>
+    <string name="mcp_tools_group_lists">Lister</string>
+    <string name="mcp_tools_group_tags">Etiketter</string>
+    <string name="mcp_tools_group_places">Steder</string>
+    <string name="mcp_tools_group_reminders">Påminnelser</string>
+    <string name="mcp_copy">Kopier</string>
 </resources>
