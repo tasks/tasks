@@ -53,7 +53,7 @@ class AddAccountActivity : ComponentActivity() {
                 when (platform) {
                     Platform.TASKS_ORG -> finish()
                     Platform.CALDAV,
-                    Platform.ETEBASE -> doSignIn(platform)
+                    Platform.ETEBASE, Platform.SILENTSUITE -> doSignIn(platform)
                     Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
                     else -> {}
                 }
@@ -83,8 +83,11 @@ class AddAccountActivity : ComponentActivity() {
                 microsoftVM.signIn(this)
             Platform.CALDAV ->
                 syncLauncher.launch(Intent(this, CaldavSignInActivity::class.java))
-            Platform.ETEBASE ->
-                syncLauncher.launch(Intent(this, EtebaseSignInActivity::class.java))
+            Platform.ETEBASE, Platform.SILENTSUITE ->
+                syncLauncher.launch(
+                    Intent(this, EtebaseSignInActivity::class.java)
+                        .putExtra(EtebaseSignInActivity.EXTRA_SILENTSUITE, platform == Platform.SILENTSUITE)
+                )
             else -> throw IllegalArgumentException()
         }
     }
@@ -136,7 +139,7 @@ class AddAccountActivity : ComponentActivity() {
                             Platform.TASKS_ORG -> {
                                 if (inventory.hasTasksSubscription) doSignIn(platform) else requirePurchase(platform, nameYourPrice = false)
                             }
-                            Platform.CALDAV, Platform.ETEBASE -> {
+                            Platform.CALDAV, Platform.ETEBASE, Platform.SILENTSUITE -> {
                                 if (inventory.hasPro) doSignIn(platform) else requirePurchase(platform)
                             }
                             else -> doSignIn(platform)

@@ -19,7 +19,8 @@ class EtebaseClient(
         private val etebase: Account,
         private val caldavDao: CaldavDao
 ) {
-    private val cache = EtebaseLocalCache.getInstance(filesDir, username)
+    // Acquiring a login session must not open or mutate a legacy cache.
+    private val cache by lazy { EtebaseLocalCache.getInstance(filesDir, username) }
 
     fun getSession(): String = etebase.save(null)
 

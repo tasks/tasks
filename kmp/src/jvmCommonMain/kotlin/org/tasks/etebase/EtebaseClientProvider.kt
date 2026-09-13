@@ -20,6 +20,7 @@ class EtebaseClientProvider(
         account.username!!,
         null,
         encryption.decrypt(account.password) ?: "",
+        accountScope = if (account.isSilentSuite) requireNotNull(account.uuid) else null,
     )
 
     suspend fun forUrl(
@@ -28,6 +29,7 @@ class EtebaseClientProvider(
         password: String?,
         session: String? = null,
         foreground: Boolean = false,
+        accountScope: String? = null,
     ): EtebaseClient = withContext(Dispatchers.IO) {
         val okHttpClient = httpClientFactory.newClient(
             foreground = foreground,
@@ -42,6 +44,6 @@ class EtebaseClientProvider(
         val etebase = session
             ?.let { Account.restore(client, it, null) }
             ?: Account.login(client, username, password!!)
-        EtebaseClient(filesDir, username, etebase, caldavDao)
+        EtebaseClient(EtebaseCacheLocation.root(filesDir, accountScope), username, etebase, caldavDao)
     }
 }

@@ -247,7 +247,7 @@ class MainSettingsComposeFragment : Fragment() {
             account.isEtebaseAccount -> {
                 activity.startPreference(
                     newEtebaseAccountFragment(account),
-                    getString(R.string.etesync)
+                    getString(if (account.isSilentSuite) R.string.silentsuite else R.string.etesync)
                 )
             }
             account.isOpenTasks -> {

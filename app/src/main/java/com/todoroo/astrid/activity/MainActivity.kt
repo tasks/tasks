@@ -313,9 +313,10 @@ class MainActivity : AppCompatActivity() {
                                         Intent(this@MainActivity, CaldavSignInActivity::class.java)
                                     )
 
-                                Platform.ETEBASE ->
+                                Platform.ETEBASE, Platform.SILENTSUITE ->
                                     syncLauncher.launch(
                                         Intent(this@MainActivity, EtebaseSignInActivity::class.java)
+                                            .putExtra(EtebaseSignInActivity.EXTRA_SILENTSUITE, platform == Platform.SILENTSUITE)
                                     )
 
                                 else -> throw IllegalArgumentException()
@@ -340,7 +341,7 @@ class MainActivity : AppCompatActivity() {
                                     val platform = Platform.valueOf(name)
                                     when (platform) {
                                         Platform.CALDAV,
-                                        Platform.ETEBASE -> doSignIn(platform)
+                                        Platform.ETEBASE, Platform.SILENTSUITE -> doSignIn(platform)
                                         Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
                                         else -> {}
                                     }
@@ -368,7 +369,7 @@ class MainActivity : AppCompatActivity() {
                                             )
                                         }
                                     }
-                                    Platform.CALDAV, Platform.ETEBASE -> {
+                                    Platform.CALDAV, Platform.ETEBASE, Platform.SILENTSUITE -> {
                                         if (inventory.hasPro) {
                                             doSignIn(platform)
                                         } else {

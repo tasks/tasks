@@ -30,12 +30,17 @@ import org.tasks.preferences.fragments.EtebaseAccountSettingsHiltViewModel
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.silentsuite
+import tasks.kmp.generated.resources.etesync
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EtebaseSignInActivity : ComponentActivity() {
+
+    companion object {
+        const val EXTRA_SILENTSUITE = "extra_silentsuite"
+    }
 
     @Inject lateinit var theme: Theme
 
@@ -45,6 +50,11 @@ class EtebaseSignInActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        viewModel.setService(
+            if (intent.getBooleanExtra(EXTRA_SILENTSUITE, false))
+                org.tasks.data.entity.EtebaseService.SILENTSUITE
+            else org.tasks.data.entity.EtebaseService.ETESYNC
+        )
 
         setContent {
             TasksSettingsTheme(
@@ -57,7 +67,9 @@ class EtebaseSignInActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            title = { Text(stringResource(Res.string.add_account)) },
+                            title = { Text(stringResource(
+                                if (state.service == org.tasks.data.entity.EtebaseService.SILENTSUITE) Res.string.silentsuite else Res.string.etesync
+                            )) },
                             navigationIcon = {
                                 IconButton(
                                     onClick = {

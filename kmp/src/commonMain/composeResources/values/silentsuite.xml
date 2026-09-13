@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="silentsuite" translatable="false">SilentSuite</string>
+    <string name="silentsuite_selection_description">End-to-end encrypted sync with SilentSuite or a self-hosted server</string>
+</resources>

@@ -9,11 +9,13 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.davx5
 import tasks.kmp.generated.resources.decsync
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.ic_davx5_icon_blue_bg
 import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
 import tasks.kmp.generated.resources.ic_decsync
+import tasks.kmp.generated.resources.ic_silentsuite
 import tasks.kmp.generated.resources.ic_etesync
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_ksync
@@ -56,6 +58,7 @@ val CaldavAccount.composeTitle: StringResource?
     get() = when {
         isTasksOrg -> Res.string.tasks_org_account
         isCaldavAccount -> Res.string.caldav
+        isSilentSuite -> Res.string.silentsuite
         isEtebaseAccount -> Res.string.etesync
         isMicrosoft -> Res.string.microsoft
         isGoogleTasks -> Res.string.gtasks_GPr_header
@@ -67,6 +70,7 @@ val CaldavAccount.composeIcon: AccountIcon?
     get() = when {
         isTasksOrg -> AccountIcon(Res.drawable.ic_round_icon, false)
         isCaldavAccount -> AccountIcon(Res.drawable.ic_webdav_logo, true)
+        isSilentSuite -> AccountIcon(Res.drawable.ic_silentsuite, false)
         isEtebaseAccount -> AccountIcon(Res.drawable.ic_etesync, false)
         isMicrosoft -> AccountIcon(Res.drawable.ic_microsoft_tasks, false)
         isGoogleTasks -> AccountIcon(Res.drawable.ic_google, false)
