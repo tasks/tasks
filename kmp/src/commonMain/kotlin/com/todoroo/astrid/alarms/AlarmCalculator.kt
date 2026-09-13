@@ -10,39 +10,13 @@ class AlarmCalculator(
     private val random: Random,
 ) {
     fun toAlarmEntry(task: Task, alarm: Alarm, defaultDueTime: Int): Notification? {
-        val trigger = when (alarm.type) {
-            Alarm.TYPE_SNOOZE,
-            Alarm.TYPE_DATE_TIME ->
-                alarm.time
-            Alarm.TYPE_REL_START ->
-                when {
-                    task.hasStartTime() ->
-                        task.hideUntil + alarm.time
-                    task.hasStartDate() ->
-                        task.hideUntil.withMillisOfDay(defaultDueTime) + alarm.time
-                    else ->
-                        AlarmService.NO_ALARM
-                }
-            Alarm.TYPE_REL_END ->
-                when {
-                    task.hasDueTime() ->
-                        task.dueDate + alarm.time
-                    task.hasDueDate() ->
-                        task.dueDate.withMillisOfDay(defaultDueTime) + alarm.time
-                    else ->
-                        AlarmService.NO_ALARM
-                }
-            Alarm.TYPE_RANDOM ->
-                calculateNextRandomReminder(random, task, alarm.time)
-            else ->
-                AlarmService.NO_ALARM
-        }
+        val trigger = triggerTime(task, alarm, defaultDueTime)
         return when {
             trigger <= AlarmService.NO_ALARM ->
                 null
             trigger > task.reminderLast || alarm.type == Alarm.TYPE_SNOOZE ->
                 Notification(taskId = alarm.task, timestamp = trigger, type = alarm.type)
-            alarm.repeat > 0 -> {
+            alarm.repeat > 0 && alarm.interval > 0 -> {
                 val past = (task.reminderLast - trigger) / alarm.interval
                 val next = trigger + (past + 1) * alarm.interval
                 if (past < alarm.repeat && next > task.reminderLast) {
@@ -54,6 +28,57 @@ class AlarmCalculator(
             else ->
                 null
         }
+    }
+
+    fun latestTriggerAtOrBefore(
+        task: Task,
+        alarm: Alarm,
+        defaultDueTime: Int,
+        timestamp: Long,
+    ): Long? {
+        val trigger = triggerTime(task, alarm, defaultDueTime)
+        return when {
+            trigger <= AlarmService.NO_ALARM || timestamp < trigger ->
+                null
+            alarm.type == Alarm.TYPE_RANDOM ->
+                null
+            alarm.type == Alarm.TYPE_SNOOZE ->
+                trigger
+            alarm.repeat > 0 && alarm.interval > 0 -> {
+                val past = minOf((timestamp - trigger) / alarm.interval, alarm.repeat.toLong())
+                trigger + past * alarm.interval
+            }
+            else ->
+                trigger
+        }
+    }
+
+    private fun triggerTime(task: Task, alarm: Alarm, defaultDueTime: Int) = when (alarm.type) {
+        Alarm.TYPE_SNOOZE,
+        Alarm.TYPE_DATE_TIME ->
+            alarm.time
+        Alarm.TYPE_REL_START ->
+            when {
+                task.hasStartTime() ->
+                    task.hideUntil + alarm.time
+                task.hasStartDate() ->
+                    task.hideUntil.withMillisOfDay(defaultDueTime) + alarm.time
+                else ->
+                    AlarmService.NO_ALARM
+            }
+        Alarm.TYPE_REL_END ->
+            when {
+                task.hasDueTime() ->
+                    task.dueDate + alarm.time
+                task.hasDueDate() ->
+                    task.dueDate.withMillisOfDay(defaultDueTime) + alarm.time
+                else ->
+                    AlarmService.NO_ALARM
+            }
+        Alarm.TYPE_RANDOM ->
+            calculateNextRandomReminder(random, task, alarm.time)
+        else ->
+            AlarmService.NO_ALARM
     }
 
     private fun calculateNextRandomReminder(random: Random, task: Task, reminderPeriod: Long) =
