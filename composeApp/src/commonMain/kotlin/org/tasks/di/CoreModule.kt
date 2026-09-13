@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.analytics.Reporting
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
@@ -400,6 +401,17 @@ val coreModule: Module = module {
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)
     single { RepeatRuleToString(crashReporting = get<Reporting>()) }
+    viewModel {
+        TaskDefaultsViewModel(
+            appPreferences = get(),
+            platformConfiguration = get(),
+            persistenceScope = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            locationDao = get(),
+            repeatRuleToString = get(),
+        )
+    }
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModel {

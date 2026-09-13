@@ -112,7 +112,6 @@ import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
-import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.TaskEditDestination
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.googleapis.GtasksInvoker
@@ -286,17 +285,6 @@ val commonModule = module {
             appPreferences = get(),
             refreshBroadcaster = get(),
             persistenceScope = get(),
-        )
-    }
-    viewModel {
-        TaskDefaultsViewModel(
-            appPreferences = get(),
-            platformConfiguration = get(),
-            persistenceScope = get(),
-            caldavDao = get(),
-            tagDataDao = get(),
-            locationDao = get(),
-            repeatRuleToString = get(),
         )
     }
     viewModel {
