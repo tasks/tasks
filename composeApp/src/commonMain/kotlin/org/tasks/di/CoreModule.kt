@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.analytics.Reporting
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -58,6 +59,7 @@ import org.tasks.preferences.isCurrentlyQuietHours
 import org.tasks.preferences.toAlarmJson
 import org.tasks.preferences.toAlarms
 import org.tasks.reminders.Random
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -397,6 +399,7 @@ val coreModule: Module = module {
     singleOf(::CaldavListCache)
     singleOf(::HeaderFormatter)
     singleOf(::ChipDataProvider)
+    single { RepeatRuleToString(crashReporting = get<Reporting>()) }
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModel {

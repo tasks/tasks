@@ -248,7 +248,6 @@ val commonModule = module {
         )
     }
     single { Locale.getDefault() }
-    single { RepeatRuleToString(locale = get(), crashReporting = get<Reporting>()) }
     viewModel { params ->
         CustomRecurrenceViewModel(
             rrule = params.get<String>(),

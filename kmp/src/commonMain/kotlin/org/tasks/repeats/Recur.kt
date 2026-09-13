@@ -1,6 +1,8 @@
 package org.tasks.repeats
 
 import org.tasks.data.entity.Task.Companion.sanitizeRecur
+import org.tasks.kmp.formatDayOfWeek
+import org.tasks.kmp.org.tasks.time.TextStyle
 import org.tasks.time.DateTime
 
 enum class Frequency {
@@ -60,6 +62,9 @@ expect fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime?
 
 val DateTime.weekday: Weekday
     get() = Weekday.fromCalendarDay(dayOfWeek)
+
+fun Weekday.displayName(style: TextStyle): String =
+    formatDayOfWeek(DateTime(2024, 12, 21 + calendarDay).millis, style)
 
 fun Until.toDateTime(): DateTime = when (this) {
     is Until.Date -> DateTime(year, month, day)
