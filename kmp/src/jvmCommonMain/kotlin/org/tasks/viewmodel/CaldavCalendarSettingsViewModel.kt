@@ -2,7 +2,7 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -99,7 +99,9 @@ open class CaldavCalendarSettingsViewModel(
             try {
                 withContext(NonCancellable) {
                     withContext(Dispatchers.IO) {
-                        caldavClientProvider.forAccount(account).removePrincipal(account, calendar, principal.href)
+                        caldavClientProvider.forAccount(account).use {
+                            it.removePrincipal(account, calendar, principal.href)
+                        }
                     }
                     principalDao.deleteAccessById(principal.id)
                     syncAdapters.sync(SyncSource.SHARING_CHANGE)
@@ -128,7 +130,7 @@ open class CaldavCalendarSettingsViewModel(
                         else -> "mailto:$input"
                     }
                     withContext(Dispatchers.IO) {
-                        caldavClientProvider.forAccount(account, calendar.url!!).share(account, href)
+                        caldavClientProvider.forAccount(account, calendar.url!!).use { it.share(account, href) }
                     }
                     val principal = principalDao.getOrCreatePrincipal(account, href)
                     val invite = if (href.startsWith("mailto:")) INVITE_NO_RESPONSE else INVITE_UNKNOWN
@@ -172,7 +174,7 @@ open class CaldavCalendarSettingsViewModel(
         return try {
             withContext(NonCancellable) {
                 val url = withContext(Dispatchers.IO) {
-                    caldavClientProvider.forAccount(account).makeCollection(name, s.color, s.icon)
+                    caldavClientProvider.forAccount(account).use { it.makeCollection(name, s.color, s.icon) }
                 }
                 val calendar = CaldavCalendar(
                     uuid = UUIDHelper.newUUID(),
@@ -207,7 +209,7 @@ open class CaldavCalendarSettingsViewModel(
             withContext(NonCancellable) {
                 withContext(Dispatchers.IO) {
                     caldavClientProvider.forAccount(account, calendar.url!!)
-                        .updateCollection(name, s.color, s.icon)
+                        .use { it.updateCollection(name, s.color, s.icon) }
                 }
                 val result = calendar.copy(
                     name = name,
@@ -237,7 +239,7 @@ open class CaldavCalendarSettingsViewModel(
                 withContext(NonCancellable) {
                     withContext(Dispatchers.IO) {
                         caldavClientProvider.forAccount(account, calendar.url!!)
-                            .deleteCollection()
+                            .use { it.deleteCollection() }
                     }
                     reporting.logEvent(AnalyticsEvents.SETTINGS_CLICK, AnalyticsEvents.PARAM_TYPE to AnalyticsEvents.SettingsClick.DELETE_LIST)
                     taskDeleter.delete(calendar)

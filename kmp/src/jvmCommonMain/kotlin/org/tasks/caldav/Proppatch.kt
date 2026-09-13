@@ -3,9 +3,10 @@ package org.tasks.caldav
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.XmlUtils
 import at.bitfire.dav4jvm.XmlUtils.propertyName
-import at.bitfire.dav4jvm.okhttp.PropStat
+import at.bitfire.dav4jvm.ktor.PropStatParser
 import at.bitfire.dav4jvm.property.webdav.WebDAV
 import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
+import io.ktor.http.isSuccess
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.StringReader
@@ -19,8 +20,8 @@ internal fun propstatFailureCode(body: String?): Int? {
         var event = parser.eventType
         while (event != XmlPullParser.END_DOCUMENT) {
             if (event == XmlPullParser.START_TAG && parser.propertyName() == WebDAV.PropStat) {
-                val propStat = PropStat.parse(parser)
-                if (!propStat.isSuccess()) return propStat.status.code
+                val propStat = PropStatParser.parse(parser)
+                if (!propStat.status.isSuccess()) return propStat.status.value
             }
             event = parser.next()
         }

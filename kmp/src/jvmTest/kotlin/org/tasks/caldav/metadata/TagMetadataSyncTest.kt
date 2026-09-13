@@ -1,12 +1,7 @@
 package org.tasks.caldav.metadata
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
-import okhttp3.HttpUrl.Companion.toHttpUrl
+import io.ktor.http.Url
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -20,6 +15,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 import org.tasks.DatabaseTest
+import org.tasks.InMemoryDataStore
 import org.tasks.caldav.CaldavClient
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.VtodoCache
@@ -38,17 +34,7 @@ class TagMetadataSyncTest : DatabaseTest() {
     private val vtodoCache = mock<VtodoCache>()
     private val preferences = TasksPreferences(InMemoryDataStore())
     private val sync = TagMetadataSync(caldavDao, tagDataDao, mock<CaldavClientProvider>(), vtodoCache, preferences)
-    private val principal = "https://example.com/principal/".toHttpUrl()
-
-    private class InMemoryDataStore : DataStore<Preferences> {
-        private val state = MutableStateFlow(emptyPreferences())
-        override val data: Flow<Preferences> = state
-        override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences {
-            val updated = transform(state.value)
-            state.value = updated
-            return updated
-        }
-    }
+    private val principal = Url("https://example.com/principal/")
 
     private suspend fun insertPrimaryAccount(): CaldavAccount {
         val account = caldavDao.getAccount(caldavDao.insert(CaldavAccount()))!!

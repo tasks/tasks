@@ -1,13 +1,14 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
-import at.bitfire.dav4jvm.okhttp.DavCollection
-import at.bitfire.dav4jvm.okhttp.DavResource
-import at.bitfire.dav4jvm.okhttp.DavResource.Companion.MIME_XML
-import at.bitfire.dav4jvm.okhttp.Response
-import at.bitfire.dav4jvm.okhttp.Response.HrefRelation
-import at.bitfire.dav4jvm.okhttp.exception.DavException
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.DavCollection
+import at.bitfire.dav4jvm.ktor.DavResource
+import at.bitfire.dav4jvm.ktor.DavResource.Companion.MIME_XML_UTF8
+import at.bitfire.dav4jvm.ktor.Response
+import at.bitfire.dav4jvm.ktor.exception.DavException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
+import at.bitfire.dav4jvm.ktor.resolve
+import at.bitfire.dav4jvm.ktor.responses
 import at.bitfire.dav4jvm.property.caldav.CalDAV
 import at.bitfire.dav4jvm.property.caldav.CalDAV.NS_APPLE_ICAL
 import at.bitfire.dav4jvm.property.caldav.CalDAV.NS_CALDAV
@@ -23,14 +24,21 @@ import at.bitfire.dav4jvm.property.webdav.SyncToken
 import at.bitfire.dav4jvm.property.webdav.WebDAV
 import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
 import co.touchlab.kermit.Logger
+import io.ktor.client.HttpClient
+import io.ktor.client.request.request
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.client.utils.HttpResponseReceived
+import io.ktor.http.ContentType
+import io.ktor.http.Headers
+import io.ktor.http.HttpMethod
+import io.ktor.http.Url
+import io.ktor.http.content.TextContent
+import io.ktor.http.contentType
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrl
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav_home_set_not_found
 import org.tasks.caldav.property.CalendarIcon
@@ -54,61 +62,55 @@ import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
 import org.xmlpull.v1.XmlSerializer
+import java.io.Closeable
 import java.io.IOException
 import java.io.StringWriter
-import java.security.KeyManagementException
-import java.security.NoSuchAlgorithmException
-import kotlin.coroutines.suspendCoroutine
 
 open class CaldavClient(
-        private val provider: CaldavClientProvider,
-        val httpClient: OkHttpClient,
-        private val httpUrl: HttpUrl?
-) {
-    @Throws(NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun forAccount(account: CaldavAccount) =
-            provider.forAccount(account)
+        val httpClient: HttpClient,
+        private val httpUrl: Url?
+) : Closeable {
+    override fun close() = httpClient.close()
 
     private suspend fun tryFindPrincipal(link: String): String? =
             httpUrl?.resolve(link)?.let { currentUserPrincipalHref(it) }
 
     private suspend fun <T : Property> propfindProperty(
-        url: HttpUrl,
+        url: Url,
         name: Property.Name,
         type: Class<T>,
     ): T? = withContext(Dispatchers.IO) {
         DavResource(httpClient, url)
             .propfind(0, name)
+            .responses()
             .firstOrNull()
-            ?.let { (response, _) -> response[type] }
+            ?.let { it[type] }
     }
 
-    private suspend fun currentUserPrincipalHref(url: HttpUrl): String? =
+    private suspend fun currentUserPrincipalHref(url: Url): String? =
             propfindProperty(url, WebDAV.CurrentUserPrincipal, CurrentUserPrincipal::class.java)
                     ?.href
                     ?.takeIf { it.isNotBlank() }
 
-    suspend fun principal(): HttpUrl? = withContext(Dispatchers.IO) {
+    suspend fun principal(): Url? = withContext(Dispatchers.IO) {
         currentUserPrincipalHref(httpUrl!!)?.let { httpUrl!!.resolve(it) }
     }
 
-    private suspend fun findHomeset(): String {
-        val davResource = DavResource(httpClient, httpUrl!!)
+    private suspend fun findHomeset(url: Url): String {
+        val davResource = DavResource(httpClient, url)
         return davResource
                 .propfind(0, CalDAV.CalendarHomeSet)
+                .responses()
                 .firstOrNull()
-                ?.let { (response, _) -> response[CalendarHomeSet::class.java] }
+                ?.let { it[CalendarHomeSet::class.java] }
                 ?.hrefs?.firstOrNull()
                 ?.takeIf { it.isNotBlank() }
-                ?.let { davResource.location.resolve(it).toString() }
+                ?.let { davResource.location.resolve(it)?.canonical()?.toString() }
                 ?: throw DisplayableException(Res.string.caldav_home_set_not_found)
     }
 
-    @Throws(IOException::class, DavException::class, NoSuchAlgorithmException::class, KeyManagementException::class)
-    suspend fun homeSet(
-            username: String? = null,
-            password: String? = null
-    ): String = withContext(Dispatchers.IO) {
+    @Throws(IOException::class, DavException::class)
+    suspend fun homeSet(): String = withContext(Dispatchers.IO) {
         var unauthorized: HttpException? = null
 
         suspend fun principalOrNull(link: String): String? =
@@ -124,9 +126,8 @@ open class CaldavClient(
 
         val principal = principalOrNull("") ?: principalOrNull("/.well-known/caldav")
 
-        val resolved = if (principal.isNullOrBlank()) httpUrl else httpUrl!!.resolve(principal!!)
         try {
-            provider.forUrl(resolved.toString(), username, password).findHomeset()
+            findHomeset(principal?.let { httpUrl!!.resolve(it) } ?: httpUrl!!)
         } catch (e: Exception) {
             val seen401 = unauthorized
             if (seen401 != null && !(e is HttpException && e.statusCode == 401)) {
@@ -136,46 +137,46 @@ open class CaldavClient(
         }
     }
 
-    suspend fun calendars(interceptor: (okhttp3.Response) -> okhttp3.Response = { it }): List<Response> =
-        DavResource(
-            httpClient
-                .newBuilder()
-                .addNetworkInterceptor { interceptor(it.proceed(it.request())) }
-                .build(),
-            httpUrl!!
-        )
-            .propfind(1, *calendarProperties)
-            .filter { (response, relation) ->
-                relation == HrefRelation.MEMBER &&
-                        response[ResourceType::class.java]?.types?.contains(CalDAV.Calendar) == true &&
-                        response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
-            }
-            .map { (response, _) -> response }
+    suspend fun calendars(onResponse: (Headers) -> Unit = {}): List<Response> {
+        val subscription = httpClient.monitor.subscribe(HttpResponseReceived) { onResponse(it.headers) }
+        try {
+            return DavResource(httpClient, httpUrl!!)
+                .propfind(1, *calendarProperties)
+                .members()
+                .filter { response ->
+                    response[ResourceType::class.java]?.types?.contains(CalDAV.Calendar) == true &&
+                            response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
+                }
+        } finally {
+            subscription.dispose()
+        }
+    }
 
     @Throws(IOException::class, HttpException::class)
-    suspend fun tagMetadata(url: HttpUrl): String? =
+    suspend fun tagMetadata(url: Url): String? =
         propfindProperty(url, TagMetadata.NAME, TagMetadata::class.java)?.json?.takeIf { it.isNotBlank() }
 
     @Throws(IOException::class, HttpException::class)
-    suspend fun tagMetadataVersion(url: HttpUrl): String? =
+    suspend fun tagMetadataVersion(url: Url): String? =
         propfindProperty(url, TagMetadataVersion.NAME, TagMetadataVersion::class.java)
             ?.version
             ?.takeIf { it.isNotBlank() }
 
     @Throws(IOException::class)
-    suspend fun pushTagMetadata(url: HttpUrl, json: String, version: String): Boolean =
+    suspend fun pushTagMetadata(url: Url, json: String, version: String): Boolean =
         pushProperty(url, TagMetadata.NAME, TagMetadataVersion.NAME, json, version)
 
     @Throws(IOException::class)
-    suspend fun pushMetadataProbe(url: HttpUrl, json: String, version: String): Boolean =
+    suspend fun pushMetadataProbe(url: Url, json: String, version: String): Boolean =
         pushProperty(url, MetadataProbe.NAME, MetadataProbeVersion.NAME, json, version)
 
     @Throws(IOException::class, HttpException::class)
-    suspend fun metadataProbeWithVersion(url: HttpUrl): Pair<String?, String?> = withContext(Dispatchers.IO) {
+    suspend fun metadataProbeWithVersion(url: Url): Pair<String?, String?> = withContext(Dispatchers.IO) {
         DavResource(httpClient, url)
             .propfind(0, MetadataProbe.NAME, MetadataProbeVersion.NAME)
+            .responses()
             .firstOrNull()
-            ?.let { (response, _) ->
+            ?.let { response ->
                 val payload = response[MetadataProbe::class.java]?.json?.takeIf { it.isNotBlank() }
                 val version = response[MetadataProbeVersion::class.java]?.version?.takeIf { it.isNotBlank() }
                 payload to version
@@ -184,11 +185,11 @@ open class CaldavClient(
     }
 
     @Throws(IOException::class)
-    suspend fun removeMetadataProbe(url: HttpUrl): Boolean =
+    suspend fun removeMetadataProbe(url: Url): Boolean =
         proppatch(url, proppatchBody(set = emptyList(), remove = listOf(MetadataProbe.NAME, MetadataProbeVersion.NAME)))
 
     private suspend fun pushProperty(
-        url: HttpUrl,
+        url: Url,
         property: Property.Name,
         versionProperty: Property.Name,
         json: String,
@@ -203,36 +204,36 @@ open class CaldavClient(
         )
     }
 
-    private suspend fun proppatch(url: HttpUrl, body: String): Boolean = withContext(Dispatchers.IO) {
-        val request = Request.Builder()
-            .url(url)
-            .method("PROPPATCH", body.toRequestBody(MIME_XML))
-            .build()
-        httpClient.newCall(request).execute().use { response ->
-            when {
-                response.code == 403 || response.code == 405 -> {
-                    Logger.w(tag = "CaldavClient") { "metadata PROPPATCH refused (${response.code}) at $url" }
-                    false
-                }
-                response.code == 207 -> {
-                    when (val failure = propstatFailureCode(response.body?.string())) {
-                        null -> true
-                        in 500..599 -> throw IOException("metadata PROPPATCH transient failure ($failure) at $url")
-                        else -> {
-                            Logger.w(tag = "CaldavClient") { "metadata propstat refused ($failure) at $url" }
-                            false
-                        }
+    private suspend fun proppatch(url: Url, body: String): Boolean = withContext(Dispatchers.IO) {
+        val response = httpClient.request(url) {
+            method = HttpMethod.parse("PROPPATCH")
+            contentType(MIME_XML_UTF8)
+            setBody(body)
+        }
+        val code = response.status.value
+        when {
+            code == 403 || code == 405 -> {
+                Logger.w(tag = "CaldavClient") { "metadata PROPPATCH refused ($code) at $url" }
+                false
+            }
+            code == 207 -> {
+                when (val failure = propstatFailureCode(response.bodyAsText())) {
+                    null -> true
+                    in 500..599 -> throw IOException("metadata PROPPATCH transient failure ($failure) at $url")
+                    else -> {
+                        Logger.w(tag = "CaldavClient") { "metadata propstat refused ($failure) at $url" }
+                        false
                     }
                 }
-                response.isSuccessful -> true
-                else -> throw IOException("metadata PROPPATCH failed: HTTP ${response.code} at $url")
             }
+            response.status.isSuccess() -> true
+            else -> throw IOException("metadata PROPPATCH failed: HTTP $code at $url")
         }
     }
 
     @Throws(IOException::class, HttpException::class)
     suspend fun deleteCollection() = withContext(Dispatchers.IO) {
-        DavResource(httpClient, httpUrl!!).delete(null) {}
+        DavResource(httpClient, httpUrl!!).delete {}
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
@@ -243,11 +244,11 @@ open class CaldavClient(
         if (icon?.isNotBlank() == true) {
             davResource.proppatch(CalendarIcon.NAME, icon)
         }
-        davResource.location.toString()
+        davResource.location.canonical().toString()
     }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun updateCollection(displayName: String, color: Int, icon: String?): String =
+    suspend fun updateCollection(displayName: String, color: Int, icon: String?) =
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, httpUrl!!)) {
                 proppatch(WebDAV.DisplayName, displayName)
@@ -260,12 +261,11 @@ open class CaldavClient(
                 if (icon?.isNotBlank() == true) {
                     proppatch(CalendarIcon.NAME, icon)
                 }
-                location.toString()
             }
         }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun updateIcon(url: HttpUrl, icon: String?, onFailure: () -> Unit) =
+    suspend fun updateIcon(url: Url, icon: String?, onFailure: () -> Unit) =
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, url)) {
                 if (icon?.isNotBlank() == true) {
@@ -345,7 +345,7 @@ open class CaldavClient(
                             <x0:href xmlns:x0="$NS_WEBDAV">$href</x0:href>
                         </x4:set>
                     </x4:share>
-                """.trimIndent().toRequestBody(MIME_XML)
+                """.trimIndent().toXml()
                 ) {}
         }
 
@@ -361,7 +361,7 @@ open class CaldavClient(
                             </D:share-access>
                         </D:sharee>
                     </D:share-resource>
-                    """.trimIndent().toRequestBody(MEDIATYPE_SHARING)) {}
+                    """.trimIndent().toSharing()) {}
         }
 
     suspend fun removePrincipal(
@@ -378,7 +378,7 @@ open class CaldavClient(
 
     private suspend fun removeOwncloudPrincipal(calendar: CaldavCalendar, href: String) =
         withContext(Dispatchers.IO) {
-            DavCollection(httpClient, calendar.url!!.toHttpUrl())
+            DavCollection(httpClient, calendar.url!!.toCaldavUrl())
                 .post(
                     """
                     <x4:share xmlns:x4="$NS_OWNCLOUD">
@@ -386,13 +386,13 @@ open class CaldavClient(
                             <x0:href xmlns:x0="$NS_WEBDAV">$href</x0:href>
                         </x4:remove>
                     </x4:share>
-                    """.trimIndent().toRequestBody(MIME_XML)
+                    """.trimIndent().toXml()
                 ) {}
         }
 
     private suspend fun removeSabrePrincipal(calendar: CaldavCalendar, href: String) =
         withContext(Dispatchers.IO) {
-            DavCollection(httpClient, calendar.url!!.toHttpUrl())
+            DavCollection(httpClient, calendar.url!!.toCaldavUrl())
                 .post(
                     """
                     <D:share-resource xmlns:D="$NS_WEBDAV">
@@ -403,12 +403,16 @@ open class CaldavClient(
                             </D:share-access>
                         </D:sharee>
                     </D:share-resource>
-                    """.trimIndent().toRequestBody(MEDIATYPE_SHARING)
+                    """.trimIndent().toSharing()
                 ) {}
         }
 
     companion object {
-        private val MEDIATYPE_SHARING = "application/davsharing+xml".toMediaType()
+        private val MEDIATYPE_SHARING = ContentType.parse("application/davsharing+xml")
+
+        private fun String.toXml() = TextContent(this, MIME_XML_UTF8)
+
+        private fun String.toSharing() = TextContent(this, MEDIATYPE_SHARING)
 
         private val calendarProperties = arrayOf(
             WebDAV.ResourceType,
@@ -426,21 +430,7 @@ open class CaldavClient(
             CalendarIcon.NAME,
         )
 
-        private suspend fun DavResource.propfind(
-                depth: Int,
-                vararg reqProp: Property.Name
-        ): List<Pair<Response, HrefRelation>> =
-                withContext(Dispatchers.IO) {
-                    suspendCoroutine { cont ->
-                        val responses = ArrayList<Pair<Response, HrefRelation>>()
-                        propfind(depth, *reqProp) { response, relation ->
-                            responses.add(Pair(response, relation))
-                        }
-                        cont.resumeWith(Result.success(responses))
-                    }
-                }
-
-        fun DavResource.proppatch(
+        suspend fun DavResource.proppatch(
             property: Property.Name,
             value: String,
             onFailure: () -> Unit = {},
@@ -448,13 +438,14 @@ open class CaldavClient(
             proppatch(
                 setProperties = mapOf(property to value),
                 removeProperties = emptyList(),
-                callback = { response, _ ->
+            )
+                .responses()
+                .collect { response ->
                     if (!response.isSuccess()) {
                         Logger.e(tag = "CaldavClient") { "${response.status} when updating $property: ${response.error}" }
                         onFailure()
                     }
-                },
-            )
+                }
         }
     }
 }

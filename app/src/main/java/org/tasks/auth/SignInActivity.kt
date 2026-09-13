@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking

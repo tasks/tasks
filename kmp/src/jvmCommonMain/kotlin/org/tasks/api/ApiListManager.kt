@@ -72,7 +72,7 @@ class ApiListManager(
                 else -> CaldavCalendar(
                     uuid = UUIDHelper.newUUID(),
                     account = account.uuid,
-                    url = caldavClientProvider.forAccount(account).makeCollection(title, color, icon),
+                    url = caldavClientProvider.forAccount(account).use { it.makeCollection(title, color, icon) },
                     name = title,
                     color = color,
                     icon = icon,
@@ -114,7 +114,7 @@ class ApiListManager(
                         }
                     else ->
                         caldavClientProvider.forAccount(account, calendar.url!!)
-                            .updateCollection(title, color, icon)
+                            .use { it.updateCollection(title, color, icon) }
                 }
             }
         }
@@ -133,7 +133,7 @@ class ApiListManager(
                 account.isEtebaseAccount ->
                     etebaseClientProvider.forAccount(account).deleteCollection(calendar)
                 else ->
-                    caldavClientProvider.forAccount(account, calendar.url!!).deleteCollection()
+                    caldavClientProvider.forAccount(account, calendar.url!!).use { it.deleteCollection() }
             }
         }
         taskDeleter.delete(calendar)

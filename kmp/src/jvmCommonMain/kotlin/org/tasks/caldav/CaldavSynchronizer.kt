@@ -2,15 +2,14 @@ package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
-import at.bitfire.dav4jvm.okhttp.DavCalendar
-import at.bitfire.dav4jvm.okhttp.DavCalendar.Companion.MIME_ICALENDAR
-import at.bitfire.dav4jvm.okhttp.DavResource
-import at.bitfire.dav4jvm.okhttp.Response
-import at.bitfire.dav4jvm.okhttp.Response.HrefRelation
-import at.bitfire.dav4jvm.okhttp.exception.DavException
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
-import at.bitfire.dav4jvm.okhttp.exception.ServiceUnavailableException
-import at.bitfire.dav4jvm.okhttp.exception.UnauthorizedException
+import at.bitfire.dav4jvm.ktor.DavCalendar
+import at.bitfire.dav4jvm.ktor.DavCalendar.Companion.MIME_ICALENDAR
+import at.bitfire.dav4jvm.ktor.DavResource
+import at.bitfire.dav4jvm.ktor.Response
+import at.bitfire.dav4jvm.ktor.exception.DavException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.ServiceUnavailableException
+import at.bitfire.dav4jvm.ktor.exception.UnauthorizedException
 import at.bitfire.dav4jvm.property.caldav.CalendarColor
 import at.bitfire.dav4jvm.property.caldav.CalendarData
 import at.bitfire.dav4jvm.property.webdav.CurrentUserPrincipal
@@ -18,16 +17,17 @@ import at.bitfire.dav4jvm.property.webdav.CurrentUserPrivilegeSet
 import at.bitfire.dav4jvm.property.caldav.GetCTag
 import at.bitfire.dav4jvm.property.webdav.DisplayName
 import at.bitfire.dav4jvm.property.webdav.GetETag
-import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromResponse
+import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromHttpResponse
 import at.bitfire.dav4jvm.property.webdav.SyncToken
 import org.tasks.service.TaskDeleter
 import org.tasks.data.dao.DirtyDao
-import kotlinx.coroutines.runBlocking
+import io.ktor.client.HttpClient
+import io.ktor.http.Headers
+import io.ktor.http.URLBuilder
+import io.ktor.http.Url
+import io.ktor.http.appendPathSegments
+import io.ktor.http.content.ByteArrayContent
 import net.fortuna.ical4j.model.property.ProdId
-import okhttp3.Headers
-import okhttp3.HttpUrl
-import okhttp3.OkHttpClient
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.jetbrains.compose.resources.getString
 import org.tasks.kmp.PROD_ID
 import tasks.kmp.generated.resources.Res
@@ -156,25 +156,23 @@ class CaldavSynchronizer(
         }
     }
 
-    private suspend fun synchronize(account: CaldavAccount) {
-        val caldavClient = provider.forAccount(account)
+    private suspend fun synchronize(account: CaldavAccount) = provider.forAccount(account).use { caldavClient ->
         var serverType = account.serverType
 
         // Check guest status for Tasks.org accounts
-        val isGuest = if (account.isTasksOrg) {
+        val isGuest = if (caldavClient is TasksClient) {
             try {
-                accountDataRepository.fetchAndCache(account)?.guest ?: false
+                accountDataRepository.fetchAndCache(caldavClient)?.guest ?: false
             } catch (e: Exception) {
                 Logger.e(e) { "Failed to fetch account data" }
                 accountDataRepository.getAccountResponse()?.guest ?: false
             }
         } else false
 
-        val resources = caldavClient.calendars { response ->
+        val resources = caldavClient.calendars { headers ->
             if (serverType == SERVER_UNKNOWN) {
-                serverType = getServerType(account, response.headers)
+                serverType = getServerType(account, headers)
             }
-            response
         }
         if (serverType != account.serverType) {
             account.serverType = serverType
@@ -252,16 +250,19 @@ class CaldavSynchronizer(
         }
     }
 
-    private fun getServerType(account: CaldavAccount, headers: Headers) = when {
-        account.isTasksOrg -> SERVER_TASKS
-        headers["DAV"]?.contains("oc-resource-sharing") == true ->
-            if (headers["DAV"]?.let { it.contains("nextcloud-") || it.contains("nc-") } == true)
-                SERVER_NEXTCLOUD
-            else
-                SERVER_OWNCLOUD
-        headers["x-sabre-version"]?.isNotBlank() == true -> SERVER_SABREDAV
-        headers["server"] == "Openexchange WebDAV" -> SERVER_OPEN_XCHANGE
-        else -> SERVER_UNKNOWN
+    private fun getServerType(account: CaldavAccount, headers: Headers): Int {
+        val dav = headers.getAll("DAV")?.joinToString(",")
+        return when {
+            account.isTasksOrg -> SERVER_TASKS
+            dav?.contains("oc-resource-sharing") == true ->
+                if (dav.contains("nextcloud-") || dav.contains("nc-"))
+                    SERVER_NEXTCLOUD
+                else
+                    SERVER_OWNCLOUD
+            headers["x-sabre-version"]?.isNotBlank() == true -> SERVER_SABREDAV
+            headers["server"] == "Openexchange WebDAV" -> SERVER_OPEN_XCHANGE
+            else -> SERVER_UNKNOWN
+        }
     }
 
     private suspend fun setError(account: CaldavAccount, throwable: Throwable) {
@@ -285,7 +286,7 @@ class CaldavSynchronizer(
         account: CaldavAccount,
         caldavCalendar: CaldavCalendar,
         resource: Response,
-        httpClient: OkHttpClient
+        httpClient: HttpClient
     ) {
         val httpUrl = resource.href
         val remoteCtag = resource.ctag
@@ -295,12 +296,7 @@ class CaldavSynchronizer(
         }
         Logger.d(TAG) { "updating $caldavCalendar" }
         val davCalendar = DavCalendar(httpClient, httpUrl)
-        val members = ArrayList<Response>()
-        davCalendar.calendarQuery("VTODO", null, null) { response, relation ->
-            if (relation == HrefRelation.MEMBER) {
-                members.add(response)
-            }
-        }
+        val members = davCalendar.calendarQuery("VTODO", null, null).members()
         val changed = members.filter { vCard: Response ->
             val eTag = vCard[GetETag::class.java]?.eTag
             if (eTag.isNullOrBlank()) {
@@ -310,12 +306,7 @@ class CaldavSynchronizer(
         }
         for (items in changed.chunked(30)) {
             val urls = items.map { it.href }
-            val responses = ArrayList<Response>()
-            davCalendar.multiget(urls) { response, relation ->
-                if (relation == HrefRelation.MEMBER) {
-                    responses.add(response)
-                }
-            }
+            val responses = davCalendar.multiget(urls).members()
             Logger.d(TAG) { "MULTI $urls" }
             for (vCard in responses) {
                 val eTag = vCard[GetETag::class.java]?.eTag
@@ -357,8 +348,8 @@ class CaldavSynchronizer(
     private suspend fun pushLocalChanges(
         account: CaldavAccount,
         caldavCalendar: CaldavCalendar,
-        httpClient: OkHttpClient,
-        httpUrl: HttpUrl,
+        httpClient: HttpClient,
+        httpUrl: Url,
         deleteOnly: Boolean = false,
     ) {
         for (task in caldavDao.getMoved(caldavCalendar.uuid!!)) {
@@ -371,8 +362,8 @@ class CaldavSynchronizer(
     }
 
     private suspend fun deleteRemoteResource(
-        httpClient: OkHttpClient,
-        httpUrl: HttpUrl,
+        httpClient: HttpClient,
+        httpUrl: Url,
         calendar: CaldavCalendar,
         caldavTask: CaldavTask
     ): Boolean {
@@ -386,9 +377,9 @@ class CaldavSynchronizer(
             if (objectId?.isNotBlank() == true) {
                 val remote = DavResource(
                     httpClient = httpClient,
-                    location = httpUrl.newBuilder().addPathSegment(objectId).build(),
+                    location = httpUrl.child(objectId),
                 )
-                remote.delete(null) {}
+                remote.delete {}
             }
         } catch (e: HttpException) {
             if (e.statusCode != 404) {
@@ -409,8 +400,8 @@ class CaldavSynchronizer(
         task: Task,
         caldavTaskId: Long,
         dirtyVersion: Long?,
-        httpClient: OkHttpClient,
-        httpUrl: HttpUrl
+        httpClient: HttpClient,
+        httpUrl: Url
     ) {
         val caldavTask = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
         Logger.d(TAG) { "pushing caldavTask=$caldavTask task=$task" }
@@ -422,7 +413,7 @@ class CaldavSynchronizer(
         }
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
             val data = iCal.toVtodo(account, calendar, caldavTask, task)
-            val requestBody = data.toRequestBody(contentType = MIME_ICALENDAR)
+            val requestBody = ByteArrayContent(data, MIME_ICALENDAR)
             val objPath = caldavTask.obj
                 ?: run {
                     Logger.e(TAG) { "null obj for caldavTask.id=${caldavTask.id} task.id=${task.id}" }
@@ -434,17 +425,13 @@ class CaldavSynchronizer(
             try {
                 val remote = DavResource(
                     httpClient = httpClient,
-                    location = httpUrl.newBuilder().addPathSegment(objPath).build(),
+                    location = httpUrl.child(objPath),
                 )
                 remote.put(requestBody) {
-                    if (it.isSuccessful) {
-                        fromResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
-                            caldavTask.etag = etag
-                        }
-                        runBlocking {
-                            vtodoCache.putVtodo(calendar, caldavTask, String(data))
-                        }
+                    fromHttpResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
+                        caldavTask.etag = etag
                     }
+                    vtodoCache.putVtodo(calendar, caldavTask, String(data))
                 }
             } catch (e: HttpException) {
                 Logger.e(e) { e.message.orEmpty() }
@@ -529,6 +516,9 @@ class CaldavSynchronizer(
 
         val Response.ctag: String?
             get() = this[SyncToken::class.java]?.token ?: this[GetCTag::class.java]?.cTag
+
+        private fun Url.child(segment: String): Url =
+            URLBuilder(this).appendPathSegments(segment, encodeSlash = true).build()
 
         val Response.accessLevel: Int
             get() {

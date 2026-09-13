@@ -1,12 +1,7 @@
 package org.tasks.viewmodel
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
@@ -21,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.tasks.DatabaseTest
+import org.tasks.InMemoryDataStore
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.RefreshBroadcaster
@@ -38,16 +34,6 @@ class TagSettingsViewModelTest : DatabaseTest() {
     private val preferences = TasksPreferences(InMemoryDataStore())
     private val tagMetadataSync =
         TagMetadataSync(caldavDao, tagDataDao, mock(), mock(), preferences)
-
-    private class InMemoryDataStore : DataStore<Preferences> {
-        private val state = MutableStateFlow(emptyPreferences())
-        override val data: Flow<Preferences> = state
-        override suspend fun updateData(transform: suspend (Preferences) -> Preferences): Preferences {
-            val updated = transform(state.value)
-            state.value = updated
-            return updated
-        }
-    }
 
     @Before
     fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)

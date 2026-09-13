@@ -183,7 +183,7 @@ open class TasksAccountViewModel(
         try {
             provider
                 .forTasksAccount(account)
-                .generateNewPassword(description.takeIf { it.isNotBlank() })
+                .use { it.generateNewPassword(description.takeIf { it.isNotBlank() }) }
                 ?.let {
                     _newPassword.value = NewPassword(
                         username = it["username"]!!.jsonPrimitive.content,
@@ -200,7 +200,7 @@ open class TasksAccountViewModel(
     fun deletePassword(id: Int) = viewModelScope.launch {
         val account = account.value ?: return@launch
         try {
-            provider.forTasksAccount(account).deletePassword(id)
+            provider.forTasksAccount(account).use { it.deletePassword(id) }
             refreshAccountData(account)
         } catch (e: Exception) {
             Logger.e(e) { "Failed to delete password" }
@@ -229,7 +229,7 @@ open class TasksAccountViewModel(
     fun regenerateInboundEmail() = viewModelScope.launch {
         val account = account.value ?: return@launch
         try {
-            provider.forTasksAccount(account).regenerateInboundEmail()
+            provider.forTasksAccount(account).use { it.regenerateInboundEmail() }
             refreshAccountData(account)
             reporting.logEvent(
                 AnalyticsEvents.SETTINGS_CLICK,
@@ -249,7 +249,7 @@ open class TasksAccountViewModel(
     fun setInboundCalendar(calendar: String?) = viewModelScope.launch {
         val account = account.value ?: return@launch
         try {
-            provider.forTasksAccount(account).setInboundCalendar(calendar)
+            provider.forTasksAccount(account).use { it.setInboundCalendar(calendar) }
             refreshAccountData(account)
             reporting.logEvent(
                 AnalyticsEvents.SETTINGS_CLICK,

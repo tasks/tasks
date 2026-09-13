@@ -1,6 +1,6 @@
 package org.tasks.auth
 
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents

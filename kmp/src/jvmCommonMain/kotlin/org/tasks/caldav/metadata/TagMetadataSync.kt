@@ -1,10 +1,10 @@
 package org.tasks.caldav.metadata
 
 import co.touchlab.kermit.Logger
+import io.ktor.http.Url
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.JsonObject
-import okhttp3.HttpUrl
 import org.tasks.caldav.CaldavClient
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.VtodoCache
@@ -41,9 +41,9 @@ class TagMetadataSync(
 ) {
     private val mutex = Mutex()
 
-    private var principalCache: Triple<Long, String?, HttpUrl>? = null
+    private var principalCache: Triple<Long, String?, Url>? = null
 
-    private suspend fun resolvePrincipal(account: CaldavAccount, client: CaldavClient): HttpUrl? {
+    private suspend fun resolvePrincipal(account: CaldavAccount, client: CaldavClient): Url? {
         principalCache?.let { (id, url, p) -> if (id == account.id && url == account.url) return p }
         return client.principal()?.also { principalCache = Triple(account.id!!, account.url, it) }
     }
@@ -202,7 +202,7 @@ class TagMetadataSync(
     suspend fun reapOrphaned(account: CaldavAccount): List<TagData> =
         withPrimaryLock(account, emptyList()) { tagDataDao.reapOrphanedTombstones() }
 
-    suspend fun pull(account: CaldavAccount, client: CaldavClient, principal: HttpUrl): Pulled {
+    suspend fun pull(account: CaldavAccount, client: CaldavClient, principal: Url): Pulled {
         if (!holdsStore(account)) {
             if (!withPrimaryLock(account, false) { adoptStore(account); true }) return Pulled(false, null)
         }
@@ -257,7 +257,7 @@ class TagMetadataSync(
     suspend fun pushDirty(
         account: CaldavAccount,
         client: CaldavClient,
-        principal: HttpUrl,
+        principal: Url,
         store: TagMetadataBlob? = null,
     ) {
         val orderDirty = orderDirty()
@@ -302,29 +302,30 @@ class TagMetadataSync(
         }
     }
 
-    suspend fun probeViability(url: String, username: String, password: String): Boolean {
-        val client = provider.forUrl(url, username, password)
-        val principal = client.principal() ?: return false
-        if (TagMetadataBlob.parse(client.tagMetadata(principal)) != null) return true
-        return client.supportsDeadProperties(principal)
-    }
+    suspend fun probeViability(url: String, username: String, password: String): Boolean =
+        provider.forUrl(url, username, password).use { client ->
+            val principal = client.principal() ?: return false
+            if (TagMetadataBlob.parse(client.tagMetadata(principal)) != null) return true
+            client.supportsDeadProperties(principal)
+        }
 
     suspend fun enablePrimary(account: CaldavAccount, skipProbe: Boolean = false): Boolean = mutex.withLock {
-        val client = provider.forAccount(account)
-        val principal = client.principal() ?: return@withLock false
-        val existingPayload = client.tagMetadata(principal)
-        val existing = TagMetadataBlob.parse(existingPayload)
-        if (existing != null) {
+        provider.forAccount(account).use { client ->
+            val principal = client.principal() ?: return@withLock false
+            val existingPayload = client.tagMetadata(principal)
+            val existing = TagMetadataBlob.parse(existingPayload)
+            if (existing != null) {
+                resetHeldStore(clearDirty = false)
+                firstAdopt(client, principal, account, existing, existingPayload!!) ?: return@withLock false
+                markPrimary(account)
+                return@withLock true
+            }
+            if (!skipProbe && !client.supportsDeadProperties(principal)) return@withLock false
             resetHeldStore(clearDirty = false)
-            firstAdopt(client, principal, account, existing, existingPayload!!) ?: return@withLock false
+            seed(client, principal, account) ?: return@withLock false
             markPrimary(account)
-            return@withLock true
+            true
         }
-        if (!skipProbe && !client.supportsDeadProperties(principal)) return@withLock false
-        resetHeldStore(clearDirty = false)
-        seed(client, principal, account) ?: return@withLock false
-        markPrimary(account)
-        true
     }
 
     suspend fun disable() = mutex.withLock {
@@ -332,7 +333,7 @@ class TagMetadataSync(
         preferences.set(TasksPreferences.metadataPrimaryAccount, 0L)
     }
 
-    private suspend fun seed(client: CaldavClient, principal: HttpUrl, account: CaldavAccount): TagMetadataBlob? {
+    private suspend fun seed(client: CaldavClient, principal: Url, account: CaldavAccount): TagMetadataBlob? {
         val snapshot = syncableTags()
         val tombstoneKeys = tagDataDao.getTombstoneKeys()
         val payload = localPayload(snapshot, tombstoneKeys)
@@ -346,7 +347,7 @@ class TagMetadataSync(
 
     private suspend fun firstAdopt(
         client: CaldavClient,
-        principal: HttpUrl,
+        principal: Url,
         account: CaldavAccount,
         remote: TagMetadataBlob,
         remotePayload: String,
@@ -393,7 +394,7 @@ class TagMetadataSync(
 
     private suspend fun currentBlob(
         client: CaldavClient,
-        principal: HttpUrl,
+        principal: Url,
         account: CaldavAccount,
         remoteVersion: String?,
     ): TagMetadataBlob {
@@ -405,7 +406,7 @@ class TagMetadataSync(
 
     private class Pushed(val blob: TagMetadataBlob, val json: String, val rev: String)
 
-    private suspend fun pushPayload(client: CaldavClient, principal: HttpUrl, json: JsonObject): Pushed? {
+    private suspend fun pushPayload(client: CaldavClient, principal: Url, json: JsonObject): Pushed? {
         val rev = UUIDHelper.newUUID()
         val stamped = stampRev(json, rev)
         val payload = stamped.toString()

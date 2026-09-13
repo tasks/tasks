@@ -16,6 +16,8 @@ import com.todoroo.astrid.service.Upgrade_13_2
 import com.todoroo.astrid.service.Upgrade_14_11
 import com.todoroo.astrid.service.Upgrade_14_13
 import com.todoroo.astrid.service.Upgrade_15_10
+import com.todoroo.astrid.service.Upgrade_15_13
+import com.todoroo.astrid.service.Upgrade_15_13.Companion.canonicalized
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -164,6 +166,7 @@ class TasksJsonImporter @Inject constructor(
         val reader = JsonReader(bufferedReader)
         reader.isLenient = true
         val ignoreKeys = ignorePrefs.map { context.getString(it) }
+        val importedAccounts = mutableMapOf<String, CaldavAccount>()
         reader.beginObject()
         var version = 0
         while (reader.hasNext()) {
@@ -211,7 +214,13 @@ class TasksJsonImporter @Inject constructor(
                                         }
                                     }
                             }
-                            "caldavAccounts" -> reader.forEach<CaldavAccount> { account ->
+                            "caldavAccounts" -> reader.forEach<CaldavAccount> { imported ->
+                                val account = if (version < Upgrade_15_13.VERSION) {
+                                    imported.canonicalized()
+                                } else {
+                                    imported
+                                }
+                                importedAccounts[account.uuid!!] = account
                                 if (caldavDao.getAccountByUuid(account.uuid!!) != null) {
                                     return@forEach
                                 }
@@ -222,9 +231,14 @@ class TasksJsonImporter @Inject constructor(
                                     caldavDao.insert(account)
                                 }
                             }
-                            "caldavCalendars" -> reader.forEach<CaldavCalendar> { calendar ->
-                                if (caldavDao.getCalendarByUuid(calendar.uuid!!) != null) {
+                            "caldavCalendars" -> reader.forEach<CaldavCalendar> { imported ->
+                                if (caldavDao.getCalendarByUuid(imported.uuid!!) != null) {
                                     return@forEach
+                                }
+                                val calendar = if (version < Upgrade_15_13.VERSION) {
+                                    imported.canonicalized(importedAccounts[imported.account])
+                                } else {
+                                    imported
                                 }
                                 val remappedAccount = accountUuidMap[calendar.account] ?: calendar.account
                                 val existingByUrl = calendar.url

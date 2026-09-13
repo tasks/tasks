@@ -29,7 +29,7 @@ suspend fun setupTasksAccount(
         ?: run {
             val homeSet = provider
                 .forUrl(caldavUrl, username, tokenString)
-                .homeSet(username, tokenString)
+                .use { it.homeSet() }
             CaldavAccount(
                 accountType = CaldavAccount.TYPE_TASKS,
                 uuid = UUIDHelper.newUUID(),

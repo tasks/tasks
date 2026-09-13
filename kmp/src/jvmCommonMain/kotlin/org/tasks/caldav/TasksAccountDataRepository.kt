@@ -30,11 +30,14 @@ class TasksAccountDataRepository(
         return raw.takeIf(String::isNotBlank)?.let { parseResponse(it) }
     }
 
-    suspend fun fetchAndCache(account: CaldavAccount): TasksAccountResponse? = mutex.withLock {
-        val raw = provider.forTasksAccount(account).getAccount() ?: return@withLock null
+    suspend fun fetchAndCache(client: TasksClient): TasksAccountResponse? = mutex.withLock {
+        val raw = client.getAccount() ?: return@withLock null
         tasksPreferences.set(cachedAccountData, raw)
         parseResponse(raw)
     }
+
+    suspend fun fetchAndCache(account: CaldavAccount): TasksAccountResponse? =
+        provider.forTasksAccount(account).use { fetchAndCache(it) }
 
     suspend fun fetchAndCache(): TasksAccountResponse? {
         val account = caldavDao.getAccounts().firstOrNull { it.isTasksOrg } ?: return null

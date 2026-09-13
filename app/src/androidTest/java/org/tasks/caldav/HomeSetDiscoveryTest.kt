@@ -6,7 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -21,7 +21,7 @@ class HomeSetDiscoveryTest : CaldavTest() {
 
         val homeSet = clientProvider
             .forUrl(server.url(USER_PATH).toString(), "username", "password")
-            .homeSet("username", "password")
+            .use { it.homeSet() }
 
         // The user-entered URL is probed first, so .well-known/caldav is never hit
         assertEquals(USER_PATH, server.takeRequest().path)
@@ -31,12 +31,12 @@ class HomeSetDiscoveryTest : CaldavTest() {
     @Test
     fun wellKnownUnauthorizedIsNotFatalWhenUrlResolves() = runBlocking {
         server.enqueue(propfind(NO_PROPS))       // entered URL: no principal
-        server.enqueue(MockResponse().setResponseCode(401)) // .well-known: needs auth
+        enqueueUnauthorized()                    // .well-known: refused
         server.enqueue(propfind(HOME_SET))       // findHomeset on entered URL
 
         val homeSet = clientProvider
             .forUrl(server.url(USER_PATH).toString(), "username", "password")
-            .homeSet("username", "password")
+            .use { it.homeSet() }
 
         // A 401 from the .well-known probe doesn't abort the flow
         assertEquals(server.url(USER_PATH).toString(), homeSet)
@@ -44,20 +44,24 @@ class HomeSetDiscoveryTest : CaldavTest() {
 
     @Test
     fun unauthorizedInDiscoverySurfacesAsAuthError() = runBlocking {
-        server.enqueue(MockResponse().setResponseCode(401)) // entered URL
-        server.enqueue(MockResponse().setResponseCode(401)) // .well-known
+        enqueueUnauthorized()                    // entered URL: refused
+        enqueueUnauthorized()                    // .well-known: refused
         server.enqueue(propfind(NO_PROPS))       // findHomeset: no home-set property
 
         try {
             clientProvider
                 .forUrl(server.url(USER_PATH).toString(), "username", "password")
-                .homeSet("username", "password")
+                .use { it.homeSet() }
             fail("Expected HTTP 401")
         } catch (e: HttpException) {
             // Home-set lookup failed without a 401 of its own, but a 401 was seen
             // during discovery, so an auth error is surfaced rather than not-found
             assertEquals(401, e.statusCode)
         }
+    }
+
+    private fun enqueueUnauthorized() = repeat(2) {
+        server.enqueue(MockResponse().setResponseCode(401).setHeader("WWW-Authenticate", "Basic realm=\"realm\""))
     }
 
     private fun propfind(body: String) = MockResponse()

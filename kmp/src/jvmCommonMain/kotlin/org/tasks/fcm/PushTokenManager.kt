@@ -20,7 +20,7 @@ class PushTokenManager(
             try {
                 val token = tokenProvider.getToken() ?: return@launch
                 caldavClientProvider.forTasksAccount(account)
-                    .registerPushToken(token)
+                    .use { it.registerPushToken(token) }
             } catch (e: Exception) {
                 Logger.e(e, tag = TAG) { "Failed to register push token" }
             }
@@ -33,7 +33,7 @@ class PushTokenManager(
             for (account in caldavDao.getAccounts(CaldavAccount.TYPE_TASKS)) {
                 try {
                     caldavClientProvider.forTasksAccount(account)
-                        .registerPushToken(token)
+                        .use { it.registerPushToken(token) }
                 } catch (e: Exception) {
                     Logger.e(e, tag = TAG) { "Failed to register push token" }
                 }
@@ -45,7 +45,7 @@ class PushTokenManager(
         try {
             val token = tokenProvider.getToken() ?: return
             caldavClientProvider.forTasksAccount(account)
-                .unregisterPushToken(token)
+                .use { it.unregisterPushToken(token) }
         } catch (e: Exception) {
             Logger.e(e, tag = TAG) { "Failed to unregister push token" }
         }

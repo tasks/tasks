@@ -1,13 +1,13 @@
 package org.tasks.http
 
 import android.content.Context
-import at.bitfire.dav4jvm.okhttp.BasicDigestAuthHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.logging.LogLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import org.tasks.BuildConfig
 import org.tasks.data.entity.CaldavAccount
@@ -48,9 +48,10 @@ class HttpClientFactory @Inject constructor(
         val decrypted = encryptedPassword?.let { encryption.decrypt(it) }
         return newClient(foreground = foreground, cookieKey = username) { builder ->
             if (!username.isNullOrBlank() && !decrypted.isNullOrBlank()) {
-                val auth = BasicDigestAuthHandler(null, username, decrypted.toCharArray())
-                builder.addNetworkInterceptor(auth)
-                builder.authenticator(auth)
+                val credentials = Credentials.basic(username, decrypted, Charsets.UTF_8)
+                builder.addNetworkInterceptor { chain ->
+                    chain.proceed(chain.request().newBuilder().header("Authorization", credentials).build())
+                }
             }
         }
     }

@@ -3,7 +3,7 @@ package org.tasks.caldav
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
-import okhttp3.HttpUrl.Companion.toHttpUrl
+import io.ktor.http.Url
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -16,7 +16,7 @@ import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
 
 class CapabilityProbeTest {
-    private val principal = "https://example.com/principal/".toHttpUrl()
+    private val principal = Url("https://example.com/principal/")
 
     @Test
     fun `rejects a server that refuses the write`() = runBlocking {

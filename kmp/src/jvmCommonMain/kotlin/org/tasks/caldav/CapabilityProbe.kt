@@ -6,14 +6,14 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
-import okhttp3.HttpUrl
+import io.ktor.http.Url
 import org.tasks.data.UUIDHelper
 
 private const val KEY_REV = "rev"
 
 private val json = Json { ignoreUnknownKeys = true; isLenient = true }
 
-suspend fun CaldavClient.supportsDeadProperties(principal: HttpUrl): Boolean {
+suspend fun CaldavClient.supportsDeadProperties(principal: Url): Boolean {
     val rev = UUIDHelper.newUUID()
     val payload = buildJsonObject { put(KEY_REV, rev) }.toString()
     if (!pushMetadataProbe(principal, payload, rev)) {

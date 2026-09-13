@@ -69,6 +69,7 @@ kotlin {
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room3)
                 implementation(libs.androidx.sqlite)
+                implementation(libs.okhttp.mockwebserver)
             }
         }
         val androidUnitTest by getting {
@@ -89,7 +90,9 @@ kotlin {
                 exclude(group = "org.ogce", module = "xpp3")
             }
             api(libs.google.api.tasks)
+            api(libs.okhttp)
             api(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.content.negotiation)

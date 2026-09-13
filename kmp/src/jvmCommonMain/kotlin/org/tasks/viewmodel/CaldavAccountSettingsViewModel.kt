@@ -2,7 +2,7 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import at.bitfire.dav4jvm.okhttp.exception.HttpException
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -180,7 +180,9 @@ open class CaldavAccountSettingsViewModel(
                 val username = s.username.trim()
                 val password = s.password
                 val homeSet = withContext(Dispatchers.IO) {
-                    caldavClientProvider.forUrl(s.url.trim(), username, password).homeSet(username, password)
+                    caldavClientProvider
+                        .forUrl(s.url.trim(), username, password)
+                        .use { it.homeSet() }
                 }
                 tagMetadataSync.probeViability(homeSet, username, password)
             } catch (e: Exception) {
@@ -370,7 +372,7 @@ open class CaldavAccountSettingsViewModel(
                     val principal = withContext(Dispatchers.IO) {
                         caldavClientProvider
                             .forUrl(urlValue, usernameValue, effectivePassword)
-                            .homeSet(usernameValue, effectivePassword)
+                            .use { it.homeSet() }
                     }
                     updateAccount(currentAccount, principal, effectiveName, usernameValue, effectivePassword, s.serverType)
                     onComplete()
@@ -391,7 +393,7 @@ open class CaldavAccountSettingsViewModel(
                 val principal = withContext(Dispatchers.IO) {
                     caldavClientProvider
                         .forUrl(urlValue, usernameValue, passwordValue)
-                        .homeSet(usernameValue, passwordValue)
+                        .use { it.homeSet() }
                 }
                 val account = addAccount(principal, effectiveName, usernameValue, passwordValue, s.serverType)
                 reporting.logEvent(

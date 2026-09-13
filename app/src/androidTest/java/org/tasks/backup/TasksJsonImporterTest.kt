@@ -1,10 +1,12 @@
 package org.tasks.backup
 
 import com.natpryce.makeiteasy.MakeItEasy.with
+import com.todoroo.astrid.service.Upgrade_15_13
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.tasks.BuildConfig
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
@@ -43,6 +45,10 @@ class TasksJsonImporterTest : InjectingTestCase() {
 
     private suspend fun import(backup: ByteArray): TasksJsonImporter.ImportResult =
         jsonImporter.importTasks(context, { ByteArrayInputStream(backup) })
+
+    private fun ByteArray.withVersion(version: Int) = String(this, Charsets.UTF_8)
+        .replace("\"version\":${BuildConfig.VERSION_CODE}", "\"version\":$version")
+        .toByteArray(Charsets.UTF_8)
 
     private suspend fun setupAccount(
         uuid: String,
@@ -179,6 +185,32 @@ class TasksJsonImporterTest : InjectingTestCase() {
         assertEquals(1, taskDao.getAll().size)
         assertEquals(1, caldavDao.getAccounts().size)
         assertEquals(1, caldavDao.getCalendars().size)
+    }
+
+    @Test
+    fun deduplicateCaldavUrlsStoredBeforeCanonicalization() = runBlocking {
+        val ncUrl = "https://nextcloud.example.com/remote.php/dav/calendars/foo%40example.com/"
+        val ncCalUrl = "${ncUrl}tasks/"
+        setupAccount("acc-A", accountType = TYPE_CALDAV, url = ncUrl, username = "user")
+        setupCalendar("acc-A", "cal-A", url = ncCalUrl)
+        setupTask("nextcloud task", "cal-A", "nc-remote-1")
+
+        val backup = export().withVersion(Upgrade_15_13.VERSION - 1)
+        database.clearAllTables()
+
+        val canonicalUrl = "https://nextcloud.example.com/remote.php/dav/calendars/foo@example.com/"
+        setupAccount("acc-B", accountType = TYPE_CALDAV, url = canonicalUrl, username = "user")
+        setupCalendar("acc-B", "cal-B", url = "${canonicalUrl}tasks/")
+        setupTask("nextcloud task", "cal-B", "nc-remote-1")
+
+        val result = import(backup)
+
+        assertEquals(1, result.taskCount)
+        assertEquals(0, result.importCount)
+        assertEquals(1, result.skipCount)
+        assertEquals(1, taskDao.getAll().size)
+        assertEquals(listOf(canonicalUrl), caldavDao.getAccounts().map { it.url })
+        assertEquals(listOf("${canonicalUrl}tasks/"), caldavDao.getCalendars().map { it.url })
     }
 
     @Test

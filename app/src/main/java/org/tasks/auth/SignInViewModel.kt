@@ -89,7 +89,7 @@ class SignInViewModel @Inject constructor(
                             username,
                             tokenString
                     )
-                    .homeSet(username, tokenString)
+                    .use { it.homeSet() }
             val password = encryption.encrypt(tokenString)
             val account = caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
                     ?.let {

@@ -13,15 +13,16 @@ class TaskMigrator(
     private val taskDeleter: TaskDeleter,
 ) {
     suspend fun migrateLocalTasks(fromAccount: CaldavAccount, toAccount: CaldavAccount) {
-        val caldavClient = clientProvider.forAccount(toAccount)
-        caldavDao.getCalendarsByAccount(fromAccount.uuid!!).forEach {
-            caldavDao.update(
-                it.copy(
-                    url = caldavClient.makeCollection(it.name!!, it.color, it.icon),
-                    account = toAccount.uuid,
+        clientProvider.forAccount(toAccount).use { caldavClient ->
+            caldavDao.getCalendarsByAccount(fromAccount.uuid!!).forEach {
+                caldavDao.update(
+                    it.copy(
+                        url = caldavClient.makeCollection(it.name!!, it.color, it.icon),
+                        account = toAccount.uuid,
+                    )
                 )
-            )
-            caldavDao.markCalendarDirty(it.uuid!!)
+                caldavDao.markCalendarDirty(it.uuid!!)
+            }
         }
         taskDeleter.delete(fromAccount)
         syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
