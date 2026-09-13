@@ -13,6 +13,7 @@ import org.tasks.data.entity.Task.Priority.Companion.LOW
 import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
 import org.tasks.data.entity.Task.Priority.Companion.NONE
 import org.tasks.data.setRecurrence
+import org.tasks.repeats.toRecur
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.time.DateTime.Companion.UTC
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
@@ -107,7 +108,7 @@ private fun org.tasks.data.entity.Task.applyPriority(remote: VTodoTask, local: V
 
 private fun org.tasks.data.entity.Task.applyRecurrence(remote: VTodoTask, local: VTodoTask?) {
     if (local == null || local.rRule?.recur?.toString() == recurrence) {
-        setRecurrence(remote.rRule?.recur)
+        setRecurrence(remote.rRule?.recur?.toRecur())
     }
 }
 

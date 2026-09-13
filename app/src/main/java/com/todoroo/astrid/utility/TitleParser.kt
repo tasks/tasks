@@ -7,12 +7,12 @@ package com.todoroo.astrid.utility
 
 import com.mdimension.jchronic.AstridChronic
 import com.mdimension.jchronic.Chronic
-import net.fortuna.ical4j.model.Recur.Frequency
+import org.tasks.repeats.Frequency
+import org.tasks.repeats.Recur
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.Task
 import org.tasks.data.createDueDate
-import org.tasks.repeats.RecurrenceUtils.newRecur
 import timber.log.Timber
 import java.util.Calendar
 import java.util.Locale
@@ -374,10 +374,7 @@ object TitleParser {
             val m = pattern.matcher(inputText)
             if (m.find()) {
                 val rtime = repeatTimes[repeatTime]
-                val recur = newRecur()
-                recur.setFrequency(rtime!!.name)
-                recur.interval = findInterval(inputText)
-                task.recurrence = recur.toString()
+                task.recurrence = Recur(frequency = rtime!!, interval = findInterval(inputText)).toString()
                 return
             }
         }
@@ -386,10 +383,7 @@ object TitleParser {
             val m = pattern.matcher(inputText)
             if (m.find()) {
                 val rtime = repeatTimesIntervalOne[repeatTimeIntervalOne]
-                val recur = newRecur()
-                recur.setFrequency(rtime!!.name)
-                recur.interval = 1
-                task.recurrence = recur.toString()
+                task.recurrence = Recur(frequency = rtime!!, interval = 1).toString()
                 return
             }
         }

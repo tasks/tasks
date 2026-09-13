@@ -1,15 +1,14 @@
 package org.tasks.data
 
-import net.fortuna.ical4j.model.Recur
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.repeats.Recur
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
 import org.tasks.time.ONE_WEEK
 import org.tasks.time.dueDateOverdue
 import org.tasks.time.startOfDay
-import org.tasks.time.toDateTime
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
 val Task.isHidden

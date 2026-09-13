@@ -27,8 +27,8 @@ import org.tasks.data.getTextOrNull
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.repeats.Until
 import org.tasks.time.DateTime
-import org.tasks.time.toDate
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
@@ -553,9 +553,12 @@ object Migrations {
                         } else {
                             null
                         } ?: continue
-                        val recur = newRecur(recurrence.withoutFrom()!!)
+                        var recur = newRecur(recurrence.withoutFrom()!!)
                         if (!cursor.isNull(1)) {
-                            cursor.getLong(1).takeIf { it > 0 }?.let { recur.until = DateTime(it).toDate() }
+                            cursor.getLong(1).takeIf { it > 0 }?.let {
+                                val until = DateTime(it)
+                                recur = recur.copy(until = Until.Date(until.year, until.monthOfYear, until.dayOfMonth))
+                            }
                         }
                         val repeatFrom = recurrence.repeatFrom()
                         connection.execSQL("UPDATE `tasks` SET `repeat_from` = $repeatFrom, `recurrence` = '$recur' WHERE `_id` = $id")

@@ -2,11 +2,10 @@
 
 package com.todoroo.astrid.service
 
-import net.fortuna.ical4j.model.NumberList
-import net.fortuna.ical4j.model.Recur
 import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.entity.Task
+import org.tasks.repeats.Frequency
 import org.tasks.repeats.RecurrenceUtils.LAST_DAY_OF_MONTH
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.service.Upgrade
@@ -39,16 +38,13 @@ class Upgrade_15_11(
         } catch (e: Exception) {
             return null
         }
-        if (recur.frequency != Recur.Frequency.MONTHLY ||
-            recur.dayList.isNotEmpty() ||
-            recur.monthDayList.isNotEmpty()
+        if (recur.frequency != Frequency.MONTHLY ||
+            recur.byDay.isNotEmpty() ||
+            recur.byMonthDay.isNotEmpty()
         ) {
             return null
         }
-        return Recur.Builder(recur)
-            .monthDayList(NumberList(LAST_DAY_OF_MONTH.toString()))
-            .build()
-            .toString()
+        return recur.copy(byMonthDay = listOf(LAST_DAY_OF_MONTH)).toString()
     }
 
     companion object {

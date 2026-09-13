@@ -11,8 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import net.fortuna.ical4j.model.Recur
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.repeats.Frequency
+import org.tasks.repeats.Recur
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.repeat_option_custom
 import tasks.kmp.generated.resources.repeat_option_does_not_repeat
@@ -22,20 +23,20 @@ import tasks.kmp.generated.resources.repeat_option_every_week
 import tasks.kmp.generated.resources.repeat_option_every_year
 
 fun Recur.isCustomRecurrence(): Boolean =
-    (frequency == Recur.Frequency.WEEKLY || frequency == Recur.Frequency.MONTHLY) && !dayList.isEmpty() ||
-            frequency == Recur.Frequency.MONTHLY && !monthDayList.isEmpty() ||
-            frequency == Recur.Frequency.HOURLY ||
-            frequency == Recur.Frequency.MINUTELY ||
+    (frequency == Frequency.WEEKLY || frequency == Frequency.MONTHLY) && byDay.isNotEmpty() ||
+            frequency == Frequency.MONTHLY && byMonthDay.isNotEmpty() ||
+            frequency == Frequency.HOURLY ||
+            frequency == Frequency.MINUTELY ||
             until != null ||
-            interval > 1 ||
-            count > 0
+            (interval ?: 1) > 1 ||
+            (count ?: 0) > 0
 
 sealed interface BasicRecurrenceOption {
     data object KeepCustom : BasicRecurrenceOption
 
     data object DoesNotRepeat : BasicRecurrenceOption
 
-    data class Frequency(val frequency: Recur.Frequency) : BasicRecurrenceOption
+    data class Frequency(val frequency: org.tasks.repeats.Frequency) : BasicRecurrenceOption
 
     data object Custom : BasicRecurrenceOption
 }
@@ -43,7 +44,7 @@ sealed interface BasicRecurrenceOption {
 @Composable
 fun BasicRecurrence(
     customLabel: String?,
-    selectedFrequency: Recur.Frequency?,
+    selectedFrequency: Frequency?,
     onSelected: (BasicRecurrenceOption) -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
@@ -52,10 +53,10 @@ fun BasicRecurrence(
             add(customLabel to BasicRecurrenceOption.KeepCustom)
         }
         add(stringResource(Res.string.repeat_option_does_not_repeat) to BasicRecurrenceOption.DoesNotRepeat)
-        add(stringResource(Res.string.repeat_option_every_day) to BasicRecurrenceOption.Frequency(Recur.Frequency.DAILY))
-        add(stringResource(Res.string.repeat_option_every_week) to BasicRecurrenceOption.Frequency(Recur.Frequency.WEEKLY))
-        add(stringResource(Res.string.repeat_option_every_month) to BasicRecurrenceOption.Frequency(Recur.Frequency.MONTHLY))
-        add(stringResource(Res.string.repeat_option_every_year) to BasicRecurrenceOption.Frequency(Recur.Frequency.YEARLY))
+        add(stringResource(Res.string.repeat_option_every_day) to BasicRecurrenceOption.Frequency(Frequency.DAILY))
+        add(stringResource(Res.string.repeat_option_every_week) to BasicRecurrenceOption.Frequency(Frequency.WEEKLY))
+        add(stringResource(Res.string.repeat_option_every_month) to BasicRecurrenceOption.Frequency(Frequency.MONTHLY))
+        add(stringResource(Res.string.repeat_option_every_year) to BasicRecurrenceOption.Frequency(Frequency.YEARLY))
         add(stringResource(Res.string.repeat_option_custom) to BasicRecurrenceOption.Custom)
     }
     val selectedIndex = when {

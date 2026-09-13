@@ -54,7 +54,7 @@ import org.tasks.location.MapPosition
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
-import org.tasks.repeats.RecurrenceUtils.newRRule
+import org.tasks.repeats.newRRule
 import org.tasks.time.DateTimeUtils.toDate
 import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay

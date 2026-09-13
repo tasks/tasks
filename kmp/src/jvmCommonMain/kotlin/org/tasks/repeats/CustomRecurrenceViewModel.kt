@@ -4,18 +4,12 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import net.fortuna.ical4j.model.Date
-import net.fortuna.ical4j.model.NumberList
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.Recur.Frequency.DAILY
-import net.fortuna.ical4j.model.Recur.Frequency.HOURLY
-import net.fortuna.ical4j.model.Recur.Frequency.MINUTELY
-import net.fortuna.ical4j.model.Recur.Frequency.MONTHLY
-import net.fortuna.ical4j.model.Recur.Frequency.WEEKLY
-import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
-import net.fortuna.ical4j.model.WeekDay
-import net.fortuna.ical4j.model.WeekDayList
-import net.fortuna.ical4j.model.property.RRule
+import org.tasks.repeats.Frequency.DAILY
+import org.tasks.repeats.Frequency.HOURLY
+import org.tasks.repeats.Frequency.MINUTELY
+import org.tasks.repeats.Frequency.MONTHLY
+import org.tasks.repeats.Frequency.WEEKLY
+import org.tasks.repeats.Frequency.YEARLY
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.repeats.RecurrenceUtils.LAST_DAY_OF_MONTH
@@ -30,8 +24,6 @@ import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 import java.util.Locale
-import org.tasks.time.toDateTime
-import org.tasks.time.weekDay
 
 open class CustomRecurrenceViewModel(
     rrule: String?,
@@ -41,16 +33,16 @@ open class CustomRecurrenceViewModel(
 ) : ViewModel() {
     data class ViewState(
         val interval: Int = 1,
-        val frequency: Recur.Frequency = WEEKLY,
+        val frequency: Frequency = WEEKLY,
         val dueDate: Long = currentTimeMillis().startOfDay(),
         val endSelection: Int = 0,
         val endDate: Long = dueDate.toDateTime().plusMonths(1).startOfDay().millis,
         val endCount: Int = 1,
-        val frequencyOptions: List<Recur.Frequency> = FREQ_ALL,
+        val frequencyOptions: List<Frequency> = FREQ_ALL,
         val daysOfWeek: List<DayOfWeek> = Locale.getDefault().daysOfWeek(),
         val selectedDays: List<DayOfWeek> = emptyList(),
         val locale: Locale = Locale.getDefault(),
-        val monthDay: WeekDay? = null,
+        val monthDay: ByDay? = null,
         val lastDayOfMonth: Boolean = false,
         val openedWithLastDayOfMonth: Boolean = false,
         val openedWithLastWeekOfMonth: Boolean = false,
@@ -91,8 +83,7 @@ open class CustomRecurrenceViewModel(
         val daysOfWeek = locale.daysOfWeek()
         val recur = rrule
             ?.takeIf { it.isNotBlank() }
-            ?.let { RRule(it) }
-            ?.recur
+            ?.let { Recur.parse(it) }
         val resolvedDueDate = dueDate
             .takeIf { it > 0 }
             ?: currentTimeMillis().startOfDay()
@@ -103,7 +94,7 @@ open class CustomRecurrenceViewModel(
             ?.isLastDayOfMonth
             ?: false
         val monthDay = recur
-            ?.dayList
+            ?.byDay
             ?.takeIf { recur.frequency == MONTHLY && !isMicrosoftTask }
             ?.firstOrNull()
         _state.update { state ->
@@ -115,14 +106,14 @@ open class CustomRecurrenceViewModel(
                     isMicrosoftTask -> 0
                     recur == null -> 0
                     recur.until != null -> 1
-                    recur.count >= 0 -> 2
+                    recur.count != null -> 2
                     else -> 0
                 },
                 endDate = DateTime(resolvedDueDate).plusMonths(1).startOfDay().millis,
-                endCount = recur?.count?.takeIf { it >= 0 } ?: 1,
+                endCount = recur?.count ?: 1,
                 daysOfWeek = daysOfWeek,
                 selectedDays = recur
-                    ?.dayList
+                    ?.byDay
                     ?.takeIf { recur.frequency == WEEKLY }
                     ?.toDaysOfWeek()
                     ?: emptyList(),
@@ -143,7 +134,7 @@ open class CustomRecurrenceViewModel(
         }
     }
 
-    fun setFrequency(frequency: Recur.Frequency) {
+    fun setFrequency(frequency: Frequency) {
         _state.update {
             it.copy(frequency = frequency)
         }
@@ -181,28 +172,22 @@ open class CustomRecurrenceViewModel(
 
     fun getRecur(): String {
         val state = _state.value
-        val builder = Recur.Builder().frequency(state.frequency)
-        if (state.frequency == WEEKLY) {
-            builder.dayList(state.selectedDays.toWeekDayList())
-        } else if (state.frequency == MONTHLY) {
-            if (state.lastDayOfMonth) {
-                builder.monthDayList(NumberList(LAST_DAY_OF_MONTH.toString()))
+        return Recur(
+            frequency = state.frequency,
+            byDay = when (state.frequency) {
+                WEEKLY -> state.selectedDays.toByDay()
+                MONTHLY -> listOfNotNull(state.monthDay.takeUnless { state.lastDayOfMonth })
+                else -> emptyList()
+            },
+            byMonthDay = if (state.frequency == MONTHLY && state.lastDayOfMonth) listOf(LAST_DAY_OF_MONTH) else emptyList(),
+            interval = state.interval.takeIf { it > 1 },
+            until = if (state.endSelection == 1) {
+                DateTime(state.endDate).let { Until.Date(it.year, it.monthOfYear, it.dayOfMonth) }
             } else {
-                state.monthDay?.let { builder.dayList(WeekDayList(it)) }
-            }
-        }
-        if (state.interval > 1) {
-            builder.interval(state.interval)
-        }
-        when (state.endSelection) {
-            // 1 -> builder.until(Date(state.endDate))
-            // builder.until expects that Date() is in local timezone and strips it, which effectively
-            // equivalent to decrementing the "endDate" value by TimeZone.offset. This changes the date
-            // to the previous day in timezones to the East of GMT, so this value shall be pre-shifted
-            1 -> builder.until(Date(DateTime(state.endDate).let { it.millis + it.offset }))
-            2 -> builder.count(state.endCount.coerceAtLeast(1))
-        }
-        return builder.build().toString()
+                null
+            },
+            count = if (state.endSelection == 2) state.endCount.coerceAtLeast(1) else null,
+        ).toString()
     }
 
     fun setMonthSelection(selection: Int) {
@@ -210,8 +195,8 @@ open class CustomRecurrenceViewModel(
             it.copy(
                 monthDay = when (selection) {
                     0, 3 -> null
-                    1 -> WeekDay(it.dueDayOfWeek.weekDay, it.nthWeek)
-                    2 -> WeekDay(it.dueDayOfWeek.weekDay, -1)
+                    1 -> ByDay(it.dueDayOfWeek.weekday, it.nthWeek)
+                    2 -> ByDay(it.dueDayOfWeek.weekday, -1)
                     else -> throw IllegalArgumentException()
                 },
                 lastDayOfMonth = selection == 3,
@@ -232,32 +217,30 @@ open class CustomRecurrenceViewModel(
             }
         }
 
-        private fun WeekDayList.toDaysOfWeek(): List<DayOfWeek> = map {
-            when (it) {
-                WeekDay.SU -> DayOfWeek.SUNDAY
-                WeekDay.MO -> DayOfWeek.MONDAY
-                WeekDay.TU -> DayOfWeek.TUESDAY
-                WeekDay.WE -> DayOfWeek.WEDNESDAY
-                WeekDay.TH -> DayOfWeek.THURSDAY
-                WeekDay.FR -> DayOfWeek.FRIDAY
-                WeekDay.SA -> DayOfWeek.SATURDAY
-                else -> throw IllegalArgumentException()
+        private fun List<ByDay>.toDaysOfWeek(): List<DayOfWeek> = map {
+            when (it.day) {
+                Weekday.SU -> DayOfWeek.SUNDAY
+                Weekday.MO -> DayOfWeek.MONDAY
+                Weekday.TU -> DayOfWeek.TUESDAY
+                Weekday.WE -> DayOfWeek.WEDNESDAY
+                Weekday.TH -> DayOfWeek.THURSDAY
+                Weekday.FR -> DayOfWeek.FRIDAY
+                Weekday.SA -> DayOfWeek.SATURDAY
             }
         }
 
-        private fun List<DayOfWeek>.toWeekDayList(): WeekDayList =
-            WeekDayList(*sortedBy { it.value }.map { it.weekDay }.toTypedArray())
+        private fun List<DayOfWeek>.toByDay(): List<ByDay> =
+            sortedBy { it.value }.map { ByDay(it.weekday) }
 
-        private val DayOfWeek.weekDay: WeekDay
+        private val DayOfWeek.weekday: Weekday
             get() = when (this) {
-                DayOfWeek.SUNDAY -> WeekDay.SU
-                DayOfWeek.MONDAY -> WeekDay.MO
-                DayOfWeek.TUESDAY -> WeekDay.TU
-                DayOfWeek.WEDNESDAY -> WeekDay.WE
-                DayOfWeek.THURSDAY -> WeekDay.TH
-                DayOfWeek.FRIDAY -> WeekDay.FR
-                DayOfWeek.SATURDAY -> WeekDay.SA
-                else -> throw IllegalArgumentException()
+                DayOfWeek.SUNDAY -> Weekday.SU
+                DayOfWeek.MONDAY -> Weekday.MO
+                DayOfWeek.TUESDAY -> Weekday.TU
+                DayOfWeek.WEDNESDAY -> Weekday.WE
+                DayOfWeek.THURSDAY -> Weekday.TH
+                DayOfWeek.FRIDAY -> Weekday.FR
+                DayOfWeek.SATURDAY -> Weekday.SA
             }
     }
 }

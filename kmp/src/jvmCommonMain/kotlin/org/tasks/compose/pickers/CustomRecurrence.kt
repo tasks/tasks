@@ -39,8 +39,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.pluralStringResource
@@ -52,7 +50,9 @@ import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.border
 import org.tasks.extensions.formatNumber
 import org.tasks.compose.rememberDateFormatter
+import org.tasks.repeats.ByDay
 import org.tasks.repeats.CustomRecurrenceViewModel
+import org.tasks.repeats.Frequency
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.ok
@@ -88,10 +88,6 @@ private val RadioButtonVisualInset = 14.dp
 private val RadioButtonSize = 48.dp
 private val TextButtonVisualInset = 12.dp
 
-private val RadioRowPadding = PaddingValues(
-    start = DialogHorizontalPadding - RadioButtonVisualInset,
-    end = DialogHorizontalPadding,
-)
 
 private val RadioContentInset =
     DialogHorizontalPadding - RadioButtonVisualInset + RadioButtonSize
@@ -106,7 +102,7 @@ fun CustomRecurrence(
     save: () -> Unit,
     discard: () -> Unit,
     setInterval: (Int) -> Unit,
-    setSelectedFrequency: (Recur.Frequency) -> Unit,
+    setSelectedFrequency: (Frequency) -> Unit,
     setEndDate: (Long) -> Unit,
     setSelectedEndType: (Int) -> Unit,
     setOccurrences: (Int) -> Unit,
@@ -176,14 +172,14 @@ fun CustomRecurrence(
                         onSelected = { setSelectedFrequency(state.frequencyOptions[it]) },
                     )
                 }
-                if (state.frequency == Recur.Frequency.WEEKLY) {
+                if (state.frequency == Frequency.WEEKLY) {
                     WeekdayPicker(
                         daysOfWeek = state.daysOfWeek,
                         selected = state.selectedDays,
                         locale = state.locale,
                         toggle = toggleDay,
                     )
-                } else if (state.frequency == Recur.Frequency.MONTHLY && !state.isMicrosoftTask) {
+                } else if (state.frequency == Frequency.MONTHLY && !state.isMicrosoftTask) {
                     MonthlyPicker(
                         monthDay = state.monthDay,
                         lastDayOfMonth = state.lastDayOfMonth,
@@ -198,7 +194,7 @@ fun CustomRecurrence(
                 }
                 if (!state.isMicrosoftTask) {
                     HorizontalDivider(
-                        modifier = Modifier.padding(vertical = if (state.frequency == Recur.Frequency.WEEKLY) 11.dp else 16.dp),
+                        modifier = Modifier.padding(vertical = if (state.frequency == Frequency.WEEKLY) 11.dp else 16.dp),
                         color = border()
                     )
                     EndsPicker(
@@ -294,7 +290,7 @@ private fun WeekdayPicker(
 
 @Composable
 private fun MonthlyPicker(
-    monthDay: WeekDay?,
+    monthDay: ByDay?,
     lastDayOfMonth: Boolean,
     dayNumber: Int,
     dayOfWeek: DayOfWeek,
@@ -443,35 +439,14 @@ private fun EndsPicker(
     }
 }
 
-@Composable
-fun RadioRow(
-    selected: Boolean,
-    onClick: () -> Unit,
-    contentPadding: PaddingValues = RadioRowPadding,
-    content: @Composable RowScope.() -> Unit
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(contentPadding),
-    ) {
-        RadioButton(selected = selected, onClick = onClick)
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            content = content,
-        )
-    }
-}
 
-private val Recur.Frequency.plural: PluralStringResource
+private val Frequency.plural: PluralStringResource
     get() = when (this) {
-        Recur.Frequency.MINUTELY -> Res.plurals.repeat_minutes
-        Recur.Frequency.HOURLY -> Res.plurals.repeat_hours
-        Recur.Frequency.DAILY -> Res.plurals.repeat_days
-        Recur.Frequency.WEEKLY -> Res.plurals.repeat_weeks
-        Recur.Frequency.MONTHLY -> Res.plurals.repeat_months
-        Recur.Frequency.YEARLY -> Res.plurals.repeat_years
+        Frequency.MINUTELY -> Res.plurals.repeat_minutes
+        Frequency.HOURLY -> Res.plurals.repeat_hours
+        Frequency.DAILY -> Res.plurals.repeat_days
+        Frequency.WEEKLY -> Res.plurals.repeat_weeks
+        Frequency.MONTHLY -> Res.plurals.repeat_months
+        Frequency.YEARLY -> Res.plurals.repeat_years
         else -> throw RuntimeException()
     }

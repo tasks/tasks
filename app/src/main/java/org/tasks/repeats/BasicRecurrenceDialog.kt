@@ -14,6 +14,7 @@ import org.tasks.dialogs.DialogBuilder
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.EXTRA_ACCOUNT_TYPE
 import org.tasks.repeats.CustomRecurrenceActivity.Companion.newIntent
 import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.repeats.Recur
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import timber.log.Timber
@@ -75,11 +76,7 @@ class BasicRecurrenceDialog : DialogFragment() {
                 dismiss()
             }
             is BasicRecurrenceOption.Frequency -> {
-                val recur = newRecur().apply {
-                    interval = 1
-                    setFrequency(option.frequency.name)
-                }
-                setResult(recur.toString())
+                setResult(Recur(frequency = option.frequency, interval = 1).toString())
                 dismiss()
             }
             BasicRecurrenceOption.Custom -> {

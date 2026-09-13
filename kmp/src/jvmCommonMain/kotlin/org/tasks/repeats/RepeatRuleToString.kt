@@ -1,22 +1,12 @@
 package org.tasks.repeats
 
 import kotlinx.coroutines.runBlocking
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.Recur.Frequency
-import net.fortuna.ical4j.model.Recur.Frequency.DAILY
-import net.fortuna.ical4j.model.Recur.Frequency.HOURLY
-import net.fortuna.ical4j.model.Recur.Frequency.MINUTELY
-import net.fortuna.ical4j.model.Recur.Frequency.MONTHLY
-import net.fortuna.ical4j.model.Recur.Frequency.WEEKLY
-import net.fortuna.ical4j.model.Recur.Frequency.YEARLY
-import net.fortuna.ical4j.model.WeekDay.Day
-import net.fortuna.ical4j.model.WeekDay.Day.FR
-import net.fortuna.ical4j.model.WeekDay.Day.MO
-import net.fortuna.ical4j.model.WeekDay.Day.SA
-import net.fortuna.ical4j.model.WeekDay.Day.SU
-import net.fortuna.ical4j.model.WeekDay.Day.TH
-import net.fortuna.ical4j.model.WeekDay.Day.TU
-import net.fortuna.ical4j.model.WeekDay.Day.WE
+import org.tasks.repeats.Frequency.DAILY
+import org.tasks.repeats.Frequency.HOURLY
+import org.tasks.repeats.Frequency.MINUTELY
+import org.tasks.repeats.Frequency.MONTHLY
+import org.tasks.repeats.Frequency.WEEKLY
+import org.tasks.repeats.Frequency.YEARLY
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getPluralString
@@ -26,9 +16,7 @@ import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.repeats.RecurrenceUtils.isLastDayOfMonth
 import org.tasks.repeats.RecurrenceUtils.newRecur
-import org.tasks.time.DateTime
 import java.text.DateFormatSymbols
-import java.util.Calendar
 import java.util.Locale
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.list_separator_with_space
@@ -65,16 +53,13 @@ import tasks.kmp.generated.resources.repeats_single_on_until
 import tasks.kmp.generated.resources.repeats_single_until
 import tasks.kmp.generated.resources.repeats_weekly
 import tasks.kmp.generated.resources.repeats_yearly
-import org.tasks.time.from
 
 class RepeatRuleToString(
     private val locale: Locale,
     private val crashReporting: CrashReporting,
 ) {
-    private val weekdays = listOf(*Day.values())
-
     private val Recur.hasDayString: Boolean
-        get() = (frequency == WEEKLY || frequency == MONTHLY) && !dayList.isEmpty() ||
+        get() = (frequency == WEEKLY || frequency == MONTHLY) && byDay.isNotEmpty() ||
                 isLastDayOfMonth
 
     suspend fun toString(rrule: String?): String? =
@@ -84,10 +69,10 @@ class RepeatRuleToString(
 
     private suspend fun toString(rrule: Recur): String = try {
         val dateFormatter = DateFormatter.create(is24HourFormat = false)
-        val interval = rrule.interval
+        val interval = rrule.interval ?: 1
         val frequency = rrule.frequency
-        val repeatUntil = if (rrule.until == null) null else DateTime.from(rrule.until)
-        val count = rrule.count
+        val repeatUntil = rrule.until?.toDateTime()
+        val count = rrule.count ?: 0
         val countString = if (count > 0) getPluralString(Res.plurals.repeat_times, count) else ""
         val countNumber = if (count > 0) locale.formatNumber(count) else ""
         if (interval <= 1) {
@@ -181,16 +166,14 @@ class RepeatRuleToString(
         } else if (rrule.frequency == WEEKLY) {
             val shortWeekdays = dfs.shortWeekdays
             val days: MutableList<String?> = ArrayList()
-            for (weekday in rrule.dayList) {
-                days.add(shortWeekdays[weekdays.indexOf(weekday.day) + 1])
+            for (weekday in rrule.byDay) {
+                days.add(shortWeekdays[weekday.day.calendarDay])
             }
             days.joinToString(getString(Res.string.list_separator_with_space))
         } else if (rrule.frequency == MONTHLY) {
             val longWeekdays = dfs.weekdays
-            val weekdayNum = rrule.dayList[0]
-            val dayOfWeekCalendar = Calendar.getInstance(locale)
-            dayOfWeekCalendar[Calendar.DAY_OF_WEEK] = weekdayToCalendarDay(weekdayNum.day)
-            val weekday = longWeekdays[dayOfWeekCalendar[Calendar.DAY_OF_WEEK]]
+            val weekdayNum = rrule.byDay[0]
+            val weekday = longWeekdays[weekdayNum.day.calendarDay]
             val nthWeek = getString(
                 if (weekdayNum.offset == -1) {
                     Res.string.repeat_monthly_last_week
@@ -206,19 +189,6 @@ class RepeatRuleToString(
             )
         } else {
             throw RuntimeException()
-        }
-    }
-
-    private fun weekdayToCalendarDay(weekday: Day): Int {
-        return when (weekday) {
-            SU -> Calendar.SUNDAY
-            MO -> Calendar.MONDAY
-            TU -> Calendar.TUESDAY
-            WE -> Calendar.WEDNESDAY
-            TH -> Calendar.THURSDAY
-            FR -> Calendar.FRIDAY
-            SA -> Calendar.SATURDAY
-            else -> throw RuntimeException("Invalid weekday: $weekday")
         }
     }
 

@@ -1,8 +1,5 @@
 package org.tasks.sync.microsoft
 
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
-import net.fortuna.ical4j.model.WeekDayList
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
@@ -10,6 +7,10 @@ import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceDayOfWeek
 import org.tasks.sync.microsoft.Tasks.Task.RecurrenceType
+import org.tasks.repeats.ByDay
+import org.tasks.repeats.Frequency
+import org.tasks.repeats.Recur
+import org.tasks.repeats.Weekday
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import java.text.SimpleDateFormat
@@ -70,29 +71,28 @@ object MicrosoftConverter {
         recurrence = remote.recurrence?.let { recurrence ->
             val pattern = recurrence.pattern
             val frequency = when (pattern.type) {
-                RecurrenceType.daily -> Recur.Frequency.DAILY
-                RecurrenceType.weekly -> Recur.Frequency.WEEKLY
-                RecurrenceType.absoluteMonthly -> Recur.Frequency.MONTHLY
-                RecurrenceType.absoluteYearly -> Recur.Frequency.YEARLY
+                RecurrenceType.daily -> Frequency.DAILY
+                RecurrenceType.weekly -> Frequency.WEEKLY
+                RecurrenceType.absoluteMonthly -> Frequency.MONTHLY
+                RecurrenceType.absoluteYearly -> Frequency.YEARLY
                 else -> return@let null
             }
-            val dayList = pattern.daysOfWeek.mapNotNull {
+            val byDay = pattern.daysOfWeek.mapNotNull {
                 when (it) {
-                    RecurrenceDayOfWeek.sunday -> WeekDay.SU
-                    RecurrenceDayOfWeek.monday -> WeekDay.MO
-                    RecurrenceDayOfWeek.tuesday -> WeekDay.TU
-                    RecurrenceDayOfWeek.wednesday -> WeekDay.WE
-                    RecurrenceDayOfWeek.thursday -> WeekDay.TH
-                    RecurrenceDayOfWeek.friday -> WeekDay.FR
-                    RecurrenceDayOfWeek.saturday -> WeekDay.SA
+                    RecurrenceDayOfWeek.sunday -> Weekday.SU
+                    RecurrenceDayOfWeek.monday -> Weekday.MO
+                    RecurrenceDayOfWeek.tuesday -> Weekday.TU
+                    RecurrenceDayOfWeek.wednesday -> Weekday.WE
+                    RecurrenceDayOfWeek.thursday -> Weekday.TH
+                    RecurrenceDayOfWeek.friday -> Weekday.FR
+                    RecurrenceDayOfWeek.saturday -> Weekday.SA
                 }
             }
-            Recur.Builder()
-                .frequency(frequency)
-                .interval(pattern.interval.takeIf { it > 1 })
-                .dayList(WeekDayList(*dayList.toTypedArray()))
-                .build()
-                .toString()
+            Recur(
+                frequency = frequency,
+                interval = pattern.interval.takeIf { it > 1 },
+                byDay = byDay.map { ByDay(it) },
+            ).toString()
         }
         // sync reminders
         // sync files
@@ -146,29 +146,29 @@ object MicrosoftConverter {
                 null
             },
             recurrence = if (isRecurring) {
-                val recur = Recur(recurrence)
+                val recur = Recur.parse(recurrence!!)
                 when (recur.frequency) {
-                    Recur.Frequency.DAILY -> RecurrenceType.daily
-                    Recur.Frequency.WEEKLY -> RecurrenceType.weekly
-                    Recur.Frequency.MONTHLY -> RecurrenceType.absoluteMonthly
-                    Recur.Frequency.YEARLY -> RecurrenceType.absoluteYearly
+                    Frequency.DAILY -> RecurrenceType.daily
+                    Frequency.WEEKLY -> RecurrenceType.weekly
+                    Frequency.MONTHLY -> RecurrenceType.absoluteMonthly
+                    Frequency.YEARLY -> RecurrenceType.absoluteYearly
                     else -> null
                 }?.let { frequency ->
                     val dueDateTime = if (hasDueDate()) DateTime(dueDate) else DateTime()
                     Tasks.Task.Recurrence(
                         pattern = Tasks.Task.Pattern(
                             type = frequency,
-                            interval = recur.interval.coerceAtLeast(1),
-                            daysOfWeek = recur.dayList.mapNotNull {
-                                when (it) {
-                                    WeekDay.SU -> RecurrenceDayOfWeek.sunday
-                                    WeekDay.MO -> RecurrenceDayOfWeek.monday
-                                    WeekDay.TU -> RecurrenceDayOfWeek.tuesday
-                                    WeekDay.WE -> RecurrenceDayOfWeek.wednesday
-                                    WeekDay.TH -> RecurrenceDayOfWeek.thursday
-                                    WeekDay.FR -> RecurrenceDayOfWeek.friday
-                                    WeekDay.SA -> RecurrenceDayOfWeek.saturday
-                                    else -> null
+                            interval = recur.interval ?: 1,
+                            daysOfWeek = recur.byDay.mapNotNull {
+                                when (it.takeIf { it.offset == 0 }?.day) {
+                                    Weekday.SU -> RecurrenceDayOfWeek.sunday
+                                    Weekday.MO -> RecurrenceDayOfWeek.monday
+                                    Weekday.TU -> RecurrenceDayOfWeek.tuesday
+                                    Weekday.WE -> RecurrenceDayOfWeek.wednesday
+                                    Weekday.TH -> RecurrenceDayOfWeek.thursday
+                                    Weekday.FR -> RecurrenceDayOfWeek.friday
+                                    Weekday.SA -> RecurrenceDayOfWeek.saturday
+                                    null -> null
                                 }
                             },
                             month = when (frequency) {

@@ -35,7 +35,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import net.fortuna.ical4j.model.Recur
 import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
@@ -81,6 +80,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.TaskDefaultSettings
+import org.tasks.repeats.Frequency
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.anchoredToDueDate
 import org.tasks.service.TaskCompleter
@@ -928,7 +928,7 @@ class TaskEditViewModel(
             log.e(e) { "Failed to parse $recurrence" }
             return
         }
-        if (recur.frequency != Recur.Frequency.MONTHLY || recur.dayList.isEmpty()) {
+        if (recur.frequency != Frequency.MONTHLY || recur.byDay.isEmpty()) {
             return
         }
         applyRecurrence(recurrence.anchoredToDueDate(state.task.dueDate))

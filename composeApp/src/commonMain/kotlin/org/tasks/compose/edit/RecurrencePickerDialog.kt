@@ -30,6 +30,7 @@ import org.tasks.compose.pickers.CustomRecurrence
 import org.tasks.compose.pickers.isCustomRecurrence
 import org.tasks.compose.rememberRepeatRuleSummary
 import org.tasks.repeats.CustomRecurrenceViewModel
+import org.tasks.repeats.Recur
 import org.tasks.repeats.RecurrenceUtils.newRecur
 
 private val CustomRecurrenceMaxWidth = 420.dp
@@ -96,12 +97,7 @@ fun RecurrencePickerDialog(
                             BasicRecurrenceOption.KeepCustom -> onDismiss()
                             BasicRecurrenceOption.DoesNotRepeat -> onSelected(null)
                             is BasicRecurrenceOption.Frequency -> onSelected(
-                                newRecur()
-                                    .apply {
-                                        interval = 1
-                                        setFrequency(option.frequency.name)
-                                    }
-                                    .toString()
+                                Recur(frequency = option.frequency, interval = 1).toString()
                             )
                             BasicRecurrenceOption.Custom -> {
                                 customToken++
