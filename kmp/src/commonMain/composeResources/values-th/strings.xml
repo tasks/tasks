@@ -356,4 +356,10 @@
     <string name="theme_wallpaper">วอลเปเปอร์</string>
     <string name="theme_day_night">กลางวัน/กลางคืน</string>
     <string name="theme_system_default">ค่าเริ่มต้นของระบบ</string>
+    <string name="mcp_access_advanced">ดึก</string>
+    <string name="mcp_tools_group_lists">รายการ</string>
+    <string name="mcp_tools_group_tags">แท็ก</string>
+    <string name="mcp_tools_group_places">สถานที่</string>
+    <string name="mcp_tools_group_reminders">จดหมายเตือนชําระเงิน</string>
+    <string name="mcp_copy">สำเนา</string>
 </resources>
