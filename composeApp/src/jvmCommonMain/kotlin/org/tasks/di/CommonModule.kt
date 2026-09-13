@@ -106,7 +106,6 @@ import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
-import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.TaskEditDestination
 import org.tasks.http.OkHttpClientFactory
@@ -306,16 +305,6 @@ val commonModule = module {
             encryption = get(),
             taskDeleter = get(),
             reporting = get(),
-        )
-    }
-    viewModel {
-        ProCardViewModel(
-            caldavDao = get(),
-            subscriptionProvider = get(),
-            tasksPreferences = get(),
-            accountDataRepository = get(),
-            serverEnvironment = get(),
-            platformConfiguration = get(),
         )
     }
 }

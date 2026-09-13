@@ -1,5 +1,7 @@
 package org.tasks.di
 
+import org.tasks.auth.TasksServerEnvironment
+import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
@@ -514,7 +516,18 @@ val coreModule: Module = module {
             calendar = params.get(),
         )
     }
+    singleOf(::TasksServerEnvironment)
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
+    viewModel {
+        ProCardViewModel(
+            caldavDao = get(),
+            subscriptionProvider = get(),
+            tasksPreferences = get(),
+            accountDataRepository = get(),
+            serverEnvironment = get(),
+            platformConfiguration = get(),
+        )
+    }
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModel {

@@ -9,7 +9,6 @@ import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
-import org.tasks.auth.TasksServerEnvironment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -35,7 +34,6 @@ import org.tasks.service.TaskCleanup
 
 actual fun platformModule(): Module = module {
     includes(flavorModule)
-    singleOf(::TasksServerEnvironment)
     factory<Notifier> {
         object : Notifier {
             override suspend fun cancel(id: Long, reason: CancelReason) {}

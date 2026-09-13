@@ -18,7 +18,6 @@ import org.tasks.analytics.Reporting
 import org.tasks.auth.DesktopOAuthFlow
 import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.SignInHandler
-import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopEntitlement
 import org.tasks.billing.DesktopLinkClient
@@ -172,7 +171,6 @@ private fun resolveLogDir(): File {
 }
 
 actual fun platformModule(): Module = module {
-    singleOf(::TasksServerEnvironment)
 
     single {
         PlatformConfiguration(
