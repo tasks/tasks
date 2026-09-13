@@ -64,7 +64,7 @@ class TaskMover(
         val taskIds = tasks.map { it.id }
         taskDao.inTransaction {
             taskDao.setParent(0, taskIds)
-            tasks.forEach { performMove(it, selectedList) }
+            val moved = tasks.filter { performMove(it, selectedList) }.map { it.id }
             if (newParent != 0L) {
                 nestUnderParent(taskIds, newParent, selectedList)
             }
@@ -72,7 +72,8 @@ class TaskMover(
                 log.d { "Updating parents for ${selectedList.uuid}" }
                 caldavDao.updateParents(selectedList.uuid, force = true)
             }
-            dirtyDao.setDirty(taskIds + taskDao.getChildren(taskIds))
+            val changed = if (newParent != 0L) taskIds else moved
+            dirtyDao.setDirty(changed + taskDao.getChildren(changed))
         }
         refreshBroadcaster.broadcastRefresh()
     }
@@ -110,21 +111,20 @@ class TaskMover(
         move(taskDao.getLocalTasks(), CaldavFilter(calendar = list, account = account))
     }
 
-    private suspend fun performMove(task: Task, selectedList: CaldavFilter) {
+    private suspend fun performMove(task: Task, selectedList: CaldavFilter): Boolean {
         googleTaskDao.getByTaskId(task.id)?.let {
-            moveGoogleTask(task, it, selectedList)
-            return
+            return moveGoogleTask(task, it, selectedList)
         }
         caldavDao.getTask(task.id)?.let {
-            moveCaldavTask(task, it, selectedList)
-            return
+            return moveCaldavTask(task, it, selectedList)
         }
         moveLocalTask(task, selectedList)
+        return true
     }
 
-    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: CaldavFilter) {
+    private suspend fun moveGoogleTask(task: Task, googleTask: CaldavTask, selected: CaldavFilter): Boolean {
         if (googleTask.calendar == selected.uuid) {
-            return
+            return false
         }
         val id = task.id
         val children = taskDao.getChildren(id)
@@ -153,11 +153,12 @@ class TaskMover(
             }
             else -> createCaldavSubtree(task, children, selected)
         }
+        return true
     }
 
-    private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: CaldavFilter) {
+    private suspend fun moveCaldavTask(task: Task, caldavTask: CaldavTask, selected: CaldavFilter): Boolean {
         if (caldavTask.calendar == selected.uuid) {
-            return
+            return false
         }
         val id = task.id
         val childIds = taskDao.getChildren(id)
@@ -166,6 +167,7 @@ class TaskMover(
             selected.isGoogleTasks -> moveToGoogleTasks(id, childIds, selected)
             else -> createCaldavSubtree(task, childIds, selected)
         }
+        return true
     }
 
     private suspend fun moveLocalTask(task: Task, selected: CaldavFilter) {

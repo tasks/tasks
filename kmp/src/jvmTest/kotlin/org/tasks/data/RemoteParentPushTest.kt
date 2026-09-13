@@ -2,6 +2,7 @@ package org.tasks.data
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -124,6 +125,18 @@ class RemoteParentPushTest : DatabaseTest() {
 
         assertTrue("parent should be queued", isPending(parent.id))
         assertTrue("child should be queued", isPending(child.id))
+    }
+
+    @Test
+    fun movingToTheListATaskIsAlreadyOnDoesNotQueueIt() = runBlocking {
+        val parent = newTask("parent")
+        val child = newTask("child", parent = parent.id)
+        markEverythingSynced()
+
+        mover.move(listOf(parent.id), fromList())
+
+        assertFalse("parent should not be queued", isPending(parent.id))
+        assertFalse("child should not be queued", isPending(child.id))
     }
 
     private suspend fun fromList() = CaldavFilter(
