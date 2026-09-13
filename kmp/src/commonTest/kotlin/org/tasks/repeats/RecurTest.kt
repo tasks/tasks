@@ -1,22 +1,13 @@
 package org.tasks.repeats
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertThrows
-import org.junit.Test
 import kotlinx.datetime.DayOfWeek
 import org.tasks.time.DateTime
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 class RecurTest {
-    private fun withTZ(id: String, block: () -> Unit) {
-        val default = java.util.TimeZone.getDefault()
-        try {
-            java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone(id))
-            block()
-        } finally {
-            java.util.TimeZone.setDefault(default)
-        }
-    }
 
     @Test
     fun parseFrequencyOnly() {
@@ -30,6 +21,7 @@ class RecurTest {
             Recur(Frequency.WEEKLY, interval = 2, count = 5),
             Recur.parse("FREQ=WEEKLY;INTERVAL=2;COUNT=5"),
         )
+        assertEquals(Recur(Frequency.DAILY, interval = 1), Recur.parse("FREQ=DAILY;INTERVAL=1"))
         assertEquals(
             Recur(Frequency.MONTHLY, until = Until.Date(2026, 2, 28)),
             Recur.parse("FREQ=MONTHLY;UNTIL=20260228"),
@@ -41,7 +33,7 @@ class RecurTest {
     }
 
     @Test
-    fun parseFloatingUntil() = withTZ("America/Chicago") {
+    fun parseFloatingUntil() {
         val recur = Recur.parse("FREQ=DAILY;UNTIL=20260228T235959")
         assertEquals(Until.DateTime(DateTime(2026, 2, 28, 23, 59, 59).millis, utc = false), recur.until)
     }
@@ -69,6 +61,7 @@ class RecurTest {
         assertEquals(listOf(20), everything.byWeekNo)
         assertEquals(listOf(-1), everything.bySetPos)
         assertEquals(Weekday.MO, everything.weekStart)
+        assertNull(Recur.parse("FREQ=WEEKLY;BYDAY=MO").weekStart)
     }
 
     @Test
@@ -83,8 +76,8 @@ class RecurTest {
 
     @Test
     fun parseRejectsGarbage() {
-        assertThrows(IllegalArgumentException::class.java) { Recur.parse("FREQ=DAILY;UNTIL=notadate") }
-        assertThrows(IllegalArgumentException::class.java) { Recur.parse("FREQ=FORTNIGHTLY") }
+        assertFailsWith<IllegalArgumentException> { Recur.parse("FREQ=DAILY;UNTIL=notadate") }
+        assertFailsWith<IllegalArgumentException> { Recur.parse("FREQ=FORTNIGHTLY") }
     }
 
     @Test
@@ -110,7 +103,7 @@ class RecurTest {
     }
 
     @Test
-    fun serializeFloatingUntil() = withTZ("America/Chicago") {
+    fun serializeFloatingUntil() {
         assertEquals(
             "FREQ=DAILY;UNTIL=20260228T235959",
             Recur(Frequency.DAILY, until = Until.DateTime(DateTime(2026, 2, 28, 23, 59, 59).millis, utc = false)).toString(),
@@ -121,43 +114,46 @@ class RecurTest {
     fun roundTrips() {
         listOf(
             "FREQ=DAILY",
+            "FREQ=DAILY;INTERVAL=1",
             "FREQ=DAILY;INTERVAL=3",
             "FREQ=WEEKLY;COUNT=10;INTERVAL=2;BYDAY=MO,WE,FR",
+            "FREQ=WEEKLY;WKST=SU;BYDAY=MO",
             "FREQ=MONTHLY;BYDAY=2TU",
             "FREQ=MONTHLY;BYDAY=-1FR",
             "FREQ=MONTHLY;BYMONTHDAY=-1",
             "FREQ=MONTHLY;BYMONTH=1,3,5,7,9,11",
             "FREQ=YEARLY;UNTIL=20301231",
+            "FREQ=DAILY;UNTIL=20260228T235959Z",
             "FREQ=HOURLY;INTERVAL=6",
             "FREQ=MINUTELY;INTERVAL=30",
         ).forEach { assertEquals(it, Recur.parse(it).toString()) }
     }
 
     @Test
-    fun nextOccurrenceDaily() = withTZ("America/Chicago") {
+    fun nextOccurrenceDaily() {
         val start = DateTime(2026, 1, 30, 13, 30)
         assertEquals(DateTime(2026, 1, 31, 13, 30), Recur(Frequency.DAILY).nextOccurrence(start, hasTime = true))
         assertEquals(DateTime(2026, 2, 2, 13, 30), Recur(Frequency.DAILY, interval = 3).nextOccurrence(start, hasTime = true))
     }
 
     @Test
-    fun nextOccurrenceWithoutTimeIsAtMidnight() = withTZ("America/Chicago") {
+    fun nextOccurrenceWithoutTimeIsAtMidnight() {
         assertEquals(DateTime(2026, 1, 31), Recur(Frequency.DAILY).nextOccurrence(DateTime(2026, 1, 30, 13, 30), hasTime = false))
     }
 
     @Test
-    fun nextOccurrenceKeepsWallClockTimeAcrossSpringForward() = withTZ("America/Chicago") {
-        val dayBeforeSpringForward = DateTime(2026, 3, 7, 9, 0)
-        assertEquals(DateTime(2026, 3, 8, 9, 0), Recur(Frequency.DAILY).nextOccurrence(dayBeforeSpringForward, hasTime = true))
+    fun nextOccurrenceKeepsWallClockTimeAcrossUsSpringForward() {
+        val dayBeforeUsSpringForward = DateTime(2026, 3, 7, 9, 0)
+        assertEquals(DateTime(2026, 3, 8, 9, 0), Recur(Frequency.DAILY).nextOccurrence(dayBeforeUsSpringForward, hasTime = true))
     }
 
     @Test
-    fun nextOccurrenceMonthlySkipsMonthsWithoutThatDay() = withTZ("America/Chicago") {
+    fun nextOccurrenceMonthlySkipsMonthsWithoutThatDay() {
         assertEquals(DateTime(2026, 3, 31, 13, 30), Recur(Frequency.MONTHLY).nextOccurrence(DateTime(2026, 1, 31, 13, 30), hasTime = true))
     }
 
     @Test
-    fun nextOccurrenceMonthlyByMonthSkipsMonths() = withTZ("America/Chicago") {
+    fun nextOccurrenceMonthlyByMonthSkipsMonths() {
         assertEquals(
             DateTime(2017, 3, 31, 13, 30),
             Recur.parse("FREQ=MONTHLY;BYMONTH=1,3,5,7,9,11").nextOccurrence(DateTime(2017, 1, 31, 13, 30), hasTime = true),
@@ -165,7 +161,7 @@ class RecurTest {
     }
 
     @Test
-    fun nextOccurrenceByDay() = withTZ("America/Chicago") {
+    fun nextOccurrenceByDay() {
         val friday = DateTime(2026, 1, 30, 13, 30)
         assertEquals(DateTime(2026, 2, 2, 13, 30), Recur.parse("FREQ=WEEKLY;BYDAY=MO,WE,FR").nextOccurrence(friday, hasTime = true))
         assertEquals(DateTime(2026, 2, 27, 13, 30), Recur.parse("FREQ=MONTHLY;BYDAY=-1FR").nextOccurrence(friday, hasTime = true))
@@ -173,12 +169,21 @@ class RecurTest {
     }
 
     @Test
-    fun nextOccurrenceStopsAtUntilAndCount() = withTZ("America/Chicago") {
+    fun nextOccurrenceStopsAtUntilAndCount() {
         val start = DateTime(2026, 1, 30, 13, 30)
-        assertNull(Recur.parse("FREQ=DAILY;UNTIL=20260130T235959Z").nextOccurrence(start, hasTime = true))
-        assertEquals(DateTime(2026, 1, 31, 13, 30), Recur.parse("FREQ=DAILY;UNTIL=20260131T235959Z").nextOccurrence(start, hasTime = true))
+        val endOfStartDay = Until.DateTime(DateTime(2026, 1, 30, 23, 59, 59).millis, utc = true)
+        val endOfNextDay = Until.DateTime(DateTime(2026, 1, 31, 23, 59, 59).millis, utc = true)
+        assertNull(Recur(Frequency.DAILY, until = endOfStartDay).nextOccurrence(start, hasTime = true))
+        assertEquals(DateTime(2026, 1, 31, 13, 30), Recur(Frequency.DAILY, until = endOfNextDay).nextOccurrence(start, hasTime = true))
         assertNull(Recur.parse("FREQ=DAILY;COUNT=1").nextOccurrence(start, hasTime = true))
         assertEquals(DateTime(2026, 1, 31, 13, 30), Recur.parse("FREQ=DAILY;COUNT=2").nextOccurrence(start, hasTime = true))
+    }
+
+    @Test
+    fun nextOccurrenceStopsAtUntilDate() {
+        val start = DateTime(2026, 1, 30)
+        assertNull(Recur(Frequency.DAILY, until = Until.Date(2026, 1, 30)).nextOccurrence(start, hasTime = false))
+        assertEquals(DateTime(2026, 1, 31), Recur(Frequency.DAILY, until = Until.Date(2026, 1, 31)).nextOccurrence(start, hasTime = false))
     }
 
     @Test
@@ -189,7 +194,7 @@ class RecurTest {
     }
 
     @Test
-    fun untilToDateTime() = withTZ("America/Chicago") {
+    fun untilToDateTime() {
         assertEquals(DateTime(2026, 2, 28), Until.Date(2026, 2, 28).toDateTime())
         val utc = DateTime(2026, 2, 28, 23, 59, 59, timeZone = DateTime.UTC)
         assertEquals(utc, Until.DateTime(utc.millis, utc = true).toDateTime())

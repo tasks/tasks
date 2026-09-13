@@ -7,7 +7,6 @@ import net.fortuna.ical4j.model.NumberList
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
 import org.tasks.time.DateTime
-import org.tasks.time.from
 import org.tasks.time.toDate
 import org.tasks.time.toDateTime
 import java.text.ParseException
@@ -19,16 +18,15 @@ internal actual fun parseRecur(rrule: String): Recur =
         throw IllegalArgumentException(e)
     }
 
-internal actual fun serializeRecur(recur: Recur): String = recur.toIcal4j().toString()
-
 actual fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime? {
     val seed: Date = if (hasTime) start.toDateTime() else start.toDate()
     val next = toIcal4j().getNextDate(seed, seed) ?: return null
     return if (next is net.fortuna.ical4j.model.DateTime) {
         // time may be inaccurate due to DST, force time to be same
-        DateTime.from(next).withHourOfDay(start.hourOfDay).withMinuteOfHour(start.minuteOfHour)
+        DateTime(next.time, start.timeZone).withHourOfDay(start.hourOfDay).withMinuteOfHour(start.minuteOfHour)
     } else {
-        DateTime.from(next)
+        val value = next.toString()
+        DateTime(value.substring(0, 4).toInt(), value.substring(4, 6).toInt(), value.substring(6, 8).toInt(), timeZone = start.timeZone)
     }
 }
 

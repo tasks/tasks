@@ -58,7 +58,35 @@ data class Recur(
 
 internal expect fun parseRecur(rrule: String): Recur
 
-internal expect fun serializeRecur(recur: Recur): String
+internal fun serializeRecur(recur: Recur): String = buildString {
+    append("FREQ=").append(recur.frequency.name)
+    recur.weekStart?.let { append(";WKST=").append(it.name) }
+    recur.until?.let { append(";UNTIL=").append(it.serialize()) }
+    recur.count?.let { append(";COUNT=").append(it) }
+    recur.interval?.let { append(";INTERVAL=").append(it) }
+    appendList("BYMONTH", recur.byMonth)
+    appendList("BYWEEKNO", recur.byWeekNo)
+    appendList("BYYEARDAY", recur.byYearDay)
+    appendList("BYMONTHDAY", recur.byMonthDay)
+    appendList("BYDAY", recur.byDay.map { if (it.offset == 0) it.day.name else "${it.offset}${it.day.name}" })
+    appendList("BYHOUR", recur.byHour)
+    appendList("BYMINUTE", recur.byMinute)
+    appendList("BYSECOND", recur.bySecond)
+    appendList("BYSETPOS", recur.bySetPos)
+}
+
+private fun StringBuilder.appendList(name: String, values: List<Any>) {
+    if (values.isNotEmpty()) append(";").append(name).append("=").append(values.joinToString(","))
+}
+
+private fun Until.serialize(): String = when (this) {
+    is Until.Date -> "${year.pad(4)}${month.pad(2)}${day.pad(2)}"
+    is Until.DateTime -> toDateTime().let {
+        "${it.year.pad(4)}${it.monthOfYear.pad(2)}${it.dayOfMonth.pad(2)}T${it.hourOfDay.pad(2)}${it.minuteOfHour.pad(2)}${it.secondOfMinute.pad(2)}${if (utc) "Z" else ""}"
+    }
+}
+
+private fun Int.pad(width: Int) = toString().padStart(width, '0')
 
 expect fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime?
 
