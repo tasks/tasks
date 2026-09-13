@@ -48,7 +48,6 @@ import org.tasks.compose.OutlinedNumberInput
 import org.tasks.compose.OutlinedSpinner
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.border
-import org.tasks.extensions.formatNumber
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.repeats.ByDay
 import org.tasks.repeats.CustomRecurrenceViewModel
@@ -79,9 +78,10 @@ import tasks.kmp.generated.resources.repeats_every
 import tasks.kmp.generated.resources.repeats_never
 import tasks.kmp.generated.resources.repeats_on
 import tasks.kmp.generated.resources.repeats_weekly_on
-import java.time.DayOfWeek
-import java.time.format.TextStyle
-import java.util.Locale
+import kotlinx.datetime.DayOfWeek
+import org.tasks.kmp.formatNumber
+import org.tasks.kmp.org.tasks.time.TextStyle
+import org.tasks.repeats.displayName
 
 private val DialogHorizontalPadding = 20.dp
 private val RadioButtonVisualInset = 14.dp
@@ -153,7 +153,6 @@ fun CustomRecurrence(
                 ) {
                     OutlinedNumberInput(
                         number = state.interval,
-                        locale = state.locale,
                         onTextChanged = setInterval,
                     )
                     val options = state.frequencyOptions.map {
@@ -176,7 +175,6 @@ fun CustomRecurrence(
                     WeekdayPicker(
                         daysOfWeek = state.daysOfWeek,
                         selected = state.selectedDays,
-                        locale = state.locale,
                         toggle = toggleDay,
                     )
                 } else if (state.frequency == Frequency.MONTHLY && !state.isMicrosoftTask) {
@@ -188,7 +186,6 @@ fun CustomRecurrence(
                         nthWeek = state.nthWeek,
                         isLastWeek = state.showLastWeekOfMonth,
                         isLastDay = state.showLastDayOfMonth,
-                        locale = state.locale,
                         onSelected = setMonthSelection,
                     )
                 }
@@ -201,7 +198,6 @@ fun CustomRecurrence(
                         selection = state.endSelection,
                         endDate = state.endDate,
                         endOccurrences = state.endCount,
-                        locale = state.locale,
                         setEndDate = setEndDate,
                         setSelection = setSelectedEndType,
                         setOccurrences = setOccurrences,
@@ -247,7 +243,6 @@ private fun Header(res: StringResource) {
 private fun WeekdayPicker(
     daysOfWeek: List<DayOfWeek>,
     selected: List<DayOfWeek>,
-    locale: Locale,
     toggle: (DayOfWeek) -> Unit,
 ) {
     HorizontalDivider(
@@ -261,8 +256,8 @@ private fun WeekdayPicker(
         modifier = Modifier.padding(horizontal = DialogHorizontalPadding),
     ) {
         daysOfWeek.forEach { dayOfWeek ->
-            val string = remember(dayOfWeek, locale) {
-                dayOfWeek.getDisplayName(TextStyle.NARROW, locale)
+            val string = remember(dayOfWeek) {
+                dayOfWeek.displayName(TextStyle.NARROW)
             }
             Box(
                 modifier = Modifier
@@ -297,7 +292,6 @@ private fun MonthlyPicker(
     nthWeek: Int,
     isLastWeek: Boolean,
     isLastDay: Boolean,
-    locale: Locale,
     onSelected: (Int) -> Unit,
 ) {
     val selection = remember(monthDay, lastDayOfMonth) {
@@ -312,10 +306,10 @@ private fun MonthlyPicker(
         modifier = Modifier.padding(vertical = 16.dp),
         color = border()
     )
-    val dayOfWeekDisplayName = remember(dayOfWeek, locale) {
-        dayOfWeek.getDisplayName(TextStyle.FULL, locale)
+    val dayOfWeekDisplayName = remember(dayOfWeek) {
+        dayOfWeek.displayName(TextStyle.FULL)
     }
-    val onDayNumber = stringResource(Res.string.repeat_monthly_on_day_number, locale.formatNumber(dayNumber))
+    val onDayNumber = stringResource(Res.string.repeat_monthly_on_day_number, formatNumber(dayNumber))
     val nth = stringResource(
         when (nthWeek - 1) {
             0 -> Res.string.repeat_monthly_first_week
@@ -365,7 +359,6 @@ private fun EndsPicker(
     selection: Int,
     endDate: Long,
     endOccurrences: Int,
-    locale: Locale,
     calendarDisplayMode: DisplayMode,
     setDisplayMode: (DisplayMode) -> Unit,
     setOccurrences: (Int) -> Unit,
@@ -430,7 +423,6 @@ private fun EndsPicker(
         Spacer(modifier = Modifier.width(8.dp))
         OutlinedNumberInput(
             number = endOccurrences,
-            locale = locale,
             onTextChanged = setOccurrences,
             onFocus = { setSelection(2) },
         )

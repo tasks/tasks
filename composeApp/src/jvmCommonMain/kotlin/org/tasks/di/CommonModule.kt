@@ -80,7 +80,6 @@ import org.tasks.preferences.toAlarmJson
 import org.tasks.preferences.toAlarms
 import org.tasks.reminders.Random
 import org.tasks.reminders.ReminderControlSetViewModel
-import org.tasks.repeats.CustomRecurrenceViewModel
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -244,14 +243,6 @@ val commonModule = module {
         )
     }
     single { Locale.getDefault() }
-    viewModel { params ->
-        CustomRecurrenceViewModel(
-            rrule = params.get<String>(),
-            dueDate = params.get<Long>(),
-            accountType = params.get<Int>(),
-            locale = get(),
-        )
-    }
     viewModel {
         TasksAccountViewModel(
             provider = get(),

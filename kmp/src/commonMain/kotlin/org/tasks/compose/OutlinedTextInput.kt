@@ -21,9 +21,8 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import org.tasks.extensions.formatNumber
-import org.tasks.extensions.parseInteger
-import java.util.Locale
+import org.tasks.extensions.localizedNumber
+import org.tasks.kmp.parseLocalizedInteger
 
 private val InputMinWidth = 60.dp
 private val InputHeight = 45.dp
@@ -34,13 +33,12 @@ private val CursorWidth = 2.dp
 @Composable
 fun OutlinedNumberInput(
     number: Int,
-    locale: Locale,
     onTextChanged: (Int) -> Unit,
     onFocus: () -> Unit = {},
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-    val numberString = remember(number, locale) {
-        number.takeIf { it > 0 }?.let { locale.formatNumber(it, grouping = false) } ?: ""
+    val numberString = remember(number) {
+        number.takeIf { it > 0 }?.let { localizedNumber(it) } ?: ""
     }
     val textStyle = MaterialTheme.typography.bodyLarge.copy(
         color = MaterialTheme.colorScheme.onSurface,
@@ -60,7 +58,7 @@ fun OutlinedNumberInput(
             if (input.isEmpty()) {
                 onTextChanged(0)
             } else {
-                locale.parseInteger(input)
+                parseLocalizedInteger(input)
                     ?.takeIf { it >= 0 }
                     ?.let(onTextChanged)
             }

@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertThrows
 import org.junit.Test
+import kotlinx.datetime.DayOfWeek
 import org.tasks.time.DateTime
 
 class RecurTest {
@@ -193,5 +194,13 @@ class RecurTest {
         val utc = DateTime(2026, 2, 28, 23, 59, 59, timeZone = DateTime.UTC)
         assertEquals(utc, Until.DateTime(utc.millis, utc = true).toDateTime())
         assertEquals(DateTime(2026, 2, 28, 23, 59, 59), Until.DateTime(DateTime(2026, 2, 28, 23, 59, 59).millis, utc = false).toDateTime())
+    }
+
+    @Test
+    fun weekdaysRoundTripThroughDayOfWeek() {
+        assertEquals(DayOfWeek.MONDAY, Weekday.MO.dayOfWeek)
+        assertEquals(DayOfWeek.SUNDAY, Weekday.SU.dayOfWeek)
+        Weekday.entries.forEach { assertEquals(it, it.dayOfWeek.toWeekday()) }
+        DayOfWeek.entries.forEach { assertEquals(it, it.toWeekday().dayOfWeek) }
     }
 }

@@ -17,19 +17,14 @@ import org.tasks.repeats.RecurrenceUtils.isLastDayOfMonth
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import java.time.DayOfWeek
-import java.time.Instant
-import java.time.ZoneId
-import java.time.temporal.WeekFields
-import java.util.Calendar
-import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
-import java.util.Locale
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.isoDayNumber
+import org.tasks.kmp.firstDayOfWeek
 
 open class CustomRecurrenceViewModel(
     rrule: String?,
     dueDate: Long,
     accountType: Int,
-    locale: Locale,
 ) : ViewModel() {
     data class ViewState(
         val interval: Int = 1,
@@ -39,9 +34,8 @@ open class CustomRecurrenceViewModel(
         val endDate: Long = dueDate.toDateTime().plusMonths(1).startOfDay().millis,
         val endCount: Int = 1,
         val frequencyOptions: List<Frequency> = FREQ_ALL,
-        val daysOfWeek: List<DayOfWeek> = Locale.getDefault().daysOfWeek(),
+        val daysOfWeek: List<DayOfWeek> = localeDaysOfWeek(),
         val selectedDays: List<DayOfWeek> = emptyList(),
-        val locale: Locale = Locale.getDefault(),
         val monthDay: ByDay? = null,
         val lastDayOfMonth: Boolean = false,
         val openedWithLastDayOfMonth: Boolean = false,
@@ -49,7 +43,7 @@ open class CustomRecurrenceViewModel(
         val isMicrosoftTask: Boolean = false,
     ) {
         val dueDayOfWeek: DayOfWeek
-            get() = Instant.ofEpochMilli(dueDate).atZone(ZoneId.systemDefault()).dayOfWeek
+            get() = DateTime(dueDate).weekday.dayOfWeek
 
         val dueDayOfMonth: Int
             get() = DateTime(dueDate).dayOfMonth
@@ -61,16 +55,10 @@ open class CustomRecurrenceViewModel(
             get() = dueIsLastDayOfMonth || openedWithLastDayOfMonth
 
         val nthWeek: Int
-            get() =
-                Calendar.getInstance(locale)
-                    .apply { timeInMillis = dueDate }
-                    .get(DAY_OF_WEEK_IN_MONTH)
+            get() = DateTime(dueDate).dayOfWeekInMonth
 
         val lastWeekDayOfMonth: Boolean
-            get() =
-                Calendar.getInstance(locale)
-                    .apply { timeInMillis = dueDate }
-                    .let { it[DAY_OF_WEEK_IN_MONTH] == it.getActualMaximum(DAY_OF_WEEK_IN_MONTH) }
+            get() = DateTime(dueDate).let { it.dayOfWeekInMonth == it.maxDayOfWeekInMonth }
 
         val showLastWeekOfMonth: Boolean
             get() = lastWeekDayOfMonth || openedWithLastWeekOfMonth
@@ -80,7 +68,7 @@ open class CustomRecurrenceViewModel(
     val state = _state.asStateFlow()
 
     init {
-        val daysOfWeek = locale.daysOfWeek()
+        val daysOfWeek = localeDaysOfWeek()
         val recur = rrule
             ?.takeIf { it.isNotBlank() }
             ?.let { Recur.parse(it) }
@@ -117,7 +105,6 @@ open class CustomRecurrenceViewModel(
                     ?.takeIf { recur.frequency == WEEKLY }
                     ?.toDaysOfWeek()
                     ?: emptyList(),
-                locale = locale,
                 monthDay = monthDay,
                 lastDayOfMonth = lastDayOfMonth,
                 openedWithLastDayOfMonth = lastDayOfMonth,
@@ -195,8 +182,8 @@ open class CustomRecurrenceViewModel(
             it.copy(
                 monthDay = when (selection) {
                     0, 3 -> null
-                    1 -> ByDay(it.dueDayOfWeek.weekday, it.nthWeek)
-                    2 -> ByDay(it.dueDayOfWeek.weekday, -1)
+                    1 -> ByDay(it.dueDayOfWeek.toWeekday(), it.nthWeek)
+                    2 -> ByDay(it.dueDayOfWeek.toWeekday(), -1)
                     else -> throw IllegalArgumentException()
                 },
                 lastDayOfMonth = selection == 3,
@@ -208,39 +195,14 @@ open class CustomRecurrenceViewModel(
         val FREQ_ALL = listOf(MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY)
         val FREQ_MICROSOFT = listOf(DAILY, WEEKLY, MONTHLY, YEARLY)
 
-        private fun Locale.daysOfWeek(): List<DayOfWeek> {
-            val values = DayOfWeek.values()
-            val weekFields = WeekFields.of(this)
-            var index = values.indexOf(weekFields.firstDayOfWeek)
-            return (0..6).map {
-                values[index].also { index = (index + 1) % 7 }
-            }
+        private fun localeDaysOfWeek(): List<DayOfWeek> {
+            val first = firstDayOfWeek().isoDayNumber
+            return (0..6).map { DayOfWeek((first - 1 + it) % 7 + 1) }
         }
 
-        private fun List<ByDay>.toDaysOfWeek(): List<DayOfWeek> = map {
-            when (it.day) {
-                Weekday.SU -> DayOfWeek.SUNDAY
-                Weekday.MO -> DayOfWeek.MONDAY
-                Weekday.TU -> DayOfWeek.TUESDAY
-                Weekday.WE -> DayOfWeek.WEDNESDAY
-                Weekday.TH -> DayOfWeek.THURSDAY
-                Weekday.FR -> DayOfWeek.FRIDAY
-                Weekday.SA -> DayOfWeek.SATURDAY
-            }
-        }
+        private fun List<ByDay>.toDaysOfWeek(): List<DayOfWeek> = map { it.day.dayOfWeek }
 
         private fun List<DayOfWeek>.toByDay(): List<ByDay> =
-            sortedBy { it.value }.map { ByDay(it.weekday) }
-
-        private val DayOfWeek.weekday: Weekday
-            get() = when (this) {
-                DayOfWeek.SUNDAY -> Weekday.SU
-                DayOfWeek.MONDAY -> Weekday.MO
-                DayOfWeek.TUESDAY -> Weekday.TU
-                DayOfWeek.WEDNESDAY -> Weekday.WE
-                DayOfWeek.THURSDAY -> Weekday.TH
-                DayOfWeek.FRIDAY -> Weekday.FR
-                DayOfWeek.SATURDAY -> Weekday.SA
-            }
+            sortedBy { it.isoDayNumber }.map { ByDay(it.toWeekday()) }
     }
 }

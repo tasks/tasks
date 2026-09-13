@@ -1,14 +1,5 @@
 package org.tasks.di
 
-import org.tasks.viewmodel.LookAndFeelViewModel
-import org.tasks.viewmodel.NavigationDrawerViewModel
-import org.tasks.extensions.guarded
-import org.tasks.viewmodel.ReminderChange
-import org.tasks.notifications.CancelReason
-import org.tasks.notifications.Notifier
-import org.tasks.viewmodel.NotificationsViewModel
-import org.tasks.viewmodel.TaskDefaultsViewModel
-import org.tasks.analytics.Reporting
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -28,6 +19,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.tasks.TaskEditDestination
+import org.tasks.analytics.Reporting
 import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
@@ -43,6 +35,7 @@ import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Place
 import org.tasks.data.getOrCreateDefaultListFilter
+import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.FilterProvider
@@ -51,6 +44,8 @@ import org.tasks.jobs.RefreshScheduler
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
+import org.tasks.notifications.CancelReason
+import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
@@ -67,8 +62,9 @@ import org.tasks.preferences.isCurrentlyQuietHours
 import org.tasks.preferences.toAlarmJson
 import org.tasks.preferences.toAlarms
 import org.tasks.reminders.Random
-import org.tasks.repeats.RepeatRuleToString
 import org.tasks.reminders.ReminderControlSetViewModel
+import org.tasks.repeats.CustomRecurrenceViewModel
+import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
@@ -80,10 +76,15 @@ import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
+import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.NavigationDrawerViewModel
+import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.PendingTaskSaves
+import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.SortSettingsViewModel
+import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 
@@ -449,6 +450,13 @@ val coreModule: Module = module {
             refreshBroadcaster = get(),
             persistenceScope = get(),
             filterCodec = get(),
+        )
+    }
+    viewModel { params ->
+        CustomRecurrenceViewModel(
+            rrule = params.get<String>(),
+            dueDate = params.get<Long>(),
+            accountType = params.get<Int>(),
         )
     }
     viewModelOf(::AppViewModel)

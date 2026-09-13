@@ -1,5 +1,7 @@
 package org.tasks.repeats
 
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.isoDayNumber
 import org.tasks.data.entity.Task.Companion.sanitizeRecur
 import org.tasks.kmp.formatDayOfWeek
 import org.tasks.kmp.org.tasks.time.TextStyle
@@ -65,6 +67,13 @@ val DateTime.weekday: Weekday
 
 fun Weekday.displayName(style: TextStyle): String =
     formatDayOfWeek(DateTime(2024, 12, 21 + calendarDay).millis, style)
+
+val Weekday.dayOfWeek: DayOfWeek
+    get() = DayOfWeek(if (this == Weekday.SU) 7 else ordinal)
+
+fun DayOfWeek.toWeekday(): Weekday = Weekday.entries[isoDayNumber % 7]
+
+fun DayOfWeek.displayName(style: TextStyle): String = toWeekday().displayName(style)
 
 fun Until.toDateTime(): DateTime = when (this) {
     is Until.Date -> DateTime(year, month, day)

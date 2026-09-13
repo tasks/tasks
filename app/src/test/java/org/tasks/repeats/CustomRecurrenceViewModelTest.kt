@@ -11,8 +11,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.time.DateTime
-import java.time.DayOfWeek
-import java.util.Locale
+import kotlinx.datetime.DayOfWeek
 
 class CustomRecurrenceViewModelTest {
     @Test
@@ -278,6 +277,5 @@ class CustomRecurrenceViewModelTest {
             rrule = recur,
             dueDate = dueDate.millis,
             accountType = 0,
-            locale = Locale.getDefault(),
         ).also(block)
 }

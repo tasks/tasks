@@ -19,6 +19,10 @@ expect fun osDescription(): String
 
 expect fun languageDisplayName(languageTag: String): String?
 
+expect fun firstDayOfWeek(): kotlinx.datetime.DayOfWeek
+
+expect fun parseLocalizedInteger(text: String?): Int?
+
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         corruptionHandler = ReplaceFileCorruptionHandler {
