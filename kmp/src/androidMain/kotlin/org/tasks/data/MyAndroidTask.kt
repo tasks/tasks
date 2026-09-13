@@ -24,7 +24,8 @@ class MyAndroidTask() : DmfsTask(null) {
 
     constructor(cursor: Cursor) : this() {
         val values = cursor.toValues()
-        id = cursor.getLong(TaskContract.Tasks._ID)
+        val taskId = cursor.getLong(TaskContract.Tasks._ID)
+        id = taskId
         task = Task()
         populateTask(values)
         if (values.containsKey(TaskContract.Properties.PROPERTY_ID)) {
@@ -32,6 +33,15 @@ class MyAndroidTask() : DmfsTask(null) {
             populateProperty(values)
 
             while (cursor.moveToNext()) {
+                if (cursor.getLong(TaskContract.Tasks._ID) != taskId) {
+                    // The property view repeats the task row once per property, so a cursor holding
+                    // more than one task is a run of rows per task. Stop at the start of the next
+                    // run, and leave the cursor on the last row of this one so the caller's
+                    // moveToNext lands there. Ordering the query by _ID is what makes a run
+                    // contiguous; the provider's default sort is by due date.
+                    cursor.moveToPrevious()
+                    break
+                }
                 // process the other properties
                 populateProperty(cursor.toValues(true))
             }

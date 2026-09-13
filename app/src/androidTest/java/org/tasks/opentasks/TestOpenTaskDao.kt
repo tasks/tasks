@@ -79,7 +79,9 @@ class TestOpenTaskDao @Inject constructor(
                 null,
                 null,
                 null,
-                null)?.use {
+                // MyAndroidTask reads a task and its properties as one contiguous run of rows, and
+                // the default sort is by due date, which does not keep a run together
+                TaskContract.Tasks._ID)?.use {
             while (it.moveToNext()) {
                 MyAndroidTask(it).task?.let { task -> result.add(task) }
             }
