@@ -620,4 +620,10 @@
     <string name="theme_day_night">Dag/natt</string>
     <string name="theme_system_default">Följ systemet</string>
     <string name="works_with_desktop">Tasks.org för datorer</string>
+    <string name="mcp_access_advanced">Avancerat</string>
+    <string name="mcp_tools_group_lists">Listor</string>
+    <string name="mcp_tools_group_tags">Etiketter</string>
+    <string name="mcp_tools_group_places">Platser</string>
+    <string name="mcp_tools_group_reminders">Påminnelser</string>
+    <string name="mcp_copy">Kopiera</string>
 </resources>
