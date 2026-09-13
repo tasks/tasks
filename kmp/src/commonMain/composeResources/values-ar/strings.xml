@@ -535,4 +535,10 @@
     <string name="theme_wallpaper">خلفية</string>
     <string name="theme_day_night">صباحي/مسائي</string>
     <string name="theme_system_default">افتراضيات النظام</string>
+    <string name="mcp_access_advanced">متقدم</string>
+    <string name="mcp_tools_group_lists">القوائم</string>
+    <string name="mcp_tools_group_tags">علامات</string>
+    <string name="mcp_tools_group_places">الأماكن</string>
+    <string name="mcp_tools_group_reminders">تذكيرات</string>
+    <string name="mcp_copy">نسخ</string>
 </resources>
