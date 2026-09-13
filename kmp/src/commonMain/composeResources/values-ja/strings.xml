@@ -564,4 +564,10 @@
     <string name="theme_day_night">デイナイト</string>
     <string name="theme_system_default">システムデフォルト</string>
     <string name="works_with_desktop">デスクトップ版Tasks.org</string>
+    <string name="mcp_access_advanced">上級者向け</string>
+    <string name="mcp_tools_group_lists">リスト</string>
+    <string name="mcp_tools_group_tags">タグ</string>
+    <string name="mcp_tools_group_places">場所</string>
+    <string name="mcp_tools_group_reminders">リマインダー</string>
+    <string name="mcp_copy">コピー</string>
 </resources>
