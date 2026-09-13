@@ -459,4 +459,10 @@
     <string name="theme_wallpaper">சுவர்</string>
     <string name="theme_day_night">பகல் / இரவு</string>
     <string name="theme_system_default">கணினி இயல்புநிலை</string>
+    <string name="mcp_access_advanced">மேம்படுத்தபட்ட</string>
+    <string name="mcp_tools_group_lists">பட்டியல்கள்</string>
+    <string name="mcp_tools_group_tags">குறிச்சொற்கள்</string>
+    <string name="mcp_tools_group_places">இடங்கள்</string>
+    <string name="mcp_tools_group_reminders">நினைவூட்டல்கள்</string>
+    <string name="mcp_copy">நகலெடுக்கவும்</string>
 </resources>
