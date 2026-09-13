@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
@@ -493,6 +494,18 @@ val coreModule: Module = module {
             principalDao = get(),
             taskDeleter = get(),
             syncAdapters = get(),
+            reporting = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
+        )
+    }
+    viewModel { params ->
+        EtebaseCalendarSettingsViewModel(
+            caldavDao = get(),
+            clientProvider = get(),
+            taskDeleter = get(),
             reporting = get(),
             purchaseState = get(),
             isDark = params.get(),

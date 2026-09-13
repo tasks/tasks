@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,17 +16,17 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.etebase.EtebaseClientProvider
+import org.tasks.etebase.EtebaseCollectionClientProvider
+import org.tasks.http.ConnectionException
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.name_cannot_be_empty
 import tasks.kmp.generated.resources.network_error
-import java.net.ConnectException
 
 open class EtebaseCalendarSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val clientProvider: EtebaseClientProvider,
+    private val clientProvider: EtebaseCollectionClientProvider,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
     purchaseState: PurchaseState,
@@ -154,7 +155,7 @@ open class EtebaseCalendarSettingsViewModel(
     private suspend fun handleError(e: Exception) {
         Logger.e(e) { "Etebase calendar operation failed" }
         val message = when (e) {
-            is ConnectException -> getString(Res.string.network_error)
+            is ConnectionException -> getString(Res.string.network_error)
             else -> getString(Res.string.error_adding_account, e.message ?: "")
         }
         stateManager.update { it.copy(snackbar = message) }

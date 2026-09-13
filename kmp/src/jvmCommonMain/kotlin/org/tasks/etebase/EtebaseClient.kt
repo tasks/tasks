@@ -11,6 +11,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
+import org.tasks.http.translateExceptions
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class EtebaseClient(
@@ -18,7 +19,7 @@ class EtebaseClient(
         private val username: String,
         private val etebase: Account,
         private val caldavDao: CaldavDao
-) {
+) : EtebaseCollectionClient {
     private val cache = EtebaseLocalCache.getInstance(filesDir, username)
 
     fun getSession(): String = etebase.save(null)
@@ -127,22 +128,25 @@ class EtebaseClient(
         }
     }
 
-    suspend fun makeCollection(name: String, color: Int) =
-            etebase
-                    .collectionManager
-                    .create(TYPE_TASKS, ItemMetadata(), "")
-                    .let { setAndUpload(it, name, color) }
+    override suspend fun makeCollection(name: String, color: Int) = translateExceptions {
+        etebase
+                .collectionManager
+                .create(TYPE_TASKS, ItemMetadata(), "")
+                .let { setAndUpload(it, name, color) }
+    }
 
-    suspend fun updateCollection(calendar: CaldavCalendar, name: String, color: Int) =
-            cache
-                    .collectionGet(etebase.collectionManager, calendar.url!!)
-                    .let { setAndUpload(it, name, color) }
+    override suspend fun updateCollection(calendar: CaldavCalendar, name: String, color: Int) = translateExceptions {
+        cache
+                .collectionGet(etebase.collectionManager, calendar.url!!)
+                .let { setAndUpload(it, name, color) }
+    }
 
-    suspend fun deleteCollection(calendar: CaldavCalendar) =
-            cache
-                    .collectionGet(etebase.collectionManager, calendar.url!!)
-                    .apply { delete() }
-                    .let { setAndUpload(it) }
+    override suspend fun deleteCollection(calendar: CaldavCalendar) = translateExceptions {
+        cache
+                .collectionGet(etebase.collectionManager, calendar.url!!)
+                .apply { delete() }
+                .let { setAndUpload(it) }
+    }
 
     private suspend fun setAndUpload(
             collection: Collection,

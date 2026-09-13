@@ -14,8 +14,8 @@ class EtebaseClientProvider(
     private val encryption: KeyStoreEncryption,
     private val caldavDao: CaldavDao,
     private val httpClientFactory: OkHttpClientFactory,
-) {
-    suspend fun forAccount(account: CaldavAccount): EtebaseClient = forUrl(
+) : EtebaseCollectionClientProvider {
+    override suspend fun forAccount(account: CaldavAccount): EtebaseClient = forUrl(
         account.url!!,
         account.username!!,
         null,
