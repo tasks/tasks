@@ -19,7 +19,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.SubscriptionProvider
-import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.TasksAccountClientProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.compose.settings.CalendarItem
@@ -55,7 +55,7 @@ data class TasksAccountState(
 
 @OptIn(ExperimentalCoroutinesApi::class)
 open class TasksAccountViewModel(
-    private val provider: CaldavClientProvider,
+    private val provider: TasksAccountClientProvider,
     private val reporting: Reporting,
     private val accountDataRepository: TasksAccountDataRepository,
     private val caldavDao: CaldavDao,

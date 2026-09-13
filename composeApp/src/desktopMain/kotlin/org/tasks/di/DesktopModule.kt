@@ -430,7 +430,7 @@ actual fun platformModule(): Module = module {
         PushTokenManager(
             tokenProvider = get(),
             caldavDao = get(),
-            caldavClientProvider = get(),
+            tasksClientProvider = get(),
             scope = get(),
         )
     }

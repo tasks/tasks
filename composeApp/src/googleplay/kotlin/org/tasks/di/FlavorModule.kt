@@ -33,7 +33,7 @@ val flavorModule = module {
         PushTokenManager(
             tokenProvider = get(),
             caldavDao = get(),
-            caldavClientProvider = get(),
+            tasksClientProvider = get(),
             scope = kotlinx.coroutines.CoroutineScope(SupervisorJob() + Dispatchers.IO),
         )
     }

@@ -114,7 +114,6 @@ import org.tasks.auth.TasksOAuthClient
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
-import org.tasks.viewmodel.TasksAccountViewModel
 import java.util.Locale
 
 private const val SYNC_TAG = "BackgroundWork"
@@ -244,21 +243,6 @@ val commonModule = module {
         )
     }
     single { Locale.getDefault() }
-    viewModel {
-        TasksAccountViewModel(
-            provider = get(),
-            reporting = get(),
-            accountDataRepository = get(),
-            caldavDao = get(),
-            principalDao = get(),
-            backgroundWork = get(),
-            pushTokenManager = get(),
-            taskDeleter = get(),
-            tasksPreferences = get(),
-            subscriptionProvider = get(),
-            caldavUrl = get<org.tasks.auth.TasksServerEnvironment>().caldavUrl,
-        )
-    }
     viewModel {
         CaldavAccountSettingsViewModel(
             caldavDao = get(),
