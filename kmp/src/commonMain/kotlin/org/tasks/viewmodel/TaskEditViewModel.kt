@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalAtomicApi::class)
+
 package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
@@ -35,6 +37,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlin.concurrent.atomics.AtomicLong
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
+import kotlin.concurrent.atomics.incrementAndFetch
 import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
@@ -89,7 +94,6 @@ import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
 import org.tasks.time.startOfDay
-import java.util.concurrent.atomic.AtomicLong
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.no_title
 
@@ -97,7 +101,7 @@ internal const val WATCH_MAX_ATTEMPTS = 5
 private const val WATCH_RETRY_DELAY_MS = 1_000L
 
 /** Distinguishes editors on a destination that names no task at all - see [TaskEditViewModel]. */
-private val anonymousEditors = AtomicLong()
+private val anonymousEditors = AtomicLong(0)
 
 class TaskEditViewModel(
     taskId: Long,
@@ -147,7 +151,7 @@ class TaskEditViewModel(
      */
     private val saveKey: String = uuid
         ?: this.taskId?.let { "id:$it" }
-        ?: "editor:${anonymousEditors.incrementAndGet()}"
+        ?: "editor:${anonymousEditors.incrementAndFetch()}"
 
     private val log = Logger.withTag("TaskEditViewModel")
 

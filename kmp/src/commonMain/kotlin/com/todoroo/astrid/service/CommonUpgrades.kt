@@ -8,8 +8,7 @@ object CommonUpgrades {
         UpgradeStep(Upgrade_15_11.VERSION) {
             Upgrade_15_11(database.upgraderDao(), database.dirtyDao())
         },
-        UpgradeStep(Upgrade_15_13.VERSION) {
-            Upgrade_15_13(database.caldavDao())
-        },
-    )
+    ) + platformUpgrades(database)
 }
+
+internal expect fun platformUpgrades(database: Database): List<UpgradeStep>

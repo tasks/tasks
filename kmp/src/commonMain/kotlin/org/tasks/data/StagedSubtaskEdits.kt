@@ -1,15 +1,13 @@
 package org.tasks.data
 
-import java.util.concurrent.ConcurrentHashMap
-
 internal class StagedSubtaskEdits(
     private val trees: SubtaskTrees,
     private val rootKey: () -> String,
 ) {
-    private val added: MutableSet<String> = ConcurrentHashMap.newKeySet()
-    private val edited = ConcurrentHashMap<String, SubtaskTrees.Staging>()
-    private val deletions = ConcurrentHashMap<String, Boolean>()
-    private val arrangement = ConcurrentHashMap<String, SubtaskTrees.Arrangement>()
+    private val added = mutableSetOf<String>()
+    private val edited = mutableMapOf<String, SubtaskTrees.Staging>()
+    private val deletions = mutableMapOf<String, Boolean>()
+    private val arrangement = mutableMapOf<String, SubtaskTrees.Arrangement>()
 
     fun added(key: String) {
         added.add(key)
@@ -20,11 +18,11 @@ internal class StagedSubtaskEdits(
     }
 
     fun edited(displaced: Map<String, SubtaskTrees.Staging>) {
-        displaced.forEach { (key, was) -> edited.putIfAbsent(key, was) }
+        displaced.forEach { (key, was) -> edited.getOrPut(key) { was } }
     }
 
     fun deletionStaged(key: String) {
-        deletions.putIfAbsent(key, trees.get(key)?.deleted ?: false)
+        deletions.getOrPut(key) { trees.get(key)?.deleted ?: false }
     }
 
     fun rememberArrangement() {
@@ -32,7 +30,7 @@ internal class StagedSubtaskEdits(
     }
 
     fun rememberArrangement(arrangements: Map<String, SubtaskTrees.Arrangement>) {
-        arrangements.forEach { (key, at) -> arrangement.putIfAbsent(key, at) }
+        arrangements.forEach { (key, at) -> arrangement.getOrPut(key) { at } }
     }
 
     fun discard() {
