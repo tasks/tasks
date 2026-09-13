@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.TasksServerEnvironment
@@ -549,6 +550,17 @@ val coreModule: Module = module {
             tasksPreferences = get(),
             subscriptionProvider = get(),
             caldavUrl = get<org.tasks.auth.TasksServerEnvironment>().caldavUrl,
+        )
+    }
+    viewModel {
+        CaldavAccountSettingsViewModel(
+            caldavDao = get(),
+            caldavClientProvider = get(),
+            encryption = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            tagMetadataSync = get(),
+            tagMetadataActivation = get(),
         )
     }
     viewModelOf(::AppViewModel)

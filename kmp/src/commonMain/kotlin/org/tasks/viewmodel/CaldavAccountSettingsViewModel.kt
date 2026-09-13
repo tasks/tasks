@@ -2,9 +2,9 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,14 +18,18 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
-import org.tasks.caldav.CaldavClientProvider
-import org.tasks.caldav.metadata.TagMetadataSync
+import org.tasks.auth.serverUrlError
+import org.tasks.caldav.CaldavClientFactory
+import org.tasks.caldav.metadata.TagMetadataActivation
+import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.compose.settings.CaldavAccountState
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
-import org.tasks.security.KeyStoreEncryption
+import org.tasks.http.ConnectionException
+import org.tasks.http.HttpException
+import org.tasks.security.Encryption
 import org.tasks.service.TaskDeleter
 import org.tasks.ui.DisplayableException
 import tasks.kmp.generated.resources.Res
@@ -37,23 +41,18 @@ import tasks.kmp.generated.resources.metadata_stored_on_tasks_org
 import tasks.kmp.generated.resources.network_error
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.sync_metadata_summary
-import tasks.kmp.generated.resources.url_host_name_required
-import tasks.kmp.generated.resources.url_invalid_scheme
 import tasks.kmp.generated.resources.url_required
 import tasks.kmp.generated.resources.username_required
-import java.net.ConnectException
-import java.net.IDN
-import java.net.URI
-import java.net.URISyntaxException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 open class CaldavAccountSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val caldavClientProvider: CaldavClientProvider,
-    private val encryption: KeyStoreEncryption,
+    private val caldavClientProvider: CaldavClientFactory,
+    private val encryption: Encryption,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
-    private val tagMetadataSync: TagMetadataSync,
+    private val tagMetadataSync: TagMetadataEditor,
+    private val tagMetadataActivation: TagMetadataActivation,
 ) : ViewModel() {
 
     private val accountId = MutableStateFlow<Long?>(null)
@@ -184,7 +183,7 @@ open class CaldavAccountSettingsViewModel(
                         .forUrl(s.url.trim(), username, password)
                         .use { it.homeSet() }
                 }
-                tagMetadataSync.probeViability(homeSet, username, password)
+                tagMetadataActivation.probeViability(homeSet, username, password)
             } catch (e: Exception) {
                 Logger.e(e) { "metadata probe failed" }
                 if (seq == metadataProbeSeq) {
@@ -220,7 +219,7 @@ open class CaldavAccountSettingsViewModel(
     private suspend fun runEnablePrimary(account: CaldavAccount): Boolean {
         val supported = try {
             withContext(NonCancellable) {
-                tagMetadataSync.enablePrimary(account)
+                tagMetadataActivation.enablePrimary(account)
             }
         } catch (e: Exception) {
             Logger.e(e) { "metadata probe failed" }
@@ -237,7 +236,7 @@ open class CaldavAccountSettingsViewModel(
 
     private fun disableMetadata() = viewModelScope.launch {
         try {
-            withContext(NonCancellable) { tagMetadataSync.disable() }
+            withContext(NonCancellable) { tagMetadataActivation.disable() }
         } catch (e: Exception) {
             Logger.e(e) { "metadata disable failed" }
         }
@@ -302,29 +301,7 @@ open class CaldavAccountSettingsViewModel(
         if (urlValue.isEmpty()) {
             urlError = getString(Res.string.url_required)
         } else {
-            try {
-                val uri = URI(urlValue)
-                val scheme = uri.scheme
-                if (scheme.equals("https", ignoreCase = true) || scheme.equals("http", ignoreCase = true)) {
-                    val host = uri.host
-                    if (host.isNullOrEmpty()) {
-                        urlError = getString(Res.string.url_host_name_required)
-                    } else {
-                        try {
-                            IDN.toASCII(host)
-                            URI(scheme, null, host, uri.port, uri.path, null, null)
-                        } catch (e: URISyntaxException) {
-                            urlError = e.localizedMessage
-                        } catch (_: Exception) {
-                            // IDN conversion non-fatal
-                        }
-                    }
-                } else {
-                    urlError = getString(Res.string.url_invalid_scheme)
-                }
-            } catch (_: URISyntaxException) {
-                urlError = getString(Res.string.url_invalid_scheme)
-            }
+            serverUrlError(urlValue)?.let { urlError = getString(it) }
         }
 
         if (usernameValue.isEmpty()) {
@@ -402,7 +379,7 @@ open class CaldavAccountSettingsViewModel(
                 )
                 if (s.metadataChecked) {
                     val enabled = withContext(NonCancellable) {
-                        tagMetadataSync.enablePrimary(account, skipProbe = true)
+                        tagMetadataActivation.enablePrimary(account, skipProbe = true)
                     }
                     if (!enabled) Logger.w { "metadata enable did not complete after a passing probe" }
                 }
@@ -460,11 +437,11 @@ open class CaldavAccountSettingsViewModel(
             it.copy(
                 snackbar = when (e) {
                     is HttpException -> {
-                        if (e.statusCode == 401) getString(Res.string.invalid_username_or_password)
+                        if (e.code == 401) getString(Res.string.invalid_username_or_password)
                         else e.message
                     }
                     is DisplayableException -> getString(e.resource)
-                    is ConnectException -> getString(Res.string.network_error)
+                    is ConnectionException -> getString(Res.string.network_error)
                     else -> getString(Res.string.error_adding_account, e.message ?: "")
                 }
             )

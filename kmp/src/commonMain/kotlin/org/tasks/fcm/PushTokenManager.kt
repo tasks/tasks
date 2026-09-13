@@ -3,7 +3,7 @@ package org.tasks.fcm
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.tasks.caldav.TasksAccountClientProvider
+import org.tasks.caldav.CaldavClientFactory
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 
@@ -12,7 +12,7 @@ private const val TAG = "PushTokenManager"
 class PushTokenManager(
     private val tokenProvider: FcmTokenProvider,
     private val caldavDao: CaldavDao,
-    private val tasksClientProvider: TasksAccountClientProvider,
+    private val tasksClientProvider: CaldavClientFactory,
     private val scope: CoroutineScope,
 ) {
     fun registerTokenForAccount(account: CaldavAccount) {

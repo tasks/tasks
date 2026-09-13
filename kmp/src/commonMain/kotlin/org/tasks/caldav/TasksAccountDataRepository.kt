@@ -12,7 +12,7 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
 
 class TasksAccountDataRepository(
-    private val provider: TasksAccountClientProvider?,
+    private val provider: CaldavClientFactory?,
     private val caldavDao: CaldavDao,
     private val tasksPreferences: TasksPreferences,
 ) {

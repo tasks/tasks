@@ -38,7 +38,7 @@ class TagMetadataSync(
     private val provider: CaldavClientProvider,
     private val vtodoCache: VtodoCache,
     preferences: TasksPreferences,
-) : TagMetadataEditor(caldavDao, tagDataDao, preferences) {
+) : TagMetadataEditor(caldavDao, tagDataDao, preferences), TagMetadataActivation {
     private val mutex = Mutex()
 
     private var principalCache: Triple<Long, String?, Url>? = null
@@ -98,41 +98,6 @@ class TagMetadataSync(
     }
 
     private fun String.byteSize(): Int = encodeToByteArray().size
-
-    data class ToggleState(
-        val visible: Boolean = false,
-        val checked: Boolean = false,
-        val interactable: Boolean = true,
-        val forcedByTasksOrg: Boolean = false,
-        val otherPrimary: String? = null,
-    )
-
-    suspend fun toggleState(account: CaldavAccount): ToggleState {
-        if (!account.isCaldavAccount) return ToggleState()
-        val primary = primaryAccount()
-        val forced = primary?.accountType == CaldavAccount.TYPE_TASKS
-        return ToggleState(
-            visible = true,
-            checked = primary?.id == account.id,
-            interactable = !forced,
-            forcedByTasksOrg = forced,
-            otherPrimary = primary
-                ?.takeIf { it.id != account.id }
-                ?.let { it.name ?: it.username ?: "" },
-        )
-    }
-
-    suspend fun newAccountToggleState(): ToggleState {
-        val primary = primaryAccount()
-        val forced = primary?.accountType == CaldavAccount.TYPE_TASKS
-        return ToggleState(
-            visible = true,
-            checked = false,
-            interactable = !forced,
-            forcedByTasksOrg = forced,
-            otherPrimary = primary?.let { it.name ?: it.username ?: "" },
-        )
-    }
 
     class Pulled internal constructor(
         val applied: Boolean,
@@ -276,14 +241,14 @@ class TagMetadataSync(
         }
     }
 
-    suspend fun probeViability(url: String, username: String, password: String): Boolean =
+    override suspend fun probeViability(url: String, username: String, password: String): Boolean =
         provider.forUrl(url, username, password).use { client ->
             val principal = client.principal() ?: return false
             if (TagMetadataBlob.parse(client.tagMetadata(principal)) != null) return true
             client.supportsDeadProperties(principal)
         }
 
-    suspend fun enablePrimary(account: CaldavAccount, skipProbe: Boolean = false): Boolean = mutex.withLock {
+    override suspend fun enablePrimary(account: CaldavAccount, skipProbe: Boolean): Boolean = mutex.withLock {
         provider.forAccount(account).use { client ->
             val principal = client.principal() ?: return@withLock false
             val existingPayload = client.tagMetadata(principal)
@@ -302,7 +267,7 @@ class TagMetadataSync(
         }
     }
 
-    suspend fun disable() = mutex.withLock {
+    override suspend fun disable() = mutex.withLock {
         resetHeldStore(clearDirty = true)
         preferences.set(TasksPreferences.metadataPrimaryAccount, 0L)
     }

@@ -70,7 +70,7 @@ import java.io.StringWriter
 open class CaldavClient(
         val httpClient: HttpClient,
         private val httpUrl: Url?
-) : Closeable, CaldavCollectionClient {
+) : Closeable, CaldavCollectionClient, CaldavDiscoveryClient {
     override fun close() = httpClient.close()
 
     private suspend fun tryFindPrincipal(link: String): String? =
@@ -111,30 +111,32 @@ open class CaldavClient(
     }
 
     @Throws(IOException::class, DavException::class)
-    suspend fun homeSet(): String = withContext(Dispatchers.IO) {
-        var unauthorized: HttpException? = null
+    override suspend fun homeSet(): String = translateExceptions {
+        withContext(Dispatchers.IO) {
+            var unauthorized: HttpException? = null
 
-        suspend fun principalOrNull(link: String): String? =
-                try {
-                    tryFindPrincipal(link)
-                } catch (e: Exception) {
-                    if (e is HttpException && e.statusCode == 401) {
-                        unauthorized = e
+            suspend fun principalOrNull(link: String): String? =
+                    try {
+                        tryFindPrincipal(link)
+                    } catch (e: Exception) {
+                        if (e is HttpException && e.statusCode == 401) {
+                            unauthorized = e
+                        }
+                        Logger.w(e, tag = "CaldavClient") { "" }
+                        null
                     }
-                    Logger.w(e, tag = "CaldavClient") { "" }
-                    null
+
+            val principal = principalOrNull("") ?: principalOrNull("/.well-known/caldav")
+
+            try {
+                findHomeset(principal?.let { httpUrl!!.resolve(it) } ?: httpUrl!!)
+            } catch (e: Exception) {
+                val seen401 = unauthorized
+                if (seen401 != null && !(e is HttpException && e.statusCode == 401)) {
+                    throw seen401
                 }
-
-        val principal = principalOrNull("") ?: principalOrNull("/.well-known/caldav")
-
-        try {
-            findHomeset(principal?.let { httpUrl!!.resolve(it) } ?: httpUrl!!)
-        } catch (e: Exception) {
-            val seen401 = unauthorized
-            if (seen401 != null && !(e is HttpException && e.statusCode == 401)) {
-                throw seen401
+                throw e
             }
-            throw e
         }
     }
 

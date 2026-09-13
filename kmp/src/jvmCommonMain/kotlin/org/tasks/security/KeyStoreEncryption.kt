@@ -13,10 +13,10 @@ import javax.crypto.spec.GCMParameterSpec
 
 open class KeyStoreEncryption(
     private val keyProvider: KeyProvider
-) {
+) : Encryption {
     protected val logger = Logger.withTag("KeyStoreEncryption")
 
-    suspend fun encrypt(text: String): String? = withContext(Dispatchers.Default) {
+    override suspend fun encrypt(text: String): String? = withContext(Dispatchers.Default) {
         val iv = ByteArray(GCM_IV_LENGTH)
         SecureRandom().nextBytes(iv)
         val cipher = getCipher(Cipher.ENCRYPT_MODE, iv)
@@ -35,7 +35,7 @@ open class KeyStoreEncryption(
         }
     }
 
-    suspend fun decrypt(text: String?): String? = withContext(Dispatchers.Default) {
+    override suspend fun decrypt(text: String?): String? = withContext(Dispatchers.Default) {
         if (text.isNullOrBlank()) {
             return@withContext null
         }

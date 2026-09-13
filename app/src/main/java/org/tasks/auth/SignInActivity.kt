@@ -29,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.lifecycleScope
-import at.bitfire.dav4jvm.ktor.exception.HttpException
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -61,6 +60,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.fcm.PushTokenManager
+import org.tasks.http.HttpException
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -290,7 +290,7 @@ class SignInActivity : ComponentActivity() {
     }
 
     private fun handleError(e: Throwable) {
-        if (e is HttpException && e.statusCode == 402) {
+        if (e is HttpException && e.code == 402) {
             if (IS_GOOGLE_PLAY) {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)

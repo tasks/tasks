@@ -1,6 +1,5 @@
 package org.tasks.auth
 
-import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
@@ -12,6 +11,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.UUIDHelper
 import org.tasks.googleapis.ProxyAuthProvider
+import org.tasks.http.HttpException
 import org.tasks.security.KeyStoreEncryption
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
@@ -55,7 +55,7 @@ class DesktopSignInHandler(
                     provider = caldavClientProvider,
                 )
             } catch (e: HttpException) {
-                if (e.statusCode == 402) {
+                if (e.code == 402) {
                     throw PaymentRequiredException()
                 }
                 throw e

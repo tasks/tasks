@@ -25,4 +25,5 @@ class CaldavAccountSettingsHiltViewModel @Inject constructor(
     taskDeleter = taskDeleter,
     reporting = reporting,
     tagMetadataSync = tagMetadataSync,
+    tagMetadataActivation = tagMetadataSync,
 )

@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
-import org.tasks.caldav.CaldavCollectionClientProvider
+import org.tasks.caldav.CaldavClientFactory
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -45,7 +45,7 @@ import tasks.kmp.generated.resources.network_error
 @OptIn(ExperimentalCoroutinesApi::class)
 open class CaldavCalendarSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val caldavClientProvider: CaldavCollectionClientProvider,
+    private val caldavClientProvider: CaldavClientFactory,
     private val principalDao: PrincipalDao,
     private val taskDeleter: TaskDeleter,
     private val syncAdapters: SyncAdapters,

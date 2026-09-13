@@ -10,7 +10,3 @@ interface CaldavCollectionClient : AutoCloseable {
     suspend fun share(account: CaldavAccount, href: String)
     suspend fun removePrincipal(account: CaldavAccount, calendar: CaldavCalendar, href: String)
 }
-
-interface CaldavCollectionClientProvider {
-    suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavCollectionClient
-}

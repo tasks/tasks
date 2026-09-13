@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.caldav.metadata.TagMetadataActivation
 import org.tasks.caldav.metadata.TagMetadataEditor
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmCalculator
@@ -26,8 +27,9 @@ import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
-import org.tasks.caldav.CaldavCollectionClientProvider
-import org.tasks.caldav.TasksAccountClientProvider
+import org.tasks.caldav.CaldavClientFactory
+import org.tasks.security.Encryption
+import org.tasks.security.KeyStoreEncryption
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.etebase.EtebaseCollectionClientProvider
 import org.tasks.caldav.CaldavSynchronizer
@@ -93,7 +95,6 @@ import org.tasks.sync.SyncSource
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
-import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.filters.FilterPreferenceCodec
@@ -216,8 +217,9 @@ val commonModule = module {
         )
     }
     factory<TagMetadataEditor> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
-    factory<CaldavCollectionClientProvider> { get<CaldavClientProvider>() }
-    factory<TasksAccountClientProvider> { get<CaldavClientProvider>() }
+    factory<TagMetadataActivation> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
+    factory<CaldavClientFactory> { get<CaldavClientProvider>() }
+    factory<Encryption> { get<KeyStoreEncryption>() }
     factory<EtebaseCollectionClientProvider> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }
@@ -243,16 +245,6 @@ val commonModule = module {
         )
     }
     single { Locale.getDefault() }
-    viewModel {
-        CaldavAccountSettingsViewModel(
-            caldavDao = get(),
-            caldavClientProvider = get(),
-            encryption = get(),
-            taskDeleter = get(),
-            reporting = get(),
-            tagMetadataSync = get(),
-        )
-    }
     viewModel { params ->
         GoogleTaskListSettingsViewModel(
             caldavDao = get(),
