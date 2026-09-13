@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.extensions.guarded
 import org.tasks.viewmodel.ReminderChange
 import org.tasks.notifications.CancelReason
@@ -431,6 +432,13 @@ val coreModule: Module = module {
                 }
                 notifier.triggerNotifications()
             },
+        )
+    }
+    viewModel {
+        NavigationDrawerViewModel(
+            appPreferences = get(),
+            refreshBroadcaster = get(),
+            persistenceScope = get(),
         )
     }
     viewModelOf(::AppViewModel)

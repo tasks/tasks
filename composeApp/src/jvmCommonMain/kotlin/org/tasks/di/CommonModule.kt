@@ -104,7 +104,6 @@ import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
-import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
@@ -261,13 +260,6 @@ val commonModule = module {
             refreshBroadcaster = get(),
             persistenceScope = get(),
             filterCodec = get(),
-        )
-    }
-    viewModel {
-        NavigationDrawerViewModel(
-            appPreferences = get(),
-            refreshBroadcaster = get(),
-            persistenceScope = get(),
         )
     }
     viewModel {
