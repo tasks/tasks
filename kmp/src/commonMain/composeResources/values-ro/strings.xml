@@ -501,4 +501,10 @@
     <string name="theme_day_night">Zi/Noapte</string>
     <string name="theme_system_default">Implicit</string>
     <string name="works_with_desktop">Tasks.org pentru desktop</string>
+    <string name="mcp_access_advanced">Avansat</string>
+    <string name="mcp_tools_group_lists">Liste</string>
+    <string name="mcp_tools_group_tags">Etichete</string>
+    <string name="mcp_tools_group_places">Locuri</string>
+    <string name="mcp_tools_group_reminders">Mementouri</string>
+    <string name="mcp_copy">Copiază</string>
 </resources>
