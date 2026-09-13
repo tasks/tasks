@@ -3,14 +3,14 @@ package org.tasks.auth
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import java.util.Base64
+import kotlin.io.encoding.Base64
 
 class IdToken(idToken: String) {
     private val json: JsonObject
 
     init {
         val parts = idToken.split(".")
-        val payload = String(Base64.getUrlDecoder().decode(parts[1]))
+        val payload = Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL).decode(parts[1]).decodeToString()
         json = Json.parseToJsonElement(payload) as JsonObject
     }
 

@@ -15,6 +15,8 @@ expect val PROD_ID: String
 
 expect val DEV_URL: String
 
+expect fun osDescription(): String
+
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         corruptionHandler = ReplaceFileCorruptionHandler {

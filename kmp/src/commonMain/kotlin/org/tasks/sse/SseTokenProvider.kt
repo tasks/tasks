@@ -1,10 +1,12 @@
 package org.tasks.sse
 
 import org.tasks.fcm.FcmTokenProvider
-import java.util.UUID
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class SseTokenProvider : FcmTokenProvider {
-    val token: String = UUID.randomUUID().toString()
+    @OptIn(ExperimentalUuidApi::class)
+    val token: String = Uuid.random().toString()
 
     override suspend fun getToken(): String = token
 }

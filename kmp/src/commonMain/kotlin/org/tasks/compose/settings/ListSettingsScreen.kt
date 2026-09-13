@@ -62,6 +62,7 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.Task
 import org.tasks.themes.TasksIcons
+import org.tasks.viewmodel.ListSettingsCallbacks
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.cancel
@@ -139,6 +140,50 @@ private val CaldavAccount.canShare: Boolean
 
 private val CaldavAccount.canRemovePrincipal: Boolean
     get() = serverType in listOf(SERVER_TASKS, SERVER_OWNCLOUD, SERVER_SABREDAV, SERVER_NEXTCLOUD)
+
+@Composable
+fun ListSettingsScreen(
+    viewModel: ListSettingsCallbacks,
+    onSave: () -> Unit,
+    onDelete: () -> Unit,
+    onNavigateBack: () -> Unit,
+    onSelectColor: (PickerColor?) -> Unit,
+    onColorWheelSelected: () -> Unit,
+    onSubscribe: (String) -> Unit,
+    onAddShortcut: (() -> Unit)? = null,
+    onAddWidget: (() -> Unit)? = null,
+    headerContent: @Composable () -> Unit = {},
+) {
+    val state by viewModel.state.collectAsState()
+
+    ListSettingsScreen(
+        state = state,
+        onNameChange = viewModel::setName,
+        onSave = onSave,
+        onDelete = onDelete,
+        onNavigateBack = onNavigateBack,
+        onDiscardDialogChange = { show ->
+            if (show) viewModel.showDiscardDialog() else viewModel.dismissDiscardDialog()
+        },
+        onDismissSnackbar = viewModel::dismissSnackbar,
+        onOpenShareDialog = viewModel::openShareDialog,
+        onCloseShareDialog = viewModel::closeShareDialog,
+        onShare = { input -> viewModel.share(input) },
+        onConfirmRemovePrincipal = viewModel::confirmRemovePrincipal,
+        onRemovePrincipal = viewModel::removePrincipal,
+        onOpenColorPicker = viewModel::openColorPicker,
+        onCloseColorPicker = viewModel::closeColorPicker,
+        onSelectColor = onSelectColor,
+        onColorWheelSelected = onColorWheelSelected,
+        onOpenIconPicker = viewModel::openIconPicker,
+        onCloseIconPicker = viewModel::closeIconPicker,
+        onSelectIcon = viewModel::selectIcon,
+        onSubscribe = onSubscribe,
+        onAddShortcut = onAddShortcut,
+        onAddWidget = onAddWidget,
+        headerContent = headerContent,
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
