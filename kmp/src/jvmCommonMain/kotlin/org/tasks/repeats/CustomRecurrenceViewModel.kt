@@ -30,6 +30,8 @@ import java.time.temporal.WeekFields
 import java.util.Calendar
 import java.util.Calendar.DAY_OF_WEEK_IN_MONTH
 import java.util.Locale
+import org.tasks.time.toDateTime
+import org.tasks.time.weekDay
 
 open class CustomRecurrenceViewModel(
     rrule: String?,

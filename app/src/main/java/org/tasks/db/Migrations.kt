@@ -28,6 +28,7 @@ import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
+import org.tasks.time.toDate
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit.HOURS

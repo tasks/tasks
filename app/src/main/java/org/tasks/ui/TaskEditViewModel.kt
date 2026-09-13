@@ -88,6 +88,7 @@ import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
+import org.tasks.time.weekDay
 import timber.log.Timber
 import javax.inject.Inject
 

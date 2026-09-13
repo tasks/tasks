@@ -5,6 +5,7 @@ import net.fortuna.ical4j.model.WeekDay
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.weekDay
 
 fun String?.anchoredToDueDate(dueDate: Long): String? {
     val rule = this?.takeIf { it.isNotBlank() } ?: return this

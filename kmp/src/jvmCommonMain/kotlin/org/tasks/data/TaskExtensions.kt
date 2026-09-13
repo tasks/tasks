@@ -9,6 +9,7 @@ import org.tasks.time.ONE_DAY
 import org.tasks.time.ONE_WEEK
 import org.tasks.time.dueDateOverdue
 import org.tasks.time.startOfDay
+import org.tasks.time.toDateTime
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
 val Task.isHidden

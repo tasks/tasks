@@ -39,7 +39,7 @@ class GtasksApiUtilitiesTest {
     fun testConvertDueDateTimeToGoogleDueDate() {
         val now = org.tasks.time.DateTime(2014, 1, 8, 8, 53, 20, 109)
         assertEquals(
-                org.tasks.time.DateTime(2014, 1, 8, 0, 0, 0, 0, TimeZone.getTimeZone("GMT")).millis,
+                org.tasks.time.DateTime(2014, 1, 8, 0, 0, 0, 0, org.tasks.time.DateTime.UTC).millis,
                 GtasksApiUtilities.unixTimeToGtasksDueDate(now.millis)!!.value)
     }
 

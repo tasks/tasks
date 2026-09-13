@@ -1,8 +1,9 @@
 package org.tasks.date
 
+import kotlinx.datetime.TimeZone
 import org.tasks.time.DateTime
 import org.tasks.time.DateTime.Companion.UTC
-import java.util.TimeZone
+import kotlin.jvm.JvmStatic
 
 object DateTimeUtils {
     @JvmStatic
@@ -11,7 +12,7 @@ object DateTimeUtils {
     @JvmStatic
     fun newDateUtc(
             year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int): DateTime =
-            DateTime(year, month, day, hour, minute, second, 0, TimeZone.getTimeZone("GMT"))
+            DateTime(year, month, day, hour, minute, second, 0, UTC)
 
     @JvmStatic
     fun newDateTime(): DateTime = DateTime()

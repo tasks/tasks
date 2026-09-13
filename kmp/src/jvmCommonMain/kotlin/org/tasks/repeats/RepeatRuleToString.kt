@@ -65,6 +65,7 @@ import tasks.kmp.generated.resources.repeats_single_on_until
 import tasks.kmp.generated.resources.repeats_single_until
 import tasks.kmp.generated.resources.repeats_weekly
 import tasks.kmp.generated.resources.repeats_yearly
+import org.tasks.time.from
 
 class RepeatRuleToString(
     private val locale: Locale,

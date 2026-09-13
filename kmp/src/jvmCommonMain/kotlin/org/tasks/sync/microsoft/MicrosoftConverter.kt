@@ -218,7 +218,6 @@ object MicrosoftConverter {
                     .apply { timeZone = tz }
                     .parse(task.dateTime)
                     ?.time
-                    ?.let { DateTime(it, tz).millis }
                     ?: default
             }
             ?: 0L
