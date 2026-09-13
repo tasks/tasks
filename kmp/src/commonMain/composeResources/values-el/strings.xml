@@ -455,4 +455,10 @@
     <string name="theme_wallpaper">Ταπετσαρία</string>
     <string name="theme_day_night">Μέρα/Νύχτα</string>
     <string name="theme_system_default">Προεπιλογή Συστήματος</string>
+    <string name="mcp_access_advanced">Συνθέτες</string>
+    <string name="mcp_tools_group_lists">Λίστες</string>
+    <string name="mcp_tools_group_tags">Ετικέτες</string>
+    <string name="mcp_tools_group_places">Μέρη/ τοποθεσίες</string>
+    <string name="mcp_tools_group_reminders">Υπενθυμίσεις</string>
+    <string name="mcp_copy">Αντιγραφή</string>
 </resources>
