@@ -170,11 +170,6 @@ class TasksOAuthClient(
     }
 }
 
-object TokenError {
-    const val REFRESH_FAILED = "Token refresh failed"
-    const val EXCHANGE_FAILED = "Token exchange failed"
-}
-
 private fun tokenErrorException(prefix: String, code: Int, body: String): Exception {
     val (error, description) = parseOAuthError(body)
     ConditionalAccess.devicePolicyException(error, description)?.let { return it }

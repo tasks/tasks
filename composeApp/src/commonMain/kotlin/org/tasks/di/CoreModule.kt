@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.caldav.TasksAccountDataRepository
@@ -526,6 +527,12 @@ val coreModule: Module = module {
             accountDataRepository = get(),
             serverEnvironment = get(),
             platformConfiguration = get(),
+        )
+    }
+    viewModel {
+        GoogleTasksAccountViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
         )
     }
     viewModelOf(::AppViewModel)
