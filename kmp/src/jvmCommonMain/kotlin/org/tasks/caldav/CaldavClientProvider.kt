@@ -19,7 +19,7 @@ class CaldavClientProvider(
     private val httpClientFactory: OkHttpClientFactory,
     private val tokenProvider: FcmTokenProvider? = null,
     private val subscriptionProvider: () -> TasksBasicAuth.SubscriptionInfo? = { null },
-) {
+) : CaldavCollectionClientProvider {
 
     private sealed interface CaldavAuth {
         val user: String
@@ -49,7 +49,7 @@ class CaldavClientProvider(
         return forAccount(account) as TasksClient
     }
 
-    suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavClient {
+    override suspend fun forAccount(account: CaldavAccount, url: String?): CaldavClient {
         val httpUrl = url?.toCaldavUrl()
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
         val password = encryption.decrypt(account.password) ?: ""

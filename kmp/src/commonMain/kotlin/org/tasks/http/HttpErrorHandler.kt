@@ -41,7 +41,8 @@ open class NetworkException(message: String? = null, cause: Throwable? = null, v
 class UnauthorizedException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class NotFoundException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class ServiceUnavailableException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
-class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null) : NetworkException(message, graphCode = graphCode)
+class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null, cause: Throwable? = null) : NetworkException(message, cause, graphCode)
+class ConnectionException(message: String? = null, cause: Throwable? = null) : NetworkException(message, cause)
 
 class HttpErrorHandler {
     class Config {

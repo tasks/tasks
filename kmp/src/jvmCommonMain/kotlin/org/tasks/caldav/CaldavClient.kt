@@ -58,6 +58,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_OWNCLOUD
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.http.translateExceptions
 import org.tasks.ui.DisplayableException
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
@@ -69,7 +70,7 @@ import java.io.StringWriter
 open class CaldavClient(
         val httpClient: HttpClient,
         private val httpUrl: Url?
-) : Closeable {
+) : Closeable, CaldavCollectionClient {
     override fun close() = httpClient.close()
 
     private suspend fun tryFindPrincipal(link: String): String? =
@@ -231,24 +232,28 @@ open class CaldavClient(
         }
     }
 
-    @Throws(IOException::class, HttpException::class)
-    suspend fun deleteCollection() = withContext(Dispatchers.IO) {
-        DavResource(httpClient, httpUrl!!).delete {}
-    }
-
-    @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun makeCollection(displayName: String, color: Int, icon: String?): String = withContext(Dispatchers.IO) {
-        val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
-        val mkcolString = getMkcolString(displayName, color)
-        davResource.mkCol(mkcolString) {}
-        if (icon?.isNotBlank() == true) {
-            davResource.proppatch(CalendarIcon.NAME, icon)
+    @Throws(IOException::class)
+    override suspend fun deleteCollection() = translateExceptions {
+        withContext(Dispatchers.IO) {
+            DavResource(httpClient, httpUrl!!).delete {}
         }
-        davResource.location.canonical().toString()
     }
 
-    @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
-    suspend fun updateCollection(displayName: String, color: Int, icon: String?) =
+    @Throws(IOException::class, XmlPullParserException::class)
+    override suspend fun makeCollection(displayName: String, color: Int, icon: String?): String = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
+            val mkcolString = getMkcolString(displayName, color)
+            davResource.mkCol(mkcolString) {}
+            if (icon?.isNotBlank() == true) {
+                davResource.proppatch(CalendarIcon.NAME, icon)
+            }
+            davResource.location.canonical().toString()
+        }
+    }
+
+    @Throws(IOException::class, XmlPullParserException::class)
+    override suspend fun updateCollection(displayName: String, color: Int, icon: String?) = translateExceptions {
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, httpUrl!!)) {
                 proppatch(WebDAV.DisplayName, displayName)
@@ -263,6 +268,7 @@ open class CaldavClient(
                 }
             }
         }
+    }
 
     @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
     suspend fun updateIcon(url: Url, icon: String?, onFailure: () -> Unit) =
@@ -325,10 +331,10 @@ open class CaldavClient(
         xml.endTag(NS_APPLE_ICAL, "calendar-color")
     }
 
-    suspend fun share(
+    override suspend fun share(
         account: CaldavAccount,
         href: String,
-    ) {
+    ) = translateExceptions {
         when (account.serverType) {
             SERVER_TASKS, SERVER_SABREDAV -> shareSabredav(href)
             SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> shareOwncloud(href)
@@ -364,11 +370,11 @@ open class CaldavClient(
                     """.trimIndent().toSharing()) {}
         }
 
-    suspend fun removePrincipal(
+    override suspend fun removePrincipal(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         href: String,
-    ) {
+    ) = translateExceptions {
         when (account.serverType) {
             SERVER_TASKS, SERVER_SABREDAV -> removeSabrePrincipal(calendar, href)
             SERVER_OWNCLOUD, SERVER_NEXTCLOUD -> removeOwncloudPrincipal(calendar, href)

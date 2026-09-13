@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
 import com.todoroo.astrid.alarms.AlarmCalculator
@@ -479,6 +480,20 @@ val coreModule: Module = module {
             taskDeleter = get(),
             reporting = get(),
             clientProvider = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
+        )
+    }
+    viewModel { params ->
+        CaldavCalendarSettingsViewModel(
+            caldavDao = get(),
+            caldavClientProvider = get(),
+            principalDao = get(),
+            taskDeleter = get(),
+            syncAdapters = get(),
+            reporting = get(),
             purchaseState = get(),
             isDark = params.get(),
             account = params.get(),

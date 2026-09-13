@@ -2,9 +2,9 @@ package org.tasks.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import at.bitfire.dav4jvm.ktor.exception.HttpException
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
-import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavCollectionClientProvider
 import org.tasks.data.PrincipalWithAccess
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -31,6 +31,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_WRITE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_NO_RESPONSE
 import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
+import org.tasks.http.ConnectionException
+import org.tasks.http.HttpException
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -39,12 +41,11 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.name_cannot_be_empty
 import tasks.kmp.generated.resources.network_error
-import java.net.ConnectException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 open class CaldavCalendarSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val caldavClientProvider: CaldavClientProvider,
+    private val caldavClientProvider: CaldavCollectionClientProvider,
     private val principalDao: PrincipalDao,
     private val taskDeleter: TaskDeleter,
     private val syncAdapters: SyncAdapters,
@@ -258,7 +259,7 @@ open class CaldavCalendarSettingsViewModel(
         val message = when (e) {
             is HttpException -> e.message
             is DisplayableException -> getString(e.resource)
-            is ConnectException -> getString(Res.string.network_error)
+            is ConnectionException -> getString(Res.string.network_error)
             else -> getString(Res.string.error_adding_account, e.message ?: "")
         }
         stateManager.update { it.copy(snackbar = message) }

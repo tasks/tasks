@@ -26,6 +26,7 @@ import org.tasks.audio.SoundPlayer
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavCollectionClientProvider
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.iCalendar
@@ -91,7 +92,6 @@ import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
-import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
@@ -219,6 +219,7 @@ val commonModule = module {
         )
     }
     factory<TagMetadataEditor> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
+    factory<CaldavCollectionClientProvider> { get<CaldavClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }
     factory {
@@ -272,20 +273,6 @@ val commonModule = module {
             taskDeleter = get(),
             reporting = get(),
             tagMetadataSync = get(),
-        )
-    }
-    viewModel { params ->
-        CaldavCalendarSettingsViewModel(
-            caldavDao = get(),
-            caldavClientProvider = get(),
-            principalDao = get(),
-            taskDeleter = get(),
-            syncAdapters = get(),
-            reporting = get(),
-            purchaseState = get(),
-            isDark = params.get(),
-            account = params.get(),
-            calendar = params.get(),
         )
     }
     viewModel { params ->
