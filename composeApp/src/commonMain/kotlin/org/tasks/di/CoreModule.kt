@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.extensions.guarded
 import org.tasks.viewmodel.ReminderChange
@@ -439,6 +440,15 @@ val coreModule: Module = module {
             appPreferences = get(),
             refreshBroadcaster = get(),
             persistenceScope = get(),
+        )
+    }
+    viewModel {
+        LookAndFeelViewModel(
+            appPreferences = get(),
+            platformConfiguration = get(),
+            refreshBroadcaster = get(),
+            persistenceScope = get(),
+            filterCodec = get(),
         )
     }
     viewModelOf(::AppViewModel)

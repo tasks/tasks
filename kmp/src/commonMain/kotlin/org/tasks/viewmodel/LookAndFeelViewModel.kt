@@ -10,6 +10,8 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.PlatformConfiguration
+import org.tasks.kmp.languageDisplayName
+import org.tasks.kmp.org.tasks.time.currentLocaleTag
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.filters.Filter
 import org.tasks.filters.FilterPreferenceCodec
@@ -17,7 +19,6 @@ import org.tasks.filters.MyTasksFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.LookAndFeelSettings
 import org.tasks.themes.BaseTheme
-import java.util.Locale
 
 open class LookAndFeelViewModel(
     private val appPreferences: AppPreferences,
@@ -68,7 +69,7 @@ open class LookAndFeelViewModel(
     open val dynamicColorProOnly: Boolean get() = false
 
     open val localeName: String
-        get() = (settings.languageTag?.toLocaleOrNull() ?: Locale.getDefault()).displayName()
+        get() = settings.languageTag?.let { languageDisplayName(it) } ?: languageDisplayName(currentLocaleTag()).orEmpty()
 
     val defaultFilterName: String get() = defaultFilter?.title.orEmpty()
 
@@ -149,12 +150,5 @@ open class LookAndFeelViewModel(
         showRestartDialog = false
     }
 }
-
-internal fun String.toLocaleOrNull(): Locale? =
-    takeIf { it.isNotBlank() }
-        ?.let { runCatching { Locale.forLanguageTag(it) }.getOrNull() }
-        ?.takeIf { it.language.isNotBlank() }
-
-internal fun Locale.displayName(): String = getDisplayName(this)
 
 private const val TAG = "LookAndFeelViewModel"

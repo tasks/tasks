@@ -101,7 +101,6 @@ import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
-import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
@@ -251,15 +250,6 @@ val commonModule = module {
             dueDate = params.get<Long>(),
             accountType = params.get<Int>(),
             locale = get(),
-        )
-    }
-    viewModel {
-        LookAndFeelViewModel(
-            appPreferences = get(),
-            platformConfiguration = get(),
-            refreshBroadcaster = get(),
-            persistenceScope = get(),
-            filterCodec = get(),
         )
     }
     viewModel {

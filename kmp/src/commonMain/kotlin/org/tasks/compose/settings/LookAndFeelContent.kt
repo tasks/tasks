@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.kmp.languageDisplayName
 import org.tasks.locale.SUPPORTED_LANGUAGE_TAGS
 import org.tasks.viewmodel.LookAndFeelViewModel
 import tasks.kmp.generated.resources.Res
@@ -44,7 +45,6 @@ import tasks.kmp.generated.resources.restart_now
 import tasks.kmp.generated.resources.restart_required
 import tasks.kmp.generated.resources.theme
 import tasks.kmp.generated.resources.theme_system_default
-import java.util.Locale
 
 @Composable
 fun LookAndFeelContent(
@@ -158,13 +158,7 @@ private fun LanguageDialog(
 ) {
     val languages = remember {
         SUPPORTED_LANGUAGE_TAGS
-            .mapNotNull { tag ->
-                val locale = runCatching { Locale.forLanguageTag(tag) }.getOrNull()
-                locale
-                    ?.getDisplayName(locale)
-                    ?.takeIf { it.isNotBlank() }
-                    ?.let { tag to it }
-            }
+            .mapNotNull { tag -> languageDisplayName(tag)?.let { tag to it } }
             .sortedBy { it.second.lowercase() }
     }
     ChoiceDialog(

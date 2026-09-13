@@ -17,6 +17,8 @@ expect val DEV_URL: String
 
 expect fun osDescription(): String
 
+expect fun languageDisplayName(languageTag: String): String?
+
 fun createDataStore(producePath: () -> String): DataStore<Preferences> =
     PreferenceDataStoreFactory.createWithPath(
         corruptionHandler = ReplaceFileCorruptionHandler {
