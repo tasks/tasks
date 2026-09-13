@@ -474,4 +474,10 @@
     <string name="theme_wallpaper">Taustakuva</string>
     <string name="theme_day_night">Päivä/Yö</string>
     <string name="theme_system_default">Järjestelmän oletus</string>
+    <string name="mcp_access_advanced">Kehittyneet</string>
+    <string name="mcp_tools_group_lists">Listat</string>
+    <string name="mcp_tools_group_tags">Tunnisteet</string>
+    <string name="mcp_tools_group_places">Paikat</string>
+    <string name="mcp_tools_group_reminders">Muistutukset</string>
+    <string name="mcp_copy">Kopio</string>
 </resources>
