@@ -31,7 +31,7 @@ import org.tasks.caldav.CaldavClientFactory
 import org.tasks.security.Encryption
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.etebase.EtebaseClientProvider
-import org.tasks.etebase.EtebaseCollectionClientProvider
+import org.tasks.etebase.EtebaseClientFactory
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.iCalendar
 import org.tasks.calendars.CalendarHelper
@@ -96,7 +96,6 @@ import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
 import org.tasks.viewmodel.DrawerViewModel
-import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
@@ -220,7 +219,7 @@ val commonModule = module {
     factory<TagMetadataActivation> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     factory<Encryption> { get<KeyStoreEncryption>() }
-    factory<EtebaseCollectionClientProvider> { get<EtebaseClientProvider>() }
+    factory<EtebaseClientFactory> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }
     factory {
@@ -265,15 +264,6 @@ val commonModule = module {
             isDark = params.get(),
             account = params.get(),
             calendar = params.get(),
-        )
-    }
-    viewModel {
-        EtebaseAccountSettingsViewModel(
-            caldavDao = get(),
-            clientProvider = get(),
-            encryption = get(),
-            taskDeleter = get(),
-            reporting = get(),
         )
     }
 }

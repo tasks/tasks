@@ -3,8 +3,6 @@ package org.tasks.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.etebase.client.exceptions.ConnectionException
-import com.etebase.client.exceptions.UnauthorizedException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,13 +12,16 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Constants
+import org.tasks.auth.serverUrlError
 import org.tasks.analytics.Reporting
 import org.tasks.compose.settings.EtebaseAccountState
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.etebase.EtebaseClientProvider
-import org.tasks.security.KeyStoreEncryption
+import org.tasks.etebase.EtebaseClientFactory
+import org.tasks.http.ConnectionException
+import org.tasks.http.UnauthorizedException
+import org.tasks.security.Encryption
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.etebase_url
@@ -28,20 +29,14 @@ import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.invalid_username_or_password
 import tasks.kmp.generated.resources.network_error
 import tasks.kmp.generated.resources.password_required
-import tasks.kmp.generated.resources.url_host_name_required
-import tasks.kmp.generated.resources.url_invalid_scheme
 import tasks.kmp.generated.resources.url_required
 import tasks.kmp.generated.resources.username_required
-import java.net.ConnectException
-import java.net.IDN
-import java.net.URI
-import java.net.URISyntaxException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 open class EtebaseAccountSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val clientProvider: EtebaseClientProvider,
-    private val encryption: KeyStoreEncryption,
+    private val clientProvider: EtebaseClientFactory,
+    private val encryption: Encryption,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
 ) : ViewModel() {
@@ -121,29 +116,7 @@ open class EtebaseAccountSettingsViewModel(
         var passwordError: String? = null
 
         if (s.showUrl && urlValue.isNotEmpty()) {
-            try {
-                val uri = URI(urlValue)
-                val scheme = uri.scheme
-                if (scheme.equals("https", ignoreCase = true) || scheme.equals("http", ignoreCase = true)) {
-                    val host = uri.host
-                    if (host.isNullOrEmpty()) {
-                        urlError = getString(Res.string.url_host_name_required)
-                    } else {
-                        try {
-                            IDN.toASCII(host)
-                            URI(scheme, null, host, uri.port, uri.path, null, null)
-                        } catch (e: URISyntaxException) {
-                            urlError = e.localizedMessage
-                        } catch (_: Exception) {
-                            // IDN conversion non-fatal
-                        }
-                    }
-                } else {
-                    urlError = getString(Res.string.url_invalid_scheme)
-                }
-            } catch (_: URISyntaxException) {
-                urlError = getString(Res.string.url_invalid_scheme)
-            }
+            serverUrlError(urlValue)?.let { urlError = getString(it) }
         }
 
         if (usernameValue.isEmpty()) {
@@ -287,7 +260,6 @@ open class EtebaseAccountSettingsViewModel(
                 snackbar = when (e) {
                     is UnauthorizedException -> getString(Res.string.invalid_username_or_password)
                     is ConnectionException -> getString(Res.string.network_error)
-                    is ConnectException -> getString(Res.string.network_error)
                     else -> getString(Res.string.error_adding_account, e.message ?: "")
                 }
             )

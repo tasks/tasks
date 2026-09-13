@@ -16,7 +16,7 @@ import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.etebase.EtebaseCollectionClientProvider
+import org.tasks.etebase.EtebaseClientFactory
 import org.tasks.http.ConnectionException
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
@@ -26,7 +26,7 @@ import tasks.kmp.generated.resources.network_error
 
 open class EtebaseCalendarSettingsViewModel(
     private val caldavDao: CaldavDao,
-    private val clientProvider: EtebaseCollectionClientProvider,
+    private val clientProvider: EtebaseClientFactory,
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
     purchaseState: PurchaseState,

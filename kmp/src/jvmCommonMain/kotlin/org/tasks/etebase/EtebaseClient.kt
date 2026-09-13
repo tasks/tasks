@@ -19,10 +19,10 @@ class EtebaseClient(
         private val username: String,
         private val etebase: Account,
         private val caldavDao: CaldavDao
-) : EtebaseCollectionClient {
+) : EtebaseAccountClient {
     private val cache = EtebaseLocalCache.getInstance(filesDir, username)
 
-    fun getSession(): String = etebase.save(null)
+    override fun getSession(): String = etebase.save(null)
 
     suspend fun getCollections(): List<Collection> {
         val collectionManager = etebase.collectionManager
@@ -117,7 +117,7 @@ class EtebaseClient(
         }
     }
 
-    suspend fun logout() {
+    override suspend fun logout() {
         try {
             EtebaseLocalCache.clear(filesDir, username)
             withContext(Dispatchers.IO) {

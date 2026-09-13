@@ -8,4 +8,8 @@ internal suspend fun <T> translateExceptions(block: suspend () -> T): T = try {
     throw HttpException(e.statusCode, e.message, cause = e)
 } catch (e: ConnectException) {
     throw ConnectionException(e.message, e)
+} catch (e: com.etebase.client.exceptions.ConnectionException) {
+    throw ConnectionException(e.message, e)
+} catch (e: com.etebase.client.exceptions.UnauthorizedException) {
+    throw UnauthorizedException(e.message, e)
 }

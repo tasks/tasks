@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.EtebaseAccountSettingsViewModel
 import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
@@ -561,6 +562,15 @@ val coreModule: Module = module {
             reporting = get(),
             tagMetadataSync = get(),
             tagMetadataActivation = get(),
+        )
+    }
+    viewModel {
+        EtebaseAccountSettingsViewModel(
+            caldavDao = get(),
+            clientProvider = get(),
+            encryption = get(),
+            taskDeleter = get(),
+            reporting = get(),
         )
     }
     viewModelOf(::AppViewModel)

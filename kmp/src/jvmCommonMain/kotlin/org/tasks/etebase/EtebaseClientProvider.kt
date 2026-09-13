@@ -6,6 +6,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.translateExceptions
 import org.tasks.security.KeyStoreEncryption
 import java.util.concurrent.TimeUnit
 
@@ -14,7 +15,7 @@ class EtebaseClientProvider(
     private val encryption: KeyStoreEncryption,
     private val caldavDao: CaldavDao,
     private val httpClientFactory: OkHttpClientFactory,
-) : EtebaseCollectionClientProvider {
+) : EtebaseClientFactory {
     override suspend fun forAccount(account: CaldavAccount): EtebaseClient = forUrl(
         account.url!!,
         account.username!!,
@@ -22,26 +23,28 @@ class EtebaseClientProvider(
         encryption.decrypt(account.password) ?: "",
     )
 
-    suspend fun forUrl(
+    override suspend fun forUrl(
         url: String,
         username: String,
         password: String?,
-        session: String? = null,
-        foreground: Boolean = false,
-    ): EtebaseClient = withContext(Dispatchers.IO) {
-        val okHttpClient = httpClientFactory.newClient(
-            foreground = foreground,
-            cookieKey = username,
-        ) { builder ->
-            builder
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
+        session: String?,
+        foreground: Boolean,
+    ): EtebaseClient = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val okHttpClient = httpClientFactory.newClient(
+                foreground = foreground,
+                cookieKey = username,
+            ) { builder ->
+                builder
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(120, TimeUnit.SECONDS)
+            }
+            val client = OkHttpBridge.createClient(okHttpClient, url)
+            val etebase = session
+                ?.let { Account.restore(client, it, null) }
+                ?: Account.login(client, username, password!!)
+            EtebaseClient(filesDir, username, etebase, caldavDao)
         }
-        val client = OkHttpBridge.createClient(okHttpClient, url)
-        val etebase = session
-            ?.let { Account.restore(client, it, null) }
-            ?: Account.login(client, username, password!!)
-        EtebaseClient(filesDir, username, etebase, caldavDao)
     }
 }
