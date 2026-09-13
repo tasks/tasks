@@ -173,4 +173,6 @@
     <string name="translations">مشارکت در ترجمه</string>
     <string name="theme_light">روشن</string>
     <string name="theme_dark">تیره</string>
+    <string name="mcp_tools_group_tags">برچسب ها</string>
+    <string name="mcp_tools_group_reminders">یادآوری ها</string>
 </resources>
