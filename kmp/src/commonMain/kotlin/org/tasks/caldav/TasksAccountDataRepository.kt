@@ -12,7 +12,7 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
 
 class TasksAccountDataRepository(
-    private val provider: CaldavClientProvider,
+    private val provider: TasksAccountClientProvider?,
     private val caldavDao: CaldavDao,
     private val tasksPreferences: TasksPreferences,
 ) {
@@ -30,14 +30,14 @@ class TasksAccountDataRepository(
         return raw.takeIf(String::isNotBlank)?.let { parseResponse(it) }
     }
 
-    suspend fun fetchAndCache(client: TasksClient): TasksAccountResponse? = mutex.withLock {
+    suspend fun fetchAndCache(client: TasksAccountClient): TasksAccountResponse? = mutex.withLock {
         val raw = client.getAccount() ?: return@withLock null
         tasksPreferences.set(cachedAccountData, raw)
         parseResponse(raw)
     }
 
     suspend fun fetchAndCache(account: CaldavAccount): TasksAccountResponse? =
-        provider.forTasksAccount(account).use { fetchAndCache(it) }
+        provider?.forTasksAccount(account)?.use { fetchAndCache(it) }
 
     suspend fun fetchAndCache(): TasksAccountResponse? {
         val account = caldavDao.getAccounts().firstOrNull { it.isTasksOrg } ?: return null

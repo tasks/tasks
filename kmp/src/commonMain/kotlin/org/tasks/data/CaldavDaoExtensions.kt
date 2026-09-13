@@ -3,6 +3,7 @@ package org.tasks.data
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.getString
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -65,3 +66,10 @@ private suspend fun CaldavDao.getLocalList(account: CaldavAccount): CaldavCalend
         ).apply {
             insert(this)
         }
+
+suspend fun CaldavDao.getAccountForNewList(
+    tasksAccountDataRepository: TasksAccountDataRepository,
+): CaldavAccount? {
+    val isTasksGuest = tasksAccountDataRepository.getAccountResponse()?.guest == true
+    return getAccounts().firstOrNull { !it.isOpenTasks && !(it.isTasksOrg && isTasksGuest) }
+}

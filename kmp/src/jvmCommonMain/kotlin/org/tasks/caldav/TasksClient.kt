@@ -22,86 +22,101 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
+import org.tasks.http.translateExceptions
 
 class TasksClient(
         httpClient: HttpClient,
         private val httpUrl: Url?
-) : CaldavClient(httpClient, httpUrl) {
-    suspend fun generateNewPassword(description: String?): JsonObject? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
-        httpClient
-            .post(url) {
-                setBody(FormDataContent(parameters {
-                    if (!description.isNullOrBlank()) {
-                        append(FORM_DESCRIPTION, description)
-                    }
-                }))
-            }
-            .checkSuccess()
-            .json()
+) : CaldavClient(httpClient, httpUrl), TasksAccountClient {
+    override suspend fun generateNewPassword(description: String?): JsonObject? = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext null
+            httpClient
+                .post(url) {
+                    setBody(FormDataContent(parameters {
+                        if (!description.isNullOrBlank()) {
+                            append(FORM_DESCRIPTION, description)
+                        }
+                    }))
+                }
+                .checkSuccess()
+                .json()
+        }
     }
 
-    suspend fun deletePassword(id: Int): Unit = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext
-        httpClient
-            .delete(url) {
-                setBody(FormDataContent(parameters { append(FORM_SESSION_ID, id.toString()) }))
-            }
-            .checkSuccess()
+    override suspend fun deletePassword(id: Int): Unit = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_PASSWORDS) ?: return@withContext
+            httpClient
+                .delete(url) {
+                    setBody(FormDataContent(parameters { append(FORM_SESSION_ID, id.toString()) }))
+                }
+                .checkSuccess()
+        }
     }
 
-    suspend fun registerPushToken(token: String): Unit = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
-        httpClient
-            .post(url) {
-                contentType(ContentType.Application.Json)
-                setBody(JsonObject(mapOf("token" to JsonPrimitive(token))).toString())
-            }
-            .checkSuccess()
+    override suspend fun registerPushToken(token: String): Unit = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
+            httpClient
+                .post(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(JsonObject(mapOf("token" to JsonPrimitive(token))).toString())
+                }
+                .checkSuccess()
+        }
     }
 
-    suspend fun unregisterPushToken(token: String): Unit = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
-        httpClient
-            .delete(url) {
-                contentType(ContentType.Application.Json)
-                setBody(JsonObject(mapOf("token" to JsonPrimitive(token))).toString())
-            }
-            .checkSuccess()
+    override suspend fun unregisterPushToken(token: String): Unit = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
+            httpClient
+                .delete(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(JsonObject(mapOf("token" to JsonPrimitive(token))).toString())
+                }
+                .checkSuccess()
+        }
     }
 
-    suspend fun getAccount(): String? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_ACCOUNT) ?: return@withContext null
-        httpClient
-            .get(url)
-            .checkSuccess()
-            .bodyAsText()
+    override suspend fun getAccount(): String? = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_ACCOUNT) ?: return@withContext null
+            httpClient
+                .get(url)
+                .checkSuccess()
+                .bodyAsText()
+        }
     }
 
-    suspend fun regenerateInboundEmail(): JsonObject? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
-        httpClient
-            .post(url) {
-                contentType(ContentType.Application.Json)
-                setBody(JsonObject(mapOf("regenerate" to JsonPrimitive(true))).toString())
-            }
-            .checkSuccess()
-            .json()
+    override suspend fun regenerateInboundEmail(): JsonObject? = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
+            httpClient
+                .post(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(JsonObject(mapOf("regenerate" to JsonPrimitive(true))).toString())
+                }
+                .checkSuccess()
+                .json()
+        }
     }
 
-    suspend fun setInboundCalendar(calendar: String?): JsonObject? = withContext(Dispatchers.IO) {
-        val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
-        httpClient
-            .post(url) {
-                contentType(ContentType.Application.Json)
-                setBody(
-                    JsonObject(mapOf(
-                        "calendar" to if (calendar != null) JsonPrimitive(calendar) else JsonNull
-                    )).toString()
-                )
-            }
-            .checkSuccess()
-            .json()
+    override suspend fun setInboundCalendar(calendar: String?): JsonObject? = translateExceptions {
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_INBOUND_EMAIL) ?: return@withContext null
+            httpClient
+                .post(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(
+                        JsonObject(mapOf(
+                            "calendar" to if (calendar != null) JsonPrimitive(calendar) else JsonNull
+                        )).toString()
+                    )
+                }
+                .checkSuccess()
+                .json()
+        }
     }
 
     private suspend fun HttpResponse.checkSuccess(): HttpResponse {

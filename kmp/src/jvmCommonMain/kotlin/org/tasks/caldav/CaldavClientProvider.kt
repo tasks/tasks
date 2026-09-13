@@ -19,7 +19,7 @@ class CaldavClientProvider(
     private val httpClientFactory: OkHttpClientFactory,
     private val tokenProvider: FcmTokenProvider? = null,
     private val subscriptionProvider: () -> TasksBasicAuth.SubscriptionInfo? = { null },
-) : CaldavCollectionClientProvider {
+) : CaldavCollectionClientProvider, TasksAccountClientProvider {
 
     private sealed interface CaldavAuth {
         val user: String
@@ -42,7 +42,7 @@ class CaldavClientProvider(
         return CaldavClient(createHttpClient(auth = auth, foreground = true), httpUrl)
     }
 
-    suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
+    override suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
         if (!account.isTasksOrg) {
             throw IllegalArgumentException()
         }

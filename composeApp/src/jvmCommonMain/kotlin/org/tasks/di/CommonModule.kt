@@ -27,10 +27,10 @@ import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavCollectionClientProvider
+import org.tasks.caldav.TasksAccountClientProvider
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.etebase.EtebaseCollectionClientProvider
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.iCalendar
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
@@ -197,7 +197,6 @@ val commonModule = module {
             }
         }
     }
-    singleOf(::TasksAccountDataRepository)
     factory<CaldavClientProvider> {
         CaldavClientProvider(
             encryption = get(),
@@ -221,6 +220,7 @@ val commonModule = module {
     }
     factory<TagMetadataEditor> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
     factory<CaldavCollectionClientProvider> { get<CaldavClientProvider>() }
+    factory<TasksAccountClientProvider> { get<CaldavClientProvider>() }
     factory<EtebaseCollectionClientProvider> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }

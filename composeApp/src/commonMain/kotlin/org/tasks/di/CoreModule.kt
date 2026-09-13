@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
@@ -513,6 +514,7 @@ val coreModule: Module = module {
             calendar = params.get(),
         )
     }
+    single { TasksAccountDataRepository(getOrNull(), get(), get()) }
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModel {
