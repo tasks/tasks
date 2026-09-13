@@ -1,5 +1,10 @@
 package org.tasks.di
 
+import org.tasks.extensions.guarded
+import org.tasks.viewmodel.ReminderChange
+import org.tasks.notifications.CancelReason
+import org.tasks.notifications.Notifier
+import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.analytics.Reporting
 import com.todoroo.astrid.alarms.AlarmCalculator
@@ -410,6 +415,22 @@ val coreModule: Module = module {
             tagDataDao = get(),
             locationDao = get(),
             repeatRuleToString = get(),
+        )
+    }
+    viewModel {
+        val notifier = get<Notifier>()
+        NotificationsViewModel(
+            appPreferences = get(),
+            platformConfiguration = get(),
+            persistenceScope = get(),
+            rescheduleNotifications = { change ->
+                if (change == ReminderChange.OFF) {
+                    guarded("CommonModule", "Failed to take down notifications", Unit) {
+                        notifier.cancelAll(CancelReason.DISABLED)
+                    }
+                }
+                notifier.triggerNotifications()
+            },
         )
     }
     viewModelOf(::AppViewModel)

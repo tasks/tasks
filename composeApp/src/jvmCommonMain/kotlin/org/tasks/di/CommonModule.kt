@@ -106,7 +106,6 @@ import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
-import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
@@ -253,22 +252,6 @@ val commonModule = module {
             dueDate = params.get<Long>(),
             accountType = params.get<Int>(),
             locale = get(),
-        )
-    }
-    viewModel {
-        val notifier = get<Notifier>()
-        NotificationsViewModel(
-            appPreferences = get(),
-            platformConfiguration = get(),
-            persistenceScope = get(),
-            rescheduleNotifications = { change ->
-                if (change == ReminderChange.OFF) {
-                    guarded("CommonModule", "Failed to take down notifications", Unit) {
-                        notifier.cancelAll(CancelReason.DISABLED)
-                    }
-                }
-                notifier.triggerNotifications()
-            },
         )
     }
     viewModel {
