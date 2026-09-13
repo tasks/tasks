@@ -319,8 +319,7 @@ fun LegalDisclosure(
     val tosText = stringResource(Res.string.terms_of_service_proper)
     val privacyText = stringResource(Res.string.privacy_policy_proper)
     val licenseText = stringResource(Res.string.gplv3_license)
-    val template = stringResource(Res.string.legal_disclosure)
-    val formatted = String.format(template, prefixText, tosText, privacyText, licenseText)
+    val formatted = stringResource(Res.string.legal_disclosure, prefixText, tosText, privacyText, licenseText)
 
     val tosStart = formatted.indexOf(tosText)
     val tosEnd = tosStart + tosText.length

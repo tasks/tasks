@@ -25,6 +25,8 @@ kotlin {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
         }
     }
+    iosArm64()
+    iosSimulatorArm64()
     sourceSets {
         val jvmCommonMain by creating {
             dependsOn(commonMain.get())
@@ -91,18 +93,22 @@ kotlin {
             }
             api(libs.google.api.tasks)
             api(libs.okhttp)
-            api(libs.ktor.client.core)
             implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.okhttp)
-            implementation(libs.ktor.client.logging)
-            implementation(libs.ktor.content.negotiation)
-            implementation(libs.ktor.serialization)
             compileOnly(libs.xpp3)
             compileOnly(files("../libs/client-jvm-2.3.2.jar"))
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             api(projects.cert4android)
             implementation(projects.data)
+            api(libs.okio)
+            api(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.content.negotiation)
+            implementation(libs.ktor.serialization)
             api(compose.components.resources)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -137,8 +143,8 @@ artifacts {
     add(jvmTestOutput.name, jvmTestJar)
 }
 
-val generateJvmBuildConfig by tasks.registering {
-    val outputDir = layout.buildDirectory.dir("generated/jvmBuildConfig")
+fun registerBuildConfig(objectName: String) = tasks.register("generate${objectName}") {
+    val outputDir = layout.buildDirectory.dir("generated/${objectName}")
     val versionCode = libs.versions.versionCode.get()
     val versionName = libs.versions.versionName.get()
     val applicationId = libs.versions.applicationId.get()
@@ -158,12 +164,12 @@ val generateJvmBuildConfig by tasks.registering {
     inputs.property("debug", debug)
     outputs.dir(outputDir)
     doLast {
-        outputDir.get().asFile.resolve("JvmBuildConfig.kt").apply {
+        outputDir.get().asFile.resolve("${objectName}.kt").apply {
             parentFile.mkdirs()
             writeText("""
                 |package org.tasks.kmp
                 |
-                |object JvmBuildConfig {
+                |object $objectName {
                 |    const val VERSION_CODE = $versionCode
                 |    const val VERSION_NAME = "$versionName"
                 |    const val APPLICATION_ID = "$applicationId"
@@ -176,8 +182,15 @@ val generateJvmBuildConfig by tasks.registering {
     }
 }
 
+val generateJvmBuildConfig = registerBuildConfig("JvmBuildConfig")
+val generateIosBuildConfig = registerBuildConfig("IosBuildConfig")
+
 kotlin.sourceSets.named("jvmMain") {
     kotlin.srcDir(generateJvmBuildConfig)
+}
+
+kotlin.sourceSets.named("iosMain") {
+    kotlin.srcDir(generateIosBuildConfig)
 }
 
 compose.resources {

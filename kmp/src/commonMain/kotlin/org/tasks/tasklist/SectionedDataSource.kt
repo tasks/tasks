@@ -4,7 +4,6 @@ import com.todoroo.astrid.core.SortHelper
 import org.tasks.data.TaskContainer
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
-import java.util.TreeMap
 
 class SectionedDataSource(
     tasks: List<TaskContainer> = emptyList(),
@@ -17,7 +16,7 @@ class SectionedDataSource(
     private val tasks = tasks.toMutableList()
 
     private val sections = if (disableHeaders || groupMode == SortHelper.GROUP_NONE) {
-        TreeMap<Int, AdapterSection>()
+        mutableMapOf<Int, AdapterSection>()
     } else {
         getSections()
     }
@@ -101,7 +100,7 @@ class SectionedDataSource(
 
     fun removeAt(position: Int): TaskContainer = tasks.removeAt(sectionedPositionToPosition(position))
 
-    private fun getSections(): TreeMap<Int, AdapterSection> {
+    private fun getSections(): MutableMap<Int, AdapterSection> {
         val sections = ArrayList<AdapterSection>()
         val startOfToday = currentTimeMillis().startOfDay()
         for (i in tasks.indices) {
@@ -182,8 +181,8 @@ class SectionedDataSource(
         return setSections(sections)
     }
 
-    private fun setSections(newSections: List<AdapterSection>): TreeMap<Int, AdapterSection> {
-        val sections = TreeMap<Int, AdapterSection>()
+    private fun setSections(newSections: List<AdapterSection>): MutableMap<Int, AdapterSection> {
+        val sections = mutableMapOf<Int, AdapterSection>()
         newSections.forEachIndexed { index, section ->
             section.sectionedPosition = section.firstPosition + index
             sections[section.sectionedPosition] = section
@@ -209,7 +208,7 @@ class SectionedDataSource(
             getNearestHeader(sectionedPosition - 1)
         }
 
-    fun getSectionValues(): List<Long> = sections.map { (_, header) -> header.value }
+    fun getSectionValues(): List<Long> = sections.entries.sortedBy { it.key }.map { it.value.value }
 
     suspend fun formatHeaders(format: suspend (Long) -> String?) {
         sections.values.forEach { it.header = format(it.value) }

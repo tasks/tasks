@@ -1,6 +1,7 @@
 package org.tasks.data
 
 import co.touchlab.kermit.Logger
+import kotlin.jvm.JvmStatic
 import org.tasks.data.TaskListQueryNonRecursive.getNonRecursiveQuery
 import org.tasks.data.TaskListQueryRecursive.getRecursiveQuery
 import org.tasks.data.entity.CaldavAccount

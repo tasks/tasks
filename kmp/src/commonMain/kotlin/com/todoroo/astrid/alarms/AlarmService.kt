@@ -42,7 +42,7 @@ class AlarmService(
     suspend fun synchronizeAlarms(taskId: Long, alarms: MutableSet<Alarm>): Boolean {
         var changed = false
         for (existing in alarmDao.getAlarms(taskId)) {
-            if (!alarms.removeIf { it.same(existing)}) {
+            if (!alarms.removeAll { it.same(existing) }) {
                 alarmDao.delete(existing)
                 changed = true
             }

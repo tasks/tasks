@@ -32,7 +32,6 @@ import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.tasks.compose.components.iconExists
 import tasks.kmp.generated.resources.Res
-import java.util.TreeMap
 
 
 @OptIn(ExperimentalResourceApi::class, FlowPreview::class, ExperimentalCoroutinesApi::class)
@@ -57,7 +56,7 @@ class IconPickerViewModel : ViewModel() {
             val metadata: IconMetadata = withContext(Dispatchers.Default) {
                 Json { ignoreUnknownKeys = true }.decodeFromString(Res.readBytes("files/icons.json").decodeToString())
             }
-            val map = TreeMap<String, ArrayList<Icon>>()
+            val map = mutableMapOf<String, ArrayList<Icon>>()
             metadata.icons
                 .filter { it.imageExists }
                 .forEach { icon ->
@@ -68,7 +67,7 @@ class IconPickerViewModel : ViewModel() {
 
             _viewState.update { state ->
                 state.copy(
-                    icons = map.mapValues { (_, v) -> v.toPersistentList() }.toPersistentMap(),
+                    icons = map.entries.sortedBy { it.key }.associate { (k, v) -> k to v.toPersistentList() }.toPersistentMap(),
                 )
             }
 

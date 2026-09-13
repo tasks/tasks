@@ -30,7 +30,7 @@ private fun addSerialized(result: StringBuilder, key: String, value: Any) {
     } else if (value is Boolean) {
         result.append('b').append(value)
     } else {
-        throw UnsupportedOperationException(value.javaClass.toString())
+        throw UnsupportedOperationException(value::class.toString())
     }
     result.append(SERIALIZATION_SEPARATOR)
 }

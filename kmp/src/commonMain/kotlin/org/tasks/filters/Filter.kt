@@ -60,7 +60,7 @@ fun Filter.key(): String = when (this) {
     is EmptyFilter -> "builtin_empty"
     is DebugFilter -> title
     else -> {
-        Logger.w { "Unexpected filter type: ${javaClass.name}" }
+        Logger.w { "Unexpected filter type: ${this::class.simpleName}" }
         "unknown_${sql.hashCode()}"
     }
 }

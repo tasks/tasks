@@ -30,7 +30,6 @@ import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.Until
 import org.tasks.time.DateTime
 import timber.log.Timber
-import java.io.File
 import java.util.concurrent.TimeUnit.HOURS
 
 object Migrations {
@@ -465,12 +464,12 @@ object Migrations {
                             it.getTextOrNull(0),
                             it.getTextOrNull(1),
                         )
-                            ?.apply { mkdirs() }
+                            ?.let { directory -> fileStorage.mkdirs(directory) }
                             ?: continue
                         val `object` = it.getTextOrNull(2) ?: continue
                         val data = it.getTextOrNull(3) ?: continue
                         runBlocking {
-                            fileStorage.write(File(file, `object`), data)
+                            fileStorage.write(file / `object`, data)
                         }
                     }
                 }

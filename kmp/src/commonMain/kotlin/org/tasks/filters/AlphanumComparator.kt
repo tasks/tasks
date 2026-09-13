@@ -1,7 +1,7 @@
 package org.tasks.filters
 
+import kotlin.jvm.JvmField
 import org.tasks.data.entity.TagData
-import java.util.*
 
 /*
  * The Alphanum Algorithm is an improved sorting algorithm for strings
@@ -99,7 +99,7 @@ class AlphanumComparator<T>(private val getTitle: (T) -> String?) : Comparator<T
                     }
                 }
             } else {
-                result = java.lang.String.CASE_INSENSITIVE_ORDER.compare(thisChunk, thatChunk)
+                result = thisChunk.compareTo(thatChunk, ignoreCase = true)
             }
             if (result != 0) return result
         }

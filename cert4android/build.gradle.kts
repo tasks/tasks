@@ -21,6 +21,8 @@ kotlin {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
         }
     }
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
         val jvmCommonMain by creating {

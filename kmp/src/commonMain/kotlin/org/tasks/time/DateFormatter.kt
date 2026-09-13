@@ -1,5 +1,6 @@
 package org.tasks.kmp.org.tasks.time
 
+import kotlin.concurrent.Volatile
 import org.jetbrains.compose.resources.getString
 import org.tasks.data.entity.Task.Companion.hasDueTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis

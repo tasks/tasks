@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.kmp.formatNumber
@@ -162,7 +163,7 @@ fun LinkDesktopScreen(
                                             } else {
                                                 LinkDesktopState.Error(confirmationErrorMessage)
                                             }
-                                        } catch (e: java.io.IOException) {
+                                        } catch (e: IOException) {
                                             state = LinkDesktopState.Error(networkErrorMessage)
                                         } catch (e: Exception) {
                                             state = LinkDesktopState.Error(confirmationErrorMessage)
