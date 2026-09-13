@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.caldav.metadata.TagMetadataEditor
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
@@ -107,7 +108,6 @@ import org.tasks.viewmodel.ReminderChange
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.ProCardViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
-import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.TaskEditDestination
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.googleapis.GtasksInvoker
@@ -219,6 +219,7 @@ val commonModule = module {
             preferences = get(),
         )
     }
+    factory<TagMetadataEditor> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }
     factory {
@@ -332,18 +333,6 @@ val commonModule = module {
             isDark = params.get(),
             account = params.get(),
             calendar = params.get(),
-        )
-    }
-    viewModel { params ->
-        TagSettingsViewModel(
-            tagDataDao = get(),
-            refreshBroadcaster = get(),
-            reporting = get(),
-            purchaseState = get(),
-            tagMetadataSync = get(),
-            syncAdapters = get(),
-            isDark = params.get(),
-            tagData = params.get(),
         )
     }
     viewModel {

@@ -14,6 +14,7 @@ import org.tasks.analytics.Analytics
 import org.tasks.analytics.Reporting
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
+import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
@@ -70,6 +71,7 @@ actual fun platformModule(): Module = module {
     factory { Upgrader(get(), CommonUpgrades.all(get())) }
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
+    single { TagMetadataEditor(get(), get(), get()) }
     single<SubscriptionProvider> {
         object : SubscriptionProvider {
             override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)

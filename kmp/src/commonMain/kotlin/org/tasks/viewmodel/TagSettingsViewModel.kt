@@ -15,7 +15,7 @@ import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.caldav.metadata.TagMetadataSync
+import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.compose.settings.PickerColor
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -32,7 +32,7 @@ open class TagSettingsViewModel(
     private val refreshBroadcaster: RefreshBroadcaster,
     private val reporting: Reporting,
     private val purchaseState: PurchaseState,
-    private val tagMetadataSync: TagMetadataSync,
+    private val tagMetadataSync: TagMetadataEditor,
     private val syncAdapters: SyncAdapters,
     isDark: Boolean,
     hasColorWheel: Boolean = false,

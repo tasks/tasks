@@ -37,8 +37,8 @@ class TagMetadataSync(
     private val tagDataDao: TagDataDao,
     private val provider: CaldavClientProvider,
     private val vtodoCache: VtodoCache,
-    private val preferences: TasksPreferences,
-) {
+    preferences: TasksPreferences,
+) : TagMetadataEditor(caldavDao, tagDataDao, preferences) {
     private val mutex = Mutex()
 
     private var principalCache: Triple<Long, String?, Url>? = null
@@ -47,10 +47,6 @@ class TagMetadataSync(
         principalCache?.let { (id, url, p) -> if (id == account.id && url == account.url) return p }
         return client.principal()?.also { principalCache = Triple(account.id!!, account.url, it) }
     }
-
-    suspend fun primaryAccount(): CaldavAccount? = caldavDao.getMetadataPrimary(preferredPrimaryId())
-
-    suspend fun isPrimary(account: CaldavAccount): Boolean = primaryAccount()?.id == account.id
 
     suspend fun diagnostics(): String = buildString {
         val primary = primaryAccount()
@@ -165,10 +161,6 @@ class TagMetadataSync(
         return reaped.isNotEmpty()
     }
 
-    suspend fun finalizeDeletedTags(tags: List<TagData>) {
-        preferences.delete(tags.map { TagFilter(it).key() })
-    }
-
     suspend fun applyRemote(remoteJson: String?) {
         val blob = TagMetadataBlob.parse(remoteJson) ?: return
         applyBlob(blob, base = { emptyList() }, healMissing = false)
@@ -233,24 +225,6 @@ class TagMetadataSync(
     }
 
     private fun TagMetadataBlob?.toPulled() = Pulled(this != null, this)
-
-    suspend fun deleteTag(tag: TagData) {
-        if (primaryAccount() != null) tagDataDao.deleteWithTombstone(tag) else tagDataDao.delete(tag)
-        finalizeDeletedTags(listOf(tag))
-    }
-
-    suspend fun renameTag(
-        remoteId: String,
-        name: String,
-        color: Int,
-        icon: String?,
-        colorChanged: Boolean,
-        iconChanged: Boolean,
-        order: Int = NO_ORDER,
-    ): TagData? = tagDataDao.renameTag(
-        remoteId, name, color, icon, colorChanged, iconChanged, order,
-        queueTombstone = primaryAccount() != null,
-    )
 
     suspend fun markOrderDirty() = preferences.set(TasksPreferences.metadataOrderDirty, true)
 
@@ -458,9 +432,6 @@ class TagMetadataSync(
         preferences.set(TasksPreferences.metadataPrimaryAccount, account.id!!)
         preferences.set(TasksPreferences.metadataStoreAccount, account.id!!)
     }
-
-    private suspend fun preferredPrimaryId(): Long =
-        preferences.get(TasksPreferences.metadataPrimaryAccount, 0L)
 
     private suspend fun rev(): String? =
         preferences.get(TasksPreferences.metadataRev, "").ifEmpty { null }

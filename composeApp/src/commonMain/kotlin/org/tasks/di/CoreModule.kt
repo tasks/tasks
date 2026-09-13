@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import org.tasks.viewmodel.TagSettingsViewModel
 import com.todoroo.astrid.alarms.AlarmCalculator
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -457,6 +458,18 @@ val coreModule: Module = module {
             rrule = params.get<String>(),
             dueDate = params.get<Long>(),
             accountType = params.get<Int>(),
+        )
+    }
+    viewModel { params ->
+        TagSettingsViewModel(
+            tagDataDao = get(),
+            refreshBroadcaster = get(),
+            reporting = get(),
+            purchaseState = get(),
+            tagMetadataSync = get(),
+            syncAdapters = get(),
+            isDark = params.get(),
+            tagData = params.get(),
         )
     }
     viewModelOf(::AppViewModel)
