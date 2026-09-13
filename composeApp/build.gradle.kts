@@ -30,21 +30,24 @@ kotlin {
         }
     }
 
-    // iOS requires adding iOS targets to data and kmp modules first
-    // listOf(
-    //     iosX64(),
-    //     iosArm64(),
-    //     iosSimulatorArm64(),
-    // ).forEach { iosTarget ->
-    //     iosTarget.binaries.framework {
-    //         baseName = "ComposeApp"
-    //         isStatic = true
-    //     }
-    // }
+    listOf(
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "ComposeApp"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         val desktopMain by getting
         val desktopTest by getting
+        val jvmCommonMain by creating {
+            dependsOn(commonMain.get())
+        }
+        androidMain.get().dependsOn(jvmCommonMain)
+        desktopMain.dependsOn(jvmCommonMain)
 
         desktopTest.dependencies {
             implementation(libs.junit)
@@ -65,7 +68,7 @@ kotlin {
             implementation(libs.androidx.datastore)
             implementation(compose.components.resources)
             implementation(compose.foundation)
-            implementation("androidx.compose.material3:material3:1.5.0-alpha27")
+            implementation(libs.jetbrains.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel.compose)

@@ -157,6 +157,7 @@ import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
+import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
 import org.tasks.compose.drawer.DrawerItem
@@ -274,45 +275,6 @@ import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
 import kotlin.math.roundToInt
-
-@Serializable
-data object WelcomeDestination : NavKey
-
-@Serializable
-data object AddAccountDestination : NavKey
-
-@Serializable
-data object TaskListDestination : NavKey
-
-@Serializable
-data class TaskEditDestination(
-    val taskId: Long,
-    val remoteId: String,
-    val listId: Long? = null,
-    val tagUuid: String? = null,
-    val isSubtaskDraft: Boolean = false,
-) : NavKey
-
-@Serializable
-data object CaldavSignInDestination : NavKey
-
-@Serializable
-data object EtebaseSignInDestination : NavKey
-
-@Serializable
-data object SettingsDestination : NavKey
-
-@Serializable
-data object LinkDesktopDestination : NavKey
-
-@Serializable
-data class DesktopProDestination(val source: String? = null) : NavKey
-
-@Serializable
-data class PricingDestination(
-    val mode: PricingMode = PricingMode.BOTH,
-    val source: String = AnalyticsEvents.SOURCE_SETTINGS,
-) : NavKey
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3AdaptiveApi::class)
 @Composable
@@ -1901,7 +1863,6 @@ private val PanelGutterWidth = 24.dp
 
 private val FloatingToolbarHeight = 64.dp
 
-internal val FloatingToolbarBottomMargin = 24.dp
 
 private val SearchButtonInset =
     FloatingToolbarBottomMargin + (FloatingToolbarHeight - SearchButtonSize) / 2
@@ -2696,104 +2657,6 @@ private fun SortSheetHost(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun TaskList(
-    tasks: SectionedDataSource,
-    filter: Filter,
-    chipDataProvider: ChipDataProvider,
-    listState: LazyListState = rememberLazyListState(),
-    topPadding: Dp = 0.dp,
-    onTaskClick: (TaskContainer) -> Unit,
-    onCompleteTask: (TaskContainer, Boolean) -> Unit,
-    onToggleGroup: (Long) -> Unit = {},
-    onToggleSubtasks: (Long, Boolean) -> Unit = { _, _ -> },
-    onFilterClick: (Filter) -> Unit = {},
-    is24Hour: Boolean = false,
-) {
-    val dateFormatter = rememberDateFormatter(is24Hour)
-    val subtaskTrees = koinInject<SubtaskTreeRegistry>()
-    val deletions by remember(subtaskTrees) { subtaskTrees.deletions }
-        .collectAsState(initial = emptyMap())
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        state = listState,
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(
-            top = topPadding,
-            bottom = 88.dp, // floating toolbar clearance
-        ),
-    ) {
-        items(
-            count = tasks.size,
-            key = { if (tasks.isHeader(it)) -it.toLong() else tasks.getItem(it).id },
-        ) { index ->
-            if (tasks.isHeader(index)) {
-                val section = tasks.getSection(index)
-                SectionHeader(
-                    header = if (filter.supportsSorting()) section.header else null,
-                    collapsed = section.collapsed,
-                    onToggle = { onToggleGroup(section.value) },
-                )
-                return@items
-            }
-            val task = tasks.getItem(index)
-            val state = rowState(deletions, task)
-            if (state == RowState.Hidden) {
-                return@items
-            }
-            TaskRow(
-                task = task,
-                doomed = state == RowState.Doomed,
-                filter = filter,
-                groupMode = tasks.groupMode,
-                chipDataProvider = chipDataProvider,
-                is24Hour = is24Hour,
-                dateFormatter = dateFormatter,
-                onClick = { onTaskClick(task) },
-                onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
-                onToggleSubtasks = { onToggleSubtasks(task.id, !task.isCollapsed) },
-                onFilterClick = onFilterClick,
-            )
-        }
-    }
-}
-
-@Composable
-private fun SectionHeader(
-    header: String?,
-    collapsed: Boolean,
-    onToggle: () -> Unit,
-) {
-    if (header == null) {
-        return
-    }
-    val rotation by animateFloatAsState(
-        targetValue = if (collapsed) -180f else 0f,
-        animationSpec = tween(durationMillis = 250),
-    )
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onToggle)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = header,
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.weight(1f),
-        )
-        SymbolIcon(
-            name = TasksIcons.KEYBOARD_ARROW_DOWN,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier
-                .size(24.dp)
-                .graphicsLayer { rotationZ = rotation },
-        )
     }
 }
 
