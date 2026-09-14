@@ -45,6 +45,9 @@ kotlin {
 tasks.withType<Test>().configureEach {
     systemProperty("tasks.schemaDir", layout.projectDirectory.dir("schemas").asFile.absolutePath)
 }
+tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>().configureEach {
+    device.set(providers.gradleProperty("ios.simulator").orElse("booted"))
+}
 android {
     namespace = "org.tasks.data"
     compileSdk = 34
