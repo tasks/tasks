@@ -27,8 +27,8 @@
     <string name="today_lowercase">今日</string>
     <string name="show_unstarted">着手前のタスクを表示</string>
     <string name="show_completed">完了したタスクを表示</string>
-    <string name="search_no_results">結果なし</string>
-    <string name="subscription_required_description">すべての機能を1USD/年でアンロックすることができます</string>
+    <string name="search_no_results">該当するものがありません</string>
+    <string name="subscription_required_description">すべての機能を$1 USD/年でアンロックすることができます</string>
     <string name="requires_pro_subscription">プロサブスクリプションが必要</string>
     <string name="add_task">タスクを追加</string>
     <string name="wear_install_app">インストール</string>
@@ -51,7 +51,7 @@
     <string name="gplv3_license">GPLv3ライセンス</string>
     <string name="returning_user_import_backup">Tasks.orgのバックアップを読み込む</string>
     <string name="legal_disclosure_prefix_continuing">下のボタンのいずれかで続行</string>
-    <string name="legal_disclosure">%1$sのご利用により、%2$sおよび%3$sに同意したことになります。Tasksは、%4$sの下で提供されているオープンソースソフトウェアです。</string>
+    <string name="legal_disclosure">%1$s様のご利用により、%2$sおよび%3$sに同意したことになります。Tasksは、%4$sの下で提供されているオープンソースソフトウェアです。</string>
     <string name="microsoft_selection_description">個人用 Microsoftアカウントと同期する</string>
     <string name="google_tasks_selection_description">Googleアカウントと同期する基本サービス</string>
     <string name="cost_free">無料</string>
@@ -176,7 +176,7 @@
         <item quantity="other">タスク %1$d 件</item>
     </plurals>
     <string name="delete_tasks_warning">%1$sは削除されます。これは元に戻せません！</string>
-    <string name="name_cannot_be_empty">名前は空にできません</string>
+    <string name="name_cannot_be_empty">名前を入力してください</string>
     <string name="discard_changes">変更を破棄しますか？</string>
     <string name="discard">破棄</string>
     <string name="delete">削除</string>
@@ -202,7 +202,7 @@
     <string name="caldav_server_type">サーバータイプ</string>
     <string name="caldav_server_unknown">不明</string>
     <string name="error_adding_account">エラー：%1$s</string>
-    <string name="invalid_username_or_password">不正なユーザー名やパスワードです</string>
+    <string name="invalid_username_or_password">ユーザー名かパスワードが誤っています</string>
     <string name="network_error">接続できません</string>
     <string name="sign_in">サインイン</string>
     <string name="url_host_name_required">ホスト名が必要です</string>
@@ -233,7 +233,7 @@
     <string name="privacy_policy">プライバシーポリシー</string>
     <string name="send_anonymous_statistics">Tasks を改善</string>
     <string name="send_anonymous_statistics_summary">Tasks を改善するために、匿名で使用状況データとクラッシュレポートを送信します。個人情報は収集されません。</string>
-    <string name="license_summary">Tasksは、GNU General Public License バージョン3.0でライセンスされる、自由かつオープンソースのソフトウェアです</string>
+    <string name="license_summary">Tasksは、GNU General Public License バージョン3.0でライセンスされた自由かつオープンソースのソフトウェアです</string>
     <string name="support">サポート</string>
     <string name="social">ソーシャルサービス</string>
     <string name="open_source">オープンソース</string>
@@ -321,7 +321,7 @@
     <string name="TEA_note_label">説明</string>
     <string name="start_date">着手日時</string>
     <string name="repeats_custom_recurrence">繰り返しの設定</string>
-    <string name="repeats_every">繰り返す間隔</string>
+    <string name="repeats_every">繰り返し間隔</string>
     <string name="repeats_weekly_on">曜日</string>
     <string name="repeat_monthly_on_day_number">毎月%1$d日</string>
     <string name="repeat_monthly_first_week">第一週</string>
@@ -570,4 +570,5 @@
     <string name="mcp_tools_group_places">場所</string>
     <string name="mcp_tools_group_reminders">リマインダー</string>
     <string name="mcp_copy">コピー</string>
+    <string name="undo_delete">削除を元に戻す</string>
 </resources>
