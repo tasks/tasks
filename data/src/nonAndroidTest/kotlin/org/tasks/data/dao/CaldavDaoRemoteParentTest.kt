@@ -3,11 +3,6 @@ package org.tasks.data.dao
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
@@ -15,13 +10,18 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class CaldavDaoRemoteParentTest {
     private lateinit var db: Database
     private lateinit var taskDao: TaskDao
     private lateinit var caldavDao: CaldavDao
 
-    @Before
+    @BeforeTest
     fun setUp() = runBlocking {
         db = Room.inMemoryDatabaseBuilder<Database>()
             .setDriver(BundledSQLiteDriver())
@@ -33,7 +33,7 @@ class CaldavDaoRemoteParentTest {
         caldavDao.insert(CaldavCalendar(uuid = CALENDAR, account = ACCOUNT))
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         db.close()
     }

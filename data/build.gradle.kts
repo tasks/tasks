@@ -12,6 +12,19 @@ plugins {
     alias(libs.plugins.redacted)
 }
 
+val generateTestConfig by tasks.registering {
+    val schemas = layout.projectDirectory.dir("schemas").asFile.invariantSeparatorsPath
+    val out = layout.buildDirectory.dir("generated/testConfig")
+    inputs.property("schemas", schemas)
+    outputs.dir(out)
+    doLast {
+        out.get().file("org/tasks/data/TestConfig.kt").asFile.apply {
+            parentFile.mkdirs()
+            writeText("package org.tasks.data\n\ninternal const val SCHEMA_DIR = \"$schemas\"\n")
+        }
+    }
+}
+
 kotlin {
     applyDefaultHierarchyTemplate()
     androidTarget {
@@ -35,15 +48,20 @@ kotlin {
             implementation(libs.kotlinx.serialization)
             implementation(libs.kermit)
         }
-        jvmTest.dependencies {
-            implementation(libs.junit)
-            implementation(libs.androidx.room3.testing)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
         }
+        val nonAndroidTest by creating {
+            dependsOn(commonTest.get())
+            kotlin.srcDir(generateTestConfig)
+            dependencies {
+                implementation(libs.androidx.room3.testing)
+            }
+        }
+        jvmTest.get().dependsOn(nonAndroidTest)
+        iosTest.get().dependsOn(nonAndroidTest)
     }
     task("testClasses")
-}
-tasks.withType<Test>().configureEach {
-    systemProperty("tasks.schemaDir", layout.projectDirectory.dir("schemas").asFile.absolutePath)
 }
 tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>().configureEach {
     device.set(providers.gradleProperty("ios.simulator").orElse("booted"))

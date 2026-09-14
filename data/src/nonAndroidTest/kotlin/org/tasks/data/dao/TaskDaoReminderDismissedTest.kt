@@ -3,18 +3,18 @@ package org.tasks.data.dao
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TaskDaoReminderDismissedTest {
     private lateinit var db: Database
     private lateinit var taskDao: TaskDao
 
-    @Before
+    @BeforeTest
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder<Database>()
             .setDriver(BundledSQLiteDriver())
@@ -23,7 +23,7 @@ class TaskDaoReminderDismissedTest {
         taskDao = db.taskDao()
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         db.close()
     }

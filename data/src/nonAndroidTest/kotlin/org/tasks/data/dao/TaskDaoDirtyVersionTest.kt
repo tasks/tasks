@@ -4,12 +4,6 @@ import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
@@ -21,6 +15,12 @@ import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
 import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNull
 
 class TaskDaoDirtyVersionTest {
     private lateinit var db: Database
@@ -28,8 +28,9 @@ class TaskDaoDirtyVersionTest {
     private lateinit var caldavDao: CaldavDao
     private lateinit var dirtyDao: DirtyDao
     private lateinit var googleTaskDao: GoogleTaskDao
+    private var calendars = 0
 
-    @Before
+    @BeforeTest
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder<Database>()
             .setDriver(BundledSQLiteDriver())
@@ -41,7 +42,7 @@ class TaskDaoDirtyVersionTest {
         googleTaskDao = db.googleTaskDao()
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         db.close()
     }
@@ -495,7 +496,7 @@ class TaskDaoDirtyVersionTest {
         if (caldavDao.getAccountByUuid(accountUuid) == null) {
             caldavDao.insert(CaldavAccount(accountType = accountType, uuid = accountUuid))
         }
-        val calUuid = "calendar-${System.nanoTime()}"
+        val calUuid = "calendar-${++calendars}"
         caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid, access = access))
         return calUuid
     }

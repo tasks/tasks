@@ -1,31 +1,18 @@
 package org.tasks.data.db
 
 import androidx.room3.migration.Migration
-import androidx.room3.testing.MigrationTestHelper
 import androidx.sqlite.SQLiteConnection
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Rule
-import org.junit.Test
+import org.tasks.data.SCHEMA_DIR
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CommonMigrationsTest {
-    private val tempDir: Path = Files.createTempDirectory("room-migration-test")
-
-    @get:Rule
-    val helper = MigrationTestHelper(
-        schemaDirectoryPath = Paths.get(System.getProperty("tasks.schemaDir") ?: "schemas"),
-        databasePath = tempDir.resolve("migration-test.db"),
-        driver = BundledSQLiteDriver(),
-        databaseClass = Database::class,
-    )
+    private val helper = migrationTestHelper(SCHEMA_DIR)
 
     private fun migrate(
         from: Int,
@@ -108,7 +95,7 @@ class CommonMigrationsTest {
             } catch (e: Exception) {
                 threw = true
             }
-            assertTrue("unique index should reject a second normalized 'work'", threw)
+            assertTrue(threw, "unique index should reject a second normalized 'work'")
         }
     }
 
@@ -204,7 +191,7 @@ class CommonMigrationsTest {
             db.prepare("SELECT `task`, `platform_id` FROM `notification`").use {
                 assertTrue(it.step())
                 assertEquals(100L, it.getLong(0))
-                assertTrue("platform_id should start null", it.isNull(1))
+                assertTrue(it.isNull(1), "platform_id should start null")
             }
         }
     }

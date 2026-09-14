@@ -3,14 +3,14 @@ package org.tasks.data.dao
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CaldavDaoMicrosoftTests {
     private lateinit var db: Database
@@ -18,7 +18,7 @@ class CaldavDaoMicrosoftTests {
     private lateinit var caldavDao: CaldavDao
     private lateinit var dirtyDao: DirtyDao
 
-    @Before
+    @BeforeTest
     fun setUp() {
         db = Room.inMemoryDatabaseBuilder<Database>()
             .setDriver(BundledSQLiteDriver())
@@ -29,7 +29,7 @@ class CaldavDaoMicrosoftTests {
         dirtyDao = db.dirtyDao()
     }
 
-    @After
+    @AfterTest
     fun tearDown() {
         db.close()
     }

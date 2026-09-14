@@ -1,8 +1,5 @@
 package org.tasks.data.entity
 
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
@@ -10,12 +7,15 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import kotlin.test.Test
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class CaldavAccountTest {
     @Test
     fun caldavBackendsPushTheParentTheyAreGiven() {
         listOf(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS).forEach {
-            assertTrue("account type $it", CaldavAccount.pushesRemoteParent(it))
+            assertTrue(CaldavAccount.pushesRemoteParent(it), "account type $it")
         }
     }
 
