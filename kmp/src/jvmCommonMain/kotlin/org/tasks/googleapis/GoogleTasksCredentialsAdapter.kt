@@ -17,7 +17,7 @@ class GoogleTasksCredentialsAdapter(
     private val encryption: KeyStoreEncryption,
     private val proxyAuthProvider: ProxyAuthProvider,
     private val caldavDao: CaldavDao,
-    private val oauthClient: TasksOAuthClient = TasksOAuthClient(),
+    private val oauthClient: TasksOAuthClient,
 ) : CredentialsAdapter {
 
     private val mutex = Mutex()

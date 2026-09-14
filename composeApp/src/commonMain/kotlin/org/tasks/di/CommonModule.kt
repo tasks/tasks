@@ -114,6 +114,10 @@ import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
 import org.tasks.viewmodel.TaskDefaultsViewModel
 import org.tasks.TaskEditDestination
+import org.tasks.auth.TasksOAuthClient
+import org.tasks.googleapis.GoogleTasksCredentialsAdapter
+import org.tasks.googleapis.GtasksInvoker
+import org.tasks.http.OkHttpClientFactory
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
@@ -528,6 +532,7 @@ val commonModule = module {
         )
     }
     factoryOf(::EtebaseSynchronizer)
+    single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }) }
     factory {
         DesktopGoogleTasksSynchronizer(
             caldavDao = get(),
@@ -546,6 +551,7 @@ val commonModule = module {
             encryption = get(),
             createTask = { TaskCreator().createBlankTask() },
             proxyAuthProvider = get(),
+            oauthClient = get(),
         )
     }
     factory<DefaultListProvider> {
@@ -784,12 +790,13 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             invokerFactory = { account ->
-                org.tasks.googleapis.GtasksInvoker(
-                    org.tasks.googleapis.GoogleTasksCredentialsAdapter(
+                GtasksInvoker(
+                    GoogleTasksCredentialsAdapter(
                         account = account,
                         encryption = get(),
                         proxyAuthProvider = get(),
                         caldavDao = get(),
+                        oauthClient = get(),
                     )
                 )
             },

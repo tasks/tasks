@@ -3,6 +3,7 @@ package org.tasks.googleapis
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
+import org.tasks.auth.TasksOAuthClient
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
@@ -36,6 +37,7 @@ class DesktopGoogleTasksSynchronizer(
     private val encryption: KeyStoreEncryption,
     createTask: suspend () -> org.tasks.data.entity.Task,
     private val proxyAuthProvider: ProxyAuthProvider,
+    private val oauthClient: TasksOAuthClient,
 ) {
     private val synchronizer = GoogleTaskSynchronizer(
         caldavDao = caldavDao,
@@ -72,6 +74,7 @@ class DesktopGoogleTasksSynchronizer(
             encryption = encryption,
             proxyAuthProvider = proxyAuthProvider,
             caldavDao = caldavDao,
+            oauthClient = oauthClient,
         )
         val invoker = GtasksInvoker(credentials)
         synchronizer.sync(account, invoker)

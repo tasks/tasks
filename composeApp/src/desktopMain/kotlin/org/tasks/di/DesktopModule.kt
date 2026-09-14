@@ -278,6 +278,7 @@ actual fun platformModule(): Module = module {
                         encryption = get(),
                         proxyAuthProvider = get(),
                         caldavDao = get(),
+                        oauthClient = get(),
                     )
                 )
             },
