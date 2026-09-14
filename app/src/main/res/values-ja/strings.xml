@@ -169,7 +169,7 @@
     <string name="take_a_picture">写真を撮影</string>
     <string name="pick_from_gallery">ギャラリーから選択</string>
     <string name="pick_from_storage">ストレージから選択</string>
-    <string name="name_cannot_be_empty">名前は空にできません</string>
+    <string name="name_cannot_be_empty">名前を入力してください</string>
     <string name="back_button_saves_task">戻るボタンでタスクを保存</string>
     <string name="filter">フィルター</string>
     <string name="opacity">透明度</string>
