@@ -394,6 +394,8 @@
     <string name="cannot_access_account">Cannot access account</string>
     <string name="new_list">Create new list</string>
     <string name="new_tag">Create new tag</string>
+    <string name="new_filter">Create new filter</string>
+    <string name="new_place">Create new place</string>
     <string name="enter_tag_name">Enter tag name</string>
     <string name="add_tag">Add tag</string>
     <string name="priority_high">High</string>

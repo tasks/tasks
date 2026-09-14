@@ -82,6 +82,7 @@ import org.tasks.data.AccountIcon
 import org.tasks.data.composeIcon
 import org.tasks.data.composeTitle
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.filters.FilterProvider
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.compose.components.SearchBar
 import org.tasks.compose.components.TasksIcon
@@ -94,6 +95,10 @@ import org.tasks.themes.ColorTone
 import org.tasks.themes.tonalColor
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.create_a_list
+import tasks.kmp.generated.resources.new_filter
+import tasks.kmp.generated.resources.new_list
+import tasks.kmp.generated.resources.new_place
+import tasks.kmp.generated.resources.new_tag
 import tasks.kmp.generated.resources.not_signed_in
 import tasks.kmp.generated.resources.search
 import tasks.kmp.generated.resources.sign_in
@@ -463,7 +468,14 @@ fun HeaderItem(
                 IconButton(onClick = onAddClick) {
                     SymbolIcon(
                         name = TasksIcons.ADD,
-                        contentDescription = null,
+                        contentDescription = stringResource(
+                            when (item.header.addIntentRc) {
+                                FilterProvider.REQUEST_NEW_TAGS -> Res.string.new_tag
+                                FilterProvider.REQUEST_NEW_FILTER -> Res.string.new_filter
+                                FilterProvider.REQUEST_NEW_PLACE -> Res.string.new_place
+                                else -> Res.string.new_list
+                            }
+                        ),
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
                 }
