@@ -1,9 +1,11 @@
 package org.tasks.googleapis
 
+import co.touchlab.kermit.Logger
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.auth.isUnauthorized
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
@@ -69,6 +71,10 @@ class DesktopGoogleTasksSynchronizer(
             refreshBroadcaster.broadcastRefresh()
             return
         }
+        if (account.isUnauthorized()) {
+            Logger.d(TAG) { "$account: needs sign-in, skipping sync" }
+            return
+        }
         val credentials = GoogleTasksCredentialsAdapter(
             account = account,
             encryption = encryption,
@@ -78,5 +84,9 @@ class DesktopGoogleTasksSynchronizer(
         )
         val invoker = GtasksInvoker(credentials)
         synchronizer.sync(account, invoker)
+    }
+
+    companion object {
+        private const val TAG = "DesktopGoogleTasksSynchronizer"
     }
 }
