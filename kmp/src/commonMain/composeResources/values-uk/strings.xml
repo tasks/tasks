@@ -11,7 +11,7 @@
     <string name="default_list">Типовий список</string>
     <string name="search_no_results">Не знайдено</string>
     <string name="subscription_required_description">Розблокуйте всі функції всього за 1 долар США на рік</string>
-    <string name="requires_pro_subscription">Функція Pro</string>
+    <string name="requires_pro_subscription">Вимагає передплати Pro</string>
     <string name="help_and_feedback">Довідка і зворотний зв'язок</string>
     <string name="settings">Налаштування</string>
     <string name="drawer_filters">Фільтри</string>
