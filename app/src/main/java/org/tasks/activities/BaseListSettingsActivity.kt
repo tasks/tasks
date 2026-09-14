@@ -18,9 +18,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.iconics.utils.sizeDp
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
@@ -37,7 +34,7 @@ import org.tasks.compose.settings.createShortcut
 import org.tasks.compose.settings.createWidget
 import org.tasks.extensions.addBackPressedCallback
 import org.tasks.filters.Filter
-import org.tasks.icons.OutlinedGoogleMaterial
+import org.tasks.icons.MaterialSymbolsGlyphs
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.Theme
@@ -221,7 +218,6 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
             backgroundColor: Color,
             icon: String,
             iconColor: Color = Color.White,
-            iconSizeDp: Int = 24
         ): IconCompat {
             val size = context.resources.getDimensionPixelSize(android.R.dimen.app_icon_size)
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
@@ -233,21 +229,18 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                 }
                 drawCircle(size/2f, size/2f, size/2f, paint)
 
-                // Create and draw IconicsDrawable
-                val drawable = IconicsDrawable(context, OutlinedGoogleMaterial.getIcon("gmo_$icon")).apply {
-                    colorInt = iconColor.toArgb()
-                    sizeDp = iconSizeDp
-                }
-
                 // Center the icon
                 val iconSize = (size * 0.5f).toInt()
-                drawable.setBounds(
-                    (size - iconSize) / 2,
-                    (size - iconSize) / 2,
-                    (size + iconSize) / 2,
-                    (size + iconSize) / 2
+                val drawn = MaterialSymbolsGlyphs.draw(
+                    canvas = this,
+                    context = context,
+                    name = icon,
+                    sizePx = iconSize,
+                    color = iconColor.toArgb(),
+                    left = (size - iconSize) / 2f,
+                    top = (size - iconSize) / 2f,
                 )
-                drawable.draw(this)
+                require(drawn) { "No icon named $icon" }
             }
 
             return IconCompat.createWithBitmap(bitmap)

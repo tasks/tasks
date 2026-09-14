@@ -45,7 +45,6 @@ dependencyResolutionManagement {
 include("app")
 include("data")
 include(":kmp")
-include(":icons")
 include(":wear")
 include(":wear-datalayer")
 include(":cert4android")

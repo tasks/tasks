@@ -4,20 +4,17 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.Color
 import android.net.Uri
 import android.os.ParcelFileDescriptor
-import androidx.core.graphics.createBitmap
 import androidx.core.net.toUri
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.utils.sizeDp
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.analytics.Firebase
-import org.tasks.icons.OutlinedGoogleMaterial
+import org.tasks.icons.MaterialSymbolsGlyphs
 import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
@@ -64,21 +61,10 @@ class WidgetIconProvider : ContentProvider() {
 
     private fun generateIcon(file: File, iconName: String) {
         try {
-            val icon = OutlinedGoogleMaterial.getIcon("gmo_$iconName")
             val context = context ?: return
-
-            val drawable = IconicsDrawable(context, icon).apply {
-                this.sizeDp = 24
-            }
-
-            val bitmap = createBitmap(
-                drawable.intrinsicWidth.coerceAtLeast(1),
-                drawable.intrinsicHeight.coerceAtLeast(1)
-            )
-
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
+            val sizePx = (24 * context.resources.displayMetrics.density).toInt()
+            val bitmap = MaterialSymbolsGlyphs.bitmap(context, iconName, sizePx, Color.BLACK)
+                ?: throw IllegalArgumentException("No icon named $iconName")
 
             file.parentFile?.mkdirs()
             FileOutputStream(file).use { out ->

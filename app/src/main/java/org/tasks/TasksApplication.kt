@@ -21,7 +21,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
-import com.mikepenz.iconics.Iconics
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid15
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.service.Upgrader
@@ -37,8 +36,6 @@ import kotlinx.coroutines.withContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.icons.OutlinedGoogleMaterial
-import org.tasks.icons.OutlinedGoogleMaterial2
 import org.tasks.fcm.PushTokenManager
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
@@ -183,8 +180,6 @@ class TasksApplication : Application(), Configuration.Provider {
 
     private fun backgroundWork() = scope.launch {
         tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
-        Iconics.registerFont(OutlinedGoogleMaterial)
-        Iconics.registerFont(OutlinedGoogleMaterial2)
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
         workManager.get().apply {

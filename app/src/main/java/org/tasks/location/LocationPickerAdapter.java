@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
 
 import org.tasks.R;
 import org.tasks.billing.Inventory;
@@ -25,7 +23,7 @@ import org.tasks.data.PlaceUsage;
 import org.tasks.data.entity.Place;
 import org.tasks.filters.FilterExtensionsKt;
 import org.tasks.filters.PlaceFilter;
-import org.tasks.icons.OutlinedGoogleMaterial;
+import org.tasks.icons.MaterialSymbolsGlyphs;
 import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.TasksIcons;
@@ -112,15 +110,11 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getDisplayAddress();
-      IIcon iconicsIcon;
-      try {
-        iconicsIcon = OutlinedGoogleMaterial.INSTANCE.getIcon("gmo_" + icon);
-      } catch (Exception e) {
-        iconicsIcon = OutlinedGoogleMaterial.INSTANCE.getIcon("gmo_" + TasksIcons.PLACE);
+      Drawable drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, icon, 24, color);
+      if (drawable == null) {
+        drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, TasksIcons.PLACE, 24, color);
       }
-      Drawable drawable = new IconicsDrawable(context, iconicsIcon).mutate();
       this.icon.setImageDrawable(drawable);
-      this.icon.getDrawable().setTint(color);
       this.name.setText(name);
       if (isNullOrEmpty(address) || address.equals(name)) {
         this.address.setVisibility(View.GONE);

@@ -1367,20 +1367,6 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.10 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
 ++--- co.touchlab:kermit:2.1.0 (*)
-++--- project ':icons'
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
-+|    \--- com.mikepenz:iconics-core:5.5.0-b01
-+|         +--- androidx.appcompat:appcompat:1.7.0 -> 1.8.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.12.0 (*)
-+|         +--- com.mikepenz:iconics-typeface-api:5.5.0-b01
-+|         |    +--- org.jetbrains.compose.runtime:runtime:1.6.10 -> 1.12.0 (*)
-+|         |    +--- androidx.core:core-ktx:1.10.1 -> 1.18.0 (*)
-+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0 -> 2.4.10
-+|         |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
-+|         |    |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.4.10
-+|         |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
-+|         |    \--- androidx.startup:startup-runtime:1.1.1 -> 1.2.0 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.4.10 (*)
 ++--- androidx.navigation:navigation-compose:2.10.0
 +|    \--- androidx.navigation:navigation-compose-android:2.10.0
 +|         +--- androidx.activity:activity:1.8.0 -> 1.13.0 (*)
@@ -1615,7 +1601,6 @@
 +|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
 +|         +--- com.google.guava:guava:32.0.0-jre -> 33.4.0-android (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.10 (*)
-++--- com.mikepenz:iconics-core:5.5.0-b01 (*)
 ++--- io.noties.markwon:core:4.6.2
 +|    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
 +|    \--- com.atlassian.commonmark:commonmark:0.13.0
@@ -1633,7 +1618,10 @@
 +|         \--- com.atlassian.commonmark:commonmark:0.13.0
 ++--- io.noties.markwon:ext-tasklist:4.6.2
 +|    \--- io.noties.markwon:core:4.6.2 (*)
-++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.4.10 (*)
+++--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.4.10
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
++|    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.4.10
++|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 ++--- com.squareup.okhttp3:okhttp:5.5.0 (*)
