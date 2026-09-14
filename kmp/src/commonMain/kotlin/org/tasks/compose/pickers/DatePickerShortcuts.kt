@@ -1,6 +1,7 @@
 package org.tasks.compose.pickers
 
-import androidx.compose.foundation.Image
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -10,17 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.NextWeek
-import androidx.compose.material.icons.outlined.AccessTime
-import androidx.compose.material.icons.outlined.Block
-import androidx.compose.material.icons.outlined.CalendarViewWeek
-import androidx.compose.material.icons.outlined.Coffee
-import androidx.compose.material.icons.outlined.NightsStay
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Today
-import androidx.compose.material.icons.outlined.WbSunny
-import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,8 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
@@ -130,7 +118,7 @@ fun StartDateShortcuts(
 
     if (custom > 0 || custom == MULTIPLE_DAYS) {
         ShortcutButton(
-            icon = Icons.Outlined.Today,
+            icon = TasksIcons.TODAY,
             text = if (custom == MULTIPLE_DAYS) {
                 stringResource(Res.string.date_picker_multiple)
             } else {
@@ -142,32 +130,32 @@ fun StartDateShortcuts(
     }
     if (showDueDate) {
         ShortcutButton(
-            icon = Icons.Outlined.Today,
+            icon = TasksIcons.TODAY,
             text = stringResource(Res.string.due_date),
             selected = selected == DUE_DATE,
             onClick = { selectedDay(DUE_DATE) },
         )
     }
     ShortcutButton(
-        icon = Icons.Outlined.Schedule,
+        icon = TasksIcons.SCHEDULE,
         text = stringResource(Res.string.due_time),
         selected = selected == DUE_TIME,
         onClick = { selectedDayTime(DUE_TIME, NO_TIME) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.WbSunny,
+        icon = TasksIcons.WB_SUNNY,
         text = stringResource(Res.string.day_before_due),
         selected = selected == DAY_BEFORE_DUE,
         onClick = { selectedDay(DAY_BEFORE_DUE) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.CalendarViewWeek,
+        icon = TasksIcons.CALENDAR_VIEW_WEEK,
         text = stringResource(Res.string.week_before_due),
         selected = selected == WEEK_BEFORE_DUE,
         onClick = { selectedDay(WEEK_BEFORE_DUE) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.Block,
+        icon = TasksIcons.BLOCK,
         text = stringResource(Res.string.no_date),
         selected = selected == NO_DAY,
         onClick = { clearDate() },
@@ -195,7 +183,7 @@ fun DueDateShortcuts(
 
     if (custom > 0 || custom == MULTIPLE_DAYS) {
         ShortcutButton(
-            icon = Icons.Outlined.Today,
+            icon = TasksIcons.TODAY,
             text = if (custom == MULTIPLE_DAYS) {
                 stringResource(Res.string.date_picker_multiple)
             } else {
@@ -206,19 +194,19 @@ fun DueDateShortcuts(
         )
     }
     ShortcutButton(
-        icon = Icons.Outlined.Today,
+        icon = TasksIcons.TODAY,
         text = stringResource(Res.string.today),
         selected = selected == today,
         onClick = { selectedDay(today) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.WbSunny,
+        icon = TasksIcons.WB_SUNNY,
         text = stringResource(Res.string.tomorrow),
         selected = selected == tomorrow,
         onClick = { selectedDay(tomorrow) },
     )
     ShortcutButton(
-        icon = Icons.AutoMirrored.Outlined.NextWeek,
+        icon = TasksIcons.NEXT_WEEK,
         text = stringResource(
             remember {
                 when (
@@ -242,7 +230,7 @@ fun DueDateShortcuts(
     )
     if (showNoDate) {
         ShortcutButton(
-            icon = Icons.Outlined.Block,
+            icon = TasksIcons.BLOCK,
             text = stringResource(Res.string.no_date),
             selected = selected == NO_DAY,
             onClick = { clearDate() },
@@ -276,7 +264,7 @@ fun TimeShortcuts(
     val now = remember { currentTimeMillis() }
     if (custom > 0 || custom == MULTIPLE_TIMES) {
         ShortcutButton(
-            icon = Icons.Outlined.AccessTime,
+            icon = TasksIcons.SCHEDULE,
             text = if (custom == MULTIPLE_TIMES) {
                 stringResource(Res.string.date_picker_multiple)
             } else {
@@ -289,7 +277,7 @@ fun TimeShortcuts(
         )
     }
     ShortcutButton(
-        icon = Icons.Outlined.Coffee,
+        icon = TasksIcons.COFFEE,
         text = remember {
             formatTime(now.withMillisOfDay(morning), is24HourFormat)
         },
@@ -297,7 +285,7 @@ fun TimeShortcuts(
         onClick = { selectedMillisOfDay(morning) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.WbSunny,
+        icon = TasksIcons.WB_SUNNY,
         text = remember {
             formatTime(now.withMillisOfDay(afternoon), is24HourFormat)
         },
@@ -305,7 +293,7 @@ fun TimeShortcuts(
         onClick = { selectedMillisOfDay(afternoon) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.WbTwilight,
+        icon = TasksIcons.WB_TWILIGHT,
         text = remember {
             formatTime(now.withMillisOfDay(evening), is24HourFormat)
         },
@@ -313,7 +301,7 @@ fun TimeShortcuts(
         onClick = { selectedMillisOfDay(evening) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.NightsStay,
+        icon = TasksIcons.NIGHTS_STAY,
         text = remember {
             formatTime(now.withMillisOfDay(night), is24HourFormat)
         },
@@ -321,14 +309,14 @@ fun TimeShortcuts(
         onClick = { selectedMillisOfDay(night) },
     )
     ShortcutButton(
-        icon = Icons.Outlined.AccessTime,
+        icon = TasksIcons.SCHEDULE,
         text = stringResource(Res.string.shortcut_pick_time),
         selected = false,
         onClick = { pickTime() },
     )
     if (showNoTime) {
         ShortcutButton(
-            icon = Icons.Outlined.Block,
+            icon = TasksIcons.BLOCK,
             text = stringResource(Res.string.no_time),
             selected = day != DUE_TIME && selected == NO_TIME,
             onClick = { clearTime() },
@@ -338,7 +326,7 @@ fun TimeShortcuts(
 
 @Composable
 fun ShortcutButton(
-    icon: ImageVector,
+    icon: String,
     text: String,
     selected: Boolean,
     onClick: () -> Unit,
@@ -353,10 +341,10 @@ fun ShortcutButton(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Image(
-                imageVector = icon,
+            SymbolIcon(
+                name = icon,
                 contentDescription = null,
-                colorFilter = ColorFilter.tint(color)
+                tint = color,
             )
             Text(
                 text = text,

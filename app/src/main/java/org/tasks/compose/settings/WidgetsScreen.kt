@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,9 +17,6 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -98,7 +96,7 @@ fun WidgetsScreen(
                     SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                         PreferenceRow(
                             title = kmpStringResource(Res.string.add_shortcut_to_home_screen),
-                            icon = Icons.Outlined.Home,
+                            icon = TasksIcons.HOME,
                             onClick = onAddShortcut,
                         )
                     }
@@ -107,7 +105,7 @@ fun WidgetsScreen(
                     SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                         PreferenceRow(
                             title = kmpStringResource(Res.string.add_widget_to_home_screen),
-                            icon = Icons.Outlined.Widgets,
+                            icon = TasksIcons.WIDGETS,
                             onClick = onAddWidget,
                         )
                     }

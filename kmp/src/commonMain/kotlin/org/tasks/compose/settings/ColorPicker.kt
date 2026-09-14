@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import org.tasks.kmp.org.tasks.themes.ColorProvider as KmpColorProvider
 import org.tasks.themes.contentColor
 import androidx.compose.foundation.background
@@ -15,8 +17,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -145,8 +145,8 @@ private fun ColorWheelCircle(
 
 @Composable
 private fun LockIcon(tint: Color) {
-    Icon(
-        imageVector = Icons.Outlined.Lock,
+    SymbolIcon(
+        name = TasksIcons.LOCK,
         contentDescription = null,
         tint = tint,
         modifier = Modifier.size(24.dp)

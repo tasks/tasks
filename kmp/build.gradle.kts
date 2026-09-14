@@ -59,6 +59,9 @@ kotlin {
                 implementation(files("../libs/client-jvm-2.3.2.jar"))
             }
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit)
@@ -100,7 +103,6 @@ kotlin {
             api(compose.components.resources)
             implementation(compose.foundation)
             implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(libs.jetbrains.compose.ui.tooling.preview)
             implementation(libs.confettikit)

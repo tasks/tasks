@@ -243,7 +243,6 @@ dependencies {
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(libs.coil.compose)

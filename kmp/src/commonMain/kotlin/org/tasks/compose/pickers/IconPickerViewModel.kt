@@ -26,15 +26,14 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.iconExists
 import tasks.kmp.generated.resources.Res
 import java.util.TreeMap
 
-// icon metadata pulled from https://fonts.google.com/metadata/icons
-// jq -c . < kmp/src/commonMain/composeResources/files/icons.json | sponge kmp/src/commonMain/composeResources/files/icons.json
 
 @OptIn(ExperimentalResourceApi::class, FlowPreview::class, ExperimentalCoroutinesApi::class)
 class IconPickerViewModel : ViewModel() {
@@ -55,10 +54,9 @@ class IconPickerViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            val json = Json { ignoreUnknownKeys = true }
-            val metadata: IconMetadata = json.decodeFromString(
-                Res.readBytes("files/icons.json").decodeToString()
-            )
+            val metadata: IconMetadata = withContext(Dispatchers.Default) {
+                Json { ignoreUnknownKeys = true }.decodeFromString(Res.readBytes("files/icons.json").decodeToString())
+            }
             val map = TreeMap<String, ArrayList<Icon>>()
             metadata.icons
                 .filter { it.imageExists }
@@ -126,21 +124,8 @@ data class Icon(
     val tags: List<String>,
 ) {
     val imageExists: Boolean
-        get() = imageVectorByName(name) != null
+        get() = iconExists(name)
 }
-
-val String.label: String
-    get() = removePrefix(LEGACY_ICON_PREFIX).let { name ->
-        if (name.isEmpty()) {
-            ""
-        } else {
-            (if (name[0].isDigit()) "_" else "") + name
-                .split("_")
-                .joinToString(separator = "") { it.uppercaseFirstLetter() }
-        }
-    }
-
-private const val LEGACY_ICON_PREFIX = "gmo_"
 
 
 fun String.uppercaseFirstLetter(): String {

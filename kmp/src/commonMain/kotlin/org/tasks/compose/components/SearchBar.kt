@@ -1,13 +1,11 @@
 package org.tasks.compose.components
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -57,8 +55,8 @@ fun SearchBar(
             )
         },
         leadingIcon = {
-            Icon(
-                imageVector = Icons.Outlined.Search,
+            SymbolIcon(
+                name = TasksIcons.SEARCH,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface,
             )
@@ -66,8 +64,8 @@ fun SearchBar(
         trailingIcon = {
             IconButton(onClick = { onCloseClicked() }) {
                 if (text.isNotBlank()) {
-                    Icon(
-                        imageVector = Icons.Outlined.Clear,
+                    SymbolIcon(
+                        name = TasksIcons.CLEAR,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
                     )

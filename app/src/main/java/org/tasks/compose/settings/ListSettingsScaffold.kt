@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -87,8 +87,8 @@ fun ListSettingsScaffold(
                         IconButton(
                             onClick = save,
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Save,
+                            SymbolIcon(
+                                name = TasksIcons.SAVE,
                                 contentDescription = stringResource(R.string.save),
                             )
                         }

@@ -1,12 +1,11 @@
 package org.tasks.activities
 
+import org.tasks.compose.components.SymbolIcon
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Help
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -182,8 +181,8 @@ class FilterSettingsActivity : BaseListSettingsActivity() {
                                 } else {
                                     Modifier
                                 }
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.Help,
+                            SymbolIcon(
+                                name = TasksIcons.HELP,
                                 contentDescription = "",
                                 modifier = modifier,
                             )

@@ -1,5 +1,7 @@
 package org.tasks.compose.pickers
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,8 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Autorenew
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -418,8 +418,8 @@ fun AddCustomReminder(
             .clickable { showRecurring() })
         {
             IconButton(onClick = showRecurring) {
-                Icon(
-                    imageVector = Icons.Outlined.Autorenew,
+                SymbolIcon(
+                    name = TasksIcons.AUTORENEW,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(CenterVertically),

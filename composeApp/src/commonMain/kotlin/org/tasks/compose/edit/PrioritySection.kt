@@ -1,5 +1,7 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,9 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Flag
-import androidx.compose.material.icons.outlined.Flag as OutlinedFlag
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -142,12 +141,9 @@ private fun RowScope.PriorityButton(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Icon(
-                imageVector = if (priority == Task.Priority.NONE) {
-                    Icons.Outlined.OutlinedFlag
-                } else {
-                    Icons.Filled.Flag
-                },
+            SymbolIcon(
+                name = TasksIcons.FLAG,
+                filled = priority != Task.Priority.NONE,
                 contentDescription = if (showLabel) null else label,
                 tint = flagColor,
                 modifier = Modifier.size(24.dp),

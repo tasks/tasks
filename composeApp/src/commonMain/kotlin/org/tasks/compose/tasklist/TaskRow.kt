@@ -1,5 +1,7 @@
 package org.tasks.compose.tasklist
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -9,9 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -116,11 +115,9 @@ internal fun TaskRow(
             enabled = !doomed,
             modifier = Modifier.size(48.dp).testTag(COMPLETE_BUTTON_TAG),
         ) {
-            Icon(
-                imageVector = if (task.isCompleted)
-                    Icons.Filled.CheckCircle
-                else
-                    Icons.Outlined.RadioButtonUnchecked,
+            SymbolIcon(
+                name = if (task.isCompleted) TasksIcons.CHECK_CIRCLE else TasksIcons.RADIO_BUTTON_UNCHECKED,
+                filled = task.isCompleted,
                 contentDescription = null,
                 tint = checkColor,
                 modifier = Modifier.size(24.dp),

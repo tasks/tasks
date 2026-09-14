@@ -1,13 +1,12 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -83,11 +82,11 @@ fun Location(
             onClick = openGeofenceOptions,
             modifier = Modifier.padding(top = 8.dp /* + 12dp from icon */)
         ) {
-            Icon(
-                imageVector = if (geofenceOn) {
-                    Icons.Outlined.Notifications
+            SymbolIcon(
+                name = if (geofenceOn) {
+                    TasksIcons.NOTIFICATIONS
                 } else {
-                    Icons.Outlined.NotificationsOff
+                    TasksIcons.NOTIFICATIONS_OFF
                 },
                 contentDescription = null,
                 modifier = Modifier.alpha(ContentAlpha.medium),

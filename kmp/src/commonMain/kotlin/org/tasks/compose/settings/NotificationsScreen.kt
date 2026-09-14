@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -136,7 +134,7 @@ fun NotificationsScreen(
 
         if (isCurrentlyQuietHours) {
             DangerCard(
-                icon = Icons.Outlined.NotificationsOff,
+                icon = TasksIcons.NOTIFICATIONS_OFF,
                 title = stringResource(Res.string.quiet_hours_in_effect),
                 tint = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
@@ -155,14 +153,14 @@ fun NotificationsScreen(
                     PreferenceRow(
                         title = stringResource(Res.string.troubleshooting),
                         summary = stringResource(Res.string.notification_troubleshooting_summary),
-                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        icon = TasksIcons.OPEN_IN_NEW,
                         onClick = onTroubleshooting,
                     )
                 TroubleshootingRow.BATTERY_OPTIMIZATION ->
                     PreferenceRow(
                         title = stringResource(Res.string.disable_battery_optimizations),
                         summary = stringResource(Res.string.notification_disable_battery_optimizations_description),
-                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        icon = TasksIcons.OPEN_IN_NEW,
                         onClick = onBatteryOptimization,
                     )
             }
@@ -227,7 +225,7 @@ fun NotificationsScreen(
                 PreferenceRow(
                     title = stringResource(Res.string.more_settings),
                     summary = moreSettingsSummary,
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    icon = TasksIcons.OPEN_IN_NEW,
                     onClick = onMoreSettings,
                 )
             }

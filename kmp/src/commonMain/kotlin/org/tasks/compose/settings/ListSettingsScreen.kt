@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,12 +17,6 @@ import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.PersonAdd
-import androidx.compose.material.icons.outlined.Save
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -198,8 +193,8 @@ fun ListSettingsScreen(
                             onNavigateBack()
                         }
                     }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        SymbolIcon(
+                            name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
                         )
                     }
@@ -282,7 +277,7 @@ fun ListSettingsScreen(
                             } else {
                                 stringResource(Res.string.share)
                             },
-                            icon = Icons.Outlined.PersonAdd,
+                            icon = TasksIcons.PERSON_ADD,
                             enabled = hasName && !state.isLoading,
                             onClick = onOpenShareDialog,
                         )
@@ -310,7 +305,7 @@ fun ListSettingsScreen(
                 SettingsItemCard {
                     PreferenceRow(
                         title = stringResource(Res.string.save),
-                        icon = Icons.Outlined.Save,
+                        icon = TasksIcons.SAVE,
                         enabled = state.hasChanges && !state.isLoading,
                         onClick = onSave,
                     )
@@ -325,7 +320,7 @@ fun ListSettingsScreen(
                     modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 ) {
                     DangerCard(
-                        icon = Icons.Outlined.DeleteOutline,
+                        icon = TasksIcons.DELETE,
                         title = stringResource(Res.string.delete),
                         tint = MaterialTheme.colorScheme.error,
                         onClick = { showDeleteDialog = true },
@@ -576,8 +571,8 @@ private fun PrincipalRow(
                 modifier = Modifier.size(24.dp),
                 onClick = onRemove,
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.Clear,
+                SymbolIcon(
+                    name = TasksIcons.CLEAR,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

@@ -1,10 +1,10 @@
 package org.tasks.compose
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -38,8 +38,8 @@ fun OutlinedSpinner(
                 text = text,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-            Icon(
-                imageVector = Icons.Outlined.ArrowDropDown,
+            SymbolIcon(
+                name = TasksIcons.ARROW_DROP_DOWN,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurface,
             )

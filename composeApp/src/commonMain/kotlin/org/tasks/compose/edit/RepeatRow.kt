@@ -1,11 +1,10 @@
 package org.tasks.compose.edit
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -114,8 +113,8 @@ private fun RepeatFromRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            Icon(
-                imageVector = Icons.Filled.ArrowDropDown,
+            SymbolIcon(
+                name = TasksIcons.ARROW_DROP_DOWN,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
             )

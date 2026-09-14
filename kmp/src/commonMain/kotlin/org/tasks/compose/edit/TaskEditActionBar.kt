@@ -1,5 +1,7 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -7,9 +9,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -80,8 +79,8 @@ fun TaskEditActionBar(
                 colors = ButtonDefaults.textButtonColors(contentColor = barColors.content),
                 modifier = Modifier.fillMaxHeight(),
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.CheckCircle,
+                SymbolIcon(
+                    name = TasksIcons.CHECK_CIRCLE,
                     contentDescription = null,
                 )
                 Text(
@@ -91,8 +90,8 @@ fun TaskEditActionBar(
             }
             Box {
                 IconButton(onClick = { expanded = true }, enabled = enabled) {
-                    Icon(
-                        imageVector = Icons.Filled.MoreVert,
+                    SymbolIcon(
+                        name = TasksIcons.MORE_VERT,
                         contentDescription = stringResource(Res.string.more_options),
                     )
                 }

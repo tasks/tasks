@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,15 +22,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.automirrored.outlined.Logout
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Autorenew
-import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -206,11 +198,11 @@ fun TasksAccountScreen(
                     PreferenceRow(
                         title = stringResource(Res.string.email_to_task_address),
                         summary = state.inboundEmail,
-                        icon = Icons.Outlined.Email,
+                        icon = TasksIcons.EMAIL,
                         onClick = onCopyEmail,
                         trailing = {
-                            Icon(
-                                imageVector = Icons.Outlined.ContentCopy,
+                            SymbolIcon(
+                                name = TasksIcons.CONTENT_COPY,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .padding(end = SettingsContentPadding)
@@ -225,7 +217,7 @@ fun TasksAccountScreen(
                         PreferenceRow(
                             title = stringResource(Res.string.email_to_task_calendar),
                             summary = state.inboundCalendarName,
-                            icon = Icons.AutoMirrored.Outlined.List,
+                            icon = TasksIcons.LIST,
                             onClick = { showCalendarDialog = true },
                         )
                     }
@@ -233,7 +225,7 @@ fun TasksAccountScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(Res.string.regenerate_email_address),
-                        icon = Icons.Outlined.Autorenew,
+                        icon = TasksIcons.AUTORENEW,
                         onClick = { showRegenerateDialog = true },
                     )
                 }
@@ -333,8 +325,8 @@ fun TasksAccountScreen(
                                 deletePasswordId = pw.sessionId
                                 deletePasswordDescription = description
                             }) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Delete,
+                                SymbolIcon(
+                                    name = TasksIcons.DELETE,
                                     contentDescription = null,
                                     modifier = Modifier.size(SettingsIconSize),
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -349,7 +341,7 @@ fun TasksAccountScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(Res.string.generate_new_password),
-                    icon = Icons.Outlined.Add,
+                    icon = TasksIcons.ADD,
                     onClick = { showDescriptionDialog = true },
                 )
             }
@@ -367,7 +359,7 @@ fun TasksAccountScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(Res.string.add_account),
-                    icon = Icons.Outlined.Add,
+                    icon = TasksIcons.ADD,
                     onClick = onAddAccount,
                 )
             }
@@ -384,7 +376,7 @@ fun TasksAccountScreen(
         // Logout card
         Spacer(modifier = Modifier.height(SettingsContentPadding))
         DangerCard(
-            icon = Icons.AutoMirrored.Outlined.Logout,
+            icon = TasksIcons.LOGOUT,
             title = stringResource(Res.string.logout),
             tint = MaterialTheme.colorScheme.error,
             onClick = { showLogoutDialog = true },
@@ -639,8 +631,8 @@ private fun ErrorBannerCard(
                 .padding(vertical = SettingsRowPadding),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Icon(
-                imageVector = Icons.Outlined.ErrorOutline,
+            SymbolIcon(
+                name = TasksIcons.ERROR_OUTLINE,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(start = SettingsContentPadding)
@@ -752,8 +744,8 @@ private fun CopyableField(
         singleLine = true,
         trailingIcon = {
             IconButton(onClick = onCopy) {
-                Icon(
-                    imageVector = Icons.Outlined.ContentCopy,
+                SymbolIcon(
+                    name = TasksIcons.CONTENT_COPY,
                     contentDescription = null,
                 )
             }

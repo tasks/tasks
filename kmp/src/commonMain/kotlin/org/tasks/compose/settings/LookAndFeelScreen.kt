@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,8 +17,6 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -190,7 +189,7 @@ fun LookAndFeelScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(Res.string.translations),
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    icon = TasksIcons.OPEN_IN_NEW,
                     onClick = onTranslations,
                 )
             }

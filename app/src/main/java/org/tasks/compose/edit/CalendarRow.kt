@@ -1,11 +1,11 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,8 +44,8 @@ fun CalendarRow(
                         onClick = { clear() },
                         Modifier.padding(vertical = 8.dp),
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Delete,
+                        SymbolIcon(
+                            name = TasksIcons.DELETE,
                             contentDescription = stringResource(id = R.string.delete),
                             modifier = Modifier.alpha(ContentAlpha.medium),
                         )

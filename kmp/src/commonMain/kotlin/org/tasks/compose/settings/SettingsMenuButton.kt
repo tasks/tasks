@@ -1,8 +1,8 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -31,8 +31,8 @@ fun SettingsMenuButton(
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
         IconButton(onClick = { expanded = true }) {
-            Icon(
-                imageVector = Icons.Outlined.Settings,
+            SymbolIcon(
+                name = TasksIcons.SETTINGS,
                 contentDescription = stringResource(Res.string.settings),
             )
         }

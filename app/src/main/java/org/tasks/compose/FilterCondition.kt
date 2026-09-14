@@ -4,6 +4,8 @@ package org.tasks.compose
  *  Composables for FilterSettingActivity
  **/
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -25,10 +27,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Abc
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -265,9 +263,9 @@ object FilterCondition {
 
             @Composable
             fun deleteIcon() {
-                Icon(
+                SymbolIcon(
                     modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST),
-                    imageVector = Icons.Outlined.Delete,
+                    name = TasksIcons.DELETE,
                     contentDescription = "Delete",
                     tint = Color.White.copy(alpha = 0.6f)
                 )
@@ -303,8 +301,8 @@ object FilterCondition {
                 contentColor = Color.White,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
+                    SymbolIcon(
+                        name = TasksIcons.ADD,
                         contentDescription = "New Criteria",
                         modifier = Modifier.padding(
                             start = if (isExtended) 16.dp else 0.dp
@@ -499,8 +497,8 @@ object FilterCondition {
                         label = { Text(title) },
                         onValueChange = { text.value = it },
                         leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Abc,
+                            SymbolIcon(
+                                name = TasksIcons.ABC,
                                 contentDescription = null
                             )
                         },

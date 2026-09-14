@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,22 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Build
-import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Extension
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.Palette
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.SdStorage
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Laptop
-import androidx.compose.material.icons.outlined.Terminal
-import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -185,7 +170,7 @@ fun MainSettingsScreen(
                     ) {
                         PreferenceRow(
                             title = stringResource(Res.string.add_account),
-                            icon = Icons.Outlined.Add,
+                            icon = TasksIcons.ADD,
                             onClick = onAddAccountClick
                         )
                     }
@@ -203,7 +188,7 @@ fun MainSettingsScreen(
                     PreferenceRow(
                         title = stringResource(Res.string.link_desktop),
                         summary = stringResource(Res.string.link_desktop_description),
-                        icon = Icons.Outlined.Laptop,
+                        icon = TasksIcons.LAPTOP,
                         onClick = onLinkDesktopClick,
                     )
                 }
@@ -214,7 +199,7 @@ fun MainSettingsScreen(
                 PreferenceRow(
                     title = stringResource(Res.string.works_with_tasks),
                     summary = stringResource(Res.string.works_with_tasks_description),
-                    icon = Icons.Outlined.Extension,
+                    icon = TasksIcons.EXTENSION,
                     onClick = { onSettingsClick(SettingsDestination.WorksWith) },
                 )
             }
@@ -253,7 +238,7 @@ fun SettingsCategories(
         ) {
             PreferenceRow(
                 title = stringResource(Res.string.preferences_look_and_feel),
-                icon = Icons.Outlined.Palette,
+                icon = TasksIcons.PALETTE,
                 onClick = { onSettingsClick(SettingsDestination.LookAndFeel) }
             )
         }
@@ -261,7 +246,7 @@ fun SettingsCategories(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(Res.string.notifications),
-                    icon = Icons.Outlined.Notifications,
+                    icon = TasksIcons.NOTIFICATIONS,
                     onClick = { onSettingsClick(SettingsDestination.Notifications) }
                 )
             }
@@ -278,21 +263,21 @@ fun SettingsCategories(
         SettingsItemCard(position = CardPosition.First) {
             PreferenceRow(
                 title = stringResource(Res.string.task_defaults),
-                icon = Icons.Outlined.Add,
+                icon = TasksIcons.ADD,
                 onClick = { onSettingsClick(SettingsDestination.TaskDefaults) }
             )
         }
         SettingsItemCard(position = CardPosition.Middle) {
             PreferenceRow(
                 title = stringResource(Res.string.task_list_options),
-                icon = Icons.AutoMirrored.Outlined.List,
+                icon = TasksIcons.LIST,
                 onClick = { onSettingsClick(SettingsDestination.TaskList) }
             )
         }
         SettingsItemCard(position = CardPosition.Last) {
             PreferenceRow(
                 title = stringResource(Res.string.EPr_edit_screen_options),
-                icon = Icons.Outlined.Edit,
+                icon = TasksIcons.EDIT,
                 onClick = { onSettingsClick(SettingsDestination.TaskEdit) }
             )
         }
@@ -308,21 +293,21 @@ fun SettingsCategories(
         SettingsItemCard(position = CardPosition.First) {
             PreferenceRow(
                 title = stringResource(Res.string.date_and_time),
-                icon = Icons.Outlined.Schedule,
+                icon = TasksIcons.SCHEDULE,
                 onClick = { onSettingsClick(SettingsDestination.DateAndTime) }
             )
         }
         SettingsItemCard(position = CardPosition.Middle) {
             PreferenceRow(
                 title = stringResource(Res.string.navigation_drawer),
-                icon = Icons.Outlined.Menu,
+                icon = TasksIcons.MENU,
                 onClick = { onSettingsClick(SettingsDestination.NavigationDrawer) }
             )
         }
         SettingsItemCard(position = CardPosition.Middle) {
             PreferenceRow(
                 title = stringResource(Res.string.backup_BPr_header),
-                icon = Icons.Outlined.SdStorage,
+                icon = TasksIcons.SD_STORAGE,
                 showWarning = showBackupWarning,
                 onClick = { onSettingsClick(SettingsDestination.Backups) }
             )
@@ -331,7 +316,7 @@ fun SettingsCategories(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(Res.string.widget_settings),
-                    icon = Icons.Outlined.Widgets,
+                    icon = TasksIcons.WIDGETS,
                     onClick = { onSettingsClick(SettingsDestination.Widgets) }
                 )
             }
@@ -340,7 +325,7 @@ fun SettingsCategories(
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(Res.string.mcp_server),
-                    icon = Icons.Outlined.Terminal,
+                    icon = TasksIcons.TERMINAL,
                     onClick = { onSettingsClick(SettingsDestination.McpServer) }
                 )
             }
@@ -348,7 +333,7 @@ fun SettingsCategories(
         SettingsItemCard(position = CardPosition.Last) {
             PreferenceRow(
                 title = stringResource(Res.string.preferences_advanced),
-                icon = Icons.Outlined.Build,
+                icon = TasksIcons.BUILD,
                 onClick = { onSettingsClick(SettingsDestination.Advanced) }
             )
         }
@@ -366,7 +351,7 @@ fun SettingsCategories(
         ) {
             PreferenceRow(
                 title = stringResource(Res.string.about),
-                icon = Icons.Outlined.Info,
+                icon = TasksIcons.INFO,
                 onClick = { onSettingsClick(SettingsDestination.HelpAndFeedback) }
             )
         }
@@ -374,7 +359,7 @@ fun SettingsCategories(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(Res.string.debug),
-                    icon = Icons.Outlined.BugReport,
+                    icon = TasksIcons.BUG_REPORT,
                     onClick = { onSettingsClick(SettingsDestination.Debug) }
                 )
             }

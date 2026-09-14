@@ -66,7 +66,6 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.foundation)
             implementation("androidx.compose.material3:material3:1.5.0-alpha27")
-            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel.compose)

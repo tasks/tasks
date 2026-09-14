@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,10 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CloudUpload
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -95,7 +92,7 @@ fun LocalAccountScreen(
             SettingsItemCard {
                 PreferenceRow(
                     title = stringResource(Res.string.save),
-                    icon = Icons.Outlined.Save,
+                    icon = TasksIcons.SAVE,
                     enabled = hasChanges,
                     onClick = onSave,
                 )
@@ -110,7 +107,7 @@ fun LocalAccountScreen(
             SettingsItemCard {
                 PreferenceRow(
                     title = stringResource(Res.string.migrate_to_cloud),
-                    icon = Icons.Outlined.CloudUpload,
+                    icon = TasksIcons.CLOUD_UPLOAD,
                     onClick = {
                         scope.launch {
                             if (onCanMigrate()) {
@@ -128,7 +125,7 @@ fun LocalAccountScreen(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
         ) {
             DangerCard(
-                icon = Icons.Outlined.DeleteOutline,
+                icon = TasksIcons.DELETE,
                 title = stringResource(Res.string.delete),
                 tint = MaterialTheme.colorScheme.error,
                 onClick = { showDeleteDialog = true },

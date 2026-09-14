@@ -1,5 +1,7 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.res.Configuration
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,14 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.outlined.Description
-import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Movie
-import androidx.compose.material.icons.outlined.MusicNote
-import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -126,8 +120,8 @@ fun AttachmentRow(
                                         )
                                     } else {
                                         if (mimeType.startsWith("video/")) {
-                                            Icon(
-                                                imageVector = Icons.Outlined.PlayCircle,
+                                            SymbolIcon(
+                                                name = TasksIcons.PLAY_CIRCLE,
                                                 contentDescription = null,
                                                 tint = Color.White.copy(
                                                     alpha = ContentAlpha.medium
@@ -161,8 +155,8 @@ fun AttachmentRow(
                                 shape = RoundedCornerShape(8.dp),
                             ),
                     ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
+                        SymbolIcon(
+                            name = TasksIcons.ADD,
                             contentDescription = stringResource(id = R.string.add_attachment),
                             modifier = Modifier
                                 .size(48.dp)
@@ -204,12 +198,12 @@ fun NoThumbnail(
             ),
     ) {
         Column(modifier = Modifier.align(Alignment.Center)) {
-            Icon(
-                imageVector = when {
-                    mimeType?.startsWith("image/") == true -> Icons.Outlined.Image
-                    mimeType?.startsWith("video/") == true -> Icons.Outlined.Movie
-                    mimeType?.startsWith("audio/") == true -> Icons.Outlined.MusicNote
-                    else -> Icons.Outlined.Description
+            SymbolIcon(
+                name = when {
+                    mimeType?.startsWith("image/") == true -> TasksIcons.IMAGE
+                    mimeType?.startsWith("video/") == true -> TasksIcons.MOVIE
+                    mimeType?.startsWith("audio/") == true -> TasksIcons.MUSIC_NOTE
+                    else -> TasksIcons.DESCRIPTION
                 },
                 contentDescription = null,
                 modifier = Modifier
@@ -244,8 +238,8 @@ fun BoxScope.DeleteAttachment(
     onClick: () -> Unit,
     color: Color,
 ) {
-    Icon(
-        imageVector = Icons.Outlined.Cancel,
+    SymbolIcon(
+        name = TasksIcons.CANCEL,
         contentDescription = null,
         modifier = Modifier
             .alpha(ContentAlpha.medium)

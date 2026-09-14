@@ -1,5 +1,7 @@
 package org.tasks.compose
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -24,9 +26,6 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -223,8 +222,8 @@ object PurchaseText {
                     },
                     navigationIcon = {
                         IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
                                 contentDescription = null
                             )
                         }
@@ -233,8 +232,8 @@ object PurchaseText {
                         if (existingSubscriber && !github && !hasTasksAccount) {
                             var expanded by remember { mutableStateOf(false) }
                             IconButton(onClick = { expanded = true }) {
-                                Icon(
-                                    imageVector = Icons.Outlined.MoreVert,
+                                SymbolIcon(
+                                    name = TasksIcons.MORE_VERT,
                                     contentDescription = null,
                                 )
                             }

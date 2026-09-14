@@ -1,5 +1,7 @@
 package org.tasks.compose.chips
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -8,8 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.filters.Filter
 import org.tasks.themes.contentColor
 
@@ -75,14 +75,7 @@ fun Chip(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             ) {
                 icon?.let {
-                    imageVectorByName(it)?.let { vector ->
-                        Icon(
-                            imageVector = vector,
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp),
-                            tint = onColor,
-                        )
-                    }
+                    TasksIcon(label = it, tint = onColor, size = 18.dp)
                 }
                 text?.let {
                     Text(
@@ -94,8 +87,8 @@ fun Chip(
                     )
                 }
                 clear?.let { onClearClick ->
-                    Icon(
-                        imageVector = Icons.Outlined.Cancel,
+                    SymbolIcon(
+                        name = TasksIcons.CANCEL,
                         modifier = Modifier
                             .size(16.dp)
                             .clickable { onClearClick() },

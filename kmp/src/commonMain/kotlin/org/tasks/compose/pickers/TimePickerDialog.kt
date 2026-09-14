@@ -1,5 +1,7 @@
 package org.tasks.compose.pickers
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,9 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Keyboard
-import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -110,11 +109,11 @@ fun TimePickerDialog(
                                 setDisplayMode(displayMode)
                             },
                         ) {
-                            Icon(
-                                imageVector = if (displayMode == DisplayMode.Input) {
-                                    Icons.Outlined.Schedule
+                            SymbolIcon(
+                                name = if (displayMode == DisplayMode.Input) {
+                                    TasksIcons.SCHEDULE
                                 } else {
-                                    Icons.Outlined.Keyboard
+                                    TasksIcons.KEYBOARD
                                 },
                                 contentDescription = null
                             )

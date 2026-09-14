@@ -1,5 +1,6 @@
 package org.tasks.compose.edit
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,13 +15,6 @@ import androidx.compose.foundation.relocation.bringIntoViewResponder
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.DragIndicator
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.RestoreFromTrash
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -420,8 +414,8 @@ private fun SubtaskRowActions(
 ) {
     when {
         doomed -> IconButton(onClick = onRestore) {
-            Icon(
-                imageVector = Icons.Outlined.RestoreFromTrash,
+            SymbolIcon(
+                name = TasksIcons.RESTORE_FROM_TRASH,
                 contentDescription = stringResource(Res.string.undo_delete),
                 tint = tint,
             )
@@ -429,15 +423,15 @@ private fun SubtaskRowActions(
         compact -> SubtaskMenu(onOpen = onOpen, onDelete = onDelete)
         else -> {
             IconButton(onClick = onOpen) {
-                Icon(
-                    imageVector = Icons.Outlined.Edit,
+                SymbolIcon(
+                    name = TasksIcons.EDIT,
                     contentDescription = stringResource(Res.string.edit_task),
                     tint = tint,
                 )
             }
             IconButton(onClick = onDelete) {
-                Icon(
-                    imageVector = Icons.Outlined.Delete,
+                SymbolIcon(
+                    name = TasksIcons.DELETE,
                     contentDescription = stringResource(Res.string.delete),
                     tint = tint,
                 )
@@ -455,12 +449,9 @@ private fun CompleteButton(
     modifier: Modifier = Modifier,
 ) {
     IconButton(onClick = onClick, enabled = enabled, modifier = modifier.size(40.dp)) {
-        Icon(
-            imageVector = if (completed) {
-                Icons.Filled.CheckCircle
-            } else {
-                Icons.Outlined.RadioButtonUnchecked
-            },
+        SymbolIcon(
+            name = if (completed) TasksIcons.CHECK_CIRCLE else TasksIcons.RADIO_BUTTON_UNCHECKED,
+            filled = completed,
             contentDescription = null,
             tint = if (completed) MaterialTheme.colorScheme.outline else priorityColor(priority),
             modifier = Modifier.size(24.dp),
@@ -470,8 +461,8 @@ private fun CompleteButton(
 
 @Composable
 private fun DragHandle(modifier: Modifier, tint: Color) {
-    Icon(
-        imageVector = Icons.Outlined.DragIndicator,
+    SymbolIcon(
+        name = TasksIcons.DRAG_INDICATOR,
         contentDescription = null,
         tint = tint,
         modifier = modifier.size(24.dp),

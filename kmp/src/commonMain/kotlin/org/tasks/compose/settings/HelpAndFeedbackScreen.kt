@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,16 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.HelpOutline
-import androidx.compose.material.icons.outlined.Attachment
-import androidx.compose.material.icons.outlined.BugReport
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Gavel
-import androidx.compose.material.icons.outlined.NewReleases
-import androidx.compose.material.icons.outlined.PermIdentity
-import androidx.compose.material.icons.outlined.RssFeed
-import androidx.compose.material.icons.outlined.StarBorder
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -104,7 +95,7 @@ fun HelpAndFeedbackScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(Res.string.whats_new),
-                    icon = Icons.Outlined.NewReleases,
+                    icon = TasksIcons.NEW_RELEASES,
                     summary = stringResource(Res.string.version_string, versionName),
                     onClick = onWhatsNew,
                 )
@@ -114,7 +105,7 @@ fun HelpAndFeedbackScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(Res.string.blog_notifications),
-                    icon = Icons.Outlined.RssFeed,
+                    icon = TasksIcons.RSS_FEED,
                     summary = stringResource(
                         when (blogFeedMode) {
                             BlogFeedMode.NONE -> Res.string.blog_feed_none
@@ -129,7 +120,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(Res.string.rate_tasks),
-                        icon = Icons.Outlined.StarBorder,
+                        icon = TasksIcons.STAR_BORDER,
                         onClick = onRateTasks,
                     )
                 }
@@ -148,14 +139,14 @@ fun HelpAndFeedbackScreen(
             SettingsItemCard(position = CardPosition.First) {
                 PreferenceRow(
                     title = stringResource(Res.string.documentation),
-                    icon = Icons.AutoMirrored.Outlined.HelpOutline,
+                    icon = TasksIcons.HELP,
                     onClick = onDocumentation,
                 )
             }
             SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(Res.string.issue_tracker),
-                    icon = Icons.Outlined.BugReport,
+                    icon = TasksIcons.BUG_REPORT,
                     onClick = onIssueTracker,
                 )
             }
@@ -164,7 +155,7 @@ fun HelpAndFeedbackScreen(
             ) {
                 PreferenceRow(
                     title = stringResource(Res.string.contact_developer),
-                    icon = Icons.Outlined.Email,
+                    icon = TasksIcons.EMAIL,
                     onClick = onContactDeveloper,
                 )
             }
@@ -172,7 +163,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(Res.string.send_application_logs),
-                        icon = Icons.Outlined.Attachment,
+                        icon = TasksIcons.ATTACHMENT,
                         onClick = onSendLogs,
                     )
                 }
@@ -227,7 +218,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(Res.string.third_party_licenses),
-                        icon = Icons.Outlined.Gavel,
+                        icon = TasksIcons.GAVEL,
                         onClick = onThirdPartyLicenses,
                     )
                 }
@@ -247,14 +238,14 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard(position = CardPosition.First) {
                     PreferenceRow(
                         title = stringResource(Res.string.terms_of_service),
-                        icon = Icons.Outlined.Gavel,
+                        icon = TasksIcons.GAVEL,
                         onClick = onTermsOfService,
                     )
                 }
                 SettingsItemCard(position = CardPosition.Last) {
                     PreferenceRow(
                         title = stringResource(Res.string.privacy_policy),
-                        icon = Icons.Outlined.PermIdentity,
+                        icon = TasksIcons.PERM_IDENTITY,
                         onClick = onPrivacyPolicy,
                     )
                 }
@@ -262,7 +253,7 @@ fun HelpAndFeedbackScreen(
                 SettingsItemCard {
                     PreferenceRow(
                         title = stringResource(Res.string.privacy_policy),
-                        icon = Icons.Outlined.PermIdentity,
+                        icon = TasksIcons.PERM_IDENTITY,
                         onClick = onPrivacyPolicy,
                     )
                 }
@@ -275,7 +266,7 @@ fun HelpAndFeedbackScreen(
             SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                 SwitchPreferenceRow(
                     title = stringResource(Res.string.send_anonymous_statistics),
-                    icon = Icons.Outlined.BugReport,
+                    icon = TasksIcons.BUG_REPORT,
                     summary = stringResource(Res.string.send_anonymous_statistics_summary),
                     checked = collectStatistics,
                     onCheckedChange = onCollectStatisticsChanged,

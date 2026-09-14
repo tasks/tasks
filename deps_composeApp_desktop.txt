@@ -477,15 +477,6 @@
 +|    +--- project ':data' (*)
 +|    +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
 +|    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.12.0-alpha03 (*)
-+|    +--- org.jetbrains.compose.material:material-icons-extended:1.7.3
-+|    |    \--- org.jetbrains.compose.material:material-icons-extended-desktop:1.7.3
-+|    |         +--- org.jetbrains.compose.material:material-icons-core:1.7.3
-+|    |         |    \--- org.jetbrains.compose.material:material-icons-core-desktop:1.7.3
-+|    |         |         +--- org.jetbrains.compose.ui:ui:1.7.3 -> 1.12.0 (*)
-+|    |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.7.3 -> 1.12.0 (*)
-+|    |         |         \--- org.jetbrains.compose.ui:ui-unit:1.7.3 -> 1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui:1.7.3 -> 1.12.0 (*)
-+|    |         \--- org.jetbrains.compose.ui:ui-graphics:1.7.3 -> 1.12.0 (*)
 +|    +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 +|    +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (*)
 +|    +--- io.github.vinceglb:confettikit:0.9.0
@@ -949,7 +940,6 @@
 +|         +--- androidx.graphics:graphics-shapes:1.0.1 -> 1.1.0 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.10 (*)
 +|         \--- androidx.compose.material3:material3-ripple:1.5.0-alpha27 (c)
-++--- org.jetbrains.compose.material:material-icons-extended:1.7.3 (*)
 ++--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
 ++--- org.jetbrains.compose.ui:ui:1.12.0 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)

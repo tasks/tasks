@@ -1,20 +1,6 @@
 package org.tasks.compose.settings
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Api
-import androidx.compose.material.icons.outlined.Apps
-import androidx.compose.material.icons.outlined.Bolt
-import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material.icons.outlined.Checklist
-import androidx.compose.material.icons.outlined.Cloud
-import androidx.compose.material.icons.outlined.DevicesOther
-import androidx.compose.material.icons.outlined.Dns
-import androidx.compose.material.icons.outlined.Email
-import androidx.compose.material.icons.outlined.Laptop
-import androidx.compose.material.icons.outlined.SmartToy
-import androidx.compose.material.icons.outlined.Watch
-import androidx.compose.material.icons.outlined.Widgets
-import androidx.compose.ui.graphics.vector.ImageVector
+import org.tasks.themes.TasksIcons
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.tasks.AppStore
@@ -115,7 +101,7 @@ data class WorksWithEntry(
     val description: StringResource,
     val libreDescription: StringResource? = null,
     val links: WorksWithLinks? = null,
-    val icon: ImageVector? = null,
+    val icon: String? = null,
     val iconDrawable: DrawableResource? = null,
     val tintIcon: Boolean = true,
     val tags: Set<WorksWithTag> = setOf(WorksWithTag.ANDROID),
@@ -156,7 +142,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.apple_reminders,
                 description = Res.string.works_with_apple_reminders_description,
-                icon = Icons.Outlined.Checklist,
+                icon = TasksIcons.CHECKLIST,
                 tags = setOf(WorksWithTag.IOS),
                 links = WorksWithLinks(
                     web = "https://support.apple.com/guide/reminders/welcome/mac",
@@ -171,7 +157,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.works_with_desktop,
                 description = Res.string.works_with_desktop_description,
-                icon = Icons.Outlined.Laptop,
+                icon = TasksIcons.LAPTOP,
                 tags = setOf(WorksWithTag.DESKTOP, WorksWithTag.OFFICIAL),
                 available = { it.isAndroid },
                 links = WorksWithLinks(web = TasksUrls.DOWNLOAD),
@@ -179,14 +165,14 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.thunderbird,
                 description = Res.string.works_with_thunderbird_description,
-                icon = Icons.Outlined.Email,
+                icon = TasksIcons.EMAIL,
                 tags = setOf(WorksWithTag.DESKTOP),
                 links = WorksWithLinks(web = "https://www.thunderbird.net/"),
             ),
             WorksWithEntry(
                 title = Res.string.apple_reminders,
                 description = Res.string.works_with_apple_reminders_description,
-                icon = Icons.Outlined.Checklist,
+                icon = TasksIcons.CHECKLIST,
                 tags = setOf(WorksWithTag.DESKTOP),
                 links = WorksWithLinks(
                     web = "https://support.apple.com/guide/reminders/welcome/mac",
@@ -200,7 +186,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.wear_os,
                 description = Res.string.works_with_wear_description,
-                icon = Icons.Outlined.Watch,
+                icon = TasksIcons.WATCH,
                 tags = setOf(WorksWithTag.ANDROID, WorksWithTag.OFFICIAL),
                 requiresStore = AppStore.GOOGLE_PLAY,
                 requiresStoreDescription = Res.string.works_with_wear_requires_googleplay,
@@ -212,7 +198,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.pebble,
                 description = Res.string.works_with_pebble_description,
-                icon = Icons.Outlined.DevicesOther,
+                icon = TasksIcons.DEVICES_OTHER,
                 tags = setOf(WorksWithTag.ANDROID, WorksWithTag.OFFICIAL),
                 links = WorksWithLinks(web = TasksUrls.PEBBLE_LISTING),
             ),
@@ -308,14 +294,14 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.caldav_server_nextcloud,
                 description = Res.string.works_with_nextcloud_description,
-                icon = Icons.Outlined.Cloud,
+                icon = TasksIcons.CLOUD,
                 tags = setOf(WorksWithTag.SYNC),
                 links = WorksWithLinks(web = "https://nextcloud.com/"),
             ),
             WorksWithEntry(
                 title = Res.string.radicale,
                 description = Res.string.works_with_radicale_description,
-                icon = Icons.Outlined.Dns,
+                icon = TasksIcons.DNS,
                 tags = setOf(WorksWithTag.SYNC),
                 links = WorksWithLinks(web = "https://radicale.org/"),
             ),
@@ -327,7 +313,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.kvaesitso,
                 description = Res.string.works_with_kvaesitso_description,
-                icon = Icons.Outlined.Apps,
+                icon = TasksIcons.APPS,
                 tags = setOf(WorksWithTag.ANDROID),
                 links = WorksWithLinks(web = "https://kvaesitso.mm20.de/"),
             ),
@@ -339,7 +325,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.acalendar,
                 description = Res.string.works_with_acalendar_description,
-                icon = Icons.Outlined.CalendarMonth,
+                icon = TasksIcons.CALENDAR_MONTH,
                 tags = setOf(WorksWithTag.ANDROID),
                 links = WorksWithLinks(
                     web = "https://play.google.com/store/apps/details?id=org.withouthat.acalendarplus",
@@ -349,7 +335,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.todoagenda,
                 description = Res.string.works_with_todoagenda_description,
-                icon = Icons.Outlined.Widgets,
+                icon = TasksIcons.WIDGETS,
                 tags = setOf(WorksWithTag.ANDROID),
                 links = WorksWithLinks(
                     web = "https://github.com/andstatus/todoagenda",
@@ -365,7 +351,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.tasker,
                 description = Res.string.works_with_tasker_description,
-                icon = Icons.Outlined.Bolt,
+                icon = TasksIcons.BOLT,
                 tags = setOf(WorksWithTag.ANDROID),
                 links = WorksWithLinks(
                     web = TasksUrls.TASKER,
@@ -375,7 +361,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.mcp_server,
                 description = Res.string.works_with_mcp_description,
-                icon = Icons.Outlined.SmartToy,
+                icon = TasksIcons.SMART_TOY,
                 tags = setOf(WorksWithTag.DESKTOP),
                 openMcpSettingsOnDesktop = true,
                 links = WorksWithLinks(web = TasksUrls.DOWNLOAD),
@@ -388,7 +374,7 @@ val worksWithCatalog = listOf(
             WorksWithEntry(
                 title = Res.string.works_with_content_provider,
                 description = Res.string.works_with_content_provider_description,
-                icon = Icons.Outlined.Api,
+                icon = TasksIcons.API,
                 tags = setOf(WorksWithTag.ANDROID),
                 links = WorksWithLinks(web = TasksUrls.CONTENT_PROVIDER),
             ),

@@ -1,7 +1,7 @@
 package org.tasks.compose
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -13,8 +13,8 @@ import tasks.kmp.generated.resources.delete
 @Composable
 fun ClearButton(onClick: () -> Unit) {
     IconButton(onClick = onClick) {
-        Icon(
-            imageVector = Icons.Outlined.Clear,
+        SymbolIcon(
+            name = TasksIcons.CLEAR,
             contentDescription = stringResource(Res.string.delete),
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
         )

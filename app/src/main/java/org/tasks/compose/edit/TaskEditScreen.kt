@@ -1,5 +1,7 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.activity.compose.BackHandler
@@ -14,11 +16,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -160,15 +157,15 @@ fun TaskEditScreen(
                 navigationIcon = {
                     if (viewState.isReadOnly) {
                         IconButton(onClick = { onBackPressed() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
                                 contentDescription = stringResource(R.string.back)
                             )
                         }
                     } else {
                         IconButton(onClick = { save() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Save,
+                            SymbolIcon(
+                                name = TasksIcons.SAVE,
                                 contentDescription = stringResource(R.string.save)
                             )
                         }
@@ -181,8 +178,8 @@ fun TaskEditScreen(
                     }
                     if (!viewState.isNew) {
                         IconButton(onClick = { requestDelete() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
+                            SymbolIcon(
+                                name = TasksIcons.DELETE,
                                 contentDescription = org.jetbrains.compose.resources.stringResource(
                                     Res.string.delete_task
                                 ),
@@ -191,8 +188,8 @@ fun TaskEditScreen(
                     }
                     if (viewState.backButtonSavesTask) {
                         IconButton(onClick = { requestDiscard() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Clear,
+                            SymbolIcon(
+                                name = TasksIcons.CLEAR,
                                 contentDescription = org.jetbrains.compose.resources.stringResource(
                                     Res.string.menu_discard_changes
                                 ),

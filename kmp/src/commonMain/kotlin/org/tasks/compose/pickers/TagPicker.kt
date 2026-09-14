@@ -1,5 +1,6 @@
 package org.tasks.compose.pickers
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,8 +15,6 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -79,8 +78,8 @@ private fun TagSearchBar(
 ) {
     val searchPattern = remember { viewModel.searchText }
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+        SymbolIcon(
+            name = TasksIcons.ARROW_BACK,
             contentDescription = null,
             modifier = Modifier
                 .padding(6.dp)

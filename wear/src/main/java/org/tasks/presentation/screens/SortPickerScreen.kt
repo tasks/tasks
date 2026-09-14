@@ -1,13 +1,13 @@
 package org.tasks.presentation.screens
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -102,8 +102,8 @@ fun SortPickerScreen(
                             )
                             if (isSelected) {
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Icon(
-                                    imageVector = Icons.Filled.Check,
+                                SymbolIcon(
+                                    name = TasksIcons.CHECK,
                                     contentDescription = null,
                                     modifier = Modifier.size(18.dp),
                                 )

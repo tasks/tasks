@@ -83,7 +83,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material.icons.extended)
     implementation(platform(libs.firebase))
     implementation(libs.firebase.crashlytics)
     implementation(libs.posthog.android)

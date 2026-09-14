@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,18 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Label
-import androidx.compose.material.icons.automirrored.outlined.List
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Event
-import androidx.compose.material.icons.outlined.Flag
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material.icons.outlined.PendingActions
-import androidx.compose.material.icons.outlined.Place
-import androidx.compose.material.icons.outlined.Repeat
-import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.VerticalAlignTop
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -182,7 +172,7 @@ fun TaskDefaultsScreen(
         SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             SwitchPreferenceRow(
                 title = stringResource(Res.string.google_tasks_add_to_top),
-                icon = Icons.Outlined.VerticalAlignTop,
+                icon = TasksIcons.VERTICAL_ALIGN_TOP,
                 checked = settings.addTasksToTop,
                 onCheckedChange = onAddToTop,
             )
@@ -204,42 +194,42 @@ fun TaskDefaultsScreen(
                 DefaultRow.LIST ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_list),
-                        icon = Icons.AutoMirrored.Outlined.List,
+                        icon = TasksIcons.LIST,
                         summary = defaultListName,
                         onClick = onDefaultList,
                     )
                 DefaultRow.TAGS ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_tags),
-                        icon = Icons.AutoMirrored.Outlined.Label,
+                        icon = TasksIcons.LABEL,
                         summary = defaultTagsSummary,
                         onClick = onDefaultTags,
                     )
                 DefaultRow.IMPORTANCE ->
                     PreferenceRow(
                         title = stringResource(Res.string.EPr_default_importance_title),
-                        icon = Icons.Outlined.Flag,
+                        icon = TasksIcons.FLAG,
                         summary = PriorityOptions.label(settings.defaultPriority),
                         onClick = onImportance,
                     )
                 DefaultRow.START_DATE ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_start_date),
-                        icon = Icons.Outlined.PendingActions,
+                        icon = TasksIcons.PENDING_ACTIONS,
                         summary = StartDateOptions.label(settings.defaultHideUntil),
                         onClick = onStartDate,
                     )
                 DefaultRow.DUE_DATE ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_due_date),
-                        icon = Icons.Outlined.Schedule,
+                        icon = TasksIcons.SCHEDULE,
                         summary = DueDateOptions.label(settings.defaultDueDate),
                         onClick = onDueDate,
                     )
                 DefaultRow.CALENDAR ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_calendar),
-                        icon = Icons.Outlined.Event,
+                        icon = TasksIcons.EVENT,
                         summary = calendarName,
                         onClick = onCalendar,
                     )
@@ -260,7 +250,7 @@ fun TaskDefaultsScreen(
                 ReminderRow.REMINDERS ->
                     PreferenceRow(
                         title = stringResource(Res.string.EPr_default_reminders_title),
-                        icon = Icons.Outlined.Notifications,
+                        icon = TasksIcons.NOTIFICATIONS,
                         summary = remindersSummary,
                         summaryMaxLines = Int.MAX_VALUE,
                         onClick = onReminders,
@@ -283,7 +273,7 @@ fun TaskDefaultsScreen(
                 RecurrenceRow.RECURRENCE ->
                     PreferenceRow(
                         title = stringResource(Res.string.default_recurrence),
-                        icon = Icons.Outlined.Repeat,
+                        icon = TasksIcons.REPEAT,
                         summary = recurrenceSummary,
                         onClick = onRecurrence,
                     )
@@ -312,13 +302,13 @@ fun TaskDefaultsScreen(
                     LocationRow.LOCATION ->
                         PreferenceRow(
                             title = stringResource(Res.string.default_location),
-                            icon = Icons.Outlined.Place,
+                            icon = TasksIcons.PLACE,
                             summary = locationName,
                             onClick = onLocation,
                             trailing = if (hasDefaultLocation) {
                                 {
-                                    Icon(
-                                        imageVector = Icons.Outlined.Delete,
+                                    SymbolIcon(
+                                        name = TasksIcons.DELETE,
                                         contentDescription = null,
                                         modifier = Modifier
                                             .padding(end = SettingsContentPadding)

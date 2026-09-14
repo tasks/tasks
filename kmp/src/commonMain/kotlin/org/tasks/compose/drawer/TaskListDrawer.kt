@@ -1,5 +1,7 @@
 package org.tasks.compose.drawer
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.SizeTransform
@@ -36,12 +38,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.PeopleOutline
-import androidx.compose.material.icons.outlined.PermIdentity
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.SyncProblem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -306,8 +302,8 @@ private fun SearchFab(
                     modifier = Modifier.size(SearchButtonSize),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Search,
+                    SymbolIcon(
+                        name = TasksIcons.SEARCH,
                         contentDescription = stringResource(Res.string.search),
                     )
                 }
@@ -398,10 +394,10 @@ fun FilterItem(
                     maxLines = 1,
                 )
                 if (item.shareCount > 0) {
-                    Icon(
-                        imageVector = when (item.shareCount) {
-                            1 -> Icons.Outlined.PermIdentity
-                            else -> Icons.Outlined.PeopleOutline
+                    SymbolIcon(
+                        name = when (item.shareCount) {
+                            1 -> TasksIcons.PERM_IDENTITY
+                            else -> TasksIcons.PEOPLE_OUTLINE
                         },
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
@@ -465,8 +461,8 @@ fun HeaderItem(
                 }
             } else {
                 IconButton(onClick = onAddClick) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
+                    SymbolIcon(
+                        name = TasksIcons.ADD,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
@@ -475,8 +471,8 @@ fun HeaderItem(
         }
         if (item.hasError) {
             IconButton(onClick = onErrorClick) {
-                Icon(
-                    imageVector = Icons.Outlined.SyncProblem,
+                SymbolIcon(
+                    name = TasksIcons.SYNC_PROBLEM,
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.error,
                 )

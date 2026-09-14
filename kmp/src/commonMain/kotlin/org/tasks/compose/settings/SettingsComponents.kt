@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,12 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.NotInterested
-import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -102,10 +98,10 @@ fun ShortcutWidgetCards(
     ) {
         val items = listOfNotNull(
             onAddShortcut?.let {
-                Triple(Res.string.add_shortcut_to_home_screen, Icons.Outlined.Home, it)
+                Triple(Res.string.add_shortcut_to_home_screen, TasksIcons.HOME, it)
             },
             onAddWidget?.let {
-                Triple(Res.string.add_widget_to_home_screen, Icons.Outlined.Widgets, it)
+                Triple(Res.string.add_widget_to_home_screen, TasksIcons.WIDGETS, it)
             },
         )
         items.forEachIndexed { index, (label, icon, onClick) ->
@@ -159,8 +155,8 @@ fun ColorIconCards(
                                 .background(bgColor),
                         )
                     } else {
-                        Icon(
-                            imageVector = Icons.Outlined.NotInterested,
+                        SymbolIcon(
+                            name = TasksIcons.BLOCK,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier
@@ -175,8 +171,8 @@ fun ColorIconCards(
                             onClick = onClearColor,
                             modifier = Modifier.padding(end = 4.dp),
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Close,
+                            SymbolIcon(
+                                name = TasksIcons.CLEAR,
                                 contentDescription = null,
                             )
                         }
@@ -225,8 +221,8 @@ fun SectionHeader(
             color = MaterialTheme.colorScheme.primary,
         )
         if (onClick != null) {
-            Icon(
-                imageVector = Icons.Outlined.Info,
+            SymbolIcon(
+                name = TasksIcons.INFO,
                 contentDescription = stringResource(Res.string.help),
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier

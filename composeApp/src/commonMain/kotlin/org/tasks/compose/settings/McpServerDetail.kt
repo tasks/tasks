@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -14,13 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.Refresh
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -108,8 +103,8 @@ fun McpServerDetail(
                 title = { Text(stringResource(Res.string.mcp_server)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        SymbolIcon(
+                            name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
                         )
                     }
@@ -313,7 +308,7 @@ fun McpServerContent(
                     title = stringResource(Res.string.mcp_regenerate_token),
                     summary = stringResource(Res.string.mcp_regenerate_token_summary),
                     summaryMaxLines = Int.MAX_VALUE,
-                    icon = Icons.Outlined.Refresh,
+                    icon = TasksIcons.REFRESH,
                     onClick = { confirmRegenerate = true },
                 )
             }
@@ -468,11 +463,11 @@ private fun FieldCard(
             trailing = if (masked == null) null else {
                 {
                     IconButton(onClick = { revealed = !revealed }) {
-                        Icon(
-                            imageVector = if (revealed) {
-                                Icons.Outlined.VisibilityOff
+                        SymbolIcon(
+                            name = if (revealed) {
+                                TasksIcons.VISIBILITY_OFF
                             } else {
-                                Icons.Outlined.Visibility
+                                TasksIcons.VISIBILITY
                             },
                             contentDescription = stringResource(
                                 if (revealed) Res.string.mcp_hide else Res.string.mcp_reveal
@@ -494,8 +489,8 @@ private fun FieldCard(
 @Composable
 private fun CopyButton(copied: Boolean, onCopy: () -> Unit) {
     IconButton(onClick = onCopy) {
-        Icon(
-            imageVector = if (copied) Icons.Outlined.Check else Icons.Outlined.ContentCopy,
+        SymbolIcon(
+            name = if (copied) TasksIcons.CHECK else TasksIcons.CONTENT_COPY,
             contentDescription = stringResource(
                 if (copied) Res.string.mcp_copied else Res.string.mcp_copy
             ),

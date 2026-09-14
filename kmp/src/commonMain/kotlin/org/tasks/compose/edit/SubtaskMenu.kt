@@ -1,10 +1,8 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -29,8 +27,8 @@ fun SubtaskMenu(onOpen: () -> Unit, onDelete: () -> Unit) {
     PlatformBackHandler(enabled = expanded) { expanded = false }
     Box {
         IconButton(onClick = { expanded = true }) {
-            Icon(
-                imageVector = Icons.Outlined.MoreVert,
+            SymbolIcon(
+                name = TasksIcons.MORE_VERT,
                 contentDescription = stringResource(Res.string.more_options),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -41,7 +39,7 @@ fun SubtaskMenu(onOpen: () -> Unit, onDelete: () -> Unit) {
         ) {
             DropdownMenuItem(
                 text = { Text(stringResource(Res.string.edit_task)) },
-                leadingIcon = { Icon(Icons.Outlined.Edit, contentDescription = null) },
+                leadingIcon = { SymbolIcon(TasksIcons.EDIT, contentDescription = null) },
                 onClick = {
                     expanded = false
                     onOpen()
@@ -49,7 +47,7 @@ fun SubtaskMenu(onOpen: () -> Unit, onDelete: () -> Unit) {
             )
             DropdownMenuItem(
                 text = { Text(stringResource(Res.string.delete)) },
-                leadingIcon = { Icon(Icons.Outlined.Delete, contentDescription = null) },
+                leadingIcon = { SymbolIcon(TasksIcons.DELETE, contentDescription = null) },
                 onClick = {
                     expanded = false
                     onDelete()

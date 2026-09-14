@@ -1,5 +1,6 @@
 package org.tasks.compose.edit
 
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,8 +9,6 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
@@ -94,8 +93,8 @@ private fun AddTagChip(onClick: () -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             ) {
-                Icon(
-                    imageVector = Icons.Filled.Add,
+                SymbolIcon(
+                    name = TasksIcons.ADD,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp),
                     tint = contentColor,

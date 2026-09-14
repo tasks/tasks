@@ -1,5 +1,7 @@
 package org.tasks
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
@@ -33,12 +35,6 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerState
@@ -2790,8 +2786,8 @@ private fun SectionHeader(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.weight(1f),
         )
-        Icon(
-            imageVector = Icons.Filled.KeyboardArrowDown,
+        SymbolIcon(
+            name = TasksIcons.KEYBOARD_ARROW_DOWN,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
@@ -2833,7 +2829,7 @@ private fun FloatingToolbar(
                 containerColor = resolvedFabContainer,
                 contentColor = resolvedFabContent,
             ) {
-                Icon(Icons.Filled.Add, contentDescription = "New task")
+                SymbolIcon(TasksIcons.ADD, contentDescription = "New task")
             }
         },
         colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
@@ -2845,11 +2841,11 @@ private fun FloatingToolbar(
     ) {
         if (showMenuButton) {
             IconButton(onClick = onMenuClick) {
-                Icon(Icons.Outlined.Menu, contentDescription = "Menu")
+                SymbolIcon(TasksIcons.MENU, contentDescription = "Menu")
             }
         }
         IconButton(onClick = onSortClick) {
-            Icon(Icons.Outlined.SwapVert, contentDescription = "Sort")
+            SymbolIcon(TasksIcons.SWAP_VERT, contentDescription = "Sort")
         }
     }
 }
@@ -2896,8 +2892,8 @@ private fun SettingsScreen(
                         title = { Text(stringResource(Res.string.settings)) },
                         navigationIcon = {
                             IconButton(onClick = onBack) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                SymbolIcon(
+                                    name = TasksIcons.ARROW_BACK,
                                     contentDescription = stringResource(Res.string.back),
                                 )
                             }
@@ -3104,8 +3100,8 @@ private fun SettingsScreen(
                                                 scope.launch { navigator.navigateBack() }
                                             }
                                         ) {
-                                            Icon(
-                                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                            SymbolIcon(
+                                                name = TasksIcons.ARROW_BACK,
                                                 contentDescription = stringResource(Res.string.back),
                                             )
                                         }

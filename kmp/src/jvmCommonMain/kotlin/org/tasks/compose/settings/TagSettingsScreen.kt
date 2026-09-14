@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -13,10 +15,6 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.DeleteOutline
-import androidx.compose.material.icons.outlined.Save
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -89,8 +87,8 @@ fun TagSettingsScreen(
                 title = {},
                 navigationIcon = {
                     IconButton(onClick = navigateBackOrPrompt) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        SymbolIcon(
+                            name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
                         )
                     }
@@ -143,7 +141,7 @@ fun TagSettingsScreen(
                 SettingsItemCard {
                     PreferenceRow(
                         title = stringResource(Res.string.save),
-                        icon = Icons.Outlined.Save,
+                        icon = TasksIcons.SAVE,
                         enabled = state.name.isNotBlank() && state.hasChanges && !state.isLoading,
                         onClick = onSave,
                     )
@@ -155,7 +153,7 @@ fun TagSettingsScreen(
 
                 Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
                     DangerCard(
-                        icon = Icons.Outlined.DeleteOutline,
+                        icon = TasksIcons.DELETE,
                         title = stringResource(Res.string.delete),
                         tint = MaterialTheme.colorScheme.error,
                         onClick = { showDeleteDialog = true },

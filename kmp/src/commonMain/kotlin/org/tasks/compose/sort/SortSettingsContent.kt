@@ -1,5 +1,7 @@
 package org.tasks.compose.sort
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,12 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowDownward
-import androidx.compose.material.icons.outlined.ArrowUpward
-import androidx.compose.material.icons.outlined.ExpandCircleDown
-import androidx.compose.material.icons.outlined.SubdirectoryArrowRight
-import androidx.compose.material.icons.outlined.SwapVert
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import com.todoroo.astrid.core.SortHelper
@@ -235,7 +230,7 @@ fun BottomSheetContent(
 ) {
     SortRow(
         title = Res.string.sort_grouping,
-        icon = Icons.Outlined.ExpandCircleDown,
+        icon = TasksIcons.EXPAND_CIRCLE_DOWN,
         ascending = groupAscending,
         sortMode = groupMode,
         showAscending = groupMode != SortHelper.GROUP_NONE,
@@ -261,7 +256,7 @@ fun BottomSheetContent(
         if (!manualSort) {
             SortRow(
                 title = Res.string.subtasks,
-                icon = Icons.Outlined.SubdirectoryArrowRight,
+                icon = TasksIcons.SUBTASK,
                 ascending = subtaskAscending,
                 sortMode = subtaskMode,
                 onClick = clickSubtaskMode,
@@ -346,7 +341,7 @@ private fun SwitchRow(
 
 @Composable
 fun SortRow(
-    icon: ImageVector = Icons.Outlined.SwapVert,
+    icon: String = TasksIcons.SWAP_VERT,
     title: StringResource,
     ascending: Boolean,
     sortMode: Int,
@@ -361,8 +356,8 @@ fun SortRow(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Icon(
-            imageVector = icon,
+        SymbolIcon(
+            name = icon,
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 16.dp)
@@ -400,8 +395,8 @@ fun OrderingButton(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         VerticalDivider()
-        Icon(
-            imageVector = if (ascending) Icons.Outlined.ArrowUpward else Icons.Outlined.ArrowDownward,
+        SymbolIcon(
+            name = if (ascending) TasksIcons.ARROW_UPWARD else TasksIcons.ARROW_DOWNWARD,
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .size(16.dp),

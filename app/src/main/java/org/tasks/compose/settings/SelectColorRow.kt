@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -7,9 +9,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.NotInterested
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -143,8 +142,8 @@ fun SelectColorRow(
                 contentAlignment = Alignment.Center,
             ) {
                 if (color == 0) {
-                    Icon(
-                        imageVector = Icons.Outlined.NotInterested,
+                    SymbolIcon(
+                        name = TasksIcons.BLOCK,
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         contentDescription = null
                     )
@@ -167,8 +166,8 @@ fun SelectColorRow(
         right = {
             if (color != 0) {
                 IconButton(onClick = { selectColor(0) }) {
-                    Icon(
-                        imageVector = Icons.Outlined.Clear,
+                    SymbolIcon(
+                        name = TasksIcons.CLEAR,
                         contentDescription = null
                     )
                 }

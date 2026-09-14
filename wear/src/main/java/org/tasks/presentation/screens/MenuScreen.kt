@@ -23,7 +23,7 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 import com.google.android.horologist.compose.paging.items
 import org.tasks.GrpcProto.ListItem
 import org.tasks.GrpcProto.ListItemType
-import org.tasks.compose.components.imageVectorByName
+import org.tasks.compose.components.TasksIcon
 import org.tasks.presentation.components.Card
 import org.tasks.presentation.components.EmptyCard
 import org.tasks.presentation.components.Header
@@ -59,21 +59,17 @@ fun MenuScreen(
                         ListItemType.Item -> {
                             Card(
                                 icon = {
-                                    val icon = imageVectorByName(item.icon)
                                     Box(
                                         modifier = Modifier.size(48.dp),
                                         contentAlignment = Alignment.Center,
                                     ) {
-                                        if (icon != null) {
-                                            Icon(
-                                                imageVector = icon,
-                                                contentDescription = null,
-                                                tint = when (item.color) {
-                                                    0 -> MaterialTheme.colors.onSurface
-                                                    else -> Color(color = item.color)
-                                                },
-                                            )
-                                        }
+                                        TasksIcon(
+                                            label = item.icon,
+                                            tint = when (item.color) {
+                                                0 -> MaterialTheme.colors.onSurface
+                                                else -> Color(color = item.color)
+                                            },
+                                        )
                                     }
                                 },
                                 onClick = { selectFilter(item) },
