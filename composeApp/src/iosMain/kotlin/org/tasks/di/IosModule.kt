@@ -5,6 +5,7 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.todoroo.astrid.service.CommonUpgrades
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
@@ -80,8 +81,26 @@ actual fun platformModule(): Module = module {
     factoryOf(::VtodoCache)
     single { TagMetadataEditor(get(), get(), get()) }
     single<SubscriptionProvider> {
+        val tasksPreferences = get<TasksPreferences>()
+        val subscriptionFlow: Flow<SubscriptionProvider.SubscriptionInfo?> =
+            if (TasksBuildConfig.DEBUG) {
+                tasksPreferences.flow(TasksPreferences.debugPro, false).map { debug ->
+                    if (debug) {
+                        SubscriptionProvider.SubscriptionInfo(
+                            sku = "debug_pro",
+                            isMonthly = false,
+                            isTasksSubscription = false,
+                            isGitHubSponsor = false,
+                        )
+                    } else {
+                        null
+                    }
+                }
+            } else {
+                flowOf(null)
+            }
         object : SubscriptionProvider {
-            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = flowOf(null)
+            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = subscriptionFlow
             override suspend fun getFormattedPrice(sku: String): String? = null
         }
     }
