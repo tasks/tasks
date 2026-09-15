@@ -100,14 +100,17 @@ jobs:
         run: xcrun simctl boot "$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | test("^iPhone [0-9]+$"))] | last | .udid')"
 
       - name: Build for iOS and run simulator tests
-        run: ./gradlew :data:compileKotlinIosArm64 :data:iosSimulatorArm64Test
+        run: ./gradlew :composeApp:compileKotlinIosArm64 :data:iosSimulatorArm64Test :kmp:iosSimulatorArm64Test :composeApp:iosSimulatorArm64Test
 
       - name: Upload test reports
         uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: test-reports-ios
-          path: data/build/reports/**
+          path: |
+            data/build/reports/**
+            kmp/build/reports/**
+            composeApp/build/reports/**
 
   instrumentedTest:
     runs-on: ubuntu-latest
