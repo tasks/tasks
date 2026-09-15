@@ -9,6 +9,8 @@ import org.junit.Test
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Tasks
+import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 class TasksApiReadTest : ApiTestCase() {
@@ -119,15 +121,15 @@ class TasksApiReadTest : ApiTestCase() {
 
     @Test
     fun rangesAreExclusive() {
-        val now = currentTimeMillis()
-        newTask("scheduled", Tasks.DUE_DATE to now)
+        val due = createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, currentTimeMillis())
+        newTask("scheduled", Tasks.DUE_DATE to due)
         newTask("unscheduled")
 
         assertEquals(listOf("scheduled"), query(Tasks.PATH, "?due_after=0").strings(Tasks.TITLE))
-        assertEquals(emptyList<String>(), query(Tasks.PATH, "?due_after=$now").strings(Tasks.TITLE))
+        assertEquals(emptyList<String>(), query(Tasks.PATH, "?due_after=$due").strings(Tasks.TITLE))
         assertEquals(
             listOf("scheduled", "unscheduled"),
-            query(Tasks.PATH, "?due_before=${now + 1}").strings(Tasks.TITLE),
+            query(Tasks.PATH, "?due_before=${due + 1}").strings(Tasks.TITLE),
         )
     }
 
