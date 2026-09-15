@@ -17,6 +17,11 @@ Before opening an issue, please make sure that your issue:
 2. Install and launch [Android Studio](https://developer.android.com/studio)
 3. Select `File > Open`, select the Tasks directory, and accept prompts to install missing SDK components
 
+#### iOS
+1. Install [Xcode](https://developer.apple.com/xcode/)
+2. Open `iosApp/iosApp.xcodeproj` and run the `iosApp` scheme on a simulator, or `xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator build`
+3. For a device, put your team ID in `iosApp/Configuration/Local.xcconfig` (`TEAM_ID=XXXXXXXXXX`), which git ignores
+
 #### Set up Mapbox
 1. Register at [mapbox.com](https://www.mapbox.com)
 2. Add `tasks_mapbox_key_debug="<your_api_key>"` to your [`gradle.properties`](https://docs.gradle.org/current/userguide/build_environment.html#sec:gradle_configuration_properties) file. You can create an access token or use your [default public token](https://docs.mapbox.com/help/glossary/access-token/#default-public-token)

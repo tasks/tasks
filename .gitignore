@@ -11,6 +11,7 @@ build/
 *.AppImage
 *.AppImage.zsync
 local.properties
+iosApp/Configuration/Local.xcconfig
 Thumbs.db
 /captures/
 /fastlane/report.xml
