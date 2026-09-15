@@ -20,6 +20,15 @@ plugins {
 }
 
 dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            val version = java.util.Properties().apply {
+                providers.fileContents(layout.rootDirectory.file("version.properties")).asText.get().reader().use(::load)
+            }
+            version("versionCode", version.getProperty("VERSION_CODE"))
+            version("versionName", version.getProperty("VERSION_NAME"))
+        }
+    }
     repositories {
         google {
             mavenContent {

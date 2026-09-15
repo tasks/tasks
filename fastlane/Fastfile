@@ -52,7 +52,7 @@ platform :android do
 
   desc "Download Play-signed universal APK"
   lane :download_signed_apk do
-    version_code = File.read("../gradle/libs.versions.toml").match(/versionCode\s*=\s*"(\d+)"/)[1].to_i
+    version_code = File.read("../version.properties").match(/^VERSION_CODE=(\d+)/)[1].to_i
     download_universal_apk_from_google_play(
       package_name: "org.tasks",
       version_code: version_code,

@@ -1,4 +1,7 @@
 TEAM_ID=
 BUNDLE_ID=org.tasks
 APP_NAME=Tasks
+#include "../../version.properties"
+MARKETING_VERSION=$(VERSION_NAME)
+CURRENT_PROJECT_VERSION=$(VERSION_CODE)
 #include? "Local.xcconfig"
