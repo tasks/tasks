@@ -73,8 +73,6 @@ import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
-import org.tasks.viewmodel.MicrosoftListSettingsViewModel
-import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.SortSettingsViewModel
@@ -524,38 +522,6 @@ val coreModule: Module = module {
             calendar = params.get(),
         )
     }
-    viewModel { params ->
-        TagSettingsViewModel(
-            tagDataDao = get(),
-            refreshBroadcaster = get(),
-            reporting = get(),
-            purchaseState = get(),
-            tagMetadataSync = get(),
-            syncAdapters = get(),
-            isDark = params.get(),
-            tagData = params.get(),
-        )
-    }
-    viewModel {
-        EtebaseAccountSettingsViewModel(
-            caldavDao = get(),
-            clientProvider = get(),
-            encryption = get(),
-            taskDeleter = get(),
-            reporting = get(),
-        )
-    }
-    viewModel {
-        ProCardViewModel(
-            caldavDao = get(),
-            subscriptionProvider = get(),
-            tasksPreferences = get(),
-            accountDataRepository = get(),
-            serverEnvironment = get(),
-            platformConfiguration = get(),
-        )
-    }
-
     single {
         TasksJsonExporter(
             taskDao = get(),
