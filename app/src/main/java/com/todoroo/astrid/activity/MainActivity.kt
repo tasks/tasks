@@ -341,7 +341,7 @@ class MainActivity : AppCompatActivity() {
                                     when (platform) {
                                         Platform.CALDAV,
                                         Platform.ETEBASE -> doSignIn(platform)
-                                        Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
+                                        Platform.DAVX5 -> doOpenUrl(platform)
                                         else -> {}
                                     }
                                 }
@@ -381,7 +381,7 @@ class MainActivity : AppCompatActivity() {
                             openUrl = { platform ->
                                 firebase.logEvent(R.string.event_add_account, R.string.param_source to "onboarding", R.string.param_selection to platform.name)
                                 when (platform) {
-                                    Platform.DAVX5, Platform.DECSYNC_CC -> {
+                                    Platform.DAVX5 -> {
                                         if (inventory.hasPro) {
                                             doOpenUrl(platform)
                                         } else {

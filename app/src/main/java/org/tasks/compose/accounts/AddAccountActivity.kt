@@ -54,7 +54,7 @@ class AddAccountActivity : ComponentActivity() {
                     Platform.TASKS_ORG -> finish()
                     Platform.CALDAV,
                     Platform.ETEBASE -> doSignIn(platform)
-                    Platform.DAVX5, Platform.DECSYNC_CC -> doOpenUrl(platform)
+                    Platform.DAVX5 -> doOpenUrl(platform)
                     else -> {}
                 }
             }
@@ -149,7 +149,7 @@ class AddAccountActivity : ComponentActivity() {
                             R.string.param_selection to platform.name
                         )
                         when (platform) {
-                            Platform.DAVX5, Platform.DECSYNC_CC -> {
+                            Platform.DAVX5 -> {
                                 if (inventory.hasPro) doOpenUrl(platform) else requirePurchase(platform)
                             }
                             else -> doOpenUrl(platform)

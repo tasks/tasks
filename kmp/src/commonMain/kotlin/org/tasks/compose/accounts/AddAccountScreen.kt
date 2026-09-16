@@ -64,14 +64,11 @@ import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.cost_free
 import tasks.kmp.generated.resources.davx5
 import tasks.kmp.generated.resources.davx5_selection_description
-import tasks.kmp.generated.resources.decsync
-import tasks.kmp.generated.resources.decsync_selection_description
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.etesync_selection_description
 import tasks.kmp.generated.resources.google_tasks_selection_description
 import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
-import tasks.kmp.generated.resources.ic_decsync
 import tasks.kmp.generated.resources.ic_etesync
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_microsoft_tasks
@@ -255,7 +252,6 @@ fun AddAccountScreen(
                     if (configuration.supportsOpenTasks) add(Platform.DAVX5)
                     if (configuration.supportsCaldav) add(Platform.CALDAV)
                     if (configuration.supportsEteSync) add(Platform.ETEBASE)
-                    if (configuration.supportsOpenTasks) add(Platform.DECSYNC_CC)
                 }
                 if (proAccounts.isNotEmpty()) {
                     if (!hasPro) {
@@ -312,12 +308,6 @@ fun AddAccountScreen(
                                         icon = Res.drawable.ic_etesync,
                                         description = stringResource(Res.string.etesync_selection_description),
                                         onClick = { signIn(Platform.ETEBASE) },
-                                    )
-                                    Platform.DECSYNC_CC -> AccountTypeRow(
-                                        title = stringResource(Res.string.decsync),
-                                        icon = Res.drawable.ic_decsync,
-                                        description = stringResource(Res.string.decsync_selection_description),
-                                        onClick = { openUrl(Platform.DECSYNC_CC) },
                                     )
                                     else -> {}
                                 }
