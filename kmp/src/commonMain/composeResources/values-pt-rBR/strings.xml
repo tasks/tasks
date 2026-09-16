@@ -637,4 +637,10 @@
     <string name="theme_day_night">Dia/Noite</string>
     <string name="theme_system_default">Padrão do Sistema</string>
     <string name="works_with_desktop">Tasks.org para desktop</string>
+    <string name="mcp_access_advanced">Avançado</string>
+    <string name="mcp_tools_group_lists">Listas</string>
+    <string name="mcp_tools_group_tags">Etiquetas</string>
+    <string name="mcp_tools_group_places">Lugares</string>
+    <string name="mcp_tools_group_reminders">Lembretes</string>
+    <string name="mcp_copy">Copiar</string>
 </resources>

@@ -343,4 +343,7 @@
     <string name="theme_wallpaper">Fondu de pantalla</string>
     <string name="theme_day_night">Día/Nueche</string>
     <string name="theme_system_default">Predetermináu pol sistema</string>
+    <string name="mcp_tools_group_tags">Etiquetes</string>
+    <string name="mcp_tools_group_reminders">Recordatorios</string>
+    <string name="mcp_copy">Copiar</string>
 </resources>

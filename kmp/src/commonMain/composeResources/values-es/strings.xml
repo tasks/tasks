@@ -557,4 +557,10 @@
     <string name="theme_wallpaper">Fondo de pantalla</string>
     <string name="theme_day_night">Día/noche</string>
     <string name="theme_system_default">Valor predeterminado del sistema</string>
+    <string name="mcp_access_advanced">Avanzado</string>
+    <string name="mcp_tools_group_lists">Listas</string>
+    <string name="mcp_tools_group_tags">Etiquetas</string>
+    <string name="mcp_tools_group_places">Lugares</string>
+    <string name="mcp_tools_group_reminders">Recordatorios</string>
+    <string name="mcp_copy">Copiar</string>
 </resources>

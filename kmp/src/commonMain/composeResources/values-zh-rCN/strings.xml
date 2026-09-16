@@ -652,4 +652,10 @@
     <string name="works_with_content_provider_description">从自己的应用读取并写入 Tasks.org 数据</string>
     <string name="works_with_missing">注意到缺少了什么吗？%1$s 或者发电子邮件给 %2$s。</string>
     <string name="works_with_submit_pull_request">提交拉取请求</string>
+    <string name="mcp_access_advanced">高级</string>
+    <string name="mcp_tools_group_lists">清单</string>
+    <string name="mcp_tools_group_tags">标签</string>
+    <string name="mcp_tools_group_places">地点</string>
+    <string name="mcp_tools_group_reminders">提醒</string>
+    <string name="mcp_copy">克隆</string>
 </resources>

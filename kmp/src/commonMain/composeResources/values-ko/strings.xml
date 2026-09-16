@@ -449,4 +449,10 @@
     <string name="theme_wallpaper">바탕화면</string>
     <string name="theme_day_night">주간/야간</string>
     <string name="theme_system_default">시스템 기본설정</string>
+    <string name="mcp_access_advanced">고급</string>
+    <string name="mcp_tools_group_lists">목록</string>
+    <string name="mcp_tools_group_tags">태그</string>
+    <string name="mcp_tools_group_places">장소</string>
+    <string name="mcp_tools_group_reminders">알람</string>
+    <string name="mcp_copy">복사</string>
 </resources>

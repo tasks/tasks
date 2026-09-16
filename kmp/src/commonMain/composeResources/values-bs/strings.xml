@@ -67,4 +67,5 @@
     <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="customize_drawer">Prilagodi meni</string>
     <string name="customize_drawer_summary">Povuci i pusti za promjenu rasporeda u meniju</string>
+    <string name="mcp_tools_group_reminders">Podsjetnici</string>
 </resources>

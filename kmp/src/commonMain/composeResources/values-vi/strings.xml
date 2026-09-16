@@ -412,4 +412,10 @@
     <string name="theme_wallpaper">Hình nền</string>
     <string name="theme_day_night">Ngày/Đêm</string>
     <string name="theme_system_default">Mặc định hệ thống</string>
+    <string name="mcp_access_advanced">Nâng cao</string>
+    <string name="mcp_tools_group_lists">Danh sách</string>
+    <string name="mcp_tools_group_tags">Thẻ</string>
+    <string name="mcp_tools_group_places">Địa điểm</string>
+    <string name="mcp_tools_group_reminders">Lời nhắc</string>
+    <string name="mcp_copy">Sao chép</string>
 </resources>

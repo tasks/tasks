@@ -478,4 +478,10 @@
     <string name="theme_wallpaper">Tapeta</string>
     <string name="theme_day_night">Dzień/noc</string>
     <string name="theme_system_default">Domyślny systemowy</string>
+    <string name="mcp_access_advanced">Zaawansowane</string>
+    <string name="mcp_tools_group_lists">Listy</string>
+    <string name="mcp_tools_group_tags">Tagi</string>
+    <string name="mcp_tools_group_places">Miejsca</string>
+    <string name="mcp_tools_group_reminders">Przypomnienia</string>
+    <string name="mcp_copy">Kopiuj</string>
 </resources>

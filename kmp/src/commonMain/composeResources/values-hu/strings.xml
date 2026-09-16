@@ -520,4 +520,10 @@
     <string name="theme_day_night">Nappal/Éjszaka</string>
     <string name="theme_system_default">Alapértelmezett</string>
     <string name="works_with_desktop">Tasks.org PC-re</string>
+    <string name="mcp_access_advanced">További lehetőségek</string>
+    <string name="mcp_tools_group_lists">Listák</string>
+    <string name="mcp_tools_group_tags">Címkék</string>
+    <string name="mcp_tools_group_places">Helyek</string>
+    <string name="mcp_tools_group_reminders">Emlékeztetők</string>
+    <string name="mcp_copy">Másolás</string>
 </resources>

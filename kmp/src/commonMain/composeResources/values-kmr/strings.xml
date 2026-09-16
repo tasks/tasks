@@ -71,4 +71,7 @@
     <string name="theme_dark">Tarî</string>
     <string name="theme_wallpaper">Wêneya dîwêr</string>
     <string name="theme_day_night">Roj/Êvar</string>
+    <string name="mcp_access_advanced">Pêşketî</string>
+    <string name="mcp_tools_group_lists">Lîste</string>
+    <string name="mcp_tools_group_places">Cih</string>
 </resources>

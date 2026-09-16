@@ -622,4 +622,10 @@
     <string name="subtasks_will_be_flattened">Diese Liste unterstützt keine verschachtelten Teilaufgaben. Beim Speichern werden sie alle auf die höchste Stufe verschoben.</string>
     <string name="subtask_list_locked">Neue Teilaufgaben werden in die Liste des übergeordneten Elements aufgenommen</string>
     <string name="works_with_desktop">Tasks.org für Desktop</string>
+    <string name="mcp_access_advanced">Erweitert</string>
+    <string name="mcp_tools_group_lists">Listen</string>
+    <string name="mcp_tools_group_tags">Schlagwörter</string>
+    <string name="mcp_tools_group_places">Orte</string>
+    <string name="mcp_tools_group_reminders">Erinnerungen</string>
+    <string name="mcp_copy">Kopieren</string>
 </resources>
