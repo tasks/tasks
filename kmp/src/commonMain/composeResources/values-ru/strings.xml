@@ -508,4 +508,10 @@
     <string name="theme_wallpaper">Как обои</string>
     <string name="theme_day_night">День / ночь</string>
     <string name="theme_system_default">Как в системе</string>
+    <string name="mcp_access_advanced">Расширенные</string>
+    <string name="mcp_tools_group_lists">Списки</string>
+    <string name="mcp_tools_group_tags">Теги</string>
+    <string name="mcp_tools_group_places">Места</string>
+    <string name="mcp_tools_group_reminders">Напоминания</string>
+    <string name="mcp_copy">Копировать</string>
 </resources>

@@ -408,4 +408,10 @@
     <string name="theme_wallpaper">Horma-papera</string>
     <string name="theme_day_night">Eguna/Gaua</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
+    <string name="mcp_access_advanced">Aurreratua</string>
+    <string name="mcp_tools_group_lists">Zerrendak</string>
+    <string name="mcp_tools_group_tags">Etiketak</string>
+    <string name="mcp_tools_group_places">Tokiak</string>
+    <string name="mcp_tools_group_reminders">Oroigarriak</string>
+    <string name="mcp_copy">Kopiatu</string>
 </resources>

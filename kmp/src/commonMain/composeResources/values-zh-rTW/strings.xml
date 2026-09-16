@@ -489,4 +489,10 @@
     <string name="theme_wallpaper">桌布</string>
     <string name="theme_day_night">日/夜</string>
     <string name="theme_system_default">系統預設</string>
+    <string name="mcp_access_advanced">進階</string>
+    <string name="mcp_tools_group_lists">清單</string>
+    <string name="mcp_tools_group_tags">標籤</string>
+    <string name="mcp_tools_group_places">地點</string>
+    <string name="mcp_tools_group_reminders">提醒</string>
+    <string name="mcp_copy">複製</string>
 </resources>

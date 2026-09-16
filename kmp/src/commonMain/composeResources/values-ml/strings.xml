@@ -80,4 +80,5 @@
     <string name="TEA_add_subtask">ഉപ ടാസ്‌ക് ചേർക്കുക</string>
     <string name="customize_drawer">ഡ്രോയർ ഇഷ്ടാനുസൃതമാക്കുക</string>
     <string name="customize_drawer_summary">മെനു ഇനങ്ങൾ പുനഃക്രമീകരിക്കാൻ വലിച്ചിടുക</string>
+    <string name="mcp_tools_group_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
 </resources>

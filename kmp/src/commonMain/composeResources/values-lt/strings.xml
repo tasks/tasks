@@ -427,4 +427,10 @@
     <string name="theme_wallpaper">Fono vaizdas</string>
     <string name="theme_day_night">Diena/Naktis</string>
     <string name="theme_system_default">Sistemos numatyta</string>
+    <string name="mcp_access_advanced">Išplėstiniai</string>
+    <string name="mcp_tools_group_lists">Sąrašai</string>
+    <string name="mcp_tools_group_tags">Etiketė</string>
+    <string name="mcp_tools_group_places">Vietos</string>
+    <string name="mcp_tools_group_reminders">Priminimai</string>
+    <string name="mcp_copy">Kopijuoti</string>
 </resources>

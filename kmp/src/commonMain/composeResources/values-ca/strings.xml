@@ -475,4 +475,10 @@
     <string name="theme_wallpaper">Fons de pantalla</string>
     <string name="theme_day_night">Dia/Nit</string>
     <string name="theme_system_default">Predeterminat del sistema</string>
+    <string name="mcp_access_advanced">Avançat</string>
+    <string name="mcp_tools_group_lists">Llistes</string>
+    <string name="mcp_tools_group_tags">Etiquetes</string>
+    <string name="mcp_tools_group_places">Llocs</string>
+    <string name="mcp_tools_group_reminders">Recordatoris</string>
+    <string name="mcp_copy">Copia</string>
 </resources>

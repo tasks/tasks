@@ -622,4 +622,10 @@
     <string name="subtasks_will_be_flattened">Ĉi tiu listo ne subtenas nestitajn subtaskojn. Konservi kaŭzos ke ili ĉiuj moviĝos al la supra nivelo.</string>
     <string name="subtask_list_locked">Novaj subtaskoj uzas la patran liston</string>
     <string name="works_with_desktop">Tasks.org por labortablo</string>
+    <string name="mcp_access_advanced">Altnivela</string>
+    <string name="mcp_tools_group_lists">Listoj</string>
+    <string name="mcp_tools_group_tags">Etikedoj</string>
+    <string name="mcp_tools_group_places">Lokoj</string>
+    <string name="mcp_tools_group_reminders">Memorigiloj</string>
+    <string name="mcp_copy">Kopii</string>
 </resources>

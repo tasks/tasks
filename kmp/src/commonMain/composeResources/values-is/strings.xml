@@ -38,4 +38,5 @@
     <string name="TEA_add_subtask">Bæta við undirverkefni</string>
     <string name="customize_drawer">Sérstilla skúffu</string>
     <string name="customize_drawer_summary">Draga og sleppa til að raða valmynd</string>
+    <string name="mcp_tools_group_reminders">Áminningar</string>
 </resources>

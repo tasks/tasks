@@ -394,4 +394,10 @@
     <string name="theme_wallpaper">බිතුපත (Wallpaper)</string>
     <string name="theme_day_night">දිවා / රාත්‍රි</string>
     <string name="theme_system_default">පද්ධති පෙරනිමිය</string>
+    <string name="mcp_access_advanced">උසස්</string>
+    <string name="mcp_tools_group_lists">ලැයිස්තු</string>
+    <string name="mcp_tools_group_tags">ටැග්</string>
+    <string name="mcp_tools_group_places">ස්ථාන</string>
+    <string name="mcp_tools_group_reminders">මතක් කිරීම්</string>
+    <string name="mcp_copy">පිටපත් කරන්න</string>
 </resources>
