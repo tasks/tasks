@@ -12,10 +12,17 @@ import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.Reporting
+import org.tasks.api.ApiQueryEngine
+import org.tasks.api.ApiTaskFactory
+import org.tasks.api.ApiWriter
+import org.tasks.api.DatabaseApiTaskFactory
+import org.tasks.api.ListManager
+import org.tasks.api.LocalListManager
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.caldav.VtodoCache
+import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
@@ -97,4 +104,37 @@ actual fun platformModule(): Module = module {
         }
     }
     factory<TaskCleanup> { object : TaskCleanup {} }
+    single { get<Database>().apiDao() }
+    single { ApiQueryEngine(get()) }
+    single<ApiTaskFactory> {
+        DatabaseApiTaskFactory(
+            taskDao = get(),
+            caldavDao = get(),
+            taskCreator = TaskCreator(),
+            taskSaver = get(),
+            defaultListProvider = get(),
+            appPreferences = get(),
+        )
+    }
+    single<ListManager> { LocalListManager(caldavDao = get(), taskDeleter = get()) }
+    single {
+        ApiWriter(
+            apiDao = get(),
+            taskDao = get(),
+            caldavDao = get(),
+            tagDao = get(),
+            tagDataDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            taskFactory = get(),
+            taskSaver = get(),
+            taskCompleter = get(),
+            taskMover = get(),
+            taskDeleter = get(),
+            alarmService = get(),
+            locationService = get(),
+            listManager = get(),
+            tagMetadataEditor = get(),
+        )
+    }
 }

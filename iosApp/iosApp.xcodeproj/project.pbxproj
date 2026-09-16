@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		5C1E2D3F4A5B6C7D8E9F0A1B /* AppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E2D3F4A5B6C7D8E9F0A1A /* AppIntents.swift */; };
+		5C1E2D3F4A5B6C7D8E9F0A1D /* Recurrence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E2D3F4A5B6C7D8E9F0A1C /* Recurrence.swift */; };
 		6A3F2C1C8D4E5F6071829305 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A3F2C1B8D4E5F6071829304 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -16,6 +18,8 @@
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5C1E2D3F4A5B6C7D8E9F0A1A /* AppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntents.swift; sourceTree = "<group>"; };
+		5C1E2D3F4A5B6C7D8E9F0A1C /* Recurrence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recurrence.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A3F2C1B8D4E5F6071829304 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 			children = (
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				7555FF82242A565900829871 /* ContentView.swift */,
+				5C1E2D3F4A5B6C7D8E9F0A1A /* AppIntents.swift */,
+				5C1E2D3F4A5B6C7D8E9F0A1C /* Recurrence.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				6A3F2C1B8D4E5F6071829304 /* Assets.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -183,6 +189,8 @@
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				5C1E2D3F4A5B6C7D8E9F0A1B /* AppIntents.swift in Sources */,
+				5C1E2D3F4A5B6C7D8E9F0A1D /* Recurrence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

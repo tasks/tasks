@@ -1,6 +1,5 @@
-package org.tasks.mcp
+package org.tasks.api
 
-import org.tasks.api.ApiTaskFactory
 import org.tasks.data.TaskCreator
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
@@ -11,7 +10,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.preferences.AppPreferences
 
-class DesktopApiTaskFactory(
+class DatabaseApiTaskFactory(
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
     private val taskCreator: TaskCreator,

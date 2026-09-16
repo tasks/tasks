@@ -22,7 +22,7 @@ import platform.UIKit.UIApplication
 
 private var started = false
 
-private fun ensureStarted() {
+internal fun ensureStarted() {
     if (started) return
     started = true
     startKoin {

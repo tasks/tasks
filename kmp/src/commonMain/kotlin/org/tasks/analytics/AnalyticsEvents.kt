@@ -9,6 +9,7 @@ object AnalyticsEvents {
 
     const val MCP_TOOL_USED = "mcp_tool_used"
     const val APP_FUNCTION_CALL = "app_function_call"
+    const val APP_INTENT_CALL = "app_intent_call"
 
     const val PARAM_PACKAGE = "package"
     const val PARAM_COLLECTION = "collection"

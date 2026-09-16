@@ -66,9 +66,9 @@ import org.tasks.api.ApiListManager
 import org.tasks.api.ApiQueryEngine
 import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
+import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.mcp.DatabaseTasksApi
-import org.tasks.mcp.DesktopApiTaskFactory
 import org.tasks.mcp.DesktopMcpServerController
 import org.tasks.mcp.McpServerController
 import org.tasks.security.KeyStoreEncryption
@@ -254,7 +254,7 @@ actual fun platformModule(): Module = module {
     single { get<Database>().apiDao() }
     single { ApiQueryEngine(get()) }
     single<ApiTaskFactory> {
-        DesktopApiTaskFactory(
+        DatabaseApiTaskFactory(
             taskDao = get(),
             caldavDao = get(),
             taskCreator = TaskCreator(),
