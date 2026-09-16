@@ -212,9 +212,22 @@ kotlin.sourceSets.named("iosMain") {
     kotlin.srcDir(generateIosBuildConfig)
 }
 
+val libicalZoneinfo by tasks.registering(Sync::class) {
+    dependsOn(buildLibical)
+    from(libicalDir.map { it.dir("src/zoneinfo") }) {
+        include("**/*.ics")
+        into("files/zoneinfo")
+    }
+    into(layout.buildDirectory.dir("generated/zoneinfo"))
+}
+
 compose.resources {
     publicResClass = true
     generateResClass = always
+    customDirectory(
+        sourceSetName = "iosMain",
+        directoryProvider = libicalZoneinfo.map { layout.buildDirectory.dir("generated/zoneinfo").get() },
+    )
 }
 
 android {
