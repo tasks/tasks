@@ -53,6 +53,8 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Place
 import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.extensions.guarded
+import org.tasks.fcm.FcmTokenProvider
+import org.tasks.fcm.PushTokenManager
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.FilterProvider
@@ -528,6 +530,16 @@ val coreModule: Module = module {
     }
     singleOf(::TasksServerEnvironment)
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
+    single {
+        PushTokenManager(
+            tokenProvider = getOrNull() ?: object : FcmTokenProvider {
+                override suspend fun getToken(): String? = null
+            },
+            caldavDao = get(),
+            tasksClientProvider = get(),
+            scope = get(),
+        )
+    }
     factoryOf(::TaskMigrator)
     factoryOf(::iCalendar)
     factoryOf(::CaldavSynchronizer)

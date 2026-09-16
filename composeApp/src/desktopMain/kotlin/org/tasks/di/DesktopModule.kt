@@ -47,7 +47,6 @@ import org.tasks.data.db.Database
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
-import org.tasks.fcm.PushTokenManager
 import org.tasks.http.DesktopOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.toKtor
@@ -429,14 +428,6 @@ actual fun platformModule(): Module = module {
         )
     }
     single { SseTokenProvider() } bind FcmTokenProvider::class
-    single {
-        PushTokenManager(
-            tokenProvider = get(),
-            caldavDao = get(),
-            tasksClientProvider = get(),
-            scope = get(),
-        )
-    }
     single {
         SseClient(
             scope = get(),

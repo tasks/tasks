@@ -1,7 +1,5 @@
 package org.tasks.di
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import org.tasks.AppStore
@@ -12,7 +10,6 @@ import org.tasks.billing.GooglePlayQrScanner
 import org.tasks.billing.QrScanner
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.GooglePlayFcmTokenProvider
-import org.tasks.fcm.PushTokenManager
 
 val flavorModule = module {
     single {
@@ -29,14 +26,6 @@ val flavorModule = module {
         )
     }
     single<FcmTokenProvider> { GooglePlayFcmTokenProvider() }
-    single {
-        PushTokenManager(
-            tokenProvider = get(),
-            caldavDao = get(),
-            tasksClientProvider = get(),
-            scope = kotlinx.coroutines.CoroutineScope(SupervisorJob() + Dispatchers.IO),
-        )
-    }
     single<QrScanner> { GooglePlayQrScanner(androidContext()) }
     single<DesktopLinkService> {
         DesktopLinkServiceImpl(
