@@ -10,6 +10,12 @@
         "/^org.jetbrains.kotlin/",
         "/^com.google.devtools.ksp/"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "androidx.sqlite:sqlite-bundled-jvm"
+      ],
+      "enabled": false
     }
   ]
 }

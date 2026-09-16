@@ -1,6 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import javax.inject.Inject
 
 version = libs.versions.versionName.get()
 
@@ -188,6 +189,50 @@ compose.desktop {
             )
         }
     }
+}
+
+// sqlite-bundled 2.7.0+ dropped support for macOS x86_64
+val sqliteMacosX64Natives: Configuration by configurations.creating {
+    isTransitive = false
+}
+
+dependencies {
+    sqliteMacosX64Natives("androidx.sqlite:sqlite-bundled-jvm:2.6.2")
+}
+
+abstract class ExtractSqliteMacosX64Natives : DefaultTask() {
+    @get:InputFiles
+    abstract val jar: ConfigurableFileCollection
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @get:Inject
+    abstract val archives: ArchiveOperations
+
+    @get:Inject
+    abstract val fs: FileSystemOperations
+
+    @TaskAction
+    fun extract() {
+        val lib = "natives/osx_x64/libsqliteJni.dylib"
+        fs.sync {
+            from(archives.zipTree(jar.singleFile)) { include(lib) }
+            into(outputDir)
+        }
+        check(outputDir.file(lib).get().asFile.isFile) {
+            "${jar.singleFile.name} does not contain $lib"
+        }
+    }
+}
+
+val extractSqliteMacosX64Natives by tasks.registering(ExtractSqliteMacosX64Natives::class) {
+    jar.from(sqliteMacosX64Natives)
+    outputDir.set(layout.buildDirectory.dir("generated/sqliteMacosX64Natives"))
+}
+
+kotlin.sourceSets.named("desktopMain") {
+    resources.srcDir(extractSqliteMacosX64Natives)
 }
 
 // Conveyor platform-specific Compose runtime dependencies
