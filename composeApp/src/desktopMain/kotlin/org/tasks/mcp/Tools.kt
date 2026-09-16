@@ -95,7 +95,7 @@ internal class ToolUsage(
 ) {
     suspend fun record() {
         analytics?.logEventOncePerDay(
-            event = AnalyticsEvents.MCP_TOOL_CALL,
+            event = AnalyticsEvents.MCP_TOOL_USED,
             AnalyticsEvents.PARAM_ACCESS to when (permissions.mode) {
                 AccessMode.ReadOnly -> "read_only"
                 AccessMode.ReadWrite -> "read_write"
