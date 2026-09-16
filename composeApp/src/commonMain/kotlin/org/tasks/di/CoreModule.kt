@@ -65,6 +65,7 @@ import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
+import androidx.datastore.preferences.core.Preferences
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
@@ -332,6 +333,10 @@ val coreModule: Module = module {
                 tasksPreferences.set(TasksPreferences.quietHoursStart, value)
             override suspend fun setQuietHoursEnd(value: Int) =
                 tasksPreferences.set(TasksPreferences.quietHoursEnd, value)
+            override suspend fun getBoolean(key: Preferences.Key<Boolean>, defaultValue: Boolean): Boolean =
+                tasksPreferences.get(key, defaultValue)
+            override suspend fun setBoolean(key: Preferences.Key<Boolean>, value: Boolean) =
+                tasksPreferences.set(key, value)
             // TODO: populate the remaining DatePickerPreferences fields
             override suspend fun datePickerPreferences() = DatePickerPreferences(
                 datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
