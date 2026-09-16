@@ -487,4 +487,19 @@
     <string name="mcp_tools_group_places">Місця</string>
     <string name="mcp_tools_group_reminders">Нагадування</string>
     <string name="mcp_copy">Копіювати</string>
+    <string name="show_completed_subtasks">Показати виконані підзавдання</string>
+    <string name="wear_phone_update_required">Оновлення телефона обов\'язкове</string>
+    <string name="wear_connecting_to_phone">Під\'єднання до телефона…</string>
+    <string name="edit_task">Змінити завдання</string>
+    <string name="task_title">Загаловок завдання</string>
+    <string name="no_list_available">Немає доступних списків</string>
+    <string name="failed_to_save_task">Не вдалося зберегти завдання</string>
+    <string name="failed_to_load_task">Не вдалося завантажити завдання</string>
+    <string name="enter_title">Ввести заголовок</string>
+    <string name="group_mode">Група</string>
+    <string name="sort_alphabetical">За абеткою</string>
+    <string name="sort_created">Створено</string>
+    <string name="sort_modified">Змінено</string>
+    <string name="all_done">Усе виконано!</string>
+    <string name="add_platform_account">Додати обліковий запис %1$s</string>
 </resources>
