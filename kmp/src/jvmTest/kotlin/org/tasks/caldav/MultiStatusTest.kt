@@ -7,17 +7,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.io.StringReader
 
 class MultiStatusTest {
     private fun members(vararg hrefs: String, location: String = "http://localhost:8080/dav/cal/") = runBlocking {
         val responses = hrefs.joinToString("") {
             "<d:response><d:href>$it</d:href><d:propstat><d:prop/><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response>"
         }
-        val parser = XmlUtils.newPullParser().apply {
-            setInput(StringReader("""<d:multistatus xmlns:d="DAV:">$responses</d:multistatus>"""))
-            nextTag()
-        }
+        val parser = XmlUtils.newReader("""<d:multistatus xmlns:d="DAV:">$responses</d:multistatus>""").apply { nextTag() }
         flow { MultiStatusParser(Url(location)).parseResponse(parser, this) }.members().map { it.href.toString() }
     }
 

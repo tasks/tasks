@@ -4,8 +4,9 @@ import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyFactory
 import at.bitfire.dav4jvm.XmlUtils.propertyName
 import at.bitfire.dav4jvm.property.webdav.WebDAV
+import nl.adaptivity.xmlutil.EventType
+import nl.adaptivity.xmlutil.XmlReader
 import org.tasks.TasksBuildConfig
-import org.xmlpull.v1.XmlPullParser
 
 data class Invite(val sharees: List<Sharee>): Property {
 
@@ -21,12 +22,12 @@ data class Invite(val sharees: List<Sharee>): Property {
 
         override fun getName() = NAME
 
-        override fun create(parser: XmlPullParser): Invite {
+        override fun create(parser: XmlReader): Invite {
             val depth = parser.depth
             var eventType = parser.eventType
             val sharees = ArrayList<Sharee>()
-            while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
-                if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
+            while (eventType != EventType.END_DOCUMENT && !(eventType == EventType.END_ELEMENT && parser.depth == depth)) {
+                if (eventType == EventType.START_ELEMENT && parser.depth == depth + 1) {
                     if (parser.propertyName() == SHAREE) {
                         sharees.add(Sharee(parser))
                     }

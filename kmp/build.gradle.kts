@@ -105,10 +105,7 @@ kotlin {
         }
         jvmCommonMain.dependencies {
             api(libs.ical4j)
-            api(libs.bitfire.dav4jvm.get().toString()) {
-                exclude(group = "junit")
-                exclude(group = "org.ogce", module = "xpp3")
-            }
+            api(libs.dav4kmp)
             api(libs.google.api.tasks)
             api(libs.okhttp)
             implementation(libs.ktor.client.auth)

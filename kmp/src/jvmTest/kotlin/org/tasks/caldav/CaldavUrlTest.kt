@@ -7,7 +7,6 @@ import io.ktor.http.Url
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import java.io.StringReader
 
 class CaldavUrlTest {
     @Test
@@ -81,19 +80,14 @@ class CaldavUrlTest {
     @Test
     fun `matches what dav4jvm produces for a multistatus href`() {
         val location = Url("https://Example.com/dav/calendars/user/foo%40example.com/")
-        val parser = XmlUtils.newPullParser().apply {
-            setInput(
-                StringReader(
-                    """
-                    <d:response xmlns:d="DAV:">
-                        <d:href>/dav/calendars/user/foo%40example.com/abc/</d:href>
-                        <d:propstat><d:prop/><d:status>HTTP/1.1 200 OK</d:status></d:propstat>
-                    </d:response>
-                    """.trimIndent()
-                )
-            )
-            nextTag()
-        }
+        val parser = XmlUtils.newReader(
+            """
+            <d:response xmlns:d="DAV:">
+                <d:href>/dav/calendars/user/foo%40example.com/abc/</d:href>
+                <d:propstat><d:prop/><d:status>HTTP/1.1 200 OK</d:status></d:propstat>
+            </d:response>
+            """.trimIndent()
+        ).apply { nextTag() }
         val href = ResponseParser(location.canonical()).parseResponse(parser)!!.response.href
 
         assertEquals(href.toString(), location.resolve("abc/")!!.canonical().toString())

@@ -66,6 +66,7 @@ import org.xmlpull.v1.XmlSerializer
 import java.io.Closeable
 import java.io.IOException
 import java.io.StringWriter
+import kotlin.reflect.KClass
 
 open class CaldavClient(
         val httpClient: HttpClient,
@@ -79,7 +80,7 @@ open class CaldavClient(
     private suspend fun <T : Property> propfindProperty(
         url: Url,
         name: Property.Name,
-        type: Class<T>,
+        type: KClass<T>,
     ): T? = withContext(Dispatchers.IO) {
         DavResource(httpClient, url)
             .propfind(0, name)
@@ -89,7 +90,7 @@ open class CaldavClient(
     }
 
     private suspend fun currentUserPrincipalHref(url: Url): String? =
-            propfindProperty(url, WebDAV.CurrentUserPrincipal, CurrentUserPrincipal::class.java)
+            propfindProperty(url, WebDAV.CurrentUserPrincipal, CurrentUserPrincipal::class)
                     ?.href
                     ?.takeIf { it.isNotBlank() }
 
@@ -103,7 +104,7 @@ open class CaldavClient(
                 .propfind(0, CalDAV.CalendarHomeSet)
                 .responses()
                 .firstOrNull()
-                ?.let { it[CalendarHomeSet::class.java] }
+                ?.let { it[CalendarHomeSet::class] }
                 ?.hrefs?.firstOrNull()
                 ?.takeIf { it.isNotBlank() }
                 ?.let { davResource.location.resolve(it)?.canonical()?.toString() }
@@ -147,8 +148,8 @@ open class CaldavClient(
                 .propfind(1, *calendarProperties)
                 .members()
                 .filter { response ->
-                    response[ResourceType::class.java]?.types?.contains(CalDAV.Calendar) == true &&
-                            response[SupportedCalendarComponentSet::class.java]?.supportsTasks == true
+                    response[ResourceType::class]?.types?.contains(CalDAV.Calendar) == true &&
+                            response[SupportedCalendarComponentSet::class]?.supportsTasks == true
                 }
         } finally {
             subscription.dispose()
@@ -157,11 +158,11 @@ open class CaldavClient(
 
     @Throws(IOException::class, HttpException::class)
     suspend fun tagMetadata(url: Url): String? =
-        propfindProperty(url, TagMetadata.NAME, TagMetadata::class.java)?.json?.takeIf { it.isNotBlank() }
+        propfindProperty(url, TagMetadata.NAME, TagMetadata::class)?.json?.takeIf { it.isNotBlank() }
 
     @Throws(IOException::class, HttpException::class)
     suspend fun tagMetadataVersion(url: Url): String? =
-        propfindProperty(url, TagMetadataVersion.NAME, TagMetadataVersion::class.java)
+        propfindProperty(url, TagMetadataVersion.NAME, TagMetadataVersion::class)
             ?.version
             ?.takeIf { it.isNotBlank() }
 
@@ -180,8 +181,8 @@ open class CaldavClient(
             .responses()
             .firstOrNull()
             ?.let { response ->
-                val payload = response[MetadataProbe::class.java]?.json?.takeIf { it.isNotBlank() }
-                val version = response[MetadataProbeVersion::class.java]?.version?.takeIf { it.isNotBlank() }
+                val payload = response[MetadataProbe::class]?.json?.takeIf { it.isNotBlank() }
+                val version = response[MetadataProbeVersion::class]?.version?.takeIf { it.isNotBlank() }
                 payload to version
             }
             ?: (null to null)

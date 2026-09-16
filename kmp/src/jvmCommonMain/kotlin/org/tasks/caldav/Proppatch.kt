@@ -7,19 +7,17 @@ import at.bitfire.dav4jvm.ktor.PropStatParser
 import at.bitfire.dav4jvm.property.webdav.WebDAV
 import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
 import io.ktor.http.isSuccess
-import org.xmlpull.v1.XmlPullParser
+import nl.adaptivity.xmlutil.EventType
 import org.xmlpull.v1.XmlPullParserFactory
-import java.io.StringReader
 import java.io.StringWriter
 
 internal fun propstatFailureCode(body: String?): Int? {
     if (body.isNullOrBlank()) return null
     return try {
-        val parser = XmlUtils.newPullParser()
-        parser.setInput(StringReader(body))
+        val parser = XmlUtils.newReader(body)
         var event = parser.eventType
-        while (event != XmlPullParser.END_DOCUMENT) {
-            if (event == XmlPullParser.START_TAG && parser.propertyName() == WebDAV.PropStat) {
+        while (event != EventType.END_DOCUMENT) {
+            if (event == EventType.START_ELEMENT && parser.propertyName() == WebDAV.PropStat) {
                 val propStat = PropStatParser.parse(parser)
                 if (!propStat.status.isSuccess()) return propStat.status.value
             }

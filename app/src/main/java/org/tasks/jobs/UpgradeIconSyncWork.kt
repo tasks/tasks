@@ -37,7 +37,7 @@ class UpgradeIconSyncWork @AssistedInject constructor(
                                 Timber.d("No icon set for $url")
                                 return@forEach
                             }
-                        val icon = remote[CalendarIcon::class.java]?.icon
+                        val icon = remote[CalendarIcon::class]?.icon
                         if (icon?.isNotBlank() == true) {
                             Timber.d("Remote icon already set for $url")
                             return@forEach

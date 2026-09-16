@@ -188,18 +188,18 @@ class CaldavSynchronizer(
         for (resource in resources) {
             val url = resource.href.toString()
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
-            val remoteName = resource[DisplayName::class.java]!!.displayName
-            val color = resource[CalendarColor::class.java]?.color ?: 0
+            val remoteName = resource[DisplayName::class]!!.displayName
+            val color = resource[CalendarColor::class]?.color ?: 0
             val rawAccess = resource.accessLevel
             val guestOwned = isGuest && rawAccess == ACCESS_OWNER
             val access = if (guestOwned) ACCESS_READ_ONLY else rawAccess
-            val icon = resource[CalendarIcon::class.java]?.icon?.takeIf { it.isNotBlank() }
+            val icon = resource[CalendarIcon::class]?.icon?.takeIf { it.isNotBlank() }
 
             if (rawAccess == ACCESS_UNKNOWN) {
                 reporting.logEvent(
                     SYNC_UNKNOWN_ACCESS,
                     PARAM_TYPE to
-                            (resource[ShareAccess::class.java]?.access?.toString() ?: "???")
+                            (resource[ShareAccess::class]?.access?.toString() ?: "???")
                 )
             }
             if (calendar == null) {
@@ -296,7 +296,7 @@ class CaldavSynchronizer(
         val davCalendar = DavCalendar(httpClient, httpUrl)
         val members = davCalendar.calendarQuery("VTODO", null, null).members()
         val changed = members.filter { vCard: Response ->
-            val eTag = vCard[GetETag::class.java]?.eTag
+            val eTag = vCard[GetETag::class]?.eTag
             if (eTag.isNullOrBlank()) {
                 return@filter false
             }
@@ -307,12 +307,12 @@ class CaldavSynchronizer(
             val responses = davCalendar.multiget(urls).members()
             Logger.d(TAG) { "MULTI $urls" }
             for (vCard in responses) {
-                val eTag = vCard[GetETag::class.java]?.eTag
+                val eTag = vCard[GetETag::class]?.eTag
                 val url = vCard.href
                 if (eTag.isNullOrBlank()) {
                     throw DavException("Received CalDAV GET response without ETag for $url")
                 }
-                val vtodo = vCard[CalendarData::class.java]?.iCalendar
+                val vtodo = vCard[CalendarData::class]?.iCalendar
                 if (vtodo.isNullOrBlank()) {
                     throw DavException("Received CalDAV GET response without CalendarData for $url")
                 }
@@ -445,7 +445,7 @@ class CaldavSynchronizer(
         list: CaldavCalendar
     ): List<PrincipalAccess> {
         val access = ArrayList<PrincipalAccess>()
-        this[Invite::class.java]
+        this[Invite::class]
             ?.sharees
             ?.filter { it.href?.let { href -> !isCurrentUser(href) } ?: false }
             ?.map {
@@ -464,7 +464,7 @@ class CaldavSynchronizer(
                 )
             }
             ?.let { access.addAll(it) }
-        this[OCInvite::class.java]?.users
+        this[OCInvite::class]?.users
             ?.map {
                 val principal = principalDao.getOrCreatePrincipal(account, it.href)
                 principalDao.getOrCreateAccess(
@@ -476,7 +476,7 @@ class CaldavSynchronizer(
             }
             ?.let {
                 if (!isOwncloudOwner) {
-                    this@principals[OCOwnerPrincipal::class.java]?.owner?.let { href ->
+                    this@principals[OCOwnerPrincipal::class]?.owner?.let { href ->
                         val principal = principalDao.getOrCreatePrincipal(account, href)
                         access.add(principalDao.getOrCreateAccess(
                             list,
@@ -512,14 +512,14 @@ class CaldavSynchronizer(
         }
 
         val Response.ctag: String?
-            get() = this[SyncToken::class.java]?.token ?: this[GetCTag::class.java]?.cTag
+            get() = this[SyncToken::class]?.token ?: this[GetCTag::class]?.cTag
 
         private fun Url.child(segment: String): Url =
             URLBuilder(this).appendPathSegments(segment, encodeSlash = true).build()
 
         val Response.accessLevel: Int
             get() {
-                this[ShareAccess::class.java]?.access?.let {
+                this[ShareAccess::class]?.access?.let {
                     return when (it) {
                         NOT_SHARED, SHARED_OWNER -> ACCESS_OWNER
                         READ_WRITE -> ACCESS_READ_WRITE
@@ -530,17 +530,17 @@ class CaldavSynchronizer(
                 if (isOwncloudOwner) {
                     return ACCESS_OWNER
                 }
-                return when (this[CurrentUserPrivilegeSet::class.java]?.mayWriteContent) {
+                return when (this[CurrentUserPrivilegeSet::class]?.mayWriteContent) {
                     false -> ACCESS_READ_ONLY
                     else -> ACCESS_READ_WRITE
                 }
         }
 
         private val Response.isOwncloudOwner: Boolean
-            get() = this[OCOwnerPrincipal::class.java]?.owner?.let { isCurrentUser(it) } ?: false
+            get() = this[OCOwnerPrincipal::class]?.owner?.let { isCurrentUser(it) } ?: false
 
         private fun Response.isCurrentUser(href: String) =
-            this[CurrentUserPrincipal::class.java]?.href?.endsWith("$href/") == true
+            this[CurrentUserPrincipal::class]?.href?.endsWith("$href/") == true
 
         private val Property.Name.toAccess: Int
             get() = when (this) {

@@ -41,7 +41,6 @@ dependencyResolutionManagement {
         maven {
             url = uri("https://jitpack.io")
             content {
-                includeModule("com.github.bitfireAT", "dav4jvm")
                 includeModule("com.github.franmontiel", "PersistentCookieJar")
                 includeModule("com.github.jheld", "colorpicker")
                 includeModule("com.github.tasks", "ical4android")
