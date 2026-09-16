@@ -420,4 +420,10 @@
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
     <string name="banner_subscription_required_title">Потрібна передплата</string>
     <string name="rmd_EPr_rmd_time_desc">Сповіщення про завдання на весь день з’являтимуться о %1$s</string>
+    <string name="import_failed">Не вдалося імпортувати</string>
+    <string name="import_failed_message">Не вдалося прочитати файл резервної копії</string>
+    <string name="write_permission_label">Змінити завдання</string>
+    <string name="sort_options">Сортувати опції</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="upgrade_desktop_app">Tasks.org для комп\'ютера</string>
 </resources>
