@@ -134,6 +134,18 @@ class SyncAdaptersDebounceTest {
     }
 
     @Test
+    fun quietRequestsStillSync() = runBlocking {
+        setupAccount()
+        val adapters = syncAdapters()
+        quiet()
+
+        adapters.sync(SyncSource.APP_RESUME)
+        awaitSync()
+
+        assertEquals(listOf(SyncSource.APP_RESUME), synced)
+    }
+
+    @Test
     fun directRequestDuringBurstKeepsItsPriority() = runBlocking {
         setupAccount()
         val adapters = syncAdapters()

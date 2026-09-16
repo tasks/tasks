@@ -56,7 +56,7 @@ class SyncAdapters(
         val requestedDirectly: Boolean = false,
     ) {
         fun upgrade(next: SyncSource) = PendingSync(
-            source = source.upgrade(next),
+            source = if (source == SyncSource.NONE) next else source.upgrade(next),
             requestedDirectly = requestedDirectly || next != SyncSource.TASK_CHANGE,
         )
     }
