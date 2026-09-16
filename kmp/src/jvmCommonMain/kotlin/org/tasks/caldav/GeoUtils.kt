@@ -15,25 +15,11 @@ object GeoUtils {
 
     fun Geo.longitudeLike() = longitude.toLikeString()
 
-    fun Double.toLikeString(): String = BigDecimal(toString()).toLikeString()
-
-    fun BigDecimal.toLikeString(): String {
-        val string = truncate()
-        return when {
-            !string.contains('.') -> "$string.0"
-            string.numDecimalPlaces() < PLACE_ACCURACY -> string
-            else -> "${string}%"
-        }
-    }
+    fun BigDecimal.toLikeString(): String = stripTrailingZeros().toPlainString().toLikeString()
 
     fun Geo.equalish(other: Geo?): Boolean =
             latitude.truncate() == other?.latitude?.truncate()
                     && longitude.truncate() == other.longitude?.truncate()
-
-    private fun String.numDecimalPlaces(): Int {
-        val index = indexOf(".")
-        return if (index < 0) 0 else length - index - 1
-    }
 
     private fun BigDecimal.truncate(): String {
         val string = stripTrailingZeros().toPlainString()

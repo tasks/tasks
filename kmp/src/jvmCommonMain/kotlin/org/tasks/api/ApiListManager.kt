@@ -25,10 +25,10 @@ class ApiListManager(
     private val etebaseClientProvider: EtebaseClientProvider,
     private val microsoftClientProvider: MicrosoftClientProvider,
     private val gtasksInvoker: suspend (CaldavAccount) -> GtasksInvoker,
-) {
+) : ListManager {
     private val remoteCalls = Semaphore(1)
 
-    suspend fun create(
+    override suspend fun create(
         account: CaldavAccount,
         title: String,
         color: Int,
@@ -82,7 +82,7 @@ class ApiListManager(
         caldavDao.getCalendarByUuid(calendar.uuid!!) ?: calendar
     }
 
-    suspend fun update(
+    override suspend fun update(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         title: String,
@@ -122,7 +122,7 @@ class ApiListManager(
         updated
     }
 
-    suspend fun delete(account: CaldavAccount, calendar: CaldavCalendar) = withContext(NonCancellable) {
+    override suspend fun delete(account: CaldavAccount, calendar: CaldavCalendar) = withContext(NonCancellable) {
         remote("delete") {
             when {
                 account.isLocalList -> Unit

@@ -195,7 +195,7 @@ abstract class ApiEngineTestCase {
                 microsoftClientProvider = mock(),
                 gtasksInvoker = { mock() },
             ),
-            tagMetadataSync = tagMetadataSync,
+            tagMetadataEditor = tagMetadataSync,
         )
     }
 

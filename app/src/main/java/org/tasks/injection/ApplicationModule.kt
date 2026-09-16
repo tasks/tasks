@@ -703,7 +703,7 @@ class ApplicationModule {
         alarmService = alarmService,
         locationService = locationService,
         listManager = listManager,
-        tagMetadataSync = tagMetadataSync,
+        tagMetadataEditor = tagMetadataSync,
     )
 
     @Provides

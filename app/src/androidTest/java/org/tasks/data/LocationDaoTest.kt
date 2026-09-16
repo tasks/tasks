@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
-import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.caldav.toLikeString
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Alarm

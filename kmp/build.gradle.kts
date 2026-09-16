@@ -85,7 +85,6 @@ kotlin {
             }
         }
         jvmCommonMain.dependencies {
-            implementation(libs.androidx.sqlite)
             api(libs.ical4j)
             api(libs.bitfire.dav4jvm.get().toString()) {
                 exclude(group = "junit")
@@ -104,6 +103,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.cert4android)
             implementation(projects.data)
+            implementation(libs.androidx.sqlite)
             api(libs.okio)
             api(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)

@@ -8,8 +8,8 @@ import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
-import org.tasks.caldav.GeoUtils.toLikeString
-import org.tasks.caldav.metadata.TagMetadataSync
+import org.tasks.caldav.metadata.TagMetadataEditor
+import org.tasks.caldav.toLikeString
 import org.tasks.compose.pickers.startDateFollowingDue
 import org.tasks.data.TaskSaver
 import org.tasks.data.applicableTo
@@ -57,8 +57,8 @@ class ApiWriter(
     private val taskDeleter: TaskDeleter,
     private val alarmService: AlarmService,
     private val locationService: LocationService,
-    private val listManager: ApiListManager,
-    private val tagMetadataSync: TagMetadataSync,
+    private val listManager: ListManager,
+    private val tagMetadataEditor: TagMetadataEditor,
 ) {
     data class Insertion(val id: Long, val created: Boolean)
 
@@ -605,7 +605,7 @@ class ApiWriter(
 
     suspend fun deleteTag(id: Long): Int {
         val tag = apiDao.getTag(id) ?: return 0
-        tagMetadataSync.deleteTag(tag)
+        tagMetadataEditor.deleteTag(tag)
         return 1
     }
 

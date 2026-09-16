@@ -3,6 +3,7 @@ package org.tasks.api
 import org.tasks.api.TasksContract.Lists
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Tags
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 data class TaskUpdate(
     val id: Long,
@@ -92,7 +93,7 @@ suspend fun ApiQueryEngine.completeTasks(
     val unique = ids.distinct()
     requireBatch(unique.size)
     val at = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to completedAt).instant(TasksContract.Tasks.COMPLETED_AT)
-    val stamp = if (completed) at?.takeIf { it > 0 } ?: System.currentTimeMillis() else 0L
+    val stamp = if (completed) at?.takeIf { it > 0 } ?: currentTimeMillis() else 0L
     val values = ApiValues.of(TasksContract.Tasks.COMPLETED_AT to stamp)
     val before = unique.associateWith { taskRow(it)?.recurrence }
     val related = (writer.descendantsOf(unique) + unique.flatMap { writer.ancestorsOf(it) })

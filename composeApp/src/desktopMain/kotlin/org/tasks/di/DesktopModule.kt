@@ -66,6 +66,7 @@ import org.tasks.api.ApiListManager
 import org.tasks.api.ApiQueryEngine
 import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
+import org.tasks.api.ListManager
 import org.tasks.mcp.DatabaseTasksApi
 import org.tasks.mcp.DesktopApiTaskFactory
 import org.tasks.mcp.DesktopMcpServerController
@@ -262,7 +263,7 @@ actual fun platformModule(): Module = module {
             appPreferences = get(),
         )
     }
-    single {
+    single<ListManager> {
         ApiListManager(
             caldavDao = get(),
             taskDeleter = get(),
@@ -299,7 +300,7 @@ actual fun platformModule(): Module = module {
             alarmService = get(),
             locationService = get(),
             listManager = get(),
-            tagMetadataSync = get(),
+            tagMetadataEditor = get(),
         )
     }
     single { DatabaseTasksApi(engine = get(), writer = get()) }

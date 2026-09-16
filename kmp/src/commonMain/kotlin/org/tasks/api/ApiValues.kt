@@ -1,8 +1,10 @@
 package org.tasks.api
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toInstant
 
 class ApiValues(private val values: Map<String, Any?>) {
 
@@ -54,12 +56,12 @@ internal fun ApiValues.date(key: String): ApiDate? {
 internal fun parseDate(key: String, text: String): ApiDate {
     if (text.isEmpty()) return ApiDate(0L, null)
     text.toLongOrNull()?.let { return ApiDate(it, null) }
-    val zone = ZoneId.systemDefault()
+    val zone = TimeZone.currentSystemDefault()
     runCatching { LocalDate.parse(text) }.getOrNull()?.let {
-        return ApiDate(it.atStartOfDay(zone).toInstant().toEpochMilli(), true)
+        return ApiDate(it.atStartOfDayIn(zone).toEpochMilliseconds(), true)
     }
     runCatching { LocalDateTime.parse(text) }.getOrNull()?.let {
-        return ApiDate(it.atZone(zone).toInstant().toEpochMilli(), false)
+        return ApiDate(it.toInstant(zone).toEpochMilliseconds(), false)
     }
     throw IllegalArgumentException(
         "$key must be epoch milliseconds, a local date like 2026-09-12, or a local date and time " +

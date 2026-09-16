@@ -1,6 +1,8 @@
 package org.tasks.api
 
-import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.TimeMark
+import kotlin.time.TimeSource
 
 data class TaskRow(
     val id: Long,
@@ -190,17 +192,21 @@ fun describeOffset(offsetMs: Long, type: String): String {
     return "${describeSpan(kotlin.math.abs(offsetMs))} $direction $anchor"
 }
 
+private const val MINUTE_MS = 60_000L
+private const val HOUR_MS = 60 * MINUTE_MS
+private const val DAY_MS = 24 * HOUR_MS
+
 private fun describeSpan(abs: Long): String = when {
-    abs % TimeUnit.DAYS.toMillis(1) == 0L -> {
-        val d = TimeUnit.MILLISECONDS.toDays(abs)
+    abs % DAY_MS == 0L -> {
+        val d = abs / DAY_MS
         "$d day${if (d == 1L) "" else "s"}"
     }
-    abs % TimeUnit.HOURS.toMillis(1) == 0L -> {
-        val h = TimeUnit.MILLISECONDS.toHours(abs)
+    abs % HOUR_MS == 0L -> {
+        val h = abs / HOUR_MS
         "$h hour${if (h == 1L) "" else "s"}"
     }
     else -> {
-        val m = TimeUnit.MILLISECONDS.toMinutes(abs)
+        val m = abs / MINUTE_MS
         "$m minute${if (m == 1L) "" else "s"}"
     }
 }
@@ -229,27 +235,30 @@ fun Regex.matchesAny(task: TaskRow, fields: Set<TaskText>, deadline: Deadline = 
     }
 }
 
-class Deadline(private val expiresAt: Long) {
+class Deadline private constructor(private val expiresAt: TimeMark?) {
     private var calls = 0
 
-    fun watch(text: CharSequence): CharSequence = if (expiresAt == Long.MAX_VALUE) text else Watched(text)
+    fun watch(text: CharSequence): CharSequence = expiresAt?.let { Watched(text, it) } ?: text
 
-    private inner class Watched(private val text: CharSequence) : CharSequence by text {
+    private inner class Watched(
+        private val text: CharSequence,
+        private val expiresAt: TimeMark,
+    ) : CharSequence by text {
         override fun get(index: Int): Char {
-            if (++calls and 0x3FF == 0 && System.nanoTime() > expiresAt) throw Expired()
+            if (++calls and 0x3FF == 0 && expiresAt.hasPassedNow()) throw Expired()
             return text[index]
         }
 
         override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
-            Watched(text.subSequence(startIndex, endIndex))
+            Watched(text.subSequence(startIndex, endIndex), expiresAt)
     }
 
     class Expired : RuntimeException()
 
     companion object {
-        fun none() = Deadline(Long.MAX_VALUE)
+        fun none() = Deadline(null)
 
-        fun after(millis: Long) = Deadline(System.nanoTime() + millis * 1_000_000)
+        fun after(millis: Long) = Deadline(TimeSource.Monotonic.markNow() + millis.milliseconds)
     }
 }
 
