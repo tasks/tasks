@@ -25,7 +25,9 @@ dependencyResolutionManagement {
             val version = java.util.Properties().apply {
                 providers.fileContents(layout.rootDirectory.file("version.properties")).asText.get().reader().use(::load)
             }
-            version("versionCode", version.getProperty("VERSION_CODE"))
+            val versionCode = version.getProperty("VERSION_CODE")
+            require(versionCode.toInt() % 2 == 0) { "VERSION_CODE must be even, wear uses VERSION_CODE + 1" }
+            version("versionCode", versionCode)
             version("versionName", version.getProperty("VERSION_NAME"))
         }
     }
