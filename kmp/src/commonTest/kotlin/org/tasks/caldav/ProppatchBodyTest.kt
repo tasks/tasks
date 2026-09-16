@@ -1,10 +1,10 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+import kotlin.test.Test
 
 class ProppatchBodyTest {
     private val ns = "http://org.tasks/ns/"
@@ -21,9 +21,9 @@ class ProppatchBodyTest {
             remove = emptyList(),
         )
 
-        assertEquals("exactly one <prop> open tag", 1, Regex("<[^/][^>]*:prop>").findAll(body).count())
-        assertTrue("prop-a present", body.contains("prop-a>"))
-        assertTrue("prop-b present", body.contains("prop-b>"))
+        assertEquals(1, Regex("<[^/][^>]*:prop>").findAll(body).count(), "exactly one <prop> open tag")
+        assertTrue(body.contains("prop-a>"), "prop-a present")
+        assertTrue(body.contains("prop-b>"), "prop-b present")
     }
 
     @Test
@@ -33,8 +33,8 @@ class ProppatchBodyTest {
             remove = emptyList(),
         )
 
-        assertTrue("ampersand escaped", body.contains("&amp;"))
-        assertTrue("lt escaped", body.contains("&lt;"))
+        assertTrue(body.contains("&amp;"), "ampersand escaped")
+        assertTrue(body.contains("&lt;"), "lt escaped")
     }
 
     private val multistatus = { status: String ->

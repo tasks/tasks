@@ -1,6 +1,9 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
+import at.bitfire.dav4jvm.PropertyRegistry
+import at.bitfire.dav4jvm.XmlUtils
+import at.bitfire.dav4jvm.XmlUtils.insertTag
 import at.bitfire.dav4jvm.ktor.DavCollection
 import at.bitfire.dav4jvm.ktor.DavResource
 import at.bitfire.dav4jvm.ktor.DavResource.Companion.MIME_XML_UTF8
@@ -37,8 +40,10 @@ import io.ktor.http.content.TextContent
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
+import kotlinx.io.IOException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav_home_set_not_found
 import org.tasks.caldav.property.CalendarIcon
@@ -60,18 +65,12 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.http.translateExceptions
 import org.tasks.ui.DisplayableException
-import org.xmlpull.v1.XmlPullParserException
-import org.xmlpull.v1.XmlPullParserFactory
-import org.xmlpull.v1.XmlSerializer
-import java.io.Closeable
-import java.io.IOException
-import java.io.StringWriter
 import kotlin.reflect.KClass
 
 open class CaldavClient(
         val httpClient: HttpClient,
         private val httpUrl: Url?
-) : Closeable, CaldavCollectionClient, CaldavDiscoveryClient {
+) : AutoCloseable, CaldavCollectionClient, CaldavDiscoveryClient {
     override fun close() = httpClient.close()
 
     private suspend fun tryFindPrincipal(link: String): String? =
@@ -110,8 +109,6 @@ open class CaldavClient(
                 ?.let { davResource.location.resolve(it)?.canonical()?.toString() }
                 ?: throw DisplayableException(Res.string.caldav_home_set_not_found)
     }
-
-    @Throws(IOException::class, DavException::class)
     override suspend fun homeSet(): String = translateExceptions {
         withContext(Dispatchers.IO) {
             var unauthorized: HttpException? = null
@@ -155,26 +152,16 @@ open class CaldavClient(
             subscription.dispose()
         }
     }
-
-    @Throws(IOException::class, HttpException::class)
     suspend fun tagMetadata(url: Url): String? =
         propfindProperty(url, TagMetadata.NAME, TagMetadata::class)?.json?.takeIf { it.isNotBlank() }
-
-    @Throws(IOException::class, HttpException::class)
     suspend fun tagMetadataVersion(url: Url): String? =
         propfindProperty(url, TagMetadataVersion.NAME, TagMetadataVersion::class)
             ?.version
             ?.takeIf { it.isNotBlank() }
-
-    @Throws(IOException::class)
     suspend fun pushTagMetadata(url: Url, json: String, version: String): Boolean =
         pushProperty(url, TagMetadata.NAME, TagMetadataVersion.NAME, json, version)
-
-    @Throws(IOException::class)
     suspend fun pushMetadataProbe(url: Url, json: String, version: String): Boolean =
         pushProperty(url, MetadataProbe.NAME, MetadataProbeVersion.NAME, json, version)
-
-    @Throws(IOException::class, HttpException::class)
     suspend fun metadataProbeWithVersion(url: Url): Pair<String?, String?> = withContext(Dispatchers.IO) {
         DavResource(httpClient, url)
             .propfind(0, MetadataProbe.NAME, MetadataProbeVersion.NAME)
@@ -187,8 +174,6 @@ open class CaldavClient(
             }
             ?: (null to null)
     }
-
-    @Throws(IOException::class)
     suspend fun removeMetadataProbe(url: Url): Boolean =
         proppatch(url, proppatchBody(set = emptyList(), remove = listOf(MetadataProbe.NAME, MetadataProbeVersion.NAME)))
 
@@ -234,37 +219,27 @@ open class CaldavClient(
             else -> throw IOException("metadata PROPPATCH failed: HTTP $code at $url")
         }
     }
-
-    @Throws(IOException::class)
     override suspend fun deleteCollection() = translateExceptions {
         withContext(Dispatchers.IO) {
             DavResource(httpClient, httpUrl!!).delete {}
         }
     }
-
-    @Throws(IOException::class, XmlPullParserException::class)
     override suspend fun makeCollection(displayName: String, color: Int, icon: String?): String = translateExceptions {
         withContext(Dispatchers.IO) {
             val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
-            val mkcolString = getMkcolString(displayName, color)
-            davResource.mkCol(mkcolString) {}
+            davResource.mkCol(mkcolBody(displayName, color)) {}
             if (icon?.isNotBlank() == true) {
                 davResource.proppatch(CalendarIcon.NAME, icon)
             }
             davResource.location.canonical().toString()
         }
     }
-
-    @Throws(IOException::class, XmlPullParserException::class)
     override suspend fun updateCollection(displayName: String, color: Int, icon: String?) = translateExceptions {
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, httpUrl!!)) {
                 proppatch(WebDAV.DisplayName, displayName)
                 if (color != 0) {
-                    proppatch(
-                        CalDAV.CalendarColor,
-                        String.format("#%06X", color and 0xFFFFFF)
-                    )
+                    proppatch(CalDAV.CalendarColor, color.toCalendarColor())
                 }
                 if (icon?.isNotBlank() == true) {
                     proppatch(CalendarIcon.NAME, icon)
@@ -272,8 +247,6 @@ open class CaldavClient(
             }
         }
     }
-
-    @Throws(IOException::class, XmlPullParserException::class, HttpException::class)
     suspend fun updateIcon(url: Url, icon: String?, onFailure: () -> Unit) =
         withContext(Dispatchers.IO) {
             with(DavResource(httpClient, url)) {
@@ -283,56 +256,27 @@ open class CaldavClient(
             }
         }
 
-    @Throws(IOException::class, XmlPullParserException::class)
-    private fun getMkcolString(displayName: String, color: Int): String {
-        val xmlPullParserFactory = XmlPullParserFactory.newInstance()
-        val xml = xmlPullParserFactory.newSerializer()
-        val stringWriter = StringWriter()
-        with(xml) {
-            setOutput(stringWriter)
-            startDocument("UTF-8", null)
-            setPrefix("", NS_WEBDAV)
-            setPrefix("CAL", NS_CALDAV)
-            startTag(NS_WEBDAV, "mkcol")
-            startTag(NS_WEBDAV, "set")
-            startTag(NS_WEBDAV, "prop")
-            startTag(NS_WEBDAV, "resourcetype")
-            startTag(NS_WEBDAV, "collection")
-            endTag(NS_WEBDAV, "collection")
-            startTag(NS_CALDAV, "calendar")
-            endTag(NS_CALDAV, "calendar")
-            endTag(NS_WEBDAV, "resourcetype")
-            setDisplayName(xml, displayName)
-            if (color != 0) {
-                setColor(xml, color)
+    private fun mkcolBody(displayName: String, color: Int): String =
+        XmlUtils.buildDocument(
+            listOf("d" to NS_WEBDAV, "c" to NS_CALDAV, "a" to NS_APPLE_ICAL),
+            Property.Name(NS_WEBDAV, "mkcol"),
+        ) {
+            insertTag(WebDAV.Set) {
+                insertTag(WebDAV.Prop) {
+                    insertTag(WebDAV.ResourceType) {
+                        insertTag(WebDAV.Collection)
+                        insertTag(CalDAV.Calendar)
+                    }
+                    insertTag(WebDAV.DisplayName) { text(displayName) }
+                    if (color != 0) {
+                        insertTag(CalDAV.CalendarColor) { text(color.toCalendarColor()) }
+                    }
+                    insertTag(CalDAV.SupportedCalendarComponentSet) {
+                        insertTag(CalDAV.Comp) { attribute(null, "name", null, "VTODO") }
+                    }
+                }
             }
-            startTag(NS_CALDAV, "supported-calendar-component-set")
-            startTag(NS_CALDAV, "comp")
-            attribute(null, "name", "VTODO")
-            endTag(NS_CALDAV, "comp")
-            endTag(NS_CALDAV, "supported-calendar-component-set")
-            endTag(NS_WEBDAV, "prop")
-            endTag(NS_WEBDAV, "set")
-            endTag(NS_WEBDAV, "mkcol")
-            endDocument()
-            flush()
         }
-        return stringWriter.toString()
-    }
-
-    @Throws(IOException::class)
-    private fun setDisplayName(xml: XmlSerializer, name: String) {
-        xml.startTag(NS_WEBDAV, "displayname")
-        xml.text(name)
-        xml.endTag(NS_WEBDAV, "displayname")
-    }
-
-    @Throws(IOException::class)
-    private fun setColor(xml: XmlSerializer, color: Int) {
-        xml.startTag(NS_APPLE_ICAL, "calendar-color")
-        xml.text(String.format("#%06X", color and 0xFFFFFF))
-        xml.endTag(NS_APPLE_ICAL, "calendar-color")
-    }
 
     override suspend fun share(
         account: CaldavAccount,
@@ -418,6 +362,25 @@ open class CaldavClient(
 
     companion object {
         private val MEDIATYPE_SHARING = ContentType.parse("application/davsharing+xml")
+
+        fun registerFactories() {
+            PropertyRegistry.register(
+                listOf(
+                    ShareAccess.Factory(),
+                    Invite.Factory(),
+                    OCOwnerPrincipal.Factory(),
+                    OCInvite.Factory(),
+                    CalendarIcon.Factory,
+                    TagMetadata.Factory,
+                    TagMetadataVersion.Factory,
+                    MetadataProbe.Factory,
+                    MetadataProbeVersion.Factory,
+                )
+            )
+        }
+
+        private fun Int.toCalendarColor() =
+            "#" + (this and 0xFFFFFF).toString(16).uppercase().padStart(6, '0')
 
         private fun String.toXml() = TextContent(this, MIME_XML_UTF8)
 

@@ -60,6 +60,8 @@ import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
+import org.tasks.http.KtorClientFactory
+import org.tasks.http.OkHttpKtorClientFactory
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.RefreshScheduler
@@ -194,6 +196,7 @@ val commonModule = module {
             }
         }
     }
+    factory<KtorClientFactory> { OkHttpKtorClientFactory(get()) }
     factory<CaldavClientProvider> {
         CaldavClientProvider(
             encryption = get(),

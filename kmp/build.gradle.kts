@@ -82,11 +82,12 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)
         }
         val jvmTest by getting {
             dependencies {
                 implementation(libs.junit)
-                implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room3)
                 implementation(libs.androidx.sqlite)
@@ -97,7 +98,6 @@ kotlin {
             dependencies {
                 implementation(libs.junit)
                 implementation(libs.robolectric)
-                implementation(libs.kotlinx.coroutines.test)
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room3)
                 implementation(libs.androidx.sqlite)
@@ -105,10 +105,8 @@ kotlin {
         }
         jvmCommonMain.dependencies {
             api(libs.ical4j)
-            api(libs.dav4kmp)
             api(libs.google.api.tasks)
             api(libs.okhttp)
-            implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.okhttp)
             compileOnly(libs.xpp3)
             compileOnly(files("../libs/client-jvm-2.3.2.jar"))
@@ -121,7 +119,9 @@ kotlin {
             implementation(projects.data)
             implementation(libs.androidx.sqlite)
             api(libs.okio)
+            api(libs.dav4kmp)
             api(libs.ktor.client.core)
+            implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.content.negotiation)
             implementation(libs.ktor.serialization)

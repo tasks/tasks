@@ -1,6 +1,6 @@
 package org.tasks.caldav
 
-import java.io.IOException
+import kotlinx.io.IOException
 
 class PurchaseTokenInUseException(
     val existingAccount: String,

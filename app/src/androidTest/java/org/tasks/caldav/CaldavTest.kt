@@ -62,7 +62,7 @@ abstract class CaldavTest : InjectingTestCase() {
 
     companion object {
         init {
-            CaldavSynchronizer.registerFactories()
+            CaldavClient.registerFactories()
         }
     }
 }

@@ -39,7 +39,7 @@ class TasksApplication : Application() {
         Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
         Logger.setLogWriters(logcat, FileLogWriter(logDir))
         logStartup()
-        org.tasks.caldav.CaldavSynchronizer.registerFactories()
+        org.tasks.caldav.CaldavClient.registerFactories()
         startKoin {
             androidContext(this@TasksApplication)
             modules(commonModule, platformModule())

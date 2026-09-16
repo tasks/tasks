@@ -7,7 +7,6 @@ import nl.adaptivity.xmlutil.XmlReader
 
 data class OCOwnerPrincipal(val owner: String?): Property {
     companion object {
-        @JvmField
         val NAME = Property.Name(PropertyUtils.NS_OWNCLOUD, "owner-principal")
     }
 

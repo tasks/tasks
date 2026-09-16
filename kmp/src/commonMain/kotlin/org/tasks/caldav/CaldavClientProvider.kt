@@ -2,21 +2,20 @@ package org.tasks.caldav
 
 import at.bitfire.dav4jvm.ktor.PreemptiveBasicDigestAuthProvider
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.auth.Auth
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.fcm.FcmTokenProvider
-import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.KtorClientFactory
 import org.tasks.preferences.TasksPreferences
-import org.tasks.security.KeyStoreEncryption
-import java.util.concurrent.TimeUnit
+import org.tasks.security.Encryption
 
 class CaldavClientProvider(
-    private val encryption: KeyStoreEncryption,
+    private val encryption: Encryption,
     private val tasksPreferences: TasksPreferences,
     private val environment: TasksServerEnvironment,
-    private val httpClientFactory: OkHttpClientFactory,
+    private val httpClientFactory: KtorClientFactory,
     private val tokenProvider: FcmTokenProvider? = null,
     private val subscriptionProvider: () -> TasksBasicAuth.SubscriptionInfo? = { null },
 ) : CaldavClientFactory {
@@ -24,8 +23,8 @@ class CaldavClientProvider(
     private sealed interface CaldavAuth {
         val user: String
 
-        class Tasks(val interceptor: TasksBasicAuth) : CaldavAuth {
-            override val user get() = interceptor.user
+        class Tasks(val plugin: TasksBasicAuth) : CaldavAuth {
+            override val user get() = plugin.user
         }
 
         class BasicDigest(override val user: String, val password: String) : CaldavAuth
@@ -92,30 +91,18 @@ class CaldavClientProvider(
     private suspend fun createHttpClient(
         auth: CaldavAuth?,
         foreground: Boolean = false,
-    ): HttpClient {
-        val okHttpClient = httpClientFactory.newClient(
-            foreground = foreground,
-            cookieKey = auth?.user,
-        ) { builder ->
-            builder
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
-            if (auth is CaldavAuth.Tasks) {
-                builder.addNetworkInterceptor(auth.interceptor)
-            }
+    ): HttpClient = httpClientFactory.newClient(foreground = foreground, cookieKey = auth?.user) {
+        followRedirects = false
+        install(HttpTimeout) {
+            connectTimeoutMillis = 15_000
+            socketTimeoutMillis = 120_000
         }
-        return HttpClient(OkHttp) {
-            engine {
-                preconfigured = okHttpClient
+        when (auth) {
+            is CaldavAuth.Tasks -> install(auth.plugin)
+            is CaldavAuth.BasicDigest -> install(Auth) {
+                providers.add(PreemptiveBasicDigestAuthProvider(auth.user, auth.password))
             }
-            followRedirects = false
-            if (auth is CaldavAuth.BasicDigest) {
-                install(Auth) {
-                    providers.add(PreemptiveBasicDigestAuthProvider(auth.user, auth.password))
-                }
-            }
+            null -> {}
         }
     }
 }
-

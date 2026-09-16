@@ -1,7 +1,6 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
-import at.bitfire.dav4jvm.PropertyRegistry
 import at.bitfire.dav4jvm.ktor.DavCalendar
 import at.bitfire.dav4jvm.ktor.DavCalendar.Companion.MIME_ICALENDAR
 import at.bitfire.dav4jvm.ktor.DavResource
@@ -43,8 +42,6 @@ import org.tasks.caldav.iCalendar.Companion.fromVtodo
 import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.caldav.property.CalendarIcon
 import org.tasks.caldav.property.Invite
-import org.tasks.caldav.property.MetadataProbe
-import org.tasks.caldav.property.MetadataProbeVersion
 import org.tasks.caldav.property.OCAccess
 import org.tasks.caldav.property.OCInvite
 import org.tasks.caldav.property.OCOwnerPrincipal
@@ -56,8 +53,6 @@ import org.tasks.caldav.property.ShareAccess.Companion.READ
 import org.tasks.caldav.property.ShareAccess.Companion.READ_WRITE
 import org.tasks.caldav.property.ShareAccess.Companion.SHARED_OWNER
 import org.tasks.caldav.property.Sharee
-import org.tasks.caldav.property.TagMetadata
-import org.tasks.caldav.property.TagMetadataVersion
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.PrincipalDao
@@ -492,25 +487,6 @@ class CaldavSynchronizer(
     }
 
     companion object {
-        init {
-        }
-
-        fun registerFactories() {
-            PropertyRegistry.register(
-                listOf(
-                    ShareAccess.Factory(),
-                    Invite.Factory(),
-                    OCOwnerPrincipal.Factory(),
-                    OCInvite.Factory(),
-                    CalendarIcon.Factory,
-                    TagMetadata.Factory,
-                    TagMetadataVersion.Factory,
-                    MetadataProbe.Factory,
-                    MetadataProbeVersion.Factory,
-                )
-            )
-        }
-
         val Response.ctag: String?
             get() = this[SyncToken::class]?.token ?: this[GetCTag::class]?.cTag
 

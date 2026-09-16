@@ -160,7 +160,7 @@ class CaldavClientTest {
         """.trimIndent()
 
         init {
-            CaldavSynchronizer.registerFactories()
+            CaldavClient.registerFactories()
         }
     }
 }

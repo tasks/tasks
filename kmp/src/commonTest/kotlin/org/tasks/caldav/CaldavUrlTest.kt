@@ -4,9 +4,9 @@ import at.bitfire.dav4jvm.XmlUtils
 import at.bitfire.dav4jvm.ktor.ResponseParser
 import at.bitfire.dav4jvm.ktor.resolve
 import io.ktor.http.Url
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.Test
 
 class CaldavUrlTest {
     @Test

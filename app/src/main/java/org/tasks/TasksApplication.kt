@@ -35,7 +35,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.caldav.CaldavSynchronizer
+import org.tasks.caldav.CaldavClient
 import org.tasks.fcm.PushTokenManager
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
@@ -191,7 +191,7 @@ class TasksApplication : Application(), Configuration.Provider {
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
         locationService.get().registerAllGeofences()
-        CaldavSynchronizer.registerFactories()
+        CaldavClient.registerFactories()
         pushTokenManager.get().registerTokenForAllAccounts()
         pebbleService.register()
     }

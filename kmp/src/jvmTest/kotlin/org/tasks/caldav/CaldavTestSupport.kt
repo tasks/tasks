@@ -7,6 +7,7 @@ import okhttp3.mockwebserver.QueueDispatcher
 import org.tasks.InMemoryDataStore
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.OkHttpKtorClientFactory
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.KeyProvider
 import org.tasks.security.KeyStoreEncryption
@@ -24,13 +25,13 @@ fun testClientProvider(
     encryption = encryption,
     tasksPreferences = preferences,
     environment = TasksServerEnvironment(preferences),
-    httpClientFactory = object : OkHttpClientFactory {
+    httpClientFactory = OkHttpKtorClientFactory(object : OkHttpClientFactory {
         override suspend fun newClient(
             foreground: Boolean,
             cookieKey: String?,
             block: (OkHttpClient.Builder) -> Unit,
         ) = OkHttpClient.Builder().followRedirects(false).apply(block).build()
-    },
+    }),
 )
 
 fun failFastServer() = MockWebServer().apply { (dispatcher as QueueDispatcher).setFailFast(true) }

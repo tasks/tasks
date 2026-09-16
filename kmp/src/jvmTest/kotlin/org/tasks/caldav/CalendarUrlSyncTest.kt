@@ -224,7 +224,7 @@ class CalendarUrlSyncTest : DatabaseTest() {
         """.trimIndent()
 
         init {
-            CaldavSynchronizer.registerFactories()
+            CaldavClient.registerFactories()
         }
     }
 }

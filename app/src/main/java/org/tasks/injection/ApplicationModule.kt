@@ -41,6 +41,7 @@ import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.caldav.TasksBasicAuth
 import org.tasks.feed.BlogFeedChecker
 import org.tasks.http.HttpClientFactory
+import org.tasks.http.OkHttpKtorClientFactory
 import org.tasks.caldav.FileStorage
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.CrashReporting
@@ -450,7 +451,7 @@ class ApplicationModule {
         encryption = encryption,
         tasksPreferences = tasksPreferences,
         environment = environment,
-        httpClientFactory = httpClientFactory,
+        httpClientFactory = OkHttpKtorClientFactory(httpClientFactory),
         tokenProvider = tokenProvider,
         subscriptionProvider = {
             inventory.subscription.value?.let {
