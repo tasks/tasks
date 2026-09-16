@@ -7,9 +7,9 @@ import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
-import org.tasks.caldav.Ical4androidTaskAdapter
 import org.tasks.caldav.iCalendar
-import org.tasks.caldav.serialize
+import org.tasks.caldav.toIcal4android
+import org.tasks.caldav.toVTodo
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.OpenTaskDao.Companion.filterActive
@@ -18,11 +18,12 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DirtyDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
-import org.tasks.data.entity.OpenTaskProvider
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.OpenTaskProvider
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
+import org.tasks.icalendar.serialize
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
@@ -218,8 +219,9 @@ class OpenTasksSynchronizer(
             }
             val androidTask = openTaskDao.getTask(listId, uid)
                     ?: MyAndroidTask(at.bitfire.ical4android.Task())
-            val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            iCalendar.applyLocalTo(account, caldavTask, task, adapted)
+            val remoteModel = androidTask.task!!.toVTodo()
+            iCalendar.applyLocalTo(account, caldavTask, task, remoteModel)
+            androidTask.task = remoteModel.toIcal4android()
             val operations = ArrayList<BatchOperation.CpoBuilder>()
             val builder = androidTask.toBuilder(openTaskDao.tasks)
             val idxTask = if (androidTask.isNew) {
@@ -258,9 +260,8 @@ class OpenTasksSynchronizer(
         existing: CaldavTask?
     ) {
         openTaskDao.getTask(listId, uid)?.let { androidTask ->
-            val adapted = Ical4androidTaskAdapter(androidTask.task!!)
-            val vtodo = adapted.serialize()
-            iCalendar.fromVtodo(account, calendar, existing, adapted, vtodo, CaldavTask.objectName(uid), etag)
+            val remote = androidTask.task!!.toVTodo()
+            iCalendar.fromVtodo(account, calendar, existing, remote, remote.serialize(), CaldavTask.objectName(uid), etag)
         }
     }
 

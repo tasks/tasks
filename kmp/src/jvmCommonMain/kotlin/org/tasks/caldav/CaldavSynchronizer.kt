@@ -27,9 +27,7 @@ import io.ktor.http.URLBuilder
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
 import io.ktor.http.content.ByteArrayContent
-import net.fortuna.ical4j.model.property.ProdId
 import org.jetbrains.compose.resources.getString
-import org.tasks.kmp.PROD_ID
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.requires_pro_subscription
@@ -495,7 +493,6 @@ class CaldavSynchronizer(
 
     companion object {
         init {
-            org.tasks.caldav.Task.prodId = ProdId(PROD_ID)
         }
 
         fun registerFactories() {

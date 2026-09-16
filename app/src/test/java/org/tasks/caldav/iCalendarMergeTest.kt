@@ -3,18 +3,18 @@
 package org.tasks.caldav
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
-import org.tasks.data.entity.Task.Priority.Companion.HIGH
-import org.tasks.data.entity.Task.Priority.Companion.LOW
-import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
-import net.fortuna.ical4j.model.property.Status
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.createDueDate
+import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
+import org.tasks.data.entity.Task.Priority.Companion.HIGH
+import org.tasks.data.entity.Task.Priority.Companion.LOW
+import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.icalendar.TodoStatus
 import org.tasks.makers.CaldavTaskMaker.REMOTE_PARENT
 import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker
@@ -646,7 +646,7 @@ class iCalendarMergeTest {
     fun remoteSetsCompletedStatus() =
         newTask()
             .applyRemote(
-                remote = newIcal(with(STATUS, Status.VTODO_COMPLETED)),
+                remote = newIcal(with(STATUS, TodoStatus.COMPLETED)),
                 local = null
             )
             .let {
@@ -657,8 +657,8 @@ class iCalendarMergeTest {
     fun remoteUpdatesCompletedStatus() =
         newTask()
             .applyRemote(
-                remote = newIcal(with(STATUS, Status.VTODO_COMPLETED)),
-                local = newIcal(with(STATUS, Status.VTODO_IN_PROCESS))
+                remote = newIcal(with(STATUS, TodoStatus.COMPLETED)),
+                local = newIcal(with(STATUS, TodoStatus.IN_PROCESS))
             )
             .let {
                 assertTrue(it.isCompleted)
@@ -671,7 +671,7 @@ class iCalendarMergeTest {
             .applyRemote(
                 remote = newIcal(),
                 local = newIcal(
-                    with(STATUS, Status.VTODO_COMPLETED),
+                    with(STATUS, TodoStatus.COMPLETED),
                     with(COMPLETED_AT, now)
                 )
             )
@@ -701,7 +701,7 @@ class iCalendarMergeTest {
                 remote = newIcal(with(COMPLETED_AT, now.plusMinutes(5).toUTC())),
                 local = newIcal(
                     with(COMPLETED_AT, now.toUTC()),
-                    with(STATUS, Status.VTODO_COMPLETED)
+                    with(STATUS, TodoStatus.COMPLETED)
                 )
             )
             .let {
@@ -717,7 +717,7 @@ class iCalendarMergeTest {
                 remote = newIcal(),
                 local = newIcal(
                     with(COMPLETED_AT, now.toUTC()),
-                    with(STATUS, Status.VTODO_COMPLETED)
+                    with(STATUS, TodoStatus.COMPLETED)
                 )
             )
             .let {
@@ -733,7 +733,7 @@ class iCalendarMergeTest {
                 remote = newIcal(with(COMPLETED_AT, now.toUTC())),
                 local = newIcal(
                     with(COMPLETED_AT, now.toUTC()),
-                    with(STATUS, Status.VTODO_COMPLETED)
+                    with(STATUS, TodoStatus.COMPLETED)
                 )
             )
             .let {
@@ -749,7 +749,7 @@ class iCalendarMergeTest {
                 remote = newIcal(with(COMPLETED_AT, now.plusMinutes(1).toUTC())),
                 local = newIcal(
                     with(COMPLETED_AT, now.toUTC()),
-                    with(STATUS, Status.VTODO_COMPLETED)
+                    with(STATUS, TodoStatus.COMPLETED)
                 )
             )
             .let {

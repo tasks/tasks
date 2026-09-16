@@ -6,6 +6,7 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.withTZ
+import org.tasks.icalendar.VTodo
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.makers.iCalMaker.DUE_DATE
@@ -18,7 +19,7 @@ class iCalendarMergeTimeZoneTest {
     @Test
     fun remoteUpdatesDueDateAfterChangingTimeZone() {
         lateinit var task: org.tasks.data.entity.Task
-        lateinit var base: Task
+        lateinit var base: VTodo
 
         withTZ(NEW_YORK) {
             val aug30 = DateTime(2026, 8, 30, 0, 0)
@@ -54,7 +55,7 @@ class iCalendarMergeTimeZoneTest {
     @Test
     fun remoteUpdatesStartDateAfterChangingTimeZone() {
         lateinit var task: org.tasks.data.entity.Task
-        lateinit var base: Task
+        lateinit var base: VTodo
 
         withTZ(NEW_YORK) {
             val aug30 = DateTime(2026, 8, 30, 0, 0)

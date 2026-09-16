@@ -2,25 +2,11 @@ package org.tasks.caldav
 
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.alarms.AlarmService
-import net.fortuna.ical4j.model.DateTime
-import net.fortuna.ical4j.model.Parameter
-import net.fortuna.ical4j.model.Property
-import net.fortuna.ical4j.model.TimeZoneRegistryFactory
-import net.fortuna.ical4j.model.component.VAlarm
-import net.fortuna.ical4j.model.parameter.RelType
-import net.fortuna.ical4j.model.property.Action
-import net.fortuna.ical4j.model.property.Completed
-import net.fortuna.ical4j.model.property.DateProperty
-import net.fortuna.ical4j.model.property.DtStart
-import net.fortuna.ical4j.model.property.Due
-import net.fortuna.ical4j.model.property.Geo
-import net.fortuna.ical4j.model.property.RelatedTo
-import net.fortuna.ical4j.model.property.Status
-import net.fortuna.ical4j.model.property.XProperty
+import kotlinx.datetime.TimeZone
 import org.tasks.TasksBuildConfig
 import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
-import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.caldav.toLikeString
 import org.tasks.caldav.extensions.toAlarms
 import org.tasks.caldav.extensions.toVAlarms
 import org.tasks.data.TaskSaver
@@ -47,28 +33,34 @@ import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY_TIME
 import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.date.DateTimeUtils.newDateTime
-import org.tasks.date.DateTimeUtils.toDateTime
+import org.tasks.icalendar.Geo
+import org.tasks.icalendar.ICalDate
+import org.tasks.icalendar.ICalProperty
+import org.tasks.icalendar.RelatedTo
+import org.tasks.icalendar.TodoStatus
+import org.tasks.icalendar.Trigger
+import org.tasks.icalendar.VAlarm
+import org.tasks.icalendar.VTodo
+import org.tasks.icalendar.formatICalUtc
+import org.tasks.icalendar.localMillis
+import org.tasks.icalendar.parseICalDateTime
+import org.tasks.icalendar.parseVTodos
+import org.tasks.icalendar.serialize
+import org.tasks.icalendar.toICalDate
+import org.tasks.icalendar.toICalDateTime
 import org.tasks.location.Geocoder
 import org.tasks.location.LocationService
 import org.tasks.location.MapPosition
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
-import org.tasks.repeats.newRRule
-import org.tasks.time.DateTimeUtils.toDate
+import org.tasks.repeats.Recur
+import org.tasks.time.DateTime
 import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
 import org.tasks.time.startOfMinute
-import java.io.ByteArrayOutputStream
-import java.io.StringReader
-import java.text.ParseException
-import java.util.TimeZone
-import java.util.regex.Pattern
 import kotlin.math.max
 import kotlin.math.min
-import org.tasks.time.from
-import org.tasks.time.toDateTime
-import org.tasks.time.toDate
 
 @Suppress("ClassName")
 class iCalendar(
@@ -102,8 +94,8 @@ class iCalendar(
         )
         if (place == null) {
             place = Place(
-                latitude = geo.latitude.toDouble(),
-                longitude = geo.longitude.toDouble(),
+                latitude = geo.latitude,
+                longitude = geo.longitude,
             ).let {
                 it.copy(id = locationDao.insert(it))
             }
@@ -146,17 +138,17 @@ class iCalendar(
         caldavTask: CaldavTask,
         task: org.tasks.data.entity.Task
     ): ByteArray {
-        var remoteModel: Task? = null
+        var remoteModel: VTodo? = null
         try {
             val vtodo = vtodoCache.getVtodo(calendar, caldavTask)
             if (vtodo?.isNotBlank() == true) {
                 remoteModel = fromVtodo(vtodo)
             }
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
             Logger.e(e) { e.message.orEmpty() }
         }
         if (remoteModel == null) {
-            remoteModel = Task()
+            remoteModel = VTodo()
         }
 
         return toVtodo(account, caldavTask, task, remoteModel)
@@ -166,7 +158,7 @@ class iCalendar(
         account: CaldavAccount,
         caldavTask: CaldavTask,
         task: org.tasks.data.entity.Task,
-        remoteModel: VTodoTask
+        remoteModel: VTodo
     ) {
         remoteModel.applyLocal(caldavTask, task)
         val categories = remoteModel.categories
@@ -194,19 +186,17 @@ class iCalendar(
         account: CaldavAccount,
         caldavTask: CaldavTask,
         task: org.tasks.data.entity.Task,
-        remoteModel: VTodoTask
+        remoteModel: VTodo
     ): ByteArray {
         applyLocalTo(account, caldavTask, task, remoteModel)
-        val os = ByteArrayOutputStream()
-        remoteModel.write(os)
-        return os.toByteArray()
+        return remoteModel.serialize().encodeToByteArray()
     }
 
     suspend fun fromVtodo(
         account: CaldavAccount,
         calendar: CaldavCalendar,
         existing: CaldavTask?,
-        remote: VTodoTask,
+        remote: VTodo,
         vtodo: String?,
         obj: String? = null,
         eTag: String? = null
@@ -334,69 +324,42 @@ class iCalendar(
         private const val MOZ_SNOOZE_TIME = "X-MOZ-SNOOZE-TIME"
         private const val MOZ_LASTACK = "X-MOZ-LASTACK"
         private const val HIDE_SUBTASKS = "1"
-        private val PRODID_MATCHER = ".*?PRODID:(.*?)\n.*".toPattern(Pattern.DOTALL)
-        // VALARM extensions: https://datatracker.ietf.org/doc/html/rfc9074
-        private val IGNORE_ALARM = DateTime("19760401T005545Z")
-        private val IS_PARENT = { r: RelatedTo ->
-            r.parameters.getParameter<RelType>(Parameter.RELTYPE).let {
-                it === RelType.PARENT || it == null || it.value.isNullOrBlank()
-            }
+        private val PRODID_MATCHER = Regex(".*?PRODID:(.*?)\n.*", RegexOption.DOT_MATCHES_ALL)
+        private val IGNORE_ALARM = Trigger.Absolute(parseICalDateTime("19760401T005545Z")!!)
+        private val IS_PARENT = { r: RelatedTo -> r.relType == "PARENT" || r.relType.isNullOrBlank() }
+
+        fun ICalDate?.applyDue(task: org.tasks.data.entity.Task) {
+            task.dueDate = toDueMillis()
         }
 
-        val IS_APPLE_SORT_ORDER = { x: Property? -> x?.name.equals(APPLE_SORT_ORDER, true) }
-        private val IS_OC_HIDESUBTASKS = { x: Property? -> x?.name.equals(OC_HIDESUBTASKS, true) }
-        private val IS_MOZ_SNOOZE_TIME = { x: Property? -> x?.name.equals(MOZ_SNOOZE_TIME, true) }
-        private val IS_MOZ_LASTACK = { x: Property? -> x?.name.equals(MOZ_LASTACK, true) }
-
-        fun Due?.apply(task: org.tasks.data.entity.Task) {
-            task.dueDate = toMillis()
+        fun ICalDate?.toDueMillis(): Long = when (this) {
+            null -> 0
+            is ICalDate.DateTime -> createDueDate(URGENCY_SPECIFIC_DAY_TIME, millis)
+            is ICalDate.Date -> createDueDate(URGENCY_SPECIFIC_DAY, localMillis())
         }
 
-        fun Due?.toMillis() =
-            when (this?.date) {
-                null -> 0
-                is DateTime -> createDueDate(
-                    URGENCY_SPECIFIC_DAY_TIME,
-                    getLocal(this)
-                )
-                else -> createDueDate(
-                    URGENCY_SPECIFIC_DAY,
-                    getLocal(this)
-                )
-            }
-
-        fun Due?.matches(task: org.tasks.data.entity.Task): Boolean =
-            when (this?.date) {
-                null -> task.dueDate == 0L
-                is DateTime -> toMillis() == task.dueDate
-                else ->
-                    !task.hasDueTime() &&
-                            task.dueDate > 0 &&
-                            date?.toString() == task.dueDate.startOfDay().toDate()?.toString()
-            }
-
-        fun DtStart?.apply(task: org.tasks.data.entity.Task) {
-            task.hideUntil = toMillis(task)
+        fun ICalDate?.matchesDue(task: org.tasks.data.entity.Task): Boolean = when (this) {
+            null -> task.dueDate == 0L
+            is ICalDate.DateTime -> toDueMillis() == task.dueDate
+            is ICalDate.Date -> !task.hasDueTime() && task.dueDate > 0 && this == task.dueDate.startOfDay().toICalDate()
         }
 
-        fun DtStart?.toMillis(task: org.tasks.data.entity.Task) =
-            when (this?.date) {
-                null -> 0
-                is DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, getLocal(this))
-                else -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, getLocal(this))
-            }
+        fun ICalDate?.applyStart(task: org.tasks.data.entity.Task) {
+            task.hideUntil = toStartMillis(task)
+        }
 
-        fun DtStart?.matches(task: org.tasks.data.entity.Task): Boolean =
-            when (this?.date) {
-                null -> task.hideUntil == 0L
-                is DateTime -> toMillis(task) == task.hideUntil
-                else ->
-                    !task.hasStartTime() &&
-                            task.hideUntil > 0 &&
-                            date?.toString() == (task.hideUntil + ONE_DAY / 2).toDate()?.toString()
-            }
+        fun ICalDate?.toStartMillis(task: org.tasks.data.entity.Task): Long = when (this) {
+            null -> 0
+            is ICalDate.DateTime -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY_TIME, millis)
+            is ICalDate.Date -> task.createHideUntil(HIDE_UNTIL_SPECIFIC_DAY, localMillis())
+        }
 
-        // this isn't necessarily the task originator but its the best we can do
+        fun ICalDate?.matchesStart(task: org.tasks.data.entity.Task): Boolean = when (this) {
+            null -> task.hideUntil == 0L
+            is ICalDate.DateTime -> toStartMillis(task) == task.hideUntil
+            is ICalDate.Date -> !task.hasStartTime() && task.hideUntil > 0 && this == (task.hideUntil + ONE_DAY / 2).toICalDate()
+        }
+
         fun String.supportsReminders(): Boolean {
             if (contains(NEXTCLOUD_TASKS)) {
                 val (major, minor) = NEXTCLOUD_TASKS_VERSION.find(this)?.destructured
@@ -406,8 +369,7 @@ class iCalendar(
             return CLIENTS_WITH_REMINDER_SYNC.any { contains(it) }
         }
 
-        fun String.prodId(): String? =
-            PRODID_MATCHER.matcher(this).takeIf { it.matches() }?.group(1)
+        fun String.prodId(): String? = PRODID_MATCHER.matchEntire(this)?.groupValues?.get(1)
 
         private const val NEXTCLOUD_TASKS = "Nextcloud Tasks"
         private val NEXTCLOUD_TASKS_VERSION = "Nextcloud Tasks v(\\d+)\\.(\\d+)".toRegex()
@@ -418,12 +380,9 @@ class iCalendar(
             "Apple Inc.",
         )
 
-        fun getLocal(property: DateProperty): Long =
-                org.tasks.time.DateTime.from(property.date).toLocal().millis
-
-        fun fromVtodo(vtodo: String): Task? {
+        fun fromVtodo(vtodo: String): VTodo? {
             try {
-                val tasks = Task.tasksFromReader(StringReader(vtodo))
+                val tasks = parseVTodos(vtodo)
                 if (tasks.size == 1) {
                     return tasks[0]
                 }
@@ -433,91 +392,57 @@ class iCalendar(
             return null
         }
 
-        var VTodoTask.parent: String?
-            get() = relatedTo.find(IS_PARENT)?.value
+        var VTodo.parent: String?
+            get() = relatedTo.find(IS_PARENT)?.uid
             set(value) {
                 val parents = relatedTo.filter(IS_PARENT)
                 when {
                     value.isNullOrBlank() -> relatedTo.removeAll(parents)
                     parents.isEmpty() -> relatedTo.add(RelatedTo(value))
                     else -> {
-                        if (parents.size > 1) {
-                            relatedTo.removeAll(parents.drop(1))
-                        }
-                        parents[0].let {
-                            it.value = value
-                            it.parameters.replace(RelType.PARENT)
-                        }
+                        relatedTo.removeAll(parents)
+                        relatedTo.add(RelatedTo(value, "PARENT"))
                     }
                 }
             }
 
-        var VTodoTask.order: Long?
-            get() = unknownProperties.find(IS_APPLE_SORT_ORDER).let { it?.value?.toLongOrNull() }
+        var VTodo.order: Long?
+            get() = unknownProperty(APPLE_SORT_ORDER)?.toLongOrNull()
             set(order) {
-                if (order == null) {
-                    unknownProperties.removeIf(IS_APPLE_SORT_ORDER)
-                } else {
-                    unknownProperties
-                            .find(IS_APPLE_SORT_ORDER)
-                            ?.let { it.value = order.toString() }
-                            ?: unknownProperties.add(XProperty(APPLE_SORT_ORDER, order.toString()))
-                }
+                setUnknownProperty(APPLE_SORT_ORDER, order?.toString())
             }
 
-        var VTodoTask.collapsed: Boolean
-            get() = unknownProperties.find(IS_OC_HIDESUBTASKS).let { it?.value == HIDE_SUBTASKS }
+        var VTodo.collapsed: Boolean
+            get() = unknownProperty(OC_HIDESUBTASKS) == HIDE_SUBTASKS
             set(collapsed) {
-                if (collapsed) {
-                    unknownProperties
-                            .find(IS_OC_HIDESUBTASKS)
-                            ?.let { it.value = HIDE_SUBTASKS }
-                            ?: unknownProperties.add(XProperty(OC_HIDESUBTASKS, HIDE_SUBTASKS))
-                } else {
-                    unknownProperties.removeIf(IS_OC_HIDESUBTASKS)
-                }
+                setUnknownProperty(OC_HIDESUBTASKS, HIDE_SUBTASKS.takeIf { collapsed })
             }
 
-        var VTodoTask.lastAck: Long?
-            get() = unknownProperties.find(IS_MOZ_LASTACK)?.value?.let {
-                org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
-            }
+        var VTodo.lastAck: Long?
+            get() = unknownProperty(MOZ_LASTACK)?.let { parseICalDateTime(it) }
             set(value) {
-                value
-                    ?.takeIf { it > 0 }
-                    ?.toDateTime()
-                    ?.toUTC()
-                    ?.let { DateTime(true).apply { time = it.millis } }
-                    ?.let { utc ->
-                        unknownProperties.find(IS_MOZ_LASTACK)
-                            ?.let { it.value = utc.toString() }
-                            ?: unknownProperties.add(
-                                XProperty(MOZ_LASTACK, utc.toString())
-                            )
-                    }
+                value?.takeIf { it > 0 }?.let { setUnknownProperty(MOZ_LASTACK, formatICalUtc(it)) }
             }
 
-        var VTodoTask.snooze: Long?
-            get() = unknownProperties.find(IS_MOZ_SNOOZE_TIME)?.value?.let {
-                org.tasks.time.DateTime.from(DateTime(it)).toLocal().millis
-            }
+        var VTodo.snooze: Long?
+            get() = unknownProperty(MOZ_SNOOZE_TIME)?.let { parseICalDateTime(it) }
             set(value) {
-                value
-                        ?.toDateTime()
-                        ?.takeIf { it.isAfterNow }
-                        ?.toUTC()
-                        ?.let { DateTime(true).apply { time = it.millis } }
-                        ?.let { utc ->
-                            unknownProperties.find(IS_MOZ_SNOOZE_TIME)
-                                    ?.let { it.value = utc.toString() }
-                                    ?: unknownProperties.add(
-                                            XProperty(MOZ_SNOOZE_TIME, utc.toString())
-                                    )
-                        }
-                        ?: unknownProperties.removeIf(IS_MOZ_SNOOZE_TIME)
+                setUnknownProperty(MOZ_SNOOZE_TIME, value?.takeIf { DateTime(it).isAfterNow }?.let { formatICalUtc(it) })
             }
 
-        fun VTodoTask.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
+        private fun VTodo.unknownProperty(name: String): String? =
+            unknownProperties.find { it.name.equals(name, ignoreCase = true) }?.value
+
+        private fun VTodo.setUnknownProperty(name: String, value: String?) {
+            val index = unknownProperties.indexOfFirst { it.name.equals(name, ignoreCase = true) }
+            when {
+                value == null -> unknownProperties.removeAll { it.name.equals(name, ignoreCase = true) }
+                index < 0 -> unknownProperties.add(ICalProperty(name, value))
+                else -> unknownProperties[index] = unknownProperties[index].copy(value = value)
+            }
+        }
+
+        fun VTodo.applyLocal(caldavTask: CaldavTask, task: org.tasks.data.entity.Task) {
             createdAt = newDateTime(task.creationDate).toUTC().millis
             summary = task.title
             description = task.notes
@@ -530,18 +455,18 @@ class iCalendar(
             }
             due = if (dueDate > 0) {
                 startDate = min(dueDate, startDate)
-                Due(if (allDay) dueDate.toDate() else getDateTime(dueDate))
+                if (allDay) dueDate.toICalDate() else dueDate.toICalDateTime()
             } else {
                 null
             }
             dtStart = if (startDate > 0) {
-                DtStart(if (allDay) startDate.toDate() else getDateTime(startDate))
+                if (allDay) startDate.toICalDate() else startDate.toICalDateTime()
             } else {
                 null
             }
             if (task.isCompleted) {
-                completedAt = Completed(DateTime(task.completionDate))
-                status = Status.VTODO_COMPLETED
+                completedAt = task.completionDate
+                status = TodoStatus.COMPLETED
                 percentComplete = 100
             } else if (completedAt != null) {
                 completedAt = null
@@ -550,8 +475,8 @@ class iCalendar(
             }
             rRule = if (task.isRecurring) {
                 try {
-                    newRRule(task.recurrence!!)
-                } catch (e: ParseException) {
+                    Recur.parse(task.recurrence!!)
+                } catch (e: IllegalArgumentException) {
                     Logger.e(e) { e.message.orEmpty() }
                     null
                 }
@@ -572,26 +497,11 @@ class iCalendar(
         }
 
         val List<VAlarm>.filtered: List<VAlarm>
-            get() =
-                filter { it.action == Action.DISPLAY || it.action == Action.AUDIO }
-                    .filterNot { it.trigger.dateTime == IGNORE_ALARM }
+            get() = filter { it.action == "DISPLAY" || it.action == "AUDIO" }.filterNot { it.trigger == IGNORE_ALARM }
 
-        val VTodoTask.reminders: List<Alarm>
+        val VTodo.reminders: List<Alarm>
             get() = alarms.filtered.toAlarms().let { alarms ->
                 snooze?.let { time -> alarms.plus(Alarm(time = time, type = TYPE_SNOOZE))} ?: alarms
             }
-
-        private val tzRegistry by lazy {
-            TimeZoneRegistryFactory.getInstance().createRegistry()
-        }
-
-        private fun ical4jTimeZone(id: String) = tzRegistry.getTimeZone(id)
-
-        fun getDateTime(timestamp: Long): DateTime {
-            val tz = ical4jTimeZone(TimeZone.getDefault().id)
-            val dateTime = DateTime(if (tz != null) timestamp else org.tasks.time.DateTime(timestamp).toUTC().millis)
-            dateTime.timeZone = tz
-            return dateTime
-        }
     }
 }

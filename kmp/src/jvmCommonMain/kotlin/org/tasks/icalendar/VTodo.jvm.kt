@@ -21,12 +21,10 @@ import net.fortuna.ical4j.model.property.Due
 import net.fortuna.ical4j.model.property.Duration
 import net.fortuna.ical4j.model.property.ExDate
 import net.fortuna.ical4j.model.property.Organizer
-import net.fortuna.ical4j.model.property.ProdId
 import net.fortuna.ical4j.model.property.RDate
 import net.fortuna.ical4j.model.property.RRule
 import net.fortuna.ical4j.model.property.Repeat
 import net.fortuna.ical4j.model.property.Status
-import org.tasks.kmp.PROD_ID
 import org.tasks.caldav.Task
 import org.tasks.repeats.toIcal4j
 import org.tasks.repeats.toRecur
@@ -45,10 +43,8 @@ import net.fortuna.ical4j.model.property.Trigger as Ical4jTrigger
 actual fun parseVTodos(iCalendar: String): List<VTodo> =
     Task.tasksFromReader(StringReader(iCalendar)).map { it.toVTodo() }
 
-actual fun VTodo.serialize(): String {
-    Task.prodId = ProdId(PROD_ID)
-    return toTask().let { task -> ByteArrayOutputStream().also(task::write).toString(Charsets.UTF_8) }
-}
+actual fun VTodo.serialize(): String =
+    toTask().let { task -> ByteArrayOutputStream().also(task::write).toString(Charsets.UTF_8) }
 
 private val timeZones by lazy { TimeZoneRegistryFactory.getInstance().createRegistry() }
 
@@ -124,7 +120,7 @@ fun VTodo.toTask(): Task = Task(
     alarms = alarms.mapTo(java.util.LinkedList()) { it.toIcal4j() },
 )
 
-private fun DateProperty.toICalDate(): ICalDate = when (val date = date) {
+fun DateProperty.toICalDate(): ICalDate = when (val date = date) {
     is Ical4jDateTime -> ICalDate.DateTime(date.time, date.timeZone?.id?.takeUnless { date.isUtc })
     else -> date.toString().let { ICalDate.Date(it.substring(0, 4).toInt(), it.substring(4, 6).toInt(), it.substring(6, 8).toInt()) }
 }

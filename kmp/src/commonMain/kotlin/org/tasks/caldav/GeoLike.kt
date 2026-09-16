@@ -15,6 +15,8 @@ internal fun String.toLikeString(): String {
     }
 }
 
+internal fun Double.truncateToPlaceAccuracy(): String = toPlainString().truncate()
+
 private fun String.numDecimalPlaces(): Int {
     val index = indexOf(".")
     return if (index < 0) 0 else length - index - 1

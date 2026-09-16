@@ -6,12 +6,13 @@ import org.junit.Test
 import org.tasks.TestUtilities.withTZ
 import org.tasks.caldav.iCalendar.Companion.lastAck
 import org.tasks.caldav.iCalendar.Companion.snooze
+import org.tasks.icalendar.VTodo
 import org.tasks.time.DateTime
 
 class LastAckTest {
     @Test
     fun writeAcknowledgedTime() = withTZ(CHICAGO) {
-        val remote = Task()
+        val remote = VTodo()
 
         remote.lastAck = DateTime(2021, 2, 10, 9, 22, 35).millis
 
@@ -20,7 +21,7 @@ class LastAckTest {
 
     @Test
     fun readAcknowledgedTime() = withTZ(CHICAGO) {
-        val remote = Task()
+        val remote = VTodo()
         remote.lastAck = DateTime(2021, 2, 10, 9, 22, 35).millis
 
         assertEquals(DateTime(2021, 2, 10, 9, 22, 35).millis, remote.lastAck)
@@ -28,7 +29,7 @@ class LastAckTest {
 
     @Test
     fun neverAcknowledgedWritesNothing() = withTZ(CHICAGO) {
-        val remote = Task()
+        val remote = VTodo()
 
         remote.lastAck = 0
 
@@ -37,7 +38,7 @@ class LastAckTest {
 
     @Test
     fun keepExistingAcknowledgedTimeWhenNothingToWrite() = withTZ(CHICAGO) {
-        val remote = Task()
+        val remote = VTodo()
         remote.lastAck = DateTime(2021, 2, 10, 9, 22, 35).millis
 
         remote.lastAck = 0
@@ -47,7 +48,7 @@ class LastAckTest {
 
     @Test
     fun snoozingDoesNotAcknowledgeByItself() = withTZ(CHICAGO) {
-        val remote = Task().apply {
+        val remote = VTodo().apply {
             lastModified = DateTime(2021, 2, 10, 9, 22, 35).millis
         }
 
@@ -56,7 +57,7 @@ class LastAckTest {
         assertNull(remote.property(MOZ_LASTACK))
     }
 
-    private fun Task.property(name: String) =
+    private fun VTodo.property(name: String) =
         unknownProperties.find { it.name.equals(name, true) }?.value
 
     companion object {

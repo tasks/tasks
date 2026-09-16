@@ -56,6 +56,7 @@ import net.fortuna.ical4j.model.property.Url
 import net.fortuna.ical4j.model.property.Version
 import net.fortuna.ical4j.validate.ValidationException
 import org.tasks.icalendar.repairICalendar
+import org.tasks.kmp.PROD_ID
 import java.io.OutputStream
 import java.io.Reader
 import java.io.StringReader
@@ -67,53 +68,53 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 data class Task(
-    override var uid: String? = null,
-    override var sequence: Int? = null,
+    var uid: String? = null,
+    var sequence: Int? = null,
 
-    override var createdAt: Long? = null,
-    override var lastModified: Long? = null,
-    override var dtStamp: Long? = null,
+    var createdAt: Long? = null,
+    var lastModified: Long? = null,
+    var dtStamp: Long? = null,
 
-    override var summary: String? = null,
-    override var location: String? = null,
-    override var geoPosition: Geo? = null,
-    override var description: String? = null,
-    override var color: Int? = null,
-    override var url: String? = null,
-    override var organizer: Organizer? = null,
+    var summary: String? = null,
+    var location: String? = null,
+    var geoPosition: Geo? = null,
+    var description: String? = null,
+    var color: Int? = null,
+    var url: String? = null,
+    var organizer: Organizer? = null,
 
-    override var priority: Int = Priority.UNDEFINED.level,
+    var priority: Int = Priority.UNDEFINED.level,
 
-    override var classification: Clazz? = null,
-    override var status: Status? = null,
+    var classification: Clazz? = null,
+    var status: Status? = null,
 
-    override var dtStart: DtStart? = null,
-    override var due: Due? = null,
-    override var duration: Duration? = null,
-    override var completedAt: Completed? = null,
+    var dtStart: DtStart? = null,
+    var due: Due? = null,
+    var duration: Duration? = null,
+    var completedAt: Completed? = null,
 
-    override var percentComplete: Int? = null,
+    var percentComplete: Int? = null,
 
-    override var rRule: RRule? = null,
-    override val rDates: LinkedList<RDate> = LinkedList(),
-    override val exDates: LinkedList<ExDate> = LinkedList(),
+    var rRule: RRule? = null,
+    val rDates: LinkedList<RDate> = LinkedList(),
+    val exDates: LinkedList<ExDate> = LinkedList(),
 
-    override val categories: LinkedList<String> = LinkedList(),
-    override var comment: String? = null,
-    override var relatedTo: LinkedList<RelatedTo> = LinkedList(),
-    override val unknownProperties: LinkedList<Property> = LinkedList(),
+    val categories: LinkedList<String> = LinkedList(),
+    var comment: String? = null,
+    var relatedTo: LinkedList<RelatedTo> = LinkedList(),
+    val unknownProperties: LinkedList<Property> = LinkedList(),
 
-    override val alarms: LinkedList<VAlarm> = LinkedList(),
-) : VTodoTask {
+    val alarms: LinkedList<VAlarm> = LinkedList(),
+) {
 
     fun generateUID() {
         uid = UUID.randomUUID().toString()
     }
 
-    override fun write(os: OutputStream) {
+    fun write(os: OutputStream) {
         val ical = Calendar()
         ical.properties += Version.VERSION_2_0
-        ical.properties += prodId
+        ical.properties += ProdId(PROD_ID)
 
         val vTodo = VToDo(true /* generates DTSTAMP */)
         ical.components += vTodo
@@ -193,8 +194,6 @@ data class Task(
 
         private val logger
             get() = Logger.getLogger(Task::class.java.name)
-
-        var prodId: ProdId = ProdId("+//IDN bitfire.at//ical4android")
 
         fun tasksFromReader(reader: Reader): List<Task> {
             val preprocessed = StringReader(reader.readText().repairICalendar())

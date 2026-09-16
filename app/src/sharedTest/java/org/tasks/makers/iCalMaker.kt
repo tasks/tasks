@@ -1,69 +1,65 @@
 package org.tasks.makers
 
-import org.tasks.caldav.Task
 import com.natpryce.makeiteasy.Instantiator
 import com.natpryce.makeiteasy.Property
 import com.natpryce.makeiteasy.Property.newProperty
 import com.natpryce.makeiteasy.PropertyLookup
 import com.natpryce.makeiteasy.PropertyValue
-import net.fortuna.ical4j.model.property.Completed
-import net.fortuna.ical4j.model.property.DtStart
-import net.fortuna.ical4j.model.property.Due
-import net.fortuna.ical4j.model.property.Priority
-import net.fortuna.ical4j.model.property.RRule
-import net.fortuna.ical4j.model.property.Status
-import org.tasks.caldav.iCalendar
 import org.tasks.caldav.iCalendar.Companion.collapsed
 import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
+import org.tasks.icalendar.TodoStatus
+import org.tasks.icalendar.VTodo
+import org.tasks.icalendar.toICalDate
+import org.tasks.icalendar.toICalDateTime
+import org.tasks.repeats.Recur
 import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils.toDate
 
 @Suppress("ClassName")
 object iCalMaker {
-    val TITLE: Property<Task, String?> = newProperty()
-    val DESCRIPTION: Property<Task, String?> = newProperty()
-    val DUE_DATE: Property<Task, DateTime?> = newProperty()
-    val DUE_TIME: Property<Task, DateTime?> = newProperty()
-    val START_DATE: Property<Task, DateTime?> = newProperty()
-    val START_TIME: Property<Task, DateTime?> = newProperty()
-    val CREATED_AT: Property<Task, DateTime?> = newProperty()
-    val COMPLETED_AT: Property<Task, DateTime?> = newProperty()
-    val ORDER: Property<Task, Long?> = newProperty()
-    val PARENT: Property<Task, String?> = newProperty()
-    val PRIORITY: Property<Task, Int> = newProperty()
-    val COLLAPSED: Property<Task, Boolean> = newProperty()
-    val LAST_MODIFIED: Property<Task, DateTime?> = newProperty()
-    val DT_STAMP: Property<Task, DateTime?> = newProperty()
-    val RRULE: Property<Task, String?> = newProperty()
-    val STATUS: Property<Task, Status?> = newProperty()
+    val TITLE: Property<VTodo, String?> = newProperty()
+    val DESCRIPTION: Property<VTodo, String?> = newProperty()
+    val DUE_DATE: Property<VTodo, DateTime?> = newProperty()
+    val DUE_TIME: Property<VTodo, DateTime?> = newProperty()
+    val START_DATE: Property<VTodo, DateTime?> = newProperty()
+    val START_TIME: Property<VTodo, DateTime?> = newProperty()
+    val CREATED_AT: Property<VTodo, DateTime?> = newProperty()
+    val COMPLETED_AT: Property<VTodo, DateTime?> = newProperty()
+    val ORDER: Property<VTodo, Long?> = newProperty()
+    val PARENT: Property<VTodo, String?> = newProperty()
+    val PRIORITY: Property<VTodo, Int> = newProperty()
+    val COLLAPSED: Property<VTodo, Boolean> = newProperty()
+    val LAST_MODIFIED: Property<VTodo, DateTime?> = newProperty()
+    val DT_STAMP: Property<VTodo, DateTime?> = newProperty()
+    val RRULE: Property<VTodo, String?> = newProperty()
+    val STATUS: Property<VTodo, String?> = newProperty()
 
-    private val instantiator = Instantiator { lookup: PropertyLookup<Task> ->
-        val task = Task()
+    private val instantiator = Instantiator { lookup: PropertyLookup<VTodo> ->
+        val task = VTodo()
         lookup.valueOf(CREATED_AT, null as DateTime?)?.let {
             task.createdAt = it.millis
         }
         lookup.valueOf(DUE_DATE, null as DateTime?)?.let {
-            task.due = Due(it.millis.toDate())
+            task.due = it.millis.toICalDate()
         }
         lookup.valueOf(DUE_TIME, null as DateTime?)?.let {
-            task.due = Due(iCalendar.getDateTime(it.millis))
+            task.due = it.millis.toICalDateTime()
         }
         lookup.valueOf(START_DATE, null as DateTime?)?.let {
-            task.dtStart = DtStart(it.millis.toDate())
+            task.dtStart = it.millis.toICalDate()
         }
         lookup.valueOf(START_TIME, null as DateTime?)?.let {
-            task.dtStart = DtStart(iCalendar.getDateTime(it.millis))
+            task.dtStart = it.millis.toICalDateTime()
         }
         lookup.valueOf(COMPLETED_AT, null as DateTime?)?.let {
-            task.completedAt = Completed(iCalendar.getDateTime(it.millis))
-            task.status = Status.VTODO_COMPLETED
+            task.completedAt = it.millis
+            task.status = TodoStatus.COMPLETED
         }
         task.order = lookup.valueOf(ORDER, null as Long?)
         task.summary = lookup.valueOf(TITLE, null as String?)
         task.parent = lookup.valueOf(PARENT, null as String?)
         task.description = lookup.valueOf(DESCRIPTION, null as String?)
-        task.priority = lookup.valueOf(PRIORITY, Priority.UNDEFINED.level)
+        task.priority = lookup.valueOf(PRIORITY, 0)
         task.collapsed = lookup.valueOf(COLLAPSED, false)
         lookup.valueOf(LAST_MODIFIED, null as DateTime?)?.let {
             task.lastModified = it.millis
@@ -71,11 +67,11 @@ object iCalMaker {
         lookup.valueOf(DT_STAMP, null as DateTime?)?.let {
             task.dtStamp = it.millis
         }
-        task.rRule = lookup.valueOf(RRULE, null as String?)?.let { RRule(it) }
-        task.status = lookup.valueOf(STATUS, null as Status?)
+        task.rRule = lookup.valueOf(RRULE, null as String?)?.let { Recur.parse(it) }
+        task.status = lookup.valueOf(STATUS, null as String?)
         task
     }
-    fun newIcal(vararg properties: PropertyValue<in Task?, *>): Task {
+    fun newIcal(vararg properties: PropertyValue<in VTodo?, *>): VTodo {
         return Maker.make(instantiator, *properties)
     }
 }

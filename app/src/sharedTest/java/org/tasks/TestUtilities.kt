@@ -1,7 +1,6 @@
 package org.tasks
 
 import android.content.Context
-import org.tasks.caldav.Task.Companion.tasksFromReader
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.tasks.caldav.applyRemote
@@ -10,6 +9,8 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.extensions.Context.is24HourOverride
+import org.tasks.icalendar.VTodo
+import org.tasks.icalendar.parseVTodos
 import org.tasks.preferences.Preferences
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.Tasks
@@ -79,18 +80,14 @@ object TestUtilities {
     val String.alarms: List<Alarm>
         get() = icalendarFromFile(this).reminders
 
-    fun setup(path: String): Triple<Task, CaldavTask, org.tasks.caldav.Task> {
+    fun setup(path: String): Triple<Task, CaldavTask, VTodo> {
         val task = Task()
         val remote = icalendarFromFile(path)
         task.applyRemote(remote, null)
         return Triple(task, CaldavTask(task = 0, calendar = null), remote)
     }
 
-    fun icalendarFromFile(path: String): org.tasks.caldav.Task =
-        tasksFromReader(StringReader(readFile(path)))
-            .takeIf { it.size == 1 }
-            ?.first()
-            ?: throw IllegalStateException()
+    fun icalendarFromFile(path: String): VTodo = parseVTodos(readFile(path)).single()
 
     fun mstodo(
         path: String,

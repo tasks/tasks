@@ -22,12 +22,10 @@ class ICalendarMergeTest : InjectingTestCase() {
 
     @Test
     fun unknownPropertyIsNotClobberedWhenPushingLocalEdit() = runBlocking {
-        val remote = Ical4androidTaskAdapter(
-            at.bitfire.ical4android.Task().apply {
-                uid = "1234"
-                unknownProperties.add(XProperty("X-CUSTOM-PROP", "bar"))
-            }
-        )
+        val remote = at.bitfire.ical4android.Task().apply {
+            uid = "1234"
+            unknownProperties.add(XProperty("X-CUSTOM-PROP", "bar"))
+        }.toVTodo()
 
         val data = iCal.toVtodo(
             account = CaldavAccount(),
