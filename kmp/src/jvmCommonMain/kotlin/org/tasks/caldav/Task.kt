@@ -55,8 +55,10 @@ import net.fortuna.ical4j.model.property.Uid
 import net.fortuna.ical4j.model.property.Url
 import net.fortuna.ical4j.model.property.Version
 import net.fortuna.ical4j.validate.ValidationException
+import org.tasks.icalendar.repairICalendar
 import java.io.OutputStream
 import java.io.Reader
+import java.io.StringReader
 import java.net.URI
 import java.net.URISyntaxException
 import java.util.LinkedList
@@ -195,7 +197,7 @@ data class Task(
         var prodId: ProdId = ProdId("+//IDN bitfire.at//ical4android")
 
         fun tasksFromReader(reader: Reader): List<Task> {
-            val preprocessed = ICalPreprocessor.preprocessStream(reader)
+            val preprocessed = StringReader(reader.readText().repairICalendar())
 
             val calendar = CalendarBuilder(
                 CalendarParserFactory.getInstance().get(),
