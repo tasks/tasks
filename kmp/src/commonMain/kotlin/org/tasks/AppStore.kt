@@ -4,4 +4,5 @@ enum class AppStore {
     NONE,
     GOOGLE_PLAY,
     FDROID,
+    APP_STORE,
 }

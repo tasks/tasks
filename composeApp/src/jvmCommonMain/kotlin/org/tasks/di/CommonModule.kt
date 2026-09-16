@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
@@ -29,9 +28,6 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.caldav.iCalendar
-import org.tasks.caldav.metadata.TagMetadataActivation
-import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
@@ -99,6 +95,7 @@ import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.service.TaskMigrator
 import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.tags.TagPickerViewModel
@@ -119,16 +116,39 @@ import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
 import java.util.Locale
 
-private const val SYNC_TAG = "BackgroundWork"
-
 val commonModule = module {
     includes(coreModule)
 
     single<BackgroundWork> {
         val scope = get<CoroutineScope>()
-        val mutex = kotlinx.coroutines.sync.Mutex()
-        val pending = java.util.concurrent.atomic.AtomicBoolean(false)
         val refreshScheduler = get<RefreshScheduler>()
+        val runner = SyncRunner(scope, get(), { get() }) { pass ->
+            val caldavSynchronizer = get<CaldavSynchronizer>()
+            val etebaseSynchronizer = get<EtebaseSynchronizer>()
+            pass.accounts(TYPE_CALDAV, TYPE_TASKS).forEach { account ->
+                caldavSynchronizer.sync(account, hasPro = pass.hasPro)
+            }
+            pass.accounts(TYPE_ETEBASE).forEach { account ->
+                etebaseSynchronizer.sync(account, hasPro = pass.hasPro)
+            }
+            pass.accounts(TYPE_GOOGLE_TASKS).forEach { account ->
+                get<DesktopGoogleTasksSynchronizer>()
+                    .sync(account, hasPro = pass.googleAndMicrosoftPro)
+            }
+            val microsoftAccounts = pass.accounts(TYPE_MICROSOFT)
+            if (microsoftAccounts.isNotEmpty()) {
+                val microsoftSynchronizer = get<MicrosoftSynchronizer>()
+                coroutineScope {
+                    microsoftAccounts.forEach { account ->
+                        launch {
+                            microsoftSynchronizer
+                                .sync(account, hasPro = pass.googleAndMicrosoftPro)
+                        }
+                    }
+                }
+            }
+            get<OpenTasksSyncer>().sync(hasPro = pass.hasPro)
+        }
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) =
@@ -142,59 +162,7 @@ val commonModule = module {
                     get<TaskMigrator>().migrateLocalTasks(localAccount, tasksAccount)
                 }
             }
-            override suspend fun sync(source: SyncSource) {
-                scope.launch {
-                    if (!mutex.tryLock()) {
-                        pending.set(true)
-                        return@launch
-                    }
-                    try {
-                        do {
-                            pending.set(false)
-                            val caldavSynchronizer = get<CaldavSynchronizer>()
-                            val etebaseSynchronizer = get<EtebaseSynchronizer>()
-                            val caldavDao = get<org.tasks.data.dao.CaldavDao>()
-                            val subscriptionProvider = get<org.tasks.billing.SubscriptionProvider>()
-                            val caldavAccounts = caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS)
-                            val hasTasksOrg = caldavAccounts.any { it.isTasksOrg }
-                            if (!hasTasksOrg && !subscriptionProvider.awaitVerification()) {
-                                Logger.e(tag = SYNC_TAG) {
-                                    "Could not confirm subscription, syncing without pro"
-                                }
-                            }
-                            val hasPro = hasTasksOrg ||
-                                    subscriptionProvider.subscription.first() != null
-                            val googleAndMicrosoftPro =
-                                hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro
-                            caldavAccounts.forEach { account ->
-                                caldavSynchronizer.sync(account, hasPro = hasPro)
-                            }
-                            caldavDao.getAccounts(TYPE_ETEBASE).forEach { account ->
-                                etebaseSynchronizer.sync(account, hasPro = hasPro)
-                            }
-                            caldavDao.getAccounts(TYPE_GOOGLE_TASKS).forEach { account ->
-                                get<DesktopGoogleTasksSynchronizer>()
-                                    .sync(account, hasPro = googleAndMicrosoftPro)
-                            }
-                            val microsoftAccounts = caldavDao.getAccounts(TYPE_MICROSOFT)
-                            if (microsoftAccounts.isNotEmpty()) {
-                                val microsoftSynchronizer = get<MicrosoftSynchronizer>()
-                                coroutineScope {
-                                    microsoftAccounts.forEach { account ->
-                                        launch {
-                                            microsoftSynchronizer
-                                                .sync(account, hasPro = googleAndMicrosoftPro)
-                                        }
-                                    }
-                                }
-                            }
-                            get<OpenTasksSyncer>().sync(hasPro = hasPro)
-                        } while (pending.getAndSet(false))
-                    } finally {
-                        mutex.unlock()
-                    }
-                }
-            }
+            override suspend fun sync(source: SyncSource) = runner.sync(source)
         }
     }
     factory<KtorClientFactory> { OkHttpKtorClientFactory(get()) }
@@ -207,20 +175,6 @@ val commonModule = module {
             tokenProvider = getOrNull(),
         )
     }
-    factoryOf(::TaskMigrator)
-    factoryOf(::iCalendar)
-    factoryOf(::CaldavSynchronizer)
-    single {
-        org.tasks.caldav.metadata.TagMetadataSync(
-            caldavDao = get(),
-            tagDataDao = get(),
-            provider = get(),
-            vtodoCache = get(),
-            preferences = get(),
-        )
-    }
-    factory<TagMetadataEditor> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
-    factory<TagMetadataActivation> { get<org.tasks.caldav.metadata.TagMetadataSync>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     factory<Encryption> { get<KeyStoreEncryption>() }
     factory<EtebaseClientFactory> { get<EtebaseClientProvider>() }

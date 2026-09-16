@@ -3,12 +3,15 @@ package org.tasks.di
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.todoroo.astrid.service.CommonUpgrades
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
+import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.Analytics
@@ -27,9 +30,9 @@ import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
-import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
@@ -46,7 +49,9 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.security.Encryption
 import org.tasks.security.PlainTextEncryption
 import org.tasks.service.TaskCleanup
+import org.tasks.service.TaskMigrator
 import org.tasks.service.Upgrader
+import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
@@ -62,7 +67,9 @@ actual fun platformModule(): Module = module {
     single {
         PlatformConfiguration(
             versionCode = TasksBuildConfig.VERSION_CODE,
+            supportsCaldav = true,
             supportsNotifications = false,
+            appStore = AppStore.APP_STORE,
         )
     }
     single<Reporting> {
@@ -89,10 +96,10 @@ actual fun platformModule(): Module = module {
     factory { Upgrader(get(), CommonUpgrades.all(get())) }
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
-    single { TagMetadataEditor(get(), get(), get()) }
     single<Encryption> { PlainTextEncryption() }
     single<KtorClientFactory> { DarwinKtorClientFactory() }
-    factory<CaldavClientFactory> { CaldavClientProvider(get(), get(), get(), get()) }
+    factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get()) }
+    factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     single { TasksOAuthClient() }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
     factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get()) }
@@ -121,12 +128,21 @@ actual fun platformModule(): Module = module {
         }
     }
     single<BackgroundWork> {
+        val scope = get<CoroutineScope>()
+        val runner = SyncRunner(scope, get(), { get() }) { pass ->
+            val synchronizer = get<CaldavSynchronizer>()
+            pass.accounts(CaldavAccount.TYPE_CALDAV, CaldavAccount.TYPE_TASKS).forEach { account ->
+                synchronizer.sync(account, hasPro = pass.hasPro)
+            }
+        }
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}
-            override suspend fun sync(source: SyncSource) {}
+            override suspend fun sync(source: SyncSource) = runner.sync(source)
             override suspend fun scheduleBlogFeedCheck() {}
-            override fun migrateLocalTasks(localAccount: CaldavAccount, tasksAccount: CaldavAccount) {}
+            override fun migrateLocalTasks(localAccount: CaldavAccount, tasksAccount: CaldavAccount) {
+                scope.launch { get<TaskMigrator>().migrateLocalTasks(localAccount, tasksAccount) }
+            }
         }
     }
     factory<Notifier> {

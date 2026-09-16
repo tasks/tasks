@@ -18,8 +18,13 @@ import org.tasks.di.platformModule
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.service.Upgrader
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
+import platform.Foundation.NSNotificationCenter
+import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
+import platform.UIKit.UIApplicationDidBecomeActiveNotification
 
 private var started = false
 
@@ -36,6 +41,16 @@ internal fun ensureStarted() {
         koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
         koin.get<Upgrader>().upgrade(versionCode)
     }
+    syncWhenForegrounded()
+}
+
+private fun syncWhenForegrounded() {
+    val syncAdapters = KoinPlatform.getKoin().get<SyncAdapters>()
+    NSNotificationCenter.defaultCenter.addObserverForName(
+        name = UIApplicationDidBecomeActiveNotification,
+        `object` = null,
+        queue = NSOperationQueue.mainQueue,
+    ) { syncAdapters.sync(SyncSource.APP_RESUME) }
 }
 
 fun MainViewController() = ComposeUIViewController {

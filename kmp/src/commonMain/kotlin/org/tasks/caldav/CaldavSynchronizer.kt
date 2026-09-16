@@ -78,10 +78,9 @@ import org.tasks.data.entity.CaldavCalendar.Companion.INVITE_UNKNOWN
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.PrincipalAccess
 import org.tasks.data.entity.Task
+import org.tasks.http.NetworkException
 import co.touchlab.kermit.Logger
-import java.io.IOException
-import java.security.KeyManagementException
-import java.security.NoSuchAlgorithmException
+import kotlinx.io.IOException
 
 private const val TAG = "CaldavSync"
 
@@ -133,9 +132,7 @@ class CaldavSynchronizer(
             setError(account, e)
         } catch (e: ServiceUnavailableException) {
             setError(account, e)
-        } catch (e: KeyManagementException) {
-            setError(account, e)
-        } catch (e: NoSuchAlgorithmException) {
+        } catch (e: NetworkException) {
             setError(account, e)
         } catch (e: HttpException) {
             when(e.statusCode) {
@@ -145,7 +142,9 @@ class CaldavSynchronizer(
             setError(account, e)
         } catch (e: Exception) {
             setError(account, e)
-            reporting.reportException(e)
+            if (!e.isTlsSetupFailure()) {
+                reporting.reportException(e)
+            }
         }
     }
 
@@ -424,7 +423,7 @@ class CaldavSynchronizer(
                     fromHttpResponse(it)?.eTag?.takeIf(String::isNotBlank)?.let { etag ->
                         caldavTask.etag = etag
                     }
-                    vtodoCache.putVtodo(calendar, caldavTask, String(data))
+                    vtodoCache.putVtodo(calendar, caldavTask, data.decodeToString())
                 }
             } catch (e: HttpException) {
                 Logger.e(e) { e.message.orEmpty() }

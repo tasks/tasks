@@ -84,7 +84,7 @@ data class WorksWithLinks(
     fun url(store: AppStore): String = when (store) {
         AppStore.GOOGLE_PLAY -> play?.let { "market://details?id=$it" }
         AppStore.FDROID -> fdroid?.let { "https://f-droid.org/packages/$it/" }
-        AppStore.NONE -> null
+        AppStore.APP_STORE, AppStore.NONE -> null
     } ?: web
 }
 

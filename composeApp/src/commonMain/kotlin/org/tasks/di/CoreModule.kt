@@ -6,7 +6,13 @@ import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.viewmodel.ProCardViewModel
+import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
+import org.tasks.caldav.iCalendar
+import org.tasks.caldav.metadata.TagMetadataActivation
+import org.tasks.caldav.metadata.TagMetadataEditor
+import org.tasks.caldav.metadata.TagMetadataSync
+import org.tasks.service.TaskMigrator
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
@@ -522,6 +528,20 @@ val coreModule: Module = module {
     }
     singleOf(::TasksServerEnvironment)
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
+    factoryOf(::TaskMigrator)
+    factoryOf(::iCalendar)
+    factoryOf(::CaldavSynchronizer)
+    single {
+        TagMetadataSync(
+            caldavDao = get(),
+            tagDataDao = get(),
+            provider = get(),
+            vtodoCache = get(),
+            preferences = get(),
+        )
+    }
+    factory<TagMetadataEditor> { get<TagMetadataSync>() }
+    factory<TagMetadataActivation> { get<TagMetadataSync>() }
     viewModel {
         ProCardViewModel(
             caldavDao = get(),
