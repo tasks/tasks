@@ -26,22 +26,25 @@ import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
 import platform.UIKit.UIApplicationDidBecomeActiveNotification
 
-private var started = false
+private var foregroundSyncInstalled = false
 
 internal fun ensureStarted() {
-    if (started) return
-    started = true
-    CaldavClient.registerFactories()
-    startKoin {
-        modules(coreModule, platformModule())
+    if (KoinPlatform.getKoinOrNull() == null) {
+        CaldavClient.registerFactories()
+        startKoin {
+            modules(coreModule, platformModule())
+        }
+        val koin = KoinPlatform.getKoin()
+        runBlocking {
+            val versionCode = koin.get<PlatformConfiguration>().versionCode
+            koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
+            koin.get<Upgrader>().upgrade(versionCode)
+        }
     }
-    val koin = KoinPlatform.getKoin()
-    runBlocking {
-        val versionCode = koin.get<PlatformConfiguration>().versionCode
-        koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
-        koin.get<Upgrader>().upgrade(versionCode)
+    if (!foregroundSyncInstalled) {
+        foregroundSyncInstalled = true
+        syncWhenForegrounded()
     }
-    syncWhenForegrounded()
 }
 
 private fun syncWhenForegrounded() {

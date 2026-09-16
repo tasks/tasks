@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
+import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import org.tasks.security.Encryption
 
@@ -13,6 +14,7 @@ class IosSignInHandler(
     private val encryption: Encryption,
     private val serverEnvironment: TasksServerEnvironment,
     private val caldavClientFactory: CaldavClientFactory,
+    private val pushTokenManager: PushTokenManager,
 ) : SignInHandler {
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
         val oauthProvider = provider ?: when (platform) {
@@ -20,7 +22,7 @@ class IosSignInHandler(
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
         }
         val result = oauthFlow.signIn(oauthProvider)
-        try {
+        val account = try {
             setupTasksAccount(
                 oauthResult = result,
                 issuer = oauthProvider.issuer,
@@ -33,6 +35,7 @@ class IosSignInHandler(
             if (e.code == 402) throw PaymentRequiredException()
             throw e
         }
+        pushTokenManager.registerTokenForAccount(account)
         Logger.i("IosSignInHandler") { "Account created successfully" }
     }
 }

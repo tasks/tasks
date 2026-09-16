@@ -38,6 +38,8 @@ import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
+import org.tasks.fcm.ApnsTokenProvider
+import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DarwinKtorClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.jobs.BackgroundWork
@@ -98,11 +100,13 @@ actual fun platformModule(): Module = module {
     factoryOf(::VtodoCache)
     single<Encryption> { PlainTextEncryption() }
     single<KtorClientFactory> { DarwinKtorClientFactory() }
-    factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get()) }
+    factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get(), get()) }
+    single { ApnsTokenProvider(tasksPreferences = get(), scope = get(), pushTokenManager = { get() }) }
+    single<FcmTokenProvider> { get<ApnsTokenProvider>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     single { TasksOAuthClient() }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
-    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get()) }
+    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get()) }
     single<SubscriptionProvider> {
         val tasksPreferences = get<TasksPreferences>()
         val subscriptionFlow: Flow<SubscriptionProvider.SubscriptionInfo?> =
@@ -127,14 +131,17 @@ actual fun platformModule(): Module = module {
             override suspend fun getFormattedPrice(sku: String): String? = null
         }
     }
-    single<BackgroundWork> {
-        val scope = get<CoroutineScope>()
-        val runner = SyncRunner(scope, get(), { get() }) { pass ->
+    single {
+        SyncRunner(get(), get(), { get() }) { pass ->
             val synchronizer = get<CaldavSynchronizer>()
             pass.accounts(CaldavAccount.TYPE_CALDAV, CaldavAccount.TYPE_TASKS).forEach { account ->
                 synchronizer.sync(account, hasPro = pass.hasPro)
             }
         }
+    }
+    single<BackgroundWork> {
+        val scope = get<CoroutineScope>()
+        val runner = get<SyncRunner>()
         object : BackgroundWork {
             override fun updateCalendar(task: Task) {}
             override suspend fun scheduleRefresh(timestamp: Long) {}

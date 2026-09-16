@@ -5,7 +5,7 @@ import kotlinx.serialization.json.JsonObject
 interface TasksAccountClient : AutoCloseable {
     suspend fun generateNewPassword(description: String?): JsonObject?
     suspend fun deletePassword(id: Int)
-    suspend fun registerPushToken(token: String)
+    suspend fun registerPushToken(token: String, provider: String? = null)
     suspend fun unregisterPushToken(token: String)
     suspend fun getAccount(): String?
     suspend fun regenerateInboundEmail(): JsonObject?

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -46,6 +47,8 @@ class SyncRunner(
             }
         }
     }
+
+    suspend fun syncNow(source: SyncSource) = mutex.withLock { runPass(source) }
 
     private suspend fun runPass(source: SyncSource) {
         val subscriptionProvider = subscriptionProvider()

@@ -2,6 +2,7 @@ import SwiftUI
 
 @main
 struct iOSApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some Scene {

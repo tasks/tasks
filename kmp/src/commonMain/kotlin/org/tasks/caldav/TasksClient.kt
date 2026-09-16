@@ -56,13 +56,17 @@ class TasksClient(
         }
     }
 
-    override suspend fun registerPushToken(token: String): Unit = translateExceptions {
+    override suspend fun registerPushToken(token: String, provider: String?): Unit = translateExceptions {
         withContext(Dispatchers.IO) {
             val url = httpUrl?.resolve(ENDPOINT_PUSH_TOKEN) ?: return@withContext
+            val body = buildMap {
+                put("token", JsonPrimitive(token))
+                provider?.let { put("provider", JsonPrimitive(it)) }
+            }
             httpClient
                 .post(url) {
                     contentType(ContentType.Application.Json)
-                    setBody(JsonObject(mapOf("token" to JsonPrimitive(token))).toString())
+                    setBody(JsonObject(body).toString())
                 }
                 .checkSuccess()
         }
