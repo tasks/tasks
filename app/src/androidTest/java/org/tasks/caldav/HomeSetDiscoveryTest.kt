@@ -6,7 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import org.junit.Assert.assertEquals
 import org.junit.Assert.fail
 import org.junit.Test
-import at.bitfire.dav4jvm.ktor.exception.HttpException
+import org.tasks.http.HttpException
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -56,7 +56,7 @@ class HomeSetDiscoveryTest : CaldavTest() {
         } catch (e: HttpException) {
             // Home-set lookup failed without a 401 of its own, but a 401 was seen
             // during discovery, so an auth error is surfaced rather than not-found
-            assertEquals(401, e.statusCode)
+            assertEquals(401, e.code)
         }
     }
 
