@@ -1,0 +1,5 @@
+package = libical
+headers = libical/ical.h
+headerFilter = libical/**
+nonStrictEnums = icalrecurrencetype_frequency icalrecurrencetype_weekday icalrecurrencetype_byrule icalrecurrencetype_skip
+staticLibraries = libical.a

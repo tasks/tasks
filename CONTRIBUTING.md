@@ -18,7 +18,7 @@ Before opening an issue, please make sure that your issue:
 3. Select `File > Open`, select the Tasks directory, and accept prompts to install missing SDK components
 
 #### iOS
-1. Install [Xcode](https://developer.apple.com/xcode/)
+1. Install [Xcode](https://developer.apple.com/xcode/) and [CMake](https://cmake.org) (`brew install cmake`); `kmp/build-libical.sh` cross-compiles [libical](https://github.com/libical/libical) into an XCFramework the first time an iOS target builds
 2. Open `iosApp/iosApp.xcodeproj` and run the `iosApp` scheme on a simulator, or `xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator build`
 3. For a device, put your team ID in `iosApp/Configuration/Local.xcconfig` (`TEAM_ID=XXXXXXXXXX`), which git ignores
 

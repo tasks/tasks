@@ -2,6 +2,7 @@
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,6 +11,18 @@ plugins {
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
+}
+
+val libicalDir = layout.buildDirectory.dir("libical")
+
+val buildLibical by tasks.registering(Exec::class) {
+    inputs.file("build-libical.sh")
+    outputs.dir(libicalDir.map { it.dir("libical.xcframework") })
+    commandLine("./build-libical.sh", libicalDir.get().asFile.path)
+}
+
+fun libicalSlice(target: KotlinNativeTarget) = libicalDir.map {
+    it.dir("libical.xcframework/" + if (target.name.contains("Simulator")) "ios-arm64-simulator" else "ios-arm64")
 }
 
 kotlin {
@@ -25,8 +38,14 @@ kotlin {
             jvmTarget.set(JvmTarget.fromTarget(libs.versions.jdk.get()))
         }
     }
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
+        target.compilations.getByName("main").cinterops.create("libical") {
+            definitionFile.set(file("src/nativeInterop/cinterop/libical.def"))
+            includeDirs(libicalSlice(target).map { it.dir("Headers") })
+            extraOpts("-libraryPath", libicalSlice(target).get().asFile.path)
+            tasks.named(interopProcessingTaskName).configure { dependsOn(buildLibical) }
+        }
+    }
     sourceSets {
         val jvmCommonMain by creating {
             dependsOn(commonMain.get())
