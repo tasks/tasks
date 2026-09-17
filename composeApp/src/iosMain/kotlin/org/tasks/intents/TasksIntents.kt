@@ -169,6 +169,24 @@ object TasksIntents {
     }
 
     @Throws(Throwable::class)
+    suspend fun openTasks(offset: Int, limit: Int): List<IntentTask> = call {
+        val query = TaskQuery(status = "open", sort = TasksContract.Tasks.SORT_CREATED, limit = limit, offset = offset)
+        engine.findTasks(query).rows.toIntentTasks()
+    }
+
+    @Throws(Throwable::class)
+    suspend fun completedTasks(after: Long, offset: Int, limit: Int): List<IntentTask> = call {
+        val query = TaskQuery(
+            status = "completed",
+            completedAfter = after,
+            sort = TasksContract.Tasks.SORT_CREATED,
+            limit = limit,
+            offset = offset,
+        )
+        engine.findTasks(query).rows.toIntentTasks()
+    }
+
+    @Throws(Throwable::class)
     suspend fun createList(title: String): IntentList = call {
         val accountId = koin.get<ApiTaskFactory>().defaultList().account.id
         engine.createList(writer, ListWrite(title = title, accountId = accountId)).toIntentList()

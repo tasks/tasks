@@ -1,17 +1,21 @@
 import AppIntents
 import ComposeApp
 import CoreLocation
+import CoreSpotlight
 import Foundation
 import GeoToolbox
+import UniformTypeIdentifiers
 
 @available(iOS 27.0, *)
 @AppEntity(schema: .reminders.reminder)
-struct TaskEntity {
+struct TaskEntity: IndexedEntity {
     static let defaultQuery = TaskEntityQuery()
 
     let id: Int
 
+    @Property(indexingKey: \.title)
     var title: String
+    @Property(indexingKey: \.textContent)
     var note: AttributedString?
     var tags: Set<String>
     var urls: [URL]
@@ -19,7 +23,9 @@ struct TaskEntity {
     var recurrence: Calendar.RecurrenceRule?
     var isCompleted: Bool
     var isFlagged: Bool?
+    @Property(indexingKey: \.contentCreationDate)
     var creationDate: Date?
+    @Property(indexingKey: \.completionDate)
     var completionDate: Date?
     var list: TaskListEntity
     var locationTrigger: LocationTriggerEntity?
@@ -48,10 +54,30 @@ struct TaskEntity {
             }
         )
     }
+
+    var attributeSet: CSSearchableItemAttributeSet {
+        let attributes = CSSearchableItemAttributeSet(contentType: .text)
+        attributes.title = title
+        attributes.textContent = note.map { String($0.characters) }
+        attributes.keywords = Array(tags) + [list.name]
+        attributes.containerTitle = list.name
+        attributes.dueDate = dueDate?.date
+        attributes.completionDate = completionDate
+        attributes.contentCreationDate = creationDate
+        return attributes
+    }
 }
 
 @available(iOS 27.0, *)
-struct TaskEntityQuery: EntityStringQuery {
+struct TaskEntityQuery: EntityStringQuery, IndexedEntityQuery {
+    func reindexEntities(for identifiers: [Int], indexDescription: CSSearchableIndexDescription) async throws {
+        try await SpotlightIndex.reindex(ids: identifiers)
+    }
+
+    func reindexAllEntities(indexDescription: CSSearchableIndexDescription) async throws {
+        try await SpotlightIndex.reindexAll()
+    }
+
     func entities(for identifiers: [Int]) async throws -> [TaskEntity] {
         try await TasksIntents.shared.tasks(ids: identifiers.map { KotlinLong(longLong: Int64($0)) }).map(TaskEntity.init)
     }
@@ -256,7 +282,9 @@ struct CreateTaskIntent {
             tags: Array(tags),
             locationTrigger: try await locationTrigger?.write()
         )
-        return .result(value: TaskEntity(created), dialog: "Created “\(created.title)”")
+        let entity = TaskEntity(created)
+        await SpotlightIndex.index(entity)
+        return .result(value: entity, dialog: "Created “\(created.title)”")
     }
 }
 
@@ -304,8 +332,10 @@ struct UpdateTaskIntent {
             tags: tags.map(Array.init),
             locationTrigger: try await locationTrigger?.write()
         )
+        let entity = TaskEntity(updated)
+        await SpotlightIndex.index(entity)
         let dialog: IntentDialog = isCompleted == true ? "Completed “\(updated.title)”" : "Updated “\(updated.title)”"
-        return .result(value: TaskEntity(updated), dialog: dialog)
+        return .result(value: entity, dialog: dialog)
     }
 }
 
@@ -320,6 +350,7 @@ struct DeleteTasksIntent: DeleteIntent {
 
     func perform() async throws -> some IntentResult & ProvidesDialog {
         let deleted = try await TasksIntents.shared.deleteTasks(ids: entities.map { KotlinLong(longLong: Int64($0.id)) })
+        await SpotlightIndex.remove(ids: entities.map(\.id))
         return .result(dialog: "Deleted \(deleted) task\(deleted == 1 ? "" : "s")")
     }
 }
