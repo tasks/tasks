@@ -44,7 +44,7 @@ actual fun parseVTodos(iCalendar: String): List<VTodo> =
     Task.tasksFromReader(StringReader(iCalendar)).map { it.toVTodo() }
 
 actual fun VTodo.serialize(): String =
-    toTask().let { task -> ByteArrayOutputStream().also(task::write).toString(Charsets.UTF_8) }
+    toTask().let { task -> ByteArrayOutputStream().also(task::write).toString("UTF-8") }
 
 private val timeZones by lazy { TimeZoneRegistryFactory.getInstance().createRegistry() }
 

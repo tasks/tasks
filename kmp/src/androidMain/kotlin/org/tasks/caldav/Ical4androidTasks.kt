@@ -7,7 +7,7 @@ import java.io.ByteArrayOutputStream
 import java.io.StringReader
 
 fun at.bitfire.ical4android.Task.toVTodo(): VTodo =
-    parseVTodos(ByteArrayOutputStream().also(::write).toString(Charsets.UTF_8)).single()
+    parseVTodos(ByteArrayOutputStream().also(::write).toString("UTF-8")).single()
 
 fun VTodo.toIcal4android(): at.bitfire.ical4android.Task =
     at.bitfire.ical4android.Task.tasksFromReader(StringReader(serialize())).first()
