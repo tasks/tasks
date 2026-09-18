@@ -146,7 +146,6 @@ private fun MarkdownPreview(
                     TypedValue.COMPLEX_UNIT_PX,
                     context.resources.getDimension(R.dimen.task_edit_text_size)
                 )
-                movementMethod = LinkMovementMethod.getInstance()
             }
         },
         update = { view ->
@@ -182,16 +181,17 @@ private fun MarkdownPreview(
                 }
             }
             if (linkify != null) {
-                // Sends link taps to the "open or edit" dialog and everything else to onTap.
+                // Sends link taps to the "open or edit" dialog, which always offers a way into
+                // the editor, and everything else to onTap.
+                view.movementMethod = LinkMovementMethod.getInstance()
                 linkify.setMovementMethod(view, rowClickHandler = onTap)
             } else {
-                // LinkMovementMethod selects a link while it's pressed, so a selection here
-                // means the tap was on a link, which is already being opened.
-                view.setOnClickListener {
-                    if (!view.hasSelection()) {
-                        onTap()
-                    }
-                }
+                // Links are off for the edit screen, so they must not open on tap: a
+                // description that is only a link would otherwise never reach the editor
+                // (see #4423). Markwon installs a movement method after rendering, so clear
+                // it afterwards; every tap then lands here.
+                view.movementMethod = null
+                view.setOnClickListener { onTap() }
             }
         },
     )
