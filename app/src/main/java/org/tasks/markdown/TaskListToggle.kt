@@ -19,8 +19,7 @@ private val TASK_MARKER = Regex("""^((?:[ \t]*>)*[ \t]*(?:[-*+]|\d{1,9}[.)])[ \t
 
 private val FENCE = Regex("""^(?:[ \t]*>)*[ \t]*(`{3,}|~{3,})""")
 
-/** Offsets of the character between the brackets of every task-list marker, in order. */
-private fun markerOffsets(source: String): List<Int> {
+private fun offsetsInsideTaskListBrackets(source: String): List<Int> {
     val offsets = mutableListOf<Int>()
     var fence: String? = null
     var lineStart = 0
@@ -51,7 +50,7 @@ private fun markerOffsets(source: String): List<Int> {
  * @param source the Markdown source
  * @return the number of task-list markers outside fenced code blocks
  */
-fun countTaskListItems(source: String): Int = markerOffsets(source).size
+fun countTaskListItems(source: String): Int = offsetsInsideTaskListBrackets(source).size
 
 /**
  * Flips the [index]-th task-list item between checked and unchecked.
@@ -64,7 +63,7 @@ fun countTaskListItems(source: String): Int = markerOffsets(source).size
  * @return the updated source, or null if there is no task-list item at [index]
  */
 fun toggleTaskListItem(source: String, index: Int): String? {
-    val offset = markerOffsets(source).getOrNull(index) ?: return null
+    val offset = offsetsInsideTaskListBrackets(source).getOrNull(index) ?: return null
     val replacement = if (source[offset] == 'x' || source[offset] == 'X') ' ' else 'x'
     return StringBuilder(source).apply { setCharAt(offset, replacement) }.toString()
 }

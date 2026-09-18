@@ -1,6 +1,7 @@
 package org.tasks.compose.edit
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.Configuration
 import android.graphics.PointF
 import android.text.Spanned
@@ -119,15 +120,10 @@ fun DescriptionRow(
     )
 }
 
-/**
- * Read-only Markdown rendering of the description, laid out to match [EditTextView] so that
- * switching between the two doesn't move the text.
- *
- * @param onEdit called for a tap anywhere other than a link or a checkbox
- * @param onToggle called with the tapped checkbox's ordinal and the number of checkboxes
- *   rendered, so the caller can verify the mapping before changing the source
- */
-@SuppressLint("ClickableViewAccessibility") // the touch listener only records, never consumes
+// Read-only Markdown rendering of the description, laid out to match EditTextView so that
+// switching between the two doesn't move the text. onEdit is called for a tap anywhere other
+// than a link or a checkbox; onToggle gets the tapped checkbox's ordinal and the number of
+// checkboxes rendered, so the caller can verify the mapping before changing the source.
 @Composable
 private fun MarkdownPreview(
     text: String,
@@ -144,28 +140,7 @@ private fun MarkdownPreview(
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(end = 16.dp),
-        factory = { context ->
-            TextView(context).apply {
-                // EditTextView keeps the EditText's own padding after swapping its background
-                // for a transparent one, so take the metrics from an identical EditText.
-                val reference = EditText(context).apply {
-                    setBackgroundColor(context.getColor(android.R.color.transparent))
-                }
-                setPadding(
-                    reference.paddingLeft,
-                    reference.paddingTop,
-                    reference.paddingRight,
-                    reference.paddingBottom,
-                )
-                minimumHeight = reference.minimumHeight
-                setTextColor(reference.textColors)
-                setLinkTextColor(reference.linkTextColors)
-                setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    context.resources.getDimension(R.dimen.task_edit_text_size)
-                )
-            }
-        },
+        factory = ::descriptionPreviewTextView,
         update = { view ->
             ViewCompat.replaceAccessibilityAction(
                 view,
@@ -174,45 +149,81 @@ private fun MarkdownPreview(
                 null,
             )
             val rendered = text to markdown
-            if (view.tag == rendered) {
-                return@AndroidView
-            }
-            view.tag = rendered
-            markdown.setMarkdown(view, text)
-            // A click carries no position, so remember where the finger lifted to tell a
-            // checkbox tap from a tap on the text. An accessibility click has no touch at all
-            // and leaves this null, which means "edit".
-            var lastTap: PointF? = null
-            view.setOnTouchListener { _, event ->
-                if (event.actionMasked == MotionEvent.ACTION_UP) {
-                    lastTap = PointF(event.x, event.y)
-                }
-                false
-            }
-            val onTap = {
-                val index = lastTap?.let { view.taskListCheckboxAt(it.x, it.y) }
-                lastTap = null
-                if (index != null) {
-                    currentOnToggle(index, taskListSpans(view.text as Spanned).size)
-                } else {
-                    currentOnEdit()
-                }
-            }
-            if (linkify != null) {
-                // Sends link taps to the "open or edit" dialog, which always offers a way into
-                // the editor, and everything else to onTap.
-                view.movementMethod = LinkMovementMethod.getInstance()
-                linkify.setMovementMethod(view, rowClickHandler = onTap)
-            } else {
-                // Links are off for the edit screen, so they must not open on tap: a
-                // description that is only a link would otherwise never reach the editor
-                // (see #4423). Markwon installs a movement method after rendering, so clear
-                // it afterwards; every tap then lands here.
-                view.movementMethod = null
-                view.setOnClickListener { onTap() }
+            if (view.tag != rendered) {
+                view.tag = rendered
+                view.showDescription(
+                    text = text,
+                    markdown = markdown,
+                    linkify = linkify,
+                    onEdit = { currentOnEdit() },
+                    onToggle = { index, renderedCount -> currentOnToggle(index, renderedCount) },
+                )
             }
         },
     )
+}
+
+private fun descriptionPreviewTextView(context: Context) = TextView(context).apply {
+    // EditTextView keeps the EditText's own padding after swapping its background for a
+    // transparent one, so take the metrics from an identical EditText.
+    val reference = EditText(context).apply {
+        setBackgroundColor(context.getColor(android.R.color.transparent))
+    }
+    setPadding(
+        reference.paddingLeft,
+        reference.paddingTop,
+        reference.paddingRight,
+        reference.paddingBottom,
+    )
+    minimumHeight = reference.minimumHeight
+    setTextColor(reference.textColors)
+    setLinkTextColor(reference.linkTextColors)
+    setTextSize(
+        TypedValue.COMPLEX_UNIT_PX,
+        context.resources.getDimension(R.dimen.task_edit_text_size)
+    )
+}
+
+@SuppressLint("ClickableViewAccessibility") // the touch listener only records, never consumes
+private fun TextView.showDescription(
+    text: String,
+    markdown: Markdown,
+    linkify: Linkify?,
+    onEdit: () -> Unit,
+    onToggle: (index: Int, renderedCount: Int) -> Unit,
+) {
+    markdown.setMarkdown(this, text)
+    // A click carries no position, so remember where the finger lifted to tell a checkbox tap
+    // from a tap on the text. An accessibility click has no touch at all and leaves this null,
+    // which means "edit".
+    var lastTap: PointF? = null
+    setOnTouchListener { _, event ->
+        if (event.actionMasked == MotionEvent.ACTION_UP) {
+            lastTap = PointF(event.x, event.y)
+        }
+        false
+    }
+    val onTap = {
+        val index = lastTap?.let { taskListCheckboxAt(it.x, it.y) }
+        lastTap = null
+        if (index != null) {
+            onToggle(index, taskListSpans(this.text as Spanned).size)
+        } else {
+            onEdit()
+        }
+    }
+    if (linkify != null) {
+        // Sends link taps to the "open or edit" dialog, which always offers a way into the
+        // editor, and everything else to onTap.
+        movementMethod = LinkMovementMethod.getInstance()
+        linkify.setMovementMethod(this, rowClickHandler = onTap)
+    } else {
+        // Links are off for the edit screen, so they must not open on tap: a description that
+        // is only a link would otherwise never reach the editor (see #4423). Markwon installs a
+        // movement method after rendering, so clear it afterwards; every tap then lands here.
+        movementMethod = null
+        setOnClickListener { onTap() }
+    }
 }
 
 @ExperimentalComposeUiApi
