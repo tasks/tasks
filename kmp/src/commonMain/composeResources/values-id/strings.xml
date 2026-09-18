@@ -603,4 +603,5 @@
     <string name="mcp_tools_group_places">Tempat</string>
     <string name="mcp_tools_group_reminders">Pengingat</string>
     <string name="mcp_copy">Salin</string>
+    <string name="new_filter">Buat filter baru</string>
 </resources>
