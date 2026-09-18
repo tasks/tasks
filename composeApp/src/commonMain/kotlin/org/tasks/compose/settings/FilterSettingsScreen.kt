@@ -69,8 +69,7 @@ fun FilterSettingsScreen(
 
     // Load existing filter
     LaunchedEffect(filterId) {
-        if (filterId != null) {
-            val id = filterId.toLongOrNull() ?: return@LaunchedEffect
+        filterId?.toLongOrNull()?.let { id ->
             val filter = filterDao.getById(id)
             name = filter?.title ?: ""
             sql = filter?.sql ?: ""
@@ -180,31 +179,34 @@ fun FilterSettingsScreen(
                 actions = {
                     TextButton(onClick = {
                         scope.launch {
+                            val updatedFilter = filterId?.toLongOrNull()?.let { id -> filterDao.getById(id) }
                             if (filterId == null) {
-                                val newFilter = Filter(
-                                    title = name,
-                                    sql = sql,
-                                    color = color,
-                                    icon = icon,
+                                filterDao.insert(
+                                    Filter(
+                                        title = name,
+                                        sql = sql,
+                                        color = color,
+                                        icon = icon,
+                                    )
                                 )
-                                filterDao.insert(newFilter)
-                            } else {
-                                val id = filterId.toLongOrNull() ?: return@launch
-                                val filter = filterDao.getById(id) ?: return@launch
-                                val updated = Filter(
-                                    id = filter.id,
-                                    title = name,
-                                    sql = sql,
-                                    values = filter.values,
-                                    criterion = filter.criterion,
-                                    color = color,
-                                    icon = icon,
-                                    order = filter.order,
+                            } else if (updatedFilter != null) {
+                                filterDao.update(
+                                    Filter(
+                                        id = updatedFilter.id,
+                                        title = name,
+                                        sql = sql,
+                                        values = updatedFilter.values,
+                                        criterion = updatedFilter.criterion,
+                                        color = color,
+                                        icon = icon,
+                                        order = updatedFilter.order,
+                                    )
                                 )
-                                filterDao.update(updated)
                             }
-                            onSave(name, sql)
-                            saveCompleted = true
+                            if (filterId == null || updatedFilter != null) {
+                                onSave(name, sql)
+                                saveCompleted = true
+                            }
                         }
                     }) {
                         Text("Save")
