@@ -13,6 +13,8 @@ import org.tasks.preferences.TasksPreferences
 class IosReporting(
     override val tasksPreferences: TasksPreferences,
     crashlytics: Boolean,
+    analytics: AnalyticsBridge?,
+    posthogKey: String,
 ) : Reporting {
     private val logger = Logger.withTag("IosReporting")
 
@@ -30,8 +32,14 @@ class IosReporting(
         }
     }
 
+    private val analytics: AnalyticsBridge? = analytics
+        ?.takeIf { posthogKey.isNotBlank() && collectStatistics }
+        ?.also { it.setup(posthogKey, POSTHOG_HOST) }
+
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
-        logger.d { "$event -> ${params.toMap()}" }
+        val properties = params.toMap()
+        logger.d { "$event -> $properties" }
+        analytics?.capture(event, properties)
     }
 
     override fun addTask(source: String) =
@@ -42,6 +50,7 @@ class IosReporting(
 
     override fun identify(distinctId: String) {
         logger.d { "identify -> $distinctId" }
+        analytics?.identify(distinctId)
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
@@ -53,5 +62,9 @@ class IosReporting(
                 CrashlyticsKotlin.sendHandledException(t)
             }
         }
+    }
+
+    companion object {
+        private const val POSTHOG_HOST = "https://us.i.posthog.com"
     }
 }

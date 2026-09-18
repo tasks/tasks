@@ -16,6 +16,8 @@
 		9C2E4A7B1D3F5068A1B2C3D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C2E4A7B1D3F5068A1B2C3D8 /* AppDelegate.swift */; };
 		D4F1A2B3C4D5E6F708192A3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D4F1A2B3C4D5E6F708192A3B /* GoogleService-Info.plist */; };
 		D4F1A2B3C4D5E6F708192A42 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4F1A2B3C4D5E6F708192A41 /* FirebaseCrashlytics */; };
+		E5A2B3C4D5E6F70819202B51 /* PostHogBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2B3C4D5E6F70819202B50 /* PostHogBridge.swift */; };
+		E5A2B3C4D5E6F70819202B54 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = E5A2B3C4D5E6F70819202B53 /* PostHog */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,7 @@
 		9C2E4A7B1D3F5068A1B2C3D8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D4F1A2B3C4D5E6F708192A3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E5A2B3C4D5E6F70819202B50 /* PostHogBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4F1A2B3C4D5E6F708192A42 /* FirebaseCrashlytics in Frameworks */,
+				E5A2B3C4D5E6F70819202B54 /* PostHog in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +86,7 @@
 			children = (
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				9C2E4A7B1D3F5068A1B2C3D8 /* AppDelegate.swift */,
+				E5A2B3C4D5E6F70819202B50 /* PostHogBridge.swift */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				5C1E2D3F4A5B6C7D8E9F0A1A /* AppIntents.swift */,
 				5C1E2D3F4A5B6C7D8E9F0A1C /* Recurrence.swift */,
@@ -123,6 +128,7 @@
 			name = iosApp;
 			packageProductDependencies = (
 				D4F1A2B3C4D5E6F708192A41 /* FirebaseCrashlytics */,
+				E5A2B3C4D5E6F70819202B53 /* PostHog */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* Tasks.app */;
@@ -166,6 +172,7 @@
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
 				D4F1A2B3C4D5E6F708192A40 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E5A2B3C4D5E6F70819202B52 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -242,6 +249,7 @@
 				5C1E2D3F4A5B6C7D8E9F0A1D /* Recurrence.swift in Sources */,
 				5C1E2D3F4A5B6C7D8E9F0A1F /* SpotlightIndex.swift in Sources */,
 				9C2E4A7B1D3F5068A1B2C3D9 /* AppDelegate.swift in Sources */,
+				E5A2B3C4D5E6F70819202B51 /* PostHogBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,6 +476,14 @@
 				minimumVersion = 12.19.2;
 			};
 		};
+		E5A2B3C4D5E6F70819202B52 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.78.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -475,6 +491,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D4F1A2B3C4D5E6F708192A40 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		E5A2B3C4D5E6F70819202B53 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5A2B3C4D5E6F70819202B52 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -18,6 +18,7 @@ import org.tasks.analytics.Analytics
 import org.tasks.analytics.IosReporting
 import org.tasks.analytics.Reporting
 import org.tasks.analytics.crashlyticsInstalled
+import org.tasks.analytics.installedAnalytics
 import org.tasks.api.ApiQueryEngine
 import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
@@ -45,6 +46,7 @@ import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DarwinKtorClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.jobs.BackgroundWork
+import org.tasks.kmp.IosBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.notifications.CancelReason
@@ -81,6 +83,8 @@ actual fun platformModule(): Module = module {
         IosReporting(
             tasksPreferences = get(),
             crashlytics = crashlyticsInstalled,
+            analytics = installedAnalytics,
+            posthogKey = IosBuildConfig.POSTHOG_KEY,
         )
     }
     single<Analytics> { get<Reporting>() }

@@ -9,6 +9,7 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     ) -> Bool {
         FirebaseApp.configure()
         CrashlyticsKt.installCrashlytics()
+        AnalyticsBridgeKt.installAnalytics(analytics: PostHogBridge())
         application.registerForRemoteNotifications()
         return true
     }
