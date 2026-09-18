@@ -512,4 +512,5 @@
     <string name="mcp_tools_group_places">Места</string>
     <string name="mcp_tools_group_reminders">Напоминания</string>
     <string name="mcp_copy">Копировать</string>
+    <string name="new_filter">Создать новый фильтр</string>
 </resources>
