@@ -69,8 +69,7 @@ fun PlaceSettingsScreen(
     }
 
     LaunchedEffect(placeId) {
-        if (placeId != null) {
-            val id = placeId.toLongOrNull() ?: return@LaunchedEffect
+        placeId?.toLongOrNull()?.let { id ->
             val place = placeDao.getPlace(id)
             name = place?.name ?: ""
             latitude = place?.latitude?.toString() ?: ""
@@ -185,29 +184,32 @@ fun PlaceSettingsScreen(
                         scope.launch {
                             val lat = latitude.toDoubleOrNull()
                             val lng = longitude.toDoubleOrNull()
-                            if (placeId == null) {
-                                val newPlace = Place(
-                                    name = name,
-                                    latitude = lat ?: 0.0,
-                                    longitude = lng ?: 0.0,
-                                    color = color,
-                                    icon = icon,
-                                )
-                                placeDao.insert(newPlace)
-                            } else {
-                                val id = placeId.toLongOrNull() ?: return@launch
-                                val place = placeDao.getPlace(id) ?: return@launch
-                                val updated = place.copy(
+                            val updatedPlace = placeId?.toLongOrNull()?.let { id -> placeDao.getPlace(id) }?.let { place ->
+                                place.copy(
                                     name = name,
                                     latitude = lat ?: place.latitude,
                                     longitude = lng ?: place.longitude,
                                     color = color,
                                     icon = icon,
                                 )
-                                placeDao.update(updated)
                             }
-                            onSave(name, lat, lng)
-                            saveCompleted = true
+                            if (placeId == null) {
+                                placeDao.insert(
+                                    Place(
+                                        name = name,
+                                        latitude = lat ?: 0.0,
+                                        longitude = lng ?: 0.0,
+                                        color = color,
+                                        icon = icon,
+                                    )
+                                )
+                            } else if (updatedPlace != null) {
+                                placeDao.update(updatedPlace)
+                            }
+                            if (placeId == null || updatedPlace != null) {
+                                onSave(name, lat, lng)
+                                saveCompleted = true
+                            }
                         }
                     }) {
                         Text("Save")
