@@ -459,4 +459,5 @@
     <string name="mcp_tools_group_places">Μέρη/ τοποθεσίες</string>
     <string name="mcp_tools_group_reminders">Υπενθυμίσεις</string>
     <string name="mcp_copy">Αντιγραφή</string>
+    <string name="new_filter">Δημιουργία νέου φίλτρου</string>
 </resources>
