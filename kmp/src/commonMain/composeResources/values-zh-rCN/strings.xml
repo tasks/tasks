@@ -656,4 +656,5 @@
     <string name="mcp_tools_group_places">地点</string>
     <string name="mcp_tools_group_reminders">提醒</string>
     <string name="mcp_copy">克隆</string>
+    <string name="new_filter">新建过滤器</string>
 </resources>
