@@ -1,6 +1,7 @@
 package org.tasks.markdown
 
 import android.content.Context
+import androidx.annotation.ColorInt
 import android.text.util.Linkify.*
 import android.widget.EditText
 import android.widget.TextView
@@ -12,7 +13,20 @@ import io.noties.markwon.ext.tasklist.TaskListPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
 import java.util.concurrent.Executors
 
-class Markwon(context: Context, linkify: Boolean) : Markdown {
+/**
+ * Colors for rendered task-list checkboxes. Markwon otherwise takes them from the theme's link
+ * color, which doesn't follow the accent color picked in the app.
+ *
+ * @param fill the box outline, and its fill when checked
+ * @param checkMark the tick drawn on a checked box
+ */
+data class CheckboxColors(@ColorInt val fill: Int, @ColorInt val checkMark: Int)
+
+class Markwon(
+    context: Context,
+    linkify: Boolean,
+    checkboxColors: CheckboxColors? = null,
+) : Markdown {
     private val markwon: io.noties.markwon.Markwon
 
     override fun textWatcher(editText: EditText) =
@@ -37,7 +51,9 @@ class Markwon(context: Context, linkify: Boolean) : Markdown {
             .builder(context)
             .usePlugins(
                 listOf(
-                    TaskListPlugin.create(context),
+                    checkboxColors
+                        ?.let { TaskListPlugin.create(it.fill, it.fill, it.checkMark) }
+                        ?: TaskListPlugin.create(context),
                     TablePlugin.create(context),
                     StrikethroughPlugin.create()
                 )
