@@ -21,7 +21,6 @@ import tasks.kmp.generated.resources.settings
 @Composable
 fun CaldavCalendarSettingsScreen(
     accountName: String,
-    accountId: String? = null,
     calendarName: String?,
     isNew: Boolean = calendarName == null,
     onBack: () -> Unit,
