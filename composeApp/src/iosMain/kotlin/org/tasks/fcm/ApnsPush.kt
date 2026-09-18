@@ -67,6 +67,7 @@ fun onApnsToken(token: String) {
 
 fun onApnsPush(completion: (Boolean) -> Unit) {
     ensureStarted()
+    Logger.i(TAG) { "push received" }
     val koin = KoinPlatform.getKoin()
     koin.get<CoroutineScope>().launch {
         val finished = withTimeoutOrNull(PUSH_SYNC_TIMEOUT_MS) {
