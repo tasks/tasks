@@ -42,16 +42,20 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.customize_drawer
 
+data class NavigationDrawerCustomizationCallbacks(
+    val onToggleCollapse: (String?) -> Unit,
+    val onCreateNew: (NavigationDrawerSubheader) -> Unit,
+    val onReorder: (fromIndex: Int, toIndex: Int) -> Unit,
+    val onItemClick: (FilterListItem) -> Unit,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationDrawerCustomization(
     items: List<FilterListItem>,
     collapsedSections: Set<String>,
-    onToggleCollapse: (String?) -> Unit,
-    onCreateNew: (NavigationDrawerSubheader) -> Unit = {},
+    callbacks: NavigationDrawerCustomizationCallbacks,
     onBack: () -> Unit,
-    onReorder: (fromIndex: Int, toIndex: Int) -> Unit,
-    onItemClick: (FilterListItem) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -83,9 +87,9 @@ fun NavigationDrawerCustomization(
                             title = item.title ?: "",
                             isCollapsed = collapsedSections.contains(item.title ?: ""),
                             onCreateClick = if (item.addIntentRc != 0) {
-                                { onCreateNew(item) }
+                                { callbacks.onCreateNew(item) }
                             } else null,
-                            onToggleCollapse = { onToggleCollapse(item.title) },
+                            onToggleCollapse = { callbacks.onToggleCollapse(item.title) },
                         )
                     }
                     else -> {
@@ -101,8 +105,8 @@ fun NavigationDrawerCustomization(
                         if (sectionTitle == null || !collapsedSections.contains(sectionTitle)) {
                             NavigationDrawerCustomizationRow(
                                 item = item,
-                                onClick = { onItemClick(item) },
-                                onReorder = { from, to -> onReorder(from, to) },
+                                onClick = { callbacks.onItemClick(item) },
+                                onReorder = { from, to -> callbacks.onReorder(from, to) },
                                 index = index,
                             )
                         }

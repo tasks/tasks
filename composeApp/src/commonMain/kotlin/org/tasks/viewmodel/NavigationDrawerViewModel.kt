@@ -1,5 +1,6 @@
 package org.tasks.viewmodel
 
+import java.io.IOException
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -36,17 +37,13 @@ class NavigationDrawerViewModel(
         }
     }
 
-    private suspend fun reload() {
-        settings = appPreferences.drawerSettings()
-        loaded = true
-    }
-
     private suspend fun reloadSafely() {
         try {
-            reload()
+            settings = appPreferences.drawerSettings()
+            loaded = true
         } catch (e: CancellationException) {
             throw e
-        } catch (e: Exception) {
+        } catch (e: IOException) {
             co.touchlab.kermit.Logger.e(e, tag = TAG) { "Failed to reload navigation drawer settings" }
         }
     }
