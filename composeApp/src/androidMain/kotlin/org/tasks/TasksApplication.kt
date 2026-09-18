@@ -1,7 +1,6 @@
 package org.tasks
 
 import android.app.Application
-import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
@@ -12,6 +11,7 @@ import org.koin.core.context.startKoin
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
 import org.tasks.logging.FileLogWriter
+import org.tasks.logging.SeverityFilterLogWriter
 import org.tasks.logging.logStartup
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.AppPreferences
@@ -27,14 +27,7 @@ class TasksApplication : Application() {
         val logcat = if (TasksBuildConfig.DEBUG) {
             platformLogWriter()
         } else {
-            object : LogWriter() {
-                private val delegate = platformLogWriter()
-                override fun log(severity: Severity, message: String, tag: String, throwable: Throwable?) {
-                    if (severity >= Severity.Error) {
-                        delegate.log(severity, message, tag, throwable)
-                    }
-                }
-            }
+            SeverityFilterLogWriter(platformLogWriter(), Severity.Error)
         }
         Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
         Logger.setLogWriters(logcat, FileLogWriter(logDir))

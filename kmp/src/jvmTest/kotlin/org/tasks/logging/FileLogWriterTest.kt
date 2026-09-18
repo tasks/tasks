@@ -5,6 +5,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import okio.Path.Companion.toOkioPath
 import org.junit.rules.TemporaryFolder
 import java.io.File
 import java.util.concurrent.CountDownLatch
@@ -124,6 +125,36 @@ class FileLogWriterTest {
 
         val written = currentLog().readText()
         repeat(20) { assertTrue("missing racing $it", written.contains("racing $it")) }
+    }
+
+    @Test
+    fun startsANewGenerationOnEveryLaunch() {
+        FileLogWriter(folder.root).apply {
+            log(Severity.Info, "first run", "Startup", null)
+            beginShutdown()
+        }
+
+        FileLogWriter(folder.root).apply {
+            log(Severity.Info, "second run", "Startup", null)
+            beginShutdown()
+        }
+
+        assertTrue(File(folder.root, "log.1.txt").readText().contains("first run"))
+        assertTrue(currentLog().readText().contains("second run"))
+        assertTrue(!currentLog().readText().contains("first run"))
+    }
+
+    @Test
+    fun rotatesWhenTheFileFillsUp() {
+        val writer = FileLogWriter(folder.root.toOkioPath(), fileSizeLimit = 100)
+        writer.beginShutdown()
+
+        repeat(5) { writer.log(Severity.Info, "line $it", "Startup", null) }
+
+        assertEquals(listOf("log.0.txt", "log.1.txt", "log.2.txt"), writer.logFiles().map { it.name })
+        assertTrue(File(folder.root, "log.2.txt").readText().contains("line 1"))
+        assertTrue(File(folder.root, "log.1.txt").readText().contains("line 3"))
+        assertTrue(currentLog().readText().contains("line 4"))
     }
 
     private fun eventually(condition: () -> Boolean) {
