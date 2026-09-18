@@ -625,4 +625,5 @@
     <string name="mcp_tools_group_places">Místa</string>
     <string name="mcp_tools_group_reminders">Upomínky</string>
     <string name="mcp_copy">Kopírovat</string>
+    <string name="new_filter">Vytvořit nový filtr</string>
 </resources>
