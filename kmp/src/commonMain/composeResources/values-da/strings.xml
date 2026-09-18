@@ -500,4 +500,5 @@
     <string name="mcp_tools_group_places">Steder</string>
     <string name="mcp_tools_group_reminders">Påmindelser</string>
     <string name="mcp_copy">Kopiér</string>
+    <string name="new_filter">Opret nyt filter</string>
 </resources>
