@@ -61,11 +61,13 @@ fun NavigationDrawerDetail(
                 NavigationDrawerCustomization(
                     items = customizationVM.items.collectAsState(emptyList()).value,
                     collapsedSections = customizationVM.collapsedSections.collectAsState(emptySet()).value,
-                    onToggleCollapse = { customizationVM.toggleSectionCollapse(it) },
+                    callbacks = NavigationDrawerCustomizationCallbacks(
+                        onToggleCollapse = { customizationVM.toggleSectionCollapse(it) },
+                        onCreateNew = onCreateNew,
+                        onReorder = { from, to -> customizationVM.swapItems(from, to) },
+                        onItemClick = onItemClick,
+                    ),
                     onBack = { showCustomization = false },
-                    onReorder = { from, to -> customizationVM.swapItems(from, to) },
-                    onItemClick = onItemClick,
-                    onCreateNew = onCreateNew,
                 )
             } else {
                 NavigationDrawerContent(
