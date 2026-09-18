@@ -478,4 +478,5 @@
     <string name="mcp_tools_group_places">Paikat</string>
     <string name="mcp_tools_group_reminders">Muistutukset</string>
     <string name="mcp_copy">Kopio</string>
+    <string name="new_filter">Luo uusi suodatin</string>
 </resources>
