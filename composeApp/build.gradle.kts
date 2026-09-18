@@ -96,6 +96,10 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.androidx.browser)
         }
+        iosMain.dependencies {
+            implementation(libs.crashkios.crashlytics)
+            implementation(libs.kermit.crashlytics)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)

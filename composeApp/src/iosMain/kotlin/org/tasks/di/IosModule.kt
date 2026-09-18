@@ -15,7 +15,9 @@ import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.Analytics
+import org.tasks.analytics.IosReporting
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.crashlyticsInstalled
 import org.tasks.api.ApiQueryEngine
 import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
@@ -75,17 +77,11 @@ actual fun platformModule(): Module = module {
             appStore = AppStore.APP_STORE,
         )
     }
-    single<Reporting> {
-        object : Reporting {
-            override val tasksPreferences: TasksPreferences = get()
-            override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
-            override fun addTask(source: String) {}
-            override fun completeTask(source: String) {}
-            override fun identify(distinctId: String) {}
-            override fun reportException(t: Throwable, fatal: Boolean) {
-                co.touchlab.kermit.Logger.e(t) { "reported" }
-            }
-        }
+    single<Reporting>(createdAtStart = true) {
+        IosReporting(
+            tasksPreferences = get(),
+            crashlytics = crashlyticsInstalled,
+        )
     }
     single<Analytics> { get<Reporting>() }
     single<Database> {
