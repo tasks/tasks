@@ -695,4 +695,6 @@
     <string name="mcp_hide">Gizle</string>
     <string name="mcp_clipboard_note">Buraya kopyaladığınız her şey belirteci içerir ve bir dakika sonra panodan silinir.</string>
     <string name="new_filter">Yeni süzgeç oluştur</string>
+    <string name="sign_in_with_apple">Apple ile oturum aç</string>
+    <string name="new_place">Yeni yer oluştur</string>
 </resources>
