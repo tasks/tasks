@@ -1,6 +1,6 @@
 [versions]
 applicationId = "org.tasks"
-agp = "9.4.0"
+agp = "9.4.1"
 android-compileSdk = "37"
 android-minSdk = "26"
 android-targetSdk = "36"
