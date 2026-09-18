@@ -48,6 +48,7 @@ import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DesktopOkHttpClientFactory
+import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.toKtor
 import org.tasks.kmp.JvmBuildConfig
@@ -433,10 +434,10 @@ actual fun platformModule(): Module = module {
             scope = get(),
             backgroundWork = get(),
             caldavDao = get(),
-            encryption = get(),
+            encryption = get<KeyStoreEncryption>(),
             environment = get(),
-            httpClientFactory = get(),
-            tokenProvider = get(),
+            httpClientFactory = get<KtorClientFactory>(),
+            token = { get<SseTokenProvider>().token },
         )
     }
     single {
