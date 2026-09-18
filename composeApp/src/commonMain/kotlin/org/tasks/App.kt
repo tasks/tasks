@@ -146,6 +146,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
+import org.tasks.compose.APP_STORE_SIGN_IN_PROVIDERS
 import org.tasks.compose.DEFAULT_SIGN_IN_PROVIDERS
 import org.tasks.compose.NavigationBarScrim
 import org.tasks.compose.PlatformBackHandler
@@ -1197,7 +1198,7 @@ fun App(
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
                                 SignInProviderDialog(
-                                    providers = if (configuration.appStore == AppStore.APP_STORE) listOf(SignInProvider.GOOGLE, SignInProvider.GITHUB) else DEFAULT_SIGN_IN_PROVIDERS,
+                                    providers = if (configuration.appStore == AppStore.APP_STORE) APP_STORE_SIGN_IN_PROVIDERS else DEFAULT_SIGN_IN_PROVIDERS,
                                     onSelected = { provider ->
                                         showSignInDialog = false
                                         val oauthProvider = when (provider) {

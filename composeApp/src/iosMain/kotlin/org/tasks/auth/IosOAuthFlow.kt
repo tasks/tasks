@@ -7,14 +7,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.jsonPrimitive
+import okio.ByteString.Companion.encodeUtf8
+import org.tasks.extensions.keyWindow
 import platform.AuthenticationServices.ASPresentationAnchor
 import platform.AuthenticationServices.ASWebAuthenticationPresentationContextProvidingProtocol
 import platform.AuthenticationServices.ASWebAuthenticationSession
 import platform.AuthenticationServices.ASWebAuthenticationSessionErrorCodeCanceledLogin
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
-import platform.UIKit.UIApplication
-import platform.UIKit.UIWindow
 import platform.darwin.NSObject
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
@@ -25,12 +25,16 @@ private const val TAG = "IosOAuthFlow"
 class IosOAuthFlow(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
+    private val appleSignIn: AppleSignIn = AppleSignIn(),
 ) : OAuthFlow {
     override suspend fun signIn(
         provider: OAuthProvider,
         extraAuthParams: Map<String, String>,
         authHeader: String?,
     ): OAuthResult {
+        if (provider == OAuthProvider.APPLE) {
+            return signInWithApple(provider, authHeader)
+        }
         val clientId = provider.iosClientId.ifEmpty { throw Exception("${provider.issuer} sign-in is not configured for iOS") }
         val redirectUri = provider.iosRedirectUri ?: googleRedirectUri(clientId)
         val discoveryUrl = provider.discoveryUrl ?: "${serverEnvironment.caldavUrl}${provider.iosDiscoveryPath}"
@@ -65,14 +69,35 @@ class IosOAuthFlow(
         return oauthClient.exchangeCode(config, code, codeVerifier, authHeader)
     }
 
+    private suspend fun signInWithApple(provider: OAuthProvider, authHeader: String?): OAuthResult {
+        val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.iosDiscoveryPath}"
+        Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
+        val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
+        val tokenEndpoint = discovery["token_endpoint"]!!.jsonPrimitive.content
+
+        val nonce = PKCE.generateVerifier()
+        val credential = appleSignIn.authorize(nonceHash = nonce.encodeUtf8().sha256().hex())
+
+        Logger.d(TAG) { "Got Apple credential, exchanging..." }
+        return oauthClient.exchangeAppleCredential(
+            tokenEndpoint = tokenEndpoint,
+            clientId = provider.iosClientId,
+            authorizationCode = credential.authorizationCode,
+            identityToken = credential.identityToken,
+            nonce = nonce,
+            email = credential.email,
+            fullName = credential.fullName,
+            authHeader = authHeader,
+        )
+    }
+
     private fun googleRedirectUri(clientId: String) =
         "com.googleusercontent.apps.${clientId.removeSuffix(".apps.googleusercontent.com")}:/oauth2redirect"
 }
 
 private class KeyWindowProvider : NSObject(), ASWebAuthenticationPresentationContextProvidingProtocol {
     override fun presentationAnchorForWebAuthenticationSession(session: ASWebAuthenticationSession): ASPresentationAnchor =
-        UIApplication.sharedApplication.windows.filterIsInstance<UIWindow>().firstOrNull { it.isKeyWindow() }
-            ?: UIApplication.sharedApplication.windows.filterIsInstance<UIWindow>().first()
+        keyWindow()
 }
 
 @OptIn(ExperimentalForeignApi::class)

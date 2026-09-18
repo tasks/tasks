@@ -44,6 +44,7 @@ enum class SignInProvider {
 }
 
 val DEFAULT_SIGN_IN_PROVIDERS = listOf(SignInProvider.GOOGLE, SignInProvider.APPLE, SignInProvider.GITHUB)
+val APP_STORE_SIGN_IN_PROVIDERS = listOf(SignInProvider.APPLE, SignInProvider.GOOGLE, SignInProvider.GITHUB)
 
 @Composable
 fun SignInProviderDialog(

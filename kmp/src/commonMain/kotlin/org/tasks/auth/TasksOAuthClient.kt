@@ -100,6 +100,30 @@ class TasksOAuthClient(
         authHeader = authHeader,
     )
 
+    suspend fun exchangeAppleCredential(
+        tokenEndpoint: String,
+        clientId: String,
+        authorizationCode: String,
+        identityToken: String,
+        nonce: String,
+        email: String? = null,
+        fullName: String? = null,
+        authHeader: String? = null,
+    ): OAuthResult = requestToken(
+        tokenEndpoint = tokenEndpoint,
+        clientId = clientId,
+        form = buildMap {
+            put("grant_type", "authorization_code")
+            put("client_id", clientId)
+            put("code", authorizationCode)
+            put("id_token", identityToken)
+            put("nonce", nonce)
+            email?.let { put("email", it) }
+            fullName?.let { put("name", it) }
+        },
+        authHeader = authHeader,
+    )
+
     private suspend fun requestToken(
         tokenEndpoint: String,
         clientId: String,
