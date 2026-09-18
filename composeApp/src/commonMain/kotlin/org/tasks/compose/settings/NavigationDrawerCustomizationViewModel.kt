@@ -58,35 +58,19 @@ class NavigationDrawerCustomizationViewModel(
     fun swapItems(fromIndex: Int, toIndex: Int) {
         viewModelScope.launch {
             val currentList = _items.value.toMutableList()
-            if (fromIndex < 0 || fromIndex >= currentList.size ||
-                toIndex < 0 || toIndex >= currentList.size) {
-                return@launch
+            val fromItem = currentList.getOrNull(fromIndex)
+            val toItem = currentList.getOrNull(toIndex)
+            val shouldSwap = fromItem != null && toItem != null &&
+                fromItem::class.java == toItem::class.java &&
+                !(fromItem is org.tasks.filters.CaldavFilter &&
+                    toItem is org.tasks.filters.CaldavFilter &&
+                    fromItem.account != toItem.account)
+            if (shouldSwap) {
+                currentList.removeAt(fromIndex)
+                currentList.add(toIndex, fromItem)
+                _items.value = currentList
+                updateOrders(currentList, fromItem)
             }
-
-            val fromItem = currentList[fromIndex]
-            val toItem = currentList[toIndex]
-
-            // Only allow swapping items of the same type
-            if (fromItem::class.java != toItem::class.java) {
-                return@launch
-            }
-
-            // For CaldavFilter, only allow swapping within same account
-            if (fromItem is org.tasks.filters.CaldavFilter &&
-                toItem is org.tasks.filters.CaldavFilter) {
-                if (fromItem.account != toItem.account) {
-                    return@launch
-                }
-            }
-
-            // Perform swap in the list
-            currentList.removeAt(fromIndex)
-            currentList.add(toIndex, fromItem)
-
-            _items.value = currentList
-
-            // Update orders in database for items of the same type
-            updateOrders(currentList, fromItem)
         }
     }
 
