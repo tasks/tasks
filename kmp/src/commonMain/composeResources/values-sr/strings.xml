@@ -609,4 +609,5 @@
     <string name="mcp_tools_group_places">Места</string>
     <string name="mcp_tools_group_reminders">Подсетници</string>
     <string name="mcp_copy">Копирај</string>
+    <string name="new_filter">Креирај нови филтер</string>
 </resources>
