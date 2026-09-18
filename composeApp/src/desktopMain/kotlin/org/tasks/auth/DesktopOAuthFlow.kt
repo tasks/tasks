@@ -25,11 +25,11 @@ class DesktopOAuthFlow(
             throw IOException("Nothing on this system could open $url")
         }
     },
-) {
-    suspend fun signIn(
+) : OAuthFlow {
+    override suspend fun signIn(
         provider: OAuthProvider,
-        extraAuthParams: Map<String, String> = provider.extraAuthParams,
-        authHeader: String? = null,
+        extraAuthParams: Map<String, String>,
+        authHeader: String?,
     ): OAuthResult = withContext(Dispatchers.IO) {
         val discoveryUrl = provider.discoveryUrl
             ?: "${serverEnvironment.caldavUrl}${provider.discoveryPath}"

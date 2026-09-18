@@ -1,7 +1,7 @@
 package org.tasks.auth
 
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.io.IOException
+import kotlinx.io.IOException
 
 object OAuthTokenRefresh {
     const val EXPIRY_MARGIN_MS = 60_000L

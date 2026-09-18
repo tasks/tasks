@@ -1,13 +1,20 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.request.forms.submitForm
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpHeaders
+import io.ktor.http.encodeURLParameter
+import io.ktor.http.isSuccess
+import io.ktor.http.parameters
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import java.net.URLEncoder
 
 data class OAuthConfig(
     val authorizationEndpoint: String,
@@ -29,27 +36,28 @@ data class OAuthResult(
 )
 
 class TasksOAuthClient(
-    private val httpClient: OkHttpClient = sharedHttpClient,
+    private val httpClient: HttpClient = defaultHttpClient,
 ) {
     companion object {
-        private val sharedHttpClient: OkHttpClient by lazy {
-            OkHttpClient.Builder()
-                .connectTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
-                .readTimeout(15, java.util.concurrent.TimeUnit.SECONDS)
-                .build()
+        private val defaultHttpClient: HttpClient by lazy {
+            HttpClient {
+                install(HttpTimeout) {
+                    connectTimeoutMillis = 15_000
+                    requestTimeoutMillis = 15_000
+                }
+            }
         }
     }
-    fun fetchDiscovery(discoveryUrl: String, authHeader: String? = null): JsonObject {
-        val request = Request.Builder()
-            .url(discoveryUrl)
-            .apply { authHeader?.let { header("Authorization", it) } }
-            .build()
+
+    suspend fun fetchDiscovery(discoveryUrl: String, authHeader: String? = null): JsonObject {
         Logger.d("TasksOAuthClient") { "Fetching: $discoveryUrl" }
-        val response = httpClient.newCall(request).execute()
-        val body = response.body?.string() ?: throw Exception("Empty discovery response")
-        Logger.d("TasksOAuthClient") { "Discovery response: ${response.code}" }
-        if (!response.isSuccessful) {
-            throw Exception("Discovery request failed: ${response.code} $body")
+        val response = httpClient.get(discoveryUrl) {
+            authHeader?.let { header(HttpHeaders.Authorization, it) }
+        }
+        val body = response.bodyAsText()
+        Logger.d("TasksOAuthClient") { "Discovery response: ${response.status.value}" }
+        if (!response.status.isSuccess()) {
+            throw Exception("Discovery request failed: ${response.status.value} $body")
         }
         return Json.parseToJsonElement(body) as JsonObject
     }
@@ -60,7 +68,7 @@ class TasksOAuthClient(
         state: String,
         extraParams: Map<String, String> = emptyMap(),
     ): String {
-        fun encode(value: String) = URLEncoder.encode(value, "UTF-8")
+        fun encode(value: String) = value.encodeURLParameter(spaceToPlus = true)
         val base = "${config.authorizationEndpoint}?" +
             "client_id=${encode(config.clientId)}" +
             "&redirect_uri=${encode(config.redirectUri)}" +
@@ -75,33 +83,28 @@ class TasksOAuthClient(
         return base + extra
     }
 
-    fun exchangeCode(
+    suspend fun exchangeCode(
         config: OAuthConfig,
         code: String,
         codeVerifier: String,
         authHeader: String? = null,
     ): OAuthResult {
-        val formBody = FormBody.Builder()
-            .add("grant_type", "authorization_code")
-            .add("client_id", config.clientId)
-            .add("redirect_uri", config.redirectUri)
-            .add("code", code)
-            .add("code_verifier", codeVerifier)
-            .build()
+        val response = post(
+            config.tokenEndpoint,
+            mapOf(
+                "grant_type" to "authorization_code",
+                "client_id" to config.clientId,
+                "redirect_uri" to config.redirectUri,
+                "code" to code,
+                "code_verifier" to codeVerifier,
+            ),
+            authHeader,
+        )
+        val body = response.bodyAsText()
 
-        val request = Request.Builder()
-            .url(config.tokenEndpoint)
-            .post(formBody)
-            .header("Accept", "application/json")
-            .apply { authHeader?.let { header("Authorization", it) } }
-            .build()
-
-        val response = httpClient.newCall(request).execute()
-        val body = response.body?.string() ?: throw Exception("Empty token response")
-
-        if (!response.isSuccessful) {
-            Logger.e("TasksOAuthClient") { "${TokenError.EXCHANGE_FAILED}: ${response.code} $body" }
-            throw tokenErrorException(TokenError.EXCHANGE_FAILED, response.code, body)
+        if (!response.status.isSuccess()) {
+            Logger.e("TasksOAuthClient") { "${TokenError.EXCHANGE_FAILED}: ${response.status.value} $body" }
+            throw tokenErrorException(TokenError.EXCHANGE_FAILED, response.status.value, body)
         }
 
         val json = Json.parseToJsonElement(body) as JsonObject
@@ -130,31 +133,26 @@ class TasksOAuthClient(
         val refreshToken: String? = null,
     )
 
-    fun refreshToken(
+    suspend fun refreshToken(
         tokenEndpoint: String,
         clientId: String,
         refreshToken: String,
         authHeader: String? = null,
     ): RefreshResult {
-        val formBody = FormBody.Builder()
-            .add("grant_type", "refresh_token")
-            .add("client_id", clientId)
-            .add("refresh_token", refreshToken)
-            .build()
+        val response = post(
+            tokenEndpoint,
+            mapOf(
+                "grant_type" to "refresh_token",
+                "client_id" to clientId,
+                "refresh_token" to refreshToken,
+            ),
+            authHeader,
+        )
+        val body = response.bodyAsText()
 
-        val request = Request.Builder()
-            .url(tokenEndpoint)
-            .post(formBody)
-            .header("Accept", "application/json")
-            .apply { authHeader?.let { header("Authorization", it) } }
-            .build()
-
-        val response = httpClient.newCall(request).execute()
-        val body = response.body?.string() ?: throw Exception("Empty refresh response")
-
-        if (!response.isSuccessful) {
-            Logger.e("TasksOAuthClient") { "${TokenError.REFRESH_FAILED}: ${response.code} $body" }
-            throw tokenErrorException(TokenError.REFRESH_FAILED, response.code, body)
+        if (!response.status.isSuccess()) {
+            Logger.e("TasksOAuthClient") { "${TokenError.REFRESH_FAILED}: ${response.status.value} $body" }
+            throw tokenErrorException(TokenError.REFRESH_FAILED, response.status.value, body)
         }
 
         val json = Json.parseToJsonElement(body) as JsonObject
@@ -168,6 +166,12 @@ class TasksOAuthClient(
             refreshToken = rotatedRefreshToken,
         )
     }
+
+    private suspend fun post(url: String, form: Map<String, String>, authHeader: String?): HttpResponse =
+        httpClient.submitForm(url, parameters { form.forEach { (name, value) -> append(name, value) } }) {
+            header(HttpHeaders.Accept, "application/json")
+            authHeader?.let { header(HttpHeaders.Authorization, it) }
+        }
 }
 
 private fun tokenErrorException(prefix: String, code: Int, body: String): Exception {

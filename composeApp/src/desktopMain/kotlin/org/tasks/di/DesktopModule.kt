@@ -2,6 +2,11 @@ package org.tasks.di
 
 import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import at.bitfire.cert4android.CertStore
+import at.bitfire.cert4android.DesktopCertStore
+import at.bitfire.cert4android.DesktopUserDecisionRegistry
+import com.todoroo.astrid.alarms.AlarmService
+import com.todoroo.astrid.service.CommonUpgrades
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
@@ -15,66 +20,63 @@ import org.tasks.PlatformConfiguration
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.PostHogReporting
 import org.tasks.analytics.Reporting
-import org.tasks.auth.DesktopOAuthFlow
-import org.tasks.auth.DesktopSignInHandler
-import org.tasks.auth.SignInHandler
-import org.tasks.billing.BillingProvider
-import org.tasks.billing.DesktopEntitlement
-import org.tasks.billing.DesktopLinkClient
-import org.tasks.billing.EntitlementProvider
-import org.tasks.billing.DesktopLinkClientImpl
-import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.GitHubSponsorClientImpl
-import org.tasks.billing.SubscriptionProvider
-import com.todoroo.astrid.service.CommonUpgrades
-import org.tasks.caldav.FileStorage
-import org.tasks.caldav.VtodoCache
-import org.tasks.data.db.CommonMigrations
-import org.tasks.data.db.Database
-import org.tasks.etebase.EtebaseClientProvider
-import org.tasks.opentasks.OpenTasksSyncer
-import org.tasks.fcm.FcmTokenProvider
-import org.tasks.fcm.PushTokenManager
-import at.bitfire.cert4android.CertStore
-import at.bitfire.cert4android.DesktopCertStore
-import at.bitfire.cert4android.DesktopUserDecisionRegistry
-import org.tasks.auth.TasksOAuthClient
-import org.tasks.http.DesktopOkHttpClientFactory
-import org.tasks.http.OkHttpClientFactory
-import org.tasks.kmp.JvmBuildConfig
-import org.tasks.kmp.createDataStore
-import org.tasks.kmp.dataStoreFileName
-import org.tasks.data.TaskCreator
-import com.todoroo.astrid.alarms.AlarmService
-import org.tasks.notifications.DesktopNotifier
-import org.tasks.notifications.NotificationActionHandler
-import org.tasks.notifications.NotificationScheduler
-import org.tasks.notifications.NucleusLinuxNotifications
-import org.tasks.notifications.NucleusMacNotifications
-import org.tasks.notifications.NucleusWindowsNotifications
-import org.tasks.notifications.Notifier
-import org.tasks.notifications.notificationSessionToken
-import org.tasks.service.DesktopCleanup
-import org.tasks.service.TaskCleanup
-import org.tasks.preferences.TasksPreferences
-import org.tasks.service.Upgrader
-import org.tasks.security.DesktopKeyProvider
-import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
-import org.tasks.sync.microsoft.MicrosoftClientProvider
-import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.api.ApiListManager
 import org.tasks.api.ApiQueryEngine
 import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
 import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
+import org.tasks.auth.DesktopOAuthFlow
+import org.tasks.auth.DesktopSignInHandler
+import org.tasks.auth.OAuthFlow
+import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOAuthClient
+import org.tasks.billing.BillingProvider
+import org.tasks.billing.DesktopEntitlement
+import org.tasks.billing.DesktopLinkClient
+import org.tasks.billing.DesktopLinkClientImpl
+import org.tasks.billing.EntitlementProvider
+import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.GitHubSponsorClientImpl
+import org.tasks.billing.SubscriptionProvider
+import org.tasks.caldav.FileStorage
+import org.tasks.caldav.VtodoCache
+import org.tasks.data.TaskCreator
+import org.tasks.data.db.CommonMigrations
+import org.tasks.data.db.Database
+import org.tasks.etebase.EtebaseClientProvider
+import org.tasks.extensions.supportsSystemNotificationSettings
+import org.tasks.fcm.FcmTokenProvider
+import org.tasks.fcm.PushTokenManager
+import org.tasks.http.DesktopOkHttpClientFactory
+import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.toKtor
+import org.tasks.kmp.JvmBuildConfig
+import org.tasks.kmp.createDataStore
+import org.tasks.kmp.dataStoreFileName
 import org.tasks.mcp.DatabaseTasksApi
 import org.tasks.mcp.DesktopMcpServerController
 import org.tasks.mcp.McpServerController
+import org.tasks.notifications.DesktopNotifier
+import org.tasks.notifications.NotificationActionHandler
+import org.tasks.notifications.NotificationScheduler
+import org.tasks.notifications.Notifier
+import org.tasks.notifications.NucleusLinuxNotifications
+import org.tasks.notifications.NucleusMacNotifications
+import org.tasks.notifications.NucleusWindowsNotifications
+import org.tasks.notifications.notificationSessionToken
+import org.tasks.opentasks.OpenTasksSyncer
+import org.tasks.preferences.TasksPreferences
+import org.tasks.security.DesktopKeyProvider
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.service.DesktopCleanup
+import org.tasks.service.TaskCleanup
+import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
-import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.sse.SseTokenProvider
+import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import java.io.File
 
 internal val appName: String =
@@ -206,12 +208,12 @@ actual fun platformModule(): Module = module {
             cookieDir = cookieDir,
         )
     }
-    factory {
+    factory<OAuthFlow> {
         val httpClient = kotlinx.coroutines.runBlocking {
             get<OkHttpClientFactory>().newClient(foreground = true)
         }
         DesktopOAuthFlow(
-            oauthClient = TasksOAuthClient(httpClient),
+            oauthClient = TasksOAuthClient(httpClient.toKtor()),
             serverEnvironment = get(),
         )
     }

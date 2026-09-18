@@ -1,18 +1,18 @@
 package org.tasks.auth
 
-import org.tasks.caldav.CaldavClientProvider
+import org.tasks.caldav.CaldavClientFactory
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.security.KeyStoreEncryption
+import org.tasks.security.Encryption
 
 suspend fun setupTasksAccount(
     oauthResult: OAuthResult,
     issuer: String,
     caldavUrl: String,
     caldavDao: CaldavDao,
-    encryption: KeyStoreEncryption,
-    provider: CaldavClientProvider,
+    encryption: Encryption,
+    provider: CaldavClientFactory,
 ): CaldavAccount {
     val idToken = oauthResult.idToken
         ?: throw IllegalStateException("id_token required for tasks.org account setup")

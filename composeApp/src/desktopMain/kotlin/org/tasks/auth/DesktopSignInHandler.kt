@@ -7,9 +7,9 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
+import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.UUIDHelper
 import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.http.HttpException
 import org.tasks.security.KeyStoreEncryption
@@ -17,7 +17,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
 
 class DesktopSignInHandler(
-    private val oauthFlow: DesktopOAuthFlow,
+    private val oauthFlow: OAuthFlow,
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
