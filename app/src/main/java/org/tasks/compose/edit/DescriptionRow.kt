@@ -36,6 +36,7 @@ import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
 import org.tasks.compose.TaskEditRow
 import org.tasks.dialogs.Linkify
+import org.tasks.extensions.Context.findActivity
 import org.tasks.markdown.Markdown
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.markdown.Markwon
@@ -62,6 +63,7 @@ fun DescriptionRow(
     val markdown = remember(markdownProvider, autoLink) { markdownProvider?.markdown(autoLink) }
     // Saveable so a rotation mid-edit comes back to the editor, not the preview.
     var editing by rememberSaveable { mutableStateOf(false) }
+    val activity = LocalContext.current.findActivity()
     val preview = text?.takeIf { markdown?.enabled == true && !editing && it.isNotBlank() }
     TaskEditRow(
         iconRes = R.drawable.ic_outline_notes_24px,
@@ -92,7 +94,13 @@ fun DescriptionRow(
                         multiline = true,
                         requestFocus = editing,
                         cursorAtEnd = true,
-                        onFocusChanged = { editing = it },
+                        onFocusChanged = { focused ->
+                            // Rotating tears the field down, which drops its focus before this
+                            // screen's state is saved. That isn't the user leaving the field.
+                            if (focused || activity?.isChangingConfigurations != true) {
+                                editing = focused
+                            }
+                        },
                     )
                 }
                 Spacer(modifier = Modifier.height(11.dp))
