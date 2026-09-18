@@ -20,6 +20,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.extensions.restartApplication
+import org.tasks.logging.LogExporter
 import org.tasks.preferences.TasksPreferences
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import tasks.kmp.generated.resources.Res
@@ -34,6 +35,7 @@ fun HelpAndFeedbackDetail(
     val viewModel = koinViewModel<HelpAndFeedbackViewModel>()
     val uriHandler = LocalUriHandler.current
     val tasksPreferences = koinInject<TasksPreferences>()
+    val logExporter = if (viewModel.showSendLogs) koinInject<LogExporter>() else null
     val scope = rememberCoroutineScope()
 
     Scaffold(
@@ -60,6 +62,7 @@ fun HelpAndFeedbackDetail(
                 viewModel = viewModel,
                 openUri = { uriHandler.openUri(it) },
                 onRestartApplication = { restartApplication() },
+                onSendLogs = logExporter?.let { exporter -> { scope.launch { exporter.export() } } },
                 onCollectStatisticsChanged = { enabled ->
                     scope.launch {
                         tasksPreferences.set(TasksPreferences.collectStatistics, enabled)

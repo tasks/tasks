@@ -49,6 +49,9 @@ import org.tasks.jobs.BackgroundWork
 import org.tasks.kmp.IosBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
+import org.tasks.logging.IosLogExporter
+import org.tasks.logging.LogExporter
+import org.tasks.logging.fileLogWriter
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.TasksPreferences
@@ -76,9 +79,11 @@ actual fun platformModule(): Module = module {
             versionCode = TasksBuildConfig.VERSION_CODE,
             supportsCaldav = true,
             supportsNotifications = false,
+            supportsLogExport = true,
             appStore = AppStore.APP_STORE,
         )
     }
+    single<LogExporter> { IosLogExporter(fileLogWriter) }
     single<Reporting>(createdAtStart = true) {
         IosReporting(
             tasksPreferences = get(),

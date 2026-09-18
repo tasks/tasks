@@ -15,6 +15,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.caldav.CaldavClient
 import org.tasks.di.coreModule
 import org.tasks.di.platformModule
+import org.tasks.logging.setupLogging
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.service.Upgrader
@@ -33,6 +34,7 @@ private var foregroundSyncInstalled = false
 
 internal fun ensureStarted() {
     if (KoinPlatform.getKoinOrNull() == null) {
+        setupLogging()
         CaldavClient.registerFactories()
         startKoin {
             modules(coreModule, platformModule())
