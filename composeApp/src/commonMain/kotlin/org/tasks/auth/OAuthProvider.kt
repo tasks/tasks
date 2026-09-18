@@ -13,6 +13,9 @@ enum class OAuthProvider(
     val iosDiscoveryPath: String = discoveryPath,
     val iosClientId: String = clientId,
     val iosRedirectUri: String? = null,
+    val serverCallbackPath: String? = null,
+    val usesPkce: Boolean = true,
+    val promptForAccount: Boolean = true,
 ) {
     GOOGLE(
         issuer = "google",
@@ -37,6 +40,17 @@ enum class OAuthProvider(
         iosDiscoveryPath = "/oauth/github-configuration",
         iosClientId = "a50fdbf3e289a7fb2fc6",
         iosRedirectUri = "org.tasks.github.a50fdbf3e289a7fb2fc6://oauth2redirect",
+    ),
+    APPLE(
+        issuer = "apple",
+        discoveryPath = "/oauth/apple-configuration",
+        clientId = "",
+        scope = "name email",
+        extraAuthParams = mapOf("response_mode" to "form_post"),
+        iosClientId = "org.tasks",
+        serverCallbackPath = "/oauth/apple/callback",
+        usesPkce = false,
+        promptForAccount = false,
     ),
     GOOGLE_TASKS(
         issuer = "google_tasks",

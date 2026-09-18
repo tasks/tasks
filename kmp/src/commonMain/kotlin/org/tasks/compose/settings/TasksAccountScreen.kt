@@ -83,6 +83,7 @@ import tasks.kmp.generated.resources.remove
 import tasks.kmp.generated.resources.shared_by
 import tasks.kmp.generated.resources.shared_with_me
 import tasks.kmp.generated.resources.sign_in_with_github
+import tasks.kmp.generated.resources.sign_in_with_apple
 import tasks.kmp.generated.resources.sign_in_with_google
 import tasks.kmp.generated.resources.tos_updated_title
 import tasks.kmp.generated.resources.url
@@ -177,6 +178,7 @@ fun TasksAccountScreen(
             ErrorBannerCard(
                 account = account,
                 isGithub = state.isGithub,
+                isApple = state.isApple,
                 hasSubscription = state.hasSubscription,
                 isTasksSubscription = state.isTasksSubscription,
                 onSignIn = onSignIn,
@@ -564,6 +566,7 @@ fun TasksAccountScreen(
 private fun ErrorBannerCard(
     account: CaldavAccount,
     isGithub: Boolean,
+    isApple: Boolean,
     hasSubscription: Boolean,
     isTasksSubscription: Boolean,
     onSignIn: () -> Unit,
@@ -605,7 +608,11 @@ private fun ErrorBannerCard(
         }
         account.isLoggedOut() -> {
             title = stringResource(
-                if (isGithub) Res.string.sign_in_with_github else Res.string.sign_in_with_google
+                when {
+                    isGithub -> Res.string.sign_in_with_github
+                    isApple -> Res.string.sign_in_with_apple
+                    else -> Res.string.sign_in_with_google
+                }
             )
             summary = stringResource(Res.string.authentication_required)
             onClick = onSignIn

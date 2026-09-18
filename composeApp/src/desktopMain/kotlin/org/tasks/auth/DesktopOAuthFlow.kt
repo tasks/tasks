@@ -43,12 +43,14 @@ class DesktopOAuthFlow(
                 ?: throw Exception("No client_id in discovery document")
         }
 
-        val codeVerifier = PKCE.generateVerifier()
-        val codeChallenge = PKCE.generateChallenge(codeVerifier)
-        val state = PKCE.generateVerifier()
+        val codeVerifier = if (provider.usesPkce) PKCE.generateVerifier() else null
+        val codeChallenge = codeVerifier?.let(PKCE::generateChallenge)
+        val nonce = PKCE.generateVerifier()
+        val serverCallback = provider.serverCallbackPath?.let { "${serverEnvironment.caldavUrl}$it" }
 
-        val (config, code) = listenForCallback(state, provider.loopbackHost) { port ->
+        val (config, code) = listenForCallback(provider.loopbackHost) { port ->
             val redirectUri = "http://${provider.loopbackHost}:$port"
+            val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri)
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
                 tokenEndpoint = tokenEndpoint,
@@ -57,10 +59,13 @@ class DesktopOAuthFlow(
                 scope = provider.scope,
                 state = state,
             )
-            val defaultParams = if (extraAuthParams.containsKey("prompt")) emptyMap()
+            val defaultParams = if (!provider.promptForAccount || extraAuthParams.containsKey("prompt")) emptyMap()
                 else mapOf("prompt" to "select_account")
             val authUrl = oauthClient.buildAuthUrl(
-                config, codeChallenge, state, defaultParams + extraAuthParams
+                config.copy(redirectUri = serverCallback ?: redirectUri),
+                codeChallenge,
+                state,
+                defaultParams + extraAuthParams,
             )
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)
@@ -72,7 +77,6 @@ class DesktopOAuthFlow(
     }
 
     private suspend fun listenForCallback(
-        expectedState: String,
         loopbackHost: String,
         onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
@@ -119,7 +123,7 @@ class DesktopOAuthFlow(
 
             val currentConfig = config.get()
             if (code != null && currentConfig != null) {
-                if (returnedState != expectedState) {
+                if (returnedState != currentConfig.state) {
                     cont.resumeWithException(
                         Exception("OAuth state mismatch")
                     )

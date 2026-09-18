@@ -53,12 +53,14 @@ class AndroidSignInHandler(
                 ?: throw Exception("No client_id in discovery document")
         }
 
-        val codeVerifier = PKCE.generateVerifier()
-        val codeChallenge = PKCE.generateChallenge(codeVerifier)
-        val state = PKCE.generateVerifier()
+        val codeVerifier = if (oauthProvider.usesPkce) PKCE.generateVerifier() else null
+        val codeChallenge = codeVerifier?.let(PKCE::generateChallenge)
+        val nonce = PKCE.generateVerifier()
+        val serverCallback = oauthProvider.serverCallbackPath?.let { "${serverEnvironment.caldavUrl}$it" }
 
-        val (config, code) = listenForCallback(state) { port ->
+        val (config, code) = listenForCallback { port ->
             val redirectUri = "http://127.0.0.1:$port"
+            val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri)
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
                 tokenEndpoint = tokenEndpoint,
@@ -67,7 +69,12 @@ class AndroidSignInHandler(
                 scope = oauthProvider.scope,
                 state = state,
             )
-            val authUrl = oauthClient.buildAuthUrl(config, codeChallenge, state)
+            val authUrl = oauthClient.buildAuthUrl(
+                config.copy(redirectUri = serverCallback ?: redirectUri),
+                codeChallenge,
+                state,
+                oauthProvider.extraAuthParams,
+            )
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)
             config
@@ -97,7 +104,6 @@ class AndroidSignInHandler(
     }
 
     private suspend fun listenForCallback(
-        expectedState: String,
         onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
         val serverSocket = ServerSocket(0, 1, InetAddress.getByName("127.0.0.1"))
@@ -151,7 +157,7 @@ class AndroidSignInHandler(
             socket.getOutputStream().flush()
 
             if (code != null) {
-                if (returnedState != expectedState) {
+                if (returnedState != config.state) {
                     cont.resumeWithException(Exception("OAuth state mismatch"))
                 } else {
                     cont.resume(config to code)

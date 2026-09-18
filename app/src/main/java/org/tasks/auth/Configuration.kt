@@ -213,6 +213,7 @@ class Configuration(
         private const val KEY_LAST_HASH = "lastHash"
         val GOOGLE_CONFIG = R.raw.google_config
         val GITHUB_CONFIG = R.raw.github_config
+        val APPLE_CONFIG = R.raw.apple_config
     }
 
     init {

@@ -53,6 +53,7 @@ kotlin {
         desktopTest.dependencies {
             implementation(libs.junit)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.ktor.client.mock)
             implementation(libs.mockito.kotlin)
             implementation(libs.okhttp.mockwebserver)
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)

@@ -64,7 +64,7 @@ class TasksOAuthClient(
 
     fun buildAuthUrl(
         config: OAuthConfig,
-        codeChallenge: String,
+        codeChallenge: String?,
         state: String,
         extraParams: Map<String, String> = emptyMap(),
     ): String {
@@ -74,8 +74,7 @@ class TasksOAuthClient(
             "&redirect_uri=${encode(config.redirectUri)}" +
             "&response_type=code" +
             "&scope=${encode(config.scope)}" +
-            "&code_challenge=${encode(codeChallenge)}" +
-            "&code_challenge_method=S256" +
+            (codeChallenge?.let { "&code_challenge=${encode(it)}&code_challenge_method=S256" } ?: "") +
             "&state=${encode(state)}"
         val extra = extraParams.entries.joinToString("") { (k, v) ->
             "&${encode(k)}=${encode(v)}"
@@ -86,20 +85,28 @@ class TasksOAuthClient(
     suspend fun exchangeCode(
         config: OAuthConfig,
         code: String,
-        codeVerifier: String,
+        codeVerifier: String?,
         authHeader: String? = null,
+    ): OAuthResult = requestToken(
+        tokenEndpoint = config.tokenEndpoint,
+        clientId = config.clientId,
+        form = buildMap {
+            put("grant_type", "authorization_code")
+            put("client_id", config.clientId)
+            put("redirect_uri", config.redirectUri)
+            put("code", code)
+            codeVerifier?.let { put("code_verifier", it) }
+        },
+        authHeader = authHeader,
+    )
+
+    private suspend fun requestToken(
+        tokenEndpoint: String,
+        clientId: String,
+        form: Map<String, String>,
+        authHeader: String?,
     ): OAuthResult {
-        val response = post(
-            config.tokenEndpoint,
-            mapOf(
-                "grant_type" to "authorization_code",
-                "client_id" to config.clientId,
-                "redirect_uri" to config.redirectUri,
-                "code" to code,
-                "code_verifier" to codeVerifier,
-            ),
-            authHeader,
-        )
+        val response = post(tokenEndpoint, form, authHeader)
         val body = response.bodyAsText()
 
         if (!response.status.isSuccess()) {
@@ -120,8 +127,8 @@ class TasksOAuthClient(
             accessToken = accessToken,
             idToken = idTokenStr?.let { IdToken(it) },
             refreshToken = refreshToken,
-            tokenEndpoint = config.tokenEndpoint,
-            clientId = config.clientId,
+            tokenEndpoint = tokenEndpoint,
+            clientId = clientId,
             expiresIn = expiresIn,
             grantedScopes = grantedScopes,
         )

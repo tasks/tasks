@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.auth.OAuthProvider
 import org.tasks.auth.SignInHandler
 import org.tasks.compose.accounts.Platform
 import org.tasks.TasksUrls
@@ -90,7 +91,12 @@ fun TasksAccountSettingsDetail(
             TasksAccountScreen(
                 state = state,
                 onSignIn = {
-                    scope.launch { signInHandler.signIn(Platform.TASKS_ORG) }
+                    val provider = when {
+                        state.isGithub -> OAuthProvider.GITHUB
+                        state.isApple -> OAuthProvider.APPLE
+                        else -> OAuthProvider.GOOGLE
+                    }
+                    scope.launch { signInHandler.signIn(Platform.TASKS_ORG, provider) }
                 },
                 onSubscribe = {
                     uriHandler.openUri(donateUrl)
