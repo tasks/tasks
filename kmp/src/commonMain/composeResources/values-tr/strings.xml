@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">Tasks.org'da oturum aç</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>
     <string name="sign_in_with_github">GitHub ile oturum aç</string>
-    <string name="google_play_subscribers">Google Play aboneleri</string>
-    <string name="github_sponsors">GitHub Sponsorları</string>
     <string name="completed">Tamamlandı</string>
     <string name="filter_overdue">Geciken</string>
     <string name="no_due_date">Bitiş tarihi yok</string>

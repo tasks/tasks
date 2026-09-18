@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Συνδεθείτε στο Tasks.org</string>
     <string name="sign_in_with_google">Συνδεθείτε μέσω Google</string>
     <string name="sign_in_with_github">Συνδεθείτε μέσω GitHub</string>
-    <string name="google_play_subscribers">Συνδρομητές Google Play</string>
-    <string name="github_sponsors">Χορηγοί GitHub</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="filter_overdue">Εκπρόθεσμα</string>
     <string name="no_due_date">Χωρίς ημερομηνία λήξης</string>

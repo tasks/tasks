@@ -69,8 +69,6 @@
     <string name="sign_in_to_tasks">Logi sisse teenusesse Tasks.org</string>
     <string name="sign_in_with_google">Logi sisse Google'i kasutajakontoga</string>
     <string name="sign_in_with_github">Logi sisse GitHubi kasutajakontoga</string>
-    <string name="google_play_subscribers">Tellijad Google Play teenuses</string>
-    <string name="github_sponsors">Sponsorid GitHubis</string>
     <string name="completed">Lõpetatud</string>
     <string name="filter_overdue">Üle tähtaja</string>
     <string name="no_due_date">Tähtaeg puudub</string>

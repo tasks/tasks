@@ -69,8 +69,6 @@
     <string name="sign_in_to_tasks">Kirjautuminen Tasks.org</string>
     <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>
     <string name="sign_in_with_github">Kirjaudu sisään GitHubilla</string>
-    <string name="google_play_subscribers">Google Play -tilaajat</string>
-    <string name="github_sponsors">GitHubin sponsorit</string>
     <string name="completed">Valmiit</string>
     <string name="filter_overdue">Myöhässä oleva</string>
     <string name="no_due_date">Ei eräpäivää</string>

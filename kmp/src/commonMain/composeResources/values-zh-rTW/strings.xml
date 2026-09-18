@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">登入 Tasks.org</string>
     <string name="sign_in_with_google">使用 Google 登入</string>
     <string name="sign_in_with_github">使用 GitHub 登入</string>
-    <string name="google_play_subscribers">Google Play 訂閱者</string>
-    <string name="github_sponsors">GitHub 贊助者</string>
     <string name="completed">已完成</string>
     <string name="filter_overdue">已逾期</string>
     <string name="no_due_date">無期限</string>

@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">Přihlásit se do Tasks.org</string>
     <string name="sign_in_with_google">Přihlášení přes Google</string>
     <string name="sign_in_with_github">Přihlášení přes GitHub</string>
-    <string name="google_play_subscribers">předplatitelé Google Play</string>
-    <string name="github_sponsors">sponzoři na GitHubu</string>
     <string name="completed">Splněný</string>
     <string name="filter_overdue">Po termínu</string>
     <string name="no_due_date">Bez termínu</string>

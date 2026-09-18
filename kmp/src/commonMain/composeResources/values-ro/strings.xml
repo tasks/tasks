@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Conectează-te la Tasks.org</string>
     <string name="sign_in_with_google">Conectează-te cu Google</string>
     <string name="sign_in_with_github">Conectează-te cu GitHub</string>
-    <string name="google_play_subscribers">Abonații Google Play</string>
-    <string name="github_sponsors">Sponsorii GitHub</string>
     <string name="completed">Finalizat</string>
     <string name="filter_overdue">Depășit</string>
     <string name="no_due_date">Fără dată scadență</string>

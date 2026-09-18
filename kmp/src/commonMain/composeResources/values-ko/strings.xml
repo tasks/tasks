@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Tasks.org에 로그인</string>
     <string name="sign_in_with_google">구글을 이용해서 로그인</string>
     <string name="sign_in_with_github">깃허브를 이용해서 로그인</string>
-    <string name="google_play_subscribers">구글 플레이 구독자</string>
-    <string name="github_sponsors">깃허브 후원자</string>
     <string name="completed">완료</string>
     <string name="filter_overdue">마감일이 지난</string>
     <string name="no_due_date">마감일 없음</string>

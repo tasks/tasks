@@ -53,8 +53,6 @@
     <string name="sign_in_to_tasks">Hasi saioa Tasks.org gunean</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
     <string name="sign_in_with_github">Hasi saioa GitHub erabiliz</string>
-    <string name="google_play_subscribers">Google Play harpideak</string>
-    <string name="github_sponsors">GitHub babesleak</string>
     <string name="completed">Amaituta</string>
     <string name="filter_overdue">Gainditua</string>
     <string name="no_due_date">Epemuga gabe</string>

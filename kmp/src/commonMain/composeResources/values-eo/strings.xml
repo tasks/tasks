@@ -68,8 +68,6 @@
     <string name="sign_in_to_tasks">Ensaluti al Tasks.org</string>
     <string name="sign_in_with_google">Ensaluti per Google</string>
     <string name="sign_in_with_github">Ensaluti per GitHub</string>
-    <string name="google_play_subscribers">Abonantoj de Google Play</string>
-    <string name="github_sponsors">GitHub Sponsoroj</string>
     <string name="completed">Finite</string>
     <string name="filter_overdue">Posttempa</string>
     <string name="no_due_date">Sen limdato</string>

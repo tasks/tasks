@@ -51,8 +51,6 @@
     <string name="sign_in_to_tasks">Tasks.org වෙත පුරනය වන්න</string>
     <string name="sign_in_with_google">Google සමඟ පුරනය වන්න</string>
     <string name="sign_in_with_github">GitHub සමඟ පුරනය වන්න</string>
-    <string name="google_play_subscribers">Google Play ග්‍රාහකයින්</string>
-    <string name="github_sponsors">GitHub අනුග්‍රාහකයන්</string>
     <string name="filter_overdue">නියමිත දිනය පසුවූ</string>
     <string name="no_due_date">අවසාන දිනයක් නොමැත</string>
     <string name="no_start_date">ආරම්භක දිනයක් නොමැත</string>

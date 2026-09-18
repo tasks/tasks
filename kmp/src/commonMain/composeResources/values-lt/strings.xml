@@ -53,8 +53,6 @@
     <string name="sign_in_to_tasks">Prisijungti prie Tasks.org</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
     <string name="sign_in_with_github">Prisijungti naudojant GitHub</string>
-    <string name="google_play_subscribers">Google Play prenumeratoriai</string>
-    <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="completed">Įvykdyta</string>
     <string name="filter_overdue">Pavėluota</string>
     <string name="no_due_date">Be pabaigos datos</string>

@@ -49,8 +49,6 @@
     <string name="sign_in_to_tasks">ลงชื่อเข้าใช้ Tasks.org</string>
     <string name="sign_in_with_google">ลงชื่อเข้าใช้ด้วย Google</string>
     <string name="sign_in_with_github">เข้าสู่ระบบด้วย GitHub</string>
-    <string name="google_play_subscribers">สมาชิก Google Play</string>
-    <string name="github_sponsors">ผู้สนับสนุน GitHub</string>
     <string name="filter_overdue">เกิน</string>
     <string name="no_due_date">ไม่มีวันที่ครบกําหนด</string>
     <string name="no_start_date">ไม่มีวันที่เริ่มต้น</string>

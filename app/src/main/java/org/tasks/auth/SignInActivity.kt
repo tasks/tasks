@@ -48,12 +48,10 @@ import net.openid.appauth.RegistrationResponse
 import net.openid.appauth.ResponseTypeValues
 import org.tasks.R
 import org.tasks.analytics.Constants
-import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_GITHUB
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.data.dao.CaldavDao
@@ -163,16 +161,11 @@ class SignInActivity : ComponentActivity() {
     }
 
     private suspend fun getAutoSelectPlatform(): Platform? {
-        val existingAccount = caldavDao.getAccounts(TYPE_TASKS).firstOrNull()
+        val existingAccount = caldavDao.getAccounts(TYPE_TASKS).firstOrNull() ?: return null
         return when {
-            existingAccount != null -> when {
-                existingAccount.username?.startsWith("github") == true -> Platform.GITHUB
-                existingAccount.username?.startsWith("apple") == true -> Platform.APPLE
-                else -> Platform.GOOGLE
-            }
-            IS_GOOGLE_PLAY && inventory.subscription.value?.isTasksSubscription == true ->
-                Platform.GOOGLE
-            else -> null
+            existingAccount.username?.startsWith("github") == true -> Platform.GITHUB
+            existingAccount.username?.startsWith("apple") == true -> Platform.APPLE
+            else -> Platform.GOOGLE
         }
     }
 
@@ -297,7 +290,6 @@ class SignInActivity : ComponentActivity() {
             if (IS_GOOGLE_PLAY) {
                 startActivityForResult(
                     Intent(this, PurchaseActivity::class.java)
-                        .putExtra(EXTRA_GITHUB, viewModel.authService?.isGitHub ?: IS_GENERIC)
                         .putExtra(EXTRA_NAME_YOUR_PRICE, false)
                         .putExtra(EXTRA_SOURCE, "sign_in"),
                     RC_PURCHASE

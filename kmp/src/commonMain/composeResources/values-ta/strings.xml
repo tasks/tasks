@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Tasks.org இல் உள்நுழைக</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="sign_in_with_github">கிதுபுடன் உள்நுழைக</string>
-    <string name="google_play_subscribers">கூகிள் பிளே சந்தாதாரர்கள்</string>
-    <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="completed">முடிந்தது</string>
     <string name="filter_overdue">காலம் கடந்த</string>
     <string name="no_due_date">முடிக்கப்பட வேண்டிய தேதி இல்லை</string>

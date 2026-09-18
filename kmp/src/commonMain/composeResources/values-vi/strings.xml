@@ -53,8 +53,6 @@
     <string name="sign_in_to_tasks">Đăng nhập vào Tasks.org</string>
     <string name="sign_in_with_google">Đăng nhập bằng Google</string>
     <string name="sign_in_with_github">Đăng nhập bằng GitHub</string>
-    <string name="google_play_subscribers">Người đăng ký trên Google Play</string>
-    <string name="github_sponsors">Nhà tài trợ trên GitHub</string>
     <string name="completed">Hoàn tất</string>
     <string name="filter_overdue">Quá hạn</string>
     <string name="no_due_date">Không có ngày hạn</string>

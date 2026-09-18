@@ -68,8 +68,6 @@
     <string name="sign_in_to_tasks">Tasks.org bejelentkezés</string>
     <string name="sign_in_with_google">Bejelentkezés Google fiókkal</string>
     <string name="sign_in_with_github">Bejelentkezés GitHub fiókkal</string>
-    <string name="google_play_subscribers">Google Play előfizetők</string>
-    <string name="github_sponsors">GitHub szponzorok</string>
     <string name="completed">Elvégzett</string>
     <string name="filter_overdue">Határidőn túli</string>
     <string name="no_due_date">Határidő nélkül</string>

@@ -50,8 +50,6 @@
     <string name="sign_in_to_tasks">Masuk ke Tasks.org</string>
     <string name="sign_in_with_google">Masuk dengan Google</string>
     <string name="sign_in_with_github">Masuk dengan GitHub</string>
-    <string name="google_play_subscribers">Pelanggan Google Play</string>
-    <string name="github_sponsors">Sponsor GitHub</string>
     <string name="completed">Selesai</string>
     <string name="filter_overdue">Lewat jatuh tempo</string>
     <string name="no_due_date">Tidak ada tanggal jatuh tempo</string>

@@ -51,8 +51,6 @@
     <string name="sign_in_to_tasks">Logg inn på Tasks.org</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
     <string name="sign_in_with_github">Logg inn med GitHub</string>
-    <string name="google_play_subscribers">Google Play-abonnenter</string>
-    <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="completed">Fullført</string>
     <string name="filter_overdue">Forsinket</string>
     <string name="no_due_date">Ingen tidsfristdato</string>

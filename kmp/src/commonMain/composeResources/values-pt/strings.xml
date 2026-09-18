@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Iniciar sessão com o Tasks.org</string>
     <string name="sign_in_with_google">Iniciar sessão com o Google</string>
     <string name="sign_in_with_github">Iniciar sessão com o GitHub</string>
-    <string name="google_play_subscribers">Subscritores do Google Play</string>
-    <string name="github_sponsors">Patrocinadores do GitHub</string>
     <string name="completed">Terminado</string>
     <string name="filter_overdue">Ultrapassado</string>
     <string name="no_due_date">Sem data de fim</string>

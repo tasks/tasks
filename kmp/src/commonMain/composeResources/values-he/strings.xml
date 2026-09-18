@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">להיכנס אל Tasks.org</string>
     <string name="sign_in_with_google">להיכנס באמצעות Google</string>
     <string name="sign_in_with_github">להיכנס באמצעות GitHub</string>
-    <string name="google_play_subscribers">מנויי Google Play</string>
-    <string name="github_sponsors">נותני חסות GitHub</string>
     <string name="completed">הושלמו</string>
     <string name="filter_overdue">היעד חלף</string>
     <string name="no_due_date">אין תאריך יעד</string>

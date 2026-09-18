@@ -65,8 +65,6 @@
     <string name="sign_in_to_tasks">Log in bij Tasks.org</string>
     <string name="sign_in_with_google">Log in met Google</string>
     <string name="sign_in_with_github">Log in met GitHub</string>
-    <string name="google_play_subscribers">Google Play abonnees</string>
-    <string name="github_sponsors">GitHub sponsors</string>
     <string name="completed">Voltooid</string>
     <string name="filter_overdue">Vervallen</string>
     <string name="no_due_date">Geen vervaldatum</string>

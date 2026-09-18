@@ -52,8 +52,6 @@
     <string name="sign_in_to_tasks">Zaloguj się do Tasks.org</string>
     <string name="sign_in_with_google">Zaloguj z Google</string>
     <string name="sign_in_with_github">Zaloguj z GitHub</string>
-    <string name="google_play_subscribers">Subskrybenci Google Play</string>
-    <string name="github_sponsors">Sponsorzy GitHub</string>
     <string name="completed">Zakończone</string>
     <string name="filter_overdue">Przeterminowane</string>
     <string name="no_due_date">Bez terminu</string>

@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">Accedi a Tasks.org</string>
     <string name="sign_in_with_google">Accedi con Google</string>
     <string name="sign_in_with_github">Accedi con GitHub</string>
-    <string name="google_play_subscribers">Abbonati a Google Play</string>
-    <string name="github_sponsors">Sponsor di GitHub</string>
     <string name="completed">Completate</string>
     <string name="filter_overdue">In ritardo</string>
     <string name="no_due_date">Nessuna scadenza</string>

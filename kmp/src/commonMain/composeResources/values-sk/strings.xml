@@ -57,8 +57,6 @@
     <string name="sign_in_to_tasks">Prihlásiť sa do Tasks.org</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
     <string name="sign_in_with_github">Prihlásenie pomocou GitHubu</string>
-    <string name="google_play_subscribers">Predplatitelia Google Play</string>
-    <string name="github_sponsors">Sponzori na GitHube</string>
     <string name="completed">Dokončené</string>
     <string name="filter_overdue">Po termíne</string>
     <string name="no_due_date">Bez termínu</string>

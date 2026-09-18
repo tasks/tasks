@@ -76,8 +76,6 @@
     <string name="sign_in_to_tasks">Prijavi se na Tasks.org</string>
     <string name="sign_in_with_google">Google prijava</string>
     <string name="sign_in_with_github">GitHub prijava</string>
-    <string name="google_play_subscribers">Google Play pretplatnici</string>
-    <string name="github_sponsors">GitHub sponzori</string>
     <string name="completed">Obavljeno</string>
     <string name="filter_overdue">Prekoračen rok</string>
     <string name="no_due_date">Bez datuma roka</string>

@@ -67,8 +67,6 @@
     <string name="sign_in_to_tasks">Пријави се на Tasks.org</string>
     <string name="sign_in_with_google">Пријави се путем Гугла</string>
     <string name="sign_in_with_github">Пријави се путем GitHub-а</string>
-    <string name="google_play_subscribers">,,Google Play'' претплатници</string>
-    <string name="github_sponsors">,,GitHub'' спонзори</string>
     <string name="completed">Завршено</string>
     <string name="filter_overdue">После доспећа</string>
     <string name="no_due_date">Без датума доспећа</string>

@@ -58,8 +58,6 @@
     <string name="sign_in_to_tasks">Увійти на Tasks.org</string>
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="sign_in_with_github">Увійти через GitHub</string>
-    <string name="google_play_subscribers">Підписники Google Play</string>
-    <string name="github_sponsors">Спонсори GitHub</string>
     <string name="completed">Виконано</string>
     <string name="filter_overdue">Прострочені</string>
     <string name="no_due_date">Немає дати завершення</string>

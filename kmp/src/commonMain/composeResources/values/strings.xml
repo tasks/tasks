@@ -89,9 +89,6 @@
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_in_with_github">Sign in with GitHub</string>
     <string name="sign_in_with_apple">Sign in with Apple</string>
-    <string name="google_play_subscribers">Google Play subscribers</string>
-    <string name="github_sponsors">GitHub Sponsors</string>
-    <string name="app_store_subscribers">App Store subscribers</string>
     <string name="completed">Completed</string>
     <string name="filter_overdue">Overdue</string>
     <string name="no_due_date">No due date</string>
