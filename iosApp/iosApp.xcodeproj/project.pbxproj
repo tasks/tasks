@@ -18,6 +18,7 @@
 		D4F1A2B3C4D5E6F708192A42 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D4F1A2B3C4D5E6F708192A41 /* FirebaseCrashlytics */; };
 		E5A2B3C4D5E6F70819202B51 /* PostHogBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2B3C4D5E6F70819202B50 /* PostHogBridge.swift */; };
 		E5A2B3C4D5E6F70819202B54 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = E5A2B3C4D5E6F70819202B53 /* PostHog */; };
+		F7C1D2E3A4B5968778695A4C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F7C1D2E3A4B5968778695A4B /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		AB3632DC29227652001CCB65 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D4F1A2B3C4D5E6F708192A3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E5A2B3C4D5E6F70819202B50 /* PostHogBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHogBridge.swift; sourceTree = "<group>"; };
+		F7C1D2E3A4B5968778695A4B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				9C2E4A7B1D3F5068A1B2C3D6 /* iosApp.entitlements */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				D4F1A2B3C4D5E6F708192A3B /* GoogleService-Info.plist */,
+				F7C1D2E3A4B5968778695A4B /* PrivacyInfo.xcprivacy */,
 				6A3F2C1B8D4E5F6071829304 /* Assets.xcassets */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
 			);
@@ -190,6 +193,7 @@
 			files = (
 				6A3F2C1C8D4E5F6071829305 /* Assets.xcassets in Resources */,
 				D4F1A2B3C4D5E6F708192A3C /* GoogleService-Info.plist in Resources */,
+				F7C1D2E3A4B5968778695A4C /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
