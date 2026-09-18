@@ -524,4 +524,5 @@
     <string name="mcp_tools_group_places">Helyek</string>
     <string name="mcp_tools_group_reminders">Emlékeztetők</string>
     <string name="mcp_copy">Másolás</string>
+    <string name="new_filter">Új szűrő létrehozása</string>
 </resources>
