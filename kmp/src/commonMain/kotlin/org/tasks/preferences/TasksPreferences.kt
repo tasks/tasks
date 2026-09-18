@@ -91,6 +91,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")
         val needsCloudOnboarding = booleanPreferencesKey("needs_cloud_onboarding")
         val apnsToken = stringPreferencesKey("apns_token")
+        val pushFallbackToken = stringPreferencesKey("push_fallback_token")
         val metadataPrimaryAccount = longPreferencesKey("metadata_primary_account")
         val metadataStoreAccount = longPreferencesKey("metadata_store_account")
         val metadataRev = stringPreferencesKey("metadata_rev")

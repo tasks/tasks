@@ -8,8 +8,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.mp.KoinPlatform
+import org.tasks.data.UUIDHelper
 import org.tasks.ensureStarted
 import org.tasks.preferences.TasksPreferences
+import org.tasks.sse.SseClient
 import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
 
@@ -21,12 +23,23 @@ class ApnsTokenProvider(
     private val tasksPreferences: TasksPreferences,
     private val scope: CoroutineScope,
     private val pushTokenManager: () -> PushTokenManager,
+    private val sseClient: () -> SseClient,
 ) : FcmTokenProvider {
     private val token = MutableStateFlow<String?>(null)
 
-    override val provider = FcmTokenProvider.PROVIDER_APNS
+    override val provider: String?
+        get() = if (token.value != null) FcmTokenProvider.PROVIDER_APNS else null
 
-    override suspend fun getToken(): String? = token.value ?: tasksPreferences.get(TasksPreferences.apnsToken, "").ifBlank { null }
+    override suspend fun getToken(): String =
+        token.value ?: storedApnsToken()?.also { token.value = it } ?: fallbackToken()
+
+    private suspend fun storedApnsToken(): String? = tasksPreferences.get(TasksPreferences.apnsToken, "").ifBlank { null }
+
+    private suspend fun fallbackToken(): String {
+        val stored = tasksPreferences.get(TasksPreferences.pushFallbackToken, "")
+        if (stored.isNotBlank()) return stored
+        return UUIDHelper.newUUID().also { tasksPreferences.set(TasksPreferences.pushFallbackToken, it) }
+    }
 
     fun onToken(value: String) {
         val previous = token.value
@@ -39,6 +52,9 @@ class ApnsTokenProvider(
             if (previous != value) {
                 Logger.d(TAG) { "APNs token ${if (stored == value) "unchanged" else "changed"}, registering" }
                 pushTokenManager().registerTokenForAllAccounts()
+                if (stored != value) {
+                    sseClient().reconnect()
+                }
             }
         }
     }

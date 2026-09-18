@@ -53,6 +53,7 @@ import org.tasks.security.PlainTextEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskMigrator
 import org.tasks.service.Upgrader
+import org.tasks.sse.SseClient
 import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
 import platform.Foundation.NSDocumentDirectory
@@ -101,7 +102,18 @@ actual fun platformModule(): Module = module {
     single<Encryption> { PlainTextEncryption() }
     single<KtorClientFactory> { DarwinKtorClientFactory() }
     factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get(), get()) }
-    single { ApnsTokenProvider(tasksPreferences = get(), scope = get(), pushTokenManager = { get() }) }
+    single { ApnsTokenProvider(tasksPreferences = get(), scope = get(), pushTokenManager = { get() }, sseClient = { get() }) }
+    single {
+        SseClient(
+            scope = get(),
+            backgroundWork = get(),
+            caldavDao = get(),
+            encryption = get(),
+            environment = get(),
+            httpClientFactory = get(),
+            token = { get<FcmTokenProvider>().getToken() },
+        )
+    }
     single<FcmTokenProvider> { get<ApnsTokenProvider>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     single { TasksOAuthClient() }

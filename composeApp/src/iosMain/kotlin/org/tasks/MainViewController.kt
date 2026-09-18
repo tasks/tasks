@@ -18,6 +18,7 @@ import org.tasks.di.platformModule
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.recordInstallIfNeeded
 import org.tasks.service.Upgrader
+import org.tasks.sse.SseClient
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import platform.Foundation.NSNotificationCenter
@@ -25,6 +26,8 @@ import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSURL
 import platform.UIKit.UIApplication
 import platform.UIKit.UIApplicationDidBecomeActiveNotification
+import platform.UIKit.UIApplicationDidEnterBackgroundNotification
+import platform.UIKit.UIApplicationState
 
 private var foregroundSyncInstalled = false
 
@@ -48,12 +51,25 @@ internal fun ensureStarted() {
 }
 
 private fun syncWhenForegrounded() {
-    val syncAdapters = KoinPlatform.getKoin().get<SyncAdapters>()
+    val koin = KoinPlatform.getKoin()
+    val syncAdapters = koin.get<SyncAdapters>()
+    val sseClient = koin.get<SseClient>()
     NSNotificationCenter.defaultCenter.addObserverForName(
         name = UIApplicationDidBecomeActiveNotification,
         `object` = null,
         queue = NSOperationQueue.mainQueue,
-    ) { syncAdapters.sync(SyncSource.APP_RESUME) }
+    ) {
+        sseClient.start()
+        syncAdapters.sync(SyncSource.APP_RESUME)
+    }
+    NSNotificationCenter.defaultCenter.addObserverForName(
+        name = UIApplicationDidEnterBackgroundNotification,
+        `object` = null,
+        queue = NSOperationQueue.mainQueue,
+    ) { sseClient.stop() }
+    if (UIApplication.sharedApplication.applicationState == UIApplicationState.UIApplicationStateActive) {
+        sseClient.start()
+    }
 }
 
 fun MainViewController() = ComposeUIViewController {
