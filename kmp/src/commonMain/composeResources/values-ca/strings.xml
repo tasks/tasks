@@ -479,4 +479,5 @@
     <string name="mcp_tools_group_places">Llocs</string>
     <string name="mcp_tools_group_reminders">Recordatoris</string>
     <string name="mcp_copy">Copia</string>
+    <string name="new_filter">Crea un filtre</string>
 </resources>
