@@ -569,4 +569,5 @@
     <string name="mcp_tools_group_reminders">リマインダー</string>
     <string name="mcp_copy">コピー</string>
     <string name="undo_delete">削除を元に戻す</string>
+    <string name="new_filter">新しいフィルターを作成</string>
 </resources>
