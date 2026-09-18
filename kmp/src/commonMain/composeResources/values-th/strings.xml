@@ -360,4 +360,5 @@
     <string name="mcp_tools_group_places">สถานที่</string>
     <string name="mcp_tools_group_reminders">จดหมายเตือนชําระเงิน</string>
     <string name="mcp_copy">สำเนา</string>
+    <string name="new_filter">สร้างตัวกรองข้อมูลใหม่</string>
 </resources>
