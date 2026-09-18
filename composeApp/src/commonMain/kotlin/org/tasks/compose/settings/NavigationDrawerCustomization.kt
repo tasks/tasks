@@ -42,16 +42,20 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.customize_drawer
 
+data class NavigationDrawerCustomizationCallbacks(
+    val onToggleCollapse: (String?) -> Unit,
+    val onCreateNew: (NavigationDrawerSubheader) -> Unit,
+    val onReorder: (fromIndex: Int, toIndex: Int) -> Unit,
+    val onItemClick: (FilterListItem) -> Unit,
+)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationDrawerCustomization(
     items: List<FilterListItem>,
     collapsedSections: Set<String>,
-    onToggleCollapse: (String?) -> Unit,
-    onCreateNew: (NavigationDrawerSubheader) -> Unit = {},
+    callbacks: NavigationDrawerCustomizationCallbacks,
     onBack: () -> Unit,
-    onReorder: (fromIndex: Int, toIndex: Int) -> Unit,
-    onItemClick: (FilterListItem) -> Unit,
 ) {
     val listState = rememberLazyListState()
 
@@ -77,37 +81,53 @@ fun NavigationDrawerCustomization(
                     }
                 }
             ) { index, item ->
-                when (item) {
-                    is NavigationDrawerSubheader -> {
-                        SectionHeader(
-                            title = item.title ?: "",
-                            isCollapsed = collapsedSections.contains(item.title ?: ""),
-                            onCreateClick = if (item.addIntentRc != 0) {
-                                { onCreateNew(item) }
-                            } else null,
-                            onToggleCollapse = { onToggleCollapse(item.title) },
-                        )
-                    }
-                    else -> {
-                        // Find nearest preceding subheader by scanning backwards
-                        var sectionTitle: String? = null
-                        for (i in index - 1 downTo 0) {
-                            val prev = items.getOrNull(i)
-                            if (prev is NavigationDrawerSubheader) {
-                                sectionTitle = prev.title
-                                break
-                            }
-                        }
-                        if (sectionTitle == null || !collapsedSections.contains(sectionTitle)) {
-                            NavigationDrawerCustomizationRow(
-                                item = item,
-                                onClick = { onItemClick(item) },
-                                onReorder = { from, to -> onReorder(from, to) },
-                                index = index,
-                            )
-                        }
-                    }
+                NavigationDrawerItemContent(
+                    item = item,
+                    index = index,
+                    items = items,
+                    collapsedSections = collapsedSections,
+                    callbacks = callbacks,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun NavigationDrawerItemContent(
+    item: FilterListItem,
+    index: Int,
+    items: List<FilterListItem>,
+    collapsedSections: Set<String>,
+    callbacks: NavigationDrawerCustomizationCallbacks,
+) {
+    when (item) {
+        is NavigationDrawerSubheader -> {
+            SectionHeader(
+                title = item.title ?: "",
+                isCollapsed = collapsedSections.contains(item.title ?: ""),
+                onCreateClick = if (item.addIntentRc != 0) {
+                    { callbacks.onCreateNew(item) }
+                } else null,
+                onToggleCollapse = { callbacks.onToggleCollapse(item.title) },
+            )
+        }
+        else -> {
+            var sectionTitle: String? = null
+            for (i in index - 1 downTo 0) {
+                val prev = items.getOrNull(i)
+                if (prev is NavigationDrawerSubheader) {
+                    sectionTitle = prev.title
+                    break
                 }
+            }
+            if (sectionTitle == null || !collapsedSections.contains(sectionTitle)) {
+                NavigationDrawerCustomizationRow(
+                    item = item,
+                    onClick = { callbacks.onItemClick(item) },
+                    onReorder = { from, to -> callbacks.onReorder(from, to) },
+                    index = index,
+                )
             }
         }
     }

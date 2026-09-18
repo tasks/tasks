@@ -21,7 +21,6 @@ import tasks.kmp.generated.resources.settings
 @Composable
 fun CaldavCalendarSettingsScreen(
     accountName: String,
-    accountId: String? = null,
     calendarName: String?,
     isNew: Boolean = calendarName == null,
     onBack: () -> Unit,
@@ -38,12 +37,10 @@ fun CaldavCalendarSettingsScreen(
 
     Scaffold(
         topBar = { CaldavCalendarTopAppBar(
-            isNew = isNew,
             calendarName = calendarName,
             name = name,
             onBack = onBack,
             onSave = { onSave(name) },
-            onDiscard = { showDiscardDialog = true },
             showDiscardDialog = showDiscardDialog as MutableState<Boolean>,
         ) },
     ) { innerPadding ->
@@ -97,18 +94,17 @@ fun CaldavCalendarDiscardDialog(
 
 @Composable
 fun CaldavCalendarTopAppBar(
-    isNew: Boolean,
     calendarName: String?,
     name: String,
     onBack: () -> Unit,
     onSave: () -> Unit,
-    onDiscard: () -> Unit,
     showDiscardDialog: MutableState<Boolean>,
 ) {
+    val isNew = calendarName == null
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = {
-                if (!isNew && name != calendarName) {
+                if (calendarName != null && name != calendarName) {
                     showDiscardDialog.value = true
                 } else {
                     onBack()
