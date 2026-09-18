@@ -19,21 +19,32 @@ import org.tasks.api.ApiWriter
 import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.api.LocalListManager
+import org.tasks.auth.IosOAuthFlow
+import org.tasks.auth.IosSignInHandler
+import org.tasks.auth.OAuthFlow
+import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.caldav.CaldavClientFactory
+import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.FileStorage
-import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.caldav.VtodoCache
+import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
+import org.tasks.http.DarwinKtorClientFactory
+import org.tasks.http.KtorClientFactory
 import org.tasks.jobs.BackgroundWork
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.TasksPreferences
+import org.tasks.security.Encryption
+import org.tasks.security.PlainTextEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.Upgrader
 import org.tasks.sync.SyncSource
@@ -51,7 +62,6 @@ actual fun platformModule(): Module = module {
     single {
         PlatformConfiguration(
             versionCode = TasksBuildConfig.VERSION_CODE,
-            supportsTasksOrg = false,
             supportsNotifications = false,
         )
     }
@@ -80,6 +90,12 @@ actual fun platformModule(): Module = module {
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
     single { TagMetadataEditor(get(), get(), get()) }
+    single<Encryption> { PlainTextEncryption() }
+    single<KtorClientFactory> { DarwinKtorClientFactory() }
+    factory<CaldavClientFactory> { CaldavClientProvider(get(), get(), get(), get()) }
+    single { TasksOAuthClient() }
+    factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
+    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get()) }
     single<SubscriptionProvider> {
         val tasksPreferences = get<TasksPreferences>()
         val subscriptionFlow: Flow<SubscriptionProvider.SubscriptionInfo?> =

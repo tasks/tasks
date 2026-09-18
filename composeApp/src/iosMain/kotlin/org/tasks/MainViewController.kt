@@ -12,6 +12,7 @@ import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
 import org.koin.mp.KoinPlatform
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.caldav.CaldavClient
 import org.tasks.di.coreModule
 import org.tasks.di.platformModule
 import org.tasks.preferences.AppPreferences
@@ -25,6 +26,7 @@ private var started = false
 internal fun ensureStarted() {
     if (started) return
     started = true
+    CaldavClient.registerFactories()
     startKoin {
         modules(coreModule, platformModule())
     }
