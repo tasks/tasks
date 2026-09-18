@@ -56,7 +56,7 @@ import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.Encryption
-import org.tasks.security.PlainTextEncryption
+import org.tasks.security.SecureEnclaveEncryption
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskMigrator
 import org.tasks.service.Upgrader
@@ -104,7 +104,7 @@ actual fun platformModule(): Module = module {
     factory { Upgrader(get(), CommonUpgrades.all(get())) }
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
-    single<Encryption> { PlainTextEncryption() }
+    single<Encryption> { SecureEnclaveEncryption() }
     single<KtorClientFactory> { DarwinKtorClientFactory() }
     factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get(), get()) }
     single { ApnsTokenProvider(tasksPreferences = get(), scope = get(), pushTokenManager = { get() }, sseClient = { get() }) }
