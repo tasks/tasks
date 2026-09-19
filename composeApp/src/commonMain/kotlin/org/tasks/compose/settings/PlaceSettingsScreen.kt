@@ -378,7 +378,7 @@ private fun PlaceSettingsDialogs(
     onColorSelected: (PickerColor) -> Unit,
     showIconPicker: Boolean,
     onDismissIconPicker: () -> Unit,
-    onIconSelected: (String) -> Unit,
+    onIconSelected: (String?) -> Unit,
     pickerColors: List<PickerColor>,
 ) {
     PlaceDiscardDialog(
