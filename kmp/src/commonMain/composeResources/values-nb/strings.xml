@@ -440,4 +440,5 @@
     <string name="mcp_tools_group_places">Steder</string>
     <string name="mcp_tools_group_reminders">Påminnelser</string>
     <string name="mcp_copy">Kopier</string>
+    <string name="new_filter">Opprett nytt filter</string>
 </resources>

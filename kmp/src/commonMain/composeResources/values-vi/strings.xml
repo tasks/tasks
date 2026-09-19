@@ -416,4 +416,5 @@
     <string name="mcp_tools_group_places">Địa điểm</string>
     <string name="mcp_tools_group_reminders">Lời nhắc</string>
     <string name="mcp_copy">Sao chép</string>
+    <string name="new_filter">Tạo bộ lọc mới</string>
 </resources>

@@ -641,4 +641,5 @@
     <string name="mcp_tools_group_places">Lugares</string>
     <string name="mcp_tools_group_reminders">Lembretes</string>
     <string name="mcp_copy">Copiar</string>
+    <string name="new_filter">Criar novo filtro</string>
 </resources>

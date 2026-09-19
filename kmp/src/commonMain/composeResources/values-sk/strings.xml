@@ -477,4 +477,5 @@
     <string name="mcp_tools_group_places">Miesta</string>
     <string name="mcp_tools_group_reminders">Pripomienky</string>
     <string name="mcp_copy">Kopírovať</string>
+    <string name="new_filter">Vytvoriť nový filter</string>
 </resources>

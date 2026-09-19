@@ -453,4 +453,5 @@
     <string name="mcp_tools_group_places">장소</string>
     <string name="mcp_tools_group_reminders">알람</string>
     <string name="mcp_copy">복사</string>
+    <string name="new_filter">새 필터 만들기</string>
 </resources>

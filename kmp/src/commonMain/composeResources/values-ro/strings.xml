@@ -505,4 +505,5 @@
     <string name="mcp_tools_group_places">Locuri</string>
     <string name="mcp_tools_group_reminders">Mementouri</string>
     <string name="mcp_copy">Copiază</string>
+    <string name="new_filter">Crează filtru nou</string>
 </resources>

@@ -598,4 +598,5 @@
     <string name="mcp_tools_group_places">מקומות</string>
     <string name="mcp_tools_group_reminders">תזכורות</string>
     <string name="mcp_copy">העתקה</string>
+    <string name="new_filter">יצירת מסנן חדש</string>
 </resources>

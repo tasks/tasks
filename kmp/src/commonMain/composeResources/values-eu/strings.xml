@@ -412,4 +412,5 @@
     <string name="mcp_tools_group_places">Tokiak</string>
     <string name="mcp_tools_group_reminders">Oroigarriak</string>
     <string name="mcp_copy">Kopiatu</string>
+    <string name="new_filter">Sortu iragazki berria</string>
 </resources>

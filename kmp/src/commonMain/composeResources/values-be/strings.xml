@@ -73,4 +73,5 @@
     <string name="customize_drawer">Наладзіць панэль</string>
     <string name="customize_drawer_summary">Перацягніце элементы меню, каб іх пераставіць</string>
     <string name="mcp_tools_group_reminders">Напаміны</string>
+    <string name="new_filter">Стварыць новы фільтр</string>
 </resources>

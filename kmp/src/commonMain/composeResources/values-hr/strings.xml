@@ -624,4 +624,5 @@
     <string name="mcp_tools_group_places">Mjesta</string>
     <string name="mcp_tools_group_reminders">Podsjetnici</string>
     <string name="mcp_copy">Kopiraj</string>
+    <string name="new_filter">Stvori filtar</string>
 </resources>

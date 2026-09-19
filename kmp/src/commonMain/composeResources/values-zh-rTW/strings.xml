@@ -493,4 +493,5 @@
     <string name="mcp_tools_group_places">地點</string>
     <string name="mcp_tools_group_reminders">提醒</string>
     <string name="mcp_copy">複製</string>
+    <string name="new_filter">新增過濾器</string>
 </resources>

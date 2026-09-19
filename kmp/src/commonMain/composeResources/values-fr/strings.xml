@@ -714,4 +714,7 @@
     <string name="mcp_reveal">Montrer</string>
     <string name="mcp_hide">Cacher</string>
     <string name="mcp_clipboard_note">Tout ce que vous copiez ici comporte le jeton et est effacé du presse-papiers au bout d\'une minute.</string>
+    <string name="new_filter">Créer un nouveau filtre</string>
+    <string name="sign_in_with_apple">Se connecter avec Apple</string>
+    <string name="new_place">Créer un nouveau lieu</string>
 </resources>

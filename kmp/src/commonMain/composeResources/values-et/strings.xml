@@ -626,4 +626,5 @@
     <string name="mcp_tools_group_places">Asukohad</string>
     <string name="mcp_tools_group_reminders">Meeldetuletused</string>
     <string name="mcp_copy">Kopeeri</string>
+    <string name="new_filter">Loo uus filter</string>
 </resources>
