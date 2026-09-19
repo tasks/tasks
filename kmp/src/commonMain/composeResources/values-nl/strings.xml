@@ -13,7 +13,7 @@
     <string name="settings">Instellingen</string>
     <string name="drawer_filters">Filters</string>
     <string name="drawer_tags">Labels</string>
-    <string name="drawer_places">Locaties</string>
+    <string name="drawer_places">Plaatsen</string>
     <string name="drawer_local_lists">Lokale lijsten</string>
     <string name="tmrw">Morgen</string>
     <string name="tomorrow_abbrev_lowercase">morgen</string>
@@ -461,7 +461,7 @@
     <string name="customize_drawer">Lade personaliseren</string>
     <string name="customize_drawer_summary">Versleep om menu-items opnieuw te ordenen</string>
     <string name="hide_unused_tags">Ongebruikte labels verbergen</string>
-    <string name="hide_unused_places">Ongebruikte locaties verbergen</string>
+    <string name="hide_unused_places">Ongebruikte plaatsen verbergen</string>
     <string name="language">Taal</string>
     <string name="launcher_icon">Startpictogram</string>
     <string name="markdown">Markdown</string>
@@ -662,7 +662,7 @@
     <string name="mcp_access_advanced">Geavanceerd</string>
     <string name="mcp_tools_group_lists">Lijsten</string>
     <string name="mcp_tools_group_tags">Labels</string>
-    <string name="mcp_tools_group_places">Locaties</string>
+    <string name="mcp_tools_group_places">Plaatsen</string>
     <string name="mcp_tools_group_reminders">Herinneringen</string>
     <string name="mcp_copy">Kopiëren</string>
     <string name="mcp_server_summary">Laat AI-assistenten op deze computer uw gegevens lezen en beheren</string>
@@ -673,7 +673,7 @@
     <string name="mcp_status_stopped">Niet actief</string>
     <string name="mcp_access">Toegang</string>
     <string name="mcp_access_read_only">Alleen-lezen</string>
-    <string name="mcp_access_read_only_summary">Assistenten kunnen uw taken, lijsten, labels, plaatsen, herinneringen lezen en accounts synchroniseren. Ze kunnen niets veranderen.</string>
+    <string name="mcp_access_read_only_summary">Assistenten kunnen uw taken, lijsten, labels, plaatsen en herinneringen lezen en accounts synchroniseren. Ze kunnen niets veranderen.</string>
     <string name="mcp_access_read_write">Lezen en schrijven</string>
     <string name="mcp_access_read_write_summary">Assistenten kunnen ook taken, lijsten, labels, plaatsen en herinneringen maken, bewerken en verwijderen.</string>
     <string name="mcp_access_advanced_summary">Kies precies welke hulpmiddelen assistenten kunnen gebruiken.</string>
@@ -695,4 +695,6 @@
     <string name="mcp_hide">Verbergen</string>
     <string name="mcp_clipboard_note">Alles wat u hier kopieert, bevat het token en wordt na een minuut van het klembord verwijderd.</string>
     <string name="new_filter">Nieuw filter maken</string>
+    <string name="sign_in_with_apple">Aanmelden met Apple</string>
+    <string name="new_place">Nieuwe plaats aanmaken</string>
 </resources>
