@@ -124,7 +124,7 @@ fun AttachmentRow(
                                                 name = TasksIcons.PLAY_CIRCLE,
                                                 contentDescription = null,
                                                 tint = Color.White.copy(
-                                                    alpha = 0.87f
+                                                    alpha = ContentAlpha.medium
                                                 ),
                                                 modifier = Modifier.align(Alignment.Center),
                                             )
@@ -151,7 +151,7 @@ fun AttachmentRow(
                             .clickable { addAttachment() }
                             .border(
                                 width = 1.dp,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f),
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
                                 shape = RoundedCornerShape(8.dp),
                             ),
                     ) {
@@ -162,7 +162,7 @@ fun AttachmentRow(
                                 .size(48.dp)
                                 .align(Alignment.Center),
                             tint = MaterialTheme.colorScheme.onSurface.copy(
-                                alpha = 0.87f
+                                alpha = ContentAlpha.medium
                             ),
                         )
                     }
@@ -193,7 +193,7 @@ fun NoThumbnail(
             .clickable { open() }
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
                 shape = RoundedCornerShape(8.dp),
             ),
     ) {
@@ -210,7 +210,7 @@ fun NoThumbnail(
                     .align(Alignment.CenterHorizontally)
                     .alpha(ContentAlpha.medium),
                 tint = MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = 0.87f
+                    alpha = ContentAlpha.medium
                 ),
             )
             Text(
@@ -246,7 +246,7 @@ fun BoxScope.DeleteAttachment(
             .align(Alignment.TopEnd)
             .padding(vertical = 4.dp, horizontal = 4.dp)
             .clickable { onClick() },
-        tint = color.copy(alpha = 0.87f),
+        tint = color.copy(alpha = ContentAlpha.medium),
     )
 }
 

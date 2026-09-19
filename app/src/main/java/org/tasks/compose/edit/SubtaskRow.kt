@@ -171,7 +171,7 @@ fun NewSubtaskRow(
                 .weight(1f)
                 .focusable(enabled = true)
                 .focusRequester(focusRequester)
-                .alpha(if (subtask.isCompleted) 0.38f else 1.0f)
+                .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
             textStyle = MaterialTheme.typography.bodyLarge.copy(
@@ -223,7 +223,7 @@ fun ExistingSubtaskRow(
             text = task.title!!,
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (task.isCompleted || task.task.isHidden) 0.38f else 1.0f)
+                .alpha(if (task.isCompleted || task.task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
             style = MaterialTheme.typography.bodyLarge.copy(

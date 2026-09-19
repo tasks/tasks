@@ -43,7 +43,7 @@ fun DueDateRow(
         color = when {
             overdue -> MaterialTheme.colorScheme.error
             dueDate == 0L && hasDueDateAlarm -> MaterialTheme.colorScheme.error
-            dueDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+            dueDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
             else -> MaterialTheme.colorScheme.onSurface
         },
         onClick = { onClick() },
@@ -101,7 +101,7 @@ fun NoDueDatePreview() {
     TasksTheme {
         DueDateRow(
             dueDate = stringResource(R.string.no_due_date),
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
         ) {}
     }
 }

@@ -14,6 +14,6 @@ object Constants {
     @Composable
     fun textFieldColors() = OutlinedTextFieldDefaults.colors(
         cursorColor = MaterialTheme.colorScheme.onSurface,
-        focusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 1.0f),
+        focusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.high),
     )
 }

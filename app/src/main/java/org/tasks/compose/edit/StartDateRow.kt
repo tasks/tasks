@@ -73,7 +73,7 @@ fun StartDate(
         color = when {
             selectedDay < 0 && !hasDueDate -> MaterialTheme.colorScheme.error
             startDate == 0L && hasStartAlarm -> MaterialTheme.colorScheme.error
-            startDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+            startDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
             startDate < currentTime -> MaterialTheme.colorScheme.error
             else -> MaterialTheme.colorScheme.onSurface
         },
