@@ -354,12 +354,17 @@ private fun createPlaceOnSaveClick(
             } else if (updatedPlace != null) {
                 params.filterDao.update(updatedPlace)
             }
-            if (filterId == null || updatedPlace != null) {
+            if (params.filterId == null || updatedPlace != null) {
                 params.onSave(params.name, lat, lng)
                 params.onSaveCompleted()
             }
         }
     }
+}
+
+@Composable
+private fun PlaceDiscardDialog(show: Boolean, onDismiss: () -> Unit, onDiscard: () -> Unit) {
+    if (show) { BasicAlertDialog(onDismissRequest = onDismiss) { Text("Discard?"); Button(onClick = onDiscard) { Text("Discard") } } }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

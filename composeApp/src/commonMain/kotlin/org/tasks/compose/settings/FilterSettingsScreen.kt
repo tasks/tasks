@@ -338,6 +338,11 @@ private fun createOnSaveClick(
     }
 }
 
+@Composable
+private fun FilterDiscardDialog(show: Boolean, onDismiss: () -> Unit, onDiscard: () -> Unit) {
+    if (show) { BasicAlertDialog(onDismissRequest = onDismiss) { Text("Discard?"); Button(onClick = onDiscard) { Text("Discard") } } }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun FilterSettingsDialogs(
@@ -349,7 +354,7 @@ private fun FilterSettingsDialogs(
     onColorSelected: (PickerColor) -> Unit,
     showIconPicker: Boolean,
     onDismissIconPicker: () -> Unit,
-    onIconSelected: (String) -> Unit,
+    onIconSelected: (String?) -> Unit,
     pickerColors: List<PickerColor>,
 ) {
     FilterDiscardDialog(
