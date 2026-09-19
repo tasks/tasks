@@ -340,6 +340,7 @@ private fun createOnSaveClick(
 
 @Composable
 private fun FilterDiscardDialog(show: Boolean, onDismiss: () -> Unit, onDiscard: () -> Unit) {
+    @OptIn(ExperimentalMaterial3Api::class)
     if (show) { BasicAlertDialog(onDismissRequest = onDismiss) { Text("Discard?"); Button(onClick = onDiscard) { Text("Discard") } } }
 }
 

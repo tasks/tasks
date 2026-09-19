@@ -364,6 +364,7 @@ private fun createPlaceOnSaveClick(
 
 @Composable
 private fun PlaceDiscardDialog(show: Boolean, onDismiss: () -> Unit, onDiscard: () -> Unit) {
+    @OptIn(ExperimentalMaterial3Api::class)
     if (show) { BasicAlertDialog(onDismissRequest = onDismiss) { Text("Discard?"); Button(onClick = onDiscard) { Text("Discard") } } }
 }
 
