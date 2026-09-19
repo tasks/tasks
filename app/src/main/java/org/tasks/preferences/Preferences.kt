@@ -13,6 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
 import androidx.preference.PreferenceManager
+import androidx.datastore.preferences.core.Preferences
 import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.core.SortHelper
@@ -55,6 +56,13 @@ class Preferences @JvmOverloads constructor(
         listener: SharedPreferences.OnSharedPreferenceChangeListener
     ) {
         prefs.unregisterOnSharedPreferenceChangeListener(listener)
+    }
+
+    override suspend fun getBoolean(key: Preferences.Key<Boolean>, defaultValue: Boolean): Boolean =
+        prefs.getBoolean(key.name, defaultValue)
+
+    override suspend fun setBoolean(key: Preferences.Key<Boolean>, value: Boolean) {
+        prefs.edit().putBoolean(key.name, value).apply()
     }
 
     fun androidBackupServiceEnabled() = getBoolean(R.string.p_backups_android_backup_enabled, true)

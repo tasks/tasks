@@ -71,6 +71,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.foundation)
             implementation(libs.jetbrains.material3)
+            implementation(compose.materialIconsExtended)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -101,6 +102,7 @@ kotlin {
             implementation(libs.kermit.crashlytics)
         }
         desktopMain.dependencies {
+            implementation(projects.data)
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.mcp.kotlin.sdk)
