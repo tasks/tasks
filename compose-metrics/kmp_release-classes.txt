@@ -23,13 +23,17 @@ stable class PermaSql {
   stable val VALUE_EOD_TOMORROW: String
   stable val VALUE_EOD_DAY_AFTER: String
   stable val VALUE_EOD_NEXT_WEEK: String
+  stable val VALUE_EOD_NEXT_2_WEEKS: String
   stable val VALUE_EOD_NEXT_MONTH: String
+  stable val VALUE_EOD_NEXT_3_MONTHS: String
   stable val VALUE_NOW: String
   stable val VALUE_NOON_YESTERDAY: String
   stable val VALUE_NOON_TOMORROW: String
   stable val VALUE_NOON_DAY_AFTER: String
   stable val VALUE_NOON_NEXT_WEEK: String
+  stable val VALUE_NOON_NEXT_2_WEEKS: String
   stable val VALUE_NOON_NEXT_MONTH: String
+  stable val VALUE_NOON_NEXT_3_MONTHS: String
   <runtime stability> = Stable
 }
 unstable class SortHelper {
