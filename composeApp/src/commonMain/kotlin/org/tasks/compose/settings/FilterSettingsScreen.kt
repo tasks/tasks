@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -39,7 +40,6 @@ fun FilterSettingsScreen(
 ) {
     val filterDao = koinInject<FilterDao>()
     val scope = rememberCoroutineScope()
-
     var name by remember { mutableStateOf("") }
     var sql by remember { mutableStateOf("") }
     var color by remember { mutableStateOf(0) }
@@ -53,6 +53,7 @@ fun FilterSettingsScreen(
     var originalColor by remember { mutableStateOf(0) }
     var originalIcon by remember { mutableStateOf(TasksIcons.FILTER_LIST) }
 
+    // Convert ThemeColor to PickerColor
     val pickerColors = remember {
         ColorProvider.PRESET_COLORS.map { colorValue ->
             PickerColor(
@@ -64,6 +65,7 @@ fun FilterSettingsScreen(
         }
     }
 
+    // Load existing filter
     LaunchedEffect(filterId) {
         filterId?.toLongOrNull()?.let { id ->
             val filter = filterDao.getById(id)
@@ -90,20 +92,232 @@ fun FilterSettingsScreen(
         }
     }
 
-    val onSaveClick: () -> Unit = {
+    val onSaveClick = createOnSaveClick(
+        scope = scope,
+        params = FilterSaveParams(
+            filterDao = filterDao,
+            filterId = filterId,
+            name = name,
+            sql = sql,
+            color = color,
+            icon = icon,
+            onSave = onSave,
+            onSaveCompleted = { saveCompleted = true },
+        ),
+    )
+
+    if (showDiscardDialog) {
+        BasicAlertDialog(
+            onDismissRequest = { showDiscardDialog = false },
+        ) {
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.surface,
+                tonalElevation = 6.dp,
+            ) {
+                Column(
+                    modifier = Modifier.padding(24.dp)
+                ) {
+                    Text(
+                        text = "Discard changes?",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+                    Text(
+                        text = "You have unsaved changes. Are you sure you want to discard them?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                    ) {
+                        TextButton(onClick = { showDiscardDialog = false }) {
+                            Text("Cancel")
+                        }
+                        TextButton(onClick = {
+                            showDiscardDialog = false
+                            onBack()
+                        }) {
+                            Text("Discard")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    if (showColorPicker) {
+        ColorPickerDialog(
+            hasPro = true,
+            colors = pickerColors,
+            onDismiss = { showColorPicker = false },
+            onColorSelected = { pickerColor ->
+                color = pickerColor.originalColor
+                showColorPicker = false
+            },
+        )
+    }
+
+    if (showIconPicker) {
+        IconPickerDialog(
+            selectedIcon = null,
+            onIconSelected = { selectedIcon ->
+                icon = selectedIcon ?: ""
+                showIconPicker = false
+            },
+            onDismissRequest = { showIconPicker = false }
+        )
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+                        if (filterId != null && hasChanges) {
+                            showDiscardDialog = true
+                        } else {
+                            onBack()
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.back)
+                        )
+                    }
+                },
+                title = { Text(if (filterId == null) "New Filter" else stringResource(Res.string.settings)) },
+                actions = {
+                    TextButton(onClick = onSaveClick) { Text("Save") }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Filter Name",
+                style = MaterialTheme.typography.labelMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            BasicTextField(
+                value = name,
+                onValueChange = { name = it },
+                textStyle = TextStyle(
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
+
+            // Color Picker Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { showColorPicker = true }
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Surface(
+                    modifier = Modifier.size(32.dp),
+                    color = if (color == 0) MaterialTheme.colorScheme.primary else Color(color),
+                    shape = CircleShape,
+                ) {}
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Color",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Icon Picker Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { showIconPicker = true }
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TasksIcon(
+                    label = icon,
+                    modifier = Modifier.size(32.dp)
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Icon",
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            Text(
+                text = "SQL Query",
+                style = MaterialTheme.typography.labelMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            BasicTextField(
+                value = sql,
+                onValueChange = { sql = it },
+                textStyle = TextStyle(
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .padding(vertical = 8.dp)
+            )
+
+            if (filterId != null) {
+                Spacer(modifier = Modifier.weight(1f))
+                Button(
+                    onClick = { /* TODO: Delete filter */ },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    ),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Delete Filter")
+                }
+            }
+        }
+    }
+}
+
+private fun createOnSaveClick(
+    scope: CoroutineScope,
+    params: FilterSaveParams,
+): () -> Unit = {
+    {
         scope.launch {
-            val updatedFilter = filterId?.toLongOrNull()?.let { id -> filterDao.getById(id) }
-            if (filterId == null) {
-                filterDao.insert(
+            val updatedFilter = params.filterId?.toLongOrNull()?.let { id -> params.filterDao.getById(id) }
+            if (params.filterId == null) {
+                params.filterDao.insert(
                     Filter(
-                        title = name,
-                        sql = sql,
-                        color = color,
-                        icon = icon,
+                        title = params.name,
+                        sql = params.sql,
+                        color = params.color,
+                        icon = params.icon,
                     )
                 )
             } else if (updatedFilter != null) {
-                filterDao.update(
+                params.filterDao.update(
                     Filter(
                         id = updatedFilter.id,
                         title = name,
@@ -117,203 +331,68 @@ fun FilterSettingsScreen(
                 )
             }
             if (filterId == null || updatedFilter != null) {
-                onSave(name, sql)
-                saveCompleted = true
+                params.onSave(name, params.sql)
+                params.onSaveCompleted()
             }
         }
     }
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun FilterSettingsDialogs(
+    showDiscardDialog: Boolean,
+    onDismissDiscard: () -> Unit,
+    onDiscard: () -> Unit,
+    showColorPicker: Boolean,
+    onDismissColorPicker: () -> Unit,
+    onColorSelected: (PickerColor) -> Unit,
+    showIconPicker: Boolean,
+    onDismissIconPicker: () -> Unit,
+    onIconSelected: (String) -> Unit,
+    pickerColors: List<PickerColor>,
+) {
     FilterDiscardDialog(
         show = showDiscardDialog,
-        onDismiss = { showDiscardDialog = false },
-        onDiscard = { showDiscardDialog = false; onBack() },
+        onDismiss = onDismissDiscard,
+        onDiscard = onDiscard,
     )
     if (showColorPicker) {
         ColorPickerDialog(
             hasPro = true,
             colors = pickerColors,
-            onDismiss = { showColorPicker = false },
-            onColorSelected = { pickerColor ->
-                color = pickerColor.originalColor
-                showColorPicker = false
-            },
+            onDismiss = onDismissColorPicker,
+            onColorSelected = onColorSelected,
         )
     }
     if (showIconPicker) {
         IconPickerDialog(
             selectedIcon = null,
-            onIconSelected = { selectedIcon ->
-                icon = selectedIcon ?: ""
-                showIconPicker = false
-            },
-            onDismissRequest = { showIconPicker = false }
-        )
-    }
-    Scaffold(topBar = {
-        FilterSettingsTopBar(
-            filterId = filterId,
-            hasChanges = hasChanges,
-            onBack = onBack,
-            onShowDiscard = { showDiscardDialog = true },
-            onSaveClick = onSaveClick,
-        )
-    }) { innerPadding ->
-        FilterSettingsContent(
-            name = name,
-            onNameChange = { name = it },
-            sql = sql,
-            onSqlChange = { sql = it },
-            color = color,
-            onColorClick = { showColorPicker = true },
-            icon = icon,
-            onIconClick = { showIconPicker = true },
-            filterId = filterId,
+            onIconSelected = onIconSelected,
+            onDismissRequest = onDismissIconPicker,
         )
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun FilterDiscardDialog(
-    show: Boolean,
-    onDismiss: () -> Unit,
-    onDiscard: () -> Unit,
-) {
-    if (!show) return
-    BasicAlertDialog(
-        onDismissRequest = onDismiss,
-    ) {
-        Surface(
-            shape = MaterialTheme.shapes.medium,
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 6.dp,
-        ) {
-            Column(modifier = Modifier.padding(24.dp)) {
-                Text(
-                    text = "Discard changes?",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-                Text(
-                    text = "You have unsaved changes. Are you sure you want to discard them?",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 24.dp)
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    TextButton(onClick = onDismiss) { Text("Cancel") }
-                    TextButton(onClick = onDiscard) { Text("Discard") }
-                }
-            }
-        }
-    }
-}
+data class FilterSettingsContentState(
+    val name: String,
+    val onNameChange: (String) -> Unit,
+    val sql: String,
+    val onSqlChange: (String) -> Unit,
+    val color: Int,
+    val onColorClick: () -> Unit,
+    val icon: String,
+    val onIconClick: () -> Unit,
+    val filterId: String?,
+)
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun FilterSettingsTopBar(
-    filterId: String?,
-    hasChanges: Boolean,
-    onBack: () -> Unit,
-    onShowDiscard: () -> Unit,
-    onSaveClick: () -> Unit,
-) {
-    TopAppBar(
-        navigationIcon = {
-            IconButton(onClick = {
-                if (filterId != null && hasChanges) {
-                    onShowDiscard()
-                } else {
-                    onBack()
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(Res.string.back)
-                )
-            }
-        },
-        title = { Text(if (filterId == null) "New Filter" else stringResource(Res.string.settings)) },
-        actions = {
-            TextButton(onClick = onSaveClick) { Text("Save") }
-        }
-    )
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun FilterSettingsContent(
-    name: String,
-    onNameChange: (String) -> Unit,
-    sql: String,
-    onSqlChange: (String) -> Unit,
-    color: Int,
-    onColorClick: () -> Unit,
-    icon: String,
-    onIconClick: () -> Unit,
-    filterId: String?,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = "Filter Name",
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        BasicTextField(
-            value = name,
-            onValueChange = onNameChange,
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-        )
-        HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth().clickable { onColorClick() }.padding(vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Surface(
-                modifier = Modifier.size(32.dp),
-                color = if (color == 0) MaterialTheme.colorScheme.primary else Color(color),
-                shape = CircleShape,
-            ) {}
-            Spacer(modifier = Modifier.width(16.dp))
-            Text("Color", style = MaterialTheme.typography.bodyLarge)
-        }
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth().clickable { onIconClick() }.padding(vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            TasksIcon(label = icon, modifier = Modifier.size(32.dp))
-            Spacer(modifier = Modifier.width(16.dp))
-            Text("Icon", style = MaterialTheme.typography.bodyLarge)
-        }
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Text(
-            text = "SQL Query",
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        BasicTextField(
-            value = sql,
-            onValueChange = onSqlChange,
-            textStyle = TextStyle(fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurface),
-            modifier = Modifier.fillMaxWidth().height(200.dp).padding(vertical = 8.dp)
-        )
-        if (filterId != null) {
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { /* TODO: Delete filter */ },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                modifier = Modifier.fillMaxWidth()
-            ) { Text("Delete Filter") }
-        }
-    }
-}
+data class FilterSaveParams(
+    val filterDao: FilterDao,
+    val filterId: String?,
+    val name: String,
+    val sql: String,
+    val color: Int,
+    val icon: String,
+    val onSave: (String, String?) -> Unit,
+    val onSaveCompleted: () -> Unit,
+)

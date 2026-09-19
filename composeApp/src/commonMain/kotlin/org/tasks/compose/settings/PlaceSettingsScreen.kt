@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -39,7 +40,6 @@ fun PlaceSettingsScreen(
 ) {
     val placeDao = koinInject<LocationDao>()
     val scope = rememberCoroutineScope()
-
     var name by remember { mutableStateOf("") }
     var latitude by remember { mutableStateOf("") }
     var longitude by remember { mutableStateOf("") }
@@ -95,44 +95,62 @@ fun PlaceSettingsScreen(
         }
     }
 
-    val onSaveClick: () -> Unit = {
-        scope.launch {
-            val lat = latitude.toDoubleOrNull()
-            val lng = longitude.toDoubleOrNull()
-            val updatedPlace = placeId?.toLongOrNull()?.let { id -> placeDao.getPlace(id) }?.let { place ->
-                place.copy(
-                    name = name,
-                    latitude = lat ?: place.latitude,
-                    longitude = lng ?: place.longitude,
-                    color = color,
-                    icon = icon,
-                )
-            }
-            if (placeId == null) {
-                placeDao.insert(
-                    Place(
-                        name = name,
-                        latitude = lat ?: 0.0,
-                        longitude = lng ?: 0.0,
-                        color = color,
-                        icon = icon,
+    val onSaveClick = createPlaceOnSaveClick(
+        scope = scope,
+        params = PlaceSaveParams(
+            filterDao = placeDao,
+            filterId = placeId,
+            name = name,
+            latitude = latitude,
+            longitude = longitude,
+            color = color,
+            icon = icon,
+            onSave = onSave,
+            onSaveCompleted = { saveCompleted = true },
+        ),
+    )
+
+    if (showDiscardDialog) {
+        BasicAlertDialog(
+            onDismissRequest = { showDiscardDialog = false },
+        ) {
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                color = MaterialTheme.colorScheme.surface,
+                tonalElevation = 6.dp,
+            ) {
+                Column(
+                    modifier = Modifier.padding(24.dp)
+                ) {
+                    Text(
+                        text = "Discard changes?",
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(bottom = 16.dp)
                     )
-                )
-            } else if (updatedPlace != null) {
-                placeDao.update(updatedPlace)
-            }
-            if (placeId == null || updatedPlace != null) {
-                onSave(name, lat, lng)
-                saveCompleted = true
+                    Text(
+                        text = "You have unsaved changes. Are you sure you want to discard them?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(bottom = 24.dp)
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                    ) {
+                        TextButton(onClick = { showDiscardDialog = false }) {
+                            Text("Cancel")
+                        }
+                        TextButton(onClick = {
+                            showDiscardDialog = false
+                            onBack()
+                        }) {
+                            Text("Discard")
+                        }
+                    }
+                }
             }
         }
     }
 
-    PlaceDiscardDialog(
-        show = showDiscardDialog,
-        onDismiss = { showDiscardDialog = false },
-        onDiscard = { showDiscardDialog = false; onBack() },
-    )
     if (showColorPicker) {
         ColorPickerDialog(
             hasPro = true,
@@ -144,6 +162,7 @@ fun PlaceSettingsScreen(
             },
         )
     }
+
     if (showIconPicker) {
         IconPickerDialog(
             selectedIcon = null,
@@ -154,188 +173,253 @@ fun PlaceSettingsScreen(
             onDismissRequest = { showIconPicker = false }
         )
     }
-    Scaffold(topBar = {
-        PlaceSettingsTopBar(
-            placeId = placeId,
-            hasChanges = hasChanges,
-            onBack = onBack,
-            onShowDiscard = { showDiscardDialog = true },
-            onSaveClick = onSaveClick,
-        )
-    }) { innerPadding ->
-        PlaceSettingsContent(
-            name = name,
-            onNameChange = { name = it },
-            latitude = latitude,
-            onLatitudeChange = { latitude = it },
-            longitude = longitude,
-            onLongitudeChange = { longitude = it },
-            color = color,
-            onColorClick = { showColorPicker = true },
-            icon = icon,
-            onIconClick = { showIconPicker = true },
-            placeId = placeId,
-        )
-    }
-}
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun PlaceDiscardDialog(
-    show: Boolean,
-    onDismiss: () -> Unit,
-    onDiscard: () -> Unit,
-) {
-    if (!show) return
-    BasicAlertDialog(
-        onDismissRequest = onDismiss,
-    ) {
-        Surface(
-            shape = MaterialTheme.shapes.medium,
-            color = MaterialTheme.colorScheme.surface,
-            tonalElevation = 6.dp,
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+                        if (placeId != null && hasChanges) {
+                            showDiscardDialog = true
+                        } else {
+                            onBack()
+                        }
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(Res.string.back)
+                        )
+                    }
+                },
+                title = { Text(if (placeId == null) "New Place" else stringResource(Res.string.settings)) },
+                actions = {
+                    TextButton(onClick = onSaveClick) { Text("Save") }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
         ) {
-            Column(modifier = Modifier.padding(24.dp)) {
+            Text(
+                text = "Place Name",
+                style = MaterialTheme.typography.labelMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            BasicTextField(
+                value = name,
+                onValueChange = { name = it },
+                textStyle = TextStyle(
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
+
+            // Color Picker Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { showColorPicker = true }
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Surface(
+                    modifier = Modifier.size(32.dp),
+                    color = if (color == 0) MaterialTheme.colorScheme.primary else Color(color),
+                    shape = CircleShape,
+                ) {}
+                Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = "Discard changes?",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    text = "Color",
+                    style = MaterialTheme.typography.bodyLarge,
                 )
+            }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Icon Picker Row
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { showIconPicker = true }
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                TasksIcon(
+                    label = icon,
+                    modifier = Modifier.size(32.dp)
+                )
+                Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = "You have unsaved changes. Are you sure you want to discard them?",
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 24.dp)
+                    text = "Icon",
+                    style = MaterialTheme.typography.bodyLarge,
                 )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
+            }
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            Text(
+                text = "Latitude",
+                style = MaterialTheme.typography.labelMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            BasicTextField(
+                value = latitude,
+                onValueChange = { latitude = it },
+                textStyle = TextStyle(
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
+
+            Text(
+                text = "Longitude",
+                style = MaterialTheme.typography.labelMedium,
+                color = Color.Gray,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            BasicTextField(
+                value = longitude,
+                onValueChange = { longitude = it },
+                textStyle = TextStyle(
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            )
+
+            if (placeId != null) {
+                Spacer(modifier = Modifier.weight(1f))
+                Button(
+                    onClick = { /* TODO: Delete place */ },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error
+                    ),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextButton(onClick = onDismiss) { Text("Cancel") }
-                    TextButton(onClick = onDiscard) { Text("Discard") }
+                    Text("Delete Place")
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun PlaceSettingsTopBar(
-    placeId: String?,
-    hasChanges: Boolean,
-    onBack: () -> Unit,
-    onShowDiscard: () -> Unit,
-    onSaveClick: () -> Unit,
-) {
-    TopAppBar(
-        navigationIcon = {
-            IconButton(onClick = {
-                if (placeId != null && hasChanges) {
-                    onShowDiscard()
-                } else {
-                    onBack()
-                }
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(Res.string.back)
+private fun createPlaceOnSaveClick(
+    scope: CoroutineScope,
+    params: PlaceSaveParams,
+): () -> Unit = {
+    {
+        scope.launch {
+            val lat = latitude.toDoubleOrNull()
+            val lng = longitude.toDoubleOrNull()
+            val updatedPlace = params.filterId?.toLongOrNull()?.let { id -> params.filterDao.getPlace(id) }?.let { place ->
+                place.copy(
+                    name = name,
+                    latitude = lat ?: place.latitude,
+                    longitude = lng ?: place.longitude,
+                    color = color,
+                    icon = icon,
                 )
             }
-        },
-        title = { Text(if (placeId == null) "New Place" else stringResource(Res.string.settings)) },
-        actions = {
-            TextButton(onClick = onSaveClick) { Text("Save") }
+            if (params.filterId == null) {
+                params.filterDao.insert(
+                    Place(
+                        name = params.name,
+                        latitude = lat ?: 0.0,
+                        longitude = lng ?: 0.0,
+                        color = params.color,
+                        icon = params.icon,
+                    )
+                )
+            } else if (updatedPlace != null) {
+                params.filterDao.update(updatedPlace)
+            }
+            if (filterId == null || updatedPlace != null) {
+                params.onSave(name, lat, lng)
+                params.onSaveCompleted()
+            }
         }
-    )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun PlaceSettingsContent(
-    name: String,
-    onNameChange: (String) -> Unit,
-    latitude: String,
-    onLatitudeChange: (String) -> Unit,
-    longitude: String,
-    onLongitudeChange: (String) -> Unit,
-    color: Int,
-    onColorClick: () -> Unit,
-    icon: String,
-    onIconClick: () -> Unit,
-    placeId: String?,
+private fun PlaceSettingsDialogs(
+    showDiscardDialog: Boolean,
+    onDismissDiscard: () -> Unit,
+    onDiscard: () -> Unit,
+    showColorPicker: Boolean,
+    onDismissColorPicker: () -> Unit,
+    onColorSelected: (PickerColor) -> Unit,
+    showIconPicker: Boolean,
+    onDismissIconPicker: () -> Unit,
+    onIconSelected: (String) -> Unit,
+    pickerColors: List<PickerColor>,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = "Place Name",
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 8.dp)
+    PlaceDiscardDialog(
+        show = showDiscardDialog,
+        onDismiss = onDismissDiscard,
+        onDiscard = onDiscard,
+    )
+    if (showColorPicker) {
+        ColorPickerDialog(
+            hasPro = true,
+            colors = pickerColors,
+            onDismiss = onDismissColorPicker,
+            onColorSelected = onColorSelected,
         )
-        BasicTextField(
-            value = name,
-            onValueChange = onNameChange,
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+    }
+    if (showIconPicker) {
+        IconPickerDialog(
+            selectedIcon = null,
+            onIconSelected = onIconSelected,
+            onDismissRequest = onDismissIconPicker,
         )
-        HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth().clickable { onColorClick() }.padding(vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Surface(
-                modifier = Modifier.size(32.dp),
-                color = if (color == 0) MaterialTheme.colorScheme.primary else Color(color),
-                shape = CircleShape,
-            ) {}
-            Spacer(modifier = Modifier.width(16.dp))
-            Text("Color", style = MaterialTheme.typography.bodyLarge)
-        }
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Row(
-            modifier = Modifier.fillMaxWidth().clickable { onIconClick() }.padding(vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            TasksIcon(label = icon, modifier = Modifier.size(32.dp))
-            Spacer(modifier = Modifier.width(16.dp))
-            Text("Icon", style = MaterialTheme.typography.bodyLarge)
-        }
-        HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-        Text(
-            text = "Latitude",
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        BasicTextField(
-            value = latitude,
-            onValueChange = onLatitudeChange,
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-        )
-        HorizontalDivider(modifier = Modifier.padding(top = 4.dp, bottom = 16.dp))
-        Text(
-            text = "Longitude",
-            style = MaterialTheme.typography.labelMedium,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        BasicTextField(
-            value = longitude,
-            onValueChange = onLongitudeChange,
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
-        )
-        if (placeId != null) {
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = { /* TODO: Delete place */ },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
-                modifier = Modifier.fillMaxWidth()
-            ) { Text("Delete Place") }
-        }
     }
 }
+
+data class PlaceSettingsContentState(
+    val name: String,
+    val onNameChange: (String) -> Unit,
+    val latitude: String,
+    val onLatitudeChange: (String) -> Unit,
+    val longitude: String,
+    val onLongitudeChange: (String) -> Unit,
+    val color: Int,
+    val onColorClick: () -> Unit,
+    val icon: String,
+    val onIconClick: () -> Unit,
+    val placeId: String?,
+)
+
+data class PlaceSaveParams(
+    val filterDao: LocationDao,
+    val filterId: String?,
+    val name: String,
+    val latitude: String,
+    val longitude: String,
+    val color: Int,
+    val icon: String,
+    val onSave: (String, Double?, Double?) -> Unit,
+    val onSaveCompleted: () -> Unit,
+)

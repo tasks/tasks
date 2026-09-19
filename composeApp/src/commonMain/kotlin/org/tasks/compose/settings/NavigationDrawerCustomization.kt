@@ -81,37 +81,53 @@ fun NavigationDrawerCustomization(
                     }
                 }
             ) { index, item ->
-                when (item) {
-                    is NavigationDrawerSubheader -> {
-                        SectionHeader(
-                            title = item.title ?: "",
-                            isCollapsed = collapsedSections.contains(item.title ?: ""),
-                            onCreateClick = if (item.addIntentRc != 0) {
-                                { callbacks.onCreateNew(item) }
-                            } else null,
-                            onToggleCollapse = { callbacks.onToggleCollapse(item.title) },
-                        )
-                    }
-                    else -> {
-                        // Find nearest preceding subheader by scanning backwards
-                        var sectionTitle: String? = null
-                        for (i in index - 1 downTo 0) {
-                            val prev = items.getOrNull(i)
-                            if (prev is NavigationDrawerSubheader) {
-                                sectionTitle = prev.title
-                                break
-                            }
-                        }
-                        if (sectionTitle == null || !collapsedSections.contains(sectionTitle)) {
-                            NavigationDrawerCustomizationRow(
-                                item = item,
-                                onClick = { callbacks.onItemClick(item) },
-                                onReorder = { from, to -> callbacks.onReorder(from, to) },
-                                index = index,
-                            )
-                        }
-                    }
+                NavigationDrawerItemContent(
+                    item = item,
+                    index = index,
+                    items = items,
+                    collapsedSections = collapsedSections,
+                    callbacks = callbacks,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun NavigationDrawerItemContent(
+    item: FilterListItem,
+    index: Int,
+    items: List<FilterListItem>,
+    collapsedSections: Set<String>,
+    callbacks: NavigationDrawerCustomizationCallbacks,
+) {
+    when (item) {
+        is NavigationDrawerSubheader -> {
+            SectionHeader(
+                title = item.title ?: "",
+                isCollapsed = collapsedSections.contains(item.title ?: ""),
+                onCreateClick = if (item.addIntentRc != 0) {
+                    { callbacks.onCreateNew(item) }
+                } else null,
+                onToggleCollapse = { callbacks.onToggleCollapse(item.title) },
+            )
+        }
+        else -> {
+            var sectionTitle: String? = null
+            for (i in index - 1 downTo 0) {
+                val prev = items.getOrNull(i)
+                if (prev is NavigationDrawerSubheader) {
+                    sectionTitle = prev.title
+                    break
                 }
+            }
+            if (sectionTitle == null || !collapsedSections.contains(sectionTitle)) {
+                NavigationDrawerCustomizationRow(
+                    item = item,
+                    onClick = { callbacks.onItemClick(item) },
+                    onReorder = { from, to -> callbacks.onReorder(from, to) },
+                    index = index,
+                )
             }
         }
     }
