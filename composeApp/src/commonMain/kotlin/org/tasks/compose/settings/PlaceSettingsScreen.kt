@@ -330,15 +330,15 @@ private fun createPlaceOnSaveClick(
 ): () -> Unit = {
     {
         scope.launch {
-            val lat = latitude.toDoubleOrNull()
-            val lng = longitude.toDoubleOrNull()
+            val lat = params.latitude.toDoubleOrNull()
+            val lng = params.longitude.toDoubleOrNull()
             val updatedPlace = params.filterId?.toLongOrNull()?.let { id -> params.filterDao.getPlace(id) }?.let { place ->
                 place.copy(
-                    name = name,
+                    name = params.name,
                     latitude = lat ?: place.latitude,
                     longitude = lng ?: place.longitude,
-                    color = color,
-                    icon = icon,
+                    color = params.color,
+                    icon = params.icon,
                 )
             }
             if (params.filterId == null) {
@@ -355,7 +355,7 @@ private fun createPlaceOnSaveClick(
                 params.filterDao.update(updatedPlace)
             }
             if (filterId == null || updatedPlace != null) {
-                params.onSave(name, lat, lng)
+                params.onSave(params.name, lat, lng)
                 params.onSaveCompleted()
             }
         }

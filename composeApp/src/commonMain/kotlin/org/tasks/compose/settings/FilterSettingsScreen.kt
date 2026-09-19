@@ -320,18 +320,18 @@ private fun createOnSaveClick(
                 params.filterDao.update(
                     Filter(
                         id = updatedFilter.id,
-                        title = name,
-                        sql = sql,
+                        title = params.name,
+                        sql = params.sql,
                         values = updatedFilter.values,
                         criterion = updatedFilter.criterion,
-                        color = color,
-                        icon = icon,
+                        color = params.color,
+                        icon = params.icon,
                         order = updatedFilter.order,
                     )
                 )
             }
-            if (filterId == null || updatedFilter != null) {
-                params.onSave(name, params.sql)
+            if (params.filterId == null || updatedFilter != null) {
+                params.onSave(params.name, params.sql)
                 params.onSaveCompleted()
             }
         }
