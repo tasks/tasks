@@ -18,7 +18,7 @@ fun TaskEditIcon(@DrawableRes id: Int, modifier: Modifier = Modifier) {
         painter = painterResource(id = id),
         contentDescription = null,
         modifier = modifier
-            .alpha(0.87f)
+            .alpha(ContentAlpha.medium)
             .padding(12.dp)
             .size(24.dp),
         tint = MaterialTheme.colorScheme.onSurface,

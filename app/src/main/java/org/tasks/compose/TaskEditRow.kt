@@ -19,7 +19,7 @@ fun TaskEditRow(
         TaskEditIcon(
             id = iconRes,
             modifier = Modifier
-                .alpha(0.87f)
+                .alpha(ContentAlpha.medium)
                 .padding(
                     start = 4.dp,
                     top = 8.dp,

@@ -89,7 +89,7 @@ fun Location(
                     TasksIcons.NOTIFICATIONS_OFF
                 },
                 contentDescription = null,
-                modifier = Modifier.alpha(0.87f),
+                modifier = Modifier.alpha(ContentAlpha.medium),
                 tint = MaterialTheme.colorScheme.onSurface,
             )
         }

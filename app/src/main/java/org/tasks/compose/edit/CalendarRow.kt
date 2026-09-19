@@ -47,7 +47,7 @@ fun CalendarRow(
                         SymbolIcon(
                             name = TasksIcons.DELETE,
                             contentDescription = stringResource(id = R.string.delete),
-                            modifier = Modifier.alpha(0.87f),
+                            modifier = Modifier.alpha(ContentAlpha.medium),
                         )
                     }
                 }

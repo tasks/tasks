@@ -81,7 +81,7 @@ fun SubtaskRow(
                         end = 8.dp,
                         bottom = 8.dp
                     )
-                    .alpha(0.87f),
+                    .alpha(ContentAlpha.medium),
             )
         },
         content = {

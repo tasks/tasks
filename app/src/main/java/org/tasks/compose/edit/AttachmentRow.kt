@@ -208,7 +208,7 @@ fun NoThumbnail(
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .alpha(0.87f),
+                    .alpha(ContentAlpha.medium),
                 tint = MaterialTheme.colorScheme.onSurface.copy(
                     alpha = 0.87f
                 ),
@@ -242,7 +242,7 @@ fun BoxScope.DeleteAttachment(
         name = TasksIcons.CANCEL,
         contentDescription = null,
         modifier = Modifier
-            .alpha(0.87f)
+            .alpha(ContentAlpha.medium)
             .align(Alignment.TopEnd)
             .padding(vertical = 4.dp, horizontal = 4.dp)
             .clickable { onClick() },

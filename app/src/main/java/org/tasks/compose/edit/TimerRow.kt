@@ -97,7 +97,7 @@ fun TimerRow(
                         } else {
                             TasksIcons.PLAY_ARROW
                         },
-                        modifier = Modifier.alpha(0.87f),
+                        modifier = Modifier.alpha(ContentAlpha.medium),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
