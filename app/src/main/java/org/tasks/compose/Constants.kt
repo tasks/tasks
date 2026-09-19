@@ -1,6 +1,6 @@
 package org.tasks.compose
 
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -14,6 +14,6 @@ object Constants {
     @Composable
     fun textFieldColors() = OutlinedTextFieldDefaults.colors(
         cursorColor = MaterialTheme.colorScheme.onSurface,
-        focusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.high),
+        focusedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 1.0f),
     )
 }

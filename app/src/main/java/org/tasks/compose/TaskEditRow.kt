@@ -5,7 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,7 +19,7 @@ fun TaskEditRow(
         TaskEditIcon(
             id = iconRes,
             modifier = Modifier
-                .alpha(ContentAlpha.medium)
+                .alpha(0.87f)
                 .padding(
                     start = 4.dp,
                     top = 8.dp,

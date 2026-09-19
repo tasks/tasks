@@ -2,7 +2,7 @@ package org.tasks.compose.edit
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +43,7 @@ fun DueDateRow(
         color = when {
             overdue -> MaterialTheme.colorScheme.error
             dueDate == 0L && hasDueDateAlarm -> MaterialTheme.colorScheme.error
-            dueDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled)
+            dueDate == 0L -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
             else -> MaterialTheme.colorScheme.onSurface
         },
         onClick = { onClick() },
@@ -101,7 +101,7 @@ fun NoDueDatePreview() {
     TasksTheme {
         DueDateRow(
             dueDate = stringResource(R.string.no_due_date),
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.disabled),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
         ) {}
     }
 }

@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,7 +81,7 @@ fun SubtaskRow(
                         end = 8.dp,
                         bottom = 8.dp
                     )
-                    .alpha(ContentAlpha.medium),
+                    .alpha(0.87f),
             )
         },
         content = {
@@ -171,7 +171,7 @@ fun NewSubtaskRow(
                 .weight(1f)
                 .focusable(enabled = true)
                 .focusRequester(focusRequester)
-                .alpha(if (subtask.isCompleted) ContentAlpha.disabled else ContentAlpha.high)
+                .alpha(if (subtask.isCompleted) 0.38f else 1.0f)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
             textStyle = MaterialTheme.typography.bodyLarge.copy(
@@ -223,7 +223,7 @@ fun ExistingSubtaskRow(
             text = task.title!!,
             modifier = Modifier
                 .weight(1f)
-                .alpha(if (task.isCompleted || task.task.isHidden) ContentAlpha.disabled else ContentAlpha.high)
+                .alpha(if (task.isCompleted || task.task.isHidden) 0.38f else 1.0f)
                 .align(Alignment.Top)
                 .padding(top = 12.dp),
             style = MaterialTheme.typography.bodyLarge.copy(

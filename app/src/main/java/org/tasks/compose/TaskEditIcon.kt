@@ -3,7 +3,7 @@ package org.tasks.compose
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,7 +18,7 @@ fun TaskEditIcon(@DrawableRes id: Int, modifier: Modifier = Modifier) {
         painter = painterResource(id = id),
         contentDescription = null,
         modifier = modifier
-            .alpha(ContentAlpha.medium)
+            .alpha(0.87f)
             .padding(12.dp)
             .size(24.dp),
         tint = MaterialTheme.colorScheme.onSurface,

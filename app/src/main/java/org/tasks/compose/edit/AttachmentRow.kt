@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -124,7 +124,7 @@ fun AttachmentRow(
                                                 name = TasksIcons.PLAY_CIRCLE,
                                                 contentDescription = null,
                                                 tint = Color.White.copy(
-                                                    alpha = ContentAlpha.medium
+                                                    alpha = 0.87f
                                                 ),
                                                 modifier = Modifier.align(Alignment.Center),
                                             )
@@ -151,7 +151,7 @@ fun AttachmentRow(
                             .clickable { addAttachment() }
                             .border(
                                 width = 1.dp,
-                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f),
                                 shape = RoundedCornerShape(8.dp),
                             ),
                     ) {
@@ -162,7 +162,7 @@ fun AttachmentRow(
                                 .size(48.dp)
                                 .align(Alignment.Center),
                             tint = MaterialTheme.colorScheme.onSurface.copy(
-                                alpha = ContentAlpha.medium
+                                alpha = 0.87f
                             ),
                         )
                     }
@@ -193,7 +193,7 @@ fun NoThumbnail(
             .clickable { open() }
             .border(
                 width = 1.dp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = ContentAlpha.medium),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.87f),
                 shape = RoundedCornerShape(8.dp),
             ),
     ) {
@@ -208,9 +208,9 @@ fun NoThumbnail(
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .alpha(ContentAlpha.medium),
+                    .alpha(0.87f),
                 tint = MaterialTheme.colorScheme.onSurface.copy(
-                    alpha = ContentAlpha.medium
+                    alpha = 0.87f
                 ),
             )
             Text(
@@ -242,11 +242,11 @@ fun BoxScope.DeleteAttachment(
         name = TasksIcons.CANCEL,
         contentDescription = null,
         modifier = Modifier
-            .alpha(ContentAlpha.medium)
+            .alpha(0.87f)
             .align(Alignment.TopEnd)
             .padding(vertical = 4.dp, horizontal = 4.dp)
             .clickable { onClick() },
-        tint = color.copy(alpha = ContentAlpha.medium),
+        tint = color.copy(alpha = 0.87f),
     )
 }
 

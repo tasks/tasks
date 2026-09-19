@@ -6,7 +6,7 @@ import android.content.res.Configuration
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ContentAlpha
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -97,7 +97,7 @@ fun TimerRow(
                         } else {
                             TasksIcons.PLAY_ARROW
                         },
-                        modifier = Modifier.alpha(ContentAlpha.medium),
+                        modifier = Modifier.alpha(0.87f),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
