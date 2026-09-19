@@ -1,6 +1,6 @@
 package org.tasks.compose
 
-import androidx.compose.material3.LocalContentColor
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable

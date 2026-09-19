@@ -3,7 +3,7 @@ package org.tasks.compose.edit
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

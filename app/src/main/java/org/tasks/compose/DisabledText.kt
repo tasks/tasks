@@ -2,7 +2,7 @@ package org.tasks.compose
 
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +19,7 @@ fun DisabledText(
         text = text,
         style = MaterialTheme.typography.bodyLarge,
         modifier = modifier
-            .alpha(alpha = 0.38f)
+            .alpha(alpha = ContentAlpha.disabled)
             .padding(end = 16.dp)
             .defaultMinSize(minHeight = 24.dp),
         color = MaterialTheme.colorScheme.onSurface,

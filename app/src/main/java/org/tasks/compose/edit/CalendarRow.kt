@@ -5,7 +5,7 @@ import org.tasks.compose.components.SymbolIcon
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.LocalContentColor
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
