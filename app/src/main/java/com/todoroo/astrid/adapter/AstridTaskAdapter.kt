@@ -1,12 +1,14 @@
 package com.todoroo.astrid.adapter
 
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.subtasks.SubtasksFilterUpdater
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.TaskListMetadata
@@ -24,10 +26,11 @@ class AstridTaskAdapter internal constructor(
     googleTaskDao: GoogleTaskDao,
     caldavDao: CaldavDao,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
+    dirtyDao: DirtyDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     taskMover: TaskMover,
-) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, refreshBroadcaster, taskMover) {
-
+) : TaskAdapter(false, googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, refreshBroadcaster, taskMover) {
     private val chainedCompletions = Collections.synchronizedMap(HashMap<String, ArrayList<String>>())
 
     override fun getIndent(task: TaskContainer) = updater.getIndentForTask(task.uuid)
@@ -72,7 +75,7 @@ class AstridTaskAdapter internal constructor(
             val chained = chainedCompletions[uuid]
             if (chained != null) {
                 for (taskId in chained) {
-                    taskDao.setCompletionDate(taskId, completionDate)
+                    taskDao.setCompletionDate(listOf(taskId), completionDate)
                 }
             }
             return
@@ -80,7 +83,7 @@ class AstridTaskAdapter internal constructor(
         val chained = ArrayList<String>()
         updater.applyToDescendants(uuid) { node: SubtasksFilterUpdater.Node ->
             val uuid = node.uuid
-            taskDao.setCompletionDate(uuid, completionDate)
+            taskDao.setCompletionDate(listOf(uuid), completionDate)
             chained.add(node.uuid)
         }
         if (chained.size > 0) {

@@ -5,7 +5,7 @@ import org.junit.Test
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.util.TimeZone
+import kotlinx.datetime.TimeZone
 
 class DateTimeUtilsTest {
     private val now = DateTime(2014, 1, 1, 15, 17, 53, 0)
@@ -32,8 +32,8 @@ class DateTimeUtilsTest {
 
     @Test
     fun testIllegalInstant() {
-        DateTime(2015, 7, 24, 0, 0, 0, 0, TimeZone.getTimeZone("Africa/Cairo"))
-        DateTime(2015, 10, 18, 0, 0, 0, 0, TimeZone.getTimeZone("America/Sao_Paulo"))
-        DateTime(2015, 10, 4, 0, 0, 0, 0, TimeZone.getTimeZone("America/Asuncion"))
+        DateTime(2015, 7, 24, 0, 0, 0, 0, TimeZone.of("Africa/Cairo"))
+        DateTime(2015, 10, 18, 0, 0, 0, 0, TimeZone.of("America/Sao_Paulo"))
+        DateTime(2015, 10, 4, 0, 0, 0, 0, TimeZone.of("America/Asuncion"))
     }
 }

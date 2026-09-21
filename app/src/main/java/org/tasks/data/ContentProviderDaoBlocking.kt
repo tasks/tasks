@@ -2,7 +2,7 @@ package org.tasks.data
 
 import android.database.Cursor
 import android.database.MatrixCursor
-import androidx.room.useReaderConnection
+import androidx.room3.useReaderConnection
 import androidx.sqlite.SQLiteStatement
 import kotlinx.coroutines.runBlocking
 import org.tasks.data.dao.Astrid2ContentProviderDao

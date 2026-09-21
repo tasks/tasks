@@ -8,7 +8,21 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
     alias(libs.plugins.redacted)
+}
+
+val generateTestConfig by tasks.registering {
+    val schemas = layout.projectDirectory.dir("schemas").asFile.invariantSeparatorsPath
+    val out = layout.buildDirectory.dir("generated/testConfig")
+    inputs.property("schemas", schemas)
+    outputs.dir(out)
+    doLast {
+        out.get().file("org/tasks/data/TestConfig.kt").asFile.apply {
+            parentFile.mkdirs()
+            writeText("package org.tasks.data\n\ninternal const val SCHEMA_DIR = \"$schemas\"\n")
+        }
+    }
 }
 
 kotlin {
@@ -19,16 +33,38 @@ kotlin {
             freeCompilerArgs.addAll("-P", "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=org.tasks.CommonParcelize")
         }
     }
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.fromTarget(libs.versions.jdk.get()))
+        }
+    }
+    iosArm64()
+    iosSimulatorArm64()
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.androidx.room)
+            api(libs.androidx.room3)
+            implementation(libs.androidx.sqlite)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization)
             implementation(libs.kermit)
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+        val nonAndroidTest by creating {
+            dependsOn(commonTest.get())
+            kotlin.srcDir(generateTestConfig)
+            dependencies {
+                implementation(libs.androidx.room3.testing)
+            }
+        }
+        jvmTest.get().dependsOn(nonAndroidTest)
+        iosTest.get().dependsOn(nonAndroidTest)
     }
     task("testClasses")
+}
+tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimulatorTest>().configureEach {
+    device.set(providers.gradleProperty("ios.simulator").orElse("booted"))
 }
 android {
     namespace = "org.tasks.data"
@@ -44,7 +80,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
             arg("room.incremental", "true")
             arg("room.generateKotlin", "true")
         }
@@ -67,9 +102,17 @@ android {
 
 redacted {
     redactedAnnotation = "org/tasks/data/Redacted"
-    enabled = gradle.startParameter.taskNames.any { it.contains("Release") }
+    enabled = gradle.startParameter.taskNames.any { it.contains("Release") } ||
+        providers.gradleProperty("release").isPresent
+}
+
+room3 {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
-    ksp(libs.androidx.room.compiler)
+    add("kspAndroid", libs.androidx.room3.compiler)
+    add("kspJvm", libs.androidx.room3.compiler)
+    add("kspIosArm64", libs.androidx.room3.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room3.compiler)
 }

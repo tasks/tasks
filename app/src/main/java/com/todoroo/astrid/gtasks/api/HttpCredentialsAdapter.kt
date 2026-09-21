@@ -34,6 +34,7 @@ import com.google.api.client.http.HttpRequest
 import com.google.api.client.http.HttpRequestInitializer
 import com.google.auth.oauth2.AccessToken
 import com.google.auth.oauth2.GoogleCredentials
+import org.tasks.googleapis.CredentialsAdapter
 import org.tasks.gtasks.GoogleAccountManager
 import java.io.IOException
 import java.net.URI
@@ -44,7 +45,7 @@ class HttpCredentialsAdapter @Inject constructor(
         private val googleAccountManager: GoogleAccountManager,
         private val account: String,
         private val scope: String
-) : HttpRequestInitializer {
+) : HttpRequestInitializer, CredentialsAdapter {
 
     private var credentials: GoogleCredentials? = null
 
@@ -66,14 +67,14 @@ class HttpCredentialsAdapter @Inject constructor(
         }
     }
 
-    suspend fun checkToken() {
+    override suspend fun checkToken() {
         if (credentials == null) {
             val token = googleAccountManager.getAccessToken(account, scope)
             credentials = GoogleCredentials(AccessToken(token, null))
         }
     }
 
-    fun invalidateToken() {
+    override suspend fun invalidateToken() {
         googleAccountManager.invalidateToken(credentials?.accessToken?.tokenValue)
         credentials = null
     }

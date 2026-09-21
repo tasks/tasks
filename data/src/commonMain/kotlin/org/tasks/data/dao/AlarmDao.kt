@@ -1,9 +1,10 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room3.Dao
+import androidx.room3.Delete
+import androidx.room3.Insert
+import androidx.room3.Query
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Task
@@ -20,6 +21,17 @@ WHERE tasks.completed = 0
     suspend fun getActiveAlarms(): List<Alarm>
 
     @Query("""
+SELECT EXISTS(
+    SELECT 1
+    FROM alarms
+             INNER JOIN tasks ON tasks._id = alarms.task
+    WHERE tasks.completed = 0
+      AND tasks.deleted = 0
+)
+""")
+    suspend fun hasActiveAlarms(): Boolean
+
+    @Query("""
 SELECT alarms.*
 FROM alarms
          INNER JOIN tasks ON tasks._id = alarms.task
@@ -29,11 +41,23 @@ WHERE tasks._id = :taskId
 """)
     suspend fun getActiveAlarms(taskId: Long): List<Alarm>
 
+    @Query("SELECT * FROM alarms WHERE _id = :id")
+    suspend fun getAlarm(id: Long): Alarm?
+
     @Query("SELECT * FROM alarms WHERE task = :taskId")
     suspend fun getAlarms(taskId: Long): List<Alarm>
 
+    @Query("SELECT * FROM alarms WHERE task = :taskId")
+    fun watchAlarms(taskId: Long): Flow<List<Alarm>>
+
     @Query("DELETE FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds)")
     suspend fun deleteSnoozed(taskIds: List<Long>)
+
+    @Query("SELECT * FROM alarms WHERE type = $TYPE_SNOOZE AND task IN (:taskIds) AND time < :before")
+    suspend fun getSnoozed(taskIds: List<Long>, before: Long): List<Alarm>
+
+    @Query("DELETE FROM alarms WHERE _id IN (:ids)")
+    suspend fun deleteByIds(ids: List<Long>)
 
     @Delete
     suspend fun delete(alarm: Alarm)

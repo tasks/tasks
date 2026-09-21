@@ -4,8 +4,10 @@
   xmlns:tools="http://schemas.android.com/tools">
 
   <application
+      android:allowBackup="false"
       android:networkSecurityConfig="@xml/network_security_config"
-      tools:ignore="GoogleAppIndexingWarning">
+      tools:ignore="GoogleAppIndexingWarning"
+      tools:replace="android:allowBackup">
 
   </application>
 

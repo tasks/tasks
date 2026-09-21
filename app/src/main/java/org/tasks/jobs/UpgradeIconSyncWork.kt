@@ -27,27 +27,28 @@ class UpgradeIconSyncWork @AssistedInject constructor(
             .getAccounts(CaldavAccount.TYPE_TASKS, CaldavAccount.TYPE_CALDAV)
             .forEach { account ->
                 Timber.d("Uploading icons for $account")
-                val caldavClient = clientProvider.forAccount(account)
-                caldavClient.calendars().forEach { remote ->
-                    val url = remote.href
-                    val calendar = caldavDao
-                        .getCalendarByUrl(account.uuid!!, url.toString())
-                        ?.takeIf { !it.readOnly() && it.icon?.isNotBlank() == true }
-                        ?: run {
-                            Timber.d("No icon set for $url")
+                clientProvider.forAccount(account).use { caldavClient ->
+                    caldavClient.calendars().forEach { remote ->
+                        val url = remote.href
+                        val calendar = caldavDao
+                            .getCalendarByUrl(account.uuid!!, url.toString())
+                            ?.takeIf { !it.readOnly() && it.icon?.isNotBlank() == true }
+                            ?: run {
+                                Timber.d("No icon set for $url")
+                                return@forEach
+                            }
+                        val icon = remote[CalendarIcon::class]?.icon
+                        if (icon?.isNotBlank() == true) {
+                            Timber.d("Remote icon already set for $url")
                             return@forEach
                         }
-                    val icon = remote[CalendarIcon::class.java]?.icon
-                    if (icon?.isNotBlank() == true) {
-                        Timber.d("Remote icon already set for $url")
-                        return@forEach
+                        Timber.d("Uploading icon to ${calendar.icon} for $url")
+                        caldavClient.updateIcon(
+                            url = url,
+                            icon = calendar.icon,
+                            onFailure = { response = Result.retry() }
+                        )
                     }
-                    Timber.d("Uploading icon to ${calendar.icon} for $url")
-                    caldavClient.updateIcon(
-                        url = url,
-                        icon = calendar.icon,
-                        onFailure = { response = Result.retry() }
-                    )
                 }
             }
         return response

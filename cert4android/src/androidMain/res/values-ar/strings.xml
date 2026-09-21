@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="certificate_notification_connection_security">أمن الاتصال</string>
+    <string name="certificate_notification_user_interaction">يرجى مراجعة الشهادة</string>
+</resources>

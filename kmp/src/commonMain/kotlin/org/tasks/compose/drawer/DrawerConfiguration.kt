@@ -1,5 +1,6 @@
 package org.tasks.compose.drawer
 
+
 interface DrawerConfiguration {
     val filtersEnabled: Boolean
         get() = true
@@ -20,5 +21,14 @@ interface DrawerConfiguration {
         get() = true
 
     val recentlyModifiedFilter: Boolean
+        get() = true
+
+    val canCreateFilters: Boolean
+        get() = true
+
+    val canCreateTags: Boolean
+        get() = true
+
+    val canCreatePlaces: Boolean
         get() = true
 }

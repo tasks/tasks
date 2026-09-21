@@ -281,6 +281,7 @@ class AlarmJobServiceTest : InjectingTestCase() {
         val actualNextAlarm = alarmService.triggerAlarms {
             assertEquals(notifications, it)
             it.forEach { taskDao.setLastNotified(it.taskId, DateTimeUtils2.currentTimeMillis()) }
+            it.map { notification -> notification.taskId }
         }
         assertEquals(nextAlarm, actualNextAlarm)
     }

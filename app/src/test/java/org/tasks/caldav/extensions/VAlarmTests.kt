@@ -1,6 +1,5 @@
 package org.tasks.caldav.extensions
 
-import at.bitfire.ical4android.Task.Companion.tasksFromReader
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.caldav.iCalendar.Companion.applyLocal
@@ -11,13 +10,19 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.icalendar.VAlarm
+import org.tasks.icalendar.VTodo
+import org.tasks.icalendar.parseVTodos
+import org.tasks.icalendar.serialize
 import org.tasks.time.DateTime
 import org.tasks.time.DateTime.Companion.UTC
-import java.io.ByteArrayInputStream
 import java.util.concurrent.TimeUnit.HOURS
 import java.util.concurrent.TimeUnit.MINUTES
 
 class VAlarmTests {
+    private fun VAlarm.text(): String =
+        VTodo(alarms = mutableListOf(this)).serialize().let { "BEGIN:VALARM" + it.substringAfter("BEGIN:VALARM").substringBefore("END:VALARM") + "END:VALARM\r\n" }
+
     @Test
     fun dateTimeToVAlarm() {
         assertEquals(
@@ -25,7 +30,7 @@ class VAlarmTests {
             Alarm(
                 time = DateTime(2022, 1, 21, 19, 0, 0, 0, UTC).millis,
                 type = TYPE_DATE_TIME,
-            ).toVAlarm().toString()
+            ).toVAlarm()!!.text()
         )
     }
 
@@ -42,7 +47,7 @@ class VAlarmTests {
     fun beforeStartToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=START:-PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm().toString()
+            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm()!!.text()
         )
     }
 
@@ -56,7 +61,7 @@ class VAlarmTests {
     fun afterStartToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=START:PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm().toString()
+            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_START).toVAlarm()!!.text()
         )
     }
 
@@ -70,7 +75,7 @@ class VAlarmTests {
     fun beforeEndToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=END:-PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm().toString()
+            Alarm(time = -MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm()!!.text()
         )
     }
 
@@ -84,7 +89,7 @@ class VAlarmTests {
     fun afterEndToVAlarm() {
         assertEquals(
             "BEGIN:VALARM\r\nTRIGGER;RELATED=END:PT1H15M\r\nACTION:DISPLAY\r\nDESCRIPTION:Default Tasks.org description\r\nEND:VALARM\r\n",
-            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm().toString()
+            Alarm(time = MINUTES.toMillis(75), type = TYPE_REL_END).toVAlarm()!!.text()
         )
     }
 
@@ -103,7 +108,7 @@ class VAlarmTests {
                 type = TYPE_REL_START,
                 repeat = 15,
                 interval = MINUTES.toMillis(15)
-            ).toVAlarm().toString()
+            ).toVAlarm()!!.text()
         )
     }
 
@@ -120,7 +125,7 @@ class VAlarmTests {
 
     @Test
     fun serializeAlarms() {
-        val remoteTask = at.bitfire.ical4android.Task()
+        val remoteTask = VTodo()
         remoteTask.applyLocal(
             CaldavTask(
                 calendar = "",
@@ -134,10 +139,7 @@ class VAlarmTests {
         )
         Alarm(time = 0, type = TYPE_REL_END).toVAlarm()?.let { remoteTask.alarms.add(it) }
 
-        val os = java.io.ByteArrayOutputStream()
-        remoteTask.write(os)
-
-        val tasks = tasksFromReader(ByteArrayInputStream(os.toByteArray()).reader())
+        val tasks = parseVTodos(remoteTask.serialize())
         assertEquals(1, tasks.size)
 
         val task = tasks.first()

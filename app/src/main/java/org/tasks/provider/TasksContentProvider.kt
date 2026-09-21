@@ -13,10 +13,18 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
 import org.tasks.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Firebase
 import org.tasks.data.ContentProviderDaoBlocking
 
+@Deprecated("See CONTENT_PROVIDER.md")
 class TasksContentProvider : ContentProvider() {
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
 
     @EntryPoint
     @InstallIn(SingletonComponent::class)
@@ -34,6 +42,15 @@ class TasksContentProvider : ContentProvider() {
             selectionArgs: Array<out String>?,
             sortOrder: String?): Cursor? {
         val hilt = hilt()
+        logUse(
+            when (URI_MATCHER.match(uri)) {
+                URI_TODO_AGENDA -> "todo_agenda"
+                URI_TASKS -> "tasks"
+                URI_LISTS -> "lists"
+                URI_GOOGLE_TASK_LISTS -> "google_task_lists"
+                else -> "unknown"
+            }
+        )
         return when (URI_MATCHER.match(uri)) {
             URI_TODO_AGENDA -> {
                 hilt.firebase.logEventOncePerDay(R.string.event_todoagenda)
@@ -63,6 +80,19 @@ class TasksContentProvider : ContentProvider() {
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
 
     override fun getType(uri: Uri): String? = null
+
+    private fun logUse(collection: String) {
+        val caller = runCatching { callingPackage }.getOrNull() ?: "unknown"
+        val analytics = hilt().firebase
+        scope.launch {
+            analytics.logEventOncePerDay(
+                event = AnalyticsEvents.CONTENT_PROVIDER_TASKS,
+                dedupeBy = caller,
+                AnalyticsEvents.PARAM_PACKAGE to caller,
+                AnalyticsEvents.PARAM_COLLECTION to collection,
+            )
+        }
+    }
 
     private fun hilt() =
             EntryPointAccessors.fromApplication(

@@ -27,7 +27,9 @@ class NotificationWork @AssistedInject constructor(
     private var nextAlarm: Long = 0
 
     override suspend fun run(): Result {
-        nextAlarm = alarmService.triggerAlarms { notifier.triggerNotifications(it) }
+        nextAlarm = alarmService.triggerAlarms {
+            notifier.triggerNotifications(it)
+        }
         return Result.success()
     }
 

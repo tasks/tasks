@@ -4,6 +4,8 @@ package org.tasks.compose
  *  Composables for FilterSettingActivity
  **/
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -25,10 +27,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Abc
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -67,6 +65,10 @@ import com.todoroo.astrid.core.CriterionInstance
 import kotlinx.collections.immutable.ImmutableList
 import org.tasks.R
 import org.tasks.compose.SwipeOut.SwipeOut
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.help
+import tasks.kmp.generated.resources.ok
 import org.tasks.extensions.formatNumber
 import org.tasks.kmp.org.tasks.compose.settings.SettingRow
 import org.tasks.themes.TasksTheme
@@ -261,9 +263,9 @@ object FilterCondition {
 
             @Composable
             fun deleteIcon() {
-                Icon(
+                SymbolIcon(
                     modifier = Modifier.padding(horizontal = Constants.KEYLINE_FIRST),
-                    imageVector = Icons.Outlined.Delete,
+                    name = TasksIcons.DELETE,
                     contentDescription = "Delete",
                     tint = Color.White.copy(alpha = 0.6f)
                 )
@@ -299,8 +301,8 @@ object FilterCondition {
                 contentColor = Color.White,
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Outlined.Add,
+                    SymbolIcon(
+                        name = TasksIcons.ADD,
                         contentDescription = "New Criteria",
                         modifier = Modifier.padding(
                             start = if (isExtended) 16.dp else 0.dp
@@ -352,15 +354,15 @@ object FilterCondition {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(contentAlignment = Alignment.CenterStart) {
-                            Constants.TextButton(text = R.string.help, onClick = help)
+                            DialogTextButton(text = Res.string.help, onClick = help)
                         }
                         Box(
                             contentAlignment = Alignment.CenterEnd,
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Row {
-                                Constants.TextButton(text = R.string.cancel, onClick = onCancel)
-                                Constants.TextButton(text = R.string.ok) { onSelected(selected.intValue) }
+                                DialogTextButton(text = Res.string.cancel, onClick = onCancel)
+                                DialogTextButton(text = Res.string.ok) { onSelected(selected.intValue) }
                             }
                         }
                     }
@@ -477,11 +479,11 @@ object FilterCondition {
         AlertDialog(
             onDismissRequest = onCancel,
             confirmButton = {
-                Constants.TextButton(
-                    text = R.string.ok,
+                DialogTextButton(
+                    text = Res.string.ok,
                     onClick = { onDone(text.value) })
             },
-            dismissButton = { Constants.TextButton(text = R.string.cancel, onClick = onCancel) },
+            dismissButton = { DialogTextButton(text = Res.string.cancel, onClick = onCancel) },
             text = {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Text(
@@ -495,8 +497,8 @@ object FilterCondition {
                         label = { Text(title) },
                         onValueChange = { text.value = it },
                         leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Outlined.Abc,
+                            SymbolIcon(
+                                name = TasksIcons.ABC,
                                 contentDescription = null
                             )
                         },

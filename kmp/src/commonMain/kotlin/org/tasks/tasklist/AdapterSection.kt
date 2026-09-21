@@ -4,5 +4,6 @@ data class AdapterSection(
         var firstPosition: Int,
         val value: Long,
         var sectionedPosition: Int = 0,
-        var collapsed: Boolean = false
+        var collapsed: Boolean = false,
+        var header: String? = null,
 )

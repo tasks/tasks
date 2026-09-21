@@ -7,11 +7,15 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import org.tasks.SuspendFreeze.Companion.freezeAt
+import org.junit.Assert.assertTrue
 import org.tasks.TestUtilities.assertEquals
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
@@ -31,6 +35,7 @@ import javax.inject.Inject
 class Upgrade_11_3_Test : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var dirtyDao: DirtyDao
     @Inject lateinit var openTaskDao: TestOpenTaskDao
     @Inject lateinit var upgrader: Upgrade_11_3
     @Inject lateinit var vtodoCache: VtodoCache
@@ -40,8 +45,9 @@ class Upgrade_11_3_Test : InjectingTestCase() {
     @Before
     override fun setUp() {
         super.setUp()
-        calendar = CaldavCalendar()
+        calendar = CaldavCalendar(account = "account", uuid = "calendar")
         runBlocking {
+            caldavDao.insert(CaldavAccount(uuid = "account", accountType = TYPE_CALDAV))
             caldavDao.insert(calendar)
         }
     }
@@ -75,34 +81,32 @@ class Upgrade_11_3_Test : InjectingTestCase() {
 
     @Test
     fun touchTaskWithLocaliCalendarStartDate() = runBlocking {
-        val upgradeTime = DateTime(2021, 1, 21, 11, 47, 32, 450)
         val taskId = taskDao.insert(newTask(
                 with(DUE_DATE, DateTime(2021, 1, 20)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
                 with(MODIFICATION_TIME, DateTime(2021, 1, 21, 9, 50, 4, 348))
         ))
         val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
-        caldavDao.insert(caldavTask)
+        val caldavTaskId = caldavDao.insert(caldavTask)
+        dirtyDao.markSynced(caldavTaskId)
         vtodoCache.putVtodo(calendar, caldavTask, VTODO_WITH_START_DATE)
 
-        freezeAt(upgradeTime) {
-            upgrader.applyiCalendarStartDates()
-        }
+        upgrader.applyiCalendarStartDates()
 
-        assertEquals(upgradeTime, taskDao.fetch(taskId)?.modificationDate)
+        assertTrue(dirtyDao.isDirty(caldavTaskId) == true)
     }
 
     @Test
     fun dontTouchWhenNoiCalendarStartDate() = runBlocking {
-        val modificationTime = DateTime(2021, 1, 21, 9, 50, 4, 348)
-        val taskId = taskDao.insert(newTask(with(MODIFICATION_TIME, modificationTime)))
+        val taskId = taskDao.insert(newTask())
         val caldavTask = newCaldavTask(with(TASK, taskId), with(CALENDAR, calendar.uuid))
-        caldavDao.insert(caldavTask)
+        val caldavTaskId = caldavDao.insert(caldavTask)
+        dirtyDao.markSynced(caldavTaskId)
         vtodoCache.putVtodo(calendar, caldavTask, VTODO_NO_START_DATE)
 
         upgrader.applyiCalendarStartDates()
 
-        assertEquals(modificationTime, taskDao.fetch(taskId)?.modificationDate)
+        assertTrue(dirtyDao.isDirty(caldavTaskId) == false)
     }
 
     @Test
@@ -142,42 +146,44 @@ class Upgrade_11_3_Test : InjectingTestCase() {
 
     @Test
     fun touchWithOpenTaskStartDate() = runBlocking {
-        val upgradeTime = DateTime(2021, 1, 21, 11, 47, 32, 450)
         val (listId, list) = openTaskDao.insertList()
+        caldavDao.insert(CaldavAccount(uuid = list.account!!, accountType = TYPE_OPENTASKS))
         openTaskDao.insertTask(listId, VTODO_WITH_START_DATE)
         val taskId = taskDao.insert(newTask(
                 with(DUE_DATE, DateTime(2021, 1, 20)),
                 with(HIDE_TYPE, Task.HIDE_UNTIL_DUE),
                 with(MODIFICATION_TIME, DateTime(2021, 1, 21, 9, 50, 4, 348))
         ))
-        caldavDao.insert(newCaldavTask(
+        val caldavTask = newCaldavTask(
                 with(CALENDAR, list.uuid),
                 with(REMOTE_ID, "4586964443060640060"),
                 with(TASK, taskId)
-        ))
+        )
+        val caldavTaskId = caldavDao.insert(caldavTask)
+        dirtyDao.markSynced(caldavTaskId)
 
-        freezeAt(upgradeTime) {
-            upgrader.applyOpenTaskStartDates()
-        }
+        upgrader.applyOpenTaskStartDates()
 
-        assertEquals(upgradeTime, taskDao.fetch(taskId)?.modificationDate)
+        assertTrue(dirtyDao.isDirty(caldavTaskId) == true)
     }
 
     @Test
     fun dontTouchNoOpenTaskStartDate() = runBlocking {
-        val modificationTime = DateTime(2021, 1, 21, 9, 50, 4, 348)
         val (listId, list) = openTaskDao.insertList()
+        caldavDao.insert(CaldavAccount(uuid = list.account!!, accountType = TYPE_OPENTASKS))
         openTaskDao.insertTask(listId, VTODO_NO_START_DATE)
-        val taskId = taskDao.insert(newTask(with(MODIFICATION_TIME, modificationTime)))
-        caldavDao.insert(newCaldavTask(
+        val taskId = taskDao.insert(newTask())
+        val caldavTask = newCaldavTask(
                 with(CALENDAR, list.uuid),
                 with(REMOTE_ID, "4586964443060640060"),
                 with(TASK, taskId)
-        ))
+        )
+        val caldavTaskId = caldavDao.insert(caldavTask)
+        dirtyDao.markSynced(caldavTaskId)
 
         upgrader.applyOpenTaskStartDates()
 
-        assertEquals(modificationTime, taskDao.fetch(taskId)?.modificationDate)
+        assertTrue(dirtyDao.isDirty(caldavTaskId) == false)
     }
 
     companion object {

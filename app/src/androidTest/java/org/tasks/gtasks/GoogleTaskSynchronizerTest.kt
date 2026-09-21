@@ -11,6 +11,7 @@ import org.tasks.makers.TaskMaker.DUE_DATE
 import org.tasks.makers.TaskMaker.DUE_TIME
 import org.tasks.makers.TaskMaker.HIDE_TYPE
 import org.tasks.makers.TaskMaker.newTask
+import org.tasks.googleapis.GoogleTaskSynchronizer
 import org.tasks.time.DateTime
 
 @RunWith(AndroidJUnit4::class)

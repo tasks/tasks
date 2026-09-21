@@ -1,5 +1,6 @@
 package org.tasks.broadcast
 
-fun interface RefreshBroadcaster {
+interface RefreshBroadcaster {
     fun broadcastRefresh()
+    fun broadcastTaskCompleted(ids: List<Long>, oldDueDate: Long = 0L) {}
 }

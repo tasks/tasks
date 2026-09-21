@@ -1,22 +1,26 @@
 package org.tasks
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.app.ApplicationExitInfo
 import android.content.BroadcastReceiver
+import android.content.ComponentCallbacks2
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.JobIntentService
+import androidx.core.app.LocaleManagerCompat
+import androidx.core.os.ConfigurationCompat
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.coroutineScope
 import androidx.work.Configuration
-import com.mikepenz.iconics.Iconics
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid15
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.service.Upgrader
@@ -27,17 +31,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.caldav.CaldavSynchronizer
-import org.tasks.icons.OutlinedGoogleMaterial
-import org.tasks.icons.OutlinedGoogleMaterial2
+import org.tasks.caldav.CaldavClient
 import org.tasks.fcm.PushTokenManager
 import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.opentasks.OpenTaskContentObserver
+import org.tasks.pebble.PebbleService
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.receivers.RefreshReceiver
@@ -47,6 +51,7 @@ import org.tasks.sync.SyncSource
 import org.tasks.themes.ThemeBase
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -61,17 +66,19 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var upgrader: Lazy<Upgrader>
     @Inject lateinit var workManager: Lazy<WorkManager>
-    @Inject lateinit var geofenceApi: Lazy<GeofenceApi>
+    @Inject lateinit var locationService: Lazy<LocationService>
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var pebbleService: PebbleService
     @Inject lateinit var pushTokenManager: Lazy<PushTokenManager>
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override fun onCreate() {
         super.onCreate()
+        syncComposeResourceLocale()
         buildSetup.setup()
         val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
@@ -79,8 +86,10 @@ class TasksApplication : Application(), Configuration.Provider {
             defaultExceptionHandler?.uncaughtException(thread, throwable) ?: throw throwable
         }
         upgrade()
-        preferences.setBoolean(R.string.p_sync_ongoing, false)
-        preferences.setBoolean(R.string.p_sync_ongoing_android, false)
+        runBlocking {
+            tasksPreferences.set(TasksPreferences.syncOngoing, false)
+            tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
+        }
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         backgroundWork()
@@ -136,23 +145,55 @@ class TasksApplication : Application(), Configuration.Provider {
         }
     }
 
+    private fun syncComposeResourceLocale() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return
+        }
+        LocaleManagerCompat.getApplicationLocales(this)[0]?.let {
+            if (Locale.getDefault() != it) {
+                Locale.setDefault(it)
+            }
+        }
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            private fun sync(activity: Activity) {
+                val locale =
+                    ConfigurationCompat.getLocales(activity.resources.configuration)[0] ?: return
+                if (Locale.getDefault() != locale) {
+                    Locale.setDefault(locale)
+                }
+            }
+
+            override fun onActivityPreCreated(activity: Activity, savedInstanceState: Bundle?) =
+                sync(activity)
+
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) =
+                sync(activity)
+
+            override fun onActivityStarted(activity: Activity) {}
+            override fun onActivityResumed(activity: Activity) {}
+            override fun onActivityPaused(activity: Activity) {}
+            override fun onActivityStopped(activity: Activity) {}
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+            override fun onActivityDestroyed(activity: Activity) {}
+        })
+    }
+
     private fun backgroundWork() = scope.launch {
         tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
-        Iconics.registerFont(OutlinedGoogleMaterial)
-        Iconics.registerFont(OutlinedGoogleMaterial2)
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
         workManager.get().apply {
-            updateBackgroundSync()
             scheduleBackup()
             scheduleConfigRefresh()
             updatePurchases()
             scheduleRefresh()
+            scheduleBlogFeedCheck()
         }
         OpenTaskContentObserver.registerObserver(context, contentObserver.get())
-        geofenceApi.get().registerAll()
-        CaldavSynchronizer.registerFactories()
+        locationService.get().registerAllGeofences()
+        CaldavClient.registerFactories()
         pushTokenManager.get().registerTokenForAllAccounts()
+        pebbleService.register()
     }
 
     override val workManagerConfiguration: Configuration
@@ -160,6 +201,11 @@ class TasksApplication : Application(), Configuration.Provider {
             .setWorkerFactory(workerFactory)
             .setMinimumLoggingLevel(if (BuildConfig.DEBUG) Log.DEBUG else Log.INFO)
             .build()
+
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        Timber.w("onTrimMemory: ${level.toTrimLevelString()}")
+    }
 
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -200,6 +246,17 @@ private fun logExitReasons(exitReasons: List<ApplicationExitInfo>) {
             Trace: ${info.traceInputStream?.bufferedReader()?.readText()}
         """.trimIndent())
     }
+}
+
+private fun Int.toTrimLevelString() = when (this) {
+    ComponentCallbacks2.TRIM_MEMORY_COMPLETE -> "COMPLETE"
+    ComponentCallbacks2.TRIM_MEMORY_MODERATE -> "MODERATE"
+    ComponentCallbacks2.TRIM_MEMORY_BACKGROUND -> "BACKGROUND"
+    ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN -> "UI_HIDDEN"
+    ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL -> "RUNNING_CRITICAL"
+    ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW -> "RUNNING_LOW"
+    ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE -> "RUNNING_MODERATE"
+    else -> "UNKNOWN($this)"
 }
 
 private fun Int.toReasonString() = when (this) {

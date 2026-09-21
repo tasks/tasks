@@ -12,6 +12,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.count
 import org.tasks.data.fetchFiltered
@@ -30,6 +31,7 @@ class DashClockExtension : DashClockExtension() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var firebase: Firebase
 
     private val refreshReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -53,6 +55,7 @@ class DashClockExtension : DashClockExtension() {
     }
 
     private fun refresh() = scope.launch {
+        firebase.logEventOncePerDay(R.string.event_dashclock)
         val filterPreference = preferences.getStringValue(R.string.p_dashclock_filter)
         val filter = defaultFilterProvider.getFilterFromPreference(filterPreference)
         val count = taskDao.count(filter)

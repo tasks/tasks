@@ -10,10 +10,14 @@ import org.tasks.data.entity.Task.Companion.URGENCY_SPECIFIC_DAY
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.R
 import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.data.createDueDate
+import org.tasks.data.entity.Alarm
+import org.tasks.data.getDefaultAlarms
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
 import org.tasks.time.DateTime
@@ -96,5 +100,44 @@ class TaskCreatorTest : InjectingTestCase() {
                 createDueDate(URGENCY_SPECIFIC_DAY, DateTime(2021, 2, 5).millis),
                 task.dueDate
         )
+    }
+
+    @Test
+    fun apiSkipsDefaultStartAndDue() = runBlocking {
+        preferences.setString(R.string.p_default_urgency_key, Task.URGENCY_TODAY.toString())
+        preferences.setString(R.string.p_default_hideUntil_key, Task.HIDE_UNTIL_DUE.toString())
+
+        val task = freezeAt(DateTime(2021, 2, 4, 14, 56, 34, 126)) {
+            taskCreator.create(null, "test", applyDefaults = false)
+        }
+
+        assertEquals(0L, task.dueDate)
+        assertEquals(0L, task.hideUntil)
+    }
+
+    @Test
+    fun apiSkipsDefaultPriority() = runBlocking {
+        preferences.setString(R.string.p_default_importance_key, Task.Priority.HIGH.toString())
+
+        assertEquals(
+                Task.Priority.NONE,
+                taskCreator.create(null, "test", applyDefaults = false).priority
+        )
+    }
+
+    @Test
+    fun apiSkipsDefaultRecurrence() = runBlocking {
+        preferences.setString(R.string.p_default_recurrence, "RRULE:FREQ=DAILY")
+
+        assertNull(taskCreator.create(null, "test", applyDefaults = false).recurrence)
+    }
+
+    @Test
+    fun apiSkipsDefaultReminders() = runBlocking {
+        preferences.setDefaultAlarms(listOf(Alarm.whenDue(0)))
+
+        val task = taskCreator.create(null, "test", applyDefaults = false)
+
+        assertTrue(task.getDefaultAlarms(defaultRemindersEnabled = true).isEmpty())
     }
 }

@@ -1,7 +1,7 @@
 package com.todoroo.astrid.repeats
 
 import org.tasks.data.entity.Task
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.service.TaskCompleter
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertFalse

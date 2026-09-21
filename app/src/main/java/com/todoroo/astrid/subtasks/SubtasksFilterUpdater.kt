@@ -1,6 +1,7 @@
 package com.todoroo.astrid.subtasks
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.fetchFiltered
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.isValidUuid
 import org.json.JSONArray

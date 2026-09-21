@@ -1,8 +1,8 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
@@ -32,8 +32,8 @@ data class UserActivity(
     var created: Long? = 0L,
 ) : CommonParcelable {
     companion object {
-        @JvmField val TABLE = Table("userActivity")
-        @JvmField val TASK = TABLE.column("target_id")
-        @JvmField val MESSAGE = TABLE.column("message")
+        val TABLE = Table("userActivity")
+        val TASK = TABLE.column("target_id")
+        val MESSAGE = TABLE.column("message")
     }
 }

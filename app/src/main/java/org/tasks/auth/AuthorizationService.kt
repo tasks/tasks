@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.net.toUri
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.openid.appauth.AppAuthConfiguration
@@ -25,12 +26,16 @@ class AuthorizationService(
         caldavUrl: String? = null,
 ) {
     val isGitHub = iss == ISS_GITHUB
+    val isApple = iss == ISS_APPLE
+    val serverCallbackUri: Uri? =
+        if (isApple) "${caldavUrl ?: "https://caldav.tasks.org"}/oauth/apple/callback".toUri() else null
     val authStateManager = AuthStateManager()
     val configuration = Configuration(
             context,
             when (iss) {
                 ISS_GOOGLE -> Configuration.GOOGLE_CONFIG
                 ISS_GITHUB -> Configuration.GITHUB_CONFIG
+                ISS_APPLE -> Configuration.APPLE_CONFIG
                 else -> throw IllegalArgumentException()
             },
             debugConnectionBuilder,
@@ -82,5 +87,6 @@ class AuthorizationService(
     companion object {
         const val ISS_GOOGLE = "google"
         const val ISS_GITHUB = "github"
+        const val ISS_APPLE = "apple"
     }
 }

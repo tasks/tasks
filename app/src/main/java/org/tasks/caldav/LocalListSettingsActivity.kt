@@ -1,81 +1,129 @@
 package org.tasks.caldav
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.MainActivity
+import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
-import org.tasks.R
-import org.tasks.compose.DeleteButton
+import org.jetbrains.compose.resources.stringResource
+import org.tasks.analytics.Firebase
+import org.tasks.billing.PurchaseActivity
+import org.tasks.billing.PurchaseActivityViewModel
+import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.components.AnimatedBanner
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.getOrCreateLocalAccount
-import org.tasks.data.entity.CaldavCalendar
-import org.tasks.preferences.Preferences
+import org.tasks.compose.settings.ListSettingsScreen
+import org.tasks.compose.settings.addShortcutCallback
+import org.tasks.compose.settings.addWidgetCallback
+import org.tasks.compose.settings.setReloadResult
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_account
+import tasks.kmp.generated.resources.dismiss
+import tasks.kmp.generated.resources.local_list_description
+import tasks.kmp.generated.resources.local_list_title
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocalListSettingsActivity : BaseCaldavCalendarSettingsActivity() {
+class LocalListSettingsActivity : AppCompatActivity() {
 
-    @Inject lateinit var preferences: Preferences
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
+    @Inject lateinit var firebase: Firebase
 
-    override val caldavAccount: CaldavAccount by lazy {
-        runBlocking { caldavDao.getOrCreateLocalAccount() }
-    }
-
-    private val showLocalListBanner: Boolean
-        get() = isNew && !preferences.getBoolean(R.string.p_local_list_banner_dismissed, false)
+    private val viewModel: LocalListSettingsHiltViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         setContent {
             TasksTheme {
-                var bannerVisible by rememberSaveable { mutableStateOf(showLocalListBanner) }
-                BaseCaldavSettingsContent (
-                    optionButton = { if (!isNew) DeleteButton(caldavCalendar?.name ?: "") { delete() } },
+                val state by viewModel.state.collectAsStateWithLifecycle()
+                var showColorWheel by rememberSaveable { mutableStateOf(false) }
+                val primaryColor = MaterialTheme.colorScheme.primary
+                val bannerVisible by viewModel.showBanner.collectAsStateWithLifecycle()
+
+                ListSettingsScreen(
+                    viewModel = viewModel,
+                    onSave = {
+                        viewModel.save(
+                            onDismiss = { finish() },
+                            onComplete = { account, calendar ->
+                                setReloadResult(calendar, account)
+                                finish()
+                            },
+                        )
+                    },
+                    onDelete = {
+                        viewModel.delete {
+                            setResult(
+                                Activity.RESULT_OK,
+                                Intent(TaskListFragment.ACTION_DELETED),
+                            )
+                            finish()
+                        }
+                    },
+                    onNavigateBack = { finish() },
+                    onSelectColor = {
+                        viewModel.selectColor(it?.originalColor ?: 0)
+                    },
+                    onColorWheelSelected = {
+                        viewModel.closeColorPicker()
+                        showColorWheel = true
+                    },
+                    onSubscribe = { source ->
+                        startActivity(
+                            Intent(this, PurchaseActivity::class.java)
+                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
+                        )
+                    },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
+                    onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
                     headerContent = {
                         AnimatedBanner(
                             visible = bannerVisible,
-                            title = stringResource(R.string.local_list_title),
-                            body = stringResource(R.string.local_list_description),
-                            dismissText = stringResource(R.string.dismiss),
-                            onDismiss = {
-                                bannerVisible = false
-                                preferences.setBoolean(R.string.p_local_list_banner_dismissed, true)
-                            },
-                            action = stringResource(R.string.add_account),
+                            title = stringResource(Res.string.local_list_title),
+                            body = stringResource(Res.string.local_list_description),
+                            dismissText = stringResource(Res.string.dismiss),
+                            onDismiss = { viewModel.dismissBanner() },
+                            action = stringResource(Res.string.add_account),
                             onAction = {
                                 startActivity(
-                                    Intent(this@LocalListSettingsActivity, MainActivity::class.java)
-                                        .putExtra(MainActivity.OPEN_ADD_ACCOUNT, true)
+                                    Intent(
+                                        this@LocalListSettingsActivity,
+                                        MainActivity::class.java
+                                    ).putExtra(MainActivity.OPEN_ADD_ACCOUNT, true)
                                 )
                                 finish()
                             },
                         )
-                    }
+                    },
                 )
+
+                if (showColorWheel) {
+                    ColorWheelDialog(
+                        initialColor = state.color,
+                        onColorSelected = viewModel::setColor,
+                        onCancel = {
+                            showColorWheel = false
+                            viewModel.openColorPicker()
+                        },
+                        onDismiss = { showColorWheel = false },
+                    )
+                }
             }
         }
     }
-
-    override suspend fun createCalendar(caldavAccount: CaldavAccount, name: String, color: Int) {
-        preferences.setBoolean(R.string.p_local_list_banner_dismissed, true)
-        createSuccessful(null)
-    }
-
-    override suspend fun updateNameAndColor(
-        account: CaldavAccount, calendar: CaldavCalendar, name: String, color: Int) =
-            updateCalendar()
-
-    // TODO: prevent deleting the last list
-    override suspend fun deleteCalendar(caldavAccount: CaldavAccount, caldavCalendar: CaldavCalendar) =
-            onDeleted(true)
 }

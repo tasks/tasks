@@ -1,29 +1,36 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.RawQuery
-import androidx.room.RoomRawQuery
-import androidx.room.Update
+import androidx.room3.Dao
+import androidx.room3.Insert
+import androidx.room3.Query
+import androidx.room3.RawQuery
+import androidx.room3.RoomRawQuery
+import androidx.room3.Transaction
+import androidx.room3.Update
 import co.touchlab.kermit.Logger
-import org.tasks.IS_DEBUG
+import kotlinx.coroutines.flow.Flow
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.db.Database
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.CaldavAccount.Companion.TYPES_CALDAV
+import org.tasks.data.entity.SYNC_ALARMS
+import org.tasks.data.entity.SYNC_LOCATION
+import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.Functions
 import org.tasks.time.DateTimeUtils2
+import kotlin.math.max
 
 private const val MAX_TIME = 9999999999999
 
+private val WHITESPACE = Regex("\\s+")
+
 @Dao
 abstract class TaskDao(private val database: Database) {
-
     @Query("""
 SELECT COALESCE(MIN(min_value), $MAX_TIME)
 FROM (
@@ -40,6 +47,9 @@ FROM (
 
     @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
     abstract suspend fun fetch(id: Long): Task?
+
+    @Query("SELECT * FROM tasks WHERE _id = :id LIMIT 1")
+    abstract fun watch(id: Long): Flow<Task?>
 
     suspend fun fetch(ids: List<Long>): List<Task> = ids.chunkedMap(this::fetchInternal)
 
@@ -68,27 +78,17 @@ FROM (
             + "AND recurrence IS NOT NULL AND LENGTH(recurrence) > 0")
     abstract suspend fun getRecurringTasks(remoteIds: List<String>): List<Task>
 
+    @Transaction
+    open suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis()) {
+        updateCompletionDate(remoteIds, completionDate, updateTime)
+        database.dirtyDao().setDirty(getTaskIds(remoteIds))
+    }
+
     @Query("UPDATE tasks SET completed = :completionDate, modified = :updateTime WHERE remoteId IN (:remoteIds)")
-    abstract suspend fun setCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
+    internal abstract suspend fun updateCompletionDate(remoteIds: List<String>, completionDate: Long, updateTime: Long = DateTimeUtils2.currentTimeMillis())
 
-    @Query("SELECT tasks.* FROM tasks "
-            + "LEFT JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task "
-            + "LEFT JOIN caldav_lists ON caldav_tasks.cd_calendar = caldav_lists.cdl_uuid "
-            + "WHERE cdl_account = :account "
-            + "AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_remote_id = '' OR caldav_tasks.cd_remote_id IS NULL OR caldav_tasks.cd_deleted > 0) "
-            + "ORDER BY CASE WHEN parent = 0 THEN 0 ELSE 1 END, `order` ASC")
-    abstract suspend fun getGoogleTasksToPush(account: String): List<Task>
-
-    @Query("""
-        SELECT tasks.*
-        FROM tasks
-                 INNER JOIN caldav_tasks ON tasks._id = caldav_tasks.cd_task
-        WHERE caldav_tasks.cd_calendar = :calendar
-          AND cd_deleted = 0
-          AND (tasks.modified > caldav_tasks.cd_last_sync OR caldav_tasks.cd_last_sync = 0)
-        ORDER BY created
-    """)
-    abstract suspend fun getCaldavTasksToPush(calendar: String): List<Task>
+    @Query("SELECT _id FROM tasks WHERE remoteId IN (:remoteIds)")
+    internal abstract suspend fun getTaskIds(remoteIds: List<String>): List<Long>
 
     // --- SQL clause generators
     @Query("SELECT * FROM tasks")
@@ -115,7 +115,7 @@ FROM (
         val start = DateTimeUtils2.currentTimeMillis()
         val result = fetchRaw(RoomRawQuery(query))
         val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
         return result
     }
 
@@ -126,18 +126,18 @@ FROM (
         val start = DateTimeUtils2.currentTimeMillis()
         val result = countRaw(RoomRawQuery(query))
         val end = DateTimeUtils2.currentTimeMillis()
-        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(Regex("\\s+"), " ").trim()}" }
+        Logger.v("TaskDao") { "${end - start}ms: ${query.replace(WHITESPACE, " ").trim()}" }
         return result
     }
 
     @RawQuery
     internal abstract suspend fun countRaw(query: RoomRawQuery): Int
 
-    suspend fun touch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis()) =
-        ids.eachChunk { internalTouch(it, now) }
+    suspend fun touch(ids: List<Long>) =
+        ids.eachChunk { touchInternal(it) }
 
-    @Query("UPDATE tasks SET modified = :now WHERE _id in (:ids)")
-    internal abstract suspend fun internalTouch(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis())
+    @Query("UPDATE tasks SET modified = :now WHERE _id IN (:ids)")
+    internal abstract suspend fun touchInternal(ids: List<Long>, now: Long = DateTimeUtils2.currentTimeMillis())
 
     @Query("UPDATE tasks SET `order` = :order WHERE _id = :id")
     abstract suspend fun setOrder(id: Long, order: Long?)
@@ -151,6 +151,15 @@ FROM (
     @Query("UPDATE tasks SET lastNotified = :timestamp WHERE _id = :id")
     abstract suspend fun setLastNotified(id: Long, timestamp: Long)
 
+    suspend fun setReminderDismissed(ids: List<Long>, timestamp: Long) =
+        ids.eachChunk { setReminderDismissedInternal(it, timestamp) }
+
+    @Query("UPDATE tasks SET reminderDismissed = :timestamp WHERE _id IN (:ids) AND reminderDismissed < :timestamp")
+    internal abstract suspend fun setReminderDismissedInternal(ids: List<Long>, timestamp: Long)
+
+    @Query("SELECT reminderDismissed FROM tasks WHERE _id = :id")
+    internal abstract suspend fun getReminderDismissed(id: Long): Long?
+
     suspend fun getChildren(id: Long): List<Long> = getChildren(listOf(id))
 
     @Query("""
@@ -158,6 +167,7 @@ WITH RECURSIVE recursive_tasks (task) AS (
     SELECT _id
     FROM tasks
     WHERE parent IN (:ids)
+    AND deleted = 0
     UNION ALL
     SELECT _id
     FROM tasks
@@ -181,17 +191,46 @@ FROM recursive_tasks
 """)
     abstract suspend fun getParents(parent: Long): List<Long>
 
-    @Query("UPDATE tasks SET collapsed = :collapsed, modified = :now WHERE _id IN (:ids)")
-    abstract suspend fun setCollapsed(ids: List<Long>, collapsed: Boolean, now: Long = DateTimeUtils2.currentTimeMillis())
+    @Transaction
+    open suspend fun setCollapsed(ids: List<Long>, collapsed: Boolean) {
+        updateCollapsed(ids, collapsed)
+        database.dirtyDao().setDirty(ids, TYPES_CALDAV)
+    }
+
+    @Query("UPDATE tasks SET collapsed = :collapsed WHERE _id IN (:ids)")
+    internal abstract suspend fun updateCollapsed(ids: List<Long>, collapsed: Boolean)
+
+    @Transaction
+    open suspend fun <T> inTransaction(block: suspend () -> T): T = block()
 
     @Insert
     abstract suspend fun insert(task: Task): Long
 
-    suspend fun update(task: Task, original: Task? = null): Boolean {
-        if (!task.insignificantChange(original)) {
+    @Transaction
+    open suspend fun update(
+        task: Task,
+        original: Task? = null,
+        updateTimestamp: Boolean = true,
+        markDirty: Boolean = false,
+        preserveHierarchy: Boolean = false,
+    ): Boolean {
+        if (preserveHierarchy) {
+            fetch(task.id)?.let {
+                task.parent = it.parent
+                task.order = it.order
+            }
+        }
+        if (updateTimestamp && (!task.insignificantChange(original) || task.checkTransitory(SYNC_TAGS, SYNC_ALARMS, SYNC_LOCATION))) {
             task.modificationDate = DateTimeUtils2.currentTimeMillis()
         }
-        return updateInternal(task) == 1
+        if (original == null || task.reminderDismissed >= original.reminderDismissed) {
+            task.reminderDismissed = max(task.reminderDismissed, getReminderDismissed(task.id) ?: 0)
+        }
+        val updated = updateInternal(task) == 1
+        if (updated && markDirty) {
+            database.dirtyDao().setDirty(listOf(task.id))
+        }
+        return updated
     }
 
     @Update
@@ -207,9 +246,6 @@ FROM recursive_tasks
         }
         if (Task.isUuidEmpty(task.remoteId)) {
             task.remoteId = UUIDHelper.newUUID()
-        }
-        if (IS_DEBUG) {
-            require(task.remoteId?.isNotBlank() == true && task.remoteId != "0")
         }
         val insert = insert(task)
         task.id = insert
@@ -229,10 +265,13 @@ WHERE cd_id IS NULL
     object TaskCriteria {
         /** @return tasks that have not yet been completed or deleted
          */
-        @JvmStatic fun activeAndVisible(): Criterion = Criterion.and(
+        fun activeAndVisible(): Criterion = Criterion.and(
             Task.COMPLETION_DATE.lte(0),
             Task.DELETION_DATE.lte(0),
-            Task.HIDE_UNTIL.lte(Functions.now())
+            Criterion.or(
+                Task.HIDE_UNTIL.lte(Functions.now()),
+                Task.COMPLETION_DATE.gt(0),
+            )
         )
     }
 }

@@ -13,6 +13,6 @@ class CaldavClientTest : InjectingTestCase() {
 
     @Test
     fun dontCrashOnSpaceInUrl(): Unit = runBlocking {
-        clientProvider.forUrl("https://example.com/remote.php/a space/", "username", "password")
+        clientProvider.forUrl("https://example.com/remote.php/a space/", "username", "password").close()
     }
 }

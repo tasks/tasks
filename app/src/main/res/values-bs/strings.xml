@@ -2,9 +2,6 @@
 <resources>
     <string name="display_name">Prikazano ime</string>
     <string name="read_permission_label">Odobrenja Zadataka</string>
-    <string name="discard_confirmation">Stvarno odbaci izmjene?</string>
-    <string name="keep_editing">Nastavi uređivati</string>
-    <string name="DLG_delete_this_task_question">Izbriši ovaj zadatak?</string>
     <string name="DLG_hour_minutes">Vrijeme (sati:minute)</string>
     <string name="DLG_undo">Vrati</string>
     <string name="WID_dateButtonUnset">Klikni za postavljanje</string>
@@ -13,7 +10,6 @@
     <string name="TLA_menu_search">Traži</string>
     <string name="TAd_actionEditTask">Izmijeni</string>
     <string name="action_call">Nazovi</string>
-    <string name="action_open">Otvori</string>
     <string name="SSD_sort_my_order">Moj redoslijed</string>
     <string name="astrid_sort_order">Astridov ručni redoslijed</string>
     <string name="SSD_sort_auto">Pametni redoslijed</string>
@@ -22,7 +18,6 @@
     <string name="SSD_sort_importance">Po bitnosti</string>
     <string name="SSD_sort_modified">Po zadnjoj izmjeni</string>
     <string name="sort_list">Po listi</string>
-    <string name="sort_completed">Po vremenu završetka</string>
     <string name="TEA_title_hint">Naziv zadatka</string>
     <string name="TEA_importance_label">Bitnost</string>
     <string name="TEA_note_label">Opis</string>
@@ -30,7 +25,6 @@
     <string name="save">Spremi</string>
     <string name="TEA_timer_est">Oko %s</string>
     <string name="TEA_timer_elap">Prošlo %s</string>
-    <string name="TEA_add_subtask">Dodaj podzadatak</string>
     <string name="always_display_full_date">Prikaži puni datum</string>
     <string name="EPr_reset_preferences_warning">Preference će se resetovati na uobičajene vrijednosti</string>
     <string name="EPr_delete_task_data">Ižbriši podatke zadatka</string>
@@ -39,43 +33,20 @@
     <string name="EPr_manage_delete_completed_gcal_message">Da li stvarno želiš izbrisati sve događaje za završene zadatke?</string>
     <string name="EPr_manage_delete_gcal_status">Izbrisano %d kalendarskih događaja!</string>
     <string name="EPr_manage_delete_all_gcal_message">Da li stvarno želiš izbrisati sve svoje događaje za zadatke?</string>
-    <string name="task_defaults">Uobičajene postavke zadatka</string>
-    <string name="EPr_default_importance_title">Uobičajeni prioritet</string>
     <string name="EPr_manage_delete_all_gcal">Izbriši sve kalendarske događaje za zadatke</string>
-    <string name="default_start_date">Uobičajeni datum početka</string>
-    <string name="EPr_default_reminders_title">Uobičajeni podsjetnici</string>
-    <string name="EPr_default_location_reminder_title">Uobičajeni podsjetnici lokacija</string>
-    <string name="default_location">Uobičajena lokacija</string>
-    <string name="priority_high">Visoki</string>
-    <string name="priority_medium">Srednji</string>
-    <string name="priority_low">Niski</string>
     <string name="day_after_tomorrow">Preksutra</string>
     <string name="next_week">Slijedeće sedmice</string>
-    <string name="no_reminders">Nema podsjetnika</string>
     <string name="BFE_Active">Moji zadaci</string>
-    <string name="BFE_Recent">Nedavno promijenjeni</string>
-    <string name="EPr_default_reminders_mode_title">Uobičajena vrsta zvona/vibracije</string>
     <string name="CFC_list_name">Na listi…</string>
     <string name="gtasks_GTA_clear_completed">Izbriši završene</string>
     <string name="ok">OK</string>
     <string name="cancel">Otkaži</string>
     <string name="actfm_picture_clear">Ukloni sliku</string>
     <string name="TVA_add_comment">Dodaj komentar…</string>
-    <string name="backup_BPr_header">Sigurnosne kopije</string>
     <string name="premium_record_audio">Snimi bilješku</string>
     <string name="ring_once">Zvoni jednom</string>
     <string name="ring_nonstop">Zvoni neprekidno</string>
-    <string name="rmd_NoA_done">Završeno</string>
-    <string name="rmd_NoA_snooze">Odgodi</string>
     <string name="snooze_all">Odgodi sve</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Početak mirnih sati</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Kraj mirnih sati</string>
-    <string name="rmd_EPr_rmd_time_title">Vrijeme podsjetnika</string>
-    <string name="persistent_notifications">Stalne notifikacije</string>
-    <string name="persistent_notifications_description">Stalne notifikacije se ne mogu ukloniti</string>
-    <string name="swipe_to_snooze_title">Povuci za odgodu</string>
-    <string name="swipe_to_snooze_description">Vrijeme odgađanja</string>
-    <string name="repeat_option_every_year">Svake godine</string>
     <string name="repeat_option_custom">Prilagođeno…</string>
     <string name="gtasks_error_accountNotFound">Račun %s nije pronađen – odjavi se i ponovo prijavi iz podešavanja Google Zadataka.</string>
     <string name="ring_five_times">Zvoni pet puta</string>
@@ -110,5 +81,4 @@
     <string name="TEA_control_repeat">Ponovi</string>
     <string name="app_settings">Postavke aplikacije</string>
     <string name="customize_drawer">Prilagodi meni</string>
-    <string name="customize_drawer_summary">Povuci i pusti za promjenu rasporeda u meniju</string>
 </resources>

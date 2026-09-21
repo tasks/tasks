@@ -2,7 +2,6 @@
 <resources>
     <string name="actfm_picture_clear">Zbriši fotografijo</string>
     <string name="TVA_add_comment">Dodaj komentar…</string>
-    <string name="backup_BPr_header">Varnostne kopije</string>
     <string name="backup_BAc_import">Uvozi opravke</string>
     <string name="backup_BAc_export">Izvozi opravke</string>
     <string name="export_toast">Varnostna kopija za %1$s shranjena v %2$s.</string>
@@ -10,7 +9,6 @@
     <string name="import_summary_message">Datoteka %1$s je vsebovala %2$s.\n\n %3$s uvožen,\n %4$s že obstaja\n %5$s imel napake\n</string>
     <string name="import_progress_read">Berem opravek %d…</string>
     <string name="read_permission_label">Dovoljenje Opravkom</string>
-    <string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
     <string name="DLG_hour_minutes">Čas (ure : minute)</string>
     <string name="DLG_undo">Razveljavi</string>
     <string name="WID_dateButtonUnset">Klikni za nastavitev</string>
@@ -32,7 +30,6 @@
     <string name="TEA_elapsedDuration_label">Porabljen čas</string>
     <string name="TEA_timer_est">Cca. %s</string>
     <string name="TEA_timer_elap">%s je potekel</string>
-    <string name="no_time">Čas ni določen</string>
     <string name="due_date">Dospelost po datumu</string>
     <string name="due_time">Dospelost po času</string>
     <string name="day_before_due">Dan pred dospelostjo</string>
@@ -43,7 +40,6 @@
     <string name="TEA_control_reminders">Opomniki</string>
     <string name="TEA_control_timer">Upravljanje s štoparico</string>
     <string name="TEA_control_hidden_section">----Vedno skrij----</string>
-    <string name="EPr_edit_screen_options">Uredi možnosti zaslona</string>
     <string name="EPr_beastMode_reset">Povrni privzeto nastavitev</string>
     <string name="EPr_fullTask_title">Prikaži celoten naziv opravka</string>
     <string name="EPr_show_task_edit_comments">Prikaži opombe pri urejanju opravkov</string>
@@ -55,13 +51,9 @@
     <string name="EPr_manage_delete_gcal_status">Število zbrisanih dogodkov na koledarju: %d </string>
     <string name="EPr_manage_delete_all_gcal">Zbriši vse dogodke na koledarju z opravki</string>
     <string name="EPr_manage_delete_all_gcal_message">Ste prepričani, da želite zbrisati vse opravke iz vaših dogodkov?</string>
-    <string name="EPr_default_importance_title">Privzeta dospelost</string>
-    <string name="EPr_default_reminders_title">Privzeti opomniki</string>
-    <string name="EPr_default_reminders_mode_title">Privzeti način zvonenja/vibriranja</string>
     <string name="day_after_tomorrow">Pojutrišnjem</string>
     <string name="next_week">Naslednji teden</string>
     <string name="BFE_Active">Moji Opravki</string>
-    <string name="BFE_Recent">Nedavno spremenjeno</string>
     <string name="custom_filter_or">na dan</string>
     <string name="custom_filter_not">ne</string>
     <string name="custom_filter_and">tudi</string>
@@ -80,21 +72,8 @@
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
     <string name="gtasks_GTA_clear_completed">Zbriši dokončano</string>
     <string name="gtasks_GLA_authenticating">Avtentikacija v teku …</string>
-    <string name="gtasks_GLA_errorIOAuth">Žal smo imeli težave pri povezovanju z Google strežniki. Prosimo, poskusite ponovno kasneje.</string>
-    <string name="gtasks_GPr_header">Google Naloge</string>
     <string name="gtasks_error_accountNotFound">Račun %s ni najden—prosimo odjavite se, nato pa ponovno prijavite skozi nastavitve Google Nalog.</string>
     <string name="premium_record_audio">Posnemi opombo</string>
-    <string name="rmd_NoA_done">Končano</string>
-    <string name="rmd_NoA_snooze">Dremež</string>
-    <string name="rmd_EPr_quiet_hours_start_title">Tihe ure se začnejo ob</string>
-    <string name="rmd_EPr_quiet_hours_end_title">Tihe ure se končajo ob</string>
-    <string name="rmd_EPr_rmd_time_title">Privzeti opomnik ob</string>
-    <string name="rmd_EPr_defaultRemind_title">Naključni opomniki</string>
-    <string name="default_random_reminder_disabled">onemogočen</string>
-    <string name="default_random_reminder_hourly">vsako uro</string>
-    <string name="default_random_reminder_daily">dnevno</string>
-    <string name="default_random_reminder_weekly">tedensko</string>
-    <string name="default_random_reminder_bi_weekly">vsake dva tedna</string>
     <string name="TPl_notification">Merilniki časa aktivni za %s!</string>
     <string name="TEA_timer_controls">Merilnik časa</string>
     <string name="TEA_timer_comment_started">ta opravek začel:</string>
@@ -102,14 +81,10 @@
     <string name="TEA_timer_comment_spent">Porabljen čas:</string>
     <string name="voice_create_prompt">Glasovno ustvari opravek</string>
     <string name="EPr_voiceInputEnabled_title">Vnos glasu</string>
-    <string name="EPr_voiceRemindersEnabled_title">Glasovni opomniki</string>
-    <string name="EPr_voiceRemindersEnabled_desc_enabled">Aplikacija Opravki bo med opominjanjem glede opravkov izgovarjala nazive opravkov</string>
-    <string name="delete_task">Zbriši opravek</string>
     <plurals name="Ntasks">
         <item quantity="one">1 opravek</item>
         <item quantity="other">Št. opravkov: %d</item>
     </plurals>
     <string name="today">Danes</string>
     <string name="tomorrow">Jutri</string>
-    <string name="email">E-pošta</string>
 </resources>

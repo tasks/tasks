@@ -2,68 +2,88 @@ package org.tasks.preferences.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.compose.runtime.getValue
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.fragment.compose.content
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import org.tasks.compose.settings.GoogleTasksAccountScreen
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.preferences.IconPreference
+import org.tasks.preferences.BasePreferences
+import org.tasks.themes.TasksSettingsTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GoogleTasksAccount : BaseAccountPreference() {
+class GoogleTasksAccount : Fragment() {
 
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+    @Inject lateinit var theme: Theme
 
-    override fun getPreferenceXml() = R.xml.preferences_google_tasks
+    private val viewModel: GoogleTasksAccountHiltViewModel by viewModels()
 
-    override suspend fun setupPreferences(savedInstanceState: Bundle?) {
-        super.setupPreferences(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ) = content {
+        TasksSettingsTheme(
+            theme = theme.themeBase.index,
+            primary = theme.themeColor.primaryColor,
+        ) {
+            val state by viewModel.state.collectAsStateWithLifecycle()
+            val accountName = state.account?.name ?: ""
 
-        findPreference(R.string.reinitialize_account)
-                .setOnPreferenceClickListener { requestLogin() }
-    }
-
-    override suspend fun refreshUi(account: CaldavAccount) {
-        (findPreference(R.string.sign_in_with_google) as IconPreference).apply {
-            if (account.error.isNullOrBlank()) {
-                isVisible = false
-                return@apply
-            }
-            isVisible = true
-            when {
-                account.error.isUnauthorized() -> {
-                    setTitle(R.string.sign_in_with_google)
-                    setSummary(R.string.authentication_required)
-                    setOnPreferenceClickListener { requestLogin() }
-                }
-                else -> {
-                    this.title = null
-                    this.summary = account.error
-                    this.onPreferenceClickListener = null
-                }
-            }
-            iconVisible = true
+            GoogleTasksAccountScreen(
+                error = state.error,
+                isUnauthorized = state.isUnauthorized,
+                accountName = accountName,
+                onSignIn = { requestLogin() },
+                onDelete = {
+                    viewModel.delete { parentFragmentManager.popBackStack() }
+                },
+            )
         }
     }
 
-    private fun requestLogin(): Boolean {
+    override fun onResume() {
+        super.onResume()
+        val surfaceColor = theme.themeBase.getSettingsSurfaceColor(requireActivity())
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(surfaceColor)
+            (toolbar.parent as? android.view.View)?.setBackgroundColor(surfaceColor)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val defaultColor = ContextCompat.getColor(requireContext(), R.color.content_background)
+        (activity as? BasePreferences)?.toolbar?.let { toolbar ->
+            toolbar.setBackgroundColor(defaultColor)
+            (toolbar.parent as? android.view.View)?.setBackgroundColor(defaultColor)
+        }
+    }
+
+    private fun requestLogin() {
         activity?.startActivityForResult(
-                Intent(activity, GtasksLoginActivity::class.java),
-                MainSettingsComposeFragment.REQUEST_GOOGLE_TASKS
+            Intent(activity, GtasksLoginActivity::class.java),
+            MainSettingsComposeFragment.REQUEST_GOOGLE_TASKS
         )
-        return false
     }
 
     companion object {
-        fun String?.isUnauthorized(): Boolean =
-                this?.startsWith("401 Unauthorized", ignoreCase = true) == true
+        const val EXTRA_ACCOUNT = "extra_account"
 
-        fun newGoogleTasksAccountPreference(account: CaldavAccount) =
-                GoogleTasksAccount().apply {
-                    arguments = Bundle().apply {
-                        putParcelable(EXTRA_ACCOUNT, account)
-                    }
+        fun newGoogleTasksAccountPreference(account: CaldavAccount): Fragment =
+            GoogleTasksAccount().apply {
+                arguments = Bundle().apply {
+                    putParcelable(EXTRA_ACCOUNT, account)
                 }
+            }
     }
 }

@@ -27,6 +27,10 @@ import org.tasks.compose.DisabledText
 import org.tasks.compose.TaskEditRow
 import org.tasks.data.entity.Task
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.repeat_option_does_not_repeat
+import tasks.kmp.generated.resources.repeat_type_completion
+import tasks.kmp.generated.resources.repeat_type_due
 
 @Composable
 fun RepeatRow(
@@ -57,7 +61,7 @@ fun Repeat(
     Column {
         Spacer(modifier = Modifier.height(20.dp))
         if (recurrence.isNullOrBlank()) {
-            DisabledText(text = stringResource(id = R.string.repeat_option_does_not_repeat))
+            DisabledText(text = org.jetbrains.compose.resources.stringResource(Res.string.repeat_option_does_not_repeat))
         } else {
             Text(
                 text = recurrence,
@@ -87,10 +91,10 @@ fun Repeat(
                     modifier = Modifier.align(CenterVertically),
                 ) {
                     Text(
-                        text = stringResource(
-                            id = when (repeatFrom) {
-                                Task.RepeatFrom.COMPLETION_DATE -> R.string.repeat_type_completion
-                                else -> R.string.repeat_type_due
+                        text = org.jetbrains.compose.resources.stringResource(
+                            when (repeatFrom) {
+                                Task.RepeatFrom.COMPLETION_DATE -> Res.string.repeat_type_completion
+                                else -> Res.string.repeat_type_due
                             }
                         ),
                         style = MaterialTheme.typography.bodyLarge,

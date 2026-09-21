@@ -3,7 +3,6 @@ package com.todoroo.astrid.ui
 import android.Manifest
 import android.app.Activity
 import android.app.Activity.RESULT_OK
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -11,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -22,11 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.compose.edit.AlarmRow
+import org.tasks.compose.pickers.RingModeDialog
 import org.tasks.compose.rememberReminderPermissionState
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
-import org.tasks.dialogs.DialogBuilder
 import org.tasks.extensions.Context.openReminderSettings
 import org.tasks.scheduling.NotificationSchedulerIntentService
 import org.tasks.ui.TaskEditControlFragment
@@ -35,7 +36,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ReminderControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
-    @Inject lateinit var dialogBuilder: DialogBuilder
 
     private val ringMode = mutableIntStateOf(0)
 
@@ -83,6 +83,16 @@ class ReminderControlSet : TaskEditControlFragment() {
         val startDate = viewModel.startDate.collectAsStateWithLifecycle().value
         val dueDate = viewModel.dueDate.collectAsStateWithLifecycle().value
         val context = LocalContext.current
+        var showRingModeDialog by remember { mutableStateOf(false) }
+        RingModeDialog(
+            visible = showRingModeDialog,
+            selected = ringMode,
+            onSelected = {
+                setRingMode(it)
+                showRingModeDialog = false
+            },
+            onDismiss = { showRingModeDialog = false },
+        )
         AlarmRow(
             alarms = viewState.alarms,
             hasNotificationPermissions = hasReminderPermissions &&
@@ -99,21 +109,7 @@ class ReminderControlSet : TaskEditControlFragment() {
             isNew = viewState.isNew,
             hasStartDate = startDate > 0,
             hasDueDate = dueDate > 0,
-            openRingType = {
-                val modes = resources.getStringArray(R.array.reminder_ring_modes)
-                val selectedIndex = when {
-                    viewModel.ringNonstop -> 2
-                    viewModel.ringFiveTimes -> 1
-                    else -> 0
-                }
-                dialogBuilder
-                    .newDialog()
-                    .setSingleChoiceItems(modes, selectedIndex) { dialog: DialogInterface, which: Int ->
-                        setRingMode(which)
-                        dialog.dismiss()
-                    }
-                    .show()
-            },
+            openRingType = { showRingModeDialog = true },
             deleteAlarm = viewModel::removeAlarm,
             pickDateAndTime = { replace ->
                 val timestamp = replace?.takeIf { it.type == TYPE_DATE_TIME }?.time

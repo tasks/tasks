@@ -1,19 +1,20 @@
 package org.tasks.opentasks
 
 import android.content.ContentProviderResult
+import android.content.ContentValues
 import android.content.Context
 import at.bitfire.ical4android.BatchOperation
 import at.bitfire.ical4android.Task
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.TaskListColumns.ACCESS_LEVEL_OWNER
-import org.tasks.caldav.iCalendar
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount.Companion.ACCOUNT_TYPE_DAVX5
+import org.tasks.data.entity.OpenTaskProvider
 import org.tasks.data.entity.CaldavCalendar
+import java.io.StringReader
 import javax.inject.Inject
 
 class TestOpenTaskDao @Inject constructor(
@@ -51,10 +52,24 @@ class TestOpenTaskDao @Inject constructor(
 
     fun insertTask(listId: Long, vtodo: String) {
         val ops = ArrayList<BatchOperation.CpoBuilder>()
-        val task = MyAndroidTask(iCalendar.fromVtodo(vtodo)!!)
+        val task = MyAndroidTask(Task.tasksFromReader(StringReader(vtodo)).first())
         ops.add(task.toBuilder(tasks).withValue(TaskContract.TaskColumns.LIST_ID, listId))
         task.enqueueProperties(properties, ops, 0)
         applyOperation(*ops.toTypedArray())
+    }
+
+    fun setDescription(listId: Long, uid: String, description: String) {
+        val values = ContentValues().apply {
+            put(TaskContract.Tasks.DESCRIPTION, description)
+        }
+        cr.update(
+                tasks.buildUpon()
+                        .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
+                        .build(),
+                values,
+                "${TaskContract.Tasks.LIST_ID} = ? AND ${TaskContract.Tasks._UID} = ?",
+                arrayOf(listId.toString(), uid)
+        )
     }
 
     fun getTasks(): List<Task> {
@@ -93,7 +108,7 @@ class TestOpenTaskDao @Inject constructor(
 
     companion object {
         const val DEFAULT_ACCOUNT = "test_account"
-        const val DEFAULT_TYPE = ACCOUNT_TYPE_DAVX5
+        val DEFAULT_TYPE = OpenTaskProvider.DAVX5.accountType
         const val DEFAULT_LIST = "default_list"
     }
 }

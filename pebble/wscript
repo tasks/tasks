@@ -1,0 +1,53 @@
+#
+# This file is the default set of rules to compile a Pebble project.
+#
+# Set SCREENSHOT_MODE=1 env var to build with canned data for screenshots:
+#   SCREENSHOT_MODE=1 pebble build
+#
+
+import os
+import os.path
+
+top = '.'
+out = 'build'
+
+def options(ctx):
+    ctx.load('pebble_sdk')
+
+def configure(ctx):
+    ctx.load('pebble_sdk')
+
+def build(ctx):
+    ctx.load('pebble_sdk')
+
+    screenshot_mode = os.environ.get('SCREENSHOT_MODE')
+    screenshot_scene = os.environ.get('SCREENSHOT_SCENE', '1')
+    build_worker = os.path.exists('worker_src')
+    binaries = []
+
+    for p in ctx.env.TARGET_PLATFORMS:
+        ctx.set_env(ctx.all_envs[p])
+        ctx.set_group(ctx.env.PLATFORM_NAME)
+        if screenshot_mode:
+            ctx.env.append_value('CFLAGS', [
+                '-DSCREENSHOT_MODE',
+                '-DSCREENSHOT_SCENE=' + screenshot_scene,
+            ])
+        app_elf = '{}/pebble-app.elf'.format(ctx.env.BUILD_DIR)
+        if screenshot_mode:
+            excl = '**/main.c'
+        else:
+            excl = '**/main_screenshot.c **/screenshot_data.c'
+        ctx.pbl_program(source=ctx.path.ant_glob('src/c/**/*.c', excl=excl),
+                        target=app_elf)
+
+        if build_worker:
+            worker_elf = '{}/pebble-worker.elf'.format(ctx.env.BUILD_DIR)
+            binaries.append({'platform': p, 'app_elf': app_elf, 'worker_elf': worker_elf})
+            ctx.pbl_worker(source=ctx.path.ant_glob('worker_src/**/*.c'),
+                           target=worker_elf)
+        else:
+            binaries.append({'platform': p, 'app_elf': app_elf})
+
+    ctx.pbl_bundle(binaries=binaries,
+                   js=ctx.path.ant_glob('src/js/**/*.js'))

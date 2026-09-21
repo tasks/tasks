@@ -1,0 +1,154 @@
+package org.tasks.compose.settings
+
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
+import org.tasks.kmp.org.tasks.themes.ColorProvider as KmpColorProvider
+import org.tasks.themes.contentColor
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+
+data class PickerColor(
+    val originalColor: Int,
+    val primaryColor: Int,
+    val colorOnPrimary: Int,
+    val isFree: Boolean,
+)
+
+fun buildPickerColors(isDark: Boolean): List<PickerColor> =
+    (KmpColorProvider.PRESET_COLORS + KmpColorProvider.WHITE).map { originalColor ->
+        val adjusted = KmpColorProvider.getColor(originalColor, isDark, adjust = true)
+        PickerColor(
+            originalColor = originalColor,
+            primaryColor = adjusted,
+            colorOnPrimary = contentColor(adjusted),
+            isFree = KmpColorProvider.isFreeColor(originalColor),
+        )
+    }
+
+@Composable
+fun ColorPicker(
+    hasPro: Boolean,
+    colors: List<PickerColor>,
+    onSelected: (PickerColor) -> Unit,
+    onSubscribe: () -> Unit = {},
+    onColorWheelSelected: () -> Unit = {},
+    showColorWheel: Boolean = true,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 48.dp),
+        contentPadding = PaddingValues(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        if (showColorWheel) {
+            item {
+                ColorWheelCircle(
+                    onClick = if (hasPro) onColorWheelSelected else onSubscribe,
+                    hasPro = hasPro,
+                )
+            }
+        }
+        items(colors) { color ->
+            val locked = !(hasPro || color.isFree)
+            ColorCircle(
+                color = color,
+                locked = locked,
+                onClick = { if (locked) onSubscribe() else onSelected(color) }
+            )
+        }
+    }
+}
+
+@Composable
+private fun ColorCircle(
+    color: PickerColor,
+    locked: Boolean,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .clickable(onClick = onClick)
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(Color(color.primaryColor))
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = CircleShape
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (locked) {
+            LockIcon(tint = Color(color.colorOnPrimary))
+        }
+    }
+}
+
+@Composable
+private fun ColorWheelCircle(
+    onClick: () -> Unit,
+    hasPro: Boolean,
+) {
+    Box(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .clickable(onClick = onClick)
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(
+                brush = Brush.sweepGradient(
+                    colors = listOf(
+                        Color.Red,
+                        Color.Magenta,
+                        Color.Blue,
+                        Color.Cyan,
+                        Color.Green,
+                        Color.Yellow,
+                        Color.Red
+                    )
+                )
+            )
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = CircleShape
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        if (!hasPro) {
+            LockIcon(tint = Color.Black)
+        }
+    }
+}
+
+@Composable
+private fun LockIcon(tint: Color) {
+    SymbolIcon(
+        name = TasksIcons.LOCK,
+        contentDescription = null,
+        tint = tint,
+        modifier = Modifier.size(24.dp)
+    )
+}

@@ -17,10 +17,8 @@ class Order private constructor(private val expression: Any, val orderType: Orde
     fun reverse() = Order(expression, if (orderType === ASC) DESC else ASC)
 
     companion object {
-        @JvmStatic
         fun asc(expression: Any) = Order(expression)
 
-        @JvmStatic
         fun desc(expression: Any) = Order(expression, DESC)
     }
 }

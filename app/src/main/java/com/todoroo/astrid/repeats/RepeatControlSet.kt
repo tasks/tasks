@@ -10,16 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
 import org.tasks.R
 import org.tasks.compose.edit.RepeatRow
 import org.tasks.data.dao.CaldavDao
 import org.tasks.repeats.BasicRecurrenceDialog
-import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.RepeatRuleToString
-import org.tasks.time.DateTime
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.repeats.anchoredToDueDate
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -42,23 +38,9 @@ class RepeatControlSet : TaskEditControlFragment() {
     private fun onDueDateChanged() {
         // TODO: move to view model
         viewModel.viewState.value.task.recurrence?.takeIf { it.isNotBlank() }?.let { recurrence ->
-            val recur = newRecur(recurrence)
-            if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
-                val weekdayNum = recur.dayList[0]
-                val dateTime =
-                    DateTime(this.viewModel.dueDate.value.let { if (it > 0) it else currentTimeMillis() })
-                val num: Int
-                val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
-                num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
-                    if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
-                } else {
-                    dayOfWeekInMonth
-                }
-                recur.dayList.let {
-                    it.clear()
-                    it.add(WeekDay(dateTime.weekDay, num))
-                }
-                viewModel.setRecurrence(recur.toString())
+            val anchored = recurrence.anchoredToDueDate(viewModel.dueDate.value)
+            if (anchored != recurrence) {
+                viewModel.setRecurrence(anchored)
             }
         }
     }
@@ -71,7 +53,7 @@ class RepeatControlSet : TaskEditControlFragment() {
             onDueDateChanged()
         }
         RepeatRow(
-            recurrence = viewState.task.recurrence?.let { repeatRuleToString.toString(it) },
+            recurrence = viewState.task.recurrence?.let { repeatRuleToString.toStringBlocking(it) },
             repeatFrom = viewState.task.repeatFrom,
             onClick = {
                 val accountType = viewState.list.account.accountType

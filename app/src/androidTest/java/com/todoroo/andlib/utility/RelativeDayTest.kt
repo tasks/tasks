@@ -8,8 +8,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.Freeze
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDay
 import org.tasks.time.DateTime
 import java.util.Locale
 
@@ -71,9 +71,9 @@ class RelativeDayTest {
     private fun checkRelativeDay(now: DateTime, full: String, abbreviated: String) = runBlocking {
         assertEquals(
                 full,
-                getRelativeDay(now.millis, DateStyle.LONG))
+                DateFormatter.create(is24HourFormat = false).relativeDay(now.millis, DateStyle.LONG))
         assertEquals(
                 abbreviated,
-                getRelativeDay(now.millis))
+                DateFormatter.create(is24HourFormat = false).relativeDay(now.millis))
     }
 }

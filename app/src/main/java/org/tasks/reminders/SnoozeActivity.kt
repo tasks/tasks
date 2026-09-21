@@ -2,27 +2,36 @@ package org.tasks.reminders
 
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.DateAndTimePickerActivity
 import org.tasks.analytics.Firebase
-import org.tasks.time.DateTime
+import org.tasks.compose.pickers.SnoozeDialog
+import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.preferences.Preferences
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCancelListener {
-    @Inject lateinit var taskDao: TaskDao
+class SnoozeActivity : AppCompatActivity() {
     @Inject lateinit var alarmService: AlarmService
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var preferences: Preferences
+    @Inject lateinit var theme: Theme
 
     private val taskIds: MutableList<Long> = ArrayList()
     private var pickingDateTime = false
@@ -42,23 +51,34 @@ class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCa
             }
         }
         if (intent.hasExtra(EXTRA_SNOOZE_TIME)) {
-            snoozeForTime(DateTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L)))
-        } else {
-            val fragmentManager = supportFragmentManager
-            var fragmentByTag = fragmentManager.findFragmentByTag(FRAG_TAG_SNOOZE_DIALOG) as SnoozeDialog?
-            if (fragmentByTag == null) {
-                fragmentByTag = SnoozeDialog()
-                fragmentByTag.show(fragmentManager, FRAG_TAG_SNOOZE_DIALOG)
+            snoozeForTime(intent.getLongExtra(EXTRA_SNOOZE_TIME, 0L))
+            return
+        }
+        setContent {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
+                var visible by remember { mutableStateOf(true) }
+                SnoozeDialog(
+                    visible = visible,
+                    loadTimes = { preferences.quickPickTimes },
+                    is24Hour = is24HourFormat,
+                    onSelected = { snoozeForTime(it) },
+                    onPickDateTime = {
+                        visible = false
+                        pickDateTime()
+                    },
+                    onDismiss = { finish() },
+                )
             }
-            fragmentByTag.setOnCancelListener(this)
-            fragmentByTag.setSnoozeCallback(this)
         }
     }
 
-    override fun snoozeForTime(time: DateTime) {
+    private fun snoozeForTime(time: Long) {
         firebase.logEvent(R.string.event_notification, R.string.param_type to "snooze_time")
         lifecycleScope.launch(NonCancellable) {
-            alarmService.snooze(time.millis, taskIds)
+            alarmService.snooze(time, taskIds)
         }
         setResult(Activity.RESULT_OK)
         finish()
@@ -69,23 +89,20 @@ class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCa
         outState.putBoolean(EXTRA_PICKING_DATE_TIME, pickingDateTime)
     }
 
-    override fun pickDateTime() {
+    private fun pickDateTime() {
         pickingDateTime = true
         val intent = Intent(this, DateAndTimePickerActivity::class.java)
         intent.putExtra(
-                DateAndTimePickerActivity.EXTRA_TIMESTAMP, DateTime().plusMinutes(30).millis)
+            DateAndTimePickerActivity.EXTRA_TIMESTAMP,
+            currentTimeMillis() + SNOOZE_PICKER_OFFSET,
+        )
         startActivityForResult(intent, REQUEST_DATE_TIME)
-    }
-
-    override fun onCancel(dialog: DialogInterface) {
-        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_DATE_TIME) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                val timestamp = data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L)
-                snoozeForTime(DateTime(timestamp))
+                snoozeForTime(data.getLongExtra(DateAndTimePickerActivity.EXTRA_TIMESTAMP, 0L))
             } else {
                 finish()
             }
@@ -99,9 +116,9 @@ class SnoozeActivity : AppCompatActivity(), SnoozeCallback, DialogInterface.OnCa
         const val EXTRA_TASK_ID = "id"
         const val EXTRA_TASK_IDS = "ids"
         const val EXTRA_SNOOZE_TIME = "snooze_time"
-        private const val FRAG_TAG_SNOOZE_DIALOG = "frag_tag_snooze_dialog"
         private const val EXTRA_PICKING_DATE_TIME = "extra_picking_date_time"
         private const val REQUEST_DATE_TIME = 10101
+
         fun newIntent(context: Context?, id: Long?): Intent =
                 Intent(context, SnoozeActivity::class.java).apply {
                     flags = FLAGS

@@ -1,49 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string-array name="EPr_default_hideUntil">
-    <item>@string/no_start_date</item>
-    <item>@string/due_date</item>
-    <item>@string/due_time</item>
-    <item>@string/day_before_due</item>
-    <item>@string/week_before_due</item>
-  </string-array>
-
-  <string-array name="EPr_default_importance">
-    <item>@string/priority_high</item>
-    <item>@string/priority_medium</item>
-    <item>@string/priority_low</item>
-    <item>@string/none</item>
-  </string-array>
-
-  <string-array name="swipe_to_snooze_times">
-    <item>@string/swipe_to_snooze_time_immediately</item>
-    <item>@string/swipe_to_snooze_time_15_minutes</item>
-    <item>@string/swipe_to_snooze_time_30_minutes</item>
-    <item>@string/swipe_to_snooze_time_1_hour</item>
-    <item>@string/swipe_to_snooze_time_24_hours</item>
-  </string-array>
-
-  <string-array name="reminder_ring_modes">
-    <item>@string/ring_once</item>
-    <item>@string/ring_five_times</item>
-    <item>@string/ring_nonstop</item>
-  </string-array>
-
   <string-array name="widget_themes">
     <item>@string/theme_light</item>
     <item>@string/theme_black</item>
     <item>@string/theme_dark</item>
     <item>@string/theme_system_default</item>
     <item>@string/theme_dynamic</item>
-  </string-array>
-
-  <string-array name="EPr_default_urgency">
-    <item>@string/no_due_date</item>
-    <item>@string/today</item>
-    <item>@string/tomorrow</item>
-    <item>@string/day_after_tomorrow</item>
-    <item>@string/next_week</item>
   </string-array>
 
   <string-array name="CFC_dueBefore_entries">
@@ -68,47 +31,6 @@
     <item>@string/now</item>
   </string-array>
 
-  <string-array name="EPr_reminder_random">
-    <item>@string/default_random_reminder_disabled</item>
-    <item>@string/default_random_reminder_hourly</item>
-    <item>@string/default_random_reminder_daily</item>
-    <item>@string/default_random_reminder_weekly</item>
-    <item>@string/default_random_reminder_bi_weekly</item>
-  </string-array>
-
-  <string-array name="repeat_options">
-    <item>@string/repeat_option_does_not_repeat</item>
-    <item>@string/repeat_option_every_day</item>
-    <item>@string/repeat_option_every_week</item>
-    <item>@string/repeat_option_every_month</item>
-    <item>@string/repeat_option_every_year</item>
-    <item>@string/repeat_option_custom</item>
-  </string-array>
-
-  <string-array name="repeat_type_capitalized">
-    <item>@string/due_date</item>
-    <item>@string/repeat_type_completion_capitalized</item>
-  </string-array>
-
-  <string-array name="repeat_type_values">
-    <item>0</item>
-    <item>1</item>
-  </string-array>
-
-  <string-array name="EPr_default_location_reminder">
-    <item>@string/no_reminders</item>
-    <item>@string/default_location_reminder_on_arrival</item>
-    <item>@string/default_location_reminder_on_departure</item>
-    <item>@string/default_location_reminder_on_arrival_or_departure</item>
-  </string-array>
-
-  <string-array name="EPR_default_location_reminder_values">
-    <item>0</item>
-    <item>1</item>
-    <item>2</item>
-    <item>3</item>
-  </string-array>
-
   <string-array name="chip_appearance">
     <item>@string/chip_appearance_text_and_icon</item>
     <item>@string/chip_appearance_text_only</item>
@@ -126,26 +48,5 @@
     <item>1</item>
   </string-array>
 
-  <string-array name="caldav_servers">
-    <item>@string/caldav_server_mailbox_org</item>
-    <item>@string/caldav_server_nextcloud</item>
-    <item>@string/caldav_server_openxchange</item>
-    <item>@string/caldav_server_owncloud</item>
-    <item>@string/caldav_server_sabredav</item>
-    <item>@string/caldav_server_synology_calendar</item>
-    <item>@string/caldav_server_other</item>
-    <item>@string/caldav_server_unknown</item>
-  </string-array>
-
-  <integer-array name="caldav_server_values">
-    <item>6</item>
-    <item>4</item>
-    <item>3</item>
-    <item>1</item>
-    <item>2</item>
-    <item>5</item>
-    <item>99</item>
-    <item>-1</item>
-  </integer-array>
 
 </resources>

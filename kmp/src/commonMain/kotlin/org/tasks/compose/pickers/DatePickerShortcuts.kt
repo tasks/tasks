@@ -1,0 +1,356 @@
+package org.tasks.compose.pickers
+
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
+import org.tasks.kmp.formatTime
+import org.tasks.compose.rememberDateFormatter
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.minusDays
+import org.tasks.time.startOfDay
+import org.tasks.time.withMillisOfDay
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.date_picker_multiple
+import tasks.kmp.generated.resources.day_before_due
+import tasks.kmp.generated.resources.due_date
+import tasks.kmp.generated.resources.due_time
+import tasks.kmp.generated.resources.next_friday
+import tasks.kmp.generated.resources.next_monday
+import tasks.kmp.generated.resources.next_saturday
+import tasks.kmp.generated.resources.next_sunday
+import tasks.kmp.generated.resources.next_thursday
+import tasks.kmp.generated.resources.next_tuesday
+import tasks.kmp.generated.resources.next_wednesday
+import tasks.kmp.generated.resources.no_date
+import tasks.kmp.generated.resources.no_time
+import tasks.kmp.generated.resources.shortcut_pick_time
+import tasks.kmp.generated.resources.today
+import tasks.kmp.generated.resources.tomorrow
+import tasks.kmp.generated.resources.week_before_due
+
+@Composable
+fun DatePickerShortcuts(
+    dateShortcuts: @Composable ColumnScope.() -> Unit,
+    timeShortcuts: @Composable ColumnScope.() -> Unit,
+) {
+    BoxWithConstraints(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth(),
+    ) {
+        val maxColumnWidth = maxWidth / 2
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column(
+                horizontalAlignment = Alignment.Start,
+                modifier = Modifier.widthIn(max = maxColumnWidth)
+            ) {
+                dateShortcuts()
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Column {
+                timeShortcuts()
+            }
+        }
+    }
+}
+
+@Composable
+private fun customDateLabel(millis: Long, today: Long): String {
+    val formatter = rememberDateFormatter(is24Hour = false)
+    return remember(millis, today, formatter) {
+        when {
+            formatter == null -> ""
+            millis < today.minusDays(1) -> formatter.fullDate(millis, style = DateStyle.LONG)
+            else -> formatter.relativeDay(millis, style = DateStyle.LONG)
+        }
+    }
+}
+
+@Composable
+fun StartDateShortcuts(
+    selected: Long,
+    selectedDay: (Long) -> Unit,
+    selectedDayTime: (Long, Int) -> Unit,
+    showDueDate: Boolean,
+    clearDate: () -> Unit,
+) {
+    var custom by remember { mutableLongStateOf(0) }
+    LaunchedEffect(selected) {
+        custom = if (selected !in listOf(DUE_DATE, DUE_TIME, DAY_BEFORE_DUE, WEEK_BEFORE_DUE, NO_DAY)) {
+            selected
+        } else {
+            custom
+        }
+    }
+    val today = remember { currentTimeMillis().startOfDay() }
+
+    if (custom > 0 || custom == MULTIPLE_DAYS) {
+        ShortcutButton(
+            icon = TasksIcons.TODAY,
+            text = if (custom == MULTIPLE_DAYS) {
+                stringResource(Res.string.date_picker_multiple)
+            } else {
+                customDateLabel(custom, today)
+            },
+            selected = selected == custom,
+            onClick = { selectedDay(custom) },
+        )
+    }
+    if (showDueDate) {
+        ShortcutButton(
+            icon = TasksIcons.TODAY,
+            text = stringResource(Res.string.due_date),
+            selected = selected == DUE_DATE,
+            onClick = { selectedDay(DUE_DATE) },
+        )
+    }
+    ShortcutButton(
+        icon = TasksIcons.SCHEDULE,
+        text = stringResource(Res.string.due_time),
+        selected = selected == DUE_TIME,
+        onClick = { selectedDayTime(DUE_TIME, NO_TIME) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.WB_SUNNY,
+        text = stringResource(Res.string.day_before_due),
+        selected = selected == DAY_BEFORE_DUE,
+        onClick = { selectedDay(DAY_BEFORE_DUE) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.CALENDAR_VIEW_WEEK,
+        text = stringResource(Res.string.week_before_due),
+        selected = selected == WEEK_BEFORE_DUE,
+        onClick = { selectedDay(WEEK_BEFORE_DUE) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.BLOCK,
+        text = stringResource(Res.string.no_date),
+        selected = selected == NO_DAY,
+        onClick = { clearDate() },
+    )
+}
+
+@Composable
+fun DueDateShortcuts(
+    today: Long,
+    tomorrow: Long,
+    nextWeek: Long,
+    selected: Long,
+    showNoDate: Boolean,
+    selectedDay: (Long) -> Unit,
+    clearDate: () -> Unit,
+) {
+    var custom by remember { mutableLongStateOf(0) }
+    LaunchedEffect(selected) {
+        custom = if (selected == MULTIPLE_DAYS || selected !in listOf(today, tomorrow, nextWeek, NO_DAY)) {
+            selected
+        } else {
+            custom
+        }
+    }
+
+    if (custom > 0 || custom == MULTIPLE_DAYS) {
+        ShortcutButton(
+            icon = TasksIcons.TODAY,
+            text = if (custom == MULTIPLE_DAYS) {
+                stringResource(Res.string.date_picker_multiple)
+            } else {
+                customDateLabel(custom, today)
+            },
+            selected = selected == custom,
+            onClick = { selectedDay(custom) },
+        )
+    }
+    ShortcutButton(
+        icon = TasksIcons.TODAY,
+        text = stringResource(Res.string.today),
+        selected = selected == today,
+        onClick = { selectedDay(today) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.WB_SUNNY,
+        text = stringResource(Res.string.tomorrow),
+        selected = selected == tomorrow,
+        onClick = { selectedDay(tomorrow) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.NEXT_WEEK,
+        text = stringResource(
+            remember {
+                when (
+                    Instant.fromEpochMilliseconds(nextWeek)
+                        .toLocalDateTime(TimeZone.currentSystemDefault())
+                        .dayOfWeek
+                ) {
+                    DayOfWeek.SUNDAY -> Res.string.next_sunday
+                    DayOfWeek.MONDAY -> Res.string.next_monday
+                    DayOfWeek.TUESDAY -> Res.string.next_tuesday
+                    DayOfWeek.WEDNESDAY -> Res.string.next_wednesday
+                    DayOfWeek.THURSDAY -> Res.string.next_thursday
+                    DayOfWeek.FRIDAY -> Res.string.next_friday
+                    DayOfWeek.SATURDAY -> Res.string.next_saturday
+                    else -> throw IllegalArgumentException()
+                }
+            }
+        ),
+        selected = selected == nextWeek,
+        onClick = { selectedDay(nextWeek) },
+    )
+    if (showNoDate) {
+        ShortcutButton(
+            icon = TasksIcons.BLOCK,
+            text = stringResource(Res.string.no_date),
+            selected = selected == NO_DAY,
+            onClick = { clearDate() },
+        )
+    }
+}
+
+@Composable
+fun TimeShortcuts(
+    day: Long,
+    selected: Int,
+    morning: Int,
+    afternoon: Int,
+    evening: Int,
+    night: Int,
+    is24HourFormat: Boolean,
+    selectedMillisOfDay: (Int) -> Unit,
+    pickTime: () -> Unit,
+    clearTime: () -> Unit,
+    showNoTime: Boolean = true,
+) {
+    var custom by remember { mutableIntStateOf(0) }
+    LaunchedEffect(selected) {
+        custom = if (selected == MULTIPLE_TIMES || selected !in listOf(morning, afternoon, evening, night, NO_TIME)) {
+            selected
+        } else {
+            custom
+        }
+    }
+
+    val now = remember { currentTimeMillis() }
+    if (custom > 0 || custom == MULTIPLE_TIMES) {
+        ShortcutButton(
+            icon = TasksIcons.SCHEDULE,
+            text = if (custom == MULTIPLE_TIMES) {
+                stringResource(Res.string.date_picker_multiple)
+            } else {
+                remember(custom) {
+                    formatTime(now.withMillisOfDay(custom), is24HourFormat)
+                }
+            },
+            selected = selected == custom,
+            onClick = { selectedMillisOfDay(custom) },
+        )
+    }
+    ShortcutButton(
+        icon = TasksIcons.COFFEE,
+        text = remember {
+            formatTime(now.withMillisOfDay(morning), is24HourFormat)
+        },
+        selected = selected == morning,
+        onClick = { selectedMillisOfDay(morning) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.WB_SUNNY,
+        text = remember {
+            formatTime(now.withMillisOfDay(afternoon), is24HourFormat)
+        },
+        selected = selected == afternoon,
+        onClick = { selectedMillisOfDay(afternoon) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.WB_TWILIGHT,
+        text = remember {
+            formatTime(now.withMillisOfDay(evening), is24HourFormat)
+        },
+        selected = selected == evening,
+        onClick = { selectedMillisOfDay(evening) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.NIGHTS_STAY,
+        text = remember {
+            formatTime(now.withMillisOfDay(night), is24HourFormat)
+        },
+        selected = selected == night,
+        onClick = { selectedMillisOfDay(night) },
+    )
+    ShortcutButton(
+        icon = TasksIcons.SCHEDULE,
+        text = stringResource(Res.string.shortcut_pick_time),
+        selected = false,
+        onClick = { pickTime() },
+    )
+    if (showNoTime) {
+        ShortcutButton(
+            icon = TasksIcons.BLOCK,
+            text = stringResource(Res.string.no_time),
+            selected = day != DUE_TIME && selected == NO_TIME,
+            onClick = { clearTime() },
+        )
+    }
+}
+
+@Composable
+fun ShortcutButton(
+    icon: String,
+    text: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+) {
+    val color =
+        if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+    TextButton(
+        onClick = { onClick() },
+        colors = ButtonDefaults.textButtonColors(contentColor = color)
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            SymbolIcon(
+                name = icon,
+                contentDescription = null,
+                tint = color,
+            )
+            Text(
+                text = text,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+    }
+}

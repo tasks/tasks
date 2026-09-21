@@ -10,7 +10,6 @@ import com.google.common.collect.ImmutableListMultimap
 import com.google.common.collect.ListMultimap
 import com.google.common.collect.Multimaps
 import com.todoroo.astrid.core.SortHelper
-import com.todoroo.astrid.dao.TaskDao
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.runBlocking
@@ -23,15 +22,19 @@ import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.CaldavTaskContainer
 import org.tasks.data.Location
+import org.tasks.data.TaskMover
 import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.UpgraderDao
 import org.tasks.data.dao.UserActivityDao
+import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Tag
@@ -59,11 +62,13 @@ class Upgrader @Inject constructor(
     private val taskAttachmentDao: TaskAttachmentDao,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val locationDao: LocationDao,
     private val iCal: iCalendar,
     private val widgetManager: AppWidgetManager,
     private val taskMover: TaskMover,
     private val upgraderDao: UpgraderDao,
+    private val database: Database,
     private val vtodoCache: VtodoCache,
     private val upgrade_11_3: Lazy<Upgrade_11_3>,
     private val upgrade_11_12_3: Lazy<Upgrade_11_12_3>,
@@ -72,6 +77,7 @@ class Upgrader @Inject constructor(
     private val upgrade_13_11: Lazy<Upgrade_13_11>,
     private val upgrade_14_11: Lazy<Upgrade_14_11>,
     private val upgrade_14_13: Lazy<Upgrade_14_13>,
+    private val upgrade_15_10: Lazy<Upgrade_15_10>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -166,6 +172,12 @@ class Upgrader @Inject constructor(
             run(from, Upgrade_14_13.VERSION) {
                 upgrade_14_13.get().deleteAlarmsForAllDayTasks()
             }
+            run(from, Upgrade_15_10.VERSION) {
+                upgrade_15_10.get().migrateRandomReminder()
+            }
+            CommonUpgrades.all(database).forEach { step ->
+                run(from, step.version) { step.upgrade().run() }
+            }
             preferences.setBoolean(R.string.p_just_updated, true)
         } else {
             setInstallDetails(to)
@@ -245,7 +257,7 @@ class Upgrader @Inject constructor(
             val geo = remoteTask.geoPosition ?: continue
             iCal.setPlace(taskId, geo)
         }
-        taskDao.touch(tasksWithLocations)
+        dirtyDao.setDirty(tasksWithLocations)
     }
 
     private suspend fun applyCaldavSubtasks() {
@@ -267,9 +279,9 @@ class Upgrader @Inject constructor(
         for (container in upgraderDao.tasksWithVtodos()) {
             val remoteTask =
                 vtodoCache.getVtodo(container.caldavTask)?.let { fromVtodo(it) } ?: continue
-            tagDao.insert(container.task, iCal.getTags(remoteTask.categories))
+            tagDao.insert(container.task, remoteTask.categories)
         }
-        taskDao.touch(tasksWithTags)
+        dirtyDao.setDirty(tasksWithTags)
     }
 
     private suspend fun removeDuplicateTags() {

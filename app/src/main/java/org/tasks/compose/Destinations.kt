@@ -12,6 +12,9 @@ object WelcomeDestination
 object AddAccountDestination
 
 @Serializable
+object SubscriptionOnboardingDestination
+
+@Serializable
 data class PurchaseDestination(
     val nameYourPrice: Boolean = true,
     val github: Boolean = false,

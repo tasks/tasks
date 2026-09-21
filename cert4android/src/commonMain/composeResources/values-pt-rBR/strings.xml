@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificado rejeitado temporariamente</string>
+    <string name="trust_certificate_accept">Aceitar</string>
+    <string name="trust_certificate_fingerprint_verified">Eu verifiquei a biometria inteira manualmente.</string>
+    <string name="trust_certificate_fingerprints">Biometria</string>
+    <string name="trust_certificate_issued_by">Emitido por</string>
+    <string name="trust_certificate_issued_for">Emitido para</string>
+    <string name="trust_certificate_press_back_to_reject">Pressione Voltar novamente para rejeitar o certificado</string>
+    <string name="trust_certificate_reject">Rejeitar</string>
+    <string name="trust_certificate_reset_info">Você pode reconfigurar todos os certificados personalizados nas configurações do app.</string>
+    <string name="trust_certificate_unknown_certificate_found">O %1$s se deparou com um certificado desconhecido. Quer confiá-lo?</string>
+    <string name="trust_certificate_validity_period">Tempo de validade</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (não será aplicado)</string>
+    <string name="trust_certificate_x509_certificate_details">Detalhes do certificado X509</string>
+</resources>

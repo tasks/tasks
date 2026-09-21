@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Sertifikat ditolak sementara</string>
+    <string name="trust_certificate_accept">Terima</string>
+    <string name="trust_certificate_fingerprint_verified">Saya telah memverifikasi secara manual seluruh sidik jari.</string>
+    <string name="trust_certificate_fingerprints">Sidik jari</string>
+    <string name="trust_certificate_issued_by">Diterbitkan oleh</string>
+    <string name="trust_certificate_issued_for">Diterbitkan untuk</string>
+    <string name="trust_certificate_press_back_to_reject">Tekan Kembali sekali lagi untuk menolak sertifikat</string>
+    <string name="trust_certificate_reject">Tolak</string>
+    <string name="trust_certificate_reset_info">Anda dapat mengatur ulang semua sertifikat kustom di pengaturan aplikasi.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s menemukan sertifikat yang tidak dikenal. Apakah Anda ingin mempercayainya?</string>
+    <string name="trust_certificate_validity_period">Masa berlaku</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (tidak akan diberlakukan)</string>
+    <string name="trust_certificate_x509_certificate_details">Detail sertifikat X509</string>
+</resources>

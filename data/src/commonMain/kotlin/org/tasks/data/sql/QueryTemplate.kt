@@ -3,7 +3,6 @@ package org.tasks.data.sql
 import org.tasks.data.sql.StringBuilderExtensions.join
 import org.tasks.data.sql.StringBuilderExtensions.orderBy
 import org.tasks.data.sql.StringBuilderExtensions.where
-import java.util.*
 
 class QueryTemplate {
     private val criterions = ArrayList<Criterion>()

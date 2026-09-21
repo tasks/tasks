@@ -1,0 +1,28 @@
+package org.tasks.auth
+
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import kotlin.io.encoding.Base64
+
+class IdToken(idToken: String) {
+    private val json: JsonObject
+
+    init {
+        val parts = idToken.split(".")
+        val payload = Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL).decode(parts[1]).decodeToString()
+        json = Json.parseToJsonElement(payload) as JsonObject
+    }
+
+    val email: String?
+        get() = json["email"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+
+    val preferredUsername: String?
+        get() = json["preferred_username"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+
+    val sub: String?
+        get() = json["sub"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+
+    val login: String?
+        get() = json["login"]?.jsonPrimitive?.content?.takeIf { it.isNotBlank() }
+}

@@ -1,0 +1,71 @@
+package org.tasks.security
+
+import co.touchlab.kermit.Logger
+import com.github.javakeyring.Keyring
+import java.io.File
+import java.security.SecureRandom
+import java.util.Base64
+import javax.crypto.SecretKey
+import javax.crypto.spec.SecretKeySpec
+
+class DesktopKeyProvider(
+    private val serviceName: String,
+    private val accountName: String,
+    private val fallbackKeyFile: File,
+    private val hasEncryptedData: () -> Boolean = { false },
+) : KeyProvider {
+    private val logger = Logger.withTag("DesktopKeyProvider")
+
+    @Volatile
+    private var cachedKey: SecretKey? = null
+
+    override fun getKey(): SecretKey {
+        cachedKey?.let { return it }
+        return synchronized(this) {
+            cachedKey ?: loadKey().also { cachedKey = it }
+        }
+    }
+
+    private fun loadKey(): SecretKey {
+        val existing = readFromKeychain() ?: readFromFile()
+        check(existing != null || !hasEncryptedData()) {
+            "Encryption key unavailable, refusing to replace key for existing data"
+        }
+        val encoded = existing ?: generateKey().also { storeKey(it) }
+        return SecretKeySpec(Base64.getDecoder().decode(encoded), "AES")
+    }
+
+    private fun readFromKeychain(): String? = try {
+        Keyring.create().use { it.getPassword(serviceName, accountName) }
+            .also { logger.i { "Loaded key from OS keychain" } }
+    } catch (e: Exception) {
+        logger.w(e) { "Failed to read from OS keychain" }
+        null
+    }
+
+    private fun readFromFile(): String? =
+        fallbackKeyFile.takeIf { it.exists() }?.readText()?.trim()
+            ?.also { logger.i { "Loaded key from file" } }
+
+    private fun generateKey(): String =
+        ByteArray(32)
+            .also { SecureRandom().nextBytes(it) }
+            .let { Base64.getEncoder().encodeToString(it) }
+            .also { logger.i { "Generated new encryption key" } }
+
+    private fun storeKey(key: String) {
+        try {
+            Keyring.create().use { it.setPassword(serviceName, accountName, key) }
+            logger.i { "Stored key in OS keychain" }
+        } catch (e: Exception) {
+            logger.w(e) { "OS keychain unavailable, falling back to file" }
+            fallbackKeyFile.parentFile?.mkdirs()
+            fallbackKeyFile.writeText(key)
+            fallbackKeyFile.setReadable(false, false)
+            fallbackKeyFile.setReadable(true, true)
+            fallbackKeyFile.setWritable(false, false)
+            fallbackKeyFile.setWritable(true, true)
+            fallbackKeyFile.setExecutable(false, false)
+        }
+    }
+}

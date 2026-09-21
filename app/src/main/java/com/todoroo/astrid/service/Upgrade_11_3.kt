@@ -4,16 +4,19 @@ package com.todoroo.astrid.service
 
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
-import org.tasks.caldav.iCalendar.Companion.apply
+import org.tasks.caldav.iCalendar.Companion.applyStart
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.UpgraderDao
+import org.tasks.icalendar.toICalDate
 import javax.inject.Inject
 
 class Upgrade_11_3 @Inject constructor(
     private val upgraderDao: UpgraderDao,
     private val openTaskDao: OpenTaskDao,
     private val taskDao: TaskDao,
+    private val dirtyDao: DirtyDao,
     private val vtodoCache: VtodoCache,
 ) {
     internal suspend fun applyiCalendarStartDates() {
@@ -25,13 +28,13 @@ class Upgrade_11_3 @Inject constructor(
                 ?.let { iCalendar.fromVtodo(it) }
                 ?.dtStart
                 ?.let {
-                    it.apply(task.task)
+                    it.applyStart(task.task)
                     upgraderDao.setStartDate(task.id, task.startDate)
                 }
         }
         hasStartDate
                 .map { it.id }
-                .let { taskDao.touch(it) }
+                .let { dirtyDao.setDirty(it) }
     }
 
     internal suspend fun applyOpenTaskStartDates() {
@@ -46,13 +49,13 @@ class Upgrade_11_3 @Inject constructor(
                         ?.task
                         ?.dtStart
                         ?.let {
-                            it.apply(task.task)
+                            it.toICalDate().applyStart(task.task)
                             upgraderDao.setStartDate(task.id, task.startDate)
                         }
             }
             hasStartDate
                     .map { it.id }
-                    .let { taskDao.touch(it) }
+                    .let { dirtyDao.setDirty(it) }
         }
     }
 

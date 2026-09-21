@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.redacted) apply false
+    alias(libs.plugins.room) apply false
 }
 
 buildscript {
@@ -24,7 +25,7 @@ buildscript {
 }
 
 tasks.getByName<Wrapper>("wrapper") {
-    gradleVersion = "9.3.1"
+    gradleVersion = "9.4.0"
     distributionType = Wrapper.DistributionType.ALL
 }
 

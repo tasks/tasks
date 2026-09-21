@@ -9,13 +9,13 @@
       android:layout_height="wrap_content"
       android:padding="@dimen/keyline_first">
         <TextView
-          style="@style/TextAppearance"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/background_location_permission_required" />
 
         <androidx.appcompat.widget.SwitchCompat
-          style="@style/TextAppearance"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
           android:id="@+id/foreground_location"
           android:paddingTop="@dimen/keyline_first"
           android:layout_width="match_parent"
@@ -24,7 +24,7 @@
           android:text="@string/foreground_location" />
 
         <androidx.appcompat.widget.SwitchCompat
-          style="@style/TextAppearance"
+          android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
           android:id="@+id/background_location"
           android:paddingTop="@dimen/keyline_first"
           android:layout_width="match_parent"

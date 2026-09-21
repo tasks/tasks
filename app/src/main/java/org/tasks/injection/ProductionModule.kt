@@ -1,8 +1,8 @@
 package org.tasks.injection
 
 import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room3.Room
+import androidx.room3.RoomDatabase
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.SQLiteDriver
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
@@ -24,11 +24,10 @@ import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
 import org.tasks.kmp.createDataStore
-import org.tasks.location.AndroidLocationManager
+import org.tasks.location.HiltAndroidLocationManager
 import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
-import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -48,6 +47,7 @@ internal class ProductionModule {
                 name = databaseFile.absolutePath
             )
             .addMigrations(*Migrations.migrations(context, fileStorage))
+            .addCallback(Database.CALLBACK)
             .setDriver()
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
@@ -64,28 +64,22 @@ internal class ProductionModule {
         TasksPreferences(createDataStore(context))
 
     @Provides
-    fun locationManager(locationManager: AndroidLocationManager): LocationManager = locationManager
+    fun locationManager(locationManager: HiltAndroidLocationManager): LocationManager = locationManager
 
     @Provides
     @Singleton
     fun getWorkManager(
         @ApplicationContext context: Context,
         preferences: Preferences,
+        tasksPreferences: TasksPreferences,
         caldavDao: CaldavDao,
         openTaskDao: OpenTaskDao,
-    ): WorkManager = WorkManagerImpl(context, preferences, caldavDao, openTaskDao)
+    ): WorkManager = WorkManagerImpl(context, preferences, tasksPreferences, caldavDao, openTaskDao)
 }
 
 fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
     if (atLeastR()) {
-        if (BuildConfig.DEBUG) {
-            setQueryCallback(
-                queryCallback = { sql, args -> Timber.tag("SQL").v("[sql=${sql.replace(Regex("\\s+"), " ").trim()}] [args=$args]") },
-                executor = { it.run() },
-            )
-        } else {
-            this
-        }
+        this
     } else {
         val driver = BundledSQLiteDriver() // need bundled sqlite for window functions
         this

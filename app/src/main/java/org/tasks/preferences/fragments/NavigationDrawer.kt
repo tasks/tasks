@@ -11,7 +11,7 @@ import androidx.fragment.compose.content
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.activities.NavigationDrawerCustomization
-import org.tasks.compose.settings.NavigationDrawerScreen
+import org.tasks.compose.settings.NavigationDrawerContent
 import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
@@ -22,7 +22,7 @@ class NavigationDrawer : Fragment() {
 
     @Inject lateinit var theme: Theme
 
-    private val viewModel: NavigationDrawerViewModel by viewModels()
+    private val viewModel: NavigationDrawerHiltViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,26 +33,13 @@ class NavigationDrawer : Fragment() {
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
         ) {
-            NavigationDrawerScreen(
-                filtersEnabled = viewModel.filtersEnabled,
-                showToday = viewModel.showToday,
-                showRecentlyModified = viewModel.showRecentlyModified,
-                tagsEnabled = viewModel.tagsEnabled,
-                hideUnusedTags = viewModel.hideUnusedTags,
-                placesEnabled = viewModel.placesEnabled,
-                hideUnusedPlaces = viewModel.hideUnusedPlaces,
+            NavigationDrawerContent(
+                viewModel = viewModel,
                 onCustomizeDrawer = {
                     startActivity(
                         Intent(requireContext(), NavigationDrawerCustomization::class.java)
                     )
                 },
-                onFiltersEnabled = { viewModel.updateFiltersEnabled(it) },
-                onShowToday = { viewModel.updateShowToday(it) },
-                onShowRecentlyModified = { viewModel.updateShowRecentlyModified(it) },
-                onTagsEnabled = { viewModel.updateTagsEnabled(it) },
-                onHideUnusedTags = { viewModel.updateHideUnusedTags(it) },
-                onPlacesEnabled = { viewModel.updatePlacesEnabled(it) },
-                onHideUnusedPlaces = { viewModel.updateHideUnusedPlaces(it) },
             )
         }
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certifikát bol dočasne odmietnutý</string>
+    <string name="trust_certificate_accept">Prijať</string>
+    <string name="trust_certificate_fingerprint_verified">Manuálne som skontroloval celý odtlačok.</string>
+    <string name="trust_certificate_fingerprints">Odtlačky</string>
+    <string name="trust_certificate_issued_by">Vydaný</string>
+    <string name="trust_certificate_issued_for">Vydaný pre</string>
+    <string name="trust_certificate_press_back_to_reject">Cez späť znova na odmietnutie certifikátu</string>
+    <string name="trust_certificate_reject">Odmietnuť</string>
+    <string name="trust_certificate_reset_info">V nastavení aplikácie môžete vynulovať všetky používateľské certifikáty.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s  zistil neznámy certifikát. Prajete si dôverovať mu?</string>
+    <string name="trust_certificate_validity_period">Obdobie platnosti</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (nebude sa vynucovať)</string>
+    <string name="trust_certificate_x509_certificate_details">Detaily X509 certifikátu</string>
+</resources>

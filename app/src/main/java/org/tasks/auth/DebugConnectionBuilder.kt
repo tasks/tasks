@@ -16,6 +16,8 @@ package org.tasks.auth
 import android.content.Context
 import android.net.Uri
 import at.bitfire.cert4android.CustomCertManager
+import at.bitfire.cert4android.CustomCertStore
+import at.bitfire.cert4android.SettingsProvider
 import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.Preconditions
 import net.openid.appauth.connectivity.ConnectionBuilder
@@ -43,9 +45,14 @@ class DebugConnectionBuilder @Inject constructor(
         Preconditions.checkNotNull(uri, "url must not be null")
         Preconditions.checkArgument(HTTPS_SCHEME == uri.scheme,
                 "only https connections are permitted")
-        val customCertManager = CustomCertManager(context)
-        customCertManager.appInForeground = appInForeground
-        val hostnameVerifier = customCertManager.hostnameVerifier(OkHostnameVerifier)
+        val customCertManager = CustomCertManager(
+            certStore = CustomCertStore.getInstance(context),
+            settings = object : SettingsProvider {
+                override val appInForeground = this@DebugConnectionBuilder.appInForeground
+                override val trustSystemCerts = true
+            }
+        )
+        val hostnameVerifier = customCertManager.HostnameVerifier(OkHostnameVerifier)
         val sslContext = SSLContext.getInstance("TLS")
         sslContext.init(null, arrayOf(customCertManager), null)
         return (URL(uri.toString()).openConnection() as HttpsURLConnection).apply {

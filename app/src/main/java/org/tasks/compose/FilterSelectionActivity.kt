@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,34 +16,38 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.todoroo.astrid.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import org.tasks.LocalBroadcastManager
+import kotlinx.coroutines.launch
+import org.tasks.auth.SignInActivity
+import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.compose.pickers.SearchableFilterPicker
-import org.tasks.dialogs.FilterPickerViewModel
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.listSettingsClass
+import org.tasks.dialogs.FilterPickerHiltViewModel
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.Filter
 import org.tasks.filters.NavigationDrawerSubheader
-import org.tasks.preferences.DefaultFilterProvider
-import org.tasks.preferences.Preferences
-import org.tasks.widget.WidgetPreferences
+import org.tasks.themes.TasksTheme
+import org.tasks.themes.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class FilterSelectionActivity : AppCompatActivity() {
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var localBroadcastManager: LocalBroadcastManager
+
+    @Inject lateinit var theme: Theme
+    @Inject lateinit var caldavDao: CaldavDao
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +55,39 @@ class FilterSelectionActivity : AppCompatActivity() {
         val widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1)
         val selected = IntentCompat.getParcelableExtra(intent, EXTRA_FILTER, Filter::class.java)
         setContent {
-            MaterialTheme(
-                colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
             ) {
-                val viewModel: FilterPickerViewModel = viewModel()
+                val viewModel: FilterPickerHiltViewModel = hiltViewModel()
                 val state = viewModel.viewState.collectAsStateWithLifecycle().value
+                val scope = rememberCoroutineScope()
+                val signInLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        this@FilterSelectionActivity.recreate()
+                    }
+                }
+                val createListLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.StartActivityForResult()
+                ) { result ->
+                    if (result.resultCode == RESULT_OK) {
+                        result.data
+                            ?.let {
+                                IntentCompat.getParcelableExtra(
+                                    it, MainActivity.OPEN_FILTER, Filter::class.java
+                                )
+                            }
+                            ?.let { filter ->
+                                if (widgetId != -1) {
+                                    viewModel.updateWidget(widgetId, filter)
+                                }
+                                setResult(RESULT_OK, Intent().putExtra(EXTRA_FILTER, filter))
+                                finish()
+                            }
+                    }
+                }
                 BasicAlertDialog(
                     onDismissRequest = { finish() },
                     modifier = Modifier.padding(vertical = 32.dp)
@@ -71,13 +104,34 @@ class FilterSelectionActivity : AppCompatActivity() {
                             finish()
                         }
                     }
+                    val isDark = isSystemInDarkTheme()
+                    val onSurface = MaterialTheme.colorScheme.onSurface.toArgb()
                     SearchableFilterPicker(
                         filters = if (searching) state.searchResults else state.filters,
                         query = state.query,
                         onQueryChange = { viewModel.onQueryChange(it) },
                         getIcon = { viewModel.getIcon(it) },
-                        getColor = { viewModel.getColor(it) },
+                        getColor = { filter ->
+                            viewModel.getColor(filter.tint, isDark) ?: onSurface
+                        },
                         selected = selected,
+                        onAddClick = { header ->
+                            scope.launch {
+                                val accountId = header.id.toLongOrNull() ?: return@launch
+                                val account = caldavDao.getAccount(accountId) ?: return@launch
+                                createListLauncher.launch(
+                                    Intent(
+                                        this@FilterSelectionActivity,
+                                        account.listSettingsClass()
+                                    ).putExtra(EXTRA_CALDAV_ACCOUNT, account)
+                                )
+                            }
+                        },
+                        onSignIn = {
+                            signInLauncher.launch(
+                                Intent(this@FilterSelectionActivity, SignInActivity::class.java)
+                            )
+                        },
                         onClick = { filter ->
                             when (filter) {
                                 is NavigationDrawerSubheader -> {
@@ -88,13 +142,7 @@ class FilterSelectionActivity : AppCompatActivity() {
                                     val data = Bundle()
                                     data.putParcelable(EXTRA_FILTER, filter)
                                     if (widgetId != -1) {
-                                        WidgetPreferences(this, preferences, widgetId)
-                                            .setFilter(
-                                                defaultFilterProvider.getFilterPreferenceValue(
-                                                    filter
-                                                )
-                                            )
-                                        localBroadcastManager.reconfigureWidget(widgetId)
+                                        viewModel.updateWidget(widgetId, filter)
                                     }
                                     setResult(RESULT_OK, Intent().putExtras(data))
                                     finish()

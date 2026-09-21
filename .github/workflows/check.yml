@@ -11,31 +11,108 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Lint checks
         run: bundle exec fastlane lint
 
       - name: Archive lint reports
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: lint-reports
           path: app/build/reports/*.html
 
-  test:
+  jvmTest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Install Compose test dependencies
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libx11-6
+
+      - name: Run JVM tests
+        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest kmp:testDebugUnitTest composeApp:desktopTest
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v7
+        if: ${{ always() }}
+        with:
+          name: test-reports-jvm
+          path: |
+            app/build/reports/**
+            data/build/reports/**
+            kmp/build/reports/**
+            composeApp/build/reports/**
+
+  iosTest:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: platform-tools
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Cache Kotlin/Native
+        uses: actions/cache@v6
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
+
+      - name: Select Xcode
+        run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
+
+      - name: Boot a simulator
+        run: xcrun simctl boot "$(xcrun simctl list devices available -j | jq -r '[.devices[][] | select(.name | test("^iPhone [0-9]+$"))] | last | .udid')"
+
+      - name: Build for iOS and run simulator tests
+        run: ./gradlew :composeApp:compileKotlinIosArm64 :data:iosSimulatorArm64Test :kmp:iosSimulatorArm64Test :composeApp:iosSimulatorArm64Test
+
+      - name: Upload test reports
+        uses: actions/upload-artifact@v7
+        if: ${{ always() }}
+        with:
+          name: test-reports-ios
+          path: |
+            data/build/reports/**
+            kmp/build/reports/**
+            composeApp/build/reports/**
+
+  instrumentedTest:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,16 +120,16 @@ jobs:
         api-level: [29]
     steps:
       - name: checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: '21'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Enable KVM
         run: |
@@ -60,36 +137,17 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-#      - name: AVD cache
-#        uses: actions/cache@v4
-#        id: avd-cache
-#        with:
-#          path: |
-#            ~/.android/avd/*
-#            ~/.android/adb*
-#          key: avd-${{ matrix.api-level }}
-#
-#      - name: create AVD and generate snapshot for caching
-#        if: steps.avd-cache.outputs.cache-hit != 'true'
-#        uses: reactivecircus/android-emulator-runner@v2
-#        with:
-#          api-level: ${{ matrix.api-level }}
-#          force-avd-creation: false
-#          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-#          disable-animations: false
-#          script: echo "Generated AVD snapshot for caching."
-
-      - name: run tests
+      - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: ./gradlew -Pcoverage app:test${{ matrix.flavor }}DebugUnitTest app:connected${{ matrix.flavor }}DebugAndroidTest
+          script: ./gradlew app:connected${{ matrix.flavor }}DebugAndroidTest
 
       - name: Upload test reports
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: test-reports-${{ matrix.flavor }}

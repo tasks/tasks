@@ -1,5 +1,7 @@
 package org.tasks.presentation.screens
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,10 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Menu
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -170,8 +168,8 @@ fun TitleHeader(
                 contentColor = MaterialTheme.colors.onSurface,
             )
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Menu,
+            SymbolIcon(
+                name = TasksIcons.MENU,
                 contentDescription = null,
             )
         }
@@ -188,8 +186,8 @@ fun TitleHeader(
                 contentColor = MaterialTheme.colors.onSurface,
             )
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Add,
+            SymbolIcon(
+                name = TasksIcons.ADD,
                 contentDescription = stringResource(Res.string.add_task),
             )
         }
@@ -212,8 +210,8 @@ fun ButtonHeader(
                 contentColor = MaterialTheme.colors.onSurface,
             )
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Menu,
+            SymbolIcon(
+                name = TasksIcons.MENU,
                 contentDescription = null,
             )
         }
@@ -224,8 +222,8 @@ fun ButtonHeader(
                 contentColor = MaterialTheme.colors.onPrimary,
             )
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Add,
+            SymbolIcon(
+                name = TasksIcons.ADD,
                 contentDescription = stringResource(Res.string.add_task),
             )
         }
@@ -236,8 +234,8 @@ fun ButtonHeader(
             )
 
         ) {
-            Icon(
-                imageVector = Icons.Outlined.Settings,
+            SymbolIcon(
+                name = TasksIcons.SETTINGS,
                 contentDescription = null,
             )
         }

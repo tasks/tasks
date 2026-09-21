@@ -39,10 +39,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.http.HttpClientFactory
-import org.tasks.jobs.WorkManager
 import org.tasks.security.KeyStoreEncryption
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.requestTokenExchange
 import javax.inject.Inject
 
@@ -53,8 +50,6 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
     @Inject lateinit var encryption: KeyStoreEncryption
     @Inject lateinit var httpClientFactory: HttpClientFactory
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var workManager: WorkManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,8 +92,6 @@ class MicrosoftAuthenticationActivity : ComponentActivity() {
                                 R.string.param_type to Constants.SYNC_TYPE_MICROSOFT
                             )
                         }
-                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                workManager.updateBackgroundSync()
                 finish()
             } else {
                 error(ex?.message ?: "Token exchange failed")

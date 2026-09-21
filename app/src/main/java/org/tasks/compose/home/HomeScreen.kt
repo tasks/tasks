@@ -1,15 +1,16 @@
 package org.tasks.compose.home
 
 import android.content.Intent
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -17,7 +18,6 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.ime
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
@@ -60,10 +60,10 @@ import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
+import org.tasks.auth.SignInActivity
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
@@ -71,6 +71,7 @@ import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.drawer.DrawerItem
+import org.tasks.compose.drawer.SearchButtonSize
 import org.tasks.compose.drawer.TaskListDrawer
 import org.tasks.data.listSettingsClass
 import org.tasks.filters.Filter
@@ -85,6 +86,8 @@ import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.MainPreferences
 import timber.log.Timber
 
+private val BottomAppBarHeight = 80.dp
+
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun HomeScreen(
@@ -94,6 +97,8 @@ fun HomeScreen(
     showNewFilterDialog: () -> Unit,
     navigator: ThreePaneScaffoldNavigator<Any>,
 ) {
+    val drawerViewModel = viewModel.drawerViewModel
+    val drawerViewModelState by drawerViewModel.state.collectAsStateWithLifecycle()
     val currentWindowInsets = WindowInsets.systemBars.asPaddingValues()
     val windowInsets = remember { mutableStateOf(currentWindowInsets) }
     val keyboard = LocalSoftwareKeyboardController.current
@@ -116,6 +121,11 @@ fun HomeScreen(
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.List] == PaneAdaptedValue.Expanded
     val isDetailVisible =
         navigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail] == PaneAdaptedValue.Expanded
+
+    val searchButtonInset = (
+        (BottomAppBarHeight - windowInsets.value.calculateBottomPadding())
+            .coerceAtLeast(SearchButtonSize) - SearchButtonSize
+        ) / 2
 
     val openTaskAppDialog = remember { mutableStateOf<org.tasks.data.OpenTaskApp?>(null) }
     val guestDialog = remember { mutableStateOf(false) }
@@ -148,6 +158,7 @@ fun HomeScreen(
         )
     }
 
+    val scope = rememberCoroutineScope()
     if (guestDialog.value) {
         AlertDialog(
             onDismissRequest = { guestDialog.value = false },
@@ -156,9 +167,13 @@ fun HomeScreen(
             dismissButton = {
                 TextButton(onClick = {
                     guestDialog.value = false
-                    newList.launch(
-                        Intent(context, LocalListSettingsActivity::class.java)
-                    )
+                    scope.launch {
+                        val account = viewModel.getOrCreateLocalAccount()
+                        newList.launch(
+                            Intent(context, LocalListSettingsActivity::class.java)
+                                .putExtra(EXTRA_CALDAV_ACCOUNT, account)
+                        )
+                    }
                 }) { Text(stringResource(R.string.local_lists)) }
             },
             confirmButton = {
@@ -187,24 +202,11 @@ fun HomeScreen(
                 ) {
                     val context = LocalContext.current
                     val scope = rememberCoroutineScope()
-                    val searchExpanded = remember { mutableStateOf(false) }
-                    LaunchedEffect(drawerState.isClosed) {
-                        if (drawerState.isClosed) {
-                            searchExpanded.value = false
-                        }
-                    }
-                    BackHandler(enabled = searchExpanded.value) {
-                        if (state.menuQuery.isNotEmpty()) {
-                            viewModel.queryMenu("")
-                        } else {
-                            searchExpanded.value = false
-                            scope.launch { drawerState.close() }
-                        }
-                    }
                     Box(modifier = Modifier.fillMaxSize()) {
                         TaskListDrawer(
-                            arrangement = if (state.menuQuery.isBlank()) Arrangement.Top else Arrangement.Bottom,
-                            filters = if (state.menuQuery.isNotEmpty()) state.searchItems else state.drawerItems,
+                            drawerOpen = drawerState.isOpen,
+                            drawerState = drawerViewModelState,
+                            onQueryChange = { drawerViewModel.setMenuQuery(it) },
                             onClick = {
                                 when (it) {
                                     is DrawerItem.Filter -> {
@@ -216,8 +218,10 @@ fun HomeScreen(
                                     }
 
                                     is DrawerItem.Header -> {
-                                        viewModel.toggleCollapsed(it.header)
+                                        drawerViewModel.toggleCollapsed(it.header)
                                     }
+
+                                    is DrawerItem.SignIn -> {}
                                 }
                             },
                             onAddClick = {
@@ -271,10 +275,15 @@ fun HomeScreen(
                             onErrorClick = {
                                 context.startActivity(Intent(context, MainPreferences::class.java))
                             },
-                            query = state.menuQuery,
-                            onQueryChange = { viewModel.queryMenu(it) },
-                            searchExpanded = searchExpanded.value,
-                            onSearchExpandedChange = { searchExpanded.value = it },
+                            onSignIn = {
+                                scope.launch {
+                                    drawerState.close()
+                                    context.startActivity(
+                                        Intent(context, SignInActivity::class.java)
+                                    )
+                                }
+                            },
+                            searchButtonInset = searchButtonInset,
                         )
 
                         SystemBarScrim(

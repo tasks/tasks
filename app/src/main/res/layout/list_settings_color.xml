@@ -18,7 +18,6 @@
     android:contentDescription="@string/color"
     android:drawablePadding="@dimen/keyline_second"
     android:text="@string/color"
-    android:textColor="@color/text_primary"
     android:textSize="18sp" />
 
 </RelativeLayout>

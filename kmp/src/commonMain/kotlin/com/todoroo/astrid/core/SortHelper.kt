@@ -1,6 +1,6 @@
 package com.todoroo.astrid.core
 
-import org.tasks.data.dao.APPLE_EPOCH
+import org.tasks.data.dao.ORDER_BY_MANUAL
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Functions.upper
@@ -26,9 +26,6 @@ object SortHelper {
     const val SORT_LIST: Int = 9
     const val SORT_COMPLETED: Int = 10
     const val SORT_MANUAL: Int = 11
-
-    private const val CALDAV_ORDER_COLUMN: String =
-        "IFNULL(tasks.`order`, (tasks.created - $APPLE_EPOCH) / 1000)"
 
     private const val ADJUSTED_DUE_DATE =
         "(CASE WHEN (dueDate / 1000) % 60 > 0 THEN dueDate ELSE (dueDate + 43140000) END)"
@@ -156,7 +153,7 @@ object SortHelper {
             SORT_MODIFIED -> if (grouping) sortGroup("tasks.modified") else "tasks.modified"
             SORT_CREATED -> if (grouping) sortGroup("tasks.created") else "tasks.created"
             SORT_GTASKS -> "tasks.`order`"
-            SORT_CALDAV -> CALDAV_ORDER_COLUMN
+            SORT_CALDAV -> ORDER_BY_MANUAL
             SORT_LIST -> "CASE WHEN cdl_order = -1 THEN cdl_name ELSE cdl_order END"
             SORT_COMPLETED -> "tasks.completed"
             else -> ("(CASE WHEN (tasks.dueDate=0) "

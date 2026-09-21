@@ -23,7 +23,27 @@ class iCalendarTest {
     }
 
     @Test
-    fun nextcloudDoesNotSupportReminderSync() {
+    fun oldNextcloudDoesNotSupportReminderSync() {
         assertFalse(TestUtilities.readFile("nextcloud/basic_due_date.txt").supportsReminders())
+    }
+
+    @Test
+    fun nextcloudBefore_0_17_0_DoesNotSupportReminderSync() {
+        assertFalse("-//Nextcloud Tasks v0.16.1".supportsReminders())
+    }
+
+    @Test
+    fun nextcloud_0_17_0_SupportsReminderSync() {
+        assertTrue("-//Nextcloud Tasks v0.17.0".supportsReminders())
+    }
+
+    @Test
+    fun recentNextcloudSupportsReminderSync() {
+        assertTrue("-//Nextcloud Tasks v0.18.1".supportsReminders())
+    }
+
+    @Test
+    fun unversionedNextcloudAssumedToSupportReminderSync() {
+        assertTrue("-//Nextcloud Tasks".supportsReminders())
     }
 }

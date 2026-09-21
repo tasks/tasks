@@ -8,8 +8,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivityViewModel
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.data.TaskSaver
+import org.tasks.service.TaskCompleter
 import com.todoroo.astrid.service.TaskCreator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     @Inject lateinit var activity: Activity
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var taskCreator: TaskCreator
-    @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var checkBoxProvider: CheckBoxProvider
     @Inject lateinit var chipProvider: ChipProvider
     @Inject lateinit var colorProvider: ColorProvider
@@ -88,7 +88,7 @@ class SubtaskControlSet : TaskEditControlFragment() {
     }
 
     private fun toggleSubtask(taskId: Long, collapsed: Boolean) = lifecycleScope.launch {
-        taskDao.setCollapsed(taskId, collapsed)
+        taskSaver.setCollapsed(taskId, collapsed)
     }
 
     private fun complete(task: Task, completed: Boolean) = lifecycleScope.launch {

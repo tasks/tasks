@@ -1,9 +1,9 @@
 package org.tasks.data
 
-import androidx.room.Embedded
+import androidx.room3.Embedded
 import org.tasks.data.entity.Place
 
 data class LocationFilters(
-    @JvmField @Embedded var place: Place,
-    @JvmField var count: Int
+    @Embedded var place: Place,
+    var count: Int
 )

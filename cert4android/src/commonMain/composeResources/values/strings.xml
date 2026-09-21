@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificate temporarily rejected</string>
+    <string name="trust_certificate_accept">Accept</string>
+    <string name="trust_certificate_fingerprint_verified">I have manually verified the whole fingerprint.</string>
+    <string name="trust_certificate_fingerprints">Fingerprints</string>
+    <string name="trust_certificate_issued_by">Issued by</string>
+    <string name="trust_certificate_issued_for">Issued for</string>
+    <string name="trust_certificate_press_back_to_reject">Press Back again to reject certificate</string>
+    <string name="trust_certificate_reject">Reject</string>
+    <string name="trust_certificate_reset_info">You can reset all custom certificates in the app settings.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s has encountered an unknown certificate. Do you want to trust it?</string>
+    <string name="trust_certificate_validity_period">Validity period</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (will not be enforced)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 certificate details</string>
+</resources>

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,17 +17,15 @@ import com.todoroo.astrid.activity.MainActivity.Companion.finishAffinity
 import com.todoroo.astrid.activity.MainActivity.Companion.removeTask
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.tasks.R
 import org.tasks.calendars.CalendarPicker
 import org.tasks.compose.edit.TaskEditScreen
 import org.tasks.repeats.BasicRecurrenceDialog
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.data.dao.UserActivityDao
-import org.tasks.dialogs.DateTimePicker
-import org.tasks.dialogs.DialogBuilder
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.hideKeyboard
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.notifications.CancelReason
 import org.tasks.notifications.NotificationManager
 import org.tasks.play.PlayServices
 import org.tasks.preferences.Preferences
@@ -45,7 +41,6 @@ import javax.inject.Inject
 class TaskEditFragment : Fragment() {
     @Inject lateinit var userActivityDao: UserActivityDao
     @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var dialogBuilder: DialogBuilder
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var linkify: Linkify
     @Inject lateinit var locale: Locale
@@ -84,7 +79,7 @@ class TaskEditFragment : Fragment() {
             val viewState = editViewModel.viewState.collectAsStateWithLifecycle().value
             LaunchedEffect(viewState.isNew) {
                 if (!viewState.isNew) {
-                    notificationManager.cancel(viewState.task.id)
+                    notificationManager.cancel(viewState.task.id, CancelReason.EDIT)
                 }
             }
             val context = LocalContext.current
@@ -103,28 +98,14 @@ class TaskEditFragment : Fragment() {
                 },
                 discard = {
                     keyboard?.hide()
-                    if (editViewModel.hasChanges()) {
-                        dialogBuilder
-                            .newDialog(R.string.discard_confirmation)
-                            .setPositiveButton(R.string.keep_editing, null)
-                            .setNegativeButton(R.string.discard) { _, _ -> discard() }
-                            .show()
-                    } else {
-                        discard()
-                    }
+                    discard()
                 },
                 delete = {
                     keyboard?.hide()
-                    dialogBuilder
-                        .newDialog(R.string.DLG_delete_this_task_question)
-                        .setPositiveButton(R.string.ok) { _, _ ->
-                            lifecycleScope.launch {
-                                editViewModel.delete()
-                                clearTask()
-                            }
-                        }
-                        .setNegativeButton(R.string.cancel, null)
-                        .show()
+                    lifecycleScope.launch {
+                        editViewModel.delete()
+                        clearTask()
+                    }
                 },
                 dismissBeastMode = { editViewModel.hideBeastModeHint(click = false) },
                 deleteComment = {
@@ -134,20 +115,7 @@ class TaskEditFragment : Fragment() {
                 },
                 markdownProvider = remember { MarkdownProvider(context, preferences) },
                 linkify = if (viewState.linkify) linkify else null,
-                onClickDueDate = {
-                    DateTimePicker
-                        .newDateTimePicker(
-                            target = this@TaskEditFragment,
-                            rc = REQUEST_DATE,
-                            current = editViewModel.dueDate.value,
-                            autoClose = preferences.getBoolean(
-                                R.string.p_auto_dismiss_datetime_edit_screen,
-                                false
-                            ),
-                            hideNoDate = viewState.task.isRecurring,
-                        )
-                        .show(parentFragmentManager, FRAG_TAG_DATE_PICKER)
-                },
+                preferences = preferences,
                 onClickRepeat = {
                     val vs = editViewModel.viewState.value
                     BasicRecurrenceDialog.newBasicRecurrenceDialog(
@@ -156,7 +124,7 @@ class TaskEditFragment : Fragment() {
                         accountType = vs.list.account.accountType,
                     ).show(parentFragmentManager, FRAG_TAG_BASIC_RECURRENCE)
                 },
-                repeatRuleToString = { repeatRuleToString.toString(it) },
+                repeatRuleToString = { repeatRuleToString.toStringBlocking(it) },
                 colorProvider = { chipProvider.getColor(it) },
                 locale = remember { locale },
             )
@@ -195,23 +163,10 @@ class TaskEditFragment : Fragment() {
         clearTask()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_DATE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    editViewModel.setDueDate(data!!.getLongExtra(DateTimePicker.EXTRA_TIMESTAMP, 0L))
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     companion object {
         const val EXTRA_TASK = "extra_task"
 
         const val FRAG_TAG_CALENDAR_PICKER = "frag_tag_calendar_picker"
-        private const val FRAG_TAG_DATE_PICKER = "frag_tag_date_picker"
         private const val FRAG_TAG_BASIC_RECURRENCE = "frag_tag_basic_recurrence"
-        private const val REQUEST_DATE = 504
     }
 }

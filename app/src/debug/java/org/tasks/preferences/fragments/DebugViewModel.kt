@@ -29,11 +29,10 @@ class DebugViewModel @Inject constructor(
     private val preferences: Preferences,
     private val tasksPreferences: TasksPreferences,
     private val taskCreator: com.todoroo.astrid.service.TaskCreator,
-    private val taskDao: com.todoroo.astrid.dao.TaskDao,
+    private val taskDao: org.tasks.data.dao.TaskDao,
+    private val taskSaver: org.tasks.data.TaskSaver,
 ) : ViewModel() {
 
-    var leakCanaryEnabled by mutableStateOf(false)
-        private set
     var strictModeVmEnabled by mutableStateOf(false)
         private set
     var strictModeThreadEnabled by mutableStateOf(false)
@@ -50,7 +49,6 @@ class DebugViewModel @Inject constructor(
         private set
 
     fun refreshState() {
-        leakCanaryEnabled = preferences.getBoolean(R.string.p_leakcanary, false)
         strictModeVmEnabled = preferences.getBoolean(R.string.p_strict_mode_vm, false)
         strictModeThreadEnabled = preferences.getBoolean(R.string.p_strict_mode_thread, false)
         crashOnViolationEnabled = preferences.getBoolean(R.string.p_crash_main_queries, false)
@@ -59,12 +57,6 @@ class DebugViewModel @Inject constructor(
         viewModelScope.launch {
             showDebugFilters = tasksPreferences.get(TasksPreferences.showDebugFilters, false)
         }
-    }
-
-    fun updateLeakCanary(enabled: Boolean) {
-        preferences.setBoolean(R.string.p_leakcanary, enabled)
-        leakCanaryEnabled = enabled
-        showRestartDialog = true
     }
 
     fun updateStrictModeVm(enabled: Boolean) {
@@ -131,6 +123,11 @@ class DebugViewModel @Inject constructor(
         preferences.setBoolean(R.string.p_local_list_banner_dismissed, false)
         preferences.warnAlarmsDisabled = true
         preferences.warnNotificationsDisabled = true
+        viewModelScope.launch {
+            tasksPreferences.set(TasksPreferences.blogLastChecked, 0L)
+            tasksPreferences.set(TasksPreferences.blogDismissedPostId, "")
+            tasksPreferences.set(TasksPreferences.blogPendingPost, "")
+        }
     }
 
     fun createTasks(onComplete: (Int) -> Unit) {
@@ -144,7 +141,7 @@ class DebugViewModel @Inject constructor(
                     Task.URGENCY_SPECIFIC_DAY,
                     currentTimeMillis(),
                 )
-                taskDao.save(task)
+                taskSaver.save(task, null)
             }
             onComplete(count)
         }

@@ -4,6 +4,7 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import org.tasks.data.entity.Task
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.TimeZone
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.TestUtilities.withTZ
@@ -12,7 +13,6 @@ import org.tasks.makers.CaldavTaskMaker.newCaldavTask
 import org.tasks.makers.TaskMaker
 import org.tasks.makers.TaskMaker.newTask
 import org.tasks.time.DateTime
-import java.util.*
 
 @HiltAndroidTest
 class OpenTasksDueDateTests : OpenTasksTest() {
@@ -21,8 +21,8 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     fun readDueDatePositiveOffset() = runBlocking {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
-        withTZ(BERLIN) {
-            synchronizer.sync()
+        withTZ(BERLIN.id) {
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -34,7 +34,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     }
 
     @Test
-    fun writeDueDatePositiveOffset() = withTZ(BERLIN) {
+    fun writeDueDatePositiveOffset() = withTZ(BERLIN.id) {
         val (listId, list) = openTaskDao.insertList()
         val taskId = taskDao.createNew(newTask(
                 with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
@@ -45,7 +45,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -57,8 +57,8 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     fun readDueDateNoOffset() = runBlocking {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
-        withTZ(LONDON) {
-            synchronizer.sync()
+        withTZ(LONDON.id) {
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -70,7 +70,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     }
 
     @Test
-    fun writeDueDateNoOffset() = withTZ(LONDON) {
+    fun writeDueDateNoOffset() = withTZ(LONDON.id) {
         val (listId, list) = openTaskDao.insertList()
         val taskId = taskDao.createNew(newTask(
                 with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
@@ -81,7 +81,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -93,8 +93,8 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     fun readDueDateNegativeOffset() = runBlocking {
         val (_, list) = withVtodo(ALL_DAY_DUE)
 
-        withTZ(NEW_YORK) {
-            synchronizer.sync()
+        withTZ(NEW_YORK.id) {
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "3863299529704302692")
@@ -106,7 +106,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     }
 
     @Test
-    fun writeDueDateNegativeOffset() = withTZ(NEW_YORK) {
+    fun writeDueDateNegativeOffset() = withTZ(NEW_YORK.id) {
         val (listId, list) = openTaskDao.insertList()
         val taskId = taskDao.createNew(newTask(
                 with(TaskMaker.DUE_DATE, DateTime(2021, 2, 1))
@@ -117,7 +117,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, taskId)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612137600000,
@@ -126,7 +126,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     }
 
     @Test
-    fun pushStartTimeBeforeDueTime() = withTZ(CHICAGO) {
+    fun pushStartTimeBeforeDueTime() = withTZ(CHICAGO.id) {
         val (listId, list) = openTaskDao.insertList()
         val task = newTask(
                 with(TaskMaker.HIDE_TYPE, Task.HIDE_UNTIL_DUE_TIME),
@@ -139,7 +139,7 @@ class OpenTasksDueDateTests : OpenTasksTest() {
                 with(CaldavTaskMaker.TASK, task.id)
         ))
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = true)
 
         assertEquals(
                 1612216800000,
@@ -155,8 +155,8 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     fun startTimeEqualDueTime() = runBlocking {
         val (_, list) = withVtodo(START_TIME_DUE_TIME)
 
-        withTZ(CHICAGO) {
-            synchronizer.sync()
+        withTZ(CHICAGO.id) {
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "2009955511573185442")
@@ -169,8 +169,8 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     fun startTimeEqualDueTimeNoOffset() = runBlocking {
         val (_, list) = withVtodo(START_TIME_DUE_TIME_NO_OFFSET)
 
-        withTZ(CHICAGO) {
-            synchronizer.sync()
+        withTZ(CHICAGO.id) {
+            synchronizer.sync(hasPro = true)
         }
 
         val caldavTask = caldavDao.getTaskByRemoteId(list.uuid!!, "2009955511573185442")
@@ -180,10 +180,10 @@ class OpenTasksDueDateTests : OpenTasksTest() {
     }
 
     companion object {
-        private val BERLIN = TimeZone.getTimeZone("Europe/Berlin")
-        private val LONDON = TimeZone.getTimeZone("Europe/London")
-        private val NEW_YORK = TimeZone.getTimeZone("America/New_York")
-        private val CHICAGO = TimeZone.getTimeZone("America/Chicago")
+        private val BERLIN = TimeZone.of("Europe/Berlin")
+        private val LONDON = TimeZone.of("Europe/London")
+        private val NEW_YORK = TimeZone.of("America/New_York")
+        private val CHICAGO = TimeZone.of("America/Chicago")
 
         private val ALL_DAY_DUE = """
             BEGIN:VCALENDAR

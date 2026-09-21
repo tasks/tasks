@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -10,7 +10,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.SuspendFreeze.Companion.freezeAt
-import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.caldav.toLikeString
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Alarm

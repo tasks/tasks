@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificaat tijdelijk afgewezen</string>
+    <string name="trust_certificate_accept">Accepteren</string>
+    <string name="trust_certificate_fingerprint_verified">Ik heb handmatig de gehele vingerafdruk gecontroleerd.</string>
+    <string name="trust_certificate_fingerprints">Vingerafdruken</string>
+    <string name="trust_certificate_issued_by">afgegeven door</string>
+    <string name="trust_certificate_issued_for">afgegeven voor</string>
+    <string name="trust_certificate_press_back_to_reject">Druk nogmaals op Terug om het certificaat te weigeren</string>
+    <string name="trust_certificate_reject">Afwijzen</string>
+    <string name="trust_certificate_reset_info">Je kunt de bewerkte certificaten bij de app-instellingen herstellen.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s is benaderd door een onbekend certificaat. Wil je dit vertrouwen?</string>
+    <string name="trust_certificate_validity_period">Geldigheidsduur</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (worden niet afgedwongen)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 certificaat details</string>
+</resources>

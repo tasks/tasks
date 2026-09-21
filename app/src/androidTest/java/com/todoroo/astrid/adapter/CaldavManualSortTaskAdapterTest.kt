@@ -2,19 +2,22 @@ package com.todoroo.astrid.adapter
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.natpryce.makeiteasy.PropertyValue
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskMover
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.data.TaskContainer
+import org.tasks.data.TaskSaver
 import org.tasks.data.TaskListQuery.getQuery
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
@@ -37,6 +40,8 @@ import javax.inject.Inject
 class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
     @Inject lateinit var googleTaskDao: GoogleTaskDao
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
+    @Inject lateinit var dirtyDao: DirtyDao
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
@@ -60,7 +65,7 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
         preferences.clear()
         preferences.setBoolean(R.string.p_manual_sort, true)
         tasks.clear()
-        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, localBroadcastManager, taskMover)
+        adapter = CaldavManualSortTaskAdapter(googleTaskDao, caldavDao, taskDao, taskSaver, dirtyDao, localBroadcastManager, taskMover)
         adapter.setDataSource(dataSource)
     }
 
@@ -217,6 +222,64 @@ class CaldavManualSortTaskAdapterTest : InjectingTestCase() {
 
         assertEquals(grandparent, tasks[3].parent)
         checkOrder(created.plusSeconds(6), 3)
+    }
+
+    @Test
+    fun moveSubtaskToAnotherListHonorsDropPosition() = runBlocking {
+        // two caldav lists on the same account
+        caldavDao.insert(CaldavAccount(uuid = "acct", accountType = TYPE_CALDAV))
+        caldavDao.insert(CaldavCalendar(uuid = "src", account = "acct"))
+        caldavDao.insert(CaldavCalendar(uuid = "dst", account = "acct"))
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        // destination list: parent with two existing subtasks
+        val parent = addTaskTo("dst", created)
+        val childA = addTaskTo("dst", created.plusSeconds(2), parent)
+        val childB = addTaskTo("dst", created.plusSeconds(4), parent)
+        // source list: the task to drag
+        val dragged = addTaskTo("src", created.plusSeconds(6))
+
+        // multi-list view: parent, childA, childB (dst), then the dragged task (src)
+        val dstFilter = CaldavFilter(CaldavCalendar(uuid = "dst"), CaldavAccount(accountType = TYPE_CALDAV))
+        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, dstFilter)))
+        tasks.addAll(taskDao.fetchTasks(getQuery(preferences, CaldavFilter(CaldavCalendar(uuid = "src"), CaldavAccount(accountType = TYPE_CALDAV)))))
+
+        // drag the task from the other list in as a subtask of parent, between childA and childB
+        adapter.moved(3, 2, 1)
+
+        // it moved into the destination list, nested under parent, at the drop position
+        // (between childA and childB) — not forced to the top or bottom
+        assertEquals("dst", caldavDao.getTask(dragged)!!.calendar)
+        assertEquals(parent, taskDao.fetch(dragged)!!.parent)
+        val childOrder = taskDao.fetchTasks(getQuery(preferences, dstFilter))
+            .filter { it.parent == parent }
+            .map { it.id }
+        assertEquals(listOf(childA, dragged, childB), childOrder)
+    }
+
+    @Test
+    fun droppingIntoAFoldedRowLeavesItFolded() = runBlocking {
+        val created = DateTime(2020, 5, 17, 9, 53, 17)
+        val parent = addTask(with(CREATION_TIME, created))
+        addTask(with(CREATION_TIME, created.plusSeconds(1)), with(PARENT, parent))
+        val dragged = addTask(with(CREATION_TIME, created.plusSeconds(2)))
+        taskDao.setCollapsed(listOf(parent), true)
+
+        move(1, 1, 1)
+
+        assertEquals(parent, taskDao.fetch(dragged)!!.parent)
+        assertTrue(taskDao.fetch(parent)!!.isCollapsed)
+    }
+
+    private fun addTaskTo(list: String, created: DateTime, parent: Long = 0): Long = runBlocking {
+        val task = newTask(with(CREATION_TIME, created), with(PARENT, parent))
+        taskDao.createNew(task)
+        val remoteParent = if (parent > 0) caldavDao.getRemoteIdForTask(parent) else null
+        caldavDao.insert(
+                newCaldavTask(
+                        with(TASK, task.id),
+                        with(CALENDAR, list),
+                        with(REMOTE_PARENT, remoteParent)))
+        task.id
     }
 
     private fun move(from: Int, to: Int, indent: Int = 0) = runBlocking {

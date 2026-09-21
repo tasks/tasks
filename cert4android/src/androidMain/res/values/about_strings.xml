@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="define_cert4android" translatable="false" />
+    <string name="library_cert4android_author" translatable="false">Ricki Hirner</string>
+    <string name="library_cert4android_authorWebsite" translatable="false">https://www.bitfire.at</string>
+    <string name="library_cert4android_libraryName" translatable="false">cert4android</string>
+    <string name="library_cert4android_libraryDescription">Library for managing custom certificates in an app-private key store</string>
+    <string name="library_cert4android_libraryWebsite" translatable="false">https://github.com/bitfireAT/cert4android</string>
+    <string name="library_cert4android_licenseId" translatable="false">gpl_3_0</string>
+    <string name="library_cert4android_isOpenSource" translatable="false">true</string>
+
+</resources>

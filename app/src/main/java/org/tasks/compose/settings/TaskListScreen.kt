@@ -33,6 +33,7 @@ fun TaskListScreen(
     showDescription: Boolean,
     showFullDescription: Boolean,
     showLinks: Boolean,
+    perListSort: Boolean,
     chipAppearanceSummary: String,
     subtaskChips: Boolean,
     startDateChips: Boolean,
@@ -45,6 +46,7 @@ fun TaskListScreen(
     onShowDescription: (Boolean) -> Unit,
     onShowFullDescription: (Boolean) -> Unit,
     onShowLinks: (Boolean) -> Unit,
+    onPerListSort: (Boolean) -> Unit,
     onChipAppearance: () -> Unit,
     onSubtaskChips: (Boolean) -> Unit,
     onStartDateChips: (Boolean) -> Unit,
@@ -120,6 +122,23 @@ fun TaskListScreen(
                     summary = stringResource(R.string.linkify_description),
                     checked = showLinks,
                     onCheckedChange = onShowLinks,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        // Sorting options island
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            SettingsItemCard(position = CardPosition.Only) {
+                SwitchPreferenceRow(
+                    title = stringResource(R.string.per_list_sort_title),
+                    summary = stringResource(R.string.per_list_sort_summary),
+                    checked = perListSort,
+                    onCheckedChange = onPerListSort,
                 )
             }
         }

@@ -1,17 +1,18 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room3.Dao
+import androidx.room3.Delete
+import androidx.room3.Query
+import androidx.room3.Transaction
 import co.touchlab.kermit.Logger
 import org.tasks.data.db.SuspendDbUtils.chunkedMap
 import org.tasks.data.db.SuspendDbUtils.eachChunk
+import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 
 @Dao
-abstract class DeletionDao {
+abstract class DeletionDao(private val database: Database) {
     @Query("DELETE FROM tasks WHERE _id IN(:ids)")
     internal abstract suspend fun deleteTasks(ids: List<Long>)
 
@@ -52,7 +53,7 @@ WHERE recurring = 1
     }
 
     @Query("UPDATE tasks "
-            + "SET modified = (strftime('%s','now')*1000), deleted = (strftime('%s','now')*1000)"
+            + "SET modified = (strftime('%s','now')*1000), deleted = (strftime('%s','now')*1000) "
             + "WHERE _id IN(:ids)")
     internal abstract suspend fun markDeletedInternal(ids: List<Long>)
 
@@ -62,7 +63,10 @@ WHERE recurring = 1
         cleanup: suspend (List<Long>) -> Unit,
     ) {
         Logger.d("DeletionDao") { "markDeleted ids=$ids" }
-        ids.eachChunk(this::markDeletedInternal)
+        ids.eachChunk {
+            markDeletedInternal(it)
+            database.dirtyDao().setDirty(it)
+        }
         cleanup(ids.toList())
     }
 
@@ -103,12 +107,12 @@ WHERE recurring = 1
     open suspend fun delete(
         caldavAccount: CaldavAccount,
         cleanup: suspend (List<Long>) -> Unit,
-    ) {
+    ): List<CaldavCalendar> {
         Logger.d("DeletionDao") { "deleting $caldavAccount" }
-        for (calendar in getCalendars(caldavAccount.uuid!!)) {
-            delete(calendar, cleanup)
-        }
+        val calendars = getCalendars(caldavAccount.uuid!!)
+        calendars.forEach { delete(it, cleanup) }
         deleteCaldavAccount(caldavAccount)
+        return calendars
     }
 
     @Query("""
@@ -119,5 +123,5 @@ WHERE recurring = 1
         FROM tasks
         WHERE _id = :task
     """)
-    abstract fun isDeleted(task: Long): Boolean
+    abstract suspend fun isDeleted(task: Long): Boolean
 }

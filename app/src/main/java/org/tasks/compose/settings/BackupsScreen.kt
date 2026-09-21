@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -61,7 +59,7 @@ fun BackupsScreen(
         SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             PreferenceRow(
                 title = stringResource(R.string.documentation),
-                icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                icon = TasksIcons.OPEN_IN_NEW,
                 onClick = onDocumentation,
             )
         }
@@ -122,7 +120,7 @@ fun BackupsScreen(
                     checked = driveBackupEnabled,
                     onCheckedChange = onDriveBackup,
                     icon = if (showDriveBackupWarning)
-                        Icons.Outlined.ErrorOutline else null,
+                        TasksIcons.ERROR_OUTLINE else null,
                     iconTint = if (showDriveBackupWarning) errorColor else null,
                 )
             }
@@ -153,7 +151,7 @@ fun BackupsScreen(
                     checked = androidBackupEnabled,
                     onCheckedChange = onAndroidBackup,
                     icon = if (showAndroidBackupWarning)
-                        Icons.Outlined.ErrorOutline else null,
+                        TasksIcons.ERROR_OUTLINE else null,
                     iconTint = if (showAndroidBackupWarning) errorColor else null,
                 )
             }
@@ -162,7 +160,7 @@ fun BackupsScreen(
                     title = stringResource(R.string.device_settings),
                     summary = stringResource(R.string.android_auto_backup_device_summary),
                     summaryMaxLines = 4,
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                    icon = TasksIcons.OPEN_IN_NEW,
                     onClick = onDeviceSettings,
                 )
             }

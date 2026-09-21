@@ -13,23 +13,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.tasks_org
 import org.tasks.auth.SignInActivity
 import org.tasks.extensions.Context.toast
-import org.tasks.jobs.WorkManager
 import org.tasks.preferences.fragments.MainSettingsComposeFragment
-import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_CALDAV_SETTINGS
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_GOOGLE_TASKS
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.preferences.fragments.TasksAccount
-import org.tasks.sync.SyncAdapters
-import org.tasks.sync.SyncSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainPreferences : BasePreferences() {
 
-    @Inject lateinit var syncAdapters: SyncAdapters
-    @Inject lateinit var workManager: WorkManager
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
 
     private val viewModel: PreferencesViewModel by viewModels()
@@ -59,26 +55,17 @@ class MainPreferences : BasePreferences() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
-            REQUEST_CALDAV_SETTINGS -> if (resultCode == RESULT_OK) {
-                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                workManager.updateBackgroundSync()
-            }
-            REQUEST_GOOGLE_TASKS -> if (resultCode == Activity.RESULT_OK) {
-                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                workManager.updateBackgroundSync()
-            } else {
+            REQUEST_GOOGLE_TASKS -> if (resultCode != Activity.RESULT_OK) {
                 data?.getStringExtra(GtasksLoginActivity.EXTRA_ERROR)?.let { toast(it) }
             }
             REQUEST_TASKS_ORG -> if (resultCode == Activity.RESULT_OK) {
-                syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
-                workManager.updateBackgroundSync()
                 lifecycleScope.launch {
                     val account = viewModel.tasksAccount() ?: return@launch
                     val fragment = supportFragmentManager.findFragmentById(R.id.settings)
                     if (fragment !is TasksAccount) {
                         startPreference(
                                 TasksAccount.newTasksAccountPreference(account),
-                                getString(R.string.tasks_org)
+                                org.jetbrains.compose.resources.getString(Res.string.tasks_org)
                         )
                     }
                 }

@@ -1,7 +1,7 @@
 package org.tasks.compose
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -23,8 +23,8 @@ fun DeleteButton(
     val scope = rememberCoroutineScope()
     var promptDelete by remember { mutableStateOf(false) }
     IconButton(onClick = { promptDelete = true }) {
-        Icon(
-            imageVector = Icons.Outlined.Delete,
+        SymbolIcon(
+            name = TasksIcons.DELETE,
             contentDescription = stringResource(id = R.string.delete),
         )
     }

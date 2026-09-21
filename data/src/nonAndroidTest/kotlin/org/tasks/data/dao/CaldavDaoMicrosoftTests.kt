@@ -1,0 +1,108 @@
+package org.tasks.data.dao
+
+import androidx.room3.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import kotlinx.coroutines.runBlocking
+import org.tasks.data.db.Database
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+class CaldavDaoMicrosoftTests {
+    private lateinit var db: Database
+    private lateinit var taskDao: TaskDao
+    private lateinit var caldavDao: CaldavDao
+    private lateinit var dirtyDao: DirtyDao
+
+    @BeforeTest
+    fun setUp() {
+        db = Room.inMemoryDatabaseBuilder<Database>()
+            .setDriver(BundledSQLiteDriver())
+            .addCallback(Database.CALLBACK)
+            .build()
+        taskDao = db.taskDao()
+        caldavDao = db.caldavDao()
+        dirtyDao = db.dirtyDao()
+    }
+
+    @AfterTest
+    fun tearDown() {
+        db.close()
+    }
+
+    private suspend fun insertCaldavTask(
+        remoteId: String,
+        remoteParent: String? = null,
+        synced: Boolean = true,
+        deleted: Long = 0L,
+        calendar: String = CALENDAR,
+    ) {
+        val task = Task()
+        taskDao.createNew(task)
+        val ctId = caldavDao.insert(
+            CaldavTask(
+                task = task.id,
+                calendar = calendar,
+                remoteId = remoteId,
+                remoteParent = remoteParent,
+                deleted = deleted,
+            )
+        )
+        if (synced) {
+            dirtyDao.markSynced(ctId)
+        }
+    }
+
+    @Test
+    fun excludesSubtasks() = runBlocking {
+        insertCaldavTask(remoteId = "parent-1")
+        insertCaldavTask(remoteId = "child-1", remoteParent = "parent-1")
+
+        assertEquals(listOf("parent-1"), caldavDao.getTopLevelRemoteIds(CALENDAR))
+    }
+
+    @Test
+    fun includesNullRemoteParent() = runBlocking {
+        insertCaldavTask(remoteId = "task-1", remoteParent = null)
+
+        assertEquals(listOf("task-1"), caldavDao.getTopLevelRemoteIds(CALENDAR))
+    }
+
+    @Test
+    fun includesEmptyRemoteParent() = runBlocking {
+        insertCaldavTask(remoteId = "task-1", remoteParent = "")
+
+        assertEquals(listOf("task-1"), caldavDao.getTopLevelRemoteIds(CALENDAR))
+    }
+
+    @Test
+    fun excludesDeleted() = runBlocking {
+        insertCaldavTask(remoteId = "deleted-1", deleted = 1L)
+
+        assertTrue(caldavDao.getTopLevelRemoteIds(CALENDAR).isEmpty())
+    }
+
+    @Test
+    fun excludesUnsynced() = runBlocking {
+        insertCaldavTask(remoteId = "unsynced-1", synced = false)
+
+        assertTrue(caldavDao.getTopLevelRemoteIds(CALENDAR).isEmpty())
+    }
+
+    @Test
+    fun filtersPerCalendar() = runBlocking {
+        insertCaldavTask(remoteId = "a-1", calendar = "calendar-a")
+        insertCaldavTask(remoteId = "b-1", calendar = "calendar-b")
+
+        assertEquals(listOf("a-1"), caldavDao.getTopLevelRemoteIds("calendar-a"))
+        assertEquals(listOf("b-1"), caldavDao.getTopLevelRemoteIds("calendar-b"))
+    }
+
+    companion object {
+        private const val CALENDAR = "test-calendar"
+    }
+}

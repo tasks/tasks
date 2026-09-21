@@ -1,3 +1,433 @@
+### 15.12 (2026-09-11)
+
+* Add 'Works with Tasks.org' in app settings
+* Sync reminder dismissals across devices
+* Don't bump modification date when snoozing
+
+Android:
+  * Add new content provider API and [specification](https://github.com/tasks/tasks/blob/main/CONTENT_PROVIDER.md)
+    * Build your own widgets, apps, and tools with the Tasks.org data on your device
+  * Reduce sync delay after changes from 60 to 30 seconds
+  * Add support for AppFunctions
+
+Desktop:
+  * Add an MCP server
+    * Allows AI assistants to connect to Tasks.org
+  * Look & feel settings - @jheld [#4360](https://github.com/tasks/tasks/pull/4360)
+  * Navigation drawer settings - @jheld [#4407](https://github.com/tasks/tasks/pull/4407)
+  * Theme fixes and updates
+  * Fix stale times [#4663](https://github.com/tasks/tasks/issues/4663)
+
+Update translations:
+  * Chinese (Simplified) - hamburger2048
+  * Dutch - @Stephan-P
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @fm-sys, @felicia-b @Kachelkaiser
+  * Hungarian - Kaci
+  * Romanian - @ygorigor
+  * Turkish - @oersen
+
+### 15.11 (2026-09-01)
+
+* Add 'last day of month' recurrence option [#2411](https://github.com/tasks/tasks/issues/2411)
+* Drawer rendering performance improvement - @toxicphreAK [#4570](https://github.com/tasks/tasks/pull/4570)
+* Fix running tests on Windows - @przemhb [#4591](https://github.com/tasks/tasks/pull/4591)
+* Make sure recurrence doesn't skip short months [#4135](https://github.com/tasks/tasks/issues/4135)
+* Fix all-day dates edited across two devices and two time zones from wedging sync
+
+Desktop:
+  * Display reminders on macOS, Windows, and Linux
+  * Fix packaging app from source - @CR0CKER [#4589](https://github.com/tasks/tasks/pull/4589)
+
+Android:
+  * Task list rendering performance improvement - @toxicphreAK [#4569](https://github.com/tasks/tasks/pull/4569)
+  * Fix time display when ICU data is missing
+
+Update translations:
+  * Brazilian Portuguese - @restlessSangoLeelo
+  * Czech - @p-bo
+  * Esperanto - @Rajzin
+  * Estonian - Priit Jõerüüt
+  * Hungarian - Kaci
+  * Indonesian - @arifpedia
+  * Romanian - @ygorigor
+  * Serbian - @vale-decem
+  * Swedish - Jonatan Nyberg
+  * Thai - @KuroisKitsune
+  * Ukrainian - @IhorHordiichuk
+
+### 15.10 (2026-08-14)
+
+* Completed subtasks now remain under the parent task
+* Add 'Show completed subtasks' toggle to sort menu
+* Subtask sorting bug fixes
+
+Desktop:
+  * Add subtasks to the edit screen
+    * Supports drag and drop to reorder and nest
+    * Tab and shift-tab to change nesting
+    * Edit subtask titles from the parent task
+    * Edit subtasks without leaving the parent task
+  * Add Task defaults settings page
+  * Prompt before discarding or deleting tasks from the editor
+  * Fix Windows and Linux ARM builds
+  * Fix window size crashes on Windows
+  * Fix desktop app losing subscription status
+
+Update translations:
+  * Brazilian Portuguese - @restlessSangoLeelo
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @zhx000
+  * Hebrew - @ginger-co, @omeritzics
+  * Japanese - akira7095
+  * Polish - @pawerak
+  * Turkish - @oersen
+
+### 15.9.1 (2026-08-05)
+
+* Google Tasks sync performance improvements
+* Add default reminders to incoming Google Tasks
+* Detect moves from native Google Task apps
+* Prevent stuck dirty tasks from causing a sync loop
+* Task list scrolling performance improvements
+* Logging performance improvements - @toxicphreAK
+
+Android:
+  * OpenTask query hardening - @toxicphreAK [#4539](https://github.com/tasks/tasks/pull/4539)
+  * Collapsed grouping fix for Pebble watches
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Estonian - Priit Jõerüüt
+
+### 15.9 (2026-08-05)
+
+* Fix modified and created timestamp sync
+* Fix language override not being applied
+
+Desktop:
+  * Add Microsoft To Do support
+  * New edit screen functionality
+    * Start dates
+    * Due dates
+    * Notifications
+    * Recurrence
+  * Make drawer, task list, and edit screens resizable
+  * Add bottom bar to edit screen with complete, discard, and delete actions
+  * Add encrypted cookie storage
+  * Fix tag picker automatically selecting tags
+
+Android:
+  * Disable swipe-to-snooze for location reminders
+  * Pagination improvements for Pebble watches
+  * 'Show checkboxes' widget option refreshes immediately [#4494](https://github.com/tasks/tasks/issues/4494)
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @zhx000
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Polish - @pawerak
+  * Russian - @PONYATIN
+  * Serbian - @vale-decem
+  * Swedish - Jonatan Nyberg
+  * Turkish - @oersen
+
+### 15.8 (2026-07-22)
+
+* Sync tag info
+  * Sync tag colors, icons, and order across devices
+  * Renaming or deleting tags syncs across devices
+  * Requires Tasks.org Cloud or CalDAV with compatible CalDAV server
+  * Opt-in for CalDAV accounts - enable in account settings
+* Don't add default reminders to tasks from Nextcloud Tasks 0.17+ [#4498](https://github.com/tasks/tasks/issues/4498)
+* Fix database migration crash
+
+Desktop:
+  * Add tag picker to edit screen
+  * Add priority picker to edit screen
+  * Add tag settings screen
+  * Fix backstack crash
+
+Android:
+  * Fix DAVx5 sync loop [#4496](https://github.com/tasks/tasks/issues/4496)
+
+Update translations
+  * Brazilian Portuguese - @gregcarmo
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Czech - Fjuro
+  * Danish - ERYpTION
+  * French - @FlorianLeChat
+  * Serbian - @vale-decem
+  * Spanish - @FlorianLeChat
+
+### 15.7.4 (2026-07-10)
+
+* Disable reminder sync for OpenXchange (mailbox.org)
+  * Prevents OpenXchange from deleting reminders
+* Fix reminders being changed or removed after sync (DAVx5/EteSync/DecSync CC)
+
+### 15.7.3 (2026-07-05)
+
+* Sync performance improvements and bug fixes
+* Tag settings screen design update
+* Prevent duplicate tags
+* Improve CalDAV homeset discovery [#4000](https://github.com/tasks/tasks/issues/4000)
+* Fix tag rename synchronization [#1672](https://github.com/tasks/tasks/issues/1672)
+* Fix tag sync in DAVx5/EteSync/DecSync CC [#3011](https://github.com/tasks/tasks/issues/3011)
+* Fix moving tasks with subtasks in DAVx5/EteSync/DecSync CC [#2895](https://github.com/tasks/tasks/issues/2895)
+* Don't change modification timestamp when moving tasks [#3407](https://github.com/tasks/tasks/issues/3047)
+* Don't change modification timestamp when expanding/collapsing subtasks [#2302](https://github.com/tasks/tasks/issues/2302)
+* Update translations
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Croatian - @milotype
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * Portuguese - @SantosSi
+  * Turkish - @oersen
+
+### 15.7.2 (2026-06-17)
+
+* Sync improvements and bug fixes
+* Google Tasks: advance recurring task when completed remotely [#1808](https://github.com/tasks/tasks/issues/1808)
+* Fix flattening subtasks when moving between lists [#2150](https://github.com/tasks/tasks/issues/2150)
+
+Desktop:
+  * Improve Google Tasks account setup [#4434](https://github.com/tasks/tasks/issues/4434)
+
+Update translations:
+  * Brazilian Portuguese - @gregcarmo
+  * Chinese (Simplified) - hamburger2048
+  * Czech - Fjuro
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Hebrew - @ginger-co
+  * Indonesian - @arifpedia
+  * Italian - @ppasserini
+  * Polish - @Antmajgra
+  * Turkish - @oersen
+
+### 15.7.1 (2026-06-10)
+
+Android:
+  * New onboarding for Tasks.org Cloud
+  * Fix task list losing scroll position [#4113](https://github.com/tasks/tasks/issues/4113)
+  * Fix link click handling [#4423](https://github.com/tasks/tasks/issues/4423)
+  * Fix list for new task shortcuts [#4022](https://github.com/tasks/tasks/issues/4022)
+  * Fix duplicated tasks when importing backup file
+
+Desktop:
+  * ARM support for Windows and Linux
+  * Self-signed SSL support [#4422](https://github.com/tasks/tasks/issues/4422)
+  * Minor keychain improvements [#4402](https://github.com/tasks/tasks/issues/4402)
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580, hamburger2048
+  * Czech - Fjuro
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino
+  * Icelandic - @gissur1-hash
+  * Italian - @albanobattistella
+  * Japanese - Norara
+  * Russian - @efrolovdev
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
+### 15.6 (2026-05-25)
+
+* Create new lists from the list picker
+* Improve CalDAV color sync compatibility - @poke [#4387](https://github.com/tasks/tasks/pull/4387)
+* Fix notifications being cancelled on sync [#4386](https://github.com/tasks/tasks/issues/4386)
+* Handle missing timestamps in iCalendar data [#4389](https://github.com/tasks/tasks/issues/4389)
+* Add subtitles to disambiguate accounts in drawer
+* Updated list settings screens
+
+Desktop:
+  * Add list picker to task edit screen
+  * Create, update, and delete lists
+  * Use currently viewed list when adding new tasks
+  * Add ability to log out of Google Task accounts
+  * Prompt to create list if there is none
+  * Remember drawer/rail state across launch
+  * Prevent launching multiple instances
+  * Use TASKS_DATA_DIR env var to override data storage
+  * Use platform conventions for app data and logs [#4373](https://github.com/tasks/tasks/issues/4373)
+  * Fix crash on Windows when waking from sleep [#4368](https://github.com/tasks/tasks/issues/4368)
+
+Android:
+  * Add support for Infomaniak kSync
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * German - @franconian
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Spanish - @Nikzouls
+  * Turkish - @emintufan
+
+### 15.5 (2026-05-15)
+
+Desktop:
+  * Add Google Tasks support
+  * Close task before opening another one
+  * Focus keyboard on title when creating new task
+
+Android:
+  * Fix tag sync for DAVx5/EteSync/DecSync CC
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * Romanian - @ygorigor
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
+### 15.4.2 (2026-05-08)
+
+Desktop:
+  * Fix EteSync setup
+  * Add 'About' screen
+
+Android:
+  * Improve notifications on wearables
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580
+  * Czech - Fjuro
+  * French - @FlorianLeChat
+  * Turkish - @oersen
+
+### 15.4.1 (2026-05-06)
+
+Desktop:
+  * Fix Windows exe download link
+  * Add AppImage download link
+
+### 15.4 (2026-05-06)
+
+Desktop:
+  * Add CalDAV support
+  * Add EteSync support
+  * Unlock desktop app with Google Play subscription or GitHub Sponsorship
+  * Fix opening URLs on some platforms [#4326](https://github.com/tasks/tasks/issues/4326)
+  * Generate AppImage for Linux [#4327](https://github.com/tasks/tasks/issues/4327)
+
+Android:
+  * QR code scanner to unlock desktop (Google Play only)
+  * Updated DAVx5, CalDAV, and EteSync settings screens
+
+Update translations:
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro, Odweta
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @ColorfulRhino, @CrUsHoR
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+  * Kurdish (Northern) - @CYAXXX
+  * Turkish - @oersen, @emintufan
+
+### 15.3 (2026-04-23)
+
+Desktop:
+  * Create new tasks
+  * Add title and description support
+  * Added top level settings screen
+  * Tasks.org account settings
+  * Local account settings
+  * Improve push sync reliability
+
+Android:
+  * Clear notification when completed/deleted remotely [#4302](https://github.com/tasks/tasks/pull/4302)
+  * Geofence battery improvements
+  * Fix parent relationship lost when importing backups [#4301](https://github.com/tasks/tasks/issues/4301)
+  * Fix failure when importing older backups [#4293](https://github.com/tasks/tasks/issues/4293)
+
+Update translations:
+  * Chinese (Simplified) - Sketch6580, 大王叫我来巡山
+  * Czech - Fjuro
+  * French - @FlorianLeChat, @tlabartbarnagaud
+  * German - @ColorfulRhino, Carlo Kisser
+  * Hindi - Chandra Mohan Jha
+  * Hungarian - Kaci
+  * Indonesian - @arifpedia
+  * Italian - @albanobattistella
+  * Japanese - Norara
+  * Russian - @PONYATIN
+  * Swedish - Mona Lisa
+  * Turkish - @emintufan
+
+### 15.2.1 (2026-04-10)
+
+* Pre-alpha desktop release for macOS, Windows, and Linux! [#1256](https://github.com/tasks/tasks/issues/1256)
+  * Currently only supports Tasks.org cloud sign in
+  * Early adopters only! This is a minimally useful product right now
+  * Windows release not cryptographically signed yet
+* Obtainium support [#2040](https://github.com/tasks/tasks/issues/2040)
+* Location reminder improvements
+  * Tasks.org can now register for background location updates to improve reliability
+* Sync iCalendar modification times [#2083](https://github.com/tasks/tasks/issues/2083)
+* Show announcements from the Tasks.org blog
+* Fix many Microsoft To Do sync bugs [#4273](https://github.com/tasks/tasks/issues/4273)
+* Fix bug causing iCalendar parent loss on initial sync [#3023](https://github.com/tasks/tasks/issues/3023)
+* Fix DST bug [#4265](https://github.com/tasks/tasks/issues/4265)
+* Fix long sync indicators
+* Fix 24-hour mode for future due dates
+* Update translations
+  * Afrikaans - @evangibson66
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Czech - Fjuro
+  * Dutch - Bram Schoenmakers
+  * Esperanto - Don Zouras
+  * Finnish - @pHamala
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Japanese - Norara
+
+** 15.2 was a Google Play beta that accidentally released to F-Droid **
+
+### 15.1 (2026-03-17)
+
+* Add 'Per-list sorting' - @repparw
+  * Toggle on '⚙ > App settings > Task list options > Per-list sorting'
+* Update translations
+  * Bulgarian - 109247019824
+  * Chinese (Simplified) - 大王叫我来巡山
+  * Chinese (Traditional) - @xlionjuan
+  * Croatian - @milotype
+  * Czech - Fjuro
+  * Esperanto - Don Zouras
+  * French - @FlorianLeChat
+  * German - @Atalanttore, @Kachelkaiser, @ColorfulRhino
+  * Hebrew - Xo
+  * Hungarian - Kaci
+  * Italian - @ppasserini
+  * Malagasy - @HairEureka160
+  * Turkish - @emintufan
+
 ### 15.0 (2026-03-04)
 
 * Friends & Family Sharing
@@ -8,7 +438,7 @@
 * Update translations
   * Chinese (Simplified) - 大王叫我来巡山
   * Chinese (Traditional) - @xlionjuan
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Estonian - Priit Jõerüüt
   * Finnish - @pHamala
   * French - @FlorianLeChat
@@ -34,7 +464,7 @@
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
   * Croatian - @milotype
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Bram Schoenmakers
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -68,7 +498,7 @@
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
   * Croatian - @milotype
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - @ColorfulRhino
@@ -88,7 +518,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * French - @FlorianLeChat
   * German - @ColorfulRhino
   * Hungarian - Kaci
@@ -136,7 +566,7 @@
 * Add banner when subscription required
 * Update translations
   * Bulgarian - 109247019824
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - ERYpTION
   * Dutch - Bram Schoenmakers
   * Esperanto - Don Zouras
@@ -159,7 +589,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - 大王叫我来巡山, Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -257,7 +687,7 @@
 * Update translations
   * Bulgarian - 109247019824
   * Chinese (Simplified) - Sketch6580
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - @fvbommel
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
@@ -315,7 +745,7 @@
   * Arabic - abdelbasset jabrane
   * Bulgarian - 109247019824
   * Catalan - @Crashillo
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Danish - @catsnote
   * Dutch - @fvbommel
   * Esperanto - Don Zouras
@@ -353,7 +783,7 @@
 * Fix start date chip when grouping by start date [#3509](https://github.com/tasks/tasks/issues/3509)
 * Update translations
   * Brazilian Portuguese - @sobeitnow0, dedakir923
-  * Czech - @Fjuro
+  * Czech - Fjuro
   * Dutch - Jay Tromp
   * German - min7-i
   * Hebrew - Xo

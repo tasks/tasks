@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -16,18 +17,19 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.add_shortcut_to_home_screen
+import tasks.kmp.generated.resources.add_widget_to_home_screen
 
 data class WidgetItem(
     val widgetId: Int,
@@ -58,8 +60,8 @@ fun WidgetsScreen(
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
                 widgets.forEachIndexed { index, widget ->
-                    SettingsItemCard(position = cardPosition(index, widgets.size)) {
-                        val borderColor = colorResource(R.color.text_tertiary)
+                    SettingsItemCard(position = CardPosition.forIndex(index, widgets.size)) {
+                        val borderColor = MaterialTheme.colorScheme.outline
                         PreferenceRow(
                             title = widget.filterTitle,
                             summary = stringResource(R.string.widget_id, widget.widgetId),
@@ -91,19 +93,19 @@ fun WidgetsScreen(
                 verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
             ) {
                 if (showAddShortcut) {
-                    SettingsItemCard(position = cardPosition(i++, total)) {
+                    SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
                         PreferenceRow(
-                            title = stringResource(R.string.add_shortcut_to_home_screen),
-                            icon = Icons.Outlined.Home,
+                            title = kmpStringResource(Res.string.add_shortcut_to_home_screen),
+                            icon = TasksIcons.HOME,
                             onClick = onAddShortcut,
                         )
                     }
                 }
                 if (showAddWidget) {
-                    SettingsItemCard(position = cardPosition(i, total)) {
+                    SettingsItemCard(position = CardPosition.forIndex(i, total)) {
                         PreferenceRow(
-                            title = stringResource(R.string.add_widget_to_home_screen),
-                            icon = Icons.Outlined.Widgets,
+                            title = kmpStringResource(Res.string.add_widget_to_home_screen),
+                            icon = TasksIcons.WIDGETS,
                             onClick = onAddWidget,
                         )
                     }

@@ -10,37 +10,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
-import com.todoroo.andlib.utility.AndroidUtilities
 import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.R
-import org.tasks.compose.settings.NotificationsScreen
-import org.tasks.dialogs.MyTimePickerDialog
-import org.tasks.dialogs.MyTimePickerDialog.Companion.newTimePicker
+import org.tasks.compose.settings.NotificationsContent
+import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.Context.openChannelNotificationSettings
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
-import org.tasks.time.DateTime
-import org.tasks.time.withMillisOfDay
+import timber.log.Timber
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.more_notification_settings_summary
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -48,7 +40,7 @@ class Notifications : Fragment() {
 
     @Inject lateinit var theme: Theme
 
-    private val viewModel: NotificationsViewModel by viewModels()
+    private val viewModel: NotificationsHiltViewModel by viewModels()
 
     private val completionSoundLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         viewModel.handleCompletionSoundResult(result.resultCode, result.data)
@@ -57,33 +49,11 @@ class Notifications : Fragment() {
     private val ttsCheckLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         viewModel.handleTtsCheckResult(result.resultCode)
         if (result.resultCode != TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-            val installIntent = Intent().apply {
-                action = TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA
+            try {
+                startActivity(Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA))
+            } catch (e: Exception) {
+                Timber.e(e)
             }
-            startActivity(installIntent)
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        parentFragmentManager.setFragmentResultListener(
-            REQUEST_KEY_QUIET_START, this
-        ) { _, bundle ->
-            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-            viewModel.handleQuietStartResult(timestamp)
-        }
-        parentFragmentManager.setFragmentResultListener(
-            REQUEST_KEY_QUIET_END, this
-        ) { _, bundle ->
-            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-            viewModel.handleQuietEndResult(timestamp)
-        }
-        parentFragmentManager.setFragmentResultListener(
-            REQUEST_KEY_DEFAULT_REMIND, this
-        ) { _, bundle ->
-            val timestamp = bundle.getLong(MyTimePickerDialog.EXTRA_TIMESTAMP, 0L)
-            viewModel.handleDefaultRemindResult(timestamp)
         }
     }
 
@@ -96,164 +66,55 @@ class Notifications : Fragment() {
             theme = theme.themeBase.index,
             primary = theme.themeColor.primaryColor,
         ) {
-            NotificationsScreen(
-                showBatteryOptimization = viewModel.showBatteryOptimization,
-                completionSoundName = viewModel.completionSoundName,
-                showPreUpsideDownCake = AndroidUtilities.preUpsideDownCake(),
-                persistentEnabled = viewModel.persistentEnabled,
-                wearableEnabled = viewModel.wearableEnabled,
-                bundleEnabled = viewModel.bundleEnabled,
-                voiceEnabled = viewModel.voiceEnabled,
-                swipeToSnoozeEnabled = viewModel.swipeToSnoozeEnabled,
-                snoozeSummary = viewModel.snoozeSummary,
-                defaultRemindersEnabled = viewModel.defaultRemindersEnabled,
-                reminderTimeSummary = viewModel.reminderTimeSummary,
-                quietHoursEnabled = viewModel.quietHoursEnabled,
-                isCurrentlyQuietHours = viewModel.isCurrentlyQuietHours,
-                quietStartSummary = viewModel.quietStartSummary,
-                quietEndSummary = viewModel.quietEndSummary,
-                onTroubleshooting = {
-                    context?.openUri(R.string.url_notifications)
-                },
-                onBatteryOptimization = {
-                    startActivity(
-                        Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-                    )
-                },
-                onCompletionSound = {
-                    val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
-                        putExtra(
-                            RingtoneManager.EXTRA_RINGTONE_TYPE,
-                            RingtoneManager.TYPE_NOTIFICATION
-                        )
-                        putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-                        putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
-                        putExtra(
-                            RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
-                            Settings.System.DEFAULT_NOTIFICATION_URI
-                        )
-                        val existingValue = viewModel.getCompletionRingtoneValue()
-                        if (existingValue != null) {
-                            if (existingValue.isEmpty()) {
-                                putExtra(
-                                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                                    null as Uri?
-                                )
-                            } else {
-                                putExtra(
-                                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                                    Uri.parse(existingValue)
-                                )
-                            }
-                        } else {
-                            putExtra(
-                                RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
-                                Settings.System.DEFAULT_NOTIFICATION_URI
-                            )
-                        }
+            LaunchedEffect(Unit) {
+                viewModel.ttsCheckRequests.collect {
+                    try {
+                        ttsCheckLauncher.launch(Intent(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA))
+                    } catch (e: Exception) {
+                        Timber.e(e)
                     }
-                    completionSoundLauncher.launch(intent)
-                },
-                onPersistent = { viewModel.updatePersistent(it) },
-                onWearable = { viewModel.updateWearable(it) },
-                onBundle = { viewModel.updateBundle(it) },
-                onVoice = { enabled ->
-                    viewModel.updateVoice(enabled)
-                    if (enabled && viewModel.needsTtsCheck) {
-                        try {
-                            val checkIntent = Intent().apply {
-                                action = TextToSpeech.Engine.ACTION_CHECK_TTS_DATA
-                            }
-                            ttsCheckLauncher.launch(checkIntent)
-                        } catch (_: Exception) { }
-                    }
-                },
-                onMoreSettings = {
-                    requireContext().openChannelNotificationSettings()
-                },
-                onSwipeToSnooze = { viewModel.updateSwipeToSnooze(it) },
-                onSnoozeTime = { viewModel.openSnoozeDialog() },
-                onDefaultReminders = { viewModel.updateDefaultReminders(it) },
-                onReminderTime = {
-                    val millisOfDay = viewModel.getReminderTimeMillisOfDay(
-                        R.integer.default_remind_time
-                    )
-                    val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(REQUEST_KEY_DEFAULT_REMIND, current.millis)
-                        .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
-                },
-                onQuietHours = { viewModel.updateQuietHours(it) },
-                onQuietStart = {
-                    val millisOfDay = viewModel.getQuietStartMillisOfDay(
-                        R.integer.default_quiet_hours_start
-                    )
-                    val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(REQUEST_KEY_QUIET_START, current.millis)
-                        .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
-                },
-                onQuietEnd = {
-                    val millisOfDay = viewModel.getQuietEndMillisOfDay(
-                        R.integer.default_quiet_hours_end
-                    )
-                    val current = DateTime().withMillisOfDay(millisOfDay)
-                    newTimePicker(REQUEST_KEY_QUIET_END, current.millis)
-                        .show(parentFragmentManager, FRAG_TAG_TIME_PICKER)
-                },
-            )
-
-            if (viewModel.showSnoozeDialog) {
-                val currentValue = viewModel.getSnoozeCurrentValue()
-                AlertDialog(
-                    onDismissRequest = { viewModel.dismissSnoozeDialog() },
-                    title = { Text(stringResource(R.string.swipe_to_snooze_description)) },
-                    text = {
-                        Column {
-                            viewModel.snoozeEntries.forEachIndexed { index, entry ->
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable {
-                                            viewModel.setSnoozeTime(viewModel.snoozeValues[index])
-                                            viewModel.refreshSnoozeSummary()
-                                            viewModel.dismissSnoozeDialog()
-                                        }
-                                        .padding(vertical = 4.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    RadioButton(
-                                        selected = viewModel.snoozeValues[index] == currentValue,
-                                        onClick = null,
-                                    )
-                                    Text(
-                                        text = entry,
-                                        modifier = Modifier.padding(start = 8.dp),
-                                        style = MaterialTheme.typography.bodyLarge,
-                                    )
-                                }
-                            }
-                        }
-                    },
-                    confirmButton = {},
-                )
+                }
             }
 
-            if (viewModel.showRestartDialog) {
-                AlertDialog(
-                    onDismissRequest = { viewModel.dismissRestartDialog() },
-                    text = { Text(stringResource(R.string.restart_required)) },
-                    confirmButton = {
-                        TextButton(onClick = { kotlin.system.exitProcess(0) }) {
-                            Text(stringResource(R.string.restart_now))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { viewModel.dismissRestartDialog() }) {
-                            Text(stringResource(R.string.restart_later))
-                        }
-                    },
+            NotificationsContent(
+                viewModel = viewModel,
+                is24HourFormat = requireContext().is24HourFormat,
+                openUri = { context?.openUri(it) },
+                onBatteryOptimization = {
+                    startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                },
+                onCompletionSound = { launchRingtonePicker() },
+                onMoreSettings = { requireContext().openChannelNotificationSettings() },
+                moreSettingsSummary = stringResource(Res.string.more_notification_settings_summary),
+                bottomInsets = {
+                    Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+                },
+            )
+        }
+    }
+
+    private fun launchRingtonePicker() {
+        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+            putExtra(
+                RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
+                Settings.System.DEFAULT_NOTIFICATION_URI
+            )
+            when (val existingValue = viewModel.getCompletionRingtoneValue()) {
+                null -> putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                    Settings.System.DEFAULT_NOTIFICATION_URI
+                )
+                "" -> putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, null as Uri?)
+                else -> putExtra(
+                    RingtoneManager.EXTRA_RINGTONE_EXISTING_URI,
+                    Uri.parse(existingValue)
                 )
             }
         }
+        completionSoundLauncher.launch(intent)
     }
 
     override fun onResume() {
@@ -273,12 +134,5 @@ class Notifications : Fragment() {
             toolbar.setBackgroundColor(defaultColor)
             (toolbar.parent as? View)?.setBackgroundColor(defaultColor)
         }
-    }
-
-    companion object {
-        private const val FRAG_TAG_TIME_PICKER = "frag_tag_time_picker"
-        private const val REQUEST_KEY_QUIET_START = "time_picker_quiet_start"
-        private const val REQUEST_KEY_QUIET_END = "time_picker_quiet_end"
-        private const val REQUEST_KEY_DEFAULT_REMIND = "time_picker_default_remind"
     }
 }

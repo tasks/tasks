@@ -1,5 +1,7 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.activity.compose.BackHandler
@@ -14,11 +16,7 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.Clear
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Save
+import androidx.compose.material3.DisplayMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -30,8 +28,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -53,17 +55,22 @@ import org.tasks.R
 import org.tasks.compose.BeastModeBanner
 import org.tasks.compose.FilterSelectionActivity.Companion.EXTRA_FILTER
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
+import org.tasks.compose.pickers.DueDatePickerSheet
+import org.tasks.compose.pickers.dueDateFromSelection
+import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.UserActivity
 import org.tasks.dialogs.Linkify
 import org.tasks.extensions.Context.findActivity
 import org.tasks.extensions.Context.is24HourFormat
+import org.tasks.extensions.hideKeyboardThen
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.fragments.CommentBarFragment
 import org.tasks.kmp.org.tasks.extensions.gesturesDisabled
 import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
 import org.tasks.markdown.MarkdownProvider
+import org.tasks.preferences.Preferences
 import org.tasks.themes.TasksTheme
 import org.tasks.ui.CalendarControlSet
 import org.tasks.ui.LocationControlSet
@@ -76,6 +83,9 @@ import org.tasks.ui.TaskEditViewModel.Companion.TAG_LIST
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_PRIORITY
 import org.tasks.ui.TaskEditViewModel.Companion.TAG_TITLE
 import org.tasks.utility.copyToClipboard
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.delete_task
+import tasks.kmp.generated.resources.menu_discard_changes
 import timber.log.Timber
 import java.util.Locale
 
@@ -90,15 +100,19 @@ fun TaskEditScreen(
     delete: () -> Unit,
     dismissBeastMode: () -> Unit,
     deleteComment: (UserActivity) -> Unit,
-    onClickDueDate: () -> Unit,
     onClickRepeat: () -> Unit,
     repeatRuleToString: (String?) -> String?,
     markdownProvider: MarkdownProvider,
     linkify: Linkify?,
     locale: Locale,
+    preferences: Preferences,
     colorProvider: (Int) -> Int,
 ) {
     val context = LocalContext.current
+    val is24Hour = remember(context) { context.is24HourFormat }
+    var showDueDatePicker by rememberSaveable { mutableStateOf(false) }
+    var showDiscardConfirmation by rememberSaveable { mutableStateOf(false) }
+    var showDeleteConfirmation by rememberSaveable { mutableStateOf(false) }
     DisposableEffect(Unit) {
         val activity = context.findActivity()
         if (atLeastOreoMR1() && viewState.showEditScreenWithoutUnlock) {
@@ -111,11 +125,23 @@ fun TaskEditScreen(
             }
         }
     }
+    val requestDiscard = {
+        if (editViewModel.hasChanges()) {
+            val prompt = { showDiscardConfirmation = true }
+            context.findActivity()?.hideKeyboardThen(prompt) ?: prompt()
+        } else {
+            discard()
+        }
+    }
+    val requestDelete = {
+        val prompt = { showDeleteConfirmation = true }
+        context.findActivity()?.hideKeyboardThen(prompt) ?: prompt()
+    }
     val onBackPressed = {
         if (viewState.backButtonSavesTask) {
             save()
         } else {
-            discard()
+            requestDiscard()
         }
     }
     BackHandler {
@@ -131,15 +157,15 @@ fun TaskEditScreen(
                 navigationIcon = {
                     if (viewState.isReadOnly) {
                         IconButton(onClick = { onBackPressed() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
                                 contentDescription = stringResource(R.string.back)
                             )
                         }
                     } else {
                         IconButton(onClick = { save() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Save,
+                            SymbolIcon(
+                                name = TasksIcons.SAVE,
                                 contentDescription = stringResource(R.string.save)
                             )
                         }
@@ -151,18 +177,22 @@ fun TaskEditScreen(
                         return@TopAppBar
                     }
                     if (!viewState.isNew) {
-                        IconButton(onClick = { delete() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Delete,
-                                contentDescription = stringResource(R.string.delete_task),
+                        IconButton(onClick = { requestDelete() }) {
+                            SymbolIcon(
+                                name = TasksIcons.DELETE,
+                                contentDescription = org.jetbrains.compose.resources.stringResource(
+                                    Res.string.delete_task
+                                ),
                             )
                         }
                     }
                     if (viewState.backButtonSavesTask) {
-                        IconButton(onClick = { discard() }) {
-                            Icon(
-                                imageVector = Icons.Outlined.Clear,
-                                contentDescription = stringResource(R.string.menu_discard_changes),
+                        IconButton(onClick = { requestDiscard() }) {
+                            SymbolIcon(
+                                name = TasksIcons.CLEAR,
+                                contentDescription = org.jetbrains.compose.resources.stringResource(
+                                    Res.string.menu_discard_changes
+                                ),
                             )
                         }
                     }
@@ -225,9 +255,12 @@ fun TaskEditScreen(
                         hasDueDateAlarm = remember (viewState.alarms) {
                             viewState.alarms.any { it.type == Alarm.TYPE_REL_END }
                         },
-                        is24HourFormat = context.is24HourFormat,
+                        is24HourFormat = is24Hour,
                         alwaysDisplayFullDate = viewState.alwaysDisplayFullDate,
-                        onClick = onClickDueDate,
+                        onClick = {
+                            val showPicker = { showDueDatePicker = true }
+                            context.findActivity()?.hideKeyboardThen(showPicker) ?: showPicker()
+                        },
                     )
                     TAG_PRIORITY ->
                         PriorityRow(
@@ -316,6 +349,49 @@ fun TaskEditScreen(
                     beastMode.launch(Intent(context, BeastModePreferences::class.java))
                 },
                 dismiss = dismissBeastMode,
+            )
+        }
+        if (showDueDatePicker) {
+            val dueDate = editViewModel.dueDate.collectAsStateWithLifecycle().value
+            val (initialDay, initialTime) = dueDateToSelection(dueDate)
+            DueDatePickerSheet(
+                initialDay = initialDay,
+                initialTime = initialTime,
+                is24Hour = is24Hour,
+                autoClose = preferences.getBoolean(R.string.p_auto_dismiss_datetime_edit_screen, false),
+                showNoDate = !viewState.task.isRecurring,
+                times = remember { preferences.quickPickTimes },
+                initialDateInputMode = preferences.calendarDisplayMode == DisplayMode.Input,
+                onDateInputModeChange = {
+                    preferences.calendarDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                initialTimeInputMode = preferences.timeDisplayMode == DisplayMode.Input,
+                onTimeInputModeChange = {
+                    preferences.timeDisplayMode = if (it) DisplayMode.Input else DisplayMode.Picker
+                },
+                onSelected = { day, time ->
+                    editViewModel.setDueDate(dueDateFromSelection(day, time))
+                    showDueDatePicker = false
+                },
+                onDismiss = { showDueDatePicker = false },
+            )
+        }
+        if (showDiscardConfirmation) {
+            DiscardChangesDialog(
+                onDiscard = {
+                    showDiscardConfirmation = false
+                    discard()
+                },
+                onDismiss = { showDiscardConfirmation = false },
+            )
+        }
+        if (showDeleteConfirmation) {
+            DeleteTaskDialog(
+                onDelete = {
+                    showDeleteConfirmation = false
+                    delete()
+                },
+                onDismiss = { showDeleteConfirmation = false },
             )
         }
     }

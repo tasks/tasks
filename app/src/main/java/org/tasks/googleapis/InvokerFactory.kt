@@ -3,7 +3,6 @@ package org.tasks.googleapis
 import android.content.Context
 import com.google.api.services.drive.DriveScopes
 import com.google.api.services.tasks.TasksScopes
-import com.todoroo.astrid.gtasks.api.GtasksInvoker
 import com.todoroo.astrid.gtasks.api.HttpCredentialsAdapter
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R

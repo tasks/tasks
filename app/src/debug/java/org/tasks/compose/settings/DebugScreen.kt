@@ -20,14 +20,12 @@ import org.tasks.R
 
 @Composable
 fun DebugScreen(
-    leakCanaryEnabled: Boolean,
     strictModeVmEnabled: Boolean,
     strictModeThreadEnabled: Boolean,
     crashOnViolationEnabled: Boolean,
     unlockProEnabled: Boolean,
     showDebugFilters: Boolean,
     iapTitle: String,
-    onLeakCanary: (Boolean) -> Unit,
     onStrictModeVm: (Boolean) -> Unit,
     onStrictModeThread: (Boolean) -> Unit,
     onCrashOnViolation: (Boolean) -> Unit,
@@ -54,13 +52,6 @@ fun DebugScreen(
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
         ) {
             SettingsItemCard(position = CardPosition.First) {
-                SwitchPreferenceRow(
-                    title = stringResource(R.string.debug_leakcanary),
-                    checked = leakCanaryEnabled,
-                    onCheckedChange = onLeakCanary,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.debug_strict_mode_vm),
                     checked = strictModeVmEnabled,

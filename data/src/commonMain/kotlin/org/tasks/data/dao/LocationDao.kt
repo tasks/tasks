@@ -1,11 +1,11 @@
 package org.tasks.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room3.Dao
+import androidx.room3.Delete
+import androidx.room3.Insert
+import androidx.room3.OnConflictStrategy
+import androidx.room3.Query
+import androidx.room3.Update
 import org.tasks.data.Location
 import org.tasks.data.LocationFilters
 import org.tasks.data.MergedGeofence
@@ -75,6 +75,12 @@ interface LocationDao {
     @Query("SELECT COUNT(*) FROM geofences")
     suspend fun geofenceCount(): Int
 
+    @Query("SELECT COUNT(*) FROM geofences"
+            + " INNER JOIN tasks ON geofences.task = tasks._id"
+            + " WHERE tasks.completed = 0 AND tasks.deleted = 0"
+            + " AND (geofences.arrival > 0 OR geofences.departure > 0)")
+    suspend fun activeGeofenceCount(): Int
+
     @Delete
     suspend fun delete(location: Geofence)
 
@@ -95,6 +101,9 @@ interface LocationDao {
 
     @Query("SELECT * FROM places WHERE uid = :uid LIMIT 1")
     suspend fun getByUid(uid: String): Place?
+
+    @Query("SELECT * FROM geofences WHERE geofence_id = :id")
+    suspend fun getGeofence(id: Long): Geofence?
 
     @Query("SELECT * FROM geofences WHERE task = :taskId")
     suspend fun getGeofencesForTask(taskId: Long): List<Geofence>

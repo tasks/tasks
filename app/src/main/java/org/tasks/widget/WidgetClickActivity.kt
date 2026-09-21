@@ -4,8 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
-import com.todoroo.astrid.dao.TaskDao
-import com.todoroo.astrid.service.TaskCompleter
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
+import org.tasks.service.TaskCompleter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ import org.tasks.dialogs.BaseDateTimePicker.OnDismissHandler
 import org.tasks.dialogs.DateTimePicker.Companion.newDateTimePicker
 import org.tasks.filters.Filter
 import org.tasks.intents.TaskIntents
+import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,12 +26,19 @@ import javax.inject.Inject
 class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
     @Inject lateinit var taskCompleter: TaskCompleter
     @Inject lateinit var taskDao: TaskDao
+    @Inject lateinit var taskSaver: TaskSaver
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
 
     private val widgetId: Int
         get() = intent.getIntExtra(EXTRA_WIDGET, -1)
+
+    private suspend fun widgetFilter(): Filter =
+        defaultFilterProvider.getFilterFromPreference(
+            WidgetPreferences(applicationContext, preferences, widgetId).filterId
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +63,12 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 finish()
             }
             EDIT_TASK -> {
-                val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
                 val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
-                Timber.tag("$action taskId=$taskId filter=$filter")
+                Timber.tag("$action taskId=$taskId widgetId=$widgetId")
                 logWidgetClick("edit_task")
                 lifecycleScope.launch {
                     if (taskId > 0) {
+                        val filter = widgetFilter()
                         val task = taskDao.fetch(taskId)
                         startActivity(
                             TaskIntents
@@ -71,15 +80,17 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 }
             }
             OPEN_TASK_LIST -> {
-                val filter = intent.getParcelableExtra<Filter?>(EXTRA_FILTER)
-                Timber.tag("$action filter=$filter")
+                Timber.tag("$action widgetId=$widgetId")
                 logWidgetClick("open_list")
-                startActivity(
-                    TaskIntents
-                        .getTaskListIntent(this, filter)
-                        .putExtra(FINISH_AFFINITY, true)
-                )
-                finish()
+                lifecycleScope.launch {
+                    val filter = widgetFilter()
+                    startActivity(
+                        TaskIntents
+                            .getTaskListIntent(this@WidgetClickActivity, filter)
+                            .putExtra(FINISH_AFFINITY, true)
+                    )
+                    finish()
+                }
             }
             TOGGLE_SUBTASKS -> {
                 val taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
@@ -88,7 +99,7 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
                 logWidgetClick("toggle_subtasks")
                 if (taskId > 0) {
                     lifecycleScope.launch(NonCancellable) {
-                        taskDao.setCollapsed(taskId, collapsed)
+                        taskSaver.setCollapsed(taskId, collapsed)
                     }
                 }
                 finish()
@@ -159,7 +170,6 @@ class WidgetClickActivity : AppCompatActivity(), OnDismissHandler {
         const val TOGGLE_SUBTASKS = "TOGGLE_SUBTASKS"
         const val RESCHEDULE_TASK = "RESCHEDULE_TASK"
         const val TOGGLE_GROUP = "TOGGLE_GROUP"
-        const val EXTRA_FILTER = "extra_filter"
         const val EXTRA_TASK_ID = "extra_task_id"
         const val EXTRA_COLLAPSED = "extra_collapsed"
         const val EXTRA_COMPLETED = "extra_completed"

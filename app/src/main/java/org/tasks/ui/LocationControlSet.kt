@@ -11,6 +11,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.compose.edit.LocationRow
@@ -120,17 +122,19 @@ class LocationControlSet : TaskEditControlFragment() {
             if (resultCode == Activity.RESULT_OK) {
                 val place: Place = data!!.getParcelableExtra(LocationPickerActivity.EXTRA_PLACE)!!
                 val location = viewModel.viewState.value.location
-                val geofence = if (location == null) {
-                    createGeofence(place.uid, preferences)
-                } else {
-                    val existing = location.geofence
-                    Geofence(
-                            place = place.uid,
-                            isArrival = existing.isArrival,
-                            isDeparture = existing.isDeparture,
-                    )
+                lifecycleScope.launch {
+                    val geofence = if (location == null) {
+                        createGeofence(place.uid, preferences)
+                    } else {
+                        val existing = location.geofence
+                        Geofence(
+                                place = place.uid,
+                                isArrival = existing.isArrival,
+                                isDeparture = existing.isDeparture,
+                        )
+                    }
+                    viewModel.setLocation(Location(geofence, place))
                 }
-                viewModel.setLocation(Location(geofence, place))
             }
         } else if (requestCode == REQUEST_GEOFENCE_DETAILS) {
             if (resultCode == Activity.RESULT_OK) {

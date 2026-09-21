@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,10 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Attachment
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Event
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -63,7 +60,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.attachment_directory),
-                    icon = Icons.Outlined.Attachment,
+                    icon = TasksIcons.ATTACHMENT,
                     summary = attachmentDirSummary,
                     onClick = onAttachmentDir,
                 )
@@ -80,7 +77,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.First) {
                 SwitchPreferenceRow(
                     title = stringResource(R.string.EPr_cal_end_or_start_at_due_time),
-                    icon = Icons.Outlined.Event,
+                    icon = TasksIcons.EVENT,
                     summary = if (calendarEndAtDueTime)
                         stringResource(R.string.EPr_cal_start_at_due_time)
                     else
@@ -147,7 +144,7 @@ fun AdvancedScreen(
             SettingsItemCard(position = CardPosition.Last) {
                 PreferenceRow(
                     title = stringResource(R.string.EPr_delete_task_data),
-                    icon = Icons.Outlined.Delete,
+                    icon = TasksIcons.DELETE,
                     onClick = onDeleteTaskData,
                 )
             }

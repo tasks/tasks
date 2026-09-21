@@ -1,10 +1,10 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.Index
+import androidx.room3.PrimaryKey
 import org.tasks.data.db.Table
 
 @Entity(
@@ -33,6 +33,8 @@ data class Notification(
     val type: Int = 0,
     @ColumnInfo(name = "location")
     val location: Long? = null,
+    @ColumnInfo(name = "platform_id")
+    val platformId: Long? = null,
 ) {
     companion object {
         const val TABLE_NAME = "notification"

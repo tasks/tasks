@@ -1,6 +1,7 @@
 package org.tasks.widget
 
 import android.content.Context
+import androidx.core.content.ContextCompat
 import android.content.Intent
 import android.text.format.Formatter
 import android.view.View
@@ -9,7 +10,6 @@ import androidx.core.widget.RemoteViewsCompat.RemoteCollectionItems
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid16
 import com.todoroo.astrid.core.SortHelper
 import com.todoroo.astrid.subtasks.SubtasksHelper
-import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.data.TaskContainer
@@ -29,8 +29,8 @@ import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.Filter
 import org.tasks.kmp.org.tasks.themes.ColorProvider.priorityColor
 import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.kmp.formatTime
 import org.tasks.markdown.Markdown
 import org.tasks.tasklist.AdapterSection
 import org.tasks.tasklist.HeaderFormatter
@@ -73,7 +73,6 @@ internal class TasksWidgetBuilder(
             setOnClickFillInIntent(
                 R.id.widget_view_more,
                 Intent(WidgetClickActivity.OPEN_TASK_LIST)
-                    .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
                     .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
             )
         }
@@ -81,17 +80,7 @@ internal class TasksWidgetBuilder(
 
     private fun buildHeader(section: AdapterSection): RemoteViews {
         val sortGroup = section.value
-        val header: String? = if (filter.supportsSorting()) {
-            headerFormatter.headerStringBlocking(
-                value = section.value,
-                groupMode = settings.groupMode,
-                alwaysDisplayFullDate = settings.showFullDate,
-                style = DateStyle.MEDIUM,
-                compact = settings.compact,
-            )
-        } else {
-            null
-        }
+        val header: String? = if (filter.supportsSorting()) section.header else null
         return RemoteViews(BuildConfig.APPLICATION_ID, R.layout.widget_header).apply {
             setTextViewText(R.id.header, header)
             setImageViewResource(
@@ -107,7 +96,7 @@ internal class TasksWidgetBuilder(
                 section.headerColor(
                     context,
                     settings.groupMode,
-                    if (settings.isDark) R.color.white_60 else R.color.black_60
+                    ContextCompat.getColor(context, if (settings.isDark) R.color.white_60 else R.color.black_60)
                 )
             )
             if (!settings.showDividers) {
@@ -123,7 +112,10 @@ internal class TasksWidgetBuilder(
         }
     }
 
-    private fun buildUpdate(taskContainer: TaskContainer): RemoteViews? {
+    private fun buildUpdate(
+        taskContainer: TaskContainer,
+        dateFormatter: DateFormatter,
+    ): RemoteViews? {
         return try {
             val task = taskContainer.task
             val textColorTitle = when {
@@ -136,7 +128,7 @@ internal class TasksWidgetBuilder(
                 strikethrough(R.id.widget_text, task.isCompleted)
                 setTextSize(R.id.widget_text, settings.textSize)
                 if (settings.showDueDates) {
-                    formatDueDate(this, taskContainer)
+                    formatDueDate(this, taskContainer, dateFormatter)
                 } else {
                     setViewVisibility(R.id.widget_due_bottom, View.GONE)
                     setViewVisibility(R.id.widget_due_end, View.GONE)
@@ -166,7 +158,6 @@ internal class TasksWidgetBuilder(
                 setOnClickFillInIntent(
                     R.id.widget_row,
                     Intent(WidgetClickActivity.EDIT_TASK)
-                        .putExtra(WidgetClickActivity.EXTRA_FILTER, filter)
                         .putExtra(WidgetClickActivity.EXTRA_TASK_ID, task.id)
                         .putExtra(WidgetClickActivity.EXTRA_WIDGET, widgetId)
                 )
@@ -190,6 +181,7 @@ internal class TasksWidgetBuilder(
                 } else {
                     setViewPadding(R.id.widget_complete_box, hPad, 0, 0, 0)
                     setBackgroundResource(R.id.widget_complete_box, 0)
+                    setImageViewResource(R.id.widget_complete_box, 0)
                 }
                 setViewPadding(R.id.top_padding, 0, settings.vPad, 0, 0)
                 setViewPadding(R.id.bottom_padding, 0, settings.vPad, 0, 0)
@@ -214,7 +206,7 @@ internal class TasksWidgetBuilder(
                 if (taskContainer.task.isHidden && settings.showStartChips) {
                     val sortByDate = settings.groupMode == SortHelper.SORT_START && !disableGroups
                     chipProvider
-                        .getStartDateChip(taskContainer, settings.showFullDate, sortByDate)
+                        .getStartDateChip(taskContainer, settings.showFullDate, sortByDate, dateFormatter)
                         ?.let { addView(R.id.chips, it) }
                 }
                 if (taskContainer.hasLocation() && settings.showPlaceChips) {
@@ -246,7 +238,11 @@ internal class TasksWidgetBuilder(
         return getQuery(widgetPreferences, filter, MAX_ITEMS)
     }
 
-    private fun formatDueDate(row: RemoteViews, task: TaskContainer) = with(row) {
+    private fun formatDueDate(
+        row: RemoteViews,
+        task: TaskContainer,
+        dateFormatter: DateFormatter,
+    ) = with(row) {
         val dueDateRes = if (settings.endDueDate) R.id.widget_due_end else R.id.widget_due_bottom
         setViewVisibility(
             if (settings.endDueDate) R.id.widget_due_bottom else R.id.widget_due_end,
@@ -266,16 +262,13 @@ internal class TasksWidgetBuilder(
                 !disableGroups
             ) {
                 task.takeIf { it.hasDueTime() }?.let {
-                    getTimeString(task.dueDate, context.is24HourFormat)
+                    dateFormatter.time(task.dueDate)
                 }
             } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        task.dueDate,
-                        context.is24HourFormat,
-                        alwaysDisplayFullDate = settings.showFullDate
-                    )
-                }
+                dateFormatter.relativeDateTime(
+                    task.dueDate,
+                    alwaysDisplayFullDate = settings.showFullDate
+                )
             }
             setTextViewText(dueDateRes, text)
             setTextColor(
@@ -296,6 +289,7 @@ internal class TasksWidgetBuilder(
 
     suspend fun buildItems(): RemoteCollectionItems {
         var totalParcelSize = 0
+        val dateFormatter = DateFormatter.create(context.is24HourFormat)
         val collapsed = widgetPreferences.collapsed
         val tasks = SectionedDataSource(
             taskDao.fetchTasks(getQuery(filter)),
@@ -305,6 +299,18 @@ internal class TasksWidgetBuilder(
             collapsed,
             widgetPreferences.completedTasksAtBottom,
         )
+        if (filter.supportsSorting()) {
+            tasks.formatHeaders {
+                headerFormatter.headerString(
+                    value = it,
+                    dateFormatter = dateFormatter,
+                    groupMode = settings.groupMode,
+                    alwaysDisplayFullDate = settings.showFullDate,
+                    style = DateStyle.MEDIUM,
+                    compact = settings.compact,
+                )
+            }
+        }
         collapsed.toMutableSet().let {
             if (it.retainAll(tasks.getSectionValues().toSet())) {
                 widgetPreferences.collapsed = it
@@ -332,7 +338,7 @@ internal class TasksWidgetBuilder(
             val view = if (isHeader) {
                 buildHeader(tasks.getSection(position))
             } else {
-                buildUpdate(tasks.getItem(position))
+                buildUpdate(tasks.getItem(position), dateFormatter)
             } ?: continue
 
             val viewSize = view.estimateParcelSize()

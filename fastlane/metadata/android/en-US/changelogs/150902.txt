@@ -1,0 +1,6 @@
+* Disable swipe-to-snooze for location reminders
+* 'Show checkboxes' widget option refreshes immediately
+* Fix modified and created timestamp sync
+* Fix language override not being applied
+* Pagination improvements for Pebble watches
+* Update translations

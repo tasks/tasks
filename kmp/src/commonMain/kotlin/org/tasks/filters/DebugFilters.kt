@@ -5,6 +5,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.data.entity.TaskDirtyVersion
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Criterion.Companion.or
 import org.tasks.data.sql.Join
@@ -23,6 +24,22 @@ data class DebugFilter(
 }
 
 object DebugFilters {
+    fun getDirtyFilter() =
+        DebugFilter(
+            title = "Dirty",
+            sql = QueryTemplate()
+                .join(Join.inner(CaldavTask.TABLE, CaldavTask.TASK.eq(Task.ID)))
+                .join(
+                    Join.inner(
+                        TaskDirtyVersion.TABLE,
+                        TaskDirtyVersion.CALDAV_TASK_ID.eq(CaldavTask.ID)
+                    )
+                )
+                .where(TaskDirtyVersion.DIRTY_VERSION.gt(TaskDirtyVersion.SYNCED_VERSION))
+                .toString(),
+            icon = TasksIcons.CLOUD,
+        )
+
     fun getNoListFilter() =
         DebugFilter(
             title = "No list",

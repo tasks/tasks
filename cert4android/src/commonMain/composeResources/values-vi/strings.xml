@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Đã tạm thời từ chối chứng chỉ</string>
+    <string name="trust_certificate_accept">Chấp nhận</string>
+    <string name="trust_certificate_fingerprint_verified">Tôi đã xác minh toàn bộ mã kiểm tra theo cách thủ công.</string>
+    <string name="trust_certificate_fingerprints">Mã kiểm tra</string>
+    <string name="trust_certificate_issued_by">Được cấp bởi</string>
+    <string name="trust_certificate_issued_for">Được cấp cho</string>
+    <string name="trust_certificate_reject">Từ chối</string>
+    <string name="trust_certificate_reset_info">Bạn có thể đặt lại tất cả chứng chỉ tuỳ chỉnh trong cài đặt ứng dụng.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s đã gặp một chứng chỉ không xác định. Bạn có muốn tin tưởng nó không?</string>
+    <string name="trust_certificate_validity_period">Thời gian hợp lệ</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (sẽ không được thi hành)</string>
+    <string name="trust_certificate_x509_certificate_details">Chi tiết chứng chỉ X509</string>
+</resources>

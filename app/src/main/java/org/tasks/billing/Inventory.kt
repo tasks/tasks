@@ -1,9 +1,10 @@
 package org.tasks.billing
 
 import android.content.Context
-import android.os.Handler
 import androidx.lifecycle.MutableLiveData
-import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
@@ -13,6 +14,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.isTasksSubscription
 import org.tasks.extensions.Context.openUri
+import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,16 +22,16 @@ import javax.inject.Singleton
 
 @Singleton
 class Inventory @Inject constructor(
-        @param:ApplicationContext private val context: Context,
+        @ApplicationScope scope: CoroutineScope,
         private val preferences: Preferences,
         private val signatureVerifier: SignatureVerifier,
         private val localBroadcastManager: LocalBroadcastManager,
         private val caldavDao: CaldavDao
-) {
+) : PurchaseState {
     val purchases: MutableMap<String, Purchase> = HashMap()
     val subscription = MutableLiveData<Purchase?>()
 
-    var hasTasksAccount = false
+    override var hasTasksAccount = false
         private set
 
     fun clear() {
@@ -55,16 +57,16 @@ class Inventory @Inject constructor(
         updateSubscription()
     }
 
-    val hasTasksSubscription: Boolean
+    override val hasTasksSubscription: Boolean
         get() = subscription.value?.isTasksSubscription == true || hasTasksAccount
 
     val begForMoney: Boolean
         get() = if (IS_GENERIC) !hasTasksAccount else !hasPro
 
-    fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
+    override fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
 
     @Suppress("SimplifyBooleanWithConstants")
-    var hasPro = false
+    override var hasPro = false
         get() {
             @Suppress("KotlinConstantConditions")
             return IS_GENERIC
@@ -76,7 +78,7 @@ class Inventory @Inject constructor(
 
     suspend fun updateTasksAccount() {
         hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
-            it.isTasksSubscription(context)
+            it.isTasksSubscription()
         }
     }
 
@@ -109,12 +111,8 @@ class Inventory @Inject constructor(
     }
 
     init {
-        val runnable = { verifyAndAdd(preferences.purchases) }
-        val mainLooper = context.mainLooper
-        if (mainLooper.isCurrentThread) {
-            runnable()
-        } else {
-            Handler(context.mainLooper).post(runnable)
+        scope.launch(Dispatchers.Main.immediate) {
+            verifyAndAdd(preferences.purchases)
         }
     }
 }

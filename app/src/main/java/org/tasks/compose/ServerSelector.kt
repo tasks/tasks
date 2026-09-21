@@ -13,13 +13,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.tasks.R
+import org.jetbrains.compose.resources.stringResource
+import org.tasks.compose.settings.serverTypes
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.caldav_server_type
 
 @Composable
 fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
@@ -28,16 +28,14 @@ fun ServerSelector(selected: Int, onSelected: (Int) -> Unit) {
         .padding(16.dp)
         .clickable { expanded = !expanded }) {
         Text(
-            text = stringResource(id = R.string.caldav_server_type),
+            text = stringResource(Res.string.caldav_server_type),
             style = MaterialTheme.typography.bodySmall.copy(
-                color = colorResource(id = R.color.text_secondary)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             ),
         )
         Spinner(
-            options = LocalContext.current.resources.getStringArray(R.array.caldav_servers)
-                .toList(),
-            values = LocalContext.current.resources.getIntArray(R.array.caldav_server_values)
-                .toList(),
+            options = serverTypes.map { (_, res) -> stringResource(res) },
+            values = serverTypes.map { (value, _) -> value },
             selected = selected,
             expanded = expanded,
             onSelected = {

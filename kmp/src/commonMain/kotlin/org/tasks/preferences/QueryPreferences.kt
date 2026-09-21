@@ -21,9 +21,11 @@ interface QueryPreferences {
 
     var subtaskAscending: Boolean
 
-    val showHidden: Boolean
+    var showHidden: Boolean
 
-    val showCompleted: Boolean
+    var showCompleted: Boolean
+
+    var showCompletedSubtasks: Boolean
 
     val alwaysDisplayFullDate: Boolean
 

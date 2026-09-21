@@ -1,13 +1,12 @@
 package org.tasks.compose.edit
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import android.content.res.Configuration
 import android.text.format.DateUtils
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ContentAlpha
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Pause
-import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -92,11 +91,11 @@ fun TimerRow(
                     },
                     modifier = Modifier.padding(vertical = 8.dp),
                 ) {
-                    Icon(
-                        imageVector = if (started > 0) {
-                            Icons.Outlined.Pause
+                    SymbolIcon(
+                        name = if (started > 0) {
+                            TasksIcons.PAUSE
                         } else {
-                            Icons.Outlined.PlayArrow
+                            TasksIcons.PLAY_ARROW
                         },
                         modifier = Modifier.alpha(ContentAlpha.medium),
                         contentDescription = null,

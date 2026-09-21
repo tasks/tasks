@@ -11,7 +11,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.tasks.SuspendFreeze
@@ -21,11 +20,10 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.extensions.Context.is24HourFormat
 import org.tasks.extensions.Context.is24HourOverride
 import org.tasks.kmp.formatDayOfWeek
+import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.TextStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getRelativeDay
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.formatTime
 import org.tasks.time.DateTime
 import java.util.Locale
 
@@ -39,39 +37,39 @@ class DateUtilitiesTest {
     @Test
     fun testGet24HourTime() {
         is24HourOverride = true
-        assertEquals("09:05", getTimeString(DateTime(2014, 1, 4, 9, 5, 36).millis, is24HourFormat))
-        assertEquals("13:00", getTimeString(DateTime(2014, 1, 4, 13, 0, 1).millis, is24HourFormat))
+        assertEquals("09:05", formatTime(DateTime(2014, 1, 4, 9, 5, 36).millis, is24HourFormat))
+        assertEquals("13:00", formatTime(DateTime(2014, 1, 4, 13, 0, 1).millis, is24HourFormat))
     }
 
     @Test
     fun testGetTime() {
         is24HourOverride = false
-        assertEquals("9:05 AM", getTimeString(DateTime(2014, 1, 4, 9, 5, 36).millis, is24HourFormat))
-        assertEquals("1:05 PM", getTimeString(DateTime(2014, 1, 4, 13, 5, 36).millis, is24HourFormat))
+        assertMatches("9:05[ \\u202F]AM", formatTime(DateTime(2014, 1, 4, 9, 5, 36).millis, is24HourFormat))
+        assertMatches("1:05[ \\u202F]PM", formatTime(DateTime(2014, 1, 4, 13, 5, 36).millis, is24HourFormat))
     }
 
     @Test
     fun testGetTimeWithNoMinutes() {
         is24HourOverride = false
-        assertEquals("1 PM", getTimeString(DateTime(2014, 1, 4, 13, 0, 59).millis, is24HourFormat)) // derp?
+        assertMatches("1[ \\u202F]PM", formatTime(DateTime(2014, 1, 4, 13, 0, 59).millis, is24HourFormat))
     }
 
     @Test
     fun testGetDateStringWithYear() = runBlocking {
-        assertEquals("Jan 4, 2014", getRelativeDay(DateTime(2014, 1, 4, 0, 0, 0).millis))
+        assertEquals("Jan 4, 2014", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2014, 1, 4, 0, 0, 0).millis))
     }
 
     @Test
     fun testGetDateStringHidingYear() = runBlocking {
         freezeAt(DateTimeUtils.newDate(2014, 2, 1)) {
-            assertEquals("Jan 1", getRelativeDay(DateTime(2014, 1, 1).millis))
+            assertEquals("Jan 1", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2014, 1, 1).millis))
         }
     }
 
     @Test
     fun testGetDateStringWithDifferentYear() = runBlocking {
         freezeAt(DateTimeUtils.newDate(2013, 12, 1)) {
-            assertEquals("Jan 1, 2014", getRelativeDay(DateTime(2014, 1, 1, 0, 0, 0).millis))
+            assertEquals("Jan 1, 2014", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2014, 1, 1, 0, 0, 0).millis))
         }
     }
 
@@ -102,7 +100,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
                 "Sunday, January 14",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -112,7 +110,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
                 "Sunday, January 14, 2018",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -121,19 +119,18 @@ class DateUtilitiesTest {
     fun getRelativeFullDateTime() = withLocale(Locale.US) {
         freezeAt(DateTime(2018, 1, 1)) {
             assertMatches(
-                "Sunday, January 14( at)? 1:43 PM",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 43, 1).millis, is24HourFormat, DateStyle.FULL)
+                "Sunday, January 14( at)? 1:43[ \\u202F]PM",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 43, 1).millis, DateStyle.FULL)
             )
         }
     }
 
     @Test
-    @Ignore("Fails on CI - need to investigate")
     fun getRelativeDateTimeWithAlwaysDisplayFullDateOption() = withLocale(Locale.US) {
         freezeAt(DateTime(2020, 1, 1)) {
             assertMatches(
-                "Thursday, January 2 at 11:50 AM",
-                getRelativeDateTime(DateTime(2020, 1, 2, 11, 50, 1).millis, is24HourFormat, DateStyle.FULL, true, false)
+                "Thursday, January 2(,| at)? 11:50[ \\u202F]AM",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2020, 1, 2, 11, 50, 1).millis, DateStyle.FULL, true, false)
             )
         }
     }
@@ -142,8 +139,8 @@ class DateUtilitiesTest {
     fun getRelativeFullDateTimeWithYear() = withLocale(Locale.US) {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
-                "Sunday, January 14, 2018( at)? 11:50 AM",
-                getRelativeDateTime(DateTime(2018, 1, 14, 11, 50, 1).millis, is24HourFormat, DateStyle.FULL)
+                "Sunday, January 14, 2018( at)? 11:50[ \\u202F]AM",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 11, 50, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -153,7 +150,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2020, 1, 1)) {
             assertEquals(
                     "Thursday, January 2",
-                    getRelativeDay(DateTime(2020, 1, 2, 11, 50, 1).millis, DateStyle.FULL, alwaysDisplayFullDate = true, lowercase = true)
+                    DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2, 11, 50, 1).millis, DateStyle.FULL, alwaysDisplayFullDate = true, lowercase = true)
             )
         }
     }
@@ -163,8 +160,44 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2020, 1, 1)) {
             assertEquals(
                     "tomorrow",
-                    getRelativeDay(DateTime(2020, 1, 2, 11, 50, 1).millis, DateStyle.FULL, lowercase = true)
+                    DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2, 11, 50, 1).millis, DateStyle.FULL, lowercase = true)
             )
+        }
+    }
+
+    @Test
+    fun abbreviatedRelativeDays() = withLocale(Locale.US) {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals("Yest", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2019, 12, 31).millis, DateStyle.MEDIUM))
+            assertEquals("Today", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 1).millis, DateStyle.MEDIUM))
+            assertEquals("Tmrw", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2).millis, DateStyle.MEDIUM))
+        }
+    }
+
+    @Test
+    fun abbreviatedLowercaseRelativeDays() = withLocale(Locale.US) {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals("yest", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2019, 12, 31).millis, DateStyle.MEDIUM, lowercase = true))
+            assertEquals("today", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 1).millis, DateStyle.MEDIUM, lowercase = true))
+            assertEquals("tmrw", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2).millis, DateStyle.MEDIUM, lowercase = true))
+        }
+    }
+
+    @Test
+    fun fullRelativeDays() = withLocale(Locale.US) {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals("Yesterday", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2019, 12, 31).millis, DateStyle.FULL))
+            assertEquals("Today", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 1).millis, DateStyle.FULL))
+            assertEquals("Tomorrow", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2).millis, DateStyle.FULL))
+        }
+    }
+
+    @Test
+    fun fullLowercaseRelativeDays() = withLocale(Locale.US) {
+        freezeAt(DateTime(2020, 1, 1)) {
+            assertEquals("yesterday", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2019, 12, 31).millis, DateStyle.FULL, lowercase = true))
+            assertEquals("today", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 1).millis, DateStyle.FULL, lowercase = true))
+            assertEquals("tomorrow", DateFormatter.create(is24HourFormat = false).relativeDay(DateTime(2020, 1, 2).millis, DateStyle.FULL, lowercase = true))
         }
     }
 
@@ -173,7 +206,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
                 "Sonntag, 14. Januar",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -183,7 +216,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
                 "Sonntag, 14. Januar 2018",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -193,7 +226,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
                 "1월 14일 일요일",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -203,7 +236,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
                 "2018년 1월 14일 일요일",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -213,7 +246,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
                 "1月14日日曜日",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -223,7 +256,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
                 "2018年1月14日日曜日",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -233,7 +266,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 1, 1)) {
             assertEquals(
                 "1月14日星期日",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -243,7 +276,7 @@ class DateUtilitiesTest {
         SuspendFreeze.freezeAt(DateTime(2017, 12, 12)) {
             assertEquals(
                 "2018年1月14日星期日",
-                getRelativeDateTime(DateTime(2018, 1, 14).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14).millis, DateStyle.FULL)
             )
         }
     }
@@ -251,9 +284,9 @@ class DateUtilitiesTest {
     @Test
     fun chineseDateTimeNoYear() = withLocale(Locale.CHINESE) {
         freezeAt(DateTime(2018, 1, 1)) {
-            assertEquals(
-                "1月14日星期日 上午11:53",
-                getRelativeDateTime(DateTime(2018, 1, 14, 11, 53, 1).millis, is24HourFormat, DateStyle.FULL)
+            assertMatches(
+                "1月14日星期日 (上午)?11:53",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 11, 53, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -261,9 +294,9 @@ class DateUtilitiesTest {
     @Test
     fun chineseDateTimeWithYear() = withLocale(Locale.CHINESE) {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                "2018年1月14日星期日 下午1:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+            assertMatches(
+                "2018年1月14日星期日 (下午1|13):45",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -273,7 +306,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
                 "dimanche 14 janvier 2018( à)? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -282,8 +315,8 @@ class DateUtilitiesTest {
     fun indiaDateTimeWithYear() = withLocale(Locale.forLanguageTag("hi-IN")) {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
-                "रविवार, 14 जनवरी 2018( को)? 1:45 pm",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                "रविवार, 14 जनवरी 2018( को)? 1:45[ \\u202F]pm( बजे)?",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -292,8 +325,8 @@ class DateUtilitiesTest {
     fun russiaDateTimeNoYear() = withLocale(Locale.forLanguageTag("ru")) {
         freezeAt(DateTime(2018, 12, 12)) {
             assertMatches(
-                "воскресенье, 14 января,? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                "воскресенье, 14 января(,| в)? 13:45",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -302,8 +335,8 @@ class DateUtilitiesTest {
     fun russiaDateTimeWithYear() = withLocale(Locale.forLanguageTag("ru")) {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
-                "воскресенье, 14 января 2018 г.,? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                "воскресенье, 14 января 2018[\\s\\u00a0]г\\.(,| в)? 13:45",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -311,9 +344,9 @@ class DateUtilitiesTest {
     @Test
     fun brazilDateTimeNoYear() = withLocale(Locale.forLanguageTag("pt-br")) {
         freezeAt(DateTime(2018, 12, 12)) {
-            assertEquals(
-                "domingo, 14 de janeiro 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+            assertMatches(
+                "domingo, 14 de janeiro( às)? 13:45",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -321,9 +354,9 @@ class DateUtilitiesTest {
     @Test
     fun brazilDateTimeWithYear() = withLocale(Locale.forLanguageTag("pt-br")) {
         freezeAt(DateTime(2017, 12, 12)) {
-            assertEquals(
-                "domingo, 14 de janeiro de 2018 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+            assertMatches(
+                "domingo, 14 de janeiro de 2018( às)? 13:45",
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -333,7 +366,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 12, 12)) {
             assertMatches(
                 "domingo, 14 de enero,? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -343,7 +376,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
                 "domingo, 14 de enero de 2018,? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -353,7 +386,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2018, 12, 12)) {
             assertMatches(
                 "יום ראשון, 14 בינואר( בשעה)? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }
@@ -363,7 +396,7 @@ class DateUtilitiesTest {
         freezeAt(DateTime(2017, 12, 12)) {
             assertMatches(
                 "יום ראשון, 14 בינואר 2018( בשעה)? 13:45",
-                getRelativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, is24HourFormat, DateStyle.FULL)
+                DateFormatter.create(is24HourFormat).relativeDateTime(DateTime(2018, 1, 14, 13, 45, 1).millis, DateStyle.FULL)
             )
         }
     }

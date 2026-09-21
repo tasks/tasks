@@ -52,6 +52,23 @@ class RepeatTaskHelperTests : RepeatTests() {
     }
 
     @Test
+    fun startTheNextOccurrenceWithNothingAcknowledged() {
+        val task = newFromDue(
+                "FREQ=DAILY;INTERVAL=1",
+                newDayTime(2017, 10, 4, 13, 30),
+                with(COMPLETION_TIME, DateTime())
+        ).apply {
+            reminderLast = DateTime(2017, 10, 4, 13, 30).millis
+            reminderDismissed = DateTime(2017, 10, 4, 13, 31).millis
+        }
+
+        calculateNextDueDate(task)
+
+        assertEquals(0L, task.reminderLast)
+        assertEquals(0L, task.reminderDismissed)
+    }
+
+    @Test
     fun useCompletionWhenNoDue() {
         val task = newFromDue(
                 "FREQ=DAILY;INTERVAL=1",

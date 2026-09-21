@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">証明書は一時的に拒否されました</string>
+    <string name="trust_certificate_accept">同意</string>
+    <string name="trust_certificate_fingerprint_verified">私は手動でフィンガープリント全体を確認しました。</string>
+    <string name="trust_certificate_fingerprints">フィンガープリント</string>
+    <string name="trust_certificate_issued_by">発行者</string>
+    <string name="trust_certificate_issued_for">発行先</string>
+    <string name="trust_certificate_reject">拒否</string>
+    <string name="trust_certificate_reset_info">アプリの設定ですべてのカスタム証明書をリセットすることができます。</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$sは、未知の証明書を検出しました。それを信頼しますか?</string>
+    <string name="trust_certificate_validity_period">有効期間</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (強制ではありません)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 証明書の詳細</string>
+</resources>

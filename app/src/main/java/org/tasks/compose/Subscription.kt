@@ -1,5 +1,7 @@
 package org.tasks.compose
 
+import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -24,9 +26,6 @@ import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -62,9 +61,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import tasks.kmp.generated.resources.sign_in
+import tasks.kmp.generated.resources.sign_in_subtitle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +74,8 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
@@ -82,6 +84,10 @@ import org.tasks.compose.PurchaseText.SubscriptionScreen
 import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.more_options
+import tasks.kmp.generated.resources.upgrade_subscription_banner
+import tasks.kmp.generated.resources.url_sponsor
 
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
@@ -97,20 +103,25 @@ object PurchaseText {
 
     private val nameYourPriceFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.open_source,
-            R.drawable.ic_outline_favorite_border_24px,
-            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.account_not_included,
             iconStyle = IconStyle.GRAYSCALE
+        ),
+        CarouselItem(
+            R.string.open_source,
+            R.drawable.ic_outline_favorite_border_24px,
+            R.string.upgrade_open_source_description
         ),
         CarouselItem(
             R.string.davx5,
@@ -139,20 +150,25 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
+            title = R.string.upgrade_desktop_app,
+            icon = R.drawable.ic_outline_computer_24px,
+            description = R.string.upgrade_desktop_app_description,
+        ),
+        CarouselItem(
             title = R.string.upgrade_friends_and_family,
             icon = R.drawable.outline_groups_24,
             description = R.string.upgrade_friends_and_family_description,
+        ),
+        CarouselItem(
+            R.string.email_to_task,
+            R.drawable.ic_outline_email_24px,
+            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.tasks_org_account,
             R.drawable.ic_round_icon,
             R.string.upgrade_tasks_org_account_description,
             iconStyle = IconStyle.ORIGINAL
-        ),
-        CarouselItem(
-            R.string.email_to_task,
-            R.drawable.ic_outline_email_24px,
-            R.string.upgrade_email_to_task_description
         ),
         CarouselItem(
             R.string.upgrade_more_customization,
@@ -206,8 +222,8 @@ object PurchaseText {
                     },
                     navigationIcon = {
                         IconButton(onClick = onBack) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
                                 contentDescription = null
                             )
                         }
@@ -216,8 +232,8 @@ object PurchaseText {
                         if (existingSubscriber && !github && !hasTasksAccount) {
                             var expanded by remember { mutableStateOf(false) }
                             IconButton(onClick = { expanded = true }) {
-                                Icon(
-                                    imageVector = Icons.Outlined.MoreVert,
+                                SymbolIcon(
+                                    name = TasksIcons.MORE_VERT,
                                     contentDescription = null,
                                 )
                             }
@@ -226,7 +242,7 @@ object PurchaseText {
                                 onDismissRequest = { expanded = false },
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text(stringResource(R.string.sign_in)) },
+                                    text = { Text(org.jetbrains.compose.resources.stringResource(Res.string.sign_in)) },
                                     onClick = {
                                         expanded = false
                                         onSignIn()
@@ -261,7 +277,7 @@ object PurchaseText {
                         ),
                     ) {
                         Text(
-                            text = stringResource(R.string.upgrade_subscription_banner),
+                            text = org.jetbrains.compose.resources.stringResource(Res.string.upgrade_subscription_banner),
                             modifier = Modifier.padding(KEYLINE_FIRST),
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodyMedium,
@@ -323,7 +339,7 @@ object PurchaseText {
                         )
                     ) {
                         Text(
-                            text = stringResource(R.string.sign_in),
+                            text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -352,7 +368,7 @@ object PurchaseText {
     fun SponsorButton() {
         val context = LocalContext.current
         OutlinedButton(
-            onClick = { context.openUri(R.string.url_sponsor) },
+            onClick = { context.openUri(runBlocking { getString(Res.string.url_sponsor) }) },
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
@@ -452,10 +468,11 @@ object PurchaseText {
                             )
                         ) {
                             Text(
-                                text = stringResource(
-                                    if (nameYourPrice) R.string.more_options
-                                    else R.string.name_your_price
-                                ),
+                                text = if (nameYourPrice) {
+                                    org.jetbrains.compose.resources.stringResource(Res.string.more_options)
+                                } else {
+                                    stringResource(R.string.name_your_price)
+                                },
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodyLarge
                             )
@@ -480,7 +497,7 @@ object PurchaseText {
             if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
                 Spacer(Modifier.height(32.dp))
                 Text(
-                    text = stringResource(R.string.sign_in_subtitle),
+                    text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in_subtitle),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -493,7 +510,7 @@ object PurchaseText {
                     )
                 ) {
                     Text(
-                        text = stringResource(R.string.sign_in),
+                        text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
@@ -518,7 +535,7 @@ object PurchaseText {
                     IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
                         ColorMatrix().apply { setToSaturation(0f) }
                     )
-                    IconStyle.TINT -> ColorFilter.tint(colorResource(R.color.icon_tint_with_alpha))
+                    IconStyle.TINT -> ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                     IconStyle.ORIGINAL -> null
                 }
             )
@@ -630,14 +647,14 @@ object PurchaseText {
             Row(Modifier.fillMaxWidth()) {
                 Slider(
                     modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, HALF_KEYLINE),
-                    value = sliderPosition,
+                    value = sliderPosition.coerceIn(1f, 25f),
                     onValueChange = { setPrice(it) },
                     valueRange = 1f..25f,
-                    steps = 25,
+                    steps = 23,
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
-                        inactiveTrackColor = colorResource(R.color.text_tertiary),
+                        inactiveTrackColor = MaterialTheme.colorScheme.outline,
                         activeTickColor = Color.Transparent,
                         inactiveTickColor = Color.Transparent
                     )
@@ -647,7 +664,7 @@ object PurchaseText {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                val price = sliderPosition.toInt()
+                val price = sliderPosition.toInt().coerceIn(1, 25)
                 PurchaseButton(
                     price = remember(skus, price) {
                         skus
@@ -655,13 +672,13 @@ object PurchaseText {
                             ?.price
                             ?: "$$price"
                     },
-                    popperText = if (sliderPosition.toInt() >= 7)
+                    popperText = if (price >= 7)
                         "${stringResource(R.string.above_average, 16)} $POPPER"
                     else
                         "",
-                    onClick = { subscribe(sliderPosition.toInt(), false) },
+                    onClick = { subscribe(price, false) },
                 )
-                if (sliderPosition.toInt() < 3) {
+                if (price < 3) {
                     Spacer(Modifier.width(KEYLINE_FIRST))
                     PurchaseButton(
                         price = remember(skus, price) {

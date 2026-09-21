@@ -3,7 +3,7 @@ package com.todoroo.astrid.repeats
 import com.natpryce.makeiteasy.MakeItEasy
 import com.natpryce.makeiteasy.PropertyValue
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.Task
 import com.todoroo.astrid.gcal.GCalHelper
 import kotlinx.coroutines.runBlocking
@@ -22,7 +22,7 @@ abstract class RepeatTests {
     private val helper = RepeatTaskHelper(
             mock(GCalHelper::class.java),
             alarmService,
-            mock(TaskDao::class.java),
+            mock(TaskSaver::class.java),
     )
 
     @Before

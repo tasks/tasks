@@ -78,6 +78,30 @@ class RepeatRuleToStringTest : InjectingTestCase() {
     }
 
     @Test
+    fun lastDayOfMonth() {
+        assertEquals(
+                "Repeats monthly on the last day",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=-1")
+        )
+    }
+
+    @Test
+    fun lastDayOfMonthPlural() {
+        assertEquals(
+                "Repeats every 6 months on the last day",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=6;BYMONTHDAY=-1")
+        )
+    }
+
+    @Test
+    fun explicitDayOfMonthIsNotTreatedAsLastDay() {
+        assertEquals(
+                "Repeats monthly",
+                toString("RRULE:FREQ=MONTHLY;INTERVAL=1;BYMONTHDAY=31")
+        )
+    }
+
+    @Test
     fun repeatUntilPositiveOffset() {
         Freeze.freezeAt(DateTime(2021, 1, 4)) {
             withTZ(BERLIN) {
@@ -118,15 +142,15 @@ class RepeatRuleToStringTest : InjectingTestCase() {
     }
 
     private fun toString(language: String?, rrule: String): String? {
+        val default = Locale.getDefault()
+        val locale = language?.let { Locale.forLanguageTag(it) } ?: default
         return try {
-            val locale = language?.let { Locale.forLanguageTag(it) } ?: Locale.getDefault()
-            val configuration = context.resources.configuration.apply {
-                setLocale(locale)
-            }
-            RepeatRuleToString(context.createConfigurationContext(configuration), locale, firebase)
-                    .toString(rrule)
+            Locale.setDefault(locale)
+            RepeatRuleToString(firebase).toStringBlocking(rrule)
         } catch (e: ParseException) {
             throw RuntimeException(e)
+        } finally {
+            Locale.setDefault(default)
         }
     }
 

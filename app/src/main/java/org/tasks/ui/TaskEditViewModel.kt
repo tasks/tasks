@@ -10,14 +10,15 @@ import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.BeastModePreferences
 import com.todoroo.astrid.activity.TaskEditFragment
 import com.todoroo.astrid.alarms.AlarmService
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
-import com.todoroo.astrid.service.TaskCompleter
-import com.todoroo.astrid.service.TaskCreator.Companion.getDefaultAlarms
-import com.todoroo.astrid.service.TaskDeleter
-import com.todoroo.astrid.service.TaskMover
+import org.tasks.service.TaskCompleter
+import org.tasks.data.getDefaultAlarms
+import org.tasks.service.TaskDeleter
+import org.tasks.data.TaskMover
 import com.todoroo.astrid.tags.TagsControlSet
 import com.todoroo.astrid.timers.TimerControlSet
 import com.todoroo.astrid.timers.TimerPlugin
@@ -37,7 +38,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.getString
 import org.tasks.R
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.no_title
 import org.tasks.Strings
 import org.tasks.analytics.Firebase
 import org.tasks.calendars.CalendarEventProvider
@@ -58,8 +62,9 @@ import org.tasks.data.entity.Attachment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
-import org.tasks.data.entity.FORCE_CALDAV_SYNC
-import org.tasks.data.entity.FORCE_MICROSOFT_SYNC
+import org.tasks.data.entity.SYNC_ALARMS
+import org.tasks.data.entity.SYNC_LOCATION
+import org.tasks.data.entity.SYNC_TAGS
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NOTIFY_MODE_FIVE
@@ -73,13 +78,11 @@ import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.files.FileHelper
 import org.tasks.filters.CaldavFilter
 import org.tasks.kmp.org.tasks.taskedit.TaskEditViewState
-import org.tasks.location.GeofenceApi
+import org.tasks.location.LocationService
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
-import net.fortuna.ical4j.model.Recur
-import net.fortuna.ical4j.model.WeekDay
-import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.repeats.anchoredToDueDate
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
@@ -91,6 +94,7 @@ class TaskEditViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val savedStateHandle: SavedStateHandle,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val taskDeleter: TaskDeleter,
     private val timerPlugin: TimerPlugin,
     private val permissionChecker: PermissionChecker,
@@ -98,7 +102,7 @@ class TaskEditViewModel @Inject constructor(
     private val gCalHelper: GCalHelper,
     private val taskMover: TaskMover,
     private val locationDao: LocationDao,
-    private val geofenceApi: GeofenceApi,
+    private val locationService: LocationService,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
     private val preferences: Preferences,
@@ -113,7 +117,6 @@ class TaskEditViewModel @Inject constructor(
     private val taskAttachmentDao: TaskAttachmentDao,
     private val defaultFilterProvider: DefaultFilterProvider,
 ) : ViewModel() {
-
     private val resources = context.resources
     private var cleared = false
 
@@ -169,25 +172,7 @@ class TaskEditViewModel @Inject constructor(
                         .toPersistentList()
                 },
             alarms = if (task.isNew) {
-                val defaults = task.getTransitory<List<Alarm>>(Task.TRANS_DEFAULT_ALARMS)
-                    ?: emptyList()
-                val defaultRemindersEnabled = preferences.isDefaultDueTimeEnabled
-                buildList {
-                    for (alarm in defaults) {
-                        when (alarm.type) {
-                            TYPE_REL_START ->
-                                if (task.hasStartDate() && (task.hasStartTime() || defaultRemindersEnabled))
-                                    add(alarm)
-                            TYPE_REL_END ->
-                                if (task.hasDueDate() && (task.hasDueTime() || defaultRemindersEnabled))
-                                    add(alarm)
-                            else -> add(alarm)
-                        }
-                    }
-                    if (task.randomReminder > 0) {
-                        add(Alarm(time = task.randomReminder, type = Alarm.TYPE_RANDOM))
-                    }
-                }
+                task.getDefaultAlarms(runBlocking { preferences.isDefaultDueTimeEnabled() })
             } else {
                 emptyList()
             }.toPersistentSet(),
@@ -230,14 +215,14 @@ class TaskEditViewModel @Inject constructor(
         val hasDueTimeNow = hasDueTime(dueDate.value)
         val addedDueDate = !hadDueDate && dueDate.value > 0
         val addedDueTime = hadDueDate && !hadDueTime && hasDueTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedDueDate -> hasDueTimeNow || preferences.isDefaultDueTimeEnabled
-            addedDueTime -> !preferences.isDefaultDueTimeEnabled
+            addedDueDate -> hasDueTimeNow || isDefaultDueTimeEnabled
+            addedDueTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_END }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -261,14 +246,14 @@ class TaskEditViewModel @Inject constructor(
         val hasStartTimeNow = hasDueTime(startDate.value)
         val addedStartDate = !hadStartDate && startDate.value > 0
         val addedStartTime = hadStartDate && !hadStartTime && hasStartTimeNow
+        val isDefaultDueTimeEnabled = runBlocking { preferences.isDefaultDueTimeEnabled() }
         val shouldAddReminders = when {
-            addedStartDate -> hasStartTimeNow || preferences.isDefaultDueTimeEnabled
-            addedStartTime -> !preferences.isDefaultDueTimeEnabled
+            addedStartDate -> hasStartTimeNow || isDefaultDueTimeEnabled
+            addedStartTime -> !isDefaultDueTimeEnabled
             else -> false
         }
         if (shouldAddReminders) {
-            preferences
-                .defaultAlarms
+            runBlocking { preferences.defaultAlarms() }
                 .filter { it.type == TYPE_REL_START }
                 .forEach { alarm ->
                     _viewState.update { state ->
@@ -330,7 +315,8 @@ class TaskEditViewModel @Inject constructor(
         clear()
         val viewState = _viewState.value
         val isNew = viewState.isNew
-        task.title = if (viewState.task.title.isNullOrBlank()) resources.getString(R.string.no_title) else viewState.task.title
+        val original = if (isNew) null else task.copy()
+        task.title = if (viewState.task.title.isNullOrBlank()) getString(Res.string.no_title) else viewState.task.title
         task.dueDate = dueDate.value
         task.priority = viewState.task.priority
         task.notes = viewState.task.notes
@@ -350,7 +336,7 @@ class TaskEditViewModel @Inject constructor(
             originalState.value.location?.let { location ->
                 if (location.geofence.id > 0) {
                     locationDao.delete(location.geofence)
-                    geofenceApi.update(location.place)
+                    locationService.updateGeofences(location.place)
                 }
             }
             selectedLocation?.let { location ->
@@ -361,17 +347,14 @@ class TaskEditViewModel @Inject constructor(
                         place = place.uid,
                     )
                 )
-                geofenceApi.update(place)
+                locationService.updateGeofences(place)
             }
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.putTransitory(FORCE_MICROSOFT_SYNC, true)
-            task.modificationDate = currentTimeMillis()
+            task.putTransitory(SYNC_LOCATION, true)
         }
         val selectedTags = _viewState.value.tags
         if ((isNew && selectedTags.isNotEmpty()) || originalState.value.tags.toHashSet() != selectedTags.toHashSet()) {
-            tagDao.applyTags(task, tagDataDao, selectedTags)
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.modificationDate = currentTimeMillis()
+            tagDao.applyTags(task, selectedTags)
+            task.putTransitory(SYNC_TAGS, true)
         }
 
         if (!task.hasStartDate()) {
@@ -394,11 +377,10 @@ class TaskEditViewModel @Inject constructor(
             originalState.value.alarms != _viewState.value.alarms
         ) {
             alarmService.synchronizeAlarms(task.id, _viewState.value.alarms.toMutableSet())
-            task.putTransitory(FORCE_CALDAV_SYNC, true)
-            task.modificationDate = currentTimeMillis()
+            task.putTransitory(SYNC_ALARMS, true)
         }
 
-        taskDao.save(task, null)
+        taskSaver.save(task, original)
         val selectedList = _viewState.value.list
         if (isNew || originalState.value.list != selectedList) {
             task.parent = 0
@@ -413,7 +395,7 @@ class TaskEditViewModel @Inject constructor(
                 subtask.completionDate = task.completionDate
             }
             taskDao.createNew(subtask)
-            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled))
+            alarmDao.insert(subtask.getDefaultAlarms(preferences.isDefaultDueTimeEnabled()))
             firebase?.addTask("subtasks")
             when {
                 selectedList.isGoogleTasks -> {
@@ -436,8 +418,10 @@ class TaskEditViewModel @Inject constructor(
                         calendar = selectedList.uuid,
                     )
                     subtask.parent = task.id
-                    caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
-                    taskDao.save(subtask)
+                    if (selectedList.account.pushesRemoteParent) {
+                        caldavTask.remoteParent = caldavDao.getRemoteIdForTask(task.id)
+                    }
+                    taskSaver.save(subtask, null)
                     caldavDao.insert(
                         task = subtask,
                         caldavTask = caldavTask,
@@ -649,22 +633,9 @@ class TaskEditViewModel @Inject constructor(
 
     fun onDueDateChanged() {
         _viewState.value.task.recurrence?.takeIf { it.isNotBlank() }?.let { recurrence ->
-            val recur = newRecur(recurrence)
-            if (recur.frequency == Recur.Frequency.MONTHLY && recur.dayList.isNotEmpty()) {
-                val weekdayNum = recur.dayList[0]
-                val dateTime =
-                    DateTime(dueDate.value.let { if (it > 0) it else currentTimeMillis() })
-                val dayOfWeekInMonth = dateTime.dayOfWeekInMonth
-                val num = if (weekdayNum.offset == -1 || dayOfWeekInMonth == 5) {
-                    if (dayOfWeekInMonth == dateTime.maxDayOfWeekInMonth) -1 else dayOfWeekInMonth
-                } else {
-                    dayOfWeekInMonth
-                }
-                recur.dayList.let {
-                    it.clear()
-                    it.add(WeekDay(dateTime.weekDay, num))
-                }
-                setRecurrence(recur.toString())
+            val anchored = recurrence.anchoredToDueDate(dueDate.value)
+            if (anchored != recurrence) {
+                setRecurrence(anchored)
             }
         }
     }

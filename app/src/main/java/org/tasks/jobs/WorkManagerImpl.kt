@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy.APPEND_OR_REPLACE
@@ -32,13 +33,14 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
-import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.midnight
 import org.tasks.date.DateTimeUtils.newDateTime
+import org.tasks.feed.BlogFeedMode
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_PURGE
 import org.tasks.jobs.DriveUploader.Companion.EXTRA_URI
 import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_ACCOUNT
+import org.tasks.jobs.MigrateLocalWork.Companion.EXTRA_LOCAL_ACCOUNT
 import org.tasks.sync.SyncSource
 import org.tasks.jobs.WorkManager.Companion.REMOTE_CONFIG_INTERVAL_HOURS
 import org.tasks.jobs.WorkManager.Companion.TAG_BACKGROUND_SYNC
@@ -47,11 +49,12 @@ import org.tasks.jobs.WorkManager.Companion.TAG_MIGRATE_LOCAL
 import org.tasks.jobs.WorkManager.Companion.TAG_NOTIFICATIONS
 import org.tasks.jobs.WorkManager.Companion.TAG_REFRESH
 import org.tasks.jobs.WorkManager.Companion.TAG_REMOTE_CONFIG
+import org.tasks.jobs.WorkManager.Companion.TAG_BLOG_FEED
 import org.tasks.jobs.WorkManager.Companion.TAG_SYNC
 import org.tasks.jobs.WorkManager.Companion.TAG_UPDATE_PURCHASES
 import org.tasks.notifications.Throttle
 import org.tasks.preferences.Preferences
-import org.tasks.time.DateTimeUtils
+import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.printTimestamp
 import timber.log.Timber
@@ -62,6 +65,7 @@ import kotlin.math.max
 class WorkManagerImpl(
     private val context: Context,
     private val preferences: Preferences,
+    private val tasksPreferences: TasksPreferences,
     private val caldavDao: CaldavDao,
     private val openTaskDao: OpenTaskDao,
 ): WorkManager {
@@ -77,9 +81,12 @@ class WorkManagerImpl(
     }
 
     @SuppressLint("EnqueueWork")
-    override fun migrateLocalTasks(caldavAccount: CaldavAccount) {
+    override fun migrateLocalTasks(localAccount: CaldavAccount, tasksAccount: CaldavAccount) {
         val builder = OneTimeWorkRequest.Builder(MigrateLocalWork::class.java)
-                .setInputData(EXTRA_ACCOUNT to caldavAccount.uuid)
+                .setInputData(
+                    EXTRA_LOCAL_ACCOUNT to localAccount.uuid,
+                    EXTRA_ACCOUNT to tasksAccount.uuid,
+                )
                 .setConstraints(networkConstraints)
         enqueue(workManager.beginUniqueWork(TAG_MIGRATE_LOCAL, APPEND_OR_REPLACE, builder.build()))
     }
@@ -92,14 +99,14 @@ class WorkManagerImpl(
 
     @SuppressLint("EnqueueWork")
     override suspend fun sync(source: SyncSource) {
-        val immediate = source != SyncSource.TASK_CHANGE
+        val immediate = source.immediate
         val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
                 .setInputData(SyncWork.EXTRA_SOURCE to source.name)
         if (!openTaskDao.shouldSync()) {
             builder.setConstraints(networkConstraints)
         }
         if (!immediate) {
-            builder.setInitialDelay(1, TimeUnit.MINUTES)
+            builder.setInitialDelay(SYNC_CHANGE_DEBOUNCE_SECONDS, TimeUnit.SECONDS)
         }
         val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
         Timber.d("sync source=$source immediate=$immediate append=$append")
@@ -108,16 +115,6 @@ class WorkManagerImpl(
                 if (append) APPEND_OR_REPLACE else REPLACE,
                 builder.build())
         )
-    }
-
-    override fun reverseGeocode(place: Place) {
-        if (BuildConfig.DEBUG && place.id == 0L) {
-            throw RuntimeException("Missing id")
-        }
-        enqueue(
-                OneTimeWorkRequest.Builder(ReverseGeocodeWork::class.java)
-                        .setInputData(ReverseGeocodeWork.PLACE_ID to place.id)
-                        .setConstraints(networkConstraints))
     }
 
     override fun updateBackgroundSync() {
@@ -210,12 +207,37 @@ class WorkManagerImpl(
     override fun updatePurchases() =
         enqueueUnique(TAG_UPDATE_PURCHASES, UpdatePurchaseWork::class.java)
 
+    override suspend fun scheduleBlogFeedCheck() {
+        val mode = BlogFeedMode.fromValue(
+            tasksPreferences.get(TasksPreferences.blogFeedMode, BlogFeedMode.ANNOUNCEMENTS.value)
+        )
+        if (mode == BlogFeedMode.NONE) {
+            workManager.cancelUniqueWork(TAG_BLOG_FEED)
+            return
+        }
+        val lastChecked = tasksPreferences.get(TasksPreferences.blogLastChecked, 0L)
+            .takeIf { it > 0 }
+            ?: currentTimeMillis()
+            .also { tasksPreferences.set(TasksPreferences.blogLastChecked, it) }
+        val time = lastChecked + TimeUnit.HOURS.toMillis(WorkManager.BLOG_FEED_INTERVAL_HOURS)
+        val overdue = currentTimeMillis() - lastChecked > TimeUnit.DAYS.toMillis(7)
+        enqueueUnique(
+            TAG_BLOG_FEED,
+            BlogFeedWork::class.java,
+            time,
+            constraints = if (overdue) networkConstraints else blogFeedConstraints,
+            backoffPolicy = BackoffPolicy.EXPONENTIAL,
+        )
+    }
+
     @SuppressLint("EnqueueWork")
     private fun enqueueUnique(
         key: String,
         c: Class<out Worker?>,
         time: Long = 0,
         expedited: Boolean = false,
+        constraints: Constraints? = null,
+        backoffPolicy: BackoffPolicy? = null,
     ) {
         val delay = time - currentTimeMillis()
         val builder = OneTimeWorkRequest.Builder(c)
@@ -225,7 +247,14 @@ class WorkManagerImpl(
         if (expedited) {
             builder.setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
         }
-        Timber.d("$key: expedited=$expedited ${printTimestamp(delay)} (${DateTimeUtils.printDuration(delay)})")
+        if (constraints != null) {
+            builder.setConstraints(constraints)
+        }
+        if (backoffPolicy != null) {
+            builder.setBackoffCriteria(backoffPolicy, 1, TimeUnit.HOURS)
+        }
+        val scheduledFor = if (delay > 0) time else currentTimeMillis()
+        Timber.d("$key: expedited=$expedited ${printTimestamp(scheduledFor)} (${printDuration(delay)})")
         enqueue(workManager.beginUniqueWork(key, REPLACE, builder.build()))
     }
 
@@ -254,9 +283,25 @@ class WorkManagerImpl(
     }
 }
 
+private const val SYNC_CHANGE_DEBOUNCE_SECONDS = 30L
+
 private fun <B : WorkRequest.Builder<B, *>, W : WorkRequest> WorkRequest.Builder<B, W>.setInputData(
     vararg pairs: Pair<String, Any?>
 ): B = setInputData(workDataOf(*pairs))
 
+private fun printDuration(millis: Long): String = if (BuildConfig.DEBUG) {
+    val seconds = millis / 1000
+    String.format(
+        "%dh %dm %ds", seconds / 3600L, (seconds % 3600L / 60L).toInt(), (seconds % 60L).toInt())
+} else {
+    millis.toString()
+}
+
 val networkConstraints: Constraints
     get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+
+val blogFeedConstraints: Constraints
+    get() = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.UNMETERED)
+        .setRequiresCharging(true)
+        .build()

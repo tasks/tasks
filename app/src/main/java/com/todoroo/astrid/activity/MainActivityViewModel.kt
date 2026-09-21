@@ -1,50 +1,37 @@
 package com.todoroo.astrid.activity
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.todoroo.astrid.activity.MainActivity.Companion.LOAD_FILTER
 import com.todoroo.astrid.activity.MainActivity.Companion.OPEN_FILTER
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toPersistentList
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.tasks.LocalBroadcastManager
-import org.tasks.billing.Inventory
+import org.tasks.R
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.compose.drawer.DrawerItem
-import org.tasks.compose.throttleLatest
-import org.tasks.data.NO_COUNT
-import org.tasks.data.count
+import org.tasks.compose.HomeDestination
+import org.tasks.compose.SubscriptionOnboardingDestination
+import org.tasks.compose.WelcomeDestination
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
-import org.tasks.filters.CaldavFilter
+import org.tasks.data.getOrCreateLocalAccount
 import org.tasks.filters.Filter
-import org.tasks.filters.FilterProvider
-import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.filters.SearchFilter
-import org.tasks.filters.getIcon
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.TasksPreferences
-import org.tasks.themes.ColorProvider
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.viewmodel.DrawerViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -52,26 +39,18 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val defaultFilterProvider: DefaultFilterProvider,
-    private val filterProvider: FilterProvider,
-    private val taskDao: TaskDao,
-    private val localBroadcastManager: LocalBroadcastManager,
-    private val inventory: Inventory,
-    private val colorProvider: ColorProvider,
+    @ApplicationContext private val applicationContext: Context,
     private val caldavDao: CaldavDao,
-    private val tasksPreferences: TasksPreferences,
     private val accountDataRepository: TasksAccountDataRepository,
+    private val firebase: Firebase,
+    private val tasksPreferences: TasksPreferences,
+    val drawerViewModel: DrawerViewModel,
 ) : ViewModel() {
 
     data class State(
         val filter: Filter,
         val task: Task? = null,
-        val drawerItems: ImmutableList<DrawerItem> = persistentListOf(),
-        val searchItems: ImmutableList<DrawerItem> = persistentListOf(),
-        val menuQuery: String = "",
     )
-
-    private val _drawerOpen = MutableStateFlow(false)
-    private val _updateFilters = MutableStateFlow(0L)
 
     private val _state = MutableStateFlow(
         State(
@@ -87,17 +66,127 @@ class MainActivityViewModel @Inject constructor(
 
     companion object {
         private const val EXTRA_TASK = "extra_task"
+        private const val KEY_WAS_IN_ONBOARDING = "was_in_onboarding"
+        private const val KEY_WAS_IN_CLOUD_ONBOARDING = "was_in_cloud_onboarding"
+
+        fun routeOnboarding(
+            state: OnboardingState,
+            hasAccount: Boolean?,
+            needsCloudOnboarding: Boolean?,
+            isImporting: Boolean,
+        ): OnboardingRouting {
+            if (needsCloudOnboarding == null) {
+                return OnboardingRouting(state)
+            }
+            if (needsCloudOnboarding) {
+                return if (!state.wasInCloudOnboarding) {
+                    OnboardingRouting(
+                        state = state.copy(wasInCloudOnboarding = true),
+                        navigation = OnboardingNavigation.Push(SubscriptionOnboardingDestination),
+                        ready = true,
+                    )
+                } else {
+                    OnboardingRouting(state, ready = true)
+                }
+            }
+            if (state.wasInCloudOnboarding) {
+                if (hasAccount == null) {
+                    return OnboardingRouting(state)
+                }
+                val destination = if (hasAccount) HomeDestination else WelcomeDestination
+                return OnboardingRouting(
+                    state = state.copy(
+                        wasInCloudOnboarding = false,
+                        wasInOnboarding = !hasAccount,
+                    ),
+                    navigation = OnboardingNavigation.ClearBackStack(destination),
+                    logOnboardingComplete = hasAccount,
+                    ready = true,
+                )
+            }
+            return when (hasAccount) {
+                false ->
+                    if (!state.wasInOnboarding) {
+                        OnboardingRouting(
+                            state = state.copy(wasInOnboarding = true),
+                            navigation = OnboardingNavigation.ClearBackStack(WelcomeDestination),
+                            ready = true,
+                        )
+                    } else {
+                        OnboardingRouting(state, ready = true)
+                    }
+                true -> when {
+                    isImporting -> OnboardingRouting(state)
+                    state.wasInOnboarding -> OnboardingRouting(
+                        state = state.copy(wasInOnboarding = false),
+                        navigation = OnboardingNavigation.ClearBackStack(HomeDestination),
+                        logOnboardingComplete = true,
+                        ready = true,
+                    )
+                    else -> OnboardingRouting(state, ready = true)
+                }
+                null -> OnboardingRouting(state, ready = false)
+            }
+        }
     }
 
     val accountExists: Flow<Boolean>
         get() = caldavDao.watchAccountExists()
 
-    private val refreshReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            when (intent?.action) {
-                LocalBroadcastManager.REFRESH -> _updateFilters.update { currentTimeMillis() }
-            }
+    val needsCloudOnboarding: StateFlow<Boolean?> =
+        tasksPreferences.flow(TasksPreferences.needsCloudOnboarding, false)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    private var wasInOnboarding: Boolean
+        get() = savedStateHandle[KEY_WAS_IN_ONBOARDING] ?: false
+        set(value) { savedStateHandle[KEY_WAS_IN_ONBOARDING] = value }
+
+    private var wasInCloudOnboarding: Boolean
+        get() = savedStateHandle[KEY_WAS_IN_CLOUD_ONBOARDING] ?: false
+        set(value) { savedStateHandle[KEY_WAS_IN_CLOUD_ONBOARDING] = value }
+
+    data class OnboardingState(
+        val wasInOnboarding: Boolean = false,
+        val wasInCloudOnboarding: Boolean = false,
+    )
+
+    sealed interface OnboardingNavigation {
+        data class Push(val destination: Any) : OnboardingNavigation
+        data class ClearBackStack(val destination: Any) : OnboardingNavigation
+    }
+
+    data class OnboardingRouting(
+        val state: OnboardingState,
+        val navigation: OnboardingNavigation? = null,
+        val logOnboardingComplete: Boolean = false,
+        val ready: Boolean? = null,
+    )
+
+    fun routeOnboarding(
+        hasAccount: Boolean?,
+        needsCloudOnboarding: Boolean?,
+        isImporting: Boolean,
+    ): OnboardingRouting {
+        val routing = routeOnboarding(
+            OnboardingState(wasInOnboarding, wasInCloudOnboarding),
+            hasAccount,
+            needsCloudOnboarding,
+            isImporting,
+        )
+        wasInOnboarding = routing.state.wasInOnboarding
+        wasInCloudOnboarding = routing.state.wasInCloudOnboarding
+        return routing
+    }
+
+    suspend fun logOnboardingComplete() {
+        if (!tasksPreferences.get(TasksPreferences.hasLoggedOnboardingComplete, false)) {
+            firebase.logEvent(R.string.event_onboarding_complete)
+            tasksPreferences.set(TasksPreferences.hasLoggedOnboardingComplete, true)
         }
+    }
+
+    init {
+        drawerViewModel.setSelectedFilter(_state.value.filter)
     }
 
     suspend fun resetFilter() {
@@ -118,127 +207,9 @@ class MainActivityViewModel @Inject constructor(
                 task = task,
             )
         }
-        updateFilters()
+        drawerViewModel.setSelectedFilter(filter)
         if (filter !is SearchFilter) {
             defaultFilterProvider.setLastViewedFilter(filter)
-        }
-    }
-
-    fun setDrawerState(opened: Boolean) {
-        _drawerOpen.update { opened }
-        if (!opened) {
-            _state.update { it.copy(menuQuery = "") }
-        }
-    }
-
-    init {
-        localBroadcastManager.registerRefreshListReceiver(refreshReceiver)
-
-        _updateFilters
-            .onStart { updateFilters() }
-            .combine(_drawerOpen) { timestamp, drawerOpen ->
-                if (drawerOpen) timestamp else null
-            }
-            .filterNotNull()
-            .throttleLatest(1000)
-            .onEach { updateFilters() }
-            .launchIn(viewModelScope)
-    }
-
-    override fun onCleared() {
-        localBroadcastManager.unregisterReceiver(refreshReceiver)
-    }
-
-    private fun updateFilters() = viewModelScope.launch(Dispatchers.IO) {
-        val selected = state.value.filter
-        filterProvider
-            .drawerItems()
-            .map { item ->
-                when (item) {
-                    is Filter -> {
-                        val tint = getTintInfo(item)
-                        DrawerItem.Filter(
-                            title = item.title,
-                            icon = item.getIcon(inventory),
-                            color = tint.color,
-                            adjustColor = tint.adjust,
-                            count = item.count.takeIf { it != NO_COUNT } ?: try {
-                                taskDao.count(item)
-                            } catch (e: Exception) {
-                                Timber.e(e)
-                                0
-                            },
-                            selected = item.areItemsTheSame(selected),
-                            shareCount = if (item is CaldavFilter) item.principals else 0,
-                            filter = item,
-                        )
-                    }
-                    is NavigationDrawerSubheader ->
-                        DrawerItem.Header(
-                            title = item.title ?: "",
-                            collapsed = item.isCollapsed,
-                            hasError = item.error,
-                            canAdd = item.addIntentRc != 0,
-                            hasChildren = item.childCount > 0,
-                            openTaskApp = item.openTaskApp,
-                            header = item,
-                        )
-                    else -> throw IllegalArgumentException()
-                }
-            }
-            .let { filters -> _state.update { it.copy(drawerItems = filters.toPersistentList()) } }
-        val query = _state.value.menuQuery
-        filterProvider
-            .allFilters()
-            .filter { it.title.contains(query, ignoreCase = true) }
-            .map { item ->
-                val tint = getTintInfo(item)
-                DrawerItem.Filter(
-                    title = item.title,
-                    icon = item.getIcon(inventory),
-                    color = tint.color,
-                    adjustColor = tint.adjust,
-                    count = item.count.takeIf { it != NO_COUNT } ?: try {
-                        taskDao.count(item)
-                    } catch (e: Exception) {
-                        Timber.e(e)
-                        0
-                    },
-                    selected = item.areItemsTheSame(selected),
-                    shareCount = if (item is CaldavFilter) item.principals else 0,
-                    filter = item,
-                )
-            }
-            .let { filters -> _state.update { it.copy(searchItems = filters.toPersistentList()) } }
-    }
-
-    private data class TintInfo(val color: Int, val adjust: Boolean)
-
-    private fun getTintInfo(filter: Filter): TintInfo {
-        if (filter.tint != 0) {
-            val color = colorProvider.getThemeColor(filter.tint, adjust = false)
-            if (color.isFree || inventory.purchasedThemes()) {
-                return TintInfo(
-                    color = filter.tint,
-                    adjust = colorProvider.isPresetColor(filter.tint),
-                )
-            }
-        }
-        return TintInfo(color = 0, adjust = false)
-    }
-
-    fun toggleCollapsed(subheader: NavigationDrawerSubheader) = viewModelScope.launch {
-        val collapsed = !subheader.isCollapsed
-        when (subheader.subheaderType) {
-            NavigationDrawerSubheader.SubheaderType.PREFERENCE -> {
-                tasksPreferences.set(booleanPreferencesKey(subheader.id), collapsed)
-                localBroadcastManager.broadcastRefresh()
-            }
-            NavigationDrawerSubheader.SubheaderType.CALDAV,
-            NavigationDrawerSubheader.SubheaderType.TASKS -> {
-                caldavDao.setCollapsed(subheader.id, collapsed)
-                localBroadcastManager.broadcastRefresh()
-            }
         }
     }
 
@@ -247,12 +218,9 @@ class MainActivityViewModel @Inject constructor(
         _state.update { it.copy(task = task) }
     }
 
-    fun queryMenu(query: String) {
-        _state.update { it.copy(menuQuery = query) }
-        updateFilters()
-    }
-
     suspend fun getAccount(id: Long) = caldavDao.getAccount(id)
+
+    suspend fun getOrCreateLocalAccount(): CaldavAccount = caldavDao.getOrCreateLocalAccount()
 
     suspend fun isTasksGuest(): Boolean =
         try {

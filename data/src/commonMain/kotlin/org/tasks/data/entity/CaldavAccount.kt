@@ -1,15 +1,14 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.Redacted
 import org.tasks.data.db.Table
-import java.net.HttpURLConnection
 
 @Serializable
 @CommonParcelize
@@ -64,11 +63,17 @@ data class CaldavAccount(
     val isMicrosoft: Boolean
         get() = accountType == TYPE_MICROSOFT
 
+    val pushesRemoteParent: Boolean
+        get() = pushesRemoteParent(accountType)
+
     val isGoogleTasks: Boolean
         get() = accountType == TYPE_GOOGLE_TASKS
 
     val isLocalList: Boolean
         get() = accountType == TYPE_LOCAL
+
+    val syncsStartDate: Boolean
+        get() = SyncTrait.START_DATE in syncTraits(accountType)
 
     val isSuppressRepeatingTasks: Boolean
         get() = when (serverType) {
@@ -78,7 +83,12 @@ data class CaldavAccount(
         }
 
     val reminderSync: Boolean
-        get() = serverType != SERVER_SYNOLOGY_CALENDAR
+        get() = when (serverType) {
+            SERVER_SYNOLOGY_CALENDAR,
+            SERVER_OPEN_XCHANGE,
+            SERVER_MAILBOX_ORG -> false
+            else -> true
+        }
 
     fun isLoggedOut() = error?.startsWith(ERROR_UNAUTHORIZED) == true
 
@@ -103,6 +113,32 @@ data class CaldavAccount(
         const val TYPE_MICROSOFT = 6
         const val TYPE_GOOGLE_TASKS = 7
 
+        val TYPES_CALDAV = listOf(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS)
+
+        private val ALL_ACCOUNT_TYPES = listOf(
+            TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS,
+            TYPE_MICROSOFT, TYPE_GOOGLE_TASKS, TYPE_LOCAL,
+        )
+
+        val TYPES_NON_LOCAL = ALL_ACCOUNT_TYPES.filter { it != TYPE_LOCAL }
+
+        fun pushesRemoteParent(accountType: Int?): Boolean =
+            accountType != TYPE_MICROSOFT && accountType != TYPE_GOOGLE_TASKS
+
+        fun syncTraits(accountType: Int): Set<SyncTrait> = when (accountType) {
+            TYPE_MICROSOFT -> setOf(SyncTrait.TAGS)
+            in TYPES_CALDAV -> setOf(
+                SyncTrait.TAGS, SyncTrait.ALARMS, SyncTrait.LOCATION, SyncTrait.START_DATE
+            )
+            else -> emptySet()
+        }
+
+        fun accountTypesFor(trait: SyncTrait): List<Int> =
+            ALL_ACCOUNT_TYPES.filter { trait in syncTraits(it) }
+
+        val TYPES_TAGS = accountTypesFor(SyncTrait.TAGS)
+        val TYPES_ALARMS = accountTypesFor(SyncTrait.ALARMS)
+
         const val SERVER_UNKNOWN = -1
         const val SERVER_TASKS = 0
         const val SERVER_OWNCLOUD = 1
@@ -113,32 +149,26 @@ data class CaldavAccount(
         const val SERVER_MAILBOX_ORG = 6
         const val SERVER_OTHER = 99
 
-        const val ERROR_UNAUTHORIZED = "HTTP ${HttpURLConnection.HTTP_UNAUTHORIZED}"
-        const val ERROR_PAYMENT_REQUIRED = "HTTP ${HttpURLConnection.HTTP_PAYMENT_REQUIRED}"
+        const val ERROR_UNAUTHORIZED = "HTTP 401"
+        const val ERROR_PAYMENT_REQUIRED = "HTTP 402"
+        const val ERROR_PURCHASE_TOKEN_IN_USE = "purchase_token_in_use:"
         const val ERROR_TOS_REQUIRED = "HTTP 451"
-
-        const val ACCOUNT_TYPE_DAVX5 = "bitfire.at.davdroid"
-        const val ACCOUNT_TYPE_DAVX5_MANAGED = "com.davdroid"
-        const val ACCOUNT_TYPE_ETESYNC = "com.etesync.syncadapter"
-        const val ACCOUNT_TYPE_DECSYNC = "org.decsync.tasks"
-
-        const val PACKAGE_DAVX5 = "at.bitfire.davdroid"
-        const val PACKAGE_DAVX5_MANAGED = "com.davdroid"
-        const val PACKAGE_ETESYNC = "com.etesync.syncadapter"
-        const val PACKAGE_DECSYNC = "org.decsync.cc"
 
         fun String?.openTaskType(): String? = this?.split(":")?.get(0)
 
-        fun String?.isDavx5(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5) == true
-
-        fun String?.isDavx5Managed(): Boolean = this?.startsWith(ACCOUNT_TYPE_DAVX5_MANAGED) == true
-
-        fun String?.isEteSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_ETESYNC) == true
-
-        fun String?.isDecSync(): Boolean = this?.startsWith(ACCOUNT_TYPE_DECSYNC) == true
+        fun String?.openTaskProvider(): OpenTaskProvider? =
+            OpenTaskProvider.fromUuid(this)
 
         fun String?.isPaymentRequired(): Boolean = this?.startsWith(ERROR_PAYMENT_REQUIRED) == true
+
+        fun String?.isPurchaseTokenInUse(): Boolean = this?.startsWith(ERROR_PURCHASE_TOKEN_IN_USE) == true
+
+        fun String?.purchaseTokenInUseAccount(): String? =
+            if (isPurchaseTokenInUse()) this?.removePrefix(ERROR_PURCHASE_TOKEN_IN_USE) else null
 
         fun String?.isTosRequired(): Boolean = this?.startsWith(ERROR_TOS_REQUIRED) == true
     }
 }
+
+/** A category of local change that some account types sync to their server. */
+enum class SyncTrait { TAGS, ALARMS, LOCATION, START_DATE }

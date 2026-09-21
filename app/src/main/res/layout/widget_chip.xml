@@ -28,9 +28,7 @@
       android:paddingStart="6dp"
       android:paddingEnd="0dp"
       android:layout_gravity="center_vertical"
-      android:tint="@color/icon_tint_dark_alpha"
-      tools:src="@drawable/ic_keyboard_arrow_up_black_24dp"
-      tools:ignore="UseAppTint" />
+      tools:src="@drawable/ic_keyboard_arrow_up_black_24dp" />
 
     <TextView
       android:id="@+id/chip_text"

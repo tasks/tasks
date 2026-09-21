@@ -6,6 +6,7 @@ import android.widget.CheckedTextView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.compose.material3.MaterialTheme
+import com.google.android.material.color.MaterialColors
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.isVisible
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -103,6 +104,6 @@ class FilterViewHolder internal constructor(
                 return color.primaryColor
             }
         }
-        return context.getColor(R.color.text_primary)
+        return MaterialColors.getColor(context, com.google.android.material.R.attr.colorOnSurface, 0)
     }
 }

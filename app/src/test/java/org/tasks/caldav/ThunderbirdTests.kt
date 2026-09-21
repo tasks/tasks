@@ -100,7 +100,7 @@ class ThunderbirdTests {
         remote.applyLocal(caldavTask, task)
         assertEquals(
                 "FREQ=WEEKLY;UNTIL=20200731T160000Z;BYDAY=MO,TU,WE,TH,FR",
-                remote.rRule!!.value)
+                remote.rRule!!.toString())
     }
 
     @Test

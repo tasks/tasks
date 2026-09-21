@@ -10,10 +10,9 @@ import org.tasks.R
 class OpenTasksSubscriptionTest : OpenTasksTest() {
     @Test
     fun cantSyncWithoutPro() = runBlocking {
-        preferences.setBoolean(R.string.p_debug_pro, false)
         openTaskDao.insertList()
 
-        synchronizer.sync()
+        synchronizer.sync(hasPro = false)
 
         assertEquals(
                 context.getString(R.string.requires_pro_subscription),

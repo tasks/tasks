@@ -20,7 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -38,7 +38,9 @@ import org.tasks.extensions.formatNumber
 import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.location.MapFragment
-import org.tasks.preferences.Preferences
+import org.tasks.filters.key
+import org.tasks.preferences.FilterPreferences.Companion.delete
+import org.tasks.preferences.TasksPreferences
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
 import java.util.Locale
@@ -58,7 +60,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
 
     @Inject lateinit var locationDao: LocationDao
     @Inject lateinit var map: MapFragment
-    @Inject lateinit var preferences: Preferences
+    @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var locale: Locale
     @Inject lateinit var refreshBroadcaster: RefreshBroadcaster
 
@@ -119,13 +121,13 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
                         colors = SliderDefaults.colors(
                             thumbColor = MaterialTheme.colorScheme.secondary,
                             activeTrackColor = MaterialTheme.colorScheme.secondary,
-                            inactiveTrackColor = colorResource(id = R.color.text_tertiary),
+                            inactiveTrackColor = MaterialTheme.colorScheme.outline,
                             activeTickColor = MaterialTheme.colorScheme.secondary,
-                            inactiveTickColor = colorResource(id = R.color.text_tertiary),
+                            inactiveTickColor = MaterialTheme.colorScheme.outline,
                             disabledActiveTrackColor = MaterialTheme.colorScheme.secondary,
-                            disabledInactiveTrackColor = colorResource(id = R.color.text_tertiary),
+                            disabledInactiveTrackColor = MaterialTheme.colorScheme.outline,
                             disabledActiveTickColor = MaterialTheme.colorScheme.secondary,
-                            disabledInactiveTickColor = colorResource(id = R.color.text_tertiary)
+                            disabledInactiveTickColor = MaterialTheme.colorScheme.outline
                         )
                     )
                     val dark = isSystemInDarkTheme()
@@ -190,6 +192,7 @@ class PlaceSettingsActivity : BaseListSettingsActivity(),
         firebase.logEvent(R.string.event_settings_click, R.string.param_type to "delete_place")
         locationDao.deleteGeofencesByPlace(place.uid!!)
         locationDao.delete(place)
+        tasksPreferences.delete(filter.key())
         setResult(Activity.RESULT_OK, Intent(TaskListFragment.ACTION_DELETED))
         refreshBroadcaster.broadcastRefresh()
         finish()

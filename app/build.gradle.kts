@@ -19,11 +19,8 @@ plugins {
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
+        moduleName.set("tasks_app")
     }
-}
-
-composeCompiler {
-    enableStrongSkippingMode = true
 }
 
 android {
@@ -35,9 +32,9 @@ android {
 
     buildFeatures {
         viewBinding = true
-        dataBinding = true
         compose = true
         buildConfig = true
+        resValues = true
     }
 
     lint {
@@ -50,12 +47,13 @@ android {
 
     defaultConfig {
         testApplicationId = "org.tasks.test"
-        applicationId = "org.tasks"
+        applicationId = libs.versions.applicationId.get()
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
+        manifestPlaceholders["appAuthRedirectScheme"] = "org.tasks"
     }
 
     signingConfigs {
@@ -88,12 +86,11 @@ android {
             }
             val tasks_mapbox_key_debug: String? by project
             val tasks_google_key_debug: String? by project
-            val tasks_dev_url: String? by project
             resValue("string", "mapbox_key", tasks_mapbox_key_debug ?: "")
             resValue("string", "google_key", tasks_google_key_debug ?: "")
             resValue("string", "posthog_key", "")
-            resValue("string", "tasks_dev_url", tasks_dev_url ?: "")
             enableUnitTestCoverage = project.hasProperty("coverage")
+            enableAndroidTestCoverage = project.hasProperty("coverage")
         }
         release {
             val tasks_mapbox_key: String? by project
@@ -102,7 +99,6 @@ android {
             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
             resValue("string", "google_key", tasks_google_key ?: "")
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
-            resValue("string", "tasks_dev_url", "")
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
             signingConfig = signingConfigs.getByName("release")
@@ -134,6 +130,15 @@ android {
                 }
             }
         }
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
+    sourceSets {
+        // Shared test helpers replace Android-test symlinks, which are not portable to Windows.
+        getByName("test").java.directories.add("src/sharedTest/java")
+        getByName("androidTest").java.directories.add("src/sharedTest/java")
     }
 
     namespace = "org.tasks"
@@ -155,21 +160,16 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
-    implementation(projects.icons)
+    implementation(libs.kermit)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
-    implementation(libs.bitfire.dav4jvm) {
-        exclude(group = "junit")
-        exclude(group = "org.ogce", module = "xpp3")
-    }
     implementation(libs.bitfire.ical4android) {
         exclude(group = "commons-logging")
         exclude(group = "org.json", module = "json")
         exclude(group = "org.codehaus.groovy", module = "groovy")
         exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
     }
-    implementation(libs.bitfire.cert4android)
     implementation(libs.dmfs.opentasks.provider) {
         exclude("com.github.tasks.opentasks", "opentasks-contract")
     }
@@ -180,6 +180,7 @@ dependencies {
     implementation(libs.dagger.hilt)
     ksp(libs.dagger.hilt.compiler)
     ksp(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.appfunctions.compiler)
     implementation(libs.androidx.hilt.navigation)
     implementation(libs.androidx.hilt.work)
 
@@ -187,13 +188,14 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.fragment.compose)
+    implementation(libs.androidx.lifecycle.process)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.room)
+    implementation(libs.androidx.room3)
     implementation(libs.androidx.sqlite)
     implementation(libs.androidx.appcompat)
-    implementation(libs.iconics)
+    implementation(libs.androidx.appfunctions)
     implementation(libs.markwon)
     implementation(libs.markwon.editor)
     implementation(libs.markwon.linkify)
@@ -201,7 +203,6 @@ dependencies {
     implementation(libs.markwon.tables)
     implementation(libs.markwon.tasklist)
 
-    debugImplementation(libs.leakcanary)
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation(libs.kotlin.reflect)
 
@@ -225,7 +226,6 @@ dependencies {
         isTransitive = false
     }
     implementation(libs.shortcut.badger)
-    implementation(libs.google.api.tasks)
     implementation(libs.google.api.drive)
     implementation(libs.google.oauth2)
     implementation(libs.androidx.work)
@@ -241,7 +241,6 @@ dependencies {
     implementation("androidx.compose.material:material")
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation(libs.coil.compose)
@@ -259,7 +258,7 @@ dependencies {
     googleplayImplementation(platform(libs.firebase))
     googleplayImplementation(libs.firebase.crashlytics)
     googleplayImplementation(libs.posthog.android)
-    googleplayImplementation(libs.firebase.config.ktx)
+    googleplayImplementation(libs.firebase.config)
     googleplayImplementation(libs.firebase.messaging)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
@@ -270,6 +269,7 @@ dependencies {
     googleplayImplementation(libs.horologist.datalayer.grpc)
     googleplayImplementation(libs.horologist.datalayer.core)
     googleplayImplementation(libs.play.services.wearable)
+    googleplayImplementation(libs.play.services.code.scanner)
     googleplayImplementation(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
     }
@@ -290,5 +290,7 @@ dependencies {
     testImplementation(libs.make.it.easy)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.robolectric)
     testImplementation(libs.xpp3)
 }

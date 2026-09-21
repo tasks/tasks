@@ -1,18 +1,9 @@
 package org.tasks.compose
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.runBlocking
-import org.tasks.data.entity.Task
-import org.tasks.extensions.Context.is24HourFormat
-import org.tasks.kmp.org.tasks.time.DateStyle
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
-import org.tasks.themes.TasksIcons
-import org.tasks.time.startOfDay
+import androidx.compose.ui.graphics.Color
+import org.tasks.kmp.org.tasks.time.DateFormatter
 
 @Composable
 fun StartDateChip(
@@ -21,37 +12,14 @@ fun StartDateChip(
     compact: Boolean,
     timeOnly: Boolean,
     colorProvider: (Int) -> Int,
+    dateFormatter: DateFormatter,
 ) {
-    val context = LocalContext.current
-    val text by remember(sortGroup, startDate, timeOnly, compact) {
-        derivedStateOf {
-            if (
-                timeOnly &&
-                sortGroup?.startOfDay() == startDate.startOfDay()
-            ) {
-                startDate
-                    .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(it, context.is24HourFormat) }
-            } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        startDate,
-                        context.is24HourFormat,
-                        if (compact) DateStyle.SHORT else DateStyle.MEDIUM
-                    )
-                }
-            }
-        }
-    }
-    if (text != null) {
-        Chip(
-            icon = TasksIcons.PENDING_ACTIONS,
-            name = text,
-            theme = 0,
-            showText = true,
-            showIcon = true,
-            onClick = {},
-            colorProvider = colorProvider,
-        )
-    }
+    org.tasks.compose.chips.StartDateChip(
+        sortGroup = sortGroup,
+        startDate = startDate,
+        compact = compact,
+        timeOnly = timeOnly,
+        chipColor = remember { Color(colorProvider(0)) },
+        dateFormatter = dateFormatter,
+    )
 }

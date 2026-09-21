@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certificato temporaneamente rifiutato</string>
+    <string name="trust_certificate_accept">Accetta</string>
+    <string name="trust_certificate_fingerprint_verified">Ho verificato manualmente l'intera impronta digitale.</string>
+    <string name="trust_certificate_fingerprints">Impronte digitali</string>
+    <string name="trust_certificate_issued_by">Emesso da</string>
+    <string name="trust_certificate_issued_for">Emesso per</string>
+    <string name="trust_certificate_press_back_to_reject">Premi di nuovo Indietro per rifiutare il certificato</string>
+    <string name="trust_certificate_reject">Rifiuta</string>
+    <string name="trust_certificate_reset_info">È possibile azzerare tutti i certificati personalizzati nelle impostazioni dell'app.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s ha trovato un certificato sconosciuto. Ritenerlo affidabile?</string>
+    <string name="trust_certificate_validity_period">Periodo di validità</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (non sarà applicato)</string>
+    <string name="trust_certificate_x509_certificate_details">Dettagli certificato X509</string>
+</resources>

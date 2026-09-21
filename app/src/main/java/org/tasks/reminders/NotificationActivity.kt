@@ -5,20 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withStarted
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.TaskDao
+import org.jetbrains.compose.resources.getString
 import org.tasks.intents.TaskIntents
-import org.tasks.notifications.NotificationManager
 import org.tasks.receivers.CompleteTaskReceiver
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.rmd_NoA_done
+import tasks.kmp.generated.resources.rmd_NoA_snooze
 import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class NotificationActivity : AppCompatActivity(), NotificationDialog.NotificationHandler {
-    @Inject lateinit var notificationManager: NotificationManager
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var firebase: Firebase
 
@@ -29,15 +32,26 @@ class NotificationActivity : AppCompatActivity(), NotificationDialog.Notificatio
         val intent = intent
         taskId = intent.getLongExtra(EXTRA_TASK_ID, 0L)
         val fragmentManager = supportFragmentManager
-        var fragment = fragmentManager.findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT) as NotificationDialog?
-        if (fragment == null) {
-            fragment = NotificationDialog()
+        val existing =
+            fragmentManager.findFragmentByTag(FRAG_TAG_NOTIFICATION_FRAGMENT) as NotificationDialog?
+        if (existing != null) {
+            existing.setTitle(intent.getStringExtra(EXTRA_TITLE))
+            return
+        }
+        lifecycleScope.launch {
+            val completeLabel = getString(Res.string.rmd_NoA_done)
+            val snoozeLabel = getString(Res.string.rmd_NoA_snooze)
+            val fragment = NotificationDialog()
             fragment.arguments = Bundle().apply {
                 putBoolean(EXTRA_READ_ONLY, intent.getBooleanExtra(EXTRA_READ_ONLY, false))
+                putString(EXTRA_COMPLETE_LABEL, completeLabel)
+                putString(EXTRA_SNOOZE_LABEL, snoozeLabel)
             }
-            fragment.show(fragmentManager, FRAG_TAG_NOTIFICATION_FRAGMENT)
+            withStarted {
+                fragment.show(fragmentManager, FRAG_TAG_NOTIFICATION_FRAGMENT)
+                fragment.setTitle(intent.getStringExtra(EXTRA_TITLE))
+            }
         }
-        fragment.setTitle(intent.getStringExtra(EXTRA_TITLE))
     }
 
     override fun dismiss() {
@@ -48,7 +62,6 @@ class NotificationActivity : AppCompatActivity(), NotificationDialog.Notificatio
     override fun edit() {
         firebase.logEvent(R.string.event_notification, R.string.param_type to "edit")
         lifecycleScope.launch {
-            notificationManager.cancel(taskId)
             taskDao.fetch(taskId)
                     ?.let {
                         startActivity(
@@ -77,6 +90,8 @@ class NotificationActivity : AppCompatActivity(), NotificationDialog.Notificatio
         const val EXTRA_TITLE = "extra_title"
         const val EXTRA_TASK_ID = "extra_task_id"
         const val EXTRA_READ_ONLY = "extra_read_only"
+        const val EXTRA_COMPLETE_LABEL = "extra_complete_label"
+        const val EXTRA_SNOOZE_LABEL = "extra_snooze_label"
         private const val FRAG_TAG_NOTIFICATION_FRAGMENT = "frag_tag_notification_fragment"
         fun newIntent(context: Context?, title: String?, id: Long, readOnly: Boolean): Intent {
             val intent = Intent(context, NotificationActivity::class.java)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">It sertifikaat is tydelyk net aksepteard</string>
+    <string name="trust_certificate_accept">Akseptearje</string>
+    <string name="trust_certificate_fingerprint_verified">Ik ha mei de hân it serifikaatsbewiis/fingerôfdruk kontrolearre.</string>
+    <string name="trust_certificate_fingerprints">Sertifikaatidentiteit/fingerôfdruk</string>
+    <string name="trust_certificate_issued_by">Útjûn troch</string>
+    <string name="trust_certificate_issued_for">Útjûn oan</string>
+    <string name="trust_certificate_press_back_to_reject">Druk op 'Werom' om it sertifikaat ôf te karje</string>
+    <string name="trust_certificate_reject">Ôfkarre</string>
+    <string name="trust_certificate_reset_info">De sels ynstelde sertifikaten kinne yn de appynstellingen fuorthelle wurde.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s is in ûnbekend sertifikaat tsjinkaam. Wolst it fertrouwe?</string>
+    <string name="trust_certificate_validity_period">Jildichhydsperiode</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (wurd net kontrolearre)</string>
+    <string name="trust_certificate_x509_certificate_details">X509-sertifikaatdetails</string>
+</resources>

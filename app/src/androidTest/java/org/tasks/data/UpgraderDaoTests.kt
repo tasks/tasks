@@ -1,7 +1,7 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -31,8 +31,8 @@ class UpgraderDaoTests : InjectingTestCase() {
     fun getCaldavTasksWithTags() = runBlocking {
         val task = TaskMaker.newTask(MakeItEasy.with(TaskMaker.ID, 1L))
         taskDao.createNew(task)
-        val one = TagData()
-        val two = TagData()
+        val one = TagData(name = "one")
+        val two = TagData(name = "two")
         tagDataDao.insert(one)
         tagDataDao.insert(two)
         tagDao.insert(Tag(task = task.id, taskUid = task.uuid, tagUid = one.remoteId))

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Certifikat je začasno onemogočen</string>
+    <string name="trust_certificate_accept">Sprejmi</string>
+    <string name="trust_certificate_fingerprint_verified">Sem ročno preveril celoten prstni odtis.</string>
+    <string name="trust_certificate_fingerprints">Prstni odtisi</string>
+    <string name="trust_certificate_issued_by">Izdano od</string>
+    <string name="trust_certificate_issued_for">Izdano za</string>
+    <string name="trust_certificate_reject">Zavrni</string>
+    <string name="trust_certificate_reset_info">V nastavitvah aplikacije lahko ponastavite vse certifikate.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s ne prepozna certifikata. Ali vi zaupate certifikatu?</string>
+    <string name="trust_certificate_validity_period">Obdobje veljave</string>
+    <string name="trust_certificate_validity_period_value">%1$s - %2$s (ne bo prisilno uporabljeno)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 podrobnosti certifikata</string>
+</resources>

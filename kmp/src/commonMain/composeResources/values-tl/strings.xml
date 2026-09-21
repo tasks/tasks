@@ -2,4 +2,48 @@
 <resources>
     <string name="show_completed">Ipakita ang natapos</string>
     <string name="sort_priority">Prayoridad</string>
+    <string name="password_required">Password kailangan</string>
+    <string name="add_account">Magdagdag ng account</string>
+    <string name="SSD_sort_due">Ayon sa ukol na petsa</string>
+    <string name="SSD_sort_importance">Ayon sa prayoridad</string>
+    <string name="SSD_sort_alpha">Ayon sa pamagat</string>
+    <string name="SSD_sort_modified">Ayon sa huling pagbago</string>
+    <string name="user">Gumagamit</string>
+    <string name="url_host_name_required">Pangalan ng host kailangan</string>
+    <string name="url_invalid_scheme">Kailangan magsimula na may http(s)://</string>
+    <string name="url_required">URL kailangan</string>
+    <string name="username_required">Pangalan ng gumagamit kailangan</string>
+    <string name="rate_tasks">Halagahan ang Tasks</string>
+    <string name="contact_developer">Kontakin ang developer</string>
+    <string name="source_code">Pinagmulang code</string>
+    <plurals name="repeat_minutes">
+        <item quantity="one">minuto</item>
+        <item quantity="other">mga minuto</item>
+    </plurals>
+    <plurals name="repeat_hours">
+        <item quantity="one">oras</item>
+        <item quantity="other">hours</item>
+    </plurals>
+    <plurals name="repeat_days">
+        <item quantity="one">araw</item>
+        <item quantity="other">mga araw</item>
+    </plurals>
+    <plurals name="repeat_weeks">
+        <item quantity="one">linggo</item>
+        <item quantity="other">mga linggo</item>
+    </plurals>
+    <plurals name="repeat_months">
+        <item quantity="one">buwan</item>
+        <item quantity="other">mga buwan</item>
+    </plurals>
+    <plurals name="repeat_years">
+        <item quantity="one">taon</item>
+        <item quantity="other">mga taon</item>
+    </plurals>
+    <string name="delete_task">Tanggalin gawain</string>
+    <string name="notification_disable_battery_optimizations_description">Mga baterya optimization ay maaaring antalahin ang mga notification</string>
+    <string name="quiet_hours_summary">Walang paalala sa tahimik na mga oras</string>
+    <string name="no_reminders">Walang paalala</string>
+    <string name="default_location_reminder_on_arrival">Sa pagdating</string>
+    <string name="translations">Umambag ng pagsasalin</string>
 </resources>

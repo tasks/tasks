@@ -1,0 +1,30 @@
+package org.tasks.service
+
+import org.tasks.caldav.CaldavClientProvider
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
+
+class TaskMigrator(
+    private val clientProvider: CaldavClientProvider,
+    private val caldavDao: CaldavDao,
+    private val syncAdapters: SyncAdapters,
+    private val taskDeleter: TaskDeleter,
+) {
+    suspend fun migrateLocalTasks(fromAccount: CaldavAccount, toAccount: CaldavAccount) {
+        clientProvider.forAccount(toAccount).use { caldavClient ->
+            caldavDao.getCalendarsByAccount(fromAccount.uuid!!).forEach {
+                caldavDao.update(
+                    it.copy(
+                        url = caldavClient.makeCollection(it.name!!, it.color, it.icon),
+                        account = toAccount.uuid,
+                    )
+                )
+                caldavDao.markCalendarDirty(it.uuid!!)
+            }
+        }
+        taskDeleter.delete(fromAccount)
+        syncAdapters.sync(SyncSource.ACCOUNT_ADDED)
+    }
+}

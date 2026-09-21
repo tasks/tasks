@@ -1,6 +1,7 @@
 package org.tasks
 
 import android.app.Application
+import com.posthog.PostHog
 import com.posthog.android.PostHogAndroid
 import com.posthog.android.PostHogAndroidConfig
 import timber.log.Timber
@@ -20,8 +21,11 @@ class WatchApp : Application() {
                 PostHogAndroidConfig(
                     apiKey = posthogKey,
                     host = POSTHOG_HOST,
-                )
+                ).apply {
+                    captureApplicationLifecycleEvents = true
+                }
             )
+            PostHog.register("platform", "wear")
         }
     }
 

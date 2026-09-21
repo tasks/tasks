@@ -1,10 +1,10 @@
 package org.tasks.locale.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.Toolbar;
 
 import net.dinglisch.android.tasker.TaskerPlugin;
@@ -43,6 +43,16 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
     toolbar.setNavigationOnClickListener(v -> save());
     toolbar.setOnMenuItemClickListener(this);
     toolbar.inflateMenu(R.menu.menu_help);
+
+    getOnBackPressedDispatcher()
+        .addCallback(
+            this,
+            new OnBackPressedCallback(true) {
+              @Override
+              public void handleOnBackPressed() {
+                discardButtonClick();
+              }
+            });
 
     if (savedInstanceState != null) {
       previousBundle = savedInstanceState.getParcelable(TaskCreationBundle.EXTRA_BUNDLE);
@@ -98,12 +108,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
   @Override
   public String getResultBlurb(final Bundle bundle) {
     return binding.title.getText().toString().trim();
-  }
-
-  @SuppressLint("MissingSuperCall")
-  @Override
-  public void onBackPressed() {
-    discardButtonClick();
   }
 
   private void save() {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">Í lagi</string>
+    <string name="cancel">Hætta við</string>
+    <string name="display_name">Birtingarnafn</string>
+    <string name="app_settings">Stillingar forrits</string>
+    <string name="SSD_sort_my_order">Mín röðun</string>
+    <string name="astrid_sort_order">Handvirk Astrid-röðun</string>
+    <string name="SSD_sort_auto">Snjallröðun</string>
+    <string name="SSD_sort_alpha">Eftir titli</string>
+    <string name="SSD_sort_start">Eftir upphafsdegi</string>
+    <string name="SSD_sort_due">Eftir skiladegi</string>
+    <string name="SSD_sort_importance">Eftir mikilvægi</string>
+    <string name="SSD_sort_modified">Eftir nýjustu breytingum</string>
+    <string name="save">Vista</string>
+    <string name="none">Ekkert</string>
+    <string name="search">Leita</string>
+    <string name="settings">Stillingar</string>
+    <string name="sort_mode">Raða</string>
+    <string name="sort_due_date">Skiladagur</string>
+    <string name="sort_priority">Mikilvægi</string>
+    <string name="sort_start_date">Upphafsdagur</string>
+    <string name="group_none">Ekkert</string>
+    <string name="blog_feed_none">Ekkert</string>
+    <string name="due_date">Skiladagur</string>
+    <string name="due_time">Skilatími</string>
+    <string name="day_before_due">Skilast á morgun</string>
+    <string name="week_before_due">Skilast í næstu viku</string>
+    <string name="TEA_note_label">Lýsing</string>
+    <string name="start_date">Upphafsdagur</string>
+    <string name="TEA_control_repeat">Endurtaka</string>
+    <string name="TEA_control_reminders">Áminningar</string>
+    <string name="TEA_control_location">Staðsetning</string>
+    <string name="discard_confirmation">Ertu viss um að þú viljir hætta við breytingarnar?</string>
+    <string name="keep_editing">Halda áfram að breyta</string>
+    <string name="DLG_delete_this_task_question">Eyða þessu verkefni?</string>
+    <string name="action_open">Opna</string>
+    <string name="TEA_add_subtask">Bæta við undirverkefni</string>
+    <string name="customize_drawer">Sérstilla skúffu</string>
+    <string name="customize_drawer_summary">Draga og sleppa til að raða valmynd</string>
+    <string name="mcp_tools_group_reminders">Áminningar</string>
+</resources>

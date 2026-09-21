@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="certificate_notification_connection_security">Sécurité de la connexion</string>
+    <string name="certificate_notification_user_interaction">Veuillez relire et vérifier le certificat</string>
+</resources>

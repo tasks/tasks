@@ -9,8 +9,10 @@ import org.junit.Test
 import org.tasks.LocalBroadcastManager
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.injection.ApplicationScope
 import org.tasks.injection.InjectingTestCase
 import org.tasks.preferences.Preferences
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -20,6 +22,7 @@ class InventoryTest : InjectingTestCase() {
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var signatureVerifier: SignatureVerifier
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject @ApplicationScope lateinit var scope: CoroutineScope
 
     lateinit var inventory: Inventory
 
@@ -95,7 +98,7 @@ class InventoryTest : InjectingTestCase() {
     private fun initInventory() {
         runOnMainSync {
             inventory = Inventory(
-                context,
+                scope,
                 preferences,
                 signatureVerifier,
                 localBroadcastManager,

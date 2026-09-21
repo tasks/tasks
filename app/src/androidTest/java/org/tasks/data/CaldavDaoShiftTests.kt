@@ -6,10 +6,14 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Before
 import org.junit.Test
-import org.tasks.SuspendFreeze.Companion.freezeAt
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
 import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.TaskContainerMaker
@@ -22,8 +26,18 @@ import javax.inject.Inject
 class CaldavDaoShiftTests : InjectingTestCase() {
     @Inject lateinit var taskDao: TaskDao
     @Inject lateinit var caldavDao: CaldavDao
+    @Inject lateinit var dirtyDao: DirtyDao
 
     private val tasks = ArrayList<TaskContainer>()
+
+    @Before
+    override fun setUp() {
+        super.setUp()
+        runBlocking {
+            caldavDao.insert(CaldavAccount(uuid = "account", accountType = TYPE_CALDAV))
+            caldavDao.insert(CaldavCalendar(account = "account", uuid = "calendar"))
+        }
+    }
 
     @Test
     fun basicShiftDown() = runBlocking {
@@ -126,13 +140,13 @@ class CaldavDaoShiftTests : InjectingTestCase() {
         val created = DateTime(2020, 5, 17, 9, 53, 17)
         addTask(with(CREATED, created))
         addTask(with(CREATED, created.plusSeconds(1)))
+        dirtyDao.markSynced(tasks[0].caldavTask!!.id)
+        dirtyDao.markSynced(tasks[1].caldavTask!!.id)
 
-        freezeAt(created.plusMinutes(1)) {
-            caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
-        }
+        caldavDao.shiftDown("calendar", 0, created.toAppleEpoch())
 
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[0].id)!!.modificationDate)
-        assertEquals(created.plusMinutes(1).millis, taskDao.fetch(tasks[1].id)!!.modificationDate)
+        assertEquals(true, dirtyDao.isDirty(tasks[0].caldavTask!!.id))
+        assertEquals(true, dirtyDao.isDirty(tasks[1].caldavTask!!.id))
     }
 
     private suspend fun checkOrder(dateTime: DateTime?, task: TaskContainer) {

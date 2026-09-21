@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.RemoteViews
 import androidx.annotation.ColorInt
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.runBlocking
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -19,27 +18,23 @@ import org.tasks.filters.Filter
 import org.tasks.filters.PlaceFilter
 import org.tasks.filters.TagFilter
 import org.tasks.filters.getIcon
-import org.tasks.kmp.org.tasks.time.getRelativeDateTime
-import org.tasks.kmp.org.tasks.time.getTimeString
+import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.kmp.formatNumber
+import org.tasks.kmp.formatTime
 import org.tasks.time.startOfDay
-import org.tasks.ui.ChipListCache
+import org.tasks.compose.chips.ChipDataProvider
 import javax.inject.Inject
 
 class WidgetChipProvider @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val chipListCache: ChipListCache,
+    private val chipListCache: ChipDataProvider,
     private val inventory: Inventory,
 ) {
     var isDark = false
 
     fun getSubtaskChip(task: TaskContainer): RemoteViews {
         return newChip().apply {
-            setTextViewText(
-                R.id.chip_text,
-                context
-                    .resources
-                    .getQuantityString(R.plurals.subtask_count, task.children, task.children)
-            )
+            setTextViewText(R.id.chip_text, formatNumber(task.chipCount))
             setImageViewResource(
                 R.id.chip_icon,
                 if (task.isCollapsed) {
@@ -51,21 +46,23 @@ class WidgetChipProvider @Inject constructor(
         }
     }
 
-    fun getStartDateChip(task: TaskContainer, showFullDate: Boolean, sortByStartDate: Boolean): RemoteViews? {
+    fun getStartDateChip(
+        task: TaskContainer,
+        showFullDate: Boolean,
+        sortByStartDate: Boolean,
+        dateFormatter: DateFormatter,
+    ): RemoteViews? {
         return if (task.task.isHidden) {
             val time = if (sortByStartDate && task.sortGroup?.startOfDay() == task.task.hideUntil.startOfDay()) {
                 task.task.hideUntil
                     .takeIf { Task.hasDueTime(it) }
-                    ?.let { getTimeString(it, context.is24HourFormat) }
+                    ?.let { dateFormatter.time(it) }
                     ?: return null
             } else {
-                runBlocking {
-                    getRelativeDateTime(
-                        task.task.hideUntil,
-                        context.is24HourFormat,
-                        alwaysDisplayFullDate = showFullDate
-                    )
-                }
+                dateFormatter.relativeDateTime(
+                    task.task.hideUntil,
+                    alwaysDisplayFullDate = showFullDate
+                )
             }
             newChip().apply {
                 setTextViewText(R.id.chip_text, time)

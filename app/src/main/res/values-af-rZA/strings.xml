@@ -14,10 +14,5 @@
     <string name="CFC_importance_text">Prioriteit ten minste ?</string>
     <string name="CFC_title_contains_text">Titel bevat: ?</string>
     <string name="gcal_TEA_error">Kon nie taak by kalender voeg nie!</string>
-    <string name="rmd_EPr_defaultRemind_title">Ewekansige herinneringe</string>
-    <string name="translations">Dra by tot vertalings</string>
-    <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
-    <string name="show_completed">Wys voltooide</string>
-    <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
-    <string name="email">E-pos</string>
+    <string name="cancel">Kanselleer</string>
 </resources>

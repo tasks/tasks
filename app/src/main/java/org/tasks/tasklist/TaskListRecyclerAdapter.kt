@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterDataSource
-import com.todoroo.astrid.core.SortHelper
-import org.tasks.filters.AstridOrderingFilter
 import org.tasks.preferences.Preferences
 
 abstract class TaskListRecyclerAdapter internal constructor(
@@ -17,18 +15,25 @@ abstract class TaskListRecyclerAdapter internal constructor(
         internal val preferences: Preferences
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ListUpdateCallback, TaskAdapterDataSource {
 
+    var dirtyTaskIds: Set<Long> = emptySet()
+        set(value) {
+            if (field != value) {
+                field = value
+                notifyItemRangeChanged(0, itemCount)
+            }
+        }
+
+    var dirtyColor: Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
             = viewHolderFactory.newViewHolder(parent, taskList)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val filter = taskList.getFilter()
-        val groupsEnabled = filter.supportsSorting()
-                && !(filter.supportsManualSort() && preferences.isManualSort)
-                && !(filter is AstridOrderingFilter && preferences.isAstridSort)
         val task = getItem(position)
         if (task != null) {
             (holder as TaskViewHolder)
-                    .bindView(task, filter, if (groupsEnabled) preferences.groupMode else SortHelper.GROUP_NONE)
+                    .bindView(task, filter, groupMode, dirtyTaskIds.contains(task.id), dirtyColor)
             holder.moving = false
             val indent = adapter.getIndent(task)
             task.indent = indent
@@ -51,6 +56,8 @@ abstract class TaskListRecyclerAdapter internal constructor(
     abstract fun dragAndDropEnabled(): Boolean
 
     abstract fun submitList(list: SectionedDataSource)
+
+    abstract val groupMode: Int
 
     override fun onInserted(position: Int, count: Int) {
         notifyItemRangeInserted(position, count)

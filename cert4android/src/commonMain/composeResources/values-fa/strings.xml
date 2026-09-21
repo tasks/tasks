@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">گواهی‌نامه موقتاً رد شده‌است</string>
+    <string name="trust_certificate_accept">قبول</string>
+    <string name="trust_certificate_fingerprint_verified">به صورت دستی تمام اثر انگشت را تایید می‌کنم.</string>
+    <string name="trust_certificate_fingerprints">اثر انگشت‌ها</string>
+    <string name="trust_certificate_issued_by">مشکل از</string>
+    <string name="trust_certificate_issued_for">مشکل برای</string>
+    <string name="trust_certificate_press_back_to_reject">برای رد گواهینامه دوباره «بازگشت» را فشار دهید</string>
+    <string name="trust_certificate_reject">رد</string>
+    <string name="trust_certificate_reset_info">شما می‌توانید تمام گواهی‌نامه‌های سفارشی را در تنظیمات برنامه مجدداً تنظیم کنید.</string>
+    <string name="trust_certificate_unknown_certificate_found">%1$s با یک گواهی‌نامه‌ی ناشناخته مواجه‌شده‌است. آیا به آن اعتماد می‌کنید؟</string>
+    <string name="trust_certificate_validity_period">دوره‌ی اعتبار</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (اجباری نیست)</string>
+    <string name="trust_certificate_x509_certificate_details">جزئیات گواهی‌نامه‌ی X509</string>
+</resources>

@@ -27,19 +27,20 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.CheckBox
 import org.tasks.compose.ClearButton
 import org.tasks.compose.DisabledText
-import org.tasks.compose.SubtaskChip
+import org.tasks.compose.chips.SubtaskChip
 import org.tasks.compose.TaskEditIcon
 import org.tasks.compose.TaskEditRow
+import org.tasks.data.INDENT_STEP_DP
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -50,6 +51,10 @@ import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.tasklist.UiItem
 import org.tasks.themes.TasksTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.TEA_add_subtask
+import tasks.kmp.generated.resources.subtasks_multilevel_google_task
+import tasks.kmp.generated.resources.subtasks_multilevel_microsoft
 
 @Composable
 fun SubtaskRow(
@@ -89,10 +94,10 @@ fun SubtaskRow(
                 if (subtasksDisabled) {
                     DisabledText(
                         text = stringResource(
-                            id = if (filter.isGoogleTasks) {
-                                org.tasks.R.string.subtasks_multilevel_google_task
+                            if (filter.isGoogleTasks) {
+                                Res.string.subtasks_multilevel_google_task
                             } else {
-                                org.tasks.R.string.subtasks_multilevel_microsoft
+                                Res.string.subtasks_multilevel_microsoft
                             }
                         ),
                         modifier = Modifier.padding(start = 12.dp, top = 20.dp, bottom = 20.dp, end = 16.dp)
@@ -128,7 +133,7 @@ fun SubtaskRow(
                         )
                     }
                     DisabledText(
-                        text = stringResource(id = org.tasks.R.string.TEA_add_subtask),
+                        text = stringResource(Res.string.TEA_add_subtask),
                         modifier = Modifier
                             .clickable { addSubtask() }
                             .padding(12.dp)
@@ -208,7 +213,7 @@ fun ExistingSubtaskRow(
             .clickable { onRowClick() }
             .padding(end = 16.dp)
     ) {
-        Spacer(modifier = Modifier.width((indent * 20).dp))
+        Spacer(modifier = Modifier.width((indent * INDENT_STEP_DP).dp))
         CheckBox(
             task = task.task,
             onCompleteClick = onCompleteClick,
@@ -229,8 +234,7 @@ fun ExistingSubtaskRow(
         if (task.hasChildren()) {
             SubtaskChip(
                 collapsed = task.isCollapsed,
-                children = task.children,
-                compact = true,
+                children = task.chipCount,
                 onClick = onToggleSubtaskClick,
             )
         }

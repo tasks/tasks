@@ -9,6 +9,7 @@ import android.os.Parcelable
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,13 +35,16 @@ import org.tasks.Event
 import org.tasks.PermissionUtil.verifyPermissions
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
+import com.todoroo.astrid.activity.MainActivity
+import com.todoroo.astrid.activity.TaskListFragment
 import org.tasks.activities.PlaceSettingsActivity
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
-import org.tasks.caldav.GeoUtils.toLikeString
+import org.tasks.caldav.toLikeString
 import org.tasks.data.PlaceUsage
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.entity.Place
+import org.tasks.filters.PlaceFilter
 import org.tasks.data.mapPosition
 import org.tasks.databinding.ActivityLocationPickerBinding
 import org.tasks.dialogs.DialogBuilder
@@ -94,7 +98,17 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
     private var searchJob: Job? = null
     private val viewModel: PlaceSearchViewModel by viewModels()
     private var systemBarsBottom = 0
-    
+    private val onBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            if (closeSearch()) {
+                return
+            }
+            if (offset != 0) {
+                collapseToolbar()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -139,6 +153,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         search = menu.findItem(R.id.menu_search)
         search.setOnActionExpandListener(this)
         toolbar.setOnMenuItemClickListener(this)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
         val dark = theme.themeBase.isDarkTheme(this)
         map.init(this, this, dark)
         val params = appBarLayout.layoutParams as CoordinatorLayout.LayoutParams
@@ -157,6 +172,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
             }
             this.offset = offset
             toolbar.alpha = abs(offset / appBarLayout.totalScrollRange.toFloat())
+            onBackPressedCallback.isEnabled = search.isActionViewExpanded || offset != 0
         }
         coordinatorLayout.addOnLayoutChangeListener(
                 object : View.OnLayoutChangeListener {
@@ -196,17 +212,6 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         mapPosition
                 ?.let { map.movePosition(it, false) }
                 ?: moveToCurrentLocation(false)
-    }
-
-    override fun onBackPressed() {
-        if (closeSearch()) {
-            return
-        }
-        if (offset != 0) {
-            collapseToolbar()
-            return
-        }
-        super.onBackPressed()
     }
 
     private fun closeSearch(): Boolean = search.isActionViewExpanded && search.collapseActionView()
@@ -296,7 +301,12 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
                         firebase.logEvent(R.string.event_create_place)
                     }
             }
-            setResult(Activity.RESULT_OK, Intent().putExtra(EXTRA_PLACE, place as Parcelable?))
+            setResult(
+                Activity.RESULT_OK,
+                Intent(TaskListFragment.ACTION_RELOAD)
+                    .putExtra(EXTRA_PLACE, place as Parcelable?)
+                    .putExtra(MainActivity.OPEN_FILTER, PlaceFilter(place))
+            )
             finish()
         }
     }
@@ -405,6 +415,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         search.setOnQueryTextListener(this)
         searchAdapter!!.submitList(emptyList())
         recyclerView.adapter = searchAdapter
+        onBackPressedCallback.isEnabled = true
         return true
     }
 
@@ -414,6 +425,7 @@ class LocationPickerActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListe
         if (places.isEmpty()) {
             collapseToolbar()
         }
+        onBackPressedCallback.isEnabled = offset != 0
         return true
     }
 

@@ -14,16 +14,6 @@
         android:id="@+id/menu_expand_subtasks"
         android:title="@string/expand_subtasks"
         app:showAsAction="never" />
-    <group android:checkableBehavior="all">
-        <item
-            android:id="@+id/menu_show_completed"
-            android:checkable="true"
-            android:title="@string/show_completed" />
-        <item
-            android:id="@+id/menu_show_unstarted"
-            android:checkable="true"
-            android:title="@string/show_unstarted" />
-    </group>
     <item
         android:id="@+id/menu_share"
         android:icon="@drawable/ic_outline_send_24px"

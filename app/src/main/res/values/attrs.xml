@@ -6,7 +6,6 @@
 <resources>
 
   <!-- theme attributes -->
-  <attr format="reference" name="overlay_theme"/>
   <attr format="integer" name="horizontal_divider_visibility"/>
 
   <declare-styleable name="TimePreference">

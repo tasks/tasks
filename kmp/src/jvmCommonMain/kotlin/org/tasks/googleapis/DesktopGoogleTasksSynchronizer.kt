@@ -1,0 +1,92 @@
+package org.tasks.googleapis
+
+import co.touchlab.kermit.Logger
+import com.todoroo.astrid.repeats.RepeatTaskHelper
+import org.jetbrains.compose.resources.getString
+import org.tasks.analytics.Reporting
+import org.tasks.auth.TasksOAuthClient
+import org.tasks.auth.isUnauthorized
+import org.tasks.broadcast.RefreshBroadcaster
+import org.tasks.data.TaskSaver
+import org.tasks.data.dao.AlarmDao
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.DirtyDao
+import org.tasks.data.dao.GoogleTaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.preferences.AppPreferences
+import org.tasks.security.KeyStoreEncryption
+import org.tasks.service.TaskCompleter
+import org.tasks.service.TaskDeleter
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.cannot_access_account
+import tasks.kmp.generated.resources.requires_pro_subscription
+
+class DesktopGoogleTasksSynchronizer(
+    private val caldavDao: CaldavDao,
+    taskDao: TaskDao,
+    dirtyDao: DirtyDao,
+    taskSaver: TaskSaver,
+    reporting: Reporting,
+    googleTaskDao: GoogleTaskDao,
+    defaultListProvider: DefaultListProvider,
+    private val refreshBroadcaster: RefreshBroadcaster,
+    taskDeleter: TaskDeleter,
+    alarmDao: AlarmDao,
+    appPreferences: AppPreferences,
+    repeatTaskHelper: RepeatTaskHelper,
+    taskCompleter: TaskCompleter,
+    private val encryption: KeyStoreEncryption,
+    createTask: suspend () -> org.tasks.data.entity.Task,
+    private val proxyAuthProvider: ProxyAuthProvider,
+    private val oauthClient: TasksOAuthClient,
+) {
+    private val synchronizer = GoogleTaskSynchronizer(
+        caldavDao = caldavDao,
+        gtasksListService = GtasksListService(caldavDao, taskDeleter, refreshBroadcaster),
+        taskDao = taskDao,
+        dirtyDao = dirtyDao,
+        taskSaver = taskSaver,
+        reporting = reporting,
+        googleTaskDao = googleTaskDao,
+        defaultListProvider = defaultListProvider,
+        refreshBroadcaster = refreshBroadcaster,
+        taskDeleter = taskDeleter,
+        alarmDao = alarmDao,
+        appPreferences = appPreferences,
+        repeatTaskHelper = repeatTaskHelper,
+        taskCompleter = taskCompleter,
+        createTask = createTask,
+    )
+
+    suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
+        val error = when {
+            !hasPro -> getString(Res.string.requires_pro_subscription)
+            account.password.isNullOrBlank() -> getString(Res.string.cannot_access_account)
+            else -> null
+        }
+        if (error != null) {
+            account.error = error
+            caldavDao.setError(account.id, error)
+            refreshBroadcaster.broadcastRefresh()
+            return
+        }
+        if (account.isUnauthorized()) {
+            Logger.d(TAG) { "$account: needs sign-in, skipping sync" }
+            return
+        }
+        val credentials = GoogleTasksCredentialsAdapter(
+            account = account,
+            encryption = encryption,
+            proxyAuthProvider = proxyAuthProvider,
+            caldavDao = caldavDao,
+            oauthClient = oauthClient,
+        )
+        val invoker = GtasksInvoker(credentials)
+        synchronizer.sync(account, invoker)
+    }
+
+    companion object {
+        private const val TAG = "DesktopGoogleTasksSynchronizer"
+    }
+}

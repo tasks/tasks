@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -40,7 +41,7 @@ fun Toolbar(
     Surface(
         shadowElevation = 4.dp,
         color = colorResource(id = R.color.content_background),
-        contentColor = colorResource(id = R.color.text_primary),
+        contentColor = MaterialTheme.colorScheme.onSurface,
         modifier = Modifier.requiredHeight(56.dp)
     )
     {

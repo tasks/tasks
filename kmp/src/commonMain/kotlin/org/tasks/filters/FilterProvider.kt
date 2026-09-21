@@ -1,6 +1,8 @@
 package org.tasks.filters
 
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.getString
+import org.tasks.billing.PurchaseState
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.LocationFilters
 import org.tasks.data.NO_ORDER
@@ -11,6 +13,7 @@ import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.composeIcon
+import org.tasks.data.composeTitle
 import org.tasks.data.openTaskApp
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
@@ -18,7 +21,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
-import org.tasks.kmp.IS_DEBUG
+import org.tasks.TasksBuildConfig
 import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.showDebugFilters
@@ -31,6 +34,13 @@ import tasks.kmp.generated.resources.drawer_filters
 import tasks.kmp.generated.resources.drawer_local_lists
 import tasks.kmp.generated.resources.drawer_places
 import tasks.kmp.generated.resources.drawer_tags
+import tasks.kmp.generated.resources.this_device_only
+
+private fun CaldavAccount.drawerSubtitle(multipleTypes: Boolean): StringResource? = when {
+    multipleTypes && isLocalList -> Res.string.this_device_only
+    multipleTypes || isGoogleTasks || isTasksOrg -> composeTitle
+    else -> null
+}
 
 class FilterProvider(
     private val filterDao: FilterDao,
@@ -40,12 +50,26 @@ class FilterProvider(
     private val locationDao: LocationDao,
     private val taskDao: TaskDao,
     private val tasksPreferences: TasksPreferences,
+    private val purchaseState: PurchaseState,
 ) {
-    suspend fun listPickerItems(): List<FilterListItem> =
-            caldavFilters(showCreate = false, forceExpand = false)
+    suspend fun listPickerItems(): List<FilterListItem> {
+        val accounts = caldavDao.getAccounts()
+        val singleAccount = accounts.size == 1
+        val signIn = signInAccount(accounts)
+        val multipleTypes = multipleTypes(accounts, signIn)
+        return signIn + accounts.flatMap { account ->
+            caldavFilter(
+                account = account,
+                showCreate = true,
+                forceExpand = singleAccount,
+                hideCollapse = singleAccount,
+                subtitle = account.drawerSubtitle(multipleTypes),
+            )
+        }
+    }
 
     suspend fun drawerItems(): List<FilterListItem> =
-        getAllFilters(showCreate = true, hideUnused = true)
+        getAllFilters(showCreate = true, hideUnused = true, showSignIn = true)
 
     suspend fun allLists(): List<Filter> =
         caldavFilters(showCreate = false, forceExpand = true)
@@ -56,18 +80,19 @@ class FilterProvider(
             .filterIsInstance<Filter>()
 
     suspend fun filterPickerItems(): List<FilterListItem> =
-            getAllFilters(showCreate = false)
+            getAllFilters(showCreate = false, showCreateList = true, showSignIn = true)
 
     suspend fun wearableFilters(): List<FilterListItem> =
             getAllFilters(showCreate = false, forceExpand = true, hideUnused = true)
 
-    suspend fun drawerCustomizationItems(): List<FilterListItem> =
-            getAllFilters(showBuiltIn = false, showCreate = true)
+    suspend fun drawerCustomizationItems(forceExpand: Boolean = false): List<FilterListItem> =
+            getAllFilters(showBuiltIn = false, showCreate = true, forceExpand = forceExpand)
 
     private suspend fun getDebugFilters(): List<FilterListItem> =
-            if (IS_DEBUG && tasksPreferences.get(showDebugFilters, false)) {
+            if (TasksBuildConfig.DEBUG && tasksPreferences.get(showDebugFilters, false)) {
                 val collapsed = tasksPreferences.get(collapseDebug, false)
                 val filters = listOf(
+                    DebugFilters.getDirtyFilter(),
                     DebugFilters.getNoListFilter(),
                     DebugFilters.getNoTitleFilter(),
                     DebugFilters.getMissingListFilter(),
@@ -113,7 +138,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseFilters.name,
-                        if (showCreate) REQUEST_NEW_FILTER else 0,
+                        if (showCreate && configuration.canCreateFilters) REQUEST_NEW_FILTER else 0,
                         icon = TasksIcons.FILTER_LIST,
                         childCount = children.size,
                     )
@@ -144,7 +169,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapseTags.name,
-                        if (showCreate) REQUEST_NEW_TAGS else 0,
+                        if (showCreate && configuration.canCreateTags) REQUEST_NEW_TAGS else 0,
                         icon = TasksIcons.LABEL,
                         childCount = children.size,
                     )
@@ -175,7 +200,7 @@ class FilterProvider(
                         collapsed,
                         SubheaderType.PREFERENCE,
                         collapsePlaces.name,
-                        if (showCreate) REQUEST_NEW_PLACE else 0,
+                        if (showCreate && configuration.canCreatePlaces) REQUEST_NEW_PLACE else 0,
                         icon = TasksIcons.PLACE,
                         childCount = children.size,
                     )
@@ -189,6 +214,8 @@ class FilterProvider(
         showBuiltIn: Boolean = true,
         hideUnused: Boolean = false,
         forceExpand: Boolean = false,
+        showCreateList: Boolean = showCreate,
+        showSignIn: Boolean = false,
     ): List<FilterListItem> =
             if (showBuiltIn) {
                 arrayListOf(MyTasksFilter.create())
@@ -199,28 +226,46 @@ class FilterProvider(
                     .plus(addFilters(showCreate, showBuiltIn, forceExpand))
                     .plus(addTags(showCreate, hideUnused, forceExpand))
                     .plus(addPlaces(showCreate, hideUnused, forceExpand))
-                    .plus(caldavFilters(showCreate, forceExpand))
+                    .plus(caldavFilters(showCreateList, forceExpand, showSignIn))
                     .toList()
-                    .plusAllIf(IS_DEBUG) { getDebugFilters() }
+                    .plusAllIf(TasksBuildConfig.DEBUG) { getDebugFilters() }
 
     private suspend fun caldavFilters(
         showCreate: Boolean,
         forceExpand: Boolean,
-    ): List<FilterListItem> =
-            caldavDao
-                .getAccounts()
-                .flatMap {
-                    caldavFilter(
-                        it,
-                        showCreate,
-                        forceExpand,
-                    )
-                }
+        showSignIn: Boolean = false,
+    ): List<FilterListItem> {
+        val accounts = caldavDao.getAccounts()
+        val signIn = if (showSignIn) signInAccount(accounts) else emptyList()
+        val multipleTypes = multipleTypes(accounts, signIn)
+        return signIn + accounts.flatMap { account ->
+            caldavFilter(
+                account = account,
+                showCreate = showCreate,
+                forceExpand = forceExpand,
+                subtitle = account.drawerSubtitle(multipleTypes),
+            )
+        }
+    }
+
+    private fun signInAccount(accounts: List<CaldavAccount>): List<FilterListItem> =
+            if (purchaseState.hasTasksSubscription && accounts.none { it.isTasksOrg }) {
+                listOf(SignInPrompt)
+            } else {
+                emptyList()
+            }
+
+    private fun multipleTypes(
+        accounts: List<CaldavAccount>,
+        signIn: List<FilterListItem>,
+    ): Boolean = accounts.distinctBy { it.composeTitle }.size + signIn.size > 1
 
     private suspend fun caldavFilter(
         account: CaldavAccount,
         showCreate: Boolean,
         forceExpand: Boolean,
+        hideCollapse: Boolean = false,
+        subtitle: StringResource? = null,
     ): List<FilterListItem> {
         val collapsed = !forceExpand && account.isCollapsed
         val children = caldavDao
@@ -253,10 +298,14 @@ class FilterProvider(
                     else -> SubheaderType.CALDAV
                 },
                 account.id.toString(),
-                if (showCreate) REQUEST_NEW_LIST else 0,
+                if (showCreate
+                    && (account.isLocalList || (account.lastSync > 0 && account.error.isNullOrBlank()))
+                ) REQUEST_NEW_LIST else 0,
                 accountIcon = account.composeIcon,
                 childCount = children.size,
                 openTaskApp = openTaskApp,
+                collapsible = !hideCollapse,
+                subtitle = subtitle,
             )
         )
             .apply { if (collapsed) return this }

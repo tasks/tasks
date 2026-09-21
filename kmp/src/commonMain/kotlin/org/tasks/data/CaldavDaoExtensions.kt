@@ -3,13 +3,30 @@ package org.tasks.data
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.getString
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
+import org.tasks.filters.CaldavFilter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.default_list
 
 private val mutex = Mutex()
+
+suspend fun CaldavDao.getOrCreateDefaultListFilter(uuid: String?): CaldavFilter =
+    firstWritableListFilter(uuid)
+        ?: getLocalList().let {
+            CaldavFilter(calendar = it, account = getAccountByUuid(it.account!!)!!)
+        }
+
+private suspend fun CaldavDao.firstWritableListFilter(uuid: String?): CaldavFilter? =
+    uuid?.let { getCalendarByUuid(it) }?.takeUnless { it.readOnly() }?.let { toFilter(it) }
+        ?: getCalendars().filterNot { it.readOnly() }.firstNotNullOfOrNull { toFilter(it) }
+
+private suspend fun CaldavDao.toFilter(calendar: CaldavCalendar): CaldavFilter? =
+    calendar.account
+        ?.let { getAccountByUuid(it) }
+        ?.let { CaldavFilter(calendar = calendar, account = it) }
 
 suspend fun CaldavDao.newLocalAccount(): CaldavAccount = mutex.withLock {
     newLocalAccountUnsafe()
@@ -49,3 +66,10 @@ private suspend fun CaldavDao.getLocalList(account: CaldavAccount): CaldavCalend
         ).apply {
             insert(this)
         }
+
+suspend fun CaldavDao.getAccountForNewList(
+    tasksAccountDataRepository: TasksAccountDataRepository,
+): CaldavAccount? {
+    val isTasksGuest = tasksAccountDataRepository.getAccountResponse()?.guest == true
+    return getAccounts().firstOrNull { !it.isOpenTasks && !(it.isTasksOrg && isTasksGuest) }
+}

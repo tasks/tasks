@@ -18,6 +18,7 @@ import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
@@ -28,7 +29,7 @@ class PurchaseActivityViewModel @Inject constructor(
     private val billingClient: BillingClient,
     private val localBroadcastManager: LocalBroadcastManager,
     private val syncAdapters: SyncAdapters,
-    firebase: Firebase,
+    private val firebase: Firebase,
 ) : ViewModel() {
 
     data class ViewState(
@@ -67,7 +68,7 @@ class PurchaseActivityViewModel @Inject constructor(
             val nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true
             ViewState(
                 nameYourPrice = nameYourPrice,
-                isGithub = savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: IS_GENERIC,
+                isGithub = IS_GENERIC || (savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false),
                 feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
                 source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
                 showMoreOptions = savedStateHandle.get<Boolean>(EXTRA_SHOW_MORE_OPTIONS) ?: nameYourPrice,
@@ -92,10 +93,17 @@ class PurchaseActivityViewModel @Inject constructor(
                     (1..25).map { it.toSku(false) }
                     .plus((1..3).map { it.toSku(true) })
                     .plus(30.toSku(false))
+                val loadedSkus = billingClient.getSkus(skus)
+                Timber.d("Loaded ${loadedSkus.size}/${skus.size} skus: ${loadedSkus.map { it.productId }}")
                 _viewState.update {
-                    it.copy(skus = billingClient.getSkus(skus))
+                    it.copy(skus = loadedSkus)
                 }
             } catch (e: Exception) {
+                Timber.e(e)
+                firebase.reportIabResult(
+                    (e.message ?: "unknown").take(100),
+                    state = "QUERY_SKUS_FAILED",
+                )
                 _viewState.update {
                     it.copy(error = e.message)
                 }
@@ -127,6 +135,12 @@ class PurchaseActivityViewModel @Inject constructor(
                 },
             )
         } catch (e: Exception) {
+            Timber.e(e)
+            firebase.reportIabResult(
+                (e.message ?: "unknown").take(100),
+                newSku,
+                state = "PURCHASE_FAILED",
+            )
             _viewState.update {
                 it.copy(error = e.message)
             }

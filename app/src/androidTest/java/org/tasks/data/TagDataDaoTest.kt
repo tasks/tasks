@@ -1,10 +1,13 @@
 package org.tasks.data
 
 import com.natpryce.makeiteasy.MakeItEasy.with
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.dao.TagDao
@@ -46,15 +49,32 @@ class TagDataDaoTest : InjectingTestCase() {
     }
 
     @Test
-    fun getTagsByName() = runBlocking {
-        val tagData = TagData(name = "Derp").let { it.copy(id = tagDataDao.insert(it)) }
-        assertEquals(listOf(tagData), tagDataDao.getTags(listOf("Derp")))
+    fun insertIfAbsentAssignsId() = runBlocking {
+        val inserted = tagDataDao.insertIfAbsent(TagData(name = "Home"))
+        assertNotNull(inserted!!.id)
+        assertEquals("Home", tagDataDao.getTagByName("home")?.name)
     }
 
     @Test
-    fun getTagsByNameCaseSensitive() = runBlocking {
-        tagDataDao.insert(TagData(name = "Derp"))
-        assertTrue(tagDataDao.getTags(listOf("derp")).isEmpty())
+    fun insertIfAbsentReturnsNullOnNormalizedClash() = runBlocking {
+        tagDataDao.insert(TagData(name = "Home"))
+        assertNull(tagDataDao.insertIfAbsent(TagData(name = "home")))
+    }
+
+    @Test
+    fun updateTagRejectsRenameToExistingNormalizedName() = runBlocking {
+        tagDataDao.insert(TagData(name = "Home"))
+        val work = TagData(name = "Work").let { it.copy(id = tagDataDao.insert(it)) }
+        assertFalse(tagDataDao.updateTag(work.copy(name = "home")))
+        // The clashing rename was rejected, so Work is untouched.
+        assertEquals("Work", tagDataDao.getTagByName("work")?.name)
+    }
+
+    @Test
+    fun updateTagAllowsNonClashingRename() = runBlocking {
+        val work = TagData(name = "Work").let { it.copy(id = tagDataDao.insert(it)) }
+        assertTrue(tagDataDao.updateTag(work.copy(name = "Projects")))
+        assertEquals("Projects", tagDataDao.getTagByName("projects")?.name)
     }
 
     @Test

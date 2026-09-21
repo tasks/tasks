@@ -2,34 +2,19 @@ package org.tasks.caldav
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
-import java.io.File
+
+private const val TAG_METADATA_FILE = "tag-metadata.json"
 
 class VtodoCache(
     private val caldavDao: CaldavDao,
     private val fileStorage: FileStorage,
 ) {
-    suspend fun move(from: CaldavCalendar, to: CaldavCalendar, task: CaldavTask) =
-        withContext(Dispatchers.IO) {
-            val source =
-                fileStorage.getFile(from.account, from.uuid, task.obj)
-            if (source?.exists() != true) {
-                return@withContext
-            }
-            val target =
-                fileStorage.getFile(to.account, to.uuid)
-                    ?.apply { mkdirs() }
-                    ?.let { File(it, task.obj!!) }
-                    ?: return@withContext
-            source.copyTo(target, overwrite = true)
-            val deleted = source.delete()
-            Logger.d("VtodoCache") { "Moved $source to $target [success=${deleted}]" }
-        }
-
     suspend fun getVtodo(caldavTask: CaldavTask?): String? {
         if (caldavTask == null) {
             return null
@@ -53,40 +38,51 @@ class VtodoCache(
             val directory =
                 fileStorage
                     .getFile(calendar.account, caldavTask.calendar)
-                    ?.apply { mkdirs() }
+                    ?.let { fileStorage.mkdirs(it) }
                     ?: return@withContext
-            fileStorage.write(File(directory, `object`), vtodo)
+            fileStorage.write(directory / `object`, vtodo)
         }
     }
 
-    suspend fun delete(calendar: CaldavCalendar, tasks: List<CaldavTask>) {
-        tasks.forEach { delete(calendar, it) }
+    suspend fun delete(tasks: List<Long>) {
+        val calendars = caldavDao.getCalendars(tasks).associateBy { it.uuid }
+        caldavDao.getTasks(tasks).forEach { caldavTask ->
+            calendars[caldavTask.calendar]?.let { delete(it, caldavTask) }
+        }
     }
 
     suspend fun delete(calendar: CaldavCalendar, caldavTask: CaldavTask) = withContext(Dispatchers.IO) {
         fileStorage.getFile(calendar.account, caldavTask.calendar, caldavTask.obj)?.let {
-            val deleted = it.delete()
+            val deleted = fileStorage.delete(it)
             Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
     suspend fun delete(calendar: CaldavCalendar) = withContext(Dispatchers.IO) {
         fileStorage.getFile(calendar.account, calendar.uuid)?.let {
-            val deleted = it.deleteRecursively()
+            val deleted = fileStorage.deleteRecursively(it)
             Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
     suspend fun delete(account: CaldavAccount) = withContext(Dispatchers.IO) {
         fileStorage.getFile(account.uuid)?.let {
-            val deleted = it.deleteRecursively()
+            val deleted = fileStorage.deleteRecursively(it)
             Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }
 
+    suspend fun getTagMetadata(account: CaldavAccount): String? =
+        fileStorage.read(fileStorage.getFile(account.uuid, TAG_METADATA_FILE))
+
+    suspend fun putTagMetadata(account: CaldavAccount, data: String?) = withContext(Dispatchers.IO) {
+        val directory = fileStorage.getFile(account.uuid)?.let { fileStorage.mkdirs(it) } ?: return@withContext
+        fileStorage.write(directory / TAG_METADATA_FILE, data)
+    }
+
     suspend fun clear() = withContext(Dispatchers.IO) {
         fileStorage.getFile()?.let {
-            val deleted = it.deleteRecursively()
+            val deleted = fileStorage.deleteRecursively(it)
             Logger.d("VtodoCache") { "Deleting $it [success=$deleted]" }
         }
     }

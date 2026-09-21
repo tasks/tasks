@@ -1,9 +1,9 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import org.tasks.data.Redacted
@@ -32,7 +32,7 @@ data class Tag(
     @Redacted
     @ColumnInfo(name = "name")
     val name: String? = null,
-    @ColumnInfo(name = "tag_uid")
+    @ColumnInfo(name = "tag_uid", index = true)
     val tagUid: String? = null,
     @ColumnInfo(name = "task_uid")
     @Transient
@@ -40,9 +40,9 @@ data class Tag(
 ) {
     companion object {
         const val KEY = "tags-tag" // $NON-NLS-1$
-        @JvmField val TABLE = Table("tags")
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val TAG_UID = TABLE.column("tag_uid")
-        @JvmField val NAME = TABLE.column("name")
+        val TABLE = Table("tags")
+        val TASK = TABLE.column("task")
+        val TAG_UID = TABLE.column("tag_uid")
+        val NAME = TABLE.column("name")
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_rejected_temporarily">Tanúsítvány ideglenesen elutasítva</string>
+    <string name="trust_certificate_accept">Elfogad</string>
+    <string name="trust_certificate_fingerprint_verified">Kézileg ellenőriztem az ujjlenyomatok érvényességét.</string>
+    <string name="trust_certificate_fingerprints">Ujjlenyomatok</string>
+    <string name="trust_certificate_issued_by">Kibocsátó</string>
+    <string name="trust_certificate_issued_for">Birtokló</string>
+    <string name="trust_certificate_press_back_to_reject">Lépjen vissza újra a tanúsítvány visszautasításához</string>
+    <string name="trust_certificate_reject">Elutasít</string>
+    <string name="trust_certificate_reset_info">Vissza tudja állítani az összes egyedi tanúsítványt az app beállításaiban.</string>
+    <string name="trust_certificate_unknown_certificate_found">A %1$s egy ismeretlen tanusítványt lelt. Megbízik benne?</string>
+    <string name="trust_certificate_validity_period">Érvényesség</string>
+    <string name="trust_certificate_validity_period_value">%1$s – %2$s (nem lesz kikényszerítve)</string>
+    <string name="trust_certificate_x509_certificate_details">X509 tanúsítvány részletei </string>
+</resources>

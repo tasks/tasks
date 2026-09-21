@@ -5,9 +5,12 @@ import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat.InterruptionFilter
+import androidx.core.os.ConfigurationCompat
+import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import com.todoroo.andlib.utility.AndroidUtilities.preUpsideDownCake
 import com.todoroo.astrid.utility.Constants
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,17 +26,25 @@ import org.tasks.data.entity.Notification
 import org.tasks.filters.NotificationsFilter
 import org.tasks.filters.TimerFilter
 import org.tasks.intents.TaskIntents
+import org.tasks.jobs.WorkManager
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
 import org.tasks.reminders.SnoozeActivity
-import org.tasks.reminders.SnoozeDialog
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.getString
+import org.tasks.reminders.SnoozeOption
+import org.tasks.reminders.snoozeOptions
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.rmd_NoA_done
+import tasks.kmp.generated.resources.rmd_NoA_snooze
 import timber.log.Timber
+import java.util.Locale
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.min
@@ -49,25 +60,48 @@ class NotificationManager @Inject constructor(
     private val notificationManager: ThrottledNotificationManager,
     private val markdownProvider: MarkdownProvider,
     private val permissionChecker: PermissionChecker,
-) {
+    private val workManager: WorkManager,
+) : Notifier {
     @InterruptionFilter
     val currentInterruptionFilter: Int
         get() = notificationManager.currentInterruptionFilter
 
     private val colorProvider = ColorProvider(context)
+
+    @Volatile
+    private var cachedLocaleContext: Pair<Locale, Context>? = null
+
+    private val localeContext: Context
+        get() {
+            if (atLeastTiramisu()) {
+                return context
+            }
+            val locale = Locale.getDefault()
+            val configuration = context.resources.configuration
+            if (ConfigurationCompat.getLocales(configuration)[0] == locale) {
+                return context
+            }
+            cachedLocaleContext?.takeIf { it.first == locale }?.let { return it.second }
+            return context
+                .createConfigurationContext(
+                    Configuration(configuration).apply { setLocale(locale) }
+                )
+                .also { cachedLocaleContext = locale to it }
+        }
     private val queue = NotificationLimiter(MAX_NOTIFICATIONS)
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(id: Long) {
+    override suspend fun cancel(id: Long, reason: CancelReason) {
         if (id == SUMMARY_NOTIFICATION_ID.toLong()) {
-            cancel(notificationDao.getAll() + id)
+            cancel(notificationDao.getAll() + id, reason)
         } else {
-            cancel(listOf(id))
+            cancel(listOf(id), reason)
         }
     }
 
     @SuppressLint("CheckResult")
-    suspend fun cancel(ids: Iterable<Long>) {
+    override suspend fun cancel(ids: List<Long>, reason: CancelReason) {
+        Timber.d("Cancelling notifications for $ids reason=$reason")
         coroutineScope {
             launch {
                 for (id in ids) {
@@ -76,12 +110,20 @@ class NotificationManager @Inject constructor(
             }
         }
         queue.remove(ids)
-        notificationDao.deleteAll(ids.toList())
+        notificationDao.deleteAll(ids)
         coroutineScope {
             launch {
                 notifyTasks(emptyList(), alert = false, nonstop = false, fiveTimes = false)
             }
         }
+    }
+
+    @SuppressLint("CheckResult")
+    override suspend fun cancelAll(reason: CancelReason) =
+        cancel(SUMMARY_NOTIFICATION_ID.toLong(), reason)
+
+    override fun triggerNotifications() {
+        workManager.triggerNotifications()
     }
 
     @SuppressLint("MissingPermission")
@@ -103,12 +145,20 @@ class NotificationManager @Inject constructor(
                     fiveTimes = false,
                     newNotifications = emptyList(),
                 )
-            createNotifications(
+            val posted = createNotifications(
                     notifications = notifications,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
             )
+            if (posted.size != notifications.size) {
+                updateSummary(
+                        notify = false,
+                        nonStop = false,
+                        fiveTimes = false,
+                        newNotifications = emptyList(),
+                    )
+            }
         } else {
             createNotifications(
                     notifications = notifications,
@@ -127,15 +177,20 @@ class NotificationManager @Inject constructor(
         alert: Boolean,
         nonstop: Boolean,
         fiveTimes: Boolean
-    ) {
+    ): Collection<Long> {
         if (!permissionChecker.canNotify()) {
-            return
+            Timber.w("Notifications disabled, holding ${newNotifications.size}")
+            return emptyList()
         }
         val existingNotifications = notificationDao.getAllOrdered()
         notificationDao.insertAll(newNotifications)
         val totalCount = existingNotifications.size + newNotifications.size
-        when {
-            totalCount == 0 -> cancelSummaryNotification()
+        var summariseAfterCleanup = false
+        val posted = when {
+            totalCount == 0 -> {
+                cancelSummaryNotification()
+                emptyList()
+            }
             preferences.bundleNotifications() -> {
                 updateSummary(
                         notify = false,
@@ -151,21 +206,20 @@ class NotificationManager @Inject constructor(
                             fiveTimes = false,
                     )
                 }
-                if (newNotifications.size == 1) {
-                    createNotifications(
+                when {
+                    newNotifications.size == 1 -> createNotifications(
                         notifications = newNotifications,
                         alert = alert,
                         nonstop = nonstop,
                         fiveTimes = fiveTimes,
                     )
-                } else if (newNotifications.size > 1) {
-                    createNotifications(
+                    newNotifications.size > 1 -> createNotifications(
                             notifications = newNotifications,
                             alert = false,
                             nonstop = false,
                             fiveTimes = false,
-                        )
-                    updateSummary(alert, nonstop, fiveTimes, newNotifications)
+                        ).also { summariseAfterCleanup = true }
+                    else -> emptyList()
                 }
             }
             else -> createNotifications(
@@ -176,7 +230,27 @@ class NotificationManager @Inject constructor(
                 useGroupKey = false,
             )
         }
+        val discarded = undeliveredRows(
+            attempted = newNotifications.map { it.taskId },
+            delivered = posted,
+            existing = existingNotifications.mapTo(mutableSetOf()) { it.taskId },
+        )
+        if (discarded.isNotEmpty()) {
+            Timber.w("Undelivered, dropping rows: $discarded")
+            notificationDao.deleteAll(discarded)
+        }
+        if (summariseAfterCleanup && posted.isNotEmpty()) {
+            updateSummary(alert, nonstop, fiveTimes, newNotifications)
+        } else if (discarded.isNotEmpty() && preferences.bundleNotifications()) {
+            updateSummary(
+                notify = false,
+                nonStop = false,
+                fiveTimes = false,
+                newNotifications = emptyList(),
+            )
+        }
         refreshBroadcaster.broadcastRefresh()
+        return posted
     }
 
     @SuppressLint("MissingPermission")
@@ -186,36 +260,57 @@ class NotificationManager @Inject constructor(
         nonstop: Boolean,
         fiveTimes: Boolean,
         useGroupKey: Boolean = true,
-    ) {
+    ): List<Long> {
         if (permissionChecker.canNotify()) {
             preferences.warnNotificationsDisabled = true
         } else {
             Timber.w("Notifications disabled")
-            return
+            return emptyList()
         }
         if (notifications.isEmpty()) {
             Timber.d("No notifications to post")
-            return
+            return emptyList()
         }
         Timber.d("Posting notifications alert=$alert nonstop=$nonstop fiveTimes=$fiveTimes useGroupKey=$useGroupKey\n${notifications.joinToString("\n")}")
         var alert = alert
+        val posted = mutableListOf<Long>()
         for (notification in notifications) {
-            val builder = getTaskNotification(notification)
-            if (builder == null) {
-                notificationManager.cancel(notification.taskId.toInt())
-                notificationDao.delete(notification.taskId)
-            } else {
-                builder
-                        .setGroup(if (useGroupKey) GROUP_KEY else notification.taskId.toString())
-                        .setGroupAlertBehavior(
-                                if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
-                notify(notification.taskId, builder, alert, nonstop, fiveTimes)
-                val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
-                taskDao.setLastNotified(notification.taskId, reminderTime)
-                alert = false
+            when (val result = buildTaskNotification(notification)) {
+                TaskNotification.Stale -> {
+                    Timber.d("Cancelling notification for ${notification.taskId} reason=${CancelReason.STALE}")
+                    notificationManager.cancel(notification.taskId.toInt())
+                    notificationDao.delete(notification.taskId)
+                }
+                is TaskNotification.Ready -> {
+                    val builder = result.builder
+                    builder
+                            .setGroup(if (useGroupKey) GROUP_KEY else notification.taskId.toString())
+                            .setGroupAlertBehavior(
+                                    if (alert) NotificationCompat.GROUP_ALERT_CHILDREN else NotificationCompat.GROUP_ALERT_SUMMARY)
+                    val notifyResult = notify(
+                        notification.taskId,
+                        builder,
+                        alert,
+                        nonstop,
+                        fiveTimes,
+                        notification.type,
+                    )
+                    if (notifyResult.posted) {
+                        val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
+                        taskDao.setLastNotified(notification.taskId, reminderTime)
+                        posted.add(notification.taskId)
+                    }
+                    if (notifyResult.evicted.isNotEmpty()) {
+                        posted.removeAll(notifyResult.evicted.toSet())
+                    }
+                    alert = false
+                }
             }
         }
+        return posted
     }
+
+    data class NotifyResult(val posted: Boolean, val evicted: List<Long> = emptyList())
 
     @SuppressLint("MissingPermission")
     suspend fun notify(
@@ -224,9 +319,10 @@ class NotificationManager @Inject constructor(
             alert: Boolean,
             nonstop: Boolean,
             fiveTimes: Boolean,
-    ) {
+            type: Int? = null,
+    ): NotifyResult {
         if (!permissionChecker.canNotify()) {
-            return
+            return NotifyResult(posted = false)
         }
         if (preUpsideDownCake()) {
             builder.setLocalOnly(!preferences.getBoolean(R.string.p_wearable_notifications, true))
@@ -244,6 +340,7 @@ class NotificationManager @Inject constructor(
         }
         val deleteIntent = Intent(context, NotificationClearedReceiver::class.java)
         deleteIntent.putExtra(EXTRA_NOTIFICATION_ID, notificationId)
+        type?.let { deleteIntent.putExtra(EXTRA_NOTIFICATION_TYPE, it) }
         notification.deleteIntent = PendingIntent.getBroadcast(
             context,
             notificationId.toInt(),
@@ -252,7 +349,7 @@ class NotificationManager @Inject constructor(
         )
         val evicted = queue.add(notificationId)
         if (evicted.size > 0) {
-            cancel(evicted)
+            cancel(evicted, CancelReason.EVICTED)
         }
         for (i in 0 until ringTimes) {
             if (i > 0) {
@@ -260,6 +357,7 @@ class NotificationManager @Inject constructor(
             }
             notificationManager.notify(notificationId.toInt(), notification)
         }
+        return NotifyResult(posted = true, evicted = evicted)
     }
 
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -278,7 +376,9 @@ class NotificationManager @Inject constructor(
         Timber.d("Updating summary taskCount=$taskCount notify=$notify nonStop=$nonStop fiveTimes=$fiveTimes newNotifications=$newNotifications")
         val taskIds = tasks.map { it.id }
         var maxPriority = 3
-        val summaryTitle = context.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
+        val localized = localeContext
+        val summaryTitle =
+            localized.resources.getQuantityString(R.plurals.task_count, taskCount, taskCount)
         val style = NotificationCompat.InboxStyle().setBigContentTitle(summaryTitle)
         val titles: MutableList<String?> = ArrayList()
         val ticker: MutableList<String?> = ArrayList()
@@ -294,7 +394,7 @@ class NotificationManager @Inject constructor(
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setContentTitle(summaryTitle)
                 .setContentText(
-                        titles.joinToString(context.getString(R.string.list_separator_with_space)))
+                        titles.joinToString(localized.getString(R.string.list_separator_with_space)))
                 .setShowWhen(true)
                 .setSmallIcon(R.drawable.ic_done_all_white_24dp)
                 .setStyle(style)
@@ -311,14 +411,14 @@ class NotificationManager @Inject constructor(
                 .setGroupSummary(true)
                 .setGroup(GROUP_KEY)
                 .setTicker(
-                        ticker.joinToString(context.getString(R.string.list_separator_with_space)))
+                        ticker.joinToString(localized.getString(R.string.list_separator_with_space)))
                 .setGroupAlertBehavior(
                         if (notify) NotificationCompat.GROUP_ALERT_SUMMARY else NotificationCompat.GROUP_ALERT_CHILDREN)
         notificationDao.latestTimestamp()?.let { builder.setWhen(it) }
         val snoozeIntent = SnoozeActivity.newIntent(context, taskIds)
         builder.addAction(
                 R.drawable.ic_snooze_white_24dp,
-                context.getString(R.string.snooze_all),
+                localized.getString(R.string.snooze_all),
                 PendingIntent.getActivity(
                     context,
                     0,
@@ -329,25 +429,64 @@ class NotificationManager @Inject constructor(
         notify(SUMMARY_NOTIFICATION_ID.toLong(), builder, notify, nonStop, fiveTimes)
     }
 
-    suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? {
+    data class ActionLabels(
+        val complete: String,
+        val snooze: String,
+        val snoozeOptions: List<String>,
+    )
+
+    private suspend fun actionLabels(options: List<SnoozeOption>): ActionLabels {
+        val wanted = buildList {
+            add(Res.string.rmd_NoA_done)
+            add(Res.string.rmd_NoA_snooze)
+            options.forEach { add(it.label) }
+        }
+        val locale = Locale.getDefault()
+        cachedActionLabels?.let { (key, labels) -> if (key == locale to wanted) return labels }
+        val resolved = wanted.map { getString(it) }
+        return ActionLabels(
+            complete = resolved[0],
+            snooze = resolved[1],
+            snoozeOptions = resolved.drop(2),
+        ).also { cachedActionLabels = (locale to wanted) to it }
+    }
+
+    @Volatile
+    private var cachedActionLabels:
+            Pair<Pair<Locale, List<StringResource>>, ActionLabels>? = null
+
+    sealed interface TaskNotification {
+        data class Ready(val builder: NotificationCompat.Builder) : TaskNotification
+
+        data object Stale : TaskNotification
+    }
+
+    suspend fun getTaskNotification(notification: Notification): NotificationCompat.Builder? =
+        (buildTaskNotification(notification) as? TaskNotification.Ready)?.builder
+
+    suspend fun buildTaskNotification(notification: Notification): TaskNotification {
         val id = notification.taskId
         val type = notification.type
         val `when` = notification.timestamp
         val task = taskDao.fetch(id)
         if (task == null) {
             Timber.e("Could not find %s", id)
-            return null
+            return TaskNotification.Stale
         }
 
         // you're done, or not yours - don't sound, do delete
         if (task.isCompleted || task.isDeleted) {
-            return null
+            return TaskNotification.Stale
         }
 
+        val snoozeOptions = snoozeOptions(preferences.quickPickTimes)
+        val (completeLabel, snoozeActionLabel, snoozeLabels) = actionLabels(snoozeOptions)
+
         // read properties
+        val localized = localeContext
         val markdown = markdownProvider.markdown(force = true)
-        val taskTitle = markdown.toMarkdown(task.title)
-        val taskDescription = markdown.toMarkdown(task.notes)
+        val taskTitle = markdown.toMarkdown(task.title)?.toString()
+        val taskDescription = markdown.toMarkdown(task.notes)?.toString()
 
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -367,18 +506,23 @@ class NotificationManager @Inject constructor(
                     PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 )
         )
-        if (type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT) {
-            val place = locationDao.getPlace(notification.location!!)
-            if (place != null) {
-                builder.setContentText(
-                        context.getString(
-                                if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
-                                place.displayName))
+        when {
+            type == Alarm.TYPE_GEO_ENTER || type == Alarm.TYPE_GEO_EXIT -> {
+                val place = locationDao.getPlace(notification.location!!)
+                if (place != null) {
+                    builder.setContentText(
+                        localized.getString(
+                            if (type == Alarm.TYPE_GEO_ENTER) R.string.location_arrived else R.string.location_departed,
+                            place.displayName
+                        )
+                    )
+                }
             }
-        } else if (taskDescription?.isNotBlank() == true) {
-            builder
+            taskDescription?.isNotBlank() == true -> {
+                builder
                     .setContentText(taskDescription)
                     .setStyle(NotificationCompat.BigTextStyle().bigText(taskDescription))
+            }
         }
         val completeIntent = Intent(context, CompleteTaskReceiver::class.java)
         completeIntent.putExtra(CompleteTaskReceiver.TASK_ID, id)
@@ -390,7 +534,7 @@ class NotificationManager @Inject constructor(
         )
         val completeAction = NotificationCompat.Action.Builder(
                 R.drawable.ic_check_white_24dp,
-                context.getString(R.string.rmd_NoA_done),
+                completeLabel,
                 completePendingIntent)
                 .build()
         val snoozeIntent = SnoozeActivity.newIntent(context, id)
@@ -404,8 +548,8 @@ class NotificationManager @Inject constructor(
         if (!task.readOnly) {
             wearableExtender.addAction(completeAction)
         }
-        for (snoozeOption in SnoozeDialog.getSnoozeOptions(preferences)) {
-            val timestamp = snoozeOption.dateTime.millis
+        for ((snoozeOption, snoozeLabel) in snoozeOptions.zip(snoozeLabels)) {
+            val timestamp = snoozeOption.timestamp
             val wearableIntent = SnoozeActivity.newIntent(context, id)
             wearableIntent.action = String.format("snooze-%s-%s", id, timestamp)
             wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp)
@@ -418,29 +562,31 @@ class NotificationManager @Inject constructor(
             wearableExtender.addAction(
                     NotificationCompat.Action.Builder(
                             R.drawable.ic_snooze_white_24dp,
-                            context.getString(snoozeOption.resId),
+                            snoozeLabel,
                             wearablePendingIntent)
                             .build())
         }
         if (!task.readOnly) {
             builder.addAction(completeAction)
         }
-        return builder
-                .addAction(
-                        R.drawable.ic_snooze_white_24dp,
-                        context.getString(R.string.rmd_NoA_snooze),
-                        snoozePendingIntent)
-                .extend(wearableExtender)
+        return TaskNotification.Ready(
+                builder
+                        .addAction(
+                                R.drawable.ic_snooze_white_24dp,
+                                snoozeActionLabel,
+                                snoozePendingIntent)
+                        .extend(wearableExtender)
+        )
     }
 
     @SuppressLint("MissingPermission")
-    suspend fun updateTimerNotification() {
+    override suspend fun updateTimerNotification() {
         if (!permissionChecker.hasNotificationPermission()) {
             return
         }
         val count = taskDao.activeTimers()
         if (count == 0) {
-            cancel(Constants.NOTIFICATION_TIMER.toLong())
+            cancel(Constants.NOTIFICATION_TIMER.toLong(), CancelReason.TIMER)
         } else {
             val filter = TimerFilter.create()
             val notifyIntent = TaskIntents.getTaskListIntent(context, filter)
@@ -450,7 +596,7 @@ class NotificationManager @Inject constructor(
                 notifyIntent,
                 PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
             )
-            val r = context.resources
+            val r = localeContext.resources
             val appName = r.getString(R.string.app_name)
             val text = r.getString(
                 R.string.TPl_notification, r.getQuantityString(R.plurals.Ntasks, count, count)
@@ -484,8 +630,8 @@ class NotificationManager @Inject constructor(
         const val NOTIFICATION_CHANNEL_TASKER = "notifications_tasker"
         const val NOTIFICATION_CHANNEL_TIMERS = "notifications_timers"
         const val NOTIFICATION_CHANNEL_MISCELLANEOUS = "notifications_miscellaneous"
-        const val MAX_NOTIFICATIONS = 21
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
+        const val EXTRA_NOTIFICATION_TYPE = "extra_notification_type"
         const val SUMMARY_NOTIFICATION_ID = 0
         private const val GROUP_KEY = "tasks"
     }

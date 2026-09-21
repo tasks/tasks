@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="show_completed">Wys voltooide</string>
+    <string name="cancel">Kanselleer</string>
+    <string name="SSD_sort_due">Volgens datum</string>
+    <string name="SSD_sort_importance">Volgens prioriteit</string>
+    <string name="SSD_sort_alpha">Volgens titel</string>
+    <string name="SSD_sort_modified">Volgens laaste verander</string>
+    <string name="SSD_sort_auto">Slim sorteer</string>
+    <string name="email">E-pos</string>
+    <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
+    <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
+    <string name="translations">Dra by tot vertalings</string>
 </resources>

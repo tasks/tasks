@@ -1,10 +1,11 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.ForeignKey
+import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.db.Table
@@ -36,11 +37,11 @@ data class Geofence(
     val isArrival: Boolean = false,
     @ColumnInfo(name = "departure")
     var isDeparture: Boolean = false,
-) : java.io.Serializable, CommonParcelable {
+) : CommonParcelable {
     companion object {
         const val TABLE_NAME = "geofences"
-        @JvmField val TABLE = Table(TABLE_NAME)
-        @JvmField val TASK = TABLE.column("task")
-        @JvmField val PLACE = TABLE.column("place")
+        val TABLE = Table(TABLE_NAME)
+        val TASK = TABLE.column("task")
+        val PLACE = TABLE.column("place")
     }
 }

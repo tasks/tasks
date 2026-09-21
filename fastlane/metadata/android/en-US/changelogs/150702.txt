@@ -1,0 +1,6 @@
+* New onboarding for Tasks.org Cloud
+* Fix task list losing scroll position
+* Fix link click handling
+* Fix list for new task shortcuts
+* Fix duplicated tasks when importing backup file
+* Update translations

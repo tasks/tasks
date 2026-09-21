@@ -1,10 +1,12 @@
 package org.tasks.data.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room3.ColumnInfo
+import androidx.room3.Entity
+import androidx.room3.Index
+import androidx.room3.PrimaryKey
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import org.tasks.CommonIgnoredOnParcel
 import org.tasks.CommonParcelable
 import org.tasks.CommonParcelize
 import org.tasks.data.NO_ORDER
@@ -13,7 +15,10 @@ import org.tasks.data.UUIDHelper
 
 @CommonParcelize
 @Serializable
-@Entity(tableName = "tagdata")
+@Entity(
+    tableName = "tagdata",
+    indices = [Index(value = ["normalized_name"], unique = true)],
+)
 data class TagData(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
@@ -32,4 +37,21 @@ data class TagData(
     val icon: String? = null,
     @ColumnInfo(name = "td_order")
     val order: Int = NO_ORDER,
-) : CommonParcelable
+) : CommonParcelable {
+    @Transient
+    @CommonIgnoredOnParcel
+    @ColumnInfo(name = "normalized_name", defaultValue = "")
+    var normalizedName: String = normalize(name)
+        internal set
+
+    companion object {
+        /** Locale-invariant fold used everywhere the normalized name is computed. */
+        fun normalize(name: String?): String = (name ?: "").trim().lowercase()
+    }
+}
+
+fun TagData.isSyncable(): Boolean = id != null && remoteId != null && !name.isNullOrBlank()
+
+fun normalizeColor(color: Int?): Int? = color?.takeIf { it != 0 }
+
+fun normalizeIcon(icon: String?): String? = icon?.takeIf { it.isNotBlank() }

@@ -1,0 +1,229 @@
+package org.tasks.compose.settings
+
+import org.tasks.themes.TasksIcons
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.stringResource
+import org.tasks.themes.BaseTheme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.color
+import tasks.kmp.generated.resources.language
+import tasks.kmp.generated.resources.launcher_icon
+import tasks.kmp.generated.resources.markdown
+import tasks.kmp.generated.resources.markdown_description
+import tasks.kmp.generated.resources.on_launch
+import tasks.kmp.generated.resources.open_last_viewed_list
+import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.settings_localization
+import tasks.kmp.generated.resources.theme
+import tasks.kmp.generated.resources.theme_black
+import tasks.kmp.generated.resources.theme_dark
+import tasks.kmp.generated.resources.theme_day_night
+import tasks.kmp.generated.resources.theme_dynamic
+import tasks.kmp.generated.resources.theme_light
+import tasks.kmp.generated.resources.theme_system_default
+import tasks.kmp.generated.resources.theme_wallpaper
+import tasks.kmp.generated.resources.translations
+import tasks.kmp.generated.resources.widget_open_list
+
+@Composable
+fun LookAndFeelScreen(
+    themeName: String,
+    dynamicColorAvailable: Boolean,
+    dynamicColorEnabled: Boolean,
+    dynamicColorProOnly: Boolean,
+    themeColor: Int,
+    launcherColor: Int,
+    showLauncherIcon: Boolean = true,
+    showLanguage: Boolean = true,
+    showMarkdown: Boolean = true,
+    markdownEnabled: Boolean,
+    openLastViewedList: Boolean,
+    defaultFilterName: String,
+    localeName: String,
+    onTheme: () -> Unit,
+    onDynamicColor: (Boolean) -> Unit,
+    onColor: () -> Unit,
+    onLauncher: () -> Unit,
+    onMarkdown: (Boolean) -> Unit,
+    onOpenLastViewedList: (Boolean) -> Unit,
+    onDefaultFilter: () -> Unit,
+    onLanguage: () -> Unit,
+    onTranslations: () -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface)
+            .verticalScroll(rememberScrollState())
+    ) {
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            val showColor = !dynamicColorEnabled
+            val total = 1 + (if (dynamicColorAvailable) 1 else 0) +
+                    (if (showColor) 1 else 0) + (if (showLauncherIcon) 1 else 0)
+            var i = 0
+
+            SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
+                PreferenceRow(
+                    title = stringResource(Res.string.theme),
+                    summary = themeName,
+                    onClick = onTheme,
+                )
+            }
+            if (dynamicColorAvailable) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
+                    SwitchPreferenceRow(
+                        title = stringResource(Res.string.theme_dynamic),
+                        checked = dynamicColorEnabled,
+                        enabled = !dynamicColorProOnly,
+                        onCheckedChange = onDynamicColor,
+                        summary = if (dynamicColorProOnly)
+                            stringResource(Res.string.requires_pro_subscription)
+                        else
+                            null,
+                    )
+                }
+            }
+            if (showColor) {
+                SettingsItemCard(position = CardPosition.forIndex(i++, total)) {
+                    PreferenceRow(
+                        title = stringResource(Res.string.color),
+                        leading = { ColorIcon(Color(themeColor)) },
+                        onClick = onColor,
+                    )
+                }
+            }
+            if (showLauncherIcon) {
+                SettingsItemCard(position = CardPosition.forIndex(i, total)) {
+                    PreferenceRow(
+                        title = stringResource(Res.string.launcher_icon),
+                        leading = { ColorIcon(Color(launcherColor)) },
+                        onClick = onLauncher,
+                    )
+                }
+            }
+        }
+
+        if (showMarkdown) {
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+            SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
+                SwitchPreferenceRow(
+                    title = stringResource(Res.string.markdown),
+                    summary = stringResource(Res.string.markdown_description),
+                    checked = markdownEnabled,
+                    onCheckedChange = onMarkdown,
+                )
+            }
+        }
+
+        SectionHeader(
+            stringResource(Res.string.on_launch),
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        )
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            SettingsItemCard(position = CardPosition.First) {
+                SwitchPreferenceRow(
+                    title = stringResource(Res.string.open_last_viewed_list),
+                    checked = openLastViewedList,
+                    onCheckedChange = onOpenLastViewedList,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Last) {
+                PreferenceRow(
+                    title = stringResource(Res.string.widget_open_list),
+                    summary = defaultFilterName,
+                    enabled = !openLastViewedList,
+                    onClick = onDefaultFilter,
+                )
+            }
+        }
+
+        SectionHeader(
+            stringResource(Res.string.settings_localization),
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        )
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            if (showLanguage) {
+                SettingsItemCard(position = CardPosition.First) {
+                    PreferenceRow(
+                        title = stringResource(Res.string.language),
+                        summary = localeName,
+                        onClick = onLanguage,
+                    )
+                }
+            }
+            SettingsItemCard(
+                position = if (showLanguage) CardPosition.Last else CardPosition.Only
+            ) {
+                PreferenceRow(
+                    title = stringResource(Res.string.translations),
+                    icon = TasksIcons.OPEN_IN_NEW,
+                    onClick = onTranslations,
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+    }
+}
+
+@Composable
+private fun ColorIcon(color: Color) {
+    Box(
+        modifier = Modifier
+            .padding(start = SettingsContentPadding)
+            .size(SettingsIconSize)
+            .clip(CircleShape)
+            .background(color)
+            .border(
+                width = 1.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = CircleShape,
+            )
+    )
+}
+
+@Composable
+fun baseThemeName(index: Int): String = stringResource(
+    when (index) {
+        BaseTheme.LIGHT -> Res.string.theme_light
+        BaseTheme.BLACK -> Res.string.theme_black
+        BaseTheme.DARK -> Res.string.theme_dark
+        BaseTheme.WALLPAPER -> Res.string.theme_wallpaper
+        BaseTheme.DAY_NIGHT -> Res.string.theme_day_night
+        else -> Res.string.theme_system_default
+    }
+)

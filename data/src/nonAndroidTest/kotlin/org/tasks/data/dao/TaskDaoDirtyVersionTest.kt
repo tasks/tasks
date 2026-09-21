@@ -1,0 +1,522 @@
+package org.tasks.data.dao
+
+import androidx.room3.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import org.tasks.data.db.Database
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavCalendar
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_OWNER
+import org.tasks.data.entity.CaldavCalendar.Companion.ACCESS_READ_ONLY
+import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.Task
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertNull
+
+class TaskDaoDirtyVersionTest {
+    private lateinit var db: Database
+    private lateinit var taskDao: TaskDao
+    private lateinit var caldavDao: CaldavDao
+    private lateinit var dirtyDao: DirtyDao
+    private lateinit var googleTaskDao: GoogleTaskDao
+    private var calendars = 0
+
+    @BeforeTest
+    fun setUp() {
+        db = Room.inMemoryDatabaseBuilder<Database>()
+            .setDriver(BundledSQLiteDriver())
+            .addCallback(Database.CALLBACK)
+            .build()
+        taskDao = db.taskDao()
+        caldavDao = db.caldavDao()
+        dirtyDao = db.dirtyDao()
+        googleTaskDao = db.googleTaskDao()
+    }
+
+    @AfterTest
+    fun tearDown() {
+        db.close()
+    }
+
+    @Test
+    fun triggerCreatesRowOnInsert() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+
+        assertEquals(1L, dirtyVersion(ctId))
+        assertEquals(0L, dirtyDao.getSyncedVersion(ctId))
+    }
+
+    @Test
+    fun triggerRowIsDirty() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun triggerSkipsLocalAccount() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask(accountType = TYPE_LOCAL)
+
+        assertNull(dirtyDao.getDirtyState(ctId))
+    }
+
+    @Test
+    fun setDirtySkipsLocalAccount() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask(accountType = TYPE_LOCAL)
+
+        dirtyDao.setDirty(listOf(taskId))
+
+        assertNull(dirtyDao.getDirtyState(ctId))
+    }
+
+    @Test
+    fun syncableDirtyVersionsIgnoreLocalAccount() = runBlocking {
+        createTaskWithCaldavTask(accountType = TYPE_LOCAL)
+
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
+    }
+
+    @Test
+    fun syncableDirtyVersionsReturnDirty() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+
+        assertEquals(
+            listOf(DirtyTaskVersion(ctId, dirtyVersion = 1)),
+            dirtyDao.getSyncableDirtyVersions()
+        )
+    }
+
+    @Test
+    fun syncableDirtyVersionsExcludeClean() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
+    }
+
+    @Test
+    fun syncableDirtyVersionsIgnoreReadOnlyList() = runBlocking {
+        createTaskWithCaldavTask(access = ACCESS_READ_ONLY)
+
+        assertEquals(emptyList<DirtyTaskVersion>(), dirtyDao.getSyncableDirtyVersions())
+    }
+
+    @Test
+    fun syncableDirtyVersionsAreOrdered() = runBlocking {
+        val calUuid = setupCalendar(TYPE_CALDAV)
+        val (_, first) = createTaskWithCaldavTask(calendar = calUuid)
+        val (_, second) = createTaskWithCaldavTask(calendar = calUuid)
+
+        assertEquals(
+            listOf(first, second).sorted(),
+            dirtyDao.getSyncableDirtyVersions().map { it.caldavTaskId }
+        )
+    }
+
+    @Test
+    fun syncableDirtyVersionsChangeWhenRedirtied() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        val before = dirtyDao.getSyncableDirtyVersions()
+
+        dirtyDao.setDirty(listOf(taskId))
+
+        val after = dirtyDao.getSyncableDirtyVersions()
+        assertEquals(listOf(ctId), after.map { it.caldavTaskId })
+        assertNotEquals(before, after)
+    }
+
+    @Test
+    fun syncableDirtyVersionsSurviveStalePush() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        val staleVersion = dirtyVersion(ctId)!!
+        dirtyDao.setDirty(listOf(taskId))
+
+        dirtyDao.markPushed(ctId, staleVersion)
+
+        assertEquals(
+            listOf(DirtyTaskVersion(ctId, dirtyVersion = staleVersion + 1)),
+            dirtyDao.getSyncableDirtyVersions()
+        )
+    }
+
+    @Test
+    fun setDirtyIncrementsDirtyVersion() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+
+        dirtyDao.setDirty(listOf(taskId))
+
+        assertEquals(2L, dirtyVersion(ctId))
+        assertEquals(0L, dirtyDao.getSyncedVersion(ctId))
+    }
+
+    @Test
+    fun setDirtyTwiceIncrementsTwice() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+
+        dirtyDao.setDirty(listOf(taskId))
+        dirtyDao.setDirty(listOf(taskId))
+
+        assertEquals(3L, dirtyVersion(ctId))
+        assertEquals(0L, dirtyDao.getSyncedVersion(ctId))
+    }
+
+    @Test
+    fun setDirtySkipsTombstones() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask(deleted = true)
+
+        dirtyDao.setDirty(listOf(taskId))
+
+        assertEquals(2L, dirtyVersion(ctId))
+    }
+
+    @Test
+    fun setDirtyForAccountTypes() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask(accountType = TYPE_CALDAV)
+
+        dirtyDao.setDirty(listOf(taskId), listOf(TYPE_GOOGLE_TASKS))
+
+        assertEquals(1L, dirtyVersion(ctId))
+    }
+
+    @Test
+    fun setDirtyForMatchingAccountType() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask(accountType = TYPE_CALDAV)
+
+        dirtyDao.setDirty(listOf(taskId), listOf(TYPE_CALDAV))
+
+        assertEquals(2L, dirtyVersion(ctId))
+    }
+
+    @Test
+    fun markSyncedOnTriggerRow() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(1L, dirtyVersion(ctId))
+        assertEquals(1L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(false, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun markSyncedOnCleanTask() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirtyState(ctId, 1, 1)
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(1L, dirtyVersion(ctId))
+        assertEquals(1L, dirtyDao.getSyncedVersion(ctId))
+    }
+
+    @Test
+    fun markSyncedSkipsEditAfterInsert() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirty(listOf(taskId))
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(2L, dirtyVersion(ctId))
+        assertEquals(0L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun markSyncedSkipsMultipleEditsBeforeFirstSync() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirty(listOf(taskId))
+        dirtyDao.setDirty(listOf(taskId))
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(3L, dirtyVersion(ctId))
+        assertEquals(0L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun markSyncedSkipsDirtyAfterPreviousSync() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirtyState(ctId, 2, 1)
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(2L, dirtyVersion(ctId))
+        assertEquals(1L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun markSyncedSkipsTaskDirtiedAfterPush() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirtyState(ctId, 3, 1)
+
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(3L, dirtyVersion(ctId))
+        assertEquals(1L, dirtyDao.getSyncedVersion(ctId))
+    }
+
+    @Test
+    fun markPushedSetsSyncedVersion() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirty(listOf(taskId))
+        val version = dirtyVersion(ctId)!!
+
+        dirtyDao.markPushed(ctId, version)
+
+        assertEquals(2L, dirtyVersion(ctId))
+        assertEquals(2L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(false, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun markPushedWithConcurrentEdit() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirty(listOf(taskId))
+        val version = dirtyVersion(ctId)!!
+        dirtyDao.setDirty(listOf(taskId))
+
+        dirtyDao.markPushed(ctId, version)
+
+        assertEquals(3L, dirtyVersion(ctId))
+        assertEquals(2L, dirtyDao.getSyncedVersion(ctId))
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun isDirtyForNonexistentRow() = runBlocking {
+        assertNull(dirtyDao.isDirty(999L))
+    }
+
+    @Test
+    fun isDirtyWhenClean() = runBlocking {
+        val (_, ctId) = createTaskWithCaldavTask()
+        dirtyDao.markSynced(ctId)
+
+        assertEquals(false, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun isDirtyWhenDirty() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirty(listOf(taskId))
+
+        assertEquals(true, dirtyDao.isDirty(ctId))
+    }
+
+    @Test
+    fun getDirtyStateByTaskIdSkipsTombstones() = runBlocking {
+        val task = Task()
+        taskDao.createNew(task)
+        val ctId = insertCaldavTask(task.id, deleted = true)
+        dirtyDao.setDirtyState(ctId, 5, 1)
+
+        assertNull(dirtyDao.getDirtyStateByTaskIds(listOf(task.id))[task.id])
+    }
+
+    @Test
+    fun getDirtyStateByTaskIdReturnsActiveVersion() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        dirtyDao.setDirtyState(ctId, 3, 1)
+
+        val state = dirtyDao.getDirtyStateByTaskIds(listOf(taskId))[taskId]
+        assertEquals(3L, state?.dirtyVersion)
+        assertEquals(1L, state?.syncedVersion)
+    }
+
+    @Test
+    fun getCaldavTasksToPushReturnsDirty() = runBlocking {
+        val calUuid = setupCalendar(TYPE_CALDAV)
+        val (taskId, ctId) = createTaskWithCaldavTask(calendar = calUuid)
+
+        val result = dirtyDao.getTasksToPush(calUuid)
+
+        assertEquals(1, result.size)
+        assertEquals(taskId, result.first().task.id)
+    }
+
+    @Test
+    fun getCaldavTasksToPushExcludesClean() = runBlocking {
+        val calUuid = setupCalendar(TYPE_CALDAV)
+        val (_, ctId) = createTaskWithCaldavTask(calendar = calUuid)
+        dirtyDao.markSynced(ctId)
+
+        val result = dirtyDao.getTasksToPush(calUuid)
+
+        assertEquals(0, result.size)
+    }
+
+    @Test
+    fun googleTasksPushExcludesTombstones() = runBlocking {
+        val accountUuid = "google-account"
+        caldavDao.insert(CaldavAccount(accountType = TYPE_GOOGLE_TASKS, uuid = accountUuid))
+        val calUuid = "google-calendar"
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid))
+
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(
+            task.id,
+            calendar = calUuid,
+            deleted = true,
+            remoteId = "remote-1",
+        )
+
+        val result = dirtyDao.getTasksToPush(calUuid)
+
+        assertEquals(0, result.size)
+    }
+
+    @Test
+    fun googleTasksPushExcludesClean() = runBlocking {
+        val accountUuid = "google-account-2"
+        caldavDao.insert(CaldavAccount(accountType = TYPE_GOOGLE_TASKS, uuid = accountUuid))
+        val calUuid = "google-calendar-2"
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid))
+
+        val task = Task()
+        taskDao.createNew(task)
+        val ctId = insertCaldavTask(
+            task.id,
+            calendar = calUuid,
+            remoteId = "remote-2",
+        )
+        dirtyDao.markSynced(ctId)
+
+        val result = dirtyDao.getTasksToPush(calUuid)
+
+        assertEquals(0, result.size)
+    }
+
+    @Test
+    fun getMovedByAccountReturnsTombstones() = runBlocking {
+        val accountUuid = "google-account-3"
+        caldavDao.insert(CaldavAccount(accountType = TYPE_GOOGLE_TASKS, uuid = accountUuid))
+        val calUuid = "google-calendar-3"
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid))
+
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(
+            task.id,
+            calendar = calUuid,
+            deleted = true,
+            remoteId = "remote-3",
+        )
+
+        val result = caldavDao.getMovedByAccount(accountUuid)
+
+        assertEquals(1, result.size)
+    }
+
+    @Test
+    fun getMovedByAccountExcludesActive() = runBlocking {
+        val accountUuid = "google-account-4"
+        caldavDao.insert(CaldavAccount(accountType = TYPE_GOOGLE_TASKS, uuid = accountUuid))
+        val calUuid = "google-calendar-4"
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid))
+
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = calUuid, remoteId = "remote-4")
+
+        val result = caldavDao.getMovedByAccount(accountUuid)
+
+        assertEquals(0, result.size)
+    }
+
+    @Test
+    fun deletingCaldavTaskDeletesDirtyRow() = runBlocking {
+        val (taskId, ctId) = createTaskWithCaldavTask()
+        assertEquals(1L, dirtyVersion(ctId))
+
+        caldavDao.delete(caldavDao.getTask(taskId)!!)
+
+        assertNull(dirtyVersion(ctId))
+    }
+
+    @Test
+    fun getByRemoteIdInAccountFindsTaskInAnotherList() = runBlocking {
+        val other = setupCalendar(TYPE_GOOGLE_TASKS)
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = other, remoteId = "moved-1")
+
+        val found = googleTaskDao.getByRemoteIdInAccount("moved-1", "account-$TYPE_GOOGLE_TASKS")
+
+        assertEquals(other, found?.calendar)
+    }
+
+    @Test
+    fun getByRemoteIdInAccountIgnoresOtherAccounts() = runBlocking {
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = setupCalendar(TYPE_CALDAV), remoteId = "moved-2")
+
+        assertNull(googleTaskDao.getByRemoteIdInAccount("moved-2", "account-$TYPE_GOOGLE_TASKS"))
+    }
+
+    @Test
+    fun getByRemoteIdInAccountIgnoresTombstones() = runBlocking {
+        val calendar = setupCalendar(TYPE_GOOGLE_TASKS)
+        val task = Task()
+        taskDao.createNew(task)
+        insertCaldavTask(task.id, calendar = calendar, deleted = true, remoteId = "moved-3")
+
+        assertNull(googleTaskDao.getByRemoteIdInAccount("moved-3", "account-$TYPE_GOOGLE_TASKS"))
+    }
+
+    private suspend fun dirtyVersion(ctId: Long): Long? = dirtyDao.getDirtyState(ctId)?.dirtyVersion
+
+    private suspend fun createTaskWithCaldavTask(
+        accountType: Int = TYPE_CALDAV,
+        calendar: String? = null,
+        deleted: Boolean = false,
+        access: Int = ACCESS_OWNER,
+    ): Pair<Long, Long> {
+        val calUuid = calendar ?: setupCalendar(accountType, access)
+        val task = Task()
+        taskDao.createNew(task)
+        val ctId = insertCaldavTask(task.id, calUuid, deleted)
+        return task.id to ctId
+    }
+
+    private suspend fun setupCalendar(accountType: Int, access: Int = ACCESS_OWNER): String {
+        val accountUuid = "account-$accountType"
+        if (caldavDao.getAccountByUuid(accountUuid) == null) {
+            caldavDao.insert(CaldavAccount(accountType = accountType, uuid = accountUuid))
+        }
+        val calUuid = "calendar-${++calendars}"
+        caldavDao.insert(CaldavCalendar(account = accountUuid, uuid = calUuid, access = access))
+        return calUuid
+    }
+
+    private suspend fun insertCaldavTask(
+        taskId: Long,
+        calendar: String? = null,
+        deleted: Boolean = false,
+        remoteId: String? = null,
+    ): Long {
+        val calUuid = calendar ?: setupCalendar(TYPE_CALDAV)
+        val ct = CaldavTask(
+            task = taskId,
+            calendar = calUuid,
+            remoteId = remoteId,
+        )
+        val ctId = caldavDao.insert(ct)
+        if (deleted) {
+            caldavDao.markDeleted(listOf(taskId))
+        }
+        return ctId
+    }
+}

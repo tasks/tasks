@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+
+        <activity
+            android:name=".TrustCertificateActivity"
+            android:label="@string/certificate_notification_connection_security"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:exported="true"/>
+
+    </application>
+</manifest>

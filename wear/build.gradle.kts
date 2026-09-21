@@ -61,6 +61,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        resValues = true
+    }
+    packaging {
+        resources {
+            excludes += setOf("META-INF/INDEX.LIST", "META-INF/DEPENDENCIES")
+        }
     }
 
     tasks.register("testClasses")
@@ -68,6 +74,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+    implementation(platform(libs.androidx.compose))
     implementation(compose.components.resources)
     implementation(projects.wearDatalayer)
     implementation(projects.kmp)
@@ -76,7 +83,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material.icons.extended)
     implementation(platform(libs.firebase))
     implementation(libs.firebase.crashlytics)
     implementation(libs.posthog.android)

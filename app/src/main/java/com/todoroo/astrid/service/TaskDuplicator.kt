@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service
 
-import com.todoroo.astrid.dao.TaskDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskSaver
 import com.todoroo.astrid.gcal.GCalHelper
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.AlarmDao
@@ -12,9 +13,9 @@ import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskAttachmentDao
 import org.tasks.data.db.DbUtils.dbchunk
 import org.tasks.data.entity.Attachment
+import org.tasks.data.entity.CaldavAccount.Companion.pushesRemoteParent
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Geofence
-import org.tasks.data.entity.Tag
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.preferences.Preferences
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class TaskDuplicator @Inject constructor(
     private val gcalHelper: GCalHelper,
     private val taskDao: TaskDao,
+    private val taskSaver: TaskSaver,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
@@ -34,7 +36,6 @@ class TaskDuplicator @Inject constructor(
     private val preferences: Preferences,
     private val taskAttachmentDao: TaskAttachmentDao,
 ) {
-
     suspend fun duplicate(taskIds: List<Long>): List<Task> {
         return taskIds
             .dbchunk()
@@ -53,6 +54,7 @@ class TaskDuplicator @Inject constructor(
             creationDate = currentTimeMillis(),
             modificationDate = currentTimeMillis(),
             reminderLast = 0,
+            reminderDismissed = 0,
             completionDate = 0L,
             calendarURI = "",
             parent = parentId,
@@ -61,19 +63,7 @@ class TaskDuplicator @Inject constructor(
         clone.suppressSync()
         clone.suppressRefresh()
         val newId = taskDao.createNew(clone)
-        val tags = tagDataDao.getTagDataForTask(task.id)
-        if (tags.isNotEmpty()) {
-            tagDao.insert(
-                tags.map {
-                    Tag(
-                        task = clone.id,
-                        taskUid = clone.uuid,
-                        name = it.name,
-                        tagUid = it.remoteId
-                    )
-                }
-            )
-        }
+        tagDao.insert(clone, tagDataDao.getTagDataForTask(task.id))
         val googleTask = googleTaskDao.getByTaskId(task.id)
         val caldavTask = caldavDao.getTask(task.id)
         if (googleTask != null) {
@@ -91,9 +81,8 @@ class TaskDuplicator @Inject constructor(
                 task = clone.id,
                 calendar = caldavTask.calendar
             )
-            if (parentId != 0L) {
-                val remoteParent = caldavDao.getRemoteIdForTask(parentId)
-                newDavTask.remoteParent = remoteParent
+            if (parentId != 0L && pushesRemoteParent(caldavDao.getAccountType(task.id))) {
+                newDavTask.remoteParent = caldavDao.getRemoteIdForTask(parentId)
             }
             caldavDao.insert(clone, newDavTask, preferences.addTasksToTop())
         }
@@ -112,7 +101,7 @@ class TaskDuplicator @Inject constructor(
             alarmDao.insert(alarms.map { it.copy(id = 0, task = clone.id) })
         }
         gcalHelper.createTaskEventIfEnabled(clone)
-        taskDao.save(clone, null) // TODO: delete me
+        taskSaver.save(clone, null) // TODO: delete me
         taskAttachmentDao
             .getAttachmentsForTask(task.id)
             .map {
