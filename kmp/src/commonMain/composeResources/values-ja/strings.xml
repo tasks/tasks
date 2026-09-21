@@ -69,7 +69,7 @@
     <string name="sign_in_with_google">Google でサインイン</string>
     <string name="sign_in_with_github">GitHub でサインイン</string>
     <string name="completed">完了</string>
-    <string name="filter_overdue">遅延</string>
+    <string name="filter_overdue">締切を過ぎている</string>
     <string name="no_due_date">締切日時なし</string>
     <string name="no_start_date">着手日時なし</string>
     <string name="no_date">日付なし</string>
@@ -570,4 +570,18 @@
     <string name="mcp_copy">コピー</string>
     <string name="undo_delete">削除を元に戻す</string>
     <string name="new_filter">新しいフィルターを作成</string>
+    <string name="sign_in_with_apple">Appleでサインイン</string>
+    <string name="show_completed_subtasks">完了したサブタスクを表示</string>
+    <string name="mcp_server_summary">この端末のAIアシスタントにあなたのデータを管理させる</string>
+    <string name="mcp_server_enable_summary">127.0.0.1 にある、この端末でのみ実行します。 ネットワークには公開されません。</string>
+    <string name="mcp_status_running">ポート %1$dで実行中</string>
+    <string name="mcp_status_starting">開始中…</string>
+    <string name="mcp_status_stopped">停止中</string>
+    <string name="mcp_access">接続する</string>
+    <string name="mcp_access_read_only">閲覧のみ</string>
+    <string name="mcp_access_read_only_summary">アシスタントは、タスク、リスト、タグ、場所、リマインダー、同期アカウントを読み込みます。 変更はできません。</string>
+    <string name="mcp_access_read_write">読み込みと書き込み</string>
+    <string name="mcp_access_read_write_summary">アシスタントはタスク、リスト、タグ、場所、リマインダーを作成、編集、削除することもできます。</string>
+    <string name="mcp_access_advanced_summary">アシスタントにどのツールを使用させるか指定ください。</string>
+    <string name="mcp_tools">ツール</string>
 </resources>
