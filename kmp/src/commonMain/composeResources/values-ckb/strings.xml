@@ -18,4 +18,5 @@
     <string name="keep_editing">بەردەوام بە لە دەستکاریکردن</string>
     <string name="DLG_delete_this_task_question">دەتەوێت ئەم ئەرکە بسڕیتەوە؟</string>
     <string name="action_open">بکەوە</string>
+    <string name="new_filter">پاڵاوتنێک دروست بکە</string>
 </resources>

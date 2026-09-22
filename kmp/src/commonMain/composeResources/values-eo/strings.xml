@@ -626,4 +626,5 @@
     <string name="mcp_tools_group_places">Lokoj</string>
     <string name="mcp_tools_group_reminders">Memorigiloj</string>
     <string name="mcp_copy">Kopii</string>
+    <string name="new_filter">Krei novan filtrilon</string>
 </resources>

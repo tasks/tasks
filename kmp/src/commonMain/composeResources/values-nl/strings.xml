@@ -694,4 +694,5 @@
     <string name="mcp_reveal">Weergeven</string>
     <string name="mcp_hide">Verbergen</string>
     <string name="mcp_clipboard_note">Alles wat u hier kopieert, bevat het token en wordt na een minuut van het klembord verwijderd.</string>
+    <string name="new_filter">Nieuw filter maken</string>
 </resources>

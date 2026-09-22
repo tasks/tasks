@@ -550,4 +550,5 @@
     <string name="mcp_tools_group_places">Luoghi</string>
     <string name="mcp_tools_group_reminders">Promemoria</string>
     <string name="mcp_copy">Copia</string>
+    <string name="new_filter">Crea nuovo filtro</string>
 </resources>

@@ -346,4 +346,5 @@
     <string name="mcp_tools_group_tags">Etiquetes</string>
     <string name="mcp_tools_group_reminders">Recordatorios</string>
     <string name="mcp_copy">Copiar</string>
+    <string name="new_filter">Crear nuevu filtru</string>
 </resources>

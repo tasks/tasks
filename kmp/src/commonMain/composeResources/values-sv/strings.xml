@@ -624,4 +624,5 @@
     <string name="mcp_tools_group_places">Platser</string>
     <string name="mcp_tools_group_reminders">Påminnelser</string>
     <string name="mcp_copy">Kopiera</string>
+    <string name="new_filter">Skapa ett nytt filter</string>
 </resources>

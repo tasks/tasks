@@ -626,4 +626,5 @@
     <string name="mcp_tools_group_places">Orte</string>
     <string name="mcp_tools_group_reminders">Erinnerungen</string>
     <string name="mcp_copy">Kopieren</string>
+    <string name="new_filter">Neuen Filter erstellen</string>
 </resources>

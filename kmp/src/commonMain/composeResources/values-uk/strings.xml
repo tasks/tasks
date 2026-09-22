@@ -500,4 +500,6 @@
     <string name="sort_modified">Змінено</string>
     <string name="all_done">Усе виконано!</string>
     <string name="add_platform_account">Додати обліковий запис %1$s</string>
+    <string name="works_with_desktop">Tasks.org для комп\'ютера</string>
+    <string name="new_filter">Створити новий фільтр</string>
 </resources>

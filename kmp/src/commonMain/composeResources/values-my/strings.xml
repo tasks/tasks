@@ -34,4 +34,5 @@
     <string name="action_open">ဖွင့်မည်</string>
     <string name="TEA_add_subtask">အလုပ်ခွဲထည့်မယ်</string>
     <string name="mcp_tools_group_reminders">သတိပေးမှုများ</string>
+    <string name="new_filter">စစ်ထုတ်မည်</string>
 </resources>

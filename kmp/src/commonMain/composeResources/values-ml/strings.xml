@@ -81,4 +81,5 @@
     <string name="customize_drawer">ഡ്രോയർ ഇഷ്ടാനുസൃതമാക്കുക</string>
     <string name="customize_drawer_summary">മെനു ഇനങ്ങൾ പുനഃക്രമീകരിക്കാൻ വലിച്ചിടുക</string>
     <string name="mcp_tools_group_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
+    <string name="new_filter">പുതിയ ഫിൽട്ടർ സൃഷ്ടിക്കുക</string>
 </resources>

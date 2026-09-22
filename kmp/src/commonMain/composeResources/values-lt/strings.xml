@@ -431,4 +431,5 @@
     <string name="mcp_tools_group_places">Vietos</string>
     <string name="mcp_tools_group_reminders">Priminimai</string>
     <string name="mcp_copy">Kopijuoti</string>
+    <string name="new_filter">Sukurti naują filtrą</string>
 </resources>
