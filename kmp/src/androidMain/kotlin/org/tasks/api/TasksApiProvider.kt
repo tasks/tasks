@@ -19,8 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.tasks.analytics.Analytics
@@ -33,7 +31,6 @@ import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.db.Database
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.concurrent.thread
@@ -300,26 +297,23 @@ abstract class TasksApiProvider : ContentProvider() {
         startWatching(dependencies.database)
     }
 
-    @Synchronized
     private fun startWatching(database: Database) {
-        if (watching === database) return
-        val resolver = context?.contentResolver ?: return
-        watchJob?.cancel()
-        watching = database
-        val subscribed = CountDownLatch(1)
-        watchJob = scope.launch {
-            database
-                .invalidationTracker
-                .createFlow(*NOTIFY.keys.toTypedArray(), emitInitialState = true)
-                .onEach { subscribed.countDown() }
-                .drop(1)
-                .collect { changed ->
-                    changed
-                        .flatMapTo(mutableSetOf()) { NOTIFY[it].orEmpty() }
-                        .forEach { resolver.notifyChange(collectionUri(it), null) }
-                }
+        synchronized(this) {
+            if (watching === database) return
+            val resolver = context?.contentResolver ?: return
+            watchJob?.cancel()
+            watching = database
+            watchJob = scope.launch {
+                database
+                    .invalidationTracker
+                    .createFlow(*NOTIFY.keys.toTypedArray(), emitInitialState = true)
+                    .collect { changed ->
+                        changed
+                            .flatMapTo(mutableSetOf()) { NOTIFY[it].orEmpty() }
+                            .forEach { resolver.notifyChange(collectionUri(it), null) }
+                    }
+            }
         }
-        subscribed.await(SUBSCRIBE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
     }
 
     private fun checkPermissionOwnership() {
@@ -384,8 +378,6 @@ abstract class TasksApiProvider : ContentProvider() {
 
     companion object {
         internal const val UNKNOWN_CALLER = "unknown"
-
-        private const val SUBSCRIBE_TIMEOUT_SECONDS = 5L
 
         private const val TASKS = 1
         private const val TASK = 2
