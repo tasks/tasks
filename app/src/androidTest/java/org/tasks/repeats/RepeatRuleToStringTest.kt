@@ -146,7 +146,7 @@ class RepeatRuleToStringTest : InjectingTestCase() {
         val locale = language?.let { Locale.forLanguageTag(it) } ?: default
         return try {
             Locale.setDefault(locale)
-            RepeatRuleToString(firebase).toStringBlocking(rrule)
+            RepeatRuleToString(firebase, locale.toLanguageTag()).toStringBlocking(rrule)
         } catch (e: ParseException) {
             throw RuntimeException(e)
         } finally {

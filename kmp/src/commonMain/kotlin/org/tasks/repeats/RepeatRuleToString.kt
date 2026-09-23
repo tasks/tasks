@@ -55,6 +55,7 @@ import tasks.kmp.generated.resources.repeats_yearly
 
 class RepeatRuleToString(
     private val crashReporting: CrashReporting,
+    private val languageTag: String? = null,
 ) {
     private val Recur.hasDayString: Boolean
         get() = (frequency == WEEKLY || frequency == MONTHLY) && byDay.isNotEmpty() ||
@@ -72,7 +73,7 @@ class RepeatRuleToString(
         val repeatUntil = rrule.until?.toDateTime()
         val count = rrule.count ?: 0
         val countString = if (count > 0) getPluralString(Res.plurals.repeat_times, count) else ""
-        val countNumber = if (count > 0) formatNumber(count) else ""
+        val countNumber = if (count > 0) formatNumber(count, languageTag) else ""
         if (interval <= 1) {
             val frequencyString = getString(getSingleFrequencyResource(frequency))
             if (rrule.hasDayString) {
@@ -114,7 +115,7 @@ class RepeatRuleToString(
             val frequencyPlural = getPluralString(
                 getFrequencyPlural(frequency),
                 interval,
-                formatNumber(interval)
+                formatNumber(interval, languageTag)
             )
             if (rrule.hasDayString) {
                 val dayString = getDayString(rrule)
@@ -162,7 +163,7 @@ class RepeatRuleToString(
             getString(Res.string.repeat_monthly_last_day)
         } else if (rrule.frequency == WEEKLY) {
             rrule.byDay
-                .map { it.day.displayName(TextStyle.SHORT) }
+                .map { it.day.displayName(TextStyle.SHORT, languageTag) }
                 .joinToString(getString(Res.string.list_separator_with_space))
         } else if (rrule.frequency == MONTHLY) {
             val weekdayNum = rrule.byDay[0]
@@ -176,7 +177,7 @@ class RepeatRuleToString(
             getString(
                 Res.string.repeat_monthly_every_day_of_nth_week,
                 nthWeek,
-                weekdayNum.day.displayName(TextStyle.FULL),
+                weekdayNum.day.displayName(TextStyle.FULL, languageTag),
             )
         } else {
             throw RuntimeException()

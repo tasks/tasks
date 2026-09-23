@@ -120,15 +120,16 @@ expect fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime?
 val DateTime.weekday: Weekday
     get() = Weekday.fromCalendarDay(dayOfWeek)
 
-fun Weekday.displayName(style: TextStyle): String =
-    formatDayOfWeek(DateTime(2024, 12, 21 + calendarDay).millis, style)
+fun Weekday.displayName(style: TextStyle, languageTag: String? = null): String =
+    formatDayOfWeek(DateTime(2024, 12, 21 + calendarDay).millis, style, languageTag)
 
 val Weekday.dayOfWeek: DayOfWeek
     get() = DayOfWeek(if (this == Weekday.SU) 7 else ordinal)
 
 fun DayOfWeek.toWeekday(): Weekday = Weekday.entries[isoDayNumber % 7]
 
-fun DayOfWeek.displayName(style: TextStyle): String = toWeekday().displayName(style)
+fun DayOfWeek.displayName(style: TextStyle, languageTag: String? = null): String =
+    toWeekday().displayName(style, languageTag)
 
 fun Until.toDateTime(): DateTime = when (this) {
     is Until.Date -> DateTime(year, month, day)

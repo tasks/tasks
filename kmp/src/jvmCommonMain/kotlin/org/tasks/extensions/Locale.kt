@@ -4,6 +4,9 @@ import java.text.NumberFormat
 import java.text.ParseException
 import java.util.Locale
 
+fun String?.toLocale(): Locale =
+    this?.takeIf { it.isNotBlank() }?.let { Locale.forLanguageTag(it) } ?: Locale.getDefault()
+
 fun Locale.formatNumber(number: Int, grouping: Boolean = true): String {
     return NumberFormat.getNumberInstance(this)
         .apply { isGroupingUsed = grouping }

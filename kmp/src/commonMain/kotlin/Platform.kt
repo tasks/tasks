@@ -9,7 +9,7 @@ import co.touchlab.kermit.Logger
 import okio.Path.Companion.toPath
 import org.tasks.kmp.org.tasks.time.TextStyle
 
-expect fun formatNumber(number: Int): String
+expect fun formatNumber(number: Int, languageTag: String? = null): String
 
 expect val PROD_ID: String
 
@@ -36,4 +36,4 @@ const val dataStoreFileName = "tasks.preferences_pb"
 
 expect fun formatTime(timestamp: Long, is24HourFormat: Boolean): String
 
-expect fun formatDayOfWeek(timestamp: Long, style: TextStyle): String
+expect fun formatDayOfWeek(timestamp: Long, style: TextStyle, languageTag: String? = null): String

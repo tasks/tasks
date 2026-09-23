@@ -1,6 +1,7 @@
 package org.tasks.kmp
 
 import org.tasks.TasksBuildConfig
+import org.tasks.kmp.org.tasks.time.toNSLocale
 import kotlinx.datetime.DayOfWeek
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSLocale
@@ -12,10 +13,10 @@ import platform.Foundation.NSNumberFormatterDecimalStyle
 import platform.Foundation.currentLocale
 import platform.UIKit.UIDevice
 
-actual fun formatNumber(number: Int): String =
+actual fun formatNumber(number: Int, languageTag: String?): String =
     NSNumberFormatter().apply {
         numberStyle = NSNumberFormatterDecimalStyle
-        locale = NSLocale.currentLocale
+        locale = languageTag.toNSLocale()
     }.stringFromNumber(NSNumber(int = number)) ?: number.toString()
 
 actual val PROD_ID = "+//IDN tasks.org//ios-${TasksBuildConfig.VERSION_CODE}//EN"

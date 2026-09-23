@@ -5,9 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import org.tasks.kmp.BuildConfig
 import org.tasks.extensions.formatNumber
-import java.util.Locale
+import org.tasks.extensions.toLocale
 
-actual fun formatNumber(number: Int) = Locale.getDefault().formatNumber(number)
+actual fun formatNumber(number: Int, languageTag: String?) = languageTag.toLocale().formatNumber(number)
 
 fun createDataStore(context: Context): DataStore<Preferences> = createDataStore(
     producePath = { context.filesDir.resolve(dataStoreFileName).absolutePath }

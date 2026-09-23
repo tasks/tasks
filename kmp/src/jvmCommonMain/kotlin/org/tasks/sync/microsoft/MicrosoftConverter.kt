@@ -158,7 +158,7 @@ object MicrosoftConverter {
                     Tasks.Task.Recurrence(
                         pattern = Tasks.Task.Pattern(
                             type = frequency,
-                            interval = recur.interval ?: 1,
+                            interval = (recur.interval ?: 1).coerceAtLeast(1),
                             daysOfWeek = recur.byDay.mapNotNull {
                                 when (it.takeIf { it.offset == 0 }?.day) {
                                     Weekday.SU -> RecurrenceDayOfWeek.sunday

@@ -32,9 +32,12 @@ internal fun TextStyle.toWeekdayPattern(): String = when (this) {
     TextStyle.NARROW -> "EEEEE"
 }
 
-internal fun templateFormatter(template: String): NSDateFormatter =
+internal fun String?.toNSLocale(): NSLocale =
+    this?.takeIf { it.isNotBlank() }?.let { NSLocale(localeIdentifier = it) } ?: NSLocale.currentLocale
+
+internal fun templateFormatter(template: String, languageTag: String? = null): NSDateFormatter =
     NSDateFormatter().apply {
-        locale = NSLocale.currentLocale
+        locale = languageTag.toNSLocale()
         setLocalizedDateFormatFromTemplate(template)
     }
 

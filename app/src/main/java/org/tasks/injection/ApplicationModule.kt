@@ -135,8 +135,11 @@ class ApplicationModule {
     fun getCrashReporting(reporting: Reporting): CrashReporting = reporting
 
     @Provides
-    fun getRepeatRuleToString(crashReporting: CrashReporting) =
-        RepeatRuleToString(crashReporting = crashReporting)
+    fun getRepeatRuleToString(locale: Locale, crashReporting: CrashReporting) =
+        RepeatRuleToString(
+            crashReporting = crashReporting,
+            languageTag = locale.toLanguageTag(),
+        )
 
     @Provides
     @Singleton
