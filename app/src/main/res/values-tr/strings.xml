@@ -83,7 +83,7 @@
     <string name="calendar_event_not_found">Takvim etkinliği bulunamadı</string>
     <string name="gcal_completed_title">%s (tamamlandı)</string>
     <string name="CFC_gtasks_list_text">Liste içinde: ?</string>
-    <string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
+    <string name="gtasks_GTA_clear_completed">Tamamlanları temizle</string>
     <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor…</string>
     <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı—lütfen çıkış yapıp Google Görevler ayarlarından yeniden oturum açın.</string>
     <string name="premium_record_audio">Bir not kaydet</string>
