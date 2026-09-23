@@ -40,11 +40,6 @@ class EtebaseSynchronizer(
     private val vtodoCache: VtodoCache,
     private val reporting: Reporting,
 ) {
-    companion object {
-        init {
-        }
-    }
-
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Logger.d("EtebaseSynchronizer") { "Synchronizing $account" }
         if (!hasPro) {

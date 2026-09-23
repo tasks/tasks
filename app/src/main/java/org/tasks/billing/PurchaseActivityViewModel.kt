@@ -68,7 +68,7 @@ class PurchaseActivityViewModel @Inject constructor(
             val nameYourPrice = savedStateHandle.get<Boolean>(EXTRA_NAME_YOUR_PRICE) ?: true
             ViewState(
                 nameYourPrice = nameYourPrice,
-                isGithub = IS_GENERIC || (savedStateHandle.get<Boolean>(EXTRA_GITHUB) ?: false),
+                isGithub = IS_GENERIC,
                 feature = savedStateHandle.get<Int>(EXTRA_FEATURE) ?: 0,
                 source = savedStateHandle.get<String>(EXTRA_SOURCE) ?: "",
                 showMoreOptions = savedStateHandle.get<Boolean>(EXTRA_SHOW_MORE_OPTIONS) ?: nameYourPrice,
@@ -156,7 +156,6 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     companion object {
-        const val EXTRA_GITHUB = "github"
         const val EXTRA_NAME_YOUR_PRICE = "nameYourPrice"
         const val EXTRA_SHOW_MORE_OPTIONS = "showMoreOptions"
         const val EXTRA_FEATURE = "feature"
