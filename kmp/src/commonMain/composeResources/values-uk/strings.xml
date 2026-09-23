@@ -502,4 +502,9 @@
     <string name="add_platform_account">Додати обліковий запис %1$s</string>
     <string name="works_with_desktop">Tasks.org для комп\'ютера</string>
     <string name="new_filter">Створити новий фільтр</string>
+    <string name="email_to_task_address">Ваша адреса е-пошти</string>
+    <string name="legal_disclosure_prefix_using">Використовуючи Tasks.org</string>
+    <string name="tos_updated_title">Ми оновили Умови користування</string>
+    <string name="accept">Прийняти</string>
+    <string name="email_to_task">Е-лист до завдання</string>
 </resources>
