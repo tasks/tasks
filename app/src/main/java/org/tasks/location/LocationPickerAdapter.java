@@ -28,6 +28,7 @@ import org.tasks.location.LocationPickerAdapter.PlaceViewHolder;
 import org.tasks.themes.ColorProvider;
 import org.tasks.themes.TasksIcons;
 import org.tasks.themes.ThemeColor;
+import timber.log.Timber;
 
 public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHolder> {
 
@@ -110,9 +111,18 @@ public class LocationPickerAdapter extends ListAdapter<PlaceUsage, PlaceViewHold
       place = placeUsage.place;
       String name = place.getDisplayName();
       String address = place.getDisplayAddress();
-      Drawable drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, icon, 24, color);
+      Drawable drawable = null;
+      try {
+        drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, icon, 24, color);
+      } catch (Exception e) {
+        Timber.e(e);
+      }
       if (drawable == null) {
-        drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, TasksIcons.PLACE, 24, color);
+        try {
+          drawable = MaterialSymbolsGlyphs.INSTANCE.drawable(context, TasksIcons.PLACE, 24, color);
+        } catch (Exception e) {
+          Timber.e(e);
+        }
       }
       this.icon.setImageDrawable(drawable);
       this.name.setText(name);

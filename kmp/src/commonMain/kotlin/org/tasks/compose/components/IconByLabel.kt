@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
@@ -69,17 +70,16 @@ fun TasksIcon(
 @Composable
 private fun Modifier.symbol(name: String?, tint: Color, filled: Boolean): Modifier {
     val glyph = name?.let { MaterialSymbols.glyph(it) } ?: return this
-    val fontFamily = FontFamily(
-        Font(
-            Res.font.material_symbols_outlined,
-            variationSettings = FontVariation.Settings(FontVariation.Setting("FILL", if (filled) 1f else 0f)),
-        )
+    val font = Font(
+        Res.font.material_symbols_outlined,
+        variationSettings = if (filled) FILL_ON else FILL_OFF,
     )
+    val style = remember(font) { TextStyle(fontFamily = FontFamily(font)) }
     val mirrored = LocalLayoutDirection.current == LayoutDirection.Rtl && MaterialSymbols.isMirrored(name)
     val textMeasurer = rememberTextMeasurer()
     return drawWithCache {
         val em = size.minDimension
-        val layout = textMeasurer.measure(glyph, TextStyle(fontFamily = fontFamily, fontSize = em.toSp()))
+        val layout = textMeasurer.measure(glyph, style.copy(fontSize = em.toSp()))
         val topLeft = Offset((size.width - em) / 2, (size.height - em) / 2 + em - layout.firstBaseline)
         onDrawBehind {
             if (mirrored) {
@@ -97,3 +97,6 @@ val String.iconName: String
     get() = removePrefix(LEGACY_ICON_PREFIX)
 
 private const val LEGACY_ICON_PREFIX = "gmo_"
+
+private val FILL_ON = FontVariation.Settings(FontVariation.Setting("FILL", 1f))
+private val FILL_OFF = FontVariation.Settings(FontVariation.Setting("FILL", 0f))
