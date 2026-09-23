@@ -7,7 +7,6 @@ import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.NO_ORDER
@@ -463,14 +462,11 @@ object Migrations {
                         val file = fileStorage.getFile(
                             it.getTextOrNull(0),
                             it.getTextOrNull(1),
-                        )
-                            ?.let { directory -> fileStorage.mkdirs(directory) }
-                            ?: continue
-                        val `object` = it.getTextOrNull(2) ?: continue
+                            it.getTextOrNull(2),
+                        ) ?: continue
                         val data = it.getTextOrNull(3) ?: continue
-                        runBlocking {
-                            fileStorage.write(file / `object`, data)
-                        }
+                        file.parent?.let { directory -> fileStorage.mkdirs(directory) }
+                        fileStorage.write(file, data)
                     }
                 }
             connection.execSQL("ALTER TABLE `caldav_tasks` RENAME TO `caldav_tasks-temp`")

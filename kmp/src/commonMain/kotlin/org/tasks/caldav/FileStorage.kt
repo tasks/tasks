@@ -15,10 +15,18 @@ class FileStorage(
 
     fun getFile(vararg segments: String?): Path? =
         if (segments.none { it.isNullOrBlank() }) {
-            segments.fold(root) { f, p -> f / p!! }
+            segments.fold(root) { f, p -> f / p!! }.normalized().takeIf { isWithinRoot(it) }
         } else {
             null
         }
+
+    private fun isWithinRoot(path: Path): Boolean {
+        val normalized = path.normalized()
+        val base = root.normalized()
+        return normalized.root == base.root &&
+                normalized.segments.size >= base.segments.size &&
+                normalized.segments.subList(0, base.segments.size) == base.segments
+    }
 
     suspend fun read(file: Path?): String? = withContext(Dispatchers.IO) {
         file?.takeIf { FileSystem.SYSTEM.exists(it) }?.let { path ->
