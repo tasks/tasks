@@ -83,7 +83,7 @@
     <string name="calendar_event_not_found">Подію у календарі не знайдено</string>
     <string name="gcal_completed_title">%s (завершено)</string>
     <string name="CFC_gtasks_list_text">У списку: \?</string>
-    <string name="gtasks_GTA_clear_completed">Очистити завершені</string>
+    <string name="gtasks_GTA_clear_completed">Очистити виконані</string>
     <string name="gtasks_GLA_authenticating">Авторизація…</string>
     <string name="gtasks_error_accountNotFound">Обліковий запис %s не знайдено — будь ласка, вийдіть і увійдіть знову через налаштування Google Tasks.</string>
     <string name="premium_record_audio">Записати голосову замітку</string>
@@ -426,4 +426,26 @@
     <string name="sort_options">Сортувати опції</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_desktop_app">Tasks.org для комп\'ютера</string>
+    <string name="banner_subscription_required_body">Платіть скільки хочете, щоб розблокувати синхронізацію %s</string>
+    <string name="email_to_task_address">Ваша адреса е-пошти</string>
+    <string name="upgrade_desktop_app_description">Ранній доступ до нового застосунку для ПК</string>
+    <string name="upgrade_friends_and_family">Друзі й сім\'я</string>
+    <string name="advanced_tools">Додаткові інструменти</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync та інші!</string>
+    <string name="legal_disclosure_prefix_using">Використовуючи Tasks.org</string>
+    <string name="tos_updated_title">Ми оновили Умови користування</string>
+    <string name="accept">Прийняти</string>
+    <string name="exit">Вийти</string>
+    <string name="read_more">Докладніше</string>
+    <string name="location_update_interval_summary">Періодичне оновлення даних про розташування покращує надійність роботи геозони</string>
+    <string name="per_list_sort_title">Сортування за списками</string>
+    <string name="per_list_sort_summary">Запам\'ятовувати налаштування сортування та групування для кожного списку окремо</string>
+    <string name="permission_write_tasks">Додавайте, змінюйте та видаляйте свої завдання, списки, мітки та місця</string>
+    <string name="subscription_required_fdroid">Для використання синхронізації Tasks.org необхідна передплата. Оформити передплату можна лише у версії Tasks для Google Play.</string>
+    <string name="sponsorship_required_fdroid">Для використання синхронізації Tasks.org необхідне спонсорство на GitHub. Натисніть нижче, щоб стати спонсором.</string>
+    <string name="email_to_task">Е-лист до завдання</string>
+    <string name="guest_create_list_message">Наразі ви маєте доступ до спільних списків як гість. Щоб створювати власні приватні списки та синхронізувати їх із хмарою, вам знадобиться передплата на Tasks.org. Або ви можете створити безплатний локальний список, який зберігатиметься на цьому пристрої.</string>
+    <string name="upgrade_friends_and_family_description">5 безплатних гостей у спільних списках. Працює з Нагадуваннями від Apple</string>
+    <string name="upgrade_email_to_task_description">Перетворюйте електронні листи на завдання, пересилаючи їх у свою особисту поштову скриньку</string>
+    <string name="returning_user">Уже користувалися застосунком?</string>
 </resources>
