@@ -1,13 +1,12 @@
 package org.tasks.caldav
 
-import at.bitfire.dav4jvm.ktor.PreemptiveBasicDigestAuthProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.auth.Auth
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.KtorClientFactory
+import org.tasks.http.installBasicDigestAuth
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.Encryption
 
@@ -27,7 +26,11 @@ class CaldavClientProvider(
             override val user get() = plugin.user
         }
 
-        class BasicDigest(override val user: String, val password: String) : CaldavAuth
+        class BasicDigest(
+            override val user: String,
+            val password: String,
+            val url: String?,
+        ) : CaldavAuth
     }
 
     override suspend fun forUrl(
@@ -85,7 +88,7 @@ class CaldavClientProvider(
                 subscriptionInfo = subscriptionProvider(),
             )
         )
-        else -> CaldavAuth.BasicDigest(username, password)
+        else -> CaldavAuth.BasicDigest(username, password, url)
     }
 
     private suspend fun createHttpClient(
@@ -99,9 +102,7 @@ class CaldavClientProvider(
         }
         when (auth) {
             is CaldavAuth.Tasks -> install(auth.plugin)
-            is CaldavAuth.BasicDigest -> install(Auth) {
-                providers.add(PreemptiveBasicDigestAuthProvider(auth.user, auth.password))
-            }
+            is CaldavAuth.BasicDigest -> installBasicDigestAuth(auth.user, auth.password, auth.url)
             null -> {}
         }
     }

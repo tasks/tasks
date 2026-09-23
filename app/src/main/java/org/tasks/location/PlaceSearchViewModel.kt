@@ -59,4 +59,8 @@ class PlaceSearchViewModel @Inject constructor(
     }
 
     fun getAttributionRes(dark: Boolean) = search.getAttributionRes(dark)
+
+    override fun onCleared() {
+        search.close()
+    }
 }

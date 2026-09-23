@@ -7,8 +7,6 @@ import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.logging.LogLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.Credentials
-import okhttp3.OkHttpClient
 import org.tasks.BuildConfig
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.cookiePersistor
@@ -40,18 +38,16 @@ class HttpClientFactory @Inject constructor(
         block = {},
     )
 
-    suspend fun newClient(
+    suspend fun newAuthenticatedClient(
         foreground: Boolean = false,
         username: String? = null,
-        encryptedPassword: String? = null
-    ): OkHttpClient {
+        encryptedPassword: String? = null,
+        url: String? = null,
+    ): HttpClient {
         val decrypted = encryptedPassword?.let { encryption.decrypt(it) }
-        return newClient(foreground = foreground, cookieKey = username) { builder ->
+        return newClient(foreground = foreground, cookieKey = username).toKtor {
             if (!username.isNullOrBlank() && !decrypted.isNullOrBlank()) {
-                val credentials = Credentials.basic(username, decrypted, Charsets.UTF_8)
-                builder.addNetworkInterceptor { chain ->
-                    chain.proceed(chain.request().newBuilder().header("Authorization", credentials).build())
-                }
+                installBasicDigestAuth(username, decrypted, url)
             }
         }
     }

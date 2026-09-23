@@ -6,6 +6,7 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -43,6 +44,21 @@ class CaldavAuthTest {
         }
 
         assertEquals("Basic dXNlcjpwYXNzd29yZA==", server.authorization())
+    }
+
+    @Test
+    fun `does not send credentials to another domain`() = runBlocking {
+        server.start()
+        server.enqueue(MockResponse())
+
+        testClientProvider()
+            .forUrl("http://localhost:${server.port}/dav/", "user", "password")
+            .use { client ->
+                val url = "http://127.0.0.1:${server.port}/dav/"
+                assertEquals(200, client.httpClient.get(url).status.value)
+            }
+
+        assertNull(server.authorization())
     }
 
     @Test

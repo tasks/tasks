@@ -3,7 +3,13 @@ package org.tasks.location
 import android.content.Context
 import android.os.Bundle
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -11,10 +17,10 @@ import kotlinx.serialization.json.double
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import okhttp3.Request
 import org.tasks.R
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.http.HttpClientFactory
@@ -30,6 +36,11 @@ class PlaceSearchGoogle @Inject constructor(
         private val environment: TasksServerEnvironment,
 ) : PlaceSearch {
     private var token: String? = null
+    private val clientLock = Mutex()
+    private val stateLock = Any()
+    private var client: HttpClient? = null
+    private var credentials: Pair<String?, String?>? = null
+    private var closed = false
 
     override fun restoreState(savedInstanceState: Bundle?) {
         token = savedInstanceState?.getString(EXTRA_SESSION_TOKEN)
@@ -71,19 +82,46 @@ class PlaceSearchGoogle @Inject constructor(
                 ?: throw IllegalStateException(
                         context.getString(R.string.tasks_org_account_required)
                 )
-        val client = httpClientFactory
-                .newClient(
-                        foreground = true,
-                        username = account.username,
-                        encryptedPassword = account.password
-                )
-        val response = client.newCall(Request.Builder().get().url(url).build()).execute()
-        if (response.isSuccessful) {
-            response.body?.string()?.toJson()?.apply { checkResult(this) }
-                    ?: throw IllegalStateException("Request failed")
+        val response = client(account).get(url)
+        if (response.status.isSuccess()) {
+            response.bodyAsText().toJson().apply { checkResult(this) }
         } else {
-            throw HttpException(response.code, response.message)
+            throw HttpException(response.status.value, response.status.description)
         }
+    }
+
+    private suspend fun client(account: CaldavAccount): HttpClient = clientLock.withLock {
+        val key = account.username to account.password
+        cached(key)
+                ?: httpClientFactory
+                        .newAuthenticatedClient(
+                                foreground = true,
+                                username = account.username,
+                                encryptedPassword = account.password,
+                                url = environment.placesUrl,
+                        )
+                        .also { retain(key, it) }
+    }
+
+    private fun cached(key: Pair<String?, String?>): HttpClient? = synchronized(stateLock) {
+        client?.takeIf { credentials == key }
+    }
+
+    private fun retain(key: Pair<String?, String?>, newClient: HttpClient) = synchronized(stateLock) {
+        if (closed) {
+            newClient.close()
+        } else {
+            client?.close()
+            client = newClient
+            credentials = key
+        }
+    }
+
+    override fun close() = synchronized(stateLock) {
+        closed = true
+        client?.close()
+        client = null
+        credentials = null
     }
 
     companion object {

@@ -15,4 +15,6 @@ interface PlaceSearch {
     suspend fun search(query: String, bias: MapPosition?): List<PlaceSearchResult>
 
     suspend fun fetch(placeSearchResult: PlaceSearchResult): Place
+
+    fun close() {}
 }
