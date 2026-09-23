@@ -22,9 +22,7 @@ interface Analytics {
         vararg params: Pair<String, Any>,
     ) {
         val prefKey = longPreferencesKey("last_logged_$event:$dedupeBy")
-        val today = currentTimeMillis().startOfDay()
-        if (tasksPreferences.get(prefKey, 0L) < today) {
-            tasksPreferences.set(prefKey, today)
+        if (tasksPreferences.setIfGreater(prefKey, currentTimeMillis().startOfDay())) {
             logEvent(event, *params)
         }
     }

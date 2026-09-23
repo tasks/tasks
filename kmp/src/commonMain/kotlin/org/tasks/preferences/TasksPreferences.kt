@@ -42,6 +42,17 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    suspend fun setIfGreater(key: Preferences.Key<Long>, value: Long, default: Long = 0L): Boolean {
+        var updated = false
+        dataStore.edit {
+            if ((it[key] ?: default) < value) {
+                it[key] = value
+                updated = true
+            }
+        }
+        return updated
+    }
+
     suspend fun <T> getAndSet(key: Preferences.Key<T>, value: T): T? {
         var previous: T? = null
         dataStore.edit {
