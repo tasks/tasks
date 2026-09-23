@@ -4,6 +4,8 @@ import kotlinx.datetime.TimeZone
 import org.tasks.kmp.PROD_ID
 import org.tasks.repeats.Frequency
 import org.tasks.repeats.Recur
+import org.tasks.caldav.extensions.toAlarm
+import org.tasks.caldav.iCalendar
 import org.tasks.time.DateTime
 import kotlin.test.Test
 import kotlin.test.assertContains
@@ -43,7 +45,7 @@ class VTodoTest {
                     ),
                 ),
             ),
-            todo.alarms,
+            todo.alarms.content(),
         )
     }
 
@@ -93,10 +95,10 @@ class VTodoTest {
 
         assertEquals(
             listOf(
-                VAlarm(Trigger.Relative(-15 * 60_000L), action = "DISPLAY", description = "Reminder"),
-                VAlarm(Trigger.Relative(2 * 86_400_000L, relatedToEnd = true), action = "AUDIO", repeat = 2, duration = 5 * 60_000L),
+                VAlarm(Trigger.Relative(-15 * 60_000L, value = "-PT15M"), action = "DISPLAY", description = "Reminder"),
+                VAlarm(Trigger.Relative(2 * 86_400_000L, relatedToEnd = true, value = "P2D"), action = "AUDIO", repeat = 2, duration = 5 * 60_000L),
             ),
-            alarms,
+            alarms.content(),
         )
     }
 
@@ -135,8 +137,111 @@ class VTodoTest {
 
         val parsed = parseVTodos(original.serialize()).single()
 
-        assertEquals(original, parsed.copy(dtStamp = null, sequence = null))
+        assertEquals(original, parsed.withoutOriginalTriggers())
     }
+
+    @Test
+    fun keepsDateBasedTriggersVerbatim() {
+        val todo = parseVTodos(DATE_DURATION_ALARM).single()
+
+        assertEquals(
+            listOf(VAlarm(Trigger.Relative(-7 * 86_400_000L, value = "-P1W"), action = "EMAIL")),
+            todo.alarms.content(),
+        )
+        assertContains(todo.serialize().unfolded(), "TRIGGER;RELATED=START:-P1W")
+    }
+
+    @Test
+    fun keepsUnknownTriggerParameters() {
+        val todo = parseVTodos(VENDOR_TRIGGER_PARAMETERS).single()
+
+        assertEquals(
+            listOf(
+                VAlarm(
+                    Trigger.Relative(
+                        millis = -7 * 86_400_000L,
+                        relatedToEnd = true,
+                        value = "-P1W",
+                        parameters = listOf("X-VENDOR" to "keepme"),
+                    ),
+                    action = "EMAIL",
+                )
+            ),
+            todo.alarms.content(),
+        )
+        val trigger = todo.serialize().unfolded().single { it.startsWith("TRIGGER") }
+        assertContains(trigger, "RELATED=END")
+        assertContains(trigger, "X-VENDOR=keepme")
+        assertContains(trigger, ":-P1W")
+    }
+
+    @Test
+    fun doesNotClaimAnAlarmFlaggedWithTheIgnoreTrigger() {
+        val todo = parseVTodos(PROXIMITY_ALARM).single()
+
+        assertEquals(
+            Trigger.Absolute(utc(1976, 4, 1, 0, 55, 45), listOf("X-VENDOR" to "keepme")),
+            todo.alarms.single().trigger,
+        )
+        assertEquals(emptyList(), with(iCalendar) { todo.reminders })
+        val trigger = todo.serialize().unfolded().single { it.startsWith("TRIGGER") }
+        assertContains(trigger, "X-VENDOR=keepme")
+        assertContains(trigger, ":19760401T005545Z")
+    }
+
+    @Test
+    fun keepsAlarmsWithATriggerItCannotRead() {
+        val todo = parseVTodos(UNREADABLE_TRIGGER_ALARM).single()
+
+        assertEquals(1, todo.alarms.size)
+        assertNull(todo.alarms.single().toAlarm())
+        assertContains(todo.serialize().unfolded(), "ACTION:EMAIL")
+    }
+
+    private fun List<VAlarm>.content() = map { it.copy(propertyOrder = emptyList()) }
+
+    @Test
+    fun keepsValarmPropertiesInSourceOrder() {
+        val todo = parseVTodos(OUT_OF_ORDER_ALARM).single()
+
+        assertEquals(
+            listOf(
+                "TRIGGER",
+                "ACTION",
+                "SUMMARY",
+                "ATTENDEE",
+                "DESCRIPTION",
+                "ATTENDEE",
+                "X-VENDOR-FLAG",
+            ),
+            todo.alarms.single().propertyOrder,
+        )
+        val lines = todo.serialize().unfolded()
+        val alarm = lines.subList(lines.indexOf("BEGIN:VALARM") + 1, lines.indexOf("END:VALARM"))
+        assertEquals(
+            listOf(
+                "TRIGGER;RELATED=START:-PT15M",
+                "ACTION:EMAIL",
+                "SUMMARY:Alarm subject",
+                "ATTENDEE:mailto:someone@example.com",
+                "DESCRIPTION:Body",
+                "ATTENDEE:mailto:someone-else@example.com",
+                "X-VENDOR-FLAG:1",
+            ),
+            alarm,
+        )
+    }
+
+    private fun VTodo.withoutOriginalTriggers() = copy(
+        dtStamp = null,
+        sequence = null,
+        alarms = alarms.mapTo(mutableListOf()) { alarm ->
+            alarm.copy(
+                trigger = (alarm.trigger as? Trigger.Relative)?.copy(value = null) ?: alarm.trigger,
+                propertyOrder = emptyList(),
+            )
+        },
+    )
 
     @Test
     fun repairsInconsistentStartAndDue() {
@@ -351,6 +456,93 @@ class VTodoTest {
             STATUS:NEEDS-ACTION
             PRIORITY:5
             ORGANIZER;CN=Alex:mailto:alex@example.com
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val DATE_DURATION_ALARM = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Other Client//EN
+            BEGIN:VTODO
+            UID:week-alarm
+            SUMMARY:Renew
+            DUE:20260116T090000Z
+            BEGIN:VALARM
+            TRIGGER;RELATED=START:-P1W
+            ACTION:EMAIL
+            END:VALARM
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val OUT_OF_ORDER_ALARM = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Other Client//EN
+            BEGIN:VTODO
+            UID:out-of-order
+            SUMMARY:Task
+            DUE:20260116T090000Z
+            BEGIN:VALARM
+            TRIGGER;RELATED=START:-PT15M
+            ACTION:EMAIL
+            SUMMARY:Alarm subject
+            ATTENDEE:mailto:someone@example.com
+            DESCRIPTION:Body
+            ATTENDEE:mailto:someone-else@example.com
+            X-VENDOR-FLAG:1
+            END:VALARM
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val VENDOR_TRIGGER_PARAMETERS = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Other Client//EN
+            BEGIN:VTODO
+            UID:vendor-params
+            SUMMARY:Renew
+            DUE:20260116T090000Z
+            BEGIN:VALARM
+            TRIGGER;RELATED=END;VALUE=DURATION;X-VENDOR=keepme:-P1W
+            ACTION:EMAIL
+            END:VALARM
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val PROXIMITY_ALARM = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Apple Inc.//iOS 18.0//EN
+            BEGIN:VTODO
+            UID:proximity
+            SUMMARY:Buy milk
+            DUE:20260116T090000Z
+            BEGIN:VALARM
+            TRIGGER;VALUE=DATE-TIME;X-VENDOR=keepme:19760401T005545Z
+            ACTION:DISPLAY
+            DESCRIPTION:Event reminder
+            X-APPLE-PROXIMITY:ARRIVE
+            END:VALARM
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val UNREADABLE_TRIGGER_ALARM = """
+            BEGIN:VCALENDAR
+            VERSION:2.0
+            PRODID:-//Other Client//EN
+            BEGIN:VTODO
+            UID:no-trigger
+            SUMMARY:Foreign alarm
+            DUE:20260116T090000Z
+            BEGIN:VALARM
+            ACTION:EMAIL
+            DESCRIPTION:Foreign
+            END:VALARM
             END:VTODO
             END:VCALENDAR
         """.trimIndent()

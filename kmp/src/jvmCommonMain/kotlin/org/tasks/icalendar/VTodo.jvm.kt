@@ -97,7 +97,7 @@ fun Task.toVTodo(): VTodo = VTodo(
         )
     },
     unknownProperties = unknownProperties.mapTo(mutableListOf()) { it.toICalProperty() },
-    alarms = alarms.mapNotNullTo(mutableListOf()) { it.toVAlarm() },
+    alarms = alarms.mapTo(mutableListOf()) { it.toVAlarm() },
 )
 
 fun VTodo.toTask(): Task = Task(
@@ -177,41 +177,57 @@ private fun List<Pair<String, String>>.toIcal4j() = ParameterList().also { list 
     forEach { (name, value) -> list.add(ParameterBuilder().factories(parameterFactories).name(name).value(value).build()) }
 }
 
-private fun Ical4jVAlarm.toVAlarm(): VAlarm? {
-    val trigger = trigger ?: return null
-    val kind = when {
-        trigger.dateTime != null -> Trigger.Absolute(trigger.dateTime.time)
-        trigger.duration != null -> Trigger.Relative(
-            trigger.duration.toMillis(),
-            trigger.parameters.getParameter<Related>(Related.RELATED) == Related.END,
-        )
-        else -> return null
-    }
-    return VAlarm(
-        trigger = kind,
-        action = action?.value,
-        description = description?.value,
-        repeat = repeat?.count,
-        duration = duration?.duration?.toMillis(),
-        otherProperties = properties.filterNot { it.name in ALARM_PROPERTIES }.map { it.toICalProperty() },
+private fun Ical4jVAlarm.toVAlarm(): VAlarm = VAlarm(
+    trigger = trigger?.toTrigger(),
+    action = action?.value,
+    description = description?.value,
+    repeat = repeat?.count,
+    duration = duration?.duration?.toMillis(),
+    otherProperties = properties.filterNot { it.name in ALARM_PROPERTIES }.map { it.toICalProperty() },
+    propertyOrder = properties.map { it.name },
+)
+
+private fun Ical4jTrigger.toTrigger(): Trigger = when {
+    dateTime != null -> Trigger.Absolute(dateTime.time, triggerParameters())
+    duration != null -> Trigger.Relative(
+        millis = duration.toMillis(),
+        relatedToEnd = parameters.getParameter<Related>(Related.RELATED) == Related.END,
+        value = value,
+        parameters = triggerParameters(),
     )
+    else -> Trigger.Unknown(toICalProperty())
 }
 
+private fun Ical4jTrigger.triggerParameters(): List<Pair<String, String>> =
+    parameters.filterNot { it.name in TRIGGER_PARAMETERS }.map { it.name to it.value }
+
 private fun VAlarm.toIcal4j(): Ical4jVAlarm = Ical4jVAlarm().also { alarm ->
-    with(alarm.properties) {
-        add(when (val trigger = trigger) {
-            is Trigger.Absolute -> Ical4jTrigger(utcDateTime(trigger.millis))
-            is Trigger.Relative -> Ical4jTrigger(
-                ParameterList().apply { add(if (trigger.relatedToEnd) Related.END else Related.START) },
-                java.time.Duration.ofMillis(trigger.millis),
-            )
-        })
-        action?.let { add(Action(it)) }
-        description?.let { add(Description(it)) }
-        repeat?.let { add(Repeat(it)) }
-        duration?.let { add(Duration(java.time.Duration.ofMillis(it))) }
-        otherProperties.forEach { add(it.toIcal4j()) }
+    val properties = mutableListOf<Pair<String, Property>>()
+    when (val trigger = trigger) {
+        is Trigger.Absolute -> properties += Property.TRIGGER to
+                Ical4jTrigger(utcDateTime(trigger.millis)).also { property ->
+                    trigger.parameters.toIcal4j().forEach { property.parameters.add(it) }
+                }
+        is Trigger.Relative -> {
+            val parameters = ParameterList().apply {
+                add(if (trigger.relatedToEnd) Related.END else Related.START)
+                trigger.parameters.toIcal4j().forEach { add(it) }
+            }
+            properties += Property.TRIGGER to (
+                    trigger.value
+                        ?.let { Ical4jTrigger(parameters, it) }
+                        ?: Ical4jTrigger(parameters, java.time.Duration.ofMillis(trigger.millis))
+                    )
+        }
+        is Trigger.Unknown -> properties += trigger.property.name to trigger.property.toIcal4j()
+        null -> {}
     }
+    action?.let { properties += Property.ACTION to Action(it) }
+    description?.let { properties += Property.DESCRIPTION to Description(it) }
+    repeat?.let { properties += Property.REPEAT to Repeat(it) }
+    duration?.let { properties += Property.DURATION to Duration(java.time.Duration.ofMillis(it)) }
+    otherProperties.forEach { properties += it.name to it.toIcal4j() }
+    inDocumentOrder(properties).forEach { alarm.properties.add(it) }
 }
 
 private fun TemporalAmount.toMillis(): Long = when (this) {

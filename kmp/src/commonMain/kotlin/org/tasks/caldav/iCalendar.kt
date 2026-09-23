@@ -8,6 +8,7 @@ import org.tasks.caldav.GeoUtils.equalish
 import org.tasks.caldav.GeoUtils.toGeo
 import org.tasks.caldav.toLikeString
 import org.tasks.caldav.extensions.toAlarms
+import org.tasks.caldav.extensions.preserving
 import org.tasks.caldav.extensions.toVAlarms
 import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
@@ -175,10 +176,11 @@ class iCalendar(
         }
         remoteModel.lastAck = max(task.reminderDismissed, remoteModel.lastAck ?: 0)
         if (account.reminderSync) {
-            remoteModel.alarms.removeAll(remoteModel.alarms.filtered)
+            val replaced = remoteModel.alarms.filtered
+            remoteModel.alarms.removeAll(replaced)
             val alarms = alarmDao.getAlarms(task.id)
             remoteModel.snooze = alarms.find { it.type == TYPE_SNOOZE }?.time
-            remoteModel.alarms.addAll(alarms.toVAlarms())
+            remoteModel.alarms.addAll(alarms.toVAlarms().preserving(replaced))
         }
     }
 
@@ -325,7 +327,7 @@ class iCalendar(
         private const val MOZ_LASTACK = "X-MOZ-LASTACK"
         private const val HIDE_SUBTASKS = "1"
         private val PRODID_MATCHER = Regex(".*?PRODID:(.*?)\n.*", RegexOption.DOT_MATCHES_ALL)
-        private val IGNORE_ALARM = Trigger.Absolute(parseICalDateTime("19760401T005545Z")!!)
+        private val IGNORE_ALARM = parseICalDateTime("19760401T005545Z")!!
         private val IS_PARENT = { r: RelatedTo -> r.relType == "PARENT" || r.relType.isNullOrBlank() }
 
         fun ICalDate?.applyDue(task: org.tasks.data.entity.Task) {
@@ -501,7 +503,9 @@ class iCalendar(
         }
 
         val List<VAlarm>.filtered: List<VAlarm>
-            get() = filter { it.action == "DISPLAY" || it.action == "AUDIO" }.filterNot { it.trigger == IGNORE_ALARM }
+            get() = filter { it.action == "DISPLAY" || it.action == "AUDIO" }
+                .filter { it.trigger is Trigger.Absolute || it.trigger is Trigger.Relative }
+                .filterNot { (it.trigger as? Trigger.Absolute)?.millis == IGNORE_ALARM }
 
         val VTodo.reminders: List<Alarm>
             get() = alarms.filtered.toAlarms().let { alarms ->

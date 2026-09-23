@@ -27,19 +27,43 @@ data class RelatedTo(
 data class Geo(val latitude: Double, val longitude: Double)
 
 sealed interface Trigger {
-    data class Absolute(val millis: Long) : Trigger
+    data class Absolute(
+        val millis: Long,
+        val parameters: List<Pair<String, String>> = emptyList(),
+    ) : Trigger
 
-    data class Relative(val millis: Long, val relatedToEnd: Boolean = false) : Trigger
+    data class Relative(
+        val millis: Long,
+        val relatedToEnd: Boolean = false,
+        val value: String? = null,
+        val parameters: List<Pair<String, String>> = emptyList(),
+    ) : Trigger
+
+    data class Unknown(val property: ICalProperty) : Trigger
 }
 
+internal val TRIGGER_PARAMETERS = setOf("RELATED", "VALUE")
+
 data class VAlarm(
-    val trigger: Trigger,
+    val trigger: Trigger?,
     val action: String? = null,
     val description: String? = null,
     val repeat: Int? = null,
     val duration: Long? = null,
     val otherProperties: List<ICalProperty> = emptyList(),
+    val propertyOrder: List<String> = emptyList(),
 )
+
+internal fun <T> VAlarm.inDocumentOrder(properties: List<Pair<String, T>>): List<T> {
+    val positions = propertyOrder
+        .withIndex()
+        .groupBy({ (_, name) -> name }, { (index, _) -> index })
+        .mapValues { (_, indices) -> ArrayDeque(indices) }
+    return properties
+        .map { (name, property) -> (positions[name]?.removeFirstOrNull() ?: Int.MAX_VALUE) to property }
+        .sortedBy { (position, _) -> position }
+        .map { (_, property) -> property }
+}
 
 object TodoStatus {
     const val NEEDS_ACTION = "NEEDS-ACTION"

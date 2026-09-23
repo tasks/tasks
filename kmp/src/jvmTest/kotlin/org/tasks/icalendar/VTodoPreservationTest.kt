@@ -14,7 +14,7 @@ class VTodoPreservationTest {
 
             val viaVTodo = direct.toVTodo().toTask()
 
-            assertEquals(direct.render().toSet(), viaVTodo.render().toSet())
+            assertEquals(direct.render(), viaVTodo.render())
         }
     }
 

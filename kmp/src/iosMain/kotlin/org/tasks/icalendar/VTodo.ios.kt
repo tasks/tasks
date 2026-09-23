@@ -293,40 +293,66 @@ private fun CPointer<icalcomponent>.toVAlarm(calendar: CPointer<icalcomponent>):
     var repeat: Int? = null
     var duration: Long? = null
     val others = mutableListOf<ICalProperty>()
+    val order = mutableListOf<String>()
+    var unparseable = false
     for (property in properties()) {
-        when (icalproperty_isa(property)) {
+        val kind = icalproperty_isa(property)
+        if (kind == ICAL_XLICERROR_PROPERTY) {
+            unparseable = true
+            continue
+        }
+        order += property.propertyName()
+        when (kind) {
             ICAL_TRIGGER_PROPERTY -> trigger = icalproperty_get_trigger(property).useContents {
                 if (icaltime_is_null_time(this.time.readValue())) {
-                    Trigger.Relative(this.duration.millis(), property.related() == ICAL_RELATED_END)
+                    Trigger.Relative(
+                        millis = this.duration.millis(),
+                        relatedToEnd = property.related() == ICAL_RELATED_END,
+                        value = property.valueText(),
+                        parameters = property.triggerParameters(),
+                    )
                 } else {
-                    Trigger.Absolute(property.utcMillis(this.time.readValue(), calendar))
+                    Trigger.Absolute(
+                        property.utcMillis(this.time.readValue(), calendar),
+                        property.triggerParameters(),
+                    )
                 }
             }
             ICAL_ACTION_PROPERTY -> action = property.valueText()
             ICAL_DESCRIPTION_PROPERTY -> description = icalproperty_get_description(property)?.toKString()
             ICAL_REPEAT_PROPERTY -> repeat = icalproperty_get_repeat(property)
             ICAL_DURATION_PROPERTY -> duration = icalproperty_get_duration(property).useContents { millis() }
-            ICAL_XLICERROR_PROPERTY -> {}
             else -> others += property.toICalProperty()
         }
     }
-    return VAlarm(trigger ?: return null, action, description, repeat, duration, others)
+    if (trigger == null && unparseable) {
+        return null
+    }
+    return VAlarm(trigger, action, description, repeat, duration, others, order)
 }
 
 @OptIn(ExperimentalForeignApi::class)
 private fun VAlarm.toComponent(): CPointer<icalcomponent> {
     val alarm = icalcomponent_new_valarm()!!
-    alarm.add(when (val trigger = trigger) {
-        is Trigger.Absolute -> icalproperty_new_from_string("TRIGGER;VALUE=DATE-TIME:${utcText(trigger.millis)}")
-        is Trigger.Relative -> icalproperty_new_from_string(
-            "TRIGGER;RELATED=${if (trigger.relatedToEnd) "END" else "START"}:${formatICalDuration(trigger.millis)}",
-        )
-    })
-    action?.let { alarm.add(icalproperty_new_from_string("ACTION:$it")) }
-    description?.let { alarm.add(icalproperty_new_description(it)) }
-    repeat?.let { alarm.add(icalproperty_new_from_string("REPEAT:$it")) }
-    duration?.let { alarm.add(icalproperty_new_from_string("DURATION:${formatICalDuration(it)}")) }
-    otherProperties.forEach { alarm.add(it.toProperty()) }
+    val properties = mutableListOf<Pair<String, CPointer<icalproperty>?>>()
+    when (val trigger = trigger) {
+        is Trigger.Absolute -> properties += "TRIGGER" to
+                icalproperty_new_from_string("TRIGGER;VALUE=DATE-TIME:${utcText(trigger.millis)}")
+                    ?.also { it.addParameters(trigger.parameters) }
+        is Trigger.Relative -> properties += "TRIGGER" to
+                icalproperty_new_from_string(
+                    "TRIGGER;RELATED=${if (trigger.relatedToEnd) "END" else "START"}:" +
+                            (trigger.value ?: formatICalDuration(trigger.millis)),
+                )?.also { it.addParameters(trigger.parameters) }
+        is Trigger.Unknown -> properties += trigger.property.name to trigger.property.toProperty()
+        null -> {}
+    }
+    action?.let { properties += "ACTION" to icalproperty_new_from_string("ACTION:$it") }
+    description?.let { properties += "DESCRIPTION" to icalproperty_new_description(it) }
+    repeat?.let { properties += "REPEAT" to icalproperty_new_from_string("REPEAT:$it") }
+    duration?.let { properties += "DURATION" to icalproperty_new_from_string("DURATION:${formatICalDuration(it)}") }
+    otherProperties.forEach { properties += it.name to it.toProperty() }
+    inDocumentOrder(properties).forEach { alarm.add(it) }
     return alarm
 }
 
@@ -348,6 +374,18 @@ private fun CPointer<icalproperty>.parameters(): List<Pair<String, String>> =
     }.toList()
 
 @OptIn(ExperimentalForeignApi::class)
+private fun CPointer<icalproperty>.triggerParameters(): List<Pair<String, String>> =
+    parameters().filterNot { (name, _) -> name in TRIGGER_PARAMETERS }
+
+@OptIn(ExperimentalForeignApi::class)
+private fun CPointer<icalproperty>.addParameters(parameters: List<Pair<String, String>>) {
+    parameters.forEach { (name, value) ->
+        val quoted = if (value.any { it == ':' || it == ';' || it == ',' }) "\"$value\"" else value
+        icalproperty_add_parameter(this, icalparameter_new_from_string("$name=$quoted"))
+    }
+}
+
+@OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.parameter(kind: icalparameter_kind): String? =
     icalproperty_get_first_parameter(this, kind)?.let { icalparameter_as_ical_string(it)!!.toKString().substringAfter('=', "").removeSurrounding("\"") }
 
@@ -356,11 +394,19 @@ private fun CPointer<icalproperty>.related(): icalparameter_related? =
     icalproperty_get_first_parameter(this, ICAL_RELATED_PARAMETER)?.let { icalparameter_get_related(it) }
 
 @OptIn(ExperimentalForeignApi::class)
+private fun CPointer<icalproperty>.propertyName(): String =
+    if (icalproperty_isa(this) == ICAL_X_PROPERTY) {
+        icalproperty_get_x_name(this)!!.toKString()
+    } else {
+        icalproperty_get_property_name(this)!!.toKString()
+    }
+
+@OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.toICalProperty(): ICalProperty =
     if (icalproperty_isa(this) == ICAL_X_PROPERTY) {
-        ICalProperty(icalproperty_get_x_name(this)!!.toKString(), icalproperty_get_x(this)?.toKString().orEmpty(), parameters())
+        ICalProperty(propertyName(), icalproperty_get_x(this)?.toKString().orEmpty(), parameters())
     } else {
-        ICalProperty(icalproperty_get_property_name(this)!!.toKString(), valueText().orEmpty(), parameters())
+        ICalProperty(propertyName(), valueText().orEmpty(), parameters())
     }
 
 @OptIn(ExperimentalForeignApi::class)
@@ -371,10 +417,7 @@ private fun ICalProperty.toProperty(): CPointer<icalproperty>? {
         val text = if (icalproperty_kind_to_value_kind(icalproperty_string_to_kind(name)) == ICAL_TEXT_VALUE) value.escapeICalText() else value
         icalproperty_new_from_string("$name:$text")
     } ?: return null
-    parameters.forEach { (parameterName, parameterValue) ->
-        val quoted = if (parameterValue.any { it == ':' || it == ';' || it == ',' }) "\"$parameterValue\"" else parameterValue
-        icalproperty_add_parameter(property, icalparameter_new_from_string("$parameterName=$quoted"))
-    }
+    property.addParameters(parameters)
     return property
 }
 
