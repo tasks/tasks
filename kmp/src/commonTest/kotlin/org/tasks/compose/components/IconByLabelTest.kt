@@ -29,6 +29,16 @@ class IconByLabelTest {
     }
 
     @Test
+    fun directionalIconsMirrorInRtl() {
+        assertTrue(MaterialSymbols.isMirrored("arrow_back"))
+        assertTrue(MaterialSymbols.isMirrored("arrow_forward"))
+        assertTrue(MaterialSymbols.isMirrored("keyboard_arrow_right"))
+        assertTrue(MaterialSymbols.isMirrored("list"))
+        assertTrue(MaterialSymbols.isMirrored("subdirectory_arrow_right"))
+        assertFalse(MaterialSymbols.isMirrored("delete"))
+    }
+
+    @Test
     fun unknownNamesResolveToNothing() {
         assertNull(MaterialSymbols.codepoint("definitely_not_an_icon"))
         assertNull(MaterialSymbols.codepoint(""))

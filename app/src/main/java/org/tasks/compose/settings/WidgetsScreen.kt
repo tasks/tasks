@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import org.tasks.R
+import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_shortcut_to_home_screen
 import tasks.kmp.generated.resources.add_widget_to_home_screen

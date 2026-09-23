@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import org.tasks.R
+import org.tasks.themes.TasksIcons
 
 @Composable
 fun BackupsScreen(

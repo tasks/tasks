@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.LruCache
 import androidx.core.graphics.createBitmap
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.tasks.compose.components.iconName
@@ -37,6 +38,7 @@ object MaterialSymbolsGlyphs {
     }
 
     fun bitmap(context: Context, name: String, sizePx: Int, color: Int): Bitmap? {
+        if (MaterialSymbols.glyph(name.iconName) == null) return null
         val bitmap = createBitmap(sizePx.coerceAtLeast(1), sizePx.coerceAtLeast(1))
         if (!draw(Canvas(bitmap), context, name, sizePx, color)) {
             bitmap.recycle()
@@ -47,6 +49,16 @@ object MaterialSymbolsGlyphs {
 
     fun drawable(context: Context, name: String, sizeDp: Int, color: Int): Drawable? {
         val sizePx = (sizeDp * context.resources.displayMetrics.density).toInt()
-        return bitmap(context, name, sizePx, color)?.let { BitmapDrawable(context.resources, it) }
+        val key = "$name:$sizePx:$color"
+        val bitmap = bitmaps[key]
+            ?: bitmap(context, name, sizePx, color)?.also { bitmaps.put(key, it) }
+            ?: return null
+        return BitmapDrawable(context.resources, bitmap)
     }
+
+    private val bitmaps = object : LruCache<String, Bitmap>(MAX_CACHE_BYTES) {
+        override fun sizeOf(key: String, value: Bitmap): Int = value.allocationByteCount
+    }
+
+    private const val MAX_CACHE_BYTES = 1024 * 1024
 }

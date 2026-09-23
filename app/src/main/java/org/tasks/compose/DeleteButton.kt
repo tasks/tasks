@@ -2,7 +2,6 @@ package org.tasks.compose
 
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
