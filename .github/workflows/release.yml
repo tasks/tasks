@@ -107,6 +107,26 @@ jobs:
           name: desktop-notarized
           path: composeApp/output
 
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+          path: .
+
+      - name: Package mapping files
+        run: |
+          set -euo pipefail
+          TAG=${GITHUB_REF_NAME}
+          package() {
+            src=$1
+            label=$2
+            id=$(sed -n 's/^# pg_map_id: //p' "$src" | head -1)
+            [ -n "$id" ] || { echo "::error::no pg_map_id in $src"; exit 1; }
+            gzip -9 -c "$src" > "mapping-${label}-${TAG}-${id:0:12}.txt.gz"
+          }
+          package app/build/outputs/mapping/googleplayRelease/mapping.txt googleplay
+          package wear/build/outputs/mapping/release/mapping.txt wear
+          ls -l mapping-*.txt.gz
+
       - name: Rename artifacts
         run: |
           TAG=${GITHUB_REF_NAME}
@@ -123,6 +143,7 @@ jobs:
             tasks-fdroid-*.apk
             tasks-googleplay-*.apk
             tasks-pebble-*.pbw
+            mapping-*.txt.gz
             composeApp/output/*.zip
             composeApp/output/*.tar.gz
             composeApp/output/*.msix
@@ -140,6 +161,7 @@ jobs:
           tasks-fdroid-*.apk
           tasks-googleplay-*.apk
           tasks-pebble-*.pbw
+          mapping-*.txt.gz
           composeApp/output/*.zip
           composeApp/output/*.tar.gz
           composeApp/output/*.msix

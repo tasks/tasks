@@ -100,7 +100,12 @@ android {
             resValue("string", "google_key", tasks_google_key ?: "")
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.pro")
+            optimization.keepRules {
+                ignoreFrom("com.github.franmontiel:PersistentCookieJar")
+                ignoreFrom("com.github.tasks:ical4android")
+            }
             signingConfig = signingConfigs.getByName("release")
         }
     }
@@ -108,6 +113,7 @@ android {
     productFlavors {
         create("generic") {
             dimension = "store"
+            proguardFile("proguard-generic.pro")
         }
         create("googleplay") {
             isDefault = true

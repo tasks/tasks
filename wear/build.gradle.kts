@@ -41,10 +41,15 @@ android {
             val tasks_posthog_key: String? by project
             resValue("string", "posthog_key", tasks_posthog_key ?: "")
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            optimization.keepRules {
+                ignoreFrom("com.github.franmontiel:PersistentCookieJar")
+                ignoreFrom("com.github.tasks:ical4android")
+            }
             signingConfig = signingConfigs.getByName("release")
         }
     }

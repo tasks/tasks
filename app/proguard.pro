@@ -1,7 +1,3 @@
--dontobfuscate
-
--keep class org.tasks.** { *; }
-
 # guava
 -dontwarn sun.misc.Unsafe
 -dontwarn java.lang.ClassValue
@@ -19,6 +15,13 @@
 # A resource is loaded with a relative path so the package of this class must be preserved.
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 
+-keepnames class com.franmontiel.persistentcookiejar.persistence.SerializableCookie
+-keepclassmembers class com.franmontiel.persistentcookiejar.persistence.SerializableCookie {
+    private static final long serialVersionUID;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+}
+
 # https://gitlab.com/bitfireAT/davdroid/blob/9fc3921b3293e19bd7be7bfc3f24d799ed2446bc/app/proguard-rules.txt
 -dontwarn aQute.**
 -dontwarn groovy.**                       # Groovy-based ContentBuilder not used
@@ -28,11 +31,16 @@
 -dontwarn org.apache.log4j.**             # ignore warnings from log4j dependency
 -dontwarn com.github.erosb.jsonsKema.**   # ical4android
 -dontwarn org.jparsec.**                  # ical4android
--keep class net.fortuna.ical4j.** { *; }  # keep all model classes (properties/factories, created at runtime)
--keep class at.bitfire.** { *; }       # all DAVdroid code is required
+-keep class * implements at.bitfire.dav4jvm.PropertyFactory { *; }
+
+-keep class * implements net.fortuna.ical4j.model.ComponentFactory { <init>(); }
+-keep class * implements net.fortuna.ical4j.model.ParameterFactory { <init>(); }
+-keep class * implements net.fortuna.ical4j.model.PropertyFactory { <init>(); }
+-keep class * implements net.fortuna.ical4j.transform.rfc5545.Rfc5545ComponentRule { <init>(); }
+-keep class * implements net.fortuna.ical4j.transform.rfc5545.Rfc5545PropertyRule { <init>(); }
+-keep class * implements net.fortuna.ical4j.validate.CalendarValidatorFactory { <init>(); }
 
 # https://github.com/google/google-api-java-client-samples/blob/34c3b43cb15f4ee1b636a0e01521cc81a2451dcd/tasks-android-sample/proguard-google-api-client.txt
--keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault
 -keepclassmembers class * {
   @com.google.api.client.util.Key <fields>;
 }
