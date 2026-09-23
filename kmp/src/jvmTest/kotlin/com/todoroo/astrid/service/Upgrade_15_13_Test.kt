@@ -78,6 +78,45 @@ class Upgrade_15_13_Test : DatabaseTest() {
     }
 
     @Test
+    fun doesNotCollapseTwoCalendarsOntoTheSameUrl() = runBlocking {
+        val account = account(TYPE_CALDAV, "https://caldav.example.com/dav/")
+        val encoded = CaldavCalendar(
+            account = account.uuid,
+            uuid = "encoded",
+            url = "https://caldav.example.com/dav/foo%40example.com/",
+        ).also { caldavDao.insert(it) }
+        val decoded = CaldavCalendar(
+            account = account.uuid,
+            uuid = "decoded",
+            url = "https://caldav.example.com/dav/foo@example.com/",
+        ).also { caldavDao.insert(it) }
+
+        upgrade.canonicalizeUrls()
+
+        assertEquals("https://caldav.example.com/dav/foo%40example.com/", calendarUrl(encoded))
+        assertEquals("https://caldav.example.com/dav/foo@example.com/", calendarUrl(decoded))
+    }
+
+    @Test
+    fun doesNotCollapseTwoAccountsOntoTheSameUrl() = runBlocking {
+        val encoded = CaldavAccount(
+            uuid = "encoded",
+            accountType = TYPE_CALDAV,
+            url = "https://caldav.example.com/dav/foo%40example.com/",
+        ).let { it.copy(id = caldavDao.insert(it)) }
+        val decoded = CaldavAccount(
+            uuid = "decoded",
+            accountType = TYPE_CALDAV,
+            url = "https://caldav.example.com/dav/foo@example.com/",
+        ).let { it.copy(id = caldavDao.insert(it)) }
+
+        upgrade.canonicalizeUrls()
+
+        assertEquals("https://caldav.example.com/dav/foo%40example.com/", accountUrl(encoded))
+        assertEquals("https://caldav.example.com/dav/foo@example.com/", accountUrl(decoded))
+    }
+
+    @Test
     fun alreadyCanonicalUrlsAreUntouched() = runBlocking {
         val account = account(TYPE_CALDAV, "https://caldav.example.com/dav/")
         val calendar = calendar(account, "https://caldav.example.com/dav/abc/")

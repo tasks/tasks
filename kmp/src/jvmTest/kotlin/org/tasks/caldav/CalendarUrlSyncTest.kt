@@ -7,6 +7,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -141,6 +142,104 @@ class CalendarUrlSyncTest : DatabaseTest() {
     }
 
     @Test
+    fun `list missing from the listing is kept and recanonicalized when the server resolves it`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST",
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars("$HOME_SET$LIST/")
+        server.enqueue(multiStatus(collection("$HOME_SET$LIST/")))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        val stored = caldavDao.getCalendarsByAccount(account.uuid!!).single()
+        assertEquals("calendar", stored.uuid)
+        assertEquals("${account.url}$LIST/".canonicalUrl(), stored.url)
+        assertNotNull(taskDao.fetch(task))
+        assertNotNull(caldavDao.getTask(task))
+    }
+
+    @Test
+    fun `list the server reports as gone is deleted`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars()
+        server.enqueue(MockResponse().setResponseCode(404))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(emptyList<String>(), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+        assertNull(taskDao.fetch(task))
+    }
+
+    @Test
+    fun `list the server reports as gone inside a multistatus is deleted`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars()
+        server.enqueue(multiStatus(notFound("$HOME_SET$LIST/")))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(emptyList<String>(), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+        assertNull(taskDao.fetch(task))
+    }
+
+    @Test
+    fun `list the server no longer shares with us is deleted`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars()
+        server.enqueue(MockResponse().setResponseCode(403))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(emptyList<String>(), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+        assertNull(taskDao.fetch(task))
+    }
+
+    @Test
+    fun `list is kept when the server can't confirm it is gone`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars()
+        server.enqueue(MockResponse().setResponseCode(500))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertEquals(listOf("calendar"), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+        assertNotNull(taskDao.fetch(task))
+        assertNotNull(caldavDao.getTask(task))
+    }
+
+    @Test
     fun `sync reports an unparseable url instead of crashing`() = runBlocking {
         val account = account.copy(url = "https://example.com:port/").also { caldavDao.update(it) }
 
@@ -206,6 +305,23 @@ class CalendarUrlSyncTest : DatabaseTest() {
                 </d:propstat>
             </d:response>
         """
+
+        private fun notFound(href: String) = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:">
+                <d:response>
+                    <d:href>$href</d:href>
+                    <d:status>HTTP/1.1 404 Not Found</d:status>
+                </d:response>
+            </d:multistatus>
+        """.trimIndent()
+
+        private fun collection(href: String) = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/">
+                ${calendar(href)}
+            </d:multistatus>
+        """.trimIndent()
 
         private fun homeSet(href: String) = """
             <?xml version="1.0"?>

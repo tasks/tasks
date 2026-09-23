@@ -172,7 +172,9 @@ class CaldavSynchronizer(
         }
         val urls = resources.map { it.href.toString() }.toHashSet()
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
-            taskDeleter.delete(calendar)
+            if (isDeletedRemotely(caldavClient, calendar)) {
+                taskDeleter.delete(calendar)
+            }
         }
         val metadataPulled = if (tagMetadataSync.isPrimary(account)) {
             tagMetadataSync.pullMetadata(account, caldavClient)
@@ -239,6 +241,40 @@ class CaldavSynchronizer(
             tagMetadataSync.pushAndReap(account, caldavClient, metadataPulled)
         ) {
             refreshBroadcaster.broadcastRefresh()
+        }
+    }
+
+    private suspend fun isDeletedRemotely(client: CaldavClient, calendar: CaldavCalendar): Boolean {
+        val url = calendar.url?.takeIf { it.isNotBlank() } ?: return true
+        return try {
+            val response = client.calendar(url.toCaldavUrl())
+            if (response?.status?.value in GONE_STATUSES) {
+                Logger.d(TAG) { "${calendar.uuid} is gone (${response?.status})" }
+                return true
+            }
+            if (response?.isSuccess() != true) {
+                Logger.w(TAG) { "Failed to verify ${calendar.uuid} (${response?.status})" }
+                return false
+            }
+            val href = response.href.toString()
+            if (href != calendar.url) {
+                if (caldavDao.getCalendarByUrl(calendar.account!!, href) == null) {
+                    Logger.d(TAG) { "Recanonicalizing ${calendar.uuid}" }
+                    caldavDao.update(calendar.copy(url = href))
+                } else {
+                    Logger.w(TAG) { "$href is already tracked, leaving ${calendar.uuid} alone" }
+                }
+            }
+            false
+        } catch (e: HttpException) {
+            val gone = e.statusCode in GONE_STATUSES
+            if (!gone) {
+                Logger.w(e, tag = TAG) { "Failed to verify ${calendar.uuid}" }
+            }
+            gone
+        } catch (e: Exception) {
+            Logger.w(e, tag = TAG) { "Failed to verify ${calendar.uuid}" }
+            false
         }
     }
 
@@ -486,6 +522,8 @@ class CaldavSynchronizer(
     }
 
     companion object {
+        private val GONE_STATUSES = setOf(403, 404, 410)
+
         val Response.ctag: String?
             get() = this[SyncToken::class]?.token ?: this[GetCTag::class]?.cTag
 

@@ -152,6 +152,14 @@ open class CaldavClient(
             subscription.dispose()
         }
     }
+
+    suspend fun calendar(url: Url): Response? = withContext(Dispatchers.IO) {
+        DavResource(httpClient, url)
+            .propfind(0, *calendarProperties)
+            .responses()
+            .firstOrNull()
+    }
+
     suspend fun tagMetadata(url: Url): String? =
         propfindProperty(url, TagMetadata.NAME, TagMetadata::class)?.json?.takeIf { it.isNotBlank() }
     suspend fun tagMetadataVersion(url: Url): String? =

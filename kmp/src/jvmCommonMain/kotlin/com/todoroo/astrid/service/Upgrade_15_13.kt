@@ -2,6 +2,7 @@
 
 package com.todoroo.astrid.service
 
+import co.touchlab.kermit.Logger
 import org.tasks.caldav.canonicalUrl
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -16,13 +17,19 @@ class Upgrade_15_13(
     override suspend fun run() = canonicalizeUrls()
 
     suspend fun canonicalizeUrls() {
-        for (account in caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS)) {
-            account.canonicalized()
-                .takeIf { it.url != account.url }
+        val accounts = caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS)
+        val accountUrls = accounts.mapNotNullTo(mutableSetOf()) { it.url }
+        for (account in accounts) {
+            account
+                .canonicalized()
+                .takeIf { it.url != account.url && accountUrls.claim(account.url, it.url!!) }
                 ?.let { caldavDao.update(it) }
-            for (calendar in caldavDao.getCalendarsByAccount(account.uuid!!)) {
-                calendar.canonicalized(account)
-                    .takeIf { it.url != calendar.url }
+            val calendars = caldavDao.getCalendarsByAccount(account.uuid!!)
+            val calendarUrls = calendars.mapNotNullTo(mutableSetOf()) { it.url }
+            for (calendar in calendars) {
+                calendar
+                    .canonicalized(account)
+                    .takeIf { it.url != calendar.url && calendarUrls.claim(calendar.url, it.url!!) }
                     ?.let { caldavDao.update(it) }
             }
         }
@@ -30,6 +37,15 @@ class Upgrade_15_13(
 
     companion object {
         const val VERSION = 151300
+
+        private fun MutableSet<String>.claim(old: String?, canonical: String): Boolean =
+            if (add(canonical)) {
+                old?.let { remove(it) }
+                true
+            } else {
+                Logger.w(tag = "Upgrade_15_13") { "not canonicalizing $old: $canonical already exists" }
+                false
+            }
 
         private val CaldavAccount.hasCaldavUrl: Boolean
             get() = accountType == TYPE_CALDAV || accountType == TYPE_TASKS
