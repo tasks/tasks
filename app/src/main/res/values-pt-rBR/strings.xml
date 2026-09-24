@@ -445,4 +445,5 @@
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
     <string name="read_more">Ler mais</string>
     <string name="sort_options">Opções de ordem</string>
+    <string name="permission_write_tasks">Adicionar, alterar e excluir suas tarefas, listas, etiquetas e locais</string>
 </resources>
