@@ -19,6 +19,7 @@ import org.tasks.DatabaseTest
 import org.tasks.InMemoryDataStore
 import org.tasks.analytics.Reporting
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
@@ -161,6 +162,27 @@ class CalendarUrlSyncTest : DatabaseTest() {
         assertEquals("${account.url}$LIST/".canonicalUrl(), stored.url)
         assertNotNull(taskDao.fetch(task))
         assertNotNull(caldavDao.getTask(task))
+    }
+
+    @Test
+    fun `server type is sniffed from a propfind that redirected to another host`() = runBlocking {
+        val redirected = failFastServer()
+        redirected.start()
+        try {
+            server.enqueue(
+                MockResponse()
+                    .setResponseCode(302)
+                    .setHeader("Location", redirected.url(HOME_SET).toString())
+            )
+            redirected.enqueue(multiStatus(multistatus()).setHeader("x-sabre-version", "4.4.0"))
+
+            synchronizer.sync(account, hasPro = true)
+
+            assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+            assertEquals(SERVER_SABREDAV, caldavDao.getAccountByUuid(account.uuid!!)!!.serverType)
+        } finally {
+            redirected.shutdown()
+        }
     }
 
     @Test

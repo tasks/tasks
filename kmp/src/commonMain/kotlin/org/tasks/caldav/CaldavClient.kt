@@ -139,9 +139,14 @@ open class CaldavClient(
     }
 
     suspend fun calendars(onResponse: (Headers) -> Unit = {}): List<Response> {
-        val subscription = httpClient.monitor.subscribe(HttpResponseReceived) { onResponse(it.headers) }
+        val url = httpUrl!!
+        val subscription = httpClient.monitor.subscribe(HttpResponseReceived) { response ->
+            if (response.call.request.method == PROPFIND) {
+                onResponse(response.headers)
+            }
+        }
         try {
-            return DavResource(httpClient, httpUrl!!)
+            return DavResource(httpClient, url)
                 .propfind(1, *calendarProperties)
                 .members()
                 .filter { response ->
@@ -203,7 +208,7 @@ open class CaldavClient(
 
     private suspend fun proppatch(url: Url, body: String): Boolean = withContext(Dispatchers.IO) {
         val response = httpClient.request(url) {
-            method = HttpMethod.parse("PROPPATCH")
+            method = PROPPATCH
             contentType(MIME_XML_UTF8)
             setBody(body)
         }
@@ -369,6 +374,9 @@ open class CaldavClient(
         }
 
     companion object {
+        private val PROPFIND = HttpMethod.parse("PROPFIND")
+        private val PROPPATCH = HttpMethod.parse("PROPPATCH")
+
         private val MEDIATYPE_SHARING = ContentType.parse("application/davsharing+xml")
 
         fun registerFactories() {
