@@ -80,8 +80,14 @@ fun Task.toVTodo(): VTodo = VTodo(
     exDates = exDates.mapTo(mutableListOf()) { it.toICalProperty() },
     categories = categories.toMutableList(),
     comment = comment,
-    relatedTo = relatedTo.mapTo(mutableListOf()) {
-        RelatedTo(it.value, it.parameters.getParameter<RelType>(Parameter.RELTYPE)?.value)
+    relatedTo = relatedTo.mapTo(mutableListOf()) { related ->
+        RelatedTo(
+            uid = related.value,
+            relType = related.parameters.getParameter<RelType>(Parameter.RELTYPE)?.value,
+            parameters = related.parameters
+                .filter { it.name != Parameter.RELTYPE }
+                .map { it.name to it.value },
+        )
     },
     unknownProperties = unknownProperties.mapTo(mutableListOf()) { it.toICalProperty() },
     alarms = alarms.mapNotNullTo(mutableListOf()) { it.toVAlarm() },
@@ -114,7 +120,13 @@ fun VTodo.toTask(): Task = Task(
     categories = java.util.LinkedList(categories),
     comment = comment,
     relatedTo = relatedTo.mapTo(java.util.LinkedList()) { related ->
-        Ical4jRelatedTo(ParameterList().apply { related.relType?.let { add(RelType(it)) } }, related.uid)
+        Ical4jRelatedTo(
+            ParameterList().apply {
+                related.relType?.let { add(RelType(it)) }
+                related.parameters.toIcal4j().forEach { add(it) }
+            },
+            related.uid,
+        )
     },
     unknownProperties = unknownProperties.mapTo(java.util.LinkedList()) { it.toIcal4j() },
     alarms = alarms.mapTo(java.util.LinkedList()) { it.toIcal4j() },

@@ -18,7 +18,11 @@ data class ICalProperty(
     val parameters: List<Pair<String, String>> = emptyList(),
 )
 
-data class RelatedTo(val uid: String, val relType: String? = null)
+data class RelatedTo(
+    val uid: String,
+    val relType: String? = null,
+    val parameters: List<Pair<String, String>> = emptyList(),
+)
 
 data class Geo(val latitude: Double, val longitude: Double)
 

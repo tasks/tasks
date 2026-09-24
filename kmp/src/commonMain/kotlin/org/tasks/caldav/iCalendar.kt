@@ -395,13 +395,17 @@ class iCalendar(
         var VTodo.parent: String?
             get() = relatedTo.find(IS_PARENT)?.uid
             set(value) {
-                val parents = relatedTo.filter(IS_PARENT)
+                val first = relatedTo.indexOfFirst(IS_PARENT)
                 when {
-                    value.isNullOrBlank() -> relatedTo.removeAll(parents)
-                    parents.isEmpty() -> relatedTo.add(RelatedTo(value))
+                    value.isNullOrBlank() -> relatedTo.removeAll(IS_PARENT)
+                    first < 0 -> relatedTo.add(RelatedTo(value))
                     else -> {
-                        relatedTo.removeAll(parents)
-                        relatedTo.add(RelatedTo(value, "PARENT"))
+                        relatedTo[first] = relatedTo[first].copy(uid = value, relType = "PARENT")
+                        for (i in relatedTo.indices.reversed()) {
+                            if (i != first && IS_PARENT(relatedTo[i])) {
+                                relatedTo.removeAt(i)
+                            }
+                        }
                     }
                 }
             }

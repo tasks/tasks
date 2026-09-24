@@ -173,6 +173,9 @@ actual fun VTodo.serialize(): String {
         relatedTo.forEach { related ->
             todo.add(icalproperty_new_from_string("RELATED-TO:${related.uid}")!!.also { property ->
                 related.relType?.let { icalproperty_add_parameter(property, icalparameter_new_from_string("RELTYPE=$it")) }
+                related.parameters.forEach { (name, value) ->
+                    icalproperty_add_parameter(property, icalparameter_new_from_string("$name=$value"))
+                }
             })
         }
         unknownProperties.forEach { todo.add(it.toProperty()) }
@@ -248,7 +251,11 @@ private fun CPointer<icalcomponent>.toVTodo(calendar: CPointer<icalcomponent>): 
             ICAL_CATEGORIES_PROPERTY -> icalproperty_get_categories(property)?.toKString()?.let { todo.categories += it }
             ICAL_COMMENT_PROPERTY -> todo.comment = icalproperty_get_comment(property)?.toKString()
             ICAL_RELATEDTO_PROPERTY -> property.valueText()?.let { uid ->
-                todo.relatedTo += RelatedTo(uid, property.parameter(ICAL_RELTYPE_PARAMETER))
+                todo.relatedTo += RelatedTo(
+                    uid = uid,
+                    relType = property.parameter(ICAL_RELTYPE_PARAMETER),
+                    parameters = property.parameters().filterNot { (name, _) -> name == "RELTYPE" },
+                )
             }
             ICAL_PRODID_PROPERTY, ICAL_XLICERROR_PROPERTY -> {}
             else -> todo.unknownProperties += property.toICalProperty()

@@ -166,6 +166,19 @@ class VTodoTest {
         assertContains(todo.serialize().unfolded(), "DUE:20260116T090000Z")
     }
 
+    @Test
+    fun keepsOtherRelatedToParameters() {
+        val todo = parseVTodos(
+            vtodo("RELATED-TO;RELTYPE=PARENT;X-VENDOR=1:parent-uid", "SUMMARY:Child")
+        ).single()
+
+        assertEquals(
+            listOf(RelatedTo("parent-uid", "PARENT", listOf("X-VENDOR" to "1"))),
+            todo.relatedTo,
+        )
+        assertContains(todo.serialize().unfolded(), "RELATED-TO;RELTYPE=PARENT;X-VENDOR=1:parent-uid")
+    }
+
     private fun vtodo(vararg lines: String) =
         "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Tasks.org//EN\nBEGIN:VTODO\nUID:repair\n${lines.joinToString("\n")}\nEND:VTODO\nEND:VCALENDAR"
 
