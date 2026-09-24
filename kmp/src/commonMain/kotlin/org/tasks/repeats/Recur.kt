@@ -45,20 +45,44 @@ data class Recur(
     val byWeekNo: List<Int> = emptyList(),
     val bySetPos: List<Int> = emptyList(),
     val weekStart: Weekday? = null,
+    val unknownParts: List<Pair<String, String>> = emptyList(),
 ) {
     override fun toString(): String = serializeRecur(this)
 
     companion object {
         private val LEGACY_RRULE_PREFIX = "^RRULE:".toRegex()
 
-        fun parse(rrule: String): Recur =
-            parseRecur(rrule.replace(LEGACY_RRULE_PREFIX, "").sanitizeRecur().orEmpty())
+        private val KNOWN_PARTS = setOf(
+            "FREQ", "UNTIL", "COUNT", "INTERVAL", "BYSECOND", "BYMINUTE", "BYHOUR", "BYDAY",
+            "BYMONTHDAY", "BYYEARDAY", "BYWEEKNO", "BYMONTH", "BYSETPOS", "WKST",
+        )
+
+        fun parse(rrule: String): Recur {
+            val value = rrule.replace(LEGACY_RRULE_PREFIX, "").sanitizeRecur().orEmpty()
+            return parseRecur(value).copy(unknownParts = value.unknownParts())
+        }
+
+        private fun String.unknownParts(): List<Pair<String, String>> = split(';').mapNotNull { part ->
+            val separator = part.indexOf('=')
+            if (separator <= 0) {
+                null
+            } else {
+                part.substring(0, separator).uppercase()
+                    .takeUnless { it in KNOWN_PARTS }
+                    ?.let { it to part.substring(separator + 1) }
+            }
+        }
     }
 }
 
 internal expect fun parseRecur(rrule: String): Recur
 
+internal const val RSCALE = "RSCALE"
+
 internal fun serializeRecur(recur: Recur): String = buildString {
+    recur.unknownParts
+        .filter { (name, _) -> name == RSCALE }
+        .forEach { (name, value) -> append(name).append("=").append(value).append(";") }
     append("FREQ=").append(recur.frequency.name)
     recur.weekStart?.let { append(";WKST=").append(it.name) }
     recur.until?.let { append(";UNTIL=").append(it.serialize()) }
@@ -73,6 +97,9 @@ internal fun serializeRecur(recur: Recur): String = buildString {
     appendList("BYMINUTE", recur.byMinute)
     appendList("BYSECOND", recur.bySecond)
     appendList("BYSETPOS", recur.bySetPos)
+    recur.unknownParts
+        .filterNot { (name, _) -> name == RSCALE }
+        .forEach { (name, value) -> append(";").append(name).append("=").append(value) }
 }
 
 private fun StringBuilder.appendList(name: String, values: List<Any>) {

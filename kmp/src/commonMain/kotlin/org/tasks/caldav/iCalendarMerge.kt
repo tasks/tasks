@@ -16,6 +16,7 @@ import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.icalendar.TodoStatus
 import org.tasks.icalendar.VTodo
+import org.tasks.repeats.Recur
 import org.tasks.time.DateTime.Companion.UTC
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfSecond
@@ -108,9 +109,15 @@ private fun org.tasks.data.entity.Task.applyPriority(remote: VTodo, local: VTodo
 }
 
 private fun org.tasks.data.entity.Task.applyRecurrence(remote: VTodo, local: VTodo?) {
-    if (local == null || local.rRule?.toString() == recurrence) {
+    if (local == null || local.rRule.matchesStored(recurrence)) {
         setRecurrence(remote.rRule)
     }
+}
+
+private fun Recur?.matchesStored(recurrence: String?): Boolean {
+    if (this?.toString() == recurrence) return true
+    if (this == null || unknownParts.isEmpty()) return false
+    return copy(unknownParts = emptyList()).toString() == recurrence
 }
 
 private fun org.tasks.data.entity.Task.applyDue(remote: VTodo, local: VTodo?) {

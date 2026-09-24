@@ -33,7 +33,7 @@ actual fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime? {
 fun net.fortuna.ical4j.model.Recur.toRecur(): Recur = Recur(
     frequency = Frequency.valueOf(frequency.name),
     interval = interval.takeIf { it >= 1 },
-    count = count.takeIf { it >= 0 },
+    count = count.takeIf { it >= 1 },
     until = until?.toUntil(),
     byDay = dayList.map { ByDay(Weekday.valueOf(it.day.name), it.offset) },
     byMonthDay = monthDayList.toList(),

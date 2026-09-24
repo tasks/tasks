@@ -10,6 +10,22 @@ import kotlin.test.assertNull
 class RecurTest {
 
     @Test
+    fun keepsRulePartsItDoesNotModel() {
+        val recur = Recur.parse("RSCALE=HEBREW;FREQ=MONTHLY;SKIP=FORWARD")
+
+        assertEquals(listOf("RSCALE" to "HEBREW", "SKIP" to "FORWARD"), recur.unknownParts)
+        assertEquals("RSCALE=HEBREW;FREQ=MONTHLY;SKIP=FORWARD", recur.toString())
+    }
+
+    @Test
+    fun dropsACountOfZero() {
+        val recur = Recur.parse("FREQ=DAILY;COUNT=0")
+
+        assertNull(recur.count)
+        assertEquals("FREQ=DAILY", recur.toString())
+    }
+
+    @Test
     fun parseFrequencyOnly() {
         assertEquals(Recur(Frequency.DAILY), Recur.parse("FREQ=DAILY"))
         assertEquals(Recur(Frequency.SECONDLY), Recur.parse("FREQ=SECONDLY"))

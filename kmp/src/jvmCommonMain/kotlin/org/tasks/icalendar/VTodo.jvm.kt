@@ -26,8 +26,7 @@ import net.fortuna.ical4j.model.property.RRule
 import net.fortuna.ical4j.model.property.Repeat
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.Task
-import org.tasks.repeats.toIcal4j
-import org.tasks.repeats.toRecur
+import org.tasks.repeats.Recur
 import java.io.ByteArrayOutputStream
 import java.io.StringReader
 import java.math.BigDecimal
@@ -75,7 +74,7 @@ fun Task.toVTodo(): VTodo = VTodo(
     duration = duration?.value,
     completedAt = completedAt?.dateTime?.time,
     percentComplete = percentComplete,
-    rRule = rRule?.recur?.toRecur(),
+    rRule = rRule?.value?.let { Recur.parse(it) },
     rDates = rDates.mapTo(mutableListOf()) { it.toICalProperty() },
     exDates = exDates.mapTo(mutableListOf()) { it.toICalProperty() },
     categories = categories.toMutableList(),
@@ -114,7 +113,7 @@ fun VTodo.toTask(): Task = Task(
     duration = duration?.let { Duration(ParameterList(), it) },
     completedAt = completedAt?.let { Completed(utcDateTime(it)) },
     percentComplete = percentComplete,
-    rRule = rRule?.let { RRule(it.toIcal4j()) },
+    rRule = rRule?.let { RRule(it.toString()) },
     rDates = rDates.mapTo(java.util.LinkedList()) { RDate(it.parameters.toIcal4j(), it.value) },
     exDates = exDates.mapTo(java.util.LinkedList()) { ExDate(it.parameters.toIcal4j(), it.value) },
     categories = java.util.LinkedList(categories),
