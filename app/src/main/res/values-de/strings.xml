@@ -439,4 +439,5 @@
     <string name="p_per_list_sort">sortierung_nach_liste</string>
     <string name="sort_options">Sortieroptionen</string>
     <string name="write_permission_label">Aufgaben bearbeiten</string>
+    <string name="permission_write_tasks">Hinzufügen, Ändern und Löschen deiner Aufgaben, Listen, Tags und Orte</string>
 </resources>
