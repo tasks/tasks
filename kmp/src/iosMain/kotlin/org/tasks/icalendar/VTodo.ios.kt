@@ -260,9 +260,9 @@ private fun CPointer<icalcomponent>.toVTodo(calendar: CPointer<icalcomponent>): 
     val due = todo.due
     if (dtStart != null && due != null) {
         if (dtStart is ICalDate.Date && due is ICalDate.DateTime) {
-            todo.dtStart = ICalDate.DateTime(dtStart.startOfDay(due.tzId), due.tzId)
+            todo.dtStart = ICalDate.DateTime(dtStart.startOfDay(due.tzId), due.tzId, floating = due.tzId == null)
         } else if (dtStart is ICalDate.DateTime && due is ICalDate.Date) {
-            todo.due = ICalDate.DateTime(due.startOfDay(dtStart.tzId), dtStart.tzId)
+            todo.due = ICalDate.DateTime(due.startOfDay(dtStart.tzId), dtStart.tzId, floating = dtStart.tzId == null)
         }
         if (todo.due!!.millis() < todo.dtStart!!.millis()) todo.dtStart = null
     }
@@ -376,11 +376,15 @@ private fun ICalDate.toProperty(name: String, zones: MutableSet<String>): CPoint
     is ICalDate.Date -> icalproperty_new_from_string("$name;VALUE=DATE:${year.pad(4)}${month.pad(2)}${day.pad(2)}")
     is ICalDate.DateTime -> {
         val zone = tzId?.let { id -> runCatching { TimeZone.of(id) }.getOrNull()?.takeIf { zoneText(id) != null } }
-        if (zone == null) {
-            icalproperty_new_from_string("$name:${utcText(millis)}")
-        } else {
-            zones += tzId
-            icalproperty_new_from_string("$name;TZID=$tzId:${DateTime(millis, zone).floatingText()}")
+        when {
+            zone != null -> {
+                zones += tzId
+                icalproperty_new_from_string("$name;TZID=$tzId:${DateTime(millis, zone).floatingText()}")
+            }
+            floating -> icalproperty_new_from_string(
+                "$name:${DateTime(millis, TimeZone.currentSystemDefault()).floatingText()}"
+            )
+            else -> icalproperty_new_from_string("$name:${utcText(millis)}")
         }
     }
 }
@@ -393,9 +397,9 @@ private fun CPointer<icalproperty>.toICalDate(time: CValue<icaltimetype>, calend
         val tzId = parameter(ICAL_TZID_PARAMETER)
         when {
             icaltime_is_utc(time) -> ICalDate.DateTime(utcMillis())
-            tzId == null -> ICalDate.DateTime(localMillis(TimeZone.currentSystemDefault()))
+            tzId == null -> ICalDate.DateTime(localMillis(TimeZone.currentSystemDefault()), floating = true)
             else -> zoneMillis(tzId, time, calendar)?.let { ICalDate.DateTime(it, tzId) }
-                ?: ICalDate.DateTime(localMillis(TimeZone.currentSystemDefault()))
+                ?: ICalDate.DateTime(localMillis(TimeZone.currentSystemDefault()), floating = true)
         }
     }
 }

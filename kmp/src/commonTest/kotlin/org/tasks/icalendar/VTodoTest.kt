@@ -66,7 +66,7 @@ class VTodoTest {
         assertEquals(Recur(Frequency.DAILY), series.rRule)
         assertEquals(0, series.percentComplete)
         assertEquals(listOf(ICalProperty("X-APPLE-SORT-ORDER", "621354239")), series.unknownProperties)
-        assertEquals(ICalDate.DateTime(DateTime(2020, 9, 10).millis), series.due)
+        assertEquals(ICalDate.DateTime(DateTime(2020, 9, 10).millis, floating = true), series.due)
         assertEquals(utc(2020, 9, 9, 14, 25, 4), occurrence.completedAt)
         assertEquals(TodoStatus.COMPLETED, occurrence.status)
         assertEquals(100, occurrence.percentComplete)
@@ -140,7 +140,7 @@ class VTodoTest {
     @Test
     fun repairsInconsistentStartAndDue() {
         val dateStartTimedDue = parseVTodos(vtodo("DTSTART;VALUE=DATE:20260116", "DUE:20260116T090000Z")).single()
-        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16).millis), dateStartTimedDue.dtStart)
+        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16).millis, floating = true), dateStartTimedDue.dtStart)
 
         val startAfterDue = parseVTodos(vtodo("DTSTART:20260117T090000Z", "DUE:20260116T090000Z")).single()
         assertNull(startAfterDue.dtStart)
@@ -148,6 +148,22 @@ class VTodoTest {
 
         val durationWithoutStart = parseVTodos(vtodo("DURATION:PT1H")).single()
         assertNull(durationWithoutStart.duration)
+    }
+
+    @Test
+    fun keepsFloatingTimesFloating() {
+        val todo = parseVTodos(vtodo("DUE:20260116T090000")).single()
+
+        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16, 9, 0).millis, floating = true), todo.due)
+        assertContains(todo.serialize().unfolded(), "DUE:20260116T090000")
+    }
+
+    @Test
+    fun keepsUtcTimesUtc() {
+        val todo = parseVTodos(vtodo("DUE:20260116T090000Z")).single()
+
+        assertEquals(ICalDate.DateTime(utc(2026, 1, 16, 9, 0, 0)), todo.due)
+        assertContains(todo.serialize().unfolded(), "DUE:20260116T090000Z")
     }
 
     private fun vtodo(vararg lines: String) =

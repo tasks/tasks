@@ -121,18 +121,27 @@ fun VTodo.toTask(): Task = Task(
 )
 
 fun DateProperty.toICalDate(): ICalDate = when (val date = date) {
-    is Ical4jDateTime -> ICalDate.DateTime(date.time, date.timeZone?.id?.takeUnless { date.isUtc })
+    is Ical4jDateTime -> when {
+        date.isUtc -> ICalDate.DateTime(date.time)
+        date.timeZone != null -> ICalDate.DateTime(date.time, date.timeZone.id)
+        else -> ICalDate.DateTime(date.time, floating = true)
+    }
     else -> date.toString().let { ICalDate.Date(it.substring(0, 4).toInt(), it.substring(4, 6).toInt(), it.substring(6, 8).toInt()) }
 }
 
 private fun ICalDate.toIcal4j(): Ical4jDate = when (this) {
     is ICalDate.Date -> Ical4jDate("${year.pad(4)}${month.pad(2)}${day.pad(2)}")
-    is ICalDate.DateTime -> tzId?.let { timeZones.getTimeZone(it) }
-        ?.let { zone -> Ical4jDateTime(millis).apply { timeZone = zone } }
-        ?: utcDateTime(millis)
+    is ICalDate.DateTime -> when {
+        floating -> floatingDateTime(millis)
+        else -> tzId?.let { timeZones.getTimeZone(it) }
+            ?.let { zone -> Ical4jDateTime(millis).apply { timeZone = zone } }
+            ?: utcDateTime(millis)
+    }
 }
 
 private fun utcDateTime(millis: Long) = Ical4jDateTime(true).apply { time = millis }
+
+private fun floatingDateTime(millis: Long) = Ical4jDateTime(false).apply { time = millis }
 
 private fun Int.pad(width: Int) = toString().padStart(width, '0')
 

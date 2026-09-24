@@ -5,7 +5,11 @@ import org.tasks.repeats.Recur
 sealed interface ICalDate {
     data class Date(val year: Int, val month: Int, val day: Int) : ICalDate
 
-    data class DateTime(val millis: Long, val tzId: String? = null) : ICalDate
+    data class DateTime(
+        val millis: Long,
+        val tzId: String? = null,
+        val floating: Boolean = false,
+    ) : ICalDate
 }
 
 data class ICalProperty(
