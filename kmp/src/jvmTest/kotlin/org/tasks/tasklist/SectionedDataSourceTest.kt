@@ -12,6 +12,7 @@ import org.tasks.time.startOfDay
 class SectionedDataSourceTest {
     private val today = currentTimeMillis().startOfDay()
     private val tomorrow = today + 86_400_000L
+    private val dayAfter = today + 2 * 86_400_000L
 
     private fun task(title: String, completed: Boolean = false, group: Long = today) =
         TaskContainer(
@@ -71,6 +72,36 @@ class SectionedDataSourceTest {
         )
 
         assertEquals(listOf("group", ACTIVE, DONE), source.render())
+    }
+
+    @Test
+    fun sectionValuesStayInPositionOrderAfterMovingASection() {
+        val source = dataSource(
+            task(ACTIVE, group = today),
+            task(DONE, group = tomorrow),
+            task(DONE_SUB, group = dayAfter),
+        )
+        assertEquals(listOf(today, tomorrow, dayAfter), source.getSectionValues())
+
+        source.moveSection(2, -1)
+
+        assertEquals(listOf(today, tomorrow, dayAfter), source.getSectionValues())
+    }
+
+    @Test
+    fun rowsStayAddressableAfterMovingASection() {
+        val source = dataSource(
+            task(ACTIVE, group = today),
+            task(DONE, group = tomorrow),
+            task(DONE_SUB, group = dayAfter),
+        )
+
+        source.moveSection(2, -1)
+
+        assertEquals(
+            listOf(ACTIVE, DONE, DONE_SUB),
+            (0 until source.size).filterNot { source.isHeader(it) }.map { source.getItem(it).title },
+        )
     }
 
     companion object {

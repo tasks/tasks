@@ -35,14 +35,9 @@ class SectionedDataSource(
             return getSection(sectionedPosition).firstPosition
         }
 
-        var offset = 0
-        sections.forEach { (_, section) ->
-            if (section.sectionedPosition > sectionedPosition) {
-                return@forEach
-            }
-            --offset
+        return sectionedPosition - sections.count { (_, section) ->
+            section.sectionedPosition <= sectionedPosition
         }
-        return sectionedPosition + offset
     }
 
     val taskCount: Int
