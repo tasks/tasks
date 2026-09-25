@@ -113,6 +113,31 @@ data class Task(
         uid = UUID.randomUUID().toString()
     }
 
+    internal fun repairDates() {
+        val dtStart = dtStart
+        val due = due
+
+        if (dtStart != null && due != null) {
+            if (isDate(dtStart) && isDateTime(due)) {
+                logger.warning("DTSTART is DATE but DUE is DATE-TIME, rewriting DTSTART to DATE-TIME")
+                this.dtStart = DtStart(DateTime(dtStart.value, due.timeZone))
+            } else if (isDateTime(dtStart) && isDate(due)) {
+                logger.warning("DTSTART is DATE-TIME but DUE is DATE, rewriting DUE to DATE-TIME")
+                this.due = Due(DateTime(due.value, dtStart.timeZone))
+            }
+
+            if (due.date < dtStart.date) {
+                logger.warning("Found invalid DUE <= DTSTART; dropping DTSTART")
+                this.dtStart = null
+            }
+        }
+
+        if (duration != null && this.dtStart == null) {
+            logger.warning("Found DURATION without DTSTART; ignoring")
+            duration = null
+        }
+    }
+
     fun write(writer: Writer) {
         val ical = Calendar()
         ical.properties += Version.VERSION_2_0
@@ -265,29 +290,7 @@ data class Task(
 
             t.alarms.addAll(todo.alarms)
 
-            // There seem to be many invalid tasks out there because of some defect clients, do some validation.
-            val dtStart = t.dtStart
-            val due = t.due
-
-            if (dtStart != null && due != null) {
-                if (isDate(dtStart) && isDateTime(due)) {
-                    logger.warning("DTSTART is DATE but DUE is DATE-TIME, rewriting DTSTART to DATE-TIME")
-                    t.dtStart = DtStart(DateTime(dtStart.value, due.timeZone))
-                } else if (isDateTime(dtStart) && isDate(due)) {
-                    logger.warning("DTSTART is DATE-TIME but DUE is DATE, rewriting DUE to DATE-TIME")
-                    t.due = Due(DateTime(due.value, dtStart.timeZone))
-                }
-
-                if (due.date < dtStart.date) {
-                    logger.warning("Found invalid DUE <= DTSTART; dropping DTSTART")
-                    t.dtStart = null
-                }
-            }
-
-            if (t.duration != null && t.dtStart == null) {
-                logger.warning("Found DURATION without DTSTART; ignoring")
-                t.duration = null
-            }
+            t.repairDates()
 
             return t
         }
