@@ -13,10 +13,10 @@
     <string name="tmrw">فردا</string>
     <string name="tomorrow">فردا</string>
     <string name="yest">دیروز</string>
-    <string name="yesterday">فردا بعد از ظهر</string>
+    <string name="yesterday">دیروز</string>
     <string name="today">امروز</string>
     <string name="show_completed">نمایش انجام شده ها</string>
-    <string name="requires_pro_subscription">ویژگی حرفه ای</string>
+    <string name="requires_pro_subscription">نیازمند اشتراک حرفه‌ای (Pro)</string>
     <string name="subscription_required_description">همه ویژگی ها را با قیمت 1 دلار در سال باز کنید</string>
     <string name="subscribe">مشترک شدن</string>
     <string name="filter_snoozed">چرت زده</string>
@@ -176,4 +176,31 @@
     <string name="mcp_tools_group_tags">برچسب ها</string>
     <string name="mcp_tools_group_reminders">یادآوری ها</string>
     <string name="new_filter">ایجاد فیلتر جدید</string>
+    <string name="repeat_option_custom">سفارشی…</string>
+    <plurals name="repeat_times">
+        <item quantity="one">زمان</item>
+        <item quantity="other">زمان ها</item>
+    </plurals>
+    <string name="subtasks">زیرکارها</string>
+    <string name="list_settings">تنظیمات فهرست</string>
+    <string name="name_cannot_be_empty">نام نمی‌تواند خالی باشد</string>
+    <string name="filter">فیلتر</string>
+    <string name="icon">نماد</string>
+    <string name="theme_black">سیاه</string>
+    <string name="theme_wallpaper">تصویر زمینه</string>
+    <string name="theme_day_night">روز/شب</string>
+    <string name="theme_system_default">پیش‌فرض سیستم</string>
+    <string name="theme_dynamic">پویا</string>
+    <string name="restart_required">برای اعمال این تغییر، Tasks را مجدداً راه‌اندازی کنید</string>
+    <string name="widget_settings">تنظیمات ویجت</string>
+    <string name="user">کاربر</string>
+    <string name="password">رمز عبور</string>
+    <string name="url">نشانی اینترنتی</string>
+    <string name="repeats_from">تکرار از</string>
+    <string name="repeats_plural_number_of_times">هر %1$s یک‌بار تکرار می‌شود، %2$d %3$s رخ می‌دهد</string>
+    <string name="dont_add_to_calendar">به تقویم اضافه نشود</string>
+    <string name="help">راهنما</string>
+    <string name="upgrade_to_pro">ارتقا به نسخه حرفه‌ای</string>
+    <string name="button_subscribe">اشتراک بگیرید</string>
+    <string name="logout">خروج</string>
 </resources>
