@@ -704,4 +704,17 @@
     <string name="works_with_mcp_description">Deixe assistentes de IA ler e atualizar suas tarefas</string>
     <string name="works_with_android">Tasks.org para Android</string>
     <string name="works_with_android_description">Celulares, tablets e Chromebooks</string>
+    <string name="mcp_manual_summary">Para um modelo local ou qualquer outro cliente MCP. Transporte HTTP streamable, autenticação por token de portador.</string>
+    <string name="works_with_radicale_description">Servidor CalDAV leve</string>
+    <string name="works_with_ios">Tasks.org para iOS</string>
+    <string name="works_with_coming_soon">Em breve</string>
+    <string name="works_with_desktop_description">macOS, Windows e Linux</string>
+    <string name="works_with_wear_description">Tasks.org no seu relógio</string>
+    <string name="works_with_wear_requires_googleplay">Requer a versão Google Play do Tasks.org</string>
+    <string name="works_with_pebble_description">Watchapp para smartwatches Pebble</string>
+    <string name="works_with_content_provider">API do provedor de conteúdo</string>
+    <string name="works_with_content_provider_description">Leia e grave dados do Tasks.org a partir do seu próprio app</string>
+    <string name="works_with_missing">Percebeu algo faltando? %1$s ou mande email para %2$s.</string>
+    <string name="works_with_submit_pull_request">Enviar um pull request</string>
+    <string name="new_place">Criar novo local</string>
 </resources>
