@@ -350,7 +350,7 @@ class CaldavSynchronizer(
                 val remote = fromVtodo(vtodo)
                 if (remote == null) {
                     Logger.e(TAG) { "Invalid VCALENDAR: $fileName" }
-                    return
+                    continue
                 }
                 val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
                 iCal.fromVtodo(account, caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)

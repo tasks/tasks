@@ -11,9 +11,12 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.never
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.tasks.DatabaseTest
 import org.tasks.InMemoryDataStore
@@ -23,6 +26,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.SERVER_SABREDAV
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.icalendar.VTodo
 import org.tasks.preferences.TasksPreferences
 import org.tasks.service.TaskCleanup
 import org.tasks.service.TaskDeleter
@@ -35,6 +39,7 @@ class CalendarUrlSyncTest : DatabaseTest() {
     private val encryption = testEncryption()
     private val provider = testClientProvider(preferences, encryption)
     private val reporting = mock<Reporting>()
+    private val iCal = mock<iCalendar>()
     private val synchronizer = CaldavSynchronizer(
         caldavDao = caldavDao,
         dirtyDao = db.dirtyDao(),
@@ -50,7 +55,7 @@ class CalendarUrlSyncTest : DatabaseTest() {
         ),
         reporting = reporting,
         provider = provider,
-        iCal = mock(),
+        iCal = iCal,
         principalDao = db.principalDao(),
         vtodoCache = mock(),
         accountDataRepository = mock(),
@@ -183,6 +188,33 @@ class CalendarUrlSyncTest : DatabaseTest() {
         } finally {
             redirected.shutdown()
         }
+    }
+
+    @Test
+    fun `an unparseable task does not abort the rest of the calendar sync`() = runBlocking {
+        CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = "stale",
+        ).also { caldavDao.insert(it) }
+        enqueueCalendars("$HOME_SET$LIST/")
+        server.enqueue(multiStatus(etags("a.ics", "b.ics")))
+        server.enqueue(multiStatus(calendarData("a.ics" to TWO_VTODOS, "b.ics" to ONE_VTODO)))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        verify(iCal, times(1)).fromVtodo(
+            any<CaldavAccount>(),
+            any<CaldavCalendar>(),
+            anyOrNull<CaldavTask>(),
+            any<VTodo>(),
+            anyOrNull<String>(),
+            eq("b.ics"),
+            eq("etag-b.ics"),
+        )
+        assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
     }
 
     @Test
@@ -327,6 +359,46 @@ class CalendarUrlSyncTest : DatabaseTest() {
                 </d:propstat>
             </d:response>
         """
+
+        private const val ONE_VTODO =
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//E//EN\nBEGIN:VTODO\nUID:b\nSUMMARY:B\nEND:VTODO\nEND:VCALENDAR"
+
+        private const val TWO_VTODOS =
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//E//EN\nBEGIN:VTODO\nUID:a\nSUMMARY:A\nEND:VTODO\n" +
+                    "BEGIN:VTODO\nUID:a\nRECURRENCE-ID:20260308T090000Z\nSUMMARY:A2\nEND:VTODO\nEND:VCALENDAR"
+
+        private fun etags(vararg names: String) = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:">
+                ${names.joinToString("") { """
+                    <d:response>
+                        <d:href>$HOME_SET$LIST/$it</d:href>
+                        <d:propstat>
+                            <d:prop><d:getetag>"etag-$it"</d:getetag></d:prop>
+                            <d:status>HTTP/1.1 200 OK</d:status>
+                        </d:propstat>
+                    </d:response>
+                """ }}
+            </d:multistatus>
+        """.trimIndent()
+
+        private fun calendarData(vararg items: Pair<String, String>) = """
+            <?xml version="1.0"?>
+            <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+                ${items.joinToString("") { (name, data) -> """
+                    <d:response>
+                        <d:href>$HOME_SET$LIST/$name</d:href>
+                        <d:propstat>
+                            <d:prop>
+                                <d:getetag>"etag-$name"</d:getetag>
+                                <cal:calendar-data>${data.replace("\n", "&#13;&#10;")}</cal:calendar-data>
+                            </d:prop>
+                            <d:status>HTTP/1.1 200 OK</d:status>
+                        </d:propstat>
+                    </d:response>
+                """ }}
+            </d:multistatus>
+        """.trimIndent()
 
         private fun notFound(href: String) = """
             <?xml version="1.0"?>
