@@ -612,6 +612,7 @@
     <string name="wearable_notifications_summary">Display notifications on your wearable</string>
     <string name="bundle_notifications">Bundle notifications</string>
     <string name="bundle_notifications_summary">Combine multiple notifications into one</string>
+    <string name="list_notifications_summary">Show notifications for tasks in this list</string>
     <string name="EPr_voiceRemindersEnabled_title">Voice reminders</string>
     <string name="EPr_voiceRemindersEnabled_desc_enabled">Tasks will speak task names during task reminders</string>
     <string name="more_settings">More settings</string>
