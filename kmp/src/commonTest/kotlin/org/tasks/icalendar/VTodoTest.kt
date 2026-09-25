@@ -9,6 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import kotlin.test.assertNull
 
 class VTodoTest {
@@ -191,6 +192,29 @@ class VTodoTest {
         assertEquals("PT1M30S", formatICalDuration(90_000))
         assertEquals("P1DT1H", formatICalDuration(90_000_000))
         assertEquals("PT0S", formatICalDuration(0))
+    }
+
+    @Test
+    fun foldingNeverSplitsASurrogatePair() {
+        for (pad in 56..80) {
+            val line = "SUMMARY:" + "a".repeat(pad) + "\uD83D\uDE00" + "tail"
+
+            val segments = foldContentLine(line).split("\r\n")
+
+            segments.filter { it.isNotEmpty() }.forEach {
+                assertFalse(it.last().isHighSurrogate(), "pad=${'$'}pad split after a high surrogate")
+                assertFalse(it.first().isLowSurrogate(), "pad=${'$'}pad split before a low surrogate")
+            }
+        }
+    }
+
+    @Test
+    fun foldedLinesStayWithinTheOctetLimit() {
+        val line = "SUMMARY:" + "\uD83D\uDE00".repeat(40)
+
+        foldContentLine(line).split("\r\n").filter { it.isNotEmpty() }.forEach {
+            assertTrue(it.encodeToByteArray().size <= 75, "line too long: ${'$'}it")
+        }
     }
 
     @Test

@@ -5,11 +5,16 @@ internal fun String.escapeICalText(): String =
 
 internal fun foldContentLine(line: String): String = buildString {
     var octets = 0
-    for (char in line) {
+    var i = 0
+    while (i < line.length) {
+        val char = line[i]
+        val pair = char.isHighSurrogate() &&
+                i + 1 < line.length &&
+                line[i + 1].isLowSurrogate()
         val width = when {
+            pair -> 4
             char.code < 0x80 -> 1
             char.code < 0x800 -> 2
-            char.isSurrogate() -> 2
             else -> 3
         }
         if (octets + width > 75) {
@@ -17,7 +22,9 @@ internal fun foldContentLine(line: String): String = buildString {
             octets = 1
         }
         append(char)
+        if (pair) append(line[i + 1])
         octets += width
+        i += if (pair) 2 else 1
     }
     append("\r\n")
 }

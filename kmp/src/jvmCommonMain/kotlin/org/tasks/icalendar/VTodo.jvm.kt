@@ -27,8 +27,8 @@ import net.fortuna.ical4j.model.property.Repeat
 import net.fortuna.ical4j.model.property.Status
 import org.tasks.caldav.Task
 import org.tasks.repeats.Recur
-import java.io.ByteArrayOutputStream
 import java.io.StringReader
+import java.io.StringWriter
 import java.math.BigDecimal
 import java.time.Period
 import java.time.temporal.TemporalAmount
@@ -43,7 +43,15 @@ actual fun parseVTodos(iCalendar: String): List<VTodo> =
     Task.tasksFromReader(StringReader(iCalendar)).map { it.toVTodo() }
 
 actual fun VTodo.serialize(): String =
-    toTask().let { task -> ByteArrayOutputStream().also(task::write).toString("UTF-8") }
+    toTask()
+        .let { task -> StringWriter().also(task::write).toString() }
+        .refolded()
+
+private fun String.refolded(): String =
+    replace("\r\n ", "")
+        .split("\r\n")
+        .filter { it.isNotEmpty() }
+        .joinToString("") { foldContentLine(it) }
 
 private val timeZones by lazy { TimeZoneRegistryFactory.getInstance().createRegistry() }
 

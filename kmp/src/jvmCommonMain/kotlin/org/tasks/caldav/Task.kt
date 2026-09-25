@@ -58,8 +58,10 @@ import net.fortuna.ical4j.validate.ValidationException
 import org.tasks.icalendar.repairICalendar
 import org.tasks.kmp.PROD_ID
 import java.io.OutputStream
+import java.io.OutputStreamWriter
 import java.io.Reader
 import java.io.StringReader
+import java.io.Writer
 import java.net.URI
 import java.net.URISyntaxException
 import java.util.LinkedList
@@ -111,7 +113,7 @@ data class Task(
         uid = UUID.randomUUID().toString()
     }
 
-    fun write(os: OutputStream) {
+    fun write(writer: Writer) {
         val ical = Calendar()
         ical.properties += Version.VERSION_2_0
         ical.properties += ProdId(PROD_ID)
@@ -187,8 +189,10 @@ data class Task(
         for (tz in usedTimeZones)
             ical.components += minifyVTimeZone(tz.vTimeZone, earliest)
 
-        CalendarOutputter(false).output(ical, os)
+        CalendarOutputter(false).output(ical, writer)
     }
+
+    fun write(os: OutputStream) = write(OutputStreamWriter(os, Charsets.UTF_8))
 
     companion object {
 
