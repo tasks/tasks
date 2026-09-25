@@ -23,12 +23,12 @@ class AuthorizationService(
         val iss: String,
         context: Context,
         debugConnectionBuilder: DebugConnectionBuilder,
-        caldavUrl: String? = null,
+        caldavUrl: String,
 ) {
     val isGitHub = iss == ISS_GITHUB
     val isApple = iss == ISS_APPLE
     val serverCallbackUri: Uri? =
-        if (isApple) "${caldavUrl ?: "https://caldav.tasks.org"}/oauth/apple/callback".toUri() else null
+        if (isApple) "$caldavUrl/oauth/apple/callback".toUri() else null
     val authStateManager = AuthStateManager()
     val configuration = Configuration(
             context,
