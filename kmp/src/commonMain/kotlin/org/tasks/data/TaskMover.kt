@@ -62,6 +62,7 @@ class TaskMover(
             .let { taskDao.fetch(ids.minus(it.toSet())) }
             .filterNot { it.readOnly }
         val taskIds = tasks.map { it.id }
+        val unparented = tasks.filter { it.parent > 0 }.map { it.id }
         taskDao.inTransaction {
             taskDao.setParent(0, taskIds)
             val moved = tasks.filter { performMove(it, selectedList) }.map { it.id }
@@ -72,7 +73,7 @@ class TaskMover(
                 log.d { "Updating parents for ${selectedList.uuid}" }
                 caldavDao.updateParents(selectedList.uuid, force = true)
             }
-            val changed = if (newParent != 0L) taskIds else moved
+            val changed = if (newParent != 0L) taskIds else (moved + unparented).distinct()
             dirtyDao.setDirty(changed + taskDao.getChildren(changed))
         }
         refreshBroadcaster.broadcastRefresh()

@@ -128,6 +128,18 @@ class RemoteParentPushTest : DatabaseTest() {
     }
 
     @Test
+    fun unParentingWithinAListMarksTheTaskForSync() = runBlocking {
+        val parent = newTask("parent")
+        val child = newTask("child", parent = parent.id)
+        markEverythingSynced()
+
+        mover.move(listOf(child.id), fromList())
+
+        assertEquals(0, taskDao.fetch(child.id)!!.parent)
+        assertTrue("un-parented task should be queued for sync", isPending(child.id))
+    }
+
+    @Test
     fun movingToTheListATaskIsAlreadyOnDoesNotQueueIt() = runBlocking {
         val parent = newTask("parent")
         val child = newTask("child", parent = parent.id)
