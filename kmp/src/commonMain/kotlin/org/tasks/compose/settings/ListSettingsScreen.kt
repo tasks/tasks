@@ -81,7 +81,9 @@ import tasks.kmp.generated.resources.invite_awaiting_response
 import tasks.kmp.generated.resources.invite_declined
 import tasks.kmp.generated.resources.invite_invalid
 import tasks.kmp.generated.resources.list_members
+import tasks.kmp.generated.resources.list_notifications_summary
 import tasks.kmp.generated.resources.new_list
+import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.remove_user
 import tasks.kmp.generated.resources.remove_user_confirmation
@@ -112,6 +114,7 @@ data class ListSettingsState(
     val hasPro: Boolean = false,
     val hasColorWheel: Boolean = false,
     val showDiscardDialog: Boolean = false,
+    val notificationsEnabled: Boolean = true,
 ) {
     val isNew: Boolean get() = calendar?.id == null || calendar.id == Task.NO_ID
 
@@ -125,10 +128,15 @@ data class ListSettingsState(
 
     val hasChanges: Boolean
         get() {
-            val cal = calendar ?: return name.isNotBlank() || color != 0 || icon != TasksIcons.LIST
+            val cal = calendar
+                ?: return name.isNotBlank() ||
+                        color != 0 ||
+                        icon != TasksIcons.LIST ||
+                        !notificationsEnabled
             return name.trim() != (cal.name ?: "") ||
                     color != cal.color ||
-                    icon != (cal.icon ?: TasksIcons.LIST)
+                    icon != (cal.icon ?: TasksIcons.LIST) ||
+                    notificationsEnabled != cal.notificationsEnabled
         }
 
     val useEmailForSharing: Boolean
@@ -152,6 +160,7 @@ fun ListSettingsScreen(
     onSubscribe: (String) -> Unit,
     onAddShortcut: (() -> Unit)? = null,
     onAddWidget: (() -> Unit)? = null,
+    showNotifications: Boolean = true,
     headerContent: @Composable () -> Unit = {},
 ) {
     val state by viewModel.state.collectAsState()
@@ -181,6 +190,8 @@ fun ListSettingsScreen(
         onSubscribe = onSubscribe,
         onAddShortcut = onAddShortcut,
         onAddWidget = onAddWidget,
+        showNotifications = showNotifications,
+        onNotificationsEnabledChange = viewModel::setNotificationsEnabled,
         headerContent = headerContent,
     )
 }
@@ -210,6 +221,8 @@ fun ListSettingsScreen(
     onSubscribe: (String) -> Unit,
     onAddShortcut: (() -> Unit)? = null,
     onAddWidget: (() -> Unit)? = null,
+    showNotifications: Boolean = true,
+    onNotificationsEnabledChange: (Boolean) -> Unit,
     headerContent: @Composable () -> Unit = {},
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
@@ -299,6 +312,24 @@ fun ListSettingsScreen(
                 onClearColor = { onSelectColor(null) },
                 onIconClick = onOpenIconPicker,
             )
+
+            // Notifications
+            if (showNotifications) {
+                Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+                Column(
+                    modifier = Modifier.padding(horizontal = SettingsContentPadding),
+                ) {
+                    SettingsItemCard {
+                        SwitchPreferenceRow(
+                            title = stringResource(Res.string.notifications),
+                            summary = stringResource(Res.string.list_notifications_summary),
+                            checked = state.notificationsEnabled,
+                            onCheckedChange = onNotificationsEnabledChange,
+                        )
+                    }
+                }
+            }
 
             // Shortcut and widget
             ShortcutWidgetCards(

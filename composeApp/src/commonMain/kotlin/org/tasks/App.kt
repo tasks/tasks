@@ -2274,6 +2274,7 @@ private fun CaldavListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = { onSubscribe() },
+            showNotifications = koinInject<PlatformConfiguration>().supportsNotifications,
         )
     }
 }
@@ -2327,6 +2328,7 @@ private fun LocalListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = { onSubscribe() },
+            showNotifications = koinInject<PlatformConfiguration>().supportsNotifications,
             headerContent = {
                 AnimatedBanner(
                     visible = showBanner,
@@ -2421,6 +2423,7 @@ private fun CaldavListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = { onSubscribe() },
+            showNotifications = koinInject<PlatformConfiguration>().supportsNotifications,
         )
     }
 }
@@ -2467,6 +2470,7 @@ private fun EtebaseListSettingsDialog(
                 onSubscribe()
             },
             onSubscribe = { onSubscribe() },
+            showNotifications = koinInject<PlatformConfiguration>().supportsNotifications,
         )
     }
 }

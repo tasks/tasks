@@ -196,6 +196,19 @@ class CommonMigrationsTest {
         }
     }
 
+    @Test
+    fun enablesNotificationsForExistingCalendars() {
+        migrate(98, 99, CommonMigrations.MIGRATION_98_99) {
+            insertList(1, uuid = "work", account = "acct")
+            insertList(2, uuid = "home", account = "acct")
+        }.use {
+            assertEquals(
+                listOf("work" to 1L, "home" to 1L),
+                it.calendarNotificationFlags(),
+            )
+        }
+    }
+
     private fun SQLiteConnection.insertTask(id: Long, modified: Long = 0) {
         execSQL(
             "INSERT INTO `tasks` (`_id`, `importance`, `dueDate`, `hideUntil`, `created`, `modified`, `completed`, `deleted`, `estimatedSeconds`, `elapsedSeconds`, `timerStart`, `notificationFlags`, `lastNotified`, `collapsed`, `parent`) " +
@@ -251,6 +264,14 @@ class CommonMigrationsTest {
 
     private fun SQLiteConnection.rowCount(table: String): Int {
         prepare("SELECT COUNT(*) FROM `$table`").use { return if (it.step()) it.getLong(0).toInt() else 0 }
+    }
+
+    private fun SQLiteConnection.calendarNotificationFlags(): List<Pair<String, Long>> = buildList {
+        prepare("SELECT `cdl_uuid`, `cdl_notifications_enabled` FROM `caldav_lists` ORDER BY `cdl_id`").use {
+            while (it.step()) {
+                add(it.getText(0) to it.getLong(1))
+            }
+        }
     }
 
     private fun SQLiteConnection.insertTag(

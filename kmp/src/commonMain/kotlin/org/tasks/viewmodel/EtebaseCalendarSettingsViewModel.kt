@@ -82,6 +82,7 @@ open class EtebaseCalendarSettingsViewModel(
                     name = name,
                     color = s.color,
                     icon = s.icon,
+                    notificationsEnabled = s.notificationsEnabled,
                 )
                 caldavDao.insert(calendar)
                 reporting.logEvent(AnalyticsEvents.CREATE_LIST)
@@ -112,6 +113,7 @@ open class EtebaseCalendarSettingsViewModel(
                     name = name,
                     color = s.color,
                     icon = s.icon,
+                    notificationsEnabled = s.notificationsEnabled,
                 )
                 caldavDao.update(result)
                 stateManager.update { it.copy(calendar = result) }
