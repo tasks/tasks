@@ -72,10 +72,10 @@ class PostHogReporting(
     override fun completeTask(source: String) =
         logEvent(AnalyticsEvents.COMPLETE_TASK, AnalyticsEvents.PARAM_TYPE to source)
 
-    override fun identify(distinctId: String) {
-        logger.d { "identify -> $distinctId" }
+    override fun setSku(sku: String?) {
+        logger.d { "sku -> $sku" }
         if (enabled && collectStatistics) {
-            PostHog.identify(distinctId)
+            if (sku != null) PostHog.register("sku", sku) else PostHog.unregister("sku")
         }
     }
 

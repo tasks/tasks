@@ -18,7 +18,11 @@ final class PostHogBridge: AnalyticsBridge {
         )
     }
 
-    func identify(distinctId: String) {
-        PostHogSDK.shared.identify(distinctId)
+    func register(key: String, value: String) {
+        PostHogSDK.shared.register([key: value])
+    }
+
+    func unregister(key: String) {
+        PostHogSDK.shared.unregister(key)
     }
 }

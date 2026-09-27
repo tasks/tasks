@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.newLocalAccount
 import org.tasks.preferences.TasksPreferences
@@ -29,6 +30,7 @@ class AppViewModel(
     private val syncAdapters: SyncAdapters,
     private val reporting: Reporting,
     private val preferences: TasksPreferences,
+    private val subscriptionProvider: SubscriptionProvider,
 ) : ViewModel() {
 
     val hasAccount = caldavDao
@@ -106,14 +108,10 @@ class AppViewModel(
             syncAdapters.sync(SyncSource.APP_RESUME)
         }
         viewModelScope.launch {
-            caldavDao.watchAccounts()
-                .map { accounts -> accounts.firstOrNull { it.isTasksOrg }?.username }
+            subscriptionProvider.subscription
+                .map { it?.sku }
                 .distinctUntilChanged()
-                .collect { username ->
-                    if (username != null) {
-                        reporting.identify(username)
-                    }
-                }
+                .collect { reporting.setSku(it) }
         }
         viewModelScope.launch {
             var wasInOnboarding = false

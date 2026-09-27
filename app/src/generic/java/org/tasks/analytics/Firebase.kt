@@ -45,8 +45,8 @@ class Firebase @Inject constructor(
     override fun completeTask(source: String) =
         logEvent(R.string.event_complete_task, R.string.param_type to source)
 
-    override fun identify(distinctId: String) {
-        Timber.d("identify -> $distinctId")
+    override fun setSku(sku: String?) {
+        Timber.d("sku -> $sku")
     }
 
     val subscribeCooldown: Boolean

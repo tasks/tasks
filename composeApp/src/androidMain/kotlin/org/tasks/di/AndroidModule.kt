@@ -51,7 +51,7 @@ actual fun platformModule(): Module = module {
             override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
             override fun addTask(source: String) {}
             override fun completeTask(source: String) {}
-            override fun identify(distinctId: String) {}
+            override fun setSku(sku: String?) {}
             override fun reportException(t: Throwable, fatal: Boolean) {}
         }
     }

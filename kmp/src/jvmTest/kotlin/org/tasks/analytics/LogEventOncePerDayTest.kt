@@ -23,7 +23,7 @@ class LogEventOncePerDayTest {
         }
         override fun addTask(source: String) = Unit
         override fun completeTask(source: String) = Unit
-        override fun identify(distinctId: String) = Unit
+        override fun setSku(sku: String?) = Unit
     }
 
     @After

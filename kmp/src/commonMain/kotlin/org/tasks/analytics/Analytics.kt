@@ -11,7 +11,7 @@ interface Analytics {
     fun logEvent(event: String, vararg params: Pair<String, Any>)
     fun addTask(source: String)
     fun completeTask(source: String)
-    fun identify(distinctId: String)
+    fun setSku(sku: String?)
 
     suspend fun logEventOncePerDay(event: String, vararg params: Pair<String, Any>) =
         logEventOncePerDay(event, dedupeBy = event, params = params)

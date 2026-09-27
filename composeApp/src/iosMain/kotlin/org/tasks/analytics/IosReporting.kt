@@ -48,9 +48,9 @@ class IosReporting(
     override fun completeTask(source: String) =
         logEvent(AnalyticsEvents.COMPLETE_TASK, AnalyticsEvents.PARAM_TYPE to source)
 
-    override fun identify(distinctId: String) {
-        logger.d { "identify -> $distinctId" }
-        analytics?.identify(distinctId)
+    override fun setSku(sku: String?) {
+        logger.d { "sku -> $sku" }
+        if (sku != null) analytics?.register("sku", sku) else analytics?.unregister("sku")
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
