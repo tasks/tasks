@@ -162,8 +162,8 @@
     <string name="FLA_search_filter">مطابق \'%s\'</string>
     <string name="TEA_timer_est">تخمین %s</string>
     <string name="location_update_interval_summary">به‌روزرسانی دوره‌ای موقعیت مکانی، قابلیت اطمینان محدوده جغرافیایی را بهبود می‌دهد</string>
-    <string name="CFC_dueBefore_text">موعد انجام: ؟</string>
-    <string name="CFC_startBefore_text">شروع از: ؟</string>
+    <string name="CFC_dueBefore_text">موعد انجام: ?</string>
+    <string name="CFC_startBefore_text">شروع از: ?</string>
     <string name="rmd_EPr_rmd_time_desc">اعلان‌های کارهای تمام‌روز در ساعت %1$s نمایش داده می‌شوند</string>
     <string name="repeat_option_custom">سفارشی…</string>
     <plurals name="task_count">
