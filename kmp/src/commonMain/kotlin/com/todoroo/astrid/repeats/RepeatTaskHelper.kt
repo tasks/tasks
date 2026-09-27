@@ -25,9 +25,13 @@ import org.tasks.repeats.toDateTime
 import org.tasks.time.DateTime
 import org.tasks.time.ONE_HOUR
 import org.tasks.time.ONE_MINUTE
+import org.tasks.time.ONE_SECOND
 import org.tasks.time.ONE_WEEK
 
 private const val TAG = "RepeatTaskHelper"
+
+private val SUBDAY_FREQUENCIES =
+    setOf(Frequency.SECONDLY, Frequency.MINUTELY, Frequency.HOURLY)
 
 class RepeatTaskHelper(
     private val calendarHelper: CalendarHelper,
@@ -132,9 +136,7 @@ class RepeatTaskHelper(
 
             val original = setUpStartDate(task, repeatAfterCompletion, rrule.frequency)
             return when {
-                rrule.frequency == Frequency.SECONDLY ||
-                rrule.frequency == Frequency.MINUTELY ||
-                rrule.frequency == Frequency.HOURLY ->
+                rrule.frequency in SUBDAY_FREQUENCIES ->
                     handleSubdayRepeat(original, rrule)
                 rrule.frequency == Frequency.WEEKLY && rrule.byDay.isNotEmpty() && repeatAfterCompletion ->
                     handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime())
@@ -230,7 +232,7 @@ class RepeatTaskHelper(
             task: Task, repeatAfterCompletion: Boolean, frequency: Frequency): DateTime {
             return if (repeatAfterCompletion) {
                 var startDate = if (task.isCompleted) newDateTime(task.completionDate) else newDateTime()
-                if (task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
+                if (task.hasDueTime() && frequency !in SUBDAY_FREQUENCIES) {
                     val dueDate = newDateTime(task.dueDate)
                     startDate = startDate
                             .withHourOfDay(dueDate.hourOfDay)
@@ -248,11 +250,13 @@ class RepeatTaskHelper(
             val millis: Long = when (recur.frequency) {
                 Frequency.HOURLY -> ONE_HOUR
                 Frequency.MINUTELY -> ONE_MINUTE
-                else -> throw RuntimeException(
+                Frequency.SECONDLY -> ONE_SECOND
+                else -> throw IllegalArgumentException(
                         "Error handing subday repeat: " + recur.frequency)
             }
-            val newDueDate = startDate.millis + millis * (recur.interval ?: 1).coerceAtLeast(1)
-            return createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDueDate)
+            val interval =
+                    (millis * (recur.interval ?: 1).coerceAtLeast(1)).coerceAtLeast(ONE_MINUTE)
+            return createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, startDate.millis + interval)
         }
     }
 }
