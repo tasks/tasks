@@ -51,7 +51,7 @@ class PlaceSearchGoogle @Inject constructor(
         }
         val proximity = bias?.let {
             "&location=${bias.latitude},${bias.longitude}&radius=25000"
-        }
+        }.orEmpty()
         val jsonObject = execute(
                 "${environment.placesUrl}/maps/api/place/queryautocomplete/json?input=$query&sessiontoken=$token$proximity"
         )
