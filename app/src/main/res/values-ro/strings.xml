@@ -184,7 +184,7 @@
     <string name="premium_record_audio">Înregistrare notă</string>
     <string name="gtasks_error_accountNotFound">Contul %s nu a fost găsit - deconectează-te și conectează-te din nou din setările Google Tasks.</string>
     <string name="gtasks_GLA_authenticating">Autentificare…</string>
-    <string name="gtasks_GTA_clear_completed">Eliminare finalizată</string>
+    <string name="gtasks_GTA_clear_completed">Eliminare finalizat</string>
     <string name="CFC_list_name">În lista…</string>
     <string name="CFC_gtasks_list_text">În listă: \?</string>
     <string name="gcal_completed_title">%s (finalizat)</string>
