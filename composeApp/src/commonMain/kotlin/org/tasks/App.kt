@@ -847,7 +847,7 @@ fun App(
                                     AnalyticsEvents.PARAM_SOURCE to "onboarding",
                                     AnalyticsEvents.PARAM_SELECTION to platform.name,
                                 )
-                                val sellsSubscriptions = configuration.billingProvider == org.tasks.billing.BillingProvider.PADDLE
+                                val sellsSubscriptions = configuration.billingProvider == org.tasks.billing.BillingProvider.STRIPE
                                     || configuration.appStore == AppStore.APP_STORE
                                 if (sellsSubscriptions && !addAccountViewModel.hasPro) {
                                     when (platform) {

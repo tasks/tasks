@@ -176,7 +176,7 @@ actual fun platformModule(): Module = module {
     single {
         PlatformConfiguration(
             versionCode = JvmBuildConfig.VERSION_CODE,
-            billingProvider = BillingProvider.PADDLE,
+            billingProvider = BillingProvider.STRIPE,
             supportsCaldav = true,
             supportsEteSync = true,
             supportsGoogleTasks = true,

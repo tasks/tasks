@@ -200,7 +200,7 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
-                val isDesktop = configuration.billingProvider == BillingProvider.PADDLE
+                val isDesktop = configuration.billingProvider == BillingProvider.STRIPE
                 val freeAccounts = buildList {
                     if (configuration.supportsMicrosoft && !isDesktop) add(Platform.MICROSOFT)
                     if (configuration.supportsGoogleTasks && !isDesktop) add(Platform.GOOGLE_TASKS)
