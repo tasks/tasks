@@ -17,6 +17,7 @@ jobs:
 
   notarize:
     runs-on: ubuntu-latest
+    environment: release
     needs: [ bundle ]
     steps:
       - uses: actions/checkout@v7
@@ -49,6 +50,12 @@ jobs:
         if: ${{ env.APPLE_PRIVATE_KEY != '' }}
         run: echo "$APPLE_PRIVATE_KEY" > "$RUNNER_TEMP/apple_api_key.p8"
 
+      - uses: azure/login@v3
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
       - name: Build notarized desktop releases
         working-directory: composeApp
         env:
@@ -60,6 +67,9 @@ jobs:
           -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
           -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
           -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
+          -Kapp.windows.signing-key.azure-trusted-signing.endpoint=https://eus.codesigning.azure.net/
+          -Kapp.windows.signing-key-alias=Tasks/tasks-org
+          -Kapp.windows.timestamping-server=http://timestamp.acs.microsoft.com
           make site
 
       - name: Upload notarized desktop output
@@ -167,7 +177,6 @@ jobs:
           composeApp/output/*.msix
           composeApp/output/*.deb
           composeApp/output/*.exe
-          composeApp/output/*.crt
           composeApp/output/*.appinstaller
           $(ls composeApp/output/*.delta 2>/dev/null)
           composeApp/output/metadata.properties
