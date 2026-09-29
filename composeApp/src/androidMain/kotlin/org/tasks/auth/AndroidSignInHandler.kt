@@ -11,6 +11,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
+import org.tasks.http.HttpException
 import org.tasks.security.KeyStoreEncryption
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -83,14 +84,21 @@ class AndroidSignInHandler(
         Logger.d(TAG) { "Got authorization code, exchanging..." }
         val result = oauthClient.exchangeCode(config, code, codeVerifier)
 
-        setupTasksAccount(
-            oauthResult = result,
-            issuer = oauthProvider.issuer,
-            caldavUrl = serverEnvironment.caldavUrl,
-            caldavDao = caldavDao,
-            encryption = encryption,
-            provider = caldavClientProvider,
-        )
+        try {
+            setupTasksAccount(
+                oauthResult = result,
+                issuer = oauthProvider.issuer,
+                caldavUrl = serverEnvironment.caldavUrl,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = caldavClientProvider,
+            )
+        } catch (e: HttpException) {
+            if (e.code == 402) {
+                throw PaymentRequiredException()
+            }
+            throw e
+        }
         Logger.i(TAG) { "Account created successfully" }
         bringAppToForeground()
     }
