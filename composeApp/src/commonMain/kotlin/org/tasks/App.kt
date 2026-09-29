@@ -176,7 +176,7 @@ import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
-import org.tasks.compose.settings.DesktopProScreen
+import org.tasks.compose.settings.RestorePurchasesScreen
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
@@ -355,7 +355,7 @@ fun App(
                             subclass(TaskEditDestination::class, TaskEditDestination.serializer())
                             subclass(SettingsDestination::class, SettingsDestination.serializer())
                             subclass(LinkDesktopDestination::class, LinkDesktopDestination.serializer())
-                            subclass(DesktopProDestination::class, DesktopProDestination.serializer())
+                            subclass(RestorePurchasesDestination::class, RestorePurchasesDestination.serializer())
                             subclass(PricingDestination::class, PricingDestination.serializer())
                             subclass(
                                 SubscriptionOnboardingDestination::class,
@@ -1034,7 +1034,7 @@ fun App(
                             onConfirm = { code -> desktopLinkService.confirmLink(code) },
                         )
                     }
-                    entry<DesktopProDestination> { destination ->
+                    entry<RestorePurchasesDestination> { destination ->
                         val desktopLinkClient = koinInject<org.tasks.billing.DesktopLinkClient>()
                         val gitHubSponsorClient = koinInject<org.tasks.billing.GitHubSponsorClient>()
                         LaunchedEffect(Unit) {
@@ -1046,7 +1046,7 @@ fun App(
                             Platform.GOOGLE_TASKS.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.gtasks_GPr_header))
                             else -> null
                         }
-                        DesktopProScreen(
+                        RestorePurchasesScreen(
                             onBack = { backStack.removeLastOrNull() },
                             onCreateLink = { desktopLinkClient.createLink() },
                             onPollStatus = { code -> desktopLinkClient.pollStatus(code) },
@@ -1217,7 +1217,7 @@ fun App(
                                 reporting.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
                                 showSignInDialog = true
                             },
-                            onRestorePurchases = { backStack.push(DesktopProDestination(source = destination.source)) },
+                            onRestorePurchases = { backStack.push(RestorePurchasesDestination(source = destination.source)) },
                             onCloudSubscribeClick = {
                                 reporting.logEvent(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,

@@ -110,7 +110,7 @@ private enum class Selection { None, GooglePlay, GitHub }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DesktopProScreen(
+fun RestorePurchasesScreen(
     onBack: () -> Unit,
     onCreateLink: suspend () -> LinkResult?,
     onPollStatus: suspend (code: String) -> StatusResult?,

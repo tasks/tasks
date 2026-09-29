@@ -37,7 +37,7 @@ data object SettingsDestination : NavKey
 data object LinkDesktopDestination : NavKey
 
 @Serializable
-data class DesktopProDestination(val source: String? = null) : NavKey
+data class RestorePurchasesDestination(val source: String? = null) : NavKey
 
 @Serializable
 data object SubscriptionOnboardingDestination : NavKey
