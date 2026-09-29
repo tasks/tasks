@@ -187,10 +187,16 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Build sqlite natives
+        run: |
+          python3 -m venv "$RUNNER_TEMP/zig"
+          "$RUNNER_TEMP/zig/bin/pip" install ziglang==0.16.0
+          ZIG="$RUNNER_TEMP/zig/bin/python -m ziglang" composeApp/build-sqlite-natives.sh "$RUNNER_TEMP/sqlite-natives"
+
       - name: Build desktop jar
         env:
           POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
-        run: ./gradlew :composeApp:desktopJar -Prelease
+        run: ./gradlew :composeApp:desktopJar -Prelease -PsqliteNatives=${{ runner.temp }}/sqlite-natives
 
       - name: Upload desktop jars
         uses: actions/upload-artifact@v7
@@ -256,12 +262,16 @@ jobs:
           name: desktop-jar
 
       - uses: ./.github/actions/install-conveyor
+        id: conveyor
 
       - name: Cache Conveyor downloads
         uses: actions/cache@v6
         with:
-          path: ~/.cache/hydraulic/conveyor
-          key: conveyor-${{ matrix.platform }}
+          path: ~/.cache/hydraulic/conveyor/cache
+          key: conveyor-${{ matrix.platform }}-${{ steps.conveyor.outputs.version }}-${{ hashFiles('composeApp/conveyor.conf') }}
+          restore-keys: |
+            conveyor-${{ matrix.platform }}-${{ steps.conveyor.outputs.version }}-
+            conveyor-${{ matrix.platform }}-
 
       - name: Generate signing key if absent
         env:
@@ -279,7 +289,14 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: |
           [ -z "$SIGNING_KEY" ] && unset SIGNING_KEY
-          conveyor ${{ matrix.flags }} make ${{ matrix.target }}
+          conveyor --logs-dir="$RUNNER_TEMP/conveyor-logs" ${{ matrix.flags }} make ${{ matrix.target }}
+
+      - name: Upload Conveyor logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: conveyor-logs-${{ matrix.platform }}
+          path: ${{ runner.temp }}/conveyor-logs/
 
       - name: Upload desktop-${{ matrix.platform }}
         uses: actions/upload-artifact@v7

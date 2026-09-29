@@ -11,6 +11,11 @@ inputs:
     required: true
     default: "768ea002e99149deb502a9177c11f2f00dcbffa976e505f7f424a5492287ee3c"
 
+outputs:
+  version:
+    description: Conveyor version
+    value: ${{ inputs.version }}
+
 runs:
   using: composite
   steps:
