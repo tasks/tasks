@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 data class TasksAccountResponse(
     val createdAt: Long? = null,
     val subscription: Subscription? = null,
+    val subscriptions: List<SubscriptionSource> = emptyList(),
+    val supporter: List<SupporterSource> = emptyList(),
     @SerialName("inbound_email") val inboundEmail: InboundEmail? = null,
     @SerialName("app_passwords") val appPasswords: List<AppPassword> = emptyList(),
     val guest: Boolean = false,
@@ -14,6 +16,31 @@ data class TasksAccountResponse(
     val guests: List<Guest> = emptyList(),
     @SerialName("max_guests") val maxGuests: Int = 5,
 ) {
+    val hasAnySubscription: Boolean
+        get() = subscriptions.isNotEmpty() || supporter.isNotEmpty() || subscription?.free == false
+
+    val hasCloudSubscription: Boolean
+        get() = subscriptions.isNotEmpty()
+
+    @Serializable
+    data class SubscriptionSource(
+        val provider: String? = null,
+        val expires: Long? = null,
+        val isActive: Boolean = false,
+        @SerialName("cancel_at_period_end") val cancelAtPeriodEnd: Boolean = false,
+        val product: String? = null,
+    )
+
+    @Serializable
+    data class SupporterSource(
+        val provider: String? = null,
+        val product: String? = null,
+        @SerialName("formatted_price") val formattedPrice: String? = null,
+        val status: String? = null,
+        val expires: Long? = null,
+        @SerialName("cancel_at_period_end") val cancelAtPeriodEnd: Boolean = false,
+    )
+
     @Serializable
     data class Subscription(
         val free: Boolean = true,

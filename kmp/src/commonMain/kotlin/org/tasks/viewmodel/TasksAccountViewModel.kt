@@ -126,8 +126,9 @@ open class TasksAccountViewModel(
             isGithub = account?.username?.startsWith("github") == true,
             isApple = account?.username?.startsWith("apple") == true,
             isGuest = response?.guest ?: false,
-            hasSubscription = subscription != null,
-            isTasksSubscription = subscription?.isTasksSubscription == true,
+            hasSubscription = subscription != null || response?.hasAnySubscription == true,
+            isTasksSubscription = subscription?.isTasksSubscription == true ||
+                response?.hasCloudSubscription == true,
             showTosDialog = !tosDismissed && account?.isTosRequired() == true,
             inboundEmail = response?.inboundEmail?.email?.takeIf(String::isNotEmpty),
             inboundCalendarName = calendars
