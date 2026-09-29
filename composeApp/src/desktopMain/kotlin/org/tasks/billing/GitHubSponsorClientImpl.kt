@@ -26,7 +26,7 @@ import kotlin.coroutines.resume
 class GitHubSponsorClientImpl(
     private val httpClientFactory: OkHttpClientFactory,
     private val serverEnvironment: TasksServerEnvironment,
-    private val desktopEntitlement: DesktopEntitlement,
+    private val purchaseEntitlement: PurchaseEntitlement,
     private val json: Json,
     private val openUrl: (String) -> Unit = { url ->
         if (!openInBrowser(url)) {
@@ -178,7 +178,7 @@ class GitHubSponsorClientImpl(
                             val responseBody = it.body?.string()
                                 ?: return@withContext GitHubSponsorClient.VerifyResult.Failed
                             val result = json.decodeFromString(VerifyResponse.serializer(), responseBody)
-                            val stored = desktopEntitlement.storeEntitlement(
+                            val stored = purchaseEntitlement.storeEntitlement(
                                 jwt = result.jwt,
                                 refreshToken = result.refresh_token,
                                 sku = result.sku,

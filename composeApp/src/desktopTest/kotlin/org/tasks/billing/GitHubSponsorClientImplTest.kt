@@ -15,7 +15,7 @@ class GitHubSponsorClientImplTest {
         val client = GitHubSponsorClientImpl(
             httpClientFactory = mock<OkHttpClientFactory>(),
             serverEnvironment = mock<TasksServerEnvironment>(),
-            desktopEntitlement = mock<DesktopEntitlement>(),
+            purchaseEntitlement = mock<PurchaseEntitlement>(),
             json = Json,
             openUrl = { throw IOException("nothing on this system could open it") },
         )

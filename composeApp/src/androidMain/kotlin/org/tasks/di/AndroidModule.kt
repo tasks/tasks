@@ -9,10 +9,10 @@ import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import org.tasks.TasksBuildConfig
+import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
@@ -78,29 +78,27 @@ actual fun platformModule(): Module = module {
             userAgent = "${org.tasks.BuildConfig.APPLICATION_ID}/${org.tasks.BuildConfig.VERSION_NAME} (okhttp3) Android/${android.os.Build.VERSION.RELEASE}",
         )
     }
+    single {
+        PurchaseEntitlement(
+            dataDir = androidContext().filesDir.absolutePath,
+            encryption = get(),
+            httpClientFactory = get(),
+            serverEnvironment = get(),
+            scope = get(),
+            json = get(),
+            syncAdapters = get(),
+        ).also { it.initialize() }
+    }
     single<SubscriptionProvider> {
         val tasksPreferences = get<TasksPreferences>()
-        val subscriptionFlow: Flow<SubscriptionProvider.SubscriptionInfo?> =
-            if (TasksBuildConfig.DEBUG) {
-                tasksPreferences.flow(TasksPreferences.debugPro, false).map { debug ->
-                    if (debug) {
-                        SubscriptionProvider.SubscriptionInfo(
-                            sku = "debug_pro",
-                            isMonthly = false,
-                            isTasksSubscription = false,
-                            isGitHubSponsor = false,
-                        )
-                    } else {
-                        null
-                    }
-                }
+        EntitlementSubscriptionProvider(
+            entitlement = get(),
+            debugPro = if (TasksBuildConfig.DEBUG) {
+                tasksPreferences.flow(TasksPreferences.debugPro, false)
             } else {
-                flowOf(null)
-            }
-        object : SubscriptionProvider {
-            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> = subscriptionFlow
-            override suspend fun getFormattedPrice(sku: String): String? = null
-        }
+                flowOf(false)
+            },
+        )
     }
     factory { FileStorage(androidContext().filesDir.absolutePath) }
     factory {

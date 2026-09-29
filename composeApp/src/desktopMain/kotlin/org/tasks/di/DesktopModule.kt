@@ -8,8 +8,6 @@ import at.bitfire.cert4android.DesktopUserDecisionRegistry
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.service.CommonUpgrades
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -32,10 +30,10 @@ import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.BillingProvider
-import org.tasks.billing.DesktopEntitlement
+import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.DesktopLinkClientImpl
-import org.tasks.billing.EntitlementProvider
+import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorClientImpl
 import org.tasks.billing.SubscriptionProvider
@@ -249,7 +247,7 @@ actual fun platformModule(): Module = module {
         org.tasks.googleapis.ProxyAuthProvider(
             caldavDao = get(),
             encryption = get(),
-            jwtProvider = { get<DesktopEntitlement>().getJwt() },
+            jwtProvider = { get<PurchaseEntitlement>().getJwt() },
         )
     }
 
@@ -322,7 +320,7 @@ actual fun platformModule(): Module = module {
                 serviceName = "Tasks.org",
                 accountName = "encryption-key",
                 fallbackKeyFile = File(dataDir, ".key"),
-                hasEncryptedData = { File(dataDir, DesktopEntitlement.FILE_NAME).exists() },
+                hasEncryptedData = { File(dataDir, PurchaseEntitlement.FILE_NAME).exists() },
             )
         )
     }
@@ -365,58 +363,34 @@ actual fun platformModule(): Module = module {
     }
     factoryOf(::VtodoCache)
     single {
-        DesktopEntitlement(
-            dataDir = dataDir,
+        PurchaseEntitlement(
+            dataDir = dataDir.path,
+            encryption = get<KeyStoreEncryption>(),
             httpClientFactory = get(),
             serverEnvironment = get(),
             scope = get(),
             json = get(),
-            encryption = get(),
             syncAdapters = get(),
         ).also { it.initialize() }
     }
     single<SubscriptionProvider> {
-        val entitlement: DesktopEntitlement = get()
         val tasksPreferences: TasksPreferences = get()
-        val debugPro: Flow<Boolean> =
-            if (TasksBuildConfig.DEBUG) tasksPreferences.flow(TasksPreferences.debugPro, false)
-            else flowOf(false)
-        object : SubscriptionProvider {
-            override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> =
-                combine(entitlement.hasPro, entitlement.sku, entitlement.provider, debugPro) { hasPro, sku, provider, debug ->
-                    when {
-                        hasPro -> {
-                            val isMonthly = sku?.startsWith("monthly") == true
-                            SubscriptionProvider.SubscriptionInfo(
-                                sku = sku ?: "desktop_play",
-                                isMonthly = isMonthly,
-                                isTasksSubscription = isTasksSubscription(sku, isMonthly),
-                                isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
-                            )
-                        }
-                        debug -> SubscriptionProvider.SubscriptionInfo(
-                            sku = "debug_pro",
-                            isMonthly = false,
-                            isTasksSubscription = false,
-                            isGitHubSponsor = false,
-                        )
-                        else -> null
-                    }
-                }
-
-            override suspend fun awaitVerification(): Boolean = entitlement.awaitReady()
-
-            override val googleAndMicrosoftRequirePro: Boolean get() = true
-
-            override suspend fun getFormattedPrice(sku: String): String? =
-                entitlement.formattedPrice.first()
-        }
+        EntitlementSubscriptionProvider(
+            entitlement = get(),
+            debugPro = if (TasksBuildConfig.DEBUG) {
+                tasksPreferences.flow(TasksPreferences.debugPro, false)
+            } else {
+                flowOf(false)
+            },
+            googleAndMicrosoftRequirePro = true,
+            verifyBeforeSync = true,
+        )
     }
     single<DesktopLinkClient> {
         DesktopLinkClientImpl(
             httpClientFactory = get(),
             serverEnvironment = get(),
-            desktopEntitlement = get(),
+            purchaseEntitlement = get(),
             json = get(),
         )
     }
@@ -424,7 +398,7 @@ actual fun platformModule(): Module = module {
         GitHubSponsorClientImpl(
             httpClientFactory = get(),
             serverEnvironment = get(),
-            desktopEntitlement = get(),
+            purchaseEntitlement = get(),
             json = get(),
         )
     }
@@ -493,14 +467,4 @@ actual fun platformModule(): Module = module {
             hold = { get<DesktopNotifier>().hold() },
         )
     }
-}
-
-private val SKU_PATTERN = Regex("^(annual|monthly)_(\\d+)$")
-
-private fun isTasksSubscription(sku: String?, isMonthly: Boolean): Boolean {
-    if (sku == null) return false
-    val match = SKU_PATTERN.matchEntire(sku) ?: return false
-    val price = match.groupValues[2].toIntOrNull() ?: return false
-    val effectivePrice = if (price == 499) 5 else price
-    return if (isMonthly) effectivePrice >= 3 else effectivePrice >= 30
 }

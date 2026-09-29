@@ -1,10 +1,16 @@
 package org.tasks.billing
 
 import co.touchlab.kermit.Logger
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
@@ -13,45 +19,38 @@ import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.auth.TasksServerEnvironment
-import org.tasks.http.EncryptedFile
-import org.tasks.http.OkHttpClientFactory
-import org.tasks.security.KeyStoreEncryption
+import org.tasks.http.KtorClientFactory
+import okio.Path.Companion.toPath
+import org.tasks.security.EncryptedStore
+import org.tasks.security.Encryption
+import org.tasks.security.rawEcdsaToDer
+import org.tasks.security.verifyEs256
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.io.File
-import java.security.KeyFactory
-import java.security.Signature
-import java.security.spec.X509EncodedKeySpec
-import java.util.Base64
-import java.util.concurrent.TimeUnit
+import kotlin.io.encoding.Base64
 
-class DesktopEntitlement(
-    dataDir: File,
-    private val httpClientFactory: OkHttpClientFactory,
+class PurchaseEntitlement(
+    dataDir: String,
+    encryption: Encryption,
+    private val httpClientFactory: KtorClientFactory,
     private val serverEnvironment: TasksServerEnvironment,
     private val scope: CoroutineScope,
     private val json: Json,
-    private val encryption: KeyStoreEncryption,
     private val syncAdapters: SyncAdapters,
     private val publicKeyBase64: String = TASKS_PUBLIC_KEY,
     private val refreshCallTimeoutMillis: Long = REFRESH_CALL_TIMEOUT_MILLIS,
     private val readyTimeoutMillis: Long = READY_TIMEOUT_MILLIS,
 ) {
-    private val storage = EncryptedFile(File(dataDir, FILE_NAME), encryption)
-    private val logger = Logger.withTag("DesktopEntitlement")
+    private val storage = EncryptedStore("$dataDir/$FILE_NAME".toPath(), encryption)
+    private val logger = Logger.withTag("PurchaseEntitlement")
     private val checkLock = Mutex()
     private var refreshJob: Job? = null
 
-    @Volatile
     private var lastRefreshAttempt = 0L
 
     private val _hasPro = MutableStateFlow(false)
@@ -66,11 +65,7 @@ class DesktopEntitlement(
     private val _provider = MutableStateFlow<EntitlementProvider?>(null)
     val provider: Flow<EntitlementProvider?> = _provider
 
-    private val publicKey by lazy {
-        val keyBytes = Base64.getDecoder().decode(publicKeyBase64)
-        val keySpec = X509EncodedKeySpec(keyBytes)
-        KeyFactory.getInstance("EC").generatePublic(keySpec)
-    }
+    private val publicKey by lazy { Base64.Default.decode(publicKeyBase64) }
 
     @Serializable
     data class StoredEntitlement(
@@ -133,6 +128,9 @@ class DesktopEntitlement(
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L
         private const val READY_TIMEOUT_MILLIS = 30_000L
         private const val REFRESH_CALL_TIMEOUT_MILLIS = 20_000L
+
+        private val base64Url =
+            Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT_OPTIONAL)
     }
 
     suspend fun getJwt(): String? = (load() as? LoadResult.Loaded)?.entitlement?.jwt
@@ -263,7 +261,7 @@ class DesktopEntitlement(
                     logger.e { "Refreshed entitlement was rejected, keeping the stored one" }
                     false
                 } else {
-                    logger.i { "Desktop entitlement refreshed" }
+                    logger.i { "Purchase entitlement refreshed" }
                     true
                 }
             }
@@ -311,14 +309,12 @@ class DesktopEntitlement(
         return try {
             val parts = jwt.split(".")
             if (parts.size != 3) return false
-
-            val headerAndPayload = "${parts[0]}.${parts[1]}"
-            val signatureBytes = Base64.getUrlDecoder().decode(parts[2])
-
-            val sig = Signature.getInstance("SHA256withECDSA")
-            sig.initVerify(publicKey)
-            sig.update(headerAndPayload.toByteArray(Charsets.US_ASCII))
-            sig.verify(derEncode(signatureBytes))
+            val der = rawEcdsaToDer(base64Url.decode(parts[2])) ?: return false
+            verifyEs256(
+                publicKey = publicKey,
+                signed = "${parts[0]}.${parts[1]}".encodeToByteArray(),
+                derSignature = der,
+            )
         } catch (e: Exception) {
             logger.e(e) { "JWT signature verification failed" }
             false
@@ -327,7 +323,7 @@ class DesktopEntitlement(
 
     private fun parsePayload(jwt: String): JwtPayload? {
         return try {
-            val payloadJson = String(Base64.getUrlDecoder().decode(jwt.split(".")[1]))
+            val payloadJson = base64Url.decode(jwt.split(".")[1]).decodeToString()
             json.decodeFromString(JwtPayload.serializer(), payloadJson)
         } catch (e: Exception) {
             logger.e(e) { "Failed to parse JWT payload" }
@@ -335,73 +331,47 @@ class DesktopEntitlement(
         }
     }
 
-    // ES256 JWTs use raw R||S format (64 bytes), but Java needs DER encoding
-    private fun derEncode(raw: ByteArray): ByteArray {
-        if (raw.size != 64) {
-            logger.w { "Unexpected signature size: ${raw.size}, expected 64" }
-            return raw
+    private suspend fun callRefresh(
+        refreshToken: String,
+        provider: EntitlementProvider,
+    ): RefreshResult {
+        val url = when (provider) {
+            EntitlementProvider.GITHUB_SPONSOR ->
+                "${serverEnvironment.caldavUrl}/desktop/github/refresh"
+            EntitlementProvider.PLAY ->
+                "${serverEnvironment.caldavUrl}/desktop/refresh"
         }
-        val r = raw.sliceArray(0 until 32).trimLeadingZeros()
-        val s = raw.sliceArray(32 until 64).trimLeadingZeros()
-        if (r.isEmpty() || s.isEmpty()) {
-            logger.w { "Invalid signature component after trimming" }
-            return raw
-        }
-        val rLen = if (r[0].toInt() and 0x80 != 0) r.size + 1 else r.size
-        val sLen = if (s[0].toInt() and 0x80 != 0) s.size + 1 else s.size
-        val totalLen = 2 + rLen + 2 + sLen
-        val der = ByteArray(2 + totalLen)
-        var i = 0
-        der[i++] = 0x30
-        der[i++] = totalLen.toByte()
-        der[i++] = 0x02
-        der[i++] = rLen.toByte()
-        if (rLen > r.size) der[i++] = 0x00
-        r.copyInto(der, i); i += r.size
-        der[i++] = 0x02
-        der[i++] = sLen.toByte()
-        if (sLen > s.size) der[i++] = 0x00
-        s.copyInto(der, i)
-        return der
-    }
-
-    private fun ByteArray.trimLeadingZeros(): ByteArray {
-        var start = 0
-        while (start < size - 1 && this[start] == 0.toByte()) start++
-        return if (start == 0) this else sliceArray(start until size)
-    }
-
-    private suspend fun callRefresh(refreshToken: String, provider: EntitlementProvider): RefreshResult =
-        withContext(Dispatchers.IO) {
-            try {
-                val client = httpClientFactory.newClient {
-                    it.callTimeout(refreshCallTimeoutMillis, TimeUnit.MILLISECONDS)
+        return try {
+            val client = httpClientFactory.newClient {
+                install(HttpTimeout) { requestTimeoutMillis = refreshCallTimeoutMillis }
+            }
+            val (code, body) = try {
+                val response = client.post(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(
+                        json.encodeToString(
+                            RefreshRequest.serializer(),
+                            RefreshRequest(refresh_token = refreshToken),
+                        )
+                    )
                 }
-                val url = when (provider) {
-                    EntitlementProvider.GITHUB_SPONSOR -> "${serverEnvironment.caldavUrl}/desktop/github/refresh"
-                    EntitlementProvider.PLAY -> "${serverEnvironment.caldavUrl}/desktop/refresh"
+                response.status.value to response.bodyAsText()
+            } finally {
+                client.close()
+            }
+            if (code !in 200..299) {
+                if (code == 402) {
+                    RefreshResult.Revoked
+                } else {
+                    logger.w { "Entitlement refresh failed: HTTP $code" }
+                    RefreshResult.Failed
                 }
-                val body = json.encodeToString(
-                    RefreshRequest.serializer(),
-                    RefreshRequest(refresh_token = refreshToken)
-                ).toRequestBody("application/json".toMediaType())
-                val request = Request.Builder().url(url).post(body).build()
-                val response = client.newCall(request).execute()
-                response.use {
-                    if (!it.isSuccessful) {
-                        return@withContext if (it.code == 402) {
-                            RefreshResult.Revoked
-                        } else {
-                            logger.w { "Entitlement refresh failed: HTTP ${it.code}" }
-                            RefreshResult.Failed
-                        }
-                    }
-                    val responseBody = it.body.string()
-                    val result = json.decodeFromString(RefreshResponse.serializer(), responseBody)
-                    if (result.jwt == null || result.refresh_token == null) {
-                        logger.w { "Entitlement refresh response has no jwt or refresh token" }
-                        return@withContext RefreshResult.Failed
-                    }
+            } else {
+                val result = json.decodeFromString(RefreshResponse.serializer(), body)
+                if (result.jwt == null || result.refresh_token == null) {
+                    logger.w { "Entitlement refresh response has no jwt or refresh token" }
+                    RefreshResult.Failed
+                } else {
                     RefreshResult.Success(
                         jwt = result.jwt,
                         refreshToken = result.refresh_token,
@@ -409,12 +379,13 @@ class DesktopEntitlement(
                         formattedPrice = result.formatted_price,
                     )
                 }
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                ensureActive()
-                logger.e(e) { "Failed to refresh desktop entitlement" }
-                RefreshResult.Failed
             }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
+            logger.e(e) { "Failed to refresh purchase entitlement" }
+            RefreshResult.Failed
         }
+    }
 }

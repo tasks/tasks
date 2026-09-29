@@ -28,6 +28,7 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.OkHttpKtorClientFactory
 import org.tasks.security.KeyProvider
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
@@ -44,7 +45,7 @@ import java.util.concurrent.TimeUnit
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
-class DesktopEntitlementTest {
+class PurchaseEntitlementTest {
 
     private lateinit var dir: File
     private lateinit var server: MockWebServer
@@ -80,13 +81,13 @@ class DesktopEntitlementTest {
 
     private val httpClient = OkHttpClient()
 
-    private val clientFactory = object : OkHttpClientFactory {
+    private val clientFactory = OkHttpKtorClientFactory(object : OkHttpClientFactory {
         override suspend fun newClient(
             foreground: Boolean,
             cookieKey: String?,
             block: (OkHttpClient.Builder) -> Unit,
         ) = httpClient.newBuilder().apply(block).build()
-    }
+    })
 
     @Before
     fun setUp() {
@@ -499,15 +500,15 @@ class DesktopEntitlementTest {
         refreshCallTimeoutMillis: Long = 20_000L,
         readyTimeoutMillis: Long = 30_000L,
         dataDir: File = dir,
-    ) = DesktopEntitlement(
-        dataDir = dataDir,
+    ) = PurchaseEntitlement(
+        dataDir = dataDir.path,
+        encryption = encryption,
         httpClientFactory = clientFactory,
         serverEnvironment = mock<TasksServerEnvironment> {
             on { caldavUrl } doReturn server.url("/").toString().trimEnd('/')
         },
         scope = scope,
         json = json,
-        encryption = encryption,
         syncAdapters = syncAdapters,
         publicKeyBase64 = Base64.getEncoder().encodeToString(keyPair.public.encoded),
         refreshCallTimeoutMillis = refreshCallTimeoutMillis,
@@ -517,14 +518,14 @@ class DesktopEntitlementTest {
     private fun now() = System.currentTimeMillis() / 1000
 
     private fun storeOnDisk(jwt: String) = runBlocking {
-        val stored = DesktopEntitlement.StoredEntitlement(
+        val stored = PurchaseEntitlement.StoredEntitlement(
             jwt = jwt,
             refreshToken = "stored-token",
             sku = "annual",
             formattedPrice = "USD 10.00",
             provider = EntitlementProvider.PLAY,
         )
-        val plain = json.encodeToString(DesktopEntitlement.StoredEntitlement.serializer(), stored)
+        val plain = json.encodeToString(PurchaseEntitlement.StoredEntitlement.serializer(), stored)
         entitlementFile.writeText(encryption.encrypt(plain)!!)
     }
 
@@ -543,9 +544,9 @@ class DesktopEntitlementTest {
             ?.content
     }
 
-    private suspend fun readFromDisk(): DesktopEntitlement.StoredEntitlement {
+    private suspend fun readFromDisk(): PurchaseEntitlement.StoredEntitlement {
         val decrypted = encryption.decrypt(entitlementFile.readText())!!
-        return json.decodeFromString(DesktopEntitlement.StoredEntitlement.serializer(), decrypted)
+        return json.decodeFromString(PurchaseEntitlement.StoredEntitlement.serializer(), decrypted)
     }
 
     private fun jwt(exp: Long, key: PrivateKey = keyPair.private): String =
