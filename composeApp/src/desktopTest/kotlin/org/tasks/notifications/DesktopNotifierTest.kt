@@ -35,6 +35,8 @@ class DesktopNotifierTest : DatabaseTest() {
 
     private var platformIdsAreOurs = true
 
+    private var muted = emptySet<Long>()
+
     private val notifier = DesktopNotifier(
         taskDao = taskDao,
         notificationDao = notificationDao,
@@ -44,6 +46,7 @@ class DesktopNotifierTest : DatabaseTest() {
         recordScreenCleared = { screenCleared = true },
         takeScreenCleared = { screenCleared.also { screenCleared = false } },
         claimPlatformIds = { platformIdsAreOurs },
+        mutedTaskIds = { ids -> ids.filterTo(mutableSetOf()) { it in muted } },
         elapsedRealtime = { elapsed },
         createBackend = { nextBackend()?.also { built.add(it) } },
     )
@@ -68,6 +71,35 @@ class DesktopNotifierTest : DatabaseTest() {
 
         assertEquals(NOW.endOfMinute(), taskDao.fetch(task.id)!!.reminderLast)
         assertEquals(listOf(task.id), notificationDao.getAll())
+    }
+
+    @Test
+    fun remindersForMutedListsAreConsumedWithoutPosting() = runTest {
+        DateTimeUtils2.setCurrentMillisFixed(NOW)
+        val task = createTask(Task(title = "shared list"))
+        muted = setOf(task.id)
+
+        notifier.triggerNotifications(listOf(notification(task.id)))
+
+        assertEquals(0, backend.shown.size)
+        assertEquals(NOW.endOfMinute(), taskDao.fetch(task.id)!!.reminderLast)
+        assertEquals(emptyList<Long>(), notificationDao.getAll())
+    }
+
+    @Test
+    fun remindersForMutedListsAreReportedAsHandled() = runTest {
+        DateTimeUtils2.setCurrentMillisFixed(NOW)
+        val mutedTask = createTask(Task(title = "shared list"))
+        val otherTask = createTask(Task(title = "mine"))
+        muted = setOf(mutedTask.id)
+
+        val handled = notifier.triggerNotifications(
+            listOf(notification(mutedTask.id), notification(otherTask.id))
+        )
+
+        assertEquals(listOf(otherTask.id, mutedTask.id), handled)
+        assertEquals(listOf(otherTask.id), backend.shown.map { it.taskId })
+        assertEquals(NOW.endOfMinute(), taskDao.fetch(mutedTask.id)!!.reminderLast)
     }
 
     @Test

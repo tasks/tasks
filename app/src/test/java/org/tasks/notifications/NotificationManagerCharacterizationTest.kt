@@ -24,6 +24,7 @@ import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.pickers.QuickPickTimes
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
@@ -46,6 +47,7 @@ class NotificationManagerCharacterizationTest {
     private val preferences: Preferences = mock()
     private val notificationDao: NotificationDao = mock()
     private val taskDao: TaskDao = mock()
+    private val caldavDao: CaldavDao = mock()
     private val locationDao: LocationDao = mock()
     private val refreshBroadcaster: RefreshBroadcaster = mock()
     private val markdownProvider: MarkdownProvider = mock()
@@ -85,6 +87,9 @@ class NotificationManagerCharacterizationTest {
             on { markdown(anyBoolean(), anyBoolean()) } doReturn PassThroughMarkdown
         }
         whenever(permissionChecker.canNotify()) doReturn true
+        caldavDao.stub {
+            onBlocking { getMutedTaskIds(any()) } doReturn emptyList()
+        }
         taskDao.stub {
             onBlocking { fetch(any<Long>()) } doAnswer { tasks[it.arguments[0] as Long] }
             onBlocking { activeNotifications() } doAnswer { tasks.values.toList() }
@@ -99,6 +104,7 @@ class NotificationManagerCharacterizationTest {
             preferences = preferences,
             notificationDao = notificationDao,
             taskDao = taskDao,
+            caldavDao = caldavDao,
             locationDao = locationDao,
             refreshBroadcaster = refreshBroadcaster,
             notificationManager = throttled,
@@ -136,6 +142,37 @@ class NotificationManagerCharacterizationTest {
         val endOfMinute = DateTime(TIMESTAMP).endOfMinute().millis
         verifyBlocking(taskDao) { setLastNotified(1L, endOfMinute) }
         verifyBlocking(taskDao) { setLastNotified(2L, endOfMinute) }
+    }
+
+    @Test
+    @Suppress("UNCHECKED_CAST")
+    fun mutedListsAreConsumedWithoutPosting() = runTest {
+        givenTask(1L, "one")
+        whenever(caldavDao.getMutedTaskIds(any())) doReturn listOf(1L)
+        val inserted = mutableListOf<List<Notification>>()
+        notificationDao.stub {
+            onBlocking { insertAll(any()) } doAnswer {
+                inserted.add(it.arguments[0] as List<Notification>)
+                Unit
+            }
+        }
+
+        notificationManager.notifyTasks(listOf(notification(1L)), alert = true, nonstop = false, fiveTimes = false)
+
+        assertEquals(listOf("cancel:0"), shade)
+        assertTrue(inserted.all { it.isEmpty() })
+        verifyBlocking(taskDao) { setLastNotified(1L, DateTime(TIMESTAMP).endOfMinute().millis) }
+    }
+
+    @Test
+    fun restoringDropsNotificationsForMutedLists() = runTest {
+        whenever(caldavDao.getMutedTaskIds(any())) doReturn listOf(1L)
+        whenever(notificationDao.getAllOrdered()) doReturn listOf(notification(1L))
+
+        notificationManager.restoreNotifications(cancelExisting = true)
+
+        assertEquals(listOf("cancel:1", "cancel:0"), shade)
+        verifyBlocking(notificationDao) { deleteAll(listOf(1L)) }
     }
 
     @Test
