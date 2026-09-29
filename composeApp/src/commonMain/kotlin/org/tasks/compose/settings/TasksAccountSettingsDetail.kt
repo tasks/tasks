@@ -45,6 +45,7 @@ fun TasksAccountSettingsDetail(
     pane: TasksAccountSettingsPane,
     onNavigateBack: () -> Unit,
     onAddAccountClick: () -> Unit,
+    onModifySubscription: () -> Unit,
 ) {
     val viewModel = koinViewModel<TasksAccountViewModel>()
     val signInHandler = koinInject<SignInHandler>()
@@ -137,8 +138,10 @@ fun TasksAccountSettingsDetail(
                     uriHandler.openUri(appPasswordsUrl)
                 },
                 onAddAccount = onAddAccountClick,
-                onModifySubscription = {},
-                onCancelSubscription = {},
+                onModifySubscription = onModifySubscription,
+                onCancelSubscription = {
+                    uriHandler.openUri(TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS)
+                },
                 onLogout = {
                     scope.launch {
                         withContext(NonCancellable) {

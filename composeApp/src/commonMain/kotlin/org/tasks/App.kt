@@ -3116,6 +3116,7 @@ private fun SettingsScreen(
                                 scope.launch { navigator.navigateBack() }
                             },
                             onAddAccountClick = onAddAccountClick,
+                            onModifySubscription = onUpgradeClick,
                         )
                     }
                     is CaldavAccountSettingsPane -> {
