@@ -306,12 +306,8 @@ class Firebase @Inject constructor(
     }
 
     fun logEventOncePerDay(@StringRes event: Int, vararg p: Pair<Int, Any>) {
-        val eventName = context.getString(event)
-        val prefKey = "last_logged_$eventName"
-        val today = currentTimeMillis().startOfDay()
-        val lastLogged = preferences.getLong(prefKey, 0L)
-        if (lastLogged < today) {
-            preferences.setLong(prefKey, today)
+        val prefKey = "last_logged_${context.getString(event)}"
+        if (preferences.setLongIfGreater(prefKey, currentTimeMillis().startOfDay())) {
             logEvent(event, *p)
         }
     }

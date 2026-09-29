@@ -536,6 +536,16 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
+    fun setLongIfGreater(key: String, value: Long, defValue: Long = 0L): Boolean =
+            synchronized(longUpdateLock) {
+                if (prefs.getLong(key, defValue) < value) {
+                    setLong(key, value)
+                    true
+                } else {
+                    false
+                }
+            }
+
     fun clear(key: String?) {
         Timber.d("Clearing $key")
         val editor = prefs.edit()
@@ -838,6 +848,8 @@ class Preferences @JvmOverloads constructor(
     }
 
     companion object {
+        private val longUpdateLock = Any()
+
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"
     }
