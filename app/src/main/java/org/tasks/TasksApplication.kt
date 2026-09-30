@@ -25,8 +25,12 @@ import com.todoroo.andlib.utility.AndroidUtilities.atLeastAndroid15
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import com.todoroo.astrid.service.Upgrader
 import dagger.Lazy
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.HiltAndroidApp
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -67,7 +71,6 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var upgrader: Lazy<Upgrader>
     @Inject lateinit var workManager: Lazy<WorkManager>
     @Inject lateinit var locationService: Lazy<LocationService>
-    @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
     @Inject lateinit var syncAdapters: Lazy<SyncAdapters>
     @Inject lateinit var firebase: Firebase
@@ -199,9 +202,19 @@ class TasksApplication : Application(), Configuration.Provider {
 
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
-            .setWorkerFactory(workerFactory)
+            .setWorkerFactory(
+                EntryPointAccessors
+                    .fromApplication(this, WorkerFactoryEntryPoint::class.java)
+                    .workerFactory
+            )
             .setMinimumLoggingLevel(if (BuildConfig.DEBUG) Log.DEBUG else Log.INFO)
             .build()
+
+    @EntryPoint
+    @InstallIn(SingletonComponent::class)
+    interface WorkerFactoryEntryPoint {
+        val workerFactory: HiltWorkerFactory
+    }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
