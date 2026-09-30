@@ -431,4 +431,5 @@
     <string name="guest_create_list_message">У вас гостевой доступ к общим спискам. Чтобы создавать и синхронизировать свои приватные списки с облаком, нужна подписка Tasks.org. Также вы можете создать бесплатный локальный список — он будет храниться только на этом устройстве.</string>
     <string name="upgrade_desktop_app">Tasks.org для компьютера</string>
     <string name="upgrade_desktop_app_description">Ранний доступ к новому настольному приложению</string>
+    <string name="write_permission_label">Изменить задачу</string>
 </resources>
