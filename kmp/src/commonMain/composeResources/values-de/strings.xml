@@ -158,7 +158,7 @@
     <string name="password">Passwort</string>
     <string name="regenerate_email_address_confirmation">Deine derzeitige E-Mail-Adresse wird nicht mehr funktionieren</string>
     <string name="migrating_tasks">Aufgaben werden migriert</string>
-    <string name="migrate_count">Verschiebe %1$s zu Tasks.org</string>
+    <string name="migrate_count">%1$s zu Tasks.org verschieben</string>
     <string name="preferences_look_and_feel">Erscheinungsbild</string>
     <string name="notifications">Benachrichtigungen</string>
     <string name="task_defaults">Standards für Aufgaben</string>
@@ -272,7 +272,7 @@
     <string name="this_device_only">Nur dieses Gerät</string>
     <string name="logout_confirmation">Von %1$s abmelden?</string>
     <string name="wrong_account">Anmeldung fehlgeschlagen</string>
-    <string name="wrong_account_message">Ihr Abonnement ist bereits mit %1$s. verknüpft. Wenn Sie glauben, dass es sich um einen Fehler handelt, wenden Sie sich bitte an %2$s</string>
+    <string name="wrong_account_message">Dein Abonnement ist bereits mit %1$s. verknüpft. Wenn du glaubst, dass es sich um einen Fehler handelt, wende dich bitte an %2$s</string>
     <string name="caldav_server_owncloud">ownCloud-Konto</string>
     <string name="caldav_server_sabredav">caldav_server_sabredav</string>
     <string name="caldav_server_openxchange">Open-Xchange-Konto</string>
@@ -627,4 +627,18 @@
     <string name="mcp_tools_group_reminders">Erinnerungen</string>
     <string name="mcp_copy">Kopieren</string>
     <string name="new_filter">Neuen Filter erstellen</string>
+    <string name="sign_in_with_apple">Mit Apple anmelden</string>
+    <string name="mcp_server_summary">Lasse KI-Assistenten auf diesem Computer deine Daten lesen und verwalten</string>
+    <string name="mcp_server_enable">Deine Daten über MCP bereitstellen</string>
+    <string name="mcp_server_enable_summary">Läuft nur auf diesem Computer, bei 127.0.0.1. Nichts ist dem Netzwerk ausgesetzt.</string>
+    <string name="mcp_status_running">Läuft auf Port %1$d</string>
+    <string name="mcp_status_starting">Startet…</string>
+    <string name="mcp_status_stopped">Läuft nicht</string>
+    <string name="mcp_access">Zugriff</string>
+    <string name="mcp_access_read_only">Nur lesend</string>
+    <string name="mcp_access_read_only_summary">Assistenten können deine Aufgaben, Listen, Tags, Orte, Erinnerungen und Synchronisierungskonten lesen. Sie können nichts ändern.</string>
+    <string name="mcp_access_read_write">Lesen und Schreiben</string>
+    <string name="mcp_access_read_write_summary">Assistenten können auch Aufgaben, Listen, Tags, Orte und Erinnerungen erstellen, bearbeiten und löschen.</string>
+    <string name="mcp_access_advanced_summary">Wähle genau, welche Werkzeuge Assistenten verwenden können.</string>
+    <string name="mcp_tools">Werkzeuge</string>
 </resources>
