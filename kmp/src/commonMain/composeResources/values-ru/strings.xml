@@ -513,4 +513,5 @@
     <string name="mcp_tools_group_reminders">Напоминания</string>
     <string name="mcp_copy">Копировать</string>
     <string name="new_filter">Создать новый фильтр</string>
+    <string name="delete_tag_warning">Задачи с этим тегом не будут удалены</string>
 </resources>
