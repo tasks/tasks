@@ -20,9 +20,6 @@ import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.TasksAccountDataRepository
-import org.tasks.compose.HomeDestination
-import org.tasks.compose.SubscriptionOnboardingDestination
-import org.tasks.compose.WelcomeDestination
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
@@ -31,6 +28,8 @@ import org.tasks.filters.Filter
 import org.tasks.filters.SearchFilter
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.TasksPreferences
+import org.tasks.viewmodel.OnboardingRouting
+import org.tasks.viewmodel.OnboardingState
 import org.tasks.viewmodel.DrawerViewModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -69,65 +68,6 @@ class MainActivityViewModel @Inject constructor(
         private const val KEY_WAS_IN_ONBOARDING = "was_in_onboarding"
         private const val KEY_WAS_IN_CLOUD_ONBOARDING = "was_in_cloud_onboarding"
 
-        fun routeOnboarding(
-            state: OnboardingState,
-            hasAccount: Boolean?,
-            needsCloudOnboarding: Boolean?,
-            isImporting: Boolean,
-        ): OnboardingRouting {
-            if (needsCloudOnboarding == null) {
-                return OnboardingRouting(state)
-            }
-            if (needsCloudOnboarding) {
-                return if (!state.wasInCloudOnboarding) {
-                    OnboardingRouting(
-                        state = state.copy(wasInCloudOnboarding = true),
-                        navigation = OnboardingNavigation.Push(SubscriptionOnboardingDestination),
-                        ready = true,
-                    )
-                } else {
-                    OnboardingRouting(state, ready = true)
-                }
-            }
-            if (state.wasInCloudOnboarding) {
-                if (hasAccount == null) {
-                    return OnboardingRouting(state)
-                }
-                val destination = if (hasAccount) HomeDestination else WelcomeDestination
-                return OnboardingRouting(
-                    state = state.copy(
-                        wasInCloudOnboarding = false,
-                        wasInOnboarding = !hasAccount,
-                    ),
-                    navigation = OnboardingNavigation.ClearBackStack(destination),
-                    logOnboardingComplete = hasAccount,
-                    ready = true,
-                )
-            }
-            return when (hasAccount) {
-                false ->
-                    if (!state.wasInOnboarding) {
-                        OnboardingRouting(
-                            state = state.copy(wasInOnboarding = true),
-                            navigation = OnboardingNavigation.ClearBackStack(WelcomeDestination),
-                            ready = true,
-                        )
-                    } else {
-                        OnboardingRouting(state, ready = true)
-                    }
-                true -> when {
-                    isImporting -> OnboardingRouting(state)
-                    state.wasInOnboarding -> OnboardingRouting(
-                        state = state.copy(wasInOnboarding = false),
-                        navigation = OnboardingNavigation.ClearBackStack(HomeDestination),
-                        logOnboardingComplete = true,
-                        ready = true,
-                    )
-                    else -> OnboardingRouting(state, ready = true)
-                }
-                null -> OnboardingRouting(state, ready = false)
-            }
-        }
     }
 
     val accountExists: Flow<Boolean>
@@ -145,29 +85,12 @@ class MainActivityViewModel @Inject constructor(
         get() = savedStateHandle[KEY_WAS_IN_CLOUD_ONBOARDING] ?: false
         set(value) { savedStateHandle[KEY_WAS_IN_CLOUD_ONBOARDING] = value }
 
-    data class OnboardingState(
-        val wasInOnboarding: Boolean = false,
-        val wasInCloudOnboarding: Boolean = false,
-    )
-
-    sealed interface OnboardingNavigation {
-        data class Push(val destination: Any) : OnboardingNavigation
-        data class ClearBackStack(val destination: Any) : OnboardingNavigation
-    }
-
-    data class OnboardingRouting(
-        val state: OnboardingState,
-        val navigation: OnboardingNavigation? = null,
-        val logOnboardingComplete: Boolean = false,
-        val ready: Boolean? = null,
-    )
-
     fun routeOnboarding(
         hasAccount: Boolean?,
         needsCloudOnboarding: Boolean?,
         isImporting: Boolean,
     ): OnboardingRouting {
-        val routing = routeOnboarding(
+        val routing = org.tasks.viewmodel.routeOnboarding(
             OnboardingState(wasInOnboarding, wasInCloudOnboarding),
             hasAccount,
             needsCloudOnboarding,

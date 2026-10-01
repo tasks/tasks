@@ -61,7 +61,7 @@ class PurchaseActivity : AppCompatActivity() {
                     onBack = { finish() },
                     onPurchased = {
                         lifecycleScope.launch {
-                            maybeTriggerCloudOnboarding(inventory, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
+                            maybeTriggerCloudOnboarding(inventory.hasTasksSubscription, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
                             setResult(RESULT_OK)
                             finish()
                         }

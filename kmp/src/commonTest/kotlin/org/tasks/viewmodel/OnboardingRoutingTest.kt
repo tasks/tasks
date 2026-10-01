@@ -1,26 +1,22 @@
-package com.todoroo.astrid.activity
+package org.tasks.viewmodel
 
-import com.todoroo.astrid.activity.MainActivityViewModel.OnboardingNavigation
-import com.todoroo.astrid.activity.MainActivityViewModel.OnboardingRouting
-import com.todoroo.astrid.activity.MainActivityViewModel.OnboardingState
-import org.junit.Assert.assertEquals
-import org.junit.Test
-import org.tasks.compose.HomeDestination
-import org.tasks.compose.SubscriptionOnboardingDestination
-import org.tasks.compose.WelcomeDestination
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class MainActivityViewModelTest {
+class OnboardingRoutingTest {
 
     private fun route(
         state: OnboardingState = OnboardingState(),
         hasAccount: Boolean? = null,
         needsCloudOnboarding: Boolean? = false,
         isImporting: Boolean = false,
-    ) = MainActivityViewModel.routeOnboarding(
+        isAddingAccount: Boolean = false,
+    ) = routeOnboarding(
         state = state,
         hasAccount = hasAccount,
         needsCloudOnboarding = needsCloudOnboarding,
         isImporting = isImporting,
+        isAddingAccount = isAddingAccount,
     )
 
     @Test
@@ -36,7 +32,7 @@ class MainActivityViewModelTest {
         assertEquals(
             OnboardingRouting(
                 state = OnboardingState(wasInCloudOnboarding = true),
-                navigation = OnboardingNavigation.Push(SubscriptionOnboardingDestination),
+                navigation = OnboardingNavigation.Push(OnboardingScreen.CLOUD_ONBOARDING),
                 ready = true,
             ),
             route(needsCloudOnboarding = true),
@@ -74,7 +70,7 @@ class MainActivityViewModelTest {
         assertEquals(
             OnboardingRouting(
                 state = OnboardingState(),
-                navigation = OnboardingNavigation.ClearBackStack(HomeDestination),
+                navigation = OnboardingNavigation.ClearBackStack(OnboardingScreen.HOME),
                 logOnboardingComplete = true,
                 ready = true,
             ),
@@ -91,7 +87,7 @@ class MainActivityViewModelTest {
         assertEquals(
             OnboardingRouting(
                 state = OnboardingState(wasInOnboarding = true),
-                navigation = OnboardingNavigation.ClearBackStack(WelcomeDestination),
+                navigation = OnboardingNavigation.ClearBackStack(OnboardingScreen.WELCOME),
                 logOnboardingComplete = false,
                 ready = true,
             ),
@@ -108,7 +104,7 @@ class MainActivityViewModelTest {
         assertEquals(
             OnboardingRouting(
                 state = OnboardingState(wasInOnboarding = true),
-                navigation = OnboardingNavigation.ClearBackStack(WelcomeDestination),
+                navigation = OnboardingNavigation.ClearBackStack(OnboardingScreen.WELCOME),
                 ready = true,
             ),
             route(hasAccount = false),
@@ -146,7 +142,7 @@ class MainActivityViewModelTest {
         assertEquals(
             OnboardingRouting(
                 state = OnboardingState(),
-                navigation = OnboardingNavigation.ClearBackStack(HomeDestination),
+                navigation = OnboardingNavigation.ClearBackStack(OnboardingScreen.HOME),
                 logOnboardingComplete = true,
                 ready = true,
             ),
@@ -179,7 +175,7 @@ class MainActivityViewModelTest {
 
         // 1. Purchase sets the flag -> push subscription onboarding once.
         route(state, hasAccount = false, needsCloudOnboarding = true).let {
-            assertEquals(OnboardingNavigation.Push(SubscriptionOnboardingDestination), it.navigation)
+            assertEquals(OnboardingNavigation.Push(OnboardingScreen.CLOUD_ONBOARDING), it.navigation)
             state = it.state
         }
 
@@ -191,7 +187,7 @@ class MainActivityViewModelTest {
 
         // 3. Onboarding completes, account now exists -> clear to home and log completion.
         route(state, hasAccount = true, needsCloudOnboarding = false).let {
-            assertEquals(OnboardingNavigation.ClearBackStack(HomeDestination), it.navigation)
+            assertEquals(OnboardingNavigation.ClearBackStack(OnboardingScreen.HOME), it.navigation)
             assertEquals(true, it.logOnboardingComplete)
             state = it.state
         }
@@ -202,5 +198,47 @@ class MainActivityViewModelTest {
             assertEquals(false, it.logOnboardingComplete)
             assertEquals(true, it.ready)
         }
+    }
+
+    @Test
+    fun losingTheLastAccountWhileAddingOneLeavesTheStackAlone() {
+        assertEquals(
+            OnboardingRouting(OnboardingState(), ready = true),
+            route(hasAccount = false, isAddingAccount = true),
+        )
+    }
+
+    @Test
+    fun theDecisionIsRevisitedOnceTheyLeaveTheAddAccountFlow() {
+        val deferred = route(hasAccount = false, isAddingAccount = true)
+
+        assertEquals(
+            OnboardingRouting(
+                state = OnboardingState(wasInOnboarding = true),
+                navigation = OnboardingNavigation.ClearBackStack(OnboardingScreen.WELCOME),
+                ready = true,
+            ),
+            route(state = deferred.state, hasAccount = false),
+        )
+    }
+
+    @Test
+    fun alreadyBeingInOnboardingIsNotDisturbedByAddingAnAccount() {
+        assertEquals(
+            OnboardingRouting(OnboardingState(wasInOnboarding = true), ready = true),
+            route(
+                state = OnboardingState(wasInOnboarding = true),
+                hasAccount = false,
+                isAddingAccount = true,
+            ),
+        )
+    }
+
+    @Test
+    fun addingASecondAccountNeverReachesTheExemption() {
+        assertEquals(
+            OnboardingRouting(OnboardingState(), ready = true),
+            route(hasAccount = true, isAddingAccount = true),
+        )
     }
 }

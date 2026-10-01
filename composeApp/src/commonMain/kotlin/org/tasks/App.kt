@@ -118,6 +118,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
@@ -171,6 +172,7 @@ import org.tasks.compose.platformNavigationBarsPadding
 import org.tasks.compose.platformSidebarInsets
 import org.tasks.compose.platformStatusBarInsets
 import org.tasks.compose.pricing.PricingMode
+import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
@@ -253,6 +255,11 @@ import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.ProCardViewModel
+import org.tasks.viewmodel.OnboardingNavigation
+import org.tasks.viewmodel.OnboardingScreen
+import org.tasks.viewmodel.OnboardingState
+import org.tasks.viewmodel.routeOnboarding
+import org.tasks.viewmodel.SubscriptionOnboardingViewModel
 import org.tasks.viewmodel.SortSettingsViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import org.tasks.viewmodel.TaskListViewModel
@@ -297,10 +304,10 @@ fun App(
             }
         }
     }
-    val themePreferences = koinInject<TasksPreferences>()
-    val baseTheme by remember { themePreferences.flow(TasksPreferences.theme, BaseTheme.DEFAULT) }
+    val tasksPreferences = koinInject<TasksPreferences>()
+    val baseTheme by remember { tasksPreferences.flow(TasksPreferences.theme, BaseTheme.DEFAULT) }
         .collectAsState(initial = BaseTheme.DEFAULT)
-    val storedColor by remember { themePreferences.flow(TasksPreferences.themeColor, BLUE_500) }
+    val storedColor by remember { tasksPreferences.flow(TasksPreferences.themeColor, BLUE_500) }
         .collectAsState(initial = BLUE_500)
     val themeColor = ColorProvider.getColor(storedColor, isDarkTheme(baseTheme), adjust = true)
     TasksTheme(theme = baseTheme, primary = themeColor) {
@@ -316,6 +323,9 @@ fun App(
             val hasAccount by appViewModel.hasAccount.collectAsState()
             val subscriptionProvider = koinInject<SubscriptionProvider>()
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
+            var cloudSignInSource by rememberSaveable { mutableStateOf<String?>(null) }
+            var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
+            var wasInCloudOnboarding by rememberSaveable { mutableStateOf(false) }
 
             // Layout geometry is read off the main thread; hold the first frame until it lands
             // rather than drawing defaults and animating to the stored values a frame later. Read
@@ -347,6 +357,10 @@ fun App(
                             subclass(LinkDesktopDestination::class, LinkDesktopDestination.serializer())
                             subclass(DesktopProDestination::class, DesktopProDestination.serializer())
                             subclass(PricingDestination::class, PricingDestination.serializer())
+                            subclass(
+                                SubscriptionOnboardingDestination::class,
+                                SubscriptionOnboardingDestination.serializer(),
+                            )
                         }
                     }
                 },
@@ -364,36 +378,30 @@ fun App(
             // task list with no view models, nothing rendered in either pane and no way back to
             // onboarding.
             LaunchedEffect(Unit) {
-                snapshotFlow { hasAccount to backStack.isAddingAccount() }
+                combine(
+                    snapshotFlow { hasAccount },
+                    snapshotFlow { backStack.isAddingAccount() },
+                    tasksPreferences.flow(TasksPreferences.needsCloudOnboarding, false),
+                ) { account, addingAccount, needsCloud ->
+                    Triple(account, addingAccount, needsCloud)
+                }
                     .distinctUntilChanged()
-                    .collect { (account, addingAccount) ->
-                        when (account) {
-                            // Onboarding is over. Everything else - settings, pricing, a sign-in
-                            // flow started from settings - is reachable with an account and stays
-                            // put.
-                            true -> if (backStack.any { it is WelcomeDestination }) {
-                                backStack.replaceAllWith(TaskListDestination)
-                            }
-                            // Only send the user back to onboarding if they aren't already somewhere
-                            // in it. Onboarding always keeps WelcomeDestination at the root, and
-                            // that is the only thing separating it from the same sign-in or pricing
-                            // screen opened from settings by a user whose last account has just gone
-                            // away.
-                            //
-                            // Adding an account is exempt even outside onboarding. It is reachable
-                            // from settings, from the drawer's sign-in row and from the new-list
-                            // dialog, and an account disappearing underneath it - removed on another
-                            // device, or a sign-in that failed after partially creating one - is
-                            // exactly when the user is trying to add one. Wiping the stack there
-                            // takes away the screen they are using along with any sign-in already in
-                            // flight. Leaving it is what makes revisiting this necessary: the wipe
-                            // happens when they leave that flow instead.
-                            false -> if (
-                                backStack.none { it is WelcomeDestination } && !addingAccount
-                            ) {
-                                backStack.replaceAllWith(WelcomeDestination)
-                            }
-                            null -> {}
+                    .collect { (account, addingAccount, needsCloud) ->
+                        val routing = routeOnboarding(
+                            state = OnboardingState(wasInOnboarding, wasInCloudOnboarding),
+                            hasAccount = account,
+                            needsCloudOnboarding = needsCloud,
+                            isImporting = false,
+                            isAddingAccount = addingAccount,
+                        )
+                        wasInOnboarding = routing.state.wasInOnboarding
+                        wasInCloudOnboarding = routing.state.wasInCloudOnboarding
+                        when (val navigation = routing.navigation) {
+                            is OnboardingNavigation.Push ->
+                                backStack.push(navigation.screen.destination)
+                            is OnboardingNavigation.ClearBackStack ->
+                                backStack.replaceAllWith(navigation.screen.destination)
+                            null -> Unit
                         }
                     }
             }
@@ -549,7 +557,7 @@ fun App(
                 if (taskListViewModel != null &&
                     taskListViewModel.state.value.filter is EmptyFilter
                 ) {
-                    taskListViewModel.setFilter(startupFilter(themePreferences, filterCodec))
+                    taskListViewModel.setFilter(startupFilter(tasksPreferences, filterCodec))
                 }
             }
 
@@ -562,7 +570,7 @@ fun App(
                     drawerViewModel?.setSelectedFilter(filter)
                     if (filter !is EmptyFilter && filter !is SearchFilter) {
                         filterCodec.encode(filter)?.let {
-                            themePreferences.set(TasksPreferences.lastViewedList, it)
+                            tasksPreferences.set(TasksPreferences.lastViewedList, it)
                         }
                     }
                 }
@@ -746,6 +754,7 @@ fun App(
             val modalDrawerListState = rememberLazyListState()
 
             TaskListChrome(
+                onCloudSignIn = { cloudSignInSource = AnalyticsEvents.SOURCE_DRAWER },
                 drawerViewModel = drawerViewModel,
                 drawerState = drawerState,
                 // The effective state, not the stored preference: when the window can't hold an
@@ -785,7 +794,6 @@ fun App(
                 visible = showChrome,
                 onDrawerItemClick = onDrawerItemClick,
                 onAddClick = onAddClick,
-                onAddAccount = { backStack.push(AddAccountDestination) },
             ) {
             NavDisplay(
                 backStack = backStack,
@@ -851,8 +859,17 @@ fun App(
                                     }
                                 }
                                 when (platform) {
-                                    Platform.TASKS_ORG -> {
-                                        backStack.push(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = platform.name))
+                                    Platform.TASKS_ORG -> if (
+                                        subscriptionInfo?.isTasksSubscription == true
+                                    ) {
+                                        cloudSignInSource = platform.name
+                                    } else {
+                                        backStack.push(
+                                            PricingDestination(
+                                                mode = PricingMode.CLOUD_ONLY,
+                                                source = platform.name,
+                                            )
+                                        )
                                     }
                                     Platform.CALDAV -> backStack.push(CaldavSignInDestination)
                                     Platform.ETEBASE -> backStack.push(EtebaseSignInDestination)
@@ -978,7 +995,7 @@ fun App(
                                 )
                             },
                             onSignInClick = {
-                                backStack.push(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in"))
+                                cloudSignInSource = AnalyticsEvents.SOURCE_SETTINGS
                             },
                             onSubscribedClick = { showManageSheet = true },
                         )
@@ -1084,6 +1101,48 @@ fun App(
                                 )
                             },
                             successButtonText = successButtonText,
+                        )
+                    }
+                    entry<SubscriptionOnboardingDestination> {
+                        val onboardingViewModel = koinViewModel<SubscriptionOnboardingViewModel>()
+                        val step by onboardingViewModel.step.collectAsState()
+                        var onboardingListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
+                        val caldavDao = koinInject<org.tasks.data.dao.CaldavDao>()
+                        val scope = rememberCoroutineScope()
+                        val currentStep = step
+                        if (currentStep != null) {
+                            SubscriptionOnboardingScreen(
+                                step = currentStep,
+                                showConfetti = true,
+                                onSignIn = {
+                                    onboardingViewModel.onSignInClicked()
+                                    cloudSignInSource = AnalyticsEvents.SOURCE_ONBOARDING
+                                },
+                                onCreateList = {
+                                    scope.launch {
+                                        onboardingListAccountId = caldavDao
+                                            .getAccounts(listOf(CaldavAccount.TYPE_TASKS))
+                                            .firstOrNull()
+                                            ?.id
+                                    }
+                                },
+                                onBack = { onboardingViewModel.dismiss() },
+                            )
+                        }
+                        NewListDialogHost(
+                            accountId = onboardingListAccountId,
+                            isDark = isDarkTheme(),
+                            onDismiss = { created ->
+                                onboardingListAccountId = null
+                                drawerViewModel?.updateFilters()
+                                if (created != null) {
+                                    onboardingViewModel.onListCreated()
+                                } else {
+                                    onboardingViewModel.dismiss()
+                                }
+                            },
+                            onSubscribe = {},
+                            onAddAccount = {},
                         )
                     }
                     entry<PricingDestination> { destination ->
@@ -1257,6 +1316,58 @@ fun App(
                 onAddAccount = { backStack.push(AddAccountDestination) },
             )
 
+            cloudSignInSource?.let { source ->
+                val addAccountViewModel = koinViewModel<AddAccountViewModel>()
+                val signInState by addAccountViewModel.signInState.collectAsState()
+                LaunchedEffect(source) {
+                    reporting.logEvent(
+                        AnalyticsEvents.PRICING_SIGN_IN_CLICK,
+                        AnalyticsEvents.PARAM_SOURCE to source,
+                    )
+                }
+                LaunchedEffect(Unit) {
+                    addAccountViewModel.accountAdded.collect { cloudSignInSource = null }
+                }
+                BasicAlertDialog(onDismissRequest = { cloudSignInSource = null }) {
+                    SignInProviderDialog(
+                        providers = if (configuration.appStore == AppStore.APP_STORE) {
+                            APP_STORE_SIGN_IN_PROVIDERS
+                        } else {
+                            DEFAULT_SIGN_IN_PROVIDERS
+                        },
+                        onSelected = { provider ->
+                            val oauthProvider = when (provider) {
+                                SignInProvider.GOOGLE -> OAuthProvider.GOOGLE
+                                SignInProvider.GITHUB -> OAuthProvider.GITHUB
+                                SignInProvider.APPLE -> OAuthProvider.APPLE
+                            }
+                            reporting.logEvent(
+                                AnalyticsEvents.SIGN_IN_PROVIDER_SELECTED,
+                                AnalyticsEvents.PARAM_PROVIDER to oauthProvider.name,
+                            )
+                            addAccountViewModel.signIn(
+                                platform = Platform.TASKS_ORG,
+                                provider = oauthProvider,
+                                openUrl = openUrl,
+                            )
+                        },
+                        onHelp = { openUrl("https://tasks.org/docs/sync") },
+                        onCancel = { cloudSignInSource = null },
+                    )
+                }
+                SignInErrorDialog(
+                    signInState = signInState,
+                    onDismiss = { addAccountViewModel.dismissError() },
+                    reporting = reporting,
+                    onPaymentRequired = {
+                        cloudSignInSource = null
+                        backStack.push(
+                            PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "sign_in_402")
+                        )
+                    },
+                )
+            }
+
             if (showNewTag) {
                 // Saveable, because TagSettingsDialog keys its view model on this uuid. A plain
                 // remember handed the dialog a fresh key on every rotation, so the typed name and
@@ -1394,7 +1505,7 @@ private fun TaskListChrome(
     visible: Boolean,
     onDrawerItemClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
-    onAddAccount: () -> Unit,
+    onCloudSignIn: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -1427,7 +1538,7 @@ private fun TaskListChrome(
                     onClick = onDrawerItemClick,
                     onAddClick = onAddClick,
                     onErrorClick = { /* TODO: show sync error */ },
-                    onSignIn = onAddAccount,
+                    onSignIn = onCloudSignIn,
                     // Hoisted for the same reason as the sidebar's: this sheet is disposed every
                     // time the drawer closes, and it is not inside a nav entry whose saveable
                     // state the decorator would preserve.
@@ -1484,7 +1595,7 @@ private fun TaskListChrome(
                         onClick = onDrawerItemClick,
                         onAddClick = onAddClick,
                         onErrorClick = { /* TODO: show sync error */ },
-                        onSignIn = onAddAccount,
+                        onSignIn = onCloudSignIn,
                         expanded = sidebarExpanded,
                         onExpandDrawer = {
                             // Expanding is impossible in this window, so the rail's own
@@ -3164,3 +3275,10 @@ private suspend fun startupFilter(
     }
     return filterCodec.decode(stored.takeIf { it.isNotBlank() }) ?: MyTasksFilter.create()
 }
+
+private val OnboardingScreen.destination: NavKey
+    get() = when (this) {
+        OnboardingScreen.CLOUD_ONBOARDING -> SubscriptionOnboardingDestination
+        OnboardingScreen.WELCOME -> WelcomeDestination
+        OnboardingScreen.HOME -> TaskListDestination
+    }

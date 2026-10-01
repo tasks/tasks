@@ -40,6 +40,9 @@ data object LinkDesktopDestination : NavKey
 data class DesktopProDestination(val source: String? = null) : NavKey
 
 @Serializable
+data object SubscriptionOnboardingDestination : NavKey
+
+@Serializable
 data class PricingDestination(
     val mode: PricingMode = PricingMode.BOTH,
     val source: String = AnalyticsEvents.SOURCE_SETTINGS,

@@ -82,6 +82,8 @@ import org.tasks.compose.accounts.featureTitle
 import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
 import org.tasks.compose.navigateClearingBackStack
+import org.tasks.viewmodel.OnboardingNavigation
+import org.tasks.viewmodel.OnboardingScreen
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
@@ -192,10 +194,10 @@ class MainActivity : AppCompatActivity() {
                     val routing =
                         viewModel.routeOnboarding(hasAccount, needsCloudOnboarding, isImporting)
                     when (val navigation = routing.navigation) {
-                        is MainActivityViewModel.OnboardingNavigation.Push ->
-                            navController.navigate(navigation.destination)
-                        is MainActivityViewModel.OnboardingNavigation.ClearBackStack ->
-                            navController.navigateClearingBackStack(navigation.destination)
+                        is OnboardingNavigation.Push ->
+                            navController.navigate(navigation.screen.destination)
+                        is OnboardingNavigation.ClearBackStack ->
+                            navController.navigateClearingBackStack(navigation.screen.destination)
                         null -> Unit
                     }
                     if (routing.logOnboardingComplete) {
@@ -403,7 +405,7 @@ class MainActivity : AppCompatActivity() {
                             onBack = { navController.popBackStack() },
                             onPurchased = {
                                 lifecycleScope.launch {
-                                    maybeTriggerCloudOnboarding(inventory, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
+                                    maybeTriggerCloudOnboarding(inventory.hasTasksSubscription, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
                                 }
                                 navController.previousBackStackEntry
                                     ?.savedStateHandle
@@ -697,3 +699,10 @@ class MainActivity : AppCompatActivity() {
             }
     }
 }
+
+private val OnboardingScreen.destination: Any
+    get() = when (this) {
+        OnboardingScreen.CLOUD_ONBOARDING -> SubscriptionOnboardingDestination
+        OnboardingScreen.WELCOME -> WelcomeDestination
+        OnboardingScreen.HOME -> HomeDestination
+    }
