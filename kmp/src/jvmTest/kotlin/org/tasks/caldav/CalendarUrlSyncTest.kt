@@ -170,6 +170,29 @@ class CalendarUrlSyncTest : DatabaseTest() {
     }
 
     @Test
+    fun `list missing from the listing is not duplicated when the server resolves it with a non-canonical href`() = runBlocking {
+        val calendar = CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST",
+            ctag = CTAG,
+        ).also { caldavDao.insert(it) }
+        val task = insertSyncedTask(calendar)
+        enqueueCalendars("$HOME_SET$LIST/")
+        server.enqueue(multiStatus(collection("http://LOCALHOST:${server.port}$HOME_SET$LIST/")))
+        server.enqueue(multiStatus(etags()))
+
+        synchronizer.sync(account, hasPro = true)
+
+        val stored = caldavDao.getCalendarsByAccount(account.uuid!!)
+        assertEquals(listOf("calendar"), stored.map { it.uuid })
+        assertEquals("${account.url}$LIST/".canonicalUrl(), stored.single().url)
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertNotNull(taskDao.fetch(task))
+        assertNotNull(caldavDao.getTask(task))
+    }
+
+    @Test
     fun `server type is sniffed from a propfind that redirected to another host`() = runBlocking {
         val redirected = failFastServer()
         redirected.start()

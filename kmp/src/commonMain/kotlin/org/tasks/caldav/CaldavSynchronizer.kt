@@ -256,7 +256,7 @@ class CaldavSynchronizer(
                 Logger.w(TAG) { "Failed to verify ${calendar.uuid} (${response?.status})" }
                 return false
             }
-            val href = response.href.toString()
+            val href = response.href.canonical().toString()
             if (href != calendar.url) {
                 if (caldavDao.getCalendarByUrl(calendar.account!!, href) == null) {
                     Logger.d(TAG) { "Recanonicalizing ${calendar.uuid}" }
