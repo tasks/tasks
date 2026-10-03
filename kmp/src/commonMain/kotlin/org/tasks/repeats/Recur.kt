@@ -78,6 +78,7 @@ data class Recur(
 internal expect fun parseRecur(rrule: String): Recur
 
 internal const val RSCALE = "RSCALE"
+internal const val SKIP = "SKIP"
 
 internal fun serializeRecur(recur: Recur): String = buildString {
     recur.unknownParts

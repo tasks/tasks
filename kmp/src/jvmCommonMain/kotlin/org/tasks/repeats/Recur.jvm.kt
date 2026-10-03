@@ -4,6 +4,7 @@ import net.fortuna.ical4j.model.Date
 import net.fortuna.ical4j.model.Month
 import net.fortuna.ical4j.model.MonthList
 import net.fortuna.ical4j.model.NumberList
+import net.fortuna.ical4j.model.Recur.Skip
 import net.fortuna.ical4j.model.WeekDay
 import net.fortuna.ical4j.model.WeekDayList
 import org.tasks.time.DateTime
@@ -64,8 +65,13 @@ fun Recur.toIcal4j(): net.fortuna.ical4j.model.Recur =
             if (byWeekNo.isNotEmpty()) weekNoList(byWeekNo.toNumberList())
             if (bySetPos.isNotEmpty()) setPosList(bySetPos.toNumberList())
             weekStart?.let { weekStartDay(WeekDay.Day.valueOf(it.name)) }
+            unknownParts
+                .firstOrNull { (name, _) -> name == SKIP }
+                ?.let { (_, value) -> value.toSkip()?.let { skip(it) } }
         }
         .build()
+
+private fun String.toSkip(): Skip? = Skip.values().firstOrNull { it.name.equals(this, ignoreCase = true) }
 
 fun ByDay.toIcal4j(): WeekDay = WeekDay(WeekDay.getWeekDay(WeekDay.Day.valueOf(day.name)), offset)
 
