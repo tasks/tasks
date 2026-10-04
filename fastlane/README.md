@@ -15,29 +15,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android test
-
-```sh
-[bundle exec] fastlane android test
-```
-
-Runs all the tests
-
-### android beta
-
-```sh
-[bundle exec] fastlane android beta
-```
-
-Submit a new Beta Build to Crashlytics Beta
-
 ### android deploy
 
 ```sh
 [bundle exec] fastlane android deploy
 ```
 
-Deploy to internal track
+Upload to a track, production rolls out to 5%
+
+### android check_version_code
+
+```sh
+[bundle exec] fastlane android check_version_code
+```
+
+Fail if VERSION_CODE is not bumped
 
 ### android download_signed_apk
 

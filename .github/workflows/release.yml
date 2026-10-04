@@ -1,24 +1,89 @@
-name: GitHub Release
+name: Release
 
 on:
   push:
     tags:
-      - '*'
+      - '[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+-beta[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-beta[0-9]+'
+
+concurrency:
+  group: release
+  queue: max
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      track: ${{ steps.version.outputs.track }}
+      conveyor-flags: ${{ steps.version.outputs.conveyor-flags }}
+      update-url: ${{ steps.version.outputs.update-url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check version
+        id: version
+        run: |
+          set -euo pipefail
+          TAG=$GITHUB_REF_NAME
+          NAME=$(sed -n 's/^VERSION_NAME=//p' version.properties)
+          if [ "${TAG%-beta*}" != "$NAME" ]; then
+            echo "::error::tag $TAG does not match VERSION_NAME=$NAME"
+            exit 1
+          fi
+
+          if [[ $TAG == *-beta* ]]; then
+            {
+              echo "track=beta"
+              echo "update-url=https://update.tasks.org/beta"
+              echo "conveyor-flags=-Kapp.revision=$((10#${TAG##*-beta}))"
+            } >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "track=production"
+              echo "update-url=https://update.tasks.org"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: ./.github/actions/setup-fastlane
+        with:
+          json-key: ${{ secrets.FASTLANE }}
+
+      - name: Check version code
+        run: bundle exec fastlane check_version_code track:${{ steps.version.outputs.track }}
+
+  check:
+    needs: [ version ]
+    uses: ./.github/workflows/check.yml
+
   bundle:
-    uses: ./.github/workflows/bundle.yml
+    needs: [ check ]
+    uses: ./.github/workflows/android.yml
     secrets: inherit
 
-  notarize:
+  desktop-jar:
     runs-on: ubuntu-latest
+    needs: [ version ]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/desktop-jar
+        with:
+          posthog-key: ${{ secrets.POSTHOG_KEY }}
+
+  site:
+    runs-on: ubuntu-latest
+    needs: [ version, check, desktop-jar ]
     environment: release
-    needs: [ bundle ]
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      UPDATE_URL: ${{ needs.version.outputs.update-url }}
     steps:
       - uses: actions/checkout@v7
 
@@ -49,6 +114,8 @@ jobs:
           conveyor
           -vvv
           --logs-dir=$RUNNER_TEMP/conveyor-logs
+          ${{ needs.version.outputs.conveyor-flags }}
+          -Kapp.site.base-url=$UPDATE_URL
           -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
           -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
           -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
@@ -64,15 +131,63 @@ jobs:
           name: conveyor-logs
           path: ${{ runner.temp }}/conveyor-logs/
 
-      - name: Upload notarized desktop output
+      - name: Upload desktop site
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-notarized
-          path: composeApp/output/
+          name: desktop-site
+          compression-level: 0
+          path: |
+            composeApp/output/
+            !composeApp/output/*-linux-*.tar.gz
+            !composeApp/output/download.html
 
-  release:
+      - name: Upload download page
+        uses: actions/upload-artifact@v7
+        with:
+          name: download-page
+          path: composeApp/output/download.html
+
+      - name: Upload Linux tarballs
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-site-linux
+          compression-level: 0
+          path: composeApp/output/*-linux-*.tar.gz
+
+  appimage:
     runs-on: ubuntu-latest
-    needs: [ bundle, notarize ]
+    needs: [ version, site ]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            .github/actions
+            scripts
+
+      - uses: ./.github/actions/appimage
+        with:
+          tarballs: desktop-site-linux
+          name: desktop-site-appimage
+          update-url: ${{ needs.version.outputs.update-url }}
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: download-page
+
+      - name: Add AppImage buttons
+        run: scripts/add-appimage-buttons.py download.html "${{ needs.version.outputs.update-url }}"
+
+      - name: Upload download page
+        uses: actions/upload-artifact@v7
+        with:
+          name: desktop-site-download-page
+          path: download.html
+
+  android:
+    runs-on: ubuntu-latest
+    needs: [ version, bundle, appimage ]
+    env:
+      TAG: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v7
 
@@ -80,112 +195,88 @@ jobs:
         with:
           json-key: ${{ secrets.FASTLANE }}
 
-      - name: Download Play-signed APK
-        run: bundle exec fastlane download_signed_apk
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: '{release,app-generic-release.apk,pebble.pbw}'
+          merge-multiple: true
 
-      - uses: actions/download-artifact@v8
-        with:
-          name: app-generic-release.apk
-          path: artifacts
-      - uses: actions/download-artifact@v8
-        with:
-          name: pebble.pbw
-          path: artifacts
-      - uses: actions/download-artifact@v8
-        with:
-          name: desktop-linux-appimage
-          path: artifacts
-      - uses: actions/download-artifact@v8
-        with:
-          name: desktop-notarized
-          path: composeApp/output
-
-      - uses: actions/download-artifact@v8
-        with:
-          name: release
-          path: .
-
-      - name: Package mapping files
+      - name: Collect release files
         run: |
           set -euo pipefail
-          TAG=${GITHUB_REF_NAME}
-          package() {
-            src=$1
-            label=$2
-            id=$(sed -n 's/^# pg_map_id: //p' "$src" | head -1)
-            [ -n "$id" ] || { echo "::error::no pg_map_id in $src"; exit 1; }
-            gzip -9 -c "$src" > "mapping-${label}-${TAG}-${id:0:12}.txt.gz"
+          mapping() {
+            local label=$1 file=$2 id
+            id=$(sed -n 's/^# pg_map_id: //p' "$file" | head -1)
+            if [ -z "$id" ]; then
+              echo "::error::no pg_map_id in $file"
+              exit 1
+            fi
+            gzip -9 -c "$file" > "android/mapping-$label-$TAG-${id:0:12}.txt.gz"
           }
-          package app/build/outputs/mapping/googleplayRelease/mapping.txt googleplay
-          package wear/build/outputs/mapping/release/mapping.txt wear
-          ls -l mapping-*.txt.gz
+          mkdir android
+          mv app-generic-release.apk "android/tasks-fdroid-$TAG.apk"
+          mv pebble.pbw "android/tasks-pebble-$TAG.pbw"
+          mapping googleplay app/build/outputs/mapping/googleplayRelease/mapping.txt
+          mapping wear wear/build/outputs/mapping/release/mapping.txt
 
-      - name: Rename artifacts
+      - name: Upload to ${{ needs.version.outputs.track }} track
+        run: bundle exec fastlane deploy track:${{ needs.version.outputs.track }}
+
+      - name: Download Play-signed APK
         run: |
-          TAG=${GITHUB_REF_NAME}
-          mv artifacts/app-generic-release.apk "tasks-fdroid-${TAG}.apk"
-          mv tasks-googleplay-release.apk "tasks-googleplay-${TAG}.apk"
-          mv artifacts/pebble.pbw "tasks-pebble-${TAG}.pbw"
+          for attempt in 1 2 3 4 5; do
+            bundle exec fastlane download_signed_apk && break
+            [ "$attempt" = 5 ] && exit 1
+            sleep 60
+          done
+          mv tasks-googleplay-release.apk "android/tasks-googleplay-$TAG.apk"
 
-      - name: Upload artifacts
+      - name: Upload Android release files
         uses: actions/upload-artifact@v7
-        if: always()
         with:
-          name: release-artifacts
-          path: |
-            tasks-fdroid-*.apk
-            tasks-googleplay-*.apk
-            tasks-pebble-*.pbw
-            mapping-*.txt.gz
-            composeApp/output/*.zip
-            composeApp/output/*.tar.gz
-            composeApp/output/*.msix
-            composeApp/output/*.deb
-            composeApp/output/*.delta
-            artifacts/*.AppImage
-            artifacts/*.AppImage.zsync
+          name: android-release
+          path: android/
 
-      - name: Create GitHub Release
+  release:
+    runs-on: ubuntu-latest
+    needs: [ version, android ]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: android-release
+          path: android
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: desktop-site*
+          merge-multiple: true
+          path: desktop
+
+      - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >
-          gh release create "${{ github.ref_name }}"
-          --generate-notes
-          tasks-fdroid-*.apk
-          tasks-googleplay-*.apk
-          tasks-pebble-*.pbw
-          mapping-*.txt.gz
-          composeApp/output/*.zip
-          composeApp/output/*.tar.gz
-          composeApp/output/*.msix
-          composeApp/output/*.deb
-          composeApp/output/*.exe
-          composeApp/output/*.appinstaller
-          $(ls composeApp/output/*.delta 2>/dev/null)
-          composeApp/output/metadata.properties
-          composeApp/output/appcast-*.rss
-          composeApp/output/Packages
-          composeApp/output/Packages.xz
-          composeApp/output/Release
-          composeApp/output/InRelease
-          artifacts/*.AppImage
-          artifacts/*.AppImage.zsync
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+          TRACK: ${{ needs.version.outputs.track }}
+        run: |
+          set -euo pipefail
+          ls -l android desktop
+          if ! gh release view "$TAG" > /dev/null; then
+            args=(--draft --generate-notes)
+            if [ "$TRACK" = beta ]; then
+              args+=(--prerelease)
+            else
+              args+=(--notes-start-tag "$(gh release view --json tagName -q .tagName)")
+            fi
+            gh release create "$TAG" "${args[@]}"
+          fi
+          gh release upload "$TAG" --clobber android/* desktop/*
+          gh release edit "$TAG" --draft=false
 
-      - name: Prepare download page
-        uses: ./.github/actions/prepare-download-page
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: pages
-
-  deploy-download-page:
-    runs-on: ubuntu-latest
+  download-page:
     needs: [ release ]
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/republish-download-page.yml

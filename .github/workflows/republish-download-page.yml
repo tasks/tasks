@@ -1,49 +1,79 @@
-name: Republish Download Page
+name: Download Page
 
 on:
+  workflow_call:
   workflow_dispatch:
     inputs:
-      run_id:
-        description: 'GitHub Release run ID to pull composeApp/output from'
-        required: true
-      ref:
-        description: 'Ref for the AppImage button snippets (blank = branch dispatched from)'
+      stable_tag:
+        description: 'Release for the stable page (blank = latest release)'
+        required: false
+        default: ''
+      beta_tag:
+        description: 'Release for the beta page (blank = newest beta release)'
         required: false
         default: ''
 
 permissions:
   contents: read
-  actions: read
   pages: write
   id-token: write
 
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact_id }}
+      artifact-name: github-pages-${{ github.run_attempt }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
     steps:
-      - uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.ref }}
+      - name: Download stable page
+        env:
+          TAG: ${{ inputs.stable_tag }}
+        run: |
+          set -euo pipefail
+          TAG=${TAG:-$(gh release view --json tagName -q .tagName)}
+          gh release download "$TAG" -p download.html -p icon.png -D pages
+          mv pages/download.html pages/index.html
 
-      - name: Download desktop output
-        uses: actions/download-artifact@v8
-        with:
-          name: desktop-notarized
-          path: composeApp/output
-          run-id: ${{ inputs.run_id }}
-          github-token: ${{ github.token }}
-
-      - name: Prepare download page
-        uses: ./.github/actions/prepare-download-page
+      # a broken beta page must not hold back the stable page
+      - name: Download beta page
+        id: beta
+        continue-on-error: true
+        env:
+          TAG: ${{ inputs.beta_tag }}
+        run: |
+          set -euo pipefail
+          TAG=${TAG:-$(gh release list --exclude-drafts --limit 100 --json tagName,isPrerelease \
+            -q '[.[] | select(.isPrerelease)][0].tagName // ""')}
+          if [ -z "$TAG" ]; then
+            echo "::warning::no beta release found, skipping beta page"
+            exit 0
+          fi
+          gh release download "$TAG" -p download.html -p icon.png -D "$RUNNER_TEMP/beta"
+          mv "$RUNNER_TEMP/beta/download.html" "$RUNNER_TEMP/beta/index.html"
+          mv "$RUNNER_TEMP/beta" pages/beta
 
       - name: Upload Pages artifact
+        id: upload
         uses: actions/upload-pages-artifact@v5
         with:
+          name: github-pages-${{ github.run_attempt }}
           path: pages
 
-  deploy-download-page:
+      - name: Fail on beta page
+        if: steps.beta.outcome == 'failure'
+        run: |
+          echo "::error::beta page not published, re-run failed jobs"
+          exit 1
+
+  deploy:
     runs-on: ubuntu-latest
     needs: [ prepare ]
+    if: ${{ !cancelled() && needs.prepare.outputs.artifact-id }}
+    concurrency:
+      group: download-page
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -51,3 +81,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          artifact_name: ${{ needs.prepare.outputs.artifact-name }}

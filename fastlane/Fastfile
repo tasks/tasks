@@ -15,44 +15,74 @@
 
 default_platform(:android)
 
+ROLLOUT = "0.05"
+WEAR_TRACK = "wear:internal" # don't need to hold up reviews
+
+def version_code
+  Integer(File.read("../version.properties")[/^\s*VERSION_CODE\s*=\s*(\d+)/, 1])
+end
+
+def wear_version_code
+  version_code + 1
+end
+
+def highest(track)
+  google_play_track_version_codes(track: track).max
+end
+
+def upload(track:, aab:, mapping:, version_code:, rollout: nil)
+  current = highest(track)
+  if current && current >= version_code
+    UI.message("#{track} already has #{current}, skipping #{version_code}")
+    return
+  end
+  upload_to_play_store(
+    aab: aab,
+    mapping: mapping,
+    track: track,
+    rollout: rollout,
+    skip_upload_apk: true,
+    skip_upload_metadata: true,
+    skip_upload_images: true,
+    skip_upload_screenshots: true,
+  )
+end
+
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
-
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  desc "Deploy to internal track"
-  lane :deploy do
-      upload_to_play_store(
+  desc "Upload to a track, production rolls out to 5%"
+  lane :deploy do |options|
+      track = options.fetch(:track)
+      upload(
+        track: track,
         aab: "app/build/outputs/bundle/googleplayRelease/app-googleplay-release.aab",
         mapping: "app/build/outputs/mapping/googleplayRelease/mapping.txt",
-        track: "beta",
-        skip_upload_metadata: true,
-        skip_upload_images: true,
-        skip_upload_screenshots: true,
+        version_code: version_code,
+        rollout: track == "production" ? ROLLOUT : nil,
       )
-      upload_to_play_store(
+      upload(
+        track: WEAR_TRACK,
         aab: "wear/build/outputs/bundle/release/wear-release.aab",
         mapping: "wear/build/outputs/mapping/release/mapping.txt",
-        track: "wear:internal", # don't need to hold up reviews
-        skip_upload_metadata: true,
-        skip_upload_images: true,
-        skip_upload_screenshots: true,
+        version_code: wear_version_code,
       )
+  end
+
+  desc "Fail if VERSION_CODE is not bumped"
+  lane :check_version_code do |options|
+    tracks = options.fetch(:track) == "beta" ? ["production", "beta"] : ["production"]
+    tracks.each do |track|
+      current = highest(track)
+      if current && current >= version_code
+        UI.user_error!("#{track} already has #{current}, bump VERSION_CODE past it")
+      end
+    end
+    taken = ["production", "beta", WEAR_TRACK].flat_map { |track| google_play_track_version_codes(track: track) }
+    clash = [version_code, wear_version_code] & taken
+    UI.user_error!("#{clash.join(", ")} already on Play, bump VERSION_CODE") unless clash.empty?
   end
 
   desc "Download Play-signed universal APK"
   lane :download_signed_apk do
-    version_code = File.read("../version.properties").match(/^VERSION_CODE=(\d+)/)[1].to_i
     download_universal_apk_from_google_play(
       package_name: "org.tasks",
       version_code: version_code,
@@ -88,7 +118,7 @@ platform :android do
     bundletool_version = "1.17.2"
     bundletool = "bundletool.jar"
     unless File.exist?("../#{bundletool}")
-      sh("curl -sLf https://github.com/google/bundletool/releases/download/#{bundletool_version}/bundletool-all-#{bundletool_version}.jar -o ../#{bundletool}")
+      sh("curl -sSLf --retry 5 --retry-all-errors https://github.com/google/bundletool/releases/download/#{bundletool_version}/bundletool-all-#{bundletool_version}.jar -o ../#{bundletool}")
     end
 
     bundles = [
