@@ -2,8 +2,6 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-version = libs.versions.versionName.get()
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
@@ -13,6 +11,10 @@ plugins {
     id("com.google.gms.google-services")
     id("dev.hydraulic.conveyor") version "2.0"
 }
+
+val appVersionCode: Int by extra
+val appVersionName: String by extra
+version = appVersionName.let { if (it.count { c -> c == '.' } < 2) "$it.0" else it }
 
 kotlin {
     applyDefaultHierarchyTemplate()
@@ -125,8 +127,8 @@ android {
         applicationId = "org.tasks"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
+        versionCode = appVersionCode
+        versionName = appVersionName
     }
     packaging {
         resources {
@@ -173,9 +175,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "tasks-org"
-            packageVersion = libs.versions.versionName.get().let {
-                if (it.count { c -> c == '.' } < 2) "$it.0" else it
-            }
+            packageVersion = version.toString()
 
             modules(
                 "java.compiler",

@@ -16,6 +16,9 @@ plugins {
     alias(libs.plugins.kotlin.compose.compiler)
 }
 
+val appVersionCode: Int by extra
+val appVersionName: String by extra
+
 kotlin {
     compilerOptions {
         jvmTarget.set(JvmTarget.JVM_17)
@@ -48,8 +51,8 @@ android {
     defaultConfig {
         testApplicationId = "org.tasks.test"
         applicationId = libs.versions.applicationId.get()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
+        versionCode = appVersionCode
+        versionName = appVersionName
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"

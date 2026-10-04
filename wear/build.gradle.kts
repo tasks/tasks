@@ -7,14 +7,17 @@ plugins {
     id("com.google.firebase.crashlytics")
 }
 
+val appVersionCode: Int by extra
+val appVersionName: String by extra
+
 android {
     namespace = "org.tasks"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "org.tasks"
-        versionCode = libs.versions.versionCode.get().toInt() + 1
-        versionName = libs.versions.versionName.get()
+        versionCode = appVersionCode + 1
+        versionName = appVersionName
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = 30
     }

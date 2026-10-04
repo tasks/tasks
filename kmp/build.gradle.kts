@@ -13,6 +13,9 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+val appVersionCode: Int by extra
+val appVersionName: String by extra
+
 val libicalDir = layout.buildDirectory.dir("libical")
 
 val buildLibical by tasks.registering(Exec::class) {
@@ -161,8 +164,8 @@ artifacts {
 
 fun registerBuildConfig(objectName: String) = tasks.register("generate${objectName}") {
     val outputDir = layout.buildDirectory.dir("generated/${objectName}")
-    val versionCode = libs.versions.versionCode.get()
-    val versionName = libs.versions.versionName.get()
+    val versionCode = appVersionCode
+    val versionName = appVersionName
     val applicationId = libs.versions.applicationId.get()
     val tasks_dev_url: String? by project
     val devUrl = tasks_dev_url ?: ""
@@ -237,8 +240,8 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
-        buildConfigField("int", "VERSION_CODE", libs.versions.versionCode.get())
-        buildConfigField("String", "VERSION_NAME", "\"${libs.versions.versionName.get()}\"")
+        buildConfigField("int", "VERSION_CODE", "$appVersionCode")
+        buildConfigField("String", "VERSION_NAME", "\"$appVersionName\"")
         buildConfigField("String", "APPLICATION_ID", "\"${libs.versions.applicationId.get()}\"")
         val tasks_dev_url: String? by project
         buildConfigField("String", "DEV_URL", "\"${tasks_dev_url ?: ""}\"")

@@ -19,18 +19,18 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
+val version = java.util.Properties().apply {
+    providers.fileContents(layout.rootDirectory.file("version.properties")).asText.get().reader().use(::load)
+}
+val appVersionCode = version.getProperty("VERSION_CODE").toInt()
+val appVersionName: String = version.getProperty("VERSION_NAME")
+require(appVersionCode % 2 == 0) { "VERSION_CODE must be even, wear uses VERSION_CODE + 1" }
+gradle.beforeProject {
+    extra["appVersionCode"] = appVersionCode
+    extra["appVersionName"] = appVersionName
+}
+
 dependencyResolutionManagement {
-    versionCatalogs {
-        create("libs") {
-            val version = java.util.Properties().apply {
-                providers.fileContents(layout.rootDirectory.file("version.properties")).asText.get().reader().use(::load)
-            }
-            val versionCode = version.getProperty("VERSION_CODE")
-            require(versionCode.toInt() % 2 == 0) { "VERSION_CODE must be even, wear uses VERSION_CODE + 1" }
-            version("versionCode", versionCode)
-            version("versionName", version.getProperty("VERSION_NAME"))
-        }
-    }
     repositories {
         google {
             mavenContent {
