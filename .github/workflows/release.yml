@@ -86,11 +86,7 @@ jobs:
           path: artifacts
       - uses: actions/download-artifact@v8
         with:
-          name: desktop-linux-appimage-x86_64
-          path: artifacts
-      - uses: actions/download-artifact@v8
-        with:
-          name: desktop-linux-appimage-aarch64
+          name: desktop-linux-appimage
           path: artifacts
       - uses: actions/download-artifact@v8
         with:

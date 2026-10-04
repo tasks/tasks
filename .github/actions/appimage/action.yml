@@ -1,0 +1,66 @@
+name: AppImages
+description: Build AppImages from Linux tarball artifacts
+
+inputs:
+  tarballs:
+    description: Artifact name pattern for the Linux tarballs
+    required: true
+  name:
+    description: Artifact name for the AppImages
+    required: true
+  update-url:
+    description: Update site
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Download Linux tarballs
+      uses: actions/download-artifact@v8
+      with:
+        pattern: ${{ inputs.tarballs }}
+        merge-multiple: true
+        path: ${{ runner.temp }}/linux
+
+    - name: Download appimagetool
+      shell: bash
+      run: |
+        set -euo pipefail
+        download() { "$GITHUB_WORKSPACE/scripts/fetch" "$RUNNER_TEMP/$1" "$2" "$3"; }
+        download appimagetool https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0
+        download runtime-x86_64 https://github.com/AppImage/type2-runtime/releases/download/20251108/runtime-x86_64 2fca8b443c92510f1483a883f60061ad09b46b978b2631c807cd873a47ec260d
+        download runtime-aarch64 https://github.com/AppImage/type2-runtime/releases/download/20251108/runtime-aarch64 00cbdfcf917cc6c0ff6d3347d59e0ca1f7f45a6df1a428a0d6d8a78664d87444
+        chmod +x "$RUNNER_TEMP/appimagetool"
+
+    - name: Build AppImages
+      shell: bash
+      env:
+        DIR: ${{ runner.temp }}/linux
+        APPRUN: ${{ github.action_path }}/AppRun
+        UPDATE_URL: ${{ inputs.update-url }}
+      run: |
+        set -euo pipefail
+        appimage() {
+          local arch=$1 tarball=$DIR/tasks-org-*-linux-$2.tar.gz
+          local appdir=$RUNNER_TEMP/AppDir-$arch
+          local name=tasks-org-linux-$arch.AppImage
+
+          mkdir -p "$appdir"
+          tar -xzf $tarball --strip-components=1 -C "$appdir"
+          cp "$APPRUN" "$appdir/"
+          sed 's|Exec=.*|Exec=tasks-org|' "$appdir/share/applications/org.tasks.desktop" > "$appdir/org.tasks.desktop"
+          cp "$appdir/share/icons/hicolor/256x256/apps/tasksorg-llc-tasks-org.png" "$appdir/"
+
+          (cd "$DIR" && ARCH=$arch "$RUNNER_TEMP/appimagetool" --appimage-extract-and-run --runtime-file "$RUNNER_TEMP/runtime-$arch" -u "zsync|$UPDATE_URL/$name.zsync" "$appdir" "$name")
+        }
+        appimage x86_64 amd64
+        appimage aarch64 aarch64
+
+    - name: Upload AppImages
+      uses: actions/upload-artifact@v7
+      with:
+        name: ${{ inputs.name }}
+        compression-level: 0
+        path: |
+          ${{ runner.temp }}/linux/*.AppImage
+          ${{ runner.temp }}/linux/*.AppImage.zsync
