@@ -203,4 +203,7 @@
     <string name="upgrade_to_pro">ارتقا به نسخه حرفه‌ای</string>
     <string name="button_subscribe">اشتراک بگیرید</string>
     <string name="logout">خروج</string>
+    <string name="sort_list">فهرست</string>
+    <string name="metadata_move">انتقال</string>
+    <string name="mcp_copy">کپی</string>
 </resources>
