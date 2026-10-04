@@ -1,0 +1,56 @@
+name: Desktop Jar
+description: Build desktop jars
+
+inputs:
+  posthog-key:
+    description: PostHog key
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/actions/setup-gradle
+
+    - name: Get sqlite natives versions
+      id: sqlite
+      shell: bash
+      run: |
+        set -euo pipefail
+        echo "zig=0.16.0" >> "$GITHUB_OUTPUT"
+        version=$(sed -n 's/.*"androidx.sqlite:sqlite-bundled", version = "\([^"]*\)".*/\1/p' gradle/libs.versions.toml)
+        [ -n "$version" ] || { echo "::error::androidx-sqlite version not found in libs.versions.toml"; exit 1; }
+        echo "version=$version" >> "$GITHUB_OUTPUT"
+
+    - name: Cache sqlite natives
+      id: cache-sqlite
+      uses: actions/cache@v6
+      with:
+        path: ${{ runner.temp }}/sqlite-natives
+        key: sqlite-natives-${{ steps.sqlite.outputs.version }}-zig${{ steps.sqlite.outputs.zig }}-${{ hashFiles('composeApp/build-sqlite-natives.sh') }}
+
+    - name: Build sqlite natives
+      if: ${{ steps.cache-sqlite.outputs.cache-hit != 'true' }}
+      shell: bash
+      env:
+        ZIG_VERSION: ${{ steps.sqlite.outputs.zig }}
+      run: |
+        python3 -m venv "$RUNNER_TEMP/zig"
+        "$RUNNER_TEMP/zig/bin/pip" install "ziglang==$ZIG_VERSION"
+        ZIG="$RUNNER_TEMP/zig/bin/python -m ziglang" composeApp/build-sqlite-natives.sh "$RUNNER_TEMP/sqlite-natives"
+
+    - name: Build desktop jar
+      shell: bash
+      env:
+        POSTHOG_KEY: ${{ inputs.posthog-key }}
+      run: ./gradlew :composeApp:desktopJar -Prelease -PsqliteNatives="$RUNNER_TEMP/sqlite-natives"
+
+    - name: Upload desktop jars
+      uses: actions/upload-artifact@v7
+      with:
+        name: desktop-jar
+        path: |
+          cert4android/build/libs/cert4android-jvm.jar
+          composeApp/build/libs/composeApp-desktop*.jar
+          data/build/libs/data-jvm.jar
+          kmp/build/libs/kmp-jvm.jar

@@ -164,28 +164,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: ./.github/actions/setup-gradle
-
-      - name: Build sqlite natives
-        run: |
-          python3 -m venv "$RUNNER_TEMP/zig"
-          "$RUNNER_TEMP/zig/bin/pip" install ziglang==0.16.0
-          ZIG="$RUNNER_TEMP/zig/bin/python -m ziglang" composeApp/build-sqlite-natives.sh "$RUNNER_TEMP/sqlite-natives"
-
-      - name: Build desktop jar
-        env:
-          POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
-        run: ./gradlew :composeApp:desktopJar -Prelease -PsqliteNatives=${{ runner.temp }}/sqlite-natives
-
-      - name: Upload desktop jars
-        uses: actions/upload-artifact@v7
+      - uses: ./.github/actions/desktop-jar
         with:
-          name: desktop-jar
-          path: |
-            cert4android/build/libs/cert4android-jvm.jar
-            composeApp/build/libs/composeApp-desktop*.jar
-            data/build/libs/data-jvm.jar
-            kmp/build/libs/kmp-jvm.jar
+          posthog-key: ${{ secrets.POSTHOG_KEY }}
 
   desktop:
     runs-on: ubuntu-latest
