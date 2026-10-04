@@ -26,14 +26,7 @@ jobs:
         with:
             ref: ${{ github.head_ref }}
 
-      - name: Set up JDK
-        uses: actions/setup-java@v6
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v6
+      - uses: ./.github/actions/setup-gradle
 
       - name: Update dependency diffs
         run: ./update_dependency_diff
