@@ -77,17 +77,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: ruby/setup-ruby@v1
+      - uses: ./.github/actions/setup-fastlane
         with:
-          bundler-cache: true
+          json-key: ${{ secrets.FASTLANE }}
 
       - name: Download Play-signed APK
-        env:
-          FASTLANE: ${{ secrets.FASTLANE }}
-        run: |
-          echo "$FASTLANE" > ./fastlane.json
-          bundle exec fastlane download_signed_apk
-          rm ./fastlane.json
+        run: bundle exec fastlane download_signed_apk
 
       - uses: actions/download-artifact@v8
         with:

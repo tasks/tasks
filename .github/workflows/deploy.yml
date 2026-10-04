@@ -6,9 +6,6 @@ on:
 permissions:
   contents: read
 
-env:
-  FASTLANE: ${{ secrets.FASTLANE }}
-
 jobs:
   bundle:
     uses: ./.github/workflows/bundle.yml
@@ -19,12 +16,9 @@ jobs:
     needs: [ bundle ]
     steps:
       - uses: actions/checkout@v7
-      - name: Fastlane key
-        run: |
-          echo "$FASTLANE" > ./fastlane.json
-      - uses: ruby/setup-ruby@v1
+      - uses: ./.github/actions/setup-fastlane
         with:
-          bundler-cache: true
+          json-key: ${{ secrets.FASTLANE }}
       - uses: actions/download-artifact@v8
         with:
           name: release

@@ -1,0 +1,20 @@
+name: Setup Fastlane
+description: Install gems and service account key
+
+inputs:
+  json-key:
+    description: Play service account JSON
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Fastlane key
+      shell: bash
+      env:
+        FASTLANE: ${{ inputs.json-key }}
+      run: echo "$FASTLANE" > ./fastlane.json
