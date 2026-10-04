@@ -226,24 +226,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: ./.github/actions/setup-gradle
+      - uses: ./.github/actions/install-conveyor
+        with:
+          cache-name: ${{ matrix.platform }}
 
       - name: Download desktop jars
         uses: actions/download-artifact@v8
         with:
           name: desktop-jar
-
-      - uses: ./.github/actions/install-conveyor
-        id: conveyor
-
-      - name: Cache Conveyor downloads
-        uses: actions/cache@v6
-        with:
-          path: ~/.cache/hydraulic/conveyor/cache
-          key: conveyor-${{ matrix.platform }}-${{ steps.conveyor.outputs.version }}-${{ hashFiles('composeApp/conveyor.conf') }}
-          restore-keys: |
-            conveyor-${{ matrix.platform }}-${{ steps.conveyor.outputs.version }}-
-            conveyor-${{ matrix.platform }}-
 
       - name: Generate signing key if absent
         env:
@@ -289,7 +279,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          sparse-checkout: composeApp/AppRun
+          sparse-checkout: |
+            composeApp/AppRun
+            scripts
 
       - name: Download linux tarball
         uses: actions/download-artifact@v8
@@ -307,8 +299,7 @@ jobs:
 
       - name: Download appimagetool
         run: |
-          curl -fsSL -o appimagetool https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage
-          echo "ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0  appimagetool" | sha256sum -c
+          scripts/fetch appimagetool https://github.com/AppImage/appimagetool/releases/download/1.9.1/appimagetool-x86_64.AppImage ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0
           chmod +x appimagetool
 
       - name: Build AppImage

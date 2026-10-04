@@ -37,7 +37,9 @@ SQLITE_FLAGS=(
     -DSQLITE_THREADSAFE=2
 )
 
-versions="$(dirname "$0")/../gradle/libs.versions.toml"
+root=$(cd "$(dirname "$0")/.." && pwd)
+versions="$root/gradle/libs.versions.toml"
+fetch="$root/scripts/fetch"
 grep -q "androidx.sqlite:sqlite-bundled\", version = \"$SQLITE_BUNDLED_VERSION\"" "$versions" || {
     echo "androidx-sqlite in libs.versions.toml is not $SQLITE_BUNDLED_VERSION, update the pins in $0" >&2
     exit 1
@@ -49,24 +51,17 @@ work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 cd "$work"
 
-curl -fsSL -o sqlite.zip "$SQLITE_URL"
-echo "$SQLITE_SHA256  sqlite.zip" | sha256sum -c
+"$fetch" sqlite.zip "$SQLITE_URL" "$SQLITE_SHA256"
 unzip -q -j sqlite.zip '*/sqlite3.c' '*/sqlite3.h'
 
-curl -fsSL -o sqlite_bindings.cpp \
-    "https://raw.githubusercontent.com/androidx/androidx/$ANDROIDX_COMMIT/sqlite/sqlite-bundled/src/jvmAndAndroidMain/jni/sqlite_bindings.cpp"
-echo "$BINDINGS_SHA256  sqlite_bindings.cpp" | sha256sum -c
+"$fetch" sqlite_bindings.cpp \
+    "https://raw.githubusercontent.com/androidx/androidx/$ANDROIDX_COMMIT/sqlite/sqlite-bundled/src/jvmAndAndroidMain/jni/sqlite_bindings.cpp" \
+    "$BINDINGS_SHA256"
 
 jdk=https://raw.githubusercontent.com/openjdk/jdk/$JDK_TAG/src/java.base
-mkdir -p include/windows include/unix
-curl -fsSL -o include/jni.h "$jdk/share/native/include/jni.h"
-curl -fsSL -o include/windows/jni_md.h "$jdk/windows/native/include/jni_md.h"
-curl -fsSL -o include/unix/jni_md.h "$jdk/unix/native/include/jni_md.h"
-sha256sum -c <<EOF
-$JNI_H_SHA256  include/jni.h
-$JNI_MD_WINDOWS_SHA256  include/windows/jni_md.h
-$JNI_MD_UNIX_SHA256  include/unix/jni_md.h
-EOF
+"$fetch" include/jni.h "$jdk/share/native/include/jni.h" "$JNI_H_SHA256"
+"$fetch" include/windows/jni_md.h "$jdk/windows/native/include/jni_md.h" "$JNI_MD_WINDOWS_SHA256"
+"$fetch" include/unix/jni_md.h "$jdk/unix/native/include/jni_md.h" "$JNI_MD_UNIX_SHA256"
 
 build() {
     local target=$1 md=$2 dir=$3 lib=$4 type=$5

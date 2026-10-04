@@ -22,20 +22,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: ./.github/actions/setup-gradle
+      - uses: ./.github/actions/install-conveyor
 
       - name: Download desktop jars
         uses: actions/download-artifact@v8
         with:
           name: desktop-jar
-
-      - uses: ./.github/actions/install-conveyor
-
-      - name: Cache Conveyor downloads
-        uses: actions/cache@v6
-        with:
-          path: ~/.cache/hydraulic/conveyor
-          key: conveyor-release
 
       - name: Write Apple notarization key
         env:
