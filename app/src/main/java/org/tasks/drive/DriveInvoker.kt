@@ -41,9 +41,8 @@ class DriveInvoker(
     @Throws(IOException::class)
     suspend fun getFilesByPrefix(folderId: String?, vararg prefix: String?): List<File> {
         val namePredicate = prefix.joinToString(" or ") { "name contains '$it'" }
-        val query = String.format(
-                "'%s' in parents and ($namePredicate) and trashed = false and mimeType != '%s'",
-                folderId, prefix, MIME_FOLDER)
+        val query =
+                "'$folderId' in parents and ($namePredicate) and trashed = false and mimeType != '$MIME_FOLDER'"
         return execute(
                 service
                         .files()

@@ -39,11 +39,14 @@
 -keep class * implements net.fortuna.ical4j.transform.rfc5545.Rfc5545ComponentRule { <init>(); }
 -keep class * implements net.fortuna.ical4j.transform.rfc5545.Rfc5545PropertyRule { <init>(); }
 -keep class * implements net.fortuna.ical4j.validate.CalendarValidatorFactory { <init>(); }
+-keepnames class net.fortuna.ical4j.transform.rfc5545.TzHelper
+-keep class at.bitfire.ical4android.AndroidCompatTimeZoneRegistry$Factory { *; }
 
 # https://github.com/google/google-api-java-client-samples/blob/34c3b43cb15f4ee1b636a0e01521cc81a2451dcd/tasks-android-sample/proguard-google-api-client.txt
 -keepclassmembers class * {
   @com.google.api.client.util.Key <fields>;
 }
+-keep,allowobfuscation class * extends com.google.api.client.util.GenericData { <init>(); }
 -dontwarn com.google.api.client.extensions.android.**
 -dontwarn com.google.api.client.googleapis.extensions.android.**
 -dontwarn com.google.android.gms.**
