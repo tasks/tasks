@@ -119,9 +119,8 @@ jobs:
           -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
           -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
           -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
-          -Kapp.windows.signing-key.azure-trusted-signing.endpoint=https://eus.codesigning.azure.net/
+          -Kapp.windows.signing-key.azure-trusted-signing.endpoint=https://eus.codesigning.azure.net
           -Kapp.windows.signing-key-alias=Tasks/tasks-org
-          -Kapp.windows.timestamping-server=http://timestamp.acs.microsoft.com
           make site
 
       - name: Upload Conveyor logs

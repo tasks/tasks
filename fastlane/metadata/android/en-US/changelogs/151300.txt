@@ -1,0 +1,8 @@
+* Update icon set and add 1,800+ icons
+* Reduced app download and install size
+* Skip invalid tasks instead of stopping sync
+* Restrict credentials to account domain
+* Handle secondly recurrence intervals
+* Use sentence case for 'Clear completed' - @joshuagrady
+* Bug fixes and performance improvements
+* Update translations

@@ -1,3 +1,38 @@
+### 15.13 (2026-10-05)
+
+* Update icon set and add 1,800+ icons
+* Reduced app download and install size
+* Skip invalid tasks instead of stopping sync
+* Restrict credentials to account domain
+* Handle secondly recurrence intervals
+* Use sentence case for 'Clear completed' - @joshuagrady [#4214](https://github.com/tasks/tasks/pull/4214)
+* Bug fixes and performance improvements
+
+Desktop:
+  * Sign Windows releases
+    * NOTE: Windows users must manually install the latest update because of
+      the certificate change
+  * New desktop beta channel at https://update.tasks.org/beta
+  * Fix Intel Mac and Windows ARM builds
+  * Fix .deb installs on older distros
+
+Update translations:
+  * Brazilian Portuguese - @restlessSangoLeelo, @gregcarmo
+  * Chinese (Simplified) - hamburger2048, Sketch6580
+  * Dutch - @Stephan-P
+  * Estonian - Priit Jõerüüt
+  * French - @FlorianLeChat
+  * German - @Kachelkaiser
+  * Indonesian - @arifpedia
+  * Italian - @glemco
+  * Japanese - Norara
+  * Persian - @ali-0315
+  * Romanian - @ygorigor
+  * Russian - George Shchennikov
+  * Serbian - @vale-decem
+  * Turkish - @oersen
+  * Ukrainian - @IhorHordiichuk
+
 ### 15.12 (2026-09-11)
 
 * Add 'Works with Tasks.org' in app settings
