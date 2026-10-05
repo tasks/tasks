@@ -32,7 +32,6 @@ jobs:
       - name: Write Apple notarization key
         env:
           APPLE_PRIVATE_KEY: ${{ secrets.APPLE_PRIVATE_KEY }}
-        if: ${{ env.APPLE_PRIVATE_KEY != '' }}
         run: echo "$APPLE_PRIVATE_KEY" > "$RUNNER_TEMP/apple_api_key.p8"
 
       - uses: azure/login@v3
@@ -49,6 +48,7 @@ jobs:
         run: >
           conveyor
           -vvv
+          --logs-dir=$RUNNER_TEMP/conveyor-logs
           -Kapp.mac.notarization.issuer-id=${{ secrets.APPLE_ISSUER_ID }}
           -Kapp.mac.notarization.key-id=${{ secrets.APPLE_KEY_ID }}
           -Kapp.mac.notarization.private-key=${{ runner.temp }}/apple_api_key.p8
@@ -56,6 +56,13 @@ jobs:
           -Kapp.windows.signing-key-alias=Tasks/tasks-org
           -Kapp.windows.timestamping-server=http://timestamp.acs.microsoft.com
           make site
+
+      - name: Upload Conveyor logs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: conveyor-logs
+          path: ${{ runner.temp }}/conveyor-logs/
 
       - name: Upload notarized desktop output
         uses: actions/upload-artifact@v7
