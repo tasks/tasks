@@ -1,17 +1,37 @@
 name: Install Conveyor
 description: Set up JDK, Gradle and Conveyor
 
+inputs:
+  version:
+    description: Conveyor version
+    default: "22.0"
+  sha256:
+    description: Conveyor SHA-256
+    default: "768ea002e99149deb502a9177c11f2f00dcbffa976e505f7f424a5492287ee3c"
+
 runs:
   using: composite
   steps:
     - uses: ./.github/actions/setup-gradle
 
+    - name: Cache Conveyor distribution
+      uses: actions/cache@v6
+      with:
+        path: ${{ runner.temp }}/conveyor.tar.gz
+        key: conveyor-dist-${{ inputs.version }}-${{ inputs.sha256 }}
+
     - name: Download Conveyor
       shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+        SHA256: ${{ inputs.sha256 }}
       run: |
         set -euo pipefail
-        VERSION=22.0
-        SHA256=768ea002e99149deb502a9177c11f2f00dcbffa976e505f7f424a5492287ee3c
+        if echo "$SHA256  $RUNNER_TEMP/conveyor.tar.gz" | sha256sum -c --status 2>/dev/null; then
+          echo "Restored from cache, checksum verified."
+          exit 0
+        fi
+        rm -f "$RUNNER_TEMP/conveyor.tar.gz"
         scripts/fetch "$RUNNER_TEMP/conveyor.tar.gz" "https://downloads.hydraulic.dev/conveyor/conveyor-$VERSION-linux-amd64.tar.gz" "$SHA256"
         ls -l "$RUNNER_TEMP/conveyor.tar.gz"
 
