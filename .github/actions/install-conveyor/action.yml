@@ -1,34 +1,20 @@
 name: Install Conveyor
 description: Set up JDK, Gradle and Conveyor
 
-inputs:
-  cache-name:
-    description: Name for the Conveyor download cache (blank = no cache)
-    required: false
-    default: ""
-
 runs:
   using: composite
   steps:
     - uses: ./.github/actions/setup-gradle
 
-    - name: Install Conveyor
-      id: conveyor
+    - name: Download Conveyor
       shell: bash
       run: |
         set -euo pipefail
         VERSION=22.0
         SHA256=768ea002e99149deb502a9177c11f2f00dcbffa976e505f7f424a5492287ee3c
         scripts/fetch "$RUNNER_TEMP/conveyor.tar.gz" "https://downloads.hydraulic.dev/conveyor/conveyor-$VERSION-linux-amd64.tar.gz" "$SHA256"
-        sudo tar xf "$RUNNER_TEMP/conveyor.tar.gz" -C /usr/local --strip-components=1
-        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+        ls -l "$RUNNER_TEMP/conveyor.tar.gz"
 
-    - name: Cache Conveyor downloads
-      if: ${{ inputs.cache-name }}
-      uses: actions/cache@v6
-      with:
-        path: ~/.cache/hydraulic/conveyor/cache
-        key: conveyor-${{ inputs.cache-name }}-${{ steps.conveyor.outputs.version }}-${{ hashFiles('composeApp/conveyor.conf') }}
-        restore-keys: |
-          conveyor-${{ inputs.cache-name }}-${{ steps.conveyor.outputs.version }}-
-          conveyor-${{ inputs.cache-name }}-
+    - name: Extract Conveyor
+      shell: bash
+      run: sudo tar xf "$RUNNER_TEMP/conveyor.tar.gz" -C /usr/local --strip-components=1

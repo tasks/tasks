@@ -68,8 +68,6 @@ jobs:
       - uses: actions/checkout@v7
 
       - uses: ./.github/actions/install-conveyor
-        with:
-          cache-name: ${{ matrix.platform }}
 
       - name: Download desktop jars
         uses: actions/download-artifact@v8
