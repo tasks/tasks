@@ -11,6 +11,7 @@ import org.tasks.R
 import org.tasks.databinding.TaskAdapterRowBinding
 import org.tasks.dialogs.Linkify
 import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.markdown.CheckboxColors
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver
@@ -36,7 +37,10 @@ class ViewHolderFactory @Inject constructor(
     private val rowPaddingDp = preferences.getInt(R.string.p_rowPadding, 16)
     private val rowPaddingPx: Int = AndroidUtilities.convertDpToPixels(metrics, rowPaddingDp)
     private val markdown =
-        MarkdownProvider(context, preferences).markdown(R.string.p_linkify_task_list)
+        MarkdownProvider(context, preferences).markdown(
+            R.string.p_linkify_task_list,
+            CheckboxColors(theme.themeColor.primaryColor, theme.themeColor.colorOnPrimary),
+        )
 
     lateinit var dateFormatter: DateFormatter
 

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -38,10 +39,14 @@ fun EditTextView(
     requestFocus: Boolean = false,
     multiline: Boolean = false,
     onDone: () -> Unit = {},
+    onFocusChanged: (Boolean) -> Unit = {},
+    cursorAtEnd: Boolean = false,
 ) {
     val context = LocalContext.current
     var shouldRequestFocus by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
+    // The factory below runs once, so read the latest callback rather than capturing the first.
+    val currentOnFocusChanged by rememberUpdatedState(onFocusChanged)
     AndroidView(
         modifier = Modifier
             .fillMaxWidth()
@@ -95,6 +100,7 @@ fun EditTextView(
                 freezesText = true
                 setHorizontallyScrolling(false)
                 setHint(hint)
+                setOnFocusChangeListener { _, hasFocus -> currentOnFocusChanged(hasFocus) }
 
                 setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
@@ -113,6 +119,9 @@ fun EditTextView(
                 view.post {
                     fun tryFocus(attempts: Int = 3) {
                         if (view.requestFocus()) {
+                            if (cursorAtEnd) {
+                                view.setSelection(view.length())
+                            }
                             val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
                         } else if (attempts > 1) {
