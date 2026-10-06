@@ -1,4 +1,4 @@
-### 15.13 (2026-10-05)
+### 15.13-beta01 (2026-10-05)
 
 * Update icon set and add 1,800+ icons
 * Reduced app download and install size
@@ -10,8 +10,6 @@
 
 Desktop:
   * Sign Windows releases
-    * NOTE: Windows users must manually install the latest update because of
-      the certificate change
   * New desktop beta channel at https://update.tasks.org/beta
   * Fix Intel Mac and Windows ARM builds
   * Fix .deb installs on older distros
