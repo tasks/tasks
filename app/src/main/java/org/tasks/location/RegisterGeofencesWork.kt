@@ -26,6 +26,9 @@ class RegisterGeofencesWork @AssistedInject constructor(
         return try {
             locationService.registerAllGeofences()
             Result.success()
+        } catch (e: SecurityException) {
+            Timber.w(e, "Missing location permission, not retrying")
+            Result.failure()
         } catch (e: Exception) {
             Timber.e(e, "Failed to register geofences")
             Result.retry()
