@@ -57,6 +57,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
         manifestPlaceholders["appAuthRedirectScheme"] = "org.tasks"
+        resValue("string", "opentasks_authority", "$applicationId.opentasks")
     }
 
     signingConfigs {

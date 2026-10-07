@@ -8,10 +8,10 @@ import android.net.Uri
 import android.os.Handler
 import android.os.HandlerThread
 import co.touchlab.kermit.Logger
+import org.dmfs.provider.tasks.AuthorityUtil
 import org.dmfs.tasks.contract.TaskContract.Properties
 import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.dmfs.tasks.contract.TaskContract.Tasks
-import org.tasks.kmp.R
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -22,7 +22,7 @@ class OpenTaskContentObserver(
     private val tasksPreferences: TasksPreferences,
 ) : ContentObserver(getHandler()), SyncStatusObserver {
 
-    val authority = context.getString(R.string.opentasks_authority)
+    val authority = AuthorityUtil.taskAuthority(context)
 
     private val isSyncOngoing: Boolean
         get() = kotlinx.coroutines.runBlocking {

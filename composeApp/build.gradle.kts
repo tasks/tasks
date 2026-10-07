@@ -129,6 +129,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = appVersionCode
         versionName = appVersionName
+        resValue("string", "opentasks_authority", "$applicationId.opentasks")
     }
     packaging {
         resources {
@@ -158,6 +159,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        resValues = true
     }
     dependencies {
         coreLibraryDesugaring(libs.desugar.jdk.libs)
