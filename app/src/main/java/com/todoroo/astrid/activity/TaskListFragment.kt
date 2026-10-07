@@ -224,6 +224,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
     private lateinit var taskAdapter: TaskAdapter
     private var recyclerAdapter: DragAndDropRecyclerAdapter? = null
     private var dirtyTaskIds: Set<Long> = emptySet()
+    private var reportedFullyDrawn = false
     private val bannerAdapter = BannerAdapter()
     private lateinit var filter: Filter
     private lateinit var search: MenuItem
@@ -463,6 +464,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         }
                         swipeRefreshLayout.isRefreshing = it.syncOngoing
                         emptyRefreshLayout.isRefreshing = it.syncOngoing
+                        reportFullyDrawn()
                     }
                 }
             }
@@ -677,6 +679,13 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
         }
         ViewCompat.requestApplyInsets(binding.toolbar)
         return binding.root
+    }
+
+    private fun reportFullyDrawn() {
+        if (!reportedFullyDrawn) {
+            reportedFullyDrawn = true
+            activity?.reportFullyDrawn()
+        }
     }
 
     private fun submitList(tasks: SectionedDataSource) {
