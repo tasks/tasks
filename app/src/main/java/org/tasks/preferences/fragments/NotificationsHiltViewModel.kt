@@ -20,7 +20,7 @@ import org.tasks.R
 import org.tasks.injection.ApplicationScope
 import org.tasks.extensions.Context.getResourceUri
 import org.tasks.preferences.Preferences
-import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.scheduling.NotificationSchedulerWork
 import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.ReminderChange
 import timber.log.Timber
@@ -38,7 +38,7 @@ class NotificationsHiltViewModel @Inject constructor(
     platformConfiguration = platformConfiguration,
     persistenceScope = persistenceScope,
     rescheduleNotifications = { change ->
-        NotificationSchedulerIntentService.enqueueWork(
+        NotificationSchedulerWork.enqueueWork(
             context,
             cancelNotifications = change == ReminderChange.ON_SCREEN,
         )

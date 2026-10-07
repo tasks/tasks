@@ -7,7 +7,7 @@ import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.extensions.Context.canScheduleExactAlarms
 import org.tasks.jobs.WorkManager
-import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.scheduling.NotificationSchedulerWork
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,7 +21,7 @@ class ScheduleExactAlarmsPermissionReceiver : BroadcastReceiver() {
         }
 
         if (context.canScheduleExactAlarms()) {
-            NotificationSchedulerIntentService.enqueueWork(context)
+            NotificationSchedulerWork.enqueueWork(context)
         }
     }
 }

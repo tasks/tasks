@@ -12,7 +12,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.core.app.JobIntentService
 import androidx.core.app.LocaleManagerCompat
 import androidx.core.os.ConfigurationCompat
 import androidx.hilt.work.HiltWorkerFactory
@@ -40,15 +39,14 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.CaldavClient
 import org.tasks.fcm.PushTokenManager
-import org.tasks.injection.InjectingJobIntentService
 import org.tasks.jobs.WorkManager
 import org.tasks.location.LocationService
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.pebble.PebbleService
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
-import org.tasks.receivers.RefreshReceiver
-import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.receivers.ExternalRefreshWork
+import org.tasks.scheduling.NotificationSchedulerWork
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.themes.ThemeBase
@@ -182,7 +180,7 @@ class TasksApplication : Application(), Configuration.Provider {
         tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
         tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
         inventory.updateTasksAccount()
-        NotificationSchedulerIntentService.enqueueWork(context)
+        NotificationSchedulerWork.enqueueWork(context)
         workManager.get().apply {
             scheduleBackup()
             scheduleConfigRefresh()
@@ -226,11 +224,7 @@ class TasksApplication : Application(), Configuration.Provider {
 
     private class RefreshBroadcastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            JobIntentService.enqueueWork(
-                    context,
-                    RefreshReceiver::class.java,
-                    InjectingJobIntentService.JOB_ID_REFRESH_RECEIVER,
-                    intent)
+            ExternalRefreshWork.enqueueWork(context)
         }
     }
 

@@ -29,7 +29,7 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_DATE_TIME
 import org.tasks.date.DateTimeUtils
 import org.tasks.extensions.Context.openReminderSettings
-import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.scheduling.NotificationSchedulerWork
 import org.tasks.ui.TaskEditControlFragment
 import javax.inject.Inject
 
@@ -62,7 +62,7 @@ class ReminderControlSet : TaskEditControlFragment() {
                 Manifest.permission.POST_NOTIFICATIONS,
                 onPermissionResult = { success ->
                     if (success) {
-                        NotificationSchedulerIntentService.enqueueWork(context)
+                        NotificationSchedulerWork.enqueueWork(requireContext())
                     }
                 }
             )

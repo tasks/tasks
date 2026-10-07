@@ -4,8 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import androidx.core.app.JobIntentService;
-import org.tasks.injection.InjectingJobIntentService;
+import android.os.Bundle;
 import timber.log.Timber;
 
 public final class FireReceiver extends BroadcastReceiver {
@@ -41,7 +40,12 @@ public final class FireReceiver extends BroadcastReceiver {
       return;
     }
 
-    JobIntentService.enqueueWork(
-        context, TaskerIntentService.class, InjectingJobIntentService.JOB_ID_TASKER, intent);
+    Bundle bundle = intent.getBundleExtra(com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
+    if (bundle == null) {
+      Timber.e("%s is missing", com.twofortyfouram.locale.api.Intent.EXTRA_BUNDLE);
+      return;
+    }
+
+    TaskerWork.Companion.enqueueWork(context, bundle);
   }
 }

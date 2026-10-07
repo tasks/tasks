@@ -2,30 +2,35 @@ package org.tasks.scheduling
 
 import android.app.NotificationChannel
 import android.content.Context
-import android.content.Intent
+import androidx.hilt.work.HiltWorker
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import com.todoroo.andlib.utility.AndroidUtilities.preS
-import dagger.Lazy
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import org.tasks.R
-import org.tasks.injection.InjectingJobIntentService
+import org.tasks.analytics.Firebase
+import org.tasks.injection.BaseWorker
 import org.tasks.jobs.WorkManager
 import org.tasks.notifications.NotificationManager
-import timber.log.Timber
-import javax.inject.Inject
 
-@AndroidEntryPoint
-class NotificationSchedulerIntentService : InjectingJobIntentService() {
-    @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var notificationManager: Lazy<NotificationManager>
-    @Inject lateinit var workManager: Lazy<WorkManager>
+@HiltWorker
+class NotificationSchedulerWork @AssistedInject constructor(
+    @Assisted context: Context,
+    @Assisted workerParams: WorkerParameters,
+    firebase: Firebase,
+    private val notificationManager: NotificationManager,
+    private val workManager: WorkManager,
+) : BaseWorker(context, workerParams, firebase) {
 
-    override suspend fun doWork(intent: Intent) {
-        Timber.d("onHandleWork(%s)", intent)
+    override suspend fun run(): Result {
         createNotificationChannels()
-        val cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false)
-        notificationManager.get().restoreNotifications(cancelExistingNotifications)
-        workManager.get().triggerNotifications()
+        val cancelExistingNotifications = inputData.getBoolean(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false)
+        notificationManager.restoreNotifications(cancelExistingNotifications)
+        workManager.triggerNotifications()
+        return Result.success()
     }
 
     private fun createNotificationChannels() {
@@ -61,14 +66,16 @@ class NotificationSchedulerIntentService : InjectingJobIntentService() {
 
     companion object {
         private const val EXTRA_CANCEL_EXISTING_NOTIFICATIONS = "extra_cancel_existing_notifications"
-        fun enqueueWork(context: Context?, cancelNotifications: Boolean = false) {
-            val intent = Intent(context, NotificationSchedulerIntentService::class.java)
-            intent.putExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, cancelNotifications)
-            enqueueWork(
-                    context!!,
-                    NotificationSchedulerIntentService::class.java,
-                    JOB_ID_NOTIFICATION_SCHEDULER,
-                    intent)
+        private const val TAG_NOTIFICATION_SCHEDULER = "tag_notification_scheduler"
+
+        fun enqueueWork(context: Context, cancelNotifications: Boolean = false) {
+            androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
+                TAG_NOTIFICATION_SCHEDULER,
+                ExistingWorkPolicy.APPEND_OR_REPLACE,
+                OneTimeWorkRequest.Builder(NotificationSchedulerWork::class.java)
+                    .setInputData(workDataOf(EXTRA_CANCEL_EXISTING_NOTIFICATIONS to cancelNotifications))
+                    .build()
+            )
         }
     }
 }

@@ -157,7 +157,7 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver.getData
-import org.tasks.scheduling.NotificationSchedulerIntentService
+import org.tasks.scheduling.NotificationSchedulerWork
 import org.tasks.service.TaskCompleter
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
@@ -517,7 +517,7 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                         Manifest.permission.POST_NOTIFICATIONS,
                         onPermissionResult = { success ->
                             if (success) {
-                                NotificationSchedulerIntentService.enqueueWork(context)
+                                NotificationSchedulerWork.enqueueWork(context)
                                 listViewModel.dismissBanner(tookAction = true)
                             }
                         }
