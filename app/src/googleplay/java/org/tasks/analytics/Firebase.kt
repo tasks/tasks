@@ -25,6 +25,7 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -254,6 +255,7 @@ class Firebase @Inject constructor(
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
+        if (t is CancellationException) return
         Timber.e(t)
         crashlytics?.recordException(t)
     }

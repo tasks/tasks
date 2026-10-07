@@ -6,6 +6,7 @@ import co.touchlab.crashkios.crashlytics.setCrashlyticsUnhandledExceptionHook
 import co.touchlab.kermit.ExperimentalKermitApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.crashlytics.CrashlyticsLogWriter
+import kotlin.coroutines.cancellation.CancellationException
 import kotlinx.coroutines.runBlocking
 import org.tasks.preferences.TasksPreferences
 
@@ -54,6 +55,7 @@ class IosReporting(
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
+        if (t is CancellationException) return
         logger.e(t) { t.message ?: "" }
         if (crashlyticsEnabled) {
             if (fatal) {

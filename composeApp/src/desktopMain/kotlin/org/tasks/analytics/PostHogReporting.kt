@@ -3,6 +3,7 @@ package org.tasks.analytics
 import co.touchlab.kermit.Logger
 import com.posthog.PostHog
 import com.posthog.PostHogConfig
+import kotlin.coroutines.cancellation.CancellationException
 import org.tasks.TasksBuildConfig
 import org.tasks.preferences.TasksPreferences
 import java.io.File
@@ -80,6 +81,7 @@ class PostHogReporting(
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {
+        if (t is CancellationException) return
         logger.e(t) { t.message ?: "" }
         if (enabled && collectStatistics) {
             PostHog.capture(
