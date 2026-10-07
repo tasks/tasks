@@ -8,6 +8,7 @@ import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase
 import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
+import org.tasks.billing.UnrecoverableBillingException
 import org.tasks.injection.BaseWorker
 import timber.log.Timber
 
@@ -22,6 +23,9 @@ class UpdatePurchaseWork @AssistedInject constructor(
     override suspend fun run(): Result {
         try {
             billingClient.queryPurchases(throwError = true)
+        } catch (e: UnrecoverableBillingException) {
+            Timber.w(e)
+            return Result.failure()
         } catch (e: Exception) {
             Timber.e(e)
             return Result.retry()

@@ -71,7 +71,7 @@ class BillingClientImpl(
 
             productDetailsResult.first.let {
                 if (!it.success) {
-                    throw IllegalStateException(it.responseCodeString)
+                    throw it.asException
                 }
             }
 
@@ -188,7 +188,7 @@ class BillingClientImpl(
 
             productDetailsResult.first.let {
                 if (!it.success) {
-                    throw IllegalStateException(it.responseCodeString)
+                    throw it.asException
                 }
             }
 
@@ -262,9 +262,7 @@ class BillingClientImpl(
                         } else {
                             connected = false
                             if (cont.isActive) {
-                                cont.resumeWithException(
-                                    IllegalStateException(result.responseCodeString)
-                                )
+                                cont.resumeWithException(result.asException)
                             }
                         }
                     }
@@ -317,6 +315,20 @@ class BillingClientImpl(
 
         private val BillingResult.success: Boolean
             get() = responseCode == BillingResponseCode.OK
+
+        private val unrecoverable = setOf(
+            BillingResponseCode.BILLING_UNAVAILABLE,
+            BillingResponseCode.FEATURE_NOT_SUPPORTED,
+            BillingResponseCode.DEVELOPER_ERROR,
+            BillingResponseCode.ITEM_UNAVAILABLE,
+        )
+
+        private val BillingResult.asException: IllegalStateException
+            get() = if (responseCode in unrecoverable) {
+                UnrecoverableBillingException(responseCodeString)
+            } else {
+                IllegalStateException(responseCodeString)
+            }
 
         val BillingResult.responseCodeString: String
             get() = when (responseCode) {
