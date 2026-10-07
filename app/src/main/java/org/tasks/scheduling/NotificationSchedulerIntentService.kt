@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.content.Context
 import android.content.Intent
 import com.todoroo.andlib.utility.AndroidUtilities.preS
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -16,15 +17,15 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NotificationSchedulerIntentService : InjectingJobIntentService() {
     @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var notificationManager: NotificationManager
-    @Inject lateinit var workManager: WorkManager
+    @Inject lateinit var notificationManager: Lazy<NotificationManager>
+    @Inject lateinit var workManager: Lazy<WorkManager>
 
     override suspend fun doWork(intent: Intent) {
         Timber.d("onHandleWork(%s)", intent)
         createNotificationChannels()
         val cancelExistingNotifications = intent.getBooleanExtra(EXTRA_CANCEL_EXISTING_NOTIFICATIONS, false)
-        notificationManager.restoreNotifications(cancelExistingNotifications)
-        workManager.triggerNotifications()
+        notificationManager.get().restoreNotifications(cancelExistingNotifications)
+        workManager.get().triggerNotifications()
     }
 
     private fun createNotificationChannels() {

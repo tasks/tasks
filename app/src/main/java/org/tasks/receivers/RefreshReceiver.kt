@@ -3,6 +3,7 @@ package org.tasks.receivers
 import android.content.Context
 import android.content.Intent
 import com.todoroo.astrid.provider.Astrid2TaskProvider
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
@@ -20,16 +21,16 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class RefreshReceiver : InjectingJobIntentService() {
     @Inject @ApplicationContext lateinit var context: Context
-    @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var taskDao: TaskDao
-    @Inject lateinit var preferences: Preferences
-    @Inject lateinit var wearRefresher: WearRefresher
-    @Inject lateinit var pebbleRefresher: PebbleRefresher
+    @Inject lateinit var defaultFilterProvider: Lazy<DefaultFilterProvider>
+    @Inject lateinit var taskDao: Lazy<TaskDao>
+    @Inject lateinit var preferences: Lazy<Preferences>
+    @Inject lateinit var wearRefresher: Lazy<WearRefresher>
+    @Inject lateinit var pebbleRefresher: Lazy<PebbleRefresher>
 
     override suspend fun doWork(intent: Intent) {
-        if (preferences.getBoolean(R.string.p_badges_enabled, true)) {
-            val badgeFilter = defaultFilterProvider.getBadgeFilter()
-            ShortcutBadger.applyCount(context, taskDao.count(badgeFilter))
+        if (preferences.get().getBoolean(R.string.p_badges_enabled, true)) {
+            val badgeFilter = defaultFilterProvider.get().getBadgeFilter()
+            ShortcutBadger.applyCount(context, taskDao.get().count(badgeFilter))
         }
         try {
             val cr = context.contentResolver
@@ -38,7 +39,7 @@ class RefreshReceiver : InjectingJobIntentService() {
         } catch (e: Exception) {
             Timber.e(e)
         }
-        wearRefresher.refresh()
-        pebbleRefresher.refresh()
+        wearRefresher.get().refresh()
+        pebbleRefresher.get().refresh()
     }
 }
