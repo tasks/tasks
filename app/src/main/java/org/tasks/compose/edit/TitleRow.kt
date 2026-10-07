@@ -50,6 +50,7 @@ fun TitleRow(
             Column(verticalArrangement = Arrangement.Center) {
                 Spacer(modifier = Modifier.height(3.dp))
                 EditTextView(
+                    viewId = R.id.task_title,
                     text = text,
                     hint = stringResource(R.string.TEA_title_hint),
                     onChanged = onChanged,

@@ -77,6 +77,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
 import org.tasks.compose.components.Chevron
 import org.tasks.data.AccountIcon
 import org.tasks.data.composeIcon
@@ -157,6 +159,7 @@ fun TaskListDrawer(
     val bottomGutter = searchButtonInset + SearchButtonSize + SearchButtonGap + bottomNavPadding
     Box(
         modifier = Modifier
+            .testTag(TestTags.NAVIGATION_DRAWER)
             .fillMaxSize()
             .consumeWindowInsets(PaddingValues(bottom = bottomNavPadding))
             .imePadding(),

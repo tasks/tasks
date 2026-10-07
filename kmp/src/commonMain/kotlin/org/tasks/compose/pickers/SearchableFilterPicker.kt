@@ -9,6 +9,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import org.tasks.themes.exposeTestTags
+import org.tasks.themes.TestTags
+import androidx.compose.ui.platform.testTag
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -39,6 +42,9 @@ fun SearchableFilterPicker(
     onSignIn: () -> Unit = {},
 ) {
     Surface(
+        modifier = Modifier
+            .exposeTestTags()
+            .testTag(TestTags.LIST_PICKER),
         shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surface,
     ) {

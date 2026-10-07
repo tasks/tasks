@@ -32,6 +32,8 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
 import org.tasks.kmp.formatTime
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
@@ -198,6 +200,7 @@ fun DueDateShortcuts(
         text = stringResource(Res.string.today),
         selected = selected == today,
         onClick = { selectedDay(today) },
+        modifier = Modifier.testTag(TestTags.DATE_SHORTCUT_TODAY),
     )
     ShortcutButton(
         icon = TasksIcons.WB_SUNNY,
@@ -330,11 +333,13 @@ fun ShortcutButton(
     text: String,
     selected: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val color =
         if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
     TextButton(
         onClick = { onClick() },
+        modifier = modifier,
         colors = ButtonDefaults.textButtonColors(contentColor = color)
     ) {
         Row(

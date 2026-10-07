@@ -37,6 +37,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
+import org.tasks.themes.exposeTestTags
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.previews.PREVIEW_NIGHT_MODE
 import org.tasks.themes.TasksTheme
@@ -67,7 +70,9 @@ fun DatePickerBottomSheet(
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .exposeTestTags()
+                .fillMaxWidth(),
         ) {
             Column(
                 modifier = Modifier
@@ -133,7 +138,8 @@ fun DatePickerBottomSheet(
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         TextButton(
-                            onClick = { accept() }
+                            onClick = { accept() },
+                            modifier = Modifier.testTag(TestTags.DATE_PICKER_OK),
                         ) {
                             Text(stringResource(Res.string.ok))
                         }

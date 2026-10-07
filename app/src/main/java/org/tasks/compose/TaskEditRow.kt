@@ -30,8 +30,9 @@ fun TaskEditRow(
     },
     content: @Composable () -> Unit,
     onClick: (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
 ) {
-    Row(modifier = Modifier
+    Row(modifier = modifier
         .fillMaxWidth()
         .clickable(
             enabled = onClick != null,

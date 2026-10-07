@@ -39,6 +39,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -275,7 +277,7 @@ private fun WelcomeContent(
 
         OutlinedButton(
             onClick = onContinueWithoutSync,
-            modifier = buttonModifier
+            modifier = buttonModifier.testTag(TestTags.CONTINUE_WITHOUT_SYNC)
         ) {
             Text(
                 text = stringResource(Res.string.continue_without_sync),

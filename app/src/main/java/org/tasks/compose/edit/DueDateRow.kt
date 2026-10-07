@@ -11,6 +11,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.tasks.R
@@ -57,6 +59,7 @@ private fun DueDateRow(
     onClick: () -> Unit,
 ) {
     TaskEditRow(
+        modifier = Modifier.testTag(TestTags.DUE_DATE_ROW),
         iconRes = R.drawable.ic_outline_schedule_24px,
         content = {
             DueDate(

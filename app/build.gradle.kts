@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 val appVersionCode: Int by extra
@@ -112,6 +113,13 @@ android {
             }
             signingConfig = signingConfigs.getByName("release")
         }
+        create("nonMinifiedRelease") {
+            initWith(getByName("release"))
+            isMinifyEnabled = false
+            isShrinkResources = false
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+        }
     }
 
     productFlavors {
@@ -154,6 +162,16 @@ android {
     namespace = "org.tasks"
 }
 
+androidComponents {
+    onVariants(selector().withBuildType("nonMinifiedRelease")) { variant ->
+        variant.sources.java?.addStaticSourceDirectory("src/release/java")
+        variant.sources.res?.addStaticSourceDirectory("src/release/res")
+        variant.flavorName?.takeIf { it.isNotEmpty() }?.let { flavor ->
+            variant.sources.res?.addStaticSourceDirectory("src/${flavor}Release/res")
+        }
+    }
+}
+
 configurations.all {
     exclude(group = "org.apache.httpcomponents")
     exclude(group = "org.checkerframework")
@@ -170,6 +188,7 @@ val googleplayImplementation by configurations
 dependencies {
     implementation(projects.data)
     implementation(projects.kmp)
+    baselineProfile(projects.baselineprofile)
     implementation(libs.kermit)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.adaptive.navigation.android)
@@ -227,6 +246,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.preference)
+    implementation(libs.androidx.profileinstaller)
     implementation(libs.timber)
     implementation(libs.dashclock.api)
     implementation(libs.locale) {

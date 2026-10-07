@@ -38,18 +38,21 @@ fun EditTextView(
     requestFocus: Boolean = false,
     multiline: Boolean = false,
     onDone: () -> Unit = {},
+    modifier: Modifier = Modifier,
+    viewId: Int = View.NO_ID,
 ) {
     val context = LocalContext.current
     var shouldRequestFocus by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
     AndroidView(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(end = 16.dp)
             .focusRequester(focusRequester),
         factory = { context ->
             EditText(context).apply {
+                id = viewId
                 setText(text)
                 val textWatcher =
                     markdownProvider?.markdown(linkify != null)?.textWatcher(this)

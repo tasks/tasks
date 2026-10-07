@@ -36,6 +36,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.testTag
+import org.tasks.themes.TestTags
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.IntentCompat.getParcelableExtra
 import androidx.fragment.compose.AndroidFragment
@@ -162,7 +164,10 @@ fun TaskEditScreen(
                             )
                         }
                     } else {
-                        IconButton(onClick = { save() }) {
+                        IconButton(
+                            onClick = { save() },
+                            modifier = Modifier.testTag(TestTags.SAVE_TASK),
+                        ) {
                             SymbolIcon(
                                 name = TasksIcons.SAVE,
                                 contentDescription = stringResource(R.string.save)
