@@ -6,8 +6,8 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.jetbrains.compose.resources.getString
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.requires_pro_subscription
 import javax.inject.Inject

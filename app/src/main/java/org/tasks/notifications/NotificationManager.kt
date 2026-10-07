@@ -34,9 +34,9 @@ import org.tasks.receivers.CompleteTaskReceiver
 import org.tasks.reminders.NotificationActivity
 import org.tasks.reminders.SnoozeActivity
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 import org.tasks.reminders.SnoozeOption
 import org.tasks.reminders.snoozeOptions
+import org.tasks.resources.getString
 import org.tasks.themes.ColorProvider
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis

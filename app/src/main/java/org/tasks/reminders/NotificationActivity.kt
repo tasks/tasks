@@ -11,9 +11,9 @@ import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.data.dao.TaskDao
-import org.jetbrains.compose.resources.getString
 import org.tasks.intents.TaskIntents
 import org.tasks.receivers.CompleteTaskReceiver
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.rmd_NoA_done
 import tasks.kmp.generated.resources.rmd_NoA_snooze

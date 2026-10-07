@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.compose.settings.PickerColor
+import org.tasks.resources.getString
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.compose.settings.buildPickerColors

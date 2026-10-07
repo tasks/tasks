@@ -1,12 +1,12 @@
 package org.tasks.notifications
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Notification
 import org.tasks.data.entity.Task
 import org.tasks.di.appName
 import org.tasks.extensions.guarded
 import org.tasks.extensions.truncate
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.snoozed_reminder
 

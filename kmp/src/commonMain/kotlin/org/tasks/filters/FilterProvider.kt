@@ -1,7 +1,6 @@
 package org.tasks.filters
 
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getString
 import org.tasks.billing.PurchaseState
 import org.tasks.compose.drawer.DrawerConfiguration
 import org.tasks.data.LocationFilters
@@ -22,6 +21,7 @@ import org.tasks.data.toLocationFilter
 import org.tasks.data.toTagFilter
 import org.tasks.filters.NavigationDrawerSubheader.SubheaderType
 import org.tasks.TasksBuildConfig
+import org.tasks.resources.getString
 import org.tasks.themes.TasksIcons
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.showDebugFilters

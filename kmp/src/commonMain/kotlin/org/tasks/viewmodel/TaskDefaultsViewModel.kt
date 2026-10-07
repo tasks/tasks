@@ -12,7 +12,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.getString
 import org.tasks.PlatformConfiguration
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
@@ -26,6 +25,7 @@ import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.preferences.alarmOrder
 import org.tasks.repeats.RepeatRuleToString
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.dont_add_to_calendar
 import tasks.kmp.generated.resources.none

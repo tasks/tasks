@@ -137,7 +137,6 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
 import org.tasks.extensions.Fragment.safeStartActivityForResult
 import org.tasks.extensions.hideKeyboard
-import org.jetbrains.compose.resources.getString
 import org.tasks.extensions.setOnQueryTextListener
 import org.tasks.filters.AstridOrderingFilter
 import org.tasks.filters.CaldavFilter
@@ -157,6 +156,7 @@ import org.tasks.preferences.Device
 import org.tasks.preferences.MainPreferences
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.ResourceResolver.getData
+import org.tasks.resources.getString
 import org.tasks.scheduling.NotificationSchedulerWork
 import org.tasks.service.TaskCompleter
 import org.tasks.sync.SyncAdapters

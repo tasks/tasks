@@ -9,14 +9,14 @@ import org.tasks.repeats.Frequency.WEEKLY
 import org.tasks.repeats.Frequency.YEARLY
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getPluralString
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.CrashReporting
 import org.tasks.kmp.formatNumber
 import org.tasks.kmp.org.tasks.time.TextStyle
 import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.repeats.RecurrenceUtils.isLastDayOfMonth
 import org.tasks.repeats.RecurrenceUtils.newRecur
+import org.tasks.resources.getPluralString
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.list_separator_with_space
 import tasks.kmp.generated.resources.repeat_monthly_every_day_of_nth_week

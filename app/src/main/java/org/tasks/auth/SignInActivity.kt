@@ -32,7 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.compose.resources.getString
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.url_sponsor

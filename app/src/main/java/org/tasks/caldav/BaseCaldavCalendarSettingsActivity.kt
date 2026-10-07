@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import at.bitfire.dav4jvm.ktor.exception.HttpException
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -107,10 +108,10 @@ abstract class BaseCaldavCalendarSettingsActivity : BaseListSettingsActivity() {
             is HttpException -> showSnackbar(t.message)
             is org.tasks.http.HttpException -> showSnackbar(t.message ?: "HTTP ${t.code}")
             is DisplayableException -> lifecycleScope.launch {
-                snackbar.showSnackbar(org.jetbrains.compose.resources.getString(t.resource))
+                snackbar.showSnackbar(getString(t.resource))
             }
-            is ConnectException -> showSnackbar(runBlocking { org.jetbrains.compose.resources.getString(Res.string.network_error) })
-            else -> showSnackbar(runBlocking { org.jetbrains.compose.resources.getString(Res.string.error_adding_account, t.message!!) })
+            is ConnectException -> showSnackbar(runBlocking { getString(Res.string.network_error) })
+            else -> showSnackbar(runBlocking { getString(Res.string.error_adding_account, t.message!!) })
         }
         return
     }

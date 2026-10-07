@@ -3,14 +3,14 @@ package org.tasks.reminders
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.resources.PluralStringResource
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.getPluralString
-import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.data.entity.Alarm
 import org.tasks.extensions.localizedNumber
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.resources.getPluralString
+import org.tasks.resources.getString
 import org.tasks.time.ONE_DAY
 import org.tasks.time.ONE_HOUR
 import org.tasks.time.ONE_MINUTE

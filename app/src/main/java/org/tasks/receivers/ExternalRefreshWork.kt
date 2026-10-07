@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.todoroo.astrid.provider.Astrid2TaskProvider
 import dagger.assisted.Assisted
@@ -53,7 +54,7 @@ class ExternalRefreshWork @AssistedInject constructor(
         private const val TAG_EXTERNAL_REFRESH = "tag_external_refresh"
 
         fun enqueueWork(context: Context) {
-            androidx.work.WorkManager.getInstance(context).enqueueUniqueWork(
+            WorkManager.getInstance(context).enqueueUniqueWork(
                 TAG_EXTERNAL_REFRESH,
                 ExistingWorkPolicy.REPLACE,
                 OneTimeWorkRequest.Builder(ExternalRefreshWork::class.java).build()

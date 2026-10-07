@@ -20,7 +20,6 @@ import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyBlocking
 import org.mockito.kotlin.whenever
 import org.robolectric.RobolectricTestRunner
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.compose.pickers.QuickPickTimes
@@ -35,6 +34,7 @@ import org.tasks.markdown.Markdown
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.Preferences
+import org.tasks.resources.getString
 import org.tasks.time.DateTime
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.rmd_NoA_done

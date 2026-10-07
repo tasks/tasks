@@ -40,7 +40,6 @@ import kotlinx.coroutines.withContext
 import kotlin.concurrent.atomics.AtomicLong
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.concurrent.atomics.incrementAndFetch
-import org.jetbrains.compose.resources.getString
 import org.tasks.compose.pickers.NO_DAY
 import org.tasks.compose.pickers.NO_TIME
 import org.tasks.compose.pickers.resolveStartDate
@@ -88,6 +87,7 @@ import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.repeats.Frequency
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.anchoredToDueDate
+import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTime

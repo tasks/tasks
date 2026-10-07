@@ -1,13 +1,13 @@
 package org.tasks.viewmodel
 
 import co.touchlab.kermit.Logger
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.googleapis.GoogleTaskListClient
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.gtasks_GLA_errorIOAuth

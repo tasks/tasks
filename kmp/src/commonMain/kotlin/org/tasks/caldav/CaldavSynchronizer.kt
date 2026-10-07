@@ -18,6 +18,7 @@ import at.bitfire.dav4jvm.property.webdav.DisplayName
 import at.bitfire.dav4jvm.property.webdav.GetETag
 import at.bitfire.dav4jvm.property.webdav.GetETag.Companion.fromHttpResponse
 import at.bitfire.dav4jvm.property.webdav.SyncToken
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import org.tasks.data.dao.DirtyDao
 import io.ktor.client.HttpClient
@@ -26,7 +27,6 @@ import io.ktor.http.URLBuilder
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
 import io.ktor.http.content.ByteArrayContent
-import org.jetbrains.compose.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.requires_pro_subscription

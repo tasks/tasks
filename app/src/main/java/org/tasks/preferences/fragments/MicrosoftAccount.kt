@@ -7,6 +7,7 @@ import org.tasks.LocalBroadcastManager
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.sign_in
 import org.tasks.preferences.IconPreference
@@ -38,7 +39,7 @@ class MicrosoftAccount : BaseAccountPreference() {
             isVisible = true
             when {
                 account.error.isUnauthorized() -> {
-                    title = runBlocking { org.jetbrains.compose.resources.getString(Res.string.sign_in) }
+                    title = runBlocking { getString(Res.string.sign_in) }
                     setSummary(R.string.authentication_required)
                     setOnPreferenceClickListener { requestLogin() }
                 }

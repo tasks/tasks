@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.hilt.work.HiltWorker
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -47,7 +48,7 @@ class TaskerWork @AssistedInject constructor(
                 Timber.e(e)
                 return
             }
-            androidx.work.WorkManager.getInstance(context).enqueue(
+            WorkManager.getInstance(context).enqueue(
                 OneTimeWorkRequest.Builder(TaskerWork::class.java)
                     .setInputData(data)
                     .build()

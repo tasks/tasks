@@ -1,6 +1,5 @@
 package org.tasks.gtasks
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.broadcast.RefreshBroadcaster
@@ -21,6 +20,7 @@ import org.tasks.googleapis.InvokerFactory
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
+import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res

@@ -31,8 +31,8 @@ import org.tasks.http.NetworkException
 import org.tasks.http.NotFoundException
 import org.tasks.http.ServiceUnavailableException
 import org.tasks.http.UnauthorizedException
-import org.jetbrains.compose.resources.getString
 import org.tasks.preferences.AppPreferences
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.microsoft.MicrosoftConverter.applyRemote
 import org.tasks.sync.microsoft.MicrosoftConverter.applySubtask

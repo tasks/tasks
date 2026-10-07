@@ -15,6 +15,7 @@ import org.tasks.data.TaskSaver
 import com.todoroo.astrid.files.FilesControlSet
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatControlSet
+import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.data.getDefaultAlarms
 import org.tasks.service.TaskDeleter
@@ -38,7 +39,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.no_title

@@ -2,7 +2,6 @@ package org.tasks.googleapis
 
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.repeats.RepeatTaskHelper
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.auth.TasksOAuthClient
 import org.tasks.auth.isUnauthorized
@@ -15,6 +14,7 @@ import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.AppPreferences
+import org.tasks.resources.getString
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter

@@ -6,7 +6,6 @@ import com.getpebble.android.kit.PebbleKit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Analytics
 import org.tasks.pebble.PebbleProtocol.CHUNK_SIZE
 import org.tasks.pebble.PebbleProtocol.ITEM_COLLAPSED
@@ -62,6 +61,7 @@ import org.tasks.pebble.PebbleProtocol.RESP_TOGGLE_GROUP
 import org.tasks.pebble.PebbleProtocol.RESP_TOGGLE_LIST
 import org.tasks.pebble.PebbleProtocol.TYPE_HEADER
 import org.tasks.pebble.PebbleProtocol.TYPE_TASK
+import org.tasks.resources.getString
 import org.tasks.watch.WatchListItem
 import org.tasks.watch.WatchService
 import org.tasks.watch.WatchUiItem

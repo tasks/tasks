@@ -20,7 +20,7 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.extensions.Context.safeStartActivity
-import org.jetbrains.compose.resources.getString
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
 import timber.log.Timber

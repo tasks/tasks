@@ -25,6 +25,7 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.TasksUrls
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.url_app_passwords
 import tasks.kmp.generated.resources.url_sponsor
@@ -121,7 +122,7 @@ class TasksAccount : Fragment() {
                     )
                 },
                 onOpenSponsor = {
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_sponsor) })
+                    context?.openUri(runBlocking { getString(Res.string.url_sponsor) })
                 },
                 onCopyEmail = {
                     state.inboundEmail?.let {
@@ -145,7 +146,7 @@ class TasksAccount : Fragment() {
                     viewModel.requestNewPassword(description)
                 },
                 onOpenAppPasswordsInfo = {
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_app_passwords) })
+                    context?.openUri(runBlocking { getString(Res.string.url_app_passwords) })
                 },
                 onCopyField = { label, value ->
                     copyToClipboard(requireContext(), label, value)
@@ -157,7 +158,7 @@ class TasksAccount : Fragment() {
                     viewModel.refreshAccount()
                 },
                 onOpenHelp = {
-                    context?.openUri(runBlocking { org.jetbrains.compose.resources.getString(Res.string.url_app_passwords) })
+                    context?.openUri(runBlocking { getString(Res.string.url_app_passwords) })
                 },
                 onAddAccount = {
                     startActivity(Intent(requireContext(), AddAccountActivity::class.java))

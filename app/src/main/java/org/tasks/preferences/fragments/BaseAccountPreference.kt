@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.BillingClient
 import tasks.kmp.generated.resources.Res

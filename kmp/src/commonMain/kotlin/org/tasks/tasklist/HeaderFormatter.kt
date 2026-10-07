@@ -1,10 +1,10 @@
 package org.tasks.tasklist
 
 import com.todoroo.astrid.core.SortHelper
-import org.jetbrains.compose.resources.getString
 import org.tasks.filters.CaldavListCache
 import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.completed
 import tasks.kmp.generated.resources.filter_high_priority

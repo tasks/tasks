@@ -8,7 +8,6 @@ import com.todoroo.astrid.api.PermaSql
 import com.todoroo.astrid.api.TextInputCriterion
 import com.todoroo.astrid.core.CriterionInstance
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.Strings
 import org.tasks.activities.FilterSettingsActivity.Companion.sql
@@ -28,6 +27,7 @@ import org.tasks.data.sql.Field.Companion.field
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.Query.Companion.select
 import org.tasks.data.sql.UnaryCriterion.Companion.isNotNull
+import org.tasks.resources.getString
 import timber.log.Timber
 import javax.inject.Inject
 import tasks.kmp.generated.resources.Res

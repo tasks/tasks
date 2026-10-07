@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Constants
 import org.tasks.auth.serverUrlError
 import org.tasks.analytics.Reporting
@@ -21,6 +20,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.etebase.EtebaseClientFactory
 import org.tasks.http.ConnectionException
 import org.tasks.http.UnauthorizedException
+import org.tasks.resources.getString
 import org.tasks.security.Encryption
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res

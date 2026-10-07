@@ -28,10 +28,10 @@ import org.tasks.GrpcProto.ListItemType
 import org.tasks.GrpcProto.UiItem
 import org.tasks.R
 import org.tasks.WearServiceGrpcKt
-import org.jetbrains.compose.resources.getString
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.presentation.MainActivity
 import org.tasks.presentation.phoneTargetNodeId
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.all_done
 import timber.log.Timber

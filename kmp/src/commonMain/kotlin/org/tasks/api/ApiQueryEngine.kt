@@ -3,7 +3,6 @@ package org.tasks.api
 import androidx.room3.immediateTransaction
 import androidx.room3.useReaderConnection
 import androidx.room3.useWriterConnection
-import org.jetbrains.compose.resources.getString
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
@@ -12,6 +11,7 @@ import org.tasks.api.TasksContract.Tags
 import org.tasks.api.TasksContract.TaskTags
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.db.Database
+import org.tasks.resources.getString
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.startOfDay
 import tasks.kmp.generated.resources.Res

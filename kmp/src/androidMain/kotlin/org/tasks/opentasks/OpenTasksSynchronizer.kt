@@ -4,7 +4,6 @@ import at.bitfire.ical4android.BatchOperation
 import co.touchlab.kermit.Logger
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Reporting
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar
@@ -24,6 +23,7 @@ import org.tasks.data.entity.OpenTaskProvider
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.NO_ID
 import org.tasks.icalendar.serialize
+import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res

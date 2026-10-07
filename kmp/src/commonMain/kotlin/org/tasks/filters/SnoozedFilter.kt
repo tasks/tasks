@@ -1,6 +1,5 @@
 package org.tasks.filters
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.CommonParcelize
 import org.tasks.data.dao.TaskDao.TaskCriteria.activeAndVisible
 import org.tasks.data.entity.Alarm
@@ -9,6 +8,7 @@ import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Functions.now
 import org.tasks.data.sql.Join.Companion.inner
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.resources.getString
 import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.filter_snoozed

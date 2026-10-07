@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.tasks_org
 import org.tasks.auth.SignInActivity
@@ -216,7 +217,7 @@ class MainSettingsComposeFragment : Fragment() {
                 viewLifecycleOwner.lifecycleScope.launch {
                     activity.startPreference(
                         newTasksAccountPreference(account),
-                        org.jetbrains.compose.resources.getString(Res.string.tasks_org)
+                        getString(Res.string.tasks_org)
                     )
                 }
             }
@@ -301,7 +302,7 @@ class MainSettingsComposeFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             activity.startPreference(
                 fragment,
-                org.jetbrains.compose.resources.getString(destination.titleRes)
+                getString(destination.titleRes)
             )
         }
     }

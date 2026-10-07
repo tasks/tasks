@@ -1,11 +1,11 @@
 package org.tasks.filters
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.CommonParcelize
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion.Companion.and
 import org.tasks.data.sql.Order.Companion.desc
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.resources.getString
 import org.tasks.themes.TasksIcons
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.minusDays

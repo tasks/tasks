@@ -1,10 +1,10 @@
 package org.tasks.filters
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.CommonParcelize
 import org.tasks.data.entity.Task
 import org.tasks.data.sql.Criterion
 import org.tasks.data.sql.QueryTemplate
+import org.tasks.resources.getString
 import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.filter_timer

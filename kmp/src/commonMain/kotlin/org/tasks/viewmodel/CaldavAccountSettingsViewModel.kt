@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
 import org.tasks.auth.serverUrlError
@@ -29,6 +28,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.SERVER_UNKNOWN
 import org.tasks.http.ConnectionException
 import org.tasks.http.HttpException
+import org.tasks.resources.getString
 import org.tasks.security.Encryption
 import org.tasks.service.TaskDeleter
 import org.tasks.ui.DisplayableException

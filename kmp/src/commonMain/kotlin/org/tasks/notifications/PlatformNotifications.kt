@@ -1,7 +1,7 @@
 package org.tasks.notifications
 
-import org.jetbrains.compose.resources.getString
 import org.tasks.extensions.guarded
+import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
 import tasks.kmp.generated.resources.rmd_NoA_done

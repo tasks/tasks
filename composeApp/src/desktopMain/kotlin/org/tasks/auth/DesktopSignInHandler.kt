@@ -1,7 +1,6 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
-import org.jetbrains.compose.resources.getString
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
@@ -12,6 +11,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.http.HttpException
+import org.tasks.resources.getString
 import org.tasks.security.KeyStoreEncryption
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted

@@ -1,5 +1,6 @@
 package org.tasks.compose
 
+import org.tasks.resources.getString
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.Image
@@ -75,7 +76,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.jetbrains.compose.resources.getString
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE

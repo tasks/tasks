@@ -4,12 +4,12 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.jetbrains.compose.resources.getString
 import org.tasks.api.TasksContract.Places
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.resources.getString
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
