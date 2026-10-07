@@ -44,7 +44,7 @@ class Firebase @Inject constructor(
         }
     }
 
-    private val posthogEnabled: Boolean = run {
+    private val posthogEnabled: Boolean by lazy {
         val apiKey = context.getString(R.string.posthog_key)
         if (preferences.isTrackingEnabled && apiKey.isNotBlank()) {
             PostHogAndroid.setup(
