@@ -35,7 +35,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -89,10 +88,6 @@ class TasksApplication : Application(), Configuration.Provider {
             defaultExceptionHandler?.uncaughtException(thread, throwable) ?: throw throwable
         }
         upgrade()
-        runBlocking {
-            tasksPreferences.set(TasksPreferences.syncOngoing, false)
-            tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
-        }
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
         inventory.subscription.observeForever { firebase.setSku(it?.sku) }
@@ -183,6 +178,8 @@ class TasksApplication : Application(), Configuration.Provider {
     }
 
     private fun backgroundWork() = scope.launch {
+        tasksPreferences.set(TasksPreferences.syncOngoing, false)
+        tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
         tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
         inventory.updateTasksAccount()
         NotificationSchedulerIntentService.enqueueWork(context)
