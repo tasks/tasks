@@ -70,6 +70,15 @@ jobs:
           path: ~/.konan
           key: konan-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml') }}
 
+      - name: Cache libical
+        uses: actions/cache@v6
+        with:
+          path: |
+            kmp/build/libical/libical.xcframework
+            kmp/build/libical/src/zoneinfo
+            kmp/build/libical/.stamp
+          key: libical-${{ runner.os }}-${{ hashFiles('kmp/build-libical.sh') }}
+
       - name: Select Xcode
         run: sudo xcode-select -s "$(ls -d /Applications/Xcode_26*.app | sort -V | tail -1)"
 

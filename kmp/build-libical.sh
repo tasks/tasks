@@ -5,6 +5,11 @@ version=4.0.5
 sha256=cc09a3ac41d60e6144e644bd3fcf97d47106d659c4a0b8965102581401e67c9c
 out=${1:?usage: build-libical.sh <output directory>}
 
+stamp=$(shasum -a 256 "$0" | cut -d' ' -f1)
+if [ "$(cat "$out/.stamp" 2>/dev/null)" = "$stamp" ] && [ -d "$out/libical.xcframework" ] && [ -d "$out/src/zoneinfo" ]; then
+    exit 0
+fi
+
 cmake=${CMAKE:-$(command -v cmake || true)}
 for candidate in /opt/homebrew/bin/cmake /usr/local/bin/cmake /Applications/CMake.app/Contents/bin/cmake \
         "${ANDROID_HOME:-${ANDROID_SDK_ROOT:-$HOME/Library/Android/sdk}}"/cmake/*/bin/cmake; do
@@ -24,7 +29,7 @@ if ! echo "$sha256  $tarball" | shasum -a 256 -c --status; then
     echo "$sha256  $tarball" | shasum -a 256 -c
 fi
 
-rm -rf src build-* install-* libical.xcframework
+rm -rf .stamp src build-* install-* libical.xcframework
 mkdir src
 tar -xzf "$tarball" -C src --strip-components 1
 
@@ -59,3 +64,5 @@ xcodebuild -create-xcframework \
     -library install-ios-arm64/lib/libical.a -headers install-ios-arm64/include \
     -library install-ios-arm64-simulator/lib/libical.a -headers install-ios-arm64-simulator/include \
     -output libical.xcframework
+
+echo "$stamp" > .stamp
