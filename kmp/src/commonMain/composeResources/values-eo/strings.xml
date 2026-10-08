@@ -573,7 +573,7 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="undo_delete">Malfari forigon</string>
     <string name="error_encryption_failed">Ĉifrado malsukcesis. Kontrolu ke Tasks.org povas atingi vian sisteman ensalutilaron, tiam reprovi.</string>
-    <string name="github_sponsorship">GitHub Sponsorship</string>
+    <string name="github_sponsorship">GitHub Patronado</string>
     <string name="error_github_verification_failed">Kontrolado malsukcesis. Bonvolu reprovi.</string>
     <string name="pricing_subtitle">Senpaga kaj malfermitkoda. Abonoj subtenas programadon kaj malŝlosas pli da funkcioj.</string>
     <string name="pricing_cloud_description">Por malŝlosi ĉiujn aplikaĵajn funkciojn kaj konekti al sinkronigo de Tasks.org Cloud.</string>
@@ -627,4 +627,21 @@
     <string name="mcp_tools_group_reminders">Memorigiloj</string>
     <string name="mcp_copy">Kopii</string>
     <string name="new_filter">Krei novan filtrilon</string>
+    <string name="mcp_status_starting">Startas…</string>
+    <string name="mcp_status_stopped">Ne rulas</string>
+    <string name="mcp_access_read_only">Nurlega</string>
+    <string name="mcp_access_read_write">Lega kaj skriba</string>
+    <string name="mcp_tools">Iloj</string>
+    <string name="mcp_tools_group_tasks">Taksoj</string>
+    <string name="mcp_endpoint">Adreso de Servilo</string>
+    <string name="mcp_reveal">Montri</string>
+    <string name="works_with_tasks">Funkcias per Tasks.org</string>
+    <string name="works_with_launchers">Lanĉiloj</string>
+    <string name="works_with_tag_official">Oficiala</string>
+    <string name="works_with_filter_all">Ĉiuj</string>
+    <string name="works_with_android">Tasks.org por Android</string>
+    <string name="works_with_ios">Tasks.org por iOS</string>
+    <string name="works_with_desktop_description">macOS, Windows, kaj Linux</string>
+    <string name="works_with_wear_description">Tasks.org en via brakhorloĝo</string>
+    <string name="sign_in_with_apple">Ensaluti per Apple</string>
 </resources>
