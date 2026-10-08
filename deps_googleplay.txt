@@ -2161,6 +2161,7 @@
 +|    |    +--- androidx.window:window:1.0.0 -> 1.5.0 (*)
 +|    |    \--- androidx.transition:transition:1.4.1 -> 1.5.0 (*)
 +|    \--- androidx.collection:collection:1.0.0 -> 1.6.0 (*)
+++--- androidx.profileinstaller:profileinstaller:1.4.0 (*)
 ++--- com.jakewharton.timber:timber:5.0.1
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 -> 2.4.20 (*)
 +|    \--- org.jetbrains:annotations:20.1.0 -> 23.0.0
