@@ -305,6 +305,9 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        if (!this::taskAdapter.isInitialized) {
+            return
+        }
         val selectedTaskIds: List<Long> = taskAdapter.getSelected()
         outState.putLongArray(EXTRA_SELECTED_TASK_IDS, selectedTaskIds.toLongArray())
         val state = recyclerViewState
