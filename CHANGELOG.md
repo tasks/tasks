@@ -1,3 +1,7 @@
+### 15.13-beta02 (2026-10-08)
+
+* Bug fixes and performance improvements
+
 ### 15.13-beta01 (2026-10-05)
 
 * Update icon set and add 1,800+ icons
