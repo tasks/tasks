@@ -95,7 +95,8 @@ class LocationServiceAndroid @Inject constructor(
     }
 
     override fun stopBackgroundLocationUpdates() {
-        locationManager.removeLocationUpdates(LocationUpdateReceiver.pendingIntent(context))
+        val pendingIntent = LocationUpdateReceiver.existingPendingIntent(context) ?: return
+        locationManager.removeLocationUpdates(pendingIntent)
     }
 
     override fun setLocationProviderReceiverEnabled(enabled: Boolean) {

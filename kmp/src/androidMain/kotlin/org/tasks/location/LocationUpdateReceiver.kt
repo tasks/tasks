@@ -23,10 +23,21 @@ class LocationUpdateReceiver : BroadcastReceiver() {
                 context,
                 0,
                 Intent(context, LocationUpdateReceiver::class.java),
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-                    PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                else
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                flags
             )
+
+        fun existingPendingIntent(context: Context): PendingIntent? =
+            PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent(context, LocationUpdateReceiver::class.java),
+                flags or PendingIntent.FLAG_NO_CREATE
+            )
+
+        private val flags =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            else
+                PendingIntent.FLAG_UPDATE_CURRENT
     }
 }

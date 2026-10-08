@@ -111,9 +111,10 @@ class LocationServiceGooglePlay @Inject constructor(
     }
 
     override fun stopBackgroundLocationUpdates() {
+        val pendingIntent = LocationUpdateReceiver.existingPendingIntent(context) ?: return
         LocationServices
             .getFusedLocationProviderClient(context)
-            .removeLocationUpdates(LocationUpdateReceiver.pendingIntent(context))
+            .removeLocationUpdates(pendingIntent)
     }
 
     override fun setLocationProviderReceiverEnabled(enabled: Boolean) {
