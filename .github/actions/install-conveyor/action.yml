@@ -47,6 +47,7 @@ runs:
       run: |
         set -euo pipefail
         jdk=$(sed -n 's#.*/stdlib/jdk/\([0-9]*\)/.*#\1#p' composeApp/conveyor.conf)
+        echo "jdk=$jdk" >> "$GITHUB_OUTPUT"
         echo "key=conveyor-linker-jdk-$VERSION-jdk$jdk-$RUNNER_OS-$RUNNER_ARCH" >> "$GITHUB_OUTPUT"
 
     - name: Restore Conveyor linker JDK
@@ -70,3 +71,28 @@ runs:
           mkdir -p "$entries"
           cp -R "$RUNNER_TEMP/conveyor-linker-jdk/." "$entries/"
         fi
+
+    - name: Foojay outage workaround
+      if: steps.restore-linker-jdk.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+        JDK: ${{ steps.linker-jdk.outputs.jdk }}
+      run: |
+        set -euo pipefail
+        if [ "$VERSION" != "22.0" ] || [ "$JDK" != "25" ]; then
+          echo "::notice::Stale Linker JDK seed, skipping (remove it!)"
+          exit 0
+        fi
+        entry="$HOME/.cache/hydraulic/conveyor/cache/entries/f4/b1/f4b1f0a211954506"
+        mkdir -p "$entry/content"
+        cat > "$entry/key.md" <<'EOF'
+        Foojay API request for oracle_open_jdk using query version=25&operating_system=linux&architecture=x64&latest=available
+        EOF
+        cat > "$entry/metadata" <<'EOF'
+        {"totalSize":0,"timeTakenToBuildSeconds":0}
+        EOF
+        cat > "$entry/content/response.txt" <<'EOF'
+        https://download.java.net/java/GA/jdk25.0.2/b1e0dfa218384cb9959bdcb897162d4e/10/GPL/openjdk-25.0.2_linux-x64_bin.tar.gz
+        openjdk-25.0.2_linux-x64_bin.tar.gz
+        EOF
