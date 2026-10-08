@@ -123,6 +123,8 @@ jobs:
           -Kapp.windows.signing-key-alias=Tasks/tasks-org
           make site
 
+      - uses: ./.github/actions/save-conveyor-linker-jdk
+
       - name: Upload Conveyor logs
         if: failure()
         uses: actions/upload-artifact@v7

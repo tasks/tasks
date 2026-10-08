@@ -1,0 +1,32 @@
+name: Cache Linker JDK
+description: Cache JDK for conveyor
+
+runs:
+  using: composite
+  steps:
+    - name: Find linker JDK
+      id: collect
+      if: env.CONVEYOR_LINKER_JDK_HIT != 'true'
+      shell: bash
+      run: |
+        set -euo pipefail
+        entries="$HOME/.cache/hydraulic/conveyor/cache/entries"
+        staging="$RUNNER_TEMP/conveyor-linker-jdk"
+        rm -rf "$staging"
+        count=0
+        for key in "$entries"/*/*/*/key.md; do
+          [ -e "$key" ] || continue
+          head -1 "$key" | grep -q '^# Linker JDK' || continue
+          entry="$(dirname "$key")"
+          mkdir -p "$staging/${entry#"$entries"/}"
+          cp -R "$entry/." "$staging/${entry#"$entries"/}/"
+          count=$((count + 1))
+        done
+        echo "count=$count" >> "$GITHUB_OUTPUT"
+
+    - name: Save Conveyor linker JDK
+      if: steps.collect.outputs.count > 0
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ runner.temp }}/conveyor-linker-jdk
+        key: ${{ env.CONVEYOR_LINKER_JDK_KEY }}

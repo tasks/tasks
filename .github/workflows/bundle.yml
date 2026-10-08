@@ -82,6 +82,8 @@ jobs:
           SIGNING_KEY: ${{ secrets.CONVEYOR_SIGNING_KEY }}
         run: conveyor --logs-dir="$RUNNER_TEMP/conveyor-logs" ${{ matrix.flags }} make ${{ matrix.target }}
 
+      - uses: ./.github/actions/save-conveyor-linker-jdk
+
       - name: Upload Conveyor logs
         if: failure()
         uses: actions/upload-artifact@v7

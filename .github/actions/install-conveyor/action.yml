@@ -38,3 +38,35 @@ runs:
     - name: Extract Conveyor
       shell: bash
       run: sudo tar xf "$RUNNER_TEMP/conveyor.tar.gz" -C /usr/local --strip-components=1
+
+    - name: Linker JDK cache key
+      id: linker-jdk
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+      run: |
+        set -euo pipefail
+        jdk=$(sed -n 's#.*/stdlib/jdk/\([0-9]*\)/.*#\1#p' composeApp/conveyor.conf)
+        echo "key=conveyor-linker-jdk-$VERSION-jdk$jdk-$RUNNER_OS-$RUNNER_ARCH" >> "$GITHUB_OUTPUT"
+
+    - name: Restore Conveyor linker JDK
+      id: restore-linker-jdk
+      uses: actions/cache/restore@v6
+      with:
+        path: ${{ runner.temp }}/conveyor-linker-jdk
+        key: ${{ steps.linker-jdk.outputs.key }}
+
+    - name: Install Conveyor linker JDK
+      shell: bash
+      env:
+        KEY: ${{ steps.linker-jdk.outputs.key }}
+        HIT: ${{ steps.restore-linker-jdk.outputs.cache-hit }}
+      run: |
+        set -euo pipefail
+        echo "CONVEYOR_LINKER_JDK_KEY=$KEY" >> "$GITHUB_ENV"
+        echo "CONVEYOR_LINKER_JDK_HIT=$HIT" >> "$GITHUB_ENV"
+        if [ -d "$RUNNER_TEMP/conveyor-linker-jdk" ]; then
+          entries="$HOME/.cache/hydraulic/conveyor/cache/entries"
+          mkdir -p "$entries"
+          cp -R "$RUNNER_TEMP/conveyor-linker-jdk/." "$entries/"
+        fi
