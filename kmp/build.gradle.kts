@@ -19,9 +19,11 @@ val appVersionName: String by extra
 val libicalDir = layout.buildDirectory.dir("libical")
 
 val buildLibical by tasks.registering(Exec::class) {
-    inputs.file("build-libical.sh")
+    inputs.file("build-libical.sh").withPathSensitivity(PathSensitivity.NONE)
     outputs.dir(libicalDir.map { it.dir("libical.xcframework") })
-    commandLine("./build-libical.sh", libicalDir.get().asFile.path)
+    outputs.dir(libicalDir.map { it.dir("src/zoneinfo") })
+    outputs.cacheIf { true }
+    commandLine("./build-libical.sh", libicalDir.get().asFile.relativeTo(projectDir).path)
 }
 
 fun libicalSlice(target: KotlinNativeTarget) = libicalDir.map {
