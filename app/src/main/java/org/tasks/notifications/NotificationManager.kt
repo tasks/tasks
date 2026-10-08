@@ -551,7 +551,7 @@ class NotificationManager @Inject constructor(
         for ((snoozeOption, snoozeLabel) in snoozeOptions.zip(snoozeLabels)) {
             val timestamp = snoozeOption.timestamp
             val wearableIntent = SnoozeActivity.newIntent(context, id)
-            wearableIntent.action = String.format("snooze-%s-%s", id, timestamp)
+            wearableIntent.action = "snooze-$id-${snoozeOption.label.key}"
             wearableIntent.putExtra(SnoozeActivity.EXTRA_SNOOZE_TIME, timestamp)
             val wearablePendingIntent = PendingIntent.getActivity(
                 context,
