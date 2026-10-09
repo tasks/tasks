@@ -237,8 +237,102 @@ class CalendarUrlSyncTest : DatabaseTest() {
             eq("b.ics"),
             eq("etag-b.ics"),
         )
+        verify(reporting, never()).reportException(any(), any())
         assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
     }
+
+    @Test
+    fun `a task whose etag the server omits from the multiget is saved`() = runBlocking {
+        CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = "${account.url}$LIST/".canonicalUrl(),
+            ctag = "stale",
+        ).also { caldavDao.insert(it) }
+        enqueueCalendars("$HOME_SET$LIST/")
+        server.enqueue(multiStatus(etags("a.ics")))
+        server.enqueue(multiStatus(calendarData("a.ics" to ONE_VTODO, etags = false)))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        verify(iCal, times(1)).fromVtodo(
+            any<CaldavAccount>(),
+            any<CaldavCalendar>(),
+            anyOrNull<CaldavTask>(),
+            any<VTodo>(),
+            anyOrNull<String>(),
+            eq("a.ics"),
+            eq("etag-a.ics"),
+        )
+        verify(reporting, never()).reportException(any(), any())
+        assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
+    }
+
+    @Test
+    fun `a task the server reports as gone in the multiget does not abort the rest of the calendar sync`() =
+        runBlocking {
+            CaldavCalendar(
+                account = account.uuid,
+                uuid = "calendar",
+                url = "${account.url}$LIST/".canonicalUrl(),
+                ctag = "stale",
+            ).also { caldavDao.insert(it) }
+            enqueueCalendars("$HOME_SET$LIST/")
+            server.enqueue(multiStatus(etags("a.ics", "b.ics")))
+            server.enqueue(
+                multiStatus(
+                    multistatusOf(
+                        notFoundResponse("$HOME_SET$LIST/a.ics"),
+                        calendarDataResponse("b.ics", ONE_VTODO),
+                    )
+                )
+            )
+
+            synchronizer.sync(account, hasPro = true)
+
+            assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+            verify(iCal, times(1)).fromVtodo(
+                any<CaldavAccount>(),
+                any<CaldavCalendar>(),
+                anyOrNull<CaldavTask>(),
+                any<VTodo>(),
+                anyOrNull<String>(),
+                eq("b.ics"),
+                eq("etag-b.ics"),
+            )
+            verify(reporting).reportException(any(), any())
+            assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
+        }
+
+    @Test
+    fun `a task the server returns without calendar data does not abort the rest of the calendar sync`() =
+        runBlocking {
+            CaldavCalendar(
+                account = account.uuid,
+                uuid = "calendar",
+                url = "${account.url}$LIST/".canonicalUrl(),
+                ctag = "stale",
+            ).also { caldavDao.insert(it) }
+            enqueueCalendars("$HOME_SET$LIST/")
+            server.enqueue(multiStatus(etags("a.ics", "b.ics")))
+            server.enqueue(multiStatus(calendarData("a.ics" to "", "b.ics" to ONE_VTODO)))
+
+            synchronizer.sync(account, hasPro = true)
+
+            assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+            verify(iCal, times(1)).fromVtodo(
+                any<CaldavAccount>(),
+                any<CaldavCalendar>(),
+                anyOrNull<CaldavTask>(),
+                any<VTodo>(),
+                anyOrNull<String>(),
+                eq("b.ics"),
+                eq("etag-b.ics"),
+            )
+            verify(reporting).reportException(any(), any())
+            assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
+        }
 
     @Test
     fun `list the server reports as gone is deleted`() = runBlocking {
@@ -405,33 +499,37 @@ class CalendarUrlSyncTest : DatabaseTest() {
             </d:multistatus>
         """.trimIndent()
 
-        private fun calendarData(vararg items: Pair<String, String>) = """
+        private fun multistatusOf(vararg responses: String) = """
             <?xml version="1.0"?>
             <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
-                ${items.joinToString("") { (name, data) -> """
-                    <d:response>
-                        <d:href>$HOME_SET$LIST/$name</d:href>
-                        <d:propstat>
-                            <d:prop>
-                                <d:getetag>"etag-$name"</d:getetag>
-                                <cal:calendar-data>${data.replace("\n", "&#13;&#10;")}</cal:calendar-data>
-                            </d:prop>
-                            <d:status>HTTP/1.1 200 OK</d:status>
-                        </d:propstat>
-                    </d:response>
-                """ }}
+                ${responses.joinToString("")}
             </d:multistatus>
         """.trimIndent()
 
-        private fun notFound(href: String) = """
-            <?xml version="1.0"?>
-            <d:multistatus xmlns:d="DAV:">
-                <d:response>
-                    <d:href>$href</d:href>
-                    <d:status>HTTP/1.1 404 Not Found</d:status>
-                </d:response>
-            </d:multistatus>
-        """.trimIndent()
+        private fun calendarData(vararg items: Pair<String, String>, etags: Boolean = true) =
+            multistatusOf(*items.map { (name, data) -> calendarDataResponse(name, data, etags) }.toTypedArray())
+
+        private fun calendarDataResponse(name: String, data: String, etag: Boolean = true) = """
+            <d:response>
+                <d:href>$HOME_SET$LIST/$name</d:href>
+                <d:propstat>
+                    <d:prop>
+                        ${if (etag) """<d:getetag>"etag-$name"</d:getetag>""" else ""}
+                        <cal:calendar-data>${data.replace("\n", "&#13;&#10;")}</cal:calendar-data>
+                    </d:prop>
+                    <d:status>HTTP/1.1 200 OK</d:status>
+                </d:propstat>
+            </d:response>
+        """
+
+        private fun notFound(href: String) = multistatusOf(notFoundResponse(href))
+
+        private fun notFoundResponse(href: String) = """
+            <d:response>
+                <d:href>$href</d:href>
+                <d:status>HTTP/1.1 404 Not Found</d:status>
+            </d:response>
+        """
 
         private fun collection(href: String) = """
             <?xml version="1.0"?>

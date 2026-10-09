@@ -332,21 +332,33 @@ class CaldavSynchronizer(
             }
             eTag != caldavDao.getTask(caldavCalendar.uuid!!, vCard.hrefName())?.etag
         }
+        val unusable = mutableListOf<Url>()
         for (items in changed.chunked(30)) {
             val urls = items.map { it.href }
+            val queriedETags = items.associate { it.hrefName() to it[GetETag::class]?.eTag }
             val responses = davCalendar.multiget(urls).members()
             Logger.d(TAG) { "MULTI $urls" }
             for (vCard in responses) {
-                val eTag = vCard[GetETag::class]?.eTag
                 val url = vCard.href
+                val fileName = vCard.hrefName()
+                if (!vCard.isSuccess()) {
+                    Logger.e(TAG) { "Skipping $url (${vCard.status})" }
+                    unusable += url
+                    continue
+                }
+                val eTag = vCard[GetETag::class]?.eTag?.takeIf { it.isNotBlank() }
+                    ?: queriedETags[fileName]
                 if (eTag.isNullOrBlank()) {
-                    throw DavException("Received CalDAV GET response without ETag for $url")
+                    Logger.e(TAG) { "Received CalDAV GET response without ETag for $url" }
+                    unusable += url
+                    continue
                 }
                 val vtodo = vCard[CalendarData::class]?.iCalendar
                 if (vtodo.isNullOrBlank()) {
-                    throw DavException("Received CalDAV GET response without CalendarData for $url")
+                    Logger.e(TAG) { "Received CalDAV GET response without CalendarData for $url" }
+                    unusable += url
+                    continue
                 }
-                val fileName = vCard.hrefName()
                 val remote = fromVtodo(vtodo)
                 if (remote == null) {
                     Logger.e(TAG) { "Invalid VCALENDAR: $fileName" }
@@ -355,6 +367,11 @@ class CaldavSynchronizer(
                 val caldavTask = caldavDao.getTask(caldavCalendar.uuid!!, fileName)
                 iCal.fromVtodo(account, caldavCalendar, caldavTask, remote, vtodo, fileName, eTag)
             }
+        }
+        if (unusable.isNotEmpty()) {
+            reporting.reportException(
+                DavException("Unusable multiget responses for ${unusable.size} resources: ${unusable.joinToString(limit = 10)}")
+            )
         }
         caldavDao
                 .getRemoteObjects(caldavCalendar.uuid!!)
