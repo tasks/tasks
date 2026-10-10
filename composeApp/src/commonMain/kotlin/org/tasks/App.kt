@@ -12,6 +12,7 @@ import androidx.compose.animation.expandHorizontally
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -140,6 +141,7 @@ import org.koin.compose.koinInject
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.deletions
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.auth.OAuthProvider
@@ -190,6 +192,7 @@ import org.tasks.compose.settings.TaskDefaultsDetail
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.TagSettingsScreen
+import org.tasks.compose.settings.ColorPickerDialog
 import org.tasks.compose.settings.LocalAccountSettingsDetail
 import org.tasks.compose.settings.LocalAccountSettingsPane
 import org.tasks.compose.settings.LookAndFeelDetail
@@ -2846,6 +2849,8 @@ private fun SettingsScreen(
     val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
     val navigator = rememberListDetailPaneScaffoldNavigator<SettingsPane>()
     val scope = rememberCoroutineScope()
+    var showTagEditor by remember { mutableStateOf(false) }
+    var selectedTagData by remember { mutableStateOf<TagData?>(null) }
     val selectedContent = navigator.currentDestination
         ?.takeIf { it.pane == ListDetailPaneScaffoldRole.Detail }
         ?.contentKey
@@ -3039,7 +3044,34 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                            onItemClick = { item ->
+                                if (item is org.tasks.filters.TagFilter) {
+                                    selectedTagData = item.tagData
+                                    showTagEditor = true
+                                }
+                            },
+                            onCreateNew = { subheader ->
+                                if (subheader.title?.contains("tags", ignoreCase = true) == true) {
+                                    selectedTagData = org.tasks.data.entity.TagData()
+                                    showTagEditor = true
+                                }
+                            },
                         )
+                        if (showTagEditor && selectedTagData != null) {
+                            TagSettingsDialog(
+                                tagData = selectedTagData!!,
+                                isDark = isSystemInDarkTheme(),
+                                onDismiss = { _ ->
+                                    showTagEditor = false
+                                    selectedTagData = null
+                                },
+                                onDeleted = {
+                                    showTagEditor = false
+                                    selectedTagData = null
+                                },
+                                onSubscribe = { },
+                            )
+                        }
                     }
                     is org.tasks.compose.settings.SettingsDestination.WorksWith -> {
                         WorksWithDetail(
