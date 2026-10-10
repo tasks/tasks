@@ -475,6 +475,10 @@
       android:theme="@style/Tasks" />
 
     <activity
+      android:name=".sync.todoist.TodoistSignInActivity"
+      android:theme="@style/Tasks"/>
+
+    <activity
       android:name=".caldav.CaldavCalendarSettingsActivity"
       android:theme="@style/Tasks"/>
 
@@ -691,6 +695,8 @@
     </activity>
 
       <activity android:name="org.tasks.sync.microsoft.MicrosoftListSettingsActivity" />
+
+      <activity android:name="org.tasks.sync.todoist.TodoistListSettingsActivity" />
 
       <activity
           android:name="org.tasks.dialogs.SortSettingsActivity"

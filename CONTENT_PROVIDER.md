@@ -889,7 +889,7 @@ content://org.tasks.api/v0/accounts/{id}
 | --- | --- | :-: | --- |
 | `_id` | long |  | Row id. Local to this install |
 | `name` | string |  | Display name. A local account with none gets the app's own label, in the device's language |
-| `type` | string |  | `caldav`, `tasks_org`, `google_tasks`, `microsoft`, `etebase`, `opentasks`, `local` |
+| `type` | string |  | `caldav`, `tasks_org`, `google_tasks`, `microsoft`, `etebase`, `opentasks`, `todoist`, `local` |
 | `username` | string |  | Account username, `""` for local accounts |
 | `url` | string |  | Server URL, `""` for local |
 | `error` | string |  | Why sync last failed, `""` when healthy — see below |

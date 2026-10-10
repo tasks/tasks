@@ -197,6 +197,27 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
                 && order == original.order
     }
 
+    /**
+     * Todoist syncs nested subtasks natively via parent_id, so hierarchy changes are
+     * pushed like any other field. It has no concept of start date or manual ordering
+     * within a project that we round-trip, so those are excluded.
+     */
+    fun todoistUpToDate(original: Task?): Boolean {
+        if (this === original) {
+            return true
+        }
+        return if (original == null) {
+            false
+        } else title == original.title
+                && priority == original.priority
+                && dueDate == original.dueDate
+                && completionDate == original.completionDate
+                && deletionDate == original.deletionDate
+                && notes == original.notes
+                && recurrence == original.recurrence
+                && parent == original.parent
+    }
+
     fun microsoftUpToDate(original: Task?): Boolean {
         if (this === original) {
             return true

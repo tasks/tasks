@@ -75,6 +75,10 @@
     <string name="google_tasks_selection_description">Basic service that synchronizes with your Google account</string>
     <string name="legal_disclosure_prefix_using">By using Tasks.org</string>
     <string name="microsoft_selection_description">Synchronize with your personal Microsoft account</string>
+    <string name="todoist_selection_description">Synchronize with your Todoist account</string>
+    <string name="todoist_api_token">API token</string>
+    <string name="todoist_api_token_description">Paste the API token from your Todoist integration settings</string>
+    <string name="todoist_api_token_help">Get your token</string>
     <string name="microsoft_selection_description_googleplay">Synchronize with your work, school, or personal Microsoft account</string>
     <string name="name_your_price">Name your price</string>
     <string name="name_your_price_blurb">Pay what you want to unlock themes, icons, and these advanced sync options</string>

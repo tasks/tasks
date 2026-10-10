@@ -182,7 +182,9 @@ import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
 import org.tasks.compose.settings.GoogleTasksAccountSettingsPane
 import org.tasks.compose.settings.MicrosoftAccountSettingsDetail
+import org.tasks.compose.settings.TodoistAccountSettingsDetail
 import org.tasks.compose.settings.MicrosoftAccountSettingsPane
+import org.tasks.compose.settings.TodoistAccountSettingsPane
 import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.NavigationDrawerDetail
 import org.tasks.compose.settings.NotificationsDetail
@@ -252,6 +254,7 @@ import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.ListSettingsViewModel
 import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
+import org.tasks.viewmodel.TodoistListSettingsViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.viewmodel.ProCardViewModel
@@ -275,6 +278,7 @@ import tasks.kmp.generated.resources.caldav
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.failed_to_save_task
 import tasks.kmp.generated.resources.gtasks_GPr_header
+import tasks.kmp.generated.resources.todoist
 import tasks.kmp.generated.resources.not_available_desktop
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.resize_panes
@@ -351,6 +355,7 @@ fun App(
                             subclass(AddAccountDestination::class, AddAccountDestination.serializer())
                             subclass(CaldavSignInDestination::class, CaldavSignInDestination.serializer())
                             subclass(EtebaseSignInDestination::class, EtebaseSignInDestination.serializer())
+                            subclass(TodoistSignInDestination::class, TodoistSignInDestination.serializer())
                             subclass(TaskListDestination::class, TaskListDestination.serializer())
                             subclass(TaskEditDestination::class, TaskEditDestination.serializer())
                             subclass(SettingsDestination::class, SettingsDestination.serializer())
@@ -851,7 +856,8 @@ fun App(
                                     || configuration.appStore == AppStore.APP_STORE
                                 if (sellsSubscriptions && !addAccountViewModel.hasPro) {
                                     when (platform) {
-                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS, Platform.MICROSOFT -> {
+                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS,
+                                        Platform.MICROSOFT, Platform.TODOIST -> {
                                             backStack.push(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
                                             return@AddAccountScreen
                                         }
@@ -873,6 +879,7 @@ fun App(
                                     }
                                     Platform.CALDAV -> backStack.push(CaldavSignInDestination)
                                     Platform.ETEBASE -> backStack.push(EtebaseSignInDestination)
+                                    Platform.TODOIST -> backStack.push(TodoistSignInDestination)
                                     else -> addAccountViewModel.signIn(platform)
                                 }
                             },
@@ -908,6 +915,17 @@ fun App(
                                     backStack.removeLastOrNull()
                                 }
                             },
+                        )
+                    }
+                    entry<TodoistSignInDestination> {
+                        org.tasks.compose.settings.TodoistSignInScreen(
+                            onNavigateBack = { backStack.removeLastOrNull() },
+                            onAccountCreated = {
+                                if (backStack.lastOrNull() is TodoistSignInDestination) {
+                                    backStack.removeLastOrNull()
+                                }
+                            },
+                            openUrl = openUrl,
                         )
                     }
                     entry<TaskListDestination>(
@@ -1044,6 +1062,7 @@ fun App(
                             Platform.CALDAV.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
                             Platform.ETEBASE.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.etesync))
                             Platform.GOOGLE_TASKS.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.gtasks_GPr_header))
+                            Platform.TODOIST.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.todoist))
                             else -> null
                         }
                         DesktopProScreen(
@@ -1186,6 +1205,11 @@ fun App(
                                         Platform.ETEBASE.name -> {
                                             if (popPricing()) {
                                                 backStack.push(EtebaseSignInDestination)
+                                            }
+                                        }
+                                        Platform.TODOIST.name -> {
+                                            if (popPricing()) {
+                                                backStack.push(TodoistSignInDestination)
                                             }
                                         }
                                         Platform.GOOGLE_TASKS.name ->
@@ -2312,6 +2336,15 @@ private fun ListSettingsDialog(
             onSubscribe = onSubscribe,
             viewModelKey = viewModelKey,
         )
+        account.isTodoist -> TodoistListSettingsDialog(
+            account = account,
+            calendar = calendar,
+            isDark = isDark,
+            onDismiss = onDismiss,
+            onDeleted = onDeleted,
+            onSubscribe = onSubscribe,
+            viewModelKey = viewModelKey,
+        )
         account.isEtebaseAccount -> EtebaseListSettingsDialog(
             account = account,
             calendar = calendar,
@@ -2341,6 +2374,23 @@ private fun ListSettingsDialog(
             viewModelKey = viewModelKey,
         )
     }
+}
+
+@Composable
+private fun TodoistListSettingsDialog(
+    account: CaldavAccount,
+    calendar: CaldavCalendar,
+    isDark: Boolean,
+    onDismiss: (CaldavCalendar?) -> Unit,
+    onDeleted: () -> Unit = {},
+    onSubscribe: () -> Unit,
+    viewModelKey: String,
+) {
+    val viewModel = koinViewModel<TodoistListSettingsViewModel>(
+        key = viewModelKey,
+        parameters = { org.koin.core.parameter.parametersOf(isDark, account, calendar) },
+    )
+    CaldavListSettingsDialog(viewModel, onDismiss, onDeleted, onSubscribe)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -2939,6 +2989,14 @@ private fun SettingsScreen(
                                         )
                                     }
                                 }
+                                account.isTodoist -> {
+                                    scope.launch {
+                                        navigator.navigateTo(
+                                            ListDetailPaneScaffoldRole.Detail,
+                                            TodoistAccountSettingsPane(account),
+                                        )
+                                    }
+                                }
                                 account.isOpenTasks -> {
                                     scope.launch {
                                         navigator.navigateTo(
@@ -3148,6 +3206,15 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                        )
+                    }
+                    is TodoistAccountSettingsPane -> {
+                        TodoistAccountSettingsDetail(
+                            pane = selectedContent,
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            openUrl = { uriHandler.openUri(it) },
                         )
                     }
                     is OpenTaskAccountSettingsPane -> {
