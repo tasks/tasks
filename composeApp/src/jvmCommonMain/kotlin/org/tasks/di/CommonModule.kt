@@ -44,6 +44,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TODOIST
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
@@ -98,6 +99,7 @@ import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.todoist.TodoistSynchronizer
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
@@ -144,6 +146,15 @@ val commonModule = module {
                             microsoftSynchronizer
                                 .sync(account, hasPro = pass.googleAndMicrosoftPro)
                         }
+                    }
+                }
+            }
+            val todoistAccounts = pass.accounts(TYPE_TODOIST)
+            if (todoistAccounts.isNotEmpty()) {
+                val todoistSynchronizer = get<TodoistSynchronizer>()
+                coroutineScope {
+                    todoistAccounts.forEach { account ->
+                        launch { todoistSynchronizer.sync(account) }
                     }
                 }
             }

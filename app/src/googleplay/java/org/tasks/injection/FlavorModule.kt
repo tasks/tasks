@@ -47,6 +47,7 @@ class FlavorModule {
         supportsCaldav = true,
         supportsGoogleTasks = true,
         supportsMicrosoft = true,
+        supportsTodoist = true,
         supportsOpenTasks = true,
         supportsEteSync = true,
         supportsBackupImport = true,

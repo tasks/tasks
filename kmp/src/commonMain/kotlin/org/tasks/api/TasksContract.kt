@@ -302,13 +302,14 @@ object TasksContract {
         const val TYPE_TASKS_ORG = "tasks_org"
         const val TYPE_GOOGLE_TASKS = "google_tasks"
         const val TYPE_MICROSOFT = "microsoft"
+        const val TYPE_TODOIST = "todoist"
         const val TYPE_ETEBASE = "etebase"
         const val TYPE_OPENTASKS = "opentasks"
         const val TYPE_LOCAL = "local"
 
         val TYPES = listOf(
             TYPE_CALDAV, TYPE_TASKS_ORG, TYPE_GOOGLE_TASKS, TYPE_MICROSOFT, TYPE_ETEBASE,
-            TYPE_OPENTASKS, TYPE_LOCAL,
+            TYPE_OPENTASKS, TYPE_TODOIST, TYPE_LOCAL,
         )
 
         const val ERROR_UNAUTHORIZED = "unauthorized"

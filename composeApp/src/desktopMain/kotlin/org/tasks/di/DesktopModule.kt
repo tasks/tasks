@@ -77,6 +77,9 @@ import org.tasks.sse.SseTokenProvider
 import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.todoist.DesktopTodoistClientProvider
+import org.tasks.sync.todoist.TodoistClientProvider
+import org.tasks.sync.todoist.TodoistSynchronizer
 import java.io.File
 
 internal val appName: String =
@@ -183,6 +186,7 @@ actual fun platformModule(): Module = module {
             supportsEteSync = true,
             supportsGoogleTasks = true,
             supportsMicrosoft = true,
+            supportsTodoist = true,
             supportsSwipeToSnooze = false,
             supportsSystemNotificationSettings = supportsSystemNotificationSettings(),
             showNotificationsEnabledSwitch = true,
@@ -224,6 +228,30 @@ actual fun platformModule(): Module = module {
             caldavDao = get(),
             okHttpClientFactory = get(),
             cookieDir = cookieDir,
+        )
+    }
+    single<TodoistClientProvider> {
+        DesktopTodoistClientProvider(
+            encryption = get(),
+            okHttpClientFactory = get(),
+        )
+    }
+    factory {
+        val taskCreator = TaskCreator()
+        TodoistSynchronizer(
+            caldavDao = get(),
+            taskDao = get(),
+            dirtyDao = get(),
+            taskSaver = get(),
+            refreshBroadcaster = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            clientProvider = get(),
+            tagDao = get(),
+            tagDataDao = get(),
+            vtodoCache = get(),
+            createTask = { taskCreator.createBlankTask() },
+            setDefaultList = { },
         )
     }
     factory {
@@ -272,6 +300,7 @@ actual fun platformModule(): Module = module {
             caldavClientProvider = get(),
             etebaseClientProvider = get(),
             microsoftClientProvider = get(),
+            todoistClientProvider = get(),
             gtasksInvoker = { account ->
                 org.tasks.googleapis.GtasksInvoker(
                     org.tasks.googleapis.GoogleTasksCredentialsAdapter(

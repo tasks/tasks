@@ -146,6 +146,9 @@ ORDER BY CASE cda_account_type
     @Query("UPDATE caldav_accounts SET cda_username = :username, cda_name = :name, cda_password = :password, cda_error = '' WHERE cda_id = :id")
     abstract suspend fun setMicrosoftReauth(id: Long, username: String?, name: String?, password: String?)
 
+    @Query("UPDATE caldav_accounts SET cda_sync_token = :syncToken WHERE cda_id = :id")
+    abstract suspend fun setSyncToken(id: Long, syncToken: String?)
+
     @Query(
         "SELECT * FROM caldav_accounts " +
         "WHERE cda_account_type = $TYPE_TASKS OR (cda_id = :preferredId AND cda_account_type = $TYPE_CALDAV) " +

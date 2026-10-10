@@ -170,6 +170,7 @@ internal object AccountTypes {
         CaldavAccount.TYPE_ETEBASE to Accounts.TYPE_ETEBASE,
         CaldavAccount.TYPE_MICROSOFT to Accounts.TYPE_MICROSOFT,
         CaldavAccount.TYPE_GOOGLE_TASKS to Accounts.TYPE_GOOGLE_TASKS,
+        CaldavAccount.TYPE_TODOIST to Accounts.TYPE_TODOIST,
     )
 
     fun toApi(stored: Int) = TO_API[stored] ?: Accounts.TYPE_CALDAV

@@ -27,6 +27,7 @@ import org.tasks.etebase.EtebaseSignInActivity
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
+import org.tasks.sync.todoist.TodoistSignInActivity
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -81,6 +82,8 @@ class AddAccountActivity : ComponentActivity() {
                 syncLauncher.launch(Intent(this, GtasksLoginActivity::class.java))
             Platform.MICROSOFT ->
                 microsoftVM.signIn(this)
+            Platform.TODOIST ->
+                syncLauncher.launch(Intent(this, TodoistSignInActivity::class.java))
             Platform.CALDAV ->
                 syncLauncher.launch(Intent(this, CaldavSignInActivity::class.java))
             Platform.ETEBASE ->

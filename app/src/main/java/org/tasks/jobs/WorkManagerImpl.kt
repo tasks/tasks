@@ -32,6 +32,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TODOIST
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Task
 import org.tasks.date.DateTimeUtils.midnight
@@ -124,7 +125,8 @@ class WorkManagerImpl(
                 TYPE_CALDAV,
                 TYPE_TASKS,
                 TYPE_ETEBASE,
-                TYPE_MICROSOFT
+                TYPE_MICROSOFT,
+                TYPE_TODOIST
             ).isNotEmpty()
             if (enabled) {
                 Timber.d("Enabling background sync")

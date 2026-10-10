@@ -192,6 +192,7 @@ abstract class ApiTestCase {
                 caldavClientProvider = mock(),
                 etebaseClientProvider = mock(),
                 microsoftClientProvider = mock(),
+                todoistClientProvider = mock(),
                 gtasksInvoker = { mock() },
             ),
             tagMetadataEditor = tagMetadataSync,

@@ -29,6 +29,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TODOIST
 import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.extensions.Context.hasNetworkConnectivity
 import org.tasks.gtasks.AndroidGoogleTaskSynchronizer
@@ -37,6 +38,7 @@ import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.todoist.TodoistSynchronizer
 import org.tasks.sync.SyncSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import timber.log.Timber
@@ -54,6 +56,7 @@ class SyncWork @AssistedInject constructor(
     private val googleTaskSynchronizer: Lazy<AndroidGoogleTaskSynchronizer>,
     private val openTasksSynchronizer: Lazy<OpenTasksSynchronizer>,
     private val microsoftSynchronizer: Lazy<MicrosoftSynchronizer>,
+    private val todoistSynchronizer: Lazy<TodoistSynchronizer>,
     private val openTaskDao: OpenTaskDao,
     private val inventory: Inventory,
     private val tasksPreferences: TasksPreferences,
@@ -159,6 +162,7 @@ class SyncWork @AssistedInject constructor(
                     TYPE_TASKS,
                     TYPE_CALDAV -> caldavSynchronizer.get().sync(it, inventory.hasPro)
                     TYPE_MICROSOFT -> microsoftSynchronizer.get().sync(it, hasPro = true)
+                    TYPE_TODOIST -> todoistSynchronizer.get().sync(it)
                 }
             }
         }
@@ -168,7 +172,9 @@ class SyncWork @AssistedInject constructor(
         caldavDao.getAccounts(CaldavAccount.TYPE_GOOGLE_TASKS)
 
     private suspend fun getCaldavAccounts() =
-            caldavDao.getAccounts(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT)
+            caldavDao.getAccounts(
+                TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_MICROSOFT, TYPE_TODOIST,
+            )
 
     companion object {
         const val EXTRA_SOURCE = "extra_source"
