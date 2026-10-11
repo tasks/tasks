@@ -215,7 +215,6 @@
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
     <string name="requires_pro_subscription">Vyžaduje předplatné Pro</string>
     <string name="logout">Odhlásit se</string>
-    <string name="this_feature_requires_a_subscription">Tato funkce vyžaduje předplatné</string>
     <string name="action_create_new_task">Vytvořit nový úkol</string>
     <string name="show_description">Zobrazit popis</string>
     <string name="show_full_description">Zobrazit celý popis</string>

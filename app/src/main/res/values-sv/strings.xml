@@ -340,7 +340,6 @@
     <string name="collapse_subtasks">Fäll in deluppgifter</string>
     <string name="expand_subtasks">Fäll ut deluppgifter</string>
     <string name="whats_new">Nyheter</string>
-    <string name="this_feature_requires_a_subscription">Den här funktionen kräver en prenumeration</string>
     <string name="subscription">Prenumeration</string>
     <string name="widget_due_date_below_title">Under titeln</string>
     <string name="widget_due_date_after_title">Efter titeln</string>

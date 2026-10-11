@@ -330,7 +330,6 @@
         <item quantity="other">%d tundi</item>
     </plurals>
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
-    <string name="this_feature_requires_a_subscription">See funktsionaalsus eeldab tellimuse olemasolu</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="location_arrived">Saabusid: %s</string>
     <string name="cost_money">Hind: $</string>

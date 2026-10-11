@@ -238,7 +238,6 @@
     <string name="collapse_subtasks">Teilaufgaben einklappen</string>
     <string name="subtasks">Teilaufgaben</string>
     <string name="display_name">Anzeigename</string>
-    <string name="this_feature_requires_a_subscription">Diese Funktion benötigt ein Abonnement</string>
     <string name="help_and_feedback">Hilfe &amp; Rückmeldung</string>
     <string name="theme_system_default">Systemstandard</string>
     <string name="choose_synchronization_service">Einen Dienst wählen</string>

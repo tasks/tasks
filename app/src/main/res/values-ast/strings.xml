@@ -253,7 +253,6 @@
     <string name="button_subscribe">Soscribise</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>
     <string name="requires_pro_subscription">Requier soscripción pro</string>
-    <string name="this_feature_requires_a_subscription">Esta carauteristica requier una soscripción</string>
     <string name="logout">Zarrar sesión</string>
     <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
     <string name="reinitialize_account">Reaniciar</string>

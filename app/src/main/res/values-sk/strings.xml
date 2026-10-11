@@ -284,7 +284,6 @@
     <string name="reset_sort_order">Obnoviť triedenie</string>
     <string name="filter_eisenhower_box_3">Naliehavé, ale nedôležité</string>
     <string name="last_backup">Posledná záloha: %s</string>
-    <string name="this_feature_requires_a_subscription">Táto funkcia vyžaduje predplatné</string>
     <string name="lists">Zoznamy</string>
     <string name="multi_select_reschedule">Preložiť</string>
     <string name="custom_filter_has_subtask">Má podúlohy</string>

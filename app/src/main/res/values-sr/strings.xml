@@ -213,7 +213,6 @@
     <string name="subscription">Претплате</string>
     <string name="button_subscribe">Претплати се</string>
     <string name="requires_pro_subscription">Захтева претплату</string>
-    <string name="this_feature_requires_a_subscription">Ова функционалност захтева претплату</string>
     <string name="logout">Одјави се</string>
     <string name="delete_tasks_warning">%s ће бити избрисан. Ово се не може опозвати!</string>
     <string name="reinitialize_account">Поново иницијализуј</string>

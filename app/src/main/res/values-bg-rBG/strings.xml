@@ -262,7 +262,6 @@
     <string name="astrid_sort_order_summary">Използвайте режима за ръчно сортиране на Astrid за „Моите задачи“, „Днес“ и етикетите. Този режим на сортиране ще бъде заменен с „Моя подредба“ в бъдещо издание</string>
     <string name="astrid_sort_order">Ръчно сортиране на Astrid</string>
     <string name="SSD_sort_my_order">Моя подредба</string>
-    <string name="this_feature_requires_a_subscription">Тази възможност изисква абонамент</string>
     <string name="list_separator_with_space">", "</string>
     <string name="subscription">Абонамент</string>
     <string name="header_spacing">Разредка</string>

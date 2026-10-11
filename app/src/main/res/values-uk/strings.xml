@@ -252,7 +252,6 @@
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="name_your_price">Назвіть свою ціну</string>
-    <string name="this_feature_requires_a_subscription">Ця функція потребує підписки</string>
     <string name="share">Поділитися</string>
     <string name="select_all">Обрати всі</string>
     <string name="calendar_event_created">В календарі створено подію для %s</string>

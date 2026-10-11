@@ -264,7 +264,6 @@ File %1$s contained %2$s.\n\n
   <string name="button_subscribe">Subscribe</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
   <string name="requires_pro_subscription">Requires pro subscription</string>
-  <string name="this_feature_requires_a_subscription">This feature requires a subscription</string>
   <string name="logout">Log out</string>
   <string name="delete_tasks_warning">%s will be deleted. This cannot be undone!</string>
   <string name="reinitialize_account">Reinitialize</string>

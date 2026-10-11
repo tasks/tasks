@@ -197,7 +197,6 @@
     <string name="choose_new_location">Pilih lokasi baru</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
-    <string name="this_feature_requires_a_subscription">Fitur ini membutuhkan Anda berlangganan versi pro</string>
     <string name="choose_synchronization_service">Pilih sebuah platform</string>
     <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>
     <string name="etesync_selection_description">Enkripsi klien-ke-klien bersumber terbuka</string>

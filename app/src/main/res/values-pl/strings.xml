@@ -243,7 +243,6 @@
     <string name="collapse_subtasks">Zwiń podzadania</string>
     <string name="subtasks">Podzadania</string>
     <string name="display_name">Nazwa wyświetlana</string>
-    <string name="this_feature_requires_a_subscription">Ta funkcja wymaga subskrypcji</string>
     <string name="choose_synchronization_service">Wybierz platformę</string>
     <string name="caldav_selection_description">Synchronizacja oparta na otwartych standardach</string>
     <string name="etesync_selection_description">Szyfrowana synchronizacja end-to-end</string>

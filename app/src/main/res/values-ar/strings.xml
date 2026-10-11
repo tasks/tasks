@@ -231,7 +231,6 @@
     <string name="pick_this_location">اختر هذا الموقع</string>
     <string name="choose_a_location">اختر موقعًا</string>
     <string name="action_create_new_task">أنشأ مهمّة جديدة</string>
-    <string name="this_feature_requires_a_subscription">هذه الميزة تحتاج إلى اشتراك</string>
     <string name="tasker_create_task">أنشأ مهمّة</string>
     <string name="dont_add_to_calendar">لا تضف إلى التقويم</string>
     <string name="repeats_from">تكرار من</string>

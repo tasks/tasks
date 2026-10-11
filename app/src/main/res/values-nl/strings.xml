@@ -236,7 +236,6 @@
     <string name="collapse_subtasks">Subtaken inklappen</string>
     <string name="subtasks">Subtaken</string>
     <string name="display_name">Weergavenaam</string>
-    <string name="this_feature_requires_a_subscription">Voor deze functie is een abonnement vereist</string>
     <string name="choose_synchronization_service">Een platform kiezen</string>
     <string name="caldav_selection_description">Synchroniseren op eigen open source CalDAV-server of bij derden</string>
     <string name="etesync_selection_description">End-to-end versleuteld synchroniseren met EteSync</string>

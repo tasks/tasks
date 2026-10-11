@@ -244,7 +244,6 @@
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="display_name">Отображаемое название</string>
-    <string name="this_feature_requires_a_subscription">Эта функция требует подписки</string>
     <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
     <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>

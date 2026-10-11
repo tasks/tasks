@@ -233,7 +233,6 @@
     <string name="expand_subtasks">하위할일 펼치기</string>
     <string name="collapse_subtasks">하위할일 접기</string>
     <string name="subtasks">하위할일</string>
-    <string name="this_feature_requires_a_subscription">이 기능을 사용하려면 구독해야 합니다</string>
     <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
     <string name="etesync_selection_description">종단간 암호화된 동기화</string>

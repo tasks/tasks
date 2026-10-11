@@ -274,7 +274,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="tasker_create_task">Krei taskon</string>
     <string name="button_subscribe">Aboni</string>
-    <string name="this_feature_requires_a_subscription">Abono necesas por ĉi tiu funkcio</string>
     <string name="reinitialize_account">Repravalorizi</string>
     <string name="location_departed">Foriris je %s</string>
     <string name="choose_a_location">Elekti lokon</string>

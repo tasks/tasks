@@ -236,7 +236,6 @@
     <string name="collapse_subtasks">Részfeladatok összecsukása</string>
     <string name="subtasks">Részfeladatok</string>
     <string name="display_name">Megjelenített név</string>
-    <string name="this_feature_requires_a_subscription">Ez a funkció csak előfizetéssel vehető igénybe</string>
     <string name="choose_synchronization_service">Platform választása</string>
     <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
     <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>

@@ -233,7 +233,6 @@
     <string name="collapse_subtasks">收起子任务</string>
     <string name="subtasks">子任务</string>
     <string name="display_name">显示名称</string>
-    <string name="this_feature_requires_a_subscription">该功能需要订阅</string>
     <string name="choose_synchronization_service">选择平台</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="etesync_selection_description">端到端加密的同步</string>

@@ -287,7 +287,6 @@
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
     <string name="choose_synchronization_service">Selecione uma plataforma</string>
-    <string name="this_feature_requires_a_subscription">Este recurso necessita de uma subscrição</string>
     <string name="display_name">Mostrar nome</string>
     <string name="subtasks">Subtarefas</string>
     <string name="collapse_subtasks">Colapsar subtarefas</string>

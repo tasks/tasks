@@ -243,7 +243,6 @@
     <string name="collapse_subtasks">Contraer subtareas</string>
     <string name="subtasks">Subtareas</string>
     <string name="display_name">Mostrar el nombre</string>
-    <string name="this_feature_requires_a_subscription">Esta característica requiere una suscripción</string>
     <string name="choose_synchronization_service">Seleccione una plataforma</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos de Internet</string>
     <string name="etesync_selection_description">Sincronización cifrada de extremo a extremo</string>

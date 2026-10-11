@@ -264,7 +264,6 @@
     <string name="invalid_backup_file">Arquivo de backup inválido</string>
     <string name="whats_new">Novidades</string>
     <string name="action_new_task">Nova tarefa</string>
-    <string name="this_feature_requires_a_subscription">Essa função requer uma assinatura</string>
     <string name="help_and_feedback">Ajuda &amp; feedback</string>
     <string name="list_separator_with_space">", "</string>
     <string name="url">URL</string>

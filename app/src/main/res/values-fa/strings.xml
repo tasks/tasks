@@ -263,6 +263,5 @@
     <string name="button_subscribe">اشتراک بگیرید</string>
     <string name="pro_dashclock_extension">افزونه DashClock</string>
     <string name="requires_pro_subscription">نیازمند اشتراک حرفه‌ای (Pro)</string>
-    <string name="this_feature_requires_a_subscription">این قابلیت به اشتراک نیاز دارد</string>
     <string name="logout">خروج</string>
 </resources>
