@@ -124,7 +124,6 @@
     <string name="action_new_task">งานใหม่</string>
     <string name="action_create_new_task">สร้างงานใหม่</string>
     <string name="reinitialize_account">เตรียมใช้งานใหม่</string>
-    <string name="requires_pro_subscription">ต้องสมัครสมาชิกแบบโปร</string>
     <string name="pro_dashclock_extension">ส่วนขยาย Dashclock</string>
     <string name="button_subscribe">ติดตาม</string>
     <string name="subscription">การบอกรับสมาชิก</string>

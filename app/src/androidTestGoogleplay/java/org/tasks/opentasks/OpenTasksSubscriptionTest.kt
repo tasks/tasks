@@ -4,7 +4,9 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.tasks.R
+import org.tasks.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.subscription_required
 
 @HiltAndroidTest
 class OpenTasksSubscriptionTest : OpenTasksTest() {
@@ -15,7 +17,7 @@ class OpenTasksSubscriptionTest : OpenTasksTest() {
         synchronizer.sync(hasPro = false)
 
         assertEquals(
-                context.getString(R.string.requires_pro_subscription),
+                getString(Res.string.subscription_required),
                 caldavDao.getAccounts()[0].error
         )
     }

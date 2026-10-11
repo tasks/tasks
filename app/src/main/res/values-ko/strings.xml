@@ -202,7 +202,6 @@
     <string name="refresh_purchases">구매 새로고침</string>
     <string name="button_subscribe">신청</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
-    <string name="requires_pro_subscription">프로 서비스 구독이 필요합니다</string>
     <string name="logout">로그아웃</string>
     <string name="reinitialize_account">다시 초기화하기</string>
     <string name="action_create_new_task">새 할일 만들기</string>

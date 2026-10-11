@@ -262,6 +262,5 @@
     <string name="refresh_purchases">به‌روزرسانی خریدها</string>
     <string name="button_subscribe">اشتراک بگیرید</string>
     <string name="pro_dashclock_extension">افزونه DashClock</string>
-    <string name="requires_pro_subscription">نیازمند اشتراک حرفه‌ای (Pro)</string>
     <string name="logout">خروج</string>
 </resources>

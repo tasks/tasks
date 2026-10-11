@@ -212,7 +212,6 @@
     <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="button_subscribe">Harpidetu</string>
     <string name="pro_dashclock_extension">Dashclock luzapena</string>
-    <string name="requires_pro_subscription">Pro harpidetza eskatzen du</string>
     <string name="logout">Amaitu saioa</string>
     <string name="reinitialize_account">Berrhasi</string>
     <string name="action_create_new_task">Sortu zeregin berria</string>

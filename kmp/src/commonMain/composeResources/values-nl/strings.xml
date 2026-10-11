@@ -26,7 +26,6 @@
     <string name="today">Vandaag</string>
     <string name="today_lowercase">vandaag</string>
     <string name="search_no_results">Geen resultaten</string>
-    <string name="requires_pro_subscription">Vereist Pro-abonnement</string>
     <string name="subscription_required_description">Ontgrendel alle functies voor maar $1 USD/jaar</string>
     <string name="add_task">Taak toevoegen</string>
     <string name="show_unstarted">Niet-gestarte tonen</string>
@@ -697,4 +696,5 @@
     <string name="new_filter">Nieuw filter maken</string>
     <string name="sign_in_with_apple">Aanmelden met Apple</string>
     <string name="new_place">Nieuwe plaats aanmaken</string>
+    <string name="subscription_required">Abonnement vereist</string>
 </resources>

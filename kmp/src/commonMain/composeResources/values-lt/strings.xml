@@ -39,7 +39,6 @@
     <string name="password_required">Reikalingas slaptažodis</string>
     <string name="caldav_home_set_not_found">Kalendorių rinkinio direktorija nerasta</string>
     <string name="add_account">Pridėti paskyrą</string>
-    <string name="requires_pro_subscription">Reikalinga „pro“ prenumerata</string>
     <string name="google_tasks_selection_description">Paprasta paslauga, kuri atlieka sinchronizaciją su jūsų Google paskyra</string>
     <string name="microsoft_selection_description">Sinchronizuoti su asmenine Microsoft paskyra</string>
     <string name="name_your_price">Nustatykite savo kainą</string>

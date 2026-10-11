@@ -26,7 +26,6 @@
     <string name="today">Oggi</string>
     <string name="today_lowercase">oggi</string>
     <string name="search_no_results">Nessun risultato</string>
-    <string name="requires_pro_subscription">Richiede versione premium</string>
     <string name="subscription_required_description">Sblocca tutte le funzionalità con $1 USD/anno</string>
     <string name="add_task">Aggiungi attività</string>
     <string name="show_unstarted">Mostra non iniziate</string>
@@ -587,4 +586,5 @@
     <string name="mcp_connect_summary">Copialo nel tuo assistente, quindi riavvialo. Il token è già incluso, quindi mantienilo privato.</string>
     <string name="mcp_copied">Copiato</string>
     <string name="mcp_hide">Nascondi</string>
+    <string name="subscription_required">Richiede un abbonamento</string>
 </resources>

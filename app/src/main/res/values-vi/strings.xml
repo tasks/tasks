@@ -179,7 +179,6 @@
     <string name="action_create_new_task">Tạo công việc mới</string>
     <string name="reinitialize_account">Khởi tạo lại</string>
     <string name="logout">Đăng xuất</string>
-    <string name="requires_pro_subscription">Yêu cầu đăng ký pro</string>
     <string name="pro_dashclock_extension">Phần mở rộng Dashclock</string>
     <string name="button_subscribe">Đăng ký</string>
     <string name="refresh_purchases">Làm mới các giao dịch</string>

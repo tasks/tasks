@@ -209,7 +209,6 @@
     <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="button_subscribe">Abbonati</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
-    <string name="requires_pro_subscription">Richiede versione premium</string>
     <string name="logout">Esci</string>
     <string name="reinitialize_account">Reinizializza</string>
     <string name="action_create_new_task">Crea nuova attività</string>
@@ -425,7 +424,6 @@
     <string name="returning_user">Ripristino i dati?</string>
     <string name="import_failed">Importazione non riuscita</string>
     <string name="import_failed_message">Impossibile leggere il file di backup</string>
-    <string name="banner_subscription_required_title">Richiede un abbonamento</string>
     <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
     <string name="email_to_task_address">Il tuo indirizzo email</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>

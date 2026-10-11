@@ -205,7 +205,6 @@
     <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="button_subscribe">Előfizetés</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
-    <string name="requires_pro_subscription">Előfizetés szükséges</string>
     <string name="logout">Kijelentkezés</string>
     <string name="reinitialize_account">Újrainicializálás</string>
     <string name="action_create_new_task">Új feladat létrehozása</string>
@@ -418,7 +417,6 @@
     <string name="returning_user">Visszatérő felhasználó?</string>
     <string name="import_failed_message">A mentés fájlja nem olvasható</string>
     <string name="import_failed">Sikertelen importálás</string>
-    <string name="banner_subscription_required_title">Előfizetés szükséges</string>
     <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
     <string name="email_to_task">Feladat e-mailből</string>
     <string name="email_to_task_address">E-mail cím</string>

@@ -229,7 +229,6 @@
     <string name="show_description">Näytä kuvaus</string>
     <string name="action_create_new_task">Lisää uusi tehtävä</string>
     <string name="logout">Kirjaudu ulos</string>
-    <string name="requires_pro_subscription">Edellyttää pro-tilauksen</string>
     <string name="button_subscribe">Tilaa</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
     <string name="list_separator_with_space">", "</string>
@@ -412,5 +411,4 @@
     <string name="import_failed">Tuonti epäonnistui</string>
     <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
     <string name="rmd_EPr_rmd_time_desc">Koko päivän tehtävien ilmoitukset näkyvät klo %1$s</string>
-    <string name="banner_subscription_required_title">Tilaus vaaditaan</string>
 </resources>

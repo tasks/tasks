@@ -263,7 +263,6 @@
     <string name="action_create_new_task">نیا ٹاسک بنائیں</string>
     <string name="reinitialize_account">دوبارہ شروع کریں</string>
     <string name="logout">لاگ آؤٹ</string>
-    <string name="requires_pro_subscription">پرو سبسکرپشن کی ضرورت ہے</string>
     <string name="pro_dashclock_extension">ڈیش لاک ایکسٹنشن</string>
     <string name="collapse_subtasks">ذیلی ٹاسکس کو بند کریں</string>
     <string name="expand_subtasks">ذیلی ٹاسکس کو کھولیں</string>

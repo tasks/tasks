@@ -28,7 +28,7 @@ import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
-import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.subscription_required
 
 class EtebaseSynchronizer(
     private val caldavDao: CaldavDao,
@@ -43,7 +43,7 @@ class EtebaseSynchronizer(
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Logger.d("EtebaseSynchronizer") { "Synchronizing $account" }
         if (!hasPro) {
-            setError(account, getString(Res.string.requires_pro_subscription))
+            setError(account, getString(Res.string.subscription_required))
             return
         }
         if (account.password.isNullOrEmpty()) {

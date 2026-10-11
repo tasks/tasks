@@ -3,7 +3,6 @@
     <string name="settings">Подешавања</string>
     <string name="search">Претражи</string>
     <string name="search_no_results">Нема резултата</string>
-    <string name="requires_pro_subscription">Премијум функционалност</string>
     <string name="subscription_required_description">Откључај све функционалности за само 1 USD годишње</string>
     <string name="subscribe">Претплати се</string>
     <string name="filter_my_tasks">Моји задаци</string>
@@ -668,4 +667,5 @@
     <string name="works_with_acalendar_description">Види своје задатке преко догађаја календара</string>
     <string name="works_with_mcp_description">Дозволи AI асистенту да чита и ажурира твоје задатке</string>
     <string name="works_with_android">Tasks.org за Андроид</string>
+    <string name="subscription_required">Потребна је претплата</string>
 </resources>

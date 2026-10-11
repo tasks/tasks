@@ -141,7 +141,6 @@
     <string name="action_create_new_task">Opret ny opgave</string>
     <string name="reinitialize_account">Geninitialiser</string>
     <string name="logout">Log ud</string>
-    <string name="requires_pro_subscription">Kræver pro-abonnement</string>
     <string name="pro_dashclock_extension">Dashclock-udvidelse</string>
     <string name="button_subscribe">Abonnér</string>
     <string name="help_and_feedback">Hjælp og feedback</string>
@@ -419,7 +418,6 @@
     <string name="exit">Afslut</string>
     <string name="returning_user">Tilbagevendende bruger?</string>
     <string name="rmd_EPr_rmd_time_desc">Notifikationer for alle daglige opgaver vises kl. %1$s</string>
-    <string name="banner_subscription_required_title">Abonnement kræves</string>
     <string name="banner_subscription_required_body">Betal hvad du vil for at få adgang til %s-synkronisering</string>
     <string name="email_to_task">E-mail til opgave</string>
     <string name="email_to_task_address">Din e-mailadresse</string>

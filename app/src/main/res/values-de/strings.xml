@@ -201,7 +201,6 @@
     <string name="refresh_purchases">Einkäufe aktualisieren</string>
     <string name="button_subscribe">Abonnieren</string>
     <string name="pro_dashclock_extension">Dashclock-Erweiterung</string>
-    <string name="requires_pro_subscription">Benötigt ein Pro-Abo</string>
     <string name="logout">Abmelden</string>
     <string name="reinitialize_account">Neu initialisieren</string>
     <string name="action_create_new_task">Neue Aufgabe erstellen</string>
@@ -419,7 +418,6 @@
     <string name="subscription_required_fdroid">Ein Abo ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Abos müssen über die Google Play-Version von Tasks gekauft werden.</string>
     <string name="sponsorship_required_fdroid">Ein GitHub-Sponsoring ist erforderlich, um die Tasks.org-Synchronisierung zu nutzen. Klicke unten, um Sponsor:in zu werden.</string>
     <string name="banner_subscription_required_body">Bezahle, was du möchtest, um die Synchronisierung von %s freizuschalten</string>
-    <string name="banner_subscription_required_title">Abo erforderlich</string>
     <string name="email_to_task_address">Deine E-Mail-Adresse</string>
     <string name="email_to_task">E-Mail Aufgabenerstellung</string>
     <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Uhrzeit werden um %1$s angezeigt</string>

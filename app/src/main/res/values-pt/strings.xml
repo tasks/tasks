@@ -211,7 +211,6 @@
     <string name="action_create_new_task">Criar nova tarefa</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="logout">Sair</string>
-    <string name="requires_pro_subscription">Requer inscrição pro</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
     <string name="button_subscribe">Subscrever</string>
     <string name="refresh_purchases">Atualizar compras</string>
@@ -414,7 +413,6 @@
     <string name="import_failed_message">Erro ao ler ficheiro de backup</string>
     <string name="location_update_interval_summary">Atualizações periódicas de localização melhoram a confiabilidade do geofencing</string>
     <string name="rmd_EPr_rmd_time_desc">Notificações para tarefas de dia todo aparecerão as %1$s</string>
-    <string name="banner_subscription_required_title">Inscrição necessária</string>
     <string name="banner_subscription_required_body">Pague o que quiser para desbloquear sincronização %s</string>
     <string name="p_per_list_sort">classificacao_por_lista</string>
     <string name="per_list_sort_title">Classificação por lista</string>

@@ -209,7 +209,6 @@
     <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="button_subscribe">Suscribe</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
-    <string name="requires_pro_subscription">Requiere subscripción profesional</string>
     <string name="logout">Cerrar sesión</string>
     <string name="reinitialize_account">Reinicializar</string>
     <string name="action_create_new_task">Crear nueva tarea</string>
@@ -424,7 +423,6 @@
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>
-    <string name="banner_subscription_required_title">Suscripción necesaria</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_friends_and_family">Amigos y familia</string>
     <string name="read_more">Leer más</string>

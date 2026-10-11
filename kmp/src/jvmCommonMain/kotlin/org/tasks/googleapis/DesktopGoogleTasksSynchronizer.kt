@@ -20,7 +20,7 @@ import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cannot_access_account
-import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.subscription_required
 
 class DesktopGoogleTasksSynchronizer(
     private val caldavDao: CaldavDao,
@@ -61,7 +61,7 @@ class DesktopGoogleTasksSynchronizer(
 
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         val error = when {
-            !hasPro -> getString(Res.string.requires_pro_subscription)
+            !hasPro -> getString(Res.string.subscription_required)
             account.password.isNullOrBlank() -> getString(Res.string.cannot_access_account)
             else -> null
         }

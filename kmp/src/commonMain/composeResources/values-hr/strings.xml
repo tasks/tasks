@@ -16,7 +16,6 @@
     <string name="drawer_places">Mjesta</string>
     <string name="drawer_local_lists">Popisi na uređaju</string>
     <string name="search_no_results">Nema rezultata</string>
-    <string name="requires_pro_subscription">Zahtijeva „Pro” pretplatu</string>
     <string name="subscription_required_description">Otključaj sve funkcije za samo 1 $ godišnje</string>
     <string name="tmrw">Sutra</string>
     <string name="tomorrow_abbrev_lowercase">sutra</string>
@@ -625,4 +624,5 @@
     <string name="mcp_tools_group_reminders">Podsjetnici</string>
     <string name="mcp_copy">Kopiraj</string>
     <string name="new_filter">Stvori filtar</string>
+    <string name="subscription_required">Potrebna je pretplata</string>
 </resources>

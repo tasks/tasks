@@ -220,7 +220,6 @@
     <string name="refresh_purchases">Atnaujinti pirkimus</string>
     <string name="button_subscribe">Prenumeruoti</string>
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
-    <string name="requires_pro_subscription">Reikalinga „pro“ prenumerata</string>
     <string name="logout">Atsijungti</string>
     <string name="reinitialize_account">Inicijuoti iš naujo</string>
     <string name="action_create_new_task">Sukurti naują užduotį</string>

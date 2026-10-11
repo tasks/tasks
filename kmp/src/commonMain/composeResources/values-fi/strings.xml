@@ -28,7 +28,6 @@
     <string name="show_unstarted">Näytä aloittamattomat</string>
     <string name="show_completed">Näytä valmiit</string>
     <string name="wear_unknown_error">Tuntematon virhe</string>
-    <string name="requires_pro_subscription">Pro-ominaisuus</string>
     <string name="subscription_required_description">Avaa kaikkien ominaisuuksien lukitus jopa 1 $ USD/vuosi</string>
     <string name="add_task">Lisää tehtävä</string>
     <string name="search_no_results">Ei tuloksia</string>
@@ -479,4 +478,5 @@
     <string name="mcp_tools_group_reminders">Muistutukset</string>
     <string name="mcp_copy">Kopio</string>
     <string name="new_filter">Luo uusi suodatin</string>
+    <string name="subscription_required">Tilaus vaaditaan</string>
 </resources>

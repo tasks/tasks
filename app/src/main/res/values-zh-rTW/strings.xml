@@ -251,7 +251,6 @@
     <string name="action_new_task">新工作</string>
     <string name="action_create_new_task">建立新工作</string>
     <string name="logout">登出</string>
-    <string name="requires_pro_subscription">需要訂閱專業版</string>
     <string name="button_subscribe">訂閱</string>
     <string name="refresh_purchases">刷新付款</string>
     <string name="subscription">訂閱</string>
@@ -390,7 +389,6 @@
     <string name="yesterday">昨天</string>
     <string name="delete_tasks_warning">%s 將被刪除。此操作無法撤銷！</string>
     <string name="banner_app_updated_description">Tasks 已更新至 %s。是否要查看更新說明？</string>
-    <string name="banner_subscription_required_title">需要訂閱</string>
     <string name="banner_subscription_required_body">支付您想要的金額以解鎖 %s 同步</string>
     <string name="subscription_required_fdroid">使用 Tasks.org 同步需要訂閱。訂閱必須從 Google Play 版本的 Tasks 應用程式發起。</string>
     <string name="sponsorship_required_fdroid">使用 Tasks.org 同步需要 GitHub 贊助。點擊下方成為贊助者。</string>

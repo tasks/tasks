@@ -27,7 +27,6 @@
     <string name="today_lowercase">hodiaŭ</string>
     <string name="show_unstarted">Vidigi nekomencitajn</string>
     <string name="show_completed">Vidigi finitajn</string>
-    <string name="requires_pro_subscription">Profesia funkcio</string>
     <string name="search_no_results">Neniu rezultoj</string>
     <string name="subscription_required_description">Pagu laŭeble nur $1 (usona) por malŝlosi ĉiujn funkciojn</string>
     <string name="add_task">Aldoni taskon</string>
@@ -644,4 +643,5 @@
     <string name="works_with_desktop_description">macOS, Windows, kaj Linux</string>
     <string name="works_with_wear_description">Tasks.org en via brakhorloĝo</string>
     <string name="sign_in_with_apple">Ensaluti per Apple</string>
+    <string name="subscription_required">Bezonas abonon</string>
 </resources>

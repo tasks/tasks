@@ -215,7 +215,6 @@
     <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
     <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>
-    <string name="requires_pro_subscription">Χρειάζεται συνδρομή (pro)</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
     <string name="reinitialize_account">Εκ νέου αρχικοποίηση</string>

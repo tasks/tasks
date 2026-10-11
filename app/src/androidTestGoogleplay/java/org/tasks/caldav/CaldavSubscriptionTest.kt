@@ -9,7 +9,7 @@ import org.junit.Test
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.subscription_required
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -24,7 +24,7 @@ class CaldavSubscriptionTest : CaldavTest() {
         synchronizer.sync(account, hasPro = false)
 
         assertEquals(
-                getString(Res.string.requires_pro_subscription),
+                getString(Res.string.subscription_required),
                 caldavDao.getAccountByUuid(account.uuid!!)?.error
         )
     }

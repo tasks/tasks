@@ -206,7 +206,6 @@
     <string name="refresh_purchases">購入を更新</string>
     <string name="button_subscribe">購入</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
-    <string name="requires_pro_subscription">プロサブスクリプションが必要</string>
     <string name="logout">ログアウト</string>
     <string name="reinitialize_account">再初期化</string>
     <string name="action_create_new_task">新しいタスクを作成</string>
@@ -409,7 +408,6 @@
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>
     <string name="import_failed_message">バックアップファイルを読めません</string>
     <string name="import_failed">インポートできませんでした</string>
-    <string name="banner_subscription_required_title">サブスクリプションが必要です</string>
     <string name="banner_subscription_required_body">%sとの同期をするため、お好みの金額をお支払いください</string>
     <string name="sponsorship_required_fdroid">Tasks.orgと同期するには GitHubへの寄付が必要です。寄付をするには下をクリックしてください。</string>
     <string name="subscription_required_fdroid">Tasks.orgと同期するには定期購入が必要です。定期購入はGoogle Play版のTasksアプリからお申し込みください。</string>

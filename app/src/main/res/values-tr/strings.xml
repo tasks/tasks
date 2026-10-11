@@ -204,7 +204,6 @@
     <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="button_subscribe">Abone ol</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
-    <string name="requires_pro_subscription">Pro aboneliği gerektirir</string>
     <string name="logout">Oturumu kapat</string>
     <string name="reinitialize_account">Yeniden başlat</string>
     <string name="action_create_new_task">Yeni görev oluştur</string>
@@ -418,7 +417,6 @@
     <string name="returning_user">Geri gelen kullanıcı mısınız?</string>
     <string name="import_failed">İçe aktarma başarısız</string>
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
-    <string name="banner_subscription_required_title">Abonelik gereklidir</string>
     <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
     <string name="email_to_task">E-postayla görev</string>
     <string name="email_to_task_address">E-posta adresiniz</string>

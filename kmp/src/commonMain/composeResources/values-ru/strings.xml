@@ -28,7 +28,6 @@
     <string name="show_unstarted">Показать неначатые</string>
     <string name="show_completed">Показать завершённые</string>
     <string name="search_no_results">Нет результатов</string>
-    <string name="requires_pro_subscription">Требуется Pro‑подписка</string>
     <string name="wear_install_app">Установить на телефон</string>
     <string name="wear_unknown_error">Неизвестная ошибка</string>
     <string name="add_task">Добавить задачу</string>
@@ -514,4 +513,5 @@
     <string name="mcp_copy">Копировать</string>
     <string name="new_filter">Создать новый фильтр</string>
     <string name="delete_tag_warning">Задачи с этим тегом не будут удалены</string>
+    <string name="subscription_required">Необходима подписка</string>
 </resources>

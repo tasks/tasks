@@ -210,7 +210,6 @@
     <string name="refresh_purchases">Uppdatera köp</string>
     <string name="button_subscribe">Prenumerera</string>
     <string name="pro_dashclock_extension">DashClock-tillägg</string>
-    <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="logout">Logga ut</string>
     <string name="reinitialize_account">Initiera om kontot</string>
     <string name="action_create_new_task">Skapa ny uppgift</string>
@@ -422,7 +421,6 @@
     <string name="email_to_task">E-post till uppgift</string>
     <string name="email_to_task_address">Din e-postadress</string>
     <string name="rmd_EPr_rmd_time_desc">Aviseringar för heldagsuppgifter visas vid %1$s</string>
-    <string name="banner_subscription_required_title">Prenumeration krävs</string>
     <string name="banner_subscription_required_body">Betala valfritt belopp för att låsa upp synkronisering med %s</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_summary">Kom ihåg sorterings- och grupperingsinställningarna separat för varje lista.</string>

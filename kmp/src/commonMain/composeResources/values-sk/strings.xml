@@ -23,7 +23,6 @@
     <string name="wear_install_app">Inštalovať do telefónu</string>
     <string name="wear_unknown_error">Neznáma chyba</string>
     <string name="search_no_results">Žiadne výsledky</string>
-    <string name="requires_pro_subscription">Vyžaduje PRO predplatné</string>
     <string name="subscription_required_description">Odomknite všetky funkcie za smiešny 1 dolár ročne</string>
     <string name="add_task">Pridať úlohu</string>
     <string name="filter_snoozed">Odložené</string>

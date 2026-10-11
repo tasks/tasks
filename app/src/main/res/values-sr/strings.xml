@@ -212,7 +212,6 @@
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
     <string name="button_subscribe">Претплати се</string>
-    <string name="requires_pro_subscription">Захтева претплату</string>
     <string name="logout">Одјави се</string>
     <string name="delete_tasks_warning">%s ће бити избрисан. Ово се не може опозвати!</string>
     <string name="reinitialize_account">Поново иницијализуј</string>
@@ -417,7 +416,6 @@
     <string name="CFC_importance_text">Минимум приоритета ?</string>
     <string name="widget_view_more_tasks">Погледај још задатака</string>
     <string name="banner_subscription_required_body">Плати колико желиш за откључавање %s синхронизације</string>
-    <string name="banner_subscription_required_title">Потребна је претплата</string>
     <string name="import_failed_message">Неуспело читање резервног фајла</string>
     <string name="import_failed">Увоз није успео</string>
     <string name="returning_user">Поновни корисник?</string>

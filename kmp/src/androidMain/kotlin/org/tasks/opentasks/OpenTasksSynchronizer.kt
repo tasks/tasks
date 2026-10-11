@@ -27,7 +27,7 @@ import org.tasks.resources.getString
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.subscription_required
 
 class OpenTasksSynchronizer(
     private val caldavDao: CaldavDao,
@@ -65,7 +65,7 @@ class OpenTasksSynchronizer(
                 Logger.d("OpenTasksSynchronizer") { "Removing $account" }
                 taskDeleter.delete(account)
             } else if (!hasPro) {
-                setError(account, getString(Res.string.requires_pro_subscription))
+                setError(account, getString(Res.string.subscription_required))
             } else {
                 try {
                     sync(account, entries)

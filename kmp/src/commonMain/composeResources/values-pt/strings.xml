@@ -28,7 +28,6 @@
     <string name="show_unstarted">Mostrar não iniciadas</string>
     <string name="show_completed">Mostrar terminadas</string>
     <string name="search_no_results">Não há resultados</string>
-    <string name="requires_pro_subscription">Requer inscrição pro</string>
     <string name="subscription_required_description">Desbloqueie todas as funcionalidades por apenas $1 USD por ano</string>
     <string name="wear_install_app">Instale no celular</string>
     <string name="wear_unknown_error">Erro desconhecido</string>
@@ -571,4 +570,5 @@
     <string name="mcp_tools_group_reminders">Lembretes</string>
     <string name="mcp_copy">Copiar</string>
     <string name="new_filter">Criar novo filtro</string>
+    <string name="subscription_required">Inscrição necessária</string>
 </resources>

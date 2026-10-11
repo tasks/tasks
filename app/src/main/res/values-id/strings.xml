@@ -180,7 +180,6 @@
     <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="button_subscribe">Langganan</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
-    <string name="requires_pro_subscription">Memerlukan langganan pro</string>
     <string name="logout">Keluar</string>
     <string name="reinitialize_account">Inisialisasi ulang</string>
     <string name="action_create_new_task">Buat tugas baru</string>
@@ -390,7 +389,6 @@
     <string name="delete_tasks_warning">%s akan dihapus. Ini tidak dapat dibatalkan!</string>
     <string name="banner_app_updated_title">Aplikasi diperbarui</string>
     <string name="banner_app_updated_description">Tasks baru saja diperbarui ke %s. Apakah Anda ingin melihat catatan rilis?</string>
-    <string name="banner_subscription_required_title">Langganan diperlukan</string>
     <string name="banner_subscription_required_body">Bayar sesuai keinginan Anda untuk membuka kunci sinkronisasi %s</string>
     <string name="donate_nag">Pertimbangkan untuk menunjukkan dukungan Anda dengan donasi!</string>
     <string name="donate_today">Donasi sekarang</string>

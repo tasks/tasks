@@ -2,7 +2,6 @@
 <resources>
     <string name="search">Пошук</string>
     <string name="settings">Налады</string>
-    <string name="requires_pro_subscription">Функцыя Pro</string>
     <string name="subscription_required_description">Разблакуйце ўсе функцыі ўсяго за 1 даляр на год</string>
     <string name="filter_my_tasks">Мае заданні</string>
     <string name="filter_notifications">Апавяшчэнні</string>

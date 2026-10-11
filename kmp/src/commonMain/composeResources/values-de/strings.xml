@@ -16,7 +16,6 @@
     <string name="drawer_places">Orte</string>
     <string name="drawer_local_lists">Lokale Listen</string>
     <string name="search_no_results">Keine Ergebnisse</string>
-    <string name="requires_pro_subscription">Benötigt ein Pro-Abo</string>
     <string name="tmrw">Mrg</string>
     <string name="tomorrow_abbrev_lowercase">mrg</string>
     <string name="tomorrow">Morgen</string>
@@ -697,4 +696,5 @@
     <string name="works_with_submit_pull_request">Reiche einen Pull-Request ein</string>
     <string name="new_place">Neuen Ort erstellen</string>
     <string name="mcp_tools_group_accounts">Synchronisierungskonten</string>
+    <string name="subscription_required">Abo erforderlich</string>
 </resources>

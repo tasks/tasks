@@ -214,7 +214,6 @@
     <string name="refresh_purchases">Obnoviť nákupy</string>
     <string name="button_subscribe">Prihlásiť sa</string>
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
-    <string name="requires_pro_subscription">Vyžaduje platenú verziu pro</string>
     <string name="logout">Odhlásiť sa</string>
     <string name="reinitialize_account">Znovu aktivovať</string>
     <string name="action_create_new_task">Vytvoriť novú úlohu</string>

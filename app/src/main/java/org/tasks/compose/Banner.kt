@@ -16,6 +16,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.davx5
 import tasks.kmp.generated.resources.enable_reminders
 import tasks.kmp.generated.resources.enable_reminders_description
+import tasks.kmp.generated.resources.subscription_required
 import tasks.kmp.generated.resources.tasks_org
 
 @Composable
@@ -57,7 +58,7 @@ fun SubscriptionRequiredBanner(
     dismiss: () -> Unit,
 ) {
     Banner(
-        title = stringResource(id = R.string.banner_subscription_required_title),
+        title = composeStringResource(Res.string.subscription_required),
         body = if (isTasksOrg) {
             stringResource(id = R.string.your_subscription_expired)
         } else {

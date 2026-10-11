@@ -3,7 +3,6 @@
     <string name="search">搜索</string>
     <string name="subscribe">订阅</string>
     <string name="search_no_results">无结果</string>
-    <string name="requires_pro_subscription">需订阅专业版</string>
     <string name="subscription_required_description">最低每年 1 美元解锁所有功能</string>
     <string name="filter_my_tasks">我的任务</string>
     <string name="filter_notifications">通知</string>
@@ -688,4 +687,5 @@
     <string name="mcp_reveal">显示</string>
     <string name="mcp_hide">隐藏</string>
     <string name="mcp_clipboard_note">您在此处复制的任何内容都包含令牌，并在一分钟后从剪贴板中清除。</string>
+    <string name="subscription_required">需要订阅</string>
 </resources>

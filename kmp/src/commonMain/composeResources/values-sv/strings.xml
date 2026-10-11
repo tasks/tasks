@@ -27,7 +27,6 @@
     <string name="today_lowercase">idag</string>
     <string name="search_no_results">Inga resultat</string>
     <string name="subscription_required_description">Lås upp alla funktioner för så lite som $1 USD/år</string>
-    <string name="requires_pro_subscription">Kräver Pro-prenumeration</string>
     <string name="add_task">Lägg till uppgift</string>
     <string name="show_unstarted">Visa uppgifter som inte har påbörjats</string>
     <string name="show_completed">Visa slutförda</string>
@@ -625,4 +624,5 @@
     <string name="mcp_tools_group_reminders">Påminnelser</string>
     <string name="mcp_copy">Kopiera</string>
     <string name="new_filter">Skapa ett nytt filter</string>
+    <string name="subscription_required">Prenumeration krävs</string>
 </resources>

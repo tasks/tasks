@@ -29,7 +29,6 @@
     <string name="show_completed">完了したタスクを表示</string>
     <string name="search_no_results">該当するものがありません</string>
     <string name="subscription_required_description">すべての機能を$1 USD/年でアンロックすることができます</string>
-    <string name="requires_pro_subscription">プロサブスクリプションが必要</string>
     <string name="add_task">タスクを追加</string>
     <string name="wear_install_app">インストール</string>
     <string name="wear_unknown_error">不明なエラー</string>
@@ -595,4 +594,5 @@
     <string name="works_with_sync">アプリと同期する</string>
     <string name="works_with_wearables">ウェアラブル端末</string>
     <string name="works_with_calendars">カレンダーやウィジェット</string>
+    <string name="subscription_required">サブスクリプションが必要です</string>
 </resources>

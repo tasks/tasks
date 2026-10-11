@@ -30,7 +30,6 @@
     <string name="wear_install_app">התקנה בטלפון</string>
     <string name="wear_unknown_error">שגיאה לא ידועה</string>
     <string name="search_no_results">אין תוצאות</string>
-    <string name="requires_pro_subscription">דורש מינוי פרו</string>
     <string name="add_task">הוספת משימה</string>
     <string name="filter_snoozed">בנמנום</string>
     <string name="new_task">משימה חדשה</string>
@@ -599,4 +598,5 @@
     <string name="mcp_tools_group_reminders">תזכורות</string>
     <string name="mcp_copy">העתקה</string>
     <string name="new_filter">יצירת מסנן חדש</string>
+    <string name="subscription_required">נדרש מינוי</string>
 </resources>

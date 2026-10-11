@@ -9,6 +9,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.Inventory
@@ -83,7 +84,12 @@ class ColorPalettePicker : DialogFragment() {
             Palette.WIDGET -> colorProvider.getWidgetColors()
         }
 
-        val iconPickerAdapter = ColorPickerAdapter(requireActivity(), inventory, this::onSelected)
+        val iconPickerAdapter = ColorPickerAdapter(
+            requireActivity(),
+            inventory,
+            lifecycleScope,
+            this::onSelected,
+        )
         with(binding.icons) {
             layoutManager = IconLayoutManager(context)
             adapter = iconPickerAdapter

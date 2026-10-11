@@ -29,7 +29,7 @@ import io.ktor.http.appendPathSegments
 import io.ktor.http.content.ByteArrayContent
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
-import tasks.kmp.generated.resources.requires_pro_subscription
+import tasks.kmp.generated.resources.subscription_required
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
 import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
 import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
@@ -100,7 +100,7 @@ class CaldavSynchronizer(
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         Logger.d(TAG) { "Synchronizing $account" }
         if (!hasPro && !account.isTasksOrg) {
-            setError(account, getString(Res.string.requires_pro_subscription))
+            setError(account, getString(Res.string.subscription_required))
             return
         }
         if (account.password.isNullOrBlank()) {

@@ -21,7 +21,6 @@
     <string name="yesterday_lowercase">ahir</string>
     <string name="today">Avui</string>
     <string name="today_lowercase">avui</string>
-    <string name="requires_pro_subscription">Característica pro</string>
     <string name="default_list">Llista per defecte</string>
     <string name="drawer_places">Llocs</string>
     <string name="drawer_local_lists">Llistes locals</string>

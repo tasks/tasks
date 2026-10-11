@@ -164,7 +164,6 @@
     <string name="action_create_new_task">புதிய பணியை உருவாக்கவும்</string>
     <string name="reinitialize_account">மீண்டும் துவக்கு</string>
     <string name="logout">வெளியேறு</string>
-    <string name="requires_pro_subscription">சார்பு சந்தா தேவை</string>
     <string name="pro_dashclock_extension">டாஷ்க்லாக் நீட்டிப்பு</string>
     <string name="button_subscribe">பதிவு</string>
     <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>

@@ -145,7 +145,6 @@
     <string name="help">Abiinfo</string>
     <string name="button_subscribe">Telli</string>
     <string name="pro_dashclock_extension">Dashclock laiendused</string>
-    <string name="requires_pro_subscription">Eeldab Pro-taseme tellimust</string>
     <string name="logout">Logi välja</string>
     <string name="action_create_new_task">Loo uus ülesanne</string>
     <string name="show_description">Näita kirjeldust</string>
@@ -417,7 +416,6 @@
     <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
     <string name="import_failed">Importimine ei õnnestunud</string>
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
-    <string name="banner_subscription_required_title">Vajalik on tellimus</string>
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>

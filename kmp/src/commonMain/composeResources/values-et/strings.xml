@@ -16,7 +16,6 @@
     <string name="yesterday">Eile</string>
     <string name="today">Täna</string>
     <string name="search_no_results">Tulemusi pole</string>
-    <string name="requires_pro_subscription">Eeldab Pro-taseme tellimust</string>
     <string name="tomorrow_lowercase">homme</string>
     <string name="tomorrow_abbrev_lowercase">hom.</string>
     <string name="today_lowercase">täna</string>
@@ -697,4 +696,5 @@
     <string name="works_with_content_provider_description">Loe ja kirjuta Tasks.org-i andmeid oma rakendusest</string>
     <string name="works_with_missing">Kas midagi on puudu? %1$s saada e-kiri aadressile %2$s.</string>
     <string name="works_with_submit_pull_request">Koosta päring koodimuudatuse lisamiseks</string>
+    <string name="subscription_required">Vajalik on tellimus</string>
 </resources>

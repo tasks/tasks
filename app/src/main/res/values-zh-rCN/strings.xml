@@ -198,7 +198,6 @@
     <string name="refresh_purchases">刷新购买</string>
     <string name="button_subscribe">订阅</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
-    <string name="requires_pro_subscription">需订阅专业版</string>
     <string name="logout">退出登录</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="action_create_new_task">新建任务</string>
@@ -415,7 +414,6 @@
     <string name="returning_user">用过 Tasks.org 吗？</string>
     <string name="import_failed">导入失败</string>
     <string name="import_failed_message">无法读取备份文件</string>
-    <string name="banner_subscription_required_title">需要订阅</string>
     <string name="banner_subscription_required_body">支付您想支付的金额解锁 %s 同步</string>
     <string name="email_to_task_address">您的电子邮件地址</string>
     <string name="email_to_task">邮件转任务</string>

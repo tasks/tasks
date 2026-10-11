@@ -314,7 +314,6 @@
     <string name="url">URL</string>
     <string name="list">Listo</string>
     <string name="upgrade_to_pro">Altgradigi al profesia</string>
-    <string name="requires_pro_subscription">Bezonas profesian abonon</string>
     <string name="linkify_description">Aldoni ligilojn de retejoj, adresoj, kaj telefonnumeroj</string>
     <string name="location_remind_departure">Memorigi je foriro</string>
     <string name="name_your_price">Elekti propran prezon</string>
@@ -418,7 +417,6 @@
     <string name="sponsorship_required_fdroid">Uzi Tasks.org sinkronigon bezonas GitHub sponsorecon. Alklaku suben por fariĝi sponsoro.</string>
     <string name="import_failed">Importo malsukcesis</string>
     <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
-    <string name="banner_subscription_required_title">Bezonas abonon</string>
     <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
     <string name="rmd_EPr_rmd_time_desc">Sciigoj de tuttagaj taskoj aperos je %1$s</string>
     <string name="per_list_sort_title">Ordigi laŭ listo</string>

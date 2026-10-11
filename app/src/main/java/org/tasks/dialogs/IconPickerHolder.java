@@ -1,13 +1,11 @@
 package org.tasks.dialogs;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.tasks.Callback;
-import org.tasks.R;
 import org.tasks.databinding.DialogIconPickerCellBinding;
 import org.tasks.themes.DrawableUtil;
 
@@ -15,12 +13,17 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
 
   private final Context context;
   private final Callback<Integer> onClick;
+  private final Runnable onProRequired;
   private final AppCompatImageView imageView;
 
   private int index;
   private boolean isEnabled;
 
-  IconPickerHolder(Context context, DialogIconPickerCellBinding binding, Callback<Integer> onClick) {
+  IconPickerHolder(
+      Context context,
+      DialogIconPickerCellBinding binding,
+      Callback<Integer> onClick,
+      Runnable onProRequired) {
     super(binding.getRoot());
 
     imageView = binding.icon;
@@ -28,13 +31,14 @@ public class IconPickerHolder extends RecyclerView.ViewHolder {
 
     this.context = context;
     this.onClick = onClick;
+    this.onProRequired = onProRequired;
   }
 
   private void onClick() {
     if (isEnabled) {
       onClick.call(index);
     } else {
-      Toast.makeText(context, R.string.requires_pro_subscription, Toast.LENGTH_SHORT).show();
+      onProRequired.run();
     }
   }
 

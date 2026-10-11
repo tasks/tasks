@@ -201,7 +201,6 @@
     <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="button_subscribe">S\'abonner</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
-    <string name="requires_pro_subscription">Nécessite un abonnement pro</string>
     <string name="logout">Se déconnecter</string>
     <string name="reinitialize_account">Réinitialiser</string>
     <string name="action_create_new_task">Créer une nouvelle tâche</string>
@@ -425,7 +424,6 @@
     <string name="returning_user">Restaurer les données ?</string>
     <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
     <string name="import_failed">Échec de l\'importation</string>
-    <string name="banner_subscription_required_title">Abonnement requis</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
     <string name="email_to_task">Courriel en tâche</string>
     <string name="email_to_task_address">Votre adresse électronique</string>

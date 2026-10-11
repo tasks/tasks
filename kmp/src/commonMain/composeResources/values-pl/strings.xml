@@ -27,7 +27,6 @@
     <string name="today_lowercase">dzisiaj</string>
     <string name="show_completed">Pokaż ukończone</string>
     <string name="show_unstarted">Pokaż nierozpoczęte</string>
-    <string name="requires_pro_subscription">Wymaga subskrypcji premium</string>
     <string name="new_task">Nowe zadanie</string>
     <string name="save">Zapisz</string>
     <string name="sort_mode">Sortuj</string>
