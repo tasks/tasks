@@ -216,7 +216,6 @@
     <string name="missing_permissions">අවසරය ලැබී නොමැත</string>
     <string name="location_arrived">%s වෙත පැමිණියේය</string>
     <string name="pro_dashclock_extension">Dashclock දිගුව</string>
-    <string name="upgrade_to_pro">Pro වෙත උත්ශ්‍රේණි කරන්න</string>
     <string name="list_separator_with_space">", "</string>
     <string name="repeats_plural_number_of_times">පුනරාවර්තනය සෑම %1$s, %2$d %3$s සිදු වේ</string>
     <string name="repeats_from">පුනරාවර්තනය වනුයේ</string>

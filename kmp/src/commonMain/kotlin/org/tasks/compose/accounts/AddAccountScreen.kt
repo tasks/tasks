@@ -84,7 +84,7 @@ import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.tasks_org_description
 import tasks.kmp.generated.resources.terms_of_service_proper
-import tasks.kmp.generated.resources.upgrade_to_pro
+import tasks.kmp.generated.resources.upgrade
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -184,7 +184,7 @@ fun AddAccountScreen(
             ) {
                 if (configuration.supportsTasksOrg && !hasTasksAccount) {
                     if (!hasPro) {
-                        SectionHeader(stringResource(Res.string.upgrade_to_pro))
+                        SectionHeader(stringResource(Res.string.upgrade))
                     } else {
                         Spacer(modifier = Modifier.height(SettingsSectionGap))
                     }

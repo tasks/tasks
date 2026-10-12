@@ -300,7 +300,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="badges_description">Прикажи број задатака на иконици за покретање. Неки покретачи не подржавају беџеве.</string>
     <string name="tasker_list_notification">Обавештење листе</string>
-    <string name="upgrade_to_pro">Пређи на претплату</string>
     <string name="refresh_purchases">Освежи уплате</string>
     <string name="pro_dashclock_extension">Екстензија ,,Dashclock\'\'</string>
     <string name="location_remind_arrival">Подсети при доласку</string>

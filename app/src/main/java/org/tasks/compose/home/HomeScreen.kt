@@ -61,6 +61,7 @@ import com.todoroo.astrid.activity.TaskEditFragment.Companion.EXTRA_TASK
 import com.todoroo.astrid.activity.TaskListFragment
 import com.todoroo.astrid.activity.TaskListFragment.Companion.EXTRA_FILTER
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.auth.SignInActivity
@@ -84,6 +85,8 @@ import org.tasks.kmp.org.tasks.compose.TouchSlopMultiplier
 import org.tasks.kmp.org.tasks.compose.rememberImeState
 import org.tasks.location.LocationPickerActivity
 import org.tasks.preferences.MainPreferences
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade
 import timber.log.Timber
 
 private val BottomAppBarHeight = 80.dp
@@ -162,7 +165,7 @@ fun HomeScreen(
     if (guestDialog.value) {
         AlertDialog(
             onDismissRequest = { guestDialog.value = false },
-            title = { Text(stringResource(R.string.upgrade_to_pro)) },
+            title = { Text(composeStringResource(Res.string.upgrade)) },
             text = { Text(stringResource(R.string.guest_create_list_message)) },
             dismissButton = {
                 TextButton(onClick = {

@@ -75,6 +75,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
 import org.tasks.billing.Sku
 import org.tasks.compose.Constants.HALF_KEYLINE
@@ -85,6 +86,7 @@ import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.more_options
+import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.url_sponsor
 
@@ -205,10 +207,11 @@ object PurchaseText {
                 TopAppBar(
                     title = {
                         Text(
-                            text = stringResource(
-                                if (nameYourPrice) R.string.name_your_price
-                                else R.string.upgrade_to_pro
-                            ),
+                            text = if (nameYourPrice) {
+                                stringResource(R.string.name_your_price)
+                            } else {
+                                composeStringResource(Res.string.tasks_org_account)
+                            },
                             color = MaterialTheme.colorScheme.onSurface,
                             style = MaterialTheme.typography.titleLarge
                         )
@@ -235,7 +238,7 @@ object PurchaseText {
                                 onDismissRequest = { expanded = false },
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text(org.jetbrains.compose.resources.stringResource(Res.string.sign_in)) },
+                                    text = { Text(composeStringResource(Res.string.sign_in)) },
                                     onClick = {
                                         expanded = false
                                         onSignIn()
@@ -270,7 +273,7 @@ object PurchaseText {
                         ),
                     ) {
                         Text(
-                            text = org.jetbrains.compose.resources.stringResource(Res.string.upgrade_subscription_banner),
+                            text = composeStringResource(Res.string.upgrade_subscription_banner),
                             modifier = Modifier.padding(KEYLINE_FIRST),
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.bodyMedium,
@@ -332,7 +335,7 @@ object PurchaseText {
                         )
                     ) {
                         Text(
-                            text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
+                            text = composeStringResource(Res.string.sign_in),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -462,7 +465,7 @@ object PurchaseText {
                         ) {
                             Text(
                                 text = if (nameYourPrice) {
-                                    org.jetbrains.compose.resources.stringResource(Res.string.more_options)
+                                    composeStringResource(Res.string.more_options)
                                 } else {
                                     stringResource(R.string.name_your_price)
                                 },
@@ -490,7 +493,7 @@ object PurchaseText {
             if (!showMoreOptions && !existingSubscriber && !hasTasksAccount) {
                 Spacer(Modifier.height(32.dp))
                 Text(
-                    text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in_subtitle),
+                    text = composeStringResource(Res.string.sign_in_subtitle),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
@@ -503,7 +506,7 @@ object PurchaseText {
                     )
                 ) {
                     Text(
-                        text = org.jetbrains.compose.resources.stringResource(Res.string.sign_in),
+                        text = composeStringResource(Res.string.sign_in),
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }

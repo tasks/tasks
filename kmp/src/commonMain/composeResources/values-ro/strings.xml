@@ -49,7 +49,6 @@
     <string name="microsoft_selection_description">Sincronizarea cu contul personal Microsoft</string>
     <string name="cost_free">Gratuit</string>
     <string name="name_your_price">Spune prețul</string>
-    <string name="upgrade_to_pro">Actualizare la PRO</string>
     <string name="caldav_selection_description">Sincronizare bazată pe standarde deschise de internet</string>
     <string name="davx5_selection_description">Sincronizează-ți sarcinile cu aplicația DAVx⁵</string>
     <string name="etesync_selection_description">Sincronizare criptată end-to-end</string>

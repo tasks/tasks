@@ -172,7 +172,6 @@
     <string name="repeats_plural_number_of_times">Es repeteix cada %1$s, ocurreix %2$d%3$s</string>
     <string name="tasker_create_task">Crear tasca</string>
     <string name="tasker_list_notification">Notificació de llista</string>
-    <string name="upgrade_to_pro">Actualitza a pro</string>
     <string name="subscription">Subscripció</string>
     <string name="linkify">Mostra els enllaços</string>
     <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>

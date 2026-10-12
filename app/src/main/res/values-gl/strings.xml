@@ -161,7 +161,6 @@
     <string name="delete_selected_tasks">Borrar as tarefas seleccionadas\?</string>
     <string name="copy_selected_tasks">Copiar as tareas seleccionadas\?</string>
     <string name="ok">Aceptar</string>
-    <string name="upgrade_to_pro">Anovar a pro</string>
     <string name="icon">Icona</string>
     <string name="documentation">Documentación</string>
     <string name="filter_medium_priority">Prioridade intermedia</string>

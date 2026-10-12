@@ -6,6 +6,7 @@
     <string name="caldav_home_set_not_found">Home set not found</string>
     <string name="subscription_required_description">Unlock all features for as little as $1 USD/year</string>
     <string name="subscribe">Subscribe</string>
+    <string name="upgrade">Upgrade</string>
     <string name="filter_my_tasks">My Tasks</string>
     <string name="filter_notifications">Notifications</string>
     <string name="filter_snoozed">Snoozed</string>
@@ -78,7 +79,6 @@
     <string name="name_your_price">Name your price</string>
     <string name="name_your_price_blurb">Pay what you want to unlock themes, icons, and these advanced sync options</string>
     <string name="tasks_org_description">Includes Friends &amp; Family Sharing and Email-to-Task</string>
-    <string name="upgrade_to_pro">Upgrade to pro</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>

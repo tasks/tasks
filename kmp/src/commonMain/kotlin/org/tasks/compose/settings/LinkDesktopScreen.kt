@@ -50,7 +50,7 @@ import tasks.kmp.generated.resources.link_desktop_success
 import tasks.kmp.generated.resources.google_play_subscription
 import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.scan_qr_code
-import tasks.kmp.generated.resources.upgrade_to_pro
+import tasks.kmp.generated.resources.upgrade
 
 sealed interface LinkDesktopState {
     data object Idle : LinkDesktopState
@@ -135,7 +135,7 @@ fun LinkDesktopScreen(
                                     2,
                                     stringResource(
                                         Res.string.link_desktop_step_2,
-                                        stringResource(Res.string.upgrade_to_pro),
+                                        stringResource(Res.string.upgrade),
                                         stringResource(Res.string.restore_purchases),
                                     )
                                 )

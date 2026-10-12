@@ -49,7 +49,6 @@
     <string name="microsoft_selection_description">마이크로소프트 계정과 동기화</string>
     <string name="cost_free">무료</string>
     <string name="name_your_price">구독 금액 정하기</string>
-    <string name="upgrade_to_pro">프로 서비스로 업그레이드</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
     <string name="davx5_selection_description">DAVx⁵ 앱과 내 할일 동기화</string>
     <string name="etesync_selection_description">종단간 암호화된 동기화</string>

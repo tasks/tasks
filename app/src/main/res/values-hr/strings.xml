@@ -179,7 +179,6 @@
     <string name="button_subscribe">Pretplati se</string>
     <string name="refresh_purchases">Osvježi kupnje</string>
     <string name="subscription">Pretplata</string>
-    <string name="upgrade_to_pro">Nadogradi na Pro verziju</string>
     <string name="tasker_list_notification">Obavijest popisa</string>
     <string name="tasker_create_task">Stvori zadatak</string>
     <string name="badges_description">Prikaži broj zadataka na ikoni pokretača programa Tasks. Neki pokretači ne podržavaju značke.</string>

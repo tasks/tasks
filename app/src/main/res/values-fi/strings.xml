@@ -261,7 +261,6 @@
     <string name="widget_show_dividers">Näytä jakajat</string>
     <string name="action_new_task">Uusi tehtävä</string>
     <string name="pro_dashclock_extension">Dashclock-laajennus</string>
-    <string name="upgrade_to_pro">Päivitä pro versioon</string>
     <string name="filter_no_priority">Ei tärkeyttä</string>
     <string name="filter_medium_priority">Normaali tärkeys</string>
     <string name="filter_overdue">Myöhässä oleva</string>

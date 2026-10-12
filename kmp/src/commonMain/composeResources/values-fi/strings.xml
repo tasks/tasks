@@ -60,7 +60,6 @@
     <string name="tasks_org_description">Sisältää perhe- ja ystäväjaon sekä sähköpostista tehtäväksi -toiminnon</string>
     <string name="microsoft_selection_description_googleplay">Synkronoi työ-, koulu- tai henkilökohtaisen Microsoft tilin kanssa</string>
     <string name="name_your_price">Nimeä hintasi</string>
-    <string name="upgrade_to_pro">Päivitä pro versioon</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
     <string name="davx5_selection_description">Tehtävien synkronointi DAVx⁵sovelluksen kanssa</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>

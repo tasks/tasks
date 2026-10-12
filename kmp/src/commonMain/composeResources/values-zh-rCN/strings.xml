@@ -66,7 +66,6 @@
     <string name="microsoft_selection_description_googleplay">与工作、学校或个人 Microsoft 账号同步</string>
     <string name="tasks_org_description">包括好友和家庭共享、邮件转任务</string>
     <string name="name_your_price">您愿意支付多少费用</string>
-    <string name="upgrade_to_pro">升级到专业版</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="davx5_selection_description">使用 DAVx⁵ 应用同步您的任务</string>

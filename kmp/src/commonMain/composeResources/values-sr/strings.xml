@@ -57,7 +57,6 @@
     <string name="microsoft_selection_description_googleplay">Синхронизуј са својим послом, школом или личним Microsoft налогом</string>
     <string name="name_your_price_blurb">Плати колико желиш за откључавање тема, иконица и напредних опција синхронизације</string>
     <string name="name_your_price">Наведи цену</string>
-    <string name="upgrade_to_pro">Пређи на претплату</string>
     <string name="legal_disclosure_prefix_using">Коришћењем Tasks.org</string>
     <string name="caldav_selection_description">Синхронизација заснована на стандардима отвореног интернета</string>
     <string name="davx5_selection_description">Синхронизуј своје задатке са DAVx⁵ апликацијом</string>

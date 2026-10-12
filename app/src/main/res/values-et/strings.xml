@@ -350,7 +350,6 @@
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
     <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
-    <string name="upgrade_to_pro">Uuenda Pro-versiooniks</string>
     <string name="badges_description">Näita ülesannete arvu Tasks rakenduse ikoonil. Palun arvesta et kõik avalehed ja käivitajad ei toeta seda võimalust.</string>
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>

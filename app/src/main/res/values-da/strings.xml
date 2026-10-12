@@ -219,7 +219,6 @@
     <string name="widget_show_settings">Vis indstillinger</string>
     <string name="widget_show_checkboxes">Vis afkrydsningsfelter</string>
     <string name="sort_created_group">Oprettet %s</string>
-    <string name="upgrade_to_pro">Opgrader til pro</string>
     <string name="refresh_purchases">Opdater køb</string>
     <string name="EPr_voiceInputEnabled_title">Stemmeinput</string>
     <string name="voice_create_prompt">Tal for at oprette en opgave</string>

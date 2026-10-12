@@ -41,7 +41,8 @@ import tasks.kmp.generated.resources.supporter
 import tasks.kmp.generated.resources.supporter_summary
 import tasks.kmp.generated.resources.supporter_summary_no_price
 import tasks.kmp.generated.resources.tasks_org
-import tasks.kmp.generated.resources.upgrade_to_pro
+import tasks.kmp.generated.resources.tasks_org_account
+import tasks.kmp.generated.resources.upgrade
 import tasks.kmp.generated.resources.upgrade_to_pro_card_description
 import org.tasks.data.entity.CaldavAccount
 
@@ -78,6 +79,7 @@ fun AccountSettingsCard(
     iconOverride: String? = null,
     showChevron: Boolean = true,
     environmentLabel: String? = null,
+    titleOverride: String? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -106,7 +108,7 @@ fun AccountSettingsCard(
             when (state) {
                 is ProCardState.Upgrade -> {
                     iconTint = ProGoldColor
-                    title = stringResource(Res.string.upgrade_to_pro)
+                    title = stringResource(Res.string.upgrade)
                     summary = stringResource(Res.string.upgrade_to_pro_card_description)
                     showError = false
                 }
@@ -205,7 +207,7 @@ fun AccountSettingsCard(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = title,
+                    text = titleOverride ?: title,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -282,6 +284,7 @@ fun ManageSubscriptionSheetContent(
                 onClick = onUpgrade,
                 iconOverride = TasksIcons.ROCKET_LAUNCH,
                 showChevron = false,
+                titleOverride = stringResource(Res.string.tasks_org_account),
             )
         }
         if (showModify) {

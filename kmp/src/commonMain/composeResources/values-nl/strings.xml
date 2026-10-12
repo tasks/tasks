@@ -55,7 +55,6 @@
     <string name="microsoft_selection_description_googleplay">Synchroniseer met je werk-, school- of persoonlijk Microsoft-account</string>
     <string name="name_your_price_blurb">Betaal een bedrag naar keuze om thema's, pictogrammen en geavanceerde sync-mogelijkheden te verkrijgen</string>
     <string name="name_your_price">Bepaal je eigen prijs</string>
-    <string name="upgrade_to_pro">Opwaarderen naar pro</string>
     <string name="legal_disclosure_prefix_using">Door Tasks.org te gebruiken</string>
     <string name="caldav_selection_description">Synchroniseren op eigen open source CalDAV-server of bij derden</string>
     <string name="davx5_selection_description">Synchroniseren met de DAVx⁵-app</string>

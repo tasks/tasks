@@ -66,7 +66,6 @@
     <string name="microsoft_selection_description_googleplay">Synchronisez avec votre travail, votre école ou votre compte Microsoft personnel</string>
     <string name="tasks_org_description">Comprend le partage entre amis et famille et la conversion des courriels en tâches</string>
     <string name="name_your_price">Donnez votre prix</string>
-    <string name="upgrade_to_pro">Mise à niveau vers la version « pro »</string>
     <string name="legal_disclosure_prefix_using">En utilisant Tasks.org</string>
     <string name="caldav_selection_description">Synchronisation basée sur des normes d'Internet ouvertes</string>
     <string name="davx5_selection_description">Synchroniser vos tâches avec l’application « DAVx⁵ »</string>

@@ -49,7 +49,6 @@
     <string name="microsoft_selection_description">Sincronitza amb el teu compte personal de Microsoft</string>
     <string name="cost_free">Gratuït</string>
     <string name="name_your_price">Preu flexible</string>
-    <string name="upgrade_to_pro">Actualitza a pro</string>
     <string name="caldav_selection_description">Sincronització basada en estàndards oberts d'Internet</string>
     <string name="davx5_selection_description">Sincronitza les teves tasques amb l'aplicació DAVx5</string>
     <string name="etesync_selection_description">Sincronització xifrada d'extrem a extrem</string>
