@@ -4,6 +4,7 @@ import com.natpryce.makeiteasy.MakeItEasy.with
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -125,6 +126,17 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
         synchronizer.sync(hasPro = true)
 
         assertNull(openTaskDao.getTask(listId, UID))
+    }
+
+    @Test
+    fun ignoreTaskWithoutUid() = runBlocking {
+        val (listId, list) = withVtodo(VTODO)
+        openTaskDao.insertTaskWithoutUid(listId, "no uid")
+
+        synchronizer.sync(hasPro = true)
+
+        assertNotNull(caldavDao.getTaskByRemoteId(list.uuid!!, UID))
+        assertFalse(caldavDao.getAccounts().single().hasError)
     }
 
     @Test

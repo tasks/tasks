@@ -82,13 +82,19 @@ open class OpenTaskDao(
         val items = ArrayList<Triple<String, String?, String>>()
         cr.query(
                 tasks,
-                arrayOf(Tasks._UID, Tasks.SYNC1, "version"),
+                arrayOf(Tasks._ID, Tasks._UID, Tasks.SYNC1, "version"),
                 "${Tasks.LIST_ID} = $listId",
                 null,
                 null)?.use {
             while (it.moveToNext()) {
+                val uid = it.getString(Tasks._UID)
+                if (uid.isNullOrBlank()) {
+                    val id = it.getLong(Tasks._ID)
+                    Logger.w("OpenTaskDao") { "Skipping task $id in list $listId: no ${Tasks._UID}" }
+                    continue
+                }
                 items.add(Triple(
-                        it.getString(Tasks._UID)!!,
+                        uid,
                         it.getString(Tasks.SYNC1),
                         it.getLong("version").toString()))
             }

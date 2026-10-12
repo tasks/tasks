@@ -58,6 +58,14 @@ class TestOpenTaskDao @Inject constructor(
         applyOperation(*ops.toTypedArray())
     }
 
+    fun insertTaskWithoutUid(listId: Long, title: String) {
+        applyOperation(
+                BatchOperation.CpoBuilder.newInsert(tasks)
+                        .withValue(TaskContract.TaskColumns.LIST_ID, listId)
+                        .withValue(TaskContract.Tasks.TITLE, title)
+        )
+    }
+
     fun setDescription(listId: Long, uid: String, description: String) {
         val values = ContentValues().apply {
             put(TaskContract.Tasks.DESCRIPTION, description)
