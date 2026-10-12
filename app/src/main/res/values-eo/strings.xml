@@ -373,7 +373,6 @@
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
     <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
-    <string name="account_not_included">Ne inkluzivite per \'Elekti propran prezon\' abonoj</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>

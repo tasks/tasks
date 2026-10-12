@@ -361,7 +361,6 @@
     <string name="filter_any_start_date">Cualquier fecha de inicio</string>
     <string name="CFC_startBefore_name">Comienza…</string>
     <string name="CFC_startBefore_text">Comienza: \?</string>
-    <string name="account_not_included">No incluido con las suscripciones de precio flexible</string>
     <string name="subscription">Suscripción</string>
     <string name="widget_show_title">Mostrar título</string>
     <string name="tasks_org_account_required">Se requiere una cuenta de Tasks.org</string>

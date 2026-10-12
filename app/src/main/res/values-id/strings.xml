@@ -255,7 +255,6 @@
     <string name="display_name">Nama tampilan</string>
     <string name="background_location_permission_required">Aplikasi ini mengumpulkan data lokasi untuk mengaktifkan pengingat berdasarkan lokasi bahkan saat aplikasi ditutup atau sedang tidak digunakan.</string>
     <string name="repeats_plural_number_of_times">Ulangi setiap %1$s, terjadi %2$d %3$s</string>
-    <string name="account_not_included">Tidak termasuk dalam langganan \'Berikan penawaran harga Anda\'</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>
     <string name="app_password">Kata sandi aplikasi</string>

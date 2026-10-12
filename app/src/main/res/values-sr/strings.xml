@@ -388,7 +388,6 @@
     <string name="app_passwords_more_info">Синхронизуј задатке и календар са десктоп и мобилним апликацијама треће стране. Тапни овде за додатне информације</string>
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
-    <string name="account_not_included">Није укључено у ,,Задај цену\'\' тип претплате</string>
     <string name="pro_free_trial">Нови претплатници добијају 7-дневно бесплатно коришћење. Може се отказати у било ком тренутку</string>
     <string name="upgrade_more_customization">Додатно прилагоди</string>
     <string name="upgrade_more_customization_description">Откључај све теме, боје, и иконице</string>

@@ -338,7 +338,6 @@
     <string name="chip_appearance">Vzhled známek</string>
     <string name="chips">Známky</string>
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
-    <string name="account_not_included">Nezahrnuto v předplatném typu „Zaplaťte kolik chcete“</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
     <string name="app_passwords_more_info">Synchronizujte své úkoly a kalendáře s desktopovými a mobilními aplikacemi třetích stran. Pro více informací klepněte sem</string>

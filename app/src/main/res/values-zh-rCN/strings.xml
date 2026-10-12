@@ -351,7 +351,6 @@
     <string name="CFC_startBefore_name">开始于…</string>
     <string name="CFC_startBefore_text">开始于：?</string>
     <string name="filter_any_start_date">任意开始日期</string>
-    <string name="account_not_included">不包含于“您愿意支付多少费用”订阅</string>
     <string name="subscription">订阅</string>
     <string name="widget_show_title">显示标题</string>
     <string name="tasks_org_account_required">需要 Tasks.org 账号</string>

@@ -394,7 +394,6 @@
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>
-    <string name="account_not_included">\'உங்கள் விலை பெயர்\' சந்தாக்களுடன் சேர்க்கப்படவில்லை</string>
     <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
     <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>

@@ -56,7 +56,6 @@
     <string name="upgrade_more_customization_description">Mở khoá tất cả chủ đề, màu sắc, và biểu tượng</string>
     <string name="upgrade_more_customization">Nhiều tuỳ biến hơn</string>
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
-    <string name="account_not_included">Không được bao gồm với các gói đăng ký \'Đặt giá của bạn\'</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
     <string name="app_passwords_more_info">Đồng bộ hoá các công việc và lịch của bạn bằng các ứng dụng máy tính và di động của bên thứ ba. Nhấn vào đây để xem thêm thông tin</string>

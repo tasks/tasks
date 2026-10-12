@@ -332,7 +332,6 @@
     <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
     <string name="upgrade_more_customization">Mais personalizações</string>
     <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
-    <string name="account_not_included">Não incluído nas subscrições de \'Dê o seu preço\'</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_passwords_more_info">Sincroniza as suas tarefas e calendários com aplicações de terceiros em computadores de mesa e aplicações de telemóveis de terceiros. Clique aqui para mais detalhes</string>

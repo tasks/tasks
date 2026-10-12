@@ -362,7 +362,6 @@
     <string name="start_date">Data rozpoczęcia</string>
     <string name="SSD_sort_start">Wg daty rozpoczęcia</string>
     <string name="subscription">Subskrypcja</string>
-    <string name="account_not_included">Nie obejmuje subskrypcji \"Podaj swoją cenę\"</string>
     <string name="widget_show_title">Pokaż tytuł</string>
     <string name="tasks_org_account_required">Wymagane konto Tasks.org</string>
     <string name="privacy">Prywatność</string>

@@ -336,7 +336,6 @@
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
     <string name="migrate_count">Presunúť %s do Tasks.org</string>
     <string name="above_average">Nadpriemerné</string>
-    <string name="account_not_included">Nezahrnuté v predplatnom type „Zaplaťte koľko chcete“</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
     <string name="cost_money">Cena: $</string>
     <string name="cost_more_money">Cena: $$$</string>

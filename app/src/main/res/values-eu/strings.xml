@@ -341,7 +341,6 @@
     <string name="SSD_sort_start">Hasiera dataren arabera</string>
     <string name="github_sponsor">Babeslea</string>
     <string name="github_sponsors">GitHub babesleak</string>
-    <string name="account_not_included">Ez dago \"hautatu zure prezioa\" harpidetzetan barne</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
     <string name="app_passwords_more_info">Sinkronizatu zure zeregin eta egutegiak hirugarrengoen mahaigaineko zein mugikorrerako aplikazioekin. Sakatu hemen gehiago jakiteko</string>
     <string name="app_password">Aplikazioaren pasahitza</string>

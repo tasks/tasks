@@ -352,7 +352,6 @@
     <string name="app_password">Programpassord</string>
     <string name="local_lists">Lokale lister</string>
     <string name="copied_to_clipboard">%s kopiert til utklippstavlen</string>
-    <string name="account_not_included">Ikke inkludert i «Bestem prisen selv»-abonnementer</string>
     <string name="subscription">Abonnement</string>
     <string name="filter_criteria_unstarted">Ikke startet</string>
     <string name="filter_any_start_date">Vilkårlig startdato</string>

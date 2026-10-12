@@ -403,7 +403,6 @@ File %1$s contained %2$s.\n\n
   <string name="email_to_task">Email to task</string>
   <string name="email_to_task_address">Your email address</string>
   <string name="tasks_org_account_required">Tasks.org account required</string>
-  <string name="account_not_included">Not included with \'Name your price\' subscriptions</string>
   <string name="guest_create_list_message">You currently have guest access to shared lists. To create and sync your own private lists to the cloud, you\'ll need a Tasks.org subscription. Or, you can create a free local list that stays on this device.</string>
   <string name="pro_free_trial">New subscribers receive a 7-day free trial. Cancel at any time</string>
   <string name="upgrade_desktop_app">Tasks.org for desktop</string>

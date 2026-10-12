@@ -344,7 +344,6 @@
     <string name="CFC_startBefore_name">시작일…</string>
     <string name="CFC_startBefore_text">시작일: \?</string>
     <string name="save_percent">%d%% 절약</string>
-    <string name="account_not_included">\'구독 금액 정하기\' 구독은 제외</string>
     <string name="upgrade_open_source_description">구독하시면 지속적인 개발을 지원합니다</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org와 동기화 및 다른 사용자와 협업</string>
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>

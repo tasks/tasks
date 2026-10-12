@@ -342,7 +342,6 @@
     <string name="app_passwords_more_info">Συγχρονίστε τις εργασίες και τα ημερολόγια σας με εφαρμογές ηλεκτρονικών υπολογιστών και κινητών συσκευών τρίτων. Πατήστε εδώ για περισσότερες πληροφορίες</string>
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
-    <string name="account_not_included">Δεν περιλαμβάνεται με τις συνδρομές \"Ονομάστε την τιμή σας\"</string>
     <string name="pro_free_trial">Οι νέοι συνδρομητές λαμβάνουν δωρεάν δοκιμή 7 ημερών. Ακυρώστε ανά πάσα στιγμή</string>
     <string name="upgrade_more_customization">Περισσότερη προσαρμογή</string>
     <string name="upgrade_more_customization_description">Ξεκλειδώστε όλα τα θέματα, χρώματα και εικονίδια</string>

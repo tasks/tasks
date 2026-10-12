@@ -268,7 +268,6 @@
     <string name="CFC_dueBefore_text">ครบกําหนดเมื่อ: \?</string>
     <string name="next_week">อาทิตย์หน้า</string>
     <string name="day_after_tomorrow">วันหลังจากวันพรุ่งนี้</string>
-    <string name="account_not_included">ไม่รวมอยู่ในการสมัครสมาชิก \'ตั้งชื่อราคาของคุณ\'</string>
     <string name="upgrade_open_source_description">การสมัครใช้งานของคุณสนับสนุนการพัฒนาอย่างต่อเนื่อง</string>
     <string name="upgrade_more_customization_description">ปลดล็อกธีม สี และไอคอนทั้งหมด</string>
     <string name="upgrade_more_customization">การปรับแต่งเพิ่มเติม</string>

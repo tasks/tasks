@@ -60,7 +60,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -92,7 +91,7 @@ import tasks.kmp.generated.resources.url_sponsor
 object PurchaseText {
     private const val POPPER = "\uD83C\uDF89"
 
-    enum class IconStyle { TINT, ORIGINAL, GRAYSCALE }
+    enum class IconStyle { TINT, ORIGINAL }
 
     data class CarouselItem(
         val title: Int,
@@ -111,12 +110,6 @@ object PurchaseText {
             R.string.upgrade_more_customization,
             R.drawable.ic_outline_palette_24px,
             R.string.upgrade_more_customization_description
-        ),
-        CarouselItem(
-            R.string.tasks_org_account,
-            R.drawable.ic_round_icon,
-            R.string.account_not_included,
-            iconStyle = IconStyle.GRAYSCALE
         ),
         CarouselItem(
             R.string.open_source,
@@ -532,9 +525,6 @@ object PurchaseText {
                 modifier = Modifier.requiredSize(72.dp),
                 alignment = Alignment.Center,
                 colorFilter = when (feature.iconStyle) {
-                    IconStyle.GRAYSCALE -> ColorFilter.colorMatrix(
-                        ColorMatrix().apply { setToSaturation(0f) }
-                    )
                     IconStyle.TINT -> ColorFilter.tint(MaterialTheme.colorScheme.onSurfaceVariant)
                     IconStyle.ORIGINAL -> null
                 }
@@ -555,10 +545,7 @@ object PurchaseText {
             Text(
                 text = stringResource(feature.description),
                 modifier = Modifier.fillMaxWidth(),
-                color = if (feature.iconStyle == IconStyle.GRAYSCALE)
-                    MaterialTheme.colorScheme.error
-                else
-                    MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onBackground,
                 style = TextStyle(
                     fontSize = 12.sp,
                     letterSpacing = 0.4.sp
