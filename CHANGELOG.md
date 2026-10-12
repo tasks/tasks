@@ -1,3 +1,13 @@
+### 15.13-beta03 (2026-10-13)
+
+* DAVx5 sync fixes
+* Microsoft To Do sync fixes
+* Update translations
+  * Chinese (Simplified) - hamburger2048
+  * Dutch - @Stephan-P
+  * Esperanto - Don Zouras
+  * Estonian - Priit Jõerüüt
+
 ### 15.13-beta02 (2026-10-08)
 
 * Bug fixes and performance improvements
