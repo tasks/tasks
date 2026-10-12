@@ -7,6 +7,7 @@ import kotlinx.coroutines.withContext
 import net.openid.appauth.AuthState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.http.UnauthorizedException
 import org.tasks.security.KeyStoreEncryption
 import javax.inject.Inject
 
@@ -19,9 +20,9 @@ class MicrosoftTokenProvider @Inject constructor(
 
     suspend fun getToken(account: CaldavAccount): String {
         val authState = encryption.decrypt(account.password)?.let { AuthState.jsonDeserialize(it) }
-            ?: throw RuntimeException("Missing credentials")
+            ?: throw UnauthorizedException("Missing credentials")
         if (authState.needsTokenRefresh) {
-            withContext(NonCancellable) {
+            val failure = withContext(NonCancellable) {
                 val (token, ex) = context.requestTokenRefresh(authState)
                 authState.update(token, ex)
                 if (authState.isAuthorized) {
@@ -30,11 +31,15 @@ class MicrosoftTokenProvider @Inject constructor(
                         account.id.takeIf { it != 0L }?.let { caldavDao.setPassword(it, encrypted) }
                     }
                 }
+                ex
+            }
+            if (failure != null && !authState.isAuthorized) {
+                throw failure.toTokenException()
             }
         }
         if (!authState.isAuthorized) {
-            throw RuntimeException("Needs authentication")
+            throw UnauthorizedException("Needs authentication")
         }
-        return authState.accessToken!!
+        return authState.accessToken ?: throw UnauthorizedException("Missing access token")
     }
 }

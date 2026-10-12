@@ -24,7 +24,7 @@ import javax.inject.Inject
 class MicrosoftSignInViewModel @Inject constructor(
     private val debugConnectionBuilder: DebugConnectionBuilder,
 ) : ViewModel() {
-    fun signIn(activity: Activity) {
+    fun signIn(activity: Activity, username: String? = null) {
         viewModelScope.launch {
             val idp = IdentityProvider.MICROSOFT
             val serviceConfig = idp.retrieveConfig()
@@ -36,7 +36,14 @@ class MicrosoftSignInViewModel @Inject constructor(
                     idp.redirectUri
                 )
                 .setScope(idp.scope)
-                .setPrompt(AuthorizationRequest.Prompt.SELECT_ACCOUNT)
+                .apply {
+                    if (username == null) {
+                        setPrompt(AuthorizationRequest.Prompt.SELECT_ACCOUNT)
+                    } else {
+                        setLoginHint(username)
+                        setPrompt(AuthorizationRequest.Prompt.LOGIN)
+                    }
+                }
                 .build()
             val intent = Intent(activity, MicrosoftAuthenticationActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

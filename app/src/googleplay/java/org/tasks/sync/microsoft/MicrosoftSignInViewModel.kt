@@ -28,7 +28,7 @@ class MicrosoftSignInViewModel @Inject constructor(
     private val caldavDao: CaldavDao,
     private val firebase: Firebase,
 ) : ViewModel() {
-    fun signIn(activity: Activity) {
+    fun signIn(activity: Activity, username: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             val app = PublicClientApplication.createMultipleAccountPublicClientApplication(
                 activity,
@@ -38,7 +38,14 @@ class MicrosoftSignInViewModel @Inject constructor(
             val parameters = AcquireTokenParameters.Builder()
                 .startAuthorizationFromActivity(activity)
                 .withScopes(scopes)
-                .withPrompt(Prompt.SELECT_ACCOUNT)
+                .apply {
+                    if (username == null) {
+                        withPrompt(Prompt.SELECT_ACCOUNT)
+                    } else {
+                        withLoginHint(username)
+                        withPrompt(Prompt.LOGIN)
+                    }
+                }
                 .withCallback(object : AuthenticationCallback {
                     override fun onSuccess(authenticationResult: IAuthenticationResult) {
                         val email = authenticationResult.account.claims?.get("preferred_username") as? String

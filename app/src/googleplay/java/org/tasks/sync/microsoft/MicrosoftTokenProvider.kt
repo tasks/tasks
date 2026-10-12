@@ -4,11 +4,13 @@ import android.content.Context
 import com.microsoft.identity.client.AcquireTokenSilentParameters
 import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
 import com.microsoft.identity.client.PublicClientApplication
+import com.microsoft.identity.client.exception.MsalException
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.http.UnauthorizedException
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,7 +41,7 @@ class MicrosoftTokenProvider @Inject constructor(
 
         val result = try {
             val msalAccount = app.accounts.firstOrNull { it.username == account.username }
-                ?: throw RuntimeException("No matching account found")
+                ?: throw UnauthorizedException("No matching account found")
 
             val parameters = AcquireTokenSilentParameters.Builder()
                 .withScopes(MicrosoftSignInViewModel.scopes)
@@ -49,9 +51,9 @@ class MicrosoftTokenProvider @Inject constructor(
                 .build()
 
             app.acquireTokenSilent(parameters)
-        } catch (e: Exception) {
+        } catch (e: MsalException) {
             Timber.e(e)
-            throw RuntimeException("Authentication failed: ${e.message}")
+            throw e.toTokenException()
         }
         return result.accessToken
     }

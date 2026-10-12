@@ -55,7 +55,7 @@ class MicrosoftAccount : BaseAccountPreference() {
 
     private fun requestLogin(): Boolean {
         account.username?.let {
-            microsoftVM.signIn(requireActivity()) // should force a specific account
+            microsoftVM.signIn(requireActivity(), username = it)
         }
         return false
     }

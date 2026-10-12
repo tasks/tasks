@@ -11,9 +11,9 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
 class MicrosoftService(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val baseUrl: String = "https://graph.microsoft.com/v1.0/me/todo",
 ) {
-    private val baseUrl: String = "https://graph.microsoft.com/v1.0/me/todo"
 
     suspend fun getLists(): TaskLists = client.get("$baseUrl/lists").body()
 
