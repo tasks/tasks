@@ -23,6 +23,7 @@ import org.tasks.service.TaskDeleter
 import org.tasks.data.dao.DirtyDao
 import io.ktor.client.HttpClient
 import io.ktor.http.Headers
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLBuilder
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
@@ -136,10 +137,11 @@ class CaldavSynchronizer(
             setError(account, e)
         } catch (e: HttpException) {
             when(e.statusCode) {
-                402, 451, in 500..599 -> {}
+                402, 405, 451, in 500..599 -> {}
                 else -> { reporting.reportException(e) }
             }
-            setError(account, e)
+            Logger.e(e) { "$account: ${e.message}" }
+            setError(account, e.displayMessage)
         } catch (e: Exception) {
             setError(account, e)
             if (!e.isTlsSetupFailure()) {
@@ -540,6 +542,16 @@ class CaldavSynchronizer(
 
     companion object {
         private val GONE_STATUSES = setOf(403, 404, 410)
+
+        private val HttpException.displayMessage: String
+            get() = HttpStatusCode
+                .fromValue(statusCode)
+                .description
+                .takeIf { it.isNotBlank() && it != UNKNOWN_STATUS }
+                ?.let { "HTTP $statusCode - $it" }
+                ?: "HTTP $statusCode"
+
+        private const val UNKNOWN_STATUS = "Unknown Status Code"
 
         val Response.ctag: String?
             get() = this[SyncToken::class]?.token ?: this[GetCTag::class]?.cTag
