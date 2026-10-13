@@ -101,7 +101,7 @@
     <string name="microsoft_selection_description_googleplay">Sinkronisasi dengan akun Microsoft kerja, sekolah, atau pribadi Anda</string>
     <string name="name_your_price_blurb">Bayar sesuai keinginan Anda untuk membuka kunci tema, ikon, dan opsi sinkronisasi lanjutan ini</string>
     <string name="tasks_org_description">Termasuk Berbagi Keluarga &amp; Teman dan Email-ke-Tugas</string>
-    <string name="ok">OKE</string>
+    <string name="ok">Oke</string>
     <string name="sort_completed">Berdasarkan waktu penyelesaian</string>
     <string name="sort_grouping">Pengelompokan</string>
     <string name="sort_sorting">Pengurutan</string>
@@ -468,7 +468,7 @@
     </plurals>
     <string name="delete_task">Hapus tugas</string>
     <string name="menu_discard_changes">Buang perubahan</string>
-    <string name="more_options">Opsi lebih banyak</string>
+    <string name="more_options">Opsi lainnya</string>
     <string name="quiet_hours_in_effect">Jam hening sedang berlaku</string>
     <string name="troubleshooting">Penyelesaian masalah</string>
     <string name="notification_troubleshooting_summary">Ketuk di sini jika anda mengalami masalah dengan notifikasi</string>

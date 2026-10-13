@@ -311,7 +311,7 @@
     </plurals>
     <string name="delete_task">කාර්යය මකන්න</string>
     <string name="menu_discard_changes">වෙනස්කම් අහෝසිකිරීම</string>
-    <string name="more_options">තවත් විකල්පයන්</string>
+    <string name="more_options">තවත් විකල්ප</string>
     <string name="troubleshooting">දෝෂගවේෂණය</string>
     <string name="notification_troubleshooting_summary">ඔබට දැනුම්දීම් වල ගැටළුවක් ඇත්නම් මෙහි තට්ටු කරන්න</string>
     <string name="disable_battery_optimizations">බැටරි ප්‍රශස්තිකරණය අක්‍රීය කරන්න</string>

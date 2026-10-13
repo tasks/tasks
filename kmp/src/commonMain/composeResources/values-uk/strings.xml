@@ -85,7 +85,7 @@
     <string name="subtasks">Підзавдання</string>
     <string name="sort_not_available">Недоступно для міток, фільтрів і місць</string>
     <string name="none">Немає</string>
-    <string name="ok">Гаразд</string>
+    <string name="ok">OK</string>
     <string name="cancel">Скасувати</string>
     <string name="back">Назад</string>
     <string name="help">Довідка</string>
@@ -385,7 +385,7 @@
     </plurals>
     <string name="delete_task">Видалити завдання</string>
     <string name="menu_discard_changes">Скасувати зміни</string>
-    <string name="more_options">Додаткові параметри</string>
+    <string name="more_options">Більше</string>
     <string name="quiet_hours_in_effect">Активовано тихі години</string>
     <string name="troubleshooting">Розв'язання проблем</string>
     <string name="notification_troubleshooting_summary">Натисніть тут, якщо маєте проблеми з повідомленнями</string>

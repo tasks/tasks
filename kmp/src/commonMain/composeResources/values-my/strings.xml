@@ -7,8 +7,8 @@
     <string name="sort_due_date">ဆုံးရက်</string>
     <string name="sort_priority">အရေးပါမှု</string>
     <string name="sort_start_date">စရက်</string>
-    <string name="ok">အိုကေ</string>
-    <string name="cancel">ပယ်ဖျက်ပါ</string>
+    <string name="ok">OK</string>
+    <string name="cancel">မလုပ်တော့</string>
     <string name="SSD_sort_due">ဆုံးရက်ဖြင့်</string>
     <string name="SSD_sort_start">စရက်ဖြင့်</string>
     <string name="SSD_sort_importance">အရေးပါမှုအားဖြင့်</string>
@@ -35,4 +35,5 @@
     <string name="TEA_add_subtask">အလုပ်ခွဲထည့်မယ်</string>
     <string name="mcp_tools_group_reminders">သတိပေးမှုများ</string>
     <string name="new_filter">စစ်ထုတ်မည်</string>
+    <string name="more_options">ပိုမိုရွေးချယ်စရာများ</string>
 </resources>

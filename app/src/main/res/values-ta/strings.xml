@@ -350,7 +350,7 @@
     <string name="your_subscription_expired">உங்கள் சந்தா காலாவதியானது. சேவையை மீண்டும் தொடங்க இப்போது குழுசேரவும்.</string>
     <string name="price_per_month_with_currency">%s/மாதம்</string>
     <string name="ok">சரி</string>
-    <string name="cancel">கைவிடு</string>
+    <string name="cancel">ரத்துசெய்</string>
     <string name="TEA_creation_date">உருவாக்கும் தேதி</string>
     <string name="customize_edit_screen_summary">புலங்களை மறுசீரமைக்க அல்லது அகற்றவும்</string>
     <string name="no_app_found">இந்த கோரிக்கையை எந்த பயன்பாடும் கையாள முடியாது</string>

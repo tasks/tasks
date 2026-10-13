@@ -47,4 +47,7 @@
     <string name="next_week">Naslednji teden</string>
     <string name="DLG_delete_this_task_question">Zbrišem ta opravek?</string>
     <string name="mcp_tools_group_reminders">Opomniki</string>
+    <string name="more_options">Več možnosti</string>
+    <string name="ok">V redu</string>
+    <string name="cancel">Prekliči</string>
 </resources>

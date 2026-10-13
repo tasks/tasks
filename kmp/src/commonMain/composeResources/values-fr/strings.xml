@@ -103,7 +103,7 @@
     <string name="subtasks">Sous-tâches</string>
     <string name="sort_not_available">Non disponible pour les étiquettes, les filtres ou les lieux</string>
     <string name="none">Aucun</string>
-    <string name="ok">Valider</string>
+    <string name="ok">OK</string>
     <string name="cancel">Annuler</string>
     <string name="accept">Accepter</string>
     <string name="back">Retour</string>
@@ -520,7 +520,7 @@
     </plurals>
     <string name="delete_task">Supprimer la tâche</string>
     <string name="menu_discard_changes">Ignorer les modifications</string>
-    <string name="more_options">Plus d’options</string>
+    <string name="more_options">Plus d\'options</string>
     <string name="no_task_selected">Aucune tâche sélectionnée</string>
     <string name="repeat_type_due_description">La tâche se répète en fonction de la date à laquelle elle devait être effectuée</string>
     <string name="repeat_type_completion_description">La tâche se répète en fonction du moment où vous l\'avez réellement terminée</string>

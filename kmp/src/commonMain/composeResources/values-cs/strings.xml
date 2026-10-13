@@ -512,7 +512,7 @@
     </plurals>
     <string name="delete_task">Smazat úkol</string>
     <string name="menu_discard_changes">Zrušit změny</string>
-    <string name="more_options">Další volby</string>
+    <string name="more_options">Další možnosti</string>
     <string name="quiet_hours_in_effect">Režim nerušit je zapnutý</string>
     <string name="troubleshooting">Řešení problémů</string>
     <string name="notification_troubleshooting_summary">Klepněte sem pokud se vám zpožďují upozornění či se vůbec nezobrazují</string>

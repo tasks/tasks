@@ -29,7 +29,7 @@
     <string name="TEA_control_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
     <string name="TEA_control_hidden_section">---- എല്ലായ്പ്പോഴും മറയ്‌ക്കുക ----</string>
     <string name="ok">ശരി</string>
-    <string name="cancel">റദ്ധാക്കുക</string>
+    <string name="cancel">റദ്ദാക്കുക</string>
     <string name="start_date">തുടങ്ങുന്ന സമയം</string>
     <string name="import_summary_message">%1$s ഫയലിൽ %2$s അടങ്ങിയിരിക്കുന്നു\n\n.%3$s ഇറക്കുമതി ചെയ്തു,\n.%4$s മുന്നേ നിലവിലുണ്ട്,\n.%5$s പിശകുകൾ ഉണ്ടായി</string>
     <string name="DLG_undo">പഴയപടിയാക്കുക</string>

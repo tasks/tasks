@@ -32,7 +32,7 @@
     <string name="sort_priority">اولیت</string>
     <string name="sort_start_date">تاریخ شروع</string>
     <string name="group_none">هیچکدام</string>
-    <string name="ok">تایید</string>
+    <string name="ok">تأیید</string>
     <string name="cancel">لغو</string>
     <string name="no_due_date">مهلت پایان ندارد</string>
     <string name="no_start_date">تاریخ شروع ندارد</string>
@@ -202,4 +202,5 @@
     <string name="sort_list">فهرست</string>
     <string name="metadata_move">انتقال</string>
     <string name="mcp_copy">کپی</string>
+    <string name="more_options">سایر گزینه‌ها</string>
 </resources>

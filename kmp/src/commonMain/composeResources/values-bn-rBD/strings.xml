@@ -12,4 +12,7 @@
     <string name="keep_editing">সম্পাদনা করতে থাকো</string>
     <string name="DLG_delete_this_task_question">এই কাজটি মুছবে?</string>
     <string name="action_open">খুলো</string>
+    <string name="more_options">আরও বিকল্প</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="cancel">বাতিল করুন</string>
 </resources>

@@ -134,7 +134,7 @@
         <item quantity="one">ସପ୍ତାହ</item>
         <item quantity="other">ସପ୍ତାହ</item>
     </plurals>
-    <string name="more_options">ଅଧିକ ଵିକଳ୍ପ</string>
+    <string name="more_options">ଅଧିକ ବିକଳ୍ପ</string>
     <string name="more_settings">ଅଧିକ ସେଟିଂ</string>
     <string name="date_shortcut_hour">ଘଣ୍ଟାଏ ପାଇଁ</string>
     <string name="date_shortcut_morning">ସକାଳ</string>
@@ -155,4 +155,6 @@
     <string name="theme_system_default">ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ</string>
     <string name="mcp_access_advanced">ଵିକଶିତ</string>
     <string name="new_filter">ନୂଆ ଶୋଧକ ସୃଷ୍ଟି କରିବା</string>
+    <string name="ok">ଠିକ ଅଛି</string>
+    <string name="cancel">ବାତିଲ କରନ୍ତୁ</string>
 </resources>

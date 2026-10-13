@@ -104,7 +104,7 @@
     <string name="astrid_sort_order_summary">Activa el mode d\'ordenació manual d\'Astrid per a «Les meves tasques», «Avui» i «etiquetes». Aquest mode d\'ordenació serà substituït per «El meu ordre» en una actualització futura</string>
     <string name="astrid_sort_order">Ordenació manual d\'Astrid</string>
     <string name="cancel">Cancel·la</string>
-    <string name="ok">OK</string>
+    <string name="ok">D\'acord</string>
     <string name="filter_any_start_date">Qualsevol data d\'inici</string>
     <string name="CFC_tag_name">Etiqueta…</string>
     <string name="CFC_startBefore_text">Comença per: \?</string>

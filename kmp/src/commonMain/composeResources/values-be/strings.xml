@@ -37,8 +37,8 @@
     <string name="sort_priority">Прыярытэт</string>
     <string name="sort_start_date">Дата пачатку</string>
     <string name="group_none">Няма</string>
-    <string name="ok">Добра</string>
-    <string name="cancel">Адмена</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Скасаваць</string>
     <string name="SSD_sort_due">Па даце завяршэння</string>
     <string name="SSD_sort_start">Па даце пачатку</string>
     <string name="SSD_sort_importance">Па прыярытэту</string>
@@ -72,4 +72,5 @@
     <string name="customize_drawer_summary">Перацягніце элементы меню, каб іх пераставіць</string>
     <string name="mcp_tools_group_reminders">Напаміны</string>
     <string name="new_filter">Стварыць новы фільтр</string>
+    <string name="more_options">Больш налад</string>
 </resources>

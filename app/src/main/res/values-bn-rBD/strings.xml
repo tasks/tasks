@@ -26,4 +26,6 @@
 \n %4$s ইতিমধ্যে বিদ্যমান
 \n %5$s এর ত্রুটি ছিল
 \n</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="cancel">বাতিল করুন</string>
 </resources>

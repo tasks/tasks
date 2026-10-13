@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="display_name">Ցուցադրվող անուն</string>
+    <string name="more_options">Ավելի շատ ընտրանքներ</string>
+    <string name="ok">Լավ</string>
+    <string name="cancel">Չեղարկել</string>
 </resources>

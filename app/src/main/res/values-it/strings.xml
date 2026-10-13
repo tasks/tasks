@@ -346,7 +346,7 @@
     <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
     <string name="cancel">Annulla</string>
-    <string name="ok">OK</string>
+    <string name="ok">Ok</string>
     <string name="filter_any_start_date">Qualsiasi data di inizio</string>
     <string name="no_start_date">Nessuna data di inizio</string>
     <string name="filter_criteria_unstarted">Non iniziate</string>

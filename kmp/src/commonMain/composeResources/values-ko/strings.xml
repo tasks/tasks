@@ -353,7 +353,7 @@
     </plurals>
     <string name="delete_task">할일 지우기</string>
     <string name="menu_discard_changes">변경사항 폐기</string>
-    <string name="more_options">더 많은 옵션</string>
+    <string name="more_options">옵션 더보기</string>
     <string name="quiet_hours_in_effect">무음 시간 동작 중</string>
     <string name="troubleshooting">문제해결</string>
     <string name="notification_troubleshooting_summary">알림 기능에 문제가 있으시면 여기를 누르세요</string>

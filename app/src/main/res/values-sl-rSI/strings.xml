@@ -87,4 +87,6 @@
     </plurals>
     <string name="today">Danes</string>
     <string name="tomorrow">Jutri</string>
+    <string name="ok">V redu</string>
+    <string name="cancel">Prekliči</string>
 </resources>

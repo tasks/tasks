@@ -9,8 +9,8 @@
     <string name="actfm_picture_clear">Ачысціць карцінку</string>
     <string name="backup_BAc_import">Імпартаваць рэзервовую копію</string>
     <string name="import_summary_message">Файл %1$s утрымліваў %2$s.\n\n%3$s імпартавана,\n%4$s ужо існуюць,\n%5$s з памылкамі</string>
-    <string name="ok">Добра</string>
-    <string name="cancel">Адмена</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Скасаваць</string>
     <string name="read_permission_label">Правы дазволу Tasks</string>
     <string name="DLG_hour_minutes">Час (гадзіны : хвіліны)</string>
     <string name="DLG_undo">Адмяніць</string>

@@ -97,7 +97,7 @@
     <string name="sort_not_available">Ei käytettävissä tunnisteiden, suodattimien tai paikkojen kanssa</string>
     <string name="none">Ei mitään</string>
     <string name="ok">OK</string>
-    <string name="cancel">Peruuta</string>
+    <string name="cancel">Peru</string>
     <string name="back">Takaisin</string>
     <string name="help">Apua</string>
     <string name="display_name">Näytetään nimellä</string>
@@ -373,7 +373,7 @@
     </plurals>
     <string name="delete_task">Poista tehtävä</string>
     <string name="menu_discard_changes">Hylkää muutokset</string>
-    <string name="more_options">Lisää vaihtoehtoja</string>
+    <string name="more_options">Lisää asetuksia</string>
     <string name="quiet_hours_in_effect">Hiljaiset tunnit käytössä</string>
     <string name="troubleshooting">Ongelmien ratkaisu</string>
     <string name="notification_troubleshooting_summary">Paina tästä jos ilmoitusten kanssa on ongelmia</string>

@@ -362,7 +362,7 @@
     <string name="CFC_startBefore_text">Aloita: \?</string>
     <string name="ok">OK</string>
     <string name="now">Nyt</string>
-    <string name="cancel">Peruuta</string>
+    <string name="cancel">Peru</string>
     <string name="custom_filter_has_reminder">Sisältää muistutuksen</string>
     <string name="TEA_creation_date">Luontipäivä</string>
     <string name="snackbar_tasks_completed">%d tehtävää suoritettu</string>

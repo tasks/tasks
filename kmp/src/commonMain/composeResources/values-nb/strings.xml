@@ -345,7 +345,7 @@
     </plurals>
     <string name="delete_task">Slett gjøremål</string>
     <string name="menu_discard_changes">Forkast endringer</string>
-    <string name="more_options">Flere innstillinger</string>
+    <string name="more_options">Flere alternativer</string>
     <string name="troubleshooting">Feilsøking</string>
     <string name="notification_troubleshooting_summary">Trykk her hvis du har problemer med merknader</string>
     <string name="disable_battery_optimizations">Skru av batterisparing</string>

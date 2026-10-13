@@ -102,7 +102,7 @@
     <string name="subtasks">Задачи</string>
     <string name="sort_not_available">Не е налично за етикети, филтри или места</string>
     <string name="none">Без</string>
-    <string name="ok">Добре</string>
+    <string name="ok">OK</string>
     <string name="cancel">Отказ</string>
     <string name="accept">Приемане</string>
     <string name="back">Назад</string>
@@ -443,7 +443,7 @@
     </plurals>
     <string name="delete_task">Изтриване на задача</string>
     <string name="menu_discard_changes">Отхвърляне на промените</string>
-    <string name="more_options">Допълнителни настройки</string>
+    <string name="more_options">Още опции</string>
     <string name="quiet_hours_in_effect">В момента е време за тишина</string>
     <string name="troubleshooting">Отстраняване на неизправности</string>
     <string name="notification_troubleshooting_summary">Докоснете тук, ако имате проблеми с известията</string>

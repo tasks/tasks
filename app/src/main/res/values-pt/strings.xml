@@ -322,7 +322,7 @@
     <string name="last_backup_never">nunca</string>
     <string name="background_location_permission_required">O Tarefas recolhe dados de localização para permitir lembretes baseados em localização, mesmo quando a aplicação está fechada ou não estiver a ser usada.</string>
     <string name="header_spacing">Espaçamento</string>
-    <string name="ok">Aceitar</string>
+    <string name="ok">OK</string>
     <string name="always_display_full_date">Mostrar data completa</string>
     <string name="upgrade_open_source_description">A sua subscrição ajuda a continuar o desenvolvimento</string>
     <string name="upgrade_tasks_org_account_description">Sincronize com o Tasks.org e colabore com outros utilizadores</string>

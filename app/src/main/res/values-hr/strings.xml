@@ -30,7 +30,7 @@
     <string name="DLG_undo">Poništi</string>
     <string name="import_progress_read">Učitavanje zadatka %d…</string>
     <string name="TVA_add_comment">Dodaj komentar …</string>
-    <string name="cancel">Prekini</string>
+    <string name="cancel">Odustani</string>
     <string name="ok">U redu</string>
     <string name="location_remind_departure">Podsjeti pri odlasku</string>
     <string name="location_remind_arrival">Podsjeti pri dolasku</string>

@@ -133,7 +133,7 @@
     <string name="astrid_sort_order_summary">在我的工作、今天與和標籤畫面啟用來自 Astrid 的手動排序模式。這種排序模式未來將被「我的順序」取代</string>
     <string name="astrid_sort_order">Astrid 手動排序</string>
     <string name="cancel">取消</string>
-    <string name="ok">OK</string>
+    <string name="ok">確定</string>
     <string name="name_cannot_be_empty">名稱不能為空白</string>
     <string name="pick_from_storage">從儲存空間選擇</string>
     <string name="pick_from_gallery">從相簿中選擇</string>

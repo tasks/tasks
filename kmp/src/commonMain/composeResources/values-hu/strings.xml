@@ -412,7 +412,7 @@
     </plurals>
     <string name="delete_task">Feladat törlése</string>
     <string name="menu_discard_changes">Módosítások elvetése</string>
-    <string name="more_options">Több opció</string>
+    <string name="more_options">További lehetőségek</string>
     <string name="quiet_hours_in_effect">Csendes órák bekapcsolva</string>
     <string name="troubleshooting">Hibaelhárítás</string>
     <string name="notification_troubleshooting_summary">Kattints ide, ha nem működnek az értesítések</string>

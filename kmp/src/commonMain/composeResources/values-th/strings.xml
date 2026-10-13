@@ -357,4 +357,6 @@
     <string name="mcp_tools_group_reminders">จดหมายเตือนชําระเงิน</string>
     <string name="mcp_copy">สำเนา</string>
     <string name="new_filter">สร้างตัวกรองข้อมูลใหม่</string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
 </resources>

@@ -80,8 +80,8 @@
     <string name="subtasks">Công việc con</string>
     <string name="sort_not_available">Không có sẵn cho tag, bộ lọc hay nơi chốn</string>
     <string name="none">Không có</string>
-    <string name="ok">Ôkê</string>
-    <string name="cancel">Huỷ</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Hủy</string>
     <string name="back">Quay lại</string>
     <string name="help">Trợ giúp</string>
     <string name="display_name">Tên hiển thị</string>
@@ -327,7 +327,7 @@
     </plurals>
     <string name="delete_task">Xoá công việc</string>
     <string name="menu_discard_changes">Bỏ các thay đổi</string>
-    <string name="more_options">Nhiều tuỳ chọn hơn</string>
+    <string name="more_options">Tùy chọn khác</string>
     <string name="troubleshooting">Xử lý sự cố</string>
     <string name="notification_troubleshooting_summary">Nhấn vào đây nếu bạn đang gặp vấn đề với các thông báo</string>
     <string name="disable_battery_optimizations">Tắt tối ưu hoá pin</string>

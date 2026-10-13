@@ -11,4 +11,6 @@
     <string name="notification_disable_battery_optimizations_description">Batteryoptimalisering kan kennisgewings vertraag</string>
     <string name="quiet_hours_summary">Geen herinneringe gedurende stil ure nie</string>
     <string name="translations">Dra by tot vertalings</string>
+    <string name="more_options">Meer opsies</string>
+    <string name="ok">OK</string>
 </resources>

@@ -38,7 +38,7 @@
     <string name="sort_start_date">തുടങ്ങുന്ന സമയം</string>
     <string name="group_none">ഒന്നുമില്ല</string>
     <string name="ok">ശരി</string>
-    <string name="cancel">റദ്ധാക്കുക</string>
+    <string name="cancel">റദ്ദാക്കുക</string>
     <string name="no_date">തീയതിയില്ല</string>
     <string name="SSD_sort_due">നിശ്ചിത തീയതി</string>
     <string name="SSD_sort_start">ആരംഭ തീയതി പ്രകാരം</string>
@@ -80,4 +80,5 @@
     <string name="customize_drawer_summary">മെനു ഇനങ്ങൾ പുനഃക്രമീകരിക്കാൻ വലിച്ചിടുക</string>
     <string name="mcp_tools_group_reminders">ഓർമ്മപ്പെടുത്തലുകൾ</string>
     <string name="new_filter">പുതിയ ഫിൽട്ടർ സൃഷ്ടിക്കുക</string>
+    <string name="more_options">കൂടുതൽ‍ ഓപ്‌ഷനുകള്‍</string>
 </resources>

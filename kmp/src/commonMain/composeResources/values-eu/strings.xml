@@ -42,7 +42,7 @@
     <string name="microsoft_selection_description">Sinkronizatu zure Microsoft kontu pertsonalarekin</string>
     <string name="name_your_price">Jarri zuk prezioa</string>
     <string name="ok">Ados</string>
-    <string name="cancel">Ezeztatu</string>
+    <string name="cancel">Utzi</string>
     <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
     <string name="davx5_selection_description">Sinkronizatu zure zereginak DAVx⁵ aplikazioarekin</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>

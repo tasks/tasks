@@ -20,7 +20,7 @@
     <string name="backup_BAc_export">Извези задатке</string>
     <string name="TVA_add_comment">Додај коментар…</string>
     <string name="cancel">Откажи</string>
-    <string name="ok">У реду</string>
+    <string name="ok">Потврди</string>
     <string name="read_permission_label">Дозволе задатака</string>
     <string name="import_progress_read">Учитавам задатак %d…</string>
     <string name="TLA_menu_settings">Подешавања</string>

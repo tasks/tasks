@@ -46,4 +46,7 @@
     <string name="no_reminders">Walang paalala</string>
     <string name="default_location_reminder_on_arrival">Sa pagdating</string>
     <string name="translations">Umambag ng pagsasalin</string>
+    <string name="more_options">Higit pang mga pagpipilian</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Kanselahin</string>
 </resources>

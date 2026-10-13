@@ -10,4 +10,7 @@
     <string name="default_list">डीफॉल्ट यादी</string>
     <string name="help_and_feedback">मदत आणि अभिप्राय</string>
     <string name="settings">सेटिंग्ज</string>
+    <string name="more_options">अधिक पर्याय</string>
+    <string name="ok">ठीक आहे</string>
+    <string name="cancel">रद्द करा</string>
 </resources>

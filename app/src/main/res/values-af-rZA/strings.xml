@@ -15,4 +15,5 @@
     <string name="CFC_title_contains_text">Titel bevat: ?</string>
     <string name="gcal_TEA_error">Kon nie taak by kalender voeg nie!</string>
     <string name="cancel">Kanselleer</string>
+    <string name="ok">OK</string>
 </resources>

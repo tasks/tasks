@@ -17,4 +17,6 @@
     <string name="location_remind_departure">Ipaalala sa pagdating</string>
     <string name="location_arrived">Dumating sa %s</string>
     <string name="location_departed">Umalis %s</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Kanselahin</string>
 </resources>

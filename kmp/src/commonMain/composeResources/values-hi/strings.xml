@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">खोज</string>
-    <string name="ok">ठीक</string>
+    <string name="ok">ठीक है</string>
     <string name="search_no_results">कोई नतीजे नही</string>
     <string name="cancel">रद्द करें</string>
     <string name="password_required">पासवर्ड आवश्यक है</string>
@@ -31,4 +31,5 @@
     <string name="discard_confirmation">क्या आप वाकई अपने बदलावों को रद्द करना चाहते हैं?</string>
     <string name="keep_editing">बदलाव करना जारी रखें</string>
     <string name="DLG_delete_this_task_question">इस टास्क को मिटाएँ?</string>
+    <string name="more_options">ज़्यादा विकल्प</string>
 </resources>

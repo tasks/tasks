@@ -94,7 +94,7 @@
     <string name="subtasks">Подзадаци</string>
     <string name="sort_not_available">Није доступно за тагове, филтере, или места</string>
     <string name="none">Празно</string>
-    <string name="ok">У реду</string>
+    <string name="ok">Потврди</string>
     <string name="cancel">Откажи</string>
     <string name="accept">Прихвати</string>
     <string name="back">Назад</string>
@@ -409,7 +409,7 @@
     </plurals>
     <string name="delete_task">Обриши задатак</string>
     <string name="menu_discard_changes">Одбаци измене</string>
-    <string name="more_options">Додатне опције</string>
+    <string name="more_options">Још опција</string>
     <string name="delete_tag_warning">Задаци са овим тагом неће бити обрисани</string>
     <string name="delete_list_warning">Сви задаци у овој листи ће бити избрисани. Ово се не може поништити!</string>
     <string name="wrong_account">Пријављивање неуспешно</string>

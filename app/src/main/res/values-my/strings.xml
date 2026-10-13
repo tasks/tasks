@@ -33,8 +33,8 @@
     <string name="TEA_control_reminders">သတိပေးမှုများ</string>
     <string name="TEA_control_timer">အချိန်မှတ်ခြင်းထိန်းချုပ်မှုများ</string>
     <string name="TEA_creation_date">ဖန်တီးသောရက်</string>
-    <string name="ok">အိုကေ</string>
-    <string name="cancel">ပယ်ဖျက်ပါ</string>
+    <string name="ok">OK</string>
+    <string name="cancel">မလုပ်တော့</string>
     <string name="display_name">အမည်</string>
     <string name="read_permission_label">အက်ပ် ခွင့်ပြုချက်</string>
     <string name="backup_BAc_export">အခု အရန်သိမ်္းပါ</string>

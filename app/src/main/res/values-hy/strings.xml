@@ -3,4 +3,6 @@
     <string name="display_name">Ցուցադրվող անուն</string>
     <string name="TVA_add_comment">Ավելացնել մեկնաբանություն…</string>
     <string name="actfm_picture_clear">Մաքրել նկարը</string>
+    <string name="ok">Լավ</string>
+    <string name="cancel">Չեղարկել</string>
 </resources>
