@@ -693,4 +693,5 @@
     <string name="works_with_submit_pull_request">Koosta päring koodimuudatuse lisamiseks</string>
     <string name="subscription_required">Vajalik on tellimus</string>
     <string name="upgrade">Uuenda</string>
+    <string name="supporter">Tasks.org-i toetaja</string>
 </resources>
