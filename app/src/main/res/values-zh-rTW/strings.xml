@@ -251,7 +251,6 @@
     <string name="action_new_task">新工作</string>
     <string name="action_create_new_task">建立新工作</string>
     <string name="logout">登出</string>
-    <string name="button_subscribe">訂閱</string>
     <string name="refresh_purchases">刷新付款</string>
     <string name="subscription">訂閱</string>
     <string name="help_and_feedback">幫助與回饋</string>

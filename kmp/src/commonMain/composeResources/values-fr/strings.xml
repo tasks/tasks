@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Rechercher</string>
-    <string name="subscribe">S'abonner</string>
     <string name="search_no_results">Aucun résultat</string>
     <string name="subscription_required_description">Débloquer toutes les fonctionnalités pour $1 USD/an</string>
     <string name="filter_recently_modified">Récemment modifiée</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d'utilisation</string>
     <string name="view_tos">Voir les conditions d'utilisation</string>
     <string name="insufficient_sponsorship">Aucun parrainage « GitHub » éligible n'a été trouvé</string>
-    <string name="button_subscribe">S'abonner</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="insufficient_subscription">Niveau d'abonnement insuffisant. Veuillez mettre à niveau votre abonnement pour reprendre le service.</string>
     <string name="authentication_required">Authentification requise</string>

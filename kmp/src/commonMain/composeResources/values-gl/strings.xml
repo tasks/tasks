@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Buscar</string>
-    <string name="subscribe">Suscribirse</string>
     <string name="filter_my_tasks">As miñas tarefas</string>
     <string name="filter_notifications">Notificacións</string>
     <string name="filter_snoozed">Posposta</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">Calquera aplicación que use este contrasinal pechará sesión</string>
     <string name="app_password_enter_description">Dálle un nome ao contrasinal (opcional)</string>
     <string name="insufficient_sponsorship">Non se atopou ningún patrocinio de GitHub elixible</string>
-    <string name="button_subscribe">Suscribirse</string>
     <string name="your_subscription_expired">A túa subscrición caducou. Subscríbete agora para retomar o servizo.</string>
     <string name="insufficient_subscription">Nivel de subscrición insuficiente. Por favor actualiza a túa subscrición para reanudar o servizo.</string>
     <string name="authentication_required">Precísase autenticación</string>

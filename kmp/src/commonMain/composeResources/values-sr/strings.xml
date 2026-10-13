@@ -4,7 +4,6 @@
     <string name="search">Претражи</string>
     <string name="search_no_results">Нема резултата</string>
     <string name="subscription_required_description">Откључај све функционалности за само 1 USD годишње</string>
-    <string name="subscribe">Претплати се</string>
     <string name="filter_my_tasks">Моји задаци</string>
     <string name="filter_notifications">Обавештења</string>
     <string name="filter_snoozed">Одложен</string>
@@ -130,7 +129,6 @@
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
     <string name="view_tos">Погледај услове коришћења</string>
     <string name="insufficient_sponsorship">Није пронађено одговарајуће спонзорство за ,,GitHub''</string>
-    <string name="button_subscribe">Претплати се</string>
     <string name="your_subscription_expired">Претплата је истекла. Претплати се поново за наставак сервиса.</string>
     <string name="insufficient_subscription">Недовољан пакет претплате. Молимо за претплату на виши пакет за наставак сервиса.</string>
     <string name="authentication_required">Неопходна аутентикација</string>

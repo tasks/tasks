@@ -11,7 +11,6 @@
     <string name="today">Σήμερα</string>
     <string name="search_no_results">Δεν βρέθηκαν αποτελέσματα</string>
     <string name="subscription_required_description">Ξεκλειδώστε όλες τις δυνατότητες με τόσα λίγα όσο $1 USD/ χρόνο</string>
-    <string name="subscribe">Συνδρομή</string>
     <string name="filter_my_tasks">Οι Εργασίες μου</string>
     <string name="filter_notifications">Ειδοποιήσεις</string>
     <string name="filter_snoozed">Υπενθυμίσεις που έχουν αναβληθεί</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">Οποιαδήποτε εφαρμογή χρησιμοποιεί αυτόν τον κωδικό θα αποσυνδεθεί</string>
     <string name="app_password_enter_description">Δώστε ένα όνομα στον κωδικό σας (προαιρετικό)</string>
     <string name="insufficient_sponsorship">Δεν βρέθηκε κατάλληλη χορηγία GitHub</string>
-    <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
     <string name="your_subscription_expired">Η συνδρομή σας έχει λήξει. Γίνετε συνδρομητής τώρα για να συνεχίσετε την υπηρεσία.</string>
     <string name="insufficient_subscription">Ανεπαρκές επίπεδο συνδρομής. Παρακαλούμε αναβαθμίστε τη συνδρομή σας για να συνεχίσετε την υπηρεσία.</string>
     <string name="authentication_required">Απαιτείται πιστοποίηση ταυτότητας</string>

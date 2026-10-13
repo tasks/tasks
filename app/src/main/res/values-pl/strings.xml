@@ -207,7 +207,6 @@
     <string name="tasker_list_notification">Lista powiadomień</string>
     <string name="help">Pomoc</string>
     <string name="refresh_purchases">Odśwież zakupy</string>
-    <string name="button_subscribe">Zasubskrybuj</string>
     <string name="logout">Wyloguj</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="action_create_new_task">Stwórz nowe zadanie</string>

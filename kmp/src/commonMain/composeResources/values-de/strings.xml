@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Suchen</string>
-    <string name="subscribe">Abonnieren</string>
     <string name="filter_my_tasks">Meine Aufgaben</string>
     <string name="filter_notifications">Benachrichtigungen</string>
     <string name="filter_snoozed">Schlummernd</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">Wir haben unsere Nutzungsbedingungen aktualisiert</string>
     <string name="view_tos">Nutzungsbedingungen ansehen</string>
     <string name="insufficient_sponsorship">Kein qualifiziertes GitHub-Sponsoring gefunden</string>
-    <string name="button_subscribe">Abonnieren</string>
     <string name="your_subscription_expired">Dein Abo ist abgelaufen. Abonniere jetzt, um den Dienst fortzusetzen.</string>
     <string name="insufficient_subscription">Unzureichende Abonnementstufe. Bitte aktualisiere dein Abo, um den Dienst fortzusetzen.</string>
     <string name="authentication_required">Authentifizierung erforderlich</string>

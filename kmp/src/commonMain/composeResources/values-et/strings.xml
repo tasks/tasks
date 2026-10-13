@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Otsi</string>
-    <string name="subscribe">Telli</string>
     <string name="filter_my_tasks">Minu ülesanded</string>
     <string name="filter_notifications">Meeldetuletused</string>
     <string name="filter_today">Täna</string>
@@ -132,7 +131,6 @@
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
     <string name="view_tos">Vaata kasutustingimusi</string>
     <string name="insufficient_sponsorship">Ühtegi sobivat GitHubi sponsorlust ei leidunud</string>
-    <string name="button_subscribe">Telli</string>
     <string name="your_subscription_expired">Sinu tellimus on aegunud. Teenuse jätkamiseks uuenda tellimust.</string>
     <string name="insufficient_subscription">Mittepiisav tellimuse tüüp. Teenuse jätkamiseks palun muuda tellimuse tüüpi.</string>
     <string name="authentication_required">Vajalik on autoriseerimine</string>

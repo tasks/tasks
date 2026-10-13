@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Etsi</string>
-    <string name="subscribe">Tilaa</string>
     <string name="filter_my_tasks">Omat tehtävät</string>
     <string name="filter_notifications">Ilmoitukset</string>
     <string name="filter_snoozed">Torkutetut</string>
@@ -123,7 +122,6 @@
     <string name="app_password_delete_confirmation">Kaikki tätä salasanaa käyttävät sovellukset kirjautuvat ulos</string>
     <string name="app_password_enter_description">Anna salasanalle nimi (valinnainen)</string>
     <string name="insufficient_sponsorship">Ei löydetty hyväksyttävää GitHub-sponsorointia</string>
-    <string name="button_subscribe">Tilaa</string>
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
     <string name="insufficient_subscription">Riittämätön tilaustaso. Päivitä tilauksesi palvelun jatkamiseksi.</string>
     <string name="authentication_required">Vaadittu tunnistautuminen</string>

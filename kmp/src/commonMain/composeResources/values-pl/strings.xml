@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Szukaj</string>
-    <string name="subscribe">Zasubskrybuj</string>
     <string name="filter_my_tasks">Moje zadania</string>
     <string name="filter_notifications">Powiadomienia</string>
     <string name="filter_snoozed">Uśpione</string>
@@ -101,7 +100,6 @@
     <string name="app_password_delete_confirmation">Każda aplikacja korzystająca z tego hasła zostanie wylogowana</string>
     <string name="app_password_enter_description">Nadaj swojemu hasłu nazwę (opcjonalnie)</string>
     <string name="insufficient_sponsorship">Nie znaleziono kwalifikującego się sponsoringu GitHub</string>
-    <string name="button_subscribe">Zasubskrybuj</string>
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="insufficient_subscription">Niewystarczający poziom subskrypcji. Zwiększ poziom subskrypcji, aby wznowić usługę.</string>
     <string name="authentication_required">Wymagane uwierzytelnienie</string>

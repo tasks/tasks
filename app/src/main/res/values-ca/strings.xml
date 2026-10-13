@@ -177,7 +177,6 @@
     <string name="linkify_description">Afegeix enllaçaos a llocs web, adreces, i números de telèfon</string>
     <string name="location_remind_departure">Recordar a la sortida</string>
     <string name="user">Usuari</string>
-    <string name="button_subscribe">Subscriu-te</string>
     <string name="refresh_purchases">Actualitza les compres</string>
     <string name="missing_permissions">Falten permisos</string>
     <string name="choose_new_location">Escollir una nova ubicació</string>

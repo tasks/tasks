@@ -199,7 +199,6 @@
     <string name="tasker_list_notification">목록 알림</string>
     <string name="help">도움말</string>
     <string name="refresh_purchases">구매 새로고침</string>
-    <string name="button_subscribe">신청</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="logout">로그아웃</string>
     <string name="reinitialize_account">다시 초기화하기</string>

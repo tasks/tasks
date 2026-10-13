@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Cerca</string>
-    <string name="subscribe">Abbonati</string>
     <string name="filter_my_tasks">Le mie attività</string>
     <string name="filter_notifications">Notifiche</string>
     <string name="filter_snoozed">Posticipate</string>
@@ -144,7 +143,6 @@
     <string name="tos_updated_title">Abbiamo aggiornato i Termini di Servizio</string>
     <string name="view_tos">Mostra i Termini di Servizio</string>
     <string name="insufficient_sponsorship">Nessuna sponsorizzazione GitHub idonea trovata</string>
-    <string name="button_subscribe">Abbonati</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="insufficient_subscription">Livello di abbonamento insufficiente. Per favore aggiornalo per riattivare il servizio.</string>
     <string name="authentication_required">Autenticazione richiesta</string>

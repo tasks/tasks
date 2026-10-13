@@ -211,7 +211,6 @@
     <string name="tasker_create_task">Креирај задатак</string>
     <string name="help">Помоћ</string>
     <string name="subscription">Претплате</string>
-    <string name="button_subscribe">Претплати се</string>
     <string name="logout">Одјави се</string>
     <string name="delete_tasks_warning">%s ће бити избрисан. Ово се не може опозвати!</string>
     <string name="reinitialize_account">Поново иницијализуј</string>

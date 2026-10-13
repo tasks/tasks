@@ -34,9 +34,9 @@ import org.tasks.compose.components.TasksIcon
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.search
 import tasks.kmp.generated.resources.search_no_results
-import tasks.kmp.generated.resources.subscribe
 import tasks.kmp.generated.resources.subscription_required
 import tasks.kmp.generated.resources.subscription_required_description
+import tasks.kmp.generated.resources.upgrade
 
 private val gridSize = 48.dp
 private val verticalSpacing = 8.dp
@@ -86,7 +86,7 @@ fun IconPicker(
                         true,
                         title = stringResource(Res.string.subscription_required),
                         body = stringResource(Res.string.subscription_required_description),
-                        action = stringResource(Res.string.subscribe),
+                        action = stringResource(Res.string.upgrade),
                         onAction = { subscribe() },
                         onDismiss = {},
                     )

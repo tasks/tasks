@@ -188,7 +188,7 @@ fun HomeScreen(
                             .putExtra(EXTRA_NAME_YOUR_PRICE, false)
                             .putExtra(EXTRA_SHOW_MORE_OPTIONS, false)
                     )
-                }) { Text(stringResource(R.string.button_subscribe)) }
+                }) { Text(composeStringResource(Res.string.upgrade)) }
             },
         )
     }

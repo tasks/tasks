@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Hľadať</string>
-    <string name="subscribe">Predplatiť</string>
     <string name="filter_my_tasks">Moje úlohy</string>
     <string name="filter_notifications">Oznámenia</string>
     <string name="filter_timer">Úlohy s termínom</string>
@@ -109,7 +108,6 @@
     <string name="app_password_delete_confirmation">Všetky aplikácie používajúce toto heslo budú odhlásené</string>
     <string name="app_password_enter_description">Pomenujte svoje heslo (nepovinné)</string>
     <string name="insufficient_sponsorship">Nenájdené žiadne platné GitHub sponzorovanie</string>
-    <string name="button_subscribe">Prihlásiť sa</string>
     <string name="your_subscription_expired">Platnosť vášho predplatného skončila. Ak chcete službu používať i naďalej, obnovte odber.</string>
     <string name="insufficient_subscription">Nedostatočná úroveň predplatného. Ak chcete službu používať i naďalej, povýšte predplatné na vyššiu úroveň.</string>
     <string name="authentication_required">Vyžaduje sa overenie</string>

@@ -229,7 +229,6 @@
     <string name="show_description">Näytä kuvaus</string>
     <string name="action_create_new_task">Lisää uusi tehtävä</string>
     <string name="logout">Kirjaudu ulos</string>
-    <string name="button_subscribe">Tilaa</string>
     <string name="help_and_feedback">Apu &amp; palaute</string>
     <string name="list_separator_with_space">", "</string>
     <string name="url">URL</string>

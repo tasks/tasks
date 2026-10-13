@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Pesquisar</string>
-    <string name="subscribe">Inscrever-se</string>
     <string name="filter_my_tasks">Minhas tarefas</string>
     <string name="filter_notifications">Notificações</string>
     <string name="filter_snoozed">Adiado</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">Qualquer aplicação que usar esta palavra-passe será desconectada</string>
     <string name="app_password_enter_description">Atribua um nome à sua palavra-passe (opcional)</string>
     <string name="insufficient_sponsorship">Não foi encontrado nenhum patrocínio GitHub elegível</string>
-    <string name="button_subscribe">Subscrever</string>
     <string name="your_subscription_expired">A sua subscrição expirou. Renova agora a subscrição para continuar a usar o serviço.</string>
     <string name="insufficient_subscription">Nível de subscrição insuficiente. Por favor atualize a sua subscrição para continuar o serviço.</string>
     <string name="authentication_required">É necessário iniciar sessão</string>

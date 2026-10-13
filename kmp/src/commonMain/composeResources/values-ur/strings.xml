@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">تلاش</string>
-    <string name="subscribe">سبسکرائب</string>
     <string name="filter_my_tasks">میرے ٹاسکس</string>
     <string name="filter_notifications">نوٹیفیکیشنز</string>
     <string name="filter_timer">ٹاسک کا وقت متعین کیا جا رہا ہے</string>
@@ -64,7 +63,6 @@
     <string name="logout_warning">اس اکاؤنٹ کاتمام ڈیٹا آپ کی ڈٰوائس سے ختم ہو جائے گا</string>
     <string name="remove">ختم کریں</string>
     <string name="delete_tag_confirmation">%1$s کو ڈیلیٹ کریں؟</string>
-    <string name="button_subscribe">سبسکرائب</string>
     <string name="url">یو آر ایل</string>
     <string name="user">صارف</string>
     <string name="password">پاسورڈ</string>

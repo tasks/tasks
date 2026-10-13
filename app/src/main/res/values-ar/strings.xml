@@ -146,7 +146,6 @@
     <string name="TEA_timer_est">تقريبًا %s</string>
     <string name="FLA_search_filter">موافقًا ل\'%s\'</string>
     <string name="logout">تسجيل الخروج</string>
-    <string name="button_subscribe">اشترك</string>
     <string name="subscription">اشتراك</string>
     <string name="list_separator_with_space">"، "</string>
     <string name="password">كلمة السّر</string>

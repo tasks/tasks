@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Sök</string>
-    <string name="subscribe">Prenumerera</string>
     <string name="filter_my_tasks">Mina uppgifter</string>
     <string name="filter_notifications">Aviseringar</string>
     <string name="filter_snoozed">Senarelagda</string>
@@ -122,7 +121,6 @@
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
     <string name="view_tos">Visa användarvillkor</string>
     <string name="insufficient_sponsorship">Inget giltigt GitHub-sponsorskap hittades</string>
-    <string name="button_subscribe">Prenumerera</string>
     <string name="your_subscription_expired">Din prenumeration har löpt ut. Prenumerera nu för att återuppta tjänsten.</string>
     <string name="insufficient_subscription">Otillräcklig prenumerationsnivå. Uppgradera din prenumeration för att återuppta tjänsten.</string>
     <string name="authentication_required">Autentisering krävs</string>

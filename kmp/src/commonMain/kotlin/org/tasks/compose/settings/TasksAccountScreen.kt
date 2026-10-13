@@ -60,7 +60,6 @@ import tasks.kmp.generated.resources.app_password_last_access
 import tasks.kmp.generated.resources.app_password_save
 import tasks.kmp.generated.resources.app_passwords
 import tasks.kmp.generated.resources.authentication_required
-import tasks.kmp.generated.resources.button_subscribe
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.delete_tag_confirmation
 import tasks.kmp.generated.resources.email_to_task
@@ -86,6 +85,7 @@ import tasks.kmp.generated.resources.sign_in_with_github
 import tasks.kmp.generated.resources.sign_in_with_apple
 import tasks.kmp.generated.resources.sign_in_with_google
 import tasks.kmp.generated.resources.tos_updated_title
+import tasks.kmp.generated.resources.upgrade
 import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 import tasks.kmp.generated.resources.view_tos
@@ -597,7 +597,7 @@ private fun ErrorBannerCard(
                 summary = stringResource(Res.string.insufficient_sponsorship)
                 onClick = onOpenSponsor
             } else if (!hasSubscription || isTasksSubscription) {
-                title = stringResource(Res.string.button_subscribe)
+                title = stringResource(Res.string.upgrade)
                 summary = stringResource(Res.string.your_subscription_expired)
                 onClick = onSubscribe
             } else {

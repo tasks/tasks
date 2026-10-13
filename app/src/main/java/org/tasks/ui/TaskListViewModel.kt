@@ -16,7 +16,6 @@ import org.tasks.data.TaskSaver
 import org.tasks.service.TaskCompleter
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
-import androidx.annotation.StringRes
 import org.jetbrains.compose.resources.StringResource
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
@@ -39,21 +38,21 @@ import javax.inject.Inject
 
 sealed class Banner(
     val eventType: String,
-    @StringRes val positiveLabel: Int,
-    @StringRes val negativeLabel: Int,
+    val positiveLabel: String,
+    val negativeLabel: String,
 ) {
-    data object NotificationsDisabled : Banner("notifications", R.string.TLA_menu_settings, R.string.dismiss)
-    data object AlarmsDisabled : Banner("alarms", R.string.TLA_menu_settings, R.string.dismiss)
-    data class SubscriptionRequired(val nameRes: StringResource, val isTasksOrg: Boolean) : Banner("subscribe", R.string.button_subscribe, R.string.dismiss)
+    data object NotificationsDisabled : Banner("notifications", "TLA_menu_settings", "dismiss")
+    data object AlarmsDisabled : Banner("alarms", "TLA_menu_settings", "dismiss")
+    data class SubscriptionRequired(val nameRes: StringResource, val isTasksOrg: Boolean) : Banner("subscribe", "upgrade", "dismiss")
     data object BegForMoney : Banner(
         "subscribe",
-        if (IS_GENERIC) R.string.donate_today else R.string.button_subscribe,
-        R.string.donate_maybe_later,
+        if (IS_GENERIC) "donate_today" else "upgrade",
+        "donate_maybe_later",
     )
-    data object WarnMicrosoft : Banner("microsoft", R.string.button_learn_more, R.string.dismiss)
-    data object WarnGoogleTasks : Banner("google_tasks", R.string.button_learn_more, R.string.dismiss)
-    data object AppUpdated : Banner("app_updated", R.string.whats_new, R.string.dismiss)
-    data class BlogAnnouncement(val post: BlogPost) : Banner("blog", R.string.read_more, R.string.dismiss)
+    data object WarnMicrosoft : Banner("microsoft", "button_learn_more", "dismiss")
+    data object WarnGoogleTasks : Banner("google_tasks", "button_learn_more", "dismiss")
+    data object AppUpdated : Banner("app_updated", "whats_new", "dismiss")
+    data class BlogAnnouncement(val post: BlogPost) : Banner("blog", "read_more", "dismiss")
 }
 
 @HiltViewModel
@@ -181,12 +180,12 @@ class TaskListViewModel @Inject constructor(
                 }
             }
             val action = if (tookAction) "positive" else "negative"
-            val labelResId = if (tookAction) currentBanner.positiveLabel else currentBanner.negativeLabel
+            val label = if (tookAction) currentBanner.positiveLabel else currentBanner.negativeLabel
             firebase.logEvent(
                 R.string.event_banner,
                 R.string.param_type to currentBanner.eventType,
                 R.string.param_action to action,
-                R.string.param_label to applicationContext.resources.getResourceEntryName(labelResId),
+                R.string.param_label to label,
             )
             updateBannerState()
         }

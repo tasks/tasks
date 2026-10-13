@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Căutare</string>
-    <string name="subscribe">Abonează-te la</string>
     <string name="filter_my_tasks">Sarcinile mele</string>
     <string name="filter_notifications">Notificări</string>
     <string name="filter_snoozed">Amânate</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">Orice aplicație care utilizează această parolă va fi deconectată</string>
     <string name="app_password_enter_description">Dă un nume parolei (opțional)</string>
     <string name="insufficient_sponsorship">Nu s-au găsit sponsorizări GitHub eligibile</string>
-    <string name="button_subscribe">Abonează-te la</string>
     <string name="your_subscription_expired">Abonamentul a expirat. Abonează-te acum pentru a relua serviciul.</string>
     <string name="insufficient_subscription">Nivel de abonament insuficient. Actualizează abonamentul pentru a relua serviciul.</string>
     <string name="authentication_required">Autentificare necesară</string>

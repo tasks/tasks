@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Zoeken</string>
-    <string name="subscribe">Abonneren</string>
     <string name="filter_snoozed">Gepauzeerd</string>
     <string name="filter_my_tasks">Mijn Taken</string>
     <string name="filter_notifications">Meldingen</string>
@@ -126,7 +125,6 @@
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
     <string name="view_tos">Gebruikersvoorwaarden bekijken</string>
     <string name="insufficient_sponsorship">Geen in aanmerking komend GitHub-sponsoring gevonden</string>
-    <string name="button_subscribe">Abonneren</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Verleng je abonnement om deze dienst te hervatten.</string>
     <string name="insufficient_subscription">Onvoldoende abonnementsniveau. Upgrade het abonnement om de service te hervatten.</string>
     <string name="authentication_required">Verificatie verplicht</string>

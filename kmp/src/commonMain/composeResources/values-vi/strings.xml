@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Tìm kiếm</string>
-    <string name="subscribe">Đăng ký</string>
     <string name="filter_my_tasks">Công việc của tôi</string>
     <string name="filter_notifications">Thông báo</string>
     <string name="filter_snoozed">Đã đặt báo lại</string>
@@ -102,7 +101,6 @@
     <string name="app_password_delete_confirmation">Bất kỳ ứng dụng nào đang sử dụng mật khẩu này sẽ bị đăng xuất</string>
     <string name="app_password_enter_description">Đặt tên cho mật khẩu của bạn (không bắt buộc)</string>
     <string name="insufficient_sponsorship">Không tìm thấy sự tài trợ GitHub đủ điều kiện</string>
-    <string name="button_subscribe">Đăng ký</string>
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
     <string name="insufficient_subscription">Không đủ cấp độ đăng ký. Vui lòng nâng cấp đăng ký của bạn để tiếp tục dịch vụ.</string>
     <string name="authentication_required">Yêu cầu xác thực</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">සොයන්න</string>
-    <string name="subscribe">දායක වන්න</string>
     <string name="filter_my_tasks">මගේ කාර්යයන්</string>
     <string name="filter_notifications">දැනුම්දීම්</string>
     <string name="filter_timer">ක්‍රියාත්මකව පවතින කාර්යයන්</string>
@@ -91,7 +90,6 @@
     <string name="app_password_delete_confirmation">මෙම මුරපදය භාවිතා කරන ඕනෑම යෙදුමක් ඉවත්වනු (signed out) ඇත</string>
     <string name="app_password_enter_description">ඔබගේ මුරපදයට නමක් දෙන්න (අත්‍යවශ්‍ය නොවේ)</string>
     <string name="insufficient_sponsorship">සුදුසුකම් ලත් GitHub අනුග්‍රාහකත්වයක් හමු නොවීය</string>
-    <string name="button_subscribe">දායක වන්න</string>
     <string name="your_subscription_expired">ඔබගේ දායකත්වය කල් ඉකුත් වී ඇත. සේවාව නැවත ආරම්භ කිරීම සඳහා දැන්ම දායක වන්න.</string>
     <string name="insufficient_subscription">දායකත්ව මට්ටම ප්‍රමාණවත් නොවේ. සේවාව නැවත ආරම්භ කිරීම සඳහා කරුණාකර ඔබගේ දායකත්වය යාවත්කාලීන කරන්න.</string>
     <string name="authentication_required">සත්‍යාපනය අවශ්‍යයි</string>

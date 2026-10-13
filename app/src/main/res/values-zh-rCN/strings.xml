@@ -195,7 +195,6 @@
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
     <string name="refresh_purchases">刷新购买</string>
-    <string name="button_subscribe">订阅</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="logout">退出登录</string>
     <string name="reinitialize_account">重新初始化</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Hledat</string>
-    <string name="subscribe">Předplatit</string>
     <string name="filter_my_tasks">Moje úkoly</string>
     <string name="filter_notifications">Oznámení</string>
     <string name="filter_snoozed">Odloženo</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
     <string name="view_tos">Zobrazit Podmínky služby</string>
     <string name="insufficient_sponsorship">Nenalezeno žádné platné GitHub sponzorování</string>
-    <string name="button_subscribe">Předplatit</string>
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
     <string name="insufficient_subscription">Nedostatečná úroveň předplatného. Pokud chcete službu dále využívat, prosím zvyšte své předplatné.</string>
     <string name="authentication_required">Je vyžadováno ověření se</string>

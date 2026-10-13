@@ -18,6 +18,7 @@ import tasks.kmp.generated.resources.enable_reminders
 import tasks.kmp.generated.resources.enable_reminders_description
 import tasks.kmp.generated.resources.subscription_required
 import tasks.kmp.generated.resources.tasks_org
+import tasks.kmp.generated.resources.upgrade
 
 @Composable
 fun NotificationsDisabledBanner(
@@ -66,7 +67,7 @@ fun SubscriptionRequiredBanner(
         },
         dismissText = stringResource(id = R.string.dismiss),
         onDismiss = dismiss,
-        action = stringResource(id = R.string.button_subscribe),
+        action = composeStringResource(Res.string.upgrade),
         onAction = subscribe,
     )
 }
@@ -85,11 +86,11 @@ fun SubscriptionNagBanner(
         }),
         dismissText = stringResource(id = R.string.donate_maybe_later),
         onDismiss = dismiss,
-        action = stringResource(id = if (TasksApplication.IS_GENERIC) {
-            R.string.donate_today
+        action = if (TasksApplication.IS_GENERIC) {
+            stringResource(id = R.string.donate_today)
         } else {
-            R.string.button_subscribe
-        }),
+            composeStringResource(Res.string.upgrade)
+        },
         onAction = subscribe
     )
 }

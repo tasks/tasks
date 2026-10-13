@@ -203,7 +203,6 @@
     <string name="tasker_list_notification">通知のリスト</string>
     <string name="help">ヘルプ</string>
     <string name="refresh_purchases">購入を更新</string>
-    <string name="button_subscribe">購入</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
     <string name="logout">ログアウト</string>
     <string name="reinitialize_account">再初期化</string>

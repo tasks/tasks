@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">ابحث</string>
-    <string name="subscribe">اشترك</string>
     <string name="filter_my_tasks">مهامي</string>
     <string name="filter_notifications">إشعارات</string>
     <string name="filter_timer">المهام التي أؤقتت</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">سيسجَّل خروج أي تطبيق يستعمل كلمة السرّ هذه</string>
     <string name="app_password_enter_description">أعط كلمة سرّك اسمًا (اختياري)</string>
     <string name="insufficient_sponsorship">لم يتم العثور على رعاية من GitHub</string>
-    <string name="button_subscribe">اشترك</string>
     <string name="your_subscription_expired">لقد انتهى اشتراكك. اشترك الآن لإكمال الخدمة.</string>
     <string name="insufficient_subscription">مستوى الاشتراك غير كافٍ. يرجى ترقية اشتراكك لاستئناف الخدمة.</string>
     <string name="authentication_required">يستلزم التوثيق</string>

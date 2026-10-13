@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">搜索</string>
-    <string name="subscribe">订阅</string>
     <string name="search_no_results">无结果</string>
     <string name="subscription_required_description">最低每年 1 美元解锁所有功能</string>
     <string name="filter_my_tasks">我的任务</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">我们更新了服务条款</string>
     <string name="view_tos">查看服务条款</string>
     <string name="insufficient_sponsorship">找不到符合要求的 GitHub 赞助</string>
-    <string name="button_subscribe">订阅</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
     <string name="insufficient_subscription">订阅等级不够。请升级你的订阅来恢复服务。</string>
     <string name="authentication_required">需要身份验证</string>

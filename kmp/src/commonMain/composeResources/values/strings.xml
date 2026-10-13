@@ -5,7 +5,6 @@
     <string name="password_required">Password required</string>
     <string name="caldav_home_set_not_found">Home set not found</string>
     <string name="subscription_required_description">Unlock all features for as little as $1 USD/year</string>
-    <string name="subscribe">Subscribe</string>
     <string name="upgrade">Upgrade</string>
     <string name="filter_my_tasks">My Tasks</string>
     <string name="filter_notifications">Notifications</string>
@@ -165,7 +164,6 @@
     <string name="tos_updated_title">We've updated our Terms of Service</string>
     <string name="view_tos">View Terms of Service</string>
     <string name="insufficient_sponsorship">No eligible GitHub sponsorship found</string>
-    <string name="button_subscribe">Subscribe</string>
     <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
     <string name="insufficient_subscription">Insufficient subscription level. Please upgrade your subscription to resume service.</string>
     <string name="authentication_required">Authentication required</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Ieškoti</string>
-    <string name="subscribe">Prenumeruoti</string>
     <string name="filter_my_tasks">Mano užduotys</string>
     <string name="filter_notifications">Pranešimai</string>
     <string name="filter_snoozed">Užmigdyta</string>
@@ -94,7 +93,6 @@
     <string name="app_password_delete_confirmation">Bet kuri programa, kuri naudoja šį slaptažodį, bus atjungta</string>
     <string name="app_password_enter_description">Suteikti savo slaptažodžiui vardą (neprivaloma)</string>
     <string name="insufficient_sponsorship">Nerasta tinkamo GitHub rėmimo</string>
-    <string name="button_subscribe">Prenumeruoti</string>
     <string name="your_subscription_expired">Jūsų prenumeratos galiojimo laikas baigėsi. Prenumeruokite dabar, norėdami tęsti paslaugą.</string>
     <string name="insufficient_subscription">Nepakankamas prenumeratos lygis. Atnaujinkite savo prenumeratą, kad būtų tęsiama paslauga.</string>
     <string name="authentication_required">Autentifikacija privaloma</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Serĉi</string>
-    <string name="subscribe">Aboni</string>
     <string name="filter_my_tasks">Miaj Taskoj</string>
     <string name="filter_notifications">Sciigoj</string>
     <string name="filter_snoozed">Paŭzigitaj</string>
@@ -136,7 +135,6 @@
     <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
     <string name="view_tos">Vidi Kondiĉojn de Uzado</string>
     <string name="insufficient_sponsorship">Ne trovis elekteblan GitHub sponsorecon</string>
-    <string name="button_subscribe">Aboni</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
     <string name="insufficient_subscription">Nesufiĉe da abona nivelo. Bonvolu altgradigi vian abonon por reaktivigi servon.</string>
     <string name="authentication_required">Bezonas aŭtentigon</string>

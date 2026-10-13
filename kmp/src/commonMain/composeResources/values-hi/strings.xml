@@ -8,7 +8,6 @@
     <string name="display_name">प्रदर्शित नाम</string>
     <string name="caldav_home_set_not_found">होम सेट नहीं मिला</string>
     <string name="subscription_required_description">कम से कम $1 डॉलर/हर साल में सभी सुविधाओं को अनलॉक करें</string>
-    <string name="subscribe">सदस्यता लें</string>
     <string name="filter_my_tasks">मेरे कार्य</string>
     <string name="filter_notifications">नोटिफ़िकेशन</string>
     <string name="filter_snoozed">स्नूज़ किया गया</string>

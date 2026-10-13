@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Søg</string>
-    <string name="subscribe">Abonnér</string>
     <string name="filter_my_tasks">Mine opgaver</string>
     <string name="filter_notifications">Notifikationer</string>
     <string name="filter_snoozed">Udsat</string>
@@ -130,7 +129,6 @@
     <string name="tos_updated_title">Vi har opdateret vores servicevilkår</string>
     <string name="view_tos">Vis servicevilkår</string>
     <string name="insufficient_sponsorship">Ingen kvalificeret GitHub-sponsorat fundet</string>
-    <string name="button_subscribe">Abonnér</string>
     <string name="your_subscription_expired">Dit abonnement er udløbet. Abonner nu for at fortsætte tjenesten.</string>
     <string name="insufficient_subscription">Utilstrækkeligt abonnementsniveau. Opgrader venligst dit abonnement for at fortsætte tjenesten.</string>
     <string name="authentication_required">Godkendelse påkrævet</string>

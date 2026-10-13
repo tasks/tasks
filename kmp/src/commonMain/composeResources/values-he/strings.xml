@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">חיפוש</string>
-    <string name="subscribe">הרשמה למינוי</string>
     <string name="filter_my_tasks">המשימות שלי</string>
     <string name="filter_notifications">התראות</string>
     <string name="filter_timer">משימות מתוזמנות</string>
@@ -144,7 +143,6 @@
     <string name="tos_updated_title">עדכנו את תנאי השירות שלנו</string>
     <string name="view_tos">הצגת תנאי השירות</string>
     <string name="insufficient_sponsorship">לא נמצאה חסות GitHub זכאית</string>
-    <string name="button_subscribe">הרשמה למינוי</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. יש להירשם למינוי כעת כדי להמשיך את השירות.</string>
     <string name="insufficient_subscription">רמת המינוי אינה מספקת. נא לשדרג את המינוי כדי להמשיך את השירות.</string>
     <string name="authentication_required">נדרש אימות</string>

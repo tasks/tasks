@@ -212,7 +212,6 @@
     <string name="help">Βοήθεια</string>
     <string name="subscription">Συνδρομή εφαρμογής</string>
     <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
-    <string name="button_subscribe">Εγγραφή στη συνδρομή</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>

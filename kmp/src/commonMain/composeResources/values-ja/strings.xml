@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">検索</string>
-    <string name="subscribe">購入</string>
     <string name="filter_my_tasks">マイ タスク</string>
     <string name="filter_notifications">通知</string>
     <string name="filter_snoozed">スヌーズ中</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">サービス規約を改定しました</string>
     <string name="view_tos">サービス規約を読む</string>
     <string name="insufficient_sponsorship">対象の GitHub スポンサーシップがありません</string>
-    <string name="button_subscribe">購入</string>
     <string name="your_subscription_expired">サブスクリプションの有効期限が切れています。サービスを引き続き利用するには、サブスクリプションを更新してください。</string>
     <string name="insufficient_subscription">サブスクリプションのレベルが不十分です。サービスを引き続き利用するには、サブスクリプションをアップグレードしてください。</string>
     <string name="authentication_required">認証が必要です</string>

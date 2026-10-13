@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Bilatu</string>
-    <string name="subscribe">Harpidetu</string>
     <string name="filter_my_tasks">Nire zereginak</string>
     <string name="filter_notifications">Jakinarazpenak</string>
     <string name="filter_snoozed">Lo</string>
@@ -94,7 +93,6 @@
     <string name="app_password_delete_confirmation">Pasahitz hau darabiltzaten aplikazioen saioak amaituko dira</string>
     <string name="app_password_enter_description">Eman izen bat zure pasahitzari (aukerazkoa)</string>
     <string name="insufficient_sponsorship">Ez da GitHub sponsorship egokirik aurkitu</string>
-    <string name="button_subscribe">Harpidetu</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="insufficient_subscription">Harpidetza maila ez da nahikoa. Hobetu zure harpidetza zerbitzua berrekiteko.</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>

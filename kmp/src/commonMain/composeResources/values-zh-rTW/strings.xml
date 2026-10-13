@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="subscribe">訂閱</string>
     <string name="search">搜尋</string>
     <string name="subscription_required_description">解鎖所有功能最低僅需每年 1 美元</string>
     <string name="search_no_results">沒有結果</string>
@@ -144,7 +143,6 @@
     <string name="tos_updated_title">我們已更新服務條款</string>
     <string name="view_tos">查看服務條款</string>
     <string name="insufficient_sponsorship">沒有符合資格的 GitHub 贊助</string>
-    <string name="button_subscribe">訂閱</string>
     <string name="your_subscription_expired">您的訂閱已過期。立即訂閱以恢復服務。</string>
     <string name="insufficient_subscription">訂閱等級不足。請升級訂閱以恢復服務。</string>
     <string name="authentication_required">需要授權</string>

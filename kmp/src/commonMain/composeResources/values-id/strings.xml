@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Cari</string>
-    <string name="subscribe">Langganan</string>
     <string name="filter_my_tasks">Tugas Saya</string>
     <string name="filter_notifications">Notifikasi</string>
     <string name="filter_snoozed">Tunda</string>
@@ -146,7 +145,6 @@
     <string name="tos_updated_title">Kami telah memperbarui Ketentuan Layanan kami</string>
     <string name="view_tos">Lihat Ketentuan Layanan</string>
     <string name="insufficient_sponsorship">Tidak ditemukan sponsor GitHub yang memenuhi syarat</string>
-    <string name="button_subscribe">Langganan</string>
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
     <string name="insufficient_subscription">Tingkat langganan tidak mencukupi. Silahkan perbarui langganan Anda untuk melanjutkan layanan.</string>
     <string name="authentication_required">Otentikasi diperlukan</string>

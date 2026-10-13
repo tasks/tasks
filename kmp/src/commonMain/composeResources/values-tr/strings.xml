@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Ara</string>
-    <string name="subscribe">Abone ol</string>
     <string name="search_no_results">Sonuç yok</string>
     <string name="subscription_required_description">Yılda 1$ gibi düşük bir ücretle tüm özelliklerin kilidini açın</string>
     <string name="filter_my_tasks">Görevlerim</string>
@@ -144,7 +143,6 @@
     <string name="tos_updated_title">Hizmet Koşullarımızı güncelledik</string>
     <string name="view_tos">Hizmet Koşullarını Görüntüle</string>
     <string name="insufficient_sponsorship">Uygun GitHub sponsorluğu bulunamadı</string>
-    <string name="button_subscribe">Abone ol</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="insufficient_subscription">Yetersiz abonelik düzeyi. Hizmeti sürdürmek için lütfen aboneliğinizi yükseltin.</string>
     <string name="authentication_required">Kimlik doğrulama gerekli</string>

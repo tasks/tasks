@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">검색</string>
-    <string name="subscribe">신청</string>
     <string name="filter_my_tasks">나의 할일</string>
     <string name="filter_notifications">알림</string>
     <string name="filter_snoozed">알람 미뤄짐</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">이 비밀번호를 사용하는 모든 앱에서 로그아웃 됩니다</string>
     <string name="app_password_enter_description">비밀번호에 이름 짓기 (선택사항)</string>
     <string name="insufficient_sponsorship">적합한 깃허브 후원 자격을 찾을 수 없습니다</string>
-    <string name="button_subscribe">신청</string>
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
     <string name="insufficient_subscription">구독 수준이 적합하지 않습니다. 서비스를 재개하려면 구독을 업그레이드하세요.</string>
     <string name="authentication_required">인증 필요</string>

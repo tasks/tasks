@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Търсене</string>
-    <string name="subscribe">Абониране</string>
     <string name="search_no_results">Липсват резултати</string>
     <string name="subscription_required_description">Отключете всички възможности за по-малко от 1 долар/година</string>
     <string name="filter_my_tasks">Мои задачи</string>
@@ -139,7 +138,6 @@
     <string name="tos_updated_title">Променихме условията за използване на услугата</string>
     <string name="view_tos">Преглед на условията на услугата</string>
     <string name="insufficient_sponsorship">Не е намерен подходящо спонсорство в GitHub</string>
-    <string name="button_subscribe">Абониране</string>
     <string name="your_subscription_expired">Абонаментът е изтекъл. Подновете го, за да се възстанови услугата.</string>
     <string name="insufficient_subscription">Недостатъчно ниво на абонамент. За да бъде възстановена услугата надстройте своя абонамент.</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>

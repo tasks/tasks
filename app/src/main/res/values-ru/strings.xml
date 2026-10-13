@@ -210,7 +210,6 @@
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
     <string name="refresh_purchases">Обновить покупки</string>
-    <string name="button_subscribe">Подписаться</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="logout">Отключиться</string>
     <string name="reinitialize_account">Инициализировать заново</string>

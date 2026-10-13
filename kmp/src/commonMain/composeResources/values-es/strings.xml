@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Buscar</string>
-    <string name="subscribe">Suscribirte</string>
     <string name="search_no_results">Sin resultados</string>
     <string name="subscription_required_description">Desbloquea todas las funciones por tan solo $1 USD al año</string>
     <string name="filter_my_tasks">Mis tareas</string>
@@ -110,7 +109,6 @@
     <string name="app_password_delete_confirmation">Se cerrará la sesión de cualquier aplicación que utilice esta contraseña</string>
     <string name="app_password_enter_description">Dé un nombre a su contraseña (opcional)</string>
     <string name="insufficient_sponsorship">No se encontró ningún patrocinio de GitHub elegible</string>
-    <string name="button_subscribe">Suscribe</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="insufficient_subscription">Nivel de suscripción insuficiente. Actualice su suscripción para reanudar el servicio.</string>
     <string name="authentication_required">Se necesita autenticación</string>

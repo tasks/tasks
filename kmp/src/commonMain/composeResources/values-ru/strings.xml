@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Поиск</string>
-    <string name="subscribe">Подписаться</string>
     <string name="filter_my_tasks">Мои задачи</string>
     <string name="filter_notifications">Уведомления</string>
     <string name="filter_snoozed">Отложенные</string>
@@ -115,7 +114,6 @@
     <string name="app_password_delete_confirmation">Любое приложение, использующее этот пароль, выйдет из системы</string>
     <string name="app_password_enter_description">Присвойте вашему паролю имя (необязательно)</string>
     <string name="insufficient_sponsorship">Подходящее спонсорство GitHub не найдено</string>
-    <string name="button_subscribe">Подписаться</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="insufficient_subscription">Недостаточный уровень подписки. Обновите подписку, чтобы возобновить обслуживание.</string>
     <string name="authentication_required">Необходима аутентификация</string>
