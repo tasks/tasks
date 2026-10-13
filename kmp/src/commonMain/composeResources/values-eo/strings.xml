@@ -643,4 +643,13 @@
     <string name="works_with_wear_description">Tasks.org en via brakhorloĝo</string>
     <string name="sign_in_with_apple">Ensaluti per Apple</string>
     <string name="subscription_required">Bezonas abonon</string>
+    <string name="upgrade">Altgradigi</string>
+    <string name="mcp_server_summary">Por permesi ke AI asistantoj povas legi kaj administri vian datumojn</string>
+    <string name="mcp_server_enable_summary">Rulas en nur ĉi tiu komputilo ĉe 127.0.0.1. Neniu estas vidigita al la reto.</string>
+    <string name="mcp_status_running">Rulas per port %1$d</string>
+    <string name="mcp_access">Aliro</string>
+    <string name="mcp_access_advanced_summary">Por precize elekti kiujn ilojn asistantoj povas uzi.</string>
+    <string name="mcp_tools_enabled">%1$d el %2$d ŝaltitaj</string>
+    <string name="mcp_connect">Konekti asistanton</string>
+    <string name="mcp_copied">Kopiite</string>
 </resources>
