@@ -1,37 +1,29 @@
-### 15.13-beta03 (2026-10-13)
-
-* DAVx5 sync fixes
-* Microsoft To Do sync fixes
-* Update translations
-  * Chinese (Simplified) - hamburger2048
-  * Dutch - @Stephan-P
-  * Esperanto - Don Zouras
-  * Estonian - Priit Jõerüüt
-
-### 15.13-beta02 (2026-10-08)
-
-* Bug fixes and performance improvements
-
-### 15.13-beta01 (2026-10-05)
+### 15.13 (2026-10-13)
 
 * Update icon set and add 1,800+ icons
 * Reduced app download and install size
 * Skip invalid tasks instead of stopping sync
 * Restrict credentials to account domain
 * Handle secondly recurrence intervals
+* Microsoft To Do sync fixes
 * Use sentence case for 'Clear completed' - @joshuagrady [#4214](https://github.com/tasks/tasks/pull/4214)
 * Bug fixes and performance improvements
 
+Android:
+  * DAVx5 sync fixes
+
 Desktop:
   * Sign Windows releases
-  * New desktop beta channel at https://update.tasks.org/beta
+  * New desktop beta channel at https://download.tasks.org/beta
   * Fix Intel Mac and Windows ARM builds
   * Fix .deb installs on older distros
 
 Update translations:
   * Brazilian Portuguese - @restlessSangoLeelo, @gregcarmo
+  * Bulgarian - 109247019824
   * Chinese (Simplified) - hamburger2048, Sketch6580
   * Dutch - @Stephan-P
+  * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
   * German - @Kachelkaiser
