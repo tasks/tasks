@@ -27,6 +27,7 @@ class TodoistService(
     private val client: HttpClient,
 ) {
     private val baseUrl = BASE_URL
+    private val projectsUrl = "$baseUrl/projects"
 
     /**
      * @param syncToken [FULL_SYNC] for a complete snapshot, otherwise the token from
@@ -51,11 +52,11 @@ class TodoistService(
             )
             .body()
 
-    suspend fun getProject(id: String): TodoistProject = client.get("$baseUrl/projects/$id").body()
+    suspend fun getProject(id: String): TodoistProject = client.get("$projectsUrl/$id").body()
 
     suspend fun createProject(name: String, color: String? = null): TodoistProject =
         client
-            .post("$baseUrl/projects") {
+            .post(projectsUrl) {
                 contentType(ContentType.Application.Json)
                 setBody(
                     buildJsonObject {
@@ -68,7 +69,7 @@ class TodoistService(
 
     suspend fun updateProject(id: String, name: String? = null, color: String? = null): TodoistProject =
         client
-            .post("$baseUrl/projects/$id") {
+            .post("$projectsUrl/$id") {
                 contentType(ContentType.Application.Json)
                 setBody(
                     buildJsonObject {
@@ -79,7 +80,7 @@ class TodoistService(
             }
             .body()
 
-    suspend fun deleteProject(id: String) = client.delete("$baseUrl/projects/$id")
+    suspend fun deleteProject(id: String) = client.delete("$projectsUrl/$id")
 
     /**
      * Completed tasks are absent from both `GET /tasks` and the sync `items`

@@ -164,12 +164,10 @@ open class TodoistAccountSettingsViewModel(
         }
     }
 
-    /**
-     * Confirms the token works and derives a display name from the account.
-     *
-     * Requests only `projects`, not the full dataset, so validating a token on a large
-     * account isn't an expensive full sync.
-     */
+    // Confirms the token works and derives a display name from the account.
+    //
+    // Requests only `projects`, not the full dataset, so validating a token on a large
+    // account isn't an expensive full sync.
     private suspend fun verify(token: String): String? {
         val response = clientProvider
             .getService(token)

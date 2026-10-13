@@ -10,6 +10,13 @@ package org.tasks.sync.todoist
 object TodoistColors {
     private const val OPAQUE = 0xFF000000.toInt()
 
+    private const val CHARCOAL = "charcoal"
+    private const val GREY = "grey"
+    private const val TAUPE = "taupe"
+
+    /** The palette's neutral, and the fallback for anything unmatched. */
+    const val DEFAULT_NAME = CHARCOAL
+
     private val PALETTE = linkedMapOf(
         "berry_red" to 0xb8256f,
         "red" to 0xdb4035,
@@ -28,25 +35,22 @@ object TodoistColors {
         "lavender" to 0xeb96eb,
         "magenta" to 0xe05194,
         "salmon" to 0xff8d85,
-        "charcoal" to 0x808080,
-        "grey" to 0xb8b8b8,
-        "taupe" to 0xccac93,
+        CHARCOAL to 0x808080,
+        GREY to 0xb8b8b8,
+        TAUPE to 0xccac93,
     )
 
-    const val DEFAULT_NAME = "charcoal"
 
     /** @return packed opaque ARGB, or null if [name] isn't a known palette entry. */
     fun toArgb(name: String): Int? = PALETTE[name]?.let { it or OPAQUE }
 
-    /**
-     * Palette entries with no meaningful hue. A grey input has to be matched against
-     * only these: the palette contains no dark neutral, so plain nearest-neighbour
-     * would map black onto a dark *green*, which is the closest by RGB distance but
-     * obviously wrong to a user who picked grey.
-     */
-    private val ACHROMATIC = setOf("charcoal", "grey", "taupe")
+    // Palette entries with no meaningful hue. A grey input has to be matched against
+    // only these: the palette contains no dark neutral, so plain nearest-neighbour
+    // would map black onto a dark *green*, which is the closest by RGB distance but
+    // obviously wrong to a user who picked grey.
+    private val ACHROMATIC = setOf(CHARCOAL, GREY, TAUPE)
 
-    /** Below this max-min spread across channels, a color reads as grey. */
+    // Below this max-min spread across channels, a color reads as grey.
     private const val CHROMA_THRESHOLD = 32
 
     /** @return the nearest palette name, or [DEFAULT_NAME] when [argb] is unset/transparent. */

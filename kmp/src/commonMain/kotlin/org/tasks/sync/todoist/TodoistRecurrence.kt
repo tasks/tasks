@@ -46,10 +46,10 @@ object TodoistRecurrence {
 
     private val WORKDAYS = listOf(Weekday.MO, Weekday.TU, Weekday.WE, Weekday.TH, Weekday.FR)
 
-    /** Matches a leading interval, e.g. the "3" in "every 3 weeks". */
+    // Matches a leading interval, e.g. the "3" in "every 3 weeks".
     private val INTERVAL = Regex("""^(\d+)\s+""")
 
-    /** Matches an ordinal day of month, e.g. "15th", "3rd", "1st". */
+    // Matches an ordinal day of month, e.g. "15th", "3rd", "1st".
     private val ORDINAL = Regex("""^(\d{1,2})(?:st|nd|rd|th)$""")
 
     data class Parsed(val recur: Recur, val repeatFrom: Int)
@@ -164,7 +164,7 @@ object TodoistRecurrence {
         return null
     }
 
-    /** @return the listed weekdays, or null if any token isn't a weekday. */
+    // Returns the listed weekdays, or null if any token isn't a weekday.
     private fun parseWeekdays(input: String): List<Weekday>? {
         val tokens = input
             .split(",", " and ")
@@ -176,6 +176,16 @@ object TodoistRecurrence {
         val days = tokens.map { WEEKDAYS[it] ?: return null }
         return days.distinct()
     }
+
+    // Rule parts with no Todoist counterpart at all: it has no positional,
+    // week-of-year, day-of-year or sub-daily recurrence.
+    private fun Recur.hasPartsTodoistCannotExpress(): Boolean =
+        bySetPos.isNotEmpty() ||
+                byWeekNo.isNotEmpty() ||
+                byYearDay.isNotEmpty() ||
+                byHour.isNotEmpty() ||
+                byMinute.isNotEmpty() ||
+                bySecond.isNotEmpty()
 
     /**
      * @return a Todoist-parseable string, or null when [recur] uses features Todoist
@@ -190,13 +200,7 @@ object TodoistRecurrence {
         if (recur.byDay.any { it.offset != 0 }) {
             return null
         }
-        if (recur.bySetPos.isNotEmpty() ||
-            recur.byWeekNo.isNotEmpty() ||
-            recur.byYearDay.isNotEmpty() ||
-            recur.byHour.isNotEmpty() ||
-            recur.byMinute.isNotEmpty() ||
-            recur.bySecond.isNotEmpty()
-        ) {
+        if (recur.hasPartsTodoistCannotExpress()) {
             return null
         }
         val interval = (recur.interval ?: 1).coerceAtLeast(1)

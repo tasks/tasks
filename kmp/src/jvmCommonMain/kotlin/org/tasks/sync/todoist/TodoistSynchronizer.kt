@@ -22,6 +22,7 @@ import org.tasks.data.dao.TaskToPush
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.CaldavTask
+import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.http.HttpException
@@ -130,7 +131,7 @@ class TodoistSynchronizer(
         }
     }
 
-    /** @return the first unrecoverable push error, or null if everything went up. */
+    // Returns the first unrecoverable push error, or null if everything went up.
     private suspend fun synchronize(account: CaldavAccount): String? {
         val service = clientProvider.getService(account)
 
@@ -219,10 +220,8 @@ class TodoistSynchronizer(
         }
     }
 
-    /**
-     * Archived projects are treated as gone: Todoist hides them, so leaving the list
-     * visible in Tasks would be misleading.
-     */
+    // Archived projects are treated as gone: Todoist hides them, so leaving the list
+    // visible in Tasks would be misleading.
     private suspend fun applyProjects(
         account: CaldavAccount,
         response: TodoistSyncResponse,
@@ -301,7 +300,7 @@ class TodoistSynchronizer(
         }
     }
 
-    /** @return true when the task was written, false when skipped as locally dirty. */
+    // Returns true when the task was written, false when skipped as locally dirty.
     private suspend fun updateTask(list: CaldavCalendar, remote: TodoistItem): Boolean {
         val existing = caldavDao.getTaskByRemoteId(list.uuid!!, remote.id)
         val task = existing?.task?.let { taskDao.fetch(it) }
@@ -334,14 +333,12 @@ class TodoistSynchronizer(
         return true
     }
 
-    /**
-     * Deletes local tasks that a *full* sync didn't mention.
-     *
-     * Guarded hard, because completed tasks are excluded from the `items` resource:
-     * reaping purely on absence would wipe every completed task on the account. Only
-     * tasks that are incomplete, previously synced, and not pending a local push are
-     * eligible.
-     */
+    // Deletes local tasks that a *full* sync didn't mention.
+    //
+    // Guarded hard, because completed tasks are excluded from the `items` resource:
+    // reaping purely on absence would wipe every completed task on the account. Only
+    // tasks that are incomplete, previously synced, and not pending a local push are
+    // eligible.
     private suspend fun reapMissingTasks(
         account: CaldavAccount,
         lists: Collection<CaldavCalendar>,
@@ -443,12 +440,9 @@ class TodoistSynchronizer(
         return pending
     }
 
-    /**
-     * Orders parents ahead of their children so that a subtask can reference its
-     * parent's temp id within the same batch. [DirtyDao.getTasksToPush] only
-     * separates top-level from nested, which isn't enough for Todoist's arbitrary
-     * nesting depth.
-     */
+    // Orders parents ahead of their children so that a subtask can reference its
+    // parent's temp id within the same batch. DirtyDao.getTasksToPush only separates
+    // top-level from nested, which isn't enough for Todoist's arbitrary nesting depth.
     private fun List<TaskToPush>.sortedByDepth(): List<TaskToPush> {
         val byId = associateBy { it.task.id }
         val depths = mutableMapOf<Long, Int>()
@@ -473,81 +467,95 @@ class TodoistSynchronizer(
     ): List<Pending> {
         val task = taskToPush.task
         val caldavTask = caldavDao.getCaldavTaskById(taskToPush.caldavTaskId) ?: return emptyList()
-        val commands = mutableListOf<Pending>()
-
-        fun pending(command: TodoistCommand, tempId: String? = null, deletesLocally: Boolean = false) =
-            Pending(
-                command = command,
-                caldavTaskId = taskToPush.caldavTaskId,
-                dirtyVersion = taskToPush.dirtyVersion,
-                taskId = task.id,
-                calendar = list.uuid!!,
-                tempId = tempId,
-                deletesLocally = deletesLocally,
-            )
-
         if (task.isDeleted) {
-            val remoteId = caldavTask.remoteId
-            return if (remoteId.isNullOrBlank() || taskToPush.syncedVersion == 0L) {
-                // Never reached the server; just drop it locally.
-                taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
-                emptyList()
-            } else {
-                listOf(
-                    pending(
-                        TodoistCommand(
-                            type = TodoistCommand.ITEM_DELETE,
-                            uuid = todoistCommandId(),
-                            args = buildJsonObject { put("id", remoteId) },
-                        ),
-                        deletesLocally = true,
-                    )
-                )
-            }
+            return deleteCommands(list, taskToPush, caldavTask)
         }
-
-        val tags = tagDataDao.getTagDataForTask(task.id)
-        val cached = cachedItem(list, caldavTask)
-        val parentRemoteId = parentReference(task, earlier)
+        val context = PushContext(
+            list = list,
+            taskToPush = taskToPush,
+            caldavTask = caldavTask,
+            tags = tagDataDao.getTagDataForTask(task.id),
+            cached = cachedItem(list, caldavTask),
+            parentRemoteId = parentReference(task, earlier),
+        )
         val isNew = taskToPush.syncedVersion == 0L || caldavTask.remoteId.isNullOrBlank()
+        return if (isNew) context.createCommands() else context.updateCommands()
+    }
 
-        if (isNew) {
-            val tempId = todoistCommandId()
+    private suspend fun deleteCommands(
+        list: CaldavCalendar,
+        taskToPush: TaskToPush,
+        caldavTask: CaldavTask,
+    ): List<Pending> {
+        val task = taskToPush.task
+        val remoteId = caldavTask.remoteId
+        if (remoteId.isNullOrBlank() || taskToPush.syncedVersion == 0L) {
+            // Never reached the server; just drop it locally.
+            taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
+            return emptyList()
+        }
+        return listOf(
+            pending(
+                list = list,
+                taskToPush = taskToPush,
+                command = TodoistCommand(
+                    type = TodoistCommand.ITEM_DELETE,
+                    uuid = todoistCommandId(),
+                    args = buildJsonObject { put("id", remoteId) },
+                ),
+                deletesLocally = true,
+            )
+        )
+    }
+
+    private fun PushContext.createCommands(): List<Pending> {
+        val commands = mutableListOf<Pending>()
+        val tempId = todoistCommandId()
+        commands.add(
+            pending(
+                list = list,
+                taskToPush = taskToPush,
+                command = TodoistCommand(
+                    type = TodoistCommand.ITEM_ADD,
+                    uuid = todoistCommandId(),
+                    tempId = tempId,
+                    args = task.toArgs(
+                        tags = tags,
+                        projectId = list.uuid,
+                        sectionId = cached?.sectionId,
+                        parentId = parentRemoteId,
+                        previousDueString = cached?.due?.string,
+                    ),
+                ),
+                tempId = tempId,
+            )
+        )
+        if (task.isCompleted) {
+            // item_add cannot create an already-completed task, so complete it in a
+            // follow-up command that references the temp id.
             commands.add(
                 pending(
-                    TodoistCommand(
-                        type = TodoistCommand.ITEM_ADD,
+                    list = list,
+                    taskToPush = taskToPush,
+                    command = TodoistCommand(
+                        type = TodoistCommand.ITEM_COMPLETE,
                         uuid = todoistCommandId(),
-                        tempId = tempId,
-                        args = task.toArgs(
-                            tags = tags,
-                            projectId = list.uuid,
-                            sectionId = cached?.sectionId,
-                            parentId = parentRemoteId,
-                            previousDueString = cached?.due?.string,
-                        ),
+                        args = buildJsonObject { put("id", tempId) },
                     ),
-                    tempId = tempId,
                 )
             )
-            if (task.isCompleted) {
-                commands.add(
-                    pending(
-                        TodoistCommand(
-                            type = TodoistCommand.ITEM_COMPLETE,
-                            uuid = todoistCommandId(),
-                            args = buildJsonObject { put("id", tempId) },
-                        )
-                    )
-                )
-            }
-            return commands
         }
+        return commands
+    }
 
+    private fun PushContext.updateCommands(): List<Pending> {
+        val commands = mutableListOf<Pending>()
         val remoteId = caldavTask.remoteId!!
         commands.add(
             pending(
-                TodoistCommand(
+                list = list,
+                taskToPush = taskToPush,
+                command = TodoistCommand(
                     type = TodoistCommand.ITEM_UPDATE,
                     uuid = todoistCommandId(),
                     args = task.toArgs(
@@ -557,7 +565,7 @@ class TodoistSynchronizer(
                         parentId = null,
                         previousDueString = cached?.due?.string,
                     ),
-                )
+                ),
             )
         )
 
@@ -567,7 +575,9 @@ class TodoistSynchronizer(
         if (parentRemoteId != lastSyncedParent) {
             commands.add(
                 pending(
-                    TodoistCommand(
+                    list = list,
+                    taskToPush = taskToPush,
+                    command = TodoistCommand(
                         type = TodoistCommand.ITEM_MOVE,
                         uuid = todoistCommandId(),
                         args = buildJsonObject {
@@ -578,7 +588,7 @@ class TodoistSynchronizer(
                                 put("project_id", list.uuid!!)
                             }
                         },
-                    )
+                    ),
                 )
             )
         }
@@ -588,7 +598,9 @@ class TodoistSynchronizer(
         if (task.isCompleted != wasCompleted) {
             commands.add(
                 pending(
-                    TodoistCommand(
+                    list = list,
+                    taskToPush = taskToPush,
+                    command = TodoistCommand(
                         type = if (task.isCompleted) {
                             TodoistCommand.ITEM_COMPLETE
                         } else {
@@ -596,17 +608,44 @@ class TodoistSynchronizer(
                         },
                         uuid = todoistCommandId(),
                         args = buildJsonObject { put("id", remoteId) },
-                    )
+                    ),
                 )
             )
         }
         return commands
     }
 
-    /**
-     * Resolves this task's parent to something the server will accept: either an id
-     * it already knows, or the temp id of a create earlier in the same batch.
-     */
+    // What commandsFor resolves once up front so the per-shape builders below don't
+    // each have to take it as a long parameter list.
+    private class PushContext(
+        val list: CaldavCalendar,
+        val taskToPush: TaskToPush,
+        val caldavTask: CaldavTask,
+        val tags: List<TagData>,
+        val cached: TodoistItem?,
+        val parentRemoteId: String?,
+    ) {
+        val task: Task get() = taskToPush.task
+    }
+
+    private fun pending(
+        list: CaldavCalendar,
+        taskToPush: TaskToPush,
+        command: TodoistCommand,
+        tempId: String? = null,
+        deletesLocally: Boolean = false,
+    ) = Pending(
+        command = command,
+        caldavTaskId = taskToPush.caldavTaskId,
+        dirtyVersion = taskToPush.dirtyVersion,
+        taskId = taskToPush.task.id,
+        calendar = list.uuid!!,
+        tempId = tempId,
+        deletesLocally = deletesLocally,
+    )
+
+    // Resolves this task's parent to something the server will accept: either an id
+    // it already knows, or the temp id of a create earlier in the same batch.
     private suspend fun parentReference(task: Task, earlier: List<Pending>): String? {
         if (task.parent <= 0L) {
             return null
@@ -617,13 +656,13 @@ class TodoistSynchronizer(
         return caldavDao.getTask(task.parent)?.remoteId?.takeIf { it.isNotBlank() }
     }
 
-    /** The last-synced payload, used to preserve fields Tasks doesn't model. */
+    // The last-synced payload, used to preserve fields Tasks doesn't model.
     private suspend fun cachedItem(list: CaldavCalendar, caldavTask: CaldavTask): TodoistItem? =
         vtodoCache
             .getVtodo(list, caldavTask)
             ?.let { runCatching { json.decodeFromString<TodoistItem>(it) }.getOrNull() }
 
-    /** @return the first error that is not self-healing, or null. */
+    // Returns the first error that is not self-healing, or null.
     private suspend fun handlePushResult(
         chunk: List<Pending>,
         response: TodoistSyncResponse,
@@ -713,7 +752,7 @@ class TodoistSynchronizer(
         private const val TAG = "TodoistSynchronizer"
         private const val MAX_SYNC_ITERATIONS = 3
 
-        /** Todoist rejects batches larger than this. */
+        // Todoist rejects batches larger than this.
         private const val MAX_COMMANDS_PER_REQUEST = 100
 
         private val json = Json {
