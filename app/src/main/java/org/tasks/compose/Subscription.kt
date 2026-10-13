@@ -74,6 +74,7 @@ import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
@@ -660,7 +661,7 @@ object PurchaseText {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                val price = sliderPosition.toInt().coerceIn(1, 25)
+                val price = sliderPosition.roundToInt().coerceIn(1, 25)
                 PurchaseButton(
                     price = remember(skus, price) {
                         skus

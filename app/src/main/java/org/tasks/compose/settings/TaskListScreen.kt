@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import kotlin.math.roundToInt
 import org.tasks.R
 
 @Composable
@@ -238,7 +239,7 @@ private fun SliderPreferenceRow(
         }
         Slider(
             value = value.toFloat(),
-            onValueChange = { onValueChange(it.toInt()) },
+            onValueChange = { onValueChange(it.roundToInt()) },
             valueRange = min.toFloat()..max.toFloat(),
             steps = max - min - 1,
             modifier = Modifier.fillMaxWidth(),
