@@ -100,7 +100,6 @@
     <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
-    <string name="name_your_price">ตั้งชื่อราคาของคุณ</string>
     <string name="invalid_backup_file">แฟ้มสํารองข้อมูลไม่ถูกต้อง</string>
     <string name="whats_new">มีอะไรใหม่</string>
     <string name="choose_new_location">เลือกตําแหน่งที่ตั้งใหม่</string>

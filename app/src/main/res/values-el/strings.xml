@@ -240,7 +240,6 @@
     <string name="banner_app_updated_description">Η Tasks μόλις ενημερώθηκε στο %s. Θα θέλατε να δείτε της σημειώσεις έκδοσης;</string>
     <string name="whats_new">Τι καινούργιο υπάρχει</string>
     <string name="invalid_backup_file">Μη έγκυρο αρχείο αντιγράφου ασφαλείας</string>
-    <string name="name_your_price">Καθορίστε την τιμή σας</string>
     <string name="expand_subtasks">Άνοιγμα υποεργασιών</string>
     <string name="collapse_subtasks">Κλείσιμο υποεργασιών</string>
     <string name="choose_synchronization_service">Επιλογή πλατφόρμας</string>

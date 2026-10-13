@@ -223,7 +223,6 @@
     <string name="choose_new_location">选择新位置</string>
     <string name="invalid_backup_file">备份文件无效</string>
     <string name="icon">图标</string>
-    <string name="name_your_price">您愿意支付多少费用</string>
     <string name="list_separator_with_space">"， "</string>
     <string name="SSD_sort_my_order">我的顺序</string>
     <string name="expand_subtasks">展开子任务</string>

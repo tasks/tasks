@@ -33,6 +33,13 @@ class AlertDialogBuilder internal constructor(private val context: Context) {
         return this
     }
 
+    fun setPositiveButton(
+        ok: String, onClickListener: DialogInterface.OnClickListener?
+    ): AlertDialogBuilder {
+        builder.setPositiveButton(ok, onClickListener)
+        return this
+    }
+
     fun setNegativeButton(
         cancel: Int, onClickListener: DialogInterface.OnClickListener?
     ): AlertDialogBuilder {

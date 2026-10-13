@@ -289,7 +289,6 @@
     <string name="collapse_subtasks">Colapsar subtarefas</string>
     <string name="expand_subtasks">Expandir subtarefas</string>
     <string name="SSD_sort_my_order">Minha ordem</string>
-    <string name="name_your_price">Dê o seu valor</string>
     <string name="location_radius_meters">%s m</string>
     <string name="davx5_selection_description">Sincronize as suas tarefas com a aplicação DAVx⁵</string>
     <string name="permission_read_tasks">Acesso completo à base de dados do Tasks</string>

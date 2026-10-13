@@ -110,7 +110,6 @@
     <string name="help">עזרה</string>
     <string name="display_name">שם תצוגה</string>
     <string name="upgrade_to_pro_card_description">פתיחת סנכרון בענן Tasks.org,שיתוף חברים ומשפחה, ודוא"ל־למשימה</string>
-    <string name="supporter">תומך</string>
     <string name="price_per_month_with_currency">%1$s לחודש</string>
     <string name="price_per_year_with_currency">%1$s לשנה</string>
     <string name="supporter_summary">%1$s • תודה לך!</string>
@@ -532,7 +531,6 @@
     <string name="google_play_subscription">מינוי ב־Google Play</string>
     <string name="github_sponsorship">חסות ב־GitHub</string>
     <string name="error_github_verification_failed">האימות נכשל. נא לנסות שוב.</string>
-    <string name="pricing_nyp_title">מחיר כבקשתך</string>
     <string name="pricing_from">מתוך %1$s</string>
     <string name="pricing_recommended">מומלץ</string>
     <string name="annual">שנתי</string>

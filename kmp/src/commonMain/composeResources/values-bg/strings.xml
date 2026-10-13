@@ -109,7 +109,6 @@
     <string name="help">Помощ</string>
     <string name="tasks_org_description">Включва споделяне със семейство и приятели и задачи от писмо</string>
     <string name="display_name">Показвано име</string>
-    <string name="supporter">Поддръжник</string>
     <string name="price_per_month_with_currency">%1$s/месец</string>
     <string name="price_per_year_with_currency">%1$s/година</string>
     <string name="supporter_summary">%1$s • Благодаря ви!</string>

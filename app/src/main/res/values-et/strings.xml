@@ -274,7 +274,6 @@
     </plurals>
     <string name="display_name">Kuvatav nimi</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
-    <string name="name_your_price">Ütle oma hind</string>
     <string name="widget_id">Vidina ID: %d</string>
     <string name="current_subscription">Pregune tellimus:%s</string>
     <string name="hint_customize_edit_title">Liiga palju infot?</string>

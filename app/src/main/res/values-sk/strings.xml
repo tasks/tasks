@@ -296,7 +296,6 @@
     <string name="background_location">Umiestnenie na pozadí</string>
     <string name="backups_ignore_warnings_summary">Ignorujte varovania týkajúce sa zálohovania, ak ich nepotrebujete alebo riešite zálohovanie po svojom</string>
     <string name="no_google_play_subscription">Nenájdené žiadne predplatné Google Play</string>
-    <string name="name_your_price">Zaplaťte ľubovoľnú čiastku</string>
     <string name="expand_subtasks">Rozbaliť podúlohy</string>
     <string name="action_new_task">Nová úloha</string>
     <string name="background_location_permission_required">Táto aplikácia zbiera údaje o vašej polohe, aby fungovali upozornenia podľa polohy aj keď aplikáciu práve nepoužívate.</string>

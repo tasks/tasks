@@ -112,7 +112,6 @@
     <string name="show_less">显示更少</string>
     <string name="display_name">显示名称</string>
     <string name="upgrade_to_pro_card_description">解锁 Tasks.org Cloud 同步、好友和家庭共享、邮件转任务</string>
-    <string name="supporter">支持者</string>
     <string name="price_per_month_with_currency">每月 %1$s</string>
     <string name="price_per_year_with_currency">每年 %1$s</string>
     <string name="supporter_summary">%1$s • 谢谢！</string>
@@ -219,7 +218,6 @@
     <string name="error_github_verification_failed">验证失败。请重试。</string>
     <string name="pricing_subtitle">自由且开源。订阅支持开发并解锁额外功能。</string>
     <string name="pricing_cloud_description">解锁所有应用内功能并连接到 Tasks.org Cloud 同步。</string>
-    <string name="pricing_nyp_title">您愿意支付多少</string>
     <string name="pricing_from">从 %1$s 起</string>
     <string name="pricing_nyp_description">自定订阅价。解锁所有应用内功能。</string>
     <string name="pricing_recommended">推荐</string>

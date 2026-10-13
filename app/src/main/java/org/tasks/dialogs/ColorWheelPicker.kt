@@ -12,7 +12,11 @@ import androidx.fragment.app.DialogFragment
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
@@ -52,7 +56,11 @@ class ColorWheelPicker : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         selected = savedInstanceState?.getInt(EXTRA_SELECTED) ?: requireArguments().getInt(EXTRA_SELECTED, 0)
 
-        val button = if (inventory.purchasedThemes()) R.string.ok else R.string.name_your_price
+        val button = if (inventory.purchasedThemes()) {
+            getString(R.string.ok)
+        } else {
+            runBlocking { getString(Res.string.upgrade) }
+        }
         val builder = ColorPickerDialogBuilder
                 .with(activity)
                 .wheelType(ColorPickerView.WHEEL_TYPE.CIRCLE)

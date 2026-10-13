@@ -314,7 +314,6 @@
     <string name="list">Listo</string>
     <string name="linkify_description">Aldoni ligilojn de retejoj, adresoj, kaj telefonnumeroj</string>
     <string name="location_remind_departure">Memorigi je foriro</string>
-    <string name="name_your_price">Elekti propran prezon</string>
     <string name="caldav_selection_description">Sinkronigo bazite el malfermaj interretaj normoj</string>
     <string name="invalid_backup_file">Nevalida savkopio</string>
     <string name="davx5_selection_description">Sinkronigi viajn taskojn kun la DAVx⁵ aplikaĵo</string>

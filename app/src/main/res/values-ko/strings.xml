@@ -225,7 +225,6 @@
     <string name="choose_new_location">새 위치 선택</string>
     <string name="invalid_backup_file">부적합한 백업 파일</string>
     <string name="icon">아이콘</string>
-    <string name="name_your_price">구독 금액 정하기</string>
     <string name="SSD_sort_my_order">순서 직접 정렬</string>
     <string name="expand_subtasks">하위할일 펼치기</string>
     <string name="collapse_subtasks">하위할일 접기</string>

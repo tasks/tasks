@@ -100,7 +100,6 @@
     <string name="back">Назад</string>
     <string name="help">Помоћ</string>
     <string name="display_name">Прикажи име</string>
-    <string name="supporter">Подржавач</string>
     <string name="price_per_month_with_currency">%1$s/месечно</string>
     <string name="price_per_year_with_currency">%1$s/годишње</string>
     <string name="supporter_summary">%1$s • Хвала!</string>
@@ -457,7 +456,6 @@
     <string name="error_github_verification_failed">Верификација неуспешна. Молим покушај поново.</string>
     <string name="pricing_subtitle">Бесплатно и отвореног кода. Претплате подржавају развој апликације и откључавање додатних функционалности.</string>
     <string name="pricing_cloud_description">Откључај све функционалности унутар апликације и повежи се на Tasks.org Cloud синхронизацију.</string>
-    <string name="pricing_nyp_title">Одабери-своју-цену</string>
     <string name="pricing_from">Од %1$s</string>
     <string name="pricing_nyp_description">Одабери сопствену цену за претплату. Откључава све функционалности унутар апликације.</string>
     <string name="pricing_recommended">Препоручено</string>

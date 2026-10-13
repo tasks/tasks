@@ -112,7 +112,6 @@
     <string name="show_less">Tampilkan lebih sedikit</string>
     <string name="display_name">Nama tampilan</string>
     <string name="upgrade_to_pro_card_description">Buka kunci sinkronisasi Tasks.org Cloud, Berbagi Keluarga &amp; Teman, dan Email-ke-Tugas</string>
-    <string name="supporter">Pendukung</string>
     <string name="price_per_month_with_currency">%1$s/bulan</string>
     <string name="price_per_year_with_currency">%1$s/tahun</string>
     <string name="supporter_summary">%1$s - Terima kasih!</string>
@@ -291,7 +290,6 @@
     <string name="error_github_verification_failed">Verifikasi gagal. Silakan coba lagi.</string>
     <string name="pricing_subtitle">Gratis dan open source. Langganan mendukung pengembangan dan membuka fitur tambahan.</string>
     <string name="pricing_cloud_description">Buka semua fitur dalam aplikasi dan hubungkan ke sinkronisasi Tasks.org Cloud.</string>
-    <string name="pricing_nyp_title">Tentukan harga Anda sendiri</string>
     <string name="pricing_from">Mulai dari %1$s</string>
     <string name="pricing_nyp_description">Pilih sendiri harga langganan Anda. Membuka semua fitur dalam aplikasi.</string>
     <string name="pricing_recommended">Direkomendasikan</string>

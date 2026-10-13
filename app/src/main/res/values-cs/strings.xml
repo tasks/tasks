@@ -227,7 +227,6 @@
     <string name="open_map">Otevřít mapu</string>
     <string name="choose_new_location">Vybrat novou polohu</string>
     <string name="invalid_backup_file">Zvolený soubor neobsahuje zálohu</string>
-    <string name="name_your_price">Zaplaťte libovolnou částku</string>
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
     <string name="choose_synchronization_service">Zvolte službu</string>

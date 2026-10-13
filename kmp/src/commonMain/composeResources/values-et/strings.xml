@@ -102,7 +102,6 @@
     <string name="back">Tagasi</string>
     <string name="help">Abiinfo</string>
     <string name="display_name">Kuvatav nimi</string>
-    <string name="supporter">Toetaja</string>
     <string name="price_per_month_with_currency">%1$s kuus</string>
     <string name="price_per_year_with_currency">%1$s aastas</string>
     <string name="supporter_summary">%1$s • Suur tänu!</string>
@@ -294,7 +293,6 @@
     <string name="error_github_verification_failed">Verifitseerimine ei õnnestunud. Proovi hiljem uuesti.</string>
     <string name="pricing_subtitle">Vaba ja avatud lähtekoodiga. Rahaline toetuse abil aitad arendustööd edasi ja saad kasutada täiendavaid funktsionaalsusi.</string>
     <string name="pricing_cloud_description">Saad kasutada rakendusi kõiki funktsionaalsusi ja kasutada sünkroonimist Tasks.org-i pilveteenusega.</string>
-    <string name="pricing_nyp_title">Ütle oma hind</string>
     <string name="pricing_from">Alates %1$s</string>
     <string name="pricing_nyp_description">Vali oma tellimuse hind. Sellega muutuvad rakenduse kõik funktsionaalsused kasutatavaks.</string>
     <string name="pricing_recommended">Soovitatav</string>

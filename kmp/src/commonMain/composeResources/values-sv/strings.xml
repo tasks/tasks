@@ -205,7 +205,6 @@
     <string name="show_more">Visa mer</string>
     <string name="show_less">Visa mindre</string>
     <string name="upgrade_to_pro_card_description">Lås upp Tasks.org-molnsynkronisering, delning med vänner och familj samt e-post till uppgift</string>
-    <string name="supporter">Stödjare</string>
     <string name="supporter_summary_no_price">Tack!</string>
     <string name="supporter_summary">%1$s • Tack!</string>
     <string name="sign_in_to_connect">Logga in för att ansluta ditt Tasks.org-konto</string>
@@ -256,7 +255,6 @@
     <string name="error_github_verification_failed">Verifieringen misslyckades. Försök igen.</string>
     <string name="pricing_subtitle">Kostnadsfri programvara med öppen källkod. Prenumerationer stöder utvecklingen och låser upp fler funktioner.</string>
     <string name="pricing_cloud_description">Lås upp alla appfunktioner och synkronisera med Tasks.org Cloud.</string>
-    <string name="pricing_nyp_title">Ange ditt pris</string>
     <string name="pricing_from">Från %1$s</string>
     <string name="pricing_nyp_description">Välj ditt eget prenumerationspris och lås upp alla appfunktioner.</string>
     <string name="pricing_recommended">Rekommenderad</string>

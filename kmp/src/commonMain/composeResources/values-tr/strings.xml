@@ -110,7 +110,6 @@
     <string name="help">Yardım</string>
     <string name="display_name">Gösterim adı</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud eşzamanlama, Arkadaşlar &amp; Aile Paylaşımı ve E-postayla Görev kilidini aç</string>
-    <string name="supporter">Destekçi</string>
     <string name="price_per_month_with_currency">%1$s/ay</string>
     <string name="price_per_year_with_currency">%1$s/yıl</string>
     <string name="supporter_summary">%1$s • Sağ olun!</string>
@@ -234,7 +233,6 @@
     <string name="error_github_verification_failed">Doğrulama başarısız. Yeniden deneyin.</string>
     <string name="pricing_subtitle">Özgür ve açık kaynaklı. Abonelikler gelişimi destekler ve ek özelliklerin kilidini açar.</string>
     <string name="pricing_cloud_description">Tüm uygulama içi özellikleri aç ve Tasks.org Cloud eşzamanlamasına bağlan.</string>
-    <string name="pricing_nyp_title">Gönlünüzden kopan</string>
     <string name="pricing_from">Şundan başlayarak: %1$s</string>
     <string name="pricing_nyp_description">Abonelik ücretini siz seçin. Tüm uygulama içi özellikleri açar.</string>
     <string name="pricing_recommended">Önerilen</string>

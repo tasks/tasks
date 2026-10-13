@@ -121,7 +121,7 @@
     <string name="show_less">Show less</string>
     <string name="display_name">Display name</string>
     <string name="upgrade_to_pro_card_description">Unlock Tasks.org Cloud sync, Friends &amp; Family Sharing, and Email-to-Task</string>
-    <string name="supporter">Supporter</string>
+    <string name="supporter">Tasks.org Supporter</string>
     <string name="supporter_summary_no_price">Thank you!</string>
     <string name="price_per_month_with_currency">%1$s/month</string>
     <string name="price_per_year_with_currency">%1$s/year</string>
@@ -338,7 +338,6 @@
     <string name="error_github_verification_failed">Verification failed. Please try again.</string>
     <string name="pricing_subtitle">Free and open source. Subscriptions support development and unlock additional features.</string>
     <string name="pricing_cloud_description">Unlock all in-app features and connect to Tasks.org Cloud sync.</string>
-    <string name="pricing_nyp_title">Name-your-price</string>
     <string name="pricing_from">From %1$s</string>
     <string name="pricing_nyp_description">Choose your own subscription price. Unlocks all in-app features.</string>
     <string name="pricing_recommended">Recommended</string>

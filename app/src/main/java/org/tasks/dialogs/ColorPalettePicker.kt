@@ -11,7 +11,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel
@@ -109,7 +113,7 @@ class ColorPalettePicker : DialogFragment() {
         if (inventory.purchasedThemes()) {
             builder.setNegativeButton(R.string.cancel, null)
         } else {
-            builder.setPositiveButton(R.string.name_your_price) { _: DialogInterface?, _: Int ->
+            builder.setPositiveButton(runBlocking { getString(Res.string.upgrade) }) { _: DialogInterface?, _: Int ->
                 startActivity(
                     Intent(context, PurchaseActivity::class.java)
                         .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors")

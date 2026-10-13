@@ -342,7 +342,6 @@
     <string name="delete_tasks_warning">%s será eliminado. Isto non se pode desfacer!</string>
     <string name="banner_app_updated_title">Aplicación actualizada</string>
     <string name="banner_app_updated_description">Tarefas acaba de actualizarse a %s. Queres ver as notas da versión?</string>
-    <string name="name_your_price">Prezo flexible</string>
     <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks</string>
     <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
     <string name="chips">Distintivos</string>

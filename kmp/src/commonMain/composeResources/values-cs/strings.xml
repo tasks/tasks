@@ -112,7 +112,6 @@
     <string name="show_less">Zobrazit méně</string>
     <string name="display_name">Zobrazované jméno</string>
     <string name="upgrade_to_pro_card_description">Odemkněte cloudovou synchronizaci Tasks.org, sdílení s rodinou a přáteli a e-mail na úkol</string>
-    <string name="supporter">Podporovatel</string>
     <string name="price_per_month_with_currency">%1$s měsíčně</string>
     <string name="price_per_year_with_currency">%1$s ročně</string>
     <string name="supporter_summary">%1$s • Děkujeme!</string>
@@ -237,7 +236,6 @@
     <string name="error_github_verification_failed">Ověření selhalo. Prosím, zkuste to znovu.</string>
     <string name="pricing_subtitle">Svobodné a s otevřeným zdrojovým kódem. Předplatné podporují vývoj a odemykají další funkce.</string>
     <string name="pricing_cloud_description">Odemkněte všechny funkce aplikace a připojte se k Tasks.org Cloud synchronizaci.</string>
-    <string name="pricing_nyp_title">Řekněte si cenu</string>
     <string name="pricing_from">Od %1$s</string>
     <string name="pricing_nyp_description">Vyberte si svou vlastní cenu předplatného. Toto odemkne všechny funkce aplikace.</string>
     <string name="pricing_recommended">Doporučené</string>

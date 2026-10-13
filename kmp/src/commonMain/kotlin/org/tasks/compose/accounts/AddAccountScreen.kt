@@ -84,7 +84,6 @@ import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.tasks_org_description
 import tasks.kmp.generated.resources.terms_of_service_proper
-import tasks.kmp.generated.resources.upgrade
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -183,11 +182,7 @@ fun AddAccountScreen(
                     .padding(horizontal = SettingsContentPadding),
             ) {
                 if (configuration.supportsTasksOrg && !hasTasksAccount) {
-                    if (!hasPro) {
-                        SectionHeader(stringResource(Res.string.upgrade))
-                    } else {
-                        Spacer(modifier = Modifier.height(SettingsSectionGap))
-                    }
+                    Spacer(modifier = Modifier.height(SettingsSectionGap))
                     SettingsItemCard {
                         AccountTypeRow(
                             title = stringResource(Res.string.tasks_org_account),

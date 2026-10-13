@@ -230,7 +230,6 @@
     <string name="choose_new_location">Välj en ny plats</string>
     <string name="invalid_backup_file">Ogiltig säkerhetskopieringsfil</string>
     <string name="icon">Ikon</string>
-    <string name="name_your_price">Ange ditt pris</string>
     <string name="SSD_sort_my_order">Min ordning</string>
     <string name="lists">Listor</string>
     <string name="sort_modified_group">Ändrad %s</string>

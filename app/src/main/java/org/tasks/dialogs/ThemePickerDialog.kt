@@ -15,7 +15,11 @@ import com.todoroo.andlib.utility.AndroidUtilities.preS
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade
 import org.tasks.billing.Inventory
 import org.tasks.themes.ThemeBase
 import org.tasks.themes.ThemeBase.EXTRA_THEME_OVERRIDE
@@ -121,13 +125,13 @@ class ThemePickerDialog : DialogFragment() {
     }
 
     private fun updateButton() {
-        val stringRes = if (available()) {
-            R.string.cancel
+        val text = if (available()) {
+            getString(R.string.cancel)
         } else {
-            R.string.name_your_price
+            runBlocking { getString(Res.string.upgrade) }
         }
 
-        dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text = getString(stringRes)
+        dialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.text = text
     }
 
     private fun available() = isAvailable(selected)

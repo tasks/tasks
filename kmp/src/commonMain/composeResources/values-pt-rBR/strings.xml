@@ -179,7 +179,6 @@
     <string name="show_more">Mostrar mais</string>
     <string name="show_less">Mostrar menos</string>
     <string name="upgrade_to_pro_card_description">Desbloquear sincronização com nuvem Tasks.org, Compartilhamento com Amigos &amp; Família e Email-para-Tarefa</string>
-    <string name="supporter">Apoiador</string>
     <string name="supporter_summary_no_price">Obrigado!</string>
     <string name="supporter_summary">%1$s • Obrigado!</string>
     <string name="sign_in_to_connect">Faça login para conectar sua conta Tasks.org</string>
@@ -304,7 +303,6 @@
     <string name="error_github_verification_failed">Verificação falhou. Tente de novo.</string>
     <string name="pricing_subtitle">Grátis e de código aberto. Inscrições apoiam o desenvolvimento e desbloqueiam recursos adicionais.</string>
     <string name="pricing_cloud_description">Desbloqueia todos recursos do app and conecta a sincronização Tasks.org Cloud</string>
-    <string name="pricing_nyp_title">Pague o que quiser</string>
     <string name="pricing_from">De %1$s</string>
     <string name="pricing_nyp_description">Escolha seu preço de inscrição. Desbloqueia todos recursos do app.</string>
     <string name="pricing_recommended">Recomendado</string>

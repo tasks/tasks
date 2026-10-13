@@ -98,7 +98,6 @@
     <string name="back">Terug</string>
     <string name="help">Hulp</string>
     <string name="display_name">Weergavenaam</string>
-    <string name="supporter">Supporter</string>
     <string name="price_per_month_with_currency">%1$s/maand</string>
     <string name="price_per_year_with_currency">%1$s per jaar</string>
     <string name="donate">Doneren</string>
@@ -494,7 +493,6 @@
     <string name="error_encryption_failed">Versleuteling mislukt. Controleer of Tasks.org toegang heeft tot je systeemsleutels en probeer het opnieuw.</string>
     <string name="error_network">Kan geen verbinding maken. Controleer de internetverbinding.</string>
     <string name="error_contact_support">Als de problemen aanhouden, neem dan contact op met %1$s</string>
-    <string name="pricing_nyp_title">Betaal-wat-wil</string>
     <string name="pricing_nyp_description">Kies je eigen abonnementsprijs. Ontgrendelt alle in-app-functies.</string>
     <string name="upgrade_subscription_banner">Bedankt voor je steun! Upgrade je abonnement om Tasks.org Cloud Sync in te schakelen</string>
     <string name="show_completed_subtasks">Voltooide subtaken tonen</string>

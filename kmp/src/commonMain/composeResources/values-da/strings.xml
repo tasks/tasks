@@ -100,7 +100,6 @@
     <string name="back">Tilbage</string>
     <string name="help">Hjælp</string>
     <string name="display_name">Visningsnavn</string>
-    <string name="supporter">Supporter</string>
     <string name="price_per_month_with_currency">%1$s/måned</string>
     <string name="price_per_year_with_currency">%1$s/år</string>
     <string name="supporter_summary">%1$s • Tak!</string>

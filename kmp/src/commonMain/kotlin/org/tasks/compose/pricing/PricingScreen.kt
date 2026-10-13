@@ -257,7 +257,7 @@ private fun NameYourPriceTierCard(
 ) {
     TierCard(
         modifier = modifier,
-        title = stringResource(Res.string.pricing_nyp_title),
+        title = stringResource(Res.string.supporter),
         price = stringResource(Res.string.pricing_from, stringResource(Res.string.pricing_nyp_min_price)),
         priceSuffix = stringResource(Res.string.price_per_year_with_currency, "").trim(),
         description = stringResource(Res.string.pricing_nyp_description),

@@ -276,7 +276,6 @@
     <string name="widget_header_settings">إعدادات شريط العنوان</string>
     <string name="badges_description">عرض عداد المهمة على مشغل ايقونة التطبيق. ليس جميع المشغلات تدعم الشارات(العداد).</string>
     <string name="gcal_TEA_error">خطأ في إضافة المهمة للتقويم!</string>
-    <string name="name_your_price">سمي سعرك</string>
     <string name="pro_dashclock_extension">الاضافة داشكلوك</string>
     <string name="widget_settings">إعدادات الودجيت</string>
     <string name="CFC_dueBefore_name">تستحق في…</string>

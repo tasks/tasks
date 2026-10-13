@@ -85,7 +85,7 @@ import org.tasks.compose.settings.SettingsCardRadius
 import org.tasks.extensions.Context.openUri
 import org.tasks.themes.TasksTheme
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.more_options
+import tasks.kmp.generated.resources.supporter
 import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.url_sponsor
@@ -145,6 +145,12 @@ object PurchaseText {
 
     private val tasksOrgFeatureList = listOf(
         CarouselItem(
+            R.string.tasks_org_account,
+            R.drawable.ic_round_icon,
+            R.string.upgrade_tasks_org_account_description,
+            iconStyle = IconStyle.ORIGINAL
+        ),
+        CarouselItem(
             title = R.string.upgrade_desktop_app,
             icon = R.drawable.ic_outline_computer_24px,
             description = R.string.upgrade_desktop_app_description,
@@ -158,12 +164,6 @@ object PurchaseText {
             R.string.email_to_task,
             R.drawable.ic_outline_email_24px,
             R.string.upgrade_email_to_task_description
-        ),
-        CarouselItem(
-            R.string.tasks_org_account,
-            R.drawable.ic_round_icon,
-            R.string.upgrade_tasks_org_account_description,
-            iconStyle = IconStyle.ORIGINAL
         ),
         CarouselItem(
             R.string.upgrade_more_customization,
@@ -208,7 +208,7 @@ object PurchaseText {
                     title = {
                         Text(
                             text = if (nameYourPrice) {
-                                stringResource(R.string.name_your_price)
+                                composeStringResource(Res.string.supporter)
                             } else {
                                 composeStringResource(Res.string.tasks_org_account)
                             },
@@ -465,12 +465,18 @@ object PurchaseText {
                         ) {
                             Text(
                                 text = if (nameYourPrice) {
-                                    composeStringResource(Res.string.more_options)
+                                    composeStringResource(Res.string.tasks_org_account)
                                 } else {
-                                    stringResource(R.string.name_your_price)
+                                    composeStringResource(Res.string.supporter)
                                 },
                                 color = MaterialTheme.colorScheme.onSurface,
                                 style = MaterialTheme.typography.bodyLarge
+                            )
+                            SymbolIcon(
+                                name = TasksIcons.KEYBOARD_ARROW_RIGHT,
+                                contentDescription = null,
+                                modifier = Modifier.padding(start = 4.dp),
+                                tint = MaterialTheme.colorScheme.onSurface,
                             )
                         }
                     }

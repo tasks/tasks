@@ -112,7 +112,6 @@
     <string name="show_less">Weniger anzeigen</string>
     <string name="display_name">Anzeigename</string>
     <string name="upgrade_to_pro_card_description">Tasks.org Cloud-Synchronisierung, Freigabe für Freunde &amp; Familie und E-Mail Aufgabenerstellung freischalten</string>
-    <string name="supporter">Unterstützer:in</string>
     <string name="price_per_month_with_currency">%1$s/Monat</string>
     <string name="price_per_year_with_currency">%1$s/Jahr</string>
     <string name="supporter_summary">%1$s • Danke!</string>
@@ -388,7 +387,6 @@
     <string name="error_github_verification_failed">Verifizierung fehlgeschlagen. Bitte versuchen Sie es erneut.</string>
     <string name="pricing_subtitle">Kostenlos und Open Source. Abonnements unterstützen die Entwicklung und schalten zusätzliche Funktionen frei.</string>
     <string name="pricing_cloud_description">Schalten Sie alle In-App-Funktionen frei und verbinden Sie sich mit der Tasks.org-Cloud-Synchronisierung.</string>
-    <string name="pricing_nyp_title">Zahlen Sie, was Sie wollen</string>
     <string name="pricing_recommended">Empfohlen</string>
     <string name="annual">Jährlich</string>
     <string name="monthly">Monatlich</string>
