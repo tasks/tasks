@@ -696,4 +696,5 @@
     <string name="sign_in_with_apple">Aanmelden met Apple</string>
     <string name="new_place">Nieuwe plaats aanmaken</string>
     <string name="subscription_required">Abonnement vereist</string>
+    <string name="upgrade">Opwaarderen</string>
 </resources>
