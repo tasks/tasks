@@ -6,20 +6,6 @@ import org.tasks.repeats.Frequency
 import org.tasks.repeats.Recur
 import org.tasks.repeats.Weekday
 
-/**
- * Translates between Tasks' RRULE-based [Recur] and Todoist's natural-language
- * recurrence strings ("every 2 weeks on mon").
- *
- * Todoist has no structured recurrence field at all -- the `due.string` a user typed
- * *is* the rule, and the server re-parses it. That makes this mapping inherently
- * partial, so both directions are conservative: anything not confidently recognised
- * returns null and the caller preserves the original value untouched rather than
- * writing a lossy approximation. Never widen this to a best-effort guess; silently
- * changing someone's repeat schedule is worse than not syncing it.
- *
- * The `every!` prefix means "repeat relative to the completion date", which is exactly
- * Tasks' [Task.RepeatFrom.COMPLETION_DATE].
- */
 object TodoistRecurrence {
     private const val COMPLETION_PREFIX = "every!"
     private const val DUE_PREFIX = "every"
@@ -46,18 +32,12 @@ object TodoistRecurrence {
 
     private val WORKDAYS = listOf(Weekday.MO, Weekday.TU, Weekday.WE, Weekday.TH, Weekday.FR)
 
-    // Matches a leading interval, e.g. the "3" in "every 3 weeks".
     private val INTERVAL = Regex("""^(\d+)\s+""")
 
-    // Matches an ordinal day of month, e.g. "15th", "3rd", "1st".
     private val ORDINAL = Regex("""^(\d{1,2})(?:st|nd|rd|th)$""")
 
     data class Parsed(val recur: Recur, val repeatFrom: Int)
 
-    /**
-     * @return the parsed rule, or null when [string] isn't a form we recognise -- in
-     *   which case the caller must leave the existing recurrence alone.
-     */
     fun fromString(string: String?): Parsed? {
         val normalized = string?.trim()?.lowercase() ?: return null
         if (normalized.isEmpty()) {
@@ -76,7 +56,6 @@ object TodoistRecurrence {
             return null
         }
 
-        // "every other week" is Todoist shorthand for an interval of 2.
         var interval = 1
         if (rest.startsWith("other ")) {
             interval = 2
@@ -99,7 +78,6 @@ object TodoistRecurrence {
     private fun parseUnit(rest: String, interval: Int): Recur? {
         val intervalOrNull = interval.takeIf { it > 1 }
 
-        // Time-of-day aliases all mean "once a day".
         if (rest in setOf("day", "days", "morning", "evening", "afternoon", "night")) {
             return Recur(frequency = Frequency.DAILY, interval = intervalOrNull)
         }
@@ -127,7 +105,6 @@ object TodoistRecurrence {
             )
         }
 
-        // "every 2 weeks on mon, wed" -- the unit is explicit.
         val onSplit = rest.split(" on ", limit = 2)
         if (onSplit.size == 2) {
             val unit = onSplit[0].trim()
@@ -142,7 +119,6 @@ object TodoistRecurrence {
             }
         }
 
-        // "every mon, wed" -- weekly with the unit implied.
         parseWeekdays(rest)?.let { days ->
             return Recur(
                 frequency = Frequency.WEEKLY,
@@ -151,7 +127,6 @@ object TodoistRecurrence {
             )
         }
 
-        // "every 15th" -- monthly on a day of the month.
         ORDINAL.find(rest)?.let { match ->
             val day = match.groupValues[1].toIntOrNull()?.takeIf { it in 1..31 } ?: return null
             return Recur(
@@ -164,7 +139,6 @@ object TodoistRecurrence {
         return null
     }
 
-    // Returns the listed weekdays, or null if any token isn't a weekday.
     private fun parseWeekdays(input: String): List<Weekday>? {
         val tokens = input
             .split(",", " and ")
@@ -177,8 +151,6 @@ object TodoistRecurrence {
         return days.distinct()
     }
 
-    // Rule parts with no Todoist counterpart at all: it has no positional,
-    // week-of-year, day-of-year or sub-daily recurrence.
     private fun Recur.hasPartsTodoistCannotExpress(): Boolean =
         bySetPos.isNotEmpty() ||
                 byWeekNo.isNotEmpty() ||
@@ -187,13 +159,7 @@ object TodoistRecurrence {
                 byMinute.isNotEmpty() ||
                 bySecond.isNotEmpty()
 
-    /**
-     * @return a Todoist-parseable string, or null when [recur] uses features Todoist
-     *   can't express -- in which case the caller must not send a recurrence at all.
-     */
     fun toString(recur: Recur, repeatFrom: Int): String? {
-        // Todoist has no equivalent of an end condition on a repeat, and no
-        // positional ("2nd tuesday") or sub-daily recurrence.
         if (recur.count != null || recur.until != null) {
             return null
         }
@@ -240,8 +206,6 @@ object TodoistRecurrence {
                 if (recur.byMonth.isEmpty() && recur.byMonthDay.isEmpty()) {
                     withInterval("year", "years")
                 } else {
-                    // Todoist infers the month and day from the due date, so an
-                    // explicit BYMONTH/BYMONTHDAY would be dropped.
                     null
                 }
             Frequency.HOURLY,

@@ -17,6 +17,7 @@ import org.tasks.viewmodel.TodoistListSettingsViewModel
 import javax.inject.Inject
 
 @HiltViewModel
+@Suppress("LongParameterList")
 class TodoistListSettingsHiltViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     caldavDao: CaldavDao,

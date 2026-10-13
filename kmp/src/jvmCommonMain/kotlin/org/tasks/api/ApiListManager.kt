@@ -20,6 +20,7 @@ import org.tasks.sync.microsoft.TaskLists
 import org.tasks.sync.todoist.TodoistClientProvider
 import org.tasks.sync.todoist.TodoistColors
 
+@Suppress("LongParameterList")
 class ApiListManager(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,

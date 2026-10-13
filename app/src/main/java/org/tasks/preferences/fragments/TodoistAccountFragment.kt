@@ -19,6 +19,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.tasks.R
 import org.tasks.TasksUrls
 import org.tasks.compose.settings.TodoistAccountScreen
+import org.tasks.compose.settings.todoistAccountActions
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.extensions.Context.openUri
 import org.tasks.preferences.BasePreferences
@@ -69,14 +70,13 @@ class TodoistAccountFragment : Fragment() {
                 isNewAccount = false,
                 accountName = accountName,
                 showDiscardDialog = showDiscardDialog,
-                onTokenChange = viewModel::setToken,
-                onNameChange = viewModel::setDisplayName,
-                onSave = viewModel::save,
-                onDelete = { viewModel.delete(navigateBack) },
-                onNavigateBack = navigateBack,
-                onDiscardDialogChange = { showDiscardDialog = it },
-                onDismissSnackbar = viewModel::dismissSnackbar,
-                onOpenTokenHelp = { requireContext().openUri(TasksUrls.TODOIST_API_TOKEN) },
+                actions = todoistAccountActions(
+                    viewModel = viewModel,
+                    onNavigateBack = navigateBack,
+                    onDiscardDialogChange = { showDiscardDialog = it },
+                    onOpenTokenHelp = { requireContext().openUri(TasksUrls.TODOIST_API_TOKEN) },
+                    onDelete = { viewModel.delete(navigateBack) },
+                ),
             )
         }
     }

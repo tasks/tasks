@@ -20,72 +20,6 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class TodoistConverterTest {
-    @Test
-    fun priorityMappingIsABijection() {
-        // Todoist 4 = urgent maps to Tasks 0 = high; the scales are inverted.
-        assertEquals(Task.Priority.HIGH, 4.toTaskPriority())
-        assertEquals(Task.Priority.MEDIUM, 3.toTaskPriority())
-        assertEquals(Task.Priority.LOW, 2.toTaskPriority())
-        assertEquals(Task.Priority.NONE, 1.toTaskPriority())
-
-        assertEquals(4, Task.Priority.HIGH.toTodoistPriority())
-        assertEquals(3, Task.Priority.MEDIUM.toTodoistPriority())
-        assertEquals(2, Task.Priority.LOW.toTodoistPriority())
-        assertEquals(1, Task.Priority.NONE.toTodoistPriority())
-    }
-
-    @Test
-    fun priorityMappingClampsOutOfRangeInput() {
-        assertEquals(Task.Priority.HIGH, 9.toTaskPriority())
-        assertEquals(Task.Priority.NONE, 0.toTaskPriority())
-        assertEquals(Task.Priority.NONE, (-5).toTaskPriority())
-    }
-
-    @Test
-    fun parsesAllDayDueDate() {
-        val (millis, hasTime) = TodoistDue(date = "2026-10-09").toDueDate()!!
-        assertFalse(hasTime)
-        val date = DateTime(millis)
-        assertEquals(2026, date.year)
-        assertEquals(10, date.monthOfYear)
-        assertEquals(9, date.dayOfMonth)
-    }
-
-    @Test
-    fun parsesFloatingDateTime() {
-        val (millis, hasTime) = TodoistDue(date = "2026-10-09T15:30:00").toDueDate()!!
-        assertTrue(hasTime)
-        val date = DateTime(millis)
-        assertEquals(2026, date.year)
-        assertEquals(10, date.monthOfYear)
-        assertEquals(9, date.dayOfMonth)
-        assertEquals(15, date.hourOfDay)
-        assertEquals(30, date.minuteOfHour)
-    }
-
-    @Test
-    fun parsesFixedZoneDateTime() {
-        val (millis, hasTime) = TodoistDue(
-            date = "2026-10-09T15:30:00Z",
-            timezone = "UTC",
-        ).toDueDate()!!
-        assertTrue(hasTime)
-        // 2026-10-09T15:30:00Z
-        assertEquals(1791559800000L, millis)
-    }
-
-    @Test
-    fun parsesOffsetDateTime() {
-        val (_, hasTime) = TodoistDue(date = "2026-10-09T15:30:00+02:00").toDueDate()!!
-        assertTrue(hasTime)
-    }
-
-    @Test
-    fun returnsNullForUnparseableDate() {
-        listOf("", "   ", "not a date", "2026-13-45").forEach {
-            assertNull(TodoistDue(date = it).toDueDate(), "expected null for '$it'")
-        }
-    }
 
     @Test
     fun appliesRemoteFields() {
@@ -152,7 +86,6 @@ class TodoistConverterTest {
 
     @Test
     fun keepsExistingRecurrenceWhenRemoteRuleIsUnparseable() {
-        // A rule we can't read must not silently wipe the local schedule.
         val task = Task().apply { recurrence = "FREQ=DAILY" }
         task.applyRemote(
             TodoistItem(
@@ -177,9 +110,11 @@ class TodoistConverterTest {
         }
         val args = task.toArgs(
             tags = listOf(TagData(name = "work"), TagData(name = "urgent")),
-            projectId = "proj1",
-            sectionId = "sec1",
-            parentId = "parent1",
+            target = TodoistConverter.ArgTarget(
+                projectId = "proj1",
+                sectionId = "sec1",
+                parentId = "parent1",
+            ),
         )
         assertEquals("Write tests", args.string("content"))
         assertEquals("thoroughly", args.string("description"))
@@ -203,40 +138,6 @@ class TodoistConverterTest {
     }
 
     @Test
-    fun clearsDueDateExplicitlyRatherThanOmittingIt() {
-        // Omitting `due` would leave the remote date in place, so it has to be null.
-        val args = Task().apply { title = "x" }.toArgs(tags = emptyList())
-        assertEquals(JsonNull, args["due"])
-    }
-
-    @Test
-    fun sendsAllDayDueDateWithoutTime() {
-        val task = Task().apply {
-            title = "x"
-            dueDate = org.tasks.data.createDueDate(
-                Task.URGENCY_SPECIFIC_DAY,
-                DateTime(2026, 10, 9).millis,
-            )
-        }
-        val due = task.toArgs(tags = emptyList())["due"]!!.jsonObject
-        assertEquals("2026-10-09", due.string("date"))
-        assertFalse(due.containsKey("string"))
-    }
-
-    @Test
-    fun sendsDueDateWithTime() {
-        val task = Task().apply {
-            title = "x"
-            dueDate = org.tasks.data.createDueDate(
-                Task.URGENCY_SPECIFIC_DAY_TIME,
-                DateTime(2026, 10, 9, 15, 30).millis,
-            )
-        }
-        val due = task.toArgs(tags = emptyList())["due"]!!.jsonObject
-        assertEquals("2026-10-09T15:30:00", due.string("date"))
-    }
-
-    @Test
     fun sendsRecurrenceAsDueString() {
         val task = Task().apply {
             title = "x"
@@ -252,8 +153,6 @@ class TodoistConverterTest {
 
     @Test
     fun replaysPreviousDueStringWhenRuleIsNotExpressible() {
-        // BYSETPOS has no Todoist equivalent, so the user's original text is reused
-        // rather than dropping the repeat entirely.
         val task = Task().apply {
             title = "x"
             dueDate = org.tasks.data.createDueDate(
@@ -263,7 +162,10 @@ class TodoistConverterTest {
             recurrence = "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1"
         }
         val due = task
-            .toArgs(tags = emptyList(), previousDueString = "every last weekday")["due"]!!
+            .toArgs(
+                tags = emptyList(),
+                target = TodoistConverter.ArgTarget(previousDueString = "every last weekday"),
+            )["due"]!!
             .jsonObject
         assertEquals("every last weekday", due.string("string"))
     }

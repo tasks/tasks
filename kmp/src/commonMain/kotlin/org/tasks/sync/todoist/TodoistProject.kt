@@ -9,21 +9,12 @@ import kotlinx.serialization.json.JsonNames
 import org.tasks.data.Redacted
 import org.tasks.data.entity.CaldavCalendar
 
-/**
- * A Todoist project, which maps onto a [CaldavCalendar].
- *
- * Todoist projects nest (via [parentId]) and contain sections, neither of which Tasks
- * models. Nesting is flattened -- every project becomes a top-level list -- and
- * [org.tasks.sync.todoist.TodoistItem.sectionId] is preserved on round-trip so that
- * editing a task from Tasks doesn't move it out of its section.
- */
 @Serializable
 data class TodoistProject(
     val id: String,
     @Redacted
     @JsonNames("name")
     val name: String = "",
-    /** Todoist palette name, e.g. "berry_red". Not a hex value. */
     val color: String? = null,
     @SerialName("parent_id") val parentId: String? = null,
     @SerialName("child_order") val childOrder: Int = 0,
@@ -31,10 +22,6 @@ data class TodoistProject(
     @SerialName("is_archived") val isArchived: Boolean = false,
     @SerialName("is_favorite") val isFavorite: Boolean = false,
     @SerialName("is_shared") val isShared: Boolean = false,
-    /**
-     * The Inbox. Sync calls this `inbox_project`, some REST responses
-     * `is_inbox_project`.
-     */
     @SerialName("inbox_project")
     @JsonNames("is_inbox_project")
     val isInboxProject: Boolean = false,

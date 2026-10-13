@@ -57,7 +57,6 @@ class TodoistSyncResponseTest {
 
     @Test
     fun toleratesUnknownFields() {
-        // Todoist adds fields regularly; an unknown one must not fail the sync.
         val response = json.decodeFromString<TodoistSyncResponse>(
             """
             {
@@ -73,7 +72,6 @@ class TodoistSyncResponseTest {
 
     @Test
     fun acceptsRestFieldNamesForTheSameConcepts() {
-        // REST responses say is_completed/created_at where sync says checked/added_at.
         val item = json.decodeFromString<TodoistItem>(
             """{"id": "1", "content": "x", "is_completed": true, "created_at": "2026-01-01T00:00:00Z"}"""
         )
@@ -149,6 +147,9 @@ class TodoistSyncResponseTest {
         assertEquals("2995104339", response.tempIdMapping["temp-1"])
     }
 
+}
+
+class TodoistProjectTest {
     @Test
     fun projectAppliesOntoCalendar() {
         val calendar = org.tasks.data.entity.CaldavCalendar(account = "acct")
@@ -194,15 +195,12 @@ class TodoistColorsTest {
 
     @Test
     fun snapsArbitraryColorToNearestPaletteEntry() {
-        // Pure red is closest to the "red" entry.
         assertEquals("red", TodoistColors.toName(0xFFFF0000.toInt()))
         assertEquals("blue", TodoistColors.toName(0xFF3366FF.toInt()))
     }
 
     @Test
     fun greyscaleStaysGreyscale() {
-        // The palette has no dark neutral, so raw nearest-neighbour would map black
-        // onto a dark green. Achromatic input must stay achromatic.
         listOf(0xFF000000, 0xFF101010, 0xFF808080, 0xFFC0C0C0, 0xFFFFFFFF).forEach {
             val name = TodoistColors.toName(it.toInt())
             assertTrue(

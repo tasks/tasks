@@ -44,25 +44,7 @@ import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import javax.net.ssl.SSLException
 
-/**
- * Synchronizes a Todoist account.
- *
- * Structurally this follows [org.tasks.sync.microsoft.MicrosoftSynchronizer], but the
- * transport is different in two ways that shape the whole flow:
- *
- * 1. **The sync token is account-scoped, not list-scoped.** One `/sync` call returns
- *    changes across every project, so there is no per-list loop and the token lives on
- *    [CaldavAccount.syncToken] rather than [CaldavCalendar.ctag].
- * 2. **Writes are batched.** Every pending change becomes a command in a `commands`
- *    array, so a push is one round trip regardless of how many tasks changed, and the
- *    same response carries the resulting delta back.
- *
- * The delta semantics need care: a delta reports only what *changed*, so a task's
- * absence from [TodoistSyncResponse.items] means "unchanged", never "deleted".
- * Deletions arrive explicitly as `is_deleted`. Completed tasks are also absent from
- * both full and partial syncs, which is why reaping is so tightly guarded in
- * [reapMissingTasks].
- */
+@Suppress("LongParameterList", "TooManyFunctions")
 class TodoistSynchronizer(
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
@@ -96,9 +78,6 @@ class TodoistSynchronizer(
             }
             account.lastSync = currentTimeMillis()
             caldavDao.setLastSync(account.id, account.lastSync)
-            // The pull succeeded, so lastSync is honest, but a rejected write has to
-            // stay visible: it will otherwise retry forever with nothing in the UI to
-            // say why a task never left the device.
             setError(account, pushError ?: "")
         } catch (e: CancellationException) {
             throw e
@@ -125,24 +104,20 @@ class TodoistSynchronizer(
                 reporting.reportException(e)
             }
             setError(account, e.message)
-        } catch (e: Exception) {
+        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
             setError(account, e.message)
             reporting.reportException(e)
         }
     }
 
-    // Returns the first unrecoverable push error, or null if everything went up.
     private suspend fun synchronize(account: CaldavAccount): String? {
         val service = clientProvider.getService(account)
 
-        // Pull first so that a local push is built against current remote state.
         val token = account.syncToken?.takeIf { it.isNotBlank() } ?: TodoistService.FULL_SYNC
         var response = service.sync(syncToken = token)
         applyRemote(account, response)
         persistToken(account, response.syncToken)
 
-        // Push, then re-apply: the push response carries the server's view of
-        // everything we just wrote, including ids for newly created tasks.
         var pushError: String? = null
         var iteration = 0
         while (iteration++ < MAX_SYNC_ITERATIONS) {
@@ -182,9 +157,6 @@ class TodoistSynchronizer(
     private suspend fun applyRemote(account: CaldavAccount, response: TodoistSyncResponse) {
         val projects = applyProjects(account, response)
 
-        // Project id -> local list uuid. A task can arrive for a project we don't
-        // know about yet only if the delta is inconsistent, in which case skip it;
-        // the next full sync will pick it up.
         val lists = caldavDao
             .getCalendarsByAccount(account.uuid!!)
             .associateBy { it.uuid!! }
@@ -193,9 +165,6 @@ class TodoistSynchronizer(
             val (deleted, live) = response.items.partition { it.isDeleted }
             deleteItems(lists, deleted)
 
-            // Two passes so that a child whose parent arrives later in the same batch
-            // still resolves: pass one writes the tasks, pass two lets the DAO
-            // rebuild the hierarchy from the remote parent ids.
             val touchedLists = mutableSetOf<String>()
             live.forEach { item ->
                 val listUuid = item.projectId?.let { lists[it]?.uuid }
@@ -210,8 +179,6 @@ class TodoistSynchronizer(
             touchedLists.forEach { caldavDao.updateParents(it) }
         }
 
-        // Deliberately outside the items check: an empty `items` on a *full* sync is
-        // the "everything was deleted remotely" case and still has to be reaped.
         if (response.fullSync) {
             reapMissingTasks(account, lists.values, response.items)
         }
@@ -220,8 +187,6 @@ class TodoistSynchronizer(
         }
     }
 
-    // Archived projects are treated as gone: Todoist hides them, so leaving the list
-    // visible in Tasks would be misleading.
     private suspend fun applyProjects(
         account: CaldavAccount,
         response: TodoistSyncResponse,
@@ -239,9 +204,6 @@ class TodoistSynchronizer(
             }
         }
 
-        // On a full sync the response is authoritative, so anything local that isn't
-        // in it has gone away server-side. On a delta it is not, so deletions must
-        // come from `is_deleted` alone.
         if (response.fullSync) {
             val remoteIds = live.map { it.id }
             for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, remoteIds)) {
@@ -286,8 +248,6 @@ class TodoistSynchronizer(
                 val caldavTasks = if (listUuid != null) {
                     caldavDao.getTaskByRemoteId(listUuid, item.id)?.let { listOf(it) }.orEmpty()
                 } else {
-                    // A delete can arrive without a usable project id; fall back to
-                    // searching every list on the account.
                     lists.values.mapNotNull { caldavDao.getTaskByRemoteId(it.uuid!!, item.id) }
                 }
                 caldavTasks.map { it.task }
@@ -300,7 +260,6 @@ class TodoistSynchronizer(
         }
     }
 
-    // Returns true when the task was written, false when skipped as locally dirty.
     private suspend fun updateTask(list: CaldavCalendar, remote: TodoistItem): Boolean {
         val existing = caldavDao.getTaskByRemoteId(list.uuid!!, remote.id)
         val task = existing?.task?.let { taskDao.fetch(it) }
@@ -315,8 +274,6 @@ class TodoistSynchronizer(
             )
         val isNew = existing == null
         if (!isNew && dirtyDao.isDirty(caldavTask.id) == true) {
-            // Local edit not yet pushed. Leave it alone; buildPush will send it and
-            // the echoed result will reconcile on the next pass.
             Logger.d(TAG) { "Ignoring remote update for dirty taskId=${task.id}" }
             return false
         }
@@ -333,12 +290,6 @@ class TodoistSynchronizer(
         return true
     }
 
-    // Deletes local tasks that a *full* sync didn't mention.
-    //
-    // Guarded hard, because completed tasks are excluded from the `items` resource:
-    // reaping purely on absence would wipe every completed task on the account. Only
-    // tasks that are incomplete, previously synced, and not pending a local push are
-    // eligible.
     private suspend fun reapMissingTasks(
         account: CaldavAccount,
         lists: Collection<CaldavCalendar>,
@@ -357,8 +308,6 @@ class TodoistSynchronizer(
                     continue
                 }
                 if ((dirtyDao.getSyncedVersion(caldavTask.id) ?: 0L) == 0L) {
-                    // Never successfully pushed, so the server was never told about
-                    // it -- absence proves nothing.
                     continue
                 }
                 if (dirtyDao.isDirty(caldavTask.id) == true) {
@@ -366,7 +315,6 @@ class TodoistSynchronizer(
                 }
                 val task = taskDao.fetch(caldavTask.task) ?: continue
                 if (task.isCompleted) {
-                    // Expected: completed tasks are not returned by the API.
                     continue
                 }
                 reap.add(caldavTask.task)
@@ -382,24 +330,14 @@ class TodoistSynchronizer(
 
     // region push
 
-    /**
-     * A command about to be sent, paired with enough local context to reconcile the
-     * response.
-     */
     private data class Pending(
         val command: TodoistCommand,
         val caldavTaskId: Long,
         val dirtyVersion: Long,
         val taskId: Long,
         val calendar: String,
-        /** Set when this command creates the remote task. */
         val tempId: String? = null,
-        /** The local task is removed once the server confirms. */
         val deletesLocally: Boolean = false,
-        /**
-         * This is the remote half of a move to another list: the join row is dropped
-         * on success so the destination list recreates it.
-         */
         val dropsJoinRow: Boolean = false,
     )
 
@@ -408,8 +346,6 @@ class TodoistSynchronizer(
         val pending = mutableListOf<Pending>()
 
         for (list in lists) {
-            // A task dragged to another list is deleted remotely here and recreated
-            // by the destination list's own push.
             for (moved in caldavDao.getMoved(list.uuid!!)) {
                 val remoteId = moved.remoteId
                 if (remoteId.isNullOrBlank()) {
@@ -440,16 +376,12 @@ class TodoistSynchronizer(
         return pending
     }
 
-    // Orders parents ahead of their children so that a subtask can reference its
-    // parent's temp id within the same batch. DirtyDao.getTasksToPush only separates
-    // top-level from nested, which isn't enough for Todoist's arbitrary nesting depth.
     private fun List<TaskToPush>.sortedByDepth(): List<TaskToPush> {
         val byId = associateBy { it.task.id }
         val depths = mutableMapOf<Long, Int>()
         fun depth(id: Long, seen: Set<Long> = emptySet()): Int {
             depths[id]?.let { return it }
             if (id in seen) {
-                // Cycle -- shouldn't happen, but don't recurse forever.
                 return 0
             }
             val parent = byId[id]?.task?.parent ?: 0L
@@ -490,7 +422,6 @@ class TodoistSynchronizer(
         val task = taskToPush.task
         val remoteId = caldavTask.remoteId
         if (remoteId.isNullOrBlank() || taskToPush.syncedVersion == 0L) {
-            // Never reached the server; just drop it locally.
             taskDeleter.delete(taskDao.getChildren(task.id) + task.id)
             return emptyList()
         }
@@ -521,18 +452,18 @@ class TodoistSynchronizer(
                     tempId = tempId,
                     args = task.toArgs(
                         tags = tags,
-                        projectId = list.uuid,
-                        sectionId = cached?.sectionId,
-                        parentId = parentRemoteId,
-                        previousDueString = cached?.due?.string,
+                        target = TodoistConverter.ArgTarget(
+                            projectId = list.uuid,
+                            sectionId = cached?.sectionId,
+                            parentId = parentRemoteId,
+                            previousDueString = cached?.due?.string,
+                        ),
                     ),
                 ),
                 tempId = tempId,
             )
         )
         if (task.isCompleted) {
-            // item_add cannot create an already-completed task, so complete it in a
-            // follow-up command that references the temp id.
             commands.add(
                 pending(
                     list = list,
@@ -560,63 +491,63 @@ class TodoistSynchronizer(
                     uuid = todoistCommandId(),
                     args = task.toArgs(
                         tags = tags,
-                        remoteId = remoteId,
-                        sectionId = null,
-                        parentId = null,
-                        previousDueString = cached?.due?.string,
+                        target = TodoistConverter.ArgTarget(
+                            remoteId = remoteId,
+                            previousDueString = cached?.due?.string,
+                        ),
                     ),
                 ),
             )
         )
 
-        // Hierarchy and project moves are a separate command; item_update ignores
-        // parent_id and project_id.
-        val lastSyncedParent = caldavTask.remoteParent?.takeIf { it.isNotBlank() }
-        if (parentRemoteId != lastSyncedParent) {
-            commands.add(
-                pending(
-                    list = list,
-                    taskToPush = taskToPush,
-                    command = TodoistCommand(
-                        type = TodoistCommand.ITEM_MOVE,
-                        uuid = todoistCommandId(),
-                        args = buildJsonObject {
-                            put("id", remoteId)
-                            if (parentRemoteId != null) {
-                                put("parent_id", parentRemoteId)
-                            } else {
-                                put("project_id", list.uuid!!)
-                            }
-                        },
-                    ),
-                )
-            )
-        }
-
-        // Completion is also its own command pair.
-        val wasCompleted = cached?.checked ?: false
-        if (task.isCompleted != wasCompleted) {
-            commands.add(
-                pending(
-                    list = list,
-                    taskToPush = taskToPush,
-                    command = TodoistCommand(
-                        type = if (task.isCompleted) {
-                            TodoistCommand.ITEM_COMPLETE
-                        } else {
-                            TodoistCommand.ITEM_UNCOMPLETE
-                        },
-                        uuid = todoistCommandId(),
-                        args = buildJsonObject { put("id", remoteId) },
-                    ),
-                )
-            )
-        }
+        moveCommand(remoteId)?.let { commands.add(it) }
+        completionCommand(remoteId)?.let { commands.add(it) }
         return commands
     }
 
-    // What commandsFor resolves once up front so the per-shape builders below don't
-    // each have to take it as a long parameter list.
+    private fun PushContext.moveCommand(remoteId: String): Pending? {
+        val lastSyncedParent = caldavTask.remoteParent?.takeIf { it.isNotBlank() }
+        if (parentRemoteId == lastSyncedParent) {
+            return null
+        }
+        return pending(
+            list = list,
+            taskToPush = taskToPush,
+            command = TodoistCommand(
+                type = TodoistCommand.ITEM_MOVE,
+                uuid = todoistCommandId(),
+                args = buildJsonObject {
+                    put("id", remoteId)
+                    if (parentRemoteId != null) {
+                        put("parent_id", parentRemoteId)
+                    } else {
+                        put("project_id", list.uuid!!)
+                    }
+                },
+            ),
+        )
+    }
+
+    private fun PushContext.completionCommand(remoteId: String): Pending? {
+        val wasCompleted = cached?.checked ?: false
+        if (task.isCompleted == wasCompleted) {
+            return null
+        }
+        return pending(
+            list = list,
+            taskToPush = taskToPush,
+            command = TodoistCommand(
+                type = if (task.isCompleted) {
+                    TodoistCommand.ITEM_COMPLETE
+                } else {
+                    TodoistCommand.ITEM_UNCOMPLETE
+                },
+                uuid = todoistCommandId(),
+                args = buildJsonObject { put("id", remoteId) },
+            ),
+        )
+    }
+
     private class PushContext(
         val list: CaldavCalendar,
         val taskToPush: TaskToPush,
@@ -644,8 +575,6 @@ class TodoistSynchronizer(
         deletesLocally = deletesLocally,
     )
 
-    // Resolves this task's parent to something the server will accept: either an id
-    // it already knows, or the temp id of a create earlier in the same batch.
     private suspend fun parentReference(task: Task, earlier: List<Pending>): String? {
         if (task.parent <= 0L) {
             return null
@@ -656,13 +585,11 @@ class TodoistSynchronizer(
         return caldavDao.getTask(task.parent)?.remoteId?.takeIf { it.isNotBlank() }
     }
 
-    // The last-synced payload, used to preserve fields Tasks doesn't model.
     private suspend fun cachedItem(list: CaldavCalendar, caldavTask: CaldavTask): TodoistItem? =
         vtodoCache
             .getVtodo(list, caldavTask)
             ?.let { runCatching { json.decodeFromString<TodoistItem>(it) }.getOrNull() }
 
-    // Returns the first error that is not self-healing, or null.
     private suspend fun handlePushResult(
         chunk: List<Pending>,
         response: TodoistSyncResponse,
@@ -674,29 +601,31 @@ class TodoistSynchronizer(
                 TodoistSyncResponse.CommandResult.Missing -> {
                     Logger.w(TAG) { "No sync_status for ${item.command.type} ${item.command.uuid}" }
                 }
-                is TodoistSyncResponse.CommandResult.Error -> {
-                    if (result.isNotFound) {
-                        // Gone server-side. Mirror the Microsoft behaviour and drop
-                        // it locally rather than retrying forever.
-                        Logger.w(TAG) {
-                            "${item.command.type} for taskId=${item.taskId} gone remotely: ${result.message}"
-                        }
-                        taskDeleter.delete(taskDao.getChildren(item.taskId) + item.taskId)
-                    } else {
-                        Logger.e(TAG) {
-                            "${item.command.type} failed for taskId=${item.taskId}: ${result.message}"
-                        }
-                        reporting.reportException(
-                            IllegalStateException("Todoist ${item.command.type}: ${result.message}")
-                        )
-                        if (firstError == null) {
-                            firstError = "${item.command.type}: ${result.message}"
-                        }
-                    }
-                }
+                is TodoistSyncResponse.CommandResult.Error ->
+                    firstError = onPushFailed(item, result) ?: firstError
             }
         }
         return firstError
+    }
+
+    private suspend fun onPushFailed(
+        item: Pending,
+        result: TodoistSyncResponse.CommandResult.Error,
+    ): String? {
+        if (result.isNotFound) {
+            Logger.w(TAG) {
+                "${item.command.type} for taskId=${item.taskId} gone remotely: ${result.message}"
+            }
+            taskDeleter.delete(taskDao.getChildren(item.taskId) + item.taskId)
+            return null
+        }
+        Logger.e(TAG) {
+            "${item.command.type} failed for taskId=${item.taskId}: ${result.message}"
+        }
+        reporting.reportException(
+            IllegalStateException("Todoist ${item.command.type}: ${result.message}")
+        )
+        return "${item.command.type}: ${result.message}"
     }
 
     private suspend fun onPushSucceeded(item: Pending, response: TodoistSyncResponse) {
@@ -706,15 +635,11 @@ class TodoistSynchronizer(
         }
         val caldavTask = caldavDao.getCaldavTaskById(item.caldavTaskId)
         if (caldavTask == null) {
-            // Row went away mid-push (e.g. the list was deleted). Nothing to record.
             return
         }
         item.tempId?.let { tempId ->
             val assigned = response.tempIdMapping[tempId]
             if (assigned == null) {
-                // The API always returns a mapping for an accepted item_add, so this
-                // is a contract violation. Leave the row dirty and un-pushed rather
-                // than recording a task we can no longer address.
                 Logger.e(TAG) { "No id returned for temp_id $tempId on taskId=${item.taskId}" }
                 reporting.reportException(
                     IllegalStateException("Todoist item_add returned no temp_id mapping")
@@ -752,7 +677,6 @@ class TodoistSynchronizer(
         private const val TAG = "TodoistSynchronizer"
         private const val MAX_SYNC_ITERATIONS = 3
 
-        // Todoist rejects batches larger than this.
         private const val MAX_COMMANDS_PER_REQUEST = 100
 
         private val json = Json {

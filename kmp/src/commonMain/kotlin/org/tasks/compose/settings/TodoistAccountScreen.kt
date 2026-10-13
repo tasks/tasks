@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.viewmodel.TodoistAccountSettingsViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.discard
@@ -45,11 +46,6 @@ import tasks.kmp.generated.resources.todoist_api_token
 import tasks.kmp.generated.resources.todoist_api_token_description
 import tasks.kmp.generated.resources.todoist_api_token_help
 
-/**
- * Todoist authenticates with a bearer token. A personal API token can be pasted
- * straight from the user's integration settings, which works identically on Android,
- * desktop and iOS and needs no registered OAuth client.
- */
 data class TodoistAccountState(
     val token: String = "",
     val displayName: String = "",
@@ -66,27 +62,73 @@ data class TodoistAccountState(
         }
 }
 
+data class TodoistAccountActions(
+    val onTokenChange: (String) -> Unit,
+    val onNameChange: (String) -> Unit,
+    val onSave: () -> Unit,
+    val onDelete: () -> Unit,
+    val onNavigateBack: () -> Unit,
+    val onDiscardDialogChange: (Boolean) -> Unit,
+    val onDismissSnackbar: () -> Unit,
+    val onOpenTokenHelp: () -> Unit,
+)
+
+fun todoistAccountActions(
+    viewModel: TodoistAccountSettingsViewModel,
+    onNavigateBack: () -> Unit,
+    onDiscardDialogChange: (Boolean) -> Unit,
+    onOpenTokenHelp: () -> Unit,
+    onDelete: () -> Unit = {},
+) = TodoistAccountActions(
+    onTokenChange = viewModel::setToken,
+    onNameChange = viewModel::setDisplayName,
+    onSave = viewModel::save,
+    onDelete = onDelete,
+    onNavigateBack = onNavigateBack,
+    onDiscardDialogChange = onDiscardDialogChange,
+    onDismissSnackbar = viewModel::dismissSnackbar,
+    onOpenTokenHelp = onOpenTokenHelp,
+)
+
 @Composable
 fun TodoistAccountScreen(
     state: TodoistAccountState,
     isNewAccount: Boolean,
     accountName: String,
     showDiscardDialog: Boolean,
-    onTokenChange: (String) -> Unit,
-    onNameChange: (String) -> Unit,
-    onSave: () -> Unit,
-    onDelete: () -> Unit,
-    onNavigateBack: () -> Unit,
-    onDiscardDialogChange: (Boolean) -> Unit,
-    onDismissSnackbar: () -> Unit,
-    onOpenTokenHelp: () -> Unit,
+    actions: TodoistAccountActions,
 ) {
     var showDeleteDialog by rememberSaveable { mutableStateOf(false) }
 
     PlatformBackHandler(enabled = state.hasChanges) {
-        onDiscardDialogChange(true)
+        actions.onDiscardDialogChange(true)
     }
 
+    TodoistAccountContent(
+        state = state,
+        isNewAccount = isNewAccount,
+        accountName = accountName,
+        actions = actions,
+        onRequestDelete = { showDeleteDialog = true },
+    )
+
+    TodoistAccountDialogs(
+        accountName = accountName,
+        showDeleteDialog = showDeleteDialog,
+        showDiscardDialog = showDiscardDialog,
+        actions = actions,
+        onDeleteDialogChange = { showDeleteDialog = it },
+    )
+}
+
+@Composable
+private fun TodoistAccountContent(
+    state: TodoistAccountState,
+    isNewAccount: Boolean,
+    accountName: String,
+    actions: TodoistAccountActions,
+    onRequestDelete: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -109,10 +151,42 @@ fun TodoistAccountScreen(
             }
         }
 
+        TodoistTokenField(state = state, isNewAccount = isNewAccount, actions = actions)
+
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        if (!isNewAccount) {
+            Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
+                TextInputCard(
+                    value = state.displayName,
+                    onValueChange = actions.onNameChange,
+                    label = stringResource(Res.string.display_name),
+                    placeholder = accountName.ifEmpty { null },
+                )
+            }
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+        }
+
+        TodoistAccountActionRows(
+            state = state,
+            isNewAccount = isNewAccount,
+            actions = actions,
+            onRequestDelete = onRequestDelete,
+        )
+    }
+}
+
+@Composable
+private fun TodoistTokenField(
+    state: TodoistAccountState,
+    isNewAccount: Boolean,
+    actions: TodoistAccountActions,
+) {
+    Column {
         Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             TextInputCard(
                 value = state.token,
-                onValueChange = onTokenChange,
+                onValueChange = actions.onTokenChange,
                 label = stringResource(Res.string.todoist_api_token),
                 placeholder = if (!isNewAccount) "••••••••" else null,
                 error = state.tokenError,
@@ -138,25 +212,22 @@ fun TodoistAccountScreen(
                 PreferenceRow(
                     title = stringResource(Res.string.todoist_api_token_help),
                     icon = TasksIcons.OPEN_IN_NEW,
-                    onClick = onOpenTokenHelp,
+                    onClick = actions.onOpenTokenHelp,
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
+    }
+}
 
-        if (!isNewAccount) {
-            Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
-                TextInputCard(
-                    value = state.displayName,
-                    onValueChange = onNameChange,
-                    label = stringResource(Res.string.display_name),
-                    placeholder = accountName.ifEmpty { null },
-                )
-            }
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
-        }
-
+@Composable
+private fun TodoistAccountActionRows(
+    state: TodoistAccountState,
+    isNewAccount: Boolean,
+    actions: TodoistAccountActions,
+    onRequestDelete: () -> Unit,
+) {
+    Column {
         Column(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
             SettingsItemCard {
                 PreferenceRow(
@@ -165,7 +236,7 @@ fun TodoistAccountScreen(
                     ),
                     icon = if (isNewAccount) TasksIcons.LOGIN else TasksIcons.SAVE,
                     enabled = state.hasChanges && !state.isLoading,
-                    onClick = onSave,
+                    onClick = actions.onSave,
                 )
             }
         }
@@ -178,7 +249,7 @@ fun TodoistAccountScreen(
                     icon = TasksIcons.LOGOUT,
                     title = stringResource(Res.string.logout),
                     tint = MaterialTheme.colorScheme.error,
-                    onClick = { showDeleteDialog = true },
+                    onClick = onRequestDelete,
                 )
             }
         }
@@ -189,7 +260,7 @@ fun TodoistAccountScreen(
             Snackbar(
                 modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 action = {
-                    TextButton(onClick = onDismissSnackbar) {
+                    TextButton(onClick = actions.onDismissSnackbar) {
                         Text(text = stringResource(Res.string.ok))
                     }
                 },
@@ -199,9 +270,19 @@ fun TodoistAccountScreen(
         }
     }
 
+}
+
+@Composable
+private fun TodoistAccountDialogs(
+    accountName: String,
+    showDeleteDialog: Boolean,
+    showDiscardDialog: Boolean,
+    actions: TodoistAccountActions,
+    onDeleteDialogChange: (Boolean) -> Unit,
+) {
     if (showDeleteDialog) {
         AlertDialog(
-            onDismissRequest = { showDeleteDialog = false },
+            onDismissRequest = { onDeleteDialogChange(false) },
             title = {
                 Text(
                     text = stringResource(Res.string.logout_confirmation, accountName),
@@ -211,14 +292,14 @@ fun TodoistAccountScreen(
             text = { Text(text = stringResource(Res.string.logout_warning)) },
             confirmButton = {
                 TextButton(onClick = {
-                    showDeleteDialog = false
-                    onDelete()
+                    onDeleteDialogChange(false)
+                    actions.onDelete()
                 }) {
                     Text(text = stringResource(Res.string.logout))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { showDeleteDialog = false }) {
+                TextButton(onClick = { onDeleteDialogChange(false) }) {
                     Text(text = stringResource(Res.string.cancel))
                 }
             },
@@ -227,18 +308,18 @@ fun TodoistAccountScreen(
 
     if (showDiscardDialog) {
         AlertDialog(
-            onDismissRequest = { onDiscardDialogChange(false) },
+            onDismissRequest = { actions.onDiscardDialogChange(false) },
             title = { Text(text = stringResource(Res.string.discard_changes)) },
             confirmButton = {
                 TextButton(onClick = {
-                    onDiscardDialogChange(false)
-                    onNavigateBack()
+                    actions.onDiscardDialogChange(false)
+                    actions.onNavigateBack()
                 }) {
                     Text(text = stringResource(Res.string.discard))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { onDiscardDialogChange(false) }) {
+                TextButton(onClick = { actions.onDiscardDialogChange(false) }) {
                     Text(text = stringResource(Res.string.cancel))
                 }
             },

@@ -14,14 +14,6 @@ import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.installTodoist
 import org.tasks.security.KeyStoreEncryption
 
-/**
- * Desktop [TodoistClientProvider].
- *
- * Much simpler than [org.tasks.sync.microsoft.DesktopMicrosoftClientProvider]: a
- * Todoist personal API token doesn't expire, so there is no refresh, no token cache
- * and no 401-retry interceptor. The OkHttp engine is shared across clients; cookies
- * are disabled because the API is a pure bearer-token API.
- */
 class DesktopTodoistClientProvider(
     private val encryption: KeyStoreEncryption,
     private val okHttpClientFactory: OkHttpClientFactory,

@@ -576,6 +576,7 @@ class ApplicationModule {
     ): TodoistClientProvider = httpClientFactory.todoist
 
     @Provides
+    @Suppress("LongParameterList")
     fun providesTodoistSynchronizer(
         caldavDao: CaldavDao,
         taskDao: TaskDao,
@@ -700,6 +701,7 @@ class ApplicationModule {
 
     @Provides
     @Singleton
+    @Suppress("LongParameterList")
     fun providesApiListManager(
         caldavDao: CaldavDao,
         taskDeleter: TaskDeleter,

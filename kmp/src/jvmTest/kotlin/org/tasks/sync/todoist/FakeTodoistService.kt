@@ -19,52 +19,30 @@ import kotlinx.serialization.json.put
 import org.tasks.http.installTodoist
 import java.net.URLDecoder
 
-/**
- * A scripted Todoist endpoint.
- *
- * Driven through a real [TodoistService] over a [MockEngine], so tests exercise the
- * actual form encoding and JSON parsing rather than a hand-rolled stand-in. Responses
- * are built per request so that `sync_status` and `temp_id_mapping` can reference the
- * client-generated uuids the synchronizer invents at call time.
- */
 class FakeTodoistService {
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
 
-    private class Scripted(
+    data class Reply(
         val syncToken: String,
-        val fullSync: Boolean,
-        val projects: List<TodoistProject>,
-        val items: List<TodoistItem>,
-        val tempIdMapping: Map<String, String>,
-        val okAll: Boolean,
-        val errors: Map<String, Pair<Int, String>>,
+        val fullSync: Boolean = false,
+        val projects: List<TodoistProject> = emptyList(),
+        val items: List<TodoistItem> = emptyList(),
+        val tempIdMapping: Map<String, String> = emptyMap(),
+        val okAll: Boolean = true,
+        val errors: Map<String, Pair<Int, String>> = emptyMap(),
     )
 
-    private val queue = ArrayDeque<Scripted>()
+    private val queue = ArrayDeque<Reply>()
 
-    /** Sync tokens the client sent, in order. */
     val requestedTokens = mutableListOf<String>()
 
-    /** Commands the client sent, one list per request. */
     val commands = mutableListOf<List<TodoistCommand>>()
 
-    fun enqueue(
-        syncToken: String,
-        fullSync: Boolean = false,
-        projects: List<TodoistProject> = emptyList(),
-        items: List<TodoistItem> = emptyList(),
-        /**
-         * Keys are placeholders: the special key "temp" is rewritten to whichever
-         * temp_id the client actually generated for its first `item_add`.
-         */
-        tempIdMapping: Map<String, String> = emptyMap(),
-        okAll: Boolean = true,
-        errors: Map<String, Pair<Int, String>> = emptyMap(),
-    ) {
-        queue.addLast(
-            Scripted(syncToken, fullSync, projects, items, tempIdMapping, okAll, errors)
-        )
+    fun enqueue(reply: Reply) {
+        queue.addLast(reply)
     }
+
+    fun enqueue(syncToken: String) = enqueue(Reply(syncToken))
 
     fun asService(): TodoistService = TodoistService(
         HttpClient(
@@ -78,7 +56,7 @@ class FakeTodoistService {
                 commands.add(sent)
 
                 val scripted = queue.removeFirstOrNull()
-                    ?: Scripted("fallback", false, emptyList(), emptyList(), emptyMap(), true, emptyMap())
+                    ?: Reply("fallback")
                 respond(
                     content = json.encodeToString(scripted.toResponse(sent)),
                     status = HttpStatusCode.OK,
@@ -90,7 +68,7 @@ class FakeTodoistService {
         }
     )
 
-    private fun Scripted.toResponse(sent: List<TodoistCommand>): JsonObject {
+    private fun Reply.toResponse(sent: List<TodoistCommand>): JsonObject {
         val firstTempId = sent.firstNotNullOfOrNull { it.tempId }
         val mapping = tempIdMapping.mapKeys { (key, _) ->
             if (key == TEMP_PLACEHOLDER) firstTempId ?: key else key

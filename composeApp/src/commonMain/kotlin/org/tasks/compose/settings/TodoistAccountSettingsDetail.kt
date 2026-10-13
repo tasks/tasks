@@ -80,14 +80,13 @@ fun TodoistAccountSettingsDetail(
                 isNewAccount = false,
                 accountName = accountName,
                 showDiscardDialog = showDiscardDialog,
-                onTokenChange = viewModel::setToken,
-                onNameChange = viewModel::setDisplayName,
-                onSave = viewModel::save,
-                onDelete = { viewModel.delete(onNavigateBack) },
-                onNavigateBack = onNavigateBack,
-                onDiscardDialogChange = { showDiscardDialog = it },
-                onDismissSnackbar = viewModel::dismissSnackbar,
-                onOpenTokenHelp = { openUrl(TasksUrls.TODOIST_API_TOKEN) },
+                actions = todoistAccountActions(
+                    viewModel = viewModel,
+                    onNavigateBack = onNavigateBack,
+                    onDiscardDialogChange = { showDiscardDialog = it },
+                    onOpenTokenHelp = { openUrl(TasksUrls.TODOIST_API_TOKEN) },
+                    onDelete = { viewModel.delete(onNavigateBack) },
+                ),
             )
         }
     }

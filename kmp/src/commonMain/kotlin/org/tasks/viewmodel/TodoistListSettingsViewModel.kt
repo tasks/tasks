@@ -16,12 +16,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.network_error
 
-/**
- * Creates, renames and deletes Todoist projects.
- *
- * These go over the REST endpoints rather than sync commands because the UI needs the
- * created project back immediately.
- */
+@Suppress("LongParameterList")
 open class TodoistListSettingsViewModel(
     caldavDao: CaldavDao,
     taskDeleter: TaskDeleter,
@@ -60,8 +55,6 @@ open class TodoistListSettingsViewModel(
             icon = icon,
         ).apply {
             project.applyTo(this)
-            // Todoist snaps the color onto its own palette; keep what the user picked
-            // so the list looks the way they set it locally.
             this.color = color
         }
     }
@@ -97,7 +90,7 @@ open class TodoistListSettingsViewModel(
 
     private suspend fun isInbox(service: TodoistService, uuid: String): Boolean = try {
         service.getProject(uuid).isInboxProject
-    } catch (e: Exception) {
+    } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
         Logger.e(e) { "Failed to check Inbox project" }
         false
     }

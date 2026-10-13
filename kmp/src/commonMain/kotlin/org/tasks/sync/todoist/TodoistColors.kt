@@ -1,12 +1,5 @@
 package org.tasks.sync.todoist
 
-/**
- * Todoist exposes colors as palette *names*, while Tasks stores packed ARGB ints.
- *
- * Name to int is exact. Int to name picks the nearest palette entry by squared
- * distance in RGB, so a color chosen with Tasks' color wheel lands on something
- * recognisable rather than being dropped.
- */
 object TodoistColors {
     private const val OPAQUE = 0xFF000000.toInt()
 
@@ -14,7 +7,6 @@ object TodoistColors {
     private const val GREY = "grey"
     private const val TAUPE = "taupe"
 
-    /** The palette's neutral, and the fallback for anything unmatched. */
     const val DEFAULT_NAME = CHARCOAL
 
     private val PALETTE = linkedMapOf(
@@ -40,20 +32,12 @@ object TodoistColors {
         TAUPE to 0xccac93,
     )
 
-
-    /** @return packed opaque ARGB, or null if [name] isn't a known palette entry. */
     fun toArgb(name: String): Int? = PALETTE[name]?.let { it or OPAQUE }
 
-    // Palette entries with no meaningful hue. A grey input has to be matched against
-    // only these: the palette contains no dark neutral, so plain nearest-neighbour
-    // would map black onto a dark *green*, which is the closest by RGB distance but
-    // obviously wrong to a user who picked grey.
     private val ACHROMATIC = setOf(CHARCOAL, GREY, TAUPE)
 
-    // Below this max-min spread across channels, a color reads as grey.
     private const val CHROMA_THRESHOLD = 32
 
-    /** @return the nearest palette name, or [DEFAULT_NAME] when [argb] is unset/transparent. */
     fun toName(argb: Int): String {
         if (argb == 0) {
             return DEFAULT_NAME

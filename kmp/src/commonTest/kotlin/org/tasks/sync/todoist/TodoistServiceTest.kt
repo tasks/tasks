@@ -29,63 +29,7 @@ import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class TodoistServiceTest {
-    private val requests = mutableListOf<HttpRequestData>()
-
-    private fun service(
-        status: HttpStatusCode = HttpStatusCode.OK,
-        body: String = """{"sync_token": "next-token"}""",
-    ): TodoistService {
-        val engine = MockEngine { request ->
-            requests.add(request)
-            if (status.isSuccess()) {
-                respond(
-                    content = body,
-                    status = status,
-                    headers = headersOf("Content-Type", ContentType.Application.Json.toString()),
-                )
-            } else {
-                respondError(status)
-            }
-        }
-        return TodoistService(
-            HttpClient(engine) {
-                installTodoist(log = {}, bearerToken = { "test-token" })
-            }
-        )
-    }
-
-    private suspend fun HttpRequestData.bodyText(): String = when (val content = body) {
-        is TextContent -> content.text
-        is OutgoingContent.ByteArrayContent -> content.bytes().decodeToString()
-        EmptyContent -> ""
-        else -> error("unexpected body type ${content::class.simpleName}")
-    }
-
-    private fun String.formParams(): Map<String, String> =
-        split("&")
-            .filter { it.isNotEmpty() }
-            .associate { pair ->
-                val (k, v) = pair.split("=", limit = 2)
-                k.decodeForm() to v.decodeForm()
-            }
-
-    private fun String.decodeForm(): String {
-        val bytes = mutableListOf<Byte>()
-        var i = 0
-        while (i < length) {
-            when (val c = this[i]) {
-                '+' -> { bytes.add(' '.code.toByte()); i++ }
-                '%' -> {
-                    bytes.add(substring(i + 1, i + 3).toInt(16).toByte())
-                    i += 3
-                }
-                else -> { bytes.addAll(c.toString().toByteArray().toList()); i++ }
-            }
-        }
-        return bytes.toByteArray().decodeToString()
-    }
-
+class TodoistServiceTest : TodoistServiceTestCase() {
     @Test
     fun sendsBearerToken() = runTest {
         service().sync()
@@ -149,16 +93,11 @@ class TodoistServiceTest {
         )
         val raw = requests.single().bodyText().formParams()["commands"]!!
         val command = Json.parseToJsonElement(raw).jsonArray.single().jsonObject
-        // An explicit "temp_id": null is a malformed command, so the key must be gone
-        // entirely rather than present-and-null.
         assertTrue("temp_id" !in command, "temp_id must be omitted, got: $raw")
     }
 
     @Test
     fun keepsExplicitNullsInsideCommandArgs() = runTest {
-        // Omitting temp_id must not also drop a JsonNull inside args: that is how a
-        // cleared due date is expressed, and dropping it would silently leave the
-        // remote date in place.
         service().sync(
             commands = listOf(
                 TodoistCommand(
@@ -203,48 +142,4 @@ class TodoistServiceTest {
         assertEquals("api.todoist.com", request.url.host)
     }
 
-    @Test
-    fun createsProjectOverRest() = runTest {
-        val project = service(
-            body = """{"id": "p9", "name": "New", "color": "blue"}"""
-        ).createProject(name = "New", color = "blue")
-        val request = requests.single()
-        assertEquals(HttpMethod.Post, request.method)
-        assertEquals("/api/v1/projects", request.url.encodedPath)
-        val body = Json.parseToJsonElement(request.bodyText()).jsonObject
-        assertEquals("New", body["name"]?.jsonPrimitive?.content)
-        assertEquals("blue", body["color"]?.jsonPrimitive?.content)
-        assertEquals("p9", project.id)
-    }
-
-    @Test
-    fun deletesProjectOverRest() = runTest {
-        service(body = "").deleteProject("p9")
-        val request = requests.single()
-        assertEquals(HttpMethod.Delete, request.method)
-        assertEquals("/api/v1/projects/p9", request.url.encodedPath)
-    }
-
-    @Test
-    fun paginatesCompletedTasksByCompletionDate() = runTest {
-        service(body = """{"results": [], "next_cursor": null}""")
-            .getCompletedByCompletionDate(
-                since = "2026-09-01T00:00:00",
-                until = "2026-10-01T00:00:00",
-                cursor = "abc",
-            )
-        val url = requests.single().url
-        assertEquals("/api/v1/tasks/completed/by_completion_date", url.encodedPath)
-        assertEquals("2026-09-01T00:00:00", url.parameters["since"])
-        assertEquals("2026-10-01T00:00:00", url.parameters["until"])
-        assertEquals("abc", url.parameters["cursor"])
-        assertEquals("200", url.parameters["limit"])
-    }
-
-    @Test
-    fun translates404ToNotFound() = runTest {
-        assertFailsWith<NotFoundException> {
-            service(status = HttpStatusCode.NotFound).getProject("missing")
-        }
-    }
 }

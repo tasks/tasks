@@ -34,14 +34,8 @@ import tasks.kmp.generated.resources.network_error
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.todoist
 
-/**
- * Adds or re-authenticates a Todoist account from a pasted API token.
- *
- * The token is verified against the API before anything is written, so a typo fails
- * here rather than turning into a silently broken account that only reports an error
- * on the next background sync.
- */
 @OptIn(ExperimentalCoroutinesApi::class)
+@Suppress("TooManyFunctions")
 open class TodoistAccountSettingsViewModel(
     private val caldavDao: CaldavDao,
     private val clientProvider: TodoistClientProvider,
@@ -102,34 +96,31 @@ open class TodoistAccountSettingsViewModel(
         val name = current.displayName.trim()
 
         if (token.isEmpty()) {
-            if (existing == null) {
-                _state.update { it.copy(tokenError = getString(Res.string.password_required)) }
-                return
-            }
-            // Editing an existing account and leaving the token blank means "keep the
-            // current one"; only the display name changed.
-            caldavDao.update(existing.apply { this.name = name.ifEmpty { null } })
-            _finished.value = true
+            saveWithoutNewToken(existing, name)
             return
         }
+        applyNewToken(existing, token, name)
+    }
 
+    private suspend fun saveWithoutNewToken(existing: CaldavAccount?, name: String) {
+        if (existing == null) {
+            _state.update { it.copy(tokenError = getString(Res.string.password_required)) }
+            return
+            }
+        caldavDao.update(existing.apply { this.name = name.ifEmpty { null } })
+        _finished.value = true
+    }
+
+    private suspend fun applyNewToken(existing: CaldavAccount?, token: String, name: String) {
         _state.update { it.copy(isLoading = true, tokenError = null, snackbar = null) }
         try {
             val accountName = verify(token) ?: name.ifEmpty { getString(Res.string.todoist) }
             val encrypted = encryption.encrypt(token)
                 ?: error("Could not encrypt token")
             if (existing == null) {
-                insert(accountName = name.ifEmpty { accountName }, encrypted = encrypted)
+                insertAccount(name.ifEmpty { accountName }, encrypted)
             } else {
-                // A new token invalidates the stored sync cursor: it may belong to a
-                // different Todoist account entirely, in which case replaying the old
-                // cursor would mix two accounts' data together.
-                caldavDao.setPassword(existing.id, encrypted)
-                caldavDao.setSyncToken(existing.id, null)
-                caldavDao.setError(existing.id, "")
-                if (name.isNotEmpty() && name != existing.name) {
-                    caldavDao.update(existing.apply { this.name = name })
-                }
+                reauthenticate(existing, encrypted, name)
             }
             _finished.value = true
         } catch (e: CancellationException) {
@@ -148,7 +139,7 @@ open class TodoistAccountSettingsViewModel(
             }
         } catch (e: ConnectionException) {
             _state.update { it.copy(snackbar = getString(Res.string.network_error)) }
-        } catch (e: Exception) {
+        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
             Logger.e(e) { "Todoist sign-in failed" }
             reporting.reportException(e)
             _state.update {
@@ -164,21 +155,7 @@ open class TodoistAccountSettingsViewModel(
         }
     }
 
-    // Confirms the token works and derives a display name from the account.
-    //
-    // Requests only `projects`, not the full dataset, so validating a token on a large
-    // account isn't an expensive full sync.
-    private suspend fun verify(token: String): String? {
-        val response = clientProvider
-            .getService(token)
-            .sync(
-                syncToken = TodoistService.FULL_SYNC,
-                resourceTypes = listOf(TodoistResourceTypes.PROJECTS),
-            )
-        return response.projects.firstOrNull { it.isInboxProject }?.name
-    }
-
-    private suspend fun insert(accountName: String, encrypted: String) {
+    private suspend fun insertAccount(accountName: String, encrypted: String) {
         caldavDao.insert(
             CaldavAccount(
                 accountType = CaldavAccount.TYPE_TODOIST,
@@ -192,6 +169,29 @@ open class TodoistAccountSettingsViewModel(
             AnalyticsEvents.SYNC_ADD_ACCOUNT,
             AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_TODOIST,
         )
+    }
+
+    private suspend fun reauthenticate(
+        existing: CaldavAccount,
+        encrypted: String,
+        name: String,
+    ) {
+        caldavDao.setPassword(existing.id, encrypted)
+        caldavDao.setSyncToken(existing.id, null)
+        caldavDao.setError(existing.id, "")
+        if (name.isNotEmpty() && name != existing.name) {
+            caldavDao.update(existing.apply { this.name = name })
+        }
+    }
+
+    private suspend fun verify(token: String): String? {
+        val response = clientProvider
+            .getService(token)
+            .sync(
+                syncToken = TodoistService.FULL_SYNC,
+                resourceTypes = listOf(TodoistResourceTypes.PROJECTS),
+            )
+        return response.projects.firstOrNull { it.isInboxProject }?.name
     }
 
     fun delete(onComplete: () -> Unit) {
