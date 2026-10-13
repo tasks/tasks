@@ -687,4 +687,5 @@
     <string name="mcp_hide">隐藏</string>
     <string name="mcp_clipboard_note">您在此处复制的任何内容都包含令牌，并在一分钟后从剪贴板中清除。</string>
     <string name="subscription_required">需要订阅</string>
+    <string name="upgrade">升级</string>
 </resources>
