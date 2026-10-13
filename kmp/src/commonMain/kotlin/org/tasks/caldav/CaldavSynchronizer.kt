@@ -34,6 +34,7 @@ import tasks.kmp.generated.resources.subscription_required
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
 import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
 import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
+import org.tasks.analytics.AnalyticsEvents.SYNC_NOT_FOUND
 import org.tasks.analytics.AnalyticsEvents.SYNC_UNKNOWN_ACCESS
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
@@ -85,6 +86,8 @@ import kotlinx.io.IOException
 
 private const val TAG = "CaldavSync"
 
+private class HomeSetNotFound(val notFound: HttpException) : Exception(notFound)
+
 class CaldavSynchronizer(
     private val caldavDao: CaldavDao,
     private val dirtyDao: DirtyDao,
@@ -135,6 +138,14 @@ class CaldavSynchronizer(
             setError(account, e)
         } catch (e: NetworkException) {
             setError(account, e)
+        } catch (e: HomeSetNotFound) {
+            reporting.logEventOncePerDay(
+                event = SYNC_NOT_FOUND,
+                dedupeBy = account.uuid!!,
+                PARAM_TYPE to account.serverType,
+            )
+            Logger.e(e.notFound) { "$account: ${e.notFound.message}" }
+            setError(account, e.notFound.displayMessage)
         } catch (e: HttpException) {
             when(e.statusCode) {
                 402, 405, 451, in 500..599 -> {}
@@ -163,10 +174,14 @@ class CaldavSynchronizer(
             }
         } else false
 
-        val resources = caldavClient.calendars { headers ->
-            if (serverType == SERVER_UNKNOWN) {
-                serverType = getServerType(account, headers)
+        val resources = try {
+            caldavClient.calendars { headers ->
+                if (serverType == SERVER_UNKNOWN) {
+                    serverType = getServerType(account, headers)
+                }
             }
+        } catch (e: HttpException) {
+            throw if (e.statusCode == 404) HomeSetNotFound(e) else e
         }
         if (serverType != account.serverType) {
             account.serverType = serverType

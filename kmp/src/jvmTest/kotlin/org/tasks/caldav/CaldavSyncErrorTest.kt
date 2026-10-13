@@ -8,12 +8,16 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyBlocking
 import org.tasks.DatabaseTest
 import org.tasks.InMemoryDataStore
+import org.tasks.analytics.AnalyticsEvents.SYNC_NOT_FOUND
 import org.tasks.analytics.Reporting
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
@@ -71,6 +75,17 @@ class CaldavSyncErrorTest : DatabaseTest() {
 
         assertEquals("HTTP 400 - Bad Request", caldavDao.getAccountByUuid("account")!!.error)
         verify(reporting).reportException(any(), any())
+    }
+
+    @Test
+    fun `a home set the server no longer has is logged but not reported`() = runBlocking {
+        server.enqueue(MockResponse().setResponseCode(404))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertEquals("HTTP 404 - Not Found", caldavDao.getAccountByUuid("account")!!.error)
+        verify(reporting, never()).reportException(any(), any())
+        verifyBlocking(reporting) { logEventOncePerDay(eq(SYNC_NOT_FOUND), eq("account"), anyVararg()) }
     }
 
     @Test

@@ -38,6 +38,7 @@ object AnalyticsEvents {
     const val SETTINGS_CLICK = "settings_click"
     const val SORT_CHANGE = "sort_change"
     const val SYNC_ADD_ACCOUNT = "sync_add_account"
+    const val SYNC_NOT_FOUND = "sync_not_found"
     const val SYNC_UNKNOWN_ACCESS = "sync_unknown_access"
 
     const val PARAM_FROM_BACKGROUND = "from_background"
