@@ -712,4 +712,6 @@
     <string name="sign_in_with_apple">Se connecter avec Apple</string>
     <string name="new_place">Créer un nouveau lieu</string>
     <string name="subscription_required">Abonnement requis</string>
+    <string name="supporter">Soutien de Tasks.org</string>
+    <string name="upgrade">Mettre à niveau</string>
 </resources>
