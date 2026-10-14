@@ -286,6 +286,7 @@
     <string name="desktop">Desktop</string>
     <string name="works_with_kvaesitso_description">Search your tasks and see them in the calendar widget</string>
     <string name="works_with_ksync_description">Synchronize with your Infomaniak account</string>
+    <string name="works_with_davsky_description">Synchronize your tasks with the DAVsky app</string>
     <string name="works_with_cloud_description">Sync your tasks across all your devices</string>
     <string name="works_with_nextcloud_description">Sync with the Nextcloud Tasks app</string>
     <string name="works_with_thunderbird_description">Sync your tasks to Thunderbird over CalDAV</string>
