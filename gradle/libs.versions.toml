@@ -1,5 +1,5 @@
 [versions]
-applicationId = "org.tasks"
+applicationId = "org.tasks.smsbridge"
 agp = "9.4.1"
 android-compileSdk = "37"
 android-minSdk = "26"
@@ -116,6 +116,8 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 androidx-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidx-uiautomator" }
 androidx-work = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
+javamail-android = { module = "com.sun.mail:android-mail", version = "1.6.7" }
+javamail-activation = { module = "com.sun.mail:android-activation", version = "1.6.7" }
 appauth = { module = "net.openid:appauth", version.ref = "appauth" }
 dav4kmp = { module = "org.tasks:dav4kmp", version = "1.0.0-beta01" }
 bitfire-ical4android = { module = "com.github.tasks:ical4android", version.ref = "ical4android"}

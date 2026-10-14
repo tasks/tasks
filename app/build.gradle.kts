@@ -259,6 +259,8 @@ dependencies {
     implementation(libs.google.api.drive)
     implementation(libs.google.oauth2)
     implementation(libs.androidx.work)
+    implementation(libs.javamail.android)
+    implementation(libs.javamail.activation)
     implementation(libs.etebase)
     implementation(libs.colorpicker)
     implementation(libs.appauth)

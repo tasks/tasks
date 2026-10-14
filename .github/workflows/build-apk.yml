@@ -1,0 +1,20 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-gradle
+      - name: Build generic (no Google services) debug APK
+        run: ./gradlew app:assembleGenericDebug --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tasks-smsbridge-apk
+          path: app/build/outputs/apk/generic/debug/*.apk

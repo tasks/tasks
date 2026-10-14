@@ -111,6 +111,13 @@ class Notifier @Inject constructor(
 
         notificationManager.notifyTasks(notifications, true, ringNonstop, ringFiveTimes)
 
+        // Also text the user via their carrier email-to-SMS gateway (if configured).
+        notifications.forEach { entry ->
+            taskDao.fetch(entry.taskId)?.title?.takeIf { it.isNotBlank() }?.let { title ->
+                org.tasks.smsgateway.SmsGateway.sendOrQueue(context, "Reminder: $title")
+            }
+        }
+
         if (preferences.getBoolean(R.string.p_voiceRemindersEnabled, false)
                 && !ringNonstop
                 && !audioManager.notificationsMuted()

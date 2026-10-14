@@ -1067,6 +1067,17 @@
       android:name="android.app.appfunctions.app_metadata"
       android:resource="@xml/app_metadata" />
 
+    <activity
+      android:name="org.tasks.smsgateway.SmsGatewaySettingsActivity"
+      android:exported="true"
+      android:label="Task Texts Setup"
+      android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
