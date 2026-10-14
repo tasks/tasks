@@ -11,6 +11,7 @@ enum class OpenTaskProvider(
     ETESYNC("com.etesync.syncadapter", "com.etesync.syncadapter", "EteSync", "etesync_ot"),
     DECSYNC("org.decsync.tasks", "org.decsync.cc", "DecSync CC", "decsync"),
     KSYNC("infomaniak.com.sync", "com.infomaniak.sync", "kSync", "ksync"),
+    DAVSKY("com.rypox.davsky", "com.rypox.davsky", "DAVsky", "davsky"),
     ;
 
     companion object {

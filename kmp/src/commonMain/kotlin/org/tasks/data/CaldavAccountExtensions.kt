@@ -7,10 +7,12 @@ import org.tasks.data.entity.CaldavAccount.Companion.openTaskProvider
 import org.tasks.data.entity.OpenTaskProvider
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.caldav
+import tasks.kmp.generated.resources.davsky
 import tasks.kmp.generated.resources.davx5
 import tasks.kmp.generated.resources.decsync
 import tasks.kmp.generated.resources.etesync
 import tasks.kmp.generated.resources.gtasks_GPr_header
+import tasks.kmp.generated.resources.ic_davsky
 import tasks.kmp.generated.resources.ic_davx5_icon_blue_bg
 import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
 import tasks.kmp.generated.resources.ic_decsync
@@ -36,6 +38,7 @@ val OpenTaskProvider.titleRes: StringResource
         OpenTaskProvider.ETESYNC -> Res.string.etesync
         OpenTaskProvider.DECSYNC -> Res.string.decsync
         OpenTaskProvider.KSYNC -> Res.string.ksync
+        OpenTaskProvider.DAVSKY -> Res.string.davsky
     }
 
 val OpenTaskProvider.iconRes: DrawableResource
@@ -45,6 +48,7 @@ val OpenTaskProvider.iconRes: DrawableResource
         OpenTaskProvider.ETESYNC -> Res.drawable.ic_etesync
         OpenTaskProvider.DECSYNC -> Res.drawable.ic_decsync
         OpenTaskProvider.KSYNC -> Res.drawable.ic_ksync
+        OpenTaskProvider.DAVSKY -> Res.drawable.ic_davsky
     }
 
 val CaldavAccount.openTaskApp: OpenTaskApp?
