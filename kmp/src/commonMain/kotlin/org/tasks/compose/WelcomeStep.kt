@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.windowInsetsTopHeight
@@ -75,6 +77,17 @@ import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.sign_in_with_google
 import tasks.kmp.generated.resources.tasks_org
 
+private val MinimumContentInsets = WindowInsets(
+    left = 24.dp,
+    top = 24.dp,
+    right = 24.dp,
+    bottom = 24.dp,
+)
+
+@Composable
+private fun contentInsets(sides: WindowInsetsSides): WindowInsets =
+    WindowInsets.safeContent.only(sides).union(MinimumContentInsets.only(sides))
+
 @Composable
 internal fun WelcomeStep(
     showConfetti: Boolean,
@@ -101,7 +114,10 @@ internal fun WelcomeStep(
             if (isCompact) {
                 Row(
                     modifier = Modifier
-                        .fillMaxSize(),
+                        .align(Alignment.Center)
+                        .fillMaxHeight()
+                        .widthIn(max = OnboardingContentWidth * 2)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(24.dp),
                 ) {
@@ -132,6 +148,7 @@ internal fun WelcomeStep(
                 ) {
                     WelcomeHeader(
                         modifier = Modifier
+                            .widthIn(max = OnboardingContentWidth)
                             .fillMaxWidth()
                             .padding(top = 24.dp),
                     )
@@ -143,7 +160,9 @@ internal fun WelcomeStep(
                         onSignIn = onSignIn,
                         onClose = onClose,
                         insetSides = WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal,
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .widthIn(max = OnboardingContentWidth)
+                            .fillMaxWidth(),
                     )
                 }
             }
@@ -192,7 +211,7 @@ internal fun WelcomeStep(
 private fun WelcomeHeader(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.windowInsetsPadding(
-            WindowInsets.safeContent.only(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
+            contentInsets(WindowInsetsSides.Top + WindowInsetsSides.Horizontal)
         ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -225,7 +244,7 @@ private fun WelcomeBody(
     Column(
         modifier = modifier
             .fillMaxHeight()
-            .windowInsetsPadding(WindowInsets.safeContent.only(insetSides)),
+            .windowInsetsPadding(contentInsets(insetSides)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -325,6 +344,7 @@ private fun FaqItem(
 @Preview(showBackground = true, name = "Welcome - Light")
 @Preview(showBackground = true, uiMode = PREVIEW_NIGHT_MODE, name = "Welcome - Dark")
 @Preview(showBackground = true, name = "Welcome - Compact", widthDp = 720, heightDp = 360)
+@Preview(showBackground = true, name = "Welcome - Wide", widthDp = 1280, heightDp = 900)
 @Composable
 private fun WelcomeStepPreview() {
     TasksTheme {

@@ -2,6 +2,7 @@ package org.tasks.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -35,40 +37,47 @@ internal fun CreateListStep(
     onCreateList: () -> Unit,
 ) {
     Scaffold { padding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            contentAlignment = Alignment.TopCenter,
         ) {
-            Spacer(Modifier.height(24.dp))
-            Image(
-                painter = painterResource(Res.drawable.ic_round_icon),
-                contentDescription = stringResource(Res.string.tasks_org),
-                modifier = Modifier.size(80.dp),
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(
-                text = stringResource(Res.string.cloud_onboarding_create_list_title),
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(
-                text = stringResource(Res.string.cloud_onboarding_create_list_body),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(Modifier.height(24.dp))
-            Button(
-                onClick = onCreateList,
-                modifier = Modifier.fillMaxWidth(),
+            Column(
+                modifier = Modifier
+                    .widthIn(max = OnboardingContentWidth)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text(text = stringResource(Res.string.create_a_list))
+                Spacer(Modifier.height(24.dp))
+                Image(
+                    painter = painterResource(Res.drawable.ic_round_icon),
+                    contentDescription = stringResource(Res.string.tasks_org),
+                    modifier = Modifier.size(80.dp),
+                )
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(Res.string.cloud_onboarding_create_list_title),
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(Res.string.cloud_onboarding_create_list_body),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(Modifier.height(24.dp))
+                Button(
+                    onClick = onCreateList,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(text = stringResource(Res.string.create_a_list))
+                }
             }
         }
     }
@@ -76,6 +85,7 @@ internal fun CreateListStep(
 
 @Preview(showBackground = true, name = "Create list - Light")
 @Preview(showBackground = true, uiMode = PREVIEW_NIGHT_MODE, name = "Create list - Dark")
+@Preview(showBackground = true, name = "Create list - Wide", widthDp = 1200, heightDp = 800)
 @Composable
 private fun CreateListStepPreview() {
     TasksTheme {
