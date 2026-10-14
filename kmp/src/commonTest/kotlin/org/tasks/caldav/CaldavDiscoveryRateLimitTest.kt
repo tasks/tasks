@@ -14,6 +14,8 @@ import kotlin.test.assertFailsWith
 
 class CaldavDiscoveryRateLimitTest {
     private val root = "https://caldav.example.com/dav/"
+    private val rootPath = "/dav/"
+    private val wellKnownPath = "/.well-known/caldav"
 
     private suspend fun withResponses(
         vararg responses: Pair<HttpStatusCode, String>,
@@ -38,7 +40,7 @@ class CaldavDiscoveryRateLimitTest {
         withResponses(HttpStatusCode.TooManyRequests to "") { client, paths ->
             val error = assertFailsWith<HttpException> { client.homeSet() }
             assertEquals(429, error.code)
-            assertEquals(listOf("/dav/"), paths)
+            assertEquals(listOf(rootPath), paths)
         }
     }
 
@@ -47,7 +49,7 @@ class CaldavDiscoveryRateLimitTest {
         withResponses(HttpStatusCode.NotFound to "", HttpStatusCode.TooManyRequests to "") { client, paths ->
             val error = assertFailsWith<HttpException> { client.homeSet() }
             assertEquals(429, error.code)
-            assertEquals(listOf("/dav/", "/.well-known/caldav"), paths)
+            assertEquals(listOf(rootPath, wellKnownPath), paths)
         }
     }
 
@@ -60,7 +62,7 @@ class CaldavDiscoveryRateLimitTest {
         ) { client, paths ->
             val error = assertFailsWith<HttpException> { client.homeSet() }
             assertEquals(429, error.code)
-            assertEquals(listOf("/dav/", "/.well-known/caldav", "/dav/"), paths)
+            assertEquals(listOf(rootPath, wellKnownPath, rootPath), paths)
         }
     }
 
@@ -72,7 +74,7 @@ class CaldavDiscoveryRateLimitTest {
             HttpStatusCode.MultiStatus to multistatus("<c:calendar-home-set><d:href>/calendars/user/</d:href></c:calendar-home-set>"),
         ) { client, paths ->
             assertEquals("https://caldav.example.com/calendars/user/", client.homeSet())
-            assertEquals(listOf("/dav/", "/.well-known/caldav", "/principals/user/"), paths)
+            assertEquals(listOf(rootPath, wellKnownPath, "/principals/user/"), paths)
         }
     }
 
