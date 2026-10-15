@@ -12,11 +12,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
-import at.bitfire.cert4android.CustomCertStore
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.compose.settings.DebugScreen
-import org.tasks.extensions.Context.toast
 import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
@@ -50,10 +48,6 @@ class Debug : Fragment() {
                 onCrashOnViolation = { viewModel.updateCrashOnViolation(it) },
                 onUnlockPro = { viewModel.updateUnlockPro(it) },
                 onShowDebugFilters = { viewModel.updateShowDebugFilters(it) },
-                onResetSsl = {
-                    CustomCertStore.getInstance(requireContext()).clearUserDecisions()
-                    context?.toast("SSL certificates reset")
-                },
                 onCrashApp = {
                     throw RuntimeException("Crashed app from debug preferences")
                 },

@@ -31,7 +31,6 @@ fun DebugScreen(
     onCrashOnViolation: (Boolean) -> Unit,
     onUnlockPro: (Boolean) -> Unit,
     onShowDebugFilters: (Boolean) -> Unit,
-    onResetSsl: () -> Unit,
     onCrashApp: () -> Unit,
     onRestartApp: () -> Unit,
     onIap: () -> Unit,
@@ -96,12 +95,6 @@ fun DebugScreen(
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
         ) {
             SettingsItemCard(position = CardPosition.First) {
-                PreferenceRow(
-                    title = stringResource(R.string.debug_reset_ssl),
-                    onClick = onResetSsl,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
                 PreferenceRow(
                     title = stringResource(R.string.debug_crash_app),
                     onClick = onCrashApp,

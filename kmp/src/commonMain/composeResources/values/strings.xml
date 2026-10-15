@@ -695,4 +695,7 @@
     <string name="theme_day_night">Day/Night</string>
     <string name="theme_system_default">System default</string>
     <string name="subscription_required">Subscription required</string>
+    <string name="reset_trusted_certificates">Reset trusted certificates</string>
+    <string name="reset_trusted_certificates_summary">Forget certificates and certificate authorities you accepted for servers</string>
+    <string name="trusted_certificates_reset">Trusted certificates reset</string>
 </resources>

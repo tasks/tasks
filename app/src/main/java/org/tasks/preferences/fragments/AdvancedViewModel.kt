@@ -51,6 +51,8 @@ class AdvancedViewModel @Inject constructor(
         private set
     var showResetDialog by mutableStateOf(false)
         private set
+    var showResetCertificatesDialog by mutableStateOf(false)
+        private set
     var showDeleteDataDialog by mutableStateOf(false)
         private set
     var badgesEnabled by mutableStateOf(false)
@@ -114,6 +116,8 @@ class AdvancedViewModel @Inject constructor(
     fun dismissDeleteAllDialog() { showDeleteAllDialog = false }
     fun openResetDialog() { showResetDialog = true }
     fun dismissResetDialog() { showResetDialog = false }
+    fun openResetCertificatesDialog() { showResetCertificatesDialog = true }
+    fun dismissResetCertificatesDialog() { showResetCertificatesDialog = false }
     fun openDeleteDataDialog() { showDeleteDataDialog = true }
     fun dismissDeleteDataDialog() { showDeleteDataDialog = false }
 

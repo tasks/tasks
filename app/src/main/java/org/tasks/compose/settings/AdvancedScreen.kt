@@ -16,8 +16,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import org.tasks.R
 import org.tasks.themes.TasksIcons
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.reset_trusted_certificates
+import tasks.kmp.generated.resources.reset_trusted_certificates_summary
 
 @Composable
 fun AdvancedScreen(
@@ -34,6 +38,7 @@ fun AdvancedScreen(
     onDeleteCompletedEvents: () -> Unit,
     onDeleteAllEvents: () -> Unit,
     onResetPreferences: () -> Unit,
+    onResetTrustedCertificates: () -> Unit,
     onDeleteTaskData: () -> Unit,
 ) {
     Column(
@@ -139,6 +144,13 @@ fun AdvancedScreen(
                 PreferenceRow(
                     title = stringResource(R.string.EPr_reset_preferences),
                     onClick = onResetPreferences,
+                )
+            }
+            SettingsItemCard(position = CardPosition.Middle) {
+                PreferenceRow(
+                    title = kmpStringResource(Res.string.reset_trusted_certificates),
+                    summary = kmpStringResource(Res.string.reset_trusted_certificates_summary),
+                    onClick = onResetTrustedCertificates,
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {

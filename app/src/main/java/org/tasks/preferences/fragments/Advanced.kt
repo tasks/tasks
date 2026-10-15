@@ -14,8 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.fragment.compose.content
 import androidx.lifecycle.lifecycleScope
+import at.bitfire.cert4android.CustomCertStore
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
@@ -26,6 +31,10 @@ import org.tasks.files.FileHelper
 import org.tasks.preferences.BasePreferences
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.reset_trusted_certificates
+import tasks.kmp.generated.resources.reset_trusted_certificates_summary
+import tasks.kmp.generated.resources.trusted_certificates_reset
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -85,6 +94,7 @@ class Advanced : Fragment() {
                 onDeleteCompletedEvents = { viewModel.openDeleteCompletedDialog() },
                 onDeleteAllEvents = { viewModel.openDeleteAllDialog() },
                 onResetPreferences = { viewModel.openResetDialog() },
+                onResetTrustedCertificates = { viewModel.openResetCertificatesDialog() },
                 onDeleteTaskData = { viewModel.openDeleteDataDialog() },
             )
 
@@ -169,6 +179,32 @@ class Advanced : Fragment() {
                     },
                     dismissButton = {
                         TextButton(onClick = { viewModel.dismissResetDialog() }) {
+                            Text(stringResource(R.string.cancel))
+                        }
+                    },
+                )
+            }
+
+            if (viewModel.showResetCertificatesDialog) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissResetCertificatesDialog() },
+                    text = { Text(kmpStringResource(Res.string.reset_trusted_certificates_summary)) },
+                    confirmButton = {
+                        TextButton(onClick = {
+                            viewModel.dismissResetCertificatesDialog()
+                            val context = requireContext().applicationContext
+                            lifecycleScope.launch {
+                                withContext(Dispatchers.IO) {
+                                    CustomCertStore.getInstance(context).clearUserDecisions()
+                                }
+                                context.toast(getString(Res.string.trusted_certificates_reset))
+                            }
+                        }) {
+                            Text(kmpStringResource(Res.string.reset_trusted_certificates))
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { viewModel.dismissResetCertificatesDialog() }) {
                             Text(stringResource(R.string.cancel))
                         }
                     },
