@@ -27,6 +27,7 @@ import tasks.kmp.generated.resources.ic_etesync
 import tasks.kmp.generated.resources.ic_ksync
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_microsoft_tasks
+import tasks.kmp.generated.resources.ic_todoist
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.kvaesitso
 import tasks.kmp.generated.resources.ksync
@@ -34,6 +35,8 @@ import tasks.kmp.generated.resources.mcp_server
 import tasks.kmp.generated.resources.microsoft
 import tasks.kmp.generated.resources.microsoft_selection_description
 import tasks.kmp.generated.resources.microsoft_selection_description_googleplay
+import tasks.kmp.generated.resources.todoist
+import tasks.kmp.generated.resources.todoist_selection_description
 import tasks.kmp.generated.resources.pebble
 import tasks.kmp.generated.resources.radicale
 import tasks.kmp.generated.resources.tasker
@@ -234,6 +237,15 @@ val worksWithCatalog = listOf(
                 tags = setOf(WorksWithTag.SYNC),
                 available = { it.supportsMicrosoft },
                 links = WorksWithLinks(web = TasksUrls.MICROSOFT),
+            ),
+            WorksWithEntry(
+                title = Res.string.todoist,
+                description = Res.string.todoist_selection_description,
+                iconDrawable = Res.drawable.ic_todoist,
+                tintIcon = false,
+                tags = setOf(WorksWithTag.SYNC),
+                available = { it.supportsTodoist },
+                links = WorksWithLinks(web = TasksUrls.TODOIST),
             ),
         ),
     ),

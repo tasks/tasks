@@ -44,6 +44,9 @@ data class CaldavAccount(
     var serverType: Int = SERVER_UNKNOWN,
     @ColumnInfo(name = "cda_last_sync", defaultValue = "0")
     var lastSync: Long = 0,
+    @ColumnInfo(name = "cda_sync_token")
+    @Transient
+    var syncToken: String? = null,
 ) : CommonParcelable {
     val needsPro: Boolean
         get() = isCaldavAccount || isEtebaseAccount || isOpenTasks
@@ -68,6 +71,9 @@ data class CaldavAccount(
 
     val isGoogleTasks: Boolean
         get() = accountType == TYPE_GOOGLE_TASKS
+
+    val isTodoist: Boolean
+        get() = accountType == TYPE_TODOIST
 
     val isLocalList: Boolean
         get() = accountType == TYPE_LOCAL
@@ -112,12 +118,13 @@ data class CaldavAccount(
         const val TYPE_ETEBASE = 5
         const val TYPE_MICROSOFT = 6
         const val TYPE_GOOGLE_TASKS = 7
+        const val TYPE_TODOIST = 8
 
         val TYPES_CALDAV = listOf(TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS)
 
         private val ALL_ACCOUNT_TYPES = listOf(
             TYPE_CALDAV, TYPE_TASKS, TYPE_ETEBASE, TYPE_OPENTASKS,
-            TYPE_MICROSOFT, TYPE_GOOGLE_TASKS, TYPE_LOCAL,
+            TYPE_MICROSOFT, TYPE_GOOGLE_TASKS, TYPE_TODOIST, TYPE_LOCAL,
         )
 
         val TYPES_NON_LOCAL = ALL_ACCOUNT_TYPES.filter { it != TYPE_LOCAL }
@@ -127,6 +134,9 @@ data class CaldavAccount(
 
         fun syncTraits(accountType: Int): Set<SyncTrait> = when (accountType) {
             TYPE_MICROSOFT -> setOf(SyncTrait.TAGS)
+            // Todoist labels map to tags. It has no start-date equivalent -- `due`
+            // maps to dueDate and nothing corresponds to hideUntil.
+            TYPE_TODOIST -> setOf(SyncTrait.TAGS)
             in TYPES_CALDAV -> setOf(
                 SyncTrait.TAGS, SyncTrait.ALARMS, SyncTrait.LOCATION, SyncTrait.START_DATE
             )

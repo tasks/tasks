@@ -73,6 +73,7 @@ import tasks.kmp.generated.resources.ic_etesync
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.ic_todoist
 import tasks.kmp.generated.resources.ic_webdav_logo
 import tasks.kmp.generated.resources.legal_disclosure_prefix_using
 import tasks.kmp.generated.resources.microsoft
@@ -83,6 +84,8 @@ import tasks.kmp.generated.resources.name_your_price_blurb
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.tasks_org_description
+import tasks.kmp.generated.resources.todoist
+import tasks.kmp.generated.resources.todoist_selection_description
 import tasks.kmp.generated.resources.terms_of_service_proper
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -204,6 +207,7 @@ fun AddAccountScreen(
                 val freeAccounts = buildList {
                     if (configuration.supportsMicrosoft && !isDesktop) add(Platform.MICROSOFT)
                     if (configuration.supportsGoogleTasks && !isDesktop) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsTodoist && !isDesktop) add(Platform.TODOIST)
                 }
                 if (freeAccounts.isNotEmpty()) {
                     if (!hasPro) {
@@ -234,6 +238,12 @@ fun AddAccountScreen(
                                         description = stringResource(Res.string.google_tasks_selection_description),
                                         onClick = { signIn(Platform.GOOGLE_TASKS) },
                                     )
+                                    Platform.TODOIST -> AccountTypeRow(
+                                        title = stringResource(Res.string.todoist),
+                                        icon = Res.drawable.ic_todoist,
+                                        description = stringResource(Res.string.todoist_selection_description),
+                                        onClick = { signIn(Platform.TODOIST) },
+                                    )
                                     else -> {}
                                 }
                             }
@@ -244,6 +254,7 @@ fun AddAccountScreen(
                 val proAccounts = buildList {
                     if (configuration.supportsMicrosoft && isDesktop) add(Platform.MICROSOFT)
                     if (configuration.supportsGoogleTasks && isDesktop) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsTodoist && isDesktop) add(Platform.TODOIST)
                     if (configuration.supportsOpenTasks) add(Platform.DAVX5)
                     if (configuration.supportsCaldav) add(Platform.CALDAV)
                     if (configuration.supportsEteSync) add(Platform.ETEBASE)
@@ -284,6 +295,12 @@ fun AddAccountScreen(
                                         icon = Res.drawable.ic_google,
                                         description = stringResource(Res.string.google_tasks_selection_description),
                                         onClick = { signIn(Platform.GOOGLE_TASKS) },
+                                    )
+                                    Platform.TODOIST -> AccountTypeRow(
+                                        title = stringResource(Res.string.todoist),
+                                        icon = Res.drawable.ic_todoist,
+                                        description = stringResource(Res.string.todoist_selection_description),
+                                        onClick = { signIn(Platform.TODOIST) },
                                     )
                                     Platform.DAVX5 -> AccountTypeRow(
                                         title = stringResource(Res.string.davx5),

@@ -20,11 +20,13 @@ import tasks.kmp.generated.resources.ic_ksync
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_outline_cloud_off_24px
 import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.ic_todoist
 import tasks.kmp.generated.resources.ic_webdav_logo
 import tasks.kmp.generated.resources.ksync
 import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.microsoft
 import tasks.kmp.generated.resources.tasks_org_account
+import tasks.kmp.generated.resources.todoist
 
 data class AccountIcon(val drawable: DrawableResource, val tinted: Boolean)
 
@@ -59,6 +61,7 @@ val CaldavAccount.composeTitle: StringResource?
         isEtebaseAccount -> Res.string.etesync
         isMicrosoft -> Res.string.microsoft
         isGoogleTasks -> Res.string.gtasks_GPr_header
+        isTodoist -> Res.string.todoist
         isLocalList -> Res.string.local_lists
         else -> uuid.openTaskProvider()?.titleRes
     }
@@ -70,6 +73,7 @@ val CaldavAccount.composeIcon: AccountIcon?
         isEtebaseAccount -> AccountIcon(Res.drawable.ic_etesync, false)
         isMicrosoft -> AccountIcon(Res.drawable.ic_microsoft_tasks, false)
         isGoogleTasks -> AccountIcon(Res.drawable.ic_google, false)
+        isTodoist -> AccountIcon(Res.drawable.ic_todoist, false)
         isLocalList -> AccountIcon(Res.drawable.ic_outline_cloud_off_24px, true)
         else -> uuid.openTaskProvider()?.let { AccountIcon(it.iconRes, false) }
     }

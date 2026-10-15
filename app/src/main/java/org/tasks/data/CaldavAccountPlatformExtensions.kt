@@ -8,6 +8,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.etebase.EtebaseCalendarSettingsActivity
 import org.tasks.opentasks.OpenTasksListSettingsActivity
 import org.tasks.sync.microsoft.MicrosoftListSettingsActivity
+import org.tasks.sync.todoist.TodoistListSettingsActivity
 
 fun CaldavAccount.isTasksSubscription(): Boolean {
     return isTasksOrg && !isPaymentRequired() && !isLoggedOut()
@@ -18,6 +19,7 @@ fun CaldavAccount.listSettingsClass(): Class<out Activity> = when(accountType) {
     CaldavAccount.TYPE_OPENTASKS -> OpenTasksListSettingsActivity::class.java
     CaldavAccount.TYPE_ETEBASE -> EtebaseCalendarSettingsActivity::class.java
     CaldavAccount.TYPE_MICROSOFT -> MicrosoftListSettingsActivity::class.java
+    CaldavAccount.TYPE_TODOIST -> TodoistListSettingsActivity::class.java
     CaldavAccount.TYPE_GOOGLE_TASKS -> GoogleTaskListSettingsActivity::class.java
     else -> CaldavCalendarSettingsActivity::class.java
 }

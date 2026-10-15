@@ -15,6 +15,7 @@
   <string name="tasks_org_account">Tasks.org Cloud</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
   <string name="microsoft">Microsoft To&#xA0;Do</string>
+  <string name="todoist">Todoist</string>
   <string name="etebase_url">https://api.etebase.com/partner/tasksorg/</string>
   <string name="help_url_sync">https://tasks.org/sync</string>
 

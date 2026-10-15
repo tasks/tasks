@@ -108,6 +108,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncSource
 import org.tasks.sync.microsoft.MicrosoftSignInViewModel
+import org.tasks.sync.todoist.TodoistSignInActivity
 import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
@@ -309,6 +310,11 @@ class MainActivity : AppCompatActivity() {
 
                                 Platform.MICROSOFT ->
                                     microsoftVM.signIn(this@MainActivity)
+
+                                Platform.TODOIST ->
+                                    syncLauncher.launch(
+                                        Intent(this@MainActivity, TodoistSignInActivity::class.java)
+                                    )
 
                                 Platform.CALDAV ->
                                     syncLauncher.launch(

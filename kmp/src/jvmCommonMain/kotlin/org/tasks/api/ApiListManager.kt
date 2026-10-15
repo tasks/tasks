@@ -17,6 +17,8 @@ import org.tasks.googleapis.GtasksInvoker
 import org.tasks.service.TaskDeleter
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.TaskLists
+import org.tasks.sync.todoist.TodoistClientProvider
+import org.tasks.sync.todoist.TodoistColors
 
 class ApiListManager(
     private val caldavDao: CaldavDao,
@@ -24,6 +26,7 @@ class ApiListManager(
     private val caldavClientProvider: CaldavClientProvider,
     private val etebaseClientProvider: EtebaseClientProvider,
     private val microsoftClientProvider: MicrosoftClientProvider,
+    private val todoistClientProvider: TodoistClientProvider,
     private val gtasksInvoker: suspend (CaldavAccount) -> GtasksInvoker,
 ) : ListManager {
     private val remoteCalls = Semaphore(1)
@@ -59,6 +62,18 @@ class ApiListManager(
                         .createList(TaskLists.TaskList(displayName = title))
                     CaldavCalendar(account = account.uuid, color = color, icon = icon)
                         .apply { list.applyTo(this) }
+                }
+                account.isTodoist -> {
+                    val project = todoistClientProvider
+                        .getService(account)
+                        .createProject(name = title, color = TodoistColors.toName(color))
+                    CaldavCalendar(account = account.uuid, color = color, icon = icon)
+                        .apply {
+                            project.applyTo(this)
+                            // Todoist snaps the color onto its own palette; keep the
+                            // exact color the caller asked for locally.
+                            this.color = color
+                        }
                 }
                 account.isEtebaseAccount -> CaldavCalendar(
                     uuid = UUIDHelper.newUUID(),
@@ -106,6 +121,16 @@ class ApiListManager(
                                 .getService(account)
                                 .updateList(calendar.uuid!!, TaskLists.TaskList(displayName = title))
                         }
+                    account.isTodoist ->
+                        if (renamed || recolored) {
+                            todoistClientProvider
+                                .getService(account)
+                                .updateProject(
+                                    id = calendar.uuid!!,
+                                    name = title.takeIf { renamed },
+                                    color = TodoistColors.toName(color).takeIf { recolored },
+                                )
+                        }
                     account.isEtebaseAccount ->
                         if (renamed || recolored) {
                             etebaseClientProvider.forAccount(account)
@@ -129,6 +154,8 @@ class ApiListManager(
                 account.isGoogleTasks -> gtasksInvoker(account).deleteGtaskList(calendar.uuid!!)
                 account.isMicrosoft ->
                     microsoftClientProvider.getService(account).deleteList(calendar.uuid!!)
+                account.isTodoist ->
+                    todoistClientProvider.getService(account).deleteProject(calendar.uuid!!)
                 account.isEtebaseAccount ->
                     etebaseClientProvider.forAccount(account).deleteCollection(calendar)
                 else ->

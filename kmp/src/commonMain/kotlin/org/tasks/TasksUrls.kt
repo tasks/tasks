@@ -21,6 +21,8 @@ object TasksUrls {
     const val SYNC = "https://tasks.org/sync"
     const val GOOGLE_TASKS = "https://tasks.org/docs/sync_google_tasks"
     const val MICROSOFT = "https://tasks.org/docs/sync_microsoft"
+    const val TODOIST = "https://tasks.org/docs/sync_todoist"
+    const val TODOIST_API_TOKEN = "https://app.todoist.com/app/settings/integrations/developer"
     const val TOS = "https://tasks.org/terms"
     const val PRIVACY_POLICY = "https://tasks.org/privacy"
     const val LICENSE = "https://tasks.org/license"

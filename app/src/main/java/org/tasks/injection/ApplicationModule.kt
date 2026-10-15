@@ -100,6 +100,9 @@ import org.tasks.watch.WatchServiceLogic
 import com.todoroo.astrid.service.TaskCreator
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.todoist.TodoistClientProvider
+import org.tasks.sync.todoist.TodoistSynchronizer
+import org.tasks.sync.todoist.TodoistTokenProvider
 import kotlinx.serialization.json.Json
 import java.util.Locale
 import java.util.concurrent.Executors
@@ -563,6 +566,47 @@ class ApplicationModule {
     ): MicrosoftClientProvider = httpClientFactory
 
     @Provides
+    fun providesTodoistTokenProvider(
+        encryption: org.tasks.security.KeyStoreEncryption,
+    ) = TodoistTokenProvider(encryption)
+
+    @Provides
+    fun providesTodoistClientProvider(
+        httpClientFactory: HttpClientFactory,
+    ): TodoistClientProvider = httpClientFactory.todoist
+
+    @Provides
+    fun providesTodoistSynchronizer(
+        caldavDao: CaldavDao,
+        taskDao: TaskDao,
+        dirtyDao: DirtyDao,
+        taskSaver: TaskSaver,
+        refreshBroadcaster: RefreshBroadcaster,
+        taskDeleter: TaskDeleter,
+        reporting: Reporting,
+        clientProvider: TodoistClientProvider,
+        tagDao: TagDao,
+        tagDataDao: TagDataDao,
+        vtodoCache: VtodoCache,
+        taskCreator: TaskCreator,
+        defaultFilterProvider: DefaultFilterProvider,
+    ): TodoistSynchronizer = TodoistSynchronizer(
+        caldavDao = caldavDao,
+        taskDao = taskDao,
+        dirtyDao = dirtyDao,
+        taskSaver = taskSaver,
+        refreshBroadcaster = refreshBroadcaster,
+        taskDeleter = taskDeleter,
+        reporting = reporting,
+        clientProvider = clientProvider,
+        tagDao = tagDao,
+        tagDataDao = tagDataDao,
+        vtodoCache = vtodoCache,
+        createTask = { taskCreator.createWithValues("") },
+        setDefaultList = { defaultFilterProvider.defaultList = it },
+    )
+
+    @Provides
     fun providesMicrosoftSynchronizer(
         caldavDao: CaldavDao,
         taskDao: TaskDao,
@@ -662,6 +706,7 @@ class ApplicationModule {
         caldavClientProvider: CaldavClientProvider,
         etebaseClientProvider: EtebaseClientProvider,
         microsoftClientProvider: MicrosoftClientProvider,
+        todoistClientProvider: TodoistClientProvider,
         invokerFactory: org.tasks.googleapis.InvokerFactory,
     ) = org.tasks.api.ApiListManager(
         caldavDao = caldavDao,
@@ -669,6 +714,7 @@ class ApplicationModule {
         caldavClientProvider = caldavClientProvider,
         etebaseClientProvider = etebaseClientProvider,
         microsoftClientProvider = microsoftClientProvider,
+        todoistClientProvider = todoistClientProvider,
         gtasksInvoker = { invokerFactory.getGtasksInvoker(it.username!!) },
     )
 

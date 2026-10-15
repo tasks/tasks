@@ -53,6 +53,7 @@ import org.tasks.preferences.fragments.EtebaseAccountFragment.Companion.newEteba
 import org.tasks.preferences.fragments.LocalAccount.Companion.newLocalAccountPreference
 import org.tasks.preferences.fragments.OpenTaskAccountFragment.Companion.newOpenTaskAccountFragment
 import org.tasks.preferences.fragments.MicrosoftAccount.Companion.newMicrosoftAccountPreference
+import org.tasks.preferences.fragments.TodoistAccountFragment.Companion.newTodoistAccountFragment
 import org.tasks.preferences.fragments.TasksAccount.Companion.newTasksAccountPreference
 import org.tasks.PlatformConfiguration
 import org.tasks.analytics.Firebase
@@ -231,6 +232,12 @@ class MainSettingsComposeFragment : Fragment() {
                 activity.startPreference(
                     newGoogleTasksAccountPreference(account),
                     getString(R.string.gtasks_GPr_header)
+                )
+            }
+            account.isTodoist -> {
+                activity.startPreference(
+                    newTodoistAccountFragment(account),
+                    getString(R.string.todoist)
                 )
             }
             account.isLocalList -> {

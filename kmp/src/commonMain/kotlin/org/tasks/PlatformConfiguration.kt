@@ -10,6 +10,7 @@ data class PlatformConfiguration(
     val supportsCaldav: Boolean = false,
     val supportsGoogleTasks: Boolean = false,
     val supportsMicrosoft: Boolean = false,
+    val supportsTodoist: Boolean = false,
     val supportsOpenTasks: Boolean = false,
     val supportsEteSync: Boolean = false,
 

@@ -24,6 +24,7 @@
     <string name="etesync" translatable="false">EteSync</string>
     <string name="gtasks_GPr_header" translatable="false">Google Tasks</string>
     <string name="microsoft" translatable="false">Microsoft To&#xA0;Do</string>
+    <string name="todoist" translatable="false">Todoist</string>
     <string name="tasks_org_account" translatable="false">Tasks.org Cloud</string>
     <string name="etebase_url" translatable="false">https://api.etebase.com/partner/tasksorg/</string>
     <string name="url_etesync" translatable="false">https://tasks.org/etesync</string>

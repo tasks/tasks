@@ -30,6 +30,7 @@ import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TODOIST
 import org.tasks.jobs.BackgroundWork
 import org.tasks.preferences.TasksPreferences
 import kotlin.coroutines.CoroutineContext
@@ -168,6 +169,7 @@ class SyncAdapters(
             TYPE_TASKS,
             TYPE_ETEBASE,
             TYPE_MICROSOFT,
+            TYPE_TODOIST,
         )
     }
 }

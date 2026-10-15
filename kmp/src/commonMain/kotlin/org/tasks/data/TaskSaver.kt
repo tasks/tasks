@@ -9,6 +9,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TODOIST
 import org.tasks.data.entity.SUPPRESS_SYNC
 import org.tasks.data.entity.SyncTrait
 import org.tasks.data.entity.SYNC_ALARMS
@@ -78,6 +79,7 @@ class TaskSaver(
             TYPE_LOCAL -> false
             TYPE_GOOGLE_TASKS -> !task.googleTaskUpToDate(original)
             TYPE_MICROSOFT -> !task.microsoftUpToDate(original)
+            TYPE_TODOIST -> !task.todoistUpToDate(original)
             else -> !task.caldavUpToDate(original)
         }
     }

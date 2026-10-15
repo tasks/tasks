@@ -31,6 +31,9 @@ data object CaldavSignInDestination : NavKey
 data object EtebaseSignInDestination : NavKey
 
 @Serializable
+data object TodoistSignInDestination : NavKey
+
+@Serializable
 data object SettingsDestination : NavKey
 
 @Serializable
