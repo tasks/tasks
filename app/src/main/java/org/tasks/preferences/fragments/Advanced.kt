@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource as kmpStringResource
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
@@ -29,6 +28,7 @@ import org.tasks.extensions.Context.takePersistableUriPermission
 import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.preferences.BasePreferences
+import org.tasks.resources.getString
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import tasks.kmp.generated.resources.Res
