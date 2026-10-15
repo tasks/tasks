@@ -56,9 +56,10 @@ class UserDecisionRegistry private constructor(
      *
      * @param cert              certificate to ask user about
      * @param appInForeground   whether the app is currently in foreground = whether it can directly launch an Activity
+     * @param userCa            user-installed CA that issued the certificate, if any
      * @return *true* if the user explicitly trusts the certificate, *false* if unknown or untrusted
      */
-    suspend fun check(cert: X509Certificate, appInForeground: Boolean): Boolean = suspendCancellableCoroutine { cont ->
+    suspend fun check(cert: X509Certificate, appInForeground: Boolean, userCa: X509Certificate? = null): Boolean = suspendCancellableCoroutine { cont ->
         // check whether we're able to retrieve user feedback (= start an Activity and/or show a notification)
         val notificationsPermitted = NotificationUtils.notificationsPermitted(context)
         val userDecisionPossible = appInForeground || notificationsPermitted
@@ -96,7 +97,7 @@ class UserDecisionRegistry private constructor(
             }
 
             if (requestDecision)
-                requestDecision(cert, launchActivity = appInForeground, showNotification = notificationsPermitted)
+                requestDecision(cert, launchActivity = appInForeground, showNotification = notificationsPermitted, userCa = userCa)
 
         } else {
             // We're not able to retrieve user feedback, directly reject request
@@ -114,17 +115,19 @@ class UserDecisionRegistry private constructor(
      * @param cert              certificate to ask user about
      * @param launchActivity    whether to launch a [TrustCertificateActivity]
      * @param showNotification  whether to show a certificate notification (caller must check notification permissions before passing *true*)
+     * @param userCa            user-installed CA that issued the certificate, if any
      *
      * @throws IllegalArgumentException  when both [launchActivity] and [showNotification] are *false*
      */
     @SuppressLint("MissingPermission")
-    internal fun requestDecision(cert: X509Certificate, launchActivity: Boolean, showNotification: Boolean) {
+    internal fun requestDecision(cert: X509Certificate, launchActivity: Boolean, showNotification: Boolean, userCa: X509Certificate? = null) {
         if (!launchActivity && !showNotification)
             throw IllegalArgumentException("User decision requires certificate Activity and/or notification")
 
         val rawCert = cert.encoded
         val decisionIntent = Intent(context, TrustCertificateActivity::class.java).apply {
             putExtra(TrustCertificateActivity.EXTRA_CERTIFICATE, rawCert)
+            putExtra(TrustCertificateActivity.EXTRA_USER_CA, userCa?.encoded)
         }
 
         if (showNotification) {
@@ -163,16 +166,20 @@ class UserDecisionRegistry private constructor(
         }
     }
 
-    fun onUserDecision(cert: X509Certificate, trusted: Boolean) {
+    fun onUserDecision(cert: X509Certificate, trusted: Boolean, userCa: X509Certificate? = null) {
         // cancel notification
         val nm = NotificationUtils.createChannels(context)
         nm.cancel(CertUtils.getTag(cert), NotificationUtils.ID_CERT_DECISION)
 
         // save decision
         val customCertStore = CustomCertStore.getInstance(context)
-        if (trusted)
-            customCertStore.setTrustedByUser(cert)
-        else
+        if (trusted) {
+            if (userCa != null) {
+                customCertStore.setCaTrustedByUser(userCa, cert)
+            } else {
+                customCertStore.setTrustedByUser(cert)
+            }
+        } else
             customCertStore.setUntrustedByUser(cert)
 
         // continue work that's waiting for decisions

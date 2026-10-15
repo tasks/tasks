@@ -40,6 +40,7 @@ import tasks.cert4android.generated.resources.trust_certificate_issued_by
 import tasks.cert4android.generated.resources.trust_certificate_issued_for
 import tasks.cert4android.generated.resources.trust_certificate_reject
 import tasks.cert4android.generated.resources.trust_certificate_unknown_certificate_found
+import tasks.cert4android.generated.resources.trust_certificate_user_ca
 import tasks.cert4android.generated.resources.trust_certificate_validity_period
 import tasks.cert4android.generated.resources.trust_certificate_validity_period_value
 import tasks.cert4android.generated.resources.trust_certificate_x509_certificate_details
@@ -59,9 +60,10 @@ fun TrustCertificateContent(
     validTo: String?,
     sha1: String?,
     sha256: String?,
-    onAccept: () -> Unit,
+    onAccept: (trustUserCa: Boolean) -> Unit,
     onReject: () -> Unit,
     modifier: Modifier = Modifier,
+    userCa: String? = null,
 ) {
     Column(modifier = modifier) {
         Text(
@@ -138,6 +140,28 @@ fun TrustCertificateContent(
             }
 
 
+        var trustUserCa by rememberSaveable(userCa) { mutableStateOf(false) }
+        if (userCa != null)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                Checkbox(
+                    checked = trustUserCa,
+                    onCheckedChange = { trustUserCa = it },
+                )
+                Text(
+                    text = stringResource(Res.string.trust_certificate_user_ca, userCa),
+                    modifier = Modifier
+                        .clickable { trustUserCa = !trustUserCa }
+                        .weight(1f)
+                        .padding(bottom = 8.dp),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            }
+
         var fingerprintVerified by rememberSaveable { mutableStateOf(false) }
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -162,7 +186,7 @@ fun TrustCertificateContent(
         Row(modifier = Modifier.fillMaxWidth()) {
             TextButton(
                 enabled = fingerprintVerified,
-                onClick = onAccept,
+                onClick = { onAccept(userCa != null && trustUserCa) },
                 modifier = Modifier
                     .weight(1f)
                     .padding(end = 16.dp),
@@ -191,7 +215,7 @@ private fun CertInfoField(label: String, value: String) {
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun TrustCertificateContentPreview() {
     MaterialTheme {
@@ -205,6 +229,25 @@ private fun TrustCertificateContentPreview() {
             sha256 = "SHA256: AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89",
             onAccept = {},
             onReject = {},
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TrustCertificateContentUserCaPreview() {
+    MaterialTheme {
+        TrustCertificateContent(
+            appName = "cert4android",
+            issuedFor = "[2]nas.home.arpa",
+            issuedBy = "CN=Caddy Local Authority - ECC Intermediate",
+            validFrom = "Oct 15, 2026",
+            validTo = "Oct 16, 2026",
+            sha1 = "SHA1: AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01",
+            sha256 = "SHA256: AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89",
+            onAccept = {},
+            onReject = {},
+            userCa = "Caddy Local Authority - 2026 ECC Root",
         )
     }
 }

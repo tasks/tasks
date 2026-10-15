@@ -10,6 +10,7 @@
     <string name="trust_certificate_reject">Reject</string>
     <string name="trust_certificate_reset_info">You can reset all custom certificates in the app settings.</string>
     <string name="trust_certificate_unknown_certificate_found">%1$s has encountered an unknown certificate. Do you want to trust it?</string>
+    <string name="trust_certificate_user_ca">Accept all certificates from %1$s</string>
     <string name="trust_certificate_validity_period">Validity period</string>
     <string name="trust_certificate_validity_period_value">%1$s – %2$s (will not be enforced)</string>
     <string name="trust_certificate_x509_certificate_details">X509 certificate details</string>

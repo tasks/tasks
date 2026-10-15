@@ -55,12 +55,14 @@ import java.security.spec.MGF1ParameterSpec.SHA256
 import java.text.DateFormat
 import java.util.logging.Level
 import java.util.logging.Logger
+import javax.security.auth.x500.X500Principal
 
 class TrustCertificateActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_CERTIFICATE = "certificate"
         const val EXTRA_TRUSTED = "trusted"
+        const val EXTRA_USER_CA = "user_ca"
 
         fun rawCertFromIntent(intent: Intent): ByteArray =
             intent.getByteArrayExtra(EXTRA_CERTIFICATE) ?: throw IllegalArgumentException("EXTRA_CERTIFICATE required")
@@ -82,7 +84,7 @@ class TrustCertificateActivity : ComponentActivity() {
         setContent {
             ThemeManager.theme {
                 MainLayout(
-                    onRegisterDecision = { trusted -> model.registerDecision(trusted) },
+                    onRegisterDecision = { trusted, trustUserCa -> model.registerDecision(trusted, trustUserCa) },
                     onFinish = { finish() }
                 )
             }
@@ -91,7 +93,7 @@ class TrustCertificateActivity : ComponentActivity() {
 
     private fun processIntent(intent: Intent) {
         // process certificate
-        model.parseCertificate(rawCertFromIntent(intent))
+        model.parseCertificate(rawCertFromIntent(intent), intent.getByteArrayExtra(EXTRA_USER_CA))
 
         // process EXTRA_TRUSTED, if available
         if (intent.hasExtra(EXTRA_TRUSTED)) {
@@ -102,7 +104,7 @@ class TrustCertificateActivity : ComponentActivity() {
 
     @Composable
     fun MainLayout(
-        onRegisterDecision: (Boolean) -> Unit = {},
+        onRegisterDecision: (trusted: Boolean, trustUserCa: Boolean) -> Unit = { _, _ -> },
         onFinish: () -> Unit = {}
     ) {
         val snackbarHostState = remember { SnackbarHostState() }
@@ -124,7 +126,7 @@ class TrustCertificateActivity : ComponentActivity() {
                         snackbarHostState.showSnackbar(getString(Res.string.trust_certificate_press_back_to_reject))
                     }
                 else ->
-                    onRegisterDecision(false)
+                    onRegisterDecision(false, false)
             }
             backPressedCounter = newBackPressedCounter
         }
@@ -142,8 +144,9 @@ class TrustCertificateActivity : ComponentActivity() {
                     validTo = uiState.validTo,
                     sha1 = uiState.sha1,
                     sha256 = uiState.sha256,
-                    onAccept = { onRegisterDecision(true) },
-                    onReject = { onRegisterDecision(false) },
+                    userCa = uiState.userCa,
+                    onAccept = { trustUserCa -> onRegisterDecision(true, trustUserCa) },
+                    onReject = { onRegisterDecision(false, false) },
                 )
                 Text(
                     text = stringResource(Res.string.trust_certificate_reset_info),
@@ -161,6 +164,7 @@ class TrustCertificateActivity : ComponentActivity() {
         val validTo: String? = null,
         val sha1: String? = null,
         val sha256: String? = null,
+        val userCa: String? = null,
 
         val decided: Boolean = false
     )
@@ -171,12 +175,14 @@ class TrustCertificateActivity : ComponentActivity() {
             get() = Logger.getLogger(javaClass.name)
 
         private var cert: X509Certificate? = null
+        private var userCa: X509Certificate? = null
 
         var uiState by mutableStateOf(UiState())
             private set
 
-        fun parseCertificate(rawCert: ByteArray) = viewModelScope.launch(Dispatchers.Default) {
+        fun parseCertificate(rawCert: ByteArray, rawUserCa: ByteArray?) = viewModelScope.launch(Dispatchers.Default) {
             val certFactory = CertificateFactory.getInstance("X.509")!!
+            userCa = rawUserCa?.let { certFactory.generateCertificate(ByteArrayInputStream(it)) as? X509Certificate }
             (certFactory.generateCertificate(ByteArrayInputStream(rawCert)) as? X509Certificate)?.let { cert ->
                 this@Model.cert = cert
 
@@ -200,6 +206,7 @@ class TrustCertificateActivity : ComponentActivity() {
                             validTo = timeFormatter.format(cert.notAfter),
                             sha1 = "SHA1: " + CertUtils.fingerprint(cert, SHA1.digestAlgorithm),
                             sha256 = "SHA256: " + CertUtils.fingerprint(cert, SHA256.digestAlgorithm),
+                            userCa = userCa?.commonName(),
                         )
                     }
                 } catch (e: CertificateParsingException) {
@@ -208,10 +215,10 @@ class TrustCertificateActivity : ComponentActivity() {
             }
         }
 
-        fun registerDecision(trusted: Boolean) {
+        fun registerDecision(trusted: Boolean, trustUserCa: Boolean = false) {
             // notify user decision registry
             cert?.let {
-                UserDecisionRegistry.getInstance(getApplication()).onUserDecision(it, trusted)
+                UserDecisionRegistry.getInstance(getApplication()).onUserDecision(it, trusted, userCa.takeIf { trustUserCa })
 
                 // notify UI that the case has been decided (causes Activity to finish)
                 uiState = uiState.copy(decided = true)
@@ -219,3 +226,11 @@ class TrustCertificateActivity : ComponentActivity() {
         }
     }
 }
+
+private fun X509Certificate.commonName(): String =
+    subjectX500Principal.getName(X500Principal.RFC2253)
+        .split(Regex("(?<!\\\\),"))
+        .firstOrNull { it.startsWith("CN=") }
+        ?.removePrefix("CN=")
+        ?.replace(Regex("\\\\(.)"), "$1")
+        ?: subjectX500Principal.name
