@@ -267,7 +267,9 @@ class OpenTasksSynchronizer(
 
     companion object {
         private val CaldavAccount.isEteSync: Boolean
-            get() = uuid.openTaskProvider() == OpenTaskProvider.ETESYNC
+            get() = uuid.openTaskProvider().let {
+                it == OpenTaskProvider.ETESYNC || it == OpenTaskProvider.SILENTSUITE
+            }
 
         private val CaldavAccount.isDecSync: Boolean
             get() = uuid.openTaskProvider() == OpenTaskProvider.DECSYNC

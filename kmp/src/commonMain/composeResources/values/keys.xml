@@ -10,6 +10,7 @@
     <string name="ksync" translatable="false">kSync</string>
     <string name="decsync" translatable="false">DecSync CC</string>
     <string name="davsky" translatable="false">DAVsky</string>
+    <string name="silentsuite" translatable="false">SilentSuite</string>
     <string name="kvaesitso" translatable="false">Kvaesitso</string>
     <string name="radicale" translatable="false">Radicale</string>
     <string name="thunderbird" translatable="false">Thunderbird</string>

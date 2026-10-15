@@ -12,6 +12,7 @@ enum class OpenTaskProvider(
     DECSYNC("org.decsync.tasks", "org.decsync.cc", "DecSync CC", "decsync"),
     KSYNC("infomaniak.com.sync", "com.infomaniak.sync", "kSync", "ksync"),
     DAVSKY("com.rypox.davsky", "com.rypox.davsky", "DAVsky", "davsky"),
+    SILENTSUITE("io.silentsuite.android", "io.silentsuite.android", "SilentSuite", "silentsuite_ot"),
     ;
 
     companion object {

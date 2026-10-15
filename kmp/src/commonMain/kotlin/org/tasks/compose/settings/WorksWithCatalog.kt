@@ -28,6 +28,7 @@ import tasks.kmp.generated.resources.ic_ksync
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.ic_silentsuite
 import tasks.kmp.generated.resources.kvaesitso
 import tasks.kmp.generated.resources.ksync
 import tasks.kmp.generated.resources.mcp_server
@@ -36,6 +37,7 @@ import tasks.kmp.generated.resources.microsoft_selection_description
 import tasks.kmp.generated.resources.microsoft_selection_description_googleplay
 import tasks.kmp.generated.resources.pebble
 import tasks.kmp.generated.resources.radicale
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.tasker
 import tasks.kmp.generated.resources.tasks_org_account
 import tasks.kmp.generated.resources.thunderbird
@@ -284,6 +286,18 @@ val worksWithCatalog = listOf(
                 links = WorksWithLinks(
                     web = "https://play.google.com/store/apps/details?id=com.infomaniak.sync",
                     play = "com.infomaniak.sync",
+                ),
+            ),
+            WorksWithEntry(
+                title = Res.string.silentsuite,
+                description = Res.string.etesync_selection_description,
+                iconDrawable = Res.drawable.ic_silentsuite,
+                tintIcon = false,
+                tags = setOf(WorksWithTag.ANDROID, WorksWithTag.SYNC),
+                links = WorksWithLinks(
+                    web = "https://silentsuite.io",
+                    play = "io.silentsuite.android",
+                    fdroid = "io.silentsuite.android",
                 ),
             ),
         ),

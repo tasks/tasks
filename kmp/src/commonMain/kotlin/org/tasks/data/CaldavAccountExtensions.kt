@@ -22,10 +22,12 @@ import tasks.kmp.generated.resources.ic_ksync
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_outline_cloud_off_24px
 import tasks.kmp.generated.resources.ic_round_icon
+import tasks.kmp.generated.resources.ic_silentsuite
 import tasks.kmp.generated.resources.ic_webdav_logo
 import tasks.kmp.generated.resources.ksync
 import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.microsoft
+import tasks.kmp.generated.resources.silentsuite
 import tasks.kmp.generated.resources.tasks_org_account
 
 data class AccountIcon(val drawable: DrawableResource, val tinted: Boolean)
@@ -39,6 +41,7 @@ val OpenTaskProvider.titleRes: StringResource
         OpenTaskProvider.DECSYNC -> Res.string.decsync
         OpenTaskProvider.KSYNC -> Res.string.ksync
         OpenTaskProvider.DAVSKY -> Res.string.davsky
+        OpenTaskProvider.SILENTSUITE -> Res.string.silentsuite
     }
 
 val OpenTaskProvider.iconRes: DrawableResource
@@ -49,6 +52,7 @@ val OpenTaskProvider.iconRes: DrawableResource
         OpenTaskProvider.DECSYNC -> Res.drawable.ic_decsync
         OpenTaskProvider.KSYNC -> Res.drawable.ic_ksync
         OpenTaskProvider.DAVSKY -> Res.drawable.ic_davsky
+        OpenTaskProvider.SILENTSUITE -> Res.drawable.ic_silentsuite
     }
 
 val CaldavAccount.openTaskApp: OpenTaskApp?
