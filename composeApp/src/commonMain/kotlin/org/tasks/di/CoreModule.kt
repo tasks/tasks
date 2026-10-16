@@ -18,6 +18,8 @@ import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.TodoistAccountSettingsViewModel
+import org.tasks.viewmodel.ListSettingsDeps
+import org.tasks.viewmodel.ListSettingsTarget
 import org.tasks.viewmodel.TodoistListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
 import com.todoroo.astrid.alarms.AlarmCalculator
@@ -507,14 +509,18 @@ val coreModule: Module = module {
     }
     viewModel { params ->
         TodoistListSettingsViewModel(
-            caldavDao = get(),
-            taskDeleter = get(),
-            reporting = get(),
+            deps = ListSettingsDeps(
+                caldavDao = get(),
+                taskDeleter = get(),
+                reporting = get(),
+                purchaseState = get(),
+            ),
+            target = ListSettingsTarget(
+                account = params.get(),
+                calendar = params.get(),
+                isDark = params.get(),
+            ),
             clientProvider = get(),
-            purchaseState = get(),
-            isDark = params.get(),
-            account = params.get(),
-            calendar = params.get(),
         )
     }
     viewModel {

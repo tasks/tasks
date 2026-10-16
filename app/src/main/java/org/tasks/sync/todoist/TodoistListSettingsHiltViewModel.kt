@@ -5,38 +5,31 @@ import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.R
-import org.tasks.analytics.Reporting
-import org.tasks.billing.PurchaseState
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_CALENDAR
-import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
-import org.tasks.service.TaskDeleter
+import org.tasks.viewmodel.ListSettingsDeps
+import org.tasks.viewmodel.ListSettingsTarget
 import org.tasks.viewmodel.TodoistListSettingsViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-@Suppress("LongParameterList")
 class TodoistListSettingsHiltViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    caldavDao: CaldavDao,
-    taskDeleter: TaskDeleter,
-    reporting: Reporting,
-    purchaseState: PurchaseState,
+    deps: ListSettingsDeps,
     clientProvider: TodoistClientProvider,
     @ApplicationContext context: Context,
 ) : TodoistListSettingsViewModel(
-    caldavDao = caldavDao,
-    taskDeleter = taskDeleter,
-    reporting = reporting,
+    deps = deps,
+    target = ListSettingsTarget(
+        account = savedStateHandle.get<CaldavAccount>(EXTRA_CALDAV_ACCOUNT)!!,
+        calendar = savedStateHandle[EXTRA_CALDAV_CALENDAR]
+            ?: CaldavCalendar(uuid = org.tasks.data.UUIDHelper.newUUID()),
+        isDark = context.resources.getBoolean(R.bool.is_dark),
+        hasColorWheel = true,
+    ),
     clientProvider = clientProvider,
-    purchaseState = purchaseState,
-    isDark = context.resources.getBoolean(R.bool.is_dark),
-    account = savedStateHandle.get<CaldavAccount>(EXTRA_CALDAV_ACCOUNT)!!,
-    calendar = savedStateHandle[EXTRA_CALDAV_CALENDAR]
-        ?: CaldavCalendar(uuid = org.tasks.data.UUIDHelper.newUUID()),
-    hasColorWheel = true,
 ) {
     init {
         savedStateHandle.get<String>(KEY_NAME)?.let { setName(it) }

@@ -61,24 +61,35 @@ abstract class TodoistSyncTestCase : DatabaseTest() {
         )
         val id = caldavDao.insert(account)
         account = caldavDao.getAccount(id)!!
-        synchronizer = TodoistSynchronizer(
+        val stores = TodoistSyncStores(
             caldavDao = caldavDao,
             taskDao = taskDao,
             dirtyDao = dirtyDao,
+            tagDao = db.tagDao(),
+            tagDataDao = db.tagDataDao(),
+        )
+        val services = TodoistSyncServices(
             taskSaver = taskSaver,
-            refreshBroadcaster = mock(),
             taskDeleter = taskDeleter,
+            refreshBroadcaster = mock(),
             reporting = mock(),
+        )
+        val hooks = TodoistSyncHooks(
+            vtodoCache = mock(),
+            createTask = { Task() },
+            setDefaultList = { },
+        )
+        synchronizer = TodoistSynchronizer(
             clientProvider = object : TodoistClientProvider {
                 override suspend fun getService(account: CaldavAccount) = service.asService()
                 override suspend fun getService(token: String) = service.asService()
                 override suspend fun hasCredentials(account: CaldavAccount) = true
             },
-            tagDao = db.tagDao(),
-            tagDataDao = db.tagDataDao(),
-            vtodoCache = mock(),
-            createTask = { Task() },
-            setDefaultList = { },
+            stores = stores,
+            services = services,
+            hooks = hooks,
+            pushCommands = TodoistPushCommands(stores, services, hooks),
+            pushResults = TodoistPushResults(stores, services, hooks),
         )
     }
 

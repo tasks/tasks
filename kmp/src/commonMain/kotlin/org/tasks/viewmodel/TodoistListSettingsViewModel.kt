@@ -2,6 +2,8 @@ package org.tasks.viewmodel
 
 import co.touchlab.kermit.Logger
 import kotlinx.io.IOException
+import kotlinx.serialization.SerializationException
+import org.tasks.http.NetworkException
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
@@ -16,29 +18,40 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_adding_account
 import tasks.kmp.generated.resources.network_error
 
-@Suppress("LongParameterList")
+class ListSettingsDeps(
+    val caldavDao: CaldavDao,
+    val taskDeleter: TaskDeleter,
+    val reporting: Reporting,
+    val purchaseState: PurchaseState,
+)
+
+class ListSettingsTarget(
+    val account: CaldavAccount,
+    val calendar: CaldavCalendar,
+    val isDark: Boolean,
+    val hasColorWheel: Boolean = false,
+)
+
 open class TodoistListSettingsViewModel(
-    caldavDao: CaldavDao,
-    taskDeleter: TaskDeleter,
-    reporting: Reporting,
+    deps: ListSettingsDeps,
+    target: ListSettingsTarget,
     private val clientProvider: TodoistClientProvider,
-    purchaseState: PurchaseState,
-    isDark: Boolean,
-    account: CaldavAccount,
-    calendar: CaldavCalendar,
-    hasColorWheel: Boolean = false,
-    stateManager: ListSettingsStateManager =
-        ListSettingsStateManager(isDark, purchaseState, account, calendar, hasColorWheel),
 ) : ListSettingsViewModel(
-    caldavDao = caldavDao,
-    taskDeleter = taskDeleter,
-    reporting = reporting,
-    purchaseState = purchaseState,
-    isDark = isDark,
-    account = account,
-    calendar = calendar,
-    hasColorWheel = hasColorWheel,
-    stateManager = stateManager,
+    caldavDao = deps.caldavDao,
+    taskDeleter = deps.taskDeleter,
+    reporting = deps.reporting,
+    purchaseState = deps.purchaseState,
+    isDark = target.isDark,
+    account = target.account,
+    calendar = target.calendar,
+    hasColorWheel = target.hasColorWheel,
+    stateManager = ListSettingsStateManager(
+        target.isDark,
+        deps.purchaseState,
+        target.account,
+        target.calendar,
+        target.hasColorWheel,
+    ),
 ) {
     override suspend fun createRemoteList(
         account: CaldavAccount,
@@ -90,7 +103,13 @@ open class TodoistListSettingsViewModel(
 
     private suspend fun isInbox(service: TodoistService, uuid: String): Boolean = try {
         service.getProject(uuid).isInboxProject
-    } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+    } catch (e: NetworkException) {
+        Logger.e(e) { "Failed to check Inbox project" }
+        false
+    } catch (e: IOException) {
+        Logger.e(e) { "Failed to check Inbox project" }
+        false
+    } catch (e: SerializationException) {
         Logger.e(e) { "Failed to check Inbox project" }
         false
     }

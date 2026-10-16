@@ -20,14 +20,17 @@ import org.tasks.sync.microsoft.TaskLists
 import org.tasks.sync.todoist.TodoistClientProvider
 import org.tasks.sync.todoist.TodoistColors
 
-@Suppress("LongParameterList")
+class SyncClients(
+    val caldav: CaldavClientProvider,
+    val etebase: EtebaseClientProvider,
+    val microsoft: MicrosoftClientProvider,
+    val todoist: TodoistClientProvider,
+)
+
 class ApiListManager(
     private val caldavDao: CaldavDao,
     private val taskDeleter: TaskDeleter,
-    private val caldavClientProvider: CaldavClientProvider,
-    private val etebaseClientProvider: EtebaseClientProvider,
-    private val microsoftClientProvider: MicrosoftClientProvider,
-    private val todoistClientProvider: TodoistClientProvider,
+    private val clients: SyncClients,
     private val gtasksInvoker: suspend (CaldavAccount) -> GtasksInvoker,
 ) : ListManager {
     private val remoteCalls = Semaphore(1)
@@ -58,14 +61,14 @@ class ApiListManager(
                     )
                 }
                 account.isMicrosoft -> {
-                    val list = microsoftClientProvider
+                    val list = clients.microsoft
                         .getService(account)
                         .createList(TaskLists.TaskList(displayName = title))
                     CaldavCalendar(account = account.uuid, color = color, icon = icon)
                         .apply { list.applyTo(this) }
                 }
                 account.isTodoist -> {
-                    val project = todoistClientProvider
+                    val project = clients.todoist
                         .getService(account)
                         .createProject(name = title, color = TodoistColors.toName(color))
                     CaldavCalendar(account = account.uuid, color = color, icon = icon)
@@ -79,7 +82,7 @@ class ApiListManager(
                 account.isEtebaseAccount -> CaldavCalendar(
                     uuid = UUIDHelper.newUUID(),
                     account = account.uuid,
-                    url = etebaseClientProvider.forAccount(account).makeCollection(title, color),
+                    url = clients.etebase.forAccount(account).makeCollection(title, color),
                     name = title,
                     color = color,
                     icon = icon,
@@ -87,7 +90,7 @@ class ApiListManager(
                 else -> CaldavCalendar(
                     uuid = UUIDHelper.newUUID(),
                     account = account.uuid,
-                    url = caldavClientProvider.forAccount(account).use { it.makeCollection(title, color, icon) },
+                    url = clients.caldav.forAccount(account).use { it.makeCollection(title, color, icon) },
                     name = title,
                     color = color,
                     icon = icon,
@@ -118,13 +121,13 @@ class ApiListManager(
                         }
                     account.isMicrosoft ->
                         if (renamed) {
-                            microsoftClientProvider
+                            clients.microsoft
                                 .getService(account)
                                 .updateList(calendar.uuid!!, TaskLists.TaskList(displayName = title))
                         }
                     account.isTodoist ->
                         if (renamed || recolored) {
-                            todoistClientProvider
+                            clients.todoist
                                 .getService(account)
                                 .updateProject(
                                     id = calendar.uuid!!,
@@ -134,11 +137,11 @@ class ApiListManager(
                         }
                     account.isEtebaseAccount ->
                         if (renamed || recolored) {
-                            etebaseClientProvider.forAccount(account)
+                            clients.etebase.forAccount(account)
                                 .updateCollection(calendar, title, color)
                         }
                     else ->
-                        caldavClientProvider.forAccount(account, calendar.url!!)
+                        clients.caldav.forAccount(account, calendar.url!!)
                             .use { it.updateCollection(title, color, icon) }
                 }
             }
@@ -154,13 +157,13 @@ class ApiListManager(
                 account.isLocalList -> Unit
                 account.isGoogleTasks -> gtasksInvoker(account).deleteGtaskList(calendar.uuid!!)
                 account.isMicrosoft ->
-                    microsoftClientProvider.getService(account).deleteList(calendar.uuid!!)
+                    clients.microsoft.getService(account).deleteList(calendar.uuid!!)
                 account.isTodoist ->
-                    todoistClientProvider.getService(account).deleteProject(calendar.uuid!!)
+                    clients.todoist.getService(account).deleteProject(calendar.uuid!!)
                 account.isEtebaseAccount ->
-                    etebaseClientProvider.forAccount(account).deleteCollection(calendar)
+                    clients.etebase.forAccount(account).deleteCollection(calendar)
                 else ->
-                    caldavClientProvider.forAccount(account, calendar.url!!).use { it.deleteCollection() }
+                    clients.caldav.forAccount(account, calendar.url!!).use { it.deleteCollection() }
             }
         }
         taskDeleter.delete(calendar)

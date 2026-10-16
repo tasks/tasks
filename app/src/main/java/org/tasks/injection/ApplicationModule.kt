@@ -566,6 +566,14 @@ class ApplicationModule {
     ): MicrosoftClientProvider = httpClientFactory
 
     @Provides
+    fun providesListSettingsDeps(
+        caldavDao: CaldavDao,
+        taskDeleter: TaskDeleter,
+        reporting: Reporting,
+        purchaseState: org.tasks.billing.PurchaseState,
+    ) = org.tasks.viewmodel.ListSettingsDeps(caldavDao, taskDeleter, reporting, purchaseState)
+
+    @Provides
     fun providesTodoistTokenProvider(
         encryption: org.tasks.security.KeyStoreEncryption,
     ) = TodoistTokenProvider(encryption)
@@ -576,35 +584,50 @@ class ApplicationModule {
     ): TodoistClientProvider = httpClientFactory.todoist
 
     @Provides
-    @Suppress("LongParameterList")
-    fun providesTodoistSynchronizer(
+    fun providesTodoistSyncStores(
         caldavDao: CaldavDao,
         taskDao: TaskDao,
         dirtyDao: DirtyDao,
-        taskSaver: TaskSaver,
-        refreshBroadcaster: RefreshBroadcaster,
-        taskDeleter: TaskDeleter,
-        reporting: Reporting,
-        clientProvider: TodoistClientProvider,
         tagDao: TagDao,
         tagDataDao: TagDataDao,
+    ) = org.tasks.sync.todoist.TodoistSyncStores(
+        caldavDao, taskDao, dirtyDao, tagDao, tagDataDao,
+    )
+
+    @Provides
+    fun providesTodoistSyncServices(
+        taskSaver: TaskSaver,
+        taskDeleter: TaskDeleter,
+        refreshBroadcaster: RefreshBroadcaster,
+        reporting: Reporting,
+    ) = org.tasks.sync.todoist.TodoistSyncServices(
+        taskSaver, taskDeleter, refreshBroadcaster, reporting,
+    )
+
+    @Provides
+    fun providesTodoistSyncHooks(
         vtodoCache: VtodoCache,
         taskCreator: TaskCreator,
         defaultFilterProvider: DefaultFilterProvider,
-    ): TodoistSynchronizer = TodoistSynchronizer(
-        caldavDao = caldavDao,
-        taskDao = taskDao,
-        dirtyDao = dirtyDao,
-        taskSaver = taskSaver,
-        refreshBroadcaster = refreshBroadcaster,
-        taskDeleter = taskDeleter,
-        reporting = reporting,
-        clientProvider = clientProvider,
-        tagDao = tagDao,
-        tagDataDao = tagDataDao,
+    ) = org.tasks.sync.todoist.TodoistSyncHooks(
         vtodoCache = vtodoCache,
         createTask = { taskCreator.createWithValues("") },
         setDefaultList = { defaultFilterProvider.defaultList = it },
+    )
+
+    @Provides
+    fun providesTodoistSynchronizer(
+        clientProvider: TodoistClientProvider,
+        stores: org.tasks.sync.todoist.TodoistSyncStores,
+        services: org.tasks.sync.todoist.TodoistSyncServices,
+        hooks: org.tasks.sync.todoist.TodoistSyncHooks,
+    ): TodoistSynchronizer = TodoistSynchronizer(
+        clientProvider = clientProvider,
+        stores = stores,
+        services = services,
+        hooks = hooks,
+        pushCommands = org.tasks.sync.todoist.TodoistPushCommands(stores, services, hooks),
+        pushResults = org.tasks.sync.todoist.TodoistPushResults(stores, services, hooks),
     )
 
     @Provides
@@ -700,23 +723,29 @@ class ApplicationModule {
     fun providesApiQueryEngine(database: Database) = org.tasks.api.ApiQueryEngine(database)
 
     @Provides
-    @Singleton
-    @Suppress("LongParameterList")
-    fun providesApiListManager(
-        caldavDao: CaldavDao,
-        taskDeleter: TaskDeleter,
+    fun providesSyncClients(
         caldavClientProvider: CaldavClientProvider,
         etebaseClientProvider: EtebaseClientProvider,
         microsoftClientProvider: MicrosoftClientProvider,
         todoistClientProvider: TodoistClientProvider,
+    ) = org.tasks.api.SyncClients(
+        caldav = caldavClientProvider,
+        etebase = etebaseClientProvider,
+        microsoft = microsoftClientProvider,
+        todoist = todoistClientProvider,
+    )
+
+    @Provides
+    @Singleton
+    fun providesApiListManager(
+        caldavDao: CaldavDao,
+        taskDeleter: TaskDeleter,
+        clients: org.tasks.api.SyncClients,
         invokerFactory: org.tasks.googleapis.InvokerFactory,
     ) = org.tasks.api.ApiListManager(
         caldavDao = caldavDao,
         taskDeleter = taskDeleter,
-        caldavClientProvider = caldavClientProvider,
-        etebaseClientProvider = etebaseClientProvider,
-        microsoftClientProvider = microsoftClientProvider,
-        todoistClientProvider = todoistClientProvider,
+        clients = clients,
         gtasksInvoker = { invokerFactory.getGtasksInvoker(it.username!!) },
     )
 

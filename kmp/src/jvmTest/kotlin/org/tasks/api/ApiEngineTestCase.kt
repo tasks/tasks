@@ -190,10 +190,12 @@ abstract class ApiEngineTestCase {
             listManager = ApiListManager(
                 caldavDao = caldavDao,
                 taskDeleter = taskDeleter,
-                caldavClientProvider = mock(),
-                etebaseClientProvider = mock(),
-                microsoftClientProvider = mock(),
-                todoistClientProvider = mock(),
+                clients = org.tasks.api.SyncClients(
+                    caldav = mock(),
+                    etebase = mock(),
+                    microsoft = mock(),
+                    todoist = mock(),
+                ),
                 gtasksInvoker = { mock() },
             ),
             tagMetadataEditor = tagMetadataSync,

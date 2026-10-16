@@ -238,20 +238,35 @@ actual fun platformModule(): Module = module {
     }
     factory {
         val taskCreator = TaskCreator()
-        TodoistSynchronizer(
+        val todoistStores = org.tasks.sync.todoist.TodoistSyncStores(
             caldavDao = get(),
             taskDao = get(),
             dirtyDao = get(),
-            taskSaver = get(),
-            refreshBroadcaster = get(),
-            taskDeleter = get(),
-            reporting = get(),
-            clientProvider = get(),
             tagDao = get(),
             tagDataDao = get(),
+        )
+        val todoistServices = org.tasks.sync.todoist.TodoistSyncServices(
+            taskSaver = get(),
+            taskDeleter = get(),
+            refreshBroadcaster = get(),
+            reporting = get(),
+        )
+        val todoistHooks = org.tasks.sync.todoist.TodoistSyncHooks(
             vtodoCache = get(),
             createTask = { taskCreator.createBlankTask() },
             setDefaultList = { },
+        )
+        TodoistSynchronizer(
+            clientProvider = get(),
+            stores = todoistStores,
+            services = todoistServices,
+            hooks = todoistHooks,
+            pushCommands = org.tasks.sync.todoist.TodoistPushCommands(
+                todoistStores, todoistServices, todoistHooks,
+            ),
+            pushResults = org.tasks.sync.todoist.TodoistPushResults(
+                todoistStores, todoistServices, todoistHooks,
+            ),
         )
     }
     factory {
@@ -297,10 +312,12 @@ actual fun platformModule(): Module = module {
         ApiListManager(
             caldavDao = get(),
             taskDeleter = get(),
-            caldavClientProvider = get(),
-            etebaseClientProvider = get(),
-            microsoftClientProvider = get(),
-            todoistClientProvider = get(),
+            clients = org.tasks.api.SyncClients(
+                caldav = get(),
+                etebase = get(),
+                microsoft = get(),
+                todoist = get(),
+            ),
             gtasksInvoker = { account ->
                 org.tasks.googleapis.GtasksInvoker(
                     org.tasks.googleapis.GoogleTasksCredentialsAdapter(

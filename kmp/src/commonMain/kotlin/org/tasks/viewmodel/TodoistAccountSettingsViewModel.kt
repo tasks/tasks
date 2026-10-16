@@ -35,7 +35,6 @@ import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.todoist
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@Suppress("TooManyFunctions")
 open class TodoistAccountSettingsViewModel(
     private val caldavDao: CaldavDao,
     private val clientProvider: TodoistClientProvider,
@@ -43,6 +42,8 @@ open class TodoistAccountSettingsViewModel(
     private val taskDeleter: TaskDeleter,
     private val reporting: Reporting,
 ) : ViewModel() {
+
+    private val writer = TodoistAccountWriter(caldavDao, reporting)
 
     private val accountId = MutableStateFlow<Long?>(null)
     private val _state = MutableStateFlow(TodoistAccountState())
@@ -86,102 +87,55 @@ open class TodoistAccountSettingsViewModel(
         if (_state.value.isLoading) {
             return
         }
-        viewModelScope.launch { doSave() }
-    }
-
-    private suspend fun doSave() {
-        val current = _state.value
-        val existing = current.account
-        val token = current.token.trim()
-        val name = current.displayName.trim()
-
-        if (token.isEmpty()) {
-            saveWithoutNewToken(existing, name)
-            return
+        viewModelScope.launch {
+            val current = _state.value
+            val existing = current.account
+            val token = current.token.trim()
+            val name = current.displayName.trim()
+            if (token.isEmpty()) {
+                saveWithoutNewToken(existing, name)
+            } else {
+                applyNewToken(existing, token, name)
+            }
         }
-        applyNewToken(existing, token, name)
     }
 
     private suspend fun saveWithoutNewToken(existing: CaldavAccount?, name: String) {
         if (existing == null) {
             _state.update { it.copy(tokenError = getString(Res.string.password_required)) }
             return
-            }
+        }
         caldavDao.update(existing.apply { this.name = name.ifEmpty { null } })
         _finished.value = true
     }
 
     private suspend fun applyNewToken(existing: CaldavAccount?, token: String, name: String) {
         _state.update { it.copy(isLoading = true, tokenError = null, snackbar = null) }
-        try {
-            val accountName = verify(token) ?: name.ifEmpty { getString(Res.string.todoist) }
-            val encrypted = encryption.encrypt(token)
-                ?: error("Could not encrypt token")
-            if (existing == null) {
-                insertAccount(name.ifEmpty { accountName }, encrypted)
-            } else {
-                reauthenticate(existing, encrypted, name)
-            }
-            _finished.value = true
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: UnauthorizedException) {
-            _state.update {
-                it.copy(tokenError = getString(Res.string.invalid_username_or_password))
-            }
-        } catch (e: HttpException) {
-            _state.update {
-                if (e.code == 401 || e.code == 403) {
-                    it.copy(tokenError = getString(Res.string.invalid_username_or_password))
-                } else {
-                    it.copy(snackbar = e.message ?: getString(Res.string.network_error))
-                }
-            }
-        } catch (e: ConnectionException) {
-            _state.update { it.copy(snackbar = getString(Res.string.network_error)) }
-        } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
-            Logger.e(e) { "Todoist sign-in failed" }
-            reporting.reportException(e)
-            _state.update {
-                it.copy(
-                    snackbar = getString(
-                        Res.string.error_adding_account,
-                        e.message ?: e::class.simpleName ?: "",
-                    )
-                )
-            }
-        } finally {
-            _state.update { it.copy(isLoading = false) }
+        val failure = runCatching { storeToken(existing, token, name) }.exceptionOrNull()
+        if (failure is CancellationException) {
+            throw failure
         }
+        if (failure != null) {
+            if (!failure.isRecognisedSignInFailure()) {
+                Logger.e(failure) { "Todoist sign-in failed" }
+                reporting.reportException(failure)
+            }
+            val tokenError = failure.signInTokenError()
+            val snackbar = if (tokenError == null) failure.signInSnackbar() else null
+            _state.update { it.copy(tokenError = tokenError, snackbar = snackbar) }
+        }
+        _state.update { it.copy(isLoading = false) }
     }
 
-    private suspend fun insertAccount(accountName: String, encrypted: String) {
-        caldavDao.insert(
-            CaldavAccount(
-                accountType = CaldavAccount.TYPE_TODOIST,
-                uuid = UUIDHelper.newUUID(),
-                name = accountName,
-                username = accountName,
-                password = encrypted,
-            )
-        )
-        reporting.logEvent(
-            AnalyticsEvents.SYNC_ADD_ACCOUNT,
-            AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_TODOIST,
-        )
-    }
-
-    private suspend fun reauthenticate(
-        existing: CaldavAccount,
-        encrypted: String,
-        name: String,
-    ) {
-        caldavDao.setPassword(existing.id, encrypted)
-        caldavDao.setSyncToken(existing.id, null)
-        caldavDao.setError(existing.id, "")
-        if (name.isNotEmpty() && name != existing.name) {
-            caldavDao.update(existing.apply { this.name = name })
+    private suspend fun storeToken(existing: CaldavAccount?, token: String, name: String) {
+        val accountName = verify(token) ?: name.ifEmpty { getString(Res.string.todoist) }
+        val encrypted = encryption.encrypt(token) ?: error("Could not encrypt token")
+        if (existing == null) {
+            writer.insertAccount(name.ifEmpty { accountName }, encrypted)
+        } else {
+            writer.reauthenticate(existing, encrypted, name)
         }
+        _finished.value = true
     }
 
     private suspend fun verify(token: String): String? {
@@ -200,4 +154,57 @@ open class TodoistAccountSettingsViewModel(
             onComplete()
         }
     }
+}
+
+private class TodoistAccountWriter(
+    private val caldavDao: CaldavDao,
+    private val reporting: Reporting,
+) {
+    suspend fun insertAccount(accountName: String, encrypted: String) {
+        caldavDao.insert(
+            CaldavAccount(
+                accountType = CaldavAccount.TYPE_TODOIST,
+                uuid = UUIDHelper.newUUID(),
+                name = accountName,
+                username = accountName,
+                password = encrypted,
+            )
+        )
+        reporting.logEvent(
+            AnalyticsEvents.SYNC_ADD_ACCOUNT,
+            AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_TODOIST,
+        )
+    }
+
+    suspend fun reauthenticate(
+        existing: CaldavAccount,
+        encrypted: String,
+        name: String,
+    ) {
+        caldavDao.setPassword(existing.id, encrypted)
+        caldavDao.setSyncToken(existing.id, null)
+        caldavDao.setError(existing.id, "")
+        if (name.isNotEmpty() && name != existing.name) {
+            caldavDao.update(existing.apply { this.name = name })
+        }
+    }
+}
+
+private fun Throwable.isRecognisedSignInFailure() =
+    this is UnauthorizedException || this is HttpException || this is ConnectionException
+
+private suspend fun Throwable.signInTokenError(): String? = when {
+    this is UnauthorizedException -> getString(Res.string.invalid_username_or_password)
+    this is HttpException && (code == 401 || code == 403) ->
+        getString(Res.string.invalid_username_or_password)
+    else -> null
+}
+
+private suspend fun Throwable.signInSnackbar(): String = when (this) {
+    is HttpException -> message ?: getString(Res.string.network_error)
+    is ConnectionException -> getString(Res.string.network_error)
+    else -> getString(
+        Res.string.error_adding_account,
+        message ?: this::class.simpleName ?: "",
+    )
 }
