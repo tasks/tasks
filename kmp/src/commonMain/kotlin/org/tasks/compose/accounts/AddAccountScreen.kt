@@ -2,7 +2,6 @@ package org.tasks.compose.accounts
 
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
-import org.tasks.billing.BillingProvider
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -200,10 +199,13 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
-                val isDesktop = configuration.billingProvider == BillingProvider.STRIPE
                 val freeAccounts = buildList {
-                    if (configuration.supportsMicrosoft && !isDesktop) add(Platform.MICROSOFT)
-                    if (configuration.supportsGoogleTasks && !isDesktop) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsMicrosoft && !configuration.thirdPartySyncRequiresPro) {
+                        add(Platform.MICROSOFT)
+                    }
+                    if (configuration.supportsGoogleTasks && !configuration.thirdPartySyncRequiresPro) {
+                        add(Platform.GOOGLE_TASKS)
+                    }
                 }
                 if (freeAccounts.isNotEmpty()) {
                     if (!hasPro) {
@@ -242,8 +244,12 @@ fun AddAccountScreen(
                 }
 
                 val proAccounts = buildList {
-                    if (configuration.supportsMicrosoft && isDesktop) add(Platform.MICROSOFT)
-                    if (configuration.supportsGoogleTasks && isDesktop) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsMicrosoft && configuration.thirdPartySyncRequiresPro) {
+                        add(Platform.MICROSOFT)
+                    }
+                    if (configuration.supportsGoogleTasks && configuration.thirdPartySyncRequiresPro) {
+                        add(Platform.GOOGLE_TASKS)
+                    }
                     if (configuration.supportsOpenTasks) add(Platform.DAVX5)
                     if (configuration.supportsCaldav) add(Platform.CALDAV)
                     if (configuration.supportsEteSync) add(Platform.ETEBASE)

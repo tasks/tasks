@@ -81,6 +81,7 @@ actual fun platformModule(): Module = module {
             supportsNotifications = false,
             supportsLogExport = true,
             appStore = AppStore.APP_STORE,
+            thirdPartySyncRequiresPro = true,
         )
     }
     single<LogExporter> { IosLogExporter(fileLogWriter) }
