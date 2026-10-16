@@ -135,6 +135,25 @@ fun PricingScreen(
                         .padding(bottom = 24.dp),
                 )
 
+                val cloudCard: @Composable (Modifier) -> Unit = { cardModifier ->
+                    CloudTierCard(
+                        modifier = cardModifier,
+                        isRecommended = showBoth,
+                        onCtaClick = onCloudSubscribeClick,
+                        onSponsorClick = onCloudSponsorClick,
+                        onSignIn = onSignIn,
+                        onBillingToggle = onBillingToggle,
+                    )
+                }
+                val nameYourPriceCard: @Composable (Modifier) -> Unit = { cardModifier ->
+                    NameYourPriceTierCard(
+                        modifier = cardModifier,
+                        onCtaClick = onNypSubscribeClick,
+                        onSponsorClick = onNypSponsorClick,
+                        onRestorePurchases = onRestorePurchases,
+                    )
+                }
+
                 if (isWide) {
                     Row(
                         modifier = Modifier
@@ -142,20 +161,8 @@ fun PricingScreen(
                             .height(IntrinsicSize.Max),
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
-                        CloudTierCard(
-                            modifier = Modifier.weight(1f).fillMaxHeight(),
-                            isRecommended = true,
-                            onCtaClick = onCloudSubscribeClick,
-                            onSponsorClick = onCloudSponsorClick,
-                            onSignIn = onSignIn,
-                            onBillingToggle = onBillingToggle,
-                        )
-                        NameYourPriceTierCard(
-                            modifier = Modifier.weight(1f).fillMaxHeight(),
-                            onCtaClick = onNypSubscribeClick,
-                            onSponsorClick = onNypSponsorClick,
-                            onRestorePurchases = onRestorePurchases,
-                        )
+                        cloudCard(Modifier.weight(1f).fillMaxHeight())
+                        nameYourPriceCard(Modifier.weight(1f).fillMaxHeight())
                     }
                 } else {
                     Column(
@@ -164,22 +171,10 @@ fun PricingScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         if (mode != PricingMode.NYP_ONLY) {
-                            CloudTierCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                isRecommended = showBoth,
-                                onCtaClick = onCloudSubscribeClick,
-                                onSponsorClick = onCloudSponsorClick,
-                                onSignIn = onSignIn,
-                                onBillingToggle = onBillingToggle,
-                            )
+                            cloudCard(Modifier.fillMaxWidth())
                         }
                         if (mode != PricingMode.CLOUD_ONLY) {
-                            NameYourPriceTierCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                onCtaClick = onNypSubscribeClick,
-                                onSponsorClick = onNypSponsorClick,
-                                onRestorePurchases = onRestorePurchases,
-                            )
+                            nameYourPriceCard(Modifier.fillMaxWidth())
                         }
                     }
                 }
@@ -303,6 +298,24 @@ private fun TierCard(
     footerLabel: String? = null,
     onFooterClick: (() -> Unit)? = null,
 ) {
+    val content: @Composable () -> Unit = {
+        TierCardContent(
+            title = title,
+            price = price,
+            priceSuffix = priceSuffix,
+            billingNote = billingNote,
+            billingToggle = billingToggle,
+            description = description,
+            features = features,
+            ctaLabel = ctaLabel,
+            onCtaClick = onCtaClick,
+            secondaryLabel = secondaryLabel,
+            onSecondaryClick = onSecondaryClick,
+            footerDescription = footerDescription,
+            footerLabel = footerLabel,
+            onFooterClick = onFooterClick,
+        )
+    }
     Box(modifier = modifier.fillMaxHeight()) {
         if (isRecommended) {
             OutlinedCard(
@@ -318,22 +331,7 @@ private fun TierCard(
                     defaultElevation = 4.dp,
                 ),
             ) {
-                TierCardContent(
-                    title = title,
-                    price = price,
-                    priceSuffix = priceSuffix,
-                    billingNote = billingNote,
-                    billingToggle = billingToggle,
-                    description = description,
-                    features = features,
-                    ctaLabel = ctaLabel,
-                    onCtaClick = onCtaClick,
-                    secondaryLabel = secondaryLabel,
-                    onSecondaryClick = onSecondaryClick,
-                    footerDescription = footerDescription,
-                    footerLabel = footerLabel,
-                    onFooterClick = onFooterClick,
-                )
+                content()
             }
             // Badge
             Surface(
@@ -360,22 +358,7 @@ private fun TierCard(
                 ),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             ) {
-                TierCardContent(
-                    title = title,
-                    price = price,
-                    priceSuffix = priceSuffix,
-                    billingNote = billingNote,
-                    billingToggle = billingToggle,
-                    description = description,
-                    features = features,
-                    ctaLabel = ctaLabel,
-                    onCtaClick = onCtaClick,
-                    secondaryLabel = secondaryLabel,
-                    onSecondaryClick = onSecondaryClick,
-                    footerDescription = footerDescription,
-                    footerLabel = footerLabel,
-                    onFooterClick = onFooterClick,
-                )
+                content()
             }
         }
     }
