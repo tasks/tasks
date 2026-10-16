@@ -15,6 +15,8 @@ import io.ktor.http.parameters
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import org.tasks.http.errorCode
+import org.tasks.http.jsonField
 
 data class OAuthConfig(
     val authorizationEndpoint: String,
@@ -206,7 +208,8 @@ class TasksOAuthClient(
 }
 
 private fun tokenErrorException(prefix: String, code: Int, body: String): Exception {
-    val (error, description) = parseOAuthError(body)
+    val error = body.errorCode()
+    val description = body.jsonField("error_description")
     ConditionalAccess.devicePolicyException(error, description)?.let { return it }
     val detail = description ?: error
     val transient = code == 429 || code in 500..599
@@ -215,13 +218,4 @@ private fun tokenErrorException(prefix: String, code: Int, body: String): Except
     } else {
         Exception(if (detail != null) "$prefix: $detail" else "$prefix: $code")
     }
-}
-
-private fun parseOAuthError(body: String): Pair<String?, String?> = try {
-    val json = Json.parseToJsonElement(body) as JsonObject
-    val error = json["error"]?.jsonPrimitive?.content
-    val description = json["error_description"]?.jsonPrimitive?.content
-    error to description
-} catch (_: Exception) {
-    null to null
 }
