@@ -344,7 +344,7 @@
     <string name="annual">Annual</string>
     <string name="monthly">Monthly</string>
     <string name="restore_purchases">Restore purchases</string>
-    <string name="pricing_cloud_annual_note">Billed annually (%1$s)</string>
+    <string name="pricing_cloud_annual_per_month">%1$s/month, billed annually</string>
     <string name="pricing_cloud_monthly_note">Billed monthly</string>
     <string name="pricing_cloud_feature_1">Instant sync between Android and desktop</string>
     <string name="pricing_cloud_feature_2">Friends &amp; Family list sharing</string>

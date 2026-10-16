@@ -239,7 +239,6 @@
     <string name="pricing_nyp_description">Choisissez le montant de votre abonnement. Accédez à toutes les fonctionnalités de l'application.</string>
     <string name="pricing_recommended">Recommandé</string>
     <string name="restore_purchases">Restaurer les achats</string>
-    <string name="pricing_cloud_annual_note">Facturation annuelle (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Facturation mensuelle</string>
     <string name="pricing_cloud_feature_1">Synchronisation instantanée entre Android et le bureau</string>
     <string name="pricing_cloud_feature_3">Conversion des courriels en tâches avec une boîte de réception privée</string>

@@ -296,7 +296,6 @@
     <string name="annual">Tahunan</string>
     <string name="monthly">Bulanan</string>
     <string name="restore_purchases">Pulihkan pembelian</string>
-    <string name="pricing_cloud_annual_note">Ditagih tahunan (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Ditagih bulanan</string>
     <string name="pricing_cloud_feature_1">Sinkronisasi instan antara Android dan desktop</string>
     <string name="pricing_cloud_feature_2">Berbagi daftar dengan Teman &amp; Keluarga</string>

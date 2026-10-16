@@ -309,7 +309,6 @@
     <string name="annual">Anual</string>
     <string name="monthly">Mensal</string>
     <string name="restore_purchases">Restaurar compras</string>
-    <string name="pricing_cloud_annual_note">Cobrado anualmente (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Cobrado mensalmente</string>
     <string name="pricing_cloud_feature_1">Sincronização instantânea entre Android e desktop</string>
     <string name="pricing_cloud_feature_2">Compartilhamento de listas com Amigos &amp; Família</string>

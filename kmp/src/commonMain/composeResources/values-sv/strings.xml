@@ -261,7 +261,6 @@
     <string name="annual">Årsvis</string>
     <string name="monthly">Månadsvis</string>
     <string name="restore_purchases">Återställ köp</string>
-    <string name="pricing_cloud_annual_note">Faktureras årsvis (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Faktureras månadsvis</string>
     <string name="pricing_cloud_feature_1">Direkt synkronisering mellan Android och dator</string>
     <string name="pricing_cloud_feature_2">Dela listor med vänner och familj</string>

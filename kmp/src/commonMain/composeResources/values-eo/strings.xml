@@ -578,7 +578,6 @@
     <string name="annual">Jare</string>
     <string name="monthly">Monate</string>
     <string name="restore_purchases">Reakiri aĉetaĵojn</string>
-    <string name="pricing_cloud_annual_note">Jara fakturo (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Monata fakturo</string>
     <string name="pricing_cloud_feature_1">Tuja sinkronigo inter Android kaj labortabla</string>
     <string name="pricing_cloud_feature_2">Komunigi listojn kun Amikoj/Familianoj</string>

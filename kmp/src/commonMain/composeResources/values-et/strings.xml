@@ -299,7 +299,6 @@
     <string name="annual">Üks kord aastas</string>
     <string name="monthly">Igakuiselt</string>
     <string name="restore_purchases">Taasta ostud</string>
-    <string name="pricing_cloud_annual_note">Arve on esitatud kord aastas (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Arve on esitatud igakuiselt</string>
     <string name="pricing_cloud_feature_1">Kiire sünkroonimine Android ja töölaua rakenduste vahel</string>
     <string name="pricing_cloud_feature_2">Loendite jagamine pere ja sõpradega</string>

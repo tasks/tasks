@@ -239,7 +239,6 @@
     <string name="annual">Yıllık</string>
     <string name="monthly">Aylık</string>
     <string name="restore_purchases">Satın alımları geri yükle</string>
-    <string name="pricing_cloud_annual_note">Yıllık faturalanır (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Aylık faturalanır</string>
     <string name="pricing_cloud_feature_1">Android ve masaüstü arasında anlık eşzamanlama</string>
     <string name="pricing_cloud_feature_2">Arkadaşlar ve Aile liste paylaşımı</string>

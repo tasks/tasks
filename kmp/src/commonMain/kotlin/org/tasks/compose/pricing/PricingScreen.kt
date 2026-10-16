@@ -204,14 +204,18 @@ private fun CloudTierCard(
         modifier = modifier,
         title = stringResource(Res.string.tasks_org_account),
         price = stringResource(
-            if (isAnnual) Res.string.pricing_cloud_annual_price
+            if (isAnnual) Res.string.pricing_cloud_annual_total
             else Res.string.pricing_cloud_monthly_price
         ),
-        priceSuffix = stringResource(Res.string.price_per_month_with_currency, "").trim(),
+        priceSuffix = stringResource(
+            if (isAnnual) Res.string.price_per_year_with_currency
+            else Res.string.price_per_month_with_currency,
+            "",
+        ).trim(),
         billingNote = if (isAnnual)
             stringResource(
-                Res.string.pricing_cloud_annual_note,
-                stringResource(Res.string.price_per_year_with_currency, stringResource(Res.string.pricing_cloud_annual_total)),
+                Res.string.pricing_cloud_annual_per_month,
+                stringResource(Res.string.pricing_cloud_annual_price),
             )
         else
             stringResource(Res.string.pricing_cloud_monthly_note),

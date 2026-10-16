@@ -242,7 +242,6 @@
     <string name="annual">Roční</string>
     <string name="monthly">Měsíčně</string>
     <string name="restore_purchases">Renovovat nákupy</string>
-    <string name="pricing_cloud_annual_note">Účtováno ročně (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Účtováno měsíčně</string>
     <string name="pricing_cloud_feature_1">Okamžitá synchronizace mezi Android aplikací a počítačem</string>
     <string name="pricing_cloud_feature_2">Sdílení seznamu s přáteli a rodinou</string>

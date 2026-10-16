@@ -400,7 +400,6 @@
     <string name="pricing_cloud_feature_2">Freigabe von Listen für Freunde &amp; Familie</string>
     <string name="pricing_cloud_feature_1">Sofortige Synchronisierung zwischen Android und Desktop</string>
     <string name="pricing_cloud_monthly_note">Monatliche Abrechnung</string>
-    <string name="pricing_cloud_annual_note">Jährliche Abrechnung (%1$s)</string>
     <string name="restore_purchases">Käufe wiederherstellen</string>
     <string name="pricing_nyp_description">Wählen Sie Ihren eigenen Abonnementpreis. Schaltet alle In-App-Funktionen frei.</string>
     <string name="pricing_from">Von %1$s</string>

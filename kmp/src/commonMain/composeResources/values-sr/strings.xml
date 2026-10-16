@@ -462,7 +462,6 @@
     <string name="annual">Годишње</string>
     <string name="monthly">Месечно</string>
     <string name="restore_purchases">Врати куповине</string>
-    <string name="pricing_cloud_annual_note">Наплаћује се годишње (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Наплаћује се месечно</string>
     <string name="pricing_cloud_feature_1">Инстант синхронизација између андроид и десктоп апликације</string>
     <string name="pricing_cloud_feature_2">Дељење листа са пријатељима и породицом</string>

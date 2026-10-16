@@ -224,7 +224,6 @@
     <string name="annual">年付</string>
     <string name="monthly">月付</string>
     <string name="restore_purchases">恢复购买</string>
-    <string name="pricing_cloud_annual_note">按年计费（%1$s）</string>
     <string name="pricing_cloud_monthly_note">按月计费</string>
     <string name="pricing_cloud_feature_1">Android 和桌面端间的即时同步</string>
     <string name="pricing_cloud_feature_2">好友和家人清单共享</string>

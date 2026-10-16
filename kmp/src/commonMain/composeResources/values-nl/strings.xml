@@ -604,7 +604,6 @@
     <string name="annual">Jaarlijks</string>
     <string name="monthly">Maandelijks</string>
     <string name="restore_purchases">Aankopen herstellen</string>
-    <string name="pricing_cloud_annual_note">Jaarlijkse facturering (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Maandelijkse facturering</string>
     <string name="pricing_cloud_feature_4">Verbinding maken met Apple Reminders op iOS</string>
     <string name="pricing_nyp_feature_1">Aangepaste thema\'s en pictogrammen</string>

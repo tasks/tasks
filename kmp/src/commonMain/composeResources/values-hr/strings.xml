@@ -255,7 +255,6 @@
     <string name="annual">Godišnje</string>
     <string name="monthly">Mjesečno</string>
     <string name="restore_purchases">Obnovi kupovinu</string>
-    <string name="pricing_cloud_annual_note">Godišnja naplata (%1$s)</string>
     <string name="pricing_cloud_monthly_note">Mjesečna naplata</string>
     <string name="pricing_cloud_feature_1">Trenutna sinkronizacija između Androida i desktop aplikacije</string>
     <string name="pricing_cloud_feature_4">Poveži s Apple podsjetnicima na iOS-u</string>
