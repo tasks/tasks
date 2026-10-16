@@ -693,4 +693,8 @@
     <string name="subscription_required">Abonelik gereklidir</string>
     <string name="upgrade">Yükselt</string>
     <string name="supporter">Tasks.org Destekleyici</string>
+    <string name="pricing_cloud_annual_per_month">%1$s/ay, yıllık olarak faturalandırılır</string>
+    <string name="reset_trusted_certificates">Güvenilen sertifikaları sıfırla</string>
+    <string name="reset_trusted_certificates_summary">Sunucular için kabul ettiğiniz sertifikaları ve sertifika yetkililerini unutun</string>
+    <string name="trusted_certificates_reset">Güvenilen sertifikalar sıfırlandı</string>
 </resources>
