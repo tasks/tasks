@@ -10,4 +10,5 @@ interface TasksAccountClient : AutoCloseable {
     suspend fun getAccount(): String?
     suspend fun regenerateInboundEmail(): JsonObject?
     suspend fun setInboundCalendar(calendar: String?): JsonObject?
+    suspend fun claimStripeSubscription(purchaseJwt: String): StripeSubscriptionResult
 }

@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class TasksAccountResponseTest {
@@ -20,7 +21,8 @@ class TasksAccountResponseTest {
 
         assertTrue(response.hasCloudSubscription)
         assertTrue(response.hasAnySubscription)
-        assertEquals("monthly_03", response.subscriptions.single().product)
+        assertTrue(response.hasStripeSubscription)
+        assertEquals("monthly_03", response.stripeProduct)
     }
 
     @Test
@@ -31,7 +33,9 @@ class TasksAccountResponseTest {
         )
 
         assertTrue(response.hasAnySubscription)
+        assertTrue(response.hasStripeSubscription)
         assertFalse(response.hasCloudSubscription)
+        assertEquals("annual_25", response.stripeProduct)
         assertEquals("${'$'}25.00", response.supporter.single().formattedPrice)
         assertEquals("active", response.supporter.single().status)
     }
@@ -57,11 +61,34 @@ class TasksAccountResponseTest {
     }
 
     @Test
+    fun aFailedPaymentIsStillEntitled() {
+        val response = parse(
+            """{"supporter":[{"provider":"stripe","product":"monthly_01","status":"past_due",""" +
+                """"formatted_price":"${'$'}0.99","cancel_at_period_end":false}]}"""
+        )
+
+        assertTrue(response.hasAnySubscription)
+        assertTrue(response.hasStripeSubscription)
+        assertEquals("past_due", response.supporter.single().status)
+    }
+
+    @Test
     fun anAccountWithNothingHasNothing() {
         val response = parse("""{"createdAt":1,"guest":false}""")
 
         assertFalse(response.hasAnySubscription)
         assertFalse(response.hasCloudSubscription)
+        assertFalse(response.hasStripeSubscription)
+        assertNull(response.stripeProduct)
+    }
+
+    @Test
+    fun anotherProvidersSubscriptionIsNotStripes() {
+        val response = parse("""{"subscriptions":[{"provider":"play","product":"annual_30"}]}""")
+
+        assertTrue(response.hasCloudSubscription)
+        assertFalse(response.hasStripeSubscription)
+        assertNull(response.stripeProduct)
     }
 
     @Test
@@ -69,5 +96,6 @@ class TasksAccountResponseTest {
         val response = parse("""{"subscription":{"free":false,"provider":"stripe"}}""")
 
         assertTrue(response.hasAnySubscription)
+        assertTrue(response.hasStripeSubscription)
     }
 }

@@ -16,11 +16,20 @@ data class TasksAccountResponse(
     val guests: List<Guest> = emptyList(),
     @SerialName("max_guests") val maxGuests: Int = 5,
 ) {
+    val hasStripeSubscription: Boolean
+        get() = subscriptions.any { it.provider == PROVIDER_STRIPE } ||
+            supporter.any { it.provider == PROVIDER_STRIPE } ||
+            subscription?.provider == PROVIDER_STRIPE
+
     val hasAnySubscription: Boolean
         get() = subscriptions.isNotEmpty() || supporter.isNotEmpty() || subscription?.free == false
 
     val hasCloudSubscription: Boolean
         get() = subscriptions.isNotEmpty()
+
+    val stripeProduct: String?
+        get() = subscriptions.firstOrNull { it.provider == PROVIDER_STRIPE }?.product
+            ?: supporter.firstOrNull { it.provider == PROVIDER_STRIPE }?.product
 
     @Serializable
     data class SubscriptionSource(
@@ -67,4 +76,8 @@ data class TasksAccountResponse(
         @SerialName("display_name") val displayName: String? = null,
         val email: String? = null,
     )
+
+    companion object {
+        const val PROVIDER_STRIPE = "stripe"
+    }
 }

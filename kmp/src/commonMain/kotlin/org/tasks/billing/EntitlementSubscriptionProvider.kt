@@ -25,6 +25,7 @@ class EntitlementSubscriptionProvider(
                     isMonthly = SubscriptionSkus.isMonthly(sku),
                     isTasksSubscription = SubscriptionSkus.isTasksSubscription(sku),
                     isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
+                    isCardSubscription = provider == EntitlementProvider.STRIPE,
                 )
                 debug -> SubscriptionProvider.SubscriptionInfo(
                     sku = DEBUG_SKU,

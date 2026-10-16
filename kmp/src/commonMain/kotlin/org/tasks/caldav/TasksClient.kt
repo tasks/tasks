@@ -15,6 +15,8 @@ import io.ktor.http.Url
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import io.ktor.http.parameters
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
@@ -23,6 +25,8 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.jsonObject
+import org.tasks.http.errorCode
+import org.tasks.http.jsonField
 import org.tasks.http.translateExceptions
 
 class TasksClient(
@@ -124,6 +128,46 @@ class TasksClient(
         }
     }
 
+    override suspend fun claimStripeSubscription(purchaseJwt: String): StripeSubscriptionResult =
+        withContext(Dispatchers.IO) {
+            val url = httpUrl?.resolve(ENDPOINT_STRIPE_SUBSCRIPTION)
+                ?: return@withContext StripeSubscriptionResult.Failed
+            val response = try {
+                httpClient.post(url) {
+                    contentType(ContentType.Application.Json)
+                    setBody(
+                        JsonObject(mapOf("purchase_jwt" to JsonPrimitive(purchaseJwt))).toString()
+                    )
+                }
+            } catch (e: PurchaseTokenInUseException) {
+                return@withContext StripeSubscriptionResult.TokenInUse(e.existingAccount)
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                Logger.e(e, tag = TAG) { "Failed to claim Stripe subscription" }
+                return@withContext StripeSubscriptionResult.Failed
+            }
+            val body = response.bodyAsText()
+            when (response.status.value) {
+                in 200..299 -> StripeSubscriptionResult.Claimed
+                400 -> StripeSubscriptionResult.InvalidPurchaseJwt
+                402 -> when (body.errorCode()) {
+                    "insufficient_subscription" -> StripeSubscriptionResult.InsufficientSubscription
+                    "purchase_token_in_use" -> StripeSubscriptionResult.TokenInUse(
+                        body.jsonField("existing_account").orEmpty()
+                    )
+                    else -> StripeSubscriptionResult.NoSubscription
+                }
+                404 -> StripeSubscriptionResult.UnknownPurchase
+                409 -> StripeSubscriptionResult.AlreadyLinked
+                503 -> StripeSubscriptionResult.Unavailable
+                else -> {
+                    Logger.w(tag = TAG) { "Claim failed: HTTP ${response.status.value}" }
+                    StripeSubscriptionResult.Failed
+                }
+            }
+        }
+
     private suspend fun HttpResponse.checkSuccess(): HttpResponse {
         if (!status.isSuccess()) {
             throw HttpException.fromResponse(this)
@@ -135,10 +179,12 @@ class TasksClient(
         Json.parseToJsonElement(bodyAsText()).jsonObject
 
     companion object {
+        private const val TAG = "TasksClient"
         private const val ENDPOINT_ACCOUNT = "/api/account"
         private const val ENDPOINT_PASSWORDS = "/app-passwords"
         private const val ENDPOINT_PUSH_TOKEN = "/push-token"
         private const val ENDPOINT_INBOUND_EMAIL = "/inbound-email"
+        private const val ENDPOINT_STRIPE_SUBSCRIPTION = "/stripe/subscription"
         private const val FORM_DESCRIPTION = "description"
         private const val FORM_SESSION_ID = "session_id"
     }

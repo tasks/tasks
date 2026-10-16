@@ -496,6 +496,23 @@ class PurchaseEntitlementTest {
         assertTrue(entitlement.hasPro.first())
     }
 
+    @Test
+    fun aCardSubscriptionRefreshesWhereAPlayOneDoes() = runBlocking {
+        storeOnDisk(
+            jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS),
+            EntitlementProvider.STRIPE,
+        )
+        server.enqueue(refreshResponse(jwt(exp = now() + 30 * DAY_SECONDS)))
+
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            assertTrue(hasPro.first())
+        }
+
+        assertEquals("/desktop/refresh", server.takeRequest(5, TimeUnit.SECONDS)?.path)
+    }
+
     private fun entitlement(
         refreshCallTimeoutMillis: Long = 20_000L,
         readyTimeoutMillis: Long = 30_000L,
@@ -517,13 +534,16 @@ class PurchaseEntitlementTest {
 
     private fun now() = System.currentTimeMillis() / 1000
 
-    private fun storeOnDisk(jwt: String) = runBlocking {
+    private fun storeOnDisk(
+        jwt: String,
+        provider: EntitlementProvider = EntitlementProvider.PLAY,
+    ) = runBlocking {
         val stored = PurchaseEntitlement.StoredEntitlement(
             jwt = jwt,
             refreshToken = "stored-token",
             sku = "annual",
             formattedPrice = "USD 10.00",
-            provider = EntitlementProvider.PLAY,
+            provider = provider,
         )
         val plain = json.encodeToString(PurchaseEntitlement.StoredEntitlement.serializer(), stored)
         entitlementFile.writeText(encryption.encrypt(plain)!!)

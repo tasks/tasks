@@ -338,7 +338,7 @@ class PurchaseEntitlement(
         val url = when (provider) {
             EntitlementProvider.GITHUB_SPONSOR ->
                 "${serverEnvironment.caldavUrl}/desktop/github/refresh"
-            EntitlementProvider.PLAY ->
+            EntitlementProvider.PLAY, EntitlementProvider.STRIPE ->
                 "${serverEnvironment.caldavUrl}/desktop/refresh"
         }
         return try {

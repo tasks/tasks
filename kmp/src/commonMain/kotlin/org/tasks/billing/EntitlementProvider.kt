@@ -7,4 +7,5 @@ import kotlinx.serialization.Serializable
 enum class EntitlementProvider {
     @SerialName("play") PLAY,
     @SerialName("github_sponsor") GITHUB_SPONSOR,
+    @SerialName("stripe") STRIPE,
 }
