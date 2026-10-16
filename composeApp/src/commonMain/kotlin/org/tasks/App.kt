@@ -1194,16 +1194,17 @@ fun App(
                                 }
                             }
                         } else {
+                            var arrivedPaying by rememberSaveable { mutableStateOf<Boolean?>(null) }
                             LaunchedEffect(Unit) {
-                                var previous: Boolean? = null
                                 subscriptionProvider.subscription
                                     .distinctUntilChanged()
                                     .collect { info ->
                                         val has = info != null
-                                        if (previous == false && has) {
+                                        if (arrivedPaying == null) {
+                                            arrivedPaying = has
+                                        } else if (arrivedPaying == false && has) {
                                             popPricing()
                                         }
-                                        previous = has
                                     }
                             }
                         }
