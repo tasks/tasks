@@ -684,4 +684,8 @@
     <string name="subscription_required">需要订阅</string>
     <string name="upgrade">升级</string>
     <string name="supporter">Tasks.org 支持者</string>
+    <string name="pricing_cloud_annual_per_month">每月 %1$s，年付</string>
+    <string name="reset_trusted_certificates">重置信任的证书</string>
+    <string name="reset_trusted_certificates_summary">忘记你接受的服务器证书和 CA</string>
+    <string name="trusted_certificates_reset">已重置信任的证书</string>
 </resources>
