@@ -693,4 +693,8 @@
     <string name="subscription_required">Vajalik on tellimus</string>
     <string name="upgrade">Uuenda</string>
     <string name="supporter">Tasks.org-i toetaja</string>
+    <string name="pricing_cloud_annual_per_month">aastase makse puhul %1$s/kuus</string>
+    <string name="reset_trusted_certificates">Lähtesta usaldatud sertifikaadid</string>
+    <string name="reset_trusted_certificates_summary">Järgnevaga unustad serverite kohaselt usaldusväärseks märgitud sertifikaadid ja sertifitseerimiskeskused</string>
+    <string name="trusted_certificates_reset">Usaldatud sertifikaadid on lähtestatud</string>
 </resources>
