@@ -18,7 +18,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
-import org.tasks.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -157,7 +156,6 @@ class Astrid2TaskProvider : ContentProvider() {
     private val tasks: Cursor
         get() {
             val hilt = hilt()
-            hilt.firebase.logEventOncePerDay(R.string.event_astrid2taskprovider)
             val tasks = hilt.contentProviderDao.getAstrid2TaskProviderTasks()
             val ret = MatrixCursor(TASK_FIELD_LIST)
             for (task in tasks) {

@@ -12,7 +12,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import org.tasks.BuildConfig
-import org.tasks.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -52,16 +51,13 @@ class TasksContentProvider : ContentProvider() {
             }
         )
         return when (URI_MATCHER.match(uri)) {
-            URI_TODO_AGENDA -> {
-                hilt.firebase.logEventOncePerDay(R.string.event_todoagenda)
-                hilt.contentProviderDao.rawQuery(
-                    SupportSQLiteQueryBuilder
-                        .builder(TODO_AGENDA_TABLES)
-                        .selection(selection, selectionArgs)
-                        .create()
-                        .sql
-                )
-            }
+            URI_TODO_AGENDA -> hilt.contentProviderDao.rawQuery(
+                SupportSQLiteQueryBuilder
+                    .builder(TODO_AGENDA_TABLES)
+                    .selection(selection, selectionArgs)
+                    .create()
+                    .sql
+            )
             URI_TASKS -> hilt.contentProviderDao.getTasks()
             URI_LISTS -> hilt.contentProviderDao.getLists()
             URI_GOOGLE_TASK_LISTS -> null
