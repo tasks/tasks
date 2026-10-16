@@ -60,6 +60,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.UnlockSource
 import org.tasks.billing.LinkResult
 import org.tasks.billing.StatusResult
 import org.tasks.kmp.formatNumber
@@ -106,8 +107,6 @@ sealed interface GitHubProState {
     data object Failed : GitHubProState
 }
 
-private enum class Selection { None, GooglePlay, GitHub }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RestorePurchasesScreen(
@@ -125,7 +124,7 @@ fun RestorePurchasesScreen(
     onGitHubFailed: () -> Unit = {},
     successButtonText: String? = null,
 ) {
-    var selection by remember { mutableStateOf(Selection.None) }
+    var selection by remember { mutableStateOf<UnlockSource?>(null) }
     var qrState by remember { mutableStateOf<DesktopProState>(DesktopProState.Loading) }
     var gitHubState by remember { mutableStateOf<GitHubProState>(GitHubProState.Idle) }
     var linkGeneration by remember { mutableIntStateOf(0) }
@@ -135,7 +134,7 @@ fun RestorePurchasesScreen(
 
     // Create or refresh link when Google Play is selected
     LaunchedEffect(selection, linkGeneration) {
-        if (selection != Selection.GooglePlay) return@LaunchedEffect
+        if (selection != UnlockSource.GOOGLE_PLAY) return@LaunchedEffect
         qrState = DesktopProState.Loading
         val result = onCreateLink()
         if (result != null) {
@@ -212,8 +211,8 @@ fun RestorePurchasesScreen(
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = {
-                        if (selection != Selection.None) {
-                            selection = Selection.None
+                        if (selection != null) {
+                            selection = null
                             gitHubState = GitHubProState.Idle
                         } else {
                             onBack()
@@ -243,20 +242,22 @@ fun RestorePurchasesScreen(
             verticalArrangement = Arrangement.Center,
         ) {
             when (selection) {
-                Selection.None -> {
+                null -> {
                     SelectionContent(
-                        onGooglePlay = {
-                            selection = Selection.GooglePlay
-                            onGooglePlaySelected()
-                        },
-                        onGitHub = {
-                            selection = Selection.GitHub
-                            onGitHubSelected()
-                            startGitHubSignIn()
+                        sources = UnlockSource.entries,
+                        onSelect = { source ->
+                            selection = source
+                            when (source) {
+                                UnlockSource.GOOGLE_PLAY -> onGooglePlaySelected()
+                                UnlockSource.GITHUB -> {
+                                    onGitHubSelected()
+                                    startGitHubSignIn()
+                                }
+                            }
                         },
                     )
                 }
-                Selection.GooglePlay -> {
+                UnlockSource.GOOGLE_PLAY -> {
                     QrTab(
                         state = qrState,
                         onBack = onBack,
@@ -264,7 +265,7 @@ fun RestorePurchasesScreen(
                         successButtonText = successButtonText,
                     )
                 }
-                Selection.GitHub -> {
+                UnlockSource.GITHUB -> {
                     Column(
                         modifier = Modifier.widthIn(max = 400.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -285,8 +286,8 @@ fun RestorePurchasesScreen(
 
 @Composable
 private fun SelectionContent(
-    onGooglePlay: () -> Unit,
-    onGitHub: () -> Unit,
+    sources: List<UnlockSource>,
+    onSelect: (UnlockSource) -> Unit,
 ) {
     BoxWithConstraints(
         modifier = Modifier
@@ -298,40 +299,51 @@ private fun SelectionContent(
                 horizontalArrangement = Arrangement.spacedBy(SettingsContentPadding),
                 modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min),
             ) {
-                SelectionCard(
-                    title = stringResource(Res.string.google_play_subscription),
-                    icon = Res.drawable.ic_google,
-                    onClick = onGooglePlay,
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
-                )
-                SelectionCard(
-                    title = stringResource(Res.string.github_sponsorship),
-                    icon = Res.drawable.ic_octocat,
-                    iconTint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                    onClick = onGitHub,
-                    modifier = Modifier.weight(1f).fillMaxHeight(),
-                )
+                sources.forEach { source ->
+                    UnlockSourceCard(
+                        source = source,
+                        onClick = { onSelect(source) },
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                    )
+                }
             }
         } else {
             Column(
                 verticalArrangement = Arrangement.spacedBy(SettingsContentPadding),
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                SelectionCard(
-                    title = stringResource(Res.string.google_play_subscription),
-                    icon = Res.drawable.ic_google,
-                    onClick = onGooglePlay,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                SelectionCard(
-                    title = stringResource(Res.string.github_sponsorship),
-                    icon = Res.drawable.ic_octocat,
-                    iconTint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                    onClick = onGitHub,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                sources.forEach { source ->
+                    UnlockSourceCard(
+                        source = source,
+                        onClick = { onSelect(source) },
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun UnlockSourceCard(
+    source: UnlockSource,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    when (source) {
+        UnlockSource.GOOGLE_PLAY -> SelectionCard(
+            title = stringResource(Res.string.google_play_subscription),
+            icon = Res.drawable.ic_google,
+            onClick = onClick,
+            modifier = modifier,
+        )
+        UnlockSource.GITHUB -> SelectionCard(
+            title = stringResource(Res.string.github_sponsorship),
+            icon = Res.drawable.ic_octocat,
+            iconTint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+            onClick = onClick,
+            modifier = modifier,
+        )
     }
 }
 
@@ -342,6 +354,21 @@ private fun SelectionCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     iconTint: Color? = null,
+) = SelectionCard(title = title, onClick = onClick, modifier = modifier) {
+    Icon(
+        painter = painterResource(icon),
+        contentDescription = title,
+        tint = iconTint ?: Color.Unspecified,
+        modifier = Modifier.size(48.dp),
+    )
+}
+
+@Composable
+private fun SelectionCard(
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: @Composable () -> Unit,
 ) {
     Card(
         onClick = onClick,
@@ -357,12 +384,7 @@ private fun SelectionCard(
                 .fillMaxWidth()
                 .padding(32.dp),
         ) {
-            Icon(
-                painter = painterResource(icon),
-                contentDescription = title,
-                tint = iconTint ?: Color.Unspecified,
-                modifier = Modifier.size(48.dp),
-            )
+            icon()
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = title,
@@ -570,9 +592,13 @@ private fun GitHubTab(
 }
 
 @Composable
-private fun SuccessContent(onBack: () -> Unit, buttonText: String? = null) {
+internal fun SuccessContent(
+    onBack: () -> Unit,
+    buttonText: String? = null,
+    message: String? = null,
+) {
     Text(
-        text = stringResource(Res.string.link_desktop_success),
+        text = message ?: stringResource(Res.string.link_desktop_success),
         style = MaterialTheme.typography.titleMedium,
         color = MaterialTheme.colorScheme.primary,
         textAlign = TextAlign.Center,
