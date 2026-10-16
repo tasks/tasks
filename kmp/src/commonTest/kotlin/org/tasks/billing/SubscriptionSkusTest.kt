@@ -48,4 +48,20 @@ class SubscriptionSkusTest {
         assertFalse(SubscriptionSkus.isProSubscription(null))
         assertFalse(SubscriptionSkus.isTasksSubscription("debug_pro"))
     }
+
+    @Test
+    fun namesTheSkuForAWholeDollarTier() {
+        assertEquals("annual_04", SubscriptionSkus.sku(4))
+        assertEquals("monthly_03", SubscriptionSkus.sku(3, monthly = true))
+        assertEquals("annual_25", SubscriptionSkus.sku(25))
+    }
+
+    @Test
+    fun theSkuItNamesIsOneItCanReadBack() {
+        SubscriptionSkus.SUPPORTER_LADDER.forEach { dollars ->
+            val sku = SubscriptionSkus.sku(dollars)
+            assertEquals(dollars, SubscriptionSkus.subscriptionPrice(sku))
+            assertTrue(SubscriptionSkus.isProSubscription(sku))
+        }
+    }
 }

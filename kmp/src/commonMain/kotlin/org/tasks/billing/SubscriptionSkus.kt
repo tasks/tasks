@@ -9,6 +9,11 @@ object SubscriptionSkus {
 
     private val PATTERN = Regex("^(annual|monthly)_(\\d+)$")
 
+    fun sku(dollars: Int, monthly: Boolean = false): String =
+        (if (monthly) "monthly_" else "annual_") + dollars.toString().padStart(2, '0')
+
+    val SUPPORTER_LADDER: IntRange = 1..25
+
     fun isProSubscription(sku: String?): Boolean = sku != null && PATTERN.matches(sku)
 
     fun isMonthly(sku: String?): Boolean = sku?.startsWith("monthly") == true

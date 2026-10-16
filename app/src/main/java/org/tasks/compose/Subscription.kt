@@ -79,6 +79,7 @@ import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
 import org.tasks.billing.Sku
+import org.tasks.billing.SubscriptionSkus
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
 import org.tasks.compose.PurchaseText.SubscriptionScreen
@@ -582,7 +583,7 @@ object PurchaseText {
             ) {
                 PurchaseButton(
                     price = remember(skus) {
-                        skus.find { it.productId == "annual_30" }?.price ?: "$30"
+                        skus.find { it.productId == SubscriptionSkus.sku(30) }?.price ?: "$30"
                     },
                     popperText = "${stringResource(R.string.save_percent, 16)} $POPPER",
                     onClick = { subscribe(30, false) },
@@ -590,7 +591,7 @@ object PurchaseText {
                 Spacer(Modifier.width(KEYLINE_FIRST))
                 PurchaseButton(
                     price = remember(skus) {
-                        skus.find { it.productId == "monthly_03" }?.price ?: "$3"
+                        skus.find { it.productId == SubscriptionSkus.sku(3, monthly = true) }?.price ?: "$3"
                     },
                     monthly = true,
                     onClick = { subscribe(3, true) },
@@ -637,6 +638,7 @@ object PurchaseText {
         subscribe: (Int, Boolean) -> Unit,
         skus: List<Sku>,
     ) {
+        val ladder = SubscriptionSkus.SUPPORTER_LADDER
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -644,10 +646,10 @@ object PurchaseText {
             Row(Modifier.fillMaxWidth()) {
                 Slider(
                     modifier = Modifier.padding(KEYLINE_FIRST, 0.dp, KEYLINE_FIRST, HALF_KEYLINE),
-                    value = sliderPosition.coerceIn(1f, 25f),
+                    value = sliderPosition.coerceIn(ladder.first.toFloat(), ladder.last.toFloat()),
                     onValueChange = { setPrice(it) },
-                    valueRange = 1f..25f,
-                    steps = 23,
+                    valueRange = ladder.first.toFloat()..ladder.last.toFloat(),
+                    steps = ladder.count() - 2,
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
@@ -661,11 +663,11 @@ object PurchaseText {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                val price = sliderPosition.roundToInt().coerceIn(1, 25)
+                val price = sliderPosition.roundToInt().coerceIn(ladder.first, ladder.last)
                 PurchaseButton(
                     price = remember(skus, price) {
                         skus
-                            .find { it.productId == "annual_${price.toString().padStart(2, '0')}" }
+                            .find { it.productId == SubscriptionSkus.sku(price) }
                             ?.price
                             ?: "$$price"
                     },
@@ -680,7 +682,7 @@ object PurchaseText {
                     PurchaseButton(
                         price = remember(skus, price) {
                             skus
-                                .find { it.productId == "monthly_${price.toString().padStart(2, '0')}" }
+                                .find { it.productId == SubscriptionSkus.sku(price, monthly = true) }
                                 ?.price
                                 ?: "$$price"
                         },
