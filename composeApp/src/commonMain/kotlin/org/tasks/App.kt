@@ -120,7 +120,6 @@ import androidx.savedstate.serialization.SavedStateConfiguration
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.CancellationException
@@ -1196,13 +1195,15 @@ fun App(
                             }
                         } else {
                             LaunchedEffect(Unit) {
+                                var previous: Boolean? = null
                                 subscriptionProvider.subscription
                                     .distinctUntilChanged()
-                                    .drop(1)
-                                    .collect {
-                                        if (it != null) {
+                                    .collect { info ->
+                                        val has = info != null
+                                        if (previous == false && has) {
                                             popPricing()
                                         }
+                                        previous = has
                                     }
                             }
                         }
