@@ -216,8 +216,13 @@ private fun CloudTierCard(
             stringResource(Res.string.pricing_cloud_feature_3),
             stringResource(Res.string.pricing_cloud_feature_4),
         ),
-        ctaLabel = stringResource(Res.string.pricing_subscribe_google_play),
-        onCtaClick = onCtaClick,
+        cta = {
+            PurchaseButton(
+                label = stringResource(Res.string.pricing_subscribe_google_play),
+                onClick = onCtaClick,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
         isRecommended = isRecommended,
         billingToggle = {
             BillingPeriodToggle(
@@ -251,12 +256,34 @@ private fun NameYourPriceTierCard(
             stringResource(Res.string.pricing_nyp_feature_2),
             stringResource(Res.string.pricing_nyp_feature_3),
         ),
-        ctaLabel = stringResource(Res.string.pricing_subscribe_google_play),
-        onCtaClick = onCtaClick,
+        cta = {
+            PurchaseButton(
+                label = stringResource(Res.string.pricing_subscribe_google_play),
+                onClick = onCtaClick,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
         footerDescription = stringResource(Res.string.already_subscribed),
         footerLabel = stringResource(Res.string.restore_purchases),
         onFooterClick = onRestorePurchases,
     )
+}
+
+@Composable
+private fun PurchaseButton(
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier,
+        shape = RoundedCornerShape(8.dp),
+    ) {
+        Text(label)
+    }
 }
 
 @Composable
@@ -266,8 +293,7 @@ private fun TierCard(
     priceSuffix: String,
     description: String,
     features: List<String>,
-    ctaLabel: String,
-    onCtaClick: () -> Unit,
+    cta: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     isRecommended: Boolean = false,
     billingNote: String? = null,
@@ -285,8 +311,7 @@ private fun TierCard(
             billingToggle = billingToggle,
             description = description,
             features = features,
-            ctaLabel = ctaLabel,
-            onCtaClick = onCtaClick,
+            cta = cta,
             footerDescription = footerDescription,
             footerLabel = footerLabel,
             onFooterClick = onFooterClick,
@@ -349,8 +374,7 @@ private fun TierCardContent(
     billingToggle: @Composable (() -> Unit)?,
     description: String,
     features: List<String>,
-    ctaLabel: String,
-    onCtaClick: () -> Unit,
+    cta: @Composable () -> Unit,
     footerDescription: String?,
     footerLabel: String?,
     onFooterClick: (() -> Unit)?,
@@ -425,13 +449,7 @@ private fun TierCardContent(
 
         Spacer(modifier = Modifier.weight(1f).height(24.dp))
 
-        Button(
-            onClick = onCtaClick,
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
-        ) {
-            Text(ctaLabel)
-        }
+        cta()
 
         if (footerLabel != null && onFooterClick != null) {
             HorizontalDivider(
