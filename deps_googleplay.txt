@@ -1975,7 +1975,7 @@
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
 +|    +--- androidx.hilt:hilt-common:1.4.0
 +|    |    \--- com.google.dagger:hilt-core:2.59 -> 2.60.1 (*)
-+|    +--- androidx.work:work-runtime:2.3.4 -> 2.11.0
++|    +--- androidx.work:work-runtime:2.3.4 -> 2.12.0
 +|    |    +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
 +|    |    +--- androidx.concurrent:concurrent-futures-ktx:1.1.0 (*)
 +|    |    +--- androidx.core:core:1.12.0 -> 1.18.0 (*)
@@ -2007,11 +2007,10 @@
 +|    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    |    \--- androidx.tracing:tracing:2.0.0 (c)
 +|    |    +--- com.google.guava:listenablefuture:1.0 -> 9999.0-empty-to-avoid-conflict-with-guava
-+|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.20 (*)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
 +|    |    +--- org.jspecify:jspecify:1.0.0
-+|    |    +--- androidx.work:work-runtime-ktx:2.11.0 (c)
-+|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (c)
++|    |    \--- androidx.work:work-runtime-ktx:2.12.0 (c)
 +|    +--- com.google.dagger:hilt-android:2.59 -> 2.60.1 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    \--- org.jspecify:jspecify:1.0.0
@@ -2172,9 +2171,10 @@
 ++--- com.google.apis:google-api-services-drive:v3-rev20260823-2.0.0
 +|    \--- com.google.api-client:google-api-client:2.7.2 (*)
 ++--- com.google.auth:google-auth-library-oauth2-http:1.39.0 (*)
-++--- androidx.work:work-runtime-ktx:2.11.0
-+|    +--- androidx.work:work-runtime:2.11.0 (*)
-+|    \--- androidx.work:work-runtime:2.11.0 (c)
+++--- androidx.work:work-runtime-ktx:2.12.0
++|    +--- androidx.work:work-runtime:2.12.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
++|    \--- androidx.work:work-runtime:2.12.0 (c)
 ++--- com.etebase:client:2.3.2 (*)
 ++--- com.github.jheld:colorpicker:a0c2fd2125
 +|    \--- androidx.appcompat:appcompat:1.1.0 -> 1.8.0 (*)
