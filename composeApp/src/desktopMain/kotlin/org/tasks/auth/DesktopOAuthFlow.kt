@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpServer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.extensions.openInBrowser
 import java.io.IOException
@@ -16,10 +17,12 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 private const val TAG = "DesktopOAuthFlow"
+private const val CALLBACK_TIMEOUT_MILLIS = 10 * 60 * 1000L
 
 class DesktopOAuthFlow(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
+    private val callbackTimeoutMillis: Long = CALLBACK_TIMEOUT_MILLIS,
     private val openUrl: (String) -> Unit = { url ->
         if (!openInBrowser(url)) {
             throw IOException("Nothing on this system could open $url")
@@ -77,6 +80,13 @@ class DesktopOAuthFlow(
     }
 
     private suspend fun listenForCallback(
+        loopbackHost: String,
+        onReady: (port: Int) -> OAuthConfig,
+    ): Pair<OAuthConfig, String> =
+        withTimeoutOrNull(callbackTimeoutMillis) { awaitCallback(loopbackHost, onReady) }
+            ?: throw IOException("Timed out waiting for the sign-in to finish")
+
+    private suspend fun awaitCallback(
         loopbackHost: String,
         onReady: (port: Int) -> OAuthConfig,
     ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
