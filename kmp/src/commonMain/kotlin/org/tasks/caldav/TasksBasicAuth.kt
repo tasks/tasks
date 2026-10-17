@@ -11,10 +11,10 @@ import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.statement.bodyAsText
 import io.ktor.util.AttributeKey
-import io.ktor.util.encodeBase64
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import org.tasks.http.basicCredentials
 
 class TasksBasicAuth(
     val user: String,
@@ -23,7 +23,7 @@ class TasksBasicAuth(
     private val pushToken: String? = null,
     private val subscriptionInfo: SubscriptionInfo? = null,
 ) : HttpClientPlugin<Unit, TasksBasicAuth> {
-    private val credentials = "Basic " + "$user:$token".encodeBase64()
+    private val credentials = basicCredentials(user, token)
 
     override val key = AttributeKey<TasksBasicAuth>("TasksBasicAuth")
 
