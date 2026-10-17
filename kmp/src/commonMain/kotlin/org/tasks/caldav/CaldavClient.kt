@@ -117,6 +117,9 @@ open class CaldavClient(
                     try {
                         tryFindPrincipal(link)
                     } catch (e: Exception) {
+                        if (e is HttpException && e.statusCode == 429) {
+                            throw e
+                        }
                         if (e is HttpException && e.statusCode == 401) {
                             unauthorized = e
                         }
@@ -130,7 +133,7 @@ open class CaldavClient(
                 findHomeset(principal?.let { httpUrl!!.resolve(it) } ?: httpUrl!!)
             } catch (e: Exception) {
                 val seen401 = unauthorized
-                if (seen401 != null && !(e is HttpException && e.statusCode == 401)) {
+                if (seen401 != null && !(e is HttpException && e.statusCode in setOf(401, 429))) {
                     throw seen401
                 }
                 throw e
