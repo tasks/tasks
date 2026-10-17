@@ -694,4 +694,7 @@
     <string name="upgrade">Opwaarderen</string>
     <string name="supporter">Tasks.org Supporter</string>
     <string name="pricing_cloud_annual_per_month">%1$s/maand, jaarlijks gefactureerd</string>
+    <string name="reset_trusted_certificates">Vertrouwde certificaten opnieuw instellen</string>
+    <string name="reset_trusted_certificates_summary">Certificaten en certificaatautoriteiten die u voor servers hebt geaccepteerd vergeten</string>
+    <string name="trusted_certificates_reset">Vertrouwde certificaten opnieuw instellen</string>
 </resources>
