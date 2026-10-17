@@ -18,6 +18,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.R
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.NotificationDao
 import org.tasks.data.dao.TaskDao
@@ -55,6 +56,7 @@ class NotificationManager @Inject constructor(
     private val preferences: Preferences,
     private val notificationDao: NotificationDao,
     private val taskDao: TaskDao,
+    private val caldavDao: CaldavDao,
     private val locationDao: LocationDao,
     private val refreshBroadcaster: RefreshBroadcaster,
     private val notificationManager: ThrottledNotificationManager,
@@ -133,12 +135,14 @@ class NotificationManager @Inject constructor(
             return
         }
         val notifications = notificationDao.getAllOrdered()
+        val muted = caldavDao.getMutedTaskIds(notifications.map { it.taskId }).toSet()
+        val active = dropMuted(notifications, muted)
         if (cancelExisting) {
-            for (notification in notifications) {
+            for (notification in active) {
                 notificationManager.cancel(notification.taskId.toInt())
             }
         }
-        if (preferences.bundleNotifications() && notifications.size > 1) {
+        if (preferences.bundleNotifications() && active.size > 1) {
             updateSummary(
                     notify = false,
                     nonStop = false,
@@ -146,12 +150,12 @@ class NotificationManager @Inject constructor(
                     newNotifications = emptyList(),
                 )
             val posted = createNotifications(
-                    notifications = notifications,
+                    notifications = active,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
             )
-            if (posted.size != notifications.size) {
+            if (posted.size != active.size) {
                 updateSummary(
                         notify = false,
                         nonStop = false,
@@ -161,7 +165,7 @@ class NotificationManager @Inject constructor(
             }
         } else {
             createNotifications(
-                    notifications = notifications,
+                    notifications = active,
                     alert = false,
                     nonstop = false,
                     fiveTimes = false,
@@ -178,13 +182,18 @@ class NotificationManager @Inject constructor(
         nonstop: Boolean,
         fiveTimes: Boolean
     ): Collection<Long> {
+        val allNotifications = notificationDao.getAllOrdered()
+        val muted = caldavDao.getMutedTaskIds(
+            allNotifications.map { it.taskId } + newNotifications.map { it.taskId }
+        ).toSet()
+        val notifications = consumeMuted(newNotifications, muted)
         if (!permissionChecker.canNotify()) {
-            Timber.w("Notifications disabled, holding ${newNotifications.size}")
+            Timber.w("Notifications disabled, holding ${notifications.size}")
             return emptyList()
         }
-        val existingNotifications = notificationDao.getAllOrdered()
-        notificationDao.insertAll(newNotifications)
-        val totalCount = existingNotifications.size + newNotifications.size
+        val existingNotifications = dropMuted(allNotifications, muted)
+        notificationDao.insertAll(notifications)
+        val totalCount = existingNotifications.size + notifications.size
         var summariseAfterCleanup = false
         val posted = when {
             totalCount == 0 -> {
@@ -207,14 +216,14 @@ class NotificationManager @Inject constructor(
                     )
                 }
                 when {
-                    newNotifications.size == 1 -> createNotifications(
-                        notifications = newNotifications,
+                    notifications.size == 1 -> createNotifications(
+                        notifications = notifications,
                         alert = alert,
                         nonstop = nonstop,
                         fiveTimes = fiveTimes,
                     )
-                    newNotifications.size > 1 -> createNotifications(
-                            notifications = newNotifications,
+                    notifications.size > 1 -> createNotifications(
+                            notifications = notifications,
                             alert = false,
                             nonstop = false,
                             fiveTimes = false,
@@ -223,7 +232,7 @@ class NotificationManager @Inject constructor(
                 }
             }
             else -> createNotifications(
-                notifications = newNotifications,
+                notifications = notifications,
                 alert = alert,
                 nonstop = nonstop,
                 fiveTimes = fiveTimes,
@@ -231,7 +240,7 @@ class NotificationManager @Inject constructor(
             )
         }
         val discarded = undeliveredRows(
-            attempted = newNotifications.map { it.taskId },
+            attempted = notifications.map { it.taskId },
             delivered = posted,
             existing = existingNotifications.mapTo(mutableSetOf()) { it.taskId },
         )
@@ -240,7 +249,7 @@ class NotificationManager @Inject constructor(
             notificationDao.deleteAll(discarded)
         }
         if (summariseAfterCleanup && posted.isNotEmpty()) {
-            updateSummary(alert, nonstop, fiveTimes, newNotifications)
+            updateSummary(alert, nonstop, fiveTimes, notifications)
         } else if (discarded.isNotEmpty() && preferences.bundleNotifications()) {
             updateSummary(
                 notify = false,
@@ -251,6 +260,40 @@ class NotificationManager @Inject constructor(
         }
         refreshBroadcaster.broadcastRefresh()
         return posted
+    }
+
+    /** Consume reminders for muted lists and return the remaining notifications */
+    private suspend fun consumeMuted(
+        notifications: List<Notification>,
+        muted: Set<Long>,
+    ): List<Notification> {
+        if (notifications.isEmpty() || muted.isEmpty()) {
+            return notifications
+        }
+        val (suppressed, deliverable) = notifications.partition { it.taskId in muted }
+        for (notification in suppressed) {
+            val reminderTime = DateTime(notification.timestamp).endOfMinute().millis
+            taskDao.setLastNotified(notification.taskId, reminderTime)
+        }
+        Timber.d("Suppressed muted notifications: ${suppressed.map { it.taskId }}")
+        return deliverable
+    }
+
+    /** Dismiss and delete notifications for muted lists, returning the remaining rows */
+    private suspend fun dropMuted(
+        existing: List<Notification>,
+        muted: Set<Long>,
+    ): List<Notification> {
+        val stale = existing.filter { it.taskId in muted }
+        if (stale.isEmpty()) {
+            return existing
+        }
+        Timber.d("Dropping muted notifications: ${stale.map { it.taskId }}")
+        for (notification in stale) {
+            notificationManager.cancel(notification.taskId.toInt())
+        }
+        notificationDao.deleteAll(stale.map { it.taskId })
+        return existing.filterNot { it.taskId in muted }
     }
 
     @SuppressLint("MissingPermission")

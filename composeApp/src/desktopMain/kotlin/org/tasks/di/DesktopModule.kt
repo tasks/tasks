@@ -448,6 +448,9 @@ actual fun platformModule(): Module = module {
                 current != null && get<TasksPreferences>()
                     .getAndSet(TasksPreferences.notificationSession, current) == current
             },
+            mutedTaskIds = {
+                get<org.tasks.data.dao.CaldavDao>().getMutedTaskIds(it).toSet()
+            },
             createBackend = {
                 val listener = get<NotificationActionHandler>()
                 when (platform()) {
