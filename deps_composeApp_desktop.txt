@@ -1130,16 +1130,16 @@
 +|    +--- com.squareup.okhttp3:okhttp-bom:4.12.0
 +|    |    \--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0 (c)
 +|    \--- com.squareup.okhttp3:okhttp -> 5.5.0 (*)
-++--- dev.nucleusframework:nucleus.notification-linux:2.5.12
-+|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.12
+++--- dev.nucleusframework:nucleus.notification-linux:2.5.18
++|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.18
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.20 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (c)
-+|    +--- dev.nucleusframework:nucleus.freedesktop-icons:2.5.12
++|    +--- dev.nucleusframework:nucleus.freedesktop-icons:2.5.18
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
-++--- dev.nucleusframework:nucleus.notification-macos:2.5.12
-+|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.12 (*)
+++--- dev.nucleusframework:nucleus.notification-macos:2.5.18
++|    +--- dev.nucleusframework:nucleus.core-runtime:2.5.18 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
-+\--- dev.nucleusframework:nucleus.notification-windows:2.5.12
-+     +--- dev.nucleusframework:nucleus.core-runtime:2.5.12 (*)
++\--- dev.nucleusframework:nucleus.notification-windows:2.5.18
++     +--- dev.nucleusframework:nucleus.core-runtime:2.5.18 (*)
 +     \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
