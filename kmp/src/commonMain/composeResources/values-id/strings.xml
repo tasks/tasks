@@ -305,7 +305,6 @@
     <string name="pricing_nyp_feature_2">Sinkronisasi self-hosted dengan CalDAV dan EteSync</string>
     <string name="pricing_nyp_feature_3">Dukung perangkat lunak open source</string>
     <string name="pricing_subscribe_google_play">Berlangganan di Google Play</string>
-    <string name="pricing_sponsor">Atau jadi sponsor di GitHub seharga %1$s</string>
     <string name="subscription_not_found">Langganan Tasks.org Cloud Anda tidak ditemukan. Jika Anda yakin ini adalah kesalahan, hubungi %1$s</string>
     <string name="create_a_list">Buat daftar</string>
     <string name="cloud_onboarding_welcome_title">Selamat datang di Tasks.org Cloud</string>

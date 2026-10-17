@@ -247,7 +247,6 @@
     <string name="pricing_nyp_feature_2">Synchronisation en mode auto-hébergé avec CalDAV et EteSync</string>
     <string name="pricing_nyp_feature_3">Soutenir les logiciels libres</string>
     <string name="pricing_subscribe_google_play">S'abonner sur Google Play</string>
-    <string name="pricing_sponsor">Ou devenez parrain sur GitHub pour %1$s</string>
     <string name="annual">Annuel</string>
     <string name="monthly">Mensuel</string>
     <string name="pricing_cloud_feature_2">Partage de liste d'amis et de famille</string>

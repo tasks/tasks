@@ -34,9 +34,6 @@
     <string name="pricing_cloud_monthly_price" translatable="false">$2.99</string>
     <string name="pricing_cloud_annual_total" translatable="false">$29.99</string>
     <string name="pricing_nyp_min_price" translatable="false">$0.99</string>
-    <string name="pricing_sponsor_annual" translatable="false">$30</string>
-    <string name="pricing_sponsor_monthly" translatable="false">$3</string>
-    <string name="pricing_sponsor_nyp" translatable="false">$1</string>
     <string name="event_pebble" translatable="false">pebble</string>
     <string name="param_device_model" translatable="false">device_model</string>
     <string name="not_available_desktop" translatable="false">🚧 UNDER CONSTRUCTION 🚧</string>

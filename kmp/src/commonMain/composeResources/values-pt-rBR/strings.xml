@@ -318,7 +318,6 @@
     <string name="pricing_nyp_feature_2">Sincronização auto hospedada com CalDAV e EteSync</string>
     <string name="pricing_nyp_feature_3">Apoiar software de código aberto</string>
     <string name="pricing_subscribe_google_play">Inscreva-se no Google Play</string>
-    <string name="pricing_sponsor">Ou apoie no GitHub por %1$s</string>
     <string name="subscription_not_found">Sua inscrição do Tasks.org Cloud não foi encontrada. Se você acha que isso é um erro, entre em contato com %1$s</string>
     <string name="create_a_list">Criar uma lista</string>
     <string name="google_tasks_permission_not_granted">Permissão do Google Tasks não foi concedida. Faça login de novo e permita acesso ao Google Tasks.</string>

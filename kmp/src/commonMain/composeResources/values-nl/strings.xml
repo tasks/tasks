@@ -610,7 +610,6 @@
     <string name="pricing_nyp_feature_2">Zelfgehoste synchronisatie met CalDAV en EteSync</string>
     <string name="pricing_nyp_feature_3">Open source software ondersteunen</string>
     <string name="pricing_subscribe_google_play">Abonneer je op Google Play</string>
-    <string name="pricing_sponsor">Of sponsor op GitHub voor %1$s</string>
     <string name="already_subscribed">Al abonnee?</string>
     <string name="sign_in_subtitle">Al een abonnee of uitgenodigde gast?</string>
     <string name="subscription_not_found">Jouw Tasks.org cloud abonnement is niet gevonden. Als je denkt dat dit een fout is, neem dan contact op met %1$s</string>

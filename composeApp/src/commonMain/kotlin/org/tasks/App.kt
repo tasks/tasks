@@ -1204,7 +1204,6 @@ fun App(
                             }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
-                        val sponsorUrl = stringResource(Res.string.url_sponsor)
                         PricingScreen(
                             mode = destination.mode,
                             onBack = { backStack.removeLastOrNull() },
@@ -1220,26 +1219,12 @@ fun App(
                                 )
                                 openUrl(googlePlayUrl)
                             },
-                            onCloudSponsorClick = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.PRICING_SPONSOR_CLICK,
-                                    AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_CLOUD,
-                                )
-                                openUrl(sponsorUrl)
-                            },
                             onNypSubscribeClick = {
                                 reporting.logEvent(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
                                     AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
                                 )
                                 openUrl(googlePlayUrl)
-                            },
-                            onNypSponsorClick = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.PRICING_SPONSOR_CLICK,
-                                    AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
-                                )
-                                openUrl(sponsorUrl)
                             },
                             onBillingToggle = { isAnnual ->
                                 reporting.logEvent(

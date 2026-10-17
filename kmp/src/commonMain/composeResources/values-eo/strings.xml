@@ -587,7 +587,6 @@
     <string name="pricing_nyp_feature_2">Memgastigata sinkronigo kun CalDAV kaj EteSync</string>
     <string name="pricing_nyp_feature_3">Subteni malfermitkodan programaron</string>
     <string name="pricing_subscribe_google_play">Aboni per Google Play</string>
-    <string name="pricing_sponsor">Aŭ sponsori en GitHub kontraŭ %1$s</string>
     <string name="subscription_not_found">Ne trovas vian abonon de Tasks.org cloud. Se vi kredas ke tio estas eraro, kontaktu %1$s</string>
     <string name="add_tag">Aldoni etikedon</string>
     <string name="create_a_list">Krei liston</string>

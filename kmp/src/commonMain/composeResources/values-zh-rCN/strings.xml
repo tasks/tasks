@@ -233,7 +233,6 @@
     <string name="pricing_nyp_feature_2">借助 CalDAV 和 EteSync 的自托管同步</string>
     <string name="pricing_nyp_feature_3">支持开源软件</string>
     <string name="pricing_subscribe_google_play">在 Google Play 订阅</string>
-    <string name="pricing_sponsor">或在 GitHub 上以 %1$s 赞助</string>
     <string name="app_settings">应用设置</string>
     <string name="link_desktop_step_1">打开 Tasks.org 桌面应用</string>
     <string name="link_desktop_step_2">单击 '%1$s' 选择 '%2$s'</string>

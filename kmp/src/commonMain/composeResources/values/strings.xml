@@ -354,7 +354,6 @@
     <string name="pricing_nyp_feature_2">Self-hosted synchronization with CalDAV and EteSync</string>
     <string name="pricing_nyp_feature_3">Support open source software</string>
     <string name="pricing_subscribe_google_play">Subscribe on Google Play</string>
-    <string name="pricing_sponsor">Or sponsor on GitHub for %1$s</string>
     <string name="already_subscribed">Already a subscriber?</string>
     <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
     <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>

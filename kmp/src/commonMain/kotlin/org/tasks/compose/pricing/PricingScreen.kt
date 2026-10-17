@@ -35,7 +35,6 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -68,9 +67,7 @@ fun PricingScreen(
     onSignIn: () -> Unit,
     onRestorePurchases: () -> Unit,
     onCloudSubscribeClick: () -> Unit = {},
-    onCloudSponsorClick: () -> Unit = {},
     onNypSubscribeClick: () -> Unit = {},
-    onNypSponsorClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
     showSupporterBanner: Boolean = false,
 ) {
@@ -140,7 +137,6 @@ fun PricingScreen(
                         modifier = cardModifier,
                         isRecommended = showBoth,
                         onCtaClick = onCloudSubscribeClick,
-                        onSponsorClick = onCloudSponsorClick,
                         onSignIn = onSignIn,
                         onBillingToggle = onBillingToggle,
                     )
@@ -149,7 +145,6 @@ fun PricingScreen(
                     NameYourPriceTierCard(
                         modifier = cardModifier,
                         onCtaClick = onNypSubscribeClick,
-                        onSponsorClick = onNypSponsorClick,
                         onRestorePurchases = onRestorePurchases,
                     )
                 }
@@ -190,7 +185,6 @@ private fun CloudTierCard(
     modifier: Modifier = Modifier,
     isRecommended: Boolean = true,
     onCtaClick: () -> Unit,
-    onSponsorClick: () -> Unit,
     onSignIn: () -> Unit,
     onBillingToggle: (Boolean) -> Unit = {},
 ) {
@@ -234,14 +228,6 @@ private fun CloudTierCard(
                 },
             )
         },
-        secondaryLabel = stringResource(
-            Res.string.pricing_sponsor,
-            if (isAnnual)
-                stringResource(Res.string.price_per_year_with_currency, stringResource(Res.string.pricing_sponsor_annual))
-            else
-                stringResource(Res.string.price_per_month_with_currency, stringResource(Res.string.pricing_sponsor_monthly)),
-        ),
-        onSecondaryClick = onSponsorClick,
         footerDescription = stringResource(Res.string.sign_in_subtitle),
         footerLabel = stringResource(Res.string.sign_in),
         onFooterClick = onSignIn,
@@ -252,7 +238,6 @@ private fun CloudTierCard(
 private fun NameYourPriceTierCard(
     modifier: Modifier = Modifier,
     onCtaClick: () -> Unit,
-    onSponsorClick: () -> Unit,
     onRestorePurchases: () -> Unit,
 ) {
     TierCard(
@@ -268,11 +253,6 @@ private fun NameYourPriceTierCard(
         ),
         ctaLabel = stringResource(Res.string.pricing_subscribe_google_play),
         onCtaClick = onCtaClick,
-        secondaryLabel = stringResource(
-            Res.string.pricing_sponsor,
-            stringResource(Res.string.price_per_year_with_currency, stringResource(Res.string.pricing_sponsor_nyp)),
-        ),
-        onSecondaryClick = onSponsorClick,
         footerDescription = stringResource(Res.string.already_subscribed),
         footerLabel = stringResource(Res.string.restore_purchases),
         onFooterClick = onRestorePurchases,
@@ -292,8 +272,6 @@ private fun TierCard(
     isRecommended: Boolean = false,
     billingNote: String? = null,
     billingToggle: @Composable (() -> Unit)? = null,
-    secondaryLabel: String? = null,
-    onSecondaryClick: (() -> Unit)? = null,
     footerDescription: String? = null,
     footerLabel: String? = null,
     onFooterClick: (() -> Unit)? = null,
@@ -309,8 +287,6 @@ private fun TierCard(
             features = features,
             ctaLabel = ctaLabel,
             onCtaClick = onCtaClick,
-            secondaryLabel = secondaryLabel,
-            onSecondaryClick = onSecondaryClick,
             footerDescription = footerDescription,
             footerLabel = footerLabel,
             onFooterClick = onFooterClick,
@@ -375,8 +351,6 @@ private fun TierCardContent(
     features: List<String>,
     ctaLabel: String,
     onCtaClick: () -> Unit,
-    secondaryLabel: String?,
-    onSecondaryClick: (() -> Unit)?,
     footerDescription: String?,
     footerLabel: String?,
     onFooterClick: (() -> Unit)?,
@@ -457,18 +431,6 @@ private fun TierCardContent(
             shape = RoundedCornerShape(8.dp),
         ) {
             Text(ctaLabel)
-        }
-
-        if (secondaryLabel != null && onSecondaryClick != null) {
-            TextButton(
-                onClick = onSecondaryClick,
-                modifier = Modifier.padding(top = 4.dp),
-            ) {
-                Text(
-                    text = secondaryLabel,
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
         }
 
         if (footerLabel != null && onFooterClick != null) {

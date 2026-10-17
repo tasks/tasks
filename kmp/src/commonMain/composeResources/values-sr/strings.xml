@@ -471,7 +471,6 @@
     <string name="pricing_nyp_feature_2">Синхронизација на сопственом серверу путем CalDAV и EteSync</string>
     <string name="pricing_nyp_feature_3">Подржи софтвер отвореног кода</string>
     <string name="pricing_subscribe_google_play">Претплати се на Google Play</string>
-    <string name="pricing_sponsor">Или спонзориши на GitHub за %1$s</string>
     <string name="already_subscribed">Већ си претплатник?</string>
     <string name="sign_in_subtitle">Већ си претплатник или позвани гост?</string>
     <string name="subscription_not_found">Твоја Tasks.org cloud претплата није пронађена. Ако сматраш да је ово грешка, контактирај %1$s</string>

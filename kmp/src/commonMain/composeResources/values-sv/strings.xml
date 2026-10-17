@@ -270,7 +270,6 @@
     <string name="pricing_nyp_feature_2">Synkronisering via egen server med CalDAV och EteSync</string>
     <string name="pricing_nyp_feature_3">Stöd utvecklingen av fri programvara</string>
     <string name="pricing_subscribe_google_play">Prenumerera på Google Play</string>
-    <string name="pricing_sponsor">Eller sponsra på GitHub för %1$s</string>
     <string name="already_subscribed">Redan prenumerant?</string>
     <string name="sign_in_subtitle">Redan prenumerant eller inbjuden gäst?</string>
     <string name="upgrade_subscription_banner">Tack för ditt stöd! Uppgradera din prenumeration för att aktivera Tasks.org-molnsynkronisering.</string>

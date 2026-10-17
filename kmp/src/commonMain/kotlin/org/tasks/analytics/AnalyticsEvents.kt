@@ -22,7 +22,6 @@ object AnalyticsEvents {
     const val ONBOARDING_COMPLETE = "onboarding_complete"
     const val PRICING_BILLING_TOGGLE = "pricing_billing_toggle"
     const val PRICING_SIGN_IN_CLICK = "pricing_sign_in_click"
-    const val PRICING_SPONSOR_CLICK = "pricing_sponsor_click"
     const val PRICING_SUBSCRIBE_CLICK = "pricing_subscribe_click"
     const val RESTORE_ERROR = "restore_error"
     const val RESTORE_NOT_SPONSOR = "restore_not_sponsor"
