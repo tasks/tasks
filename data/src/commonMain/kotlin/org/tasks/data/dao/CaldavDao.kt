@@ -532,3 +532,6 @@ ORDER BY primary_sort
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }
 }
+
+suspend fun CaldavDao.tasksAccount(): CaldavAccount? =
+    getAccounts().firstOrNull { it.isTasksOrg }

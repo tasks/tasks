@@ -7,6 +7,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.tasksAccount
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.TasksPreferences.Companion.cachedAccountData
@@ -40,7 +41,7 @@ class TasksAccountDataRepository(
         provider?.forTasksAccount(account)?.use { fetchAndCache(it) }
 
     suspend fun fetchAndCache(): TasksAccountResponse? {
-        val account = caldavDao.getAccounts().firstOrNull { it.isTasksOrg } ?: return null
+        val account = caldavDao.tasksAccount() ?: return null
         return fetchAndCache(account)
     }
 
