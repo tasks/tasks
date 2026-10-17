@@ -1553,14 +1553,14 @@
 ++--- androidx.compose.ui:ui -> 1.12.0 (*)
 ++--- androidx.compose.ui:ui-graphics -> 1.12.0 (*)
 ++--- androidx.compose.ui:ui-tooling-preview -> 1.12.0 (*)
-++--- com.google.firebase:firebase-bom:34.18.0
-+|    +--- com.google.firebase:firebase-crashlytics:20.1.0 (c)
-+|    +--- com.google.firebase:firebase-common:22.2.0 (c)
+++--- com.google.firebase:firebase-bom:34.19.0
++|    +--- com.google.firebase:firebase-crashlytics:20.1.1 (c)
++|    +--- com.google.firebase:firebase-common:22.2.1 (c)
 +|    +--- com.google.firebase:firebase-encoders:17.0.0 (c)
 +|    \--- com.google.firebase:firebase-installations:19.1.2 (c)
-++--- com.google.firebase:firebase-crashlytics -> 20.1.0
-+|    +--- com.google.firebase:firebase-sessions:3.0.7
-+|    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0
+++--- com.google.firebase:firebase-crashlytics -> 20.1.1
++|    +--- com.google.firebase:firebase-sessions:3.0.8
++|    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.1
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0 -> 1.11.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-components:19.0.0
 +|    |    |    |    +--- com.google.firebase:firebase-annotations:17.0.0
@@ -1589,7 +1589,7 @@
 +|    |    +--- com.google.firebase:firebase-installations:18.0.0 -> 19.1.2
 +|    |    |    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
-+|    |    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
++|    |    |    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.1 (*)
 +|    |    |    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    |    |    +--- com.google.firebase:firebase-installations-interop:17.3.0 (*)
 +|    |    |    +--- androidx.datastore:datastore-preferences:1.1.7 -> 1.2.1 (*)
@@ -1620,7 +1620,7 @@
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3 -> 1.11.0 (*)
 +|    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
-+|    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.0 (*)
++|    +--- com.google.firebase:firebase-common:22.0.1 -> 22.2.1 (*)
 +|    +--- com.google.firebase:firebase-components:19.0.0 (*)
 +|    +--- com.google.firebase:firebase-config-interop:16.0.1
 +|    |    +--- com.google.firebase:firebase-encoders-json:18.0.1 (*)
