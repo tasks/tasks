@@ -79,25 +79,25 @@
 +|    |    +--- org.jetbrains.compose.components:components-resources:1.12.0
 +|    |    |    \--- org.jetbrains.compose.components:components-resources-desktop:1.12.0
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.20 (*)
-+|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0
-+|    |    |         |    \--- org.jetbrains.compose.runtime:runtime-desktop:1.12.0
-+|    |    |         |         +--- androidx.compose.runtime:runtime:1.12.0
-+|    |    |         |         |    \--- androidx.compose.runtime:runtime-desktop:1.12.0
++|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1
++|    |    |         |    \--- org.jetbrains.compose.runtime:runtime-desktop:1.12.1
++|    |    |         |         +--- androidx.compose.runtime:runtime:1.12.1
++|    |    |         |         |    \--- androidx.compose.runtime:runtime-desktop:1.12.1
 +|    |    |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.0
-+|    |    |         |         |         |    \--- androidx.compose.runtime:runtime-annotation-jvm:1.12.0
++|    |    |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.1
++|    |    |         |         |         |    \--- androidx.compose.runtime:runtime-annotation-jvm:1.12.1
 +|    |    |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (c)
-+|    |    |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.0 (c)
-+|    |    |         |         |         |         \--- androidx.compose.runtime:runtime-saveable:1.12.0 (c)
++|    |    |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.1 (c)
++|    |    |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.1 (c)
++|    |    |         |         |         |         \--- androidx.compose.runtime:runtime-saveable:1.12.1 (c)
 +|    |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.0 (c)
-+|    |    |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.0 (c)
-+|    |    |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.12.0 (c)
-+|    |    |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.9.0 -> 1.12.0 (c)
++|    |    |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.1 (c)
++|    |    |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.1 (c)
++|    |    |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.12.1 (c)
++|    |    |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.9.0 -> 1.12.1 (c)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         \--- org.jetbrains.compose.runtime:runtime-saveable:1.12.0 (c)
++|    |    |         |         \--- org.jetbrains.compose.runtime:runtime-saveable:1.12.1 (c)
 +|    |    |         +--- org.jetbrains.compose.foundation:foundation:1.12.0
 +|    |    |         |    \--- org.jetbrains.compose.foundation:foundation-desktop:1.12.0
 +|    |    |         |         +--- androidx.collection:collection:1.5.0 (*)
@@ -107,32 +107,32 @@
 +|    |    |         |         |         +--- org.jetbrains.compose.animation:animation-core:1.12.0
 +|    |    |         |         |         |    \--- org.jetbrains.compose.animation:animation-core-desktop:1.12.0
 +|    |    |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0
-+|    |    |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-desktop:1.12.0
++|    |    |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1
++|    |    |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-desktop:1.12.1
 +|    |    |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.0
-+|    |    |         |         |         |         |         |    \--- androidx.compose.runtime:runtime-retain-desktop:1.12.0
++|    |    |         |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.1
++|    |    |         |         |         |         |         |    \--- androidx.compose.runtime:runtime-retain-desktop:1.12.1
 +|    |    |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (*)
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.0 (c)
-+|    |    |         |         |         |         |         |         \--- androidx.compose.runtime:runtime-saveable:1.12.0 (c)
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.12.1 (c)
++|    |    |         |         |         |         |         |         \--- androidx.compose.runtime:runtime-annotation:1.12.1 (c)
 +|    |    |         |         |         |         |         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0
 +|    |    |         |         |         |         |         |    \--- androidx.lifecycle:lifecycle-viewmodel-compose-desktop:2.11.0
 +|    |    |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0 -> 1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.11.0 -> 1.12.0
-+|    |    |         |         |         |         |         |         |    \--- androidx.compose.runtime:runtime-saveable-desktop:1.12.0
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0 -> 1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.11.0 -> 1.12.1
++|    |    |         |         |         |         |         |         |    \--- androidx.compose.runtime:runtime-saveable-desktop:1.12.1
 +|    |    |         |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (*)
++|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.9.4 -> 2.11.0
 +|    |    |         |         |         |         |         |         |         |    \--- androidx.lifecycle:lifecycle-runtime-compose-desktop:2.11.0
 +|    |    |         |         |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         |         +--- androidx.lifecycle:lifecycle-runtime:2.11.0
 +|    |    |         |         |         |         |         |         |         |         |    \--- androidx.lifecycle:lifecycle-runtime-desktop:2.11.0
 +|    |    |         |         |         |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
@@ -170,7 +170,7 @@
 +|    |    |         |         |         |         |         |         |         |         \--- androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0 (c)
 +|    |    |         |         |         |         |         |         |         +--- androidx.savedstate:savedstate-compose:1.3.2 -> 1.4.0
 +|    |    |         |         |         |         |         |         |         |    \--- androidx.savedstate:savedstate-compose-desktop:1.4.0
-+|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.9.0 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.9.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         |         +--- androidx.savedstate:savedstate:1.4.0
 +|    |    |         |         |         |         |         |         |         |         |    \--- androidx.savedstate:savedstate-desktop:1.4.0
 +|    |    |         |         |         |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
@@ -183,10 +183,10 @@
 +|    |    |         |         |         |         |         |         |         |         |         \--- org.jetbrains.androidx.savedstate:savedstate:1.3.2 -> 1.4.0 (c)
 +|    |    |         |         |         |         |         |         |         |         \--- androidx.savedstate:savedstate:1.4.0 (c)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime-saveable:1.9.2 -> 1.12.0 (c)
++|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-retain:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime-saveable:1.9.2 -> 1.12.1 (c)
 +|    |    |         |         |         |         |         |         +--- androidx.lifecycle:lifecycle-common:2.11.0 (*)
 +|    |    |         |         |         |         |         |         +--- androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (*)
 +|    |    |         |         |         |         |         |         +--- androidx.lifecycle:lifecycle-viewmodel:2.11.0
@@ -254,7 +254,7 @@
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (c)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0 (c)
 +|    |    |         |         |         |         |         |         |         \--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.9.3 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.9.3 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
@@ -266,78 +266,78 @@
 +|    |    |         |         |         |         |         |    \--- org.jetbrains.androidx.navigationevent:navigationevent-compose-desktop:1.1.0
 +|    |    |         |         |         |         |         |         +--- androidx.navigationevent:navigationevent-compose:1.1.1
 +|    |    |         |         |         |         |         |         |    \--- androidx.navigationevent:navigationevent-compose-desktop:1.1.1
-+|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0-rc01 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime:1.11.0-rc01 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         +--- androidx.navigationevent:navigationevent:1.1.1
 +|    |    |         |         |         |         |         |         |         |    \--- androidx.navigationevent:navigationevent-desktop:1.1.1
 +|    |    |         |         |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.9.0 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-annotation:1.9.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         |         |         |         \--- androidx.navigationevent:navigationevent-compose:1.1.1 (c)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         |         |         \--- androidx.navigationevent:navigationevent:1.1.1 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.11.0 -> 1.12.0 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.11.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.12.0
-+|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.runtime:runtime-saveable-desktop:1.12.0
-+|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.12.0 (*)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.12.1
++|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.runtime:runtime-saveable-desktop:1.12.1
++|    |    |         |         |         |         |         |         +--- androidx.compose.runtime:runtime-saveable:1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.9.6 -> 2.11.0 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.androidx.savedstate:savedstate-compose:1.3.6 -> 1.4.0
 +|    |    |         |         |         |         |         |         |    \--- org.jetbrains.androidx.savedstate:savedstate-compose-desktop:1.4.0
 +|    |    |         |         |         |         |         |         |         +--- androidx.savedstate:savedstate-compose:1.4.0 (*)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.androidx.savedstate:savedstate:1.4.0
 +|    |    |         |         |         |         |         |         |         |    \--- androidx.savedstate:savedstate:1.4.0 (*)
-+|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.9.3 -> 1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
++|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.9.3 -> 1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0
-+|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-geometry-desktop:1.12.0
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0
-+|    |    |         |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-util-desktop:1.12.0
++|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.runtime:runtime:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1
++|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-geometry-desktop:1.12.1
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1
++|    |    |         |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-util-desktop:1.12.1
 +|    |    |         |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0
-+|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-graphics-desktop:1.12.0
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1
++|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-graphics-desktop:1.12.1
 +|    |    |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0
-+|    |    |         |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-unit-desktop:1.12.0
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1
++|    |    |         |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-unit-desktop:1.12.1
 +|    |    |         |         |         |         |         |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (*)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (*)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.skiko:skiko:0.150.1
 +|    |    |         |         |         |         |         |         |    \--- org.jetbrains.skiko:skiko-awt:0.150.1
@@ -347,74 +347,74 @@
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         |         |         +--- org.jetbrains.skiko:skiko-awt-runtime-linux-x64:{strictly 0.150.1} -> 0.150.1 (c)
 +|    |    |         |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.20 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0
-+|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-text-desktop:1.12.0
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1
++|    |    |         |         |         |         |         |    \--- org.jetbrains.compose.ui:ui-text-desktop:1.12.1
 +|    |    |         |         |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlinx:atomicfu:0.28.0
 +|    |    |         |         |         |         |         |         |    \--- org.jetbrains.kotlinx:atomicfu-jvm:0.28.0
 +|    |    |         |         |         |         |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:{prefer 2.1.0} -> 2.4.20 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         |         +--- org.jetbrains.skiko:skiko:0.150.1 (*)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (*)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (*)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:atomicfu:0.28.0 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         |         +--- org.jetbrains.skiko:skiko:0.150.1 (*)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         |         |         |         |         \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         |         |         |         \--- org.jetbrains.compose.animation:animation:1.12.0 (c)
 +|    |    |         |         |         +--- org.jetbrains.compose.foundation:foundation-layout:1.12.0
 +|    |    |         |         |         |    \--- org.jetbrains.compose.foundation:foundation-layout-desktop:1.12.0
 +|    |    |         |         |         |         +--- androidx.collection:collection:1.5.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (*)
-+|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |    |         |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         |         \--- org.jetbrains.compose.foundation:foundation:1.12.0 (c)
-+|    |    |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (*)
-+|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 -> 1.12.1 (*)
++|    |    |         |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |    |         |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         |         \--- org.jetbrains.compose.animation:animation-core:1.12.0 (c)
 +|    |    |         |         +--- org.jetbrains.compose.foundation:foundation-layout:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 -> 1.12.1 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         +--- org.jetbrains.kotlinx:atomicfu:0.28.0 (*)
 +|    |    |         |         +--- org.jetbrains.runtime:jbr-api:1.9.0
@@ -440,44 +440,44 @@
 +|    |    |         |         +--- androidx.collection:collection:1.5.0 (*)
 +|    |    |         |         +--- org.jetbrains.compose.animation:animation:1.12.0 (*)
 +|    |    |         |         +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0-beta01 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui:1.12.0-beta01 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-backhandler:1.12.0-beta01 -> 1.12.0
-+|    |    |         |    \--- org.jetbrains.compose.ui:ui-backhandler-desktop:1.12.0
++|    |    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0-beta01 -> 1.12.1 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui:1.12.0-beta01 -> 1.12.1 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui-backhandler:1.12.0-beta01 -> 1.12.1
++|    |    |         |    \--- org.jetbrains.compose.ui:ui-backhandler-desktop:1.12.1
 +|    |    |         |         +--- androidx.annotation:annotation:1.9.1 (*)
 +|    |    |         |         +--- org.jetbrains.androidx.navigationevent:navigationevent-compose:1.1.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.1 (*)
 +|    |    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (c)
-+|    |    |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |    |         |         \--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-text:1.12.0-beta01 -> 1.12.0 (*)
-+|    |    |         +--- org.jetbrains.compose.ui:ui-util:1.12.0-beta01 -> 1.12.0 (*)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.1 (c)
++|    |    |         |         +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |    |         |         \--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |    |         +--- org.jetbrains.compose.ui:ui-text:1.12.0-beta01 -> 1.12.1 (*)
++|    |    |         +--- org.jetbrains.compose.ui:ui-util:1.12.0-beta01 -> 1.12.1 (*)
 +|    |    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |    |         +--- org.jetbrains.kotlinx:atomicfu:0.28.0 (*)
 +|    |    |         \--- org.jetbrains.kotlinx:kotlinx-datetime:0.7.1 -> 0.8.0-0.6.x-compat (*)
-+|    |    +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |    \--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0
-+|    |         \--- org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.12.0
++|    |    +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |    \--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 -> 1.12.1
++|    |         \--- org.jetbrains.compose.ui:ui-tooling-preview-desktop:1.12.1
 +|    |              +--- androidx.annotation:annotation:1.9.1 (*)
-+|    |              +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
++|    |              +--- org.jetbrains.compose.runtime:runtime:1.12.1 (*)
 +|    |              +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
-+|    |              +--- org.jetbrains.compose.ui:ui:1.12.0 (c)
-+|    |              +--- org.jetbrains.compose.ui:ui-geometry:1.12.0 (c)
-+|    |              +--- org.jetbrains.compose.ui:ui-graphics:1.12.0 (c)
-+|    |              +--- org.jetbrains.compose.ui:ui-text:1.12.0 (c)
-+|    |              +--- org.jetbrains.compose.ui:ui-unit:1.12.0 (c)
-+|    |              +--- org.jetbrains.compose.ui:ui-util:1.12.0 (c)
-+|    |              \--- org.jetbrains.compose.ui:ui-backhandler:1.12.0 (c)
++|    |              +--- org.jetbrains.compose.ui:ui:1.12.1 (c)
++|    |              +--- org.jetbrains.compose.ui:ui-geometry:1.12.1 (c)
++|    |              +--- org.jetbrains.compose.ui:ui-graphics:1.12.1 (c)
++|    |              +--- org.jetbrains.compose.ui:ui-text:1.12.1 (c)
++|    |              +--- org.jetbrains.compose.ui:ui-unit:1.12.1 (c)
++|    |              +--- org.jetbrains.compose.ui:ui-util:1.12.1 (c)
++|    |              \--- org.jetbrains.compose.ui:ui-backhandler:1.12.1 (c)
 +|    +--- com.squareup.okio:okio:3.17.0 -> 3.18.1
 +|    |    \--- com.squareup.okio:okio-jvm:3.18.1
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
@@ -619,14 +619,14 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
 +|    +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
 +|    +--- org.jetbrains.compose.material3:material3:1.9.0 -> 1.12.0-alpha03 (*)
-+|    +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (*)
++|    +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 -> 1.12.1 (*)
 +|    +--- io.github.vinceglb:confettikit:0.9.0
 +|    |    \--- io.github.vinceglb:confettikit-jvm:0.9.0
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
-+|    |         +--- org.jetbrains.compose.runtime:runtime:1.11.1 -> 1.12.0 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.11.1 -> 1.12.1 (*)
 +|    |         +--- org.jetbrains.compose.foundation:foundation:1.11.1 -> 1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui:1.11.1 -> 1.12.0 (*)
++|    |         +--- org.jetbrains.compose.ui:ui:1.11.1 -> 1.12.1 (*)
 +|    |         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.1
 +|    |    \--- androidx.datastore:datastore-preferences-jvm:1.2.1
@@ -717,19 +717,25 @@
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
 +|    |         +--- org.jetbrains.compose.material3:material3:1.12.0-alpha03 (*)
 +|    |         +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.4.20 (*)
-+|    +--- io.github.alexzhirkevich:qrose:1.1.2
-+|    |    \--- io.github.alexzhirkevich:qrose-desktop:1.1.2
-+|    |         +--- io.github.alexzhirkevich:qrose-core:1.1.2
-+|    |         |    \--- io.github.alexzhirkevich:qrose-core-desktop:1.1.2
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
-+|    |         |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
-+|    |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|    +--- io.github.alexzhirkevich:qrose:1.3.1
++|    |    \--- io.github.alexzhirkevich:qrose-desktop:1.3.1
++|    |         +--- io.github.alexzhirkevich:qrose-core:1.3.1
++|    |         |    \--- io.github.alexzhirkevich:qrose-core-desktop:1.3.1
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         |         \--- org.jetbrains.compose.ui:ui:1.12.1 (*)
++|    |         +--- io.github.alexzhirkevich:qrose-encoder-matrix:1.3.1
++|    |         |    \--- io.github.alexzhirkevich:qrose-encoder-matrix-desktop:1.3.1
++|    |         |         +--- io.github.alexzhirkevich:qrose-encoder-core:1.3.1
++|    |         |         |    \--- io.github.alexzhirkevich:qrose-encoder-core-desktop:1.3.1
++|    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         \--- org.jetbrains.compose.ui:ui:1.12.1 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19
 +|    |    +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.18
 +|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1
@@ -812,8 +818,8 @@
 ++--- org.jetbrains.compose.components:components-resources:1.12.0 (*)
 ++--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
 ++--- org.jetbrains.compose.material3:material3:1.12.0-alpha03 (*)
-++--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-++--- org.jetbrains.compose.ui:ui:1.12.0 (*)
+++--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
+++--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
 ++--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
 ++--- androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (*)
 ++--- org.jetbrains.androidx.navigation3:navigation3-ui:1.1.1
@@ -825,8 +831,8 @@
 +|         +--- androidx.navigation3:navigation3-runtime:1.1.1
 +|         |    \--- androidx.navigation3:navigation3-runtime-desktop:1.1.1
 +|         |         +--- androidx.collection:collection:1.5.0 (*)
-+|         |         +--- androidx.compose.runtime:runtime:1.9.5 -> 1.12.0 (*)
-+|         |         +--- androidx.compose.runtime:runtime-saveable:1.9.5 -> 1.12.0 (*)
++|         |         +--- androidx.compose.runtime:runtime:1.9.5 -> 1.12.1 (*)
++|         |         +--- androidx.compose.runtime:runtime-saveable:1.9.5 -> 1.12.1 (*)
 +|         |         +--- androidx.lifecycle:lifecycle-runtime:2.10.0 -> 2.11.0 (*)
 +|         |         +--- androidx.navigationevent:navigationevent:1.0.2 -> 1.1.1 (*)
 +|         |         +--- androidx.savedstate:savedstate:1.4.0 (*)
@@ -837,17 +843,17 @@
 +|         +--- androidx.savedstate:savedstate-compose:1.4.0 (*)
 +|         +--- org.jetbrains.androidx.navigationevent:navigationevent-compose:1.0.1 -> 1.1.0 (*)
 +|         +--- org.jetbrains.compose.animation:animation:1.10.0 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.10.0 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime-saveable:1.10.0 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.runtime:runtime:1.10.0 -> 1.12.1 (*)
++|         +--- org.jetbrains.compose.runtime:runtime-saveable:1.10.0 -> 1.12.1 (*)
++|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.1 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 ++--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0
 +|    \--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3-desktop:2.11.0
 +|         +--- androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0
 +|         |    \--- androidx.lifecycle:lifecycle-viewmodel-navigation3-desktop:2.11.0
 +|         |         +--- androidx.collection:collection:1.5.0 (*)
-+|         |         +--- androidx.compose.runtime:runtime:1.10.4 -> 1.12.0 (*)
-+|         |         +--- androidx.compose.runtime:runtime-saveable:1.10.4 -> 1.12.0 (*)
++|         |         +--- androidx.compose.runtime:runtime:1.10.4 -> 1.12.1 (*)
++|         |         +--- androidx.compose.runtime:runtime-saveable:1.10.4 -> 1.12.1 (*)
 +|         |         +--- androidx.lifecycle:lifecycle-viewmodel:2.11.0 (*)
 +|         |         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
 +|         |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (*)
@@ -890,8 +896,8 @@
 +|         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.11.0 (c)
 +|         |         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (c)
 +|         |         |         \--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0 (c)
-+|         |         +--- org.jetbrains.compose.runtime:runtime:1.11.0 -> 1.12.0 (*)
-+|         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.11.0 -> 1.12.0 (*)
++|         |         +--- org.jetbrains.compose.runtime:runtime:1.11.0 -> 1.12.1 (*)
++|         |         +--- org.jetbrains.compose.runtime:runtime-saveable:1.11.0 -> 1.12.1 (*)
 +|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|         |         +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
@@ -902,8 +908,8 @@
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (*)
 +|         +--- org.jetbrains.androidx.savedstate:savedstate:1.4.0 (*)
 +|         +--- org.jetbrains.androidx.savedstate:savedstate-compose:1.4.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.10.2 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime-saveable:1.10.2 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.runtime:runtime:1.10.2 -> 1.12.1 (*)
++|         +--- org.jetbrains.compose.runtime:runtime-saveable:1.10.2 -> 1.12.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (c)
 +|         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.11.0 (c)
@@ -930,7 +936,7 @@
 ++--- io.insert-koin:koin-compose:4.2.2
 +|    \--- io.insert-koin:koin-compose-jvm:4.2.2
 +|         +--- io.insert-koin:koin-core:4.2.2 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.10.2 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.runtime:runtime:1.10.2 -> 1.12.1 (*)
 +|         +--- org.jetbrains.compose.foundation:foundation:1.10.2 -> 1.12.0 (*)
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.20 (*)
 ++--- io.insert-koin:koin-compose-viewmodel:4.2.2
@@ -961,7 +967,7 @@
 +|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
 +|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
 +|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
-+|         +--- org.jetbrains.compose.runtime:runtime:1.7.0 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.runtime:runtime:1.7.0 -> 1.12.1 (*)
 +|         +--- org.jetbrains.compose.animation:animation:1.7.0 -> 1.12.0 (*)
 +|         \--- org.jetbrains.compose.foundation:foundation:1.7.0 -> 1.12.0 (*)
 ++--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02
@@ -974,7 +980,7 @@
 +|         |                   +--- org.jetbrains.kotlin:kotlin-stdlib -> 2.4.20 (*)
 +|         |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.21 -> 2.4.20 (c)
 +|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (c)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (c)
@@ -988,8 +994,8 @@
 +|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.12.0 (*)
 +|         +--- org.jetbrains.compose.foundation:foundation-layout:1.10.0 -> 1.12.0 (*)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (*)
-+|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.0 (*)
-+|         +--- org.jetbrains.compose.ui:ui-geometry:1.10.0 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.1 (*)
++|         +--- org.jetbrains.compose.ui:ui-geometry:1.10.0 -> 1.12.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (c)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0-beta02 (c)
@@ -998,7 +1004,7 @@
 +|    \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation-desktop:1.3.0-beta02
 +|         +--- org.jetbrains.compose.foundation:foundation:1.10.0 -> 1.12.0 (*)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (*)
-+|         +--- org.jetbrains.compose.ui:ui-util:1.10.0 -> 1.12.0 (*)
++|         +--- org.jetbrains.compose.ui:ui-util:1.10.0 -> 1.12.1 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0-beta02 (c)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0-beta02 (c)
@@ -1024,16 +1030,16 @@
 +|    |         |         +--- org.jetbrains.compose.foundation:foundation:1.12.0 (*)
 +|    |         |         +--- org.jetbrains.compose.foundation:foundation-layout:1.12.0 (*)
 +|    |         |         +--- org.jetbrains.compose.material:material-ripple:1.12.0 (*)
-+|    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
-+|    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 (*)
-+|    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |         |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |         |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
++|    |         |         +--- org.jetbrains.compose.ui:ui-text:1.12.0 -> 1.12.1 (*)
++|    |         |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |         |         \--- org.jetbrains.kotlinx:atomicfu:0.28.0 (*)
-+|    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui:1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 (*)
-+|    |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.12.0 -> 1.12.1 (*)
++|    |         +--- org.jetbrains.compose.ui:ui:1.12.0 -> 1.12.1 (*)
++|    |         +--- org.jetbrains.compose.ui:ui-tooling-preview:1.12.0 -> 1.12.1 (*)
++|    |         +--- org.jetbrains.compose.ui:ui-util:1.12.0 -> 1.12.1 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    \--- org.jetbrains.skiko:skiko-awt-runtime-linux-x64:0.150.1
