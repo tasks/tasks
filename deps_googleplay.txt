@@ -1838,8 +1838,8 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.21 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.21 (*)
 ++--- co.touchlab:kermit:2.1.0 (*)
-++--- androidx.navigation:navigation-compose:2.10.0
-+|    \--- androidx.navigation:navigation-compose-android:2.10.0
+++--- androidx.navigation:navigation-compose:2.10.2
++|    \--- androidx.navigation:navigation-compose-android:2.10.2
 +|         +--- androidx.activity:activity:1.8.0 -> 1.13.0 (*)
 +|         +--- androidx.activity:activity-compose:1.13.0 (*)
 +|         +--- androidx.annotation:annotation:1.8.0 -> 1.10.0 (*)
@@ -1850,14 +1850,13 @@
 +|         +--- androidx.compose.runtime:runtime:1.10.5 -> 1.12.1 (*)
 +|         +--- androidx.compose.runtime:runtime-saveable:1.10.5 -> 1.12.1 (*)
 +|         +--- androidx.compose.ui:ui:1.10.5 -> 1.12.1 (*)
-+|         +--- androidx.lifecycle:lifecycle-common:2.9.1 -> 2.11.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-runtime-compose:2.9.1 -> 2.11.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel:2.9.1 -> 2.11.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2 -> 2.11.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1 -> 2.11.0 (*)
-+|         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.9.1 -> 2.11.0 (*)
-+|         +--- androidx.navigation:navigation-common:2.10.0
-+|         |    \--- androidx.navigation:navigation-common-android:2.10.0
++|         +--- androidx.lifecycle:lifecycle-common:2.10.0 -> 2.11.0 (*)
++|         +--- androidx.lifecycle:lifecycle-runtime-compose:2.10.0 -> 2.11.0 (*)
++|         +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 -> 2.11.0 (*)
++|         +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0 -> 2.11.0 (*)
++|         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.10.0 -> 2.11.0 (*)
++|         +--- androidx.navigation:navigation-common:2.10.2
++|         |    \--- androidx.navigation:navigation-common-android:2.10.2
 +|         |         +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
 +|         |         +--- androidx.collection:collection:1.5.0 -> 1.6.0 (*)
 +|         |         +--- androidx.core:core-ktx:1.1.0 -> 1.18.0 (*)
@@ -1870,33 +1869,33 @@
 +|         |         +--- androidx.savedstate:savedstate-ktx:1.5.0 (*)
 +|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.21 (*)
 +|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.11.0 (*)
-+|         |         +--- androidx.navigation:navigation-compose:2.10.0 (c)
-+|         |         \--- androidx.navigation:navigation-runtime:2.10.0 (c)
-+|         +--- androidx.navigation:navigation-runtime:2.10.0
-+|         |    \--- androidx.navigation:navigation-runtime-android:2.10.0
++|         |         +--- androidx.navigation:navigation-compose:2.10.2 (c)
++|         |         \--- androidx.navigation:navigation-runtime:2.10.2 (c)
++|         +--- androidx.navigation:navigation-runtime:2.10.2
++|         |    \--- androidx.navigation:navigation-runtime-android:2.10.2
 +|         |         +--- androidx.activity:activity-ktx:1.7.1 -> 1.13.0 (*)
 +|         |         +--- androidx.annotation:annotation-experimental:1.4.1 -> 1.5.1 (*)
 +|         |         +--- androidx.collection:collection:1.5.0 -> 1.6.0 (*)
 +|         |         +--- androidx.core:core-ktx:1.8.0 -> 1.18.0 (*)
-+|         |         +--- androidx.lifecycle:lifecycle-common:2.9.4 -> 2.11.0 (*)
-+|         |         +--- androidx.lifecycle:lifecycle-runtime:2.9.4 -> 2.11.0 (*)
-+|         |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.9.4 -> 2.11.0 (*)
-+|         |         +--- androidx.lifecycle:lifecycle-viewmodel:2.9.4 -> 2.11.0 (*)
-+|         |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4 -> 2.11.0 (*)
-+|         |         +--- androidx.navigation:navigation-common:2.10.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-common:2.10.0 -> 2.11.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-runtime:2.10.0 -> 2.11.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-runtime-ktx:2.10.0 -> 2.11.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-viewmodel:2.10.0 -> 2.11.0 (*)
++|         |         +--- androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0 -> 2.11.0 (*)
++|         |         +--- androidx.navigation:navigation-common:2.10.2 (*)
 +|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.21 (*)
 +|         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|         |         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.11.0 (*)
-+|         |         +--- androidx.navigation:navigation-common:2.10.0 (c)
-+|         |         \--- androidx.navigation:navigation-compose:2.10.0 (c)
++|         |         +--- androidx.navigation:navigation-common:2.10.2 (c)
++|         |         \--- androidx.navigation:navigation-compose:2.10.2 (c)
 +|         +--- androidx.navigationevent:navigationevent-compose:1.1.2 (*)
 +|         +--- androidx.savedstate:savedstate:1.3.0 -> 1.5.0 (*)
 +|         +--- androidx.savedstate:savedstate-compose:1.3.0 -> 1.5.0 (*)
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.21 (*)
 +|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|         +--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3 -> 1.11.0 (*)
-+|         +--- androidx.navigation:navigation-common:2.10.0 (c)
-+|         \--- androidx.navigation:navigation-runtime:2.10.0 (c)
++|         +--- androidx.navigation:navigation-common:2.10.2 (c)
++|         \--- androidx.navigation:navigation-runtime:2.10.2 (c)
 ++--- androidx.compose.material3.adaptive:adaptive-navigation-android:1.3.0
 +|    +--- androidx.activity:activity-compose:1.10.1 -> 1.13.0 (*)
 +|    +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
@@ -1969,7 +1968,7 @@
 +|    |    +--- com.google.dagger:hilt-android:2.59 -> 2.60.1 (*)
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1 -> 2.11.0 (*)
-+|    +--- androidx.navigation:navigation-compose:2.9.0 -> 2.10.0 (*)
++|    +--- androidx.navigation:navigation-compose:2.9.0 -> 2.10.2 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21 (*)
 ++--- androidx.hilt:hilt-work:1.4.0
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
