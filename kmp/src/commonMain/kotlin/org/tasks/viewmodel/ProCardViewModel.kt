@@ -83,6 +83,9 @@ open class ProCardViewModel(
                 ?.let { fetchAccountData(it) }
         }
         viewModelScope.launch {
+            subscriptionProvider.checkTier()
+        }
+        viewModelScope.launch {
             subscriptionProvider.subscription.collectLatest { sub ->
                 if (sub != null) {
                     val cacheKey = stringPreferencesKey("fmt_${sub.sku}")

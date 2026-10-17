@@ -85,6 +85,17 @@ class PurchaseEntitlement(
     )
 
     @Serializable
+    private data class CheckRequest(
+        val purchase_jwt: String,
+    )
+
+    @Serializable
+    private data class CheckResponse(
+        val sku: String? = null,
+        val formatted_price: String? = null,
+    )
+
+    @Serializable
     private data class RefreshResponse(
         val jwt: String? = null,
         val refresh_token: String? = null,
@@ -134,6 +145,22 @@ class PurchaseEntitlement(
     suspend fun getJwt(): String? = (load() as? LoadResult.Loaded)?.entitlement?.jwt
 
     fun initialize() = scope.launch { checkLock.withLock { check() } }
+
+    suspend fun checkTier(): Boolean = checkLock.withLock {
+        val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return@withLock false
+        val checked = callCheck(stored) ?: return@withLock false
+        if (checked.sku == stored.sku && checked.formatted_price == stored.formattedPrice) {
+            return@withLock false
+        }
+        val updated = stored.copy(sku = checked.sku, formattedPrice = checked.formatted_price)
+        if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), updated))) {
+            logger.e { "Failed to persist the checked tier, it will read stale after a restart" }
+        }
+        _sku.value = updated.sku
+        _formattedPrice.value = updated.formattedPrice
+        logger.i { "Tier is now ${updated.sku}" }
+        true
+    }
 
     suspend fun awaitReady(): Boolean {
         val answered = withTimeoutOrNull(readyTimeoutMillis) { checkLock.withLock { check() } }
@@ -377,6 +404,37 @@ class PurchaseEntitlement(
             currentCoroutineContext().ensureActive()
             logger.e(e) { "Failed to refresh purchase entitlement" }
             RefreshResult.Failed
+        }
+    }
+
+    private suspend fun callCheck(entitlement: StoredEntitlement): CheckResponse? {
+        val url = when (entitlement.provider) {
+            EntitlementProvider.GITHUB_SPONSOR -> return null
+            EntitlementProvider.PLAY, EntitlementProvider.STRIPE ->
+                "${serverEnvironment.caldavUrl}/desktop/check"
+        }
+        return try {
+            val (code, body) = httpClientFactory.withClient(refreshCallTimeoutMillis) { client ->
+                val response = client.post(url) {
+                    jsonBody(
+                        json,
+                        CheckRequest.serializer(),
+                        CheckRequest(purchase_jwt = entitlement.jwt),
+                    )
+                }
+                response.status.value to response.bodyAsText()
+            }
+            if (code !in 200..299) {
+                logger.w { "Entitlement check failed: HTTP $code" }
+                return null
+            }
+            json.decodeFromString(CheckResponse.serializer(), body).takeIf { it.sku != null }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            currentCoroutineContext().ensureActive()
+            logger.e(e) { "Failed to check purchase entitlement" }
+            null
         }
     }
 }

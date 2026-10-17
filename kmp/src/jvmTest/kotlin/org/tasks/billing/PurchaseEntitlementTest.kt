@@ -513,6 +513,93 @@ class PurchaseEntitlementTest {
         assertEquals("/desktop/refresh", server.takeRequest(5, TimeUnit.SECONDS)?.path)
     }
 
+    @Test
+    fun aTierChangedOnAnotherDeviceIsPickedUpByACheck() = runBlocking {
+        val stored = jwt(exp = now() + 30 * DAY_SECONDS)
+        storeOnDisk(stored, EntitlementProvider.STRIPE)
+        server.enqueue(checkResponse("annual_30", "USD 29.99"))
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+        assertEquals("annual", entitlement.sku.first())
+
+        assertTrue(entitlement.checkTier())
+
+        assertEquals("annual_30", entitlement.sku.first())
+        assertEquals("USD 29.99", entitlement.formattedPrice.first())
+        assertEquals("annual_30", readFromDisk().sku)
+        assertEquals("/desktop/check", server.takeRequest(5, TimeUnit.SECONDS)?.path)
+    }
+
+    @Test
+    fun aCheckSpendsNoCredentialAndLooksLikeNoPurchase() = runBlocking {
+        val stored = jwt(exp = now() + 30 * DAY_SECONDS)
+        storeOnDisk(stored, EntitlementProvider.STRIPE)
+        server.enqueue(checkResponse("annual_30", "USD 29.99"))
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        assertTrue(entitlement.checkTier())
+
+        assertEquals(stored, entitlement.getJwt())
+        assertEquals("stored-token", readFromDisk().refreshToken)
+        verifyNoInteractions(syncAdapters)
+    }
+
+    @Test
+    fun aTierThatHasNotMovedIsNoNews() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(checkResponse("annual", "USD 10.00"))
+
+        assertFalse(entitlement().checkTier())
+    }
+
+    @Test
+    fun aCheckThatCannotBeAnsweredLeavesTheTierAlone() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(MockResponse().setResponseCode(503))
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        assertFalse(entitlement.checkTier())
+
+        assertEquals("annual", entitlement.sku.first())
+    }
+
+    @Test
+    fun aRowThatIsGoneRevokesNothing() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(MockResponse().setResponseCode(404))
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        assertFalse(entitlement.checkTier())
+
+        assertTrue(entitlement.hasPro.first())
+        assertTrue(entitlementFile.exists())
+    }
+
+    @Test
+    fun aSponsorHasNoTierToCheck() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.GITHUB_SPONSOR)
+
+        assertFalse(entitlement().checkTier())
+        assertEquals(0, server.requestCount)
+    }
+
+    @Test
+    fun thereIsNothingToCheckWithNothingStored() = runBlocking {
+        assertFalse(entitlement().checkTier())
+        assertEquals(0, server.requestCount)
+    }
+
     private fun entitlement(
         refreshCallTimeoutMillis: Long = 20_000L,
         readyTimeoutMillis: Long = 30_000L,
@@ -556,6 +643,11 @@ class PurchaseEntitlementTest {
             """{"jwt":"$jwt","refresh_token":"rotated-token","sku":"annual",""" +
                 """"formatted_price":"USD 10.00"}"""
         )
+
+    private fun checkResponse(sku: String, formattedPrice: String) = MockResponse()
+        .setResponseCode(200)
+        .setHeader("Content-Type", "application/json")
+        .setBody("""{"sku":"$sku","formatted_price":"$formattedPrice"}""")
 
     private fun refreshTokenSent(): String? {
         val body = server.takeRequest(5, TimeUnit.SECONDS)?.body?.readUtf8() ?: return null

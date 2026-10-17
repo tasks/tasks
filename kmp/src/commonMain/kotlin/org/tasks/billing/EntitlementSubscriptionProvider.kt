@@ -40,6 +40,8 @@ class EntitlementSubscriptionProvider(
     override suspend fun awaitVerification(): Boolean =
         if (verifyBeforeSync) entitlement.awaitReady() else true
 
+    override suspend fun checkTier(): Boolean = entitlement.checkTier()
+
     override suspend fun getFormattedPrice(sku: String): String? = entitlement.formattedPrice.first()
 
     companion object {

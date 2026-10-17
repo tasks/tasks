@@ -17,5 +17,7 @@ interface SubscriptionProvider {
 
     suspend fun awaitVerification(): Boolean = true
 
+    suspend fun checkTier(): Boolean = false
+
     val googleAndMicrosoftRequirePro: Boolean get() = false
 }

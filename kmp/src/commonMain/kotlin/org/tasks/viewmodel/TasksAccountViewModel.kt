@@ -65,7 +65,7 @@ open class TasksAccountViewModel(
     private val pushTokenManager: PushTokenManager,
     private val taskDeleter: TaskDeleter,
     private val tasksPreferences: TasksPreferences,
-    subscriptionProvider: SubscriptionProvider,
+    private val subscriptionProvider: SubscriptionProvider,
     caldavUrl: String,
 ) : ViewModel() {
     private val _newPassword = MutableStateFlow<NewPassword?>(null)
@@ -175,6 +175,9 @@ open class TasksAccountViewModel(
     }
 
     fun refreshAccount() {
+        viewModelScope.launch {
+            subscriptionProvider.checkTier()
+        }
         viewModelScope.launch {
             account.value?.let { refreshAccountData(it) }
         }
