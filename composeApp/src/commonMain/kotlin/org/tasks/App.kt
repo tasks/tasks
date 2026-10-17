@@ -323,6 +323,7 @@ fun App(
             val subscriptionProvider = koinInject<SubscriptionProvider>()
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
             var cloudSignInSource by rememberSaveable { mutableStateOf<String?>(null) }
+            var platformSignIn by rememberSaveable { mutableStateOf<String?>(null) }
             var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
             var wasInCloudOnboarding by rememberSaveable { mutableStateOf(false) }
 
@@ -833,6 +834,11 @@ fun App(
                                 }
                             }
                         }
+                        LaunchedEffect(platformSignIn) {
+                            val platform = platformSignIn ?: return@LaunchedEffect
+                            platformSignIn = null
+                            addAccountViewModel.signIn(Platform.valueOf(platform))
+                        }
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         AddAccountScreen(
                             configuration = configuration,
@@ -1173,23 +1179,12 @@ fun App(
                         }
                         if (destination.mode == PricingMode.NYP_ONLY) {
                             LaunchedEffect(subscriptionInfo) {
-                                if (subscriptionInfo != null) {
-                                    when (destination.source) {
-                                        Platform.CALDAV.name -> {
-                                            if (popPricing()) {
-                                                backStack.push(CaldavSignInDestination)
-                                            }
-                                        }
-                                        Platform.ETEBASE.name -> {
-                                            if (popPricing()) {
-                                                backStack.push(EtebaseSignInDestination)
-                                            }
-                                        }
-                                        Platform.GOOGLE_TASKS.name ->
-                                            addAccountViewModel.signIn(Platform.GOOGLE_TASKS)
-                                        Platform.MICROSOFT.name ->
-                                            addAccountViewModel.signIn(Platform.MICROSOFT)
-                                        else -> popPricing()
+                                if (subscriptionInfo != null && popPricing()) {
+                                    when (val next = afterPaywall(destination.source)) {
+                                        is AfterPaywall.Open -> backStack.push(next.destination)
+                                        is AfterPaywall.SignIn ->
+                                            platformSignIn = next.platform.name
+                                        AfterPaywall.None -> {}
                                     }
                                 }
                             }
