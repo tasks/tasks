@@ -37,11 +37,15 @@ class CaldavClientProvider(
         url: String?,
         username: String?,
         password: String?,
-    ): CaldavClient {
+    ): CaldavClient = CaldavClient(credentialedClient(url, username, password), url?.toCaldavUrl())
+
+    private suspend fun credentialedClient(
+        url: String?,
+        username: String?,
+        password: String?,
+    ): HttpClient {
         val tosVersion = tasksPreferences.get(TasksPreferences.acceptedTosVersion, 0)
-        val httpUrl = url?.toCaldavUrl()
-        val auth = getAuth(username, password, url, tosVersion)
-        return CaldavClient(createHttpClient(auth = auth, foreground = true), httpUrl)
+        return createHttpClient(auth = getAuth(username, password, url, tosVersion), foreground = true)
     }
 
     override suspend fun forTasksAccount(account: CaldavAccount): TasksClient {
