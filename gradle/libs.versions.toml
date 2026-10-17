@@ -126,7 +126,7 @@ coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coil" }
 colorpicker = { module = "com.github.jheld:colorpicker", version = "a0c2fd2125" }
 confettikit = { module = "io.github.vinceglb:confettikit", version.ref = "confettikit" }
-crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version = "0.10.0" }
+crashkios-crashlytics = { module = "co.touchlab.crashkios:crashlytics", version = "0.10.1" }
 dagger-hilt = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 dagger-hilt-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
