@@ -757,12 +757,12 @@
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-serialization-bom:1.11.0 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.20 -> 2.4.20 (*)
 +|    |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0 (*)
-+|    +--- co.touchlab:kermit:2.1.0
-+|    |    \--- co.touchlab:kermit-android:2.1.0
-+|    |         +--- co.touchlab:kermit-core:2.1.0
-+|    |         |    \--- co.touchlab:kermit-core-android:2.1.0
-+|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.4.20 (*)
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.4.20 (*)
++|    +--- co.touchlab:kermit:2.2.0
++|    |    \--- co.touchlab:kermit-android:2.2.0
++|    |         +--- co.touchlab:kermit-core:2.2.0
++|    |         |    \--- co.touchlab:kermit-core-android:2.2.0
++|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.20 (*)
 ++--- project ':kmp'
@@ -1372,7 +1372,7 @@
 +|    |         +--- androidx.datastore:datastore-preferences-proto:1.2.1 (c)
 +|    |         \--- androidx.datastore:datastore-preferences-external-protobuf:1.2.1 (c)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
-+|    +--- co.touchlab:kermit:2.1.0 (*)
++|    +--- co.touchlab:kermit:2.2.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
@@ -1578,7 +1578,7 @@
 +|         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
-++--- co.touchlab:kermit:2.1.0 (*)
+++--- co.touchlab:kermit:2.2.0 (*)
 ++--- io.insert-koin:koin-core:4.2.2 (*)
 ++--- io.insert-koin:koin-compose:4.2.2
 +|    \--- io.insert-koin:koin-compose-android:4.2.2
