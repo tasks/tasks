@@ -1,12 +1,8 @@
 package org.tasks.billing
 
 import co.touchlab.kermit.Logger
-import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.post
-import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -24,6 +20,8 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.http.KtorClientFactory
+import org.tasks.http.jsonBody
+import org.tasks.http.withClient
 import okio.Path.Companion.toPath
 import org.tasks.security.EncryptedStore
 import org.tasks.security.Encryption
@@ -342,22 +340,15 @@ class PurchaseEntitlement(
                 "${serverEnvironment.caldavUrl}/desktop/refresh"
         }
         return try {
-            val client = httpClientFactory.newClient {
-                install(HttpTimeout) { requestTimeoutMillis = refreshCallTimeoutMillis }
-            }
-            val (code, body) = try {
+            val (code, body) = httpClientFactory.withClient(refreshCallTimeoutMillis) { client ->
                 val response = client.post(url) {
-                    contentType(ContentType.Application.Json)
-                    setBody(
-                        json.encodeToString(
-                            RefreshRequest.serializer(),
-                            RefreshRequest(refresh_token = refreshToken),
-                        )
+                    jsonBody(
+                        json,
+                        RefreshRequest.serializer(),
+                        RefreshRequest(refresh_token = refreshToken),
                     )
                 }
                 response.status.value to response.bodyAsText()
-            } finally {
-                client.close()
             }
             if (code !in 200..299) {
                 if (code == 402) {
