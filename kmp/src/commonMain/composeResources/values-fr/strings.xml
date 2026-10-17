@@ -712,4 +712,8 @@
     <string name="subscription_required">Abonnement requis</string>
     <string name="supporter">Soutien de Tasks.org</string>
     <string name="upgrade">Mettre à niveau</string>
+    <string name="pricing_cloud_annual_per_month">%1$s/mois, facturés annuellement</string>
+    <string name="reset_trusted_certificates">Réinitialiser les certificats de confiance</string>
+    <string name="reset_trusted_certificates_summary">Oubliez les certificats et les autorisations de certificat que vous avez acceptées pour les serveurs</string>
+    <string name="trusted_certificates_reset">Réinitialisation des certificats de confiance</string>
 </resources>
