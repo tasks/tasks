@@ -121,6 +121,12 @@ class SyncWork @AssistedInject constructor(
         if (openTaskDao.shouldSync()) {
             openTasksSynchronizer.get().sync(hasPro = inventory.hasPro)
 
+            // Only nudge the providers when the user asked for a sync. DAVx5 and the other
+            // OpenTasks backed providers run their own schedules, and a background worker
+            // requesting a sync every time would fight that. The sync above reads whatever the
+            // provider last wrote, so a background sync reporting success does not mean anything
+            // was pulled from the server - that is deliberate, this has been tied to a user
+            // gesture since it was added.
             if (source == SyncSource.USER_INITIATED) {
                 AccountManager
                     .get(context)
