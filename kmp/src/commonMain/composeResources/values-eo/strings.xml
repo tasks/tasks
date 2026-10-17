@@ -647,4 +647,11 @@
     <string name="mcp_tools_enabled">%1$d el %2$d ŝaltitaj</string>
     <string name="mcp_connect">Konekti asistanton</string>
     <string name="mcp_copied">Kopiite</string>
+    <string name="mcp_tools_group_accounts">Sinkronigi kontojn</string>
+    <string name="mcp_hide">Kaŝi</string>
+    <string name="works_with_tasks_description">Aplikaĵoj, sinkronigaj servoj, kaj integrigoj</string>
+    <string name="works_with_sync">Sinkronigi aplikaĵojn</string>
+    <string name="works_with_mobile">Poŝtelefonaj aplikaĵoj</string>
+    <string name="works_with_desktop_apps">Labortablaj aplikaĵoj</string>
+    <string name="works_with_wearables">Porteblaj aparatoj</string>
 </resources>
