@@ -262,7 +262,6 @@
     <string name="contact_developer">Geliştiriciyle iletişime geç</string>
     <string name="send_application_logs">Uygulama günlüklerini gönder</string>
     <string name="follow_reddit">r/tasks topluluğuna katıl</string>
-    <string name="follow_twitter">@tasks_org hesabını takip et</string>
     <string name="source_code">Kaynak kodu</string>
     <string name="third_party_licenses">Üçüncü taraf lisanslar</string>
     <string name="terms_of_service">Hizmet koşulları</string>

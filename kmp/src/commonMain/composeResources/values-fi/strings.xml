@@ -176,7 +176,6 @@
     <string name="contact_developer">Ota yhteyttä kehittäjään</string>
     <string name="send_application_logs">Lähetä sovelluksen lokitiedot</string>
     <string name="follow_reddit">Liity r/tasks</string>
-    <string name="follow_twitter">Seuraa @tasks_org</string>
     <string name="source_code">Lähdekoodi</string>
     <string name="third_party_licenses">Kolmannen osapuolen lisenssit</string>
     <string name="privacy_policy">Rekisteriseloste</string>

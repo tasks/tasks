@@ -61,10 +61,6 @@ fun HelpAndFeedbackContent(
             viewModel.logEvent(SettingsClick.REDDIT)
             openUri(TasksUrls.REDDIT)
         },
-        onTwitter = {
-            viewModel.logEvent(SettingsClick.TWITTER)
-            openUri(TasksUrls.TWITTER)
-        },
         onSourceCode = {
             viewModel.logEvent(SettingsClick.SOURCE_CODE)
             openUri(TasksUrls.SOURCE_CODE)

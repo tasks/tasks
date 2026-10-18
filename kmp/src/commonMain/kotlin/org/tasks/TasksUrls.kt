@@ -6,7 +6,6 @@ object TasksUrls {
     const val NOTIFICATIONS = "https://tasks.org/notifications"
     const val ISSUE_TRACKER = "https://github.com/tasks/tasks/issues"
     const val REDDIT = "https://reddit.com/r/tasks"
-    const val TWITTER = "https://x.com/tasks_org"
     const val SOURCE_CODE = "https://tasks.org/source"
     const val PEBBLE_LISTING = "https://apps.repebble.com/13e39c547aee442eb19a4755"
     const val CONTENT_PROVIDER =

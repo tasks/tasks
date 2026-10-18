@@ -85,7 +85,6 @@ object AnalyticsEvents {
         const val CONTACT_DEVELOPER = "contact_developer"
         const val SEND_LOGS = "send_logs"
         const val REDDIT = "reddit"
-        const val TWITTER = "twitter"
         const val SOURCE_CODE = "source_code"
         const val THIRD_PARTY_LICENSES = "third_party_licenses"
         const val TOS = "tos"

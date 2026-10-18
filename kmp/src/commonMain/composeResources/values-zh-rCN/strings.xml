@@ -260,7 +260,6 @@
     <string name="contact_developer">联系开发者</string>
     <string name="send_application_logs">发送应用程序日志</string>
     <string name="follow_reddit">加入 r/tasks</string>
-    <string name="follow_twitter">关注 @tasks_org</string>
     <string name="source_code">源代码</string>
     <string name="third_party_licenses">第三方许可证</string>
     <string name="terms_of_service">服务条款</string>

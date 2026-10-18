@@ -133,7 +133,6 @@
     <string name="issue_tracker">ตัวติดตามปัญหา</string>
     <string name="contact_developer">ติดต่อนักพัฒนาซอฟต์แวร์</string>
     <string name="follow_reddit">เข้าร่วม r/tasks</string>
-    <string name="follow_twitter">ติดตาม@tasks_org</string>
     <string name="source_code">รหัสแหล่งที่มา</string>
     <string name="third_party_licenses">ใบอนุญาตบุคคลที่สาม</string>
     <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>

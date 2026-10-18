@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import org.tasks.themes.TasksIcons
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +24,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.feed.BlogFeedMode
+import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.blog_feed_all
 import tasks.kmp.generated.resources.blog_feed_announcements
@@ -33,10 +33,8 @@ import tasks.kmp.generated.resources.blog_notifications
 import tasks.kmp.generated.resources.contact_developer
 import tasks.kmp.generated.resources.documentation
 import tasks.kmp.generated.resources.follow_reddit
-import tasks.kmp.generated.resources.follow_twitter
 import tasks.kmp.generated.resources.ic_octocat
 import tasks.kmp.generated.resources.ic_reddit_share_silhouette
-import tasks.kmp.generated.resources.ic_x_logo_black
 import tasks.kmp.generated.resources.issue_tracker
 import tasks.kmp.generated.resources.legal
 import tasks.kmp.generated.resources.license_summary
@@ -69,7 +67,6 @@ fun HelpAndFeedbackScreen(
     onContactDeveloper: () -> Unit,
     onSendLogs: () -> Unit,
     onReddit: () -> Unit,
-    onTwitter: () -> Unit,
     onSourceCode: () -> Unit,
     onThirdPartyLicenses: () -> Unit,
     onTermsOfService: () -> Unit,
@@ -179,18 +176,11 @@ fun HelpAndFeedbackScreen(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
         ) {
-            SettingsItemCard(position = CardPosition.First) {
+            SettingsItemCard(position = CardPosition.Only) {
                 PreferenceRow(
                     title = stringResource(Res.string.follow_reddit),
                     iconDrawable = Res.drawable.ic_reddit_share_silhouette,
                     onClick = onReddit,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                PreferenceRow(
-                    title = stringResource(Res.string.follow_twitter),
-                    iconDrawable = Res.drawable.ic_x_logo_black,
-                    onClick = onTwitter,
                 )
             }
         }

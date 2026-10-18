@@ -1,12 +1,8 @@
 package org.tasks.compose.settings
 
-import org.tasks.themes.TasksIcons
-import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -19,15 +15,16 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.compose.components.SymbolIcon
 import org.tasks.extensions.restartApplication
 import org.tasks.logging.LogExporter
 import org.tasks.preferences.TasksPreferences
+import org.tasks.themes.TasksIcons
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.about
 import tasks.kmp.generated.resources.back
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HelpAndFeedbackDetail(
     onNavigateBack: () -> Unit,
