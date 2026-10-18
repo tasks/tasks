@@ -652,4 +652,11 @@
     <string name="works_with_mobile">Poŝtelefonaj aplikaĵoj</string>
     <string name="works_with_desktop_apps">Labortablaj aplikaĵoj</string>
     <string name="works_with_wearables">Porteblaj aparatoj</string>
+    <string name="works_with_developers">Programistoj</string>
+    <string name="desktop">Labortablo</string>
+    <string name="works_with_kvaesitso_description">Serĉi viajn taskojn kaj vidigi ilin en la kalendara fenestraĵo</string>
+    <string name="works_with_ksync_description">Por sinkronigi al via konto de Infomaniak</string>
+    <string name="works_with_cloud_description">Por sinkronigi viajn taskojn inter ĉiuj el viaj aparatoj</string>
+    <string name="works_with_nextcloud_description">Por sinkronigi al la aplikaĵo, Nextcloud Tasks</string>
+    <string name="works_with_thunderbird_description">Por sinkronigi viajn taskojn al Thunderbird per CalDAV</string>
 </resources>
