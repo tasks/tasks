@@ -148,7 +148,7 @@ actual fun platformModule(): Module = module {
         )
     }
     single {
-        SyncRunner(get(), get(), { get() }) { pass ->
+        SyncRunner(get(), get(), { get() }, get()) { pass ->
             val synchronizer = get<CaldavSynchronizer>()
             pass.accounts(CaldavAccount.TYPE_CALDAV, CaldavAccount.TYPE_TASKS).forEach { account ->
                 synchronizer.sync(account, hasPro = pass.hasPro)

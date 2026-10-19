@@ -72,6 +72,8 @@ import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneSt
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -159,6 +161,7 @@ import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
+import org.tasks.compose.tasklist.SyncPullRefreshIndicator
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
@@ -217,6 +220,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
+import org.tasks.jobs.BackgroundWork
+import org.tasks.sync.SyncSource
 import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.EmptyFilter
@@ -2094,6 +2099,9 @@ private fun TaskListPane(
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
+    val refreshState = rememberPullToRefreshState()
+    val backgroundWork = koinInject<BackgroundWork>()
+    val scope = rememberCoroutineScope()
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
@@ -2178,28 +2186,44 @@ private fun TaskListPane(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) { CircularProgressIndicator() }
-            is TasksResults.Results -> TaskList(
-                tasks = results.tasks,
-                filter = state.filter,
-                chipDataProvider = chipDataProvider,
-                listState = listState,
-                topPadding = topBarHeight,
-                onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
-                onCompleteTask = { task, newState ->
-                    viewModel.onCompleteTask(task, newState)
-                    if (newState) {
-                        reporting.completeTask("task_list")
-                    }
+            is TasksResults.Results -> PullToRefreshBox(
+                isRefreshing = state.syncOngoing,
+                onRefresh = {
+                    scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
                 },
-                onToggleGroup = { viewModel.toggleCollapsed(it) },
-                onToggleSubtasks = { id, collapsed ->
-                    viewModel.toggleSubtasks(id, collapsed)
+                state = refreshState,
+                modifier = Modifier.fillMaxSize(),
+                indicator = {
+                    SyncPullRefreshIndicator(
+                        state = refreshState,
+                        isRefreshing = state.syncOngoing,
+                        topBarHeight = topBarHeight,
+                    )
                 },
-                onFilterClick = { filter ->
-                    viewModel.setFilter(filter)
-                },
-                is24Hour = org.tasks.time.is24HourFormat(),
-            )
+            ) {
+                TaskList(
+                    tasks = results.tasks,
+                    filter = state.filter,
+                    chipDataProvider = chipDataProvider,
+                    listState = listState,
+                    topPadding = topBarHeight,
+                    onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
+                    onCompleteTask = { task, newState ->
+                        viewModel.onCompleteTask(task, newState)
+                        if (newState) {
+                            reporting.completeTask("task_list")
+                        }
+                    },
+                    onToggleGroup = { viewModel.toggleCollapsed(it) },
+                    onToggleSubtasks = { id, collapsed ->
+                        viewModel.toggleSubtasks(id, collapsed)
+                    },
+                    onFilterClick = { filter ->
+                        viewModel.setFilter(filter)
+                    },
+                    is24Hour = org.tasks.time.is24HourFormat(),
+                )
+            }
         }
 
         val statusBarTop = platformStatusBarInsets().calculateTopPadding()
