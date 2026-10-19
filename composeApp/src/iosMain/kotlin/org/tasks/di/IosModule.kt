@@ -1,7 +1,6 @@
 package org.tasks.di
 
 import androidx.room3.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.todoroo.astrid.service.CommonUpgrades
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
@@ -39,6 +38,7 @@ import org.tasks.caldav.VtodoCache
 import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
 import org.tasks.fcm.ApnsTokenProvider
@@ -96,7 +96,7 @@ actual fun platformModule(): Module = module {
     single<Analytics> { get<Reporting>() }
     single<Database> {
         Room.databaseBuilder<Database>(name = "$documentsPath/${Database.NAME}")
-            .setDriver(BundledSQLiteDriver())
+            .setBundledDriver()
             .addMigrations(*CommonMigrations.all)
             .addCallback(Database.CALLBACK)
             .build()

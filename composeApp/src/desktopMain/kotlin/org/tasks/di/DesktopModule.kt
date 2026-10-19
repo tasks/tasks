@@ -1,7 +1,6 @@
 package org.tasks.di
 
 import androidx.room3.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import at.bitfire.cert4android.CertStore
 import at.bitfire.cert4android.DesktopCertStore
 import at.bitfire.cert4android.DesktopUserDecisionRegistry
@@ -42,6 +41,7 @@ import org.tasks.caldav.VtodoCache
 import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
@@ -328,7 +328,7 @@ actual fun platformModule(): Module = module {
     single<Database> {
         val dbFile = File(dataDir, Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
-            .setDriver(BundledSQLiteDriver())
+            .setBundledDriver()
             .addMigrations(*CommonMigrations.all)
             .addCallback(Database.CALLBACK)
             .build()

@@ -24,6 +24,7 @@ import org.tasks.http.AndroidOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.kmp.createDataStore
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
@@ -64,6 +65,7 @@ actual fun platformModule(): Module = module {
             context = context,
             name = dbFile.absolutePath,
         )
+            .setBundledDriver()
             .addMigrations(*CommonMigrations.all)
             .addCallback(Database.CALLBACK)
             .build()

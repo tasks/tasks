@@ -18,6 +18,7 @@ import okio.Path.Companion.toPath
 import org.mockito.Mockito.mock
 import org.tasks.TestUtilities
 import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.jobs.WorkManager
 import org.tasks.location.LocationManager
 import org.tasks.location.MockLocationManager
@@ -41,7 +42,7 @@ class TestModule {
             .inMemoryDatabaseBuilder(context, Database::class.java)
             .fallbackToDestructiveMigration(dropAllTables = true)
             .addCallback(Database.CALLBACK)
-            .setDriver()
+            .setBundledDriver()
             .build()
 
     @Provides

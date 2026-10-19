@@ -2,24 +2,18 @@ package org.tasks.injection
 
 import android.content.Context
 import androidx.room3.Room
-import androidx.room3.RoomDatabase
-import androidx.sqlite.SQLiteConnection
-import androidx.sqlite.SQLiteDriver
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import androidx.sqlite.execSQL
-import com.todoroo.andlib.utility.AndroidUtilities.atLeastR
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.caldav.FileStorage
 import org.tasks.data.OpenTaskDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.db.Migrations
 import org.tasks.jobs.WorkManager
 import org.tasks.jobs.WorkManagerImpl
@@ -48,7 +42,7 @@ internal class ProductionModule {
             )
             .addMigrations(*Migrations.migrations(context, fileStorage))
             .addCallback(Database.CALLBACK)
-            .setDriver()
+            .setBundledDriver()
         if (!BuildConfig.DEBUG || !preferences.getBoolean(R.string.p_crash_main_queries, false)) {
             builder.allowMainThreadQueries()
         }
@@ -76,21 +70,3 @@ internal class ProductionModule {
         openTaskDao: OpenTaskDao,
     ): WorkManager = WorkManagerImpl(context, preferences, tasksPreferences, caldavDao, openTaskDao)
 }
-
-fun <T : RoomDatabase> RoomDatabase.Builder<T>.setDriver() =
-    if (atLeastR()) {
-        this
-    } else {
-        val driver = BundledSQLiteDriver() // need bundled sqlite for window functions
-        this
-            .setDriver(
-                object : SQLiteDriver by driver {
-                    override fun open(fileName: String): SQLiteConnection {
-                        return driver.open(fileName).also {
-                            it.execSQL("PRAGMA busy_timeout = 60000")
-                        }
-                    }
-                }
-            )
-            .setQueryCoroutineContext(Dispatchers.IO)
-    }
