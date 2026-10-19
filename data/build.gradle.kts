@@ -68,7 +68,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeSimu
 }
 android {
     namespace = "org.tasks.data"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     buildFeatures {
         buildConfig = true
