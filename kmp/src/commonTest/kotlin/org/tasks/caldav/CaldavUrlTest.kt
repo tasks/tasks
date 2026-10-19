@@ -50,6 +50,18 @@ class CaldavUrlTest {
     }
 
     @Test
+    fun `escapes a bare percent sign`() {
+        assertEquals(
+            "https://example.com/100%25/",
+            "https://example.com/100%/".canonicalUrl(),
+        )
+        assertEquals(
+            "https://example.com/100%25/",
+            "https://example.com/100%25/".canonicalUrl(),
+        )
+    }
+
+    @Test
     fun `drops the default port`() {
         assertEquals("https://example.com/dav/", "https://example.com:443/dav/".canonicalUrl())
         assertEquals("https://example.com:8443/dav/", "https://example.com:8443/dav/".canonicalUrl())
@@ -66,8 +78,6 @@ class CaldavUrlTest {
     fun `leaves an unparseable string alone`() {
         assertEquals("https://example.com:port/", "https://example.com:port/".canonicalUrl())
         assertNull("https://example.com:port/".canonicalUrlOrNull())
-        assertEquals("https://example.com/100%/", "https://example.com/100%/".canonicalUrl())
-        assertNull("https://example.com/100%/".canonicalUrlOrNull())
     }
 
     @Test
