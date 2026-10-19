@@ -5,9 +5,9 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
-import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpHeaders
+import io.ktor.http.isSuccess
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -49,6 +49,15 @@ class StripeClientImpl(
     private data class CheckoutRequest(val price_id: String? = null)
 
     @Serializable
+    private data class ChangeRequest(
+        val price_id: String,
+        val purchase_jwt: String? = null,
+    )
+
+    @Serializable
+    private data class ChangeResponse(val entitles: Boolean = false)
+
+    @Serializable
     private data class CheckoutResponse(
         val code: String,
         val url: String,
@@ -56,18 +65,37 @@ class StripeClientImpl(
     )
 
     @Serializable
-    private data class StatusResponse(
+    private data class RestoreRequest(val email: String)
+
+    @Serializable
+    private data class VerifyRequest(val email: String, val code: String)
+
+    @Serializable
+    private data class PurchaseResponse(
         val status: String = STATUS_PENDING,
         val purchase_jwt: String? = null,
         val refresh_token: String? = null,
         val sku: String? = null,
         val formatted_price: String? = null,
-    )
+    ) {
+        val purchase: StripePurchase?
+            get() {
+                val jwt = purchase_jwt ?: return null
+                val refreshToken = refresh_token ?: return null
+                return StripePurchase(jwt, refreshToken, sku, formatted_price)
+            }
+    }
+
+    @Serializable
+    private data class PortalRequest(val purchase_jwt: String)
+
+    @Serializable
+    private data class PortalResponse(val url: String? = null)
 
     override suspend fun prices(): List<StripePrice>? = call("prices") { client ->
         val response = client.get(url("/stripe/prices"))
         val body = response.bodyAsText()
-        if (!response.ok) {
+        if (!response.status.isSuccess()) {
             if (response.status.value == 503) {
                 logger.i { "The card arm is unavailable: ${body.errorCode()}" }
             } else {
@@ -90,13 +118,10 @@ class StripeClientImpl(
 
     override suspend fun createCheckout(priceId: String?): StripeCheckout {
         val session = authorization()
-        val result = checkout(priceId, session)
-        return if (result == null && session != null) {
-            logger.i { "Session rejected, opening an anonymous checkout" }
-            checkout(priceId, authorization = null) ?: StripeCheckout.Failed
-        } else {
-            result ?: StripeCheckout.Failed
-        }
+        checkout(priceId, session)?.let { return it }
+        if (session == null) return StripeCheckout.Failed
+        logger.i { "Session rejected, opening an anonymous checkout" }
+        return checkout(priceId, authorization = null) ?: StripeCheckout.Failed
     }
 
     private suspend fun checkout(priceId: String?, authorization: String?): StripeCheckout? =
@@ -132,21 +157,58 @@ class StripeClientImpl(
             }
         }
 
+    override suspend fun changePlan(priceId: String, purchaseJwt: String?): StripeChange =
+        call("change", fallback = StripeChange.Unavailable) { client ->
+            val session = authorization()
+            val response = client.post(url("/stripe/change")) {
+                session?.let { header(HttpHeaders.Authorization, it) }
+                jsonBody(
+                    json,
+                    ChangeRequest.serializer(),
+                    ChangeRequest(price_id = priceId, purchase_jwt = purchaseJwt),
+                )
+            }
+            val body = response.bodyAsText()
+            when (response.status.value) {
+                in 200..299 -> StripeChange.Changed(
+                    entitles = json.decodeFromString(ChangeResponse.serializer(), body).entitles,
+                )
+                400 -> if (body.errorCode() == ERROR_INVALID_PURCHASE_JWT) {
+                    StripeChange.PurchaseGone
+                } else {
+                    StripeChange.UnknownPrice
+                }
+                401 -> {
+                    logger.w {
+                        "Change refused: session=${session != null} receipt=${purchaseJwt != null}"
+                    }
+                    StripeChange.NoProofOfPurchase
+                }
+                404 -> if (body.errorCode() == ERROR_UNKNOWN_PURCHASE) {
+                    StripeChange.PurchaseGone
+                } else {
+                    StripeChange.NotLinked
+                }
+                409 -> StripeChange.Cancelled
+                429 -> StripeChange.RateLimited
+                503 -> StripeChange.Unavailable
+                else -> {
+                    logger.w { "Plan change failed: HTTP ${response.status.value}" }
+                    StripeChange.Failed
+                }
+            }
+        }
+
     override suspend fun pollCheckout(code: String): StripeCheckoutStatus =
         call("poll", fallback = StripeCheckoutStatus.Unavailable) { client ->
             val response = client.get(url("/stripe/checkout/$code"))
             val body = response.bodyAsText()
             when (response.status.value) {
                 in 200..299 -> {
-                    val result = json.decodeFromString(StatusResponse.serializer(), body)
-                    val purchase = StripePurchase(
-                        purchaseJwt = result.purchase_jwt ?: return@call pendingOrBroken(result),
-                        refreshToken = result.refresh_token
-                            ?: return@call pendingOrBroken(result),
-                        sku = result.sku,
-                        formattedPrice = result.formatted_price,
-                    )
-                    StripeCheckoutStatus.Complete(purchase)
+                    val result = json.decodeFromString(PurchaseResponse.serializer(), body)
+                    result.purchase
+                        ?.let { StripeCheckoutStatus.Complete(it) }
+                        ?: pendingOrBroken(result)
                 }
                 402 -> StripeCheckoutStatus.SubscriptionInvalid
                 404 -> StripeCheckoutStatus.Gone
@@ -159,7 +221,7 @@ class StripeClientImpl(
             }
         }
 
-    private fun pendingOrBroken(result: StatusResponse): StripeCheckoutStatus =
+    private fun pendingOrBroken(result: PurchaseResponse): StripeCheckoutStatus =
         if (result.status == STATUS_PENDING) {
             StripeCheckoutStatus.Pending
         } else {
@@ -167,9 +229,69 @@ class StripeClientImpl(
             StripeCheckoutStatus.Failed
         }
 
-    private fun url(path: String) = "${caldavUrl()}$path"
+    override suspend fun requestRestoreCode(email: String): StripeRestoreRequest =
+        call("restore", fallback = StripeRestoreRequest.Unavailable) { client ->
+            val response = client.post(url("/stripe/restore")) {
+                jsonBody(json, RestoreRequest.serializer(), RestoreRequest(email))
+            }
+            when (response.status.value) {
+                in 200..299 -> StripeRestoreRequest.Sent
+                400 -> StripeRestoreRequest.InvalidEmail
+                429 -> StripeRestoreRequest.RateLimited
+                503 -> StripeRestoreRequest.Unavailable
+                else -> {
+                    logger.w { "Restore request failed: HTTP ${response.status.value}" }
+                    StripeRestoreRequest.Failed
+                }
+            }
+        }
 
-    private val HttpResponse.ok: Boolean get() = status.value in 200..299
+    override suspend fun verifyRestoreCode(email: String, code: String): StripeRestore =
+        call("verify", fallback = StripeRestore.Unavailable) { client ->
+            val response = client.post(url("/stripe/restore/verify")) {
+                jsonBody(json, VerifyRequest.serializer(), VerifyRequest(email, code))
+            }
+            val body = response.bodyAsText()
+            when (response.status.value) {
+                in 200..299 -> {
+                    val purchase = json
+                        .decodeFromString(PurchaseResponse.serializer(), body)
+                        .purchase
+                    if (purchase == null) {
+                        logger.w { "Restore response has no purchase" }
+                        StripeRestore.Failed
+                    } else {
+                        StripeRestore.Restored(purchase)
+                    }
+                }
+                400 -> if (body.errorCode() == ERROR_INVALID_EMAIL) {
+                    StripeRestore.InvalidEmail
+                } else {
+                    StripeRestore.InvalidCode
+                }
+                402 -> StripeRestore.SubscriptionInvalid
+                429 -> StripeRestore.TooManyAttempts
+                503 -> StripeRestore.Unavailable
+                else -> {
+                    logger.w { "Restore verify failed: HTTP ${response.status.value}" }
+                    StripeRestore.Failed
+                }
+            }
+        }
+
+    override suspend fun portalUrl(purchaseJwt: String?): String? = call("portal") { client ->
+        val response = client.post(url("/stripe/portal")) {
+            authorization()?.let { header(HttpHeaders.Authorization, it) }
+            purchaseJwt?.let { jsonBody(json, PortalRequest.serializer(), PortalRequest(it)) }
+        }
+        if (!response.status.isSuccess()) {
+            logger.w { "Failed to open the customer portal: HTTP ${response.status.value}" }
+            return@call null
+        }
+        json.decodeFromString(PortalResponse.serializer(), response.bodyAsText()).url
+    }
+
+    private fun url(path: String) = "${caldavUrl()}$path"
 
     private suspend fun <T> call(what: String, block: suspend (HttpClient) -> T): T? =
         call(what, fallback = null) { block(it) }
@@ -192,6 +314,9 @@ class StripeClientImpl(
         private const val TAG = "StripeClient"
         private const val STATUS_PENDING = "pending"
         private const val ERROR_SUBSCRIPTION_EXISTS = "subscription_exists"
+        private const val ERROR_INVALID_EMAIL = "invalid_email"
+        private const val ERROR_INVALID_PURCHASE_JWT = "invalid_purchase_jwt"
+        private const val ERROR_UNKNOWN_PURCHASE = "unknown_purchase"
         private const val CALL_TIMEOUT_MILLIS = 20_000L
     }
 }

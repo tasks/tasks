@@ -134,7 +134,11 @@ class StripePurchasesTest {
     private val stripeClient = object : StripeClient {
         override suspend fun prices(): List<StripePrice>? = null
         override suspend fun createCheckout(priceId: String?) = StripeCheckout.Failed
+        override suspend fun changePlan(priceId: String, purchaseJwt: String?) = StripeChange.Failed
         override suspend fun pollCheckout(code: String) = checkoutStatus
+        override suspend fun requestRestoreCode(email: String) = StripeRestoreRequest.Sent
+        override suspend fun verifyRestoreCode(email: String, code: String) = StripeRestore.Failed
+        override suspend fun portalUrl(purchaseJwt: String?): String? = null
     }
 
     private val tasksPreferences = TasksPreferences(InMemoryDataStore())

@@ -198,6 +198,71 @@ class StripeClientTest {
     }
 
     @Test
+    fun aRejectedAddressIsNotARejectedCode() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"invalid_email"}""")
+
+        assertEquals(
+            StripeRestore.InvalidEmail,
+            client().verifyRestoreCode("not-an-address", "123456"),
+        )
+    }
+
+    @Test
+    fun aWrongCodeCanBeRetyped() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"invalid_code"}""")
+
+        assertEquals(
+            StripeRestore.InvalidCode,
+            client().verifyRestoreCode("a@b.com", "000000"),
+        )
+    }
+
+    @Test
+    fun aChangeCarriesTheReceiptWhenThereIsNoSession() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"changed":true,"entitles":true,"subscription":{"product":"annual_30"}}""",
+        )
+
+        val result = client().changePlan("pri_30", purchaseJwt = "jwt-1")
+
+        assertEquals(StripeChange.Changed(entitles = true), result)
+        assertTrue(body().contains(""""purchase_jwt":"jwt-1""""))
+    }
+
+    @Test
+    fun aChangeWithNeitherProofIsNotAFailure() = runTest {
+        respondWith(HttpStatusCode.Unauthorized, """{"error":"no_proof_of_purchase"}""")
+
+        assertEquals(StripeChange.NoProofOfPurchase, client().changePlan("pri_30"))
+    }
+
+    @Test
+    fun aReceiptTheServerNeverSignedIsNotAPricingFault() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"invalid_purchase_jwt"}""")
+        assertEquals(StripeChange.PurchaseGone, client().changePlan("pri_30", "jwt-1"))
+
+        respondWith(HttpStatusCode.BadRequest, """{"error":"unknown_price"}""")
+        assertEquals(StripeChange.UnknownPrice, client().changePlan("pri_30", "jwt-1"))
+    }
+
+    @Test
+    fun anEvictedPurchaseIsNotAnUnlinkedAccount() = runTest {
+        respondWith(HttpStatusCode.NotFound, """{"error":"unknown_purchase"}""")
+        assertEquals(StripeChange.PurchaseGone, client().changePlan("pri_30", "jwt-1"))
+
+        respondWith(HttpStatusCode.NotFound, """{"error":"not_linked"}""")
+        assertEquals(StripeChange.NotLinked, client().changePlan("pri_30", "jwt-1"))
+    }
+
+    @Test
+    fun aChangeCanBeRateLimited() = runTest {
+        respondWith(HttpStatusCode.TooManyRequests, """{"error":"too_many_requests"}""")
+
+        assertEquals(StripeChange.RateLimited, client().changePlan("pri_30"))
+    }
+
+    @Test
     fun refusesASecondSubscription() = runTest {
         respondWith(
             HttpStatusCode.Conflict,
@@ -215,6 +280,50 @@ class StripeClientTest {
         respondWith(HttpStatusCode.Conflict, """{"error":"something_else"}""")
 
         assertEquals(StripeCheckout.SubscriptionExists(), client().createCheckout(null))
+    }
+
+    @Test
+    fun changesThePlanInPlace() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"changed":true,"entitles":true,"subscription":{"provider":"stripe",""" +
+                """"product":"monthly_03","formatted_price":"${'$'}3.00"}}""",
+        )
+
+        val result = client(authorization = "Basic abc").changePlan("pri_03")
+
+        assertEquals("https://caldav.example.com/stripe/change", requests[0].url.toString())
+        assertEquals("Basic abc", requests[0].headers["Authorization"])
+        assertEquals("""{"price_id":"pri_03"}""", body())
+        assertEquals(StripeChange.Changed(entitles = true), result)
+    }
+
+    @Test
+    fun aDowngradeSaysSyncIsGone() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"changed":true,"entitles":false,"subscription":{"product":"annual_25"}}""",
+        )
+
+        assertEquals(StripeChange.Changed(entitles = false), client().changePlan("pri_25"))
+    }
+
+    @Test
+    fun mapsPlanChangeFailures() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"unknown_price"}""")
+        assertEquals(StripeChange.UnknownPrice, client().changePlan("pri_99"))
+
+        respondWith(HttpStatusCode.NotFound, """{"error":"not_linked"}""")
+        assertEquals(StripeChange.NotLinked, client().changePlan("pri_03"))
+
+        respondWith(HttpStatusCode.Conflict, """{"error":"subscription_canceled"}""")
+        assertEquals(StripeChange.Cancelled, client().changePlan("pri_03"))
+
+        respondWith(HttpStatusCode.ServiceUnavailable, """{"error":"stripe_unavailable"}""")
+        assertEquals(StripeChange.Unavailable, client().changePlan("pri_03"))
+
+        respondWith(HttpStatusCode.InternalServerError, "")
+        assertEquals(StripeChange.Failed, client().changePlan("pri_03"))
     }
 
     @Test
@@ -305,11 +414,111 @@ class StripeClientTest {
     }
 
     @Test
+    fun asksForARestoreCode() = runTest {
+        respondWith(HttpStatusCode.OK, """{"sent":true}""")
+
+        val result = client().requestRestoreCode("alice@example.com")
+
+        assertEquals("https://caldav.example.com/stripe/restore", requests[0].url.toString())
+        assertEquals("""{"email":"alice@example.com"}""", body())
+        assertEquals(StripeRestoreRequest.Sent, result)
+    }
+
+    @Test
+    fun mapsRestoreRequestFailures() = runTest {
+        respondWith(HttpStatusCode.BadRequest, "")
+        assertEquals(StripeRestoreRequest.InvalidEmail, client().requestRestoreCode("nope"))
+
+        respondWith(HttpStatusCode.TooManyRequests, "")
+        assertEquals(StripeRestoreRequest.RateLimited, client().requestRestoreCode("a@b.com"))
+
+        respondWith(HttpStatusCode.ServiceUnavailable, "")
+        assertEquals(StripeRestoreRequest.Unavailable, client().requestRestoreCode("a@b.com"))
+
+        respondWith(HttpStatusCode.InternalServerError, "")
+        assertEquals(StripeRestoreRequest.Failed, client().requestRestoreCode("a@b.com"))
+    }
+
+    @Test
+    fun redeemsARestoreCode() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"purchase_jwt":"jwt","refresh_token":"rt","sku":"annual_stripe",""" +
+                """"formatted_price":"${'$'}30.00"}""",
+        )
+
+        val result = client().verifyRestoreCode("alice@example.com", "123456")
+
+        assertEquals(
+            "https://caldav.example.com/stripe/restore/verify",
+            requests[0].url.toString(),
+        )
+        assertEquals("""{"email":"alice@example.com","code":"123456"}""", body())
+        assertEquals(
+            StripeRestore.Restored(StripePurchase("jwt", "rt", "annual_stripe", "\$30.00")),
+            result,
+        )
+    }
+
+    @Test
+    fun mapsRestoreVerifyFailures() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"invalid_code"}""")
+        assertEquals(StripeRestore.InvalidCode, client().verifyRestoreCode("a@b.com", "000000"))
+
+        respondWith(HttpStatusCode.TooManyRequests, """{"error":"too_many_attempts"}""")
+        assertEquals(StripeRestore.TooManyAttempts, client().verifyRestoreCode("a@b.com", "000000"))
+
+        respondWith(HttpStatusCode.PaymentRequired, """{"error":"Invalid or expired subscription"}""")
+        assertEquals(
+            StripeRestore.SubscriptionInvalid,
+            client().verifyRestoreCode("a@b.com", "000000"),
+        )
+
+        respondWith(HttpStatusCode.ServiceUnavailable, """{"error":"stripe_unavailable"}""")
+        assertEquals(StripeRestore.Unavailable, client().verifyRestoreCode("a@b.com", "000000"))
+
+        respondWith(HttpStatusCode.OK, "{}")
+        assertEquals(StripeRestore.Failed, client().verifyRestoreCode("a@b.com", "000000"))
+    }
+
+    @Test
+    fun opensTheCustomerPortal() = runTest {
+        respondWith(HttpStatusCode.OK, """{"url":"https://customer.stripe.com/x"}""")
+
+        val url = client(authorization = "Basic abc").portalUrl()
+
+        assertEquals("https://caldav.example.com/stripe/portal", requests[0].url.toString())
+        assertEquals("Basic abc", requests[0].headers["Authorization"])
+        assertEquals("https://customer.stripe.com/x", url)
+    }
+
+    @Test
+    fun aPortalWithNoSessionIsOpenedOnTheReceipt() = runTest {
+        respondWith(HttpStatusCode.OK, """{"url":"https://customer.stripe.com/x"}""")
+
+        val url = client().portalUrl(purchaseJwt = "jwt-1")
+
+        assertTrue(body().contains(""""purchase_jwt":"jwt-1""""))
+        assertNull(requests[0].headers["Authorization"])
+        assertEquals("https://customer.stripe.com/x", url)
+    }
+
+    @Test
+    fun hasNoPortalUrlWhenTheServerWillNotGiveOne() = runTest {
+        handler = { respondError(HttpStatusCode.NotFound) }
+
+        assertNull(client().portalUrl())
+    }
+
+    @Test
     fun aCallThatNeverArrivedIsUnavailable() = runTest {
         handler = { throw RuntimeException("no network") }
 
         assertEquals(StripeCheckout.Unavailable, client().createCheckout(null))
         assertEquals(StripeCheckoutStatus.Unavailable, client().pollCheckout("c0de"))
+        assertEquals(StripeChange.Unavailable, client().changePlan("pri_30"))
+        assertEquals(StripeRestoreRequest.Unavailable, client().requestRestoreCode("a@b.com"))
+        assertEquals(StripeRestore.Unavailable, client().verifyRestoreCode("a@b.com", "000000"))
         assertNull(client().prices())
     }
 
@@ -319,5 +528,7 @@ class StripeClientTest {
 
         assertEquals(StripeCheckout.Failed, client().createCheckout(null))
         assertEquals(StripeCheckoutStatus.Failed, client().pollCheckout("c0de"))
+        assertEquals(StripeChange.Failed, client().changePlan("pri_30"))
+        assertEquals(StripeRestoreRequest.Failed, client().requestRestoreCode("a@b.com"))
     }
 }
