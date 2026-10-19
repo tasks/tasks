@@ -39,6 +39,48 @@ class StripeCatalogTest {
     }
 
     @Test
+    fun theSliderStopsAtWhatStripeSells() {
+        val catalog = StripeCatalog.from(listOf(price("annual_03", 299), price("annual_04", 399)))
+
+        assertEquals(listOf("annual_03", "annual_04"), catalog.supporterRungs.map { it.sku })
+    }
+
+    @Test
+    fun aMonthlyPriceAddsNoPositionOfItsOwn() {
+        val catalog = StripeCatalog.from(
+            listOf(
+                price("annual_12", 1199),
+                price("monthly_01", 99, StripePrice.INTERVAL_MONTH),
+            )
+        )
+
+        assertEquals(listOf("annual_12"), catalog.supporterRungs.map { it.sku })
+    }
+
+    @Test
+    fun aTierBeyondTheUsualLadderStillGetsARung() {
+        val catalog = StripeCatalog.from(listOf(price("annual_03", 299), price("annual_40", 3999)))
+
+        assertEquals(listOf(299, 3999), catalog.supporterRungs.map { it.amountCents })
+    }
+
+    @Test
+    fun ordersTheRungsCheapestFirst() {
+        val catalog = StripeCatalog(
+            support = listOf(price("annual_12", 1199), price("annual_03", 299)),
+        )
+
+        assertEquals(listOf(299, 1199), catalog.supporterRungs.map { it.amountCents })
+    }
+
+    @Test
+    fun noSupporterTierMeansNoSliderAtAll() {
+        val catalog = StripeCatalog.from(listOf(price("annual_30", 2999, entitles = true)))
+
+        assertTrue(catalog.supporterRungs.isEmpty())
+    }
+
+    @Test
     fun carriesTheTrialTheServerNames() {
         val catalog = StripeCatalog.from(
             listOf(

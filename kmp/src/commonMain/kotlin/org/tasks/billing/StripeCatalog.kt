@@ -13,6 +13,9 @@ data class StripeCatalog(
     fun price(sku: String?): StripePrice? =
         (cloud + support).firstOrNull { it.sku == sku }
 
+    val supporterRungs: List<StripePrice>
+        get() = support.filterNot { it.isMonthly }.sortedBy { it.amountCents }
+
     companion object {
         fun from(prices: List<StripePrice>): StripeCatalog {
             val (cloud, support) = prices

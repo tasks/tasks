@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -11,6 +12,7 @@ import org.tasks.auth.PurchaseClaim
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.StripeSubscriptionResult
 import org.tasks.caldav.TasksAccountDataRepository
+import org.tasks.caldav.TasksAccountResponse
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.tasksAccount
 import org.tasks.http.basicCredentials
@@ -33,16 +35,36 @@ class StripePurchases(
     override suspend fun createCheckout(price: StripePrice?): StripeCheckout =
         client.createCheckout(price?.priceId)
 
+    override suspend fun changePlan(price: StripePrice): StripeChange {
+        claimStoredPurchase()
+        val result = client.changePlan(price.priceId, purchaseJwt = entitlement.getJwt())
+        if (result is StripeChange.Changed) {
+            entitlement.checkTier()
+            accountData.fetchAndCache()
+            maybeCelebrate(hasTasksSubscription = result.entitles)
+        }
+        return result
+    }
+
+    override suspend fun currentPlan(): StripePlan? {
+        entitlement.checkTier()
+        return if (entitlement.provider.first() == EntitlementProvider.STRIPE) {
+            StripePlan(entitlement.sku.first(), entitlement.terms.first())
+        } else {
+            accountData.getAccountResponse()
+                ?.takeIf { it.hasStripeSubscription }
+                ?.let { StripePlan(it.stripeProduct, it.stripeTerms()) }
+        }
+    }
+
     override suspend fun collectCheckout(code: String): StripeCollection =
         when (val status = client.pollCheckout(code)) {
             StripeCheckoutStatus.Pending -> StripeCollection.Pending
             is StripeCheckoutStatus.Complete -> {
                 val outcome = keep(status.purchase)
-                maybeTriggerCloudOnboarding(
-                    hasTasksSubscription = SubscriptionSkus.isTasksSubscription(status.purchase.sku),
-                    caldavDao = caldavDao,
-                    tasksPreferences = tasksPreferences,
-                    logStep = logOnboarding,
+                maybeCelebrate(
+                    hasTasksSubscription =
+                        SubscriptionSkus.isTasksSubscription(status.purchase.sku),
                 )
                 StripeCollection.Collected(outcome)
             }
@@ -52,6 +74,25 @@ class StripePurchases(
                 StripeCollection.RateLimited(status.retryAfterMillis)
             StripeCheckoutStatus.Unavailable, StripeCheckoutStatus.Failed -> StripeCollection.Pending
         }
+
+    private suspend fun maybeCelebrate(hasTasksSubscription: Boolean) =
+        maybeTriggerCloudOnboarding(
+            hasTasksSubscription = hasTasksSubscription,
+            caldavDao = caldavDao,
+            tasksPreferences = tasksPreferences,
+            logStep = logOnboarding,
+        )
+
+    suspend fun requestRestoreCode(email: String): StripeRestoreRequest =
+        client.requestRestoreCode(email)
+
+    suspend fun redeemRestoreCode(email: String, code: String): StripeRestore {
+        val result = client.verifyRestoreCode(email, code)
+        if (result is StripeRestore.Restored) {
+            keep(result.purchase)
+        }
+        return result
+    }
 
     suspend fun keep(purchase: StripePurchase): StripeRestoreOutcome {
         val stored = entitlement.storeEntitlement(
@@ -99,6 +140,8 @@ class StripePurchases(
         }
         logger.i { "Claimed at sign-in: $result" }
     }
+
+    suspend fun portalUrl(): String? = client.portalUrl(entitlement.getJwt())
 
     fun claimOnSignIn(scope: CoroutineScope) {
         scope.launch {
@@ -157,7 +200,34 @@ interface StripeCheckouts {
 
     suspend fun createCheckout(price: StripePrice?): StripeCheckout
 
+    suspend fun changePlan(price: StripePrice): StripeChange
+
+    suspend fun currentPlan(): StripePlan?
+
     suspend fun collectCheckout(code: String): StripeCollection
+}
+
+data class StripePlan(val sku: String?, val terms: PurchaseTerms? = null) {
+    val trialEnd: Long? get() = terms?.takeIf { it.isTrialing }?.trialEnd
+}
+
+fun TasksAccountResponse.stripeTerms(): PurchaseTerms? {
+    val cloud = subscriptions.firstOrNull { it.provider == TasksAccountResponse.PROVIDER_STRIPE }
+    val supporter = supporter.firstOrNull { it.provider == TasksAccountResponse.PROVIDER_STRIPE }
+    return if (cloud != null) {
+        PurchaseTerms(
+            trialEnd = cloud.trialEnd,
+            creditCents = creditCents,
+            creditCurrency = creditCurrency,
+        )
+    } else {
+        PurchaseTerms(
+            status = supporter?.status,
+            trialEnd = supporter?.trialEnd,
+            creditCents = creditCents,
+            creditCurrency = creditCurrency,
+        )
+    }.takeIf { !it.isEmpty }
 }
 
 sealed interface StripeCollection {
