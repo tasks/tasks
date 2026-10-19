@@ -41,6 +41,49 @@ class TasksAccountResponseTest {
     }
 
     @Test
+    fun creditBelongsToTheCustomerRatherThanToASubscription() {
+        val response = parse(
+            """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_01"}],""" +
+                """"credit_cents":900,"credit_currency":"EUR"}"""
+        )
+
+        assertEquals(900, response.creditCents)
+        assertEquals("EUR", response.creditCurrency)
+    }
+
+    @Test
+    fun creditThatWasNeverRecordedIsNotNoCredit() {
+        val response = parse(
+            """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_01"}]}"""
+        )
+
+        assertNull(response.creditCents)
+        assertNull(response.creditCurrency)
+    }
+
+    @Test
+    fun aTrialEndIsWhenTheFirstChargeFallsDue() {
+        val response = parse(
+            """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_30",""" +
+                """"expires":1793481600000,"trial_end":1793481600000}],""" +
+                """"supporter":[{"provider":"stripe","product":"annual_01",""" +
+                """"trial_end":1793481600000}]}"""
+        )
+
+        assertEquals(1793481600000L, response.subscriptions.single().trialEnd)
+        assertEquals(1793481600000L, response.supporter.single().trialEnd)
+    }
+
+    @Test
+    fun aSubscriptionBoughtWithoutATrialHasNoTrialEnd() {
+        val response = parse(
+            """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_30"}]}"""
+        )
+
+        assertNull(response.subscriptions.single().trialEnd)
+    }
+
+    @Test
     fun aCancelledSubscriptionStillRunsToTheEndOfThePeriod() {
         val response = parse(
             """{"subscriptions":[{"provider":"stripe","expires":1793481600000,""" +

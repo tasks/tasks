@@ -558,6 +558,104 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aRefreshKeepsWhatTheCheckLearned() = runBlocking {
+        storeOnDisk(
+            jwt = jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS),
+            provider = EntitlementProvider.STRIPE,
+            terms = PurchaseTerms(status = "trialing", trialEnd = 1760000000000L),
+        )
+        server.enqueue(refreshResponse(jwt(exp = now() + 30 * DAY_SECONDS)))
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        assertEquals("trialing", entitlement.terms.first()?.status)
+        assertEquals(1760000000000L, entitlement.terms.first()?.trialEnd)
+        assertEquals("trialing", readFromDisk().terms?.status)
+    }
+
+    @Test
+    fun aCheckRecordsTheTermsItWasToldAbout() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(
+            checkResponse(
+                sku = "annual_30",
+                formattedPrice = "USD 29.99",
+                status = "trialing",
+                trialEnd = 1760000000000L,
+                creditCents = 900,
+                creditCurrency = "EUR",
+            )
+        )
+
+        val entitlement = entitlement()
+        assertTrue(entitlement.checkTier())
+
+        val terms = entitlement.terms.first()
+        assertEquals("trialing", terms?.status)
+        assertEquals(1760000000000L, terms?.trialEnd)
+        assertEquals(900, terms?.creditCents)
+        assertEquals("EUR", terms?.creditCurrency)
+        assertEquals(terms, readFromDisk().terms)
+    }
+
+    @Test
+    fun termsThatMovedOnTheirOwnAreNotATierChange() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(
+            checkResponse("annual", "USD 10.00", creditCents = 900, creditCurrency = "USD")
+        )
+
+        val entitlement = entitlement()
+        assertFalse(entitlement.checkTier())
+
+        assertEquals(900, entitlement.terms.first()?.creditCents)
+        assertEquals(900, readFromDisk().terms?.creditCents)
+    }
+
+    @Test
+    fun aCheckThatSaysNothingAboutTermsRecordsNothing() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(checkResponse("annual_30", "USD 29.99"))
+
+        val entitlement = entitlement()
+        assertTrue(entitlement.checkTier())
+
+        assertNull(entitlement.terms.first())
+    }
+
+    @Test
+    fun aPlayRowRecordsNoTerms() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.PLAY)
+        server.enqueue(
+            checkResponse("annual", "USD 10.00", status = "active", creditCents = 900)
+        )
+
+        val entitlement = entitlement()
+        assertFalse(entitlement.checkTier())
+
+        assertNull(entitlement.terms.first())
+        assertNull(readFromDisk().terms)
+    }
+
+    @Test
+    fun termsRecordedBeforeARestartAreStillKnown() = runBlocking {
+        storeOnDisk(
+            jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+            provider = EntitlementProvider.STRIPE,
+            terms = PurchaseTerms(status = "active", creditCents = 900, creditCurrency = "USD"),
+        )
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        assertEquals("active", entitlement.terms.first()?.status)
+        assertEquals(900, entitlement.terms.first()?.creditCents)
+    }
+
+    @Test
     fun aCheckThatCannotBeAnsweredLeavesTheTierAlone() = runBlocking {
         storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.STRIPE)
         server.enqueue(MockResponse().setResponseCode(503))
@@ -624,6 +722,7 @@ class PurchaseEntitlementTest {
     private fun storeOnDisk(
         jwt: String,
         provider: EntitlementProvider = EntitlementProvider.PLAY,
+        terms: PurchaseTerms? = null,
     ) = runBlocking {
         val stored = PurchaseEntitlement.StoredEntitlement(
             jwt = jwt,
@@ -631,6 +730,7 @@ class PurchaseEntitlementTest {
             sku = "annual",
             formattedPrice = "USD 10.00",
             provider = provider,
+            terms = terms,
         )
         val plain = json.encodeToString(PurchaseEntitlement.StoredEntitlement.serializer(), stored)
         entitlementFile.writeText(encryption.encrypt(plain)!!)
@@ -644,10 +744,27 @@ class PurchaseEntitlementTest {
                 """"formatted_price":"USD 10.00"}"""
         )
 
-    private fun checkResponse(sku: String, formattedPrice: String) = MockResponse()
-        .setResponseCode(200)
-        .setHeader("Content-Type", "application/json")
-        .setBody("""{"sku":"$sku","formatted_price":"$formattedPrice"}""")
+    private fun checkResponse(
+        sku: String,
+        formattedPrice: String,
+        status: String? = null,
+        trialEnd: Long? = null,
+        creditCents: Int? = null,
+        creditCurrency: String? = null,
+    ): MockResponse {
+        val fields = buildList {
+            add(""""sku":"$sku"""")
+            add(""""formatted_price":"$formattedPrice"""")
+            status?.let { add(""""status":"$it"""") }
+            trialEnd?.let { add(""""trial_end":$it""") }
+            creditCents?.let { add(""""credit_cents":$it""") }
+            creditCurrency?.let { add(""""credit_currency":"$it"""") }
+        }
+        return MockResponse()
+            .setResponseCode(200)
+            .setHeader("Content-Type", "application/json")
+            .setBody(fields.joinToString(",", "{", "}"))
+    }
 
     private fun refreshTokenSent(): String? {
         val body = server.takeRequest(5, TimeUnit.SECONDS)?.body?.readUtf8() ?: return null

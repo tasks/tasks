@@ -10,6 +10,7 @@ interface SubscriptionProvider {
         val purchaseToken: String? = null,
         val isGitHubSponsor: Boolean = false,
         val isCardSubscription: Boolean = false,
+        val terms: PurchaseTerms? = null,
     )
 
     val subscription: Flow<SubscriptionInfo?>

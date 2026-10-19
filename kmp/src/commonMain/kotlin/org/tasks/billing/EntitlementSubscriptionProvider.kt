@@ -17,8 +17,9 @@ class EntitlementSubscriptionProvider(
             entitlement.hasPro,
             entitlement.sku,
             entitlement.provider,
+            entitlement.terms,
             debugPro,
-        ) { hasPro, sku, provider, debug ->
+        ) { hasPro, sku, provider, terms, debug ->
             when {
                 hasPro -> SubscriptionProvider.SubscriptionInfo(
                     sku = sku ?: FALLBACK_SKU,
@@ -26,6 +27,7 @@ class EntitlementSubscriptionProvider(
                     isTasksSubscription = SubscriptionSkus.isTasksSubscription(sku),
                     isGitHubSponsor = provider == EntitlementProvider.GITHUB_SPONSOR,
                     isCardSubscription = provider == EntitlementProvider.STRIPE,
+                    terms = terms,
                 )
                 debug -> SubscriptionProvider.SubscriptionInfo(
                     sku = DEBUG_SKU,

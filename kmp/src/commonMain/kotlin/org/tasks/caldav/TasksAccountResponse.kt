@@ -15,6 +15,8 @@ data class TasksAccountResponse(
     @SerialName("shared_with_me") val sharedWithMe: List<String> = emptyList(),
     val guests: List<Guest> = emptyList(),
     @SerialName("max_guests") val maxGuests: Int = 5,
+    @SerialName("credit_cents") val creditCents: Int? = null,
+    @SerialName("credit_currency") val creditCurrency: String? = null,
 ) {
     val hasStripeSubscription: Boolean
         get() = subscriptions.any { it.provider == PROVIDER_STRIPE } ||
@@ -37,6 +39,7 @@ data class TasksAccountResponse(
         val expires: Long? = null,
         val isActive: Boolean = false,
         @SerialName("cancel_at_period_end") val cancelAtPeriodEnd: Boolean = false,
+        @SerialName("trial_end") val trialEnd: Long? = null,
         val product: String? = null,
     )
 
@@ -48,6 +51,7 @@ data class TasksAccountResponse(
         val status: String? = null,
         val expires: Long? = null,
         @SerialName("cancel_at_period_end") val cancelAtPeriodEnd: Boolean = false,
+        @SerialName("trial_end") val trialEnd: Long? = null,
     )
 
     @Serializable

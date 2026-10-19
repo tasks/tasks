@@ -60,6 +60,9 @@ class PurchaseEntitlement(
     private val _formattedPrice = MutableStateFlow<String?>(null)
     val formattedPrice: Flow<String?> = _formattedPrice
 
+    private val _terms = MutableStateFlow<PurchaseTerms?>(null)
+    val terms: Flow<PurchaseTerms?> = _terms
+
     private val _provider = MutableStateFlow<EntitlementProvider?>(null)
     val provider: Flow<EntitlementProvider?> = _provider
 
@@ -72,6 +75,7 @@ class PurchaseEntitlement(
         val sku: String? = null,
         val formattedPrice: String? = null,
         val provider: EntitlementProvider,
+        val terms: PurchaseTerms? = null,
     )
 
     @Serializable
@@ -93,6 +97,10 @@ class PurchaseEntitlement(
     private data class CheckResponse(
         val sku: String? = null,
         val formatted_price: String? = null,
+        val status: String? = null,
+        val trial_end: Long? = null,
+        val credit_cents: Int? = null,
+        val credit_currency: String? = null,
     )
 
     @Serializable
@@ -149,17 +157,40 @@ class PurchaseEntitlement(
     suspend fun checkTier(): Boolean = checkLock.withLock {
         val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return@withLock false
         val checked = callCheck(stored) ?: return@withLock false
-        if (checked.sku == stored.sku && checked.formatted_price == stored.formattedPrice) {
+        val terms = checked.terms(stored.provider)
+        val tierMoved = checked.sku != stored.sku ||
+            checked.formatted_price != stored.formattedPrice
+        logger.i {
+            "Check says ${checked.sku}, status=${terms?.status}, " +
+                "trialEnd=${terms?.trialEnd}, credit=${terms?.creditCents}"
+        }
+        if (!tierMoved && terms == stored.terms) {
             return@withLock false
         }
-        val updated = stored.copy(sku = checked.sku, formattedPrice = checked.formatted_price)
+        val updated = stored.copy(
+            sku = checked.sku,
+            formattedPrice = checked.formatted_price,
+            terms = terms,
+        )
         if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), updated))) {
-            logger.e { "Failed to persist the checked tier, it will read stale after a restart" }
+            logger.e { "Failed to persist the check, it will read stale after a restart" }
         }
         _sku.value = updated.sku
         _formattedPrice.value = updated.formattedPrice
-        logger.i { "Tier is now ${updated.sku}" }
-        true
+        _terms.value = updated.terms
+        tierMoved
+    }
+
+    private fun CheckResponse.terms(provider: EntitlementProvider): PurchaseTerms? {
+        if (provider != EntitlementProvider.STRIPE) {
+            return null
+        }
+        return PurchaseTerms(
+            status = status,
+            trialEnd = trial_end,
+            creditCents = credit_cents,
+            creditCurrency = credit_currency,
+        ).takeIf { !it.isEmpty }
     }
 
     suspend fun awaitReady(): Boolean {
@@ -189,6 +220,7 @@ class PurchaseEntitlement(
         }
         _sku.value = stored.sku
         _formattedPrice.value = stored.formattedPrice
+        _terms.value = stored.terms
         _provider.value = stored.provider
         val now = currentTimeMillis() / 1000
         if (now < exp + GRACE_PERIOD_SECONDS) {
@@ -219,6 +251,7 @@ class PurchaseEntitlement(
         sku: String?,
         formattedPrice: String?,
         provider: EntitlementProvider,
+        terms: PurchaseTerms? = null,
     ): StoreResult {
         if (!verifySignature(jwt)) {
             logger.e { "Refusing to store entitlement that failed signature verification" }
@@ -229,7 +262,8 @@ class PurchaseEntitlement(
             logger.e { "Refusing to store entitlement with an unreadable payload" }
             return StoreResult.REJECTED
         }
-        val entitlement = StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider)
+        val entitlement =
+            StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider, terms)
         val persisted =
             storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))
         if (!persisted) {
@@ -239,6 +273,7 @@ class PurchaseEntitlement(
         _sku.value = sku
         _formattedPrice.value = formattedPrice
         _provider.value = provider
+        _terms.value = terms
         if (!wasPro) {
             syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
         }
@@ -281,6 +316,7 @@ class PurchaseEntitlement(
                     sku = result.sku,
                     formattedPrice = result.formattedPrice,
                     provider = entitlement.provider,
+                    terms = entitlement.terms,
                 )
                 if (granted == StoreResult.REJECTED) {
                     logger.e { "Refreshed entitlement was rejected, keeping the stored one" }
@@ -299,6 +335,7 @@ class PurchaseEntitlement(
                 _sku.value = null
                 _formattedPrice.value = null
                 _provider.value = null
+                _terms.value = null
                 true
             }
             RefreshResult.Failed -> false
