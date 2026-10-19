@@ -1015,12 +1015,12 @@
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.8.0-0.6.x-compat
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
-+|    +--- co.touchlab:kermit:2.1.0
-+|    |    \--- co.touchlab:kermit-android:2.1.0
-+|    |         +--- co.touchlab:kermit-core:2.1.0
-+|    |         |    \--- co.touchlab:kermit-core-android:2.1.0
-+|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.4.20 (*)
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.0 -> 2.4.20 (*)
++|    +--- co.touchlab:kermit:2.2.0
++|    |    \--- co.touchlab:kermit-android:2.2.0
++|    |         +--- co.touchlab:kermit-core:2.2.0
++|    |         |    \--- co.touchlab:kermit-core-android:2.2.0
++|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
 ++--- project ':kmp'
 +|    +--- com.etebase:client:2.3.2
@@ -1795,7 +1795,7 @@
 +|    |         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
-+|    +--- co.touchlab:kermit:2.1.0 (*)
++|    +--- co.touchlab:kermit:2.2.0 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
@@ -1865,7 +1865,7 @@
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
-++--- co.touchlab:kermit:2.1.0 (*)
+++--- co.touchlab:kermit:2.2.0 (*)
 ++--- androidx.navigation:navigation-compose:2.10.2
 +|    \--- androidx.navigation:navigation-compose-android:2.10.2
 +|         +--- androidx.activity:activity:1.8.0 -> 1.13.0 (*)
