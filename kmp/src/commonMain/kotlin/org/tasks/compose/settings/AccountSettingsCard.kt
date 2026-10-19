@@ -36,6 +36,7 @@ import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.manage_subscription
 import tasks.kmp.generated.resources.price_per_month_with_currency
 import tasks.kmp.generated.resources.price_per_year_with_currency
+import tasks.kmp.generated.resources.pro_card_credit
 import tasks.kmp.generated.resources.sign_in_to_connect
 import tasks.kmp.generated.resources.supporter
 import tasks.kmp.generated.resources.supporter_summary
@@ -54,19 +55,26 @@ data class AccountData(
     val subscriptionProvider: String? = null,
     val subscriptionExpiration: Long? = null,
     val guest: Boolean = false,
+    val hasSubscription: Boolean = false,
+    val creditCents: Int? = null,
+    val creditCurrency: String? = null,
 )
 
 sealed class ProCardState {
+    open val credit: String? get() = null
+
     data object Upgrade : ProCardState()
     data class Subscribed(
         val isMonthly: Boolean,
         val formattedPrice: String? = null,
+        override val credit: String? = null,
     ) : ProCardState()
-    data object SignIn : ProCardState()
+    data class SignIn(override val credit: String? = null) : ProCardState()
     data class TasksOrgAccount(
         val account: CaldavAccount,
         val isLoading: Boolean = false,
         val accountData: AccountData? = null,
+        override val credit: String? = null,
     ) : ProCardState()
     data object Donate : ProCardState()
 }
@@ -222,6 +230,13 @@ fun AccountSettingsCard(
                             MaterialTheme.colorScheme.onSurfaceVariant
                         else
                             Color.Transparent,
+                    )
+                }
+                state.credit?.let { credit ->
+                    Text(
+                        text = stringResource(Res.string.pro_card_credit, credit),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary,
                     )
                 }
             }

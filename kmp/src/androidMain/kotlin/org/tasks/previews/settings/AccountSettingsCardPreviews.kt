@@ -52,7 +52,7 @@ private fun SubscribedAnnualPreview() {
 private fun SignInPreview() {
     TasksTheme {
         AccountSettingsCard(
-            state = ProCardState.SignIn,
+            state = ProCardState.SignIn(),
             onClick = {}
         )
     }

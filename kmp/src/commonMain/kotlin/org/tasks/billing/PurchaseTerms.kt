@@ -24,3 +24,10 @@ data class PurchaseTerms(
         const val STATUS_TRIALING = "trialing"
     }
 }
+
+internal fun formatCredit(cents: Int?, currency: String?): String? {
+    if (cents == null || cents <= 0 || currency == null) {
+        return null
+    }
+    return formatAmount(cents, currency)
+}

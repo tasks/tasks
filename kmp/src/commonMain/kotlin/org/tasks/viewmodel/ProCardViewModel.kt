@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.tasks.PlatformConfiguration
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.formatCredit
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.compose.settings.AccountData
@@ -138,12 +139,19 @@ open class ProCardViewModel(
         formattedPrice: String?,
     ): ProCardState {
         val tasksOrgAccount = accountList.firstOrNull { it.isTasksOrg }
+        val credit = creditToShow(sub, accountData)
         return when {
-            tasksOrgAccount != null -> ProCardState.TasksOrgAccount(tasksOrgAccount, isLoading && accountData == null, accountData)
-            sub?.isTasksSubscription == true -> ProCardState.SignIn
+            tasksOrgAccount != null -> ProCardState.TasksOrgAccount(
+                tasksOrgAccount,
+                isLoading && accountData == null,
+                accountData,
+                credit,
+            )
+            sub?.isTasksSubscription == true -> ProCardState.SignIn(credit)
             hasBilling && sub != null -> ProCardState.Subscribed(
                 isMonthly = sub.isMonthly,
                 formattedPrice = formattedPrice,
+                credit = credit,
             )
             hasBilling -> ProCardState.Upgrade
             else -> ProCardState.Donate
@@ -157,6 +165,20 @@ open class ProCardViewModel(
             subscriptionProvider = subscription?.provider,
             subscriptionExpiration = subscription?.expiration,
             guest = guest,
+            hasSubscription = hasAnySubscription,
+            creditCents = creditCents,
+            creditCurrency = creditCurrency,
         )
     }
+}
+
+internal fun creditToShow(
+    sub: SubscriptionProvider.SubscriptionInfo?,
+    accountData: AccountData?,
+): String? {
+    if (sub == null && accountData?.hasSubscription != true) {
+        return null
+    }
+    return formatCredit(accountData?.creditCents, accountData?.creditCurrency)
+        ?: formatCredit(sub?.terms?.creditCents, sub?.terms?.creditCurrency)
 }
