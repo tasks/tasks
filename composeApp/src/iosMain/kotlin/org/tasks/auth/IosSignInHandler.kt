@@ -15,6 +15,7 @@ class IosSignInHandler(
     private val serverEnvironment: TasksServerEnvironment,
     private val caldavClientFactory: CaldavClientFactory,
     private val pushTokenManager: PushTokenManager,
+    private val purchaseClaim: PurchaseClaim,
 ) : SignInHandler {
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
         val oauthProvider = provider ?: when (platform) {
@@ -30,6 +31,7 @@ class IosSignInHandler(
                 caldavDao = caldavDao,
                 encryption = encryption,
                 provider = caldavClientFactory,
+                purchaseClaim = purchaseClaim,
             )
         } catch (e: HttpException) {
             if (e.code == 402) throw PaymentRequiredException()

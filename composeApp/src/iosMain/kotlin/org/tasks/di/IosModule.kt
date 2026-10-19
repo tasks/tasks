@@ -124,7 +124,7 @@ actual fun platformModule(): Module = module {
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
     single { TasksOAuthClient() }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
-    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get()) }
+    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get(), get()) }
     single {
         PurchaseEntitlement(
             dataDir = documentsPath,

@@ -29,6 +29,7 @@ class AndroidSignInHandler(
     private val encryption: KeyStoreEncryption,
     private val serverEnvironment: TasksServerEnvironment,
     private val caldavClientProvider: CaldavClientProvider,
+    private val purchaseClaim: PurchaseClaim,
 ) : SignInHandler {
 
     private val oauthClient = TasksOAuthClient()
@@ -92,6 +93,7 @@ class AndroidSignInHandler(
                 caldavDao = caldavDao,
                 encryption = encryption,
                 provider = caldavClientProvider,
+                purchaseClaim = purchaseClaim,
             )
         } catch (e: HttpException) {
             if (e.code == 402) {

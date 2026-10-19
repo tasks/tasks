@@ -2,8 +2,15 @@ package org.tasks.billing
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import org.tasks.auth.PurchaseClaim
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.StripeSubscriptionResult
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.tasksAccount
 import org.tasks.http.basicCredentials
@@ -15,9 +22,10 @@ class StripePurchases(
     private val entitlement: PurchaseEntitlement,
     private val caldavDao: CaldavDao,
     private val clientFactory: CaldavClientFactory?,
+    private val accountData: TasksAccountDataRepository,
     private val tasksPreferences: TasksPreferences,
     private val logOnboarding: (String) -> Unit = {},
-) : StripeCheckouts {
+) : StripeCheckouts, PurchaseClaim {
     private val logger = Logger.withTag(TAG)
 
     override suspend fun prices(): List<StripePrice>? = client.prices()
@@ -65,6 +73,53 @@ class StripePurchases(
             else -> {
                 logger.w { "Stored the purchase but could not claim it: $claim" }
                 StripeRestoreOutcome.Restored
+            }
+        }
+    }
+
+    suspend fun claimStoredPurchase(): StripeSubscriptionResult? {
+        val jwt = entitlement.getJwt() ?: return null
+        val account = accountData.fetchAndCache() ?: accountData.getAccountResponse()
+        if (account?.hasStripeSubscription == true) {
+            return null
+        }
+        return claim(jwt)
+    }
+
+    override suspend fun claimHeldPurchase(username: String, token: String) {
+        val jwt = entitlement.getJwt() ?: return
+        val factory = clientFactory ?: return
+        val result = try {
+            factory.forTasksCredentials(username, token).use { it.claimStripeSubscription(jwt) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to claim the purchase at sign-in" }
+            return
+        }
+        logger.i { "Claimed at sign-in: $result" }
+    }
+
+    fun claimOnSignIn(scope: CoroutineScope) {
+        scope.launch {
+            try {
+                caldavDao.watchAccounts()
+                    .map { accounts -> accounts.firstOrNull { it.isTasksOrg }?.uuid }
+                    .distinctUntilChanged()
+                    .filterNotNull()
+                    .collect {
+                        try {
+                            claimStoredPurchase()
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            logger.e(e) { "Failed to claim on sign-in" }
+                        }
+                    }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                logger.e(e) { "Stopped watching for sign-ins" }
             }
         }
     }

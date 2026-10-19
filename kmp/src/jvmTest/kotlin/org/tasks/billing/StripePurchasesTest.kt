@@ -1,11 +1,17 @@
 package org.tasks.billing
 
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.job
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -23,6 +29,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.StripeSubscriptionResult
 import org.tasks.caldav.TasksAccountClient
+import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.http.KtorClientFactory
@@ -31,6 +38,7 @@ import org.tasks.security.KeyProvider
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.sync.SyncAdapters
 import java.io.File
+import java.io.IOException
 import java.nio.file.Files
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
@@ -68,11 +76,24 @@ class StripePurchasesTest {
     private var accounts = listOf(tasksAccount)
     private var claimResult: StripeSubscriptionResult = StripeSubscriptionResult.Claimed
     private var claims = 0
+    private val credentialClaims = mutableListOf<Pair<String, String>>()
+    private var failCredentialClaims = false
     private var checkoutStatus: StripeCheckoutStatus = StripeCheckoutStatus.Pending
     private val onboardingSteps = mutableListOf<String>()
 
+    private val accountFlow = MutableSharedFlow<List<CaldavAccount>>(replay = 1)
+    private var watchThrows = false
+    private var signInAttempts = 0
+    private var failAccountLookup = false
+
     private val caldavDao = mock<CaldavDao> {
-        onBlocking { getAccounts() } doAnswer { accounts }
+        on { watchAccounts() } doAnswer {
+            if (watchThrows) throw IllegalStateException("database closed") else accountFlow
+        }
+        onBlocking { getAccounts() } doAnswer {
+            signInAttempts++
+            if (failAccountLookup) throw IllegalStateException("database busy") else accounts
+        }
         onBlocking { getAccounts(any<List<Int>>()) } doAnswer { invocation ->
             @Suppress("UNCHECKED_CAST")
             val types = invocation.getArgument<List<Int>>(0)
@@ -101,6 +122,13 @@ class StripePurchasesTest {
         override suspend fun forAccount(account: CaldavAccount, url: String?) =
             throw UnsupportedOperationException()
         override suspend fun forTasksAccount(account: CaldavAccount) = accountClient
+        override suspend fun forTasksCredentials(username: String, token: String): TasksAccountClient {
+            if (failCredentialClaims) {
+                throw IOException("no route to host")
+            }
+            credentialClaims.add(username to token)
+            return accountClient
+        }
     }
 
     private val stripeClient = object : StripeClient {
@@ -139,6 +167,7 @@ class StripePurchasesTest {
         entitlement = entitlement,
         caldavDao = caldavDao,
         clientFactory = clientFactory,
+        accountData = TasksAccountDataRepository(null, caldavDao, tasksPreferences),
         tasksPreferences = tasksPreferences,
         logOnboarding = { onboardingSteps.add(it) },
     )
@@ -287,6 +316,153 @@ class StripePurchasesTest {
         checkoutStatus = StripeCheckoutStatus.Gone
 
         assertEquals(StripeCollection.Gone, purchases().collectCheckout("c0de"))
+    }
+
+    @Test
+    fun withNothingStoredThereIsNothingToClaimAtSignIn() = runBlocking {
+        assertNull(purchases().claimStoredPurchase())
+        assertEquals(0, claims)
+    }
+
+    @Test
+    fun aHeldPurchaseIsClaimedAtSignIn() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claims = 0
+
+        assertEquals(StripeSubscriptionResult.Claimed, purchases(entitlement).claimStoredPurchase())
+    }
+
+    @Test
+    fun aSignInWhoseEmailDidNotMatchStillGetsTheJwt() = runBlocking {
+        tasksPreferences.set(TasksPreferences.cachedAccountData, """{"subscriptions":[]}""")
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claims = 0
+
+        assertEquals(StripeSubscriptionResult.Claimed, purchases(entitlement).claimStoredPurchase())
+        assertEquals(1, claims)
+    }
+
+    @Test
+    fun anAccountThatAlreadyHasOneIsLeftAlone() = runBlocking {
+        tasksPreferences.set(
+            TasksPreferences.cachedAccountData,
+            """{"subscriptions":[{"provider":"stripe","isActive":true}]}""",
+        )
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claims = 0
+
+        assertNull(purchases(entitlement).claimStoredPurchase())
+        assertEquals(0, claims)
+    }
+
+    @Test
+    fun aHeldPurchaseIsClaimedBeforeTheSignInAsksForAHomeSet() = runBlocking {
+        accounts = emptyList()
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claims = 0
+
+        purchases(entitlement).claimHeldPurchase("google_1234", "access-token")
+
+        assertEquals(1, claims)
+        assertEquals(listOf("google_1234" to "access-token"), credentialClaims)
+    }
+
+    @Test
+    fun aSignInWithNothingHeldClaimsNothing() = runBlocking {
+        purchases().claimHeldPurchase("google_1234", "access-token")
+
+        assertEquals(0, claims)
+        assertTrue(credentialClaims.isEmpty())
+    }
+
+    @Test
+    fun aFailedSignInClaimIsNotFatal() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        failCredentialClaims = true
+
+        purchases(entitlement).claimHeldPurchase("google_1234", "access-token")
+    }
+
+    @Test
+    fun aSignedInAccountIsClaimedOntoAsSoonAsItAppears() = runBlocking {
+        purchases(storedPurchase()).claimOnSignIn(scope)
+
+        accountFlow.emit(listOf(tasksAccount))
+
+        assertEquals(1, await { claims >= 1 }.let { claims })
+    }
+
+    @Test
+    fun aFailedClaimDoesNotStopUsWatchingForTheNextSignIn() = runBlocking {
+        failAccountLookup = true
+        purchases(storedPurchase()).claimOnSignIn(scope)
+
+        accountFlow.emit(listOf(tasksAccount))
+        await { signInAttempts >= 1 }
+        failAccountLookup = false
+        accountFlow.emit(listOf(tasksAccount.copy(uuid = "tasks-2")))
+
+        await { claims >= 1 }
+        assertEquals(1, claims)
+    }
+
+    @Test
+    fun aDatabaseThatIsGoneTakesTheWatcherDownQuietly() = runBlocking {
+        watchThrows = true
+        val uncaught = mutableListOf<Throwable>()
+        val handler = CoroutineExceptionHandler { _, e -> uncaught.add(e) }
+        val watched = CoroutineScope(Dispatchers.Default + SupervisorJob() + handler)
+
+        purchases().claimOnSignIn(watched)
+        withTimeout(5_000) { watched.coroutineContext.job.children.toList().joinAll() }
+
+        assertTrue(uncaught.isEmpty())
+        watched.cancel()
+    }
+
+    private suspend fun storedPurchase(): PurchaseEntitlement {
+        tasksPreferences.set(TasksPreferences.cachedAccountData, """{"subscriptions":[]}""")
+        claims = 0
+        return entitlement().also {
+            it.storeEntitlement(
+                jwt = jwt(),
+                refreshToken = "refresh-1",
+                provider = EntitlementProvider.STRIPE,
+            )
+        }
+    }
+
+    private suspend fun await(done: () -> Boolean) {
+        withTimeout(5_000) {
+            while (!done()) {
+                delay(10)
+            }
+        }
     }
 
     private fun jwt(key: PrivateKey = keyPair.private): String {

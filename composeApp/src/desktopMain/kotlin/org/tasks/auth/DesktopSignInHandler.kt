@@ -24,6 +24,7 @@ class DesktopSignInHandler(
     private val caldavClientProvider: CaldavClientProvider,
     private val proxyAuthProvider: ProxyAuthProvider,
     private val reporting: Reporting,
+    private val purchaseClaim: PurchaseClaim,
 ) : SignInHandler {
 
     override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
@@ -53,6 +54,7 @@ class DesktopSignInHandler(
                     caldavDao = caldavDao,
                     encryption = encryption,
                     provider = caldavClientProvider,
+                    purchaseClaim = purchaseClaim,
                 )
             } catch (e: HttpException) {
                 if (e.code == 402) {

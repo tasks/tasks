@@ -39,6 +39,11 @@ class CaldavClientProvider(
         password: String?,
     ): CaldavClient = CaldavClient(credentialedClient(url, username, password), url?.toCaldavUrl())
 
+    override suspend fun forTasksCredentials(username: String, token: String): TasksClient {
+        val url = environment.caldavUrl
+        return TasksClient(credentialedClient(url, username, token), url.toCaldavUrl())
+    }
+
     private suspend fun credentialedClient(
         url: String?,
         username: String?,

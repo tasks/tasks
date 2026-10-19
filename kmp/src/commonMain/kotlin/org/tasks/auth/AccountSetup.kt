@@ -6,6 +6,10 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.Encryption
 
+fun interface PurchaseClaim {
+    suspend fun claimHeldPurchase(username: String, token: String)
+}
+
 suspend fun setupTasksAccount(
     oauthResult: OAuthResult,
     issuer: String,
@@ -13,6 +17,7 @@ suspend fun setupTasksAccount(
     caldavDao: CaldavDao,
     encryption: Encryption,
     provider: CaldavClientFactory,
+    purchaseClaim: PurchaseClaim? = null,
 ): CaldavAccount {
     val idToken = oauthResult.idToken
         ?: throw IllegalStateException("id_token required for tasks.org account setup")
@@ -27,6 +32,7 @@ suspend fun setupTasksAccount(
                 .also { updated -> caldavDao.update(updated) }
         }
         ?: run {
+            purchaseClaim?.claimHeldPurchase(username, tokenString)
             val homeSet = provider
                 .forUrl(caldavUrl, username, tokenString)
                 .use { it.homeSet() }

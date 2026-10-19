@@ -6,4 +6,6 @@ interface CaldavClientFactory {
     suspend fun forUrl(url: String?, username: String?, password: String?): CaldavDiscoveryClient
     suspend fun forAccount(account: CaldavAccount, url: String? = account.url): CaldavCollectionClient
     suspend fun forTasksAccount(account: CaldavAccount): TasksAccountClient
+
+    suspend fun forTasksCredentials(username: String, token: String): TasksAccountClient
 }
