@@ -1414,14 +1414,20 @@
 +|    |         \--- com.github.ajalt.colormath:colormath:3.6.1
 +|    |              \--- com.github.ajalt.colormath:colormath-jvm:3.6.1
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.0 -> 2.4.20 (*)
-+|    +--- io.github.alexzhirkevich:qrose:1.1.2
-+|    |    \--- io.github.alexzhirkevich:qrose-android:1.1.2
-+|    |         +--- io.github.alexzhirkevich:qrose-core:1.1.2
-+|    |         |    \--- io.github.alexzhirkevich:qrose-core-android:1.1.2
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
-+|    |         |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.2 (*)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.20 (*)
-+|    |         \--- org.jetbrains.compose.ui:ui:1.10.0 -> 1.12.2 (*)
++|    +--- io.github.alexzhirkevich:qrose:1.3.1
++|    |    \--- io.github.alexzhirkevich:qrose-android:1.3.1
++|    |         +--- io.github.alexzhirkevich:qrose-core:1.3.1
++|    |         |    \--- io.github.alexzhirkevich:qrose-core-android:1.3.1
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         |         \--- org.jetbrains.compose.ui:ui:1.12.1 -> 1.12.2 (*)
++|    |         +--- io.github.alexzhirkevich:qrose-encoder-matrix:1.3.1
++|    |         |    \--- io.github.alexzhirkevich:qrose-encoder-matrix-android:1.3.1
++|    |         |         +--- io.github.alexzhirkevich:qrose-encoder-core:1.3.1
++|    |         |         |    \--- io.github.alexzhirkevich:qrose-encoder-core-android:1.3.1
++|    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.20 (*)
++|    |         \--- org.jetbrains.compose.ui:ui:1.12.1 -> 1.12.2 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19 (*)
 +|    +--- com.google.apis:google-api-services-tasks:v1-rev20251102-2.0.0
 +|    |    \--- com.google.api-client:google-api-client:2.7.2
