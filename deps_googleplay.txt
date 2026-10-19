@@ -511,7 +511,7 @@
 +|    +--- com.google.android.datatransport:transport-backend-cct:3.3.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:3.3.0 (*)
 +|    \--- androidx.annotation:annotation:1.5.0 -> 1.10.0 (*)
-++--- com.posthog:posthog-android:3.61.1
+++--- com.posthog:posthog-android:3.72.3
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 -> 2.4.10 (*)
 +|    +--- androidx.lifecycle:lifecycle-process:2.6.2 -> 2.11.0
 +|    |    +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
@@ -550,19 +550,20 @@
 +|    +--- androidx.core:core:1.5.0 -> 1.18.0 (*)
 +|    +--- com.squareup.curtains:curtains:1.2.5
 +|    |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.4.21 -> 2.4.20 (*)
-+|    \--- com.posthog:posthog:6.34.1
++|    \--- com.posthog:posthog:6.47.1
 +|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 -> 2.4.10 (*)
 +|         +--- com.google.code.gson:gson:2.10.1 -> 2.12.1
 +|         +--- com.squareup.okhttp3:okhttp-bom:4.12.0
 +|         |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0 (c)
 +|         |    \--- com.squareup.okhttp3:logging-interceptor:4.12.0 (c)
-+|         \--- com.squareup.okhttp3:okhttp -> 5.5.0
-+|              \--- com.squareup.okhttp3:okhttp-android:5.5.0
-+|                   +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
-+|                   +--- com.squareup.okio:okio:3.18.1 (*)
-+|                   +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.20 (*)
-+|                   +--- androidx.annotation:annotation:1.10.0 (*)
-+|                   \--- androidx.startup:startup-runtime:1.2.0 (*)
++|         +--- com.squareup.okhttp3:okhttp -> 5.5.0
++|         |    \--- com.squareup.okhttp3:okhttp-android:5.5.0
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
++|         |         +--- com.squareup.okio:okio:3.18.1 (*)
++|         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.21 -> 2.4.20 (*)
++|         |         +--- androidx.annotation:annotation:1.10.0 (*)
++|         |         \--- androidx.startup:startup-runtime:1.2.0 (*)
++|         \--- com.squareup.okio:okio:3.11.0 -> 3.18.1 (*)
 ++--- com.google.firebase:firebase-config -> 23.1.0
 +|    +--- com.google.firebase:firebase-config-interop:16.0.1 (*)
 +|    +--- com.google.firebase:firebase-annotations:17.0.0 (*)
