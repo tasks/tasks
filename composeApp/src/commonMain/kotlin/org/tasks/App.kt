@@ -161,6 +161,7 @@ import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
+import org.tasks.compose.tasklist.CompletePullToRefresh
 import org.tasks.compose.tasklist.SyncPullRefreshIndicator
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
@@ -2102,6 +2103,13 @@ private fun TaskListPane(
     val refreshState = rememberPullToRefreshState()
     val backgroundWork = koinInject<BackgroundWork>()
     val scope = rememberCoroutineScope()
+    // A mouse wheel or trackpad pull has no release event, and the box only requests
+    // a refresh on release. This completes such a pull from the box's own state, so a
+    // wheel pull that fills the indicator also requests the sync. See
+    // CompletePullToRefresh for details.
+    CompletePullToRefresh(refreshState, { state.syncOngoing }) {
+        scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
+    }
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
