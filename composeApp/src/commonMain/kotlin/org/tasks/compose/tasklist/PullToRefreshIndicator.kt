@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -25,8 +26,9 @@ import org.tasks.themes.TasksIcons
 
 /**
  * Refresh indicator in the style of the legacy Android app: a clockwise arrow on a
- * surface-coloured circle. It slides in from behind the overlaid top bar as the list
- * is pulled, rotates with the pull distance, and spins while a sync is running.
+ * white circle (a red arrow, the app's RED_500). It slides in from behind the overlaid
+ * top bar as the list is pulled, rotates with the pull distance, and spins while a sync
+ * is running.
  */
 @Composable
 internal fun BoxScope.SyncPullRefreshIndicator(
@@ -64,12 +66,15 @@ internal fun BoxScope.SyncPullRefreshIndicator(
         // The circle slides from fully hidden behind the top bar to fully visible
         // just below it at distanceFraction == 1: one circle diameter of travel.
         maxDistance = PULL_REFRESH_CIRCLE_SIZE,
-        containerColor = MaterialTheme.colorScheme.surface,
+        // Matches the Android app's established appearance: a white circle in light
+        // theme (surfaceContainerLowest is white there, and the correct light surface
+        // in dark theme).
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
     ) {
         SymbolIcon(
             name = TasksIcons.REFRESH,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
+            tint = REFRESH_ARROW_COLOR,
             modifier = Modifier
                 .size(24.dp)
                 .graphicsLayer { rotationZ = spinRotation },
@@ -78,3 +83,9 @@ internal fun BoxScope.SyncPullRefreshIndicator(
 }
 
 private val PULL_REFRESH_CIRCLE_SIZE = 40.dp
+
+/**
+ * The app's RED_500 (kmp `ColorProvider`), the legacy Android app's high-priority /
+ * swipe-refresh colour — the arrow and the sync spinner are red on both platforms.
+ */
+private val REFRESH_ARROW_COLOR = Color(0xFFF44336)
