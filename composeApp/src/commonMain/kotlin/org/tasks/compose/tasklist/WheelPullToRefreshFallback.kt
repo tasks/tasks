@@ -34,20 +34,30 @@ import kotlinx.coroutines.launch
  *
  * This observes the raw pointer events the list left unconsumed — checked on the main
  * pass, after every descendant scrollable has had its chance — and drives the box's
- * own [PullToRefreshState] from them, mapped through the box's own tension model so a
- * wheel pull travels exactly the distance a touch pull would. Anything the list
- * consumed is left alone, so the built-in touch path and the box's own wheel
- * residual handling always win and double-driving is impossible.
+ * own [PullToRefreshState] from them, so the shared indicator and the shared
+ * threshold trigger behave exactly as they do for a touch pull. Anything the list
+ * consumed is left alone, so the built-in touch path and the box's own wheel residual
+ * handling always win and double-driving is impossible.
  *
- * A pull that fills the threshold is completed into a refresh by
- * [CompletePullToRefresh], which watches the same state; a pull that stops short (or
- * one that does not complete) retracts itself once the wheel goes quiet, which is the
- * "release" a wheel never provides.
+ * A wheel notch is far smaller than a touch drag, so the wheel delta is amplified
+ * ([WHEEL_GAIN]) before it is mapped through the box's own tension model. This makes a
+ * short wheel pull (a few notches) travel the same indicator distance as a full touch
+ * pull — i.e. it fills the indicator to the full-pull point (distanceFraction 1) and
+ * releases it to the shared threshold trigger — so the indicator comes into view,
+ * spins, and retracts exactly as it does on the fling path, instead of stopping part
+ * way behind the top bar.
+ *
+ * Unlike a touch drag, a wheel has no release event, so the pull is not completed by
+ * the box's own trigger; the shared threshold trigger (see [CompletePullToRefresh])
+ * completes it once the driven state reaches a full pull. A pull that stops short
+ * retracts itself once the wheel goes quiet, which is the "release" a wheel never
+ * provides.
  *
  * Touch is unaffected: a drag is never an unconsumed scroll event, so on Android and
  * iOS this handler only ever sees a hardware wheel, on which the list itself is inert.
  *
- * @param state the pull-to-refresh state shared with the box
+ * @param state the pull-to-refresh state shared with the box (drives the indicator and
+ *   the threshold trigger)
  * @param isRefreshing whether a refresh is already in progress (the box's
  *   `isRefreshing`); while true the box owns the state and this handler ignores the
  *   wheel
@@ -65,16 +75,18 @@ internal fun WheelPullToRefreshFallback(
     content: @Composable () -> Unit,
 ) {
     val thresholdPx = with(LocalDensity.current) { threshold.roundToPx() }.toFloat()
+    // The raw wheel pull that maps to the indicator's maximum travel (200% overshoot).
+    val maxPullPx = 2f.pullPx(thresholdPx)
     val scope = rememberCoroutineScope()
     val refreshingNow by rememberUpdatedState(isRefreshing)
 
     Box(
         modifier = Modifier.pointerInput(Unit) {
-            // Accumulated pull in raw pixels (before the box's drag multiplier), owned
-            // by this pointer session. The pointer event scope is restricted to
-            // awaiting events, so the suspending state calls are made from the
-            // composition scope, and the accumulation itself reads a local rather
-            // than the (possibly mid-flight) state.
+            // Accumulated pull in raw pixels (before the wheel gain and the box's drag
+            // multiplier), owned by this pointer session. The pointer event scope is
+            // restricted to awaiting events, so the suspending state calls are made
+            // from the composition scope, and the accumulation itself reads a local
+            // rather than the (possibly mid-flight) state.
             var pullPx = 0f
             var retractJob: Job? = null
             awaitPointerEventScope {
@@ -93,14 +105,15 @@ internal fun WheelPullToRefreshFallback(
                     // Re-sync with the shared state when not mid-pull, so a pull
                     // started by touch (or left mid-animation) is continued rather
                     // than overwritten.
-                    if (pullPx == 0f) pullPx = state.distanceFraction.pullPx(thresholdPx)
-                    // Wheel up (dy < 0) pulls; wheel down retracts. Capped at the
-                    // raw distance that maps to the box's 200% overshoot, so the
+                    if (pullPx == 0f) {
+                        pullPx = state.distanceFraction.pullPx(thresholdPx)
+                    }
+                    // Wheel up (dy < 0) pulls; wheel down retracts. Capped at the raw
+                    // distance that maps to the box's 200% overshoot, so the
                     // indicator never runs off the end of its travel.
-                    pullPx = (pullPx - dy).coerceIn(0f, 4f * thresholdPx)
+                    pullPx = (pullPx - dy).coerceIn(0f, maxPullPx)
                     event.changes.forEach { it.consume() }
-                    val fraction = pullPx.fraction(thresholdPx)
-                    scope.launch { state.snapTo(fraction) }
+                    scope.launch { state.snapTo(pullPx.fraction(thresholdPx)) }
                     retractJob?.cancel()
                     retractJob = scope.launch {
                         delay(retractIdleMillis)
@@ -118,24 +131,37 @@ internal fun WheelPullToRefreshFallback(
 }
 
 /**
+ * Wheel notches are small compared with a touch drag (a notch is well under a full
+ * pull), so the wheel delta is amplified this many times before it is mapped through
+ * the box's tension model. A short wheel pull therefore fills the indicator to the
+ * same full-pull point (distanceFraction 1) a touch pull reaches, so the shared
+ * threshold trigger and the indicator behave identically on both input paths.
+ */
+private const val WHEEL_GAIN = 5.0f
+
+/** The box's `DragMultiplier` (its private constant, mirrored here). */
+private const val DRAG_MULTIPLIER = 0.5f
+
+/**
  * Maps a raw pull distance in pixels to the box's `PullToRefreshState` fraction,
- * replicating the box's own mapping: raw pull is multiplied by the drag multiplier
- * (0.5), applied linearly up to the threshold, and through a quadratic tension curve
- * beyond it, where the indicator's travel caps at 200% of the threshold.
+ * replicating the box's own mapping with the wheel [WHEEL_GAIN] applied: raw pull is
+ * amplified, multiplied by the drag multiplier (0.5), applied linearly up to the
+ * threshold, and through a quadratic tension curve beyond it, where the indicator's
+ * travel caps at 200% of the threshold.
  */
 private fun Float.fraction(thresholdPx: Float): Float {
-    val adjusted = this * DRAG_MULTIPLIER
+    val adjusted = this * WHEEL_GAIN * DRAG_MULTIPLIER
     if (adjusted <= thresholdPx) return adjusted / thresholdPx
     val t = (adjusted / thresholdPx - 1f).coerceIn(0f, 2f)
     return 1f + t - t * t / 4f
 }
 
-/** Inverse of [fraction]: the raw pixel distance that maps to [this] box fraction. */
+/** Inverse of [fraction]: the raw (pre-gain) pixel distance that maps to [this] box fraction. */
 private fun Float.pullPx(thresholdPx: Float): Float {
-    if (this <= 1f) return this / DRAG_MULTIPLIER * thresholdPx
+    val scaled = WHEEL_GAIN * DRAG_MULTIPLIER
+    if (this <= 1f) {
+        return this * thresholdPx / scaled
+    }
     val t = 2f - 2f * sqrt((2f - this).coerceAtLeast(0f))
-    return (1f + t) / DRAG_MULTIPLIER * thresholdPx
+    return (1f + t) * thresholdPx / scaled
 }
-
-/** The box's `DragMultiplier` (its private constant, mirrored here). */
-private const val DRAG_MULTIPLIER = 0.5f
