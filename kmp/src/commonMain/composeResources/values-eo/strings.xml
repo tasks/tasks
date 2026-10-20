@@ -659,4 +659,17 @@
     <string name="works_with_cloud_description">Por sinkronigi viajn taskojn inter ĉiuj el viaj aparatoj</string>
     <string name="works_with_nextcloud_description">Por sinkronigi al la aplikaĵo, Nextcloud Tasks</string>
     <string name="works_with_thunderbird_description">Por sinkronigi viajn taskojn al Thunderbird per CalDAV</string>
+    <string name="works_with_coming_soon">Baldaŭ alvenos</string>
+    <string name="works_with_wear_requires_googleplay">Bezonas la Google Play version de Tasks.org</string>
+    <string name="works_with_content_provider_description">Legi kaj skribi datumojn de Tasks.org en via propra aplikaĵo</string>
+    <string name="works_with_missing">Ĉu vi rimarkas ke ion mankas? %1$s aŭ retpoŝtu %2$s.</string>
+    <string name="pricing_cloud_annual_per_month">po %1$s monate, jara fakturo</string>
+    <string name="new_place">Krei novan lokon</string>
+    <string name="supporter">Subtenanto de Tasks.org</string>
+    <string name="mcp_manual">Aŭ agordi permane</string>
+    <string name="works_with_servers">Memgastigado</string>
+    <string name="works_with_services">Taskaj servoj</string>
+    <string name="works_with_calendars">Kalendaroj kaj fenestraĵoj</string>
+    <string name="works_with_automation">Aŭtomatigo</string>
+    <string name="works_with_tag_sync">Sinkronigo</string>
 </resources>
