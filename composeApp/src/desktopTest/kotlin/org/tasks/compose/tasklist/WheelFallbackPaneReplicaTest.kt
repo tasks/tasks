@@ -124,4 +124,54 @@ class WheelFallbackPaneReplicaTest {
             assertEquals(0, boxRefreshes)
             assertEquals(0, completeRefreshes)
         }
+
+    /**
+     * The desktop configuration: the box's own pull path is disabled (`enabled = false`),
+     * so the fallback is the only trigger. The wheel pull must still complete a refresh
+     * via the shared threshold trigger, and the box's own onRefresh must never fire.
+     */
+    @Test
+    fun wheelUpWithBoxPullDisabledFiresOnlyViaFallback() =
+        runComposeUiTest {
+            var boxRefreshes = 0
+            var completeRefreshes = 0
+            var refreshing = false
+            val state = PullToRefreshState()
+            setContent {
+                Box(Modifier.fillMaxSize()) {
+                    PullToRefreshBox(
+                        isRefreshing = refreshing,
+                        onRefresh = {
+                            refreshing = true
+                            boxRefreshes++
+                        },
+                        enabled = false,
+                        threshold = threshold,
+                        state = state,
+                        indicator = {},
+                    ) {
+                        WheelPullToRefreshFallback(
+                            state = state,
+                            isRefreshing = refreshing,
+                            threshold = threshold,
+                        ) {
+                            LazyColumn(state = rememberLazyListState()) {
+                                items(listOf("one", "two", "three")) { Text(it) }
+                            }
+                        }
+                    }
+                    CompletePullToRefresh(state, { refreshing }) {
+                        refreshing = true
+                        completeRefreshes++
+                    }
+                }
+            }
+            waitForIdle()
+
+            onRoot().performMouseInput { scroll(Offset(0f, -50f)) }
+            waitForIdle()
+
+            assertEquals(0, boxRefreshes)
+            assertEquals(1, completeRefreshes)
+        }
 }

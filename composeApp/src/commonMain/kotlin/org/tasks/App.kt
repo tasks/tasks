@@ -164,6 +164,7 @@ import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.CompletePullToRefresh
 import org.tasks.compose.tasklist.SyncPullRefreshIndicator
 import org.tasks.compose.tasklist.WheelPullToRefreshFallback
+import org.tasks.extensions.isDesktop
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
@@ -2200,6 +2201,13 @@ private fun TaskListPane(
                 onRefresh = {
                     scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
                 },
+                // Desktop only: the box's own pull (nested-scroll/fling) path is
+                // disabled. With wheel and trackpad input it triggers on incidental
+                // top-edge residuals from normal scrolling. WheelPullToRefreshFallback
+                // is the desktop trigger instead; the box keeps hosting the indicator
+                // and its isRefreshing-driven animation (which also shows for automatic
+                // syncs). Android and iOS keep the native touch path.
+                enabled = !isDesktop,
                 // The default threshold (80.dp) requires 160.dp of physical input for a
                 // full pull (distanceFraction = input * 0.5 / threshold), which a trackpad
                 // swipe rarely produces before the fingers run off the pad. 40.dp halves

@@ -18,10 +18,11 @@ import androidx.compose.runtime.snapshotFlow
  * This observes the box's own [PullToRefreshState] and requests the refresh as soon as a
  * pull reaches the full distance, which is exactly what a release past the threshold
  * would have done. It fires only at the full distance (not a fraction of it) so that an
- * incidental box pull from a normal scroll does not trip it. The wheel path fills the
- * same state to this full-pull point via [WheelPullToRefreshFallback]'s wheel gain, so
- * both paths are completed by this one trigger. No input is read or consumed here —
- * the state the box already publishes is the only input.
+ * incidental box pull from a normal scroll does not trip it. On desktop the box's own
+ * pull path is disabled, so the wheel pull driven by [WheelPullToRefreshFallback] is
+ * completed by this trigger; on touch platforms it complements the box's own release
+ * trigger. No input is read or consumed here — the state the box already publishes is
+ * the only input.
  *
  * Both this and the box's own release trigger call the same idempotent refresh (the
  * `SyncRunner` coalesces duplicate requests).

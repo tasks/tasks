@@ -53,8 +53,12 @@ import kotlinx.coroutines.launch
  * retracts itself once the wheel goes quiet, which is the "release" a wheel never
  * provides.
  *
- * Touch is unaffected: a drag is never an unconsumed scroll event, so on Android and
- * iOS this handler only ever sees a hardware wheel, on which the list itself is inert.
+ * On desktop the box's own pull path is disabled (`enabled = !isDesktop`), because with
+ * wheel and trackpad input it triggers on incidental top-edge residuals from normal
+ * scrolling; this handler is then the desktop trigger. On Android and iOS the box keeps
+ * its native touch path and this handler never fires: a drag is never an unconsumed
+ * scroll event, so on touch this handler only ever sees a hardware wheel, on which the
+ * list itself is inert.
  *
  * @param state the pull-to-refresh state shared with the box (drives the indicator and
  *   the threshold trigger)
