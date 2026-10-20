@@ -2111,6 +2111,10 @@ private fun TaskListPane(
     // TEMP DEBUG (remove before PR): count which path requests the refresh
     var boxRefreshCount by remember { mutableStateOf(0) }
     var completeRefreshCount by remember { mutableStateOf(0) }
+    val tasksPrefs = koinInject<org.tasks.preferences.TasksPreferences>()
+    val syncSourceRaw by tasksPrefs
+        .flow(org.tasks.preferences.TasksPreferences.syncSource, "NONE")
+        .collectAsState(initial = "NONE")
     CompletePullToRefresh(refreshState, { state.syncOngoing }) {
         completeRefreshCount++
         scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
@@ -2322,7 +2326,7 @@ private fun TaskListPane(
                 .background(Color.Black.copy(alpha = 0.75f)),
         ) {
             Text(
-                "frac=${refreshState.distanceFraction} sync=${state.syncOngoing} " +
+                "frac=${refreshState.distanceFraction} src=$syncSourceRaw sync=${state.syncOngoing} " +
                     "box=$boxRefreshCount complete=$completeRefreshCount",
                 color = Color.White,
                 style = MaterialTheme.typography.labelSmall,
