@@ -57,14 +57,9 @@ internal fun TaskList(
     val subtaskTrees = koinInject<SubtaskTreeRegistry>()
     val deletions by remember(subtaskTrees) { subtaskTrees.deletions }
         .collectAsState(initial = emptyMap())
-    // The task list needs a real overscroll effect: on Compose Multiplatform desktop the
-    // composition provides none (the default factory is null), so without this the list has
-    // no edge behaviour when its content fits the viewport - and no pull-to-refresh to pull.
-    val overscrollEffect = rememberTaskListOverscrollEffect()
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
-        overscrollEffect = overscrollEffect,
         contentPadding = androidx.compose.foundation.layout.PaddingValues(
             top = topPadding,
             bottom = 88.dp, // floating toolbar clearance

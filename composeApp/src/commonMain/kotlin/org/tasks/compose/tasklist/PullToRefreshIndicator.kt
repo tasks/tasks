@@ -8,6 +8,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
@@ -24,8 +25,8 @@ import org.tasks.themes.TasksIcons
 
 /**
  * Refresh indicator in the style of the legacy Android app: a clockwise arrow on a
- * surface-coloured circle. It slides in from behind the top bar as the list is pulled,
- * rotates with the pull distance, and spins while a sync is running.
+ * surface-coloured circle. It slides in from behind the overlaid top bar as the list
+ * is pulled, rotates with the pull distance, and spins while a sync is running.
  */
 @Composable
 internal fun BoxScope.SyncPullRefreshIndicator(
@@ -33,9 +34,6 @@ internal fun BoxScope.SyncPullRefreshIndicator(
     isRefreshing: Boolean,
     topBarHeight: Dp,
 ) {
-    // At full extension (distanceFraction == 1, or while refreshing) the circle sits
-    // fully visible just below the overlaid top bar.
-    val maxDistance = topBarHeight + PULL_REFRESH_CIRCLE_SIZE
     val pullRotation by animateFloatAsState(
         targetValue = state.distanceFraction * 360f,
         animationSpec = tween(durationMillis = 100),
@@ -60,8 +58,12 @@ internal fun BoxScope.SyncPullRefreshIndicator(
     PullToRefreshDefaults.IndicatorBox(
         state = state,
         isRefreshing = isRefreshing,
-        modifier = Modifier.align(Alignment.TopCenter),
-        maxDistance = maxDistance,
+        modifier = Modifier
+            .align(Alignment.TopCenter)
+            .padding(top = topBarHeight),
+        // The circle slides from fully hidden behind the top bar to fully visible
+        // just below it at distanceFraction == 1: one circle diameter of travel.
+        maxDistance = PULL_REFRESH_CIRCLE_SIZE,
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
         SymbolIcon(

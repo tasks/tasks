@@ -2108,7 +2108,11 @@ private fun TaskListPane(
     // a refresh on release. This completes such a pull from the box's own state, so a
     // wheel pull that fills the indicator also requests the sync. See
     // CompletePullToRefresh for details.
+    // TEMP DEBUG (remove before PR): count which path requests the refresh
+    var boxRefreshCount by remember { mutableStateOf(0) }
+    var completeRefreshCount by remember { mutableStateOf(0) }
     CompletePullToRefresh(refreshState, { state.syncOngoing }) {
+        completeRefreshCount++
         scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
     }
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
@@ -2198,6 +2202,7 @@ private fun TaskListPane(
             is TasksResults.Results -> PullToRefreshBox(
                 isRefreshing = state.syncOngoing,
                 onRefresh = {
+                    boxRefreshCount++
                     scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
                 },
                 // The default threshold (80.dp) requires 160.dp of physical input for a
@@ -2308,6 +2313,21 @@ private fun TaskListPane(
                 .platformNavigationBarsPadding()
                 .padding(16.dp),
         )
+
+        // TEMP DEBUG (remove before PR): pull-to-refresh diagnostics
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(8.dp)
+                .background(Color.Black.copy(alpha = 0.75f)),
+        ) {
+            Text(
+                "frac=${refreshState.distanceFraction} sync=${state.syncOngoing} " +
+                    "box=$boxRefreshCount complete=$completeRefreshCount",
+                color = Color.White,
+                style = MaterialTheme.typography.labelSmall,
+            )
+        }
     }
 }
 
