@@ -133,19 +133,18 @@ class TaskEditFragment : Fragment() {
 
     private fun clearTask() {
         Timber.d("clearTask()")
+        val activity = activity ?: return
         mainViewModel.setTask(null)
-        activity?.let { activity ->
-            activity.hideKeyboard()
-            when {
-                activity.intent.finishAffinity -> {
-                    Timber.d("finishAffinity")
-                    activity.finishAffinity()
-                }
-                activity.intent.removeTask -> {
-                    Timber.d("removeTask")
-                    activity.moveTaskToBack(true)
-                    activity.finish()
-                }
+        activity.hideKeyboard()
+        when {
+            activity.intent.finishAffinity -> {
+                Timber.d("finishAffinity")
+                activity.finishAffinity()
+            }
+            activity.intent.removeTask -> {
+                Timber.d("removeTask")
+                activity.moveTaskToBack(true)
+                activity.finish()
             }
         }
     }
