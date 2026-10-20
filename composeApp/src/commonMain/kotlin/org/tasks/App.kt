@@ -163,6 +163,7 @@ import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.CompletePullToRefresh
 import org.tasks.compose.tasklist.SyncPullRefreshIndicator
+import org.tasks.compose.tasklist.WheelPullToRefreshFallback
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
@@ -2215,28 +2216,39 @@ private fun TaskListPane(
                     )
                 },
             ) {
-                TaskList(
-                    tasks = results.tasks,
-                    filter = state.filter,
-                    chipDataProvider = chipDataProvider,
-                    listState = listState,
-                    topPadding = topBarHeight,
-                    onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
-                    onCompleteTask = { task, newState ->
-                        viewModel.onCompleteTask(task, newState)
-                        if (newState) {
-                            reporting.completeTask("task_list")
-                        }
-                    },
-                    onToggleGroup = { viewModel.toggleCollapsed(it) },
-                    onToggleSubtasks = { id, collapsed ->
-                        viewModel.toggleSubtasks(id, collapsed)
-                    },
-                    onFilterClick = { filter ->
-                        viewModel.setFilter(filter)
-                    },
-                    is24Hour = org.tasks.time.is24HourFormat(),
-                )
+                // The box's nested-scroll path only sees residuals from a list that
+                // claimed the wheel, so at the top of a list that cannot scroll up
+                // (e.g. one that fits the viewport) a wheel pull can never start.
+                // This hands exactly those orphaned wheel events to the same refresh
+                // state; see the fallback's KDoc for the library evidence.
+                WheelPullToRefreshFallback(
+                    state = refreshState,
+                    isRefreshing = state.syncOngoing,
+                    threshold = 40.dp,
+                ) {
+                    TaskList(
+                        tasks = results.tasks,
+                        filter = state.filter,
+                        chipDataProvider = chipDataProvider,
+                        listState = listState,
+                        topPadding = topBarHeight,
+                        onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
+                        onCompleteTask = { task, newState ->
+                            viewModel.onCompleteTask(task, newState)
+                            if (newState) {
+                                reporting.completeTask("task_list")
+                            }
+                        },
+                        onToggleGroup = { viewModel.toggleCollapsed(it) },
+                        onToggleSubtasks = { id, collapsed ->
+                            viewModel.toggleSubtasks(id, collapsed)
+                        },
+                        onFilterClick = { filter ->
+                            viewModel.setFilter(filter)
+                        },
+                        is24Hour = org.tasks.time.is24HourFormat(),
+                    )
+                }
             }
         }
 
