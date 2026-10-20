@@ -59,6 +59,52 @@ class WheelPullToRefreshFallbackTest {
         }
 
     @Test
+    fun smallWheelPullsTriggerAtTheTriggerFraction() =
+        runComposeUiTest {
+            var refreshes = 0
+            val state = PullToRefreshState()
+            setContent {
+                Box {
+                    WheelPullToRefreshFallback(
+                        state = state,
+                        isRefreshing = false,
+                        threshold = threshold,
+                    ) { Box(Modifier.fillMaxSize()) }
+                    CompletePullToRefresh(state, { false }) { refreshes++ }
+                }
+            }
+            waitForIdle()
+
+            // A pull just past the trigger fraction (0.2, ~three notches) fires the
+            // refresh — the wheel path does not require a full pull's travel.
+            onRoot().performMouseInput { scroll(Offset(0f, -35f)) }
+            waitForIdle()
+            assertTrue(state.distanceFraction >= TRIGGER_FRACTION)
+            assertEquals(1, refreshes)
+
+            // Below the trigger fraction nothing fires; the pull retracts on its own.
+            var refreshedAgain = 0
+            val state2 = PullToRefreshState()
+            setContent {
+                Box {
+                    WheelPullToRefreshFallback(
+                        state = state2,
+                        isRefreshing = false,
+                        threshold = threshold,
+                        retractIdleMillis = 50,
+                    ) { Box(Modifier.fillMaxSize()) }
+                    CompletePullToRefresh(state2, { false }) { refreshedAgain++ }
+                }
+            }
+            waitForIdle()
+            onRoot().performMouseInput { scroll(Offset(0f, -15f)) }
+            waitForIdle()
+            assertEquals(0, refreshedAgain)
+            waitUntil("sub-trigger pull retracts", 10_000) { state2.distanceFraction == 0f }
+            assertEquals(0, refreshedAgain)
+        }
+
+    @Test
     fun partialPullDoesNotFireAndWheelDownRetractsIt() =
         runComposeUiTest {
             var refreshes = 0
@@ -76,11 +122,11 @@ class WheelPullToRefreshFallbackTest {
             waitForIdle()
 
             // A small wheel-up is a partial pull: the indicator moves, no refresh.
-            onRoot().performMouseInput { scroll(Offset(0f, -20f)) }
+            onRoot().performMouseInput { scroll(Offset(0f, -15f)) }
             waitForIdle()
             assertEquals(0, refreshes)
             assertTrue(state.distanceFraction > 0f)
-            assertTrue(state.distanceFraction < 1f)
+            assertTrue(state.distanceFraction < TRIGGER_FRACTION)
 
             // Wheeling down retracts the pull back to zero.
             onRoot().performMouseInput { scroll(Offset(0f, 100f)) }
@@ -107,7 +153,7 @@ class WheelPullToRefreshFallbackTest {
             }
             waitForIdle()
 
-            onRoot().performMouseInput { scroll(Offset(0f, -20f)) }
+            onRoot().performMouseInput { scroll(Offset(0f, -15f)) }
             waitForIdle()
             assertTrue(state.distanceFraction > 0f)
 

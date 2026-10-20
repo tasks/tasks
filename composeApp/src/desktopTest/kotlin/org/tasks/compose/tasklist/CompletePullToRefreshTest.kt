@@ -30,12 +30,12 @@ class CompletePullToRefreshTest {
             }
             waitForIdle()
 
-            // A partial pull does not fire.
-            state.snapTo(0.5f)
+            // A partial pull (below the trigger fraction) does not fire.
+            state.snapTo(0.1f)
             waitForIdle()
             assertEquals(0, refreshes)
 
-            // Reaching the full distance fires exactly once...
+            // Reaching the trigger distance fires exactly once...
             state.snapTo(1f)
             waitForIdle()
             assertEquals(1, refreshes)

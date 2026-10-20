@@ -116,7 +116,7 @@ class WheelFallbackPaneReplicaTest {
             }
             waitForIdle()
 
-            onRoot().performMouseInput { scroll(Offset(0f, -20f)) }
+            onRoot().performMouseInput { scroll(Offset(0f, -15f)) }
             waitForIdle()
             assertTrue(state.distanceFraction > 0f)
 
