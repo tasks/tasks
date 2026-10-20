@@ -2199,6 +2199,12 @@ private fun TaskListPane(
                 onRefresh = {
                     scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
                 },
+                // The default threshold (80.dp) requires 160.dp of physical input for a
+                // full pull (distanceFraction = input * 0.5 / threshold), which a trackpad
+                // swipe rarely produces before the fingers run off the pad. 40.dp halves
+                // that to a single firm swipe; the box's own touch trigger and the
+                // CompletePullToRefresh wheel completion both key off the same state.
+                threshold = 40.dp,
                 state = refreshState,
                 modifier = Modifier.fillMaxSize(),
                 indicator = {
