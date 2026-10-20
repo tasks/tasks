@@ -1798,6 +1798,7 @@ private fun TaskListScreen(
         sortState = sortState,
         sortViewModel = sortViewModel,
         completedAndHiddenEnabled = state.filter.supportsHiddenTasks(),
+        filter = state.filter,
     )
 
     editListCalendarId?.let { calendarId ->
@@ -2642,8 +2643,16 @@ private fun SortSheetHost(
     sortState: SortSettingsViewModel.ViewState,
     sortViewModel: SortSettingsViewModel,
     completedAndHiddenEnabled: Boolean,
+    filter: Filter,
 ) {
     if (!showSortSheet) return
+
+    // Manual ("My order") sorting is available for filters that support it, the same gate
+    // the Android app uses. The order itself is synced from other devices (it is the
+    // `order` field written by apps that support drag-to-reorder); this sheet only selects
+    // whether to display tasks in that order.
+    val manualSortEnabled = filter.supportsManualSort()
+    val manualSort = manualSortEnabled && sortState.manualSort
 
     var showGroupPicker by remember { mutableStateOf(false) }
     var showSortPicker by remember { mutableStateOf(false) }
@@ -2668,7 +2677,7 @@ private fun SortSheetHost(
                 groupAscending = sortState.groupAscending,
                 completedAscending = sortState.completedAscending,
                 subtaskAscending = sortState.subtaskAscending,
-                manualSort = false,
+                manualSort = manualSort,
                 astridSort = false,
                 completedAtBottom = sortState.completedAtBottom,
                 showCompleted = sortState.showCompleted,
@@ -2720,11 +2729,11 @@ private fun SortSheetHost(
             scrimColor = Color.Transparent,
         ) {
             SortSheetContent(
-                manualSortEnabled = false,
+                manualSortEnabled = manualSortEnabled,
                 astridSortEnabled = false,
-                manualSortSelected = false,
+                manualSortSelected = manualSort,
                 selected = sortState.sortMode,
-                setManualSort = {},
+                setManualSort = { sortViewModel.setManual(it) },
                 setAstridSort = {},
                 onSelected = {
                     sortViewModel.setSortMode(it)
