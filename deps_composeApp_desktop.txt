@@ -478,7 +478,7 @@
 +|    |              +--- org.jetbrains.compose.ui:ui-unit:1.12.2 (c)
 +|    |              +--- org.jetbrains.compose.ui:ui-util:1.12.2 (c)
 +|    |              \--- org.jetbrains.compose.ui:ui-backhandler:1.12.2 (c)
-+|    +--- com.squareup.okio:okio:3.17.0 -> 3.18.2
++|    +--- com.squareup.okio:okio:3.18.2
 +|    |    \--- com.squareup.okio:okio-jvm:3.18.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.20 (*)
 +|    +--- org.tasks:dav4kmp:1.0.0-beta01

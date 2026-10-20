@@ -1091,7 +1091,7 @@
 +|    |              +--- org.jetbrains.compose.ui:ui-unit:1.12.2 (c)
 +|    |              +--- org.jetbrains.compose.ui:ui-graphics:1.12.2 (c)
 +|    |              \--- org.jetbrains.compose.ui:ui-geometry:1.12.2 (c)
-+|    +--- com.squareup.okio:okio:3.17.0 -> 3.18.2 (*)
++|    +--- com.squareup.okio:okio:3.18.2 (*)
 +|    +--- org.tasks:dav4kmp:1.0.0-beta01
 +|    |    \--- org.tasks:dav4kmp-jvm:1.0.0-beta01
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
