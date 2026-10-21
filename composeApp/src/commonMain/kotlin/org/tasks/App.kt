@@ -143,6 +143,7 @@ import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
@@ -173,6 +174,7 @@ import org.tasks.compose.platformStatusBarInsets
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
+import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -321,6 +323,7 @@ fun App(
             val subtaskTrees = koinInject<SubtaskTreeRegistry>()
             val hasAccount by appViewModel.hasAccount.collectAsState()
             val subscriptionProvider = koinInject<SubscriptionProvider>()
+            val stripePurchases = koinInject<StripePurchases>()
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
             var cloudSignInSource by rememberSaveable { mutableStateOf<String?>(null) }
             var platformSignIn by rememberSaveable { mutableStateOf<String?>(null) }
@@ -977,6 +980,10 @@ fun App(
                         // Saveable for the same reason as the pricing screen's dialog: a rotation
                         // recreates the activity, and this sheet was vanishing mid-flow.
                         var showManageSheet by rememberSaveable { mutableStateOf(false) }
+                        val openCardPortal = cardPortalLauncher(
+                            portalUrl = { stripePurchases.portalUrl() },
+                            openUrl = openUrl,
+                        )
                         SettingsScreen(
                             onBack = { backStack.removeLastOrNull() },
                             onAddAccountClick = { backStack.push(AddAccountDestination) },
@@ -1004,6 +1011,7 @@ fun App(
                         )
                         if (showManageSheet) {
                             val isGitHubSponsor = subscriptionInfo?.isGitHubSponsor == true
+                            val isCardSubscription = subscriptionInfo?.isCardSubscription == true
                             val sponsorUrl = stringResource(Res.string.url_sponsor)
                             val googlePlayUrl = TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS
                             ModalBottomSheet(
@@ -1021,7 +1029,11 @@ fun App(
                                     },
                                     onCancel = {
                                         showManageSheet = false
-                                        openUrl(if (isGitHubSponsor) sponsorUrl else googlePlayUrl)
+                                        when {
+                                            isCardSubscription -> openCardPortal()
+                                            isGitHubSponsor -> openUrl(sponsorUrl)
+                                            else -> openUrl(googlePlayUrl)
+                                        }
                                     },
                                     showModify = isGitHubSponsor,
                                 )

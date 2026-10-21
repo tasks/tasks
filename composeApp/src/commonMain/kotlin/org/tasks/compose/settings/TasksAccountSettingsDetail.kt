@@ -28,6 +28,8 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.SignInHandler
+import org.tasks.billing.StripePurchases
+import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.accounts.Platform
 import org.tasks.TasksUrls
 import org.tasks.viewmodel.TasksAccountViewModel
@@ -49,8 +51,13 @@ fun TasksAccountSettingsDetail(
 ) {
     val viewModel = koinViewModel<TasksAccountViewModel>()
     val signInHandler = koinInject<SignInHandler>()
+    val stripePurchases = koinInject<StripePurchases>()
     val scope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
+    val openCardPortal = cardPortalLauncher(
+        portalUrl = { stripePurchases.portalUrl() },
+        openUrl = { uriHandler.openUri(it) },
+    )
     @Suppress("DEPRECATION")
     val clipboardManager = LocalClipboardManager.current
 
@@ -140,7 +147,11 @@ fun TasksAccountSettingsDetail(
                 onAddAccount = onAddAccountClick,
                 onModifySubscription = onModifySubscription,
                 onCancelSubscription = {
-                    uriHandler.openUri(TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS)
+                    if (state.isCardSubscription) {
+                        openCardPortal()
+                    } else {
+                        uriHandler.openUri(TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS)
+                    }
                 },
                 onLogout = {
                     scope.launch {
