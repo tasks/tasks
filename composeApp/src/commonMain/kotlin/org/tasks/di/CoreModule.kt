@@ -6,11 +6,13 @@ import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.PurchaseClaim
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.StripeCheckouts
 import org.tasks.billing.StripeClient
 import org.tasks.billing.StripeClientImpl
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.tasksSessionAuthorization
 import org.tasks.viewmodel.ProCardViewModel
+import org.tasks.viewmodel.StripeCheckoutViewModel
 import org.tasks.viewmodel.SubscriptionOnboardingViewModel
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.TasksAccountDataRepository
@@ -556,7 +558,8 @@ val coreModule: Module = module {
             tasksPreferences = get(),
             logOnboarding = { step -> get<Reporting>().logCloudOnboarding(step) },
         ).also { it.claimOnSignIn(get()) }
-    } binds arrayOf(PurchaseClaim::class)
+    } binds arrayOf(StripeCheckouts::class, PurchaseClaim::class)
+    viewModel { StripeCheckoutViewModel(purchases = get()) }
     single {
         PushTokenManager(
             tokenProvider = getOrNull() ?: object : FcmTokenProvider {
