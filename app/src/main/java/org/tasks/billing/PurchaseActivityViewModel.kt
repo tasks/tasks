@@ -16,8 +16,11 @@ import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GENERIC
 import org.tasks.analytics.Firebase
+import org.tasks.resources.getString
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.error_billing_unavailable
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
@@ -84,8 +87,9 @@ class PurchaseActivityViewModel @Inject constructor(
             try {
                 billingClient.queryPurchases(throwError = true)
             } catch (e: Exception) {
+                val message = e.userMessage()
                 _viewState.update {
-                    it.copy(error = e.message)
+                    it.copy(error = message)
                 }
             }
             try {
@@ -104,8 +108,9 @@ class PurchaseActivityViewModel @Inject constructor(
                     (e.message ?: "unknown").take(100),
                     state = "QUERY_SKUS_FAILED",
                 )
+                val message = e.userMessage()
                 _viewState.update {
-                    it.copy(error = e.message)
+                    it.copy(error = message)
                 }
             }
         }
@@ -115,6 +120,13 @@ class PurchaseActivityViewModel @Inject constructor(
             R.string.param_source to _viewState.value.source,
         )
     }
+
+    private suspend fun Exception.userMessage(): String? =
+        if (this is BillingUnavailableException) {
+            getString(Res.string.error_billing_unavailable)
+        } else {
+            message
+        }
 
     override fun onCleared() {
         super.onCleared()
@@ -141,8 +153,9 @@ class PurchaseActivityViewModel @Inject constructor(
                 newSku,
                 state = "PURCHASE_FAILED",
             )
+            val message = e.userMessage()
             _viewState.update {
-                it.copy(error = e.message)
+                it.copy(error = message)
             }
         }
     }

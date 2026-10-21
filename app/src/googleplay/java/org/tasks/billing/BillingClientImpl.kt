@@ -323,11 +323,17 @@ class BillingClientImpl(
             BillingResponseCode.ITEM_UNAVAILABLE,
         )
 
+        private val transient = setOf(
+            BillingResponseCode.SERVICE_UNAVAILABLE,
+            BillingResponseCode.SERVICE_DISCONNECTED,
+            BillingResponseCode.ERROR,
+        )
+
         private val BillingResult.asException: IllegalStateException
-            get() = if (responseCode in unrecoverable) {
-                UnrecoverableBillingException(responseCodeString)
-            } else {
-                IllegalStateException(responseCodeString)
+            get() = when (responseCode) {
+                in unrecoverable -> UnrecoverableBillingException(responseCodeString)
+                in transient -> BillingUnavailableException(responseCodeString)
+                else -> IllegalStateException(responseCodeString)
             }
 
         val BillingResult.responseCodeString: String

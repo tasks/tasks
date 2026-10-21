@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.settings.MessageDialog
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.error_network
+import tasks.kmp.generated.resources.error_billing_unavailable
 
 @Composable
 fun cardPortalLauncher(
@@ -21,7 +21,7 @@ fun cardPortalLauncher(
     val scope = rememberCoroutineScope()
     if (unavailable) {
         MessageDialog(
-            message = stringResource(Res.string.error_network),
+            message = stringResource(Res.string.error_billing_unavailable),
             onDismiss = { unavailable = false },
         )
     }
