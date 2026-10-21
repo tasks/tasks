@@ -1,5 +1,7 @@
 package org.tasks.billing
 
+import kotlin.math.roundToInt
+
 data class StripeCatalog(
     val cloud: List<StripePrice> = emptyList(),
     val support: List<StripePrice> = emptyList(),
@@ -15,6 +17,25 @@ data class StripeCatalog(
 
     val supporterRungs: List<StripePrice>
         get() = support.filterNot { it.isMonthly }.sortedBy { it.amountCents }
+
+    fun supporterRungAt(position: Float): StripePrice? {
+        val rungs = supporterRungs
+        return if (rungs.isEmpty()) {
+            null
+        } else {
+            rungs[position.roundToInt().coerceIn(0, rungs.lastIndex)]
+        }
+    }
+
+    fun supporterRungFor(dollars: Int): Int {
+        val rungs = supporterRungs
+        return rungs.indexOfFirst { it.amountCents + 1 >= dollars * 100 }
+            .takeIf { it >= 0 }
+            ?: rungs.lastIndex
+    }
+
+    fun supporterMonthlyFor(rung: StripePrice): StripePrice? =
+        support.firstOrNull { it.isMonthly && it.amountCents == rung.amountCents }
 
     companion object {
         fun from(prices: List<StripePrice>): StripeCatalog {
