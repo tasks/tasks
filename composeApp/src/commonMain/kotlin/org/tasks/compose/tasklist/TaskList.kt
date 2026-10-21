@@ -46,6 +46,7 @@ internal fun TaskList(
     chipDataProvider: ChipDataProvider,
     listState: LazyListState = rememberLazyListState(),
     topPadding: Dp = 0.dp,
+    selectedTaskId: Long? = null,
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
     onToggleGroup: (Long) -> Unit = {},
@@ -85,6 +86,7 @@ internal fun TaskList(
             }
             TaskRow(
                 task = task,
+                selected = selectedTaskId == task.id,
                 doomed = state == RowState.Doomed,
                 filter = filter,
                 groupMode = tasks.groupMode,
