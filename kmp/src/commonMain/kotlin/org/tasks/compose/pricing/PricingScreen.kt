@@ -26,6 +26,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -49,6 +50,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.billing.StripeCatalog
+import org.tasks.billing.StripePrice
 import tasks.kmp.generated.resources.*
 
 enum class PricingMode {
@@ -58,6 +61,50 @@ enum class PricingMode {
 }
 
 private val CardShape = RoundedCornerShape(12.dp)
+
+data class StoreBilling(
+    val catalog: StripeCatalog = StripeCatalog(),
+    val loadingPrices: Boolean = false,
+    val busySku: String? = null,
+    val currentSku: String? = null,
+    val onSelect: (StripePrice) -> Unit,
+) {
+    val busy: Boolean get() = busySku != null
+
+    fun isBusy(price: StripePrice?): Boolean = price != null && busySku == price.sku
+
+    fun unavailable(price: StripePrice?): Boolean = !loadingPrices && price == null
+}
+
+private val StripePrice?.trialNote: String?
+    @Composable get() = this?.trialDays?.takeIf { it > 0 }?.let {
+        stringResource(Res.string.pricing_free_trial, it)
+    }
+
+@Composable
+private fun StripePrice?.ctaLabel(): String = if (this == null) {
+    stringResource(Res.string.pricing_subscribe_google_play)
+} else {
+    stringResource(
+        Res.string.pricing_subscribe_for,
+        stringResource(
+            if (isMonthly) Res.string.price_per_month_with_currency
+            else Res.string.price_per_year_with_currency,
+            formattedPrice,
+        ),
+    )
+}
+
+@Composable
+private fun UnavailableNotice() {
+    Text(
+        text = stringResource(Res.string.error_billing_unavailable),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.error,
+        textAlign = TextAlign.Center,
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -70,6 +117,7 @@ fun PricingScreen(
     onNypSubscribeClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
     showSupporterBanner: Boolean = false,
+    store: StoreBilling? = null,
 ) {
     Scaffold(
         topBar = {
@@ -139,6 +187,7 @@ fun PricingScreen(
                         onCtaClick = onCloudSubscribeClick,
                         onSignIn = onSignIn,
                         onBillingToggle = onBillingToggle,
+                        store = store,
                     )
                 }
                 val nameYourPriceCard: @Composable (Modifier) -> Unit = { cardModifier ->
@@ -187,13 +236,15 @@ private fun CloudTierCard(
     onCtaClick: () -> Unit,
     onSignIn: () -> Unit,
     onBillingToggle: (Boolean) -> Unit = {},
+    store: StoreBilling? = null,
 ) {
     var isAnnual by rememberSaveable { mutableStateOf(true) }
+    val price = if (isAnnual) store?.catalog?.cloudAnnual else store?.catalog?.cloudMonthly
 
     TierCard(
         modifier = modifier,
         title = stringResource(Res.string.tasks_org_account),
-        price = stringResource(
+        price = price?.formattedPrice ?: stringResource(
             if (isAnnual) Res.string.pricing_cloud_annual_total
             else Res.string.pricing_cloud_monthly_price
         ),
@@ -205,10 +256,12 @@ private fun CloudTierCard(
         billingNote = if (isAnnual)
             stringResource(
                 Res.string.pricing_cloud_annual_per_month,
-                stringResource(Res.string.pricing_cloud_annual_price),
+                price?.formattedMonthlyPrice
+                    ?: stringResource(Res.string.pricing_cloud_annual_price),
             )
         else
             stringResource(Res.string.pricing_cloud_monthly_note),
+        trialNote = price.trialNote,
         description = stringResource(Res.string.pricing_cloud_description),
         features = listOf(
             stringResource(Res.string.pricing_cloud_feature_1),
@@ -217,11 +270,21 @@ private fun CloudTierCard(
             stringResource(Res.string.pricing_cloud_feature_4),
         ),
         cta = {
-            PurchaseButton(
-                label = stringResource(Res.string.pricing_subscribe_google_play),
-                onClick = onCtaClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            if (store?.unavailable(price) == true) {
+                UnavailableNotice()
+            } else {
+                PurchaseButton(
+                    label = price.ctaLabel(),
+                    busy = store?.loadingPrices == true || store?.isBusy(price) == true,
+                    enabled = store == null ||
+                        (!store.busy && (price == null || price.sku != store.currentSku)),
+                    onClick = {
+                        onCtaClick()
+                        if (price != null) store?.onSelect(price)
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         },
         isRecommended = isRecommended,
         billingToggle = {
@@ -272,17 +335,25 @@ private fun NameYourPriceTierCard(
 @Composable
 private fun PurchaseButton(
     label: String,
+    busy: Boolean = false,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
     Button(
         onClick = onClick,
-        enabled = enabled,
+        enabled = enabled && !busy,
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
     ) {
-        Text(label)
+        if (busy) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(18.dp),
+                strokeWidth = 2.dp,
+            )
+        } else {
+            Text(label)
+        }
     }
 }
 
@@ -297,6 +368,7 @@ private fun TierCard(
     modifier: Modifier = Modifier,
     isRecommended: Boolean = false,
     billingNote: String? = null,
+    trialNote: String? = null,
     billingToggle: @Composable (() -> Unit)? = null,
     footerDescription: String? = null,
     footerLabel: String? = null,
@@ -308,6 +380,7 @@ private fun TierCard(
             price = price,
             priceSuffix = priceSuffix,
             billingNote = billingNote,
+            trialNote = trialNote,
             billingToggle = billingToggle,
             description = description,
             features = features,
@@ -371,6 +444,7 @@ private fun TierCardContent(
     price: String,
     priceSuffix: String,
     billingNote: String?,
+    trialNote: String?,
     billingToggle: @Composable (() -> Unit)?,
     description: String,
     features: List<String>,
@@ -421,6 +495,15 @@ private fun TierCardContent(
                 text = billingNote,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp),
+            )
+        }
+
+        if (trialNote != null) {
+            Text(
+                text = trialNote,
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.padding(top = 4.dp),
             )
         }
