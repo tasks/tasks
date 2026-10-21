@@ -335,6 +335,8 @@
     <string name="unlock_pro_opening_browser">Opening browser…</string>
     <string name="google_play_subscription">Google Play subscription</string>
     <string name="github_sponsorship">GitHub Sponsorship</string>
+    <string name="error_purchase_not_verified">We couldn't verify your purchase on this device. Restore purchases and try again.</string>
+    <string name="error_too_many_requests">Too many attempts. Please wait a few minutes and try again.</string>
     <string name="error_billing_unavailable">Billing isn't available right now. Please try again later.</string>
     <string name="error_github_verification_failed">Verification failed. Please try again.</string>
     <string name="pricing_subtitle">Free and open source. Subscriptions support development and unlock additional features.</string>
@@ -355,6 +357,8 @@
     <string name="pricing_nyp_feature_2">Self-hosted synchronization with CalDAV and EteSync</string>
     <string name="pricing_nyp_feature_3">Support open source software</string>
     <string name="pricing_subscribe_google_play">Subscribe on Google Play</string>
+    <string name="checkout_finish_in_browser">Finish your purchase in the browser</string>
+    <string name="checkout_expired">The payment page expired. Please try again.</string>
     <string name="pricing_free_trial">%1$d-day free trial</string>
     <string name="pricing_subscribe_for">Subscribe for %1$s</string>
     <string name="pro_card_credit">%1$s credit will be applied to your next renewal</string>

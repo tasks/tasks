@@ -143,6 +143,7 @@ import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.BillingProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
@@ -174,6 +175,7 @@ import org.tasks.compose.platformStatusBarInsets
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
+import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
@@ -1216,6 +1218,11 @@ fun App(
                             }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
+                        val store = if (configuration.billingProvider == BillingProvider.STRIPE) {
+                            cardCheckout(openUrl = openUrl)
+                        } else {
+                            null
+                        }
                         PricingScreen(
                             mode = destination.mode,
                             onBack = { backStack.removeLastOrNull() },
@@ -1229,7 +1236,7 @@ fun App(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
                                     AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_CLOUD,
                                 )
-                                openUrl(googlePlayUrl)
+                                if (store == null) openUrl(googlePlayUrl)
                             },
                             onNypSubscribeClick = {
                                 reporting.logEvent(
@@ -1245,6 +1252,7 @@ fun App(
                                 )
                             },
                             showSupporterBanner = destination.mode != PricingMode.NYP_ONLY && subscriptionInfo?.isTasksSubscription == false,
+                            store = store,
                         )
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
