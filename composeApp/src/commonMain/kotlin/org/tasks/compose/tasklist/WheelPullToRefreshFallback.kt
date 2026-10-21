@@ -134,35 +134,19 @@ internal fun WheelPullToRefreshFallback(
     }
 }
 
-/**
- * Wheel notches are small compared with a touch drag (a notch is well under a full
- * pull), so the wheel delta is amplified this many times before it is mapped through
- * the box's tension model. A short wheel pull therefore fills the indicator to the
- * same full-pull point (distanceFraction 1) a touch pull reaches, so the shared
- * threshold trigger and the indicator behave identically on both input paths.
- */
 private const val WHEEL_GAIN = 5.0f
 
-/** The box's `DragMultiplier` (its private constant, mirrored here). */
-private const val DRAG_MULTIPLIER = 0.5f
+private const val PULL_TO_REFRESH_BOX_DRAG_MULTIPLIER = 0.5f
 
-/**
- * Maps a raw pull distance in pixels to the box's `PullToRefreshState` fraction,
- * replicating the box's own mapping with the wheel [WHEEL_GAIN] applied: raw pull is
- * amplified, multiplied by the drag multiplier (0.5), applied linearly up to the
- * threshold, and through a quadratic tension curve beyond it, where the indicator's
- * travel caps at 200% of the threshold.
- */
 private fun Float.fraction(thresholdPx: Float): Float {
-    val adjusted = this * WHEEL_GAIN * DRAG_MULTIPLIER
+    val adjusted = this * WHEEL_GAIN * PULL_TO_REFRESH_BOX_DRAG_MULTIPLIER
     if (adjusted <= thresholdPx) return adjusted / thresholdPx
     val t = (adjusted / thresholdPx - 1f).coerceIn(0f, 2f)
     return 1f + t - t * t / 4f
 }
 
-/** Inverse of [fraction]: the raw (pre-gain) pixel distance that maps to [this] box fraction. */
 private fun Float.pullPx(thresholdPx: Float): Float {
-    val scaled = WHEEL_GAIN * DRAG_MULTIPLIER
+    val scaled = WHEEL_GAIN * PULL_TO_REFRESH_BOX_DRAG_MULTIPLIER
     if (this <= 1f) {
         return this * thresholdPx / scaled
     }

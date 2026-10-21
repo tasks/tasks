@@ -31,6 +31,8 @@ class WheelFallbackPaneReplicaTest {
 
     private val threshold = 40.dp
 
+    private val rows = listOf("one", "two", "three")
+
     @Test
     fun wheelUpOnShortListInsideBoxFiresRefresh() =
         runComposeUiTest {
@@ -56,7 +58,7 @@ class WheelFallbackPaneReplicaTest {
                             threshold = threshold,
                         ) {
                             LazyColumn(state = rememberLazyListState()) {
-                                items(listOf("one", "two", "three")) { Text(it) }
+                                items(rows) { Text(it) }
                             }
                         }
                     }
@@ -104,7 +106,7 @@ class WheelFallbackPaneReplicaTest {
                             retractIdleMillis = 50,
                         ) {
                             LazyColumn(state = rememberLazyListState()) {
-                                items(listOf("one", "two", "three")) { Text(it) }
+                                items(rows) { Text(it) }
                             }
                         }
                     }
@@ -156,7 +158,7 @@ class WheelFallbackPaneReplicaTest {
                             threshold = threshold,
                         ) {
                             LazyColumn(state = rememberLazyListState()) {
-                                items(listOf("one", "two", "three")) { Text(it) }
+                                items(rows) { Text(it) }
                             }
                         }
                     }

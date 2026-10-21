@@ -74,7 +74,7 @@ internal fun BoxScope.SyncPullRefreshIndicator(
         SymbolIcon(
             name = TasksIcons.REFRESH,
             contentDescription = null,
-            tint = REFRESH_ARROW_COLOR,
+            tint = LEGACY_RED_500_REFRESH_COLOR,
             modifier = Modifier
                 .size(24.dp)
                 .graphicsLayer { rotationZ = spinRotation },
@@ -84,8 +84,4 @@ internal fun BoxScope.SyncPullRefreshIndicator(
 
 private val PULL_REFRESH_CIRCLE_SIZE = 40.dp
 
-/**
- * The app's RED_500 (kmp `ColorProvider`), the legacy Android app's high-priority /
- * swipe-refresh colour — the arrow and the sync spinner are red on both platforms.
- */
-private val REFRESH_ARROW_COLOR = Color(0xFFF44336)
+private val LEGACY_RED_500_REFRESH_COLOR = Color(0xFFF44336)
