@@ -32,7 +32,6 @@ open class StripeCheckoutViewModel(
     data class ViewState(
         val catalog: StripeCatalog = StripeCatalog(),
         val loadingPrices: Boolean = true,
-        val pricesUnavailable: Boolean = false,
         val plan: StripePlan? = null,
         val busySku: String? = null,
         val checkoutUrl: String? = null,
@@ -45,17 +44,8 @@ open class StripeCheckoutViewModel(
 
     data class PendingChange(
         val price: StripePrice,
-        val direction: Direction = Direction.UNKNOWN,
         val trialEnd: Long? = null,
     )
-
-    enum class Direction {
-        UP,
-
-        DOWN,
-
-        UNKNOWN,
-    }
 
     sealed interface Notice {
         data object NeedsUpgrade : Notice
@@ -99,7 +89,6 @@ open class StripeCheckoutViewModel(
                 it.copy(
                     confirmChange = PendingChange(
                         price = price,
-                        direction = direction(plan, price),
                         trialEnd = plan.trialEnd,
                     )
                 )
@@ -124,16 +113,6 @@ open class StripeCheckoutViewModel(
     fun dismissNotice() = _viewState.update { it.copy(notice = null) }
 
     fun planChangeHandled() = _viewState.update { it.copy(planChanged = false) }
-
-    private fun direction(plan: StripePlan, price: StripePrice): Direction {
-        val current = _viewState.value.catalog.price(plan.sku) ?: return Direction.UNKNOWN
-        if (current.isMonthly != price.isMonthly) return Direction.UNKNOWN
-        return when {
-            price.amountCents > current.amountCents -> Direction.UP
-            price.amountCents < current.amountCents -> Direction.DOWN
-            else -> Direction.UNKNOWN
-        }
-    }
 
     private fun purchase(price: StripePrice) {
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
@@ -205,7 +184,6 @@ open class StripeCheckoutViewModel(
             it.copy(
                 catalog = prices?.let(StripeCatalog::from) ?: it.catalog,
                 loadingPrices = false,
-                pricesUnavailable = prices == null && it.catalog.isEmpty,
             )
         }
     }

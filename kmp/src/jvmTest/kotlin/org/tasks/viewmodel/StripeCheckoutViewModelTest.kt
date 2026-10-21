@@ -391,13 +391,12 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
-    fun aLadderThatCannotBeListedIsSaidOutLoud() = runTest(dispatcher) {
+    fun aLadderThatCannotBeListedLeavesTheCatalogEmpty() = runTest(dispatcher) {
         prices = null
         val viewModel = viewModel()
         runCurrent()
 
         val state = viewModel.viewState.value
-        assertTrue(state.pricesUnavailable)
         assertFalse(state.loadingPrices)
         assertTrue(state.catalog.isEmpty)
     }
@@ -413,7 +412,6 @@ class StripeCheckoutViewModelTest {
         runCurrent()
 
         val state = viewModel.viewState.value
-        assertFalse(state.pricesUnavailable)
         assertEquals("annual_30", state.catalog.cloudAnnual?.sku)
     }
 
@@ -445,54 +443,6 @@ class StripeCheckoutViewModelTest {
         runCurrent()
 
         assertNull(viewModel.viewState.value.confirmChange?.trialEnd)
-    }
-
-    @Test
-    fun movingUpTheLadderPromisesACharge() = runTest(dispatcher) {
-        plan = StripePlan("annual_12")
-        val viewModel = viewModel()
-        runCurrent()
-
-        viewModel.select(offer)
-        runCurrent()
-
-        val pending = viewModel.viewState.value.confirmChange
-        assertEquals(StripeCheckoutViewModel.Direction.UP, pending?.direction)
-        assertTrue(changes.isEmpty())
-    }
-
-    @Test
-    fun crossingBillingPeriodsPromisesNeither() = runTest(dispatcher) {
-        prices = listOf(
-            StripePrice("pri_m03", "monthly_03", 299, interval = StripePrice.INTERVAL_MONTH, entitles = true),
-            StripePrice("pri_30", "annual_30", 2999, entitles = true),
-        )
-        plan = StripePlan("monthly_03")
-        val viewModel = viewModel()
-        runCurrent()
-
-        viewModel.select(viewModel.viewState.value.catalog.cloudAnnual!!)
-        runCurrent()
-
-        assertEquals(
-            StripeCheckoutViewModel.Direction.UNKNOWN,
-            viewModel.viewState.value.confirmChange?.direction,
-        )
-    }
-
-    @Test
-    fun aTierOffTheLadderPromisesNeither() = runTest(dispatcher) {
-        plan = StripePlan("annual_99")
-        val viewModel = viewModel()
-        runCurrent()
-
-        viewModel.select(offer)
-        runCurrent()
-
-        assertEquals(
-            StripeCheckoutViewModel.Direction.UNKNOWN,
-            viewModel.viewState.value.confirmChange?.direction,
-        )
     }
 
     @Test
@@ -536,10 +486,6 @@ class StripeCheckoutViewModelTest {
         runCurrent()
 
         assertEquals(supportOffer, viewModel.viewState.value.confirmChange?.price)
-        assertEquals(
-            StripeCheckoutViewModel.Direction.DOWN,
-            viewModel.viewState.value.confirmChange?.direction,
-        )
         assertTrue(changes.isEmpty())
     }
 
@@ -575,22 +521,6 @@ class StripeCheckoutViewModelTest {
         assertTrue(changes.isEmpty())
         assertNull(viewModel.viewState.value.confirmChange)
         assertFalse(viewModel.viewState.value.busy)
-    }
-
-    @Test
-    fun movingDownBetweenTwoSupportTiersIsACredit() = runTest(dispatcher) {
-        plan = StripePlan("annual_12")
-        change = StripeChange.Changed(entitles = false)
-        val viewModel = viewModel()
-        runCurrent()
-
-        viewModel.select(supportOffer)
-        runCurrent()
-
-        val pending = viewModel.viewState.value.confirmChange
-        assertEquals(supportOffer, pending?.price)
-        assertEquals(StripeCheckoutViewModel.Direction.DOWN, pending?.direction)
-        assertTrue(changes.isEmpty())
     }
 
     @Test
