@@ -146,6 +146,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.SubscriptionSkus
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.APP_STORE_SIGN_IN_PROVIDERS
@@ -1219,7 +1220,11 @@ fun App(
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
                         val store = if (configuration.billingProvider == BillingProvider.STRIPE) {
-                            cardCheckout(openUrl = openUrl)
+                            cardCheckout(
+                                suggestedPrice = subscriptionInfo
+                                    ?.let { SubscriptionSkus.subscriptionPrice(it.sku) },
+                                openUrl = openUrl,
+                            )
                         } else {
                             null
                         }
@@ -1243,7 +1248,7 @@ fun App(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
                                     AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
                                 )
-                                openUrl(googlePlayUrl)
+                                if (store == null) openUrl(googlePlayUrl)
                             },
                             onBillingToggle = { isAnnual ->
                                 reporting.logEvent(

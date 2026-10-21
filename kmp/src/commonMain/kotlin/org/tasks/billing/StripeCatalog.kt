@@ -2,6 +2,8 @@ package org.tasks.billing
 
 import kotlin.math.roundToInt
 
+const val DEFAULT_NAME_YOUR_PRICE = 10
+
 data class StripeCatalog(
     val cloud: List<StripePrice> = emptyList(),
     val support: List<StripePrice> = emptyList(),
@@ -27,9 +29,10 @@ data class StripeCatalog(
         }
     }
 
-    fun supporterRungFor(dollars: Int): Int {
+    fun supporterRungFor(dollars: Int?): Int {
         val rungs = supporterRungs
-        return rungs.indexOfFirst { it.amountCents + 1 >= dollars * 100 }
+        val cents = (dollars ?: DEFAULT_NAME_YOUR_PRICE) * 100
+        return rungs.indexOfFirst { it.amountCents + 1 >= cents }
             .takeIf { it >= 0 }
             ?: rungs.lastIndex
     }

@@ -12,6 +12,7 @@ import org.tasks.viewmodel.StripeCheckoutViewModel
 
 @Composable
 fun cardCheckout(
+    suggestedPrice: Int?,
     openUrl: (String) -> Unit,
 ): StoreBilling {
     val viewModel = koinViewModel<StripeCheckoutViewModel>()
@@ -38,6 +39,7 @@ fun cardCheckout(
         loadingPrices = state.loadingPrices,
         busySku = state.busySku,
         currentSku = state.plan?.sku,
+        suggestedPrice = suggestedPrice,
         onSelect = { viewModel.select(it) },
     )
 }

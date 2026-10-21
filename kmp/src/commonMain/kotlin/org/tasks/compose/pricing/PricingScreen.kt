@@ -34,11 +34,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -46,6 +49,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -67,6 +71,7 @@ data class StoreBilling(
     val loadingPrices: Boolean = false,
     val busySku: String? = null,
     val currentSku: String? = null,
+    val suggestedPrice: Int? = null,
     val onSelect: (StripePrice) -> Unit,
 ) {
     val busy: Boolean get() = busySku != null
@@ -195,6 +200,7 @@ fun PricingScreen(
                         modifier = cardModifier,
                         onCtaClick = onNypSubscribeClick,
                         onRestorePurchases = onRestorePurchases,
+                        store = store,
                     )
                 }
 
@@ -307,12 +313,20 @@ private fun NameYourPriceTierCard(
     modifier: Modifier = Modifier,
     onCtaClick: () -> Unit,
     onRestorePurchases: () -> Unit,
+    store: StoreBilling? = null,
 ) {
+    val rungs = store?.catalog?.supporterRungs.orEmpty()
+    val cheapestRung = rungs.firstOrNull()
+
     TierCard(
         modifier = modifier,
         title = stringResource(Res.string.supporter),
-        price = stringResource(Res.string.pricing_from, stringResource(Res.string.pricing_nyp_min_price)),
+        price = stringResource(
+            Res.string.pricing_from,
+            cheapestRung?.formattedPrice ?: stringResource(Res.string.pricing_nyp_min_price),
+        ),
         priceSuffix = stringResource(Res.string.price_per_year_with_currency, "").trim(),
+        trialNote = cheapestRung.trialNote,
         description = stringResource(Res.string.pricing_nyp_description),
         features = listOf(
             stringResource(Res.string.pricing_nyp_feature_1),
@@ -320,16 +334,92 @@ private fun NameYourPriceTierCard(
             stringResource(Res.string.pricing_nyp_feature_3),
         ),
         cta = {
-            PurchaseButton(
-                label = stringResource(Res.string.pricing_subscribe_google_play),
-                onClick = onCtaClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            when {
+                store != null && rungs.isNotEmpty() -> NameYourPricePicker(
+                    store = store,
+                    rungs = rungs,
+                    onCtaClick = onCtaClick,
+                )
+                store?.unavailable(cheapestRung) == true -> UnavailableNotice()
+                else -> PurchaseButton(
+                    label = stringResource(Res.string.pricing_subscribe_google_play),
+                    busy = store?.loadingPrices == true,
+                    enabled = store?.busy != true,
+                    onClick = onCtaClick,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         },
         footerDescription = stringResource(Res.string.already_subscribed),
         footerLabel = stringResource(Res.string.restore_purchases),
         onFooterClick = onRestorePurchases,
     )
+}
+
+@Composable
+private fun NameYourPricePicker(
+    store: StoreBilling,
+    rungs: List<StripePrice>,
+    onCtaClick: () -> Unit,
+) {
+    var sliderPosition by rememberSaveable {
+        mutableFloatStateOf(store.catalog.supporterRungFor(store.suggestedPrice).toFloat())
+    }
+    val card = store.catalog.supporterRungAt(sliderPosition) ?: return
+    val monthly = store.catalog.supporterMonthlyFor(card)
+
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Slider(
+            value = sliderPosition,
+            onValueChange = { sliderPosition = it },
+            valueRange = 0f..rungs.lastIndex.toFloat().coerceAtLeast(0f),
+            steps = (rungs.size - 2).coerceAtLeast(0),
+            enabled = !store.busy && rungs.size > 1,
+            colors = SliderDefaults.colors(
+                activeTickColor = Color.Transparent,
+                inactiveTickColor = Color.Transparent,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+        )
+        val annual = stringResource(Res.string.price_per_year_with_currency, card.formattedPrice)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            PurchaseButton(
+                label = if (monthly == null) {
+                    stringResource(Res.string.pricing_subscribe_for, annual)
+                } else {
+                    annual
+                },
+                busy = store.isBusy(card),
+                enabled = !store.busy,
+                onClick = {
+                    onCtaClick()
+                    store.onSelect(card)
+                },
+                modifier = Modifier.weight(1f),
+            )
+            if (monthly != null) {
+                PurchaseButton(
+                    label = stringResource(
+                        Res.string.price_per_month_with_currency,
+                        monthly.formattedPrice,
+                    ),
+                    busy = store.isBusy(monthly),
+                    enabled = !store.busy,
+                    onClick = {
+                        onCtaClick()
+                        store.onSelect(monthly)
+                    },
+                    modifier = Modifier.weight(1f),
+                )
+            }
+        }
+    }
 }
 
 @Composable

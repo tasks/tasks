@@ -273,6 +273,16 @@ class StripeCatalogTest {
     }
 
     @Test
+    fun noSuggestionOpensOnTheDefaultRung() {
+        val catalog = ladder()
+
+        assertEquals(
+            catalog.supporterRungFor(dollars = DEFAULT_NAME_YOUR_PRICE),
+            catalog.supporterRungFor(dollars = null),
+        )
+    }
+
+    @Test
     fun pairsEachRungWithTheMonthlyPriceOfTheSameTier() {
         val catalog = StripeCatalog.from(
             listOf(
