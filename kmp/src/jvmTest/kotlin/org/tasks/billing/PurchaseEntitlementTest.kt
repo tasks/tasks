@@ -555,6 +555,50 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aDesktopLinkedFromACardSubscriptionLearnsWhoSoldIt() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.PLAY)
+        server.enqueue(
+            checkResponse(
+                sku = "annual_30",
+                formattedPrice = "USD 29.99",
+                status = "active",
+                creditCents = 900,
+                creditCurrency = "EUR",
+                provider = "stripe",
+            )
+        )
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        entitlement.awaitReady()
+        entitlement.checkTier()
+
+        assertEquals(EntitlementProvider.STRIPE, entitlement.provider.first())
+        assertEquals(EntitlementProvider.STRIPE, readFromDisk().provider)
+        assertEquals(900, entitlement.terms.first()?.creditCents)
+    }
+
+    @Test
+    fun anArmThisVersionDoesNotKnowIsNotTakenForStripe() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS), EntitlementProvider.PLAY)
+        server.enqueue(
+            checkResponse(
+                sku = "annual_30",
+                formattedPrice = "USD 29.99",
+                provider = "apple",
+            )
+        )
+
+        val entitlement = entitlement()
+        entitlement.initialize()
+        entitlement.awaitReady()
+        entitlement.checkTier()
+
+        assertEquals(EntitlementProvider.PLAY, entitlement.provider.first())
+        assertNull(entitlement.terms.first())
+    }
+
+    @Test
     fun aCheckSpendsNoCredentialAndLooksLikeNoPurchase() = runBlocking {
         val stored = jwt(exp = now() + 30 * DAY_SECONDS)
         storeOnDisk(stored, EntitlementProvider.STRIPE)
@@ -784,8 +828,10 @@ class PurchaseEntitlementTest {
         trialEnd: Long? = null,
         creditCents: Int? = null,
         creditCurrency: String? = null,
+        provider: String? = null,
     ): MockResponse {
         val fields = buildList {
+            provider?.let { add(""""provider":"$it"""") }
             add(""""sku":"$sku"""")
             add(""""formatted_price":"$formattedPrice"""")
             status?.let { add(""""status":"$it"""") }

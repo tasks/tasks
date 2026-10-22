@@ -98,6 +98,7 @@ class PurchaseEntitlement(
 
     @Serializable
     private data class CheckResponse(
+        val provider: String? = null,
         val sku: String? = null,
         val formatted_price: String? = null,
         val status: String? = null,
@@ -147,6 +148,8 @@ class PurchaseEntitlement(
             "SXVw/oVv5itVIzZHovcXs8di7X7zeDfNYlHv+nHaGExFI7y6QxjJ/+NasQ=="
         private const val REFRESH_LEAD_SECONDS = 24 * 60 * 60L
         private const val GRACE_PERIOD_SECONDS = 7 * 24 * 60 * 60L
+        private const val PROVIDER_STRIPE = "stripe"
+        private const val PROVIDER_PLAY = "play"
         private const val RETRY_INTERVAL_SECONDS = 15 * 60L
         private const val LAPSED_RETRY_INTERVAL_SECONDS = 24 * 60 * 60L
         private const val READY_TIMEOUT_MILLIS = 30_000L
@@ -163,19 +166,21 @@ class PurchaseEntitlement(
     suspend fun checkTier(): Boolean = checkLock.withLock {
         val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return@withLock false
         val checked = callCheck(stored) ?: return@withLock false
-        val terms = checked.terms(stored.provider)
+        val provider = checked.provider.toProvider() ?: stored.provider
+        val terms = checked.terms(provider)
         val tierMoved = checked.sku != stored.sku ||
             checked.formatted_price != stored.formattedPrice
         logger.i {
-            "Check says ${checked.sku}, status=${terms?.status}, " +
+            "Check says ${checked.sku} from $provider, status=${terms?.status}, " +
                 "trialEnd=${terms?.trialEnd}, credit=${terms?.creditCents}"
         }
-        if (!tierMoved && terms == stored.terms) {
+        if (!tierMoved && terms == stored.terms && provider == stored.provider) {
             return@withLock false
         }
         val updated = stored.copy(
             sku = checked.sku,
             formattedPrice = checked.formatted_price,
+            provider = provider,
             terms = terms,
         )
         if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), updated))) {
@@ -183,8 +188,15 @@ class PurchaseEntitlement(
         }
         _sku.value = updated.sku
         _formattedPrice.value = updated.formattedPrice
+        _provider.value = updated.provider
         _terms.value = updated.terms
         tierMoved
+    }
+
+    private fun String?.toProvider(): EntitlementProvider? = when (this) {
+        PROVIDER_STRIPE -> EntitlementProvider.STRIPE
+        PROVIDER_PLAY -> EntitlementProvider.PLAY
+        else -> null
     }
 
     private fun CheckResponse.terms(provider: EntitlementProvider): PurchaseTerms? {
