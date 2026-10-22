@@ -250,6 +250,23 @@ class StripePurchasesTest {
     )
 
     @Test
+    fun aReceiptTheSubscriptionHasOutlivedIsNotAPlanToChange() = runBlocking {
+        val lapsed = System.currentTimeMillis() / 1000 - 30 * 24 * 60 * 60
+        entitlement().storeEntitlement(
+            jwt = jwt(exp = lapsed),
+            refreshToken = "refresh-1",
+            sku = "annual_30",
+            provider = EntitlementProvider.STRIPE,
+        )
+        val reloaded = entitlement()
+        reloaded.initialize()
+        reloaded.awaitReady()
+
+        assertFalse(reloaded.hasPro.first())
+        assertNull(purchases(reloaded).currentPlan())
+    }
+
+    @Test
     fun aKeptPurchaseUnlocksThisDevice() = runBlocking {
         val entitlement = entitlement()
 
@@ -716,8 +733,10 @@ class StripePurchasesTest {
         }
     }
 
-    private fun jwt(key: PrivateKey = keyPair.private): String {
-        val exp = System.currentTimeMillis() / 1000 + 7 * 24 * 60 * 60
+    private fun jwt(
+        key: PrivateKey = keyPair.private,
+        exp: Long = System.currentTimeMillis() / 1000 + 7 * 24 * 60 * 60,
+    ): String {
         val header = encode("""{"alg":"ES256","typ":"JWT"}""".toByteArray())
         val payload = encode("""{"iss":"tasks.org","exp":$exp}""".toByteArray())
         val signed = "$header.$payload"

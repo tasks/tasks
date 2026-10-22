@@ -48,7 +48,9 @@ class StripePurchases(
 
     override suspend fun currentPlan(): StripePlan? {
         entitlement.checkTier()
-        return if (entitlement.provider.first() == EntitlementProvider.STRIPE) {
+        return if (entitlement.hasPro.first() &&
+            entitlement.provider.first() == EntitlementProvider.STRIPE
+        ) {
             StripePlan(entitlement.sku.first(), entitlement.terms.first())
         } else {
             accountData.getAccountResponse()
