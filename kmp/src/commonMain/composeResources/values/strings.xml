@@ -396,6 +396,7 @@
     <string name="new_list">Create new list</string>
     <string name="new_tag">Create new tag</string>
     <string name="new_filter">Create new filter</string>
+    <string name="custom_filters">Custom filters</string>
     <string name="new_place">Create new place</string>
     <string name="enter_tag_name">Enter tag name</string>
     <string name="add_tag">Add tag</string>
