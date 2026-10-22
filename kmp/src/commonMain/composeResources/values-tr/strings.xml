@@ -696,4 +696,11 @@
     <string name="reset_trusted_certificates_summary">Sunucular için kabul ettiğiniz sertifikaları ve sertifika yetkililerini unutun</string>
     <string name="trusted_certificates_reset">Güvenilen sertifikalar sıfırlandı</string>
     <string name="pro_card_credit">Bir sonraki yenileme işleminize %1$s tutarında kredi yansıtılacak</string>
+    <string name="error_purchase_not_verified">Bu aygıtta satın alma işleminizi doğrulayamadık. Satın alma işlemlerini geri yükleyin ve tekrar deneyin.</string>
+    <string name="error_too_many_requests">Çok fazla deneme yapıldı. Lütfen birkaç dakika bekleyin ve tekrar deneyin.</string>
+    <string name="error_billing_unavailable">Şu anda faturalandırma hizmeti kullanılamıyor. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="checkout_finish_in_browser">Satın alma işleminizi tarayıcıda tamamlayın</string>
+    <string name="checkout_expired">Ödeme sayfasının süresi doldu. Lütfen tekrar deneyin.</string>
+    <string name="pricing_free_trial">%1$d günlük ücretsiz deneme</string>
+    <string name="pricing_subscribe_for">%1$s için abone olun</string>
 </resources>
