@@ -359,7 +359,7 @@ val coreModule: Module = module {
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
         val tasksPreferences = get<TasksPreferences>()
         object : org.tasks.compose.drawer.DrawerConfiguration {
-            override val canCreateFilters: Boolean get() = false
+            override val canCreateFilters: Boolean get() = true
             override val canCreateTags: Boolean get() = true
             override val canCreatePlaces: Boolean get() = false
             override val filtersEnabled: Boolean
