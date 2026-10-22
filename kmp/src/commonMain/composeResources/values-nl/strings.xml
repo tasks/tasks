@@ -695,4 +695,12 @@
     <string name="reset_trusted_certificates">Vertrouwde certificaten opnieuw instellen</string>
     <string name="reset_trusted_certificates_summary">Certificaten en certificaatautoriteiten die u voor servers hebt geaccepteerd vergeten</string>
     <string name="trusted_certificates_reset">Vertrouwde certificaten opnieuw instellen</string>
+    <string name="error_purchase_not_verified">We konden uw aankoop niet verifiëren op dit apparaat. Herstel aankopen en probeer het opnieuw.</string>
+    <string name="error_too_many_requests">Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.</string>
+    <string name="error_billing_unavailable">Facturering is momenteel niet beschikbaar. Probeer het later nog eens.</string>
+    <string name="checkout_finish_in_browser">Aankoop afronden in de browser</string>
+    <string name="checkout_expired">De betalingspagina is verlopen. Probeer het nog eens.</string>
+    <string name="pricing_free_trial">%1$d-dagen gratis proefperiode</string>
+    <string name="pricing_subscribe_for">Abonnement voor %1$s</string>
+    <string name="pro_card_credit">%1$s korting wordt toegepast op uw volgende verlenging</string>
 </resources>
