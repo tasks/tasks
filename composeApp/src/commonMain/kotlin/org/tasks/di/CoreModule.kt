@@ -140,6 +140,7 @@ val coreModule: Module = module {
     single { get<Database>().taskAttachmentDao() }
     single { get<Database>().taskListMetadataDao() }
     single { get<Database>().dirtyDao() }
+    single { org.tasks.filters.FilterCriteriaProvider(get(), get()) }
     single { ComposeRefreshBroadcaster() }
     factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
     factory<LocationService> {
@@ -486,6 +487,17 @@ val coreModule: Module = module {
             rrule = params.get<String>(),
             dueDate = params.get<Long>(),
             accountType = params.get<Int>(),
+        )
+    }
+    viewModel { params ->
+        org.tasks.filters.FilterSettingsViewModel(
+            filterCriteriaProvider = get(),
+            filterDao = get(),
+            taskDao = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+            initialFilter = params.get(),
+            templateIndex = params.get(),
         )
     }
     viewModel { params ->
