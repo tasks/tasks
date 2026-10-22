@@ -33,7 +33,7 @@ class StripePurchases(
     override suspend fun prices(): List<StripePrice>? = client.prices()
 
     override suspend fun createCheckout(price: StripePrice?): StripeCheckout =
-        client.createCheckout(price?.priceId)
+        client.createCheckout(price?.priceId, purchaseJwt = entitlement.getJwt())
 
     override suspend fun changePlan(price: StripePrice): StripeChange {
         claimStoredPurchase()

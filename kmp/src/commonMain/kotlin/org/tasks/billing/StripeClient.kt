@@ -3,7 +3,7 @@ package org.tasks.billing
 interface StripeClient {
     suspend fun prices(): List<StripePrice>?
 
-    suspend fun createCheckout(priceId: String?): StripeCheckout
+    suspend fun createCheckout(priceId: String?, purchaseJwt: String? = null): StripeCheckout
 
     suspend fun pollCheckout(code: String): StripeCheckoutStatus
 

@@ -183,6 +183,70 @@ class StripeClientTest {
     }
 
     @Test
+    fun aCheckoutSaysWhichCustomerIsBuying() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"code":"c0de","url":"https://pay.stripe.com/x","expires_at":1000}""",
+        )
+
+        client().createCheckout("pri_2", purchaseJwt = "old-receipt")
+
+        assertEquals("""{"price_id":"pri_2","purchase_jwt":"old-receipt"}""", body())
+    }
+
+    @Test
+    fun aReceiptTheServerNeverSignedDoesNotBlockTheSale() = runTest {
+        handler = { request ->
+            if ((request.body as TextContent).text.contains("purchase_jwt")) {
+                respond(
+                    """{"error":"invalid_purchase_jwt"}""",
+                    HttpStatusCode.BadRequest,
+                    headersOf("Content-Type", "application/json"),
+                )
+            } else {
+                respondOk("""{"code":"c0de","url":"https://pay.stripe.com/x","expires_at":1000}""")
+            }
+        }
+
+        val result = client().createCheckout("pri_2", purchaseJwt = "not-ours")
+
+        assertEquals(StripeCheckout.Started("c0de", "https://pay.stripe.com/x", 1000), result)
+        assertEquals(2, requests.size)
+        assertEquals("""{"price_id":"pri_2"}""", body(1))
+    }
+
+    @Test
+    fun anEvictedPurchaseRowDoesNotBlockTheSale() = runTest {
+        handler = { request ->
+            if ((request.body as TextContent).text.contains("purchase_jwt")) {
+                respond(
+                    """{"error":"unknown_purchase"}""",
+                    HttpStatusCode.NotFound,
+                    headersOf("Content-Type", "application/json"),
+                )
+            } else {
+                respondOk("""{"code":"c0de","url":"https://pay.stripe.com/x","expires_at":1000}""")
+            }
+        }
+
+        val result = client().createCheckout("pri_2", purchaseJwt = "evicted")
+
+        assertEquals(StripeCheckout.Started("c0de", "https://pay.stripe.com/x", 1000), result)
+        assertEquals(2, requests.size)
+    }
+
+    @Test
+    fun aPriceTheLadderDoesNotSellIsStillAPricingFault() = runTest {
+        respondWith(HttpStatusCode.BadRequest, """{"error":"unknown_price"}""")
+
+        assertEquals(
+            StripeCheckout.UnknownPrice,
+            client().createCheckout("pri_2", purchaseJwt = "old-receipt"),
+        )
+        assertEquals(1, requests.size)
+    }
+
+    @Test
     fun sendsTheSessionWhenSignedIn() = runTest {
         respondWith(
             HttpStatusCode.OK,

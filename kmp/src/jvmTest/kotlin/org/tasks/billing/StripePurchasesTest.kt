@@ -153,9 +153,14 @@ class StripePurchasesTest {
         }
     }
 
+    private val checkoutReceipts = mutableListOf<String?>()
+
     private val stripeClient = object : StripeClient {
         override suspend fun prices(): List<StripePrice>? = null
-        override suspend fun createCheckout(priceId: String?) = StripeCheckout.Failed
+        override suspend fun createCheckout(priceId: String?, purchaseJwt: String?): StripeCheckout {
+            checkoutReceipts.add(purchaseJwt)
+            return StripeCheckout.Failed
+        }
         override suspend fun changePlan(priceId: String, purchaseJwt: String?): StripeChange {
             changeReceipts.add(purchaseJwt)
             return change
@@ -248,6 +253,24 @@ class StripePurchasesTest {
         sku = sku,
         formattedPrice = "USD 3.00",
     )
+
+    @Test
+    fun aCheckoutNamesTheCustomerThisDeviceAlreadyBoughtOn() = runBlocking {
+        val entitlement = entitlement()
+        val held = purchase()
+        purchases(entitlement).keep(held)
+
+        purchases(entitlement).createCheckout(null)
+
+        assertEquals(listOf(held.purchaseJwt), checkoutReceipts)
+    }
+
+    @Test
+    fun aDeviceThatHasBoughtNothingOpensAPlainCheckout() = runBlocking {
+        purchases().createCheckout(null)
+
+        assertEquals(listOf<String?>(null), checkoutReceipts)
+    }
 
     @Test
     fun aReceiptTheSubscriptionHasOutlivedIsNotAPlanToChange() = runBlocking {
