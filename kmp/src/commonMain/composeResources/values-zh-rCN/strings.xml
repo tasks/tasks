@@ -686,4 +686,12 @@
     <string name="reset_trusted_certificates">重置信任的证书</string>
     <string name="reset_trusted_certificates_summary">忘记你接受的服务器证书和 CA</string>
     <string name="trusted_certificates_reset">已重置信任的证书</string>
+    <string name="error_purchase_not_verified">我们无法在这台设备上验证你的购买。恢复购买并重试。</string>
+    <string name="error_too_many_requests">尝试过多。请等待几分钟并重试。</string>
+    <string name="error_billing_unavailable">账单目前不可用。请稍候再试。</string>
+    <string name="checkout_finish_in_browser">在浏览器中完成你的购买</string>
+    <string name="checkout_expired">付款已过期。请重试。</string>
+    <string name="pricing_free_trial">%1$d 天免费试用</string>
+    <string name="pricing_subscribe_for">以 %1$s 价格订阅</string>
+    <string name="pro_card_credit">%1$s 积分将用于你的下次续费</string>
 </resources>
