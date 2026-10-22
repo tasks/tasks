@@ -715,4 +715,12 @@
     <string name="reset_trusted_certificates">Réinitialiser les certificats de confiance</string>
     <string name="reset_trusted_certificates_summary">Oubliez les certificats et les autorisations de certificat que vous avez acceptées pour les serveurs</string>
     <string name="trusted_certificates_reset">Réinitialisation des certificats de confiance</string>
+    <string name="error_purchase_not_verified">Nous n\'avons pas pu vérifier votre achat sur cet appareil. Restaurez vos achats, puis réessayez.</string>
+    <string name="error_too_many_requests">Trop de tentatives. Veuillez patienter quelques minutes, puis réessayer.</string>
+    <string name="error_billing_unavailable">La facturation n\'est pas disponible pour le moment. Veuillez réessayer plus tard.</string>
+    <string name="checkout_finish_in_browser">Terminez votre achat dans le navigateur</string>
+    <string name="checkout_expired">La page de paiement a expiré. Veuillez réessayer.</string>
+    <string name="pricing_free_trial">%1$d jours d\'essai gratuit</string>
+    <string name="pricing_subscribe_for">Abonnez-vous pour %1$s</string>
+    <string name="pro_card_credit">Un avoir de %1$s sera déduit de votre prochain renouvellement</string>
 </resources>
