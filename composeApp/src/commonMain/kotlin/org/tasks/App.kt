@@ -2845,6 +2845,15 @@ private fun SortSheetHost(
     }
 }
 
+/**
+ * Testing-only: the up/down manual-sort buttons in the floating toolbar. Drag-to-reorder
+ * is the intended affordance (the maintainer is allergic to buttons), so the buttons stay
+ * hidden for real users; the whole planning/commit path is identical, so flipping this
+ * constant re-enables them for manual testing if ever needed - and it is the shape a
+ * config option would take later, the same way "My order" is gated behind the sort sheet.
+ */
+internal const val SHOW_REORDER_BUTTONS_FOR_TESTING = false
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun FloatingToolbar(
@@ -2900,7 +2909,7 @@ private fun FloatingToolbar(
         IconButton(onClick = onSortClick) {
             SymbolIcon(TasksIcons.SWAP_VERT, contentDescription = "Sort")
         }
-        if (manualSort) {
+        if (SHOW_REORDER_BUTTONS_FOR_TESTING && manualSort) {
             // Testing aid for vertical manual-sort moves (upstream may prefer drag-only).
             IconButton(onClick = onMoveUp, enabled = canMoveUp) {
                 SymbolIcon(TasksIcons.KEYBOARD_ARROW_UP, contentDescription = "Move task up")
