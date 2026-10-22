@@ -2161,6 +2161,19 @@ private fun TaskListPane(
         }
     }
 
+    // Drag-to-reorder: the handle on each row reports the drop row on release; the
+    // planner + shared CaldavDao path commit it, exactly like the buttons (one move,
+    // one sync), and the list reloads once afterwards.
+    fun dropTask(taskId: Long, dropIndex: Int) {
+        val dataSource = manualSortDataSource ?: return
+        moveScope.launch {
+            reorderer.dropMove(dataSource, deletions, taskId, dropIndex)
+            // Always reload: a committed drop shows the new order, a rejected one
+            // (own subtree, section boundary) settles back to the data's order.
+            viewModel.invalidate()
+        }
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -2247,6 +2260,8 @@ private fun TaskListPane(
                 listState = listState,
                 topPadding = topBarHeight,
                 selectedTaskId = selectedTaskId,
+                dragEnabled = manualSort,
+                onTaskDrop = { taskId, dropIndex -> dropTask(taskId, dropIndex) },
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)

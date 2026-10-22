@@ -2,7 +2,9 @@ package org.tasks.compose.tasklist
 
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
@@ -91,6 +94,8 @@ internal fun TaskRow(
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
+    dragHandle: (@Composable (Modifier) -> Unit)? = null,
+    dragged: Boolean = false,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -100,14 +105,22 @@ internal fun TaskRow(
     }
     // M3 single-selection list item: `selected` drives the secondaryContainer highlight,
     // the shape morph and the radio-button semantics; `enabled = false` renders a doomed
-    // (deleted) row as a disabled item instead of a custom error background.
+    // (deleted) row as a disabled item instead of a custom error background. A dragged row
+    // takes the elevated surface so the item clearly lifts out of the list.
     ListItem(
         selected = selected,
         enabled = !doomed,
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = (INDENT_STEP_DP * task.indent).dp),
+            .padding(start = (INDENT_STEP_DP * task.indent).dp)
+            .then(
+                if (dragged) {
+                    Modifier.background(MaterialTheme.colorScheme.surfaceContainerHighest)
+                } else {
+                    Modifier
+                },
+            ),
         contentPadding = PaddingValues(
             start = 0.dp,
             end = 16.dp,
@@ -118,6 +131,12 @@ internal fun TaskRow(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.Top,
         ) {
+            if (dragHandle != null) {
+                // Leading drag handle, aligned with the checkbox: 48.dp like the complete
+                // button, so the icon centres on the same line. [Modifier] carries the
+                // reorderable draggableHandle gesture created by the list.
+                dragHandle(Modifier)
+            }
             IconButton(
                 onClick = onToggleComplete,
                 enabled = !doomed,
@@ -286,8 +305,8 @@ internal fun TaskRow(
                 }
             }
         }
-        }
     }
+}
 }
 
 @Composable
