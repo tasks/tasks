@@ -31,6 +31,9 @@ import org.tasks.filters.EmptyFilter
  */
 @OptIn(ExperimentalTestApi::class)
 class TaskRowSelectionTest {
+    private val firstTitle = "First"
+    private val secondTitle = "Second"
+
     private val chips = ChipDataProvider(
         caldavLists = CaldavListCache(
             mock {
@@ -58,7 +61,7 @@ class TaskRowSelectionTest {
         MaterialTheme {
             Column {
                 TaskRow(
-                    task = task(1, "First"),
+                    task = task(1, firstTitle),
                     selected = selectedId == 1L,
                     doomed = false,
                     filter = EmptyFilter(),
@@ -72,7 +75,7 @@ class TaskRowSelectionTest {
                     onFilterClick = {},
                 )
                 TaskRow(
-                    task = task(2, "Second"),
+                    task = task(2, secondTitle),
                     selected = selectedId == 2L,
                     doomed = false,
                     filter = EmptyFilter(),
@@ -93,18 +96,18 @@ class TaskRowSelectionTest {
     fun bothRowsArePresentAndOnlyOneIsSelected() = runComposeUiTest {
         setContent { TwoRows(selectedId = 1L) }
         // Two distinct titles rendered, each resolvable as its own list item.
-        onAllNodesWithText("First").assertCountEquals(1)
-        onAllNodesWithText("Second").assertCountEquals(1)
+        onAllNodesWithText(firstTitle).assertCountEquals(1)
+        onAllNodesWithText(secondTitle).assertCountEquals(1)
 
-        onNodeWithText("First").assertIsSelected()
-        onNodeWithText("Second").assertIsNotSelected()
+        onNodeWithText(firstTitle).assertIsSelected()
+        onNodeWithText(secondTitle).assertIsNotSelected()
     }
 
     @Test
     fun theSelectionFollowsTheValuePassedToTheRow() = runComposeUiTest {
         setContent { TwoRows(selectedId = 2L) }
-        onNodeWithText("First").assertIsNotSelected()
-        onNodeWithText("Second").assertIsSelected()
+        onNodeWithText(firstTitle).assertIsNotSelected()
+        onNodeWithText(secondTitle).assertIsSelected()
     }
 
     @Test
@@ -113,7 +116,7 @@ class TaskRowSelectionTest {
         setContent {
             MaterialTheme {
                 TaskRow(
-                    task = task(1, "First"),
+                    task = task(1, firstTitle),
                     selected = true,
                     doomed = false,
                     filter = EmptyFilter(),
@@ -128,8 +131,8 @@ class TaskRowSelectionTest {
                 )
             }
         }
-        onNodeWithText("First").assertIsSelected()
-        onNodeWithText("First").performClick()
+        onNodeWithText(firstTitle).assertIsSelected()
+        onNodeWithText(firstTitle).performClick()
         assertEquals(1, opened)
     }
 }

@@ -16,6 +16,7 @@ import org.junit.Test
  */
 @OptIn(ExperimentalTestApi::class)
 class SortSheetManualSortTest {
+    private val myOrderLabel = "My order"
 
     @Test
     fun myOrderOptionIsAvailableForCaldavFilters() = runComposeUiTest {
@@ -35,8 +36,8 @@ class SortSheetManualSortTest {
         }
         waitForIdle()
 
-        onNodeWithText("My order").assertIsDisplayed()
-        onNodeWithText("My order").performClick()
+        onNodeWithText(myOrderLabel).assertIsDisplayed()
+        onNodeWithText(myOrderLabel).performClick()
         assertEquals(listOf(true), manualSortCalls)
     }
 
@@ -58,9 +59,9 @@ class SortSheetManualSortTest {
         }
         waitForIdle()
 
-        onNodeWithText("My order").assertIsDisplayed()
+        onNodeWithText(myOrderLabel).assertIsDisplayed()
         onNodeWithText("Not available for tags, filters, or places").assertIsDisplayed()
-        onNodeWithText("My order").performClick()
+        onNodeWithText(myOrderLabel).performClick()
         assertEquals(emptyList<Boolean>(), manualSortCalls)
     }
 }

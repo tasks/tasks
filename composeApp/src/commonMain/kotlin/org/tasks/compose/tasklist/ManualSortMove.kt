@@ -30,7 +30,9 @@ internal data class ManualSortMove(
  * - Moving down: rows deeper than [taskId]'s indent (its own subtree in the pre-order
  *   display) are skipped; the first visible row at the same or shallower indent must be
  *   a task at the same indent under the same parent. The new order value is that
- *   neighbour's effective order plus one.
+ *   neighbour's effective order plus one. In the pre-order display every row deeper
+ *   than a task until the first shallower-or-equal row is that task's own descendant,
+ *   so the down-walk skips exactly the rows that move with the task.
  * - A group header above or below, or any indent/parent mismatch, means the task cannot
  *   legally move in that direction and null is returned.
  *
@@ -49,9 +51,9 @@ internal fun SectionedDataSource.planManualSortMove(
     val index = indexOf(taskId) ?: return null
     val task = getItem(index)
     val neighbour = if (up) {
-        previousVisibleTask(index, deletions)
+        previousRenderedTask(index, deletions)
     } else {
-        nextVisibleTask(index, deletions)
+        nextRenderedTaskOutsideOwnSubtree(index, deletions)
     }
     return neighbour
         ?.takeIf { it.indent == task.indent && it.parent == task.parent }
@@ -162,8 +164,7 @@ private fun SectionedDataSource.indexOf(taskId: Long): Int? {
     return null
 }
 
-/** The nearest rendered task row above [index], or null at the top / past a header. */
-private fun SectionedDataSource.previousVisibleTask(
+private fun SectionedDataSource.previousRenderedTask(
     index: Int,
     deletions: Map<String, Boolean>,
 ): TaskContainer? {
@@ -176,13 +177,7 @@ private fun SectionedDataSource.previousVisibleTask(
     return null
 }
 
-/**
- * The nearest rendered task row below [index] that is not inside the task's own
- * subtree, or null at the bottom. In the pre-order display every row deeper than the
- * task until the first shallower-or-equal row is a descendant of the task, so skipping
- * deeper rows lands exactly on the row the task's subtree will move past.
- */
-private fun SectionedDataSource.nextVisibleTask(
+private fun SectionedDataSource.nextRenderedTaskOutsideOwnSubtree(
     index: Int,
     deletions: Map<String, Boolean>,
 ): TaskContainer? {

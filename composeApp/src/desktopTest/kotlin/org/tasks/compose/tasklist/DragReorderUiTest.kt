@@ -30,10 +30,9 @@ import org.mockito.kotlin.mock
 
 /**
  * Drives the real gesture path: press the drag handle, drag vertically, release. The
- * [TaskList] commits through [ManualSortDragController] only; the test captures the
- * (taskId, dropIndex) the planner would persist and asserts the pointer mapping, not
- * the database (that is covered by ManualSortMoveTest and the reorderer's CalDAV
- * round-trip).
+ * list reports the (taskId, dropIndex) a drop would commit; the test captures that
+ * pair and asserts the pointer mapping, not the database (that is covered by
+ * ManualSortMoveTest and the reorderer's CalDAV round-trip).
  */
 @OptIn(ExperimentalTestApi::class)
 class DragReorderUiTest {
@@ -95,22 +94,6 @@ class DragReorderUiTest {
             block()
         } finally {
             stopKoin()
-        }
-    }
-
-    private fun SemanticsNodeInteraction.center(): Offset = fetchSemanticsNode().boundsInRoot.center
-
-    private fun SemanticsNodeInteraction.dragTo(other: SemanticsNodeInteraction) {
-        // Touch input: positions are in the node's local coordinate space (0,0 = its top-left),
-        // so the window-space delta between the two handles is the local move delta.
-        // Injection positions are in the node's local coordinate space (0,0 = its
-        // top-left), so use the scope's own local centre; only the delta between the
-        // two handles is taken from their window-space bounds.
-        val dy = other.center().y - center().y
-        performTouchInput {
-            down(center)
-            moveTo(center + Offset(0f, dy))
-            up()
         }
     }
 
@@ -187,5 +170,16 @@ class DragReorderUiTest {
             }
             assertNull(dropped.taskId)
         }
+    }
+}
+
+private fun SemanticsNodeInteraction.center(): Offset = fetchSemanticsNode().boundsInRoot.center
+
+private fun SemanticsNodeInteraction.dragTo(other: SemanticsNodeInteraction) {
+    val dy = other.center().y - center().y
+    performTouchInput {
+        down(center)
+        moveTo(center + Offset(0f, dy))
+        up()
     }
 }

@@ -15,21 +15,25 @@ import org.tasks.tasklist.SectionedDataSource
  * the planner only sees the visible pre-order rows (a `SectionedDataSource` with headers
  * disabled, exactly as the list is built when "My order" is active) and must pick the
  * same effective order value the native app's `moveCaldavTask` same-indent branch would.
+ *
+ * TooManyFunctions is suppressed: the class holds one cohesive @Test per planner
+ * behaviour, and splitting those across classes would not make them clearer.
  */
+@Suppress("TooManyFunctions")
 class ManualSortMoveTest {
+    private fun uuid(id: Long) = "uuid-$id"
+
     private fun t(
         id: Long,
         title: String,
         parent: Long = 0,
         indent: Int = 0,
         order: Long = 0,
-        sortGroup: Long? = null,
     ) = TaskContainer(
-        task = Task(id = id, title = title, remoteId = "uuid-$id", parent = parent),
+        task = Task(id = id, title = title, remoteId = uuid(id), parent = parent),
         primarySort = if (indent == 0) order else 0,
         secondarySort = if (indent > 0) order else 0,
         indent = indent,
-        sortGroup = sortGroup,
     )
 
     private fun list(vararg tasks: TaskContainer) =
@@ -178,7 +182,7 @@ class ManualSortMoveTest {
         val a = t(1, "A", order = 1)
         val h = t(2, "H", order = 2)
         val b = t(3, "B", order = 3)
-        val deletions = mapOf("uuid-2" to false) // H is going away (hidden)
+        val deletions = mapOf(uuid(2) to false) // H is going away (hidden)
         val move = list(a, h, b).planManualSortMove(deletions, taskId = 3, up = true)
 
         assertNotNull(move)
@@ -191,7 +195,7 @@ class ManualSortMoveTest {
         val a = t(1, "A", order = 1)
         val d = t(2, "D", order = 2)
         val b = t(3, "B", order = 3)
-        val deletions = mapOf("uuid-2" to true)
+        val deletions = mapOf(uuid(2) to true)
         val move = list(a, d, b).planManualSortMove(deletions, taskId = 3, up = true)
 
         assertNotNull(move)
@@ -315,7 +319,7 @@ class ManualSortMoveTest {
         val a = t(1, "A", order = 1)
         val h = t(2, "H", order = 2)
         val b = t(3, "B", order = 3)
-        val deletions = mapOf("uuid-2" to false)
+        val deletions = mapOf(uuid(2) to false)
         // B drops onto A's row, skipping the hidden H: ordinal 0 -> A's slot.
         val move = list(a, h, b).planManualSortDrop(deletions, taskId = 3, dropIndex = 0)
         assertNotNull(move)
@@ -327,9 +331,9 @@ class ManualSortMoveTest {
 
     @Test
     fun aDropOntoAHeaderRowPlansNothing() {
-        val a = t(1, "A", order = 1, sortGroup = 1000)
-        val b = t(2, "B", order = 2, sortGroup = 1000)
-        val c = t(3, "C", order = 3, sortGroup = 2000)
+        val a = t(1, "A", order = 1).copy(sortGroup = 1000)
+        val b = t(2, "B", order = 2).copy(sortGroup = 1000)
+        val c = t(3, "C", order = 3).copy(sortGroup = 2000)
         // Rows: header(0), A(1), B(2), header(3), C(4).
         val ds = groupedList(a, b, c)
         assertTrue(ds.isHeader(0))
@@ -340,9 +344,9 @@ class ManualSortMoveTest {
 
     @Test
     fun aDropAcrossASectionHeaderPlansNothing() {
-        val a = t(1, "A", order = 1, sortGroup = 1000)
-        val b = t(2, "B", order = 2, sortGroup = 1000)
-        val c = t(3, "C", order = 3, sortGroup = 2000)
+        val a = t(1, "A", order = 1).copy(sortGroup = 1000)
+        val b = t(2, "B", order = 2).copy(sortGroup = 1000)
+        val c = t(3, "C", order = 3).copy(sortGroup = 2000)
         // Rows: header(0), A(1), B(2), header(3), C(4). Phase 1 keeps moves inside the
         // task's own section: C onto A's or B's row crosses a header -> rejected.
         val ds = groupedList(a, b, c)
