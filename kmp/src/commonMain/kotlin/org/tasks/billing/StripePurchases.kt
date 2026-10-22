@@ -50,6 +50,9 @@ class StripePurchases(
         return result
     }
 
+    override suspend fun hasStripeCustomer(): Boolean =
+        entitlement.provider.first() == EntitlementProvider.STRIPE
+
     override suspend fun currentPlan(): StripePlan? {
         entitlement.checkTier()
         return if (entitlement.hasPro.first() &&
@@ -241,6 +244,8 @@ interface StripeCheckouts {
     suspend fun changePlan(price: StripePrice): StripeChange
 
     suspend fun currentPlan(): StripePlan?
+
+    suspend fun hasStripeCustomer(): Boolean
 
     suspend fun collectCheckout(code: String): StripeCollection
 }

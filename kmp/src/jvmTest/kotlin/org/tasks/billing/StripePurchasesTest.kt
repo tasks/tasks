@@ -356,6 +356,17 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aLapsedCardReceiptStillNamesTheCustomerToBuyOn() = runBlocking {
+        val entitlement = entitlement()
+        val purchases = purchases(entitlement)
+        assertFalse(purchases.hasStripeCustomer())
+
+        purchases.keep(purchase(), covered = false)
+
+        assertTrue(purchases.hasStripeCustomer())
+    }
+
+    @Test
     fun aKeptPurchaseUnlocksThisDevice() = runBlocking {
         val entitlement = entitlement()
 

@@ -40,6 +40,7 @@ fun cardCheckout(
         busySku = state.busySku,
         currentSku = state.plan?.sku,
         suggestedPrice = suggestedPrice,
+        knownCustomer = state.knownCustomer,
         onSelect = { viewModel.select(it) },
     )
 }

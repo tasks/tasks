@@ -72,6 +72,7 @@ data class StoreBilling(
     val busySku: String? = null,
     val currentSku: String? = null,
     val suggestedPrice: Int? = null,
+    val knownCustomer: Boolean = false,
     val onSelect: (StripePrice) -> Unit,
 ) {
     val busy: Boolean get() = busySku != null
@@ -81,9 +82,14 @@ data class StoreBilling(
     fun unavailable(price: StripePrice?): Boolean = !loadingPrices && price == null
 }
 
-private val StripePrice?.trialNote: String?
-    @Composable get() = this?.trialDays?.takeIf { it > 0 }?.let {
-        stringResource(Res.string.pricing_free_trial, it)
+@Composable
+private fun StripePrice?.trialNote(store: StoreBilling?): String? =
+    if (store?.knownCustomer == true) {
+        null
+    } else {
+        this?.trialDays?.takeIf { it > 0 }?.let {
+            stringResource(Res.string.pricing_free_trial, it)
+        }
     }
 
 @Composable
@@ -267,7 +273,7 @@ private fun CloudTierCard(
             )
         else
             stringResource(Res.string.pricing_cloud_monthly_note),
-        trialNote = price.trialNote,
+        trialNote = price.trialNote(store),
         description = stringResource(Res.string.pricing_cloud_description),
         features = listOf(
             stringResource(Res.string.pricing_cloud_feature_1),
@@ -326,7 +332,7 @@ private fun NameYourPriceTierCard(
             cheapestRung?.formattedPrice ?: stringResource(Res.string.pricing_nyp_min_price),
         ),
         priceSuffix = stringResource(Res.string.price_per_year_with_currency, "").trim(),
-        trialNote = cheapestRung.trialNote,
+        trialNote = cheapestRung.trialNote(store),
         description = stringResource(Res.string.pricing_nyp_description),
         features = listOf(
             stringResource(Res.string.pricing_nyp_feature_1),

@@ -41,6 +41,7 @@ class StripeCheckoutViewModelTest {
         supportOffer,
     )
     private var plan: StripePlan? = null
+    private var knownCustomer = false
     private var change: StripeChange = StripeChange.Changed(entitles = true)
     private var changes = mutableListOf<StripePrice>()
     private var requestedCheckouts = 0
@@ -52,6 +53,7 @@ class StripeCheckoutViewModelTest {
     private val purchases = object : StripeCheckouts {
         override suspend fun prices() = prices
         override suspend fun currentPlan() = plan
+        override suspend fun hasStripeCustomer() = knownCustomer
         override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
             requestedCheckouts++
             return checkout
@@ -536,6 +538,16 @@ class StripeCheckoutViewModelTest {
 
         assertEquals(listOf(offer), changes)
         assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun aDeviceThatHasBoughtBeforeIsAKnownCustomer() = runTest(dispatcher) {
+        knownCustomer = true
+        val viewModel = viewModel()
+
+        runCurrent()
+
+        assertTrue(viewModel.viewState.value.knownCustomer)
     }
 
     @Test

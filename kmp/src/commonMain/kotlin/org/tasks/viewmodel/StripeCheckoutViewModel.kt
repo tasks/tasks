@@ -37,6 +37,7 @@ open class StripeCheckoutViewModel(
         val checkoutUrl: String? = null,
         val confirmChange: PendingChange? = null,
         val planChanged: Boolean = false,
+        val knownCustomer: Boolean = false,
         val notice: Notice? = null,
     ) {
         val busy: Boolean get() = busySku != null
@@ -179,7 +180,8 @@ open class StripeCheckoutViewModel(
 
     private suspend fun refreshPlan() {
         val plan = purchases.currentPlan()
-        _viewState.update { it.copy(plan = plan) }
+        val knownCustomer = purchases.hasStripeCustomer()
+        _viewState.update { it.copy(plan = plan, knownCustomer = knownCustomer) }
     }
 
     private suspend fun loadCatalog() {

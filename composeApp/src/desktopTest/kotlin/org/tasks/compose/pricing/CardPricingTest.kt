@@ -35,6 +35,23 @@ class CardPricingTest {
     }
 
     @Test
+    fun aFreeWeekIsNotPromisedToSomebodyWhoHasBoughtBefore() = runComposeUiTest {
+        showCloudCard(
+            StoreBilling(
+                catalog = StripeCatalog.from(listOf(annual)),
+                knownCustomer = true,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("Subscribe for \$29.99/year")
+        assertTrue(
+            "expected no free trial promise",
+            onAllNodes(hasText("14-day free trial")).fetchSemanticsNodes().isEmpty(),
+        )
+    }
+
+    @Test
     fun theGooglePlayCtaIsLeftToBuildsWithoutACardStore() = runComposeUiTest {
         showCloudCard(store = null)
 
