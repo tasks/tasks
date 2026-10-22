@@ -729,6 +729,9 @@
     <string name="custom_filter_and">AND</string>
     <string name="custom_filter_or">OR</string>
     <string name="custom_filter_not">NOT</string>
+    <string name="name">Name</string>
+    <string name="custom_filter_criteria">Filter criteria</string>
+    <string name="CFA_button_add">Add Criteria</string>
     <string name="filter_today_only">Today only</string>
     <string name="filter_after_today">After today</string>
     <string name="filter_any_start_date">Any start date</string>

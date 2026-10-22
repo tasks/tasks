@@ -57,6 +57,9 @@ class FilterSettingsViewModel(
         val hasPro: Boolean = false,
         val showColorPicker: Boolean = false,
         val showIconPicker: Boolean = false,
+        val newCriterionTypes: List<CustomFilterCriterion> = emptyList(),
+        val showTypePicker: Boolean = false,
+        val newCriterionOptions: CriterionInstance? = null,
     )
 
     /** The original filter being edited, or null when creating a new one. */
@@ -116,6 +119,50 @@ class FilterSettingsViewModel(
     fun closeIconPicker() = _state.update { it.copy(showIconPicker = false) }
 
     fun selectIcon(name: String) = _state.update { it.copy(icon = name, showIconPicker = false) }
+
+    /** Loads the full criterion catalog and shows the "pick a criterion type" list. */
+    fun openAddCriterion() = viewModelScope.launch {
+        val all = filterCriteriaProvider.all()
+        _state.update { it.copy(newCriterionTypes = all, showTypePicker = true) }
+    }
+
+    fun cancelTypePicker() =
+        _state.update { it.copy(newCriterionTypes = emptyList(), showTypePicker = false) }
+
+    /**
+     * A criterion type was chosen. Boolean criteria are added immediately (no value to
+     * pick); multi-select and text-input criteria open their value picker.
+     */
+    fun onTypePicked(which: Int) {
+        val list = _state.value.newCriterionTypes
+        if (which !in list.indices) return
+        val instance = CriterionInstance().apply { criterion = list[which] }
+        _state.update { it.copy(newCriterionTypes = emptyList(), showTypePicker = false) }
+        if (instance.criterion is BooleanCriterion) {
+            addCriteria(instance)
+        } else {
+            _state.update { it.copy(newCriterionOptions = instance) }
+        }
+    }
+
+    /** A value was chosen for a pending multi-select criterion. */
+    fun onValuePicked(which: Int) {
+        val instance = _state.value.newCriterionOptions ?: return
+        instance.selectedIndex = which
+        _state.update { it.copy(newCriterionOptions = null) }
+        addCriteria(instance)
+    }
+
+    /** A value was entered for a pending text-input criterion (empty input cancels). */
+    fun onTextDone(text: String) {
+        val instance = _state.value.newCriterionOptions
+        _state.update { it.copy(newCriterionOptions = null) }
+        val value = text.trim().takeIf { it.isNotEmpty() } ?: return
+        instance?.selectedText = value
+        if (instance != null) addCriteria(instance)
+    }
+
+    fun cancelValuePicker() = _state.update { it.copy(newCriterionOptions = null) }
 
     private fun setCriteria(criteria: List<CriterionInstance>) {
         val row = universeRow
