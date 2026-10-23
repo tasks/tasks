@@ -15,10 +15,6 @@ pluginManagement {
         maven("https://maven.hq.hydraulic.software")
     }
 }
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
-
 val version = java.util.Properties().apply {
     providers.fileContents(layout.rootDirectory.file("version.properties")).asText.get().reader().use(::load)
 }
@@ -47,6 +43,12 @@ dependencyResolutionManagement {
                 includeModule("com.github.jheld", "colorpicker")
                 includeModule("com.github.tasks", "ical4android")
                 includeModule("com.github.tasks.opentasks", "opentasks-provider")
+            }
+        }
+        maven("https://central.sonatype.com/repository/maven-snapshots/") {
+            mavenContent {
+                snapshotsOnly()
+                includeGroup("org.tasks")
             }
         }
     }
