@@ -45,12 +45,6 @@ dependencyResolutionManagement {
                 includeModule("com.github.tasks.opentasks", "opentasks-provider")
             }
         }
-        maven("https://central.sonatype.com/repository/maven-snapshots/") {
-            mavenContent {
-                snapshotsOnly()
-                includeGroup("org.tasks")
-            }
-        }
     }
 }
 
