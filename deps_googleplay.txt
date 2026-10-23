@@ -2078,7 +2078,7 @@
 ++--- androidx.room3:room3-runtime:3.0.3 (*)
 ++--- androidx.sqlite:sqlite-bundled:2.7.1 (*)
 ++--- androidx.appcompat:appcompat:1.8.0 (*)
-++--- androidx.appfunctions:appfunctions:1.0.0-alpha11
+++--- androidx.appfunctions:appfunctions:1.0.0-alpha13
 +|    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
 +|    +--- androidx.appsearch:appsearch:1.1.0
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
@@ -2098,7 +2098,7 @@
 +|    |    +--- org.jspecify:jspecify:1.0.0
 +|    |    \--- androidx.appsearch:appsearch:1.1.0 (c)
 +|    +--- com.google.guava:guava:32.0.1-android -> 33.4.0-android (*)
-+|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.20 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 -> 1.11.0 (*)
 +|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.9.0 -> 1.11.0
 +|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
