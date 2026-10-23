@@ -114,7 +114,14 @@ fun FilterSettingsScreen(
         }
     }
 
-    Column(Modifier.fillMaxSize()) {
+    // Width/centering come from the hosting BasicAlertDialog (the common M3 dialog min/max
+    // width convention, same as TagSettingsDialog); this screen just paints the surface
+    // (light grey) so the white cards float on it.
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface),
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -132,10 +139,6 @@ fun FilterSettingsScreen(
             if (viewModel.isNew) {
                 IconButton(onClick = onHelp) {
                     SymbolIcon(name = TasksIcons.HELP, contentDescription = stringResource(Res.string.name))
-                }
-            } else {
-                IconButton(onClick = { showDeleteConfirm = true }) {
-                    SymbolIcon(name = TasksIcons.DELETE, contentDescription = stringResource(Res.string.delete))
                 }
             }
         }
@@ -174,13 +177,18 @@ fun FilterSettingsScreen(
 
             Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-            SectionHeader(title = stringResource(Res.string.custom_filter_criteria))
-
-            CriteriaList(
-                criteria = state.criteria,
-                onRowClick = { index -> if (index > 0) openTypeRow = index },
-                onMove = viewModel::move,
+            SectionHeader(
+                title = stringResource(Res.string.custom_filter_criteria),
+                modifier = Modifier.padding(horizontal = 25.dp),
             )
+
+            Column(Modifier.padding(horizontal = SettingsContentPadding)) {
+                CriteriaList(
+                    criteria = state.criteria,
+                    onRowClick = { index -> if (index > 0) openTypeRow = index },
+                    onMove = viewModel::move,
+                )
+            }
 
             Spacer(modifier = Modifier.height(SettingsCardGap))
 
@@ -327,7 +335,11 @@ fun FilterSettingsScreen(
             dismissText = stringResource(Res.string.cancel),
             onConfirm = {
                 showDeleteConfirm = false
-                if (filter != null) onDelete(filter)
+                if (filter != null) {
+                    // The view model performs the DB delete (same as the tag settings
+                    // template); the callback only closes the dialog afterwards.
+                    scope.launch { viewModel.delete { onDelete(filter) } }
+                }
             },
             onDismiss = { showDeleteConfirm = false },
         )

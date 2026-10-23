@@ -60,6 +60,7 @@ import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Place
 import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.extensions.guarded
@@ -496,8 +497,10 @@ val coreModule: Module = module {
             taskDao = get(),
             purchaseState = get(),
             isDark = params.get(),
-            initialFilter = params.get(),
-            templateIndex = params.get(),
+            // getOrNull: a null literal in parametersOf carries no type for Koin's
+            // class-based matching, so params.get<Filter?>() would throw for new filters.
+            initialFilter = params.getOrNull<Filter>(),
+            templateIndex = params.getOrNull<Int>(),
         )
     }
     viewModel { params ->

@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.app_settings
+import tasks.kmp.generated.resources.filter_settings
 import tasks.kmp.generated.resources.list_settings
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.tag_settings
@@ -24,9 +25,11 @@ import tasks.kmp.generated.resources.tag_settings
 fun SettingsMenuButton(
     showListSettings: Boolean,
     showTagSettings: Boolean,
+    showFilterSettings: Boolean = false,
     onSettingsClick: () -> Unit,
     onListSettingsClick: () -> Unit,
     onTagSettingsClick: () -> Unit,
+    onFilterSettingsClick: () -> Unit = {},
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     Box {
@@ -62,6 +65,15 @@ fun SettingsMenuButton(
                     onClick = {
                         expanded = false
                         onTagSettingsClick()
+                    },
+                )
+            }
+            if (showFilterSettings) {
+                DropdownMenuItem(
+                    text = { Text(stringResource(Res.string.filter_settings)) },
+                    onClick = {
+                        expanded = false
+                        onFilterSettingsClick()
                     },
                 )
             }
