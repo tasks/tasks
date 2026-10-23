@@ -765,7 +765,7 @@
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.21 (*)
 ++--- project ':kmp'
-+|    +--- org.tasks:etebase-android:1.0.0-beta01
++|    +--- org.tasks:etebase-android:1.0.0-beta02
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
 +|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
 +|    |         \--- com.squareup.okhttp3:okhttp:3.12.1 -> 5.5.0
