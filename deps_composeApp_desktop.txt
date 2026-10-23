@@ -831,9 +831,16 @@
 +|    |         +--- com.squareup.okio:okio:3.18.2 (*)
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.21 (*)
-+|    \--- org.ogce:xpp3:1.1.6
-+|         +--- junit:junit:4.7
-+|         \--- jakarta-regexp:jakarta-regexp:1.4
++|    +--- org.ogce:xpp3:1.1.6
++|    |    +--- junit:junit:4.7
++|    |    \--- jakarta-regexp:jakarta-regexp:1.4
++|    \--- org.tasks:etebase-jvm:1.0.0-beta01
++|         \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.12.0
++|              +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0 (*)
++|              \--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21 -> 2.1.21
++|                   +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
++|                   \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
++|                        \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
 ++--- androidx.room3:room3-runtime:3.0.3 (*)
 ++--- androidx.sqlite:sqlite-bundled:2.7.1 (*)
 ++--- androidx.datastore:datastore-preferences:1.2.1 (*)
@@ -986,10 +993,7 @@
 +|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
 ++--- sh.calvin.reorderable:reorderable:3.1.0
 +|    \--- sh.calvin.reorderable:reorderable-jvm:3.1.0
-+|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 -> 2.1.21
-+|         |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
-+|         |    \--- org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21
-+|         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
++|         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 -> 2.1.21 (*)
 +|         +--- org.jetbrains.compose.runtime:runtime:1.7.0 -> 1.12.2 (*)
 +|         +--- org.jetbrains.compose.animation:animation:1.7.0 -> 1.12.2 (*)
 +|         \--- org.jetbrains.compose.foundation:foundation:1.7.0 -> 1.12.2 (*)
@@ -1157,7 +1161,8 @@
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
 +|    +--- com.google.code.gson:gson:2.10.1 -> 2.11.0 (*)
 +|    +--- com.squareup.okhttp3:okhttp-bom:4.12.0
-+|    |    \--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0 (c)
++|    |    +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0 (c)
++|    |    \--- com.squareup.okhttp3:logging-interceptor:4.12.0 (c)
 +|    +--- com.squareup.okhttp3:okhttp -> 5.5.0 (*)
 +|    \--- com.squareup.okio:okio:3.11.0 -> 3.18.2 (*)
 ++--- dev.nucleusframework:nucleus.notification-linux:2.5.18

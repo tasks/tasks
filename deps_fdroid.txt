@@ -101,7 +101,7 @@
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.20 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-parcelize-runtime:2.4.10 (*)
 ++--- project ':kmp'
-+|    +--- com.etebase:client:2.3.2
++|    +--- org.tasks:etebase-android:1.0.0-beta01
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
 +|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1
 +|    |         \--- com.squareup.okhttp3:okhttp:3.12.1 -> 5.5.0
@@ -1788,7 +1788,7 @@
 +|    +--- androidx.work:work-runtime:2.12.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.20 (*)
 +|    \--- androidx.work:work-runtime:2.12.0 (c)
-++--- com.etebase:client:2.3.2 (*)
+++--- org.tasks:etebase-android:1.0.0-beta01 (*)
 ++--- com.github.jheld:colorpicker:a0c2fd2125
 +|    \--- androidx.appcompat:appcompat:1.1.0 -> 1.8.0 (*)
 ++--- net.openid:appauth:0.11.1

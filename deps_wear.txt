@@ -1016,7 +1016,7 @@
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    \--- com.google.protobuf:protobuf-kotlin-lite:4.33.2 (*)
 ++--- project ':kmp'
-+|    +--- com.etebase:client:2.3.2
++|    +--- org.tasks:etebase-android:1.0.0-beta01
 +|    |    +--- androidx.annotation:annotation:1.1.0 -> 1.10.0 (*)
 +|    |    \--- com.squareup.okhttp3:logging-interceptor:3.12.1 -> 4.12.0
 +|    |         +--- com.squareup.okhttp3:okhttp:4.12.0 -> 5.5.0
