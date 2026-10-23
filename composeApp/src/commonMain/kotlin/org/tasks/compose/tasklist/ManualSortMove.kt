@@ -2,6 +2,7 @@ package org.tasks.compose.tasklist
 
 import org.tasks.data.TaskContainer
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
 import org.tasks.tasklist.SectionedDataSource
 
 /**
@@ -157,6 +158,70 @@ internal fun SectionedDataSource.planManualSortDrop(
     )
 }
 
+/**
+ * A planned reparent: [task] becomes a direct child of [newParent], appended to the
+ * end of its children.
+ */
+internal data class ManualSortReparent(
+    val task: TaskContainer,
+    val newParent: TaskContainer,
+)
+
+/**
+ * Plans a drop of the task with [taskId] onto the task row at [targetSectionIndex],
+ * making the dropped task a subtask of the target.
+ *
+ * Rejected with null (the drop is a no-op):
+ * - the target is a header or hidden row, or is the task itself;
+ * - the target is the task's current parent (it is already a child; sibling
+ *   placement belongs to the gap zones);
+ * - the target is in a different CalDAV calendar (cross-list reparenting is a
+ *   follow-up, mirroring the native app's separate `taskMover` path);
+ * - a section header separates the task and the target;
+ * - the target is inside the task's own subtree (would create a cycle).
+ *
+ * [deletions] is `SubtaskTreeRegistry.deletions`; hidden rows are not render
+ * targets and are rejected.
+ */
+internal fun SectionedDataSource.planManualSortReparent(
+    deletions: Map<String, Boolean>,
+    taskId: Long,
+    targetSectionIndex: Int,
+): ManualSortReparent? {
+    if (targetSectionIndex < 0 || targetSectionIndex >= size) return null
+    if (isHeader(targetSectionIndex)) return null
+    val target = getItem(targetSectionIndex)
+    if (rowState(deletions, target) == RowState.Hidden) return null
+    val index = indexOf(taskId) ?: return null
+    val task = getItem(index)
+    if (target.id == taskId) return null
+    if (task.parent == target.id) return null // already a direct child of the target
+    if (task.caldav != target.caldav) return null // v1: same calendar only
+    // The drop must stay inside the task's own section.
+    val (lo, hi) = if (index < targetSectionIndex) index to targetSectionIndex else targetSectionIndex to index
+    for (i in lo..hi) {
+        if (i != index && i != targetSectionIndex && isHeader(i)) return null
+    }
+    // In the pre-order display, every row after the task with a deeper indent than
+    // the task's (until the first shallower-or-equal row) is its own subtree; the
+    // target being one of them would make the task its own descendant.
+    // In the pre-order display, the target is inside the task's own subtree exactly
+    // when it is deeper than the task and no row between them carries an indent at or
+    // below the task's (the boundary back out of the subtree) or a section header.
+    // Making the task a child of one of its own descendants would cycle, so reject.
+    if (target.indent > task.indent) {
+        var insideOwnSubtree = true
+        for (i in index + 1 until targetSectionIndex) {
+            if (isHeader(i) || getItem(i).indent <= task.indent) {
+                insideOwnSubtree = false
+                break
+            }
+        }
+        if (insideOwnSubtree) return null
+    }
+    return ManualSortReparent(task, target)
+}
+
 private fun SectionedDataSource.indexOf(taskId: Long): Int? {
     for (i in 0 until size) {
         if (!isHeader(i) && getItem(i).id == taskId) return i
@@ -204,6 +269,7 @@ private fun SectionedDataSource.nextRenderedTaskOutsideOwnSubtree(
  */
 internal class CaldavTaskReorderer(
     private val caldavDao: CaldavDao,
+    private val taskDao: TaskDao,
 ) {
     suspend fun move(
         dataSource: SectionedDataSource,
@@ -239,6 +305,37 @@ internal class CaldavTaskReorderer(
             newParent = plan.task.parent,
             newPosition = plan.newPosition,
         )
+        return true
+    }
+
+    /**
+     * Commits a drop of [taskId] onto the row at [targetSectionIndex]: the task
+     * becomes a direct subtask of that row's task, appended to the end of its
+     * children (the native app's `findLastTask(...)?.plus(1)` position convention,
+     * since a null order would sort by creation time rather than last).
+     *
+     * Mirrors the native `changeCaldavParent` commit: the order goes through the
+     * shared `CaldavDao.move` (dense renumbering + dirty marking for CalDAV sync),
+     * and the local `tasks.parent` column through `TaskDao.setParent`. Returns true
+     * when the reparent was performed, false when the plan rejected the drop.
+     */
+    suspend fun reparentMove(
+        dataSource: SectionedDataSource,
+        deletions: Map<String, Boolean>,
+        taskId: Long,
+        targetSectionIndex: Int,
+    ): Boolean {
+        val plan = dataSource.planManualSortReparent(deletions, taskId, targetSectionIndex)
+            ?: return false
+        val newPosition = caldavDao.findLastTask(plan.task.caldav!!, plan.newParent.id)?.plus(1)
+            ?: 0L
+        caldavDao.move(
+            task = plan.task,
+            previousParent = plan.task.parent,
+            newParent = plan.newParent.id,
+            newPosition = newPosition,
+        )
+        taskDao.setParent(plan.newParent.id, listOf(taskId))
         return true
     }
 }
