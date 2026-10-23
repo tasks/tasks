@@ -29,6 +29,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -106,6 +107,17 @@ internal fun TaskList(
     // half-step threshold (isIndented/isOutdented).
     var dragIndentLevel by remember { mutableIntStateOf(0) }
 
+    // The reorderable library's draggable modifier captures the drag callbacks in a
+    // pointer-input scope that is NOT re-run on recomposition (verified in the
+    // library bytecode: the callback is a final field of the captured lambda), so a
+    // callback created in an earlier composition keeps reading that composition's
+    // `tasks` forever. After a commit replaces the data source, a row that has not
+    // moved position keeps its stale callback - the drop decision then sees the
+    // pre-commit task (stale indent) and no-ops. The fix is the standard holder
+    // pattern: the library gets a stable wrapper, the holder is re-assigned on every
+    // recomposition, and `tasksRef` always reads the current data source.
+    val tasksRef by rememberUpdatedState(tasks)
+
     /** Half an indent step in list pixels: the fixed half-step threshold of the native app's drag commit. */
     val indentStepPx = with(density) { (INDENT_STEP_DP / 2).dp.toPx() }
 
@@ -143,7 +155,7 @@ internal fun TaskList(
      */
     fun reparentTarget(task: TaskContainer, dropIndex: Int): Long? {
         if (!isIndented(pointerX)) return null
-        return tasks.reparentTargetForDrop(deletions, task.id, dropIndex)
+        return tasksRef.reparentTargetForDrop(deletions, task.id, dropIndex)
     }
 
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
@@ -173,9 +185,12 @@ internal fun TaskList(
                         if (!change.pressed) continue
                         pointerX = change.position.x
                         val drag = dragTask ?: continue
-                        val pos = display.indexOfFirst { keyOf(it) == drag.taskId }
+                        val pos = display.indexOfFirst { sectionIndex ->
+                            !tasksRef.isHeader(sectionIndex) &&
+                                tasksRef.getItem(sectionIndex).id == drag.taskId
+                        }
                         val dragIndent =
-                            if (pos in display.indices) tasks.getItem(display[pos]).indent else 0
+                            if (pos in display.indices) tasksRef.getItem(display[pos]).indent else 0
                         // The native app's "into" cue, without its colour: the dragged row's
                         // shift level, from the same half-step threshold the commit uses.
                         val level = when {
@@ -252,47 +267,58 @@ internal fun TaskList(
                 )
                 // The handle modifier carries the library's gesture; it must be applied
                 // to the handle node inside DragHandle (the TaskRow passes its own
-                // bare modifier for layout, appended after the gesture).
-                val handle = Modifier.draggableHandle(
-                    onDragStarted = {
-                        // The pointer has been observed at every pressed event since
-                        // the down; the last value is the grab position the indent
-                        // delta is measured from.
-                        dragStartPointerX = pointerX
-                        dragTask = ReparentDrag(task.id, display.indexOf(sectionIndex))
-                    },
-                    onDragStopped = {
-                        dragIndentLevel = 0
-                        val drag = dragTask
-                        dragTask = null
-                        // The settled display position is exactly the planner's
-                        // dropIndex convention (row the task occupies after the move).
-                        val pos = display.indexOf(sectionIndex)
-                        if (pos >= 0 && drag != null) {
-                            val target = reparentTarget(task, pos)
-                            when {
-                                // Indented release (pointer more than half an indent
-                                // step right of the grab point): the drop makes the
-                                // task a subtask of the nearest shallower-or-equal row
-                                // above the settled position, appended to its
-                                // children. Legal also in place: a straight horizontal
-                                // drag reparents the task in its own slot (the native
-                                // app's two-item case). A reparent the planner rejects
-                                // (own subtree, cross-calendar) settles back.
-                                target != null -> onTaskReparent(task.id, target)
-                                // Outdented release (pointer more than half an indent
-                                // step left of the grab point): the task moves one
-                                // indent level shallower at the settled position.
-                                isOutdented(pointerX) && task.indent > 0 ->
-                                    onTaskOutdent(task.id, pos)
-                                // A non-indented, non-outdented release keeps the
-                                // settled sibling position, exactly as the plain
-                                // reorder path does; a release that settles back on
-                                // the same row is a no-op.
-                                pos != drag.startPos -> onTaskDrop(task.id, pos)
-                            }
+                // bare modifier for layout, appended after the gesture). The library
+                // captures these callbacks once (pointer-input scope, no recomposition
+                // re-run), so the real bodies live in holders that are re-assigned on
+                // every recomposition with fresh task/tasks/display values; the
+                // wrappers handed to the library read the current holder at call time.
+                val dragStartedRef = remember { mutableStateOf<(Any) -> Unit>({ _ -> }) }
+                val dragStoppedRef = remember { mutableStateOf<() -> Unit>({}) }
+                dragStartedRef.value = { _ ->
+                    // The pointer has been observed at every pressed event since
+                    // the down; the last value is the grab position the indent
+                    // delta is measured from.
+                    dragStartPointerX = pointerX
+                    dragTask = ReparentDrag(task.id, display.indexOf(sectionIndex))
+                }
+                dragStoppedRef.value = {
+                    dragIndentLevel = 0
+                    val drag = dragTask
+                    dragTask = null
+                    // Look the task and its settled position up FRESH from the
+                    // current display and data source, keyed by the task id (the
+                    // holder makes this run in the current composition's scope even
+                    // when the library fires a callback it captured earlier).
+                    val pos = if (drag != null) display.indexOfFirst { keyOf(it) == drag.taskId } else -1
+                    if (drag != null && pos >= 0) {
+                        val freshTask = tasksRef.getItem(display[pos])
+                        val target = reparentTarget(freshTask, pos)
+                        when {
+                            // Indented release (pointer more than half an indent
+                            // step right of the grab point): the drop makes the
+                            // task a subtask of the nearest shallower-or-equal row
+                            // above the settled position, appended to its
+                            // children. Legal also in place: a straight horizontal
+                            // drag reparents the task in its own slot (the native
+                            // app's two-item case). A reparent the planner rejects
+                            // (own subtree, cross-calendar) settles back.
+                            target != null -> onTaskReparent(freshTask.id, target)
+                            // Outdented release (pointer more than half an indent
+                            // step left of the grab point): the task moves one
+                            // indent level shallower at the settled position.
+                            isOutdented(pointerX) && freshTask.indent > 0 ->
+                                onTaskOutdent(freshTask.id, pos)
+                            // A non-indented, non-outdented release keeps the
+                            // settled sibling position, exactly as the plain
+                            // reorder path does; a release that settles back on
+                            // the same row is a no-op.
+                            pos != drag.startPos -> onTaskDrop(freshTask.id, pos)
                         }
-                    },
+                    }
+                }
+                val handle = Modifier.draggableHandle(
+                    onDragStarted = { dragStartedRef.value(it) },
+                    onDragStopped = { dragStoppedRef.value() },
                 )
                 Surface(
                     shadowElevation = elevation,
