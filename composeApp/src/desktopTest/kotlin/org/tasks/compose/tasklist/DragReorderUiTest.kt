@@ -65,6 +65,8 @@ class DragReorderUiTest {
     private class Dropped {
         var taskId: Long? = null
         var dropIndex: Int = -1
+        var reparentTaskId: Long? = null
+        var reparentTargetId: Long? = null
     }
 
     @Composable
@@ -81,6 +83,10 @@ class DragReorderUiTest {
                 onTaskDrop = { taskId, dropIndex ->
                     dropped.taskId = taskId
                     dropped.dropIndex = dropIndex
+                },
+                onTaskReparent = { taskId, targetTaskId ->
+                    dropped.reparentTaskId = taskId
+                    dropped.reparentTargetId = targetTaskId
                 },
                 onTaskClick = {},
                 onCompleteTask = { _, _ -> },
@@ -135,6 +141,27 @@ class DragReorderUiTest {
             handles[0].dragTo(handles[2])
             assertEquals(1L, dropped.taskId)
             assertEquals(2, dropped.dropIndex)
+        }
+    }
+
+    @Test
+    fun anIndentedDragReparentsOntoTheNeighbour() = runComposeUiTest {
+        runWithKoin {
+            val dropped = Dropped()
+            setContent { List(dropped = dropped) }
+            val handles = onAllNodesWithTag(DRAG_HANDLE_TAG)
+            val dy = handles[2].center().y - handles[0].center().y
+            // More than half an indent step (10px at test density) to the right of the
+            // grab point: the drop makes the task a subtask of the nearest row above
+            // the settled position - here, the row it landed below.
+            handles[0].performTouchInput {
+                down(center)
+                moveTo(center + Offset(30f, dy))
+                up()
+            }
+            assertEquals(1L, dropped.reparentTaskId)
+            assertEquals(3L, dropped.reparentTargetId)
+            assertNull(dropped.taskId)
         }
     }
 

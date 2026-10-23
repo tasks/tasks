@@ -8,6 +8,7 @@ import org.junit.Test
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
+import org.tasks.data.subtaskKey
 import org.tasks.tasklist.SectionedDataSource
 
 /**
@@ -138,6 +139,85 @@ class ManualSortReparentTest {
         assertNull(ds.planManualSortReparent(emptyMap(), taskId = 3, targetSectionIndex = 0))
         assertNull(ds.planManualSortReparent(emptyMap(), taskId = 3, targetSectionIndex = 3))
     }
+
+    // ------------------------------------------------------------------
+    // reparentTargetForDrop - the horizontal-indent decision (native
+    // findParentIndex): the nearest rendered row above the settled position whose
+    // indent is at most the dragged task's becomes the new parent.
+
+    @Test
+    fun indentedDropBelowSiblingAtSameIndentTargetsThatSibling() {
+        // The two-item case: A(0), B(0). Dragging A indented below B settles at row
+        // 1; walking back, B (indent 0 <= 0) is the parent candidate.
+        val a = t(1, order = 1)
+        val b = t(2, order = 2)
+        val ds = list(a, b)
+        assertEquals(2L, ds.reparentTargetForDrop(emptyMap(), taskId = 1, dropIndex = 1))
+    }
+
+    @Test
+    fun indentedDropAtTopOfListHasNoParent() {
+        // Settling at row 0 leaves nothing above to become the parent; the caller
+        // falls back to the plain sibling drop.
+        val a = t(1, order = 1)
+        val b = t(2, order = 2)
+        val ds = list(a, b)
+        assertNull(ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 0))
+    }
+
+    @Test
+    fun indentedDropTargetsNearestShallowerRowNotFirstInList() {
+        // P(0), C(1), D(1): dragging C indented below D settles at row 2; the walk
+        // must stop at D (indent 1 <= 1) and not continue to P.
+        val p = t(1, order = 1)
+        val c = t(2, parent = 1, indent = 1, order = 1)
+        val d = t(3, parent = 1, indent = 1, order = 2)
+        val ds = list(p, c, d)
+        assertEquals(3L, ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 2))
+    }
+
+    @Test
+    fun indentedDropIntoSubtreeTargetsSubtreeOwner() {
+        // P(0), Q(0), C(1, P's child): dragging Q indented below C settles at row 2;
+        // C is deeper than Q so the walk continues to P, which becomes the parent.
+        val p = t(1, order = 1)
+        val q = t(2, order = 2)
+        val c = t(3, parent = 1, indent = 1, order = 1)
+        val ds = list(p, q, c)
+        assertEquals(1L, ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 2))
+    }
+
+    @Test
+    fun indentedDropWalkSkipsHiddenRows() {
+        // P(0), Q(0), H(0, hidden), R(1, Q's child): dragging Q indented to settle at
+        // row 2 puts the hidden H directly above the drop point in the pre-settle
+        // list; the walk must skip it and target P (the rendered row above).
+        val p = t(1, order = 1)
+        val q = t(2, order = 2)
+        val h = t(3, order = 3)
+        val r = t(4, parent = 2, indent = 1, order = 1)
+        val ds = list(p, q, h, r)
+        val deletions = mapOf(subtaskKey(h.task) to false) // false = RowState.Hidden
+        assertEquals(1L, ds.reparentTargetForDrop(deletions, taskId = 2, dropIndex = 2))
+    }
+
+    @Test
+    fun indentedDropWalkStopsAtSectionHeader() {
+        // header(0), A(1) | header(2), B(3): settling B at the top of its section
+        // crosses a header walking back - no parent, plain sibling drop.
+        val a = t(1, order = 1).copy(sortGroup = 1000)
+        val b = t(2, order = 2).copy(sortGroup = 2000)
+        val ds = SectionedDataSource(
+            tasks = listOf(a, b),
+            disableHeaders = false,
+            groupMode = com.todoroo.astrid.core.SortHelper.SORT_LIST,
+        )
+        assertTrue(ds.isHeader(0))
+        assertTrue(ds.isHeader(2))
+        assertNull(ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 3))
+    }
+
+    // ------------------------------------------------------------------
 
     @Test
     fun crossSectionDropIsRejected() {

@@ -78,6 +78,8 @@ internal fun rowState(deletions: Map<String, Boolean>, task: TaskContainer): Row
     }
 
 internal const val COMPLETE_BUTTON_TAG = "task-row-complete"
+internal const val ROW_TEST_TAG = "task_row_"
+internal const val REPARENT_TARGET_TAG = "task-row-reparent-target"
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -96,6 +98,7 @@ internal fun TaskRow(
     onFilterClick: (Filter) -> Unit,
     dragHandle: (@Composable (Modifier) -> Unit)? = null,
     dragged: Boolean = false,
+    reparentTarget: Boolean = false,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -113,12 +116,15 @@ internal fun TaskRow(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
+            .testTag(ROW_TEST_TAG + task.id)
             .padding(start = (INDENT_STEP_DP * task.indent).dp)
             .then(
-                if (dragged) {
-                    Modifier.background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                } else {
-                    Modifier
+                when {
+                    dragged -> Modifier.background(MaterialTheme.colorScheme.surfaceContainerHighest)
+                    reparentTarget -> Modifier
+                        .background(MaterialTheme.colorScheme.secondaryContainer)
+                        .testTag(REPARENT_TARGET_TAG)
+                    else -> Modifier
                 },
             ),
         contentPadding = PaddingValues(

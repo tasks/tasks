@@ -222,7 +222,51 @@ internal fun SectionedDataSource.planManualSortReparent(
     return ManualSortReparent(task, target)
 }
 
-private fun SectionedDataSource.indexOf(taskId: Long): Int? {
+/**
+ * The parent candidate for an indented drop: the nearest rendered row above the
+ * settled position [dropIndex] whose indent is at most the dragged task's indent -
+ * the port of the native app's `findParentIndex`.
+ *
+ * The native app decides between sibling reorder and subtask from the drag's
+ * horizontal offset; the caller applies that threshold, and this function is the
+ * vertical half of the decision. An indented drop places the task one indent level
+ * deeper than its current indent, so the parent is the nearest row whose indent is
+ * at most the task's current one - which includes rows at the same indent: dropping
+ * a row indented below its sibling makes it that sibling's subtask (the native app's
+ * two-item case).
+ *
+ * [dropIndex] is the task's settled row, i.e. the display with the task removed plus
+ * the task inserted there. Walking the pre-settle data list, the rows above the
+ * settled position are rows `0..dropIndex-1` for an upward drag and the shifted rows
+ * `index+1..dropIndex` then `0..index-1` for a downward drag - so the walk starts at
+ * the row now occupying the slot directly above the drop point (the current
+ * `dropIndex` row when moving down) and skips the task's own vacated row.
+ *
+ * Returns null when no such row exists (for example a drop at the top of the list):
+ * the caller then falls back to the plain sibling drop at the settled position.
+ * A section header ends the walk; hidden (not rendered) rows are skipped.
+ */
+internal fun SectionedDataSource.reparentTargetForDrop(
+    deletions: Map<String, Boolean>,
+    taskId: Long,
+    dropIndex: Int,
+): Long? {
+    val index = indexOf(taskId) ?: return null
+    if (dropIndex == index) return null
+    val task = getItem(index)
+    // An upward settle at row 0 starts at -1: an empty range, nothing above it.
+    val start = if (dropIndex > index) dropIndex else dropIndex - 1
+    for (i in start downTo 0) {
+        if (i == index) continue // the task's own vacated row is not a parent
+        if (isHeader(i)) return null
+        val row = getItem(i)
+        if (rowState(deletions, row) == RowState.Hidden) continue
+        if (row.indent <= task.indent) return row.id
+    }
+    return null
+}
+
+internal fun SectionedDataSource.indexOf(taskId: Long): Int? {
     for (i in 0 until size) {
         if (!isHeader(i) && getItem(i).id == taskId) return i
     }

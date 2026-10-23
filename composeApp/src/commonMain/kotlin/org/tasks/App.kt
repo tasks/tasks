@@ -165,6 +165,7 @@ import org.tasks.compose.tasklist.CaldavTaskReorderer
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
+import org.tasks.compose.tasklist.indexOf
 import org.tasks.compose.tasklist.planManualSortMove
 import org.tasks.compose.tasklist.rowState
 import org.tasks.compose.drawer.DrawerItem
@@ -2174,6 +2175,18 @@ private fun TaskListPane(
         }
     }
 
+    // Drag-to-reparent: a release in the middle band of another row makes the dragged
+    // task a subtask of that row (appended to its children); the planner enforces the
+    // same-calendar / same-section / no-cycle rules, and a rejected drop settles back.
+    fun reparentTask(taskId: Long, targetTaskId: Long) {
+        val dataSource = manualSortDataSource ?: return
+        val targetIndex = dataSource.indexOf(targetTaskId) ?: return
+        moveScope.launch {
+            reorderer.reparentMove(dataSource, deletions, taskId, targetIndex)
+            viewModel.invalidate()
+        }
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -2262,6 +2275,7 @@ private fun TaskListPane(
                 selectedTaskId = selectedTaskId,
                 dragEnabled = manualSort,
                 onTaskDrop = { taskId, dropIndex -> dropTask(taskId, dropIndex) },
+                onTaskReparent = { taskId, targetTaskId -> reparentTask(taskId, targetTaskId) },
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)

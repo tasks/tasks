@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,6 +29,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -37,6 +40,7 @@ import org.tasks.compose.rememberDateFormatter
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
+import org.tasks.data.INDENT_STEP_DP
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.TaskContainer
 import org.tasks.data.deletions
@@ -56,6 +60,7 @@ internal fun TaskList(
     selectedTaskId: Long? = null,
     dragEnabled: Boolean = false,
     onTaskDrop: (taskId: Long, dropIndex: Int) -> Unit = { _, _ -> },
+    onTaskReparent: (taskId: Long, targetTaskId: Long) -> Unit = { _, _ -> },
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
     onToggleGroup: (Long) -> Unit = {},
@@ -76,6 +81,46 @@ internal fun TaskList(
     fun keyOf(sectionIndex: Int): Any =
         if (tasks.isHeader(sectionIndex)) -sectionIndex.toLong() else tasks.getItem(sectionIndex).id
 
+    // Drag-to-reparent state, shared across rows: the release decision needs the live
+    // display and the pointer position, neither of which any single row owns. The
+    // reorderable library reports no pointer on release, so the last pressed position
+    // is observed non-consumingly; it is already in the LazyColumn's own space (the
+    // pointerInput node), which is the space the row indents below use.
+    val density = LocalDensity.current
+    var dragTask by remember { mutableStateOf<ReparentDrag?>(null) }
+    var pointerX by remember { mutableFloatStateOf(Float.NaN) }
+    var dragStartPointerX by remember { mutableFloatStateOf(Float.NaN) }
+    var reparentTargetId by remember { mutableStateOf<Long?>(null) }
+
+    /** Half an indent step in list pixels: the fixed half-step threshold of the native app's drag commit. */
+    val indentStepPx = with(density) { (INDENT_STEP_DP / 2).dp.toPx() }
+
+    /**
+     * Whether the pointer has travelled more than half an indent step to the right of
+     * where the drag started. A drag with no horizontal travel is a plain sibling
+     * reorder regardless of the vertical drop point (the native app's two-item case);
+     * only an indented drag can turn the task into a subtask. The delta is measured
+     * from the grab point, not against the row's indent edge, because the drag handle
+     * sits to the right of the edge: a straight-down drag from the handle must stay a
+     * sibling reorder.
+     */
+    fun isIndented(pointerX: Float): Boolean =
+        !pointerX.isNaN() &&
+            !dragStartPointerX.isNaN() &&
+            pointerX - dragStartPointerX > indentStepPx
+
+    /**
+     * The task that would become the new parent if the drag were released now, with
+     * the live display settling the task onto row [dropIndex], or null for a plain
+     * sibling settle. The horizontal test gates on [isIndented]; the parent is the
+     * native `findParentIndex` nearest shallower-or-equal row above the settled
+     * position ([reparentTargetForDrop]).
+     */
+    fun reparentTarget(task: TaskContainer, dropIndex: Int): Long? {
+        if (!isIndented(pointerX)) return null
+        return tasks.reparentTargetForDrop(deletions, task.id, dropIndex)
+    }
+
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
         // from/to keys are the LazyColumn item keys (stable across header offsets),
         // so the data list is located by key, exactly as the library's demo does.
@@ -89,7 +134,29 @@ internal fun TaskList(
     }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        // Non-consuming observation: the reorderable library owns the
+                        // gesture; here the pointer is only tracked for the drop-zone
+                        // decision and the live "into" indicator.
+                        val event = awaitPointerEvent()
+                        val change = event.changes.firstOrNull() ?: continue
+                        if (!change.pressed) continue
+                        pointerX = change.position.x
+                        val drag = dragTask ?: continue
+                        val pos = display.indexOfFirst { keyOf(it) == drag.taskId }
+                        val target = if (pos in display.indices) {
+                            reparentTarget(tasks.getItem(display[pos]), pos)
+                        } else {
+                            null
+                        }
+                        if (target != reparentTargetId) reparentTargetId = target
+                    }
+                }
+            },
         state = listState,
         contentPadding = PaddingValues(
             top = topPadding,
@@ -138,22 +205,40 @@ internal fun TaskList(
             // CalDAV path. Section/parent/subtree legality is enforced there.
             ReorderableItem(reorderableState, task.id) { isDragging ->
                 val elevation by animateDpAsState(if (isDragging) 8.dp else 0.dp)
-                // Display position the task left from; a release that settles back on
-                // the same row is a no-op and is not reported.
-                var dragStartPos by remember { mutableStateOf(-1) }
                 // The handle modifier carries the library's gesture; it must be applied
                 // to the handle node inside DragHandle (the TaskRow passes its own
                 // bare modifier for layout, appended after the gesture).
                 val handle = Modifier.draggableHandle(
                     onDragStarted = {
-                        dragStartPos = display.indexOf(sectionIndex)
+                        // The pointer has been observed at every pressed event since
+                        // the down; the last value is the grab position the indent
+                        // delta is measured from.
+                        dragStartPointerX = pointerX
+                        dragTask = ReparentDrag(task.id, display.indexOf(sectionIndex))
                     },
                     onDragStopped = {
+                        reparentTargetId = null
+                        val drag = dragTask
+                        dragTask = null
                         // The settled display position is exactly the planner's
-                        // dropIndex convention (row the task occupies after the move).
+                        // dropIndex convention (row the task occupies after the move);
+                        // a release that settles back on the same row is a no-op.
                         val pos = display.indexOf(sectionIndex)
-                        if (pos >= 0 && pos != dragStartPos) onTaskDrop(task.id, pos)
-                        dragStartPos = -1
+                        if (pos >= 0 && drag != null && pos != drag.startPos) {
+                            // Indented release (pointer beyond the row's indent edge
+                            // plus half a step): the drop makes the task a subtask of
+                            // the nearest shallower-or-equal row above the settled
+                            // position, appended to its children. A non-indented
+                            // release keeps the settled sibling position, exactly as
+                            // the plain reorder path does. A reparent the planner
+                            // rejects (own subtree, cross-calendar) settles back.
+                            val target = reparentTarget(task, pos)
+                            if (target != null) {
+                                onTaskReparent(task.id, target)
+                            } else {
+                                onTaskDrop(task.id, pos)
+                            }
+                        }
                     },
                 )
                 Surface(
@@ -179,12 +264,16 @@ internal fun TaskList(
                         onFilterClick = onFilterClick,
                         dragHandle = { modifier -> DragHandle(handleModifier = handle.then(modifier)) },
                         dragged = isDragging,
+                        reparentTarget = reparentTargetId == task.id,
                     )
                 }
             }
         }
     }
 }
+
+/** The task being dragged and the display position it left from. */
+private data class ReparentDrag(val taskId: Long, val startPos: Int)
 
 @Composable
 private fun SectionHeader(
