@@ -9,6 +9,9 @@ import org.junit.Test
  * shared SQL builder's rendering rules, so they also guard against drift in
  * the shared primitives.
  */
+// Hand-pinned SQL/serialization fixtures: the duplicated literals and the per-criterion
+// test methods are deliberate, so the complexity/duplication findings are suppressed.
+@Suppress("TooManyFunctions", "LongParameterList", "StringLiteralDuplication")
 class FilterCriteriaSqlTest {
 
     private val activeAndVisible =
@@ -188,10 +191,8 @@ class FilterCriteriaSqlTest {
         CriterionInstance.TYPE_UNIVERSE,
     )
 
-    /**
-     * Minimal mirror of `FilterCriteriaProvider.fromString`'s row parsing for
-     * the criterion instances under test (avoids a database in this class).
-     */
+    // Minimal mirror of `FilterCriteriaProvider.fromString`'s row parsing for
+    // the criterion instances under test (avoids a database in this class).
     private fun rehydrate(serialized: String, criteria: List<CustomFilterCriterion>): List<CriterionInstance> {
         val entries = mutableListOf<CriterionInstance>()
         for (row in serialized.trim().split("\n")) {

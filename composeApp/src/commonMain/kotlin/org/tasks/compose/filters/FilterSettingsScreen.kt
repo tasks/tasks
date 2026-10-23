@@ -86,6 +86,10 @@ import tasks.kmp.generated.resources.save
  * via callbacks, which wires the drawer refresh and (for new filters) selection.
  */
 @OptIn(ExperimentalMaterial3Api::class)
+// A full-screen settings surface that also hosts every dialog; splitting it would
+// mean passing the whole view model plus a dozen callbacks around, so the
+// length/parameter findings are suppressed rather than refactored for the linter.
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 fun FilterSettingsScreen(
     viewModel: FilterSettingsViewModel,
@@ -346,16 +350,14 @@ fun FilterSettingsScreen(
     }
 }
 
-/**
- * The draggable list of criterion rows. The first row (the universe) is locked; the
- * rest can be reordered by dragging and opened (AND/OR/NOT) by clicking.
- */
 @Composable
 private fun CriteriaList(
     criteria: List<CriterionInstance>,
     onRowClick: (Int) -> Unit,
     onMove: (from: Int, to: Int) -> Unit,
 ) {
+    // The draggable list of criterion rows. The first row (the universe) is locked;
+    // the rest can be reordered by dragging and opened (AND/OR/NOT) by clicking.
     ReorderableColumn(
         list = criteria,
         onSettle = { from, to -> onMove(from, to) },

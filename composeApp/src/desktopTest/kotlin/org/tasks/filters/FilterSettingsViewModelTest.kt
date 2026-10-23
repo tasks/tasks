@@ -22,6 +22,7 @@ import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Task
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@Suppress("TooManyFunctions")
 class FilterSettingsViewModelTest : DatabaseTest() {
 
     private val filterDao = db.filterDao()
@@ -47,14 +48,15 @@ class FilterSettingsViewModelTest : DatabaseTest() {
         templateIndex = templateIndex,
     )
 
-    /**
-     * The VM's init (and openAddCriterion) suspend on string-resource resolution, which
-     * resumes off the test thread even with Main set to Unconfined. Wait for the state to
-     * settle instead of assuming the launch ran inline. Once criteria is non-empty it stays
-     * that way (the universe row is always present), so this is a stable loaded signal.
-     */
-    private suspend fun waitForCriteria(vm: FilterSettingsViewModel) =
-        withTimeout(5_000) { vm.state.first { it.criteria.isNotEmpty() } }
+    private suspend fun waitForCriteria(
+        vm: FilterSettingsViewModel,
+    ): FilterSettingsViewModel.State {
+        // The VM's init (and openAddCriterion) suspend on string-resource resolution, which
+        // resumes off the test thread even with Main set to Unconfined. Wait for the state to
+        // settle instead of assuming the launch ran inline. Once criteria is non-empty it stays
+        // that way (the universe row is always present), so this is a stable loaded signal.
+        return withTimeout(5_000) { vm.state.first { it.criteria.isNotEmpty() } }
+    }
 
     private suspend fun openCatalog(vm: FilterSettingsViewModel) {
         vm.openAddCriterion()

@@ -56,6 +56,7 @@ import tasks.kmp.generated.resources.rmd_NoA_done
  *
  * All accessors are suspend because string resolution is.
  */
+@Suppress("TooManyFunctions")
 class FilterCriteriaProvider(
     private val tagDataDao: TagDataDao,
     private val caldavDao: CaldavDao,
@@ -113,7 +114,7 @@ class FilterCriteriaProvider(
             IDENTIFIER_PARENT -> parentFilter()
             IDENTIFIER_SUBTASK -> subtaskFilter()
             IDENTIFIER_REMINDERS -> reminderFilter()
-            else -> throw RuntimeException("Unknown identifier: $identifier")
+            else -> throw IllegalArgumentException("Unknown identifier: $identifier")
         }
 
     suspend fun startingUniverse(): CustomFilterCriterion = MultipleSelectCriterion(

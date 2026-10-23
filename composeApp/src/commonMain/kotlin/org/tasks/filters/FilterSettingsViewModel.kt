@@ -37,6 +37,7 @@ import kotlin.math.max
  * - create from a template: [templateIndex] non-null — criteria from [FilterTemplates];
  * - create custom / empty: neither — starts with just the locked universe row.
  */
+@Suppress("TooManyFunctions", "LongParameterList")
 class FilterSettingsViewModel(
     private val filterCriteriaProvider: FilterCriteriaProvider,
     private val filterDao: FilterDao,
@@ -79,7 +80,6 @@ class FilterSettingsViewModel(
     )
     val state: StateFlow<State> = _state
 
-    /** The locked first (universe) row; created once during init (suspend). */
     private var universeRow: CriterionInstance? = null
 
     init {

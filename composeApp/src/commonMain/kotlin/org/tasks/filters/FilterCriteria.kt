@@ -68,6 +68,7 @@ abstract class CustomFilterCriterion {
  * A criterion whose value is chosen from a fixed list of entries
  * (port of `com.todoroo.astrid.api.MultipleSelectCriterion`).
  */
+@Suppress("LongParameterList")
 class MultipleSelectCriterion(
     identifier: String,
     title: String,

@@ -142,17 +142,15 @@ fun NavigationDrawerDetail(
     }
 }
 
-/**
- * Desktop-only custom-filters list, rendered into the shared navigation-drawer settings
- * screen via its optional [filterSection] slot. Android never passes one, so its layout
- * is unchanged.
- */
 @Composable
 private fun CustomFilterSection(
     refreshKey: Int,
     onAdd: () -> Unit,
     onEdit: (Filter) -> Unit,
 ) {
+    // Desktop-only custom-filters list, rendered into the shared navigation-drawer settings
+    // screen via its optional [filterSection] slot. Android never passes one, so its
+    // layout is unchanged.
     val filterDao = koinInject<FilterDao>()
     val filters by produceState(initialValue = emptyList(), key1 = refreshKey) {
         value = filterDao.getFilters()
