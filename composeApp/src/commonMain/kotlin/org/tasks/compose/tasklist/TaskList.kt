@@ -254,9 +254,11 @@ internal fun TaskList(
                 // threshold, the dragged row shifts one indent step toward its drop
                 // level (the native app's "about to become a subtask" cue; there is
                 // no colour highlight). Implemented as animated start padding so the
-                // row genuinely indents (handle and content shift together); on
-                // release the offset animates back to zero while the commit settles
-                // the data.
+                // row genuinely indents (handle and content shift together). The
+                // animated value is only applied while the drag of THIS task is
+                // active: on release the commit changes task.indent instantly, so
+                // letting the animation run out afterwards would add a stale
+                // negative offset to an already-outdented row (negative padding).
                 val dragIndentOffset by animateDpAsState(
                     targetValue = if (isDragging && dragTask?.taskId == task.id) {
                         (dragIndentLevel * INDENT_STEP_DP).dp
@@ -343,7 +345,11 @@ internal fun TaskList(
                         onFilterClick = onFilterClick,
                         dragHandle = { modifier -> DragHandle(handleModifier = handle.then(modifier)) },
                         dragged = isDragging,
-                        dragIndentOffset = dragIndentOffset,
+                        dragIndentOffset = if (dragTask?.taskId == task.id) {
+                            dragIndentOffset
+                        } else {
+                            0.dp
+                        },
                     )
                 }
             }

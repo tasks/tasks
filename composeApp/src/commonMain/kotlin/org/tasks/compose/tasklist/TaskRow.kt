@@ -112,7 +112,9 @@ internal fun TaskRow(
     // takes the elevated surface so the item clearly lifts out of the list.
     // [dragIndentOffset] is the animated mid-drag indent shift (the native app's "about
     // to become a subtask" cue): positive = will indent, negative = will outdent.
-    val indentStart = (INDENT_STEP_DP * task.indent).dp + dragIndentOffset
+    // The clamp keeps the padding non-negative if the offset ever lags a commit
+    // (a top-level row with a stale negative offset must not assert the layout).
+    val indentStart = ((INDENT_STEP_DP * task.indent).dp + dragIndentOffset).coerceAtLeast(0.dp)
     ListItem(
         selected = selected,
         enabled = !doomed,
