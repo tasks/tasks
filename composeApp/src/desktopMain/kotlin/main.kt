@@ -12,6 +12,10 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import dev.nucleusframework.composenativetray.tray.api.Tray
+import org.tasks.hiddenInTray
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.ic_round_icon
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
@@ -136,12 +140,17 @@ private val DEFAULT_HEIGHT = 600.dp
 private const val SHUTDOWN_SAVE_TIMEOUT_MS = 10_000L
 
 @OptIn(FlowPreview::class)
-fun main() {
+fun main(args: Array<String>) {
     if (!acquireLock()) {
         signalExistingInstance()
         return
     }
     startIpcServer()
+    // --tray keeps the app (and the MCP server, sync and reminders with it) running in the system
+    // tray when the window is closed; --minimized starts it there, for launching at login.
+    // Without a tray to show the icon in, launching the app again still brings the window back.
+    val trayMode = "--tray" in args
+    hiddenInTray = trayMode && "--minimized" in args
     org.tasks.caldav.CaldavClient.registerFactories()
     Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
     val fileLogWriter = FileLogWriter(logDir)
@@ -259,45 +268,67 @@ fun main() {
                     }
                 }
         }
-        Window(
-            // This fires while the composition is still alive, so no editor has been cleared or
-            // stopped and nothing is enqueued yet: ask any open editor to commit first, then give
-            // that save a moment to land before tearing the JVM down.
-            onCloseRequest = {
-                if (!closing) {
-                    closing = true
-                    setQuitting(true)
-                    taskRequests.acceptOpenRequests(false)
-                    // The monotonic count, not the one the snackbar acknowledges: that one goes
-                    // down too, and App's snackbar loop is still running while this waits below - so
-                    // an acknowledgement landing in between made a real shutdown failure compare
-                    // equal to the snapshot, and the quit went ahead with the edit lost.
-                    val failuresBefore = pendingSaves.totalSaveFailures.value
-                    pendingSaves.flushPending()
-                    shutdownScope.launch {
-                        if (withTimeoutOrNull(SHUTDOWN_SAVE_TIMEOUT_MS) { pendingSaves.awaitIdle() } == null) {
-                            Logger.w { "Timed out waiting for pending saves, exiting anyway" }
-                        }
-                        // A failed save has nowhere to be reported once the process is gone: the
-                        // window is already hidden and the count it publishes only ever reaches a
-                        // snackbar. So the quit is abandoned instead, and the window comes back with
-                        // the edit still in it and the error on screen.
-                        if (pendingSaves.totalSaveFailures.value > failuresBefore) {
-                            Logger.w { "Save failed while closing, staying open to report it" }
-                            // The composition is still running behind the hidden window, so the
-                            // snackbar it owns can have shown and acknowledged this failure to an
-                            // empty screen while we waited. Re-report it if nothing is owed any
-                            // more, or the window comes back with no explanation on it.
-                            if (pendingSaves.saveFailures.value == 0) {
-                                pendingSaves.reportSaveFailure()
-                            }
-                            closing = false
-                            setQuitting(false)
-                            taskRequests.acceptOpenRequests(true)
-                            return@launch
-                        }
-                        exitApplication()
+        // This runs while the composition is still alive, so no editor has been cleared or stopped
+        // and nothing is enqueued yet: ask any open editor to commit first, then give that save a
+        // moment to land before tearing the JVM down.
+        val quit: () -> Unit = {
+            if (!closing) {
+                closing = true
+                setQuitting(true)
+                taskRequests.acceptOpenRequests(false)
+                // The monotonic count, not the one the snackbar acknowledges: that one goes
+                // down too, and App's snackbar loop is still running while this waits below - so
+                // an acknowledgement landing in between made a real shutdown failure compare
+                // equal to the snapshot, and the quit went ahead with the edit lost.
+                val failuresBefore = pendingSaves.totalSaveFailures.value
+                pendingSaves.flushPending()
+                shutdownScope.launch {
+                    if (withTimeoutOrNull(SHUTDOWN_SAVE_TIMEOUT_MS) { pendingSaves.awaitIdle() } == null) {
+                        Logger.w { "Timed out waiting for pending saves, exiting anyway" }
                     }
+                    // A failed save has nowhere to be reported once the process is gone: the
+                    // window is already hidden and the count it publishes only ever reaches a
+                    // snackbar. So the quit is abandoned instead, and the window comes back with
+                    // the edit still in it and the error on screen.
+                    if (pendingSaves.totalSaveFailures.value > failuresBefore) {
+                        Logger.w { "Save failed while closing, staying open to report it" }
+                        // The composition is still running behind the hidden window, so the
+                        // snackbar it owns can have shown and acknowledged this failure to an
+                        // empty screen while we waited. Re-report it if nothing is owed any
+                        // more, or the window comes back with no explanation on it.
+                        if (pendingSaves.saveFailures.value == 0) {
+                            pendingSaves.reportSaveFailure()
+                        }
+                        closing = false
+                        // A quit from the tray starts with the window already hidden there.
+                        hiddenInTray = false
+                        setQuitting(false)
+                        taskRequests.acceptOpenRequests(true)
+                        return@launch
+                    }
+                    exitApplication()
+                }
+            }
+        }
+        if (trayMode) {
+            Tray(
+                icon = Res.drawable.ic_round_icon,
+                tooltip = "Tasks",
+                primaryAction = { requestForeground() },
+                menuContent = {
+                    Item("Open Tasks", onClick = { requestForeground() })
+                    Item("Quit", onClick = quit)
+                },
+            )
+        }
+        Window(
+            // In tray mode closing only hides the window: the composition stays alive behind it,
+            // open editor included, so nothing needs committing until the user quits from the tray.
+            onCloseRequest = {
+                if (trayMode && !closing) {
+                    hiddenInTray = true
+                } else {
+                    quit()
                 }
             },
             title = "Tasks",
@@ -305,7 +336,7 @@ fun main() {
             // Hidden the moment the user asks to quit. The flush above has already read what the
             // open editor was holding and there is no second one, so anything typed after it would
             // be lost silently - and a save slow enough to notice would read as a hung window.
-            visible = windowReady && !closing,
+            visible = windowReady && !closing && !hiddenInTray,
         ) {
             window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
