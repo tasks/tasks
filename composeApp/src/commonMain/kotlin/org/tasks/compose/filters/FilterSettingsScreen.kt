@@ -250,6 +250,10 @@ fun FilterSettingsScreen(
                     stringResource(Res.string.custom_filter_not),
                 ),
                 onCancel = { openTypeRow = null },
+                onDelete = {
+                    viewModel.removeAt(index)
+                    openTypeRow = null
+                },
             ) { selected ->
                 val type = when (selected) {
                     0 -> CriterionInstance.TYPE_INTERSECT
@@ -444,6 +448,7 @@ private fun SelectCriterionType(
     selected: Int,
     types: List<String>,
     onCancel: () -> Unit,
+    onDelete: (() -> Unit)? = null,
     onSelected: (Int) -> Unit,
 ) {
     val selected = remember { mutableIntStateOf(selected) }
@@ -479,6 +484,27 @@ private fun SelectCriterionType(
                         ) {
                             Text(label)
                         }
+                    }
+                }
+                if (onDelete != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    HorizontalDivider()
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                    ) {
+                        IconButton(onClick = onDelete) {
+                            SymbolIcon(
+                                name = TasksIcons.DELETE,
+                                contentDescription = stringResource(Res.string.delete),
+                                tint = MaterialTheme.colorScheme.error,
+                            )
+                        }
+                        Text(
+                            text = stringResource(Res.string.delete),
+                            color = MaterialTheme.colorScheme.error,
+                            modifier = Modifier.padding(start = 8.dp),
+                        )
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
