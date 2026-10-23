@@ -168,6 +168,98 @@ internal data class ManualSortReparent(
 )
 
 /**
+ * A planned outdent: [task] moves one indent level shallower, under [newParent]
+ * (0 = top level), at [newPosition] among its new parent's children.
+ */
+internal data class ManualSortOutdent(
+    val task: TaskContainer,
+    val newParent: Long,
+    val newPosition: Long,
+)
+
+/**
+ * Plans an outdent drop of the task with [taskId]: a drag released more than half an
+ * indent step to the left of the grab point moves the task one indent level
+ * shallower, at visible row [dropIndex] (the row the task settles on).
+ *
+ * The new parent is the nearest rendered row above the settled position whose indent
+ * is strictly shallower than the task's new indent; none means top level (0). An
+ * indent-1 task always outdents to the top level, matching the "drag back to a
+ * normal task" affordance. The position uses the same dense-order convention as
+ * [planManualSortDrop]: the task takes the slot of the (k+1)-th rendered new
+ * sibling, k = the number of rendered new siblings above the settled position -
+ * moving down lands just below that sibling, moving up or in place takes its
+ * slot. An in-place outdent keeps the task in its own visual slot; a drop below
+ * the task's own subtree is legal, since the subtree follows the task and the
+ * settle lands at the task's own slot among the new siblings. Rejected with
+ * null: a top-level task (nothing to outdent), a header or hidden drop point,
+ * and a drop that crosses a section header.
+ */
+internal fun SectionedDataSource.planManualSortOutdent(
+    deletions: Map<String, Boolean>,
+    taskId: Long,
+    dropIndex: Int,
+): ManualSortOutdent? {
+    val index = indexOf(taskId) ?: return null
+    if (dropIndex < 0 || dropIndex >= size) return null
+    if (isHeader(dropIndex)) return null
+    val task = getItem(index)
+    if (task.indent == 0) return null
+    if (dropIndex != index && rowState(deletions, getItem(dropIndex)) == RowState.Hidden) return null
+    // The drop must stay inside the task's own section.
+    val (lo, hi) = if (index < dropIndex) index to dropIndex else dropIndex to index
+    for (i in lo..hi) {
+        if (i != index && i != dropIndex && isHeader(i)) return null
+    }
+    val newIndent = task.indent - 1
+
+    // The new parent: nearest rendered row above the settled position strictly
+    // shallower than the new indent; none means top level. Same start-row rule as
+    // reparentTargetForDrop (downward settles count the row at dropIndex, upward and
+    // in-place settle at dropIndex - 1).
+    val start = if (dropIndex > index) dropIndex else dropIndex - 1
+    var newParent = 0L
+    for (i in start downTo 0) {
+        if (i == index) continue
+        if (isHeader(i)) break
+        val row = getItem(i)
+        if (rowState(deletions, row) == RowState.Hidden) continue
+        if (row.indent < newIndent) {
+            newParent = row.id
+            break
+        }
+    }
+
+    // Visible children of the new parent with their row indices, in display order.
+    // The task is not among them (outdenting always changes the parent), so the count
+    // needs no self-exclusion. Position rule: the task takes the slot of the (k+1)-th
+    // rendered new sibling, where k is the number of rendered new siblings above the
+    // settled position (rows 0..dropIndex-1 - the rows above the settle in the
+    // post-move display, the task's own row vacated and its descendants still
+    // following it). Moving down lands just below that sibling (its order + 1);
+    // moving up or in place takes its slot (the sibling shifts down). k equal to the
+    // sibling count appends past the last one - always legal, since the task is not
+    // already a child of the new parent. A drop below the task's own subtree is not
+    // rejected: the subtree follows the task, so the settle simply lands at the
+    // task's own slot among the new siblings.
+    val siblings = ArrayList<Pair<Int, TaskContainer>>()
+    for (i in 0 until size) {
+        if (isHeader(i)) continue
+        val row = getItem(i)
+        if (rowState(deletions, row) == RowState.Hidden) continue
+        if (row.parent == newParent) siblings.add(i to row)
+    }
+    val finalOrdinal = siblings.count { it.first < dropIndex }
+    val newPosition = if (finalOrdinal == siblings.size) {
+        if (siblings.isEmpty()) 0L else siblings.last()!!.second.caldavSortOrder + 1
+    } else {
+        val anchor = siblings[finalOrdinal].second
+        if (dropIndex > index) anchor.caldavSortOrder + 1 else anchor.caldavSortOrder
+    }
+    return ManualSortOutdent(task, newParent, newPosition)
+}
+
+/**
  * Plans a drop of the task with [taskId] onto the task row at [targetSectionIndex],
  * making the dropped task a subtask of the target.
  *
@@ -252,8 +344,10 @@ internal fun SectionedDataSource.reparentTargetForDrop(
     dropIndex: Int,
 ): Long? {
     val index = indexOf(taskId) ?: return null
-    if (dropIndex == index) return null
     val task = getItem(index)
+    // In place (dropIndex == index) the rows above are simply 0..index-1; the formula
+    // below covers that. An in-place indented drag reparents the task in its own slot
+    // (the native app's two-item case), so it is not rejected here.
     // An upward settle at row 0 starts at -1: an empty range, nothing above it.
     val start = if (dropIndex > index) dropIndex else dropIndex - 1
     for (i in start downTo 0) {
@@ -373,13 +467,52 @@ internal class CaldavTaskReorderer(
             ?: return false
         val newPosition = caldavDao.findLastTask(plan.task.caldav!!, plan.newParent.id)?.plus(1)
             ?: 0L
+        return commitParentChange(plan.task, plan.newParent.id, newPosition)
+    }
+
+    /**
+     * Commits an outdent of [taskId] to visible row [dropIndex]: one indent level
+     * shallower, at the planned position among the new parent's children. Same
+     * commit recipe as [reparentMove]. Returns true when the outdent was performed,
+     * false when the plan rejected it.
+     */
+    suspend fun outdentMove(
+        dataSource: SectionedDataSource,
+        deletions: Map<String, Boolean>,
+        taskId: Long,
+        dropIndex: Int,
+    ): Boolean {
+        val plan = dataSource.planManualSortOutdent(deletions, taskId, dropIndex) ?: return false
+        return commitParentChange(plan.task, plan.newParent, plan.newPosition)
+    }
+
+    /**
+     * The shared reparent/outdent commit: the order goes through the shared
+     * `CaldavDao.move` (dense renumbering + dirty marking for CalDAV sync) and the
+     * local `tasks.parent` column through `TaskDao.setParent`. The remote parent
+     * must also be written (`caldav_tasks.cd_remote_parent`, mirroring the native
+     * `TaskMover.nestUnderParent`): the CalDAV upload builds the VTODO's RELATED-TO
+     * parent from that column, so without it the server keeps the old parent and the
+     * next sync's `updateParents` re-derivation reverts the change locally. A
+     * top-level move writes null, and the force `updateParents` pass keeps the
+     * calendar's derived parents consistent immediately.
+     */
+    private suspend fun commitParentChange(
+        task: TaskContainer,
+        newParent: Long,
+        newPosition: Long,
+    ): Boolean {
         caldavDao.move(
-            task = plan.task,
-            previousParent = plan.task.parent,
-            newParent = plan.newParent.id,
+            task = task,
+            previousParent = task.parent,
+            newParent = newParent,
             newPosition = newPosition,
         )
-        taskDao.setParent(plan.newParent.id, listOf(taskId))
+        taskDao.setParent(newParent, listOf(task.id))
+        val caldavTask = caldavDao.getTask(task.id) ?: return false
+        val remoteParent = if (newParent == 0L) null else caldavDao.getTask(newParent)?.remoteId
+        caldavDao.update(caldavTask.id, remoteParent)
+        caldavDao.updateParents(task.caldav, force = true)
         return true
     }
 }

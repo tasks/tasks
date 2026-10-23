@@ -146,6 +146,17 @@ class ManualSortReparentTest {
     // indent is at most the dragged task's becomes the new parent.
 
     @Test
+    fun indentedInPlaceDragTargetsTheRowAbove() {
+        // The TEST 2 case: A(0), B(0). Dragging B indented without any vertical
+        // travel settles it on its own row; the parent candidate is still the
+        // nearest row above - A.
+        val a = t(1, order = 1)
+        val b = t(2, order = 2)
+        val ds = list(a, b)
+        assertEquals(1L, ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 1))
+    }
+
+    @Test
     fun indentedDropBelowSiblingAtSameIndentTargetsThatSibling() {
         // The two-item case: A(0), B(0). Dragging A indented below B settles at row
         // 1; walking back, B (indent 0 <= 0) is the parent candidate.
@@ -215,6 +226,91 @@ class ManualSortReparentTest {
         assertTrue(ds.isHeader(0))
         assertTrue(ds.isHeader(2))
         assertNull(ds.reparentTargetForDrop(emptyMap(), taskId = 2, dropIndex = 3))
+    }
+
+    // ------------------------------------------------------------------
+    // planManualSortOutdent - a drag released more than half an indent step to the
+    // left moves the task one indent level shallower at the settled position.
+
+    @Test
+    fun outdentInPlaceKeepsTheSlotAndGoesTopLevel() {
+        // A(0), B(1, A's child): dragging B left without vertical travel keeps B at
+        // row 1; as a top-level task that is after A (append).
+        val a = t(1, order = 1)
+        val b = t(2, parent = 1, indent = 1, order = 1)
+        val ds = list(a, b)
+        val plan = ds.planManualSortOutdent(emptyMap(), taskId = 2, dropIndex = 1)
+        assertNotNull(plan)
+        assertEquals(0L, plan!!.newParent)
+        assertEquals(2L, plan.newPosition) // a.order + 1
+    }
+
+    @Test
+    fun outdentAboveSiblingTakesItsSlot() {
+        // A(0), B(0), C(1, B's child): dragging C left to row 1 (above B) makes C
+        // top-level between A and B - it takes B's slot, B shifts down.
+        val a = t(1, order = 1)
+        val b = t(2, order = 2)
+        val c = t(3, parent = 2, indent = 1, order = 1)
+        val ds = list(a, b, c)
+        val plan = ds.planManualSortOutdent(emptyMap(), taskId = 3, dropIndex = 1)
+        assertNotNull(plan)
+        assertEquals(0L, plan!!.newParent)
+        assertEquals(2L, plan.newPosition) // b.order (take the slot)
+    }
+
+    @Test
+    fun outdentBelowLastSiblingAppends() {
+        // A(0), B(1, A's child), C(0): dragging B left to row 2 (below C) appends B
+        // past the last top-level sibling.
+        val a = t(1, order = 1)
+        val b = t(2, parent = 1, indent = 1, order = 1)
+        val c = t(3, order = 3)
+        val ds = list(a, b, c)
+        val plan = ds.planManualSortOutdent(emptyMap(), taskId = 2, dropIndex = 2)
+        assertNotNull(plan)
+        assertEquals(0L, plan!!.newParent)
+        assertEquals(4L, plan.newPosition) // c.order + 1
+    }
+
+    @Test
+    fun outdentGrandchildLandsUnderNearestTopLevelRow() {
+        // A(0), B(1, A's child), C(2, B's child): dragging C left in place moves it
+        // one level shallower - under A, not to the top level.
+        val a = t(1, order = 1)
+        val b = t(2, parent = 1, indent = 1, order = 1)
+        val c = t(3, parent = 2, indent = 2, order = 1)
+        val ds = list(a, b, c)
+        val plan = ds.planManualSortOutdent(emptyMap(), taskId = 3, dropIndex = 2)
+        assertNotNull(plan)
+        assertEquals(1L, plan!!.newParent) // A
+        assertEquals(2L, plan.newPosition) // b.order + 1 (append under A)
+    }
+
+    @Test
+    fun outdentTopLevelTaskIsRejected() {
+        val a = t(1, order = 1)
+        val b = t(2, order = 2)
+        val ds = list(a, b)
+        assertNull(ds.planManualSortOutdent(emptyMap(), taskId = 2, dropIndex = 0))
+        assertNull(ds.planManualSortOutdent(emptyMap(), taskId = 1, dropIndex = 1))
+    }
+
+    @Test
+    fun outdentBelowOwnSubtreeKeepsTheSlotAmongNewSiblings() {
+        // A(0), B(1, A's child), C(2, B's child), D(2, B's child): dragging B left
+        // to row 3 (below its own grandchild) is legal - the subtree follows B, so
+        // the settle lands at B's own slot among the new top-level siblings (after
+        // A), keeping the visual order A, B, C, D with B one level shallower.
+        val a = t(1, order = 1)
+        val b = t(2, parent = 1, indent = 1, order = 1)
+        val c = t(3, parent = 2, indent = 2, order = 1)
+        val d = t(4, parent = 2, indent = 2, order = 2)
+        val ds = list(a, b, c, d)
+        val plan = ds.planManualSortOutdent(emptyMap(), taskId = 2, dropIndex = 3)
+        assertNotNull(plan)
+        assertEquals(0L, plan!!.newParent)
+        assertEquals(2L, plan.newPosition) // append past A
     }
 
     // ------------------------------------------------------------------

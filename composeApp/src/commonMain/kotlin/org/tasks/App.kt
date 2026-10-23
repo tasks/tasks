@@ -2187,6 +2187,18 @@ private fun TaskListPane(
         }
     }
 
+    // Drag-to-outdent: an indented drag released to the left of the grab point moves
+    // the task one indent level shallower at the settled row (top level for a direct
+    // subtask); the planner enforces the same-section / own-subtree rules, and a
+    // rejected drop settles back.
+    fun outdentTask(taskId: Long, dropIndex: Int) {
+        val dataSource = manualSortDataSource ?: return
+        moveScope.launch {
+            reorderer.outdentMove(dataSource, deletions, taskId, dropIndex)
+            viewModel.invalidate()
+        }
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -2276,6 +2288,7 @@ private fun TaskListPane(
                 dragEnabled = manualSort,
                 onTaskDrop = { taskId, dropIndex -> dropTask(taskId, dropIndex) },
                 onTaskReparent = { taskId, targetTaskId -> reparentTask(taskId, targetTaskId) },
+                onTaskOutdent = { taskId, dropIndex -> outdentTask(taskId, dropIndex) },
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
