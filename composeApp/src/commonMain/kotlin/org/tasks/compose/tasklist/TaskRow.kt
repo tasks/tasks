@@ -31,6 +31,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
@@ -79,7 +80,6 @@ internal fun rowState(deletions: Map<String, Boolean>, task: TaskContainer): Row
 
 internal const val COMPLETE_BUTTON_TAG = "task-row-complete"
 internal const val ROW_TEST_TAG = "task_row_"
-internal const val REPARENT_TARGET_TAG = "task-row-reparent-target"
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -98,7 +98,7 @@ internal fun TaskRow(
     onFilterClick: (Filter) -> Unit,
     dragHandle: (@Composable (Modifier) -> Unit)? = null,
     dragged: Boolean = false,
-    reparentTarget: Boolean = false,
+    dragIndentOffset: Dp = 0.dp,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -110,6 +110,9 @@ internal fun TaskRow(
     // the shape morph and the radio-button semantics; `enabled = false` renders a doomed
     // (deleted) row as a disabled item instead of a custom error background. A dragged row
     // takes the elevated surface so the item clearly lifts out of the list.
+    // [dragIndentOffset] is the animated mid-drag indent shift (the native app's "about
+    // to become a subtask" cue): positive = will indent, negative = will outdent.
+    val indentStart = (INDENT_STEP_DP * task.indent).dp + dragIndentOffset
     ListItem(
         selected = selected,
         enabled = !doomed,
@@ -117,13 +120,10 @@ internal fun TaskRow(
         modifier = Modifier
             .fillMaxWidth()
             .testTag(ROW_TEST_TAG + task.id)
-            .padding(start = (INDENT_STEP_DP * task.indent).dp)
+            .padding(start = indentStart)
             .then(
                 when {
                     dragged -> Modifier.background(MaterialTheme.colorScheme.surfaceContainerHighest)
-                    reparentTarget -> Modifier
-                        .background(MaterialTheme.colorScheme.secondaryContainer)
-                        .testTag(REPARENT_TARGET_TAG)
                     else -> Modifier
                 },
             ),
