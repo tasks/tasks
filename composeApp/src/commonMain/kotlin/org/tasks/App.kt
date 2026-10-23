@@ -178,6 +178,8 @@ import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
+import org.tasks.compose.filters.FilterSettingsScreen
+import org.tasks.compose.filters.NewFilterTemplateDialog
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -216,6 +218,7 @@ import org.tasks.compose.sort.subtaskOptions
 import org.tasks.data.TaskContainer
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
@@ -224,9 +227,12 @@ import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
 import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
+import org.tasks.filters.CustomFilter
 import org.tasks.filters.EmptyFilter
 import org.tasks.filters.Filter
+import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_FILTER
 import org.tasks.filters.FilterProvider.Companion.REQUEST_NEW_TAGS
+import org.tasks.filters.FilterSettingsViewModel
 import org.tasks.filters.key
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.MyTasksFilter
@@ -553,6 +559,9 @@ fun App(
             var newListAccountId by rememberSaveable { mutableStateOf<Long?>(null) }
             var createTaskAfterList by rememberSaveable { mutableStateOf(false) }
             var showNewTag by rememberSaveable { mutableStateOf(false) }
+            var showNewFilterTemplate by rememberSaveable { mutableStateOf(false) }
+            var filterEditorTemplate by rememberSaveable { mutableStateOf<Int?>(null) }
+            var filterEditorKey by rememberSaveable { mutableStateOf<String?>(null) }
             val writableListFlow = remember(chromeCaldavDao) { chromeCaldavDao.watchHasWritableList() }
             val hasWritableList by writableListFlow.collectAsState(initial = true)
 
@@ -747,6 +756,7 @@ fun App(
             val onAddClick: (DrawerItem.Header) -> Unit = { header ->
                 when (header.header.addIntentRc) {
                     REQUEST_NEW_TAGS -> showNewTag = true
+                    REQUEST_NEW_FILTER -> showNewFilterTemplate = true
                     else -> header.header.id.toLongOrNull()?.let { newListAccountId = it }
                 }
             }
@@ -1396,6 +1406,65 @@ fun App(
                 )
             }
 
+            if (showNewFilterTemplate) {
+                NewFilterTemplateDialog(
+                    onSelected = { index ->
+                        showNewFilterTemplate = false
+                        filterEditorTemplate = index
+                        filterEditorKey = UUIDHelper.newUUID()
+                    },
+                    onDismiss = { showNewFilterTemplate = false },
+                )
+            }
+
+            // Full-screen editor. A fresh key per open (like the new-tag dialog's uuid) so a
+            // cancelled edit doesn't hand the next open a view model full of stale state.
+            filterEditorKey?.let { key ->
+                val template = filterEditorTemplate
+                if (template != null) {
+                    val filterSettingsViewModel = koinViewModel<FilterSettingsViewModel>(
+                        key = key,
+                        parameters = {
+                            org.koin.core.parameter.parametersOf(isDarkChrome, null, template)
+                        },
+                    )
+                    // Hosted in a BasicAlertDialog, exactly like TagSettingsDialog: the dialog
+                    // applies the common M3 width convention (min/max width, centered) so the
+                    // editor pane tracks window width within those bounds instead of filling it.
+                    BasicAlertDialog(
+                        onDismissRequest = {
+                            filterEditorTemplate = null
+                            filterEditorKey = null
+                        },
+                        modifier = Modifier.fillMaxSize(),
+                    ) {
+                        FilterSettingsScreen(
+                            viewModel = filterSettingsViewModel,
+                            onSave = { saved ->
+                                filterEditorTemplate = null
+                                filterEditorKey = null
+                                drawerViewModel?.updateFilters()
+                                taskListViewModel?.setFilter(CustomFilter(saved))
+                            },
+                            onDelete = {
+                                filterEditorTemplate = null
+                                filterEditorKey = null
+                                drawerViewModel?.updateFilters()
+                            },
+                            onNavigateBack = {
+                                filterEditorTemplate = null
+                                filterEditorKey = null
+                            },
+                            onSubscribe = {
+                                filterEditorTemplate = null
+                                filterEditorKey = null
+                                backStack.push(PricingDestination())
+                            },
+                        )
+                    }
+                }
+            }
+
             // A save started by a destroyed editor has no screen of its own left to report on, so
             // every save failure is reported here. The count is sticky rather than an event: on
             // Android the whole composition can be gone at the moment a teardown save fails, and
@@ -1762,8 +1831,10 @@ private fun TaskListScreen(
     var showSortSheet by remember { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
     var editTagUuid by rememberSaveable { mutableStateOf<String?>(null) }
+    var editFilterId by rememberSaveable { mutableStateOf<Long?>(null) }
     val caldavDao = koinInject<CaldavDao>()
     val tagDataDao = koinInject<TagDataDao>()
+    val filterDao = koinInject<FilterDao>()
     val scope = rememberCoroutineScope()
     val isDark = isDarkTheme()
 
@@ -1772,6 +1843,7 @@ private fun TaskListScreen(
 
     val editableCaldavFilter = state.filter as? CaldavFilter
     val editableTagFilter = state.filter as? TagFilter
+    val editableCustomFilter = state.filter as? CustomFilter
 
     TaskListPane(
         state = state,
@@ -1788,6 +1860,8 @@ private fun TaskListScreen(
         onListSettingsClick = { editableCaldavFilter?.let { editListCalendarId = it.calendar.id } },
         showTagSettings = editableTagFilter != null,
         onTagSettingsClick = { editableTagFilter?.let { editTagUuid = it.uuid } },
+        showFilterSettings = editableCustomFilter != null,
+        onFilterSettingsClick = { editableCustomFilter?.let { editFilterId = it.id } },
         onCreateTask = onCreateTask,
         modifier = Modifier.fillMaxSize(),
     )
@@ -1847,6 +1921,36 @@ private fun TaskListScreen(
                 },
                 onDeleted = {
                     editTagUuid = null
+                    drawerViewModel.updateFilters()
+                    scope.launch { viewModel.setFilter(MyTasksFilter.create()) }
+                },
+                onSubscribe = onSubscribe,
+            )
+        }
+    }
+
+    editFilterId?.let { id ->
+        val filter by produceState<org.tasks.data.entity.Filter?>(null, id) {
+            value = filterDao.getById(id)
+                ?: run { editFilterId = null; return@produceState }
+        }
+        filter?.let { f ->
+            FilterSettingsDialog(
+                filter = f,
+                isDark = isDark,
+                onDismiss = {
+                    editFilterId = null
+                    drawerViewModel.updateFilters()
+                },
+                onSaved = { saved ->
+                    editFilterId = null
+                    drawerViewModel.updateFilters()
+                    if (saved.id == f.id) {
+                        viewModel.setFilter(CustomFilter(saved))
+                    }
+                },
+                onDeleted = {
+                    editFilterId = null
                     drawerViewModel.updateFilters()
                     scope.launch { viewModel.setFilter(MyTasksFilter.create()) }
                 },
@@ -2114,6 +2218,8 @@ private fun TaskListPane(
     onListSettingsClick: () -> Unit = {},
     showTagSettings: Boolean = false,
     onTagSettingsClick: () -> Unit = {},
+    showFilterSettings: Boolean = false,
+    onFilterSettingsClick: () -> Unit = {},
     onTaskClick: (TaskEditDestination) -> Unit,
     onCreateTask: () -> Unit,
     modifier: Modifier = Modifier,
@@ -2253,9 +2359,11 @@ private fun TaskListPane(
                 SettingsMenuButton(
                     showListSettings = showListSettings,
                     showTagSettings = showTagSettings,
+                    showFilterSettings = showFilterSettings,
                     onSettingsClick = onSettingsClick,
                     onListSettingsClick = onListSettingsClick,
                     onTagSettingsClick = onTagSettingsClick,
+                    onFilterSettingsClick = onFilterSettingsClick,
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
@@ -2582,6 +2690,34 @@ private fun EtebaseListSettingsDialog(
                 viewModel.closeColorPicker()
                 onSubscribe()
             },
+            onSubscribe = { onSubscribe() },
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun FilterSettingsDialog(
+    filter: org.tasks.data.entity.Filter,
+    isDark: Boolean,
+    onDismiss: () -> Unit,
+    onSaved: (org.tasks.data.entity.Filter) -> Unit,
+    onDeleted: () -> Unit,
+    onSubscribe: () -> Unit,
+) {
+    val viewModel = koinViewModel<FilterSettingsViewModel>(
+        key = "filter_settings_${filter.id}",
+        parameters = { org.koin.core.parameter.parametersOf(isDark, filter, null) },
+    )
+    BasicAlertDialog(
+        onDismissRequest = onDismiss,
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        FilterSettingsScreen(
+            viewModel = viewModel,
+            onSave = onSaved,
+            onDelete = { onDeleted() },
+            onNavigateBack = onDismiss,
             onSubscribe = { onSubscribe() },
         )
     }

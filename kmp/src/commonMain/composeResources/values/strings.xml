@@ -396,6 +396,7 @@
     <string name="new_list">Create new list</string>
     <string name="new_tag">Create new tag</string>
     <string name="new_filter">Create new filter</string>
+    <string name="custom_filters">Custom filters</string>
     <string name="new_place">Create new place</string>
     <string name="enter_tag_name">Enter tag name</string>
     <string name="add_tag">Add tag</string>
@@ -417,6 +418,7 @@
     <string name="share">Share</string>
     <string name="list_settings">List settings</string>
     <string name="tag_settings">Tag settings</string>
+    <string name="filter_settings">Filter settings</string>
     <string name="reinitialize_account">Reinitialize</string>
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
     <string name="local_list_title">This is a local list</string>
@@ -704,4 +706,43 @@
     <string name="reset_trusted_certificates">Reset trusted certificates</string>
     <string name="reset_trusted_certificates_summary">Forget certificates and certificate authorities you accepted for servers</string>
     <string name="trusted_certificates_reset">Trusted certificates reset</string>
+
+    <!-- Custom filter creation (ported from the Android app's res/values/strings.xml) -->
+    <string name="BFE_Active">My Tasks</string>
+    <string name="FLA_new_filter">Create new filter</string>
+    <string name="CFC_tag_text">Tag: ?</string>
+    <string name="CFC_tag_name">Tag…</string>
+    <string name="CFC_tag_contains_text">Tag name contains: ?</string>
+    <string name="CFC_tag_contains_name">Tag name contains…</string>
+    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_name">Due By…</string>
+    <string name="CFC_startBefore_text">Start by: ?</string>
+    <string name="CFC_startBefore_name">Start by…</string>
+    <string name="CFC_importance_text">Priority at least ?</string>
+    <string name="CFC_importance_name">Priority…</string>
+    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_name">Title contains…</string>
+    <string name="CFC_gtasks_list_text">In List: ?</string>
+    <string name="CFC_list_name">In list…</string>
+    <string name="filter_criteria_unstarted">Not started</string>
+    <string name="custom_filter_has_subtask">Has subtasks</string>
+    <string name="custom_filter_is_subtask">Is subtask</string>
+    <string name="custom_filter_has_reminder">Has reminder</string>
+    <string name="custom_filter_and">AND</string>
+    <string name="custom_filter_or">OR</string>
+    <string name="custom_filter_not">NOT</string>
+    <string name="name">Name</string>
+    <string name="custom_filter_criteria">Filter criteria</string>
+    <string name="CFA_button_add">Add Criteria</string>
+    <string name="filter_today_only">Today only</string>
+    <string name="filter_after_today">After today</string>
+    <string name="filter_any_start_date">Any start date</string>
+    <string name="filter_any_due_date">Any due date</string>
+    <string name="filter_no_tags">No tags</string>
+    <string name="filter_eisenhower_box_1">Important and urgent</string>
+    <string name="filter_eisenhower_box_2">Important and not urgent</string>
+    <string name="filter_eisenhower_box_3">Not important and urgent</string>
+    <string name="filter_eisenhower_box_4">Not important and not urgent</string>
+    <string name="next_month">Next Month</string>
+    <string name="now">Now</string>
 </resources>
