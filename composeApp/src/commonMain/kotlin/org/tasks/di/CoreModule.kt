@@ -53,6 +53,7 @@ import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.data.MergedGeofence
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.SubtaskTreeWriter
@@ -100,6 +101,7 @@ import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.BackupsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.HelpAndFeedbackViewModel
@@ -765,6 +767,23 @@ val coreModule: Module = module {
             calendar = params.get(),
         )
     }
+    single {
+        TasksJsonExporter(
+            taskDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            tagDao = get(),
+            userActivityDao = get(),
+            taskAttachmentDao = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            filterDao = get(),
+            taskListMetadataDao = get(),
+            vtodoCache = get(),
+            json = get(),
+        )
+    }
+    viewModelOf(::BackupsViewModel)
 }
 
 internal val notificationDefaults = NotificationSettings()
