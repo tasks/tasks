@@ -131,6 +131,7 @@ import org.tasks.compose.pickers.alarmFromSelection
 import org.tasks.compose.pickers.alarmToSelection
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
+import org.tasks.selection.SelectedTaskStore
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
@@ -372,6 +373,19 @@ fun App(
                 },
                 if (hasAccount == true) TaskListDestination else WelcomeDestination,
             )
+
+            // The back stack only lives in this composition, but the in-app MCP server needs to
+            // answer "which task is the user looking at?" - so mirror the open task's id into a
+            // long-lived store. Opening a task sets it, closing the edit pane (or leaving the app)
+            // clears it.
+            val selectedTaskStore = koinInject<SelectedTaskStore>()
+            LaunchedEffect(selectedTaskStore) {
+                snapshotFlow {
+                    backStack.filterIsInstance<TaskEditDestination>().lastOrNull()?.taskId
+                }
+                    .distinctUntilChanged()
+                    .collect { selectedTaskStore.update(it) }
+            }
 
             // This also runs on a fresh composition after the activity is recreated, when the back
             // stack has already been restored and hasAccount hasn't actually changed. So it has to

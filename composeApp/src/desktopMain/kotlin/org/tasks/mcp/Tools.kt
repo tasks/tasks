@@ -23,6 +23,10 @@ import org.tasks.api.TaskWrite
 import org.tasks.api.TasksContract
 import org.tasks.api.pageLimit
 import org.tasks.api.pageOffset
+import org.tasks.TaskEditDestination
+import org.tasks.TaskRequests
+import org.tasks.selection.SelectedTaskStore
+import java.util.UUID
 import io.modelcontextprotocol.kotlin.sdk.server.Server
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.AnalyticsEvents
@@ -77,9 +81,11 @@ fun Server.registerTasksTools(
     permissions: ToolPermissions,
     log: ActivityLog,
     analytics: Analytics? = null,
+    requests: TaskRequests? = null,
+    selection: SelectedTaskStore? = null,
 ) {
     val reg = Registration(log, ToolUsage(analytics, permissions), permissions)
-    registerReadTools(api, reg)
+    registerReadTools(api, reg, requests, selection)
     registerWriteTools(api, reg)
 }
 
@@ -105,7 +111,12 @@ internal class ToolUsage(
     }
 }
 
-private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
+private fun Server.registerReadTools(
+    api: DatabaseTasksApi,
+    reg: Registration,
+    requests: TaskRequests? = null,
+    selection: SelectedTaskStore? = null,
+) {
 
     tool(
         reg, "list_tasks",
@@ -296,6 +307,91 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
         )
         page.toResult("reminder", projection, { it.toApiReminder() }) { sent -> "$sent of ${page.total} reminder(s)" }
     }
+
+    tool(
+        reg, "get_selected_task",
+        title = "Get the selected task",
+        description = "The task the user currently has open in the task edit pane on this computer, " +
+            "with the name of its list and the chain of parent tasks above it (top-most first). " +
+            "If nothing is open, the result says so. Use open_task to switch what is open, " +
+            "and list_tasks to find task ids.",
+        readOnly = true,
+        schema = schema {
+            fields("task", TASK_FIELDS)
+        },
+    ) { args ->
+        val store = selection ?: return@tool "This server was started without access to the app's UI." to "no ui"
+        val id = store.selectedTaskId.value
+            ?: return@tool "No task is currently open in the app." to "nothing open"
+        val task = api.getTask(id) ?: return@tool "The selected task (id $id) no longer exists." to "gone"
+        val projection = args.projection(TASK_FIELDS)
+        val encoder = projection.encoder()
+        val encoded = projection.apply(encoder.encodeToJsonElement(listOf(task.toApiTask()))) as JsonArray
+        val body = buildJsonObject {
+            put("task", encoded.first())
+            api.lists().firstOrNull { it.id == task.listId }?.let { put("list", it.title) }
+            val chain = api.parentChainOf(task)
+            if (chain.isNotEmpty()) {
+                put(
+                    "parent_chain",
+                    JsonArray(
+                        chain.map { parent ->
+                            buildJsonObject {
+                                put("id", JsonPrimitive(parent.id))
+                                put("title", parent.title)
+                            }
+                        },
+                    ),
+                )
+            }
+        }
+        body.toString() to "task ${task.id}"
+    }
+
+    tool(
+        reg, "open_task",
+        title = "Open a task in the app",
+        description = "Opens the given task in the task edit pane of the app on this computer, " +
+            "so the user can see it. This only changes what the app is showing - it never edits " +
+            "the task. Get the task id from list_tasks or get_selected_task.",
+        readOnly = true,
+        idempotent = true,
+        schema = schema {
+            integer("task_id", "The task to open, as returned by list_tasks.", required = true)
+        },
+    ) { args ->
+        val taskRequests = requests ?: return@tool "This server was started without access to the app's UI." to "no ui"
+        val id = args.requireLong("task_id")
+        val task = api.getTask(id) ?: throw IllegalArgumentException("No task with id $id")
+        val opened = taskRequests.open(TaskEditDestination(taskId = id, remoteId = UUID.randomUUID().toString()))
+        if (opened) {
+            "Opened '${task.title}' in the app." to "opened ${task.id}"
+        } else {
+            "The app could not open the task: a task list must be on screen, not settings, " +
+                "onboarding or the welcome screen." to "refused"
+        }
+    }
+}
+
+/**
+ * The task's ancestor chain, top-most parent first. Walked by id so it works
+ * for tasks on any account; capped and cycle-guarded so a corrupt parent
+ * column cannot loop forever.
+ */
+private suspend fun DatabaseTasksApi.parentChainOf(task: TaskRow, cap: Int = 10): List<TaskRow> {
+    val chain = mutableListOf<TaskRow>()
+    val seen = mutableSetOf(task.id)
+    var parent = task.parentId?.takeIf { it > 0 }?.let { getTask(it) }
+    while (parent != null && chain.size < cap) {
+        if (parent.id !in seen) {
+            seen += parent.id
+            chain += parent
+        } else {
+            break
+        }
+        parent = parent.parentId?.let { getTask(it) }
+    }
+    return chain.reversed()
 }
 
 private fun Server.registerWriteTools(api: DatabaseTasksApi, reg: Registration) {

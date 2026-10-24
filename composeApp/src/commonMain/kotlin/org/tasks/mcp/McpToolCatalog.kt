@@ -19,6 +19,8 @@ object McpToolCatalog {
 
     val tools: List<McpTool> = listOf(
         McpTool("list_tasks", McpToolGroup.Tasks, write = false),
+        McpTool("get_selected_task", McpToolGroup.Tasks, write = false),
+        McpTool("open_task", McpToolGroup.Tasks, write = false),
         McpTool("create_tasks", McpToolGroup.Tasks, write = true),
         McpTool("update_tasks", McpToolGroup.Tasks, write = true),
         McpTool("complete_tasks", McpToolGroup.Tasks, write = true),
