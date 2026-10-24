@@ -407,8 +407,10 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
                 "filter in the drawer (search and the empty view are never recorded)." to "nothing selected"
         val projection = args.projection(SELECTED_FILTER_FIELDS)
         val encoder = projection.encoder()
-        val encoded = projection.apply(encoder.encodeToJsonElement(selection)) as JsonArray
-        buildJsonObject { put("filter", encoded.first()) }.toString() to "filter ${selection.type}"
+        val encoded = projection.apply(encoder.encodeToJsonElement(selection))
+        val filterElement = (encoded as? JsonArray)?.firstOrNull() ?: encoded as? JsonObject
+            ?: return@tool "Could not encode the filter selection" to "error"
+        buildJsonObject { put("filter", filterElement) }.toString() to "filter ${selection.type}"
     }
 }
 
