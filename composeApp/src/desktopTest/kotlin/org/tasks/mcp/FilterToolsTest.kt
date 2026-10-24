@@ -2,13 +2,19 @@ package org.tasks.mcp
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlinx.coroutines.runBlocking
 import org.tasks.api.FilterQuery
 import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.Filter
+import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
+import org.tasks.filters.CustomFilter
+import org.tasks.filters.FilterPreferenceCodec
+import org.tasks.filters.TagFilter
+import org.tasks.preferences.TasksPreferences
 
 class FilterToolsTest : McpGraphTestCase() {
 
@@ -131,13 +137,59 @@ class FilterToolsTest : McpGraphTestCase() {
     fun theReadToolsJoinTheCatalogInTheirOwnGroup() {
         val filters = McpToolCatalog.tools.filter { it.group == McpToolGroup.Filters }
 
-        assertEquals(listOf("list_filters", "get_filter_tasks"), filters.map { it.name })
+        assertEquals(listOf("list_filters", "get_filter_tasks", "get_selected_filter"), filters.map { it.name })
         assertTrue(filters.none { it.write })
         assertTrue("list_filters in read tools", "list_filters" in McpToolCatalog.readTools)
         assertTrue("get_filter_tasks in read tools", "get_filter_tasks" in McpToolCatalog.readTools)
+        assertTrue("get_selected_filter in read tools", "get_selected_filter" in McpToolCatalog.readTools)
         assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("list_filters"))
         assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("get_filter_tasks"))
+        assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("get_selected_filter"))
         assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("list_tasks"))
+    }
+
+    @Test
+    fun noRecordedSelectionMeansNoSelection() = runBlocking {
+        assertNull(filtersApi.selected())
+    }
+
+    @Test
+    fun aSelectedCustomFilterComesBackWithItsListFiltersId() = runBlocking {
+        val id = seedFilter(title = "Due window", sql = " WHERE tasks.dueDate > NOW()")
+        setSelection(CustomFilter(db.filterDao().getById(id)!!))
+
+        val selection = filtersApi.selected(includeSql = true)
+
+        assertEquals("custom_filter", selection!!.type)
+        assertEquals(id, selection.id)
+        assertEquals("Due window", selection.title)
+        assertEquals(" WHERE tasks.dueDate > NOW()", selection.sql)
+    }
+
+    @Test
+    fun aSelectedBuiltInFilterComesBackWithItsKeyNotAnId() = runBlocking {
+        koin.get<TasksPreferences>().set(TasksPreferences.lastViewedList, "0:1")
+
+        val selection = filtersApi.selected()
+
+        assertEquals("builtin", selection!!.type)
+        assertNull(selection.id)
+        assertNull(selection.sql)
+        assertEquals("builtin_today", selection.key)
+    }
+
+    @Test
+    fun aSelectedTagFilterComesBackWithTheTagId() = runBlocking {
+        val tagId = db.tagDataDao().insert(TagData(name = "hometag"))
+        val tag = db.tagDataDao().getById(tagId)!!
+        setSelection(TagFilter(tag))
+
+        val selection = filtersApi.selected()
+
+        assertEquals("tag", selection!!.type)
+        assertEquals(tagId, selection.id)
+        assertEquals("hometag", selection.title)
+        assertNull(selection.key)
     }
 
     private suspend fun dueWindowFilterId(): Long =
@@ -158,6 +210,11 @@ class FilterToolsTest : McpGraphTestCase() {
     private suspend fun seedTask(title: String, dueDate: Long = 0): Long {
         val task = Task(title = title, dueDate = dueDate, remoteId = UUIDHelper.newUUID())
         return db.taskDao().insert(task)
+    }
+
+    private suspend fun setSelection(filter: org.tasks.filters.Filter) {
+        koin.get<TasksPreferences>()
+            .set(TasksPreferences.lastViewedList, koin.get<FilterPreferenceCodec>().encode(filter)!!)
     }
 
     private companion object {

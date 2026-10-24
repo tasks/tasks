@@ -306,7 +306,7 @@ actual fun platformModule(): Module = module {
         )
     }
     single { DatabaseTasksApi(engine = get(), writer = get()) }
-    single { DatabaseFiltersApi(filterDao = get(), engine = get()) }
+    single { DatabaseFiltersApi(filterDao = get(), engine = get(), preferences = get(), codec = get()) }
     single {
         DesktopMcpServerController(
             preferences = get(),

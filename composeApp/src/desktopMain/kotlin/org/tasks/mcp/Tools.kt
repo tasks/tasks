@@ -303,6 +303,9 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
 
 private val FILTER_FIELDS = listOf("id", "title", "icon", "color", "order", "sql")
 
+private val SELECTED_FILTER_FIELDS =
+    listOf("type", "id", "title", "icon", "color", "order", "key", "sql")
+
 private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registration) {
 
     tool(
@@ -374,6 +377,38 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         page.toResult("task", projection, { it.toApiTask() }) { sent ->
             "$sent of ${page.total} task(s) passing filter $filterId"
         }
+    }
+
+    tool(
+        reg, "get_selected_filter",
+        title = "Get the selected filter",
+        description = """
+            The filter the user currently has selected in the app's navigation drawer on this
+            computer - the list, tag, place or custom filter whose tasks are on screen.
+            A custom filter comes back with its list_filters id, so you can run it with
+            get_filter_tasks. A list, tag or place filter comes back with its id for the
+            matching list_* tool. The app never records search or the empty view, so while
+            the user is searching this reports the last filter they selected.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            boolean(
+                "include_sql",
+                "For a custom filter, also return its stored SQL. It is a template - date " +
+                    "functions like NOW() and EOD() are substituted when the app runs the " +
+                    "query - not the exact predicate that executes.",
+                default = false,
+            )
+            fields("filter", SELECTED_FILTER_FIELDS)
+        },
+    ) { args ->
+        val selection = filters.selected(args.boolean("include_sql") ?: false)
+            ?: return@tool "No filter selection is recorded: the user has not selected a " +
+                "filter in the drawer (search and the empty view are never recorded)." to "nothing selected"
+        val projection = args.projection(SELECTED_FILTER_FIELDS)
+        val encoder = projection.encoder()
+        val encoded = projection.apply(encoder.encodeToJsonElement(selection)) as JsonArray
+        buildJsonObject { put("filter", encoded.first()) }.toString() to "filter ${selection.type}"
     }
 }
 

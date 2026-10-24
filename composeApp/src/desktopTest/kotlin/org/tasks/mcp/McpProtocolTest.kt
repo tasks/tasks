@@ -670,7 +670,7 @@ class McpProtocolTest : McpGraphTestCase() {
         val READ_TOOLS = setOf(
             "list_tasks", "list_task_lists",
             "list_tags", "list_places", "list_accounts", "list_reminders",
-            "list_filters", "get_filter_tasks",
+            "list_filters", "get_filter_tasks", "get_selected_filter",
         )
 
         val WRITE_TOOLS = setOf(
