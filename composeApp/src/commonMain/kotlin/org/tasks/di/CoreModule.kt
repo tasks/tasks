@@ -23,6 +23,7 @@ import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.service.TaskMigrator
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerCustomizationViewModel
+import org.tasks.viewmodel.TaskListPreferencesViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
@@ -483,6 +484,11 @@ val coreModule: Module = module {
             tagMetadataSync = get(),
             syncAdapters = get(),
             refreshBroadcaster = get(),
+        )
+    }
+    viewModel {
+        TaskListPreferencesViewModel(
+            tasksPreferences = get(),
         )
     }
     viewModel {

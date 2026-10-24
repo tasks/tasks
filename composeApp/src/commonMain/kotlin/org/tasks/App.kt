@@ -3081,6 +3081,13 @@ private fun SettingsScreen(
                             },
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.TaskList -> {
+                        org.tasks.compose.settings.TaskListOptionsDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination -> {
                         Scaffold(
                             topBar = {
