@@ -35,8 +35,13 @@ import org.mockito.kotlin.mock
  * list reports the (taskId, dropIndex) a drop would commit; the test captures that
  * pair and asserts the pointer mapping, not the database (that is covered by
  * ManualSortMoveTest and the reorderer's CalDAV round-trip).
+ *
+ * The class carries one fixture per drag case, so the function count is one above
+ * the detekt threshold; splitting the fixtures would only obscure the one-to-one
+ * case-to-test mapping.
  */
 @OptIn(ExperimentalTestApi::class)
+@Suppress("TooManyFunctions")
 class DragReorderUiTest {
     private val chips = ChipDataProvider(
         caldavLists = CaldavListCache(
@@ -112,12 +117,10 @@ class DragReorderUiTest {
         }
     }
 
-    /**
-     * The centre of the handle at [y]: the semantics tree reorders when a dragged
-     * item gains zIndex, so mid-drag a row is tracked by its (stable, for
-     * horizontal drags) y coordinate rather than by list index.
-     */
     private fun atY(handles: SemanticsNodeInteractionCollection, y: Float): Offset {
+        // The centre of the handle at [y]: the semantics tree reorders when a
+        // dragged item gains zIndex, so mid-drag a row is tracked by its (stable,
+        // for horizontal drags) y coordinate rather than by list index.
         val count = try {
             handles.assertCountEquals(6); 6
         } catch (e: AssertionError) {

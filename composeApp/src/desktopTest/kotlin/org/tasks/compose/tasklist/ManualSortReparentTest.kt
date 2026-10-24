@@ -23,18 +23,19 @@ class ManualSortReparentTest {
 
     private fun t(
         id: Long,
-        title: String = "T$id",
         parent: Long = 0,
         indent: Int = 0,
         order: Long = 0,
-        calendar: String = "cal",
     ) = TaskContainer(
-        task = Task(id = id, title = title, remoteId = uuid(id), parent = parent),
-        caldavTask = CaldavTask(task = id, calendar = calendar),
+        task = Task(id = id, title = "T$id", remoteId = uuid(id), parent = parent),
+        caldavTask = CaldavTask(task = id, calendar = "cal"),
         primarySort = if (indent == 0) order else 0,
         secondarySort = if (indent > 0) order else 0,
         indent = indent,
     )
+
+    private fun tIn(id: Long, calendar: String) =
+        t(id).copy(caldavTask = CaldavTask(task = id, calendar = calendar))
 
     private fun list(vararg tasks: TaskContainer) =
         SectionedDataSource(tasks = tasks.toList(), disableHeaders = true)
@@ -116,8 +117,8 @@ class ManualSortReparentTest {
 
     @Test
     fun dropAcrossDifferentCalendarsIsRejected() {
-        val a = t(1, calendar = "cal-a")
-        val b = t(2, calendar = "cal-b")
+        val a = tIn(1, "cal-a")
+        val b = tIn(2, "cal-b")
         val ds = list(a, b)
         assertNull(ds.planManualSortReparent(emptyMap(), taskId = 1, targetSectionIndex = sectionIndex(ds, 2)))
     }

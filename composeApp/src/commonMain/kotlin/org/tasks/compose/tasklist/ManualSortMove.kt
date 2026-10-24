@@ -486,22 +486,21 @@ internal class CaldavTaskReorderer(
         return commitParentChange(plan.task, plan.newParent, plan.newPosition)
     }
 
-    /**
-     * The shared reparent/outdent commit: the order goes through the shared
-     * `CaldavDao.move` (dense renumbering + dirty marking for CalDAV sync) and the
-     * local `tasks.parent` column through `TaskDao.setParent`. The remote parent
-     * must also be written (`caldav_tasks.cd_remote_parent`, mirroring the native
-     * `TaskMover.nestUnderParent`): the CalDAV upload builds the VTODO's RELATED-TO
-     * parent from that column, so without it the server keeps the old parent and the
-     * next sync's `updateParents` re-derivation reverts the change locally. A
-     * top-level move writes null, and the force `updateParents` pass keeps the
-     * calendar's derived parents consistent immediately.
-     */
     private suspend fun commitParentChange(
         task: TaskContainer,
         newParent: Long,
         newPosition: Long,
     ): Boolean {
+        // The shared reparent/outdent commit. The order goes through the shared
+        // `CaldavDao.move` (dense renumbering + dirty marking for CalDAV sync) and
+        // the local `tasks.parent` column through `TaskDao.setParent`. The remote
+        // parent must also be written (`caldav_tasks.cd_remote_parent`, mirroring
+        // the native `TaskMover.nestUnderParent`): the CalDAV upload builds the
+        // VTODO's RELATED-TO parent from that column, so without it the server
+        // keeps the old parent and the next sync's `updateParents` re-derivation
+        // reverts the change locally. A top-level move writes null, and the force
+        // `updateParents` pass keeps the calendar's derived parents consistent
+        // immediately.
         caldavDao.move(
             task = task,
             previousParent = task.parent,
