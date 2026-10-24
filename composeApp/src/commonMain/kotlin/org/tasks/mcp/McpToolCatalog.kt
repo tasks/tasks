@@ -49,6 +49,10 @@ object McpToolCatalog {
         McpTool("list_filters", McpToolGroup.Filters, write = false),
         McpTool("get_filter_tasks", McpToolGroup.Filters, write = false),
         McpTool("get_selected_filter", McpToolGroup.Filters, write = false),
+        McpTool("list_filter_criteria", McpToolGroup.Filters, write = false),
+        McpTool("create_filter", McpToolGroup.Filters, write = true),
+        McpTool("update_filter", McpToolGroup.Filters, write = true),
+        McpTool("delete_filter", McpToolGroup.Filters, write = true),
     )
 
     val names: Set<String> = tools.map { it.name }.toSet()

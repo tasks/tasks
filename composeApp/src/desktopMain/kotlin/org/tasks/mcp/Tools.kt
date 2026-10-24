@@ -301,10 +301,27 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
     }
 }
 
-private val FILTER_FIELDS = listOf("id", "title", "icon", "color", "order", "sql")
+private val FILTER_FIELDS = listOf("id", "title", "icon", "color", "order", "criteria", "sql")
 
 private val SELECTED_FILTER_FIELDS =
     listOf("type", "id", "title", "icon", "color", "order", "key", "sql")
+
+private fun SchemaBuilder.criteriaFields() {
+    string("identifier", "The criterion to apply. Read list_filter_criteria for the valid identifiers.", required = true)
+    string("value", "The value for the criterion. Required for text and multiselect criteria (a multiselect value must match one of the criterion's valid values from list_filter_criteria); omit it for boolean criteria.")
+    string(
+        "type",
+        "How this row combines with the others: 'intersect' (AND, the default), 'add' (OR) or 'subtract' (AND NOT).",
+        enum = listOf("intersect", "add", "subtract"),
+    )
+}
+
+private fun JsonObject.toCriterionWrite(): DatabaseFiltersApi.CriterionWrite =
+    DatabaseFiltersApi.CriterionWrite(
+        identifier = requireString("identifier"),
+        value = string("value"),
+        type = string("type") ?: "intersect",
+    )
 
 private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registration) {
 
@@ -316,7 +333,10 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
             navigation drawer. A saved filter is a stored query over the task database - it
             is device-local and not synced. A task list's default view can be pinned to a
             filter id, so a filter a list relies on should be edited, not replaced.
-            Use get_filter_tasks with an id to see the tasks a filter passes.
+            Each filter carries its structured criteria (decoded the way the app's edit UI
+            shows them, including the leading "universe" row); read list_filter_criteria
+            for what each identifier means. Use get_filter_tasks with an id to see the
+            tasks a filter passes.
         """.trimIndent(),
         readOnly = true,
         schema = schema {
@@ -411,6 +431,132 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         val filterElement = (encoded as? JsonArray)?.firstOrNull() ?: encoded as? JsonObject
             ?: return@tool "Could not encode the filter selection" to "error"
         buildJsonObject { put("filter", filterElement) }.toString() to "filter ${selection.type}"
+    }
+
+    tool(
+        reg, "list_filter_criteria",
+        title = "Criteria available for saved filters",
+        description = """
+            The catalog of criteria the app's filter editor currently offers - exactly what
+            create_filter and update_filter accept in their criteria arrays. Multiselect
+            criteria carry their valid values, and the tag and list criteria's values are
+            the live tag names and task-list names on this computer. The leading "active"
+            universe row is app-managed: it is always stored first and never needs to be
+            sent.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {},
+    ) { args ->
+        val criteria = filters.criteriaCatalog()
+        buildJsonObject {
+            put("criteria", json.encodeToJsonElement(criteria))
+        }.toString() to "${criteria.size} criterion type(s)"
+    }
+
+    tool(
+        reg, "create_filter",
+        title = "Create a saved filter",
+        description = """
+            Create a new saved filter the same way the app's filter editor does: the
+            criteria are validated against the app's live catalog and rendered through the
+            app's own serializers, so the result is what the editor would store. The filter
+            appears in the navigation drawer on this computer - filters are device-local and
+            not synced to other devices. Not idempotent: titles are not unique, so calling
+            it twice creates two filters. Read list_filter_criteria first.
+        """.trimIndent(),
+        readOnly = false,
+        schema = schema {
+            string("title", "The filter's name as it appears in the navigation drawer.", required = true)
+            string("icon", "A Material Symbols icon name in snake_case, e.g. 'priority_high'. Unknown names render with no icon.")
+            integer("color", "The filter's colour as an ARGB integer, as list_filters returns it.")
+            objectArray(
+                "criteria",
+                "The filter's rows, in order. Each row's identifier must be a catalog " +
+                    "identifier, and a multiselect row's value must be one of that criterion's " +
+                    "values - read list_filter_criteria.",
+            ) { criteriaFields() }
+        },
+    ) { args ->
+        val row = filters.create(
+            title = args.requireString("title"),
+            icon = args.string("icon"),
+            color = args.int("color"),
+            criteria = args.objects("criteria").map { it.toCriterionWrite() },
+        )
+        buildJsonObject { put("filter", json.encodeToJsonElement(row)) }.toString() to
+            "created filter ${row.id} '${row.title}'"
+    }
+
+    tool(
+        reg, "update_filter",
+        title = "Update a saved filter",
+        description = """
+            Patch an existing saved filter in place: only the fields you send change, and
+            the filter keeps its id - so a task list whose default view is pinned to it
+            keeps working, which deleting and recreating would break. criteria, when sent,
+            replaces the filter's rows wholesale (the app's editor has no per-row
+            addressing either): read the current rows with list_filters first, mutate the
+            set, and send it back. The drawer order is owned by the app and cannot be
+            changed here.
+        """.trimIndent(),
+        readOnly = false,
+        idempotent = true,
+        schema = schema {
+            integer("filter_id", "The filter to change. Get ids from list_filters.", required = true)
+            string("title", "The new name.")
+            string("icon", "The new Material Symbols icon name in snake_case.")
+            integer("color", "The new colour as an ARGB integer.")
+            objectArray(
+                "criteria",
+                "The filter's complete new set of rows, in order, replacing the current " +
+                    "rows. Each row's identifier must be a catalog identifier, and a " +
+                    "multiselect row's value must be one of that criterion's values - read " +
+                    "list_filter_criteria.",
+            ) { criteriaFields() }
+        },
+    ) { args ->
+        val row = filters.update(
+            id = args.requireLong("filter_id"),
+            title = args.string("title"),
+            icon = args.string("icon"),
+            color = args.int("color"),
+            criteria = args.element("criteria")?.let { args.objects("criteria").map { o -> o.toCriterionWrite() } },
+        )
+        buildJsonObject { put("filter", json.encodeToJsonElement(row)) }.toString() to
+            "updated filter ${row.id} '${row.title}'"
+    }
+
+    tool(
+        reg, "delete_filter",
+        title = "Delete a saved filter",
+        description = """
+            Delete a saved filter for good. This removes the device-local filter record
+            only: no tasks are touched, nothing is sent to a server, and there is no
+            archive or undo - a filter is a saved query, not task data, so the
+            archive-instead-of-delete rule for tasks does not apply to it. If any task
+            list's default view is pinned to this filter, the response carries their ids in
+            pinned_by as a warning that those lists will silently fall back to their
+            default view afterwards; prefer update_filter to change a filter you still
+            want.
+        """.trimIndent(),
+        readOnly = false,
+        destructive = true,
+        schema = schema {
+            integer("filter_id", "The filter to delete. Get ids from list_filters.", required = true)
+        },
+    ) { args ->
+        val result = filters.delete(args.requireLong("filter_id"))
+        buildJsonObject {
+            put("deleted_filter_id", JsonPrimitive(result.id))
+            put("pinned_by", JsonArray(result.pinnedBy.map(::JsonPrimitive)))
+            if (result.pinnedBy.isNotEmpty()) {
+                put(
+                    "warning",
+                    "These lists' default views were pinned to the deleted filter and now " +
+                        "fall back to the list's default view.",
+                )
+            }
+        }.toString() to "deleted filter ${result.id}"
     }
 }
 

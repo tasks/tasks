@@ -118,6 +118,59 @@ class McpProtocolTest : McpGraphTestCase() {
     }
 
     @Test
+    fun aFilterWriteRoundTripsThroughTheProtocol() = withClient(AccessMode.ReadWrite) { client ->
+        val created = client.body(
+            "create_filter",
+            buildJsonObject {
+                put("title", "Protocol filter")
+                put(
+                    "criteria",
+                    JsonArray(
+                        listOf(
+                            buildJsonObject {
+                                put("identifier", "title")
+                                put("value", "Protocol")
+                            },
+                        ),
+                    ),
+                )
+            },
+        ).getValue("filter").jsonObject
+        val id = created.getValue("id").jsonPrimitive.long
+        assertEquals("Protocol filter", created.getValue("title").jsonPrimitive.content)
+        assertTrue("the stored row comes back with its structured criteria",
+            created.getValue("criteria").jsonArray.isNotEmpty())
+
+        val renamed = client.body(
+            "update_filter",
+            buildJsonObject { put("filter_id", id); put("title", "Renamed") },
+        ).getValue("filter").jsonObject
+        assertEquals("the patch keeps the id", id, renamed.getValue("id").jsonPrimitive.long)
+        assertEquals("Renamed", renamed.getValue("title").jsonPrimitive.content)
+
+        val deleted = client.body("delete_filter", buildJsonObject { put("filter_id", id) })
+        assertEquals(id, deleted.getValue("deleted_filter_id").jsonPrimitive.long)
+
+        val unknownCriterion = client.callRaw(
+            "create_filter",
+            buildJsonObject {
+                put("title", "Broken")
+                put(
+                    "criteria",
+                    JsonArray(listOf(buildJsonObject { put("identifier", "no_such_criterion") })),
+                )
+            },
+        )
+        assertEquals("an unknown criterion identifier is a clean tool error", true, unknownCriterion.isError)
+
+        val unknownToolArg = client.callRaw(
+            "update_filter",
+            buildJsonObject { put("filter_id", 1); put("order", 5) },
+        )
+        assertEquals("order is app-owned: an unknown argument is refused", true, unknownToolArg.isError)
+    }
+
+    @Test
     fun fieldsTrimsEveryRowToWhatWasAskedFor() = withClient(AccessMode.ReadWrite) { client ->
         api.createTask(title = "Trimmed", notes = "this should not travel")
 
@@ -163,7 +216,8 @@ class McpProtocolTest : McpGraphTestCase() {
 
     @Test
     fun everyReadToolTakesFields() = withClient(AccessMode.ReadOnly) { client ->
-        client.listTools().tools.forEach {
+        // list_filter_criteria returns the whole (small) catalog: no rows to project.
+        client.listTools().tools.filter { it.name != "list_filter_criteria" }.forEach {
             assertTrue(
                 "${it.name} should take a fields argument",
                 it.inputSchema.properties?.containsKey("fields") == true,
@@ -351,7 +405,8 @@ class McpProtocolTest : McpGraphTestCase() {
 
     @Test
     fun everyListToolTakesLimitAndOffset() = withClient(AccessMode.ReadOnly) { client ->
-        client.listTools().tools.filter { it.name.startsWith("list_") }.forEach {
+        // list_filter_criteria is the whole catalog, not a paged listing.
+        client.listTools().tools.filter { it.name.startsWith("list_") && it.name != "list_filter_criteria" }.forEach {
             val properties = it.inputSchema.properties.orEmpty()
             assertTrue("${it.name} should take a limit", properties.containsKey("limit"))
             assertTrue("${it.name} should take an offset", properties.containsKey("offset"))
@@ -360,7 +415,8 @@ class McpProtocolTest : McpGraphTestCase() {
 
     @Test
     fun theDefaultLimitIsAHundred() = withClient(AccessMode.ReadOnly) { client ->
-        client.listTools().tools.filter { it.name.startsWith("list_") }.forEach {
+        // list_filter_criteria is the whole catalog, not a paged listing.
+        client.listTools().tools.filter { it.name.startsWith("list_") && it.name != "list_filter_criteria" }.forEach {
             val limit = it.inputSchema.properties!!.getValue("limit").jsonObject
             assertEquals(it.name, 100, limit.getValue("default").jsonPrimitive.int)
         }
@@ -441,7 +497,8 @@ class McpProtocolTest : McpGraphTestCase() {
             "list_reminders" to "task_ids",
             "list_filters" to "filter_ids",
         )
-        client.listTools().tools.filter { it.name.startsWith("list_") }.forEach {
+        // list_filter_criteria takes no arguments, so it is not an id-filtering list tool.
+        client.listTools().tools.filter { it.name.startsWith("list_") && it.name != "list_filter_criteria" }.forEach {
             val expected = idFilter.getValue(it.name)
             assertTrue(
                 "${it.name} should filter on $expected",
@@ -694,7 +751,7 @@ class McpProtocolTest : McpGraphTestCase() {
         val READ_TOOLS = setOf(
             "list_tasks", "list_task_lists",
             "list_tags", "list_places", "list_accounts", "list_reminders",
-            "list_filters", "get_filter_tasks", "get_selected_filter",
+            "list_filters", "get_filter_tasks", "get_selected_filter", "list_filter_criteria",
         )
 
         val WRITE_TOOLS = setOf(
@@ -702,6 +759,7 @@ class McpProtocolTest : McpGraphTestCase() {
             "create_task_list", "update_task_list", "delete_task_list",
             "create_tag", "update_tag", "delete_tag", "set_task_tags",
             "create_place", "update_place", "delete_place", "set_task_reminders",
+            "create_filter", "update_filter", "delete_filter",
         )
     }
 }

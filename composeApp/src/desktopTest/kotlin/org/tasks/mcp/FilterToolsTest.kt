@@ -1,16 +1,19 @@
 package org.tasks.mcp
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlinx.coroutines.runBlocking
 import org.tasks.api.FilterQuery
+import org.tasks.api.TagWrite
 import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.Filter
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
+import org.tasks.data.entity.TaskListMetadata
 import org.tasks.filters.CustomFilter
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.TagFilter
@@ -134,18 +137,35 @@ class FilterToolsTest : McpGraphTestCase() {
     }
 
     @Test
-    fun theReadToolsJoinTheCatalogInTheirOwnGroup() {
+    fun theFilterToolsJoinTheCatalogInTheirOwnGroup() {
         val filters = McpToolCatalog.tools.filter { it.group == McpToolGroup.Filters }
 
-        assertEquals(listOf("list_filters", "get_filter_tasks", "get_selected_filter"), filters.map { it.name })
-        assertTrue(filters.none { it.write })
-        assertTrue("list_filters in read tools", "list_filters" in McpToolCatalog.readTools)
-        assertTrue("get_filter_tasks in read tools", "get_filter_tasks" in McpToolCatalog.readTools)
-        assertTrue("get_selected_filter in read tools", "get_selected_filter" in McpToolCatalog.readTools)
-        assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("list_filters"))
-        assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("get_filter_tasks"))
-        assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("get_selected_filter"))
-        assertTrue(ToolPermissions.of(AccessMode.ReadOnly).allows("list_tasks"))
+        assertEquals(
+            listOf(
+                "list_filters", "get_filter_tasks", "get_selected_filter",
+                "list_filter_criteria", "create_filter", "update_filter", "delete_filter",
+            ),
+            filters.map { it.name },
+        )
+        listOf("list_filters", "get_filter_tasks", "get_selected_filter", "list_filter_criteria")
+            .forEach { name ->
+                assertTrue("$name must be a read tool", name in McpToolCatalog.readTools)
+                assertTrue(
+                    "$name must be allowed in read-only mode",
+                    ToolPermissions.of(AccessMode.ReadOnly).allows(name),
+                )
+            }
+        listOf("create_filter", "update_filter", "delete_filter").forEach { name ->
+            assertFalse("$name must not be a read tool", name in McpToolCatalog.readTools)
+            assertFalse(
+                "$name must be refused in read-only mode",
+                ToolPermissions.of(AccessMode.ReadOnly).allows(name),
+            )
+            assertTrue(
+                "$name must be allowed in read-write mode",
+                ToolPermissions.of(AccessMode.ReadWrite).allows(name),
+            )
+        }
     }
 
     @Test
@@ -190,6 +210,238 @@ class FilterToolsTest : McpGraphTestCase() {
         assertEquals(tagId, selection.id)
         assertEquals("hometag", selection.title)
         assertNull(selection.key)
+    }
+
+    @Test
+    fun createRoundTripsThroughTheAppSerializers() = runBlocking {
+        val tagId = api.createTag(TagWrite(name = "hometag")).row.id
+        val tagged = seedTask(title = "Heph home task")
+        api.setTaskTags(listOf(tagged), listOf(tagId), emptyList())
+        seedTask(title = "Other task")
+
+        val row = filtersApi.create(
+            title = "Home things",
+            icon = null,
+            color = null,
+            criteria = listOf(
+                DatabaseFiltersApi.CriterionWrite(identifier = "tag_is", value = "hometag"),
+                DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "Heph"),
+            ),
+        )
+
+        // list_filters hands back the structured criteria exactly as sent, plus the
+        // app-managed leading universe row.
+        val listed = filtersApi.list(ids = listOf(row.id)).rows.single()
+        assertEquals("Home things", listed.title)
+        assertEquals("the universe row is stored leading", "universe", listed.criteria.first().type)
+        val sent = listed.criteria.filter { it.type != "universe" }
+        assertEquals(listOf("tag_is", "title"), sent.map { it.identifier })
+        assertEquals(listOf("hometag", "Heph"), sent.map { it.value })
+
+        // and the rendered SQL is executable: get_filter_tasks returns exactly the match.
+        val page = filtersApi.tasks(row.id, FilterQuery())
+        assertEquals(listOf("Heph home task"), page.rows.map { it.title })
+    }
+
+    @Test
+    fun aTextValueWithAQuoteSurvivesSanitisation() = runBlocking {
+        seedTask(title = "don't do this")
+        seedTask(title = "do it")
+
+        val row = filtersApi.create(
+            title = "Quotes",
+            icon = null,
+            color = null,
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "don't")),
+        )
+
+        val page = filtersApi.tasks(row.id, FilterQuery())
+        assertEquals("the quoted value must match the quoted task and nothing else",
+            listOf("don't do this"), page.rows.map { it.title })
+    }
+
+    @Test
+    fun anInvalidMultiselectValueIsRejectedWithTheValidValues() = runBlocking {
+        api.createTag(TagWrite(name = "hometag"))
+
+        val error = runCatching {
+            filtersApi.create(
+                title = "Broken",
+                icon = null,
+                color = null,
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "tag_is", value = "nowhere")),
+            )
+        }.exceptionOrNull()
+
+        assertNotNull(error)
+        assertTrue("the error names the offending value", error!!.message!!.contains("nowhere"))
+        assertTrue("the error lists the valid values", error.message!!.contains("hometag"))
+        assertEquals("nothing was written", 0, filtersApi.list().total)
+    }
+
+    @Test
+    fun anUnknownIdentifierIsRejectedWithTheCatalogIdentifiers() = runBlocking {
+        val error = runCatching {
+            filtersApi.create(
+                title = "Broken",
+                icon = null,
+                color = null,
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "no_such_criterion")),
+            )
+        }.exceptionOrNull()
+
+        assertNotNull(error)
+        val message = error!!.message!!
+        assertTrue(message.contains("'no_such_criterion'"))
+        assertTrue("the error lists valid identifiers", message.contains("valid identifiers:"))
+        // and the listed identifiers agree with the live catalog
+        val catalog = filtersApi.criteriaCatalog().map { it.identifier }.toSet()
+        assertTrue(catalog.containsAll(listOf("title", "tag_is")))
+        catalog.forEach { assertTrue("$it must be in the error", message.contains(it)) }
+    }
+
+    @Test
+    fun aBooleanCriterionTakesNoValueAndABooleanWithOneIsRejected() = runBlocking {
+        val ok = filtersApi.create(
+            title = "Open",
+            icon = null,
+            color = null,
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed")),
+        )
+        assertEquals(1, filtersApi.list(ids = listOf(ok.id)).rows.single().criteria.count { it.type != "universe" })
+
+        val error = runCatching {
+            filtersApi.create(
+                title = "Broken",
+                icon = null,
+                color = null,
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed", value = "yes")),
+            )
+        }.exceptionOrNull()
+        assertNotNull(error)
+        assertTrue(error!!.message!!.contains("boolean and takes no value"))
+    }
+
+    @Test
+    fun aBlankTitleAndEmptyCriteriaAreRejected() = runBlocking {
+        val blankTitle = runCatching {
+            filtersApi.create("  ", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        }.exceptionOrNull()
+        assertNotNull(blankTitle)
+
+        val emptyCriteria = runCatching {
+            filtersApi.create("No rows", null, null, emptyList())
+        }.exceptionOrNull()
+        assertNotNull(emptyCriteria)
+        assertTrue(emptyCriteria!!.message!!.contains("must not be empty"))
+
+        assertEquals("neither write landed", 0, filtersApi.list().total)
+    }
+
+    @Test
+    fun updatePatchesOnlyWhatIsSent() = runBlocking {
+        val seed = filtersApi.create(
+            title = "Original",
+            icon = null,
+            color = 0xFF000000.toInt(),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed")),
+        )
+
+        val patched = filtersApi.update(id = seed.id, title = "Renamed", icon = null, color = null, criteria = null)
+
+        assertEquals("the id survives the patch", seed.id, patched.id)
+        assertEquals("Renamed", patched.title)
+        assertEquals("untouched fields keep their values", 0xFF000000.toInt(), patched.color)
+        assertEquals(seed.criteria, patched.criteria)
+    }
+
+    @Test
+    fun updateReplacesCriteriaUnderTheSameId() = runBlocking {
+        val seedTaskId = seedTask(title = "Heph thing")
+        val otherTaskId = seedTask(title = "Someone else's thing")
+        val seed = filtersApi.create(
+            title = "Heph only",
+            icon = null,
+            color = null,
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "Heph")),
+        )
+        assertEquals(listOf("Heph thing"), filtersApi.tasks(seed.id, FilterQuery()).rows.map { it.title })
+
+        val updated = filtersApi.update(
+            id = seed.id,
+            title = null,
+            icon = null,
+            color = null,
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "thing")),
+        )
+
+        assertEquals("the pin-relevant id is preserved", seed.id, updated.id)
+        val page = filtersApi.tasks(updated.id, FilterQuery())
+        assertEquals(
+            "the new criteria apply under the same id",
+            setOf(seedTaskId, otherTaskId),
+            page.rows.map { it.id }.toSet(),
+        )
+    }
+
+    @Test
+    fun anEmptyPatchAndAnUnknownFilterIdAreCleanErrors() = runBlocking {
+        val emptyPatch = runCatching {
+            filtersApi.update(999, null, null, null, null)
+        }.exceptionOrNull()
+        assertNotNull(emptyPatch)
+        assertTrue(emptyPatch!!.message!!.contains("No filter with id 999"))
+
+        val seed = filtersApi.create("Has a title", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        val nothing = runCatching {
+            filtersApi.update(seed.id, null, null, null, null)
+        }.exceptionOrNull()
+        assertNotNull(nothing)
+        assertTrue(nothing!!.message!!.contains("Nothing to change"))
+    }
+
+    @Test
+    fun deleteRemovesTheRowAndASecondCallIsACleanError() = runBlocking {
+        val seed = filtersApi.create("Doomed", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+
+        val result = filtersApi.delete(seed.id)
+        assertEquals(seed.id, result.id)
+        assertTrue(result.pinnedBy.isEmpty())
+
+        assertEquals("the row is gone", 0, filtersApi.list().total)
+        val again = runCatching { filtersApi.delete(seed.id) }.exceptionOrNull()
+        assertNotNull(again)
+        assertTrue(again!!.message!!.contains("No filter with id ${seed.id}"))
+    }
+
+    @Test
+    fun deleteReportsPinnedLists() = runBlocking {
+        val seed = filtersApi.create("Pinned", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        val pinnedList = db.taskListMetadataDao().insert(
+            TaskListMetadata().apply { tagUuid = Task.NO_UUID; filter = seed.id.toString() },
+        )
+        db.taskListMetadataDao().insert(TaskListMetadata())
+
+        val result = filtersApi.delete(seed.id)
+
+        assertEquals(listOf(pinnedList), result.pinnedBy)
+        assertEquals("only the filter row is removed - lists survive", 2, db.taskListMetadataDao().getAll().size)
+    }
+
+    @Test
+    fun theCriteriaCatalogMatchesTheLiveDatabase() = runBlocking {
+        val before = filtersApi.criteriaCatalog().first { it.identifier == "tag_is" }
+        assertNull("no tags seeded yet", before.values?.takeIf { it.isNotEmpty() })
+
+        db.tagDataDao().insert(TagData(name = "catalogtag"))
+        val after = filtersApi.criteriaCatalog().first { it.identifier == "tag_is" }
+
+        assertEquals("tag options are built from the live tag table", listOf("catalogtag"), after.values?.map { it.value })
+        assertEquals("multi_select is the kind name", "multi_select", after.kind)
+        assertEquals("boolean is the kind name", "boolean", filtersApi.criteriaCatalog().first { it.identifier == "completed" }.kind)
+        assertEquals("text_input is the kind name", "text_input", filtersApi.criteriaCatalog().first { it.identifier == "title" }.kind)
+        assertFalse("the universe row is app-managed and absent from the catalog",
+            filtersApi.criteriaCatalog().any { it.identifier == "active" })
     }
 
     private suspend fun dueWindowFilterId(): Long =
