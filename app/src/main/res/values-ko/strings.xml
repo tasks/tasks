@@ -402,4 +402,17 @@
     <string name="multiline_title_off">할 일을 저장하려면 완료를 누르세요</string>
     <string name="sync_warning_microsoft">모든 할 일이 Microsoft To Do와 동기화되지는 않습니다.</string>
     <string name="sync_warning_google_tasks">모든 할 일이 Google Tasks와 동기화되진 않습니다.</string>
+    <string name="import_failed">가져오기 실패</string>
+    <string name="import_failed_message">백업 파일을 읽을 수 없습니다</string>
+    <string name="sort_options">정렬 옵션</string>
+    <string name="upgrade_desktop_app">데스크톱용 Tasks.org</string>
+    <string name="upgrade_desktop_app_description">새 데스크톱 앱 앞서 써보기</string>
+    <string name="upgrade_friends_and_family">친구와 가족</string>
+    <string name="advanced_tools">고급 도구</string>
+    <string name="legal_disclosure_prefix_using">Tasks.org를 사용하면</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync 등 지원!</string>
+    <string name="tos_updated_title">이용약관을 변경함</string>
+    <string name="accept">동의</string>
+    <string name="exit">종료</string>
+    <string name="read_more">더 알아보기</string>
 </resources>
