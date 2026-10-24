@@ -614,4 +614,5 @@
     <string name="works_with_kvaesitso_description">検索したタスクをカレンダーウィジェットに表示する</string>
     <string name="works_with_ksync_description">Infomaniakアカウントと同期する</string>
     <string name="works_with_cloud_description">すべてのデバイス間でタスクを同期</string>
+    <string name="works_with_nextcloud_description">Nextcloudタスクアプリと連携</string>
 </resources>
