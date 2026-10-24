@@ -3,6 +3,7 @@ package org.tasks.api
 import androidx.room3.immediateTransaction
 import androidx.room3.useReaderConnection
 import androidx.room3.useWriterConnection
+import com.todoroo.astrid.api.PermaSql
 import org.tasks.api.TasksContract.Accounts
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Lists
@@ -77,6 +78,54 @@ class ApiQueryEngine(
 
     suspend fun queryById(path: String, id: Long): ApiRows =
         queryItem(ApiTables.byPath(path), id)
+
+    /**
+     * Runs a saved filter against the tasks table and returns the tasks that pass it, with the
+     * same row mapping, sort keys and paging as the regular task queries.
+     *
+     * [filterSql] is the value stored in the `filters.sql` column. The app stores it as
+     * ` WHERE <predicate>` with PermaSql placeholders (NOW(), EOD(), ...) still unresolved,
+     * so they are replaced here at query time, exactly as the app's list queries do.
+     */
+    suspend fun queryFilterTasks(filterSql: String, args: ApiQueryArgs): ApiRows {
+        val table = ApiTables.TASKS
+        val source = table.sources.single()
+        val where = filterWhere(filterSql)
+        val order = buildOrder(table, args)
+        val limit = args.limit
+        val offset = args.offset
+        val rows = if (limit == 0) {
+            emptyList()
+        } else {
+            database.useReaderConnection { transactor ->
+                transactor.usePrepared(
+                    "SELECT ${source.idExpression} AS $API_ID, ${source.select} FROM ${source.from} " +
+                        "WHERE ${source.baseWhere} AND ($where) " +
+                        "ORDER BY $order LIMIT $limit OFFSET $offset",
+                ) { prepared ->
+                    buildList { while (prepared.step()) add(table.read(prepared)) }
+                }
+            }
+        }
+        val total = when {
+            limit == 0 -> countFilterTasks(where)
+            rows.size in 1 until limit -> offset + rows.size
+            rows.isEmpty() && offset == 0 -> 0
+            else -> countFilterTasks(where)
+        }
+        return ApiRows(table.columns, rows, total)
+    }
+
+    private suspend fun countFilterTasks(where: String): Int {
+        val source = ApiTables.TASKS.sources.single()
+        return database.useReaderConnection { transactor ->
+            transactor.usePrepared(
+                "SELECT COUNT(*) FROM ${source.from} WHERE ${source.baseWhere} AND ($where)",
+            ) { prepared ->
+                if (prepared.step()) prepared.getInt(0) else 0
+            }
+        }
+    }
 
     internal suspend fun queryCollection(table: ApiTable, args: ApiQueryArgs): ApiRows {
         val parts = table.parts(args)
@@ -278,6 +327,16 @@ class ApiQueryEngine(
             }
         }
     }
+}
+
+internal fun filterWhere(filterSql: String): String {
+    val sql = PermaSql.replacePlaceholdersForQuery(filterSql).trimStart()
+    require(sql.startsWith("WHERE", ignoreCase = true)) {
+        "Stored filter SQL must begin with WHERE, was: '${filterSql.take(60)}'"
+    }
+    val condition = sql.substring(5).trim()
+    require(condition.isNotEmpty()) { "Stored filter SQL is empty after WHERE" }
+    return condition
 }
 
 internal fun List<Any>.bindTo(statement: androidx.sqlite.SQLiteStatement) {

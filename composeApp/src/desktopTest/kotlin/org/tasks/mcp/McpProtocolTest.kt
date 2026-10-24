@@ -415,6 +415,7 @@ class McpProtocolTest : McpGraphTestCase() {
             "list_places" to "place_ids",
             "list_accounts" to "account_ids",
             "list_reminders" to "task_ids",
+            "list_filters" to "filter_ids",
         )
         client.listTools().tools.filter { it.name.startsWith("list_") }.forEach {
             val expected = idFilter.getValue(it.name)
@@ -636,6 +637,7 @@ class McpProtocolTest : McpGraphTestCase() {
             token = { TOKEN },
             permissions = permissions,
             api = api,
+            filters = filtersApi,
             log = ActivityLog(),
             onStateChange = { _, _ -> },
         )
@@ -668,6 +670,7 @@ class McpProtocolTest : McpGraphTestCase() {
         val READ_TOOLS = setOf(
             "list_tasks", "list_task_lists",
             "list_tags", "list_places", "list_accounts", "list_reminders",
+            "list_filters", "get_filter_tasks",
         )
 
         val WRITE_TOOLS = setOf(

@@ -11,6 +11,7 @@ import org.tasks.api.ListQuery
 import org.tasks.api.ListWrite
 import org.tasks.api.MAX_BATCH
 import org.tasks.api.PlaceQuery
+import org.tasks.api.FilterQuery
 import org.tasks.api.PlaceWrite
 import org.tasks.api.TASK_STATUSES
 import org.tasks.api.TagQuery
@@ -74,12 +75,14 @@ private val ACCOUNT_FIELDS = ApiAccount.serializer().descriptor.fieldNames()
 
 fun Server.registerTasksTools(
     api: DatabaseTasksApi,
+    filters: DatabaseFiltersApi,
     permissions: ToolPermissions,
     log: ActivityLog,
     analytics: Analytics? = null,
 ) {
     val reg = Registration(log, ToolUsage(analytics, permissions), permissions)
     registerReadTools(api, reg)
+    registerFilterTools(filters, reg)
     registerWriteTools(api, reg)
 }
 
@@ -295,6 +298,82 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
             )
         )
         page.toResult("reminder", projection, { it.toApiReminder() }) { sent -> "$sent of ${page.total} reminder(s)" }
+    }
+}
+
+private val FILTER_FIELDS = listOf("id", "title", "icon", "color", "order", "sql")
+
+private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registration) {
+
+    tool(
+        reg, "list_filters",
+        title = "List saved filters",
+        description = """
+            Every saved filter the user has created, in the order the app shows them in the
+            navigation drawer. A saved filter is a stored query over the task database - it
+            is device-local and not synced. A task list's default view can be pinned to a
+            filter id, so a filter a list relies on should be edited, not replaced.
+            Use get_filter_tasks with an id to see the tasks a filter passes.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            integerArray("filter_ids", "Only these filters, by id.")
+            boolean(
+                "include_sql",
+                "Also return each filter's stored SQL. It is a template - date functions " +
+                    "like NOW() and EOD() are substituted when the app runs the query - not " +
+                    "the exact predicate that executes.",
+                default = false,
+            )
+            paging("filter")
+            fields("filter", FILTER_FIELDS)
+        },
+    ) { args ->
+        val ids = args.longs("filter_ids")
+        val projection = args.projection(FILTER_FIELDS)
+        val page = filters.list(
+            includeSql = args.boolean("include_sql") ?: false,
+            ids = ids,
+            limit = args.limit(),
+            offset = args.offset(),
+        )
+        page.toResult("filter", projection, { it }) { sent ->
+            "$sent of ${page.total} filter(s)"
+        }
+    }
+
+    tool(
+        reg, "get_filter_tasks",
+        title = "Tasks matching a saved filter",
+        description = """
+            The tasks that pass the saved filter with this id - the same set the app shows
+            when the user selects that filter in the navigation drawer. The filter's own
+            criteria are the only predicate here: there is no status, date or text filter
+            to combine with it. Get filter ids from list_filters.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            integer("filter_id", "The saved filter to run. Get ids from list_filters.", required = true)
+            string("sort", "Sort key. 'priority' ascending puts high first.", enum = TasksContract.Tasks.SORTS)
+            boolean("sort_desc", "Reverse the sort.", default = false)
+            paging("task")
+            fields("task", TASK_FIELDS)
+        },
+    ) { args ->
+        val filterId = args.requireLong("filter_id")
+        val projection = args.projection(TASK_FIELDS)
+        val page = filters.tasks(
+            filterId,
+            FilterQuery(
+                sort = args.string("sort"),
+                sortDesc = args.boolean("sort_desc") ?: false,
+                limit = args.int("limit"),
+                offset = args.int("offset"),
+            ),
+        )
+        page.toResult("task", projection, { it.toApiTask() }) { sent ->
+            "$sent of ${page.total} task(s) passing filter $filterId"
+        }
     }
 }
 
