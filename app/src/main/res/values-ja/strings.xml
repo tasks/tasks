@@ -188,7 +188,7 @@
     <string name="widget_row_settings">行設定</string>
     <string name="clear_completed_tasks_confirmation">完了したタスクを削除しますか？</string>
     <string name="copy_multiple_tasks_confirmation">%s コピー済</string>
-    <string name="delete_multiple_tasks_confirmation">%sを削除しました</string>
+    <string name="delete_multiple_tasks_confirmation">%s件を削除しました</string>
     <string name="delete_selected_tasks">選択したタスクを削除しますか？</string>
     <string name="copy_selected_tasks">選択したタスクをコピーしますか？</string>
     <string name="user">ユーザー</string>
@@ -196,7 +196,7 @@
     <string name="badges">バッジ</string>
     <string name="list">リスト</string>
     <string name="repeats_from">繰り返し開始</string>
-    <string name="repeats_plural_number_of_times">%1$sごとに繰り返し、%2$d%3$sで終了</string>
+    <string name="repeats_plural_number_of_times">%1$sごとに繰り返し、%2$d%3$sに終了</string>
     <string name="dont_add_to_calendar">カレンダーに追加しない</string>
     <string name="badges_description">Tasksランチャーアイコンにタスク数を表示します。すべてのランチャーがバッジをサポートしているわけではありません。</string>
     <string name="tasker_create_task">タスクを作成</string>
