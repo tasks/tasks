@@ -703,6 +703,8 @@ val coreModule: Module = module {
             tasksPreferences = get(),
             headerFormatter = get(),
             queryPreferences = get(),
+            isPerListSortEnabled =
+                runBlocking { get<TasksPreferences>().get(TasksPreferences.taskListPerListSort, false) },
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }
