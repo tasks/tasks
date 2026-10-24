@@ -183,6 +183,10 @@
     <string name="EPr_edit_screen_options">Edit screen options</string>
     <string name="date_and_time">Date and time</string>
     <string name="navigation_drawer">Navigation drawer</string>
+    <string name="list_order">List order</string>
+    <string name="list_order_summary">Drag to rearrange the lists in the sidebar</string>
+    <string name="list_order_empty">No lists to reorder</string>
+    <string name="reset_order">Reset list order</string>
     <string name="customize_drawer">Customize drawer</string>
     <string name="customize_drawer_summary">Drag and drop to rearrange menu items</string>
     <string name="hide_unused_tags">Hide unused tags</string>
