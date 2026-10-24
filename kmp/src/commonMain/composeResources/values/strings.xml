@@ -214,6 +214,7 @@
     <string name="mcp_tools_group_places">Places</string>
     <string name="mcp_tools_group_reminders">Reminders</string>
     <string name="mcp_tools_group_accounts">Sync accounts</string>
+    <string name="mcp_tools_group_filters">Filters</string>
     <string name="mcp_connect">Connect an assistant</string>
     <string name="mcp_connect_summary">Copy this into your assistant, then restart it. The token is already included, so keep it private.</string>
     <string name="mcp_copy">Copy</string>

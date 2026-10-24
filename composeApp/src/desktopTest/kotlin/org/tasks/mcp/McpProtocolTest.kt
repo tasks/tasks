@@ -32,6 +32,10 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.api.AgentNotes
+import org.tasks.data.entity.Filter
+import org.tasks.filters.CustomFilter
+import org.tasks.filters.FilterPreferenceCodec
+import org.tasks.preferences.TasksPreferences
 import java.net.ServerSocket
 
 class McpProtocolTest : McpGraphTestCase() {
@@ -91,6 +95,26 @@ class McpProtocolTest : McpGraphTestCase() {
 
         assertNotNull(text)
         assertTrue(text!!, text.contains("Visible over the wire"))
+    }
+
+    @Test
+    fun getSelectedFilterRoundTripsThroughTheProtocol() = withClient(AccessMode.ReadWrite) { client ->
+        // Regression: the handler cast the projected single object to JsonArray and threw
+        // ClassCastException - only visible through the wire, not in the API-level tests.
+        val id = db.filterDao().insert(Filter(title = "Protocol", sql = " WHERE 1=1"))
+        koin.get<TasksPreferences>().set(
+            TasksPreferences.lastViewedList,
+            koin.get<FilterPreferenceCodec>().encode(CustomFilter(db.filterDao().getById(id)!!))!!,
+        )
+
+        val text = client.callTool("get_selected_filter", emptyMap())
+            ?.content?.filterIsInstance<TextContent>()?.firstOrNull()?.text
+
+        assertNotNull(text)
+        val filter = Json.parseToJsonElement(text!!).jsonObject["filter"]!!.jsonObject
+        assertEquals("custom_filter", filter["type"]!!.jsonPrimitive.content)
+        assertEquals(id, filter["id"]!!.jsonPrimitive.long)
+        assertEquals("Protocol", filter["title"]!!.jsonPrimitive.content)
     }
 
     @Test
@@ -415,6 +439,7 @@ class McpProtocolTest : McpGraphTestCase() {
             "list_places" to "place_ids",
             "list_accounts" to "account_ids",
             "list_reminders" to "task_ids",
+            "list_filters" to "filter_ids",
         )
         client.listTools().tools.filter { it.name.startsWith("list_") }.forEach {
             val expected = idFilter.getValue(it.name)
@@ -636,6 +661,7 @@ class McpProtocolTest : McpGraphTestCase() {
             token = { TOKEN },
             permissions = permissions,
             api = api,
+            filters = filtersApi,
             log = ActivityLog(),
             onStateChange = { _, _ -> },
         )
@@ -668,6 +694,7 @@ class McpProtocolTest : McpGraphTestCase() {
         val READ_TOOLS = setOf(
             "list_tasks", "list_task_lists",
             "list_tags", "list_places", "list_accounts", "list_reminders",
+            "list_filters", "get_filter_tasks", "get_selected_filter",
         )
 
         val WRITE_TOOLS = setOf(
