@@ -5,9 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -24,30 +25,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.SymbolIcon
 import org.tasks.themes.TasksIcons
-import org.tasks.viewmodel.ListOrderViewModel
+import org.tasks.viewmodel.DrawerCustomizationItem
+import org.tasks.viewmodel.DrawerCustomizationViewModel
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
-import tasks.kmp.generated.resources.list_order
-import tasks.kmp.generated.resources.list_order_empty
+import tasks.kmp.generated.resources.customize_drawer
 import tasks.kmp.generated.resources.reset_order
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListOrderDetail(
+fun DrawerCustomizationDetail(
     onNavigateBack: () -> Unit,
 ) {
-    val viewModel = koinViewModel<ListOrderViewModel>()
+    val viewModel = koinViewModel<DrawerCustomizationViewModel>()
     val state by viewModel.state.collectAsState()
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.list_order)) },
+                title = { Text(stringResource(Res.string.customize_drawer)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         SymbolIcon(
@@ -70,7 +71,7 @@ fun ListOrderDetail(
             )
         },
     ) { padding ->
-        ListOrderScreen(
+        DrawerCustomizationScreen(
             viewModel = viewModel,
             modifier = Modifier
                 .fillMaxSize()
@@ -80,19 +81,21 @@ fun ListOrderDetail(
 }
 
 /**
- * The reorder screen: one section per account, each list row draggable.
+ * The compose counterpart of the native "Customize drawer" screen: drag
+ * reorder the drawer's own sections (custom filters, tags, places, and the
+ * lists under each account).
  *
- * The sh.calvin reorderable library owns the gesture and the live reordering;
- * it calls [ListOrderViewModel.onMove] once per row crossed (state-only) and
- * [ListOrderViewModel.onDragStopped] on release (commits `cdl_order`). The
- * library captures its callbacks once, so the move body is handed through a
- * holder that is re-assigned on every recomposition - the same pattern the
- * task-row drag uses (see TaskList.kt). The view model reference is stable,
- * so the stop callback can capture it directly.
+ * The sh.calvin reorderable library owns the gesture and the live
+ * reordering; it calls [DrawerCustomizationViewModel.onMove] once per row
+ * crossed (state-only) and [DrawerCustomizationViewModel.onDragStopped] on
+ * release (commits the section's order column). The library captures its
+ * callbacks once, so the move body is handed through a holder that is
+ * re-assigned on every recomposition - the same pattern the task-row drag
+ * uses (see TaskList.kt).
  */
 @Composable
-fun ListOrderScreen(
-    viewModel: ListOrderViewModel,
+fun DrawerCustomizationScreen(
+    viewModel: DrawerCustomizationViewModel,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
@@ -100,8 +103,6 @@ fun ListOrderScreen(
     val moveRef = remember { mutableStateOf<(Any, Any) -> Unit>({ _, _ -> }) }
     moveRef.value = { fromKey, toKey -> viewModel.onMove(fromKey, toKey) }
     val reorderableState = rememberReorderableLazyListState(listState) { from, to ->
-        // Header keys are Strings, list keys are Long calendarIds; the view
-        // model no-ops anything that is not a Long->Long same-section move.
         moveRef.value(from.key, to.key)
     }
 
@@ -112,17 +113,7 @@ fun ListOrderScreen(
     ) {
         if (!state.loaded) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
-                androidx.compose.material3.CircularProgressIndicator()
-            }
-            return
-        }
-        if (state.sections.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
-                Text(
-                    text = stringResource(Res.string.list_order_empty),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                CircularProgressIndicator()
             }
             return
         }
@@ -131,19 +122,19 @@ fun ListOrderScreen(
             modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
         ) {
             state.sections.forEach { section ->
-                item(key = "header-${section.accountUuid}") {
+                item(key = "header-${section.id}") {
                     Text(
-                        text = section.accountName,
+                        text = section.title,
                         style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
                     )
                 }
-                items(section.lists, key = { it.calendarId }) { list ->
-                    ReorderableItem(reorderableState, list.calendarId) { isDragging ->
+                items(section.items, key = { it.key }) { list ->
+                    ReorderableItem(reorderableState, list.key) { isDragging ->
                         val elevation by animateDpAsState(
                             targetValue = if (isDragging) 8.dp else 0.dp,
-                            label = "list-order-drag",
+                            label = "drawer-customization-drag",
                         )
                         Surface(
                             shadowElevation = elevation,
@@ -153,8 +144,8 @@ fun ListOrderScreen(
                                 Color.Transparent
                             },
                         ) {
-                            ListItem(
-                                headlineContent = { Text(list.name) },
+                            DrawerCustomizationRow(
+                                item = list,
                                 modifier = Modifier.draggableHandle(
                                     onDragStopped = { viewModel.onDragStopped() },
                                 ),
@@ -165,4 +156,27 @@ fun ListOrderScreen(
             }
         }
     }
+}
+
+@Composable
+private fun DrawerCustomizationRow(
+    item: DrawerCustomizationItem,
+    modifier: Modifier = Modifier,
+) {
+    ListItem(
+        headlineContent = { Text(item.name) },
+        supportingContent = item.count?.takeIf { it > 0 }?.let { count ->
+            { Text(count.toString()) }
+        },
+        leadingContent = item.icon?.takeIf { it.isNotBlank() }?.let { icon ->
+            {
+                SymbolIcon(
+                    name = icon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        },
+        modifier = modifier,
+    )
 }

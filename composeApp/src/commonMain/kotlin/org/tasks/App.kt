@@ -3044,10 +3044,15 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                            onCustomizeDrawer = {
+                                scope.launch {
+                                    navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, org.tasks.compose.settings.SettingsDestination.DrawerCustomization)
+                                }
+                            },
                         )
                     }
-                    is org.tasks.compose.settings.SettingsDestination.ListOrder -> {
-                        org.tasks.compose.settings.ListOrderDetail(
+                    is org.tasks.compose.settings.SettingsDestination.DrawerCustomization -> {
+                        org.tasks.compose.settings.DrawerCustomizationDetail(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },

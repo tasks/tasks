@@ -31,11 +31,10 @@ import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
 import tasks.kmp.generated.resources.local_lists
+import tasks.kmp.generated.resources.customize_drawer
 import tasks.kmp.generated.resources.mcp_server
 import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.navigation_drawer
-import tasks.kmp.generated.resources.list_order
-import tasks.kmp.generated.resources.list_order_summary
 import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.preferences_advanced
 import tasks.kmp.generated.resources.preferences_look_and_feel
@@ -60,7 +59,7 @@ sealed class SettingsDestination(override val titleRes: StringResource) : Settin
     data object TaskEdit : SettingsDestination(Res.string.EPr_edit_screen_options)
     data object DateAndTime : SettingsDestination(Res.string.date_and_time)
     data object NavigationDrawer : SettingsDestination(Res.string.navigation_drawer)
-    data object ListOrder : SettingsDestination(Res.string.list_order)
+    data object DrawerCustomization : SettingsDestination(Res.string.customize_drawer)
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)
     data object Widgets : SettingsDestination(Res.string.widget_settings)
     data object McpServer : SettingsDestination(Res.string.mcp_server)
@@ -305,14 +304,6 @@ fun SettingsCategories(
                 title = stringResource(Res.string.navigation_drawer),
                 icon = TasksIcons.MENU,
                 onClick = { onSettingsClick(SettingsDestination.NavigationDrawer) }
-            )
-        }
-        SettingsItemCard(position = CardPosition.Middle) {
-            PreferenceRow(
-                title = stringResource(Res.string.list_order),
-                summary = stringResource(Res.string.list_order_summary),
-                icon = TasksIcons.SWAP_VERT,
-                onClick = { onSettingsClick(SettingsDestination.ListOrder) }
             )
         }
         SettingsItemCard(position = CardPosition.Middle) {
