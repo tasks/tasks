@@ -415,4 +415,21 @@
     <string name="accept">동의</string>
     <string name="exit">종료</string>
     <string name="read_more">더 알아보기</string>
+    <string name="write_permission_label">할일 편집</string>
+    <string name="returning_user">기존 사용자이신가요?</string>
+    <string name="widget_view_more_tasks">할일 더보기</string>
+    <string name="upgrade_email_to_task_description">이메일을 개인 받은편지함으로 전달해 할일로 만들기</string>
+    <string name="guest_create_list_message">현재 공유 목록에 게스트 접근 권한이 있습니다. 내 개인 목록을 만들고 클라우드에 동기화하려면 Tasks.org 구독 서비스를 이용해야 합니다. 아니면 무료로 이 기기에만 저장되는 로컬 목록을 만들 수 있습니다.</string>
+    <string name="upgrade_friends_and_family_description">공유 목록에 5명의 게스트를 무료로 추가할 수 있습니다. Apple 미리 알림과 연동됩니다</string>
+    <string name="email_to_task">이메일을 할일로</string>
+    <string name="email_to_task_address">내 이메일 주소</string>
+    <string name="sponsorship_required_fdroid">GitHub 후원자가 되어야 Tasks.org 동기화를 이용할 수 있습니다. 아래를 눌러 후원자가 되어 보세요.</string>
+    <string name="subscription_required_fdroid">Tasks.org 동기화를 이용하려면 구독해야 합니다. 구독은 Google Play 버전의 Tasks 앱에서 진행해야 합니다.</string>
+    <string name="permission_write_tasks">할일, 목록, 태그, 장소를 추가, 변경, 삭제</string>
+    <string name="per_list_sort_title">목록별 정렬</string>
+    <string name="per_list_sort_summary">각 목록의 개별 정렬 및 분류 설정 기억</string>
+    <string name="banner_subscription_required_body">%s 동기화를 이용하려면 원하시는 만큼 결제해 주세요</string>
+    <string name="p_per_list_sort">per_list_sort</string>
+    <string name="location_update_interval_summary">위치를 주기적으로 갱신하면 위치 기반 동작의 신뢰도가 향상됩니다</string>
+    <string name="rmd_EPr_rmd_time_desc">하루 종일로 설정한 할일의 알람이 %1$s에 나타납니다</string>
 </resources>
