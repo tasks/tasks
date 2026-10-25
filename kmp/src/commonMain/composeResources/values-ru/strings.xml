@@ -515,4 +515,9 @@
     <string name="works_with_sync">Приложения для синхронизации</string>
     <string name="works_with_servers">Самостоятельный хостинг</string>
     <string name="works_with_mobile">Мобильные приложения</string>
+    <string name="works_with_desktop_apps">Настольные приложения</string>
+    <string name="works_with_wearables">Носимые устройства</string>
+    <string name="works_with_services">Сервисы управления задачами</string>
+    <string name="works_with_launchers">Лаунчеры</string>
+    <string name="works_with_calendars">Календари и виджеты</string>
 </resources>
