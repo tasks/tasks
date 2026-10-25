@@ -140,7 +140,7 @@
     <string name="attachment_directory">첨부파일 위치</string>
     <string name="backup_directory">백업 위치</string>
     <string name="miscellaneous">기타</string>
-    <string name="enabled">활성화됨</string>
+    <string name="enabled">켬</string>
     <string name="font_size">글자 크기</string>
     <string name="row_spacing">줄 간격</string>
     <string name="customize_edit_screen">할일 편집화면 레이아웃 설정하기</string>
