@@ -510,4 +510,9 @@
     <string name="new_filter">Создать новый фильтр</string>
     <string name="delete_tag_warning">Задачи с этим тегом не будут удалены</string>
     <string name="subscription_required">Необходима подписка</string>
+    <string name="works_with_tasks">Работает с Tasks.org</string>
+    <string name="works_with_tasks_description">Приложения, сервисы синхронизации и интеграции</string>
+    <string name="works_with_sync">Приложения для синхронизации</string>
+    <string name="works_with_servers">Самостоятельный хостинг</string>
+    <string name="works_with_mobile">Мобильные приложения</string>
 </resources>
