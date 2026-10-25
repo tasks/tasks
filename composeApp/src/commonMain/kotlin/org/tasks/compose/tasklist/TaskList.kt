@@ -26,7 +26,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.compose.koinInject
+import org.tasks.preferences.TasksPreferences
+import org.tasks.viewmodel.TaskListPreferencesViewModel
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.compose.tasklist.RowState
@@ -57,6 +60,19 @@ internal fun TaskList(
     val subtaskTrees = koinInject<SubtaskTreeRegistry>()
     val deletions by remember(subtaskTrees) { subtaskTrees.deletions }
         .collectAsState(initial = emptyMap())
+    // Live font size / row spacing from the "Task list options" pane. The
+    // pane writes these while the list is on screen, so collect the DataStore
+    // flow instead of reading once (same pattern as the per-list sort gate).
+    val tasksPreferences = koinInject<TasksPreferences>()
+    val fontSize by tasksPreferences
+        .flow(TasksPreferences.taskListFontSize, TaskListPreferencesViewModel.DEFAULT_FONT_SIZE)
+        .distinctUntilChanged()
+        .collectAsState(initial = TaskListPreferencesViewModel.DEFAULT_FONT_SIZE)
+    val rowSpacing by tasksPreferences
+        .flow(TasksPreferences.taskListRowSpacing, TaskListPreferencesViewModel.DEFAULT_ROW_SPACING)
+        .distinctUntilChanged()
+        .collectAsState(initial = TaskListPreferencesViewModel.DEFAULT_ROW_SPACING)
+    val rowStyle = remember(fontSize, rowSpacing) { taskRowStyle(fontSize, rowSpacing) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
@@ -89,6 +105,7 @@ internal fun TaskList(
                 filter = filter,
                 groupMode = tasks.groupMode,
                 chipDataProvider = chipDataProvider,
+                style = rowStyle,
                 is24Hour = is24Hour,
                 dateFormatter = dateFormatter,
                 onClick = { onTaskClick(task) },

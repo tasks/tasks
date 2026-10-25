@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
@@ -80,6 +81,7 @@ internal fun TaskRow(
     filter: Filter,
     groupMode: Int,
     chipDataProvider: ChipDataProvider,
+    style: TaskRowStyle = DEFAULT_TASK_ROW_STYLE,
     is24Hour: Boolean,
     dateFormatter: DateFormatter?,
     onClick: () -> Unit,
@@ -123,7 +125,7 @@ internal fun TaskRow(
                 modifier = Modifier.size(24.dp),
             )
         }
-        Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
+        Column(modifier = Modifier.weight(1f).padding(top = style.rowSpacingDp.dp, bottom = style.rowSpacingDp.dp)) {
             val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter) {
                 if (!task.hasDueDate()) {
                     null
@@ -148,6 +150,7 @@ internal fun TaskRow(
                     colors = markdownColor(text = titleColor),
                     typography = markdownTypography(
                         paragraph = MaterialTheme.typography.bodyLarge.copy(
+                            fontSize = style.titleFontSizeSp.sp,
                             textDecoration = if (task.isCompleted || doomed) {
                                 TextDecoration.LineThrough
                             } else {
@@ -161,7 +164,9 @@ internal fun TaskRow(
                 if (dueDateText != null) {
                     Text(
                         text = dueDateText!!,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = style.detailFontSizeSp.sp,
+                        ),
                         color = if (isOverdue) MaterialTheme.colorScheme.error
                                 else MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -182,7 +187,9 @@ internal fun TaskRow(
                     },
                 )
                 val mdTypography = markdownTypography(
-                    paragraph = MaterialTheme.typography.bodyMedium,
+                    paragraph = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = style.titleFontSizeSp.sp,
+                    ),
                 )
                 Markdown(
                     content = if (expanded || !hasMore) content
