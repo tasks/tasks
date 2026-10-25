@@ -242,10 +242,14 @@ internal fun TaskRow(
                 ?.mapNotNull { chipDataProvider.getTag(it) }
                 ?.sortedBy { it.title }
                 ?: emptyList()
-            val hasChips = task.hasChildren() || showStartDate || showList || showPlace || tags.isNotEmpty()
+            val hasChips = (task.hasChildren() && style.subtaskChips)
+                    || (showStartDate && style.startDateChips)
+                    || (showPlace && style.placeChips)
+                    || (showList && style.listChips)
+                    || (tags.isNotEmpty() && style.tagChips)
             if (hasChips) {
                 ChipGroup(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
-                    if (task.hasChildren()) {
+                    if (task.hasChildren() && style.subtaskChips) {
                         SubtaskChip(
                             collapsed = task.isCollapsed,
                             children = task.chipCount,
@@ -253,43 +257,45 @@ internal fun TaskRow(
                             enabled = !doomed,
                         )
                     }
-                    if (showStartDate) {
+                    if (showStartDate && style.startDateChips) {
                         StartDateChip(
                             sortGroup = task.sortGroup,
                             startDate = startDate,
-                            compact = true,
+                            compact = !style.chipShowText,
                             timeOnly = false,
                             chipColor = chipColor(0, isDark),
                             dateFormatter = dateFormatter,
                         )
                     }
-                    if (showPlace) {
+                    if (showPlace && style.placeChips) {
                         task.location?.let { location ->
                             Chip(
-                                text = location.place.displayName,
-                                icon = location.place.icon ?: "place",
+                                text = if (style.chipShowText) location.place.displayName else null,
+                                icon = if (style.chipShowIcon) location.place.icon ?: "place" else null,
                                 color = chipColor(location.place.color, isDark),
                                 onClick = { onFilterClick(PlaceFilter(location.place)) },
                             )
                         }
                     }
-                    if (showList) {
+                    if (showList && style.listChips) {
                         chipDataProvider.getCaldavList(task.caldav)?.let { list ->
                             Chip(
-                                text = list.title,
-                                icon = list.icon ?: "list",
+                                text = if (style.chipShowText) list.title else null,
+                                icon = if (style.chipShowIcon) list.icon ?: "list" else null,
                                 color = chipColor(list.tint, isDark),
                                 onClick = { onFilterClick(list) },
                             )
                         }
                     }
-                    tags.forEach { tag ->
-                        Chip(
-                            text = tag.title,
-                            icon = tag.icon ?: "label",
-                            color = chipColor(tag.tint, isDark),
-                            onClick = { onFilterClick(tag) },
-                        )
+                    if (style.tagChips) {
+                        tags.forEach { tag ->
+                            Chip(
+                                text = if (style.chipShowText) tag.title else null,
+                                icon = if (style.chipShowIcon) tag.icon ?: "label" else null,
+                                color = chipColor(tag.tint, isDark),
+                                onClick = { onFilterClick(tag) },
+                            )
+                        }
                     }
                 }
             }

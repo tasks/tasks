@@ -19,17 +19,46 @@ internal data class TaskRowStyle(
     val detailFontSizeSp: Int,
     val rowSpacingDp: Int,
     val showFullTitle: Boolean = false,
-)
+    val chipAppearance: Int = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON,
+    val subtaskChips: Boolean = true,
+    val startDateChips: Boolean = true,
+    val placeChips: Boolean = true,
+    val listChips: Boolean = true,
+    val tagChips: Boolean = true,
+) {
+    /**
+     * Native parity for p_chip_appearance (0 = text and icon, 1 = text only,
+     * 2 = icon only). Only the place/list/tag chips honour it; the subtask
+     * chip is always text + icon, matching the Android list.
+     */
+    val chipShowText: Boolean
+        get() = chipAppearance != TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY
+
+    val chipShowIcon: Boolean
+        get() = chipAppearance != TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY
+}
 
 internal fun taskRowStyle(
     fontSize: Int,
     rowSpacingDp: Int,
     showFullTitle: Boolean = false,
+    chipAppearance: Int = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON,
+    subtaskChips: Boolean = true,
+    startDateChips: Boolean = true,
+    placeChips: Boolean = true,
+    listChips: Boolean = true,
+    tagChips: Boolean = true,
 ): TaskRowStyle = TaskRowStyle(
     titleFontSizeSp = fontSize,
     detailFontSizeSp = max(DETAIL_FONT_SIZE_FLOOR, fontSize - 2),
     rowSpacingDp = rowSpacingDp,
     showFullTitle = showFullTitle,
+    chipAppearance = chipAppearance,
+    subtaskChips = subtaskChips,
+    startDateChips = startDateChips,
+    placeChips = placeChips,
+    listChips = listChips,
+    tagChips = tagChips,
 )
 
 /**

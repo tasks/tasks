@@ -76,7 +76,49 @@ internal fun TaskList(
         .flow(TasksPreferences.taskListShowFullTitle, false)
         .distinctUntilChanged()
         .collectAsState(initial = false)
-    val rowStyle = remember(fontSize, rowSpacing, showFullTitle) { taskRowStyle(fontSize, rowSpacing, showFullTitle) }
+    val chipAppearance by tasksPreferences
+        .flow(
+            TasksPreferences.taskListChipAppearance,
+            TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON,
+        )
+        .distinctUntilChanged()
+        .collectAsState(initial = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON)
+    val subtaskChips by tasksPreferences
+        .flow(TasksPreferences.taskListSubtaskChips, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val startDateChips by tasksPreferences
+        .flow(TasksPreferences.taskListStartDateChips, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val placeChips by tasksPreferences
+        .flow(TasksPreferences.taskListPlaceChips, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val listChips by tasksPreferences
+        .flow(TasksPreferences.taskListListChips, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val tagChips by tasksPreferences
+        .flow(TasksPreferences.taskListTagChips, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val rowStyle = remember(
+        fontSize, rowSpacing, showFullTitle,
+        chipAppearance, subtaskChips, startDateChips, placeChips, listChips, tagChips,
+    ) {
+        taskRowStyle(
+            fontSize = fontSize,
+            rowSpacingDp = rowSpacing,
+            showFullTitle = showFullTitle,
+            chipAppearance = chipAppearance,
+            subtaskChips = subtaskChips,
+            startDateChips = startDateChips,
+            placeChips = placeChips,
+            listChips = listChips,
+            tagChips = tagChips,
+        )
+    }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,

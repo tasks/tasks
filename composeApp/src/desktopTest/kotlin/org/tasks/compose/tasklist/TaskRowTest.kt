@@ -21,10 +21,14 @@ import kotlinx.coroutines.flow.emptyFlow
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.data.Location
 import org.tasks.data.TaskContainer
+import org.tasks.data.entity.Geofence
+import org.tasks.data.entity.Place
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.EmptyFilter
+import org.tasks.viewmodel.TaskListPreferencesViewModel
 
 @OptIn(ExperimentalTestApi::class)
 class TaskRowTest {
@@ -45,6 +49,7 @@ class TaskRowTest {
         uncompletedChildren: Int = children,
         completed: Boolean = false,
         indent: Int = 0,
+        location: Location? = null,
     ) = TaskContainer(
         task = Task(
             id = 1,
@@ -55,6 +60,12 @@ class TaskRowTest {
         children = children,
         uncompletedChildren = uncompletedChildren,
         indent = indent,
+        location = location,
+    )
+
+    private fun location() = Location(
+        geofence = Geofence(task = 1),
+        place = Place(name = "The Lab", icon = "science"),
     )
 
     private class Clicks {
@@ -242,5 +253,61 @@ class TaskRowTest {
                     "(clamped=$clampedHeight full=$fullHeight)",
             fullHeight > clampedHeight,
         )
+    }
+
+    @Test
+    fun aPlaceChipShowsByDefault() = runComposeUiTest {
+        setContent { Row(task(location = location()), doomed = false, clicks = Clicks()) }
+
+        onNodeWithText("The Lab").assertExists()
+    }
+
+    @Test
+    fun aPlaceChipHidesWhenTheToggleIsOff() = runComposeUiTest {
+        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, placeChips = false)
+
+        setContent { Row(task(location = location()), doomed = false, clicks = Clicks(), style = style) }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("The Lab").assertDoesNotExist()
+    }
+
+    @Test
+    fun aTextOnlyRowKeepsTheChipTextButNotTheIconCount() = runComposeUiTest {
+        val style = taskRowStyle(
+            fontSize = 16,
+            rowSpacingDp = 16,
+            chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY,
+        )
+
+        setContent { Row(task(children = 2, location = location()), doomed = false, clicks = Clicks(), style = style) }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        // The place chip keeps its text in text-only mode.
+        onNodeWithText("The Lab").assertExists()
+    }
+
+    @Test
+    fun anIconOnlyRowDrawsNoChipText() = runComposeUiTest {
+        val style = taskRowStyle(
+            fontSize = 16,
+            rowSpacingDp = 16,
+            chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY,
+        )
+
+        setContent { Row(task(children = 2, location = location()), doomed = false, clicks = Clicks(), style = style) }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("The Lab").assertDoesNotExist()
+    }
+
+    @Test
+    fun aSubtaskChipHidesWhenItsToggleIsOff() = runComposeUiTest {
+        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, subtaskChips = false)
+
+        setContent { Row(task(children = 2), doomed = false, clicks = Clicks(), style = style) }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("2").assertDoesNotExist()
     }
 }
