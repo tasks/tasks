@@ -1757,7 +1757,15 @@ private fun TaskListScreen(
     val state by viewModel.state.collectAsState()
     val chipDataProvider = koinInject<ChipDataProvider>()
     val reporting = koinInject<Reporting>()
-    val sortViewModel = koinViewModel<SortSettingsViewModel>()
+    val perListSort by viewModel.perListSortEnabled.collectAsState()
+    // Per-list sorting (SPEC-settings-panes.md §3.4): the sort sheet edits the
+    // current filter's own override store when the per-list gate is on. The
+    // key includes both the filter and the gate so the VM (and therefore the
+    // store it writes) is re-created when either changes.
+    val sortViewModel = koinViewModel<SortSettingsViewModel>(
+        key = "${state.filter.key()}_perList${perListSort}",
+        parameters = { org.koin.core.parameter.parametersOf(state.filter.key(), perListSort) },
+    )
     val sortState by sortViewModel.state.collectAsState()
     var showSortSheet by remember { mutableStateOf(false) }
     var editListCalendarId by rememberSaveable { mutableStateOf<Long?>(null) }
