@@ -60,6 +60,7 @@ import org.tasks.data.TaskMover
 import org.tasks.data.TaskSaver
 import org.tasks.data.db.Database
 import org.tasks.data.entity.Alarm
+import org.tasks.data.entity.Filter
 import org.tasks.data.entity.Place
 import org.tasks.data.getOrCreateDefaultListFilter
 import org.tasks.extensions.guarded
@@ -140,6 +141,7 @@ val coreModule: Module = module {
     single { get<Database>().taskAttachmentDao() }
     single { get<Database>().taskListMetadataDao() }
     single { get<Database>().dirtyDao() }
+    single { org.tasks.filters.FilterCriteriaProvider(get(), get()) }
     single { ComposeRefreshBroadcaster() }
     factory<RefreshBroadcaster> { get<ComposeRefreshBroadcaster>() }
     factory<LocationService> {
@@ -358,7 +360,7 @@ val coreModule: Module = module {
     factory<org.tasks.compose.drawer.DrawerConfiguration> {
         val tasksPreferences = get<TasksPreferences>()
         object : org.tasks.compose.drawer.DrawerConfiguration {
-            override val canCreateFilters: Boolean get() = false
+            override val canCreateFilters: Boolean get() = true
             override val canCreateTags: Boolean get() = true
             override val canCreatePlaces: Boolean get() = false
             override val filtersEnabled: Boolean
@@ -486,6 +488,19 @@ val coreModule: Module = module {
             rrule = params.get<String>(),
             dueDate = params.get<Long>(),
             accountType = params.get<Int>(),
+        )
+    }
+    viewModel { params ->
+        org.tasks.filters.FilterSettingsViewModel(
+            filterCriteriaProvider = get(),
+            filterDao = get(),
+            taskDao = get(),
+            purchaseState = get(),
+            isDark = params.get(),
+            // getOrNull: a null literal in parametersOf carries no type for Koin's
+            // class-based matching, so params.get<Filter?>() would throw for new filters.
+            initialFilter = params.getOrNull<Filter>(),
+            templateIndex = params.getOrNull<Int>(),
         )
     }
     viewModel { params ->
