@@ -695,4 +695,12 @@
     <string name="reset_trusted_certificates">Lähtesta usaldatud sertifikaadid</string>
     <string name="reset_trusted_certificates_summary">Järgnevaga unustad serverite kohaselt usaldusväärseks märgitud sertifikaadid ja sertifitseerimiskeskused</string>
     <string name="trusted_certificates_reset">Usaldatud sertifikaadid on lähtestatud</string>
+    <string name="error_purchase_not_verified">Me ei suutnud sinu ostu selles seadmes kinnitada. Taasta ostud ja proovi siis uuesti.</string>
+    <string name="error_too_many_requests">Liiga palju katseid. Palun oota mõne minuti jagu ja proovi siis uuesti.</string>
+    <string name="error_billing_unavailable">Arveldamine pole hetkel saadaval. Palun proovi hiljem uuesti.</string>
+    <string name="checkout_finish_in_browser">Lõpeta ostmine veebibrauseris</string>
+    <string name="checkout_expired">Makse leht aegus. Palun proovi uuesti.</string>
+    <string name="pricing_free_trial">%1$d-päevane tasuta prooviperiood</string>
+    <string name="pricing_subscribe_for">Tellimus: %1$s</string>
+    <string name="pro_card_credit">%1$s allahindlus lisatakse järgmisele uuendamisele</string>
 </resources>
