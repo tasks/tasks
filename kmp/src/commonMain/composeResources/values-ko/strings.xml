@@ -483,4 +483,23 @@
     <string name="caldav_server_sabredav">sabre/dav</string>
     <string name="caldav_server_owncloud">ownCloud</string>
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
+    <string name="email_to_task">이메일을 할일로</string>
+    <string name="email_to_task_address">내 이메일 주소</string>
+    <string name="show_completed_subtasks">완료한 하위할일 표시</string>
+    <string name="wear_phone_update_required">폰 업데이트 필요</string>
+    <string name="wear_connecting_to_phone">폰에 연결하는 중…</string>
+    <string name="group_mode">분류</string>
+    <string name="mcp_tools_group_tasks">할일</string>
+    <string name="mcp_tools_group_accounts">계정 동기화</string>
+    <string name="terms_of_service_proper">이용약관</string>
+    <string name="terms_of_service">이용약관</string>
+    <string name="privacy_policy_proper">개인정보 보호정책</string>
+    <string name="gplv3_license">GPLv3 라이선스</string>
+    <string name="guest">게스트</string>
+    <string name="donate">후원</string>
+    <string name="guests">게스트 (%1$d/%2$d)</string>
+    <string name="logout_confirmation">%1$s에서 로그아웃하시겠습니까?</string>
+    <string name="not_signed_in">로그인하지 않음</string>
+    <string name="shared_with_me">나와 공유됨</string>
+    <string name="shared_by">%1$s 님이 공유</string>
 </resources>
