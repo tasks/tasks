@@ -52,6 +52,7 @@ import org.tasks.http.toKtor
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
+import org.tasks.mcp.DatabaseFiltersApi
 import org.tasks.mcp.DatabaseTasksApi
 import org.tasks.mcp.DesktopMcpServerController
 import org.tasks.mcp.McpServerController
@@ -305,11 +306,13 @@ actual fun platformModule(): Module = module {
         )
     }
     single { DatabaseTasksApi(engine = get(), writer = get()) }
+    single { DatabaseFiltersApi(filterDao = get(), engine = get(), preferences = get(), codec = get(), provider = get(), taskListMetadataDao = get()) }
     single {
         DesktopMcpServerController(
             preferences = get(),
             encryption = get(),
             api = get(),
+            filters = get(),
             analytics = get(),
             scope = get(),
         )

@@ -7,6 +7,7 @@ enum class McpToolGroup {
     Places,
     Reminders,
     Accounts,
+    Filters,
 }
 
 data class McpTool(
@@ -44,6 +45,14 @@ object McpToolCatalog {
         McpTool("set_task_reminders", McpToolGroup.Reminders, write = true),
 
         McpTool("list_accounts", McpToolGroup.Accounts, write = false),
+
+        McpTool("list_filters", McpToolGroup.Filters, write = false),
+        McpTool("get_filter_tasks", McpToolGroup.Filters, write = false),
+        McpTool("get_selected_filter", McpToolGroup.Filters, write = false),
+        McpTool("list_filter_criteria", McpToolGroup.Filters, write = false),
+        McpTool("create_filter", McpToolGroup.Filters, write = true),
+        McpTool("update_filter", McpToolGroup.Filters, write = true),
+        McpTool("delete_filter", McpToolGroup.Filters, write = true),
     )
 
     val names: Set<String> = tools.map { it.name }.toSet()
