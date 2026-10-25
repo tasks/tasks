@@ -339,6 +339,58 @@ class FilterToolsTest : McpGraphTestCase() {
     }
 
     @Test
+    fun oversizedInputsAreRejectedBeforeAnyWrite() = runBlocking {
+        val longTitle = "x".repeat(DatabaseFiltersApi.MAX_TITLE_LENGTH + 1)
+        val longValue = "y".repeat(DatabaseFiltersApi.MAX_VALUE_LENGTH + 1)
+
+        val createTitle = runCatching {
+            filtersApi.create(longTitle, null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        }.exceptionOrNull()
+        assertNotNull(createTitle)
+        assertTrue(createTitle!!.message!!.contains("the limit is"))
+
+        val createValue = runCatching {
+            filtersApi.create(
+                title = "Value too long",
+                icon = null,
+                color = null,
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = longValue)),
+            )
+        }.exceptionOrNull()
+        assertNotNull(createValue)
+        assertTrue(createValue!!.message!!.contains("the limit is"))
+
+        val tooManyRows = List(DatabaseFiltersApi.MAX_CRITERIA_COUNT + 1) {
+            DatabaseFiltersApi.CriterionWrite(identifier = "completed")
+        }
+        val createCount = runCatching {
+            filtersApi.create("Too many rows", null, null, tooManyRows)
+        }.exceptionOrNull()
+        assertNotNull(createCount)
+        assertTrue(createCount!!.message!!.contains("the limit is"))
+
+        val seed = filtersApi.create(
+            "Seed", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")),
+        )
+        val updateTitle = runCatching {
+            filtersApi.update(id = seed.id, title = longTitle, icon = null, color = null, criteria = null)
+        }.exceptionOrNull()
+        assertNotNull(updateTitle)
+        assertTrue(updateTitle!!.message!!.contains("the limit is"))
+
+        val updateValue = runCatching {
+            filtersApi.update(
+                id = seed.id, title = null, icon = null, color = null,
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = longValue)),
+            )
+        }.exceptionOrNull()
+        assertNotNull(updateValue)
+        assertTrue(updateValue!!.message!!.contains("the limit is"))
+
+        assertEquals("exactly one row (the seed) survived", 1, filtersApi.list().total)
+    }
+
+    @Test
     fun updatePatchesOnlyWhatIsSent() = runBlocking {
         val seed = filtersApi.create(
             title = "Original",

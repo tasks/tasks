@@ -37,6 +37,19 @@ class DatabaseFiltersApi(
     private val taskListMetadataDao: TaskListMetadataDao,
 ) {
 
+    companion object {
+        /**
+         * Upper bounds on agent-supplied filter input. Kept far below the sizes where the
+         * stored SQL and the app's edit dialog start to misbehave (observed: a ~1.6MB
+         * value broke execution and dropped the criteria on read-back; a 160KB title
+         * pushed the dialog's delete button off screen). A 500-char title or text match
+         * is already far beyond any realistic use.
+         */
+        const val MAX_TITLE_LENGTH = 500
+        const val MAX_VALUE_LENGTH = 500
+        const val MAX_CRITERIA_COUNT = 50
+    }
+
     @Serializable
     data class FilterRow(
         val id: Long,
@@ -219,6 +232,9 @@ class DatabaseFiltersApi(
         criteria: List<CriterionWrite>,
     ): FilterRow {
         require(title.isNotBlank()) { "title must not be blank" }
+        require(title.length <= MAX_TITLE_LENGTH) {
+            "title is ${title.length} characters; the limit is $MAX_TITLE_LENGTH"
+        }
         val instances = buildCriteria(criteria)
         val id = filterDao.insert(
             Filter(
@@ -251,7 +267,12 @@ class DatabaseFiltersApi(
         require(title != null || icon != null || color != null || criteria != null) {
             "Nothing to change: send at least one of title, icon, color or criteria"
         }
-        if (title != null) require(title.isNotBlank()) { "title must not be blank" }
+        if (title != null) {
+            require(title.isNotBlank()) { "title must not be blank" }
+            require(title.length <= MAX_TITLE_LENGTH) {
+                "title is ${title.length} characters; the limit is $MAX_TITLE_LENGTH"
+            }
+        }
         val instances = criteria?.let { buildCriteria(it) }
         val updated = existing.copy(
             title = title ?: existing.title,
@@ -290,6 +311,9 @@ class DatabaseFiltersApi(
         require(criteria.isNotEmpty()) {
             "criteria must not be empty: a filter needs at least one criterion. " +
                 "Read list_filter_criteria for what can be expressed."
+        }
+        require(criteria.size <= MAX_CRITERIA_COUNT) {
+            "criteria has ${criteria.size} rows; the limit is $MAX_CRITERIA_COUNT"
         }
         val catalog = buildMap {
             put(FilterCriteriaProvider.IDENTIFIER_UNIVERSE, provider.startingUniverse())
@@ -330,6 +354,10 @@ class DatabaseFiltersApi(
                     val value = row.value
                     require(!value.isNullOrBlank()) {
                         "Criterion '${row.identifier}' needs a value"
+                    }
+                    require(value.length <= MAX_VALUE_LENGTH) {
+                        "Criterion '${row.identifier}' value is ${value.length} characters; " +
+                            "the limit is $MAX_VALUE_LENGTH"
                     }
                     instance.selectedText = value
                 }
