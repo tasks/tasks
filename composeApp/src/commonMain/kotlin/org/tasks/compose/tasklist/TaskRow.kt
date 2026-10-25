@@ -24,9 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mikepenz.markdown.annotator.annotatorSettings
+import com.mikepenz.markdown.annotator.buildMarkdownAnnotatedString
+import com.mikepenz.markdown.compose.components.MarkdownComponents
+import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
@@ -146,7 +152,7 @@ internal fun TaskRow(
                     else -> MaterialTheme.colorScheme.onSurface
                 }
                 Markdown(
-                    content = task.title ?: "",
+                    content = titleContent(task.title, style.showFullTitle),
                     colors = markdownColor(text = titleColor),
                     typography = markdownTypography(
                         paragraph = MaterialTheme.typography.bodyLarge.copy(
@@ -158,6 +164,11 @@ internal fun TaskRow(
                             },
                         ),
                     ),
+                    components = if (style.showFullTitle) {
+                        markdownComponents()
+                    } else {
+                        singleLineTitleComponents()
+                    },
                     animations = markdownAnimations(animateTextSize = { this }),
                     modifier = Modifier.weight(1f),
                 )
@@ -285,6 +296,32 @@ internal fun TaskRow(
         }
     }
 }
+
+/**
+ * Markdown components that clamp the title to a single line with an
+ * ellipsis, mirroring the native task list (singleLine=true,
+ * ellipsize=end) while the "Full task title" option is off. Inline markdown
+ * formatting is preserved; only the line count is capped.
+ */
+private fun singleLineTitleComponents(): MarkdownComponents = markdownComponents(
+    paragraph = { model ->
+        val styledText = buildAnnotatedString {
+            pushStyle(model.typography.paragraph.toSpanStyle())
+            buildMarkdownAnnotatedString(
+                content = model.content,
+                node = model.node,
+                annotatorSettings = annotatorSettings(),
+            )
+            pop()
+        }
+        Text(
+            text = styledText,
+            style = model.typography.paragraph,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    },
+)
 
 @Composable
 private fun chipColor(seedColor: Int, isDark: Boolean): Color {

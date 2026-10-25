@@ -18,13 +18,31 @@ internal data class TaskRowStyle(
     val titleFontSizeSp: Int,
     val detailFontSizeSp: Int,
     val rowSpacingDp: Int,
+    val showFullTitle: Boolean = false,
 )
 
-internal fun taskRowStyle(fontSize: Int, rowSpacingDp: Int): TaskRowStyle = TaskRowStyle(
+internal fun taskRowStyle(
+    fontSize: Int,
+    rowSpacingDp: Int,
+    showFullTitle: Boolean = false,
+): TaskRowStyle = TaskRowStyle(
     titleFontSizeSp = fontSize,
     detailFontSizeSp = max(DETAIL_FONT_SIZE_FLOOR, fontSize - 2),
     rowSpacingDp = rowSpacingDp,
+    showFullTitle = showFullTitle,
 )
+
+/**
+ * The title text handed to the markdown renderer. When the row clamps the
+ * title to a single line (native "Full task title" off) newlines collapse
+ * to spaces so the whole title behaves like one line, matching the Android
+ * list (singleLine=true, ellipsize=end).
+ */
+internal fun titleContent(title: String?, showFullTitle: Boolean): String = when {
+    title == null -> ""
+    showFullTitle -> title
+    else -> title.replace("\n", " ")
+}
 
 internal val DEFAULT_TASK_ROW_STYLE = taskRowStyle(
     TaskListPreferencesViewModel.DEFAULT_FONT_SIZE,

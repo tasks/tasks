@@ -34,5 +34,24 @@ class TaskRowStyleTest {
         assertEquals(16, DEFAULT_TASK_ROW_STYLE.titleFontSizeSp)
         assertEquals(14, DEFAULT_TASK_ROW_STYLE.detailFontSizeSp)
         assertEquals(16, DEFAULT_TASK_ROW_STYLE.rowSpacingDp)
+        assertEquals(false, DEFAULT_TASK_ROW_STYLE.showFullTitle)
+    }
+
+    @Test
+    fun theFullTitleTogglePassesThroughAndDefaultsOff() {
+        assertEquals(true, taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullTitle = true).showFullTitle)
+        assertEquals(false, taskRowStyle(fontSize = 16, rowSpacingDp = 16).showFullTitle)
+    }
+
+    @Test
+    fun aClampedTitleCollapsesNewlinesIntoSpaces() {
+        assertEquals("line one line two", titleContent("line one\nline two", showFullTitle = false))
+        assertEquals("", titleContent(null, showFullTitle = false))
+    }
+
+    @Test
+    fun aFullTitleKeepsItsNewlines() {
+        assertEquals("line one\nline two", titleContent("line one\nline two", showFullTitle = true))
+        assertEquals("", titleContent(null, showFullTitle = true))
     }
 }

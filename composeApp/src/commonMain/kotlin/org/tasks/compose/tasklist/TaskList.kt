@@ -72,7 +72,11 @@ internal fun TaskList(
         .flow(TasksPreferences.taskListRowSpacing, TaskListPreferencesViewModel.DEFAULT_ROW_SPACING)
         .distinctUntilChanged()
         .collectAsState(initial = TaskListPreferencesViewModel.DEFAULT_ROW_SPACING)
-    val rowStyle = remember(fontSize, rowSpacing) { taskRowStyle(fontSize, rowSpacing) }
+    val showFullTitle by tasksPreferences
+        .flow(TasksPreferences.taskListShowFullTitle, false)
+        .distinctUntilChanged()
+        .collectAsState(initial = false)
+    val rowStyle = remember(fontSize, rowSpacing, showFullTitle) { taskRowStyle(fontSize, rowSpacing, showFullTitle) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,

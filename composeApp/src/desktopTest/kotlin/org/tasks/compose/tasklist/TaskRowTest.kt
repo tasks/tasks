@@ -1,7 +1,10 @@
 package org.tasks.compose.tasklist
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
@@ -10,7 +13,9 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlinx.coroutines.flow.emptyFlow
 import org.mockito.kotlin.doReturn
@@ -59,7 +64,12 @@ class TaskRowTest {
     }
 
     @Composable
-    private fun Row(task: TaskContainer, doomed: Boolean, clicks: Clicks) {
+    private fun Row(
+        task: TaskContainer,
+        doomed: Boolean,
+        clicks: Clicks,
+        style: TaskRowStyle = DEFAULT_TASK_ROW_STYLE,
+    ) {
         MaterialTheme {
             TaskRow(
                 task = task,
@@ -67,6 +77,7 @@ class TaskRowTest {
                 filter = EmptyFilter(),
                 groupMode = 0,
                 chipDataProvider = chips,
+                style = style,
                 is24Hour = false,
                 dateFormatter = null,
                 onClick = { clicks.opened++ },
@@ -194,5 +205,42 @@ class TaskRowTest {
 
         assertEquals(RowState.Doomed, rowState(mapOf("id:7" to true), old))
         assertEquals(RowState.Draw, rowState(mapOf("id:8" to true), old))
+    }
+
+    @Test
+    fun aClampedRowShowsTheWholeTitleOnOneLine() = runComposeUiTest {
+        setContent { Row(task(title = "line one\nline two"), doomed = false, clicks = Clicks()) }
+
+        waitUntil { onAllNodes(hasText("line one line two")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("line one line two").assertExists()
+    }
+
+    @Test
+    fun aFullTitleRowWrapsInsteadOfClampingToOneLine() = runComposeUiTest {
+        val longTitle = ("word ".repeat(40)).trim()
+        val full = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullTitle = true)
+
+        setContent {
+            Box(Modifier.width(240.dp)) {
+                Row(task(title = longTitle), doomed = false, clicks = Clicks())
+            }
+        }
+        waitUntil { onAllNodes(hasText(longTitle)).fetchSemanticsNodes().isNotEmpty() }
+        val clampedHeight = onNodeWithText(longTitle).fetchSemanticsNode().size.height
+
+        setContent {
+            Box(Modifier.width(240.dp)) {
+                Row(task(title = longTitle), doomed = false, clicks = Clicks(), style = full)
+            }
+        }
+        waitUntil { onAllNodes(hasText(longTitle)).fetchSemanticsNodes().isNotEmpty() }
+        val fullHeight = onNodeWithText(longTitle).fetchSemanticsNode().size.height
+
+        assertTrue(
+            "full title should wrap to more lines than the clamped single line " +
+                    "(clamped=$clampedHeight full=$fullHeight)",
+            fullHeight > clampedHeight,
+        )
     }
 }
