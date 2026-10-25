@@ -84,6 +84,7 @@ import org.tasks.filters.CaldavFilter
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.TaskDefaultSettings
+import org.tasks.preferences.TasksPreferences
 import org.tasks.repeats.Frequency
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.repeats.anchoredToDueDate
@@ -118,6 +119,7 @@ class TaskEditViewModel(
     private val alarmDao: AlarmDao,
     private val alarmService: AlarmService,
     private val appPreferences: AppPreferences,
+    private val tasksPreferences: TasksPreferences,
     private val externalScope: CoroutineScope,
     private val pendingSaves: PendingTaskSaves,
     private val taskCompleter: TaskCompleter,
@@ -250,6 +252,14 @@ class TaskEditViewModel(
     private val _loadError = MutableStateFlow(false)
     val loadError: StateFlow<Boolean> = _loadError.asStateFlow()
 
+    /** "Back button saves task" pref, collected live in init: the desktop settings pane can
+     * flip it while an editor is open. Native default is false; the desktop seeds true on
+     * first launch (see main.kt) so the existing Escape-to-save behaviour is the de-facto
+     * desktop default.
+     */
+    private val _backButtonSaves = MutableStateFlow(false)
+    val backButtonSaves: StateFlow<Boolean> = _backButtonSaves.asStateFlow()
+
     /** True while a [save] is waiting on the per-task lock or writing. */
     private val _saving = MutableStateFlow(false)
     val saving: StateFlow<Boolean> = _saving.asStateFlow()
@@ -307,6 +317,15 @@ class TaskEditViewModel(
         // nothing has cleared or stopped it. Shutdown asks for the commit through here instead, and
         // so does an editor loading this same task - see load().
         unregisterFlushHandler = pendingSaves.registerFlushHandler(saveKey) { persistCurrentTask() }
+        // Live "back button saves task" pref: the desktop settings pane can flip it while an
+        // editor is open, so collect it instead of reading it once (same pattern as the
+        // per-list sort gate in TaskListViewModel). Every read keeps the native default of
+        // false; the desktop seeds true on first launch (see main.kt).
+        tasksPreferences
+            .flow(TasksPreferences.taskEditBackButtonSaves, false)
+            .distinctUntilChanged()
+            .onEach { _backButtonSaves.value = it }
+            .launchIn(viewModelScope)
     }
 
     private fun load() {
@@ -1127,6 +1146,20 @@ class TaskEditViewModel(
                 _saving.value = false
             }
         }
+    }
+
+    /**
+     * What a back navigation should do, given the live "back button saves task" pref and
+     * whether the task has unsaved changes. Mirrors the native Android semantics: pref on
+     * saves, pref off prompts a discard confirmation when dirty and discards straight when
+     * clean. The dirty check is the exact same `state.hasChanges` the action-bar discard
+     * flow uses.
+     */
+    enum class BackAction { Save, PromptDiscard, Discard }
+
+    fun resolveBackAction(): BackAction {
+        if (_backButtonSaves.value) return BackAction.Save
+        return if (_state.value.hasChanges) BackAction.PromptDiscard else BackAction.Discard
     }
 
     fun discardChanges() {

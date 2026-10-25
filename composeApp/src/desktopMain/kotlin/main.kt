@@ -161,6 +161,12 @@ fun main() {
         val versionCode = koin.get<PlatformConfiguration>().versionCode
         koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
         koin.get<Upgrader>().upgrade(versionCode)
+        // One-shot platform seed: the native "back button saves task" pref defaults to false,
+        // but desktop's existing Escape-to-save behaviour is the de-facto platform default,
+        // so seed true exactly once on first launch. ifUnset() is atomic and never clobbers
+        // a value the user set afterwards (Settings > Edit screen options).
+        koin.get<TasksPreferences>()
+            .ifUnset(TasksPreferences.taskEditBackButtonSaves, true)
         koin.get<TasksPreferences>()
             .get(TasksPreferences.languageTag, "")
             .takeIf { it.isNotBlank() }

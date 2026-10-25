@@ -114,11 +114,23 @@ fun TaskEditScreen(
 
     val saveAndClose = { viewModel.save() }
 
+    // Shared with the action-bar discard flow below; the back handler reuses the same
+    // confirmation dialog when the "back button saves task" pref is off and the task is dirty.
+    var showDiscardConfirmation by remember { mutableStateOf(false) }
+
     // Armed unless the caller says something is on top of this screen. In a list-detail scene
     // neither NavDisplay nor the task list chrome has a back handler enabled, so leaving this one
     // off while the row loads would let back exit the app instead of closing the editor. save() is
-    // a no-op while loading and still emits the close.
-    PlatformBackHandler(enabled = backHandlerEnabled) { saveAndClose() }
+    // a no-op while loading and still emits the close. Whether back saves or discards follows
+    // the "back button saves task" pref (Settings > Edit screen options); window close (X) is
+    // intentionally out of scope and keeps the existing always-commit behaviour.
+    PlatformBackHandler(enabled = backHandlerEnabled) {
+        when (viewModel.resolveBackAction()) {
+            TaskEditViewModel.BackAction.Save -> saveAndClose()
+            TaskEditViewModel.BackAction.PromptDiscard -> showDiscardConfirmation = true
+            TaskEditViewModel.BackAction.Discard -> viewModel.discardChanges()
+        }
+    }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -189,7 +201,6 @@ fun TaskEditScreen(
                     var showStartDatePicker by remember { mutableStateOf(false) }
                     var showRecurrencePicker by remember { mutableStateOf(false) }
                     var showAlarmDateTimePicker by remember { mutableStateOf(false) }
-                    var showDiscardConfirmation by remember { mutableStateOf(false) }
                     var showDeleteConfirmation by remember { mutableStateOf(false) }
                     var alarmToReplace by remember { mutableStateOf<Alarm?>(null) }
                     var pickerToken by remember { mutableStateOf(0) }

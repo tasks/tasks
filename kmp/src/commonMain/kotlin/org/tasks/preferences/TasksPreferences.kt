@@ -53,6 +53,23 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         return updated
     }
 
+    /**
+     * Atomically writes [value] for [key] only if no value is stored yet, so a
+     * caller can seed a platform-specific default exactly once without a
+     * read-then-write race and without clobbering a value the user (or a
+     * later seed) already set. Returns true if it seeded.
+     */
+    suspend fun <T> ifUnset(key: Preferences.Key<T>, value: T): Boolean {
+        var seeded = false
+        dataStore.edit {
+            if (it[key] == null) {
+                it[key] = value
+                seeded = true
+            }
+        }
+        return seeded
+    }
+
     suspend fun <T> getAndSet(key: Preferences.Key<T>, value: T): T? {
         var previous: T? = null
         dataStore.edit {
@@ -97,6 +114,12 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val blogDismissedPostId = stringPreferencesKey("blog_dismissed_post_id")
         val collectStatistics = booleanPreferencesKey("collect_statistics")
         val sidebarExpanded = booleanPreferencesKey("sidebar_expanded")
+
+        // Edit screen options pane (desktop settings; Android uses its own SharedPreferences).
+        // Every read path keeps the native default (false); the desktop seeds true on first
+        // launch so its historical Escape-to-save back behaviour remains the default.
+        val taskEditBackButtonSaves = booleanPreferencesKey("task_edit_back_button_saves")
+
         val sidebarWidth = intPreferencesKey("sidebar_width")
         val taskListPaneWidth = intPreferencesKey("task_list_pane_width")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")

@@ -86,6 +86,7 @@ import org.tasks.preferences.PreferencesSnapshot
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.preferences.TasksPreferences
+import org.tasks.viewmodel.TaskEditPreferencesViewModel
 import org.tasks.preferences.adjustForQuietHours
 import org.tasks.preferences.isCurrentlyQuietHours
 import org.tasks.preferences.toAlarmJson
@@ -704,6 +705,7 @@ val coreModule: Module = module {
             alarmDao = get(),
             alarmService = get(),
             appPreferences = get(),
+            tasksPreferences = get(),
             externalScope = get(),
             pendingSaves = get(),
             taskCompleter = get(),
@@ -711,6 +713,11 @@ val coreModule: Module = module {
             treeRegistry = get(),
             subtaskWriter = get(),
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
+        )
+    }
+    viewModel {
+        TaskEditPreferencesViewModel(
+            tasksPreferences = get(),
         )
     }
     viewModel { ReminderControlSetViewModel() }
