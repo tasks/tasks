@@ -222,6 +222,7 @@ mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version = "6.4.
 nucleus-notification-linux = { module = "dev.nucleusframework:nucleus.notification-linux", version.ref = "nucleus" }
 nucleus-notification-macos = { module = "dev.nucleusframework:nucleus.notification-macos", version.ref = "nucleus" }
 nucleus-notification-windows = { module = "dev.nucleusframework:nucleus.notification-windows", version.ref = "nucleus" }
+nucleus-tray = { module = "dev.nucleusframework:composenativetray", version = "2.1.7" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "okhttp" }
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
