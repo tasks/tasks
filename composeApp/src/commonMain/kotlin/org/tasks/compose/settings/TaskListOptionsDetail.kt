@@ -90,25 +90,30 @@ fun TaskListOptionsDetail(
             )
         },
     ) { padding ->
-        TaskListOptionsScreen(
-            state = state,
-            onFontSizeChange = viewModel::updateFontSize,
-            onRowSpacingChange = viewModel::updateRowSpacing,
-            onShowFullTitleChange = viewModel::updateShowFullTitle,
-            onShowDescriptionChange = viewModel::updateShowDescription,
-            onShowFullDescriptionChange = viewModel::updateShowFullDescription,
-            onShowLinksChange = viewModel::updateShowLinks,
-            onPerListSortChange = viewModel::updatePerListSort,
-            onChipAppearanceChange = viewModel::updateChipAppearance,
-            onSubtaskChipsChange = viewModel::updateSubtaskChips,
-            onStartDateChipsChange = viewModel::updateStartDateChips,
-            onPlaceChipsChange = viewModel::updatePlaceChips,
-            onListChipsChange = viewModel::updateListChips,
-            onTagChipsChange = viewModel::updateTagChips,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-        )
+        // Hold off rendering until the persisted values have loaded, so the
+        // rows don't flash their defaults (and animate) before the real
+        // state arrives.
+        if (state.loaded) {
+            TaskListOptionsScreen(
+                state = state,
+                onFontSizeChange = viewModel::updateFontSize,
+                onRowSpacingChange = viewModel::updateRowSpacing,
+                onShowFullTitleChange = viewModel::updateShowFullTitle,
+                onShowDescriptionChange = viewModel::updateShowDescription,
+                onShowFullDescriptionChange = viewModel::updateShowFullDescription,
+                onShowLinksChange = viewModel::updateShowLinks,
+                onPerListSortChange = viewModel::updatePerListSort,
+                onChipAppearanceChange = viewModel::updateChipAppearance,
+                onSubtaskChipsChange = viewModel::updateSubtaskChips,
+                onStartDateChipsChange = viewModel::updateStartDateChips,
+                onPlaceChipsChange = viewModel::updatePlaceChips,
+                onListChipsChange = viewModel::updateListChips,
+                onTagChipsChange = viewModel::updateTagChips,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding),
+            )
+        }
     }
 }
 
