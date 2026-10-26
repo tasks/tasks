@@ -1,7 +1,12 @@
 package org.tasks.compose.settings
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -75,12 +80,21 @@ fun TaskEditOptionsScreen(
     onBackButtonSavesChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    SettingsItemCard(position = CardPosition.Only) {
-        SwitchPreferenceRow(
-            title = stringResource(Res.string.back_button_saves_task),
-            summary = stringResource(Res.string.back_button_saves_task_summary),
-            checked = state.backButtonSaves,
-            onCheckedChange = onBackButtonSavesChange,
-        )
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = SettingsContentPadding),
+    ) {
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        SettingsItemCard(position = CardPosition.Only) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.back_button_saves_task),
+                summary = stringResource(Res.string.back_button_saves_task_summary),
+                checked = state.backButtonSaves,
+                onCheckedChange = onBackButtonSavesChange,
+            )
+        }
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
     }
 }
