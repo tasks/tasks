@@ -50,12 +50,14 @@ class TaskRowTest {
         completed: Boolean = false,
         indent: Int = 0,
         location: Location? = null,
+        notes: String? = null,
     ) = TaskContainer(
         task = Task(
             id = 1,
             title = title,
             remoteId = "uuid-1",
             completionDate = if (completed) 1 else 0,
+            notes = notes,
         ),
         children = children,
         uncompletedChildren = uncompletedChildren,
@@ -309,5 +311,62 @@ class TaskRowTest {
         waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
 
         onNodeWithText("2").assertDoesNotExist()
+    }
+
+    @Test
+    fun aLongDescriptionIsClampedToTwoLinesWithAShowMoreLink() = runComposeUiTest {
+        setContent {
+            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks())
+        }
+        waitUntil { onAllNodes(hasText("Show more")).fetchSemanticsNodes().isNotEmpty() }
+
+        // The markdown renderer joins the collapsed lines into one paragraph.
+        onNodeWithText("line one line two").assertExists()
+        onNodeWithText("line three").assertDoesNotExist()
+    }
+
+    @Test
+    fun aLongDescriptionIsHiddenWhenDescriptionsAreOff() = runComposeUiTest {
+        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showDescription = false)
+
+        setContent {
+            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks(), style = style)
+        }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("line one").assertDoesNotExist()
+        onNodeWithText("Show more").assertDoesNotExist()
+    }
+
+    @Test
+    fun aFullDescriptionSkipsTheClampAndTheShowMoreLink() = runComposeUiTest {
+        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullDescription = true)
+
+        setContent {
+            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks(), style = style)
+        }
+        waitUntil {
+            onAllNodes(hasText("line one line two line three")).fetchSemanticsNodes().isNotEmpty()
+        }
+
+        onNodeWithText("line one line two line three").assertExists()
+        onNodeWithText("Show more").assertDoesNotExist()
+    }
+
+    @Test
+    fun hiddenDescriptionsWinOverFullDescriptions() = runComposeUiTest {
+        val style = taskRowStyle(
+            fontSize = 16,
+            rowSpacingDp = 16,
+            showDescription = false,
+            showFullDescription = true,
+        )
+
+        setContent {
+            Row(task(notes = "line one"), doomed = false, clicks = Clicks(), style = style)
+        }
+        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("line one").assertDoesNotExist()
     }
 }

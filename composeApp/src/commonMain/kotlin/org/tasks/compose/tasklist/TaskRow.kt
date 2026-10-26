@@ -185,11 +185,11 @@ internal fun TaskRow(
                     )
                 }
             }
-            if (!task.notes.isNullOrBlank()) {
+            if (!task.notes.isNullOrBlank() && style.showDescription) {
                 val content = task.notes!!.trim()
                 var expanded by remember { mutableStateOf(false) }
                 val lines = content.lines()
-                val hasMore = lines.size > 2
+                val hasMore = !style.showFullDescription && lines.size > 2
                 val mdColors = markdownColor(
                     text = if (task.task.isHidden) {
                         MaterialTheme.colorScheme.outline

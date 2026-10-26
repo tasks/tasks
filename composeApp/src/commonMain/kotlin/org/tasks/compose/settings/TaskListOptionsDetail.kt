@@ -65,9 +65,9 @@ import tasks.kmp.generated.resources.task_list_options
  * Android TaskListPreferences screen (same rows, same order, same
  * defaults), storing values in the shared TasksPreferences DataStore.
  *
- * Phase 1: the rows persist their values but (except for the per-list
- * sorting toggle, which is live) are not yet consumed by the task-row
- * rendering.
+ * All rows except linkify are live: per-list sorting, font size, row
+ * spacing, full title, description visibility, chip appearance and the
+ * per-chip toggles are consumed by the task rows.
  */
 @Composable
 fun TaskListOptionsDetail(

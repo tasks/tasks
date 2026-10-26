@@ -57,6 +57,22 @@ class TaskRowStyleTest {
     }
 
     @Test
+    fun theDescriptionTogglesDefaultSensibly() {
+        val all = taskRowStyle(fontSize = 16, rowSpacingDp = 16)
+        assertEquals(true, all.showDescription)
+        assertEquals(false, all.showFullDescription)
+
+        val none = taskRowStyle(
+            fontSize = 16,
+            rowSpacingDp = 16,
+            showDescription = false,
+            showFullDescription = true,
+        )
+        assertEquals(false, none.showDescription)
+        assertEquals(true, none.showFullDescription)
+    }
+
+    @Test
     fun theChipTogglesDefaultOnAndPassThrough() {
         val all = taskRowStyle(fontSize = 16, rowSpacingDp = 16)
         assertEquals(true, all.subtaskChips)

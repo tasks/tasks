@@ -103,9 +103,18 @@ internal fun TaskList(
         .flow(TasksPreferences.taskListTagChips, true)
         .distinctUntilChanged()
         .collectAsState(initial = true)
+    val showDescription by tasksPreferences
+        .flow(TasksPreferences.taskListShowDescription, true)
+        .distinctUntilChanged()
+        .collectAsState(initial = true)
+    val showFullDescription by tasksPreferences
+        .flow(TasksPreferences.taskListShowFullDescription, false)
+        .distinctUntilChanged()
+        .collectAsState(initial = false)
     val rowStyle = remember(
         fontSize, rowSpacing, showFullTitle,
         chipAppearance, subtaskChips, startDateChips, placeChips, listChips, tagChips,
+        showDescription, showFullDescription,
     ) {
         taskRowStyle(
             fontSize = fontSize,
@@ -117,6 +126,8 @@ internal fun TaskList(
             placeChips = placeChips,
             listChips = listChips,
             tagChips = tagChips,
+            showDescription = showDescription,
+            showFullDescription = showFullDescription,
         )
     }
     LazyColumn(

@@ -25,6 +25,8 @@ internal data class TaskRowStyle(
     val placeChips: Boolean = true,
     val listChips: Boolean = true,
     val tagChips: Boolean = true,
+    val showDescription: Boolean = true,
+    val showFullDescription: Boolean = false,
 ) {
     /**
      * Native parity for p_chip_appearance (0 = text and icon, 1 = text only,
@@ -48,6 +50,8 @@ internal fun taskRowStyle(
     placeChips: Boolean = true,
     listChips: Boolean = true,
     tagChips: Boolean = true,
+    showDescription: Boolean = true,
+    showFullDescription: Boolean = false,
 ): TaskRowStyle = TaskRowStyle(
     titleFontSizeSp = fontSize,
     detailFontSizeSp = max(DETAIL_FONT_SIZE_FLOOR, fontSize - 2),
@@ -59,6 +63,8 @@ internal fun taskRowStyle(
     placeChips = placeChips,
     listChips = listChips,
     tagChips = tagChips,
+    showDescription = showDescription,
+    showFullDescription = showFullDescription,
 )
 
 /**
