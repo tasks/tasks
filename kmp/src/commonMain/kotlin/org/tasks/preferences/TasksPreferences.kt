@@ -120,6 +120,11 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         // launch so its historical Escape-to-save back behaviour remains the default.
         val taskEditBackButtonSaves = booleanPreferencesKey("task_edit_back_button_saves")
 
+        // Customize edit screen: JSON array of {"id","enabled"} entries in the user's
+        // display order (hidden rows stay in the list so re-enabling restores their spot).
+        // A null/absent value means the canonical order with every section enabled.
+        val editScreenSections = stringPreferencesKey("edit_screen_sections")
+
         val sidebarWidth = intPreferencesKey("sidebar_width")
         val taskListPaneWidth = intPreferencesKey("task_list_pane_width")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")

@@ -20,6 +20,7 @@ import org.tasks.data.composeIcon
 import org.tasks.data.composeTitle
 import org.tasks.data.entity.CaldavAccount
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.EPr_customize_edit_screen
 import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.backup_BPr_header
@@ -56,6 +57,7 @@ sealed class SettingsDestination(override val titleRes: StringResource) : Settin
     data object TaskDefaults : SettingsDestination(Res.string.task_defaults)
     data object TaskList : SettingsDestination(Res.string.task_list_options)
     data object TaskEdit : SettingsDestination(Res.string.EPr_edit_screen_options)
+    data object EditScreenCustomize : SettingsDestination(Res.string.EPr_customize_edit_screen)
     data object DateAndTime : SettingsDestination(Res.string.date_and_time)
     data object NavigationDrawer : SettingsDestination(Res.string.navigation_drawer)
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)

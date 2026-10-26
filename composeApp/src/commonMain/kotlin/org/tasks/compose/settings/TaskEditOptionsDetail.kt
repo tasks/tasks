@@ -22,6 +22,8 @@ import org.tasks.themes.TasksIcons
 import org.tasks.viewmodel.TaskEditPreferencesViewModel
 import org.tasks.viewmodel.TaskEditPreferencesViewModel.State
 import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.EPr_customize_edit_screen
+import tasks.kmp.generated.resources.EPr_customize_edit_screen_summary
 import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.escape_key_saves_task
@@ -41,6 +43,7 @@ import tasks.kmp.generated.resources.escape_key_saves_task_summary
 @Composable
 fun TaskEditOptionsDetail(
     onNavigateBack: () -> Unit,
+    onCustomizeClick: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<TaskEditPreferencesViewModel>()
     val state by viewModel.state.collectAsState()
@@ -65,6 +68,7 @@ fun TaskEditOptionsDetail(
         if (state.loaded) {
             TaskEditOptionsScreen(
                 state = state,
+                onCustomizeClick = onCustomizeClick,
                 onBackButtonSavesChange = viewModel::updateBackButtonSaves,
                 modifier = Modifier
                     .fillMaxSize()
@@ -77,6 +81,7 @@ fun TaskEditOptionsDetail(
 @Composable
 fun TaskEditOptionsScreen(
     state: State,
+    onCustomizeClick: () -> Unit,
     onBackButtonSavesChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -87,6 +92,13 @@ fun TaskEditOptionsScreen(
             .padding(horizontal = SettingsContentPadding),
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
+        // Native row order: customize first, then the behavioural toggle.
+        PreferenceRow(
+            title = stringResource(Res.string.EPr_customize_edit_screen),
+            summary = stringResource(Res.string.EPr_customize_edit_screen_summary),
+            showChevron = true,
+            onClick = onCustomizeClick,
+        )
         SettingsItemCard(position = CardPosition.Only) {
             SwitchPreferenceRow(
                 title = stringResource(Res.string.escape_key_saves_task),
