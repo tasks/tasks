@@ -22,6 +22,8 @@ import org.tasks.caldav.metadata.TagMetadataEditor
 import org.tasks.caldav.metadata.TagMetadataSync
 import org.tasks.service.TaskMigrator
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
+import org.tasks.viewmodel.DrawerCustomizationViewModel
+import org.tasks.viewmodel.TaskListPreferencesViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.MicrosoftListSettingsViewModel
 import org.tasks.viewmodel.TagSettingsViewModel
@@ -83,6 +85,7 @@ import org.tasks.preferences.DrawerSettings
 import org.tasks.preferences.LookAndFeelSettings
 import org.tasks.preferences.NotificationSettings
 import org.tasks.preferences.PreferencesSnapshot
+import org.tasks.preferences.FilterPreferences
 import org.tasks.preferences.QueryPreferences
 import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.preferences.TasksPreferences
@@ -473,6 +476,23 @@ val coreModule: Module = module {
         )
     }
     viewModel {
+        DrawerCustomizationViewModel(
+            filterProvider = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            locationDao = get(),
+            filterDao = get(),
+            tagMetadataSync = get(),
+            syncAdapters = get(),
+            refreshBroadcaster = get(),
+        )
+    }
+    viewModel {
+        TaskListPreferencesViewModel(
+            tasksPreferences = get(),
+        )
+    }
+    viewModel {
         LookAndFeelViewModel(
             appPreferences = get(),
             platformConfiguration = get(),
@@ -684,6 +704,8 @@ val coreModule: Module = module {
             tasksPreferences = get(),
             headerFormatter = get(),
             queryPreferences = get(),
+            isPerListSortEnabled =
+                runBlocking { get<TasksPreferences>().get(TasksPreferences.taskListPerListSort, false) },
             refreshFlow = get<ComposeRefreshBroadcaster>().refreshes,
         )
     }
@@ -720,9 +742,21 @@ val coreModule: Module = module {
             syncAdapters = get(),
         )
     }
-    viewModel {
+    viewModel { params ->
+        // Per-list sorting (native parity, see SPEC-settings-panes.md §3.4):
+        // when the desktop per-list sort gate is on and a filter key is
+        // provided, the sort sheet edits that filter's sparse overrides
+        // (FilterPreferences) instead of the global preferences.
+        val filterKey: String? = params.getOrNull()
+        val perListSortEnabled: Boolean = params.get()
+        val preferences: QueryPreferences =
+            if (perListSortEnabled && filterKey != null) {
+                FilterPreferences(get(), get(), filterKey)
+            } else {
+                get()
+            }
         SortSettingsViewModel(
-            preferences = get(),
+            preferences = preferences,
             reporting = get(),
             refreshBroadcaster = get(),
         )

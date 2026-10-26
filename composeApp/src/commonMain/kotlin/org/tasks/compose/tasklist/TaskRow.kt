@@ -24,8 +24,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.mikepenz.markdown.annotator.annotatorSettings
+import com.mikepenz.markdown.annotator.buildMarkdownAnnotatedString
+import com.mikepenz.markdown.compose.components.MarkdownComponents
+import com.mikepenz.markdown.compose.components.markdownComponents
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
 import com.mikepenz.markdown.m3.markdownTypography
@@ -80,12 +87,15 @@ internal fun TaskRow(
     filter: Filter,
     groupMode: Int,
     chipDataProvider: ChipDataProvider,
+    style: TaskRowStyle = DEFAULT_TASK_ROW_STYLE,
     is24Hour: Boolean,
     dateFormatter: DateFormatter?,
     onClick: () -> Unit,
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
+    descriptionExpanded: Boolean,
+    onToggleDescriptionExpanded: () -> Unit,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -123,7 +133,7 @@ internal fun TaskRow(
                 modifier = Modifier.size(24.dp),
             )
         }
-        Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
+        Column(modifier = Modifier.weight(1f).padding(top = style.rowSpacingDp.dp, bottom = style.rowSpacingDp.dp)) {
             val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter) {
                 if (!task.hasDueDate()) {
                     null
@@ -144,10 +154,11 @@ internal fun TaskRow(
                     else -> MaterialTheme.colorScheme.onSurface
                 }
                 Markdown(
-                    content = task.title ?: "",
+                    content = titleContent(task.title, style.showFullTitle),
                     colors = markdownColor(text = titleColor),
                     typography = markdownTypography(
                         paragraph = MaterialTheme.typography.bodyLarge.copy(
+                            fontSize = style.titleFontSizeSp.sp,
                             textDecoration = if (task.isCompleted || doomed) {
                                 TextDecoration.LineThrough
                             } else {
@@ -155,13 +166,20 @@ internal fun TaskRow(
                             },
                         ),
                     ),
+                    components = if (style.showFullTitle) {
+                        markdownComponents()
+                    } else {
+                        singleLineTitleComponents()
+                    },
                     animations = markdownAnimations(animateTextSize = { this }),
                     modifier = Modifier.weight(1f),
                 )
                 if (dueDateText != null) {
                     Text(
                         text = dueDateText!!,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = style.detailFontSizeSp.sp,
+                        ),
                         color = if (isOverdue) MaterialTheme.colorScheme.error
                                 else MaterialTheme.colorScheme.onSurfaceVariant,
                         maxLines = 1,
@@ -169,9 +187,9 @@ internal fun TaskRow(
                     )
                 }
             }
-            if (!task.notes.isNullOrBlank()) {
+            if (!task.notes.isNullOrBlank() && style.showDescription) {
                 val content = task.notes!!.trim()
-                var expanded by remember { mutableStateOf(false) }
+                var expanded = descriptionExpanded
                 val lines = content.lines()
                 val hasMore = lines.size > 2
                 val mdColors = markdownColor(
@@ -182,7 +200,9 @@ internal fun TaskRow(
                     },
                 )
                 val mdTypography = markdownTypography(
-                    paragraph = MaterialTheme.typography.bodyMedium,
+                    paragraph = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = style.titleFontSizeSp.sp,
+                    ),
                 )
                 Markdown(
                     content = if (expanded || !hasMore) content
@@ -201,7 +221,10 @@ internal fun TaskRow(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .defaultMinSize(minHeight = 36.dp)
-                            .clickable { expanded = !expanded }
+                            .clickable {
+                                expanded = !expanded
+                                onToggleDescriptionExpanded()
+                            }
                             .wrapContentHeight(Alignment.CenterVertically),
                     )
                 }
@@ -224,10 +247,14 @@ internal fun TaskRow(
                 ?.mapNotNull { chipDataProvider.getTag(it) }
                 ?.sortedBy { it.title }
                 ?: emptyList()
-            val hasChips = task.hasChildren() || showStartDate || showList || showPlace || tags.isNotEmpty()
+            val hasChips = (task.hasChildren() && style.subtaskChips)
+                    || (showStartDate && style.startDateChips)
+                    || (showPlace && style.placeChips)
+                    || (showList && style.listChips)
+                    || (tags.isNotEmpty() && style.tagChips)
             if (hasChips) {
                 ChipGroup(modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)) {
-                    if (task.hasChildren()) {
+                    if (task.hasChildren() && style.subtaskChips) {
                         SubtaskChip(
                             collapsed = task.isCollapsed,
                             children = task.chipCount,
@@ -235,49 +262,77 @@ internal fun TaskRow(
                             enabled = !doomed,
                         )
                     }
-                    if (showStartDate) {
+                    if (showStartDate && style.startDateChips) {
                         StartDateChip(
                             sortGroup = task.sortGroup,
                             startDate = startDate,
-                            compact = true,
+                            compact = !style.chipShowText,
                             timeOnly = false,
                             chipColor = chipColor(0, isDark),
                             dateFormatter = dateFormatter,
                         )
                     }
-                    if (showPlace) {
+                    if (showPlace && style.placeChips) {
                         task.location?.let { location ->
                             Chip(
-                                text = location.place.displayName,
-                                icon = location.place.icon ?: "place",
+                                text = if (style.chipShowText) location.place.displayName else null,
+                                icon = if (style.chipShowIcon) location.place.icon ?: "place" else null,
                                 color = chipColor(location.place.color, isDark),
                                 onClick = { onFilterClick(PlaceFilter(location.place)) },
                             )
                         }
                     }
-                    if (showList) {
+                    if (showList && style.listChips) {
                         chipDataProvider.getCaldavList(task.caldav)?.let { list ->
                             Chip(
-                                text = list.title,
-                                icon = list.icon ?: "list",
+                                text = if (style.chipShowText) list.title else null,
+                                icon = if (style.chipShowIcon) list.icon ?: "list" else null,
                                 color = chipColor(list.tint, isDark),
                                 onClick = { onFilterClick(list) },
                             )
                         }
                     }
-                    tags.forEach { tag ->
-                        Chip(
-                            text = tag.title,
-                            icon = tag.icon ?: "label",
-                            color = chipColor(tag.tint, isDark),
-                            onClick = { onFilterClick(tag) },
-                        )
+                    if (style.tagChips) {
+                        tags.forEach { tag ->
+                            Chip(
+                                text = if (style.chipShowText) tag.title else null,
+                                icon = if (style.chipShowIcon) tag.icon ?: "label" else null,
+                                color = chipColor(tag.tint, isDark),
+                                onClick = { onFilterClick(tag) },
+                            )
+                        }
                     }
                 }
             }
         }
     }
 }
+
+/**
+ * Markdown components that clamp the title to a single line with an
+ * ellipsis, mirroring the native task list (singleLine=true,
+ * ellipsize=end) while the "Full task title" option is off. Inline markdown
+ * formatting is preserved; only the line count is capped.
+ */
+internal fun singleLineTitleComponents(): MarkdownComponents = markdownComponents(
+    paragraph = { model ->
+        val styledText = buildAnnotatedString {
+            pushStyle(model.typography.paragraph.toSpanStyle())
+            buildMarkdownAnnotatedString(
+                content = model.content,
+                node = model.node,
+                annotatorSettings = annotatorSettings(),
+            )
+            pop()
+        }
+        Text(
+            text = styledText,
+            style = model.typography.paragraph,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    },
+)
 
 @Composable
 private fun chipColor(seedColor: Int, isDark: Boolean): Color {

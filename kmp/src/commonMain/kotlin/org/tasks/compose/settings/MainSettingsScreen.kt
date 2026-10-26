@@ -31,6 +31,7 @@ import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
 import tasks.kmp.generated.resources.local_lists
+import tasks.kmp.generated.resources.customize_drawer
 import tasks.kmp.generated.resources.mcp_server
 import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.navigation_drawer
@@ -58,6 +59,7 @@ sealed class SettingsDestination(override val titleRes: StringResource) : Settin
     data object TaskEdit : SettingsDestination(Res.string.EPr_edit_screen_options)
     data object DateAndTime : SettingsDestination(Res.string.date_and_time)
     data object NavigationDrawer : SettingsDestination(Res.string.navigation_drawer)
+    data object DrawerCustomization : SettingsDestination(Res.string.customize_drawer)
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)
     data object Widgets : SettingsDestination(Res.string.widget_settings)
     data object McpServer : SettingsDestination(Res.string.mcp_server)
