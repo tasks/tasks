@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ok">Ha</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="actfm_picture_clear">Rasmni o\'chirish</string>
 </resources>
