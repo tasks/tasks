@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="cancel">Bekor qilish</string>
+    <string name="ok">Ha</string>
+    <string name="display_name">Koʻrsatiladigan ot</string>
+    <string name="app_settings">Ilova sozlamalari</string>
+    <string name="customize_drawer">Yon menyuni sozlash</string>
+    <string name="SSD_sort_my_order">Mening tartibim</string>
+    <string name="astrid_sort_order">Astrid usulida qo\'lda saralash</string>
+    <string name="SSD_sort_auto">Aqlli saralash</string>
+    <string name="SSD_sort_alpha">Nomi bo\'yicha</string>
+    <string name="SSD_sort_start">Boshlanish sanasi bo\'yicha</string>
+    <string name="SSD_sort_due">Muddat sanasi bo\'yicha</string>
+    <string name="SSD_sort_importance">Muhimligi bo\'yicha</string>
+    <string name="SSD_sort_modified">Oxirgi o\'zgartirilgan vaqti bo\'yicha</string>
+    <string name="TEA_note_label">Tavsif</string>
+    <string name="save">Saqlash</string>
+    <string name="due_date">Muddat</string>
+    <string name="due_time">Muddat vaqti</string>
+    <string name="start_date">Boshlanish sanasi</string>
+    <string name="day_before_due">Muddatdan bir kun oldin</string>
+    <string name="week_before_due">Muddatdan bir hafta oldin</string>
+    <string name="TEA_control_repeat">Takrorlash</string>
+    <string name="TEA_control_location">Joylashuv</string>
+    <string name="TEA_control_reminders">Eslatmalar</string>
+    <string name="none">Yo\'q</string>
+    <string name="day_after_tomorrow">Indinga</string>
+    <string name="next_week">Keyingi hafta</string>
+    <string name="no_due_date">Muddat yo\'q</string>
+    <string name="no_start_date">Boshlanish sanasi yo\'q</string>
+    <string name="ring_once">Bir marta jiringlash</string>
+    <string name="ring_five_times">Besh marta jiringlash</string>
+    <string name="ring_nonstop">To\'xtovsiz jiringlash</string>
+    <string name="repeat_option_custom">Boshqa…</string>
 </resources>
