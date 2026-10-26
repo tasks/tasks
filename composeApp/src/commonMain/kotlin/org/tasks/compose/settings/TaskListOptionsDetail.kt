@@ -197,11 +197,15 @@ fun TaskListOptionsScreen(
                 )
             }
             SettingsItemCard(position = CardPosition.Last) {
+                // Always on on desktop: the markdown renderer auto-linkifies
+                // bare URLs with no way to switch it off, so the row is
+                // shown on but locked, for parity with the native pane.
                 SwitchPreferenceRow(
                     title = stringResource(Res.string.linkify),
                     summary = stringResource(Res.string.linkify_description),
-                    checked = state.showLinks,
-                    onCheckedChange = onShowLinksChange,
+                    checked = true,
+                    onCheckedChange = {},
+                    enabled = false,
                 )
             }
         }
