@@ -253,22 +253,25 @@ fun FilterSettingsScreen(
                     stringResource(Res.string.custom_filter_not),
                 ),
                 onCancel = { openTypeRow = null },
-                onDelete = {
-                    viewModel.removeAt(index)
-                    openTypeRow = null
-                },
-            ) { selected ->
-                val type = when (selected) {
-                    0 -> CriterionInstance.TYPE_INTERSECT
-                    1 -> CriterionInstance.TYPE_ADD
-                    else -> CriterionInstance.TYPE_SUBTRACT
-                }
-                if (type != instance.type) {
-                    val updated = CriterionInstance(instance).apply { this.type = type }
-                    viewModel.setCriterion(index, updated)
-                }
-                openTypeRow = null
-            }
+                actions = CriterionTypeActions(
+                    onSelected = { selected ->
+                        val type = when (selected) {
+                            0 -> CriterionInstance.TYPE_INTERSECT
+                            1 -> CriterionInstance.TYPE_ADD
+                            else -> CriterionInstance.TYPE_SUBTRACT
+                        }
+                        if (type != instance.type) {
+                            val updated = CriterionInstance(instance).apply { this.type = type }
+                            viewModel.setCriterion(index, updated)
+                        }
+                        openTypeRow = null
+                    },
+                    delete = {
+                        viewModel.removeAt(index)
+                        openTypeRow = null
+                    },
+                ),
+            )
         }
     }
 
@@ -451,10 +454,9 @@ private fun SelectCriterionType(
     selected: Int,
     types: List<String>,
     onCancel: () -> Unit,
-    onDelete: (() -> Unit)? = null,
-    onSelected: (Int) -> Unit,
+    actions: CriterionTypeActions,
 ) {
-    val selected = remember { mutableIntStateOf(selected) }
+    val selection = remember { mutableIntStateOf(selected) }
     BasicAlertDialog(onDismissRequest = onCancel) {
         Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.background) {
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
@@ -464,39 +466,17 @@ private fun SelectCriterionType(
                     modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    types.forEachIndexed { index, label ->
-                        val highlight = index == selected.intValue
-                        TextButton(
-                            onClick = { selected.intValue = index },
-                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
-                                containerColor = if (highlight) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.surfaceContainerHighest
-                                },
-                                contentColor = if (highlight) {
-                                    MaterialTheme.colorScheme.onPrimary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurface
-                                },
-                            ),
-                        ) {
-                            Text(label)
-                        }
-                    }
+                CriterionTypeButtons(types = types, selected = selection.intValue) { index ->
+                    selection.intValue = index
                 }
-                if (onDelete != null) {
+                if (actions.delete != null) {
                     Spacer(modifier = Modifier.height(8.dp))
                     HorizontalDivider()
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                     ) {
-                        IconButton(onClick = onDelete) {
+                        IconButton(onClick = actions.delete) {
                             SymbolIcon(
                                 name = TasksIcons.DELETE,
                                 contentDescription = stringResource(Res.string.delete),
@@ -513,10 +493,44 @@ private fun SelectCriterionType(
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                     TextButton(onClick = onCancel) { Text(stringResource(Res.string.cancel)) }
-                    TextButton(onClick = { onSelected(selected.intValue) }) {
+                    TextButton(onClick = { actions.onSelected(selection.intValue) }) {
                         Text(stringResource(Res.string.ok))
                     }
                 }
+            }
+        }
+    }
+}
+
+private class CriterionTypeActions(
+    val onSelected: (Int) -> Unit,
+    val delete: (() -> Unit)? = null,
+)
+
+@Composable
+private fun CriterionTypeButtons(types: List<String>, selected: Int, onHighlight: (Int) -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        types.forEachIndexed { index, label ->
+            val highlight = index == selected
+            TextButton(
+                onClick = { onHighlight(index) },
+                colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = if (highlight) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.surfaceContainerHighest
+                    },
+                    contentColor = if (highlight) {
+                        MaterialTheme.colorScheme.onPrimary
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    },
+                ),
+            ) {
+                Text(label)
             }
         }
     }

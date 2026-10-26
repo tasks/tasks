@@ -19,11 +19,51 @@ import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.TagFilter
 import org.tasks.preferences.TasksPreferences
 
-class FilterToolsTest : McpGraphTestCase() {
+private const val TITLE = "title"
+private const val COMPLETED = "completed"
+private const val TAG_IS = "tag_is"
+private const val HOME_TAG = "hometag"
+private const val UNIVERSE_TYPE = "universe"
+private const val BROKEN_TITLE = "Broken"
+private const val DUE_WINDOW_TITLE = "Due window"
+private const val DUE_TODAY_SQL = " WHERE tasks.dueDate > NOW()"
+private const val LIMIT_MESSAGE = "the limit is"
+private const val HEPH = "Heph"
+private const val DAY = 86_400_000L
+
+abstract class FilterToolsFixture : McpGraphTestCase() {
+
+    protected suspend fun dueWindowFilterId(): Long =
+        seedFilter(
+            title = DUE_WINDOW_TITLE,
+            sql = " WHERE tasks.dueDate > NOW() - 86400000 AND tasks.dueDate <= NOW() + 86400000",
+        )
+
+    protected suspend fun titleFilterId(fragment: String): Long =
+        seedFilter(
+            title = "Title $fragment",
+            sql = " WHERE tasks.title LIKE '%$fragment%' ESCAPE '\\'",
+        )
+
+    protected suspend fun seedFilter(title: String, sql: String, order: Int = 0): Long =
+        db.filterDao().insert(Filter(title = title, sql = sql, order = order))
+
+    protected suspend fun seedTask(title: String, dueDate: Long = 0): Long {
+        val task = Task(title = title, dueDate = dueDate, remoteId = UUIDHelper.newUUID())
+        return db.taskDao().insert(task)
+    }
+
+    protected suspend fun setSelection(filter: org.tasks.filters.Filter) {
+        koin.get<TasksPreferences>()
+            .set(TasksPreferences.lastViewedList, koin.get<FilterPreferenceCodec>().encode(filter)!!)
+    }
+}
+
+class FilterToolsListTest : FilterToolsFixture() {
 
     @Test
     fun listReturnsSavedFiltersWithoutSqlByDefault() = runBlocking {
-        val plain = seedFilter(title = "Due today", sql = " WHERE tasks.dueDate > NOW()", order = 1)
+        val plain = seedFilter(title = "Due today", sql = DUE_TODAY_SQL, order = 1)
         seedFilter(title = "Work", sql = " WHERE tasks._id IN (SELECT task_id FROM for_tags)", order = 2)
 
         val page = filtersApi.list()
@@ -40,7 +80,7 @@ class FilterToolsTest : McpGraphTestCase() {
     @Test
     fun includeSqlReturnsTheStoredTemplateUnchanged() = runBlocking {
         val sql = " WHERE tasks.dueDate > NOW() - 86400000"
-        val id = seedFilter(title = "Due window", sql = sql)
+        val id = seedFilter(title = DUE_WINDOW_TITLE, sql = sql)
 
         val row = filtersApi.list(includeSql = true).rows.single()
 
@@ -67,7 +107,7 @@ class FilterToolsTest : McpGraphTestCase() {
         // would reject it as "no such function: NOW" - this test passing proves the
         // substitution happened, and that the match set is time-relative, not stale.
         val id = seedFilter(
-            title = "Due window",
+            title = DUE_WINDOW_TITLE,
             sql = " WHERE tasks.dueDate > NOW() - 86400000 AND tasks.dueDate <= NOW() + 86400000",
         )
         seedTask(title = "Due tomorrow", dueDate = System.currentTimeMillis() + DAY)
@@ -96,15 +136,15 @@ class FilterToolsTest : McpGraphTestCase() {
         repeat(5) { seedTask(title = "Item $it") }
         val filterId = titleFilterId("Item")
 
-        val first = filtersApi.tasks(filterId, FilterQuery(sort = "title", limit = 2))
+        val first = filtersApi.tasks(filterId, FilterQuery(sort = TITLE, limit = 2))
         assertEquals(5, first.total)
         assertEquals(listOf("Item 0", "Item 1"), first.rows.map { it.title })
         assertTrue(first.hasMore == true)
 
-        val next = filtersApi.tasks(filterId, FilterQuery(sort = "title", limit = 2, offset = 2))
+        val next = filtersApi.tasks(filterId, FilterQuery(sort = TITLE, limit = 2, offset = 2))
         assertEquals(listOf("Item 2", "Item 3"), next.rows.map { it.title })
 
-        val last = filtersApi.tasks(filterId, FilterQuery(sort = "title", sortDesc = true, limit = 1))
+        val last = filtersApi.tasks(filterId, FilterQuery(sort = TITLE, sortDesc = true, limit = 1))
         assertEquals(listOf("Item 4"), last.rows.map { it.title })
     }
 
@@ -128,13 +168,63 @@ class FilterToolsTest : McpGraphTestCase() {
 
     @Test
     fun aFilterWithoutStoredSqlCannotBeRun() = runBlocking {
-        val id = db.filterDao().insert(Filter(title = "Broken"))
+        val id = db.filterDao().insert(Filter(title = BROKEN_TITLE))
 
         val error = runCatching { filtersApi.tasks(id, FilterQuery()) }.exceptionOrNull()
 
         assertNotNull(error)
         assertTrue(error!!.message!!.contains("no stored SQL"))
     }
+}
+
+class FilterToolsSelectionTest : FilterToolsFixture() {
+
+    @Test
+    fun noRecordedSelectionMeansNoSelection() = runBlocking {
+        assertNull(filtersApi.selected())
+    }
+
+    @Test
+    fun aSelectedCustomFilterComesBackWithItsListFiltersId() = runBlocking {
+        val id = seedFilter(title = DUE_WINDOW_TITLE, sql = DUE_TODAY_SQL)
+        setSelection(CustomFilter(db.filterDao().getById(id)!!))
+
+        val selection = filtersApi.selected(includeSql = true)
+
+        assertEquals("custom_filter", selection!!.type)
+        assertEquals(id, selection.id)
+        assertEquals(DUE_WINDOW_TITLE, selection.title)
+        assertEquals(DUE_TODAY_SQL, selection.sql)
+    }
+
+    @Test
+    fun aSelectedBuiltInFilterComesBackWithItsKeyNotAnId() = runBlocking {
+        koin.get<TasksPreferences>().set(TasksPreferences.lastViewedList, "0:1")
+
+        val selection = filtersApi.selected()
+
+        assertEquals("builtin", selection!!.type)
+        assertNull(selection.id)
+        assertNull(selection.sql)
+        assertEquals("builtin_today", selection.key)
+    }
+
+    @Test
+    fun aSelectedTagFilterComesBackWithTheTagId() = runBlocking {
+        val tagId = db.tagDataDao().insert(TagData(name = HOME_TAG))
+        val tag = db.tagDataDao().getById(tagId)!!
+        setSelection(TagFilter(tag))
+
+        val selection = filtersApi.selected()
+
+        assertEquals("tag", selection!!.type)
+        assertEquals(tagId, selection.id)
+        assertEquals(HOME_TAG, selection.title)
+        assertNull(selection.key)
+    }
+}
+
+class FilterToolsCreateTest : FilterToolsFixture() {
 
     @Test
     fun theFilterToolsJoinTheCatalogInTheirOwnGroup() {
@@ -169,52 +259,8 @@ class FilterToolsTest : McpGraphTestCase() {
     }
 
     @Test
-    fun noRecordedSelectionMeansNoSelection() = runBlocking {
-        assertNull(filtersApi.selected())
-    }
-
-    @Test
-    fun aSelectedCustomFilterComesBackWithItsListFiltersId() = runBlocking {
-        val id = seedFilter(title = "Due window", sql = " WHERE tasks.dueDate > NOW()")
-        setSelection(CustomFilter(db.filterDao().getById(id)!!))
-
-        val selection = filtersApi.selected(includeSql = true)
-
-        assertEquals("custom_filter", selection!!.type)
-        assertEquals(id, selection.id)
-        assertEquals("Due window", selection.title)
-        assertEquals(" WHERE tasks.dueDate > NOW()", selection.sql)
-    }
-
-    @Test
-    fun aSelectedBuiltInFilterComesBackWithItsKeyNotAnId() = runBlocking {
-        koin.get<TasksPreferences>().set(TasksPreferences.lastViewedList, "0:1")
-
-        val selection = filtersApi.selected()
-
-        assertEquals("builtin", selection!!.type)
-        assertNull(selection.id)
-        assertNull(selection.sql)
-        assertEquals("builtin_today", selection.key)
-    }
-
-    @Test
-    fun aSelectedTagFilterComesBackWithTheTagId() = runBlocking {
-        val tagId = db.tagDataDao().insert(TagData(name = "hometag"))
-        val tag = db.tagDataDao().getById(tagId)!!
-        setSelection(TagFilter(tag))
-
-        val selection = filtersApi.selected()
-
-        assertEquals("tag", selection!!.type)
-        assertEquals(tagId, selection.id)
-        assertEquals("hometag", selection.title)
-        assertNull(selection.key)
-    }
-
-    @Test
     fun createRoundTripsThroughTheAppSerializers() = runBlocking {
-        val tagId = api.createTag(TagWrite(name = "hometag")).row.id
+        val tagId = api.createTag(TagWrite(name = HOME_TAG)).row.id
         val tagged = seedTask(title = "Heph home task")
         api.setTaskTags(listOf(tagged), listOf(tagId), emptyList())
         seedTask(title = "Other task")
@@ -224,8 +270,8 @@ class FilterToolsTest : McpGraphTestCase() {
             icon = null,
             color = null,
             criteria = listOf(
-                DatabaseFiltersApi.CriterionWrite(identifier = "tag_is", value = "hometag"),
-                DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "Heph"),
+                DatabaseFiltersApi.CriterionWrite(identifier = TAG_IS, value = HOME_TAG),
+                DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = HEPH),
             ),
         )
 
@@ -233,10 +279,10 @@ class FilterToolsTest : McpGraphTestCase() {
         // app-managed leading universe row.
         val listed = filtersApi.list(ids = listOf(row.id)).rows.single()
         assertEquals("Home things", listed.title)
-        assertEquals("the universe row is stored leading", "universe", listed.criteria.first().type)
-        val sent = listed.criteria.filter { it.type != "universe" }
-        assertEquals(listOf("tag_is", "title"), sent.map { it.identifier })
-        assertEquals(listOf("hometag", "Heph"), sent.map { it.value })
+        assertEquals("the universe row is stored leading", UNIVERSE_TYPE, listed.criteria.first().type)
+        val sent = listed.criteria.filter { it.type != UNIVERSE_TYPE }
+        assertEquals(listOf(TAG_IS, TITLE), sent.map { it.identifier })
+        assertEquals(listOf(HOME_TAG, HEPH), sent.map { it.value })
 
         // and the rendered SQL is executable: get_filter_tasks returns exactly the match.
         val page = filtersApi.tasks(row.id, FilterQuery())
@@ -252,7 +298,7 @@ class FilterToolsTest : McpGraphTestCase() {
             title = "Quotes",
             icon = null,
             color = null,
-            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "don't")),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = "don't")),
         )
 
         val page = filtersApi.tasks(row.id, FilterQuery())
@@ -262,20 +308,20 @@ class FilterToolsTest : McpGraphTestCase() {
 
     @Test
     fun anInvalidMultiselectValueIsRejectedWithTheValidValues() = runBlocking {
-        api.createTag(TagWrite(name = "hometag"))
+        api.createTag(TagWrite(name = HOME_TAG))
 
         val error = runCatching {
             filtersApi.create(
-                title = "Broken",
+                title = BROKEN_TITLE,
                 icon = null,
                 color = null,
-                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "tag_is", value = "nowhere")),
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TAG_IS, value = "nowhere")),
             )
         }.exceptionOrNull()
 
         assertNotNull(error)
         assertTrue("the error names the offending value", error!!.message!!.contains("nowhere"))
-        assertTrue("the error lists the valid values", error.message!!.contains("hometag"))
+        assertTrue("the error lists the valid values", error.message!!.contains(HOME_TAG))
         assertEquals("nothing was written", 0, filtersApi.list().total)
     }
 
@@ -283,7 +329,7 @@ class FilterToolsTest : McpGraphTestCase() {
     fun anUnknownIdentifierIsRejectedWithTheCatalogIdentifiers() = runBlocking {
         val error = runCatching {
             filtersApi.create(
-                title = "Broken",
+                title = BROKEN_TITLE,
                 icon = null,
                 color = null,
                 criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "no_such_criterion")),
@@ -296,7 +342,7 @@ class FilterToolsTest : McpGraphTestCase() {
         assertTrue("the error lists valid identifiers", message.contains("valid identifiers:"))
         // and the listed identifiers agree with the live catalog
         val catalog = filtersApi.criteriaCatalog().map { it.identifier }.toSet()
-        assertTrue(catalog.containsAll(listOf("title", "tag_is")))
+        assertTrue(catalog.containsAll(listOf(TITLE, TAG_IS)))
         catalog.forEach { assertTrue("$it must be in the error", message.contains(it)) }
     }
 
@@ -306,16 +352,16 @@ class FilterToolsTest : McpGraphTestCase() {
             title = "Open",
             icon = null,
             color = null,
-            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed")),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = COMPLETED)),
         )
-        assertEquals(1, filtersApi.list(ids = listOf(ok.id)).rows.single().criteria.count { it.type != "universe" })
+        assertEquals(1, filtersApi.list(ids = listOf(ok.id)).rows.single().criteria.count { it.type != UNIVERSE_TYPE })
 
         val error = runCatching {
             filtersApi.create(
-                title = "Broken",
+                title = BROKEN_TITLE,
                 icon = null,
                 color = null,
-                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed", value = "yes")),
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = COMPLETED, value = "yes")),
             )
         }.exceptionOrNull()
         assertNotNull(error)
@@ -325,7 +371,7 @@ class FilterToolsTest : McpGraphTestCase() {
     @Test
     fun aBlankTitleAndEmptyCriteriaAreRejected() = runBlocking {
         val blankTitle = runCatching {
-            filtersApi.create("  ", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+            filtersApi.create("  ", null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)))
         }.exceptionOrNull()
         assertNotNull(blankTitle)
 
@@ -344,51 +390,70 @@ class FilterToolsTest : McpGraphTestCase() {
         val longValue = "y".repeat(DatabaseFiltersApi.MAX_VALUE_LENGTH + 1)
 
         val createTitle = runCatching {
-            filtersApi.create(longTitle, null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+            filtersApi.create(longTitle, null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)))
         }.exceptionOrNull()
         assertNotNull(createTitle)
-        assertTrue(createTitle!!.message!!.contains("the limit is"))
+        assertTrue(createTitle!!.message!!.contains(LIMIT_MESSAGE))
 
         val createValue = runCatching {
             filtersApi.create(
                 title = "Value too long",
                 icon = null,
                 color = null,
-                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = longValue)),
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = longValue)),
             )
         }.exceptionOrNull()
         assertNotNull(createValue)
-        assertTrue(createValue!!.message!!.contains("the limit is"))
+        assertTrue(createValue!!.message!!.contains(LIMIT_MESSAGE))
 
         val tooManyRows = List(DatabaseFiltersApi.MAX_CRITERIA_COUNT + 1) {
-            DatabaseFiltersApi.CriterionWrite(identifier = "completed")
+            DatabaseFiltersApi.CriterionWrite(COMPLETED)
         }
         val createCount = runCatching {
             filtersApi.create("Too many rows", null, null, tooManyRows)
         }.exceptionOrNull()
         assertNotNull(createCount)
-        assertTrue(createCount!!.message!!.contains("the limit is"))
+        assertTrue(createCount!!.message!!.contains(LIMIT_MESSAGE))
 
         val seed = filtersApi.create(
-            "Seed", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")),
+            "Seed", null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)),
         )
         val updateTitle = runCatching {
             filtersApi.update(id = seed.id, title = longTitle, icon = null, color = null, criteria = null)
         }.exceptionOrNull()
         assertNotNull(updateTitle)
-        assertTrue(updateTitle!!.message!!.contains("the limit is"))
+        assertTrue(updateTitle!!.message!!.contains(LIMIT_MESSAGE))
 
         val updateValue = runCatching {
             filtersApi.update(
                 id = seed.id, title = null, icon = null, color = null,
-                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = longValue)),
+                criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = longValue)),
             )
         }.exceptionOrNull()
         assertNotNull(updateValue)
-        assertTrue(updateValue!!.message!!.contains("the limit is"))
+        assertTrue(updateValue!!.message!!.contains(LIMIT_MESSAGE))
 
         assertEquals("exactly one row (the seed) survived", 1, filtersApi.list().total)
     }
+
+    @Test
+    fun theCriteriaCatalogMatchesTheLiveDatabase() = runBlocking {
+        val before = filtersApi.criteriaCatalog().first { it.identifier == TAG_IS }
+        assertNull("no tags seeded yet", before.values?.takeIf { it.isNotEmpty() })
+
+        db.tagDataDao().insert(TagData(name = "catalogtag"))
+        val after = filtersApi.criteriaCatalog().first { it.identifier == TAG_IS }
+
+        assertEquals("tag options are built from the live tag table", listOf("catalogtag"), after.values?.map { it.value })
+        assertEquals("multi_select is the kind name", "multi_select", after.kind)
+        assertEquals("boolean is the kind name", "boolean", filtersApi.criteriaCatalog().first { it.identifier == COMPLETED }.kind)
+        assertEquals("text_input is the kind name", "text_input", filtersApi.criteriaCatalog().first { it.identifier == TITLE }.kind)
+        assertFalse("the universe row is app-managed and absent from the catalog",
+            filtersApi.criteriaCatalog().any { it.identifier == "active" })
+    }
+}
+
+class FilterToolsUpdateDeleteTest : FilterToolsFixture() {
 
     @Test
     fun updatePatchesOnlyWhatIsSent() = runBlocking {
@@ -396,7 +461,7 @@ class FilterToolsTest : McpGraphTestCase() {
             title = "Original",
             icon = null,
             color = 0xFF000000.toInt(),
-            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "completed")),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)),
         )
 
         val patched = filtersApi.update(id = seed.id, title = "Renamed", icon = null, color = null, criteria = null)
@@ -415,7 +480,7 @@ class FilterToolsTest : McpGraphTestCase() {
             title = "Heph only",
             icon = null,
             color = null,
-            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "Heph")),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = HEPH)),
         )
         assertEquals(listOf("Heph thing"), filtersApi.tasks(seed.id, FilterQuery()).rows.map { it.title })
 
@@ -424,7 +489,7 @@ class FilterToolsTest : McpGraphTestCase() {
             title = null,
             icon = null,
             color = null,
-            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = "title", value = "thing")),
+            criteria = listOf(DatabaseFiltersApi.CriterionWrite(identifier = TITLE, value = "thing")),
         )
 
         assertEquals("the pin-relevant id is preserved", seed.id, updated.id)
@@ -444,7 +509,7 @@ class FilterToolsTest : McpGraphTestCase() {
         assertNotNull(emptyPatch)
         assertTrue(emptyPatch!!.message!!.contains("No filter with id 999"))
 
-        val seed = filtersApi.create("Has a title", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        val seed = filtersApi.create("Has a title", null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)))
         val nothing = runCatching {
             filtersApi.update(seed.id, null, null, null, null)
         }.exceptionOrNull()
@@ -454,7 +519,7 @@ class FilterToolsTest : McpGraphTestCase() {
 
     @Test
     fun deleteRemovesTheRowAndASecondCallIsACleanError() = runBlocking {
-        val seed = filtersApi.create("Doomed", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        val seed = filtersApi.create("Doomed", null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)))
 
         val result = filtersApi.delete(seed.id)
         assertEquals(seed.id, result.id)
@@ -468,7 +533,7 @@ class FilterToolsTest : McpGraphTestCase() {
 
     @Test
     fun deleteReportsPinnedLists() = runBlocking {
-        val seed = filtersApi.create("Pinned", null, null, listOf(DatabaseFiltersApi.CriterionWrite("completed")))
+        val seed = filtersApi.create("Pinned", null, null, listOf(DatabaseFiltersApi.CriterionWrite(COMPLETED)))
         val pinnedList = db.taskListMetadataDao().insert(
             TaskListMetadata().apply { tagUuid = Task.NO_UUID; filter = seed.id.toString() },
         )
@@ -478,50 +543,5 @@ class FilterToolsTest : McpGraphTestCase() {
 
         assertEquals(listOf(pinnedList), result.pinnedBy)
         assertEquals("only the filter row is removed - lists survive", 2, db.taskListMetadataDao().getAll().size)
-    }
-
-    @Test
-    fun theCriteriaCatalogMatchesTheLiveDatabase() = runBlocking {
-        val before = filtersApi.criteriaCatalog().first { it.identifier == "tag_is" }
-        assertNull("no tags seeded yet", before.values?.takeIf { it.isNotEmpty() })
-
-        db.tagDataDao().insert(TagData(name = "catalogtag"))
-        val after = filtersApi.criteriaCatalog().first { it.identifier == "tag_is" }
-
-        assertEquals("tag options are built from the live tag table", listOf("catalogtag"), after.values?.map { it.value })
-        assertEquals("multi_select is the kind name", "multi_select", after.kind)
-        assertEquals("boolean is the kind name", "boolean", filtersApi.criteriaCatalog().first { it.identifier == "completed" }.kind)
-        assertEquals("text_input is the kind name", "text_input", filtersApi.criteriaCatalog().first { it.identifier == "title" }.kind)
-        assertFalse("the universe row is app-managed and absent from the catalog",
-            filtersApi.criteriaCatalog().any { it.identifier == "active" })
-    }
-
-    private suspend fun dueWindowFilterId(): Long =
-        seedFilter(
-            title = "Due window",
-            sql = " WHERE tasks.dueDate > NOW() - 86400000 AND tasks.dueDate <= NOW() + 86400000",
-        )
-
-    private suspend fun titleFilterId(fragment: String): Long =
-        seedFilter(
-            title = "Title $fragment",
-            sql = " WHERE tasks.title LIKE '%$fragment%' ESCAPE '\\'",
-        )
-
-    private suspend fun seedFilter(title: String, sql: String, order: Int = 0): Long =
-        db.filterDao().insert(Filter(title = title, sql = sql, order = order))
-
-    private suspend fun seedTask(title: String, dueDate: Long = 0): Long {
-        val task = Task(title = title, dueDate = dueDate, remoteId = UUIDHelper.newUUID())
-        return db.taskDao().insert(task)
-    }
-
-    private suspend fun setSelection(filter: org.tasks.filters.Filter) {
-        koin.get<TasksPreferences>()
-            .set(TasksPreferences.lastViewedList, koin.get<FilterPreferenceCodec>().encode(filter)!!)
-    }
-
-    private companion object {
-        const val DAY = 86_400_000L
     }
 }

@@ -8,13 +8,13 @@ class FilterWhereTest {
 
     @Test
     fun stripsTheStoredWherePrefix() {
-        assertEquals("tasks.dueDate > 0", filterWhere(" WHERE tasks.dueDate > 0"))
+        assertEquals(DUE_PREDICATE, filterWhere(" WHERE tasks.dueDate > 0"))
     }
 
     @Test
     fun isLenientAboutWhitespaceAndCase() {
-        assertEquals("tasks.dueDate > 0", filterWhere("where  tasks.dueDate > 0"))
-        assertEquals("tasks.dueDate > 0", filterWhere("\n WHERE tasks.dueDate > 0 "))
+        assertEquals(DUE_PREDICATE, filterWhere("where  tasks.dueDate > 0"))
+        assertEquals(DUE_PREDICATE, filterWhere("\n WHERE tasks.dueDate > 0 "))
     }
 
     @Test
@@ -35,7 +35,7 @@ class FilterWhereTest {
 
     @Test
     fun rejectsSqlWithoutAWhere() {
-        val error = runCatching { filterWhere("tasks.dueDate > 0") }.exceptionOrNull()
+        val error = runCatching { filterWhere(DUE_PREDICATE) }.exceptionOrNull()
         assertTrue(error is IllegalArgumentException)
         assertTrue(error!!.message!!.contains("WHERE"))
     }
@@ -45,5 +45,9 @@ class FilterWhereTest {
         val error = runCatching { filterWhere(" WHERE   ") }.exceptionOrNull()
         assertTrue(error is IllegalArgumentException)
         assertTrue(error!!.message!!.contains("empty"))
+    }
+
+    private companion object {
+        const val DUE_PREDICATE = "tasks.dueDate > 0"
     }
 }

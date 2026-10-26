@@ -301,11 +301,6 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
     }
 }
 
-private val FILTER_FIELDS = listOf("id", "title", "icon", "color", "order", "criteria", "sql")
-
-private val SELECTED_FILTER_FIELDS =
-    listOf("type", "id", "title", "icon", "color", "order", "key", "sql")
-
 private fun SchemaBuilder.criteriaFields() {
     string("identifier", "The criterion to apply. Read list_filter_criteria for the valid identifiers.", required = true)
     string("value", "The value for the criterion. Required for text and multiselect criteria (a multiselect value must match one of the criterion's valid values from list_filter_criteria); omit it for boolean criteria.")
@@ -320,11 +315,20 @@ private fun JsonObject.toCriterionWrite(): DatabaseFiltersApi.CriterionWrite =
     DatabaseFiltersApi.CriterionWrite(
         identifier = requireString("identifier"),
         value = string("value"),
-        type = string("type") ?: "intersect",
+        type = string("type") ?: DatabaseFiltersApi.ROW_TYPE_INTERSECT,
     )
 
 private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registration) {
+    registerListFiltersTool(filters, reg)
+    registerGetFilterTasksTool(filters, reg)
+    registerGetSelectedFilterTool(filters, reg)
+    registerListFilterCriteriaTool(filters, reg)
+    registerCreateFilterTool(filters, reg)
+    registerUpdateFilterTool(filters, reg)
+    registerDeleteFilterTool(filters, reg)
+}
 
+private fun Server.registerListFiltersTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "list_filters",
         title = "List saved filters",
@@ -342,29 +346,31 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         schema = schema {
             integerArray("filter_ids", "Only these filters, by id.")
             boolean(
-                "include_sql",
+                INCLUDE_SQL_KEY,
                 "Also return each filter's stored SQL. It is a template - date functions " +
                     "like NOW() and EOD() are substituted when the app runs the query - not " +
                     "the exact predicate that executes.",
                 default = false,
             )
-            paging("filter")
-            fields("filter", FILTER_FIELDS)
+            paging(FILTER_KEY)
+            fields(FILTER_KEY, FILTER_FIELDS)
         },
     ) { args ->
         val ids = args.longs("filter_ids")
         val projection = args.projection(FILTER_FIELDS)
         val page = filters.list(
-            includeSql = args.boolean("include_sql") ?: false,
+            includeSql = args.boolean(INCLUDE_SQL_KEY) ?: false,
             ids = ids,
             limit = args.limit(),
             offset = args.offset(),
         )
-        page.toResult("filter", projection, { it }) { sent ->
+        page.toResult(FILTER_KEY, projection, { it }) { sent ->
             "$sent of ${page.total} filter(s)"
         }
     }
+}
 
+private fun Server.registerGetFilterTasksTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "get_filter_tasks",
         title = "Tasks matching a saved filter",
@@ -376,14 +382,14 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         """.trimIndent(),
         readOnly = true,
         schema = schema {
-            integer("filter_id", "The saved filter to run. Get ids from list_filters.", required = true)
+            integer(FILTER_ID_KEY, "The saved filter to run. Get ids from list_filters.", required = true)
             string("sort", "Sort key. 'priority' ascending puts high first.", enum = TasksContract.Tasks.SORTS)
             boolean("sort_desc", "Reverse the sort.", default = false)
             paging("task")
             fields("task", TASK_FIELDS)
         },
     ) { args ->
-        val filterId = args.requireLong("filter_id")
+        val filterId = args.requireLong(FILTER_ID_KEY)
         val projection = args.projection(TASK_FIELDS)
         val page = filters.tasks(
             filterId,
@@ -398,7 +404,9 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
             "$sent of ${page.total} task(s) passing filter $filterId"
         }
     }
+}
 
+private fun Server.registerGetSelectedFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "get_selected_filter",
         title = "Get the selected filter",
@@ -413,26 +421,34 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         readOnly = true,
         schema = schema {
             boolean(
-                "include_sql",
+                INCLUDE_SQL_KEY,
                 "For a custom filter, also return its stored SQL. It is a template - date " +
                     "functions like NOW() and EOD() are substituted when the app runs the " +
                     "query - not the exact predicate that executes.",
                 default = false,
             )
-            fields("filter", SELECTED_FILTER_FIELDS)
+            fields(FILTER_KEY, SELECTED_FILTER_FIELDS)
         },
     ) { args ->
-        val selection = filters.selected(args.boolean("include_sql") ?: false)
-            ?: return@tool "No filter selection is recorded: the user has not selected a " +
+        val selection = filters.selected(args.boolean(INCLUDE_SQL_KEY) ?: false)
+        if (selection == null) {
+            "No filter selection is recorded: the user has not selected a " +
                 "filter in the drawer (search and the empty view are never recorded)." to "nothing selected"
-        val projection = args.projection(SELECTED_FILTER_FIELDS)
-        val encoder = projection.encoder()
-        val encoded = projection.apply(encoder.encodeToJsonElement(selection))
-        val filterElement = (encoded as? JsonArray)?.firstOrNull() ?: encoded as? JsonObject
-            ?: return@tool "Could not encode the filter selection" to "error"
-        buildJsonObject { put("filter", filterElement) }.toString() to "filter ${selection.type}"
+        } else {
+            val projection = args.projection(SELECTED_FILTER_FIELDS)
+            val encoder = projection.encoder()
+            val encoded = projection.apply(encoder.encodeToJsonElement(selection))
+            val filterElement = (encoded as? JsonArray)?.firstOrNull() ?: encoded as? JsonObject
+            if (filterElement == null) {
+                "Could not encode the filter selection" to "error"
+            } else {
+                buildJsonObject { put(FILTER_KEY, filterElement) }.toString() to "filter ${selection.type}"
+            }
+        }
     }
+}
 
+private fun Server.registerListFilterCriteriaTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "list_filter_criteria",
         title = "Criteria available for saved filters",
@@ -449,10 +465,12 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
     ) { args ->
         val criteria = filters.criteriaCatalog()
         buildJsonObject {
-            put("criteria", json.encodeToJsonElement(criteria))
+            put(FIELD_CRITERIA, json.encodeToJsonElement(criteria))
         }.toString() to "${criteria.size} criterion type(s)"
     }
+}
 
+private fun Server.registerCreateFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "create_filter",
         title = "Create a saved filter",
@@ -466,11 +484,11 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         """.trimIndent(),
         readOnly = false,
         schema = schema {
-            string("title", "The filter's name as it appears in the navigation drawer.", required = true)
-            string("icon", "A Material Symbols icon name in snake_case, e.g. 'priority_high'. Unknown names render with no icon.")
-            integer("color", "The filter's colour as an ARGB integer, as list_filters returns it.")
+            string(FIELD_TITLE, "The filter's name as it appears in the navigation drawer.", required = true)
+            string(FIELD_ICON, "A Material Symbols icon name in snake_case, e.g. 'priority_high'. Unknown names render with no icon.")
+            integer(FIELD_COLOR, "The filter's colour as an ARGB integer, as list_filters returns it.")
             objectArray(
-                "criteria",
+                FIELD_CRITERIA,
                 "The filter's rows, in order. Each row's identifier must be a catalog " +
                     "identifier, and a multiselect row's value must be one of that criterion's " +
                     "values - read list_filter_criteria.",
@@ -478,15 +496,17 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         },
     ) { args ->
         val row = filters.create(
-            title = args.requireString("title"),
-            icon = args.string("icon"),
-            color = args.int("color"),
-            criteria = args.objects("criteria").map { it.toCriterionWrite() },
+            title = args.requireString(FIELD_TITLE),
+            icon = args.string(FIELD_ICON),
+            color = args.int(FIELD_COLOR),
+            criteria = args.objects(FIELD_CRITERIA).map { it.toCriterionWrite() },
         )
-        buildJsonObject { put("filter", json.encodeToJsonElement(row)) }.toString() to
+        buildJsonObject { put(FILTER_KEY, json.encodeToJsonElement(row)) }.toString() to
             "created filter ${row.id} '${row.title}'"
     }
+}
 
+private fun Server.registerUpdateFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "update_filter",
         title = "Update a saved filter",
@@ -502,12 +522,12 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         readOnly = false,
         idempotent = true,
         schema = schema {
-            integer("filter_id", "The filter to change. Get ids from list_filters.", required = true)
-            string("title", "The new name.")
-            string("icon", "The new Material Symbols icon name in snake_case.")
-            integer("color", "The new colour as an ARGB integer.")
+            integer(FILTER_ID_KEY, "The filter to change. Get ids from list_filters.", required = true)
+            string(FIELD_TITLE, "The new name.")
+            string(FIELD_ICON, "The new Material Symbols icon name in snake_case.")
+            integer(FIELD_COLOR, "The new colour as an ARGB integer.")
             objectArray(
-                "criteria",
+                FIELD_CRITERIA,
                 "The filter's complete new set of rows, in order, replacing the current " +
                     "rows. Each row's identifier must be a catalog identifier, and a " +
                     "multiselect row's value must be one of that criterion's values - read " +
@@ -516,16 +536,18 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         },
     ) { args ->
         val row = filters.update(
-            id = args.requireLong("filter_id"),
-            title = args.string("title"),
-            icon = args.string("icon"),
-            color = args.int("color"),
-            criteria = args.element("criteria")?.let { args.objects("criteria").map { o -> o.toCriterionWrite() } },
+            id = args.requireLong(FILTER_ID_KEY),
+            title = args.string(FIELD_TITLE),
+            icon = args.string(FIELD_ICON),
+            color = args.int(FIELD_COLOR),
+            criteria = args.element(FIELD_CRITERIA)?.let { args.objects(FIELD_CRITERIA).map { o -> o.toCriterionWrite() } },
         )
-        buildJsonObject { put("filter", json.encodeToJsonElement(row)) }.toString() to
+        buildJsonObject { put(FILTER_KEY, json.encodeToJsonElement(row)) }.toString() to
             "updated filter ${row.id} '${row.title}'"
     }
+}
 
+private fun Server.registerDeleteFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
     tool(
         reg, "delete_filter",
         title = "Delete a saved filter",
@@ -542,10 +564,10 @@ private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registr
         readOnly = false,
         destructive = true,
         schema = schema {
-            integer("filter_id", "The filter to delete. Get ids from list_filters.", required = true)
+            integer(FILTER_ID_KEY, "The filter to delete. Get ids from list_filters.", required = true)
         },
     ) { args ->
-        val result = filters.delete(args.requireLong("filter_id"))
+        val result = filters.delete(args.requireLong(FILTER_ID_KEY))
         buildJsonObject {
             put("deleted_filter_id", JsonPrimitive(result.id))
             put("pinned_by", JsonArray(result.pinnedBy.map(::JsonPrimitive)))
@@ -1422,3 +1444,16 @@ private fun JsonObject.reminders(name: String): List<ReminderWrite> =
         )
     }
 
+private const val FILTER_KEY = "filter"
+private const val FILTER_ID_KEY = "filter_id"
+private const val INCLUDE_SQL_KEY = "include_sql"
+private const val FIELD_TITLE = "title"
+private const val FIELD_ICON = "icon"
+private const val FIELD_COLOR = "color"
+private const val FIELD_CRITERIA = "criteria"
+
+private val FILTER_FIELDS =
+    listOf("id", FIELD_TITLE, FIELD_ICON, FIELD_COLOR, "order", FIELD_CRITERIA, "sql")
+
+private val SELECTED_FILTER_FIELDS =
+    listOf("type", "id", FIELD_TITLE, FIELD_ICON, FIELD_COLOR, "order", "key", "sql")

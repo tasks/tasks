@@ -48,6 +48,9 @@ class DatabaseFiltersApi(
         const val MAX_TITLE_LENGTH = 500
         const val MAX_VALUE_LENGTH = 500
         const val MAX_CRITERIA_COUNT = 50
+
+        /** The agent-facing word for the default (AND) row type. */
+        const val ROW_TYPE_INTERSECT = "intersect"
     }
 
     @Serializable
@@ -186,7 +189,7 @@ class DatabaseFiltersApi(
     data class CriterionWrite(
         val identifier: String,
         val value: String? = null,
-        val type: String = "intersect",
+        val type: String = ROW_TYPE_INTERSECT,
     )
 
     data class DeletionResult(
@@ -301,13 +304,11 @@ class DatabaseFiltersApi(
         return DeletionResult(id, pinnedBy)
     }
 
-    /**
-     * Validates the agent's rows against the app's live catalog and builds the
-     * [CriterionInstance] list exactly as the app's editor would: the locked universe row
-     * leading, every value resolved through the criterion, ready for the app's own
-     * [sql]/[values] renderers (which run inlined values through the app's sanitiser).
-     */
     private suspend fun buildCriteria(criteria: List<CriterionWrite>): List<CriterionInstance> {
+        // Validates the agent's rows against the app's live catalog and builds the
+        // [CriterionInstance] list exactly as the app's editor would: the locked universe
+        // row leading, every value resolved through the criterion, ready for the app's
+        // own [sql]/[values] renderers (which run inlined values through the sanitiser).
         require(criteria.isNotEmpty()) {
             "criteria must not be empty: a filter needs at least one criterion. " +
                 "Read list_filter_criteria for what can be expressed."
@@ -330,66 +331,75 @@ class DatabaseFiltersApi(
                 )
             val instance = CriterionInstance()
             instance.criterion = criterion
-            instance.type = when (row.type) {
-                "intersect" -> CriterionInstance.TYPE_INTERSECT
-                "add" -> CriterionInstance.TYPE_ADD
-                "subtract" -> CriterionInstance.TYPE_SUBTRACT
-                "universe" -> {
-                    require(index == 0 && !instances.any { it.type == CriterionInstance.TYPE_UNIVERSE }) {
-                        "A 'universe' row is the app-managed leading row; " +
-                            "it may only appear first, if at all"
-                    }
-                    CriterionInstance.TYPE_UNIVERSE
-                }
-                else -> throw IllegalArgumentException(
-                    "Unknown type '${row.type}' on criterion '${row.identifier}' - " +
-                        "use intersect (AND, the default), add (OR) or subtract (AND NOT)",
-                )
-            }
-            when (criterion) {
-                is BooleanCriterion -> require(row.value == null) {
-                    "Criterion '${row.identifier}' is boolean and takes no value"
-                }
-                is TextInputCriterion -> {
-                    val value = row.value
-                    require(!value.isNullOrBlank()) {
-                        "Criterion '${row.identifier}' needs a value"
-                    }
-                    require(value.length <= MAX_VALUE_LENGTH) {
-                        "Criterion '${row.identifier}' value is ${value.length} characters; " +
-                            "the limit is $MAX_VALUE_LENGTH"
-                    }
-                    instance.selectedText = value
-                }
-                is MultipleSelectCriterion -> {
-                    val value = row.value
-                    val values = criterion.entryValues ?: emptyArray()
-                    val options = values
-                        .mapIndexedNotNull { i, v ->
-                            v?.let { "'${criterion.entryTitles?.getOrNull(i) ?: it}' ($it)" }
-                        }
-                    require(!value.isNullOrBlank() && value in values) {
-                        "Criterion '${row.identifier}' needs one of its valid values, got " +
-                            "${value ?: "(none)"}: ${options.joinToString()}. " +
-                            "Read list_filter_criteria for the current options - they include " +
-                            "the live tag and list names."
-                    }
-                    instance.selectedIndex = values.indexOf(value)
-                }
-                else -> throw IllegalStateException("Unknown criterion kind: ${criterion::class}")
-            }
+            applyRow(instance, criterion, row, index, instances)
             instances.add(instance)
         }
         return if (instances.any { it.type == CriterionInstance.TYPE_UNIVERSE }) {
             instances
         } else {
-            listOf(universeInstance()) + instances
+            val universe = CriterionInstance().apply {
+                criterion = provider.startingUniverse()
+                type = CriterionInstance.TYPE_UNIVERSE
+            }
+            listOf(universe) + instances
         }
     }
 
-    private suspend fun universeInstance(): CriterionInstance = CriterionInstance().apply {
-        criterion = provider.startingUniverse()
-        type = CriterionInstance.TYPE_UNIVERSE
+    private fun applyRow(
+        instance: CriterionInstance,
+        criterion: CustomFilterCriterion,
+        row: CriterionWrite,
+        index: Int,
+        instances: List<CriterionInstance>,
+    ) {
+        instance.type = when (row.type) {
+            ROW_TYPE_INTERSECT -> CriterionInstance.TYPE_INTERSECT
+            "add" -> CriterionInstance.TYPE_ADD
+            "subtract" -> CriterionInstance.TYPE_SUBTRACT
+            "universe" -> {
+                require(index == 0 && !instances.any { it.type == CriterionInstance.TYPE_UNIVERSE }) {
+                    "A 'universe' row is the app-managed leading row; " +
+                        "it may only appear first, if at all"
+                }
+                CriterionInstance.TYPE_UNIVERSE
+            }
+            else -> throw IllegalArgumentException(
+                "Unknown type '${row.type}' on criterion '${row.identifier}' - " +
+                    "use intersect (AND, the default), add (OR) or subtract (AND NOT)",
+            )
+        }
+        when (criterion) {
+            is BooleanCriterion -> require(row.value == null) {
+                "Criterion '${row.identifier}' is boolean and takes no value"
+            }
+            is TextInputCriterion -> {
+                val value = row.value
+                require(!value.isNullOrBlank()) {
+                    "Criterion '${row.identifier}' needs a value"
+                }
+                require(value.length <= MAX_VALUE_LENGTH) {
+                    "Criterion '${row.identifier}' value is ${value.length} characters; " +
+                        "the limit is $MAX_VALUE_LENGTH"
+                }
+                instance.selectedText = value
+            }
+            is MultipleSelectCriterion -> {
+                val value = row.value
+                val values = criterion.entryValues ?: emptyArray()
+                val options = values
+                    .mapIndexedNotNull { i, v ->
+                        v?.let { "'${criterion.entryTitles?.getOrNull(i) ?: it}' ($it)" }
+                    }
+                require(!value.isNullOrBlank() && value in values) {
+                    "Criterion '${row.identifier}' needs one of its valid values, got " +
+                        "${value ?: "(none)"}: ${options.joinToString()}. " +
+                        "Read list_filter_criteria for the current options - they include " +
+                        "the live tag and list names."
+                }
+                instance.selectedIndex = values.indexOf(value)
+            }
+            else -> throw IllegalStateException("Unknown criterion kind: ${criterion::class}")
+        }
     }
 
     private suspend fun Filter.toRow(includeSql: Boolean): FilterRow = FilterRow(
@@ -403,7 +413,7 @@ class DatabaseFiltersApi(
                 CriterionInstance.TYPE_ADD -> "add"
                 CriterionInstance.TYPE_SUBTRACT -> "subtract"
                 CriterionInstance.TYPE_UNIVERSE -> "universe"
-                else -> "intersect"
+                else -> ROW_TYPE_INTERSECT
             }
             CriterionRow(
                 identifier = instance.criterion.identifier.orEmpty(),
