@@ -339,7 +339,7 @@ class TaskRowTest {
     }
 
     @Test
-    fun aFullDescriptionSkipsTheClampAndTheShowMoreLink() = runComposeUiTest {
+    fun aFullDescriptionIsExpandedByDefaultButCanFoldAway() = runComposeUiTest {
         val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullDescription = true)
 
         setContent {
@@ -350,7 +350,13 @@ class TaskRowTest {
         }
 
         onNodeWithText("line one line two line three").assertExists()
-        onNodeWithText("Show more").assertDoesNotExist()
+        onNodeWithText("Show less").assertExists()
+
+        onNodeWithText("Show less").performClick()
+        waitUntil { onAllNodes(hasText("Show more")).fetchSemanticsNodes().isNotEmpty() }
+
+        onNodeWithText("line one line two line three").assertDoesNotExist()
+        onNodeWithText("line one line two").assertExists()
     }
 
     @Test
