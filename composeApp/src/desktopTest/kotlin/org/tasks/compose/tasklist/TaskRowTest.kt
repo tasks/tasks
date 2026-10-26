@@ -34,6 +34,16 @@ import org.tasks.filters.CaldavListCache
 import org.tasks.filters.EmptyFilter
 import org.tasks.viewmodel.TaskListPreferencesViewModel
 
+private const val DEFAULT_TITLE = "Buy milk"
+private const val PLACE_NAME = "The Lab"
+private const val REMOTE_ID = "uuid-1"
+private const val FIRST_LINE = "line one"
+private const val TWO_LINES = "line one\nline two"
+private const val TWO_LINES_CLAMPED = "line one line two"
+private const val THREE_LINES = "line one\nline two\nline three"
+private const val THREE_LINES_CLAMPED = "line one line two line three"
+private const val SHOW_MORE_LINK = "Show more"
+
 @OptIn(ExperimentalTestApi::class)
 class TaskRowTest {
     private val chips = ChipDataProvider(
@@ -48,7 +58,7 @@ class TaskRowTest {
     )
 
     private fun task(
-        title: String = "Buy milk",
+        title: String = DEFAULT_TITLE,
         children: Int = 0,
         uncompletedChildren: Int = children,
         completed: Boolean = false,
@@ -59,7 +69,7 @@ class TaskRowTest {
         task = Task(
             id = 1,
             title = title,
-            remoteId = "uuid-1",
+            remoteId = REMOTE_ID,
             completionDate = if (completed) 1 else 0,
             notes = notes,
         ),
@@ -71,7 +81,7 @@ class TaskRowTest {
 
     private fun location() = Location(
         geofence = Geofence(task = 1),
-        place = Place(name = "The Lab", icon = "science"),
+        place = Place(name = PLACE_NAME, icon = "science"),
     )
 
     private class Clicks {
@@ -112,9 +122,9 @@ class TaskRowTest {
     fun anOrdinaryRowOpensWhenItIsClicked() = runComposeUiTest {
         val clicks = Clicks()
         setContent { Row(task(), doomed = false, clicks = clicks) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("Buy milk").performClick()
+        onNodeWithText(DEFAULT_TITLE).performClick()
 
         assertEquals(1, clicks.opened)
     }
@@ -123,9 +133,9 @@ class TaskRowTest {
     fun aRowOnItsWayOutDoesNotOpen() = runComposeUiTest {
         val clicks = Clicks()
         setContent { Row(task(), doomed = true, clicks = clicks) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("Buy milk").performClick()
+        onNodeWithText(DEFAULT_TITLE).performClick()
 
         assertEquals(0, clicks.opened)
     }
@@ -211,12 +221,12 @@ class TaskRowTest {
 
     @Test
     fun aRowTheUserMarkedIsDrawnAsBeingOnItsWayOut() {
-        assertEquals(RowState.Doomed, rowState(mapOf("uuid-1" to true), task()))
+        assertEquals(RowState.Doomed, rowState(mapOf(REMOTE_ID to true), task()))
     }
 
     @Test
     fun aRowGoingOnlyBecauseSomethingAboveItIsGoesOutOfSightAltogether() {
-        assertEquals(RowState.Hidden, rowState(mapOf("uuid-1" to false), task()))
+        assertEquals(RowState.Hidden, rowState(mapOf(REMOTE_ID to false), task()))
     }
 
     @Test
@@ -229,17 +239,17 @@ class TaskRowTest {
 
     @Test
     fun aClampedRowShowsTheWholeTitleOnOneLine() = runComposeUiTest {
-        setContent { Row(task(title = "line one\nline two"), doomed = false, clicks = Clicks()) }
+        setContent { Row(task(title = TWO_LINES), doomed = false, clicks = Clicks()) }
 
-        waitUntil { onAllNodes(hasText("line one line two")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(TWO_LINES_CLAMPED)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("line one line two").assertExists()
+        onNodeWithText(TWO_LINES_CLAMPED).assertExists()
     }
 
     @Test
     fun aFullTitleRowWrapsInsteadOfClampingToOneLine() = runComposeUiTest {
         val longTitle = ("word ".repeat(40)).trim()
-        val full = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullTitle = true)
+        val full = TaskRowStyle(showFullTitle = true)
 
         setContent {
             Box(Modifier.width(240.dp)) {
@@ -268,54 +278,50 @@ class TaskRowTest {
     fun aPlaceChipShowsByDefault() = runComposeUiTest {
         setContent { Row(task(location = location()), doomed = false, clicks = Clicks()) }
 
-        onNodeWithText("The Lab").assertExists()
+        onNodeWithText(PLACE_NAME).assertExists()
     }
 
     @Test
     fun aPlaceChipHidesWhenTheToggleIsOff() = runComposeUiTest {
-        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, placeChips = false)
+        val style = TaskRowStyle(placeChips = false)
 
         setContent { Row(task(location = location()), doomed = false, clicks = Clicks(), style = style) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("The Lab").assertDoesNotExist()
+        onNodeWithText(PLACE_NAME).assertDoesNotExist()
     }
 
     @Test
     fun aTextOnlyRowKeepsTheChipTextButNotTheIconCount() = runComposeUiTest {
-        val style = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
+        val style = TaskRowStyle(
             chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY,
         )
 
         setContent { Row(task(children = 2, location = location()), doomed = false, clicks = Clicks(), style = style) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
         // The place chip keeps its text in text-only mode.
-        onNodeWithText("The Lab").assertExists()
+        onNodeWithText(PLACE_NAME).assertExists()
     }
 
     @Test
     fun anIconOnlyRowDrawsNoChipText() = runComposeUiTest {
-        val style = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
+        val style = TaskRowStyle(
             chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY,
         )
 
         setContent { Row(task(children = 2, location = location()), doomed = false, clicks = Clicks(), style = style) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("The Lab").assertDoesNotExist()
+        onNodeWithText(PLACE_NAME).assertDoesNotExist()
     }
 
     @Test
     fun aSubtaskChipHidesWhenItsToggleIsOff() = runComposeUiTest {
-        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, subtaskChips = false)
+        val style = TaskRowStyle(subtaskChips = false)
 
         setContent { Row(task(children = 2), doomed = false, clicks = Clicks(), style = style) }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
         onNodeWithText("2").assertDoesNotExist()
     }
@@ -323,63 +329,61 @@ class TaskRowTest {
     @Test
     fun aLongDescriptionIsClampedToTwoLinesWithAShowMoreLink() = runComposeUiTest {
         setContent {
-            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks())
+            Row(task(notes = THREE_LINES), doomed = false, clicks = Clicks())
         }
-        waitUntil { onAllNodes(hasText("Show more")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(SHOW_MORE_LINK)).fetchSemanticsNodes().isNotEmpty() }
 
         // The markdown renderer joins the collapsed lines into one paragraph.
-        onNodeWithText("line one line two").assertExists()
+        onNodeWithText(TWO_LINES_CLAMPED).assertExists()
         onNodeWithText("line three").assertDoesNotExist()
     }
 
     @Test
     fun aLongDescriptionIsHiddenWhenDescriptionsAreOff() = runComposeUiTest {
-        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showDescription = false)
+        val style = TaskRowStyle(showDescription = false)
 
         setContent {
-            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks(), style = style)
+            Row(task(notes = THREE_LINES), doomed = false, clicks = Clicks(), style = style)
         }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("line one").assertDoesNotExist()
-        onNodeWithText("Show more").assertDoesNotExist()
+        onNodeWithText(FIRST_LINE).assertDoesNotExist()
+        onNodeWithText(SHOW_MORE_LINK).assertDoesNotExist()
     }
 
     @Test
     fun aFullDescriptionIsExpandedByDefaultButCanFoldAway() = runComposeUiTest {
-        val style = taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullDescription = true)
+        val style = TaskRowStyle(showFullDescription = true)
 
         setContent {
-            Row(task(notes = "line one\nline two\nline three"), doomed = false, clicks = Clicks(), style = style)
+            Row(task(notes = THREE_LINES), doomed = false, clicks = Clicks(), style = style)
         }
         waitUntil {
-            onAllNodes(hasText("line one line two line three")).fetchSemanticsNodes().isNotEmpty()
+            onAllNodes(hasText(THREE_LINES_CLAMPED)).fetchSemanticsNodes().isNotEmpty()
         }
 
-        onNodeWithText("line one line two line three").assertExists()
+        onNodeWithText(THREE_LINES_CLAMPED).assertExists()
         onNodeWithText("Show less").assertExists()
 
         onNodeWithText("Show less").performClick()
-        waitUntil { onAllNodes(hasText("Show more")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(SHOW_MORE_LINK)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("line one line two line three").assertDoesNotExist()
-        onNodeWithText("line one line two").assertExists()
+        onNodeWithText(THREE_LINES_CLAMPED).assertDoesNotExist()
+        onNodeWithText(TWO_LINES_CLAMPED).assertExists()
     }
 
     @Test
     fun hiddenDescriptionsWinOverFullDescriptions() = runComposeUiTest {
-        val style = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
+        val style = TaskRowStyle(
             showDescription = false,
             showFullDescription = true,
         )
 
         setContent {
-            Row(task(notes = "line one"), doomed = false, clicks = Clicks(), style = style)
+            Row(task(notes = FIRST_LINE), doomed = false, clicks = Clicks(), style = style)
         }
-        waitUntil { onAllNodes(hasText("Buy milk")).fetchSemanticsNodes().isNotEmpty() }
+        waitUntil { onAllNodes(hasText(DEFAULT_TITLE)).fetchSemanticsNodes().isNotEmpty() }
 
-        onNodeWithText("line one").assertDoesNotExist()
+        onNodeWithText(FIRST_LINE).assertDoesNotExist()
     }
 }

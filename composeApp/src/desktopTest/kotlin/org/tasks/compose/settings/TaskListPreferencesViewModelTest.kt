@@ -16,6 +16,8 @@ import org.junit.Test
 import org.tasks.InMemoryDataStore
 import org.tasks.preferences.TasksPreferences
 import org.tasks.viewmodel.TaskListPreferencesViewModel
+import org.tasks.viewmodel.TaskListPreferencesViewModel.ChipOption
+import org.tasks.viewmodel.TaskListPreferencesViewModel.SliderOption
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TaskListPreferencesViewModelTest {
@@ -80,10 +82,10 @@ class TaskListPreferencesViewModelTest {
     fun slidersAndChipFlagsPersist() = runBlocking {
         val vm = viewModel()
         vm.loadedState()
-        vm.updateFontSize(24)
-        vm.updateRowSpacing(8)
+        vm.updateSlider(SliderOption.FONT_SIZE, 24)
+        vm.updateSlider(SliderOption.ROW_SPACING, 8)
         vm.updateChipAppearance(TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY)
-        vm.updateTagChips(false)
+        vm.updateChipVisibility(ChipOption.TAGS, false)
         assertEquals(24, vm.state.value.fontSize)
         assertEquals(8, vm.state.value.rowSpacing)
         assertEquals(TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY, vm.state.value.chipAppearance)

@@ -19,10 +19,29 @@ import org.tasks.preferences.TasksPreferences
  * 2 = icon only) matching the native `p_chip_appearance` values; the
  * display labels are resolved in the composable layer so this view model
  * stays free of string-resource resolution.
+ *
+ * The two int sliders share [updateSlider] and the five per-chip toggles
+ * share [updateChipVisibility] (keyed by option enum, mirroring the native
+ * view model's rows one-to-one); every other option has its own setter.
  */
 class TaskListPreferencesViewModel(
     private val tasksPreferences: TasksPreferences,
 ) : ViewModel() {
+
+    /** The two int-valued slider rows. */
+    enum class SliderOption {
+        FONT_SIZE,
+        ROW_SPACING,
+    }
+
+    /** The five per-chip visibility toggle rows. */
+    enum class ChipOption {
+        SUBTASKS,
+        START_DATE,
+        PLACES,
+        LISTS,
+        TAGS,
+    }
 
     data class State(
         val loaded: Boolean = false,
@@ -70,12 +89,28 @@ class TaskListPreferencesViewModel(
         }
     }
 
-    fun updateFontSize(value: Int) {
-        set(TasksPreferences.taskListFontSize, value) { it.copy(fontSize = value) }
+    fun updateSlider(option: SliderOption, value: Int) {
+        when (option) {
+            SliderOption.FONT_SIZE ->
+                set(TasksPreferences.taskListFontSize, value) { it.copy(fontSize = value) }
+            SliderOption.ROW_SPACING ->
+                set(TasksPreferences.taskListRowSpacing, value) { it.copy(rowSpacing = value) }
+        }
     }
 
-    fun updateRowSpacing(value: Int) {
-        set(TasksPreferences.taskListRowSpacing, value) { it.copy(rowSpacing = value) }
+    fun updateChipVisibility(option: ChipOption, enabled: Boolean) {
+        when (option) {
+            ChipOption.SUBTASKS ->
+                set(TasksPreferences.taskListSubtaskChips, enabled) { it.copy(subtaskChips = enabled) }
+            ChipOption.START_DATE ->
+                set(TasksPreferences.taskListStartDateChips, enabled) { it.copy(startDateChips = enabled) }
+            ChipOption.PLACES ->
+                set(TasksPreferences.taskListPlaceChips, enabled) { it.copy(placeChips = enabled) }
+            ChipOption.LISTS ->
+                set(TasksPreferences.taskListListChips, enabled) { it.copy(listChips = enabled) }
+            ChipOption.TAGS ->
+                set(TasksPreferences.taskListTagChips, enabled) { it.copy(tagChips = enabled) }
+        }
     }
 
     fun updateShowFullTitle(enabled: Boolean) {
@@ -104,26 +139,6 @@ class TaskListPreferencesViewModel(
 
     fun updateChipAppearance(value: Int) {
         set(TasksPreferences.taskListChipAppearance, value) { it.copy(chipAppearance = value) }
-    }
-
-    fun updateSubtaskChips(enabled: Boolean) {
-        set(TasksPreferences.taskListSubtaskChips, enabled) { it.copy(subtaskChips = enabled) }
-    }
-
-    fun updateStartDateChips(enabled: Boolean) {
-        set(TasksPreferences.taskListStartDateChips, enabled) { it.copy(startDateChips = enabled) }
-    }
-
-    fun updatePlaceChips(enabled: Boolean) {
-        set(TasksPreferences.taskListPlaceChips, enabled) { it.copy(placeChips = enabled) }
-    }
-
-    fun updateListChips(enabled: Boolean) {
-        set(TasksPreferences.taskListListChips, enabled) { it.copy(listChips = enabled) }
-    }
-
-    fun updateTagChips(enabled: Boolean) {
-        set(TasksPreferences.taskListTagChips, enabled) { it.copy(tagChips = enabled) }
     }
 
     private fun <T> set(key: androidx.datastore.preferences.core.Preferences.Key<T>, value: T, transform: (State) -> State) {

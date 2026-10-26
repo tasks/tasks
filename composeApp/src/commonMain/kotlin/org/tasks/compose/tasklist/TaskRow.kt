@@ -314,7 +314,7 @@ internal fun TaskRow(
  * ellipsize=end) while the "Full task title" option is off. Inline markdown
  * formatting is preserved; only the line count is capped.
  */
-private fun singleLineTitleComponents(): MarkdownComponents = markdownComponents(
+internal fun singleLineTitleComponents(): MarkdownComponents = markdownComponents(
     paragraph = { model ->
         val styledText = buildAnnotatedString {
             pushStyle(model.typography.paragraph.toSpanStyle())

@@ -44,11 +44,9 @@ class DrawerCustomizationScreenTest : DatabaseTest() {
         Dispatchers.resetMain()
     }
 
-    /**
-     * The view model loads the sections in its init, so the database must be
-     * seeded before it is constructed.
-     */
     private fun createViewModel() {
+        // The view model loads the sections in its init, so the database
+        // must be seeded before it is constructed.
         val db = db
         viewModel = DrawerCustomizationViewModel(
             filterProvider = FilterProvider(

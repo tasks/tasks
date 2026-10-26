@@ -4,30 +4,33 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.viewmodel.TaskListPreferencesViewModel
 
+private const val TWO_LINES = "line one\nline two"
+private const val TWO_LINES_CLAMPED = "line one line two"
+
 class TaskRowStyleTest {
     @Test
-    fun theConfiguredFontSizeIsUsedForTheTitleAndDescription() {
-        assertEquals(20, taskRowStyle(fontSize = 20, rowSpacingDp = 16).titleFontSizeSp)
-        assertEquals(16, taskRowStyle(fontSize = 16, rowSpacingDp = 16).titleFontSizeSp)
+    fun theConfiguredFontSizeIsUsedForTheTitle() {
+        assertEquals(20, TaskRowStyle(titleFontSizeSp = 20).titleFontSizeSp)
+        assertEquals(16, TaskRowStyle(titleFontSizeSp = 16).titleFontSizeSp)
     }
 
     @Test
     fun theDueDateFontIsTwoSmallerThanTheTitle() {
-        assertEquals(14, taskRowStyle(fontSize = 16, rowSpacingDp = 16).detailFontSizeSp)
-        assertEquals(38, taskRowStyle(fontSize = 40, rowSpacingDp = 16).detailFontSizeSp)
+        assertEquals(14, TaskRowStyle(titleFontSizeSp = 16).detailFontSizeSp)
+        assertEquals(38, TaskRowStyle(titleFontSizeSp = 40).detailFontSizeSp)
     }
 
     @Test
     fun theDueDateFontNeverDropsBelowTheFloor() {
-        assertEquals(10, taskRowStyle(fontSize = 8, rowSpacingDp = 16).detailFontSizeSp)
-        assertEquals(10, taskRowStyle(fontSize = 10, rowSpacingDp = 16).detailFontSizeSp)
-        assertEquals(10, taskRowStyle(fontSize = 2, rowSpacingDp = 16).detailFontSizeSp)
+        assertEquals(10, TaskRowStyle(titleFontSizeSp = 8).detailFontSizeSp)
+        assertEquals(10, TaskRowStyle(titleFontSizeSp = 10).detailFontSizeSp)
+        assertEquals(10, TaskRowStyle(titleFontSizeSp = 2).detailFontSizeSp)
     }
 
     @Test
     fun theRowSpacingPassesThrough() {
-        assertEquals(24, taskRowStyle(fontSize = 16, rowSpacingDp = 24).rowSpacingDp)
-        assertEquals(0, taskRowStyle(fontSize = 16, rowSpacingDp = 0).rowSpacingDp)
+        assertEquals(24, TaskRowStyle(rowSpacingDp = 24).rowSpacingDp)
+        assertEquals(0, TaskRowStyle(rowSpacingDp = 0).rowSpacingDp)
     }
 
     @Test
@@ -40,50 +43,40 @@ class TaskRowStyleTest {
 
     @Test
     fun theFullTitleTogglePassesThroughAndDefaultsOff() {
-        assertEquals(true, taskRowStyle(fontSize = 16, rowSpacingDp = 16, showFullTitle = true).showFullTitle)
-        assertEquals(false, taskRowStyle(fontSize = 16, rowSpacingDp = 16).showFullTitle)
+        assertEquals(true, TaskRowStyle(showFullTitle = true).showFullTitle)
+        assertEquals(false, TaskRowStyle().showFullTitle)
     }
 
     @Test
-    fun aClampedTitleCollapsesNewlinesIntoSpaces() {
-        assertEquals("line one line two", titleContent("line one\nline two", showFullTitle = false))
+    fun theFullTitleToggleDecidesWhetherNewlinesSurvive() {
+        assertEquals(TWO_LINES_CLAMPED, titleContent(TWO_LINES, showFullTitle = false))
         assertEquals("", titleContent(null, showFullTitle = false))
-    }
 
-    @Test
-    fun aFullTitleKeepsItsNewlines() {
-        assertEquals("line one\nline two", titleContent("line one\nline two", showFullTitle = true))
+        assertEquals(TWO_LINES, titleContent(TWO_LINES, showFullTitle = true))
         assertEquals("", titleContent(null, showFullTitle = true))
     }
 
     @Test
     fun theDescriptionTogglesDefaultSensibly() {
-        val all = taskRowStyle(fontSize = 16, rowSpacingDp = 16)
+        val all = TaskRowStyle()
         assertEquals(true, all.showDescription)
         assertEquals(false, all.showFullDescription)
 
-        val none = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
-            showDescription = false,
-            showFullDescription = true,
-        )
+        val none = TaskRowStyle(showDescription = false, showFullDescription = true)
         assertEquals(false, none.showDescription)
         assertEquals(true, none.showFullDescription)
     }
 
     @Test
     fun theChipTogglesDefaultOnAndPassThrough() {
-        val all = taskRowStyle(fontSize = 16, rowSpacingDp = 16)
+        val all = TaskRowStyle()
         assertEquals(true, all.subtaskChips)
         assertEquals(true, all.startDateChips)
         assertEquals(true, all.placeChips)
         assertEquals(true, all.listChips)
         assertEquals(true, all.tagChips)
 
-        val none = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
+        val none = TaskRowStyle(
             subtaskChips = false,
             startDateChips = false,
             placeChips = false,
@@ -99,23 +92,15 @@ class TaskRowStyleTest {
 
     @Test
     fun theChipAppearanceDrivesTextAndIconVisibility() {
-        val both = taskRowStyle(fontSize = 16, rowSpacingDp = 16)
+        val both = TaskRowStyle()
         assertEquals(true, both.chipShowText)
         assertEquals(true, both.chipShowIcon)
 
-        val textOnly = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
-            chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY,
-        )
+        val textOnly = TaskRowStyle(chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY)
         assertEquals(true, textOnly.chipShowText)
         assertEquals(false, textOnly.chipShowIcon)
 
-        val iconOnly = taskRowStyle(
-            fontSize = 16,
-            rowSpacingDp = 16,
-            chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY,
-        )
+        val iconOnly = TaskRowStyle(chipAppearance = TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY)
         assertEquals(false, iconOnly.chipShowText)
         assertEquals(true, iconOnly.chipShowIcon)
     }

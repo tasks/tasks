@@ -36,6 +36,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.components.SymbolIcon
 import org.tasks.themes.TasksIcons
 import org.tasks.viewmodel.TaskListPreferencesViewModel
+import org.tasks.viewmodel.TaskListPreferencesViewModel.ChipOption
+import org.tasks.viewmodel.TaskListPreferencesViewModel.SliderOption
 import org.tasks.viewmodel.TaskListPreferencesViewModel.State
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.EPr_fullTask_title
@@ -96,19 +98,7 @@ fun TaskListOptionsDetail(
         if (state.loaded) {
             TaskListOptionsScreen(
                 state = state,
-                onFontSizeChange = viewModel::updateFontSize,
-                onRowSpacingChange = viewModel::updateRowSpacing,
-                onShowFullTitleChange = viewModel::updateShowFullTitle,
-                onShowDescriptionChange = viewModel::updateShowDescription,
-                onShowFullDescriptionChange = viewModel::updateShowFullDescription,
-                onShowLinksChange = viewModel::updateShowLinks,
-                onPerListSortChange = viewModel::updatePerListSort,
-                onChipAppearanceChange = viewModel::updateChipAppearance,
-                onSubtaskChipsChange = viewModel::updateSubtaskChips,
-                onStartDateChipsChange = viewModel::updateStartDateChips,
-                onPlaceChipsChange = viewModel::updatePlaceChips,
-                onListChipsChange = viewModel::updateListChips,
-                onTagChipsChange = viewModel::updateTagChips,
+                viewModel = viewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding),
@@ -120,22 +110,9 @@ fun TaskListOptionsDetail(
 @Composable
 fun TaskListOptionsScreen(
     state: State,
-    onFontSizeChange: (Int) -> Unit,
-    onRowSpacingChange: (Int) -> Unit,
-    onShowFullTitleChange: (Boolean) -> Unit,
-    onShowDescriptionChange: (Boolean) -> Unit,
-    onShowFullDescriptionChange: (Boolean) -> Unit,
-    onShowLinksChange: (Boolean) -> Unit,
-    onPerListSortChange: (Boolean) -> Unit,
-    onChipAppearanceChange: (Int) -> Unit,
-    onSubtaskChipsChange: (Boolean) -> Unit,
-    onStartDateChipsChange: (Boolean) -> Unit,
-    onPlaceChipsChange: (Boolean) -> Unit,
-    onListChipsChange: (Boolean) -> Unit,
-    onTagChipsChange: (Boolean) -> Unit,
+    viewModel: TaskListPreferencesViewModel,
     modifier: Modifier = Modifier,
 ) {
-    var showChipAppearanceDialog by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -143,150 +120,175 @@ fun TaskListOptionsScreen(
             .padding(horizontal = SettingsContentPadding),
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-        // Font size & row spacing
-        Column(
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SliderPreferenceRow(
-                    title = stringResource(Res.string.font_size),
-                    value = state.fontSize,
-                    min = 10,
-                    max = 48,
-                    onValueChange = onFontSizeChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                SliderPreferenceRow(
-                    title = stringResource(Res.string.row_spacing),
-                    value = state.rowSpacing,
-                    min = 0,
-                    max = 16,
-                    onValueChange = onRowSpacingChange,
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-        // Display options
-        Column(
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.EPr_fullTask_title),
-                    checked = state.showFullTitle,
-                    onCheckedChange = onShowFullTitleChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.show_description),
-                    checked = state.showDescription,
-                    onCheckedChange = onShowDescriptionChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.show_full_description),
-                    checked = state.showFullDescription,
-                    enabled = state.showDescription,
-                    onCheckedChange = onShowFullDescriptionChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                // Always on on desktop: the markdown renderer auto-linkifies
-                // bare URLs with no way to switch it off, so the row is
-                // shown on but locked, for parity with the native pane.
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.linkify),
-                    summary = stringResource(Res.string.linkify_description),
-                    checked = true,
-                    onCheckedChange = {},
-                    enabled = false,
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
-
-        // Sorting options
-        SettingsItemCard(position = CardPosition.Only) {
-            SwitchPreferenceRow(
-                title = stringResource(Res.string.per_list_sort_title),
-                summary = stringResource(Res.string.per_list_sort_summary),
-                checked = state.perListSort,
-                onCheckedChange = onPerListSortChange,
-            )
-        }
-
-        // Chips section
-        SectionHeader(
-            title = stringResource(Res.string.chips),
-            modifier = Modifier.padding(vertical = SettingsSectionGap),
+        AppearanceCard(
+            state = state,
+            onFontSizeChange = { viewModel.updateSlider(SliderOption.FONT_SIZE, it) },
+            onRowSpacingChange = { viewModel.updateSlider(SliderOption.ROW_SPACING, it) },
         )
-        Column(
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                PreferenceRow(
-                    title = stringResource(Res.string.chip_appearance),
-                    summary = when (state.chipAppearance) {
-                        TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY -> stringResource(Res.string.chip_appearance_text_only)
-                        TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY -> stringResource(Res.string.chip_appearance_icon_only)
-                        else -> stringResource(Res.string.chip_appearance_text_and_icon)
-                    },
-                    showChevron = true,
-                    onClick = { showChipAppearanceDialog = true },
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.subtasks),
-                    checked = state.subtaskChips,
-                    onCheckedChange = onSubtaskChipsChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.start_date),
-                    checked = state.startDateChips,
-                    onCheckedChange = onStartDateChipsChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.places),
-                    checked = state.placeChips,
-                    onCheckedChange = onPlaceChipsChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.lists),
-                    checked = state.listChips,
-                    onCheckedChange = onListChipsChange,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.tags),
-                    checked = state.tagChips,
-                    onCheckedChange = onTagChipsChange,
-                )
-            }
-        }
-
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        DisplayCard(
+            state = state,
+            onShowFullTitleChange = viewModel::updateShowFullTitle,
+            onShowDescriptionChange = viewModel::updateShowDescription,
+            onShowFullDescriptionChange = viewModel::updateShowFullDescription,
+        )
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        PerListSortCard(
+            state = state,
+            onPerListSortChange = viewModel::updatePerListSort,
+        )
+        ChipsCard(
+            state = state,
+            viewModel = viewModel,
+        )
         Spacer(modifier = Modifier.height(SettingsContentPadding))
     }
+}
 
+@Composable
+private fun AppearanceCard(
+    state: State,
+    onFontSizeChange: (Int) -> Unit,
+    onRowSpacingChange: (Int) -> Unit,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            SliderPreferenceRow(
+                title = stringResource(Res.string.font_size),
+                value = state.fontSize,
+                min = 10,
+                max = 48,
+                onValueChange = onFontSizeChange,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            SliderPreferenceRow(
+                title = stringResource(Res.string.row_spacing),
+                value = state.rowSpacing,
+                min = 0,
+                max = 16,
+                onValueChange = onRowSpacingChange,
+            )
+        }
+    }
+}
+
+@Composable
+private fun DisplayCard(
+    state: State,
+    onShowFullTitleChange: (Boolean) -> Unit,
+    onShowDescriptionChange: (Boolean) -> Unit,
+    onShowFullDescriptionChange: (Boolean) -> Unit,
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.EPr_fullTask_title),
+                checked = state.showFullTitle,
+                onCheckedChange = onShowFullTitleChange,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.show_description),
+                checked = state.showDescription,
+                onCheckedChange = onShowDescriptionChange,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.show_full_description),
+                checked = state.showFullDescription,
+                enabled = state.showDescription,
+                onCheckedChange = onShowFullDescriptionChange,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            // Always on on desktop: the markdown renderer auto-linkifies
+            // bare URLs with no way to switch it off, so the row is
+            // shown on but locked, for parity with the native pane.
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.linkify),
+                summary = stringResource(Res.string.linkify_description),
+                checked = true,
+                onCheckedChange = {},
+                enabled = false,
+            )
+        }
+    }
+}
+
+@Composable
+private fun PerListSortCard(
+    state: State,
+    onPerListSortChange: (Boolean) -> Unit,
+) {
+    SettingsItemCard(position = CardPosition.Only) {
+        SwitchPreferenceRow(
+            title = stringResource(Res.string.per_list_sort_title),
+            summary = stringResource(Res.string.per_list_sort_summary),
+            checked = state.perListSort,
+            onCheckedChange = onPerListSortChange,
+        )
+    }
+}
+
+@Composable
+private fun ChipsCard(
+    state: State,
+    viewModel: TaskListPreferencesViewModel,
+) {
+    var showChipAppearanceDialog by remember { mutableStateOf(false) }
+    SectionHeader(
+        title = stringResource(Res.string.chips),
+        modifier = Modifier.padding(vertical = SettingsSectionGap),
+    )
+    Column(
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            PreferenceRow(
+                title = stringResource(Res.string.chip_appearance),
+                summary = when (state.chipAppearance) {
+                    TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY -> stringResource(Res.string.chip_appearance_text_only)
+                    TaskListPreferencesViewModel.CHIP_APPEARANCE_ICON_ONLY -> stringResource(Res.string.chip_appearance_icon_only)
+                    else -> stringResource(Res.string.chip_appearance_text_and_icon)
+                },
+                showChevron = true,
+                onClick = { showChipAppearanceDialog = true },
+            )
+        }
+        ChipToggleRow(
+            title = stringResource(Res.string.subtasks),
+            checked = state.subtaskChips,
+        ) { viewModel.updateChipVisibility(ChipOption.SUBTASKS, it) }
+        ChipToggleRow(
+            title = stringResource(Res.string.start_date),
+            checked = state.startDateChips,
+        ) { viewModel.updateChipVisibility(ChipOption.START_DATE, it) }
+        ChipToggleRow(
+            title = stringResource(Res.string.places),
+            checked = state.placeChips,
+        ) { viewModel.updateChipVisibility(ChipOption.PLACES, it) }
+        ChipToggleRow(
+            title = stringResource(Res.string.lists),
+            checked = state.listChips,
+        ) { viewModel.updateChipVisibility(ChipOption.LISTS, it) }
+        ChipToggleRow(
+            title = stringResource(Res.string.tags),
+            checked = state.tagChips,
+            position = CardPosition.Last,
+        ) { viewModel.updateChipVisibility(ChipOption.TAGS, it) }
+    }
     if (showChipAppearanceDialog) {
         ChipAppearanceDialog(
             selected = state.chipAppearance,
             onSelect = { choice ->
-                onChipAppearanceChange(choice)
+                viewModel.updateChipAppearance(choice)
                 showChipAppearanceDialog = false
             },
             onDismiss = { showChipAppearanceDialog = false },
@@ -294,10 +296,22 @@ fun TaskListOptionsScreen(
     }
 }
 
-/**
- * Int-valued slider row, mirroring the native Android version of the same
- * composable (title + current value above a full-width M3 slider).
- */
+@Composable
+private fun ChipToggleRow(
+    title: String,
+    checked: Boolean,
+    position: CardPosition = CardPosition.Middle,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    SettingsItemCard(position = position) {
+        SwitchPreferenceRow(
+            title = title,
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+        )
+    }
+}
+
 @Composable
 private fun SliderPreferenceRow(
     title: String,
@@ -306,6 +320,8 @@ private fun SliderPreferenceRow(
     max: Int,
     onValueChange: (Int) -> Unit,
 ) {
+    // Mirrors the native Android slider row: title + current value above a
+    // full-width M3 slider.
     Column(
         modifier = Modifier
             .fillMaxWidth()

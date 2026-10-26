@@ -15,9 +15,8 @@ import org.tasks.viewmodel.TaskListPreferencesViewModel
 internal const val DETAIL_FONT_SIZE_FLOOR = 10
 
 internal data class TaskRowStyle(
-    val titleFontSizeSp: Int,
-    val detailFontSizeSp: Int,
-    val rowSpacingDp: Int,
+    val titleFontSizeSp: Int = TaskListPreferencesViewModel.DEFAULT_FONT_SIZE,
+    val rowSpacingDp: Int = TaskListPreferencesViewModel.DEFAULT_ROW_SPACING,
     val showFullTitle: Boolean = false,
     val chipAppearance: Int = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON,
     val subtaskChips: Boolean = true,
@@ -28,6 +27,10 @@ internal data class TaskRowStyle(
     val showDescription: Boolean = true,
     val showFullDescription: Boolean = false,
 ) {
+    // Native parity: the due-date detail text uses the font size minus 2,
+    // clamped to a floor of 10.
+    val detailFontSizeSp: Int
+        get() = max(DETAIL_FONT_SIZE_FLOOR, titleFontSizeSp - 2)
     /**
      * Native parity for p_chip_appearance (0 = text and icon, 1 = text only,
      * 2 = icon only). Only the place/list/tag chips honour it; the subtask
@@ -39,33 +42,6 @@ internal data class TaskRowStyle(
     val chipShowIcon: Boolean
         get() = chipAppearance != TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_ONLY
 }
-
-internal fun taskRowStyle(
-    fontSize: Int,
-    rowSpacingDp: Int,
-    showFullTitle: Boolean = false,
-    chipAppearance: Int = TaskListPreferencesViewModel.CHIP_APPEARANCE_TEXT_AND_ICON,
-    subtaskChips: Boolean = true,
-    startDateChips: Boolean = true,
-    placeChips: Boolean = true,
-    listChips: Boolean = true,
-    tagChips: Boolean = true,
-    showDescription: Boolean = true,
-    showFullDescription: Boolean = false,
-): TaskRowStyle = TaskRowStyle(
-    titleFontSizeSp = fontSize,
-    detailFontSizeSp = max(DETAIL_FONT_SIZE_FLOOR, fontSize - 2),
-    rowSpacingDp = rowSpacingDp,
-    showFullTitle = showFullTitle,
-    chipAppearance = chipAppearance,
-    subtaskChips = subtaskChips,
-    startDateChips = startDateChips,
-    placeChips = placeChips,
-    listChips = listChips,
-    tagChips = tagChips,
-    showDescription = showDescription,
-    showFullDescription = showFullDescription,
-)
 
 /**
  * The title text handed to the markdown renderer. When the row clamps the
@@ -79,7 +55,4 @@ internal fun titleContent(title: String?, showFullTitle: Boolean): String = when
     else -> title.replace("\n", " ")
 }
 
-internal val DEFAULT_TASK_ROW_STYLE = taskRowStyle(
-    TaskListPreferencesViewModel.DEFAULT_FONT_SIZE,
-    TaskListPreferencesViewModel.DEFAULT_ROW_SPACING,
-)
+internal val DEFAULT_TASK_ROW_STYLE = TaskRowStyle()

@@ -118,8 +118,8 @@ internal fun TaskList(
         chipAppearance, subtaskChips, startDateChips, placeChips, listChips, tagChips,
         showDescription, showFullDescription,
     ) {
-        taskRowStyle(
-            fontSize = fontSize,
+        TaskRowStyle(
+            titleFontSizeSp = fontSize,
             rowSpacingDp = rowSpacing,
             showFullTitle = showFullTitle,
             chipAppearance = chipAppearance,

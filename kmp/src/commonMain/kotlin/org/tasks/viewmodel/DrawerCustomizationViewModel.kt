@@ -90,7 +90,14 @@ data class DrawerCustomizationState(
  *
  * Ordering is device-local, with the one native-parity exception of tag
  * order being synced.
+ *
+ * Suppressed lints: the constructor takes one parameter per injected
+ * dependency, matching the plain-constructor DI style used across the
+ * other view models in this package; the `catch (e: Exception)` blocks
+ * match the same fault-tolerance convention used in the neighbouring
+ * view models.
  */
+@Suppress("LongParameterList")
 open class DrawerCustomizationViewModel(
     private val filterProvider: FilterProvider,
     private val caldavDao: CaldavDao,
@@ -105,26 +112,31 @@ open class DrawerCustomizationViewModel(
     private val _state = MutableStateFlow(DrawerCustomizationState())
     val state = _state.asStateFlow()
 
-    /** The section touched by the most recent [onMove], or null if the drag made no move. */
-    private var pendingSectionId: String? = null
+    private var lastMovedSectionId: String? = null
 
     init {
         reload()
     }
 
+    @Suppress("TooGenericExceptionCaught") // Repo convention: broad catch, log and mark loaded.
     private fun reload() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val sections = mutableListOf<DrawerCustomizationSection>()
+                var lastSectionIndex = -1
                 filterProvider.drawerCustomizationItems(forceExpand = true).forEach { item ->
                     when (item) {
-                        is NavigationDrawerSubheader ->
+                        is NavigationDrawerSubheader -> {
                             sections.add(DrawerCustomizationSection(id = item.id, title = item.title.orEmpty()))
+                            lastSectionIndex = sections.lastIndex
+                        }
                         is Filter -> item.toCustomizationItem()?.let { customizationItem ->
-                            val lastIndex = sections.indexOfLast { true }
-                            if (lastIndex >= 0) {
-                                val section = sections[lastIndex]
-                                sections[lastIndex] = section.copy(
+                            // Filters attach to the most recent subheader section
+                            // (the drawer never emits a filter before its header).
+                            val index = lastSectionIndex
+                            if (index >= 0) {
+                                val section = sections[index]
+                                sections[index] = section.copy(
                                     items = (section.items + customizationItem).toPersistentList(),
                                 )
                             }
@@ -150,12 +162,10 @@ open class DrawerCustomizationViewModel(
         }
     }
 
-    /**
-     * Maps a drawer item onto a reorderable row, or null for items that the
-     * customization screen does not show (built-in and debug filters, the
-     * sign-in prompt).
-     */
-    private fun Filter.toCustomizationItem(): DrawerCustomizationItem? = when (this) {
+    private fun Filter.toCustomizationItem(): DrawerCustomizationItem? {
+        // null for items the customization screen does not show
+        // (built-in and debug filters, the sign-in prompt).
+        return when (this) {
         is CaldavFilter -> DrawerCustomizationItem(
             type = DrawerItemType.LIST,
             id = calendar.id,
@@ -191,6 +201,7 @@ open class DrawerCustomizationViewModel(
             icon = filter.icon?.takeIf { it.isNotBlank() } ?: TasksIcons.FILTER_LIST,
         )
         else -> null
+        }
     }
 
     /**
@@ -203,25 +214,43 @@ open class DrawerCustomizationViewModel(
      */
     fun onMove(fromKey: Any, toKey: Any) {
         if (fromKey !is String || toKey !is String || fromKey == toKey) return
-        _state.update { current ->
-            val section = current.sections
-                .firstOrNull { s -> s.items.any { it.key == fromKey } }
-                ?: return@update current
-            if (section.items.none { it.key == toKey }) return@update current
-            val items = section.items.toMutableList()
-            val fromIndex = items.indexOfFirst { it.key == fromKey }
-            val toIndex = items.indexOfFirst { it.key == toKey }
-            if (fromIndex == toIndex) return@update current
-            items.add(toIndex, items.removeAt(fromIndex))
-            pendingSectionId = section.id
-            current.copy(
-                sections = current.sections
-                    .map { s ->
-                        if (s.id == section.id) s.copy(items = items.toPersistentList()) else s
-                    }
-                    .toPersistentList(),
-            )
+        _state.update { current -> moveWithinSection(current, fromKey, toKey) }
+    }
+
+    private fun moveWithinSection(
+        current: DrawerCustomizationState,
+        fromKey: String,
+        toKey: String,
+    ): DrawerCustomizationState {
+        var movedSectionId: String? = null
+        val sections = current.sections.map { section ->
+            val movedItems = moveItems(section.items, fromKey, toKey) ?: return@map section
+            movedSectionId = section.id
+            section.copy(items = movedItems)
+        }.toPersistentList()
+        if (movedSectionId == null) {
+            return current
         }
+        lastMovedSectionId = movedSectionId
+        return current.copy(sections = sections)
+    }
+
+    // Reorder [fromKey] to where [toKey] sits within one section's items.
+    // Returns the new list, or null when the move is a no-op (a key is not
+    // in this section, or the item did not actually change position).
+    private fun moveItems(
+        items: ImmutableList<DrawerCustomizationItem>,
+        fromKey: String,
+        toKey: String,
+    ): ImmutableList<DrawerCustomizationItem>? {
+        val list = items.toMutableList()
+        val fromIndex = list.indexOfFirst { it.key == fromKey }
+        val toIndex = list.indexOfFirst { it.key == toKey }
+        if (fromIndex == -1 || toIndex == -1 || fromIndex == toIndex) {
+            return null
+        }
+        list.add(toIndex, list.removeAt(fromIndex))
+        return list.toPersistentList()
     }
 
     /**
@@ -230,31 +259,36 @@ open class DrawerCustomizationViewModel(
      * the native screen) and refresh so the drawer re-sorts live.
      */
     fun onDragStopped() {
-        val sectionId = pendingSectionId ?: return
-        pendingSectionId = null
+        val sectionId = lastMovedSectionId ?: return
+        lastMovedSectionId = null
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val section = _state.value.sections.firstOrNull { it.id == sectionId }
-                    ?: return@launch
-                section.items.forEachIndexed { order, item ->
-                    setOrder(item, order)
-                }
-                if (section.items.any { it.type == DrawerItemType.TAG }) {
-                    pushTagOrder()
-                }
-                _state.update { it.copy(hasManualOrder = true) }
-                refreshBroadcaster.broadcastRefresh()
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Logger.e(e, tag = TAG) { "Failed to commit drawer order" }
+            commitSectionOrder(sectionId)
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught") // Repo convention: broad catch, log and swallow.
+    private suspend fun commitSectionOrder(sectionId: String) {
+        try {
+            val section = _state.value.sections.firstOrNull { it.id == sectionId } ?: return
+            section.items.forEachIndexed { order, item ->
+                setOrder(item, order)
             }
+            if (section.items.any { it.type == DrawerItemType.TAG }) {
+                pushTagOrder()
+            }
+            _state.update { it.copy(hasManualOrder = true) }
+            refreshBroadcaster.broadcastRefresh()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Logger.e(e, tag = TAG) { "Failed to commit drawer order" }
         }
     }
 
     /** Restore every section to alphabetical order (`order = -1`), like the native reset action. */
+    @Suppress("TooGenericExceptionCaught") // Repo convention: broad catch, log and swallow.
     fun resetOrder() {
-        pendingSectionId = null
+        lastMovedSectionId = null
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 filterDao.resetOrders()
@@ -281,11 +315,10 @@ open class DrawerCustomizationViewModel(
         }
     }
 
-    /**
-     * Push the new tag order to the server, mirroring the native screen
-     * (which marks the metadata order dirty and triggers a metadata sync).
-     */
+    @Suppress("TooGenericExceptionCaught") // Repo convention: broad catch, log and swallow.
     private suspend fun pushTagOrder() {
+        // Mirrors the native screen: mark the metadata order dirty and
+        // trigger a metadata sync.
         try {
             tagMetadataSync.markOrderDirty()
             syncAdapters.sync(SyncSource.METADATA_CHANGE)
