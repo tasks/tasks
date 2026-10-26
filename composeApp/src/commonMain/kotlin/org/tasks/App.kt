@@ -161,9 +161,12 @@ import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.compose.tasklist.CaldavTaskReorderer
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
+import org.tasks.compose.tasklist.indexOf
+import org.tasks.compose.tasklist.planManualSortMove
 import org.tasks.compose.tasklist.rowState
 import org.tasks.compose.drawer.DrawerItem
 import org.tasks.compose.drawer.DrawerItemInset
@@ -442,6 +445,15 @@ fun App(
             val topDestination = backStack.lastOrNull()
             val showChrome = topDestination is TaskListDestination || topDestination is TaskEditDestination
             val hasDetailOpen = topDestination is TaskEditDestination
+
+            // One-way link from navigation to the list: opening a task anywhere (list row,
+            // subtask link, chip) selects it in the list. The selection itself lives in the
+            // list's state (M3 selection list) and persists while the list is visible -
+            // closing the editor keeps the highlight; switching lists clears it.
+            LaunchedEffect(topDestination) {
+                (topDestination as? TaskEditDestination)
+                    ?.let { taskListViewModel?.selectTask(it.taskId) }
+            }
 
             val density = LocalDensity.current
             val layoutDirection = LocalLayoutDirection.current
@@ -1798,6 +1810,7 @@ private fun TaskListScreen(
         sortState = sortState,
         sortViewModel = sortViewModel,
         completedAndHiddenEnabled = state.filter.supportsHiddenTasks(),
+        filter = state.filter,
     )
 
     editListCalendarId?.let { calendarId ->
@@ -2124,6 +2137,68 @@ private fun TaskListPane(
     )
     val density = androidx.compose.ui.platform.LocalDensity.current
 
+    // Vertical manual-sort moves (same parent only). Offered only when "My order" is the
+    // active sort for a CalDAV list and a task is selected; the plan is recomputed on
+    // every list change, so button state tracks the visible neighbours exactly.
+    val reorderer = koinInject<CaldavTaskReorderer>()
+    val subtaskTrees = koinInject<SubtaskTreeRegistry>()
+    val deletions by subtaskTrees.deletions.collectAsState(initial = emptyMap())
+    val manualSort = state.filter.supportsManualSort() &&
+        viewModel.queryPreferences(state.filter).isManualSort
+    val manualSortDataSource = (state.tasks as? TasksResults.Results)?.tasks
+    val selectedTaskId = state.selectedTaskId
+    val canMoveUp = manualSort && selectedTaskId != null &&
+        manualSortDataSource?.planManualSortMove(deletions, selectedTaskId, up = true) != null
+    val canMoveDown = manualSort && selectedTaskId != null &&
+        manualSortDataSource?.planManualSortMove(deletions, selectedTaskId, up = false) != null
+    val moveScope = rememberCoroutineScope()
+    fun moveSelectedTask(up: Boolean) {
+        val dataSource = manualSortDataSource ?: return
+        val taskId = selectedTaskId ?: return
+        moveScope.launch {
+            if (reorderer.move(dataSource, deletions, taskId, up)) {
+                viewModel.invalidate()
+            }
+        }
+    }
+
+    // Drag-to-reorder: the handle on each row reports the drop row on release; the
+    // planner + shared CaldavDao path commit it, exactly like the buttons (one move,
+    // one sync), and the list reloads once afterwards.
+    fun dropTask(taskId: Long, dropIndex: Int) {
+        val dataSource = manualSortDataSource ?: return
+        moveScope.launch {
+            reorderer.dropMove(dataSource, deletions, taskId, dropIndex)
+            // Always reload: a committed drop shows the new order, a rejected one
+            // (own subtree, section boundary) settles back to the data's order.
+            viewModel.invalidate()
+        }
+    }
+
+    // Drag-to-reparent: a release in the middle band of another row makes the dragged
+    // task a subtask of that row (appended to its children); the planner enforces the
+    // same-calendar / same-section / no-cycle rules, and a rejected drop settles back.
+    fun reparentTask(taskId: Long, targetTaskId: Long) {
+        val dataSource = manualSortDataSource ?: return
+        val targetIndex = dataSource.indexOf(targetTaskId) ?: return
+        moveScope.launch {
+            reorderer.reparentMove(dataSource, deletions, taskId, targetIndex)
+            viewModel.invalidate()
+        }
+    }
+
+    // Drag-to-outdent: an indented drag released to the left of the grab point moves
+    // the task one indent level shallower at the settled row (top level for a direct
+    // subtask); the planner enforces the same-section / own-subtree rules, and a
+    // rejected drop settles back.
+    fun outdentTask(taskId: Long, dropIndex: Int) {
+        val dataSource = manualSortDataSource ?: return
+        moveScope.launch {
+            reorderer.outdentMove(dataSource, deletions, taskId, dropIndex)
+            viewModel.invalidate()
+        }
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -2209,6 +2284,11 @@ private fun TaskListPane(
                 chipDataProvider = chipDataProvider,
                 listState = listState,
                 topPadding = topBarHeight,
+                selectedTaskId = selectedTaskId,
+                dragEnabled = manualSort,
+                onTaskDrop = { taskId, dropIndex -> dropTask(taskId, dropIndex) },
+                onTaskReparent = { taskId, targetTaskId -> reparentTask(taskId, targetTaskId) },
+                onTaskOutdent = { taskId, dropIndex -> outdentTask(taskId, dropIndex) },
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
@@ -2278,6 +2358,11 @@ private fun TaskListPane(
             fabContainerColor = Color(themeColor.primaryColor),
             fabContentColor = Color(themeColor.onPrimaryColor),
             filterTint = state.filter.tint,
+            manualSort = manualSort,
+            canMoveUp = canMoveUp,
+            canMoveDown = canMoveDown,
+            onMoveUp = { moveSelectedTask(up = true) },
+            onMoveDown = { moveSelectedTask(up = false) },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .platformNavigationBarsPadding()
@@ -2642,8 +2727,16 @@ private fun SortSheetHost(
     sortState: SortSettingsViewModel.ViewState,
     sortViewModel: SortSettingsViewModel,
     completedAndHiddenEnabled: Boolean,
+    filter: Filter,
 ) {
     if (!showSortSheet) return
+
+    // Manual ("My order") sorting is available for filters that support it, the same gate
+    // the Android app uses. The order itself is synced from other devices (it is the
+    // `order` field written by apps that support drag-to-reorder); this sheet only selects
+    // whether to display tasks in that order.
+    val manualSortEnabled = filter.supportsManualSort()
+    val manualSort = manualSortEnabled && sortState.manualSort
 
     var showGroupPicker by remember { mutableStateOf(false) }
     var showSortPicker by remember { mutableStateOf(false) }
@@ -2668,7 +2761,7 @@ private fun SortSheetHost(
                 groupAscending = sortState.groupAscending,
                 completedAscending = sortState.completedAscending,
                 subtaskAscending = sortState.subtaskAscending,
-                manualSort = false,
+                manualSort = manualSort,
                 astridSort = false,
                 completedAtBottom = sortState.completedAtBottom,
                 showCompleted = sortState.showCompleted,
@@ -2720,11 +2813,11 @@ private fun SortSheetHost(
             scrimColor = Color.Transparent,
         ) {
             SortSheetContent(
-                manualSortEnabled = false,
+                manualSortEnabled = manualSortEnabled,
                 astridSortEnabled = false,
-                manualSortSelected = false,
+                manualSortSelected = manualSort,
                 selected = sortState.sortMode,
-                setManualSort = {},
+                setManualSort = { sortViewModel.setManual(it) },
                 setAstridSort = {},
                 onSelected = {
                     sortViewModel.setSortMode(it)
@@ -2779,6 +2872,15 @@ private fun SortSheetHost(
     }
 }
 
+/**
+ * Testing-only: the up/down manual-sort buttons in the floating toolbar. Drag-to-reorder
+ * is the intended affordance (the maintainer is allergic to buttons), so the buttons stay
+ * hidden for real users; the whole planning/commit path is identical, so flipping this
+ * constant re-enables them for manual testing if ever needed - and it is the shape a
+ * config option would take later, the same way "My order" is gated behind the sort sheet.
+ */
+internal const val SHOW_REORDER_BUTTONS_FOR_TESTING = false
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 private fun FloatingToolbar(
@@ -2790,6 +2892,11 @@ private fun FloatingToolbar(
     fabContainerColor: Color = Color.Unspecified,
     fabContentColor: Color = Color.Unspecified,
     filterTint: Int = 0,
+    manualSort: Boolean = false,
+    canMoveUp: Boolean = false,
+    canMoveDown: Boolean = false,
+    onMoveUp: () -> Unit = {},
+    onMoveDown: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val barColors = floatingBarColors(filterTint)
@@ -2828,6 +2935,15 @@ private fun FloatingToolbar(
         }
         IconButton(onClick = onSortClick) {
             SymbolIcon(TasksIcons.SWAP_VERT, contentDescription = "Sort")
+        }
+        if (SHOW_REORDER_BUTTONS_FOR_TESTING && manualSort) {
+            // Testing aid for vertical manual-sort moves (upstream may prefer drag-only).
+            IconButton(onClick = onMoveUp, enabled = canMoveUp) {
+                SymbolIcon(TasksIcons.KEYBOARD_ARROW_UP, contentDescription = "Move task up")
+            }
+            IconButton(onClick = onMoveDown, enabled = canMoveDown) {
+                SymbolIcon(TasksIcons.KEYBOARD_ARROW_DOWN, contentDescription = "Move task down")
+            }
         }
     }
 }
