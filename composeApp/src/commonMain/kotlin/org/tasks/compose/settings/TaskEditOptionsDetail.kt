@@ -24,8 +24,8 @@ import org.tasks.viewmodel.TaskEditPreferencesViewModel.State
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.back
-import tasks.kmp.generated.resources.back_button_saves_task
-import tasks.kmp.generated.resources.back_button_saves_task_summary
+import tasks.kmp.generated.resources.escape_key_saves_task
+import tasks.kmp.generated.resources.escape_key_saves_task_summary
 
 /**
  * The desktop "Edit screen options" settings pane - a mirror of the native
@@ -89,8 +89,8 @@ fun TaskEditOptionsScreen(
         Spacer(modifier = Modifier.height(SettingsContentPadding))
         SettingsItemCard(position = CardPosition.Only) {
             SwitchPreferenceRow(
-                title = stringResource(Res.string.back_button_saves_task),
-                summary = stringResource(Res.string.back_button_saves_task_summary),
+                title = stringResource(Res.string.escape_key_saves_task),
+                summary = stringResource(Res.string.escape_key_saves_task_summary),
                 checked = state.backButtonSaves,
                 onCheckedChange = onBackButtonSavesChange,
             )

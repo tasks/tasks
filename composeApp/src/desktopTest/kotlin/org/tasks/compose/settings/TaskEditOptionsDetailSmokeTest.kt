@@ -60,7 +60,7 @@ class TaskEditOptionsDetailSmokeTest {
                 TaskEditOptionsDetail(onNavigateBack = {})
             }
             onNodeWithText("Edit screen options").assertIsDisplayed()
-            onNodeWithText("Back button saves task").assertIsDisplayed()
+            onNodeWithText("Escape key saves task").assertIsDisplayed()
         }
     }
 }

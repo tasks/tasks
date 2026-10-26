@@ -181,8 +181,8 @@
     <string name="task_defaults">Task defaults</string>
     <string name="task_list_options">Task list options</string>
     <string name="EPr_edit_screen_options">Edit screen options</string>
-    <string name="back_button_saves_task">Back button saves task</string>
-    <string name="back_button_saves_task_summary">When off, back or Escape prompts to discard unsaved changes before closing the editor</string>
+    <string name="escape_key_saves_task">Escape key saves task</string>
+    <string name="escape_key_saves_task_summary">What pressing Escape does when the editor is open: on, save the task; off, discard unsaved changes, asking for confirmation first. The back arrow always saves.</string>
     <string name="date_and_time">Date and time</string>
     <string name="navigation_drawer">Navigation drawer</string>
     <string name="customize_drawer">Customize drawer</string>
