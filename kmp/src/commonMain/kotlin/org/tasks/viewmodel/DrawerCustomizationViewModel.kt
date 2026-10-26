@@ -224,9 +224,13 @@ open class DrawerCustomizationViewModel(
     ): DrawerCustomizationState {
         var movedSectionId: String? = null
         val sections = current.sections.map { section ->
-            val movedItems = moveItems(section.items, fromKey, toKey) ?: return@map section
-            movedSectionId = section.id
-            section.copy(items = movedItems)
+            val movedItems = moveItems(section.items, fromKey, toKey)
+            if (movedItems == null) {
+                section
+            } else {
+                movedSectionId = section.id
+                section.copy(items = movedItems)
+            }
         }.toPersistentList()
         if (movedSectionId == null) {
             return current
