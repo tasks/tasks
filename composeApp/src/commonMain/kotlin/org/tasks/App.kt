@@ -72,6 +72,8 @@ import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneSt
 import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
 import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -162,6 +164,10 @@ import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
+import org.tasks.compose.tasklist.CompletePullToRefresh
+import org.tasks.compose.tasklist.SyncPullRefreshIndicator
+import org.tasks.compose.tasklist.WheelPullToRefreshFallback
+import org.tasks.extensions.isDesktop
 import org.tasks.compose.tasklist.TaskList
 import org.tasks.compose.tasklist.TaskRow
 import org.tasks.compose.tasklist.rowState
@@ -222,6 +228,8 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.data.getAccountForNewList
 import org.tasks.data.getLocalList
+import org.tasks.jobs.BackgroundWork
+import org.tasks.sync.SyncSource
 import org.tasks.extensions.guarded
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.EmptyFilter
@@ -2119,6 +2127,16 @@ private fun TaskListPane(
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
+    val refreshState = rememberPullToRefreshState()
+    val backgroundWork = koinInject<BackgroundWork>()
+    val scope = rememberCoroutineScope()
+    // A mouse wheel or trackpad pull has no release event, and the box only requests
+    // a refresh on release. This completes such a pull from the box's own state, so a
+    // wheel pull that fills the indicator also requests the sync. See
+    // CompletePullToRefresh for details.
+    CompletePullToRefresh(refreshState, { state.syncOngoing }) {
+        scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
+    }
     val floatingToolbarScrollBehavior = FloatingToolbarDefaults.exitAlwaysScrollBehavior(
         exitDirection = androidx.compose.material3.FloatingToolbarExitDirection.Bottom,
     )
@@ -2203,28 +2221,68 @@ private fun TaskListPane(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) { CircularProgressIndicator() }
-            is TasksResults.Results -> TaskList(
-                tasks = results.tasks,
-                filter = state.filter,
-                chipDataProvider = chipDataProvider,
-                listState = listState,
-                topPadding = topBarHeight,
-                onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
-                onCompleteTask = { task, newState ->
-                    viewModel.onCompleteTask(task, newState)
-                    if (newState) {
-                        reporting.completeTask("task_list")
-                    }
+            is TasksResults.Results -> PullToRefreshBox(
+                isRefreshing = state.syncOngoing,
+                onRefresh = {
+                    scope.launch { backgroundWork.sync(SyncSource.USER_INITIATED) }
                 },
-                onToggleGroup = { viewModel.toggleCollapsed(it) },
-                onToggleSubtasks = { id, collapsed ->
-                    viewModel.toggleSubtasks(id, collapsed)
+                // Desktop only: the box's own pull (nested-scroll/fling) path is
+                // disabled. With wheel and trackpad input it triggers on incidental
+                // top-edge residuals from normal scrolling. WheelPullToRefreshFallback
+                // is the desktop trigger instead; the box keeps hosting the indicator
+                // and its isRefreshing-driven animation (which also shows for automatic
+                // syncs). Android and iOS keep the native touch path.
+                enabled = !isDesktop,
+                // The default threshold (80.dp) requires 160.dp of physical input for a
+                // full pull (distanceFraction = input * 0.5 / threshold), which a trackpad
+                // swipe rarely produces before the fingers run off the pad. 40.dp halves
+                // that to a single firm swipe; the box's own touch trigger and the
+                // CompletePullToRefresh wheel completion both key off the same state.
+                threshold = 40.dp,
+                state = refreshState,
+                modifier = Modifier.fillMaxSize(),
+                indicator = {
+                    SyncPullRefreshIndicator(
+                        state = refreshState,
+                        isRefreshing = state.syncOngoing,
+                        topBarHeight = topBarHeight,
+                    )
                 },
-                onFilterClick = { filter ->
-                    viewModel.setFilter(filter)
-                },
-                is24Hour = org.tasks.time.is24HourFormat(),
-            )
+            ) {
+                // The box's nested-scroll path only sees residuals from a list that
+                // claimed the wheel, so at the top of a list that cannot scroll up
+                // (e.g. one that fits the viewport) a wheel pull can never start.
+                // This hands exactly those orphaned wheel events to the same refresh
+                // state; see the fallback's KDoc for the library evidence.
+                WheelPullToRefreshFallback(
+                    state = refreshState,
+                    isRefreshing = state.syncOngoing,
+                    threshold = 40.dp,
+                ) {
+                    TaskList(
+                        tasks = results.tasks,
+                        filter = state.filter,
+                        chipDataProvider = chipDataProvider,
+                        listState = listState,
+                        topPadding = topBarHeight,
+                        onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
+                        onCompleteTask = { task, newState ->
+                            viewModel.onCompleteTask(task, newState)
+                            if (newState) {
+                                reporting.completeTask("task_list")
+                            }
+                        },
+                        onToggleGroup = { viewModel.toggleCollapsed(it) },
+                        onToggleSubtasks = { id, collapsed ->
+                            viewModel.toggleSubtasks(id, collapsed)
+                        },
+                        onFilterClick = { filter ->
+                            viewModel.setFilter(filter)
+                        },
+                        is24Hour = org.tasks.time.is24HourFormat(),
+                    )
+                }
+            }
         }
 
         val statusBarTop = platformStatusBarInsets().calculateTopPadding()
