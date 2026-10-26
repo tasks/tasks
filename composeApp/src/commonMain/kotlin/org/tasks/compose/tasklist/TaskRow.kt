@@ -94,6 +94,8 @@ internal fun TaskRow(
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
+    descriptionExpanded: Boolean,
+    onToggleDescriptionExpanded: () -> Unit,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -187,7 +189,7 @@ internal fun TaskRow(
             }
             if (!task.notes.isNullOrBlank() && style.showDescription) {
                 val content = task.notes!!.trim()
-                var expanded by remember { mutableStateOf(style.showFullDescription) }
+                var expanded = descriptionExpanded
                 val lines = content.lines()
                 val hasMore = lines.size > 2
                 val mdColors = markdownColor(
@@ -219,7 +221,10 @@ internal fun TaskRow(
                         color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .defaultMinSize(minHeight = 36.dp)
-                            .clickable { expanded = !expanded }
+                            .clickable {
+                                expanded = !expanded
+                                onToggleDescriptionExpanded()
+                            }
                             .wrapContentHeight(Alignment.CenterVertically),
                     )
                 }

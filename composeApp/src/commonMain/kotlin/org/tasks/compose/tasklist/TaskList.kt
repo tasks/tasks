@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ import org.tasks.compose.tasklist.rowState
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.TaskContainer
 import org.tasks.data.deletions
+import org.tasks.data.subtaskKey
 import org.tasks.filters.Filter
 import org.tasks.filters.key
 import org.tasks.tasklist.SectionedDataSource
@@ -130,6 +132,7 @@ internal fun TaskList(
             showFullDescription = showFullDescription,
         )
     }
+    val expandedDescriptions = remember { mutableStateMapOf<String, Boolean>() }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
@@ -169,6 +172,12 @@ internal fun TaskList(
                 onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
                 onToggleSubtasks = { onToggleSubtasks(task.id, !task.isCollapsed) },
                 onFilterClick = onFilterClick,
+                descriptionExpanded = expandedDescriptions[subtaskKey(task.id, task.task.remoteId)]
+                        ?: rowStyle.showFullDescription,
+                onToggleDescriptionExpanded = {
+                    val key = subtaskKey(task.id, task.task.remoteId)
+                    expandedDescriptions[key] = !(expandedDescriptions[key] ?: rowStyle.showFullDescription)
+                },
             )
         }
     }
