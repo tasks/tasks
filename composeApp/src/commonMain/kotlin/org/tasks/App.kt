@@ -618,8 +618,11 @@ fun App(
                             sidebarSearchCollapsed = false
                         }
                         wasSearchActive = isSearchActive
-                        // Always propagate query to task list view model
-                        taskListViewModel.setSearchQuery(query)
+                        // Always propagate query to task list view model. The drawer's query is a
+                        // raw non-null String ("" when empty); the view model's contract is tri-state
+                        // (null = active filter, blank = My Tasks, non-blank = search), so a blank
+                        // query must map to null or every filter selection is masked by My Tasks.
+                        taskListViewModel.setSearchQuery(query.ifBlank { null })
                     }
             }
 
