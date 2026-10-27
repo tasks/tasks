@@ -21,6 +21,7 @@ import org.mockito.kotlin.doSuspendableAnswer
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.stub
 import org.mockito.kotlin.whenever
+import org.tasks.InMemoryDataStore
 import org.tasks.data.SubtaskNode
 import org.tasks.data.SubtaskTreeWriter
 import org.tasks.data.PendingTask
@@ -43,6 +44,7 @@ import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.TaskDefaultSettings
 import org.tasks.service.TaskCompleter
@@ -85,6 +87,7 @@ abstract class TaskEditViewModelFixture {
     protected val alarmDao: AlarmDao = mock()
     protected val alarmService: AlarmService = mock()
     protected val appPreferences: AppPreferences = mock()
+    protected val tasksPreferences = TasksPreferences(InMemoryDataStore())
     protected val taskCompleter: TaskCompleter = mock()
     protected val taskDeleter: TaskDeleter = mock()
 
@@ -183,6 +186,7 @@ abstract class TaskEditViewModelFixture {
         alarmDao = alarmDao,
         alarmService = alarmService,
         appPreferences = appPreferences,
+        tasksPreferences = tasksPreferences,
         externalScope = CoroutineScope(testDispatcher),
         pendingSaves = pendingSaves,
         taskCompleter = taskCompleter,

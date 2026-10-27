@@ -3069,6 +3069,28 @@ private fun SettingsScreen(
                             },
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.TaskEdit -> {
+                        org.tasks.compose.settings.TaskEditOptionsDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                            onCustomizeClick = {
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        ListDetailPaneScaffoldRole.Detail,
+                                        org.tasks.compose.settings.SettingsDestination.EditScreenCustomize,
+                                    )
+                                }
+                            },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.EditScreenCustomize -> {
+                        org.tasks.compose.settings.EditScreenCustomizationDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination -> {
                         Scaffold(
                             topBar = {
