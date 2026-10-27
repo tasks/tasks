@@ -677,4 +677,6 @@
     <string name="works_with_todoagenda_description">Komencekrana fenestraĵo por kalendaro kaj taskoj</string>
     <string name="works_with_mcp_description">AI asistantoj povas legi kaj ŝanĝi viajn taskojn</string>
     <string name="works_with_android_description">Poŝtelefonoj, tabulkomputiloj, kaj Chrome tekokomputiloj</string>
+    <string name="mcp_server_enable">Servi viajn datumojn per MCP</string>
+    <string name="mcp_tools_summary">Post kiam vi malŝaltos ilon, ĝi neniam estos montrite al la asistanto, do ĝi ne povas peti ke vi reŝaltu la ilon. Restarigas la servilon.</string>
 </resources>
