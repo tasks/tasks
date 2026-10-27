@@ -15,7 +15,6 @@ private fun task(id: Long, parent: Long, title: String = "T$id") =
 
 class ParentBreadcrumbTest {
 
-    /** Resolves the chain for [ids] (map id -> parent), starting at [startId]. */
     private suspend fun chain(
         idToParent: Map<Long, Long>,
         startId: Long,
