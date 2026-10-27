@@ -28,20 +28,12 @@ import org.tasks.api.TaskWrite
 import org.tasks.selection.SelectedTaskStore
 import java.net.ServerSocket
 
-class McpTaskFocusTest : McpGraphTestCase() {
-
-    private var server: McpHttpServer? = null
-
-    @org.junit.After
-    fun stopServer() {
-        server?.takeIf { it.isRunning }?.stop()
-        server = null
-    }
+class McpTaskFocusTest : McpTaskFocusTestCase() {
 
     @Test
     fun getSelectedTaskSaysSoWhenNothingIsOpen() = withClient { client ->
         koin.get<SelectedTaskStore>().update(null)
-        val text = client.call("get_selected_task", "id", "title").text()
+        val text = client.call(GET_SELECTED_TASK, "id", FIELD_TITLE).text()
 
         assertTrue("expected the nothing-open message, got: $text",
             text.contains("No task is currently open"))
@@ -55,18 +47,18 @@ class McpTaskFocusTest : McpGraphTestCase() {
         ).ids.single()
 
         koin.get<SelectedTaskStore>().update(childId)
-        val text = client.call("get_selected_task", "id", "title", "parent_id").text()
+        val text = client.call(GET_SELECTED_TASK, "id", FIELD_TITLE, "parent_id").text()
         val body = Json.parseToJsonElement(text).jsonObject
 
         val task = body["task"]!!.jsonObject
         assertEquals(childId, task["id"]!!.jsonPrimitive.long)
-        assertEquals("Child task", task["title"]!!.jsonPrimitive.content)
+        assertEquals("Child task", task[FIELD_TITLE]!!.jsonPrimitive.content)
         assertEquals(parentId, task["parent_id"]!!.jsonPrimitive.long)
 
         val chain = body["parent_chain"]!!.jsonArray
         assertEquals(1, chain.size)
         assertEquals(parentId, chain.first().jsonObject["id"]!!.jsonPrimitive.long)
-        assertEquals("Parent task", chain.first().jsonObject["title"]!!.jsonPrimitive.content)
+        assertEquals("Parent task", chain.first().jsonObject[FIELD_TITLE]!!.jsonPrimitive.content)
     }
 
     @Test
@@ -75,17 +67,20 @@ class McpTaskFocusTest : McpGraphTestCase() {
         api.deleteTask(id)
         koin.get<SelectedTaskStore>().update(id)
 
-        val text = client.call("get_selected_task", "id").text()
+        val text = client.call(GET_SELECTED_TASK, "id").text()
 
         assertTrue("expected the gone message, got: $text",
             text.contains("no longer exists"))
     }
+}
+
+class McpTaskFocusOpenTest : McpTaskFocusTestCase() {
 
     @Test
     fun openTaskIsRefusedWhenTheAppIsNotListening() = withClient { client ->
         val id = api.createTask(title = "Lonely task")
 
-        val text = client.call("open_task", mapOf("task_id" to id)).text()
+        val text = client.call(OPEN_TASK, mapOf(TASK_ID to id)).text()
 
         assertTrue("expected the refusal message, got: $text",
             text.contains("could not open"))
@@ -104,7 +99,7 @@ class McpTaskFocusTest : McpGraphTestCase() {
         }
         delay(50)
 
-        val text = client.call("open_task", mapOf("task_id" to id)).text()
+        val text = client.call(OPEN_TASK, mapOf(TASK_ID to id)).text()
 
         assertTrue("expected the opened message, got: $text", text.contains("Opened"))
         assertEquals(id, received.await().taskId)
@@ -113,14 +108,25 @@ class McpTaskFocusTest : McpGraphTestCase() {
     @Test
     fun openTaskWithAnUnknownIdFails() = withClient { client ->
         val result = runCatching {
-            client.call("open_task", mapOf("task_id" to 987_654_321L))
+            client.call(OPEN_TASK, mapOf(TASK_ID to 987_654_321L))
         }
 
         val failed = result.isFailure || result.getOrNull()?.isError == true
         assertTrue("open_task with an unknown id must fail", failed)
     }
+}
 
-    private suspend fun Client.call(tool: String, vararg fields: String) = callTool(
+abstract class McpTaskFocusTestCase : McpGraphTestCase() {
+
+    private var server: McpHttpServer? = null
+
+    @org.junit.After
+    fun stopServer() {
+        server?.takeIf { it.isRunning }?.stop()
+        server = null
+    }
+
+    protected suspend fun Client.call(tool: String, vararg fields: String) = callTool(
         CallToolRequest(
             CallToolRequestParams(
                 name = tool,
@@ -133,7 +139,7 @@ class McpTaskFocusTest : McpGraphTestCase() {
         ),
     )
 
-    private suspend fun Client.call(tool: String, arguments: Map<String, Any?>) = callTool(
+    protected suspend fun Client.call(tool: String, arguments: Map<String, Any?>) = callTool(
         CallToolRequest(
             CallToolRequestParams(
                 name = tool,
@@ -146,13 +152,13 @@ class McpTaskFocusTest : McpGraphTestCase() {
         ),
     )
 
-    private fun io.modelcontextprotocol.kotlin.sdk.types.CallToolResult.text(): String =
+    protected fun io.modelcontextprotocol.kotlin.sdk.types.CallToolResult.text(): String =
         (content.single() as io.modelcontextprotocol.kotlin.sdk.types.TextContent).text
 
-    private fun withClient(mode: AccessMode = AccessMode.ReadOnly, block: suspend (Client) -> Unit) =
+    protected fun withClient(mode: AccessMode = AccessMode.ReadOnly, block: suspend (Client) -> Unit) =
         withClient(ToolPermissions.of(mode), block)
 
-    private fun withClient(permissions: ToolPermissions, block: suspend (Client) -> Unit) =
+    protected fun withClient(permissions: ToolPermissions, block: suspend (Client) -> Unit) =
         runBlocking {
             val port = ServerSocket(0).use { it.localPort }
             val instance = McpHttpServer(
@@ -192,3 +198,8 @@ class McpTaskFocusTest : McpGraphTestCase() {
         const val TOKEN = "focus-test-token"
     }
 }
+
+private const val GET_SELECTED_TASK = "get_selected_task"
+private const val OPEN_TASK = "open_task"
+private const val TASK_ID = "task_id"
+private const val FIELD_TITLE = "title"
