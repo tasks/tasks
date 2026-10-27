@@ -171,7 +171,7 @@ class WorkManagerImpl(
             enqueueUnique(
                     TAG_BACKUP,
                     BackupWork::class.java,
-                    newDateTime(preferences.getLong(R.string.p_last_backup, 0L))
+                    newDateTime(preferences.getLong(R.string.p_last_backup, preferences.installDate))
                             .plusDays(1)
                             .millis
                             .coerceAtMost(midnight()))
