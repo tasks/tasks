@@ -121,6 +121,7 @@ val coreModule: Module = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
     single { PendingTaskSaves(get()) }
     single { org.tasks.TaskRequests() }
+    single { org.tasks.selection.SelectedTaskStore() }
     single { Json { ignoreUnknownKeys = true } }
     single { get<Database>().caldavDao() }
     single { get<Database>().taskDao() }
