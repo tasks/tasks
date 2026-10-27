@@ -60,9 +60,15 @@ class TasksFileBackupHelper(
 
         file
                 ?.let {
-                    runBlocking {
-                        Timber.d("Restoring ${it.absolutePath}")
-                        hilt.tasksJsonImporter.importTasks(context, Uri.fromFile(it), null)
+                    val copy = File(context.cacheDir, BackupConstants.INTERNAL_BACKUP)
+                    try {
+                        it.copyTo(copy, overwrite = true)
+                        runBlocking {
+                            Timber.d("Restoring ${it.absolutePath}")
+                            hilt.tasksJsonImporter.importTasks(context, Uri.fromFile(copy), null)
+                        }
+                    } finally {
+                        copy.delete()
                     }
                 }
                 ?: Timber.e("$path not found")
