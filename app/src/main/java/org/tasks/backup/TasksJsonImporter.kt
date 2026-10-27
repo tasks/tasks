@@ -610,6 +610,8 @@ class TasksJsonImporter @Inject constructor(
                 R.string.p_current_version,
                 R.string.p_backups_android_backup_last,
                 R.string.p_device_install_version,
+                R.string.p_last_backup,
+                R.string.p_install_date,
         )
 
         private fun lastSyncValues(rawJson: String, key: String): List<Long?> = try {
