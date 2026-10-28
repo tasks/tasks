@@ -160,7 +160,7 @@
     <string name="location_radius_meters">%s м</string>
     <string name="tags">Теги</string>
     <string name="date_shortcut_morning">Утро</string>
-    <string name="date_shortcut_afternoon">Обед</string>
+    <string name="date_shortcut_afternoon">День</string>
     <string name="date_shortcut_evening">Вечер</string>
     <string name="date_shortcut_night">Ночь</string>
     <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
@@ -196,8 +196,8 @@
     <string name="clear_completed_tasks_confirmation">Очистить завершенные задачи?</string>
     <string name="copy_multiple_tasks_confirmation">Клонировано %s задач(и)</string>
     <string name="delete_multiple_tasks_confirmation">%s удалено</string>
-    <string name="delete_selected_tasks">Удалить выделенную(-ые) задачу(-и)?</string>
-    <string name="copy_selected_tasks">Скопировать выделенные задачи?</string>
+    <string name="delete_selected_tasks">Удалить выбранные задачи?</string>
+    <string name="copy_selected_tasks">Скопировать выбранные задачи?</string>
     <string name="user">Пользователь</string>
     <string name="password">Пароль</string>
     <string name="badges">Ярлыки</string>
