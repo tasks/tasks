@@ -529,4 +529,11 @@
     <string name="blog_notifications">Уведомления блога</string>
     <string name="works_with_developers">Разработчикам</string>
     <string name="works_with_automation">Автоматизация</string>
+    <string name="show_completed_subtasks">Показать выполненные подзадачи</string>
+    <string name="edit_task">Редактировать задачу</string>
+    <string name="task_title">Заголовок задачи</string>
+    <string name="failed_to_save_task">Не удалось сохранить задачу</string>
+    <string name="failed_to_load_task">Не удалось загрузить задачу</string>
+    <string name="legal_disclosure_prefix_continuing">Продолжив работу с помощью любой из кнопок ниже</string>
+    <string name="terms_of_service_proper">Условия предоставления услуг</string>
 </resources>
