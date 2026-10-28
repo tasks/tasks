@@ -569,4 +569,20 @@
     <string name="mcp_access_read_only">Только для чтения</string>
     <string name="mcp_access_read_write">Чтение и запись</string>
     <string name="mcp_access_read_write_summary">Ассистенты также могут создавать, изменять и удалять задачи, списки, теги, места и напоминания.</string>
+    <string name="gplv3_license">Лицензия GPLv3</string>
+    <string name="tasks_org_description">Включает функции «Общий доступ для друзей и семьи» и «Создание задач по электронной почте».</string>
+    <string name="supporter_summary">%1$s • Спасибо!</string>
+    <string name="sign_in_to_connect">Войдите, чтобы подключить свою учетную запись Tasks.org</string>
+    <string name="guest">Гость</string>
+    <string name="migrate_to_cloud">Перейти в облако Tasks.org</string>
+    <string name="email_to_task_calendar">Список назначения</string>
+    <string name="regenerate_email_address">Сгенерировать адрес заново</string>
+    <string name="guests">Гости (%1$d/%2$d)</string>
+    <string name="not_signed_in">Вы не вошли в систему</string>
+    <string name="logout_confirmation">Выйти из %1$s?</string>
+    <string name="delete_list_warning">Все задачи из этого списка будут удалены. Это действие нельзя отменить!</string>
+    <string name="wrong_account">Ошибка входа</string>
+    <string name="wrong_account_message">Ваша подписка уже привязана к %1$s. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с %2$s</string>
+    <string name="regenerate_email_address_confirmation">Ваш текущий адрес электронной почты перестанет работать</string>
+    <string name="debug">Отладка</string>
 </resources>
