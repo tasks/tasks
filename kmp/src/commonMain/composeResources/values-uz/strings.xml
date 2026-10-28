@@ -70,4 +70,22 @@
     <string name="dont_add_to_calendar">Taqvimga qo‘shmaslik</string>
     <string name="help">Yordam</string>
     <string name="help_and_feedback">Yordam va fikr-mulohazalar</string>
+    <string name="filter">Filtr</string>
+    <string name="theme">Mavzu</string>
+    <string name="color">Rang</string>
+    <string name="icon">Belgi</string>
+    <string name="theme_black">Qora</string>
+    <string name="theme_light">**Yorug‘**</string>
+    <string name="theme_dark">Qorongʻu</string>
+    <string name="logout">Chiqish</string>
+    <string name="reinitialize_account">Qayta boshlash</string>
+    <string name="whats_new">Yangiliklar</string>
+    <string name="caldav_selection_description">Ochiq internet standartlariga asoslangan sinxronlash</string>
+    <string name="etesync_selection_description">Oxiridan oxirigacha shifrlangan sinxronlash</string>
+    <string name="decsync_selection_description">Fayllarga asoslangan sinxronlash</string>
+    <string name="davx5_selection_description">Vazifalaringizni DAVx⁵ ilovasi bilan sinxronlang</string>
+    <string name="show_advanced_settings">Kengaytirilgan sozlamalarni ko‘rsatish</string>
+    <string name="preferences_advanced">Kengaytirilgan sozlamalar</string>
+    <string name="documentation">Hujjatlar</string>
+    <string name="back">Orqaga</string>
 </resources>
