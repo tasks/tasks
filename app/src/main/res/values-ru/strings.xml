@@ -433,4 +433,12 @@
     <string name="upgrade_friends_and_family_description">До 5 бесплатных участников в общих списках. Интеграция с Напоминаниями Apple</string>
     <string name="upgrade_email_to_task_description">Создавайте задачи из электронных писем, пересылая их на ваш личный почтовый ящик</string>
     <string name="returning_user">Уже пользовались приложением ранее?</string>
+    <string name="upgrade_friends_and_family">Друзья и Семья</string>
+    <string name="advanced_tools">Продвинутые инструменты</string>
+    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и не только!</string>
+    <string name="legal_disclosure_prefix_using">Используя Tasks.org</string>
+    <string name="tos_updated_title">Мы обновили Условия использования</string>
+    <string name="accept">Принять</string>
+    <string name="exit">Выход</string>
+    <string name="read_more">Читать далее</string>
 </resources>
