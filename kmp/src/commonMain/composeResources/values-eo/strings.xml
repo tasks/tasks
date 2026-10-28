@@ -679,4 +679,7 @@
     <string name="works_with_android_description">Poŝtelefonoj, tabulkomputiloj, kaj Chrome tekokomputiloj</string>
     <string name="mcp_server_enable">Servi viajn datumojn per MCP</string>
     <string name="mcp_tools_summary">Post kiam vi malŝaltos ilon, ĝi neniam estos montrite al la asistanto, do ĝi ne povas peti ke vi reŝaltu la ilon. Restarigas la servilon.</string>
+    <string name="checkout_expired">La paga paĝo senvalidiĝis. Bonvolu reprovi.</string>
+    <string name="pricing_free_trial">Senpaga testo dum %1$d tagoj</string>
+    <string name="pricing_subscribe_for">Abonui por %1$s</string>
 </resources>
