@@ -297,4 +297,5 @@
     <string name="upgrade_blurb_1">Salom! Mening ismim Alex. Men Tasks ilovasini mustaqil ishlab chiquvchiman</string>
     <string name="upgrade_blurb_2">Tasks ustida minglab soat mehnat qildim va uning barcha manba kodini internetda bepul e’lon qilaman. Mehnatimni qo‘llab-quvvatlash uchun ayrim funksiyalardan foydalanish uchun obuna kerak</string>
     <string name="back">Orqaga</string>
+    <string name="chips">Yorliqlar</string>
 </resources>
