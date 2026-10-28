@@ -521,4 +521,7 @@
     <string name="works_with_launchers">Лаунчеры</string>
     <string name="works_with_calendars">Календари и виджеты</string>
     <string name="email_to_task">Создать задачу через Email</string>
+    <string name="legal_disclosure_prefix_using">Используя Tasks.org</string>
+    <string name="tos_updated_title">Мы обновили Условия использования</string>
+    <string name="accept">Принять</string>
 </resources>
