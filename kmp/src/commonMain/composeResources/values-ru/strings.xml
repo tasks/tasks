@@ -314,7 +314,7 @@
     <string name="list_separator_with_space">, </string>
     <string name="repeats_from">Повторять от</string>
     <string name="repeat_type_due">намеченной даты</string>
-    <string name="repeat_type_completion">даты завершения</string>
+    <string name="repeat_type_completion">даты выполнения</string>
     <string name="TEA_control_repeat">Повтор</string>
     <plurals name="repeat_times">
         <item quantity="one">раз</item>
@@ -351,7 +351,7 @@
         <item quantity="few">%1$d года</item>
         <item quantity="many">%1$d лет</item>
     </plurals>
-    <string name="repeat_type_completion_capitalized">Дата завершения</string>
+    <string name="repeat_type_completion_capitalized">Дата выполнения</string>
     <string name="no_title">(Без заголовка)</string>
     <string name="when_started">После начала</string>
     <string name="when_due">Когда закончится</string>
@@ -441,7 +441,7 @@
     <string name="action_open">Открыть</string>
     <string name="date_shortcut_hour">На час</string>
     <string name="date_shortcut_morning">Утро</string>
-    <string name="date_shortcut_afternoon">Обед</string>
+    <string name="date_shortcut_afternoon">День</string>
     <string name="date_shortcut_evening">Вечер</string>
     <string name="date_shortcut_night">Ночь</string>
     <string name="date_shortcut_tomorrow_morning">Завтра утром</string>
@@ -585,4 +585,7 @@
     <string name="wrong_account_message">Ваша подписка уже привязана к %1$s. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с %2$s</string>
     <string name="regenerate_email_address_confirmation">Ваш текущий адрес электронной почты перестанет работать</string>
     <string name="debug">Отладка</string>
+    <string name="view_tos">Посмотреть Условия использования</string>
+    <string name="repeat_type_completion_description">Отсчёт повтора от момента фактического выполнения задачи</string>
+    <string name="repeat_type_due_description">Отсчёт повтора от намеченной даты завершения задачи</string>
 </resources>
