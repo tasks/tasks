@@ -274,7 +274,7 @@
     <string name="auto_dismiss_datetime_edit">Редактирование задачи</string>
     <string name="auto_dismiss_datetime_list_summary">Автоматически закрывать при выборе из списка задач</string>
     <string name="auto_dismiss_datetime_list">Список задач</string>
-    <string name="widget_due_date_hidden">Спрятано</string>
+    <string name="widget_due_date_hidden">Скрыто</string>
     <string name="widget_due_date_below_title">Под названием</string>
     <string name="widget_due_date_after_title">После названия</string>
     <string name="opacity_footer">Непрозрачность футера</string>
