@@ -88,4 +88,8 @@
     <string name="preferences_advanced">Kengaytirilgan sozlamalar</string>
     <string name="documentation">Hujjatlar</string>
     <string name="back">Orqaga</string>
+    <string name="no_date">Sanasiz</string>
+    <string name="share">Ulashish</string>
+    <string name="local_lists">mahalliy roʻyxatlar</string>
+    <string name="last_backup_never">Hech qachon</string>
 </resources>
