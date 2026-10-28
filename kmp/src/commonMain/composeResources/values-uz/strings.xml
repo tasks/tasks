@@ -92,4 +92,11 @@
     <string name="share">Ulashish</string>
     <string name="local_lists">mahalliy roʻyxatlar</string>
     <string name="last_backup_never">Hech qachon</string>
+    <string name="your_subscription_expired">Obunangiz muddati tugadi. Xizmatdan foydalanishni davom ettirish uchun hozir obuna bo‘ling.</string>
+    <string name="support">Qoʻllab-quvvatlash</string>
+    <string name="open_source">Ochiq kodli</string>
+    <string name="sign_in_with_google">Google orqali kirish</string>
+    <string name="authentication_required">Autentifikatsiya talab qilinadi</string>
+    <string name="migrating_tasks">Vazifalarni ko\'chirish</string>
+    <string name="app_password">Ilova oʻroni</string>
 </resources>
