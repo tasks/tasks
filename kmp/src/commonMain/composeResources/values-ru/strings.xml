@@ -588,4 +588,7 @@
     <string name="view_tos">Посмотреть Условия использования</string>
     <string name="repeat_type_completion_description">Отсчёт повтора от момента фактического выполнения задачи</string>
     <string name="repeat_type_due_description">Отсчёт повтора от намеченной даты завершения задачи</string>
+    <string name="add_platform_account">Добавить аккаунт %1$s</string>
+    <string name="show_more">Показать больше</string>
+    <string name="show_less">Показать меньше</string>
 </resources>
