@@ -520,4 +520,5 @@
     <string name="works_with_services">Сервисы управления задачами</string>
     <string name="works_with_launchers">Лаунчеры</string>
     <string name="works_with_calendars">Календари и виджеты</string>
+    <string name="email_to_task">Создать задачу через Email</string>
 </resources>
