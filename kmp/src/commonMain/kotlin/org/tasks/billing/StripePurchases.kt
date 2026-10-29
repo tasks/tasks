@@ -62,7 +62,14 @@ class StripePurchases(
         } else {
             accountData.getAccountResponse()
                 ?.takeIf { it.hasStripeSubscription }
-                ?.let { StripePlan(it.stripeProduct, it.stripeTerms()) }
+                ?.let {
+                    StripePlan(
+                        sku = it.stripeProduct,
+                        terms = it.stripeTerms(),
+                        covered = it.stripeCovered ?: true,
+                        cloud = it.stripeCloud,
+                    )
+                }
         }
     }
 
@@ -250,8 +257,15 @@ interface StripeCheckouts {
     suspend fun collectCheckout(code: String): StripeCollection
 }
 
-data class StripePlan(val sku: String?, val terms: PurchaseTerms? = null) {
+data class StripePlan(
+    val sku: String?,
+    val terms: PurchaseTerms? = null,
+    val covered: Boolean = true,
+    val cloud: Boolean? = null,
+) {
     val trialEnd: Long? get() = terms?.takeIf { it.isTrialing }?.trialEnd
+
+    val canChange: Boolean get() = terms?.isBilling ?: covered
 }
 
 sealed interface StripeCollection {

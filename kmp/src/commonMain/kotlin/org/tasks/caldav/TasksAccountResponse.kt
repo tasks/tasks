@@ -18,6 +18,15 @@ data class TasksAccountResponse(
     @SerialName("credit_cents") val creditCents: Int? = null,
     @SerialName("credit_currency") val creditCurrency: String? = null,
 ) {
+    sealed interface StripeRow {
+        val provider: String?
+        val product: String?
+        val status: String?
+        val expires: Long?
+        val cancelAtPeriodEnd: Boolean
+        val trialEnd: Long?
+    }
+
     val stripeCloudRow: SubscriptionSource?
         get() = subscriptions.firstOrNull { it.provider == PROVIDER_STRIPE }
 
@@ -36,17 +45,17 @@ data class TasksAccountResponse(
     val hasCloudSubscription: Boolean
         get() = subscriptions.isNotEmpty()
 
+    val hasForeignCloudSubscription: Boolean
+        get() = subscriptions.any { it.provider != PROVIDER_STRIPE }
+
     val stripeProduct: String?
         get() = stripeRow?.product
 
-    sealed interface StripeRow {
-        val provider: String?
-        val product: String?
-        val status: String?
-        val expires: Long?
-        val cancelAtPeriodEnd: Boolean
-        val trialEnd: Long?
-    }
+    val stripeCovered: Boolean?
+        get() = if (stripeCloudRow != null) true else stripeSupporterRow?.covered
+
+    val stripeCloud: Boolean?
+        get() = if (stripeCloudRow != null) true else stripeSupporterRow?.cloud
 
     @Serializable
     data class SubscriptionSource(
@@ -68,6 +77,8 @@ data class TasksAccountResponse(
         override val expires: Long? = null,
         @SerialName("cancel_at_period_end") override val cancelAtPeriodEnd: Boolean = false,
         @SerialName("trial_end") override val trialEnd: Long? = null,
+        val cloud: Boolean? = null,
+        val covered: Boolean? = null,
     ) : StripeRow
 
     @Serializable
