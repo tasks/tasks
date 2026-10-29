@@ -130,7 +130,7 @@ open class StripeCheckoutViewModel(
                 is StripeCheckout.SubscriptionExists -> {
                     Logger.w(TAG) { "Checkout refused: this account already pays for ${checkout.product}" }
                     refreshPlan()
-                    changeNow(price)
+                    changeNow(price, sellInstead = false)
                 }
                 StripeCheckout.RateLimited -> finish(Notice.RateLimited)
                 StripeCheckout.Unavailable -> finish(Notice.Unavailable)
@@ -149,16 +149,19 @@ open class StripeCheckoutViewModel(
         viewModelScope.launch { changeNow(price) }
     }
 
-    private suspend fun changeNow(price: StripePrice) {
+    private suspend fun changeNow(price: StripePrice, sellInstead: Boolean = true) {
         when (val result = purchases.changePlan(price)) {
             is StripeChange.Changed -> {
                 refreshPlan()
                 finish(null)
                 _viewState.update { it.copy(planChanged = true) }
             }
-            StripeChange.NotLinked -> {
+            StripeChange.NotLinked -> if (sellInstead) {
                 _viewState.update { it.copy(plan = null) }
                 purchase(price)
+            } else {
+                Logger.e(TAG) { "The server refused the sale and then knew no subscription" }
+                finish(Notice.Failed)
             }
             StripeChange.Cancelled -> finish(Notice.SubscriptionCancelled)
             StripeChange.PurchaseGone -> finish(Notice.PurchaseGone)

@@ -634,6 +634,21 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aRefusedSaleTheServerThenKnowsNoSubscriptionForStopsThere() = runTest(dispatcher) {
+        checkout = StripeCheckout.SubscriptionExists(product = "annual_01")
+        change = StripeChange.NotLinked
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
+        assertEquals(listOf(offer), changes)
+        assertEquals(Notice.Failed, viewModel.viewState.value.notice)
+    }
+
+    @Test
     fun theTierTheyAreAlreadyOnIsNotWorthACall() = runTest(dispatcher) {
         plan = StripePlan("annual_30")
         val viewModel = viewModel()
