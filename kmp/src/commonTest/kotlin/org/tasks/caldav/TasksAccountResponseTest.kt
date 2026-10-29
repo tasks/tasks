@@ -41,6 +41,16 @@ class TasksAccountResponseTest {
     }
 
     @Test
+    fun aCloudSubscriptionCarriesStripesOwnStatus() {
+        val response = parse(
+            """{"subscriptions":[{"provider":"stripe","expires":1793481600000,""" +
+                """"isActive":true,"status":"past_due","product":"monthly_03"}]}"""
+        )
+
+        assertEquals("past_due", response.subscriptions.single().status)
+    }
+
+    @Test
     fun creditBelongsToTheCustomerRatherThanToASubscription() {
         val response = parse(
             """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_01"}],""" +

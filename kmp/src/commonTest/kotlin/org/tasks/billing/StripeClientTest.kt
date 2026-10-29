@@ -448,6 +448,20 @@ class StripeClientTest {
     }
 
     @Test
+    fun aChangeSaysWhenItTookBackACancellation() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"changed":true,"entitles":true,"resumed":true,""" +
+                """"subscription":{"product":"annual_30"}}""",
+        )
+
+        assertEquals(
+            StripeChange.Changed(entitles = true, resumed = true),
+            client().changePlan("pri_30", "jwt-1"),
+        )
+    }
+
+    @Test
     fun mapsCheckoutFailures() = runTest {
         respondWith(HttpStatusCode.BadRequest, """{"error":"unknown_price"}""")
         assertEquals(StripeCheckout.UnknownPrice, client().createCheckout(null))

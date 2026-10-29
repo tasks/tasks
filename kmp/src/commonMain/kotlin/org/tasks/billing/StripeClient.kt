@@ -69,7 +69,10 @@ sealed interface StripeCheckoutStatus {
 }
 
 sealed interface StripeChange {
-    data class Changed(val entitles: Boolean) : StripeChange
+    data class Changed(
+        val entitles: Boolean,
+        val resumed: Boolean = false,
+    ) : StripeChange
 
     data object UnknownPrice : StripeChange
 

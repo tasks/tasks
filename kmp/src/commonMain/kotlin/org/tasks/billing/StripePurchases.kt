@@ -259,7 +259,10 @@ fun TasksAccountResponse.stripeTerms(): PurchaseTerms? {
     val supporter = supporter.firstOrNull { it.provider == TasksAccountResponse.PROVIDER_STRIPE }
     return if (cloud != null) {
         PurchaseTerms(
+            status = cloud.status,
             trialEnd = cloud.trialEnd,
+            expires = cloud.expires,
+            cancelAtPeriodEnd = cloud.cancelAtPeriodEnd,
             creditCents = creditCents,
             creditCurrency = creditCurrency,
         )
@@ -267,10 +270,12 @@ fun TasksAccountResponse.stripeTerms(): PurchaseTerms? {
         PurchaseTerms(
             status = supporter?.status,
             trialEnd = supporter?.trialEnd,
+            expires = supporter?.expires,
+            cancelAtPeriodEnd = supporter?.cancelAtPeriodEnd ?: false,
             creditCents = creditCents,
             creditCurrency = creditCurrency,
         )
-    }.takeIf { !it.isEmpty }
+    }.orNull()
 }
 
 sealed interface StripeCollection {

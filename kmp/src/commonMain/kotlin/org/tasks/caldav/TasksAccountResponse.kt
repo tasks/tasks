@@ -38,6 +38,7 @@ data class TasksAccountResponse(
         val provider: String? = null,
         val expires: Long? = null,
         val isActive: Boolean = false,
+        val status: String? = null,
         @SerialName("cancel_at_period_end") val cancelAtPeriodEnd: Boolean = false,
         @SerialName("trial_end") val trialEnd: Long? = null,
         val product: String? = null,

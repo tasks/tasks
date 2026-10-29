@@ -60,7 +60,10 @@ class StripeClientImpl(
     )
 
     @Serializable
-    private data class ChangeResponse(val entitles: Boolean = false)
+    private data class ChangeResponse(
+        val entitles: Boolean = false,
+        val resumed: Boolean = false,
+    )
 
     @Serializable
     private data class CheckoutResponse(
@@ -242,9 +245,9 @@ class StripeClientImpl(
             }
             val body = response.bodyAsText()
             when (response.status.value) {
-                in 200..299 -> StripeChange.Changed(
-                    entitles = json.decodeFromString(ChangeResponse.serializer(), body).entitles,
-                )
+                in 200..299 -> json
+                    .decodeFromString(ChangeResponse.serializer(), body)
+                    .let { StripeChange.Changed(entitles = it.entitles, resumed = it.resumed) }
                 400 -> if (body.errorCode() == ERROR_INVALID_PURCHASE_JWT) {
                     StripeChange.PurchaseGone
                 } else {

@@ -103,6 +103,8 @@ class PurchaseEntitlement(
         val formatted_price: String? = null,
         val status: String? = null,
         val trial_end: Long? = null,
+        val expires: Long? = null,
+        val cancel_at_period_end: Boolean = false,
         val credit_cents: Int? = null,
         val credit_currency: String? = null,
     )
@@ -210,9 +212,11 @@ class PurchaseEntitlement(
         return PurchaseTerms(
             status = status,
             trialEnd = trial_end,
+            expires = expires,
+            cancelAtPeriodEnd = cancel_at_period_end,
             creditCents = credit_cents,
             creditCurrency = credit_currency,
-        ).takeIf { !it.isEmpty }
+        ).orNull()
     }
 
     suspend fun awaitReady(): Boolean {
