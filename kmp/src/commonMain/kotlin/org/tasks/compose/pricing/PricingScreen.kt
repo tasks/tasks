@@ -38,6 +38,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -104,6 +105,16 @@ private fun StripePrice?.ctaLabel(): String = if (this == null) {
             formattedPrice,
         ),
     )
+}
+
+@Composable
+private fun RestoreFooter(onRestorePurchases: () -> Unit) {
+    TextButton(
+        onClick = onRestorePurchases,
+        modifier = Modifier.padding(top = 16.dp),
+    ) {
+        Text(stringResource(Res.string.restore_purchases))
+    }
 }
 
 @Composable
@@ -233,6 +244,10 @@ fun PricingScreen(
                             nameYourPriceCard(Modifier.fillMaxWidth())
                         }
                     }
+                }
+
+                if (mode == PricingMode.CLOUD_ONLY) {
+                    RestoreFooter(onRestorePurchases)
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))

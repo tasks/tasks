@@ -8,6 +8,8 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertTrue
@@ -96,6 +98,41 @@ class CardPricingTest {
         )
 
         onNodeWithText("Subscribe for \$29.99/year").assertIsNotEnabled()
+    }
+
+    @Test
+    fun restoreIsOnThePaywallAndNotOnlyAfterAReinstall() = runComposeUiTest {
+        var restored = false
+        setContent {
+            Box(modifier = Modifier.size(480.dp, 2000.dp)) {
+                PricingScreen(
+                    mode = PricingMode.CLOUD_ONLY,
+                    onBack = {},
+                    onSignIn = {},
+                    onRestorePurchases = { restored = true },
+                    store = StoreBilling(
+                        catalog = StripeCatalog.from(listOf(annual)),
+                        onSelect = {},
+                    ),
+                )
+            }
+        }
+
+        onNodeWithText("Restore purchases").performScrollTo().performClick()
+
+        assertTrue("expected the restore screen to be asked for", restored)
+    }
+
+    @Test
+    fun theRestoreLinkDoesNotAskAgainWhatTheSignInFooterAsked() = runComposeUiTest {
+        showCloudCard(StoreBilling(catalog = StripeCatalog.from(listOf(annual)), onSelect = {}))
+
+        assertShowing("Already a subscriber or invited guest?")
+        assertShowing("Restore purchases")
+        assertTrue(
+            "expected the restore link not to repeat the question",
+            onAllNodes(hasText("Already a subscriber?")).fetchSemanticsNodes().isEmpty(),
+        )
     }
 
     private fun ComposeUiTest.showCloudCard(store: StoreBilling?) {
