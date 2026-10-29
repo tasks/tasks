@@ -548,6 +548,7 @@ val coreModule: Module = module {
             caldavUrl = { get<TasksServerEnvironment>().caldavUrl },
             json = get(),
             authorization = { tasksSessionAuthorization(get(), get()) },
+            installId = { get<InstallId>().get() },
         )
     }
     single {

@@ -28,6 +28,7 @@ class GitHubSponsorClientImpl(
     private val serverEnvironment: TasksServerEnvironment,
     private val purchaseEntitlement: PurchaseEntitlement,
     private val json: Json,
+    private val installId: suspend () -> String? = { null },
     private val openUrl: (String) -> Unit = { url ->
         if (!openInBrowser(url)) {
             throw IOException("Nothing on this system could open $url")
@@ -40,6 +41,7 @@ class GitHubSponsorClientImpl(
     private data class VerifyRequest(
         val code: String,
         val redirect_uri: String,
+        val install_id: String? = null,
     )
 
     @Serializable
@@ -165,7 +167,11 @@ class GitHubSponsorClientImpl(
                 val url = "${serverEnvironment.caldavUrl}/desktop/github/verify"
                 val body = json.encodeToString(
                     VerifyRequest.serializer(),
-                    VerifyRequest(code = code, redirect_uri = redirectUri)
+                    VerifyRequest(
+                        code = code,
+                        redirect_uri = redirectUri,
+                        install_id = installId(),
+                    )
                 ).toRequestBody("application/json".toMediaType())
                 val request = Request.Builder()
                     .url(url)

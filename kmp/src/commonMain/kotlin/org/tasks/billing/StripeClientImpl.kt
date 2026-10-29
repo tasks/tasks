@@ -25,6 +25,7 @@ class StripeClientImpl(
     private val caldavUrl: () -> String,
     private val json: Json,
     private val authorization: suspend () -> String? = { null },
+    private val installId: suspend () -> String? = { null },
     private val callTimeoutMillis: Long = CALL_TIMEOUT_MILLIS,
 ) : StripeClient {
     private val logger = Logger.withTag(TAG)
@@ -46,7 +47,10 @@ class StripeClientImpl(
     )
 
     @Serializable
-    private data class CheckoutRequest(val price_id: String? = null)
+    private data class CheckoutRequest(
+        val price_id: String? = null,
+        val install_id: String? = null,
+    )
 
     @Serializable
     private data class ChangeRequest(
@@ -68,7 +72,11 @@ class StripeClientImpl(
     private data class RestoreRequest(val email: String)
 
     @Serializable
-    private data class VerifyRequest(val email: String, val code: String)
+    private data class VerifyRequest(
+        val email: String,
+        val code: String,
+        val install_id: String? = null,
+    )
 
     @Serializable
     private data class PurchaseResponse(
@@ -128,7 +136,11 @@ class StripeClientImpl(
         call("checkout", fallback = StripeCheckout.Unavailable) { client ->
             val response = client.post(url("/stripe/checkout")) {
                 authorization?.let { header(HttpHeaders.Authorization, it) }
-                jsonBody(json, CheckoutRequest.serializer(), CheckoutRequest(priceId))
+                jsonBody(
+                    json,
+                    CheckoutRequest.serializer(),
+                    CheckoutRequest(price_id = priceId, install_id = installId()),
+                )
             }
             val body = response.bodyAsText()
             when (response.status.value) {
@@ -249,7 +261,11 @@ class StripeClientImpl(
     override suspend fun verifyRestoreCode(email: String, code: String): StripeRestore =
         call("verify", fallback = StripeRestore.Unavailable) { client ->
             val response = client.post(url("/stripe/restore/verify")) {
-                jsonBody(json, VerifyRequest.serializer(), VerifyRequest(email, code))
+                jsonBody(
+                    json,
+                    VerifyRequest.serializer(),
+                    VerifyRequest(email = email, code = code, install_id = installId()),
+                )
             }
             val body = response.bodyAsText()
             when (response.status.value) {

@@ -36,11 +36,15 @@ class StripeClientTest {
 
     private var caldavUrl = "https://caldav.example.com"
 
-    private fun client(authorization: String? = null) = StripeClientImpl(
+    private fun client(
+        authorization: String? = null,
+        installId: String? = null,
+    ) = StripeClientImpl(
         httpClientFactory = factory,
         caldavUrl = { caldavUrl },
         json = Json { ignoreUnknownKeys = true },
         authorization = { authorization },
+        installId = { installId },
     )
 
     private fun respondWith(
@@ -140,6 +144,42 @@ class StripeClientTest {
 
         assertEquals(1, requests.size)
         assertEquals("{}", body())
+    }
+
+    @Test
+    fun namesThisInstallWhenItOpensACheckout() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"code":"c0de","url":"https://pay.stripe.com/x","expires_at":1000}""",
+        )
+
+        client(installId = "install-1").createCheckout("pri_2")
+
+        assertEquals("""{"price_id":"pri_2","install_id":"install-1"}""", body())
+    }
+
+    @Test
+    fun namesThisInstallWhenItRedeemsARestoreCode() = runTest {
+        respondWith(HttpStatusCode.OK, """{"purchase_jwt":"jwt","refresh_token":"rt"}""")
+
+        client(installId = "install-1").verifyRestoreCode("alice@example.com", "123456")
+
+        assertEquals(
+            """{"email":"alice@example.com","code":"123456","install_id":"install-1"}""",
+            body(),
+        )
+    }
+
+    @Test
+    fun saysNothingAboutTheInstallWhenThereIsNoneToName() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"code":"c0de","url":"https://pay.stripe.com/x","expires_at":1000}""",
+        )
+
+        client().createCheckout("pri_2")
+
+        assertEquals("""{"price_id":"pri_2"}""", body())
     }
 
     @Test
