@@ -624,6 +624,7 @@ class StripeClientTest {
             StripeRestore.Restored(
                 StripePurchase("jwt", "rt", "monthly_03"),
                 covered = false,
+                isActive = false,
             ),
             client().verifyRestoreCode("alice@example.com", "123456"),
         )
@@ -640,6 +641,52 @@ class StripeClientTest {
         val result = client().verifyRestoreCode("alice@example.com", "123456")
 
         assertTrue((result as StripeRestore.Restored).covered)
+    }
+
+    @Test
+    fun aRestoreSaysWhenTheSubscriptionItFoundEnded() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"restored":"customer","purchase_jwt":"jwt","refresh_token":"rt",""" +
+                """"sku":"monthly_03","formatted_price":"${'$'}2.99","subscription":""" +
+                """{"status":"canceled","isActive":false,"expires":1735000000000,""" +
+                """"cancel_at_period_end":true}}""",
+        )
+
+        val result = client().verifyRestoreCode("alice@example.com", "123456")
+            as StripeRestore.Restored
+
+        assertEquals(1735000000000L, result.terms?.expires)
+        assertEquals(true, result.terms?.cancelAtPeriodEnd)
+    }
+
+    @Test
+    fun anAddressThatHasBoughtNothingIsNotAnExpiredSubscription() = runTest {
+        respondWith(HttpStatusCode.PaymentRequired, """{"error":"nothing_to_restore"}""")
+
+        assertEquals(
+            StripeRestore.NothingToRestore,
+            client().verifyRestoreCode("alice@example.com", "123456"),
+        )
+    }
+
+    @Test
+    fun aRestoreCarriesTheCreditAndTheTrialDate() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"restored":"customer","purchase_jwt":"jwt","refresh_token":"rt",""" +
+                """"credit_cents":900,"credit_currency":"EUR",""" +
+                """"subscription":{"status":"canceled","isActive":false,"trial_end":1000}}""",
+        )
+
+        val result = client().verifyRestoreCode("alice@example.com", "123456")
+            as StripeRestore.Restored
+
+        assertEquals(900, result.terms?.creditCents)
+        assertEquals("EUR", result.terms?.creditCurrency)
+        assertEquals("canceled", result.terms?.status)
+        assertEquals(1000L, result.terms?.trialEnd)
+        assertEquals(false, result.isActive)
     }
 
     @Test

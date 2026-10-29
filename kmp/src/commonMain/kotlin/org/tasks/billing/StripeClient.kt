@@ -107,7 +107,11 @@ sealed interface StripeRestore {
     data class Restored(
         val purchase: StripePurchase,
         val covered: Boolean = true,
+        val isActive: Boolean = true,
+        val terms: PurchaseTerms? = null,
     ) : StripeRestore
+
+    data object NothingToRestore : StripeRestore
 
     data object InvalidCode : StripeRestore
 

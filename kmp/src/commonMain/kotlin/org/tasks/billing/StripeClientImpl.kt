@@ -83,6 +83,15 @@ class StripeClientImpl(
     )
 
     @Serializable
+    private data class RestoredSubscription(
+        val status: String? = null,
+        val trial_end: Long? = null,
+        val expires: Long? = null,
+        val cancel_at_period_end: Boolean = false,
+        val isActive: Boolean = true,
+    )
+
+    @Serializable
     private data class PurchaseResponse(
         val status: String = STATUS_PENDING,
         val restored: String? = null,
@@ -90,6 +99,9 @@ class StripeClientImpl(
         val refresh_token: String? = null,
         val sku: String? = null,
         val formatted_price: String? = null,
+        val subscription: RestoredSubscription? = null,
+        val credit_cents: Int? = null,
+        val credit_currency: String? = null,
     ) {
         val purchase: StripePurchase?
             get() {
@@ -100,6 +112,16 @@ class StripeClientImpl(
 
         val receipt: StripeReceipt?
             get() = purchase_jwt?.let { StripeReceipt(it, sku, formatted_price) }
+
+        val terms: PurchaseTerms?
+            get() = PurchaseTerms(
+                status = subscription?.status,
+                trialEnd = subscription?.trial_end,
+                expires = subscription?.expires,
+                cancelAtPeriodEnd = subscription?.cancel_at_period_end ?: false,
+                creditCents = credit_cents,
+                creditCurrency = credit_currency,
+            ).orNull()
 
         fun covers(logger: Logger): Boolean = when (restored) {
             RESTORED_SUBSCRIPTION -> true
@@ -339,7 +361,12 @@ class StripeClientImpl(
                         logger.w { "Restore response has no purchase" }
                         StripeRestore.Failed
                     } else {
-                        StripeRestore.Restored(purchase, covered = result.covers(logger))
+                        StripeRestore.Restored(
+                            purchase = purchase,
+                            covered = result.covers(logger),
+                            isActive = result.subscription?.isActive != false,
+                            terms = result.terms,
+                        )
                     }
                 }
                 400 -> if (body.errorCode() == ERROR_INVALID_EMAIL) {
@@ -347,7 +374,11 @@ class StripeClientImpl(
                 } else {
                     StripeRestore.InvalidCode
                 }
-                402 -> StripeRestore.SubscriptionInvalid
+                402 -> if (body.errorCode() == ERROR_NOTHING_TO_RESTORE) {
+                    StripeRestore.NothingToRestore
+                } else {
+                    StripeRestore.SubscriptionInvalid
+                }
                 429 -> StripeRestore.TooManyAttempts
                 503 -> StripeRestore.Unavailable
                 else -> {
@@ -395,6 +426,7 @@ class StripeClientImpl(
         private const val RESTORED_CUSTOMER = "customer"
         private const val ERROR_SUBSCRIPTION_EXISTS = "subscription_exists"
         private const val ERROR_INVALID_EMAIL = "invalid_email"
+        private const val ERROR_NOTHING_TO_RESTORE = "nothing_to_restore"
         private const val ERROR_INVALID_PURCHASE_JWT = "invalid_purchase_jwt"
         private const val ERROR_UNKNOWN_PURCHASE = "unknown_purchase"
         private const val CALL_TIMEOUT_MILLIS = 20_000L
