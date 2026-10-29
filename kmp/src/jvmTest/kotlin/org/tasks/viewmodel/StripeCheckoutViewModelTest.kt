@@ -614,7 +614,6 @@ class StripeCheckoutViewModelTest {
     fun mapsTheOtherPlanChangeFailures() = runTest(dispatcher) {
         listOf(
             StripeChange.UnknownPrice to Notice.Failed,
-            StripeChange.Unavailable to Notice.Unavailable,
             StripeChange.RateLimited to Notice.RateLimited,
             StripeChange.Failed to Notice.Failed,
         ).forEach { (refusal, expected) ->
@@ -631,6 +630,46 @@ class StripeCheckoutViewModelTest {
             assertEquals(expected, viewModel.viewState.value.notice)
             assertFalse(viewModel.viewState.value.busy)
         }
+    }
+
+    @Test
+    fun aChangeStripeCouldNotBeAskedAboutIsSentAgain() = runTest(dispatcher) {
+        plan = StripePlan("annual_01")
+        change = StripeChange.Unavailable
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+        viewModel.confirmChange()
+        runCurrent()
+
+        assertEquals(Notice.ChangeUnavailable, viewModel.viewState.value.notice)
+
+        change = StripeChange.Changed(entitles = true)
+        viewModel.retryChange()
+        runCurrent()
+
+        assertEquals(listOf(offer, offer), changes)
+        assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun aDismissedRetryableNoticeLeavesNothingToRetry() = runTest(dispatcher) {
+        plan = StripePlan("annual_01")
+        change = StripeChange.Unavailable
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+        viewModel.confirmChange()
+        runCurrent()
+        viewModel.dismissNotice()
+        viewModel.retryChange()
+        runCurrent()
+
+        assertEquals(listOf(offer), changes)
     }
 
     @Test

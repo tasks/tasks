@@ -61,6 +61,8 @@ open class StripeCheckoutViewModel(
 
         data object SubscriptionCancelled : Notice
 
+        data object ChangeUnavailable : Notice
+
         data object StorageFailed : Notice
 
         data object RateLimited : Notice
@@ -74,6 +76,8 @@ open class StripeCheckoutViewModel(
     val viewState: StateFlow<ViewState> = _viewState.asStateFlow()
 
     private var pollJob: Job? = null
+
+    private var retryable: StripePrice? = null
 
     init {
         viewModelScope.launch { loadCatalog() }
@@ -111,7 +115,17 @@ open class StripeCheckoutViewModel(
         _viewState.update { it.copy(busySku = null, checkoutUrl = null) }
     }
 
-    fun dismissNotice() = _viewState.update { it.copy(notice = null) }
+    fun dismissNotice() {
+        retryable = null
+        _viewState.update { it.copy(notice = null) }
+    }
+
+    fun retryChange() {
+        val price = retryable ?: return
+        retryable = null
+        _viewState.update { it.copy(notice = null) }
+        change(price)
+    }
 
     fun planChangeHandled() = _viewState.update { it.copy(planChanged = false) }
 
@@ -176,7 +190,10 @@ open class StripeCheckoutViewModel(
                 loadCatalog()
                 finish(Notice.Failed)
             }
-            StripeChange.Unavailable -> finish(Notice.Unavailable)
+            StripeChange.Unavailable -> {
+                retryable = price
+                finish(Notice.ChangeUnavailable)
+            }
             StripeChange.Failed -> finish(Notice.Failed)
         }
     }

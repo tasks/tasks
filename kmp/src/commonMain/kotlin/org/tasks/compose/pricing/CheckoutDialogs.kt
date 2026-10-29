@@ -25,6 +25,7 @@ import tasks.kmp.generated.resources.error_contact_support
 import tasks.kmp.generated.resources.error_encryption_failed
 import tasks.kmp.generated.resources.error_purchase_not_verified
 import tasks.kmp.generated.resources.error_too_many_requests
+import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.wrong_account_message
 import tasks.kmp.generated.resources.your_subscription_expired
@@ -67,23 +68,58 @@ fun CheckoutProgressDialog(
 fun CheckoutNoticeDialog(
     notice: Notice?,
     onDismiss: () -> Unit,
+    onRetry: () -> Unit = {},
 ) {
-    if (notice == null) return
-    val message = when (notice) {
-        Notice.NeedsUpgrade -> stringResource(Res.string.upgrade_subscription_banner)
-        Notice.PurchaseGone -> stringResource(Res.string.error_purchase_not_verified)
-        Notice.SubscriptionCancelled -> stringResource(Res.string.your_subscription_expired)
-        is Notice.AccountInUse -> stringResource(
-            Res.string.wrong_account_message,
-            notice.existingAccount,
-            TasksUrls.SUPPORT_EMAIL,
+    when (notice) {
+        null -> Unit
+        Notice.ChangeUnavailable -> ActionDialog(
+            message = stringResource(Res.string.error_billing_unavailable),
+            actionLabel = stringResource(Res.string.retry),
+            onAction = onRetry,
+            onDismiss = onDismiss,
         )
-        Notice.Expired -> stringResource(Res.string.checkout_expired)
-        Notice.SubscriptionInvalid -> stringResource(Res.string.your_subscription_expired)
-        Notice.StorageFailed -> stringResource(Res.string.error_encryption_failed)
-        Notice.RateLimited -> stringResource(Res.string.error_too_many_requests)
-        Notice.Unavailable -> stringResource(Res.string.error_billing_unavailable)
-        Notice.Failed -> stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
+        else -> MessageDialog(message = notice.message(), onDismiss = onDismiss)
     }
-    MessageDialog(message = message, onDismiss = onDismiss)
+}
+
+@Composable
+private fun Notice.message(): String = when (this) {
+    Notice.NeedsUpgrade -> stringResource(Res.string.upgrade_subscription_banner)
+    Notice.PurchaseGone -> stringResource(Res.string.error_purchase_not_verified)
+    Notice.SubscriptionCancelled -> stringResource(Res.string.your_subscription_expired)
+    Notice.ChangeUnavailable -> stringResource(Res.string.error_billing_unavailable)
+    is Notice.AccountInUse -> stringResource(
+        Res.string.wrong_account_message,
+        existingAccount,
+        TasksUrls.SUPPORT_EMAIL,
+    )
+    Notice.Expired -> stringResource(Res.string.checkout_expired)
+    Notice.SubscriptionInvalid -> stringResource(Res.string.your_subscription_expired)
+    Notice.StorageFailed -> stringResource(Res.string.error_encryption_failed)
+    Notice.RateLimited -> stringResource(Res.string.error_too_many_requests)
+    Notice.Unavailable -> stringResource(Res.string.error_billing_unavailable)
+    Notice.Failed -> stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
+}
+
+@Composable
+private fun ActionDialog(
+    message: String,
+    actionLabel: String,
+    onAction: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        text = { Text(message) },
+        confirmButton = {
+            TextButton(onClick = onAction) {
+                Text(actionLabel)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(Res.string.cancel))
+            }
+        },
+    )
 }
