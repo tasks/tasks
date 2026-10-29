@@ -23,22 +23,24 @@ import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.TasksPreferences
 
 /**
- * Pins the search/filter contract in [TaskListViewModel.queryFilterFor] that the drawer
- * search wiring (upstream PR #4803) relies on:
+ * Pins the search/filter contract in [TaskListViewModel.queryFilterFor] that the task
+ * search bar (driven from the floating action search button in `App.kt`) relies on. The
+ * navigation drawer has its own, separate search that only filters the drawer's
+ * lists/tags and must not be conflated with this one:
  *
  *  - `searchQuery == null`   -> the active filter is used
  *  - `searchQuery` non-blank -> a SearchFilter over all tasks is used
  *  - `searchQuery` blank, non-null -> "My Tasks"
  *
- * The restore behaviour the drawer depends on: running a search temporarily replaces the
- * active filter with a search; clearing the search (the UI maps a blank drawer query to
+ * The restore behaviour search depends on: running a search temporarily replaces the
+ * active filter with a search; clearing the search (the UI maps a blank query to
  * `null`) must put the originally selected filter back.
  *
- * The UI side (App.kt) must map the drawer's raw query - a non-null String, `""`-initialised
- * - onto this contract with `ifBlank { null }`. Passing the raw `""` through instead leaves
- * `searchQuery` blank-not-null, which permanently masks the active filter with My Tasks and
- * makes every list/tag/filter selection a no-op (the regression: a search broke all
- * filtering).
+ * The search bar's text is a non-null String, `""`-initialised, so the UI (App.kt) must
+ * map it onto this contract with `ifBlank { null }`. Passing the raw `""` through instead
+ * leaves `searchQuery` blank-not-null, which permanently masks the active filter with My
+ * Tasks and makes every list/tag/filter selection a no-op (the regression this contract
+ * exists to prevent).
  */
 class TaskListViewModelSearchRestoreTest {
     @Before
