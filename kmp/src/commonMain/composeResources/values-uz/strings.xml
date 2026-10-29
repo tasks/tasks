@@ -99,4 +99,12 @@
     <string name="authentication_required">Autentifikatsiya talab qilinadi</string>
     <string name="migrating_tasks">Vazifalarni ko\'chirish</string>
     <string name="app_password">Ilova oʻroni</string>
+    <string name="filter_overdue">Muddati o‘tgan</string>
+    <string name="filter_high_priority">Yuqori ustuvorlik</string>
+    <string name="filter_medium_priority">O‘rta ustuvorlik</string>
+    <string name="filter_low_priority">Past ustuvorlik</string>
+    <string name="filter_no_priority">Ustuvorlik belgilanmagan</string>
+    <string name="donate_nag">Xayriya orqali loyihani qo‘llab-quvvatlashni o‘ylab ko‘ring!</string>
+    <string name="email_to_task">Vazifaga aylantirish uchun e-pochta</string>
+    <string name="email_to_task_address">E-pochta manzilingiz</string>
 </resources>
