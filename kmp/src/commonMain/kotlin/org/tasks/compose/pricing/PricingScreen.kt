@@ -118,9 +118,12 @@ private fun RestoreFooter(onRestorePurchases: () -> Unit) {
 }
 
 @Composable
-private fun UnavailableNotice() {
+private fun UnavailableNotice() = CtaNotice(stringResource(Res.string.error_billing_unavailable))
+
+@Composable
+private fun CtaNotice(text: String) {
     Text(
-        text = stringResource(Res.string.error_billing_unavailable),
+        text = text,
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.error,
         textAlign = TextAlign.Center,
