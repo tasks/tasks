@@ -682,4 +682,8 @@
     <string name="checkout_expired">La paga paĝo senvalidiĝis. Bonvolu reprovi.</string>
     <string name="pricing_free_trial">Senpaga testo dum %1$d tagoj</string>
     <string name="pricing_subscribe_for">Abonui por %1$s</string>
+    <string name="mcp_access_read_only_summary">Asistantoj povas legi viajn taskojn, etikedojn, lokojn, memorigilojn kaj sinkronigi kontojn. Ili ne povas ŝanĝi iun ajn.</string>
+    <string name="mcp_access_read_write_summary">Asistantoj povas ankaŭ krei, redakti kaj forigi taskojn, listojn, etikedojn, lokojn kaj memorigilojn.</string>
+    <string name="mcp_connect_summary">Kopiu ĉi tiun en vian asistanton kaj tiam restarigu ĝin. La ĵetono jam estas inkluziva, do private gardu tion.</string>
+    <string name="mcp_regenerate_token">Regeneri ĵetonon</string>
 </resources>
