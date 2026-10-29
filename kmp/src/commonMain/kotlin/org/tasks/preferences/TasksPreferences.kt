@@ -53,6 +53,14 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         return updated
     }
 
+    suspend fun getOrCreate(key: Preferences.Key<String>, value: String): String {
+        var current: String? = null
+        dataStore.edit { prefs ->
+            current = prefs[key]?.takeIf { it.isNotBlank() } ?: value.also { prefs[key] = it }
+        }
+        return current ?: value
+    }
+
     suspend fun <T> getAndSet(key: Preferences.Key<T>, value: T): T? {
         var previous: T? = null
         dataStore.edit {
@@ -103,6 +111,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val needsCloudOnboarding = booleanPreferencesKey("needs_cloud_onboarding")
         val apnsToken = stringPreferencesKey("apns_token")
         val pushFallbackToken = stringPreferencesKey("push_fallback_token")
+        val installId = stringPreferencesKey("install_id")
         val metadataPrimaryAccount = longPreferencesKey("metadata_primary_account")
         val metadataStoreAccount = longPreferencesKey("metadata_store_account")
         val metadataRev = stringPreferencesKey("metadata_rev")

@@ -403,7 +403,7 @@ actual fun platformModule(): Module = module {
             json = get(),
         )
     }
-    single { SseTokenProvider() } bind FcmTokenProvider::class
+    single { SseTokenProvider(get()) } bind FcmTokenProvider::class
     single {
         SseClient(
             scope = get(),
@@ -412,7 +412,7 @@ actual fun platformModule(): Module = module {
             encryption = get<KeyStoreEncryption>(),
             environment = get(),
             httpClientFactory = get<KtorClientFactory>(),
-            token = { get<SseTokenProvider>().token },
+            token = { get<SseTokenProvider>().getToken() },
         )
     }
     single {

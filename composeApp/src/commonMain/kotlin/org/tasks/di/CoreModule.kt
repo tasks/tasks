@@ -80,6 +80,7 @@ import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.DrawerSettings
+import org.tasks.preferences.InstallId
 import org.tasks.preferences.LookAndFeelSettings
 import org.tasks.preferences.NotificationSettings
 import org.tasks.preferences.PreferencesSnapshot
@@ -539,6 +540,7 @@ val coreModule: Module = module {
         )
     }
     singleOf(::TasksServerEnvironment)
+    single { InstallId(get()) }
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
     single<StripeClient> {
         StripeClientImpl(

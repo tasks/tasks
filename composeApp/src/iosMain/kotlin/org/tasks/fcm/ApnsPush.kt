@@ -8,8 +8,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import org.koin.mp.KoinPlatform
-import org.tasks.data.UUIDHelper
 import org.tasks.ensureStarted
+import org.tasks.preferences.InstallId
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncRunner
@@ -21,6 +21,7 @@ private const val PUSH_SYNC_TIMEOUT_MS = 25_000L
 
 class ApnsTokenProvider(
     private val tasksPreferences: TasksPreferences,
+    private val installId: InstallId,
     private val scope: CoroutineScope,
     private val pushTokenManager: () -> PushTokenManager,
     private val sseClient: () -> SseClient,
@@ -35,11 +36,7 @@ class ApnsTokenProvider(
 
     private suspend fun storedApnsToken(): String? = tasksPreferences.get(TasksPreferences.apnsToken, "").ifBlank { null }
 
-    private suspend fun fallbackToken(): String {
-        val stored = tasksPreferences.get(TasksPreferences.pushFallbackToken, "")
-        if (stored.isNotBlank()) return stored
-        return UUIDHelper.newUUID().also { tasksPreferences.set(TasksPreferences.pushFallbackToken, it) }
-    }
+    private suspend fun fallbackToken(): String = installId.get()
 
     fun onToken(value: String) {
         val previous = token.value

@@ -108,7 +108,7 @@ actual fun platformModule(): Module = module {
     single<Encryption> { SecureEnclaveEncryption() }
     single<KtorClientFactory> { DarwinKtorClientFactory() }
     factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get(), get()) }
-    single { ApnsTokenProvider(tasksPreferences = get(), scope = get(), pushTokenManager = { get() }, sseClient = { get() }) }
+    single { ApnsTokenProvider(tasksPreferences = get(), installId = get(), scope = get(), pushTokenManager = { get() }, sseClient = { get() }) }
     single {
         SseClient(
             scope = get(),
