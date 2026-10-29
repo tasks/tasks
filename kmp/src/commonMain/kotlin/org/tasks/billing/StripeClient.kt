@@ -23,6 +23,12 @@ data class StripePurchase(
     val formattedPrice: String? = null,
 )
 
+data class StripeReceipt(
+    val purchaseJwt: String,
+    val sku: String? = null,
+    val formattedPrice: String? = null,
+)
+
 sealed interface StripeCheckout {
     data class Started(
         val code: String,
@@ -32,7 +38,12 @@ sealed interface StripeCheckout {
 
     data object UnknownPrice : StripeCheckout
 
-    data class SubscriptionExists(val product: String? = null) : StripeCheckout
+    data class SubscriptionExists(
+        val product: String? = null,
+        val receipt: StripeReceipt? = null,
+    ) : StripeCheckout
+
+    data class Collected(val outcome: StripeRestoreOutcome) : StripeCheckout
 
     data object RateLimited : StripeCheckout
 

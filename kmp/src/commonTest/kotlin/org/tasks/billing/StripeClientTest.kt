@@ -380,6 +380,23 @@ class StripeClientTest {
     }
 
     @Test
+    fun aRefusalCanCarryTheReceiptForTheSubscriptionTheyNowHave() = runTest {
+        respondWith(
+            HttpStatusCode.Conflict,
+            """{"error":"subscription_exists","product":"annual_30","status":"active",""" +
+                """"purchase_jwt":"jwt","sku":"annual_30","formatted_price":"${'$'}29.99"}""",
+        )
+
+        assertEquals(
+            StripeCheckout.SubscriptionExists(
+                product = "annual_30",
+                receipt = StripeReceipt("jwt", "annual_30", "${'$'}29.99"),
+            ),
+            client().createCheckout(null, purchaseJwt = "last-years-receipt"),
+        )
+    }
+
+    @Test
     fun treatsAnUnnamedConflictAsAnExistingSubscription() = runTest {
         respondWith(HttpStatusCode.Conflict, """{"error":"something_else"}""")
 

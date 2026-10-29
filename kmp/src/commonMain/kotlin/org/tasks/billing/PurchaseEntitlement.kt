@@ -262,15 +262,21 @@ class PurchaseEntitlement(
 
     suspend fun storeEntitlement(
         jwt: String,
-        refreshToken: String,
+        refreshToken: String?,
         sku: String? = null,
         formattedPrice: String? = null,
         provider: EntitlementProvider,
         covered: Boolean = true,
     ): Boolean = checkLock.withLock {
+        val token = refreshToken
+            ?: (load() as? LoadResult.Loaded)?.entitlement?.refreshToken
+            ?: run {
+                logger.e { "A receipt that carries no refresh token needs one already stored" }
+                return@withLock false
+            }
         grantEntitlement(
             jwt = jwt,
-            refreshToken = refreshToken,
+            refreshToken = token,
             sku = sku,
             formattedPrice = formattedPrice,
             provider = provider,

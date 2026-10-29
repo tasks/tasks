@@ -32,8 +32,12 @@ class StripePurchases(
 
     override suspend fun prices(): List<StripePrice>? = client.prices()
 
-    override suspend fun createCheckout(price: StripePrice?): StripeCheckout =
-        client.createCheckout(price?.priceId, purchaseJwt = entitlement.getJwt())
+    override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
+        val result = client.createCheckout(price?.priceId, purchaseJwt = entitlement.getJwt())
+        val renewed = (result as? StripeCheckout.SubscriptionExists)?.receipt ?: return result
+        logger.i { "The subscription was renewed elsewhere, keeping the receipt it came with" }
+        return StripeCheckout.Collected(keep(renewed))
+    }
 
     override suspend fun changePlan(price: StripePrice): StripeChange {
         claimStoredPurchase()
@@ -99,12 +103,33 @@ class StripePurchases(
     suspend fun keep(
         purchase: StripePurchase,
         covered: Boolean = true,
+    ): StripeRestoreOutcome = keep(
+        jwt = purchase.purchaseJwt,
+        refreshToken = purchase.refreshToken,
+        sku = purchase.sku,
+        formattedPrice = purchase.formattedPrice,
+        covered = covered,
+    )
+
+    private suspend fun keep(receipt: StripeReceipt): StripeRestoreOutcome = keep(
+        jwt = receipt.purchaseJwt,
+        refreshToken = null,
+        sku = receipt.sku,
+        formattedPrice = receipt.formattedPrice,
+    )
+
+    private suspend fun keep(
+        jwt: String,
+        refreshToken: String?,
+        sku: String?,
+        formattedPrice: String?,
+        covered: Boolean = true,
     ): StripeRestoreOutcome {
         val stored = entitlement.storeEntitlement(
-            jwt = purchase.purchaseJwt,
-            refreshToken = purchase.refreshToken,
-            sku = purchase.sku,
-            formattedPrice = purchase.formattedPrice,
+            jwt = jwt,
+            refreshToken = refreshToken,
+            sku = sku,
+            formattedPrice = formattedPrice,
             provider = EntitlementProvider.STRIPE,
             covered = covered,
         )
@@ -112,7 +137,7 @@ class StripePurchases(
             logger.e { "Could not store the purchase" }
             return StripeRestoreOutcome.StorageFailed
         }
-        val claim = claim(purchase.purchaseJwt)
+        val claim = claim(jwt)
         if (claim is StripeSubscriptionResult.TokenInUse) {
             return StripeRestoreOutcome.AccountInUse(claim.existingAccount)
         }

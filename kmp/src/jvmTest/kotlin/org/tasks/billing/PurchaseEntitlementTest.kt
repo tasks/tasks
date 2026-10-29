@@ -599,6 +599,41 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aReceiptWithNoCredentialKeepsTheRefreshTokenAlreadyStored() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS))
+        val entitlement = entitlement()
+        entitlement.initialize()
+        entitlement.awaitReady()
+        val minted = jwt(exp = now() + 60 * DAY_SECONDS)
+
+        assertTrue(
+            entitlement.storeEntitlement(
+                jwt = minted,
+                refreshToken = null,
+                sku = "annual_30",
+                provider = EntitlementProvider.STRIPE,
+            )
+        )
+
+        assertEquals(minted, entitlement.getJwt())
+        assertEquals("stored-token", readFromDisk().refreshToken)
+    }
+
+    @Test
+    fun aReceiptWithNoCredentialAndNothingStoredIsRefused() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.initialize()
+
+        assertFalse(
+            entitlement.storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = null,
+                provider = EntitlementProvider.STRIPE,
+            )
+        )
+    }
+
+    @Test
     fun aCheckSpendsNoCredentialAndLooksLikeNoPurchase() = runBlocking {
         val stored = jwt(exp = now() + 30 * DAY_SECONDS)
         storeOnDisk(stored, EntitlementProvider.STRIPE)

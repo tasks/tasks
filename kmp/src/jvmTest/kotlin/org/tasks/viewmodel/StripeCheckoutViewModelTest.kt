@@ -539,6 +539,35 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aSubscriptionCollectedAtTheTillIsNotRepriced() = runTest(dispatcher) {
+        checkout = StripeCheckout.Collected(StripeRestoreOutcome.Restored)
+        plan = null
+        val viewModel = viewModel()
+        runCurrent()
+        plan = StripePlan("annual_30")
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.notice)
+        assertNull(viewModel.viewState.value.checkoutUrl)
+        assertEquals("annual_30", viewModel.viewState.value.plan?.sku)
+    }
+
+    @Test
+    fun aCollectedSubscriptionBelowTheFloorStillAsksForAnUpgrade() = runTest(dispatcher) {
+        checkout = StripeCheckout.Collected(StripeRestoreOutcome.NeedsUpgrade)
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(Notice.NeedsUpgrade, viewModel.viewState.value.notice)
+    }
+
+    @Test
     fun aPlanThatTurnsOutNotToExistIsBoughtInstead() = runTest(dispatcher) {
         plan = StripePlan("annual_01")
         change = StripeChange.NotLinked

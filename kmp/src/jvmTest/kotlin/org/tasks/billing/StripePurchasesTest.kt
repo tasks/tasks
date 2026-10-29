@@ -155,11 +155,13 @@ class StripePurchasesTest {
 
     private val checkoutReceipts = mutableListOf<String?>()
 
+    private var checkout: StripeCheckout = StripeCheckout.Failed
+
     private val stripeClient = object : StripeClient {
         override suspend fun prices(): List<StripePrice>? = null
         override suspend fun createCheckout(priceId: String?, purchaseJwt: String?): StripeCheckout {
             checkoutReceipts.add(purchaseJwt)
-            return StripeCheckout.Failed
+            return checkout
         }
         override suspend fun changePlan(priceId: String, purchaseJwt: String?): StripeChange {
             changeReceipts.add(purchaseJwt)
@@ -270,6 +272,48 @@ class StripePurchasesTest {
         purchases().createCheckout(null)
 
         assertEquals(listOf<String?>(null), checkoutReceipts)
+    }
+
+    @Test
+    fun aSubscriptionRenewedElsewhereIsCollectedRatherThanRepriced() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase(), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(
+            product = "annual_30",
+            receipt = StripeReceipt(jwt(), "annual_30", "USD 30.00"),
+        )
+
+        val result = purchases(entitlement).createCheckout(null)
+
+        assertEquals(StripeCheckout.Collected(StripeRestoreOutcome.Restored), result)
+        assertTrue(entitlement.hasPro.first())
+        assertEquals("annual_30", entitlement.sku.first())
+    }
+
+    @Test
+    fun aSubscriptionBoughtOnAnotherDeviceIsCollectedWithoutACelebration() = runBlocking {
+        accounts = emptyList()
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase(sku = "annual_01"), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(
+            product = "monthly_03",
+            receipt = StripeReceipt(jwt(), "monthly_03", "USD 3.00"),
+        )
+
+        purchases(entitlement).createCheckout(null)
+
+        assertTrue(entitlement.hasPro.first())
+        assertFalse(tasksPreferences.get(TasksPreferences.needsCloudOnboarding, false))
+        assertTrue(onboardingSteps.isEmpty())
+    }
+
+    @Test
+    fun aRefusalWithNoReceiptIsHandedBackAsItCame() = runBlocking {
+        checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
+
+        val result = purchases().createCheckout(null)
+
+        assertEquals(StripeCheckout.SubscriptionExists(product = "annual_30"), result)
     }
 
     @Test

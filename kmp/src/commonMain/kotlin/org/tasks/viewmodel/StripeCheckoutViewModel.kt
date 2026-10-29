@@ -122,6 +122,10 @@ open class StripeCheckoutViewModel(
                     _viewState.update { it.copy(checkoutUrl = checkout.url) }
                     poll(checkout.code, checkout.expiresAt)
                 }
+                is StripeCheckout.Collected -> {
+                    refreshPlan()
+                    finish(checkout.outcome.notice)
+                }
                 is StripeCheckout.SubscriptionExists -> {
                     Logger.w(TAG) { "Checkout refused: this account already pays for ${checkout.product}" }
                     refreshPlan()

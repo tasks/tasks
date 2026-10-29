@@ -95,6 +95,9 @@ class StripeClientImpl(
                 return StripePurchase(jwt, refreshToken, sku, formatted_price)
             }
 
+        val receipt: StripeReceipt?
+            get() = purchase_jwt?.let { StripeReceipt(it, sku, formatted_price) }
+
         fun covers(logger: Logger): Boolean = when (restored) {
             RESTORED_SUBSCRIPTION -> true
             RESTORED_CUSTOMER -> false
@@ -208,7 +211,14 @@ class StripeClientImpl(
                 if (body.errorCode() != ERROR_SUBSCRIPTION_EXISTS) {
                     logger.w { "Unexpected 409 from checkout: ${body.errorCode()}" }
                 }
-                Attempt.Answered(StripeCheckout.SubscriptionExists(product = body.jsonField("product")))
+                Attempt.Answered(
+                    StripeCheckout.SubscriptionExists(
+                        product = body.jsonField("product"),
+                        receipt = json
+                            .decodeFromString(PurchaseResponse.serializer(), body)
+                            .receipt,
+                    )
+                )
             }
             429 -> Attempt.Answered(StripeCheckout.RateLimited)
             503 -> Attempt.Answered(StripeCheckout.Unavailable)
