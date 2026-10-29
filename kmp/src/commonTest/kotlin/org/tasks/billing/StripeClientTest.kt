@@ -565,6 +565,53 @@ class StripeClientTest {
     }
 
     @Test
+    fun aRestoreOfALiveSubscriptionUnlocks() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"restored":"subscription","purchase_jwt":"jwt","refresh_token":"rt",""" +
+                """"sku":"annual_30","subscription":{"isActive":true}}""",
+        )
+
+        assertEquals(
+            StripeRestore.Restored(
+                StripePurchase("jwt", "rt", "annual_30"),
+                covered = true,
+            ),
+            client().verifyRestoreCode("alice@example.com", "123456"),
+        )
+    }
+
+    @Test
+    fun aRestoreOfAnEndedSubscriptionUnlocksNothing() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"restored":"customer","purchase_jwt":"jwt","refresh_token":"rt",""" +
+                """"sku":"monthly_03","subscription":{"isActive":false}}""",
+        )
+
+        assertEquals(
+            StripeRestore.Restored(
+                StripePurchase("jwt", "rt", "monthly_03"),
+                covered = false,
+            ),
+            client().verifyRestoreCode("alice@example.com", "123456"),
+        )
+    }
+
+    @Test
+    fun aRenewalStillSettlingIsStillARestore() = runTest {
+        respondWith(
+            HttpStatusCode.OK,
+            """{"restored":"subscription","purchase_jwt":"jwt","refresh_token":"rt",""" +
+                """"subscription":{"isActive":false,"status":"past_due"}}""",
+        )
+
+        val result = client().verifyRestoreCode("alice@example.com", "123456")
+
+        assertTrue((result as StripeRestore.Restored).covered)
+    }
+
+    @Test
     fun mapsRestoreVerifyFailures() = runTest {
         respondWith(HttpStatusCode.BadRequest, """{"error":"invalid_code"}""")
         assertEquals(StripeRestore.InvalidCode, client().verifyRestoreCode("a@b.com", "000000"))

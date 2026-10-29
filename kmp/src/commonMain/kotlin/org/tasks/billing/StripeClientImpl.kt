@@ -82,6 +82,7 @@ class StripeClientImpl(
     @Serializable
     private data class PurchaseResponse(
         val status: String = STATUS_PENDING,
+        val restored: String? = null,
         val purchase_jwt: String? = null,
         val refresh_token: String? = null,
         val sku: String? = null,
@@ -93,6 +94,15 @@ class StripeClientImpl(
                 val refreshToken = refresh_token ?: return null
                 return StripePurchase(jwt, refreshToken, sku, formatted_price)
             }
+
+        fun covers(logger: Logger): Boolean = when (restored) {
+            RESTORED_SUBSCRIPTION -> true
+            RESTORED_CUSTOMER -> false
+            else -> {
+                logger.w { "Restore did not say what it restored" }
+                true
+            }
+        }
     }
 
     @Serializable
@@ -310,14 +320,13 @@ class StripeClientImpl(
             val body = response.bodyAsText()
             when (response.status.value) {
                 in 200..299 -> {
-                    val purchase = json
-                        .decodeFromString(PurchaseResponse.serializer(), body)
-                        .purchase
+                    val result = json.decodeFromString(PurchaseResponse.serializer(), body)
+                    val purchase = result.purchase
                     if (purchase == null) {
                         logger.w { "Restore response has no purchase" }
                         StripeRestore.Failed
                     } else {
-                        StripeRestore.Restored(purchase)
+                        StripeRestore.Restored(purchase, covered = result.covers(logger))
                     }
                 }
                 400 -> if (body.errorCode() == ERROR_INVALID_EMAIL) {
@@ -369,6 +378,8 @@ class StripeClientImpl(
     companion object {
         private const val TAG = "StripeClient"
         private const val STATUS_PENDING = "pending"
+        private const val RESTORED_SUBSCRIPTION = "subscription"
+        private const val RESTORED_CUSTOMER = "customer"
         private const val ERROR_SUBSCRIPTION_EXISTS = "subscription_exists"
         private const val ERROR_INVALID_EMAIL = "invalid_email"
         private const val ERROR_INVALID_PURCHASE_JWT = "invalid_purchase_jwt"

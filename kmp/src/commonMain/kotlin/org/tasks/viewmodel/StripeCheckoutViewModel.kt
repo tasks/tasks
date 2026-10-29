@@ -233,6 +233,7 @@ open class StripeCheckoutViewModel(
     private val StripeRestoreOutcome.notice: Notice?
         get() = when (this) {
             StripeRestoreOutcome.Restored -> null
+            StripeRestoreOutcome.Ended -> Notice.SubscriptionCancelled
             StripeRestoreOutcome.NeedsUpgrade -> Notice.NeedsUpgrade
             is StripeRestoreOutcome.AccountInUse -> Notice.AccountInUse(existingAccount)
             StripeRestoreOutcome.StorageFailed -> Notice.StorageFailed

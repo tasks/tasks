@@ -90,7 +90,10 @@ sealed interface StripeRestoreRequest {
 }
 
 sealed interface StripeRestore {
-    data class Restored(val purchase: StripePurchase) : StripeRestore
+    data class Restored(
+        val purchase: StripePurchase,
+        val covered: Boolean = true,
+    ) : StripeRestore
 
     data object InvalidCode : StripeRestore
 

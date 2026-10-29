@@ -266,8 +266,16 @@ class PurchaseEntitlement(
         sku: String? = null,
         formattedPrice: String? = null,
         provider: EntitlementProvider,
+        covered: Boolean = true,
     ): Boolean = checkLock.withLock {
-        grantEntitlement(jwt, refreshToken, sku, formattedPrice, provider) == StoreResult.STORED
+        grantEntitlement(
+            jwt = jwt,
+            refreshToken = refreshToken,
+            sku = sku,
+            formattedPrice = formattedPrice,
+            provider = provider,
+            covered = covered,
+        ) == StoreResult.STORED
     }
 
     private suspend fun grantEntitlement(
@@ -277,6 +285,7 @@ class PurchaseEntitlement(
         formattedPrice: String?,
         provider: EntitlementProvider,
         terms: PurchaseTerms? = null,
+        covered: Boolean = true,
     ): StoreResult {
         if (!verifySignature(jwt)) {
             logger.e { "Refusing to store entitlement that failed signature verification" }
@@ -294,15 +303,22 @@ class PurchaseEntitlement(
         if (!persisted) {
             logger.e { "Failed to persist entitlement, pro will not survive a restart" }
         }
-        val wasPro = _hasPro.getAndUpdate { true }
+        lapsedReceipt = if (covered) null else jwt
+        val wasPro = if (covered) _hasPro.getAndUpdate { true } else _hasPro.value
         _sku.value = sku
         _formattedPrice.value = formattedPrice
         _provider.value = provider
         _terms.value = terms
-        if (!wasPro) {
+        if (covered && !wasPro) {
             syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
         }
-        payload.exp?.let { scheduleRefresh(entitlement, it) }
+        payload.exp?.let {
+            scheduleRefresh(
+                entitlement = entitlement,
+                exp = it,
+                interval = if (covered) RETRY_INTERVAL_SECONDS else lapsedRetryIntervalSeconds,
+            )
+        }
         return if (persisted) StoreResult.STORED else StoreResult.GRANTED_NOT_PERSISTED
     }
 

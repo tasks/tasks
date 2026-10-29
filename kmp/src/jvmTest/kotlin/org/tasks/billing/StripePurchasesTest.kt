@@ -290,6 +290,28 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aReceiptForAnEndedSubscriptionIsKeptWithoutUnlocking() = runBlocking {
+        val entitlement = entitlement()
+        val held = purchase()
+
+        val outcome = purchases(entitlement).keep(held, covered = false)
+
+        assertEquals(StripeRestoreOutcome.Ended, outcome)
+        assertFalse(entitlement.hasPro.first())
+        assertEquals(held.purchaseJwt, entitlement.getJwt())
+        assertEquals("monthly_03", entitlement.sku.first())
+    }
+
+    @Test
+    fun anEndedSubscriptionOnAnotherAccountStillNamesThatAccount() = runBlocking {
+        claimResult = StripeSubscriptionResult.TokenInUse("a***@example.com")
+
+        val outcome = purchases().keep(purchase(), covered = false)
+
+        assertEquals(StripeRestoreOutcome.AccountInUse("a***@example.com"), outcome)
+    }
+
+    @Test
     fun aKeptPurchaseUnlocksThisDevice() = runBlocking {
         val entitlement = entitlement()
 

@@ -91,28 +91,37 @@ class StripePurchases(
     suspend fun redeemRestoreCode(email: String, code: String): StripeRestore {
         val result = client.verifyRestoreCode(email, code)
         if (result is StripeRestore.Restored) {
-            keep(result.purchase)
+            keep(result.purchase, covered = result.covered)
         }
         return result
     }
 
-    suspend fun keep(purchase: StripePurchase): StripeRestoreOutcome {
+    suspend fun keep(
+        purchase: StripePurchase,
+        covered: Boolean = true,
+    ): StripeRestoreOutcome {
         val stored = entitlement.storeEntitlement(
             jwt = purchase.purchaseJwt,
             refreshToken = purchase.refreshToken,
             sku = purchase.sku,
             formattedPrice = purchase.formattedPrice,
             provider = EntitlementProvider.STRIPE,
+            covered = covered,
         )
         if (!stored) {
             logger.e { "Could not store the purchase" }
             return StripeRestoreOutcome.StorageFailed
         }
-        return when (val claim = claim(purchase.purchaseJwt)) {
+        val claim = claim(purchase.purchaseJwt)
+        if (claim is StripeSubscriptionResult.TokenInUse) {
+            return StripeRestoreOutcome.AccountInUse(claim.existingAccount)
+        }
+        if (!covered) {
+            return StripeRestoreOutcome.Ended
+        }
+        return when (claim) {
             null, StripeSubscriptionResult.Claimed -> StripeRestoreOutcome.Restored
             StripeSubscriptionResult.InsufficientSubscription -> StripeRestoreOutcome.NeedsUpgrade
-            is StripeSubscriptionResult.TokenInUse ->
-                StripeRestoreOutcome.AccountInUse(claim.existingAccount)
             else -> {
                 logger.w { "Stored the purchase but could not claim it: $claim" }
                 StripeRestoreOutcome.Restored
@@ -189,6 +198,8 @@ class StripePurchases(
 
 sealed interface StripeRestoreOutcome {
     data object Restored : StripeRestoreOutcome
+
+    data object Ended : StripeRestoreOutcome
 
     data object NeedsUpgrade : StripeRestoreOutcome
 
