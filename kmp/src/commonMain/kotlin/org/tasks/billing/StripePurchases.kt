@@ -254,30 +254,6 @@ data class StripePlan(val sku: String?, val terms: PurchaseTerms? = null) {
     val trialEnd: Long? get() = terms?.takeIf { it.isTrialing }?.trialEnd
 }
 
-fun TasksAccountResponse.stripeTerms(): PurchaseTerms? {
-    val cloud = subscriptions.firstOrNull { it.provider == TasksAccountResponse.PROVIDER_STRIPE }
-    val supporter = supporter.firstOrNull { it.provider == TasksAccountResponse.PROVIDER_STRIPE }
-    return if (cloud != null) {
-        PurchaseTerms(
-            status = cloud.status,
-            trialEnd = cloud.trialEnd,
-            expires = cloud.expires,
-            cancelAtPeriodEnd = cloud.cancelAtPeriodEnd,
-            creditCents = creditCents,
-            creditCurrency = creditCurrency,
-        )
-    } else {
-        PurchaseTerms(
-            status = supporter?.status,
-            trialEnd = supporter?.trialEnd,
-            expires = supporter?.expires,
-            cancelAtPeriodEnd = supporter?.cancelAtPeriodEnd ?: false,
-            creditCents = creditCents,
-            creditCurrency = creditCurrency,
-        )
-    }.orNull()
-}
-
 sealed interface StripeCollection {
     data object Pending : StripeCollection
 
@@ -298,4 +274,15 @@ suspend fun tasksSessionAuthorization(
     val user = account.username?.takeIf { it.isNotBlank() } ?: return null
     val password = encryption.decrypt(account.password)?.takeIf { it.isNotBlank() } ?: return null
     return basicCredentials(user, password)
+}
+
+fun TasksAccountResponse.stripeTerms(): PurchaseTerms? = stripeRow.let { row ->
+    PurchaseTerms(
+        status = row?.status,
+        trialEnd = row?.trialEnd,
+        expires = row?.expires,
+        cancelAtPeriodEnd = row?.cancelAtPeriodEnd ?: false,
+        creditCents = creditCents,
+        creditCurrency = creditCurrency,
+    ).orNull()
 }
