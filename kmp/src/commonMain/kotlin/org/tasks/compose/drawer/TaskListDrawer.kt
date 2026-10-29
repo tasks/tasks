@@ -182,71 +182,68 @@ fun TaskListDrawer(
             onCloseClicked = { onQueryChange("") },
             onSearchClicked = {},
         )
-        if (query.isBlank()) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = listState,
-                contentPadding = PaddingValues(
-                    bottom = bottomNavPadding,
-                ),
-            ) {
-                itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
-                    val isFirst = index == 0 ||
-                            item is DrawerItem.Header ||
-                            item is DrawerItem.SignIn
-                    val isLast = index == displayedFilters.lastIndex ||
-                            displayedFilters[index + 1] is DrawerItem.Header ||
-                            displayedFilters[index + 1] is DrawerItem.SignIn
-                    val cornerRadius = 16.dp
-                    val shape = when {
-                        isFirst && isLast -> RoundedCornerShape(cornerRadius)
-                        isFirst -> RoundedCornerShape(
-                            topStart = cornerRadius,
-                            topEnd = cornerRadius
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            state = listState,
+            contentPadding = PaddingValues(
+                bottom = bottomNavPadding,
+            ),
+        ) {
+            itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
+                val isFirst = index == 0 ||
+                        item is DrawerItem.Header ||
+                        item is DrawerItem.SignIn
+                val isLast = index == displayedFilters.lastIndex ||
+                        displayedFilters[index + 1] is DrawerItem.Header ||
+                        displayedFilters[index + 1] is DrawerItem.SignIn
+                val cornerRadius = 16.dp
+                val shape = when {
+                    isFirst && isLast -> RoundedCornerShape(cornerRadius)
+                    isFirst -> RoundedCornerShape(
+                        topStart = cornerRadius,
+                        topEnd = cornerRadius
+                    )
+                    isLast -> RoundedCornerShape(
+                        bottomStart = cornerRadius,
+                        bottomEnd = cornerRadius
+                    )
+                    else -> RoundedCornerShape(0.dp)
+                }
+                Surface(
+                    modifier = Modifier
+                        .padding(
+                            start = DrawerItemInset,
+                            end = DrawerItemInset,
+                            top = if (isFirst && index > 0) 8.dp else 0.dp,
+                        ),
+                    shape = shape,
+                    color = MaterialTheme.colorScheme.surfaceContainerLowest,
+                ) {
+                    when (item) {
+                        is DrawerItem.Filter -> FilterItem(
+                            item = item,
+                            expanded = expanded,
+                            onClick = { onClick(item) }
                         )
-                        isLast -> RoundedCornerShape(
-                            bottomStart = cornerRadius,
-                            bottomEnd = cornerRadius
+                        is DrawerItem.Header -> HeaderItem(
+                            item = item,
+                            expanded = expanded,
+                            toggleCollapsed = { onClick(item) },
+                            onAddClick = { onAddClick(item) },
+                            onExpandDrawer = onExpandDrawer,
+                            onErrorClick = onErrorClick,
                         )
-                        else -> RoundedCornerShape(0.dp)
-                    }
-                    Surface(
-                        modifier = Modifier
-                            .padding(
-                                start = DrawerItemInset,
-                                end = DrawerItemInset,
-                                top = if (isFirst && index > 0) 8.dp else 0.dp,
-                            ),
-                        shape = shape,
-                        color = MaterialTheme.colorScheme.surfaceContainerLowest,
-                    ) {
-                        when (item) {
-                            is DrawerItem.Filter -> FilterItem(
-                                item = item,
-                                expanded = expanded,
-                                onClick = { onClick(item) }
-                            )
-                            is DrawerItem.Header -> HeaderItem(
-                                item = item,
-                                expanded = expanded,
-                                toggleCollapsed = { onClick(item) },
-                                onAddClick = { onAddClick(item) },
-                                onExpandDrawer = onExpandDrawer,
-                                onErrorClick = onErrorClick,
-                            )
-                            is DrawerItem.SignIn -> SignInItem(
-                                expanded = expanded,
-                                onClick = onSignIn,
-                                onExpandDrawer = onExpandDrawer,
-                            )
-                        }
+                        is DrawerItem.SignIn -> SignInItem(
+                            expanded = expanded,
+                            onClick = onSignIn,
+                            onExpandDrawer = onExpandDrawer,
+            )
                     }
                 }
             }
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
