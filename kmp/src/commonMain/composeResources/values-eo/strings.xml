@@ -686,4 +686,7 @@
     <string name="mcp_access_read_write_summary">Asistantoj povas ankaŭ krei, redakti kaj forigi taskojn, listojn, etikedojn, lokojn kaj memorigilojn.</string>
     <string name="mcp_connect_summary">Kopiu ĉi tiun en vian asistanton kaj tiam restarigu ĝin. La ĵetono jam estas inkluziva, do private gardu tion.</string>
     <string name="mcp_regenerate_token">Regeneri ĵetonon</string>
+    <string name="mcp_clipboard_note">Iu ajn kiun vi kopias ĉi tie enhavas la ĵetonon, kaj la tondobufro malpleniĝos post minuto.</string>
+    <string name="works_with_apple_reminders_description">Konekti CalDAV konton en sistemagordoj</string>
+    <string name="works_with_tasker_description">Krei taskojn kaj ekagigi listajn sciigojn per viaj aŭtomatigoj</string>
 </resources>
