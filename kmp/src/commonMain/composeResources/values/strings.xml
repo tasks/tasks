@@ -373,6 +373,8 @@
     <string name="pricing_free_trial">%1$d-day free trial</string>
     <string name="pricing_subscribe_for">Subscribe for %1$s</string>
     <string name="pro_card_credit">%1$s credit will be applied to your next renewal</string>
+    <string name="subscription_covered_by">This account is paid for by your %1$s.</string>
+    <string name="subscription_covered_elsewhere">This account is already paid for somewhere else.</string>
     <string name="already_subscribed">Already a subscriber?</string>
     <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
     <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>

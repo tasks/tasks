@@ -21,6 +21,7 @@ import org.tasks.billing.StripeCollection
 import org.tasks.billing.StripePrice
 import org.tasks.billing.StripePlan
 import org.tasks.billing.StripeRestoreOutcome
+import org.tasks.billing.UnlockSource
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 
 private const val TAG = "StripeCheckout"
@@ -38,6 +39,8 @@ open class StripeCheckoutViewModel(
         val confirmChange: PendingChange? = null,
         val planChanged: Boolean = false,
         val knownCustomer: Boolean = false,
+        val coveredElsewhere: Boolean = false,
+        val coveredBy: UnlockSource? = null,
         val notice: Notice? = null,
     ) {
         val busy: Boolean get() = busySku != null
@@ -212,7 +215,15 @@ open class StripeCheckoutViewModel(
     private suspend fun refreshPlan() {
         val plan = purchases.currentPlan()
         val knownCustomer = purchases.hasStripeCustomer()
-        _viewState.update { it.copy(plan = plan, knownCustomer = knownCustomer) }
+        val coverage = purchases.coveredElsewhere()
+        _viewState.update {
+            it.copy(
+                plan = plan,
+                knownCustomer = knownCustomer,
+                coveredElsewhere = coverage.covered,
+                coveredBy = coverage.source,
+            )
+        }
     }
 
     private suspend fun loadCatalog() {

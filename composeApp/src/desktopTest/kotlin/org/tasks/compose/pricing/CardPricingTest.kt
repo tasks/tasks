@@ -12,10 +12,12 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.billing.StripeCatalog
 import org.tasks.billing.StripePrice
+import org.tasks.billing.UnlockSource
 
 @OptIn(ExperimentalTestApi::class)
 class CardPricingTest {
@@ -24,6 +26,15 @@ class CardPricingTest {
         priceId = "pri_cloud_year",
         sku = "cloud_annual",
         amountCents = 2999,
+        entitles = true,
+        trialDays = 14,
+    )
+
+    private val monthly = StripePrice(
+        priceId = "pri_cloud_month",
+        sku = "cloud_monthly",
+        amountCents = 299,
+        interval = StripePrice.INTERVAL_MONTH,
         entitles = true,
         trialDays = 14,
     )
@@ -133,6 +144,57 @@ class CardPricingTest {
             "expected the restore link not to repeat the question",
             onAllNodes(hasText("Already a subscriber?")).fetchSemanticsNodes().isEmpty(),
         )
+    }
+
+    @Test
+    fun anAccountAnotherProviderPaysForIsWarnedButStillSoldTo() = runComposeUiTest {
+        var selected: StripePrice? = null
+        showCloudCard(
+            StoreBilling(
+                catalog = StripeCatalog.from(listOf(annual)),
+                coveredElsewhere = true,
+                coveredBy = UnlockSource.GOOGLE_PLAY,
+                onSelect = { selected = it },
+            )
+        )
+
+        assertShowing("This account is paid for by your Google Play subscription.")
+        onNodeWithText("Subscribe for \$29.99/year").performScrollTo().performClick()
+
+        assertEquals(annual.sku, selected?.sku)
+    }
+
+    @Test
+    fun aCardSubscriptionOfTheirOwnIsStillTheirsToReprice() = runComposeUiTest {
+        showCloudCard(
+            StoreBilling(
+                catalog = StripeCatalog.from(listOf(annual, monthly)),
+                currentSku = monthly.sku,
+                coveredElsewhere = true,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("Subscribe for \$29.99/year")
+        assertTrue(
+            "expected no coverage warning on a reprice",
+            onAllNodes(hasText("already paid for somewhere else", substring = true))
+                .fetchSemanticsNodes().isEmpty(),
+        )
+    }
+
+    @Test
+    fun aProviderTheAppCannotNameIsWarnedAboutInTheGeneralCase() = runComposeUiTest {
+        showCloudCard(
+            StoreBilling(
+                catalog = StripeCatalog.from(listOf(annual)),
+                coveredElsewhere = true,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("This account is already paid for somewhere else.")
+        assertShowing("Subscribe for \$29.99/year")
     }
 
     private fun ComposeUiTest.showCloudCard(store: StoreBilling?) {

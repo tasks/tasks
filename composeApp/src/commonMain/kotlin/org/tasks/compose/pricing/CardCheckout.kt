@@ -47,6 +47,8 @@ fun cardCheckout(
         currentSku = state.plan?.sku,
         suggestedPrice = suggestedPrice,
         knownCustomer = state.knownCustomer,
+        coveredElsewhere = state.coveredElsewhere,
+        coveredBy = state.coveredBy,
         onSelect = { viewModel.select(it) },
     )
 }

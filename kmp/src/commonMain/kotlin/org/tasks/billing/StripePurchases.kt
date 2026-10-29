@@ -65,6 +65,21 @@ class StripePurchases(
     override suspend fun hasStripeCustomer(): Boolean =
         entitlement.provider.first() == EntitlementProvider.STRIPE
 
+    override suspend fun coveredElsewhere(): ForeignCoverage {
+        val account = accountData.getAccountResponse() ?: return ForeignCoverage()
+        if (!account.hasForeignCloudSubscription) {
+            return ForeignCoverage()
+        }
+        return ForeignCoverage(
+            covered = true,
+            source = when (account.foreignCloudProvider) {
+                TasksAccountResponse.PROVIDER_PLAY -> UnlockSource.GOOGLE_PLAY
+                TasksAccountResponse.PROVIDER_GITHUB_SPONSOR -> UnlockSource.GITHUB
+                else -> null
+            },
+        )
+    }
+
     override suspend fun currentPlan(): StripePlan? {
         entitlement.checkTier()
         return if (entitlement.hasPro.first() &&
@@ -272,8 +287,15 @@ interface StripeCheckouts {
 
     suspend fun hasStripeCustomer(): Boolean
 
+    suspend fun coveredElsewhere(): ForeignCoverage
+
     suspend fun collectCheckout(code: String): StripeCollection
 }
+
+data class ForeignCoverage(
+    val covered: Boolean = false,
+    val source: UnlockSource? = null,
+)
 
 data class StripePlan(
     val sku: String?,

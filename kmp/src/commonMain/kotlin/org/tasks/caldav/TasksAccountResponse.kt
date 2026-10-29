@@ -48,6 +48,9 @@ data class TasksAccountResponse(
     val hasForeignCloudSubscription: Boolean
         get() = subscriptions.any { it.provider != PROVIDER_STRIPE }
 
+    val foreignCloudProvider: String?
+        get() = subscriptions.firstOrNull { it.provider != PROVIDER_STRIPE }?.provider
+
     val stripeProduct: String?
         get() = stripeRow?.product
 
@@ -110,5 +113,7 @@ data class TasksAccountResponse(
 
     companion object {
         const val PROVIDER_STRIPE = "stripe"
+        const val PROVIDER_PLAY = "play"
+        const val PROVIDER_GITHUB_SPONSOR = "github_sponsor"
     }
 }

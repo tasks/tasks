@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.billing.StripeCatalog
 import org.tasks.billing.StripePrice
+import org.tasks.billing.UnlockSource
 import tasks.kmp.generated.resources.*
 
 enum class PricingMode {
@@ -74,6 +75,8 @@ data class StoreBilling(
     val currentSku: String? = null,
     val suggestedPrice: Int? = null,
     val knownCustomer: Boolean = false,
+    val coveredElsewhere: Boolean = false,
+    val coveredBy: UnlockSource? = null,
     val onSelect: (StripePrice) -> Unit,
 ) {
     val busy: Boolean get() = busySku != null
@@ -81,6 +84,9 @@ data class StoreBilling(
     fun isBusy(price: StripePrice?): Boolean = price != null && busySku == price.sku
 
     fun unavailable(price: StripePrice?): Boolean = !loadingPrices && price == null
+
+    fun warnCoveredElsewhere(price: StripePrice?): Boolean =
+        coveredElsewhere && currentSku == null && price?.entitles == true
 }
 
 @Composable
@@ -299,6 +305,10 @@ private fun CloudTierCard(
             if (store?.unavailable(price) == true) {
                 UnavailableNotice()
             } else {
+                if (store?.warnCoveredElsewhere(price) == true) {
+                    CtaNotice(coveredElsewhereMessage(store.coveredBy))
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
                 PurchaseButton(
                     label = price.ctaLabel(),
                     busy = store?.loadingPrices == true || store?.isBusy(price) == true,

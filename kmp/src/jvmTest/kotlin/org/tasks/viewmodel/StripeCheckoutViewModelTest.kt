@@ -22,7 +22,9 @@ import org.tasks.billing.StripeChange
 import org.tasks.billing.PurchaseTerms
 import org.tasks.billing.StripePlan
 import org.tasks.billing.StripePrice
+import org.tasks.billing.ForeignCoverage
 import org.tasks.billing.StripeRestoreOutcome
+import org.tasks.billing.UnlockSource
 import org.tasks.time.DateTimeUtils2
 import org.tasks.viewmodel.StripeCheckoutViewModel.Notice
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.MAX_BACKOFF_MILLIS
@@ -42,6 +44,7 @@ class StripeCheckoutViewModelTest {
     )
     private var plan: StripePlan? = null
     private var knownCustomer = false
+    private var coverage = ForeignCoverage()
     private var change: StripeChange = StripeChange.Changed(entitles = true)
     private var changes = mutableListOf<StripePrice>()
     private var requestedCheckouts = 0
@@ -54,6 +57,7 @@ class StripeCheckoutViewModelTest {
         override suspend fun prices() = prices
         override suspend fun currentPlan() = plan
         override suspend fun hasStripeCustomer() = knownCustomer
+        override suspend fun coveredElsewhere() = coverage
         override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
             requestedCheckouts++
             return checkout
@@ -670,6 +674,42 @@ class StripeCheckoutViewModelTest {
         runCurrent()
 
         assertEquals(listOf(offer), changes)
+    }
+
+    @Test
+    fun aCloudTierIsSoldToAnAccountAnotherProviderPaysForSoTheyCanMoveToACard() =
+        runTest(dispatcher) {
+            coverage = ForeignCoverage(covered = true, source = UnlockSource.GOOGLE_PLAY)
+            val viewModel = viewModel()
+            runCurrent()
+
+            viewModel.select(offer)
+            runCurrent()
+
+            assertEquals(1, requestedCheckouts)
+            assertNull(viewModel.viewState.value.notice)
+        }
+
+    @Test
+    fun theProviderThatPaysIsCarriedForTheWarningTheCardShows() = runTest(dispatcher) {
+        coverage = ForeignCoverage(covered = true, source = UnlockSource.GOOGLE_PLAY)
+        val viewModel = viewModel()
+        runCurrent()
+
+        assertTrue(viewModel.viewState.value.coveredElsewhere)
+        assertEquals(UnlockSource.GOOGLE_PLAY, viewModel.viewState.value.coveredBy)
+    }
+
+    @Test
+    fun aSupporterRungIsStillSoldToAnAccountAnotherProviderPaysFor() = runTest(dispatcher) {
+        coverage = ForeignCoverage(covered = true, source = UnlockSource.GOOGLE_PLAY)
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(supportOffer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
     }
 
     @Test

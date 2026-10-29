@@ -706,6 +706,45 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun coverageNamesTheProviderThatBillsForIt() = runBlocking {
+        tasksPreferences.set(
+            TasksPreferences.cachedAccountData,
+            """{"subscriptions":[{"provider":"play","isActive":true,"product":"annual_30"}]}""",
+        )
+
+        val coverage = purchases().coveredElsewhere()
+
+        assertTrue(coverage.covered)
+        assertEquals(UnlockSource.GOOGLE_PLAY, coverage.source)
+    }
+
+    @Test
+    fun coverageLeavesAProviderItCannotNameUnnamed() = runBlocking {
+        tasksPreferences.set(
+            TasksPreferences.cachedAccountData,
+            """{"subscriptions":[{"provider":"paddle","isActive":true,"product":"annual_30"}]}""",
+        )
+
+        val coverage = purchases().coveredElsewhere()
+
+        assertTrue(coverage.covered)
+        assertNull(coverage.source)
+    }
+
+    @Test
+    fun aCardSubscriptionOfTheirOwnIsNotForeignCoverage() = runBlocking {
+        tasksPreferences.set(
+            TasksPreferences.cachedAccountData,
+            """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"annual_30"}]}""",
+        )
+
+        val coverage = purchases().coveredElsewhere()
+
+        assertFalse(coverage.covered)
+        assertNull(coverage.source)
+    }
+
+    @Test
     fun asignedInPlanCarriesWhatTheAccountSaidAboutIt() = runBlocking {
         tasksPreferences.set(
             TasksPreferences.cachedAccountData,

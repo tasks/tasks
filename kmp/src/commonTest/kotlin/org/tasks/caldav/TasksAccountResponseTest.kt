@@ -120,6 +120,17 @@ class TasksAccountResponseTest {
 
         assertTrue(response.hasForeignCloudSubscription)
         assertFalse(response.hasStripeSubscription)
+        assertEquals("play", response.foreignCloudProvider)
+    }
+
+    @Test
+    fun aCloudRowWithNoProviderIsStillNotACardSubscriptionToSellOver() {
+        val response = parse(
+            """{"subscriptions":[{"isActive":true,"product":"annual_30"}]}"""
+        )
+
+        assertTrue(response.hasForeignCloudSubscription)
+        assertNull(response.foreignCloudProvider)
     }
 
     @Test
