@@ -15,6 +15,7 @@ import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 import okio.BufferedSink
 import okio.FileSystem
+import okio.IOException
 import okio.Path
 import okio.SYSTEM
 import okio.buffer
@@ -31,7 +32,7 @@ class FileLogWriter(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO.limitedParallelism(1))
     private val files = List(FILE_COUNT) { logDirectory / "log.$it.txt" }
     private var written = 0L
-    private var sink: BufferedSink = rotate()
+    private var sink: BufferedSink? = rotate()
 
     @Volatile
     private var shuttingDown = false
@@ -56,12 +57,22 @@ class FileLogWriter(
     fun logFiles(): List<Path> = files.filter { fileSystem.exists(it) }
 
     private fun write(entry: String) {
-        sink.writeUtf8(entry)
-        sink.flush()
-        written += entry.utf8Size()
-        if (written >= fileSizeLimit) {
-            sink.close()
-            sink = rotate()
+        try {
+            val out = sink ?: fileSystem.appendingSink(files[0]).buffer().also { sink = it }
+            out.writeUtf8(entry)
+            out.flush()
+            written += entry.utf8Size()
+            if (written >= fileSizeLimit) {
+                sink = null
+                out.close()
+                sink = rotate()
+            }
+        } catch (_: IOException) {
+            try {
+                sink?.close()
+            } catch (_: IOException) {
+            }
+            sink = null
         }
     }
 

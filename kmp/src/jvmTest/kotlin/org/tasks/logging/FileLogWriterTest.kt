@@ -5,7 +5,14 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import okio.FileSystem
+import okio.ForwardingFileSystem
+import okio.ForwardingSink
+import okio.IOException
+import okio.Path
 import okio.Path.Companion.toOkioPath
+import okio.Buffer
+import okio.Sink
 import org.junit.rules.TemporaryFolder
 import java.io.File
 import java.util.concurrent.CountDownLatch
@@ -155,6 +162,46 @@ class FileLogWriterTest {
         assertTrue(File(folder.root, "log.2.txt").readText().contains("line 1"))
         assertTrue(File(folder.root, "log.1.txt").readText().contains("line 3"))
         assertTrue(currentLog().readText().contains("line 4"))
+    }
+
+    @Test
+    fun aFullDiskDoesNotThrowAndLoggingResumesOnceThereIsRoom() {
+        val failures = mutableListOf<Throwable>()
+        val previous = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { _, t -> synchronized(failures) { failures += t } }
+        try {
+            val disk = FullableFileSystem()
+            val writer = FileLogWriter(folder.root.toOkioPath(), fileSystem = disk)
+
+            disk.full = true
+            repeat(10) { writer.log(Severity.Error, "lost $it", "Startup", null) }
+            kotlinx.coroutines.runBlocking { writer.flush() }
+            disk.full = false
+            writer.log(Severity.Info, "room again", "Startup", null)
+            kotlinx.coroutines.runBlocking { writer.flush() }
+
+            assertEquals(emptyList<Throwable>(), synchronized(failures) { failures.toList() })
+            assertTrue(currentLog().readText().contains("room again"))
+        } finally {
+            Thread.setDefaultUncaughtExceptionHandler(previous)
+        }
+    }
+
+    private class FullableFileSystem : ForwardingFileSystem(FileSystem.SYSTEM) {
+        @Volatile
+        var full = false
+
+        override fun sink(file: Path, mustCreate: Boolean): Sink = guard(super.sink(file, mustCreate))
+
+        override fun appendingSink(file: Path, mustExist: Boolean): Sink =
+            guard(super.appendingSink(file, mustExist))
+
+        private fun guard(sink: Sink) = object : ForwardingSink(sink) {
+            override fun write(source: Buffer, byteCount: Long) {
+                if (full) throw IOException("No space left on device")
+                super.write(source, byteCount)
+            }
+        }
     }
 
     private fun eventually(condition: () -> Boolean) {
