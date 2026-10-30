@@ -27,6 +27,7 @@ object TasksIcons {
     const val EVENT = "event"
     const val REPEAT = "repeat"
     const val SUBTASK = "subdirectory_arrow_right"
+    const val DRIVE_FILE_MOVE = "drive_file_move"
 
     const val ABC = "abc"
     const val API = "api"

@@ -25,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,7 +39,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.themes.isDarkTheme
 import org.tasks.compose.PlatformBackHandler
@@ -48,6 +52,7 @@ import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.DiscardChangesDialog
 import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
+import org.tasks.compose.edit.MakeParentTaskPanel
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
 import org.tasks.compose.edit.RecurrencePickerDialog
@@ -68,7 +73,12 @@ import org.tasks.compose.pickers.alarmToSelection
 import org.tasks.compose.pickers.dueDateFromSelection
 import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.time.is24HourFormat
+import org.tasks.data.MakeParentTask
 import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskMover
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.NavigationDrawerSubheader
@@ -82,7 +92,9 @@ import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.failed_to_load_task
+import tasks.kmp.generated.resources.make_parent_task
 import tasks.kmp.generated.resources.no_list_available
+import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.subtask_list_locked
 import tasks.kmp.generated.resources.subtasks_multilevel_google_task
@@ -106,11 +118,15 @@ fun TaskEditScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val currentOnClose by rememberUpdatedState(onClose)
+    val log = remember { Logger.withTag("TaskEditScreen") }
     LaunchedEffect(viewModel) {
         viewModel.closeEvents.collect { currentOnClose() }
     }
     val loadError by viewModel.loadError.collectAsState()
     val saving by viewModel.saving.collectAsState()
+    var showMakeParentPanel by remember { mutableStateOf(false) }
+    var makeParentWorking by remember { mutableStateOf(false) }
+    val makeParentScope = rememberCoroutineScope()
 
     val saveAndClose = { viewModel.save() }
 
@@ -130,6 +146,40 @@ fun TaskEditScreen(
                         SymbolIcon(
                             name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
+                        )
+                    }
+                },
+                actions = {
+                    // "Move into new parent task": greyed out while there are unsaved
+                    // edits - the reparent operates on the saved row, and this action
+                    // does not save on the user's behalf. Hidden in practice on lists
+                    // that cannot nest (single-level accounts) by the same gating.
+                    val canMakeParent = !state.isLoading &&
+                            !state.isDraft &&
+                            !saving &&
+                            !state.hasChanges &&
+                            state.list?.isSingleLevel != true
+                    IconButton(
+                        onClick = { showMakeParentPanel = !showMakeParentPanel },
+                        enabled = canMakeParent,
+                    ) {
+                        SymbolIcon(
+                            name = TasksIcons.DRIVE_FILE_MOVE,
+                            contentDescription = stringResource(Res.string.make_parent_task),
+                        )
+                    }
+                    // Explicit save. Back has always been the only save path (save and
+                    // close at once); this is the plain save. Greyed out while clean.
+                    IconButton(
+                        onClick = { makeParentScope.launch { viewModel.saveCurrentTask() } },
+                        enabled = !state.isLoading &&
+                                !state.isDraft &&
+                                !saving &&
+                                state.hasChanges,
+                    ) {
+                        SymbolIcon(
+                            name = TasksIcons.CHECK,
+                            contentDescription = stringResource(Res.string.save),
                         )
                     }
                 },
@@ -196,6 +246,11 @@ fun TaskEditScreen(
                     val reminderViewModel = koinViewModel<ReminderControlSetViewModel>()
                     val is24Hour = is24HourFormat()
                     val keyboardController = LocalSoftwareKeyboardController.current
+                    val taskDao = koinInject<TaskDao>()
+                    val caldavDao = koinInject<CaldavDao>()
+                    val taskSaver = koinInject<TaskSaver>()
+                    val taskMover = koinInject<TaskMover>()
+                    val taskRequests = koinInject<TaskRequests>()
                     LaunchedEffect(list) { showListPicker = false }
                     Column(
                         modifier = Modifier
@@ -203,6 +258,47 @@ fun TaskEditScreen(
                             .verticalScroll(rememberScrollState())
                             .padding(TaskEditIslandInset),
                     ) {
+                        if (showMakeParentPanel) {
+                            MakeParentTaskPanel(
+                                modifier = Modifier.padding(bottom = 16.dp),
+                                working = makeParentWorking,
+                                keyboardController = keyboardController,
+                                onAccept = { title ->
+                                    makeParentWorking = true
+                                    makeParentScope.launch {
+                                        try {
+                                            val parent = MakeParentTask.create(
+                                                taskDao = taskDao,
+                                                caldavDao = caldavDao,
+                                                taskSaver = taskSaver,
+                                                list = list,
+                                                title = title,
+                                            )
+                                            MakeParentTask.nest(
+                                                taskMover = taskMover,
+                                                listUuid = list.uuid,
+                                                taskId = state.task.id,
+                                                parentId = parent.id,
+                                            )
+                                            showMakeParentPanel = false
+                                            makeParentWorking = false
+                                            // Lands the user on the new parent, which visibly
+                                            // contains the just-nested task: the confirmation.
+                                            taskRequests.open(
+                                                TaskEditDestination(parent.id, parent.uuid),
+                                            )
+                                        } catch (e: Exception) {
+                                            log.e(e) { "Failed to make parent task" }
+                                            makeParentWorking = false
+                                        }
+                                    }
+                                },
+                                onCancel = {
+                                    makeParentWorking = false
+                                    showMakeParentPanel = false
+                                },
+                            )
+                        }
                         TitleField(
                             title = state.task.title.orEmpty(),
                             onTitleChange = viewModel::setTitle,
