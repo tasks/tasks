@@ -16,6 +16,7 @@ class PostHogReporting(
     override val tasksPreferences: TasksPreferences,
 ) : Reporting {
     private val logger = Logger.withTag("PostHogReporting")
+    private val exceptionThrottle = ExceptionThrottle()
 
     private val collectStatistics: Boolean =
         kotlinx.coroutines.runBlocking {
@@ -82,6 +83,8 @@ class PostHogReporting(
 
     override fun reportException(t: Throwable, fatal: Boolean) {
         if (t is CancellationException) return
+        val decision = exceptionThrottle.check(t)
+        if (decision !is ExceptionThrottle.Decision.Report) return
         logger.e(t) { t.message ?: "" }
         if (enabled && collectStatistics) {
             PostHog.capture(
@@ -91,6 +94,7 @@ class PostHogReporting(
                     "class" to t.javaClass.name,
                     "stacktrace" to t.stackTraceToString(),
                     "fatal" to fatal,
+                    "suppressed_count" to decision.suppressed,
                 ),
             )
         }
