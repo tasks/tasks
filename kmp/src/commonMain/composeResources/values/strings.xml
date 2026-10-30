@@ -706,4 +706,10 @@
     <string name="trusted_certificates_reset">Trusted certificates reset</string>
     <string name="make_parent_task">Move into new parent task</string>
     <string name="make_parent_task_title">New parent task</string>
+    <string name="delete_tree_title">These tasks will be deleted</string>
+    <string name="delete_tree_protected">protected — not deleted</string>
+    <plurals name="delete_n_tasks">
+        <item quantity="one">Delete %1$d task</item>
+        <item quantity="other">Delete %1$d tasks</item>
+    </plurals>
 </resources>
