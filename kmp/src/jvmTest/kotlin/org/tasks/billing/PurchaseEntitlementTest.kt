@@ -659,6 +659,55 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aCheckThatFindsALiveSubscriptionUnlocksALockedDevice() = runBlocking {
+        val lapsed = lockedOnALapsedSubscription()
+        val renewed = jwt(exp = now() + 30 * DAY_SECONDS)
+        server.enqueue(checkResponse("annual_30", "USD 29.99", status = "active"))
+        server.enqueue(refreshResponse(renewed, sku = "annual_30", formattedPrice = "USD 29.99"))
+
+        assertTrue(lapsed.checkTier())
+
+        assertTrue(lapsed.hasPro.first())
+        assertEquals(renewed, lapsed.getJwt())
+        assertEquals("annual_30", lapsed.sku.first())
+        verify(syncAdapters).sync(SyncSource.PURCHASE_COMPLETED)
+    }
+
+    @Test
+    fun aCheckThatFindsTheSubscriptionStillGoneLeavesTheDeviceLocked() = runBlocking {
+        val lapsed = lockedOnALapsedSubscription()
+        val held = lapsed.getJwt()
+        server.enqueue(checkResponse("annual_30", "USD 29.99", status = "canceled"))
+        server.enqueue(MockResponse().setResponseCode(402))
+
+        lapsed.checkTier()
+
+        assertFalse(lapsed.hasPro.first())
+        assertEquals(held, lapsed.getJwt())
+    }
+
+    @Test
+    fun aLockedDeviceWithNoNewsToReadSpendsNoRefreshToken() = runBlocking {
+        val lapsed = lockedOnALapsedSubscription()
+        server.enqueue(checkResponse("annual", "USD 10.00"))
+
+        assertFalse(lapsed.checkTier())
+
+        assertFalse(lapsed.hasPro.first())
+        assertEquals(2, server.requestCount)
+    }
+
+    private suspend fun lockedOnALapsedSubscription(): PurchaseEntitlement {
+        storeOnDisk(jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS), EntitlementProvider.STRIPE)
+        server.enqueue(MockResponse().setResponseCode(402))
+        val entitlement = entitlement(httpClientFactory = freshClientFactory)
+        entitlement.initialize()
+        entitlement.awaitReady()
+        assertFalse(entitlement.hasPro.first())
+        return entitlement
+    }
+
+    @Test
     fun aRefreshKeepsWhatTheCheckLearned() = runBlocking {
         storeOnDisk(
             jwt = jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS),
@@ -848,12 +897,16 @@ class PurchaseEntitlementTest {
         entitlementFile.writeText(encryption.encrypt(plain)!!)
     }
 
-    private fun refreshResponse(jwt: String) = MockResponse()
+    private fun refreshResponse(
+        jwt: String,
+        sku: String = "annual",
+        formattedPrice: String = "USD 10.00",
+    ) = MockResponse()
         .setResponseCode(200)
         .setHeader("Content-Type", "application/json")
         .setBody(
-            """{"jwt":"$jwt","refresh_token":"rotated-token","sku":"annual",""" +
-                """"formatted_price":"USD 10.00"}"""
+            """{"jwt":"$jwt","refresh_token":"rotated-token","sku":"$sku",""" +
+                """"formatted_price":"$formattedPrice"}"""
         )
 
     private fun checkResponse(

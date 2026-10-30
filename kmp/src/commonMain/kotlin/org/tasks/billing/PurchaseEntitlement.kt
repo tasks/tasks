@@ -190,6 +190,10 @@ class PurchaseEntitlement(
         _formattedPrice.value = updated.formattedPrice
         _provider.value = updated.provider
         _terms.value = updated.terms
+        if (stored.jwt == lapsedReceipt) {
+            logger.i { "Locked on a receipt the check has news about, spending the refresh token" }
+            attemptRefresh(updated)
+        }
         tierMoved
     }
 
