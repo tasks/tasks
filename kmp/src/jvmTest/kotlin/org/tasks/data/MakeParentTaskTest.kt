@@ -130,6 +130,60 @@ class MakeParentTaskTest : DatabaseTest() {
     }
 
     @Test
+    fun makeInsertsTheNewTaskBetweenTheTargetAndItsExistingParent() = runBlocking {
+        // An existing two-level chain: grandparent -> target. The target carries its
+        // CalDAV remote parent, as all real nested data does; without it an icalendar
+        // updateParents would re-derive the target back to top level.
+        val grandparent = newTask("grandparent")
+        val target = newTask("target", parent = grandparent.id)
+        caldavDao.update(caldavDao.getTask(target.id)!!.id, grandparent.remoteId)
+
+        val created = MakeParentTask.make(
+            taskDao = taskDao,
+            caldavDao = caldavDao,
+            taskSaver = taskSaver,
+            taskMover = taskMover,
+            list = fromList(),
+            title = "Project",
+            target = target,
+        )
+
+        assertEquals("the new task becomes a child of the target's existing parent", grandparent.id, taskDao.fetch(created.id)!!.parent)
+        assertEquals("the target drops underneath the new task", created.id, taskDao.fetch(target.id)!!.parent)
+        assertEquals("the grandparent is untouched", 0L, taskDao.fetch(grandparent.id)!!.parent)
+        assertEquals(
+            "the new task's CalDAV remote parent points at the existing parent",
+            grandparent.remoteId,
+            caldavDao.getTask(created.id)!!.remoteParent,
+        )
+        assertEquals(
+            "the target's CalDAV remote parent now points at the new task",
+            caldavDao.getTask(created.id)!!.remoteId,
+            caldavDao.getTask(target.id)!!.remoteParent,
+        )
+    }
+
+    @Test
+    fun makeOnATopLevelTargetKeepsTheNewTaskTopLevel() = runBlocking {
+        // The simple case: no existing parent, so the new task stays top-level and the
+        // target simply moves under it.
+        val target = newTask("target")
+
+        val created = MakeParentTask.make(
+            taskDao = taskDao,
+            caldavDao = caldavDao,
+            taskSaver = taskSaver,
+            taskMover = taskMover,
+            list = fromList(),
+            title = "Project",
+            target = target,
+        )
+
+        assertEquals("no existing parent, so the new task stays top-level", 0L, taskDao.fetch(created.id)!!.parent)
+        assertEquals(created.id, taskDao.fetch(target.id)!!.parent)
+    }
+
+    @Test
     fun nestRejectsAnUncreatedParent() = runBlocking {
         val child = newTask("child")
         val failure = runCatching { MakeParentTask.nest(taskMover, LIST, child.id, parentId = 0) }

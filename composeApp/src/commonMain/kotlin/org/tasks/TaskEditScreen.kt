@@ -4,6 +4,7 @@ import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -142,11 +143,31 @@ fun TaskEditScreen(
             TopAppBar(
                 title = {},
                 navigationIcon = {
-                    IconButton(onClick = saveAndClose, enabled = !saving) {
-                        SymbolIcon(
-                            name = TasksIcons.ARROW_BACK,
-                            contentDescription = stringResource(Res.string.back),
-                        )
+                    // Save floats next to back on the left: the plain save and the
+                    // back (save + close) are the two "leave this edit" actions, so
+                    // they sit together. The make-parent action stays on the right.
+                    Row {
+                        IconButton(onClick = saveAndClose, enabled = !saving) {
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
+                                contentDescription = stringResource(Res.string.back),
+                            )
+                        }
+                        // Explicit save (floppy). Back has always been the only save
+                        // path (save and close at once); this is the plain save.
+                        // Greyed out while clean.
+                        IconButton(
+                            onClick = { makeParentScope.launch { viewModel.saveCurrentTask() } },
+                            enabled = !state.isLoading &&
+                                    !state.isDraft &&
+                                    !saving &&
+                                    state.hasChanges,
+                        ) {
+                            SymbolIcon(
+                                name = TasksIcons.SAVE,
+                                contentDescription = stringResource(Res.string.save),
+                            )
+                        }
                     }
                 },
                 actions = {
@@ -166,20 +187,6 @@ fun TaskEditScreen(
                         SymbolIcon(
                             name = TasksIcons.DRIVE_FILE_MOVE,
                             contentDescription = stringResource(Res.string.make_parent_task),
-                        )
-                    }
-                    // Explicit save. Back has always been the only save path (save and
-                    // close at once); this is the plain save. Greyed out while clean.
-                    IconButton(
-                        onClick = { makeParentScope.launch { viewModel.saveCurrentTask() } },
-                        enabled = !state.isLoading &&
-                                !state.isDraft &&
-                                !saving &&
-                                state.hasChanges,
-                    ) {
-                        SymbolIcon(
-                            name = TasksIcons.CHECK,
-                            contentDescription = stringResource(Res.string.save),
                         )
                     }
                 },
@@ -267,18 +274,14 @@ fun TaskEditScreen(
                                     makeParentWorking = true
                                     makeParentScope.launch {
                                         try {
-                                            val parent = MakeParentTask.create(
+                                            val parent = MakeParentTask.make(
                                                 taskDao = taskDao,
                                                 caldavDao = caldavDao,
                                                 taskSaver = taskSaver,
+                                                taskMover = taskMover,
                                                 list = list,
                                                 title = title,
-                                            )
-                                            MakeParentTask.nest(
-                                                taskMover = taskMover,
-                                                listUuid = list.uuid,
-                                                taskId = state.task.id,
-                                                parentId = parent.id,
+                                                target = state.task,
                                             )
                                             showMakeParentPanel = false
                                             makeParentWorking = false
