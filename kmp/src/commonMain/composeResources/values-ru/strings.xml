@@ -591,4 +591,5 @@
     <string name="add_platform_account">Добавить аккаунт %1$s</string>
     <string name="show_more">Показать больше</string>
     <string name="show_less">Показать меньше</string>
+    <string name="name_your_price_blurb">Заплатите столько, сколько хотите, чтобы разблокировать темы, значки и эти расширенные функции синхронизации.</string>
 </resources>
