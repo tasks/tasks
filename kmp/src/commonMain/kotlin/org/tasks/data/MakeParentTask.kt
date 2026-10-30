@@ -7,9 +7,13 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.filters.CaldavFilter
 
 /**
- * Creates a new top-level task in a list and nests an existing task (and its
- * whole subtree) under it — the "make this task part of a bigger project"
- * action.
+ * Creates a new task in a list and nests an existing task (and its whole
+ * subtree) under it — the "make this task part of a bigger project" action.
+ *
+ * If the target task is already nested, the new task is inserted *between* the
+ * target and its current parent (the new task becomes a sibling of the target,
+ * which then drops underneath it), so the target keeps its place in the
+ * hierarchy.
  *
  * Both halves deliberately reuse the app's existing write paths instead of
  * re-deriving commit recipes: creation mirrors the editor's new-task save
@@ -22,9 +26,39 @@ import org.tasks.filters.CaldavFilter
 object MakeParentTask {
 
     /**
+     * The full "make parent" action: creates a task titled [title] and nests
+     * [target] (and its subtree) under it. When [target] already has a parent,
+     * the new task is placed under that same parent first, so the hierarchy
+     * gains a level instead of the target jumping to a new top-level branch.
+     *
+     * Returns the created task with its row id stamped.
+     */
+    suspend fun make(
+        taskDao: TaskDao,
+        caldavDao: CaldavDao,
+        taskSaver: TaskSaver,
+        taskMover: TaskMover,
+        list: CaldavFilter,
+        title: String,
+        target: Task,
+    ): Task {
+        val parent = create(taskDao, caldavDao, taskSaver, list, title)
+        val existingParent = taskDao.fetch(target.id)?.parent ?: 0L
+        if (existingParent > 0) {
+            // Insert the new task between the target and its current parent
+            // before dropping the target underneath it.
+            nest(taskMover, list.uuid, parent.id, existingParent)
+        }
+        nest(taskMover, list.uuid, target.id, parent.id)
+        return parent
+    }
+
+    /**
      * Creates a new top-level task in [list]. The returned [Task] has its row
      * id stamped. Throws if the underlying write fails; the caller is expected
      * to surface that, and nothing has been created when it does.
+     *
+     * @see make for the full action that also nests a target task under it.
      */
     suspend fun create(
         taskDao: TaskDao,
