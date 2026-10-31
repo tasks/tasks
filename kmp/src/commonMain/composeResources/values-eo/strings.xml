@@ -689,4 +689,6 @@
     <string name="mcp_clipboard_note">Iu ajn kiun vi kopias ĉi tie enhavas la ĵetonon, kaj la tondobufro malpleniĝos post minuto.</string>
     <string name="works_with_apple_reminders_description">Konekti CalDAV konton en sistemagordoj</string>
     <string name="works_with_tasker_description">Krei taskojn kaj ekagigi listajn sciigojn per viaj aŭtomatigoj</string>
+    <string name="mcp_regenerate_token_summary">Asistantoj kiuj jam estas agorditaj ĉesos funcii ĝis kiam vi donos novan komandon al ili.</string>
+    <string name="mcp_auth_header">Rajtiga kapo</string>
 </resources>
