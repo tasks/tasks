@@ -154,7 +154,6 @@ fun TaskListDrawer(
     val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
     val bottomNavPadding = systemBarPadding.calculateBottomPadding()
-    val topGutter = systemBarPadding.calculateTopPadding() + searchButtonInset
     Column(
         modifier = Modifier
             .testTag(TestTags.NAVIGATION_DRAWER)
@@ -162,28 +161,10 @@ fun TaskListDrawer(
             .consumeWindowInsets(PaddingValues(bottom = bottomNavPadding))
             .imePadding(),
     ) {
-        SearchBar(
-            modifier = Modifier
-                .padding(
-                    start = DrawerItemInset,
-                    end = DrawerItemInset,
-                    top = topGutter,
-                    bottom = 8.dp
-                )
-                .fillMaxWidth(),
-            text = query,
-            onTextChange = { newText ->
-                onQueryChange(newText)
-                if (newText.isNotBlank()) {
-                    onExpandDrawer()
-                }
-            },
-            placeHolder = stringResource(Res.string.search),
-            onCloseClicked = { onQueryChange("") },
-            onSearchClicked = {},
-        )
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f),
             state = listState,
             contentPadding = PaddingValues(
                 bottom = bottomNavPadding,
@@ -242,6 +223,27 @@ fun TaskListDrawer(
                 }
             }
         }
+        SearchBar(
+            modifier = Modifier
+                .padding(
+                    start = DrawerItemInset,
+                    end = DrawerItemInset,
+                    top = 8.dp,
+                    bottom = bottomNavPadding + 8.dp
+                )
+                .fillMaxWidth(),
+            text = query,
+            onTextChange = { newText ->
+                onQueryChange(newText)
+                if (newText.isNotBlank()) {
+                    onExpandDrawer()
+                }
+            },
+            placeHolder = stringResource(Res.string.search),
+            onCloseClicked = { onQueryChange("") },
+            onSearchClicked = { _ -> if (!expanded) onExpandDrawer() },
+            onLeadingIconClick = { if (!expanded) onExpandDrawer() },
+        )
     }
 }
 
