@@ -24,6 +24,7 @@ class McpHttpServerTest : McpGraphTestCase() {
             token = { token },
             permissions = ToolPermissions.of(AccessMode.ReadOnly),
             api = api,
+            filters = filtersApi,
             log = ActivityLog(),
             onStateChange = { _, _ -> },
         )

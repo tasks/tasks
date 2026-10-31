@@ -11,6 +11,7 @@ import org.tasks.api.ListQuery
 import org.tasks.api.ListWrite
 import org.tasks.api.MAX_BATCH
 import org.tasks.api.PlaceQuery
+import org.tasks.api.FilterQuery
 import org.tasks.api.PlaceWrite
 import org.tasks.api.TASK_STATUSES
 import org.tasks.api.TagQuery
@@ -74,12 +75,14 @@ private val ACCOUNT_FIELDS = ApiAccount.serializer().descriptor.fieldNames()
 
 fun Server.registerTasksTools(
     api: DatabaseTasksApi,
+    filters: DatabaseFiltersApi,
     permissions: ToolPermissions,
     log: ActivityLog,
     analytics: Analytics? = null,
 ) {
     val reg = Registration(log, ToolUsage(analytics, permissions), permissions)
     registerReadTools(api, reg)
+    registerFilterTools(filters, reg)
     registerWriteTools(api, reg)
 }
 
@@ -295,6 +298,287 @@ private fun Server.registerReadTools(api: DatabaseTasksApi, reg: Registration) {
             )
         )
         page.toResult("reminder", projection, { it.toApiReminder() }) { sent -> "$sent of ${page.total} reminder(s)" }
+    }
+}
+
+private fun SchemaBuilder.criteriaFields() {
+    string("identifier", "The criterion to apply. Read list_filter_criteria for the valid identifiers.", required = true)
+    string("value", "The value for the criterion. Required for text and multiselect criteria (a multiselect value must match one of the criterion's valid values from list_filter_criteria); omit it for boolean criteria.")
+    string(
+        "type",
+        "How this row combines with the others: 'intersect' (AND, the default), 'add' (OR) or 'subtract' (AND NOT).",
+        enum = listOf("intersect", "add", "subtract"),
+    )
+}
+
+private fun JsonObject.toCriterionWrite(): DatabaseFiltersApi.CriterionWrite =
+    DatabaseFiltersApi.CriterionWrite(
+        identifier = requireString("identifier"),
+        value = string("value"),
+        type = string("type") ?: DatabaseFiltersApi.ROW_TYPE_INTERSECT,
+    )
+
+private fun Server.registerFilterTools(filters: DatabaseFiltersApi, reg: Registration) {
+    registerListFiltersTool(filters, reg)
+    registerGetFilterTasksTool(filters, reg)
+    registerGetSelectedFilterTool(filters, reg)
+    registerListFilterCriteriaTool(filters, reg)
+    registerCreateFilterTool(filters, reg)
+    registerUpdateFilterTool(filters, reg)
+    registerDeleteFilterTool(filters, reg)
+}
+
+private fun Server.registerListFiltersTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "list_filters",
+        title = "List saved filters",
+        description = """
+            Every saved filter the user has created, in the order the app shows them in the
+            navigation drawer. A saved filter is a stored query over the task database - it
+            is device-local and not synced. A task list's default view can be pinned to a
+            filter id, so a filter a list relies on should be edited, not replaced.
+            Each filter carries its structured criteria (decoded the way the app's edit UI
+            shows them, including the leading "universe" row); read list_filter_criteria
+            for what each identifier means. Use get_filter_tasks with an id to see the
+            tasks a filter passes.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            integerArray("filter_ids", "Only these filters, by id.")
+            boolean(
+                INCLUDE_SQL_KEY,
+                "Also return each filter's stored SQL. It is a template - date functions " +
+                    "like NOW() and EOD() are substituted when the app runs the query - not " +
+                    "the exact predicate that executes.",
+                default = false,
+            )
+            paging(FILTER_KEY)
+            fields(FILTER_KEY, FILTER_FIELDS)
+        },
+    ) { args ->
+        val ids = args.longs("filter_ids")
+        val projection = args.projection(FILTER_FIELDS)
+        val page = filters.list(
+            includeSql = args.boolean(INCLUDE_SQL_KEY) ?: false,
+            ids = ids,
+            limit = args.limit(),
+            offset = args.offset(),
+        )
+        page.toResult(FILTER_KEY, projection, { it }) { sent ->
+            "$sent of ${page.total} filter(s)"
+        }
+    }
+}
+
+private fun Server.registerGetFilterTasksTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "get_filter_tasks",
+        title = "Tasks matching a saved filter",
+        description = """
+            The tasks that pass the saved filter with this id - the same set the app shows
+            when the user selects that filter in the navigation drawer. The filter's own
+            criteria are the only predicate here: there is no status, date or text filter
+            to combine with it. Get filter ids from list_filters.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            integer(FILTER_ID_KEY, "The saved filter to run. Get ids from list_filters.", required = true)
+            string("sort", "Sort key. 'priority' ascending puts high first.", enum = TasksContract.Tasks.SORTS)
+            boolean("sort_desc", "Reverse the sort.", default = false)
+            paging("task")
+            fields("task", TASK_FIELDS)
+        },
+    ) { args ->
+        val filterId = args.requireLong(FILTER_ID_KEY)
+        val projection = args.projection(TASK_FIELDS)
+        val page = filters.tasks(
+            filterId,
+            FilterQuery(
+                sort = args.string("sort"),
+                sortDesc = args.boolean("sort_desc") ?: false,
+                limit = args.int("limit"),
+                offset = args.int("offset"),
+            ),
+        )
+        page.toResult("task", projection, { it.toApiTask() }) { sent ->
+            "$sent of ${page.total} task(s) passing filter $filterId"
+        }
+    }
+}
+
+private fun Server.registerGetSelectedFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "get_selected_filter",
+        title = "Get the selected filter",
+        description = """
+            The filter the user currently has selected in the app's navigation drawer on this
+            computer - the list, tag, place or custom filter whose tasks are on screen.
+            A custom filter comes back with its list_filters id, so you can run it with
+            get_filter_tasks. A list, tag or place filter comes back with its id for the
+            matching list_* tool. The app never records search or the empty view, so while
+            the user is searching this reports the last filter they selected.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {
+            boolean(
+                INCLUDE_SQL_KEY,
+                "For a custom filter, also return its stored SQL. It is a template - date " +
+                    "functions like NOW() and EOD() are substituted when the app runs the " +
+                    "query - not the exact predicate that executes.",
+                default = false,
+            )
+            fields(FILTER_KEY, SELECTED_FILTER_FIELDS)
+        },
+    ) { args ->
+        val selection = filters.selected(args.boolean(INCLUDE_SQL_KEY) ?: false)
+        if (selection == null) {
+            "No filter selection is recorded: the user has not selected a " +
+                "filter in the drawer (search and the empty view are never recorded)." to "nothing selected"
+        } else {
+            val projection = args.projection(SELECTED_FILTER_FIELDS)
+            val encoder = projection.encoder()
+            val encoded = projection.apply(encoder.encodeToJsonElement(selection))
+            val filterElement = (encoded as? JsonArray)?.firstOrNull() ?: encoded as? JsonObject
+            if (filterElement == null) {
+                "Could not encode the filter selection" to "error"
+            } else {
+                buildJsonObject { put(FILTER_KEY, filterElement) }.toString() to "filter ${selection.type}"
+            }
+        }
+    }
+}
+
+private fun Server.registerListFilterCriteriaTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "list_filter_criteria",
+        title = "Criteria available for saved filters",
+        description = """
+            The catalog of criteria the app's filter editor currently offers - exactly what
+            create_filter and update_filter accept in their criteria arrays. Multiselect
+            criteria carry their valid values, and the tag and list criteria's values are
+            the live tag names and task-list names on this computer. The leading "active"
+            universe row is app-managed: it is always stored first and never needs to be
+            sent.
+        """.trimIndent(),
+        readOnly = true,
+        schema = schema {},
+    ) { args ->
+        val criteria = filters.criteriaCatalog()
+        buildJsonObject {
+            put(FIELD_CRITERIA, json.encodeToJsonElement(criteria))
+        }.toString() to "${criteria.size} criterion type(s)"
+    }
+}
+
+private fun Server.registerCreateFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "create_filter",
+        title = "Create a saved filter",
+        description = """
+            Create a new saved filter the same way the app's filter editor does: the
+            criteria are validated against the app's live catalog and rendered through the
+            app's own serializers, so the result is what the editor would store. The filter
+            appears in the navigation drawer on this computer - filters are device-local and
+            not synced to other devices. Not idempotent: titles are not unique, so calling
+            it twice creates two filters. Read list_filter_criteria first.
+        """.trimIndent(),
+        readOnly = false,
+        schema = schema {
+            string(FIELD_TITLE, "The filter's name as it appears in the navigation drawer.", required = true)
+            string(FIELD_ICON, "A Material Symbols icon name in snake_case, e.g. 'priority_high'. Unknown names render with no icon.")
+            integer(FIELD_COLOR, "The filter's colour as an ARGB integer, as list_filters returns it.")
+            objectArray(
+                FIELD_CRITERIA,
+                "The filter's rows, in order. Each row's identifier must be a catalog " +
+                    "identifier, and a multiselect row's value must be one of that criterion's " +
+                    "values - read list_filter_criteria.",
+            ) { criteriaFields() }
+        },
+    ) { args ->
+        val row = filters.create(
+            title = args.requireString(FIELD_TITLE),
+            icon = args.string(FIELD_ICON),
+            color = args.int(FIELD_COLOR),
+            criteria = args.objects(FIELD_CRITERIA).map { it.toCriterionWrite() },
+        )
+        buildJsonObject { put(FILTER_KEY, json.encodeToJsonElement(row)) }.toString() to
+            "created filter ${row.id} '${row.title}'"
+    }
+}
+
+private fun Server.registerUpdateFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "update_filter",
+        title = "Update a saved filter",
+        description = """
+            Patch an existing saved filter in place: only the fields you send change, and
+            the filter keeps its id - so a task list whose default view is pinned to it
+            keeps working, which deleting and recreating would break. criteria, when sent,
+            replaces the filter's rows wholesale (the app's editor has no per-row
+            addressing either): read the current rows with list_filters first, mutate the
+            set, and send it back. The drawer order is owned by the app and cannot be
+            changed here.
+        """.trimIndent(),
+        readOnly = false,
+        idempotent = true,
+        schema = schema {
+            integer(FILTER_ID_KEY, "The filter to change. Get ids from list_filters.", required = true)
+            string(FIELD_TITLE, "The new name.")
+            string(FIELD_ICON, "The new Material Symbols icon name in snake_case.")
+            integer(FIELD_COLOR, "The new colour as an ARGB integer.")
+            objectArray(
+                FIELD_CRITERIA,
+                "The filter's complete new set of rows, in order, replacing the current " +
+                    "rows. Each row's identifier must be a catalog identifier, and a " +
+                    "multiselect row's value must be one of that criterion's values - read " +
+                    "list_filter_criteria.",
+            ) { criteriaFields() }
+        },
+    ) { args ->
+        val row = filters.update(
+            id = args.requireLong(FILTER_ID_KEY),
+            title = args.string(FIELD_TITLE),
+            icon = args.string(FIELD_ICON),
+            color = args.int(FIELD_COLOR),
+            criteria = args.element(FIELD_CRITERIA)?.let { args.objects(FIELD_CRITERIA).map { o -> o.toCriterionWrite() } },
+        )
+        buildJsonObject { put(FILTER_KEY, json.encodeToJsonElement(row)) }.toString() to
+            "updated filter ${row.id} '${row.title}'"
+    }
+}
+
+private fun Server.registerDeleteFilterTool(filters: DatabaseFiltersApi, reg: Registration) {
+    tool(
+        reg, "delete_filter",
+        title = "Delete a saved filter",
+        description = """
+            Delete a saved filter for good. This removes the device-local filter record
+            only: no tasks are touched, nothing is sent to a server, and there is no
+            archive or undo - a filter is a saved query, not task data, so the
+            archive-instead-of-delete rule for tasks does not apply to it. If any task
+            list's default view is pinned to this filter, the response carries their ids in
+            pinned_by as a warning that those lists will silently fall back to their
+            default view afterwards; prefer update_filter to change a filter you still
+            want.
+        """.trimIndent(),
+        readOnly = false,
+        destructive = true,
+        schema = schema {
+            integer(FILTER_ID_KEY, "The filter to delete. Get ids from list_filters.", required = true)
+        },
+    ) { args ->
+        val result = filters.delete(args.requireLong(FILTER_ID_KEY))
+        buildJsonObject {
+            put("deleted_filter_id", JsonPrimitive(result.id))
+            put("pinned_by", JsonArray(result.pinnedBy.map(::JsonPrimitive)))
+            if (result.pinnedBy.isNotEmpty()) {
+                put(
+                    "warning",
+                    "These lists' default views were pinned to the deleted filter and now " +
+                        "fall back to the list's default view.",
+                )
+            }
+        }.toString() to "deleted filter ${result.id}"
     }
 }
 
@@ -1160,3 +1444,16 @@ private fun JsonObject.reminders(name: String): List<ReminderWrite> =
         )
     }
 
+private const val FILTER_KEY = "filter"
+private const val FILTER_ID_KEY = "filter_id"
+private const val INCLUDE_SQL_KEY = "include_sql"
+private const val FIELD_TITLE = "title"
+private const val FIELD_ICON = "icon"
+private const val FIELD_COLOR = "color"
+private const val FIELD_CRITERIA = "criteria"
+
+private val FILTER_FIELDS =
+    listOf("id", FIELD_TITLE, FIELD_ICON, FIELD_COLOR, "order", FIELD_CRITERIA, "sql")
+
+private val SELECTED_FILTER_FIELDS =
+    listOf("type", "id", FIELD_TITLE, FIELD_ICON, FIELD_COLOR, "order", "key", "sql")
