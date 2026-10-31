@@ -34,13 +34,13 @@ class MakeParentTaskPanelTest {
     @Test
     fun acceptIsDisabledUntilThereIsATitle() = runComposeUiTest {
         setContent { panel() }
-        val accept = onNodeWithContentDescription("Move into new parent task")
+        val accept = onNodeWithContentDescription("Move into new task")
         val cancel = onNodeWithContentDescription("Cancel")
 
         accept.assertIsNotEnabled()
         cancel.assertIsEnabled()
 
-        onNodeWithText("New parent task").performTextInput("Project")
+        onNodeWithText("New task", substring = false).performTextInput("Project")
         accept.assertIsEnabled()
         accept.performClick()
         assertEquals(listOf("Project"), accepted)
@@ -49,19 +49,19 @@ class MakeParentTaskPanelTest {
     @Test
     fun theTitleIsTrimmedBeforeItIsAccepted() = runComposeUiTest {
         setContent { panel() }
-        onNodeWithText("New parent task").performTextInput("  Padded  ")
-        onNodeWithContentDescription("Move into new parent task").performClick()
+        onNodeWithText("New task", substring = false).performTextInput("  Padded  ")
+        onNodeWithContentDescription("Move into new task").performClick()
         assertEquals(listOf("Padded"), accepted)
     }
 
     @Test
     fun enterAcceptsAndEscapeCancels() = runComposeUiTest {
         setContent { panel() }
-        onNodeWithText("New parent task")
+        onNodeWithText("New task", substring = false)
             .performKeyInput { keyDown(Key.Escape) }
         assertEquals(1, cancelled)
 
-        onNodeWithText("New parent task").performTextInput("Project")
+        onNodeWithText("New task", substring = false).performTextInput("Project")
         onNodeWithText("Project")
             .performKeyInput { keyDown(Key.Enter) }
         assertEquals(listOf("Project"), accepted)
@@ -71,8 +71,8 @@ class MakeParentTaskPanelTest {
     fun aWorkingPanelTakesNoInput() = runComposeUiTest {
         setContent { panel(working = true) }
 
-        onNodeWithText("New parent task").assertIsNotEnabled()
-        onNodeWithContentDescription("Move into new parent task").assertIsNotEnabled()
+        onNodeWithText("New task", substring = false).assertIsNotEnabled()
+        onNodeWithContentDescription("Move into new task").assertIsNotEnabled()
         // Nothing is left to cancel while create/nest is in flight; the op is a fast DB
         // write and the button re-enables when the working flag clears.
         onNodeWithContentDescription("Cancel").assertIsNotEnabled()
