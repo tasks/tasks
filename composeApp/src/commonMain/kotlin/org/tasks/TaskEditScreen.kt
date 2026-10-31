@@ -354,7 +354,15 @@ fun TaskEditScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(TaskEditIslandInset),
+                            // The island inset is kept on the sides and bottom, but not the
+                            // top: the list pane's first row starts flush at its (overlay)
+                            // app bar's bottom edge, so the edit content does the same here
+                            // and the two panes' content tops line up.
+                            .padding(
+                                start = TaskEditIslandInset,
+                                end = TaskEditIslandInset,
+                                bottom = TaskEditIslandInset,
+                            ),
                     ) {
                         if (showMakeParentPanel) {
                             MakeParentTaskPanel(

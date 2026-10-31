@@ -1,6 +1,8 @@
 package org.tasks.compose.edit
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,17 +27,20 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.compose.components.SymbolIcon
 import org.tasks.themes.TasksIcons
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.make_parent_task
+import tasks.kmp.generated.resources.make_parent_task_panel_title
 import tasks.kmp.generated.resources.make_parent_task_title
 
 /**
- * The inline "move into new parent task" panel: a single row holding the new
- * parent's title plus cancel (cross) and accept (floppy) buttons.
+ * The inline "move into new parent task" panel: an explainer title (the same
+ * consequence-stating grammar as the delete panel's) over a row holding the
+ * new parent's title plus cancel (cross) and accept (floppy) buttons.
  *
  * Deliberately not a dialog: the point of the feature is to decide what
  * project this task belongs to *while looking at the task*, so the panel
@@ -44,7 +49,9 @@ import tasks.kmp.generated.resources.make_parent_task_title
  * The row is [Cancel][Accept] like the delete panel's button row — the app
  * puts the safe action on the left and the commit on the right — and the
  * accept is a floppy, the app's save language, since accepting does save a
- * new task. The whole row sits in the shared [InlineActionPanel] container.
+ * new task. The user-facing words avoid "parent/child": the app already
+ * calls children *subtasks*, so the panel is phrased from that side. The
+ * whole panel sits in the shared [InlineActionPanel] container.
  */
 @Composable
 fun MakeParentTaskPanel(
@@ -58,10 +65,19 @@ fun MakeParentTaskPanel(
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
     val canAccept = !working && title.isNotBlank()
-    InlineActionPanel(modifier = modifier) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
+    Column(modifier = modifier) {
+        // The explainer sits above the hairline container, not inside it: the
+        // box then holds just the action row and reads as balanced, while the
+        // line still introduces the same control as the delete panel's title.
+        Text(
+            text = stringResource(Res.string.make_parent_task_panel_title),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.padding(bottom = 8.dp),
+        )
+        InlineActionPanel {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
@@ -116,6 +132,7 @@ fun MakeParentTaskPanel(
                     contentDescription = stringResource(Res.string.make_parent_task),
                 )
             }
+        }
         }
     }
 }

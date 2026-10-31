@@ -73,7 +73,16 @@ fun DeleteTaskPanel(
 ) {
     val focusRequester = remember { FocusRequester() }
     LaunchedEffect(Unit) { focusRequester.requestFocus() }
-    InlineActionPanel(modifier = modifier) {
+    Column(modifier = modifier) {
+        // The explainer sits above the hairline container, not inside it, matching
+        // the make-parent panel: the box then holds just the action content and
+        // reads as balanced.
+        Text(
+            text = stringResource(Res.string.delete_tree_title),
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier.padding(bottom = 8.dp),
+        )
+        InlineActionPanel {
         Column(
             modifier = Modifier
                 .focusRequester(focusRequester)
@@ -93,11 +102,6 @@ fun DeleteTaskPanel(
                     }
                 },
         ) {
-            Text(
-                text = stringResource(Res.string.delete_tree_title),
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(vertical = 4.dp),
-            )
             Box(modifier = Modifier.heightIn(max = 200.dp)) {
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     rows.forEach { row ->
@@ -197,6 +201,7 @@ fun DeleteTaskPanel(
                     Text(deleteLabel, maxLines = 1)
                 }
             }
+        }
         }
     }
 }
