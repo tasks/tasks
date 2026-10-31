@@ -1,11 +1,32 @@
 package org.tasks.icalendar
 
 import org.junit.Ignore
+import java.util.TimeZone
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class VTodoFieldFidelityTest {
+    // Floating (no-zone) iCal datetimes are converted to epoch millis using the JVM
+    // default timezone (ICalDates.parseICalDateTime). Pin that default to UTC for the
+    // class so these assertions are deterministic on machines whose default is not UTC,
+    // then restore the original default afterwards.
+    private var originalTimeZone: TimeZone? = null
+
+    @BeforeTest
+    fun useUtcDefaultTimezone() {
+        originalTimeZone = TimeZone.getDefault()
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+    }
+
+    @AfterTest
+    fun restoreDefaultTimezone() {
+        originalTimeZone?.let { TimeZone.setDefault(it) }
+        originalTimeZone = null
+    }
+
     @Test
     fun keepsEveryFieldThroughAParseWriteParseCycle() {
         val t = regenerate(MOST_FIELDS_1)
