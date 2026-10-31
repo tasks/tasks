@@ -122,6 +122,7 @@ fun TaskListDrawer(
     onSignIn: () -> Unit = {},
     expanded: Boolean = true,
     onExpandDrawer: () -> Unit = {},
+    onSearchCollapse: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
     searchButtonInset: Dp = 16.dp,
 ) {
@@ -150,14 +151,10 @@ fun TaskListDrawer(
         }
         wasOpen = drawerOpen
     }
-
-    val arrangement = if (query.isNotBlank()) Arrangement.Bottom else Arrangement.Top
     val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
     val bottomNavPadding = systemBarPadding.calculateBottomPadding()
-    val topGutter = systemBarPadding.calculateTopPadding() + searchButtonInset
-    val bottomGutter = searchButtonInset + SearchButtonSize + SearchButtonGap + bottomNavPadding
-    Box(
+    Column(
         modifier = Modifier
             .testTag(TestTags.NAVIGATION_DRAWER)
             .fillMaxSize()
@@ -165,13 +162,13 @@ fun TaskListDrawer(
             .imePadding(),
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f),
             state = listState,
             contentPadding = PaddingValues(
-                top = topGutter,
-                bottom = bottomGutter,
+                bottom = bottomNavPadding,
             ),
-            verticalArrangement = arrangement,
         ) {
             itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
                 val isFirst = index == 0 ||
@@ -183,8 +180,14 @@ fun TaskListDrawer(
                 val cornerRadius = 16.dp
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
-                    isFirst -> RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
-                    isLast -> RoundedCornerShape(bottomStart = cornerRadius, bottomEnd = cornerRadius)
+                    isFirst -> RoundedCornerShape(
+                        topStart = cornerRadius,
+                        topEnd = cornerRadius
+                    )
+                    isLast -> RoundedCornerShape(
+                        bottomStart = cornerRadius,
+                        bottomEnd = cornerRadius
+                    )
                     else -> RoundedCornerShape(0.dp)
                 }
                 Surface(
@@ -215,115 +218,32 @@ fun TaskListDrawer(
                             expanded = expanded,
                             onClick = onSignIn,
                             onExpandDrawer = onExpandDrawer,
-                        )
+            )
                     }
                 }
             }
         }
-        AnimatedVisibility(
-            visible = expanded,
-            enter = fadeIn(),
-            exit = fadeOut(),
+        SearchBar(
             modifier = Modifier
-                .align(Alignment.BottomEnd),
-        ) {
-        SearchFab(
-            accentColor = rememberThemeColor(drawerState.selectedFilter?.tint ?: 0).primaryColor,
-            expanded = searchExpanded,
-            onExpandedChange = { searchRequested = it },
-            query = query,
-            onQueryChange = onQueryChange,
-            modifier = Modifier
-                .padding(bottom = searchButtonInset + bottomNavPadding),
-        )
-        }
-    }
-}
-
-@Composable
-private fun SearchFab(
-    accentColor: Int,
-    expanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit,
-    query: String,
-    onQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val focusRequester = remember { FocusRequester() }
-
-    val containerColor by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colorScheme.surfaceContainerHigh
-                      else Color(accentColor),
-        animationSpec = ThemeColorSpring,
-        label = "containerColor",
-    )
-    val contentColor by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colorScheme.onSurface
-                      else Color(contentColor(accentColor)),
-        animationSpec = ThemeColorSpring,
-        label = "contentColor",
-    )
-    val elevation by animateDpAsState(
-        targetValue = if (expanded) 0.dp else 6.dp,
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
-        label = "elevation",
-    )
-
-    Surface(
-        onClick = { if (!expanded) onExpandedChange(true) },
-        color = containerColor,
-        contentColor = contentColor,
-        shape = RoundedCornerShape(16.dp),
-        shadowElevation = elevation,
-        modifier = modifier.padding(horizontal = 16.dp),
-    ) {
-        AnimatedContent(
-            targetState = expanded,
-            transitionSpec = {
-                fadeIn(spring(stiffness = Spring.StiffnessMedium))
-                    .togetherWith(fadeOut(spring(stiffness = Spring.StiffnessMedium)))
-                    .using(SizeTransform(clip = true) { _, _ ->
-                        spring(stiffness = Spring.StiffnessMedium)
-                    })
-            },
-            contentAlignment = Alignment.CenterEnd,
-        ) { isExpanded ->
-            if (isExpanded) {
-                SearchBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .focusRequester(focusRequester),
-                    text = query,
-                    onTextChange = { onQueryChange(it) },
-                    placeHolder = stringResource(Res.string.search),
-                    onCloseClicked = {
-                        if (query.isNotEmpty()) {
-                            onQueryChange("")
-                        } else {
-                            onExpandedChange(false)
-                        }
-                    },
-                    onSearchClicked = {},
+                .padding(
+                    start = DrawerItemInset,
+                    end = DrawerItemInset,
+                    top = 8.dp,
+                    bottom = bottomNavPadding + 8.dp
                 )
-            } else {
-                Box(
-                    modifier = Modifier.size(SearchButtonSize),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    SymbolIcon(
-                        name = TasksIcons.SEARCH,
-                        contentDescription = stringResource(Res.string.search),
-                    )
+                .fillMaxWidth(),
+            text = query,
+            onTextChange = { newText ->
+                onQueryChange(newText)
+                if (newText.isNotBlank()) {
+                    onExpandDrawer()
                 }
-            }
-        }
-    }
-
-    LaunchedEffect(expanded) {
-        if (expanded) {
-            delay(100)
-            focusRequester.requestFocus()
-        }
+            },
+            placeHolder = stringResource(Res.string.search),
+            onCloseClicked = { onQueryChange("") },
+            onSearchClicked = { _ -> if (!expanded) onExpandDrawer() },
+            onLeadingIconClick = { if (!expanded) onExpandDrawer() },
+        )
     }
 }
 

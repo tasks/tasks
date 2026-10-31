@@ -16,6 +16,7 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -92,6 +93,8 @@ import androidx.compose.runtime.snapshots.Snapshot
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.takeOrElse
@@ -101,6 +104,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -149,6 +153,8 @@ import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.SubscriptionSkus
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
+import org.tasks.compose.components.SEARCH_BAR_HEIGHT
+import org.tasks.compose.components.SearchBar
 import org.tasks.compose.APP_STORE_SIGN_IN_PROVIDERS
 import org.tasks.compose.DEFAULT_SIGN_IN_PROVIDERS
 import org.tasks.compose.NavigationBarScrim
@@ -2124,6 +2130,23 @@ private fun TaskListPane(
     )
     val density = androidx.compose.ui.platform.LocalDensity.current
 
+    // Floating action search button. This is intentionally separate from the navigation drawer's
+    // search, which filters the drawer's own lists/tags: clicking it hoists a task search bar to
+    // the top of the list, above the tasks themselves.
+    var searchActive by rememberSaveable { mutableStateOf(false) }
+    var searchText by rememberSaveable { mutableStateOf("") }
+    val searchFocusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    fun closeTaskSearch() {
+        searchActive = false
+        searchText = ""
+        // Clear the query so queryFilterFor falls back to the active filter; null (not "") is
+        // required by the view model's tri-state contract (blank-not-null == My Tasks).
+        viewModel.setSearchQuery(null)
+        keyboardController?.hide()
+    }
+
     var topBarHeight by remember { mutableStateOf(0.dp) }
     var topBarHeightPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
     var topBarOffsetPx by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
@@ -2198,6 +2221,16 @@ private fun TaskListPane(
         // constraints from padded descendants (e.g. FloatingToolbar's 16.dp padding)
         // and from the ExitAlwaysFloatingToolbarScrollBehavior layout modifier.
         if (maxWidth < 48.dp || maxHeight < 48.dp) return@BoxWithConstraints
+        // Back collapses the task search bar instead of popping the list while it is open.
+        PlatformBackHandler(enabled = searchActive, onBack = ::closeTaskSearch)
+        LaunchedEffect(searchActive) {
+            if (searchActive) {
+                searchFocusRequester.requestFocus()
+            }
+        }
+        // Reserved top padding so the hoisted search bar never overlaps the tasks it filters.
+        val listTopPadding =
+            if (searchActive) topBarHeight + SEARCH_BAR_HEIGHT + 8.dp else topBarHeight
         when (val results = state.tasks) {
             is TasksResults.Loading -> Box(
                 modifier = Modifier.fillMaxSize(),
@@ -2208,7 +2241,7 @@ private fun TaskListPane(
                 filter = state.filter,
                 chipDataProvider = chipDataProvider,
                 listState = listState,
-                topPadding = topBarHeight,
+                topPadding = listTopPadding,
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
@@ -2265,6 +2298,28 @@ private fun TaskListPane(
             ),
         )
 
+        if (searchActive) {
+            // The search bar is hoisted to the top of the task list, above the tasks. It is
+            // independent of the navigation drawer's filter search: typing here filters tasks via
+            // TaskListViewModel.setSearchQuery (-> SearchFilter over all tasks), and the view
+            // model restores the active filter automatically when the query is cleared (null).
+            SearchBar(
+                modifier = Modifier
+                    .focusRequester(searchFocusRequester)
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp, top = topBarHeight),
+                text = searchText,
+                onTextChange = { newText ->
+                    searchText = newText
+                    viewModel.setSearchQuery(newText.ifBlank { null })
+                },
+                placeHolder = "Search", // TODO: use stringResource when kmp composeResources work for JVM
+                onCloseClicked = { closeTaskSearch() },
+                onSearchClicked = { keyboardController?.hide() },
+            )
+        }
+
         val scrimColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
         StatusBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.TopCenter))
         NavigationBarScrim(color = scrimColor, modifier = Modifier.align(Alignment.BottomCenter))
@@ -2278,6 +2333,8 @@ private fun TaskListPane(
             fabContainerColor = Color(themeColor.primaryColor),
             fabContentColor = Color(themeColor.onPrimaryColor),
             filterTint = state.filter.tint,
+            searchActive = searchActive,
+            onSearchClick = { if (searchActive) closeTaskSearch() else { searchActive = true } },
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .platformNavigationBarsPadding()
@@ -2790,6 +2847,9 @@ private fun FloatingToolbar(
     fabContainerColor: Color = Color.Unspecified,
     fabContentColor: Color = Color.Unspecified,
     filterTint: Int = 0,
+    /** True while the task-list search bar (opened by the search FAB below) is shown. */
+    searchActive: Boolean = false,
+    onSearchClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val barColors = floatingBarColors(filterTint)
@@ -2806,12 +2866,31 @@ private fun FloatingToolbar(
     HorizontalFloatingToolbar(
         expanded = true,
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddClick,
-                containerColor = resolvedFabContainer,
-                contentColor = resolvedFabContent,
+            // The search FAB is deliberately kept out of the navigation drawer (whose search
+            // filters the drawer's own lists/tags) and is a separate, task-list search affordance.
+            // It toggles the search bar that is hoisted to the top of the task list.
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                SymbolIcon(TasksIcons.ADD, contentDescription = "New task")
+                FloatingActionButton(
+                    onClick = onSearchClick,
+                    containerColor = resolvedFabContainer,
+                    contentColor = resolvedFabContent,
+                ) {
+                    SymbolIcon(
+                        if (searchActive) TasksIcons.CLEAR else TasksIcons.SEARCH,
+                        contentDescription =
+                            if (searchActive) "Close search" else "Search tasks",
+                    )
+                }
+                FloatingActionButton(
+                    onClick = onAddClick,
+                    containerColor = resolvedFabContainer,
+                    contentColor = resolvedFabContent,
+                ) {
+                    SymbolIcon(TasksIcons.ADD, contentDescription = "New task")
+                }
             }
         },
         colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
