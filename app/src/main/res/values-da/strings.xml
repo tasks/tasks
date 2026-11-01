@@ -430,4 +430,7 @@
     <string name="upgrade_friends_and_family">Venner og familie</string>
     <string name="upgrade_friends_and_family_description">5 gratis gæster på delte lister. Fungerer med Apple Reminders</string>
     <string name="read_more">Læs mere</string>
+    <string name="sort_options">Sorteringsmuligheder</string>
+    <string name="write_permission_label">Redigér opgaver</string>
+    <string name="permission_write_tasks">Tilføj, ændr og slet dine opgaver, lister, tags og steder</string>
 </resources>
