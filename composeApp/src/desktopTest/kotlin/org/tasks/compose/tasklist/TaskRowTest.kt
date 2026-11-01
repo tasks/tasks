@@ -59,10 +59,11 @@ class TaskRowTest {
     }
 
     @Composable
-    private fun Row(task: TaskContainer, doomed: Boolean, clicks: Clicks) {
+    private fun Row(task: TaskContainer, doomed: Boolean, clicks: Clicks, selected: Boolean = false) {
         MaterialTheme {
             TaskRow(
                 task = task,
+                selected = selected,
                 doomed = doomed,
                 filter = EmptyFilter(),
                 groupMode = 0,
