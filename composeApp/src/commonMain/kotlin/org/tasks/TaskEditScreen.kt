@@ -49,6 +49,7 @@ import org.tasks.compose.edit.DiscardChangesDialog
 import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.MarkdownEditField
+import org.tasks.compose.edit.ParentBreadcrumb
 import org.tasks.compose.edit.PrioritySection
 import org.tasks.compose.edit.RecurrencePickerDialog
 import org.tasks.compose.edit.RepeatRow
@@ -203,6 +204,13 @@ fun TaskEditScreen(
                             .verticalScroll(rememberScrollState())
                             .padding(TaskEditIslandInset),
                     ) {
+                        if (!state.isLoading && !state.isDraft && state.task.parent > 0) {
+                            ParentBreadcrumb(
+                                task = state.task,
+                                onOpenTask = { onOpenSubtask(it.id, it.uuid, false) },
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
                         TitleField(
                             title = state.task.title.orEmpty(),
                             onTitleChange = viewModel::setTitle,
