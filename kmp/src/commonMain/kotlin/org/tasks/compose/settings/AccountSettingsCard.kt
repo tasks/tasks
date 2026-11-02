@@ -301,6 +301,7 @@ fun ManageSubscriptionSheetContent(
     modifier: Modifier = Modifier,
     showUpgrade: Boolean = true,
     showModify: Boolean = true,
+    modifyTitle: String? = null,
 ) {
     Column(
         modifier = modifier
@@ -321,7 +322,7 @@ fun ManageSubscriptionSheetContent(
         if (showModify) {
             SettingsItemCard {
                 PreferenceRow(
-                    title = stringResource(Res.string.manage_subscription),
+                    title = modifyTitle ?: stringResource(Res.string.manage_subscription),
                     icon = TasksIcons.EDIT,
                     iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
                     onClick = onModify,

@@ -16,10 +16,16 @@ import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.compose.settings.MessageDialog
 import org.tasks.compose.settings.conflictingAccountMessage
+import org.tasks.compose.settings.formattedDate
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.viewmodel.StripeCheckoutViewModel
 import org.tasks.viewmodel.StripeCheckoutViewModel.Notice
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
 import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.change_plan
+import tasks.kmp.generated.resources.change_plan_message
+import tasks.kmp.generated.resources.change_plan_trial
 import tasks.kmp.generated.resources.checkout_expired
 import tasks.kmp.generated.resources.checkout_finish_in_browser
 import tasks.kmp.generated.resources.error_billing_unavailable
@@ -127,6 +133,38 @@ private fun ActionDialog(
         confirmButton = {
             TextButton(onClick = onAction) {
                 Text(actionLabel)
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(Res.string.cancel))
+            }
+        },
+    )
+}
+
+@Composable
+fun ChangePlanConfirmDialog(
+    pending: StripeCheckoutViewModel.PendingChange?,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    if (pending == null) return
+    val cost = intervalPrice(pending.price.formattedPrice, pending.price.isMonthly)
+    val trialEnd = pending.trialEnd
+    val message = if (trialEnd == null) {
+        stringResource(Res.string.change_plan_message, cost)
+    } else {
+        formattedDate(trialEnd, DateStyle.LONG)
+            ?.let { stringResource(Res.string.change_plan_trial, it, cost) }
+    } ?: return
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(Res.string.change_plan)) },
+        text = { Text(message) },
+        confirmButton = {
+            TextButton(onClick = onConfirm) {
+                Text(stringResource(Res.string.change_plan))
             }
         },
         dismissButton = {

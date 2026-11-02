@@ -15,6 +15,7 @@ fun cardCheckout(
     suggestedPrice: Int?,
     openUrl: (String) -> Unit,
     onRestorePurchases: () -> Unit,
+    onPlanChanged: () -> Unit,
 ): StoreBilling {
     val viewModel = koinViewModel<StripeCheckoutViewModel>()
     val state by viewModel.viewState.collectAsState()
@@ -24,6 +25,12 @@ fun cardCheckout(
         if (url != null && url != opened) {
             opened = url
             openUrl(url)
+        }
+    }
+    LaunchedEffect(state.planChanged) {
+        if (state.planChanged) {
+            viewModel.planChangeHandled()
+            onPlanChanged()
         }
     }
     CheckoutProgressDialog(
@@ -39,6 +46,11 @@ fun cardCheckout(
             viewModel.dismissNotice()
             onRestorePurchases()
         },
+    )
+    ChangePlanConfirmDialog(
+        pending = state.confirmChange,
+        onConfirm = { viewModel.confirmChange() },
+        onDismiss = { viewModel.dismissChange() },
     )
     return StoreBilling(
         catalog = state.catalog,

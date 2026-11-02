@@ -273,6 +273,7 @@ import tasks.kmp.generated.resources.no_task_selected
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.add_platform_account
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.change_plan
 import tasks.kmp.generated.resources.dismiss
 import tasks.kmp.generated.resources.local_list_description
 import tasks.kmp.generated.resources.local_list_title
@@ -1017,6 +1018,7 @@ fun App(
                             val isGitHubSponsor = subscriptionInfo?.isGitHubSponsor == true
                             val isCardSubscription = subscriptionInfo?.isCardSubscription == true
                             val sponsorUrl = stringResource(Res.string.url_sponsor)
+                            val changePlanLabel = stringResource(Res.string.change_plan)
                             val googlePlayUrl = TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS
                             ModalBottomSheet(
                                 onDismissRequest = { showManageSheet = false },
@@ -1029,7 +1031,15 @@ fun App(
                                     },
                                     onModify = {
                                         showManageSheet = false
-                                        openUrl(sponsorUrl)
+                                        if (isCardSubscription) {
+                                            backStack.push(
+                                                PricingDestination(
+                                                    source = "manage_subscription",
+                                                )
+                                            )
+                                        } else {
+                                            openUrl(sponsorUrl)
+                                        }
                                     },
                                     onCancel = {
                                         showManageSheet = false
@@ -1039,7 +1049,8 @@ fun App(
                                             else -> openUrl(googlePlayUrl)
                                         }
                                     },
-                                    showModify = isGitHubSponsor,
+                                    showModify = isGitHubSponsor || isCardSubscription,
+                                    modifyTitle = changePlanLabel.takeIf { isCardSubscription },
                                 )
                             }
                         }
@@ -1256,6 +1267,7 @@ fun App(
                                         RestorePurchasesDestination(source = destination.source)
                                     )
                                 },
+                                onPlanChanged = { popPricing() },
                             )
                         } else {
                             null
