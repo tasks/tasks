@@ -33,6 +33,7 @@ fun cardCheckout(
     CheckoutNoticeDialog(
         notice = state.notice,
         onDismiss = { viewModel.dismissNotice() },
+        onRetry = { viewModel.retryChange() },
     )
     return StoreBilling(
         catalog = state.catalog,
