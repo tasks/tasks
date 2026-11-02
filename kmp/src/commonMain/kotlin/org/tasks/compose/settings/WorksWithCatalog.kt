@@ -11,6 +11,7 @@ import tasks.kmp.generated.resources.acalendar
 import tasks.kmp.generated.resources.android
 import tasks.kmp.generated.resources.apple_reminders
 import tasks.kmp.generated.resources.caldav_server_nextcloud
+import tasks.kmp.generated.resources.davsky
 import tasks.kmp.generated.resources.davx5
 import tasks.kmp.generated.resources.davx5_selection_description
 import tasks.kmp.generated.resources.decsync
@@ -21,6 +22,7 @@ import tasks.kmp.generated.resources.etesync_selection_description
 import tasks.kmp.generated.resources.google_tasks_selection_description
 import tasks.kmp.generated.resources.gtasks_GPr_header
 import tasks.kmp.generated.resources.ios
+import tasks.kmp.generated.resources.ic_davsky
 import tasks.kmp.generated.resources.ic_davx5_icon_green_bg
 import tasks.kmp.generated.resources.ic_decsync
 import tasks.kmp.generated.resources.ic_etesync
@@ -56,6 +58,7 @@ import tasks.kmp.generated.resources.works_with_cloud_description
 import tasks.kmp.generated.resources.works_with_desktop
 import tasks.kmp.generated.resources.works_with_desktop_apps
 import tasks.kmp.generated.resources.works_with_desktop_description
+import tasks.kmp.generated.resources.works_with_davsky_description
 import tasks.kmp.generated.resources.works_with_developers
 import tasks.kmp.generated.resources.works_with_ios
 import tasks.kmp.generated.resources.works_with_kvaesitso_description
@@ -242,6 +245,17 @@ val worksWithCatalog = listOf(
     WorksWithGroup(
         title = Res.string.works_with_sync,
         entries = listOf(
+            WorksWithEntry(
+                title = Res.string.davsky,
+                description = Res.string.works_with_davsky_description,
+                iconDrawable = Res.drawable.ic_davsky,
+                tintIcon = false,
+                tags = setOf(WorksWithTag.ANDROID, WorksWithTag.SYNC),
+                links = WorksWithLinks(
+                    web = "https://play.google.com/store/apps/details?id=com.rypox.davsky",
+                    play = "com.rypox.davsky",
+                ),
+            ),
             WorksWithEntry(
                 title = Res.string.davx5,
                 description = Res.string.davx5_selection_description,
