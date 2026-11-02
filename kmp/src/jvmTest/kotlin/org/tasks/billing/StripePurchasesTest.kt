@@ -404,6 +404,44 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aSupporterSubscriptionRestoredWithNoAccountStillAsksForAnUpgrade() = runBlocking {
+        accounts = emptyList()
+        val entitlement = entitlement()
+
+        val outcome = purchases(entitlement).restore(purchase(sku = "annual_01"))
+
+        assertEquals(StripeRestoreOutcome.NeedsUpgrade, outcome)
+        assertTrue(entitlement.hasPro.first())
+    }
+
+    @Test
+    fun aCloudSubscriptionRestoredWithNoAccountIsSimplyRestored() = runBlocking {
+        accounts = emptyList()
+
+        assertEquals(StripeRestoreOutcome.Restored, purchases().restore(purchase()))
+    }
+
+    @Test
+    fun aSupporterSubscriptionThatEndedIsNotAnUpgradePitch() = runBlocking {
+        accounts = emptyList()
+
+        val outcome = purchases().restore(purchase(sku = "annual_01"), covered = false)
+
+        assertEquals(StripeRestoreOutcome.Ended, outcome)
+    }
+
+    @Test
+    fun aSupporterTierBoughtAtTheTillIsNotAskedToUpgrade() = runBlocking {
+        accounts = emptyList()
+        checkoutStatus = StripeCheckoutStatus.Complete(purchase(sku = "annual_01"))
+
+        assertEquals(
+            StripeCollection.Collected(StripeRestoreOutcome.Restored),
+            purchases().collectCheckout("c0de"),
+        )
+    }
+
+    @Test
     fun aSubscriptionFundingAnotherAccountNamesIt() = runBlocking {
         claimResult = StripeSubscriptionResult.TokenInUse("b**@e**.com")
 
@@ -468,14 +506,14 @@ class StripePurchasesTest {
     }
 
     @Test
-    fun aRedeemedCodeIsKept() = runBlocking {
+    fun aVerifiedCodeIsNotKeptUntilItIsRestored() = runBlocking {
         restore = StripeRestore.Restored(purchase())
         val entitlement = entitlement()
 
-        val result = purchases(entitlement).redeemRestoreCode("alice@example.com", "123456")
+        val result = purchases(entitlement).verifyRestoreCode("alice@example.com", "123456")
 
         assertTrue(result is StripeRestore.Restored)
-        assertTrue(entitlement.hasPro.first())
+        assertFalse(entitlement.hasPro.first())
     }
 
     @Test
@@ -483,7 +521,7 @@ class StripePurchasesTest {
         restore = StripeRestore.InvalidCode
         val entitlement = entitlement()
 
-        val result = purchases(entitlement).redeemRestoreCode("alice@example.com", "000000")
+        val result = purchases(entitlement).verifyRestoreCode("alice@example.com", "000000")
 
         assertEquals(StripeRestore.InvalidCode, result)
         assertFalse(entitlement.hasPro.first())
@@ -672,9 +710,8 @@ class StripePurchasesTest {
     @Test
     fun aRestoreIsNotAPurchaseAndStartsNoCelebration() = runBlocking {
         accounts = emptyList()
-        restore = StripeRestore.Restored(purchase(sku = "monthly_03"))
 
-        purchases().redeemRestoreCode("alice@example.com", "123456")
+        purchases().restore(purchase(sku = "monthly_03"))
 
         assertFalse(tasksPreferences.get(TasksPreferences.needsCloudOnboarding, false))
     }

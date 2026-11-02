@@ -102,12 +102,18 @@ class StripePurchases(
     suspend fun requestRestoreCode(email: String): StripeRestoreRequest =
         client.requestRestoreCode(email)
 
-    suspend fun redeemRestoreCode(email: String, code: String): StripeRestore {
-        val result = client.verifyRestoreCode(email, code)
-        if (result is StripeRestore.Restored) {
-            keep(result.purchase, covered = result.covered)
-        }
-        return result
+    suspend fun verifyRestoreCode(email: String, code: String): StripeRestore =
+        client.verifyRestoreCode(email, code)
+
+    suspend fun restore(
+        purchase: StripePurchase,
+        covered: Boolean = true,
+    ): StripeRestoreOutcome {
+        val outcome = keep(purchase, covered)
+        if (outcome != StripeRestoreOutcome.Restored) return outcome
+        if (SubscriptionSkus.isTasksSubscription(purchase.sku)) return outcome
+        logger.i { "Restored a subscription that does not reach the cloud tier" }
+        return StripeRestoreOutcome.NeedsUpgrade
     }
 
     suspend fun keep(
