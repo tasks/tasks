@@ -435,7 +435,11 @@ private fun QrTab(
             }
         }
         is DesktopProState.Success -> {
-            SuccessContent(onBack = onBack, buttonText = successButtonText)
+            SuccessContent(
+                onBack = onBack,
+                message = stringResource(Res.string.link_desktop_success),
+                buttonText = successButtonText,
+            )
         }
         is DesktopProState.Error -> {
             Text(
@@ -525,7 +529,11 @@ private fun GitHubTab(
             )
         }
         is GitHubProState.Success -> {
-            SuccessContent(onBack = onBack, buttonText = successButtonText)
+            SuccessContent(
+                onBack = onBack,
+                message = stringResource(Res.string.link_desktop_success),
+                buttonText = successButtonText,
+            )
         }
         is GitHubProState.NotSponsor -> {
             Card(
@@ -594,11 +602,11 @@ private fun GitHubTab(
 @Composable
 internal fun SuccessContent(
     onBack: () -> Unit,
+    message: String,
     buttonText: String? = null,
-    message: String? = null,
 ) {
     Text(
-        text = message ?: stringResource(Res.string.link_desktop_success),
+        text = message,
         style = MaterialTheme.typography.titleMedium,
         color = MaterialTheme.colorScheme.primary,
         textAlign = TextAlign.Center,
