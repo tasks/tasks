@@ -345,7 +345,7 @@
     <string name="error_invalid_code">That code is wrong or has expired</string>
     <string name="error_no_purchase_found">We couldn't find a purchase for that address</string>
     <string name="restore_renewal_settling">Your renewal is still going through</string>
-    <string name="error_purchase_not_verified">We couldn't verify your purchase on this device. Restore purchases and try again.</string>
+    <string name="error_purchase_not_verified">We couldn't verify your purchase on this device.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait a few minutes and try again.</string>
     <string name="error_billing_unavailable">Billing isn't available right now. Please try again later.</string>
     <string name="error_github_verification_failed">Verification failed. Please try again.</string>

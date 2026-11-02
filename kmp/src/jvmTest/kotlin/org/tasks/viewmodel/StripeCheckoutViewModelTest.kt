@@ -701,6 +701,19 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aRefusalOnlyARestoreCanRepairOffersOne() = runTest(dispatcher) {
+        checkout = StripeCheckout.RestoreRequired
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(Notice.RestoreRequired, viewModel.viewState.value.notice)
+        assertFalse(viewModel.viewState.value.busy)
+    }
+
+    @Test
     fun aRefusedSaleTheServerThenKnowsNoSubscriptionForStopsThere() = runTest(dispatcher) {
         checkout = StripeCheckout.SubscriptionExists(product = "annual_01")
         change = StripeChange.NotLinked

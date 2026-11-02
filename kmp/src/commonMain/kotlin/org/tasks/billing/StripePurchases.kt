@@ -46,7 +46,7 @@ class StripePurchases(
         logger.i { "Locked on a subscription the server says is live, retrying the refresh" }
         if (!entitlement.retryRefresh()) {
             logger.i { "Still refused: the live subscription is on another of their customers" }
-            return null
+            return StripeCheckout.RestoreRequired
         }
         return StripeCheckout.Collected(StripeRestoreOutcome.Restored)
     }

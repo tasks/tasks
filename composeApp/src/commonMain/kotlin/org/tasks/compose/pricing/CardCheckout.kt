@@ -14,6 +14,7 @@ import org.tasks.viewmodel.StripeCheckoutViewModel
 fun cardCheckout(
     suggestedPrice: Int?,
     openUrl: (String) -> Unit,
+    onRestorePurchases: () -> Unit,
 ): StoreBilling {
     val viewModel = koinViewModel<StripeCheckoutViewModel>()
     val state by viewModel.viewState.collectAsState()
@@ -34,6 +35,10 @@ fun cardCheckout(
         notice = state.notice,
         onDismiss = { viewModel.dismissNotice() },
         onRetry = { viewModel.retryChange() },
+        onRestore = {
+            viewModel.dismissNotice()
+            onRestorePurchases()
+        },
     )
     return StoreBilling(
         catalog = state.catalog,

@@ -372,14 +372,14 @@ class StripePurchasesTest {
     }
 
     @Test
-    fun aRefreshThatIsStillRefusedHandsTheRefusalBack() = runBlocking {
+    fun aRefreshThatIsStillRefusedSendsThemToRestore() = runBlocking {
         val entitlement = entitlement()
         purchases(entitlement).keep(purchase(), covered = false)
         checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
 
         val result = purchases(entitlement).createCheckout(null)
 
-        assertEquals(StripeCheckout.SubscriptionExists(product = "annual_30"), result)
+        assertEquals(StripeCheckout.RestoreRequired, result)
         assertFalse(entitlement.hasPro.first())
     }
 

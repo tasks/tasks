@@ -27,6 +27,7 @@ import tasks.kmp.generated.resources.error_contact_support
 import tasks.kmp.generated.resources.error_encryption_failed
 import tasks.kmp.generated.resources.error_purchase_not_verified
 import tasks.kmp.generated.resources.error_too_many_requests
+import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.your_subscription_expired
@@ -70,9 +71,17 @@ fun CheckoutNoticeDialog(
     notice: Notice?,
     onDismiss: () -> Unit,
     onRetry: () -> Unit = {},
+    onRestore: () -> Unit = {},
 ) {
     when (notice) {
         null -> Unit
+        Notice.RestoreRequired,
+        Notice.PurchaseGone -> ActionDialog(
+            message = stringResource(Res.string.error_purchase_not_verified),
+            actionLabel = stringResource(Res.string.restore_purchases),
+            onAction = onRestore,
+            onDismiss = onDismiss,
+        )
         Notice.ChangeUnavailable -> ActionDialog(
             message = stringResource(Res.string.error_billing_unavailable),
             actionLabel = stringResource(Res.string.retry),
@@ -80,7 +89,6 @@ fun CheckoutNoticeDialog(
             onDismiss = onDismiss,
         )
         Notice.NeedsUpgrade -> Message(Res.string.upgrade_subscription_banner, onDismiss)
-        Notice.PurchaseGone -> Message(Res.string.error_purchase_not_verified, onDismiss)
         Notice.SubscriptionCancelled -> Message(Res.string.your_subscription_expired, onDismiss)
         Notice.AccountLinkConflict -> MessageDialog(
             message = conflictingAccountMessage(null),

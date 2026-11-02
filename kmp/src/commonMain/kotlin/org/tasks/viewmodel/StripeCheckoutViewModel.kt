@@ -63,6 +63,8 @@ open class StripeCheckoutViewModel(
 
         data object ChangeUnavailable : Notice
 
+        data object RestoreRequired : Notice
+
         data object AccountLinkConflict : Notice
 
         data object StorageFailed : Notice
@@ -154,6 +156,7 @@ open class StripeCheckoutViewModel(
                     Logger.e(TAG) { "Checkout refused: the account holds another customer" }
                     finish(Notice.AccountLinkConflict)
                 }
+                StripeCheckout.RestoreRequired -> finish(Notice.RestoreRequired)
                 StripeCheckout.RateLimited -> finish(Notice.RateLimited)
                 StripeCheckout.Unavailable -> finish(Notice.Unavailable)
                 StripeCheckout.UnknownPrice -> {

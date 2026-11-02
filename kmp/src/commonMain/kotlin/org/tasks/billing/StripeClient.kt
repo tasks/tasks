@@ -45,6 +45,8 @@ sealed interface StripeCheckout {
 
     data class Collected(val outcome: StripeRestoreOutcome) : StripeCheckout
 
+    data object RestoreRequired : StripeCheckout
+
     data class AccountInUse(val existingAccount: String) : StripeCheckout
 
     data object AccountLinkConflict : StripeCheckout

@@ -1251,6 +1251,11 @@ fun App(
                                 suggestedPrice = subscriptionInfo
                                     ?.let { SubscriptionSkus.subscriptionPrice(it.sku) },
                                 openUrl = openUrl,
+                                onRestorePurchases = {
+                                    backStack.push(
+                                        RestorePurchasesDestination(source = destination.source)
+                                    )
+                                },
                             )
                         } else {
                             null
