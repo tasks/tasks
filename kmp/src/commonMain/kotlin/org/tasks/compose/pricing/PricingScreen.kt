@@ -99,11 +99,7 @@ private fun StripePrice?.ctaLabel(): String = if (this == null) {
 } else {
     stringResource(
         Res.string.pricing_subscribe_for,
-        stringResource(
-            if (isMonthly) Res.string.price_per_month_with_currency
-            else Res.string.price_per_year_with_currency,
-            formattedPrice,
-        ),
+        intervalPrice(formattedPrice, isMonthly),
     )
 }
 

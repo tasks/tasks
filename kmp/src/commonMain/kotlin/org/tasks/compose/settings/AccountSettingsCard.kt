@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.compose.pricing.intervalPrice
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.clickable
@@ -34,8 +35,6 @@ import tasks.kmp.generated.resources.donate_nag
 import tasks.kmp.generated.resources.guest
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.manage_subscription
-import tasks.kmp.generated.resources.price_per_month_with_currency
-import tasks.kmp.generated.resources.price_per_year_with_currency
 import tasks.kmp.generated.resources.pro_card_credit
 import tasks.kmp.generated.resources.sign_in_to_connect
 import tasks.kmp.generated.resources.supporter
@@ -127,17 +126,10 @@ fun AccountSettingsCard(
                         state.formattedPrice == null -> null
                         state.formattedPrice.isBlank() ->
                             stringResource(Res.string.supporter_summary_no_price)
-                        else -> {
-                            val interval = if (state.isMonthly) {
-                                Res.string.price_per_month_with_currency
-                            } else {
-                                Res.string.price_per_year_with_currency
-                            }
-                            stringResource(
-                                Res.string.supporter_summary,
-                                stringResource(interval, state.formattedPrice)
-                            )
-                        }
+                        else -> stringResource(
+                            Res.string.supporter_summary,
+                            intervalPrice(state.formattedPrice, state.isMonthly),
+                        )
                     }
                     showError = false
                 }
