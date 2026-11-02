@@ -22,6 +22,8 @@ abstract class McpGraphTestCase {
 
     protected val api: DatabaseTasksApi get() = koin.get()
 
+    protected val filtersApi: DatabaseFiltersApi get() = koin.get()
+
     protected val db: Database get() = koin.get()
 
     @Before

@@ -63,6 +63,7 @@ import tasks.kmp.generated.resources.mcp_auth_header
 import tasks.kmp.generated.resources.mcp_tools
 import tasks.kmp.generated.resources.mcp_tools_enabled
 import tasks.kmp.generated.resources.mcp_tools_group_accounts
+import tasks.kmp.generated.resources.mcp_tools_group_filters
 import tasks.kmp.generated.resources.mcp_tools_group_lists
 import tasks.kmp.generated.resources.mcp_tools_group_places
 import tasks.kmp.generated.resources.mcp_tools_group_reminders
@@ -412,6 +413,7 @@ private fun McpToolGroup.label() = when (this) {
     McpToolGroup.Places -> Res.string.mcp_tools_group_places
     McpToolGroup.Reminders -> Res.string.mcp_tools_group_reminders
     McpToolGroup.Accounts -> Res.string.mcp_tools_group_accounts
+    McpToolGroup.Filters -> Res.string.mcp_tools_group_filters
 }
 
 @Composable

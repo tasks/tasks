@@ -123,3 +123,28 @@ suspend fun ApiQueryEngine.tasksById(ids: List<Long>): List<TaskRow> {
         .associateBy { it.id }
     return ids.mapNotNull { found[it] }
 }
+
+data class FilterQuery(
+    val sort: String? = null,
+    val sortDesc: Boolean = false,
+    val limit: Int? = null,
+    val offset: Int? = null,
+) {
+    fun args(take: Int, skip: Int): ApiQueryArgs {
+        val t = TasksContract.Tasks
+        return ApiQueryArgs.build(TasksContract.paramsFor(t.PATH)) {
+            putIfNotNull(t.PARAM_SORT, sort.orNullIfBlank())
+            if (sortDesc) put(t.PARAM_SORT_DESC, "1")
+            put(TasksContract.PARAM_LIMIT, take.toString())
+            put(TasksContract.PARAM_OFFSET, skip.toString())
+        }
+    }
+}
+
+suspend fun ApiQueryEngine.filterTasks(filterSql: String, query: FilterQuery): ApiPage<TaskRow> {
+    val take = pageLimit(query.limit)
+    val skip = pageOffset(query.offset)
+    return query.args(take, skip)
+        .let { this.queryFilterTasks(filterSql, it) }
+        .let { ApiPage(it.map { row -> row.toTaskRow() }, it.total, take, skip) }
+}

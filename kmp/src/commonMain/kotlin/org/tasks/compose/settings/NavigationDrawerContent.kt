@@ -2,6 +2,7 @@ package org.tasks.compose.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +15,7 @@ import org.tasks.viewmodel.NavigationDrawerViewModel
 fun NavigationDrawerContent(
     viewModel: NavigationDrawerViewModel,
     onCustomizeDrawer: (() -> Unit)? = null,
+    filterSection: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     if (!viewModel.loaded) {
         Box(
@@ -43,5 +45,6 @@ fun NavigationDrawerContent(
         onHideUnusedTags = { viewModel.updateHideUnusedTags(it) },
         onPlacesEnabled = { viewModel.updatePlacesEnabled(it) },
         onHideUnusedPlaces = { viewModel.updateHideUnusedPlaces(it) },
+        filterSection = filterSection,
     )
 }

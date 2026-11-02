@@ -53,6 +53,7 @@ class AgentNotesTest : McpGraphTestCase() {
             token = { TOKEN },
             permissions = ToolPermissions.of(mode),
             api = api,
+            filters = filtersApi,
             log = ActivityLog(),
             onStateChange = { _, _ -> },
         )

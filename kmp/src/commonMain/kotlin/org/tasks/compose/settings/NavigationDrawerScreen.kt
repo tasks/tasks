@@ -3,6 +3,7 @@ package org.tasks.compose.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +46,7 @@ fun NavigationDrawerScreen(
     onHideUnusedTags: (Boolean) -> Unit,
     onPlacesEnabled: (Boolean) -> Unit,
     onHideUnusedPlaces: (Boolean) -> Unit,
+    filterSection: (@Composable ColumnScope.() -> Unit)? = null,
 ) {
     Column(
         modifier = Modifier
@@ -98,6 +100,13 @@ fun NavigationDrawerScreen(
                     onCheckedChange = onShowRecentlyModified,
                 )
             }
+        }
+
+        // Desktop-only extra (e.g. the custom-filters list). Callers that pass nothing keep
+        // the exact previous layout.
+        val section = filterSection
+        if (section != null) {
+            section(this)
         }
 
         // Tags section
