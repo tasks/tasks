@@ -47,6 +47,8 @@ sealed interface StripeCheckout {
 
     data class AccountInUse(val existingAccount: String) : StripeCheckout
 
+    data object AccountLinkConflict : StripeCheckout
+
     data object RateLimited : StripeCheckout
 
     data object Unavailable : StripeCheckout

@@ -54,7 +54,9 @@ class TasksBasicAuth(
     private fun parsePurchaseTokenInUse(body: String): PurchaseTokenInUseException? = try {
         val json = Json.parseToJsonElement(body).jsonObject
         if (json["error"]?.jsonPrimitive?.content == "purchase_token_in_use") {
-            json["existing_account"]?.jsonPrimitive?.content?.let { PurchaseTokenInUseException(it) }
+            PurchaseTokenInUseException(
+                json["existing_account"]?.jsonPrimitive?.content.orEmpty()
+            )
         } else null
     } catch (e: Exception) {
         Logger.d(TAG) { "Failed to parse 402 body: ${e.message}" }

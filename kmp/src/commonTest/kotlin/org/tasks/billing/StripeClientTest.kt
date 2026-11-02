@@ -397,6 +397,13 @@ class StripeClientTest {
     }
 
     @Test
+    fun anAccountHoldingAnotherCustomerIsNotARefusalToSellAround() = runTest {
+        respondWith(HttpStatusCode.Conflict, """{"error":"already_linked"}""")
+
+        assertEquals(StripeCheckout.AccountLinkConflict, client().createCheckout(null))
+    }
+
+    @Test
     fun aCustomerHeldByAnotherAccountNamesThatAccount() = runTest {
         respondWith(
             HttpStatusCode.Conflict,

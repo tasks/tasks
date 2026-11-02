@@ -71,6 +71,18 @@ class TasksBasicAuthTest {
     }
 
     @Test
+    fun aConflictWithNoAddressToMaskIsStillAnException() = runTest {
+        val client = client(
+            TasksBasicAuth(user = "alice", token = "s3cret", tosVersion = 0),
+            status = HttpStatusCode.PaymentRequired,
+            body = """{"error":"purchase_token_in_use"}""",
+        )
+
+        val e = assertFailsWith<PurchaseTokenInUseException> { client.get("https://caldav.example.com/") }
+        assertEquals("", e.existingAccount)
+    }
+
+    @Test
     fun otherPaymentRequiredResponsesKeepTheirBody() = runTest {
         val client = client(
             TasksBasicAuth(user = "alice", token = "s3cret", tosVersion = 0),

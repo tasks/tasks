@@ -687,6 +687,20 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun anAccountLinkedToAnotherCustomerIsNotSentRoundTheHouses() = runTest(dispatcher) {
+        checkout = StripeCheckout.AccountLinkConflict
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(Notice.AccountLinkConflict, viewModel.viewState.value.notice)
+        assertTrue(changes.isEmpty())
+        assertEquals(1, requestedCheckouts)
+    }
+
+    @Test
     fun aRefusedSaleTheServerThenKnowsNoSubscriptionForStopsThere() = runTest(dispatcher) {
         checkout = StripeCheckout.SubscriptionExists(product = "annual_01")
         change = StripeChange.NotLinked

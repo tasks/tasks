@@ -15,6 +15,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.compose.settings.MessageDialog
+import org.tasks.compose.settings.conflictingAccountMessage
 import org.tasks.viewmodel.StripeCheckoutViewModel.Notice
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
@@ -28,7 +29,6 @@ import tasks.kmp.generated.resources.error_purchase_not_verified
 import tasks.kmp.generated.resources.error_too_many_requests
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.upgrade_subscription_banner
-import tasks.kmp.generated.resources.wrong_account_message
 import tasks.kmp.generated.resources.your_subscription_expired
 
 @Composable
@@ -82,12 +82,12 @@ fun CheckoutNoticeDialog(
         Notice.NeedsUpgrade -> Message(Res.string.upgrade_subscription_banner, onDismiss)
         Notice.PurchaseGone -> Message(Res.string.error_purchase_not_verified, onDismiss)
         Notice.SubscriptionCancelled -> Message(Res.string.your_subscription_expired, onDismiss)
+        Notice.AccountLinkConflict -> MessageDialog(
+            message = conflictingAccountMessage(null),
+            onDismiss = onDismiss,
+        )
         is Notice.AccountInUse -> MessageDialog(
-            message = stringResource(
-                Res.string.wrong_account_message,
-                notice.existingAccount,
-                TasksUrls.SUPPORT_EMAIL,
-            ),
+            message = conflictingAccountMessage(notice.existingAccount),
             onDismiss = onDismiss,
         )
         Notice.Expired -> Message(Res.string.checkout_expired, onDismiss)

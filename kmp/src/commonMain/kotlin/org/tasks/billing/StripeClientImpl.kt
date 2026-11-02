@@ -238,6 +238,7 @@ class StripeClientImpl(
                         existingAccount = body.jsonField("existing_account").orEmpty(),
                     )
                 )
+                ERROR_ALREADY_LINKED -> Attempt.Answered(StripeCheckout.AccountLinkConflict)
                 else -> {
                     if (error != ERROR_SUBSCRIPTION_EXISTS) {
                         logger.w { "Unexpected 409 from checkout: $error" }
@@ -433,6 +434,7 @@ class StripeClientImpl(
         private const val RESTORED_CUSTOMER = "customer"
         private const val ERROR_SUBSCRIPTION_EXISTS = "subscription_exists"
         private const val ERROR_ACCOUNT_IN_USE = "stripe_account_in_use"
+        private const val ERROR_ALREADY_LINKED = "already_linked"
         private const val ERROR_INVALID_EMAIL = "invalid_email"
         private const val ERROR_NOTHING_TO_RESTORE = "nothing_to_restore"
         private const val ERROR_INVALID_PURCHASE_JWT = "invalid_purchase_jwt"

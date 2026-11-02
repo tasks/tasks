@@ -169,6 +169,7 @@
     <string name="authentication_required">Authentication required</string>
     <string name="wrong_account">Sign-in failed</string>
     <string name="wrong_account_message">Your subscription is already linked to %1$s. If you believe this is an error, please contact %2$s</string>
+    <string name="wrong_account_message_unknown">Your subscription is already linked to another account. If you believe this is an error, please contact %1$s</string>
     <string name="app_password_save">Use these credentials to configure a third-party app. They grant complete access to your Tasks.org account, don't write them down or share them with anyone!</string>
     <string name="url">URL</string>
     <string name="user">User</string>

@@ -582,9 +582,7 @@ private fun ErrorBannerCard(
     when {
         account.error.isPurchaseTokenInUse() -> {
             title = stringResource(Res.string.wrong_account)
-            summary = conflictingAccountMessage(
-                account.error.purchaseTokenInUseAccount() ?: "",
-            )
+            summary = conflictingAccountMessage(account.error.purchaseTokenInUseAccount())
             onClick = onSignIn
         }
         account.isPaymentRequired() -> {

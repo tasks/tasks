@@ -63,6 +63,8 @@ open class StripeCheckoutViewModel(
 
         data object ChangeUnavailable : Notice
 
+        data object AccountLinkConflict : Notice
+
         data object StorageFailed : Notice
 
         data object RateLimited : Notice
@@ -147,6 +149,10 @@ open class StripeCheckoutViewModel(
                     Logger.w(TAG) { "Checkout refused: this account already pays for ${checkout.product}" }
                     refreshPlan()
                     changeNow(price, sellInstead = false)
+                }
+                StripeCheckout.AccountLinkConflict -> {
+                    Logger.e(TAG) { "Checkout refused: the account holds another customer" }
+                    finish(Notice.AccountLinkConflict)
                 }
                 StripeCheckout.RateLimited -> finish(Notice.RateLimited)
                 StripeCheckout.Unavailable -> finish(Notice.Unavailable)

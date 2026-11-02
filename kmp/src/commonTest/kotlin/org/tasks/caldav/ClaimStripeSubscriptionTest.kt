@@ -57,6 +57,17 @@ class ClaimStripeSubscriptionTest {
     }
 
     @Test
+    fun anAccountWithNoAddressToMaskNamesNobody() = runTest {
+        assertEquals(
+            StripeSubscriptionResult.TokenInUse(""),
+            client(
+                HttpStatusCode.PaymentRequired,
+                """{"error":"purchase_token_in_use","provider":"stripe"}""",
+            ).claimStripeSubscription(jwt),
+        )
+    }
+
+    @Test
     fun aCancelledSubscriptionIsGone() = runTest {
         assertEquals(
             StripeSubscriptionResult.NoSubscription,
