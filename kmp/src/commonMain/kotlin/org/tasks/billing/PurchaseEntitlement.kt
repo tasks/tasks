@@ -268,6 +268,11 @@ class PurchaseEntitlement(
         return outcome != RefreshOutcome.UNANSWERED
     }
 
+    suspend fun retryRefresh(): Boolean = checkLock.withLock {
+        val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return@withLock false
+        attemptRefresh(stored) == RefreshOutcome.RENEWED
+    }
+
     suspend fun storeEntitlement(
         jwt: String,
         refreshToken: String?,

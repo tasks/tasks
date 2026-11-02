@@ -34,9 +34,21 @@ class StripePurchases(
 
     override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
         val result = client.createCheckout(price?.priceId, purchaseJwt = entitlement.getJwt())
-        val renewed = (result as? StripeCheckout.SubscriptionExists)?.receipt ?: return result
+        if (result !is StripeCheckout.SubscriptionExists) return result
+        val renewed = result.receipt ?: return recoverLapsedRow() ?: result
         logger.i { "The subscription was renewed elsewhere, keeping the receipt it came with" }
         return StripeCheckout.Collected(keep(renewed))
+    }
+
+    private suspend fun recoverLapsedRow(): StripeCheckout? {
+        if (entitlement.hasPro.first()) return null
+        if (entitlement.provider.first() != EntitlementProvider.STRIPE) return null
+        logger.i { "Locked on a subscription the server says is live, retrying the refresh" }
+        if (!entitlement.retryRefresh()) {
+            logger.i { "Still refused: the live subscription is on another of their customers" }
+            return null
+        }
+        return StripeCheckout.Collected(StripeRestoreOutcome.Restored)
     }
 
     override suspend fun changePlan(price: StripePrice): StripeChange {

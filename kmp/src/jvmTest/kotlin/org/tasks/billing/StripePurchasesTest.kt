@@ -63,6 +63,8 @@ class StripePurchasesTest {
 
     private var checkedSku: String? = null
     private var checkedCreditCents: Int? = null
+    private var refreshed: StripePurchase? = null
+    private val spentRefreshTokens = mutableListOf<String>()
 
     private val json = Json { ignoreUnknownKeys = true }
     private val encryption = KeyStoreEncryption(object : KeyProvider {
@@ -195,19 +197,43 @@ class StripePurchasesTest {
         server = MockWebServer().apply {
             dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse =
-                    checkedSku
-                        ?.let {
-                            MockResponse()
-                                .setResponseCode(200)
-                                .setHeader("Content-Type", "application/json")
-                                .setBody(
-                                    """{"sku":"$it","formatted_price":"USD 29.99"""" +
-                                        (checkedCreditCents?.let { cents ->
-                                            ""","credit_cents":$cents,"credit_currency":"EUR""""
-                                        } ?: "") + "}"
-                                )
-                        }
-                        ?: MockResponse().setResponseCode(404)
+                    if (request.path?.endsWith("/desktop/refresh") == true) {
+                        spentRefreshTokens.add(
+                            request.body.readUtf8()
+                                .substringAfter(""""refresh_token":"""")
+                                .substringBefore('"'),
+                        )
+                        refresh()
+                    } else {
+                        check()
+                    }
+
+                private fun refresh(): MockResponse = refreshed
+                    ?.let {
+                        MockResponse()
+                            .setResponseCode(200)
+                            .setHeader("Content-Type", "application/json")
+                            .setBody(
+                                """{"jwt":"${it.purchaseJwt}",""" +
+                                    """"refresh_token":"${it.refreshToken}",""" +
+                                    """"sku":"${it.sku}"}"""
+                            )
+                    }
+                    ?: MockResponse().setResponseCode(402)
+
+                private fun check(): MockResponse = checkedSku
+                    ?.let {
+                        MockResponse()
+                            .setResponseCode(200)
+                            .setHeader("Content-Type", "application/json")
+                            .setBody(
+                                """{"sku":"$it","formatted_price":"USD 29.99"""" +
+                                    (checkedCreditCents?.let { cents ->
+                                        ""","credit_cents":$cents,"credit_currency":"EUR""""
+                                    } ?: "") + "}"
+                            )
+                    }
+                    ?: MockResponse().setResponseCode(404)
             }
             start()
         }
@@ -308,12 +334,81 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aReceiptMintedOnThisDevicesRowKeepsTheRefreshTokenItAlreadyHolds() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase().copy(refreshToken = "refresh-9"), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(
+            product = "annual_30",
+            receipt = StripeReceipt(jwt(), "annual_30"),
+        )
+
+        purchases(entitlement).createCheckout(null)
+        entitlement.retryRefresh()
+
+        assertEquals(listOf("refresh-9"), spentRefreshTokens)
+    }
+
+    @Test
     fun aRefusalWithNoReceiptIsHandedBackAsItCame() = runBlocking {
         checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
 
         val result = purchases().createCheckout(null)
 
         assertEquals(StripeCheckout.SubscriptionExists(product = "annual_30"), result)
+    }
+
+    @Test
+    fun aLockedDeviceRefusedAReceiptSpendsItsRefreshToken() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase(), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
+        refreshed = purchase(sku = "annual_30").copy(refreshToken = "refresh-2")
+
+        val result = purchases(entitlement).createCheckout(null)
+
+        assertEquals(StripeCheckout.Collected(StripeRestoreOutcome.Restored), result)
+        assertTrue(entitlement.hasPro.first())
+        assertEquals("annual_30", entitlement.sku.first())
+    }
+
+    @Test
+    fun aRefreshThatIsStillRefusedHandsTheRefusalBack() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase(), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
+
+        val result = purchases(entitlement).createCheckout(null)
+
+        assertEquals(StripeCheckout.SubscriptionExists(product = "annual_30"), result)
+        assertFalse(entitlement.hasPro.first())
+    }
+
+    @Test
+    fun anUnlockedDeviceHasNoRowToRecover() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase())
+        checkout = StripeCheckout.SubscriptionExists(product = "annual_30")
+        refreshed = purchase(sku = "annual_30")
+
+        val result = purchases(entitlement).createCheckout(null)
+
+        assertEquals(StripeCheckout.SubscriptionExists(product = "annual_30"), result)
+        assertEquals("monthly_03", entitlement.sku.first())
+    }
+
+    @Test
+    fun aRowRecoveredAtTheTillStartsNoCelebrationEither() = runBlocking {
+        accounts = emptyList()
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase(sku = "annual_01"), covered = false)
+        checkout = StripeCheckout.SubscriptionExists(product = "monthly_03")
+        refreshed = purchase(sku = "monthly_03").copy(refreshToken = "refresh-2")
+
+        val result = purchases(entitlement).createCheckout(null)
+
+        assertEquals(StripeCheckout.Collected(StripeRestoreOutcome.Restored), result)
+        assertFalse(tasksPreferences.get(TasksPreferences.needsCloudOnboarding, false))
+        assertTrue(onboardingSteps.isEmpty())
     }
 
     @Test
