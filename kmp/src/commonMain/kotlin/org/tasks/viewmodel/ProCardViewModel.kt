@@ -17,6 +17,7 @@ import org.tasks.PlatformConfiguration
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.formatCredit
+import org.tasks.billing.stripeTerms
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.compose.settings.AccountData
@@ -140,18 +141,21 @@ open class ProCardViewModel(
     ): ProCardState {
         val tasksOrgAccount = accountList.firstOrNull { it.isTasksOrg }
         val credit = creditToShow(sub, accountData)
+        val terms = sub?.terms ?: accountData?.terms
         return when {
             tasksOrgAccount != null -> ProCardState.TasksOrgAccount(
                 tasksOrgAccount,
                 isLoading && accountData == null,
                 accountData,
                 credit,
+                terms,
             )
-            sub?.isTasksSubscription == true -> ProCardState.SignIn(credit)
+            sub?.isTasksSubscription == true -> ProCardState.SignIn(credit, terms)
             hasBilling && sub != null -> ProCardState.Subscribed(
                 isMonthly = sub.isMonthly,
                 formattedPrice = formattedPrice,
                 credit = credit,
+                terms = terms,
             )
             hasBilling -> ProCardState.Upgrade
             else -> ProCardState.Donate
@@ -168,6 +172,7 @@ open class ProCardViewModel(
             hasSubscription = hasAnySubscription,
             creditCents = creditCents,
             creditCurrency = creditCurrency,
+            terms = stripeTerms(),
         )
     }
 }

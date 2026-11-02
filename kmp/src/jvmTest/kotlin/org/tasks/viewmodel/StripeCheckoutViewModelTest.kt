@@ -677,6 +677,22 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aChangeThatTookBackACancellationLeavesTheScreenLikeAnyOtherChange() = runTest(dispatcher) {
+        plan = StripePlan("annual_01")
+        change = StripeChange.Changed(entitles = true, resumed = true)
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+        viewModel.confirmChange()
+        runCurrent()
+
+        assertNull(viewModel.viewState.value.notice)
+        assertTrue(viewModel.viewState.value.planChanged)
+    }
+
+    @Test
     fun aCloudTierIsSoldToAnAccountAnotherProviderPaysForSoTheyCanMoveToACard() =
         runTest(dispatcher) {
             coverage = ForeignCoverage(covered = true, source = UnlockSource.GOOGLE_PLAY)

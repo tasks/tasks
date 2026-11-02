@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.billing.PurchaseTerms
 import org.tasks.compose.pricing.intervalPrice
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
@@ -57,23 +58,39 @@ data class AccountData(
     val hasSubscription: Boolean = false,
     val creditCents: Int? = null,
     val creditCurrency: String? = null,
+    val terms: PurchaseTerms? = null,
 )
 
 sealed class ProCardState {
     open val credit: String? get() = null
+
+    open val terms: PurchaseTerms? get() = null
+
+    @Composable
+    open fun renewalPrice(): String? = null
 
     data object Upgrade : ProCardState()
     data class Subscribed(
         val isMonthly: Boolean,
         val formattedPrice: String? = null,
         override val credit: String? = null,
+        override val terms: PurchaseTerms? = null,
+    ) : ProCardState() {
+        @Composable
+        override fun renewalPrice(): String? = formattedPrice
+            ?.takeIf { it.isNotBlank() }
+            ?.let { intervalPrice(it, isMonthly) }
+    }
+    data class SignIn(
+        override val credit: String? = null,
+        override val terms: PurchaseTerms? = null,
     ) : ProCardState()
-    data class SignIn(override val credit: String? = null) : ProCardState()
     data class TasksOrgAccount(
         val account: CaldavAccount,
         val isLoading: Boolean = false,
         val accountData: AccountData? = null,
         override val credit: String? = null,
+        override val terms: PurchaseTerms? = null,
     ) : ProCardState()
     data object Donate : ProCardState()
 }
@@ -222,6 +239,13 @@ fun AccountSettingsCard(
                             MaterialTheme.colorScheme.onSurfaceVariant
                         else
                             Color.Transparent,
+                    )
+                }
+                state.terms?.renewalNote(state.renewalPrice())?.let { renewal ->
+                    Text(
+                        text = renewal,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
                 }
                 state.credit?.let { credit ->

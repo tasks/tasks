@@ -178,7 +178,7 @@ open class StripeCheckoutViewModel(
     }
 
     private suspend fun changeNow(price: StripePrice, sellInstead: Boolean = true) {
-        when (val result = purchases.changePlan(price)) {
+        when (purchases.changePlan(price)) {
             is StripeChange.Changed -> {
                 refreshPlan()
                 finish(null)

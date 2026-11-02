@@ -373,6 +373,11 @@
     <string name="pricing_free_trial">%1$d-day free trial</string>
     <string name="pricing_subscribe_for">Subscribe for %1$s</string>
     <string name="pro_card_credit">%1$s credit will be applied to your next renewal</string>
+    <string name="subscription_renews_on">Renews %1$s</string>
+    <string name="subscription_ends_on">Ends %1$s</string>
+    <string name="subscription_ended_on">Ended %1$s</string>
+    <string name="subscription_free_until">Free until %1$s, then %2$s</string>
+    <string name="subscription_payment_failed">Payment failed, update your card</string>
     <string name="subscription_covered_by">This account is paid for by your %1$s.</string>
     <string name="subscription_covered_elsewhere">This account is already paid for somewhere else.</string>
     <string name="already_subscribed">Already a subscriber?</string>
