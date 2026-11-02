@@ -659,6 +659,28 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aRefusedCardIsToldApartFromAnOutage() = runTest(dispatcher) {
+        plan = StripePlan("annual_01")
+        change = StripeChange.CardDeclined
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+        viewModel.confirmChange()
+        runCurrent()
+
+        assertEquals(Notice.CardDeclined, viewModel.viewState.value.notice)
+
+        change = StripeChange.Changed(entitles = true)
+        viewModel.retryChange()
+        runCurrent()
+
+        assertEquals(listOf(offer, offer), changes)
+        assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
     fun aDismissedRetryableNoticeLeavesNothingToRetry() = runTest(dispatcher) {
         plan = StripePlan("annual_01")
         change = StripeChange.Unavailable

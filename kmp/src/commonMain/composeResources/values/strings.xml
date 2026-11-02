@@ -373,6 +373,8 @@
     <string name="change_plan">Change plan</string>
     <string name="change_plan_message">Your subscription will change to %1$s starting today. Any remaining value on your current subscription will be credited to your account or applied towards this charge.</string>
     <string name="change_plan_trial">Your free trial ends on %1$s. At the end of your trial you will be billed %2$s.</string>
+    <string name="change_plan_card_declined">We couldn't change your plan. Your card may need updating.</string>
+    <string name="update_card">Update card</string>
     <string name="pricing_free_trial">%1$d-day free trial</string>
     <string name="pricing_subscribe_for">Subscribe for %1$s</string>
     <string name="pro_card_credit">%1$s credit will be applied to your next renewal</string>

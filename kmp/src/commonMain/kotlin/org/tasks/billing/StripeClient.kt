@@ -82,6 +82,8 @@ sealed interface StripeChange {
 
     data object UnknownPrice : StripeChange
 
+    data object CardDeclined : StripeChange
+
     data object NotLinked : StripeChange
 
     data object NoProofOfPurchase : StripeChange

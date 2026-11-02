@@ -289,6 +289,7 @@ class StripeClientImpl(
                     }
                     StripeChange.NoProofOfPurchase
                 }
+                402 -> StripeChange.CardDeclined
                 404 -> if (body.errorCode() == ERROR_UNKNOWN_PURCHASE) {
                     StripeChange.PurchaseGone
                 } else {

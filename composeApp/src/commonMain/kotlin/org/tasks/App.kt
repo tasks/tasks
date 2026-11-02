@@ -1268,6 +1268,7 @@ fun App(
                                     )
                                 },
                                 onPlanChanged = { popPricing() },
+                                portalUrl = { stripePurchases.portalUrl() },
                             )
                         } else {
                             null

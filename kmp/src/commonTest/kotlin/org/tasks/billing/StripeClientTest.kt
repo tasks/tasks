@@ -475,6 +475,13 @@ class StripeClientTest {
     }
 
     @Test
+    fun aRefusedProrationIsTheirCardRatherThanAnOutage() = runTest {
+        respondWith(HttpStatusCode.PaymentRequired, """{"error":"card_declined"}""")
+
+        assertEquals(StripeChange.CardDeclined, client().changePlan("pri_03"))
+    }
+
+    @Test
     fun aChangeSaysWhenItTookBackACancellation() = runTest {
         respondWith(
             HttpStatusCode.OK,

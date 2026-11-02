@@ -64,6 +64,8 @@ open class StripeCheckoutViewModel(
 
         data object SubscriptionCancelled : Notice
 
+        data object CardDeclined : Notice
+
         data object ChangeUnavailable : Notice
 
         data object RestoreRequired : Notice
@@ -204,6 +206,10 @@ open class StripeCheckoutViewModel(
                 Logger.e(TAG) { "The server does not sell ${price.sku}" }
                 loadCatalog()
                 finish(Notice.Failed)
+            }
+            StripeChange.CardDeclined -> {
+                retryable = price
+                finish(Notice.CardDeclined)
             }
             StripeChange.Unavailable -> {
                 retryable = price

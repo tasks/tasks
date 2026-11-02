@@ -16,6 +16,7 @@ fun cardCheckout(
     openUrl: (String) -> Unit,
     onRestorePurchases: () -> Unit,
     onPlanChanged: () -> Unit,
+    portalUrl: suspend () -> String?,
 ): StoreBilling {
     val viewModel = koinViewModel<StripeCheckoutViewModel>()
     val state by viewModel.viewState.collectAsState()
@@ -38,6 +39,7 @@ fun cardCheckout(
         onReopen = { state.checkoutUrl?.let(openUrl) },
         onCancel = { viewModel.cancel() },
     )
+    val openPortal = cardPortalLauncher(portalUrl = portalUrl, openUrl = openUrl)
     CheckoutNoticeDialog(
         notice = state.notice,
         onDismiss = { viewModel.dismissNotice() },
@@ -45,6 +47,10 @@ fun cardCheckout(
         onRestore = {
             viewModel.dismissNotice()
             onRestorePurchases()
+        },
+        onOpenPortal = {
+            viewModel.dismissNotice()
+            openPortal()
         },
     )
     ChangePlanConfirmDialog(

@@ -24,6 +24,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.action_open
 import tasks.kmp.generated.resources.cancel
 import tasks.kmp.generated.resources.change_plan
+import tasks.kmp.generated.resources.change_plan_card_declined
 import tasks.kmp.generated.resources.change_plan_message
 import tasks.kmp.generated.resources.change_plan_trial
 import tasks.kmp.generated.resources.checkout_expired
@@ -35,6 +36,7 @@ import tasks.kmp.generated.resources.error_purchase_not_verified
 import tasks.kmp.generated.resources.error_too_many_requests
 import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.retry
+import tasks.kmp.generated.resources.update_card
 import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.your_subscription_expired
 
@@ -78,9 +80,25 @@ fun CheckoutNoticeDialog(
     onDismiss: () -> Unit,
     onRetry: () -> Unit = {},
     onRestore: () -> Unit = {},
+    onOpenPortal: () -> Unit = {},
 ) {
     when (notice) {
         null -> Unit
+        Notice.CardDeclined -> AlertDialog(
+            onDismissRequest = onDismiss,
+            title = { Text(stringResource(Res.string.change_plan)) },
+            text = { Text(stringResource(Res.string.change_plan_card_declined)) },
+            confirmButton = {
+                TextButton(onClick = onOpenPortal) {
+                    Text(stringResource(Res.string.update_card))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = onRetry) {
+                    Text(stringResource(Res.string.retry))
+                }
+            },
+        )
         Notice.RestoreRequired,
         Notice.PurchaseGone -> ActionDialog(
             message = stringResource(Res.string.error_purchase_not_verified),
