@@ -765,6 +765,11 @@ fun App(
             // at once, and two lists can't share one LazyListState.
             val modalDrawerListState = rememberLazyListState()
 
+            // Shared search mode: the task list's search button toggles search in both the task
+            // column (search bar at its bottom) and the navigation drawer (search box at the
+            // drawer's bottom). Deliberately has no effect on the drawer's expand/collapse state.
+            var searchActive by rememberSaveable { mutableStateOf(false) }
+
             TaskListChrome(
                 onCloudSignIn = { cloudSignInSource = AnalyticsEvents.SOURCE_DRAWER },
                 drawerViewModel = drawerViewModel,
@@ -806,6 +811,8 @@ fun App(
                 visible = showChrome,
                 onDrawerItemClick = onDrawerItemClick,
                 onAddClick = onAddClick,
+                searchActive = searchActive,
+                onSearchActiveChange = { searchActive = it },
             ) {
             NavDisplay(
                 backStack = backStack,
@@ -947,6 +954,8 @@ fun App(
                                 onTaskClick = { destination -> openTaskFromList(destination) },
                                 onCreateTask = onCreateTask,
                                 onMenuClick = onMenuClick,
+                                searchActive = searchActive,
+                                onSearchActiveChange = { searchActive = it },
                             )
                         } else {
                             LoadingPane()
@@ -1517,6 +1526,8 @@ private fun TaskListChrome(
     onDrawerItemClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onCloudSignIn: () -> Unit,
+    searchActive: Boolean,
+    onSearchActiveChange: (Boolean) -> Unit,
     content: @Composable () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -1550,6 +1561,8 @@ private fun TaskListChrome(
                     onAddClick = onAddClick,
                     onErrorClick = { /* TODO: show sync error */ },
                     onSignIn = onCloudSignIn,
+                    searchActive = searchActive,
+                    onSearchActiveChange = onSearchActiveChange,
                     // Hoisted for the same reason as the sidebar's: this sheet is disposed every
                     // time the drawer closes, and it is not inside a nav entry whose saveable
                     // state the decorator would preserve.
@@ -1619,6 +1632,8 @@ private fun TaskListChrome(
                         },
                         listState = sidebarListState,
                         searchButtonInset = SearchButtonInset,
+                        searchActive = searchActive,
+                        onSearchActiveChange = onSearchActiveChange,
                     )
                     val sidebarScrimColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                     StatusBarScrim(
@@ -1759,6 +1774,8 @@ private fun TaskListScreen(
     onTaskClick: (TaskEditDestination) -> Unit,
     onCreateTask: () -> Unit,
     onMenuClick: () -> Unit,
+    searchActive: Boolean,
+    onSearchActiveChange: (Boolean) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val chipDataProvider = koinInject<ChipDataProvider>()
@@ -1795,6 +1812,8 @@ private fun TaskListScreen(
         showTagSettings = editableTagFilter != null,
         onTagSettingsClick = { editableTagFilter?.let { editTagUuid = it.uuid } },
         onCreateTask = onCreateTask,
+        searchActive = searchActive,
+        onSearchActiveChange = onSearchActiveChange,
         modifier = Modifier.fillMaxSize(),
     )
 
@@ -2122,6 +2141,8 @@ private fun TaskListPane(
     onTagSettingsClick: () -> Unit = {},
     onTaskClick: (TaskEditDestination) -> Unit,
     onCreateTask: () -> Unit,
+    searchActive: Boolean,
+    onSearchActiveChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val listState = rememberLazyListState()
@@ -2130,21 +2151,31 @@ private fun TaskListPane(
     )
     val density = androidx.compose.ui.platform.LocalDensity.current
 
-    // Floating action search button. This is intentionally separate from the navigation drawer's
-    // search, which filters the drawer's own lists/tags: clicking it hoists a task search bar to
-    // the top of the list, above the tasks themselves.
-    var searchActive by rememberSaveable { mutableStateOf(false) }
+    // Task-list search. The open/closed mode is shared with the navigation drawer's search box
+    // (searchActive is owned by the task screen); the query stays local: this bar filters tasks
+    // via TaskListViewModel, the drawer's box filters the drawer's lists/tags.
     var searchText by rememberSaveable { mutableStateOf("") }
     val searchFocusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     fun closeTaskSearch() {
-        searchActive = false
-        searchText = ""
-        // Clear the query so queryFilterFor falls back to the active filter; null (not "") is
-        // required by the view model's tri-state contract (blank-not-null == My Tasks).
-        viewModel.setSearchQuery(null)
-        keyboardController?.hide()
+        onSearchActiveChange(false)
+    }
+
+    // The shared mode can be turned off from either column: focus the field when it opens, and
+    // when it closes clear the local query so queryFilterFor falls back to the active filter;
+    // null (not "") is required by the view model's tri-state contract (blank-not-null == My
+    // Tasks).
+    LaunchedEffect(searchActive) {
+        if (searchActive) {
+            searchFocusRequester.requestFocus()
+        } else {
+            if (searchText.isNotEmpty()) {
+                searchText = ""
+                viewModel.setSearchQuery(null)
+            }
+            keyboardController?.hide()
+        }
     }
 
     var topBarHeight by remember { mutableStateOf(0.dp) }
@@ -2223,14 +2254,7 @@ private fun TaskListPane(
         if (maxWidth < 48.dp || maxHeight < 48.dp) return@BoxWithConstraints
         // Back collapses the task search bar instead of popping the list while it is open.
         PlatformBackHandler(enabled = searchActive, onBack = ::closeTaskSearch)
-        LaunchedEffect(searchActive) {
-            if (searchActive) {
-                searchFocusRequester.requestFocus()
-            }
-        }
-        // Reserved top padding so the hoisted search bar never overlaps the tasks it filters.
-        val listTopPadding =
-            if (searchActive) topBarHeight + SEARCH_BAR_HEIGHT + 8.dp else topBarHeight
+        val listTopPadding = topBarHeight
         when (val results = state.tasks) {
             is TasksResults.Loading -> Box(
                 modifier = Modifier.fillMaxSize(),
@@ -2242,6 +2266,8 @@ private fun TaskListPane(
                 chipDataProvider = chipDataProvider,
                 listState = listState,
                 topPadding = listTopPadding,
+                bottomPadding =
+                    if (searchActive) 88.dp + SEARCH_BAR_HEIGHT + 8.dp else 88.dp,
                 onTaskClick = { task -> onTaskClick(TaskEditDestination(task.id, task.uuid)) },
                 onCompleteTask = { task, newState ->
                     viewModel.onCompleteTask(task, newState)
@@ -2299,16 +2325,18 @@ private fun TaskListPane(
         )
 
         if (searchActive) {
-            // The search bar is hoisted to the top of the task list, above the tasks. It is
-            // independent of the navigation drawer's filter search: typing here filters tasks via
-            // TaskListViewModel.setSearchQuery (-> SearchFilter over all tasks), and the view
-            // model restores the active filter automatically when the query is cleared (null).
+            // The search bar sits at the bottom of the task column, below the tasks (which
+            // reserve bottom padding for it). It is independent of the navigation drawer's
+            // filter search: typing here filters tasks via TaskListViewModel.setSearchQuery
+            // (-> SearchFilter over all tasks), and the view model restores the active filter
+            // automatically when the query is cleared (null).
             SearchBar(
                 modifier = Modifier
                     .focusRequester(searchFocusRequester)
-                    .align(Alignment.TopCenter)
+                    .align(Alignment.BottomCenter)
+                    .platformNavigationBarsPadding()
                     .fillMaxWidth()
-                    .padding(start = 16.dp, end = 16.dp, top = topBarHeight),
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
                 text = searchText,
                 onTextChange = { newText ->
                     searchText = newText
@@ -2334,11 +2362,13 @@ private fun TaskListPane(
             fabContentColor = Color(themeColor.onPrimaryColor),
             filterTint = state.filter.tint,
             searchActive = searchActive,
-            onSearchClick = { if (searchActive) closeTaskSearch() else { searchActive = true } },
+            onSearchClick = { onSearchActiveChange(!searchActive) },
+            // Pushed above the bottom search bar while that is open.
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .platformNavigationBarsPadding()
-                .padding(16.dp),
+                .padding(16.dp)
+                .padding(bottom = if (searchActive) SEARCH_BAR_HEIGHT + 8.dp else 0.dp),
         )
     }
 }
@@ -2865,32 +2895,18 @@ private fun FloatingToolbar(
     )
     HorizontalFloatingToolbar(
         expanded = true,
+        // The floatingActionButton slot is measured as a single 56dp square by
+        // HorizontalFloatingToolbar, so it can only host one FAB. The "New task" button lives here
+        // in its original location; the task-list search toggle moved to the icon-button row below
+        // (next to sort). A second FAB in this slot overflowed the 56dp box and clipped the add
+        // button off the right edge of the window on desktop.
         floatingActionButton = {
-            // The search FAB is deliberately kept out of the navigation drawer (whose search
-            // filters the drawer's own lists/tags) and is a separate, task-list search affordance.
-            // It toggles the search bar that is hoisted to the top of the task list.
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
+            FloatingActionButton(
+                onClick = onAddClick,
+                containerColor = resolvedFabContainer,
+                contentColor = resolvedFabContent,
             ) {
-                FloatingActionButton(
-                    onClick = onSearchClick,
-                    containerColor = resolvedFabContainer,
-                    contentColor = resolvedFabContent,
-                ) {
-                    SymbolIcon(
-                        if (searchActive) TasksIcons.CLEAR else TasksIcons.SEARCH,
-                        contentDescription =
-                            if (searchActive) "Close search" else "Search tasks",
-                    )
-                }
-                FloatingActionButton(
-                    onClick = onAddClick,
-                    containerColor = resolvedFabContainer,
-                    contentColor = resolvedFabContent,
-                ) {
-                    SymbolIcon(TasksIcons.ADD, contentDescription = "New task")
-                }
+                SymbolIcon(TasksIcons.ADD, contentDescription = "New task")
             }
         },
         colors = FloatingToolbarDefaults.standardFloatingToolbarColors(
@@ -2907,6 +2923,18 @@ private fun FloatingToolbar(
         }
         IconButton(onClick = onSortClick) {
             SymbolIcon(TasksIcons.SWAP_VERT, contentDescription = "Sort")
+        }
+        // Task-list search toggle. Kept out of the navigation drawer (whose search filters the
+        // drawer's own lists/tags); this is a separate, task-list search affordance that toggles
+        // the search bar hoisted to the top of the task list. Rendered as a toolbar icon button —
+        // not a second FAB — so it fits the fixed-size FAB slot model without clipping the add
+        // button.
+        IconButton(onClick = onSearchClick) {
+            SymbolIcon(
+                if (searchActive) TasksIcons.CLEAR else TasksIcons.SEARCH,
+                contentDescription =
+                    if (searchActive) "Close search" else "Search tasks",
+            )
         }
     }
 }
