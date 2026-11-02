@@ -89,9 +89,7 @@ import tasks.kmp.generated.resources.upgrade
 import tasks.kmp.generated.resources.url
 import tasks.kmp.generated.resources.user
 import tasks.kmp.generated.resources.view_tos
-import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.wrong_account
-import tasks.kmp.generated.resources.wrong_account_message
 import tasks.kmp.generated.resources.your_subscription_expired
 import org.tasks.caldav.TasksAccountResponse
 import org.tasks.caldav.TasksAccountResponse.Guest
@@ -584,10 +582,8 @@ private fun ErrorBannerCard(
     when {
         account.error.isPurchaseTokenInUse() -> {
             title = stringResource(Res.string.wrong_account)
-            summary = stringResource(
-                Res.string.wrong_account_message,
+            summary = conflictingAccountMessage(
                 account.error.purchaseTokenInUseAccount() ?: "",
-                TasksUrls.SUPPORT_EMAIL,
             )
             onClick = onSignIn
         }

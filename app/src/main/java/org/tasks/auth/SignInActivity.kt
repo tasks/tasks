@@ -32,12 +32,11 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.tasks.compose.settings.conflictingAccountMessage
 import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
-import org.tasks.TasksUrls
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
-import tasks.kmp.generated.resources.wrong_account_message
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationRequest
@@ -243,11 +242,7 @@ class SignInActivity : ComponentActivity() {
                 Text(kmpStringResource(Res.string.wrong_account))
             },
             text = {
-                Text(kmpStringResource(
-                    Res.string.wrong_account_message,
-                    maskedEmail,
-                    TasksUrls.SUPPORT_EMAIL,
-                ))
+                Text(conflictingAccountMessage(maskedEmail))
             },
             confirmButton = {
                 TextButton(onClick = onDismiss) {
