@@ -45,6 +45,8 @@ sealed interface StripeCheckout {
 
     data class Collected(val outcome: StripeRestoreOutcome) : StripeCheckout
 
+    data class AccountInUse(val existingAccount: String) : StripeCheckout
+
     data object RateLimited : StripeCheckout
 
     data object Unavailable : StripeCheckout

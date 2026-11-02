@@ -673,6 +673,20 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aCustomerOnAnotherAccountIsNotAPlanChange() = runTest(dispatcher) {
+        checkout = StripeCheckout.AccountInUse("a***@example.com")
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(Notice.AccountInUse("a***@example.com"), viewModel.viewState.value.notice)
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.busySku)
+    }
+
+    @Test
     fun aRefusedSaleTheServerThenKnowsNoSubscriptionForStopsThere() = runTest(dispatcher) {
         checkout = StripeCheckout.SubscriptionExists(product = "annual_01")
         change = StripeChange.NotLinked

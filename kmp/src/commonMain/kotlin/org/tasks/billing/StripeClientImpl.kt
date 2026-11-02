@@ -232,18 +232,25 @@ class StripeClientImpl(
                 logger.w { "Checkout failed: HTTP 404 ${body.errorCode()}" }
                 Attempt.Answered(StripeCheckout.Failed)
             }
-            409 -> {
-                if (body.errorCode() != ERROR_SUBSCRIPTION_EXISTS) {
-                    logger.w { "Unexpected 409 from checkout: ${body.errorCode()}" }
-                }
-                Attempt.Answered(
-                    StripeCheckout.SubscriptionExists(
-                        product = body.jsonField("product"),
-                        receipt = json
-                            .decodeFromString(PurchaseResponse.serializer(), body)
-                            .receipt,
+            409 -> when (val error = body.errorCode()) {
+                ERROR_ACCOUNT_IN_USE -> Attempt.Answered(
+                    StripeCheckout.AccountInUse(
+                        existingAccount = body.jsonField("existing_account").orEmpty(),
                     )
                 )
+                else -> {
+                    if (error != ERROR_SUBSCRIPTION_EXISTS) {
+                        logger.w { "Unexpected 409 from checkout: $error" }
+                    }
+                    Attempt.Answered(
+                        StripeCheckout.SubscriptionExists(
+                            product = body.jsonField("product"),
+                            receipt = json
+                                .decodeFromString(PurchaseResponse.serializer(), body)
+                                .receipt,
+                        )
+                    )
+                }
             }
             429 -> Attempt.Answered(StripeCheckout.RateLimited)
             503 -> Attempt.Answered(StripeCheckout.Unavailable)
@@ -425,6 +432,7 @@ class StripeClientImpl(
         private const val RESTORED_SUBSCRIPTION = "subscription"
         private const val RESTORED_CUSTOMER = "customer"
         private const val ERROR_SUBSCRIPTION_EXISTS = "subscription_exists"
+        private const val ERROR_ACCOUNT_IN_USE = "stripe_account_in_use"
         private const val ERROR_INVALID_EMAIL = "invalid_email"
         private const val ERROR_NOTHING_TO_RESTORE = "nothing_to_restore"
         private const val ERROR_INVALID_PURCHASE_JWT = "invalid_purchase_jwt"

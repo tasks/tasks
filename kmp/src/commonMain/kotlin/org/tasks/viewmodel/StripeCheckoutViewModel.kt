@@ -137,6 +137,8 @@ open class StripeCheckoutViewModel(
                     _viewState.update { it.copy(checkoutUrl = checkout.url) }
                     poll(checkout.code, checkout.expiresAt)
                 }
+                is StripeCheckout.AccountInUse ->
+                    finish(Notice.AccountInUse(checkout.existingAccount))
                 is StripeCheckout.Collected -> {
                     refreshPlan()
                     finish(checkout.outcome.notice)

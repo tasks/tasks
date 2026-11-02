@@ -397,6 +397,26 @@ class StripeClientTest {
     }
 
     @Test
+    fun aCustomerHeldByAnotherAccountNamesThatAccount() = runTest {
+        respondWith(
+            HttpStatusCode.Conflict,
+            """{"error":"stripe_account_in_use","existing_account":"a***@example.com"}""",
+        )
+
+        assertEquals(
+            StripeCheckout.AccountInUse("a***@example.com"),
+            client().createCheckout(null),
+        )
+    }
+
+    @Test
+    fun aConflictingAccountWithNoAddressToMaskNamesNobody() = runTest {
+        respondWith(HttpStatusCode.Conflict, """{"error":"stripe_account_in_use"}""")
+
+        assertEquals(StripeCheckout.AccountInUse(""), client().createCheckout(null))
+    }
+
+    @Test
     fun treatsAnUnnamedConflictAsAnExistingSubscription() = runTest {
         respondWith(HttpStatusCode.Conflict, """{"error":"something_else"}""")
 
