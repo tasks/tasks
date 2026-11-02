@@ -11,6 +11,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.compose.settings.MessageDialog
@@ -78,28 +79,32 @@ fun CheckoutNoticeDialog(
             onAction = onRetry,
             onDismiss = onDismiss,
         )
-        else -> MessageDialog(message = notice.message(), onDismiss = onDismiss)
+        Notice.NeedsUpgrade -> Message(Res.string.upgrade_subscription_banner, onDismiss)
+        Notice.PurchaseGone -> Message(Res.string.error_purchase_not_verified, onDismiss)
+        Notice.SubscriptionCancelled -> Message(Res.string.your_subscription_expired, onDismiss)
+        is Notice.AccountInUse -> MessageDialog(
+            message = stringResource(
+                Res.string.wrong_account_message,
+                notice.existingAccount,
+                TasksUrls.SUPPORT_EMAIL,
+            ),
+            onDismiss = onDismiss,
+        )
+        Notice.Expired -> Message(Res.string.checkout_expired, onDismiss)
+        Notice.SubscriptionInvalid -> Message(Res.string.your_subscription_expired, onDismiss)
+        Notice.StorageFailed -> Message(Res.string.error_encryption_failed, onDismiss)
+        Notice.RateLimited -> Message(Res.string.error_too_many_requests, onDismiss)
+        Notice.Unavailable -> Message(Res.string.error_billing_unavailable, onDismiss)
+        Notice.Failed -> MessageDialog(
+            message = stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL),
+            onDismiss = onDismiss,
+        )
     }
 }
 
 @Composable
-private fun Notice.message(): String = when (this) {
-    Notice.NeedsUpgrade -> stringResource(Res.string.upgrade_subscription_banner)
-    Notice.PurchaseGone -> stringResource(Res.string.error_purchase_not_verified)
-    Notice.SubscriptionCancelled -> stringResource(Res.string.your_subscription_expired)
-    Notice.ChangeUnavailable -> stringResource(Res.string.error_billing_unavailable)
-    is Notice.AccountInUse -> stringResource(
-        Res.string.wrong_account_message,
-        existingAccount,
-        TasksUrls.SUPPORT_EMAIL,
-    )
-    Notice.Expired -> stringResource(Res.string.checkout_expired)
-    Notice.SubscriptionInvalid -> stringResource(Res.string.your_subscription_expired)
-    Notice.StorageFailed -> stringResource(Res.string.error_encryption_failed)
-    Notice.RateLimited -> stringResource(Res.string.error_too_many_requests)
-    Notice.Unavailable -> stringResource(Res.string.error_billing_unavailable)
-    Notice.Failed -> stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
-}
+private fun Message(message: StringResource, onDismiss: () -> Unit) =
+    MessageDialog(message = stringResource(message), onDismiss = onDismiss)
 
 @Composable
 private fun ActionDialog(
