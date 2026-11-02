@@ -691,4 +691,8 @@
     <string name="works_with_tasker_description">Krei taskojn kaj ekagigi listajn sciigojn per viaj aŭtomatigoj</string>
     <string name="mcp_regenerate_token_summary">Asistantoj kiuj jam estas agorditaj ĉesos funcii ĝis kiam vi donos novan komandon al ili.</string>
     <string name="mcp_auth_header">Rajtiga kapo</string>
+    <string name="works_with_pebble_description">Apo de Pebble saĝbrakhorloĝo</string>
+    <string name="mcp_manual_summary">Por loka modelo, aŭ ajna alia klient de MCP. Elsendebla HTTP transporto, aŭtentigo de tenata ĵetono.</string>
+    <string name="works_with_content_provider">API de provizanto de enhavo</string>
+    <string name="works_with_submit_pull_request">Sendi tirpeton</string>
 </resources>
