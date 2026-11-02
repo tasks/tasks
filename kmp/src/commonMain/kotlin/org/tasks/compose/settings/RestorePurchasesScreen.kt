@@ -75,10 +75,12 @@ import tasks.kmp.generated.resources.error_github_verification_failed
 import tasks.kmp.generated.resources.error_no_sponsorship
 import tasks.kmp.generated.resources.error_sponsorship_delay
 import tasks.kmp.generated.resources.error_encryption_failed
+import tasks.kmp.generated.resources.card_subscription
 import tasks.kmp.generated.resources.github_sponsorship
 import tasks.kmp.generated.resources.google_play_subscription
 import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_octocat
+import tasks.kmp.generated.resources.purchases_restored
 import tasks.kmp.generated.resources.link_desktop
 import tasks.kmp.generated.resources.link_desktop_success
 import tasks.kmp.generated.resources.qr_code
@@ -111,6 +113,7 @@ sealed interface GitHubProState {
 @Composable
 fun RestorePurchasesScreen(
     onBack: () -> Unit,
+    stripe: StripeRestoreCallbacks,
     onCreateLink: suspend () -> LinkResult?,
     onPollStatus: suspend (code: String) -> StatusResult?,
     onLinkSuccess: suspend (jwt: String, refreshToken: String, sku: String?, formattedPrice: String?) -> Boolean,
@@ -118,6 +121,7 @@ fun RestorePurchasesScreen(
     onOpenSponsorPage: () -> Unit,
     onGooglePlaySelected: () -> Unit = {},
     onGitHubSelected: () -> Unit = {},
+    onStripeSelected: () -> Unit = {},
     onNotSponsor: () -> Unit = {},
     onLinkError: () -> Unit = {},
     onGitHubSuccess: () -> Unit = {},
@@ -253,6 +257,7 @@ fun RestorePurchasesScreen(
                                     onGitHubSelected()
                                     startGitHubSignIn()
                                 }
+                                UnlockSource.STRIPE -> onStripeSelected()
                             }
                         },
                     )
@@ -275,6 +280,18 @@ fun RestorePurchasesScreen(
                             onBack = onBack,
                             onRetry = { startGitHubSignIn() },
                             onOpenSponsorPage = onOpenSponsorPage,
+                            successButtonText = successButtonText,
+                        )
+                    }
+                }
+                UnlockSource.STRIPE -> {
+                    Column(
+                        modifier = Modifier.widthIn(max = 400.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        StripeTab(
+                            callbacks = stripe,
+                            onBack = onBack,
                             successButtonText = successButtonText,
                         )
                     }
@@ -344,6 +361,18 @@ private fun UnlockSourceCard(
             onClick = onClick,
             modifier = modifier,
         )
+        UnlockSource.STRIPE -> SelectionCard(
+            title = stringResource(Res.string.card_subscription),
+            onClick = onClick,
+            modifier = modifier,
+        ) {
+            SymbolIcon(
+                name = TasksIcons.CREDIT_CARD,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier = Modifier.size(48.dp),
+            )
+        }
     }
 }
 
@@ -531,7 +560,7 @@ private fun GitHubTab(
         is GitHubProState.Success -> {
             SuccessContent(
                 onBack = onBack,
-                message = stringResource(Res.string.link_desktop_success),
+                message = stringResource(Res.string.purchases_restored),
                 buttonText = successButtonText,
             )
         }

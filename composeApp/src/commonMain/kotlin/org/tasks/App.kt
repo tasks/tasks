@@ -181,6 +181,7 @@ import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.RestorePurchasesScreen
+import org.tasks.compose.settings.StripeRestoreCallbacks
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
 import org.tasks.compose.settings.EtebaseAccountSettingsPane
 import org.tasks.compose.settings.GoogleTasksAccountSettingsDetail
@@ -1066,6 +1067,25 @@ fun App(
                         }
                         RestorePurchasesScreen(
                             onBack = { backStack.removeLastOrNull() },
+                            stripe = StripeRestoreCallbacks(
+                                onRequestCode = { email ->
+                                    stripePurchases.requestRestoreCode(email)
+                                },
+                                onVerifyCode = { email, code ->
+                                    stripePurchases.verifyRestoreCode(email, code)
+                                },
+                                onRestored = { purchase, covered ->
+                                    stripePurchases.restore(purchase, covered)
+                                },
+                                onUpgrade = {
+                                    backStack.push(
+                                        PricingDestination(
+                                            mode = PricingMode.CLOUD_ONLY,
+                                            source = "restore_upgrade",
+                                        )
+                                    )
+                                },
+                            ),
                             onCreateLink = { desktopLinkClient.createLink() },
                             onPollStatus = { code -> desktopLinkClient.pollStatus(code) },
                             onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
@@ -1095,6 +1115,13 @@ fun App(
                                 reporting.logEvent(
                                     AnalyticsEvents.RESTORE_SELECTION,
                                     AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
+                                )
+                            },
+                            onStripeSelected = {
+                                reporting.logEvent(
+                                    AnalyticsEvents.RESTORE_SELECTION,
+                                    AnalyticsEvents.PARAM_SELECTION to
+                                        AnalyticsEvents.SELECTION_STRIPE,
                                 )
                             },
                             onNotSponsor = {

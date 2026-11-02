@@ -54,6 +54,7 @@ object AnalyticsEvents {
     const val PERIOD_MONTHLY = "monthly"
     const val SELECTION_GITHUB = "github"
     const val SELECTION_GOOGLE_PLAY = "google_play"
+    const val SELECTION_STRIPE = "stripe"
     const val SOURCE_DRAWER = "drawer"
     const val SOURCE_ONBOARDING = "onboarding"
     const val SOURCE_SETTINGS = "settings"

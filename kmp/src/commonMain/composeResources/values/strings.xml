@@ -335,6 +335,15 @@
     <string name="unlock_pro_opening_browser">Opening browser…</string>
     <string name="google_play_subscription">Google Play subscription</string>
     <string name="github_sponsorship">GitHub Sponsorship</string>
+    <string name="card_subscription">Card subscription</string>
+    <string name="restore_email_heading">Enter the email address you paid with</string>
+    <string name="restore_send_code">Send code</string>
+    <string name="restore_code_sent">If you paid with %1$s, you'll receive a code shortly.</string>
+    <string name="restore_code">Code</string>
+    <string name="restore_use_another_email">Use a different address</string>
+    <string name="error_invalid_code">That code is wrong or has expired</string>
+    <string name="error_no_purchase_found">We couldn't find a purchase for that address</string>
+    <string name="restore_renewal_settling">Your renewal is still going through</string>
     <string name="error_purchase_not_verified">We couldn't verify your purchase on this device. Restore purchases and try again.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait a few minutes and try again.</string>
     <string name="error_billing_unavailable">Billing isn't available right now. Please try again later.</string>
@@ -357,6 +366,7 @@
     <string name="pricing_nyp_feature_2">Self-hosted synchronization with CalDAV and EteSync</string>
     <string name="pricing_nyp_feature_3">Support open source software</string>
     <string name="pricing_subscribe_google_play">Subscribe on Google Play</string>
+    <string name="purchases_restored">Purchases restored</string>
     <string name="checkout_finish_in_browser">Finish your purchase in the browser</string>
     <string name="checkout_expired">The payment page expired. Please try again.</string>
     <string name="pricing_free_trial">%1$d-day free trial</string>

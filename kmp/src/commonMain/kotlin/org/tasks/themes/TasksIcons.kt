@@ -51,6 +51,7 @@ object TasksIcons {
     const val CLOUD_UPLOAD = "cloud_upload"
     const val COFFEE = "coffee"
     const val CONTENT_COPY = "content_copy"
+    const val CREDIT_CARD = "credit_card"
     const val DESCRIPTION = "description"
     const val DEVICES_OTHER = "devices_other"
     const val DNS = "dns"
