@@ -97,7 +97,7 @@ open class StripeCheckoutViewModel(
         when {
             plan == null -> purchase(price)
             plan.sku == price.sku -> return
-            else -> _viewState.update {
+            plan.canChange -> _viewState.update {
                 it.copy(
                     confirmChange = PendingChange(
                         price = price,
@@ -105,6 +105,7 @@ open class StripeCheckoutViewModel(
                     )
                 )
             }
+            else -> purchase(price)
         }
     }
 

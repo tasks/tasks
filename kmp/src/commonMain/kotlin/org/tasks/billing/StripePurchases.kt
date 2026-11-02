@@ -94,7 +94,6 @@ class StripePurchases(
                         sku = it.stripeProduct,
                         terms = it.stripeTerms(),
                         covered = it.stripeCovered ?: true,
-                        cloud = it.stripeCloud,
                     )
                 }
         }
@@ -301,7 +300,6 @@ data class StripePlan(
     val sku: String?,
     val terms: PurchaseTerms? = null,
     val covered: Boolean = true,
-    val cloud: Boolean? = null,
 ) {
     val trialEnd: Long? get() = terms?.takeIf { it.isTrialing }?.trialEnd
 

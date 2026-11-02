@@ -785,6 +785,94 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aSubscriptionThatHasStoppedCoveringIsSoldAgainRatherThanRepriced() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_01",
+            terms = PurchaseTerms(status = "canceled"),
+            covered = false,
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.confirmChange)
+    }
+
+    @Test
+    fun aCancelledCloudRowInsideItsGraceIsStillSoldTo() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "monthly_03",
+            terms = PurchaseTerms(status = "canceled"),
+            covered = true,
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun aSupporterRungStripeHasStoppedBillingIsSoldTo() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_01",
+            terms = PurchaseTerms(status = "canceled"),
+            covered = true,
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun aSubscriptionCancelledForTheEndOfItsPeriodIsRepriced() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_01",
+            terms = PurchaseTerms(status = "active", cancelAtPeriodEnd = true),
+            covered = true,
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(offer, viewModel.viewState.value.confirmChange?.price)
+        assertEquals(0, requestedCheckouts)
+    }
+
+    @Test
+    fun aSubscriptionStripeIsStillBillingIsRepriced() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_01",
+            terms = PurchaseTerms(status = "past_due"),
+            covered = true,
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(offer, viewModel.viewState.value.confirmChange?.price)
+        assertEquals(0, requestedCheckouts)
+    }
+
+    @Test
     fun theTierTheyAreAlreadyOnIsNotWorthACall() = runTest(dispatcher) {
         plan = StripePlan("annual_30")
         val viewModel = viewModel()
