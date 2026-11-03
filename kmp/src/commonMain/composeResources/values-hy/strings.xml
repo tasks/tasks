@@ -83,4 +83,23 @@
     <string name="whats_new">Ինչ նոր բան կա</string>
     <string name="caldav_selection_description">Սինխրոնիզացում՝ ինտերնետային ստանդարտների վրա հիմնված</string>
     <string name="etesync_selection_description">Գաղտնագրվող սինխրոնիզացիա</string>
+    <string name="search">Որոնում</string>
+    <string name="filter_my_tasks">Իմ անելիքները</string>
+    <string name="filter_notifications">Ծանուցումներ</string>
+    <string name="filter_today">Այսօր</string>
+    <string name="settings">Կարգավորումներ</string>
+    <string name="drawer_tags">Թեգեր</string>
+    <string name="new_task">Նոր անելիք</string>
+    <string name="sort_mode">Դասավորում</string>
+    <string name="sort_due_date">Ավարտման ամսաթիվ</string>
+    <string name="sort_priority">Առաջնահերթ</string>
+    <string name="sort_start_date">Սկսման ամսաթիվ</string>
+    <string name="group_none">Չկա</string>
+    <string name="sort_list">Ցուցակ</string>
+    <string name="blog_feed_none">Չկա</string>
+    <string name="metadata_move">Տեղափոխել</string>
+    <string name="mcp_tools_group_tags">Թեգեր</string>
+    <string name="mcp_tools_group_reminders">Հիշեցումներ</string>
+    <string name="mcp_copy">Պատճենել</string>
+    <string name="new_filter">Ստեղծել նոր ֆիլտր</string>
 </resources>
