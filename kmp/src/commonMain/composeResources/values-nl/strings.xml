@@ -703,4 +703,15 @@
     <string name="pricing_free_trial">%1$d-dagen gratis proefperiode</string>
     <string name="pricing_subscribe_for">Abonnement voor %1$s</string>
     <string name="pro_card_credit">%1$s korting wordt toegepast op uw volgende verlenging</string>
+    <string name="wrong_account_message_unknown">Je abonnement is al gekoppeld aan een ander account. Als je denkt dat dit een fout is, neem dan contact op met %1$s</string>
+    <string name="card_subscription">Kaart abonnement</string>
+    <string name="restore_email_heading">Voer het e-mailadres in waarmee je hebt betaald</string>
+    <string name="restore_send_code">Code verzenden</string>
+    <string name="restore_code_sent">Als je hebt betaald met %1$s, ontvang je snel een code.</string>
+    <string name="restore_code">Code</string>
+    <string name="restore_use_another_email">Een ander e-mailadres gebruiken</string>
+    <string name="error_invalid_code">Die code is incorrect of verlopen</string>
+    <string name="error_no_purchase_found">Geen aankoop gevonden voor dat e-mailadres</string>
+    <string name="restore_renewal_settling">Je verlenging wordt toch verwerkt</string>
+    <string name="purchases_restored">Aankopen hersteld</string>
 </resources>
