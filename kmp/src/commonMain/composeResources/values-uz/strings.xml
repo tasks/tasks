@@ -155,4 +155,18 @@
     <string name="sort_mode">Saralash</string>
     <string name="group_mode">Guruhlash</string>
     <string name="sort_due_date">Bajarish muddati</string>
+    <string name="sort_priority">Muhimlik</string>
+    <string name="sort_start_date">Boshlanish sanasi</string>
+    <string name="sort_list">Ro‘yxat</string>
+    <string name="group_none">Yo\'q</string>
+    <string name="mcp_access_advanced">Kengaytirilgan sozlamalar</string>
+    <string name="mcp_tools_group_lists">Roʻyhatlar</string>
+    <string name="mcp_tools_group_tags">Teglar</string>
+    <string name="mcp_tools_group_places">Joylar</string>
+    <string name="mcp_tools_group_reminders">Eslatmalar</string>
+    <string name="mcp_copy">Koʻchirma</string>
+    <string name="metadata_move">Ko‘chirish</string>
+    <string name="works_with_desktop">Kompyuter uchun Tasks.org</string>
+    <string name="blog_feed_none">Yo\'q</string>
+    <string name="new_filter">Yangi filtr yaratish</string>
 </resources>
