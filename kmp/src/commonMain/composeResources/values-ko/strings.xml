@@ -697,4 +697,15 @@
     <string name="alarm_after">후</string>
     <string name="alarm_start">시작</string>
     <string name="alarm_due">기한</string>
+    <string name="wrong_account_message_unknown">구독이 이미 다른 계정에 연결되었습니다. 오류라 생각하시면, %1$s에 문의해 주세요</string>
+    <string name="card_subscription">카드 구독</string>
+    <string name="restore_email_heading">결제한 이메일 주소를 입력하세요</string>
+    <string name="restore_send_code">코드 전송</string>
+    <string name="restore_code_sent">%1$s 주소로 결제했다면, 곧 코드를 받을 것입니다.</string>
+    <string name="restore_code">코드</string>
+    <string name="restore_use_another_email">다른 주소 사용</string>
+    <string name="error_invalid_code">코드가 틀렸거나 만료되었습니다</string>
+    <string name="error_no_purchase_found">이 주소에서는 결제를 찾지 못했습니다</string>
+    <string name="restore_renewal_settling">갱신은 계속 진행 중입니다</string>
+    <string name="purchases_restored">결제 복원됨</string>
 </resources>
