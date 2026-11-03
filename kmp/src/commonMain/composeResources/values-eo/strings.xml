@@ -695,4 +695,11 @@
     <string name="mcp_manual_summary">Por loka modelo, aŭ ajna alia klient de MCP. Elsendebla HTTP transporto, aŭtentigo de tenata ĵetono.</string>
     <string name="works_with_content_provider">API de provizanto de enhavo</string>
     <string name="works_with_submit_pull_request">Sendi tirpeton</string>
+    <string name="restore_send_code">Sendi kodon</string>
+    <string name="restore_code_sent">Se vi pagis per %1$s, vi baldaŭ ricevos kodon.</string>
+    <string name="restore_code">Kodo</string>
+    <string name="restore_use_another_email">Uzi malsaman retpoŝtadreson</string>
+    <string name="error_invalid_code">Tiu kodo estas malĝusta aŭ eksvalidiĝis</string>
+    <string name="error_no_purchase_found">Ni ne trovis aĉeton de tiu retpoŝtadreso</string>
+    <string name="restore_renewal_settling">Prilaboro de via renovigo ankoraŭ daŭras</string>
 </resources>
