@@ -703,4 +703,15 @@
     <string name="pricing_free_trial">%1$d-päevane tasuta prooviperiood</string>
     <string name="pricing_subscribe_for">Tellimus: %1$s</string>
     <string name="pro_card_credit">%1$s allahindlus lisatakse järgmisele uuendamisele</string>
+    <string name="wrong_account_message_unknown">Sinu tellimus on juba seotud muu kasutajakontoga. Kui sa arvad, et see on viga, siis palun võta ühendust aadressil %1$s</string>
+    <string name="restore_email_heading">Sisesta e-posti aadress, mida kasutasid maksmisel</string>
+    <string name="restore_send_code">Edasta kood</string>
+    <string name="restore_code_sent">Kui sul oli maksmisel kasutusel %1$s, siis saad õige pea koodi.</string>
+    <string name="restore_code">Kood</string>
+    <string name="restore_use_another_email">Kasuta muud aadressi</string>
+    <string name="error_invalid_code">See kood on vigane või aegunud</string>
+    <string name="error_no_purchase_found">Selle e-posti aadressiga ei leidunud ühtegi ostu</string>
+    <string name="restore_renewal_settling">Sinu tellimuse uuendamine on veel töös</string>
+    <string name="purchases_restored">Ostud on taastatud</string>
+    <string name="card_subscription">Tellimus kaardiga</string>
 </resources>
