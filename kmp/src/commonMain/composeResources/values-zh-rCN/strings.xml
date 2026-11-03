@@ -694,4 +694,15 @@
     <string name="pricing_free_trial">%1$d 天免费试用</string>
     <string name="pricing_subscribe_for">以 %1$s 价格订阅</string>
     <string name="pro_card_credit">%1$s 积分将用于你的下次续费</string>
+    <string name="wrong_account_message_unknown">你的订阅已关联到别的账户。如果你相信这是个错误，请联系 %1$s</string>
+    <string name="card_subscription">卡片订阅</string>
+    <string name="restore_email_heading">输入付款的电子邮件地址</string>
+    <string name="restore_send_code">发送代码</string>
+    <string name="restore_code_sent">如果你用 %1$s 付款，你很快就会收到一个代码。</string>
+    <string name="restore_code">代码</string>
+    <string name="restore_use_another_email">使用不同地址</string>
+    <string name="error_invalid_code">f代码错误或已过期</string>
+    <string name="error_no_purchase_found">我们找不到该邮箱的购买</string>
+    <string name="restore_renewal_settling">您的续费仍在进行</string>
+    <string name="purchases_restored">恢复了购买</string>
 </resources>
