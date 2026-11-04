@@ -304,6 +304,10 @@ data class StripePlan(
     val trialEnd: Long? get() = terms?.takeIf { it.isTrialing }?.trialEnd
 
     val canChange: Boolean get() = terms?.isBilling ?: covered
+
+    val resumable: Boolean get() = terms?.cancelAtPeriodEnd == true
+
+    val sellsSameSku: Boolean get() = !canChange || resumable
 }
 
 sealed interface StripeCollection {

@@ -73,6 +73,7 @@ data class StoreBilling(
     val loadingPrices: Boolean = false,
     val busySku: String? = null,
     val currentSku: String? = null,
+    val sellsCurrentSku: Boolean = false,
     val suggestedPrice: Int? = null,
     val knownCustomer: Boolean = false,
     val coveredElsewhere: Boolean = false,
@@ -84,6 +85,9 @@ data class StoreBilling(
     fun isBusy(price: StripePrice?): Boolean = price != null && busySku == price.sku
 
     fun unavailable(price: StripePrice?): Boolean = !loadingPrices && price == null
+
+    fun selectable(price: StripePrice?): Boolean =
+        !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
 
     fun warnCoveredElsewhere(price: StripePrice?): Boolean =
         coveredElsewhere && currentSku == null && price?.entitles == true
@@ -312,8 +316,7 @@ private fun CloudTierCard(
                 PurchaseButton(
                     label = price.ctaLabel(),
                     busy = store?.loadingPrices == true || store?.isBusy(price) == true,
-                    enabled = store == null ||
-                        (!store.busy && (price == null || price.sku != store.currentSku)),
+                    enabled = store == null || store.selectable(price),
                     onClick = {
                         onCtaClick()
                         if (price != null) store?.onSelect(price)
@@ -426,7 +429,7 @@ private fun NameYourPricePicker(
                     annual
                 },
                 busy = store.isBusy(card),
-                enabled = !store.busy,
+                enabled = store.selectable(card),
                 onClick = {
                     onCtaClick()
                     store.onSelect(card)
@@ -440,7 +443,7 @@ private fun NameYourPricePicker(
                         monthly.formattedPrice,
                     ),
                     busy = store.isBusy(monthly),
-                    enabled = !store.busy,
+                    enabled = store.selectable(monthly),
                     onClick = {
                         onCtaClick()
                         store.onSelect(monthly)

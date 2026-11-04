@@ -545,6 +545,58 @@ class StripeCheckoutViewModelTest {
     }
 
     @Test
+    fun aSubscriptionThatStoppedBillingIsSoldAgainAtTheSamePrice() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_30",
+            terms = PurchaseTerms(status = "canceled", expires = 1760000000000L),
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(1, requestedCheckouts)
+        assertEquals("https://pay.stripe.com/x", viewModel.viewState.value.checkoutUrl)
+        assertTrue(changes.isEmpty())
+    }
+
+    @Test
+    fun aSubscriptionSetToCancelIsResumedAtTheSamePrice() = runTest(dispatcher) {
+        plan = StripePlan(
+            sku = "annual_30",
+            terms = PurchaseTerms(status = "active", cancelAtPeriodEnd = true),
+        )
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(offer, viewModel.viewState.value.confirmChange?.price)
+
+        viewModel.confirmChange()
+        runCurrent()
+
+        assertEquals(listOf(offer), changes)
+        assertEquals(0, requestedCheckouts)
+    }
+
+    @Test
+    fun thePriceAlreadyBilledIsNotWorthSelectingAgain() = runTest(dispatcher) {
+        plan = StripePlan(sku = "annual_30", terms = PurchaseTerms(status = "active"))
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals(0, requestedCheckouts)
+        assertTrue(changes.isEmpty())
+        assertNull(viewModel.viewState.value.confirmChange)
+    }
+
+    @Test
     fun aDeviceThatHasBoughtBeforeIsAKnownCustomer() = runTest(dispatcher) {
         knownCustomer = true
         val viewModel = viewModel()

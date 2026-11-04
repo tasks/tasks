@@ -97,9 +97,9 @@ open class StripeCheckoutViewModel(
         if (_viewState.value.busy) return
         val plan = _viewState.value.plan
         when {
-            plan == null -> purchase(price)
-            plan.sku == price.sku -> return
-            plan.canChange -> _viewState.update {
+            plan == null || !plan.canChange -> purchase(price)
+            plan.sku == price.sku && !plan.resumable -> return
+            else -> _viewState.update {
                 it.copy(
                     confirmChange = PendingChange(
                         price = price,
@@ -107,7 +107,6 @@ open class StripeCheckoutViewModel(
                     )
                 )
             }
-            else -> purchase(price)
         }
     }
 
