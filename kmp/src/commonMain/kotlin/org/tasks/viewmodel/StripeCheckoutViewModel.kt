@@ -182,7 +182,7 @@ open class StripeCheckoutViewModel(
     private suspend fun changeNow(price: StripePrice, sellInstead: Boolean = true) {
         when (purchases.changePlan(price)) {
             is StripeChange.Changed -> {
-                refreshPlan()
+                refreshPlan(refresh = false)
                 finish(null)
                 _viewState.update { it.copy(planChanged = true) }
             }
@@ -218,8 +218,8 @@ open class StripeCheckoutViewModel(
         }
     }
 
-    private suspend fun refreshPlan() {
-        val plan = purchases.currentPlan()
+    private suspend fun refreshPlan(refresh: Boolean = true) {
+        val plan = purchases.currentPlan(refresh)
         val knownCustomer = purchases.hasStripeCustomer()
         val coverage = purchases.coveredElsewhere()
         _viewState.update {

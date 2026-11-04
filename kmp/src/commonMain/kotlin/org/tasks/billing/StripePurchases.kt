@@ -80,8 +80,10 @@ class StripePurchases(
         )
     }
 
-    override suspend fun currentPlan(): StripePlan? {
-        entitlement.checkTier()
+    override suspend fun currentPlan(refresh: Boolean): StripePlan? {
+        if (refresh) {
+            entitlement.checkTier()
+        }
         return if (entitlement.hasPro.first() &&
             entitlement.provider.first() == EntitlementProvider.STRIPE
         ) {
@@ -282,7 +284,7 @@ interface StripeCheckouts {
 
     suspend fun changePlan(price: StripePrice): StripeChange
 
-    suspend fun currentPlan(): StripePlan?
+    suspend fun currentPlan(refresh: Boolean = true): StripePlan?
 
     suspend fun hasStripeCustomer(): Boolean
 

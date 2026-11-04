@@ -52,10 +52,14 @@ class StripeCheckoutViewModelTest {
         StripeCheckout.Started("c0de", "https://pay.stripe.com/x", expiresIn(CODE_LIFETIME))
     private val collections = ArrayDeque<StripeCollection>()
     private var polls = 0
+    private var tierReads = 0
 
     private val purchases = object : StripeCheckouts {
         override suspend fun prices() = prices
-        override suspend fun currentPlan() = plan
+        override suspend fun currentPlan(refresh: Boolean): StripePlan? {
+            if (refresh) tierReads++
+            return plan
+        }
         override suspend fun hasStripeCustomer() = knownCustomer
         override suspend fun coveredElsewhere() = coverage
         override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
@@ -594,6 +598,22 @@ class StripeCheckoutViewModelTest {
         assertEquals(0, requestedCheckouts)
         assertTrue(changes.isEmpty())
         assertNull(viewModel.viewState.value.confirmChange)
+    }
+
+    @Test
+    fun aChangeDoesNotReadTheTierBackTwice() = runTest(dispatcher) {
+        plan = StripePlan("annual_01")
+        val viewModel = viewModel()
+        runCurrent()
+        tierReads = 0
+
+        viewModel.select(offer)
+        runCurrent()
+        viewModel.confirmChange()
+        runCurrent()
+
+        assertEquals(0, tierReads)
+        assertEquals("annual_30", viewModel.viewState.value.plan?.sku)
     }
 
     @Test
