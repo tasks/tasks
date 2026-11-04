@@ -57,9 +57,6 @@ data class TasksAccountResponse(
     val stripeCovered: Boolean?
         get() = if (stripeCloudRow != null) true else stripeSupporterRow?.covered
 
-    val stripeCloud: Boolean?
-        get() = if (stripeCloudRow != null) true else stripeSupporterRow?.cloud
-
     @Serializable
     data class SubscriptionSource(
         override val provider: String? = null,
@@ -80,7 +77,6 @@ data class TasksAccountResponse(
         override val expires: Long? = null,
         @SerialName("cancel_at_period_end") override val cancelAtPeriodEnd: Boolean = false,
         @SerialName("trial_end") override val trialEnd: Long? = null,
-        val cloud: Boolean? = null,
         val covered: Boolean? = null,
     ) : StripeRow
 

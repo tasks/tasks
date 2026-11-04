@@ -84,32 +84,31 @@ class TasksAccountResponseTest {
     }
 
     @Test
-    fun aSupporterRowSaysWhichOfTheTwoKindsItIs() {
+    fun aSupporterRowSaysWhetherItIsStillCovered() {
         val response = parse(
             """{"supporter":[{"provider":"stripe","product":"annual_25","status":"canceled",""" +
                 """"cloud":false,"covered":true,"expires":1793481600000}]}"""
         )
 
-        assertEquals(false, response.stripeCloud)
         assertEquals(true, response.stripeCovered)
     }
 
     @Test
-    fun aListedCloudRowIsACloudTierByDefinition() {
+    fun aListedCloudRowIsCoveredByDefinition() {
         val response = parse(
             """{"subscriptions":[{"provider":"stripe","isActive":true,"product":"monthly_03"}]}"""
         )
 
-        assertEquals(true, response.stripeCloud)
+        assertEquals(true, response.stripeCovered)
     }
 
     @Test
-    fun aServerThatSaysNothingAboutTheFloorLeavesItUnknown() {
+    fun aServerThatSaysNothingAboutCoverageLeavesItUnknown() {
         val response = parse(
             """{"supporter":[{"provider":"stripe","product":"annual_25","status":"active"}]}"""
         )
 
-        assertNull(response.stripeCloud)
+        assertNull(response.stripeCovered)
     }
 
     @Test
