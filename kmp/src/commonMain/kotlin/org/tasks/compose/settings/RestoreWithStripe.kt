@@ -28,7 +28,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import co.touchlab.kermit.Logger
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.stringResource
@@ -132,8 +135,14 @@ private fun StripeTabState.Ended.creditNote(): String? =
 internal val StripeTabStateSaver = Saver<StripeTabState, String>(
     save = { Json.encodeToString(it) },
     restore = {
-        when (val restored = Json.decodeFromString<StripeTabState>(it)) {
-            StripeTabState.Busy -> StripeTabState.Email()
+        val restored = try {
+            Json.decodeFromString<StripeTabState>(it)
+        } catch (e: Exception) {
+            Logger.e(e, tag = "StripeTab") { "Could not read back the saved restore step" }
+            null
+        }
+        when (restored) {
+            null, StripeTabState.Busy -> StripeTabState.Email()
             else -> restored
         }
     },
@@ -181,33 +190,7 @@ internal fun StripeTab(
     fun verify(address: String, entered: String) {
         state = StripeTabState.Busy
         scope.launch {
-            state = when (val result = callbacks.onVerifyCode(address, entered)) {
-                is StripeRestore.Restored -> when (
-                    val stored =
-                        callbacks.onRestored(result.purchase, result.covered, result.terms)
-                ) {
-                    StripeRestoreOutcome.Restored ->
-                        StripeTabState.Restored(settling = !result.isActive)
-                    StripeRestoreOutcome.Ended -> StripeTabState.Ended(result.terms)
-                    StripeRestoreOutcome.NeedsUpgrade -> StripeTabState.Upgrade
-                    is StripeRestoreOutcome.AccountInUse ->
-                        StripeTabState.AccountInUse(stored.existingAccount)
-                    StripeRestoreOutcome.StorageFailed ->
-                        StripeTabState.Failed(Refusal.STORAGE_FAILED, startOver = false)
-                }
-                StripeRestore.InvalidCode -> StripeTabState.Code(address, Refusal.INVALID_CODE)
-                StripeRestore.NothingToRestore ->
-                    StripeTabState.Email(Refusal.NO_PURCHASE_FOUND)
-                StripeRestore.InvalidEmail -> StripeTabState.Email(Refusal.INVALID_EMAIL)
-                StripeRestore.TooManyAttempts ->
-                    StripeTabState.Failed(Refusal.TOO_MANY_REQUESTS, startOver = true)
-                StripeRestore.SubscriptionInvalid ->
-                    StripeTabState.Failed(Refusal.SUBSCRIPTION_EXPIRED, startOver = true)
-                StripeRestore.Unavailable ->
-                    StripeTabState.Failed(Refusal.UNAVAILABLE, startOver = true)
-                StripeRestore.Failed ->
-                    StripeTabState.Failed(Refusal.SERVER_FAILED, startOver = true)
-            }
+            state = withContext(NonCancellable) { callbacks.verifyAndKeep(address, entered) }
         }
     }
 
@@ -264,6 +247,31 @@ internal fun StripeTab(
             onAction = { state = StripeTabState.Email() },
         )
     }
+}
+
+private suspend fun StripeRestoreCallbacks.verifyAndKeep(
+    address: String,
+    entered: String,
+): StripeTabState = when (val result = onVerifyCode(address, entered)) {
+    is StripeRestore.Restored -> when (
+        val stored = onRestored(result.purchase, result.covered, result.terms)
+    ) {
+        StripeRestoreOutcome.Restored -> StripeTabState.Restored(settling = !result.isActive)
+        StripeRestoreOutcome.Ended -> StripeTabState.Ended(result.terms)
+        StripeRestoreOutcome.NeedsUpgrade -> StripeTabState.Upgrade
+        is StripeRestoreOutcome.AccountInUse -> StripeTabState.AccountInUse(stored.existingAccount)
+        StripeRestoreOutcome.StorageFailed ->
+            StripeTabState.Failed(Refusal.STORAGE_FAILED, startOver = false)
+    }
+    StripeRestore.InvalidCode -> StripeTabState.Code(address, Refusal.INVALID_CODE)
+    StripeRestore.NothingToRestore -> StripeTabState.Email(Refusal.NO_PURCHASE_FOUND)
+    StripeRestore.InvalidEmail -> StripeTabState.Email(Refusal.INVALID_EMAIL)
+    StripeRestore.TooManyAttempts ->
+        StripeTabState.Failed(Refusal.TOO_MANY_REQUESTS, startOver = true)
+    StripeRestore.SubscriptionInvalid ->
+        StripeTabState.Failed(Refusal.SUBSCRIPTION_EXPIRED, startOver = true)
+    StripeRestore.Unavailable -> StripeTabState.Failed(Refusal.UNAVAILABLE, startOver = true)
+    StripeRestore.Failed -> StripeTabState.Failed(Refusal.SERVER_FAILED, startOver = true)
 }
 
 @Composable
