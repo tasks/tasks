@@ -609,7 +609,7 @@
     <string name="link_desktop_description">Google Play 구독으로 데스크톱 앱 잠금 해제</string>
     <string name="link_desktop_instructions">Tasks.org 데스크톱 앱을 열고 계정을 추가해 QR 코드를 띄우세요. 이후 하단의 버튼을 눌러 스캔하세요.</string>
     <string name="github_sponsorship">GitHub 후원</string>
-    <string name="error_purchase_not_verified">이 기기에서 구매를 인증할 수 없습니다. 구매를 복원하고 다시 시도해 주세요.</string>
+    <string name="error_purchase_not_verified">이 기기에서 구매를 인증할 수 없습니다.</string>
     <string name="error_too_many_requests">너무 많이 시도했습니다. 몇 분 기다린 뒤 다시 시도해 주세요.</string>
     <string name="error_billing_unavailable">지금은 결제를 진행할 수 없습니다. 나중에 다시 시도해 주세요.</string>
     <string name="error_github_verification_failed">인증에 실패했습니다. 다시 시도해 주세요.</string>
