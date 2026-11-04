@@ -634,14 +634,14 @@ class StripePurchasesTest {
     }
 
     @Test
-    fun aServerThatCannotAnswerIsWorthPollingAgain() = runBlocking {
+    fun aServerThatCannotAnswerIsNotACheckoutStillWaitingToBePaid() = runBlocking {
         val purchases = purchases()
 
         checkoutStatus = StripeCheckoutStatus.Unavailable
-        assertEquals(StripeCollection.Pending, purchases.collectCheckout("c0de"))
+        assertEquals(StripeCollection.Unreachable, purchases.collectCheckout("c0de"))
 
         checkoutStatus = StripeCheckoutStatus.Failed
-        assertEquals(StripeCollection.Pending, purchases.collectCheckout("c0de"))
+        assertEquals(StripeCollection.Unreachable, purchases.collectCheckout("c0de"))
     }
 
     @Test

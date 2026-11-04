@@ -116,7 +116,8 @@ class StripePurchases(
             StripeCheckoutStatus.SubscriptionInvalid -> StripeCollection.SubscriptionInvalid
             is StripeCheckoutStatus.RateLimited ->
                 StripeCollection.RateLimited(status.retryAfterMillis)
-            StripeCheckoutStatus.Unavailable, StripeCheckoutStatus.Failed -> StripeCollection.Pending
+            StripeCheckoutStatus.Unavailable, StripeCheckoutStatus.Failed ->
+                StripeCollection.Unreachable
         }
 
     private suspend fun maybeCelebrate(hasTasksSubscription: Boolean) =
@@ -314,6 +315,8 @@ data class StripePlan(
 
 sealed interface StripeCollection {
     data object Pending : StripeCollection
+
+    data object Unreachable : StripeCollection
 
     data class RateLimited(val retryAfterMillis: Long?) : StripeCollection
 

@@ -28,6 +28,7 @@ import org.tasks.billing.UnlockSource
 import org.tasks.time.DateTimeUtils2
 import org.tasks.viewmodel.StripeCheckoutViewModel.Notice
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.MAX_BACKOFF_MILLIS
+import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.MAX_UNANSWERED_POLLS
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.POLL_INTERVAL_MILLIS
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.RATE_LIMITED_BACKOFF_MILLIS
 
@@ -51,6 +52,7 @@ class StripeCheckoutViewModelTest {
     private var checkout: StripeCheckout =
         StripeCheckout.Started("c0de", "https://pay.stripe.com/x", expiresIn(CODE_LIFETIME))
     private val collections = ArrayDeque<StripeCollection>()
+    private var collection: StripeCollection = StripeCollection.Pending
     private var polls = 0
     private var tierReads = 0
 
@@ -75,7 +77,7 @@ class StripeCheckoutViewModelTest {
         }
         override suspend fun collectCheckout(code: String): StripeCollection {
             polls++
-            return collections.removeFirstOrNull() ?: StripeCollection.Pending
+            return collections.removeFirstOrNull() ?: collection
         }
     }
 
@@ -614,6 +616,41 @@ class StripeCheckoutViewModelTest {
 
         assertEquals(0, tierReads)
         assertEquals("annual_30", viewModel.viewState.value.plan?.sku)
+    }
+
+    @Test
+    fun aServerThatStopsAnsweringBacksOffAndThenSaysSo() = runTest(dispatcher) {
+        collection = StripeCollection.Unreachable
+        val viewModel = viewModel()
+        runCurrent()
+        viewModel.select(offer)
+        runCurrent()
+
+        advanceTimeBy(POLL_INTERVAL_MILLIS * 8 + 1)
+
+        assertEquals(4, polls)
+        assertNull(viewModel.viewState.value.notice)
+
+        advanceTimeBy(MAX_BACKOFF_MILLIS * 4)
+
+        assertEquals(MAX_UNANSWERED_POLLS, polls)
+        assertEquals(Notice.Unavailable, viewModel.viewState.value.notice)
+        assertFalse(viewModel.viewState.value.busy)
+    }
+
+    @Test
+    fun aPollThatAnswersAgainStartsTheBackoffOver() = runTest(dispatcher) {
+        collections.add(StripeCollection.Unreachable)
+        collections.add(StripeCollection.Unreachable)
+        collections.add(StripeCollection.Pending)
+        val viewModel = viewModel()
+        runCurrent()
+        viewModel.select(offer)
+        runCurrent()
+
+        advanceTimeBy(POLL_INTERVAL_MILLIS * 5 + 1)
+
+        assertEquals(4, polls)
     }
 
     @Test

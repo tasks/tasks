@@ -261,11 +261,26 @@ open class StripeCheckoutViewModel(
 
     private suspend fun pollUntilSettled(code: String): PollEnd {
         var wait = POLL_INTERVAL_MILLIS
+        var unanswered = 0
         while (true) {
             delay(wait)
             when (val result = purchases.collectCheckout(code)) {
-                StripeCollection.Pending -> wait = POLL_INTERVAL_MILLIS
-                is StripeCollection.RateLimited -> wait = result.backoff
+                StripeCollection.Pending -> {
+                    unanswered = 0
+                    wait = POLL_INTERVAL_MILLIS
+                }
+                StripeCollection.Unreachable -> {
+                    unanswered++
+                    if (unanswered >= MAX_UNANSWERED_POLLS) {
+                        Logger.e(TAG) { "Giving up on the checkout: the server stopped answering" }
+                        return PollEnd(Notice.Unavailable)
+                    }
+                    wait = unansweredBackoff(unanswered)
+                }
+                is StripeCollection.RateLimited -> {
+                    unanswered = 0
+                    wait = result.backoff
+                }
                 is StripeCollection.Collected -> return PollEnd(result.outcome.notice)
                 StripeCollection.Gone -> return PollEnd(Notice.Expired)
                 StripeCollection.SubscriptionInvalid -> return PollEnd(Notice.SubscriptionInvalid)
@@ -274,6 +289,9 @@ open class StripeCheckoutViewModel(
     }
 
     private class PollEnd(val notice: Notice?)
+
+    private fun unansweredBackoff(unanswered: Int): Long =
+        (POLL_INTERVAL_MILLIS shl (unanswered - 1)).coerceAtMost(MAX_BACKOFF_MILLIS)
 
     private val StripeCollection.RateLimited.backoff: Long
         get() = (retryAfterMillis ?: RATE_LIMITED_BACKOFF_MILLIS)
@@ -297,6 +315,7 @@ open class StripeCheckoutViewModel(
         const val POLL_INTERVAL_MILLIS = 3_000L
         const val RATE_LIMITED_BACKOFF_MILLIS = 30_000L
         const val MAX_BACKOFF_MILLIS = 60_000L
+        const val MAX_UNANSWERED_POLLS = 8
         private const val DEFAULT_CODE_LIFETIME_MILLIS = 60 * 60 * 1000L
     }
 }
