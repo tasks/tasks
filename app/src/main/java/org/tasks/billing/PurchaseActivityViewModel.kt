@@ -55,7 +55,11 @@ class PurchaseActivityViewModel @Inject constructor(
                 state.copy(
                     subscription = subscription,
                     price = state.price.takeIf { it > 0 }
-                        ?: subscription?.subscriptionPrice?.coerceAtMost(25)?.toFloat()
+                        ?: subscription
+                            ?.takeUnless { it.isTasksSubscription }
+                            ?.subscriptionPrice
+                            ?.coerceAtMost(25)
+                            ?.toFloat()
                         ?: 10f
                 )
             }

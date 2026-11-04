@@ -50,6 +50,19 @@ class SubscriptionSkusTest {
     }
 
     @Test
+    fun aCloudSubscriptionHasNoSupporterPrice() {
+        assertNull(SubscriptionSkus.supporterPrice("annual_30"))
+        assertNull(SubscriptionSkus.supporterPrice("monthly_03"))
+    }
+
+    @Test
+    fun aSupporterSubscriptionKeepsItsPrice() {
+        assertEquals(12, SubscriptionSkus.supporterPrice("annual_12"))
+        assertEquals(2, SubscriptionSkus.supporterPrice("monthly_02"))
+        assertNull(SubscriptionSkus.supporterPrice(null))
+    }
+
+    @Test
     fun namesTheSkuForAWholeDollarTier() {
         assertEquals("annual_04", SubscriptionSkus.sku(4))
         assertEquals("monthly_03", SubscriptionSkus.sku(3, monthly = true))

@@ -29,4 +29,7 @@ object SubscriptionSkus {
         val price = subscriptionPrice(sku) ?: return false
         return price >= if (isMonthly(sku)) CLOUD_MONTHLY_FLOOR else CLOUD_ANNUAL_FLOOR
     }
+
+    fun supporterPrice(sku: String?): Int? =
+        if (isTasksSubscription(sku)) null else subscriptionPrice(sku)
 }

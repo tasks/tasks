@@ -1260,7 +1260,7 @@ fun App(
                         val store = if (configuration.billingProvider == BillingProvider.STRIPE) {
                             cardCheckout(
                                 suggestedPrice = subscriptionInfo
-                                    ?.let { SubscriptionSkus.subscriptionPrice(it.sku) },
+                                    ?.let { SubscriptionSkus.supporterPrice(it.sku) },
                                 openUrl = openUrl,
                                 onRestorePurchases = {
                                     backStack.push(
