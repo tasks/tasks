@@ -715,7 +715,7 @@
     <string name="reset_trusted_certificates">Réinitialiser les certificats de confiance</string>
     <string name="reset_trusted_certificates_summary">Oubliez les certificats et les autorisations de certificat que vous avez acceptées pour les serveurs</string>
     <string name="trusted_certificates_reset">Réinitialisation des certificats de confiance</string>
-    <string name="error_purchase_not_verified">Nous n\'avons pas pu vérifier votre achat sur cet appareil. Restaurez vos achats, puis réessayez.</string>
+    <string name="error_purchase_not_verified">Nous n\'avons pas pu vérifier votre achat sur cet appareil.</string>
     <string name="error_too_many_requests">Trop de tentatives. Veuillez patienter quelques minutes, puis réessayer.</string>
     <string name="error_billing_unavailable">La facturation n\'est pas disponible pour le moment. Veuillez réessayer plus tard.</string>
     <string name="checkout_finish_in_browser">Terminez votre achat dans le navigateur</string>
@@ -723,4 +723,15 @@
     <string name="pricing_free_trial">%1$d jours d\'essai gratuit</string>
     <string name="pricing_subscribe_for">Abonnez-vous pour %1$s</string>
     <string name="pro_card_credit">Un avoir de %1$s sera déduit de votre prochain renouvellement</string>
+    <string name="wrong_account_message_unknown">Votre abonnement est déjà associé à un autre compte. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %1$s</string>
+    <string name="restore_email_heading">Saisissez l\'adresse électronique utilisée pour effectuer le paiement</string>
+    <string name="restore_send_code">Envoyer le code</string>
+    <string name="restore_code_sent">Si vous avez payé avec %1$s, vous recevrez un code sous peu.</string>
+    <string name="restore_code">Code</string>
+    <string name="restore_use_another_email">Utiliser une adresse différente</string>
+    <string name="error_invalid_code">Ce code est incorrect ou a expiré</string>
+    <string name="error_no_purchase_found">Nous n\'avons pas trouvé d\'achat correspondant à cette adresse</string>
+    <string name="restore_renewal_settling">Votre renouvellement est toujours en cours de traitement</string>
+    <string name="purchases_restored">Achats restaurés</string>
+    <string name="card_subscription">Abonnement par carte bancaire</string>
 </resources>
