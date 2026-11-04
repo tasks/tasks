@@ -66,24 +66,27 @@ sealed class ProCardState {
 
     open val terms: PurchaseTerms? get() = null
 
+    open val formattedPrice: String? get() = null
+
+    open val isMonthly: Boolean get() = false
+
     @Composable
-    open fun renewalPrice(): String? = null
+    fun renewalPrice(): String? = formattedPrice
+        ?.takeIf { it.isNotBlank() }
+        ?.let { intervalPrice(it, isMonthly) }
 
     data object Upgrade : ProCardState()
     data class Subscribed(
-        val isMonthly: Boolean,
-        val formattedPrice: String? = null,
+        override val isMonthly: Boolean,
+        override val formattedPrice: String? = null,
         override val credit: String? = null,
         override val terms: PurchaseTerms? = null,
-    ) : ProCardState() {
-        @Composable
-        override fun renewalPrice(): String? = formattedPrice
-            ?.takeIf { it.isNotBlank() }
-            ?.let { intervalPrice(it, isMonthly) }
-    }
+    ) : ProCardState()
     data class SignIn(
         override val credit: String? = null,
         override val terms: PurchaseTerms? = null,
+        override val formattedPrice: String? = null,
+        override val isMonthly: Boolean = false,
     ) : ProCardState()
     data class TasksOrgAccount(
         val account: CaldavAccount,
@@ -91,6 +94,8 @@ sealed class ProCardState {
         val accountData: AccountData? = null,
         override val credit: String? = null,
         override val terms: PurchaseTerms? = null,
+        override val formattedPrice: String? = null,
+        override val isMonthly: Boolean = false,
     ) : ProCardState()
     data object Donate : ProCardState()
 }

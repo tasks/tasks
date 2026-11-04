@@ -149,8 +149,15 @@ open class ProCardViewModel(
                 accountData,
                 credit,
                 terms,
+                formattedPrice,
+                sub?.isMonthly == true,
             )
-            sub?.isTasksSubscription == true -> ProCardState.SignIn(credit, terms)
+            sub?.isTasksSubscription == true -> ProCardState.SignIn(
+                credit = credit,
+                terms = terms,
+                formattedPrice = formattedPrice,
+                isMonthly = sub.isMonthly,
+            )
             hasBilling && sub != null -> ProCardState.Subscribed(
                 isMonthly = sub.isMonthly,
                 formattedPrice = formattedPrice,
