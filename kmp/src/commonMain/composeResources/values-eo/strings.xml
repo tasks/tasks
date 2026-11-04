@@ -702,4 +702,16 @@
     <string name="error_invalid_code">Tiu kodo estas malĝusta aŭ eksvalidiĝis</string>
     <string name="error_no_purchase_found">Ni ne trovis aĉeton de tiu retpoŝtadreso</string>
     <string name="restore_renewal_settling">Prilaboro de via renovigo ankoraŭ daŭras</string>
+    <string name="wrong_account_message_unknown">Via abonaĵo estas jam ligita al alia konto. Se vi konsideras tion kiel eraron, bonvolu kontakti %1$s</string>
+    <string name="restore_email_heading">Entajpu la retpoŝtadreson per kiu vi pagis</string>
+    <string name="error_purchase_not_verified">Ni ne povis konfirmi vian aĉeton en ĉi tiu aparato.</string>
+    <string name="error_too_many_requests">Tro da provoj. Bonvolu atendi kelkajn minutojn kaj reprovu.</string>
+    <string name="purchases_restored">Restaŭris aĉetojn</string>
+    <string name="checkout_finish_in_browser">Finu vian aĉeton per la retumilo</string>
+    <string name="pro_card_credit">%1$s kredito disponeblas al via sekva renovigo</string>
+    <string name="reset_trusted_certificates">Restarigi fidindajn atestilojn</string>
+    <string name="reset_trusted_certificates_summary">Forgesi atestilojn kaj atestilajn aŭtoritatojn kiun vi akceptis por serviloj</string>
+    <string name="trusted_certificates_reset">Restarigo de fidinda atestilo</string>
+    <string name="card_subscription">Kreditkarta abonaĵo</string>
+    <string name="error_billing_unavailable">Fakturado ne funkcias nuntempe. Bonvolu reprovi poste.</string>
 </resources>
