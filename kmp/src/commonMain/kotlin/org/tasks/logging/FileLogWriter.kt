@@ -32,7 +32,7 @@ class FileLogWriter(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO.limitedParallelism(1))
     private val files = List(FILE_COUNT) { logDirectory / "log.$it.txt" }
     private var written = 0L
-    private var sink: BufferedSink? = rotate()
+    private var sink: BufferedSink? = openSink()
 
     @Volatile
     private var shuttingDown = false
@@ -74,6 +74,13 @@ class FileLogWriter(
             }
             sink = null
         }
+    }
+
+    private fun openSink(): BufferedSink? = try {
+        rotate()
+    } catch (e: IOException) {
+        println(e.message)
+        null
     }
 
     private fun rotate(): BufferedSink {

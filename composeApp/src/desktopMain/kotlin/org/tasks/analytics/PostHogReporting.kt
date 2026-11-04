@@ -83,9 +83,9 @@ class PostHogReporting(
 
     override fun reportException(t: Throwable, fatal: Boolean) {
         if (t is CancellationException) return
+        logger.e(t) { t.message ?: "" }
         val decision = exceptionThrottle.check(t)
         if (decision !is ExceptionThrottle.Decision.Report) return
-        logger.e(t) { t.message ?: "" }
         if (enabled && collectStatistics) {
             PostHog.capture(
                 event = "exception",
