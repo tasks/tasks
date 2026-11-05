@@ -526,6 +526,18 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aSupporterSubscriptionIsEnoughForTheCaldavItWasRestoredFor() = runBlocking {
+        accounts = emptyList()
+        val entitlement = entitlement()
+
+        val outcome = purchases(entitlement)
+            .restore(purchase(sku = "annual_01"), requireCloud = false)
+
+        assertEquals(StripeRestoreOutcome.Restored, outcome)
+        assertTrue(entitlement.hasPro.first())
+    }
+
+    @Test
     fun aCloudSubscriptionRestoredWithNoAccountIsSimplyRestored() = runBlocking {
         accounts = emptyList()
 

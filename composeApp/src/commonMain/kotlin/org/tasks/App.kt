@@ -1087,7 +1087,12 @@ fun App(
                                     stripePurchases.verifyRestoreCode(email, code)
                                 },
                                 onRestored = { purchase, covered, terms ->
-                                    stripePurchases.restore(purchase, covered, terms)
+                                    stripePurchases.restore(
+                                        purchase = purchase,
+                                        covered = covered,
+                                        terms = terms,
+                                        requireCloud = destination.forCloud,
+                                    )
                                 },
                                 onUpgrade = {
                                     backStack.push(
@@ -1265,7 +1270,10 @@ fun App(
                                 openUrl = openUrl,
                                 onRestorePurchases = {
                                     backStack.push(
-                                        RestorePurchasesDestination(source = destination.source)
+                                        RestorePurchasesDestination(
+                                            source = destination.source,
+                                            forCloud = destination.mode == PricingMode.CLOUD_ONLY,
+                                        )
                                     )
                                 },
                                 onPlanChanged = { popPricing() },
@@ -1281,7 +1289,14 @@ fun App(
                                 reporting.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
                                 showSignInDialog = true
                             },
-                            onRestorePurchases = { backStack.push(RestorePurchasesDestination(source = destination.source)) },
+                            onRestorePurchases = {
+                                backStack.push(
+                                    RestorePurchasesDestination(
+                                        source = destination.source,
+                                        forCloud = destination.mode == PricingMode.CLOUD_ONLY,
+                                    )
+                                )
+                            },
                             onCloudSubscribeClick = {
                                 reporting.logEvent(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,

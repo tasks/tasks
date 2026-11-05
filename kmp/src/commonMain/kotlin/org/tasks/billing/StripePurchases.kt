@@ -4,8 +4,8 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.tasks.auth.PurchaseClaim
@@ -73,10 +73,13 @@ class StripePurchases(
         }
         return ForeignCoverage(
             covered = true,
-            source = when (account.foreignCloudProvider) {
+            source = when (val provider = account.foreignCloudProvider) {
                 TasksAccountResponse.PROVIDER_PLAY -> UnlockSource.GOOGLE_PLAY
                 TasksAccountResponse.PROVIDER_GITHUB_SPONSOR -> UnlockSource.GITHUB
-                else -> null
+                else -> {
+                    logger.w { "Unknown coverage provider: $provider" }
+                    null
+                }
             },
         )
     }
@@ -139,10 +142,11 @@ class StripePurchases(
         purchase: StripePurchase,
         covered: Boolean = true,
         terms: PurchaseTerms? = null,
+        requireCloud: Boolean = true,
     ): StripeRestoreOutcome {
         val outcome = keep(purchase, covered, terms)
         if (outcome != StripeRestoreOutcome.Restored) return outcome
-        if (SubscriptionSkus.isTasksSubscription(purchase.sku)) return outcome
+        if (!requireCloud || SubscriptionSkus.isTasksSubscription(purchase.sku)) return outcome
         logger.i { "Restored a subscription that does not reach the cloud tier" }
         return StripeRestoreOutcome.NeedsUpgrade
     }
