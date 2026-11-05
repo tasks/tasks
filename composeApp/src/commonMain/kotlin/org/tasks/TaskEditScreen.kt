@@ -4,6 +4,7 @@ import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,16 +40,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import co.touchlab.kermit.Logger
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.themes.isDarkTheme
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.AlarmsSection
-import org.tasks.compose.edit.DeleteTaskDialog
+import org.tasks.compose.edit.DeletePreviewRow
+import org.tasks.compose.edit.DeleteTaskPanel
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.DiscardChangesDialog
 import org.tasks.compose.edit.DueDateRow
 import org.tasks.compose.edit.ListPickerDialog
+import org.tasks.compose.edit.MakeParentTaskPanel
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
 import org.tasks.compose.edit.RecurrencePickerDialog
@@ -56,8 +63,6 @@ import org.tasks.compose.edit.StartDateRow
 import org.tasks.compose.edit.SubtasksSection
 import org.tasks.compose.edit.TagPickerDialog
 import org.tasks.compose.edit.TagsSection
-import org.tasks.compose.edit.TaskEditActionBar
-import org.tasks.compose.edit.TaskEditActionBarHeight
 import org.tasks.compose.edit.TaskEditCard
 import org.tasks.compose.edit.TaskEditCardRow
 import org.tasks.compose.edit.TaskEditCardRowContent
@@ -68,7 +73,13 @@ import org.tasks.compose.pickers.alarmToSelection
 import org.tasks.compose.pickers.dueDateFromSelection
 import org.tasks.compose.pickers.dueDateToSelection
 import org.tasks.time.is24HourFormat
+import org.tasks.data.DeletePreview
+import org.tasks.data.MakeParentTask
 import org.tasks.data.entity.Alarm
+import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.TaskDao
+import org.tasks.data.TaskMover
+import org.tasks.data.TaskSaver
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.NavigationDrawerSubheader
@@ -81,8 +92,12 @@ import org.tasks.viewmodel.FilterPickerViewModel
 import org.tasks.viewmodel.TaskEditViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
+import tasks.kmp.generated.resources.delete_task
 import tasks.kmp.generated.resources.failed_to_load_task
+import tasks.kmp.generated.resources.make_parent_task
+import tasks.kmp.generated.resources.menu_discard_changes
 import tasks.kmp.generated.resources.no_list_available
+import tasks.kmp.generated.resources.save
 import tasks.kmp.generated.resources.sort_list
 import tasks.kmp.generated.resources.subtask_list_locked
 import tasks.kmp.generated.resources.subtasks_multilevel_google_task
@@ -106,11 +121,47 @@ fun TaskEditScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val currentOnClose by rememberUpdatedState(onClose)
+    val log = remember { Logger.withTag("TaskEditScreen") }
     LaunchedEffect(viewModel) {
         viewModel.closeEvents.collect { currentOnClose() }
     }
     val loadError by viewModel.loadError.collectAsState()
     val saving by viewModel.saving.collectAsState()
+    var showMakeParentPanel by remember { mutableStateOf(false) }
+    var makeParentWorking by remember { mutableStateOf(false) }
+    var showDiscardConfirmation by remember { mutableStateOf(false) }
+    val makeParentScope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val taskDao = koinInject<TaskDao>()
+    var showDeletePanel by remember { mutableStateOf(false) }
+    var deleteRows by remember { mutableStateOf<List<DeletePreviewRow>>(emptyList()) }
+    var deleteWorking by remember { mutableStateOf(false) }
+
+    // The delete preview mirrors TaskDeleter.markDeleted exactly (recursive
+    // getChildren + read-only exclusion, see DeletePreview) so the panel can
+    // never promise to delete something it won't. Drafts aren't in the DB yet,
+    // so their staged subtree comes from the pane's state instead.
+    val buildDeletePreview: suspend () -> List<DeletePreviewRow> = {
+        if (state.task.id > 0) {
+            DeletePreview.forTask(taskDao, state.task.id).map { entry ->
+                DeletePreviewRow(
+                    title = entry.task.title.orEmpty(),
+                    indent = entry.depth,
+                    completed = entry.task.isCompleted,
+                    readOnly = entry.readOnly,
+                )
+            }
+        } else {
+            listOf(DeletePreviewRow(title = state.task.title.orEmpty())) +
+                    state.subtasks.map { row ->
+                        DeletePreviewRow(
+                            title = row.node.title.orEmpty(),
+                            indent = row.indent,
+                            completed = row.completed,
+                        )
+                    }
+        }
+    }
 
     val saveAndClose = { viewModel.save() }
 
@@ -124,12 +175,113 @@ fun TaskEditScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
             TopAppBar(
-                title = {},
+                title = {
+                    // "Move into new parent task", centred as the pane's hero
+                    // action. The TopAppBar title slot is left-aligned by
+                    // default, so the button is centred inside a full-width
+                    // box. Nav (back+save) and actions (discard+delete) are
+                    // two icons each, so the slot is symmetric and this is
+                    // true centre. Greyed out while there are unsaved edits -
+                    // the reparent operates on the saved row, and this action
+                    // does not save on the user's behalf. Hidden in practice
+                    // on lists that cannot nest (single-level accounts) by
+                    // the same gating.
+                    val canMakeParent = !state.isLoading &&
+                            !state.isDraft &&
+                            !saving &&
+                            !state.hasChanges &&
+                            state.list?.isSingleLevel != true
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        IconButton(
+                            onClick = {
+                                showDeletePanel = false
+                                showMakeParentPanel = !showMakeParentPanel
+                            },
+                            enabled = canMakeParent,
+                            modifier = Modifier.align(Alignment.Center),
+                        ) {
+                            SymbolIcon(
+                                name = TasksIcons.DRIVE_FILE_MOVE,
+                                contentDescription = stringResource(Res.string.make_parent_task),
+                            )
+                        }
+                    }
+                },
                 navigationIcon = {
-                    IconButton(onClick = saveAndClose, enabled = !saving) {
+                    // Save floats next to back on the left: the plain save and the
+                    // back (save + close) are the two "leave this edit" actions, so
+                    // they sit together. Matches the Android edit window (save left).
+                    Row {
+                        IconButton(onClick = saveAndClose, enabled = !saving) {
+                            SymbolIcon(
+                                name = TasksIcons.ARROW_BACK,
+                                contentDescription = stringResource(Res.string.back),
+                            )
+                        }
+                        // Explicit save (floppy). Back has always been the only save
+                        // path (save and close at once); this is the plain save.
+                        // Greyed out while clean.
+                        IconButton(
+                            onClick = { makeParentScope.launch { viewModel.saveCurrentTask() } },
+                            enabled = !state.isLoading &&
+                                    !state.isDraft &&
+                                    !saving &&
+                                    state.hasChanges,
+                        ) {
+                            SymbolIcon(
+                                name = TasksIcons.SAVE,
+                                contentDescription = stringResource(Res.string.save),
+                            )
+                        }
+                    }
+                },
+                actions = {
+                    // Discard: mirrors the save gating (nothing to discard while
+                    // clean). Replaces the three-dot menu item on the old floater.
+                    IconButton(
+                        onClick = {
+                            keyboardController?.hide()
+                            if (state.hasChanges) {
+                                showDiscardConfirmation = true
+                            } else {
+                                viewModel.discardChanges()
+                            }
+                        },
+                        enabled = !state.isLoading &&
+                                !state.isDraft &&
+                                !saving &&
+                                state.hasChanges,
+                    ) {
                         SymbolIcon(
-                            name = TasksIcons.ARROW_BACK,
-                            contentDescription = stringResource(Res.string.back),
+                            name = TasksIcons.CLEAR,
+                            contentDescription = stringResource(Res.string.menu_discard_changes),
+                        )
+                    }
+                    // Delete: the tree preview panel is the confirmation. Available
+                    // for drafts too, as the old floater's delete was; greyed only
+                    // while busy. Replaces the three-dot menu item on the old floater.
+                    IconButton(
+                        onClick = {
+                            keyboardController?.hide()
+                            if (deleteWorking) return@IconButton
+                            deleteWorking = true
+                            makeParentScope.launch {
+                                deleteRows = try {
+                                    buildDeletePreview()
+                                } catch (e: Exception) {
+                                    log.w(e) { "Failed to build delete preview" }
+                                    listOf(DeletePreviewRow(title = state.task.title.orEmpty()))
+                                }
+                                deleteWorking = false
+                                showMakeParentPanel = false
+                                showDeletePanel = true
+                            }
+                        },
+                        enabled = !state.isLoading && !saving,
+                    ) {
+                        SymbolIcon(
+                            name = TasksIcons.DELETE,
+                            contentDescription = stringResource(Res.string.delete_task),
                         )
                     }
                 },
@@ -189,20 +341,81 @@ fun TaskEditScreen(
                     var showStartDatePicker by remember { mutableStateOf(false) }
                     var showRecurrencePicker by remember { mutableStateOf(false) }
                     var showAlarmDateTimePicker by remember { mutableStateOf(false) }
-                    var showDiscardConfirmation by remember { mutableStateOf(false) }
-                    var showDeleteConfirmation by remember { mutableStateOf(false) }
                     var alarmToReplace by remember { mutableStateOf<Alarm?>(null) }
                     var pickerToken by remember { mutableStateOf(0) }
                     val reminderViewModel = koinViewModel<ReminderControlSetViewModel>()
                     val is24Hour = is24HourFormat()
-                    val keyboardController = LocalSoftwareKeyboardController.current
+                    val caldavDao = koinInject<CaldavDao>()
+                    val taskSaver = koinInject<TaskSaver>()
+                    val taskMover = koinInject<TaskMover>()
+                    val taskRequests = koinInject<TaskRequests>()
                     LaunchedEffect(list) { showListPicker = false }
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState())
-                            .padding(TaskEditIslandInset),
+                            // The island inset is kept on the sides and bottom, but not the
+                            // top: the list pane's first row starts flush at its (overlay)
+                            // app bar's bottom edge, so the edit content does the same here
+                            // and the two panes' content tops line up.
+                            .padding(
+                                start = TaskEditIslandInset,
+                                end = TaskEditIslandInset,
+                                bottom = TaskEditIslandInset,
+                            ),
                     ) {
+                        if (showMakeParentPanel) {
+                            MakeParentTaskPanel(
+                                modifier = Modifier.padding(bottom = 16.dp),
+                                working = makeParentWorking,
+                                keyboardController = keyboardController,
+                                onAccept = { title ->
+                                    makeParentWorking = true
+                                    makeParentScope.launch {
+                                        try {
+                                            val parent = MakeParentTask.make(
+                                                taskDao = taskDao,
+                                                caldavDao = caldavDao,
+                                                taskSaver = taskSaver,
+                                                taskMover = taskMover,
+                                                list = list,
+                                                title = title,
+                                                target = state.task,
+                                            )
+                                            showMakeParentPanel = false
+                                            makeParentWorking = false
+                                            // Lands the user on the new parent, which visibly
+                                            // contains the just-nested task: the confirmation.
+                                            taskRequests.open(
+                                                TaskEditDestination(parent.id, parent.uuid),
+                                            )
+                                        } catch (e: Exception) {
+                                            log.e(e) { "Failed to make parent task" }
+                                            makeParentWorking = false
+                                        }
+                                    }
+                                },
+                                onCancel = {
+                                    makeParentWorking = false
+                                    showMakeParentPanel = false
+                                },
+                            )
+                        }
+                        if (showDeletePanel) {
+                            DeleteTaskPanel(
+                                modifier = Modifier.padding(bottom = 16.dp),
+                                rows = deleteRows,
+                                working = deleteWorking,
+                                keyboardController = keyboardController,
+                                onDelete = {
+                                    showDeletePanel = false
+                                    viewModel.delete()
+                                },
+                                onCancel = {
+                                    showDeletePanel = false
+                                },
+                            )
+                        }
                         TitleField(
                             title = state.task.title.orEmpty(),
                             onTitleChange = viewModel::setTitle,
@@ -324,9 +537,7 @@ fun TaskEditScreen(
                                 null
                             },
                             allowsNesting = state.allowsNesting,
-                            bottomInset = TaskEditActionBarHeight +
-                                FloatingToolbarBottomMargin +
-                                TaskEditIslandInset,
+                            bottomInset = TaskEditIslandInset,
                             onAddSubtask = { viewModel.addSubtask() },
                             onAddAfter = { node -> viewModel.addSubtask(after = node) },
                             onOpenSubtask = { node ->
@@ -342,38 +553,7 @@ fun TaskEditScreen(
                             onRestoreSubtask = viewModel::restoreSubtask,
                             onSubtaskFocused = viewModel::onSubtaskFocused,
                         )
-                        Spacer(
-                            modifier = Modifier.height(
-                                TaskEditActionBarHeight + FloatingToolbarBottomMargin
-                            )
-                        )
                     }
-                    TaskEditActionBar(
-                        filterTint = filterTint,
-                        onMarkCompleted = {
-                            keyboardController?.hide()
-                            viewModel.markComplete()
-                        },
-                        onDiscardChanges = {
-                            keyboardController?.hide()
-                            if (state.hasChanges) {
-                                showDiscardConfirmation = true
-                            } else {
-                                viewModel.discardChanges()
-                            }
-                        },
-                        onDeleteTask = {
-                            keyboardController?.hide()
-                            showDeleteConfirmation = true
-                        },
-                        enabled = !saving,
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(
-                                horizontal = TaskEditIslandInset,
-                                vertical = FloatingToolbarBottomMargin,
-                            ),
-                    )
                     if (showDiscardConfirmation) {
                         DiscardChangesDialog(
                             onDiscard = {
@@ -381,15 +561,6 @@ fun TaskEditScreen(
                                 viewModel.discardChanges()
                             },
                             onDismiss = { showDiscardConfirmation = false },
-                        )
-                    }
-                    if (showDeleteConfirmation) {
-                        DeleteTaskDialog(
-                            onDelete = {
-                                showDeleteConfirmation = false
-                                viewModel.delete()
-                            },
-                            onDismiss = { showDeleteConfirmation = false },
                         )
                     }
                     if (showDueDatePicker) {
