@@ -734,4 +734,16 @@
     <string name="restore_renewal_settling">Votre renouvellement est toujours en cours de traitement</string>
     <string name="purchases_restored">Achats restaurés</string>
     <string name="card_subscription">Abonnement par carte bancaire</string>
+    <string name="subscription_covered_elsewhere">Ce compte a déjà été payé auprès d\'un autre prestataire.</string>
+    <string name="change_plan_message">À compter d\'aujourd\'hui, votre abonnement passera à %1$s. Le solde éventuel de votre abonnement actuel sera crédité sur votre compte ou déduit du montant de cette facturation.</string>
+    <string name="change_plan_trial">Votre période d\'essai gratuite prend fin le %1$s. À l\'issue de cette période, un montant de %2$s vous sera facturé.</string>
+    <string name="change_plan_card_declined">Nous n\'avons pas pu modifier votre forfait. Il se peut que votre carte doive être mise à jour.</string>
+    <string name="update_card">Mettre à jour la carte bancaire</string>
+    <string name="subscription_renews_on">Renouveler %1$s</string>
+    <string name="subscription_ends_on">Se termine à %1$s</string>
+    <string name="subscription_ended_on">Pris fin le %1$s</string>
+    <string name="subscription_free_until">Gratuit jusqu\'au %1$s, puis %2$s</string>
+    <string name="subscription_payment_failed">Le paiement a échoué, veuillez mettre à jour les informations de votre carte</string>
+    <string name="subscription_covered_by">Ce compte est financé par votre %1$s.</string>
+    <string name="change_plan">Modifier le forfait</string>
 </resources>
