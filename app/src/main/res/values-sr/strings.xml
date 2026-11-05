@@ -436,4 +436,6 @@
     <string name="rmd_EPr_rmd_time_desc">Обавештења за целодневне задатке ће се појавити у%1$s</string>
     <string name="p_per_list_sort">Сортирање по листи</string>
     <string name="per_list_sort_title">Сортирање листе</string>
+    <string name="write_permission_label">Модификуј задатке</string>
+    <string name="permission_write_tasks">Додај, промени и избриши своје задатке, листе, тагове и места</string>
 </resources>
