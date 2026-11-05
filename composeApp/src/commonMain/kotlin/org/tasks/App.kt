@@ -1085,8 +1085,8 @@ fun App(
                                 onVerifyCode = { email, code ->
                                     stripePurchases.verifyRestoreCode(email, code)
                                 },
-                                onRestored = { purchase, covered ->
-                                    stripePurchases.restore(purchase, covered)
+                                onRestored = { purchase, covered, terms ->
+                                    stripePurchases.restore(purchase, covered, terms)
                                 },
                                 onUpgrade = {
                                     backStack.push(

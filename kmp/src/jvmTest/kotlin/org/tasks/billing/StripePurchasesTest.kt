@@ -645,6 +645,17 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aRestoredSubscriptionKeepsWhatTheServerSaidAboutIt() = runBlocking {
+        val entitlement = entitlement()
+        val terms = PurchaseTerms(status = "canceled", expires = 1793481600000L)
+
+        purchases(entitlement).restore(purchase(), terms = terms)
+
+        assertEquals(terms, entitlement.terms.first())
+        assertEquals(terms, purchases(entitlement).currentPlan(refresh = false)?.terms)
+    }
+
+    @Test
     fun aRateLimitedPollCarriesTheWaitBack() = runBlocking {
         checkoutStatus = StripeCheckoutStatus.RateLimited(retryAfterMillis = 20_000L)
 

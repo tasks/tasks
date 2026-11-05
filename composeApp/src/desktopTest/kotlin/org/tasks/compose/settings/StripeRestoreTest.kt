@@ -65,7 +65,7 @@ class StripeRestoreTest {
                     answer
                 },
                 onVerifyCode = { _, _ -> StripeRestore.InvalidCode },
-                onRestored = { _, _ -> StripeRestoreOutcome.Restored },
+                onRestored = { _, _, _ -> StripeRestoreOutcome.Restored },
                 onUpgrade = {},
             ),
             onCreateLink = { null },

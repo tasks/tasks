@@ -137,8 +137,9 @@ class StripePurchases(
     suspend fun restore(
         purchase: StripePurchase,
         covered: Boolean = true,
+        terms: PurchaseTerms? = null,
     ): StripeRestoreOutcome {
-        val outcome = keep(purchase, covered)
+        val outcome = keep(purchase, covered, terms)
         if (outcome != StripeRestoreOutcome.Restored) return outcome
         if (SubscriptionSkus.isTasksSubscription(purchase.sku)) return outcome
         logger.i { "Restored a subscription that does not reach the cloud tier" }
@@ -148,12 +149,14 @@ class StripePurchases(
     suspend fun keep(
         purchase: StripePurchase,
         covered: Boolean = true,
+        terms: PurchaseTerms? = null,
     ): StripeRestoreOutcome = keep(
         jwt = purchase.purchaseJwt,
         refreshToken = purchase.refreshToken,
         sku = purchase.sku,
         formattedPrice = purchase.formattedPrice,
         covered = covered,
+        terms = terms,
     )
 
     private suspend fun keep(receipt: StripeReceipt): StripeRestoreOutcome = keep(
@@ -169,6 +172,7 @@ class StripePurchases(
         sku: String?,
         formattedPrice: String?,
         covered: Boolean = true,
+        terms: PurchaseTerms? = null,
     ): StripeRestoreOutcome {
         val stored = entitlement.storeEntitlement(
             jwt = jwt,
@@ -176,6 +180,7 @@ class StripePurchases(
             sku = sku,
             formattedPrice = formattedPrice,
             provider = EntitlementProvider.STRIPE,
+            terms = terms,
             covered = covered,
         )
         if (!stored) {

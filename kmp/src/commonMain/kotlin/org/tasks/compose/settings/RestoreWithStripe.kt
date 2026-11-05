@@ -64,7 +64,11 @@ import tasks.kmp.generated.resources.your_subscription_expired
 data class StripeRestoreCallbacks(
     val onRequestCode: suspend (email: String) -> StripeRestoreRequest,
     val onVerifyCode: suspend (email: String, code: String) -> StripeRestore,
-    val onRestored: suspend (purchase: StripePurchase, covered: Boolean) -> StripeRestoreOutcome,
+    val onRestored: suspend (
+        purchase: StripePurchase,
+        covered: Boolean,
+        terms: PurchaseTerms?,
+    ) -> StripeRestoreOutcome,
     val onUpgrade: () -> Unit,
 )
 
@@ -179,7 +183,8 @@ internal fun StripeTab(
         scope.launch {
             state = when (val result = callbacks.onVerifyCode(address, entered)) {
                 is StripeRestore.Restored -> when (
-                    val stored = callbacks.onRestored(result.purchase, result.covered)
+                    val stored =
+                        callbacks.onRestored(result.purchase, result.covered, result.terms)
                 ) {
                     StripeRestoreOutcome.Restored ->
                         StripeTabState.Restored(settling = !result.isActive)

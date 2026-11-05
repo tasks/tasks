@@ -279,6 +279,7 @@ class PurchaseEntitlement(
         sku: String? = null,
         formattedPrice: String? = null,
         provider: EntitlementProvider,
+        terms: PurchaseTerms? = null,
         covered: Boolean = true,
     ): Boolean = checkLock.withLock {
         val token = refreshToken
@@ -293,6 +294,7 @@ class PurchaseEntitlement(
             sku = sku,
             formattedPrice = formattedPrice,
             provider = provider,
+            terms = terms,
             covered = covered,
         ) == StoreResult.STORED
     }

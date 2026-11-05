@@ -519,6 +519,22 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun keepsTheTermsTheReceiptCameWith() = runBlocking {
+        val entitlement = entitlement()
+        val terms = PurchaseTerms(status = "trialing", trialEnd = 1793481600000L)
+
+        entitlement.storeEntitlement(
+            jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+            refreshToken = "stored-token",
+            provider = EntitlementProvider.STRIPE,
+            terms = terms,
+        )
+
+        assertEquals(terms, entitlement.terms.first())
+        assertEquals(terms, readFromDisk().terms)
+    }
+
+    @Test
     fun aCardSubscriptionRefreshesWhereAPlayOneDoes() = runBlocking {
         storeOnDisk(
             jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS),
