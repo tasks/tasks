@@ -705,4 +705,16 @@
     <string name="error_no_purchase_found">我们找不到该邮箱的购买</string>
     <string name="restore_renewal_settling">您的续费仍在进行</string>
     <string name="purchases_restored">恢复了购买</string>
+    <string name="change_plan">更改套餐</string>
+    <string name="change_plan_message">您的订阅将从今天起更改为 %1$s。任何您当前订阅的余额将被存入您的账户或应用于此收费。</string>
+    <string name="change_plan_trial">您的免费试用结束于 %1$s。试用期结束时将向您收费 %2$s。</string>
+    <string name="change_plan_card_declined">我们不会更改您的套餐。您的卡片可能需要更新。</string>
+    <string name="update_card">更新卡片</string>
+    <string name="subscription_renews_on">%1$s 续费</string>
+    <string name="subscription_ends_on">%1$s 结束</string>
+    <string name="subscription_ended_on">已于 %1$s 结束</string>
+    <string name="subscription_free_until">免费直到 %1$s，然后 %2$s</string>
+    <string name="subscription_payment_failed">付款失败，更新您的卡片</string>
+    <string name="subscription_covered_by">这个账户由您的 %1$s 支付费用。</string>
+    <string name="subscription_covered_elsewhere">这个账户已经在别处付过款了。</string>
 </resources>
