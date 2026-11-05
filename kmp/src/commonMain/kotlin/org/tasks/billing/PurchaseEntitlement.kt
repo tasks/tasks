@@ -125,7 +125,7 @@ class PurchaseEntitlement(
         object KeyUnavailable : LoadResult
     }
 
-    private enum class StoreResult { REJECTED, GRANTED_NOT_PERSISTED, STORED }
+    private enum class StoreResult { REJECTED, NOT_PERSISTED, STORED }
 
     private enum class RefreshOutcome { RENEWED, LAPSED, UNANSWERED }
 
@@ -319,10 +319,9 @@ class PurchaseEntitlement(
         }
         val entitlement =
             StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider, terms)
-        val persisted =
-            storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))
-        if (!persisted) {
-            logger.e { "Failed to persist entitlement, pro will not survive a restart" }
+        if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))) {
+            logger.e { "Refusing pro on a receipt that could not be persisted" }
+            return StoreResult.NOT_PERSISTED
         }
         lapsedReceipt = if (covered) null else jwt
         val wasPro = if (covered) _hasPro.getAndUpdate { true } else _hasPro.value
@@ -340,7 +339,7 @@ class PurchaseEntitlement(
                 interval = if (covered) RETRY_INTERVAL_SECONDS else lapsedRetryIntervalSeconds,
             )
         }
-        return if (persisted) StoreResult.STORED else StoreResult.GRANTED_NOT_PERSISTED
+        return StoreResult.STORED
     }
 
     private fun scheduleRefresh(
@@ -388,8 +387,8 @@ class PurchaseEntitlement(
                     provider = entitlement.provider,
                     terms = entitlement.terms,
                 )
-                if (granted == StoreResult.REJECTED) {
-                    logger.e { "Refreshed entitlement was rejected, keeping the stored one" }
+                if (granted != StoreResult.STORED) {
+                    logger.e { "Refreshed entitlement was not stored, keeping the stored one" }
                     RefreshOutcome.UNANSWERED
                 } else {
                     logger.i { "Purchase entitlement refreshed" }

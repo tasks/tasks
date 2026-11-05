@@ -504,7 +504,7 @@ class PurchaseEntitlementTest {
     }
 
     @Test
-    fun grantsProWhenEntitlementCannotBePersisted() = runBlocking {
+    fun refusesProWhenEntitlementCannotBePersisted() = runBlocking {
         val blocked = File(dir, "blocked").apply { writeText("not a directory") }
 
         val entitlement = entitlement(dataDir = blocked)
@@ -515,7 +515,8 @@ class PurchaseEntitlementTest {
         )
 
         assertFalse(granted)
-        assertTrue(entitlement.hasPro.first())
+        assertFalse(entitlement.hasPro.first())
+        verifyNoInteractions(syncAdapters)
     }
 
     @Test
