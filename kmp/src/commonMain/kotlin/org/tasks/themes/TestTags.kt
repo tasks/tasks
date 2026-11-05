@@ -12,4 +12,5 @@ object TestTags {
     const val DATE_SHORTCUT_TODAY = "date_shortcut_today"
     const val DATE_PICKER_OK = "date_picker_ok"
     const val SAVE_TASK = "save_task"
+    const val PRICE_PLACEHOLDER = "price_placeholder"
 }

@@ -7,6 +7,7 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -18,6 +19,7 @@ import org.junit.Test
 import org.tasks.billing.StripeCatalog
 import org.tasks.billing.StripePrice
 import org.tasks.billing.UnlockSource
+import org.tasks.themes.TestTags
 
 @OptIn(ExperimentalTestApi::class)
 class CardPricingTest {
@@ -69,6 +71,37 @@ class CardPricingTest {
         showCloudCard(store = null)
 
         assertShowing("Subscribe on Google Play")
+    }
+
+    @Test
+    fun aCatalogStillLoadingDoesNotQuoteAPriceItHasNotFetched() = runComposeUiTest {
+        showCloudCard(StoreBilling(loadingPrices = true, onSelect = {}))
+
+        onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
+            assertTrue("expected the price to be a placeholder", it.isNotEmpty())
+        }
+        assertNotShowing("\$29.99")
+        assertNotShowing("\$2.50")
+    }
+
+    @Test
+    fun aStoreThatCannotPriceAnythingSaysNothingRatherThanDollars() = runComposeUiTest {
+        showCloudCard(StoreBilling(onSelect = {}))
+
+        assertNotShowing("\$29.99")
+        onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
+            assertTrue("expected no shimmer once the catalog has settled", it.isEmpty())
+        }
+    }
+
+    @Test
+    fun buildsWithoutACardStoreKeepTheirIndicativePrice() = runComposeUiTest {
+        showCloudCard(store = null)
+
+        assertShowing("\$29.99")
+        onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
+            assertTrue("expected no shimmer where no catalog is ever fetched", it.isEmpty())
+        }
     }
 
     @Test
@@ -214,5 +247,10 @@ class CardPricingTest {
     private fun ComposeUiTest.assertShowing(text: String) = assertTrue(
         "expected to be showing \"$text\"",
         onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty(),
+    )
+
+    private fun ComposeUiTest.assertNotShowing(text: String) = assertTrue(
+        "expected not to be showing \"$text\"",
+        onAllNodes(hasText(text, substring = true)).fetchSemanticsNodes().isEmpty(),
     )
 }

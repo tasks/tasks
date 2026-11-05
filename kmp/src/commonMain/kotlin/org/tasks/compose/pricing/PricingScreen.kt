@@ -68,6 +68,8 @@ enum class PricingMode {
 
 private val CardShape = RoundedCornerShape(12.dp)
 
+private const val PRICE_UNKNOWN = "\u2014"
+
 data class StoreBilling(
     val catalog: StripeCatalog = StripeCatalog(),
     val loadingPrices: Boolean = false,
@@ -280,23 +282,30 @@ private fun CloudTierCard(
     TierCard(
         modifier = modifier,
         title = stringResource(Res.string.tasks_org_account),
-        price = price?.formattedPrice ?: stringResource(
-            if (isAnnual) Res.string.pricing_cloud_annual_total
-            else Res.string.pricing_cloud_monthly_price
-        ),
+        price = if (store == null) {
+            stringResource(
+                if (isAnnual) Res.string.pricing_cloud_annual_total
+                else Res.string.pricing_cloud_monthly_price
+            )
+        } else {
+            price?.formattedPrice
+        },
+        loading = store?.loadingPrices == true,
         priceSuffix = stringResource(
             if (isAnnual) Res.string.price_per_year_with_currency
             else Res.string.price_per_month_with_currency,
             "",
         ).trim(),
-        billingNote = if (isAnnual)
-            stringResource(
-                Res.string.pricing_cloud_annual_per_month,
+        billingNote = if (isAnnual) {
+            val perMonth = if (store == null) {
+                stringResource(Res.string.pricing_cloud_annual_price)
+            } else {
                 price?.formattedMonthlyPrice
-                    ?: stringResource(Res.string.pricing_cloud_annual_price),
-            )
-        else
-            stringResource(Res.string.pricing_cloud_monthly_note),
+            }
+            perMonth?.let { stringResource(Res.string.pricing_cloud_annual_per_month, it) }
+        } else {
+            stringResource(Res.string.pricing_cloud_monthly_note)
+        },
         trialNote = price.trialNote(store),
         description = stringResource(Res.string.pricing_cloud_description),
         features = listOf(
@@ -354,10 +363,15 @@ private fun NameYourPriceTierCard(
     TierCard(
         modifier = modifier,
         title = stringResource(Res.string.supporter),
-        price = stringResource(
-            Res.string.pricing_from,
-            cheapestRung?.formattedPrice ?: stringResource(Res.string.pricing_nyp_min_price),
-        ),
+        price = if (store == null) {
+            stringResource(
+                Res.string.pricing_from,
+                stringResource(Res.string.pricing_nyp_min_price),
+            )
+        } else {
+            cheapestRung?.formattedPrice?.let { stringResource(Res.string.pricing_from, it) }
+        },
+        loading = store?.loadingPrices == true,
         priceSuffix = stringResource(Res.string.price_per_year_with_currency, "").trim(),
         trialNote = cheapestRung.trialNote(store),
         description = stringResource(Res.string.pricing_nyp_description),
@@ -483,8 +497,9 @@ private fun PurchaseButton(
 @Composable
 private fun TierCard(
     title: String,
-    price: String,
+    price: String?,
     priceSuffix: String,
+    loading: Boolean = false,
     description: String,
     features: List<String>,
     cta: @Composable () -> Unit,
@@ -502,6 +517,7 @@ private fun TierCard(
             title = title,
             price = price,
             priceSuffix = priceSuffix,
+            loading = loading,
             billingNote = billingNote,
             trialNote = trialNote,
             billingToggle = billingToggle,
@@ -564,8 +580,9 @@ private fun TierCard(
 @Composable
 private fun TierCardContent(
     title: String,
-    price: String,
+    price: String?,
     priceSuffix: String,
+    loading: Boolean,
     billingNote: String?,
     trialNote: String?,
     billingToggle: @Composable (() -> Unit)?,
@@ -598,12 +615,26 @@ private fun TierCardContent(
         Row(
             horizontalArrangement = Arrangement.Center,
         ) {
-            Text(
-                text = price,
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.alignByBaseline(),
-            )
+            when {
+                price != null -> Text(
+                    text = price,
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.alignByBaseline(),
+                )
+                loading -> PriceShimmer(
+                    sample = PRICE_SAMPLE,
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.alignByBaseline(),
+                )
+                else -> Text(
+                    text = PRICE_UNKNOWN,
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.alignByBaseline(),
+                )
+            }
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = priceSuffix,
@@ -618,6 +649,12 @@ private fun TierCardContent(
                 text = billingNote,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp),
+            )
+        } else if (loading) {
+            PriceShimmer(
+                sample = PRICE_NOTE_SAMPLE,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(top = 4.dp),
             )
         }
