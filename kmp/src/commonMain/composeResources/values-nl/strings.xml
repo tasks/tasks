@@ -714,4 +714,16 @@
     <string name="error_no_purchase_found">Geen aankoop gevonden voor dat e-mailadres</string>
     <string name="restore_renewal_settling">Je verlenging wordt toch verwerkt</string>
     <string name="purchases_restored">Aankopen hersteld</string>
+    <string name="change_plan">Abonnementsvorm wijzigen</string>
+    <string name="change_plan_message">Uw abonnement verandert vanaf vandaag naar %1$s. Eventuele resterende waarde op uw huidige abonnement wordt bijgeschreven op uw account of verrekent met deze kosten.</string>
+    <string name="change_plan_trial">Uw gratis proefperiode eindigt op %1$s. Aan het einde van uw proefperiode wordt %2$s gefactureerd.</string>
+    <string name="change_plan_card_declined">We konden uw abonnement niet aanpassen. Uw betaalmethode moet mogelijk worden bijgewerkt.</string>
+    <string name="update_card">Betaalwijze bijwerken</string>
+    <string name="subscription_renews_on">Verlengt op %1$s</string>
+    <string name="subscription_ends_on">Eindigt op %1$s</string>
+    <string name="subscription_ended_on">Beëindigd per %1$s</string>
+    <string name="subscription_free_until">Gratis tot %1$s, daarna %2$s</string>
+    <string name="subscription_payment_failed">Betaling mislukt, betaalwijze bijwerken</string>
+    <string name="subscription_covered_by">Dit account wordt betaald door uw %1$s.</string>
+    <string name="subscription_covered_elsewhere">Deze rekening wordt al ergens anders betaald.</string>
 </resources>
