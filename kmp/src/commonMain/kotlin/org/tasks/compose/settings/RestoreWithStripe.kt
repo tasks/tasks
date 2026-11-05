@@ -84,7 +84,7 @@ internal enum class Refusal {
     SUBSCRIPTION_EXPIRED,
     UNAVAILABLE,
     SERVER_FAILED,
-    STORAGE_FAILED,
+    ENCRYPTION_FAILED,
 }
 
 @Serializable
@@ -124,7 +124,7 @@ private fun Refusal.message(): String = when (this) {
     Refusal.UNAVAILABLE -> stringResource(Res.string.error_billing_unavailable)
     Refusal.SERVER_FAILED ->
         stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
-    Refusal.STORAGE_FAILED -> stringResource(Res.string.error_encryption_failed)
+    Refusal.ENCRYPTION_FAILED -> stringResource(Res.string.error_encryption_failed)
 }
 
 @Composable
@@ -260,8 +260,14 @@ private suspend fun StripeRestoreCallbacks.verifyAndKeep(
         StripeRestoreOutcome.Ended -> StripeTabState.Ended(result.terms)
         StripeRestoreOutcome.NeedsUpgrade -> StripeTabState.Upgrade
         is StripeRestoreOutcome.AccountInUse -> StripeTabState.AccountInUse(stored.existingAccount)
-        StripeRestoreOutcome.StorageFailed ->
-            StripeTabState.Failed(Refusal.STORAGE_FAILED, startOver = false)
+        is StripeRestoreOutcome.StorageFailed -> StripeTabState.Failed(
+            refusal = if (stored.encryptionFailed) {
+                Refusal.ENCRYPTION_FAILED
+            } else {
+                Refusal.SERVER_FAILED
+            },
+            startOver = false,
+        )
     }
     StripeRestore.InvalidCode -> StripeTabState.Code(address, Refusal.INVALID_CODE)
     StripeRestore.NothingToRestore -> StripeTabState.Email(Refusal.NO_PURCHASE_FOUND)

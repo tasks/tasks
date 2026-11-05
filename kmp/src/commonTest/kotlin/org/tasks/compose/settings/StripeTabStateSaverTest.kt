@@ -52,7 +52,7 @@ class StripeTabStateSaverTest {
             StripeTabState.AccountInUse("b**@e**.com"),
             StripeTabState.Ended(),
             StripeTabState.Failed(Refusal.TOO_MANY_REQUESTS, startOver = true),
-            StripeTabState.Failed(Refusal.STORAGE_FAILED, startOver = false),
+            StripeTabState.Failed(Refusal.SERVER_FAILED, startOver = false),
         ).forEach { assertEquals(it, roundTrip(it)) }
     }
 

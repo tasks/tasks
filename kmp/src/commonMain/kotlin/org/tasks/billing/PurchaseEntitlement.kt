@@ -25,6 +25,7 @@ import org.tasks.http.withClient
 import okio.Path.Companion.toPath
 import org.tasks.security.EncryptedStore
 import org.tasks.security.Encryption
+import org.tasks.security.WriteResult
 import org.tasks.security.rawEcdsaToDer
 import org.tasks.security.verifyEs256
 import org.tasks.sync.SyncAdapters
@@ -125,7 +126,7 @@ class PurchaseEntitlement(
         object KeyUnavailable : LoadResult
     }
 
-    private enum class StoreResult { REJECTED, NOT_PERSISTED, STORED }
+    enum class StoreResult { REJECTED, ENCRYPT_FAILED, WRITE_FAILED, STORED }
 
     private enum class RefreshOutcome { RENEWED, LAPSED, UNANSWERED }
 
@@ -185,7 +186,9 @@ class PurchaseEntitlement(
             provider = provider,
             terms = terms,
         )
-        if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), updated))) {
+        if (storage.write(json.encodeToString(StoredEntitlement.serializer(), updated)) !=
+            WriteResult.WRITTEN
+        ) {
             logger.e { "Failed to persist the check, it will read stale after a restart" }
         }
         _sku.value = updated.sku
@@ -281,12 +284,12 @@ class PurchaseEntitlement(
         provider: EntitlementProvider,
         terms: PurchaseTerms? = null,
         covered: Boolean = true,
-    ): Boolean = checkLock.withLock {
+    ): StoreResult = checkLock.withLock {
         val token = refreshToken
             ?: (load() as? LoadResult.Loaded)?.entitlement?.refreshToken
             ?: run {
                 logger.e { "A receipt that carries no refresh token needs one already stored" }
-                return@withLock false
+                return@withLock StoreResult.REJECTED
             }
         grantEntitlement(
             jwt = jwt,
@@ -296,7 +299,7 @@ class PurchaseEntitlement(
             provider = provider,
             terms = terms,
             covered = covered,
-        ) == StoreResult.STORED
+        )
     }
 
     private suspend fun grantEntitlement(
@@ -319,9 +322,16 @@ class PurchaseEntitlement(
         }
         val entitlement =
             StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider, terms)
-        if (!storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))) {
-            logger.e { "Refusing pro on a receipt that could not be persisted" }
-            return StoreResult.NOT_PERSISTED
+        when (storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))) {
+            WriteResult.ENCRYPT_FAILED -> {
+                logger.e { "Refusing pro on a receipt we could not encrypt" }
+                return StoreResult.ENCRYPT_FAILED
+            }
+            WriteResult.WRITE_FAILED -> {
+                logger.e { "Refusing pro on a receipt we could not write to disk" }
+                return StoreResult.WRITE_FAILED
+            }
+            WriteResult.WRITTEN -> Unit
         }
         lapsedReceipt = if (covered) null else jwt
         val wasPro = if (covered) _hasPro.getAndUpdate { true } else _hasPro.value

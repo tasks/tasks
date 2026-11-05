@@ -144,6 +144,7 @@ import org.tasks.analytics.Reporting
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
+import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.SubscriptionSkus
@@ -1103,7 +1104,7 @@ fun App(
                                 desktopLinkClient
                                     .onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
                                     .also { stored ->
-                                        if (stored) {
+                                        if (stored == PurchaseEntitlement.StoreResult.STORED) {
                                             reporting.logEvent(
                                                 AnalyticsEvents.RESTORE_SUCCESS,
                                                 AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,

@@ -11,6 +11,8 @@ import okio.FileSystem
 import okio.Path
 import okio.SYSTEM
 
+enum class WriteResult { WRITTEN, ENCRYPT_FAILED, WRITE_FAILED }
+
 class EncryptedStore(
     private val path: Path,
     private val encryption: Encryption,
@@ -28,18 +30,18 @@ class EncryptedStore(
         return encryption.decrypt(encrypted)?.takeIf { it.isNotBlank() }
     }
 
-    suspend fun write(plain: String): Boolean {
+    suspend fun write(plain: String): WriteResult {
         val encrypted = try {
             encryption.encrypt(plain)
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             logger.e(e) { "Failed to encrypt ${path.name}" }
-            return false
+            return WriteResult.ENCRYPT_FAILED
         }
         if (encrypted == null) {
             logger.e { "Failed to encrypt ${path.name}" }
-            return false
+            return WriteResult.ENCRYPT_FAILED
         }
         return lock.withLock {
             withContext(Dispatchers.IO) {
@@ -50,12 +52,12 @@ class EncryptedStore(
                     if (tmp != path) {
                         fileSystem.atomicMove(tmp, path)
                     }
-                    true
+                    WriteResult.WRITTEN
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
                     logger.e(e) { "Failed to persist ${path.name}" }
-                    false
+                    WriteResult.WRITE_FAILED
                 }
             }
         }

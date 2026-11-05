@@ -67,10 +67,16 @@ class StripePurchasesTest {
     private val spentRefreshTokens = mutableListOf<String>()
 
     private val json = Json { ignoreUnknownKeys = true }
-    private val encryption = KeyStoreEncryption(object : KeyProvider {
+    private val keyProvider = object : KeyProvider {
         private val key: SecretKey = KeyGenerator.getInstance("AES").apply { init(256) }.generateKey()
-        override fun getKey(): SecretKey = key
-    })
+
+        @Volatile
+        var locked = false
+
+        override fun getKey(): SecretKey =
+            if (locked) throw IllegalStateException("Encryption key unavailable") else key
+    }
+    private val encryption = KeyStoreEncryption(keyProvider)
     private val keyPair = KeyPairGenerator.getInstance("EC")
         .apply { initialize(ECGenParameterSpec("secp256r1")) }
         .generateKeyPair()
@@ -486,9 +492,19 @@ class StripePurchasesTest {
 
         val outcome = purchases(entitlement).keep(purchase(key = imposterKey))
 
-        assertEquals(StripeRestoreOutcome.StorageFailed, outcome)
+        assertEquals(StripeRestoreOutcome.StorageFailed(encryptionFailed = false), outcome)
         assertEquals(0, claims)
         assertFalse(entitlement.hasPro.first())
+    }
+
+    @Test
+    fun aLockedKeychainNamesItselfInTheRestoreFailure() = runBlocking {
+        keyProvider.locked = true
+
+        val outcome = purchases().keep(purchase())
+
+        assertEquals(StripeRestoreOutcome.StorageFailed(encryptionFailed = true), outcome)
+        assertEquals(0, claims)
     }
 
     @Test

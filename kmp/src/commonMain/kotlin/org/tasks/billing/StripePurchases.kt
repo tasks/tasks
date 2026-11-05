@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.tasks.auth.PurchaseClaim
+import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.StripeSubscriptionResult
 import org.tasks.caldav.TasksAccountDataRepository
@@ -183,9 +184,11 @@ class StripePurchases(
             terms = terms,
             covered = covered,
         )
-        if (!stored) {
-            logger.e { "Could not store the purchase" }
-            return StripeRestoreOutcome.StorageFailed
+        if (stored != StoreResult.STORED) {
+            logger.e { "Could not store the purchase: $stored" }
+            return StripeRestoreOutcome.StorageFailed(
+                encryptionFailed = stored == StoreResult.ENCRYPT_FAILED,
+            )
         }
         val claim = claim(jwt)
         if (claim is StripeSubscriptionResult.TokenInUse) {
@@ -280,7 +283,7 @@ sealed interface StripeRestoreOutcome {
 
     data class AccountInUse(val existingAccount: String) : StripeRestoreOutcome
 
-    data object StorageFailed : StripeRestoreOutcome
+    data class StorageFailed(val encryptionFailed: Boolean) : StripeRestoreOutcome
 }
 
 interface StripeCheckouts {

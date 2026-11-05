@@ -27,6 +27,7 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.OkHttpKtorClientFactory
@@ -398,7 +399,7 @@ class PurchaseEntitlementTest {
             provider = EntitlementProvider.PLAY,
         )
 
-        assertTrue(granted)
+        assertEquals(StoreResult.STORED, granted)
         verify(syncAdapters).sync(SyncSource.PURCHASE_COMPLETED)
     }
 
@@ -417,8 +418,8 @@ class PurchaseEntitlementTest {
             provider = EntitlementProvider.PLAY,
         )
 
-        assertTrue(granted)
-        assertTrue(renewed)
+        assertEquals(StoreResult.STORED, granted)
+        assertEquals(StoreResult.STORED, renewed)
         assertEquals("rotated-token", readFromDisk().refreshToken)
         verify(syncAdapters, times(1)).sync(SyncSource.PURCHASE_COMPLETED)
     }
@@ -431,7 +432,7 @@ class PurchaseEntitlementTest {
             provider = EntitlementProvider.PLAY,
         )
 
-        assertFalse(granted)
+        assertEquals(StoreResult.REJECTED, granted)
         assertFalse(entitlementFile.exists())
         verifyNoInteractions(syncAdapters)
     }
@@ -496,7 +497,7 @@ class PurchaseEntitlementTest {
             provider = EntitlementProvider.PLAY,
         )
 
-        assertTrue(granted)
+        assertEquals(StoreResult.STORED, granted)
         assertTrue(entitlement.awaitReady())
         assertTrue(entitlement.hasPro.first())
         assertEquals(linked, entitlement.getJwt())
@@ -504,7 +505,7 @@ class PurchaseEntitlementTest {
     }
 
     @Test
-    fun refusesProWhenEntitlementCannotBePersisted() = runBlocking {
+    fun refusesProWhenEntitlementCannotBeWritten() = runBlocking {
         val blocked = File(dir, "blocked").apply { writeText("not a directory") }
 
         val entitlement = entitlement(dataDir = blocked)
@@ -514,9 +515,25 @@ class PurchaseEntitlementTest {
             provider = EntitlementProvider.PLAY,
         )
 
-        assertFalse(granted)
+        assertEquals(StoreResult.WRITE_FAILED, granted)
         assertFalse(entitlement.hasPro.first())
         verifyNoInteractions(syncAdapters)
+    }
+
+    @Test
+    fun namesTheKeychainWhenAReceiptCannotBeEncrypted() = runBlocking {
+        keyProvider.locked = true
+
+        val entitlement = entitlement()
+        val granted = entitlement.storeEntitlement(
+            jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+            refreshToken = "stored-token",
+            provider = EntitlementProvider.PLAY,
+        )
+
+        assertEquals(StoreResult.ENCRYPT_FAILED, granted)
+        assertFalse(entitlement.hasPro.first())
+        assertFalse(entitlementFile.exists())
     }
 
     @Test
@@ -623,7 +640,8 @@ class PurchaseEntitlementTest {
         entitlement.awaitReady()
         val minted = jwt(exp = now() + 60 * DAY_SECONDS)
 
-        assertTrue(
+        assertEquals(
+            StoreResult.STORED,
             entitlement.storeEntitlement(
                 jwt = minted,
                 refreshToken = null,
@@ -641,7 +659,8 @@ class PurchaseEntitlementTest {
         val entitlement = entitlement()
         entitlement.initialize()
 
-        assertFalse(
+        assertEquals(
+            StoreResult.REJECTED,
             entitlement.storeEntitlement(
                 jwt = jwt(exp = now() + 30 * DAY_SECONDS),
                 refreshToken = null,

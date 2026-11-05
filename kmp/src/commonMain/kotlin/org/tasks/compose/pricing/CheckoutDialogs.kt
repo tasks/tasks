@@ -124,7 +124,7 @@ fun CheckoutNoticeDialog(
         )
         Notice.Expired -> Message(Res.string.checkout_expired, onDismiss)
         Notice.SubscriptionInvalid -> Message(Res.string.your_subscription_expired, onDismiss)
-        Notice.StorageFailed -> Message(Res.string.error_encryption_failed, onDismiss)
+        Notice.EncryptionFailed -> Message(Res.string.error_encryption_failed, onDismiss)
         Notice.RateLimited -> Message(Res.string.error_too_many_requests, onDismiss)
         Notice.Unavailable -> Message(Res.string.error_billing_unavailable, onDismiss)
         Notice.Failed -> MessageDialog(

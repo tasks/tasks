@@ -12,6 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.extensions.htmlEscape
 import org.tasks.extensions.openInBrowser
 import org.tasks.http.OkHttpClientFactory
@@ -191,10 +192,17 @@ class GitHubSponsorClientImpl(
                                 formattedPrice = result.formatted_price,
                                 provider = EntitlementProvider.GITHUB_SPONSOR,
                             )
-                            if (stored) {
-                                GitHubSponsorClient.VerifyResult.Success
-                            } else {
-                                GitHubSponsorClient.VerifyResult.Failed
+                            when (stored) {
+                                StoreResult.STORED ->
+                                    GitHubSponsorClient.VerifyResult.Success
+                                StoreResult.ENCRYPT_FAILED ->
+                                    GitHubSponsorClient.VerifyResult.NotStored(
+                                        encryptionFailed = true,
+                                    )
+                                StoreResult.WRITE_FAILED, StoreResult.REJECTED ->
+                                    GitHubSponsorClient.VerifyResult.NotStored(
+                                        encryptionFailed = false,
+                                    )
                             }
                         }
                         it.code == 402 -> {

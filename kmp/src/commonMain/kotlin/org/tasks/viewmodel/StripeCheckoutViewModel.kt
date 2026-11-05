@@ -72,7 +72,7 @@ open class StripeCheckoutViewModel(
 
         data object AccountLinkConflict : Notice
 
-        data object StorageFailed : Notice
+        data object EncryptionFailed : Notice
 
         data object RateLimited : Notice
 
@@ -308,7 +308,8 @@ open class StripeCheckoutViewModel(
             StripeRestoreOutcome.Ended -> Notice.SubscriptionCancelled
             StripeRestoreOutcome.NeedsUpgrade -> Notice.NeedsUpgrade
             is StripeRestoreOutcome.AccountInUse -> Notice.AccountInUse(existingAccount)
-            StripeRestoreOutcome.StorageFailed -> Notice.StorageFailed
+            is StripeRestoreOutcome.StorageFailed ->
+                if (encryptionFailed) Notice.EncryptionFailed else Notice.Failed
         }
 
     companion object {

@@ -60,6 +60,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.billing.UnlockSource
 import org.tasks.billing.LinkResult
 import org.tasks.billing.StatusResult
@@ -106,6 +107,7 @@ sealed interface GitHubProState {
     data object OpeningBrowser : GitHubProState
     data object Success : GitHubProState
     data object NotSponsor : GitHubProState
+    data class NotStored(val encryptionFailed: Boolean) : GitHubProState
     data object Failed : GitHubProState
 }
 
@@ -116,7 +118,12 @@ fun RestorePurchasesScreen(
     stripe: StripeRestoreCallbacks,
     onCreateLink: suspend () -> LinkResult?,
     onPollStatus: suspend (code: String) -> StatusResult?,
-    onLinkSuccess: suspend (jwt: String, refreshToken: String, sku: String?, formattedPrice: String?) -> Boolean,
+    onLinkSuccess: suspend (
+        jwt: String,
+        refreshToken: String,
+        sku: String?,
+        formattedPrice: String?,
+    ) -> StoreResult,
     onGitHubSignIn: suspend () -> GitHubSponsorClient.VerifyResult,
     onOpenSponsorPage: () -> Unit,
     onGooglePlaySelected: () -> Unit = {},
@@ -133,7 +140,8 @@ fun RestorePurchasesScreen(
     var gitHubState by remember { mutableStateOf<GitHubProState>(GitHubProState.Idle) }
     var linkGeneration by remember { mutableIntStateOf(0) }
     val errorMessage = stringResource(Res.string.error_create_link_failed)
-    val storeFailedMessage = stringResource(Res.string.error_encryption_failed)
+    val encryptionFailedMessage = stringResource(Res.string.error_encryption_failed)
+    val contactSupportMessage = stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
     val scope = rememberCoroutineScope()
 
     // Create or refresh link when Google Play is selected
@@ -174,13 +182,19 @@ fun RestorePurchasesScreen(
                     throw e
                 } catch (e: Exception) {
                     Logger.e(e) { "Failed to store entitlement" }
-                    false
+                    StoreResult.WRITE_FAILED
                 }
-                qrState = if (stored) {
+                qrState = if (stored == StoreResult.STORED) {
                     DesktopProState.Success
                 } else {
                     onLinkError()
-                    DesktopProState.Error(storeFailedMessage)
+                    DesktopProState.Error(
+                        if (stored == StoreResult.ENCRYPT_FAILED) {
+                            encryptionFailedMessage
+                        } else {
+                            contactSupportMessage
+                        }
+                    )
                 }
                 break
             }
@@ -199,6 +213,10 @@ fun RestorePurchasesScreen(
                 GitHubSponsorClient.VerifyResult.NotSponsor -> {
                     onNotSponsor()
                     GitHubProState.NotSponsor
+                }
+                is GitHubSponsorClient.VerifyResult.NotStored -> {
+                    onGitHubFailed()
+                    GitHubProState.NotStored(result.encryptionFailed)
                 }
                 GitHubSponsorClient.VerifyResult.Failed -> {
                     onGitHubFailed()
@@ -611,6 +629,22 @@ private fun GitHubTab(
                 Button(onClick = onOpenSponsorPage) {
                     Text(stringResource(Res.string.sponsor_on_github))
                 }
+            }
+        }
+        is GitHubProState.NotStored -> {
+            Text(
+                text = if (state.encryptionFailed) {
+                    stringResource(Res.string.error_encryption_failed)
+                } else {
+                    stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
+                },
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            Button(onClick = onRetry) {
+                Text(stringResource(Res.string.retry))
             }
         }
         is GitHubProState.Failed -> {
