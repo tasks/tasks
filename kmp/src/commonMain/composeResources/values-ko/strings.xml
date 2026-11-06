@@ -708,4 +708,16 @@
     <string name="error_no_purchase_found">이 주소에서는 결제를 찾지 못했습니다</string>
     <string name="restore_renewal_settling">갱신은 계속 진행 중입니다</string>
     <string name="purchases_restored">결제 복원됨</string>
+    <string name="change_plan">요금제 변경</string>
+    <string name="change_plan_trial">%1$s에 무료 체험이 끝납니다. 무료 체험이 끝나면 %2$s의 요금이 청구됩니다.</string>
+    <string name="change_plan_card_declined">요금제를 변경하지 못했습니다. 카드 정보를 수정해야 할 수도 있습니다.</string>
+    <string name="update_card">카드 수정</string>
+    <string name="subscription_renews_on">%1$s에 갱신</string>
+    <string name="subscription_ends_on">%1$s에 종료</string>
+    <string name="subscription_ended_on">%1$s에 종료됨</string>
+    <string name="subscription_free_until">%1$s까지 무료, 이후 %2$s</string>
+    <string name="subscription_payment_failed">결제 실패, 카드를 수정하세요</string>
+    <string name="subscription_covered_by">이 계정은 %1$s 수단으로 결제됩니다.</string>
+    <string name="subscription_covered_elsewhere">이 계정은 이미 다른 곳에서 결제되었습니다.</string>
+    <string name="change_plan_message">오늘부터 %1$s 구독으로 변경됩니다. 현재 구독에서 남은 차액은 계좌에 입금되거나 이번 청구에 적용됩니다.</string>
 </resources>
