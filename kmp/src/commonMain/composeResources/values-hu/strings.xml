@@ -514,4 +514,7 @@
     <string name="subscription_required">Előfizetés szükséges</string>
     <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks.org mögött álló független fejlesztő</string>
     <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks.org appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
+    <string name="always_display_full_date">Teljes dátum mutatása</string>
+    <string name="date_shortcut_must_come_before">%1$s-nek %2$s előtt kell jönnie</string>
+    <string name="date_shortcut_must_come_after">	%1$s-nek %2$s után kell jönnie</string>
 </resources>

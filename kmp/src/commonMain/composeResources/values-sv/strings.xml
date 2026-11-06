@@ -603,4 +603,7 @@
     <string name="subscription_required">Prenumeration krävs</string>
     <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks.org</string>
     <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks.org och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
+    <string name="always_display_full_date">Visa hela datumet</string>
+    <string name="date_shortcut_must_come_before">%1$s måste komma före %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s måste komma efter %2$s</string>
 </resources>

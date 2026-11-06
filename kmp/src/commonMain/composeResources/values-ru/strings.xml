@@ -587,4 +587,7 @@
     <string name="supporter_summary_no_price">Спасибо!</string>
     <string name="upgrade_blurb_1">Привет! Меня зовут Алекс. Я - независимый разработчик, стоящий за программой Tasks.org</string>
     <string name="upgrade_blurb_2">Я потратил тысячи часов, работая над Tasks.org, и я публикую весь исходный код онлайн, бесплатно. Для того, чтобы поддержать мою работу, некоторые функциональности требуют подписки</string>
+    <string name="always_display_full_date">Показать полную дату</string>
+    <string name="date_shortcut_must_come_before">%1$s должно идти перед %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s должно идти после %2$s</string>
 </resources>

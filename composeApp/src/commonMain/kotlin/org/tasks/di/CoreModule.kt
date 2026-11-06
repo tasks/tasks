@@ -79,6 +79,7 @@ import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
+import org.tasks.compose.pickers.QuickPickTimes
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.DrawerSettings
 import org.tasks.preferences.InstallId
@@ -109,6 +110,7 @@ import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.DateAndTimeViewModel
 import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
@@ -360,6 +362,14 @@ val coreModule: Module = module {
                 tasksPreferences.set(TasksPreferences.datePickerInputMode, value)
             override suspend fun setTimePickerInputMode(value: Boolean) =
                 tasksPreferences.set(TasksPreferences.timePickerInputMode, value)
+            override suspend fun setQuickPickTimes(value: QuickPickTimes) {
+                tasksPreferences.set(TasksPreferences.dateShortcutMorning, value.morning)
+                tasksPreferences.set(TasksPreferences.dateShortcutAfternoon, value.afternoon)
+                tasksPreferences.set(TasksPreferences.dateShortcutEvening, value.evening)
+                tasksPreferences.set(TasksPreferences.dateShortcutNight, value.night)
+            }
+            override suspend fun setAlwaysDisplayFullDate(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.alwaysDisplayFullDate, value)
         }
     }
     factory<CalendarHelper> { object : CalendarHelper {} }
@@ -472,6 +482,12 @@ val coreModule: Module = module {
                 }
                 notifier.triggerNotifications()
             },
+        )
+    }
+    viewModel {
+        DateAndTimeViewModel(
+            appPreferences = get(),
+            persistenceScope = get(),
         )
     }
     viewModel {

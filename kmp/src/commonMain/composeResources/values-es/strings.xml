@@ -549,4 +549,7 @@
     <string name="subscription_required">Suscripción necesaria</string>
     <string name="upgrade_blurb_1">¡Hola! Me llamo Alex. Soy el desarrollador independiente detrás de Tasks.org</string>
     <string name="upgrade_blurb_2">He invertido miles de horas en trabajar en Tasks.org, y todo el código fuente lo publico gratuitamente en internet. Para apoyar mi trabajo, determinadas funciones necesita suscripción</string>
+    <string name="always_display_full_date">Mostrar la fecha completa</string>
+    <string name="date_shortcut_must_come_before">%1$s debe venir antes de %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s debe venir después de %2$s</string>
 </resources>

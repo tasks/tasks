@@ -203,4 +203,7 @@
     <string name="metadata_move">انتقال</string>
     <string name="mcp_copy">کپی</string>
     <string name="more_options">سایر گزینه‌ها</string>
+    <string name="always_display_full_date">نمایش تاریخ کامل</string>
+    <string name="date_shortcut_must_come_before">%1$s باید قبل از %2$s باشد</string>
+    <string name="date_shortcut_must_come_after">%1$s باید بعد از %2$s باشد</string>
 </resources>

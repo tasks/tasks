@@ -3084,6 +3084,13 @@ private fun SettingsScreen(
                             onSubscribe = { onUpgradeClick(AnalyticsEvents.SOURCE_THEMES) },
                         )
                     }
+                    is org.tasks.compose.settings.SettingsDestination.DateAndTime -> {
+                        org.tasks.compose.settings.DateAndTimeDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
+                        )
+                    }
                     is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {
                         NavigationDrawerDetail(
                             onNavigateBack = {

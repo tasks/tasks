@@ -470,4 +470,7 @@
     <string name="subscription_required">Tilaus vaaditaan</string>
     <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Tasks.org-ohjelman takana</string>
     <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Tasks.org-ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
+    <string name="always_display_full_date">Näytä koko päivämäärä</string>
+    <string name="date_shortcut_must_come_before">%1$s on oltava ennen %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s on oltava jälkeen %2$s</string>
 </resources>

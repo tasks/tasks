@@ -603,4 +603,7 @@
     <string name="subscription_required">Vyžadováno předplatné</string>
     <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks.org</string>
     <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks.org a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
+    <string name="always_display_full_date">Zobrazit celé datum</string>
+    <string name="date_shortcut_must_come_before">%1$s musí být před %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s musí být po %2$s</string>
 </resources>

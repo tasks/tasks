@@ -708,4 +708,7 @@
     <string name="subscription_payment_failed">Betalingen mislykkedes. Opdater dit betalingskort</string>
     <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks.org</string>
     <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks.org, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
+    <string name="always_display_full_date">Vis fuld dato</string>
+    <string name="date_shortcut_must_come_before">%1$s skal komme før %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s skal komme efter %2$s</string>
 </resources>

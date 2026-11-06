@@ -744,4 +744,7 @@
     <string name="pricing_feature_trial">Essai gratuit de 7 jours pour les nouveaux abonnés</string>
     <string name="cloud_onboarding_sign_in_body">Connectez-vous pour créer votre compte cloud Tasks.org</string>
     <string name="pricing_subscribed">Abonné</string>
+    <string name="always_display_full_date">Afficher la date complète</string>
+    <string name="date_shortcut_must_come_before">%1$s doit venir avant %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s doit venir après %2$s</string>
 </resources>
