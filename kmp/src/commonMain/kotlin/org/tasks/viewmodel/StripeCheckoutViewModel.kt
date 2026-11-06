@@ -15,12 +15,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
-import org.tasks.billing.StripeCatalog
+import org.tasks.billing.BillingCatalog
 import org.tasks.billing.StripeChange
 import org.tasks.billing.StripeCheckout
 import org.tasks.billing.StripeCheckouts
 import org.tasks.billing.StripeCollection
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingOption
 import org.tasks.billing.StripePlan
 import org.tasks.billing.StripeRestoreOutcome
 import org.tasks.billing.UnlockSource
@@ -34,7 +34,7 @@ open class StripeCheckoutViewModel(
 ) : ViewModel() {
 
     data class ViewState(
-        val catalog: StripeCatalog = StripeCatalog(),
+        val catalog: BillingCatalog = BillingCatalog(),
         val loadingPrices: Boolean = true,
         val plan: StripePlan? = null,
         val busySku: String? = null,
@@ -50,7 +50,7 @@ open class StripeCheckoutViewModel(
     }
 
     data class PendingChange(
-        val price: StripePrice,
+        val price: BillingOption,
         val trialEnd: Long? = null,
     )
 
@@ -89,14 +89,14 @@ open class StripeCheckoutViewModel(
 
     private var pollJob: Job? = null
 
-    private var retryable: StripePrice? = null
+    private var retryable: BillingOption? = null
 
     init {
         viewModelScope.launch { loadCatalog() }
         viewModelScope.launch { refreshPlan() }
     }
 
-    fun select(price: StripePrice) {
+    fun select(price: BillingOption) {
         if (_viewState.value.busy) return
         val plan = _viewState.value.plan
         when {
@@ -148,7 +148,7 @@ open class StripeCheckoutViewModel(
 
     fun planChangeHandled() = _viewState.update { it.copy(planChanged = false) }
 
-    private fun purchase(price: StripePrice) {
+    private fun purchase(price: BillingOption) {
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
         viewModelScope.launch {
             val checkout = purchases.createCheckout(price)
@@ -192,12 +192,12 @@ open class StripeCheckoutViewModel(
         }
     }
 
-    private fun change(price: StripePrice) {
+    private fun change(price: BillingOption) {
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
         viewModelScope.launch { changeNow(price) }
     }
 
-    private suspend fun changeNow(price: StripePrice, sellInstead: Boolean = true) {
+    private suspend fun changeNow(price: BillingOption, sellInstead: Boolean = true) {
         val result = purchases.changePlan(price)
         logPlanChange(price, result.resultName)
         when (result) {
@@ -256,7 +256,7 @@ open class StripeCheckoutViewModel(
         val prices = purchases.prices()
         _viewState.update {
             it.copy(
-                catalog = prices?.let(StripeCatalog::from) ?: it.catalog,
+                catalog = prices?.let(BillingCatalog::from) ?: it.catalog,
                 loadingPrices = false,
             )
         }
@@ -349,14 +349,14 @@ open class StripeCheckoutViewModel(
         AnalyticsEvents.PARAM_RESULT to outcome.resultName,
     )
 
-    private fun logPlanChange(price: StripePrice, result: String) = logCheckout(
+    private fun logPlanChange(price: BillingOption, result: String) = logCheckout(
         AnalyticsEvents.PLAN_CHANGE,
         price.sku,
         AnalyticsEvents.PARAM_PERIOD to price.period,
         AnalyticsEvents.PARAM_RESULT to result,
     )
 
-    private val StripePrice.period: String
+    private val BillingOption.period: String
         get() = if (isMonthly) AnalyticsEvents.PERIOD_MONTHLY else AnalyticsEvents.PERIOD_ANNUAL
 
     private val StripeCheckout.errorReason: String?

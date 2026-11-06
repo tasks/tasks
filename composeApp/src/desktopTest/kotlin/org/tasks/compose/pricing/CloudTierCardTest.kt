@@ -11,24 +11,24 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
 import org.junit.Test
-import org.tasks.billing.StripeCatalog
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingCatalog
+import org.tasks.billing.BillingOption
 
 @OptIn(ExperimentalTestApi::class)
 class CloudTierCardTest {
 
-    private val annual = StripePrice(
+    private val annual = BillingOption(
         priceId = "pri_30",
         sku = "annual_30",
         amountCents = 2999,
         entitles = true,
     )
 
-    private val monthly = StripePrice(
+    private val monthly = BillingOption(
         priceId = "pri_03",
         sku = "monthly_03",
         amountCents = 299,
-        interval = StripePrice.INTERVAL_MONTH,
+        interval = BillingOption.INTERVAL_MONTH,
         entitles = true,
     )
 
@@ -63,7 +63,7 @@ class CloudTierCardTest {
         onNodeWithText("Subscribe for \$29.99/year").assertIsEnabled()
     }
 
-    private fun catalog(vararg prices: StripePrice) = StripeCatalog.from(prices.toList())
+    private fun catalog(vararg prices: BillingOption) = BillingCatalog.from(prices.toList())
 
     @Composable
     private fun CloudCard(store: StoreBilling) {

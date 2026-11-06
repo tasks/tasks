@@ -31,9 +31,9 @@ class StripePurchases(
 ) : StripeCheckouts, PurchaseClaim {
     private val logger = Logger.withTag(TAG)
 
-    override suspend fun prices(): List<StripePrice>? = client.prices()
+    override suspend fun prices(): List<BillingOption>? = client.prices()
 
-    override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
+    override suspend fun createCheckout(price: BillingOption?): StripeCheckout {
         val result = client.createCheckout(price?.priceId, purchaseJwt = entitlement.getJwt())
         if (result !is StripeCheckout.SubscriptionExists) return result
         val renewed = result.receipt ?: return recoverLapsedRow() ?: result
@@ -52,7 +52,7 @@ class StripePurchases(
         return StripeCheckout.Collected(StripeRestoreOutcome.Restored)
     }
 
-    override suspend fun changePlan(price: StripePrice): StripeChange {
+    override suspend fun changePlan(price: BillingOption): StripeChange {
         claimStoredPurchase()
         val result = client.changePlan(price.priceId, purchaseJwt = entitlement.getJwt())
         if (result is StripeChange.Changed) {
@@ -291,11 +291,11 @@ sealed interface StripeRestoreOutcome {
 }
 
 interface StripeCheckouts {
-    suspend fun prices(): List<StripePrice>?
+    suspend fun prices(): List<BillingOption>?
 
-    suspend fun createCheckout(price: StripePrice?): StripeCheckout
+    suspend fun createCheckout(price: BillingOption?): StripeCheckout
 
-    suspend fun changePlan(price: StripePrice): StripeChange
+    suspend fun changePlan(price: BillingOption): StripeChange
 
     suspend fun currentPlan(refresh: Boolean = true): StripePlan?
 

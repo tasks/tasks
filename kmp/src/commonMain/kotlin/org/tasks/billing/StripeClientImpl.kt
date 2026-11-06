@@ -41,7 +41,7 @@ class StripeClientImpl(
         val sku: String,
         val amount_cents: Int,
         val currency: String = "USD",
-        val interval: String = StripePrice.INTERVAL_YEAR,
+        val interval: String = BillingOption.INTERVAL_YEAR,
         val entitles: Boolean = false,
         val trial_days: Int = 0,
     )
@@ -139,7 +139,7 @@ class StripeClientImpl(
     @Serializable
     private data class PortalResponse(val url: String? = null)
 
-    override suspend fun prices(): List<StripePrice>? = call("prices") { client ->
+    override suspend fun prices(): List<BillingOption>? = call("prices") { client ->
         val response = client.get(url("/stripe/prices"))
         val body = response.bodyAsText()
         if (!response.status.isSuccess()) {
@@ -151,7 +151,7 @@ class StripeClientImpl(
             return@call null
         }
         json.decodeFromString(PricesResponse.serializer(), body).prices.map {
-            StripePrice(
+            BillingOption(
                 priceId = it.price_id,
                 sku = it.sku,
                 amountCents = it.amount_cents,

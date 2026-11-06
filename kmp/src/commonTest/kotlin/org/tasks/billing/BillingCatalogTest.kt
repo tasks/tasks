@@ -5,14 +5,14 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
-class StripeCatalogTest {
+class BillingCatalogTest {
     private fun price(
         sku: String,
         cents: Int,
-        interval: String = StripePrice.INTERVAL_YEAR,
+        interval: String = BillingOption.INTERVAL_YEAR,
         entitles: Boolean = false,
         trialDays: Int = 0,
-    ) = StripePrice(
+    ) = BillingOption(
         priceId = "pri_$sku",
         sku = sku,
         amountCents = cents,
@@ -21,7 +21,7 @@ class StripeCatalogTest {
         trialDays = trialDays,
     )
 
-    private fun ladder() = StripeCatalog(
+    private fun ladder() = BillingCatalog(
         support = (1..10).map { dollars ->
             price("annual_" + dollars.toString().padStart(2, '0'), dollars * 100 - 1)
         },
@@ -29,7 +29,7 @@ class StripeCatalogTest {
 
     @Test
     fun showsAnAnnualPriceAsAPerMonthFigure() {
-        val annual = StripeCatalog.from(listOf(price("annual_30", 2999, entitles = true)))
+        val annual = BillingCatalog.from(listOf(price("annual_30", 2999, entitles = true)))
 
         assertEquals("${'$'}2.50", annual.cloudAnnual?.formattedMonthlyPrice)
         assertEquals("${'$'}29.99", annual.cloudAnnual?.formattedPrice)
@@ -37,8 +37,8 @@ class StripeCatalogTest {
 
     @Test
     fun aMonthlyPriceIsAlreadyPerMonth() {
-        val monthly = StripeCatalog.from(
-            listOf(price("monthly_03", 299, StripePrice.INTERVAL_MONTH, entitles = true))
+        val monthly = BillingCatalog.from(
+            listOf(price("monthly_03", 299, BillingOption.INTERVAL_MONTH, entitles = true))
         )
 
         assertEquals("${'$'}2.99", monthly.cloudMonthly?.formattedMonthlyPrice)
@@ -46,17 +46,17 @@ class StripeCatalogTest {
 
     @Test
     fun theSliderStopsAtWhatStripeSells() {
-        val catalog = StripeCatalog.from(listOf(price("annual_03", 299), price("annual_04", 399)))
+        val catalog = BillingCatalog.from(listOf(price("annual_03", 299), price("annual_04", 399)))
 
         assertEquals(listOf("annual_03", "annual_04"), catalog.supporterRungs.map { it.sku })
     }
 
     @Test
     fun aMonthlyPriceAddsNoPositionOfItsOwn() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_12", 1199),
-                price("monthly_01", 99, StripePrice.INTERVAL_MONTH),
+                price("monthly_01", 99, BillingOption.INTERVAL_MONTH),
             )
         )
 
@@ -65,14 +65,14 @@ class StripeCatalogTest {
 
     @Test
     fun aTierBeyondTheUsualLadderStillGetsARung() {
-        val catalog = StripeCatalog.from(listOf(price("annual_03", 299), price("annual_40", 3999)))
+        val catalog = BillingCatalog.from(listOf(price("annual_03", 299), price("annual_40", 3999)))
 
         assertEquals(listOf(299, 3999), catalog.supporterRungs.map { it.amountCents })
     }
 
     @Test
     fun ordersTheRungsCheapestFirst() {
-        val catalog = StripeCatalog(
+        val catalog = BillingCatalog(
             support = listOf(price("annual_12", 1199), price("annual_03", 299)),
         )
 
@@ -81,14 +81,14 @@ class StripeCatalogTest {
 
     @Test
     fun noSupporterTierMeansNoSliderAtAll() {
-        val catalog = StripeCatalog.from(listOf(price("annual_30", 2999, entitles = true)))
+        val catalog = BillingCatalog.from(listOf(price("annual_30", 2999, entitles = true)))
 
         assertTrue(catalog.supporterRungs.isEmpty())
     }
 
     @Test
     fun carriesTheTrialTheServerNames() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_30", 3000, entitles = true, trialDays = 7),
                 price("annual_01", 100),
@@ -101,12 +101,12 @@ class StripeCatalogTest {
 
     @Test
     fun keepsMonthlyAheadOfAnnualWithinATier() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_12", 1200),
-                price("monthly_03", 300, StripePrice.INTERVAL_MONTH),
+                price("monthly_03", 300, BillingOption.INTERVAL_MONTH),
                 price("annual_01", 100),
-                price("monthly_01", 100, StripePrice.INTERVAL_MONTH),
+                price("monthly_01", 100, BillingOption.INTERVAL_MONTH),
             )
         )
 
@@ -118,10 +118,10 @@ class StripeCatalogTest {
 
     @Test
     fun splitsTheLadderOnWhatTheServerSaysItUnlocks() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
-                price("monthly_01", 100, StripePrice.INTERVAL_MONTH),
-                price("monthly_03", 300, StripePrice.INTERVAL_MONTH, entitles = true),
+                price("monthly_01", 100, BillingOption.INTERVAL_MONTH),
+                price("monthly_03", 300, BillingOption.INTERVAL_MONTH, entitles = true),
                 price("annual_01", 100),
                 price("annual_30", 3000, entitles = true),
             )
@@ -133,7 +133,7 @@ class StripeCatalogTest {
 
     @Test
     fun neverInfersEntitlementFromTheAmount() {
-        val catalog = StripeCatalog.from(listOf(price("annual_30", 3000, entitles = false)))
+        val catalog = BillingCatalog.from(listOf(price("annual_30", 3000, entitles = false)))
 
         assertTrue(catalog.cloud.isEmpty())
         assertEquals(listOf("annual_30"), catalog.support.map { it.sku })
@@ -142,7 +142,7 @@ class StripeCatalogTest {
 
     @Test
     fun ordersEachListCheapestFirst() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_25", 2500),
                 price("annual_01", 100),
@@ -155,9 +155,9 @@ class StripeCatalogTest {
 
     @Test
     fun picksOneCloudRungPerBillingPeriod() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
-                price("monthly_03", 300, StripePrice.INTERVAL_MONTH, entitles = true),
+                price("monthly_03", 300, BillingOption.INTERVAL_MONTH, entitles = true),
                 price("annual_30", 3000, entitles = true),
             )
         )
@@ -167,10 +167,10 @@ class StripeCatalogTest {
     }
 
     @Test
-    fun formatsTheCatalogPrice() {
-        val catalog = StripeCatalog.from(
+    fun formatsThePriceFromTheCatalog() {
+        val catalog = BillingCatalog.from(
             listOf(
-                price("monthly_03", 300, StripePrice.INTERVAL_MONTH, entitles = true),
+                price("monthly_03", 300, BillingOption.INTERVAL_MONTH, entitles = true),
                 price("annual_30", 3000, entitles = true),
                 price("annual_01", 100),
             )
@@ -189,7 +189,7 @@ class StripeCatalogTest {
 
     @Test
     fun findsAnOfferBySku() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_30", 3000, entitles = true),
                 price("annual_01", 100),
@@ -204,7 +204,7 @@ class StripeCatalogTest {
 
     @Test
     fun anEmptyLadderSellsNothing() {
-        assertTrue(StripeCatalog.from(emptyList()).isEmpty)
+        assertTrue(BillingCatalog.from(emptyList()).isEmpty)
     }
 
     @Test
@@ -235,14 +235,14 @@ class StripeCatalogTest {
 
     @Test
     fun aSingleRungIsTheOnlyPlaceTheSliderCanLand() {
-        val catalog = StripeCatalog(support = listOf(price("annual_01", 99)))
+        val catalog = BillingCatalog(support = listOf(price("annual_01", 99)))
 
         assertEquals("annual_01", catalog.supporterRungAt(1f)?.sku)
     }
 
     @Test
     fun anEmptyLadderHasNoRungToLandOn() {
-        assertNull(StripeCatalog().supporterRungAt(0f))
+        assertNull(BillingCatalog().supporterRungAt(0f))
     }
 
     @Test
@@ -269,7 +269,7 @@ class StripeCatalogTest {
 
     @Test
     fun anEmptyLadderHasNoRungToOpenOn() {
-        assertEquals(-1, StripeCatalog().supporterRungFor(dollars = 10))
+        assertEquals(-1, BillingCatalog().supporterRungFor(dollars = 10))
     }
 
     @Test
@@ -284,10 +284,10 @@ class StripeCatalogTest {
 
     @Test
     fun pairsEachRungWithTheMonthlyPriceOfTheSameTier() {
-        val catalog = StripeCatalog.from(
+        val catalog = BillingCatalog.from(
             listOf(
                 price("annual_03", 299),
-                price("monthly_03", 299, StripePrice.INTERVAL_MONTH),
+                price("monthly_03", 299, BillingOption.INTERVAL_MONTH),
                 price("annual_05", 499),
             )
         )

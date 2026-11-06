@@ -55,8 +55,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
-import org.tasks.billing.StripeCatalog
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingCatalog
+import org.tasks.billing.BillingOption
 import org.tasks.billing.UnlockSource
 import tasks.kmp.generated.resources.*
 
@@ -71,7 +71,7 @@ private val CardShape = RoundedCornerShape(12.dp)
 private const val PRICE_UNKNOWN = "\u2014"
 
 data class StoreBilling(
-    val catalog: StripeCatalog = StripeCatalog(),
+    val catalog: BillingCatalog = BillingCatalog(),
     val loadingPrices: Boolean = false,
     val busySku: String? = null,
     val currentSku: String? = null,
@@ -80,23 +80,23 @@ data class StoreBilling(
     val knownCustomer: Boolean = false,
     val coveredElsewhere: Boolean = false,
     val coveredBy: UnlockSource? = null,
-    val onSelect: (StripePrice) -> Unit,
+    val onSelect: (BillingOption) -> Unit,
 ) {
     val busy: Boolean get() = busySku != null
 
-    fun isBusy(price: StripePrice?): Boolean = price != null && busySku == price.sku
+    fun isBusy(price: BillingOption?): Boolean = price != null && busySku == price.sku
 
-    fun unavailable(price: StripePrice?): Boolean = !loadingPrices && price == null
+    fun unavailable(price: BillingOption?): Boolean = !loadingPrices && price == null
 
-    fun selectable(price: StripePrice?): Boolean =
+    fun selectable(price: BillingOption?): Boolean =
         !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
 
-    fun warnCoveredElsewhere(price: StripePrice?): Boolean =
+    fun warnCoveredElsewhere(price: BillingOption?): Boolean =
         coveredElsewhere && currentSku == null && price?.entitles == true
 }
 
 @Composable
-private fun StripePrice?.trialNote(store: StoreBilling?): String? =
+private fun BillingOption?.trialNote(store: StoreBilling?): String? =
     if (store?.knownCustomer == true) {
         null
     } else {
@@ -106,7 +106,7 @@ private fun StripePrice?.trialNote(store: StoreBilling?): String? =
     }
 
 @Composable
-private fun StripePrice?.ctaLabel(): String = if (this == null) {
+private fun BillingOption?.ctaLabel(): String = if (this == null) {
     stringResource(Res.string.pricing_subscribe_google_play)
 } else {
     stringResource(
@@ -406,7 +406,7 @@ private fun NameYourPriceTierCard(
 @Composable
 private fun NameYourPricePicker(
     store: StoreBilling,
-    rungs: List<StripePrice>,
+    rungs: List<BillingOption>,
     onCtaClick: () -> Unit,
 ) {
     var sliderPosition by rememberSaveable {

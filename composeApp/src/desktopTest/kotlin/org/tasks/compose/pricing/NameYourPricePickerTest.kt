@@ -15,23 +15,23 @@ import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.billing.StripeCatalog
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingCatalog
+import org.tasks.billing.BillingOption
 
 @OptIn(ExperimentalTestApi::class)
 class NameYourPricePickerTest {
 
     private val rungs = listOf(
-        StripePrice(priceId = "pri_01", sku = "annual_01", amountCents = 99),
-        StripePrice(priceId = "pri_03", sku = "annual_03", amountCents = 299),
-        StripePrice(priceId = "pri_05", sku = "annual_05", amountCents = 499),
+        BillingOption(priceId = "pri_01", sku = "annual_01", amountCents = 99),
+        BillingOption(priceId = "pri_03", sku = "annual_03", amountCents = 299),
+        BillingOption(priceId = "pri_05", sku = "annual_05", amountCents = 499),
     )
 
-    private val monthly = StripePrice(
+    private val monthly = BillingOption(
         priceId = "pri_05m",
         sku = "monthly_05",
         amountCents = 499,
-        interval = StripePrice.INTERVAL_MONTH,
+        interval = BillingOption.INTERVAL_MONTH,
     )
 
     @Test
@@ -44,7 +44,7 @@ class NameYourPricePickerTest {
                     onSignIn = {},
                     onRestorePurchases = {},
                     store = StoreBilling(
-                        catalog = StripeCatalog.from(rungs + monthly),
+                        catalog = BillingCatalog.from(rungs + monthly),
                         suggestedPrice = 1,
                         onSelect = {},
                     ),

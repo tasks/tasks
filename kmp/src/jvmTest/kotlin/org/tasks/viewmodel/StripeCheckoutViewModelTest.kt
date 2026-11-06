@@ -24,7 +24,7 @@ import org.tasks.billing.StripeCollection
 import org.tasks.billing.StripeChange
 import org.tasks.billing.PurchaseTerms
 import org.tasks.billing.StripePlan
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingOption
 import org.tasks.billing.ForeignCoverage
 import org.tasks.billing.StripeRestoreOutcome
 import org.tasks.billing.UnlockSource
@@ -39,19 +39,19 @@ import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.RATE_LIMITED_BACKOF
 @OptIn(ExperimentalCoroutinesApi::class)
 class StripeCheckoutViewModelTest {
     private val dispatcher = StandardTestDispatcher()
-    private val offer = StripePrice("pri_30", "annual_30", 3000, entitles = true)
-    private val supportOffer = StripePrice("pri_01", "annual_01", 100, entitles = false)
+    private val offer = BillingOption("pri_30", "annual_30", 3000, entitles = true)
+    private val supportOffer = BillingOption("pri_01", "annual_01", 100, entitles = false)
 
-    private var prices: List<StripePrice>? = listOf(
+    private var prices: List<BillingOption>? = listOf(
         offer,
-        StripePrice("pri_12", "annual_12", 1200, entitles = false),
+        BillingOption("pri_12", "annual_12", 1200, entitles = false),
         supportOffer,
     )
     private var plan: StripePlan? = null
     private var knownCustomer = false
     private var coverage = ForeignCoverage()
     private var change: StripeChange = StripeChange.Changed(entitles = true)
-    private var changes = mutableListOf<StripePrice>()
+    private var changes = mutableListOf<BillingOption>()
     private var requestedCheckouts = 0
     private var checkout: StripeCheckout =
         StripeCheckout.Started("c0de", "https://pay.stripe.com/x", expiresIn(CODE_LIFETIME))
@@ -80,11 +80,11 @@ class StripeCheckoutViewModelTest {
         }
         override suspend fun hasStripeCustomer() = knownCustomer
         override suspend fun coveredElsewhere() = coverage
-        override suspend fun createCheckout(price: StripePrice?): StripeCheckout {
+        override suspend fun createCheckout(price: BillingOption?): StripeCheckout {
             requestedCheckouts++
             return checkout
         }
-        override suspend fun changePlan(price: StripePrice): StripeChange {
+        override suspend fun changePlan(price: BillingOption): StripeChange {
             changes.add(price)
             if (change is StripeChange.Changed) {
                 plan = StripePlan(price.sku)
@@ -1082,11 +1082,11 @@ class StripeCheckoutViewModelTest {
 
     @Test
     fun aMonthlyPriceIsLoggedAsMonthly() = runTest(dispatcher) {
-        val monthly = StripePrice(
+        val monthly = BillingOption(
             priceId = "pri_m",
             sku = "monthly_03",
             amountCents = 299,
-            interval = StripePrice.INTERVAL_MONTH,
+            interval = BillingOption.INTERVAL_MONTH,
             entitles = true,
         )
         prices = listOf(monthly)

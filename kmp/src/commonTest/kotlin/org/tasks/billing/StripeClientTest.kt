@@ -90,9 +90,9 @@ class StripeClientTest {
         assertEquals("https://caldav.example.com/stripe/prices", requests[0].url.toString())
         assertEquals(
             listOf(
-                StripePrice("pri_01", "monthly_01", 100, "USD", "month", false),
-                StripePrice("pri_03", "monthly_03", 300, "USD", "month", true),
-                StripePrice("pri_30", "annual_30", 3000, "USD", "year", true),
+                BillingOption("pri_01", "monthly_01", 100, "USD", "month", false),
+                BillingOption("pri_03", "monthly_03", 300, "USD", "month", true),
+                BillingOption("pri_30", "annual_30", 3000, "USD", "year", true),
             ),
             prices,
         )

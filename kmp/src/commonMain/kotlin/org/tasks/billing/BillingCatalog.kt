@@ -4,23 +4,23 @@ import kotlin.math.roundToInt
 
 const val DEFAULT_NAME_YOUR_PRICE = 10
 
-data class StripeCatalog(
-    val cloud: List<StripePrice> = emptyList(),
-    val support: List<StripePrice> = emptyList(),
+data class BillingCatalog(
+    val cloud: List<BillingOption> = emptyList(),
+    val support: List<BillingOption> = emptyList(),
 ) {
     val isEmpty: Boolean get() = cloud.isEmpty() && support.isEmpty()
 
-    val cloudMonthly: StripePrice? get() = cloud.firstOrNull { it.isMonthly }
+    val cloudMonthly: BillingOption? get() = cloud.firstOrNull { it.isMonthly }
 
-    val cloudAnnual: StripePrice? get() = cloud.firstOrNull { !it.isMonthly }
+    val cloudAnnual: BillingOption? get() = cloud.firstOrNull { !it.isMonthly }
 
-    fun price(sku: String?): StripePrice? =
+    fun price(sku: String?): BillingOption? =
         (cloud + support).firstOrNull { it.sku == sku }
 
-    val supporterRungs: List<StripePrice>
+    val supporterRungs: List<BillingOption>
         get() = support.filterNot { it.isMonthly }.sortedBy { it.amountCents }
 
-    fun supporterRungAt(position: Float): StripePrice? {
+    fun supporterRungAt(position: Float): BillingOption? {
         val rungs = supporterRungs
         return if (rungs.isEmpty()) {
             null
@@ -37,20 +37,20 @@ data class StripeCatalog(
             ?: rungs.lastIndex
     }
 
-    fun supporterMonthlyFor(rung: StripePrice): StripePrice? =
+    fun supporterMonthlyFor(rung: BillingOption): BillingOption? =
         support.firstOrNull { it.isMonthly && it.amountCents == rung.amountCents }
 
     companion object {
-        fun from(prices: List<StripePrice>): StripeCatalog {
+        fun from(prices: List<BillingOption>): BillingCatalog {
             val (cloud, support) = prices
-                .sortedWith(compareByDescending<StripePrice> { it.isMonthly }.thenBy { it.amountCents })
+                .sortedWith(compareByDescending<BillingOption> { it.isMonthly }.thenBy { it.amountCents })
                 .partition { it.entitles }
-            return StripeCatalog(cloud = cloud, support = support)
+            return BillingCatalog(cloud = cloud, support = support)
         }
     }
 }
 
-data class StripePrice(
+data class BillingOption(
     val priceId: String,
     val sku: String,
     val amountCents: Int,

@@ -100,7 +100,7 @@ class StripePurchasesTest {
     private var failCredentialClaims = false
     private val changeReceipts = mutableListOf<String?>()
     private val portalReceipts = mutableListOf<String?>()
-    private val cloudAnnual = StripePrice(
+    private val cloudAnnual = BillingOption(
         priceId = "pri_30",
         sku = "annual_30",
         amountCents = 2999,
@@ -166,7 +166,7 @@ class StripePurchasesTest {
     private var checkout: StripeCheckout = StripeCheckout.Failed
 
     private val stripeClient = object : StripeClient {
-        override suspend fun prices(): List<StripePrice>? = null
+        override suspend fun prices(): List<BillingOption>? = null
         override suspend fun createCheckout(priceId: String?, purchaseJwt: String?): StripeCheckout {
             checkoutReceipts.add(purchaseJwt)
             return checkout

@@ -16,15 +16,15 @@ import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.billing.StripeCatalog
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingCatalog
+import org.tasks.billing.BillingOption
 import org.tasks.billing.UnlockSource
 import org.tasks.themes.TestTags
 
 @OptIn(ExperimentalTestApi::class)
 class CardPricingTest {
 
-    private val annual = StripePrice(
+    private val annual = BillingOption(
         priceId = "pri_cloud_year",
         sku = "cloud_annual",
         amountCents = 2999,
@@ -32,18 +32,18 @@ class CardPricingTest {
         trialDays = 14,
     )
 
-    private val monthly = StripePrice(
+    private val monthly = BillingOption(
         priceId = "pri_cloud_month",
         sku = "cloud_monthly",
         amountCents = 299,
-        interval = StripePrice.INTERVAL_MONTH,
+        interval = BillingOption.INTERVAL_MONTH,
         entitles = true,
         trialDays = 14,
     )
 
     @Test
-    fun theCtaQuotesTheCatalogPrice() = runComposeUiTest {
-        showCloudCard(StoreBilling(catalog = StripeCatalog.from(listOf(annual)), onSelect = {}))
+    fun theCtaQuotesThePriceFromTheCatalog() = runComposeUiTest {
+        showCloudCard(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
         assertShowing("Subscribe for \$29.99/year")
         assertShowing("14-day free trial")
@@ -53,7 +53,7 @@ class CardPricingTest {
     fun aFreeWeekIsNotPromisedToSomebodyWhoHasBoughtBefore() = runComposeUiTest {
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual)),
+                catalog = BillingCatalog.from(listOf(annual)),
                 knownCustomer = true,
                 onSelect = {},
             )
@@ -119,7 +119,7 @@ class CardPricingTest {
     fun aPurchaseInFlightDisablesTheCta() = runComposeUiTest {
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual)),
+                catalog = BillingCatalog.from(listOf(annual)),
                 busySku = annual.sku,
                 onSelect = {},
             )
@@ -135,7 +135,7 @@ class CardPricingTest {
     fun theCurrentPlanCannotBeBoughtAgain() = runComposeUiTest {
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual)),
+                catalog = BillingCatalog.from(listOf(annual)),
                 currentSku = annual.sku,
                 onSelect = {},
             )
@@ -155,7 +155,7 @@ class CardPricingTest {
                     onSignIn = {},
                     onRestorePurchases = { restored = true },
                     store = StoreBilling(
-                        catalog = StripeCatalog.from(listOf(annual)),
+                        catalog = BillingCatalog.from(listOf(annual)),
                         onSelect = {},
                     ),
                 )
@@ -169,7 +169,7 @@ class CardPricingTest {
 
     @Test
     fun theRestoreLinkDoesNotAskAgainWhatTheSignInFooterAsked() = runComposeUiTest {
-        showCloudCard(StoreBilling(catalog = StripeCatalog.from(listOf(annual)), onSelect = {}))
+        showCloudCard(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
         assertShowing("Already a subscriber or invited guest?")
         assertShowing("Restore purchases")
@@ -181,10 +181,10 @@ class CardPricingTest {
 
     @Test
     fun anAccountAnotherProviderPaysForIsWarnedButStillSoldTo() = runComposeUiTest {
-        var selected: StripePrice? = null
+        var selected: BillingOption? = null
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual)),
+                catalog = BillingCatalog.from(listOf(annual)),
                 coveredElsewhere = true,
                 coveredBy = UnlockSource.GOOGLE_PLAY,
                 onSelect = { selected = it },
@@ -201,7 +201,7 @@ class CardPricingTest {
     fun aCardSubscriptionOfTheirOwnIsStillTheirsToReprice() = runComposeUiTest {
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual, monthly)),
+                catalog = BillingCatalog.from(listOf(annual, monthly)),
                 currentSku = monthly.sku,
                 coveredElsewhere = true,
                 onSelect = {},
@@ -220,7 +220,7 @@ class CardPricingTest {
     fun aProviderTheAppCannotNameIsWarnedAboutInTheGeneralCase() = runComposeUiTest {
         showCloudCard(
             StoreBilling(
-                catalog = StripeCatalog.from(listOf(annual)),
+                catalog = BillingCatalog.from(listOf(annual)),
                 coveredElsewhere = true,
                 onSelect = {},
             )

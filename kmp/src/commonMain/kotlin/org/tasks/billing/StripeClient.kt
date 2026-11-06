@@ -1,7 +1,7 @@
 package org.tasks.billing
 
 interface StripeClient {
-    suspend fun prices(): List<StripePrice>?
+    suspend fun prices(): List<BillingOption>?
 
     suspend fun createCheckout(priceId: String?, purchaseJwt: String? = null): StripeCheckout
 

@@ -9,13 +9,13 @@ import androidx.compose.ui.test.runComposeUiTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.tasks.billing.StripePrice
+import org.tasks.billing.BillingOption
 import org.tasks.viewmodel.StripeCheckoutViewModel
 
 @OptIn(ExperimentalTestApi::class)
 class ChangePlanConfirmTest {
 
-    private val annual = StripePrice(
+    private val annual = BillingOption(
         priceId = "pri_cloud_year",
         sku = "cloud_annual",
         amountCents = 2999,
