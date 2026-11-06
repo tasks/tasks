@@ -95,6 +95,7 @@ open class TaskListViewModel(
         val tasks: TasksResults = TasksResults.Loading,
         val syncOngoing: Boolean = false,
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
+        val alwaysDisplayFullDate: Boolean = false,
     )
 
     private val _state = MutableStateFlow(State())
@@ -174,6 +175,12 @@ open class TaskListViewModel(
             .onEach { syncOngoing -> _state.update { it.copy(syncOngoing = syncOngoing) } }
             .launchIn(viewModelScope)
 
+        tasksPreferences
+            .flow(TasksPreferences.alwaysDisplayFullDate, false)
+            .distinctUntilChanged()
+            .onEach { fullDate -> _state.update { it.copy(alwaysDisplayFullDate = fullDate) } }
+            .launchIn(viewModelScope)
+
         _state
             .map { it.copy(tasks = TasksResults.Loading) }
             .distinctUntilChanged()
@@ -202,7 +209,12 @@ open class TaskListViewModel(
                     val dateFormatter = DateFormatter.create(is24HourFormat = false)
                     dataSource.formatHeaders { value ->
                         try {
-                            headerFormatter.headerString(value, prefs.groupMode, dateFormatter)
+                            headerFormatter.headerString(
+                                value,
+                                prefs.groupMode,
+                                dateFormatter,
+                                alwaysDisplayFullDate = queriedState.alwaysDisplayFullDate,
+                            )
                         } catch (e: CancellationException) {
                             throw e
                         } catch (e: Exception) {

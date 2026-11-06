@@ -2270,6 +2270,7 @@ private fun TaskListPane(
                     viewModel.setFilter(filter)
                 },
                 is24Hour = org.tasks.time.is24HourFormat(),
+                alwaysDisplayFullDate = state.alwaysDisplayFullDate,
             )
         }
 
