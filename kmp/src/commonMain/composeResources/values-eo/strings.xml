@@ -714,4 +714,10 @@
     <string name="trusted_certificates_reset">Restarigo de fidinda atestilo</string>
     <string name="card_subscription">Kreditkarta abonaĵo</string>
     <string name="error_billing_unavailable">Fakturado ne funkcias nuntempe. Bonvolu reprovi poste.</string>
+    <string name="change_plan">Ŝanĝi planon</string>
+    <string name="change_plan_message">Hodiaŭ via abono ŝanĝos al %1$s. Ni kreditos ajnan restantan valoron de via nuna abonoa l via konto aŭ aplikos ĝin al ĉi tiu ŝuldo.</string>
+    <string name="change_plan_card_declined">Ni ne povis ŝanĝi vian planon. Via kreditkarto eble bezonas aktualigon.</string>
+    <string name="update_card">Aktualigi kreditkarton</string>
+    <string name="subscription_renews_on">Reabonos je %1$s</string>
+    <string name="subscription_ends_on">Finiĝos %1$s</string>
 </resources>
