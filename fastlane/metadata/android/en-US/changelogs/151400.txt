@@ -1,0 +1,6 @@
+* Add support for user certificate stores
+* Add support for SilentSuite app
+* Add support for DAVsky app
+* Fix crash on large descriptions
+* Fix 16kb alignment
+* Update translations
