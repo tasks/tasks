@@ -13,6 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Reporting
 import org.tasks.billing.StripeCatalog
 import org.tasks.billing.StripeChange
 import org.tasks.billing.StripeCheckout
@@ -28,6 +30,7 @@ private const val TAG = "StripeCheckout"
 
 open class StripeCheckoutViewModel(
     private val purchases: StripeCheckouts,
+    private val reporting: Reporting,
 ) : ViewModel() {
 
     data class ViewState(
@@ -116,9 +119,16 @@ open class StripeCheckoutViewModel(
         change(pending.price)
     }
 
-    fun dismissChange() = _viewState.update { it.copy(confirmChange = null) }
+    fun dismissChange() {
+        _viewState.value.confirmChange
+            ?.let { logPlanChange(it.price, AnalyticsEvents.Checkout.DISMISSED) }
+        _viewState.update { it.copy(confirmChange = null) }
+    }
 
     fun cancel() {
+        if (_viewState.value.checkoutUrl != null) {
+            logCheckout(AnalyticsEvents.CHECKOUT_ABANDONED, _viewState.value.busySku)
+        }
         pollJob?.cancel()
         pollJob = null
         _viewState.update { it.copy(busySku = null, checkoutUrl = null) }
@@ -141,14 +151,22 @@ open class StripeCheckoutViewModel(
     private fun purchase(price: StripePrice) {
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
         viewModelScope.launch {
-            when (val checkout = purchases.createCheckout(price)) {
+            val checkout = purchases.createCheckout(price)
+            checkout.errorReason?.let { logCheckoutError(it, price.sku) }
+            when (checkout) {
                 is StripeCheckout.Started -> {
+                    logCheckout(
+                        AnalyticsEvents.CHECKOUT_STARTED,
+                        price.sku,
+                        AnalyticsEvents.PARAM_PERIOD to price.period,
+                    )
                     _viewState.update { it.copy(checkoutUrl = checkout.url) }
                     poll(checkout.code, checkout.expiresAt)
                 }
                 is StripeCheckout.AccountInUse ->
                     finish(Notice.AccountInUse(checkout.existingAccount))
                 is StripeCheckout.Collected -> {
+                    logCollected(checkout.outcome, price.sku)
                     refreshPlan()
                     finish(checkout.outcome.notice)
                 }
@@ -180,7 +198,9 @@ open class StripeCheckoutViewModel(
     }
 
     private suspend fun changeNow(price: StripePrice, sellInstead: Boolean = true) {
-        when (purchases.changePlan(price)) {
+        val result = purchases.changePlan(price)
+        logPlanChange(price, result.resultName)
+        when (result) {
             is StripeChange.Changed -> {
                 refreshPlan(refresh = false)
                 finish(null)
@@ -250,6 +270,7 @@ open class StripeCheckoutViewModel(
         pollJob = viewModelScope.launch {
             val end = withTimeoutOrNull(window) { pollUntilSettled(code) }
             if (end == null) {
+                logCheckoutError(AnalyticsEvents.Checkout.EXPIRED)
                 finish(Notice.Expired)
             } else {
                 currentCoroutineContext().ensureActive()
@@ -273,6 +294,7 @@ open class StripeCheckoutViewModel(
                     unanswered++
                     if (unanswered >= MAX_UNANSWERED_POLLS) {
                         Logger.e(TAG) { "Giving up on the checkout: the server stopped answering" }
+                        logCheckoutError(AnalyticsEvents.Checkout.UNREACHABLE)
                         return PollEnd(Notice.Unavailable)
                     }
                     wait = unansweredBackoff(unanswered)
@@ -281,9 +303,18 @@ open class StripeCheckoutViewModel(
                     unanswered = 0
                     wait = result.backoff
                 }
-                is StripeCollection.Collected -> return PollEnd(result.outcome.notice)
-                StripeCollection.Gone -> return PollEnd(Notice.Expired)
-                StripeCollection.SubscriptionInvalid -> return PollEnd(Notice.SubscriptionInvalid)
+                is StripeCollection.Collected -> {
+                    logCollected(result.outcome)
+                    return PollEnd(result.outcome.notice)
+                }
+                StripeCollection.Gone -> {
+                    logCheckoutError(AnalyticsEvents.Checkout.GONE)
+                    return PollEnd(Notice.Expired)
+                }
+                StripeCollection.SubscriptionInvalid -> {
+                    logCheckoutError(AnalyticsEvents.Checkout.SUBSCRIPTION_INVALID)
+                    return PollEnd(Notice.SubscriptionInvalid)
+                }
             }
         }
     }
@@ -301,6 +332,74 @@ open class StripeCheckoutViewModel(
         pollJob = null
         _viewState.update { it.copy(busySku = null, checkoutUrl = null, notice = notice) }
     }
+
+    private fun logCheckout(event: String, sku: String?, vararg params: Pair<String, Any>) =
+        reporting.logEvent(event, AnalyticsEvents.PARAM_SKU to sku.orEmpty(), *params)
+
+    private fun logCheckoutError(reason: String, sku: String? = _viewState.value.busySku) =
+        logCheckout(AnalyticsEvents.CHECKOUT_ERROR, sku, AnalyticsEvents.PARAM_REASON to reason)
+
+    private fun logCollected(
+        outcome: StripeRestoreOutcome,
+        sku: String? = _viewState.value.busySku,
+    ) = logCheckout(
+        AnalyticsEvents.CHECKOUT_COLLECTED,
+        sku,
+        AnalyticsEvents.PARAM_RESULT to outcome.resultName,
+    )
+
+    private fun logPlanChange(price: StripePrice, result: String) = logCheckout(
+        AnalyticsEvents.PLAN_CHANGE,
+        price.sku,
+        AnalyticsEvents.PARAM_PERIOD to price.period,
+        AnalyticsEvents.PARAM_RESULT to result,
+    )
+
+    private val StripePrice.period: String
+        get() = if (isMonthly) AnalyticsEvents.PERIOD_MONTHLY else AnalyticsEvents.PERIOD_ANNUAL
+
+    private val StripeCheckout.errorReason: String?
+        get() = when (this) {
+            is StripeCheckout.Started,
+            is StripeCheckout.Collected,
+            is StripeCheckout.SubscriptionExists -> null
+            is StripeCheckout.AccountInUse -> AnalyticsEvents.Checkout.ACCOUNT_IN_USE
+            StripeCheckout.AccountLinkConflict -> AnalyticsEvents.Checkout.ACCOUNT_LINK_CONFLICT
+            StripeCheckout.RestoreRequired -> AnalyticsEvents.Checkout.RESTORE_REQUIRED
+            StripeCheckout.RateLimited -> AnalyticsEvents.Checkout.RATE_LIMITED
+            StripeCheckout.Unavailable -> AnalyticsEvents.Checkout.UNAVAILABLE
+            StripeCheckout.UnknownPrice -> AnalyticsEvents.Checkout.UNKNOWN_PRICE
+            StripeCheckout.Failed -> AnalyticsEvents.Checkout.FAILED
+        }
+
+    private val StripeRestoreOutcome.resultName: String
+        get() = when (this) {
+            StripeRestoreOutcome.Restored -> AnalyticsEvents.Checkout.RESTORED
+            StripeRestoreOutcome.Ended -> AnalyticsEvents.Checkout.ENDED
+            StripeRestoreOutcome.NeedsUpgrade -> AnalyticsEvents.Checkout.NEEDS_UPGRADE
+            is StripeRestoreOutcome.AccountInUse -> AnalyticsEvents.Checkout.ACCOUNT_IN_USE
+            is StripeRestoreOutcome.StorageFailed ->
+                if (encryptionFailed) {
+                    AnalyticsEvents.Checkout.ENCRYPTION_FAILED
+                } else {
+                    AnalyticsEvents.Checkout.STORAGE_FAILED
+                }
+        }
+
+    private val StripeChange.resultName: String
+        get() = when (this) {
+            is StripeChange.Changed ->
+                if (resumed) AnalyticsEvents.Checkout.RESUMED else AnalyticsEvents.Checkout.CHANGED
+            StripeChange.NotLinked -> AnalyticsEvents.Checkout.NOT_LINKED
+            StripeChange.Cancelled -> AnalyticsEvents.Checkout.CANCELLED
+            StripeChange.PurchaseGone -> AnalyticsEvents.Checkout.PURCHASE_GONE
+            StripeChange.NoProofOfPurchase -> AnalyticsEvents.Checkout.NO_PROOF_OF_PURCHASE
+            StripeChange.CardDeclined -> AnalyticsEvents.Checkout.CARD_DECLINED
+            StripeChange.RateLimited -> AnalyticsEvents.Checkout.RATE_LIMITED
+            StripeChange.UnknownPrice -> AnalyticsEvents.Checkout.UNKNOWN_PRICE
+            StripeChange.Unavailable -> AnalyticsEvents.Checkout.UNAVAILABLE
+            StripeChange.Failed -> AnalyticsEvents.Checkout.FAILED
+        }
 
     private val StripeRestoreOutcome.notice: Notice?
         get() = when (this) {

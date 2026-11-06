@@ -562,7 +562,7 @@ val coreModule: Module = module {
             logOnboarding = { step -> get<Reporting>().logCloudOnboarding(step) },
         ).also { it.claimOnSignIn(get()) }
     } binds arrayOf(StripeCheckouts::class, PurchaseClaim::class)
-    viewModel { StripeCheckoutViewModel(purchases = get()) }
+    viewModel { StripeCheckoutViewModel(purchases = get(), reporting = get()) }
     single {
         PushTokenManager(
             tokenProvider = getOrNull() ?: object : FcmTokenProvider {
