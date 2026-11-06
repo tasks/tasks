@@ -58,10 +58,11 @@ data class BillingOption(
     val interval: String = INTERVAL_YEAR,
     val entitles: Boolean = false,
     val trialDays: Int = 0,
+    val formatted: String? = null,
 ) {
     val isMonthly: Boolean get() = interval == INTERVAL_MONTH
 
-    val formattedPrice: String get() = formatAmount(amountCents, currency)
+    val formattedPrice: String get() = formatted ?: formatAmount(amountCents, currency)
 
     val formattedMonthlyPrice: String
         get() = if (isMonthly) {

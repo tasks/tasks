@@ -12,14 +12,51 @@ class BillingCatalogTest {
         interval: String = BillingOption.INTERVAL_YEAR,
         entitles: Boolean = false,
         trialDays: Int = 0,
+        currency: String = "USD",
+        formatted: String? = null,
     ) = BillingOption(
         priceId = "pri_$sku",
         sku = sku,
         amountCents = cents,
+        currency = currency,
         interval = interval,
         entitles = entitles,
         trialDays = trialDays,
+        formatted = formatted,
     )
+
+    @Test
+    fun aStoreFormattedPriceIsPreferredOverOurOwn() {
+        val option = price("annual_30", 2799, currency = "EUR", formatted = "\u20AC27,99")
+
+        assertEquals("\u20AC27,99", option.formattedPrice)
+    }
+
+    @Test
+    fun withoutAStoreFormattedPriceTheAmountIsFormatted() {
+        assertEquals("$29.99", price("annual_30", 2999).formattedPrice)
+    }
+
+    @Test
+    fun aMonthlyOptionReportsItsStoreFormattedPriceAsThePerMonthFigure() {
+        val option = price(
+            "monthly_03",
+            299,
+            interval = BillingOption.INTERVAL_MONTH,
+            currency = "EUR",
+            formatted = "\u20AC2,99",
+        )
+
+        assertEquals("\u20AC2,99", option.formattedMonthlyPrice)
+    }
+
+    @Test
+    fun theDerivedPerMonthFigureIsNotStoreFormatted() {
+        val option = price("annual_30", 2799, currency = "EUR", formatted = "\u20AC27,99")
+
+        assertEquals("\u20AC27,99", option.formattedPrice)
+        assertEquals("2.33 EUR", option.formattedMonthlyPrice)
+    }
 
     private fun ladder() = BillingCatalog(
         support = (1..10).map { dollars ->
