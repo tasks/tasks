@@ -344,11 +344,18 @@ val coreModule: Module = module {
                 tasksPreferences.set(TasksPreferences.quietHoursStart, value)
             override suspend fun setQuietHoursEnd(value: Int) =
                 tasksPreferences.set(TasksPreferences.quietHoursEnd, value)
-            // TODO: populate the remaining DatePickerPreferences fields
-            override suspend fun datePickerPreferences() = DatePickerPreferences(
-                datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
-                timePickerInputMode = tasksPreferences.get(TasksPreferences.timePickerInputMode, false),
-            )
+            override suspend fun datePickerPreferences(): DatePickerPreferences {
+                val defaults = DatePickerPreferences()
+                return DatePickerPreferences(
+                    shortcutMorning = tasksPreferences.get(TasksPreferences.dateShortcutMorning, defaults.shortcutMorning),
+                    shortcutAfternoon = tasksPreferences.get(TasksPreferences.dateShortcutAfternoon, defaults.shortcutAfternoon),
+                    shortcutEvening = tasksPreferences.get(TasksPreferences.dateShortcutEvening, defaults.shortcutEvening),
+                    shortcutNight = tasksPreferences.get(TasksPreferences.dateShortcutNight, defaults.shortcutNight),
+                    alwaysDisplayFullDate = tasksPreferences.get(TasksPreferences.alwaysDisplayFullDate, false),
+                    datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
+                    timePickerInputMode = tasksPreferences.get(TasksPreferences.timePickerInputMode, false),
+                )
+            }
             override suspend fun setDatePickerInputMode(value: Boolean) =
                 tasksPreferences.set(TasksPreferences.datePickerInputMode, value)
             override suspend fun setTimePickerInputMode(value: Boolean) =
