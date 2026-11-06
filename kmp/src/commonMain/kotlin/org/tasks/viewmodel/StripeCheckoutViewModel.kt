@@ -322,7 +322,8 @@ open class StripeCheckoutViewModel(
     private class PollEnd(val notice: Notice?)
 
     private fun unansweredBackoff(unanswered: Int): Long =
-        (POLL_INTERVAL_MILLIS shl (unanswered - 1)).coerceAtMost(MAX_BACKOFF_MILLIS)
+        (POLL_INTERVAL_MILLIS shl (unanswered - 1))
+            .coerceIn(POLL_INTERVAL_MILLIS, MAX_BACKOFF_MILLIS)
 
     private val StripeCollection.RateLimited.backoff: Long
         get() = (retryAfterMillis ?: RATE_LIMITED_BACKOFF_MILLIS)
