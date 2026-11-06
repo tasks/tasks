@@ -78,7 +78,7 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.stringResource as composeStringResource
 import org.tasks.R
-import org.tasks.billing.Sku
+import org.tasks.billing.PlayProductInfo
 import org.tasks.billing.SubscriptionSkus
 import org.tasks.compose.Constants.HALF_KEYLINE
 import org.tasks.compose.Constants.KEYLINE_FIRST
@@ -199,7 +199,7 @@ object PurchaseText {
         setPrice: (Float) -> Unit,
         setNameYourPrice: (Boolean) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
-        skus: List<Sku>,
+        skus: List<PlayProductInfo>,
         onBack: () -> Unit,
     ) {
         Scaffold(
@@ -412,7 +412,7 @@ object PurchaseText {
         setNameYourPrice: (Boolean) -> Unit,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
-        skus: List<Sku>,
+        skus: List<PlayProductInfo>,
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -568,7 +568,7 @@ object PurchaseText {
 
     @Composable
     fun TasksAccount(
-        skus: List<Sku>,
+        skus: List<PlayProductInfo>,
         subscribe: (Int, Boolean) -> Unit,
     ) {
         Column(
@@ -583,7 +583,7 @@ object PurchaseText {
             ) {
                 PurchaseButton(
                     price = remember(skus) {
-                        skus.find { it.productId == SubscriptionSkus.sku(30) }?.price ?: "$30"
+                        skus.find { it.productId == SubscriptionSkus.sku(30) }?.formattedPrice ?: "$30"
                     },
                     popperText = "${stringResource(R.string.save_percent, 16)} $POPPER",
                     onClick = { subscribe(30, false) },
@@ -591,7 +591,7 @@ object PurchaseText {
                 Spacer(Modifier.width(KEYLINE_FIRST))
                 PurchaseButton(
                     price = remember(skus) {
-                        skus.find { it.productId == SubscriptionSkus.sku(3, monthly = true) }?.price ?: "$3"
+                        skus.find { it.productId == SubscriptionSkus.sku(3, monthly = true) }?.formattedPrice ?: "$3"
                     },
                     monthly = true,
                     onClick = { subscribe(3, true) },
@@ -636,7 +636,7 @@ object PurchaseText {
         sliderPosition: Float,
         setPrice: (Float) -> Unit,
         subscribe: (Int, Boolean) -> Unit,
-        skus: List<Sku>,
+        skus: List<PlayProductInfo>,
     ) {
         val ladder = SubscriptionSkus.SUPPORTER_LADDER
         Column(
@@ -668,7 +668,7 @@ object PurchaseText {
                     price = remember(skus, price) {
                         skus
                             .find { it.productId == SubscriptionSkus.sku(price) }
-                            ?.price
+                            ?.formattedPrice
                             ?: "$$price"
                     },
                     popperText = if (price >= 7)
@@ -683,7 +683,7 @@ object PurchaseText {
                         price = remember(skus, price) {
                             skus
                                 .find { it.productId == SubscriptionSkus.sku(price, monthly = true) }
-                                ?.price
+                                ?.formattedPrice
                                 ?: "$$price"
                         },
                         monthly = true,

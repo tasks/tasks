@@ -80,6 +80,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val acceptedTosVersion = intPreferencesKey("accepted_tos_version")
         val hasLoggedOnboardingComplete = booleanPreferencesKey("has_logged_onboarding_complete")
         val subscriptionDismissedAccounts = stringSetPreferencesKey("subscription_dismissed_accounts")
+        val playPurchases = stringPreferencesKey("play_purchases")
         val syncSource = stringPreferencesKey("sync_source")
         val cachedAccountData = stringPreferencesKey("cached_account_data")
         val serverEnvironment = stringPreferencesKey("server_environment")

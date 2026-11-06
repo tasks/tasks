@@ -10,13 +10,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.billing.BillingClient
+import org.tasks.billing.PlayBilling
+import org.tasks.billing.PlayPurchase
 import org.tasks.billing.Inventory
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.math.min
@@ -25,7 +27,7 @@ import kotlin.math.min
 class DebugViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val inventory: Inventory,
-    private val billingClient: BillingClient,
+    private val billing: PlayBilling,
     private val preferences: Preferences,
     private val tasksPreferences: TasksPreferences,
     private val taskCreator: com.todoroo.astrid.service.TaskCreator,
@@ -95,14 +97,19 @@ class DebugViewModel @Inject constructor(
 
     fun toggleIap(activity: android.app.Activity, onComplete: () -> Unit) {
         viewModelScope.launch {
-            if (inventory.getPurchase(Inventory.SKU_THEMES) == null) {
-                billingClient.initiatePurchaseFlow(
-                    activity,
-                    "inapp",
-                    Inventory.SKU_THEMES,
-                )
-            } else {
-                billingClient.consume(Inventory.SKU_THEMES)
+            try {
+                val purchase = inventory.getPurchase(PlayPurchase.SKU_THEMES)
+                if (purchase == null) {
+                    billing.launchPurchaseFlow(
+                        activity = activity,
+                        sku = PlayPurchase.SKU_THEMES,
+                        subscription = false,
+                    )
+                } else {
+                    billing.consume(purchase)
+                }
+            } catch (e: Exception) {
+                Timber.e(e)
             }
             refreshIapTitle()
             onComplete()
@@ -148,7 +155,7 @@ class DebugViewModel @Inject constructor(
     }
 
     private fun refreshIapTitle() {
-        val sku = Inventory.SKU_THEMES
+        val sku = PlayPurchase.SKU_THEMES
         iapTitle = if (inventory.getPurchase(sku) == null) {
             context.getString(R.string.debug_purchase, sku)
         } else {

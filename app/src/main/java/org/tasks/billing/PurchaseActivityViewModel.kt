@@ -22,14 +22,14 @@ import org.tasks.sync.SyncSource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_billing_unavailable
 import timber.log.Timber
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
 class PurchaseActivityViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val inventory: Inventory,
-    private val billingClient: BillingClient,
+    private val billing: PlayBilling,
+    private val playPurchases: PlayPurchases,
     private val localBroadcastManager: LocalBroadcastManager,
     private val syncAdapters: SyncAdapters,
     private val firebase: Firebase,
@@ -42,15 +42,15 @@ class PurchaseActivityViewModel @Inject constructor(
         val source: String = "",
         val showMoreOptions: Boolean,
         val price: Float = -1f,
-        val subscription: Purchase? = null,
+        val subscription: PlayPurchase? = null,
         val error: String? = null,
-        val skus: List<Sku> = emptyList(),
+        val skus: List<PlayProductInfo> = emptyList(),
         val purchased: Boolean = false,
     )
 
     private val purchaseReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            val subscription = inventory.subscription.value
+            val subscription = inventory.currentSubscription
             _viewState.update { state ->
                 state.copy(
                     subscription = subscription,
@@ -88,8 +88,15 @@ class PurchaseActivityViewModel @Inject constructor(
         localBroadcastManager.registerPurchaseReceiver(purchaseReceiver)
 
         viewModelScope.launch {
+            playPurchases.purchased.collect {
+                _viewState.update { state -> state.copy(purchased = true) }
+                syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
+            }
+        }
+
+        viewModelScope.launch {
             try {
-                billingClient.queryPurchases(throwError = true)
+                billing.queryPurchases()
             } catch (e: Exception) {
                 val message = e.userMessage()
                 _viewState.update {
@@ -97,11 +104,8 @@ class PurchaseActivityViewModel @Inject constructor(
                 }
             }
             try {
-                val skus =
-                    (1..25).map { it.toSku(false) }
-                    .plus((1..3).map { it.toSku(true) })
-                    .plus(30.toSku(false))
-                val loadedSkus = billingClient.getSkus(skus)
+                val skus = PlayCatalog.ALL_SKUS
+                val loadedSkus = billing.products(skus)
                 Timber.d("Loaded ${loadedSkus.size}/${skus.size} skus: ${loadedSkus.map { it.productId }}")
                 _viewState.update {
                     it.copy(skus = loadedSkus)
@@ -126,7 +130,7 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     private suspend fun Exception.userMessage(): String? =
-        if (this is BillingUnavailableException) {
+        if (this is PlayBillingUnavailableException) {
             getString(Res.string.error_billing_unavailable)
         } else {
             message
@@ -138,17 +142,13 @@ class PurchaseActivityViewModel @Inject constructor(
     }
 
     fun purchase(activity: Activity, price: Int, monthly: Boolean) = viewModelScope.launch {
-        val newSku = price.toSku(monthly)
+        val newSku = SubscriptionSkus.sku(price, monthly)
         try {
-            billingClient.initiatePurchaseFlow(
-                activity,
-                newSku,
-                BillingClientImpl.TYPE_SUBS,
-                _viewState.value.subscription?.takeIf { it.sku != newSku },
-                onPurchased = {
-                    _viewState.update { it.copy(purchased = true) }
-                    syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
-                },
+            val current = playPurchases.state.value.subscription
+            billing.launchPurchaseFlow(
+                activity = activity,
+                sku = newSku,
+                oldPurchaseToken = current?.purchaseToken?.takeIf { current.sku != newSku },
             )
         } catch (e: Exception) {
             Timber.e(e)
@@ -177,8 +177,5 @@ class PurchaseActivityViewModel @Inject constructor(
         const val EXTRA_SHOW_MORE_OPTIONS = "showMoreOptions"
         const val EXTRA_FEATURE = "feature"
         const val EXTRA_SOURCE = "source"
-
-        fun Int.toSku(monthly: Boolean) =
-            String.format(Locale.US, "%s_%02d", if (monthly) "monthly" else "annual", this)
     }
 }

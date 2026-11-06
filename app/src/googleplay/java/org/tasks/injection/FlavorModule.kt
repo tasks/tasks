@@ -42,6 +42,33 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
     @Provides
+    @Singleton
+    fun providePlayBilling(
+        @ApplicationContext context: Context,
+        purchases: org.tasks.billing.PlayPurchases,
+        firebase: org.tasks.analytics.Firebase,
+        @ApplicationScope scope: CoroutineScope,
+        workManager: org.tasks.jobs.WorkManager,
+    ): org.tasks.billing.PlayBilling = org.tasks.billing.PlayBillingClient(
+        context = context,
+        purchases = purchases,
+        reporting = firebase,
+        scope = scope,
+        onPurchasesUpdated = { workManager.updatePurchases() },
+    )
+
+    @Provides
+    @Singleton
+    fun providePlayPurchaseVerifier(): org.tasks.billing.PlayPurchaseVerifier =
+        org.tasks.billing.PlaySignatureVerifier()
+
+    @Provides
+    @Singleton
+    fun providePlayPurchaseStore(
+        store: org.tasks.billing.PreferencesPlayPurchaseStore,
+    ): org.tasks.billing.PlayPurchaseStore = store
+
+    @Provides
     fun getPlatformConfiguration() = PlatformConfiguration(
         supportsTasksOrg = true,
         supportsCaldav = true,

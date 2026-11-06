@@ -22,6 +22,7 @@ object AnalyticsEvents {
     const val CHECKOUT_ERROR = "checkout_error"
     const val CHECKOUT_STARTED = "checkout_started"
     const val COMPLETE_TASK = "complete_task"
+    const val BILLING_FLOW_RESULT = "billing_flow_result"
     const val INITIAL_SYNC_COMPLETE = "initial_sync_complete"
     const val ONBOARDING_COMPLETE = "onboarding_complete"
     const val PLAN_CHANGE = "plan_change"
@@ -47,6 +48,7 @@ object AnalyticsEvents {
 
     const val PARAM_FROM_BACKGROUND = "from_background"
     const val PARAM_MESSAGE = "message"
+    const val PARAM_ORDER_ID = "order_id"
     const val PARAM_PERIOD = "period"
     const val PARAM_PROVIDER = "provider"
     const val PARAM_REASON = "reason"
@@ -54,6 +56,7 @@ object AnalyticsEvents {
     const val PARAM_SELECTION = "selection"
     const val PARAM_SKU = "sku"
     const val PARAM_SOURCE = "source"
+    const val PARAM_STATE = "state"
     const val PARAM_TASK_COUNT = "task_count"
     const val PARAM_TIER = "tier"
     const val PARAM_TYPE = "type"

@@ -39,7 +39,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libx11-6
 
       - name: Run JVM tests
-        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest kmp:testDebugUnitTest composeApp:desktopTest
+        run: ./gradlew -Pcoverage app:createGoogleplayDebugUnitTestCoverageReport app:createGenericDebugUnitTestCoverageReport jvmTest kmp:testDebugUnitTest googleplay:createDebugUnitTestCoverageReport composeApp:desktopTest
 
       - name: Upload test reports
         uses: actions/upload-artifact@v7
@@ -50,6 +50,7 @@ jobs:
             app/build/reports/**
             data/build/reports/**
             kmp/build/reports/**
+            googleplay/build/reports/**
             composeApp/build/reports/**
 
   iosTest:

@@ -18,9 +18,28 @@ import org.tasks.location.MapFragment
 import org.tasks.location.OsmMapFragment
 import org.tasks.wear.WearRefresher
 
+import javax.inject.Singleton
+
 @Module
 @InstallIn(SingletonComponent::class)
 class FlavorModule {
+    @Provides
+    @Singleton
+    fun providePlayBilling(
+        billing: org.tasks.billing.NoOpPlayBilling,
+    ): org.tasks.billing.PlayBilling = billing
+
+    @Provides
+    @Singleton
+    fun providePlayPurchaseVerifier(): org.tasks.billing.PlayPurchaseVerifier =
+        org.tasks.billing.PlayPurchaseVerifier { true }
+
+    @Provides
+    @Singleton
+    fun providePlayPurchaseStore(
+        store: org.tasks.billing.NoOpPlayPurchaseStore,
+    ): org.tasks.billing.PlayPurchaseStore = store
+
     @Provides
     fun getPlatformConfiguration() = PlatformConfiguration(
         supportsTasksOrg = true,

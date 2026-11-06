@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
-import org.tasks.billing.BillingClient
+import org.tasks.billing.PlayBilling
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.logout_warning
 import org.tasks.billing.PurchaseActivity
@@ -22,11 +22,12 @@ import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.InjectingPreferenceFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 abstract class BaseAccountPreference : InjectingPreferenceFragment() {
 
-    @Inject lateinit var billingClient: BillingClient
+    @Inject lateinit var billing: PlayBilling
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var taskDeleter: TaskDeleter
 
@@ -74,7 +75,11 @@ abstract class BaseAccountPreference : InjectingPreferenceFragment() {
         if (requestCode == REQUEST_PURCHASE) {
             if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch {
-                    billingClient.queryPurchases()
+                    try {
+                        billing.queryPurchases()
+                    } catch (e: Exception) {
+                        Timber.e(e)
+                    }
                 }
             }
         } else {

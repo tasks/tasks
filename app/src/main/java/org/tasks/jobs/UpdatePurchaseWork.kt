@@ -6,9 +6,9 @@ import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import org.tasks.analytics.Firebase
-import org.tasks.billing.BillingClient
 import org.tasks.billing.Inventory
-import org.tasks.billing.UnrecoverableBillingException
+import org.tasks.billing.PlayBilling
+import org.tasks.billing.PlayBillingUnrecoverableException
 import org.tasks.injection.BaseWorker
 import timber.log.Timber
 
@@ -18,23 +18,18 @@ class UpdatePurchaseWork @AssistedInject constructor(
     @Assisted workerParams: WorkerParameters,
     firebase: Firebase,
     private val inventory: Inventory,
-    private val billingClient: BillingClient,
+    private val billing: PlayBilling,
 ) : BaseWorker(context, workerParams, firebase) {
     override suspend fun run(): Result {
         try {
-            billingClient.queryPurchases(throwError = true)
-        } catch (e: UnrecoverableBillingException) {
+            billing.queryPurchases()
+        } catch (e: PlayBillingUnrecoverableException) {
             Timber.w(e)
             return Result.failure()
         } catch (e: Exception) {
             Timber.e(e)
             return Result.retry()
         }
-        inventory.purchases.values
-            .filter { it.needsAcknowledgement }
-            .takeIf { it.isNotEmpty() }
-            ?.forEach { billingClient.acknowledge(it) }
-            ?.apply { billingClient.queryPurchases() }
         return with(inventory.purchases.values) {
             when {
                 any { it.needsAcknowledgement } -> Result.retry()

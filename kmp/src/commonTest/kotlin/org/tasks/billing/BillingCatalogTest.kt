@@ -320,6 +320,32 @@ class BillingCatalogTest {
     }
 
     @Test
+    fun theRungIsPickedByItsTierNotItsLocalPrice() {
+        val catalog = BillingCatalog(
+            support = (1..10).map { dollars ->
+                price(
+                    sku = "annual_" + dollars.toString().padStart(2, '0'),
+                    cents = dollars * 8300,
+                    currency = "INR",
+                )
+            },
+        )
+
+        assertEquals(9, catalog.supporterRungFor(dollars = null))
+        assertEquals("annual_10", catalog.supporterRungAt(9f)?.sku)
+        assertEquals("annual_05", catalog.supporterRungAt(catalog.supporterRungFor(5).toFloat())?.sku)
+    }
+
+    @Test
+    fun aTierTheStoreDoesNotSellOpensOnTheNextOneUp() {
+        val catalog = BillingCatalog(
+            support = listOf(price("annual_03", 299), price("annual_10", 999)),
+        )
+
+        assertEquals(1, catalog.supporterRungFor(dollars = 5))
+    }
+
+    @Test
     fun pairsEachRungWithTheMonthlyPriceOfTheSameTier() {
         val catalog = BillingCatalog.from(
             listOf(
@@ -332,5 +358,20 @@ class BillingCatalogTest {
 
         assertEquals("monthly_03", catalog.supporterMonthlyFor(rungs[0])?.sku)
         assertNull(catalog.supporterMonthlyFor(rungs[1]))
+    }
+
+    @Test
+    fun theTiersArePairedEvenWhenTheStorePricesThemDifferently() {
+        val catalog = BillingCatalog.from(
+            listOf(
+                price("annual_03", 2988, currency = "INR"),
+                price("monthly_03", 299, BillingOption.INTERVAL_MONTH, currency = "INR"),
+            )
+        )
+
+        assertEquals(
+            "monthly_03",
+            catalog.supporterMonthlyFor(catalog.supporterRungs[0])?.sku,
+        )
     }
 }

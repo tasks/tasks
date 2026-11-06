@@ -19,7 +19,6 @@ import com.todoroo.astrid.core.SortHelper
 import org.tasks.BuildConfig
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.billing.Purchase
 import org.tasks.data.entity.Alarm
 import org.tasks.compose.pickers.QuickPickTimes
 import org.tasks.data.entity.Task
@@ -232,26 +231,6 @@ class Preferences @JvmOverloads constructor(
 
     val dateShortcutEvening: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_evening, R.integer.default_evening)
-
-    val purchases: List<Purchase>
-        get() = try {
-            getStringSet(R.string.p_purchases).map(::Purchase)
-        } catch (e: Exception) {
-            Timber.e(e)
-            emptyList()
-        }
-
-    fun setPurchases(purchases: Collection<Purchase>) {
-        setPurchases(purchases.map(Purchase::toJson).toHashSet())
-    }
-
-    private fun setPurchases(set: HashSet<String>) {
-        try {
-            setStringSet(R.string.p_purchases, set)
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-    }
 
     val dateShortcutNight: Int
         get() = getMillisPerDayPref(R.string.p_date_shortcut_night, R.integer.default_night)

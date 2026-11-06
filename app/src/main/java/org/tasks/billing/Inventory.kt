@@ -16,65 +16,42 @@ import org.tasks.data.isTasksSubscription
 import org.tasks.extensions.Context.openUri
 import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class Inventory @Inject constructor(
-        @ApplicationScope scope: CoroutineScope,
-        private val preferences: Preferences,
-        private val signatureVerifier: SignatureVerifier,
-        private val localBroadcastManager: LocalBroadcastManager,
-        private val caldavDao: CaldavDao
+    @ApplicationScope scope: CoroutineScope,
+    private val preferences: Preferences,
+    private val playPurchases: PlayPurchases,
+    private val localBroadcastManager: LocalBroadcastManager,
+    private val caldavDao: CaldavDao,
 ) : PurchaseState {
-    val purchases: MutableMap<String, Purchase> = HashMap()
-    val subscription = MutableLiveData<Purchase?>()
+    val subscription = MutableLiveData<PlayPurchase?>()
+
+    val currentSubscription: PlayPurchase?
+        get() = playPurchases.state.value.subscription
+
+    val purchases: Map<String, PlayPurchase>
+        get() = playPurchases.state.value.purchases
 
     override var hasTasksAccount = false
         private set
 
-    fun clear() {
-        Timber.d("clear()")
-        purchases.clear()
-        subscription.value = null
-    }
-
-    fun add(items: Iterable<Purchase>) {
-        verifyAndAdd(items)
-        preferences.setPurchases(purchases.values)
-        localBroadcastManager.broadcastPurchasesUpdated()
-    }
-
-    private fun verifyAndAdd(items: Iterable<Purchase>) {
-        for (purchase in items) {
-            if (signatureVerifier.verifySignature(purchase)) {
-                Timber.d("add(%s)", purchase)
-                purchases[purchase.sku] = purchase
-            }
-        }
-        hasPro = purchases.values.any { it.isProSubscription } || purchases.containsKey(SKU_VIP)
-        updateSubscription()
-    }
-
     override val hasTasksSubscription: Boolean
-        get() = subscription.value?.isTasksSubscription == true || hasTasksAccount
+        get() = currentSubscription?.isTasksSubscription == true || hasTasksAccount
 
     val begForMoney: Boolean
         get() = if (IS_GENERIC) !hasTasksAccount else !hasPro
 
-    override fun purchasedThemes() = hasPro || purchases.containsKey(SKU_THEMES)
+    override fun purchasedThemes() = hasPro || playPurchases.purchasedThemes
 
-    @Suppress("SimplifyBooleanWithConstants")
-    override var hasPro = false
-        get() {
-            @Suppress("KotlinConstantConditions")
-            return IS_GENERIC
-                    || (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false))
-                    || hasTasksAccount
-                    || field
-        }
-        private set
+    @Suppress("KotlinConstantConditions")
+    override val hasPro: Boolean
+        get() = IS_GENERIC ||
+                (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false)) ||
+                hasTasksAccount ||
+                playPurchases.hasPro
 
     suspend fun updateTasksAccount() {
         hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
@@ -82,37 +59,24 @@ class Inventory @Inject constructor(
         }
     }
 
-    fun getPurchase(sku: String) = purchases[sku]
-
-    private fun updateSubscription() {
-        subscription.value = purchases
-                .values
-                .filter { it.isProSubscription }
-                .sortedWith { l, r ->
-                    r.isMonthly.compareTo(l.isMonthly)
-                            .takeIf { it != 0 }?.let { return@sortedWith it }
-                    l.isCanceled.compareTo(r.isCanceled)
-                            .takeIf { it != 0 }?.let { return@sortedWith it }
-                    r.subscriptionPrice!!.compareTo(l.subscriptionPrice!!)
-                }
-                .firstOrNull()
-    }
+    fun getPurchase(sku: String) = playPurchases.get(sku)
 
     fun unsubscribe(context: Context): Boolean {
-        subscription.value?.let {
+        currentSubscription?.let {
             context.openUri(R.string.manage_subscription_url, it.sku)
         }
         return false
     }
 
-    companion object {
-        private const val SKU_VIP = "vip"
-        const val SKU_THEMES = "themes"
-    }
-
     init {
+        scope.launch {
+            playPurchases.load()
+        }
         scope.launch(Dispatchers.Main.immediate) {
-            verifyAndAdd(preferences.purchases)
+            playPurchases.updates.collect {
+                subscription.value = playPurchases.state.value.subscription
+                localBroadcastManager.broadcastPurchasesUpdated()
+            }
         }
     }
 }

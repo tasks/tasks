@@ -17,8 +17,8 @@ data class BillingCatalog(
     fun price(sku: String?): BillingOption? =
         (cloud + support).firstOrNull { it.sku == sku }
 
-    val supporterRungs: List<BillingOption>
-        get() = support.filterNot { it.isMonthly }.sortedBy { it.amountCents }
+    val supporterRungs: List<BillingOption> = support.filterNot { it.isMonthly }
+        .sortedWith(compareBy({ it.rungDollars }, { it.amountCents }))
 
     fun supporterRungAt(position: Float): BillingOption? {
         val rungs = supporterRungs
@@ -31,14 +31,14 @@ data class BillingCatalog(
 
     fun supporterRungFor(dollars: Int?): Int {
         val rungs = supporterRungs
-        val cents = (dollars ?: DEFAULT_NAME_YOUR_PRICE) * 100
-        return rungs.indexOfFirst { it.amountCents + 1 >= cents }
+        val tier = dollars ?: DEFAULT_NAME_YOUR_PRICE
+        return rungs.indexOfFirst { it.rungDollars >= tier }
             .takeIf { it >= 0 }
             ?: rungs.lastIndex
     }
 
     fun supporterMonthlyFor(rung: BillingOption): BillingOption? =
-        support.firstOrNull { it.isMonthly && it.amountCents == rung.amountCents }
+        support.firstOrNull { it.isMonthly && it.rungDollars == rung.rungDollars }
 
     companion object {
         fun from(prices: List<BillingOption>): BillingCatalog {
@@ -61,6 +61,9 @@ data class BillingOption(
     val formatted: String? = null,
 ) {
     val isMonthly: Boolean get() = interval == INTERVAL_MONTH
+
+    internal val rungDollars: Int =
+        SubscriptionSkus.subscriptionPrice(sku) ?: ((amountCents + 99) / 100)
 
     val formattedPrice: String get() = formatted ?: formatAmount(amountCents, currency)
 

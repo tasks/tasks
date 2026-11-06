@@ -184,6 +184,7 @@ configurations.all {
 
 val genericImplementation by configurations
 val googleplayImplementation by configurations
+val testGoogleplayImplementation by configurations
 
 dependencies {
     implementation(projects.data)
@@ -292,7 +293,7 @@ dependencies {
     googleplayImplementation(libs.firebase.messaging)
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
-    googleplayImplementation(libs.play.billing.ktx)
+    googleplayImplementation(projects.googleplay)
     googleplayImplementation(libs.play.review)
     googleplayImplementation(libs.play.services.oss.licenses)
     googleplayImplementation(libs.horologist.datalayer.phone)
@@ -323,4 +324,5 @@ dependencies {
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.robolectric)
     testImplementation(libs.xpp3)
+    testGoogleplayImplementation(testFixtures(projects.googleplay))
 }

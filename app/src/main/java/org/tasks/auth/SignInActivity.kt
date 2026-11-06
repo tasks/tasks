@@ -310,7 +310,7 @@ class SignInActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             RC_PURCHASE ->
-                if (inventory.subscription.value?.isTasksSubscription == true) {
+                if (inventory.currentSubscription?.isTasksSubscription == true) {
                     lifecycleScope.launch {
                         val account = setupAccount()
                         if (account != null) {

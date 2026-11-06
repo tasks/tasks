@@ -31,7 +31,7 @@ import tasks.kmp.generated.resources.url_app_passwords
 import tasks.kmp.generated.resources.url_sponsor
 import org.tasks.analytics.Firebase
 import org.tasks.auth.SignInActivity
-import org.tasks.billing.BillingClient
+import org.tasks.billing.PlayBilling
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
@@ -48,6 +48,7 @@ import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.preferences.fragments.MainSettingsComposeFragment.Companion.REQUEST_TASKS_ORG
 import org.tasks.themes.Theme
 import org.tasks.utility.copyToClipboard
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,7 +57,7 @@ class TasksAccount : Fragment() {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var firebase: Firebase
-    @Inject lateinit var billingClient: BillingClient
+    @Inject lateinit var billing: PlayBilling
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var theme: Theme
     @Inject lateinit var accountDataRepository: TasksAccountDataRepository
@@ -226,7 +227,11 @@ class TasksAccount : Fragment() {
         if (requestCode == REQUEST_PURCHASE) {
             if (resultCode == Activity.RESULT_OK) {
                 lifecycleScope.launch {
-                    billingClient.queryPurchases()
+                    try {
+                        billing.queryPurchases()
+                    } catch (e: Exception) {
+                        Timber.e(e)
+                    }
                 }
             }
         } else {

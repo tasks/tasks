@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.runBlocking
 import org.tasks.LocalBroadcastManager
 import com.todoroo.astrid.gcal.GCalHelper
 import com.todoroo.astrid.repeats.RepeatTaskHelper
@@ -31,9 +32,10 @@ import org.tasks.analytics.Reporting
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.PushTokenManager
 import org.tasks.auth.TasksServerEnvironment
-import org.tasks.billing.BillingClient
-import org.tasks.billing.BillingClientImpl
 import org.tasks.billing.Inventory
+import org.tasks.billing.PlayPurchaseStore
+import org.tasks.billing.PlayPurchaseVerifier
+import org.tasks.billing.PlayPurchases
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.etebase.EtebaseClientProvider
@@ -218,20 +220,19 @@ class ApplicationModule {
     fun getCompletionDao(db: Database) = db.completionDao()
 
     @Provides
-    fun getBillingClient(
-        @ApplicationContext context: Context,
-        inventory: Inventory,
-        firebase: Firebase,
-        workManager: WorkManager,
-    ): BillingClient = BillingClientImpl(context, inventory, firebase, workManager)
+    @Singleton
+    fun providePlayPurchases(
+        store: PlayPurchaseStore,
+        verifier: PlayPurchaseVerifier,
+    ) = PlayPurchases(store, verifier).also { runBlocking { it.load() } }
 
     @Provides
     @Singleton
     fun provideSubscriptionProvider(
-        inventory: Inventory,
-        billingClient: BillingClient,
+        playPurchases: org.tasks.billing.PlayPurchases,
+        billing: org.tasks.billing.PlayBilling,
     ): org.tasks.billing.SubscriptionProvider =
-        org.tasks.billing.AndroidSubscriptionProvider(inventory, billingClient)
+        org.tasks.billing.PlaySubscriptionProvider(playPurchases, billing)
 
     @Singleton
     @ApplicationScope
@@ -457,7 +458,7 @@ class ApplicationModule {
         httpClientFactory = OkHttpKtorClientFactory(httpClientFactory),
         tokenProvider = tokenProvider,
         subscriptionProvider = {
-            inventory.subscription.value?.let {
+            inventory.currentSubscription?.let {
                 TasksBasicAuth.SubscriptionInfo(it.sku, it.purchaseToken)
             }
         },
