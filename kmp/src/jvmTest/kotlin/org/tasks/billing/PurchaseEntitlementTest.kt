@@ -438,6 +438,21 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun keepsAReceiptWithNoExpiryWithoutUnlocking() = runBlocking {
+        val entitlement = entitlement()
+
+        val granted = entitlement.storeEntitlement(
+            jwt = signedJwt("""{"iss":"tasks.org"}"""),
+            refreshToken = "stored-token",
+            provider = EntitlementProvider.STRIPE,
+        )
+
+        assertEquals(StoreResult.STORED, granted)
+        assertFalse(entitlement.hasPro.first())
+        verifyNoInteractions(syncAdapters)
+    }
+
+    @Test
     fun ignoresEntitlementWithUnreadablePayload() = runBlocking {
         storeOnDisk(signedJwt("not json"))
 

@@ -320,6 +320,11 @@ class PurchaseEntitlement(
             logger.e { "Refusing to store entitlement with an unreadable payload" }
             return StoreResult.REJECTED
         }
+        val exp = payload.exp
+        if (covered && exp == null) {
+            logger.e { "Refusing pro on a receipt with no expiration, keeping it" }
+        }
+        val unlocks = covered && exp != null
         val entitlement =
             StoredEntitlement(jwt, refreshToken, sku, formattedPrice, provider, terms)
         when (storage.write(json.encodeToString(StoredEntitlement.serializer(), entitlement))) {
@@ -333,20 +338,20 @@ class PurchaseEntitlement(
             }
             WriteResult.WRITTEN -> Unit
         }
-        lapsedReceipt = if (covered) null else jwt
-        val wasPro = if (covered) _hasPro.getAndUpdate { true } else _hasPro.value
+        lapsedReceipt = if (unlocks) null else jwt
+        val wasPro = if (unlocks) _hasPro.getAndUpdate { true } else _hasPro.value
         _sku.value = sku
         _formattedPrice.value = formattedPrice
         _provider.value = provider
         _terms.value = terms
-        if (covered && !wasPro) {
+        if (unlocks && !wasPro) {
             syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
         }
-        payload.exp?.let {
+        exp?.let {
             scheduleRefresh(
                 entitlement = entitlement,
                 exp = it,
-                interval = if (covered) RETRY_INTERVAL_SECONDS else lapsedRetryIntervalSeconds,
+                interval = if (unlocks) RETRY_INTERVAL_SECONDS else lapsedRetryIntervalSeconds,
             )
         }
         return StoreResult.STORED
