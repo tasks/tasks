@@ -689,4 +689,12 @@
     <string name="new_place">Neuen Ort erstellen</string>
     <string name="mcp_tools_group_accounts">Synchronisierungskonten</string>
     <string name="subscription_required">Abo erforderlich</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="restore_use_another_email">Benütze unterschiedliche Adressen</string>
+    <string name="error_no_purchase_found">Wir können keine Bezahlung für diese Adresse finden</string>
+    <string name="error_purchase_not_verified">Wir konnten die Bezahlung nicht überprüfen.</string>
+    <string name="checkout_expired">Die Zahlungsseite ist abgelaufen. Bitte versuchen Sie es noch mal.</string>
+    <string name="change_plan">Änderungsplan</string>
+    <string name="change_plan_message">Ihr Abonnement wird sich ab heute auf %1$s ändern. Der Restwert Ihres laufenden Abonnements wird auf Ihr Konto gutgeschrieben oder auf diese Gebühr angewendet.</string>
+    <string name="change_plan_trial">Ihre kostenlose Testversion endet auf %1$s. Am Ende Ihres Prozesses werden Sie %2$s berechnet.</string>
 </resources>
