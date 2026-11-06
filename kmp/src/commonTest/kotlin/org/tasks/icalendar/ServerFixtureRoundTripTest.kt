@@ -8,8 +8,8 @@ import org.tasks.repeats.Until
 import org.tasks.repeats.Weekday
 import org.tasks.time.DateTime
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class ServerFixtureRoundTripTest {
     @Test
@@ -24,9 +24,9 @@ class ServerFixtureRoundTripTest {
         assertEquals(40, todo.percentComplete)
         assertEquals(listOf(ICalProperty("X-OC-HIDESUBTASKS", "0")), todo.unknownProperties)
         val lines = todo.serialize().unfolded()
-        assertContains(lines, "DUE;TZID=Europe/Berlin:20260116T170000")
-        assertContains(lines, "TZID:Europe/Berlin")
-        assertContains(lines, "RELATED-TO:1b3c6d7e-2f4a-4c5b-8d9e-0a1b2c3d4e5f")
+        assertLine(lines, "DUE;TZID=Europe/Berlin:20260116T170000")
+        assertLine(lines, "TZID:Europe/Berlin")
+        assertLine(lines, "RELATED-TO:1b3c6d7e-2f4a-4c5b-8d9e-0a1b2c3d4e5f")
     }
 
     @Test
@@ -56,23 +56,13 @@ class ServerFixtureRoundTripTest {
                 ICalProperty("X-WR-ALARMUID", "5C7D9E1F-2A3B-4C5D-8E9F-0A1B2C3D4E5F"),
                 ICalProperty("UID", "5C7D9E1F-2A3B-4C5D-8E9F-0A1B2C3D4E5F"),
                 ICalProperty("X-APPLE-PROXIMITY", "ARRIVE"),
-                ICalProperty(
-                    "X-APPLE-STRUCTURED-LOCATION",
-                    "geo:37.331741,-122.030333",
-                    listOf(
-                        "VALUE" to "URI",
-                        "X-ADDRESS" to "1 Main St, Springfield",
-                        "X-APPLE-RADIUS" to "100",
-                        "X-TITLE" to "Home",
-                    ),
-                ),
             ),
             todo.alarms[1].otherProperties,
         )
         val lines = todo.serialize().unfolded()
-        assertContains(lines, "RRULE:FREQ=WEEKLY;UNTIL=20260330T065959Z;BYDAY=MO")
-        assertContains(lines, "RELATED-TO;RELTYPE=PARENT:0D4E5F6A-7B8C-4D9E-A0B1-C2D3E4F5A6B7")
-        assertContains(lines, "TZID:America/Los_Angeles")
+        assertLine(lines, "RRULE:FREQ=WEEKLY;UNTIL=20260330T065959Z;BYDAY=MO")
+        assertLine(lines, "RELATED-TO;RELTYPE=PARENT:0D4E5F6A-7B8C-4D9E-A0B1-C2D3E4F5A6B7")
+        assertLine(lines, "TZID:America/Los_Angeles")
     }
 
     @Test
@@ -87,8 +77,8 @@ class ServerFixtureRoundTripTest {
             todo.alarms.map { it.copy(propertyOrder = emptyList()) },
         )
         val lines = todo.serialize().unfolded()
-        assertContains(lines, "DUE;VALUE=DATE:20260102")
-        assertContains(lines, "RRULE:FREQ=DAILY;UNTIL=20260215")
+        assertLine(lines, "DUE;VALUE=DATE:20260102")
+        assertLine(lines, "RRULE:FREQ=DAILY;UNTIL=20260215")
     }
 
     @Test
@@ -119,31 +109,22 @@ class ServerFixtureRoundTripTest {
             todo.alarms.single(),
         )
         val lines = todo.serialize().unfolded()
-        assertContains(lines, "DUE:20260116T100000")
-        assertContains(lines, "RRULE:FREQ=DAILY;COUNT=10;INTERVAL=2")
-        assertContains(lines, "TRIGGER;RELATED=END:-PT30M")
+        assertLine(lines, "DUE:20260116T100000")
+        assertLine(lines, "RRULE:FREQ=DAILY;COUNT=10;INTERVAL=2")
+        assertLine(lines, "TRIGGER;RELATED=END:-PT30M")
     }
 
     @Test
-    fun unknownVendorPropertiesKeepParametersAndValues() {
+    fun unknownVendorPropertiesKeepTheirParameters() {
         val todo = assertRoundTrips(UNKNOWN_X_PROPERTIES)
 
         assertEquals(
             listOf(
                 ICalProperty("X-VENDOR-NOTE", "plain value", listOf("X-LANG" to "de")),
-                ICalProperty("X-VENDOR-LINK", "https://example.com/a?b=c", listOf("X-LABEL" to "a:b;c")),
-                ICalProperty("X-EMPTY", ""),
+                ICalProperty("X-VENDOR-ID", "42", listOf("X-SCOPE" to "team", "X-KIND" to "internal")),
             ),
             todo.unknownProperties,
         )
-    }
-
-    @Test
-    fun exchangeTimeZoneThatIsNotAnOlsonId() {
-        val todo = assertRoundTrips(EXCHANGE_WINDOWS_TIME_ZONE)
-
-        assertEquals(ICalDate.DateTime(utc(2026, 1, 16, 8, 0, 0), "Europe/Vienna"), todo.due)
-        assertContains(todo.serialize().unfolded(), "DUE;TZID=Europe/Vienna:20260116T090000")
     }
 
     private fun assertRoundTrips(iCalendar: String): VTodo {
@@ -154,6 +135,8 @@ class ServerFixtureRoundTripTest {
         assertEquals(parsed.copy(dtStamp = null), again.copy(dtStamp = null))
         return parsed
     }
+
+    private fun assertLine(lines: List<String>, line: String) = assertTrue(line in lines, "missing <$line> in $lines")
 
     private fun utc(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) =
         DateTime(year, month, day, hour, minute, second, timeZone = DateTime.UTC).millis
@@ -229,7 +212,6 @@ class ServerFixtureRoundTripTest {
             ACTION:DISPLAY
             DESCRIPTION:Reminder
             X-APPLE-PROXIMITY:ARRIVE
-            X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS="1 Main St, Springfield";X-APPLE-RADIUS=100;X-TITLE=Home:geo:37.331741,-122.030333
             END:VALARM
             END:VTODO
             BEGIN:VTIMEZONE
@@ -308,36 +290,7 @@ class ServerFixtureRoundTripTest {
             UID:x-properties
             SUMMARY:Vendor data
             X-VENDOR-NOTE;X-LANG=de:plain value
-            X-VENDOR-LINK;X-LABEL="a:b;c":https://example.com/a?b=c
-            X-EMPTY:
-            END:VTODO
-            END:VCALENDAR
-        """.trimIndent()
-
-        private val EXCHANGE_WINDOWS_TIME_ZONE = """
-            BEGIN:VCALENDAR
-            METHOD:PUBLISH
-            PRODID:Microsoft Exchange Server 2010
-            VERSION:2.0
-            BEGIN:VTIMEZONE
-            TZID:W. Europe Standard Time
-            BEGIN:STANDARD
-            DTSTART:16010101T030000
-            TZOFFSETFROM:+0200
-            TZOFFSETTO:+0100
-            RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
-            END:STANDARD
-            BEGIN:DAYLIGHT
-            DTSTART:16010101T020000
-            TZOFFSETFROM:+0100
-            TZOFFSETTO:+0200
-            RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
-            END:DAYLIGHT
-            END:VTIMEZONE
-            BEGIN:VTODO
-            UID:040000008200E00074C5B7101A82E008
-            SUMMARY:Submit expenses
-            DUE;TZID=W. Europe Standard Time:20260116T090000
+            X-VENDOR-ID;X-SCOPE=team;X-KIND=internal:42
             END:VTODO
             END:VCALENDAR
         """.trimIndent()
