@@ -443,7 +443,11 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 listViewModel.updateBannerState()
                 launch {
                     listViewModel.banner.collect { banner ->
+                        val wasAtTop = !recyclerView.canScrollVertically(-1)
                         bannerAdapter.showBanner = banner != null
+                        if (banner != null && wasAtTop) {
+                            recyclerView.scrollToPosition(0)
+                        }
                     }
                 }
                 if (TasksBuildConfig.DEBUG) {
