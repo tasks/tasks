@@ -27,12 +27,14 @@ class EncryptedStore(
                 if (fileSystem.exists(path)) fileSystem.read(path) { readUtf8() } else null
             }
         } ?: return null
-        return encryption.decrypt(encrypted)?.takeIf { it.isNotBlank() }
+        return withContext(Dispatchers.IO) {
+            encryption.decrypt(encrypted)?.takeIf { it.isNotBlank() }
+        }
     }
 
     suspend fun write(plain: String): WriteResult {
         val encrypted = try {
-            encryption.encrypt(plain)
+            withContext(Dispatchers.IO) { encryption.encrypt(plain) }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {

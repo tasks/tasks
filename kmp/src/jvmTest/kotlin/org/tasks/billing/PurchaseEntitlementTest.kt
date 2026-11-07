@@ -153,6 +153,44 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun restoreGrantsProFromUnexpiredEntitlementBeforeInitialize() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS))
+
+        entitlement().apply {
+            assertTrue(restore())
+            assertTrue(hasPro.value)
+        }
+        assertEquals(0, server.requestCount)
+        verifyNoInteractions(syncAdapters)
+    }
+
+    @Test
+    fun restoreNeverCallsTheServerPastGrace() = runBlocking {
+        storeOnDisk(jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS))
+
+        entitlement().apply {
+            assertFalse(restore())
+            assertFalse(hasPro.value)
+        }
+        assertEquals(0, server.requestCount)
+    }
+
+    @Test
+    fun initializeRefreshesWhatRestoreLeftPastGrace() = runBlocking {
+        storeOnDisk(jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS))
+        server.enqueue(refreshResponse(jwt(exp = now() + 30 * DAY_SECONDS)))
+
+        entitlement().apply {
+            restore()
+            initialize()
+
+            assertTrue(awaitReady())
+            assertTrue(hasPro.first())
+        }
+        assertEquals("stored-token", refreshTokenSent())
+    }
+
+    @Test
     fun refreshesEntitlementPastGracePeriod() = runBlocking {
         storeOnDisk(jwt(exp = now() - GRACE_SECONDS - DAY_SECONDS))
         val renewed = jwt(exp = now() + 30 * DAY_SECONDS)
@@ -953,7 +991,7 @@ class PurchaseEntitlementTest {
         },
         scope = scope,
         json = json,
-        syncAdapters = syncAdapters,
+        syncAdapters = { syncAdapters },
         publicKeyBase64 = Base64.getEncoder().encodeToString(keyPair.public.encoded),
         refreshCallTimeoutMillis = refreshCallTimeoutMillis,
         readyTimeoutMillis = readyTimeoutMillis,

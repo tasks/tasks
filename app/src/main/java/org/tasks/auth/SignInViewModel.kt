@@ -16,7 +16,6 @@ import net.openid.appauth.GrantTypeValues
 import net.openid.appauth.TokenRequest
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.PurchaseTokenInUseException
-import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.KeyStoreEncryption
@@ -30,6 +29,7 @@ class SignInViewModel @Inject constructor(
     private val caldavDao: CaldavDao,
     private val encryption: KeyStoreEncryption,
     private val debugConnectionBuilder: DebugConnectionBuilder,
+    private val purchaseClaim: PurchaseClaim,
     private val environment: TasksServerEnvironment,
 ) : ViewModel() {
     var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
@@ -80,34 +80,17 @@ class SignInViewModel @Inject constructor(
         val auth = authService.authStateManager.current
         val tokenString = auth.accessToken ?: return null
         val idToken = auth.idToken?.let { IdToken(it) } ?: return null
-        val sub = idToken.sub ?: return null
-        val username = "${authService.iss}_$sub"
+        if (idToken.sub == null) return null
         return try {
-            val homeSet = provider
-                    .forUrl(
-                            environment.caldavUrl,
-                            username,
-                            tokenString
-                    )
-                    .use { it.homeSet() }
-            val password = encryption.encrypt(tokenString)
-            val account = caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
-                    ?.let {
-                        it.copy(error = null, password = password)
-                            .also { caldavDao.update(it) }
-                    }
-                    ?: CaldavAccount(
-                        accountType = CaldavAccount.TYPE_TASKS,
-                        uuid = UUIDHelper.newUUID(),
-                        username = username,
-                        password = password,
-                        url = homeSet,
-                        name = idToken.email ?: idToken.login,
-                        serverType = CaldavAccount.SERVER_TASKS,
-                    ).let {
-                        it.copy(id = caldavDao.insert(it))
-                    }
-            account
+            setupTasksAccount(
+                oauthResult = OAuthResult(accessToken = tokenString, idToken = idToken),
+                issuer = authService.iss,
+                caldavUrl = environment.caldavUrl,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = provider,
+                purchaseClaim = purchaseClaim,
+            )
         } catch (e: Exception) {
             Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")
             handleError(e)

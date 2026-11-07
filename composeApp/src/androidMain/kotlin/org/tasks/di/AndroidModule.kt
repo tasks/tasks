@@ -9,8 +9,6 @@ import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
-import kotlinx.coroutines.flow.flowOf
-import org.tasks.TasksBuildConfig
 import android.content.Intent
 import android.net.Uri
 import org.tasks.billing.CompositeSubscriptionProvider
@@ -19,6 +17,7 @@ import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
 import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.billing.SubscriptionProvider
@@ -109,18 +108,13 @@ actual fun platformModule(): Module = module {
             serverEnvironment = get(),
             scope = get(),
             json = get(),
-            syncAdapters = get(),
+            syncAdapters = { get() },
         ).also { it.initialize() }
     }
     single<SubscriptionProvider> {
-        val tasksPreferences = get<TasksPreferences>()
         val entitlement = EntitlementSubscriptionProvider(
             entitlement = get(),
-            debugPro = if (TasksBuildConfig.DEBUG) {
-                tasksPreferences.flow(TasksPreferences.debugPro, false)
-            } else {
-                flowOf(false)
-            },
+            debugPro = get<TasksPreferences>().debugProFlow,
         )
         when (val store = getOrNull<StoreSubscriptionProvider>()) {
             null -> entitlement

@@ -9,10 +9,8 @@ import javax.crypto.SecretKey
 
 class AndroidKeyProvider : KeyProvider {
 
-    private val keyStore: KeyStore = KeyStore.getInstance(ANDROID_KEYSTORE)
-
-    init {
-        keyStore.load(null)
+    private val keyStore: KeyStore by lazy {
+        KeyStore.getInstance(ANDROID_KEYSTORE).apply { load(null) }
     }
 
     override fun getKey(): SecretKey {

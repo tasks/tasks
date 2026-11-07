@@ -24,6 +24,7 @@ class Inventory @Inject constructor(
     @ApplicationScope scope: CoroutineScope,
     private val preferences: Preferences,
     private val playPurchases: PlayPurchases,
+    private val entitlement: PurchaseEntitlement,
     private val localBroadcastManager: LocalBroadcastManager,
     private val caldavDao: CaldavDao,
 ) : PurchaseState {
@@ -31,6 +32,9 @@ class Inventory @Inject constructor(
 
     val currentSubscription: PlayPurchase?
         get() = playPurchases.state.value.subscription
+
+    @Volatile
+    private var entitled = false
 
     val purchases: Map<String, PlayPurchase>
         get() = playPurchases.state.value.purchases
@@ -41,8 +45,11 @@ class Inventory @Inject constructor(
     override val hasTasksSubscription: Boolean
         get() = currentSubscription?.isTasksSubscription == true || hasTasksAccount
 
+    val hasSubscription: Boolean
+        get() = playPurchases.hasPro || entitled || entitlement.hasPro.value || hasTasksAccount
+
     val begForMoney: Boolean
-        get() = if (IS_GENERIC) !hasTasksAccount else !hasPro
+        get() = if (IS_GENERIC) !hasSubscription else !hasPro
 
     override fun purchasedThemes() = hasPro || playPurchases.purchasedThemes
 
@@ -51,13 +58,17 @@ class Inventory @Inject constructor(
         get() = IS_GENERIC ||
                 (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false)) ||
                 hasTasksAccount ||
-                playPurchases.hasPro
+                playPurchases.hasPro ||
+                entitled ||
+                entitlement.hasPro.value
 
     suspend fun updateTasksAccount() {
         hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
             it.isTasksSubscription()
         }
     }
+
+    suspend fun awaitVerification(): Boolean = entitlement.awaitReady()
 
     fun getPurchase(sku: String) = playPurchases.get(sku)
 
@@ -75,6 +86,12 @@ class Inventory @Inject constructor(
         scope.launch(Dispatchers.Main.immediate) {
             playPurchases.updates.collect {
                 subscription.value = playPurchases.state.value.subscription
+                localBroadcastManager.broadcastPurchasesUpdated()
+            }
+        }
+        scope.launch(Dispatchers.Main.immediate) {
+            entitlement.hasPro.collect {
+                entitled = it
                 localBroadcastManager.broadcastPurchasesUpdated()
             }
         }

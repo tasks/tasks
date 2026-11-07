@@ -36,6 +36,7 @@ import org.tasks.billing.Inventory
 import org.tasks.billing.PlayPurchaseStore
 import org.tasks.billing.PlayPurchaseVerifier
 import org.tasks.billing.PlayPurchases
+import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.etebase.EtebaseClientProvider
@@ -43,6 +44,7 @@ import org.tasks.etebase.EtebaseSynchronizer
 import org.tasks.caldav.TasksBasicAuth
 import org.tasks.feed.BlogFeedChecker
 import org.tasks.http.HttpClientFactory
+import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpKtorClientFactory
 import org.tasks.caldav.FileStorage
 import org.tasks.analytics.Analytics
@@ -85,6 +87,7 @@ import org.tasks.pebble.PebbleMessageHandler
 import org.tasks.pebble.PebbleRefresher
 import org.tasks.pebble.PebbleService
 import org.tasks.preferences.AppPreferences
+import org.tasks.preferences.InstallId
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.reminders.Random
@@ -225,14 +228,6 @@ class ApplicationModule {
         store: PlayPurchaseStore,
         verifier: PlayPurchaseVerifier,
     ) = PlayPurchases(store, verifier).also { runBlocking { it.load() } }
-
-    @Provides
-    @Singleton
-    fun provideSubscriptionProvider(
-        playPurchases: org.tasks.billing.PlayPurchases,
-        billing: org.tasks.billing.PlayBilling,
-    ): org.tasks.billing.SubscriptionProvider =
-        org.tasks.billing.PlaySubscriptionProvider(playPurchases, billing)
 
     @Singleton
     @ApplicationScope
@@ -444,22 +439,32 @@ class ApplicationModule {
     )
 
     @Provides
+    @Singleton
+    fun providesInstallId(tasksPreferences: TasksPreferences): InstallId =
+        InstallId(tasksPreferences)
+
+    @Provides
+    @Singleton
+    fun providesKtorClientFactory(httpClientFactory: HttpClientFactory): KtorClientFactory =
+        OkHttpKtorClientFactory(httpClientFactory)
+
+    @Provides
     fun providesCaldavClientProvider(
         encryption: KeyStoreEncryption,
         tasksPreferences: TasksPreferences,
         environment: TasksServerEnvironment,
-        httpClientFactory: HttpClientFactory,
+        httpClientFactory: KtorClientFactory,
         tokenProvider: FcmTokenProvider,
-        inventory: Inventory,
+        storeSubscriptionProvider: StoreSubscriptionProvider?,
     ): CaldavClientProvider = CaldavClientProvider(
         encryption = encryption,
         tasksPreferences = tasksPreferences,
         environment = environment,
-        httpClientFactory = OkHttpKtorClientFactory(httpClientFactory),
+        httpClientFactory = httpClientFactory,
         tokenProvider = tokenProvider,
         subscriptionProvider = {
-            inventory.currentSubscription?.let {
-                TasksBasicAuth.SubscriptionInfo(it.sku, it.purchaseToken)
+            storeSubscriptionProvider?.current?.let { info ->
+                info.purchaseToken?.let { TasksBasicAuth.SubscriptionInfo(info.sku, it) }
             }
         },
     )

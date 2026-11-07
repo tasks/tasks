@@ -265,7 +265,7 @@ class StripePurchasesTest {
         },
         scope = scope,
         json = json,
-        syncAdapters = mock<SyncAdapters>(),
+        syncAdapters = { mock<SyncAdapters>() },
         publicKeyBase64 = Base64.getEncoder().encodeToString(keyPair.public.encoded),
     )
 

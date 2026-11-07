@@ -19,6 +19,7 @@ class InventoryTest : InjectingTestCase() {
     @Inject lateinit var preferences: Preferences
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var playPurchases: PlayPurchases
+    @Inject lateinit var entitlement: PurchaseEntitlement
     @Inject lateinit var caldavDao: CaldavDao
     @Inject @ApplicationScope lateinit var scope: CoroutineScope
 
@@ -50,6 +51,7 @@ class InventoryTest : InjectingTestCase() {
         scope,
         preferences,
         playPurchases,
+        entitlement,
         localBroadcastManager,
         caldavDao,
     )

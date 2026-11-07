@@ -164,4 +164,13 @@ class FlavorModule {
         subscriptionProvider = subscriptionProvider,
         json = json,
     )
+
+    @Provides
+    @Singleton
+    fun provideStoreSubscriptionProvider(
+        playPurchases: org.tasks.billing.PlayPurchases,
+        billing: org.tasks.billing.PlayBilling,
+    ): org.tasks.billing.StoreSubscriptionProvider =
+        org.tasks.billing.PlaySubscriptionProvider(playPurchases, billing)
+
 }

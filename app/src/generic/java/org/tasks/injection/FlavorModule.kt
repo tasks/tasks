@@ -52,6 +52,7 @@ class FlavorModule {
         supportsGeofences = true,
         supportsCalendarEvents = true,
         appStore = AppStore.FDROID,
+        billingProvider = org.tasks.billing.BillingProvider.STRIPE,
         isAndroid = true,
         isLibre = true,
         supportsWidgets = true,
@@ -95,4 +96,8 @@ class FlavorModule {
     fun getDesktopLinkService(): DesktopLinkService = object : DesktopLinkService {
         override suspend fun confirmLink(code: String) = false
     }
+
+    @Provides
+    @Singleton
+    fun provideStoreSubscriptionProvider(): org.tasks.billing.StoreSubscriptionProvider? = null
 }

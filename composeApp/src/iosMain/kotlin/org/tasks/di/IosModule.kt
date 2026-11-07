@@ -3,7 +3,6 @@ package org.tasks.di
 import androidx.room3.Room
 import com.todoroo.astrid.service.CommonUpgrades
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -28,6 +27,7 @@ import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.CaldavClientFactory
@@ -133,18 +133,13 @@ actual fun platformModule(): Module = module {
             serverEnvironment = get(),
             scope = get(),
             json = get(),
-            syncAdapters = get(),
+            syncAdapters = { get() },
         ).also { it.initialize() }
     }
     single<SubscriptionProvider> {
-        val tasksPreferences = get<TasksPreferences>()
         EntitlementSubscriptionProvider(
             entitlement = get(),
-            debugPro = if (TasksBuildConfig.DEBUG) {
-                tasksPreferences.flow(TasksPreferences.debugPro, false)
-            } else {
-                flowOf(false)
-            },
+            debugPro = get<TasksPreferences>().debugProFlow,
         )
     }
     single {

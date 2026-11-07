@@ -43,7 +43,7 @@ class PurchaseEntitlement(
     private val serverEnvironment: TasksServerEnvironment,
     private val scope: CoroutineScope,
     private val json: Json,
-    private val syncAdapters: SyncAdapters,
+    private val syncAdapters: () -> SyncAdapters,
     private val publicKeyBase64: String = TASKS_PUBLIC_KEY,
     private val refreshCallTimeoutMillis: Long = REFRESH_CALL_TIMEOUT_MILLIS,
     private val lapsedRetryIntervalSeconds: Long = LAPSED_RETRY_INTERVAL_SECONDS,
@@ -190,6 +190,8 @@ class PurchaseEntitlement(
 
     fun initialize() = scope.launch { checkLock.withLock { check() } }
 
+    suspend fun restore(): Boolean = checkLock.withLock { check(refresh = false) }
+
     suspend fun checkTier(): Boolean = checkLock.withLock {
         val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return@withLock false
         val checked = callCheck(stored) ?: return@withLock false
@@ -255,7 +257,7 @@ class PurchaseEntitlement(
         return answered
     }
 
-    private suspend fun check(): Boolean {
+    private suspend fun check(refresh: Boolean = true): Boolean {
         if (_hasPro.value) return true
         val stored = when (val result = load()) {
             is LoadResult.Loaded -> result.entitlement
@@ -283,6 +285,9 @@ class PurchaseEntitlement(
         }
         if (stored.jwt == lapsedReceipt) {
             return true
+        }
+        if (!refresh) {
+            return false
         }
         if (now < lastRefreshAttempt + RETRY_INTERVAL_SECONDS) {
             logger.e { "Grace period exceeded and refresh failed, syncing without pro" }
@@ -369,7 +374,7 @@ class PurchaseEntitlement(
         _provider.value = provider
         _terms.value = terms
         if (unlocks && !wasPro) {
-            syncAdapters.sync(SyncSource.PURCHASE_COMPLETED)
+            syncAdapters().sync(SyncSource.PURCHASE_COMPLETED)
         }
         exp?.let {
             scheduleRefresh(

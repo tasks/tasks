@@ -1,12 +1,18 @@
 package org.tasks.auth
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavDiscoveryClient
@@ -145,6 +151,47 @@ class AccountSetupTest {
 
         assertEquals(1L, account.id)
         assertEquals(emptyList<String>(), calls)
+    }
+
+    @Test
+    fun overlappingSignInsCreateOneAccount() = runBlocking {
+        var stored: CaldavAccount? = null
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doAnswer { stored }
+            onBlocking { insert(any<CaldavAccount>()) } doAnswer {
+                stored = it.getArgument<CaldavAccount>(0).copy(id = 1L)
+                1L
+            }
+        }
+        val slowFactory = object : CaldavClientFactory by clientFactory {
+            override suspend fun forUrl(url: String?, username: String?, password: String?) =
+                object : CaldavDiscoveryClient {
+                    override suspend fun homeSet(): String {
+                        delay(100)
+                        return discoveryClient.homeSet()
+                    }
+
+                    override fun close() = Unit
+                }
+        }
+
+        val accounts = List(2) {
+            async(Dispatchers.Default) {
+                setupTasksAccount(
+                    oauthResult = oauthResult(),
+                    issuer = "google",
+                    caldavUrl = "https://caldav.example.com",
+                    caldavDao = caldavDao,
+                    encryption = encryption,
+                    provider = slowFactory,
+                    purchaseClaim = purchaseClaim,
+                )
+            }
+        }.awaitAll()
+
+        verify(caldavDao, times(1)).insert(any<CaldavAccount>())
+        assertEquals(listOf(1L, 1L), accounts.map { it.id })
+        assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
     }
 
     @OptIn(ExperimentalEncodingApi::class)

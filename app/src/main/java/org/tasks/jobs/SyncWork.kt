@@ -113,6 +113,10 @@ class SyncWork @AssistedInject constructor(
     }
 
     private suspend fun doSync() {
+        inventory.updateTasksAccount()
+        if (!inventory.hasTasksAccount && !inventory.awaitVerification()) {
+            Timber.e("Could not confirm subscription, syncing without pro")
+        }
         val hasNetworkConnectivity = context.hasNetworkConnectivity()
         if (hasNetworkConnectivity && hasTosAcceptance()) {
             googleTaskJobs().plus(caldavJobs()).awaitAll()
