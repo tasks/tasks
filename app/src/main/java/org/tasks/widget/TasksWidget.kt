@@ -58,6 +58,13 @@ class TasksWidget : AppWidgetProvider() {
         }
     }
 
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        Timber.d("onDeleted appWidgetIds=${appWidgetIds.joinToString { it.toString() }}")
+        appWidgetIds.forEach { id ->
+            WidgetPreferences(context, preferences, id).delete()
+        }
+    }
+
     override fun onAppWidgetOptionsChanged(
             context: Context,
             appWidgetManager: AppWidgetManager,

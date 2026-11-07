@@ -182,6 +182,10 @@ class WidgetPreferences(
         preferences.setString(getKey(R.string.p_widget_filter), filterPreferenceValue)
     }
 
+    fun delete() {
+        preferences.remove(KEYS.map { getKey(it) })
+    }
+
     fun setCompact(compact: Boolean) {
         setBoolean(R.string.p_widget_compact, compact)
     }
@@ -295,4 +299,46 @@ class WidgetPreferences(
         set(ascending) {
             preferences.subtaskAscending = ascending
         }
+
+    companion object {
+        private val KEYS = listOf(
+            R.string.p_widget_filter,
+            R.string.p_widget_theme,
+            R.string.p_widget_sort,
+            R.string.p_widget_group,
+            R.string.p_widget_sort_ascending,
+            R.string.p_widget_group_ascending,
+            R.string.p_widget_sort_manual,
+            R.string.p_widget_sort_astrid,
+            R.string.p_widget_show_hidden,
+            R.string.p_widget_show_completed,
+            R.string.p_widget_show_completed_subtasks,
+            R.string.p_widget_compact,
+            R.string.p_widget_color,
+            R.string.p_widget_color_v2,
+            R.string.p_widget_opacity,
+            R.string.p_widget_font_size,
+            R.string.p_widget_show_due_date,
+            R.string.p_widget_show_full_task_title,
+            R.string.p_widget_show_dividers,
+            R.string.p_widget_show_subtasks,
+            R.string.p_widget_show_start_dates,
+            R.string.p_widget_show_places,
+            R.string.p_widget_show_lists,
+            R.string.p_widget_show_tags,
+            R.string.p_widget_show_description,
+            R.string.p_widget_show_full_description,
+            R.string.p_widget_show_checkboxes,
+            R.string.p_widget_show_header,
+            R.string.p_widget_show_settings,
+            R.string.p_widget_show_title,
+            R.string.p_widget_show_menu,
+            R.string.p_widget_header_opacity,
+            R.string.p_widget_footer_opacity,
+            R.string.p_widget_due_date_position,
+            R.string.p_widget_header_spacing,
+            R.string.p_widget_spacing,
+            R.string.p_widget_collapsed,
+        )
+    }
 }

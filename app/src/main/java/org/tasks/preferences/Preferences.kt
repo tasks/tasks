@@ -674,6 +674,12 @@ class Preferences @JvmOverloads constructor(
         editor.apply()
     }
 
+    fun remove(keys: Collection<String>) {
+        val editor = prefs.edit()
+        keys.forEach { editor.remove(it) }
+        editor.apply()
+    }
+
     fun removeByPrefix(prefix: String) {
         val editor = prefs.edit()
         prefs.all.keys
