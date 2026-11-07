@@ -1,6 +1,7 @@
 package org.tasks.auth
 
 const val GOOGLE_TASKS_SCOPE = "https://www.googleapis.com/auth/tasks"
+const val MICROSOFT_TASKS_SCOPE = "Tasks.ReadWrite"
 
 private const val PROMPT = "prompt"
 private const val SELECT_ACCOUNT = "select_account"
@@ -31,7 +32,7 @@ enum class OAuthProvider(
         issuer = "microsoft",
         discoveryPath = "",
         clientId = "9d4babd5-e7ba-4286-ba4b-17274495a901",
-        scope = "user.read Tasks.ReadWrite openid offline_access email",
+        scope = "user.read $MICROSOFT_TASKS_SCOPE openid offline_access email profile",
         discoveryUrl = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration",
         iosRedirectUri = "msauth.org.tasks://auth",
     ),
