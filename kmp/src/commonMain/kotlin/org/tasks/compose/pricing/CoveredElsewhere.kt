@@ -4,21 +4,17 @@ import androidx.compose.runtime.Composable
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.billing.UnlockSource
 import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.github_sponsorship
-import tasks.kmp.generated.resources.google_play_subscription
-import tasks.kmp.generated.resources.subscription_covered_by
-import tasks.kmp.generated.resources.subscription_covered_elsewhere
+import tasks.kmp.generated.resources.subscription_active_card
+import tasks.kmp.generated.resources.subscription_active_elsewhere
+import tasks.kmp.generated.resources.subscription_active_github
+import tasks.kmp.generated.resources.subscription_active_google_play
 
 @Composable
-fun coveredElsewhereMessage(source: UnlockSource?): String = when (source) {
-    UnlockSource.GOOGLE_PLAY -> stringResource(
-        Res.string.subscription_covered_by,
-        stringResource(Res.string.google_play_subscription),
-    )
-    UnlockSource.GITHUB -> stringResource(
-        Res.string.subscription_covered_by,
-        stringResource(Res.string.github_sponsorship),
-    )
-    UnlockSource.STRIPE,
-    null -> stringResource(Res.string.subscription_covered_elsewhere)
-}
+fun coveredElsewhereMessage(source: UnlockSource?): String = stringResource(
+    when (source) {
+        UnlockSource.GOOGLE_PLAY -> Res.string.subscription_active_google_play
+        UnlockSource.GITHUB -> Res.string.subscription_active_github
+        UnlockSource.STRIPE -> Res.string.subscription_active_card
+        null -> Res.string.subscription_active_elsewhere
+    }
+)

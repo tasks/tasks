@@ -41,7 +41,8 @@ class PlayBillingClient(
     private val purchases: PlayPurchases,
     private val reporting: Reporting,
     private val scope: CoroutineScope,
-    private val onPurchasesUpdated: suspend (List<PlayPurchase>) -> Unit = {},
+    private val onPurchasesAdded: suspend (List<PlayPurchase>) -> Unit = {},
+    private val onPurchaseFlowFinished: suspend () -> Unit = {},
 ) : PlayBilling, PurchasesUpdatedListener {
     private val logger = Logger.withTag("PlayBillingClient")
 
@@ -176,14 +177,23 @@ class PlayBillingClient(
         if (result.success) {
             val updated = purchaseList.orEmpty()
             scope.launch {
-                val purchased = updated.map { it.toPlayPurchase() }
-                purchases.add(purchased)
+                val known = updated.mapNotNull { purchases.get(it.products.first())?.purchaseToken }
+                val purchased = purchases.add(updated.map { it.toPlayPurchase() })
+                    .filter { it.isPurchased && it.purchaseToken !in known }
                 try {
-                    acknowledging.withLock { acknowledgePending() }
+                    queryPurchases()
                 } catch (e: Exception) {
-                    logger.w(e) { "Failed to acknowledge purchases after update" }
+                    logger.w(e) { "Failed to refresh purchases after update" }
+                    try {
+                        acknowledging.withLock { acknowledgePending() }
+                    } catch (e: Exception) {
+                        logger.w(e) { "Failed to acknowledge purchases after update" }
+                    }
                 }
-                onPurchasesUpdated(purchased)
+                onPurchaseFlowFinished()
+                if (purchased.isNotEmpty()) {
+                    onPurchasesAdded(purchased)
+                }
             }
             updated
                 .filter { !it.isAcknowledged }
@@ -198,7 +208,7 @@ class PlayBillingClient(
         } else {
             logger.w { "onPurchasesUpdated: ${result.responseCodeString}: ${result.debugMessage}" }
             reportIabResult(result.responseCodeString, state = STATE_PURCHASE_UPDATED_FAILED)
-            scope.launch { onPurchasesUpdated(emptyList()) }
+            scope.launch { onPurchaseFlowFinished() }
         }
     }
 

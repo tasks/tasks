@@ -347,6 +347,10 @@
     <string name="restore_renewal_settling">Your renewal is still going through</string>
     <string name="error_purchase_not_verified">We couldn't verify your purchase on this device.</string>
     <string name="error_too_many_requests">Too many attempts. Please wait a few minutes and try again.</string>
+    <string name="subscription_active_google_play">You already have an active Google Play subscription.</string>
+    <string name="subscription_active_github">You already have an active GitHub sponsorship.</string>
+    <string name="subscription_active_card">You already have an active subscription paid by card.</string>
+    <string name="subscription_active_elsewhere">You already have an active subscription somewhere else.</string>
     <string name="error_billing_unavailable">Billing isn't available right now. Please try again later.</string>
     <string name="error_github_verification_failed">Verification failed. Please try again.</string>
     <string name="pricing_subtitle">Free and open source. Subscriptions support development and unlock additional features.</string>
@@ -383,8 +387,6 @@
     <string name="subscription_ended_on">Ended %1$s</string>
     <string name="subscription_free_until">Free until %1$s, then %2$s</string>
     <string name="subscription_payment_failed">Payment failed, update your card</string>
-    <string name="subscription_covered_by">This account is paid for by your %1$s.</string>
-    <string name="subscription_covered_elsewhere">This account is already paid for somewhere else.</string>
     <string name="already_subscribed">Already a subscriber?</string>
     <string name="sign_in_subtitle">Already a subscriber or invited guest?</string>
     <string name="upgrade_subscription_banner">Thanks for your support! Upgrade your subscription to enable Tasks.org Cloud Sync</string>

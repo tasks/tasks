@@ -57,6 +57,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
+import org.tasks.billing.SubscriptionSkus
 import org.tasks.billing.UnlockSource
 import tasks.kmp.generated.resources.*
 
@@ -92,10 +93,12 @@ data class StoreBilling(
         !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
 
     fun warnCoveredElsewhere(price: BillingOption?): Boolean =
-        coveredElsewhere && !currentlyEntitled && price?.entitles == true
+        coveredElsewhere && price != null &&
+                (currentSku == null || price.entitles && !currentlyEntitled)
 
     private val currentlyEntitled: Boolean
-        get() = catalog.price(currentSku)?.entitles == true
+        get() = SubscriptionSkus.isTasksSubscription(currentSku) ||
+                catalog.price(currentSku)?.entitles == true
 }
 
 @Composable
@@ -153,6 +156,7 @@ fun PricingScreen(
     onNypSubscribeClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
     hasSupporterSubscription: Boolean = false,
+    showSignIn: Boolean = true,
     store: StoreBilling? = null,
 ) {
     Scaffold(
@@ -224,7 +228,7 @@ fun PricingScreen(
                         modifier = cardModifier,
                         isRecommended = showBoth,
                         onCtaClick = onCloudSubscribeClick,
-                        onSignIn = onSignIn,
+                        onSignIn = onSignIn.takeIf { showSignIn },
                         onBillingToggle = onBillingToggle,
                         store = store,
                     )
@@ -278,7 +282,7 @@ private fun CloudTierCard(
     modifier: Modifier = Modifier,
     isRecommended: Boolean = true,
     onCtaClick: () -> Unit,
-    onSignIn: () -> Unit,
+    onSignIn: (() -> Unit)?,
     onBillingToggle: (Boolean) -> Unit = {},
     store: StoreBilling? = null,
 ) {
@@ -350,8 +354,9 @@ private fun CloudTierCard(
                 },
             )
         },
-        footerDescription = stringResource(Res.string.sign_in_subtitle),
-        footerLabel = stringResource(Res.string.sign_in),
+        footerDescription = stringResource(Res.string.sign_in_subtitle)
+            .takeIf { onSignIn != null },
+        footerLabel = stringResource(Res.string.sign_in).takeIf { onSignIn != null },
         onFooterClick = onSignIn,
     )
 }
@@ -425,6 +430,10 @@ private fun NameYourPricePicker(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        if (store.warnCoveredElsewhere(card)) {
+            CtaNotice(coveredElsewhereMessage(store.coveredBy))
+            Spacer(modifier = Modifier.height(8.dp))
+        }
         Slider(
             value = sliderPosition,
             onValueChange = { sliderPosition = it },

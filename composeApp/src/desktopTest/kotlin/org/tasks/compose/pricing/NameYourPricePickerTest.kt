@@ -1,19 +1,13 @@
 package org.tasks.compose.pricing
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
@@ -36,21 +30,15 @@ class NameYourPricePickerTest {
 
     @Test
     fun theCardIsTheSameHeightOnEveryRung() = runComposeUiTest {
-        setContent {
-            Box(modifier = Modifier.size(480.dp, 2000.dp)) {
-                PricingScreen(
-                    mode = PricingMode.NYP_ONLY,
-                    onBack = {},
-                    onSignIn = {},
-                    onRestorePurchases = {},
-                    store = StoreBilling(
-                        catalog = BillingCatalog.from(rungs + monthly),
-                        suggestedPrice = 1,
-                        onSelect = {},
-                    ),
-                )
-            }
-        }
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(rungs + monthly),
+                suggestedPrice = 1,
+                onSelect = {},
+            ),
+            mode = PricingMode.NYP_ONLY,
+        )
+
         assertShowing("Subscribe for \$0.99/year")
         val annualOnly = restoreButtonY()
 
@@ -74,9 +62,4 @@ class NameYourPricePickerTest {
 
     private fun ComposeUiTest.restoreButtonY() =
         onNodeWithText("Restore purchases").fetchSemanticsNode().positionInRoot.y
-
-    private fun ComposeUiTest.assertShowing(text: String) = assertTrue(
-        "expected to be showing \"$text\"",
-        onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty(),
-    )
 }

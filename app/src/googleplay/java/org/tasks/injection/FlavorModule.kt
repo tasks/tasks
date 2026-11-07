@@ -17,14 +17,27 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
+import org.tasks.analytics.Firebase
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkService
 import org.tasks.billing.DesktopLinkServiceImpl
 import org.tasks.billing.GooglePlayQrScanner
+import org.tasks.billing.HiltPlayStoreBillingProvider
+import org.tasks.billing.PlayBilling
+import org.tasks.billing.PlayBillingClient
+import org.tasks.billing.PlayPurchaseStore
+import org.tasks.billing.PlayPurchaseVerifier
+import org.tasks.billing.PlayPurchases
+import org.tasks.billing.PlaySignatureVerifier
+import org.tasks.billing.PlaySubscriptionProvider
+import org.tasks.billing.PreferencesPlayPurchaseStore
 import org.tasks.billing.QrScanner
-import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.StoreBillingProvider
+import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.http.HttpClientFactory
+import org.tasks.jobs.WorkManager
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderMapbox
 import org.tasks.location.GoogleMapFragment
@@ -34,6 +47,8 @@ import org.tasks.location.LocationServiceGooglePlay
 import org.tasks.location.MapFragment
 import org.tasks.location.OsmMapFragment
 import org.tasks.play.PlayServices
+import org.tasks.sync.SyncAdapters
+import org.tasks.sync.SyncSource
 import org.tasks.wear.WearRefresher
 import org.tasks.wear.WearRefresherImpl
 import javax.inject.Singleton
@@ -45,28 +60,27 @@ class FlavorModule {
     @Singleton
     fun providePlayBilling(
         @ApplicationContext context: Context,
-        purchases: org.tasks.billing.PlayPurchases,
-        firebase: org.tasks.analytics.Firebase,
+        purchases: PlayPurchases,
+        firebase: Firebase,
         @ApplicationScope scope: CoroutineScope,
-        workManager: org.tasks.jobs.WorkManager,
-    ): org.tasks.billing.PlayBilling = org.tasks.billing.PlayBillingClient(
+        workManager: WorkManager,
+        syncAdapters: Lazy<SyncAdapters>,
+    ): PlayBilling = PlayBillingClient(
         context = context,
         purchases = purchases,
         reporting = firebase,
         scope = scope,
-        onPurchasesUpdated = { workManager.updatePurchases() },
+        onPurchasesAdded = { syncAdapters.get().sync(SyncSource.PURCHASE_COMPLETED) },
+        onPurchaseFlowFinished = { workManager.updatePurchases() },
     )
 
     @Provides
     @Singleton
-    fun providePlayPurchaseVerifier(): org.tasks.billing.PlayPurchaseVerifier =
-        org.tasks.billing.PlaySignatureVerifier()
+    fun providePlayPurchaseVerifier(): PlayPurchaseVerifier = PlaySignatureVerifier()
 
     @Provides
     @Singleton
-    fun providePlayPurchaseStore(
-        store: org.tasks.billing.PreferencesPlayPurchaseStore,
-    ): org.tasks.billing.PlayPurchaseStore = store
+    fun providePlayPurchaseStore(store: PreferencesPlayPurchaseStore): PlayPurchaseStore = store
 
     @Provides
     fun getPlatformConfiguration() = PlatformConfiguration(
@@ -79,7 +93,7 @@ class FlavorModule {
         supportsBackupImport = true,
         supportsGeofences = true,
         supportsCalendarEvents = true,
-        billingProvider = org.tasks.billing.BillingProvider.GOOGLE_PLAY,
+        billingProvider = BillingProvider.GOOGLE_PLAY,
         appStore = AppStore.GOOGLE_PLAY,
         isAndroid = true,
         supportsWidgets = true,
@@ -156,21 +170,23 @@ class FlavorModule {
     fun getDesktopLinkService(
         httpClientFactory: HttpClientFactory,
         serverEnvironment: TasksServerEnvironment,
-        subscriptionProvider: SubscriptionProvider,
+        storeSubscriptionProvider: StoreSubscriptionProvider,
         json: Json,
     ): DesktopLinkService = DesktopLinkServiceImpl(
         httpClientFactory = httpClientFactory,
         serverEnvironment = serverEnvironment,
-        subscriptionProvider = subscriptionProvider,
+        subscriptionProvider = storeSubscriptionProvider,
         json = json,
     )
 
     @Provides
     @Singleton
     fun provideStoreSubscriptionProvider(
-        playPurchases: org.tasks.billing.PlayPurchases,
-        billing: org.tasks.billing.PlayBilling,
-    ): org.tasks.billing.StoreSubscriptionProvider =
-        org.tasks.billing.PlaySubscriptionProvider(playPurchases, billing)
+        playPurchases: PlayPurchases,
+        billing: PlayBilling,
+    ): StoreSubscriptionProvider = PlaySubscriptionProvider(playPurchases, billing)
 
+    @Provides
+    @Singleton
+    fun provideStoreBillingProvider(): StoreBillingProvider? = HiltPlayStoreBillingProvider()
 }

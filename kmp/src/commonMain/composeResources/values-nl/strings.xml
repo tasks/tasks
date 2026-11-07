@@ -724,6 +724,4 @@
     <string name="subscription_ended_on">Beëindigd per %1$s</string>
     <string name="subscription_free_until">Gratis tot %1$s, daarna %2$s</string>
     <string name="subscription_payment_failed">Betaling mislukt, betaalwijze bijwerken</string>
-    <string name="subscription_covered_by">Dit account wordt betaald door uw %1$s.</string>
-    <string name="subscription_covered_elsewhere">Deze rekening wordt al ergens anders betaald.</string>
 </resources>

@@ -323,7 +323,8 @@
 
     <activity
         android:name=".billing.PurchaseActivity"
-        android:theme="@style/Tasks" />
+        android:theme="@style/Tasks"
+        android:windowSoftInputMode="adjustResize" />
 
     <activity
         android:name=".compose.accounts.AddAccountActivity"

@@ -44,6 +44,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskCreator
@@ -61,7 +62,6 @@ import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.billing.maybeTriggerCloudOnboarding
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.CaldavSignInActivity
@@ -69,7 +69,6 @@ import org.tasks.compose.AddAccountDestination
 import org.tasks.compose.HomeDestination
 import org.tasks.compose.ImportTasksViewModel
 import org.tasks.compose.PurchaseDestination
-import org.tasks.compose.PurchaseScreen
 import org.tasks.compose.SubscriptionOnboardingDestination
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.TosUpdateDialog
@@ -133,6 +132,9 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var serverEnvironment: TasksServerEnvironment
     @Inject lateinit var configuration: PlatformConfiguration
+    @Inject lateinit var stripePurchases: org.tasks.billing.StripePurchases
+    @Inject lateinit var subscriptionProvider: org.tasks.billing.SubscriptionProvider
+    @JvmField @Inject var storeBillingProvider: org.tasks.billing.StoreBillingProvider? = null
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -364,9 +366,9 @@ class MainActivity : AppCompatActivity() {
                                         } else {
                                             syncLauncher.launch(
                                                 Intent(this@MainActivity, PurchaseActivity::class.java)
-                                                    .putExtra(PurchaseActivityViewModel.EXTRA_NAME_YOUR_PRICE, false)
-                                                    .putExtra(PurchaseActivityViewModel.EXTRA_FEATURE, Platform.TASKS_ORG.featureTitle)
-                                                    .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, Platform.TASKS_ORG.name)
+                                                    .putExtra(PurchaseActivity.EXTRA_NAME_YOUR_PRICE, false)
+                                                    .putExtra(PurchaseActivity.EXTRA_FEATURE, Platform.TASKS_ORG.featureTitle)
+                                                    .putExtra(PurchaseActivity.EXTRA_SOURCE, Platform.TASKS_ORG.name)
                                             )
                                         }
                                     }
@@ -400,25 +402,50 @@ class MainActivity : AppCompatActivity() {
                             },
                         )
                     }
-                    composable<PurchaseDestination> {
-                        PurchaseScreen(
+                    composable<PurchaseDestination> { entry ->
+                        val destination = entry.toRoute<PurchaseDestination>()
+                        LaunchedEffect(Unit) {
+                            firebase.logEvent(
+                                R.string.event_showed_purchase_dialog,
+                                R.string.param_source to destination.source,
+                            )
+                        }
+                        fun purchaseComplete() {
+                            lifecycleScope.launch {
+                                inventory.updateTasksAccount()
+                                maybeTriggerCloudOnboarding(inventory.hasTasksSubscription, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
+                            }
+                            navController.previousBackStackEntry
+                                ?.savedStateHandle
+                                ?.set("purchased", true)
+                            navController.popBackStack()
+                        }
+                        val signInLauncher = rememberLauncherForActivityResult(
+                            ActivityResultContracts.StartActivityForResult()
+                        ) { result ->
+                            if (result.resultCode == RESULT_OK) {
+                                purchaseComplete()
+                            } else {
+                                result.data
+                                    ?.getStringExtra(SignInActivity.EXTRA_ERROR)
+                                    ?.let { toast(it) }
+                            }
+                        }
+                        org.tasks.billing.Paywall(
+                            nameYourPrice = destination.nameYourPrice,
+                            configuration = configuration,
+                            inventory = inventory,
+                            subscriptionProvider = subscriptionProvider,
+                            stripePurchases = stripePurchases,
+                            storeBillingProvider = storeBillingProvider,
+                            firebase = firebase,
                             onBack = { navController.popBackStack() },
-                            onPurchased = {
-                                lifecycleScope.launch {
-                                    maybeTriggerCloudOnboarding(inventory.hasTasksSubscription, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
-                                }
-                                navController.previousBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.set("purchased", true)
-                                navController.popBackStack()
-                            },
+                            onPurchased = { purchaseComplete() },
                             onSignIn = {
-                                navController.previousBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.set("purchased", true)
-                                navController.popBackStack()
+                                signInLauncher.launch(
+                                    Intent(this@MainActivity, SignInActivity::class.java)
+                                )
                             },
-                            existingSubscriber = inventory.hasPro && !inventory.hasTasksSubscription,
                         )
                     }
                     composable<SubscriptionOnboardingDestination> {

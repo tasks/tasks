@@ -8,8 +8,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkService
+import org.tasks.billing.NoOpPlayBilling
+import org.tasks.billing.NoOpPlayPurchaseStore
+import org.tasks.billing.PlayBilling
+import org.tasks.billing.PlayPurchaseStore
+import org.tasks.billing.PlayPurchaseVerifier
 import org.tasks.billing.QrScanner
+import org.tasks.billing.StoreBillingProvider
+import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.location.Geocoder
 import org.tasks.location.GeocoderNominatim
 import org.tasks.location.LocationService
@@ -17,7 +25,6 @@ import org.tasks.location.LocationServiceAndroid
 import org.tasks.location.MapFragment
 import org.tasks.location.OsmMapFragment
 import org.tasks.wear.WearRefresher
-
 import javax.inject.Singleton
 
 @Module
@@ -25,20 +32,15 @@ import javax.inject.Singleton
 class FlavorModule {
     @Provides
     @Singleton
-    fun providePlayBilling(
-        billing: org.tasks.billing.NoOpPlayBilling,
-    ): org.tasks.billing.PlayBilling = billing
+    fun providePlayBilling(billing: NoOpPlayBilling): PlayBilling = billing
 
     @Provides
     @Singleton
-    fun providePlayPurchaseVerifier(): org.tasks.billing.PlayPurchaseVerifier =
-        org.tasks.billing.PlayPurchaseVerifier { true }
+    fun providePlayPurchaseVerifier(): PlayPurchaseVerifier = PlayPurchaseVerifier { true }
 
     @Provides
     @Singleton
-    fun providePlayPurchaseStore(
-        store: org.tasks.billing.NoOpPlayPurchaseStore,
-    ): org.tasks.billing.PlayPurchaseStore = store
+    fun providePlayPurchaseStore(store: NoOpPlayPurchaseStore): PlayPurchaseStore = store
 
     @Provides
     fun getPlatformConfiguration() = PlatformConfiguration(
@@ -52,7 +54,7 @@ class FlavorModule {
         supportsGeofences = true,
         supportsCalendarEvents = true,
         appStore = AppStore.FDROID,
-        billingProvider = org.tasks.billing.BillingProvider.STRIPE,
+        billingProvider = BillingProvider.STRIPE,
         isAndroid = true,
         isLibre = true,
         supportsWidgets = true,
@@ -99,5 +101,9 @@ class FlavorModule {
 
     @Provides
     @Singleton
-    fun provideStoreSubscriptionProvider(): org.tasks.billing.StoreSubscriptionProvider? = null
+    fun provideStoreSubscriptionProvider(): StoreSubscriptionProvider? = null
+
+    @Provides
+    @Singleton
+    fun provideStoreBillingProvider(): StoreBillingProvider? = null
 }

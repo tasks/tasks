@@ -15,7 +15,7 @@ import org.tasks.http.OkHttpClientFactory
 class DesktopLinkServiceImpl(
     private val httpClientFactory: OkHttpClientFactory,
     private val serverEnvironment: TasksServerEnvironment,
-    private val subscriptionProvider: SubscriptionProvider,
+    private val subscriptionProvider: StoreSubscriptionProvider,
     private val json: Json,
 ) : DesktopLinkService {
     private val logger = Logger.withTag("DesktopLinkServiceImpl")

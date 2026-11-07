@@ -724,6 +724,4 @@
     <string name="subscription_ended_on">Bitti: %1$s</string>
     <string name="subscription_free_until">Şuna dek ücretsiz: %1$s, sonrası %2$s</string>
     <string name="subscription_payment_failed">Ödeme başarısız, kartınızı güncelleyin</string>
-    <string name="subscription_covered_by">Bu hesap %1$s ile ödendi.</string>
-    <string name="subscription_covered_elsewhere">Bu hesap halihazırda başka bir yer için ödendi.</string>
 </resources>

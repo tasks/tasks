@@ -1,9 +1,6 @@
 package org.tasks.di
 
-import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -14,7 +11,6 @@ import org.tasks.PlatformConfiguration
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkService
 import org.tasks.billing.DesktopLinkServiceImpl
-import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.GooglePlayQrScanner
 import org.tasks.billing.PlayBilling
 import org.tasks.billing.JsonPlayPurchaseStore
@@ -29,7 +25,7 @@ import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.QrScanner
 import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StoreSubscriptionProvider
-import org.tasks.billing.UnlockSource
+import org.tasks.billing.unlockSource
 import org.tasks.billing.maybeTriggerCloudOnboarding
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.GooglePlayFcmTokenProvider
@@ -57,7 +53,7 @@ val flavorModule = module {
         DesktopLinkServiceImpl(
             httpClientFactory = get(),
             serverEnvironment = get(),
-            subscriptionProvider = get(),
+            subscriptionProvider = get<StoreSubscriptionProvider>(),
             json = get(),
         )
     }
@@ -69,35 +65,24 @@ val flavorModule = module {
         )
     }
     single<PlayBilling> {
-        val scope = get<CoroutineScope>()
         PlayBillingClient(
             context = androidContext(),
             purchases = get(),
             reporting = get(),
-            scope = scope,
-            onPurchasesUpdated = { purchased ->
+            scope = get(),
+            onPurchasesAdded = { purchased ->
                 maybeTriggerCloudOnboarding(
                     purchased = purchased,
                     caldavDao = get(),
                     tasksPreferences = get(),
                     logStep = { step -> get<Reporting>().logCloudOnboarding(step) },
                 )
-                scope.launch { get<SyncAdapters>().sync(SyncSource.PURCHASE_COMPLETED) }
+                get<SyncAdapters>().sync(SyncSource.PURCHASE_COMPLETED)
             },
         )
     }
     single<StoreSubscriptionProvider> {
-        val purchases: PlayPurchases = get()
-        val billing: PlayBilling = get()
-        get<CoroutineScope>().launch {
-            purchases.load()
-            try {
-                billing.queryPurchases()
-            } catch (e: Exception) {
-                Logger.w(e) { "Failed to refresh Play purchases" }
-            }
-        }
-        PlaySubscriptionProvider(purchases = purchases, billing = billing)
+        PlaySubscriptionProvider(purchases = get(), billing = get())
     }
     single<StoreBillingProvider> { PlayStoreBillingProvider() }
     viewModel {
@@ -109,10 +94,3 @@ val flavorModule = module {
         )
     }
 }
-
-private val EntitlementProvider.unlockSource: UnlockSource?
-    get() = when (this) {
-        EntitlementProvider.GITHUB_SPONSOR -> UnlockSource.GITHUB
-        EntitlementProvider.STRIPE -> UnlockSource.STRIPE
-        EntitlementProvider.PLAY -> null
-    }

@@ -1,9 +1,5 @@
 package org.tasks.compose.pricing
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.hasText
@@ -12,7 +8,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.runComposeUiTest
-import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -61,7 +56,7 @@ class CardPricingTest {
 
     @Test
     fun theCtaQuotesThePriceFromTheCatalog() = runComposeUiTest {
-        showCloudCard(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
+        showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
         assertShowing("Subscribe for \$29.99/year")
         assertShowing("14-day free trial")
@@ -69,7 +64,7 @@ class CardPricingTest {
 
     @Test
     fun aFreeWeekIsNotPromisedToSomebodyWhoHasBoughtBefore() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual)),
                 knownCustomer = true,
@@ -86,14 +81,14 @@ class CardPricingTest {
 
     @Test
     fun theGooglePlayCtaIsLeftToBuildsWithoutACardStore() = runComposeUiTest {
-        showCloudCard(store = null)
+        showPaywall(store = null)
 
         assertShowing("Subscribe on Google Play")
     }
 
     @Test
     fun aCatalogStillLoadingDoesNotQuoteAPriceItHasNotFetched() = runComposeUiTest {
-        showCloudCard(StoreBilling(loadingPrices = true, onSelect = {}))
+        showPaywall(StoreBilling(loadingPrices = true, onSelect = {}))
 
         onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
             assertTrue("expected the price to be a placeholder", it.isNotEmpty())
@@ -104,7 +99,7 @@ class CardPricingTest {
 
     @Test
     fun aStoreThatCannotPriceAnythingSaysNothingRatherThanDollars() = runComposeUiTest {
-        showCloudCard(StoreBilling(onSelect = {}))
+        showPaywall(StoreBilling(onSelect = {}))
 
         assertNotShowing("\$29.99")
         onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
@@ -114,7 +109,7 @@ class CardPricingTest {
 
     @Test
     fun buildsWithoutACardStoreKeepTheirIndicativePrice() = runComposeUiTest {
-        showCloudCard(store = null)
+        showPaywall(store = null)
 
         assertShowing("\$29.99")
         onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
@@ -124,7 +119,7 @@ class CardPricingTest {
 
     @Test
     fun aSettledCatalogWithNothingToSellSaysSoInsteadOfOfferingGooglePlay() = runComposeUiTest {
-        showCloudCard(StoreBilling(onSelect = {}))
+        showPaywall(StoreBilling(onSelect = {}))
 
         assertShowing("Billing isn't available right now. Please try again later.")
         assertTrue(
@@ -135,7 +130,7 @@ class CardPricingTest {
 
     @Test
     fun aPurchaseInFlightDisablesTheCta() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual)),
                 busySku = annual.sku,
@@ -151,7 +146,7 @@ class CardPricingTest {
 
     @Test
     fun theCurrentPlanCannotBeBoughtAgain() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual)),
                 currentSku = annual.sku,
@@ -165,20 +160,10 @@ class CardPricingTest {
     @Test
     fun restoreIsOnThePaywallAndNotOnlyAfterAReinstall() = runComposeUiTest {
         var restored = false
-        setContent {
-            Box(modifier = Modifier.size(480.dp, 2000.dp)) {
-                PricingScreen(
-                    mode = PricingMode.CLOUD_ONLY,
-                    onBack = {},
-                    onSignIn = {},
-                    onRestorePurchases = { restored = true },
-                    store = StoreBilling(
-                        catalog = BillingCatalog.from(listOf(annual)),
-                        onSelect = {},
-                    ),
-                )
-            }
-        }
+        showPaywall(
+            store = StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}),
+            onRestorePurchases = { restored = true },
+        )
 
         onNodeWithText("Restore purchases").performScrollTo().performClick()
 
@@ -187,7 +172,7 @@ class CardPricingTest {
 
     @Test
     fun theRestoreLinkDoesNotAskAgainWhatTheSignInFooterAsked() = runComposeUiTest {
-        showCloudCard(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
+        showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
         assertShowing("Already a subscriber or invited guest?")
         assertShowing("Restore purchases")
@@ -200,7 +185,7 @@ class CardPricingTest {
     @Test
     fun anAccountAnotherProviderPaysForIsWarnedButStillSoldTo() = runComposeUiTest {
         var selected: BillingOption? = null
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual)),
                 coveredElsewhere = true,
@@ -209,15 +194,29 @@ class CardPricingTest {
             )
         )
 
-        assertShowing("This account is paid for by your Google Play subscription.")
+        assertShowing("You already have an active Google Play subscription.")
         onNodeWithText("Subscribe for \$29.99/year").performScrollTo().performClick()
 
         assertEquals(annual.sku, selected?.sku)
     }
 
     @Test
+    fun aGitHubSponsorIsWarnedByName() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual)),
+                coveredElsewhere = true,
+                coveredBy = UnlockSource.GITHUB,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("You already have an active GitHub sponsorship.")
+    }
+
+    @Test
     fun aCardSubscriptionOfTheirOwnIsStillTheirsToReprice() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual, monthly)),
                 currentSku = monthly.sku,
@@ -229,14 +228,14 @@ class CardPricingTest {
         assertShowing("Subscribe for \$29.99/year")
         assertTrue(
             "expected no coverage warning on a reprice",
-            onAllNodes(hasText("already paid for somewhere else", substring = true))
+            onAllNodes(hasText("active subscription somewhere else", substring = true))
                 .fetchSemanticsNodes().isEmpty(),
         )
     }
 
     @Test
     fun aSupporterSubscriptionDoesNotSuppressTheCoverageWarning() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual, supporter)),
                 currentSku = supporter.sku,
@@ -246,12 +245,27 @@ class CardPricingTest {
             )
         )
 
-        assertShowing("This account is already paid for somewhere else.")
+        assertShowing("You already have an active subscription paid by card.")
+    }
+
+    @Test
+    fun aCloudPlanTheStoreNoLongerSellsStillSuppressesTheWarning() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual)),
+                currentSku = "monthly_499",
+                coveredElsewhere = true,
+                coveredBy = UnlockSource.STRIPE,
+                onSelect = {},
+            )
+        )
+
+        assertNotShowing("You already have an active subscription paid by card.")
     }
 
     @Test
     fun aProviderTheAppCannotNameIsWarnedAboutInTheGeneralCase() = runComposeUiTest {
-        showCloudCard(
+        showPaywall(
             StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual)),
                 coveredElsewhere = true,
@@ -259,8 +273,46 @@ class CardPricingTest {
             )
         )
 
-        assertShowing("This account is already paid for somewhere else.")
+        assertShowing("You already have an active subscription somewhere else.")
         assertShowing("Subscribe for \$29.99/year")
+    }
+
+    @Test
+    fun aSupporterTierIsWarnedAboutAPaymentElsewhereToo() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual, supporter)),
+                coveredElsewhere = true,
+                coveredBy = UnlockSource.STRIPE,
+                onSelect = {},
+            ),
+            mode = PricingMode.BOTH,
+        )
+
+        assertEquals(
+            2,
+            onAllNodes(hasText("You already have an active subscription paid by card."))
+                .fetchSemanticsNodes().size,
+        )
+    }
+
+    @Test
+    fun aSupporterRepricingTheirOwnPlanIsOnlyWarnedOnCloud() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual, supporter)),
+                currentSku = supporter.sku,
+                coveredElsewhere = true,
+                onSelect = {},
+            ),
+            mode = PricingMode.BOTH,
+        )
+
+        assertEquals(
+            1,
+            onAllNodes(hasText("You already have an active subscription somewhere else."))
+                .fetchSemanticsNodes().size,
+        )
     }
 
     @Test
@@ -310,47 +362,6 @@ class CardPricingTest {
         assertShowing(CLOUD_TIER)
         assertNotShowing(supporterBanner)
     }
-
-    private fun ComposeUiTest.showPaywall(
-        store: StoreBilling?,
-        mode: PricingMode = PricingMode.CLOUD_ONLY,
-        hasSupporterSubscription: Boolean = false,
-    ) = setContent {
-        Box(modifier = Modifier.size(480.dp, 2000.dp)) {
-            PricingScreen(
-                mode = mode,
-                onBack = {},
-                onSignIn = {},
-                onRestorePurchases = {},
-                hasSupporterSubscription = hasSupporterSubscription,
-                store = store,
-            )
-        }
-    }
-
-    private fun ComposeUiTest.showCloudCard(store: StoreBilling?) {
-        setContent {
-            Box(modifier = Modifier.size(480.dp, 2000.dp)) {
-                PricingScreen(
-                    mode = PricingMode.CLOUD_ONLY,
-                    onBack = {},
-                    onSignIn = {},
-                    onRestorePurchases = {},
-                    store = store,
-                )
-            }
-        }
-    }
-
-    private fun ComposeUiTest.assertShowing(text: String) = assertTrue(
-        "expected to be showing \"$text\"",
-        onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty(),
-    )
-
-    private fun ComposeUiTest.assertNotShowing(text: String) = assertTrue(
-        "expected not to be showing \"$text\"",
-        onAllNodes(hasText(text, substring = true)).fetchSemanticsNodes().isEmpty(),
-    )
 
     private companion object {
         const val CLOUD_TIER = "Tasks.org Cloud"

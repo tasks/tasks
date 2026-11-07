@@ -8,3 +8,10 @@ enum class UnlockSource {
     GITHUB,
     STRIPE,
 }
+
+val EntitlementProvider.unlockSource: UnlockSource?
+    get() = when (this) {
+        EntitlementProvider.GITHUB_SPONSOR -> UnlockSource.GITHUB
+        EntitlementProvider.STRIPE -> UnlockSource.STRIPE
+        EntitlementProvider.PLAY -> UnlockSource.GOOGLE_PLAY
+    }

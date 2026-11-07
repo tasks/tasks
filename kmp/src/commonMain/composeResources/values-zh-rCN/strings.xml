@@ -715,6 +715,4 @@
     <string name="subscription_ended_on">已于 %1$s 结束</string>
     <string name="subscription_free_until">免费直到 %1$s，然后 %2$s</string>
     <string name="subscription_payment_failed">付款失败，更新您的卡片</string>
-    <string name="subscription_covered_by">这个账户由您的 %1$s 支付费用。</string>
-    <string name="subscription_covered_elsewhere">这个账户已经在别处付过款了。</string>
 </resources>

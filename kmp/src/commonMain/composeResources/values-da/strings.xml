@@ -724,6 +724,4 @@
     <string name="subscription_ended_on">Udløbet %1$s</string>
     <string name="subscription_free_until">Gratis indtil %1$s, derefter %2$s</string>
     <string name="subscription_payment_failed">Betalingen mislykkedes. Opdater dit betalingskort</string>
-    <string name="subscription_covered_by">Denne konto betales via dit %1$s.</string>
-    <string name="subscription_covered_elsewhere">Denne konto er allerede betalt et andet sted.</string>
 </resources>

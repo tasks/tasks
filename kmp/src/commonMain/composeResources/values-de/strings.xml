@@ -722,7 +722,5 @@
     <string name="pricing_cloud_annual_per_month">%1$s/Monat, jährlich abgerechnet</string>
     <string name="trusted_certificates_reset">Zurücksetzen vertrauenswürdiger Zertifikate</string>
     <string name="reset_trusted_certificates">Vertrauenswürdige Zertifikate zurücksetzen</string>
-    <string name="subscription_covered_by">Dieses Konto wird über %1$s bezahlt.</string>
-    <string name="subscription_covered_elsewhere">Dieses Konto wird bereits an anderer Stelle bezahlt.</string>
     <string name="reset_trusted_certificates_summary">Von dir akzeptierte Zertifikate und Zertifikataussteller für Server löschen</string>
 </resources>
