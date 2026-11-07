@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.settings.ListSettingsScreen
@@ -86,7 +85,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
                     onSubscribe = { source ->
                         startActivity(
                             Intent(this, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
+                                .putExtra(PurchaseActivity.EXTRA_SOURCE, source)
                         )
                     },
                     onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },

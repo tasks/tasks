@@ -18,7 +18,6 @@ import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.addShortcutCallback
@@ -78,7 +77,7 @@ class MicrosoftListSettingsActivity : AppCompatActivity() {
                     onSubscribe = { source ->
                         startActivity(
                             Intent(this, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
+                                .putExtra(PurchaseActivity.EXTRA_SOURCE, source)
                         )
                     },
                     onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = onSaved) } },

@@ -295,7 +295,6 @@
     <string name="delete_tag_warning">Tarefas com essa tag não serão excluídas</string>
     <string name="delete_list_warning">Todas tarefas nessa lista serão excluídas. Isso não pode ser desfeito!</string>
     <string name="error_contact_support">Se você continuar tendo problemas, entre em contato com %1$s</string>
-    <string name="sponsor_on_github">Apoiar no GitHub</string>
     <string name="unlock_pro_opening_browser">Abrindo navegador…</string>
     <string name="google_play_subscription">Inscrição Google Play</string>
     <string name="github_sponsorship">Patrocínio do GitHub</string>

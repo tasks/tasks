@@ -23,8 +23,6 @@ class Firebase @Inject constructor(
 
     override fun reportException(t: Throwable, fatal: Boolean) = Timber.e(t)
 
-    fun reportIabResult(result: String, sku: String = "", state: String, orderId: String = "") {}
-
     fun updateRemoteConfig() {}
 
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {

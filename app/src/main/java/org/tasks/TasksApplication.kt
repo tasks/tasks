@@ -88,7 +88,7 @@ class TasksApplication : Application(), Configuration.Provider {
         upgrade()
         ThemeBase.getThemeBase(preferences, inventory, null).setDefaultNightMode()
         localBroadcastManager.registerRefreshReceiver(RefreshBroadcastReceiver())
-        inventory.subscription.observeForever { firebase.setSku(it?.sku) }
+        scope.launch { inventory.subscription.collect { firebase.setSku(it?.sku) } }
         backgroundWork()
         ProcessLifecycleOwner.get().lifecycle.addObserver(
             object : DefaultLifecycleObserver {

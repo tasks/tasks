@@ -55,10 +55,6 @@ class LocalBroadcastManager @Inject constructor(
         localBroadcastManager.registerReceiver(broadcastReceiver!!, IntentFilter(TASK_COMPLETED))
     }
 
-    fun registerPurchaseReceiver(broadcastReceiver: BroadcastReceiver?) {
-        localBroadcastManager.registerReceiver(broadcastReceiver!!, IntentFilter(REFRESH_PURCHASES))
-    }
-
     fun registerPreferenceReceiver(broadcastReceiver: BroadcastReceiver?) {
         localBroadcastManager.registerReceiver(
             broadcastReceiver!!,
@@ -87,7 +83,6 @@ class LocalBroadcastManager @Inject constructor(
     }
 
     fun broadcastPurchasesUpdated() {
-        localBroadcastManager.sendBroadcast(Intent(REFRESH_PURCHASES))
         composeRefreshBroadcaster.broadcastRefresh()
     }
 
@@ -102,7 +97,6 @@ class LocalBroadcastManager @Inject constructor(
     companion object {
         const val REFRESH = "${BuildConfig.APPLICATION_ID}.REFRESH"
         private const val TASK_COMPLETED = "${BuildConfig.APPLICATION_ID}.REPEAT"
-        private const val REFRESH_PURCHASES = "${BuildConfig.APPLICATION_ID}.REFRESH_PURCHASES"
         private const val REFRESH_PREFERENCES = "${BuildConfig.APPLICATION_ID}.REFRESH_PREFERENCES"
     }
 }

@@ -1139,10 +1139,6 @@ fun App(
                                 )
                             },
                             onGitHubSignIn = { gitHubSponsorClient.signIn() },
-                            onOpenSponsorPage = {
-                                reporting.logEvent(AnalyticsEvents.RESTORE_SPONSOR_CLICK)
-                                openUrl("https://github.com/sponsors/abaker")
-                            },
                             onGooglePlaySelected = {
                                 reporting.logEvent(
                                     AnalyticsEvents.RESTORE_SELECTION,

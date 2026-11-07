@@ -17,8 +17,6 @@ import org.tasks.R
 import org.tasks.billing.PlayBilling
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.logout_warning
-import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.injection.InjectingPreferenceFragment

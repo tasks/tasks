@@ -66,9 +66,8 @@ import org.tasks.R
 import org.tasks.activities.TagSettingsActivity
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
+import org.tasks.billing.PurchaseActivity.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivity.Companion.EXTRA_SOURCE
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity.Companion.EXTRA_CALDAV_ACCOUNT
 import org.tasks.caldav.LocalListSettingsActivity
 import org.tasks.compose.drawer.DrawerItem
@@ -186,7 +185,6 @@ fun HomeScreen(
                         Intent(context, PurchaseActivity::class.java)
                             .putExtra(EXTRA_SOURCE, "guest_create_list")
                             .putExtra(EXTRA_NAME_YOUR_PRICE, false)
-                            .putExtra(EXTRA_SHOW_MORE_OPTIONS, false)
                     )
                 }) { Text(composeStringResource(Res.string.upgrade)) }
             },

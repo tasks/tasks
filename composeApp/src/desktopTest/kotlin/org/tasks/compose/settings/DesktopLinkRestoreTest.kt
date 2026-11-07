@@ -31,7 +31,6 @@ class DesktopLinkRestoreTest {
                 sources = UnlockSource.entries,
                 stripe = stripeCallbacks(),
                 onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-                onOpenSponsorPage = {},
             )
         }
         awaitText("Card subscription")
@@ -59,7 +58,6 @@ class DesktopLinkRestoreTest {
                     onLinkSuccess = { _, _, _, _ -> StoreResult.WRITE_FAILED },
                 ),
                 onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-                onOpenSponsorPage = {},
             )
         }
         awaitText("Google Play subscription")
@@ -103,7 +101,6 @@ class DesktopLinkRestoreTest {
                     onLinkSuccess = { _, _, _, _ -> StoreResult.STORED },
                 ),
                 onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-                onOpenSponsorPage = {},
             )
         }
         awaitText("Google Play subscription")
@@ -136,7 +133,6 @@ class DesktopLinkRestoreTest {
                     onLinkSuccess = { _, _, _, _ -> StoreResult.STORED },
                 ),
                 onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-                onOpenSponsorPage = {},
             )
         }
         awaitText("Google Play subscription")
@@ -175,7 +171,6 @@ class DesktopLinkRestoreTest {
                     onLinkSuccess = { _, _, _, _ -> StoreResult.STORED },
                 ),
                 onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-                onOpenSponsorPage = {},
             )
         }
         awaitText("Google Play subscription")

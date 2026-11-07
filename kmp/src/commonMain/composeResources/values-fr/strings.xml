@@ -228,7 +228,6 @@
     <string name="error_no_sponsorship">Aucun parrainage trouvé</string>
     <string name="error_sponsorship_delay">Les nouveaux parrainages ne sont peut-être pas disponibles pour le moment, veuillez réessayer dans quelques minutes.</string>
     <string name="error_contact_support">Si le problème persiste, contactez %1$s</string>
-    <string name="sponsor_on_github">Devenir parrain sur GitHub</string>
     <string name="unlock_pro_opening_browser">Ouverture du navigateur…</string>
     <string name="google_play_subscription">Abonnement Google Play</string>
     <string name="github_sponsorship">Parrainage GitHub</string>

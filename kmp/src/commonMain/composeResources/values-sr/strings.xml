@@ -448,7 +448,6 @@
     <string name="error_no_sponsorship">Није пронађено спонзорство</string>
     <string name="error_sponsorship_delay">Нова спонзорства можда тренутно нису доступна, покушај поново кроз неколико минута.</string>
     <string name="error_contact_support">Уколико се проблеми наставе, контактирај %1$s</string>
-    <string name="sponsor_on_github">Спонзорство на GitHub-у</string>
     <string name="unlock_pro_opening_browser">Отварање претраживача…</string>
     <string name="google_play_subscription">Google Play претплата</string>
     <string name="github_sponsorship">GitHub спонзорство</string>

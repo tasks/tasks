@@ -285,7 +285,6 @@
     <string name="error_sponsorship_delay">Uued toetused ei pruugi kohe olla nähtavad, palun proovi mõne minuti pärast uuesti.</string>
     <string name="subscription_not_found">Sinu Tasks.org-i pilveteenuse tellimust ei leidunud. Kui sa arvad, et see oli viga siis palun kirjuta %1$s aadressile</string>
     <string name="error_contact_support">Kui sul ikkagi on probleeme, siis palun kirjuta %1$s aadressile</string>
-    <string name="sponsor_on_github">Kasuta teenust GitHub Sponsors</string>
     <string name="unlock_pro_opening_browser">Avan veebibrauserit…</string>
     <string name="google_play_subscription">Google Play tellimus</string>
     <string name="github_sponsorship">Toetus teenuses GitHub Sponsors</string>

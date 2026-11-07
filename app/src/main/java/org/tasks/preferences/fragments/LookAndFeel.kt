@@ -17,7 +17,6 @@ import com.todoroo.andlib.utility.AndroidUtilities.atLeastTiramisu
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.R
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.jetbrains.compose.resources.stringResource
@@ -73,7 +72,7 @@ class LookAndFeel : Fragment() {
                 is LookAndFeelHiltViewModel.ThemePickerResult.PurchaseRequired -> {
                     purchaseLauncher.launch(
                         Intent(context, PurchaseActivity::class.java)
-                            .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "themes"),
+                            .putExtra(PurchaseActivity.EXTRA_SOURCE, "themes"),
                     )
                 }
             }

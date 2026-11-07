@@ -379,7 +379,6 @@
     <string name="error_no_sponsorship">Kein Sponsoring gefunden</string>
     <string name="error_sponsorship_delay">Neue Sponsorings sind möglicherweise nicht sofort verfügbar. Versuchen Sie es in wenigen Minuten erneut.</string>
     <string name="error_contact_support">Wenn Sie weiterhin Probleme haben, wenden Sie sich bitte an %1$s</string>
-    <string name="sponsor_on_github">Auf GitHub sponsern</string>
     <string name="unlock_pro_opening_browser">Browser wird geöffnet…</string>
     <string name="google_play_subscription">Google Play-Abonnement</string>
     <string name="github_sponsorship">GitHub-Sponsoring</string>

@@ -32,7 +32,6 @@ object AnalyticsEvents {
     const val RESTORE_ERROR = "restore_error"
     const val RESTORE_NOT_SPONSOR = "restore_not_sponsor"
     const val RESTORE_SELECTION = "restore_selection"
-    const val RESTORE_SPONSOR_CLICK = "restore_sponsor_click"
     const val RESTORE_SUCCESS = "restore_success"
     const val SCREEN_ADD_ACCOUNT = "screen_add_account"
     const val SCREEN_PRICING = "screen_pricing"

@@ -213,7 +213,6 @@
     <string name="caldav_server_nextcloud">Nextcloud</string>
     <string name="caldav_server_synology_calendar">Synology 日历</string>
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
-    <string name="sponsor_on_github">在GitHub 上赞助</string>
     <string name="unlock_pro_opening_browser">正在打开浏览器…</string>
     <string name="error_github_verification_failed">验证失败。请重试。</string>
     <string name="pricing_subtitle">自由且开源。订阅支持开发并解锁额外功能。</string>

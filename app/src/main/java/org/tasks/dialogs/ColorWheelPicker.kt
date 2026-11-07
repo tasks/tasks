@@ -19,7 +19,6 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.upgrade
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -78,7 +77,7 @@ class ColorWheelPicker : DialogFragment() {
                     } else {
                         startActivityForResult(
                             Intent(context, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors"),
+                                .putExtra(PurchaseActivity.EXTRA_SOURCE, "colors"),
                             REQUEST_PURCHASE
                         )
                     }

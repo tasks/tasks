@@ -592,7 +592,6 @@
     <string name="error_confirmation_failed">Kan link niet bevestigen. De code kan ongeldig of verlopen zijn.</string>
     <string name="error_no_sponsorship">Geen sponsoring gevonden</string>
     <string name="error_sponsorship_delay">Nieuwe sponsoring is mogelijk niet onmiddellijk beschikbaar. Probeer het met een paar minuten opnieuw.</string>
-    <string name="sponsor_on_github">Sponsor op GitHub</string>
     <string name="unlock_pro_opening_browser">Browser openen…</string>
     <string name="google_play_subscription">Google Play-abonnement</string>
     <string name="github_sponsorship">GitHub-sponsoring</string>

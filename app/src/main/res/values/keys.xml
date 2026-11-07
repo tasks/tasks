@@ -318,11 +318,7 @@
   <string name="p_local_list_banner_dismissed">local_list_banner_dismissed</string>
 
   <string name="event_showed_purchase_dialog">showed_purchase_dialog</string>
-  <string name="event_purchase_result">billing_flow_result</string>
   <string name="param_sku">sku</string>
-  <string name="param_result">result</string>
-  <string name="param_state">state</string>
-  <string name="param_order_id">order_id</string>
   <string name="param_action">action</string>
   <string name="param_label">label</string>
   <string name="param_selection">selection</string>

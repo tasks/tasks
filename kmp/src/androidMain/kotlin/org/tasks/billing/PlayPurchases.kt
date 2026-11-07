@@ -1,9 +1,7 @@
 package org.tasks.billing
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,12 +35,6 @@ class PlayPurchases(
 
     val updates: Flow<Unit> = _state.map { }
 
-    private val _purchased = MutableSharedFlow<Unit>(
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST,
-    )
-    val purchased: Flow<Unit> = _purchased
-
     val subscription: Flow<PlayPurchase?> =
         _state.map { it.subscription }.distinctUntilChanged()
 
@@ -69,14 +61,7 @@ class PlayPurchases(
 
     suspend fun add(items: List<PlayPurchase>): List<PlayPurchase> = mutations.withLock {
         val verified = items.verified()
-        val known = _state.value.purchases
-        val new = verified.filter { (sku, purchase) ->
-            known[sku]?.purchaseToken != purchase.purchaseToken
-        }
-        update(known + verified)
-        if (new.isNotEmpty()) {
-            _purchased.emit(Unit)
-        }
+        update(_state.value.purchases + verified)
         verified.values.toList()
     }
 

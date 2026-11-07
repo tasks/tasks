@@ -24,7 +24,6 @@ import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.ColorWheelDialog
 import org.tasks.compose.settings.TagSettingsScreen
 import org.tasks.compose.settings.canPinShortcut
@@ -81,7 +80,7 @@ class TagSettingsActivity : AppCompatActivity() {
                     onSubscribe = { source ->
                         startActivity(
                             Intent(this, PurchaseActivity::class.java)
-                                .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, source)
+                                .putExtra(PurchaseActivity.EXTRA_SOURCE, source)
                         )
                     },
                     onColorWheelSelected = { showColorWheel = true },

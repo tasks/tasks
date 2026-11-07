@@ -1,7 +1,7 @@
 package org.tasks.billing
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -165,73 +165,22 @@ class PlayPurchasesTest {
     }
 
     @Test
-    fun theStoreAnnouncingANewPurchaseIsAPurchase() = runTest {
+    fun aSubscriptionFoundByAStoreQueryIsReportedLikeAnyOther() = runTest {
         val purchases = PlayPurchases(store, acceptAll)
 
-        val announced = purchases.announcementsWhile(this) {
-            purchases.add(listOf(purchase("annual_30")))
-        }
+        purchases.replaceAll(listOf(purchase("annual_30")))
 
-        assertEquals(1, announced)
+        assertEquals("annual_30", purchases.subscription.first()?.sku)
+        assertTrue(purchases.hasPro)
     }
 
     @Test
-    fun readingBackThePurchasesTheStoreAlreadyHadIsNotAPurchase() = runTest {
+    fun aPurchaseThatArrivesIsReported() = runTest {
         val purchases = PlayPurchases(store, acceptAll)
 
-        val announced = purchases.announcementsWhile(this) {
-            purchases.replaceAll(listOf(purchase("annual_30")))
-        }
+        purchases.add(listOf(purchase("annual_30")))
 
-        assertEquals(0, announced)
-    }
-
-    @Test
-    fun theStoreRepeatingAPurchaseWeAlreadyHaveIsNotAPurchase() = runTest {
-        val purchases = withPurchases(purchase("annual_30"))
-
-        val announced = purchases.announcementsWhile(this) {
-            purchases.add(listOf(purchase("annual_30")))
-        }
-
-        assertEquals(0, announced)
-    }
-
-    @Test
-    fun replacingASubscriptionWithANewTokenIsAPurchase() = runTest {
-        val purchases = withPurchases(purchase("annual_30"))
-
-        val announced = purchases.announcementsWhile(this) {
-            purchases.add(
-                listOf(purchase("annual_30").copy(purchaseToken = "token-replacement"))
-            )
-        }
-
-        assertEquals(1, announced)
-    }
-
-    @Test
-    fun anUnverifiablePurchaseIsNotAnnounced() = runTest {
-        val purchases = PlayPurchases(store, PlayPurchaseVerifier { false })
-
-        val announced = purchases.announcementsWhile(this) {
-            purchases.add(listOf(purchase("annual_30")))
-        }
-
-        assertEquals(0, announced)
-    }
-
-    private suspend fun PlayPurchases.announcementsWhile(
-        scope: CoroutineScope,
-        block: suspend () -> Unit,
-    ): Int {
-        val announced = mutableListOf<Unit>()
-        val collector = scope.launch(Dispatchers.Unconfined) {
-            purchased.collect { announced.add(it) }
-        }
-        block()
-        collector.cancel()
-        return announced.size
+        assertEquals("annual_30", purchases.subscription.first()?.sku)
     }
 
     @Test

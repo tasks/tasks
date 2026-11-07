@@ -165,7 +165,6 @@ class StripeRestoreTest {
                 onUpgrade = {},
             ),
             onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
-            onOpenSponsorPage = {},
         )
     }
 

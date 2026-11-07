@@ -267,7 +267,6 @@
     <string name="pricing_cloud_feature_2">Dijeljenje popisa prijatelja i obitelji</string>
     <string name="pricing_cloud_description">Otključaj sve funkcije u aplikaciji i poveži se s Tasks.org sinkronizacijom u oblaku.</string>
     <string name="pricing_subtitle">Slobodna aplikacija otvorenog koda. Pretplate podržavaju razvoj i otključavaju dodatne funkcije.</string>
-    <string name="sponsor_on_github">Sponzoriraj na GitHubu</string>
     <string name="error_contact_support">Ako i dalje imaš problema obrati se %1$s</string>
     <string name="error_no_sponsorship">Nije pronađeno sponzorstvo</string>
     <string name="error_sponsorship_delay">Nova sponzorstva možda neće biti odmah dostupna, pokušaj ponovo za nekoliko minuta.</string>

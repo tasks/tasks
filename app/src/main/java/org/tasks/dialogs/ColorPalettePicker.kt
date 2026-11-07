@@ -18,7 +18,6 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.upgrade
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.databinding.DialogIconPickerBinding
 import org.tasks.dialogs.ColorPickerAdapter.Palette
 import org.tasks.dialogs.ColorWheelPicker.Companion.newColorWheel
@@ -116,7 +115,7 @@ class ColorPalettePicker : DialogFragment() {
             builder.setPositiveButton(runBlocking { getString(Res.string.upgrade) }) { _: DialogInterface?, _: Int ->
                 startActivity(
                     Intent(context, PurchaseActivity::class.java)
-                        .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "colors")
+                        .putExtra(PurchaseActivity.EXTRA_SOURCE, "colors")
                 )
             }
         }

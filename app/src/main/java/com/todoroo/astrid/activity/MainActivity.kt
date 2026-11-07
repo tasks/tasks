@@ -48,6 +48,7 @@ import androidx.navigation.toRoute
 import com.todoroo.astrid.adapter.SubheaderClickHandler
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity
 import com.todoroo.astrid.service.TaskCreator
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -57,12 +58,16 @@ import org.tasks.R
 import org.tasks.TasksApplication.Companion.IS_GOOGLE_PLAY
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
-import org.tasks.analytics.logCloudOnboarding
 import org.tasks.auth.SignInActivity
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.Inventory
+import org.tasks.billing.Paywall
+import org.tasks.billing.PaywallCompletion
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.maybeTriggerCloudOnboarding
+import org.tasks.billing.StoreBillingProvider
+import org.tasks.billing.StripePurchases
+import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.caldav.CaldavSignInActivity
 import org.tasks.compose.AddAccountDestination
@@ -77,7 +82,6 @@ import org.tasks.compose.WelcomeScreen
 import org.tasks.compose.accounts.AddAccountScreenWrapper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
-import org.tasks.compose.accounts.featureTitle
 import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
 import org.tasks.compose.navigateClearingBackStack
@@ -132,9 +136,11 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var tasksPreferences: TasksPreferences
     @Inject lateinit var serverEnvironment: TasksServerEnvironment
     @Inject lateinit var configuration: PlatformConfiguration
-    @Inject lateinit var stripePurchases: org.tasks.billing.StripePurchases
-    @Inject lateinit var subscriptionProvider: org.tasks.billing.SubscriptionProvider
-    @JvmField @Inject var storeBillingProvider: org.tasks.billing.StoreBillingProvider? = null
+    @Inject lateinit var stripePurchases: Lazy<StripePurchases>
+    @Inject lateinit var subscriptionProvider: SubscriptionProvider
+    @Inject lateinit var paywallCompletion: PaywallCompletion
+    @JvmField @Inject var gitHubSponsorClient: GitHubSponsorClient? = null
+    @JvmField @Inject var storeBillingProvider: StoreBillingProvider? = null
 
     private val viewModel: MainActivityViewModel by viewModels()
     private var currentNightMode = 0
@@ -331,7 +337,6 @@ class MainActivity : AppCompatActivity() {
                             navController.navigate(
                                 PurchaseDestination(
                                     nameYourPrice = nameYourPrice,
-                                    feature = platform.featureTitle,
                                     source = platform.name,
                                 )
                             )
@@ -367,7 +372,6 @@ class MainActivity : AppCompatActivity() {
                                             syncLauncher.launch(
                                                 Intent(this@MainActivity, PurchaseActivity::class.java)
                                                     .putExtra(PurchaseActivity.EXTRA_NAME_YOUR_PRICE, false)
-                                                    .putExtra(PurchaseActivity.EXTRA_FEATURE, Platform.TASKS_ORG.featureTitle)
                                                     .putExtra(PurchaseActivity.EXTRA_SOURCE, Platform.TASKS_ORG.name)
                                             )
                                         }
@@ -404,47 +408,33 @@ class MainActivity : AppCompatActivity() {
                     }
                     composable<PurchaseDestination> { entry ->
                         val destination = entry.toRoute<PurchaseDestination>()
+                        var logged by rememberSaveable { mutableStateOf(false) }
                         LaunchedEffect(Unit) {
-                            firebase.logEvent(
-                                R.string.event_showed_purchase_dialog,
-                                R.string.param_source to destination.source,
-                            )
-                        }
-                        fun purchaseComplete() {
-                            lifecycleScope.launch {
-                                inventory.updateTasksAccount()
-                                maybeTriggerCloudOnboarding(inventory.hasTasksSubscription, caldavDao, tasksPreferences, firebase::logCloudOnboarding)
-                            }
-                            navController.previousBackStackEntry
-                                ?.savedStateHandle
-                                ?.set("purchased", true)
-                            navController.popBackStack()
-                        }
-                        val signInLauncher = rememberLauncherForActivityResult(
-                            ActivityResultContracts.StartActivityForResult()
-                        ) { result ->
-                            if (result.resultCode == RESULT_OK) {
-                                purchaseComplete()
-                            } else {
-                                result.data
-                                    ?.getStringExtra(SignInActivity.EXTRA_ERROR)
-                                    ?.let { toast(it) }
+                            if (!logged) {
+                                logged = true
+                                firebase.logEvent(
+                                    R.string.event_showed_purchase_dialog,
+                                    R.string.param_source to destination.source,
+                                )
                             }
                         }
-                        org.tasks.billing.Paywall(
+                        Paywall(
                             nameYourPrice = destination.nameYourPrice,
+                            source = destination.source,
                             configuration = configuration,
                             inventory = inventory,
                             subscriptionProvider = subscriptionProvider,
-                            stripePurchases = stripePurchases,
+                            stripePurchases = stripePurchases.get(),
                             storeBillingProvider = storeBillingProvider,
+                            gitHubSponsorClient = gitHubSponsorClient,
                             firebase = firebase,
+                            completion = paywallCompletion,
                             onBack = { navController.popBackStack() },
-                            onPurchased = { purchaseComplete() },
-                            onSignIn = {
-                                signInLauncher.launch(
-                                    Intent(this@MainActivity, SignInActivity::class.java)
-                                )
+                            onPurchased = {
+                                navController.previousBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set("purchased", true)
+                                navController.popBackStack()
                             },
                         )
                     }

@@ -2,7 +2,9 @@ package org.tasks.preferences
 
 import android.content.Context
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.PlatformConfiguration
 import org.tasks.billing.Inventory
@@ -27,6 +29,6 @@ class MainSettingsViewModel @Inject constructor(
                     .isRequestPinAppWidgetSupported
 
     fun unsubscribe(context: Context) {
-        inventory.unsubscribe(context)
+        viewModelScope.launch { inventory.unsubscribe(context) }
     }
 }

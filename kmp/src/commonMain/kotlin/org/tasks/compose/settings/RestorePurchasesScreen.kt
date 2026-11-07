@@ -32,7 +32,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
@@ -97,7 +96,6 @@ import tasks.kmp.generated.resources.restore_purchases
 import tasks.kmp.generated.resources.sign_in
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.scan_qr_code
-import tasks.kmp.generated.resources.sponsor_on_github
 import tasks.kmp.generated.resources.unlock_pro_opening_browser
 import tasks.kmp.generated.resources.unlock_pro_scan_heading
 import tasks.kmp.generated.resources.unlock_pro_step_1
@@ -198,7 +196,6 @@ fun RestorePurchasesScreen(
     stripe: StripeRestoreCallbacks,
     desktopLink: DesktopLinkCallbacks? = null,
     onGitHubSignIn: suspend () -> GitHubSponsorClient.VerifyResult,
-    onOpenSponsorPage: () -> Unit,
     onGooglePlaySelected: () -> Unit = {},
     onGitHubSelected: () -> Unit = {},
     onStripeSelected: () -> Unit = {},
@@ -414,7 +411,6 @@ fun RestorePurchasesScreen(
                                     state = gitHubState,
                                     onBack = onBack,
                                     onRetry = { startGitHubSignIn() },
-                                    onOpenSponsorPage = onOpenSponsorPage,
                                     successButtonText = successButtonText,
                                 )
                             }
@@ -677,7 +673,6 @@ private fun GitHubTab(
     state: GitHubProState,
     onBack: () -> Unit,
     onRetry: () -> Unit,
-    onOpenSponsorPage: () -> Unit,
     successButtonText: String? = null,
 ) {
     when (state) {
@@ -741,17 +736,8 @@ private fun GitHubTab(
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                OutlinedButton(onClick = onRetry) {
-                    Text(stringResource(Res.string.retry))
-                }
-                Spacer(modifier = Modifier.width(12.dp))
-                Button(onClick = onOpenSponsorPage) {
-                    Text(stringResource(Res.string.sponsor_on_github))
-                }
+            Button(onClick = onRetry) {
+                Text(stringResource(Res.string.retry))
             }
         }
         is GitHubProState.NotStored -> {

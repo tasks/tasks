@@ -282,7 +282,6 @@
     <string name="error_no_sponsorship">Tidak ada sponsorship yang ditemukan</string>
     <string name="error_sponsorship_delay">Sponsorship baru mungkin tidak langsung tersedia, coba lagi dalam beberapa menit.</string>
     <string name="error_contact_support">Jika Anda terus mengalami masalah, hubungi %1$s</string>
-    <string name="sponsor_on_github">Jadi sponsor di GitHub</string>
     <string name="unlock_pro_opening_browser">Membuka browser…</string>
     <string name="google_play_subscription">Langganan Google Play</string>
     <string name="github_sponsorship">Sponsorship GitHub</string>

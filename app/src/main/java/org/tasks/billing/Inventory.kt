@@ -1,9 +1,13 @@
 package org.tasks.billing
 
 import android.content.Context
-import androidx.lifecycle.MutableLiveData
+import dagger.Lazy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import org.tasks.BuildConfig
 import org.tasks.LocalBroadcastManager
@@ -16,6 +20,9 @@ import org.tasks.data.isTasksSubscription
 import org.tasks.extensions.Context.openUri
 import org.tasks.injection.ApplicationScope
 import org.tasks.preferences.Preferences
+import org.tasks.resources.getString
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.url_sponsor
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,29 +31,32 @@ class Inventory @Inject constructor(
     @ApplicationScope scope: CoroutineScope,
     private val preferences: Preferences,
     private val playPurchases: PlayPurchases,
-    private val entitlement: PurchaseEntitlement,
+    private val subscriptionProvider: SubscriptionProvider,
+    private val stripePurchases: Lazy<StripePurchases>,
     private val localBroadcastManager: LocalBroadcastManager,
     private val caldavDao: CaldavDao,
 ) : PurchaseState {
-    val subscription = MutableLiveData<PlayPurchase?>()
+    private val _subscription = MutableStateFlow<SubscriptionProvider.SubscriptionInfo?>(null)
+    val subscription: StateFlow<SubscriptionProvider.SubscriptionInfo?> =
+        _subscription.asStateFlow()
 
-    val currentSubscription: PlayPurchase?
-        get() = playPurchases.state.value.subscription
-
-    @Volatile
-    private var entitled = false
+    private val _tasksAccount = MutableStateFlow(false)
+    val tasksAccount: StateFlow<Boolean> = _tasksAccount.asStateFlow()
 
     val purchases: Map<String, PlayPurchase>
         get() = playPurchases.state.value.purchases
 
-    override var hasTasksAccount = false
-        private set
+    override val hasTasksAccount: Boolean
+        get() = _tasksAccount.value
 
     override val hasTasksSubscription: Boolean
-        get() = currentSubscription?.isTasksSubscription == true || hasTasksAccount
+        get() = subscriptionProvider.current?.isTasksSubscription == true || hasTasksAccount
 
     val hasSubscription: Boolean
-        get() = playPurchases.hasPro || entitled || entitlement.hasPro.value || hasTasksAccount
+        get() = playPurchases.hasPro ||
+                _subscription.value != null ||
+                subscriptionProvider.current != null ||
+                hasTasksAccount
 
     val begForMoney: Boolean
         get() = if (IS_GENERIC) !hasSubscription else !hasPro
@@ -57,42 +67,42 @@ class Inventory @Inject constructor(
     override val hasPro: Boolean
         get() = IS_GENERIC ||
                 (BuildConfig.DEBUG && preferences.getBoolean(R.string.p_debug_pro, false)) ||
-                hasTasksAccount ||
-                playPurchases.hasPro ||
-                entitled ||
-                entitlement.hasPro.value
+                hasSubscription
 
     suspend fun updateTasksAccount() {
-        hasTasksAccount = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
+        _tasksAccount.value = caldavDao.getAccounts(TYPE_TASKS, TYPE_CALDAV).any {
             it.isTasksSubscription()
         }
     }
 
-    suspend fun awaitVerification(): Boolean = entitlement.awaitReady()
+    suspend fun awaitVerification(): Boolean = subscriptionProvider.awaitVerification()
 
     fun getPurchase(sku: String) = playPurchases.get(sku)
 
-    fun unsubscribe(context: Context): Boolean {
-        currentSubscription?.let {
-            context.openUri(R.string.manage_subscription_url, it.sku)
+    suspend fun unsubscribe(context: Context) {
+        val subscription = _subscription.value ?: return
+        when (subscription.provider) {
+            EntitlementProvider.STRIPE ->
+                stripePurchases.get().portalUrl()?.let { context.openUri(it) }
+            EntitlementProvider.GITHUB_SPONSOR ->
+                context.openUri(getString(Res.string.url_sponsor))
+            EntitlementProvider.PLAY, null ->
+                context.openUri(R.string.manage_subscription_url, subscription.sku)
         }
-        return false
     }
 
     init {
-        scope.launch {
-            playPurchases.load()
+        scope.launch(Dispatchers.Main.immediate) {
+            playPurchases.updates
+                .drop(1)
+                .collect { localBroadcastManager.broadcastPurchasesUpdated() }
         }
         scope.launch(Dispatchers.Main.immediate) {
-            playPurchases.updates.collect {
-                subscription.value = playPurchases.state.value.subscription
-                localBroadcastManager.broadcastPurchasesUpdated()
-            }
-        }
-        scope.launch(Dispatchers.Main.immediate) {
-            entitlement.hasPro.collect {
-                entitled = it
-                localBroadcastManager.broadcastPurchasesUpdated()
+            subscriptionProvider.subscription.collect {
+                if (_subscription.value != it) {
+                    _subscription.value = it
+                    localBroadcastManager.broadcastPurchasesUpdated()
+                }
             }
         }
     }

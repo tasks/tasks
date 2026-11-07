@@ -247,7 +247,6 @@
     <string name="error_no_sponsorship">Inget sponsorskap hittades</string>
     <string name="error_sponsorship_delay">Nya sponsorskap kanske inte är tillgängliga direkt. Försök igen om några minuter.</string>
     <string name="error_contact_support">Kontakta %1$s om problemet kvarstår.</string>
-    <string name="sponsor_on_github">Bli sponsor på GitHub</string>
     <string name="unlock_pro_opening_browser">Öppnar webbläsaren…</string>
     <string name="google_play_subscription">Google Play-prenumeration</string>
     <string name="github_sponsorship">GitHub-sponsorskap</string>

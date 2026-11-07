@@ -24,7 +24,6 @@ import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel
 import org.tasks.compose.DeleteButton
 import org.tasks.compose.IconPickerActivity.Companion.launchIconPicker
 import org.tasks.compose.IconPickerActivity.Companion.registerForIconPickerResult
@@ -155,7 +154,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                 purchase = {
                     startActivity(
                         Intent(this@BaseListSettingsActivity, PurchaseActivity::class.java)
-                            .putExtra(PurchaseActivityViewModel.EXTRA_SOURCE, "list_colors")
+                            .putExtra(PurchaseActivity.EXTRA_SOURCE, "list_colors")
                     )
                 },
             )

@@ -332,7 +332,6 @@
     <string name="error_no_sponsorship">No sponsorship found</string>
     <string name="error_sponsorship_delay">New sponsorships might not be available immediately, try again in a few minutes.</string>
     <string name="error_contact_support">If you continue to have trouble, contact %1$s</string>
-    <string name="sponsor_on_github">Sponsor on GitHub</string>
     <string name="unlock_pro_opening_browser">Opening browser…</string>
     <string name="google_play_subscription">Google Play subscription</string>
     <string name="github_sponsorship">GitHub Sponsorship</string>

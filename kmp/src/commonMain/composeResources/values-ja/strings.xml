@@ -281,7 +281,6 @@
     <string name="error_no_sponsorship">スポンサーシップが見つかりません</string>
     <string name="error_sponsorship_delay">新しいスポンサーシップは、すぐには利用できないかもしれないので、数分待ってから再びお試しください.</string>
     <string name="error_contact_support">問題が解決しない場合は、%1$sにご連絡ください</string>
-    <string name="sponsor_on_github">GitHubでのスポンサー</string>
     <string name="unlock_pro_opening_browser">ブラウザを開いています…</string>
     <string name="google_play_subscription">Google Playのサブスクリプション</string>
     <string name="github_sponsorship">GitHubのスポンサーシップ</string>

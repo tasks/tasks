@@ -229,7 +229,6 @@
     <string name="error_no_sponsorship">Nenalezeno žádné sponzorství</string>
     <string name="error_sponsorship_delay">Nová sponzorství nemusí být okamžitě dostupná, zkuste to znovu za několik minut.</string>
     <string name="error_contact_support">Pokud potíže přetrvávají, kontaktujte %1$s</string>
-    <string name="sponsor_on_github">Sponzorovat na GitHubu</string>
     <string name="unlock_pro_opening_browser">Otevírání v prohlížeči…</string>
     <string name="google_play_subscription">Předplatné Google Play</string>
     <string name="github_sponsorship">Sponzorování přes GitHub</string>

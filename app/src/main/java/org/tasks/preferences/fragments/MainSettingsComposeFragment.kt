@@ -31,10 +31,9 @@ import tasks.kmp.generated.resources.url_sponsor
 import org.tasks.auth.SignInActivity
 import org.tasks.billing.ModifySubscription
 import org.tasks.billing.PurchaseActivity
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SHOW_MORE_OPTIONS
-import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_SOURCE
+import org.tasks.billing.PurchaseActivity.Companion.EXTRA_NAME_YOUR_PRICE
+import org.tasks.billing.PurchaseActivity.Companion.EXTRA_SOURCE
+import org.tasks.billing.modifySubscription
 import org.tasks.compose.accounts.AddAccountActivity
 import org.tasks.compose.settings.AndroidMainSettingsScreen
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
@@ -129,6 +128,7 @@ class MainSettingsComposeFragment : Fragment() {
             )
 
             if (showManageSheet) {
+                val subscription by inventory.subscription.collectAsStateWithLifecycle()
                 val sponsorUrl = stringResource(Res.string.url_sponsor)
                 ManageSubscriptionSheet(
                     onDismiss = { showManageSheet = false },
@@ -141,7 +141,6 @@ class MainSettingsComposeFragment : Fragment() {
                         startActivity(
                             Intent(context, PurchaseActivity::class.java)
                                 .putExtra(EXTRA_NAME_YOUR_PRICE, false)
-                                .putExtra(EXTRA_SHOW_MORE_OPTIONS, false)
                                 .putExtra(EXTRA_SOURCE, "settings")
                         )
                     },
@@ -154,7 +153,6 @@ class MainSettingsComposeFragment : Fragment() {
                         startActivity(
                             Intent(context, PurchaseActivity::class.java)
                                 .putExtra(EXTRA_NAME_YOUR_PRICE, true)
-                                .putExtra(EXTRA_SHOW_MORE_OPTIONS, true)
                                 .putExtra(EXTRA_SOURCE, "settings")
                         )
                     },
@@ -174,7 +172,7 @@ class MainSettingsComposeFragment : Fragment() {
                         )
                         viewModel.unsubscribe(requireContext())
                     },
-                    modifyAction = ModifySubscription.CHANGE_PLAN,
+                    modifyAction = subscription?.provider.modifySubscription(),
                 )
             }
         }
@@ -211,9 +209,7 @@ class MainSettingsComposeFragment : Fragment() {
             is ProCardState.Upgrade -> {
                 startActivity(
                     Intent(context, PurchaseActivity::class.java)
-                        .putExtra(EXTRA_NAME_YOUR_PRICE, false)
-                        .putExtra(EXTRA_SHOW_MORE_OPTIONS, true)
-                        .putExtra(EXTRA_FEATURE, R.string.tasks_org_account)
+                        .putExtra(EXTRA_NAME_YOUR_PRICE, true)
                         .putExtra(EXTRA_SOURCE, "settings")
                 )
             }
@@ -288,7 +284,6 @@ class MainSettingsComposeFragment : Fragment() {
             startActivity(
                 Intent(requireContext(), PurchaseActivity::class.java)
                     .putExtra(EXTRA_NAME_YOUR_PRICE, true)
-                    .putExtra(EXTRA_SHOW_MORE_OPTIONS, true)
                     .putExtra(EXTRA_SOURCE, "link_desktop")
             )
         }
