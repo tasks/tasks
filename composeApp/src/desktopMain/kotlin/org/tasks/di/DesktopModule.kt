@@ -23,6 +23,7 @@ import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.auth.DesktopOAuthFlow
 import org.tasks.auth.DesktopSignInHandler
+import org.tasks.auth.LoopbackRedirect
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
@@ -396,7 +397,7 @@ actual fun platformModule(): Module = module {
         LoopbackGitHubSponsorClient(
             verify = get<GitHubSponsorVerifier>()::verify,
             openUrl = ::desktopOpenUrl,
-            closeBrowserTab = true,
+            redirect = LoopbackRedirect(path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH),
         )
     }
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class

@@ -12,8 +12,9 @@ import org.tasks.auth.SignInHandler
 import android.content.Intent
 import android.net.Uri
 import org.tasks.billing.CompositeSubscriptionProvider
-import org.tasks.billing.GitHubSponsorClient
+import org.tasks.auth.LoopbackRedirect
 import org.tasks.extensions.bringTasksToForeground
+import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
 import org.tasks.billing.EntitlementSubscriptionProvider
@@ -75,7 +76,11 @@ actual fun platformModule(): Module = module {
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             },
-            onCallback = { context.bringTasksToForeground() },
+            redirect = LoopbackRedirect(
+                path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+                onRedirect = { context.bringTasksToForeground() },
+                closeBrowserTab = false,
+            ),
         )
     }
     factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }

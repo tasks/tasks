@@ -18,6 +18,7 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.auth.PurchaseClaim
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.auth.LoopbackRedirect
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
@@ -152,6 +153,10 @@ class StripeModule {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         },
+        redirect = LoopbackRedirect(
+            path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+            closeBrowserTab = false,
+        ),
     )
 
     @Provides

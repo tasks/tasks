@@ -4,6 +4,7 @@ import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.tasks.auth.LoopbackRedirect
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -211,7 +212,7 @@ class LoopbackGitHubSponsorClientTest {
                 GitHubSponsorClient.VerifyResult.Success
             },
             openUrl = { opened.complete(it) },
-            signInTimeoutMillis = 20_000,
+            redirect = LoopbackRedirect(timeoutMillis = 20_000),
         )
 
         val caller = launch { client.signIn() }
@@ -229,7 +230,7 @@ class LoopbackGitHubSponsorClientTest {
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
             openUrl = { opened.complete(it) },
-            signInTimeoutMillis = 2_000,
+            redirect = LoopbackRedirect(timeoutMillis = 2_000),
         )
 
         val caller = launch { result = client.signIn() }
@@ -252,7 +253,7 @@ class LoopbackGitHubSponsorClientTest {
                 synchronized(opened) { opened.add(url) }
                 firstOpen.complete(url)
             },
-            signInTimeoutMillis = 20_000,
+            redirect = LoopbackRedirect(timeoutMillis = 20_000),
         )
 
         val caller = launch { client.signIn() }
@@ -263,6 +264,63 @@ class LoopbackGitHubSponsorClientTest {
         resumed.join()
 
         assertEquals(listOf(authUrl, authUrl), synchronized(opened) { opened.toList() })
+    }
+
+    @Test(timeout = 30_000)
+    fun aMalformedEscapeDoesNotEndTheFlow() = runBlocking {
+        val client = LoopbackGitHubSponsorClient(
+            verify = { code, _ ->
+                assertEquals("the-code", code)
+                GitHubSponsorClient.VerifyResult.Success
+            },
+            openUrl = { authUrl ->
+                val uri = callback(authUrl, code = "the-code")
+                Thread {
+                    send(uri, uri.rawPath + "?x=%zz")
+                    get(uri)
+                }.start()
+            },
+        )
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+    }
+
+    @Test(timeout = 30_000)
+    fun aRequestOffTheCallbackPathIsNotTheRedirect() = runBlocking {
+        val stray = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { code, _ ->
+                assertEquals("the-code", code)
+                GitHubSponsorClient.VerifyResult.Success
+            },
+            openUrl = { authUrl ->
+                val uri = callback(authUrl, code = "the-code")
+                Thread {
+                    stray.complete(send(uri, "/favicon.ico?" + uri.rawQuery))
+                    get(uri)
+                }.start()
+            },
+        )
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        assertTrue(stray.await().startsWith("HTTP/1.1 404"))
+    }
+
+    @Test(timeout = 30_000)
+    fun anErrorWithoutStateShowsTheProvidersError() = runBlocking {
+        val page = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { _, _ -> error("should not reach verification") },
+            openUrl = { authUrl ->
+                val uri = URI(params(authUrl).getValue("redirect_uri"))
+                Thread {
+                    page.complete(send(uri, uri.rawPath + "?error=access_denied&error_description=Nope"))
+                }.start()
+            },
+        )
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Failed, client.signIn())
+        assertTrue(page.await().contains("Nope"))
     }
 
     @Test(timeout = 30_000)
@@ -283,7 +341,10 @@ class LoopbackGitHubSponsorClientTest {
                 val uri = callback(authUrl, code = "the-code")
                 Thread { page.complete(send(uri, path(uri))) }.start()
             },
-            closeBrowserTab = closeBrowserTab,
+            redirect = LoopbackRedirect(
+                path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+                closeBrowserTab = closeBrowserTab,
+            ),
         )
         client.signIn()
         return page.await()
