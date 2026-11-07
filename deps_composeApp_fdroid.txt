@@ -778,6 +778,7 @@
 +|    |                   +--- androidx.annotation:annotation:1.10.0 (*)
 +|    |                   \--- androidx.startup:startup-runtime:1.2.0 (*)
 +|    +--- androidx.activity:activity-compose:1.13.0 (*)
++|    +--- androidx.browser:browser:1.10.0 (*)
 +|    +--- androidx.sqlite:sqlite-bundled:2.7.1 (*)
 +|    +--- androidx.compose.ui:ui-tooling-preview-android:1.9.5 -> 1.12.1 (*)
 +|    +--- com.github.tasks:ical4android:fcb0311ca7

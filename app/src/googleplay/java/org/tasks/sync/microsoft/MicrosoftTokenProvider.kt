@@ -1,68 +1,25 @@
 package org.tasks.sync.microsoft
 
 import android.content.Context
-import com.microsoft.identity.client.AcquireTokenSilentParameters
-import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
-import com.microsoft.identity.client.PublicClientApplication
-import com.microsoft.identity.client.exception.MsalException
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.tasks.R
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.http.UnauthorizedException
-import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class MicrosoftTokenProvider @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @ApplicationContext context: Context,
 ) : MicrosoftTokenSource {
-    @Volatile private var application: IMultipleAccountPublicClientApplication? = null
+    private val msal = MsalClient(context, R.raw.microsoft_config)
 
-    private fun application(): IMultipleAccountPublicClientApplication =
-        application ?: synchronized(this) {
-            application ?: PublicClientApplication.createMultipleAccountPublicClientApplication(
-                context,
-                R.raw.microsoft_config,
-            ).also { application = it }
-        }
+    override suspend fun hasCredentials(account: CaldavAccount): Boolean = msal.hasCredentials(account)
 
-    override suspend fun hasCredentials(account: CaldavAccount): Boolean =
-        withContext(Dispatchers.IO) {
-            try {
-                application().accounts.any { it.username == account.username }
-            } catch (e: Exception) {
-                Timber.e(e)
-                true
-            }
-        }
+    override suspend fun getToken(account: CaldavAccount): String = msal.getToken(account)
 
-    override suspend fun getToken(account: CaldavAccount): String = acquireSilently(account, force = false)
+    override suspend fun refreshToken(account: CaldavAccount, rejected: String?): String =
+        msal.refreshToken(account, rejected)
 
-    override suspend fun refreshToken(account: CaldavAccount, rejected: String?): String {
-        val cached = acquireSilently(account, force = false)
-        return if (rejected == null || cached == rejected) acquireSilently(account, force = true) else cached
-    }
-
-    private suspend fun acquireSilently(account: CaldavAccount, force: Boolean): String = withContext(Dispatchers.IO) {
-        val app = application()
-
-        val result = try {
-            val msalAccount = app.accounts.firstOrNull { it.username == account.username }
-                ?: throw UnauthorizedException("No matching account found")
-
-            val parameters = AcquireTokenSilentParameters.Builder()
-                .withScopes(MicrosoftSignInViewModel.scopes)
-                .forAccount(msalAccount)
-                .fromAuthority(msalAccount.authority)
-                .forceRefresh(force)
-                .build()
-
-            app.acquireTokenSilent(parameters)
-        } catch (e: MsalException) {
-            Timber.e(e)
-            throw e.toTokenException()
-        }
-        result.accessToken
-    }
+    suspend fun signIn(activity: android.app.Activity, username: String?): String =
+        msal.signIn(activity, username)
 }

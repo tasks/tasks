@@ -9,6 +9,7 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     compileOptions {
@@ -42,8 +43,12 @@ android {
 
 dependencies {
     api(projects.kmp)
+    implementation(projects.data)
     api(libs.play.billing.ktx)
     implementation(libs.kermit)
+    implementation(libs.microsoft.authentication) {
+        exclude("com.microsoft.device.display", "display-mask")
+    }
 
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
