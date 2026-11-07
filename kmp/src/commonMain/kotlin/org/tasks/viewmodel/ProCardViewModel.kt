@@ -105,24 +105,22 @@ open class ProCardViewModel(
                 if (sub != null) {
                     val cacheKey = stringPreferencesKey("fmt_${sub.sku}")
                     val cached = tasksPreferences.get(cacheKey, "")
-                    if (cached.isNotBlank()) {
-                        _formattedPrice.value = cached
-                    } else {
-                        _formattedPrice.value = null
-                        try {
-                            val price = subscriptionProvider.getFormattedPrice(sub.sku)
-                            if (price != null) {
+                    _formattedPrice.value = cached.ifBlank { null }
+                    try {
+                        val price = subscriptionProvider.getFormattedPrice(sub.sku)
+                        if (price == null) {
+                            _formattedPrice.value = cached.ifBlank { "" }
+                        } else {
+                            if (price != cached) {
                                 tasksPreferences.set(cacheKey, price)
-                                _formattedPrice.value = price
-                            } else {
-                                _formattedPrice.value = ""
                             }
-                        } catch (e: CancellationException) {
-                            throw e
-                        } catch (e: Exception) {
-                            Logger.e(e) { "Failed to get formatted price" }
-                            _formattedPrice.value = ""
+                            _formattedPrice.value = price
                         }
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        Logger.e(e) { "Failed to get formatted price" }
+                        _formattedPrice.value = cached.ifBlank { "" }
                     }
                 } else {
                     _formattedPrice.value = null

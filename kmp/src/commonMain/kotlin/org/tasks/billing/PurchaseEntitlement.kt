@@ -11,6 +11,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
@@ -57,19 +59,19 @@ class PurchaseEntitlement(
     private var lapsedReceipt: String? = null
 
     private val _hasPro = MutableStateFlow(false)
-    val hasPro: Flow<Boolean> = _hasPro
+    val hasPro: StateFlow<Boolean> = _hasPro.asStateFlow()
 
     private val _sku = MutableStateFlow<String?>(null)
-    val sku: Flow<String?> = _sku
+    val sku: StateFlow<String?> = _sku.asStateFlow()
 
     private val _formattedPrice = MutableStateFlow<String?>(null)
-    val formattedPrice: Flow<String?> = _formattedPrice
+    val formattedPrice: StateFlow<String?> = _formattedPrice.asStateFlow()
 
     private val _terms = MutableStateFlow<PurchaseTerms?>(null)
-    val terms: Flow<PurchaseTerms?> = _terms
+    val terms: StateFlow<PurchaseTerms?> = _terms.asStateFlow()
 
     private val _provider = MutableStateFlow<EntitlementProvider?>(null)
-    val provider: Flow<EntitlementProvider?> = _provider
+    val provider: StateFlow<EntitlementProvider?> = _provider.asStateFlow()
 
     val coveredBy: Flow<EntitlementProvider?> =
         combine(_hasPro, _provider) { hasPro, provider -> provider.takeIf { hasPro } }

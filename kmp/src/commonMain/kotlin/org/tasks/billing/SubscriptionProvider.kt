@@ -16,6 +16,9 @@ interface SubscriptionProvider {
     }
 
     val subscription: Flow<SubscriptionInfo?>
+
+    val current: SubscriptionInfo? get() = null
+
     suspend fun getFormattedPrice(sku: String): String?
 
     suspend fun awaitVerification(): Boolean = true

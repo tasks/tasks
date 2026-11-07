@@ -185,6 +185,7 @@ import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
+import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -1245,30 +1246,20 @@ fun App(
                                 popPricing()
                             }
                         }
-                        if (destination.mode == PricingMode.NYP_ONLY) {
-                            LaunchedEffect(subscriptionInfo) {
-                                if (subscriptionInfo != null && popPricing()) {
-                                    when (val next = afterPaywall(destination.source)) {
-                                        is AfterPaywall.Open -> backStack.push(next.destination)
-                                        is AfterPaywall.SignIn ->
-                                            platformSignIn = next.platform.name
-                                        AfterPaywall.None -> {}
-                                    }
-                                }
+                        val satisfied = rememberPaywallSatisfied(
+                            mode = destination.mode,
+                            subscription = subscriptionProvider.subscription,
+                        )
+                        LaunchedEffect(satisfied, backStack.lastOrNull()) {
+                            if (!satisfied || !popPricing()) {
+                                return@LaunchedEffect
                             }
-                        } else {
-                            var arrivedPaying by rememberSaveable { mutableStateOf<Boolean?>(null) }
-                            LaunchedEffect(Unit) {
-                                subscriptionProvider.subscription
-                                    .distinctUntilChanged()
-                                    .collect { info ->
-                                        val has = info != null
-                                        if (arrivedPaying == null) {
-                                            arrivedPaying = has
-                                        } else if (arrivedPaying == false && has) {
-                                            popPricing()
-                                        }
-                                    }
+                            if (destination.mode == PricingMode.NYP_ONLY) {
+                                when (val next = afterPaywall(destination.source)) {
+                                    is AfterPaywall.Open -> backStack.push(next.destination)
+                                    is AfterPaywall.SignIn -> platformSignIn = next.platform.name
+                                    AfterPaywall.None -> {}
+                                }
                             }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)

@@ -15,6 +15,11 @@ class PlaySubscriptionProvider(
 
     override suspend fun getFormattedPrice(sku: String): String? = billing.formattedPrice(sku)
 
+    override suspend fun awaitVerification(): Boolean {
+        purchases.load()
+        return true
+    }
+
     private fun PlayPurchase.toSubscriptionInfo() = SubscriptionProvider.SubscriptionInfo(
         sku = sku,
         isMonthly = isMonthly,

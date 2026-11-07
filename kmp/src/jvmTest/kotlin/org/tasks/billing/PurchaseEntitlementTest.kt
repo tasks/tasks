@@ -899,6 +899,37 @@ class PurchaseEntitlementTest {
         assertEquals(0, server.requestCount)
     }
 
+    @Test
+    fun theStoredPriceIsTheStoredSubscriptionsPrice() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS))
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        val provider = EntitlementSubscriptionProvider(entitlement)
+
+        assertEquals("USD 10.00", provider.getFormattedPrice("annual"))
+    }
+
+    @Test
+    fun theStoredPriceIsNotQuotedForAnotherSku() = runBlocking {
+        storeOnDisk(jwt(exp = now() + 30 * DAY_SECONDS))
+        val entitlement = entitlement()
+        entitlement.initialize()
+        assertTrue(entitlement.awaitReady())
+
+        val provider = EntitlementSubscriptionProvider(entitlement)
+
+        assertNull(provider.getFormattedPrice("monthly_03"))
+    }
+
+    @Test
+    fun nothingIsPricedWithoutAnEntitlement() = runBlocking {
+        val provider = EntitlementSubscriptionProvider(entitlement())
+
+        assertNull(provider.getFormattedPrice("annual"))
+    }
+
     private val freshClientFactory = OkHttpKtorClientFactory(object : OkHttpClientFactory {
         override suspend fun newClient(
             foreground: Boolean,

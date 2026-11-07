@@ -154,6 +154,72 @@ class CompositeSubscriptionProviderTest {
     }
 
     @Test
+    fun thePriceComesFromTheProviderHoldingTheSubscription() = runTest {
+        val composite = CompositeSubscriptionProvider(
+            listOf(
+                provider(null, price = "\u20B983.00"),
+                provider(restored, price = "${'$'}30.00"),
+            )
+        )
+
+        assertEquals("${'$'}30.00", composite.getFormattedPrice("annual_30"))
+    }
+
+    @Test
+    fun aStoreThatCannotBeReachedDoesNotHideTheOtherPrice() = runTest {
+        val composite = CompositeSubscriptionProvider(
+            listOf(
+                provider(null, priceError = IllegalStateException("SERVICE_UNAVAILABLE")),
+                provider(null, price = "${'$'}30.00"),
+            )
+        )
+
+        assertEquals("${'$'}30.00", composite.getFormattedPrice("annual_30"))
+    }
+
+    @Test
+    fun theProviderHoldingTheSubscriptionIsNotAskedTwice() = runTest {
+        val owner = countingProvider(restored, price = null)
+        val other = countingProvider(null, price = "${'$'}30.00")
+        val composite = CompositeSubscriptionProvider(listOf(owner, other))
+
+        assertEquals("${'$'}30.00", composite.getFormattedPrice("annual_30"))
+
+        assertEquals(1, owner.priceCalls)
+        assertEquals(1, other.priceCalls)
+    }
+
+    @Test
+    fun aPriceIsNotWaitedOnByASubscriptionThatNeverReports() = runTest {
+        val cold = MutableSharedFlow<SubscriptionProvider.SubscriptionInfo?>()
+        val composite = CompositeSubscriptionProvider(
+            listOf(provider(cold), provider(null, price = "${'$'}30.00"))
+        )
+
+        val outcome = withTimeoutOrNull(1_000) { composite.getFormattedPrice("annual_30") }
+
+        assertEquals("${'$'}30.00", outcome)
+    }
+
+    @Test
+    fun theSubscriptionIsReadableWithoutSuspending() {
+        val composite = CompositeSubscriptionProvider(
+            listOf(provider(restored), provider(store))
+        )
+
+        assertEquals("play-token-30", composite.current?.purchaseToken)
+    }
+
+    @Test
+    fun nothingIsCurrentUntilAProviderHoldsSomething() {
+        val composite = CompositeSubscriptionProvider(
+            listOf(provider(null), provider(null))
+        )
+
+        assertNull(composite.current)
+    }
+
+    @Test
     fun anUnknownPriceStaysUnknown() = runTest {
         val composite = CompositeSubscriptionProvider(
             listOf(provider(null, price = null), provider(null, price = null))
@@ -174,6 +240,18 @@ class CompositeSubscriptionProviderTest {
                 listOf(provider(store, verified = true), provider(null, verified = false))
             ).awaitVerification()
         )
+    }
+
+    @Test
+    fun everyProviderIsVerifiedEvenOnceOneHasSaidNo() = runTest {
+        val skipped = countingProvider(null, verified = true)
+        val composite = CompositeSubscriptionProvider(
+            listOf(provider(null, verified = false), skipped)
+        )
+
+        assertFalse(composite.awaitVerification())
+
+        assertEquals(1, skipped.verifications)
     }
 
     @Test
@@ -215,7 +293,8 @@ class CompositeSubscriptionProviderTest {
         verified: Boolean = true,
         tier: Boolean = false,
         requiresPro: Boolean = false,
-    ) = provider(flowOf(info), price, verified, tier, requiresPro)
+        priceError: Exception? = null,
+    ) = countingProvider(info, price, verified, tier, requiresPro, priceError)
 
     private fun provider(
         infos: Flow<SubscriptionProvider.SubscriptionInfo?>,
@@ -223,10 +302,47 @@ class CompositeSubscriptionProviderTest {
         verified: Boolean = true,
         tier: Boolean = false,
         requiresPro: Boolean = false,
-    ) = object : SubscriptionProvider {
+        priceError: Exception? = null,
+    ) = object : CountingProvider(price, verified, tier, requiresPro, priceError) {
         override val subscription = infos
-        override suspend fun getFormattedPrice(sku: String) = price
-        override suspend fun awaitVerification() = verified
+        override val current: SubscriptionProvider.SubscriptionInfo? = null
+    }
+
+    private fun countingProvider(
+        info: SubscriptionProvider.SubscriptionInfo?,
+        price: String? = null,
+        verified: Boolean = true,
+        tier: Boolean = false,
+        requiresPro: Boolean = false,
+        priceError: Exception? = null,
+    ) = object : CountingProvider(price, verified, tier, requiresPro, priceError) {
+        override val subscription = flowOf(info)
+        override val current = info
+    }
+
+    private abstract class CountingProvider(
+        private val price: String?,
+        private val verified: Boolean,
+        private val tier: Boolean,
+        requiresPro: Boolean,
+        private val priceError: Exception?,
+    ) : SubscriptionProvider {
+        var priceCalls = 0
+            private set
+        var verifications = 0
+            private set
+
+        override suspend fun getFormattedPrice(sku: String): String? {
+            priceCalls++
+            priceError?.let { throw it }
+            return price
+        }
+
+        override suspend fun awaitVerification(): Boolean {
+            verifications++
+            return verified
+        }
+
         override suspend fun checkTier() = tier
         override val googleAndMicrosoftRequirePro = requiresPro
     }
