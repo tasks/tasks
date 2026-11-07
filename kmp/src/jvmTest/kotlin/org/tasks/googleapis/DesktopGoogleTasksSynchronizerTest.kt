@@ -50,10 +50,8 @@ class DesktopGoogleTasksSynchronizerTest {
         appPreferences = mock(),
         repeatTaskHelper = mock(),
         taskCompleter = mock(),
-        encryption = encryption,
         createTask = { Task() },
-        proxyAuthProvider = proxyAuthProvider,
-        oauthClient = oauthClient,
+        credentials = GoogleTasksCredentials(encryption, proxyAuthProvider, caldavDao, oauthClient),
     )
 
     private fun accountWithExpiredToken(): CaldavAccount = runBlocking {

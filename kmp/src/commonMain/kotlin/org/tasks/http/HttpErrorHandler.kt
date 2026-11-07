@@ -20,7 +20,7 @@ data class GraphErrorResponse(
 @Serializable
 data class GraphError(
     val code: String,
-    val message: String,
+    val message: String? = null,
     val innerError: GraphInnerError? = null
 ) {
     fun isTokenError() = code in listOf(
@@ -32,13 +32,13 @@ data class GraphError(
 
 @Serializable
 data class GraphInnerError(
-    val date: String,
-    @SerialName("request-id") val requestId: String,
-    @SerialName("client-request-id")val clientRequestId: String
+    val date: String? = null,
+    @SerialName("request-id") val requestId: String? = null,
+    @SerialName("client-request-id") val clientRequestId: String? = null,
 )
 
 open class NetworkException(message: String? = null, cause: Throwable? = null, val graphCode: String? = null) : Exception(message, cause)
-class UnauthorizedException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
+class UnauthorizedException(message: String? = null, cause: Throwable? = null, graphCode: String? = null, val status: Int? = null) : NetworkException(message, cause, graphCode)
 class NotFoundException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class ServiceUnavailableException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null, cause: Throwable? = null) : NetworkException(message, cause, graphCode)
@@ -73,11 +73,11 @@ class HttpErrorHandler {
                         append("HTTP ${originalCall.response.status.value}")
                         errorResponse?.error?.let { error ->
                             append(" - ${error.code}")
-                            if (error.message.isNotBlank()) {
+                            if (!error.message.isNullOrBlank()) {
                                 append(": ${error.message}")
                             }
-                            error.innerError?.let { inner ->
-                                append(" (Request ID: ${inner.requestId})")
+                            error.innerError?.requestId?.let { requestId ->
+                                append(" (Request ID: $requestId)")
                             }
                         }
                     }
@@ -85,11 +85,12 @@ class HttpErrorHandler {
                     Logger.e { errorMessage }
 
                     val graphCode = errorResponse?.error?.code
+                    val status = originalCall.response.status.value
                     when {
-                        errorResponse?.error?.isTokenError() == true -> throw UnauthorizedException(errorMessage, graphCode = graphCode)
-                        originalCall.response.status.value == 404 -> throw NotFoundException(errorMessage, graphCode = graphCode)
-                        originalCall.response.status.value in 500..599 -> throw ServiceUnavailableException(errorMessage, graphCode = graphCode)
-                        else -> throw HttpException(originalCall.response.status.value, errorMessage, graphCode = graphCode)
+                        status == 404 -> throw NotFoundException(errorMessage, graphCode = graphCode)
+                        status in 500..599 -> throw ServiceUnavailableException(errorMessage, graphCode = graphCode)
+                        errorResponse?.error?.isTokenError() == true -> throw UnauthorizedException(errorMessage, graphCode = graphCode, status = status)
+                        else -> throw HttpException(status, errorMessage, graphCode = graphCode)
                     }
                 }
 
