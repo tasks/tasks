@@ -1,7 +1,9 @@
 package org.tasks.auth
 
 import android.app.Application
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.core.net.toUri
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -214,6 +216,18 @@ class SchemeRedirectTest {
 
         assertNull(shadowOf(activity.get()).peekNextStartedActivity()?.data)
         assertTrue(activity.get().isFinishing)
+    }
+
+    @Test
+    fun theBrowserOpensInItsOwnTaskSoFinishingReturnsToTheCaller() {
+        val info = context.packageManager.getActivityInfo(
+            ComponentName(context, OAuthRedirectActivity::class.java),
+            0,
+        )
+
+        assertEquals("${context.packageName}:oauth", info.taskAffinity)
+        assertEquals(ActivityInfo.LAUNCH_SINGLE_TASK, info.launchMode)
+        assertTrue(info.flags and ActivityInfo.FLAG_AUTO_REMOVE_FROM_RECENTS != 0)
     }
 
     private fun TestScope.authorize(

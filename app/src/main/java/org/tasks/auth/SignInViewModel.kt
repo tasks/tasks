@@ -1,153 +1,106 @@
 package org.tasks.auth
 
-import android.content.Context
-import android.content.Intent
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import net.openid.appauth.AuthorizationException
-import net.openid.appauth.AuthorizationResponse
-import net.openid.appauth.ClientAuthentication.UnsupportedAuthenticationMethod
-import net.openid.appauth.GrantTypeValues
-import net.openid.appauth.TokenRequest
-import org.tasks.caldav.CaldavClientProvider
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.tasks.R
+import org.tasks.analytics.Constants
+import org.tasks.analytics.Firebase
 import org.tasks.caldav.PurchaseTokenInUseException
-import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
-import org.tasks.security.KeyStoreEncryption
-import timber.log.Timber
+import org.tasks.fcm.PushTokenManager
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val provider: CaldavClientProvider,
-    private val caldavDao: CaldavDao,
-    private val encryption: KeyStoreEncryption,
-    private val debugConnectionBuilder: DebugConnectionBuilder,
-    private val purchaseClaim: PurchaseClaim,
-    private val environment: TasksServerEnvironment,
+    private val signIn: TasksOAuthSignIn,
+    private val pushTokenManager: PushTokenManager,
+    private val firebase: Firebase,
 ) : ViewModel() {
-    var showSubscriptionRequiredDialog by mutableStateOf<Boolean?>(null)
-        private set
-    var showWrongAccountEmail by mutableStateOf<String?>(null)
-        private set
-    val error = MutableLiveData<Throwable>()
+    sealed interface State {
+        data object Idle : State
 
-    var authService: AuthorizationService? = null
+        data object Authorizing : State
 
-    fun handleError(e: Throwable) {
-        if (e is PurchaseTokenInUseException) {
-            showWrongAccountEmail = e.existingAccount
-        } else {
-            error.postValue(e)
+        data class SubscriptionRequired(
+            val provider: OAuthProvider,
+            val authorization: OAuthResult,
+            val purchasing: Boolean = false,
+        ) : State
+
+        data class WrongAccount(val maskedEmail: String) : State
+
+        data class Finished(val outcome: Outcome) : State
+    }
+
+    sealed interface Outcome {
+        data object Created : Outcome
+
+        data object Cancelled : Outcome
+
+        data object Superseded : Outcome
+
+        data class Failed(val message: String?) : Outcome
+    }
+
+    private val _state = MutableStateFlow<State>(State.Idle)
+    val state: StateFlow<State> = _state.asStateFlow()
+
+    fun signIn(provider: OAuthProvider) {
+        if (_state.value != State.Idle) {
+            return
+        }
+        launch {
+            val authorization = signIn.authorize(provider = provider, openUrl = {})
+            createAccount(provider, authorization)
         }
     }
 
-    fun showSubscriptionRequired(isGitHub: Boolean) {
-        showSubscriptionRequiredDialog = isGitHub
+    fun purchaseStarted() {
+        _state.update { if (it is State.SubscriptionRequired) it.copy(purchasing = true) else it }
     }
 
-    fun initializeAuthService(iss: String) {
-        authService?.dispose()
-        authService = AuthorizationService(iss, context, debugConnectionBuilder, environment.caldavUrl)
+    fun retryAfterPurchase() {
+        val required = _state.value as? State.SubscriptionRequired ?: return
+        launch { createAccount(required.provider, required.authorization) }
     }
 
-    suspend fun handleResult(authService: AuthorizationService, intent: Intent) {
-        val response = AuthorizationResponse.fromIntent(intent)
-        val ex = AuthorizationException.fromIntent(intent)
-        val authStateManager = authService.authStateManager
-
-        if (response != null || ex != null) {
-            authStateManager.updateAfterAuthorization(response, ex)
-        }
-
-        if (response?.authorizationCode != null) {
-            authStateManager.updateAfterAuthorization(response, ex)
-            exchangeAuthorizationCode(authService, response)
-        }
-
-        ex?.let {
-            handleError(it)
-        }
-    }
-
-    suspend fun setupAccount(authService: AuthorizationService): CaldavAccount? {
-        val auth = authService.authStateManager.current
-        val tokenString = auth.accessToken ?: return null
-        val idToken = auth.idToken?.let { IdToken(it) } ?: return null
-        if (idToken.sub == null) return null
-        return try {
-            setupTasksAccount(
-                oauthResult = OAuthResult(accessToken = tokenString, idToken = idToken),
-                issuer = authService.iss,
-                caldavUrl = environment.caldavUrl,
-                caldavDao = caldavDao,
-                encryption = encryption,
-                provider = provider,
-                purchaseClaim = purchaseClaim,
-            )
-        } catch (e: Exception) {
-            Timber.d("setupAccount: caught ${e.javaClass.simpleName} - ${e.message}")
-            handleError(e)
-            null
-        }
-    }
-
-    private suspend fun exchangeAuthorizationCode(
-            authService: AuthorizationService,
-            authorizationResponse: AuthorizationResponse
-    ) {
-        val authStateManager = authService.authStateManager
-        val serverCodeVerifier = authService.serverCodeVerifier
-        val request = when {
-            authService.isGitHub -> authorizationResponse.createCodeTokenRequest(nonce = null)
-            serverCodeVerifier != null ->
-                authorizationResponse.createCodeTokenRequest(codeVerifier = serverCodeVerifier)
-            else -> authorizationResponse.createTokenExchangeRequest()
-        }
-        val clientAuthentication = try {
-            authStateManager.current.clientAuthentication
-        } catch (ex: UnsupportedAuthenticationMethod) {
-            throw ex
-        }
+    private suspend fun createAccount(provider: OAuthProvider, authorization: OAuthResult): State =
         try {
-            authService.performTokenRequest(request, clientAuthentication)?.let {
-                authStateManager.updateAfterTokenResponse(it, null)
-                if (authStateManager.current.isAuthorized) {
-                    Timber.d("Authorization successful")
-                }
-            }
-        } catch (e: AuthorizationException) {
-            Timber.e(e)
-            authStateManager.updateAfterTokenResponse(null, e)
-            handleError(e)
+            val account = signIn.createAccount(provider, authorization)
+            pushTokenManager.registerTokenForAccount(account)
+            firebase.logEvent(
+                R.string.event_sync_add_account,
+                R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG
+            )
+            State.Finished(Outcome.Created)
+        } catch (e: PaymentRequiredException) {
+            State.SubscriptionRequired(provider, authorization)
         }
-    }
 
-    override fun onCleared() {
-        authService?.dispose()
-    }
-
-    companion object {
-        fun AuthorizationResponse.createCodeTokenRequest(
-            codeVerifier: String? = request.codeVerifier,
-            nonce: String? = request.nonce,
-        ): TokenRequest {
-            checkNotNull(authorizationCode) { "authorizationCode not available for exchange request" }
-            return TokenRequest
-                    .Builder(request.configuration, request.clientId)
-                    .setGrantType(GrantTypeValues.AUTHORIZATION_CODE)
-                    .setRedirectUri(request.redirectUri)
-                    .setCodeVerifier(codeVerifier)
-                    .setNonce(nonce)
-                    .setAuthorizationCode(authorizationCode)
-                    .setAdditionalParameters(emptyMap())
-                    .build()
+    private fun launch(block: suspend () -> State) {
+        _state.value = State.Authorizing
+        viewModelScope.launch {
+            _state.value = try {
+                block()
+            } catch (e: PurchaseTokenInUseException) {
+                State.WrongAccount(e.existingAccount)
+            } catch (e: RedirectSupersededException) {
+                State.Finished(Outcome.Superseded)
+            } catch (e: CancellationException) {
+                currentCoroutineContext().ensureActive()
+                State.Finished(Outcome.Cancelled)
+            } catch (e: Exception) {
+                firebase.reportException(e)
+                State.Finished(Outcome.Failed(e.message))
+            }
         }
     }
 }

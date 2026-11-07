@@ -57,7 +57,6 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
         testInstrumentationRunner = "org.tasks.TestRunner"
-        manifestPlaceholders["appAuthRedirectScheme"] = "org.tasks"
         resValue("string", "opentasks_authority", "$applicationId.opentasks")
     }
 
@@ -192,6 +191,7 @@ dependencies {
     baselineProfile(projects.baselineprofile)
     implementation(libs.kermit)
     implementation(libs.androidx.navigation)
+    implementation(libs.androidx.browser)
     implementation(libs.androidx.adaptive.navigation.android)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation(libs.bitfire.ical4android) {
@@ -262,7 +262,6 @@ dependencies {
     implementation(libs.androidx.work)
     implementation(libs.etebase.android)
     implementation(libs.colorpicker)
-    implementation(libs.appauth)
     implementation(libs.osmdroid)
     implementation(libs.androidx.recyclerview)
 

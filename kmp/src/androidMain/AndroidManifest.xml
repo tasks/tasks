@@ -8,6 +8,8 @@
         android:name="org.tasks.auth.OAuthRedirectActivity"
         android:exported="true"
         android:launchMode="singleTask"
+        android:taskAffinity=":oauth"
+        android:autoRemoveFromRecents="true"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
   </application>
 

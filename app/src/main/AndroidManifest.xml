@@ -176,9 +176,9 @@
     android:localeConfig="@xml/locales_config">
 
     <activity
-      android:name="net.openid.appauth.RedirectUriReceiverActivity"
+      android:name="org.tasks.auth.OAuthRedirectActivity"
       android:exported="true"
-      tools:node="replace">
+      tools:node="merge">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
