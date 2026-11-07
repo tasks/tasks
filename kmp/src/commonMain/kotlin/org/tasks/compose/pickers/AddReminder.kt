@@ -33,12 +33,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
@@ -64,6 +62,7 @@ import org.tasks.data.entity.Alarm.Companion.TYPE_REL_END
 import org.tasks.data.entity.Alarm.Companion.TYPE_REL_START
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Alarm.Companion.whenStarted
+import org.tasks.kmp.org.tasks.compose.ShowKeyboard
 import org.tasks.previews.PREVIEW_NIGHT_MODE
 import org.tasks.reminders.ReminderControlSetViewModel.ViewState
 import org.tasks.reminders.repeatString
@@ -598,17 +597,6 @@ fun AddAlarmDialog(
                 dismiss()
             }
         }
-    }
-}
-
-@Composable
-fun ShowKeyboard(visible: Boolean, focusRequester: FocusRequester) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-    LaunchedEffect(visible) {
-        focusRequester.freeFocus()
-        withFrameNanos { }
-        focusRequester.requestFocus()
-        keyboardController?.show()
     }
 }
 

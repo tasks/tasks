@@ -1,6 +1,5 @@
 package org.tasks.compose.settings
 
-import androidx.compose.runtime.saveable.SaverScope
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import org.tasks.billing.PurchaseTerms
@@ -11,21 +10,27 @@ class StripeTabStateSaverTest {
     fun aCodeKeepsTheAddressItWasSentTo() {
         assertEquals(
             StripeTabState.Code("alice@example.com"),
-            roundTrip(StripeTabState.Code("alice@example.com")),
+            roundTrip(StripeTabStateSaver, StripeTabState.Code("alice@example.com")),
         )
     }
 
     @Test
     fun aCodeKeepsTheRefusalBesideIt() {
-        assertEquals(
-            StripeTabState.Code("alice@example.com", Refusal.INVALID_CODE),
-            roundTrip(StripeTabState.Code("alice@example.com", Refusal.INVALID_CODE)),
-        )
+        val refused = StripeTabState.Code("alice@example.com", Refusal.INVALID_CODE)
+
+        assertEquals(refused, roundTrip(StripeTabStateSaver, refused))
     }
 
     @Test
     fun anInFlightCallComesBackAtTheStartOfItsStep() {
-        assertEquals(StripeTabState.Email(), roundTrip(StripeTabState.Busy))
+        assertEquals(
+            StripeTabState.Email(),
+            roundTrip(StripeTabStateSaver, StripeTabState.Email(busy = true)),
+        )
+        assertEquals(
+            StripeTabState.Code("alice@example.com"),
+            roundTrip(StripeTabStateSaver, StripeTabState.Code("alice@example.com", busy = true)),
+        )
     }
 
     @Test
@@ -38,7 +43,7 @@ class StripeTabStateSaverTest {
             ),
         )
 
-        assertEquals(ended, roundTrip(ended))
+        assertEquals(ended, roundTrip(StripeTabStateSaver, ended))
     }
 
     @Test
@@ -53,11 +58,6 @@ class StripeTabStateSaverTest {
             StripeTabState.Ended(),
             StripeTabState.Failed(Refusal.TOO_MANY_REQUESTS, startOver = true),
             StripeTabState.Failed(Refusal.SERVER_FAILED, startOver = false),
-        ).forEach { assertEquals(it, roundTrip(it)) }
-    }
-
-    private fun roundTrip(state: StripeTabState): StripeTabState? {
-        val saved = with(StripeTabStateSaver) { SaverScope { true }.save(state) }
-        return StripeTabStateSaver.restore(saved!!)
+        ).forEach { assertEquals(it, roundTrip(StripeTabStateSaver, it)) }
     }
 }

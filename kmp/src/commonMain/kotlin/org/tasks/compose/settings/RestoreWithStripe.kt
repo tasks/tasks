@@ -9,31 +9,39 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldBuffer
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.clearText
+import androidx.compose.foundation.text.input.delete
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.TasksUrls
 import org.tasks.billing.PurchaseTerms
@@ -42,6 +50,7 @@ import org.tasks.billing.StripeRestore
 import org.tasks.billing.StripeRestoreOutcome
 import org.tasks.billing.StripeRestoreRequest
 import org.tasks.billing.formatCredit
+import org.tasks.kmp.org.tasks.compose.ShowKeyboard
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.email
 import tasks.kmp.generated.resources.error_billing_unavailable
@@ -90,13 +99,17 @@ internal enum class Refusal {
 @Serializable
 internal sealed interface StripeTabState {
     @Serializable
-    data class Email(val error: Refusal? = null) : StripeTabState
+    data class Email(
+        val error: Refusal? = null,
+        val busy: Boolean = false,
+    ) : StripeTabState
 
     @Serializable
-    data class Code(val email: String, val error: Refusal? = null) : StripeTabState
-
-    @Serializable
-    data object Busy : StripeTabState
+    data class Code(
+        val email: String,
+        val error: Refusal? = null,
+        val busy: Boolean = false,
+    ) : StripeTabState
 
     @Serializable
     data class Restored(val settling: Boolean = false) : StripeTabState
@@ -132,21 +145,27 @@ private fun StripeTabState.Ended.creditNote(): String? =
     formatCredit(terms?.creditCents, terms?.creditCurrency)
         ?.let { stringResource(Res.string.pro_card_credit, it) }
 
-internal val StripeTabStateSaver = Saver<StripeTabState, String>(
-    save = { Json.encodeToString(it) },
-    restore = {
-        val restored = try {
-            Json.decodeFromString<StripeTabState>(it)
-        } catch (e: Exception) {
-            Logger.e(e, tag = "StripeTab") { "Could not read back the saved restore step" }
-            null
+internal val StripeTabStateSaver = jsonSaver<StripeTabState>(
+    tag = "StripeTab",
+    what = "restore step",
+) {
+    when (it) {
+        null -> StripeTabState.Email()
+        is StripeTabState.Email -> it.copy(busy = false)
+        is StripeTabState.Code -> it.copy(busy = false)
+        else -> it
+    }
+}
+
+private object DigitsOnly : InputTransformation {
+    override fun TextFieldBuffer.transformInput() {
+        for (i in length - 1 downTo 0) {
+            if (!charAt(i).isDigit()) {
+                delete(i, i + 1)
+            }
         }
-        when (restored) {
-            null, StripeTabState.Busy -> StripeTabState.Email()
-            else -> restored
-        }
-    },
-)
+    }
+}
 
 @Composable
 internal fun StripeTab(
@@ -154,8 +173,8 @@ internal fun StripeTab(
     onBack: () -> Unit,
     successButtonText: String? = null,
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var code by rememberSaveable { mutableStateOf("") }
+    val email = rememberTextFieldState()
+    val code = rememberTextFieldState()
     var state: StripeTabState by rememberSaveable(
         stateSaver = StripeTabStateSaver,
     ) { mutableStateOf(StripeTabState.Email()) }
@@ -172,11 +191,15 @@ internal fun StripeTab(
         } else {
             StripeTabState.Email(error)
         }
-        state = StripeTabState.Busy
+        state = if (resend) {
+            StripeTabState.Code(trimmed, busy = true)
+        } else {
+            StripeTabState.Email(busy = true)
+        }
         scope.launch {
             state = when (callbacks.onRequestCode(trimmed)) {
                 StripeRestoreRequest.Sent -> {
-                    code = ""
+                    code.clearText()
                     StripeTabState.Code(trimmed)
                 }
                 StripeRestoreRequest.InvalidEmail -> StripeTabState.Email(Refusal.INVALID_EMAIL)
@@ -188,7 +211,7 @@ internal fun StripeTab(
     }
 
     fun verify(address: String, entered: String) {
-        state = StripeTabState.Busy
+        state = StripeTabState.Code(address, busy = true)
         scope.launch {
             state = withContext(NonCancellable) { callbacks.verifyAndKeep(address, entered) }
         }
@@ -198,21 +221,17 @@ internal fun StripeTab(
         is StripeTabState.Email -> EmailStep(
             email = email,
             error = current.error?.message(),
-            onEmailChange = { email = it },
-            onSend = { sendCode(email) },
+            busy = current.busy,
+            onSend = { sendCode(email.text.toString()) },
         )
         is StripeTabState.Code -> CodeStep(
             email = current.email,
             code = code,
             error = current.error?.message(),
-            onCodeChange = { code = it.filter(Char::isDigit) },
-            onVerify = { verify(current.email, code) },
+            busy = current.busy,
+            onVerify = { verify(current.email, code.text.toString()) },
             onResend = { sendCode(current.email, resend = true) },
             onChangeEmail = { state = StripeTabState.Email() },
-        )
-        StripeTabState.Busy -> CircularProgressIndicator(
-            modifier = Modifier.size(24.dp),
-            strokeWidth = 2.dp,
         )
         is StripeTabState.Restored -> SuccessContent(
             onBack = onBack,
@@ -282,11 +301,13 @@ private suspend fun StripeRestoreCallbacks.verifyAndKeep(
 
 @Composable
 private fun EmailStep(
-    email: String,
+    email: TextFieldState,
     error: String?,
-    onEmailChange: (String) -> Unit,
+    busy: Boolean,
     onSend: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+    ShowKeyboard(visible = true, focusRequester = focusRequester)
     Column(
         modifier = Modifier.fillMaxWidth().padding(SettingsContentPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -298,25 +319,29 @@ private fun EmailStep(
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = email,
-            onValueChange = onEmailChange,
+            state = email,
             label = { Text(stringResource(Res.string.email)) },
-            singleLine = true,
+            lineLimits = TextFieldLineLimits.SingleLine,
             isError = error != null,
             supportingText = error?.let { { Text(it) } },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Go,
             ),
-            modifier = Modifier.fillMaxWidth(),
+            onKeyboardAction = { if (email.text.isNotBlank()) onSend() },
+            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = onSend,
-            enabled = email.isNotBlank(),
+            enabled = !busy && email.text.isNotBlank(),
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(stringResource(Res.string.restore_send_code))
+            if (busy) {
+                ButtonProgress()
+            } else {
+                Text(stringResource(Res.string.restore_send_code))
+            }
         }
     }
 }
@@ -324,13 +349,15 @@ private fun EmailStep(
 @Composable
 private fun CodeStep(
     email: String,
-    code: String,
+    code: TextFieldState,
     error: String?,
-    onCodeChange: (String) -> Unit,
+    busy: Boolean,
     onVerify: () -> Unit,
     onResend: () -> Unit,
     onChangeEmail: () -> Unit,
 ) {
+    val focusRequester = remember { FocusRequester() }
+    ShowKeyboard(visible = true, focusRequester = focusRequester)
     Column(
         modifier = Modifier.fillMaxWidth().padding(SettingsContentPadding),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -342,37 +369,49 @@ private fun CodeStep(
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = code,
-            onValueChange = onCodeChange,
+            state = code,
             label = { Text(stringResource(Res.string.restore_code)) },
-            singleLine = true,
+            lineLimits = TextFieldLineLimits.SingleLine,
+            inputTransformation = DigitsOnly,
             isError = error != null,
             supportingText = error?.let { { Text(it) } },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.NumberPassword,
                 imeAction = ImeAction.Go,
             ),
-            modifier = Modifier.fillMaxWidth(),
+            onKeyboardAction = { if (code.text.isNotBlank()) onVerify() },
+            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = onVerify,
-            enabled = code.isNotBlank(),
+            enabled = !busy && code.text.isNotBlank(),
             modifier = Modifier.fillMaxWidth(),
         ) {
-            Text(stringResource(Res.string.restore_purchases))
+            if (busy) {
+                ButtonProgress()
+            } else {
+                Text(stringResource(Res.string.restore_purchases))
+            }
         }
         Spacer(modifier = Modifier.height(8.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextButton(onClick = onChangeEmail) {
+            TextButton(onClick = onChangeEmail, enabled = !busy) {
                 Text(stringResource(Res.string.restore_use_another_email))
             }
-            TextButton(onClick = onResend) {
+            TextButton(onClick = onResend, enabled = !busy) {
                 Text(stringResource(Res.string.restore_send_code))
             }
         }
     }
 }
+
+@Composable
+private fun ButtonProgress() = CircularProgressIndicator(
+    modifier = Modifier.size(16.dp),
+    strokeWidth = 2.dp,
+    color = LocalContentColor.current,
+)
 
 @Composable
 private fun MessageStep(

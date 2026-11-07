@@ -7,7 +7,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import co.touchlab.kermit.Logger
 
 @Composable
@@ -23,4 +26,15 @@ fun rememberImeState(): State<Boolean> {
         Logger.d("imeState") { "keyboardOpen=${imeState.value}" }
     }
     return imeState
+}
+
+@Composable
+fun ShowKeyboard(visible: Boolean, focusRequester: FocusRequester) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+    LaunchedEffect(visible) {
+        focusRequester.freeFocus()
+        withFrameNanos { }
+        focusRequester.requestFocus()
+        keyboardController?.show()
+    }
 }

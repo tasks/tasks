@@ -3,14 +3,19 @@ package org.tasks.compose.settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.filterToOne
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextInputSelection
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.text.TextRange
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -77,6 +82,56 @@ class StripeRestoreTest {
     }
 
     @Test
+    fun aSelectedCodeIsReplacedByTheNextDigitTyped() = runComposeUiTest {
+        setContent { Screen() }
+        sendCodeTo("buyer@example.com")
+        awaitText("Code")
+
+        onNodeWithText("Code").performTextInput("123456")
+        onNodeWithText("Code").performTextInputSelection(TextRange(0, 6))
+        onNodeWithText("Code").performTextInput("9")
+
+        onNodeWithText("Code").assertTextContains("9")
+    }
+
+    @Test
+    fun aPastedCodeKeepsOnlyItsDigits() = runComposeUiTest {
+        setContent { Screen() }
+        sendCodeTo("buyer@example.com")
+        awaitText("Code")
+
+        onNodeWithText("Code").performTextInput("1 2 3 4 5 6")
+
+        onNodeWithText("Code").assertTextContains("123456")
+    }
+
+    @Test
+    fun aLetterTypedIntoTheCodeIsNotLeftOnScreen() = runComposeUiTest {
+        setContent { Screen() }
+        sendCodeTo("buyer@example.com")
+        awaitText("Code")
+
+        onNodeWithText("Code").performTextInput("x")
+
+        assertEquals("", codeFieldText())
+    }
+
+    @Test
+    fun theCodeTheyWereSentSurvivesLeavingTheTab() = runComposeUiTest {
+        setContent { Screen() }
+        sendCodeTo("buyer@example.com")
+        awaitText("Code")
+        onNodeWithText("Code").performTextInput("123")
+
+        onNodeWithContentDescription("Back").performClick()
+        awaitText("Card subscription")
+        onNodeWithText("Card subscription").performClick()
+
+        awaitText("If you paid with buyer@example.com, you'll receive a code shortly.")
+        assertEquals("123", codeFieldText())
+    }
+
+    @Test
     fun aFirstSendThatWasRefusedGoesBackToTheAddress() = runComposeUiTest {
         setContent { Screen() }
 
@@ -113,6 +168,11 @@ class StripeRestoreTest {
             onOpenSponsorPage = {},
         )
     }
+
+    private fun ComposeUiTest.codeFieldText() = onNodeWithText("Code")
+        .fetchSemanticsNode()
+        .config[SemanticsProperties.EditableText]
+        .text
 
     private fun ComposeUiTest.awaitText(text: String) =
         waitUntil { onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty() }

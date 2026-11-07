@@ -14,8 +14,11 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
@@ -31,6 +34,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -41,6 +45,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,6 +61,7 @@ import io.github.alexzhirkevich.qrose.rememberQrCodePainter
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -62,6 +69,7 @@ import org.tasks.TasksUrls
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.billing.UnlockSource
+import org.tasks.compose.PlatformBackHandler
 import org.tasks.billing.LinkResult
 import org.tasks.billing.StatusResult
 import org.tasks.kmp.formatNumber
@@ -86,6 +94,7 @@ import tasks.kmp.generated.resources.link_desktop
 import tasks.kmp.generated.resources.link_desktop_success
 import tasks.kmp.generated.resources.qr_code
 import tasks.kmp.generated.resources.restore_purchases
+import tasks.kmp.generated.resources.sign_in
 import tasks.kmp.generated.resources.retry
 import tasks.kmp.generated.resources.scan_qr_code
 import tasks.kmp.generated.resources.sponsor_on_github
@@ -95,11 +104,34 @@ import tasks.kmp.generated.resources.unlock_pro_step_1
 import tasks.kmp.generated.resources.unlock_pro_step_2
 import tasks.kmp.generated.resources.unlock_pro_step_3
 
+@Serializable
 sealed interface DesktopProState {
+    @Serializable
     data object Loading : DesktopProState
+
+    @Serializable
     data class ShowQr(val code: String, val expiresAt: Long) : DesktopProState
+
+    @Serializable
     data object Success : DesktopProState
-    data class Error(val message: String) : DesktopProState
+
+    @Serializable
+    data class Error(val failure: LinkFailure) : DesktopProState
+}
+
+@Serializable
+enum class LinkFailure {
+    CREATE_FAILED,
+    ENCRYPTION_FAILED,
+    SERVER_FAILED,
+}
+
+@Composable
+private fun LinkFailure.message(): String = when (this) {
+    LinkFailure.CREATE_FAILED -> stringResource(Res.string.error_create_link_failed)
+    LinkFailure.ENCRYPTION_FAILED -> stringResource(Res.string.error_encryption_failed)
+    LinkFailure.SERVER_FAILED ->
+        stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
 }
 
 data class DesktopLinkCallbacks(
@@ -115,14 +147,47 @@ data class DesktopLinkCallbacks(
 
 private const val MAX_POLL_ERRORS = 5
 private const val FALLBACK_LINK_TTL_SECONDS = 600L
+private const val MAX_EXPIRED_LINKS = 2
 
+internal val UnlockSourceSaver = jsonSaver<UnlockSource?>(
+    tag = "RestorePurchases",
+    what = "selection",
+) { it }
+
+internal val DesktopProStateSaver = jsonSaver<DesktopProState>(
+    tag = "RestorePurchases",
+    what = "link",
+) { it ?: DesktopProState.Loading }
+
+@Serializable
 sealed interface GitHubProState {
+    @Serializable
     data object Idle : GitHubProState
+
+    @Serializable
     data object OpeningBrowser : GitHubProState
+
+    @Serializable
     data object Success : GitHubProState
+
+    @Serializable
     data object NotSponsor : GitHubProState
+
+    @Serializable
     data class NotStored(val encryptionFailed: Boolean) : GitHubProState
+
+    @Serializable
     data object Failed : GitHubProState
+}
+
+internal val GitHubProStateSaver = jsonSaver<GitHubProState>(
+    tag = "RestorePurchases",
+    what = "sponsor check",
+) {
+    when (it) {
+        null, GitHubProState.OpeningBrowser -> GitHubProState.Idle
+        else -> it
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -143,80 +208,101 @@ fun RestorePurchasesScreen(
     onGitHubFailed: () -> Unit = {},
     successButtonText: String? = null,
 ) {
-    var selection by remember { mutableStateOf<UnlockSource?>(null) }
+    var selection by rememberSaveable(stateSaver = UnlockSourceSaver) {
+        mutableStateOf<UnlockSource?>(null)
+    }
     val available = remember(sources, desktopLink) {
         sources.filter { it != UnlockSource.GOOGLE_PLAY || desktopLink != null }
     }
-    var qrState by remember { mutableStateOf<DesktopProState>(DesktopProState.Loading) }
-    var gitHubState by remember { mutableStateOf<GitHubProState>(GitHubProState.Idle) }
-    var linkGeneration by remember { mutableIntStateOf(0) }
-    val errorMessage = stringResource(Res.string.error_create_link_failed)
-    val encryptionFailedMessage = stringResource(Res.string.error_encryption_failed)
-    val contactSupportMessage = stringResource(Res.string.error_contact_support, TasksUrls.SUPPORT_EMAIL)
+    var qrState by rememberSaveable(stateSaver = DesktopProStateSaver) {
+        mutableStateOf<DesktopProState>(DesktopProState.Loading)
+    }
+    var gitHubState by rememberSaveable(stateSaver = GitHubProStateSaver) {
+        mutableStateOf<GitHubProState>(GitHubProState.Idle)
+    }
+    var linkAttempt by rememberSaveable { mutableIntStateOf(0) }
+    val tabState = rememberSaveableStateHolder()
     val scope = rememberCoroutineScope()
 
-    // Create or refresh link when Google Play is selected
-    LaunchedEffect(selection, linkGeneration) {
-        if (selection != UnlockSource.GOOGLE_PLAY) return@LaunchedEffect
-        val link = desktopLink ?: return@LaunchedEffect
+    fun createLink() {
         qrState = DesktopProState.Loading
-        val result = link.onCreateLink()
-        if (result != null) {
-            qrState = DesktopProState.ShowQr(result.code, result.expiresAt)
-        } else {
-            qrState = DesktopProState.Error(errorMessage)
-            onLinkError()
-        }
+        linkAttempt++
     }
 
-    // Poll for status, auto-renew on expiry
-    val pollCode = (qrState as? DesktopProState.ShowQr)?.code
-    LaunchedEffect(pollCode) {
+    LaunchedEffect(available) {
+        selection = selection?.takeIf { it in available }
+    }
+
+    // Create a link, poll it until it is scanned, replace it when it expires
+    LaunchedEffect(selection, linkAttempt) {
+        if (selection != UnlockSource.GOOGLE_PLAY) return@LaunchedEffect
         val link = desktopLink ?: return@LaunchedEffect
-        val showQr = qrState as? DesktopProState.ShowQr ?: return@LaunchedEffect
-        val expiresAt = showQr.expiresAt.takeIf { it > 0 }
-            ?: (currentTimeMillis() / 1000 + FALLBACK_LINK_TTL_SECONDS)
-        var consecutiveErrors = 0
-        while (true) {
-            val now = currentTimeMillis() / 1000
-            if (now >= expiresAt) {
-                linkGeneration++
+        var resume = qrState as? DesktopProState.ShowQr
+        if (resume == null && qrState !is DesktopProState.Loading) return@LaunchedEffect
+        var expiredLinks = 0
+        links@ while (true) {
+            val showQr = resume ?: run {
+                qrState = DesktopProState.Loading
+                link.onCreateLink()?.let { DesktopProState.ShowQr(it.code, it.expiresAt) }
+            }
+            if (showQr == null) {
+                onLinkError()
+                qrState = DesktopProState.Error(LinkFailure.CREATE_FAILED)
                 return@LaunchedEffect
             }
-            delay(if (consecutiveErrors > 0) 15_000L else 5_000L)
-            val status = link.onPollStatus(showQr.code)
-            if (status == null) {
-                consecutiveErrors++
-                if (consecutiveErrors >= MAX_POLL_ERRORS) {
-                    onLinkError()
-                    qrState = DesktopProState.Error(errorMessage)
+            resume = null
+            qrState = showQr
+            val expiresAt = showQr.expiresAt.takeIf { it > 0 }
+                ?: (currentTimeMillis() / 1000 + FALLBACK_LINK_TTL_SECONDS)
+            var consecutiveErrors = 0
+            var polled = false
+            while (true) {
+                if (currentTimeMillis() / 1000 >= expiresAt) {
+                    if (polled) {
+                        expiredLinks = 0
+                    } else if (expiredLinks++ >= MAX_EXPIRED_LINKS) {
+                        onLinkError()
+                        qrState = DesktopProState.Error(LinkFailure.CREATE_FAILED)
+                        return@LaunchedEffect
+                    }
+                    continue@links
+                }
+                delay(if (consecutiveErrors > 0) 15_000L else 5_000L)
+                val status = link.onPollStatus(showQr.code)
+                polled = true
+                if (status == null) {
+                    consecutiveErrors++
+                    if (consecutiveErrors >= MAX_POLL_ERRORS) {
+                        onLinkError()
+                        qrState = DesktopProState.Error(LinkFailure.CREATE_FAILED)
+                        return@LaunchedEffect
+                    }
+                    continue
+                }
+                consecutiveErrors = 0
+                if (status.status == "confirmed" && status.jwt != null && status.refreshToken != null) {
+                    val stored = try {
+                        link.onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        Logger.e(e) { "Failed to store entitlement" }
+                        StoreResult.WRITE_FAILED
+                    }
+                    qrState = if (stored == StoreResult.STORED) {
+                        DesktopProState.Success
+                    } else {
+                        onLinkError()
+                        DesktopProState.Error(
+                            if (stored == StoreResult.ENCRYPT_FAILED) {
+                                LinkFailure.ENCRYPTION_FAILED
+                            } else {
+                                LinkFailure.SERVER_FAILED
+                            }
+                        )
+                    }
                     return@LaunchedEffect
                 }
-                continue
-            }
-            consecutiveErrors = 0
-            if (status.status == "confirmed" && status.jwt != null && status.refreshToken != null) {
-                val stored = try {
-                    link.onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Exception) {
-                    Logger.e(e) { "Failed to store entitlement" }
-                    StoreResult.WRITE_FAILED
-                }
-                qrState = if (stored == StoreResult.STORED) {
-                    DesktopProState.Success
-                } else {
-                    onLinkError()
-                    DesktopProState.Error(
-                        if (stored == StoreResult.ENCRYPT_FAILED) {
-                            encryptionFailedMessage
-                        } else {
-                            contactSupportMessage
-                        }
-                    )
-                }
-                break
             }
         }
     }
@@ -246,20 +332,26 @@ fun RestorePurchasesScreen(
         }
     }
 
+    fun back() {
+        if (selection != null) {
+            selection = null
+            gitHubState = GitHubProState.Idle
+        } else {
+            onBack()
+        }
+    }
+
+    PlatformBackHandler(enabled = true, onBack = { back() })
+
     Scaffold(
         containerColor = MaterialTheme.colorScheme.surface,
-        contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        contentWindowInsets = ScaffoldDefaults.contentWindowInsets
+            .union(WindowInsets.systemBars)
+            .union(WindowInsets.ime),
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    IconButton(onClick = {
-                        if (selection != null) {
-                            selection = null
-                            gitHubState = GitHubProState.Idle
-                        } else {
-                            onBack()
-                        }
-                    }) {
+                    IconButton(onClick = { back() }) {
                         SymbolIcon(
                             name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
@@ -283,14 +375,17 @@ fun RestorePurchasesScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            when (selection?.takeIf { it in available }) {
+            when (val current = selection?.takeIf { it in available }) {
                 null -> {
                     SelectionContent(
                         sources = available,
                         onSelect = { source ->
                             selection = source
                             when (source) {
-                                UnlockSource.GOOGLE_PLAY -> onGooglePlaySelected()
+                                UnlockSource.GOOGLE_PLAY -> {
+                                    onGooglePlaySelected()
+                                    createLink()
+                                }
                                 UnlockSource.GITHUB -> {
                                     onGitHubSelected()
                                     startGitHubSignIn()
@@ -300,38 +395,42 @@ fun RestorePurchasesScreen(
                         },
                     )
                 }
-                UnlockSource.GOOGLE_PLAY -> {
-                    QrTab(
-                        state = qrState,
-                        onBack = onBack,
-                        onRetry = { linkGeneration++ },
-                        successButtonText = successButtonText,
-                    )
-                }
-                UnlockSource.GITHUB -> {
-                    Column(
-                        modifier = Modifier.widthIn(max = 400.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        GitHubTab(
-                            state = gitHubState,
-                            onBack = onBack,
-                            onRetry = { startGitHubSignIn() },
-                            onOpenSponsorPage = onOpenSponsorPage,
-                            successButtonText = successButtonText,
-                        )
-                    }
-                }
-                UnlockSource.STRIPE -> {
-                    Column(
-                        modifier = Modifier.widthIn(max = 400.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        StripeTab(
-                            callbacks = stripe,
-                            onBack = onBack,
-                            successButtonText = successButtonText,
-                        )
+                else -> tabState.SaveableStateProvider(current.name) {
+                    when (current) {
+                        UnlockSource.GOOGLE_PLAY -> {
+                            QrTab(
+                                state = qrState,
+                                onBack = onBack,
+                                onRetry = { createLink() },
+                                successButtonText = successButtonText,
+                            )
+                        }
+                        UnlockSource.GITHUB -> {
+                            Column(
+                                modifier = Modifier.widthIn(max = 400.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                GitHubTab(
+                                    state = gitHubState,
+                                    onBack = onBack,
+                                    onRetry = { startGitHubSignIn() },
+                                    onOpenSponsorPage = onOpenSponsorPage,
+                                    successButtonText = successButtonText,
+                                )
+                            }
+                        }
+                        UnlockSource.STRIPE -> {
+                            Column(
+                                modifier = Modifier.widthIn(max = 400.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                StripeTab(
+                                    callbacks = stripe,
+                                    onBack = onBack,
+                                    successButtonText = successButtonText,
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -510,7 +609,7 @@ private fun QrTab(
         }
         is DesktopProState.Error -> {
             Text(
-                text = s.message,
+                text = s.failure.message(),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.error,
                 textAlign = TextAlign.Center,
@@ -582,7 +681,11 @@ private fun GitHubTab(
     successButtonText: String? = null,
 ) {
     when (state) {
-        is GitHubProState.Idle,
+        is GitHubProState.Idle -> {
+            Button(onClick = onRetry) {
+                Text(stringResource(Res.string.sign_in))
+            }
+        }
         is GitHubProState.OpeningBrowser -> {
             Text(
                 text = stringResource(Res.string.unlock_pro_opening_browser),
