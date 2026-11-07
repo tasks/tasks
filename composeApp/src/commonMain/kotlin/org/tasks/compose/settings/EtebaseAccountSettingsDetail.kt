@@ -16,7 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
@@ -33,9 +33,10 @@ fun EtebaseAccountSettingsDetail(
     onNavigateBack: () -> Unit,
 ) {
     val viewModel = koinViewModel<EtebaseAccountSettingsViewModel>()
-    LaunchedEffect(pane.account.id) { viewModel.setAccount(pane.account) }
+    LaunchedEffect(pane.accountId) { viewModel.setAccountId(pane.accountId) }
     val state by viewModel.state.collectAsState()
-    var showDiscardDialog by remember { mutableStateOf(false) }
+    if (!state.loaded) return
+    var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
     val etesyncFallback = stringResource(Res.string.etesync)
     val accountName = state.account?.name?.takeIf { it.isNotBlank() } ?: etesyncFallback
 

@@ -12,10 +12,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
@@ -34,13 +35,15 @@ fun LocalAccountSettingsDetail(
     onSignIn: () -> Unit,
 ) {
     val viewModel = koinViewModel<LocalAccountViewModel>()
-    remember(pane.account.id) { viewModel.setAccount(pane.account) }
+    LaunchedEffect(pane.accountId) { viewModel.setAccountId(pane.accountId) }
+    val loaded by viewModel.loaded.collectAsState()
+    if (!loaded) return
     val displayName by viewModel.displayName.collectAsState()
     val nameError by viewModel.nameError.collectAsState()
     val taskCount by viewModel.taskCount.collectAsState()
     val account by viewModel.account.collectAsState()
     val hasChanges by viewModel.hasChanges.collectAsState()
-    var showDiscardDialog by remember { mutableStateOf(false) }
+    var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {

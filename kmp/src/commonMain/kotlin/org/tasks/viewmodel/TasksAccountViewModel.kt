@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -36,6 +37,7 @@ import org.tasks.sync.SyncSource
 
 data class TasksAccountState(
     val account: CaldavAccount? = null,
+    val loaded: Boolean = false,
     val isGithub: Boolean = false,
     val isApple: Boolean = false,
     val isGuest: Boolean = false,
@@ -85,6 +87,8 @@ open class TasksAccountViewModel(
         accountDataRepository.accountResponseFlow
             .stateIn(viewModelScope, SharingStarted.Eagerly, initialResponse)
 
+    private val accountLoaded = MutableStateFlow(false)
+
     private val account: StateFlow<CaldavAccount?> = accountUuid
         .filterNotNull()
         .flatMapLatest { uuid ->
@@ -92,6 +96,7 @@ open class TasksAccountViewModel(
                 accounts.firstOrNull { it.uuid == uuid }
             }
         }
+        .onEach { accountLoaded.value = true }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     private val allCalendars = caldavDao.subscribeToCalendars()
@@ -112,6 +117,7 @@ open class TasksAccountViewModel(
         inboundCalendarUri,
         _newPassword,
         _tosDismissed,
+        accountLoaded,
     ) { values ->
         val account = values[0] as CaldavAccount?
         val response = values[1] as TasksAccountResponse?
@@ -121,9 +127,11 @@ open class TasksAccountViewModel(
         val inboundUri = values[4] as String?
         val newPassword = values[5] as NewPassword?
         val tosDismissed = values[6] as Boolean
+        val loaded = values[7] as Boolean
 
         TasksAccountState(
             account = account,
+            loaded = loaded,
             isGithub = account?.username?.startsWith("github") == true,
             isApple = account?.username?.startsWith("apple") == true,
             isGuest = response?.guest ?: false,
@@ -246,6 +254,16 @@ open class TasksAccountViewModel(
             )
         } catch (e: Exception) {
             Logger.e(e) { "Failed to regenerate inbound email" }
+        }
+    }
+
+    suspend fun logout() {
+        val uuid = accountUuid.value ?: return
+        val account = account.value ?: caldavDao.getAccountByUuid(uuid)
+        if (account == null) {
+            accountDataRepository.clear()
+        } else {
+            logout(account)
         }
     }
 

@@ -527,11 +527,17 @@ fun App(
                 paneExpansionState.setFirstPaneWidth(with(density) { listPaneWidth.roundToPx() })
             }
             val windowAdaptiveInfo = currentWindowAdaptiveInfoV2()
-            val paneDirective = remember(windowAdaptiveInfo, twoPaneLayout) {
+            val windowPaneDirective = remember(windowAdaptiveInfo, twoPaneLayout) {
                 val directive = calculatePaneScaffoldDirective(windowAdaptiveInfo)
                     .copy(horizontalPartitionSpacerSize = PanelGutterWidth)
                 if (twoPaneLayout) directive else directive.copy(maxHorizontalPartitions = 1)
             }
+            val paneDirective = rememberHeldPaneDirective(
+                directive = windowPaneDirective,
+                showing = backStack.lastOrNull().let {
+                    it is TaskListDestination || it is TaskEditDestination
+                },
+            )
             val listDetailStrategy = rememberListDetailSceneStrategy<NavKey>(
                 directive = paneDirective,
                 paneExpansionState = paneExpansionState,
@@ -2902,8 +2908,7 @@ private fun SettingsScreen(
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
     val proCardViewModel = koinViewModel<ProCardViewModel>()
-    val accounts by proCardViewModel.filteredAccounts.collectAsState()
-    val proCardState by proCardViewModel.proCardState.collectAsState()
+    val settingsState by proCardViewModel.state.collectAsState()
     val environmentLabel by proCardViewModel.environmentLabel.collectAsState()
     val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
     val navigator = rememberListDetailPaneScaffoldNavigator<SettingsPane>()
@@ -2947,107 +2952,109 @@ private fun SettingsScreen(
                 ) {
                     val configuration = koinInject<PlatformConfiguration>()
                     val purchaseState = koinInject<org.tasks.billing.PurchaseState>()
-                    MainSettingsScreen(
-                        accounts = accounts,
-                        proCardState = proCardState,
-                        environmentLabel = environmentLabel,
-                        showBackupWarning = false,
-                        showWidgets = viewModel.supportsWidgets,
-                        showNotifications = configuration.supportsNotifications,
-                        showMcpServer = configuration.supportsMcpServer,
-                        isDebug = viewModel.isDebug,
-                        showDesktopLinking = configuration.supportsDesktopLinking
-                                && !purchaseState.hasTasksAccount,
-                        onLinkDesktopClick = onLinkDesktopClick,
-                        onAccountClick = { account ->
-                            when {
-                                account.isLocalList -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            LocalAccountSettingsPane(account),
-                                        )
+                    settingsState?.let { settings ->
+                        MainSettingsScreen(
+                            accounts = settings.accounts,
+                            proCardState = settings.proCard,
+                            environmentLabel = environmentLabel,
+                            showBackupWarning = false,
+                            showWidgets = viewModel.supportsWidgets,
+                            showNotifications = configuration.supportsNotifications,
+                            showMcpServer = configuration.supportsMcpServer,
+                            isDebug = viewModel.isDebug,
+                            showDesktopLinking = configuration.supportsDesktopLinking
+                                    && !purchaseState.hasTasksAccount,
+                            onLinkDesktopClick = onLinkDesktopClick,
+                            onAccountClick = { account ->
+                                when {
+                                    account.isLocalList -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                LocalAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    account.isCaldavAccount -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                CaldavAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    account.isEtebaseAccount -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                EtebaseAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    account.isGoogleTasks -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                GoogleTasksAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    account.isMicrosoft -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                MicrosoftAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    account.isOpenTasks -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                OpenTaskAccountSettingsPane(account.id),
+                                            )
+                                        }
+                                    }
+                                    else -> {
+                                        Logger.w("App") { "Unhandled account click: ${account.accountType}" }
                                     }
                                 }
-                                account.isCaldavAccount -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            CaldavAccountSettingsPane(account),
-                                        )
+                            },
+                            onAddAccountClick = onAddAccountClick,
+                            onSettingsClick = { destination ->
+                                scope.launch {
+                                    navigator.navigateTo(
+                                        ListDetailPaneScaffoldRole.Detail,
+                                        destination,
+                                    )
+                                }
+                            },
+                            onProCardClick = {
+                                when (val card = settings.proCard) {
+                                    is ProCardState.TasksOrgAccount -> {
+                                        scope.launch {
+                                            navigator.navigateTo(
+                                                ListDetailPaneScaffoldRole.Detail,
+                                                TasksAccountSettingsPane(card.account.uuid!!),
+                                            )
+                                        }
+                                    }
+                                    is ProCardState.Upgrade -> {
+                                        onUpgradeClick()
+                                    }
+                                    is ProCardState.Subscribed -> {
+                                        onSubscribedClick()
+                                    }
+                                    is ProCardState.SignIn -> {
+                                        onSignInClick()
+                                    }
+                                    is ProCardState.Donate -> {
+                                        onUpgradeClick()
                                     }
                                 }
-                                account.isEtebaseAccount -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            EtebaseAccountSettingsPane(account),
-                                        )
-                                    }
-                                }
-                                account.isGoogleTasks -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            GoogleTasksAccountSettingsPane(account),
-                                        )
-                                    }
-                                }
-                                account.isMicrosoft -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            MicrosoftAccountSettingsPane(account),
-                                        )
-                                    }
-                                }
-                                account.isOpenTasks -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            OpenTaskAccountSettingsPane(account),
-                                        )
-                                    }
-                                }
-                                else -> {
-                                    Logger.w("App") { "Unhandled account click: ${account.accountType}" }
-                                }
-                            }
-                        },
-                        onAddAccountClick = onAddAccountClick,
-                        onSettingsClick = { destination ->
-                            scope.launch {
-                                navigator.navigateTo(
-                                    ListDetailPaneScaffoldRole.Detail,
-                                    destination,
-                                )
-                            }
-                        },
-                        onProCardClick = {
-                            when (val state = proCardState) {
-                                is ProCardState.TasksOrgAccount -> {
-                                    scope.launch {
-                                        navigator.navigateTo(
-                                            ListDetailPaneScaffoldRole.Detail,
-                                            TasksAccountSettingsPane(state.account),
-                                        )
-                                    }
-                                }
-                                is ProCardState.Upgrade -> {
-                                    onUpgradeClick()
-                                }
-                                is ProCardState.Subscribed -> {
-                                    onSubscribedClick()
-                                }
-                                is ProCardState.SignIn -> {
-                                    onSignInClick()
-                                }
-                                is ProCardState.Donate -> {
-                                    onUpgradeClick()
-                                }
-                            }
-                        },
-                    )
+                            },
+                        )
+                    }
                 }
             }
         },

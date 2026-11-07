@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
@@ -28,15 +27,16 @@ import tasks.kmp.generated.resources.sign_in_with_google
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AccountSettingsDetail(
-    account: CaldavAccount,
+    accountId: Long,
     defaultName: StringResource,
     onNavigateBack: () -> Unit,
     signInTitle: StringResource = Res.string.sign_in_with_google,
     onSignIn: () -> Unit = { },
 ) {
     val viewModel = koinViewModel<GoogleTasksAccountViewModel>()
-    LaunchedEffect(account.id) { viewModel.setAccount(account) }
+    LaunchedEffect(accountId) { viewModel.setAccountId(accountId) }
     val state by viewModel.state.collectAsState()
+    if (!state.loaded) return
     val accountName = state.account?.name ?: stringResource(defaultName)
 
     Scaffold(

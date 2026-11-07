@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -30,11 +31,14 @@ open class LocalAccountViewModel(
     private val accountId = MutableStateFlow<Long?>(null)
     val displayName = MutableStateFlow("")
     val nameError = MutableStateFlow<String?>(null)
+    private val _loaded = MutableStateFlow(false)
+    val loaded: StateFlow<Boolean> = _loaded
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val account: StateFlow<CaldavAccount?> = accountId
         .filterNotNull()
         .flatMapLatest { caldavDao.watchAccount(it) }
+        .onEach { _loaded.value = true }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -48,8 +52,30 @@ open class LocalAccountViewModel(
         current != null && name.trim() != (current.name ?: "")
     }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
+    private var seededAccountId: Long? = null
+
+    init {
+        viewModelScope.launch {
+            account.filterNotNull().collect { row ->
+                if (seededAccountId != row.id) {
+                    seedFrom(row)
+                }
+            }
+        }
+    }
+
+    fun setAccountId(id: Long) {
+        accountId.value = id
+    }
+
     fun setAccount(account: CaldavAccount) {
+        seedFrom(account)
         accountId.value = account.id
+    }
+
+    private fun seedFrom(account: CaldavAccount) {
+        seededAccountId = account.id
+        _loaded.value = true
         displayName.value = account.name.orEmpty()
         nameError.value = null
     }

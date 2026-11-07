@@ -58,6 +58,7 @@ data class EtebaseAccountState(
     val isLoading: Boolean = false,
     val snackbar: String? = null,
     val account: CaldavAccount? = null,
+    val loaded: Boolean = false,
     val showUrl: Boolean = false,
     val hasCustomUrl: Boolean = false,
 ) {

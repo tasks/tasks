@@ -18,26 +18,21 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.data.composeIcon
 import org.tasks.data.composeTitle
+import org.tasks.CommonParcelable
+import org.tasks.CommonParcelize
 import org.tasks.data.entity.CaldavAccount
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.EPr_edit_screen_options
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.backup_BPr_header
-import tasks.kmp.generated.resources.caldav
-import tasks.kmp.generated.resources.etesync
-import tasks.kmp.generated.resources.gtasks_GPr_header
-import tasks.kmp.generated.resources.microsoft
 import tasks.kmp.generated.resources.date_and_time
 import tasks.kmp.generated.resources.debug
 import tasks.kmp.generated.resources.about
-import tasks.kmp.generated.resources.local_lists
 import tasks.kmp.generated.resources.mcp_server
-import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.navigation_drawer
 import tasks.kmp.generated.resources.notifications
 import tasks.kmp.generated.resources.preferences_advanced
 import tasks.kmp.generated.resources.preferences_look_and_feel
-import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.task_defaults
 import tasks.kmp.generated.resources.task_list_options
 import tasks.kmp.generated.resources.link_desktop
@@ -46,68 +41,59 @@ import tasks.kmp.generated.resources.widget_settings
 import tasks.kmp.generated.resources.works_with_tasks
 import tasks.kmp.generated.resources.works_with_tasks_description
 
-sealed interface SettingsPane {
-    val titleRes: StringResource
-}
+sealed interface SettingsPane : CommonParcelable
 
-sealed class SettingsDestination(override val titleRes: StringResource) : SettingsPane {
+sealed class SettingsDestination(val titleRes: StringResource) : SettingsPane {
+    @CommonParcelize
     data object LookAndFeel : SettingsDestination(Res.string.preferences_look_and_feel)
+    @CommonParcelize
     data object Notifications : SettingsDestination(Res.string.notifications)
+    @CommonParcelize
     data object TaskDefaults : SettingsDestination(Res.string.task_defaults)
+    @CommonParcelize
     data object TaskList : SettingsDestination(Res.string.task_list_options)
+    @CommonParcelize
     data object TaskEdit : SettingsDestination(Res.string.EPr_edit_screen_options)
+    @CommonParcelize
     data object DateAndTime : SettingsDestination(Res.string.date_and_time)
+    @CommonParcelize
     data object NavigationDrawer : SettingsDestination(Res.string.navigation_drawer)
+    @CommonParcelize
     data object Backups : SettingsDestination(Res.string.backup_BPr_header)
+    @CommonParcelize
     data object Widgets : SettingsDestination(Res.string.widget_settings)
+    @CommonParcelize
     data object McpServer : SettingsDestination(Res.string.mcp_server)
+    @CommonParcelize
     data object Advanced : SettingsDestination(Res.string.preferences_advanced)
+    @CommonParcelize
     data object WorksWith : SettingsDestination(Res.string.works_with_tasks)
+    @CommonParcelize
     data object HelpAndFeedback : SettingsDestination(Res.string.about)
+    @CommonParcelize
     data object Debug : SettingsDestination(Res.string.debug)
 }
 
-data class LocalAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.local_lists
-}
+@CommonParcelize
+data class LocalAccountSettingsPane(val accountId: Long) : SettingsPane
 
-data class TasksAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.tasks_org
-}
+@CommonParcelize
+data class TasksAccountSettingsPane(val uuid: String) : SettingsPane
 
-data class CaldavAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.caldav
-}
+@CommonParcelize
+data class CaldavAccountSettingsPane(val accountId: Long) : SettingsPane
 
-data class EtebaseAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.etesync
-}
+@CommonParcelize
+data class EtebaseAccountSettingsPane(val accountId: Long) : SettingsPane
 
-data class GoogleTasksAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.gtasks_GPr_header
-}
+@CommonParcelize
+data class GoogleTasksAccountSettingsPane(val accountId: Long) : SettingsPane
 
-data class MicrosoftAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.microsoft
-}
+@CommonParcelize
+data class MicrosoftAccountSettingsPane(val accountId: Long) : SettingsPane
 
-data class OpenTaskAccountSettingsPane(
-    val account: CaldavAccount,
-) : SettingsPane {
-    override val titleRes: StringResource = Res.string.settings
-}
+@CommonParcelize
+data class OpenTaskAccountSettingsPane(val accountId: Long) : SettingsPane
 
 @Composable
 fun MainSettingsScreen(

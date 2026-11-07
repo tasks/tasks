@@ -91,6 +91,7 @@ data class CaldavAccountState(
     val isLoading: Boolean = false,
     val snackbar: String? = null,
     val account: CaldavAccount? = null,
+    val loaded: Boolean = false,
     val metadataVisible: Boolean = false,
     val metadataChecked: Boolean = false,
     val metadataInteractable: Boolean = true,

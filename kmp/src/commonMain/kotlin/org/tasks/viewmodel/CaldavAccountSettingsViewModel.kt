@@ -60,6 +60,7 @@ open class CaldavAccountSettingsViewModel(
     val state: StateFlow<CaldavAccountState> = _state
 
     private var metadataProbeSeq = 0
+    private var seededAccountId: Long? = null
 
     init {
         viewModelScope.launch {
@@ -69,14 +70,28 @@ open class CaldavAccountSettingsViewModel(
                     combine(caldavDao.watchAccount(id), caldavDao.watchAccounts()) { account, _ -> account }
                 }
                 .collect { account ->
-                    _state.update { it.copy(account = account) }
+                    if (account != null && seededAccountId != account.id) {
+                        seedFrom(account)
+                    } else {
+                        _state.update { it.copy(account = account, loaded = true) }
+                    }
                     refreshMetadataCatching()
                 }
         }
     }
 
+    fun setAccountId(id: Long) {
+        accountId.value = id
+    }
+
     fun setAccount(account: CaldavAccount) {
+        seedFrom(account)
         accountId.value = account.id
+        viewModelScope.launch { refreshMetadataCatching() }
+    }
+
+    private fun seedFrom(account: CaldavAccount) {
+        seededAccountId = account.id
         _state.value = CaldavAccountState(
             url = account.url.orEmpty(),
             username = account.username.orEmpty(),
@@ -84,8 +99,8 @@ open class CaldavAccountSettingsViewModel(
             displayName = account.name.orEmpty(),
             serverType = account.serverType,
             account = account,
+            loaded = true,
         )
-        viewModelScope.launch { refreshMetadataCatching() }
     }
 
     private suspend fun refreshMetadataCatching() {
@@ -292,7 +307,7 @@ open class CaldavAccountSettingsViewModel(
         val urlValue = s.url.trim()
         val usernameValue = s.username.trim()
         val passwordValue = s.password
-        val isEditing = s.account != null
+        val isEditing = accountId.value != null
 
         var urlError: String? = null
         var usernameError: String? = null
@@ -332,10 +347,15 @@ open class CaldavAccountSettingsViewModel(
         val passwordValue = s.password
         val nameValue = s.displayName.trim()
         val effectiveName = nameValue.ifEmpty { usernameValue }
-        val isEditing = s.account != null
+        val editingId = accountId.value
 
-        if (isEditing) {
-            val currentAccount = s.account!!
+        if (editingId != null) {
+            val currentAccount = s.account
+            if (currentAccount == null) {
+                Logger.w { "CalDAV account $editingId no longer exists" }
+                onComplete()
+                return
+            }
             val credentialsChanged = urlValue != (currentAccount.url ?: "") ||
                     usernameValue != (currentAccount.username ?: "") ||
                     passwordValue.isNotEmpty()

@@ -20,7 +20,7 @@ fun MicrosoftAccountSettingsDetail(
     val signInHandler = koinInject<SignInHandler>()
     val scope = rememberCoroutineScope()
     AccountSettingsDetail(
-        account = pane.account,
+        accountId = pane.accountId,
         defaultName = Res.string.microsoft,
         onNavigateBack = onNavigateBack,
         signInTitle = Res.string.sign_in,

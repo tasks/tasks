@@ -30,14 +30,18 @@ open class GoogleTasksAccountViewModel(
                 .filterNotNull()
                 .flatMapLatest { caldavDao.watchAccount(it) }
                 .collect { account ->
-                    _state.update { it.copy(account = account) }
+                    _state.update { it.copy(account = account, loaded = true) }
                 }
         }
     }
 
+    fun setAccountId(id: Long) {
+        accountId.value = id
+    }
+
     fun setAccount(account: CaldavAccount) {
         accountId.value = account.id
-        _state.update { it.copy(account = account) }
+        _state.update { it.copy(account = account, loaded = true) }
     }
 
     fun delete(onComplete: () -> Unit) {
@@ -50,6 +54,7 @@ open class GoogleTasksAccountViewModel(
 
 data class GoogleTasksAccountState(
     val account: CaldavAccount? = null,
+    val loaded: Boolean = false,
 ) {
     val error: String?
         get() = account?.error?.takeIf { it.isNotBlank() }

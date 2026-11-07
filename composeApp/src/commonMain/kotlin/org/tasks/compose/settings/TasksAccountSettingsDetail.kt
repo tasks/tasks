@@ -61,12 +61,13 @@ fun TasksAccountSettingsDetail(
     @Suppress("DEPRECATION")
     val clipboardManager = LocalClipboardManager.current
 
-    LaunchedEffect(pane.account.uuid) {
-        viewModel.setAccountUuid(pane.account.uuid!!)
+    LaunchedEffect(pane.uuid) {
+        viewModel.setAccountUuid(pane.uuid)
         viewModel.refreshAccount()
     }
 
     val state by viewModel.state.collectAsState()
+    if (!state.loaded) return
     val sponsorUrl = stringResource(Res.string.url_sponsor)
     val appPasswordsUrl = stringResource(Res.string.url_app_passwords)
     val donateUrl = stringResource(Res.string.url_donate)
@@ -156,7 +157,7 @@ fun TasksAccountSettingsDetail(
                 onLogout = {
                     scope.launch {
                         withContext(NonCancellable) {
-                            viewModel.logout(state.account ?: pane.account)
+                            viewModel.logout()
                         }
                         onNavigateBack()
                     }

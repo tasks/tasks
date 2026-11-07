@@ -45,27 +45,43 @@ open class EtebaseAccountSettingsViewModel(
     private val _state = MutableStateFlow(EtebaseAccountState())
     val state: StateFlow<EtebaseAccountState> = _state
 
+    private var seededAccountId: Long? = null
+
     init {
         viewModelScope.launch {
             accountId
                 .filterNotNull()
                 .flatMapLatest { caldavDao.watchAccount(it) }
                 .collect { account ->
-                    _state.update { it.copy(account = account) }
+                    if (account != null && seededAccountId != account.id) {
+                        seedFrom(account)
+                    } else {
+                        _state.update { it.copy(account = account, loaded = true) }
+                    }
                 }
         }
     }
 
+    fun setAccountId(id: Long) {
+        accountId.value = id
+    }
+
     suspend fun setAccount(account: CaldavAccount) {
+        seedFrom(account)
+        accountId.value = account.id
+    }
+
+    private suspend fun seedFrom(account: CaldavAccount) {
         val defaultUrl = getString(Res.string.etebase_url)
         val hasCustomUrl = !account.url.isNullOrBlank() && account.url != defaultUrl
-        accountId.value = account.id
+        seededAccountId = account.id
         _state.value = EtebaseAccountState(
             url = account.url.orEmpty(),
             username = account.username.orEmpty(),
             password = "",
             displayName = account.name.orEmpty(),
             account = account,
+            loaded = true,
             showUrl = hasCustomUrl,
             hasCustomUrl = hasCustomUrl,
         )
@@ -109,7 +125,7 @@ open class EtebaseAccountSettingsViewModel(
         val urlValue = s.url.trim()
         val usernameValue = s.username.trim()
         val passwordValue = s.password
-        val isEditing = s.account != null
+        val isEditing = accountId.value != null
 
         var urlError: String? = null
         var usernameError: String? = null
@@ -146,11 +162,16 @@ open class EtebaseAccountSettingsViewModel(
         val passwordValue = s.password
         val nameValue = s.displayName.trim()
         val effectiveName = nameValue.ifEmpty { usernameValue }
-        val isEditing = s.account != null
+        val editingId = accountId.value
         val urlValue = if (s.showUrl) s.url.trim().ifEmpty { getString(Res.string.etebase_url) } else getString(Res.string.etebase_url)
 
-        if (isEditing) {
-            val currentAccount = s.account!!
+        if (editingId != null) {
+            val currentAccount = s.account
+            if (currentAccount == null) {
+                Logger.w { "Etebase account $editingId no longer exists" }
+                onComplete()
+                return
+            }
             val credentialsChanged = urlValue != (currentAccount.url ?: "") ||
                     usernameValue != (currentAccount.username ?: "") ||
                     passwordValue.isNotEmpty()

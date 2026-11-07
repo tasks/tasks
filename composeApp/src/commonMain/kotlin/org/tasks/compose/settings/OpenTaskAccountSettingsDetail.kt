@@ -16,7 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.stringResource
@@ -33,14 +33,16 @@ fun OpenTaskAccountSettingsDetail(
     onNavigateBack: () -> Unit,
 ) {
     val viewModel = koinViewModel<OpenTaskAccountViewModel>()
-    LaunchedEffect(pane.account.id) { viewModel.setAccount(pane.account) }
+    LaunchedEffect(pane.accountId) { viewModel.setAccountId(pane.accountId) }
+    val loaded by viewModel.loaded.collectAsState()
+    if (!loaded) return
     val displayName by viewModel.displayName.collectAsState()
     val nameError by viewModel.nameError.collectAsState()
     val serverType by viewModel.serverType.collectAsState()
     val showServerType by viewModel.showServerType.collectAsState()
     val account by viewModel.account.collectAsState()
     val hasChanges by viewModel.hasChanges.collectAsState()
-    var showDiscardDialog by remember { mutableStateOf(false) }
+    var showDiscardDialog by rememberSaveable { mutableStateOf(false) }
     val accountName = account?.name?.takeIf { it.isNotBlank() }
         ?: stringResource(Res.string.settings)
 

@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.tasks.PlatformConfiguration
@@ -26,6 +28,11 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
 
+data class SettingsAccountsState(
+    val accounts: List<CaldavAccount>,
+    val proCard: ProCardState,
+)
+
 open class ProCardViewModel(
     private val caldavDao: CaldavDao,
     private val subscriptionProvider: SubscriptionProvider,
@@ -35,8 +42,8 @@ open class ProCardViewModel(
     private val platformConfiguration: PlatformConfiguration,
 ) : ViewModel() {
 
-    private val accounts: StateFlow<List<CaldavAccount>> = caldavDao.watchAccounts()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    private val accounts: StateFlow<List<CaldavAccount>?> = caldavDao.watchAccounts()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     private val _accountData = MutableStateFlow<AccountData?>(null)
     private val _isLoading = MutableStateFlow(false)
@@ -44,30 +51,36 @@ open class ProCardViewModel(
     private val _formattedPrice = MutableStateFlow<String?>(null)
     val environmentLabel: StateFlow<String?> = _environmentLabel
 
-    val proCardState: StateFlow<ProCardState> = combine(
+    val state: StateFlow<SettingsAccountsState?> = combine(
         accounts,
         subscriptionProvider.subscription,
         _accountData,
         _isLoading,
         _formattedPrice,
     ) { accountList, sub, accountData, isLoading, formattedPrice ->
-        deriveProCardState(accountList, sub, accountData, isLoading, formattedPrice)
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        deriveProCardState(emptyList(), null, null, false, null)
-    )
-
-    val filteredAccounts: StateFlow<List<CaldavAccount>> = combine(
-        accounts,
-        proCardState,
-    ) { accountList, cardState ->
-        if (cardState is ProCardState.TasksOrgAccount) {
-            accountList.filter { !it.isTasksOrg }
-        } else {
-            accountList
+        accountList?.let {
+            val proCard = deriveProCardState(it, sub, accountData, isLoading, formattedPrice)
+            SettingsAccountsState(
+                accounts = if (proCard is ProCardState.TasksOrgAccount) {
+                    it.filter { account -> !account.isTasksOrg }
+                } else {
+                    it
+                },
+                proCard = proCard,
+            )
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    val proCardState: StateFlow<ProCardState> = state
+        .map { it?.proCard ?: unloadedProCardState }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), unloadedProCardState)
+
+    val filteredAccounts: StateFlow<List<CaldavAccount>> = state
+        .map { it?.accounts.orEmpty() }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    private val unloadedProCardState: ProCardState
+        get() = deriveProCardState(emptyList(), null, null, false, null)
 
     init {
         viewModelScope.launch {
@@ -80,7 +93,7 @@ open class ProCardViewModel(
             accountDataRepository.getAccountResponse()
                 ?.toAccountData()
                 ?.let { _accountData.value = it }
-            accounts.first { it.isNotEmpty() }
+            accounts.filterNotNull().first { it.isNotEmpty() }
                 .firstOrNull { it.isTasksOrg }
                 ?.let { fetchAccountData(it) }
         }

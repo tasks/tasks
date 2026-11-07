@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.tasks.data.dao.CaldavDao
@@ -27,6 +28,8 @@ open class OpenTaskAccountViewModel(
     private val accountId = MutableStateFlow<Long?>(null)
     val displayName = MutableStateFlow("")
     val nameError = MutableStateFlow<String?>(null)
+    private val _loaded = MutableStateFlow(false)
+    val loaded: StateFlow<Boolean> = _loaded
     val serverType = MutableStateFlow(SERVER_UNKNOWN)
     val showServerType = MutableStateFlow(true)
 
@@ -34,6 +37,7 @@ open class OpenTaskAccountViewModel(
     val account: StateFlow<CaldavAccount?> = accountId
         .filterNotNull()
         .flatMapLatest { caldavDao.watchAccount(it) }
+        .onEach { _loaded.value = true }
         .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     val hasChanges: StateFlow<Boolean> = combine(
@@ -45,8 +49,30 @@ open class OpenTaskAccountViewModel(
         )
     }.stateIn(viewModelScope, SharingStarted.Eagerly, false)
 
+    private var seededAccountId: Long? = null
+
+    init {
+        viewModelScope.launch {
+            account.filterNotNull().collect { row ->
+                if (seededAccountId != row.id) {
+                    seedFrom(row)
+                }
+            }
+        }
+    }
+
+    fun setAccountId(id: Long) {
+        accountId.value = id
+    }
+
     fun setAccount(account: CaldavAccount) {
+        seedFrom(account)
         accountId.value = account.id
+    }
+
+    private fun seedFrom(account: CaldavAccount) {
+        seededAccountId = account.id
+        _loaded.value = true
         displayName.value = account.name.orEmpty()
         nameError.value = null
         serverType.value = account.serverType

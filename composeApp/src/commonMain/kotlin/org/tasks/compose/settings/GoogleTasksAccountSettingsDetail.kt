@@ -22,7 +22,7 @@ fun GoogleTasksAccountSettingsDetail(
     val syncAdapters = koinInject<SyncAdapters>()
     val scope = rememberCoroutineScope()
     AccountSettingsDetail(
-        account = pane.account,
+        accountId = pane.accountId,
         defaultName = Res.string.gtasks_GPr_header,
         onNavigateBack = onNavigateBack,
         onSignIn = {
