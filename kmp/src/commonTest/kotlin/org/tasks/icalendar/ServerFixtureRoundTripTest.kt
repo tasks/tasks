@@ -163,6 +163,15 @@ class ServerFixtureRoundTripTest {
         assertLine(todo.serialize().unfolded(), "X-VENDOR-LINK;X-LABEL=\"a:b;c\":https://example.com/a?b=c")
     }
 
+    @Test
+    fun mapsAnExchangeTimeZoneToAnOlsonId() {
+        val todo = assertRoundTrips(EXCHANGE_WINDOWS_TIME_ZONE)
+
+        val eightUtc = utc(LocalDateTime(2026, 1, 16, 8, 0, 0))
+        assertEquals(ICalDate.DateTime(eightUtc, "Europe/Vienna"), todo.due)
+        assertLine(todo.serialize().unfolded(), "DUE;TZID=Europe/Vienna:20260116T090000")
+    }
+
     companion object {
         private val NEXTCLOUD_ZONED_SUBTASK = """
             BEGIN:VCALENDAR
@@ -343,6 +352,34 @@ class ServerFixtureRoundTripTest {
             SUMMARY:Vendor data
             X-VENDOR-LINK;X-LABEL="a:b;c":https://example.com/a?b=c
             X-EMPTY:
+            END:VTODO
+            END:VCALENDAR
+        """.trimIndent()
+
+        private val EXCHANGE_WINDOWS_TIME_ZONE = """
+            BEGIN:VCALENDAR
+            METHOD:PUBLISH
+            PRODID:Microsoft Exchange Server 2010
+            VERSION:2.0
+            BEGIN:VTIMEZONE
+            TZID:W. Europe Standard Time
+            BEGIN:STANDARD
+            DTSTART:16010101T030000
+            TZOFFSETFROM:+0200
+            TZOFFSETTO:+0100
+            RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+            END:STANDARD
+            BEGIN:DAYLIGHT
+            DTSTART:16010101T020000
+            TZOFFSETFROM:+0100
+            TZOFFSETTO:+0200
+            RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+            END:DAYLIGHT
+            END:VTIMEZONE
+            BEGIN:VTODO
+            UID:040000008200E00074C5B7101A82E008
+            SUMMARY:Submit expenses
+            DUE;TZID=W. Europe Standard Time:20260116T090000
             END:VTODO
             END:VCALENDAR
         """.trimIndent()

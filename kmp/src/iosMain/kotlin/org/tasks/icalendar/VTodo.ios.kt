@@ -465,7 +465,7 @@ private fun CPointer<icalproperty>.toICalDate(time: CValue<icaltimetype>, calend
     if (is_date != 0) {
         ICalDate.Date(year, month, day)
     } else {
-        val tzId = parameter(ICAL_TZID_PARAMETER)
+        val tzId = parameter(ICAL_TZID_PARAMETER)?.let(::olsonId)
         when {
             icaltime_is_utc(time) -> ICalDate.DateTime(utcMillis())
             tzId == null -> ICalDate.DateTime(localMillis(TimeZone.currentSystemDefault()), floating = true)
@@ -477,7 +477,7 @@ private fun CPointer<icalproperty>.toICalDate(time: CValue<icaltimetype>, calend
 
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.utcMillis(time: CValue<icaltimetype>, calendar: CPointer<icalcomponent>): Long = time.useContents {
-    val tzId = parameter(ICAL_TZID_PARAMETER)
+    val tzId = parameter(ICAL_TZID_PARAMETER)?.let(::olsonId)
     if (tzId != null && !icaltime_is_utc(time)) zoneMillis(tzId, time, calendar) ?: utcMillis() else utcMillis()
 }
 
