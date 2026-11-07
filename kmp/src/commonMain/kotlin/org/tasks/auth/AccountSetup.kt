@@ -1,13 +1,22 @@
 package org.tasks.auth
 
 import org.tasks.caldav.CaldavClientFactory
+import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.Encryption
 
 fun interface PurchaseClaim {
-    suspend fun claimHeldPurchase(username: String, token: String)
+    suspend fun claimHeldPurchase(username: String, token: String): HeldPurchaseClaim
+}
+
+sealed interface HeldPurchaseClaim {
+    data object Claimed : HeldPurchaseClaim
+
+    data object NotClaimed : HeldPurchaseClaim
+
+    data class CoveringAnotherAccount(val existingAccount: String) : HeldPurchaseClaim
 }
 
 suspend fun setupTasksAccount(
@@ -32,7 +41,13 @@ suspend fun setupTasksAccount(
                 .also { updated -> caldavDao.update(updated) }
         }
         ?: run {
-            purchaseClaim?.claimHeldPurchase(username, tokenString)
+            when (val claim = purchaseClaim?.claimHeldPurchase(username, tokenString)) {
+                is HeldPurchaseClaim.CoveringAnotherAccount ->
+                    throw PurchaseTokenInUseException(claim.existingAccount)
+                HeldPurchaseClaim.Claimed,
+                HeldPurchaseClaim.NotClaimed,
+                null -> Unit
+            }
             val homeSet = provider
                 .forUrl(caldavUrl, username, tokenString)
                 .use { it.homeSet() }

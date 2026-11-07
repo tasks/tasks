@@ -86,23 +86,26 @@ class AndroidSignInHandler(
         val result = oauthClient.exchangeCode(config, code, codeVerifier)
 
         try {
-            setupTasksAccount(
-                oauthResult = result,
-                issuer = oauthProvider.issuer,
-                caldavUrl = serverEnvironment.caldavUrl,
-                caldavDao = caldavDao,
-                encryption = encryption,
-                provider = caldavClientProvider,
-                purchaseClaim = purchaseClaim,
-            )
-        } catch (e: HttpException) {
-            if (e.code == 402) {
-                throw PaymentRequiredException()
+            try {
+                setupTasksAccount(
+                    oauthResult = result,
+                    issuer = oauthProvider.issuer,
+                    caldavUrl = serverEnvironment.caldavUrl,
+                    caldavDao = caldavDao,
+                    encryption = encryption,
+                    provider = caldavClientProvider,
+                    purchaseClaim = purchaseClaim,
+                )
+            } catch (e: HttpException) {
+                if (e.code == 402) {
+                    throw PaymentRequiredException()
+                }
+                throw e
             }
-            throw e
+            Logger.i(TAG) { "Account created successfully" }
+        } finally {
+            bringAppToForeground()
         }
-        Logger.i(TAG) { "Account created successfully" }
-        bringAppToForeground()
     }
 
     private fun bringAppToForeground() {

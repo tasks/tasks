@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.tasks.auth.HeldPurchaseClaim
 import org.tasks.auth.PurchaseClaim
 import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.caldav.CaldavClientFactory
@@ -220,18 +221,43 @@ class StripePurchases(
         return claim(jwt)
     }
 
-    override suspend fun claimHeldPurchase(username: String, token: String) {
-        val jwt = entitlement.getJwt() ?: return
-        val factory = clientFactory ?: return
+    override suspend fun claimHeldPurchase(username: String, token: String): HeldPurchaseClaim {
+        val receipt = entitlement.heldReceipt() ?: return HeldPurchaseClaim.NotClaimed
+        val factory = clientFactory ?: return HeldPurchaseClaim.NotClaimed
+        if (receipt.provider != EntitlementProvider.STRIPE) {
+            logger.i { "Holding a ${receipt.provider} receipt, Stripe has nothing to claim" }
+            return HeldPurchaseClaim.NotClaimed
+        }
         val result = try {
-            factory.forTasksCredentials(username, token).use { it.claimStripeSubscription(jwt) }
+            factory.forTasksCredentials(username, token).use {
+                it.claimStripeSubscription(receipt.jwt)
+            }
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             logger.e(e) { "Failed to claim the purchase at sign-in" }
-            return
+            return HeldPurchaseClaim.NotClaimed
         }
-        logger.i { "Claimed at sign-in: $result" }
+        return when (result) {
+            StripeSubscriptionResult.Claimed -> {
+                logger.i { "Claimed at sign-in" }
+                HeldPurchaseClaim.Claimed
+            }
+            is StripeSubscriptionResult.TokenInUse -> if (receipt.covers) {
+                logger.i { "The subscription held here funds ${result.existingAccount}" }
+                HeldPurchaseClaim.CoveringAnotherAccount(result.existingAccount)
+            } else {
+                logger.i {
+                    "A receipt that covers nothing funds ${result.existingAccount}, " +
+                        "signing in without it"
+                }
+                HeldPurchaseClaim.NotClaimed
+            }
+            else -> {
+                logger.w { "Not claimed at sign-in: $result" }
+                HeldPurchaseClaim.NotClaimed
+            }
+        }
     }
 
     suspend fun portalUrl(): String? = client.portalUrl(entitlement.getJwt())

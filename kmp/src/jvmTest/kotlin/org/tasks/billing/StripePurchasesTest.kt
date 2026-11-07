@@ -31,6 +31,7 @@ import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.tasks.InMemoryDataStore
 import org.tasks.analytics.AnalyticsEvents
+import org.tasks.auth.HeldPurchaseClaim
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.StripeSubscriptionResult
@@ -967,10 +968,63 @@ class StripePurchasesTest {
 
     @Test
     fun aSignInWithNothingHeldClaimsNothing() = runBlocking {
-        purchases().claimHeldPurchase("google_1234", "access-token")
+        assertEquals(
+            HeldPurchaseClaim.NotClaimed,
+            purchases().claimHeldPurchase("google_1234", "access-token"),
+        )
 
         assertEquals(0, claims)
         assertTrue(credentialClaims.isEmpty())
+    }
+
+    @Test
+    fun aSignInHoldingAPlayReceiptHasNothingToClaimAtStripe() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.PLAY,
+        )
+
+        assertEquals(
+            HeldPurchaseClaim.NotClaimed,
+            purchases(entitlement).claimHeldPurchase("google_1234", "access-token"),
+        )
+
+        assertEquals(0, claims)
+        assertTrue(credentialClaims.isEmpty())
+    }
+
+    @Test
+    fun aCoveringSubscriptionSpokenForNamesTheAccountHoldingIt() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claimResult = StripeSubscriptionResult.TokenInUse("b**@e**.com")
+
+        assertEquals(
+            HeldPurchaseClaim.CoveringAnotherAccount("b**@e**.com"),
+            purchases(entitlement).claimHeldPurchase("google_1", "access-token"),
+        )
+    }
+
+    @Test
+    fun aReceiptThatCoversNothingDoesNotBlockSigningIn() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(exp = System.currentTimeMillis() / 1000 - 30 * 24 * 60 * 60),
+            refreshToken = "refresh-1",
+            provider = EntitlementProvider.STRIPE,
+        )
+        claimResult = StripeSubscriptionResult.TokenInUse("b**@e**.com")
+
+        assertEquals(
+            HeldPurchaseClaim.NotClaimed,
+            purchases(entitlement).claimHeldPurchase("google_1", "access-token"),
+        )
     }
 
     @Test
@@ -983,7 +1037,10 @@ class StripePurchasesTest {
         )
         failCredentialClaims = true
 
-        purchases(entitlement).claimHeldPurchase("google_1234", "access-token")
+        assertEquals(
+            HeldPurchaseClaim.NotClaimed,
+            purchases(entitlement).claimHeldPurchase("google_1234", "access-token"),
+        )
     }
 
     @Test

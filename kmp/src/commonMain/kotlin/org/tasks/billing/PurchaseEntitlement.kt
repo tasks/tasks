@@ -78,6 +78,12 @@ class PurchaseEntitlement(
 
     private val publicKey by lazy { Base64.Default.decode(publicKeyBase64) }
 
+    data class HeldReceipt(
+        val jwt: String,
+        val provider: EntitlementProvider,
+        val covers: Boolean,
+    )
+
     @Serializable
     data class StoredEntitlement(
         val jwt: String,
@@ -169,6 +175,18 @@ class PurchaseEntitlement(
     }
 
     suspend fun getJwt(): String? = (load() as? LoadResult.Loaded)?.entitlement?.jwt
+
+    suspend fun heldReceipt(): HeldReceipt? {
+        val stored = (load() as? LoadResult.Loaded)?.entitlement ?: return null
+        val exp = parsePayload(stored.jwt)?.exp
+        return HeldReceipt(
+            jwt = stored.jwt,
+            provider = stored.provider,
+            covers = stored.jwt != lapsedReceipt &&
+                exp != null &&
+                currentTimeMillis() / 1000 < exp + GRACE_PERIOD_SECONDS,
+        )
+    }
 
     fun initialize() = scope.launch { checkLock.withLock { check() } }
 

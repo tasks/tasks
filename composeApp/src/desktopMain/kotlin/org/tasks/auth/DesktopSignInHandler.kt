@@ -43,28 +43,31 @@ class DesktopSignInHandler(
 
         val result = oauthFlow.signIn(oauthProvider, authHeader = authHeader)
 
-        when (platform) {
-            Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(result)
-            Platform.MICROSOFT -> setupMicrosoftAccount(result)
-            else -> try {
-                setupTasksAccount(
-                    oauthResult = result,
-                    issuer = oauthProvider.issuer,
-                    caldavUrl = serverEnvironment.caldavUrl,
-                    caldavDao = caldavDao,
-                    encryption = encryption,
-                    provider = caldavClientProvider,
-                    purchaseClaim = purchaseClaim,
-                )
-            } catch (e: HttpException) {
-                if (e.code == 402) {
-                    throw PaymentRequiredException()
+        try {
+            when (platform) {
+                Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(result)
+                Platform.MICROSOFT -> setupMicrosoftAccount(result)
+                else -> try {
+                    setupTasksAccount(
+                        oauthResult = result,
+                        issuer = oauthProvider.issuer,
+                        caldavUrl = serverEnvironment.caldavUrl,
+                        caldavDao = caldavDao,
+                        encryption = encryption,
+                        provider = caldavClientProvider,
+                        purchaseClaim = purchaseClaim,
+                    )
+                } catch (e: HttpException) {
+                    if (e.code == 402) {
+                        throw PaymentRequiredException()
+                    }
+                    throw e
                 }
-                throw e
             }
+            Logger.i(TAG) { "Account created successfully" }
+        } finally {
+            bringAppToForeground()
         }
-        Logger.i(TAG) { "Account created successfully" }
-        bringAppToForeground()
     }
 
     private suspend fun setupGoogleTasksAccount(result: OAuthResult) {

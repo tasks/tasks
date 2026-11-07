@@ -189,6 +189,8 @@ import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
+import org.tasks.compose.accounts.AddAccountViewModel.SignInState.Error as SignInError
+import org.tasks.compose.settings.conflictingAccountMessage
 import org.tasks.compose.settings.CaldavAccountSettingsPane
 import org.tasks.compose.settings.DesktopLinkCallbacks
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -296,6 +298,7 @@ import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.resize_panes
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.subscription_not_found
+import tasks.kmp.generated.resources.upgrade_subscription_banner
 import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
@@ -1510,11 +1513,11 @@ private fun SignInErrorDialog(
     reporting: Reporting,
     onPaymentRequired: () -> Unit,
 ) {
-    val errorState = signInState as? AddAccountViewModel.SignInState.Error ?: return
+    val errorState = signInState as? SignInError ?: return
     LaunchedEffect(errorState) {
         reporting.logEvent(
             AnalyticsEvents.SIGN_IN_ERROR,
-            AnalyticsEvents.PARAM_MESSAGE to errorState.message,
+            AnalyticsEvents.PARAM_MESSAGE to errorState.report,
         )
     }
     BasicAlertDialog(onDismissRequest = onDismiss) {
@@ -1529,13 +1532,16 @@ private fun SignInErrorDialog(
                     color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
-                    text = if (errorState.isPaymentRequired) {
-                        stringResource(
+                    text = when (errorState) {
+                        is SignInError.AccountInUse ->
+                            conflictingAccountMessage(errorState.existingAccount)
+                        SignInError.UpgradeRequired ->
+                            stringResource(Res.string.upgrade_subscription_banner)
+                        SignInError.PaymentRequired -> stringResource(
                             Res.string.subscription_not_found,
                             TasksUrls.SUPPORT_EMAIL,
                         )
-                    } else {
-                        errorState.message
+                        is SignInError.Failed -> errorState.message
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
@@ -1544,8 +1550,11 @@ private fun SignInErrorDialog(
                 TextButton(
                     onClick = {
                         onDismiss()
-                        if (errorState.isPaymentRequired) {
-                            onPaymentRequired()
+                        when (errorState) {
+                            SignInError.PaymentRequired,
+                            SignInError.UpgradeRequired -> onPaymentRequired()
+                            is SignInError.AccountInUse,
+                            is SignInError.Failed -> Unit
                         }
                     },
                     modifier = Modifier.align(Alignment.End).padding(top = 8.dp),

@@ -6,8 +6,11 @@ import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.never
+import org.mockito.kotlin.verify
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavDiscoveryClient
+import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.Encryption
@@ -46,8 +49,11 @@ class AccountSetupTest {
         override suspend fun decrypt(text: String?) = text
     }
 
+    private var claim: HeldPurchaseClaim = HeldPurchaseClaim.Claimed
+
     private val purchaseClaim = PurchaseClaim { username, token ->
         calls.add("claim $username $token")
+        claim
     }
 
     @Test
@@ -68,6 +74,51 @@ class AccountSetupTest {
         )
 
         assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
+    }
+
+    @Test
+    fun aClaimThatFoundNothingToMoveStillSignsIn() = runBlocking {
+        claim = HeldPurchaseClaim.NotClaimed
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
+        }
+
+        setupTasksAccount(
+            oauthResult = oauthResult(),
+            issuer = "google",
+            caldavUrl = "https://caldav.example.com",
+            caldavDao = caldavDao,
+            encryption = encryption,
+            provider = clientFactory,
+            purchaseClaim = purchaseClaim,
+        )
+
+        assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
+    }
+
+    @Test
+    fun aSubscriptionCoveringAnotherAccountStopsBeforeTheAccountIsCreated() = runBlocking {
+        claim = HeldPurchaseClaim.CoveringAnotherAccount("b**@e**.com")
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+        }
+
+        val thrown = runCatching {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = clientFactory,
+                purchaseClaim = purchaseClaim,
+            )
+        }.exceptionOrNull()
+
+        verify(caldavDao, never()).insert(any<CaldavAccount>())
+        assertEquals("b**@e**.com", (thrown as PurchaseTokenInUseException).existingAccount)
+        assertEquals(listOf("claim google_1234 access-token"), calls)
     }
 
     @Test

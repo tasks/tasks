@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
+import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
 import org.tasks.viewmodel.AddAccountViewModel as BaseAddAccountViewModel
@@ -21,10 +22,26 @@ class AddAccountViewModel(
     sealed interface SignInState {
         data object Idle : SignInState
         data object Loading : SignInState
-        data class Error(
-            val message: String,
-            val isPaymentRequired: Boolean = false,
-        ) : SignInState
+
+        sealed interface Error : SignInState {
+            val report: String
+
+            data class Failed(val message: String) : Error {
+                override val report: String get() = message
+            }
+
+            data object PaymentRequired : Error {
+                override val report: String get() = "payment_required"
+            }
+
+            data object UpgradeRequired : Error {
+                override val report: String get() = "insufficient_subscription"
+            }
+
+            data class AccountInUse(val existingAccount: String) : Error {
+                override val report: String get() = "purchase_token_in_use"
+            }
+        }
     }
 
     private val _signInState = MutableStateFlow<SignInState>(SignInState.Idle)
@@ -42,13 +59,16 @@ class AddAccountViewModel(
                 _signInState.value = SignInState.Idle
             } catch (e: CancellationException) {
                 throw e
+            } catch (e: PurchaseTokenInUseException) {
+                _signInState.value = SignInState.Error.AccountInUse(e.existingAccount)
             } catch (e: PaymentRequiredException) {
-                _signInState.value = SignInState.Error(
-                    message = e.message ?: "Payment required",
-                    isPaymentRequired = true,
-                )
+                _signInState.value = if (hasPro && !hasTasksSubscription) {
+                    SignInState.Error.UpgradeRequired
+                } else {
+                    SignInState.Error.PaymentRequired
+                }
             } catch (e: Exception) {
-                _signInState.value = SignInState.Error(e.message ?: "Sign in failed")
+                _signInState.value = SignInState.Error.Failed(e.message ?: "Sign in failed")
             }
         }
     }
