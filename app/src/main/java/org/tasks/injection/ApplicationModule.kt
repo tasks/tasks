@@ -31,7 +31,13 @@ import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.analytics.Reporting
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.PushTokenManager
+import org.tasks.auth.PurchaseClaim
+import org.tasks.auth.SchemeRedirect
+import org.tasks.auth.TasksOAuthClient
+import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.auth.oauthClient
+import org.tasks.auth.tasksOAuthSignIn
 import org.tasks.billing.Inventory
 import org.tasks.billing.PlayPurchaseStore
 import org.tasks.billing.PlayPurchaseVerifier
@@ -471,6 +477,35 @@ class ApplicationModule {
                 info.purchaseToken?.let { TasksBasicAuth.SubscriptionInfo(info.sku, it) }
             }
         },
+    )
+
+    @Provides
+    @Singleton
+    fun providesSchemeRedirect(@ApplicationContext context: Context): SchemeRedirect =
+        SchemeRedirect(context)
+
+    @Provides
+    @Singleton
+    fun providesTasksOAuthClient(httpClientFactory: HttpClientFactory): TasksOAuthClient =
+        httpClientFactory.oauthClient(foreground = false)
+
+    @Provides
+    @Singleton
+    fun providesTasksOAuthSignIn(
+        caldavDao: CaldavDao,
+        encryption: KeyStoreEncryption,
+        environment: TasksServerEnvironment,
+        clientProvider: CaldavClientProvider,
+        redirect: SchemeRedirect,
+        httpClientFactory: HttpClientFactory,
+        purchaseClaim: PurchaseClaim,
+    ): TasksOAuthSignIn = httpClientFactory.tasksOAuthSignIn(
+        caldavDao = caldavDao,
+        encryption = encryption,
+        serverEnvironment = environment,
+        clientFactory = clientProvider,
+        purchaseClaim = purchaseClaim,
+        redirect = redirect,
     )
 
     @Provides

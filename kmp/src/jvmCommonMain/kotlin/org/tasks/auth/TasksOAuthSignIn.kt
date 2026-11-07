@@ -15,7 +15,7 @@ class TasksOAuthSignIn(
     private val clientFactory: CaldavClientFactory,
     private val purchaseClaim: PurchaseClaim? = null,
     oauthClient: TasksOAuthClient,
-    redirect: OAuthRedirect = LoopbackRedirect(),
+    redirect: OAuthRedirect,
 ) {
     private val logger = Logger.withTag(TAG)
     private val authorizer = OAuthAuthorizer(oauthClient, serverEnvironment, redirect)

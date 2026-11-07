@@ -11,7 +11,6 @@ import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.OAuthRedirect
 import org.tasks.auth.SchemeRedirect
 import org.tasks.auth.SignInHandler
-import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.extensions.bringTasksToForeground
@@ -32,7 +31,7 @@ import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.http.AndroidOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
-import org.tasks.auth.oauthClient
+import org.tasks.auth.tasksOAuthSignIn
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
@@ -80,15 +79,15 @@ actual fun platformModule(): Module = module {
             ),
         )
     }
-    single<OAuthRedirect> { SchemeRedirect(androidContext()) }
+    single { SchemeRedirect(androidContext()) }
+    single<OAuthRedirect> { get<SchemeRedirect>() }
     single {
-        TasksOAuthSignIn(
+        get<OkHttpClientFactory>().tasksOAuthSignIn(
             caldavDao = get(),
             encryption = get<KeyStoreEncryption>(),
             serverEnvironment = get(),
             clientFactory = get(),
             purchaseClaim = get(),
-            oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
             redirect = get(),
         )
     }
