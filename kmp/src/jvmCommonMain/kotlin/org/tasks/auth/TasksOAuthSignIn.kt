@@ -47,7 +47,8 @@ class TasksOAuthSignIn(
     suspend fun authorize(
         provider: OAuthProvider,
         openUrl: (String) -> Unit,
-    ): OAuthResult = authorizer.authorize(provider, openUrl)
+        extraParams: Map<String, String> = emptyMap(),
+    ): OAuthResult = authorizer.authorize(provider, openUrl, extraParams)
 
     companion object {
         private const val TAG = "TasksOAuthSignIn"

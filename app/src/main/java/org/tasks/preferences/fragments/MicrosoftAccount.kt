@@ -6,6 +6,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.LocalBroadcastManager
 import kotlinx.coroutines.runBlocking
 import org.tasks.R
+import org.tasks.auth.isUnauthorized
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
@@ -38,7 +39,7 @@ class MicrosoftAccount : BaseAccountPreference() {
             }
             isVisible = true
             when {
-                account.error.isUnauthorized() -> {
+                account.isUnauthorized() -> {
                     title = runBlocking { getString(Res.string.sign_in) }
                     setSummary(R.string.authentication_required)
                     setOnPreferenceClickListener { requestLogin() }
@@ -54,17 +55,12 @@ class MicrosoftAccount : BaseAccountPreference() {
     }
 
     private fun requestLogin(): Boolean {
-        account.username?.let {
-            microsoftVM.signIn(requireActivity(), username = it)
-        }
+        microsoftVM.signIn(requireActivity(), username = account.name ?: account.username)
         return false
     }
 
     companion object {
         private const val EXTRA_ACCOUNT = "extra_account"
-
-        fun String?.isUnauthorized(): Boolean =
-                this?.startsWith("401 Unauthorized", ignoreCase = true) == true
 
         fun newMicrosoftAccountPreference(account: CaldavAccount) =
                 MicrosoftAccount().apply {

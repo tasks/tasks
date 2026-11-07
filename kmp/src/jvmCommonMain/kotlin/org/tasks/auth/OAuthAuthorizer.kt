@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import org.tasks.TasksBuildConfig
 import java.io.IOException
 
 class OAuthAuthorizer(
@@ -17,6 +18,7 @@ class OAuthAuthorizer(
     suspend fun authorize(
         provider: OAuthProvider,
         openUrl: (String) -> Unit,
+        extraParams: Map<String, String> = emptyMap(),
         authHeader: String? = null,
     ): OAuthResult = withContext(Dispatchers.IO) {
         val client = redirect.client(provider)
@@ -57,9 +59,9 @@ class OAuthAuthorizer(
                     config.copy(redirectUri = serverCallback ?: redirectUri),
                     codeChallenge,
                     state,
-                    provider.authParams(),
+                    provider.authParams(extraParams),
                 )
-                logger.d { "Opening browser: $authUrl" }
+                logger.d { "Opening browser: ${if (TasksBuildConfig.DEBUG) authUrl else redactLoginHint(authUrl)}" }
                 config to authUrl
             }
 
@@ -76,5 +78,8 @@ class OAuthAuthorizer(
         private const val AUTHORIZATION_ENDPOINT = "authorization_endpoint"
         private const val TOKEN_ENDPOINT = "token_endpoint"
         private const val CLIENT_ID = "client_id"
+        private val LOGIN_HINT = Regex("([?&]login_hint=)[^&#]*")
+
+        internal fun redactLoginHint(url: String): String = url.replace(LOGIN_HINT, "$1***")
     }
 }

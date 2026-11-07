@@ -4,10 +4,7 @@
 
   <application tools:ignore="MissingApplicationIcon">
     <activity
-        android:name=".auth.MicrosoftAuthenticationActivity"
-        android:theme="@style/TranslucentDialog"/>
-    <activity
-        android:name="net.openid.appauth.RedirectUriReceiverActivity"
+        android:name="org.tasks.auth.OAuthRedirectActivity"
         android:exported="true"
         tools:node="merge">
         <intent-filter>

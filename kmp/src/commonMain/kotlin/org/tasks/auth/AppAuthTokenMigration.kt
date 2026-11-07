@@ -8,19 +8,26 @@ import kotlinx.serialization.json.longOrNull
 
 object AppAuthTokenMigration {
 
-    fun toOAuthTokenData(serializedAuthState: String): OAuthTokenData? {
+    class Migrated(val tokenData: OAuthTokenData, val subject: String?)
+
+    fun migrate(serializedAuthState: String): Migrated? {
         val authState = runCatching { Json.parseToJsonElement(serializedAuthState) }
             .getOrNull() as? JsonObject
             ?: return null
-        val tokenResponse = authState.child(LAST_TOKEN_RESPONSE)
+        val tokenData = authState.toOAuthTokenData() ?: return null
+        return Migrated(tokenData, authState.subject())
+    }
+
+    private fun JsonObject.toOAuthTokenData(): OAuthTokenData? {
+        val tokenResponse = child(LAST_TOKEN_RESPONSE)
         val tokenRequest = tokenResponse?.child(REQUEST)
-        val tokenEndpoint = authState.child(CONFIG)?.string(TOKEN_ENDPOINT)
+        val tokenEndpoint = child(CONFIG)?.string(TOKEN_ENDPOINT)
             ?: tokenRequest?.child(CONFIGURATION)?.string(TOKEN_ENDPOINT)
             ?: return null
         val clientId = tokenRequest?.string(CLIENT_ID)
-            ?: authState.child(LAST_AUTHORIZATION_RESPONSE)?.child(REQUEST)?.string(CLIENT_ID)
+            ?: child(LAST_AUTHORIZATION_RESPONSE)?.child(REQUEST)?.string(CLIENT_ID)
             ?: return null
-        val refreshToken = authState.string(REFRESH_TOKEN)
+        val refreshToken = string(REFRESH_TOKEN)
             ?: tokenResponse?.string(TOKEN_REFRESH_TOKEN)
         val accessToken = tokenResponse?.string(ACCESS_TOKEN)
         return OAuthTokenData(
@@ -31,6 +38,13 @@ object AppAuthTokenMigration {
             expiresAt = accessToken?.let { tokenResponse.long(EXPIRES_AT) } ?: 0,
         )
     }
+
+    private fun JsonObject.subject(): String? =
+        runCatching {
+            child(LAST_TOKEN_RESPONSE)
+                ?.string(ID_TOKEN)
+                ?.let { IdToken(it).sub }
+        }.getOrNull()
 
     private fun JsonObject.child(key: String): JsonObject? = this[key] as? JsonObject
 
@@ -50,4 +64,5 @@ object AppAuthTokenMigration {
     private const val ACCESS_TOKEN = "access_token"
     private const val TOKEN_REFRESH_TOKEN = "refresh_token"
     private const val EXPIRES_AT = "expires_at"
+    private const val ID_TOKEN = "id_token"
 }

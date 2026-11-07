@@ -25,6 +25,8 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.security.Encryption
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 class Upgrade_15_15Test {
 
@@ -50,6 +52,26 @@ class Upgrade_15_15Test {
         }
     """.trimIndent()
 
+    @OptIn(ExperimentalEncodingApi::class)
+    private val idToken = "header." + Base64.UrlSafe.withPadding(Base64.PaddingOption.ABSENT)
+        .encode("""{"sub":"the-subject","email":"alice@outlook.com"}""".toByteArray()) +
+            ".signature"
+
+    private val appAuthCredentialWithIdToken = """
+        {
+          "refreshToken": "the-refresh-token",
+          "mLastTokenResponse": {
+            "request": {
+              "configuration": { "tokenEndpoint": "$tokenEndpoint" },
+              "clientId": "$clientId"
+            },
+            "access_token": "the-access-token",
+            "id_token": "$idToken",
+            "expires_at": 1762000000000
+          }
+        }
+    """.trimIndent()
+
     private val warnings = mutableListOf<String>()
 
     @Before
@@ -70,6 +92,45 @@ class Upgrade_15_15Test {
 
     private fun dao(vararg accounts: CaldavAccount): CaldavDao = mock {
         onBlocking { getAccounts(TYPE_MICROSOFT) } doReturn accounts.toList()
+        accounts.forEach { account ->
+            account.username?.let { onBlocking { getAccount(TYPE_MICROSOFT, it) } doReturn account }
+        }
+    }
+
+    @Test
+    fun anAccountStoredUnderItsEmailMovesOntoTheSubject() = runBlocking {
+        val dao = dao(
+            CaldavAccount(id = 1, username = "alice@outlook.com", password = appAuthCredentialWithIdToken)
+        )
+
+        Upgrade_15_15(dao, plaintext).run()
+
+        verifyBlocking(dao) { setUsername(1, "the-subject") }
+    }
+
+    @Test
+    fun anAccountWithoutAnIdTokenKeepsItsUsername() = runBlocking {
+        val dao = dao(CaldavAccount(id = 1, username = "alice@outlook.com", password = appAuthCredential))
+
+        Upgrade_15_15(dao, plaintext).run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
+    }
+
+    @Test
+    fun anAccountDoesNotTakeTheSubjectOfAnotherAccount() = runBlocking {
+        val dao = dao(
+            CaldavAccount(id = 1, username = "alice@outlook.com", password = appAuthCredentialWithIdToken),
+            CaldavAccount(
+                id = 2,
+                username = "the-subject",
+                password = OAuthTokenData("a", "r", tokenEndpoint, clientId, 1).serialize(),
+            ),
+        )
+
+        Upgrade_15_15(dao, plaintext).run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
     }
 
     @Test

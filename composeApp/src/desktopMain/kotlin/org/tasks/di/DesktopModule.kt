@@ -335,7 +335,7 @@ actual fun platformModule(): Module = module {
         val dataStoreFile = File(dataDir, dataStoreFileName)
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
-    factory { Upgrader(get(), CommonUpgrades.all(get())) }
+    factory { Upgrader(get(), CommonUpgrades.all(get(), get<KeyStoreEncryption>())) }
     factory {
         FileStorage(dataDir.absolutePath)
     }

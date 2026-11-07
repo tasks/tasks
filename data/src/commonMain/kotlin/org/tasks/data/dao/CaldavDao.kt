@@ -150,6 +150,9 @@ ORDER BY CASE cda_account_type
     @Query("UPDATE caldav_accounts SET cda_password = :password WHERE cda_id = :id AND cda_password = :expected")
     abstract suspend fun replacePassword(id: Long, expected: String, password: String): Int
 
+    @Query("UPDATE caldav_accounts SET cda_username = :username WHERE cda_id = :id")
+    abstract suspend fun setUsername(id: Long, username: String)
+
     @Query("UPDATE caldav_accounts SET cda_error = :error WHERE cda_id = :id")
     abstract suspend fun setError(id: Long, error: String?)
 

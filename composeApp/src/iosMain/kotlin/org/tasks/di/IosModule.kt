@@ -105,7 +105,7 @@ actual fun platformModule(): Module = module {
             .build()
     }
     single { TasksPreferences(createDataStore { "$documentsPath/$dataStoreFileName" }) }
-    factory { Upgrader(get(), CommonUpgrades.all(get())) }
+    factory { Upgrader(get(), CommonUpgrades.all(get(), get())) }
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
     single<Encryption> { SecureEnclaveEncryption() }

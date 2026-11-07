@@ -81,7 +81,7 @@ class AppAuthTokenMigrationTest {
                 clientId = clientId,
                 expiresAt = farFuture,
             ),
-            AppAuthTokenMigration.toOAuthTokenData(storedBySignIn()),
+            toOAuthTokenData(storedBySignIn()),
         )
     }
 
@@ -89,7 +89,7 @@ class AppAuthTokenMigrationTest {
     fun theTokenEndpointComesFromTheTokenRequestBecauseSignInNeverStoredAConfig() {
         assertEquals(
             tokenEndpoint,
-            AppAuthTokenMigration.toOAuthTokenData(storedBySignIn())?.tokenEndpoint,
+            toOAuthTokenData(storedBySignIn())?.tokenEndpoint,
         )
     }
 
@@ -97,7 +97,7 @@ class AppAuthTokenMigrationTest {
     fun theConsumersTenantThatIssuedTheRefreshTokenIsKept() {
         assertEquals(
             "https://login.microsoftonline.com/consumers/oauth2/v2.0/token",
-            AppAuthTokenMigration.toOAuthTokenData(storedBySignIn())?.tokenEndpoint,
+            toOAuthTokenData(storedBySignIn())?.tokenEndpoint,
         )
     }
 
@@ -113,13 +113,13 @@ class AppAuthTokenMigrationTest {
 
         assertEquals(
             "https://example.com/token",
-            AppAuthTokenMigration.toOAuthTokenData(withConfig)?.tokenEndpoint,
+            toOAuthTokenData(withConfig)?.tokenEndpoint,
         )
     }
 
     @Test
     fun theRefreshTokenIsTakenFromTheTokenResponseWhenThereIsNoTopLevelOne() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(
+        val migrated = toOAuthTokenData(
             storedBySignIn(refreshToken = null, responseRefreshToken = "\"from-the-response\"")
         )
 
@@ -128,7 +128,7 @@ class AppAuthTokenMigrationTest {
 
     @Test
     fun anUnexpiredAccessTokenIsKeptEvenWithoutARefreshToken() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(
+        val migrated = toOAuthTokenData(
             storedBySignIn(refreshToken = null, responseRefreshToken = null)
         )
 
@@ -138,7 +138,7 @@ class AppAuthTokenMigrationTest {
 
     @Test
     fun aCredentialWithNothingLeftToUseIsStillMigratedForTheTokenStoreToReject() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(
+        val migrated = toOAuthTokenData(
             storedBySignIn(refreshToken = null, responseRefreshToken = null, expiresAt = "$longAgo")
         )
 
@@ -163,7 +163,7 @@ class AppAuthTokenMigrationTest {
             }
         """.trimIndent()
 
-        assertNull(AppAuthTokenMigration.toOAuthTokenData(noClientId))
+        assertNull(toOAuthTokenData(noClientId))
     }
 
     @Test
@@ -175,12 +175,12 @@ class AppAuthTokenMigrationTest {
             }
         """.trimIndent()
 
-        assertNull(AppAuthTokenMigration.toOAuthTokenData(noEndpoint))
+        assertNull(toOAuthTokenData(noEndpoint))
     }
 
     @Test
     fun aMissingAccessTokenIsTreatedAsExpired() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(storedBySignIn(accessToken = null))
+        val migrated = toOAuthTokenData(storedBySignIn(accessToken = null))
 
         assertEquals("", migrated?.accessToken)
         assertEquals(0L, migrated?.expiresAt)
@@ -188,7 +188,7 @@ class AppAuthTokenMigrationTest {
 
     @Test
     fun anUnreadableExpiryIsTreatedAsUnknownRatherThanDroppingTheCredential() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(storedBySignIn(expiresAt = "null"))
+        val migrated = toOAuthTokenData(storedBySignIn(expiresAt = "null"))
 
         assertEquals("the-refresh-token", migrated?.refreshToken)
         assertEquals(0L, migrated?.expiresAt)
@@ -196,7 +196,7 @@ class AppAuthTokenMigrationTest {
 
     @Test
     fun aFieldOfTheWrongShapeIsIgnoredRatherThanDroppingTheCredential() {
-        val migrated = AppAuthTokenMigration.toOAuthTokenData(
+        val migrated = toOAuthTokenData(
             storedBySignIn(refreshToken = "{}", expiresAt = "\"soon\"")
         )
 
@@ -214,11 +214,14 @@ class AppAuthTokenMigrationTest {
             expiresAt = 1,
         ).serialize()
 
-        assertNull(AppAuthTokenMigration.toOAuthTokenData(alreadyMigrated))
+        assertNull(toOAuthTokenData(alreadyMigrated))
     }
 
     @Test
     fun somethingThatIsNotJsonIsRefused() {
-        assertNull(AppAuthTokenMigration.toOAuthTokenData("not json at all"))
+        assertNull(toOAuthTokenData("not json at all"))
     }
+
+    private fun toOAuthTokenData(serializedAuthState: String) =
+        AppAuthTokenMigration.migrate(serializedAuthState)?.tokenData
 }

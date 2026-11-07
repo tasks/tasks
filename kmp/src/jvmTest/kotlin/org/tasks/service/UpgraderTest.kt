@@ -13,6 +13,7 @@ import org.tasks.data.entity.Task
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
 import org.tasks.preferences.TasksPreferences
+import org.tasks.security.Encryption
 import org.tasks.time.DateTime
 import java.io.File
 
@@ -35,7 +36,16 @@ class UpgraderTest : DatabaseTest() {
     private fun upgrader(vararg steps: UpgradeStep) = Upgrader(preferences, steps.toList())
 
     private fun commonUpgrader() =
-        Upgrader(preferences, CommonUpgrades.all(db))
+        Upgrader(
+            preferences,
+            CommonUpgrades.all(
+                db,
+                object : Encryption {
+                    override suspend fun encrypt(text: String) = text
+                    override suspend fun decrypt(text: String?) = text
+                },
+            ),
+        )
 
     private suspend fun currentVersion() = preferences.get(TasksPreferences.currentVersion, 0)
 
