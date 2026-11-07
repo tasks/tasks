@@ -199,13 +199,15 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
-                val freeAccounts = buildList {
-                    if (configuration.supportsMicrosoft && !configuration.thirdPartySyncRequiresPro) {
-                        add(Platform.MICROSOFT)
-                    }
-                    if (configuration.supportsGoogleTasks && !configuration.thirdPartySyncRequiresPro) {
-                        add(Platform.GOOGLE_TASKS)
-                    }
+                val supportedAccounts = buildList {
+                    if (configuration.supportsMicrosoft) add(Platform.MICROSOFT)
+                    if (configuration.supportsGoogleTasks) add(Platform.GOOGLE_TASKS)
+                    if (configuration.supportsOpenTasks) add(Platform.DAVX5)
+                    if (configuration.supportsCaldav) add(Platform.CALDAV)
+                    if (configuration.supportsEteSync) add(Platform.ETEBASE)
+                }
+                val (proAccounts, freeAccounts) = supportedAccounts.partition {
+                    it.requiresPro(configuration)
                 }
                 if (freeAccounts.isNotEmpty()) {
                     if (!hasPro) {
@@ -243,17 +245,6 @@ fun AddAccountScreen(
                     }
                 }
 
-                val proAccounts = buildList {
-                    if (configuration.supportsMicrosoft && configuration.thirdPartySyncRequiresPro) {
-                        add(Platform.MICROSOFT)
-                    }
-                    if (configuration.supportsGoogleTasks && configuration.thirdPartySyncRequiresPro) {
-                        add(Platform.GOOGLE_TASKS)
-                    }
-                    if (configuration.supportsOpenTasks) add(Platform.DAVX5)
-                    if (configuration.supportsCaldav) add(Platform.CALDAV)
-                    if (configuration.supportsEteSync) add(Platform.ETEBASE)
-                }
                 if (proAccounts.isNotEmpty()) {
                     if (!hasPro) {
                         SectionHeader(

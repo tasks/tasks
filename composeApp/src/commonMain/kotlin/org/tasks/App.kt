@@ -161,6 +161,7 @@ import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.requiresPro
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskList
@@ -861,14 +862,9 @@ fun App(
                                     AnalyticsEvents.PARAM_SOURCE to "onboarding",
                                     AnalyticsEvents.PARAM_SELECTION to platform.name,
                                 )
-                                if (configuration.thirdPartySyncRequiresPro && !addAccountViewModel.hasPro) {
-                                    when (platform) {
-                                        Platform.CALDAV, Platform.ETEBASE, Platform.GOOGLE_TASKS, Platform.MICROSOFT -> {
-                                            backStack.push(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
-                                            return@AddAccountScreen
-                                        }
-                                        else -> {}
-                                    }
+                                if (platform.requiresPro(configuration) && !addAccountViewModel.hasPro) {
+                                    backStack.push(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
+                                    return@AddAccountScreen
                                 }
                                 when (platform) {
                                     Platform.TASKS_ORG -> if (
