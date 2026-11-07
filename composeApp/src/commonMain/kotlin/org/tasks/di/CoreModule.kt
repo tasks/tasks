@@ -6,6 +6,7 @@ import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.PurchaseClaim
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.StripeCheckouts
 import org.tasks.billing.StripeClient
 import org.tasks.billing.StripeClientImpl
@@ -542,6 +543,15 @@ val coreModule: Module = module {
     singleOf(::TasksServerEnvironment)
     single { InstallId(get()) }
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
+    single {
+        GitHubSponsorVerifier(
+            httpClientFactory = get(),
+            serverEnvironment = get(),
+            purchaseEntitlement = get(),
+            json = get(),
+            installId = { get<InstallId>().get() },
+        )
+    }
     single<StripeClient> {
         StripeClientImpl(
             httpClientFactory = get(),

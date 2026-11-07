@@ -33,8 +33,10 @@ import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.extensions.desktopOpenUrl
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.GitHubSponsorClientImpl
+import org.tasks.billing.GitHubSponsorVerifier
+import org.tasks.billing.LoopbackGitHubSponsorClient
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
@@ -64,7 +66,6 @@ import org.tasks.notifications.NucleusMacNotifications
 import org.tasks.notifications.NucleusWindowsNotifications
 import org.tasks.notifications.notificationSessionToken
 import org.tasks.opentasks.OpenTasksSyncer
-import org.tasks.preferences.InstallId
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.DesktopKeyProvider
 import org.tasks.security.KeyStoreEncryption
@@ -398,12 +399,9 @@ actual fun platformModule(): Module = module {
         )
     }
     single<GitHubSponsorClient> {
-        GitHubSponsorClientImpl(
-            httpClientFactory = get(),
-            serverEnvironment = get(),
-            purchaseEntitlement = get(),
-            json = get(),
-            installId = { get<InstallId>().get() },
+        LoopbackGitHubSponsorClient(
+            verify = get<GitHubSponsorVerifier>()::verify,
+            openUrl = ::desktopOpenUrl,
         )
     }
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class

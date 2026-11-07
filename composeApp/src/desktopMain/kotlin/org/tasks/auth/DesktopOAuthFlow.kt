@@ -8,7 +8,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import org.tasks.extensions.openInBrowser
+import org.tasks.extensions.desktopOpenUrl
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.URLDecoder
@@ -23,11 +23,7 @@ class DesktopOAuthFlow(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
     private val callbackTimeoutMillis: Long = CALLBACK_TIMEOUT_MILLIS,
-    private val openUrl: (String) -> Unit = { url ->
-        if (!openInBrowser(url)) {
-            throw IOException("Nothing on this system could open $url")
-        }
-    },
+    private val openUrl: (String) -> Unit = ::desktopOpenUrl,
 ) : OAuthFlow {
     override suspend fun signIn(
         provider: OAuthProvider,

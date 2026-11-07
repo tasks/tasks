@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import org.tasks.di.Platform
 import org.tasks.di.platform
 import java.awt.Desktop
+import java.io.IOException
 import java.net.URI
 
 private const val TAG = "DesktopBrowse"
@@ -41,5 +42,11 @@ fun openInBrowser(url: String): Boolean {
     } catch (e: Throwable) {
         logger.w(e) { "Failed to open $url with ${command.first()}" }
         false
+    }
+}
+
+fun desktopOpenUrl(url: String) {
+    if (!openInBrowser(url)) {
+        throw IOException("Nothing on this system could open $url")
     }
 }

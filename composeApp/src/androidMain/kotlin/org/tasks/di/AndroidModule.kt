@@ -11,7 +11,13 @@ import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
 import kotlinx.coroutines.flow.flowOf
 import org.tasks.TasksBuildConfig
+import android.content.Intent
+import android.net.Uri
 import org.tasks.billing.CompositeSubscriptionProvider
+import org.tasks.billing.GitHubSponsorClient
+import org.tasks.extensions.bringTasksToForeground
+import org.tasks.billing.GitHubSponsorVerifier
+import org.tasks.billing.LoopbackGitHubSponsorClient
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StoreSubscriptionProvider
@@ -59,6 +65,19 @@ actual fun platformModule(): Module = module {
         }
     }
     single<KeyStoreEncryption> { AndroidKeyStoreEncryption() }
+    single<GitHubSponsorClient> {
+        val context = androidContext()
+        LoopbackGitHubSponsorClient(
+            verify = get<GitHubSponsorVerifier>()::verify,
+            openUrl = { url ->
+                context.startActivity(
+                    Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+            },
+            onCallback = { context.bringTasksToForeground() },
+        )
+    }
     factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }
     single<Database> {
         val context = androidContext()
