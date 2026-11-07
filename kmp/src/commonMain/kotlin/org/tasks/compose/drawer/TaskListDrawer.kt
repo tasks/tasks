@@ -122,8 +122,17 @@ fun TaskListDrawer(
     onSignIn: () -> Unit = {},
     expanded: Boolean = true,
     onExpandDrawer: () -> Unit = {},
+    onSearchCollapse: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
     searchButtonInset: Dp = 16.dp,
+    /**
+     * Shared search mode, toggled by the task list's search button. The search box is shown only
+     * while this is on. Defaults to on so standalone users (Android, previews) keep their always-
+     * visible search box.
+     */
+    searchActive: Boolean = true,
+    /** Called when this drawer's search box is closed; turns the shared search mode off. */
+    onSearchActiveChange: (Boolean) -> Unit = {},
 ) {
     // The query lives in the view model, not here. Where the sidebar is pinned to a rail the modal
     // sheet's copy of this drawer is composed alongside the sidebar's, and a local copy let the two
@@ -133,31 +142,30 @@ fun TaskListDrawer(
     // is written means clearing it clears every copy at once.
     val query = drawerState.menuQuery
 
-    // Open because this copy was asked to open it, or because there is a query to show. Both copies
-    // filter by the same query, so a copy that mounts into a search already in progress has to show
-    // the field it is filtering by rather than results with nothing to explain them.
-    var searchRequested by remember { mutableStateOf(false) }
-    val searchExpanded = searchRequested || query.isNotBlank()
-
     // Only on a close, never on mounting already closed: the sheet is composed while shut, and a
     // copy that cleared on mount wiped the search the sidebar was showing every time a task was
     // opened or closed in that width band.
     var wasOpen by remember { mutableStateOf(drawerOpen) }
     LaunchedEffect(drawerOpen) {
         if (wasOpen && !drawerOpen) {
-            searchRequested = false
             onQueryChange("")
         }
         wasOpen = drawerOpen
     }
 
-    val arrangement = if (query.isNotBlank()) Arrangement.Bottom else Arrangement.Top
+    // The shared search mode was turned off (either column can close it): drop the query so the
+    // drawer shows all items again. Same only-on-a-real-close guard as above.
+    var wasSearchActive by remember { mutableStateOf(searchActive) }
+    LaunchedEffect(searchActive) {
+        if (wasSearchActive && !searchActive) {
+            onQueryChange("")
+        }
+        wasSearchActive = searchActive
+    }
     val displayedFilters = if (query.isNotBlank()) drawerState.searchItems else drawerState.drawerItems
     val systemBarPadding = WindowInsets.systemBars.asPaddingValues()
     val bottomNavPadding = systemBarPadding.calculateBottomPadding()
-    val topGutter = systemBarPadding.calculateTopPadding() + searchButtonInset
-    val bottomGutter = searchButtonInset + SearchButtonSize + SearchButtonGap + bottomNavPadding
-    Box(
+    Column(
         modifier = Modifier
             .testTag(TestTags.NAVIGATION_DRAWER)
             .fillMaxSize()
@@ -165,13 +173,13 @@ fun TaskListDrawer(
             .imePadding(),
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f),
             state = listState,
             contentPadding = PaddingValues(
-                top = topGutter,
-                bottom = bottomGutter,
+                bottom = bottomNavPadding,
             ),
-            verticalArrangement = arrangement,
         ) {
             itemsIndexed(items = displayedFilters, key = { _, it -> it.key() }) { index, item ->
                 val isFirst = index == 0 ||
@@ -183,8 +191,14 @@ fun TaskListDrawer(
                 val cornerRadius = 16.dp
                 val shape = when {
                     isFirst && isLast -> RoundedCornerShape(cornerRadius)
-                    isFirst -> RoundedCornerShape(topStart = cornerRadius, topEnd = cornerRadius)
-                    isLast -> RoundedCornerShape(bottomStart = cornerRadius, bottomEnd = cornerRadius)
+                    isFirst -> RoundedCornerShape(
+                        topStart = cornerRadius,
+                        topEnd = cornerRadius
+                    )
+                    isLast -> RoundedCornerShape(
+                        bottomStart = cornerRadius,
+                        bottomEnd = cornerRadius
+                    )
                     else -> RoundedCornerShape(0.dp)
                 }
                 Surface(
@@ -215,114 +229,31 @@ fun TaskListDrawer(
                             expanded = expanded,
                             onClick = onSignIn,
                             onExpandDrawer = onExpandDrawer,
-                        )
+            )
                     }
                 }
             }
         }
-        AnimatedVisibility(
-            visible = expanded,
-            enter = fadeIn(),
-            exit = fadeOut(),
-            modifier = Modifier
-                .align(Alignment.BottomEnd),
-        ) {
-        SearchFab(
-            accentColor = rememberThemeColor(drawerState.selectedFilter?.tint ?: 0).primaryColor,
-            expanded = searchExpanded,
-            onExpandedChange = { searchRequested = it },
-            query = query,
-            onQueryChange = onQueryChange,
-            modifier = Modifier
-                .padding(bottom = searchButtonInset + bottomNavPadding),
-        )
-        }
-    }
-}
-
-@Composable
-private fun SearchFab(
-    accentColor: Int,
-    expanded: Boolean,
-    onExpandedChange: (Boolean) -> Unit,
-    query: String,
-    onQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val focusRequester = remember { FocusRequester() }
-
-    val containerColor by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colorScheme.surfaceContainerHigh
-                      else Color(accentColor),
-        animationSpec = ThemeColorSpring,
-        label = "containerColor",
-    )
-    val contentColor by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colorScheme.onSurface
-                      else Color(contentColor(accentColor)),
-        animationSpec = ThemeColorSpring,
-        label = "contentColor",
-    )
-    val elevation by animateDpAsState(
-        targetValue = if (expanded) 0.dp else 6.dp,
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
-        label = "elevation",
-    )
-
-    Surface(
-        onClick = { if (!expanded) onExpandedChange(true) },
-        color = containerColor,
-        contentColor = contentColor,
-        shape = RoundedCornerShape(16.dp),
-        shadowElevation = elevation,
-        modifier = modifier.padding(horizontal = 16.dp),
-    ) {
-        AnimatedContent(
-            targetState = expanded,
-            transitionSpec = {
-                fadeIn(spring(stiffness = Spring.StiffnessMedium))
-                    .togetherWith(fadeOut(spring(stiffness = Spring.StiffnessMedium)))
-                    .using(SizeTransform(clip = true) { _, _ ->
-                        spring(stiffness = Spring.StiffnessMedium)
-                    })
-            },
-            contentAlignment = Alignment.CenterEnd,
-        ) { isExpanded ->
-            if (isExpanded) {
-                SearchBar(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .focusRequester(focusRequester),
-                    text = query,
-                    onTextChange = { onQueryChange(it) },
-                    placeHolder = stringResource(Res.string.search),
-                    onCloseClicked = {
-                        if (query.isNotEmpty()) {
-                            onQueryChange("")
-                        } else {
-                            onExpandedChange(false)
-                        }
-                    },
-                    onSearchClicked = {},
-                )
-            } else {
-                Box(
-                    modifier = Modifier.size(SearchButtonSize),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    SymbolIcon(
-                        name = TasksIcons.SEARCH,
-                        contentDescription = stringResource(Res.string.search),
+        // The search box is part of the shared search mode toggled by the task list's search
+        // button. It is shown only while that mode is on and the drawer is wide enough for it:
+        // triggering search must never change the drawer's expand/collapse state, so in rail mode
+        // the box is simply not shown rather than expanding the drawer.
+        if (searchActive && expanded) {
+            SearchBar(
+                modifier = Modifier
+                    .padding(
+                        start = DrawerItemInset,
+                        end = DrawerItemInset,
+                        top = 8.dp,
+                        bottom = bottomNavPadding + 8.dp
                     )
-                }
-            }
-        }
-    }
-
-    LaunchedEffect(expanded) {
-        if (expanded) {
-            delay(100)
-            focusRequester.requestFocus()
+                    .fillMaxWidth(),
+                text = query,
+                onTextChange = { onQueryChange(it) },
+                placeHolder = stringResource(Res.string.search),
+                onCloseClicked = { onSearchActiveChange(false) },
+                onSearchClicked = { _ -> },
+            )
         }
     }
 }
