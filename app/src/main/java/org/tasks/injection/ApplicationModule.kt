@@ -103,7 +103,11 @@ import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.tasklist.HeaderFormatter
 import org.tasks.watch.WatchServiceLogic
 import com.todoroo.astrid.service.TaskCreator
+import io.ktor.client.plugins.logging.LogLevel
+import org.tasks.BuildConfig
+import org.tasks.sync.microsoft.AndroidMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftTokenProvider
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import kotlinx.serialization.json.Json
 import java.util.Locale
@@ -564,9 +568,19 @@ class ApplicationModule {
     )
 
     @Provides
+    @Singleton
     fun providesMicrosoftClientProvider(
+        @ApplicationContext context: Context,
         httpClientFactory: HttpClientFactory,
-    ): MicrosoftClientProvider = httpClientFactory
+        caldavDao: CaldavDao,
+        tokenProvider: MicrosoftTokenProvider,
+    ): MicrosoftClientProvider = AndroidMicrosoftClientProvider(
+        context = context,
+        okHttpClientFactory = httpClientFactory,
+        caldavDao = caldavDao,
+        tokens = tokenProvider,
+        logLevel = if (BuildConfig.DEBUG) LogLevel.ALL else LogLevel.HEADERS,
+    )
 
     @Provides
     fun providesMicrosoftSynchronizer(

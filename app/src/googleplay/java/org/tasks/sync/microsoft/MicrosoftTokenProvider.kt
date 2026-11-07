@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class MicrosoftTokenProvider @Inject constructor(
     @ApplicationContext private val context: Context,
-) {
+) : MicrosoftTokenSource {
     @Volatile private var application: IMultipleAccountPublicClientApplication? = null
 
     private fun application(): IMultipleAccountPublicClientApplication =
@@ -27,16 +27,24 @@ class MicrosoftTokenProvider @Inject constructor(
             ).also { application = it }
         }
 
-    suspend fun hasCredentials(account: CaldavAccount): Boolean = withContext(Dispatchers.IO) {
-        try {
-            application().accounts.any { it.username == account.username }
-        } catch (e: Exception) {
-            Timber.e(e)
-            true
+    override suspend fun hasCredentials(account: CaldavAccount): Boolean =
+        withContext(Dispatchers.IO) {
+            try {
+                application().accounts.any { it.username == account.username }
+            } catch (e: Exception) {
+                Timber.e(e)
+                true
+            }
         }
+
+    override suspend fun getToken(account: CaldavAccount): String = acquireSilently(account, force = false)
+
+    override suspend fun refreshToken(account: CaldavAccount, rejected: String?): String {
+        val cached = acquireSilently(account, force = false)
+        return if (rejected == null || cached == rejected) acquireSilently(account, force = true) else cached
     }
 
-    fun getToken(account: CaldavAccount): String {
+    private suspend fun acquireSilently(account: CaldavAccount, force: Boolean): String = withContext(Dispatchers.IO) {
         val app = application()
 
         val result = try {
@@ -47,7 +55,7 @@ class MicrosoftTokenProvider @Inject constructor(
                 .withScopes(MicrosoftSignInViewModel.scopes)
                 .forAccount(msalAccount)
                 .fromAuthority(msalAccount.authority)
-                .forceRefresh(true)
+                .forceRefresh(force)
                 .build()
 
             app.acquireTokenSilent(parameters)
@@ -55,6 +63,6 @@ class MicrosoftTokenProvider @Inject constructor(
             Timber.e(e)
             throw e.toTokenException()
         }
-        return result.accessToken
+        result.accessToken
     }
 }

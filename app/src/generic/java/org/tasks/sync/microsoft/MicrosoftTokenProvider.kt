@@ -15,12 +15,18 @@ class MicrosoftTokenProvider @Inject constructor(
     @ApplicationContext private val context: Context,
     private val encryption: KeyStoreEncryption,
     private val caldavDao: CaldavDao,
-) {
-    fun hasCredentials(account: CaldavAccount): Boolean = !account.password.isNullOrBlank()
+) : MicrosoftTokenSource {
+    override suspend fun getToken(account: CaldavAccount): String = token(account, force = false)
 
-    suspend fun getToken(account: CaldavAccount): String {
+    override suspend fun refreshToken(account: CaldavAccount, rejected: String?): String =
+        token(account, force = true)
+
+    private suspend fun token(account: CaldavAccount, force: Boolean): String {
         val authState = encryption.decrypt(account.password)?.let { AuthState.jsonDeserialize(it) }
             ?: throw UnauthorizedException("Missing credentials")
+        if (force) {
+            authState.needsTokenRefresh = true
+        }
         if (authState.needsTokenRefresh) {
             val failure = withContext(NonCancellable) {
                 val (token, ex) = context.requestTokenRefresh(authState)

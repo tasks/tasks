@@ -241,7 +241,6 @@ dependencies {
     implementation(libs.kotlinx.immutable)
     implementation(libs.kotlinx.serialization)
     implementation(libs.okhttp)
-    implementation(libs.persistent.cookiejar)
     implementation(libs.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.adaptive)
@@ -280,7 +279,6 @@ dependencies {
     implementation(libs.coil.svg)
     implementation(libs.coil.gif)
 
-    implementation(libs.ktor)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.serialization)

@@ -24,7 +24,7 @@ class GraphTokenRefreshTest {
     private fun client(
         unauthorizedCode: String,
         unauthorizedBody: String = """{"error":{"code":"$unauthorizedCode","message":"no"}}""",
-        refresh: (suspend (rejected: String?) -> String)? = { rejected ->
+        refresh: (suspend (rejected: String?) -> String?)? = { rejected ->
             refreshCalls += rejected
             "new-token".also { tokenRef.set(it) }
         },
@@ -117,6 +117,19 @@ class GraphTokenRefreshTest {
 
         assertTrue(thrown is UnauthorizedException)
         assertEquals("UnknownError", (thrown as UnauthorizedException).graphCode)
+        assertEquals(listOf<String?>("old-token"), sentTokens)
+    }
+
+    @Test
+    fun aTokenSourceThatCannotRefreshKeepsTheGraphError() = runBlocking {
+        val client = client("InvalidAuthenticationToken", refresh = { rejected ->
+            refreshCalls += rejected
+            null
+        })
+
+        val thrown = runCatching { client.fetch() }.exceptionOrNull()
+
+        assertTrue(thrown is UnauthorizedException)
         assertEquals(listOf<String?>("old-token"), sentTokens)
     }
 

@@ -4,9 +4,6 @@ import at.bitfire.cert4android.CertStore
 import at.bitfire.cert4android.CustomCertManager
 import at.bitfire.cert4android.SettingsProvider
 import kotlinx.coroutines.runBlocking
-import okhttp3.Cookie
-import okhttp3.CookieJar
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.internal.tls.OkHostnameVerifier
 import org.tasks.TasksBuildConfig
@@ -42,25 +39,17 @@ class DesktopOkHttpClientFactory(
             .sslSocketFactory(sslContext.socketFactory, customCertManager)
             .hostnameVerifier(hostnameVerifier)
             .addInterceptor(UserAgentInterceptor(userAgent))
-            .cookieJar(lazyCookieJar(cookieKey))
+            .cookieJar(
+                LazyCookieJar {
+                    runBlocking {
+                        EncryptedCookieStore.getOrCreate(
+                            file = EncryptedCookieStore.cookieFile(cookieDir, cookieKey),
+                            encryption = encryption,
+                        )
+                    }
+                }
+            )
         block(builder)
         return builder.build()
-    }
-
-    private fun lazyCookieJar(cookieKey: String?): CookieJar = object : CookieJar {
-        private val delegate: CookieJar by lazy {
-            runBlocking {
-                EncryptedCookieStore.getOrCreate(
-                    file = EncryptedCookieStore.cookieFile(cookieDir, cookieKey),
-                    encryption = encryption,
-                )
-            }
-        }
-
-        override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) =
-            delegate.saveFromResponse(url, cookies)
-
-        override fun loadForRequest(url: HttpUrl): List<Cookie> =
-            delegate.loadForRequest(url)
     }
 }
