@@ -6,7 +6,6 @@ import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.googleapis.ProxyAuthProvider
-import org.tasks.http.HttpException
 import org.tasks.security.KeyStoreEncryption
 
 class DesktopSignInHandler(
@@ -54,7 +53,7 @@ class DesktopSignInHandler(
                     encryption = encryption,
                     analytics = reporting,
                 )
-                else -> try {
+                else -> paymentRequiredOn402 {
                     setupTasksAccount(
                         oauthResult = result,
                         issuer = oauthProvider.issuer,
@@ -64,11 +63,6 @@ class DesktopSignInHandler(
                         provider = caldavClientProvider,
                         purchaseClaim = purchaseClaim,
                     )
-                } catch (e: HttpException) {
-                    if (e.code == 402) {
-                        throw PaymentRequiredException()
-                    }
-                    throw e
                 }
             }
             Logger.i(TAG) { "Signed in" }

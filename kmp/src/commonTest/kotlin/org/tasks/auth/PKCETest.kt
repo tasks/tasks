@@ -31,7 +31,7 @@ class PKCETest {
         assertEquals(
             "https://github.com/login/oauth/authorize?client_id=abc&redirect_uri=org.tasks.github.abc%3A%2F%2Foauth2redirect" +
                 "&response_type=code&scope=openid+email&code_challenge=ch&code_challenge_method=S256&state=st+a&prompt=select_account",
-            TasksOAuthClient().buildAuthUrl(config, "ch", "st a", mapOf("prompt" to "select_account")),
+            noHttpOAuthClient().buildAuthUrl(config, "ch", "st a", mapOf("prompt" to "select_account")),
         )
     }
 }

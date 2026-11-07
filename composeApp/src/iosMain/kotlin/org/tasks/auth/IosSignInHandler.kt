@@ -5,7 +5,6 @@ import org.tasks.caldav.CaldavClientFactory
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.fcm.PushTokenManager
-import org.tasks.http.HttpException
 import org.tasks.security.Encryption
 
 class IosSignInHandler(
@@ -27,7 +26,7 @@ class IosSignInHandler(
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
         }
         val result = oauthFlow.signIn(oauthProvider)
-        val account = try {
+        val account = paymentRequiredOn402 {
             setupTasksAccount(
                 oauthResult = result,
                 issuer = oauthProvider.issuer,
@@ -37,9 +36,6 @@ class IosSignInHandler(
                 provider = caldavClientFactory,
                 purchaseClaim = purchaseClaim,
             )
-        } catch (e: HttpException) {
-            if (e.code == 402) throw PaymentRequiredException()
-            throw e
         }
         pushTokenManager.registerTokenForAccount(account)
         Logger.i("IosSignInHandler") { "Account created successfully" }

@@ -9,6 +9,7 @@ import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.extensions.bringTasksToForeground
@@ -29,6 +30,7 @@ import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.http.AndroidOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.auth.oauthClient
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
@@ -76,7 +78,19 @@ actual fun platformModule(): Module = module {
             ),
         )
     }
-    factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }
+    single {
+        val context = androidContext()
+        TasksOAuthSignIn(
+            caldavDao = get(),
+            encryption = get<KeyStoreEncryption>(),
+            serverEnvironment = get(),
+            clientFactory = get(),
+            purchaseClaim = get(),
+            oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
+            onFinished = { context.bringTasksToForeground() },
+        )
+    }
+    factory<SignInHandler> { AndroidSignInHandler(get()) }
     single<Database> {
         val context = androidContext()
         val dbFile = context.getDatabasePath(Database.NAME)

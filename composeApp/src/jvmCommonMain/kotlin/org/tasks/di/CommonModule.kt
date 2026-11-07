@@ -11,7 +11,6 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -22,7 +21,6 @@ import org.koin.dsl.module
 import org.tasks.TaskEditDestination
 import org.tasks.analytics.Reporting
 import org.tasks.audio.SoundPlayer
-import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
@@ -61,10 +59,10 @@ import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
 import org.tasks.googleapis.GoogleTasksCredentials
 import org.tasks.googleapis.GtasksInvoker
+import org.tasks.auth.oauthClient
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
 import org.tasks.http.OkHttpKtorClientFactory
-import org.tasks.http.toKtor
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.RefreshScheduler
 import org.tasks.location.Geocoder
@@ -187,7 +185,7 @@ val commonModule = module {
     factory<Encryption> { get<KeyStoreEncryption>() }
     factory<EtebaseClientFactory> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
-    single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }.toKtor()) }
+    single { get<OkHttpClientFactory>().oauthClient(foreground = false) }
     single {
         GoogleTasksCredentials(
             encryption = get<KeyStoreEncryption>(),

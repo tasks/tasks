@@ -25,7 +25,7 @@ class BrowserAuthorizationTest {
 
     @Test
     fun leavesOutPkceWhenThereIsNoChallenge() {
-        val url = TasksOAuthClient().buildAuthUrl(
+        val url = noHttpOAuthClient().buildAuthUrl(
             config.copy(redirectUri = "https://caldav.tasks.org/oauth/apple/callback"),
             codeChallenge = null,
             state = "st",

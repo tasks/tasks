@@ -2,6 +2,7 @@ package org.tasks.auth
 
 import co.touchlab.kermit.Logger
 import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
@@ -12,6 +13,8 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.encodeURLParameter
 import io.ktor.http.isSuccess
 import io.ktor.http.parameters
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -37,23 +40,32 @@ data class OAuthResult(
     val grantedScopes: String? = null,
 )
 
+const val OAUTH_TIMEOUT_MILLIS = 30_000L
+
+fun HttpClientConfig<*>.oauthDefaults() {
+    followRedirects = true
+    install(HttpTimeout) {
+        connectTimeoutMillis = OAUTH_TIMEOUT_MILLIS
+        requestTimeoutMillis = OAUTH_TIMEOUT_MILLIS
+        socketTimeoutMillis = OAUTH_TIMEOUT_MILLIS
+    }
+}
+
 class TasksOAuthClient(
-    private val httpClient: HttpClient = defaultHttpClient,
+    private val createHttpClient: suspend () -> HttpClient,
 ) {
-    companion object {
-        private val defaultHttpClient: HttpClient by lazy {
-            HttpClient {
-                install(HttpTimeout) {
-                    connectTimeoutMillis = 15_000
-                    requestTimeoutMillis = 15_000
-                }
-            }
-        }
+    constructor(httpClient: HttpClient) : this({ httpClient })
+
+    private val httpClientLock = Mutex()
+    private var client: HttpClient? = null
+
+    private suspend fun httpClient(): HttpClient = httpClientLock.withLock {
+        client ?: createHttpClient().also { client = it }
     }
 
     suspend fun fetchDiscovery(discoveryUrl: String, authHeader: String? = null): JsonObject {
         Logger.d("TasksOAuthClient") { "Fetching: $discoveryUrl" }
-        val response = httpClient.get(discoveryUrl) {
+        val response = httpClient().get(discoveryUrl) {
             authHeader?.let { header(HttpHeaders.Authorization, it) }
         }
         val body = response.bodyAsText()
@@ -201,7 +213,7 @@ class TasksOAuthClient(
     }
 
     private suspend fun post(url: String, form: Map<String, String>, authHeader: String?): HttpResponse =
-        httpClient.submitForm(url, parameters { form.forEach { (name, value) -> append(name, value) } }) {
+        httpClient().submitForm(url, parameters { form.forEach { (name, value) -> append(name, value) } }) {
             header(HttpHeaders.Accept, "application/json")
             authHeader?.let { header(HttpHeaders.Authorization, it) }
         }

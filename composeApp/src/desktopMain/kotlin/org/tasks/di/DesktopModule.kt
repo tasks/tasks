@@ -26,7 +26,6 @@ import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
-import org.tasks.auth.TasksOAuthClient
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.DesktopLinkClient
@@ -50,9 +49,9 @@ import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DesktopOkHttpClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.auth.oauthClient
 import org.tasks.http.DesktopCookieStorage
 import org.tasks.auth.OAuthTokenStore
-import org.tasks.http.toKtor
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
@@ -214,11 +213,8 @@ actual fun platformModule(): Module = module {
         )
     }
     factory<OAuthFlow> {
-        val httpClient = kotlinx.coroutines.runBlocking {
-            get<OkHttpClientFactory>().newClient(foreground = true)
-        }
         DesktopOAuthFlow(
-            oauthClient = TasksOAuthClient(httpClient.toKtor()),
+            oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
             serverEnvironment = get(),
         )
     }
@@ -229,7 +225,7 @@ actual fun platformModule(): Module = module {
         OkHttpMicrosoftClientProvider(
             okHttpClientFactory = get(),
             caldavDao = caldavDao,
-            tokens = OAuthTokenStore(encryption, caldavDao, TasksOAuthClient()).asMicrosoftTokenSource(),
+            tokens = OAuthTokenStore(encryption, caldavDao, get()).asMicrosoftTokenSource(),
             cookiesStorage = { DesktopCookieStorage.forKey(cookieDir, it, encryption) },
         )
     }

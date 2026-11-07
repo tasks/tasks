@@ -44,6 +44,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
 import org.tasks.fcm.ApnsTokenProvider
 import org.tasks.fcm.FcmTokenProvider
+import org.tasks.auth.oauthDefaults
 import org.tasks.http.DarwinKtorClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.jobs.BackgroundWork
@@ -124,7 +125,10 @@ actual fun platformModule(): Module = module {
     }
     single<FcmTokenProvider> { get<ApnsTokenProvider>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
-    single { TasksOAuthClient() }
+    single {
+        val factory = get<KtorClientFactory>()
+        TasksOAuthClient { factory.newClient { oauthDefaults() } }
+    }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
     factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get(), get()) }
     single {
