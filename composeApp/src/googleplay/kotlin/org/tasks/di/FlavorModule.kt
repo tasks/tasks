@@ -1,10 +1,20 @@
 package org.tasks.di
 
 import kotlinx.coroutines.flow.map
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import org.tasks.AppStore
+import org.tasks.CurrentActivity
+import org.tasks.R
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Constants
+import org.tasks.auth.MicrosoftSignIn
+import org.tasks.sync.microsoft.AndroidMicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MsalClient
+import org.tasks.sync.microsoft.setupMsalMicrosoftAccount
 import org.tasks.analytics.Reporting
 import org.tasks.analytics.logCloudOnboarding
 import org.tasks.PlatformConfiguration
@@ -41,10 +51,39 @@ val flavorModule = module {
             supportsCaldav = true,
             supportsEteSync = true,
             supportsOpenTasks = true,
+            supportsMicrosoft = true,
             supportsDesktopLinking = true,
             supportsNotifications = false,
             supportsNotificationTroubleshooting = false,
             supportsSystemNotificationSettings = false,
+        )
+    }
+    single(createdAtStart = true) {
+        CurrentActivity().also { androidApplication().registerActivityLifecycleCallbacks(it) }
+    }
+    single { MsalClient(androidContext(), R.raw.microsoft_config) }
+    single<MicrosoftSignIn> {
+        MicrosoftSignIn {
+            val activity = get<CurrentActivity>().activity
+                ?: throw IllegalStateException("Microsoft sign-in needs a foreground activity")
+            setupMsalMicrosoftAccount(
+                email = get<MsalClient>().signIn(activity, null),
+                caldavDao = get(),
+                onAccountAdded = {
+                    get<Reporting>().logEvent(
+                        AnalyticsEvents.SYNC_ADD_ACCOUNT,
+                        AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
+                    )
+                },
+            )
+        }
+    }
+    single<MicrosoftClientProvider> {
+        AndroidMicrosoftClientProvider(
+            context = androidContext(),
+            okHttpClientFactory = get(),
+            caldavDao = get(),
+            tokens = get<MsalClient>(),
         )
     }
     single<FcmTokenProvider> { GooglePlayFcmTokenProvider() }
