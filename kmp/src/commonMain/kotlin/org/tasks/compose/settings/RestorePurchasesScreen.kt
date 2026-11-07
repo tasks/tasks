@@ -115,6 +115,7 @@ sealed interface GitHubProState {
 @Composable
 fun RestorePurchasesScreen(
     onBack: () -> Unit,
+    sources: List<UnlockSource> = UnlockSource.entries,
     stripe: StripeRestoreCallbacks,
     onCreateLink: suspend () -> LinkResult?,
     onPollStatus: suspend (code: String) -> StatusResult?,
@@ -266,7 +267,7 @@ fun RestorePurchasesScreen(
             when (selection) {
                 null -> {
                     SelectionContent(
-                        sources = UnlockSource.entries,
+                        sources = sources,
                         onSelect = { source ->
                             selection = source
                             when (source) {

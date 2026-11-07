@@ -139,6 +139,7 @@ android {
     flavorDimensions += "store"
     productFlavors {
         create("googleplay") {
+            isDefault = true
             dimension = "store"
         }
         create("fdroid") {
@@ -164,6 +165,7 @@ android {
     dependencies {
         coreLibraryDesugaring(libs.desugar.jdk.libs)
         debugImplementation(compose.uiTooling)
+        "googleplayImplementation"(projects.googleplay)
         "googleplayImplementation"(platform(libs.firebase))
         "googleplayImplementation"(libs.firebase.messaging)
         "googleplayImplementation"(libs.play.services.code.scanner)

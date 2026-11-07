@@ -11,8 +11,10 @@ import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
 import kotlinx.coroutines.flow.flowOf
 import org.tasks.TasksBuildConfig
+import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.PurchaseEntitlement
+import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
@@ -93,7 +95,7 @@ actual fun platformModule(): Module = module {
     }
     single<SubscriptionProvider> {
         val tasksPreferences = get<TasksPreferences>()
-        EntitlementSubscriptionProvider(
+        val entitlement = EntitlementSubscriptionProvider(
             entitlement = get(),
             debugPro = if (TasksBuildConfig.DEBUG) {
                 tasksPreferences.flow(TasksPreferences.debugPro, false)
@@ -101,6 +103,10 @@ actual fun platformModule(): Module = module {
                 flowOf(false)
             },
         )
+        when (val store = getOrNull<StoreSubscriptionProvider>()) {
+            null -> entitlement
+            else -> CompositeSubscriptionProvider(listOf(store, entitlement))
+        }
     }
     factory { FileStorage(androidContext().filesDir.absolutePath) }
     factory {

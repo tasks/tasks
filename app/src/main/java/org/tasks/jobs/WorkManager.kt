@@ -31,7 +31,7 @@ interface WorkManager : BackgroundWork {
 
     fun scheduleDriveUpload(uri: Uri, purge: Boolean)
 
-    fun updatePurchases()
+    override fun updatePurchases()
 
     override suspend fun scheduleBlogFeedCheck()
 

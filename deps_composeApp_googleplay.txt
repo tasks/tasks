@@ -160,7 +160,6 @@
 +|    |    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0 -> 1.11.0 (*)
 +|    |    |         +--- androidx.lifecycle:lifecycle-common:2.11.0 (c)
 +|    |    |         +--- androidx.lifecycle:lifecycle-common-java8:2.11.0 (c)
-+|    |    |         +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
 +|    |    |         +--- androidx.lifecycle:lifecycle-livedata-core:2.11.0 (c)
 +|    |    |         +--- androidx.lifecycle:lifecycle-livedata-core-ktx:2.11.0 (c)
 +|    |    |         +--- androidx.lifecycle:lifecycle-runtime:2.11.0 (c)
@@ -171,6 +170,7 @@
 +|    |    |         +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.11.0 (c)
 +|    |    |         +--- androidx.lifecycle:lifecycle-viewmodel-navigation3:2.11.0 (c)
 +|    |    |         +--- org.jetbrains.androidx.lifecycle:lifecycle-viewmodel:2.9.5 -> 2.11.0 (c)
++|    |    |         +--- androidx.lifecycle:lifecycle-livedata:2.11.0 (c)
 +|    |    |         \--- androidx.lifecycle:lifecycle-process:2.11.0 (c)
 +|    |    +--- androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1 -> 2.11.0
 +|    |    |    \--- androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.11.0
@@ -1737,6 +1737,58 @@
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive:1.3.0 (c)
 +|         +--- org.jetbrains.compose.material3.adaptive:adaptive-layout:1.3.0 (c)
 +|         \--- org.jetbrains.compose.material3.adaptive:adaptive-navigation:1.3.0 (c)
+++--- project ':googleplay'
++|    +--- project ':kmp' (*)
++|    +--- com.android.billingclient:billing-ktx:9.1.0
++|    |    +--- com.android.billingclient:billing:9.1.0
++|    |    |    +--- androidx.activity:activity:1.2.3 -> 1.13.0 (*)
++|    |    |    +--- androidx.core:core:1.15.0 -> 1.18.0 (*)
++|    |    |    +--- com.google.android.datatransport:transport-api:3.0.0 -> 5.0.0
++|    |    |    |    \--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
++|    |    |    +--- com.google.android.datatransport:transport-backend-cct:3.1.8 -> 5.0.0
++|    |    |    |    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
++|    |    |    |    +--- com.google.android.datatransport:transport-runtime:5.0.0
++|    |    |    |    |    +--- com.google.firebase:firebase-encoders:18.0.0
++|    |    |    |    |    |    \--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
++|    |    |    |    |    +--- com.google.firebase:firebase-encoders-proto:17.0.0
++|    |    |    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
++|    |    |    |    |    |    \--- com.google.firebase:firebase-encoders:18.0.0 (*)
++|    |    |    |    |    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
++|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
++|    |    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
++|    |    |    |    |    \--- javax.inject:javax.inject:1
++|    |    |    |    +--- com.google.firebase:firebase-encoders:18.0.0 (*)
++|    |    |    |    +--- com.google.firebase:firebase-encoders-json:19.0.0
++|    |    |    |    |    +--- com.google.firebase:firebase-encoders:18.0.0 (*)
++|    |    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
++|    |    |    |    |    \--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
++|    |    |    |    \--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
++|    |    |    +--- com.google.android.datatransport:transport-runtime:3.1.8 -> 5.0.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-base:18.5.0 -> 18.9.0
++|    |    |    |    +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
++|    |    |    |    +--- androidx.core:core:1.9.0 -> 1.18.0 (*)
++|    |    |    |    +--- androidx.fragment:fragment:1.1.0 -> 1.8.9 (*)
++|    |    |    |    +--- com.google.android.gms:play-services-basement:18.9.0
++|    |    |    |    |    +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
++|    |    |    |    |    +--- androidx.core:core:1.2.0 -> 1.18.0 (*)
++|    |    |    |    |    \--- androidx.fragment:fragment:1.1.0 -> 1.8.9 (*)
++|    |    |    |    \--- com.google.android.gms:play-services-tasks:18.4.0
++|    |    |    |         \--- com.google.android.gms:play-services-basement:18.8.0 -> 18.9.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
++|    |    |    +--- com.google.android.gms:play-services-location:19.0.0
++|    |    |    |    +--- com.google.android.gms:play-services-base:18.0.0 -> 18.9.0 (*)
++|    |    |    |    +--- com.google.android.gms:play-services-basement:18.0.0 -> 18.9.0 (*)
++|    |    |    |    +--- com.google.android.gms:play-services-places-placereport:17.0.0
++|    |    |    |    |    \--- com.google.android.gms:play-services-basement:17.0.0 -> 18.9.0 (*)
++|    |    |    |    \--- com.google.android.gms:play-services-tasks:18.0.0 -> 18.4.0 (*)
++|    |    |    \--- com.google.android.gms:play-services-tasks:18.2.0 -> 18.4.0 (*)
++|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.4.21 (*)
++|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0 -> 1.11.0 (*)
++|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.21 (*)
++|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
++|    +--- androidx.lifecycle:lifecycle-viewmodel:2.11.0 (*)
++|    +--- co.touchlab:kermit:2.2.0 (*)
++|    \--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 ++--- com.google.firebase:firebase-bom:35.0.2
 +|    +--- com.google.firebase:firebase-messaging:26.0.0 (c)
 +|    +--- com.google.firebase:firebase-encoders:18.0.0 (c)
@@ -1747,11 +1799,7 @@
 +|    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.10.2 -> 1.11.0
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
 +|    |    |    +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
-+|    |    |    +--- com.google.android.gms:play-services-tasks:16.0.1 -> 18.4.0
-+|    |    |    |    \--- com.google.android.gms:play-services-basement:18.8.0 -> 18.9.0
-+|    |    |    |         +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
-+|    |    |    |         +--- androidx.core:core:1.2.0 -> 1.18.0 (*)
-+|    |    |    |         \--- androidx.fragment:fragment:1.1.0 -> 1.8.9 (*)
++|    |    |    +--- com.google.android.gms:play-services-tasks:16.0.1 -> 18.4.0 (*)
 +|    |    |    \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21 (*)
 +|    |    +--- com.google.firebase:firebase-components:19.0.0 -> 20.0.0
 +|    |    |    +--- com.google.firebase:firebase-annotations:17.0.0 -> 18.0.0
@@ -1769,26 +1817,8 @@
 +|    +--- com.google.firebase:firebase-components:20.0.0 (*)
 +|    +--- com.google.firebase:firebase-datatransport:21.0.0
 +|    |    +--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
-+|    |    +--- com.google.android.datatransport:transport-api:5.0.0
-+|    |    |    \--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
-+|    |    +--- com.google.android.datatransport:transport-backend-cct:5.0.0
-+|    |    |    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
-+|    |    |    +--- com.google.android.datatransport:transport-runtime:5.0.0
-+|    |    |    |    +--- com.google.firebase:firebase-encoders:18.0.0
-+|    |    |    |    |    \--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
-+|    |    |    |    +--- com.google.firebase:firebase-encoders-proto:17.0.0
-+|    |    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
-+|    |    |    |    |    \--- com.google.firebase:firebase-encoders:18.0.0 (*)
-+|    |    |    |    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
-+|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
-+|    |    |    |    +--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
-+|    |    |    |    \--- javax.inject:javax.inject:1
-+|    |    |    +--- com.google.firebase:firebase-encoders:18.0.0 (*)
-+|    |    |    +--- com.google.firebase:firebase-encoders-json:19.0.0
-+|    |    |    |    +--- com.google.firebase:firebase-encoders:18.0.0 (*)
-+|    |    |    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
-+|    |    |    |    \--- androidx.annotation:annotation:1.8.1 -> 1.10.0 (*)
-+|    |    |    \--- androidx.annotation:annotation:1.3.0 -> 1.10.0 (*)
++|    |    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
++|    |    +--- com.google.android.datatransport:transport-backend-cct:5.0.0 (*)
 +|    |    +--- com.google.android.datatransport:transport-runtime:5.0.0 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21 (*)
 +|    |    \--- javax.inject:javax.inject:1
@@ -1816,12 +1846,7 @@
 +|    +--- com.google.android.datatransport:transport-api:5.0.0 (*)
 +|    +--- com.google.android.datatransport:transport-backend-cct:5.0.0 (*)
 +|    +--- com.google.android.datatransport:transport-runtime:5.0.0 (*)
-+|    +--- com.google.android.gms:play-services-base:18.9.0
-+|    |    +--- androidx.collection:collection:1.0.0 -> 1.5.0 (*)
-+|    |    +--- androidx.core:core:1.9.0 -> 1.18.0 (*)
-+|    |    +--- androidx.fragment:fragment:1.1.0 -> 1.8.9 (*)
-+|    |    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
-+|    |    \--- com.google.android.gms:play-services-tasks:18.4.0 (*)
++|    +--- com.google.android.gms:play-services-base:18.9.0 (*)
 +|    +--- com.google.android.gms:play-services-basement:18.9.0 (*)
 +|    +--- com.google.android.gms:play-services-tasks:18.4.0 (*)
 +|    +--- com.google.android.gms:play-services-cloud-messaging:17.4.0

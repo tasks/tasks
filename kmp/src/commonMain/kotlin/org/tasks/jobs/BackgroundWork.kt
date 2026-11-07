@@ -16,5 +16,7 @@ interface BackgroundWork {
 
     fun updateBackgroundSync() {}
 
+    fun updatePurchases() {}
+
     fun migrateLocalTasks(localAccount: CaldavAccount, tasksAccount: CaldavAccount) {}
 }

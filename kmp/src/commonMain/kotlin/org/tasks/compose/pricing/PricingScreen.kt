@@ -92,7 +92,10 @@ data class StoreBilling(
         !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
 
     fun warnCoveredElsewhere(price: BillingOption?): Boolean =
-        coveredElsewhere && currentSku == null && price?.entitles == true
+        coveredElsewhere && !currentlyEntitled && price?.entitles == true
+
+    private val currentlyEntitled: Boolean
+        get() = catalog.price(currentSku)?.entitles == true
 }
 
 @Composable

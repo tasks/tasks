@@ -23,11 +23,13 @@ import org.tasks.TaskEditDestination
 import org.tasks.analytics.Reporting
 import org.tasks.audio.SoundPlayer
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
+import org.tasks.caldav.TasksBasicAuth
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
 import org.tasks.compose.chips.ChipDataProvider
@@ -167,12 +169,18 @@ val commonModule = module {
     }
     factory<KtorClientFactory> { OkHttpKtorClientFactory(get()) }
     factory<CaldavClientProvider> {
+        val storeSubscriptions = getOrNull<StoreSubscriptionProvider>()
         CaldavClientProvider(
             encryption = get(),
             tasksPreferences = get(),
             environment = get(),
             httpClientFactory = get(),
             tokenProvider = getOrNull(),
+            subscriptionProvider = {
+                storeSubscriptions?.current?.let { info ->
+                    info.purchaseToken?.let { TasksBasicAuth.SubscriptionInfo(info.sku, it) }
+                }
+            },
         )
     }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }

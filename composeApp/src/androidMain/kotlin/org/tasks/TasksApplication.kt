@@ -10,6 +10,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.tasks.di.commonModule
 import org.tasks.di.platformModule
+import org.tasks.jobs.BackgroundWork
 import org.tasks.logging.FileLogWriter
 import org.tasks.logging.SeverityFilterLogWriter
 import org.tasks.logging.logStartup
@@ -44,6 +45,7 @@ class TasksApplication : Application() {
         }
         koin.getOrNull<org.tasks.fcm.PushTokenManager>()
             ?.registerTokenForAllAccounts()
+        koin.get<BackgroundWork>().updatePurchases()
         val observer = OpenTaskContentObserver(
             context = this,
             syncAdapters = koin.get<SyncAdapters>(),

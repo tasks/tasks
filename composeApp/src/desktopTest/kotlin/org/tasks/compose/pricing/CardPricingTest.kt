@@ -41,6 +41,12 @@ class CardPricingTest {
         trialDays = 14,
     )
 
+    private val supporter = BillingOption(
+        priceId = "pri_support_year",
+        sku = "annual_01",
+        amountCents = 100,
+    )
+
     @Test
     fun theCtaQuotesThePriceFromTheCatalog() = runComposeUiTest {
         showCloudCard(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
@@ -214,6 +220,21 @@ class CardPricingTest {
             onAllNodes(hasText("already paid for somewhere else", substring = true))
                 .fetchSemanticsNodes().isEmpty(),
         )
+    }
+
+    @Test
+    fun aSupporterSubscriptionDoesNotSuppressTheCoverageWarning() = runComposeUiTest {
+        showCloudCard(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual, supporter)),
+                currentSku = supporter.sku,
+                coveredElsewhere = true,
+                coveredBy = UnlockSource.STRIPE,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("This account is already paid for somewhere else.")
     }
 
     @Test

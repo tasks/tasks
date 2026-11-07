@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -69,6 +70,9 @@ class PurchaseEntitlement(
 
     private val _provider = MutableStateFlow<EntitlementProvider?>(null)
     val provider: Flow<EntitlementProvider?> = _provider
+
+    val coveredBy: Flow<EntitlementProvider?> =
+        combine(_hasPro, _provider) { hasPro, provider -> provider.takeIf { hasPro } }
 
     private val publicKey by lazy { Base64.Default.decode(publicKeyBase64) }
 

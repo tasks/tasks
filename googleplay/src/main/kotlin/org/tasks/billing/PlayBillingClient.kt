@@ -41,7 +41,7 @@ class PlayBillingClient(
     private val purchases: PlayPurchases,
     private val reporting: Reporting,
     private val scope: CoroutineScope,
-    private val onPurchasesUpdated: () -> Unit = {},
+    private val onPurchasesUpdated: suspend (List<PlayPurchase>) -> Unit = {},
 ) : PlayBilling, PurchasesUpdatedListener {
     private val logger = Logger.withTag("PlayBillingClient")
 
@@ -176,12 +176,14 @@ class PlayBillingClient(
         if (result.success) {
             val updated = purchaseList.orEmpty()
             scope.launch {
-                purchases.add(updated.map { it.toPlayPurchase() })
+                val purchased = updated.map { it.toPlayPurchase() }
+                purchases.add(purchased)
                 try {
                     acknowledging.withLock { acknowledgePending() }
                 } catch (e: Exception) {
                     logger.w(e) { "Failed to acknowledge purchases after update" }
                 }
+                onPurchasesUpdated(purchased)
             }
             updated
                 .filter { !it.isAcknowledged }
@@ -196,8 +198,8 @@ class PlayBillingClient(
         } else {
             logger.w { "onPurchasesUpdated: ${result.responseCodeString}: ${result.debugMessage}" }
             reportIabResult(result.responseCodeString, state = STATE_PURCHASE_UPDATED_FAILED)
+            scope.launch { onPurchasesUpdated(emptyList()) }
         }
-        onPurchasesUpdated.invoke()
     }
 
     private suspend fun queryProductDetails(

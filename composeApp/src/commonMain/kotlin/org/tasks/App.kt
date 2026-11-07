@@ -135,6 +135,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.getKoin
 import org.koin.compose.koinInject
 import org.tasks.data.SubtaskTreeRegistry
 import org.tasks.data.deletions
@@ -145,9 +146,11 @@ import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.PurchaseEntitlement
+import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.SubscriptionSkus
+import org.tasks.billing.UnlockSource
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.APP_STORE_SIGN_IN_PROVIDERS
@@ -331,6 +334,8 @@ fun App(
             val hasAccount by appViewModel.hasAccount.collectAsState()
             val subscriptionProvider = koinInject<SubscriptionProvider>()
             val stripePurchases = koinInject<StripePurchases>()
+            val koin = getKoin()
+            val storeBillingProvider = remember(koin) { koin.getOrNull<StoreBillingProvider>() }
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
             var cloudSignInSource by rememberSaveable { mutableStateOf<String?>(null) }
             var platformSignIn by rememberSaveable { mutableStateOf<String?>(null) }
@@ -1081,6 +1086,10 @@ fun App(
                         }
                         RestorePurchasesScreen(
                             onBack = { backStack.removeLastOrNull() },
+                            sources = UnlockSource.entries.filterNot {
+                                it == UnlockSource.GOOGLE_PLAY &&
+                                        configuration.billingProvider == BillingProvider.GOOGLE_PLAY
+                            },
                             stripe = StripeRestoreCallbacks(
                                 onRequestCode = { email ->
                                     stripePurchases.requestRestoreCode(email)
@@ -1265,10 +1274,11 @@ fun App(
                             }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
-                        val store = if (configuration.billingProvider == BillingProvider.STRIPE) {
-                            cardCheckout(
-                                suggestedPrice = subscriptionInfo
-                                    ?.let { SubscriptionSkus.supporterPrice(it.sku) },
+                        val suggestedPrice = subscriptionInfo
+                            ?.let { SubscriptionSkus.supporterPrice(it.sku) }
+                        val store = when (configuration.billingProvider) {
+                            BillingProvider.STRIPE -> cardCheckout(
+                                suggestedPrice = suggestedPrice,
                                 openUrl = openUrl,
                                 onRestorePurchases = {
                                     backStack.push(
@@ -1281,8 +1291,9 @@ fun App(
                                 onPlanChanged = { popPricing() },
                                 portalUrl = { stripePurchases.portalUrl() },
                             )
-                        } else {
-                            null
+                            BillingProvider.GOOGLE_PLAY ->
+                                storeBillingProvider?.storeBilling(suggestedPrice)
+                            null -> null
                         }
                         PricingScreen(
                             mode = destination.mode,
