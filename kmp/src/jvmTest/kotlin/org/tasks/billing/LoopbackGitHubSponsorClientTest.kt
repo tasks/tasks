@@ -61,6 +61,22 @@ class LoopbackGitHubSponsorClientTest {
     }
 
     @Test(timeout = 30_000)
+    fun gitHubIsAskedToShowTheAccountChooser() = runBlocking {
+        var authUrl: String? = null
+        val client = LoopbackGitHubSponsorClient(
+            verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
+            openUrl = { url ->
+                authUrl = url
+                redirectBack(url, code = "the-code")
+            },
+        )
+
+        client.signIn()
+
+        assertEquals("select_account", params(authUrl!!)["prompt"])
+    }
+
+    @Test(timeout = 30_000)
     fun aStrayBrowserRequestDoesNotEndTheFlow() = runBlocking {
         val client = LoopbackGitHubSponsorClient(
             verify = { code, _ ->
