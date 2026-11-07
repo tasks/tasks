@@ -23,6 +23,7 @@ class WatchApp : Application() {
                     host = POSTHOG_HOST,
                 ).apply {
                     captureApplicationLifecycleEvents = true
+                    captureScreenViews = false
                 }
             )
             PostHog.register("platform", "wear")

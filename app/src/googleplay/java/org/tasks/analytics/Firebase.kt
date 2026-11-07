@@ -57,6 +57,7 @@ class Firebase @Inject constructor(
                     preloadFeatureFlags = false
                     sendFeatureFlagEvent = false
                     remoteConfig = false
+                    captureScreenViews = false
 
                     sessionReplay = BuildConfig.DEBUG
                     sessionReplayConfig.maskAllTextInputs = true
