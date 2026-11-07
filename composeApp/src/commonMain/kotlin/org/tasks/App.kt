@@ -145,14 +145,16 @@ import org.tasks.analytics.Reporting
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
+import org.tasks.billing.DesktopLinkClient
+import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.modifySubscription
+import org.tasks.billing.restoreSources
 import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.SubscriptionSkus
-import org.tasks.billing.UnlockSource
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.components.AnimatedBanner
 import org.tasks.compose.APP_STORE_SIGN_IN_PROVIDERS
@@ -188,6 +190,7 @@ import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.settings.CaldavAccountSettingsPane
+import org.tasks.compose.settings.DesktopLinkCallbacks
 import org.tasks.compose.settings.RestorePurchasesScreen
 import org.tasks.compose.settings.StripeRestoreCallbacks
 import org.tasks.compose.settings.EtebaseAccountSettingsDetail
@@ -1072,8 +1075,12 @@ fun App(
                         )
                     }
                     entry<RestorePurchasesDestination> { destination ->
-                        val desktopLinkClient = koinInject<org.tasks.billing.DesktopLinkClient>()
-                        val gitHubSponsorClient = koinInject<org.tasks.billing.GitHubSponsorClient>()
+                        val desktopLinkClient = if (configuration.supportsPlayLinkRestore) {
+                            koinInject<DesktopLinkClient>()
+                        } else {
+                            null
+                        }
+                        val gitHubSponsorClient = koinInject<GitHubSponsorClient>()
                         LaunchedEffect(Unit) {
                             reporting.logEvent(AnalyticsEvents.SCREEN_RESTORE_PURCHASES)
                         }
@@ -1085,10 +1092,7 @@ fun App(
                         }
                         RestorePurchasesScreen(
                             onBack = { backStack.removeLastOrNull() },
-                            sources = UnlockSource.entries.filterNot {
-                                it == UnlockSource.GOOGLE_PLAY &&
-                                        configuration.billingProvider == BillingProvider.GOOGLE_PLAY
-                            },
+                            sources = remember(configuration) { restoreSources(configuration) },
                             stripe = StripeRestoreCallbacks(
                                 onRequestCode = { email ->
                                     stripePurchases.requestRestoreCode(email)
@@ -1113,19 +1117,23 @@ fun App(
                                     )
                                 },
                             ),
-                            onCreateLink = { desktopLinkClient.createLink() },
-                            onPollStatus = { code -> desktopLinkClient.pollStatus(code) },
-                            onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
-                                desktopLinkClient
-                                    .onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
-                                    .also { stored ->
-                                        if (stored == PurchaseEntitlement.StoreResult.STORED) {
-                                            reporting.logEvent(
-                                                AnalyticsEvents.RESTORE_SUCCESS,
-                                                AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
-                                            )
-                                        }
-                                    }
+                            desktopLink = desktopLinkClient?.let { client ->
+                                DesktopLinkCallbacks(
+                                    onCreateLink = { client.createLink() },
+                                    onPollStatus = { code -> client.pollStatus(code) },
+                                    onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
+                                        client
+                                            .onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
+                                            .also { stored ->
+                                                if (stored == PurchaseEntitlement.StoreResult.STORED) {
+                                                    reporting.logEvent(
+                                                        AnalyticsEvents.RESTORE_SUCCESS,
+                                                        AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
+                                                    )
+                                                }
+                                            }
+                                    },
+                                )
                             },
                             onGitHubSignIn = { gitHubSponsorClient.signIn() },
                             onOpenSponsorPage = {

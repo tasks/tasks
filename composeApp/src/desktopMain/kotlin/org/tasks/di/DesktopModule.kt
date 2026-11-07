@@ -178,6 +178,7 @@ actual fun platformModule(): Module = module {
         PlatformConfiguration(
             versionCode = JvmBuildConfig.VERSION_CODE,
             billingProvider = BillingProvider.STRIPE,
+            supportsPlayLinkRestore = true,
             thirdPartySyncRequiresPro = true,
             supportsCaldav = true,
             supportsEteSync = true,

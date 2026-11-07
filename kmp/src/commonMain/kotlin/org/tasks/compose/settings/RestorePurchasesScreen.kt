@@ -102,6 +102,20 @@ sealed interface DesktopProState {
     data class Error(val message: String) : DesktopProState
 }
 
+data class DesktopLinkCallbacks(
+    val onCreateLink: suspend () -> LinkResult?,
+    val onPollStatus: suspend (code: String) -> StatusResult?,
+    val onLinkSuccess: suspend (
+        jwt: String,
+        refreshToken: String,
+        sku: String?,
+        formattedPrice: String?,
+    ) -> StoreResult,
+)
+
+private const val MAX_POLL_ERRORS = 5
+private const val FALLBACK_LINK_TTL_SECONDS = 600L
+
 sealed interface GitHubProState {
     data object Idle : GitHubProState
     data object OpeningBrowser : GitHubProState
@@ -115,16 +129,9 @@ sealed interface GitHubProState {
 @Composable
 fun RestorePurchasesScreen(
     onBack: () -> Unit,
-    sources: List<UnlockSource> = UnlockSource.entries,
+    sources: List<UnlockSource>,
     stripe: StripeRestoreCallbacks,
-    onCreateLink: suspend () -> LinkResult?,
-    onPollStatus: suspend (code: String) -> StatusResult?,
-    onLinkSuccess: suspend (
-        jwt: String,
-        refreshToken: String,
-        sku: String?,
-        formattedPrice: String?,
-    ) -> StoreResult,
+    desktopLink: DesktopLinkCallbacks? = null,
     onGitHubSignIn: suspend () -> GitHubSponsorClient.VerifyResult,
     onOpenSponsorPage: () -> Unit,
     onGooglePlaySelected: () -> Unit = {},
@@ -137,6 +144,9 @@ fun RestorePurchasesScreen(
     successButtonText: String? = null,
 ) {
     var selection by remember { mutableStateOf<UnlockSource?>(null) }
+    val available = remember(sources, desktopLink) {
+        sources.filter { it != UnlockSource.GOOGLE_PLAY || desktopLink != null }
+    }
     var qrState by remember { mutableStateOf<DesktopProState>(DesktopProState.Loading) }
     var gitHubState by remember { mutableStateOf<GitHubProState>(GitHubProState.Idle) }
     var linkGeneration by remember { mutableIntStateOf(0) }
@@ -148,8 +158,9 @@ fun RestorePurchasesScreen(
     // Create or refresh link when Google Play is selected
     LaunchedEffect(selection, linkGeneration) {
         if (selection != UnlockSource.GOOGLE_PLAY) return@LaunchedEffect
+        val link = desktopLink ?: return@LaunchedEffect
         qrState = DesktopProState.Loading
-        val result = onCreateLink()
+        val result = link.onCreateLink()
         if (result != null) {
             qrState = DesktopProState.ShowQr(result.code, result.expiresAt)
         } else {
@@ -161,24 +172,32 @@ fun RestorePurchasesScreen(
     // Poll for status, auto-renew on expiry
     val pollCode = (qrState as? DesktopProState.ShowQr)?.code
     LaunchedEffect(pollCode) {
+        val link = desktopLink ?: return@LaunchedEffect
         val showQr = qrState as? DesktopProState.ShowQr ?: return@LaunchedEffect
+        val expiresAt = showQr.expiresAt.takeIf { it > 0 }
+            ?: (currentTimeMillis() / 1000 + FALLBACK_LINK_TTL_SECONDS)
         var consecutiveErrors = 0
         while (true) {
             val now = currentTimeMillis() / 1000
-            if (showQr.expiresAt in 1..now) {
+            if (now >= expiresAt) {
                 linkGeneration++
                 return@LaunchedEffect
             }
             delay(if (consecutiveErrors > 0) 15_000L else 5_000L)
-            val status = onPollStatus(showQr.code)
+            val status = link.onPollStatus(showQr.code)
             if (status == null) {
                 consecutiveErrors++
+                if (consecutiveErrors >= MAX_POLL_ERRORS) {
+                    onLinkError()
+                    qrState = DesktopProState.Error(errorMessage)
+                    return@LaunchedEffect
+                }
                 continue
             }
             consecutiveErrors = 0
             if (status.status == "confirmed" && status.jwt != null && status.refreshToken != null) {
                 val stored = try {
-                    onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
+                    link.onLinkSuccess(status.jwt, status.refreshToken, status.sku, status.formattedPrice)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
@@ -264,10 +283,10 @@ fun RestorePurchasesScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            when (selection) {
+            when (selection?.takeIf { it in available }) {
                 null -> {
                     SelectionContent(
-                        sources = sources,
+                        sources = available,
                         onSelect = { source ->
                             selection = source
                             when (source) {

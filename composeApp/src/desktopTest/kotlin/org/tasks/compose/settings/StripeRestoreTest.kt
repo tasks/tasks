@@ -15,11 +15,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.PurchaseEntitlement.StoreResult
 import org.tasks.billing.StripePurchase
 import org.tasks.billing.StripeRestore
 import org.tasks.billing.StripeRestoreOutcome
 import org.tasks.billing.StripeRestoreRequest
+import org.tasks.billing.UnlockSource
 
 @OptIn(ExperimentalTestApi::class)
 class StripeRestoreTest {
@@ -99,6 +99,7 @@ class StripeRestoreTest {
     private fun Screen() {
         RestorePurchasesScreen(
             onBack = {},
+            sources = listOf(UnlockSource.STRIPE),
             stripe = StripeRestoreCallbacks(
                 onRequestCode = { email ->
                     sends += email
@@ -108,9 +109,6 @@ class StripeRestoreTest {
                 onRestored = { _, _, _ -> kept },
                 onUpgrade = {},
             ),
-            onCreateLink = { null },
-            onPollStatus = { null },
-            onLinkSuccess = { _, _, _, _ -> StoreResult.WRITE_FAILED },
             onGitHubSignIn = { GitHubSponsorClient.VerifyResult.Failed },
             onOpenSponsorPage = {},
         )
