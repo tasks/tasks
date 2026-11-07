@@ -20,7 +20,11 @@ class DesktopSignInHandler(
     private val purchaseClaim: PurchaseClaim,
 ) : SignInHandler {
 
-    override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
+    override suspend fun signIn(
+        platform: Platform,
+        provider: OAuthProvider?,
+        openUrl: (String) -> Unit,
+    ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             Platform.GOOGLE_TASKS -> OAuthProvider.GOOGLE_TASKS

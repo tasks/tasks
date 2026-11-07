@@ -33,7 +33,6 @@ import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
-import org.tasks.extensions.desktopOpenUrl
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
@@ -396,7 +395,6 @@ actual fun platformModule(): Module = module {
     single<GitHubSponsorClient> {
         LoopbackGitHubSponsorClient(
             verify = get<GitHubSponsorVerifier>()::verify,
-            openUrl = ::desktopOpenUrl,
             redirect = LoopbackRedirect(path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH),
         )
     }

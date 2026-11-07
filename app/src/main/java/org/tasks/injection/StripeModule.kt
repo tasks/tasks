@@ -1,8 +1,6 @@
 package org.tasks.injection
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -143,16 +141,9 @@ class StripeModule {
     @Provides
     @Singleton
     fun providesGitHubSponsorClient(
-        @ApplicationContext context: Context,
         verifier: Lazy<GitHubSponsorVerifier>,
     ): GitHubSponsorClient = LoopbackGitHubSponsorClient(
         verify = { code, redirectUri -> verifier.get().verify(code, redirectUri) },
-        openUrl = { url ->
-            context.startActivity(
-                Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-        },
         redirect = LoopbackRedirect(
             path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
             closeBrowserTab = false,

@@ -11,12 +11,13 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.tasks.auth.LoopbackRedirect
+import java.io.IOException
 import java.security.SecureRandom
 import java.util.Base64
+import java.util.concurrent.atomic.AtomicReference
 
 class LoopbackGitHubSponsorClient(
     private val verify: suspend (code: String, redirectUri: String) -> GitHubSponsorClient.VerifyResult,
-    private val openUrl: (String) -> Unit,
     private val redirect: LoopbackRedirect = LoopbackRedirect(
         path = LOOPBACK_CALLBACK_PATH,
         closeBrowserTab = false,
@@ -31,28 +32,36 @@ class LoopbackGitHubSponsorClient(
     @Volatile
     private var attemptUrl: String? = null
 
-    override suspend fun signIn(): GitHubSponsorClient.VerifyResult {
-        val pending = lock.withLock {
-            attempt?.takeIf { it.isActive }?.also { reopenBrowser() }
-                ?: run {
-                    attemptUrl = null
-                    scope.async { awaitAuthorization() }.also { attempt = it }
-                }
-        }
+    private val callerOpenUrl = AtomicReference<((String) -> Unit)?>()
+
+    override suspend fun signIn(openUrl: (String) -> Unit): GitHubSponsorClient.VerifyResult {
+        callerOpenUrl.set(openUrl)
         return try {
+            val pending = lock.withLock {
+                attempt?.takeIf { it.isActive }?.also { reopenBrowser(openUrl) }
+                    ?: run {
+                        attemptUrl = null
+                        scope.async { awaitAuthorization() }.also { attempt = it }
+                    }
+            }
             pending.await()
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
             logger.e(e) { "GitHub OAuth flow failed" }
             GitHubSponsorClient.VerifyResult.Failed
+        } finally {
+            callerOpenUrl.compareAndSet(openUrl, null)
         }
     }
 
     private suspend fun awaitAuthorization(): GitHubSponsorClient.VerifyResult {
         val state = generateState()
         val result = redirect.await(
-            openUrl = openUrl,
+            openUrl = { url ->
+                val openUrl = callerOpenUrl.get() ?: throw IOException("The sign-in was abandoned")
+                openUrl(url)
+            },
             authUrl = { redirectUri ->
                 authorizationUrl(redirectUri, state).also { attemptUrl = it }
             },
@@ -72,7 +81,7 @@ class LoopbackGitHubSponsorClient(
         }
     }
 
-    private fun reopenBrowser() {
+    private fun reopenBrowser(openUrl: (String) -> Unit) {
         val url = attemptUrl ?: return
         try {
             openUrl(url)

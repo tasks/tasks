@@ -1,7 +1,7 @@
 package org.tasks.auth
 
 import android.content.Context
-import android.content.Intent
+import org.tasks.extensions.bringTasksToForeground
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -95,15 +95,7 @@ class AndroidSignInHandler(
             }
             Logger.i(TAG) { "Account created successfully" }
         } finally {
-            bringAppToForeground()
-        }
-    }
-
-    private fun bringAppToForeground() {
-        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-            ?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        if (intent != null) {
-            context.startActivity(intent)
+            context.bringTasksToForeground()
         }
     }
 

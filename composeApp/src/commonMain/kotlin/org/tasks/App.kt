@@ -1155,7 +1155,7 @@ fun App(
                                     },
                                 )
                             },
-                            onGitHubSignIn = { gitHubSponsorClient.signIn() },
+                            onGitHubSignIn = { gitHubSponsorClient.signIn(openUrl) },
                             analytics = reporting,
                             successButtonText = successButtonText,
                         )
