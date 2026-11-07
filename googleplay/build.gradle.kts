@@ -43,12 +43,8 @@ android {
 dependencies {
     api(projects.kmp)
     api(libs.play.billing.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.kermit)
 
-    testImplementation(libs.androidx.datastore)
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.mockito.kotlin)
     testImplementation(libs.robolectric)
 }

@@ -139,7 +139,7 @@ private fun Message(message: StringResource, onDismiss: () -> Unit) =
     MessageDialog(message = stringResource(message), onDismiss = onDismiss)
 
 @Composable
-private fun ActionDialog(
+internal fun ActionDialog(
     message: String,
     actionLabel: String,
     onAction: () -> Unit,

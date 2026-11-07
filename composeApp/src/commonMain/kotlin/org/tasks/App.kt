@@ -1278,6 +1278,7 @@ fun App(
                             ?.let { SubscriptionSkus.supporterPrice(it.sku) }
                         val store = when (configuration.billingProvider) {
                             BillingProvider.STRIPE -> cardCheckout(
+                                viewModel = koinViewModel(),
                                 suggestedPrice = suggestedPrice,
                                 openUrl = openUrl,
                                 onRestorePurchases = {
@@ -1292,7 +1293,7 @@ fun App(
                                 portalUrl = { stripePurchases.portalUrl() },
                             )
                             BillingProvider.GOOGLE_PLAY ->
-                                storeBillingProvider?.storeBilling(suggestedPrice)
+                                storeBillingProvider?.storeBilling(suggestedPrice) { popPricing() }
                             null -> null
                         }
                         PricingScreen(

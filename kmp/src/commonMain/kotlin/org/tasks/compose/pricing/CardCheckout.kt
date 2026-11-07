@@ -7,18 +7,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.viewmodel.StripeCheckoutViewModel
 
 @Composable
 fun cardCheckout(
+    viewModel: StripeCheckoutViewModel,
     suggestedPrice: Int?,
     openUrl: (String) -> Unit,
     onRestorePurchases: () -> Unit,
     onPlanChanged: () -> Unit,
     portalUrl: suspend () -> String?,
 ): StoreBilling {
-    val viewModel = koinViewModel<StripeCheckoutViewModel>()
     val state by viewModel.viewState.collectAsState()
     var opened by rememberSaveable { mutableStateOf<String?>(null) }
     LaunchedEffect(state.checkoutUrl) {
