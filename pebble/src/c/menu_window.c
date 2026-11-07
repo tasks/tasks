@@ -493,17 +493,17 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
     if (!s_window) return;
 
     Tuple *txn_t = dict_find(iter, KEY_TRANSACTION_ID);
-    if (txn_t && (uint8_t)txn_t->value->uint32 != s_request_txn) {
+    if (txn_t && (uint8_t)protocol_tuple_value(txn_t) != s_request_txn) {
         return;
     }
 
     if (!s_loading) return;
 
     Tuple *chunk_count_t = dict_find(iter, KEY_CHUNK_COUNT);
-    s_expected_chunks = chunk_count_t ? (int)chunk_count_t->value->uint32 : 1;
+    s_expected_chunks = chunk_count_t ? (int)protocol_tuple_value(chunk_count_t) : 1;
 
     Tuple *chunk_index_t = dict_find(iter, KEY_CHUNK_INDEX);
-    int chunk_index = chunk_index_t ? (int)chunk_index_t->value->uint32 : 0;
+    int chunk_index = chunk_index_t ? (int)protocol_tuple_value(chunk_index_t) : 0;
 
     if (chunk_index < 0 || chunk_index >= MAX_CHUNKS) {
         APP_LOG(APP_LOG_LEVEL_WARNING, "Ignoring chunk index %d", chunk_index);
@@ -517,7 +517,7 @@ void menu_window_handle_lists_response(DictionaryIterator *iter) {
 
     Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
     if (total_t) {
-        s_total_lists = (int)total_t->value->uint32;
+        s_total_lists = (int)protocol_tuple_value(total_t);
     }
 
     int chunk_offset = chunk_index * CHUNK_SIZE;
@@ -598,7 +598,7 @@ void menu_window_handle_toggle_response(DictionaryIterator *iter) {
     // A stale or duplicated response carries an old transaction — acting on it
     // would truncate the window using a position that no longer applies
     Tuple *txn_t = dict_find(iter, KEY_TRANSACTION_ID);
-    if (txn_t && (uint8_t)txn_t->value->uint32 != s_toggle_txn) {
+    if (txn_t && (uint8_t)protocol_tuple_value(txn_t) != s_toggle_txn) {
         return;
     }
 
