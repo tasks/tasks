@@ -328,6 +328,10 @@ fun RestorePurchasesScreen(
                     onGitHubFailed()
                     GitHubProState.Failed
                 }
+                GitHubSponsorClient.VerifyResult.Cancelled -> {
+                    log(AnalyticsEvents.RESTORE_CANCELLED, AnalyticsEvents.SELECTION_GITHUB)
+                    GitHubProState.Idle
+                }
             }
         }
     }

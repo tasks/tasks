@@ -22,6 +22,9 @@ class OAuthRedirectActivity : Activity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        if (intent.data == null) {
+            launchedAuthUrl = null
+        }
     }
 
     override fun onResume() {
@@ -61,7 +64,7 @@ class OAuthRedirectActivity : Activity() {
         }
         if (!delivered) {
             logger.w { "Nothing was waiting for the redirect" }
-            packageManager.getLaunchIntentForPackage(packageName)?.let { startActivity(it) }
+            returnToApp()
         }
         finish()
     }

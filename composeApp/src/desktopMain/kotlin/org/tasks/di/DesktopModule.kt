@@ -32,9 +32,10 @@ import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
+import org.tasks.billing.GitHubSponsorApp
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
-import org.tasks.billing.LoopbackGitHubSponsorClient
+import org.tasks.billing.GitHubSponsorOAuthClient
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
@@ -369,9 +370,9 @@ actual fun platformModule(): Module = module {
         )
     }
     single<GitHubSponsorClient> {
-        LoopbackGitHubSponsorClient(
+        GitHubSponsorOAuthClient(
             verify = get<GitHubSponsorVerifier>()::verify,
-            redirect = LoopbackRedirect(path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH),
+            redirect = LoopbackRedirect(path = GitHubSponsorApp.LOOPBACK_PATH),
         )
     }
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class

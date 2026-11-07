@@ -8,21 +8,21 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.tasks.auth.LoopbackRedirect
+import org.tasks.auth.OAuthApp
+import org.tasks.auth.OAuthRedirect
+import org.tasks.auth.RegisteredClient
 import java.io.IOException
 import java.security.SecureRandom
 import java.util.Base64
 import java.util.concurrent.atomic.AtomicReference
 
-class LoopbackGitHubSponsorClient(
+class GitHubSponsorOAuthClient(
     private val verify: suspend (code: String, redirectUri: String) -> GitHubSponsorClient.VerifyResult,
-    private val redirect: LoopbackRedirect = LoopbackRedirect(
-        path = LOOPBACK_CALLBACK_PATH,
-        closeBrowserTab = false,
-    ),
-    private val clientId: String = GITHUB_CLIENT_ID,
+    private val redirect: OAuthRedirect,
     private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO),
 ) : GitHubSponsorClient {
     private val logger = Logger.withTag(TAG)
@@ -46,7 +46,9 @@ class LoopbackGitHubSponsorClient(
             }
             pending.await()
         } catch (e: CancellationException) {
-            throw e
+            currentCoroutineContext().ensureActive()
+            logger.i { "GitHub sign-in ended without a result: ${e.message}" }
+            GitHubSponsorClient.VerifyResult.Cancelled
         } catch (e: Exception) {
             logger.e(e) { "GitHub OAuth flow failed" }
             GitHubSponsorClient.VerifyResult.Failed
@@ -57,16 +59,19 @@ class LoopbackGitHubSponsorClient(
 
     private suspend fun awaitAuthorization(): GitHubSponsorClient.VerifyResult {
         val state = generateState()
-        val result = redirect.await(
-            openUrl = { url ->
-                val openUrl = callerOpenUrl.get() ?: throw IOException("The sign-in was abandoned")
-                openUrl(url)
-            },
-            authUrl = { redirectUri ->
-                authorizationUrl(redirectUri, state).also { attemptUrl = it }
-            },
-            expectedState = { state },
-        )
+        val result = try {
+            redirect.await(
+                app = GitHubSponsorApp,
+                openUrl = { url -> callerOrAbandoned()(url) },
+                authUrl = { redirectUri ->
+                    callerOrAbandoned()
+                    authorizationUrl(redirectUri, state).also { attemptUrl = it }
+                },
+                expectedState = { state },
+            )
+        } finally {
+            attemptUrl = null
+        }
         val failure = result.failure(state)
         val code = result.code
         if (failure != null || code == null) {
@@ -76,10 +81,13 @@ class LoopbackGitHubSponsorClient(
         return verify(code, result.redirectUri)
     }
 
+    private fun callerOrAbandoned(): (String) -> Unit =
+        callerOpenUrl.get() ?: throw IOException("The sign-in was abandoned")
+
     private fun reopenBrowser(openUrl: (String) -> Unit) {
         val url = attemptUrl ?: return
         try {
-            openUrl(url)
+            redirect.reopen(openUrl, url)
         } catch (e: Exception) {
             logger.w(e) { "Failed to reopen the browser" }
         }
@@ -88,7 +96,7 @@ class LoopbackGitHubSponsorClient(
     private fun authorizationUrl(redirectUri: String, state: String) = buildString {
         append(GITHUB_AUTHORIZE_URL)
         append("?client_id=")
-        append(clientId.encodeURLParameter())
+        append(redirect.client(GitHubSponsorApp).clientId.encodeURLParameter())
         append("&redirect_uri=")
         append(redirectUri.encodeURLParameter())
         append("&state=")
@@ -105,8 +113,18 @@ class LoopbackGitHubSponsorClient(
     companion object {
         private const val TAG = "GitHubSponsorClient"
         private const val GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
-        private const val GITHUB_CLIENT_ID = "Ov23limM74bOgBgCBrJ5"
         private const val STATE_BYTES = 32
-        const val LOOPBACK_CALLBACK_PATH = "/callback"
     }
+}
+
+object GitHubSponsorApp : OAuthApp {
+    private const val CLIENT_ID = "Ov23limM74bOgBgCBrJ5"
+    override val issuer = "GitHub sponsor"
+    const val LOOPBACK_PATH = "/callback"
+    override val desktop = RegisteredClient(clientId = CLIENT_ID)
+    override val ios = RegisteredClient(clientId = CLIENT_ID)
+    override val android = RegisteredClient(
+        clientId = CLIENT_ID,
+        redirectUri = "org.tasks.github.sponsor://oauth2redirect",
+    )
 }

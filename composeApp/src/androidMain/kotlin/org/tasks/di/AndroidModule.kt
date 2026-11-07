@@ -12,12 +12,9 @@ import org.tasks.auth.OAuthRedirect
 import org.tasks.auth.SchemeRedirect
 import org.tasks.auth.SignInHandler
 import org.tasks.billing.CompositeSubscriptionProvider
-import org.tasks.auth.LoopbackRedirect
-import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorVerifier
-import org.tasks.billing.LoopbackGitHubSponsorClient
+import org.tasks.billing.GitHubSponsorOAuthClient
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
@@ -69,14 +66,9 @@ actual fun platformModule(): Module = module {
     }
     single<KeyStoreEncryption> { AndroidKeyStoreEncryption() }
     single<GitHubSponsorClient> {
-        val context = androidContext()
-        LoopbackGitHubSponsorClient(
+        GitHubSponsorOAuthClient(
             verify = get<GitHubSponsorVerifier>()::verify,
-            redirect = LoopbackRedirect(
-                path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
-                onRedirect = { context.bringTasksToForeground() },
-                closeBrowserTab = false,
-            ),
+            redirect = get<SchemeRedirect>(),
         )
     }
     single { SchemeRedirect(androidContext()) }

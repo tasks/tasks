@@ -10,6 +10,8 @@ private const val PARAM_ERROR_DESCRIPTION = "error_description"
 private const val STATE_MISMATCH = "OAuth state mismatch"
 private const val AUTHORIZATION_FAILED = "Authorization failed"
 
+const val REDIRECT_TIMEOUT_MILLIS = 10 * 60 * 1000L
+
 data class RedirectResult(val redirectUri: String, val params: Map<String, String>) {
     val code: String? get() = params[PARAM_CODE]
     val state: String? get() = params[PARAM_STATE]
@@ -34,14 +36,16 @@ data class RedirectResult(val redirectUri: String, val params: Map<String, Strin
 }
 
 interface OAuthRedirect {
-    fun client(provider: OAuthProvider): RegisteredClient = provider.desktop
+    fun client(app: OAuthApp): RegisteredClient = app.desktop
 
     suspend fun await(
-        provider: OAuthProvider,
+        app: OAuthApp,
         openUrl: (String) -> Unit,
         authUrl: (redirectUri: String) -> String,
         expectedState: () -> String?,
     ): RedirectResult
+
+    fun reopen(openUrl: (String) -> Unit, authUrl: String) = openUrl(authUrl)
 }
 
 suspend fun OAuthRedirect.awaitAuthorization(
@@ -51,7 +55,7 @@ suspend fun OAuthRedirect.awaitAuthorization(
 ): Pair<OAuthConfig, String> {
     var prepared: OAuthConfig? = null
     val result = await(
-        provider = provider,
+        app = provider,
         openUrl = openUrl,
         authUrl = { redirectUri ->
             val (config, authUrl) = prepare(redirectUri)

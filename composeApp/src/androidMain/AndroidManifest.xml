@@ -30,6 +30,12 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="org.tasks.apple" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="org.tasks.github.sponsor" />
+            </intent-filter>
         </activity>
         <activity
             android:name="org.tasks.MainActivity"

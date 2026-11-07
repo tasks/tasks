@@ -34,13 +34,13 @@ class TasksOAuthSignInAuthUrlTest {
 
     private class BrowserOpened(val url: Url) : RuntimeException()
 
-    private var registeredClient: (OAuthProvider) -> RegisteredClient = { it.desktop }
+    private var registeredClient: (OAuthApp) -> RegisteredClient = { it.desktop }
 
     private val redirect = object : OAuthRedirect {
-        override fun client(provider: OAuthProvider) = registeredClient(provider)
+        override fun client(app: OAuthApp) = registeredClient(app)
 
         override suspend fun await(
-            provider: OAuthProvider,
+            app: OAuthApp,
             openUrl: (String) -> Unit,
             authUrl: (redirectUri: String) -> String,
             expectedState: () -> String?,

@@ -31,6 +31,7 @@ object AnalyticsEvents {
     const val PRICING_REOPEN_CHECKOUT = "pricing_reopen_checkout"
     const val PRICING_SIGN_IN_CLICK = "pricing_sign_in_click"
     const val PRICING_SUBSCRIBE_CLICK = "pricing_subscribe_click"
+    const val RESTORE_CANCELLED = "restore_cancelled"
     const val RESTORE_ERROR = "restore_error"
     const val RESTORE_NOT_SPONSOR = "restore_not_sponsor"
     const val RESTORE_SELECTION = "restore_selection"

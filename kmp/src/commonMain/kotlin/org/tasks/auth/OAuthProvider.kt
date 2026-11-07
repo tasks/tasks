@@ -14,12 +14,19 @@ data class RegisteredClient(
     val redirectUri: String? = null,
 )
 
+interface OAuthApp {
+    val issuer: String
+    val desktop: RegisteredClient
+    val ios: RegisteredClient
+    val android: RegisteredClient
+}
+
 enum class OAuthProvider(
-    val issuer: String,
+    override val issuer: String,
     val scope: String,
-    val desktop: RegisteredClient,
-    val ios: RegisteredClient = desktop,
-    val android: RegisteredClient = ios,
+    override val desktop: RegisteredClient,
+    override val ios: RegisteredClient = desktop,
+    override val android: RegisteredClient = ios,
     val extraAuthParams: Map<String, String> = emptyMap(),
     val discoveryUrl: String? = null,
     val serverCallbackPath: String? = null,
@@ -28,7 +35,7 @@ enum class OAuthProvider(
     val loginHintParam: String? = "login_hint",
     val loginHintIsUsername: Boolean = false,
     val reauthPrompt: String? = null,
-) {
+) : OAuthApp {
     GOOGLE(
         issuer = "google",
         scope = "openid email profile",

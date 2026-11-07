@@ -22,20 +22,12 @@ import java.util.concurrent.ConcurrentHashMap
 class LoopbackRedirect(
     private val host: String = LOOPBACK_HOST,
     private val path: String = "",
-    private val timeoutMillis: Long = TIMEOUT_MILLIS,
-    private val onRedirect: () -> Unit = {},
-    private val closeBrowserTab: Boolean = true,
+    private val timeoutMillis: Long = REDIRECT_TIMEOUT_MILLIS,
 ) : OAuthRedirect {
     private val logger = Logger.withTag(TAG)
 
     override suspend fun await(
-        provider: OAuthProvider,
-        openUrl: (String) -> Unit,
-        authUrl: (redirectUri: String) -> String,
-        expectedState: () -> String?,
-    ): RedirectResult = await(openUrl, authUrl, expectedState)
-
-    suspend fun await(
+        app: OAuthApp,
         openUrl: (String) -> Unit,
         authUrl: (redirectUri: String) -> String,
         expectedState: () -> String?,
@@ -47,18 +39,10 @@ class LoopbackRedirect(
 
             openUrl(authUrl(redirectUri))
 
-            val result = withTimeoutOrNull(timeoutMillis) {
+            withTimeoutOrNull(timeoutMillis) {
                 serverSocket.awaitRedirect(redirectUri, expectedState)
             } ?: throw IOException("Timed out waiting for the sign-in to finish")
-            returnToApp()
-            result
         }
-    }
-
-    private fun returnToApp() = try {
-        onRedirect()
-    } catch (e: Exception) {
-        logger.w(e) { "Failed to return to the app" }
     }
 
     private suspend fun ServerSocket.awaitRedirect(
@@ -145,7 +129,7 @@ class LoopbackRedirect(
         if (result.code != null && failure == null) {
             "<h2>Sign in successful!</h2>" +
                     "<p>You can close this window and return to Tasks.</p>" +
-                    if (closeBrowserTab) "<script>setTimeout(function(){ window.close(); }, 2000)</script>" else ""
+                    "<script>setTimeout(function(){ window.close(); }, 2000)</script>"
         } else {
             "<h2>Sign in failed</h2><p>${(failure ?: "Unknown error").htmlEscape()}</p>"
         }
@@ -191,7 +175,6 @@ class LoopbackRedirect(
     companion object {
         private const val TAG = "LoopbackRedirect"
         const val LOOPBACK_HOST = "127.0.0.1"
-        private const val TIMEOUT_MILLIS = 5 * 60 * 1000L
         private const val BACKLOG = 5
         private const val ACCEPT_POLL_MILLIS = 250
         private const val READ_TIMEOUT_MILLIS = 10 * 1000

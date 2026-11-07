@@ -16,10 +16,10 @@ import org.tasks.auth.TasksServerEnvironment
 import org.tasks.auth.PurchaseClaim
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
-import org.tasks.auth.LoopbackRedirect
+import org.tasks.auth.SchemeRedirect
 import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.GitHubSponsorOAuthClient
 import org.tasks.billing.GitHubSponsorVerifier
-import org.tasks.billing.LoopbackGitHubSponsorClient
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StripeCheckouts
 import org.tasks.billing.StripeClient
@@ -142,12 +142,10 @@ class StripeModule {
     @Singleton
     fun providesGitHubSponsorClient(
         verifier: Lazy<GitHubSponsorVerifier>,
-    ): GitHubSponsorClient = LoopbackGitHubSponsorClient(
+        redirect: SchemeRedirect,
+    ): GitHubSponsorClient = GitHubSponsorOAuthClient(
         verify = { code, redirectUri -> verifier.get().verify(code, redirectUri) },
-        redirect = LoopbackRedirect(
-            path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
-            closeBrowserTab = false,
-        ),
+        redirect = redirect,
     )
 
     @Provides
