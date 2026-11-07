@@ -13,11 +13,11 @@ class DesktopOAuthFlow(
     private val authorizer = OAuthAuthorizer(
         oauthClient = oauthClient,
         serverEnvironment = serverEnvironment,
-        loopback = { LoopbackRedirect(host = it, timeoutMillis = callbackTimeoutMillis) },
+        redirect = LoopbackRedirect(timeoutMillis = callbackTimeoutMillis),
     )
 
     override suspend fun signIn(
         provider: OAuthProvider,
         authHeader: String?,
-    ): OAuthResult = authorizer.authorize(provider, openUrl, authHeader)
+    ): OAuthResult = authorizer.authorize(provider, openUrl, authHeader = authHeader)
 }

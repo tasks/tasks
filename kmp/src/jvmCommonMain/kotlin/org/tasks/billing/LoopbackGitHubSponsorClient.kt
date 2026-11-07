@@ -65,20 +65,15 @@ class LoopbackGitHubSponsorClient(
             authUrl = { redirectUri ->
                 authorizationUrl(redirectUri, state).also { attemptUrl = it }
             },
-            validate = { if (it.state == state) null else STATE_MISMATCH },
+            expectedState = { state },
         )
+        val failure = result.failure(state)
         val code = result.code
-        return when {
-            code == null -> {
-                logger.w { "GitHub authorization failed: ${result.error ?: "no code"}" }
-                GitHubSponsorClient.VerifyResult.Failed
-            }
-            result.state != state -> {
-                logger.w { "GitHub authorization came back with the wrong state" }
-                GitHubSponsorClient.VerifyResult.Failed
-            }
-            else -> verify(code, result.redirectUri)
+        if (failure != null || code == null) {
+            logger.w { "GitHub authorization failed: $failure" }
+            return GitHubSponsorClient.VerifyResult.Failed
         }
+        return verify(code, result.redirectUri)
     }
 
     private fun reopenBrowser(openUrl: (String) -> Unit) {
@@ -112,7 +107,6 @@ class LoopbackGitHubSponsorClient(
         private const val GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
         private const val GITHUB_CLIENT_ID = "Ov23limM74bOgBgCBrJ5"
         private const val STATE_BYTES = 32
-        private const val STATE_MISMATCH = "OAuth state mismatch"
         const val LOOPBACK_CALLBACK_PATH = "/callback"
     }
 }

@@ -17,10 +17,7 @@ import java.net.InetAddress
 import java.net.ServerSocket
 import java.net.Socket
 import java.net.SocketTimeoutException
-import java.net.URLDecoder
 import java.util.concurrent.ConcurrentHashMap
-
-private const val STATE_MISMATCH = "OAuth state mismatch"
 
 class LoopbackRedirect(
     private val host: String = LOOPBACK_HOST,
@@ -28,21 +25,21 @@ class LoopbackRedirect(
     private val timeoutMillis: Long = TIMEOUT_MILLIS,
     private val onRedirect: () -> Unit = {},
     private val closeBrowserTab: Boolean = true,
-) {
+) : OAuthRedirect {
     private val logger = Logger.withTag(TAG)
 
-    data class Result(val redirectUri: String, val params: Map<String, String>) {
-        val code: String? get() = params[PARAM_CODE]
-        val state: String? get() = params[PARAM_STATE]
-        val error: String? get() = params[PARAM_ERROR]
-        val errorDescription: String? get() = params[PARAM_ERROR_DESCRIPTION]
-    }
+    override suspend fun await(
+        provider: OAuthProvider,
+        openUrl: (String) -> Unit,
+        authUrl: (redirectUri: String) -> String,
+        expectedState: () -> String?,
+    ): RedirectResult = await(openUrl, authUrl, expectedState)
 
     suspend fun await(
         openUrl: (String) -> Unit,
         authUrl: (redirectUri: String) -> String,
-        validate: (Result) -> String? = { null },
-    ): Result = withContext(Dispatchers.IO) {
+        expectedState: () -> String?,
+    ): RedirectResult = withContext(Dispatchers.IO) {
         ServerSocket(0, BACKLOG, InetAddress.getByName(host)).use { serverSocket ->
             serverSocket.soTimeout = ACCEPT_POLL_MILLIS
             val redirectUri = "http://$host:${serverSocket.localPort}$path"
@@ -51,7 +48,7 @@ class LoopbackRedirect(
             openUrl(authUrl(redirectUri))
 
             val result = withTimeoutOrNull(timeoutMillis) {
-                serverSocket.awaitRedirect(redirectUri, validate)
+                serverSocket.awaitRedirect(redirectUri, expectedState)
             } ?: throw IOException("Timed out waiting for the sign-in to finish")
             returnToApp()
             result
@@ -66,10 +63,10 @@ class LoopbackRedirect(
 
     private suspend fun ServerSocket.awaitRedirect(
         redirectUri: String,
-        validate: (Result) -> String?,
-    ): Result = coroutineScope {
+        expectedState: () -> String?,
+    ): RedirectResult = coroutineScope {
         val live = ConcurrentHashMap.newKeySet<Socket>()
-        val redirect = CompletableDeferred<Result>()
+        val redirect = CompletableDeferred<RedirectResult>()
         val accepting = launch {
             while (isActive) {
                 val socket = try {
@@ -87,7 +84,7 @@ class LoopbackRedirect(
                 }
                 launch {
                     try {
-                        socket.readRedirect(redirectUri, validate, redirect)
+                        socket.readRedirect(redirectUri, expectedState, redirect)
                     } catch (e: Exception) {
                         if (e is CancellationException) throw e
                         logger.w(e) { "Ignoring a request that could not be handled" }
@@ -108,8 +105,8 @@ class LoopbackRedirect(
 
     private fun Socket.readRedirect(
         redirectUri: String,
-        validate: (Result) -> String?,
-        redirect: CompletableDeferred<Result>,
+        expectedState: () -> String?,
+        redirect: CompletableDeferred<RedirectResult>,
     ) {
         soTimeout = READ_TIMEOUT_MILLIS
         val target = try {
@@ -118,14 +115,14 @@ class LoopbackRedirect(
             logger.d { "Ignoring a connection that sent no request: ${e.message}" }
             return
         }
-        val params = target.params()
+        val params = target.redirectParams()
         if (!target.isCallback() || params.keys.none { it in REDIRECT_PARAMS }) {
             logger.d { "Ignoring a request that is not the redirect" }
             respondQuietly(NOT_FOUND, "<h2>Not found</h2>")
             return
         }
-        val result = Result(redirectUri, params)
-        respondQuietly(OK, page(result, validate(result)))
+        val result = RedirectResult(redirectUri, params)
+        respondQuietly(OK, page(result, result.failure(expectedState())))
         drainQuietly()
         redirect.complete(result)
     }
@@ -144,24 +141,13 @@ class LoopbackRedirect(
         return requestPath.trimEnd('/') == path.trimEnd('/')
     }
 
-    private fun String.params(): Map<String, String> =
-        substringAfter("?", "")
-            .split("&")
-            .filter { it.contains("=") }
-            .associate {
-                val (key, value) = it.split("=", limit = 2)
-                key to URLDecoder.decode(value, "UTF-8")
-            }
-
-    private fun page(result: Result, failure: String?): String =
+    private fun page(result: RedirectResult, failure: String?): String =
         if (result.code != null && failure == null) {
             "<h2>Sign in successful!</h2>" +
                     "<p>You can close this window and return to Tasks.</p>" +
                     if (closeBrowserTab) "<script>setTimeout(function(){ window.close(); }, 2000)</script>" else ""
         } else {
-            val providerError = if (result.code == null) result.errorDescription ?: result.error else null
-            val message = providerError ?: failure ?: "Unknown error"
-            "<h2>Sign in failed</h2><p>${message.htmlEscape()}</p>"
+            "<h2>Sign in failed</h2><p>${(failure ?: "Unknown error").htmlEscape()}</p>"
         }
 
     private fun Socket.respondQuietly(status: String, body: String) = try {
@@ -214,36 +200,6 @@ class LoopbackRedirect(
         private const val MAX_DRAIN_BYTES = 64 * 1024
         private const val OK = "200 OK"
         private const val NOT_FOUND = "404 Not Found"
-        private const val PARAM_CODE = "code"
-        private const val PARAM_STATE = "state"
-        private const val PARAM_ERROR = "error"
-        private const val PARAM_ERROR_DESCRIPTION = "error_description"
-        private val REDIRECT_PARAMS = setOf(PARAM_CODE, PARAM_STATE, PARAM_ERROR)
+        private val REDIRECT_PARAMS = setOf("code", "error", "state")
     }
-}
-
-suspend fun LoopbackRedirect.awaitAuthorization(
-    openUrl: (String) -> Unit,
-    prepare: (redirectUri: String) -> Pair<OAuthConfig, String>,
-): Pair<OAuthConfig, String> {
-    var prepared: OAuthConfig? = null
-    val result = await(
-        openUrl = openUrl,
-        authUrl = { redirectUri ->
-            val (config, authUrl) = prepare(redirectUri)
-            prepared = config
-            authUrl
-        },
-        validate = { if (it.state == prepared?.state) null else STATE_MISMATCH },
-    )
-    val config = prepared ?: throw IOException("The OAuth config was never built")
-    val code = result.code
-        ?: throw (
-            ConditionalAccess.devicePolicyException(result.error, result.errorDescription)
-                ?: IOException(result.errorDescription ?: result.error ?: "Authorization failed")
-            )
-    if (result.state != config.state) {
-        throw IOException(STATE_MISMATCH)
-    }
-    return config to code
 }

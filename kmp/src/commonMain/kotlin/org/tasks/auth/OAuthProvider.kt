@@ -5,62 +5,84 @@ const val MICROSOFT_TASKS_SCOPE = "Tasks.ReadWrite"
 
 private const val PROMPT = "prompt"
 private const val SELECT_ACCOUNT = "select_account"
+private const val GOOGLE_DISCOVERY_PATH = "/oauth/google-configuration"
+private const val MICROSOFT_CLIENT_ID = "9d4babd5-e7ba-4286-ba4b-17274495a901"
+
+data class RegisteredClient(
+    val discoveryPath: String = "",
+    val clientId: String = "",
+    val redirectUri: String? = null,
+)
 
 enum class OAuthProvider(
     val issuer: String,
-    val discoveryPath: String,
-    val clientId: String,
     val scope: String,
+    val desktop: RegisteredClient,
+    val ios: RegisteredClient = desktop,
+    val android: RegisteredClient = ios,
     val extraAuthParams: Map<String, String> = emptyMap(),
     val discoveryUrl: String? = null,
-    val loopbackHost: String = "127.0.0.1",
-    val iosDiscoveryPath: String = discoveryPath,
-    val iosClientId: String = clientId,
-    val iosRedirectUri: String? = null,
     val serverCallbackPath: String? = null,
     val usesPkce: Boolean = true,
     val promptForAccount: Boolean = true,
 ) {
     GOOGLE(
         issuer = "google",
-        discoveryPath = "/oauth/google-configuration",
-        clientId = "363426363175-eiks57t3m2er6df8orak7491s9colld2.apps.googleusercontent.com",
         scope = "openid email profile",
-        iosClientId = "363426363175-nar1o932el9fi4gogs0mgsq8160epu4t.apps.googleusercontent.com",
+        desktop = RegisteredClient(
+            discoveryPath = GOOGLE_DISCOVERY_PATH,
+            clientId = "363426363175-eiks57t3m2er6df8orak7491s9colld2.apps.googleusercontent.com",
+        ),
+        ios = RegisteredClient(
+            discoveryPath = GOOGLE_DISCOVERY_PATH,
+            clientId = "363426363175-nar1o932el9fi4gogs0mgsq8160epu4t.apps.googleusercontent.com",
+        ),
     ),
     MICROSOFT(
         issuer = "microsoft",
-        discoveryPath = "",
-        clientId = "9d4babd5-e7ba-4286-ba4b-17274495a901",
         scope = "user.read $MICROSOFT_TASKS_SCOPE openid offline_access email profile",
+        desktop = RegisteredClient(clientId = MICROSOFT_CLIENT_ID),
+        ios = RegisteredClient(
+            clientId = MICROSOFT_CLIENT_ID,
+            redirectUri = "msauth.org.tasks://auth",
+        ),
+        android = RegisteredClient(
+            clientId = MICROSOFT_CLIENT_ID,
+            redirectUri = "msauth://org.tasks/8wnYBRqh5nnQgFzbIXfxXSs41xE%3D",
+        ),
         discoveryUrl = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration",
-        iosRedirectUri = "msauth.org.tasks://auth",
     ),
     GITHUB(
         issuer = "github",
-        discoveryPath = "/oauth/github-localhost-configuration",
-        clientId = "",
         scope = "none",
-        iosDiscoveryPath = "/oauth/github-configuration",
-        iosClientId = "a50fdbf3e289a7fb2fc6",
-        iosRedirectUri = "org.tasks.github.a50fdbf3e289a7fb2fc6://oauth2redirect",
+        desktop = RegisteredClient(discoveryPath = "/oauth/github-localhost-configuration"),
+        ios = RegisteredClient(
+            discoveryPath = "/oauth/github-configuration",
+            clientId = "a50fdbf3e289a7fb2fc6",
+            redirectUri = "org.tasks.github.a50fdbf3e289a7fb2fc6://oauth2redirect",
+        ),
     ),
     APPLE(
         issuer = "apple",
-        discoveryPath = "/oauth/apple-configuration",
-        clientId = "",
         scope = "name email",
+        desktop = RegisteredClient(discoveryPath = "/oauth/apple-configuration"),
+        ios = RegisteredClient(
+            discoveryPath = "/oauth/apple-configuration",
+            clientId = "org.tasks",
+        ),
+        android = RegisteredClient(
+            discoveryPath = "/oauth/apple-configuration",
+            redirectUri = "org.tasks.apple://oauth2redirect",
+        ),
         extraAuthParams = mapOf("response_mode" to "form_post"),
-        iosClientId = "org.tasks",
         serverCallbackPath = "/oauth/apple/callback",
         usesPkce = false,
         promptForAccount = false,
     ),
     GOOGLE_TASKS(
         issuer = "google_tasks",
-        discoveryPath = "/oauth/google-api-configuration",
-        clientId = "",
         scope = "$GOOGLE_TASKS_SCOPE openid email",
+        desktop = RegisteredClient(discoveryPath = "/oauth/google-api-configuration"),
         extraAuthParams = mapOf(
             "access_type" to "offline",
             "prompt" to "consent",

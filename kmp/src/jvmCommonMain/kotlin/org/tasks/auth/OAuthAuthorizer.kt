@@ -10,7 +10,7 @@ import java.io.IOException
 class OAuthAuthorizer(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
-    private val loopback: (host: String) -> LoopbackRedirect = { LoopbackRedirect(host = it) },
+    private val redirect: OAuthRedirect,
 ) {
     private val logger = Logger.withTag(TAG)
 
@@ -19,13 +19,14 @@ class OAuthAuthorizer(
         openUrl: (String) -> Unit,
         authHeader: String? = null,
     ): OAuthResult = withContext(Dispatchers.IO) {
+        val client = redirect.client(provider)
         val discoveryUrl = provider.discoveryUrl
-            ?: "${serverEnvironment.caldavUrl}${provider.discoveryPath}"
+            ?: "${serverEnvironment.caldavUrl}${client.discoveryPath}"
         logger.d { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
         val authEndpoint = discovery.endpoint(AUTHORIZATION_ENDPOINT)
         val tokenEndpoint = discovery.endpoint(TOKEN_ENDPOINT)
-        val clientId = provider.clientId.ifEmpty {
+        val clientId = client.clientId.ifEmpty {
             discovery[CLIENT_ID]?.jsonPrimitive?.content
                 ?: throw IllegalStateException("No client_id in discovery document")
         }
@@ -37,8 +38,8 @@ class OAuthAuthorizer(
         val codeChallenge = codeVerifier?.takeIf { provider.usesPkce }?.let(PKCE::generateChallenge)
         val nonce = PKCE.generateVerifier()
 
-        val (config, code) = loopback(provider.loopbackHost)
-            .awaitAuthorization(openUrl) { redirectUri ->
+        val (config, code) = redirect
+            .awaitAuthorization(provider, openUrl) { redirectUri ->
                 val state = if (serverCallback == null) {
                     nonce
                 } else {

@@ -8,6 +8,8 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
+import org.tasks.auth.OAuthRedirect
+import org.tasks.auth.SchemeRedirect
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.billing.CompositeSubscriptionProvider
@@ -78,8 +80,8 @@ actual fun platformModule(): Module = module {
             ),
         )
     }
+    single<OAuthRedirect> { SchemeRedirect(androidContext()) }
     single {
-        val context = androidContext()
         TasksOAuthSignIn(
             caldavDao = get(),
             encryption = get<KeyStoreEncryption>(),
@@ -87,7 +89,7 @@ actual fun platformModule(): Module = module {
             clientFactory = get(),
             purchaseClaim = get(),
             oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
-            onFinished = { context.bringTasksToForeground() },
+            redirect = get(),
         )
     }
     factory<SignInHandler> { AndroidSignInHandler(get()) }

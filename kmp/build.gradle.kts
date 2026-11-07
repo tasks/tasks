@@ -59,6 +59,7 @@ kotlin {
             dependsOn(jvmCommonMain)
             dependencies {
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.androidx.browser)
                 implementation(libs.androidx.sqlite)
                 implementation(libs.androidx.ui.tooling.preview.android)
                 implementation(libs.bitfire.ical4android.get().toString()) {

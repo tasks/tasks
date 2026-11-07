@@ -34,9 +34,10 @@ class IosOAuthFlow(
         if (provider == OAuthProvider.APPLE) {
             return signInWithApple(provider, authHeader)
         }
-        val clientId = provider.iosClientId.ifEmpty { throw Exception("${provider.issuer} sign-in is not configured for iOS") }
-        val redirectUri = provider.iosRedirectUri ?: googleRedirectUri(clientId)
-        val discoveryUrl = provider.discoveryUrl ?: "${serverEnvironment.caldavUrl}${provider.iosDiscoveryPath}"
+        val clientId = provider.ios.clientId.ifEmpty { throw Exception("${provider.issuer} sign-in is not configured for iOS") }
+        val redirectUri =
+            provider.ios.redirectUri ?: GoogleOAuth.redirectUri(GoogleOAuth.scheme(clientId))
+        val discoveryUrl = provider.discoveryUrl ?: "${serverEnvironment.caldavUrl}${provider.ios.discoveryPath}"
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
         val authEndpoint = discovery["authorization_endpoint"]!!.jsonPrimitive.content
@@ -73,7 +74,7 @@ class IosOAuthFlow(
     }
 
     private suspend fun signInWithApple(provider: OAuthProvider, authHeader: String?): OAuthResult {
-        val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.iosDiscoveryPath}"
+        val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.ios.discoveryPath}"
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
         val tokenEndpoint = discovery["token_endpoint"]!!.jsonPrimitive.content
@@ -84,7 +85,7 @@ class IosOAuthFlow(
         Logger.d(TAG) { "Got Apple credential, exchanging..." }
         return oauthClient.exchangeAppleCredential(
             tokenEndpoint = tokenEndpoint,
-            clientId = provider.iosClientId,
+            clientId = provider.ios.clientId,
             authorizationCode = credential.authorizationCode,
             identityToken = credential.identityToken,
             nonce = nonce,
@@ -93,9 +94,6 @@ class IosOAuthFlow(
             authHeader = authHeader,
         )
     }
-
-    private fun googleRedirectUri(clientId: String) =
-        "com.googleusercontent.apps.${clientId.removeSuffix(".apps.googleusercontent.com")}:/oauth2redirect"
 }
 
 private class KeyWindowProvider : NSObject(), ASWebAuthenticationPresentationContextProvidingProtocol {

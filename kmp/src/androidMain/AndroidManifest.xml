@@ -3,6 +3,12 @@
 
   <application>
     <receiver android:name="org.tasks.location.LocationUpdateReceiver" android:exported="false"/>
+
+    <activity
+        android:name="org.tasks.auth.OAuthRedirectActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
   </application>
 
 </manifest>

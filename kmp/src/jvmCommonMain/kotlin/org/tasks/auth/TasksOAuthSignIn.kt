@@ -15,10 +15,10 @@ class TasksOAuthSignIn(
     private val clientFactory: CaldavClientFactory,
     private val purchaseClaim: PurchaseClaim? = null,
     oauthClient: TasksOAuthClient,
-    private val onFinished: () -> Unit = {},
+    redirect: OAuthRedirect = LoopbackRedirect(),
 ) {
     private val logger = Logger.withTag(TAG)
-    private val authorizer = OAuthAuthorizer(oauthClient, serverEnvironment)
+    private val authorizer = OAuthAuthorizer(oauthClient, serverEnvironment, redirect)
 
     suspend fun signIn(
         provider: OAuthProvider,
@@ -29,23 +29,19 @@ class TasksOAuthSignIn(
         provider: OAuthProvider,
         result: OAuthResult,
     ): CaldavAccount = withContext(Dispatchers.IO) {
-        try {
-            val account = paymentRequiredOn402 {
-                setupTasksAccount(
-                    oauthResult = result,
-                    issuer = provider.issuer,
-                    caldavUrl = serverEnvironment.caldavUrl,
-                    caldavDao = caldavDao,
-                    encryption = encryption,
-                    provider = clientFactory,
-                    purchaseClaim = purchaseClaim,
-                )
-            }
-            logger.i { "Account created successfully" }
-            account
-        } finally {
-            onFinished()
+        val account = paymentRequiredOn402 {
+            setupTasksAccount(
+                oauthResult = result,
+                issuer = provider.issuer,
+                caldavUrl = serverEnvironment.caldavUrl,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = clientFactory,
+                purchaseClaim = purchaseClaim,
+            )
         }
+        logger.i { "Account created successfully" }
+        account
     }
 
     suspend fun authorize(
