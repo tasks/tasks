@@ -13,13 +13,17 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.runComposeUiTest
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
 import org.tasks.billing.UnlockSource
+import org.tasks.resources.getString
 import org.tasks.themes.TestTags
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.upgrade_subscription_banner
 
 @OptIn(ExperimentalTestApi::class)
 class CardPricingTest {
@@ -46,6 +50,14 @@ class CardPricingTest {
         sku = "annual_01",
         amountCents = 100,
     )
+
+    private val everyTier = StoreBilling(
+        catalog = BillingCatalog.from(listOf(annual, monthly, supporter)),
+        onSelect = {},
+    )
+
+    private val supporterBanner =
+        runBlocking { getString(Res.string.upgrade_subscription_banner) }
 
     @Test
     fun theCtaQuotesThePriceFromTheCatalog() = runComposeUiTest {
@@ -251,6 +263,71 @@ class CardPricingTest {
         assertShowing("Subscribe for \$29.99/year")
     }
 
+    @Test
+    fun aSupporterIsAskedToUpgradeWhenCloudIsTheOnlyThingOnOffer() = runComposeUiTest {
+        showPaywall(
+            store = everyTier,
+            mode = PricingMode.CLOUD_ONLY,
+            hasSupporterSubscription = true,
+        )
+
+        assertShowing(supporterBanner)
+    }
+
+    @Test
+    fun aSupporterBrowsingEveryTierIsNotToldToUpgrade() = runComposeUiTest {
+        showPaywall(
+            store = everyTier,
+            mode = PricingMode.BOTH,
+            hasSupporterSubscription = true,
+        )
+
+        assertShowing(CLOUD_TIER)
+        assertShowing(SUPPORTER_TIER)
+        assertNotShowing(supporterBanner)
+    }
+
+    @Test
+    fun aSupporterNamingTheirOwnPriceIsNotToldToUpgrade() = runComposeUiTest {
+        showPaywall(
+            store = everyTier,
+            mode = PricingMode.NYP_ONLY,
+            hasSupporterSubscription = true,
+        )
+
+        assertShowing(SUPPORTER_TIER)
+        assertNotShowing(supporterBanner)
+    }
+
+    @Test
+    fun somebodyWhoPaysUsNothingIsNotThankedForTheirSupport() = runComposeUiTest {
+        showPaywall(
+            store = everyTier,
+            mode = PricingMode.CLOUD_ONLY,
+            hasSupporterSubscription = false,
+        )
+
+        assertShowing(CLOUD_TIER)
+        assertNotShowing(supporterBanner)
+    }
+
+    private fun ComposeUiTest.showPaywall(
+        store: StoreBilling?,
+        mode: PricingMode = PricingMode.CLOUD_ONLY,
+        hasSupporterSubscription: Boolean = false,
+    ) = setContent {
+        Box(modifier = Modifier.size(480.dp, 2000.dp)) {
+            PricingScreen(
+                mode = mode,
+                onBack = {},
+                onSignIn = {},
+                onRestorePurchases = {},
+                hasSupporterSubscription = hasSupporterSubscription,
+                store = store,
+            )
+        }
+    }
+
     private fun ComposeUiTest.showCloudCard(store: StoreBilling?) {
         setContent {
             Box(modifier = Modifier.size(480.dp, 2000.dp)) {
@@ -274,4 +351,9 @@ class CardPricingTest {
         "expected not to be showing \"$text\"",
         onAllNodes(hasText(text, substring = true)).fetchSemanticsNodes().isEmpty(),
     )
+
+    private companion object {
+        const val CLOUD_TIER = "Tasks.org Cloud"
+        const val SUPPORTER_TIER = "Tasks.org Supporter"
+    }
 }

@@ -1328,7 +1328,7 @@ fun App(
                                     AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
                                 )
                             },
-                            showSupporterBanner = destination.mode != PricingMode.NYP_ONLY && subscriptionInfo?.isTasksSubscription == false,
+                            hasSupporterSubscription = subscriptionInfo?.isSupporterSubscription == true,
                             store = store,
                         )
                         if (showSignInDialog) {

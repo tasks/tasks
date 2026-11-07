@@ -10,7 +10,10 @@ interface SubscriptionProvider {
         val purchaseToken: String? = null,
         val provider: EntitlementProvider? = null,
         val terms: PurchaseTerms? = null,
-    )
+    ) {
+        val isSupporterSubscription: Boolean
+            get() = SubscriptionSkus.supporterPrice(sku) != null
+    }
 
     val subscription: Flow<SubscriptionInfo?>
     suspend fun getFormattedPrice(sku: String): String?

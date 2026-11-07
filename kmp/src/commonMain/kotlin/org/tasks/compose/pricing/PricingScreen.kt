@@ -152,7 +152,7 @@ fun PricingScreen(
     onCloudSubscribeClick: () -> Unit = {},
     onNypSubscribeClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
-    showSupporterBanner: Boolean = false,
+    hasSupporterSubscription: Boolean = false,
     store: StoreBilling? = null,
 ) {
     Scaffold(
@@ -176,6 +176,9 @@ fun PricingScreen(
                 .padding(padding),
         ) {
             val showBoth = mode == PricingMode.BOTH
+            val cloudOnly = mode == PricingMode.CLOUD_ONLY
+            val showCloud = mode != PricingMode.NYP_ONLY
+            val showNyp = mode != PricingMode.CLOUD_ONLY
             val isWide = showBoth && maxWidth >= 840.dp
 
             Column(
@@ -185,7 +188,7 @@ fun PricingScreen(
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (showSupporterBanner) {
+                if (hasSupporterSubscription && cloudOnly) {
                     Card(
                         modifier = Modifier
                             .widthIn(max = 600.dp)
@@ -251,16 +254,16 @@ fun PricingScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        if (mode != PricingMode.NYP_ONLY) {
+                        if (showCloud) {
                             cloudCard(Modifier.fillMaxWidth())
                         }
-                        if (mode != PricingMode.CLOUD_ONLY) {
+                        if (showNyp) {
                             nameYourPriceCard(Modifier.fillMaxWidth())
                         }
                     }
                 }
 
-                if (mode == PricingMode.CLOUD_ONLY) {
+                if (cloudOnly) {
                     RestoreFooter(onRestorePurchases)
                 }
 
