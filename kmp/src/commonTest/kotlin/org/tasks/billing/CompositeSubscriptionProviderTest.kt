@@ -42,7 +42,7 @@ class CompositeSubscriptionProviderTest {
         val info = composite.subscription.first()
         assertEquals("annual_30", info?.sku)
         assertTrue(info!!.isTasksSubscription)
-        assertTrue(info.isCardSubscription)
+        assertEquals(EntitlementProvider.STRIPE, info.provider)
     }
 
     @Test
@@ -71,7 +71,7 @@ class CompositeSubscriptionProviderTest {
             sku = "desktop_play",
             isMonthly = false,
             isTasksSubscription = false,
-            isGitHubSponsor = true,
+            provider = EntitlementProvider.GITHUB_SPONSOR,
         )
         val composite = CompositeSubscriptionProvider(
             listOf(provider(supporter), provider(sponsor))
@@ -239,6 +239,7 @@ class CompositeSubscriptionProviderTest {
             isMonthly = false,
             isTasksSubscription = true,
             purchaseToken = "play-token-30",
+            provider = EntitlementProvider.PLAY,
         )
 
         private val supporter = SubscriptionProvider.SubscriptionInfo(
@@ -246,6 +247,7 @@ class CompositeSubscriptionProviderTest {
             isMonthly = false,
             isTasksSubscription = false,
             purchaseToken = "play-token-10",
+            provider = EntitlementProvider.PLAY,
         )
 
         private val terms = PurchaseTerms(
@@ -257,7 +259,7 @@ class CompositeSubscriptionProviderTest {
             sku = "annual_30",
             isMonthly = false,
             isTasksSubscription = true,
-            isCardSubscription = true,
+            provider = EntitlementProvider.STRIPE,
         )
     }
 }

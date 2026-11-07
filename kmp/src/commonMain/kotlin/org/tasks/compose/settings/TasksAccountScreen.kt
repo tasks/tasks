@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.billing.ModifySubscription
+import org.tasks.billing.modifySubscription
 import org.tasks.compose.components.SymbolIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -545,14 +547,20 @@ fun TasksAccountScreen(
         ) {
             ManageSubscriptionSheetContent(
                 onUpgrade = {},
-                onModify = {
+                onChangePlan = {
                     showManageSheet = false
                     onModifySubscription()
+                },
+                onOpenSponsorPage = {
+                    showManageSheet = false
+                    onOpenSponsor()
                 },
                 onCancel = {
                     showManageSheet = false
                     onCancelSubscription()
                 },
+                modifyAction = state.subscriptionProvider
+                    .modifySubscription(unattributed = ModifySubscription.CHANGE_PLAN),
                 showUpgrade = false,
                 modifier = Modifier.navigationBarsPadding(),
             )

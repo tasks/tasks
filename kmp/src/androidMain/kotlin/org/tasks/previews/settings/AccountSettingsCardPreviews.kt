@@ -2,6 +2,7 @@ package org.tasks.previews.settings
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import org.tasks.billing.ModifySubscription
 import org.tasks.compose.settings.AccountSettingsCard
 import org.tasks.compose.settings.ManageSubscriptionSheetContent
 import org.tasks.compose.settings.ProCardState
@@ -125,8 +126,10 @@ private fun ManageSubscriptionSheetPreview() {
     TasksTheme {
         ManageSubscriptionSheetContent(
             onUpgrade = {},
-            onModify = {},
+            onChangePlan = {},
+            onOpenSponsorPage = {},
             onCancel = {},
+            modifyAction = ModifySubscription.CHANGE_PLAN,
         )
     }
 }

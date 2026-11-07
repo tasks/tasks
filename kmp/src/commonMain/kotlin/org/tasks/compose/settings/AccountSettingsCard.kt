@@ -1,5 +1,6 @@
 package org.tasks.compose.settings
 
+import org.tasks.billing.ModifySubscription
 import org.tasks.billing.PurchaseTerms
 import org.tasks.compose.pricing.intervalPrice
 import org.tasks.themes.TasksIcons
@@ -301,13 +302,18 @@ fun AccountSettingsCard(
 @Composable
 fun ManageSubscriptionSheetContent(
     onUpgrade: () -> Unit,
-    onModify: () -> Unit,
+    onChangePlan: () -> Unit,
+    onOpenSponsorPage: () -> Unit,
     onCancel: () -> Unit,
+    modifyAction: ModifySubscription,
     modifier: Modifier = Modifier,
     showUpgrade: Boolean = true,
-    showModify: Boolean = true,
-    modifyTitle: String? = null,
 ) {
+    val onModify = when (modifyAction) {
+        ModifySubscription.NONE -> null
+        ModifySubscription.CHANGE_PLAN -> onChangePlan
+        ModifySubscription.OPEN_SPONSOR_PAGE -> onOpenSponsorPage
+    }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -324,10 +330,10 @@ fun ManageSubscriptionSheetContent(
                 titleOverride = stringResource(Res.string.tasks_org_account),
             )
         }
-        if (showModify) {
+        if (onModify != null) {
             SettingsItemCard {
                 PreferenceRow(
-                    title = modifyTitle ?: stringResource(Res.string.manage_subscription),
+                    title = stringResource(Res.string.manage_subscription),
                     icon = TasksIcons.EDIT,
                     iconTint = MaterialTheme.colorScheme.onSurfaceVariant,
                     onClick = onModify,

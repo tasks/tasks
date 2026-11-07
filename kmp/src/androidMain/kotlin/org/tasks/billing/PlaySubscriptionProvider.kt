@@ -20,5 +20,6 @@ class PlaySubscriptionProvider(
         isMonthly = isMonthly,
         isTasksSubscription = isTasksSubscription,
         purchaseToken = purchaseToken,
+        provider = EntitlementProvider.PLAY,
     )
 }

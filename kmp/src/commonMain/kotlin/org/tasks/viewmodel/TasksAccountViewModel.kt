@@ -19,6 +19,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.TasksAccountDataRepository
@@ -43,7 +44,7 @@ data class TasksAccountState(
     val isGuest: Boolean = false,
     val hasSubscription: Boolean = false,
     val isTasksSubscription: Boolean = false,
-    val isCardSubscription: Boolean = false,
+    val subscriptionProvider: EntitlementProvider? = null,
     val showTosDialog: Boolean = false,
     val inboundEmail: String? = null,
     val inboundCalendarName: String? = null,
@@ -138,8 +139,8 @@ open class TasksAccountViewModel(
             hasSubscription = subscription != null || response?.hasAnySubscription == true,
             isTasksSubscription = subscription?.isTasksSubscription == true ||
                 response?.hasCloudSubscription == true,
-            isCardSubscription = subscription?.isCardSubscription == true ||
-                response?.hasStripeSubscription == true,
+            subscriptionProvider = subscription?.provider
+                ?: EntitlementProvider.STRIPE.takeIf { response?.hasStripeSubscription == true },
             showTosDialog = !tosDismissed && account?.isTosRequired() == true,
             inboundEmail = response?.inboundEmail?.email?.takeIf(String::isNotEmpty),
             inboundCalendarName = calendars

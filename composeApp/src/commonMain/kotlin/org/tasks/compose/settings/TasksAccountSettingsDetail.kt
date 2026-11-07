@@ -28,6 +28,7 @@ import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.SignInHandler
+import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.accounts.Platform
@@ -148,10 +149,11 @@ fun TasksAccountSettingsDetail(
                 onAddAccount = onAddAccountClick,
                 onModifySubscription = onModifySubscription,
                 onCancelSubscription = {
-                    if (state.isCardSubscription) {
-                        openCardPortal()
-                    } else {
-                        uriHandler.openUri(TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS)
+                    when (state.subscriptionProvider) {
+                        EntitlementProvider.STRIPE -> openCardPortal()
+                        EntitlementProvider.GITHUB_SPONSOR -> uriHandler.openUri(sponsorUrl)
+                        EntitlementProvider.PLAY, null ->
+                            uriHandler.openUri(TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS)
                     }
                 },
                 onLogout = {

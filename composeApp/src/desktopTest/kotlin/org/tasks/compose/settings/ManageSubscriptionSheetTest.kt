@@ -3,54 +3,73 @@ package org.tasks.compose.settings
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.billing.ModifySubscription
 
 @OptIn(ExperimentalTestApi::class)
 class ManageSubscriptionSheetTest {
 
-    @Test
-    fun aCardSubscriptionIsChangedRatherThanManagedElsewhere() = runComposeUiTest {
-        showSheet(modifyTitle = "Change plan")
+    private val routes = mutableListOf<String>()
 
-        assertShowing("Change plan")
+    @Test
+    fun aPlanChangeStaysInTheApp() = runComposeUiTest {
+        showSheet(ModifySubscription.CHANGE_PLAN)
+
+        clickModify()
+
+        assertEquals(listOf("change_plan"), routes)
     }
 
     @Test
-    fun anythingElseKeepsTheGenericTitle() = runComposeUiTest {
-        showSheet(modifyTitle = null)
+    fun aSponsorshipIsManagedOnGitHub() = runComposeUiTest {
+        showSheet(ModifySubscription.OPEN_SPONSOR_PAGE)
 
-        assertShowing("Modify subscription")
+        clickModify()
+
+        assertEquals(listOf("sponsor_page"), routes)
+    }
+
+    @Test
+    fun bothRoutesShareTheGenericTitle() = runComposeUiTest {
+        showSheet(ModifySubscription.OPEN_SPONSOR_PAGE)
+
+        assertTrue(
+            "expected the generic modify row",
+            onAllNodes(hasText(MODIFY)).fetchSemanticsNodes().isNotEmpty(),
+        )
     }
 
     @Test
     fun aSubscriptionWithNothingToChangeOffersNoRow() = runComposeUiTest {
-        showSheet(modifyTitle = "Change plan", showModify = false)
+        showSheet(ModifySubscription.NONE)
 
         assertTrue(
             "expected no modify row",
-            onAllNodes(hasText("Change plan")).fetchSemanticsNodes().isEmpty(),
+            onAllNodes(hasText(MODIFY)).fetchSemanticsNodes().isEmpty(),
         )
     }
 
-    private fun ComposeUiTest.showSheet(
-        modifyTitle: String?,
-        showModify: Boolean = true,
-    ) {
+    private fun ComposeUiTest.showSheet(modifyAction: ModifySubscription) {
         setContent {
             ManageSubscriptionSheetContent(
                 onUpgrade = {},
-                onModify = {},
+                onChangePlan = { routes.add("change_plan") },
+                onOpenSponsorPage = { routes.add("sponsor_page") },
                 onCancel = {},
-                showModify = showModify,
-                modifyTitle = modifyTitle,
+                modifyAction = modifyAction,
             )
         }
     }
 
-    private fun ComposeUiTest.assertShowing(text: String) = assertTrue(
-        "expected to be showing \"$text\"",
-        onAllNodes(hasText(text)).fetchSemanticsNodes().isNotEmpty(),
-    )
+    private fun ComposeUiTest.clickModify() =
+        onAllNodes(hasText(MODIFY)).onFirst().performClick()
+
+    companion object {
+        private const val MODIFY = "Modify subscription"
+    }
 }

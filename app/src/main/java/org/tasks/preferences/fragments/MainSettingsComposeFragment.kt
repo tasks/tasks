@@ -22,11 +22,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import org.tasks.R
 import org.tasks.resources.getString
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.tasks_org
+import tasks.kmp.generated.resources.url_sponsor
 import org.tasks.auth.SignInActivity
+import org.tasks.billing.ModifySubscription
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_FEATURE
 import org.tasks.billing.PurchaseActivityViewModel.Companion.EXTRA_NAME_YOUR_PRICE
@@ -126,6 +129,7 @@ class MainSettingsComposeFragment : Fragment() {
             )
 
             if (showManageSheet) {
+                val sponsorUrl = stringResource(Res.string.url_sponsor)
                 ManageSubscriptionSheet(
                     onDismiss = { showManageSheet = false },
                     onUpgrade = {
@@ -141,7 +145,7 @@ class MainSettingsComposeFragment : Fragment() {
                                 .putExtra(EXTRA_SOURCE, "settings")
                         )
                     },
-                    onModify = {
+                    onChangePlan = {
                         showManageSheet = false
                         firebase.logEvent(
                             R.string.event_pro_card,
@@ -154,6 +158,14 @@ class MainSettingsComposeFragment : Fragment() {
                                 .putExtra(EXTRA_SOURCE, "settings")
                         )
                     },
+                    onOpenSponsorPage = {
+                        showManageSheet = false
+                        firebase.logEvent(
+                            R.string.event_pro_card,
+                            R.string.param_type to "sheet_modify",
+                        )
+                        requireContext().openUri(sponsorUrl)
+                    },
                     onCancel = {
                         showManageSheet = false
                         firebase.logEvent(
@@ -162,6 +174,7 @@ class MainSettingsComposeFragment : Fragment() {
                         )
                         viewModel.unsubscribe(requireContext())
                     },
+                    modifyAction = ModifySubscription.CHANGE_PLAN,
                 )
             }
         }
@@ -312,8 +325,10 @@ class MainSettingsComposeFragment : Fragment() {
     private fun ManageSubscriptionSheet(
         onDismiss: () -> Unit,
         onUpgrade: () -> Unit,
-        onModify: () -> Unit,
+        onChangePlan: () -> Unit,
+        onOpenSponsorPage: () -> Unit,
         onCancel: () -> Unit,
+        modifyAction: ModifySubscription,
     ) {
         ModalBottomSheet(
             onDismissRequest = onDismiss,
@@ -321,8 +336,10 @@ class MainSettingsComposeFragment : Fragment() {
         ) {
             ManageSubscriptionSheetContent(
                 onUpgrade = onUpgrade,
-                onModify = onModify,
+                onChangePlan = onChangePlan,
+                onOpenSponsorPage = onOpenSponsorPage,
                 onCancel = onCancel,
+                modifyAction = modifyAction,
                 modifier = Modifier.navigationBarsPadding(),
             )
         }

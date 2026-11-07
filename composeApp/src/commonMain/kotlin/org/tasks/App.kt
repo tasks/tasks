@@ -146,6 +146,8 @@ import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.PurchaseEntitlement
+import org.tasks.billing.EntitlementProvider
+import org.tasks.billing.modifySubscription
 import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.billing.SubscriptionProvider
@@ -278,7 +280,6 @@ import tasks.kmp.generated.resources.no_task_selected
 import tasks.kmp.generated.resources.add_account
 import tasks.kmp.generated.resources.add_platform_account
 import tasks.kmp.generated.resources.back
-import tasks.kmp.generated.resources.change_plan
 import tasks.kmp.generated.resources.dismiss
 import tasks.kmp.generated.resources.local_list_description
 import tasks.kmp.generated.resources.local_list_title
@@ -1023,10 +1024,8 @@ fun App(
                             onSubscribedClick = { showManageSheet = true },
                         )
                         if (showManageSheet) {
-                            val isGitHubSponsor = subscriptionInfo?.isGitHubSponsor == true
-                            val isCardSubscription = subscriptionInfo?.isCardSubscription == true
+                            val provider = subscriptionInfo?.provider
                             val sponsorUrl = stringResource(Res.string.url_sponsor)
-                            val changePlanLabel = stringResource(Res.string.change_plan)
                             val googlePlayUrl = TasksUrls.GOOGLE_PLAY_SUBSCRIPTIONS
                             ModalBottomSheet(
                                 onDismissRequest = { showManageSheet = false },
@@ -1037,28 +1036,27 @@ fun App(
                                         showManageSheet = false
                                         backStack.push(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = "subscribed"))
                                     },
-                                    onModify = {
+                                    onChangePlan = {
                                         showManageSheet = false
-                                        if (isCardSubscription) {
-                                            backStack.push(
-                                                PricingDestination(
-                                                    source = "manage_subscription",
-                                                )
+                                        backStack.push(
+                                            PricingDestination(
+                                                source = "manage_subscription",
                                             )
-                                        } else {
-                                            openUrl(sponsorUrl)
-                                        }
+                                        )
+                                    },
+                                    onOpenSponsorPage = {
+                                        showManageSheet = false
+                                        openUrl(sponsorUrl)
                                     },
                                     onCancel = {
                                         showManageSheet = false
-                                        when {
-                                            isCardSubscription -> openCardPortal()
-                                            isGitHubSponsor -> openUrl(sponsorUrl)
-                                            else -> openUrl(googlePlayUrl)
+                                        when (provider) {
+                                            EntitlementProvider.STRIPE -> openCardPortal()
+                                            EntitlementProvider.GITHUB_SPONSOR -> openUrl(sponsorUrl)
+                                            EntitlementProvider.PLAY, null -> openUrl(googlePlayUrl)
                                         }
                                     },
-                                    showModify = isGitHubSponsor || isCardSubscription,
-                                    modifyTitle = changePlanLabel.takeIf { isCardSubscription },
+                                    modifyAction = provider.modifySubscription(),
                                 )
                             }
                         }
