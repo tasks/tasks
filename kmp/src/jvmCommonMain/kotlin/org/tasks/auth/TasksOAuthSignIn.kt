@@ -3,6 +3,7 @@ package org.tasks.auth
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.tasks.analytics.Analytics
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -42,6 +43,22 @@ class TasksOAuthSignIn(
         }
         logger.i { "Account created successfully" }
         account
+    }
+
+    suspend fun signInToMicrosoft(
+        openUrl: (String) -> Unit,
+        analytics: Analytics,
+        extraParams: Map<String, String> = emptyMap(),
+    ) {
+        val result = authorize(OAuthProvider.MICROSOFT, openUrl, extraParams)
+        withContext(Dispatchers.IO) {
+            setupMicrosoftAccount(
+                oauthResult = result,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                analytics = analytics,
+            )
+        }
     }
 
     suspend fun authorize(

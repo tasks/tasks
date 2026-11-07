@@ -213,6 +213,25 @@ val commonModule = module {
             credentials = get(),
         )
     }
+    factory {
+        val appPreferences = get<AppPreferences>()
+        MicrosoftSynchronizer(
+            caldavDao = get(),
+            taskDao = get(),
+            dirtyDao = get(),
+            taskSaver = get(),
+            refreshBroadcaster = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            clientProvider = get(),
+            tagDao = get(),
+            tagDataDao = get(),
+            appPreferences = appPreferences,
+            vtodoCache = get(),
+            createTask = { TaskCreator().createBlankTask() },
+            setDefaultList = { appPreferences.setDefaultList(it.calendar.uuid) },
+        )
+    }
     single { Locale.getDefault() }
     viewModel { params ->
         GoogleTaskListSettingsViewModel(

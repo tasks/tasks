@@ -77,7 +77,6 @@ import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
-import org.tasks.sync.microsoft.MicrosoftSynchronizer
 import org.tasks.sync.microsoft.asMicrosoftTokenSource
 import java.io.File
 
@@ -227,25 +226,6 @@ actual fun platformModule(): Module = module {
             caldavDao = caldavDao,
             tokens = OAuthTokenStore(encryption, caldavDao, get()).asMicrosoftTokenSource(),
             cookiesStorage = { DesktopCookieStorage.forKey(cookieDir, it, encryption) },
-        )
-    }
-    factory {
-        val taskCreator = TaskCreator()
-        MicrosoftSynchronizer(
-            caldavDao = get(),
-            taskDao = get(),
-            dirtyDao = get(),
-            taskSaver = get(),
-            refreshBroadcaster = get(),
-            taskDeleter = get(),
-            reporting = get(),
-            clientProvider = get(),
-            tagDao = get(),
-            tagDataDao = get(),
-            appPreferences = get(),
-            vtodoCache = get(),
-            createTask = { taskCreator.createBlankTask() },
-            setDefaultList = { },
         )
     }
     factory {

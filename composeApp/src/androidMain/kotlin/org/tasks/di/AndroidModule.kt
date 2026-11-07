@@ -91,7 +91,12 @@ actual fun platformModule(): Module = module {
             redirect = get(),
         )
     }
-    factory<SignInHandler> { AndroidSignInHandler(get()) }
+    factory<SignInHandler> {
+        AndroidSignInHandler(
+            signIn = get(),
+            microsoftSignIn = getOrNull(),
+        )
+    }
     single<Database> {
         val context = androidContext()
         val dbFile = context.getDatabasePath(Database.NAME)
