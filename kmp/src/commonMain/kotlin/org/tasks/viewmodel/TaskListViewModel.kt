@@ -7,6 +7,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.emptyFlow
@@ -81,6 +82,14 @@ open class TaskListViewModel(
     private val tasksPreferences: TasksPreferences,
     private val headerFormatter: HeaderFormatter,
     private val queryPreferences: QueryPreferences = DefaultQueryPreferences(),
+    /**
+     * Value of the per-list sorting gate at construction time. On desktop it
+     * is overridden at runtime by collecting the preference flow (see init):
+     * the desktop settings pane can flip the gate while this long-lived VM is
+     * running, and the list must re-query immediately. Android always passes
+     * its own static preference and never writes the desktop key, so there the
+     * flow stays at this value and the runtime collection is a no-op.
+     */
     private val isPerListSortEnabled: Boolean = false,
     private val createSearchFilter: (String) -> Filter = { query ->
         SearchFilter(title = query, query = query)
@@ -99,6 +108,9 @@ open class TaskListViewModel(
 
     private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
+
+    private val _perListSortEnabled = MutableStateFlow(isPerListSortEnabled)
+    val perListSortEnabled: StateFlow<Boolean> = _perListSortEnabled.asStateFlow()
 
     fun setFilter(filter: Filter) {
         _state.update { it.copy(filter = filter) }
@@ -123,7 +135,7 @@ open class TaskListViewModel(
     }
 
     fun queryPreferences(filter: Filter): QueryPreferences =
-        if (isPerListSortEnabled) {
+        if (_perListSortEnabled.value) {
             FilterPreferences(queryPreferences, tasksPreferences, filter.key())
         } else {
             queryPreferences
@@ -172,6 +184,23 @@ open class TaskListViewModel(
             .map { SyncSource.fromString(it).showIndicator }
             .distinctUntilChanged()
             .onEach { syncOngoing -> _state.update { it.copy(syncOngoing = syncOngoing) } }
+            .launchIn(viewModelScope)
+
+        // Live per-list sorting gate: the desktop settings pane writes this
+        // preference while this long-lived VM is running, so pick it up and
+        // re-query instead of keeping the construction-time value. The value
+        // only changes when the preference changes (distinctUntilChanged), so
+        // steady state incurs no extra work. Android never writes this key,
+        // making this collection a no-op there.
+        tasksPreferences
+            .flow(TasksPreferences.taskListPerListSort, isPerListSortEnabled)
+            .distinctUntilChanged()
+            .onEach { enabled ->
+                if (enabled != _perListSortEnabled.value) {
+                    _perListSortEnabled.value = enabled
+                    invalidate()
+                }
+            }
             .launchIn(viewModelScope)
 
         _state
