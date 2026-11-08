@@ -24,6 +24,7 @@ import tasks.kmp.generated.resources.navigation_drawer
 @Composable
 fun NavigationDrawerDetail(
     onNavigateBack: () -> Unit,
+    onCustomizeDrawer: (() -> Unit)? = null,
 ) {
     val viewModel = koinViewModel<NavigationDrawerViewModel>()
 
@@ -49,6 +50,7 @@ fun NavigationDrawerDetail(
         ) {
             NavigationDrawerContent(
                 viewModel = viewModel,
+                onCustomizeDrawer = onCustomizeDrawer,
             )
         }
     }
