@@ -695,7 +695,7 @@
     <string name="error_purchase_not_verified">Wir können deine Bezahlung auf diesem Gerät nicht bestätigen.</string>
     <string name="checkout_expired">Die Zahlungsseite ist abgelaufen. Bitte versuche es noch einmal.</string>
     <string name="change_plan">Vertrag ändern</string>
-    <string name="change_plan_message">Ihr Abonnement wird sich ab heute auf %1$s ändern. Der Restwert Ihres laufenden Abonnements wird auf Ihr Konto gutgeschrieben oder auf diese Gebühr angewendet.</string>
+    <string name="change_plan_message">dein Abonnement wird sich ab heute auf %1$s ändern. Der Restwert Deined laufenden Abonnements wird auf Dein Konto gutgeschrieben oder auf diese Gebühr angewendet.</string>
     <string name="change_plan_trial">Deine kostenlose Testversion endet am %1$s. Am Ende der Testphase werden dir %2$s berechnet.</string>
     <string name="supporter">Tasks.org-Förderer</string>
     <string name="wrong_account_message_unknown">Dein Abo ist bereits mit einem anderen Konto verknüpft. Wenn du glaubst, dass dies ein Fehler ist, kontaktiere bitte %1$s</string>
