@@ -690,12 +690,12 @@
     <string name="mcp_tools_group_accounts">Synchronisierungskonten</string>
     <string name="subscription_required">Abo erforderlich</string>
     <string name="upgrade">Upgrade</string>
-    <string name="restore_use_another_email">Benütze unterschiedliche Adressen</string>
+    <string name="restore_use_another_email">Verwende eine andere Adresse</string>
     <string name="error_no_purchase_found">Wir können keine Bezahlung für diese Adresse finden</string>
     <string name="error_purchase_not_verified">Wir können deine Bezahlung auf diesem Gerät nicht bestätigen.</string>
     <string name="checkout_expired">Die Zahlungsseite ist abgelaufen. Bitte versuche es noch einmal.</string>
     <string name="change_plan">Vertrag ändern</string>
-    <string name="change_plan_message">dein Abonnement wird sich ab heute auf %1$s ändern. Der Restwert Deined laufenden Abonnements wird auf Dein Konto gutgeschrieben oder auf diese Gebühr angewendet.</string>
+    <string name="change_plan_message">Deine Abo-Kosten werden ab heute %1$s betragen. Der Restwert deines laufenden Abonnements wird deinem Konto gutgeschrieben oder mit dieser Gebühr verrechnet.</string>
     <string name="change_plan_trial">Deine kostenlose Testversion endet am %1$s. Am Ende der Testphase werden dir %2$s berechnet.</string>
     <string name="supporter">Tasks.org-Förderer</string>
     <string name="wrong_account_message_unknown">Dein Abo ist bereits mit einem anderen Konto verknüpft. Wenn du glaubst, dass dies ein Fehler ist, kontaktiere bitte %1$s</string>
@@ -717,4 +717,12 @@
     <string name="subscription_ended_on">Endete %1$s</string>
     <string name="subscription_free_until">Kostenlos bis %1$s, danach %2$s</string>
     <string name="subscription_payment_failed">Bezahlung fehlgeschlagen, aktualisiere deine Kreditkarte</string>
+    <string name="purchases_restored">Käufe wiederhergestellt</string>
+    <string name="checkout_finish_in_browser">Schließe deinen Kauf im Browser ab</string>
+    <string name="pricing_cloud_annual_per_month">%1$s/Monat, jährlich abgerechnet</string>
+    <string name="trusted_certificates_reset">Zurücksetzen vertrauenswürdiger Zertifikate</string>
+    <string name="reset_trusted_certificates">Vertrauenswürdige Zertifikate zurücksetzen</string>
+    <string name="subscription_covered_by">Dieses Konto wird über %1$s bezahlt.</string>
+    <string name="subscription_covered_elsewhere">Dieses Konto wird bereits an anderer Stelle bezahlt.</string>
+    <string name="reset_trusted_certificates_summary">Von dir akzeptierte Zertifikate und Zertifikataussteller für Server löschen</string>
 </resources>
