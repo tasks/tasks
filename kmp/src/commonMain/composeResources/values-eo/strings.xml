@@ -720,4 +720,5 @@
     <string name="update_card">Aktualigi kreditkarton</string>
     <string name="subscription_renews_on">Reabonos je %1$s</string>
     <string name="subscription_ends_on">Finiĝos %1$s</string>
+    <string name="subscription_ended_on">Finiĝis je %1$s</string>
 </resources>
