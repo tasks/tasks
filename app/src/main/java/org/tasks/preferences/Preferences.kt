@@ -298,8 +298,22 @@ class Preferences @JvmOverloads constructor(
     }
 
     fun reset() {
+        val preserved = PRESERVED_ON_RESET
+            .map { context.getString(it) }
+            .mapNotNull { key -> prefs.all[key]?.let { key to it } }
         clear()
         setDefaults()
+        prefs.edit().apply {
+            preserved.forEach { (key, value) ->
+                when (value) {
+                    is Boolean -> putBoolean(key, value)
+                    is Int -> putInt(key, value)
+                    is Long -> putLong(key, value)
+                    is Float -> putFloat(key, value)
+                    is String -> putString(key, value)
+                }
+            }
+        }.apply()
     }
 
     fun getStringValue(keyResource: Int): String? = getStringValue(context.getString(keyResource))
@@ -825,5 +839,13 @@ class Preferences @JvmOverloads constructor(
     companion object {
         private fun getSharedPreferencesName(context: Context): String =
                 context.packageName + "_preferences"
+
+        private val PRESERVED_ON_RESET = intArrayOf(
+            R.string.p_current_version,
+            R.string.p_install_version,
+            R.string.p_install_date,
+            R.string.p_device_install_version,
+            R.string.p_collect_statistics,
+        )
     }
 }
