@@ -42,15 +42,19 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    suspend fun setIfGreater(key: Preferences.Key<Long>, value: Long, default: Long = 0L): Boolean {
-        var updated = false
+    suspend fun setLongIf(
+        key: Preferences.Key<Long>,
+        value: Long,
+        shouldSet: (stored: Long?) -> Boolean,
+    ): Boolean {
+        var applied = false
         dataStore.edit {
-            if ((it[key] ?: default) < value) {
+            applied = shouldSet(it[key])
+            if (applied) {
                 it[key] = value
-                updated = true
             }
         }
-        return updated
+        return applied
     }
 
     suspend fun getOrCreate(key: Preferences.Key<String>, value: String): String {

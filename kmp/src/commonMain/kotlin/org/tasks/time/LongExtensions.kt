@@ -30,6 +30,9 @@ fun Long.startOfDay(): Long =
         0
     }
 
+fun Long.startOfDayUtc(): Long =
+    if (this > 0) this - this % ONE_DAY else 0
+
 fun Long.startOfMinute(): Long =
     if (this > 0) {
         this - this % ONE_MINUTE

@@ -37,9 +37,15 @@ class IosReporting(
         ?.takeIf { posthogKey.isNotBlank() && collectStatistics }
         ?.also { it.setup(posthogKey, POSTHOG_HOST) }
 
+    override val analyticsEnabled: Boolean
+        get() = analytics != null
+
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         logger.d { "$event -> $properties" }
+        if (!analyticsEnabled) {
+            return
+        }
         analytics?.capture(event, properties)
     }
 
@@ -51,6 +57,9 @@ class IosReporting(
 
     override fun setSku(sku: String?) {
         logger.d { "sku -> $sku" }
+        if (!analyticsEnabled) {
+            return
+        }
         if (sku != null) analytics?.register("sku", sku) else analytics?.unregister("sku")
     }
 

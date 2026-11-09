@@ -18,6 +18,9 @@ class Firebase @Inject constructor(
     private val preferences: Preferences,
     override val tasksPreferences: TasksPreferences,
 ) : Reporting, FcmTokenProvider {
+    override val analyticsEnabled: Boolean
+        get() = false
+
     override fun reportException(t: Throwable, fatal: Boolean) = Timber.e(t)
 
     fun reportIabResult(result: String, sku: String = "", state: String, orderId: String = "") {}
@@ -35,8 +38,14 @@ class Firebase @Inject constructor(
         )
     }
 
-    fun logEventOncePerDay(event: Int, vararg params: Pair<Int, Any>) {
-        logEvent(event, *params)
+    suspend fun logEventOncePerDay(event: Int, vararg params: Pair<Int, Any>) {
+        if (!analyticsEnabled) {
+            return
+        }
+        logEventOncePerDay(
+            event = context.getString(event),
+            params = params.map { context.getString(it.first) to it.second }.toTypedArray(),
+        )
     }
 
     override fun addTask(source: String) =

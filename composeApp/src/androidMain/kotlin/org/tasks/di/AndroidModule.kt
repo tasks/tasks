@@ -56,6 +56,7 @@ actual fun platformModule(): Module = module {
         val tasksPreferences = get<TasksPreferences>()
         object : Reporting {
             override val tasksPreferences = tasksPreferences
+            override val analyticsEnabled = false
             override fun logEvent(event: String, vararg params: Pair<String, Any>) {}
             override fun addTask(source: String) {}
             override fun completeTask(source: String) {}

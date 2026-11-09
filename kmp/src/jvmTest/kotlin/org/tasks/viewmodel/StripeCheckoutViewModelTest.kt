@@ -63,6 +63,7 @@ class StripeCheckoutViewModelTest {
 
     private val reporting = object : Reporting {
         override val tasksPreferences = TasksPreferences(InMemoryDataStore())
+        override val analyticsEnabled = true
         override fun logEvent(event: String, vararg params: Pair<String, Any>) {
             events.add(event to params.toMap())
         }

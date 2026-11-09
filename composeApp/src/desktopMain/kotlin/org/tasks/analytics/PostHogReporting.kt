@@ -57,15 +57,19 @@ class PostHogReporting(
         }
     }
 
+    override val analyticsEnabled: Boolean
+        get() = enabled
+
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         logger.d { "$event -> $properties" }
-        if (enabled && collectStatistics) {
-            PostHog.capture(
-                event = event,
-                properties = properties,
-            )
+        if (!analyticsEnabled) {
+            return
         }
+        PostHog.capture(
+            event = event,
+            properties = properties,
+        )
     }
 
     override fun addTask(source: String) =
@@ -76,7 +80,7 @@ class PostHogReporting(
 
     override fun setSku(sku: String?) {
         logger.d { "sku -> $sku" }
-        if (enabled && collectStatistics) {
+        if (analyticsEnabled) {
             if (sku != null) PostHog.register("sku", sku) else PostHog.unregister("sku")
         }
     }
@@ -86,7 +90,7 @@ class PostHogReporting(
         logger.e(t) { t.message ?: "" }
         val decision = exceptionThrottle.check(t)
         if (decision !is ExceptionThrottle.Decision.Report) return
-        if (enabled && collectStatistics) {
+        if (analyticsEnabled) {
             PostHog.capture(
                 event = "exception",
                 properties = mapOf(
@@ -101,7 +105,7 @@ class PostHogReporting(
     }
 
     fun close() {
-        if (enabled) {
+        if (analyticsEnabled) {
             PostHog.close()
         }
     }

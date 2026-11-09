@@ -466,6 +466,8 @@ class PlayCheckoutViewModelTest {
     ) : Reporting {
         val events = mutableListOf<String>()
 
+        override val analyticsEnabled = true
+
         override fun logEvent(event: String, vararg params: Pair<String, Any>) {
             events.add(event)
         }
