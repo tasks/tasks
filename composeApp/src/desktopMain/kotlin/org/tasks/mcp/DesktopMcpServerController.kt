@@ -17,6 +17,7 @@ class DesktopMcpServerController(
     private val preferences: TasksPreferences,
     private val encryption: KeyStoreEncryption,
     private val api: DatabaseTasksApi,
+    private val filters: DatabaseFiltersApi,
     private val analytics: org.tasks.analytics.Analytics,
     private val scope: CoroutineScope,
 ) : McpServerController {
@@ -125,6 +126,7 @@ class DesktopMcpServerController(
             token = { token },
             permissions = permissions,
             api = api,
+            filters = filters,
             log = log,
             analytics = analytics,
             onStateChange = { running, error ->

@@ -14,6 +14,14 @@ abstract class TaskListMetadataDao {
     @Query("SELECT * FROM task_list_metadata")
     abstract suspend fun getAll(): List<TaskListMetadata>
 
+    /**
+     * Every task list whose default view is pinned to the given filter id (stored as the
+     * filter's _id as a string). Used by delete_filter to warn that deleting the filter
+     * makes these lists silently fall back to their default view.
+     */
+    @Query("SELECT * FROM task_list_metadata WHERE filter = :filterId")
+    abstract suspend fun findPinnedTo(filterId: String): List<TaskListMetadata>
+
     @Update
     abstract suspend fun update(taskListMetadata: TaskListMetadata)
 
