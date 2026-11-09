@@ -721,4 +721,9 @@
     <string name="subscription_renews_on">Reabonos je %1$s</string>
     <string name="subscription_ends_on">Finiĝos %1$s</string>
     <string name="subscription_ended_on">Finiĝis je %1$s</string>
+    <string name="change_plan_trial">Via senpaga testo finiĝos je %1$s. Post la fino de via testo, ni fakturos al vi kontraŭ %2$s.</string>
+    <string name="subscription_free_until">Senpage ĝis %1$s, poste %2$s</string>
+    <string name="subscription_payment_failed">Pago malsukcesis, aktualigu vian kreditkarton</string>
+    <string name="subscription_covered_elsewhere">Ĉi tiu konto estas jam pagita je alia fonto.</string>
+    <string name="subscription_covered_by">Ĉi tiu konto estas pagita per via %1$s.</string>
 </resources>
