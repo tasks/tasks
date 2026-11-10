@@ -28,11 +28,11 @@ class ApiErrorsTest {
     }
 
     @Test
-    fun anExplanationCarriesTheDetailAndWhatToDoAboutIt() {
+    fun anExplanationCarriesTheDetailAndWhetherRetryingHelps() {
         val readOnly = ApiErrors.explain(UnsupportedOperationException("'Shared' is read-only"))
 
         assertTrue(readOnly, readOnly.contains("'Shared' is read-only"))
-        assertTrue(readOnly, readOnly.contains("rather than retrying"))
+        assertTrue(readOnly, readOnly.contains("retrying will fail"))
     }
 
     @Test
@@ -47,7 +47,7 @@ class ApiErrorsTest {
     fun aDetailThatAlreadyEndsTheSentenceIsNotDoubled() {
         val explained = ApiErrors.explain(IllegalArgumentException("Send at least one entry."))
 
-        assertTrue(explained, explained.contains("at least one entry. Retrying"))
+        assertTrue(explained, explained.contains("at least one entry. Nothing was written"))
     }
 
     @Test

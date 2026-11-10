@@ -453,10 +453,6 @@ data class AppAccount(
     val name: String? = null,
     /** Account type, for example "caldav", "tasks_org", "google_tasks", "microsoft" or "local". */
     val type: String,
-    /** The signed-in user, when the account has one. */
-    val username: String? = null,
-    /** The server address, for a self-hosted account. */
-    val url: String? = null,
     /**
      * The last sync error, when there is one: "unauthorized", "payment_required",
      * "terms_required" or "failed". Null when the account is healthy.
@@ -592,8 +588,6 @@ internal fun AccountRow.toAppAccount() = AppAccount(
     id = id,
     name = name,
     type = type,
-    username = username,
-    url = url,
     error = error,
     repeatsOnServer = repeatsOnServer,
 )

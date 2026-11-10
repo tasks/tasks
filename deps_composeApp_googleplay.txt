@@ -1785,10 +1785,8 @@
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.2.10 -> 2.4.21 (*)
 +|    |    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0 -> 1.11.0 (*)
 +|    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.21 (*)
-+|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel:2.11.0 (*)
-+|    +--- co.touchlab:kermit:2.2.0 (*)
-+|    \--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
++|    \--- co.touchlab:kermit:2.2.0 (*)
 ++--- com.google.firebase:firebase-bom:35.0.2
 +|    +--- com.google.firebase:firebase-messaging:26.0.0 (c)
 +|    +--- com.google.firebase:firebase-encoders:18.0.0 (c)

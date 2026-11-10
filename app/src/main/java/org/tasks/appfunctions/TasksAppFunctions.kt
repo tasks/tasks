@@ -1,7 +1,7 @@
 package org.tasks.appfunctions
 
 import androidx.annotation.RequiresApi
-import androidx.appfunctions.AppFunction
+import androidx.appfunctions.AppFunctionDeclaration
 import androidx.appfunctions.AppFunctionException
 import androidx.appfunctions.AppFunctionService
 import androidx.appfunctions.AppFunctionServiceEntryPoint
@@ -106,7 +106,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param offset How many matching tasks to skip, for paging. Follow the page's offset.
      * @return A page of matching tasks, with the total number that matched.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listTasks(
         taskIds: LongArray? = null,
         matches: String? = null,
@@ -179,7 +179,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return The created tasks with the identifiers assigned to them, and which of them landed
      *   on a parent's list instead of the one they asked for.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun createTasks(tasks: List<NewTask>): AppTaskCreation = io {
         engine.createTasks(writer, tasks.map { it.toTaskWrite() }).toAppTaskCreation()
     }
@@ -197,7 +197,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return The tasks as they are after the change, which entries changed nothing, and which
      *   tasks moved to a parent's list instead of the one they asked for.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun updateTasks(updates: List<TaskPatch>): AppTaskUpdate = io {
         engine.updateTasks(writer, updates.map { TaskUpdate(it.id, it.toTaskWrite()) }).toAppTaskUpdate()
     }
@@ -215,7 +215,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return The tasks afterwards, which of them advanced to a next occurrence, and which
      *   identifiers matched nothing.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun completeTasks(
         taskIds: LongArray,
         completed: Boolean? = null,
@@ -240,7 +240,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return Whether the task was deleted, with alsoAffected counting the subtasks deleted with
      *   it.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun deleteTask(taskId: Long): AppDeletion = io {
         engine.deleteTask(writer, taskId).toAppDeletion()
     }
@@ -256,7 +256,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param offset How many lists to skip, for paging.
      * @return A page of lists, with the total number that exist.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listTaskLists(
         listIds: LongArray? = null,
         accountIds: LongArray? = null,
@@ -292,7 +292,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon.
      * @return The created list.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun createList(
         title: String,
         accountId: Long,
@@ -317,7 +317,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon. Empty string clears it.
      * @return The list as it is after the change.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun updateList(
         listId: Long,
         title: String? = null,
@@ -339,7 +339,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param listId Identifier of the list to delete.
      * @return Whether the list was deleted, with alsoAffected counting the tasks deleted with it.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun deleteList(listId: Long): AppDeletion = io {
         engine.deleteList(writer, listId).toAppDeletion()
     }
@@ -353,7 +353,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param offset How many tags to skip, for paging.
      * @return A page of tags, with the total number that exist.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listTags(
         tagIds: LongArray? = null,
         limit: Int? = null,
@@ -377,7 +377,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon. Ignored if the tag already exists.
      * @return The tag, and whether it was created or already existed.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun createTag(name: String, color: Int? = null, icon: String? = null): AppTagCreation =
         io {
             engine.createTag(writer, TagWrite(name = name, color = color, icon = icon)).toAppTagCreation()
@@ -396,7 +396,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon. Empty string clears it.
      * @return The tag as it is after the change.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun updateTag(
         tagId: Long,
         name: String? = null,
@@ -416,7 +416,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param tagId Identifier of the tag to delete.
      * @return Whether the tag was deleted, with alsoAffected counting the tasks that lost it.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun deleteTag(tagId: Long): AppDeletion = io {
         engine.deleteTag(writer, tagId).toAppDeletion()
     }
@@ -434,7 +434,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param removeTagIds Tags to remove from every one of them.
      * @return The tasks as they are after the change, and what each one gained and lost.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun setTaskTags(
         taskIds: LongArray,
         addTagIds: LongArray? = null,
@@ -457,7 +457,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param offset How many places to skip, for paging.
      * @return A page of places, with the total number that exist.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listPlaces(
         placeIds: LongArray? = null,
         limit: Int? = null,
@@ -488,7 +488,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon.
      * @return The place, and whether it was created or already existed.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun createPlace(
         latitude: Double,
         longitude: Double,
@@ -532,7 +532,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      *   icon. Empty string clears it.
      * @return The place as it is after the change.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun updatePlace(
         placeId: Long,
         name: String? = null,
@@ -567,7 +567,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param placeId Identifier of the place to delete.
      * @return Whether the place was deleted, with alsoAffected counting the tasks unfiled by it.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun deletePlace(placeId: Long): AppDeletion = io {
         engine.deletePlace(writer, placeId).toAppDeletion()
     }
@@ -583,7 +583,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @param offset How many reminders to skip, for paging.
      * @return A page of reminders, both time and location.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listReminders(
         taskIds: LongArray? = null,
         types: List<String>? = null,
@@ -620,7 +620,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return The task's reminders after the change, with what was added, how many went, and the
      *   task itself - adding the first location reminder files it at that place.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun setTaskReminders(
         taskId: Long,
         add: List<NewReminder>? = null,
@@ -646,7 +646,7 @@ abstract class TasksAppFunctions : AppFunctionService() {
      * @return A page of accounts, including whether each server advances recurring tasks itself
      *   and any sync error it is reporting.
      */
-    @AppFunction(isDescribedByKDoc = true)
+    @AppFunctionDeclaration(isDescribedByKDoc = true)
     suspend fun listAccounts(
         accountIds: LongArray? = null,
         limit: Int? = null,
