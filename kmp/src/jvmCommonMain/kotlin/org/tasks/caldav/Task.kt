@@ -6,6 +6,7 @@
 
 package org.tasks.caldav
 
+import co.touchlab.kermit.Logger
 import net.fortuna.ical4j.data.CalendarBuilder
 import net.fortuna.ical4j.data.CalendarOutputter
 import net.fortuna.ical4j.data.CalendarParserFactory
@@ -66,8 +67,8 @@ import java.net.URI
 import java.net.URISyntaxException
 import java.util.LinkedList
 import java.util.UUID
-import java.util.logging.Level
-import java.util.logging.Logger
+
+private const val TAG = "CaldavTask"
 
 data class Task(
     var uid: String? = null,
@@ -119,21 +120,21 @@ data class Task(
 
         if (dtStart != null && due != null) {
             if (isDate(dtStart) && isDateTime(due)) {
-                logger.warning("DTSTART is DATE but DUE is DATE-TIME, rewriting DTSTART to DATE-TIME")
+                Logger.w(tag = TAG) { "DTSTART is DATE but DUE is DATE-TIME, rewriting DTSTART to DATE-TIME" }
                 this.dtStart = DtStart(DateTime(dtStart.value, due.timeZone))
             } else if (isDateTime(dtStart) && isDate(due)) {
-                logger.warning("DTSTART is DATE-TIME but DUE is DATE, rewriting DUE to DATE-TIME")
+                Logger.w(tag = TAG) { "DTSTART is DATE-TIME but DUE is DATE, rewriting DUE to DATE-TIME" }
                 this.due = Due(DateTime(due.value, dtStart.timeZone))
             }
 
             if (due.date < dtStart.date) {
-                logger.warning("Found invalid DUE <= DTSTART; dropping DTSTART")
+                Logger.w(tag = TAG) { "Found invalid DUE <= DTSTART; dropping DTSTART" }
                 this.dtStart = null
             }
         }
 
         if (duration != null && this.dtStart == null) {
-            logger.warning("Found DURATION without DTSTART; ignoring")
+            Logger.w(tag = TAG) { "Found DURATION without DTSTART; ignoring" }
             duration = null
         }
     }
@@ -164,7 +165,7 @@ data class Task(
             try {
                 props += Url(URI(it))
             } catch (e: URISyntaxException) {
-                logger.log(Level.WARNING, "Ignoring invalid task URL: $url", e)
+                Logger.w(e, tag = TAG) { "Ignoring invalid task URL: $url" }
             }
         }
         organizer?.let { props += it }
@@ -221,9 +222,6 @@ data class Task(
 
     companion object {
 
-        private val logger
-            get() = Logger.getLogger(Task::class.java.name)
-
         fun tasksFromReader(reader: Reader): List<Task> {
             val preprocessed = StringReader(reader.readText().repairICalendar())
 
@@ -236,7 +234,7 @@ data class Task(
             try {
                 ICalPreprocessor.preprocessCalendar(calendar)
             } catch (e: Exception) {
-                logger.log(Level.WARNING, "Couldn't pre-process iCalendar", e)
+                Logger.w(e, tag = TAG) { "Couldn't pre-process iCalendar" }
             }
 
             val vToDos = calendar.getComponents<VToDo>(Component.VTODO)
@@ -249,7 +247,7 @@ data class Task(
             if (todo.uid != null)
                 t.uid = todo.uid.value
             else {
-                logger.warning("Received VTODO without UID, generating new one")
+                Logger.w(tag = TAG) { "Received VTODO without UID, generating new one" }
                 t.generateUID()
             }
 
@@ -362,7 +360,7 @@ data class Task(
                 try {
                     newTz.validate()
                 } catch (e: ValidationException) {
-                    logger.log(Level.WARNING, "Minified timezone is invalid, using original one", e)
+                    Logger.w(e, tag = TAG) { "Minified timezone is invalid, using original one" }
                     newTz = null
                 }
             }

@@ -79,6 +79,9 @@ class CalendarUrlSyncTest : DatabaseTest() {
 
     private fun enqueueCalendars(vararg hrefs: String) = server.enqueue(multiStatus(multistatus(*hrefs)))
 
+    private fun enqueueCalendars(vararg hrefs: String, componentSet: String?) =
+        server.enqueue(multiStatus(multistatus(*hrefs, componentSet = componentSet)))
+
     private suspend fun insertSyncedTask(calendar: CaldavCalendar): Long {
         val task = Task(title = "task")
         taskDao.createNew(task)
@@ -335,6 +338,37 @@ class CalendarUrlSyncTest : DatabaseTest() {
         }
 
     @Test
+    fun `list without a supported-calendar-component-set is synced`() = runBlocking {
+        enqueueCalendars("$HOME_SET$LIST/", componentSet = null)
+        server.enqueue(multiStatus(etags("a.ics")))
+        server.enqueue(multiStatus(calendarData("a.ics" to ONE_VTODO)))
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(1, caldavDao.getCalendarsByAccount(account.uuid!!).size)
+        verify(iCal, times(1)).fromVtodo(
+            any<CaldavAccount>(),
+            any<CaldavCalendar>(),
+            anyOrNull<CaldavTask>(),
+            any<VTodo>(),
+            anyOrNull<String>(),
+            eq("a.ics"),
+            eq("etag-a.ics"),
+        )
+    }
+
+    @Test
+    fun `list that only supports events is not synced`() = runBlocking {
+        enqueueCalendars("$HOME_SET$LIST/", componentSet = VEVENT_COMPONENT_SET)
+
+        synchronizer.sync(account, hasPro = true)
+
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(emptyList<String>(), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+    }
+
+    @Test
     fun `list the server reports as gone is deleted`() = runBlocking {
         val calendar = CaldavCalendar(
             account = account.uuid,
@@ -448,7 +482,7 @@ class CalendarUrlSyncTest : DatabaseTest() {
         private const val LIST = "1be1b8c8-9c2b-4b3f-9a9a-000000000000"
         private const val CTAG = "ctag-1"
 
-        private fun multistatus(vararg hrefs: String) = """
+        private fun multistatus(vararg hrefs: String, componentSet: String? = VTODO_COMPONENT_SET) = """
             <?xml version="1.0"?>
             <d:multistatus xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav" xmlns:cs="http://calendarserver.org/ns/">
                 <d:response>
@@ -458,18 +492,24 @@ class CalendarUrlSyncTest : DatabaseTest() {
                         <d:status>HTTP/1.1 200 OK</d:status>
                     </d:propstat>
                 </d:response>
-                ${hrefs.joinToString("") { calendar(it) }}
+                ${hrefs.joinToString("") { calendar(it, componentSet) }}
             </d:multistatus>
         """.trimIndent()
 
-        private fun calendar(href: String) = """
+        private const val VTODO_COMPONENT_SET =
+            "<cal:supported-calendar-component-set><cal:comp name=\"VTODO\" /></cal:supported-calendar-component-set>"
+
+        private const val VEVENT_COMPONENT_SET =
+            "<cal:supported-calendar-component-set><cal:comp name=\"VEVENT\" /></cal:supported-calendar-component-set>"
+
+        private fun calendar(href: String, componentSet: String? = VTODO_COMPONENT_SET) = """
             <d:response>
                 <d:href>$href</d:href>
                 <d:propstat>
                     <d:prop>
                         <d:resourcetype><d:collection /><cal:calendar /></d:resourcetype>
                         <d:displayname>List</d:displayname>
-                        <cal:supported-calendar-component-set><cal:comp name="VTODO" /></cal:supported-calendar-component-set>
+                        ${componentSet ?: ""}
                         <cs:getctag>$CTAG</cs:getctag>
                     </d:prop>
                     <d:status>HTTP/1.1 200 OK</d:status>

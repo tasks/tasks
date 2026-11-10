@@ -146,17 +146,26 @@ open class CaldavClient(
             }
         }
         try {
-            return DavResource(httpClient, url)
+            val collections = DavResource(httpClient, url)
                 .propfind(1, *calendarProperties)
                 .members()
-                .filter { response ->
-                    response[ResourceType::class]?.types?.contains(CalDAV.Calendar) == true &&
-                            response[SupportedCalendarComponentSet::class]?.supportsTasks == true
-                }
+            val (taskLists, skipped) = collections.partition { it.notATaskListBecause == null }
+            Logger.d(tag = "CaldavClient") {
+                "found ${taskLists.size} task list(s) in ${collections.size} collection(s) at $url" +
+                        skipped.joinToString("") { ", skipped ${it.href} (${it.notATaskListBecause})" }
+            }
+            return taskLists
         } finally {
             subscription.dispose()
         }
     }
+
+    private val Response.notATaskListBecause: String?
+        get() = when {
+            this[ResourceType::class]?.types?.contains(CalDAV.Calendar) != true -> "not a calendar"
+            this[SupportedCalendarComponentSet::class]?.supportsTasks == false -> "no VTODO support"
+            else -> null
+        }
 
     suspend fun calendar(url: Url): Response? = withContext(Dispatchers.IO) {
         DavResource(httpClient, url)

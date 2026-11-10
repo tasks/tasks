@@ -66,6 +66,7 @@ kotlin {
                     exclude(group = "org.json", module = "json")
                     exclude(group = "org.codehaus.groovy", module = "groovy")
                     exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
+                    exclude(group = "org.slf4j", module = "slf4j-jdk14")
                 }
                 implementation(libs.persistent.cookiejar)
                 implementation(libs.pebblekit)
@@ -113,6 +114,7 @@ kotlin {
             api(libs.google.api.tasks)
             api(libs.okhttp)
             implementation(libs.ktor.client.okhttp)
+            compileOnly(libs.slf4j.api)
             compileOnly(libs.xpp3)
             compileOnly(libs.etebase.jvm)
         }

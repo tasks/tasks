@@ -199,6 +199,7 @@ dependencies {
         exclude(group = "org.json", module = "json")
         exclude(group = "org.codehaus.groovy", module = "groovy")
         exclude(group = "org.codehaus.groovy", module = "groovy-dateutil")
+        exclude(group = "org.slf4j", module = "slf4j-jdk14")
     }
     implementation(libs.dmfs.opentasks.provider) {
         exclude("com.github.tasks.opentasks", "opentasks-contract")

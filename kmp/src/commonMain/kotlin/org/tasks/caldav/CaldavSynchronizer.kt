@@ -345,9 +345,13 @@ class CaldavSynchronizer(
         val changed = members.filter { vCard: Response ->
             val eTag = vCard[GetETag::class]?.eTag
             if (eTag.isNullOrBlank()) {
+                Logger.w(TAG) { "Skipping ${vCard.href}, no etag in the calendar-query response" }
                 return@filter false
             }
             eTag != caldavDao.getTask(caldavCalendar.uuid!!, vCard.hrefName())?.etag
+        }
+        Logger.d(TAG) {
+            "calendar-query returned ${members.size} member(s), ${changed.size} changed"
         }
         val unusable = mutableListOf<Url>()
         for (items in changed.chunked(30)) {
