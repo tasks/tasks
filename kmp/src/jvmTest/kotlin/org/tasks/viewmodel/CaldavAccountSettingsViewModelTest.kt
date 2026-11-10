@@ -1,32 +1,31 @@
 package org.tasks.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.withTimeout
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.tasks.DatabaseTest
+import org.tasks.MainDispatcherRule
 import org.tasks.data.entity.CaldavAccount
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class CaldavAccountSettingsViewModelTest : DatabaseTest() {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private val caldavDao = db.caldavDao()
     private val deletionDao = db.deletionDao()
-
-    @Before
-    fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)
+    private val viewModels = mutableListOf<CaldavAccountSettingsViewModel>()
 
     @After
-    fun tearDown() = Dispatchers.resetMain()
+    fun cancelViewModels() = viewModels.forEach { it.viewModelScope.cancel() }
 
     @Test
     fun `editor reads the account from the database`() = runBlocking {
@@ -72,7 +71,9 @@ class CaldavAccountSettingsViewModelTest : DatabaseTest() {
         assertEquals(emptyList<CaldavAccount>(), caldavDao.getAccounts(CaldavAccount.TYPE_CALDAV))
     }
 
-    private fun viewModel() = CaldavAccountSettingsViewModel(
+    private fun viewModel() = createViewModel().also { viewModels.add(it) }
+
+    private fun createViewModel() = CaldavAccountSettingsViewModel(
         caldavDao = caldavDao,
         caldavClientProvider = mock(),
         encryption = mock(),

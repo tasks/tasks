@@ -1,22 +1,18 @@
 package org.tasks.viewmodel
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
 import kotlinx.coroutines.withTimeout
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
-import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.tasks.DatabaseTest
 import org.tasks.InMemoryDataStore
+import org.tasks.MainDispatcherRule
 import org.tasks.analytics.Reporting
 import org.tasks.billing.PurchaseState
 import org.tasks.broadcast.RefreshBroadcaster
@@ -26,20 +22,16 @@ import org.tasks.data.entity.TagData
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class TagSettingsViewModelTest : DatabaseTest() {
+
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private val tagDataDao = db.tagDataDao()
     private val caldavDao = db.caldavDao()
     private val preferences = TasksPreferences(InMemoryDataStore())
     private val tagMetadataSync =
         TagMetadataSync(caldavDao, tagDataDao, mock(), mock(), preferences)
-
-    @Before
-    fun setUp() = Dispatchers.setMain(Dispatchers.Unconfined)
-
-    @After
-    fun tearDown() = Dispatchers.resetMain()
 
     private fun viewModel(tagData: TagData) = TagSettingsViewModel(
         tagDataDao = tagDataDao,
