@@ -14,7 +14,11 @@ suspend fun <T> KtorClientFactory.withClient(
     block: suspend (HttpClient) -> T,
 ): T {
     val client = newClient {
-        install(HttpTimeout) { requestTimeoutMillis = callTimeoutMillis }
+        install(HttpTimeout) {
+            requestTimeoutMillis = callTimeoutMillis
+            connectTimeoutMillis = callTimeoutMillis
+            socketTimeoutMillis = callTimeoutMillis
+        }
     }
     return try {
         block(client)
