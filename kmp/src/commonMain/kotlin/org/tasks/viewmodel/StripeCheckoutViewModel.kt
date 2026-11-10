@@ -253,12 +253,24 @@ open class StripeCheckoutViewModel(
     }
 
     private suspend fun loadCatalog() {
-        val prices = purchases.prices()
-        _viewState.update {
-            it.copy(
-                catalog = prices?.let(BillingCatalog::from) ?: it.catalog,
-                loadingPrices = false,
-            )
+        var attempts = 0
+        while (true) {
+            val prices = purchases.prices()
+            attempts++
+            if (prices == null &&
+                attempts < CATALOG_ATTEMPTS &&
+                _viewState.value.catalog.isEmpty
+            ) {
+                delay(CATALOG_RETRY_MILLIS)
+                continue
+            }
+            _viewState.update {
+                it.copy(
+                    catalog = prices?.let(BillingCatalog::from) ?: it.catalog,
+                    loadingPrices = false,
+                )
+            }
+            return
         }
     }
 
@@ -417,6 +429,8 @@ open class StripeCheckoutViewModel(
         const val RATE_LIMITED_BACKOFF_MILLIS = 30_000L
         const val MAX_BACKOFF_MILLIS = 60_000L
         const val MAX_UNANSWERED_POLLS = 8
+        const val CATALOG_ATTEMPTS = 2
+        const val CATALOG_RETRY_MILLIS = 1_000L
         private const val DEFAULT_CODE_LIFETIME_MILLIS = 60 * 60 * 1000L
     }
 }

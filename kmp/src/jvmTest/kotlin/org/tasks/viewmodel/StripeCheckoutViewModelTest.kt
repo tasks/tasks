@@ -31,6 +31,8 @@ import org.tasks.billing.UnlockSource
 import org.tasks.preferences.TasksPreferences
 import org.tasks.time.DateTimeUtils2
 import org.tasks.viewmodel.StripeCheckoutViewModel.Notice
+import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.CATALOG_ATTEMPTS
+import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.CATALOG_RETRY_MILLIS
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.MAX_BACKOFF_MILLIS
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.MAX_UNANSWERED_POLLS
 import org.tasks.viewmodel.StripeCheckoutViewModel.Companion.POLL_INTERVAL_MILLIS
@@ -47,6 +49,8 @@ class StripeCheckoutViewModelTest {
         BillingOption("pri_12", "annual_12", 1200, entitles = false),
         supportOffer,
     )
+    private val priceAnswers = ArrayDeque<List<BillingOption>?>()
+    private var priceReads = 0
     private var plan: StripePlan? = null
     private var knownCustomer = false
     private var coverage = ForeignCoverage()
@@ -74,7 +78,10 @@ class StripeCheckoutViewModelTest {
     }
 
     private val purchases = object : StripeCheckouts {
-        override suspend fun prices() = prices
+        override suspend fun prices(): List<BillingOption>? {
+            priceReads++
+            return if (priceAnswers.isEmpty()) prices else priceAnswers.removeFirst()
+        }
         override suspend fun currentPlan(refresh: Boolean): StripePlan? {
             if (refresh) tierReads++
             return plan
@@ -425,11 +432,53 @@ class StripeCheckoutViewModelTest {
     fun aLadderThatCannotBeListedLeavesTheCatalogEmpty() = runTest(dispatcher) {
         prices = null
         val viewModel = viewModel()
-        runCurrent()
+        advanceTimeBy(CATALOG_RETRY_MILLIS * CATALOG_ATTEMPTS + 1)
 
         val state = viewModel.viewState.value
         assertFalse(state.loadingPrices)
         assertTrue(state.catalog.isEmpty)
+    }
+
+    @Test
+    fun aLadderTheServerMissedTheFirstTimeIsAskedForAgain() = runTest(dispatcher) {
+        priceAnswers.add(null)
+
+        val viewModel = viewModel()
+        runCurrent()
+        assertTrue(viewModel.viewState.value.loadingPrices)
+
+        advanceTimeBy(CATALOG_RETRY_MILLIS + 1)
+
+        val state = viewModel.viewState.value
+        assertEquals("annual_30", state.catalog.cloudAnnual?.sku)
+        assertFalse(state.loadingPrices)
+        assertEquals(CATALOG_ATTEMPTS, priceReads)
+    }
+
+    @Test
+    fun aLadderTheServerKeepsMissingIsNotAskedForForever() = runTest(dispatcher) {
+        prices = null
+
+        val viewModel = viewModel()
+        advanceTimeBy(CATALOG_RETRY_MILLIS * 20)
+
+        assertTrue(viewModel.viewState.value.catalog.isEmpty)
+        assertEquals(CATALOG_ATTEMPTS, priceReads)
+    }
+
+    @Test
+    fun aLadderTheServerMissedOnARefreshIsNotAskedForAgain() = runTest(dispatcher) {
+        checkout = StripeCheckout.UnknownPrice
+        val viewModel = viewModel()
+        runCurrent()
+        val listed = priceReads
+        prices = null
+
+        viewModel.select(offer)
+        advanceTimeBy(CATALOG_RETRY_MILLIS * 20)
+
+        assertEquals("annual_30", viewModel.viewState.value.catalog.cloudAnnual?.sku)
+        assertEquals(listed + 1, priceReads)
     }
 
     @Test
