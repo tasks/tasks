@@ -28,6 +28,7 @@ fun PlayCheckoutViewModel.ViewState.toStoreBilling(
     busySku = busySku,
     currentSku = currentSku,
     sellsCurrentSku = currentCanceled,
+    loadingPlan = loadingPlan,
     suggestedPrice = suggestedPrice,
     knownCustomer = false,
     coveredElsewhere = coveredElsewhere,

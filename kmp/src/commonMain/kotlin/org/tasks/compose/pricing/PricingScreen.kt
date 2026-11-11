@@ -113,6 +113,7 @@ data class StoreBilling(
     val busySku: String? = null,
     val currentSku: String? = null,
     val sellsCurrentSku: Boolean = false,
+    val loadingPlan: Boolean = false,
     val knownSku: String? = null,
     val suggestedPrice: Int? = null,
     val knownCustomer: Boolean? = false,
@@ -126,8 +127,11 @@ data class StoreBilling(
 
     fun unavailable(price: BillingOption?): Boolean = !loadingPrices && price == null
 
+    private val ownedSku: String?
+        get() = currentSku ?: knownSku.takeIf { loadingPlan }
+
     fun selectable(price: BillingOption?): Boolean =
-        !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
+        !busy && (price == null || price.sku != ownedSku || sellsCurrentSku)
 
     fun move(price: BillingOption): PlanMove {
         val current = (currentSku ?: knownSku)?.takeIf { it != price.sku } ?: return PlanMove.SUBSCRIBE
@@ -146,7 +150,7 @@ data class StoreBilling(
     }
 
     fun owns(price: BillingOption?): Boolean =
-        price != null && price.sku == currentSku && !sellsCurrentSku
+        price != null && price.sku == ownedSku && !sellsCurrentSku
 
     val subscribedToSupporter: Boolean
         get() = isSupporterSku(currentSku, catalog)

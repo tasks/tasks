@@ -481,6 +481,30 @@ class StripePurchasesTest {
     }
 
     @Test
+    fun aGitHubSponsorshipOnThisDeviceIsCoverageElsewhere() = runBlocking {
+        val entitlement = entitlement()
+        entitlement.storeEntitlement(
+            jwt = jwt(keyPair.private),
+            refreshToken = "refresh-1",
+            sku = "annual_01",
+            provider = EntitlementProvider.GITHUB_SPONSOR,
+        )
+
+        assertEquals(
+            ForeignCoverage(covered = true, source = UnlockSource.GITHUB),
+            purchases(entitlement).coveredElsewhere(),
+        )
+    }
+
+    @Test
+    fun aCardSubscriptionOnThisDeviceIsNotCoverageElsewhere() = runBlocking {
+        val entitlement = entitlement()
+        purchases(entitlement).keep(purchase())
+
+        assertEquals(ForeignCoverage(), purchases(entitlement).coveredElsewhere())
+    }
+
+    @Test
     fun aKeptPurchaseFundsTheSignedInAccount() = runBlocking {
         purchases().keep(purchase())
 

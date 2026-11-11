@@ -34,6 +34,7 @@ open class PlayCheckoutViewModel(
         val busySku: String? = null,
         val currentSku: String? = null,
         val currentCanceled: Boolean = false,
+        val loadingPlan: Boolean = true,
         val coveredBy: UnlockSource? = null,
         val error: Error? = null,
         val purchased: Boolean = false,
@@ -72,6 +73,7 @@ open class PlayCheckoutViewModel(
                     it.copy(
                         currentSku = purchase?.sku,
                         currentCanceled = purchase?.isCanceled == true,
+                        loadingPlan = false,
                         purchased = it.purchased || completed,
                     )
                 }

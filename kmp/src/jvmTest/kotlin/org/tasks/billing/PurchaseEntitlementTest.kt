@@ -111,6 +111,62 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aGitHubSponsorshipDoesNotReplaceACardSubscription() = runBlocking<Unit> {
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "card-refresh",
+                sku = "monthly_03",
+                provider = EntitlementProvider.STRIPE,
+            )
+
+            val result = storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "github-refresh",
+                sku = "annual_01",
+                provider = EntitlementProvider.GITHUB_SPONSOR,
+            )
+
+            assertEquals(StoreResult.STORED, result)
+            assertEquals(EntitlementProvider.STRIPE, provider.first())
+            assertEquals("monthly_03", sku.first())
+        }
+        assertTrue(entitlementFile.readBytes().isNotEmpty())
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            assertEquals(EntitlementProvider.STRIPE, provider.first())
+        }
+    }
+
+    @Test
+    fun aGitHubSponsorshipReplacesALapsedCardSubscription() = runBlocking<Unit> {
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "card-refresh",
+                sku = "monthly_03",
+                provider = EntitlementProvider.STRIPE,
+                covered = false,
+            )
+
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "github-refresh",
+                sku = "annual_01",
+                provider = EntitlementProvider.GITHUB_SPONSOR,
+            )
+
+            assertTrue(hasPro.first())
+            assertEquals(EntitlementProvider.GITHUB_SPONSOR, provider.first())
+        }
+    }
+
+    @Test
     fun syncsWithoutProWhenNoEntitlementStored() = runBlocking {
         entitlement().apply {
             initialize()

@@ -37,6 +37,7 @@ open class StripeCheckoutViewModel(
         val catalog: BillingCatalog = BillingCatalog(),
         val loadingPrices: Boolean = true,
         val plan: StripePlan? = null,
+        val loadingPlan: Boolean = true,
         val busySku: String? = null,
         val checkoutUrl: String? = null,
         val confirmChange: PendingChange? = null,
@@ -283,6 +284,7 @@ open class StripeCheckoutViewModel(
         _viewState.update {
             it.copy(
                 plan = plan,
+                loadingPlan = false,
                 knownCustomer = knownCustomer,
                 coveredElsewhere = coverage.covered,
                 coveredBy = coverage.source,

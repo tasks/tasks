@@ -68,6 +68,10 @@ class StripePurchases(
         entitlement.provider.first() == EntitlementProvider.STRIPE
 
     override suspend fun coveredElsewhere(): ForeignCoverage {
+        val provider = entitlement.provider.first()
+        if (entitlement.hasPro.first() && provider != null && provider != EntitlementProvider.STRIPE) {
+            return ForeignCoverage(covered = true, source = provider.unlockSource)
+        }
         val account = accountData.getAccountResponse() ?: return ForeignCoverage()
         if (!account.hasForeignCloudSubscription) {
             return ForeignCoverage()

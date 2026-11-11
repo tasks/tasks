@@ -80,6 +80,7 @@ fun cardCheckout(
         busySku = state.busySku,
         currentSku = state.plan?.sku,
         sellsCurrentSku = state.plan?.sellsSameSku == true,
+        loadingPlan = state.loadingPlan,
         suggestedPrice = suggestedPrice,
         knownCustomer = state.knownCustomer,
         coveredElsewhere = state.coveredElsewhere,

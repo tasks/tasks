@@ -162,6 +162,33 @@ class CardPricingTest {
     }
 
     @Test
+    fun theKnownPlanIsNotOfferedWhileTheStoreLooksItUp() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual)),
+                loadingPlan = true,
+                onSelect = {},
+            ),
+            subscribedSku = annual.sku,
+        )
+
+        onNodeWithText("Subscribed").assertIsNotEnabled()
+    }
+
+    @Test
+    fun theStoresAnswerReplacesTheKnownPlan() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual)),
+                onSelect = {},
+            ),
+            subscribedSku = annual.sku,
+        )
+
+        assertShowing("Subscribe for \$29.99/year")
+    }
+
+    @Test
     fun restoreIsOnThePaywallAndNotOnlyAfterAReinstall() = runComposeUiTest {
         var restored = false
         showPaywall(

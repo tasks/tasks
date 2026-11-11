@@ -4,6 +4,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithText
@@ -57,6 +58,22 @@ class NameYourPricePickerTest {
         assertShowing("\$4.99/year")
         assertShowing("\$4.99/month")
         assertEquals(annualOnly, restoreButtonY(), 0f)
+    }
+
+    @Test
+    fun aSupporterIsNotOfferedTheirOwnPriceWhileTheStoreLooksItUp() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(rungs),
+                suggestedPrice = 3,
+                loadingPlan = true,
+                onSelect = {},
+            ),
+            mode = PricingMode.NYP_ONLY,
+            subscribedSku = "annual_03",
+        )
+
+        onNodeWithText("Subscribed").assertIsNotEnabled()
     }
 
     private val ladder = listOf(1, 2, 3, 5, 10, 20).map { dollars ->
