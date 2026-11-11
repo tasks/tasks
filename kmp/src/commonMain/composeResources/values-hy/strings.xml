@@ -132,4 +132,10 @@
     <string name="legal_disclosure_prefix_using">Օգտագործելով Tasks.org-ը</string>
     <string name="tos_updated_title">Մենք թարմացրել ենք մեր օգտագործման պայմանները</string>
     <string name="accept">Ընդունել</string>
+    <string name="drawer_places">Վայրեր</string>
+    <string name="drawer_local_lists">Լոկալ ցուցակներ</string>
+    <string name="works_with_desktop">Tasks.org համակարգչի համար</string>
+    <string name="mcp_access_advanced">Ընդլայնված</string>
+    <string name="mcp_tools_group_lists">Ցուցակներ</string>
+    <string name="mcp_tools_group_places">Վայրեր</string>
 </resources>
