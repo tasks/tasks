@@ -18,6 +18,7 @@ import kotlinx.serialization.json.Json
 import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
 import org.tasks.analytics.Firebase
+import org.tasks.analytics.logCloudOnboarding
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkService
@@ -35,6 +36,8 @@ import org.tasks.billing.PreferencesPlayPurchaseStore
 import org.tasks.billing.QrScanner
 import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StoreSubscriptionProvider
+import org.tasks.billing.maybeTriggerCloudOnboarding
+import org.tasks.data.dao.CaldavDao
 import org.tasks.extensions.wearDataLayerRegistry
 import org.tasks.http.HttpClientFactory
 import org.tasks.jobs.WorkManager
@@ -47,6 +50,7 @@ import org.tasks.location.LocationServiceGooglePlay
 import org.tasks.location.MapFragment
 import org.tasks.location.OsmMapFragment
 import org.tasks.play.PlayServices
+import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.wear.WearRefresher
@@ -65,12 +69,22 @@ class FlavorModule {
         @ApplicationScope scope: CoroutineScope,
         workManager: WorkManager,
         syncAdapters: Lazy<SyncAdapters>,
+        caldavDao: Lazy<CaldavDao>,
+        tasksPreferences: Lazy<TasksPreferences>,
     ): PlayBilling = PlayBillingClient(
         context = context,
         purchases = purchases,
         reporting = firebase,
         scope = scope,
-        onPurchasesAdded = { syncAdapters.get().sync(SyncSource.PURCHASE_COMPLETED) },
+        onPurchasesAdded = { purchased ->
+            maybeTriggerCloudOnboarding(
+                purchased = purchased,
+                caldavDao = caldavDao.get(),
+                tasksPreferences = tasksPreferences.get(),
+                logStep = firebase::logCloudOnboarding,
+            )
+            syncAdapters.get().sync(SyncSource.PURCHASE_COMPLETED)
+        },
         onPurchaseFlowFinished = { workManager.updatePurchases() },
     )
 

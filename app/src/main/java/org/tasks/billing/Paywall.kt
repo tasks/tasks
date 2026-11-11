@@ -59,7 +59,7 @@ fun Paywall(
     val finish = {
         if (!finished) {
             finished = true
-            completion.purchased()
+            completion.updateTasksAccount()
             purchaseFinished()
         }
     }
@@ -69,7 +69,7 @@ fun Paywall(
         if (result.resultCode == RESULT_OK) {
             finish()
         } else {
-            completion.signInFailed()
+            completion.updateTasksAccount()
             result.data
                 ?.getStringExtra(SignInActivity.EXTRA_ERROR)
                 ?.let { context.toast(it) }
