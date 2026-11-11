@@ -173,9 +173,6 @@
     <string name="discard_changes">Buang perubahan?</string>
     <string name="discard">Buang</string>
     <string name="delete">Hapus</string>
-    <plurals name="list_count">
-        <item quantity="other">daftar %1$d</item>
-    </plurals>
     <string name="caldav_server_other">Lainnya</string>
     <string name="caldav_server_type">Tipe server</string>
     <string name="caldav_server_unknown">Tidak diketahui</string>
@@ -187,7 +184,6 @@
     <string name="url_invalid_scheme">Harus diawali dengan http(s)://</string>
     <string name="url_required">URL diperlukan</string>
     <string name="username_required">Nama pengguna diperlukan</string>
-    <string name="etesync_account_description">Membutuhkan akun EteSync.com atau server hosting-mandiri</string>
     <string name="already_subscribed">Sudah berlangganan?</string>
     <string name="sign_in_subtitle">Sudah berlangganan atau diundang sebagai tamu?</string>
     <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>
@@ -262,13 +258,11 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="link_desktop">Tautkan aplikasi desktop</string>
     <string name="link_desktop_description">Buka kunci aplikasi desktop dengan langganan Google Play Anda</string>
-    <string name="link_desktop_instructions">Buka aplikasi desktop Tasks.org lalu masuk ke Tambah Akun untuk melihat kode QR. Kemudian ketuk tombol di bawah untuk memindainya.</string>
     <string name="link_desktop_step_1">Buka aplikasi desktop Tasks.org</string>
     <string name="link_desktop_step_2">Klik '%1$s' lalu pilih '%2$s'</string>
     <string name="link_desktop_step_3">Pilih '%1$s'</string>
     <string name="scan_qr_code">Pindai Kode QR</string>
     <string name="link_desktop_success">Desktop berhasil ditautkan!</string>
-    <string name="link_desktop_error">Gagal menautkan desktop. Silakan coba lagi.</string>
     <string name="unlock_pro_scan_heading">Pindai kode QR di aplikasi Tasks.org Android</string>
     <string name="unlock_pro_step_1">Buka Tasks.org di ponsel Anda</string>
     <string name="unlock_pro_step_2">Ketuk '%1$s', lalu ketuk '%2$s'</string>
@@ -595,7 +589,6 @@
     <string name="mcp_copy">Salin</string>
     <string name="new_filter">Buat filter baru</string>
     <string name="sign_in_with_apple">Masuk dengan Apple</string>
-    <string name="mcp_server_summary">Izinkan asisten AI di komputer ini membaca dan mengelola data Anda</string>
     <string name="mcp_server_enable">Sajikan data Anda melalui MCP</string>
     <string name="mcp_server_enable_summary">Hanya berjalan di komputer ini, pada 127.0.0.1. Tidak ada yang terekspos ke jaringan.</string>
     <string name="mcp_status_running">Berjalan pada port %1$d</string>

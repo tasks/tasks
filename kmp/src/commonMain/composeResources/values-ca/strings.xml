@@ -139,11 +139,6 @@
     <string name="discard_changes">Descarta els canvis?</string>
     <string name="discard">Descarta</string>
     <string name="delete">Esborra</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d llista</item>
-        <item quantity="many">%1$d llistes</item>
-        <item quantity="other">%1$d llistes</item>
-    </plurals>
     <string name="caldav_server_other">Altres</string>
     <string name="caldav_server_type">Tipus de servidor</string>
     <string name="caldav_server_unknown">Desconegut</string>
@@ -155,7 +150,6 @@
     <string name="url_invalid_scheme">Ha de començar amb http(s)://</string>
     <string name="url_required">La URL és necessària</string>
     <string name="username_required">El nom d'usuari és necessari</string>
-    <string name="etesync_account_description">Requereix un compte amb EteSync.com o un servidor allotjat</string>
     <string name="show_advanced_settings">Mostreu la configuració avançada</string>
     <string name="app_settings">Configuració de l'aplicació</string>
     <string name="whats_new">Què hi ha de nou</string>

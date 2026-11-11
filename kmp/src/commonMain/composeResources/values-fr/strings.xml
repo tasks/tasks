@@ -176,19 +176,12 @@
     <string name="discard_changes">Ignorer les modifications ?</string>
     <string name="discard">Ignorer</string>
     <string name="delete">Supprimer</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d liste</item>
-        <item quantity="many">%1$d listes</item>
-        <item quantity="other">%1$d listes</item>
-    </plurals>
     <string name="debug">Débogage</string>
     <string name="failed_to_save_task">Échec de l'enregistrement de la tâche</string>
     <string name="link_desktop">Associer l'application de bureau</string>
     <string name="link_desktop_description">Débloquez l'application de bureau grâce à votre abonnement Google Play</string>
-    <string name="link_desktop_instructions">Ouvrez l'application de bureau Tasks.org et rendez-vous dans « Ajouter un compte » pour afficher le code QR. Appuyez ensuite sur le bouton ci-dessous pour le scanner.</string>
     <string name="scan_qr_code">Scanner le code QR</string>
     <string name="link_desktop_success">Le bureau a été connecté avec succès !</string>
-    <string name="link_desktop_error">Échec de la connexion au bureau. Veuillez réessayer.</string>
     <string name="done">Terminer</string>
     <string name="retry">Réessayer</string>
     <string name="qr_code">Code QR</string>
@@ -206,7 +199,6 @@
     <string name="url_invalid_scheme">Doit commencer par http(s)://</string>
     <string name="url_required">Adresse web requise</string>
     <string name="username_required">Nom d'utilisateur requis</string>
-    <string name="etesync_account_description">Nécessite un compte « EteSync.com » ou un serveur auto-hébergé</string>
     <string name="already_subscribed">Déjà abonné ?</string>
     <string name="sign_in_subtitle">Déjà abonné ou invité ?</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
@@ -675,7 +667,6 @@
     <string name="mcp_tools_group_places">Lieux</string>
     <string name="mcp_tools_group_reminders">Rappels</string>
     <string name="mcp_copy">Copier</string>
-    <string name="mcp_server_summary">Laissez les assistants IA sur cet ordinateur lire et gérer vos données</string>
     <string name="mcp_server_enable">Servez vos données via MCP</string>
     <string name="mcp_server_enable_summary">Fonctionne sur cet ordinateur seulement, à l\'adresse 127.0.0.1. Rien n\'est exposé sur le réseau.</string>
     <string name="mcp_status_running">S\'exécute sur le port %1$d</string>

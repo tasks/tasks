@@ -41,7 +41,6 @@
     <string name="pro_free_trial">නව ග්‍රාහකයින්ට දින 7 ක නොමිලේ අත්හදා බැලීම් කාලයක් ලැබේ. ඕනෑම වේලාවක අවලංගු කරන්න</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
-    <string name="app_passwords_more_info">තෙවන පාර්ශවීය ඩෙස්ක්ටොප් සහ ජංගම යෙදුම් සමඟ ඔබගේ කාර්යයන් සහ දින දර්ශන සමමුහුර්ත කරන්න. වැඩි විස්තර සඳහා මෙහි තට්ටු කරන්න</string>
     <string name="app_password">යෙදුම් මුරපදය</string>
     <string name="save_percent">සුරැකීම %d %%</string>
     <string name="above_average">සාමාන්‍යයට වඩා ඉහළින්</string>
@@ -53,8 +52,6 @@
     <string name="privacy">පෞද්ගලිකත්වය</string>
     <string name="open_source">විවෘත මූලාශ්‍රය</string>
     <string name="support">සහාය</string>
-    <string name="current_subscription">වත්මන් දායකත්වය: %s</string>
-    <string name="no_google_play_subscription">සුදුසුකම් ලත් Google Play දායකත්වයක් හමු නොවීය</string>
     <string name="your_subscription_expired">ඔබගේ දායකත්වය කල් ඉකුත් වී ඇත. සේවාව නැවත ආරම්භ කිරීම සඳහා දැන්ම දායක වන්න.</string>
     <string name="multi_select_reschedule">නැවත සකස් කරන්න</string>
     <string name="backup_location_warning">අවවාදයයි: Tasks අස්ථාපනය කරන විට %s හි ඇති ගොනු මැකෙනු ඇත! ඔබගේ ගොනු Android විසින් මකාදැමීම වැලැක්වීමට කරුණාකර අභිරුචි ස්ථානයක් තෝරන්න.</string>
@@ -286,7 +283,6 @@
     <string name="backup_BAc_export">උපස්ථ කරන්න</string>
     <string name="cancel">අවලංගු කරන්න</string>
     <string name="ok">හරි</string>
-    <string name="choose_synchronization_service">සේවාවක් තෝරන්න</string>
     <string name="collapse_subtasks">උප කාර්යයන් හකුළුවන්න</string>
     <string name="expand_subtasks">උප කාර්යයන් පුළුල් කරන්න</string>
     <string name="invalid_backup_file">වලංගු නොවන උපස්ථ ගොනුවකි</string>
@@ -311,7 +307,6 @@
     <string name="action_create_new_task">නව කාර්යයක් සාදන්න</string>
     <string name="reinitialize_account">නැවත ආරම්භ කරන්න</string>
     <string name="logout">ඉවත් වන්න</string>
-    <string name="refresh_purchases">මිලදී ගැනීම් නැවුම් කරන්න</string>
     <string name="subscription">දායකත්වය</string>
     <string name="help_and_feedback">උදව් සහ ප්‍රතිපෝෂණ</string>
     <string name="help">උදව්</string>

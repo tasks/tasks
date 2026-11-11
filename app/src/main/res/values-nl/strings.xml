@@ -195,7 +195,6 @@
     <string name="badges_description">Toon taken teller bij pictogram van Tasks. Niet alle launchers ondersteunen badges.</string>
     <string name="tasker_create_task">Taak maken</string>
     <string name="tasker_list_notification">Lijst melding</string>
-    <string name="refresh_purchases">Aankopen bijwerken</string>
     <string name="pro_dashclock_extension">Dashclock extensie</string>
     <string name="logout">Uitloggen</string>
     <string name="reinitialize_account">Herinitialiseren</string>
@@ -232,7 +231,6 @@
     <string name="collapse_subtasks">Subtaken inklappen</string>
     <string name="subtasks">Subtaken</string>
     <string name="display_name">Weergavenaam</string>
-    <string name="choose_synchronization_service">Een platform kiezen</string>
     <string name="caldav_selection_description">Synchroniseren op eigen open source CalDAV-server of bij derden</string>
     <string name="etesync_selection_description">End-to-end versleuteld synchroniseren met EteSync</string>
     <string name="show_advanced_settings">Geavanceerde instellingen tonen</string>
@@ -326,7 +324,6 @@
     <string name="always_display_full_date">Volledige datum tonen</string>
     <string name="custom_filter_is_subtask">Is subtaak</string>
     <string name="custom_filter_has_subtask">Heeft subtaken</string>
-    <string name="current_subscription">Huidig abonnement: %s</string>
     <string name="your_subscription_expired">Je abonnement is verlopen. Verleng je abonnement om deze dienst te hervatten.</string>
     <string name="background_location_permission_required">Tasks verzamelt locatiegegevens om locatie-gebaseerde herinneringen mogelijk te maken, zelfs als de app gesloten is of niet gebruikt wordt.</string>
     <string name="authorization_cancelled">Verificatie geannuleerd</string>
@@ -336,12 +333,10 @@
     <string name="migrate_count">Verplaats %s naar Tasks.org</string>
     <string name="migrating_tasks">Migreert taken</string>
     <string name="github_sponsors">GitHub sponsors</string>
-    <string name="no_google_play_subscription">Geen in aanmerking komend Google Play abonnement gevonden</string>
     <string name="save_percent">Bespaar %d%%</string>
     <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
-    <string name="app_passwords_more_info">Synchroniseert taken en kalenders met andere desktop- en mobiele apps. Tik hier voor meer info</string>
     <string name="app_password">App wachtwoord</string>
     <string name="local_lists">Lokale lijsten</string>
     <string name="start_date">Begindatum</string>
@@ -383,8 +378,6 @@
     <string name="customize_drawer">Lade personaliseren</string>
     <string name="show_edit_screen_without_unlock_summary">Laat gebruik van Snelle Bewerkingstegel toe zonder ontgrendeling toestel</string>
     <string name="yesterday">Gisteren</string>
-    <string name="cost_money">Kosten: €</string>
-    <string name="cost_more_money">Kosten: €€€</string>
     <string name="delete_comment">commentaar</string>
     <string name="price_per_month_with_currency">%s per maand</string>
     <string name="enable_alarms_description">Om zeker te zijn dat je meldingen op het juiste moment komen, geef toestemming voor \"Wekkers en herinneringen\" in Instellingen</string>
@@ -410,15 +403,12 @@
     <string name="tos_updated_title">We hebben onze gebruikersvoorwaarden bijgewerkt</string>
     <string name="accept">Accepteren</string>
     <string name="exit">Afsluiten</string>
-    <string name="returning_user">Terugkerende gebruiker?</string>
     <string name="email_to_task_address">Je e-mailadres</string>
     <string name="email_to_task">Taak maken per e-mail</string>
-    <string name="rmd_EPr_rmd_time_desc">Meldingen voor taken zonder tijdsaanduiding worden om %1$s getoond</string>
     <string name="per_list_sort_summary">Instellingen voor sorteren en groeperen voor iedere lijst apart bewaren</string>
     <string name="per_list_sort_title">Sorteren per lijst</string>
     <string name="write_permission_label">Taken wijzigen</string>
     <string name="sort_options">Sortering</string>
-    <string name="location_update_interval_summary">Periodieke locatie-updates verbeteren de betrouwbaarheid van de geofence</string>
     <string name="banner_subscription_required_body">Betaal wat je wilt om de synchronisatie met %s vrij te geven</string>
     <string name="p_per_list_sort">sortering_op_lijst</string>
     <string name="permission_write_tasks">Taken, lijsten, labels en plaatsen toevoegen, wijzigen en verwijderen</string>

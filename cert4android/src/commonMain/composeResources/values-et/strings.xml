@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Sertifikaat on ajutiselt tagasi lükatud</string>
     <string name="trust_certificate_accept">Nõustu</string>
     <string name="trust_certificate_fingerprint_verified">Olen käsitsi kontrollinud kogu sõrmejälge.</string>
     <string name="trust_certificate_fingerprints">Sõrmejäljed</string>

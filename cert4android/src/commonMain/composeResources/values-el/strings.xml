@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Το πιστοποιητικό απορρίφθηκε προσωρινά</string>
     <string name="trust_certificate_accept">Αποδοχή</string>
     <string name="trust_certificate_fingerprint_verified">Έχω πιστοποιήσει χειροκίνητα το δακτυλικό αποτύπωμα.</string>
     <string name="trust_certificate_fingerprints">Αποτυπώματα</string>

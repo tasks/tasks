@@ -58,7 +58,6 @@
     <string name="pro_free_trial">Những người đăng ký mới sẽ nhận khoảng thời gian dùng thử 7 ngày miễn phí. Huỷ vào bất kỳ lúc nào</string>
     <string name="tasks_org_account_required">Yêu cầu tài khoản Tasks.org</string>
     <string name="copied_to_clipboard">Đã sao chép %s vào bộ nhớ tạm</string>
-    <string name="app_passwords_more_info">Đồng bộ hoá các công việc và lịch của bạn bằng các ứng dụng máy tính và di động của bên thứ ba. Nhấn vào đây để xem thêm thông tin</string>
     <string name="app_password">Mật khẩu ứng dụng</string>
     <string name="save_percent">Lưu %d%%</string>
     <string name="above_average">Trên trung bình</string>
@@ -72,8 +71,6 @@
     <string name="privacy">Riêng tư</string>
     <string name="open_source">Mã nguồn mở</string>
     <string name="support">Hỗ trợ</string>
-    <string name="current_subscription">Đăng ký hiện tại: %s</string>
-    <string name="no_google_play_subscription">Không tìm thấy gói đăng ký Google Play đủ điều kiện</string>
     <string name="your_subscription_expired">Đăng ký của bạn đã hết hạn. Đăng ký ngay để tiếp tục dịch vụ.</string>
     <string name="custom_filter_is_subtask">Là công việc con</string>
     <string name="custom_filter_has_subtask">Có công việc con</string>
@@ -150,7 +147,6 @@
     <string name="decsync_selection_description">Đồng bộ hoá dựa trên từng tệp</string>
     <string name="etesync_selection_description">Đồng bộ hoá được mã hoá đầu cuối</string>
     <string name="caldav_selection_description">Đồng bộ hoá dựa trên các tiêu chuẩn internet mở</string>
-    <string name="choose_synchronization_service">Chọn nền tảng</string>
     <string name="collapse_subtasks">Thu gọn các công việc con</string>
     <string name="expand_subtasks">Mở rộng các công việc con</string>
     <string name="invalid_backup_file">Tệp sao lưu không hợp lệ</string>
@@ -178,7 +174,6 @@
     <string name="reinitialize_account">Khởi tạo lại</string>
     <string name="logout">Đăng xuất</string>
     <string name="pro_dashclock_extension">Phần mở rộng Dashclock</string>
-    <string name="refresh_purchases">Làm mới các giao dịch</string>
     <string name="subscription">Đăng ký</string>
     <string name="help_and_feedback">Trợ giúp &amp; phản hồi</string>
     <string name="help">Trợ giúp</string>

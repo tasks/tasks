@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certifikat midlertidigt afvist</string>
     <string name="trust_certificate_accept">Godkend</string>
     <string name="trust_certificate_fingerprint_verified">Jeg har manuelt godkendt hele fingeraftrykket.</string>
     <string name="trust_certificate_fingerprints">Fingeraftryk</string>

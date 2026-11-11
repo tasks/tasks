@@ -206,7 +206,6 @@
     <string name="tasker_create_task">Skapa uppgift</string>
     <string name="tasker_list_notification">Visa avisering</string>
     <string name="help">Hjälp</string>
-    <string name="refresh_purchases">Uppdatera köp</string>
     <string name="pro_dashclock_extension">DashClock-tillägg</string>
     <string name="logout">Logga ut</string>
     <string name="reinitialize_account">Initiera om kontot</string>
@@ -267,7 +266,6 @@
     <string name="upgrade_more_customization">Mer anpassning</string>
     <string name="pro_free_trial">Nya prenumeranter får en kostnadsfri provperiod på sju dagar. Säg upp när som helst.</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
-    <string name="app_passwords_more_info">Synkronisera uppgifter och kalendrar med skrivbords- och mobilappar från tredje part. Tryck här för mer information.</string>
     <string name="app_password">Applösenord</string>
     <string name="save_percent">Spara %d%%</string>
     <string name="above_average">Över genomsnittet</string>
@@ -281,8 +279,6 @@
     <string name="privacy">Integritet</string>
     <string name="open_source">Öppen källkod</string>
     <string name="support">Stöd</string>
-    <string name="current_subscription">Nuvarande prenumeration: %s</string>
-    <string name="no_google_play_subscription">Ingen giltig Google Play-prenumeration hittades</string>
     <string name="your_subscription_expired">Din prenumeration har löpt ut. Prenumerera nu för att återuppta tjänsten.</string>
     <string name="custom_filter_is_subtask">Är en deluppgift</string>
     <string name="custom_filter_has_subtask">Har deluppgifter</string>
@@ -331,7 +327,6 @@
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>
     <string name="caldav_selection_description">Synkronisering baserad på öppna internetstandarder</string>
-    <string name="choose_synchronization_service">Välj synkroniseringstjänst</string>
     <string name="collapse_subtasks">Fäll in deluppgifter</string>
     <string name="expand_subtasks">Fäll ut deluppgifter</string>
     <string name="whats_new">Nyheter</string>
@@ -388,8 +383,6 @@
     <string name="price_per_year_with_currency">%s/år</string>
     <string name="price_per_month_with_currency">%s/månad</string>
     <string name="yesterday">Igår</string>
-    <string name="cost_money">Pris: $</string>
-    <string name="cost_more_money">Pris: $$$</string>
     <string name="multiline_title">Tillåt flerradsrubriker</string>
     <string name="multiline_title_on">Tryck på Retur för att lägga till radbrytningar</string>
     <string name="comment">Kommentar</string>
@@ -412,11 +405,8 @@
     <string name="tos_updated_title">Vi har uppdaterat våra användarvillkor</string>
     <string name="accept">Acceptera</string>
     <string name="exit">Avsluta</string>
-    <string name="returning_user">Har du använt appen tidigare?</string>
-    <string name="location_update_interval_summary">Regelbundna platsuppdateringar förbättrar geofence-funktionens tillförlitlighet</string>
     <string name="email_to_task">E-post till uppgift</string>
     <string name="email_to_task_address">Din e-postadress</string>
-    <string name="rmd_EPr_rmd_time_desc">Aviseringar för heldagsuppgifter visas vid %1$s</string>
     <string name="banner_subscription_required_body">Betala valfritt belopp för att låsa upp synkronisering med %s</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_summary">Kom ihåg sorterings- och grupperingsinställningarna separat för varje lista.</string>

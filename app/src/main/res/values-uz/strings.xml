@@ -82,7 +82,6 @@
     <string name="EPr_manage_delete_all_gcal_message">Vazifalar uchun barcha tadbirlaringizni haqiqatan o\'chirmoqchimisiz?</string>
     <string name="day_after_tomorrow">Indinga</string>
     <string name="next_week">Keyingi hafta</string>
-    <string name="location_update_interval_summary">Joylashuvni vaqti-vaqti bilan yangilash geofens ishonchliligini oshiradi</string>
     <string name="BFE_Active">Mening vazifalarim</string>
     <string name="CFA_button_add">Mezon qo\'shish</string>
     <string name="CFC_dueBefore_text">Qachongacha: ?</string>
@@ -115,7 +114,6 @@
     <string name="ring_five_times">Besh marta jiringlash</string>
     <string name="ring_nonstop">To\'xtovsiz jiringlash</string>
     <string name="snooze_all">Hammasini keyinroqqa qoldirish</string>
-    <string name="rmd_EPr_rmd_time_desc">Kun bo\'yi davom etadigan vazifalar uchun bildirishnomalar %1$s da chiqadi</string>
     <string name="repeat_option_custom">Boshqa…</string>
     <plurals name="task_count">
         <item quantity="one">%d ta vazifa</item>
@@ -240,7 +238,6 @@
     <string name="help">Yordam</string>
     <string name="help_and_feedback">Yordam va fikr-mulohazalar</string>
     <string name="subscription">Obuna</string>
-    <string name="refresh_purchases">Xaridorlarni yangilash (Xaridlar tarixini yangilash)</string>
     <string name="back_button_saves_task">Orqaga qaytish tugmasi vazifani saqlaydi</string>
     <string name="show_edit_screen_without_unlock">Qulfni ochmasdan tahrirlash ekranini ko‘rsat</string>
     <string name="show_edit_screen_without_unlock_summary">Qurilma qulfini ochmasdan Tezkor sozlamalar plitasidan foydalanish imkonini beradi</string>
@@ -285,7 +282,6 @@
     <string name="invalid_backup_file">Zaxira nusxasi fayli yaroqsiz</string>
     <string name="expand_subtasks">Ichki vazifalarni yoyish</string>
     <string name="collapse_subtasks">Ichki vazifalarni yig‘ish</string>
-    <string name="choose_synchronization_service">Platformani tanlang</string>
     <string name="caldav_selection_description">Ochiq internet standartlariga asoslangan sinxronlash</string>
     <string name="etesync_selection_description">Oxiridan oxirigacha shifrlangan sinxronlash</string>
     <string name="decsync_selection_description">Fayllarga asoslangan sinxronlash</string>
@@ -342,12 +338,10 @@
     <string name="custom_filter_is_subtask">Ichki vazifa</string>
     <string name="custom_filter_has_reminder">Eslatmasi bor</string>
     <string name="your_subscription_expired">Obunangiz muddati tugadi. Xizmatdan foydalanishni davom ettirish uchun hozir obuna bo‘ling.</string>
-    <string name="no_google_play_subscription">Google Play orqali rasmiylashtirilgan mos obuna topilmadi</string>
     <string name="subscription_required_fdroid">Tasks.org sinxronizatsiyasidan foydalanish uchun obuna talab qilinadi. Obuna Tasks ilovasining Google Play versiyasidan rasmiylashtirilishi kerak.</string>
     <string name="sponsorship_required_fdroid">Tasks.org sinxronizatsiyasidan foydalanish uchun GitHub homiyligi talab qilinadi. Homiy bo‘lish uchun pastga bosing.</string>
     <string name="price_per_month_with_currency">%s/oy</string>
     <string name="price_per_year_with_currency">%s/yil</string>
-    <string name="current_subscription">Joriy obuna: %s</string>
     <string name="support">Qoʻllab-quvvatlash</string>
     <string name="open_source">Ochiq kodli</string>
     <string name="privacy">Maxfiylik</string>
@@ -390,7 +384,6 @@
     <string name="sort_created_group">%s yaratildi</string>
     <string name="sort_modified_group">%s o‘zgartirildi</string>
     <string name="sort_completion_group">Bajarilish: %s</string>
-    <string name="app_passwords_more_info">Vazifalaringiz va taqvimlaringizni uchinchi tomonning kompyuter va mobil ilovalari bilan sinxronlang. Batafsil ma’lumot olish uchun shu yerni bosing</string>
     <string name="copied_to_clipboard">%s buferga nusxalandi</string>
     <string name="email_to_task">Vazifaga aylantirish uchun e-pochta</string>
     <string name="email_to_task_address">E-pochta manzilingiz</string>
@@ -419,9 +412,6 @@
     <string name="legal_disclosure_prefix_using">Tasks.org’dan foydalanish orqali</string>
     <string name="accept">Qabul qilish</string>
     <string name="exit">Chiqish</string>
-    <string name="returning_user">Avvaldan foydalanib kelayotgan foydalanuvchimisiz?</string>
-    <string name="cost_money">Narxi: $</string>
-    <string name="cost_more_money">Narxi: $$$</string>
     <string name="multiline_title">Ko‘p qatorli sarlavhalarga ruxsat berish</string>
     <string name="multiline_title_on">Qator tashlash uchun Enter tugmasini bosing</string>
     <string name="multiline_title_off">Vazifani saqlash uchun «Tayyor» tugmasini bosing</string>

@@ -208,7 +208,6 @@
     <string name="tasker_create_task">Sortu zeregina</string>
     <string name="tasker_list_notification">Zerrenda-jakinarazpena</string>
     <string name="help">Laguntza</string>
-    <string name="refresh_purchases">Freskatu erosketak</string>
     <string name="pro_dashclock_extension">Dashclock luzapena</string>
     <string name="logout">Amaitu saioa</string>
     <string name="reinitialize_account">Berrhasi</string>
@@ -237,7 +236,6 @@
     <string name="collapse_subtasks">Tolestu azpi-zereginak</string>
     <string name="subtasks">Azpi-zereginak</string>
     <string name="display_name">Erakutsi izena</string>
-    <string name="choose_synchronization_service">Hautatu plataforma</string>
     <string name="caldav_selection_description">Internet estandar irekietan oinarritutako sinkronizazioa</string>
     <string name="etesync_selection_description">Muturretik-muturrera zifratutako sinkronizazioa</string>
     <string name="show_advanced_settings">Erakutsi ezarpen aurreratuak</string>
@@ -312,7 +310,6 @@
     <string name="permission_read_tasks">Tasks datu-basera sarbide osoa</string>
     <string name="sign_in_with_google">Hasi saioa Google-n</string>
     <string name="authorization_cancelled">Autorizazioa ezeztatuta</string>
-    <string name="current_subscription">Uneko harpidetza: %s</string>
     <string name="your_subscription_expired">Zure harpidetza agortu da. Harpidetu orain zerbitzua berrekiteko.</string>
     <string name="custom_filter_is_subtask">Azpizeregina da</string>
     <string name="custom_filter_has_subtask">Azpizereginak dauzka</string>
@@ -339,14 +336,12 @@
     <string name="github_sponsor">Babeslea</string>
     <string name="github_sponsors">GitHub babesleak</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
-    <string name="app_passwords_more_info">Sinkronizatu zure zeregin eta egutegiak hirugarrengoen mahaigaineko zein mugikorrerako aplikazioekin. Sakatu hemen gehiago jakiteko</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
     <string name="save_percent">Aurreztu %% %d</string>
     <string name="above_average">Batezbestekotik gora</string>
     <string name="migrate_count">Eraman %s Tasks.org gunera</string>
     <string name="migrating_tasks">Zereginak migratzen</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
-    <string name="no_google_play_subscription">Ez da Google Play harpidetza egokirik aurkitu</string>
     <string name="local_lists">Zerrenda lokalak</string>
     <string name="decsync_selection_description">Fitxategietan oinarritutako sinkronizazioa</string>
     <string name="subscription">Harpidetza</string>

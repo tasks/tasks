@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certificado rechazado temporalmente</string>
     <string name="trust_certificate_accept">Aceptar</string>
     <string name="trust_certificate_fingerprint_verified">He verificado manualmente la huella entera.</string>
     <string name="trust_certificate_fingerprints">Huellas</string>

@@ -232,7 +232,6 @@
     <string name="whats_new">Шта је ново</string>
     <string name="invalid_backup_file">Невалидна датотека резерве</string>
     <string name="expand_subtasks">Прошири подзадатке</string>
-    <string name="choose_synchronization_service">Одабери платформу</string>
     <string name="etesync_selection_description">End-to-end енкриптована синхронизација</string>
     <string name="decsync_selection_description">Синхронизација базирана на датотеци</string>
     <string name="davx5_selection_description">Синхронизуј своје задатке са DAVx⁵ апликацијом</string>
@@ -299,7 +298,6 @@
     <string name="list_separator_with_space">", "</string>
     <string name="badges_description">Прикажи број задатака на иконици за покретање. Неки покретачи не подржавају беџеве.</string>
     <string name="tasker_list_notification">Обавештење листе</string>
-    <string name="refresh_purchases">Освежи уплате</string>
     <string name="pro_dashclock_extension">Екстензија ,,Dashclock\'\'</string>
     <string name="location_remind_arrival">Подсети при доласку</string>
     <string name="location_remind_departure">Подсети при одласку</string>
@@ -365,10 +363,8 @@
     <string name="custom_filter_is_subtask">Јесте подзадатак</string>
     <string name="custom_filter_has_reminder">Садржи подсетник</string>
     <string name="your_subscription_expired">Претплата је истекла. Претплати се поново за наставак сервиса.</string>
-    <string name="no_google_play_subscription">Није пронађено одговарајуће спонзорство за ,,Google Play\'\'</string>
     <string name="price_per_month_with_currency">%s/месечно</string>
     <string name="price_per_year_with_currency">%s/годишње</string>
-    <string name="current_subscription">Тренутна претплата: %s</string>
     <string name="support">Подршка</string>
     <string name="open_source">Кôд отвореног типа</string>
     <string name="privacy">Приватност</string>
@@ -382,7 +378,6 @@
     <string name="above_average">Изнад просека</string>
     <string name="save_percent">Усними %d%%</string>
     <string name="app_password">Шифра апликације</string>
-    <string name="app_passwords_more_info">Синхронизуј задатке и календар са десктоп и мобилним апликацијама треће стране. Тапни овде за додатне информације</string>
     <string name="copied_to_clipboard">%s копирано у привремену меморију</string>
     <string name="tasks_org_account_required">Неопходан налог на Tasks.org</string>
     <string name="pro_free_trial">Нови претплатници добијају 7-дневно бесплатно коришћење. Може се отказати у било ком тренутку</string>
@@ -398,8 +393,6 @@
     <string name="hint_customize_edit_body">Персонализуј овај екран премештањем или брисањем поља</string>
     <string name="enable_alarms">Обавести ме у право време</string>
     <string name="enable_alarms_description">За могућност обавештења у право време, дозволи подешавања аларма и подсетника у подешавањима уређаја</string>
-    <string name="cost_money">Цена: $</string>
-    <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title">Омогући називе у више редова</string>
     <string name="multiline_title_on">Притисни Ентер за додавање размака између редова</string>
     <string name="multiline_title_off">Притисни ,,Готово\'\' за чување задатка</string>
@@ -414,7 +407,6 @@
     <string name="banner_subscription_required_body">Плати колико желиш за откључавање %s синхронизације</string>
     <string name="import_failed_message">Неуспело читање резервног фајла</string>
     <string name="import_failed">Увоз није успео</string>
-    <string name="returning_user">Поновни корисник?</string>
     <string name="exit">Излаз</string>
     <string name="accept">Прихвати</string>
     <string name="tos_updated_title">Ажурирали смо услове коришћења</string>
@@ -433,7 +425,6 @@
     <string name="upgrade_friends_and_family_description">5 бесплатних гостију на заједничкој листи. Ради и са Apple Подсетником</string>
     <string name="read_more">Сазнај више</string>
     <string name="sort_options">Опције сортирања</string>
-    <string name="rmd_EPr_rmd_time_desc">Обавештења за целодневне задатке ће се појавити у%1$s</string>
     <string name="p_per_list_sort">Сортирање по листи</string>
     <string name="per_list_sort_title">Сортирање листе</string>
     <string name="write_permission_label">Модификуј задатке</string>

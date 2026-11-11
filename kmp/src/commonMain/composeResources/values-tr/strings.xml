@@ -172,10 +172,6 @@
     <string name="discard_changes">Değişiklikleri gözden çıkar?</string>
     <string name="discard">Gözden çıkar</string>
     <string name="delete">Sil</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d liste</item>
-        <item quantity="other">%1$d liste</item>
-    </plurals>
     <string name="failed_to_save_task">Görev kaydedilemedi</string>
     <string name="show_more">Daha çok göster</string>
     <string name="show_less">Daha az göster</string>
@@ -183,10 +179,8 @@
     <string name="debug">Hata ayıkla</string>
     <string name="link_desktop">Masaüstü uygulamasını bağla</string>
     <string name="link_desktop_description">Google Play aboneliğinizle masaüstü uygulamasının kilidini açın</string>
-    <string name="link_desktop_instructions">Tasks.org masaüstü uygulamasını açın ve QR kodunu görmek için "Hesap Ekle" seçeneğine gidin. Ardından, kodu taramak için aşağıdaki düğmeye dokunun.</string>
     <string name="scan_qr_code">QR Kodunu Tara</string>
     <string name="link_desktop_success">Masaüstü başarıyla bağlandı!</string>
-    <string name="link_desktop_error">Masaüstü bağlanamadı. Lütfen yeniden deneyin.</string>
     <string name="done">Bitti</string>
     <string name="retry">Yeniden Dene</string>
     <string name="qr_code">QR Kodu</string>
@@ -204,7 +198,6 @@
     <string name="url_invalid_scheme">http(s):// ile başlamalı</string>
     <string name="url_required">URL gerekli</string>
     <string name="username_required">Kullanıcı adı gerekli</string>
-    <string name="etesync_account_description">EteSync.com hesabı veya kendi kendine barındırılan sunucu gerektirir</string>
     <string name="already_subscribed">Halihazırda abone misiniz?</string>
     <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
@@ -655,7 +648,6 @@
     <string name="mcp_tools_group_places">Yerler</string>
     <string name="mcp_tools_group_reminders">Anımsatıcılar</string>
     <string name="mcp_copy">Kopyala</string>
-    <string name="mcp_server_summary">Bu bilgisayardaki yapay zeka yardımcısı verilerinizi okusun ve yönetsin</string>
     <string name="mcp_server_enable">Verilerinizi MCP üzerinden sunun</string>
     <string name="mcp_server_enable_summary">Yalnızca bu bilgisayarda, 127.0.0.1 adresinde çalışır. Ağa açık hiçbir şey yoktur.</string>
     <string name="mcp_status_running">%1$d bağlantı noktasında çalışıyor</string>

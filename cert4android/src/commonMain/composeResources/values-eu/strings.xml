@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Ziurtagiria aldi baterako baztertuta</string>
     <string name="trust_certificate_accept">Onartu</string>
     <string name="trust_certificate_fingerprint_verified">Hatz-marka osoa eskuz egiaztatu dut.</string>
     <string name="trust_certificate_fingerprints">Hatz-markak</string>

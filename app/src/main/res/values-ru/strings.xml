@@ -209,7 +209,6 @@
     <string name="tasker_create_task">Создать задачу</string>
     <string name="tasker_list_notification">Список уведомлений</string>
     <string name="help">Помощь</string>
-    <string name="refresh_purchases">Обновить покупки</string>
     <string name="pro_dashclock_extension">Расширение для Dashclock</string>
     <string name="logout">Отключиться</string>
     <string name="reinitialize_account">Инициализировать заново</string>
@@ -240,7 +239,6 @@
     <string name="expand_subtasks">Развернуть подзадачи</string>
     <string name="collapse_subtasks">Свернуть подзадачи</string>
     <string name="display_name">Отображаемое название</string>
-    <string name="choose_synchronization_service">Выберите платформу</string>
     <string name="caldav_selection_description">Синхронизация, основанная на открытых стандартах</string>
     <string name="etesync_selection_description">Синхронизация с использованием сквозного шифрования</string>
     <string name="show_advanced_settings">Показать расширенные настройки</string>
@@ -334,7 +332,6 @@
     <string name="cancel">Отмена</string>
     <string name="ok">ОК</string>
     <string name="multi_select_reschedule">Перенести</string>
-    <string name="current_subscription">Текущая подписка: %s</string>
     <string name="your_subscription_expired">Срок действия вашей подписки истек. Подпишитесь сейчас, чтобы возобновить обслуживание.</string>
     <string name="background_location_permission_required">Tasks собирает данные геолокации, чтобы активировать напоминания на основе местоположения, даже когда приложение закрыто или не используется.</string>
     <string name="migrate_count">Переместить %s на Tasks.org</string>
@@ -344,12 +341,10 @@
     <string name="sign_in_with_google">Войти через Google</string>
     <string name="github_sponsors">Спонсоры GitHub</string>
     <string name="authorization_cancelled">Авторизация отменена</string>
-    <string name="no_google_play_subscription">Подходящей подписки Google Play не найдено</string>
     <string name="above_average">Выше среднего</string>
     <string name="save_percent">Сохранить %d%%</string>
     <string name="decsync_selection_description">Синхронизация с использованием локального файла</string>
     <string name="copied_to_clipboard">%s скопировано в буфер обмена</string>
-    <string name="app_passwords_more_info">Синхронизируйте свои задачи и календари со сторонними настольными и мобильными приложениями. Нажмите здесь, чтобы узнать больше</string>
     <string name="app_password">Пароль приложения</string>
     <string name="local_lists">Локальные списки</string>
     <string name="start_date">Дата начала</string>
@@ -398,8 +393,6 @@
     <string name="button_learn_more">Узнать больше</string>
     <string name="enable_alarms">Получайте напоминания вовремя</string>
     <string name="enable_alarms_description">Чтобы получать оповещения в нужное время, разрешите приложению устанавливать будильники и напоминания в Настройках</string>
-    <string name="cost_money">Цена: $</string>
-    <string name="cost_more_money">Цена: $$$</string>
     <string name="multiline_title_on">Нажмите Enter чтобы перейти на новую строку</string>
     <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
     <string name="theme_dynamic">Динамическая</string>
@@ -414,8 +407,6 @@
     <string name="widget_view_more_tasks">Просмотреть больше задач</string>
     <string name="import_failed">Не удалось импортировать</string>
     <string name="import_failed_message">Не удалось прочитать файл резервной копии</string>
-    <string name="location_update_interval_summary">Периодическое обновление местоположения повышает надёжность геозон</string>
-    <string name="rmd_EPr_rmd_time_desc">Уведомления для задач на весь день появятся в %1$s</string>
     <string name="sort_options">Параметры сортировки</string>
     <string name="banner_subscription_required_body">Заплатите любую сумму, чтобы разблокировать синхронизацию %s</string>
     <string name="subscription_required_fdroid">Для использования синхронизации Tasks.org требуется подписка. Оформить подписку можно только через версию Tasks в Google Play.</string>
@@ -432,7 +423,6 @@
     <string name="email_to_task">Создать задачу через Email</string>
     <string name="upgrade_friends_and_family_description">До 5 бесплатных участников в общих списках. Интеграция с Напоминаниями Apple</string>
     <string name="upgrade_email_to_task_description">Создавайте задачи из электронных писем, пересылая их на ваш личный почтовый ящик</string>
-    <string name="returning_user">Уже пользовались приложением ранее?</string>
     <string name="upgrade_friends_and_family">Друзья и Семья</string>
     <string name="advanced_tools">Продвинутые инструменты</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, и не только!</string>

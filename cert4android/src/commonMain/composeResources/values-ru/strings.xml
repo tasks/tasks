@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Сертификат временно отклонен</string>
     <string name="trust_certificate_accept">Принять</string>
     <string name="trust_certificate_fingerprint_verified">Я вручную сверил корректность отпечатка.</string>
     <string name="trust_certificate_fingerprints">Отпечатки</string>

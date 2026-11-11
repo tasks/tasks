@@ -173,18 +173,13 @@
     <string name="discard_changes">変更を破棄しますか？</string>
     <string name="discard">破棄</string>
     <string name="delete">削除</string>
-    <plurals name="list_count">
-        <item quantity="other">リスト %1$d 件</item>
-    </plurals>
     <string name="failed_to_save_task">タスクを保存できませんでした</string>
     <string name="supporter_summary_no_price">ありがとうございます！</string>
     <string name="debug">デバッグ</string>
     <string name="link_desktop">デスクトップアプリと接続</string>
     <string name="link_desktop_description">デスクトップアプリをGoogle Playサブスクリプションで使用可能にする</string>
-    <string name="link_desktop_instructions">Tasks.orgデスクトップアプリのアカウント追加を開いてQRコードを表示します。次に下のボタンを押してコードを読み取ります。</string>
     <string name="scan_qr_code">QRコード読み取り</string>
     <string name="link_desktop_success">デスクトップアプリと接続できました！</string>
-    <string name="link_desktop_error">デスクトップアプリとの接続ができませんでした。もう一度お試しください。</string>
     <string name="done">完了</string>
     <string name="retry">再試行</string>
     <string name="qr_code">QRコード</string>
@@ -202,7 +197,6 @@
     <string name="url_invalid_scheme">http(s):// で始める必要があります</string>
     <string name="url_required">URL が必要です</string>
     <string name="username_required">ユーザー名が必要です</string>
-    <string name="etesync_account_description">EteSync.com またはセルフホストサーバーのアカウントが必要です</string>
     <string name="already_subscribed">すでにサブスクリプションを購入していますか？</string>
     <string name="sign_in_subtitle">すでに購読しているか、招待されたゲストですか？</string>
     <string name="show_advanced_settings">詳細な設定を表示</string>
@@ -565,7 +559,6 @@
     <string name="new_filter">新しいフィルターを作成</string>
     <string name="sign_in_with_apple">Appleでサインイン</string>
     <string name="show_completed_subtasks">完了したサブタスクを表示</string>
-    <string name="mcp_server_summary">この端末のAIアシスタントにあなたのデータを管理させる</string>
     <string name="mcp_server_enable_summary">127.0.0.1 にある、この端末でのみ実行します。 ネットワークには公開されません。</string>
     <string name="mcp_status_running">ポート %1$dで実行中</string>
     <string name="mcp_status_starting">開始中…</string>

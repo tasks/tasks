@@ -200,7 +200,6 @@
     <string name="tasker_create_task">Görev oluştur</string>
     <string name="tasker_list_notification">Bildirimi listele</string>
     <string name="help">Yardım</string>
-    <string name="refresh_purchases">Satın alımları yenile</string>
     <string name="pro_dashclock_extension">Dashclock eklentisi</string>
     <string name="logout">Oturumu kapat</string>
     <string name="reinitialize_account">Yeniden başlat</string>
@@ -232,7 +231,6 @@
     <string name="collapse_subtasks">Alt görevleri gizle</string>
     <string name="subtasks">Alt görevler</string>
     <string name="display_name">Gösterim adı</string>
-    <string name="choose_synchronization_service">Platform seç</string>
     <string name="caldav_selection_description">Açık internet standartlarında eşzamanlama</string>
     <string name="etesync_selection_description">Uçtan uca şifreli eşzamanlama</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
@@ -327,7 +325,6 @@
     <string name="custom_filter_is_subtask">Alt görev</string>
     <string name="custom_filter_has_subtask">Alt görevleri olan</string>
     <string name="background_location_permission_required">Tasks, kapalıyken veya kullanılmazken de konuma dayalı anımsatmaları etkinleştirmek için konum verisi toplar.</string>
-    <string name="current_subscription">Geçerli abonelik: %s</string>
     <string name="your_subscription_expired">Aboneliğinizin süresi doldu. Hizmeti sürdürmek için şimdi abone olun.</string>
     <string name="authorization_cancelled">Yetkilendirme iptal edildi</string>
     <string name="sign_in_with_google">Google ile oturum aç</string>
@@ -336,12 +333,10 @@
     <string name="migrate_count">%s taneyi Tasks.org\'a taşı</string>
     <string name="migrating_tasks">Görevler göç ediliyor</string>
     <string name="github_sponsors">GitHub Sponsorları</string>
-    <string name="no_google_play_subscription">Uygun Google Play aboneliği bulunamadı</string>
     <string name="save_percent">%%%d tasarruf</string>
     <string name="above_average">Ortalamanın üstü</string>
     <string name="decsync_selection_description">Dosya tabanlı eşzamanlama</string>
     <string name="copied_to_clipboard">%s panoya kopyalandı</string>
-    <string name="app_passwords_more_info">Görevlerinizi ve takvimlerinizi üçüncü taraf masaüstü ve mobil uygulamalarla eşzamanlayın. Daha çok bilgi için dokun</string>
     <string name="app_password">Uygulama parolası</string>
     <string name="local_lists">Yerel listeler</string>
     <string name="start_date">Başlangıç tarihi</string>
@@ -383,7 +378,6 @@
     <string name="donate_maybe_later">Belki daha sonra</string>
     <string name="donate_nag">Desteğinizi bağış yaparak göstermeyi düşünün!</string>
     <string name="comment">Yorum</string>
-    <string name="cost_money">Ücret: $</string>
     <string name="delete_comment">yorum</string>
     <string name="yesterday">Dün</string>
     <string name="sync_warning_microsoft_title">Microsoft To Do eşzamanlayıcı hakkında</string>
@@ -395,7 +389,6 @@
     <string name="price_per_year_with_currency">%s/yıl</string>
     <string name="enable_alarms">Doğru zamanda bildirim al</string>
     <string name="enable_alarms_description">Doğru zamanda bildirim aldığınızdan emin olmak için, alarm ve anımsatıcı kurmak için Ayarlar\'da izin verin</string>
-    <string name="cost_more_money">Ücret: $$$</string>
     <string name="multiline_title">Çok satırlı başlıklara izin ver</string>
     <string name="multiline_title_on">Satır eklemek için Enter tuşuna bas</string>
     <string name="app_settings">Uygulama ayarları</string>
@@ -410,7 +403,6 @@
     <string name="tos_updated_title">Hizmet Koşullarımızı güncelledik</string>
     <string name="accept">Onayla</string>
     <string name="exit">Çık</string>
-    <string name="returning_user">Geri gelen kullanıcı mısınız?</string>
     <string name="import_failed">İçe aktarma başarısız</string>
     <string name="import_failed_message">Yedek dosyası okunamadı</string>
     <string name="banner_subscription_required_body">%s eşzamanlama kilidini açmak için dilediğinizi ödeyin</string>
@@ -419,13 +411,11 @@
     <string name="upgrade_email_to_task_description">E-postaları özel gelen kutunuza yönlendirerek göreve çevirin</string>
     <string name="advanced_tools">Gelişmiş araçlar</string>
     <string name="advanced_tools_description">Google Yerler, CalDAV, EteSync ve dahası!</string>
-    <string name="rmd_EPr_rmd_time_desc">Tüm gün görevleri için bildirimlerin görüneceği an: %1$s</string>
     <string name="guest_create_list_message">Bu paylaşılan listeye konuk erişiminiz var. Kendi özel listelerinizi oluşturmak ve buluta eşzamanlamak için Tasks.org aboneliğine gereksineceksiniz. Ya da bu aygıtta kalacak ücretsiz yerel liste oluştuabilirsiniz.</string>
     <string name="upgrade_friends_and_family">Arkadaşlar &amp; Aile</string>
     <string name="upgrade_friends_and_family_description">Paylaşılan listelerde 5 ücretsiz konuk. Apple Anımsatıcılar ile çalışır</string>
     <string name="per_list_sort_title">Liste başına sıralama</string>
     <string name="per_list_sort_summary">Her liste için sıra ve küme ayarlarını ayrı ayrı anımsa</string>
-    <string name="location_update_interval_summary">Dönemsel konum güncellemeleri coğrafi sınır güvenirliğini iyileştirir</string>
     <string name="read_more">Daha çoğunu oku</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="upgrade_desktop_app">Masaüstü için Tasks.org</string>

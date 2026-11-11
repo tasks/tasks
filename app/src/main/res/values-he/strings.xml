@@ -210,7 +210,6 @@
     <string name="tasker_create_task">יצירת משימה</string>
     <string name="tasker_list_notification">התראת רשימה</string>
     <string name="help">עזרה</string>
-    <string name="refresh_purchases">ריענון רכישות</string>
     <string name="pro_dashclock_extension">הרחבת Dashclock</string>
     <string name="logout">התנתקות</string>
     <string name="reinitialize_account">אתחול מחדש</string>
@@ -278,7 +277,6 @@
     <string name="show_advanced_settings">הצגת הגדרות מתקדמות</string>
     <string name="etesync_selection_description">סנכרון מוצפן מקצה־לקצה</string>
     <string name="caldav_selection_description">סנכרון מבוסס על תקני אינטרנט פתוחים</string>
-    <string name="choose_synchronization_service">בחירת פלטפורמה</string>
     <string name="theme_system_default">ברירת מחדל של המערכת</string>
     <string name="opacity_footer">אטימות כותרת תחתונה</string>
     <string name="opacity_header">אטימות כותרת עליונה</string>
@@ -332,14 +330,12 @@
     <string name="cancel">ביטול</string>
     <string name="ok">אישור</string>
     <string name="background_location_permission_required">היישום Tasks אוסף נתוני מיקום כדי לאפשר תזכורות מבוססות מיקום, אפילו כאשר היישום סגור או לא בשימוש.</string>
-    <string name="current_subscription">מינוי נוכחי: %s</string>
     <string name="your_subscription_expired">תוקף המינוי שלך פג. יש להירשם למינוי כעת כדי להמשיך את השירות.</string>
     <string name="custom_filter_is_subtask">היא תת־משימה</string>
     <string name="custom_filter_has_subtask">יש תתי־משימות</string>
     <string name="always_display_full_date">הצגת תאריך מלא</string>
     <string name="migrating_tasks">העברת משימות</string>
     <string name="copied_to_clipboard">%s העותק ללוח</string>
-    <string name="app_passwords_more_info">סנכרון של המשימות והיומנים שלך עם יישומי צד שלישי לשולחן העבודה ולנייד. יש להקיש כאן למידע נוסף</string>
     <string name="app_password">סיסמת יישום</string>
     <string name="save_percent">חיסכון של %d%%</string>
     <string name="above_average">מעל הממוצע</string>
@@ -349,7 +345,6 @@
     <string name="sign_in_with_google">להיכנס באמצעות Google</string>
     <string name="github_sponsors">נותני חסות GitHub</string>
     <string name="authorization_cancelled">הרשאה בוטלה</string>
-    <string name="no_google_play_subscription">לא נמצא מינוי Google Play זכאי</string>
     <string name="local_lists">רשימות מקומיות</string>
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
     <string name="start_date">תאריך התחלה</string>
@@ -387,7 +382,6 @@
     <string name="completed">הושלמו</string>
     <string name="banner_app_updated_title">היישום עודכן</string>
     <string name="enable_alarms">קבלת הודעה בזמן הנכון</string>
-    <string name="cost_more_money">עלות: $$$</string>
     <string name="sync_warning_microsoft">לא כל פרטי המשימה מסתנכרנים עם Microsoft To Do.</string>
     <string name="sort_completion_group">השלמה %s</string>
     <string name="custom_filter_has_reminder">יש תזכורת</string>
@@ -408,13 +402,11 @@
     <string name="theme_dynamic">דינמי</string>
     <string name="donate_today">לתרום היום</string>
     <string name="donate_maybe_later">אולי מאוחר יותר</string>
-    <string name="cost_money">עלות: $</string>
     <string name="comment">הערה</string>
     <string name="delete_tasks_warning">%s יימחק. לא ניתן לבטל זאת!</string>
     <string name="widget_view_more_tasks">הצג עוד משימות</string>
     <string name="import_failed">הייבוא נכשל</string>
     <string name="import_failed_message">לא היה ניתן לקרוא קובץ גיבוי</string>
-    <string name="rmd_EPr_rmd_time_desc">התראות עבור משימות של יום שלם יופיעו ב־%1$s</string>
     <string name="banner_subscription_required_body">שלם כפי רצונך כדי לפתוח סנכרון %s</string>
     <string name="subscription_required_fdroid">נדרש מינוי כדי להשתמש בסנכרון Tasks.org. מינויים מוכרחים להיות מותחלים מגרסת ה־Google Play של Tasks.</string>
     <string name="sponsorship_required_fdroid">נדרשת חסות GitHub כדי להשתמש בסנכרון Tasks.org. יש ללחוץ למטה כדי לתת חסות.</string>
@@ -430,8 +422,6 @@
     <string name="tos_updated_title">עדכנו את תנאי השירות שלנו</string>
     <string name="accept">הסכמה</string>
     <string name="exit">יציאה</string>
-    <string name="returning_user">משתמש/ת חוזר/ת?</string>
-    <string name="location_update_interval_summary">עדכוני מיקום תקופתיים משפרים את אמינות Geofence</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">מיון לפי רשימה</string>
     <string name="per_list_sort_summary">זכור הגדרות מיון וקיבוץ עבור כל רשימה בנפרד</string>

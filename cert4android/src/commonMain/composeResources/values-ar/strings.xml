@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">تم رفض الشهادة مؤقتًا</string>
     <string name="trust_certificate_accept">موافقة</string>
     <string name="trust_certificate_fingerprint_verified">لقد تحقّقتُ يدويًّا من البصمة بالكامل.</string>
     <string name="trust_certificate_fingerprints">البصمات</string>

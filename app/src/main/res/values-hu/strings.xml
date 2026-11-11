@@ -201,7 +201,6 @@
     <string name="tasker_create_task">Feladat létrehozása</string>
     <string name="tasker_list_notification">Lista értesítés</string>
     <string name="help">Súgó</string>
-    <string name="refresh_purchases">Vásárlások frissítése</string>
     <string name="pro_dashclock_extension">Dashclock kiterjesztés</string>
     <string name="logout">Kijelentkezés</string>
     <string name="reinitialize_account">Újrainicializálás</string>
@@ -232,7 +231,6 @@
     <string name="collapse_subtasks">Részfeladatok összecsukása</string>
     <string name="subtasks">Részfeladatok</string>
     <string name="display_name">Megjelenített név</string>
-    <string name="choose_synchronization_service">Platform választása</string>
     <string name="caldav_selection_description">Nyílt Internetes szabványon alapuló szinkronizáció</string>
     <string name="etesync_selection_description">Végponttól végpontig titkosított szinkronizáció</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
@@ -322,7 +320,6 @@
     <string name="header_spacing">Szóköz</string>
     <string name="multi_select_reschedule">Újraütemezés</string>
     <string name="always_display_full_date">Teljes dátum mutatása</string>
-    <string name="current_subscription">Jelenlegi előfizetés: %s</string>
     <string name="your_subscription_expired">Az előfizetés lejárt. Fizessen elő most a szolgáltatás folytatásához.</string>
     <string name="custom_filter_is_subtask">Alfeladat</string>
     <string name="custom_filter_has_subtask">Van alfeladata</string>
@@ -336,13 +333,11 @@
     <string name="migrate_count">%s mozgatása a Tasks.org-ra</string>
     <string name="migrating_tasks">Feladatok migrálása</string>
     <string name="github_sponsors">GitHub szponzorok</string>
-    <string name="no_google_play_subscription">Nem található Google Play előfizetés</string>
     <string name="save_percent">Mentés %d%%</string>
     <string name="above_average">Átlag felett</string>
     <string name="decsync_selection_description">Fájl alapú szinkronizálás</string>
     <string name="app_password">Alkalmazás jelszó</string>
     <string name="copied_to_clipboard">%s a vágólapra másolva</string>
-    <string name="app_passwords_more_info">Feladatok és naptárak szinkronizálása harmadik féltől származó asztali és mobil alkalmazásokkal. Részletes információért kattintson ide</string>
     <string name="local_lists">Helyi listák</string>
     <string name="start_date">Kezdő dátum</string>
     <string name="subscription">Előfizetés</string>
@@ -384,8 +379,6 @@
     <string name="show_edit_screen_without_unlock">A szerkesztőképernyő megjelenítése feloldás nélkül</string>
     <string name="theme_dynamic">Dinamikus</string>
     <string name="show_edit_screen_without_unlock_summary">Gyorsbeállítások ikon engedélyezése a telefon feloldása nélkül</string>
-    <string name="cost_money">Ár: $</string>
-    <string name="cost_more_money">Ár: $$$</string>
     <string name="multiline_title">Többsoros címek engedélyezése</string>
     <string name="multiline_title_on">Sortöréshez nyomd meg az Enter-t</string>
     <string name="delete_comment">megjegyzés</string>
@@ -410,13 +403,11 @@
     <string name="tos_updated_title">Frissítettük a Szolgáltatási feltételeket</string>
     <string name="accept">Elfogadás</string>
     <string name="exit">Kilépés</string>
-    <string name="returning_user">Visszatérő felhasználó?</string>
     <string name="import_failed_message">A mentés fájlja nem olvasható</string>
     <string name="import_failed">Sikertelen importálás</string>
     <string name="banner_subscription_required_body">A %s szinkronizáció tetszőleges összeg fizetésével feloldható</string>
     <string name="email_to_task">Feladat e-mailből</string>
     <string name="email_to_task_address">E-mail cím</string>
-    <string name="rmd_EPr_rmd_time_desc">Az egész napos feladatok emlékeztetője %1$s jelenik meg</string>
     <string name="upgrade_email_to_task_description">Feladatok létrehozásához küldd tovább a leveleidet a privát fiókodba</string>
     <string name="advanced_tools">Speciális eszközök</string>
     <string name="advanced_tools_description">Google Helyek, CalDAV, EteSync, és egyebek!</string>
@@ -426,7 +417,6 @@
     <string name="per_list_sort_title">Listánkénti rendezés</string>
     <string name="p_per_list_sort">listánkénti_rendezés</string>
     <string name="per_list_sort_summary">Listánként eltérő rendezési és csoportosítási beállítások eltárolása</string>
-    <string name="location_update_interval_summary">A rendszeres helyadat frissítés javítja a geokerítés megbízhatóságát</string>
     <string name="read_more">Mutass többet</string>
     <string name="upgrade_desktop_app">Tasks.org PC-re</string>
     <string name="upgrade_desktop_app_description">Korai hozzáférés az új PC-s alkalmazáshoz</string>

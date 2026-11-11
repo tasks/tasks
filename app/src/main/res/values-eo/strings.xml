@@ -262,7 +262,6 @@
     <string name="missing_permissions">Permesoj mankas</string>
     <string name="documentation">Dokumentado</string>
     <string name="places">Lokoj</string>
-    <string name="current_subscription">Aktuala abono: %s</string>
     <string name="hint_customize_edit_title">Tro da informo?</string>
     <string name="sort_list">Laŭ listo</string>
     <string name="customize_edit_screen">Adapti redaktan ekranon</string>
@@ -277,7 +276,6 @@
     <string name="location_departed">Foriris je %s</string>
     <string name="choose_a_location">Elekti lokon</string>
     <string name="open_map">Malfermi mapon</string>
-    <string name="choose_synchronization_service">Elekti platformon</string>
     <string name="place_settings">Agordoj de loko</string>
     <string name="settings_default">Defaŭlta</string>
     <string name="upgrade_blurb_2">Mi laboris milojn da horoj pri Tasks, kaj mi rete eldonas senpage ĉiun da la fontkodo. Por subteni mian laboron, kelkaj funkcioj postulas abonon</string>
@@ -326,7 +324,6 @@
     <string name="last_backup">Lasta savkopio: %s</string>
     <string name="TPl_notification">Tempumiloj Aktivaj por %s!</string>
     <string name="no_app_found">Neniu aplikaĵo povis pritrakti ĉi tiun peton</string>
-    <string name="refresh_purchases">Reŝargi aĉetojn</string>
     <string name="background_location_permission_required">Tasks kolektas lokan datumon por ebligi lok-bazitajn memorigilojn, eĉ kiam la aplikaĵo estas fermita aŭ ne uzata.</string>
     <string name="dismiss">Fermi</string>
     <string name="completed">Finite</string>
@@ -352,7 +349,6 @@
     <string name="migrating_tasks">Transmetas taskojn</string>
     <string name="tasks_org_account_required">Bezonas konton de Tasks.org</string>
     <string name="app_password">Pasvorto de aplikaĵo</string>
-    <string name="app_passwords_more_info">Sinkronigi viajn taskojn kaj kalendarojn kun labortablaj kaj poŝtelefonaj programoj de ekstera liveranto. Tuŝetu ĉi tien por pli da informo</string>
     <string name="badges">Signoj</string>
     <string name="sort_completion_group">Finita: %s</string>
     <string name="opacity_header">Kapa netravideblo</string>
@@ -360,7 +356,6 @@
     <string name="date_shortcut_must_come_before">%1$s devas esti antaŭ %2$s</string>
     <string name="date_shortcut_must_come_after">%1$s devas esti post %2$s</string>
     <string name="custom_filter_has_reminder">Kun memorigilo</string>
-    <string name="no_google_play_subscription">Ne trovis elekteblan Google Play abonon</string>
     <string name="TEA_timer_comment_spent">Tempo pasigita:</string>
     <string name="opacity_footer">Piedlinia netravideblo</string>
     <string name="widget_due_date_below_title">Subtitola</string>
@@ -388,8 +383,6 @@
     <string name="price_per_month_with_currency">%s/monato</string>
     <string name="price_per_year_with_currency">%s/jaro</string>
     <string name="enable_alarms">Sciiĝu je la ĝusta horo</string>
-    <string name="cost_more_money">Kosto: $$$</string>
-    <string name="cost_money">Kosto: $</string>
     <string name="comment">Komento</string>
     <string name="multiline_title">Permesi pluliniajn titolojn</string>
     <string name="multiline_title_on">Premu enen-klavo por aldoni linisaltojn</string>
@@ -409,12 +402,10 @@
     <string name="tos_updated_title">Ni ĝisdatigis niajn Kondiĉojn de Uzado</string>
     <string name="accept">Akcepti</string>
     <string name="exit">Eliri</string>
-    <string name="returning_user">Ĉu revena uzanto?</string>
     <string name="sponsorship_required_fdroid">Uzi Tasks.org sinkronigon bezonas GitHub sponsorecon. Alklaku suben por fariĝi sponsoro.</string>
     <string name="import_failed">Importo malsukcesis</string>
     <string name="import_failed_message">Malsukcesis legi dosieron de savkopio</string>
     <string name="banner_subscription_required_body">Pagu kiel vi volas por malŝlosi sinkronigon per %s</string>
-    <string name="rmd_EPr_rmd_time_desc">Sciigoj de tuttagaj taskoj aperos je %1$s</string>
     <string name="per_list_sort_title">Ordigi laŭ listo</string>
     <string name="per_list_sort_summary">Sendepende konservi ordigajn kaj grupajn agordojn de ĉiu listo</string>
     <string name="email_to_task_address">Via retpoŝtadreso</string>
@@ -426,7 +417,6 @@
     <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
     <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>
     <string name="p_per_list_sort">ordigi_laŭ_listo</string>
-    <string name="location_update_interval_summary">Perioda aktualigo de loko plibonigas fidindecon de geografia barilo</string>
     <string name="upgrade_desktop_app">Tasks.org por labortablo</string>
     <string name="upgrade_desktop_app_description">Frua atingo de la nova labortabla aplikaĵo</string>
     <string name="read_more">Legi pli</string>

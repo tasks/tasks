@@ -103,7 +103,6 @@
     <string name="tomorrow">Sutra</string>
     <string name="local_lists">Popisi na uređaju</string>
     <string name="help">Pomoć</string>
-    <string name="choose_synchronization_service">Odaberi platformu</string>
     <string name="place_settings">Postavke mjesta</string>
     <string name="places">Mjesta</string>
     <string name="color_wheel">Krug boja</string>
@@ -119,7 +118,6 @@
     <string name="pro_free_trial">Novi pretplatnici dobivaju 7-dnevno besplatno probno razdoblje. Otkaži bilo kada</string>
     <string name="tasks_org_account_required">Potreban je Tasks.org račun</string>
     <string name="copied_to_clipboard">%s kopirano u međuspremnik</string>
-    <string name="app_passwords_more_info">Sinkroniziraj tvoje zadatke i kalendare s računalnim i mobilnim programima trećih strana. Dodirni ovdje za više informacija</string>
     <string name="app_password">Lozinka za program</string>
     <string name="save_percent">Spremi %d %%</string>
     <string name="above_average">Iznad prosjeka</string>
@@ -133,8 +131,6 @@
     <string name="privacy">Privatnost</string>
     <string name="open_source">Otvoreni kod</string>
     <string name="support">Podrška</string>
-    <string name="current_subscription">Trenutačna pretplata: %s</string>
-    <string name="no_google_play_subscription">Nije pronađena nijedna odgovarajuća pretplata na Google Play</string>
     <string name="your_subscription_expired">Tvoja je pretplata istekla. Pretplati se za nastavljanje korištenja usluge.</string>
     <string name="custom_filter_is_subtask">Je podzadatak</string>
     <string name="custom_filter_has_subtask">Sadrži podzadatke</string>
@@ -175,7 +171,6 @@
     <string name="linkify_description">Dodaj poveznice na web-stranice, adrese i telefonske brojeve</string>
     <string name="reinitialize_account">Vrati na početne vrijednosti</string>
     <string name="pro_dashclock_extension">Proširenje sata na preglednoj ploči</string>
-    <string name="refresh_purchases">Osvježi kupnje</string>
     <string name="subscription">Pretplata</string>
     <string name="tasker_list_notification">Obavijest popisa</string>
     <string name="tasker_create_task">Stvori zadatak</string>
@@ -391,8 +386,6 @@
     <string name="donate_maybe_later">Možda kasnije</string>
     <string name="enable_alarms_description">Za pravovremeno dobivanje obavijesti dozvoli postavljanje alarma i podsjetnika u postavkama Dobij obavijest pravovremeno</string>
     <string name="enable_alarms">Dobij obavijest pravovremeno</string>
-    <string name="cost_money">Cijena: $</string>
-    <string name="cost_more_money">Cijena: $$$</string>
     <string name="multiline_title">Dozvoli višeredne naslove</string>
     <string name="multiline_title_on">Pritisni tipku Enter za dodavanje prijeloma retka</string>
     <string name="sync_warning_microsoft_title">O sinkronizaciji s Microsoft To Do</string>
@@ -420,8 +413,6 @@
     <string name="tos_updated_title">Aktualizirali smo naše uvjete pružanja usluge</string>
     <string name="accept">Prihvati</string>
     <string name="exit">Zatvori</string>
-    <string name="returning_user">Povratni korisnik?</string>
-    <string name="rmd_EPr_rmd_time_desc">Obavijesti za cjelodnevne zadatke će se prikazati u %s</string>
     <string name="email_to_task">E-mail u zadatak</string>
     <string name="email_to_task_address">Tvoja e-mail adresa</string>
     <string name="upgrade_email_to_task_description">Pretvori e-mail poruke u zadatke prosljeđivanjem u tvoju privatnu dolaznu poštu</string>
@@ -435,6 +426,5 @@
     <string name="upgrade_desktop_app_description">Rani pristup novoj desktop aplikaciji</string>
     <string name="per_list_sort_title">Razvrstanje po popisu</string>
     <string name="p_per_list_sort">razvrstanje_po_popisu</string>
-    <string name="location_update_interval_summary">Periodična aktualiziranja lokacije poboljšavaju pouzdanost točnosti lokacije</string>
     <string name="per_list_sort_summary">Zapamti postavke razvrstavanja i grupiranja za svaki popis zasebno</string>
 </resources>

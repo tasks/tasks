@@ -33,7 +33,6 @@
     <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
-    <string name="app_passwords_more_info">ซิงโครไนซ์งานและปฏิทินของคุณกับเดสก์ท็อปและแอปสําหรับอุปกรณ์เคลื่อนที่ของบริษัทอื่น แตะที่นี่สําหรับข้อมูลเพิ่มเติม</string>
     <string name="app_password">รหัสผ่านของแอป</string>
     <string name="save_percent">ประหยัด %d%%</string>
     <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
@@ -48,8 +47,6 @@
     <string name="privacy">ข้อมูลส่วนบุคคล</string>
     <string name="open_source">เปิดแหล่งที่มา</string>
     <string name="support">สนับสนุน</string>
-    <string name="current_subscription">การสมัครสมาชิกปัจจุบัน: %s</string>
-    <string name="no_google_play_subscription">ไม่พบการสมัครใช้บริการ Google Play ที่มีสิทธิ์</string>
     <string name="your_subscription_expired">การสมัครใช้งานของคุณหมดอายุแล้ว สมัครสมาชิกตอนนี้เพื่อกลับมาใช้บริการต่อ</string>
     <string name="custom_filter_is_subtask">เป็นงานย่อย</string>
     <string name="custom_filter_has_subtask">มีงานย่อย</string>
@@ -97,7 +94,6 @@
     <string name="decsync_selection_description">การซิงโครไนส์ตามไฟล์</string>
     <string name="etesync_selection_description">การทําข้อมูลให้ตรงกันที่เข้ารหัสตั้งแต่ต้นจนจบ</string>
     <string name="caldav_selection_description">การซิงโครไนซ์ตามมาตรฐานอินเทอร์เน็ตแบบเปิด</string>
-    <string name="choose_synchronization_service">เลือกแพลตฟอร์ม</string>
     <string name="collapse_subtasks">ยุบงานย่อย</string>
     <string name="expand_subtasks">ขยายงานย่อย</string>
     <string name="invalid_backup_file">แฟ้มสํารองข้อมูลไม่ถูกต้อง</string>
@@ -125,7 +121,6 @@
     <string name="reinitialize_account">เตรียมใช้งานใหม่</string>
     <string name="pro_dashclock_extension">ส่วนขยาย Dashclock</string>
     <string name="subscription">การบอกรับสมาชิก</string>
-    <string name="refresh_purchases">รีเฟรชการซื้อ</string>
     <string name="help_and_feedback">ความช่วยเหลือและคําติชม</string>
     <string name="help">วิธีใช้</string>
     <string name="tasker_list_notification">รายการแจ้งเตือน</string>

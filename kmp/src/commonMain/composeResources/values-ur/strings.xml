@@ -82,10 +82,6 @@
     <string name="discard_changes">تبدیلیاں مسترد کریں؟</string>
     <string name="discard">مسترد کریں</string>
     <string name="delete">ڈیلیٹ کریں</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d فہرست</item>
-        <item quantity="other">%1$d فہسرتیں</item>
-    </plurals>
     <string name="error_adding_account">ایرر:%1$s</string>
     <string name="network_error">رابطہ نہیں ہو سکا</string>
     <string name="url_host_name_required">ہوسٹ کا نام مطلوب ہے</string>

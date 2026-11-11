@@ -224,7 +224,6 @@
     <string name="select_all">Escoller todo</string>
     <string name="help">Axuda</string>
     <string name="help_and_feedback">Axuda e soporte</string>
-    <string name="refresh_purchases">Anovar as compras</string>
     <string name="sign_in_with_google">Acceso con Google</string>
     <string name="authentication_required">Precísase autenticación</string>
     <string name="share">Compartir</string>
@@ -247,7 +246,6 @@
     <string name="auto_dismiss_datetime">Pechar o selector de data automaticamente</string>
     <string name="lists">Listas</string>
     <string name="last_backup">Última copia de seguranza: %s</string>
-    <string name="app_passwords_more_info">Sincroniza as tarefas e os calendarios en aplicativos de terceiros para escritorio ou dispositivos móbiles. Preme aquí para máis información</string>
     <string name="TEA_timer_est">Est. %s</string>
     <string name="sort_created">Por data de creación</string>
     <string name="action_call">Chamar</string>
@@ -290,7 +288,6 @@
     <string name="invalid_backup_file">Copia de seguranza non válida</string>
     <string name="expand_subtasks">Desencoller as subtarefas</string>
     <string name="collapse_subtasks">Encoller as subtarefas</string>
-    <string name="choose_synchronization_service">Escolle unha plataforma</string>
     <string name="etesync_selection_description">Sincronización con cifrado par a par</string>
     <string name="decsync_selection_description">Sincronización baseada en ficheiros</string>
     <string name="davx5_selection_description">Sincronizar tarefas co aplicativo DAVx⁵</string>
@@ -360,10 +357,8 @@
     <string name="backups_ignore_warnings_summary">Ignora os avisos de copia de seguridade se non necesitas copias de seguridade ou tes a túa propia solución de copia de seguridade</string>
     <string name="backup_location_warning">ATENCIÓN: Eliminaranse os arquivos situados en %s se se desinstala Tasks! Por favor escolla unha ubicación personalizada para evitar que Android elimine os seus arquivos.</string>
     <string name="your_subscription_expired">A túa subscrición caducou. Subscríbete agora para retomar o servizo.</string>
-    <string name="no_google_play_subscription">Non se atopou ningunha subscrición de Google Play elixible</string>
     <string name="price_per_month_with_currency">%s/mes</string>
     <string name="price_per_year_with_currency">%s/ano</string>
-    <string name="current_subscription">Subscrición actual: %s</string>
     <string name="support">Asistencia</string>
     <string name="open_source">Código aberto</string>
     <string name="privacy">Privacidade</string>
@@ -377,8 +372,6 @@
     <string name="hint_customize_edit_body">Podes personalizar esta pantalla reorganizando ou eliminando campos</string>
     <string name="enable_alarms">Recibir notificacións no momento adecuado</string>
     <string name="enable_alarms_description">Para asegurarte de que recibes notificacións no momento adecuado, concede permiso para configurar alarmas e recordatorios na Configuración</string>
-    <string name="cost_money">Custo: $</string>
-    <string name="cost_more_money">Custo: $$$</string>
     <string name="multiline_title">Permitir títulos de varias liñas</string>
     <string name="multiline_title_on">Preme a tecla Intro para engadir saltos de liña</string>
     <string name="multiline_title_off">Preme Feito para gardar a tarefa</string>

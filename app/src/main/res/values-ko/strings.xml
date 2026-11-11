@@ -198,7 +198,6 @@
     <string name="tasker_create_task">할일 만들기</string>
     <string name="tasker_list_notification">목록 알림</string>
     <string name="help">도움말</string>
-    <string name="refresh_purchases">구매 새로고침</string>
     <string name="pro_dashclock_extension">Dashclock 확장프로그램</string>
     <string name="logout">로그아웃</string>
     <string name="reinitialize_account">다시 초기화하기</string>
@@ -229,7 +228,6 @@
     <string name="expand_subtasks">하위할일 펼치기</string>
     <string name="collapse_subtasks">하위할일 접기</string>
     <string name="subtasks">하위할일</string>
-    <string name="choose_synchronization_service">플랫폼 선택</string>
     <string name="caldav_selection_description">개방형 인터넷 표준을 바탕으로 한 동기화</string>
     <string name="etesync_selection_description">종단간 암호화된 동기화</string>
     <string name="show_advanced_settings">고급 설정 표시</string>
@@ -317,7 +315,6 @@
     <string name="astrid_sort_order_summary">\'나의 할일\', \'오늘\', 태그 화면에서 Astrid 수동 정렬을 사용할 수 있습니다. 추후 업데이트 시 \'순서 직접 정렬\' 을 이 방식으로 대체할 예정입니다</string>
     <string name="astrid_sort_order">Astrid 수동 정렬</string>
     <string name="authorization_cancelled">인증 취소됨</string>
-    <string name="current_subscription">현재 구독: %s</string>
     <string name="your_subscription_expired">구독이 만료되었습니다. 서비스를 재개하려면 지금 구독하세요.</string>
     <string name="background_location">백그라운드 위치정보</string>
     <string name="permission_read_tasks">Tasks 데이터베이스에 대한 전체 액세스</string>
@@ -328,7 +325,6 @@
     <string name="authentication_required">인증 필요</string>
     <string name="sign_in_with_google">구글을 이용해서 로그인</string>
     <string name="github_sponsors">깃허브 후원자</string>
-    <string name="no_google_play_subscription">적합한 구글 플레이 구독을 찾을 수 없습니다</string>
     <string name="custom_filter_is_subtask">하위할일</string>
     <string name="custom_filter_has_subtask">하위할일 있음</string>
     <string name="always_display_full_date">일시 간략화하지 않고 그대로 표시</string>
@@ -346,7 +342,6 @@
     <string name="upgrade_more_customization_description">모든 테마, 색상, 아이콘 사용</string>
     <string name="upgrade_more_customization">더 다양한 맞춤설정</string>
     <string name="pro_free_trial">새 구독자는 7일간 무료 체험이 가능합니다. 언제라도 취소할 수 있습니다</string>
-    <string name="app_passwords_more_info">타사 데스크탑 및 모바일 앱으로 할일과 달력을 동기화합니다. 자세한 정보는 여기를 탭하세요</string>
     <string name="tasks_org_account_required">Tasks.org 계정 필요</string>
     <string name="copied_to_clipboard">클립보드로 %s 건 복사</string>
     <string name="above_average">평균 이상</string>
@@ -386,9 +381,7 @@
     <string name="price_per_month_with_currency">%s/월</string>
     <string name="price_per_year_with_currency">%s/년</string>
     <string name="yesterday">어제</string>
-    <string name="cost_money">비용: $</string>
     <string name="multiline_title_on">줄을 바꾸려면 엔터키를 누르세요</string>
-    <string name="cost_more_money">비용: $$$</string>
     <string name="sync_warning_microsoft_title">마이크로소프트 To Do 동기화</string>
     <string name="button_learn_more">더 알아보기</string>
     <string name="sync_warning_google_tasks_title">Google Task 동기화에 대하여</string>
@@ -416,7 +409,6 @@
     <string name="exit">종료</string>
     <string name="read_more">더 알아보기</string>
     <string name="write_permission_label">할일 편집</string>
-    <string name="returning_user">기존 사용자이신가요?</string>
     <string name="widget_view_more_tasks">할일 더보기</string>
     <string name="upgrade_email_to_task_description">이메일을 개인 받은편지함으로 전달해 할일로 만들기</string>
     <string name="guest_create_list_message">현재 공유 목록에 게스트 접근 권한이 있습니다. 내 개인 목록을 만들고 클라우드에 동기화하려면 Tasks.org 구독 서비스를 이용해야 합니다. 아니면 무료로 이 기기에만 저장되는 로컬 목록을 만들 수 있습니다.</string>
@@ -430,6 +422,4 @@
     <string name="per_list_sort_summary">각 목록의 개별 정렬 및 분류 설정 기억</string>
     <string name="banner_subscription_required_body">%s 동기화를 이용하려면 원하시는 만큼 결제해 주세요</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="location_update_interval_summary">위치를 주기적으로 갱신하면 위치 기반 동작의 신뢰도가 향상됩니다</string>
-    <string name="rmd_EPr_rmd_time_desc">하루 종일로 설정한 할일의 알람이 %1$s에 나타납니다</string>
 </resources>

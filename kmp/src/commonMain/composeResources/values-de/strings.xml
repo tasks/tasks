@@ -174,10 +174,6 @@
     <string name="discard_changes">Änderungen verwerfen?</string>
     <string name="discard">Verwerfen</string>
     <string name="delete">Löschen</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d Liste</item>
-        <item quantity="other">%1$d Listen</item>
-    </plurals>
     <string name="supporter_summary_no_price">Dankeschön!</string>
     <string name="failed_to_save_task">Aufgabe konnte nicht gespeichert werden</string>
     <string name="debug">Debug</string>
@@ -192,7 +188,6 @@
     <string name="url_invalid_scheme">Muss mit „http(s)://“ beginnen</string>
     <string name="url_required">URL benötigt</string>
     <string name="username_required">Benutzername benötigt</string>
-    <string name="etesync_account_description">Erfordert ein Konto bei EteSync.com oder einen selbst gehosteten Server</string>
     <string name="already_subscribed">Schon abonniert?</string>
     <string name="sign_in_subtitle">Schon abonniert oder als Gast eingeladen worden?</string>
     <string name="show_advanced_settings">Erweiterte Einstellungen anzeigen</string>
@@ -355,13 +350,11 @@
     <string name="delete_tag_warning">Aufgaben mit diesem Tag werden nicht gelöscht</string>
     <string name="delete_list_warning">Alle Aufgaben in dieser Liste werden gelöscht. Dies kann nicht rückgängig gemacht werden!</string>
     <string name="link_desktop_description">Schalten Sie die Desktop-App mit Ihrem Google Play-Abonnement frei</string>
-    <string name="link_desktop_instructions">Öffne die Tasks.org Desktop-App und gehe auf „Konto hinzufügen“, um den QR-Code anzuzeigen. Tippe anschließend auf die Schaltfläche unten, um ihn zu scannen.</string>
     <string name="link_desktop_step_1">Öffnen Sie die Tasks.org Desktop-App</string>
     <string name="link_desktop_step_2">Klicken Sie auf „%1$s“ und wählen Sie „%2$s</string>
     <string name="link_desktop_step_3">Wählen Sie „%1$s</string>
     <string name="scan_qr_code">QR-Code scannen</string>
     <string name="link_desktop_success">Desktop erfolgreich verknüpft!</string>
-    <string name="link_desktop_error">Verknüpfung mit Desktop fehlgeschlagen. Bitte versuchen Sie es erneut.</string>
     <string name="unlock_pro_scan_heading">Scannen Sie den QR-Code in der Tasks.org Android-App</string>
     <string name="unlock_pro_step_1">Öffnen Sie Tasks.org auf Ihrem Smartphone</string>
     <string name="unlock_pro_step_2">Tippen Sie auf „%1$s“ und dann auf „%2$s</string>
@@ -618,7 +611,6 @@
     <string name="mcp_copy">Kopieren</string>
     <string name="new_filter">Neuen Filter erstellen</string>
     <string name="sign_in_with_apple">Mit Apple anmelden</string>
-    <string name="mcp_server_summary">Lasse KI-Assistenten auf diesem Computer deine Daten lesen und verwalten</string>
     <string name="mcp_server_enable">Deine Daten über MCP bereitstellen</string>
     <string name="mcp_server_enable_summary">Läuft nur auf diesem Computer, bei 127.0.0.1. Nichts ist dem Netzwerk ausgesetzt.</string>
     <string name="mcp_status_running">Läuft auf Port %1$d</string>

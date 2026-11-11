@@ -194,7 +194,6 @@
     <string name="tasker_create_task">创建任务</string>
     <string name="tasker_list_notification">列出通知</string>
     <string name="help">帮助</string>
-    <string name="refresh_purchases">刷新购买</string>
     <string name="pro_dashclock_extension">Dashclock 扩展</string>
     <string name="logout">退出登录</string>
     <string name="reinitialize_account">重新初始化</string>
@@ -229,7 +228,6 @@
     <string name="collapse_subtasks">收起子任务</string>
     <string name="subtasks">子任务</string>
     <string name="display_name">显示名称</string>
-    <string name="choose_synchronization_service">选择平台</string>
     <string name="caldav_selection_description">基于开放的互联网标准的同步</string>
     <string name="etesync_selection_description">端到端加密的同步</string>
     <string name="show_advanced_settings">显示高级设置</string>
@@ -323,7 +321,6 @@
     <string name="ok">确定</string>
     <string name="custom_filter_is_subtask">是子任务</string>
     <string name="custom_filter_has_subtask">有子任务</string>
-    <string name="current_subscription">当前订阅：%s</string>
     <string name="your_subscription_expired">你的订阅已到期。现在订阅即可恢复服务。</string>
     <string name="background_location_permission_required">Tasks 收集位置数据，以启用基于位置的提醒，即使应用已关闭或未使用。</string>
     <string name="authorization_cancelled">授权被取消</string>
@@ -333,12 +330,10 @@
     <string name="migrate_count">移动 %s 到 Tasks.org</string>
     <string name="migrating_tasks">正在迁移任务</string>
     <string name="github_sponsors">Github 赞助者</string>
-    <string name="no_google_play_subscription">找不到符合要求的 Google Play 订阅</string>
     <string name="above_average">高于平均</string>
     <string name="save_percent">节省 %d%%</string>
     <string name="decsync_selection_description">基于文件的同步</string>
     <string name="copied_to_clipboard">%s 已复制到剪贴板</string>
-    <string name="app_passwords_more_info">用第三方桌面和移动应用程序同步你的任务和日历。点击此处了解更多信息</string>
     <string name="app_password">应用密码</string>
     <string name="local_lists">本地清单</string>
     <string name="start_date">开始日期</string>
@@ -385,8 +380,6 @@
     <string name="delete_comment">注释</string>
     <string name="price_per_month_with_currency">每月 %s</string>
     <string name="price_per_year_with_currency">每年 %s</string>
-    <string name="cost_more_money">费用：$$$</string>
-    <string name="cost_money">费用：$</string>
     <string name="comment">注释</string>
     <string name="multiline_title">允许多行标题</string>
     <string name="multiline_title_on">按 Enter 键添加换行符</string>
@@ -407,13 +400,11 @@
     <string name="tos_updated_title">我们更新了服务条款</string>
     <string name="accept">接受</string>
     <string name="exit">退出</string>
-    <string name="returning_user">用过 Tasks.org 吗？</string>
     <string name="import_failed">导入失败</string>
     <string name="import_failed_message">无法读取备份文件</string>
     <string name="banner_subscription_required_body">支付您想支付的金额解锁 %s 同步</string>
     <string name="email_to_task_address">您的电子邮件地址</string>
     <string name="email_to_task">邮件转任务</string>
-    <string name="rmd_EPr_rmd_time_desc">全天任务的通知将显示在 %1$s</string>
     <string name="upgrade_email_to_task_description">通过将邮件转发至您的专属收件箱即可将其转为任务</string>
     <string name="advanced_tools">高级工具</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
@@ -423,7 +414,6 @@
     <string name="per_list_sort_title">清单单独排序</string>
     <string name="per_list_sort_summary">记住每个清单不同的排序和分组设置</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="location_update_interval_summary">定期位置更新可提高地理围栏的可靠性</string>
     <string name="read_more">阅读更多</string>
     <string name="upgrade_desktop_app">Tasks.org 桌面版</string>
     <string name="upgrade_desktop_app_description">提前使用新的桌面版应用</string>

@@ -209,7 +209,6 @@
     <string name="tasker_create_task">Створити завдання</string>
     <string name="tasker_list_notification">Список повідомлень</string>
     <string name="help">Довідка</string>
-    <string name="refresh_purchases">Оновити покупки</string>
     <string name="pro_dashclock_extension">Розширення Dashclock</string>
     <string name="logout">Вийти</string>
     <string name="reinitialize_account">Ініціалізувати ще раз</string>
@@ -245,7 +244,6 @@
     <string name="documentation">Документація</string>
     <string name="etesync_selection_description">Захищена наскрізним шифруванням синхронізація</string>
     <string name="caldav_selection_description">Синхронізація на основі стандартів відкритого інтернету</string>
-    <string name="choose_synchronization_service">Обрати платформу</string>
     <string name="collapse_subtasks">Згорнути підзавдання</string>
     <string name="expand_subtasks">Розгорнути підзавдання</string>
     <string name="share">Поділитися</string>
@@ -267,7 +265,6 @@
     <string name="color_wheel">Палітра</string>
     <string name="sort_created">За часом створення</string>
     <string name="copied_to_clipboard">%s скопійовано в буфер обміну</string>
-    <string name="app_passwords_more_info">Синхронізуйте свої завдання та календарі зі сторонніми настільними та мобільними застосунками. Натисніть тут, щоб дізнатися більше</string>
     <string name="app_password">Пароль застосунку</string>
     <string name="save_percent">Зберегти %d%%</string>
     <string name="above_average">Вище середнього</string>
@@ -278,8 +275,6 @@
     <string name="sign_in_with_google">Увійти через Google</string>
     <string name="github_sponsors">Спонсори GitHub</string>
     <string name="authorization_cancelled">Авторизацію скасовано</string>
-    <string name="current_subscription">Поточна підписка: %s</string>
-    <string name="no_google_play_subscription">Відповідної вимогам підписки Google Play не знайдено</string>
     <string name="your_subscription_expired">Термін дії вашої підписки закінчився. Підпишіться зараз, щоб відновити обслуговування.</string>
     <string name="custom_filter_is_subtask">Підзавдання</string>
     <string name="custom_filter_has_subtask">Є підзавдання</string>
@@ -393,7 +388,6 @@
     <string name="delete_comment">коментар</string>
     <string name="comment">Коментар</string>
     <string name="yesterday">Учора</string>
-    <string name="cost_more_money">Вартість: $$$</string>
     <string name="multiline_title">Дозволити багаторядкові заголовки</string>
     <string name="multiline_title_on">Натисніть Enter, щоб перенести рядок</string>
     <string name="sync_warning_microsoft">Не всі відомості про завдання синхронізуються з Microsoft To Do.</string>
@@ -405,14 +399,12 @@
     <string name="enable_alarms">Отримуйте сповіщення в потрібний час</string>
     <string name="enable_alarms_description">Щоб бути впевненим, що ви отримаєте сповіщення в потрібний час, надайте дозвіл на встановлення будильників і нагадувань у Налаштуваннях</string>
     <string name="price_per_month_with_currency">%s/місяць</string>
-    <string name="cost_money">Вартість: $</string>
     <string name="app_settings">Налаштування застосунку</string>
     <string name="banner_app_updated_title">Застосунок оновлено</string>
     <string name="banner_app_updated_description">Tasks щойно оновлено до %s. Переглянете примітки до випуску?</string>
     <string name="multiline_title_off">Натисніть готово, щоб зберегти завдання</string>
     <string name="delete_tasks_warning">%s буде видалено. Дію неможливо скасувати!</string>
     <string name="widget_view_more_tasks">Переглянути інші завдання</string>
-    <string name="rmd_EPr_rmd_time_desc">Сповіщення про завдання на весь день з’являтимуться о %1$s</string>
     <string name="import_failed">Не вдалося імпортувати</string>
     <string name="import_failed_message">Не вдалося прочитати файл резервної копії</string>
     <string name="write_permission_label">Змінити завдання</string>
@@ -430,7 +422,6 @@
     <string name="accept">Прийняти</string>
     <string name="exit">Вийти</string>
     <string name="read_more">Докладніше</string>
-    <string name="location_update_interval_summary">Періодичне оновлення даних про розташування покращує надійність роботи геозони</string>
     <string name="per_list_sort_title">Сортування за списками</string>
     <string name="per_list_sort_summary">Запам\'ятовувати налаштування сортування та групування для кожного списку окремо</string>
     <string name="permission_write_tasks">Додавайте, змінюйте та видаляйте свої завдання, списки, мітки та місця</string>
@@ -440,5 +431,4 @@
     <string name="guest_create_list_message">Наразі ви маєте доступ до спільних списків як гість. Щоб створювати власні приватні списки та синхронізувати їх із хмарою, вам знадобиться передплата на Tasks.org. Або ви можете створити безплатний локальний список, який зберігатиметься на цьому пристрої.</string>
     <string name="upgrade_friends_and_family_description">5 безплатних гостей у спільних списках. Працює з Нагадуваннями від Apple</string>
     <string name="upgrade_email_to_task_description">Перетворюйте електронні листи на завдання, пересилаючи їх у свою особисту поштову скриньку</string>
-    <string name="returning_user">Уже користувалися застосунком?</string>
 </resources>

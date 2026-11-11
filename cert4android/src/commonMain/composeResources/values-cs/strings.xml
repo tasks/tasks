@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certifikát dočasně odmítnut</string>
     <string name="trust_certificate_accept">Přijmout</string>
     <string name="trust_certificate_fingerprint_verified">Celý otisk byl mnou ručně ověřen.</string>
     <string name="trust_certificate_fingerprints">Otisky</string>

@@ -205,7 +205,6 @@
     <string name="tasker_create_task">Създаване на задача</string>
     <string name="tasker_list_notification">Списък с известия</string>
     <string name="help">Помощ</string>
-    <string name="refresh_purchases">Обновяване на покупките</string>
     <string name="pro_dashclock_extension">Разширение за Dashclock</string>
     <string name="logout">Изход</string>
     <string name="reinitialize_account">Повторно инициализиране</string>
@@ -292,7 +291,6 @@
     <string name="preferences_advanced">Разширени</string>
     <string name="show_advanced_settings">Разширени настройки</string>
     <string name="caldav_selection_description">Синхронизиране посредством отворени стандарти</string>
-    <string name="choose_synchronization_service">Избор на услуга</string>
     <string name="whats_new">Какво е новото</string>
     <string name="no_app_found">Липсва приложение, което да обработи тази заявка</string>
     <string name="etesync_selection_description">Синхронизация, шифрована от край до край</string>
@@ -342,7 +340,6 @@
     <string name="save_percent">Спестявате %d%%</string>
     <string name="app_password">Парола на приложението</string>
     <string name="custom_filter_has_reminder">Има напомняне</string>
-    <string name="current_subscription">Текущ абонамент: %s</string>
     <string name="permission_read_tasks">Пълен дистъп до банката данни на Task</string>
     <string name="github_sponsors">Дарители от GitHub</string>
     <string name="upgrade_open_source_description">Абонаментът поддържа непрекъснатото развитие</string>
@@ -356,7 +353,6 @@
     <string name="completed">Завършена</string>
     <string name="customize_edit_screen_summary">Подреждане или премахване на полета</string>
     <string name="compact">Компакт</string>
-    <string name="no_google_play_subscription">Не е намерен подходящ абонамент от Google Play</string>
     <string name="authentication_required">Необходимо е удостоверяване</string>
     <string name="upgrade_tasks_org_account_description">Синхронизиране чрез Tasks.org и сътрудничество с други потребители</string>
     <string name="snackbar_tasks_completed">%d задачи са завършени</string>
@@ -367,7 +363,6 @@
     <string name="copied_to_clipboard">%s копирано в междинната памет</string>
     <string name="backup_location_warning">ВНИМАНИЕ: Файловете, намиращи се в %s ще бъдат загубени с премахване на приложението. Изберете друго място, така че Android да не може да ги премахне.</string>
     <string name="backups_ignore_warnings_summary">Пренебрегнете предупреждението за резервно копие ако не ви е необходимо или имате собствено решение за резервни копия</string>
-    <string name="app_passwords_more_info">Синхронизирайте задачите и календарите си с други настолни и мобилни приложения. Докоснете за повече информация</string>
     <string name="authorization_cancelled">Удостоверяването е спряно</string>
     <string name="background_location">Местоположение във фонов режим</string>
     <string name="foreground_location">Местоположение на преден план</string>
@@ -390,8 +385,6 @@
     <string name="yesterday">Вчера</string>
     <string name="comment">Коментар</string>
     <string name="multiline_title">Многоредови заглавия</string>
-    <string name="cost_more_money">Цена: $$$</string>
-    <string name="cost_money">Цена: $</string>
     <string name="multiline_title_on">Натиснете Enter, за да въведете нови редове</string>
     <string name="sync_warning_google_tasks_title">Относно синхронизацията с Google Task</string>
     <string name="button_learn_more">Научете повече</string>
@@ -410,17 +403,14 @@
     <string name="tos_updated_title">Променихме условията за използване на услугата</string>
     <string name="accept">Приемане</string>
     <string name="exit">Изход</string>
-    <string name="returning_user">Вече сте потребител?</string>
     <string name="import_failed">Грешка при внасяне</string>
     <string name="import_failed_message">Файлът с резервното копие не може да бъде прочетен</string>
     <string name="banner_subscription_required_body">Платете сума по желание, за да отключите синхронизиране чрез %s</string>
     <string name="email_to_task">Задача от писмо</string>
     <string name="email_to_task_address">Адрес на ел. поща</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync и други!</string>
-    <string name="rmd_EPr_rmd_time_desc">Известията за целодневните задачи ще се показват в %1$s</string>
     <string name="upgrade_email_to_task_description">Създаване на задачи от ел. писма, чрез препращането им към личната ви входяща кутия</string>
     <string name="advanced_tools">Разширени инструменти</string>
-    <string name="location_update_interval_summary">Периодичното обновяване на местоположението подобрява надеждността на ограниченията по местоположение</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">Запомняне на сортирането по списък</string>
     <string name="per_list_sort_summary">Запазване на настройките на сортиране и групиране за всеки списък поотделно</string>

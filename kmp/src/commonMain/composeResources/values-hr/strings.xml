@@ -173,11 +173,6 @@
     <string name="discard_changes">Odbaciti promjene?</string>
     <string name="discard">Odbaci</string>
     <string name="delete">Izbriši</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d popis</item>
-        <item quantity="few">%1$d popisa</item>
-        <item quantity="other">%1$d popisa</item>
-    </plurals>
     <string name="caldav_server_other">Drugi</string>
     <string name="caldav_server_type">Vrsta servera</string>
     <string name="caldav_server_unknown">Nepoznato</string>
@@ -189,7 +184,6 @@
     <string name="url_invalid_scheme">Mora početi s http(s)://</string>
     <string name="url_required">URL-adresa je obavezna</string>
     <string name="username_required">Korisničko ime je obavezno</string>
-    <string name="etesync_account_description">Zahtijeva račun na EteSync.com ili vlastiti poslužitelj</string>
     <string name="already_subscribed">Već jesi pretplatnik?</string>
     <string name="sign_in_subtitle">Već jesi pretplatnik ili pozvani gost?</string>
     <string name="show_advanced_settings">Pokaži napredne postavke</string>
@@ -233,7 +227,6 @@
     <string name="link_desktop_step_3">Odaberi „%1$s”</string>
     <string name="scan_qr_code">Snimi QR kod</string>
     <string name="link_desktop_success">Desktop aplikacija je uspješno povezana!</string>
-    <string name="link_desktop_error">Povezivanje desktop aplikacije nije uspjelo. Pokušaj ponovo.</string>
     <string name="unlock_pro_scan_heading">Snimi QR kod u Android aplikaciji Tasks.org</string>
     <string name="unlock_pro_step_1">Otvori Tasks.org na svom mobitelu</string>
     <string name="unlock_pro_step_2">Dodirni „%1$s”, zatim dodirni „%2$s”</string>
@@ -275,7 +268,6 @@
     <string name="caldav_server_owncloud">vlastiti oblak</string>
     <string name="caldav_server_openxchange">Open-Xchange</string>
     <string name="link_desktop_description">Otključaj desktop aplikaciju s tvojom pretplatom na Google Play</string>
-    <string name="link_desktop_instructions">Otvori desktop aplikaciju Tasks.org, idi na „Dodaj račun” i pojavit će se QR kod. Zatim snimi QR kod dodirom donjeg gumba.</string>
     <string name="pricing_nyp_feature_2">Sinkronizacija s CalDAV-om i EteSync-om za samostalni hosting</string>
     <string name="cannot_access_account">Nije moguće pristupiti računu</string>
     <string name="upgrade_subscription_banner">Hvala ti na podršci! Nadogradi svoju pretplatu i na taj način omogući Tasks.org Cloud sinkronizaciju</string>

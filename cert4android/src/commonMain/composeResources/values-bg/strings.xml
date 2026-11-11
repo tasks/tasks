@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Сертификатът е временно отхвърлен</string>
     <string name="trust_certificate_accept">Приемане</string>
     <string name="trust_certificate_fingerprint_verified">Ръчно проверих целия отпечатък</string>
     <string name="trust_certificate_fingerprints">Отпечатъци</string>

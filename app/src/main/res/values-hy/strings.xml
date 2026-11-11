@@ -107,7 +107,6 @@
     <string name="ring_five_times">5 անգամ</string>
     <string name="ring_nonstop">Անդադար զանգել</string>
     <string name="snooze_all">Հետաձգել բոլորը</string>
-    <string name="rmd_EPr_rmd_time_desc">Ամբողջ օրվա անելիքների ծանուցումները կհայտնվեն %1$s-ին</string>
     <string name="repeat_option_custom">Այլ․․․</string>
     <plurals name="task_count">
         <item quantity="one">%d անելիք</item>
@@ -243,7 +242,6 @@
     <string name="help">Օգնություն</string>
     <string name="help_and_feedback">Օգնություն և հետադարձ կապ</string>
     <string name="subscription">Բաժանորդագրություն</string>
-    <string name="refresh_purchases">Թարմացնել գնումները</string>
     <string name="pro_dashclock_extension">Dashclock ընդլայնումներ</string>
     <string name="logout">Դուրս գալ</string>
     <string name="delete_tasks_warning">%s կջնջվի։ Սա չեղարկել չի լինի։</string>
@@ -273,7 +271,6 @@
     <string name="whats_new">Ինչ նոր բան կա</string>
     <string name="expand_subtasks">Ընդլայնել ենթաանելիքները</string>
     <string name="collapse_subtasks">Ծալել ենթաանելիքները</string>
-    <string name="choose_synchronization_service">Ընտրել պլատֆորման</string>
     <string name="caldav_selection_description">Սինխրոնիզացում՝ ինտերնետային ստանդարտների վրա հիմնված</string>
     <string name="etesync_selection_description">Գաղտնագրվող սինխրոնիզացիա</string>
     <string name="backup_BAc_export">Անել բեքափ հիմա</string>
@@ -368,12 +365,10 @@
     <string name="custom_filter_is_subtask">Ենթաանելիք է</string>
     <string name="custom_filter_has_reminder">Ունի հիշեցում</string>
     <string name="your_subscription_expired">Ձեր բաժանորդագրության ժամկետը լրացել է։ Ծառայությունը վերսկսելու համար բաժանորդագրվեք հիմա։</string>
-    <string name="no_google_play_subscription">Google Play-ի բաժանորդագրություն չգտնվեց</string>
     <string name="subscription_required_fdroid">Tasks.org-ի սինխրոնիզացիայից օգտվելու համար անհրաժեշտ է բաժանորդագրություն։ Բաժանորդագրությունը պետք է կատարվի Google Play-ից քաշված վերսիայի միջոցով։</string>
     <string name="sponsorship_required_fdroid">Tasks.org-ի սինխրոնիզացիան օգտագործելու համար անհրաժեշտ է GitHub-ում հովանավոր դառնալ։ Դրա համար սեղմեք ներքևի կոճակը։</string>
     <string name="price_per_month_with_currency">%s/մշտական</string>
     <string name="price_per_year_with_currency">%s/տարեկան</string>
-    <string name="current_subscription">Ներկայից բաժանորդագրություն՝ %s</string>
     <string name="support">Աջակցություն</string>
     <string name="open_source">Բաց կոդով</string>
     <string name="privacy">Գաղտնիություն</string>
@@ -387,7 +382,6 @@
     <string name="above_average">Միջինից բարձր</string>
     <string name="save_percent">Պահել %d%%</string>
     <string name="app_password">Ծրագրի գաղտնաբառ</string>
-    <string name="app_passwords_more_info">Սինխրոնիզացրեք Ձեր անելիքներն ու օրացույցները երրորդ կողմի ծրագրերի հետ։ Ավելին իմանալու համար սեղմեք այստեղ</string>
     <string name="copied_to_clipboard">%s պատճենվեց</string>
     <string name="email_to_task">Ստեղծել անելիք Email-ով</string>
     <string name="email_to_task_address">Ձեր էլ․ հասցեն</string>
@@ -417,9 +411,6 @@
     <string name="tos_updated_title">Մենք թարմացրել ենք մեր օգտագործման պայմանները</string>
     <string name="accept">Ընդունել</string>
     <string name="exit">Դուրս գալ</string>
-    <string name="returning_user">Օգտագործե՞լ եք նախկինում ծրագիրը</string>
-    <string name="cost_money">Գինը՝ $</string>
-    <string name="cost_more_money">Գին՝ $$$</string>
     <string name="multiline_title">Թույլատրել բազմատող վերնագրերը</string>
     <string name="multiline_title_on">Տողադարձեր ավելացնելու համար սեղմեք Enter ստեղնը</string>
     <string name="multiline_title_off">Անելիքը պահելու համար սեղմեք «Պատրաստ է»</string>
@@ -432,5 +423,4 @@
     <string name="read_more">Կարդալ ավելին</string>
     <string name="export_toast">%1$s պահվեց %2$s-ում</string>
     <string name="import_summary_message">%1$s ֆայլը պարունակում էր %2$s։ \n\n%3$s-ը ներմուծվել է,\n%4$s-ն արդեն գոյություն ունի,\n%5$s-ի դեպքում սխալներ են եղել։</string>
-    <string name="location_update_interval_summary">Պարբերաբար տեղադրության թարմացումները բարելավում են գեոդաշտի հուսալիությունը</string>
 </resources>

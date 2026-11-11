@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">証明書は一時的に拒否されました</string>
     <string name="trust_certificate_accept">同意</string>
     <string name="trust_certificate_fingerprint_verified">私は手動でフィンガープリント全体を確認しました。</string>
     <string name="trust_certificate_fingerprints">フィンガープリント</string>

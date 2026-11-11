@@ -128,9 +128,6 @@
     <string name="discard_changes">Bỏ các thay đổi?</string>
     <string name="discard">Bỏ</string>
     <string name="delete">Xoá</string>
-    <plurals name="list_count">
-        <item quantity="other">%1$d danh sách</item>
-    </plurals>
     <string name="caldav_server_other">Khác</string>
     <string name="caldav_server_type">Loại máy chủ</string>
     <string name="caldav_server_unknown">Không xác định</string>
@@ -142,7 +139,6 @@
     <string name="url_invalid_scheme">Phải bắt đầu bằng http(s)://</string>
     <string name="url_required">Yêu cầu URL</string>
     <string name="username_required">Yêu cầu tên người dùng</string>
-    <string name="etesync_account_description">Yêu cầu một tài khoản trên EteSync.com hoặc một máy chủ mà bạn vận hành</string>
     <string name="show_advanced_settings">Hiện cài đặt nâng cao</string>
     <string name="app_settings">Cài đặt ứng dụng</string>
     <string name="whats_new">Có gì mới</string>

@@ -87,7 +87,6 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="day_after_tomorrow">Day after tomorrow</string>
   <string name="next_week">Next week</string>
-  <string name="location_update_interval_summary">Periodic location updates improve geofence reliability</string>
   <string name="BFE_Active">My Tasks</string>
   <string name="CFA_button_add">Add Criteria</string>
   <string name="CFC_dueBefore_text">Due By: ?</string>
@@ -120,7 +119,6 @@ File %1$s contained %2$s.\n\n
   <string name="ring_five_times">Ring five times</string>
   <string name="ring_nonstop">Ring nonstop</string>
   <string name="snooze_all">Snooze all</string>
-  <string name="rmd_EPr_rmd_time_desc">Notifications for all day tasks will appear at %1$s</string>
   <string name="repeat_option_custom">Custom…</string>
   <plurals name="task_count">
     <item quantity="one">%d task</item>
@@ -259,7 +257,6 @@ File %1$s contained %2$s.\n\n
   <string name="help">Help</string>
   <string name="help_and_feedback">Help &amp; feedback</string>
   <string name="subscription">Subscription</string>
-  <string name="refresh_purchases">Refresh purchases</string>
   <string name="pro_dashclock_extension">Dashclock extension</string>
   <string name="logout">Log out</string>
   <string name="delete_tasks_warning">%s will be deleted. This cannot be undone!</string>
@@ -290,7 +287,6 @@ File %1$s contained %2$s.\n\n
   <string name="invalid_backup_file">Invalid backup file</string>
   <string name="expand_subtasks">Expand subtasks</string>
   <string name="collapse_subtasks">Collapse subtasks</string>
-  <string name="choose_synchronization_service">Select a platform</string>
   <string name="caldav_selection_description">Synchronization based on open internet standards</string>
   <string name="etesync_selection_description">End-to-end encrypted synchronization</string>
   <string name="decsync_selection_description">File-based synchronization</string>
@@ -376,12 +372,10 @@ File %1$s contained %2$s.\n\n
   <string name="custom_filter_is_subtask">Is subtask</string>
   <string name="custom_filter_has_reminder">Has reminder</string>
   <string name="your_subscription_expired">Your subscription has expired. Subscribe now to resume service.</string>
-  <string name="no_google_play_subscription">No eligible Google Play subscription found</string>
   <string name="subscription_required_fdroid">A subscription is required to use Tasks.org sync. Subscriptions must be initiated from the Google Play version of Tasks.</string>
   <string name="sponsorship_required_fdroid">A GitHub sponsorship is required to use Tasks.org sync. Click below to become a sponsor.</string>
   <string name="price_per_month_with_currency">%s/month</string>
   <string name="price_per_year_with_currency">%s/year</string>
-  <string name="current_subscription">Current subscription: %s</string>
   <string name="support">Support</string>
   <string name="open_source">Open source</string>
   <string name="privacy">Privacy</string>
@@ -395,7 +389,6 @@ File %1$s contained %2$s.\n\n
   <string name="above_average">Above average</string>
   <string name="save_percent">Save %d%%</string>
   <string name="app_password">App password</string>
-  <string name="app_passwords_more_info">Synchronize your tasks and calendars with third-party desktop and mobile apps. Tap here for more info</string>
   <string name="copied_to_clipboard">%s copied to clipboard</string>
   <string name="email_to_task">Email to task</string>
   <string name="email_to_task_address">Your email address</string>
@@ -425,9 +418,6 @@ File %1$s contained %2$s.\n\n
   <string name="tos_updated_title">We\'ve updated our Terms of Service</string>
   <string name="accept">Accept</string>
   <string name="exit">Exit</string>
-  <string name="returning_user">Returning user?</string>
-  <string name="cost_money">Cost: $</string>
-  <string name="cost_more_money">Cost: $$$</string>
   <string name="multiline_title">Allow multiline titles</string>
   <string name="multiline_title_on">Press Enter key to add line breaks</string>
   <string name="multiline_title_off">Press Done to save task</string>

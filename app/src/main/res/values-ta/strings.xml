@@ -137,7 +137,6 @@
     <string name="show_advanced_settings">மேம்பட்ட அமைப்புகளைக் காட்டு</string>
     <string name="etesync_selection_description">திறந்த மூல, இறுதி முதல் இறுதி மறைகுறியாக்க ஒத்திசைவு</string>
     <string name="caldav_selection_description">திறந்த இணைய தரங்களின் அடிப்படையில் ஒத்திசைவு</string>
-    <string name="choose_synchronization_service">ஒரு தளத்தைத் தேர்ந்தெடுக்கவும்</string>
     <string name="collapse_subtasks">துணை பணிகளைச் சுருக்கவும்</string>
     <string name="expand_subtasks">துணை பணிகளை விரிவாக்குங்கள்</string>
     <string name="invalid_backup_file">தவறான காப்பு கோப்பு</string>
@@ -164,7 +163,6 @@
     <string name="reinitialize_account">மீண்டும் துவக்கு</string>
     <string name="logout">வெளியேறு</string>
     <string name="pro_dashclock_extension">டாஷ்க்லாக் நீட்டிப்பு</string>
-    <string name="refresh_purchases">வாங்குதல்களைப் புதுப்பிக்கவும்</string>
     <string name="help_and_feedback">உதவி &amp; கருத்து</string>
     <string name="help">உதவி</string>
     <string name="tasker_list_notification">பட்டியல் அறிவிப்பு</string>
@@ -314,7 +312,6 @@
     <string name="backups_ignore_warnings">எச்சரிக்கைகளை புறக்கணிக்கவும்</string>
     <string name="last_backup_never">ஒருபோதும்</string>
     <string name="automatic_backups">தானியங்கி காப்புப்பிரதிகள்</string>
-    <string name="no_google_play_subscription">தகுதியான கூகிள் பிளே சந்தா எதுவும் கிடைக்கவில்லை</string>
     <string name="custom_filter_has_reminder">நினைவூட்டல் உள்ளது</string>
     <string name="donate_nag">நன்கொடை மூலம் உங்கள் ஆதரவைக் காண்பிப்பதைக் கவனியுங்கள்!</string>
     <string name="repeat_snackbar">%1$s %2$s க்கு மாற்றியமைக்கப்பட்டது</string>
@@ -363,8 +360,6 @@
     <string name="github_sponsors">அறிவிலிமையம் ஒப்புரவாளர்கள்</string>
     <string name="copied_to_clipboard">இடைநிலைப்பலகைக்கு %s நகலெடுக்கப்பட்டது</string>
     <string name="enable_alarms">சரியான நேரத்தில் அறிவிக்கப்படுங்கள்</string>
-    <string name="cost_money">செலவு: $</string>
-    <string name="cost_more_money">செலவு: $$$</string>
     <string name="multiline_title">மல்டிலைன் தலைப்புகளை அனுமதிக்கவும்</string>
     <string name="multiline_title_on">வரி இடைவெளிகளைச் சேர்க்க ENTER விசையை அழுத்தவும்</string>
     <string name="authentication_required">ஏற்பு தேவை</string>
@@ -382,12 +377,10 @@
     <string name="sync_warning_google_tasks_title">கூகிள் பணி ஒத்திசைவு பற்றி</string>
     <string name="sync_warning_google_tasks">அனைத்து பணி விவரங்களும் கூகிள் பணிகளுடன் ஒத்திசைக்கவில்லை</string>
     <string name="privacy">தனியுரிமை</string>
-    <string name="app_passwords_more_info">மூன்றாம் தரப்பு டெச்க்டாப் மற்றும் மொபைல் பயன்பாடுகளுடன் உங்கள் பணிகள் மற்றும் காலெண்டர்களை ஒத்திசைக்கவும். மேலும் தகவலுக்கு இங்கே தட்டவும்</string>
     <string name="snackbar_tasks_completed">%d பணிகள் முடிந்தது</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
     <string name="above_average">சராசரிக்கு மேல்</string>
     <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
-    <string name="current_subscription">தற்போதைய சந்தா: %s</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
     <string name="save_percent">%d %% சேமிக்கவும்</string>

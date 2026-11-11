@@ -176,7 +176,6 @@
     <string name="badges_description">Tampilkan jumlah tugas pada ikon peluncur Tasks. Tidak semua peluncur mendukung fitur lencana ini.</string>
     <string name="tasker_create_task">Buat tugas</string>
     <string name="help">Bantuan</string>
-    <string name="refresh_purchases">Segarkan pembelian</string>
     <string name="pro_dashclock_extension">Ekstensi Dashclock</string>
     <string name="logout">Keluar</string>
     <string name="reinitialize_account">Inisialisasi ulang</string>
@@ -194,7 +193,6 @@
     <string name="choose_new_location">Pilih lokasi baru</string>
     <string name="invalid_backup_file">Berkas cadangan tidak valid</string>
     <string name="expand_subtasks">Lebarkan subtugas</string>
-    <string name="choose_synchronization_service">Pilih sebuah platform</string>
     <string name="caldav_selection_description">Sinkronisasi yang berdasarkan pada standar internet terbuka</string>
     <string name="etesync_selection_description">Enkripsi klien-ke-klien bersumber terbuka</string>
     <string name="theme_wallpaper">Latar</string>
@@ -254,7 +252,6 @@
     <string name="background_location_permission_required">Aplikasi ini mengumpulkan data lokasi untuk mengaktifkan pengingat berdasarkan lokasi bahkan saat aplikasi ditutup atau sedang tidak digunakan.</string>
     <string name="repeats_plural_number_of_times">Ulangi setiap %1$s, terjadi %2$d %3$s</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
-    <string name="app_passwords_more_info">Sinkronkan tugas dan kalender Anda dengan aplikasi desktop dan seluler pihak ketiga. Ketuk di sini untuk info selengkapnya</string>
     <string name="app_password">Kata sandi aplikasi</string>
     <string name="save_percent">Simpan %d%%</string>
     <string name="above_average">Diatas rata-rata</string>
@@ -265,8 +262,6 @@
     <string name="sign_in_with_google">Masuk dengan Google</string>
     <string name="github_sponsors">Sponsor GitHub</string>
     <string name="authorization_cancelled">Otorisasi dibatalkan</string>
-    <string name="current_subscription">Langganan saat ini: %s</string>
-    <string name="no_google_play_subscription">Tidak ditemukan langganan Google Play yang memenuhi syarat</string>
     <string name="your_subscription_expired">Langganan Anda telah berakhir. Berlangganan kembali untuk melanjutkan layanan.</string>
     <string name="custom_filter_is_subtask">Adalah subtugas</string>
     <string name="custom_filter_has_subtask">Memiliki subtugas</string>
@@ -372,8 +367,6 @@
     <string name="customize_drawer">Kustomisasi laci</string>
     <string name="sort_list">Berdasarkan daftar</string>
     <string name="TEA_creation_date">Tanggal pembuatan</string>
-    <string name="location_update_interval_summary">Pembaruan lokasi berkala meningkatkan keandalan geofence</string>
-    <string name="rmd_EPr_rmd_time_desc">Notifikasi untuk tugas sepanjang hari akan muncul pada pukul %1$s</string>
     <string name="delete_comment">komentar</string>
     <string name="comment">Komentar</string>
     <string name="yesterday">Kemarin</string>
@@ -413,9 +406,6 @@
     <string name="tos_updated_title">Kami telah memperbarui Ketentuan Layanan kami</string>
     <string name="accept">Terima</string>
     <string name="exit">Keluar</string>
-    <string name="returning_user">Pengguna lama?</string>
-    <string name="cost_money">Biaya: $</string>
-    <string name="cost_more_money">Biaya: $$$</string>
     <string name="multiline_title">Izinkan judul multibaris</string>
     <string name="multiline_title_on">Tekan tombol Enter untuk menambah jeda baris</string>
     <string name="multiline_title_off">Tekan Selesai untuk menyimpan tugas</string>

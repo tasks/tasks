@@ -208,7 +208,6 @@
     <string name="tasker_create_task">Opprett gjøremål</string>
     <string name="tasker_list_notification">Listemerknad</string>
     <string name="help">Hjelp</string>
-    <string name="refresh_purchases">Gjenoppfrisk kjøp</string>
     <string name="pro_dashclock_extension">Dashclock-utvidelse</string>
     <string name="logout">Logg ut</string>
     <string name="reinitialize_account">Last inn på ny</string>
@@ -237,7 +236,6 @@
     <string name="collapse_subtasks">Fold sammen gjøremålssteg</string>
     <string name="subtasks">Gjøremålssteg</string>
     <string name="display_name">Visningsnavn</string>
-    <string name="choose_synchronization_service">Velg en plattform</string>
     <string name="show_advanced_settings">Vis avanserte innstillinger</string>
     <string name="help_and_feedback">Hjelp og tilbakemelding</string>
     <string name="documentation">Dokumentasjon</string>
@@ -331,7 +329,6 @@
     <string name="always_display_full_date">Vis full dato</string>
     <string name="cancel">Avbryt</string>
     <string name="ok">OK</string>
-    <string name="current_subscription">Nåværende abonnement: %s</string>
     <string name="your_subscription_expired">Ditt abonnement har utløpt. Abonner nå for å fortsette tjenesten.</string>
     <string name="background_location_permission_required">Tasks samler posisjonsdata for å kunne utløse posisjonsbaserte påminnelser, selv når programmet er lukket eller ikke i bruk.</string>
     <string name="sign_in_with_google">Logg inn med Google</string>
@@ -340,12 +337,10 @@
     <string name="authentication_required">Identitetsbekreftelse kreves</string>
     <string name="migrating_tasks">Flytting av gjøremål</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
-    <string name="no_google_play_subscription">Fant ikke noe Google Play-abonnement</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
     <string name="save_percent">Lagre %d%%</string>
     <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Filbasert synkronisering</string>
-    <string name="app_passwords_more_info">Synkroniser dine gjøremål og kalendre med tredjepartsprogrammer for skrivebord og mobil. Trykk her for mer info</string>
     <string name="app_password">Programpassord</string>
     <string name="local_lists">Lokale lister</string>
     <string name="copied_to_clipboard">%s kopiert til utklippstavlen</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">It sertifikaat is tydelyk net aksepteard</string>
     <string name="trust_certificate_accept">Akseptearje</string>
     <string name="trust_certificate_fingerprint_verified">Ik ha mei de hân it serifikaatsbewiis/fingerôfdruk kontrolearre.</string>
     <string name="trust_certificate_fingerprints">Sertifikaatidentiteit/fingerôfdruk</string>

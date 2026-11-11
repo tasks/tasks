@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Tanúsítvány ideglenesen elutasítva</string>
     <string name="trust_certificate_accept">Elfogad</string>
     <string name="trust_certificate_fingerprint_verified">Kézileg ellenőriztem az ujjlenyomatok érvényességét.</string>
     <string name="trust_certificate_fingerprints">Ujjlenyomatok</string>

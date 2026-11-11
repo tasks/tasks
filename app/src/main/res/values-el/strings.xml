@@ -211,7 +211,6 @@
     <string name="tasker_list_notification">Ειδοποίηση λίστας</string>
     <string name="help">Βοήθεια</string>
     <string name="subscription">Συνδρομή εφαρμογής</string>
-    <string name="refresh_purchases">Ανανέωση συναλλαγών</string>
     <string name="pro_dashclock_extension">Επέκταση ρολογιού ταμπλό</string>
     <string name="logout">Αποσύνδεση</string>
     <string name="delete_tasks_warning">%s θα διαγραφεί. Αυτό δεν γίνεται να αναιρεθεί!</string>
@@ -242,7 +241,6 @@
     <string name="invalid_backup_file">Μη έγκυρο αρχείο αντιγράφου ασφαλείας</string>
     <string name="expand_subtasks">Άνοιγμα υποεργασιών</string>
     <string name="collapse_subtasks">Κλείσιμο υποεργασιών</string>
-    <string name="choose_synchronization_service">Επιλογή πλατφόρμας</string>
     <string name="caldav_selection_description">Συγχρονισμός βασισμένος σε ανοιχτά πρότυπα διαδικτύου</string>
     <string name="etesync_selection_description">Κρυπτογραφημένος συγχρονισμός από άκρο σε άκρο</string>
     <string name="decsync_selection_description">Συγχρονισμός βάσει αρχείων</string>
@@ -319,10 +317,8 @@
     <string name="custom_filter_is_subtask">Είναι υποεργασία</string>
     <string name="custom_filter_has_reminder">Περιλαμβάνει υπενθύμιση</string>
     <string name="your_subscription_expired">Η συνδρομή σας έχει λήξει. Γίνετε συνδρομητής τώρα για να συνεχίσετε την υπηρεσία.</string>
-    <string name="no_google_play_subscription">Δεν βρέθηκε κατάλληλη συνδρομή στο Google Play</string>
     <string name="price_per_month_with_currency">%s/μήνα</string>
     <string name="price_per_year_with_currency">%s/χρόνο</string>
-    <string name="current_subscription">Τρέχουσα συνδρομή: %s</string>
     <string name="support">Υποστήριξη</string>
     <string name="open_source">Ανοιχτός κώδικας</string>
     <string name="privacy">Ιδιωτικότητα</string>
@@ -336,7 +332,6 @@
     <string name="above_average">Άνω του μέσου όρου</string>
     <string name="save_percent">Αποθήκευση %d%%</string>
     <string name="app_password">Κωδικός εφαρμογής</string>
-    <string name="app_passwords_more_info">Συγχρονίστε τις εργασίες και τα ημερολόγια σας με εφαρμογές ηλεκτρονικών υπολογιστών και κινητών συσκευών τρίτων. Πατήστε εδώ για περισσότερες πληροφορίες</string>
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
     <string name="pro_free_trial">Οι νέοι συνδρομητές λαμβάνουν δωρεάν δοκιμή 7 ημερών. Ακυρώστε ανά πάσα στιγμή</string>
@@ -352,8 +347,6 @@
     <string name="hint_customize_edit_body">Μπορείτε να προσαρμόσετε αυτή την οθόνη αναδιατάσσοντας ή αφαιρώντας πεδία</string>
     <string name="enable_alarms">Ενημερωθείτε την κατάλληλη στιγμή</string>
     <string name="enable_alarms_description">Για να βεβαιωθείτε ότι θα ειδοποιηθείτε την κατάλληλη στιγμή, παραχωρήστε άδεια δημιουργίας υπενθυμίσεων και ειδοποιήσεων στις Ρυθμίσεις</string>
-    <string name="cost_money">Κόστος: $</string>
-    <string name="cost_more_money">Κόστος: $$$</string>
     <string name="multiline_title">Επιτρέψτε τους τίτλους πολλαπλών γραμμών</string>
     <string name="multiline_title_on">Πατήστε το πλήκτρο Enter για να προσθέσετε διακοπές γραμμής</string>
     <string name="multiline_title_off">Πατήστε Τέλος για να αποθηκεύσετε την εργασία</string>

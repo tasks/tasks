@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certyfikat tymczasowo ôdciepniynty</string>
     <string name="trust_certificate_accept">Akceptuj</string>
     <string name="trust_certificate_fingerprint_verified">Cołki ôdcisk palca bōł ryncznie zweryfikowany.</string>
     <string name="trust_certificate_fingerprints">Ôdciski palcōw</string>

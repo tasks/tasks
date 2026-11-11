@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certifikát bol dočasne odmietnutý</string>
     <string name="trust_certificate_accept">Prijať</string>
     <string name="trust_certificate_fingerprint_verified">Manuálne som skontroloval celý odtlačok.</string>
     <string name="trust_certificate_fingerprints">Odtlačky</string>

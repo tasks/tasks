@@ -212,7 +212,6 @@
     <string name="reinitialize_account">Reinicializar</string>
     <string name="logout">Sair</string>
     <string name="pro_dashclock_extension">Extensão Dashclock</string>
-    <string name="refresh_purchases">Atualizar compras</string>
     <string name="help">Ajuda</string>
     <string name="tasker_list_notification">Listar notificações</string>
     <string name="tasker_create_task">Criar tarefa</string>
@@ -283,7 +282,6 @@
     <string name="help_and_feedback">Ajuda &amp; sugestões</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="etesync_selection_description">Sincronização com encriptação ponta-a-ponta</string>
-    <string name="choose_synchronization_service">Selecione uma plataforma</string>
     <string name="display_name">Mostrar nome</string>
     <string name="subtasks">Subtarefas</string>
     <string name="collapse_subtasks">Colapsar subtarefas</string>
@@ -314,7 +312,6 @@
     <string name="save_percent">Guardar %d%%</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
     <string name="authorization_cancelled">Autorização cancelada</string>
-    <string name="current_subscription">Subscrição atual: %s</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
     <string name="backup_location_warning">AVISO: os ficheiros localizados em \"%s\" serão eliminados se o Tasks for desinstalado! Escolha outra localização para impedir que o Android elimine os seus ficheiros.</string>
     <string name="backups_ignore_warnings">Ignorar avisos</string>
@@ -331,7 +328,6 @@
     <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
-    <string name="app_passwords_more_info">Sincroniza as suas tarefas e calendários com aplicações de terceiros em computadores de mesa e aplicações de telemóveis de terceiros. Clique aqui para mais detalhes</string>
     <string name="app_password">Palavra-passe da aplicação</string>
     <string name="authentication_required">É necessário iniciar sessão</string>
     <string name="sign_in_with_google">Iniciar sessão com o Google</string>
@@ -339,7 +335,6 @@
     <string name="privacy">Privacidade</string>
     <string name="open_source">Código-fonte aberto</string>
     <string name="support">Suporte</string>
-    <string name="no_google_play_subscription">Não foi encontrada nenhuma subscrição elegível do Google Play</string>
     <string name="your_subscription_expired">A sua subscrição expirou. Renova agora a subscrição para continuar a usar o serviço.</string>
     <string name="custom_filter_has_subtask">Tem subtarefas</string>
     <string name="multi_select_reschedule">Reprogramar</string>
@@ -392,11 +387,9 @@
     <string name="button_learn_more">Saiba mais</string>
     <string name="enable_alarms">Receba notificações na hora certa</string>
     <string name="banner_app_updated_title">Aplicação atualizada</string>
-    <string name="cost_money">Custo: R$</string>
     <string name="multiline_title">Permitir títulos em várias linhas</string>
     <string name="multiline_title_on">Pressione a tecla Enter para adicionar quebras de linha</string>
     <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
-    <string name="cost_more_money">Custo:R$$$</string>
     <string name="show_edit_screen_without_unlock">Mostrar tela de edição sem desbloquear</string>
     <string name="banner_app_updated_description">O Tasks foi atualizado para a versão %s. Gostaria de ver as notas de lançamento?</string>
     <string name="sync_warning_microsoft">Nem todos os detalhes das tarefas são sincronizados com o Microsoft To Do.</string>
@@ -407,8 +400,6 @@
     <string name="widget_view_more_tasks">Ver mais tarefas</string>
     <string name="import_failed">Importação falhou</string>
     <string name="import_failed_message">Erro ao ler ficheiro de backup</string>
-    <string name="location_update_interval_summary">Atualizações periódicas de localização melhoram a confiabilidade do geofencing</string>
-    <string name="rmd_EPr_rmd_time_desc">Notificações para tarefas de dia todo aparecerão as %1$s</string>
     <string name="banner_subscription_required_body">Pague o que quiser para desbloquear sincronização %s</string>
     <string name="p_per_list_sort">classificacao_por_lista</string>
     <string name="per_list_sort_title">Classificação por lista</string>
@@ -429,6 +420,5 @@
     <string name="tos_updated_title">Atualizamos os nossos Termos de serviço</string>
     <string name="accept">Aceitar</string>
     <string name="exit">Sair</string>
-    <string name="returning_user">Utilizador a retornar?</string>
     <string name="read_more">Ler mais</string>
 </resources>

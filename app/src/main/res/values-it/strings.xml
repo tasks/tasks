@@ -205,7 +205,6 @@
     <string name="tasker_create_task">Crea attività</string>
     <string name="tasker_list_notification">Elenca notifiche</string>
     <string name="help">Aiuto</string>
-    <string name="refresh_purchases">Aggiorna acquisti</string>
     <string name="pro_dashclock_extension">Estensione Dashclock</string>
     <string name="logout">Esci</string>
     <string name="reinitialize_account">Reinizializza</string>
@@ -249,7 +248,6 @@
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
     <string name="etesync_selection_description">Sincronizzazione con crittografia end-to-end</string>
     <string name="caldav_selection_description">Sincronizzazione basata su standard aperti di internet</string>
-    <string name="choose_synchronization_service">Seleziona una piattaforma</string>
     <string name="collapse_subtasks">Comprimi attività secondarie</string>
     <string name="help_and_feedback">Aiuto e suggerimenti</string>
     <string name="url">URL</string>
@@ -331,7 +329,6 @@
     <string name="always_display_full_date">Mostra data completa</string>
     <string name="custom_filter_has_subtask">Contiene attività secondarie</string>
     <string name="custom_filter_is_subtask">È un\'attività secondaria</string>
-    <string name="current_subscription">Abbonamento attuale: %s</string>
     <string name="your_subscription_expired">Il tuo abbonamento è scaduto. Abbonati ora per riattivare il servizio.</string>
     <string name="background_location_permission_required">Tasks raccoglie i dati di localizzazione per abilitare i promemoria basati sulla posizione, anche quando è chiusa o non è in uso.</string>
     <string name="authorization_cancelled">Autorizzazione annullata</string>
@@ -343,7 +340,6 @@
     <string name="save_percent">Risparmia il %d%%</string>
     <string name="above_average">Sopra la media</string>
     <string name="github_sponsors">Sponsor di GitHub</string>
-    <string name="no_google_play_subscription">Nessun abbonamento Google Play idoneo trovato</string>
     <string name="decsync_selection_description">Sincronizzazione basata sui file</string>
     <string name="cancel">Annulla</string>
     <string name="ok">Ok</string>
@@ -352,7 +348,6 @@
     <string name="filter_criteria_unstarted">Non iniziate</string>
     <string name="SSD_sort_start">Per data di inizio</string>
     <string name="start_date">Data di inizio</string>
-    <string name="app_passwords_more_info">Sincronizza le tue attività e i calendari con applicazioni di terze parti. Tocca qui per maggiori informazioni</string>
     <string name="app_password">Password dell\'app</string>
     <string name="copied_to_clipboard">%s copiato</string>
     <string name="local_lists">Liste locali</string>
@@ -398,8 +393,6 @@
     <string name="comment">Commento</string>
     <string name="multiline_title">Consenti titoli su più righe</string>
     <string name="multiline_title_on">Premi il tasto Invio per andare a capo</string>
-    <string name="cost_more_money">Costo: $$$</string>
-    <string name="cost_money">Costo: $</string>
     <string name="sync_warning_google_tasks">Non tutti i dettagli delle attività saranno sincronizzati con Google Tasks</string>
     <string name="button_learn_more">Ulteriori informazioni</string>
     <string name="sync_warning_microsoft_title">Informazioni su Microsoft To Do</string>
@@ -417,13 +410,11 @@
     <string name="tos_updated_title">Abbiamo aggiornato i Termini di Servizio</string>
     <string name="accept">Accetta</string>
     <string name="exit">Esci</string>
-    <string name="returning_user">Ripristino i dati?</string>
     <string name="import_failed">Importazione non riuscita</string>
     <string name="import_failed_message">Impossibile leggere il file di backup</string>
     <string name="banner_subscription_required_body">Paga quanto vuoi per sbloccare la sincronizzazione %s</string>
     <string name="email_to_task_address">Il tuo indirizzo email</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ed altro ancora!</string>
-    <string name="rmd_EPr_rmd_time_desc">Le notifiche delle attività per l\'intera giornata verranno visualizzate alle %1$s</string>
     <string name="email_to_task">Attività da email</string>
     <string name="upgrade_email_to_task_description">Converti le email in attività inoltrandole alla tua casella privata</string>
     <string name="advanced_tools">Strumenti avanzati</string>
@@ -432,7 +423,6 @@
     <string name="upgrade_friends_and_family_description">5 ospiti gratuiti su liste condivise. Funziona con Apple Reminders</string>
     <string name="per_list_sort_title">Ordinamento per lista</string>
     <string name="per_list_sort_summary">Consente ordinamento e raggruppamento indipendenti per ogni lista</string>
-    <string name="location_update_interval_summary">Gli aggiornamenti periodici della posizione migliorano l\'affidabilità del geofence</string>
     <string name="read_more">Leggi di più</string>
     <string name="upgrade_desktop_app">Tasks.org per desktop</string>
     <string name="upgrade_desktop_app_description">Accesso in anteprima alla nuova app per desktop</string>

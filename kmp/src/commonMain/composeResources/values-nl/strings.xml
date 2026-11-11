@@ -154,10 +154,6 @@
     <string name="discard_changes">Veranderingen negeren?</string>
     <string name="discard">Negeren</string>
     <string name="delete">Wissen</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lijst</item>
-        <item quantity="other">%1$d lijsten</item>
-    </plurals>
     <string name="caldav_server_other">Andere</string>
     <string name="caldav_server_type">Type server</string>
     <string name="caldav_server_unknown">Onbekend</string>
@@ -169,7 +165,6 @@
     <string name="url_invalid_scheme">Moet beginnen met http(s)://</string>
     <string name="url_required">URL vereist</string>
     <string name="username_required">Gebruikersnaam vereist</string>
-    <string name="etesync_account_description">Voorwaarde is een account op www.EteSync.com of een eigen server</string>
     <string name="show_advanced_settings">Geavanceerde instellingen tonen</string>
     <string name="app_settings">App-instellingen</string>
     <string name="whats_new">Wat is nieuw</string>
@@ -576,13 +571,11 @@
     <string name="works_with_content_provider_description">Tasks.org-gegevens lezen en schrijven vanuit je eigen app</string>
     <string name="works_with_missing">Ontbreekt er iets? %1$s of e-mail %2$s.</string>
     <string name="works_with_submit_pull_request">Dien een pull-verzoek in</string>
-    <string name="link_desktop_instructions">Open de Tasks.org desktop-app en ga naar Account toevoegen om de QR-code te zien. Tik vervolgens op de onderstaande knop om deze te scannen.</string>
     <string name="link_desktop_step_1">Open de Tasks.org desktop-app</string>
     <string name="link_desktop_step_2">Klik op \'%1$s\' en selecteer \'%2$s\'</string>
     <string name="link_desktop_step_3">Selecteer \'%1$s\'</string>
     <string name="scan_qr_code">QR-code scannen</string>
     <string name="link_desktop_success">Desktop met succes gekoppeld!</string>
-    <string name="link_desktop_error">Desktop koppelen is mislukt. Probeer het opnieuw.</string>
     <string name="unlock_pro_scan_heading">Scan de QR-code in de Tasks.org Android app</string>
     <string name="unlock_pro_step_2">Tik op \'%1$s\' en vervolgens \'%2$s\'</string>
     <string name="unlock_pro_step_3">Tik \'%1$s\'</string>
@@ -655,7 +648,6 @@
     <string name="mcp_tools_group_places">Plaatsen</string>
     <string name="mcp_tools_group_reminders">Herinneringen</string>
     <string name="mcp_copy">Kopiëren</string>
-    <string name="mcp_server_summary">Laat AI-assistenten op deze computer uw gegevens lezen en beheren</string>
     <string name="mcp_server_enable">Dien uw gegevens via MCP</string>
     <string name="mcp_server_enable_summary">Alleen uitvoeren op deze computer op 127.0.0.1. Niets wordt blootgesteld aan het netwerk.</string>
     <string name="mcp_status_running">Uitvoeren op poort %1$d</string>

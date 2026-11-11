@@ -197,7 +197,6 @@
     <string name="tasker_create_task">Créer une tâche</string>
     <string name="tasker_list_notification">Notification de liste</string>
     <string name="help">Aide</string>
-    <string name="refresh_purchases">Rafraîchir les achats</string>
     <string name="pro_dashclock_extension">Extension du tableau de bord</string>
     <string name="logout">Se déconnecter</string>
     <string name="reinitialize_account">Réinitialiser</string>
@@ -239,7 +238,6 @@
     <string name="collapse_subtasks">Réduire les sous-tâches</string>
     <string name="subtasks">Sous-tâches</string>
     <string name="display_name">Afficher le nom</string>
-    <string name="choose_synchronization_service">Sélectionner une plate-forme</string>
     <string name="caldav_selection_description">Synchronisation basée sur des normes d\'Internet ouvertes</string>
     <string name="etesync_selection_description">Synchronisation du chiffrement de bout en bout</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
@@ -333,7 +331,6 @@
     <string name="always_display_full_date">Afficher la date complète</string>
     <string name="custom_filter_is_subtask">Est une sous-tâche</string>
     <string name="custom_filter_has_subtask">A des sous-tâches</string>
-    <string name="current_subscription">Abonnement en cours : %s</string>
     <string name="your_subscription_expired">Votre abonnement a expiré. Veuillez vous réabonnez dès maintenant pour reprendre le service.</string>
     <string name="background_location_permission_required">Tasks collecte des données de localisation pour permettre des rappels basés sur les emplacements, même lorsque l\'application est fermée ou non utilisée.</string>
     <string name="authorization_cancelled">Autorisation annulée</string>
@@ -343,12 +340,10 @@
     <string name="migrate_count">Déplacer %s vers Tasks.org</string>
     <string name="migrating_tasks">Migration de tâches</string>
     <string name="github_sponsors">Parrains « GitHub »</string>
-    <string name="no_google_play_subscription">Aucun abonnement « Google Play » éligible n\'a été trouvé</string>
     <string name="above_average">Au dessus de la moyenne</string>
     <string name="save_percent">Économisez %d%%</string>
     <string name="decsync_selection_description">Synchronisation basée sur les fichiers</string>
     <string name="copied_to_clipboard">%s copié dans le presse-papiers</string>
-    <string name="app_passwords_more_info">Synchronisez vos tâches et calendriers avec des applications de bureau et de mobile tierces. Appuyez ici pour plus d’informations</string>
     <string name="app_password">Mot de passe de l\'application</string>
     <string name="local_lists">Listes locales</string>
     <string name="start_date">Date de départ</string>
@@ -403,8 +398,6 @@
     <string name="button_learn_more">Voir plus</string>
     <string name="enable_alarms">Sois notifié au bon moment</string>
     <string name="enable_alarms_description">Pour être sûr d\'être notifié au bon moment, autorisez la permission d\'ajouter des alarmes et des rappels dans Paramètres</string>
-    <string name="cost_money">Coût : $</string>
-    <string name="cost_more_money">Coût : $$$</string>
     <string name="app_settings">Paramètres de l\'application</string>
     <string name="banner_app_updated_description">Tasks vient d\'être mis à jour vers %s. Souhaitez-vous consulter les notes de mise à jour ?</string>
     <string name="banner_app_updated_title">Application mise à jour</string>
@@ -417,13 +410,11 @@
     <string name="tos_updated_title">Nous avons mis à jour nos conditions d\'utilisation</string>
     <string name="accept">Accepter</string>
     <string name="exit">Sortir</string>
-    <string name="returning_user">Restaurer les données ?</string>
     <string name="import_failed_message">Impossible de lire le fichier de sauvegarde</string>
     <string name="import_failed">Échec de l\'importation</string>
     <string name="banner_subscription_required_body">Payez ce que vous voulez pour déverrouiller la synchronisation %s</string>
     <string name="email_to_task">Courriel en tâche</string>
     <string name="email_to_task_address">Votre adresse électronique</string>
-    <string name="rmd_EPr_rmd_time_desc">Les notifications pour toutes les tâches quotidiennes apparaîtront à %1$s</string>
     <string name="upgrade_email_to_task_description">Transformez vos courriels en tâches en les transférant vers votre boîte de réception privée</string>
     <string name="advanced_tools">Outils avancés</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync, et plus encore !</string>
@@ -433,7 +424,6 @@
     <string name="per_list_sort_title">Tri par liste</string>
     <string name="per_list_sort_summary">Mémoriser les paramètres de tri et de regroupement pour chaque liste séparément</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="location_update_interval_summary">Les mises à jour périodiques de la position améliorent la fiabilité des zones de géorepérage</string>
     <string name="read_more">Lire la suite</string>
     <string name="upgrade_desktop_app">Tasks.org pour bureau</string>
     <string name="upgrade_desktop_app_description">Accès anticipé à la nouvelle application de bureau</string>

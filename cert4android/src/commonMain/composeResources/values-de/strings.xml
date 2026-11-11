@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Zertifikat vorübergehend abgelehnt</string>
     <string name="trust_certificate_accept">Akzeptieren</string>
     <string name="trust_certificate_fingerprint_verified">Ich habe die vollständige Prüfsumme händisch überprüft.</string>
     <string name="trust_certificate_fingerprints">Prüfsummen</string>

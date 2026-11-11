@@ -137,11 +137,6 @@
     <string name="discard_changes">Zahodiť zmeny?</string>
     <string name="discard">Zahodiť</string>
     <string name="delete">Zmazať</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d zoznam</item>
-        <item quantity="few">%1$d zoznamy</item>
-        <item quantity="other">%1$d zoznamov</item>
-    </plurals>
     <string name="caldav_server_other">Ďalšie</string>
     <string name="caldav_server_type">Typ servera</string>
     <string name="caldav_server_unknown">Neznámy</string>
@@ -153,7 +148,6 @@
     <string name="url_invalid_scheme">Musí sa začínať http(s)://</string>
     <string name="url_required">Vyžaduje sa URL</string>
     <string name="username_required">Vyžaduje sa meno užívateľa</string>
-    <string name="etesync_account_description">Vyžaduje účet na EteSync.com alebo vlastný server</string>
     <string name="show_advanced_settings">Zobraziť pokročilé možnosti</string>
     <string name="app_settings">Nastavenia aplikácie</string>
     <string name="whats_new">Čo je nové</string>

@@ -210,7 +210,6 @@
     <string name="tasker_create_task">Vytvoriť úlohu</string>
     <string name="tasker_list_notification">Zoznam upozornení</string>
     <string name="help">Pomoc</string>
-    <string name="refresh_purchases">Obnoviť nákupy</string>
     <string name="pro_dashclock_extension">Rozšírenie Dashclock</string>
     <string name="logout">Odhlásiť sa</string>
     <string name="reinitialize_account">Znovu aktivovať</string>
@@ -295,12 +294,10 @@
     <string name="local_lists">Zoznamy iba na tomto zariadení</string>
     <string name="background_location">Umiestnenie na pozadí</string>
     <string name="backups_ignore_warnings_summary">Ignorujte varovania týkajúce sa zálohovania, ak ich nepotrebujete alebo riešite zálohovanie po svojom</string>
-    <string name="no_google_play_subscription">Nenájdené žiadne predplatné Google Play</string>
     <string name="expand_subtasks">Rozbaliť podúlohy</string>
     <string name="action_new_task">Nová úloha</string>
     <string name="background_location_permission_required">Táto aplikácia zbiera údaje o vašej polohe, aby fungovali upozornenia podľa polohy aj keď aplikáciu práve nepoužívate.</string>
     <string name="invalid_backup_file">Neplatný súbor zálohy</string>
-    <string name="choose_synchronization_service">Vyberte službu</string>
     <string name="etesync_selection_description">Synchronizácia šifrovaná medzi koncovými uzlami</string>
     <string name="decsync_selection_description">Synchronizácia založená na súboroch</string>
     <string name="davx5_selection_description">Synchronizujte svoje úlohy pomocou aplikácie DAVx⁵</string>
@@ -327,15 +324,12 @@
     <string name="device_settings">Nastavenia zariadenia</string>
     <string name="foreground_location">Umiestnenie na popredí</string>
     <string name="price_per_year_with_currency">%s ročne</string>
-    <string name="current_subscription">Súčasné predplatné: %s</string>
     <string name="open_source">Otvorený zdrojový kód</string>
     <string name="github_sponsor">Sponzor</string>
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
     <string name="migrate_count">Presunúť %s do Tasks.org</string>
     <string name="above_average">Nadpriemerné</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
-    <string name="cost_money">Cena: $</string>
-    <string name="cost_more_money">Cena: $$$</string>
     <string name="auto_dismiss_datetime_edit">Úprava úlohy</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="select_all">Vybrať všetko</string>
@@ -388,7 +382,6 @@
     <string name="filter_today_only">Iba dnešné</string>
     <string name="app_password">Heslo aplikácie</string>
     <string name="sign_in_with_google">Prihlásenie účtom Google</string>
-    <string name="app_passwords_more_info">Synchronizujte svoje úlohy a kalendáre s desktopovými a mobilnými aplikáciami tretích strán. Pre viac informácii kliknite sem</string>
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>

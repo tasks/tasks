@@ -139,11 +139,6 @@
     <string name="discard_changes">Descartar alterações?</string>
     <string name="discard">Descartar</string>
     <string name="delete">Excluir</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lista</item>
-        <item quantity="many">%1$d listas</item>
-        <item quantity="other">%1$d listas</item>
-    </plurals>
     <string name="caldav_server_other">Outro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconhecido</string>
@@ -155,7 +150,6 @@
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_required">É necessário o URL</string>
     <string name="username_required">Nome de usuário necessário</string>
-    <string name="etesync_account_description">Precisa de uma conta com EteSync.com ou uma instância desse serviço auto-hospedada</string>
     <string name="wear_phone_update_required">Atualização do celular necessária</string>
     <string name="wear_connecting_to_phone">Conectando ao celular…</string>
     <string name="failed_to_save_task">Erro ao salvar tarefa</string>
@@ -197,10 +191,8 @@
     <string name="debug">Debug</string>
     <string name="link_desktop">Conectar app de desktop</string>
     <string name="link_desktop_description">Desbloquear o app de desktop com sua inscrição Google Play</string>
-    <string name="link_desktop_instructions">Abrir o app Tasks.org de desktop a ir para Adicionar conta para ver o QR code. Então clique no botão abaixo para escanear.</string>
     <string name="scan_qr_code">Escanear QR code</string>
     <string name="link_desktop_success">Desktop conectado com sucesso!</string>
-    <string name="link_desktop_error">Erro ao conectar desktop. Por favor tente de novo.</string>
     <string name="done">Pronto</string>
     <string name="retry">Tentar de novo</string>
     <string name="qr_code">QR code</string>
@@ -640,7 +632,6 @@
     <string name="works_with_tasks">Funciona com Tasks.org</string>
     <string name="works_with_tasks_description">Aplicativos, dispositivos sincronizados e integrações</string>
     <string name="sign_in_with_apple">Logar com Apple</string>
-    <string name="mcp_server_summary">Deixe os assistentes de IA neste computador lerem e gerenciarem seus dados</string>
     <string name="mcp_server_enable">Enviar seus dados sobre MCP</string>
     <string name="mcp_server_enable_summary">Roda apenas neste computador, em 127.0.0.1. Nada é exposto à rede.</string>
     <string name="mcp_status_running">Rodando na porta %1$d</string>

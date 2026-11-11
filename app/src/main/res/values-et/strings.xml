@@ -182,7 +182,6 @@
     <string name="building_notifications">Loon teavitusi</string>
     <string name="whats_new">Mida on uut?</string>
     <string name="pick_this_location">Vali see asukoht</string>
-    <string name="choose_synchronization_service">Vali platvorm</string>
     <string name="documentation">Dokumentatsioon</string>
     <string name="place_settings">Asukoha seadistused</string>
     <string name="chip_appearance_text_only">Lihttekst</string>
@@ -200,7 +199,6 @@
     <string name="widget_due_date_hidden">Peidetud</string>
     <string name="clear_completed_tasks_confirmation">Kas eemaldame täidetud ülesanded?</string>
     <string name="badges">Märgised</string>
-    <string name="refresh_purchases">Värskenda ostud</string>
     <string name="action_new_task">Uus ülesanne</string>
     <string name="location_remind_arrival">Tuleta saabudes meelde</string>
     <string name="collapse_subtasks">Sulge alamülesanded</string>
@@ -275,7 +273,6 @@
     <string name="display_name">Kuvatav nimi</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
     <string name="widget_id">Vidina ID: %d</string>
-    <string name="current_subscription">Pregune tellimus:%s</string>
     <string name="hint_customize_edit_title">Liiga palju infot?</string>
     <string name="sort_created">Loomisaja alusel</string>
     <string name="EPr_fullTask_title">Kuva terve ülesande pealkiri</string>
@@ -329,14 +326,12 @@
     <string name="no_app_found">Rakendus ei osanud selle päringuga midagi ette võtta</string>
     <string name="reinitialize_account">Initsialiseeri uuesti</string>
     <string name="location_arrived">Saabusid: %s</string>
-    <string name="cost_money">Hind: $</string>
     <string name="restart_required">Selle muudatuse jõustamiseks käivita Tasks uuesti</string>
     <string name="show_edit_screen_without_unlock_summary">Võimaldab kiirseadistuste paani kasutamist ilma lukustust eemaldamata</string>
     <string name="location_departed">Väljusid: %s</string>
     <string name="repeats_plural_number_of_times">Kordub iga %1$s, toimub %2$d %3$s</string>
     <string name="linkify_description">Lisa veebisaitide, aadresside ja telefoninumbrite linke</string>
     <string name="subscription">Tellimus</string>
-    <string name="cost_more_money">Hind: $$$</string>
     <string name="multiline_title">Kasuta mitmerealisi pealkirju</string>
     <string name="multiline_title_on">Kasuta sisestusklahvi reavahetuse lisamiseks</string>
     <string name="sync_warning_microsoft_title">Teave Microsoft To Do sünkroniseerimise kohta</string>
@@ -347,7 +342,6 @@
     <string name="dont_add_to_calendar">Ära lisa kalendrisse</string>
     <string name="sync_warning_google_tasks_title">Teave Google Tasksi sünkroniseerimise kohta</string>
     <string name="sync_warning_google_tasks">Ülesannete kõikide üksikasjade sünkroniseerimine ei toimi Google Tasksi liidestusega</string>
-    <string name="app_passwords_more_info">Sünkroniseeri oma ülesandeid ja kalendreid kolmandate osapoolte töölaua- ja nutiseadme rakendustega. Lisateavet leiad siit</string>
     <string name="badges_description">Näita ülesannete arvu Tasks rakenduse ikoonil. Palun arvesta et kõik avalehed ja käivitajad ei toeta seda võimalust.</string>
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
@@ -389,7 +383,6 @@
     <string name="filter_eisenhower_box_3">Mittetähtis ja kiire</string>
     <string name="support_development_subscribe">Sellega muutuvad kasutatavaks mõned lisafunktsionaalsused ja sa toetad avatud lähtekoodil põhinevat tarvaraarendust</string>
     <string name="filter_eisenhower_box_1">Tähtis ja kiire</string>
-    <string name="no_google_play_subscription">Ühtegi sobivat Google Play tellimust ei leidunud</string>
     <string name="price_per_month_with_currency">%s kuus</string>
     <string name="price_per_year_with_currency">%s aastas</string>
     <string name="backup_location_warning">HOIATUS: Tasks rakenduse eemaldamisel kustutatakse ka kõik „%s“ asuukohas leiduvad failid. Kui soovid, et Android sinu faile ei kustutaks, siis palun vali muu asukoht.</string>
@@ -409,17 +402,14 @@
     <string name="tos_updated_title">Me oleme uuendanud oma kasutustingimusi</string>
     <string name="accept">Nõustu</string>
     <string name="exit">Välju</string>
-    <string name="returning_user">Sa oled seda rakendust varem kasutanud?</string>
     <string name="import_failed">Importimine ei õnnestunud</string>
     <string name="import_failed_message">Varukoopia faili lugemine ei õnnestunud</string>
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>
-    <string name="rmd_EPr_rmd_time_desc">Kogu päeva katvate ülesannete teavitused on nähtavad siin: %1$s</string>
     <string name="upgrade_email_to_task_description">Muuda e-kirjad ülesanneteks, kui edastad need oma privaatsesse postkasti</string>
     <string name="advanced_tools">Täiendavad tarvikud</string>
     <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>
-    <string name="location_update_interval_summary">Aeg-ajalt toimuvad asukoha uuendused parandavad geotarastuse töökindlust</string>
     <string name="per_list_sort_title">Loendikohane järjestus</string>
     <string name="per_list_sort_summary">Järjestuse ja rühmitamise seadistused jäävad salvestuvad iga loendi puhul eraldi</string>
     <string name="guest_create_list_message">Sul on praegu külaliskasutaja juurdepääs jagatud loenditele. Oma isiklike loendite loomiseks ja pilvega sünkroonimiseks on vaja Tasks.org-i tellimust. Või võid luua tasuta kohaliku nimekirja, mis jääb sellesse seadmesse.</string>

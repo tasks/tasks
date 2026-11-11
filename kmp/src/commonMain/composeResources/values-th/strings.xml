@@ -114,9 +114,6 @@
     <string name="discard_changes">ละทิ้งการเปลี่ยนแปลงหรือไม่?</string>
     <string name="discard">ทิ้ง</string>
     <string name="delete">ลบ</string>
-    <plurals name="list_count">
-        <item quantity="other">รายการ %1$d</item>
-    </plurals>
     <string name="error_adding_account">ข้อผิดพลาด: %1$s</string>
     <string name="invalid_username_or_password">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
     <string name="network_error">ไม่สามารถเชื่อมต่อได้</string>
@@ -124,7 +121,6 @@
     <string name="url_invalid_scheme">ต้องเริ่มต้นด้วย http(s)://</string>
     <string name="url_required">URL ที่ต้องการ</string>
     <string name="username_required">ต้องการชื่อผู้ใช้</string>
-    <string name="etesync_account_description">ต้องการบัญชีผู้ใช้ที่มี EteSync.com หรือเซิร์ฟเวอร์ที่โฮสต์ด้วยตนเอง</string>
     <string name="show_advanced_settings">แสดงการตั้งค่าขั้นสูง</string>
     <string name="whats_new">มีอะไรใหม่</string>
     <string name="version_string">เวอร์ชั่น %1$s</string>

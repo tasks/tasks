@@ -78,10 +78,6 @@
     <string name="discard_changes">¿Escartar cambeos?</string>
     <string name="discard">Escartar</string>
     <string name="delete">Esborriar</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d llista</item>
-        <item quantity="other">%1$d llistes</item>
-    </plurals>
     <string name="error_adding_account">Error:%1$s</string>
     <string name="network_error">Nun se pudo coneutar</string>
     <string name="url_host_name_required">Precísase un hostname</string>

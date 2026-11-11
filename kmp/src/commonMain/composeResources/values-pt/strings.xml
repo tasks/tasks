@@ -138,10 +138,6 @@
     <string name="discard_changes">Descartar alterações?</string>
     <string name="discard">Descartar</string>
     <string name="delete">Eliminar</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lista</item>
-        <item quantity="other">%1$d listas</item>
-    </plurals>
     <string name="caldav_server_other">Outro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconhecido</string>
@@ -153,7 +149,6 @@
     <string name="url_invalid_scheme">Deve iniciar com http(s)://</string>
     <string name="url_required">É necessário o URL</string>
     <string name="username_required">É necessário o nome de utilizador</string>
-    <string name="etesync_account_description">Precisa de uma conta no EteSync.com ou de um servidor auto-alojado</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="app_settings">Configurações da aplicação</string>
     <string name="whats_new">Novidades</string>
@@ -250,13 +245,11 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="link_desktop">Conectar app de desktop</string>
     <string name="link_desktop_description">Desbloquear a app de desktop com a sua inscrição Google Play</string>
-    <string name="link_desktop_instructions">Abrir a app Tasks.org de desktop a ir para Adicionar conta para ver o QR code. Depois clique no botão abaixo para escanear.</string>
     <string name="link_desktop_step_1">Abrir a app Tasks.org no desktop</string>
     <string name="link_desktop_step_2">Clique em '%1$s' e selecione '%2$s'</string>
     <string name="link_desktop_step_3">Selecione '%1$s'</string>
     <string name="scan_qr_code">Escanear QR code</string>
     <string name="link_desktop_success">Desktop conectado com sucesso!</string>
-    <string name="link_desktop_error">Erro ao conectar desktop. Por favor tente de novo.</string>
     <string name="unlock_pro_scan_heading">Escaneie o QR code na app Tasks.org no Android</string>
     <string name="unlock_pro_step_1">Abra Tasks.org no seu telemóvel</string>
     <string name="unlock_pro_step_2">Clique em '%1$s', depois clique em '%2$s'</string>

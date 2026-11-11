@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Sertifikaatti hylätty väliaikaisesti</string>
     <string name="trust_certificate_accept">Hyväksy</string>
     <string name="trust_certificate_fingerprint_verified">Olen manuaalisesti vahvistanut koko sormenjäljen.</string>
     <string name="trust_certificate_fingerprints">Sormenjäljet</string>

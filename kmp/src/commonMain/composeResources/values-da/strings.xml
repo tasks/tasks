@@ -158,10 +158,6 @@
     <string name="discard_changes">Kassér ændringer?</string>
     <string name="discard">Kassér</string>
     <string name="delete">Slet</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d liste</item>
-        <item quantity="other">%1$d lister</item>
-    </plurals>
     <string name="caldav_server_other">Andet</string>
     <string name="caldav_server_type">Servertype</string>
     <string name="caldav_server_unknown">Ukendt</string>
@@ -173,7 +169,6 @@
     <string name="url_invalid_scheme">Skal begynde med http(s)://</string>
     <string name="url_required">URL påkrævet</string>
     <string name="username_required">Brugernavn påkrævet</string>
-    <string name="etesync_account_description">Kræver en konto hos EteSync.com eller en selvhostet server</string>
     <string name="show_advanced_settings">Vis avancerede indstillinger</string>
     <string name="app_settings">App-indstillinger</string>
     <string name="whats_new">Hvad er nyt</string>
@@ -518,10 +513,8 @@
     <string name="failed_to_save_task">Opgaven kunne ikke gemmes</string>
     <string name="link_desktop">Tilknyt desktop-app</string>
     <string name="link_desktop_description">Lås op for desktop-appen med dit Google Play-abonnement</string>
-    <string name="link_desktop_instructions">Åbn Tasks.orgs desktop-app, og gå til Tilføj konto for at se QR-koden. Tryk derefter på knappen nedenfor for at scanne den.</string>
     <string name="scan_qr_code">Scan QR-kode</string>
     <string name="link_desktop_success">Desktop-appen er tilknyttet!</string>
-    <string name="link_desktop_error">Desktop-appen kunne ikke tilknyttes. Prøv igen.</string>
     <string name="done">Færdig</string>
     <string name="retry">Prøv igen</string>
     <string name="qr_code">QR-kode</string>
@@ -658,7 +651,6 @@
     <string name="works_with_content_provider_description">Læs og skriv Tasks.org-data fra din egen app</string>
     <string name="works_with_missing">Mangler der noget? %1$s, eller send en e-mail til %2$s.</string>
     <string name="works_with_submit_pull_request">Indsend en pull request</string>
-    <string name="mcp_server_summary">Lad AI-assistenter på denne computer læse og administrere dine data</string>
     <string name="mcp_server_enable">Stil dine data til rådighed via MCP</string>
     <string name="mcp_server_enable_summary">Kører kun på denne computer på 127.0.0.1. Intet bliver gjort tilgængeligt på netværket.</string>
     <string name="mcp_status_running">Kører på port %1$d</string>

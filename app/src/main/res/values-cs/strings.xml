@@ -207,7 +207,6 @@
     <string name="tasker_create_task">Vytvořit úkol</string>
     <string name="tasker_list_notification">Vypsat upozornění</string>
     <string name="help">Nápověda</string>
-    <string name="refresh_purchases">Obnovit nákupy</string>
     <string name="icon">Ikona</string>
     <string name="help_and_feedback">Nápověda a zpětná vazba</string>
     <string name="pro_dashclock_extension">Dashclock rozšíření</string>
@@ -229,7 +228,6 @@
     <string name="invalid_backup_file">Zvolený soubor neobsahuje zálohu</string>
     <string name="expand_subtasks">Rozbalit podúkoly</string>
     <string name="collapse_subtasks">Sbalit podúkoly</string>
-    <string name="choose_synchronization_service">Zvolte službu</string>
     <string name="caldav_selection_description">Synchronizace založená na otevřených internetových standardech</string>
     <string name="etesync_selection_description">Synchronizace šifrovaná mezi koncovými body</string>
     <string name="show_advanced_settings">Zobrazit pokročilé možnosti</string>
@@ -337,7 +335,6 @@
     <string name="your_subscription_expired">Platnost vašeho předplatného skončila. Pokud chcete službu dále využívat, obnovte ho.</string>
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
-    <string name="app_passwords_more_info">Synchronizujte své úkoly a kalendáře s desktopovými a mobilními aplikacemi třetích stran. Pro více informací klepněte sem</string>
     <string name="app_password">Heslo k aplikaci</string>
     <string name="save_percent">Ušetříte %d%%</string>
     <string name="above_average">Nadprůměrné</string>
@@ -351,8 +348,6 @@
     <string name="privacy">Soukromí</string>
     <string name="open_source">Otevřený zdrojový kód</string>
     <string name="support">Podpora a nápověda</string>
-    <string name="current_subscription">Stávající předplatné: %s</string>
-    <string name="no_google_play_subscription">Nenalezeno žádné Google Play předplatné</string>
     <string name="background_location">Umístění v pozadí</string>
     <string name="foreground_location">Umístění v popředí</string>
     <string name="location_departed">Odchod v %s</string>
@@ -395,14 +390,12 @@
     <string name="price_per_year_with_currency">%s ročně</string>
     <string name="enable_alarms">Dostaňte upozornění včas</string>
     <string name="comment">Komentář</string>
-    <string name="cost_money">Cena: $</string>
     <string name="sync_warning_microsoft_title">O synchronizaci Microsoft To Do</string>
     <string name="sync_warning_google_tasks">Ne všechny podrobnosti připomínek se synchronizují s Google Tasks</string>
     <string name="enable_alarms_description">Chcete-li být informováni v čas, udělte v Nastavení oprávnění k nastavení budíků a připomenutí</string>
     <string name="sync_warning_microsoft">Ne všechny podrobnosti připomínek se synchronizují s Microsoft To Do.</string>
     <string name="sync_warning_google_tasks_title">O synchronizaci připomínek Google</string>
     <string name="button_learn_more">Zjistit více</string>
-    <string name="cost_more_money">Cena: $$$</string>
     <string name="multiline_title">Povolit víceřádkové názvy</string>
     <string name="multiline_title_on">Stisknutím Enter přidáte konce řádků</string>
     <string name="app_settings">Nastavení aplikace</string>
@@ -417,13 +410,11 @@
     <string name="tos_updated_title">Upravili jsme naše Podmínky služby</string>
     <string name="accept">Přijmout</string>
     <string name="exit">Ukončit</string>
-    <string name="returning_user">Už jste aplikaci používali?</string>
     <string name="import_failed">Import selhal</string>
     <string name="import_failed_message">Nepodařilo se přečíst soubor zálohy</string>
     <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>
-    <string name="rmd_EPr_rmd_time_desc">Oznámení o celodenních úkolech se zobrazí v %1$s</string>
     <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
     <string name="advanced_tools">Pokročilé nástroje</string>
     <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
@@ -433,7 +424,6 @@
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">Řazení dle seznamu</string>
     <string name="per_list_sort_summary">Zapamatovat si nastavení řazení a skupin zvlášť pro každý seznam</string>
-    <string name="location_update_interval_summary">Pravidelné aktualizace polohy zvyšují spolehlivost geofence</string>
     <string name="read_more">Více informací</string>
     <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
     <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>

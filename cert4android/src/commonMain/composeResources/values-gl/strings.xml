@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certificado temporalmente rexeitado</string>
     <string name="trust_certificate_accept">Aceptar</string>
     <string name="trust_certificate_fingerprint_verified">Verifiquei manualmente a impresión dixital.</string>
     <string name="trust_certificate_fingerprints">Impresións dixitais</string>

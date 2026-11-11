@@ -159,11 +159,6 @@
     <string name="discard_changes">Одбаци измене?</string>
     <string name="discard">Обустави</string>
     <string name="delete">Обриши</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d листа</item>
-        <item quantity="few">%1$d листе</item>
-        <item quantity="other">%1$d листи</item>
-    </plurals>
     <string name="caldav_server_other">Друго</string>
     <string name="caldav_server_type">Тип сервера</string>
     <string name="caldav_server_unknown">Непознато</string>
@@ -175,7 +170,6 @@
     <string name="url_invalid_scheme">Мора почети са http(s)://</string>
     <string name="url_required">URL је неопходан</string>
     <string name="username_required">Корисничко име је неопходно</string>
-    <string name="etesync_account_description">Захтева налог код ,,EteSync.com'' или приватни сервер</string>
     <string name="show_advanced_settings">Прикажи напредна подешавања</string>
     <string name="app_settings">Подешавања апликације</string>
     <string name="whats_new">Шта је ново</string>
@@ -428,13 +422,11 @@
     <string name="metadata_not_supported">Овај сервер не подржава синхронизацију података о таговима</string>
     <string name="link_desktop">Повежи десктоп апликацију</string>
     <string name="link_desktop_description">Откључај десктоп апликацију помоћу твоје Google Play претплате</string>
-    <string name="link_desktop_instructions">Отвори Tasks.org десктоп апликацију и иди на ,,Додај налог\'\' за приказ QR кода. Затим, за скенирање кода, кликни на дугме испод.</string>
     <string name="link_desktop_step_1">Отвори Tasks.org десктоп апликацију</string>
     <string name="link_desktop_step_2">Кликни на ,,%1$s\'\' и одабери ,,%2$s\'\'</string>
     <string name="link_desktop_step_3">Одабери ,,%1$s\'\'</string>
     <string name="scan_qr_code">Скенирај QR код</string>
     <string name="link_desktop_success">Десктоп успешно повезан!</string>
-    <string name="link_desktop_error">Повезивање са десктопом неуспешно. Молим покушај поново.</string>
     <string name="unlock_pro_scan_heading">Скенирај QR код у Tasks.org андроид апликацији</string>
     <string name="unlock_pro_step_1">Отвори Tasks.org на свом телефону</string>
     <string name="unlock_pro_step_2">Кликни на ,,%1$s\'\', затим на ,,%2$s\'\'</string>
@@ -611,7 +603,6 @@
     <string name="shared_by">Подељено од стране %1$s</string>
     <string name="guests">Гости (%1$d/%2$d</string>
     <string name="logout_confirmation">Одјави се од %1$s?</string>
-    <string name="mcp_server_summary">Дозволи AI асистенту да на овом рачунару чита и управља твојим подацима</string>
     <string name="mcp_server_enable_summary">Покреће се само на овом рачунару, на 127.0.0.1. Ништа није изложено интернету.</string>
     <string name="mcp_status_running">Покреће се на порту %1$d</string>
     <string name="mcp_status_starting">Покретање…</string>

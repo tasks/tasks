@@ -174,9 +174,6 @@
     <string name="discard_changes">是否放弃修改？</string>
     <string name="discard">放弃</string>
     <string name="delete">删除</string>
-    <plurals name="list_count">
-        <item quantity="other">%1$d 个清单</item>
-    </plurals>
     <string name="debug">调试</string>
     <string name="failed_to_save_task">保存任务失败</string>
     <string name="scan_qr_code">扫描二维码</string>
@@ -186,9 +183,7 @@
     <string name="error_network">无法连接。请检查您的互联网连接。</string>
     <string name="link_desktop">关联桌面应用</string>
     <string name="link_desktop_description">使用您的 Google Play 订阅解锁桌面应用</string>
-    <string name="link_desktop_instructions">打开 Tasks.org 桌面应用，前往“添加账号”查看二维码。然后点击下方按钮进行扫描。</string>
     <string name="link_desktop_success">桌面应用已成功关联！</string>
-    <string name="link_desktop_error">桌面应用关联失败。请重试。</string>
     <string name="error_create_link_failed">创建关联失败。请检查您的互联网连接并重试。</string>
     <string name="error_confirmation_failed">确认关联失败。二维码可能无效或已过期。</string>
     <string name="caldav_server_other">其他</string>
@@ -202,7 +197,6 @@
     <string name="url_invalid_scheme">必须以 http(s):// 开头</string>
     <string name="url_required">请填写网址</string>
     <string name="username_required">请填写用户名</string>
-    <string name="etesync_account_description">需要一个 EteSync.com 账号或一个自托管服务器</string>
     <string name="already_subscribed">已是订阅者？</string>
     <string name="sign_in_subtitle">已是订阅者或受邀来宾？</string>
     <string name="show_advanced_settings">显示高级设置</string>
@@ -649,7 +643,6 @@
     <string name="new_filter">新建过滤器</string>
     <string name="new_place">新建地点</string>
     <string name="sign_in_with_apple">用 Apple 账户登录</string>
-    <string name="mcp_server_summary">让此计算机上的 AI 助手读取和管理您的数据</string>
     <string name="mcp_server_enable">通过 MCP 提供您的数据</string>
     <string name="mcp_server_enable_summary">仅在此计算机上运行，地址为 127.0.0.1。不会向网络暴露任何内容。</string>
     <string name="mcp_status_running">正在端口 %1$d 上运行</string>

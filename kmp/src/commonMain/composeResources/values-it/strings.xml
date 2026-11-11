@@ -173,11 +173,6 @@
     <string name="discard_changes">Annullare le modifiche?</string>
     <string name="discard">Sì, annulla</string>
     <string name="delete">Elimina</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lista</item>
-        <item quantity="many">%1$d liste</item>
-        <item quantity="other">%1$d liste</item>
-    </plurals>
     <string name="failed_to_save_task">Salvataggio attività non riuscito</string>
     <string name="supporter_summary_no_price">Grazie!</string>
     <string name="debug">Debug</string>
@@ -192,7 +187,6 @@
     <string name="url_invalid_scheme">Deve iniziare con http(s)://</string>
     <string name="url_required">URL obbligatoria</string>
     <string name="username_required">Nome utente obbligatorio</string>
-    <string name="etesync_account_description">Richiede un account EteSync.com o un server self-hosted</string>
     <string name="already_subscribed">Sei già abbonato?</string>
     <string name="sign_in_subtitle">Sei già abbonato o sei stato invitato?</string>
     <string name="show_advanced_settings">Mostra impostazioni avanzate</string>
@@ -561,7 +555,6 @@
     <string name="delete_list_warning">Tutte le attività in questo elenco verranno cancellate. Questo non può essere annullato!</string>
     <string name="wrong_account">Accesso fallito</string>
     <string name="wrong_account_message">Il tuo abbonamento è già collegato a %1$s. Se ritieni che si tratti di un errore, contatta %2$s</string>
-    <string name="mcp_server_summary">Lascia che gli assistenti AI su questo computer leggano e gestiscano i tuoi dati</string>
     <string name="mcp_server_enable">Servi i dati via MCP</string>
     <string name="mcp_server_enable_summary">Funziona solo su questo computer, al 127.0.0.1. Nulla è esposto alla rete.</string>
     <string name="mcp_status_running">In esecuzione sulla porta %1$d</string>

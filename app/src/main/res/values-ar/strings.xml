@@ -188,7 +188,6 @@
     <string name="app_password">كلمة سرّ التطبيق</string>
     <string name="sign_in_with_google">تسجيل الدخول بجوجل</string>
     <string name="privacy">الخصوصيّة</string>
-    <string name="current_subscription">الاشتراك الحالي: %s</string>
     <string name="account">حساب</string>
     <string name="enjoying_tasks">مستمتع بTasks؟</string>
     <string name="filter_eisenhower_box_4">غير مهم وغير مستعجل</string>
@@ -206,7 +205,6 @@
     <string name="color_wheel">عجلة الألوان</string>
     <string name="documentation">التوثيق</string>
     <string name="preferences_advanced">متقدم</string>
-    <string name="choose_synchronization_service">اختر منصّة</string>
     <string name="filter">تصفية</string>
     <string name="move">نقل</string>
     <string name="subtasks">مهام فرعيّة</string>
@@ -257,7 +255,6 @@
     <string name="invalid_backup_file">ملف نسخة احتياطيّة غير صالح</string>
     <string name="location_remind_departure">تذكير عند الرحيل</string>
     <string name="location_remind_arrival">تذكير عند الوصول</string>
-    <string name="refresh_purchases">تحديث عمليات الشراء</string>
     <string name="delete_multiple_tasks_confirmation">%s حذفت</string>
     <string name="copy_multiple_tasks_confirmation">%s نسخت</string>
     <string name="gtasks_error_accountNotFound">لم يتم العثور على الحساب %s، الرجاء تسجيل الخروج ثم تسجيل الدخول من إعدادات Google Tasks.</string>
@@ -284,14 +281,12 @@
     <string name="upgrade_more_customization_description">افتح جميع الثيمات والألوان والرموز</string>
     <string name="upgrade_more_customization">المزيد من التخصيص</string>
     <string name="pro_free_trial">يحصل المشتركون الجدد على نسخة تجريبية مجانية مدتها 7 أيام. تلغى في أي وقت</string>
-    <string name="app_passwords_more_info">قم بمزامنة المهام والتقويمات الخاصة بك مع تطبيقات سطح المكتب والأجهزة المحمولة التابعة لجهات خارجية. اضغط هنا لمزيد من المعلومات</string>
     <string name="save_percent">حفظ%d%%</string>
     <string name="migrating_tasks">ترحيل المهام</string>
     <string name="github_sponsor">راعي</string>
     <string name="authentication_required">يستلزم التوثيق</string>
     <string name="github_sponsors">رعاة GitHub</string>
     <string name="authorization_cancelled">تم إلغاء التخويل</string>
-    <string name="no_google_play_subscription">لم يتم العثور على اشتراك Google Play مقبول</string>
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
     <string name="chips">رقائق</string>
     <string name="back">عودة</string>
@@ -423,8 +418,6 @@
     <string name="enable_alarms">احصل على إشعار في الوقت المناسب</string>
     <string name="hint_customize_edit_title">الكثير من المعلومات؟</string>
     <string name="hint_customize_edit_body">يمكنك تخصيص هذه الشاشة عن طريق إعادة ترتيب الحقول أو إزالتها</string>
-    <string name="cost_money">التكلفة: المال</string>
-    <string name="cost_more_money">التكلفة: المزيد من المال</string>
     <string name="sync_warning_microsoft_title">نبذة عن مزامنة Microsoft To Do</string>
     <string name="sync_warning_google_tasks_title">حول مزامنة مهام جوجل</string>
     <string name="sync_warning_google_tasks">لا تتم مزامنة جميع تفاصيل المهام مع مهام جوجل</string>

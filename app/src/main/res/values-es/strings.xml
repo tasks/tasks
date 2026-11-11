@@ -205,7 +205,6 @@
     <string name="tasker_create_task">Crear tarea</string>
     <string name="tasker_list_notification">Listar notificación</string>
     <string name="help">Ayuda</string>
-    <string name="refresh_purchases">Actualizar los acquisiciones</string>
     <string name="pro_dashclock_extension">Extensión Dashclock</string>
     <string name="logout">Cerrar sesión</string>
     <string name="reinitialize_account">Reinicializar</string>
@@ -239,7 +238,6 @@
     <string name="collapse_subtasks">Contraer subtareas</string>
     <string name="subtasks">Subtareas</string>
     <string name="display_name">Mostrar el nombre</string>
-    <string name="choose_synchronization_service">Seleccione una plataforma</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos de Internet</string>
     <string name="etesync_selection_description">Sincronización cifrada de extremo a extremo</string>
     <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
@@ -333,7 +331,6 @@
     <string name="always_display_full_date">Mostrar la fecha completa</string>
     <string name="custom_filter_is_subtask">Es una subtarea</string>
     <string name="custom_filter_has_subtask">Tiene subtareas</string>
-    <string name="current_subscription">Suscripción actual: %s</string>
     <string name="your_subscription_expired">Vuestra suscripción ha expirado. Suscribe ahora a resume servicio.</string>
     <string name="background_location_permission_required">Tasks recopila datos de ubicación para permitir los recordatorios basados en la ubicación aún cuando la aplicación está cerrada o no se utiliza.</string>
     <string name="authorization_cancelled">Autorización cancelada</string>
@@ -343,12 +340,10 @@
     <string name="migrate_count">Mueve %s a Tasks.org</string>
     <string name="migrating_tasks">Migración de tareas</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
-    <string name="no_google_play_subscription">No se encontró ninguna suscripción de Google Play elegible</string>
     <string name="above_average">Por encima del promedio</string>
     <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronización basada en archivos</string>
     <string name="copied_to_clipboard">Se copió %s en el portapapeles</string>
-    <string name="app_passwords_more_info">Sincronice sus tareas y calendarios con aplicaciones móviles y de escritorio de terceros. Toque aquí para obtener más información</string>
     <string name="app_password">Contraseña de la aplicación</string>
     <string name="local_lists">Listas locales</string>
     <string name="start_date">Fecha de inicio</string>
@@ -399,9 +394,7 @@
     <string name="yesterday">Ayer</string>
     <string name="banner_app_updated_title">Actualización de la aplicación</string>
     <string name="banner_app_updated_description">Tasks se ha actualizado a la versión %s. ¿Deseas ver las notas de esta versión?</string>
-    <string name="cost_money">Precio: $</string>
     <string name="sync_warning_google_tasks_title">Acerca de la sincronización de Google Tasks</string>
-    <string name="cost_more_money">Precio: $$$</string>
     <string name="sync_warning_google_tasks">No todos los detalles de las tareas se sincronizan con Google Tasks</string>
     <string name="button_learn_more">Más información</string>
     <string name="sync_warning_microsoft_title">Acerca de la sincronización de Microsoft To Do</string>
@@ -415,7 +408,6 @@
     <string name="import_failed_message">No se pudo leer el archivo de respaldo</string>
     <string name="legal_disclosure_prefix_using">Al utilizar Tasks.org</string>
     <string name="accept">Aceptar</string>
-    <string name="rmd_EPr_rmd_time_desc">Las notificaciones de las tareas de todo el día aparecerán a las %1$s</string>
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>

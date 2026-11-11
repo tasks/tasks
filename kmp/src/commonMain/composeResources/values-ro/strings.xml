@@ -139,11 +139,6 @@
     <string name="discard_changes">Renunți la modificări?</string>
     <string name="discard">Modificări</string>
     <string name="delete">Șterge</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d listă</item>
-        <item quantity="few">%1$d liste</item>
-        <item quantity="other">%1$d liste</item>
-    </plurals>
     <string name="caldav_server_other">Altele</string>
     <string name="caldav_server_type">Tip de server</string>
     <string name="caldav_server_unknown">Necunoscut</string>
@@ -155,7 +150,6 @@
     <string name="url_invalid_scheme">Trebuie să înceapă cu http(s)://</string>
     <string name="url_required">URL necesar</string>
     <string name="username_required">Nume de utilizator necesar</string>
-    <string name="etesync_account_description">Necesită un cont cu EteSync.com sau un server auto-găzduit</string>
     <string name="show_advanced_settings">Afișează setările avansate</string>
     <string name="app_settings">Setările aplicației</string>
     <string name="whats_new">Ce este nou</string>

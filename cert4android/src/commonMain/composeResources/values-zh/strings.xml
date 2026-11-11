@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">证书被临时拒绝</string>
     <string name="trust_certificate_accept">接受</string>
     <string name="trust_certificate_fingerprint_verified">我已经人工验证了完整指纹信息。</string>
     <string name="trust_certificate_fingerprints">指纹</string>

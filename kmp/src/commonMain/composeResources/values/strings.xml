@@ -193,7 +193,6 @@
     <string name="debug">Debug</string>
     <string name="about">About</string>
     <string name="widget_settings">Widget settings</string>
-    <string name="mcp_server_summary">Let AI assistants on this computer read and manage your data</string>
     <string name="mcp_server_enable">Serve your data over MCP</string>
     <string name="mcp_server_enable_summary">Runs on this computer only, at 127.0.0.1. Nothing is exposed to the network.</string>
     <string name="mcp_status_running">Running on port %1$d</string>
@@ -254,11 +253,6 @@
         <item quantity="one">%1$d task</item>
         <item quantity="other">%1$d tasks</item>
     </plurals>
-    <plurals name="list_count">
-        <item quantity="one">%1$d list</item>
-        <item quantity="other">%1$d lists</item>
-    </plurals>
-    <string name="etesync_account_description">Requires an account with EteSync.com or a self-hosted server</string>
     <string name="show_advanced_settings">Show advanced settings</string>
     <string name="sync_metadata">Store tag metadata here</string>
     <string name="sync_metadata_summary">Store tag names, colors, icons and display order on this account so they sync across your devices</string>
@@ -310,13 +304,11 @@
     <string name="works_with_missing">Notice anything missing? %1$s or email %2$s.</string>
     <string name="works_with_submit_pull_request">Submit a pull request</string>
     <string name="link_desktop_description">Unlock the desktop app with your Google Play subscription</string>
-    <string name="link_desktop_instructions">Open the Tasks.org desktop app and go to Add Account to see the QR code. Then tap the button below to scan it.</string>
     <string name="link_desktop_step_1">Open the Tasks.org desktop app</string>
     <string name="link_desktop_step_2">Click on '%1$s' and select '%2$s'</string>
     <string name="link_desktop_step_3">Select '%1$s'</string>
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="link_desktop_success">Desktop linked successfully!</string>
-    <string name="link_desktop_error">Failed to link desktop. Please try again.</string>
     <string name="unlock_pro_scan_heading">Scan the QR code in the Tasks.org Android app</string>
     <string name="unlock_pro_step_1">Open Tasks.org on your phone</string>
     <string name="unlock_pro_step_2">Tap into '%1$s', then tap '%2$s'</string>

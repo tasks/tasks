@@ -139,11 +139,6 @@
     <string name="discard_changes">¿Descartar cambios?</string>
     <string name="discard">Descartar</string>
     <string name="delete">Eliminar</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lista</item>
-        <item quantity="many">%1$d listas</item>
-        <item quantity="other">%1$d listas</item>
-    </plurals>
     <string name="caldav_server_other">Otro</string>
     <string name="caldav_server_type">Tipo de servidor</string>
     <string name="caldav_server_unknown">Desconocido</string>
@@ -155,7 +150,6 @@
     <string name="url_invalid_scheme">Debe comenzar por http(s)://</string>
     <string name="url_required">Se requiere un URL</string>
     <string name="username_required">Nombre de usuario requerido</string>
-    <string name="etesync_account_description">Requiere una cuenta en EteSync.com o un servidor autoalojado</string>
     <string name="show_advanced_settings">Mostrar la configuración avanzada</string>
     <string name="app_settings">Ajustes de la aplicación</string>
     <string name="whats_new">Qué hay de nuevo</string>
@@ -230,13 +224,11 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="link_desktop">Aplicación de escritorio Link</string>
     <string name="link_desktop_description">Desbloquea la aplicación de escritorio con tu suscripción a Google Play</string>
-    <string name="link_desktop_instructions">Abre la aplicación de escritorio de Tasks.org y ve a Añadir cuenta para ver el código QR. A continuación, pulsa el botón de abajo para escanearlo.</string>
     <string name="link_desktop_step_1">Abre la aplicación de escritorio de Tasks.org</string>
     <string name="link_desktop_step_2">Haz clic en '%1$s' y selecciona '%2$s'</string>
     <string name="link_desktop_step_3">Selecciona '%1$s'</string>
     <string name="scan_qr_code">Escanear el código QR</string>
     <string name="link_desktop_success">¡El escritorio se ha vinculado correctamente!</string>
-    <string name="link_desktop_error">No se ha podido vincular el escritorio. Inténtalo de nuevo.</string>
     <string name="unlock_pro_scan_heading">Escanea el código QR en la aplicación de Tasks.org para Android</string>
     <string name="unlock_pro_step_1">Abre Tasks.org en tu teléfono</string>
     <string name="new_list">Crea una nueva lista</string>

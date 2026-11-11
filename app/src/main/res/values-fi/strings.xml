@@ -207,7 +207,6 @@
     <string name="documentation">Dokumentaatio</string>
     <string name="etesync_selection_description">End-to-end-salattu synkronointi</string>
     <string name="caldav_selection_description">Avoimiin verkkostandardeihin pohjautuva synkronointi</string>
-    <string name="choose_synchronization_service">Valitse alusta</string>
     <string name="collapse_subtasks">Pienennä alitehtävät</string>
     <string name="expand_subtasks">Laajenna alitehtävät</string>
     <string name="invalid_backup_file">Epäsopiva varmuuskopiotiedosto</string>
@@ -291,7 +290,6 @@
     <string name="whats_new">Mitä uutta</string>
     <string name="location_departed">Lähdit paikasta %s</string>
     <string name="location_arrived">Saavuit paikkaan %s</string>
-    <string name="refresh_purchases">Päivitä ostoksesi</string>
     <string name="widget_due_date_hidden">Piilotettu</string>
     <string name="widget_due_date_below_title">Otsikon alle</string>
     <string name="widget_due_date_after_title">Otsikon jälkeen</string>
@@ -310,7 +308,6 @@
     <string name="pro_free_trial">Uudet tilaajat saavat 7 päivän ilmaisen kokeilujakson. Peruuta milloin tahansa</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
     <string name="copied_to_clipboard">%s kopioitu leikepöydälle</string>
-    <string name="app_passwords_more_info">Synkronoi tehtävät ja kalenterit kolmansien osapuolten työpöytä- ja mobiilisovellusten kanssa. Napauta tästä saadaksesi lisätietoja</string>
     <string name="app_password">Sovelluksen salasana</string>
     <string name="save_percent">Tallenna %d%%</string>
     <string name="above_average">Keskimääräistä parempi</string>
@@ -319,8 +316,6 @@
     <string name="github_sponsor">Sponsori</string>
     <string name="authentication_required">Vaadittu tunnistautuminen</string>
     <string name="sign_in_with_google">Kirjaudu sisään Googlen avulla</string>
-    <string name="current_subscription">Nykyinen tilaus: %s</string>
-    <string name="no_google_play_subscription">Google Play -tilausta ei löytynyt</string>
     <string name="your_subscription_expired">Tilauksesi on päättynyt. Tilaa nyt jatkaaksesi palvelua.</string>
     <string name="custom_filter_is_subtask">On alitehtävä</string>
     <string name="custom_filter_has_subtask">Sisältää alitehtäviä</string>
@@ -393,8 +388,6 @@
     <string name="banner_app_updated_description">Sovellus päivitettiin juuri %s. Haluatko lukea julkaisutiedot?</string>
     <string name="price_per_month_with_currency">%s/kuukausi</string>
     <string name="price_per_year_with_currency">%s/vuosi</string>
-    <string name="cost_money">Hinta: $</string>
-    <string name="cost_more_money">Hinta: $$$</string>
     <string name="multiline_title">Salli moniriviset otsikot</string>
     <string name="multiline_title_on">Paina Enter-näppäintä lisätäksesi rivinvaihdon</string>
     <string name="multiline_title_off">Paina Valmis tallentaaksesi tehtävän</string>
@@ -406,5 +399,4 @@
     <string name="widget_view_more_tasks">Lisää tehtäviä</string>
     <string name="import_failed">Tuonti epäonnistui</string>
     <string name="import_failed_message">Varmuuskopiota ei voitu lukea</string>
-    <string name="rmd_EPr_rmd_time_desc">Koko päivän tehtävien ilmoitukset näkyvät klo %1$s</string>
 </resources>

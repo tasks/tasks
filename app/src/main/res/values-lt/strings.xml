@@ -216,7 +216,6 @@
     <string name="tasker_create_task">Sukurti užduotį</string>
     <string name="tasker_list_notification">Rodyti pranešimus</string>
     <string name="help">Pagalba</string>
-    <string name="refresh_purchases">Atnaujinti pirkimus</string>
     <string name="pro_dashclock_extension">Dashclock plėtinys</string>
     <string name="logout">Atsijungti</string>
     <string name="reinitialize_account">Inicijuoti iš naujo</string>
@@ -314,11 +313,9 @@
     <string name="multi_select_reschedule">Perplanuoti</string>
     <string name="save_percent">Sutaupykite %d%%</string>
     <string name="above_average">Virš vidurkio</string>
-    <string name="no_google_play_subscription">Nerasta tinkamos Google Play prenumeratos</string>
     <string name="github_sponsor">Remti</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>
-    <string name="current_subscription">Dabartinė prenumerata: %s</string>
     <string name="migrate_count">Migruoti %s į Tasks.org</string>
     <string name="migrating_tasks">Migruojamos užduotys</string>
     <string name="background_location_permission_required">Tasks renka vietovės duomenis, kad įgalintų priminimus pagal vietovę, net kai programa uždaryta arba nenaudojama.</string>
@@ -328,7 +325,6 @@
     <string name="widget_show_dividers">Rodyti perskyrimus</string>
     <string name="widget_show_title">Rodyti pavadinimą</string>
     <string name="astrid_sort_order_summary">Įgalinti rankinį Astrid rūšiavimo režimą „Mano užduotys“, „Šiandien“ ir etiketėms. Ateityje atnaujinant šis rūšiavimo režimas bus pakeistas į „Mano rūšiavimas“</string>
-    <string name="app_passwords_more_info">Sinchronizuokite savo užduotis ir kalendorius su trečiųjų šalių darbalaukio ir mobiliųjų įrenginių programėlėmis. Bakstelėkite čia, jei reikia daugiau informacijos</string>
     <string name="app_password">Programėlės slaptažodis</string>
     <string name="authentication_required">Autentifikacija privaloma</string>
     <string name="authorization_cancelled">Autorizavimas atšauktas</string>
@@ -372,7 +368,6 @@
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>
     <string name="caldav_selection_description">Sinchronizacija paremta atviro interneto standartais</string>
-    <string name="choose_synchronization_service">Pasirinkti platformą</string>
     <string name="collapse_subtasks">Sutraukti antrines užduotis</string>
     <string name="expand_subtasks">Išplėsti antrines užduotis</string>
     <string name="hint_customize_edit_body">Galite tinkinti šį ekraną pertvarkydami arba pašalindami laukus</string>

@@ -206,7 +206,6 @@
     <string name="tasker_create_task">Stwórz zadanie</string>
     <string name="tasker_list_notification">Lista powiadomień</string>
     <string name="help">Pomoc</string>
-    <string name="refresh_purchases">Odśwież zakupy</string>
     <string name="logout">Wyloguj</string>
     <string name="reinitialize_account">Powiąż ponownie</string>
     <string name="action_create_new_task">Stwórz nowe zadanie</string>
@@ -239,7 +238,6 @@
     <string name="collapse_subtasks">Zwiń podzadania</string>
     <string name="subtasks">Podzadania</string>
     <string name="display_name">Nazwa wyświetlana</string>
-    <string name="choose_synchronization_service">Wybierz platformę</string>
     <string name="caldav_selection_description">Synchronizacja oparta na otwartych standardach</string>
     <string name="etesync_selection_description">Szyfrowana synchronizacja end-to-end</string>
     <string name="show_advanced_settings">Pokaż ustawienia zaawansowane</string>
@@ -338,7 +336,6 @@
     <string name="sign_in_with_google">Zaloguj z Google</string>
     <string name="background_location_permission_required">Tasks zbiera dane o lokalizacji, nawet gdy aplikacja jest zamknięta lub nie jest używana - to jest potrzebne dla przypomnień opartych o lokalizację.</string>
     <string name="copied_to_clipboard">%s skopiowano do schowka</string>
-    <string name="app_passwords_more_info">Synchronizuj swoje zadania i kalendarze z aplikacjami komputerowymi i mobilnymi innych firm. Kliknij tutaj, aby uzyskać więcej informacji</string>
     <string name="app_password">Hasło aplikacji</string>
     <string name="save_percent">Zapisano %d%%</string>
     <string name="above_average">Powyżej średniej</string>
@@ -346,8 +343,6 @@
     <string name="migrating_tasks">Migrowanie zadań</string>
     <string name="github_sponsors">Sponsorzy GitHub</string>
     <string name="authorization_cancelled">Autoryzacja anulowana</string>
-    <string name="current_subscription">Aktualna subskrypcja: %s</string>
-    <string name="no_google_play_subscription">Nie znaleziono kwalifikującej się subskrypcji Google Play</string>
     <string name="your_subscription_expired">Twoja subskrypcja wygasła. Zasubskrybuj teraz, aby wznowić usługę.</string>
     <string name="decsync_selection_description">Synchronizacja oparta na plikach</string>
     <string name="local_lists">Listy lokalne</string>
@@ -391,8 +386,6 @@
     <string name="import_failed_message">Nie udało się odczytać pliku kopii zapasowej</string>
     <string name="sort_options">Sortuj opcje</string>
     <string name="customize_drawer">Dostosuj szufladę</string>
-    <string name="location_update_interval_summary">Okresowe aktualizacje lokalizacji poprawiają niezawodność geofencingu</string>
-    <string name="rmd_EPr_rmd_time_desc">Powiadomienia dla zadań całodniowych pojawia się o %1$s</string>
     <string name="show_edit_screen_without_unlock">Pokaż ekran edycji bez odblokowywania</string>
     <string name="delete_tasks_warning">%s zostanie usunięty. Nie można tego cofnąć!</string>
 </resources>

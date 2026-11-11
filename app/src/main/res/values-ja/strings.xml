@@ -202,7 +202,6 @@
     <string name="tasker_create_task">タスクを作成</string>
     <string name="tasker_list_notification">通知のリスト</string>
     <string name="help">ヘルプ</string>
-    <string name="refresh_purchases">購入を更新</string>
     <string name="pro_dashclock_extension">Dashclock 拡張</string>
     <string name="logout">ログアウト</string>
     <string name="reinitialize_account">再初期化</string>
@@ -306,9 +305,7 @@
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="chips">チップ</string>
     <string name="now">現在</string>
-    <string name="choose_synchronization_service">プラットフォームを選択</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
-    <string name="no_google_play_subscription">Google Play で有効なサブスクリプションがありません</string>
     <string name="pro_free_trial">初回購入の方は、７日間の無料トライアルがあります。いつでも解約可能です</string>
     <string name="app_password">アプリパスワード</string>
     <string name="upgrade_more_customization">さらなるカスタマイズ</string>
@@ -331,7 +328,6 @@
     <string name="backups_ignore_warnings_summary">バックアップが不要な場合、または独自のバックアップ方法を使用している場合に、バックアップの警告を無視します</string>
     <string name="completed">完了</string>
     <string name="filter_eisenhower_box_2">重要だが緊急ではない</string>
-    <string name="current_subscription">現在のサブスクリプション: %s</string>
     <string name="upgrade_more_customization_description">すべてのテーマ、カラー、アイコンが使用可能</string>
     <string name="back">戻る</string>
     <string name="auto_dismiss_datetime_edit_summary">タスク編集から選択時に自動で閉じる</string>
@@ -343,7 +339,6 @@
     <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>
     <string name="snackbar_tasks_completed">完了したタスク: %d</string>
     <string name="header_spacing">高さ</string>
-    <string name="app_passwords_more_info">タスクやカレンダーをサードパーティ製のデスクトップアプリやモバイルアプリと同期します。詳しくはここをタップ</string>
     <string name="support">サポート</string>
     <string name="permission_read_tasks">Tasks データベースへの完全なアクセス</string>
     <string name="auto_dismiss_datetime">日時選択画面を自動で閉じる</string>
@@ -397,10 +392,8 @@
     <string name="app_settings">アプリ設定</string>
     <string name="banner_app_updated_title">アプリが更新されました</string>
     <string name="banner_app_updated_description">Tasks が %s に更新されました。リリース ノートを表示しますか?</string>
-    <string name="cost_money">料金: $</string>
     <string name="multiline_title_off">タスクを保存するには「完了」を押してください</string>
     <string name="delete_tasks_warning">%sは削除されます。これは元に戻せません！</string>
-    <string name="cost_more_money">料金: $$$</string>
     <string name="widget_view_more_tasks">ほかのタスクを表示</string>
     <string name="import_failed_message">バックアップファイルを読めません</string>
     <string name="import_failed">インポートできませんでした</string>
@@ -411,12 +404,10 @@
     <string name="tos_updated_title">サービス規約を改定しました</string>
     <string name="accept">了承</string>
     <string name="exit">終了する</string>
-    <string name="returning_user">以前利用していましたか？</string>
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="email_to_task">メールでタスクを追加する</string>
     <string name="upgrade_email_to_task_description">あなたの私書箱に送ったメールをタスクに変換する</string>
     <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
-    <string name="rmd_EPr_rmd_time_desc">時間指定のないタスクの通知は%1$sに表示されます</string>
     <string name="advanced_tools">便利なツール</string>
     <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
     <string name="per_list_sort_title">リストごとの並べ替え設定</string>

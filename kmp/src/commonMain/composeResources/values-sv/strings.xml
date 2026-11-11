@@ -150,10 +150,6 @@
     <string name="discard_changes">Kassera ändringarna?</string>
     <string name="discard">Kassera</string>
     <string name="delete">Ta bort</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d lista</item>
-        <item quantity="other">%1$d listor</item>
-    </plurals>
     <string name="caldav_server_other">Annan server</string>
     <string name="caldav_server_type">Servertyp</string>
     <string name="caldav_server_unknown">Okänd</string>
@@ -165,7 +161,6 @@
     <string name="url_invalid_scheme">Måste börja med http(s)://</string>
     <string name="url_required">URL krävs</string>
     <string name="username_required">Användarnamn krävs</string>
-    <string name="etesync_account_description">Kräver ett konto hos EteSync.com eller en egen värdserver</string>
     <string name="show_advanced_settings">Visa avancerade inställningar</string>
     <string name="app_settings">Appinställningar</string>
     <string name="whats_new">Nyheter</string>
@@ -227,13 +222,11 @@
     <string name="caldav_server_synology_calendar">Synology Calendar</string>
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="link_desktop_description">Lås upp skrivbordsappen med din Google Play-prenumeration</string>
-    <string name="link_desktop_instructions">Öppna Tasks.org-skrivbordsappen och gå till Lägg till konto för att se QR-koden. Tryck sedan på knappen nedan för att skanna den.</string>
     <string name="link_desktop_step_1">Öppna Tasks.org-skrivbordsappen</string>
     <string name="link_desktop_step_2">Klicka på ”%1$s” och välj ”%2$s”</string>
     <string name="link_desktop_step_3">Välj ”%1$s”</string>
     <string name="scan_qr_code">Skanna QR-koden</string>
     <string name="link_desktop_success">Skrivbordsappen har länkats!</string>
-    <string name="link_desktop_error">Det gick inte att länka skrivbordsappen. Försök igen.</string>
     <string name="unlock_pro_scan_heading">Skanna QR-koden i Tasks.org Android-appen</string>
     <string name="unlock_pro_step_1">Öppna Tasks.org på din telefon</string>
     <string name="unlock_pro_step_2">Tryck på ”%1$s” och sedan på ”%2$s”</string>

@@ -171,9 +171,6 @@
     <string name="discard_changes">要捨棄更改嗎 ?</string>
     <string name="discard">捨棄</string>
     <string name="delete">刪除</string>
-    <plurals name="list_count">
-        <item quantity="other">%1$d 個清單</item>
-    </plurals>
     <string name="caldav_server_other">其他</string>
     <string name="caldav_server_type">伺服器類型</string>
     <string name="caldav_server_unknown">未知</string>
@@ -185,7 +182,6 @@
     <string name="url_invalid_scheme">必須由 http(s):// 開頭</string>
     <string name="url_required">需要URL</string>
     <string name="username_required">需要使用者名稱</string>
-    <string name="etesync_account_description">需要 EteSync.com 帳戶或自架伺服器</string>
     <string name="already_subscribed">已經是訂閱者了嗎？</string>
     <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>
     <string name="show_advanced_settings">顯示進階設定</string>

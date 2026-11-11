@@ -248,7 +248,6 @@
     <string name="help">Aida</string>
     <string name="help_and_feedback">Aida y comentarios</string>
     <string name="subscription">Soscripción</string>
-    <string name="refresh_purchases">Anovar les compres</string>
     <string name="pro_dashclock_extension">Estensión Dashclock</string>
     <string name="logout">Zarrar sesión</string>
     <string name="delete_tasks_warning">%s desaniciarase. ¡Esto nun se puee desfacer!</string>
@@ -279,7 +278,6 @@
     <string name="invalid_backup_file">Copia de seguranza invalida</string>
     <string name="expand_subtasks">Espander subxeres</string>
     <string name="collapse_subtasks">Encoyer subxeres</string>
-    <string name="choose_synchronization_service">Selecciona una plataforma</string>
     <string name="caldav_selection_description">Sincronización basada en estándares abiertos d\'internet</string>
     <string name="etesync_selection_description">Sincronización con cifráu d\'estremu a estremu</string>
     <string name="decsync_selection_description">Sincronización basada en ficheros</string>

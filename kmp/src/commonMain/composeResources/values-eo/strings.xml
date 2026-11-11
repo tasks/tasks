@@ -164,10 +164,6 @@
     <string name="discard_changes">Ĉu forĵeti ŝanĝojn?</string>
     <string name="discard">Forĵeti</string>
     <string name="delete">Forigi</string>
-    <plurals name="list_count">
-        <item quantity="one">%1$d listo</item>
-        <item quantity="other">%1$d listoj</item>
-    </plurals>
     <string name="caldav_server_other">Alia</string>
     <string name="caldav_server_type">Speco de servilo</string>
     <string name="caldav_server_unknown">Nekonata</string>
@@ -179,7 +175,6 @@
     <string name="url_invalid_scheme">Devas komenci per http(s)://</string>
     <string name="url_required">URL bezonata</string>
     <string name="username_required">Uzantnomo bezonata</string>
-    <string name="etesync_account_description">Bezonas konton de EteSync.com aŭ memgastigan servilon</string>
     <string name="already_subscribed">Ĉu vi jam abonis?</string>
     <string name="sign_in_subtitle">Ĉu vi jam estas abonanto aŭ invitita gasto?</string>
     <string name="show_advanced_settings">Vidigi altnivelajn agordojn</string>
@@ -290,13 +285,11 @@
     <string name="metadata_not_supported">Ĉi tiu servilon ne subtenas sinkronigon de etikedaj metadatumoj</string>
     <string name="link_desktop">Ligi labortablan aplikaĵon</string>
     <string name="link_desktop_description">Malŝlosi la labortablan aplikaĵon per la abono de Google Play</string>
-    <string name="link_desktop_instructions">Malfermu la labortablan aplikaĵon kaj uzu Aldoni Konton por vidi la QR kodon. Batetu la butonon sube por skani ĝin.</string>
     <string name="link_desktop_step_1">Malfermi la labortablan aplikaĵon</string>
     <string name="link_desktop_step_2">Alklaku '%1$s' kaj elektu '%2$s'</string>
     <string name="link_desktop_step_3">Elektu '%1$s'</string>
     <string name="scan_qr_code">Skani QR Kodon</string>
     <string name="link_desktop_success">Sukcese ligis al labortabla aplikaĵo!</string>
-    <string name="link_desktop_error">Malsukcesis ligi al labortabla aplikaĵo. Bonvolu reprovi.</string>
     <string name="unlock_pro_scan_heading">Skanu la QR kodon en la aplikaĵo, Tasks.org Android</string>
     <string name="unlock_pro_step_1">Malfermu Tasks.org en via poŝtelefono</string>
     <string name="unlock_pro_step_2">Batetu '%1$s', sekve batetu '%2$s'</string>
@@ -636,7 +629,6 @@
     <string name="sign_in_with_apple">Ensaluti per Apple</string>
     <string name="subscription_required">Bezonas abonon</string>
     <string name="upgrade">Altgradigi</string>
-    <string name="mcp_server_summary">Por permesi ke AI asistantoj povas legi kaj administri vian datumojn</string>
     <string name="mcp_server_enable_summary">Rulas en nur ĉi tiu komputilo ĉe 127.0.0.1. Neniu estas vidigita al la reto.</string>
     <string name="mcp_status_running">Rulas per port %1$d</string>
     <string name="mcp_access">Aliro</string>

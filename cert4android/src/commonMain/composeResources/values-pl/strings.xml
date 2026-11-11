@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certyfikat tymczasowo odrzucony</string>
     <string name="trust_certificate_accept">Akceptuj</string>
     <string name="trust_certificate_fingerprint_verified">Zweryfikowałem cały odcisk palca.</string>
     <string name="trust_certificate_fingerprints">Odciski palców</string>

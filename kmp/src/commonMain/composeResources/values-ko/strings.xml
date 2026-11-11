@@ -138,9 +138,6 @@
     <string name="discard_changes">변경 사항을 폐기할까요?</string>
     <string name="discard">변경사항 폐기</string>
     <string name="delete">삭제</string>
-    <plurals name="list_count">
-        <item quantity="other">%1$d 목록</item>
-    </plurals>
     <string name="caldav_server_other">기타</string>
     <string name="caldav_server_type">서버 유형</string>
     <string name="caldav_server_unknown">미정</string>
@@ -152,7 +149,6 @@
     <string name="url_invalid_scheme">반드시 http(s):// 로 시작해야 합니다</string>
     <string name="url_required">URL 필수</string>
     <string name="username_required">계정명 필수</string>
-    <string name="etesync_account_description">EteSync.com이나 자체호스팅 서버의 계정 필요</string>
     <string name="show_advanced_settings">고급 설정 표시</string>
     <string name="app_settings">앱 설정</string>
     <string name="whats_new">새 기능</string>
@@ -584,7 +580,6 @@
     <string name="link_desktop_step_3">\'%1$s\' 선택</string>
     <string name="scan_qr_code">QR 코드 스캔</string>
     <string name="link_desktop_success">데스크톱을 성공적으로 연결했습니다!</string>
-    <string name="link_desktop_error">데스크톱에 연결하는 데 실패했습니다. 다시 시도해 주세요.</string>
     <string name="unlock_pro_scan_heading">Tasks.org Android 앱에서 QR 코드를 스캔하세요</string>
     <string name="unlock_pro_step_1">폰에서 Tasks.org 열기</string>
     <string name="unlock_pro_step_2">\'%1$s\' 누른 뒤, \'%2$s\' 누르기</string>
@@ -607,7 +602,6 @@
     <string name="works_with_submit_pull_request">풀 요청을 제출</string>
     <string name="works_with_missing">무언가 빠져 있나요? %1$s하거나 %2$s에 이메일을 보내세요.</string>
     <string name="link_desktop_description">Google Play 구독으로 데스크톱 앱 잠금 해제</string>
-    <string name="link_desktop_instructions">Tasks.org 데스크톱 앱을 열고 계정을 추가해 QR 코드를 띄우세요. 이후 하단의 버튼을 눌러 스캔하세요.</string>
     <string name="github_sponsorship">GitHub 후원</string>
     <string name="error_purchase_not_verified">이 기기에서 구매를 인증할 수 없습니다.</string>
     <string name="error_too_many_requests">너무 많이 시도했습니다. 몇 분 기다린 뒤 다시 시도해 주세요.</string>
@@ -647,7 +641,6 @@
     <string name="delete_list_warning">이 목록의 할일을 모두 삭제합니다. 되돌릴 수 없습니다!</string>
     <string name="wrong_account_message">구독이 이미 %1$s에 연결되었습니다. 오류라 생각하시면, %2$s에 문의해 주세요</string>
     <string name="regenerate_email_address_confirmation">현재 이메일 주소는 더 이상 이용하지 않게 됩니다</string>
-    <string name="mcp_server_summary">이 컴퓨터의 AI 도우미가 데이터를 읽고 관리하도록 하기</string>
     <string name="mcp_server_enable">데이터를 MCP로 제공하기</string>
     <string name="mcp_server_enable_summary">이 컴퓨터 내의 127.0.0.1에서만 실행합니다. 어떤 정보도 네트워크에 노출되지 않습니다.</string>
     <string name="mcp_status_running">%1$d번 포트에서 실행 중</string>

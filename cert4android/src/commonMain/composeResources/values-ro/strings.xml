@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="service_rejected_temporarily">Certificatul a fost respins temporar</string>
     <string name="trust_certificate_accept">Acceptă</string>
     <string name="trust_certificate_fingerprint_verified">Am verificat manual întreaga amprentă.</string>
     <string name="trust_certificate_fingerprints">Amprente digitale</string>
