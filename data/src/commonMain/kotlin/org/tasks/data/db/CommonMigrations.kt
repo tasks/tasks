@@ -133,11 +133,18 @@ object CommonMigrations {
         }
     }
 
+    val MIGRATION_98_99 = object : Migration(98, 99) {
+        override suspend fun migrate(connection: SQLiteConnection) {
+            connection.execSQL("ALTER TABLE `caldav_lists` ADD COLUMN `cdl_notifications_enabled` INTEGER NOT NULL DEFAULT 1")
+        }
+    }
+
     val all: Array<Migration> = arrayOf(
         MIGRATION_92_93,
         MIGRATION_94_95,
         MIGRATION_95_96,
         MIGRATION_96_97,
         MIGRATION_97_98,
+        MIGRATION_98_99,
     )
 }

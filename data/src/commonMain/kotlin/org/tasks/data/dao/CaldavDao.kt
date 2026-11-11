@@ -528,6 +528,19 @@ ORDER BY primary_sort
     """)
     abstract fun watchTaskCountForCalendar(calendar: String): Flow<Int>
 
+    suspend fun getMutedTaskIds(taskIds: List<Long>): List<Long> =
+        taskIds.chunkedMap { getMutedTaskIdsInternal(it) }
+
+    @Query("""
+        SELECT cd_task
+        FROM caldav_tasks
+        INNER JOIN caldav_lists ON cd_calendar = cdl_uuid
+        WHERE cd_task IN (:taskIds)
+          AND cd_deleted = 0
+          AND cdl_notifications_enabled = 0
+    """)
+    internal abstract suspend fun getMutedTaskIdsInternal(taskIds: List<Long>): List<Long>
+
     companion object {
         fun Long.toAppleEpoch(): Long = (this - APPLE_EPOCH) / 1000
     }

@@ -38,6 +38,8 @@ abstract class ListSettingsViewModel(
     open override fun setName(value: String) = stateManager.setName(value)
     open override fun setColor(value: Int) = stateManager.setColor(value)
     open override fun setIcon(value: String) = stateManager.setIcon(value)
+    open override fun setNotificationsEnabled(value: Boolean) =
+        stateManager.setNotificationsEnabled(value)
 
     fun save(onDismiss: () -> Unit = {}, onComplete: (CaldavCalendar) -> Unit) {
         if (state.value.isLoading) return
@@ -68,7 +70,7 @@ abstract class ListSettingsViewModel(
             withContext(NonCancellable) {
                 val calendar = withContext(Dispatchers.IO) {
                     createRemoteList(account, name, s.color, s.icon)
-                }
+                }.copy(notificationsEnabled = s.notificationsEnabled)
                 val id = caldavDao.insertOrReplace(calendar)
                 reporting.logEvent(AnalyticsEvents.CREATE_LIST)
                 val inserted = calendar.copy(id = id)
@@ -101,6 +103,7 @@ abstract class ListSettingsViewModel(
                     name = name,
                     color = s.color,
                     icon = s.icon,
+                    notificationsEnabled = s.notificationsEnabled,
                 )
                 caldavDao.insertOrReplace(result)
                 stateManager.update { it.copy(calendar = result) }

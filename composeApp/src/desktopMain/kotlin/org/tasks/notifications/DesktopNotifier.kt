@@ -35,6 +35,8 @@ internal class DesktopNotifier(
 
     private val claimPlatformIds: suspend () -> Boolean = { true },
 
+    private val mutedTaskIds: suspend (List<Long>) -> Set<Long> = { emptySet() },
+
     private val elapsedRealtime: () -> Long = { monotonicMillis() },
 
     private val createBackend: () -> PlatformNotifications?,
@@ -209,11 +211,27 @@ internal class DesktopNotifier(
 
         Logger.d(tag = TAG) { "Due: $entries" }
 
-        if (!enabled("holding ${entries.size}")) {
-            return emptyList()
+        val muted = mutedTaskIds(entries.map { it.taskId })
+        val (suppressed, deliverable) = if (muted.isEmpty()) {
+            emptyList<Notification>() to entries
+        } else {
+            entries.partition { it.taskId in muted }
         }
-        val tasks = taskDao.fetch(entries.map { it.taskId }).associateBy { it.id }
-        val posting = entries.mapNotNull { entry ->
+        for (entry in suppressed) {
+            taskDao.setLastNotified(entry.taskId, entry.timestamp.endOfMinute())
+        }
+        if (suppressed.isNotEmpty()) {
+            Logger.d(tag = TAG) { "Suppressed muted notifications: ${suppressed.map { it.taskId }}" }
+        }
+        if (deliverable.isEmpty()) {
+            return suppressed.map { it.taskId }
+        }
+
+        if (!enabled("holding ${deliverable.size}")) {
+            return suppressed.map { it.taskId }
+        }
+        val tasks = taskDao.fetch(deliverable.map { it.taskId }).associateBy { it.id }
+        val posting = deliverable.mapNotNull { entry ->
             val task = tasks[entry.taskId]
             when {
                 task == null -> {
@@ -229,11 +247,12 @@ internal class DesktopNotifier(
             }
         }
         if (posting.isEmpty()) {
-            Logger.d(tag = TAG) { "Nothing left to post from ${entries.map { it.taskId }}" }
-            return emptyList()
+            Logger.d(tag = TAG) { "Nothing left to post from ${deliverable.map { it.taskId }}" }
+            return suppressed.map { it.taskId }
         }
 
-        return withBackend(emptyList()) { backend -> post(posting, backend) }
+        return withBackend(emptyList()) { backend -> post(posting, backend) } +
+                suppressed.map { it.taskId }
     }
 
     private suspend fun post(
@@ -446,11 +465,13 @@ internal class DesktopNotifier(
             }
 
             val tasks = taskDao.fetch(outstanding.map { it.taskId }).associateBy { it.id }
+            val muted = mutedTaskIds(outstanding.map { it.taskId })
             val (live, gone) = outstanding.partition {
-                tasks[it.taskId]?.let { task -> !task.isCompleted && !task.isDeleted } == true
+                it.taskId !in muted &&
+                        tasks[it.taskId]?.let { task -> !task.isCompleted && !task.isDeleted } == true
             }
             if (gone.isNotEmpty()) {
-                Logger.d(tag = TAG) { "Completed or deleted while closed: $gone" }
+                Logger.d(tag = TAG) { "Completed, deleted, or muted while closed: $gone" }
             }
             val dropping = gone.map { it.taskId }.toMutableList()
 
