@@ -88,8 +88,13 @@ static void init(void) {
     app_message_register_outbox_sent(outbox_sent_handler);
     app_message_register_outbox_failed(outbox_failed_handler);
 
+    #if defined(PBL_PLATFORM_APLITE)
+    // Use smaller inbox size for watches with less memory
+    const uint32_t inbox_size = app_message_inbox_size_maximum() / 2;
+    #else
     // Open AppMessage with maximum inbox (for chunked responses)
     const uint32_t inbox_size = app_message_inbox_size_maximum();
+    #endif
     const uint32_t outbox_size = 256;
     APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W app_message_open inbox=%u outbox=%u",
             (unsigned)inbox_size, (unsigned)outbox_size);
