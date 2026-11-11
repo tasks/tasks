@@ -31,6 +31,8 @@ class McpHttpServer(
     private val log: ActivityLog,
     private val onStateChange: (Boolean, String?) -> Unit,
     private val analytics: org.tasks.analytics.Analytics? = null,
+    private val requests: org.tasks.TaskRequests? = null,
+    private val selection: org.tasks.selection.SelectedTaskStore? = null,
 ) {
     private var engine: EmbeddedServer<*, *>? = null
 
@@ -124,7 +126,7 @@ class McpHttpServer(
             ),
             instructions = instructions(),
         )
-        server.registerTasksTools(api, permissions, log, analytics)
+        server.registerTasksTools(api, permissions, log, analytics, requests, selection)
         server.onConnect {
             log.record(
                 tool = "connect",
@@ -154,6 +156,10 @@ class McpHttpServer(
                     "back on.",
             )
         }
+        appendLine()
+        appendLine("Working side by side with the user: get_selected_task tells you which task the user " +
+            "currently has open in the app, and open_task switches what they are looking at. Use them " +
+            "when the user points at a task on screen or asks to be shown one.")
         appendLine()
         appendLine("Things about this data model that are easy to get wrong:")
         appendLine()
