@@ -173,6 +173,7 @@ fun Paywall(
                 onRestorePurchases = { showRestore = true },
                 onPlanChanged = finish,
                 portalUrl = { stripePurchases.portalUrl() },
+                browserCoversApp = true,
             )
             BillingProvider.GOOGLE_PLAY -> storeBillingProvider?.storeBilling(suggestedPrice, finish)
             null -> null

@@ -7,6 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import org.tasks.viewmodel.StripeCheckoutViewModel
 
 @Composable
@@ -17,9 +19,24 @@ fun cardCheckout(
     onRestorePurchases: () -> Unit,
     onPlanChanged: () -> Unit,
     portalUrl: suspend () -> String?,
+    browserCoversApp: Boolean = false,
 ): StoreBilling {
     val state by viewModel.viewState.collectAsState()
     var opened by rememberSaveable { mutableStateOf<String?>(null) }
+    if (browserCoversApp) {
+        var inBrowser by rememberSaveable { mutableStateOf(false) }
+        LifecycleEventEffect(Lifecycle.Event.ON_STOP) {
+            if (viewModel.viewState.value.checkoutUrl != null) {
+                inBrowser = true
+            }
+        }
+        LifecycleEventEffect(Lifecycle.Event.ON_START) {
+            if (inBrowser) {
+                inBrowser = false
+                viewModel.browserClosed()
+            }
+        }
+    }
     LaunchedEffect(state.checkoutUrl) {
         val url = state.checkoutUrl
         if (url != null && url != opened) {

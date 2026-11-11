@@ -1287,6 +1287,7 @@ fun App(
                                 },
                                 onPlanChanged = { popPricing() },
                                 portalUrl = { stripePurchases.portalUrl() },
+                                browserCoversApp = configuration.isAndroid,
                             )
                             BillingProvider.GOOGLE_PLAY ->
                                 storeBillingProvider?.storeBilling(suggestedPrice) { popPricing() }

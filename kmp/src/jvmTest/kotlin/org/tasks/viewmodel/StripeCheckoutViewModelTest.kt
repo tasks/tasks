@@ -1457,6 +1457,113 @@ class StripeCheckoutViewModelTest {
         assertEquals(1, logged(AnalyticsEvents.CHECKOUT_STARTED).size)
     }
 
+    private suspend fun kotlinx.coroutines.test.TestScope.checkoutInBrowser(): StripeCheckoutViewModel {
+        val viewModel = viewModel()
+        runCurrent()
+        viewModel.select(offer)
+        runCurrent()
+        return viewModel
+    }
+
+    @Test
+    fun aBuyerWhoPaidBeforeClosingTheBrowserIsCollectedStraightAway() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        collections.add(StripeCollection.Collected(StripeRestoreOutcome.Restored))
+
+        viewModel.browserClosed()
+        runCurrent()
+
+        assertEquals(1, polls)
+        assertNull(viewModel.viewState.value.checkoutUrl)
+        assertFalse(viewModel.viewState.value.busy)
+        assertEquals(1, logged(AnalyticsEvents.CHECKOUT_COLLECTED).size)
+        assertTrue(logged(AnalyticsEvents.CHECKOUT_ABANDONED).isEmpty())
+    }
+
+    @Test
+    fun closingTheBrowserWithoutPayingDismissesTheWait() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+
+        viewModel.browserClosed()
+        runCurrent()
+
+        assertNull(viewModel.viewState.value.checkoutUrl)
+        assertFalse(viewModel.viewState.value.busy)
+        assertNull(viewModel.viewState.value.notice)
+        assertEquals(
+            AnalyticsEvents.Checkout.BROWSER_CLOSED,
+            logged(AnalyticsEvents.CHECKOUT_ABANDONED).single()[AnalyticsEvents.PARAM_REASON],
+        )
+    }
+
+    @Test
+    fun aPaymentThatSettlesAfterTheBrowserClosedIsStillReported() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        viewModel.browserClosed()
+        runCurrent()
+        collections.add(StripeCollection.Collected(StripeRestoreOutcome.Ended))
+
+        advanceTimeBy(POLL_INTERVAL_MILLIS + 1)
+
+        assertEquals(2, polls)
+        assertEquals(Notice.SubscriptionCancelled, viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun aCheckoutLeftInTheBrowserExpiresWithoutAWord() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        viewModel.browserClosed()
+        runCurrent()
+
+        advanceTimeBy(CODE_LIFETIME + 1)
+
+        assertNull(viewModel.viewState.value.notice)
+        assertTrue(
+            logged(AnalyticsEvents.CHECKOUT_ERROR)
+                .none { it[AnalyticsEvents.PARAM_REASON] == AnalyticsEvents.Checkout.EXPIRED },
+        )
+        val polled = polls
+        advanceTimeBy(POLL_INTERVAL_MILLIS * 3)
+        assertEquals(polled, polls)
+    }
+
+    @Test
+    fun aCheckoutThatFailsAfterTheBrowserClosedSaysNothing() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        viewModel.browserClosed()
+        runCurrent()
+        collections.add(StripeCollection.Gone)
+
+        advanceTimeBy(POLL_INTERVAL_MILLIS + 1)
+
+        assertNull(viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun returningWithNoCheckoutOpenChecksNothing() = runTest(dispatcher) {
+        val viewModel = viewModel()
+        runCurrent()
+
+        viewModel.browserClosed()
+        runCurrent()
+
+        assertEquals(0, polls)
+    }
+
+    @Test
+    fun aNewPurchaseAfterLeavingTheBrowserReplacesTheQuietWait() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        viewModel.browserClosed()
+        runCurrent()
+
+        viewModel.select(offer)
+        runCurrent()
+
+        assertEquals("https://pay.stripe.com/x", viewModel.viewState.value.checkoutUrl)
+        advanceTimeBy(CODE_LIFETIME + 1)
+        assertEquals(Notice.Expired, viewModel.viewState.value.notice)
+    }
+
     private fun expiresIn(millis: Long) = DateTimeUtils2.currentTimeMillis() + millis
 
     private companion object {

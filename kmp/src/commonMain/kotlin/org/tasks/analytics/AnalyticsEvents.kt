@@ -80,6 +80,7 @@ object AnalyticsEvents {
     object Checkout {
         const val ACCOUNT_IN_USE = "account_in_use"
         const val ACCOUNT_LINK_CONFLICT = "account_link_conflict"
+        const val BROWSER_CLOSED = "browser_closed"
         const val CANCELLED = "cancelled"
         const val CARD_DECLINED = "card_declined"
         const val CHANGED = "changed"

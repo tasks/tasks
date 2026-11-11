@@ -89,6 +89,12 @@ open class StripeCheckoutViewModel(
 
     private var pollJob: Job? = null
 
+    private var checkout: StripeCheckout.Started? = null
+
+    private var checkoutSku: String? = null
+
+    private var quiet = false
+
     private var retryable: BillingOption? = null
 
     init {
@@ -131,6 +137,24 @@ open class StripeCheckoutViewModel(
         }
         pollJob?.cancel()
         pollJob = null
+        checkout = null
+        _viewState.update { it.copy(busySku = null, checkoutUrl = null) }
+    }
+
+    fun browserClosed() {
+        val started = checkout ?: return
+        if (_viewState.value.checkoutUrl == null) return
+        poll(started.code, started.expiresAt, firstWait = 0L, onUnsettled = ::leaveQuietly)
+    }
+
+    private fun leaveQuietly() {
+        if (quiet) return
+        quiet = true
+        logCheckout(
+            AnalyticsEvents.CHECKOUT_ABANDONED,
+            checkoutSku,
+            AnalyticsEvents.PARAM_REASON to AnalyticsEvents.Checkout.BROWSER_CLOSED,
+        )
         _viewState.update { it.copy(busySku = null, checkoutUrl = null) }
     }
 
@@ -149,6 +173,11 @@ open class StripeCheckoutViewModel(
     fun planChangeHandled() = _viewState.update { it.copy(planChanged = false) }
 
     private fun purchase(price: BillingOption) {
+        pollJob?.cancel()
+        pollJob = null
+        checkout = null
+        quiet = false
+        checkoutSku = price.sku
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
         viewModelScope.launch {
             val checkout = purchases.createCheckout(price)
@@ -160,6 +189,7 @@ open class StripeCheckoutViewModel(
                         price.sku,
                         AnalyticsEvents.PARAM_PERIOD to price.period,
                     )
+                    this@StripeCheckoutViewModel.checkout = checkout
                     _viewState.update { it.copy(checkoutUrl = checkout.url) }
                     poll(checkout.code, checkout.expiresAt)
                 }
@@ -193,6 +223,10 @@ open class StripeCheckoutViewModel(
     }
 
     private fun change(price: BillingOption) {
+        pollJob?.cancel()
+        pollJob = null
+        checkout = null
+        quiet = false
         _viewState.update { it.copy(busySku = price.sku, notice = null) }
         viewModelScope.launch { changeNow(price) }
     }
@@ -274,35 +308,50 @@ open class StripeCheckoutViewModel(
         }
     }
 
-    private fun poll(code: String, expiresAt: Long) {
+    private fun poll(
+        code: String,
+        expiresAt: Long,
+        firstWait: Long = POLL_INTERVAL_MILLIS,
+        onUnsettled: () -> Unit = {},
+    ) {
         val window = (expiresAt - currentTimeMillis())
             .takeIf { expiresAt > 0 && it > 0 }
             ?: DEFAULT_CODE_LIFETIME_MILLIS
         pollJob?.cancel()
         pollJob = viewModelScope.launch {
-            val end = withTimeoutOrNull(window) { pollUntilSettled(code) }
-            if (end == null) {
-                logCheckoutError(AnalyticsEvents.Checkout.EXPIRED)
-                finish(Notice.Expired)
-            } else {
-                currentCoroutineContext().ensureActive()
-                refreshPlan()
-                finish(end.notice)
+            val end = withTimeoutOrNull(window) { pollUntilSettled(code, firstWait, onUnsettled) }
+            when {
+                end == null && quiet -> finish(null)
+                end == null -> {
+                    logCheckoutError(AnalyticsEvents.Checkout.EXPIRED)
+                    finish(Notice.Expired)
+                }
+                else -> {
+                    currentCoroutineContext().ensureActive()
+                    refreshPlan()
+                    finish(end.notice.takeIf { end.collected || !quiet })
+                }
             }
         }
     }
 
-    private suspend fun pollUntilSettled(code: String): PollEnd {
-        var wait = POLL_INTERVAL_MILLIS
+    private suspend fun pollUntilSettled(
+        code: String,
+        firstWait: Long,
+        onUnsettled: () -> Unit,
+    ): PollEnd {
+        var wait = firstWait
         var unanswered = 0
         while (true) {
             delay(wait)
             when (val result = purchases.collectCheckout(code)) {
                 StripeCollection.Pending -> {
+                    onUnsettled()
                     unanswered = 0
                     wait = POLL_INTERVAL_MILLIS
                 }
                 StripeCollection.Unreachable -> {
+                    onUnsettled()
                     unanswered++
                     if (unanswered >= MAX_UNANSWERED_POLLS) {
                         Logger.e(TAG) { "Giving up on the checkout: the server stopped answering" }
@@ -312,12 +361,13 @@ open class StripeCheckoutViewModel(
                     wait = unansweredBackoff(unanswered)
                 }
                 is StripeCollection.RateLimited -> {
+                    onUnsettled()
                     unanswered = 0
                     wait = result.backoff
                 }
                 is StripeCollection.Collected -> {
                     logCollected(result.outcome)
-                    return PollEnd(result.outcome.notice)
+                    return PollEnd(result.outcome.notice, collected = true)
                 }
                 StripeCollection.Gone -> {
                     logCheckoutError(AnalyticsEvents.Checkout.GONE)
@@ -331,7 +381,7 @@ open class StripeCheckoutViewModel(
         }
     }
 
-    private class PollEnd(val notice: Notice?)
+    private class PollEnd(val notice: Notice?, val collected: Boolean = false)
 
     private fun unansweredBackoff(unanswered: Int): Long =
         (POLL_INTERVAL_MILLIS shl (unanswered - 1))
@@ -343,18 +393,20 @@ open class StripeCheckoutViewModel(
 
     private fun finish(notice: Notice?) {
         pollJob = null
+        checkout = null
+        quiet = false
         _viewState.update { it.copy(busySku = null, checkoutUrl = null, notice = notice) }
     }
 
     private fun logCheckout(event: String, sku: String?, vararg params: Pair<String, Any>) =
         reporting.logEvent(event, AnalyticsEvents.PARAM_SKU to sku.orEmpty(), *params)
 
-    private fun logCheckoutError(reason: String, sku: String? = _viewState.value.busySku) =
+    private fun logCheckoutError(reason: String, sku: String? = _viewState.value.busySku ?: checkoutSku) =
         logCheckout(AnalyticsEvents.CHECKOUT_ERROR, sku, AnalyticsEvents.PARAM_REASON to reason)
 
     private fun logCollected(
         outcome: StripeRestoreOutcome,
-        sku: String? = _viewState.value.busySku,
+        sku: String? = _viewState.value.busySku ?: checkoutSku,
     ) = logCheckout(
         AnalyticsEvents.CHECKOUT_COLLECTED,
         sku,
