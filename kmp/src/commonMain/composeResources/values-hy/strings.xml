@@ -138,4 +138,6 @@
     <string name="mcp_access_advanced">Ընդլայնված</string>
     <string name="mcp_tools_group_lists">Ցուցակներ</string>
     <string name="mcp_tools_group_places">Վայրեր</string>
+    <string name="upgrade_blurb_1">Բարև, իմ անունը Ալեքս է։ Ես անկախ մշակող եմ, ով ստեղծել է Tasks-ը</string>
+    <string name="upgrade_blurb_2">Ես ծախսել եմ հսկայական ժամանակ սա ստեղծելու համար, և ես ամբողջ կոդը հրապարակում եմ անվճար։ Որպեսզի աջակցեք իմ աշխատանքը, որոշ ֆունկցիաներ պահանջում են պրեմիւմ բաժանորդագրություն։</string>
 </resources>

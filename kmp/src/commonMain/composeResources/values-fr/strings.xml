@@ -199,7 +199,6 @@
     <string name="url_invalid_scheme">Doit commencer par http(s)://</string>
     <string name="url_required">Adresse web requise</string>
     <string name="username_required">Nom d'utilisateur requis</string>
-    <string name="already_subscribed">Déjà abonné ?</string>
     <string name="sign_in_subtitle">Déjà abonné ou invité ?</string>
     <string name="show_advanced_settings">Afficher les paramètres avancés</string>
     <string name="app_settings">Paramètres de l'application</string>
@@ -224,16 +223,13 @@
     <string name="google_play_subscription">Abonnement Google Play</string>
     <string name="github_sponsorship">Parrainage GitHub</string>
     <string name="error_github_verification_failed">La vérification a échoué. Veuillez réessayer.</string>
-    <string name="pricing_subtitle">Gratuit et en source ouverte. Les abonnements soutiennent le développement et donnent accès à des fonctionnalités supplémentaires.</string>
     <string name="pricing_cloud_description">Débloquez toutes les fonctionnalités de l'application et connectez-vous à la synchronisation cloud de Tasks.org.</string>
     <string name="pricing_from">De %1$s</string>
     <string name="pricing_nyp_description">Choisissez le montant de votre abonnement. Accédez à toutes les fonctionnalités de l'application.</string>
     <string name="pricing_recommended">Recommandé</string>
     <string name="restore_purchases">Restaurer les achats</string>
     <string name="pricing_cloud_monthly_note">Facturation mensuelle</string>
-    <string name="pricing_cloud_feature_1">Synchronisation instantanée entre Android et le bureau</string>
     <string name="pricing_cloud_feature_3">Conversion des courriels en tâches avec une boîte de réception privée</string>
-    <string name="pricing_cloud_feature_4">Se connecter aux rappels Apple sur iOS</string>
     <string name="pricing_nyp_feature_1">Thèmes et icônes personnalisés</string>
     <string name="pricing_nyp_feature_2">Synchronisation en mode auto-hébergé avec CalDAV et EteSync</string>
     <string name="pricing_nyp_feature_3">Soutenir les logiciels libres</string>
@@ -710,7 +706,6 @@
     <string name="error_billing_unavailable">La facturation n\'est pas disponible pour le moment. Veuillez réessayer plus tard.</string>
     <string name="checkout_finish_in_browser">Terminez votre achat dans le navigateur</string>
     <string name="checkout_expired">La page de paiement a expiré. Veuillez réessayer.</string>
-    <string name="pricing_free_trial">%1$d jours d\'essai gratuit</string>
     <string name="pricing_subscribe_for">Abonnez-vous pour %1$s</string>
     <string name="pro_card_credit">Un avoir de %1$s sera déduit de votre prochain renouvellement</string>
     <string name="wrong_account_message_unknown">Votre abonnement est déjà associé à un autre compte. Si vous pensez qu\'il s\'agit d\'une erreur, veuillez contacter %1$s</string>
@@ -734,4 +729,6 @@
     <string name="subscription_free_until">Gratuit jusqu\'au %1$s, puis %2$s</string>
     <string name="subscription_payment_failed">Le paiement a échoué, veuillez mettre à jour les informations de votre carte</string>
     <string name="change_plan">Modifier le forfait</string>
+    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
+    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
 </resources>

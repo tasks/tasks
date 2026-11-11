@@ -467,4 +467,6 @@
     <string name="mcp_tools_group_reminders">Pripomienky</string>
     <string name="mcp_copy">Kopírovať</string>
     <string name="new_filter">Vytvoriť nový filter</string>
+    <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
+    <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
 </resources>

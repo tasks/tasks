@@ -347,7 +347,6 @@
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
     <string name="sort_completion_group">Lõpetatud %s</string>
     <string name="auto_dismiss_datetime_list">Ülesannete loend</string>
-    <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
     <string name="chips">Infosildid</string>
     <string name="auto_dismiss_datetime_edit">Ülesande muutmine</string>
     <string name="auto_dismiss_datetime_edit_summary">Ülesande muutmisvaatest valimisel sulge automaatselt</string>
@@ -371,7 +370,6 @@
     <string name="etesync_selection_description">Sünkroniseerimine, mis kasutab läbivat krüptimist</string>
     <string name="caldav_selection_description">Sünkroniseerimine, mis põhineb avatud ja vabadel internetistandarditel</string>
     <string name="davx5_selection_description">Ülesannete sünkroniseerimise võimalus DAVx⁵ rakendusega</string>
-    <string name="upgrade_blurb_2">Olen Tasksi loomiseks kulutanud tuhandeid tunde ja ma avaldan kogu rakenduse lähtekoodi veebis vaba litsentsi all. Selleks, et oleks võimalik minu töid ja tegemisi toetada, eeldavad selle rakenduse mõned funktsionaalsused tellimuse olemasolu</string>
     <string name="filter_any_due_date">Igal tähtajal</string>
     <string name="chip_appearance">Infosiltide välimus</string>
     <string name="filter_eisenhower_box_3">Mittetähtis ja kiire</string>

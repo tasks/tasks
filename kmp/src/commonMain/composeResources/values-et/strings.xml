@@ -183,7 +183,6 @@
     <string name="url_invalid_scheme">Peab algama kujul http(s)://</string>
     <string name="url_required">URL on nõutud</string>
     <string name="username_required">Kasutajanimi on nõutud</string>
-    <string name="already_subscribed">Kas juba oled tellija?</string>
     <string name="sign_in_subtitle">Kas oled juba tellija või kutsud külaline?</string>
     <string name="show_advanced_settings">Näita üksikasjalikke seadistusi</string>
     <string name="app_settings">Rakenduse seadistused</string>
@@ -282,7 +281,6 @@
     <string name="google_play_subscription">Google Play tellimus</string>
     <string name="github_sponsorship">Toetus teenuses GitHub Sponsors</string>
     <string name="error_github_verification_failed">Verifitseerimine ei õnnestunud. Proovi hiljem uuesti.</string>
-    <string name="pricing_subtitle">Vaba ja avatud lähtekoodiga. Rahaline toetuse abil aitad arendustööd edasi ja saad kasutada täiendavaid funktsionaalsusi.</string>
     <string name="pricing_cloud_description">Saad kasutada rakendusi kõiki funktsionaalsusi ja kasutada sünkroonimist Tasks.org-i pilveteenusega.</string>
     <string name="pricing_from">Alates %1$s</string>
     <string name="pricing_nyp_description">Vali oma tellimuse hind. Sellega muutuvad rakenduse kõik funktsionaalsused kasutatavaks.</string>
@@ -291,10 +289,8 @@
     <string name="monthly">Igakuiselt</string>
     <string name="restore_purchases">Taasta ostud</string>
     <string name="pricing_cloud_monthly_note">Arve on esitatud igakuiselt</string>
-    <string name="pricing_cloud_feature_1">Kiire sünkroonimine Android ja töölaua rakenduste vahel</string>
     <string name="pricing_cloud_feature_2">Loendite jagamine pere ja sõpradega</string>
     <string name="pricing_cloud_feature_3">E-kirjast ülesande koostamine koos privaatse saabuvate kirjade postkastiga</string>
-    <string name="pricing_cloud_feature_4">iOS-is saad ühendada teenusega Apple Reminders</string>
     <string name="pricing_nyp_feature_1">Sinu valitud kujundused ja ikoonid</string>
     <string name="pricing_nyp_feature_2">Sünkroonimine sinu valitud teenusega CalDAV-i või EteSynci abil</string>
     <string name="pricing_nyp_feature_3">Toetad avatud lähtekoodiga tarkvara arendust</string>
@@ -691,7 +687,6 @@
     <string name="error_billing_unavailable">Arveldamine pole hetkel saadaval. Palun proovi hiljem uuesti.</string>
     <string name="checkout_finish_in_browser">Lõpeta ostmine veebibrauseris</string>
     <string name="checkout_expired">Makse leht aegus. Palun proovi uuesti.</string>
-    <string name="pricing_free_trial">%1$d-päevane tasuta prooviperiood</string>
     <string name="pricing_subscribe_for">Tellimus: %1$s</string>
     <string name="pro_card_credit">%1$s allahindlus lisatakse järgmisele uuendamisele</string>
     <string name="wrong_account_message_unknown">Sinu tellimus on juba seotud muu kasutajakontoga. Kui sa arvad, et see on viga, siis palun võta ühendust aadressil %1$s</string>
@@ -705,4 +700,6 @@
     <string name="restore_renewal_settling">Sinu tellimuse uuendamine on veel töös</string>
     <string name="purchases_restored">Ostud on taastatud</string>
     <string name="card_subscription">Tellimus kaardiga</string>
+    <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
+    <string name="upgrade_blurb_2">Olen Tasksi loomiseks kulutanud tuhandeid tunde ja ma avaldan kogu rakenduse lähtekoodi veebis vaba litsentsi all. Selleks, et oleks võimalik minu töid ja tegemisi toetada, eeldavad selle rakenduse mõned funktsionaalsused tellimuse olemasolu</string>
 </resources>

@@ -277,7 +277,6 @@
     <string name="lists">リスト</string>
     <string name="migrating_tasks">タスクを移行する</string>
     <string name="migrate_count">%s を Tasks.org に移動</string>
-    <string name="upgrade_blurb_2">私は何千時間もかけて Tasks を開発し、すべてのソースコードをオンラインで無料公開しています。私の仕事をサポートしていただくために、いくつかの機能は有料です</string>
     <string name="enjoying_tasks">Tasks を気に入っていだだけましたか？</string>
     <string name="widget_show_dividers">区切り線を表示</string>
     <string name="whats_new">更新情報</string>
@@ -304,7 +303,6 @@
     <string name="davx5_selection_description">DAVx⁵ でタスクを同期する</string>
     <string name="chips">チップ</string>
     <string name="now">現在</string>
-    <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
     <string name="app_password">アプリパスワード</string>
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
     <string name="widget_due_date_below_title">タイトルの下</string>

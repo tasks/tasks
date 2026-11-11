@@ -333,7 +333,6 @@
     <string name="auto_dismiss_datetime_widget">Widget</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="tasks_org_account_required">Vyžaduje sa účet na Tasks.org</string>
-    <string name="upgrade_blurb_2">Prácou na Tasks som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
     <string name="auto_dismiss_datetime_list_summary">Automaticky zatvoriť pri výbere zo zoznamu úloh</string>
     <string name="auto_dismiss_datetime_summary">Zatvoriť výber dátumu a času po zvolení dátumu alebo času</string>
     <string name="snackbar_task_completed">Úloha bola dokončená</string>
@@ -351,7 +350,6 @@
     <string name="share">Zdieľať</string>
     <string name="widget_id">ID widgetu: %d</string>
     <string name="copied_to_clipboard">%s skopírované do schránky</string>
-    <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks</string>
     <string name="auto_dismiss_datetime_widget_summary">Automaticky zatvoriť pri výbere z widgetu</string>
     <string name="filter_after_today">Kedykoľvek po dnešku</string>
     <string name="auto_dismiss_datetime">Automaticky zatvoriť výber dátumu a času</string>

@@ -297,8 +297,6 @@
     <string name="preferences_advanced">Avançat</string>
     <string name="documentation">Documentació</string>
     <string name="color_wheel">Roda de color</string>
-    <string name="upgrade_blurb_1">Hola! Em dic Alex. Soc el desenvolupador independent darrere de les tasques</string>
-    <string name="upgrade_blurb_2">He passat milers d\'hores treballant en tasques, i publico tot el codi font en internet de forma gratuïta. Per tal de donar suport al meu treball algunes funcions requereixen una subscripció</string>
     <string name="back">Enrere</string>
     <string name="chips">Distintius</string>
     <string name="chip_appearance">Aparença del distintiu</string>

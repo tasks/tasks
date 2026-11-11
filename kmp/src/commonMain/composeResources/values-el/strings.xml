@@ -450,4 +450,6 @@
     <string name="mcp_tools_group_reminders">Υπενθυμίσεις</string>
     <string name="mcp_copy">Αντιγραφή</string>
     <string name="new_filter">Δημιουργία νέου φίλτρου</string>
+    <string name="upgrade_blurb_1">Γεια! Με λένε Άλεξ. Είμαι ο ανεξάρτητος προγραμματιστής πίσω από την εφαρμογή Tasks</string>
+    <string name="upgrade_blurb_2">Έχω ξοδέψει χιλιάδες ώρες δουλεύοντας στο Tasks, και δημοσιεύω όλο τον πηγαίο κώδικα στο διαδίκτυο δωρεάν. Για να υποστηρίξω τη δουλειά μου, κάποια χαρακτηριστικά χρειάζονται συνδρομή</string>
 </resources>

@@ -121,6 +121,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
@@ -185,6 +186,9 @@ import org.tasks.compose.platformStatusBarInsets
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
+import org.tasks.compose.pricing.SOURCE_MANAGE_SUBSCRIPTION
+import org.tasks.compose.pricing.SupporterFeatures
+import org.tasks.compose.pricing.leadsWithSupporter
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
@@ -1047,7 +1051,7 @@ fun App(
                                         showManageSheet = false
                                         backStack.push(
                                             PricingDestination(
-                                                source = "manage_subscription",
+                                                source = SOURCE_MANAGE_SUBSCRIPTION,
                                             )
                                         )
                                     },
@@ -1112,12 +1116,16 @@ fun App(
                                     )
                                 },
                                 onUpgrade = {
-                                    backStack.push(
-                                        PricingDestination(
-                                            mode = PricingMode.CLOUD_ONLY,
-                                            source = "restore_upgrade",
+                                    if (backStack.getOrNull(backStack.lastIndex - 1) is PricingDestination) {
+                                        backStack.removeLastOrNull()
+                                    } else {
+                                        backStack.push(
+                                            PricingDestination(
+                                                mode = PricingMode.CLOUD_ONLY,
+                                                source = "restore_upgrade",
+                                            )
                                         )
-                                    )
+                                    }
                                 },
                             ),
                             desktopLink = desktopLinkClient?.let { client ->
@@ -1230,6 +1238,9 @@ fun App(
                         // stack and the entry's own saved state survive.
                         var showSignInDialog by rememberSaveable { mutableStateOf(false) }
                         val addAccountViewModel = koinViewModel<AddAccountViewModel>()
+                        val hasTasksAccount by remember(chromeCaldavDao) {
+                            chromeCaldavDao.watchAccounts().map { accounts -> accounts.any { it.isTasksOrg } }
+                        }.collectAsState(initial = addAccountViewModel.hasTasksAccount)
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         // Signing in and the account landing are published by two independent
                         // queries on the same invalidation, so the onboarding redirect above can
@@ -1257,6 +1268,14 @@ fun App(
                             mode = destination.mode,
                             subscription = subscriptionProvider.subscription,
                         )
+                        val openRestore = {
+                            backStack.push(
+                                RestorePurchasesDestination(
+                                    source = destination.source,
+                                    forCloud = destination.mode == PricingMode.CLOUD_ONLY,
+                                )
+                            )
+                        }
                         LaunchedEffect(satisfied, backStack.lastOrNull()) {
                             if (!satisfied || !popPricing()) {
                                 return@LaunchedEffect
@@ -1277,14 +1296,7 @@ fun App(
                                 viewModel = koinViewModel(),
                                 suggestedPrice = suggestedPrice,
                                 openUrl = openUrl,
-                                onRestorePurchases = {
-                                    backStack.push(
-                                        RestorePurchasesDestination(
-                                            source = destination.source,
-                                            forCloud = destination.mode == PricingMode.CLOUD_ONLY,
-                                        )
-                                    )
-                                },
+                                onRestorePurchases = openRestore,
                                 onPlanChanged = { popPricing() },
                                 portalUrl = { stripePurchases.portalUrl() },
                                 browserCoversApp = configuration.isAndroid,
@@ -1300,14 +1312,7 @@ fun App(
                                 reporting.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
                                 showSignInDialog = true
                             },
-                            onRestorePurchases = {
-                                backStack.push(
-                                    RestorePurchasesDestination(
-                                        source = destination.source,
-                                        forCloud = destination.mode == PricingMode.CLOUD_ONLY,
-                                    )
-                                )
-                            },
+                            onRestorePurchases = openRestore,
                             onCloudSubscribeClick = {
                                 reporting.logEvent(
                                     AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
@@ -1328,7 +1333,14 @@ fun App(
                                     AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
                                 )
                             },
-                            hasSupporterSubscription = subscriptionInfo?.isSupporterSubscription == true,
+                            supporterFeatures = when {
+                                configuration.billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
+                                configuration.isAndroid -> SupporterFeatures.ANDROID_CARD
+                                else -> SupporterFeatures.DESKTOP
+                            },
+                            supporterFirst = leadsWithSupporter(destination.source),
+                            subscribedSku = subscriptionInfo?.sku,
+                            showSignIn = !hasTasksAccount,
                             store = store,
                         )
                         if (showSignInDialog) {

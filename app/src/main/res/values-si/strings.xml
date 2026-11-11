@@ -118,8 +118,6 @@
     <string name="chip_appearance_text_and_icon">පෙළ සහ නිරූපකය</string>
     <string name="places">ස්ථාන</string>
     <string name="back">ආපසු</string>
-    <string name="upgrade_blurb_2">මම Tasks සඳහා පැය දහස් ගණනක් වැඩ කර ඇති අතර, මම සියලු ප්‍රභව කේත නොමිලේ මාර්ගගතව ප්‍රකාශයට පත් කරමි. මගේ කාර්යයට සහාය වීම සඳහා සමහර විශේෂාංග සඳහා දායකත්වයක් අවශ්‍ය වේ</string>
-    <string name="upgrade_blurb_1">හායි! මගෙ නම ඇලෙක්ස්. Tasks පිටුපස සිටින ස්වාධීන සංවර්ධකයා මමයි</string>
     <string name="documentation">ප්‍රලේඛනය</string>
     <string name="preferences_advanced">උසස්</string>
     <string name="show_advanced_settings">උසස් සැකසුම් පෙන්වන්න</string>

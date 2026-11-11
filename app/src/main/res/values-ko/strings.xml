@@ -239,10 +239,8 @@
     <string name="chip_appearance_text_and_icon">글자와 아이콘</string>
     <string name="place_settings">장소 설정</string>
     <string name="places">장소</string>
-    <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
     <string name="chip_appearance">칩 모양</string>
     <string name="chips">칩</string>
-    <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
     <string name="color_wheel">색상환</string>
     <string name="documentation">문서</string>
     <string name="preferences_advanced">고급</string>

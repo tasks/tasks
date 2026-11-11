@@ -184,7 +184,6 @@
     <string name="url_invalid_scheme">חייב להתחיל עם http(s)://‎</string>
     <string name="url_required">נדרשת כתובת URL</string>
     <string name="username_required">נדרש שם משתמש</string>
-    <string name="already_subscribed">כבר מנוי/ה?</string>
     <string name="sign_in_subtitle">כבר מנוי/ה או אורח/ת מוזמן/ת?</string>
     <string name="show_advanced_settings">הצגת הגדרות מתקדמות</string>
     <string name="app_settings">הגדרות יישום</string>
@@ -547,7 +546,6 @@
     <string name="cloud_onboarding_welcome_body">נא להתחבר דרך Google בשביל ליצור את החשבון שלך בשירות הענן של Tasks.org</string>
     <string name="google_tasks_permission_not_granted">לא הוענקה הרשאת גישה ל־Tasks מבית Google. נא להתחבר מחדש ולהעניק גישה ל־Tasks מבית Google במסך ההסכמה.</string>
     <string name="blog_notifications">התראות בלוג</string>
-    <string name="pricing_cloud_feature_1">סנכרון מיידי בין גרסת האנדרואיד לגרסה השולחנית</string>
     <string name="pricing_cloud_monthly_note">בתשלום חודשי</string>
     <string name="rmd_NoA_done">השלמה</string>
     <string name="action_open">פתיחה</string>
@@ -584,4 +582,6 @@
     <string name="mcp_copy">העתקה</string>
     <string name="new_filter">יצירת מסנן חדש</string>
     <string name="subscription_required">נדרש מינוי</string>
+    <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks</string>
+    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
 </resources>

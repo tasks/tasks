@@ -246,8 +246,6 @@
     <string name="preferences_advanced">Zaawansowane</string>
     <string name="theme_system_default">Domyślny systemowy</string>
     <string name="color_wheel">Paleta</string>
-    <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks</string>
-    <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
     <string name="back">Wstecz</string>
     <string name="chips">Chipy</string>
     <string name="chip_appearance">Wygląd chipów</string>

@@ -16,6 +16,7 @@ object TasksIcons {
     const val ADD = "add"
     const val EDIT = "edit"
     const val WARNING = "warning"
+    const val FORMAT_QUOTE = "format_quote"
     const val DELETE = "delete"
     const val NOTIFICATIONS = "notifications"
     const val PENDING_ACTIONS = "pending_actions"

@@ -225,7 +225,6 @@
     <string name="subscription">Abono</string>
     <string name="now">Nun</string>
     <string name="widget_show_dividers">Vidigi dividilojn</string>
-    <string name="upgrade_blurb_1">Saluton! Mi nomiĝas Alex. Mi estas la sendependa programisto de Tasks</string>
     <string name="local_lists">Lokaj listoj</string>
     <string name="filter_no_tags">Neniu etikedoj</string>
     <string name="support">Helpo</string>
@@ -277,7 +276,6 @@
     <string name="open_map">Malfermi mapon</string>
     <string name="place_settings">Agordoj de loko</string>
     <string name="settings_default">Defaŭlta</string>
-    <string name="upgrade_blurb_2">Mi laboris milojn da horoj pri Tasks, kaj mi rete eldonas senpage ĉiun da la fontkodo. Por subteni mian laboron, kelkaj funkcioj postulas abonon</string>
     <string name="preferences_advanced">Altnivela</string>
     <string name="select_all">Elekti ĉiujn</string>
     <string name="compact">Kompakta</string>

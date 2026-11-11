@@ -496,4 +496,6 @@
     <string name="accept">Прийняти</string>
     <string name="email_to_task">Е-лист до завдання</string>
     <string name="subscription_required">Потрібна передплата</string>
+    <string name="upgrade_blurb_1">Привіт! Моє ім\'я Алекс. Я - незалежний розробник Tasks</string>
+    <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
 </resources>

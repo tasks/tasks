@@ -8,22 +8,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertTrue
 
 internal fun ComposeUiTest.showPaywall(
     store: StoreBilling?,
     mode: PricingMode = PricingMode.CLOUD_ONLY,
-    hasSupporterSubscription: Boolean = false,
+    supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
     onRestorePurchases: () -> Unit = {},
+    onSignIn: () -> Unit = {},
+    showSignIn: Boolean = true,
+    supporterFirst: Boolean = false,
+    subscribedSku: String? = null,
+    width: Dp = 480.dp,
 ) = setContent {
-    Box(modifier = Modifier.size(480.dp, 2000.dp)) {
+    Box(modifier = Modifier.size(width, 2000.dp)) {
         PricingScreen(
             mode = mode,
             onBack = {},
-            onSignIn = {},
+            onSignIn = onSignIn,
             onRestorePurchases = onRestorePurchases,
-            hasSupporterSubscription = hasSupporterSubscription,
+            supporterFeatures = supporterFeatures,
+            showSignIn = showSignIn,
+            supporterFirst = supporterFirst,
+            subscribedSku = subscribedSku,
             store = store,
         )
     }

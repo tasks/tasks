@@ -511,7 +511,6 @@
     <string name="works_with_cloud_description">Synchroniseer je taken op al je apparaten</string>
     <string name="works_with_nextcloud_description">Synchronisatie met de Nextcloud Tasks app</string>
     <string name="pricing_cloud_description">Ontgrendel alle in-app functies en maak verbinding met Tasks.org Cloud Sync.</string>
-    <string name="pricing_cloud_feature_1">Directe synchronisatie tussen Android en desktop</string>
     <string name="cloud_onboarding_faq_desktop_sync_question">Hoe synchroniseer ik met mijn computer?</string>
     <string name="cloud_onboarding_faq_desktop_sync_answer">Download de desktop-app op tasks.org/download en meld je vervolgens aan met hetzelfde Google-account.</string>
     <string name="pricing_cloud_feature_3">Email-to-task met een eigen Postvak IN</string>
@@ -589,19 +588,16 @@
     <string name="google_play_subscription">Google Play-abonnement</string>
     <string name="github_sponsorship">GitHub-sponsoring</string>
     <string name="error_github_verification_failed">Verificatie mislukt. Probeer het nog eens.</string>
-    <string name="pricing_subtitle">Gratis en open source. Abonnementen ondersteunen de ontwikkeling en ontgrendelen extra functies.</string>
     <string name="pricing_from">Van %1$s</string>
     <string name="pricing_recommended">Aanbevolen</string>
     <string name="annual">Jaarlijks</string>
     <string name="monthly">Maandelijks</string>
     <string name="restore_purchases">Aankopen herstellen</string>
     <string name="pricing_cloud_monthly_note">Maandelijkse facturering</string>
-    <string name="pricing_cloud_feature_4">Verbinding maken met Apple Reminders op iOS</string>
     <string name="pricing_nyp_feature_1">Aangepaste thema\'s en pictogrammen</string>
     <string name="pricing_nyp_feature_2">Zelfgehoste synchronisatie met CalDAV en EteSync</string>
     <string name="pricing_nyp_feature_3">Open source software ondersteunen</string>
     <string name="pricing_subscribe_google_play">Abonneer je op Google Play</string>
-    <string name="already_subscribed">Al abonnee?</string>
     <string name="sign_in_subtitle">Al een abonnee of uitgenodigde gast?</string>
     <string name="subscription_not_found">Jouw Tasks.org cloud abonnement is niet gevonden. Als je denkt dat dit een fout is, neem dan contact op met %1$s</string>
     <string name="blog_notifications">Blog-meldingen</string>
@@ -691,7 +687,6 @@
     <string name="error_billing_unavailable">Facturering is momenteel niet beschikbaar. Probeer het later nog eens.</string>
     <string name="checkout_finish_in_browser">Aankoop afronden in de browser</string>
     <string name="checkout_expired">De betalingspagina is verlopen. Probeer het nog eens.</string>
-    <string name="pricing_free_trial">%1$d-dagen gratis proefperiode</string>
     <string name="pricing_subscribe_for">Abonnement voor %1$s</string>
     <string name="pro_card_credit">%1$s korting wordt toegepast op uw volgende verlenging</string>
     <string name="wrong_account_message_unknown">Je abonnement is al gekoppeld aan een ander account. Als je denkt dat dit een fout is, neem dan contact op met %1$s</string>
@@ -719,4 +714,6 @@
     <string name="subscription_active_github">Je hebt al een actieve GitHub sponsoring.</string>
     <string name="subscription_active_card">Je hebt al een actief abonnement betaald per kaart.</string>
     <string name="subscription_active_elsewhere">Je hebt al ergens anders een actief abonnement.</string>
+    <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
+    <string name="upgrade_blurb_2">Ik heb duizenden uren gewerkt aan Tasks en publiceer alle broncode gratis online. Om mijn werk te steunen, is voor sommige functies een abonnement nodig</string>
 </resources>

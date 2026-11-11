@@ -184,7 +184,6 @@
     <string name="url_invalid_scheme">Mora početi s http(s)://</string>
     <string name="url_required">URL-adresa je obavezna</string>
     <string name="username_required">Korisničko ime je obavezno</string>
-    <string name="already_subscribed">Već jesi pretplatnik?</string>
     <string name="sign_in_subtitle">Već jesi pretplatnik ili pozvani gost?</string>
     <string name="show_advanced_settings">Pokaži napredne postavke</string>
     <string name="app_settings">Postavke aplikacije</string>
@@ -248,8 +247,6 @@
     <string name="monthly">Mjesečno</string>
     <string name="restore_purchases">Obnovi kupovinu</string>
     <string name="pricing_cloud_monthly_note">Mjesečna naplata</string>
-    <string name="pricing_cloud_feature_1">Trenutna sinkronizacija između Androida i desktop aplikacije</string>
-    <string name="pricing_cloud_feature_4">Poveži s Apple podsjetnicima na iOS-u</string>
     <string name="pricing_nyp_feature_1">Prilagođene boje i ikone</string>
     <string name="pricing_nyp_feature_3">Podrži softver otvorenog koda</string>
     <string name="pricing_subscribe_google_play">Pretplati se na Google Play</string>
@@ -259,7 +256,6 @@
     <string name="pricing_cloud_feature_3">Slanje zadataka putem e-maila s privatnim sandučićom za dolaznu poštu</string>
     <string name="pricing_cloud_feature_2">Dijeljenje popisa prijatelja i obitelji</string>
     <string name="pricing_cloud_description">Otključaj sve funkcije u aplikaciji i poveži se s Tasks.org sinkronizacijom u oblaku.</string>
-    <string name="pricing_subtitle">Slobodna aplikacija otvorenog koda. Pretplate podržavaju razvoj i otključavaju dodatne funkcije.</string>
     <string name="error_contact_support">Ako i dalje imaš problema obrati se %1$s</string>
     <string name="error_no_sponsorship">Nije pronađeno sponzorstvo</string>
     <string name="error_sponsorship_delay">Nova sponzorstva možda neće biti odmah dostupna, pokušaj ponovo za nekoliko minuta.</string>
@@ -608,4 +604,6 @@
     <string name="mcp_copy">Kopiraj</string>
     <string name="new_filter">Stvori filtar</string>
     <string name="subscription_required">Potrebna je pretplata</string>
+    <string name="upgrade_blurb_1">Bok! Moje ime je Alex. Ja sam neovisan programer programa Tasks</string>
+    <string name="upgrade_blurb_2">Proveo sam tisuće sati radeći na programu Tasks, a sav izvorni kod objavljujem na mreži besplatno. U svrhu podržavanja mog rada, neke funkcije zahtijevaju pretplatu</string>
 </resources>

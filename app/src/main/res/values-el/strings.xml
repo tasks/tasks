@@ -249,8 +249,6 @@
     <string name="preferences_advanced">Συνθέτες</string>
     <string name="documentation">Έγγραφα</string>
     <string name="color_wheel">Τροχός χρωμάτων</string>
-    <string name="upgrade_blurb_1">Γεια! Με λένε Άλεξ. Είμαι ο ανεξάρτητος προγραμματιστής πίσω από την εφαρμογή Tasks</string>
-    <string name="upgrade_blurb_2">Έχω ξοδέψει χιλιάδες ώρες δουλεύοντας στο Tasks, και δημοσιεύω όλο τον πηγαίο κώδικα στο διαδίκτυο δωρεάν. Για να υποστηρίξω τη δουλειά μου, κάποια χαρακτηριστικά χρειάζονται συνδρομή</string>
     <string name="back">Πίσω</string>
     <string name="chips">Τσιπς</string>
     <string name="chip_appearance">Εμφάνιση τσιπ</string>

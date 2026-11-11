@@ -330,7 +330,6 @@
     <string name="custom_filter_has_reminder">有提醒</string>
     <string name="tasks_org_account_required">需要 Tasks.org 帳戶</string>
     <string name="snackbar_tasks_completed">已完成 %d 項任務</string>
-    <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱</string>
     <string name="chips">顯示元件</string>
     <string name="chip_appearance">元件外觀</string>
     <string name="reinitialize_account">重新初始化</string>
@@ -338,7 +337,6 @@
     <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>
     <string name="show_advanced_settings">顯示進階設定</string>
     <string name="etesync_selection_description">端對端加密同步</string>
-    <string name="upgrade_blurb_1">嗨！我的名字是 Alex。我是 Tasks 背後的獨立開發者</string>
     <string name="calendar_event_created">建立行事曆事件於 %s</string>
     <string name="widget_id">小工具 ID：%d</string>
     <string name="permission_read_tasks">完全存取 Tasks 資料庫</string>

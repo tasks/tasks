@@ -105,8 +105,6 @@
     <string name="chip_appearance">Boble-udseende</string>
     <string name="chips">Bobler</string>
     <string name="back">Tilbage</string>
-    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
-    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
     <string name="color_wheel">Farvehjul</string>
     <string name="documentation">Dokumentation</string>
     <string name="preferences_advanced">Avanceret</string>

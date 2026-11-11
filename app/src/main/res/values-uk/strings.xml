@@ -260,8 +260,6 @@
     <string name="chip_appearance">Вигляд індикаторів списків</string>
     <string name="chips">Індикатори списків</string>
     <string name="back">Назад</string>
-    <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
-    <string name="upgrade_blurb_1">Привіт! Моє ім\'я Алекс. Я - незалежний розробник Tasks</string>
     <string name="color_wheel">Палітра</string>
     <string name="sort_created">За часом створення</string>
     <string name="copied_to_clipboard">%s скопійовано в буфер обміну</string>

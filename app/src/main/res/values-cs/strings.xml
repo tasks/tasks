@@ -271,8 +271,6 @@
     <string name="astrid_sort_order_summary">Zapněte ruční řazení Astrid pro „Moje úkoly“, „Dnes“ a štítky. Tento režim řazení bude v budoucnu nahrazen režimem „Vlastní řazení“</string>
     <string name="astrid_sort_order">Ruční řazení Astrid</string>
     <string name="lists">Seznamy</string>
-    <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
-    <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks</string>
     <string name="color_wheel">Více barev</string>
     <string name="davx5_selection_description">Synchronizujte své úkoly pomocí aplikace DAVx⁵</string>
     <string name="building_notifications">Vytvářejí se oznámení</string>

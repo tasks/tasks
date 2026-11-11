@@ -232,4 +232,6 @@
     <string name="sign_in">Kirish</string>
     <string name="not_signed_in">Tizimga kirmagan</string>
     <string name="logout_confirmation">%1$s hisobidan chiqishni xohlaysizmi?</string>
+    <string name="upgrade_blurb_1">Salom! Mening ismim Alex. Men Tasks ilovasini mustaqil ishlab chiquvchiman</string>
+    <string name="upgrade_blurb_2">Tasks ustida minglab soat mehnat qildim va uning barcha manba kodini internetda bepul e’lon qilaman. Mehnatimni qo‘llab-quvvatlash uchun ayrim funksiyalardan foydalanish uchun obuna kerak</string>
 </resources>

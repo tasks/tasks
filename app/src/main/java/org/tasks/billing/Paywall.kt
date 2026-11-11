@@ -23,6 +23,8 @@ import org.tasks.auth.SignInActivity
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.pricing.PricingScreen
+import org.tasks.compose.pricing.SupporterFeatures
+import org.tasks.compose.pricing.leadsWithSupporter
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -63,6 +65,7 @@ fun Paywall(
             purchaseFinished()
         }
     }
+    val openRestore = { showRestore = true }
     val signInLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -150,7 +153,7 @@ fun Paywall(
             firebase.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
             signInLauncher.launch(Intent(context, SignInActivity::class.java))
         },
-        onRestorePurchases = { showRestore = true },
+        onRestorePurchases = openRestore,
         onCloudSubscribeClick = {
             firebase.logEvent(
                 AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
@@ -163,14 +166,20 @@ fun Paywall(
                 AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
             )
         },
-        hasSupporterSubscription = subscription?.isSupporterSubscription == true,
         showSignIn = !hasTasksAccount,
+        supporterFeatures = if (configuration.billingProvider == BillingProvider.STRIPE) {
+            SupporterFeatures.ANDROID_CARD
+        } else {
+            SupporterFeatures.APP_STORE
+        },
+        supporterFirst = leadsWithSupporter(source),
+        subscribedSku = subscription?.sku,
         store = when (configuration.billingProvider) {
             BillingProvider.STRIPE -> cardCheckout(
                 viewModel = hiltViewModel<StripeCheckoutHiltViewModel>(),
                 suggestedPrice = suggestedPrice,
                 openUrl = { context.openUri(it) },
-                onRestorePurchases = { showRestore = true },
+                onRestorePurchases = openRestore,
                 onPlanChanged = finish,
                 portalUrl = { stripePurchases.portalUrl() },
                 browserCoversApp = true,

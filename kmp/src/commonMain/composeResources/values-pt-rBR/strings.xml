@@ -199,7 +199,6 @@
     <string name="error_create_link_failed">Erro ao criar conexão. Verifique sua conexão com a internet e tente novamente.</string>
     <string name="error_confirmation_failed">Erro ao confirmar conexão. O código pode ser inválido ou expirado.</string>
     <string name="error_network">Erro ao conectar. Verifique sua conexão com a internet.</string>
-    <string name="already_subscribed">Já tem inscrição?</string>
     <string name="sign_in_subtitle">Já tem inscrição ou é um convidado?</string>
     <string name="show_advanced_settings">Mostrar configurações avançadas</string>
     <string name="app_settings">Configurações do aplicativo</string>
@@ -291,7 +290,6 @@
     <string name="google_play_subscription">Inscrição Google Play</string>
     <string name="github_sponsorship">Patrocínio do GitHub</string>
     <string name="error_github_verification_failed">Verificação falhou. Tente de novo.</string>
-    <string name="pricing_subtitle">Grátis e de código aberto. Inscrições apoiam o desenvolvimento e desbloqueiam recursos adicionais.</string>
     <string name="pricing_cloud_description">Desbloqueia todos recursos do app and conecta a sincronização Tasks.org Cloud</string>
     <string name="pricing_from">De %1$s</string>
     <string name="pricing_nyp_description">Escolha seu preço de inscrição. Desbloqueia todos recursos do app.</string>
@@ -300,10 +298,8 @@
     <string name="monthly">Mensal</string>
     <string name="restore_purchases">Restaurar compras</string>
     <string name="pricing_cloud_monthly_note">Cobrado mensalmente</string>
-    <string name="pricing_cloud_feature_1">Sincronização instantânea entre Android e desktop</string>
     <string name="pricing_cloud_feature_2">Compartilhamento de listas com Amigos &amp; Família</string>
     <string name="pricing_cloud_feature_3">Email-para-tarefa com caixa de entrada privada</string>
-    <string name="pricing_cloud_feature_4">Conectar com Apple Lembretes no iOS</string>
     <string name="pricing_nyp_feature_1">Temas e ícones personalizados</string>
     <string name="pricing_nyp_feature_2">Sincronização auto hospedada com CalDAV e EteSync</string>
     <string name="pricing_nyp_feature_3">Apoiar software de código aberto</string>
@@ -699,4 +695,6 @@
     <string name="works_with_submit_pull_request">Enviar um pull request</string>
     <string name="new_place">Criar novo local</string>
     <string name="subscription_required">Inscrição necessária</string>
+    <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
 </resources>

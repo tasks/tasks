@@ -496,4 +496,6 @@
     <string name="mcp_copy">Copiază</string>
     <string name="new_filter">Crează filtru nou</string>
     <string name="subscription_required">Este necesar un abonament</string>
+    <string name="upgrade_blurb_1">Bună, mă numesc Alex. Sunt dezvoltatorul independent din spatele Tasks</string>
+    <string name="upgrade_blurb_2">Am petrecut mii de ore lucrând la Tasks și am publicat tot codul sursă online gratuit. Pentru a-mi susține munca, unele caracteristici necesită un abonament</string>
 </resources>

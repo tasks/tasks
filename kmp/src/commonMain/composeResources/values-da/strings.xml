@@ -530,7 +530,6 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="unlock_pro_opening_browser">Åbner browseren…</string>
     <string name="error_github_verification_failed">Bekræftelsen mislykkedes. Prøv igen.</string>
-    <string name="pricing_subtitle">Gratis og open source. Abonnementer støtter udviklingen og låser op for flere funktioner.</string>
     <string name="pricing_cloud_description">Lås op for alle funktioner i appen, og synkroniser med Tasks.org Cloud.</string>
     <string name="pricing_from">Fra %1$s</string>
     <string name="pricing_nyp_description">Vælg selv prisen på dit abonnement. Låser op for alle funktioner i appen.</string>
@@ -539,15 +538,12 @@
     <string name="monthly">Månedligt</string>
     <string name="restore_purchases">Gendan køb</string>
     <string name="pricing_cloud_monthly_note">Faktureres månedligt</string>
-    <string name="pricing_cloud_feature_1">Øjeblikkelig synkronisering mellem Android og desktop</string>
     <string name="pricing_cloud_feature_2">Deling af lister med venner og familie</string>
     <string name="pricing_cloud_feature_3">E-mail til opgave med en privat indbakke</string>
-    <string name="pricing_cloud_feature_4">Forbind til Apple Påmindelser på iOS</string>
     <string name="pricing_nyp_feature_1">Egne temaer og ikoner</string>
     <string name="pricing_nyp_feature_2">Synkronisering med egen server via CalDAV og EteSync</string>
     <string name="pricing_nyp_feature_3">Støt open source-software</string>
     <string name="pricing_subscribe_google_play">Abonner via Google Play</string>
-    <string name="already_subscribed">Har du allerede et abonnement?</string>
     <string name="sign_in_subtitle">Har du allerede et abonnement, eller er du inviteret som gæst?</string>
     <string name="link_desktop_step_1">Åbn Tasks.orgs desktop-app</string>
     <string name="link_desktop_step_2">Klik på »%1$s«, og vælg »%2$s«</string>
@@ -692,7 +688,6 @@
     <string name="error_billing_unavailable">Betaling er ikke tilgængelig lige nu. Prøv igen senere.</string>
     <string name="checkout_finish_in_browser">Gennemfør dit køb i browseren</string>
     <string name="checkout_expired">Betalingssiden er udløbet. Prøv igen.</string>
-    <string name="pricing_free_trial">Gratis prøveperiode i %1$d dage</string>
     <string name="pricing_subscribe_for">Abonner for %1$s</string>
     <string name="card_subscription">Abonnement via betalingskort</string>
     <string name="restore_email_heading">Angiv den e-mailadresse, du betalte med</string>
@@ -715,4 +710,6 @@
     <string name="subscription_ended_on">Udløbet %1$s</string>
     <string name="subscription_free_until">Gratis indtil %1$s, derefter %2$s</string>
     <string name="subscription_payment_failed">Betalingen mislykkedes. Opdater dit betalingskort</string>
+    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
+    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
 </resources>

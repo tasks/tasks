@@ -286,8 +286,6 @@
     <string name="lists">רשימות</string>
     <string name="permission_read_tasks">גישה מלאה למסד הנתונים של Tasks</string>
     <string name="reset_sort_order">איפוס סדר מיון</string>
-    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
-    <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks</string>
     <string name="documentation">תיעוד</string>
     <string name="enjoying_tasks">נהנים מ־Tasks?</string>
     <string name="filter_eisenhower_box_4">לא חשוב ולא דחוף</string>

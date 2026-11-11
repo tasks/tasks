@@ -284,8 +284,6 @@
     <string name="auto_dismiss_datetime_list_summary">Sulje automaattisesti kun valitaan tehtävä listalta</string>
     <string name="place_settings">Paikka asetukset</string>
     <string name="places">Paikat</string>
-    <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Task ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
-    <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Task ohjelman takana</string>
     <string name="preferences_advanced">Kehittyneet</string>
     <string name="whats_new">Mitä uutta</string>
     <string name="location_departed">Lähdit paikasta %s</string>

@@ -184,7 +184,6 @@
     <string name="url_invalid_scheme">Harus diawali dengan http(s)://</string>
     <string name="url_required">URL diperlukan</string>
     <string name="username_required">Nama pengguna diperlukan</string>
-    <string name="already_subscribed">Sudah berlangganan?</string>
     <string name="sign_in_subtitle">Sudah berlangganan atau diundang sebagai tamu?</string>
     <string name="show_advanced_settings">Tampilkan pengaturan lanjutan</string>
     <string name="app_settings">Pengaturan aplikasi</string>
@@ -280,7 +279,6 @@
     <string name="google_play_subscription">Langganan Google Play</string>
     <string name="github_sponsorship">Sponsorship GitHub</string>
     <string name="error_github_verification_failed">Verifikasi gagal. Silakan coba lagi.</string>
-    <string name="pricing_subtitle">Gratis dan open source. Langganan mendukung pengembangan dan membuka fitur tambahan.</string>
     <string name="pricing_cloud_description">Buka semua fitur dalam aplikasi dan hubungkan ke sinkronisasi Tasks.org Cloud.</string>
     <string name="pricing_from">Mulai dari %1$s</string>
     <string name="pricing_nyp_description">Pilih sendiri harga langganan Anda. Membuka semua fitur dalam aplikasi.</string>
@@ -289,10 +287,8 @@
     <string name="monthly">Bulanan</string>
     <string name="restore_purchases">Pulihkan pembelian</string>
     <string name="pricing_cloud_monthly_note">Ditagih bulanan</string>
-    <string name="pricing_cloud_feature_1">Sinkronisasi instan antara Android dan desktop</string>
     <string name="pricing_cloud_feature_2">Berbagi daftar dengan Teman &amp; Keluarga</string>
     <string name="pricing_cloud_feature_3">Email-ke-tugas dengan kotak masuk pribadi</string>
-    <string name="pricing_cloud_feature_4">Hubungkan ke Apple Reminders di iOS</string>
     <string name="pricing_nyp_feature_1">Tema dan ikon kustom</string>
     <string name="pricing_nyp_feature_2">Sinkronisasi self-hosted dengan CalDAV dan EteSync</string>
     <string name="pricing_nyp_feature_3">Dukung perangkat lunak open source</string>
@@ -661,4 +657,6 @@
     <string name="repeat_monthly_on_last_day">Setiap bulan pada hari terakhir</string>
     <string name="repeat_monthly_last_day">hari terakhir</string>
     <string name="subscription_required">Langganan diperlukan</string>
+    <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
+    <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
 </resources>

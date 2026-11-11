@@ -2,23 +2,20 @@ package org.tasks.compose.pricing
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.runComposeUiTest
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
 import org.tasks.billing.UnlockSource
-import org.tasks.resources.getString
 import org.tasks.themes.TestTags
-import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.upgrade_subscription_banner
 
 @OptIn(ExperimentalTestApi::class)
 class CardPricingTest {
@@ -28,7 +25,7 @@ class CardPricingTest {
         sku = "cloud_annual",
         amountCents = 2999,
         entitles = true,
-        trialDays = 14,
+        trialDays = 7,
     )
 
     private val monthly = BillingOption(
@@ -37,7 +34,7 @@ class CardPricingTest {
         amountCents = 299,
         interval = BillingOption.INTERVAL_MONTH,
         entitles = true,
-        trialDays = 14,
+        trialDays = 7,
     )
 
     private val supporter = BillingOption(
@@ -51,15 +48,11 @@ class CardPricingTest {
         onSelect = {},
     )
 
-    private val supporterBanner =
-        runBlocking { getString(Res.string.upgrade_subscription_banner) }
-
     @Test
     fun theCtaQuotesThePriceFromTheCatalog() = runComposeUiTest {
         showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
         assertShowing("Subscribe for \$29.99/year")
-        assertShowing("14-day free trial")
     }
 
     @Test
@@ -73,10 +66,7 @@ class CardPricingTest {
         )
 
         assertShowing("Subscribe for \$29.99/year")
-        assertTrue(
-            "expected no free trial promise",
-            onAllNodes(hasText("14-day free trial")).fetchSemanticsNodes().isEmpty(),
-        )
+        assertNotShowing("7-day trial")
     }
 
     @Test
@@ -95,6 +85,20 @@ class CardPricingTest {
         }
         assertNotShowing("\$29.99")
         assertNotShowing("\$2.50")
+    }
+
+    @Test
+    fun theSupporterCardOnlyShimmersWhereAPriceWillLoad() = runComposeUiTest {
+        showPaywall(StoreBilling(loadingPrices = true, onSelect = {}), mode = PricingMode.NYP_ONLY)
+
+        assertEquals(1, onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun theCloudCardShimmersForItsPriceAndItsBillingNote() = runComposeUiTest {
+        showPaywall(StoreBilling(loadingPrices = true, onSelect = {}), mode = PricingMode.CLOUD_ONLY)
+
+        assertEquals(2, onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().size)
     }
 
     @Test
@@ -154,7 +158,7 @@ class CardPricingTest {
             )
         )
 
-        onNodeWithText("Subscribe for \$29.99/year").assertIsNotEnabled()
+        onNodeWithText("Subscribed").assertIsNotEnabled()
     }
 
     @Test
@@ -171,6 +175,70 @@ class CardPricingTest {
     }
 
     @Test
+    fun anUpsellMovesSignInToTheTopBar() {
+        listOf(PricingMode.BOTH, PricingMode.NYP_ONLY).forEach { mode ->
+            runComposeUiTest {
+                var signedIn = false
+                showPaywall(
+                    store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+                    mode = mode,
+                    onSignIn = { signedIn = true },
+                )
+
+                assertNotShowing("Already a subscriber or invited guest?")
+                assertEquals("$mode", 1, onAllNodes(hasText("Sign in")).fetchSemanticsNodes().size)
+                assertTrue(
+                    "$mode: expected sign in at the top",
+                    onNodeWithText("Sign in").getBoundsInRoot().bottom <
+                            onNodeWithText("Hi! My name is Alex", substring = true).getBoundsInRoot().top,
+                )
+                onNodeWithText("Sign in").performClick()
+                assertTrue("$mode: expected sign in to be asked for", signedIn)
+            }
+        }
+    }
+
+    @Test
+    fun everyPaywallOpensWithANoteFromTheDeveloper() {
+        PricingMode.entries.forEach { mode ->
+            runComposeUiTest {
+                showPaywall(
+                    store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+                    mode = mode,
+                )
+
+                assertTrue(
+                    "$mode: expected the note above the plans",
+                    onNodeWithText("Hi! My name is Alex", substring = true).fetchSemanticsNode().positionInRoot.y <
+                            onAllNodes(hasText("Tasks.org Cloud") or hasText("Tasks.org Supporter"))
+                                .fetchSemanticsNodes()
+                                .minOf { it.positionInRoot.y },
+                )
+                assertNotShowing("Free and open source")
+            }
+        }
+    }
+
+    @Test
+    fun addingACloudAccountKeepsTheSignInFooter() = runComposeUiTest {
+        showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
+
+        assertShowing("Already a subscriber or invited guest?")
+        assertEquals(1, onAllNodes(hasText("Sign in")).fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun aSignedInUserIsNotAskedToSignIn() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+            mode = PricingMode.BOTH,
+            showSignIn = false,
+        )
+
+        assertNotShowing("Sign in")
+    }
+
+    @Test
     fun theRestoreLinkDoesNotAskAgainWhatTheSignInFooterAsked() = runComposeUiTest {
         showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
 
@@ -178,8 +246,29 @@ class CardPricingTest {
         assertShowing("Restore purchases")
         assertTrue(
             "expected the restore link not to repeat the question",
-            onAllNodes(hasText("Already a subscriber?")).fetchSemanticsNodes().isEmpty(),
+            onAllNodes(hasText("Already a supporter?")).fetchSemanticsNodes().isEmpty(),
         )
+    }
+
+    @Test
+    fun restoreIsOfferedOnceAtTheBottomOfEveryPaywall() {
+        PricingMode.entries.forEach { mode ->
+            runComposeUiTest {
+                showPaywall(
+                    store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+                    mode = mode,
+                )
+
+                assertEquals("$mode", 1, onAllNodes(hasText("Restore purchases")).fetchSemanticsNodes().size)
+                assertNotShowing("Already a supporter?")
+                assertTrue(
+                    "$mode: expected restore below the plans",
+                    onNodeWithText("Restore purchases").fetchSemanticsNode().positionInRoot.y >
+                            onAllNodes(hasText("Subscribe for", substring = true)).fetchSemanticsNodes()
+                                .maxOf { it.positionInRoot.y + it.size.height },
+                )
+            }
+        }
     }
 
     @Test
@@ -225,7 +314,7 @@ class CardPricingTest {
             )
         )
 
-        assertShowing("Subscribe for \$29.99/year")
+        assertShowing("Change to \$29.99/year")
         assertTrue(
             "expected no coverage warning on a reprice",
             onAllNodes(hasText("active subscription somewhere else", substring = true))
@@ -278,7 +367,7 @@ class CardPricingTest {
     }
 
     @Test
-    fun aSupporterTierIsWarnedAboutAPaymentElsewhereToo() = runComposeUiTest {
+    fun aPaymentElsewhereIsWarnedAboutOnceAboveBothTiers() = runComposeUiTest {
         showPaywall(
             store = StoreBilling(
                 catalog = BillingCatalog.from(listOf(annual, supporter)),
@@ -290,9 +379,85 @@ class CardPricingTest {
         )
 
         assertEquals(
-            2,
+            1,
             onAllNodes(hasText("You already have an active subscription paid by card."))
                 .fetchSemanticsNodes().size,
+        )
+    }
+
+    @Test
+    fun aNewCustomerSeesTheTrialAsTheLastCloudFeature() = runComposeUiTest {
+        showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual)), onSelect = {}))
+
+        val trial = onNodeWithText("7-day free trial for new subscribers").getBoundsInRoot()
+        assertTrue(
+            "expected the trial after the other features",
+            onNodeWithText("Email-to-task with a private inbox").getBoundsInRoot().bottom <= trial.top,
+        )
+        assertTrue(
+            "expected the trial above the subscribe button",
+            trial.bottom < onNodeWithText("Subscribe for \$29.99/year").getBoundsInRoot().top,
+        )
+    }
+
+    @Test
+    fun theSupporterFeaturesListTheTrialToo() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(listOf(supporter.copy(trialDays = 7))),
+                onSelect = {},
+            ),
+            mode = PricingMode.NYP_ONLY,
+        )
+
+        assertTrue(
+            "expected the trial after the other supporter features",
+            onNodeWithText("Support open source software").getBoundsInRoot().bottom <=
+                    onNodeWithText("7-day free trial for new subscribers").getBoundsInRoot().top,
+        )
+    }
+
+    @Test
+    fun theFDroidSupporterCardDoesNotOfferWhatIsAlreadyUnlocked() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(
+                catalog = BillingCatalog.from(listOf(supporter.copy(trialDays = 7))),
+                onSelect = {},
+            ),
+            mode = PricingMode.NYP_ONLY,
+            supporterFeatures = SupporterFeatures.ANDROID_CARD,
+        )
+
+        assertNotShowing("7-day free trial")
+        assertNotShowing("Unlocks all in-app features")
+        assertNotShowing("Choose your own subscription price")
+    }
+
+    @Test
+    fun aPriceWithoutATrialDoesNotMentionOne() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual.copy(trialDays = 0))),
+                onSelect = {},
+            )
+        )
+
+        assertNotShowing("7-day trial")
+    }
+
+    @Test
+    fun billingTroubleIsReportedOnceAboveTheTiers() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(catalog = BillingCatalog(), onSelect = {}),
+            mode = PricingMode.BOTH,
+        )
+
+        val notice = "Billing isn't available right now. Please try again later."
+        assertEquals(1, onAllNodes(hasText(notice)).fetchSemanticsNodes().size)
+        assertTrue(
+            "expected the notice above the cloud card",
+            onNodeWithText(notice).getBoundsInRoot().bottom <
+                    onNodeWithText("Tasks.org Cloud").getBoundsInRoot().top,
         )
     }
 
@@ -316,51 +481,25 @@ class CardPricingTest {
     }
 
     @Test
-    fun aSupporterIsAskedToUpgradeWhenCloudIsTheOnlyThingOnOffer() = runComposeUiTest {
+    fun aSupporterTheStoreHasNotCaughtUpWithIsStillOfferedAnUpgrade() = runComposeUiTest {
         showPaywall(
             store = everyTier,
             mode = PricingMode.CLOUD_ONLY,
-            hasSupporterSubscription = true,
+            subscribedSku = supporter.sku,
         )
 
-        assertShowing(supporterBanner)
+        assertShowing("Upgrade to \$29.99/year")
     }
 
     @Test
-    fun aSupporterBrowsingEveryTierIsNotToldToUpgrade() = runComposeUiTest {
+    fun aSupporterIsOfferedAnUpgradeRatherThanThanked() = runComposeUiTest {
         showPaywall(
-            store = everyTier,
-            mode = PricingMode.BOTH,
-            hasSupporterSubscription = true,
-        )
-
-        assertShowing(CLOUD_TIER)
-        assertShowing(SUPPORTER_TIER)
-        assertNotShowing(supporterBanner)
-    }
-
-    @Test
-    fun aSupporterNamingTheirOwnPriceIsNotToldToUpgrade() = runComposeUiTest {
-        showPaywall(
-            store = everyTier,
-            mode = PricingMode.NYP_ONLY,
-            hasSupporterSubscription = true,
-        )
-
-        assertShowing(SUPPORTER_TIER)
-        assertNotShowing(supporterBanner)
-    }
-
-    @Test
-    fun somebodyWhoPaysUsNothingIsNotThankedForTheirSupport() = runComposeUiTest {
-        showPaywall(
-            store = everyTier,
+            store = everyTier.copy(currentSku = supporter.sku),
             mode = PricingMode.CLOUD_ONLY,
-            hasSupporterSubscription = false,
         )
 
-        assertShowing(CLOUD_TIER)
-        assertNotShowing(supporterBanner)
+        assertShowing("Upgrade to \$29.99/year")
+        assertNotShowing("Thanks for your support")
     }
 
     private companion object {

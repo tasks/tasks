@@ -389,4 +389,6 @@
     <string name="mcp_tools_group_reminders">මතක් කිරීම්</string>
     <string name="mcp_copy">පිටපත් කරන්න</string>
     <string name="new_filter">නව පෙරණයක් සැකසීම</string>
+    <string name="upgrade_blurb_1">හායි! මගෙ නම ඇලෙක්ස්. Tasks පිටුපස සිටින ස්වාධීන සංවර්ධකයා මමයි</string>
+    <string name="upgrade_blurb_2">මම Tasks සඳහා පැය දහස් ගණනක් වැඩ කර ඇති අතර, මම සියලු ප්‍රභව කේත නොමිලේ මාර්ගගතව ප්‍රකාශයට පත් කරමි. මගේ කාර්යයට සහාය වීම සඳහා සමහර විශේෂාංග සඳහා දායකත්වයක් අවශ්‍ය වේ</string>
 </resources>

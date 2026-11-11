@@ -221,7 +221,6 @@
     <string name="add_tags">أضف علامات</string>
     <string name="filter_no_tags">لا علامات</string>
     <string name="place_settings">إعدادات الأماكن</string>
-    <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
     <string name="choose_new_location">اختر موقعًا جديدًا</string>
     <string name="or_choose_a_location">أو اختر موقعًا</string>
     <string name="pick_this_location">اختر هذا الموقع</string>
@@ -283,7 +282,6 @@
     <string name="chip_appearance_text_and_icon">النص والايقونة</string>
     <string name="chips">رقائق</string>
     <string name="back">عودة</string>
-    <string name="upgrade_blurb_2">لقد أمضيت آلاف الساعات في العمل على \"مهام\" ، وأنا أنشر جميع التعليمات البرمجية المصدر عبر الإنترنت مجانًا. من أجل دعم عملي ، ولذلك تتطلب بعض الميزات اشتراكًا</string>
     <string name="davx5_selection_description">مزامنة مهامك مع تطبيق DAVx⁵</string>
     <string name="decsync_selection_description">مزامنة على اساس الملف</string>
     <string name="etesync_selection_description">مزامنة مشفرة من طرف إلى طرف</string>

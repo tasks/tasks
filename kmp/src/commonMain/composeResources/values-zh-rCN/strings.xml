@@ -197,7 +197,6 @@
     <string name="url_invalid_scheme">必须以 http(s):// 开头</string>
     <string name="url_required">请填写网址</string>
     <string name="username_required">请填写用户名</string>
-    <string name="already_subscribed">已是订阅者？</string>
     <string name="sign_in_subtitle">已是订阅者或受邀来宾？</string>
     <string name="show_advanced_settings">显示高级设置</string>
     <string name="logout_confirmation">退出登录 %1$s ？</string>
@@ -209,7 +208,6 @@
     <string name="caldav_server_mailbox_org">Mailbox.org</string>
     <string name="unlock_pro_opening_browser">正在打开浏览器…</string>
     <string name="error_github_verification_failed">验证失败。请重试。</string>
-    <string name="pricing_subtitle">自由且开源。订阅支持开发并解锁额外功能。</string>
     <string name="pricing_cloud_description">解锁所有应用内功能并连接到 Tasks.org Cloud 同步。</string>
     <string name="pricing_from">从 %1$s 起</string>
     <string name="pricing_nyp_description">自定订阅价。解锁所有应用内功能。</string>
@@ -218,10 +216,8 @@
     <string name="monthly">月付</string>
     <string name="restore_purchases">恢复购买</string>
     <string name="pricing_cloud_monthly_note">按月计费</string>
-    <string name="pricing_cloud_feature_1">Android 和桌面端间的即时同步</string>
     <string name="pricing_cloud_feature_2">好友和家人清单共享</string>
     <string name="pricing_cloud_feature_3">使用私密收件箱将邮件转换为任务</string>
-    <string name="pricing_cloud_feature_4">连接到 iOS 上的 Apple Reminders</string>
     <string name="pricing_nyp_feature_1">自定义主题和图标</string>
     <string name="pricing_nyp_feature_2">借助 CalDAV 和 EteSync 的自托管同步</string>
     <string name="pricing_nyp_feature_3">支持开源软件</string>
@@ -683,7 +679,6 @@
     <string name="error_billing_unavailable">账单目前不可用。请稍候再试。</string>
     <string name="checkout_finish_in_browser">在浏览器中完成你的购买</string>
     <string name="checkout_expired">付款已过期。请重试。</string>
-    <string name="pricing_free_trial">%1$d 天免费试用</string>
     <string name="pricing_subscribe_for">以 %1$s 价格订阅</string>
     <string name="pro_card_credit">%1$s 积分将用于你的下次续费</string>
     <string name="wrong_account_message_unknown">你的订阅已关联到别的账户。如果你相信这是个错误，请联系 %1$s</string>
@@ -711,4 +706,6 @@
     <string name="subscription_active_github">您已经有一个活跃的 GitHub 赞助。</string>
     <string name="subscription_active_card">您已经有一个卡片支付的活跃订阅。</string>
     <string name="subscription_active_elsewhere">您已经在别处有一个活跃订阅。</string>
+    <string name="upgrade_blurb_1">你好！我叫 Alex，是 Tasks 背后的独立开发者</string>
+    <string name="upgrade_blurb_2">我已经花了数千个小时用于开发 Tasks，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
 </resources>

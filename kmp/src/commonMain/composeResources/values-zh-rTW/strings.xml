@@ -182,7 +182,6 @@
     <string name="url_invalid_scheme">必須由 http(s):// 開頭</string>
     <string name="url_required">需要URL</string>
     <string name="username_required">需要使用者名稱</string>
-    <string name="already_subscribed">已經是訂閱者了嗎？</string>
     <string name="sign_in_subtitle">已經是訂閱者或受邀訪客？</string>
     <string name="show_advanced_settings">顯示進階設定</string>
     <string name="app_settings">應用程式設定</string>
@@ -485,4 +484,6 @@
     <string name="mcp_copy">複製</string>
     <string name="new_filter">新增過濾器</string>
     <string name="subscription_required">需要訂閱</string>
+    <string name="upgrade_blurb_1">嗨！我的名字是 Alex。我是 Tasks 背後的獨立開發者</string>
+    <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱</string>
 </resources>

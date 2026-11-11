@@ -81,8 +81,6 @@
     <string name="chip_appearance">ลักษณะชิป</string>
     <string name="chips">เศษ</string>
     <string name="back">กลับ</string>
-    <string name="upgrade_blurb_2">ฉันใช้เวลาหลายพันชั่วโมงในการทํางานและฉันเผยแพร่ซอร์สโค้ดทั้งหมดออนไลน์ฟรี เพื่อสนับสนุนงานของฉันคุณสมบัติบางอย่างต้องมีการสมัครสมาชิก</string>
-    <string name="upgrade_blurb_1">สวัสดี! ฉันชื่ออเล็กซ์ ฉันเป็นนักพัฒนาอิสระที่อยู่เบื้องหลังงาน</string>
     <string name="color_wheel">วงล้อสี</string>
     <string name="documentation">เอกสาร</string>
     <string name="preferences_advanced">ดึก</string>

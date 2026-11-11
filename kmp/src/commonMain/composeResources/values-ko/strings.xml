@@ -607,7 +607,6 @@
     <string name="error_too_many_requests">너무 많이 시도했습니다. 몇 분 기다린 뒤 다시 시도해 주세요.</string>
     <string name="error_billing_unavailable">지금은 결제를 진행할 수 없습니다. 나중에 다시 시도해 주세요.</string>
     <string name="error_github_verification_failed">인증에 실패했습니다. 다시 시도해 주세요.</string>
-    <string name="pricing_subtitle">자유 및 오픈 소스입니다. 구독으로 개발을 지원하고 추가 기능을 이용할 수 있습니다.</string>
     <string name="pricing_cloud_description">모든 앱 내 기능을 이용하고 Tasks.org 클라우드 동기화에 연결하세요.</string>
     <string name="pricing_from">%1$s부터</string>
     <string name="pricing_nyp_description">스스로 구독료를 선택하세요. 모든 앱 내 기능을 이용할 수 있습니다.</string>
@@ -617,17 +616,13 @@
     <string name="restore_purchases">구매 복원</string>
     <string name="pricing_cloud_annual_per_month">%1$s/월, 연간 결제</string>
     <string name="pricing_cloud_monthly_note">월간 결제</string>
-    <string name="pricing_cloud_feature_1">Android와 데스크톱 간 즉시 동기화</string>
     <string name="pricing_cloud_feature_2">친구나 가족들과 목록 공유</string>
     <string name="pricing_cloud_feature_3">개인 받은편지함의 이메일에서 할일 생성</string>
-    <string name="pricing_cloud_feature_4">iOS에서 Apple 미리 알림에 연결</string>
     <string name="pricing_nyp_feature_1">맞춤 테마 및 아이콘</string>
     <string name="pricing_nyp_feature_2">CalDAV 및 EteSync로 셀프 호스팅 서비스에 동기화</string>
     <string name="pricing_nyp_feature_3">오픈 소스 소프트웨어 지원</string>
     <string name="pricing_subscribe_google_play">Google Play에서 구독</string>
     <string name="checkout_finish_in_browser">브라우저에서 구매를 마쳐 주세요</string>
-    <string name="pricing_free_trial">%1$d일 무료 체험</string>
-    <string name="already_subscribed">이미 구독자이신가요?</string>
     <string name="sign_in_subtitle">이미 구독자이시거나 초대된 게스트이신가요?</string>
     <string name="upgrade_subscription_banner">지원해 주셔서 감사드립니다! 구독을 업그레이드하고 Tasks.org 클라우드 동기화를 이용하세요</string>
     <string name="subscription_not_found">Tasks.org 클라우드 구독을 찾을 수 없습니다. 오류라고 생각하시면, %1$s에 문의해 주세요</string>
@@ -710,4 +705,6 @@
     <string name="subscription_free_until">%1$s까지 무료, 이후 %2$s</string>
     <string name="subscription_payment_failed">결제 실패, 카드를 수정하세요</string>
     <string name="change_plan_message">오늘부터 %1$s 구독으로 변경됩니다. 현재 구독에서 남은 차액은 계좌에 입금되거나 이번 청구에 적용됩니다.</string>
+    <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
+    <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
 </resources>

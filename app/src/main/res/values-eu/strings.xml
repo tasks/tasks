@@ -244,8 +244,6 @@
     <string name="preferences_advanced">Aurreratua</string>
     <string name="theme_system_default">Sisteman lehenetsia</string>
     <string name="color_wheel">Kolore-gurpila</string>
-    <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks aplikazioaren garatzaile independentea</string>
-    <string name="upgrade_blurb_2">Milaka ordu eman ditut Tasks aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
     <string name="back">Atzera</string>
     <string name="chips">Txipak</string>
     <string name="chip_appearance">Txip itxura</string>

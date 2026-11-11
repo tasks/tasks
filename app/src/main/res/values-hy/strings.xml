@@ -288,8 +288,6 @@
     <string name="preferences_advanced">Ընդլայնված</string>
     <string name="documentation">Դոկումենտացիա</string>
     <string name="color_wheel">Գունապնակ</string>
-    <string name="upgrade_blurb_1">Բարև, իմ անունը Ալեքս է։ Ես անկախ մշակող եմ, ով ստեղծել է Tasks-ը</string>
-    <string name="upgrade_blurb_2">Ես ծախսել եմ հսկայական ժամանակ սա ստեղծելու համար, և ես ամբողջ կոդը հրապարակում եմ անվճար։ Որպեսզի աջակցեք իմ աշխատանքը, որոշ ֆունկցիաներ պահանջում են պրեմիւմ բաժանորդագրություն։</string>
     <string name="back">Հետ</string>
     <string name="chips">Ինդիկատորներ</string>
     <string name="chip_appearance">Ինդիկատորների տեսքը</string>

@@ -244,7 +244,6 @@
     <string name="google_play_subscription">Google Play-prenumeration</string>
     <string name="github_sponsorship">GitHub-sponsorskap</string>
     <string name="error_github_verification_failed">Verifieringen misslyckades. Försök igen.</string>
-    <string name="pricing_subtitle">Kostnadsfri programvara med öppen källkod. Prenumerationer stöder utvecklingen och låser upp fler funktioner.</string>
     <string name="pricing_cloud_description">Lås upp alla appfunktioner och synkronisera med Tasks.org Cloud.</string>
     <string name="pricing_from">Från %1$s</string>
     <string name="pricing_nyp_description">Välj ditt eget prenumerationspris och lås upp alla appfunktioner.</string>
@@ -253,15 +252,12 @@
     <string name="monthly">Månadsvis</string>
     <string name="restore_purchases">Återställ köp</string>
     <string name="pricing_cloud_monthly_note">Faktureras månadsvis</string>
-    <string name="pricing_cloud_feature_1">Direkt synkronisering mellan Android och dator</string>
     <string name="pricing_cloud_feature_2">Dela listor med vänner och familj</string>
     <string name="pricing_cloud_feature_3">E-post till uppgift med en privat inkorg</string>
-    <string name="pricing_cloud_feature_4">Anslut till Apple-påminnelser på iOS</string>
     <string name="pricing_nyp_feature_1">Anpassade teman och ikoner</string>
     <string name="pricing_nyp_feature_2">Synkronisering via egen server med CalDAV och EteSync</string>
     <string name="pricing_nyp_feature_3">Stöd utvecklingen av fri programvara</string>
     <string name="pricing_subscribe_google_play">Prenumerera på Google Play</string>
-    <string name="already_subscribed">Redan prenumerant?</string>
     <string name="sign_in_subtitle">Redan prenumerant eller inbjuden gäst?</string>
     <string name="upgrade_subscription_banner">Tack för ditt stöd! Uppgradera din prenumeration för att aktivera Tasks.org-molnsynkronisering.</string>
     <string name="blog_notifications">Bloggaviseringar</string>
@@ -609,4 +605,6 @@
     <string name="mcp_copy">Kopiera</string>
     <string name="new_filter">Skapa ett nytt filter</string>
     <string name="subscription_required">Prenumeration krävs</string>
+    <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
+    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
 </resources>

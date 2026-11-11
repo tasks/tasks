@@ -355,8 +355,6 @@
     <string name="widget_id">Valdiklio ID: %d</string>
     <string name="add_tags">Pridėti etiketes</string>
     <string name="auto_dismiss_datetime">Automatiškai uždaryti datos ir laiko parinkiklį</string>
-    <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
-    <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks kūrėjas</string>
     <string name="place_settings">Vietos nustatymai</string>
     <string name="decsync_selection_description">Failais paremta sinchronizacija</string>
     <string name="etesync_selection_description">Sinchronizacija paremta abipusiu šifravimu</string>

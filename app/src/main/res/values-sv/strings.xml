@@ -258,7 +258,6 @@
     <string name="widget_due_date_hidden">Dolt</string>
     <string name="widget_show_menu">Visa meny</string>
     <string name="CFC_list_name">I lista…</string>
-    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
     <string name="astrid_sort_order_summary">Aktivera Astrids manuella sorteringsläge för ”Mina uppgifter”, ”Idag” och etiketter. Sorteringsläget ersätts av ”Min ordning” i en framtida uppdatering.</string>
     <string name="tasks_org_account_required">Tasks.org-konto krävs</string>
     <string name="app_password">Applösenord</string>
@@ -315,7 +314,6 @@
     <string name="auto_dismiss_datetime">Automatisk stängning av datum- och tidsväljare</string>
     <string name="chip_appearance">Valknapparnas utseende</string>
     <string name="chips">Valknappar</string>
-    <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
     <string name="davx5_selection_description">Synkronisera dina uppgifter med DAVx⁵-appen</string>
     <string name="decsync_selection_description">Filbaserad synkronisering</string>
     <string name="etesync_selection_description">Ände-till-ände-krypterad synkronisering</string>

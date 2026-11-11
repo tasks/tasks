@@ -273,7 +273,6 @@
     <string name="settings_default">По подразбиране</string>
     <string name="opacity_footer">Непрозрачност на долния колонтитул</string>
     <string name="documentation">Документация</string>
-    <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
     <string name="widget_due_date_hidden">Скрито</string>
     <string name="icon">Икона</string>
     <string name="select_all">Избор на всички</string>
@@ -303,7 +302,6 @@
     <string name="widget_due_date_after_title">След заглавието</string>
     <string name="url">Адрес</string>
     <string name="davx5_selection_description">Синхронизиране на задачите с DAVx⁵</string>
-    <string name="upgrade_blurb_1">Здравейте! Аз съм Алекс. Независимият разработчик, който стои зад Tasks</string>
     <string name="custom_filter_criteria">Критерии за филтриране</string>
     <string name="filter_high_priority">Висок приоритет</string>
     <string name="chip_appearance_icon_only">Само икона</string>

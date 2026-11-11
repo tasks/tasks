@@ -267,7 +267,6 @@
     <string name="annual">Anual</string>
     <string name="monthly">Mensal</string>
     <string name="restore_purchases">Restaurar compras</string>
-    <string name="already_subscribed">Já tem inscrição?</string>
     <string name="sign_in_subtitle">Já tem inscrição ou é um convidado?</string>
     <string name="upgrade_subscription_banner">Obrigado pelo apoio! Atualize a sua inscrição para ativar sincronização em nuvem Tasks.org</string>
     <string name="blog_notifications">Notificações do blog</string>
@@ -559,4 +558,6 @@
     <string name="mcp_copy">Copiar</string>
     <string name="new_filter">Criar novo filtro</string>
     <string name="subscription_required">Inscrição necessária</string>
+    <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks e publico todo o código-fonte na Internet gratuitamente. Para apoiar o meu trabalho, algumas funcionalidades precisam de uma subscrição</string>
 </resources>

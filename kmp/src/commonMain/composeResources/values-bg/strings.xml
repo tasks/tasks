@@ -178,7 +178,6 @@
     <string name="url_invalid_scheme">Трябва да започва с http(s)://</string>
     <string name="url_required">Адресът е задължителен</string>
     <string name="username_required">Потребителското име е задължително</string>
-    <string name="already_subscribed">Вече имате абонамент?</string>
     <string name="sign_in_subtitle">Имате абонамент или покана?</string>
     <string name="show_advanced_settings">Разширени настройки</string>
     <string name="app_settings">Настройки на приложението</string>
@@ -544,4 +543,6 @@
     <string name="mcp_copy">Копиране</string>
     <string name="new_filter">Нов филтър</string>
     <string name="subscription_required">Изисква абонамент</string>
+    <string name="upgrade_blurb_1">Здравейте! Аз съм Алекс. Независимият разработчик, който стои зад Tasks</string>
+    <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
 </resources>

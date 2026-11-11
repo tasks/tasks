@@ -197,7 +197,6 @@
     <string name="url_invalid_scheme">http(s):// で始める必要があります</string>
     <string name="url_required">URL が必要です</string>
     <string name="username_required">ユーザー名が必要です</string>
-    <string name="already_subscribed">すでにサブスクリプションを購入していますか？</string>
     <string name="sign_in_subtitle">すでに購読しているか、招待されたゲストですか？</string>
     <string name="show_advanced_settings">詳細な設定を表示</string>
     <string name="app_settings">アプリ設定</string>
@@ -280,7 +279,6 @@
     <string name="github_sponsorship">GitHubのスポンサーシップ</string>
     <string name="migrate_to_cloud">Tasks.org Cloudに移る</string>
     <string name="error_github_verification_failed">認証が失敗しました。もう一度お試しください。</string>
-    <string name="pricing_subtitle">フリーでオープンソースです。サブスクリプションでアプリの開発を支援して追加の機能を有効にできます。</string>
     <string name="new_tag">新しいタグを作成</string>
     <string name="enter_tag_name">タグの名前を入力</string>
     <string name="tag_already_exists">タグは既に存在します</string>
@@ -607,4 +605,6 @@
     <string name="works_with_ksync_description">Infomaniakアカウントと同期する</string>
     <string name="works_with_cloud_description">すべてのデバイス間でタスクを同期</string>
     <string name="works_with_nextcloud_description">Nextcloudタスクアプリと連携</string>
+    <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
+    <string name="upgrade_blurb_2">私は何千時間もかけて Tasks を開発し、すべてのソースコードをオンラインで無料公開しています。私の仕事をサポートしていただくために、いくつかの機能は有料です</string>
 </resources>

@@ -185,7 +185,6 @@
     <string name="url_invalid_scheme">http(s)://-el kell kezdődnie</string>
     <string name="url_required">Link szükséges</string>
     <string name="username_required">Felhasználónév szükséges</string>
-    <string name="already_subscribed">Már előfizettél?</string>
     <string name="sign_in_subtitle">Már előfizettél vagy meghívtak, mint vendéget?</string>
     <string name="show_advanced_settings">Haladó beállítások mutatása</string>
     <string name="app_settings">Alkalmazás beállításai</string>
@@ -515,4 +514,6 @@
     <string name="mcp_copy">Másolás</string>
     <string name="new_filter">Új szűrő létrehozása</string>
     <string name="subscription_required">Előfizetés szükséges</string>
+    <string name="upgrade_blurb_1">Szia! Alexnek hívnak. Én vagyok a Tasks mögött álló független fejlesztő</string>
+    <string name="upgrade_blurb_2">Több ezer órát dolgoztam a Tasks appon, és a teljes forráskódot ingyenesen elérhetővé tettem. A munkám támogatása érdekében néhány funkció eléréséhez előfizetés szükséges</string>
 </resources>

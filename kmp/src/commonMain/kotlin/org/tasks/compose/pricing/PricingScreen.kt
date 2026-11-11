@@ -2,6 +2,10 @@ package org.tasks.compose.pricing
 
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,6 +13,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,18 +34,18 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -52,9 +58,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
+import kotlin.math.roundToInt
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
 import org.tasks.billing.SubscriptionSkus
@@ -67,7 +76,34 @@ enum class PricingMode {
     BOTH,
 }
 
+const val SOURCE_MANAGE_SUBSCRIPTION = "manage_subscription"
+
+private val UPGRADE_SOURCES = setOf(AnalyticsEvents.SOURCE_SETTINGS, SOURCE_MANAGE_SUBSCRIPTION)
+
+fun leadsWithSupporter(source: String): Boolean = source !in UPGRADE_SOURCES
+
+internal fun isCloudSku(sku: String?, catalog: BillingCatalog?): Boolean =
+    sku != null && (SubscriptionSkus.isTasksSubscription(sku) || catalog?.price(sku)?.entitles == true)
+
+internal fun isSupporterSku(sku: String?, catalog: BillingCatalog?): Boolean =
+    sku != null && !isCloudSku(sku, catalog) &&
+            (catalog?.price(sku) != null || SubscriptionSkus.supporterPrice(sku) != null)
+
+enum class PlanMove {
+    SUBSCRIBE,
+    UPGRADE,
+    CHANGE,
+}
+
+enum class SupporterFeatures {
+    APP_STORE,
+    ANDROID_CARD,
+    DESKTOP,
+}
+
 private val CardShape = RoundedCornerShape(12.dp)
+
+private const val BADGE_FADE_MILLIS = 300
 
 private const val PRICE_UNKNOWN = "\u2014"
 
@@ -77,6 +113,7 @@ data class StoreBilling(
     val busySku: String? = null,
     val currentSku: String? = null,
     val sellsCurrentSku: Boolean = false,
+    val knownSku: String? = null,
     val suggestedPrice: Int? = null,
     val knownCustomer: Boolean = false,
     val coveredElsewhere: Boolean = false,
@@ -92,9 +129,39 @@ data class StoreBilling(
     fun selectable(price: BillingOption?): Boolean =
         !busy && (price == null || price.sku != currentSku || sellsCurrentSku)
 
-    fun warnCoveredElsewhere(price: BillingOption?): Boolean =
-        coveredElsewhere && price != null &&
-                (currentSku == null || price.entitles && !currentlyEntitled)
+    fun move(price: BillingOption): PlanMove {
+        val current = (currentSku ?: knownSku)?.takeIf { it != price.sku } ?: return PlanMove.SUBSCRIBE
+        val currentIsCloud = isCloudSku(current, catalog)
+        return when {
+            price.entitles != currentIsCloud ->
+                if (price.entitles) PlanMove.UPGRADE else PlanMove.CHANGE
+            price.entitles -> PlanMove.CHANGE
+            else -> {
+                val tier = catalog.price(current)?.rungDollars
+                    ?: SubscriptionSkus.subscriptionPrice(current)
+                    ?: return PlanMove.SUBSCRIBE
+                if (price.rungDollars > tier) PlanMove.UPGRADE else PlanMove.CHANGE
+            }
+        }
+    }
+
+    fun owns(price: BillingOption?): Boolean =
+        price != null && price.sku == currentSku && !sellsCurrentSku
+
+    val subscribedToSupporter: Boolean
+        get() = isSupporterSku(currentSku, catalog)
+
+    fun unavailable(cloud: Boolean, supporter: Boolean): Boolean =
+        !loadingPrices && (
+                cloud && catalog.cloud.isEmpty() ||
+                        supporter && catalog.supporterRungs.isEmpty()
+                )
+
+    fun warnCoveredElsewhere(cloud: Boolean, supporter: Boolean): Boolean =
+        coveredElsewhere && (
+                cloud && catalog.cloud.isNotEmpty() && (currentSku == null || !currentlyEntitled) ||
+                        supporter && catalog.supporterRungs.isNotEmpty() && currentSku == null
+                )
 
     private val currentlyEntitled: Boolean
         get() = SubscriptionSkus.isTasksSubscription(currentSku) ||
@@ -102,24 +169,33 @@ data class StoreBilling(
 }
 
 @Composable
-private fun BillingOption?.trialNote(store: StoreBilling?): String? =
-    if (store?.knownCustomer == true) {
-        null
+private fun BillingOption?.trialFeature(store: StoreBilling?): String? =
+    if (store?.knownCustomer != true && (this?.trialDays ?: 0) > 0) {
+        stringResource(Res.string.pricing_feature_trial)
     } else {
-        this?.trialDays?.takeIf { it > 0 }?.let {
-            stringResource(Res.string.pricing_free_trial, it)
-        }
+        null
     }
 
 @Composable
-private fun BillingOption?.ctaLabel(): String = if (this == null) {
+private fun BillingOption?.ctaLabel(store: StoreBilling?): String = if (this == null) {
     stringResource(Res.string.pricing_subscribe_google_play)
 } else {
-    stringResource(
-        Res.string.pricing_subscribe_for,
-        intervalPrice(formattedPrice, isMonthly),
-    )
+    actionLabel(store)
 }
+
+@Composable
+private fun BillingOption.actionLabel(store: StoreBilling?): String = stringResource(
+    when (store?.move(this)) {
+        PlanMove.UPGRADE -> Res.string.pricing_upgrade_to
+        PlanMove.CHANGE -> Res.string.pricing_change_to
+        else -> Res.string.pricing_subscribe_for
+    },
+    intervalPrice(formattedPrice, isMonthly),
+)
+
+@Composable
+private fun BillingOption.ownedOr(store: StoreBilling, label: String): String =
+    if (store.owns(this)) stringResource(Res.string.pricing_subscribed) else label
 
 @Composable
 private fun RestoreFooter(onRestorePurchases: () -> Unit) {
@@ -132,17 +208,84 @@ private fun RestoreFooter(onRestorePurchases: () -> Unit) {
 }
 
 @Composable
-private fun UnavailableNotice() = CtaNotice(stringResource(Res.string.error_billing_unavailable))
+private fun DeveloperNote() {
+    Card(
+        modifier = Modifier
+            .widthIn(max = 600.dp)
+            .fillMaxWidth()
+            .padding(bottom = 24.dp),
+        shape = CardShape,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+        ),
+    ) {
+        Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+            Box(
+                modifier = Modifier
+                    .width(4.dp)
+                    .fillMaxHeight()
+                    .background(MaterialTheme.colorScheme.primary),
+            )
+            Column(modifier = Modifier.padding(start = 16.dp, end = 20.dp, top = 12.dp, bottom = 16.dp)) {
+                SymbolIcon(
+                    name = TasksIcons.FORMAT_QUOTE,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    filled = true,
+                    modifier = Modifier.size(28.dp),
+                )
+                Text(
+                    text = stringResource(Res.string.upgrade_blurb_1),
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontStyle = FontStyle.Italic,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(Res.string.upgrade_blurb_2),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontStyle = FontStyle.Italic,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
 
 @Composable
-private fun CtaNotice(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.error,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.fillMaxWidth(),
-    )
+private fun PricingNotice(text: String) {
+    Card(
+        modifier = Modifier
+            .widthIn(max = 600.dp)
+            .fillMaxWidth()
+            .padding(bottom = 16.dp),
+        shape = CardShape,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.errorContainer,
+            contentColor = MaterialTheme.colorScheme.onErrorContainer,
+        ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            SymbolIcon(
+                name = TasksIcons.WARNING,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onErrorContainer,
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -155,20 +298,39 @@ fun PricingScreen(
     onCloudSubscribeClick: () -> Unit = {},
     onNypSubscribeClick: () -> Unit = {},
     onBillingToggle: (isAnnual: Boolean) -> Unit = {},
-    hasSupporterSubscription: Boolean = false,
     showSignIn: Boolean = true,
+    supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
+    supporterFirst: Boolean = false,
+    subscribedSku: String? = null,
     store: StoreBilling? = null,
 ) {
+    @Suppress("NAME_SHADOWING")
+    val store = store?.copy(knownSku = subscribedSku)
+    val currentSku = store?.currentSku ?: subscribedSku
+    val cloudIsCurrent = isCloudSku(currentSku, store?.catalog)
+    val supporterIsCurrent = isSupporterSku(currentSku, store?.catalog)
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
                 title = {},
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background,
+                ),
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         SymbolIcon(
                             name = TasksIcons.ARROW_BACK,
                             contentDescription = stringResource(Res.string.back),
                         )
+                    }
+                },
+                actions = {
+                    if (showSignIn && mode != PricingMode.CLOUD_ONLY) {
+                        TextButton(onClick = onSignIn) {
+                            Text(stringResource(Res.string.sign_in))
+                        }
                     }
                 },
             )
@@ -192,43 +354,25 @@ fun PricingScreen(
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (hasSupporterSubscription && cloudOnly) {
-                    Card(
-                        modifier = Modifier
-                            .widthIn(max = 600.dp)
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp),
-                        shape = CardShape,
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primary,
-                        ),
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.upgrade_subscription_banner),
-                            modifier = Modifier.fillMaxWidth().padding(16.dp),
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
+                DeveloperNote()
 
-                Text(
-                    text = stringResource(Res.string.pricing_subtitle),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .widthIn(max = 600.dp)
-                        .padding(bottom = 24.dp),
-                )
+                if (store?.unavailable(cloud = showCloud, supporter = showNyp) == true) {
+                    PricingNotice(stringResource(Res.string.error_billing_unavailable))
+                }
+                if (store?.warnCoveredElsewhere(cloud = showCloud, supporter = showNyp) == true) {
+                    PricingNotice(coveredElsewhereMessage(store.coveredBy))
+                }
 
                 val cloudCard: @Composable (Modifier) -> Unit = { cardModifier ->
                     CloudTierCard(
                         modifier = cardModifier,
-                        isRecommended = showBoth,
+                        isCurrent = cloudIsCurrent,
+                        isRecommended = showBoth &&
+                                !supporterFirst &&
+                                supporterFeatures != SupporterFeatures.ANDROID_CARD &&
+                                !supporterIsCurrent,
                         onCtaClick = onCloudSubscribeClick,
-                        onSignIn = onSignIn.takeIf { showSignIn },
+                        onSignIn = onSignIn.takeIf { showSignIn && cloudOnly },
                         onBillingToggle = onBillingToggle,
                         store = store,
                     )
@@ -237,9 +381,21 @@ fun PricingScreen(
                     NameYourPriceTierCard(
                         modifier = cardModifier,
                         onCtaClick = onNypSubscribeClick,
-                        onRestorePurchases = onRestorePurchases,
+                        isCurrent = supporterIsCurrent,
+                        features = supporterFeatures,
                         store = store,
                     )
+                }
+
+                val cards = listOfNotNull(
+                    cloudCard.takeIf { showCloud },
+                    nameYourPriceCard.takeIf { showNyp },
+                ).let {
+                    if (supporterFirst || supporterFeatures == SupporterFeatures.ANDROID_CARD) {
+                        it.reversed()
+                    } else {
+                        it
+                    }
                 }
 
                 if (isWide) {
@@ -249,8 +405,7 @@ fun PricingScreen(
                             .height(IntrinsicSize.Max),
                         horizontalArrangement = Arrangement.spacedBy(16.dp),
                     ) {
-                        cloudCard(Modifier.weight(1f).fillMaxHeight())
-                        nameYourPriceCard(Modifier.weight(1f).fillMaxHeight())
+                        cards.forEach { card -> card(Modifier.weight(1f).fillMaxHeight()) }
                     }
                 } else {
                     Column(
@@ -258,18 +413,11 @@ fun PricingScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
-                        if (showCloud) {
-                            cloudCard(Modifier.fillMaxWidth())
-                        }
-                        if (showNyp) {
-                            nameYourPriceCard(Modifier.fillMaxWidth())
-                        }
+                        cards.forEach { card -> card(Modifier.fillMaxWidth()) }
                     }
                 }
 
-                if (cloudOnly) {
-                    RestoreFooter(onRestorePurchases)
-                }
+                RestoreFooter(onRestorePurchases)
 
                 Spacer(modifier = Modifier.height(24.dp))
             }
@@ -280,6 +428,7 @@ fun PricingScreen(
 @Composable
 private fun CloudTierCard(
     modifier: Modifier = Modifier,
+    isCurrent: Boolean = false,
     isRecommended: Boolean = true,
     onCtaClick: () -> Unit,
     onSignIn: (() -> Unit)?,
@@ -291,6 +440,11 @@ private fun CloudTierCard(
 
     TierCard(
         modifier = modifier,
+        badge = when {
+            isCurrent -> stringResource(Res.string.pricing_current_subscription)
+            isRecommended -> stringResource(Res.string.pricing_recommended)
+            else -> null
+        },
         title = stringResource(Res.string.tasks_org_account),
         price = if (store == null) {
             stringResource(
@@ -306,6 +460,7 @@ private fun CloudTierCard(
             else Res.string.price_per_month_with_currency,
             "",
         ).trim(),
+        hasBillingNote = true,
         billingNote = if (isAnnual) {
             val perMonth = if (store == null) {
                 stringResource(Res.string.pricing_cloud_annual_price)
@@ -316,24 +471,18 @@ private fun CloudTierCard(
         } else {
             stringResource(Res.string.pricing_cloud_monthly_note)
         },
-        trialNote = price.trialNote(store),
         description = stringResource(Res.string.pricing_cloud_description),
         features = listOf(
-            stringResource(Res.string.pricing_cloud_feature_1),
+            stringResource(Res.string.pricing_cloud_feature_1_v2),
             stringResource(Res.string.pricing_cloud_feature_2),
             stringResource(Res.string.pricing_cloud_feature_3),
-            stringResource(Res.string.pricing_cloud_feature_4),
-        ),
+        ) + listOfNotNull(price.trialFeature(store)),
         cta = {
-            if (store?.unavailable(price) == true) {
-                UnavailableNotice()
-            } else {
-                if (store?.warnCoveredElsewhere(price) == true) {
-                    CtaNotice(coveredElsewhereMessage(store.coveredBy))
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+            if (store?.unavailable(price) != true) {
                 PurchaseButton(
-                    label = price.ctaLabel(),
+                    label = price.ctaLabel(store).let { label ->
+                        if (store != null && price != null) price.ownedOr(store, label) else label
+                    },
                     busy = store?.loadingPrices == true || store?.isBusy(price) == true,
                     enabled = store == null || store.selectable(price),
                     onClick = {
@@ -344,7 +493,6 @@ private fun CloudTierCard(
                 )
             }
         },
-        isRecommended = isRecommended,
         billingToggle = {
             BillingPeriodToggle(
                 isAnnual = isAnnual,
@@ -365,31 +513,60 @@ private fun CloudTierCard(
 private fun NameYourPriceTierCard(
     modifier: Modifier = Modifier,
     onCtaClick: () -> Unit,
-    onRestorePurchases: () -> Unit,
+    isCurrent: Boolean = false,
+    features: SupporterFeatures = SupporterFeatures.APP_STORE,
     store: StoreBilling? = null,
 ) {
     val rungs = store?.catalog?.supporterRungs.orEmpty()
     val cheapestRung = rungs.firstOrNull()
+    var chosenSku by rememberSaveable { mutableStateOf<String?>(null) }
+    val shown = store?.let { billing ->
+        chosenSku?.let { billing.catalog.price(it) }
+            ?: billing.catalog.price(billing.currentSku).takeIf { billing.subscribedToSupporter }
+    }
 
     TierCard(
         modifier = modifier,
+        badge = stringResource(Res.string.pricing_current_subscription).takeIf { isCurrent },
         title = stringResource(Res.string.supporter),
-        price = if (store == null) {
-            stringResource(
+        price = when {
+            store == null -> stringResource(
                 Res.string.pricing_from,
                 stringResource(Res.string.pricing_nyp_min_price),
             )
-        } else {
-            cheapestRung?.formattedPrice?.let { stringResource(Res.string.pricing_from, it) }
+            shown != null -> shown.formattedPrice
+            else -> cheapestRung?.formattedPrice?.let { stringResource(Res.string.pricing_from, it) }
         },
         loading = store?.loadingPrices == true,
-        priceSuffix = stringResource(Res.string.price_per_year_with_currency, "").trim(),
-        trialNote = cheapestRung.trialNote(store),
-        description = stringResource(Res.string.pricing_nyp_description),
-        features = listOf(
-            stringResource(Res.string.pricing_nyp_feature_1),
-            stringResource(Res.string.pricing_nyp_feature_2),
-            stringResource(Res.string.pricing_nyp_feature_3),
+        priceSuffix = stringResource(
+            if (shown?.isMonthly == true) {
+                Res.string.price_per_month_with_currency
+            } else {
+                Res.string.price_per_year_with_currency
+            },
+            "",
+        ).trim(),
+        description = stringResource(Res.string.pricing_nyp_description)
+            .takeIf { features != SupporterFeatures.ANDROID_CARD },
+        features = when (features) {
+            SupporterFeatures.APP_STORE -> listOf(
+                stringResource(Res.string.pricing_nyp_feature_1),
+                stringResource(Res.string.pricing_nyp_feature_2),
+                stringResource(Res.string.pricing_nyp_feature_3),
+            )
+            SupporterFeatures.ANDROID_CARD -> listOf(
+                stringResource(Res.string.pricing_nyp_feature_desktop_and_ios),
+                stringResource(Res.string.pricing_nyp_feature_no_donation_reminders),
+                stringResource(Res.string.pricing_nyp_feature_3),
+            )
+            SupporterFeatures.DESKTOP -> listOf(
+                stringResource(Res.string.pricing_nyp_feature_all_platforms),
+                stringResource(Res.string.pricing_nyp_feature_1),
+                stringResource(Res.string.pricing_nyp_feature_third_party_sync),
+                stringResource(Res.string.pricing_nyp_feature_3),
+            )
+        } + listOfNotNull(
+            cheapestRung.trialFeature(store).takeIf { features != SupporterFeatures.ANDROID_CARD }
         ),
         cta = {
             when {
@@ -397,8 +574,9 @@ private fun NameYourPriceTierCard(
                     store = store,
                     rungs = rungs,
                     onCtaClick = onCtaClick,
+                    onChosen = { chosenSku = it.sku },
                 )
-                store?.unavailable(cheapestRung) == true -> UnavailableNotice()
+                store?.unavailable(cheapestRung) == true -> Unit
                 else -> PurchaseButton(
                     label = stringResource(Res.string.pricing_subscribe_google_play),
                     busy = store?.loadingPrices == true,
@@ -408,21 +586,29 @@ private fun NameYourPriceTierCard(
                 )
             }
         },
-        footerDescription = stringResource(Res.string.already_subscribed),
-        footerLabel = stringResource(Res.string.restore_purchases),
-        onFooterClick = onRestorePurchases,
     )
 }
 
+internal val PRESET_TIERS = listOf(3, 5, 10, 20)
+
+internal fun presetRungs(rungs: List<BillingOption>): List<Int> =
+    PRESET_TIERS.mapNotNull { tier ->
+        rungs.indexOfFirst { it.rungDollars == tier }.takeIf { it >= 0 }
+    }
+
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun NameYourPricePicker(
     store: StoreBilling,
     rungs: List<BillingOption>,
     onCtaClick: () -> Unit,
+    onChosen: (BillingOption) -> Unit,
 ) {
     var sliderPosition by rememberSaveable {
         mutableFloatStateOf(store.catalog.supporterRungFor(store.suggestedPrice).toFloat())
     }
+    val presets = remember(rungs) { presetRungs(rungs) }
+    var custom by rememberSaveable { mutableStateOf(sliderPosition.roundToInt() !in presets) }
     val card = store.catalog.supporterRungAt(sliderPosition) ?: return
     val monthly = store.catalog.supporterMonthlyFor(card)
 
@@ -430,33 +616,54 @@ private fun NameYourPricePicker(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        if (store.warnCoveredElsewhere(card)) {
-            CtaNotice(coveredElsewhereMessage(store.coveredBy))
-            Spacer(modifier = Modifier.height(8.dp))
+        if (custom) {
+            Slider(
+                value = sliderPosition,
+                onValueChange = {
+                    sliderPosition = it
+                    store.catalog.supporterRungAt(it)?.let(onChosen)
+                },
+                valueRange = 0f..rungs.lastIndex.toFloat().coerceAtLeast(0f),
+                steps = (rungs.size - 2).coerceAtLeast(0),
+                enabled = !store.busy && rungs.size > 1,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        } else {
+            FlowRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+            ) {
+                presets.forEach { index ->
+                    FilterChip(
+                        selected = sliderPosition.roundToInt() == index,
+                        onClick = {
+                            sliderPosition = index.toFloat()
+                            onChosen(rungs[index])
+                        },
+                        label = { Text(rungs[index].formattedPrice) },
+                        enabled = !store.busy,
+                    )
+                }
+                FilterChip(
+                    selected = false,
+                    onClick = { custom = true },
+                    label = { Text(stringResource(Res.string.pricing_custom)) },
+                    enabled = !store.busy,
+                )
+            }
         }
-        Slider(
-            value = sliderPosition,
-            onValueChange = { sliderPosition = it },
-            valueRange = 0f..rungs.lastIndex.toFloat().coerceAtLeast(0f),
-            steps = (rungs.size - 2).coerceAtLeast(0),
-            enabled = !store.busy && rungs.size > 1,
-            colors = SliderDefaults.colors(
-                activeTickColor = Color.Transparent,
-                inactiveTickColor = Color.Transparent,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-        )
         val annual = stringResource(Res.string.price_per_year_with_currency, card.formattedPrice)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             PurchaseButton(
-                label = if (monthly == null) {
-                    stringResource(Res.string.pricing_subscribe_for, annual)
-                } else {
-                    annual
-                },
+                label = card.ownedOr(
+                    store,
+                    if (monthly == null) card.actionLabel(store) else annual,
+                ),
                 busy = store.isBusy(card),
                 enabled = store.selectable(card),
                 onClick = {
@@ -467,9 +674,12 @@ private fun NameYourPricePicker(
             )
             if (monthly != null) {
                 PurchaseButton(
-                    label = stringResource(
-                        Res.string.price_per_month_with_currency,
-                        monthly.formattedPrice,
+                    label = monthly.ownedOr(
+                        store,
+                        stringResource(
+                            Res.string.price_per_month_with_currency,
+                            monthly.formattedPrice,
+                        ),
                     ),
                     busy = store.isBusy(monthly),
                     enabled = store.selectable(monthly),
@@ -515,13 +725,13 @@ private fun TierCard(
     price: String?,
     priceSuffix: String,
     loading: Boolean = false,
-    description: String,
+    description: String?,
     features: List<String>,
     cta: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    isRecommended: Boolean = false,
+    badge: String? = null,
     billingNote: String? = null,
-    trialNote: String? = null,
+    hasBillingNote: Boolean = false,
     billingToggle: @Composable (() -> Unit)? = null,
     footerDescription: String? = null,
     footerLabel: String? = null,
@@ -534,7 +744,7 @@ private fun TierCard(
             priceSuffix = priceSuffix,
             loading = loading,
             billingNote = billingNote,
-            trialNote = trialNote,
+            hasBillingNote = hasBillingNote,
             billingToggle = billingToggle,
             description = description,
             features = features,
@@ -544,49 +754,54 @@ private fun TierCard(
             onFooterClick = onFooterClick,
         )
     }
+    val highlighted = badge != null
+    val borderColor by animateColorAsState(
+        if (highlighted) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outlineVariant,
+        animationSpec = tween(BADGE_FADE_MILLIS),
+    )
+    val borderWidth by animateDpAsState(
+        if (highlighted) 2.dp else 1.dp,
+        animationSpec = tween(BADGE_FADE_MILLIS),
+    )
+    val elevation by animateDpAsState(
+        if (highlighted) 4.dp else 0.dp,
+        animationSpec = tween(BADGE_FADE_MILLIS),
+    )
     Box(modifier = modifier.fillMaxHeight()) {
-        if (isRecommended) {
-            OutlinedCard(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 12.dp),
-                shape = CardShape,
-                border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
-                colors = CardDefaults.outlinedCardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                ),
-                elevation = CardDefaults.outlinedCardElevation(
-                    defaultElevation = 4.dp,
-                ),
-            ) {
-                content()
-            }
-            // Badge
-            Surface(
-                modifier = Modifier.align(Alignment.TopCenter),
-                shape = RoundedCornerShape(50),
-                color = MaterialTheme.colorScheme.primary,
-                shadowElevation = 4.dp,
-            ) {
-                Text(
-                    text = stringResource(Res.string.pricing_recommended).uppercase(),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing * 1.5,
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                )
-            }
-        } else {
-            Card(
-                modifier = Modifier.fillMaxSize().padding(top = 13.dp),
-                shape = CardShape,
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-                ),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-            ) {
-                content()
+        Card(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 12.dp),
+            shape = CardShape,
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+            ),
+            border = BorderStroke(borderWidth, borderColor),
+            elevation = CardDefaults.cardElevation(defaultElevation = elevation),
+        ) {
+            content()
+        }
+        Crossfade(
+            targetState = badge,
+            animationSpec = tween(BADGE_FADE_MILLIS),
+            modifier = Modifier.align(Alignment.TopCenter),
+            label = "badge",
+        ) { text ->
+            if (text != null) {
+                Surface(
+                    shape = RoundedCornerShape(50),
+                    color = MaterialTheme.colorScheme.primary,
+                    shadowElevation = 4.dp,
+                ) {
+                    Text(
+                        text = text.uppercase(),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        letterSpacing = MaterialTheme.typography.labelSmall.letterSpacing * 1.5,
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                    )
+                }
             }
         }
     }
@@ -599,9 +814,9 @@ private fun TierCardContent(
     priceSuffix: String,
     loading: Boolean,
     billingNote: String?,
-    trialNote: String?,
+    hasBillingNote: Boolean,
     billingToggle: @Composable (() -> Unit)?,
-    description: String,
+    description: String?,
     features: List<String>,
     cta: @Composable () -> Unit,
     footerDescription: String?,
@@ -666,7 +881,7 @@ private fun TierCardContent(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp),
             )
-        } else if (loading) {
+        } else if (loading && hasBillingNote) {
             PriceShimmer(
                 sample = PRICE_NOTE_SAMPLE,
                 style = MaterialTheme.typography.bodySmall,
@@ -674,23 +889,16 @@ private fun TierCardContent(
             )
         }
 
-        if (trialNote != null) {
+        if (description != null) {
+            Spacer(modifier = Modifier.height(16.dp))
+
             Text(
-                text = trialNote,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(top = 4.dp),
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
             )
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = description,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -731,6 +939,8 @@ private fun TierCardContent(
             ) {
                 Text(footerLabel)
             }
+        } else {
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
@@ -777,7 +987,7 @@ private fun BillingPeriodToggle(
 ) {
     Surface(
         shape = RoundedCornerShape(50),
-        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
     ) {
         Row(
             modifier = Modifier.padding(3.dp),
@@ -807,8 +1017,8 @@ private fun TogglePill(
             .clip(RoundedCornerShape(50))
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(50),
-        color = if (selected) MaterialTheme.colorScheme.surface
-        else MaterialTheme.colorScheme.surfaceContainerHigh,
+        color = if (selected) MaterialTheme.colorScheme.surfaceContainerLowest
+        else Color.Transparent,
         shadowElevation = if (selected) 1.dp else 0.dp,
     ) {
         Text(

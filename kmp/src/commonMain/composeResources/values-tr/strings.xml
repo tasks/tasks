@@ -198,7 +198,6 @@
     <string name="url_invalid_scheme">http(s):// ile başlamalı</string>
     <string name="url_required">URL gerekli</string>
     <string name="username_required">Kullanıcı adı gerekli</string>
-    <string name="already_subscribed">Halihazırda abone misiniz?</string>
     <string name="sign_in_subtitle">Halihazırda abone ya da davetli konuk musunuz?</string>
     <string name="show_advanced_settings">Gelişmiş ayarları göster</string>
     <string name="app_settings">Uygulama ayarları</string>
@@ -223,7 +222,6 @@
     <string name="google_play_subscription">Google Play aboneliği</string>
     <string name="github_sponsorship">GitHub Sponsorluğu</string>
     <string name="error_github_verification_failed">Doğrulama başarısız. Yeniden deneyin.</string>
-    <string name="pricing_subtitle">Özgür ve açık kaynaklı. Abonelikler gelişimi destekler ve ek özelliklerin kilidini açar.</string>
     <string name="pricing_cloud_description">Tüm uygulama içi özellikleri aç ve Tasks.org Cloud eşzamanlamasına bağlan.</string>
     <string name="pricing_from">Şundan başlayarak: %1$s</string>
     <string name="pricing_nyp_description">Abonelik ücretini siz seçin. Tüm uygulama içi özellikleri açar.</string>
@@ -232,10 +230,8 @@
     <string name="monthly">Aylık</string>
     <string name="restore_purchases">Satın alımları geri yükle</string>
     <string name="pricing_cloud_monthly_note">Aylık faturalanır</string>
-    <string name="pricing_cloud_feature_1">Android ve masaüstü arasında anlık eşzamanlama</string>
     <string name="pricing_cloud_feature_2">Arkadaşlar ve Aile liste paylaşımı</string>
     <string name="pricing_cloud_feature_3">Özel gelen kutusuyla E-postayla Görev</string>
-    <string name="pricing_cloud_feature_4">iOS'ta Apple Anımsatıcılar'a bağlan</string>
     <string name="pricing_nyp_feature_1">Özel gövdeler ve simgeler</string>
     <string name="pricing_nyp_feature_2">Kendi barındırdığınız CalDAV ve EteSync ile eşzamanlama</string>
     <string name="pricing_nyp_feature_3">Açık kaynaklı yazılımı destekle</string>
@@ -692,7 +688,6 @@
     <string name="error_billing_unavailable">Şu anda faturalandırma hizmeti kullanılamıyor. Lütfen daha sonra tekrar deneyin.</string>
     <string name="checkout_finish_in_browser">Satın alma işleminizi tarayıcıda tamamlayın</string>
     <string name="checkout_expired">Ödeme sayfasının süresi doldu. Lütfen tekrar deneyin.</string>
-    <string name="pricing_free_trial">%1$d günlük ücretsiz deneme</string>
     <string name="pricing_subscribe_for">%1$s için abone olun</string>
     <string name="wrong_account_message_unknown">Aboneliğiniz halihazırda başka hesaba bağlı. Eğer bunun hata olduğunu düşünüyorsanız, lütfen %1$s ile iletişime geçin</string>
     <string name="card_subscription">Kart aboneliği</string>
@@ -715,4 +710,6 @@
     <string name="subscription_ended_on">Bitti: %1$s</string>
     <string name="subscription_free_until">Şuna dek ücretsiz: %1$s, sonrası %2$s</string>
     <string name="subscription_payment_failed">Ödeme başarısız, kartınızı güncelleyin</string>
+    <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks\'ın arkasındaki bağımsız geliştiriciyim</string>
+    <string name="upgrade_blurb_2">Binlerce saatimi Tasks\'ta çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
 </resources>
