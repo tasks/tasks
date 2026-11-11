@@ -543,7 +543,6 @@
     <string name="cloud_onboarding_faq_desktop_sync_question">איך לסנכרן נתונים עם המחשב שלי?</string>
     <string name="cloud_onboarding_create_list_body">יש ליצור רשימה בשביל להתחיל להוסיף משימות.</string>
     <string name="cloud_onboarding_welcome_title">ברוך בואך לשירות הענן של Tasks.org</string>
-    <string name="cloud_onboarding_welcome_body">נא להתחבר דרך Google בשביל ליצור את החשבון שלך בשירות הענן של Tasks.org</string>
     <string name="google_tasks_permission_not_granted">לא הוענקה הרשאת גישה ל־Tasks מבית Google. נא להתחבר מחדש ולהעניק גישה ל־Tasks מבית Google במסך ההסכמה.</string>
     <string name="blog_notifications">התראות בלוג</string>
     <string name="pricing_cloud_monthly_note">בתשלום חודשי</string>

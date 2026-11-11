@@ -298,7 +298,6 @@
     <string name="create_a_list">Créer une liste</string>
     <string name="migrate_to_cloud">Migrer vers le cloud Tasks.org</string>
     <string name="cloud_onboarding_welcome_title">Bienvenue sur le cloud Tasks.org</string>
-    <string name="cloud_onboarding_welcome_body">Connectez-vous avec Google pour créer votre compte cloud Tasks.org</string>
     <string name="cloud_onboarding_not_now">Pas maintenant</string>
     <string name="cloud_onboarding_faq_title">Questions fréquemment posées</string>
     <string name="cloud_onboarding_create_list_title">C'est parti</string>

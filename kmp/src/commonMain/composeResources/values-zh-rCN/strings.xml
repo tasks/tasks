@@ -296,7 +296,6 @@
     <string name="create_a_list">创建清单</string>
     <string name="migrate_to_cloud">迁移到 Tasks.org Cloud</string>
     <string name="cloud_onboarding_welcome_title">欢迎使用 Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">使用 Google 登录以创建您的 Tasks.org Cloud 账号</string>
     <string name="cloud_onboarding_not_now">以后再说</string>
     <string name="cloud_onboarding_faq_title">常问问题</string>
     <string name="cloud_onboarding_create_list_title">让我们开始吧</string>

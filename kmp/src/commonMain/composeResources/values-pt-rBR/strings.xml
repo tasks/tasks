@@ -308,7 +308,6 @@
     <string name="create_a_list">Criar uma lista</string>
     <string name="google_tasks_permission_not_granted">Permissão do Google Tasks não foi concedida. Faça login de novo e permita acesso ao Google Tasks.</string>
     <string name="cloud_onboarding_welcome_title">Bem vindo ao Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Faça login com Google para criar sua conta Tasks.org Cloud</string>
     <string name="cloud_onboarding_not_now">Agora não</string>
     <string name="cloud_onboarding_faq_title">Perguntas frequentes</string>
     <string name="cloud_onboarding_create_list_title">Vamos começar</string>

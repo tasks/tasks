@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -101,6 +104,43 @@ fun SignInProviderDialog(
                 )
             }
         }
+    }
+}
+
+@Composable
+internal fun SignInProviderButton(
+    provider: SignInProvider,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val (title, icon, tint) = when (provider) {
+        SignInProvider.GOOGLE -> Triple(Res.string.sign_in_with_google, Res.drawable.ic_google, null)
+        SignInProvider.APPLE -> Triple(
+            Res.string.sign_in_with_apple,
+            Res.drawable.ic_apple,
+            MaterialTheme.colorScheme.onSurface,
+        )
+        SignInProvider.GITHUB -> Triple(
+            Res.string.sign_in_with_github,
+            Res.drawable.ic_octocat,
+            MaterialTheme.colorScheme.onSurface,
+        )
+    }
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = null,
+            tint = tint ?: Color.Unspecified,
+            modifier = Modifier.size(ButtonDefaults.IconSize),
+        )
+        Spacer(Modifier.width(ButtonDefaults.IconSpacing))
+        Text(
+            text = stringResource(title),
+            color = MaterialTheme.colorScheme.onSurface,
+        )
     }
 }
 

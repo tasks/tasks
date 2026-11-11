@@ -11,7 +11,8 @@ internal val OnboardingContentWidth = 480.dp
 fun SubscriptionOnboardingScreen(
     step: SubscriptionOnboardingStep,
     showConfetti: Boolean,
-    onSignIn: () -> Unit,
+    providers: List<SignInProvider>,
+    onSignIn: (SignInProvider) -> Unit,
     onCreateList: () -> Unit,
     onBack: () -> Unit,
 ) {
@@ -21,6 +22,7 @@ fun SubscriptionOnboardingScreen(
     when (step) {
         SubscriptionOnboardingStep.WELCOME -> WelcomeStep(
             showConfetti = showConfetti,
+            providers = providers,
             onSignIn = onSignIn,
             onClose = onBack,
         )

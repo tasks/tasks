@@ -528,7 +528,6 @@
     <string name="cloud_onboarding_create_list_title">시작하기</string>
     <string name="cloud_onboarding_faq_title">자주 묻는 질문</string>
     <string name="cloud_onboarding_not_now">나중에</string>
-    <string name="cloud_onboarding_welcome_body">Google에 로그인해 Tasks.org 클라우드 계정 생성</string>
     <string name="cloud_onboarding_welcome_title">Tasks.org 클라우드 사용을 환영합니다</string>
     <string name="google_tasks_permission_not_granted">Google Tasks 권한이 부여되지 않았습니다. 다시 로그인한 뒤 동의 화면에서 Google Tasks에 권한을 부여하세요.</string>
     <string name="create_a_list">목록 생성</string>

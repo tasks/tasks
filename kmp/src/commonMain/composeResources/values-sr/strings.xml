@@ -469,7 +469,6 @@
     <string name="create_a_list">Креирај листу</string>
     <string name="google_tasks_permission_not_granted">Google Tasks дозвола није добијена. Молим пријави се поново и одобри приступ до Google Tasks на екрану за пристанак.</string>
     <string name="cloud_onboarding_welcome_title">Добродошли на Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Пријави се путем Гугла за креирање свог Tasks.org Cloud налога</string>
     <string name="cloud_onboarding_not_now">Не сада</string>
     <string name="cloud_onboarding_faq_title">Често постављана питања</string>
     <string name="cloud_onboarding_create_list_title">Крени са коришћењем</string>

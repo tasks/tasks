@@ -75,6 +75,7 @@ import org.tasks.compose.HomeDestination
 import org.tasks.compose.ImportTasksViewModel
 import org.tasks.compose.PurchaseDestination
 import org.tasks.compose.SubscriptionOnboardingDestination
+import org.tasks.compose.DEFAULT_SIGN_IN_PROVIDERS
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.TosUpdateDialog
 import org.tasks.compose.WelcomeDestination
@@ -467,11 +468,13 @@ class MainActivity : AppCompatActivity() {
                         SubscriptionOnboardingScreen(
                             step = currentStep,
                             showConfetti = true,
-                            onSignIn = {
-                                Timber.d("CloudOnboarding: launching SignInActivity")
+                            providers = DEFAULT_SIGN_IN_PROVIDERS,
+                            onSignIn = { provider ->
+                                Timber.d("CloudOnboarding: launching SignInActivity with $provider")
                                 onboardingViewModel.onSignInClicked()
                                 startActivity(
                                     Intent(this@MainActivity, SignInActivity::class.java)
+                                        .putExtra(SignInActivity.EXTRA_PROVIDER, provider.name)
                                 )
                             },
                             onCreateList = {

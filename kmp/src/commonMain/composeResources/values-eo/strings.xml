@@ -579,7 +579,6 @@
     <string name="create_a_list">Krei liston</string>
     <string name="google_tasks_permission_not_granted">Permeso de Google Tasks ne estas donita. Bonvolu denove ensaluti kaj doni permeson al Google Tasks en la konsentekrano.</string>
     <string name="cloud_onboarding_welcome_title">Bonvenon al Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Ensalutu per Google por krei vian konton de Tasks.org</string>
     <string name="cloud_onboarding_not_now">Ne nun</string>
     <string name="cloud_onboarding_faq_title">Plej oftaj demandoj</string>
     <string name="cloud_onboarding_create_list_title">Ni komencu</string>

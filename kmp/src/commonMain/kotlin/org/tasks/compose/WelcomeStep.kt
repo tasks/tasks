@@ -29,11 +29,9 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -70,11 +68,9 @@ import tasks.kmp.generated.resources.cloud_onboarding_faq_google_access_answer
 import tasks.kmp.generated.resources.cloud_onboarding_faq_google_access_question
 import tasks.kmp.generated.resources.cloud_onboarding_faq_title
 import tasks.kmp.generated.resources.cloud_onboarding_not_now
-import tasks.kmp.generated.resources.cloud_onboarding_welcome_body
+import tasks.kmp.generated.resources.cloud_onboarding_sign_in_body
 import tasks.kmp.generated.resources.cloud_onboarding_welcome_title
-import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_round_icon
-import tasks.kmp.generated.resources.sign_in_with_google
 import tasks.kmp.generated.resources.tasks_org
 
 private val MinimumContentInsets = WindowInsets(
@@ -91,7 +87,8 @@ private fun contentInsets(sides: WindowInsetsSides): WindowInsets =
 @Composable
 internal fun WelcomeStep(
     showConfetti: Boolean,
-    onSignIn: () -> Unit,
+    providers: List<SignInProvider>,
+    onSignIn: (SignInProvider) -> Unit,
     onClose: () -> Unit,
 ) {
     Box(
@@ -128,6 +125,7 @@ internal fun WelcomeStep(
                         faqItems = faqItems,
                         expandedIndex = expandedIndex,
                         onToggleIndex = onToggleIndex,
+                        providers = providers,
                         onSignIn = onSignIn,
                         onClose = onClose,
                         insetSides = WindowInsetsSides.Top +
@@ -157,6 +155,7 @@ internal fun WelcomeStep(
                         faqItems = faqItems,
                         expandedIndex = expandedIndex,
                         onToggleIndex = onToggleIndex,
+                        providers = providers,
                         onSignIn = onSignIn,
                         onClose = onClose,
                         insetSides = WindowInsetsSides.Bottom + WindowInsetsSides.Horizontal,
@@ -236,7 +235,8 @@ private fun WelcomeBody(
     faqItems: List<Pair<String, String>>,
     expandedIndex: Int,
     onToggleIndex: (Int) -> Unit,
-    onSignIn: () -> Unit,
+    providers: List<SignInProvider>,
+    onSignIn: (SignInProvider) -> Unit,
     onClose: () -> Unit,
     insetSides: WindowInsetsSides,
     modifier: Modifier = Modifier,
@@ -248,30 +248,29 @@ private fun WelcomeBody(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(Res.string.cloud_onboarding_welcome_body),
+            text = stringResource(Res.string.cloud_onboarding_sign_in_body),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
         )
         Spacer(Modifier.height(24.dp))
-        Button(
-            onClick = onSignIn,
+        Column(
             modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Image(
-                painter = painterResource(Res.drawable.ic_google),
-                contentDescription = null,
-                modifier = Modifier.size(ButtonDefaults.IconSize),
-            )
-            Spacer(Modifier.width(ButtonDefaults.IconSpacing))
-            Text(text = stringResource(Res.string.sign_in_with_google))
-        }
-        Spacer(Modifier.height(8.dp))
-        OutlinedButton(
-            onClick = onClose,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text(text = stringResource(Res.string.cloud_onboarding_not_now))
+            providers.forEach { provider ->
+                SignInProviderButton(
+                    provider = provider,
+                    onClick = { onSignIn(provider) },
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            TextButton(
+                onClick = onClose,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text(text = stringResource(Res.string.cloud_onboarding_not_now))
+            }
         }
         Spacer(Modifier.height(32.dp))
         Text(
@@ -350,6 +349,7 @@ private fun WelcomeStepPreview() {
     TasksTheme {
         WelcomeStep(
             showConfetti = false,
+            providers = DEFAULT_SIGN_IN_PROVIDERS,
             onSignIn = {},
             onClose = {},
         )

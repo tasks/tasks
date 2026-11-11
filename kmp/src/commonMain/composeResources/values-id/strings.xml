@@ -296,7 +296,6 @@
     <string name="subscription_not_found">Langganan Tasks.org Cloud Anda tidak ditemukan. Jika Anda yakin ini adalah kesalahan, hubungi %1$s</string>
     <string name="create_a_list">Buat daftar</string>
     <string name="cloud_onboarding_welcome_title">Selamat datang di Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Masuk dengan Google untuk membuat akun Tasks.org Cloud Anda</string>
     <string name="cloud_onboarding_not_now">Nanti saja</string>
     <string name="cloud_onboarding_faq_title">Pertanyaan yang sering diajukan</string>
     <string name="cloud_onboarding_create_list_title">Mari mulai</string>

@@ -299,7 +299,6 @@
     <string name="create_a_list">Vytvořit seznam</string>
     <string name="migrate_to_cloud">Přejít na Tasks.org Cloud</string>
     <string name="cloud_onboarding_welcome_title">Vítejte ve službě Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Přihlaste se přes Google pro vytvoření vašeho účtu Tasks.org Cloud</string>
     <string name="cloud_onboarding_not_now">Nyní ne</string>
     <string name="cloud_onboarding_faq_title">Často kladené dotazy</string>
     <string name="cloud_onboarding_create_list_title">Začněme</string>

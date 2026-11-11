@@ -350,6 +350,12 @@ fun App(
             val storeBillingProvider = remember(koin) { koin.getOrNull<StoreBillingProvider>() }
             val subscriptionInfo by subscriptionProvider.subscription.collectAsState(initial = null)
             var cloudSignInSource by rememberSaveable { mutableStateOf<String?>(null) }
+            var cloudSignInProvider by rememberSaveable { mutableStateOf<SignInProvider?>(null) }
+            val signInProviders = if (configuration.appStore == AppStore.APP_STORE) {
+                APP_STORE_SIGN_IN_PROVIDERS
+            } else {
+                DEFAULT_SIGN_IN_PROVIDERS
+            }
             var platformSignIn by rememberSaveable { mutableStateOf<String?>(null) }
             var wasInOnboarding by rememberSaveable { mutableStateOf(false) }
             var wasInCloudOnboarding by rememberSaveable { mutableStateOf(false) }
@@ -1201,8 +1207,10 @@ fun App(
                             SubscriptionOnboardingScreen(
                                 step = currentStep,
                                 showConfetti = true,
-                                onSignIn = {
+                                providers = signInProviders,
+                                onSignIn = { provider ->
                                     onboardingViewModel.onSignInClicked()
+                                    cloudSignInProvider = provider
                                     cloudSignInSource = AnalyticsEvents.SOURCE_ONBOARDING
                                 },
                                 onCreateList = {
@@ -1346,7 +1354,7 @@ fun App(
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
                                 SignInProviderDialog(
-                                    providers = if (configuration.appStore == AppStore.APP_STORE) APP_STORE_SIGN_IN_PROVIDERS else DEFAULT_SIGN_IN_PROVIDERS,
+                                    providers = signInProviders,
                                     onSelected = { provider ->
                                         showSignInDialog = false
                                         val oauthProvider = when (provider) {
@@ -1417,32 +1425,36 @@ fun App(
                 LaunchedEffect(Unit) {
                     addAccountViewModel.accountAdded.collect { cloudSignInSource = null }
                 }
-                BasicAlertDialog(onDismissRequest = { cloudSignInSource = null }) {
-                    SignInProviderDialog(
-                        providers = if (configuration.appStore == AppStore.APP_STORE) {
-                            APP_STORE_SIGN_IN_PROVIDERS
-                        } else {
-                            DEFAULT_SIGN_IN_PROVIDERS
-                        },
-                        onSelected = { provider ->
-                            val oauthProvider = when (provider) {
-                                SignInProvider.GOOGLE -> OAuthProvider.GOOGLE
-                                SignInProvider.GITHUB -> OAuthProvider.GITHUB
-                                SignInProvider.APPLE -> OAuthProvider.APPLE
-                            }
-                            reporting.logEvent(
-                                AnalyticsEvents.SIGN_IN_PROVIDER_SELECTED,
-                                AnalyticsEvents.PARAM_PROVIDER to oauthProvider.name,
-                            )
-                            addAccountViewModel.signIn(
-                                platform = Platform.TASKS_ORG,
-                                provider = oauthProvider,
-                                openUrl = openUrl,
-                            )
-                        },
-                        onHelp = { openUrl("https://tasks.org/docs/sync") },
-                        onCancel = { cloudSignInSource = null },
+                val signInWith: (SignInProvider) -> Unit = { provider ->
+                    val oauthProvider = when (provider) {
+                        SignInProvider.GOOGLE -> OAuthProvider.GOOGLE
+                        SignInProvider.GITHUB -> OAuthProvider.GITHUB
+                        SignInProvider.APPLE -> OAuthProvider.APPLE
+                    }
+                    reporting.logEvent(
+                        AnalyticsEvents.SIGN_IN_PROVIDER_SELECTED,
+                        AnalyticsEvents.PARAM_PROVIDER to oauthProvider.name,
                     )
+                    addAccountViewModel.signIn(
+                        platform = Platform.TASKS_ORG,
+                        provider = oauthProvider,
+                        openUrl = openUrl,
+                    )
+                }
+                LaunchedEffect(cloudSignInProvider) {
+                    val provider = cloudSignInProvider ?: return@LaunchedEffect
+                    cloudSignInProvider = null
+                    signInWith(provider)
+                }
+                if (source != AnalyticsEvents.SOURCE_ONBOARDING) {
+                    BasicAlertDialog(onDismissRequest = { cloudSignInSource = null }) {
+                        SignInProviderDialog(
+                            providers = signInProviders,
+                            onSelected = signInWith,
+                            onHelp = { openUrl("https://tasks.org/docs/sync") },
+                            onCancel = { cloudSignInSource = null },
+                        )
+                    }
                 }
                 SignInErrorDialog(
                     signInState = signInState,

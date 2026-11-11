@@ -608,7 +608,6 @@
     <string name="create_a_list">Een lijst aanmaken</string>
     <string name="google_tasks_permission_not_granted">Geen toestemming verleend voor Google Taken. Meld je opnieuw aan en verleen toegang tot Google Taken op het toestemmingsscherm.</string>
     <string name="cloud_onboarding_welcome_title">Welkom bij Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Meld je aan bij Google om je Tasks.org Cloud-account aan te maken</string>
     <string name="cloud_onboarding_not_now">Nu niet</string>
     <string name="cloud_onboarding_faq_title">Veelgestelde vragen</string>
     <string name="cloud_onboarding_create_list_title">Laten we beginnen</string>

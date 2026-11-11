@@ -574,7 +574,6 @@
     <string name="this_device_only">Kun denne enhed</string>
     <string name="migrate_to_cloud">Flyt til Tasks.org Cloud</string>
     <string name="cloud_onboarding_welcome_title">Velkommen til Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Log ind med Google for at oprette din Tasks.org Cloud-konto</string>
     <string name="cloud_onboarding_not_now">Ikke nu</string>
     <string name="cloud_onboarding_faq_title">Ofte stillede spørgsmål</string>
     <string name="cloud_onboarding_create_list_title">Lad os komme i gang</string>

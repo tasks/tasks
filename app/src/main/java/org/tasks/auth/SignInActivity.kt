@@ -115,7 +115,7 @@ class SignInActivity : ComponentActivity() {
         viewModel.error.observe(this, this::handleError)
 
         lifecycleScope.launch {
-            val autoSelect = getAutoSelectPlatform()
+            val autoSelect = getAutoSelectPlatform() ?: requestedPlatform()
             if (autoSelect != null) {
                 setContent {
                     TasksTheme(
@@ -158,6 +158,16 @@ class SignInActivity : ComponentActivity() {
             }
         }
     }
+
+    private fun requestedPlatform(): Platform? =
+        when (intent.getStringExtra(EXTRA_PROVIDER)?.let { name ->
+            org.tasks.compose.SignInProvider.entries.firstOrNull { it.name == name }
+        }) {
+            org.tasks.compose.SignInProvider.GOOGLE -> Platform.GOOGLE
+            org.tasks.compose.SignInProvider.APPLE -> Platform.APPLE
+            org.tasks.compose.SignInProvider.GITHUB -> Platform.GITHUB
+            null -> null
+        }
 
     private suspend fun getAutoSelectPlatform(): Platform? {
         val existingAccount = caldavDao.getAccounts(TYPE_TASKS).firstOrNull() ?: return null
@@ -539,6 +549,7 @@ class SignInActivity : ComponentActivity() {
 
     companion object {
         const val EXTRA_ERROR = "extra_error"
+        const val EXTRA_PROVIDER = "extra_provider"
         private const val RC_AUTH = 100
         private const val RC_PURCHASE = 101
     }

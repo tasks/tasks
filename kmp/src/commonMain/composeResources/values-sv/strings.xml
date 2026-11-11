@@ -558,7 +558,6 @@
     <string name="add_tag">Lägg till etikett</string>
     <string name="google_tasks_permission_not_granted">Behörighet till Google Tasks beviljades inte. Logga in igen och ge Google Tasks åtkomst på samtyckesskärmen.</string>
     <string name="cloud_onboarding_welcome_title">Välkommen till Tasks.org Cloud</string>
-    <string name="cloud_onboarding_welcome_body">Logga in med Google för att skapa ditt Tasks.org Cloud-konto</string>
     <string name="cloud_onboarding_not_now">Inte nu</string>
     <string name="cloud_onboarding_faq_title">Vanliga frågor</string>
     <string name="cloud_onboarding_create_list_title">Kom igång</string>
