@@ -326,7 +326,17 @@ class PlayBillingClient(
         )
 
         private val ProductDetails.offer: ProductDetails.SubscriptionOfferDetails?
-            get() = subscriptionOfferDetails?.firstOrNull()
+            get() = subscriptionOfferDetails.orEmpty().preferredOffer(
+                offerId = { it.offerId },
+                startsFree = { it.trialPhase != null },
+            )
+
+        internal fun <T> List<T>.preferredOffer(
+            offerId: (T) -> String?,
+            startsFree: (T) -> Boolean,
+        ): T? = firstOrNull(startsFree)
+            ?: firstOrNull { offerId(it) == null }
+            ?: firstOrNull()
 
         private val ProductDetails.SubscriptionOfferDetails.recurringPhase: ProductDetails.PricingPhase?
             get() = pricingPhases.pricingPhaseList.maxByOrNull { it.priceAmountMicros }
