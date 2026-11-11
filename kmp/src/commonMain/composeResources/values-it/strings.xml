@@ -582,4 +582,6 @@
     <string name="mcp_copied">Copiato</string>
     <string name="mcp_hide">Nascondi</string>
     <string name="subscription_required">Richiede un abbonamento</string>
+    <string name="supporter">Sostenitore di Tasks.org</string>
+    <string name="mcp_reveal">Mostra</string>
 </resources>
