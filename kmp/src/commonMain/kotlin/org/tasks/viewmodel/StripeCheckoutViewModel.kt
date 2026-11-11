@@ -41,7 +41,7 @@ open class StripeCheckoutViewModel(
         val checkoutUrl: String? = null,
         val confirmChange: PendingChange? = null,
         val planChanged: Boolean = false,
-        val knownCustomer: Boolean = false,
+        val knownCustomer: Boolean? = null,
         val coveredElsewhere: Boolean = false,
         val coveredBy: UnlockSource? = null,
         val notice: Notice? = null,
@@ -98,6 +98,10 @@ open class StripeCheckoutViewModel(
     private var retryable: BillingOption? = null
 
     init {
+        viewModelScope.launch {
+            val knownCustomer = purchases.hasStripeCustomer()
+            _viewState.update { it.copy(knownCustomer = knownCustomer) }
+        }
         viewModelScope.launch { loadCatalog() }
         viewModelScope.launch { refreshPlan() }
     }

@@ -434,6 +434,20 @@ class CardPricingTest {
     }
 
     @Test
+    fun noTrialIsPromisedUntilWeKnowWhetherTheyHaveBoughtBefore() = runComposeUiTest {
+        showPaywall(
+            StoreBilling(
+                catalog = BillingCatalog.from(listOf(annual)),
+                knownCustomer = null,
+                onSelect = {},
+            )
+        )
+
+        assertShowing("Subscribe for \$29.99/year")
+        assertNotShowing("7-day")
+    }
+
+    @Test
     fun aPriceWithoutATrialDoesNotMentionOne() = runComposeUiTest {
         showPaywall(
             StoreBilling(

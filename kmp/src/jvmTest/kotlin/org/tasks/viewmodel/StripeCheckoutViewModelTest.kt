@@ -3,6 +3,7 @@ package org.tasks.viewmodel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.resetMain
@@ -53,6 +54,7 @@ class StripeCheckoutViewModelTest {
     private var priceReads = 0
     private var plan: StripePlan? = null
     private var knownCustomer = false
+    private var planDelay = 0L
     private var coverage = ForeignCoverage()
     private var change: StripeChange = StripeChange.Changed(entitles = true)
     private var changes = mutableListOf<BillingOption>()
@@ -83,6 +85,7 @@ class StripeCheckoutViewModelTest {
             return if (priceAnswers.isEmpty()) prices else priceAnswers.removeFirst()
         }
         override suspend fun currentPlan(refresh: Boolean): StripePlan? {
+            delay(planDelay)
             if (refresh) tierReads++
             return plan
         }
@@ -728,7 +731,26 @@ class StripeCheckoutViewModelTest {
 
         runCurrent()
 
-        assertTrue(viewModel.viewState.value.knownCustomer)
+        assertEquals(true, viewModel.viewState.value.knownCustomer)
+    }
+
+    @Test
+    fun whetherTheyHaveBoughtBeforeIsUnknownUntilChecked() {
+        val viewModel = viewModel()
+
+        assertNull(viewModel.viewState.value.knownCustomer)
+    }
+
+    @Test
+    fun aKnownCustomerIsRecognisedWithoutWaitingForTheirPlan() = runTest(dispatcher) {
+        knownCustomer = true
+        planDelay = 60_000L
+        val viewModel = viewModel()
+
+        runCurrent()
+
+        assertEquals(true, viewModel.viewState.value.knownCustomer)
+        assertNull(viewModel.viewState.value.plan)
     }
 
     @Test

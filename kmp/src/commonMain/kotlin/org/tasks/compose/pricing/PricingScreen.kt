@@ -115,7 +115,7 @@ data class StoreBilling(
     val sellsCurrentSku: Boolean = false,
     val knownSku: String? = null,
     val suggestedPrice: Int? = null,
-    val knownCustomer: Boolean = false,
+    val knownCustomer: Boolean? = false,
     val coveredElsewhere: Boolean = false,
     val coveredBy: UnlockSource? = null,
     val onSelect: (BillingOption) -> Unit,
@@ -170,7 +170,7 @@ data class StoreBilling(
 
 @Composable
 private fun BillingOption?.trialFeature(store: StoreBilling?): String? =
-    if (store?.knownCustomer != true && (this?.trialDays ?: 0) > 0) {
+    if (store?.knownCustomer == false && (this?.trialDays ?: 0) > 0) {
         stringResource(Res.string.pricing_feature_trial)
     } else {
         null
