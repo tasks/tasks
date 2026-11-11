@@ -604,6 +604,6 @@
     <string name="mcp_copy">Kopiera</string>
     <string name="new_filter">Skapa ett nytt filter</string>
     <string name="subscription_required">Prenumeration krävs</string>
-    <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks</string>
-    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
+    <string name="upgrade_blurb_1">Hej! Jag heter Alex. Jag är den oberoende utvecklaren bakom Tasks.org</string>
+    <string name="upgrade_blurb_2">Jag har ägnat tusentals timmar åt Tasks.org och publicerar all källkod fritt på nätet. Vissa funktioner kräver en prenumeration för att stödja mitt arbete.</string>
 </resources>

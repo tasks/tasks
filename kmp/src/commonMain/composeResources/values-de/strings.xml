@@ -708,6 +708,6 @@
     <string name="trusted_certificates_reset">Zurücksetzen vertrauenswürdiger Zertifikate</string>
     <string name="reset_trusted_certificates">Vertrauenswürdige Zertifikate zurücksetzen</string>
     <string name="reset_trusted_certificates_summary">Von dir akzeptierte Zertifikate und Zertifikataussteller für Server löschen</string>
-    <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks</string>
-    <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
+    <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks.org</string>
+    <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks.org verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
 </resources>

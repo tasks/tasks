@@ -694,6 +694,6 @@
     <string name="works_with_submit_pull_request">Enviar um pull request</string>
     <string name="new_place">Criar novo local</string>
     <string name="subscription_required">Inscrição necessária</string>
-    <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks</string>
-    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
+    <string name="upgrade_blurb_1">Olá! Meu nome é Alex e eu sou o desenvolvedor independente por trás do Tasks.org</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas trabalhando no Tasks.org, e eu publico todo o código-fonte online de graça. Para apoiar meu trabalho, algumas funcionalidades precisam de um plano de assinatura</string>
 </resources>

@@ -526,6 +526,6 @@
     <string name="mcp_tools_group_reminders">تذكيرات</string>
     <string name="mcp_copy">نسخ</string>
     <string name="new_filter">أنشأ تصفيةً جديدة</string>
-    <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks</string>
-    <string name="upgrade_blurb_2">لقد أمضيت آلاف الساعات في العمل على \"مهام\" ، وأنا أنشر جميع التعليمات البرمجية المصدر عبر الإنترنت مجانًا. من أجل دعم عملي ، ولذلك تتطلب بعض الميزات اشتراكًا</string>
+    <string name="upgrade_blurb_1">أهلًا! أنا أليكس (Alex). أنا المطور المستقل وراء Tasks.org</string>
+    <string name="upgrade_blurb_2">لقد أمضيت آلاف الساعات في العمل على Tasks.org ، وأنا أنشر جميع التعليمات البرمجية المصدر عبر الإنترنت مجانًا. من أجل دعم عملي ، ولذلك تتطلب بعض الميزات اشتراكًا</string>
 </resources>

@@ -728,6 +728,6 @@
     <string name="subscription_free_until">Gratuit jusqu\'au %1$s, puis %2$s</string>
     <string name="subscription_payment_failed">Le paiement a échoué, veuillez mettre à jour les informations de votre carte</string>
     <string name="change_plan">Modifier le forfait</string>
-    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks</string>
-    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
+    <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks.org</string>
+    <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks.org, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
 </resources>

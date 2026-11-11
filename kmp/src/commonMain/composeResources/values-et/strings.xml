@@ -699,6 +699,6 @@
     <string name="restore_renewal_settling">Sinu tellimuse uuendamine on veel töös</string>
     <string name="purchases_restored">Ostud on taastatud</string>
     <string name="card_subscription">Tellimus kaardiga</string>
-    <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Taski arendust juhtinud</string>
-    <string name="upgrade_blurb_2">Olen Tasksi loomiseks kulutanud tuhandeid tunde ja ma avaldan kogu rakenduse lähtekoodi veebis vaba litsentsi all. Selleks, et oleks võimalik minu töid ja tegemisi toetada, eeldavad selle rakenduse mõned funktsionaalsused tellimuse olemasolu</string>
+    <string name="upgrade_blurb_1">Tere! Minu nimi on Alex ja ma olen sõltumatu arendaja, kes on Tasks.org arendust juhtinud</string>
+    <string name="upgrade_blurb_2">Olen Tasks.org loomiseks kulutanud tuhandeid tunde ja ma avaldan kogu rakenduse lähtekoodi veebis vaba litsentsi all. Selleks, et oleks võimalik minu töid ja tegemisi toetada, eeldavad selle rakenduse mõned funktsionaalsused tellimuse olemasolu</string>
 </resources>

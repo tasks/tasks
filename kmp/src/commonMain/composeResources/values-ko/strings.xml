@@ -704,6 +704,6 @@
     <string name="subscription_free_until">%1$s까지 무료, 이후 %2$s</string>
     <string name="subscription_payment_failed">결제 실패, 카드를 수정하세요</string>
     <string name="change_plan_message">오늘부터 %1$s 구독으로 변경됩니다. 현재 구독에서 남은 차액은 계좌에 입금되거나 이번 청구에 적용됩니다.</string>
-    <string name="upgrade_blurb_1">안녕하세요! Tasks의 1인 개발자 알렉스입니다</string>
-    <string name="upgrade_blurb_2">저는 Tasks 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
+    <string name="upgrade_blurb_1">안녕하세요! Tasks.org의 1인 개발자 알렉스입니다</string>
+    <string name="upgrade_blurb_2">저는 Tasks.org 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
 </resources>

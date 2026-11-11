@@ -713,6 +713,6 @@
     <string name="subscription_active_github">Je hebt al een actieve GitHub sponsoring.</string>
     <string name="subscription_active_card">Je hebt al een actief abonnement betaald per kaart.</string>
     <string name="subscription_active_elsewhere">Je hebt al ergens anders een actief abonnement.</string>
-    <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks</string>
-    <string name="upgrade_blurb_2">Ik heb duizenden uren gewerkt aan Tasks en publiceer alle broncode gratis online. Om mijn werk te steunen, is voor sommige functies een abonnement nodig</string>
+    <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks.org</string>
+    <string name="upgrade_blurb_2">Ik heb duizenden uren gewerkt aan Tasks.org en publiceer alle broncode gratis online. Om mijn werk te steunen, is voor sommige functies een abonnement nodig</string>
 </resources>

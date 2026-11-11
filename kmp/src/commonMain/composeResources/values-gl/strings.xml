@@ -450,6 +450,6 @@
     <string name="mcp_tools_group_reminders">Recordatorios</string>
     <string name="mcp_copy">Copiar</string>
     <string name="new_filter">Crear novo filtro</string>
-    <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks</string>
-    <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
+    <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks.org</string>
+    <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks.org e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
 </resources>

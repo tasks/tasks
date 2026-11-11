@@ -603,6 +603,6 @@
     <string name="mcp_copy">Kopiraj</string>
     <string name="new_filter">Stvori filtar</string>
     <string name="subscription_required">Potrebna je pretplata</string>
-    <string name="upgrade_blurb_1">Bok! Moje ime je Alex. Ja sam neovisan programer programa Tasks</string>
-    <string name="upgrade_blurb_2">Proveo sam tisuće sati radeći na programu Tasks, a sav izvorni kod objavljujem na mreži besplatno. U svrhu podržavanja mog rada, neke funkcije zahtijevaju pretplatu</string>
+    <string name="upgrade_blurb_1">Bok! Moje ime je Alex. Ja sam neovisan programer programa Tasks.org</string>
+    <string name="upgrade_blurb_2">Proveo sam tisuće sati radeći na programu Tasks.org, a sav izvorni kod objavljujem na mreži besplatno. U svrhu podržavanja mog rada, neke funkcije zahtijevaju pretplatu</string>
 </resources>

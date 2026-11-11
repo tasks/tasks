@@ -726,6 +726,6 @@
     <string name="reset_trusted_certificates">Reset trusted certificates</string>
     <string name="reset_trusted_certificates_summary">Forget certificates and certificate authorities you accepted for servers</string>
     <string name="trusted_certificates_reset">Trusted certificates reset</string>
-    <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks</string>
-    <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
+    <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks.org</string>
+    <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks.org, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
 </resources>

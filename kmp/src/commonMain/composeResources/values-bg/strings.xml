@@ -543,6 +543,6 @@
     <string name="mcp_copy">Копиране</string>
     <string name="new_filter">Нов филтър</string>
     <string name="subscription_required">Изисква абонамент</string>
-    <string name="upgrade_blurb_1">Здравейте! Аз съм Алекс. Независимият разработчик, който стои зад Tasks</string>
-    <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
+    <string name="upgrade_blurb_1">Здравейте! Аз съм Алекс. Независимият разработчик, който стои зад Tasks.org</string>
+    <string name="upgrade_blurb_2">Прекарвам хиляди часове в работа по Tasks.org и публикувам изходният код безплатно. За да поддържам работата си, някои възможности изискват абонамент</string>
 </resources>

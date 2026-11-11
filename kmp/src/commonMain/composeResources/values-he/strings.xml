@@ -581,6 +581,6 @@
     <string name="mcp_copy">העתקה</string>
     <string name="new_filter">יצירת מסנן חדש</string>
     <string name="subscription_required">נדרש מינוי</string>
-    <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks</string>
-    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
+    <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks.org</string>
+    <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks.org, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
 </resources>

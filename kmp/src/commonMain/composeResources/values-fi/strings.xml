@@ -469,6 +469,6 @@
     <string name="mcp_copy">Kopio</string>
     <string name="new_filter">Luo uusi suodatin</string>
     <string name="subscription_required">Tilaus vaaditaan</string>
-    <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Task ohjelman takana</string>
-    <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Task ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
+    <string name="upgrade_blurb_1">Moi! Nimeni on Alex. Olen itsenäinen ohjelmistontekijä Tasks.org-ohjelman takana</string>
+    <string name="upgrade_blurb_2">Olen käyttänyt tuhansia tunteja työskennellen Tasks.org-ohjelman parissa, ja julkaisen koko lähdekoodin netissä ilmaiseksi. Työni tueksi joidenkin ohjelman ominaisuuksien käyttö vaatii tilauksen</string>
 </resources>

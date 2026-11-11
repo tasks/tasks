@@ -421,6 +421,6 @@
     <string name="mcp_tools_group_reminders">Priminimai</string>
     <string name="mcp_copy">Kopijuoti</string>
     <string name="new_filter">Sukurti naują filtrą</string>
-    <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks kūrėjas</string>
-    <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
+    <string name="upgrade_blurb_1">Sveiki! Mano vardas Aleksas. Esu nepriklausomas Tasks.org kūrėjas</string>
+    <string name="upgrade_blurb_2">Aš praleidau tūkstančius valandų dirbdamas su Tasks.org ir nemokamai skelbiu visą pirminį kodą internete. Kad galėčiau palaikyti savo darbą, kai kurioms funkcijoms reikalinga prenumerata</string>
 </resources>

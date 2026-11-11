@@ -604,6 +604,6 @@
     <string name="mcp_copy">Kopírovat</string>
     <string name="new_filter">Vytvořit nový filtr</string>
     <string name="subscription_required">Vyžadováno předplatné</string>
-    <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks</string>
-    <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
+    <string name="upgrade_blurb_1">Ahoj! Jmenuji se Alex a jsem nezávislý vývojář aplikace Tasks.org</string>
+    <string name="upgrade_blurb_2">Strávil jsem tisíce hodin prací na Tasks.org a bezplatně zveřejňuji veškerý zdrojový kód online. Za účelem podpory mé práce některé funkce vyžadují předplatné</string>
 </resources>

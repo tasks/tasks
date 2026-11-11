@@ -656,6 +656,6 @@
     <string name="repeat_monthly_on_last_day">Setiap bulan pada hari terakhir</string>
     <string name="repeat_monthly_last_day">hari terakhir</string>
     <string name="subscription_required">Langganan diperlukan</string>
-    <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
-    <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
+    <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks.org</string>
+    <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks.org, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
 </resources>

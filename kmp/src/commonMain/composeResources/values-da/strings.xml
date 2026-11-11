@@ -709,6 +709,6 @@
     <string name="subscription_ended_on">Udløbet %1$s</string>
     <string name="subscription_free_until">Gratis indtil %1$s, derefter %2$s</string>
     <string name="subscription_payment_failed">Betalingen mislykkedes. Opdater dit betalingskort</string>
-    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks</string>
-    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
+    <string name="upgrade_blurb_1">Hej! Jeg hedder Alex. Jeg er den selvstændige udvikler bag Tasks.org</string>
+    <string name="upgrade_blurb_2">Jeg har brugt tusindvis af timer på Tasks.org, og jeg udgiver hele kildekoden gratis. For at støtte mit arbejde kræver nogle funktioner et abonnement</string>
 </resources>

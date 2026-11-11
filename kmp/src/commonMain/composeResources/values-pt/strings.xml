@@ -558,6 +558,6 @@
     <string name="mcp_copy">Copiar</string>
     <string name="new_filter">Criar novo filtro</string>
     <string name="subscription_required">Inscrição necessária</string>
-    <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks</string>
-    <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks e publico todo o código-fonte na Internet gratuitamente. Para apoiar o meu trabalho, algumas funcionalidades precisam de uma subscrição</string>
+    <string name="upgrade_blurb_1">Olá! O meu nome é Alex e sou o programador independente por trás do Tasks.org</string>
+    <string name="upgrade_blurb_2">Eu investi centenas de horas a trabalhar no Tasks.org e publico todo o código-fonte na Internet gratuitamente. Para apoiar o meu trabalho, algumas funcionalidades precisam de uma subscrição</string>
 </resources>
