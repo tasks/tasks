@@ -34,7 +34,7 @@ uv tool install pebble-tool --python 3.13
 pebble sdk install latest
 ```
 
-Ubuntu/Debian also needs: `sudo apt install libsdl1.2debian libfdt1`
+Ubuntu/Debian also needs: `sudo apt install libsdl2-2.0-0`
 
 Verify with `pebble --version`.
 
