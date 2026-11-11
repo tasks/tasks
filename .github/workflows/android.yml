@@ -7,9 +7,10 @@ permissions:
   contents: read
 
 env:
-  PEBBLE_SDK_VERSION: '4.9.127'
-  PEBBLE_TOOL_VERSION: '5.0.39'
-  PEBBLE_PYTHON_VERSION: '3.13.12'
+  PEBBLE_SDK_VERSION: '4.44'
+  PEBBLE_TOOL_VERSION: '5.1.2'
+  PEBBLE_PYTHON_VERSION: '3.13.18'
+  PEBBLE_UV_VERSION: '0.13.7'
 
 jobs:
   pebble:
@@ -30,7 +31,7 @@ jobs:
           key: pebble-sdk-${{ env.PEBBLE_SDK_VERSION }}-tool${{ env.PEBBLE_TOOL_VERSION }}-py${{ env.PEBBLE_PYTHON_VERSION }}-${{ runner.os }}
 
       - name: Install pebble-tool
-        run: pip install "pebble-tool==$PEBBLE_TOOL_VERSION"
+        run: pip install "uv==$PEBBLE_UV_VERSION" "pebble-tool==$PEBBLE_TOOL_VERSION"
 
       - name: Install Pebble SDK
         if: ${{ steps.cache-pebble.outputs.cache-hit != 'true' }}
@@ -39,7 +40,7 @@ jobs:
       - name: Install emulator dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libsdl1.2debian libfdt1 librsvg2-bin
+          sudo apt-get install -y xvfb libsdl2-2.0-0 librsvg2-bin
 
       - name: Generate screenshots
         run: |
