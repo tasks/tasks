@@ -4,6 +4,7 @@ import androidx.room3.Dao
 import androidx.room3.Delete
 import androidx.room3.Insert
 import androidx.room3.Query
+import androidx.room3.Update
 import kotlinx.coroutines.flow.Flow
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
@@ -70,6 +71,9 @@ WHERE tasks._id = :taskId
 
     @Insert
     suspend fun insert(alarms: Iterable<Alarm>)
+
+    @Update
+    suspend fun update(alarm: Alarm)
 
     suspend fun getAlarms(task: Task) = ArrayList(if (task.isNew) {
         emptyList()

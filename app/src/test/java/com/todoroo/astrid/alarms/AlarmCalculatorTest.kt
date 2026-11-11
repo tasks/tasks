@@ -261,6 +261,17 @@ class AlarmCalculatorTest {
     }
 
     @Test
+    fun ignoreRepeatWithNoInterval() {
+        val alarm = alarmCalculator.toAlarmEntry(
+            newTask(with(DUE_TIME, now), with(REMINDER_LAST, now.plusMinutes(1))),
+            Alarm(type = TYPE_REL_END, repeat = 1),
+            defaultDueTime,
+        )
+
+        assertNull(alarm)
+    }
+
+    @Test
     fun dontScheduleRelativeEndWithNoEnd() {
         assertNull(alarmCalculator.toAlarmEntry(newTask(), whenDue(0L), defaultDueTime))
     }
