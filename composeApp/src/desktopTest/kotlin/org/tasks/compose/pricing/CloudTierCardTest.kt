@@ -1,5 +1,6 @@
 package org.tasks.compose.pricing
 
+import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.getBoundsInRoot
@@ -195,8 +196,7 @@ class CloudTierCardTest {
 
         assertTrue(
             "expected the supporter card above the cloud card",
-            onNodeWithText("Tasks.org Supporter").getBoundsInRoot().top <
-                    onNodeWithText("Tasks.org Cloud").getBoundsInRoot().top,
+            top("Tasks.org Supporter") < top("Tasks.org Cloud"),
         )
     }
 
@@ -266,8 +266,7 @@ class CloudTierCardTest {
 
         assertTrue(
             "expected the supporter card above the cloud card",
-            onNodeWithText("Tasks.org Supporter").getBoundsInRoot().top <
-                    onNodeWithText("Tasks.org Cloud").getBoundsInRoot().top,
+            top("Tasks.org Supporter") < top("Tasks.org Cloud"),
         )
         assertNotShowing("RECOMMENDED")
     }
@@ -287,6 +286,9 @@ class CloudTierCardTest {
                     onNodeWithText("Tasks.org Cloud").getBoundsInRoot().left,
         )
     }
+
+    private fun ComposeUiTest.top(text: String): Float =
+        onNodeWithText(text).fetchSemanticsNode().positionInRoot.y
 
     private fun catalog(vararg prices: BillingOption) = BillingCatalog.from(prices.toList())
 }
