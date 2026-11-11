@@ -1,3 +1,4 @@
+* Restore card and GitHub payments on Android
 * Add support for user certificate stores
 * Add support for SilentSuite app
 * Add support for DAVsky app

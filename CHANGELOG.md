@@ -1,3 +1,20 @@
+### 15.14-beta02 (2026-11-11)
+
+Android:
+  * Google Play: Unlock features by restoring a card or GitHub payment
+  * F-Droid: Subscribe to Tasks.org Cloud or donate in-app with a card
+  * Fix crash in settings screen
+
+Update translations:
+  * Armenian - Maxim Mkrtchyan
+  * Chinese (Simplified) - hamburger2048
+  * Danish - @bargib
+  * Dutch - Stephan Paternotte
+  * Esperanto - Don Zouras
+  * German - C. Rüdinger, pa po
+  * Italian - @ppasserini
+  * Turkish - @emintufan
+
 ### 15.14-beta01 (2026-11-06)
 
 * Add support for user certificate stores [#2137](https://github.com/tasks/tasks/issues/2137)
