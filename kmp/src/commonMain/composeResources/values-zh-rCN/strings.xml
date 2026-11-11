@@ -714,4 +714,8 @@
     <string name="subscription_ended_on">已于 %1$s 结束</string>
     <string name="subscription_free_until">免费直到 %1$s，然后 %2$s</string>
     <string name="subscription_payment_failed">付款失败，更新您的卡片</string>
+    <string name="subscription_active_google_play">您已经有一个活跃的 Google Play 订阅。</string>
+    <string name="subscription_active_github">您已经有一个活跃的 GitHub 赞助。</string>
+    <string name="subscription_active_card">您已经有一个卡片支付的活跃订阅。</string>
+    <string name="subscription_active_elsewhere">您已经在别处有一个活跃订阅。</string>
 </resources>
