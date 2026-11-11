@@ -308,8 +308,6 @@
     <string name="cancel">Cancelar</string>
     <string name="github_sponsor">Patrocinador</string>
     <string name="migrating_tasks">A migrar as tarefas</string>
-    <string name="above_average">Acima da média</string>
-    <string name="save_percent">Guardar %d%%</string>
     <string name="migrate_count">Mover %s para Tasks.org</string>
     <string name="authorization_cancelled">Autorização cancelada</string>
     <string name="custom_filter_is_subtask">É uma subtarefa</string>
@@ -321,11 +319,6 @@
     <string name="header_spacing">Espaçamento</string>
     <string name="ok">OK</string>
     <string name="always_display_full_date">Mostrar data completa</string>
-    <string name="upgrade_open_source_description">A sua subscrição ajuda a continuar o desenvolvimento</string>
-    <string name="upgrade_tasks_org_account_description">Sincronize com o Tasks.org e colabore com outros utilizadores</string>
-    <string name="upgrade_more_customization_description">Desbloqueie todos os temas, cores e ícones</string>
-    <string name="upgrade_more_customization">Mais personalizações</string>
-    <string name="pro_free_trial">Os novos subscritores recebem 7 dias de teste grátis. Cancele a qualquer momento</string>
     <string name="tasks_org_account_required">É necessária uma conta no Tasks.org</string>
     <string name="copied_to_clipboard">%s copiado para a área de transferência</string>
     <string name="app_password">Palavra-passe da aplicação</string>
@@ -409,13 +402,6 @@
     <string name="email_to_task">Email para tarefa</string>
     <string name="email_to_task_address">O seu email</string>
     <string name="guest_create_list_message">Tem acesso de convidado a listas partilhadas. Para criar e partilhar as suas próprias listas privadas na nuvem, é necessário uma inscrição Tasks.org. Ou então, pode criar uma lista local de graça que fica nesse dispositivo.</string>
-    <string name="upgrade_desktop_app">Tasks.org para desktop</string>
-    <string name="upgrade_desktop_app_description">Acesso antecipado para a nova app de desktop</string>
-    <string name="upgrade_friends_and_family">Amigos &amp; Família</string>
-    <string name="upgrade_friends_and_family_description">5 convidados grátis em listas partilhadas. Funciona com Lembretes Apple</string>
-    <string name="upgrade_email_to_task_description">Transforme emails em tarefas a encaminhá-los para a sua caixa de entrada privada</string>
-    <string name="advanced_tools">Ferramentas avançadas</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync e mais!</string>
     <string name="legal_disclosure_prefix_using">A usar Tasks.org</string>
     <string name="tos_updated_title">Atualizamos os nossos Termos de serviço</string>
     <string name="accept">Aceitar</string>

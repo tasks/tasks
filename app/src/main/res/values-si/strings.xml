@@ -34,16 +34,9 @@
     <string name="action_call">අමතන්න</string>
     <string name="display_name">ප්‍රදර්ශන නාමය</string>
     <string name="actfm_picture_clear">පින්තූරය ඉවත් කරන්න</string>
-    <string name="upgrade_open_source_description">ඔබේ දායකත්වය අඛණ්ඩ සංවර්ධනයට සහාය වේ</string>
-    <string name="upgrade_tasks_org_account_description">Tasks.org සමඟ සමමුහුර්ත කර අනෙකුත් පරිශීලකයින් සමඟ සහයෝගයෙන් කටයුතු කරන්න</string>
-    <string name="upgrade_more_customization_description">සියලුම තේමාවන්, වර්ණ සහ අයිකන අගුළු ඇරීම</string>
-    <string name="upgrade_more_customization">තවත් අභිරුචිකරණය</string>
-    <string name="pro_free_trial">නව ග්‍රාහකයින්ට දින 7 ක නොමිලේ අත්හදා බැලීම් කාලයක් ලැබේ. ඕනෑම වේලාවක අවලංගු කරන්න</string>
     <string name="tasks_org_account_required">Tasks.org ගිණුම අවශ්‍යයි</string>
     <string name="copied_to_clipboard">%s ක්ලිප් පුවරුවට පිටපත් කරන ලදි</string>
     <string name="app_password">යෙදුම් මුරපදය</string>
-    <string name="save_percent">සුරැකීම %d %%</string>
-    <string name="above_average">සාමාන්‍යයට වඩා ඉහළින්</string>
     <string name="migrate_count">%s Tasks.org වෙත ගෙන යන්න</string>
     <string name="authentication_required">සත්‍යාපනය අවශ්‍යයි</string>
     <string name="sign_in_with_google">Google සමඟ පුරනය වන්න</string>

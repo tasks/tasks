@@ -122,7 +122,6 @@
         <item quantity="many">%d مهمة</item>
         <item quantity="other">%d مهمة</item>
     </plurals>
-    <string name="above_average">فوق المتوسط</string>
     <string name="icon">الأيقونة</string>
     <string name="copy">نسخ</string>
     <string name="date_shortcut_night">ليلًا</string>
@@ -241,7 +240,6 @@
     <string name="CFC_tag_text">علامة: \?</string>
     <string name="CFC_importance_text">الأولويّة على الأقل \?</string>
     <string name="TEA_control_timer">ضوابط المؤقت</string>
-    <string name="upgrade_open_source_description">اشتراكك يدعم التطور المستمر</string>
     <string name="copied_to_clipboard">تم نسخ %s إلى الحافظة</string>
     <string name="migrate_count">انقل %s إلى Tasks.org</string>
     <string name="open_source">مفتوح المصدر</string>
@@ -277,11 +275,6 @@
     <string name="widget_settings">إعدادات الودجيت</string>
     <string name="CFC_dueBefore_name">تستحق في…</string>
     <string name="EPr_cal_end_or_start_at_due_time">وقت حدث التقويم</string>
-    <string name="upgrade_tasks_org_account_description">قم بالمزامنة مع Tasks.org وتعاون مع مستخدمين آخرين</string>
-    <string name="upgrade_more_customization_description">افتح جميع الثيمات والألوان والرموز</string>
-    <string name="upgrade_more_customization">المزيد من التخصيص</string>
-    <string name="pro_free_trial">يحصل المشتركون الجدد على نسخة تجريبية مجانية مدتها 7 أيام. تلغى في أي وقت</string>
-    <string name="save_percent">حفظ%d%%</string>
     <string name="migrating_tasks">ترحيل المهام</string>
     <string name="github_sponsor">راعي</string>
     <string name="authentication_required">يستلزم التوثيق</string>

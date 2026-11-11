@@ -340,8 +340,6 @@
     <string name="migrate_count">Mueve %s a Tasks.org</string>
     <string name="migrating_tasks">Migración de tareas</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
-    <string name="above_average">Por encima del promedio</string>
-    <string name="save_percent">Ahorre %d %%</string>
     <string name="decsync_selection_description">Sincronización basada en archivos</string>
     <string name="copied_to_clipboard">Se copió %s en el portapapeles</string>
     <string name="app_password">Contraseña de la aplicación</string>
@@ -359,11 +357,6 @@
     <string name="privacy">Privacidad</string>
     <string name="open_source">Código abierto</string>
     <string name="support">Asistencia</string>
-    <string name="upgrade_open_source_description">Su suscripción apoya el desarrollo continuo</string>
-    <string name="upgrade_tasks_org_account_description">Sincronizar con Tasks.org y colaborar con otros usuarios</string>
-    <string name="upgrade_more_customization_description">Desbloquea todos los temas, colores e iconos</string>
-    <string name="upgrade_more_customization">Más personalización</string>
-    <string name="pro_free_trial">Los suscriptores nuevos reciben una prueba gratuita de 7 días, cancelable en cualquier momento</string>
     <string name="now">Ahora</string>
     <string name="completed">Terminado</string>
     <string name="snackbar_task_completed">Tarea terminada</string>
@@ -412,6 +405,5 @@
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="upgrade_friends_and_family">Amigos y familia</string>
     <string name="read_more">Leer más</string>
 </resources>

@@ -296,7 +296,6 @@
     <string name="last_backup">最新のバックアップ: %s</string>
     <string name="reset_sort_order">並び順をリセット</string>
     <string name="backups_ignore_warnings">警告を無視する</string>
-    <string name="save_percent">%d%% オフ</string>
     <string name="github_sponsors">GitHub スポンサー</string>
     <string name="github_sponsor">スポンサー</string>
     <string name="snackbar_task_completed">タスク完了</string>
@@ -306,9 +305,7 @@
     <string name="chips">チップ</string>
     <string name="now">現在</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks のインディーディベロッパーです</string>
-    <string name="pro_free_trial">初回購入の方は、７日間の無料トライアルがあります。いつでも解約可能です</string>
     <string name="app_password">アプリパスワード</string>
-    <string name="upgrade_more_customization">さらなるカスタマイズ</string>
     <string name="customize_edit_screen_summary">フィールドの並び替えや削除</string>
     <string name="widget_due_date_below_title">タイトルの下</string>
     <string name="widget_due_date_after_title">タイトルの後ろ</string>
@@ -328,15 +325,12 @@
     <string name="backups_ignore_warnings_summary">バックアップが不要な場合、または独自のバックアップ方法を使用している場合に、バックアップの警告を無視します</string>
     <string name="completed">完了</string>
     <string name="filter_eisenhower_box_2">重要だが緊急ではない</string>
-    <string name="upgrade_more_customization_description">すべてのテーマ、カラー、アイコンが使用可能</string>
     <string name="back">戻る</string>
     <string name="auto_dismiss_datetime_edit_summary">タスク編集から選択時に自動で閉じる</string>
     <string name="auto_dismiss_datetime_edit">タスク編集</string>
     <string name="account">アカウント</string>
     <string name="device_settings">デバイス設定</string>
     <string name="custom_filter_has_reminder">リマインダーあり</string>
-    <string name="upgrade_tasks_org_account_description">Tasks.org と同期し、他のユーザーと共同作業が可能</string>
-    <string name="upgrade_open_source_description">あなたの支援が継続的な開発を支えます</string>
     <string name="snackbar_tasks_completed">完了したタスク: %d</string>
     <string name="header_spacing">高さ</string>
     <string name="support">サポート</string>
@@ -344,7 +338,6 @@
     <string name="auto_dismiss_datetime">日時選択画面を自動で閉じる</string>
     <string name="chip_appearance_icon_only">アイコンのみ</string>
     <string name="background_location">バックグラウンド時の位置情報</string>
-    <string name="above_average">平均以上</string>
     <string name="filter_any_start_date">着手日時あり</string>
     <string name="chip_appearance">チップの外観</string>
     <string name="sort_modified_group">変更: %s</string>
@@ -406,16 +399,9 @@
     <string name="exit">終了する</string>
     <string name="legal_disclosure_prefix_using">Tasks.orgを使用</string>
     <string name="email_to_task">メールでタスクを追加する</string>
-    <string name="upgrade_email_to_task_description">あなたの私書箱に送ったメールをタスクに変換する</string>
-    <string name="advanced_tools_description">Google Places、CalDAV、EteSyncなど！</string>
-    <string name="advanced_tools">便利なツール</string>
     <string name="per_list_sort_summary">並べ替えやグループの設定を個別に保存する</string>
     <string name="per_list_sort_title">リストごとの並べ替え設定</string>
     <string name="p_per_list_sort">リストごとの並べ替え設定</string>
     <string name="guest_create_list_message">あなたは共有リストへのゲストアクセスがあります。自分の個人的なリストを作成してクラウドに同期するにはTasks.orgの購読が必要です。または、端末内に保存する無料のローカルリストを作成することができます。</string>
-    <string name="upgrade_friends_and_family">家族・友人</string>
-    <string name="upgrade_friends_and_family_description">共有リストに無料のゲスト5名。Apple Remindersで利用可能</string>
-    <string name="upgrade_desktop_app">デスクトップ版Tasks.org</string>
-    <string name="upgrade_desktop_app_description">新しいデスクトップアプリの早期利用</string>
     <string name="read_more">より詳しく</string>
 </resources>

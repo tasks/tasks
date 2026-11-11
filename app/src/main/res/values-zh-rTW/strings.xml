@@ -317,7 +317,6 @@
     <string name="decsync_selection_description">基於檔案的同步</string>
     <string name="hint_customize_edit_body">您可以透過重新排列或移除欄位來自訂此畫面</string>
     <string name="background_location_permission_required">Tasks 收集位置資料以啟用基於位置的提醒，即使應用程式關閉或未使用。</string>
-    <string name="upgrade_more_customization_description">解鎖所有主題、顏色和圖示</string>
     <string name="back">返回</string>
     <string name="place_settings">位置設定</string>
     <string name="places">地點</string>
@@ -327,16 +326,13 @@
     <string name="sort_created_group">建立於 %s</string>
     <string name="backup_location_warning">警告：如果移除 Tasks 應用程式，位於%s的檔案將會被刪除！請選擇自訂位置，以防止 Android 刪除您的檔案。</string>
     <string name="multi_select_reschedule">重新安排</string>
-    <string name="above_average">高於平均</string>
     <string name="dismiss">關閉</string>
     <string name="custom_filter_has_reminder">有提醒</string>
-    <string name="save_percent">儲存 %d%%</string>
     <string name="tasks_org_account_required">需要 Tasks.org 帳戶</string>
     <string name="snackbar_tasks_completed">已完成 %d 項任務</string>
     <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱</string>
     <string name="chips">顯示元件</string>
     <string name="chip_appearance">元件外觀</string>
-    <string name="upgrade_open_source_description">你的訂閱支援持續開發</string>
     <string name="reinitialize_account">重新初始化</string>
     <string name="caldav_selection_description">基於開放網際網路標準的同步</string>
     <string name="davx5_selection_description">使用 DAVx⁵ 應用程式同步您的任務</string>
@@ -351,9 +347,6 @@
     <string name="support">支援</string>
     <string name="privacy">隱私</string>
     <string name="open_source">開源</string>
-    <string name="pro_free_trial">新訂閱者享有 7 天免費試用。隨時取消</string>
-    <string name="upgrade_tasks_org_account_description">與 Tasks.org 同步，並與其他用戶協作</string>
-    <string name="upgrade_more_customization">更多自訂</string>
     <string name="local_lists">本機清單</string>
     <string name="sort_modified_group">修改於 %s</string>
     <string name="sort_list">依清單</string>
@@ -386,9 +379,6 @@
     <string name="price_per_year_with_currency">每年 %s</string>
     <string name="email_to_task">郵件轉任務</string>
     <string name="email_to_task_address">您的電子郵件地址</string>
-    <string name="upgrade_email_to_task_description">將電子郵件轉發至您的私人收件匣即可將其轉為任務</string>
-    <string name="advanced_tools">進階工具</string>
-    <string name="advanced_tools_description">Google Places、CalDAV、EteSync 等！</string>
     <string name="enable_alarms">在正確的時間收到通知</string>
     <string name="enable_alarms_description">為確保您在正確的時間收到通知，請在設定中授予設定鬧鐘和提醒的權限</string>
     <string name="legal_disclosure_prefix_using">使用 Tasks.org</string>
@@ -406,6 +396,4 @@
     <string name="widget_view_more_tasks">檢視更多任務</string>
     <string name="banner_app_updated_title">應用程式已更新</string>
     <string name="guest_create_list_message">您目前擁有共享清單的訪客存取權限。若要建立並同步自己的私人清單至雲端，您需要 Tasks.org 訂閱。或者，您可以建立免費的本地清單，留在此裝置上。</string>
-    <string name="upgrade_friends_and_family">家人和朋友</string>
-    <string name="upgrade_friends_and_family_description">共享清單 5 個免費訪客。支援 Apple Reminders</string>
 </resources>

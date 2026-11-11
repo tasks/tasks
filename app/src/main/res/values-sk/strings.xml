@@ -328,7 +328,6 @@
     <string name="github_sponsor">Sponzor</string>
     <string name="migrating_tasks">Prebieha presúvanie úloh</string>
     <string name="migrate_count">Presunúť %s do Tasks.org</string>
-    <string name="above_average">Nadpriemerné</string>
     <string name="snackbar_tasks_completed">%d úloh bolo dokončených</string>
     <string name="auto_dismiss_datetime_edit">Úprava úlohy</string>
     <string name="auto_dismiss_datetime_widget">Widget</string>
@@ -341,10 +340,8 @@
     <string name="authorization_cancelled">Autorizácia bola zrušená</string>
     <string name="settings_default">Predvolený</string>
     <string name="completed">Dokončené</string>
-    <string name="upgrade_open_source_description">Vaše predplatné podporí ďalší vývoj aplikácie</string>
     <string name="back">Späť</string>
     <string name="github_sponsors">Sponzori na GitHube</string>
-    <string name="save_percent">Ušetríte %d%%</string>
     <string name="calendar_event_created">Udalosť v kalendári vytvorená pre %s</string>
     <string name="compact">Kompaktný</string>
     <string name="add_tags">Pridať štítky</string>
@@ -385,10 +382,6 @@
     <string name="multiline_title">Povoliť názvy na viac riadkov</string>
     <string name="multiline_title_on">Stlačením Enter pridáte konce riadkov</string>
     <string name="hint_customize_edit_body">Túto obrazovku si môžete prispôsobiť preskupením alebo odobraním polí</string>
-    <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatnými používateľmi</string>
-    <string name="pro_free_trial">Noví predplatitelia dostanú 7 dní na bezplatné otestovanie. Predplatné je možné kedykoľvek zrušiť</string>
-    <string name="upgrade_more_customization">Ďalšie prispôsobenie</string>
-    <string name="upgrade_more_customization_description">Odomknúť všetky motívy, farby a ikony</string>
     <string name="dismiss">Odmietnuť</string>
     <string name="enable_alarms">Dostaňte upozornenia včas</string>
     <string name="sync_warning_microsoft_title">O synchronizácii Microsoft To Do</string>

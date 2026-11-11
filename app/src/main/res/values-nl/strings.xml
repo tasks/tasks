@@ -333,8 +333,6 @@
     <string name="migrate_count">Verplaats %s naar Tasks.org</string>
     <string name="migrating_tasks">Migreert taken</string>
     <string name="github_sponsors">GitHub sponsors</string>
-    <string name="save_percent">Bespaar %d%%</string>
-    <string name="above_average">Bovengemiddeld</string>
     <string name="decsync_selection_description">Synchroniseren op de interne opslag</string>
     <string name="copied_to_clipboard">%s naar het klembord gekopiëerd</string>
     <string name="app_password">App wachtwoord</string>
@@ -352,11 +350,6 @@
     <string name="support">Ondersteuning</string>
     <string name="privacy">Privacy</string>
     <string name="open_source">Open source</string>
-    <string name="upgrade_more_customization">Meer maatwerk</string>
-    <string name="upgrade_more_customization_description">Alle thema\'s, kleuren en pictogrammen ontgrendelen</string>
-    <string name="upgrade_open_source_description">Jouw abonnement ondersteunt verdere ontwikkeling</string>
-    <string name="upgrade_tasks_org_account_description">Synchroniseren met Tasks.org en samenwerken met andere gebruikers</string>
-    <string name="pro_free_trial">Nieuwe abonnees krijgen een gratis proefperiode van 7 dagen. Annuleren kan op elk moment</string>
     <string name="now">Nu</string>
     <string name="completed">Voltooid</string>
     <string name="snackbar_task_completed">Taak voltooid</string>
@@ -413,14 +406,7 @@
     <string name="p_per_list_sort">sortering_op_lijst</string>
     <string name="permission_write_tasks">Taken, lijsten, labels en plaatsen toevoegen, wijzigen en verwijderen</string>
     <string name="guest_create_list_message">Je hebt momenteel gasttoegang tot gedeelde lijsten. Om je eigen privélijsten te maken en te synchroniseren met de cloud, heb je een Tasks.org-abonnement nodig. Of je kunt een gratis lokale lijst maken die op dit apparaat blijft staan.</string>
-    <string name="upgrade_email_to_task_description">Vorm e-mails om tot taken door ze door te sturen naar je privé-inbox</string>
     <string name="subscription_required_fdroid">Een abonnement is vereist om Tasks.org sync te gebruiken. Abonnementen moeten worden geïnitieerd vanuit de Google Play-versie van Tasks.</string>
     <string name="sponsorship_required_fdroid">Een GitHub sponsoring is vereist om Tasks.org sync te gebruiken. Klik hieronder om sponsor te worden.</string>
-    <string name="upgrade_desktop_app">Tasks.org voor desktop</string>
-    <string name="upgrade_desktop_app_description">Vroegtijdige toegang tot de nieuwe desktop-app</string>
-    <string name="upgrade_friends_and_family">Vrienden &amp; familie</string>
-    <string name="upgrade_friends_and_family_description">5 gratis gasten op gedeelde lijsten. Werkt met Apple Reminders</string>
-    <string name="advanced_tools">Geavanceerde tools</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync en meer!</string>
     <string name="read_more">Meer informatie</string>
 </resources>

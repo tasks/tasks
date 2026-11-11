@@ -337,8 +337,6 @@
     <string name="migrating_tasks">העברת משימות</string>
     <string name="copied_to_clipboard">%s העותק ללוח</string>
     <string name="app_password">סיסמת יישום</string>
-    <string name="save_percent">חיסכון של %d%%</string>
-    <string name="above_average">מעל הממוצע</string>
     <string name="migrate_count">העברת %s משימות אל Tasks.org</string>
     <string name="github_sponsor">נותן חסות</string>
     <string name="authentication_required">נדרש אימות</string>
@@ -349,11 +347,6 @@
     <string name="decsync_selection_description">סנכרון מבוסס קובץ</string>
     <string name="start_date">תאריך התחלה</string>
     <string name="filter_criteria_unstarted">לא התחילו</string>
-    <string name="upgrade_open_source_description">המינוי שלך תומך בהמשך הפיתוח</string>
-    <string name="upgrade_tasks_org_account_description">סנכרון עם Tasks.org ושיתוף פעולה עם משתמשים אחרים</string>
-    <string name="upgrade_more_customization_description">ביטול נעילה של כל ערכות הנושא, הצבעים, והסמלים</string>
-    <string name="upgrade_more_customization">התאמה אישית נוספת</string>
-    <string name="pro_free_trial">מנויים חדשים מקבלים 7 ימי ניסיון בחינם. ניתן לבטל בכל עת</string>
     <string name="tasks_org_account_required">נדרש חשבון Tasks.org</string>
     <string name="privacy">פרטיות</string>
     <string name="open_source">קוד פתוח</string>
@@ -413,11 +406,6 @@
     <string name="email_to_task">דוא\"ל למשימה</string>
     <string name="email_to_task_address">כתובת הדוא\"ל שלך</string>
     <string name="guest_create_list_message">כרגע יש לך גישת אורח לרשימות משותפות. כדי ליצור ולסנכרן את הרשימות הפרטיות שלך לענן, יש צורך במינוי Tasks.org. או שבאפשרותך ליצור רשימה מקומית חינמית אשר נשארת במכשיר זה.</string>
-    <string name="upgrade_friends_and_family">חברים ומשפחה</string>
-    <string name="upgrade_friends_and_family_description">5 אורחים חינמיים ברשימות משותפות. עובד עם Apple Reminders</string>
-    <string name="upgrade_email_to_task_description">הפיכת הודעות דוא\"ל למשימות על ידי העברתן לדואר הנכנס הפרטי שלך</string>
-    <string name="advanced_tools">כלים מתקדמים</string>
-    <string name="advanced_tools_description">‪Google Places, CalDAV, EteSync‬, ועוד!</string>
     <string name="legal_disclosure_prefix_using">על ידי שימוש ב־Tasks.org</string>
     <string name="tos_updated_title">עדכנו את תנאי השירות שלנו</string>
     <string name="accept">הסכמה</string>
@@ -425,8 +413,6 @@
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">מיון לפי רשימה</string>
     <string name="per_list_sort_summary">זכור הגדרות מיון וקיבוץ עבור כל רשימה בנפרד</string>
-    <string name="upgrade_desktop_app">Tasks.org למחשב שולחני</string>
-    <string name="upgrade_desktop_app_description">גישה מוקדמת ליישומון החדש למחשב שולחני</string>
     <string name="read_more">לקרוא עוד</string>
     <string name="sort_options">אפשרויות מיון</string>
     <string name="write_permission_label">שינוי משימות</string>

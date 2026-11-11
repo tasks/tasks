@@ -30,12 +30,9 @@
     <string name="tomorrow">พรุ่งนี้</string>
     <string name="repeat_option_custom">กำหนดเอง…</string>
     <string name="delete_tag_confirmation">ลบ %s หรือไม่\?</string>
-    <string name="upgrade_tasks_org_account_description">ซิงค์กับ Tasks.org และทํางานร่วมกับผู้ใช้รายอื่น</string>
     <string name="tasks_org_account_required">Tasks.org บัญชีลูกค้า</string>
     <string name="copied_to_clipboard">%s คัดลอกไปยังคลิปบอร์ดแล้ว</string>
     <string name="app_password">รหัสผ่านของแอป</string>
-    <string name="save_percent">ประหยัด %d%%</string>
-    <string name="above_average">สูงกว่าค่าเฉลี่ย</string>
     <string name="migrate_count">ย้าย %s ไปยัง Tasks.org</string>
     <string name="migrating_tasks">กําลังโยกย้ายงาน</string>
     <string name="github_sponsor">สปอนเซอร์</string>
@@ -260,10 +257,6 @@
     <string name="CFC_dueBefore_text">ครบกําหนดเมื่อ: \?</string>
     <string name="next_week">อาทิตย์หน้า</string>
     <string name="day_after_tomorrow">วันหลังจากวันพรุ่งนี้</string>
-    <string name="upgrade_open_source_description">การสมัครใช้งานของคุณสนับสนุนการพัฒนาอย่างต่อเนื่อง</string>
-    <string name="upgrade_more_customization_description">ปลดล็อกธีม สี และไอคอนทั้งหมด</string>
-    <string name="upgrade_more_customization">การปรับแต่งเพิ่มเติม</string>
-    <string name="pro_free_trial">สมาชิกใหม่ได้รับการทดลองใช้ฟรี 7 วัน ยกเลิกได้ตลอดเวลา</string>
     <string name="gtasks_error_accountNotFound">ไม่พบบัญชี %s โปรดออกจากระบบและเข้าสู่ระบบอีกครั้งจากการตั้งค่างานของ Google.</string>
     <string name="EPr_manage_delete_all_gcal_message">คุณต้องการลบเหตุการณ์ทั้งหมดสําหรับงานหรือไม่\?</string>
     <string name="EPr_manage_delete_all_gcal">ลบเหตุการณ์ในปฏิทินทั้งหมดสําหรับงาน</string>

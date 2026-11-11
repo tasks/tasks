@@ -160,7 +160,6 @@
     <string name="import_summary_title">Taasta kokkuvõte</string>
     <string name="SSD_sort_my_order">Minu tellimus</string>
     <string name="custom_filter_is_subtask">On alamülesanne</string>
-    <string name="upgrade_more_customization">Rohkem kohandusi</string>
     <string name="compact">Kompaktne</string>
     <string name="lists">Loendid</string>
     <string name="filter_overdue">Üle tähtaja</string>
@@ -168,7 +167,6 @@
     <string name="device_settings">Nutiseadme seadistused</string>
     <string name="last_backup_never">mitte kunagi</string>
     <string name="account">Konto</string>
-    <string name="above_average">Üle keskmise</string>
     <string name="premium_record_audio">Salvesta audiomärge</string>
     <string name="expand_subtasks">Ava alamülesanded</string>
     <string name="preferences_advanced">Edasijõudnutele</string>
@@ -263,7 +261,6 @@
     <string name="no_start_date">Alguskuupäev puudub</string>
     <string name="SSD_sort_start">Alguskuupäeva alusel</string>
     <string name="tasks_org_account_required">Vajalik on Tasks.org-i konto</string>
-    <string name="save_percent">Salvesta %d%%</string>
     <string name="repeats_from">Kordub alates</string>
     <string name="no_due_date">Tähtaeg puudub</string>
     <plurals name="repeat_n_minutes">
@@ -346,7 +343,6 @@
     <string name="copy_multiple_tasks_confirmation">%s on kopeeritud</string>
     <string name="show_edit_screen_without_unlock">Näita muutmisvaadet ka ilma lukustust eemaldamata</string>
     <string name="sign_in_with_google">Logi sisse Google\'i kasutajakontoga</string>
-    <string name="pro_free_trial">Uued tellijad võivad kasutada 7-päevast tasuta testperioodi, mida on võimalik igal ajahetkel katkestada</string>
     <string name="filter_eisenhower_box_2">Tähtis ja mittekiire</string>
     <string name="migrate_count">Teisalda %s teenusesse Tasks.org</string>
     <string name="sort_completion_group">Lõpetatud %s</string>
@@ -367,8 +363,6 @@
     <string name="auto_dismiss_datetime_summary">Peale kuupäeva ja/või aja valimist, sulge kuupäevavalija automaatselt</string>
     <string name="permission_read_tasks">Täismahuline ligipääs Tasksi andmekogule</string>
     <string name="copied_to_clipboard">%s on kopeeritud lõikelauale</string>
-    <string name="upgrade_tasks_org_account_description">Sünkroniseeri Tasks.org teenusega ja tee koostööd teiste kasutajatega</string>
-    <string name="upgrade_more_customization_description">Muuda kõik kujundused, värvid ja ikoonid saadavaks</string>
     <string name="android_auto_backup_device_summary">Sa pead varukoopiateenusega nutiseadme seadistustes liituma. Kõikides nutiseadmetes sellist võimalust pole.</string>
     <string name="enable_alarms_description">Tagamaks, et alati saad õigel ajal teavitusi, palun luba nutiseadme seadistustest äratuste ja meeldetuletuste kasutamine</string>
     <string name="snackbar_tasks_completed">%d ülesannet on lõpetatud</string>
@@ -389,7 +383,6 @@
     <string name="hint_customize_edit_body">Sa võid seda vaadet kohendada väljade ümbertõstmise ja eemaldamise teel</string>
     <string name="enable_alarms">Taga õigeaegsed teavitused</string>
     <string name="foreground_location">Asukoht esiplaanil</string>
-    <string name="upgrade_open_source_description">Sinu tellimus aitab toetada arendustöö jätkamist</string>
     <string name="background_location">Asukoht tagaplaanil</string>
     <string name="app_settings">Rakenduse seadistused</string>
     <string name="banner_app_updated_description">Rakendus on uuendatud versioonini %s. Kas sa sooviksid lugeda, mis on siin hiljuti muutunud?</string>
@@ -407,16 +400,9 @@
     <string name="banner_subscription_required_body">%s rakenduse sünkroonimisfunktsionaalsuse kasutamiseks maksa sulle sobiv summa</string>
     <string name="email_to_task">E-kiri ülesandeks</string>
     <string name="email_to_task_address">Sinu e-posti aadress</string>
-    <string name="upgrade_email_to_task_description">Muuda e-kirjad ülesanneteks, kui edastad need oma privaatsesse postkasti</string>
-    <string name="advanced_tools">Täiendavad tarvikud</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync ja palju muud!</string>
     <string name="per_list_sort_title">Loendikohane järjestus</string>
     <string name="per_list_sort_summary">Järjestuse ja rühmitamise seadistused jäävad salvestuvad iga loendi puhul eraldi</string>
     <string name="guest_create_list_message">Sul on praegu külaliskasutaja juurdepääs jagatud loenditele. Oma isiklike loendite loomiseks ja pilvega sünkroonimiseks on vaja Tasks.org-i tellimust. Või võid luua tasuta kohaliku nimekirja, mis jääb sellesse seadmesse.</string>
-    <string name="upgrade_desktop_app">Tasks.org töölaua jaoks</string>
-    <string name="upgrade_desktop_app_description">Varajane ligipääs töölauarakendusele</string>
-    <string name="upgrade_friends_and_family">Sõbrad ja pere</string>
-    <string name="upgrade_friends_and_family_description">5 tasuta külalist jagatud loendites. Töötab ka „Apple Reminders“ rakendusega</string>
     <string name="read_more">Loe lisaks</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="legal_disclosure_prefix_using">Tasks.org-i kasutamisel</string>

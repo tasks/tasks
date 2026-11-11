@@ -229,7 +229,6 @@
     <string name="local_lists">Lokaj listoj</string>
     <string name="filter_no_tags">Neniu etikedoj</string>
     <string name="support">Helpo</string>
-    <string name="upgrade_open_source_description">Via abono subtenas daŭratan programadon</string>
     <string name="collapse_subtasks">Maletendi subtaskojn</string>
     <string name="logout">Elsaluti</string>
     <string name="back">Reen</string>
@@ -294,8 +293,6 @@
     <string name="github_sponsor">Sponsoro</string>
     <string name="migrate_count">Movi %s al Tasks.org</string>
     <string name="copied_to_clipboard">%s kopiiĝis al tondujo</string>
-    <string name="pro_free_trial">Novaj abonantoj ricevas provperiodon de 7 tagoj. Iam ajn nuligi ĝin</string>
-    <string name="upgrade_more_customization">Pli da adapto</string>
     <string name="filter_criteria_unstarted">Nekomencita</string>
     <string name="customize_edit_screen_summary">Rearanĝi aŭ forigi kampojn</string>
     <string name="widget_due_date_hidden">Kaŝita</string>
@@ -336,8 +333,6 @@
     <string name="backup_location_warning">AVERTO: Dosieroj situas en %s estos forigitaj se Tasks malinstaliĝos! Bonvolu elekti propran lokon por malpermesi ke Android forigos viajn dosierojn.</string>
     <string name="snackbar_task_completed">Tasko finita</string>
     <string name="snackbar_tasks_completed">%d taskoj estas finitaj</string>
-    <string name="above_average">Super meznombra</string>
-    <string name="save_percent">Ŝpari je %d%%</string>
     <string name="widget_id">Fenestraĵa ID: %d</string>
     <string name="permission_read_tasks">Tuta atingorajto al Tasks datumbazo</string>
     <string name="foreground_location">Malfona loko</string>
@@ -363,8 +358,6 @@
     <string name="android_auto_backup_device_summary">Vi devas ankaŭ doni permeson al savkopia servo per viaj aparataj agordoj. Ne ĉiuj aparatoj provizas savkopian servon.</string>
     <string name="badges_description">Vidigi nombro da taskoj sur lanĉpiktogramo de Tasks. Ne ĉiuj lanĉiloj subtenas ĉi tiajn simbolojn.</string>
     <string name="your_subscription_expired">Via abono finiĝis. Abonu tuj por reaktivigi servon.</string>
-    <string name="upgrade_tasks_org_account_description">Sinkronigi kun Tasks.org kaj kunlabori kun aliaj uzantoj</string>
-    <string name="upgrade_more_customization_description">Malŝlosi ĉiujn etosojn, kolorojn, kaj piktogramojn</string>
     <string name="pro_dashclock_extension">Dashclock kromprogramo</string>
     <string name="tasker_list_notification">Sciigo de listo</string>
     <string name="auto_dismiss_datetime_edit">Redakti taskon</string>
@@ -409,16 +402,9 @@
     <string name="per_list_sort_title">Ordigi laŭ listo</string>
     <string name="per_list_sort_summary">Sendepende konservi ordigajn kaj grupajn agordojn de ĉiu listo</string>
     <string name="email_to_task_address">Via retpoŝtadreso</string>
-    <string name="upgrade_friends_and_family">Amikoj kaj Familianoj</string>
-    <string name="advanced_tools">Altnivelaj iloj</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, kaj pli!</string>
     <string name="email_to_task">Retpoŝto al tasko</string>
-    <string name="upgrade_friends_and_family_description">5 senpagaj gastoj de komunaj listoj. Funkcias per Apple Reminders</string>
-    <string name="upgrade_email_to_task_description">Krei taskojn el retpoŝtoj per antaŭsendi ilin al via privata enirkesto</string>
     <string name="guest_create_list_message">Vi nun havas aliron kiel gasto al komunaj listoj. Por krei kaj sinkronigi proprajn privatajn listojn al la nubo, vi bezonas abonon de Tasks.org. Vi povas ankaŭ krei senpagan lokan liston kiu restas en ĉi tiu aparato.</string>
     <string name="p_per_list_sort">ordigi_laŭ_listo</string>
-    <string name="upgrade_desktop_app">Tasks.org por labortablo</string>
-    <string name="upgrade_desktop_app_description">Frua atingo de la nova labortabla aplikaĵo</string>
     <string name="read_more">Legi pli</string>
     <string name="sort_options">Agordoj de ordigo</string>
     <string name="write_permission_label">Modifi Taskojn</string>

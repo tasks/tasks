@@ -253,8 +253,6 @@
     <string name="repeats_plural_number_of_times">Ulangi setiap %1$s, terjadi %2$d %3$s</string>
     <string name="copied_to_clipboard">%s disalin ke papan klip</string>
     <string name="app_password">Kata sandi aplikasi</string>
-    <string name="save_percent">Simpan %d%%</string>
-    <string name="above_average">Diatas rata-rata</string>
     <string name="migrate_count">Pindahkan %s ke Tasks.org</string>
     <string name="migrating_tasks">Memindahkan tugas</string>
     <string name="github_sponsor">Sponsor</string>
@@ -348,11 +346,6 @@
     <string name="privacy">Privasi</string>
     <string name="open_source">Sumber Terbuka</string>
     <string name="support">Dukung</string>
-    <string name="upgrade_open_source_description">Langganan Anda mendukung kelanjutan pengembangan aplikasi ini</string>
-    <string name="upgrade_tasks_org_account_description">Sinkronkan dengan Tasks.org dan kolaborasi dengan pengguna lain</string>
-    <string name="upgrade_more_customization_description">Buka semua tema, warna, dan ikon</string>
-    <string name="upgrade_more_customization">Lebih banyak kostumisasi</string>
-    <string name="pro_free_trial">Pelanggan baru menerima percobaan aplikasi gratis selama 7-hari. Batalkan kapan saja</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks</string>
     <string name="now">Sekarang</string>
@@ -393,11 +386,6 @@
     <string name="email_to_task">Email ke tugas</string>
     <string name="email_to_task_address">Alamat email Anda</string>
     <string name="guest_create_list_message">Saat ini Anda memiliki akses tamu ke daftar bersama. Untuk membuat dan menyinkronkan daftar pribadi Anda sendiri ke cloud, Anda memerlukan langganan Tasks.org. Atau, Anda dapat membuat daftar lokal gratis yang tetap berada di perangkat ini.</string>
-    <string name="upgrade_friends_and_family">Keluarga &amp; Teman</string>
-    <string name="upgrade_friends_and_family_description">5 tamu gratis di daftar bersama. Berfungsi dengan Apple Reminders</string>
-    <string name="upgrade_email_to_task_description">Ubah email menjadi tugas dengan meneruskannya ke kotak masuk pribadi Anda</string>
-    <string name="advanced_tools">Alat lanjutan</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync, dan lainnya!</string>
     <string name="snackbar_tasks_completed">%d tugas diselesaikan</string>
     <string name="hint_customize_edit_title">Terlalu banyak informasi?</string>
     <string name="enable_alarms">Dapatkan notifikasi pada waktu yang tepat</string>

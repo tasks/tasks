@@ -266,8 +266,6 @@
     <string name="sort_created">За часом створення</string>
     <string name="copied_to_clipboard">%s скопійовано в буфер обміну</string>
     <string name="app_password">Пароль застосунку</string>
-    <string name="save_percent">Зберегти %d%%</string>
-    <string name="above_average">Вище середнього</string>
     <string name="migrate_count">Перемістити %s на Tasks.org</string>
     <string name="migrating_tasks">Перенесення завдань</string>
     <string name="github_sponsor">Спонсор</string>
@@ -360,11 +358,6 @@
     <string name="privacy">Приватність</string>
     <string name="open_source">Відкритий джерельний код</string>
     <string name="support">Підтримка</string>
-    <string name="upgrade_open_source_description">Ваша передплата підтримує постійний розвиток</string>
-    <string name="upgrade_tasks_org_account_description">Синхронізація з Tasks.org та співпраця з іншими користувачами</string>
-    <string name="upgrade_more_customization_description">Розблокування всіх тем, кольорів і піктограм</string>
-    <string name="upgrade_more_customization">Більше налаштувань</string>
-    <string name="pro_free_trial">Нові передплатники отримують 7-денну безплатну пробну версію. Скасувати її можна в будь-який час</string>
     <string name="now">Зараз</string>
     <string name="completed">Виконано</string>
     <string name="snackbar_task_completed">Завдання виконано</string>
@@ -410,13 +403,8 @@
     <string name="write_permission_label">Змінити завдання</string>
     <string name="sort_options">Сортувати опції</string>
     <string name="p_per_list_sort">per_list_sort</string>
-    <string name="upgrade_desktop_app">Tasks.org для комп\'ютера</string>
     <string name="banner_subscription_required_body">Платіть скільки хочете, щоб розблокувати синхронізацію %s</string>
     <string name="email_to_task_address">Ваша адреса е-пошти</string>
-    <string name="upgrade_desktop_app_description">Ранній доступ до нового застосунку для ПК</string>
-    <string name="upgrade_friends_and_family">Друзі й сім\'я</string>
-    <string name="advanced_tools">Додаткові інструменти</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync та інші!</string>
     <string name="legal_disclosure_prefix_using">Використовуючи Tasks.org</string>
     <string name="tos_updated_title">Ми оновили Умови користування</string>
     <string name="accept">Прийняти</string>
@@ -429,6 +417,4 @@
     <string name="sponsorship_required_fdroid">Для використання синхронізації Tasks.org необхідне спонсорство на GitHub. Натисніть нижче, щоб стати спонсором.</string>
     <string name="email_to_task">Е-лист до завдання</string>
     <string name="guest_create_list_message">Наразі ви маєте доступ до спільних списків як гість. Щоб створювати власні приватні списки та синхронізувати їх із хмарою, вам знадобиться передплата на Tasks.org. Або ви можете створити безплатний локальний список, який зберігатиметься на цьому пристрої.</string>
-    <string name="upgrade_friends_and_family_description">5 безплатних гостей у спільних списках. Працює з Нагадуваннями від Apple</string>
-    <string name="upgrade_email_to_task_description">Перетворюйте електронні листи на завдання, пересилаючи їх у свою особисту поштову скриньку</string>
 </resources>

@@ -241,8 +241,6 @@
     <string name="account">Conta</string>
     <string name="custom_filter_has_subtask">Ten subtarefas</string>
     <string name="tasks_org_account_required">Precísase de conta en Tasks.org</string>
-    <string name="upgrade_more_customization">Máis opcións</string>
-    <string name="upgrade_more_customization_description">Desbloquear todos os temas, cores e iconas</string>
     <string name="auto_dismiss_datetime">Pechar o selector de data automaticamente</string>
     <string name="lists">Listas</string>
     <string name="last_backup">Última copia de seguranza: %s</string>
@@ -313,8 +311,6 @@
     <string name="backups_ignore_warnings">Ignorar as advertencias</string>
     <string name="custom_filter_has_reminder">Ten un recordatorio</string>
     <string name="authorization_cancelled">Cancelouse a autenticación</string>
-    <string name="above_average">Por riba da media</string>
-    <string name="save_percent">Gardar %d%%</string>
     <string name="app_password">Contrasinal da app</string>
     <string name="copied_to_clipboard">%s copiadas ao portaretallos</string>
     <string name="completed">Finalizada</string>
@@ -364,9 +360,6 @@
     <string name="privacy">Privacidade</string>
     <string name="github_sponsors">Patrocinadores de GitHub</string>
     <string name="github_sponsor">Patrocinador</string>
-    <string name="pro_free_trial">Os novos subscritores reciben unha proba gratuíta de 7 días. Cancela en calquera momento</string>
-    <string name="upgrade_tasks_org_account_description">Sincroniza con Tasks.org e colabora con outros usuarios</string>
-    <string name="upgrade_open_source_description">A túa subscrición apoia o desenvolvemento continuo</string>
     <string name="dismiss">Descartar</string>
     <string name="hint_customize_edit_title">Demasiada información?</string>
     <string name="hint_customize_edit_body">Podes personalizar esta pantalla reorganizando ou eliminando campos</string>

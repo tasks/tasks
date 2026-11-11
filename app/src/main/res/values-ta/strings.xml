@@ -368,7 +368,6 @@
     <string name="snackbar_task_completed">பணி முடிந்தது</string>
     <string name="support">உதவி</string>
     <string name="tasks_org_account_required">Tasks.org கணக்கு தேவை</string>
-    <string name="upgrade_open_source_description">உங்கள் சந்தா தொடர்ச்சியான வளர்ச்சியை ஆதரிக்கிறது</string>
     <string name="app_password">பயன்பாட்டு கடவுச்சொல்</string>
     <string name="migrating_tasks">இடம்பெயரும் பணிகள்</string>
     <string name="dismiss">தள்ளுபடி</string>
@@ -379,19 +378,13 @@
     <string name="privacy">தனியுரிமை</string>
     <string name="snackbar_tasks_completed">%d பணிகள் முடிந்தது</string>
     <string name="authorization_cancelled">ஏற்பு ரத்து செய்யப்பட்டது</string>
-    <string name="above_average">சராசரிக்கு மேல்</string>
-    <string name="upgrade_tasks_org_account_description">Tasks.org உடன் ஒத்திசைத்து பிற பயனர்களுடன் ஒத்துழைக்கவும்</string>
     <string name="sign_in_with_google">Google உடன் உள்நுழைக</string>
     <string name="migrate_count">%s ஐ tasks.org க்கு நகர்த்தவும்</string>
-    <string name="save_percent">%d %% சேமிக்கவும்</string>
-    <string name="pro_free_trial">புதிய சந்தாதாரர்கள் 7 நாள் இலவச சோதனையைப் பெறுகிறார்கள். எந்த நேரத்திலும் ரத்துசெய்</string>
-    <string name="upgrade_more_customization_description">அனைத்து கருப்பொருள்கள், வண்ணங்கள் மற்றும் ஐகான்களைத் திறக்கவும்</string>
     <string name="hint_customize_edit_title">அதிகமான தகவல்கள்?</string>
     <string name="hint_customize_edit_body">புலங்களை மறுசீரமைப்பதன் மூலம் அல்லது அகற்றுவதன் மூலம் இந்தத் திரையைத் தனிப்பயனாக்கலாம்</string>
     <string name="enable_alarms_description">சரியான நேரத்தில் உங்களுக்கு அறிவிக்கப்பட்டிருப்பதை உறுதிப்படுத்த, அமைப்புகளில் அலாரங்கள் மற்றும் நினைவூட்டல்களை அமைக்க இசைவு வழங்கவும்</string>
     <string name="button_learn_more">மேலும் அறிக</string>
     <string name="open_source">திறந்த மூல</string>
-    <string name="upgrade_more_customization">மேலும் தனிப்பயனாக்கம்</string>
     <string name="banner_app_updated_title">பயன் புதுப்பிக்கப்பட்டது</string>
     <string name="multiline_title_off">பணியைச் சேமிக்க முடிந்தது என்பதை அழுத்தவும்</string>
     <string name="banner_app_updated_description">பணிகள் இப்போதுதான் %s ஆகப் புதுப்பிக்கப்பட்டது. வெளியீட்டுக் குறிப்புகளைப் பார்க்க விரும்புகிறீர்களா?</string>

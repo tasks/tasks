@@ -301,16 +301,9 @@
     <string name="CFC_list_name">listalla…</string>
     <string name="backups_ignore_warnings_summary">Jätä varmuuskopiointivaroitukset huomiotta, jos et tarvitse varmuuskopioita tai sinulla on oma varmuuskopiointiratkaisu</string>
     <string name="astrid_sort_order_summary">Ota käyttöön Astridin manuaalinen lajittelutila \'Omat tehtävät\', \'Tänään\' ja tunnisteet. Tämä lajittelutila korvataan \'Oma järjestys\'-tilalla tulevassa päivityksessä</string>
-    <string name="upgrade_open_source_description">Tilauksesi tukee jatkuvaa kehitystä</string>
-    <string name="upgrade_tasks_org_account_description">Synkronoi Tasks.orgin kanssa ja tee yhteistyötä muiden käyttäjien kanssa</string>
-    <string name="upgrade_more_customization_description">Avaa kaikki teemat, värit ja kuvakkeet</string>
-    <string name="upgrade_more_customization">Lisää räätälöintiä</string>
-    <string name="pro_free_trial">Uudet tilaajat saavat 7 päivän ilmaisen kokeilujakson. Peruuta milloin tahansa</string>
     <string name="tasks_org_account_required">Tarvitaan Tasks.org-tili</string>
     <string name="copied_to_clipboard">%s kopioitu leikepöydälle</string>
     <string name="app_password">Sovelluksen salasana</string>
-    <string name="save_percent">Tallenna %d%%</string>
-    <string name="above_average">Keskimääräistä parempi</string>
     <string name="migrate_count">Siirrä %s osoitteeseen Tasks.org</string>
     <string name="migrating_tasks">Tehtävien siirtäminen</string>
     <string name="github_sponsor">Sponsori</string>

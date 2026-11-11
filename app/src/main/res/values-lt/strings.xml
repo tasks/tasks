@@ -280,8 +280,6 @@
     <string name="show_advanced_settings">Rodyti išplėstinius nustatymus</string>
     <string name="start_date">Pradžios data</string>
     <string name="SSD_sort_my_order">Mano užsakymas</string>
-    <string name="upgrade_open_source_description">Jūsų prenumerata palaiko tolesnį kūrimą</string>
-    <string name="upgrade_more_customization_description">Atrakinkite visas temas, spalvas ir piktogramas</string>
     <string name="CFC_list_name">Yra sąraše…</string>
     <string name="no_start_date">Be pradžios datos</string>
     <string name="CFC_startBefore_name">Pradėti iki…</string>
@@ -289,9 +287,6 @@
     <string name="astrid_sort_order">Astrid rankinis rūšiavimas</string>
     <string name="cancel">Atšaukti</string>
     <string name="ok">Gerai</string>
-    <string name="pro_free_trial">Naujiems prenumeratoriams suteikiamas 7 dienų nemokamas bandomasis laikotarpis. Atšaukite bet kuriuo metu</string>
-    <string name="upgrade_more_customization">Daugiau tinkinimo</string>
-    <string name="upgrade_tasks_org_account_description">Sinchronizuokite su Tasks.org ir bendradarbiaukite su kitais naudotojais</string>
     <string name="account">Paskyra</string>
     <string name="last_backup_never">niekada</string>
     <string name="lists">Sąrašai</string>
@@ -311,8 +306,6 @@
     <string name="foreground_location">Vietos nustatymas</string>
     <string name="background_location">Foninis vietos nustatymas</string>
     <string name="multi_select_reschedule">Perplanuoti</string>
-    <string name="save_percent">Sutaupykite %d%%</string>
-    <string name="above_average">Virš vidurkio</string>
     <string name="github_sponsor">Remti</string>
     <string name="github_sponsors">GitHub rėmėjai</string>
     <string name="sign_in_with_google">Prisijungti naudojant Google</string>

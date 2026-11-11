@@ -337,8 +337,6 @@
     <string name="github_sponsors">GitHub babesleak</string>
     <string name="copied_to_clipboard">%s arbelera kopiatuta</string>
     <string name="app_password">Aplikazioaren pasahitza</string>
-    <string name="save_percent">Aurreztu %% %d</string>
-    <string name="above_average">Batezbestekotik gora</string>
     <string name="migrate_count">Eraman %s Tasks.org gunera</string>
     <string name="migrating_tasks">Zereginak migratzen</string>
     <string name="authentication_required">Autentifikazioa derrigorrezkoa</string>
@@ -355,11 +353,6 @@
     <string name="privacy">Pribatutasuna</string>
     <string name="open_source">Kode irekia</string>
     <string name="support">Euskarria</string>
-    <string name="upgrade_open_source_description">Harpidetzak etengabeko garapenaren alde egiten du</string>
-    <string name="upgrade_tasks_org_account_description">Sinkronizatu Tasks.org-ekin eta lankidetu beste erabiltzaile batzuekin</string>
-    <string name="upgrade_more_customization_description">Desblokeatu gai, kolore eta ikono guztiak</string>
-    <string name="upgrade_more_customization">Pertsonalizazio gehiago</string>
-    <string name="pro_free_trial">Harpidedun berriek 7 eguneko doako proba jasotzen dute. Ezeztatu edozein unetan</string>
     <string name="now">Orain</string>
     <string name="completed">Amaituta</string>
     <string name="snackbar_task_completed">Amaitutako zereginak</string>

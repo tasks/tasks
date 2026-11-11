@@ -352,8 +352,6 @@
     <string name="github_sponsor">Homiy</string>
     <string name="migrating_tasks">Vazifalarni ko\'chirish</string>
     <string name="migrate_count">%s ni Tasks.org\'ga ko\'chirish</string>
-    <string name="above_average">O\'rtachadan yuqori</string>
-    <string name="save_percent">Saqlang %d%%</string>
     <string name="app_password">Ilova oʻroni</string>
     <string name="custom_filter_and">VA</string>
     <string name="custom_filter_or">YOKI</string>
@@ -389,18 +387,6 @@
     <string name="email_to_task_address">E-pochta manzilingiz</string>
     <string name="tasks_org_account_required">Tasks.org hisobi talab qilinadi</string>
     <string name="guest_create_list_message">Hozirda siz umumiy ro‘yxatlardan mehmon sifatida foydalanmoqdasiz. O‘zingizning shaxsiy ro‘yxatlaringizni yaratib, bulut bilan sinxronlash uchun Tasks.org obunasi kerak. Yoki faqat shu qurilmada saqlanadigan bepul mahalliy ro‘yxat yaratishingiz mumkin.</string>
-    <string name="pro_free_trial">Yangi obunachilar 7 kunlik bepul sinov muddatidan foydalanadi. Istalgan vaqtda bekor qilishingiz mumkin</string>
-    <string name="upgrade_desktop_app">Kompyuter uchun Tasks.org</string>
-    <string name="upgrade_desktop_app_description">Yangi kompyuter ilovasidan erta foydalanish imkoniyati</string>
-    <string name="upgrade_friends_and_family">Do‘stlar va oila a’zolari</string>
-    <string name="upgrade_friends_and_family_description">Umumiy ro‘yxatlarda 5 nafargacha mehmon bepul. Apple Reminders bilan ishlaydi</string>
-    <string name="upgrade_more_customization">Ko‘proq moslashtirish imkoniyatlari</string>
-    <string name="upgrade_more_customization_description">Barcha mavzular, ranglar va piktogrammalarni oching</string>
-    <string name="upgrade_tasks_org_account_description">Tasks.org bilan sinxronlang va boshqa foydalanuvchilar bilan hamkorlik qiling</string>
-    <string name="upgrade_open_source_description">Obunangiz ilovani rivojlantirishda davom etishimizga yordam beradi</string>
-    <string name="upgrade_email_to_task_description">Xatlarni shaxsiy pochta qutingizga yuborish orqali ularni vazifalarga aylantiring</string>
-    <string name="advanced_tools">Qo‘shimcha vositalar</string>
-    <string name="advanced_tools_description">Google Places, CalDAV, EteSync va boshqa xizmatlar!</string>
     <string name="completed">Bajarildi</string>
     <string name="snackbar_task_completed">Vazifa bajarildi</string>
     <string name="snackbar_tasks_completed">%d ta vazifa bajarildi</string>

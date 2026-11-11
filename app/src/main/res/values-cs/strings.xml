@@ -336,8 +336,6 @@
     <string name="tasks_org_account_required">Je vyžadován účet na Tasks.org</string>
     <string name="copied_to_clipboard">%s zkopírováno do schránky</string>
     <string name="app_password">Heslo k aplikaci</string>
-    <string name="save_percent">Ušetříte %d%%</string>
-    <string name="above_average">Nadprůměrné</string>
     <string name="migrate_count">Přesunout %s do Tasks.org</string>
     <string name="migrating_tasks">Probíhá přesouvání úkolů</string>
     <string name="github_sponsor">Sponzor</string>
@@ -359,11 +357,6 @@
     <string name="start_date">Datum zahájení</string>
     <string name="SSD_sort_start">Podle data zahájení</string>
     <string name="ok">OK</string>
-    <string name="upgrade_open_source_description">Vaše předplatné podporuje pokračování vývoje</string>
-    <string name="upgrade_tasks_org_account_description">Synchronizujte s Tasks.org a spolupracujte s ostatními uživateli</string>
-    <string name="upgrade_more_customization_description">Odemknout všechny vzhledy, barvy a ikony</string>
-    <string name="upgrade_more_customization">Další přizpůsobení</string>
-    <string name="pro_free_trial">Noví předplatitelé dostanou 7 dnů na vyzkoušení zdarma. Předplatné je možné kdykoli zrušit</string>
     <string name="now">Nyní</string>
     <string name="customize_edit_screen_summary">Přeuspořádejte nebo odstraňte pole</string>
     <string name="custom_filter_has_reminder">Má upomínku</string>
@@ -415,17 +408,10 @@
     <string name="banner_subscription_required_body">Zaplaťte, kolik chcete, pro odemknutí synchronizace %s</string>
     <string name="email_to_task">E-mail na úkol</string>
     <string name="email_to_task_address">Vaše e-mailová adresa</string>
-    <string name="upgrade_email_to_task_description">Přeměňte e-maily na úkoly jejich přesměrováním do vaší soukromé schránky</string>
-    <string name="advanced_tools">Pokročilé nástroje</string>
-    <string name="advanced_tools_description">Místa Google, CalDAV, EteSync a další!</string>
     <string name="guest_create_list_message">V současné době máte přístup hosta ke sdíleným seznamům. Pro vytvoření a synchronizaci vašich vlastních soukromých seznamů budete potřebovat předplatné Tasks.org. Můžete si také vytvořit lokální seznam, který zůstane na vašem zařízení.</string>
-    <string name="upgrade_friends_and_family">Přátelé a rodina</string>
-    <string name="upgrade_friends_and_family_description">5 bezplatných hostů ve sdílených seznamech. Funguje s Připomínkami Apple</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="per_list_sort_title">Řazení dle seznamu</string>
     <string name="per_list_sort_summary">Zapamatovat si nastavení řazení a skupin zvlášť pro každý seznam</string>
     <string name="read_more">Více informací</string>
-    <string name="upgrade_desktop_app">Tasks.org pro počítače</string>
-    <string name="upgrade_desktop_app_description">Předběžný přístup k nové aplikaci pro počítače</string>
     <string name="sort_options">Předvolby řazení</string>
 </resources>

@@ -329,16 +329,9 @@
     <string name="github_sponsor">Σπόνσορας</string>
     <string name="migrating_tasks">Εργασίες μετακίνησης</string>
     <string name="migrate_count">Μετακίνηση %s στο Tasks.org</string>
-    <string name="above_average">Άνω του μέσου όρου</string>
-    <string name="save_percent">Αποθήκευση %d%%</string>
     <string name="app_password">Κωδικός εφαρμογής</string>
     <string name="copied_to_clipboard">%s αντιγράφηκε στο πρόχειρο</string>
     <string name="tasks_org_account_required">Χρειάζεται λογαριασμός Tasks.org</string>
-    <string name="pro_free_trial">Οι νέοι συνδρομητές λαμβάνουν δωρεάν δοκιμή 7 ημερών. Ακυρώστε ανά πάσα στιγμή</string>
-    <string name="upgrade_more_customization">Περισσότερη προσαρμογή</string>
-    <string name="upgrade_more_customization_description">Ξεκλειδώστε όλα τα θέματα, χρώματα και εικονίδια</string>
-    <string name="upgrade_tasks_org_account_description">Συγχρονίστε με το Tasks.org και συνεργαστείτε με άλλους χρήστες</string>
-    <string name="upgrade_open_source_description">Η συνδρομή σας υποστηρίζει τη συνεχή ανάπτυξη</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="snackbar_task_completed">Η εργασία ολοκληρώθηκε</string>
     <string name="snackbar_tasks_completed">%d ολοκληρωμένες εργασίες</string>

@@ -338,8 +338,6 @@
     <string name="migrating_tasks">Flytting av gjøremål</string>
     <string name="github_sponsors">GitHub-sponsorer</string>
     <string name="migrate_count">Flytt %s til Tasks.org</string>
-    <string name="save_percent">Lagre %d%%</string>
-    <string name="above_average">Over gjennomsnittet</string>
     <string name="decsync_selection_description">Filbasert synkronisering</string>
     <string name="app_password">Programpassord</string>
     <string name="local_lists">Lokale lister</string>
@@ -357,11 +355,6 @@
     <string name="privacy">Personvern</string>
     <string name="open_source">Åpen kilde</string>
     <string name="support">Støtte</string>
-    <string name="upgrade_open_source_description">Abonnementet støtter fortsatt utvikling</string>
-    <string name="upgrade_tasks_org_account_description">Synkronisere med Tasks.org og samarbeide med andre brukere</string>
-    <string name="upgrade_more_customization_description">Lås opp alle temaer, farger og ikoner</string>
-    <string name="upgrade_more_customization">Mer tilpasning</string>
-    <string name="pro_free_trial">Nye abonnenter får en 7-dagers gratis prøveperiode. Avbryt når som helst</string>
     <string name="now">Nå</string>
     <string name="snackbar_task_completed">Gjøremål fullført</string>
     <string name="customize_edit_screen_summary">Endre rekkefølgen på eller fjern felter</string>
