@@ -723,4 +723,8 @@
     <string name="subscription_ended_on">Beëindigd per %1$s</string>
     <string name="subscription_free_until">Gratis tot %1$s, daarna %2$s</string>
     <string name="subscription_payment_failed">Betaling mislukt, betaalwijze bijwerken</string>
+    <string name="subscription_active_google_play">Je hebt al een actief Google Play-abonnement.</string>
+    <string name="subscription_active_github">Je hebt al een actieve GitHub sponsoring.</string>
+    <string name="subscription_active_card">Je hebt al een actief abonnement betaald per kaart.</string>
+    <string name="subscription_active_elsewhere">Je hebt al ergens anders een actief abonnement.</string>
 </resources>
