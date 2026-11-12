@@ -167,6 +167,7 @@ class PlayBillingClient(
                 result = result.responseCodeString,
                 sku = purchase.sku,
                 state = STATE_ACKNOWLEDGE_FAILED,
+                orderId = purchase.orderId.orEmpty(),
             )
             throw result.asException
         }

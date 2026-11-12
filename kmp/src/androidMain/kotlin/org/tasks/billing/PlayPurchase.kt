@@ -1,6 +1,10 @@
 package org.tasks.billing
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 
 @Serializable
 data class PlayPurchase(
@@ -29,6 +33,13 @@ data class PlayPurchase(
 
     val needsAcknowledgement: Boolean
         get() = isPurchased && !isAcknowledged
+
+    val orderId: String?
+        get() = try {
+            Json.parseToJsonElement(originalJson).jsonObject["orderId"]?.jsonPrimitive?.contentOrNull
+        } catch (e: Exception) {
+            null
+        }
 
     override fun toString(): String = "PlayPurchase(sku=$sku, purchased=$isPurchased, " +
             "acknowledged=$isAcknowledged, autoRenewing=$isAutoRenewing)"
