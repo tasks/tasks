@@ -338,24 +338,13 @@ class CalendarUrlSyncTest : DatabaseTest() {
         }
 
     @Test
-    fun `list without a supported-calendar-component-set is synced`() = runBlocking {
+    fun `list without a supported-calendar-component-set is not synced`() = runBlocking {
         enqueueCalendars("$HOME_SET$LIST/", componentSet = null)
-        server.enqueue(multiStatus(etags("a.ics")))
-        server.enqueue(multiStatus(calendarData("a.ics" to ONE_VTODO)))
 
         synchronizer.sync(account, hasPro = true)
 
         assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
-        assertEquals(1, caldavDao.getCalendarsByAccount(account.uuid!!).size)
-        verify(iCal, times(1)).fromVtodo(
-            any<CaldavAccount>(),
-            any<CaldavCalendar>(),
-            anyOrNull<CaldavTask>(),
-            any<VTodo>(),
-            anyOrNull<String>(),
-            eq("a.ics"),
-            eq("etag-a.ics"),
-        )
+        assertEquals(emptyList<String>(), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
     }
 
     @Test

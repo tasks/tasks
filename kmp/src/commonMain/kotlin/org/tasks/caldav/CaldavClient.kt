@@ -163,7 +163,8 @@ open class CaldavClient(
     private val Response.notATaskListBecause: String?
         get() = when {
             this[ResourceType::class]?.types?.contains(CalDAV.Calendar) != true -> "not a calendar"
-            this[SupportedCalendarComponentSet::class]?.supportsTasks == false -> "no VTODO support"
+            this[SupportedCalendarComponentSet::class] == null -> "no supported-calendar-component-set"
+            this[SupportedCalendarComponentSet::class]?.supportsTasks != true -> "no VTODO support"
             else -> null
         }
 
