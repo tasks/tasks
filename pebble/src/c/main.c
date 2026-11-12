@@ -17,7 +17,7 @@ static void inbox_received_handler(DictionaryIterator *iter, void *context) {
     Tuple *msg_type_t = dict_find(iter, KEY_MSG_TYPE);
     if (!msg_type_t) return;
 
-    uint8_t msg_type = (uint8_t)msg_type_t->value->uint32;
+    uint8_t msg_type = (uint8_t)protocol_tuple_value(msg_type_t);
     APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W inbox type=%d", msg_type);
 
     switch (msg_type) {
@@ -59,14 +59,14 @@ static void inbox_dropped_handler(AppMessageResult reason, void *context) {
 static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
     Tuple *msg_t = dict_find(iter, KEY_MSG_TYPE);
     APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W outbox_sent type=%d",
-            msg_t ? (int)msg_t->value->uint32 : -1);
+            msg_t ? (int)protocol_tuple_value(msg_t) : -1);
 }
 
 static void outbox_failed_handler(DictionaryIterator *iter,
                                    AppMessageResult reason, void *context) {
     Tuple *msg_t = dict_find(iter, KEY_MSG_TYPE);
     APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W outbox_FAILED reason=%d type=%d",
-            (int)reason, msg_t ? (int)msg_t->value->uint32 : -1);
+            (int)reason, msg_t ? (int)protocol_tuple_value(msg_t) : -1);
 }
 
 static void bluetooth_handler(bool connected) {
@@ -88,12 +88,19 @@ static void init(void) {
     app_message_register_outbox_sent(outbox_sent_handler);
     app_message_register_outbox_failed(outbox_failed_handler);
 
-    // Open AppMessage with maximum inbox (for chunked responses)
-    const uint32_t inbox_size = app_message_inbox_size_maximum();
-    const uint32_t outbox_size = 256;
+    // Open AppMessage. On aplite the maximum inbox (~2KB) can fail to
+    // allocate out of the 24KB shared binary+heap space, which leaves
+    // AppMessage dead and the app stuck at "Loading..."/"Not connected" —
+    // PROTOCOL_INBOX_SIZE caps it at the 124 bytes the SDK guarantees.
+    const uint32_t inbox_size = PROTOCOL_INBOX_SIZE;
+    const uint32_t outbox_size = PROTOCOL_OUTBOX_SIZE;
     APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W app_message_open inbox=%u outbox=%u",
             (unsigned)inbox_size, (unsigned)outbox_size);
-    app_message_open(inbox_size, outbox_size);
+    AppMessageResult open_result = app_message_open(inbox_size, outbox_size);
+    if (open_result != APP_MSG_OK) {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "PEBBLE_W app_message_open FAILED: %d",
+                (int)open_result);
+    }
 
     // Bluetooth connection monitoring
     connection_service_subscribe((ConnectionHandlers){
