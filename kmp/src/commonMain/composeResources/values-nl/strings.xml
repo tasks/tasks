@@ -715,4 +715,16 @@
     <string name="subscription_active_elsewhere">Je hebt al ergens anders een actief abonnement.</string>
     <string name="upgrade_blurb_1">Hallo! Mijn naam is Alex. Ik ben de onafhankelijke ontwikkelaar achter Tasks.org</string>
     <string name="upgrade_blurb_2">Ik heb duizenden uren gewerkt aan Tasks.org en publiceer alle broncode gratis online. Om mijn werk te steunen, is voor sommige functies een abonnement nodig</string>
+    <string name="pricing_custom">Aangepast</string>
+    <string name="pricing_upgrade_to">Opwaarderen naar %1$s</string>
+    <string name="pricing_change_to">Wijzigen in %1$s</string>
+    <string name="pricing_current_subscription">Huidig abonnement</string>
+    <string name="pricing_subscribed">Geabonneerd</string>
+    <string name="pricing_cloud_feature_1_v2">Directe synchronisatie tussen Android, iOS en desktop</string>
+    <string name="pricing_nyp_feature_all_platforms">Tasks.org ontgrendelen voor Android, iOS, en desktop</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">Tasks.org ontgrendelen voor desktop en iOS</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">Geen donatieherinneringen meer</string>
+    <string name="pricing_nyp_feature_third_party_sync">Synchroniseren met Google Tasks, Microsoft To Do, CalDAV en EteSync</string>
+    <string name="pricing_feature_trial">7-daagse gratis proefperiode voor nieuwe abonnees</string>
+    <string name="cloud_onboarding_sign_in_body">Meld je aan om je Tasks.org Cloud-account aan te maken</string>
 </resources>
