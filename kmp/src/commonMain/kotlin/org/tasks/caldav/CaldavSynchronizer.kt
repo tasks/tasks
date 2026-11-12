@@ -149,7 +149,7 @@ class CaldavSynchronizer(
         } catch (e: HttpException) {
             when(e.statusCode) {
                 402, 405, 451, in 500..599 -> {}
-                else -> { reporting.reportException(e) }
+                else -> { reporting.reportException(CaldavHttpError(account.serverType, e)) }
             }
             Logger.e(e) { "$account: ${e.message}" }
             setError(account, e.displayMessage)

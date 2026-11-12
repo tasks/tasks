@@ -7,7 +7,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import at.bitfire.dav4jvm.ktor.exception.HttpException
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.anyVararg
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
@@ -75,6 +77,31 @@ class CaldavSyncErrorTest : DatabaseTest() {
 
         assertEquals("HTTP 400 - Bad Request", caldavDao.getAccountByUuid("account")!!.error)
         verify(reporting).reportException(any(), any())
+    }
+
+    @Test
+    fun `a forbidden request is reported with the server type and the broken precondition`() = runBlocking {
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(403)
+                .setHeader("Content-Type", "application/xml; charset=utf-8")
+                .setBody(
+                    """<?xml version="1.0" encoding="utf-8"?>
+                    <d:error xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav">
+                        <c:supported-calendar-component/>
+                    </d:error>"""
+                )
+        )
+
+        synchronizer.sync(account, hasPro = true)
+
+        val reported = argumentCaptor<Throwable>()
+        verify(reporting).reportException(reported.capture(), any())
+        assertEquals(
+            "HTTP 403 serverType=${account.serverType} errors=supported-calendar-component",
+            reported.firstValue.message,
+        )
+        assertTrue(reported.firstValue.cause is HttpException)
     }
 
     @Test
