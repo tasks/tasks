@@ -13,6 +13,7 @@
     <string name="silentsuite" translatable="false">SilentSuite</string>
     <string name="kvaesitso" translatable="false">Kvaesitso</string>
     <string name="radicale" translatable="false">Radicale</string>
+    <string name="xandikos" translatable="false">Xandikos</string>
     <string name="thunderbird" translatable="false">Thunderbird</string>
     <string name="apple_reminders" translatable="false">Apple Reminders</string>
     <string name="acalendar" translatable="false">aCalendar+</string>

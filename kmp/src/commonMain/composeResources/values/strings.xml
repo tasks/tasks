@@ -286,6 +286,7 @@
     <string name="works_with_thunderbird_description">Sync your tasks to Thunderbird over CalDAV</string>
     <string name="works_with_apple_reminders_description">Connect a CalDAV account in system settings</string>
     <string name="works_with_radicale_description">Lightweight CalDAV server</string>
+    <string name="works_with_xandikos_description">Git-backed CalDAV server</string>
     <string name="works_with_acalendar_description">See your tasks alongside calendar events</string>
     <string name="works_with_todoagenda_description">Calendar and task home screen widget</string>
     <string name="works_with_tasker_description">Create tasks and trigger list notifications from your automations</string>

@@ -29,6 +29,7 @@ import tasks.kmp.generated.resources.ic_google
 import tasks.kmp.generated.resources.ic_microsoft_tasks
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.ic_silentsuite
+import tasks.kmp.generated.resources.ic_xandikos
 import tasks.kmp.generated.resources.kvaesitso
 import tasks.kmp.generated.resources.ksync
 import tasks.kmp.generated.resources.mcp_server
@@ -77,6 +78,8 @@ import tasks.kmp.generated.resources.works_with_wear_requires_googleplay
 import tasks.kmp.generated.resources.works_with_wearables
 import tasks.kmp.generated.resources.works_with_thunderbird_description
 import tasks.kmp.generated.resources.works_with_wear_description
+import tasks.kmp.generated.resources.works_with_xandikos_description
+import tasks.kmp.generated.resources.xandikos
 
 data class WorksWithLinks(
     val web: String,
@@ -318,6 +321,14 @@ val worksWithCatalog = listOf(
                 icon = TasksIcons.DNS,
                 tags = setOf(WorksWithTag.SYNC),
                 links = WorksWithLinks(web = "https://radicale.org/"),
+            ),
+            WorksWithEntry(
+                title = Res.string.xandikos,
+                description = Res.string.works_with_xandikos_description,
+                iconDrawable = Res.drawable.ic_xandikos,
+                tintIcon = false,
+                tags = setOf(WorksWithTag.SYNC),
+                links = WorksWithLinks(web = "https://www.xandikos.org/"),
             ),
         ),
     ),
