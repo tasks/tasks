@@ -93,6 +93,8 @@ private fun Modifier.symbol(name: String?, tint: Color, filled: Boolean): Modifi
 
 fun iconExists(label: String?): Boolean = label != null && MaterialSymbols.codepoint(label.iconName) != null
 
+fun String?.iconOr(default: String): String = this?.takeIf(::iconExists) ?: default
+
 val String.iconName: String
     get() = removePrefix(LEGACY_ICON_PREFIX)
 

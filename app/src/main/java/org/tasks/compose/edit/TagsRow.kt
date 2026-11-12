@@ -18,6 +18,7 @@ import org.tasks.data.entity.TagData
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
 import org.tasks.themes.TasksIcons
 import org.tasks.themes.TasksTheme
+import org.tasks.compose.components.iconOr
 
 @Composable
 fun TagsRow(
@@ -35,7 +36,7 @@ fun TagsRow(
                 } else {
                     tags.sortedBy(TagData::name).forEach { tag ->
                         Chip(
-                            icon = tag.icon ?: TasksIcons.LABEL,
+                            icon = tag.icon.iconOr(TasksIcons.LABEL),
                             name = tag.name,
                             theme = tag.color ?: 0,
                             showText = true,

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import org.tasks.compose.components.TasksIcon
 import org.tasks.filters.Filter
 import org.tasks.themes.contentColor
+import org.tasks.compose.components.iconOr
 
 @Composable
 fun Chip(
@@ -111,7 +112,7 @@ fun FilterChip(
     colorProvider: (Int) -> Int,
 ) {
     Chip(
-        filter.icon ?: defaultIcon,
+        filter.icon.iconOr(defaultIcon),
         filter.title,
         filter.tint,
         showText,

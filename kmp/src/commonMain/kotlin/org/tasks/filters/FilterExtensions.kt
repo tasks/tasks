@@ -2,10 +2,11 @@ package org.tasks.filters
 
 import org.tasks.billing.PurchaseState
 import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.iconExists
 
 fun Filter.getIcon(purchaseState: PurchaseState): String? {
     if (purchaseState.hasPro) {
-        icon?.takeIf { it.isNotBlank() }?.let { return it }
+        icon?.takeIf(::iconExists)?.let { return it }
     }
     return when (this) {
         is TagFilter -> TasksIcons.LABEL

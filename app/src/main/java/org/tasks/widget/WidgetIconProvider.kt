@@ -64,7 +64,10 @@ class WidgetIconProvider : ContentProvider() {
             val context = context ?: return
             val sizePx = (24 * context.resources.displayMetrics.density).toInt()
             val bitmap = MaterialSymbolsGlyphs.bitmap(context, iconName, sizePx, Color.BLACK)
-                ?: throw IllegalArgumentException("No icon named $iconName")
+            if (bitmap == null) {
+                Timber.w("No icon named $iconName")
+                return
+            }
 
             file.parentFile?.mkdirs()
             FileOutputStream(file).use { out ->

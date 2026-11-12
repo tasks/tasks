@@ -104,6 +104,7 @@ import org.tasks.viewmodel.TasksAccountState
 import org.tasks.kmp.org.tasks.time.DateStyle
 import org.tasks.kmp.org.tasks.time.DateFormatter
 import org.tasks.themes.TasksIcons
+import org.tasks.compose.components.iconOr
 
 data class CalendarItem(
     val name: String,
@@ -254,7 +255,7 @@ fun TasksAccountScreen(
                                     modifier = Modifier
                                         .padding(start = SettingsContentPadding)
                                         .size(SettingsIconSize),
-                                    label = shared.icon ?: TasksIcons.LIST,
+                                    label = shared.icon.iconOr(TasksIcons.LIST),
                                     tint = when (shared.color) {
                                         0 -> MaterialTheme.colorScheme.onSurface
                                         else -> Color(shared.color)
