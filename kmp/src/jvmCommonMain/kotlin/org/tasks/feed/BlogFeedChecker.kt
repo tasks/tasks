@@ -70,11 +70,17 @@ class BlogFeedChecker(
                 .url(feedUrl)
                 .build()
             client.newCall(request).execute().use { response ->
-                if (response.isSuccessful) {
-                    response.body.string()
-                } else {
-                    logger.w { "Feed fetch failed: ${response.code}" }
-                    null
+                val contentType = response.body.contentType()
+                when {
+                    !response.isSuccessful -> {
+                        logger.w { "Feed fetch failed: ${response.code}" }
+                        null
+                    }
+                    contentType != null && "xml" !in contentType.subtype -> {
+                        logger.w { "Feed fetch returned $contentType" }
+                        null
+                    }
+                    else -> response.body.string()
                 }
             }
         } catch (e: Exception) {
