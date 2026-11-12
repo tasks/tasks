@@ -103,10 +103,12 @@ class SignInViewModel @Inject constructor(
             authorizationResponse: AuthorizationResponse
     ) {
         val authStateManager = authService.authStateManager
-        val request = if (authService.isGitHub) {
-            authorizationResponse.createGithubTokenRequest()
-        } else {
-            authorizationResponse.createTokenExchangeRequest()
+        val serverCodeVerifier = authService.serverCodeVerifier
+        val request = when {
+            authService.isGitHub -> authorizationResponse.createCodeTokenRequest()
+            serverCodeVerifier != null ->
+                authorizationResponse.createCodeTokenRequest(codeVerifier = serverCodeVerifier)
+            else -> authorizationResponse.createTokenExchangeRequest()
         }
         val clientAuthentication = try {
             authStateManager.current.clientAuthentication
@@ -123,6 +125,7 @@ class SignInViewModel @Inject constructor(
         } catch (e: AuthorizationException) {
             Timber.e(e)
             authStateManager.updateAfterTokenResponse(null, e)
+            handleError(e)
         }
     }
 
@@ -131,13 +134,16 @@ class SignInViewModel @Inject constructor(
     }
 
     companion object {
-        fun AuthorizationResponse.createGithubTokenRequest(): TokenRequest {
+        fun AuthorizationResponse.createCodeTokenRequest(
+            codeVerifier: String? = request.codeVerifier,
+        ): TokenRequest {
             checkNotNull(authorizationCode) { "authorizationCode not available for exchange request" }
             return TokenRequest
                     .Builder(request.configuration, request.clientId)
                     .setGrantType(GrantTypeValues.AUTHORIZATION_CODE)
                     .setRedirectUri(request.redirectUri)
-                    .setCodeVerifier(request.codeVerifier)
+                    .setCodeVerifier(codeVerifier)
+                    .setNonce(request.nonce)
                     .setAuthorizationCode(authorizationCode)
                     .setAdditionalParameters(emptyMap())
                     .build()

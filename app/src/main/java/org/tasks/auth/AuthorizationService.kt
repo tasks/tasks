@@ -29,6 +29,7 @@ class AuthorizationService(
     val isApple = iss == ISS_APPLE
     val serverCallbackUri: Uri? =
         if (isApple) "$caldavUrl/oauth/apple/callback".toUri() else null
+    var serverCodeVerifier: String? = null
     val authStateManager = AuthStateManager()
     val configuration = Configuration(
             context,

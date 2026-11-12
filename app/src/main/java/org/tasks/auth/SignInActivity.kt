@@ -539,8 +539,15 @@ class SignInActivity : ComponentActivity() {
                 serverCallbackUri ?: configuration.redirectUri)
                 .setScope(configuration.scope)
         if (serverCallbackUri != null) {
+            val codeVerifier = PKCE.generateVerifier().also { authService.serverCodeVerifier = it }
             authRequestBuilder
-                .setState(RedirectState.encode(PKCE.generateVerifier(), configuration.redirectUri.toString()))
+                .setState(
+                    RedirectState.encode(
+                        PKCE.generateVerifier(),
+                        configuration.redirectUri.toString(),
+                        codeVerifier,
+                    )
+                )
                 .setResponseMode("form_post")
                 .setCodeVerifier(null)
         }

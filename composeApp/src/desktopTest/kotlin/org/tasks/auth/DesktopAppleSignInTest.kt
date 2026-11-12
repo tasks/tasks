@@ -44,7 +44,7 @@ class DesktopAppleSignInTest {
     )
 
     @Test
-    fun bouncesThroughTheServerCallbackWithoutPkce() = runBlocking {
+    fun bouncesThroughTheServerCallbackBindingTheCodeToAVerifier() = runBlocking {
         var authUrl: Url? = null
         val flow = DesktopOAuthFlow(oauthClient, TasksServerEnvironment(TasksPreferences(InMemoryDataStore()))) { url ->
             authUrl = Url(url)
@@ -68,7 +68,7 @@ class DesktopAppleSignInTest {
         assertEquals("org.tasks.web", form["client_id"])
         assertEquals("c0de", form["code"])
         assertEquals(loopback(params["state"]!!), form["redirect_uri"])
-        assertNull(form["code_verifier"])
+        assertEquals(PKCE.generateChallenge(form["code_verifier"]!!), stateField(params["state"]!!, "c"))
         assertEquals("tasks-token", result.accessToken)
         assertEquals("001234.abcd", result.idToken?.sub)
     }
@@ -80,8 +80,10 @@ class DesktopAppleSignInTest {
         connection.disconnect()
     }
 
-    private fun loopback(state: String): String =
-        Json.parseToJsonElement(state.decodeBase64()!!.utf8()).jsonObject["r"]!!.jsonPrimitive.content
+    private fun loopback(state: String): String = stateField(state, "r")
+
+    private fun stateField(state: String, key: String): String =
+        Json.parseToJsonElement(state.decodeBase64()!!.utf8()).jsonObject[key]!!.jsonPrimitive.content
 
     private val identityToken = "eyJhbGciOiJSUzI1NiJ9." +
         "eyJzdWIiOiIwMDEyMzQuYWJjZCIsImVtYWlsIjoicmVsYXlAcHJpdmF0ZXJlbGF5LmFwcGxlaWQuY29tIn0." +

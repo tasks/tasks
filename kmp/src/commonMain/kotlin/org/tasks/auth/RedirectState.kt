@@ -5,8 +5,14 @@ import kotlinx.serialization.json.JsonPrimitive
 import okio.ByteString.Companion.encodeUtf8
 
 object RedirectState {
-    fun encode(nonce: String, redirectUri: String): String =
-        JsonObject(mapOf("n" to JsonPrimitive(nonce), "r" to JsonPrimitive(redirectUri)))
+    fun encode(nonce: String, redirectUri: String, codeVerifier: String): String =
+        JsonObject(
+            mapOf(
+                "n" to JsonPrimitive(nonce),
+                "r" to JsonPrimitive(redirectUri),
+                "c" to JsonPrimitive(PKCE.generateChallenge(codeVerifier)),
+            )
+        )
             .toString()
             .encodeUtf8()
             .base64Url()

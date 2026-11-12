@@ -11,7 +11,7 @@ import kotlin.test.assertFalse
 class RedirectStateTest {
     @Test
     fun carriesTheNonceAndTheRedirectAsUnpaddedBase64Url() {
-        val state = RedirectState.encode("n0nce", "http://127.0.0.1:49152")
+        val state = RedirectState.encode("n0nce", "http://127.0.0.1:49152", VERIFIER)
 
         assertFalse(state.contains('='))
         assertFalse(state.contains('+'))
@@ -22,8 +22,22 @@ class RedirectStateTest {
     }
 
     @Test
+    fun carriesTheS256ChallengeOfTheVerifierButNotTheVerifier() {
+        val state = RedirectState.encode("n0nce", "org.tasks.apple://oauth2redirect", VERIFIER)
+
+        val decoded = state.decodeBase64()!!.utf8()
+        val json = Json.parseToJsonElement(decoded).jsonObject
+        assertEquals("E9Melhoa2OwvFrEMTJguCHaoeK1t8URWbuGJSstw-cM", json["c"]?.jsonPrimitive?.content)
+        assertFalse(decoded.contains(VERIFIER))
+    }
+
+    @Test
     fun differsPerNonce() {
         val redirect = "org.tasks.apple://oauth2redirect"
-        assertFalse(RedirectState.encode("a", redirect) == RedirectState.encode("b", redirect))
+        assertFalse(RedirectState.encode("a", redirect, VERIFIER) == RedirectState.encode("b", redirect, VERIFIER))
+    }
+
+    private companion object {
+        const val VERIFIER = "dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"
     }
 }

@@ -42,14 +42,14 @@ class DesktopOAuthFlow(
                 ?: throw Exception("No client_id in discovery document")
         }
 
-        val codeVerifier = if (provider.usesPkce) PKCE.generateVerifier() else null
-        val codeChallenge = codeVerifier?.let(PKCE::generateChallenge)
-        val nonce = PKCE.generateVerifier()
         val serverCallback = provider.serverCallbackPath?.let { "${serverEnvironment.caldavUrl}$it" }
+        val codeVerifier = if (provider.usesPkce || serverCallback != null) PKCE.generateVerifier() else null
+        val codeChallenge = codeVerifier?.takeIf { provider.usesPkce }?.let(PKCE::generateChallenge)
+        val nonce = PKCE.generateVerifier()
 
         val (config, code) = listenForCallback(provider.loopbackHost) { port ->
             val redirectUri = "http://${provider.loopbackHost}:$port"
-            val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri)
+            val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri, codeVerifier!!)
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
                 tokenEndpoint = tokenEndpoint,
