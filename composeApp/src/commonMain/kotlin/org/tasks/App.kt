@@ -191,6 +191,7 @@ import org.tasks.compose.pricing.SupporterFeatures
 import org.tasks.compose.pricing.leadsWithSupporter
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
+import org.tasks.compose.settings.BackupsScreen
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.accounts.AddAccountViewModel.SignInState.Error as SignInError
@@ -265,6 +266,7 @@ import org.tasks.themes.TasksTheme
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.reminders.SNOOZE_PICKER_OFFSET
 import org.tasks.viewmodel.AppViewModel
+import org.tasks.viewmodel.BackupsViewModel
 import org.tasks.viewmodel.CaldavCalendarSettingsViewModel
 import org.tasks.viewmodel.DrawerViewModel
 import org.tasks.viewmodel.EtebaseCalendarSettingsViewModel
@@ -3170,6 +3172,15 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.Backups -> {
+                        val viewModel = koinViewModel<BackupsViewModel>()
+                        val exportState = viewModel.exportState
+                        BackupsScreen(
+                            exportState = exportState,
+                            onExport = { viewModel.export("backups") },
+                            onDismissResult = { viewModel.resetState() },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination -> {
