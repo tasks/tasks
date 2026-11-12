@@ -396,6 +396,7 @@ actual fun platformModule(): Module = module {
         LoopbackGitHubSponsorClient(
             verify = get<GitHubSponsorVerifier>()::verify,
             openUrl = ::desktopOpenUrl,
+            closeBrowserTab = true,
         )
     }
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class

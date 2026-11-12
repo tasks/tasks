@@ -35,6 +35,7 @@ class LoopbackGitHubSponsorClient(
     private val verify: suspend (code: String, redirectUri: String) -> GitHubSponsorClient.VerifyResult,
     private val openUrl: (String) -> Unit,
     private val onCallback: () -> Unit = {},
+    private val closeBrowserTab: Boolean = false,
     private val clientId: String = GITHUB_CLIENT_ID,
     private val signInTimeoutMillis: Long = SIGN_IN_TIMEOUT_MILLIS,
     private val scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO),
@@ -145,7 +146,7 @@ class LoopbackGitHubSponsorClient(
     private fun page(failure: String?) = if (failure == null) {
         "<h2>Sign in successful!</h2>" +
                 "<p>You can close this window and return to Tasks.</p>" +
-                "<script>setTimeout(function(){ window.close(); }, 2000)</script>"
+                if (closeBrowserTab) "<script>setTimeout(function(){ window.close(); }, 2000)</script>" else ""
     } else {
         "<h2>Sign in failed</h2><p>${failure.htmlEscape()}</p>"
     }

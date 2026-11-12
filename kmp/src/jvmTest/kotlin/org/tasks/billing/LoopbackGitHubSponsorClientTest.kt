@@ -5,6 +5,7 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -246,6 +247,30 @@ class LoopbackGitHubSponsorClientTest {
         resumed.join()
 
         assertEquals(listOf(authUrl, authUrl), synchronized(opened) { opened.toList() })
+    }
+
+    @Test(timeout = 30_000)
+    fun theSuccessPageStaysOpenUnlessAskedToClose() = runBlocking {
+        assertFalse(successPage(closeBrowserTab = false).contains("window.close()"))
+    }
+
+    @Test(timeout = 30_000)
+    fun theSuccessPageClosesItselfWhenAsked() = runBlocking {
+        assertTrue(successPage(closeBrowserTab = true).contains("window.close()"))
+    }
+
+    private suspend fun successPage(closeBrowserTab: Boolean): String {
+        val page = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
+            openUrl = { authUrl ->
+                val uri = callback(authUrl, code = "the-code")
+                Thread { page.complete(send(uri, path(uri))) }.start()
+            },
+            closeBrowserTab = closeBrowserTab,
+        )
+        client.signIn()
+        return page.await()
     }
 
     private fun redirectBack(

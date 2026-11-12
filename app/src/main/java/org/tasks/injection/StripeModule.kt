@@ -33,7 +33,6 @@ import org.tasks.billing.tasksSessionAuthorization
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.data.dao.CaldavDao
-import org.tasks.extensions.bringTasksToForeground
 import org.tasks.http.KtorClientFactory
 import org.tasks.preferences.InstallId
 import org.tasks.preferences.TasksPreferences
@@ -152,7 +151,6 @@ class StripeModule {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         },
-        onCallback = { context.bringTasksToForeground() },
     )
 
     @Provides
