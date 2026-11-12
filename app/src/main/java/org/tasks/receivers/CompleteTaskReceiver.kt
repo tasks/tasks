@@ -23,13 +23,18 @@ class CompleteTaskReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val taskId = intent.getLongExtra(TASK_ID, 0)
         Timber.i("Completing %s", taskId)
+        val pendingResult = goAsync()
         scope.launch {
-            if (!notificationDao.hasNotification(taskId)) {
-                Timber.e("No notification found for $taskId")
-                return@launch
+            try {
+                if (!notificationDao.hasNotification(taskId)) {
+                    Timber.e("No notification found for $taskId")
+                    return@launch
+                }
+                taskCompleter.setComplete(taskId)
+                firebase.completeTask("notification")
+            } finally {
+                pendingResult.finish()
             }
-            taskCompleter.setComplete(taskId)
-            firebase.completeTask("notification")
         }
     }
 

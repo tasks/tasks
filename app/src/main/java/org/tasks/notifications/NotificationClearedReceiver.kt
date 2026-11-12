@@ -33,21 +33,26 @@ class NotificationClearedReceiver : BroadcastReceiver() {
                 Alarm.TYPE_GEO_ENTER, Alarm.TYPE_GEO_EXIT -> true
                 else -> false
             }
+        val pendingResult = goAsync()
         scope.launch {
-            if (preferences.useSwipeToSnooze() && !isLocationReminder) {
-                firebase.logEvent(R.string.event_notification, R.string.param_type to "auto_snooze")
-                var snoozeTime = preferences.swipeToSnoozeIntervalMS()
-                // snoozing for 0ms will cause the alarm service to miss this notification
-                // so sleep for 1s instead
-                if (snoozeTime == 0L) snoozeTime = 1000L
-                alarmService.snooze(
-                    time = currentTimeMillis() + snoozeTime,
-                    taskIds = listOf(notificationId)
-                )
-            } else {
-                firebase.logEvent(R.string.event_notification, R.string.param_type to "clear")
-                notificationManager.cancel(notificationId, CancelReason.DISMISS)
-                alarmService.markDismissed(listOf(notificationId))
+            try {
+                if (preferences.useSwipeToSnooze() && !isLocationReminder) {
+                    firebase.logEvent(R.string.event_notification, R.string.param_type to "auto_snooze")
+                    var snoozeTime = preferences.swipeToSnoozeIntervalMS()
+                    // snoozing for 0ms will cause the alarm service to miss this notification
+                    // so sleep for 1s instead
+                    if (snoozeTime == 0L) snoozeTime = 1000L
+                    alarmService.snooze(
+                        time = currentTimeMillis() + snoozeTime,
+                        taskIds = listOf(notificationId)
+                    )
+                } else {
+                    firebase.logEvent(R.string.event_notification, R.string.param_type to "clear")
+                    notificationManager.cancel(notificationId, CancelReason.DISMISS)
+                    alarmService.markDismissed(listOf(notificationId))
+                }
+            } finally {
+                pendingResult.finish()
             }
         }
     }
