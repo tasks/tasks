@@ -46,6 +46,7 @@ internal fun TaskList(
     chipDataProvider: ChipDataProvider,
     listState: LazyListState = rememberLazyListState(),
     topPadding: Dp = 0.dp,
+    bottomPadding: Dp = 88.dp,
     onTaskClick: (TaskContainer) -> Unit,
     onCompleteTask: (TaskContainer, Boolean) -> Unit,
     onToggleGroup: (Long) -> Unit = {},
@@ -62,7 +63,9 @@ internal fun TaskList(
         state = listState,
         contentPadding = androidx.compose.foundation.layout.PaddingValues(
             top = topPadding,
-            bottom = 88.dp, // floating toolbar clearance
+            // Floating toolbar clearance; the caller adds the bottom search bar's height when it
+            // is open, since the toolbar is pushed above the search bar.
+            bottom = bottomPadding,
         ),
     ) {
         items(
