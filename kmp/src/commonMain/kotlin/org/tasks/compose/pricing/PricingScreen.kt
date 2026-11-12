@@ -152,8 +152,11 @@ data class StoreBilling(
     fun owns(price: BillingOption?): Boolean =
         price != null && price.sku == ownedSku && !sellsCurrentSku
 
-    val subscribedToSupporter: Boolean
-        get() = isSupporterSku(currentSku, catalog)
+    val supporterPrice: BillingOption?
+        get() = ownedSku?.takeIf { isSupporterSku(it, catalog) }?.let { catalog.price(it) }
+
+    val awaitingPlan: Boolean
+        get() = loadingPlan && ownedSku == null
 
     fun unavailable(cloud: Boolean, supporter: Boolean): Boolean =
         !loadingPrices && (
@@ -526,7 +529,7 @@ private fun NameYourPriceTierCard(
     var chosenSku by rememberSaveable { mutableStateOf<String?>(null) }
     val shown = store?.let { billing ->
         chosenSku?.let { billing.catalog.price(it) }
-            ?: billing.catalog.price(billing.currentSku).takeIf { billing.subscribedToSupporter }
+            ?: billing.supporterPrice
     }
 
     TierCard(
@@ -541,7 +544,7 @@ private fun NameYourPriceTierCard(
             shown != null -> shown.formattedPrice
             else -> cheapestRung?.formattedPrice?.let { stringResource(Res.string.pricing_from, it) }
         },
-        loading = store?.loadingPrices == true,
+        loading = store != null && (store.loadingPrices || chosenSku == null && store.awaitingPlan),
         priceSuffix = stringResource(
             if (shown?.isMonthly == true) {
                 Res.string.price_per_month_with_currency

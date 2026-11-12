@@ -60,6 +60,7 @@ open class PlayCheckoutViewModel(
         viewModelScope.launch { refreshPurchases() }
         viewModelScope.launch { loadCatalog() }
         viewModelScope.launch {
+            purchases.load()
             purchases.state.collect { state ->
                 val purchase = state.subscription
                 val completed = pending?.let {
