@@ -21,21 +21,22 @@ import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.consumePurchase
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlin.time.Duration.Companion.seconds
 
 class PlayBillingClient(
     context: Context,
@@ -60,6 +61,8 @@ class PlayBillingClient(
     private var connected = false
 
     private val connecting = Mutex()
+
+    private var connection: CompletableDeferred<BillingResult>? = null
 
     private val acknowledging = Mutex()
 
@@ -265,19 +268,27 @@ class PlayBillingClient(
         }
     }
 
-    private suspend fun connect(): BillingResult = suspendCancellableCoroutine { cont ->
+    private suspend fun connect() {
+        val attempt = connecting.withLock {
+            connection?.takeIf { it.isActive }
+                ?: CompletableDeferred<BillingResult>().also {
+                    connection = it
+                    startConnection(it)
+                }
+        }
+        val result = withTimeoutOrNull(CONNECT_TIMEOUT) { attempt.await() }
+            ?: throw PlayBillingUnavailableException(CONNECT_TIMED_OUT)
+        if (!result.success) {
+            throw result.asException
+        }
+    }
+
+    private fun startConnection(attempt: CompletableDeferred<BillingResult>) {
         billingClient.startConnection(
             object : BillingClientStateListener {
                 override fun onBillingSetupFinished(result: BillingResult) {
                     connected = result.success
-                    if (!cont.isActive) {
-                        return
-                    }
-                    if (result.success) {
-                        cont.resume(result)
-                    } else {
-                        cont.resumeWithException(result.asException)
-                    }
+                    attempt.complete(result)
                 }
 
                 override fun onBillingServiceDisconnected() {
@@ -290,11 +301,7 @@ class PlayBillingClient(
 
     private suspend fun <T> executeServiceRequest(runnable: suspend () -> T): T {
         if (!connected) {
-            connecting.withLock {
-                if (!connected) {
-                    connect()
-                }
-            }
+            connect()
         }
         return runnable()
     }
@@ -328,6 +335,8 @@ class PlayBillingClient(
         private const val STATE_PURCHASE_UPDATED_FAILED = "PURCHASE_UPDATED_FAILED"
         private const val STATE_QUERY_PURCHASES_FAILED = "QUERY_PURCHASES_FAILED"
         private const val STATE_ACKNOWLEDGE_FAILED = "ACKNOWLEDGE_FAILED"
+        private val CONNECT_TIMEOUT = 30.seconds
+        private const val CONNECT_TIMED_OUT = "CONNECT_TIMED_OUT"
 
         private val unrecoverable = setOf(
             BillingResponseCode.BILLING_UNAVAILABLE,
