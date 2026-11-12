@@ -707,4 +707,16 @@
     <string name="subscription_active_elsewhere">您已经在别处有一个活跃订阅。</string>
     <string name="upgrade_blurb_1">你好！我叫 Alex，是 Tasks.org 背后的独立开发者</string>
     <string name="upgrade_blurb_2">我已经花了数千个小时用于开发 Tasks.org，并且在网上免费发布了所有源代码。 为了支持我的工作，某些功能需要订阅</string>
+    <string name="pricing_custom">自定义</string>
+    <string name="pricing_upgrade_to">升级到 %1$s</string>
+    <string name="pricing_change_to">更改为 %1$s</string>
+    <string name="pricing_current_subscription">当前订阅</string>
+    <string name="pricing_subscribed">已订阅</string>
+    <string name="pricing_cloud_feature_1_v2">在 Android、iOS 和桌面端间即时同步</string>
+    <string name="pricing_nyp_feature_all_platforms">解锁 Android、iOS 和桌面端的 Tasks.org</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">解锁桌面端和 iOS 的 Tasks.org</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">不再有捐赠提醒</string>
+    <string name="pricing_nyp_feature_third_party_sync">与 Google Tasks、Microsoft To Do、 CalDAV 和EteSync 同步</string>
+    <string name="pricing_feature_trial">新订阅者 7 天免费试用</string>
+    <string name="cloud_onboarding_sign_in_body">登录以创建您的 Tasks.org Cloud 账户</string>
 </resources>
