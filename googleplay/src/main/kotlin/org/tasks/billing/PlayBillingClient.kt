@@ -20,6 +20,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
 import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.consumePurchase
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -95,9 +96,18 @@ class PlayBillingClient(
     }
 
     private suspend fun acknowledgePending(): Boolean {
-        val pending = purchases.needingAcknowledgement
-        pending.forEach { acknowledge(it) }
-        return pending.isNotEmpty()
+        var acknowledged = false
+        purchases.needingAcknowledgement.forEach {
+            try {
+                acknowledge(it)
+                acknowledged = true
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                logger.w(e) { "Failed to acknowledge $it" }
+            }
+        }
+        return acknowledged
     }
 
     override suspend fun launchPurchaseFlow(
