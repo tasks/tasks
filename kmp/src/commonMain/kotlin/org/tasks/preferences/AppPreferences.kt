@@ -1,5 +1,6 @@
 package org.tasks.preferences
 
+import androidx.datastore.preferences.core.Preferences
 import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.Json
 import org.tasks.compose.pickers.DEFAULT_AFTERNOON
@@ -207,4 +208,6 @@ interface AppPreferences {
     suspend fun setQuietHoursEnabled(value: Boolean)
     suspend fun setQuietHoursStart(value: Int)
     suspend fun setQuietHoursEnd(value: Int)
+    suspend fun getBoolean(key: Preferences.Key<Boolean>, defaultValue: Boolean): Boolean
+    suspend fun setBoolean(key: Preferences.Key<Boolean>, value: Boolean): Unit
 }
