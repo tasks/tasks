@@ -64,6 +64,7 @@ class StripeCheckoutViewModelTest {
     private val collections = ArrayDeque<StripeCollection>()
     private var collection: StripeCollection = StripeCollection.Pending
     private var polls = 0
+    private val settled = mutableMapOf<String, StripeCollection>()
     private var tierReads = 0
     private val events = mutableListOf<Pair<String, Map<String, Any>>>()
 
@@ -104,6 +105,7 @@ class StripeCheckoutViewModelTest {
         }
         override suspend fun collectCheckout(code: String): StripeCollection {
             polls++
+            settled[code]?.let { return it }
             return collections.removeFirstOrNull() ?: collection
         }
     }
@@ -1584,6 +1586,25 @@ class StripeCheckoutViewModelTest {
         assertEquals("https://pay.stripe.com/x", viewModel.viewState.value.checkoutUrl)
         advanceTimeBy(CODE_LIFETIME + 1)
         assertEquals(Notice.Expired, viewModel.viewState.value.notice)
+    }
+
+    @Test
+    fun payingForACheckoutLeftInTheBrowserIsStillCollectedAfterStartingAnother() = runTest(dispatcher) {
+        val viewModel = checkoutInBrowser()
+        viewModel.browserClosed()
+        runCurrent()
+        checkout = StripeCheckout.Started("s3cond", "https://pay.stripe.com/y", expiresIn(CODE_LIFETIME))
+        viewModel.select(offer)
+        runCurrent()
+
+        settled["c0de"] = StripeCollection.Collected(StripeRestoreOutcome.Restored)
+        advanceTimeBy(POLL_INTERVAL_MILLIS + 1)
+
+        assertNull(viewModel.viewState.value.checkoutUrl)
+        assertFalse(viewModel.viewState.value.busy)
+        assertEquals(1, logged(AnalyticsEvents.CHECKOUT_COLLECTED).size)
+        advanceTimeBy(CODE_LIFETIME + 1)
+        assertNull(viewModel.viewState.value.notice)
     }
 
     private fun expiresIn(millis: Long) = DateTimeUtils2.currentTimeMillis() + millis

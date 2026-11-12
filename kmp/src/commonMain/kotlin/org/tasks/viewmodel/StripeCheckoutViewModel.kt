@@ -178,6 +178,7 @@ open class StripeCheckoutViewModel(
     fun planChangeHandled() = _viewState.update { it.copy(planChanged = false) }
 
     private fun purchase(price: BillingOption) {
+        lingerIfLeft()
         pollJob?.cancel()
         pollJob = null
         checkout = null
@@ -228,6 +229,7 @@ open class StripeCheckoutViewModel(
     }
 
     private fun change(price: BillingOption) {
+        lingerIfLeft()
         pollJob?.cancel()
         pollJob = null
         checkout = null
@@ -314,15 +316,57 @@ open class StripeCheckoutViewModel(
         }
     }
 
+    private fun lingerIfLeft() {
+        val left = checkout?.takeIf { quiet } ?: return
+        val sku = checkoutSku
+        viewModelScope.launch {
+            val outcome = withTimeoutOrNull(left.expiresAt.lifetime) { awaitCollection(left.code) }
+                ?: return@launch
+            logCollected(outcome, sku)
+            pollJob?.cancel()
+            refreshPlan()
+            finish(outcome.notice)
+        }
+    }
+
+    private suspend fun awaitCollection(code: String): StripeRestoreOutcome? {
+        var wait = POLL_INTERVAL_MILLIS
+        var unanswered = 0
+        while (true) {
+            delay(wait)
+            when (val result = purchases.collectCheckout(code)) {
+                is StripeCollection.Collected -> return result.outcome
+                StripeCollection.Gone,
+                StripeCollection.SubscriptionInvalid -> return null
+                StripeCollection.Pending -> {
+                    unanswered = 0
+                    wait = POLL_INTERVAL_MILLIS
+                }
+                StripeCollection.Unreachable -> {
+                    unanswered++
+                    if (unanswered >= MAX_UNANSWERED_POLLS) return null
+                    wait = unansweredBackoff(unanswered)
+                }
+                is StripeCollection.RateLimited -> {
+                    unanswered = 0
+                    wait = result.backoff
+                }
+            }
+        }
+    }
+
+    private val Long.lifetime: Long
+        get() = (this - currentTimeMillis())
+            .takeIf { this > 0 && it > 0 }
+            ?: DEFAULT_CODE_LIFETIME_MILLIS
+
     private fun poll(
         code: String,
         expiresAt: Long,
         firstWait: Long = POLL_INTERVAL_MILLIS,
         onUnsettled: () -> Unit = {},
     ) {
-        val window = (expiresAt - currentTimeMillis())
-            .takeIf { expiresAt > 0 && it > 0 }
-            ?: DEFAULT_CODE_LIFETIME_MILLIS
+        val window = expiresAt.lifetime
         pollJob?.cancel()
         pollJob = viewModelScope.launch {
             val end = withTimeoutOrNull(window) { pollUntilSettled(code, firstWait, onUnsettled) }
