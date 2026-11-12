@@ -719,4 +719,5 @@
     <string name="pricing_nyp_feature_third_party_sync">与 Google Tasks、Microsoft To Do、 CalDAV 和EteSync 同步</string>
     <string name="pricing_feature_trial">新订阅者 7 天免费试用</string>
     <string name="cloud_onboarding_sign_in_body">登录以创建您的 Tasks.org Cloud 账户</string>
+    <string name="works_with_xandikos_description">基于 Git 的 CalDAV 服务器</string>
 </resources>
