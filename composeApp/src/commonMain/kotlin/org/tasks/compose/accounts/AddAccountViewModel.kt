@@ -58,6 +58,7 @@ class AddAccountViewModel(
                 signInHandler.signIn(platform, provider, openUrl)
                 _signInState.value = SignInState.Idle
             } catch (e: CancellationException) {
+                _signInState.value = SignInState.Idle
                 throw e
             } catch (e: PurchaseTokenInUseException) {
                 _signInState.value = SignInState.Error.AccountInUse(e.existingAccount)
