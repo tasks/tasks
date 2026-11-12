@@ -307,6 +307,20 @@ class PlayCheckoutViewModelTest {
     }
 
     @Test
+    fun aPlanChangeIsReportedBeforeTheOldSubscriptionIsRemoved() = runTest(dispatcher) {
+        purchases.replaceAll(listOf(purchase("monthly_03", "token-monthly")))
+        val viewModel = viewModel(FakePlayBilling(products = CATALOG))
+        advanceUntilIdle()
+
+        viewModel.select(viewModel.viewState.value.catalog.cloudAnnual!!, activity)
+        advanceUntilIdle()
+        purchases.add(listOf(purchase("annual_30", "token-annual")))
+        advanceUntilIdle()
+
+        assertTrue(viewModel.viewState.value.purchased)
+    }
+
+    @Test
     fun aFailedLaunchIsNotReportedAsAPurchase() = runTest(dispatcher) {
         purchases.replaceAll(listOf(purchase("monthly_03", "token-monthly")))
         val billing = FakePlayBilling(

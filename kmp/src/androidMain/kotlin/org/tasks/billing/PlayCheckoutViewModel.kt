@@ -60,11 +60,12 @@ open class PlayCheckoutViewModel(
         viewModelScope.launch { refreshPurchases() }
         viewModelScope.launch { loadCatalog() }
         viewModelScope.launch {
-            purchases.subscription.collect { purchase ->
+            purchases.state.collect { state ->
+                val purchase = state.subscription
                 val completed = pending?.let {
-                    purchase != null &&
-                        purchase.sku == it.sku &&
-                        purchase.purchaseToken != it.oldPurchaseToken
+                    val bought = state.purchases[it.sku]
+                    bought != null &&
+                        bought.purchaseToken != it.oldPurchaseToken
                 } == true
                 if (completed) {
                     pending = null
