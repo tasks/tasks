@@ -23,7 +23,6 @@ import org.tasks.service.TaskDeleter
 import org.tasks.data.dao.DirtyDao
 import io.ktor.client.HttpClient
 import io.ktor.http.Headers
-import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLBuilder
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
@@ -83,6 +82,7 @@ import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.PrincipalAccess
 import org.tasks.data.entity.Task
 import org.tasks.http.NetworkException
+import org.tasks.http.httpStatusMessage
 import co.touchlab.kermit.Logger
 import kotlinx.io.IOException
 
@@ -566,14 +566,7 @@ class CaldavSynchronizer(
         private val GONE_STATUSES = setOf(403, 404, 410)
 
         private val HttpException.displayMessage: String
-            get() = HttpStatusCode
-                .fromValue(statusCode)
-                .description
-                .takeIf { it.isNotBlank() && it != UNKNOWN_STATUS }
-                ?.let { "HTTP $statusCode - $it" }
-                ?: "HTTP $statusCode"
-
-        private const val UNKNOWN_STATUS = "Unknown Status Code"
+            get() = httpStatusMessage(statusCode)
 
         val Response.ctag: String?
             get() = this[SyncToken::class]?.token ?: this[GetCTag::class]?.cTag

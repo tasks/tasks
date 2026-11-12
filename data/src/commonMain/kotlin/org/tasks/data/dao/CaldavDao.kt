@@ -156,14 +156,17 @@ ORDER BY CASE cda_account_type
     @Query("UPDATE caldav_accounts SET cda_error = :error WHERE cda_id = :id")
     abstract suspend fun setError(id: Long, error: String?)
 
+    @Query("UPDATE caldav_accounts SET cda_url = :url, cda_password = :password, cda_error = '' WHERE cda_id = :id")
+    abstract suspend fun setVerified(id: Long, url: String, password: String)
+
+    @Query("UPDATE caldav_accounts SET cda_password = :password, cda_error = :error WHERE cda_id = :id")
+    abstract suspend fun setPasswordAndError(id: Long, password: String, error: String)
+
     @Query("UPDATE caldav_accounts SET cda_last_sync = :lastSync WHERE cda_id = :id")
     abstract suspend fun setLastSync(id: Long, lastSync: Long)
 
     @Query("UPDATE caldav_accounts SET cda_username = :username, cda_name = :name, cda_password = :password, cda_error = '' WHERE cda_id = :id")
     abstract suspend fun setMicrosoftReauth(id: Long, username: String?, name: String?, password: String?)
-
-    @Query("UPDATE caldav_accounts SET cda_password = :password, cda_error = '' WHERE cda_id = :id")
-    abstract suspend fun setGoogleTasksReauth(id: Long, password: String)
 
     @Query(
         "SELECT * FROM caldav_accounts " +

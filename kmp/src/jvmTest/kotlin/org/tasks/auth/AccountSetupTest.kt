@@ -8,7 +8,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
@@ -30,19 +32,33 @@ import org.tasks.caldav.CaldavDiscoveryClient
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.http.HttpException
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.Encryption
+import java.io.IOException
+import java.util.Collections
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 class AccountSetupTest {
 
-    private val calls = mutableListOf<String>()
+    private val calls: MutableList<String> = Collections.synchronizedList(mutableListOf())
 
-    private val discoveryClient = object : CaldavDiscoveryClient {
+    private var probeFailure: Exception? = null
+
+    private var accessFailure: Exception? = null
+
+    private fun discoveryClient(url: String?) = object : CaldavDiscoveryClient {
         override suspend fun homeSet(): String {
-            calls.add("homeSet")
-            return "https://caldav.example.com/caldav/google_1234/"
+            calls.add("homeSet $url")
+            probeFailure?.let { throw it }
+            return HOME_SET
+        }
+
+        override suspend fun checkAccess() {
+            calls.add("checkAccess $url")
+            accessFailure?.let { throw it }
+            probeFailure?.let { throw it }
         }
 
         override fun close() = Unit
@@ -50,7 +66,7 @@ class AccountSetupTest {
 
     private val clientFactory = object : CaldavClientFactory {
         override suspend fun forUrl(url: String?, username: String?, password: String?) =
-            discoveryClient
+            discoveryClient(url)
 
         override suspend fun forAccount(account: CaldavAccount, url: String?) =
             throw UnsupportedOperationException()
@@ -115,7 +131,7 @@ class AccountSetupTest {
             purchaseClaim = purchaseClaim,
         )
 
-        assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
+        assertEquals(listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"), calls)
     }
 
     @Test
@@ -136,7 +152,7 @@ class AccountSetupTest {
             purchaseClaim = purchaseClaim,
         )
 
-        assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
+        assertEquals(listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"), calls)
     }
 
     @Test
@@ -164,29 +180,295 @@ class AccountSetupTest {
     }
 
     @Test
-    fun aReturningAccountNeedsNeitherAClaimNorAProbe() = runBlocking {
-        val existing = CaldavAccount(
+    fun aReturningAccountChecksItsStoredHomeSetWithOneRequest() = runBlocking {
+        val caldavDao = returningAccount()
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals(1L, account.id)
+        assertEquals(listOf("claim google_1234 access-token", "checkAccess $STORED_URL"), calls)
+    }
+
+    @Test
+    fun aReturningAccountTakesTheNewTokenAndKeepsItsHomeSet() = runBlocking {
+        val caldavDao = returningAccount()
+
+        val account = signInAgain(caldavDao)
+
+        verifyBlocking(caldavDao) { setVerified(1L, STORED_URL, "encrypted(access-token)") }
+        verifyBlocking(caldavDao, never()) { update(any<CaldavAccount>()) }
+        assertEquals("", account.error)
+        assertEquals("encrypted(access-token)", account.password)
+        assertEquals(STORED_URL, account.url)
+    }
+
+    @Test
+    fun aReturningAccountWhoseHomeSetMovedFindsItAgain() = runBlocking {
+        val caldavDao = returningAccount()
+        accessFailure = HttpException(404, "Not Found")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals(
+            listOf(
+                "claim google_1234 access-token",
+                "checkAccess $STORED_URL",
+                "homeSet https://caldav.example.com",
+            ),
+            calls,
+        )
+        verifyBlocking(caldavDao) { setVerified(1L, HOME_SET, "encrypted(access-token)") }
+        assertEquals(HOME_SET, account.url)
+        assertEquals("", account.error)
+    }
+
+    @Test
+    fun aReturningAccountWithoutAHomeSetFindsOne() = runBlocking {
+        val caldavDao = returningAccount(url = null)
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals(
+            listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"),
+            calls,
+        )
+        assertEquals(HOME_SET, account.url)
+    }
+
+    @Test
+    fun aReturningAccountThatLapsedWhileItsHomeSetMovedSurfacesThe402() = runBlocking {
+        val caldavDao = returningAccount()
+        accessFailure = HttpException(404, "Not Found")
+        probeFailure = HttpException(402, "Payment Required")
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertTrue(failure is PaymentRequiredException)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", CaldavAccount.ERROR_PAYMENT_REQUIRED)
+        }
+    }
+
+    @Test
+    fun aReturningSubscriptionCoveringAnotherAccountStillSignsIn() = runBlocking {
+        claim = HeldPurchaseClaim.CoveringAnotherAccount("b**@e**.com")
+        val caldavDao = returningAccount()
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("", account.error)
+        verifyBlocking(caldavDao) { setVerified(1L, STORED_URL, "encrypted(access-token)") }
+        verifyBlocking(caldavDao, never()) { setPasswordAndError(any(), any(), any()) }
+        assertEquals(listOf("claim google_1234 access-token", "checkAccess $STORED_URL"), calls)
+    }
+
+    @Test
+    fun aLapsedReturningAccountKeepsTheNewTokenAndSurfacesThe402() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = HttpException(402, "Payment Required")
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertTrue(failure is PaymentRequiredException)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", CaldavAccount.ERROR_PAYMENT_REQUIRED)
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aReturningAccountWhosePurchaseFundsAnotherAccountIsRejected() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = PurchaseTokenInUseException("b**@e**.com")
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertEquals("b**@e**.com", (failure as PurchaseTokenInUseException).existingAccount)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(
+                1L,
+                "encrypted(access-token)",
+                "${CaldavAccount.ERROR_PURCHASE_TOKEN_IN_USE}b**@e**.com",
+            )
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aReturningAccountTheServerRejectsKeepsItsOldToken() = runBlocking {
+        assertRejectedWithoutChange(HttpException(401, "Unauthorized"))
+    }
+
+    @Test
+    fun aReturningAccountTheServerNoLongerKnowsKeepsItsOldToken() = runBlocking {
+        assertRejectedWithoutChange(HttpException(404, "Not Found"))
+    }
+
+    @Test
+    fun aReturningAccountTheServerForbidsKeepsItsOldToken() = runBlocking {
+        assertRejectedWithoutChange(HttpException(403, "Forbidden"))
+    }
+
+    @Test
+    fun aReturningAccountWithAnUnexpectedFailureSignsInAndRecordsIt() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = IllegalStateException("home set not found")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("encrypted(access-token)", account.password)
+        assertEquals("home set not found", account.error)
+        assertEquals(STORED_URL, account.url)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", "home set not found")
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aReturningAccountWithAnUnexpectedHttpFailureSignsInAndRecordsIt() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = HttpException(400, "Bad Request")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("HTTP 400 - Bad Request", account.error)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", "HTTP 400 - Bad Request")
+        }
+    }
+
+    @Test
+    fun aReturningAccountThatMustAcceptTheTermsSignsInAndAsksForThem() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = HttpException(451, "Unavailable For Legal Reasons")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("encrypted(access-token)", account.password)
+        assertEquals("HTTP 451", account.error)
+        assertTrue(account.isTosRequired())
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", "HTTP 451")
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aReturningAccountSignsInWhenTheServerIsDown() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = HttpException(503, "Service Unavailable")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("encrypted(access-token)", account.password)
+        assertEquals("HTTP 503 - Service Unavailable", account.error)
+        assertEquals(STORED_URL, account.url)
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", "HTTP 503 - Service Unavailable")
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aReturningAccountSignsInOfflineAndRecordsWhyItCouldNotCheck() = runBlocking {
+        val caldavDao = returningAccount()
+        probeFailure = IOException("Unable to resolve host")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals("encrypted(access-token)", account.password)
+        assertEquals("Unable to resolve host", account.error)
+        assertFalse(account.isLoggedOut())
+        verifyBlocking(caldavDao) {
+            setPasswordAndError(1L, "encrypted(access-token)", "Unable to resolve host")
+        }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun overlappingReturningSignInsTakeTurns(): Unit = runBlocking {
+        val checkReached = CompletableDeferred<Unit>()
+        val releaseCheck = CompletableDeferred<Unit>()
+        val blockedFactory = object : CaldavClientFactory by clientFactory {
+            override suspend fun forUrl(url: String?, username: String?, password: String?) =
+                object : CaldavDiscoveryClient by discoveryClient(url) {
+                    override suspend fun checkAccess() {
+                        checkReached.complete(Unit)
+                        releaseCheck.await()
+                    }
+                }
+        }
+        val first = async(Dispatchers.Default) {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = returningAccount(),
+                encryption = encryption,
+                provider = blockedFactory,
+            )
+        }
+        val second = try {
+            withTimeout(5_000) { checkReached.await() }
+            val second = async(Dispatchers.Default) { signInAgain(returningAccount()) }
+            delay(200)
+
+            assertFalse(second.isCompleted)
+            assertEquals(emptyList<String>(), calls)
+            second
+        } finally {
+            releaseCheck.complete(Unit)
+        }
+        first.await()
+
+        assertEquals("", withTimeout(5_000) { second.await() }.error)
+        assertEquals(listOf("claim google_1234 access-token", "checkAccess $STORED_URL"), calls)
+    }
+
+    @Test
+    fun aReturningAccountWithABlankHomeSetFindsOne() = runBlocking {
+        val caldavDao = returningAccount(url = "")
+
+        val account = signInAgain(caldavDao)
+
+        assertEquals(
+            listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"),
+            calls,
+        )
+        verifyBlocking(caldavDao) { setVerified(1L, HOME_SET, "encrypted(access-token)") }
+        assertEquals(HOME_SET, account.url)
+    }
+
+    private suspend fun assertRejectedWithoutChange(rejection: Exception) {
+        val caldavDao = returningAccount()
+        probeFailure = rejection
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertEquals(rejection, failure)
+        verifyBlocking(caldavDao, never()) { setPasswordAndError(any(), any(), any()) }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    private suspend fun signInAgain(caldavDao: CaldavDao) = setupTasksAccount(
+        oauthResult = oauthResult(),
+        issuer = "google",
+        caldavUrl = "https://caldav.example.com",
+        caldavDao = caldavDao,
+        encryption = encryption,
+        provider = clientFactory,
+        purchaseClaim = purchaseClaim,
+    )
+
+    private fun returningAccount(url: String? = STORED_URL) = mock<CaldavDao> {
+        onBlocking { getAccount(any<Int>(), any()) } doReturn CaldavAccount(
             id = 1,
             accountType = CaldavAccount.TYPE_TASKS,
             username = "google_1234",
-            url = "https://caldav.example.com/caldav/google_1234/",
+            url = url,
+            error = CaldavAccount.ERROR_UNAUTHORIZED,
         )
-        val caldavDao = mock<CaldavDao> {
-            onBlocking { getAccount(any<Int>(), any()) } doReturn existing
-        }
-
-        val account = setupTasksAccount(
-            oauthResult = oauthResult(),
-            issuer = "google",
-            caldavUrl = "https://caldav.example.com",
-            caldavDao = caldavDao,
-            encryption = encryption,
-            provider = clientFactory,
-            purchaseClaim = purchaseClaim,
-        )
-
-        assertEquals(1L, account.id)
-        assertEquals(emptyList<String>(), calls)
     }
 
     @Test
@@ -201,13 +483,11 @@ class AccountSetupTest {
         }
         val slowFactory = object : CaldavClientFactory by clientFactory {
             override suspend fun forUrl(url: String?, username: String?, password: String?) =
-                object : CaldavDiscoveryClient {
+                object : CaldavDiscoveryClient by discoveryClient(url) {
                     override suspend fun homeSet(): String {
                         delay(100)
-                        return discoveryClient.homeSet()
+                        return discoveryClient(url).homeSet()
                     }
-
-                    override fun close() = Unit
                 }
         }
 
@@ -227,7 +507,15 @@ class AccountSetupTest {
 
         verify(caldavDao, times(1)).insert(any<CaldavAccount>())
         assertEquals(listOf(1L, 1L), accounts.map { it.id })
-        assertEquals(listOf("claim google_1234 access-token", "homeSet"), calls)
+        assertEquals(
+            listOf(
+                "checkAccess $HOME_SET",
+                "claim google_1234 access-token",
+                "claim google_1234 access-token",
+                "homeSet https://caldav.example.com",
+            ),
+            calls.sorted(),
+        )
     }
 
     @Test
@@ -322,6 +610,28 @@ class AccountSetupTest {
     }
 
     @Test
+    fun aTasksTokenThatFailsToEncryptLeavesTheAccountAlone(): Unit = runBlocking {
+        val caldavDao = returningAccount()
+
+        val failure = runCatching {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = failingEncryption,
+                provider = clientFactory,
+                purchaseClaim = purchaseClaim,
+            )
+        }.exceptionOrNull()
+
+        assertNotNull(failure)
+        verifyBlocking(caldavDao, never()) { getAccount(any<Int>(), any()) }
+        verifyBlocking(caldavDao, never()) { setPasswordAndError(any(), any(), any()) }
+        assertEquals(emptyList<String>(), calls)
+    }
+
+    @Test
     fun aFailureToReportANewMicrosoftAccountDoesNotFailTheSignIn(): Unit = runBlocking {
         val caldavDao = microsoftAccounts()
 
@@ -383,7 +693,7 @@ class AccountSetupTest {
 
         setupGoogleTasksAccount(googleTasksResult(), caldavDao, encryption, analytics)
 
-        verifyBlocking(caldavDao) { setGoogleTasksReauth(eq(2L), any()) }
+        verifyBlocking(caldavDao) { setPasswordAndError(eq(2L), any(), eq("")) }
         verifyBlocking(caldavDao, never()) { insert(any<CaldavAccount>()) }
         assertEquals(emptyList<Any>(), events)
     }
@@ -456,7 +766,7 @@ class AccountSetupTest {
         }.exceptionOrNull()
 
         assertNotNull(failure)
-        verifyBlocking(caldavDao, never()) { setGoogleTasksReauth(any(), any()) }
+        verifyBlocking(caldavDao, never()) { setPasswordAndError(any(), any(), any()) }
     }
 
     private suspend fun assertMicrosoftGrantRejected(grantedScopes: String) {
@@ -556,3 +866,7 @@ class AccountSetupTest {
         ),
     )
 }
+
+private const val HOME_SET = "https://caldav.example.com/caldav/google_1234/"
+
+private const val STORED_URL = "https://caldav.example.com/caldav/stored_google_1234/"

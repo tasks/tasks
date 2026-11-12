@@ -32,7 +32,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
+import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
+import org.tasks.auth.signInError
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.compose.pricing.cardPortalLauncher
@@ -75,6 +77,7 @@ fun TasksAccountSettingsDetail(
 
     val state by viewModel.state.collectAsState()
     var conflictingAccount by remember { mutableStateOf<String?>(null) }
+    var signInFailure by remember { mutableStateOf<String?>(null) }
     if (!state.loaded) return
     val sponsorUrl = stringResource(Res.string.url_sponsor)
     val appPasswordsUrl = stringResource(Res.string.url_app_passwords)
@@ -123,8 +126,13 @@ fun TasksAccountSettingsDetail(
                             throw e
                         } catch (e: PurchaseTokenInUseException) {
                             conflictingAccount = e.existingAccount
+                        } catch (e: PaymentRequiredException) {
+                            onSubscribe()
                         } catch (e: Exception) {
                             Logger.e(e) { "Tasks.org re-authentication failed" }
+                            signInFailure = e.signInError()
+                        } finally {
+                            viewModel.refreshAccount()
                         }
                     }
                 },
@@ -192,6 +200,12 @@ fun TasksAccountSettingsDetail(
                 MessageDialog(
                     message = conflictingAccountMessage(existingAccount),
                     onDismiss = { conflictingAccount = null },
+                )
+            }
+            signInFailure?.let { message ->
+                MessageDialog(
+                    message = message,
+                    onDismiss = { signInFailure = null },
                 )
             }
         }

@@ -16,6 +16,7 @@ import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.fcm.PushTokenManager
+import org.tasks.http.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -98,8 +99,10 @@ class SignInViewModel @Inject constructor(
                 currentCoroutineContext().ensureActive()
                 State.Finished(Outcome.Cancelled)
             } catch (e: Exception) {
-                firebase.reportException(e)
-                State.Finished(Outcome.Failed(e.message))
+                if (e !is HttpException) {
+                    firebase.reportException(e)
+                }
+                State.Finished(Outcome.Failed(e.signInError()))
             }
         }
     }

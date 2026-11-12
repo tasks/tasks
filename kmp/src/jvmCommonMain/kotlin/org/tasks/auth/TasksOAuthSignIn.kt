@@ -31,17 +31,15 @@ class TasksOAuthSignIn(
         provider: OAuthProvider,
         result: OAuthResult,
     ): CaldavAccount = withContext(Dispatchers.IO) {
-        val account = paymentRequiredOn402 {
-            setupTasksAccount(
-                oauthResult = result,
-                issuer = provider.issuer,
-                caldavUrl = serverEnvironment.caldavUrl,
-                caldavDao = caldavDao,
-                encryption = encryption,
-                provider = clientFactory,
-                purchaseClaim = purchaseClaim,
-            )
-        }
+        val account = setupTasksAccount(
+            oauthResult = result,
+            issuer = provider.issuer,
+            caldavUrl = serverEnvironment.caldavUrl,
+            caldavDao = caldavDao,
+            encryption = encryption,
+            provider = clientFactory,
+            purchaseClaim = purchaseClaim,
+        )
         logger.i { "Account created successfully" }
         account
     }

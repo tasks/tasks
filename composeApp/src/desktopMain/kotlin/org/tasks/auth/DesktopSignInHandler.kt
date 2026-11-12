@@ -53,17 +53,15 @@ class DesktopSignInHandler(
                     encryption = encryption,
                     analytics = reporting,
                 )
-                else -> paymentRequiredOn402 {
-                    setupTasksAccount(
-                        oauthResult = result,
-                        issuer = oauthProvider.issuer,
-                        caldavUrl = serverEnvironment.caldavUrl,
-                        caldavDao = caldavDao,
-                        encryption = encryption,
-                        provider = caldavClientProvider,
-                        purchaseClaim = purchaseClaim,
-                    )
-                }
+                else -> setupTasksAccount(
+                    oauthResult = result,
+                    issuer = oauthProvider.issuer,
+                    caldavUrl = serverEnvironment.caldavUrl,
+                    caldavDao = caldavDao,
+                    encryption = encryption,
+                    provider = caldavClientProvider,
+                    purchaseClaim = purchaseClaim,
+                )
             }
             Logger.i(TAG) { "Signed in" }
         } finally {

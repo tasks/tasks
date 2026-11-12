@@ -26,17 +26,15 @@ class IosSignInHandler(
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
         }
         val result = oauthFlow.signIn(oauthProvider, loginHint = loginHint)
-        val account = paymentRequiredOn402 {
-            setupTasksAccount(
-                oauthResult = result,
-                issuer = oauthProvider.issuer,
-                caldavUrl = serverEnvironment.caldavUrl,
-                caldavDao = caldavDao,
-                encryption = encryption,
-                provider = caldavClientFactory,
-                purchaseClaim = purchaseClaim,
-            )
-        }
+        val account = setupTasksAccount(
+            oauthResult = result,
+            issuer = oauthProvider.issuer,
+            caldavUrl = serverEnvironment.caldavUrl,
+            caldavDao = caldavDao,
+            encryption = encryption,
+            provider = caldavClientFactory,
+            purchaseClaim = purchaseClaim,
+        )
         pushTokenManager.registerTokenForAccount(account)
         Logger.i("IosSignInHandler") { "Account created successfully" }
     }

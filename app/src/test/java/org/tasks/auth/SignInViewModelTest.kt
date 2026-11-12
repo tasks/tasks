@@ -26,6 +26,7 @@ import org.tasks.auth.SignInViewModel.State
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.fcm.PushTokenManager
+import org.tasks.http.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -159,6 +160,16 @@ class SignInViewModelTest {
 
         assertEquals(State.Finished(Outcome.Failed("boom")), viewModel.state.value)
         verify(firebase).reportException(error)
+    }
+
+    @Test
+    fun aServerRejectionIsNotReportedAndFinishesWithItsStatus() {
+        val viewModel = viewModel(signIn(createAccount = { throw HttpException(403, "forbidden") }))
+
+        viewModel.signIn(OAuthProvider.GOOGLE)
+
+        assertEquals(State.Finished(Outcome.Failed("HTTP 403 - Forbidden")), viewModel.state.value)
+        verify(firebase, never()).reportException(any(), any())
     }
 
     private fun signIn(

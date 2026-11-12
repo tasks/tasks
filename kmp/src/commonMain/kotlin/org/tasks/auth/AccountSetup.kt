@@ -1,6 +1,7 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import org.jetbrains.compose.resources.StringResource
@@ -8,12 +9,16 @@ import org.tasks.analytics.Analytics
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Constants
 import org.tasks.caldav.CaldavClientFactory
+import org.tasks.caldav.CaldavDiscoveryClient
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.http.HttpException
+import org.tasks.http.httpStatusMessage
 import org.tasks.resources.getString
 import org.tasks.security.Encryption
+import org.tasks.ui.DisplayableException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_encryption_failed
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
@@ -39,43 +44,92 @@ suspend fun setupTasksAccount(
     encryption: Encryption,
     provider: CaldavClientFactory,
     purchaseClaim: PurchaseClaim? = null,
-): CaldavAccount = tasksSetupLock.withLock {
+): CaldavAccount {
     val idToken = oauthResult.idToken
         ?: throw IllegalStateException("id_token required for tasks.org account setup")
     val sub = idToken.sub
         ?: throw IllegalStateException("id_token missing sub claim")
     val username = "${issuer}_$sub"
     val tokenString = oauthResult.accessToken
-    val password = encryption.encrypt(tokenString)
-    caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
-        ?.let {
-            it.copy(error = null, password = password)
-                .also { updated -> caldavDao.update(updated) }
-        }
-        ?: run {
-            when (val claim = purchaseClaim?.claimHeldPurchase(username, tokenString)) {
-                is HeldPurchaseClaim.CoveringAnotherAccount ->
-                    throw PurchaseTokenInUseException(claim.existingAccount)
-                HeldPurchaseClaim.Claimed,
-                HeldPurchaseClaim.NotClaimed,
-                null -> Unit
+    val password = encryption.encryptOrThrow(tokenString)
+    suspend fun <T> probe(url: String, block: suspend (CaldavDiscoveryClient) -> T): T =
+        paymentRequiredOn402 { provider.forUrl(url, username, tokenString).use { block(it) } }
+    suspend fun homeSet(): String = probe(caldavUrl) { it.homeSet() }
+    suspend fun stillThere(url: String): Boolean = try {
+        probe(url) { it.checkAccess() }
+        true
+    } catch (e: HttpException) {
+        if (e.code != 404) throw e
+        Logger.i(TAG) { "The home set moved, looking for it again" }
+        false
+    }
+    return tasksSetupLock.withLock {
+        val existing = caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
+        val claim = purchaseClaim?.claimHeldPurchase(username, tokenString)
+        if (claim is HeldPurchaseClaim.CoveringAnotherAccount) {
+            if (existing == null) {
+                throw PurchaseTokenInUseException(claim.existingAccount)
             }
-            val homeSet = provider
-                .forUrl(caldavUrl, username, tokenString)
-                .use { it.homeSet() }
-            CaldavAccount(
+            Logger.i(TAG) { "The subscription held here funds ${claim.existingAccount}, signing in again anyway" }
+        }
+        if (existing == null) {
+            val account = CaldavAccount(
                 accountType = CaldavAccount.TYPE_TASKS,
                 uuid = UUIDHelper.newUUID(),
                 username = username,
                 password = password,
-                url = homeSet,
+                url = homeSet(),
                 name = idToken.email ?: idToken.login,
                 serverType = CaldavAccount.SERVER_TASKS,
-            ).let {
-                it.copy(id = caldavDao.insert(it))
-            }
+            )
+            return account.copy(id = caldavDao.insert(account))
         }
+        signInAgain(existing, password, caldavDao) {
+            existing.url?.takeIf { it.isNotBlank() && stillThere(it) } ?: homeSet()
+        }
+    }
 }
+
+private suspend fun signInAgain(
+    existing: CaldavAccount,
+    password: String,
+    caldavDao: CaldavDao,
+    verify: suspend () -> String,
+): CaldavAccount {
+    suspend fun keepToken(error: String): CaldavAccount {
+        caldavDao.setPasswordAndError(existing.id, password, error)
+        return existing.copy(password = password, error = error)
+    }
+    val url = try {
+        verify()
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: PaymentRequiredException) {
+        keepToken(CaldavAccount.ERROR_PAYMENT_REQUIRED)
+        throw e
+    } catch (e: PurchaseTokenInUseException) {
+        keepToken("${CaldavAccount.ERROR_PURCHASE_TOKEN_IN_USE}${e.existingAccount}")
+        throw e
+    } catch (e: Exception) {
+        if (e.isRejection()) {
+            throw e
+        }
+        Logger.e(TAG, e) { "Could not check a returning account" }
+        return keepToken(e.signInError())
+    }
+    caldavDao.setVerified(existing.id, url, password)
+    return existing.copy(password = password, url = url, error = "")
+}
+
+private fun Exception.isRejection() = this is HttpException && code in REJECTIONS
+
+suspend fun Throwable.signInError(): String = when (this) {
+    is HttpException -> httpStatusMessage(code)
+    is DisplayableException -> getString(resource)
+    else -> message ?: toString()
+}
+
+private val REJECTIONS = setOf(401, 403, 404)
 
 suspend fun setupMicrosoftAccount(
     oauthResult: OAuthResult,
@@ -143,7 +197,7 @@ suspend fun setupGoogleTasksAccount(
         analytics = analytics,
         findExisting = { caldavDao.getAccount(CaldavAccount.TYPE_GOOGLE_TASKS, email) },
         reauthorize = { existing, password ->
-            caldavDao.setGoogleTasksReauth(existing.id, password)
+            caldavDao.setPasswordAndError(existing.id, password, "")
         },
         insert = { password ->
             caldavDao.insert(

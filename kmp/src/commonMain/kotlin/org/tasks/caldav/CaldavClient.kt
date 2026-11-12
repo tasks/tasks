@@ -139,6 +139,11 @@ open class CaldavClient(
         }
     }
 
+    override suspend fun checkAccess() = translateExceptions {
+        propfindProperty(httpUrl!!, WebDAV.ResourceType, ResourceType::class)
+        Unit
+    }
+
     suspend fun calendars(onResponse: (Headers) -> Unit = {}): List<Response> {
         val url = httpUrl!!
         val subscription = httpClient.monitor.subscribe(HttpResponseReceived) { response ->
