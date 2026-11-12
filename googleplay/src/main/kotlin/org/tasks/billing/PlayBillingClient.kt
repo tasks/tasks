@@ -83,15 +83,21 @@ class PlayBillingClient(
             val iapsQuery = async { queryPurchasesOfType(ProductType.INAPP) }
             val subs = subsQuery.await()
             val iaps = iapsQuery.await()
-            val failed = listOf(subs, iaps).firstOrNull { !it.success }
-            if (failed != null) {
+            if (!subs.success || !iaps.success) {
                 reportIabResult(
                     result = "SUBS:${subs.responseCodeString} IAPs:${iaps.responseCodeString}",
                     state = STATE_QUERY_PURCHASES_FAILED,
                 )
-                throw failed.asException
             }
-            purchases.replaceAll((subs.purchases + iaps.purchases).map { it.toPlayPurchase() })
+            if (!subs.success) {
+                throw subs.asException
+            }
+            val oneTime = if (iaps.success) {
+                iaps.purchases.map { it.toPlayPurchase() }
+            } else {
+                purchases.state.value.purchases.values.filterNot { it.isProSubscription }
+            }
+            purchases.replaceAll(subs.purchases.map { it.toPlayPurchase() } + oneTime)
         }
     }
 
