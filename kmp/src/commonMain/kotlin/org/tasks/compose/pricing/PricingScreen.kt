@@ -47,10 +47,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -316,6 +320,10 @@ fun PricingScreen(
     val currentSku = store?.currentSku ?: subscribedSku
     val cloudIsCurrent = isCloudSku(currentSku, store?.catalog)
     val supporterIsCurrent = isSupporterSku(currentSku, store?.catalog)
+    val cloudAnnual = rememberSaveable { mutableStateOf(true) }
+    val nypSelection = rememberSaveable(saver = NameYourPriceSelection.Saver) {
+        NameYourPriceSelection()
+    }
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
@@ -382,6 +390,7 @@ fun PricingScreen(
                         onSignIn = onSignIn.takeIf { showSignIn && cloudOnly },
                         onBillingToggle = onBillingToggle,
                         store = store,
+                        annual = cloudAnnual,
                     )
                 }
                 val nameYourPriceCard: @Composable (Modifier) -> Unit = { cardModifier ->
@@ -391,6 +400,7 @@ fun PricingScreen(
                         isCurrent = supporterIsCurrent,
                         features = supporterFeatures,
                         store = store,
+                        selection = nypSelection,
                     )
                 }
 
@@ -441,8 +451,9 @@ private fun CloudTierCard(
     onSignIn: (() -> Unit)?,
     onBillingToggle: (Boolean) -> Unit = {},
     store: StoreBilling? = null,
+    annual: MutableState<Boolean> = remember { mutableStateOf(true) },
 ) {
-    var isAnnual by rememberSaveable { mutableStateOf(true) }
+    var isAnnual by annual
     val price = if (isAnnual) store?.catalog?.cloudAnnual else store?.catalog?.cloudMonthly
 
     TierCard(
@@ -523,10 +534,11 @@ private fun NameYourPriceTierCard(
     isCurrent: Boolean = false,
     features: SupporterFeatures = SupporterFeatures.APP_STORE,
     store: StoreBilling? = null,
+    selection: NameYourPriceSelection = remember { NameYourPriceSelection() },
 ) {
     val rungs = store?.catalog?.supporterRungs.orEmpty()
     val cheapestRung = rungs.firstOrNull()
-    var chosenSku by rememberSaveable { mutableStateOf<String?>(null) }
+    val chosenSku = selection.sku
     val shown = store?.let { billing ->
         chosenSku?.let { billing.catalog.price(it) }
             ?: billing.supporterPrice
@@ -581,7 +593,7 @@ private fun NameYourPriceTierCard(
                     store = store,
                     rungs = rungs,
                     onCtaClick = onCtaClick,
-                    onChosen = { chosenSku = it.sku },
+                    selection = selection,
                 )
                 store?.unavailable(cheapestRung) == true -> Unit
                 else -> PurchaseButton(
@@ -594,6 +606,19 @@ private fun NameYourPriceTierCard(
             }
         },
     )
+}
+
+@Stable
+internal class NameYourPriceSelection(sku: String? = null, custom: Boolean? = null) {
+    var sku by mutableStateOf(sku)
+    var custom by mutableStateOf(custom)
+
+    companion object {
+        val Saver: Saver<NameYourPriceSelection, Any> = listSaver(
+            save = { listOf(it.sku, it.custom) },
+            restore = { NameYourPriceSelection(it[0] as String?, it[1] as Boolean?) },
+        )
+    }
 }
 
 internal val PRESET_TIERS = listOf(3, 5, 10, 20)
@@ -609,13 +634,17 @@ private fun NameYourPricePicker(
     store: StoreBilling,
     rungs: List<BillingOption>,
     onCtaClick: () -> Unit,
-    onChosen: (BillingOption) -> Unit,
+    selection: NameYourPriceSelection,
 ) {
-    var sliderPosition by rememberSaveable {
-        mutableFloatStateOf(store.catalog.supporterRungFor(store.suggestedPrice).toFloat())
+    var sliderPosition by remember(rungs) {
+        mutableFloatStateOf(
+            (rungs.indexOfFirst { it.sku == selection.sku }.takeIf { it >= 0 }
+                ?: store.catalog.supporterRungFor(store.suggestedPrice)).toFloat()
+        )
     }
     val presets = remember(rungs) { presetRungs(rungs) }
-    var custom by rememberSaveable { mutableStateOf(sliderPosition.roundToInt() !in presets) }
+    val custom = selection.custom ?: (sliderPosition.roundToInt() !in presets)
+    val onChosen: (BillingOption) -> Unit = { selection.sku = it.sku }
     val card = store.catalog.supporterRungAt(sliderPosition) ?: return
     val monthly = store.catalog.supporterMonthlyFor(card)
 
@@ -628,6 +657,7 @@ private fun NameYourPricePicker(
                 value = sliderPosition,
                 onValueChange = {
                     sliderPosition = it
+                    selection.custom = true
                     store.catalog.supporterRungAt(it)?.let(onChosen)
                 },
                 valueRange = 0f..rungs.lastIndex.toFloat().coerceAtLeast(0f),
@@ -655,7 +685,7 @@ private fun NameYourPricePicker(
                 }
                 FilterChip(
                     selected = false,
-                    onClick = { custom = true },
+                    onClick = { selection.custom = true },
                     label = { Text(stringResource(Res.string.pricing_custom)) },
                     enabled = !store.busy,
                 )
