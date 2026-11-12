@@ -2,6 +2,7 @@ package org.tasks.billing
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.concurrent.ConcurrentHashMap
 
 class PlaySubscriptionProvider(
     private val purchases: PlayPurchases,
@@ -13,7 +14,10 @@ class PlaySubscriptionProvider(
     override val subscription: Flow<SubscriptionProvider.SubscriptionInfo?> =
         purchases.subscription.map { it?.toSubscriptionInfo() }
 
-    override suspend fun getFormattedPrice(sku: String): String? = billing.formattedPrice(sku)
+    private val prices = ConcurrentHashMap<String, String>()
+
+    override suspend fun getFormattedPrice(sku: String): String? =
+        prices[sku] ?: billing.formattedPrice(sku)?.also { prices[sku] = it }
 
     override suspend fun awaitVerification(): Boolean {
         purchases.load()
