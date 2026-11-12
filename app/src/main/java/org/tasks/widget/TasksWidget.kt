@@ -15,7 +15,12 @@ import com.todoroo.astrid.activity.MainActivity.Companion.FINISH_AFFINITY
 import com.todoroo.astrid.subtasks.SubtasksHelper
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.tasks.R
 import org.tasks.compose.FilterSelectionActivity
 import org.tasks.data.dao.TaskDao
@@ -24,6 +29,7 @@ import org.tasks.extensions.setBackgroundColor
 import org.tasks.extensions.setColorFilter
 import org.tasks.extensions.setRipple
 import org.tasks.filters.Filter
+import org.tasks.injection.ApplicationScope
 import org.tasks.intents.TaskIntents
 import org.tasks.markdown.MarkdownProvider
 import org.tasks.preferences.DefaultFilterProvider
@@ -43,19 +49,11 @@ class TasksWidget : AppWidgetProvider() {
     @Inject lateinit var chipProvider: WidgetChipProvider
     @Inject lateinit var markdownProvider: MarkdownProvider
     @Inject lateinit var headerFormatter: HeaderFormatter
+    @Inject @ApplicationScope lateinit var scope: CoroutineScope
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         Timber.d("onUpdate appWidgetIds=${appWidgetIds.joinToString { it.toString() }}")
-        appWidgetIds.forEach { id ->
-            try {
-                val options = appWidgetManager.getAppWidgetOptions(id)
-                val remoteViews = createWidget(context, id, options)
-                Timber.d("Widget $id main layout: ${Formatter.formatShortFileSize(context, remoteViews.estimateParcelSize().toLong())}")
-                appWidgetManager.updateAppWidget(id, remoteViews)
-            } catch (e: Exception) {
-                Timber.e(e)
-            }
-        }
+        update(context, appWidgetManager, appWidgetIds.toList()) { appWidgetManager.getAppWidgetOptions(it) }
     }
 
     override fun onDeleted(context: Context, appWidgetIds: IntArray) {
@@ -72,21 +70,45 @@ class TasksWidget : AppWidgetProvider() {
             newOptions: Bundle
     ) {
         Timber.d("onAppWidgetOptionsChanged appWidgetId=$appWidgetId")
-        val remoteViews = createWidget(context, appWidgetId, newOptions)
-        Timber.d("Widget $appWidgetId main layout: ${Formatter.formatShortFileSize(context, remoteViews.estimateParcelSize().toLong())}")
-        appWidgetManager.updateAppWidget(appWidgetId, remoteViews)
+        update(context, appWidgetManager, listOf(appWidgetId)) { newOptions }
     }
 
-    private fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
+    private fun update(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: List<Int>,
+        options: (Int) -> Bundle,
+    ) {
+        val pendingResult = goAsync()
+        scope.launch(Dispatchers.IO) {
+            try {
+                updateLock.withLock {
+                    appWidgetIds.forEach { id ->
+                        try {
+                            val remoteViews = createWidget(context, id, options(id))
+                            Timber.d("Widget $id main layout: ${Formatter.formatShortFileSize(context, remoteViews.estimateParcelSize().toLong())}")
+                            appWidgetManager.updateAppWidget(id, remoteViews)
+                        } catch (e: CancellationException) {
+                            throw e
+                        } catch (e: Exception) {
+                            Timber.e(e)
+                        }
+                    }
+                }
+            } finally {
+                pendingResult.finish()
+            }
+        }
+    }
+
+    private suspend fun createWidget(context: Context, id: Int, options: Bundle): RemoteViews {
         val widgetPreferences = WidgetPreferences(context, preferences, id)
         val settings = widgetPreferences.getWidgetHeaderSettings()
         widgetPreferences.setCompact(
             options.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH) < COMPACT_MAX
         )
         val filterId = widgetPreferences.filterId
-        val filter = runBlocking {
-            defaultFilterProvider.getFilterFromPreference(filterId)
-        }
+        val filter = defaultFilterProvider.getFilterFromPreference(filterId)
         Timber.d("createWidget id=$id filter=$filter")
 
         val remoteViews = RemoteViews(context.packageName, R.layout.scrollable_widget).apply {
@@ -121,7 +143,7 @@ class TasksWidget : AppWidgetProvider() {
             markdown = markdownProvider.markdown(false),
             headerFormatter = headerFormatter,
         )
-        val items = runBlocking { builder.buildItems() }
+        val items = builder.buildItems()
         RemoteViewsCompat.setRemoteAdapter(
             context = context,
             remoteViews = remoteViews,
@@ -265,6 +287,7 @@ class TasksWidget : AppWidgetProvider() {
 
     companion object {
         private const val COMPACT_MAX = 275
+        private val updateLock = Mutex()
         private const val FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
     }
 }
