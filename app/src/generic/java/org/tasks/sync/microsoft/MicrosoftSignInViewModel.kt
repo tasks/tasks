@@ -24,9 +24,7 @@ class MicrosoftSignInViewModel @Inject constructor(
                 signIn.signInToMicrosoft(
                     openUrl = {},
                     analytics = firebase,
-                    extraParams = username
-                        ?.let { mapOf("login_hint" to it, "prompt" to "login") }
-                        ?: emptyMap(),
+                    loginHint = username,
                 )
                 Timber.d("Successfully signed in")
             } catch (e: CancellationException) {

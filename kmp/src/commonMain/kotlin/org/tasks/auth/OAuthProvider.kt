@@ -25,6 +25,9 @@ enum class OAuthProvider(
     val serverCallbackPath: String? = null,
     val usesPkce: Boolean = true,
     val promptForAccount: Boolean = true,
+    val loginHintParam: String? = "login_hint",
+    val loginHintIsUsername: Boolean = false,
+    val reauthPrompt: String? = null,
 ) {
     GOOGLE(
         issuer = "google",
@@ -51,6 +54,7 @@ enum class OAuthProvider(
             redirectUri = "msauth://org.tasks/8wnYBRqh5nnQgFzbIXfxXSs41xE%3D",
         ),
         discoveryUrl = "https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration",
+        reauthPrompt = "login",
     ),
     GITHUB(
         issuer = "github",
@@ -61,6 +65,8 @@ enum class OAuthProvider(
             clientId = "a50fdbf3e289a7fb2fc6",
             redirectUri = "org.tasks.github.a50fdbf3e289a7fb2fc6://oauth2redirect",
         ),
+        loginHintParam = "login",
+        loginHintIsUsername = true,
     ),
     APPLE(
         issuer = "apple",
@@ -78,6 +84,7 @@ enum class OAuthProvider(
         serverCallbackPath = "/oauth/apple/callback",
         usesPkce = false,
         promptForAccount = false,
+        loginHintParam = null,
     ),
     GOOGLE_TASKS(
         issuer = "google_tasks",
@@ -89,12 +96,17 @@ enum class OAuthProvider(
         ),
     );
 
-    fun authParams(additionalParams: Map<String, String> = emptyMap()): Map<String, String> {
-        val params = extraAuthParams + additionalParams
-        if (!promptForAccount || PROMPT in additionalParams) {
-            return params
-        }
-        val prompt = listOfNotNull(extraAuthParams[PROMPT], SELECT_ACCOUNT).joinToString(" ")
-        return params + (PROMPT to prompt)
+    fun authParams(loginHint: String? = null): Map<String, String> {
+        val hint = loginHint
+            ?.takeIf { it.isNotBlank() }
+            ?.takeUnless { loginHintIsUsername && '@' in it }
+            ?.let { value -> loginHintParam?.let { it to value } }
+        val params = extraAuthParams + listOfNotNull(hint)
+        val prompt = when {
+            hint != null -> reauthPrompt
+            promptForAccount -> SELECT_ACCOUNT
+            else -> null
+        } ?: return params
+        return params + (PROMPT to listOfNotNull(extraAuthParams[PROMPT], prompt).joinToString(" "))
     }
 }

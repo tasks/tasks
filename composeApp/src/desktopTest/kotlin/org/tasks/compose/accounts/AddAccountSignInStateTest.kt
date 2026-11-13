@@ -38,7 +38,7 @@ class AddAccountSignInStateTest {
     fun dismissingTheBrowserLeavesNoSpinnerBehind() = runTest {
         val viewModel = viewModel { throw CancellationException("Sign in cancelled") }
 
-        viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE, openUrl = {})
+        viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE)
 
         assertEquals(AddAccountViewModel.SignInState.Idle, viewModel.signInState.value)
     }
@@ -47,7 +47,7 @@ class AddAccountSignInStateTest {
     fun aSignInThatFailsKeepsTheErrorOnScreen() = runTest {
         val viewModel = viewModel { throw PaymentRequiredException() }
 
-        viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE, openUrl = {})
+        viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE)
 
         assertEquals(
             AddAccountViewModel.SignInState.Error.PaymentRequired,
@@ -69,7 +69,7 @@ class AddAccountSignInStateTest {
             override suspend fun signIn(
                 platform: Platform,
                 provider: OAuthProvider?,
-                openUrl: (String) -> Unit,
+                loginHint: String?,
             ) = signIn()
         },
     )

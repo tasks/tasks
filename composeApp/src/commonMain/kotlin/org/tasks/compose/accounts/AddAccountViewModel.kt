@@ -50,12 +50,11 @@ class AddAccountViewModel(
     fun signIn(
         platform: Platform,
         provider: OAuthProvider? = null,
-        openUrl: (String) -> Unit,
     ) {
         viewModelScope.launch {
             _signInState.value = SignInState.Loading
             try {
-                signInHandler.signIn(platform, provider, openUrl)
+                signInHandler.signIn(platform, provider)
                 _signInState.value = SignInState.Idle
             } catch (e: CancellationException) {
                 _signInState.value = SignInState.Idle

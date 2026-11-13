@@ -10,18 +10,18 @@ class AndroidSignInHandler(
     override suspend fun signIn(
         platform: Platform,
         provider: OAuthProvider?,
-        openUrl: (String) -> Unit,
+        loginHint: String?,
     ) {
         if (platform == Platform.MICROSOFT) {
             val microsoft = microsoftSignIn
                 ?: throw UnsupportedOperationException("$platform not supported")
-            microsoft.signIn(openUrl)
+            microsoft.signIn(loginHint)
             return
         }
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             else -> throw UnsupportedOperationException("$platform not supported")
         }
-        signIn.signIn(oauthProvider, openUrl)
+        signIn.signIn(oauthProvider, openUrl = {}, loginHint = loginHint)
     }
 }

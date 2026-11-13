@@ -24,7 +24,8 @@ class TasksOAuthSignIn(
     suspend fun signIn(
         provider: OAuthProvider,
         openUrl: (String) -> Unit,
-    ): CaldavAccount = createAccount(provider, authorize(provider, openUrl))
+        loginHint: String? = null,
+    ): CaldavAccount = createAccount(provider, authorize(provider, openUrl, loginHint))
 
     suspend fun createAccount(
         provider: OAuthProvider,
@@ -48,9 +49,9 @@ class TasksOAuthSignIn(
     suspend fun signInToMicrosoft(
         openUrl: (String) -> Unit,
         analytics: Analytics,
-        extraParams: Map<String, String> = emptyMap(),
+        loginHint: String? = null,
     ) {
-        val result = authorize(OAuthProvider.MICROSOFT, openUrl, extraParams)
+        val result = authorize(OAuthProvider.MICROSOFT, openUrl, loginHint)
         withContext(Dispatchers.IO) {
             setupMicrosoftAccount(
                 oauthResult = result,
@@ -64,8 +65,8 @@ class TasksOAuthSignIn(
     suspend fun authorize(
         provider: OAuthProvider,
         openUrl: (String) -> Unit,
-        extraParams: Map<String, String> = emptyMap(),
-    ): OAuthResult = authorizer.authorize(provider, openUrl, extraParams)
+        loginHint: String? = null,
+    ): OAuthResult = authorizer.authorize(provider, openUrl, loginHint)
 
     companion object {
         private const val TAG = "TasksOAuthSignIn"

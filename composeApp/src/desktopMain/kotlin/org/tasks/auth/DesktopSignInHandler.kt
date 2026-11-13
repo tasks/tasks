@@ -22,7 +22,7 @@ class DesktopSignInHandler(
     override suspend fun signIn(
         platform: Platform,
         provider: OAuthProvider?,
-        openUrl: (String) -> Unit,
+        loginHint: String?,
     ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
@@ -37,7 +37,7 @@ class DesktopSignInHandler(
             else -> null
         }
 
-        val result = oauthFlow.signIn(oauthProvider, authHeader = authHeader)
+        val result = oauthFlow.signIn(oauthProvider, authHeader = authHeader, loginHint = loginHint)
 
         try {
             when (platform) {

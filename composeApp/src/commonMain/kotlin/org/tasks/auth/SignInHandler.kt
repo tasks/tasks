@@ -6,6 +6,6 @@ interface SignInHandler {
     suspend fun signIn(
         platform: Platform,
         provider: OAuthProvider? = null,
-        openUrl: (String) -> Unit,
+        loginHint: String? = null,
     )
 }

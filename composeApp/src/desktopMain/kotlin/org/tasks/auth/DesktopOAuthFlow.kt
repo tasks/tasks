@@ -19,5 +19,6 @@ class DesktopOAuthFlow(
     override suspend fun signIn(
         provider: OAuthProvider,
         authHeader: String?,
-    ): OAuthResult = authorizer.authorize(provider, openUrl, authHeader = authHeader)
+        loginHint: String?,
+    ): OAuthResult = authorizer.authorize(provider, openUrl, loginHint, authHeader)
 }

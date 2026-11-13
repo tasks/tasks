@@ -46,7 +46,7 @@ class AddAccountSignInErrorTest {
         override suspend fun signIn(
             platform: Platform,
             provider: OAuthProvider?,
-            openUrl: (String) -> Unit,
+            loginHint: String?,
         ): Unit = throw failure
     }
 
@@ -89,7 +89,7 @@ class AddAccountSignInErrorTest {
 
     private fun kotlinx.coroutines.test.TestScope.signIn(): SignInState {
         val viewModel = AddAccountViewModel(caldavDao, purchaseState, signInHandler)
-        viewModel.signIn(Platform.TASKS_ORG, openUrl = {})
+        viewModel.signIn(Platform.TASKS_ORG)
         runCurrent()
         return viewModel.signInState.value
     }

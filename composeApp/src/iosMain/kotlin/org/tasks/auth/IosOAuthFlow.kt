@@ -30,6 +30,7 @@ class IosOAuthFlow(
     override suspend fun signIn(
         provider: OAuthProvider,
         authHeader: String?,
+        loginHint: String?,
     ): OAuthResult {
         if (provider == OAuthProvider.APPLE) {
             return signInWithApple(provider, authHeader)
@@ -57,7 +58,7 @@ class IosOAuthFlow(
             config,
             PKCE.generateChallenge(codeVerifier),
             state,
-            provider.authParams(),
+            provider.authParams(loginHint),
         )
 
         val callback = authenticate(authUrl, redirectUri.substringBefore(':'))

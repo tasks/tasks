@@ -117,7 +117,7 @@ fun TasksAccountSettingsDetail(
                             signInHandler.signIn(
                                 platform = Platform.TASKS_ORG,
                                 provider = provider,
-                                openUrl = uriHandler::openUri,
+                                loginHint = state.account?.name,
                             )
                         } catch (e: CancellationException) {
                             throw e

@@ -19,13 +19,13 @@ class IosSignInHandler(
     override suspend fun signIn(
         platform: Platform,
         provider: OAuthProvider?,
-        openUrl: (String) -> Unit,
+        loginHint: String?,
     ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
         }
-        val result = oauthFlow.signIn(oauthProvider)
+        val result = oauthFlow.signIn(oauthProvider, loginHint = loginHint)
         val account = paymentRequiredOn402 {
             setupTasksAccount(
                 oauthResult = result,

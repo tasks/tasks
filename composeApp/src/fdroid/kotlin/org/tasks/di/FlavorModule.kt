@@ -35,8 +35,8 @@ val flavorModule = module {
     single<QrScanner> { object : QrScanner { override suspend fun scan(): String? = null } }
     single<DesktopLinkService> { object : DesktopLinkService { override suspend fun confirmLink(code: String) = false } }
     single<MicrosoftSignIn> {
-        MicrosoftSignIn { openUrl ->
-            get<TasksOAuthSignIn>().signInToMicrosoft(openUrl, get<Reporting>())
+        MicrosoftSignIn { loginHint ->
+            get<TasksOAuthSignIn>().signInToMicrosoft(openUrl = {}, analytics = get<Reporting>(), loginHint = loginHint)
         }
     }
     single<MicrosoftClientProvider> {

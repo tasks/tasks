@@ -24,6 +24,14 @@ class OAuthAuthorizerTest {
     }
 
     @Test
+    fun gitHubLoginIsRedacted() {
+        assertEquals(
+            "https://github.com/login/oauth/authorize?client_id=abc&login=***&state=xyz",
+            redactLoginHint("https://github.com/login/oauth/authorize?client_id=abc&login=octocat&state=xyz"),
+        )
+    }
+
+    @Test
     fun urlWithoutLoginHintIsUnchanged() {
         val url = "https://login.example/authorize?client_id=abc&state=xyz"
         assertEquals(url, redactLoginHint(url))

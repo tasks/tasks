@@ -876,10 +876,7 @@ fun App(
                         LaunchedEffect(platformSignIn) {
                             val platform = platformSignIn ?: return@LaunchedEffect
                             platformSignIn = null
-                            addAccountViewModel.signIn(
-                                platform = Platform.valueOf(platform),
-                                openUrl = openUrl,
-                            )
+                            addAccountViewModel.signIn(Platform.valueOf(platform))
                         }
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         AddAccountScreen(
@@ -913,10 +910,7 @@ fun App(
                                     }
                                     Platform.CALDAV -> backStack.push(CaldavSignInDestination)
                                     Platform.ETEBASE -> backStack.push(EtebaseSignInDestination)
-                                    else -> addAccountViewModel.signIn(
-                                        platform = platform,
-                                        openUrl = openUrl,
-                                    )
+                                    else -> addAccountViewModel.signIn(platform)
                                 }
                             },
                             openUrl = { platform ->
@@ -1311,7 +1305,6 @@ fun App(
                                         addAccountViewModel.signIn(
                                             platform = Platform.TASKS_ORG,
                                             provider = oauthProvider,
-                                            openUrl = openUrl,
                                         )
                                     },
                                     onHelp = {
@@ -1382,7 +1375,6 @@ fun App(
                     addAccountViewModel.signIn(
                         platform = Platform.TASKS_ORG,
                         provider = oauthProvider,
-                        openUrl = openUrl,
                     )
                 }
                 LaunchedEffect(cloudSignInProvider) {

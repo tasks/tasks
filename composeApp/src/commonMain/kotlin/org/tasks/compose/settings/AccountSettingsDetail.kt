@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.data.entity.CaldavAccount
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
@@ -31,7 +32,7 @@ internal fun AccountSettingsDetail(
     defaultName: StringResource,
     onNavigateBack: () -> Unit,
     signInTitle: StringResource = Res.string.sign_in_with_google,
-    onSignIn: () -> Unit = { },
+    onSignIn: (CaldavAccount?) -> Unit = { },
 ) {
     val viewModel = koinViewModel<GoogleTasksAccountViewModel>()
     LaunchedEffect(accountId) { viewModel.setAccountId(accountId) }
@@ -63,7 +64,7 @@ internal fun AccountSettingsDetail(
                 error = state.error,
                 isUnauthorized = state.isUnauthorized,
                 accountName = accountName,
-                onSignIn = onSignIn,
+                onSignIn = { onSignIn(state.account) },
                 onDelete = { viewModel.delete(onNavigateBack) },
                 signInTitle = signInTitle,
             )

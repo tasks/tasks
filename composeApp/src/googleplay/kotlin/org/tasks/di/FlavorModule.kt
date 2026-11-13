@@ -63,11 +63,11 @@ val flavorModule = module {
     }
     single { MsalClient(androidContext(), R.raw.microsoft_config) }
     single<MicrosoftSignIn> {
-        MicrosoftSignIn {
+        MicrosoftSignIn { loginHint ->
             val activity = get<CurrentActivity>().activity
                 ?: throw IllegalStateException("Microsoft sign-in needs a foreground activity")
             setupMsalMicrosoftAccount(
-                email = get<MsalClient>().signIn(activity, null),
+                email = get<MsalClient>().signIn(activity, loginHint),
                 caldavDao = get(),
                 onAccountAdded = {
                     get<Reporting>().logEvent(

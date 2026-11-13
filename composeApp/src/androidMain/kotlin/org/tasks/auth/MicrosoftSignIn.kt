@@ -1,5 +1,5 @@
 package org.tasks.auth
 
 fun interface MicrosoftSignIn {
-    suspend fun signIn(openUrl: (String) -> Unit)
+    suspend fun signIn(loginHint: String?)
 }
