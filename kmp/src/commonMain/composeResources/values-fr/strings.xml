@@ -730,4 +730,21 @@
     <string name="change_plan">Modifier le forfait</string>
     <string name="upgrade_blurb_1">Salut ! Je m\'appelle Alex. Je suis le développeur indépendant à l\'origine de Tasks.org</string>
     <string name="upgrade_blurb_2">J\'ai passé des milliers d\'heures à travailler sur Tasks.org, et je publie gratuitement tout le code source en ligne. Afin de soutenir mon travail, certaines fonctionnalités nécessitent un abonnement</string>
+    <string name="works_with_xandikos_description">Serveur CalDAV basé sur Git</string>
+    <string name="subscription_active_google_play">Vous disposez déjà d\'un abonnement Google Play actif.</string>
+    <string name="subscription_active_github">Vous disposez déjà d\'un abonnement GitHub actif.</string>
+    <string name="subscription_active_card">Vous disposez déjà d\'un abonnement actif réglé par carte bancaire.</string>
+    <string name="subscription_active_elsewhere">Vous disposez déjà d\'un abonnement actif chez un autre fournisseur.</string>
+    <string name="pricing_custom">Personnalisé</string>
+    <string name="pricing_upgrade_to">Passez à %1$s</string>
+    <string name="pricing_change_to">Remplacer par %1$s</string>
+    <string name="pricing_current_subscription">Abonnement actuel</string>
+    <string name="pricing_cloud_feature_1_v2">Synchronisation instantanée entre Android, iOS et l\'application de bureau</string>
+    <string name="pricing_nyp_feature_all_platforms">Accédez à Tasks.org sur Android, iOS et l\'application de bureau</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">Accédez à Tasks.org sur ordinateur et sur iOS</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">Plus de rappels de dons</string>
+    <string name="pricing_nyp_feature_third_party_sync">Synchronisation avec Google Tasks, Microsoft To Do, CalDAV et EteSync</string>
+    <string name="pricing_feature_trial">Essai gratuit de 7 jours pour les nouveaux abonnés</string>
+    <string name="cloud_onboarding_sign_in_body">Connectez-vous pour créer votre compte cloud Tasks.org</string>
+    <string name="pricing_subscribed">Abonné</string>
 </resources>
