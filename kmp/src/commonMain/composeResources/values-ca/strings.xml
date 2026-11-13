@@ -85,7 +85,7 @@
     <string name="subtasks">Subtasques</string>
     <string name="sort_not_available">No disponible per a etiquetes, filtres o llocs</string>
     <string name="none">Cap</string>
-    <string name="ok">D\'acord</string>
+    <string name="ok">D'acord</string>
     <string name="cancel">Cancel·la</string>
     <string name="back">Enrere</string>
     <string name="help">Ajuda</string>
@@ -470,5 +470,5 @@
     <string name="mcp_copy">Copia</string>
     <string name="new_filter">Crea un filtre</string>
     <string name="upgrade_blurb_1">Hola! Em dic Alex. Soc el desenvolupador independent darrere de Tasks.org</string>
-    <string name="upgrade_blurb_2">He passat milers d\'hores treballant en Tasks.org, i publico tot el codi font en internet de forma gratuïta. Per tal de donar suport al meu treball algunes funcions requereixen una subscripció</string>
+    <string name="upgrade_blurb_2">He passat milers d'hores treballant en Tasks.org, i publico tot el codi font en internet de forma gratuïta. Per tal de donar suport al meu treball algunes funcions requereixen una subscripció</string>
 </resources>

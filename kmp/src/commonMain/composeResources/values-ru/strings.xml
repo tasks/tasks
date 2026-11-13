@@ -544,8 +544,8 @@
     <string name="works_with_pebble_description">Приложение для смарт-часов Pebble</string>
     <string name="works_with_android">Tasks.org для Android</string>
     <string name="works_with_android_description">Телефоны, планшеты и хромбуки</string>
-    <string name="link_desktop_step_2">Нажмите на \'%1$s\' и выберите \'%2$s\'</string>
-    <string name="link_desktop_step_3">Выберите \'%1$s\'</string>
+    <string name="link_desktop_step_2">Нажмите на '%1$s' и выберите '%2$s'</string>
+    <string name="link_desktop_step_3">Выберите '%1$s'</string>
     <string name="scan_qr_code">Сканировать QR-код</string>
     <string name="retry">Повторить попытку</string>
     <string name="qr_code">QR-код</string>

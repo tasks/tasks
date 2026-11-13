@@ -565,7 +565,7 @@
     <string name="mcp_access_read_write_summary">Gli assistenti possono anche creare, modificare ed eliminare attività, elenchi, tag, luoghi e promemoria.</string>
     <string name="mcp_access_advanced_summary">Scegli esattamente quali strumenti possono utilizzare gli assistenti.</string>
     <string name="mcp_tools">Strumenti</string>
-    <string name="mcp_tools_summary">Uno strumento che disattivi non viene mai offerto all\'assistente, quindi non può chiedere di riattivarlo. Riavvia il server.</string>
+    <string name="mcp_tools_summary">Uno strumento che disattivi non viene mai offerto all'assistente, quindi non può chiedere di riattivarlo. Riavvia il server.</string>
     <string name="mcp_tools_enabled">%1$d su %2$d attivi</string>
     <string name="mcp_tools_group_tasks">Attività</string>
     <string name="mcp_tools_group_accounts">Sincronizza account</string>

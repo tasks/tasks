@@ -605,7 +605,7 @@
     <string name="mcp_tools_group_reminders">Meeldetuletused</string>
     <string name="mcp_copy">Kopeeri</string>
     <string name="new_filter">Loo uus filter</string>
-    <string name="sign_in_with_apple">Logi sisse Apple\'i kasutajakontoga</string>
+    <string name="sign_in_with_apple">Logi sisse Apple'i kasutajakontoga</string>
     <string name="mcp_status_starting">Käivitamisel…</string>
     <string name="mcp_status_running">Töötab pordis %1$d</string>
     <string name="mcp_server_enable_summary">Töötab vaid selles arvutis aadressil 127.0.0.1. Liiklus pole avatud võrgu suunas.</string>
@@ -669,7 +669,7 @@
     <string name="works_with_android_description">Telefonid, tahvlid ja Chromebookid</string>
     <string name="works_with_ios">Tasks.org iOS-i jaoks</string>
     <string name="works_with_wear_requires_googleplay">Eeldab Tasks.org-i versiooni, mis on avaldatud Google Play rakendustepoes</string>
-    <string name="works_with_pebble_description">Kellarakendus Pebble\'i nutikellade jaoks</string>
+    <string name="works_with_pebble_description">Kellarakendus Pebble'i nutikellade jaoks</string>
     <string name="works_with_content_provider">Sisupakkuja API</string>
     <string name="works_with_content_provider_description">Loe ja kirjuta Tasks.org-i andmeid oma rakendusest</string>
     <string name="works_with_missing">Kas midagi on puudu? %1$s saada e-kiri aadressile %2$s.</string>

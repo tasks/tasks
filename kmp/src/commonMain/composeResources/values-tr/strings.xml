@@ -566,7 +566,7 @@
     <string name="keep_editing">Düzenlemeyi sürdür</string>
     <string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
     <string name="show_completed_subtasks">Tamamlanan alt görevleri göster</string>
-    <string name="error_encryption_failed">Şifreleme başarısız oldu. Tasks.org\'un sistem anahtar zincirinize erişebildiğinden emin olun, ardından tekrar deneyin.</string>
+    <string name="error_encryption_failed">Şifreleme başarısız oldu. Tasks.org'un sistem anahtar zincirinize erişebildiğinden emin olun, ardından tekrar deneyin.</string>
     <string name="snoozed_reminder">Ertelenen anımsatıcı</string>
     <string name="TEA_add_subtask">Alt görev ekle</string>
     <string name="subtasks_multilevel_google_task">Google Görevler, çok düzeyli alt görevleri desteklemez</string>
@@ -626,14 +626,14 @@
     <string name="works_with_tasker_description">Kendiliğinden işlemlerinizden görevler oluşturun ve liste bildirimlerini tetikleyin</string>
     <string name="works_with_mcp_description">Yapay zeka yardımcıları görevlerinizi okusun ve güncellesin</string>
     <string name="works_with_android">Android için Tasks.org</string>
-    <string name="works_with_android_description">Telefonlar, tabletler ve Chromebook\'lar</string>
+    <string name="works_with_android_description">Telefonlar, tabletler ve Chromebook'lar</string>
     <string name="works_with_ios">iOS için Tasks.org</string>
     <string name="works_with_coming_soon">Yakında geliyor</string>
     <string name="works_with_desktop_description">macOS, Windows ve Linux</string>
     <string name="works_with_wear_description">Saatinizde Tasks.org</string>
     <string name="works_with_wear_requires_googleplay">Tasks.org Google Play sürümünü gerektirir</string>
     <string name="works_with_pebble_description">Pebble akıllı saatler için saat uygulaması</string>
-    <string name="works_with_content_provider">İçerik sağlayıcı API\'si</string>
+    <string name="works_with_content_provider">İçerik sağlayıcı API'si</string>
     <string name="works_with_content_provider_description">Kendi uygulamanızdan Tasks.org verilerini okuyun ve yazın</string>
     <string name="works_with_missing">Eksik bir şey fark ettiniz mi? %1$s veya %2$s adresine e-posta gönderin.</string>
     <string name="works_with_submit_pull_request">Çekme isteği gönderin</string>
@@ -709,6 +709,6 @@
     <string name="subscription_ended_on">Bitti: %1$s</string>
     <string name="subscription_free_until">Şuna dek ücretsiz: %1$s, sonrası %2$s</string>
     <string name="subscription_payment_failed">Ödeme başarısız, kartınızı güncelleyin</string>
-    <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks.org\'un arkasındaki bağımsız geliştiriciyim</string>
-    <string name="upgrade_blurb_2">Binlerce saatimi Tasks.org\'da çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
+    <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks.org'un arkasındaki bağımsız geliştiriciyim</string>
+    <string name="upgrade_blurb_2">Binlerce saatimi Tasks.org'da çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
 </resources>

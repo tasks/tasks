@@ -571,13 +571,13 @@
     <string name="works_with_missing">Ontbreekt er iets? %1$s of e-mail %2$s.</string>
     <string name="works_with_submit_pull_request">Dien een pull-verzoek in</string>
     <string name="link_desktop_step_1">Open de Tasks.org desktop-app</string>
-    <string name="link_desktop_step_2">Klik op \'%1$s\' en selecteer \'%2$s\'</string>
-    <string name="link_desktop_step_3">Selecteer \'%1$s\'</string>
+    <string name="link_desktop_step_2">Klik op '%1$s' en selecteer '%2$s'</string>
+    <string name="link_desktop_step_3">Selecteer '%1$s'</string>
     <string name="scan_qr_code">QR-code scannen</string>
     <string name="link_desktop_success">Desktop met succes gekoppeld!</string>
     <string name="unlock_pro_scan_heading">Scan de QR-code in de Tasks.org Android app</string>
-    <string name="unlock_pro_step_2">Tik op \'%1$s\' en vervolgens \'%2$s\'</string>
-    <string name="unlock_pro_step_3">Tik \'%1$s\'</string>
+    <string name="unlock_pro_step_2">Tik op '%1$s' en vervolgens '%2$s'</string>
+    <string name="unlock_pro_step_3">Tik '%1$s'</string>
     <string name="done">Klaar</string>
     <string name="retry">Opnieuw</string>
     <string name="qr_code">QR-code</string>
@@ -594,7 +594,7 @@
     <string name="monthly">Maandelijks</string>
     <string name="restore_purchases">Aankopen herstellen</string>
     <string name="pricing_cloud_monthly_note">Maandelijkse facturering</string>
-    <string name="pricing_nyp_feature_1">Aangepaste thema\'s en pictogrammen</string>
+    <string name="pricing_nyp_feature_1">Aangepaste thema's en pictogrammen</string>
     <string name="pricing_nyp_feature_2">Zelfgehoste synchronisatie met CalDAV en EteSync</string>
     <string name="pricing_nyp_feature_3">Open source software ondersteunen</string>
     <string name="pricing_subscribe_google_play">Abonneer je op Google Play</string>

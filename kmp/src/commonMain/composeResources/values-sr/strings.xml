@@ -423,14 +423,14 @@
     <string name="link_desktop">Повежи десктоп апликацију</string>
     <string name="link_desktop_description">Откључај десктоп апликацију помоћу твоје Google Play претплате</string>
     <string name="link_desktop_step_1">Отвори Tasks.org десктоп апликацију</string>
-    <string name="link_desktop_step_2">Кликни на ,,%1$s\'\' и одабери ,,%2$s\'\'</string>
-    <string name="link_desktop_step_3">Одабери ,,%1$s\'\'</string>
+    <string name="link_desktop_step_2">Кликни на ,,%1$s'' и одабери ,,%2$s''</string>
+    <string name="link_desktop_step_3">Одабери ,,%1$s''</string>
     <string name="scan_qr_code">Скенирај QR код</string>
     <string name="link_desktop_success">Десктоп успешно повезан!</string>
     <string name="unlock_pro_scan_heading">Скенирај QR код у Tasks.org андроид апликацији</string>
     <string name="unlock_pro_step_1">Отвори Tasks.org на свом телефону</string>
-    <string name="unlock_pro_step_2">Кликни на ,,%1$s\'\', затим на ,,%2$s\'\'</string>
-    <string name="unlock_pro_step_3">Кликни на ,,%1$s\'\'</string>
+    <string name="unlock_pro_step_2">Кликни на ,,%1$s'', затим на ,,%2$s''</string>
+    <string name="unlock_pro_step_3">Кликни на ,,%1$s''</string>
     <string name="done">Готово</string>
     <string name="retry">Покушај поново</string>
     <string name="qr_code">QR код</string>
@@ -691,6 +691,6 @@
     <string name="repeat_type_due_description">Задатак се понавља на основу тога када је требало да буде завршен</string>
     <string name="repeat_type_completion_description">Задатак се понавља на основу тога када је заиста завршен</string>
     <string name="snoozed_reminder">Одложен подсетник</string>
-    <string name="upgrade_blurb_1">Здраво! Моје име је Алекс. Ја сам независни развојни инжењер у ,,Tasks.org\'\' апликацији</string>
-    <string name="upgrade_blurb_2">Провео сам хиљаде часова радећи на апликацији ,,Tasks.org\'\', коју објављујем онлајн бесплатно. Како бисте подржали мој рад, неке функционалности захтевају претплату</string>
+    <string name="upgrade_blurb_1">Здраво! Моје име је Алекс. Ја сам независни развојни инжењер у ,,Tasks.org'' апликацији</string>
+    <string name="upgrade_blurb_2">Провео сам хиљаде часова радећи на апликацији ,,Tasks.org'', коју објављујем онлајн бесплатно. Како бисте подржали мој рад, неке функционалности захтевају претплату</string>
 </resources>
