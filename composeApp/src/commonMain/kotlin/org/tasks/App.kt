@@ -143,12 +143,12 @@ import org.tasks.data.deletions
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.rememberPaywallAnalytics
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.modifySubscription
 import org.tasks.billing.restoreSources
@@ -964,7 +964,9 @@ fun App(
                                 viewModel = viewModel,
                                 drawerViewModel = drawerViewModel,
                                 onSettingsClick = { backStack.push(SettingsDestination) },
-                                onSubscribe = { backStack.push(PricingDestination()) },
+                                onSubscribe = { source ->
+                                    backStack.push(PricingDestination(source = source))
+                                },
                                 onAddAccount = { backStack.push(AddAccountDestination) },
                                 onTaskClick = { destination -> openTaskFromList(destination) },
                                 onCreateTask = onCreateTask,
@@ -998,7 +1000,9 @@ fun App(
                                 // cannot reach it even if that ordering ever changes.
                                 backHandlerEnabled = !materialDrawerState.isOpen,
                                 onAddAccount = { backStack.push(AddAccountDestination) },
-                                onSubscribe = { backStack.push(PricingDestination()) },
+                                onSubscribe = { source ->
+                                    backStack.push(PricingDestination(source = source))
+                                },
                                 onListsChanged = { drawerViewModel?.updateFilters() },
                                 onClose = { closeDetail() },
                             )
@@ -1026,7 +1030,9 @@ fun App(
                                         .e { "Link desktop clicked without pro subscription" }
                                 }
                             },
-                            onUpgradeClick = { backStack.push(PricingDestination()) },
+                            onUpgradeClick = { source ->
+                                backStack.push(PricingDestination(source = source))
+                            },
                             onMigrateToCloud = {
                                 backStack.push(
                                     PricingDestination(
@@ -1094,9 +1100,6 @@ fun App(
                             null
                         }
                         val gitHubSponsorClient = koinInject<GitHubSponsorClient>()
-                        LaunchedEffect(Unit) {
-                            reporting.logEvent(AnalyticsEvents.SCREEN_RESTORE_PURCHASES)
-                        }
                         val successButtonText = when (destination.source) {
                             Platform.CALDAV.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
                             Platform.ETEBASE.name -> stringResource(Res.string.add_platform_account, stringResource(Res.string.etesync))
@@ -1139,60 +1142,12 @@ fun App(
                                     onCreateLink = { client.createLink() },
                                     onPollStatus = { code -> client.pollStatus(code) },
                                     onLinkSuccess = { jwt, refreshToken, sku, formattedPrice ->
-                                        client
-                                            .onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
-                                            .also { stored ->
-                                                if (stored == PurchaseEntitlement.StoreResult.STORED) {
-                                                    reporting.logEvent(
-                                                        AnalyticsEvents.RESTORE_SUCCESS,
-                                                        AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
-                                                    )
-                                                }
-                                            }
+                                        client.onLinkSuccess(jwt, refreshToken, sku, formattedPrice)
                                     },
                                 )
                             },
                             onGitHubSignIn = { gitHubSponsorClient.signIn() },
-                            onGooglePlaySelected = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_SELECTION,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
-                                )
-                            },
-                            onGitHubSelected = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_SELECTION,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                                )
-                            },
-                            onStripeSelected = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_SELECTION,
-                                    AnalyticsEvents.PARAM_SELECTION to
-                                        AnalyticsEvents.SELECTION_STRIPE,
-                                )
-                            },
-                            onNotSponsor = {
-                                reporting.logEvent(AnalyticsEvents.RESTORE_NOT_SPONSOR)
-                            },
-                            onLinkError = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_ERROR,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GOOGLE_PLAY,
-                                )
-                            },
-                            onGitHubSuccess = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_SUCCESS,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                                )
-                            },
-                            onGitHubFailed = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.RESTORE_ERROR,
-                                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                                )
-                            },
+                            analytics = reporting,
                             successButtonText = successButtonText,
                         )
                     }
@@ -1255,19 +1210,22 @@ fun App(
                         // replace the whole stack before these collectors run. This entry is still
                         // composed for that frame, and popping blind from here empties the stack -
                         // which NavDisplay treats as fatal.
-                        fun popPricing(): Boolean =
-                            if (backStack.lastOrNull() is PricingDestination) {
+                        val paywallAnalytics = rememberPaywallAnalytics(
+                            analytics = reporting,
+                            source = destination.source,
+                            mode = destination.mode,
+                            provider = configuration.billingProvider,
+                        )
+                        fun popPricing(): Boolean {
+                            paywallAnalytics.completed()
+                            return if (backStack.lastOrNull() is PricingDestination) {
                                 backStack.removeLastOrNull()
                                 true
                             } else {
                                 false
                             }
+                        }
                         LaunchedEffect(Unit) {
-                            reporting.logEvent(
-                                AnalyticsEvents.SCREEN_PRICING,
-                                AnalyticsEvents.PARAM_SOURCE to destination.source,
-                                AnalyticsEvents.PARAM_TYPE to destination.mode.name,
-                            )
                             addAccountViewModel.accountAdded.collect {
                                 popPricing()
                             }
@@ -1316,31 +1274,10 @@ fun App(
                         PricingScreen(
                             mode = destination.mode,
                             onBack = { backStack.removeLastOrNull() },
-                            onSignIn = {
-                                reporting.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
-                                showSignInDialog = true
-                            },
+                            onSignIn = { showSignInDialog = true },
                             onRestorePurchases = openRestore,
-                            onCloudSubscribeClick = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
-                                    AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_CLOUD,
-                                )
-                                if (store == null) openUrl(googlePlayUrl)
-                            },
-                            onNypSubscribeClick = {
-                                reporting.logEvent(
-                                    AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
-                                    AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
-                                )
-                                if (store == null) openUrl(googlePlayUrl)
-                            },
-                            onBillingToggle = { isAnnual ->
-                                reporting.logEvent(
-                                    AnalyticsEvents.PRICING_BILLING_TOGGLE,
-                                    AnalyticsEvents.PARAM_PERIOD to if (isAnnual) AnalyticsEvents.PERIOD_ANNUAL else AnalyticsEvents.PERIOD_MONTHLY,
-                                )
-                            },
+                            onCloudSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
+                            onNypSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
                             supporterFeatures = when {
                                 configuration.billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
                                 configuration.isAndroid -> SupporterFeatures.ANDROID_CARD
@@ -1350,6 +1287,7 @@ fun App(
                             subscribedSku = subscriptionInfo?.sku,
                             showSignIn = !hasTasksAccount,
                             store = store,
+                            analytics = paywallAnalytics,
                         )
                         if (showSignInDialog) {
                             BasicAlertDialog(onDismissRequest = { showSignInDialog = false }) {
@@ -1409,7 +1347,9 @@ fun App(
                         }
                     }
                 },
-                onSubscribe = { backStack.push(PricingDestination()) },
+                onSubscribe = { source ->
+                    backStack.push(PricingDestination(source = source))
+                },
                 onAddAccount = { backStack.push(AddAccountDestination) },
             )
 
@@ -1485,9 +1425,9 @@ fun App(
                             taskListViewModel?.setFilter(TagFilter(tag))
                         }
                     },
-                    onSubscribe = {
+                    onSubscribe = { source ->
                         showNewTag = false
-                        backStack.push(PricingDestination())
+                        backStack.push(PricingDestination(source = source))
                     },
                 )
             }
@@ -1850,7 +1790,7 @@ private fun TaskListScreen(
     viewModel: TaskListViewModel,
     drawerViewModel: DrawerViewModel,
     onSettingsClick: () -> Unit,
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onAddAccount: () -> Unit,
     onTaskClick: (TaskEditDestination) -> Unit,
     onCreateTask: () -> Unit,
@@ -1964,7 +1904,7 @@ private fun TaskEditEntry(
     filterPickerViewModel: FilterPickerViewModel,
     backHandlerEnabled: Boolean,
     onAddAccount: () -> Unit,
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onListsChanged: () -> Unit,
     filterTint: Int = 0,
     onOpenSubtask: (taskId: Long, remoteId: String, isDraft: Boolean) -> Unit,
@@ -2009,7 +1949,7 @@ internal fun NewListDialogHost(
     accountId: Long?,
     isDark: Boolean,
     onDismiss: (CaldavFilter?) -> Unit,
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onAddAccount: () -> Unit,
 ) {
     accountId ?: return
@@ -2032,9 +1972,9 @@ internal fun NewListDialogHost(
             // Both of these navigate away. The dialog has to come down first: it draws over the
             // whole window, and at the App call site it isn't inside NavDisplay at all, so it
             // would sit on top of the screen it just navigated to.
-            onSubscribe = {
+            onSubscribe = { source ->
                 onDismiss(null)
-                onSubscribe()
+                onSubscribe(source)
             },
             onAddAccount = {
                 onDismiss(null)
@@ -2396,7 +2336,7 @@ private fun ListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onAddAccount: () -> Unit = {},
     viewModelKey: String = "list_settings_${account.id}_${calendar.uuid}",
 ) {
@@ -2458,7 +2398,7 @@ private fun CaldavListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     viewModelKey: String,
 ) {
     val viewModel = koinViewModel<CaldavCalendarSettingsViewModel>(
@@ -2489,9 +2429,9 @@ private fun CaldavListSettingsDialog(
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
-                onSubscribe()
+                onSubscribe(AnalyticsEvents.SOURCE_COLORS)
             },
-            onSubscribe = { onSubscribe() },
+            onSubscribe = onSubscribe,
         )
     }
 }
@@ -2504,7 +2444,7 @@ private fun LocalListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     onAddAccount: () -> Unit = {},
     viewModelKey: String,
 ) {
@@ -2542,9 +2482,9 @@ private fun LocalListSettingsDialog(
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
-                onSubscribe()
+                onSubscribe(AnalyticsEvents.SOURCE_COLORS)
             },
-            onSubscribe = { onSubscribe() },
+            onSubscribe = onSubscribe,
             headerContent = {
                 AnimatedBanner(
                     visible = showBanner,
@@ -2571,7 +2511,7 @@ private fun GoogleTaskListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     viewModelKey: String,
 ) {
     val viewModel = koinViewModel<GoogleTaskListSettingsViewModel>(
@@ -2589,7 +2529,7 @@ private fun MicrosoftListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     viewModelKey: String,
 ) {
     val viewModel = koinViewModel<MicrosoftListSettingsViewModel>(
@@ -2605,7 +2545,7 @@ private fun CaldavListSettingsDialog(
     viewModel: ListSettingsViewModel,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit,
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
 
@@ -2636,9 +2576,9 @@ private fun CaldavListSettingsDialog(
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
-                onSubscribe()
+                onSubscribe(AnalyticsEvents.SOURCE_COLORS)
             },
-            onSubscribe = { onSubscribe() },
+            onSubscribe = onSubscribe,
         )
     }
 }
@@ -2651,7 +2591,7 @@ private fun EtebaseListSettingsDialog(
     isDark: Boolean,
     onDismiss: (CaldavCalendar?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     viewModelKey: String,
 ) {
     val viewModel = koinViewModel<EtebaseCalendarSettingsViewModel>(
@@ -2682,9 +2622,9 @@ private fun EtebaseListSettingsDialog(
             },
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
-                onSubscribe()
+                onSubscribe(AnalyticsEvents.SOURCE_COLORS)
             },
-            onSubscribe = { onSubscribe() },
+            onSubscribe = onSubscribe,
         )
     }
 }
@@ -2696,7 +2636,7 @@ private fun TagSettingsDialog(
     isDark: Boolean,
     onDismiss: (TagData?) -> Unit,
     onDeleted: () -> Unit = {},
-    onSubscribe: () -> Unit,
+    onSubscribe: (String) -> Unit,
     viewModelKey: String = "tag_settings_${tagData.remoteId}",
 ) {
     val viewModel = koinViewModel<TagSettingsViewModel>(
@@ -2727,10 +2667,10 @@ private fun TagSettingsDialog(
             },
             onDelete = { viewModel.delete { onDeleted() } },
             onNavigateBack = dismiss,
-            onSubscribe = { onSubscribe() },
+            onSubscribe = onSubscribe,
             onColorWheelSelected = {
                 viewModel.closeColorPicker()
-                onSubscribe()
+                onSubscribe(AnalyticsEvents.SOURCE_COLORS)
             },
         )
     }
@@ -2940,7 +2880,7 @@ private fun SettingsScreen(
     onBack: () -> Unit,
     onAddAccountClick: () -> Unit,
     onLinkDesktopClick: () -> Unit = {},
-    onUpgradeClick: () -> Unit,
+    onUpgradeClick: (String) -> Unit,
     onMigrateToCloud: () -> Unit = {},
     onSignInClick: () -> Unit = {},
     onSubscribedClick: () -> Unit = {},
@@ -3079,7 +3019,7 @@ private fun SettingsScreen(
                                         }
                                     }
                                     is ProCardState.Upgrade -> {
-                                        onUpgradeClick()
+                                        onUpgradeClick(AnalyticsEvents.SOURCE_SETTINGS)
                                     }
                                     is ProCardState.Subscribed -> {
                                         onSubscribedClick()
@@ -3088,7 +3028,7 @@ private fun SettingsScreen(
                                         onSignInClick()
                                     }
                                     is ProCardState.Donate -> {
-                                        onUpgradeClick()
+                                        onUpgradeClick(AnalyticsEvents.SOURCE_SETTINGS)
                                     }
                                 }
                             },
@@ -3139,7 +3079,7 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
-                            onSubscribe = onUpgradeClick,
+                            onSubscribe = { onUpgradeClick(AnalyticsEvents.SOURCE_THEMES) },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {
@@ -3154,7 +3094,7 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
-                            onPricingClick = onUpgradeClick,
+                            onPricingClick = { onUpgradeClick("works_with") },
                             onMcpSettingsClick = {
                                 scope.launch {
                                     navigator.navigateTo(
@@ -3224,7 +3164,7 @@ private fun SettingsScreen(
                                 scope.launch { navigator.navigateBack() }
                             },
                             onAddAccountClick = onAddAccountClick,
-                            onModifySubscription = onUpgradeClick,
+                            onModifySubscription = { onUpgradeClick("account_settings") },
                         )
                     }
                     is CaldavAccountSettingsPane -> {

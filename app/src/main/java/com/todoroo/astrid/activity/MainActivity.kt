@@ -409,16 +409,6 @@ class MainActivity : AppCompatActivity() {
                     }
                     composable<PurchaseDestination> { entry ->
                         val destination = entry.toRoute<PurchaseDestination>()
-                        var logged by rememberSaveable { mutableStateOf(false) }
-                        LaunchedEffect(Unit) {
-                            if (!logged) {
-                                logged = true
-                                firebase.logEvent(
-                                    R.string.event_showed_purchase_dialog,
-                                    R.string.param_source to destination.source,
-                                )
-                            }
-                        }
                         Paywall(
                             nameYourPrice = destination.nameYourPrice,
                             source = destination.source,

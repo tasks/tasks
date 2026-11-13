@@ -3,7 +3,6 @@ package org.tasks
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import org.tasks.analytics.AnalyticsEvents
 import org.tasks.compose.pricing.PricingMode
 
 @Serializable
@@ -48,7 +47,7 @@ data object SubscriptionOnboardingDestination : NavKey
 @Serializable
 data class PricingDestination(
     val mode: PricingMode = PricingMode.BOTH,
-    val source: String = AnalyticsEvents.SOURCE_SETTINGS,
+    val source: String,
 ) : NavKey
 
 internal val FloatingToolbarBottomMargin = 24.dp

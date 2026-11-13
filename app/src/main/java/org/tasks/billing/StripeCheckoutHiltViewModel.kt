@@ -1,7 +1,9 @@
 package org.tasks.billing
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import org.tasks.analytics.Firebase
+import org.tasks.injection.ApplicationScope
 import org.tasks.viewmodel.StripeCheckoutViewModel
 import javax.inject.Inject
 
@@ -9,4 +11,5 @@ import javax.inject.Inject
 class StripeCheckoutHiltViewModel @Inject constructor(
     purchases: StripeCheckouts,
     reporting: Firebase,
-) : StripeCheckoutViewModel(purchases = purchases, reporting = reporting)
+    @ApplicationScope scope: CoroutineScope,
+) : StripeCheckoutViewModel(purchases = purchases, reporting = reporting, background = scope)

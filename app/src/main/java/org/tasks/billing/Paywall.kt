@@ -17,8 +17,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.jetbrains.compose.resources.stringResource
 import org.tasks.PlatformConfiguration
-import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Firebase
+import org.tasks.analytics.rememberPaywallAnalytics
 import org.tasks.auth.SignInActivity
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.pricing.PricingMode
@@ -58,9 +58,17 @@ fun Paywall(
     val hasTasksAccount by inventory.tasksAccount.collectAsStateWithLifecycle()
     val purchaseFinished by rememberUpdatedState(onPurchased)
     var finished by rememberSaveable { mutableStateOf(false) }
+    val mode = if (nameYourPrice) PricingMode.BOTH else PricingMode.CLOUD_ONLY
+    val paywallAnalytics = rememberPaywallAnalytics(
+        analytics = firebase,
+        source = source,
+        mode = mode,
+        provider = configuration.billingProvider,
+    )
     val finish = {
         if (!finished) {
             finished = true
+            paywallAnalytics.completed()
             completion.updateTasksAccount()
             purchaseFinished()
         }
@@ -79,17 +87,13 @@ fun Paywall(
         }
     }
     val suggestedPrice = subscription?.let { SubscriptionSkus.supporterPrice(it.sku) }
-    val mode = if (nameYourPrice) PricingMode.BOTH else PricingMode.CLOUD_ONLY
     val satisfied = rememberPaywallSatisfied(mode, subscriptionProvider.subscription)
     LaunchedEffect(satisfied, showRestore) {
-        if (satisfied && !showRestore) {
-            finish()
+        if (satisfied) {
+            if (showRestore) paywallAnalytics.completed() else finish()
         }
     }
     if (showRestore) {
-        LaunchedEffect(Unit) {
-            firebase.logEvent(AnalyticsEvents.SCREEN_RESTORE_PURCHASES)
-        }
         RestorePurchasesScreen(
             onBack = { showRestore = false },
             sources = remember(configuration) { restoreSources(configuration) },
@@ -109,31 +113,7 @@ fun Paywall(
             onGitHubSignIn = {
                 gitHubSponsorClient?.signIn() ?: GitHubSponsorClient.VerifyResult.Failed
             },
-            onGitHubSelected = {
-                firebase.logEvent(
-                    AnalyticsEvents.RESTORE_SELECTION,
-                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                )
-            },
-            onStripeSelected = {
-                firebase.logEvent(
-                    AnalyticsEvents.RESTORE_SELECTION,
-                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_STRIPE,
-                )
-            },
-            onNotSponsor = { firebase.logEvent(AnalyticsEvents.RESTORE_NOT_SPONSOR) },
-            onGitHubSuccess = {
-                firebase.logEvent(
-                    AnalyticsEvents.RESTORE_SUCCESS,
-                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                )
-            },
-            onGitHubFailed = {
-                firebase.logEvent(
-                    AnalyticsEvents.RESTORE_ERROR,
-                    AnalyticsEvents.PARAM_SELECTION to AnalyticsEvents.SELECTION_GITHUB,
-                )
-            },
+            analytics = firebase,
             successButtonText = when (source) {
                 Platform.CALDAV.name ->
                     stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
@@ -149,23 +129,8 @@ fun Paywall(
     PricingScreen(
         mode = mode,
         onBack = onBack,
-        onSignIn = {
-            firebase.logEvent(AnalyticsEvents.PRICING_SIGN_IN_CLICK)
-            signInLauncher.launch(Intent(context, SignInActivity::class.java))
-        },
+        onSignIn = { signInLauncher.launch(Intent(context, SignInActivity::class.java)) },
         onRestorePurchases = openRestore,
-        onCloudSubscribeClick = {
-            firebase.logEvent(
-                AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
-                AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_CLOUD,
-            )
-        },
-        onNypSubscribeClick = {
-            firebase.logEvent(
-                AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
-                AnalyticsEvents.PARAM_TIER to AnalyticsEvents.TIER_NYP,
-            )
-        },
         showSignIn = !hasTasksAccount,
         supporterFeatures = if (configuration.billingProvider == BillingProvider.STRIPE) {
             SupporterFeatures.ANDROID_CARD
@@ -187,5 +152,6 @@ fun Paywall(
             BillingProvider.GOOGLE_PLAY -> storeBillingProvider?.storeBilling(suggestedPrice, finish)
             null -> null
         },
+        analytics = paywallAnalytics,
     )
 }

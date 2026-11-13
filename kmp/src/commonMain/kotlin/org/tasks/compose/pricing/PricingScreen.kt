@@ -68,6 +68,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
 import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.PaywallAnalytics
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
 import org.tasks.billing.SubscriptionSkus
@@ -308,15 +309,19 @@ fun PricingScreen(
     onRestorePurchases: () -> Unit,
     onCloudSubscribeClick: () -> Unit = {},
     onNypSubscribeClick: () -> Unit = {},
-    onBillingToggle: (isAnnual: Boolean) -> Unit = {},
     showSignIn: Boolean = true,
     supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
     supporterFirst: Boolean = false,
     subscribedSku: String? = null,
     store: StoreBilling? = null,
+    analytics: PaywallAnalytics? = null,
 ) {
     @Suppress("NAME_SHADOWING")
     val store = store?.copy(knownSku = subscribedSku)
+    val signIn = {
+        analytics?.signInClicked()
+        onSignIn()
+    }
     val currentSku = store?.currentSku ?: subscribedSku
     val cloudIsCurrent = isCloudSku(currentSku, store?.catalog)
     val supporterIsCurrent = isSupporterSku(currentSku, store?.catalog)
@@ -343,7 +348,7 @@ fun PricingScreen(
                 },
                 actions = {
                     if (showSignIn && mode != PricingMode.CLOUD_ONLY) {
-                        TextButton(onClick = onSignIn) {
+                        TextButton(onClick = signIn) {
                             Text(stringResource(Res.string.sign_in))
                         }
                     }
@@ -386,9 +391,12 @@ fun PricingScreen(
                                 !supporterFirst &&
                                 supporterFeatures != SupporterFeatures.ANDROID_CARD &&
                                 !supporterIsCurrent,
-                        onCtaClick = onCloudSubscribeClick,
-                        onSignIn = onSignIn.takeIf { showSignIn && cloudOnly },
-                        onBillingToggle = onBillingToggle,
+                        onCtaClick = {
+                            analytics?.subscribeClicked(cloud = true)
+                            onCloudSubscribeClick()
+                        },
+                        onSignIn = signIn.takeIf { showSignIn && cloudOnly },
+                        onBillingToggle = { analytics?.billingToggled(it) },
                         store = store,
                         annual = cloudAnnual,
                     )
@@ -396,7 +404,13 @@ fun PricingScreen(
                 val nameYourPriceCard: @Composable (Modifier) -> Unit = { cardModifier ->
                     NameYourPriceTierCard(
                         modifier = cardModifier,
-                        onCtaClick = onNypSubscribeClick,
+                        onCtaClick = {
+                            analytics?.subscribeClicked(cloud = false)
+                            onNypSubscribeClick()
+                        },
+                        onSelect = { selection, price ->
+                            analytics?.nameYourPriceSelected(selection, price)
+                        },
                         isCurrent = supporterIsCurrent,
                         features = supporterFeatures,
                         store = store,
@@ -515,8 +529,10 @@ private fun CloudTierCard(
             BillingPeriodToggle(
                 isAnnual = isAnnual,
                 onToggle = {
-                    isAnnual = it
-                    onBillingToggle(it)
+                    if (it != isAnnual) {
+                        isAnnual = it
+                        onBillingToggle(it)
+                    }
                 },
             )
         },
@@ -531,6 +547,7 @@ private fun CloudTierCard(
 private fun NameYourPriceTierCard(
     modifier: Modifier = Modifier,
     onCtaClick: () -> Unit,
+    onSelect: (selection: String, price: Int?) -> Unit = { _, _ -> },
     isCurrent: Boolean = false,
     features: SupporterFeatures = SupporterFeatures.APP_STORE,
     store: StoreBilling? = null,
@@ -593,6 +610,7 @@ private fun NameYourPriceTierCard(
                     store = store,
                     rungs = rungs,
                     onCtaClick = onCtaClick,
+                    onSelect = onSelect,
                     selection = selection,
                 )
                 store?.unavailable(cheapestRung) == true -> Unit
@@ -634,6 +652,7 @@ private fun NameYourPricePicker(
     store: StoreBilling,
     rungs: List<BillingOption>,
     onCtaClick: () -> Unit,
+    onSelect: (selection: String, price: Int?) -> Unit,
     selection: NameYourPriceSelection,
 ) {
     var sliderPosition by remember(rungs) {
@@ -643,6 +662,7 @@ private fun NameYourPricePicker(
         )
     }
     val presets = remember(rungs) { presetRungs(rungs) }
+    var dragStart by remember(rungs) { mutableStateOf<Int?>(null) }
     val custom = selection.custom ?: (sliderPosition.roundToInt() !in presets)
     val onChosen: (BillingOption) -> Unit = { selection.sku = it.sku }
     val card = store.catalog.supporterRungAt(sliderPosition) ?: return
@@ -656,9 +676,20 @@ private fun NameYourPricePicker(
             Slider(
                 value = sliderPosition,
                 onValueChange = {
+                    if (dragStart == null) dragStart = sliderPosition.roundToInt()
                     sliderPosition = it
                     selection.custom = true
                     store.catalog.supporterRungAt(it)?.let(onChosen)
+                },
+                onValueChangeFinished = {
+                    val start = dragStart
+                    dragStart = null
+                    if (start != null && start != sliderPosition.roundToInt()) {
+                        onSelect(
+                            AnalyticsEvents.SELECTION_SLIDER,
+                            store.catalog.supporterRungAt(sliderPosition)?.rungDollars,
+                        )
+                    }
                 },
                 valueRange = 0f..rungs.lastIndex.toFloat().coerceAtLeast(0f),
                 steps = (rungs.size - 2).coerceAtLeast(0),
@@ -676,8 +707,12 @@ private fun NameYourPricePicker(
                     FilterChip(
                         selected = sliderPosition.roundToInt() == index,
                         onClick = {
+                            val changed = sliderPosition.roundToInt() != index
                             sliderPosition = index.toFloat()
                             onChosen(rungs[index])
+                            if (changed) {
+                                onSelect(AnalyticsEvents.SELECTION_PRESET, rungs[index].rungDollars)
+                            }
                         },
                         label = { Text(rungs[index].formattedPrice) },
                         enabled = !store.busy,
@@ -685,7 +720,10 @@ private fun NameYourPricePicker(
                 }
                 FilterChip(
                     selected = false,
-                    onClick = { selection.custom = true },
+                    onClick = {
+                        selection.custom = true
+                        onSelect(AnalyticsEvents.SELECTION_CUSTOM, null)
+                    },
                     label = { Text(stringResource(Res.string.pricing_custom)) },
                     enabled = !store.busy,
                 )

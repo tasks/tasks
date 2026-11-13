@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.tasks.analytics.Analytics
 import org.tasks.auth.HeldPurchaseClaim
 import org.tasks.auth.PurchaseClaim
 import org.tasks.billing.PurchaseEntitlement.StoreResult
@@ -29,6 +30,7 @@ class StripePurchases(
     private val accountData: TasksAccountDataRepository,
     private val tasksPreferences: TasksPreferences,
     private val logOnboarding: (String) -> Unit = {},
+    private val analytics: Analytics? = null,
 ) : StripeCheckouts, PurchaseClaim {
     private val logger = Logger.withTag(TAG)
 
@@ -138,10 +140,10 @@ class StripePurchases(
         )
 
     suspend fun requestRestoreCode(email: String): StripeRestoreRequest =
-        client.requestRestoreCode(email)
+        client.requestRestoreCode(email).also { analytics?.logStripeRestoreRequest(it) }
 
     suspend fun verifyRestoreCode(email: String, code: String): StripeRestore =
-        client.verifyRestoreCode(email, code)
+        client.verifyRestoreCode(email, code).also { analytics?.logStripeRestoreCode(it) }
 
     suspend fun restore(
         purchase: StripePurchase,
@@ -149,11 +151,19 @@ class StripePurchases(
         terms: PurchaseTerms? = null,
         requireCloud: Boolean = true,
     ): StripeRestoreOutcome {
-        val outcome = keep(purchase, covered, terms)
-        if (outcome != StripeRestoreOutcome.Restored) return outcome
-        if (!requireCloud || SubscriptionSkus.isTasksSubscription(purchase.sku)) return outcome
-        logger.i { "Restored a subscription that does not reach the cloud tier" }
-        return StripeRestoreOutcome.NeedsUpgrade
+        val kept = keep(purchase, covered, terms)
+        val outcome = if (
+            kept == StripeRestoreOutcome.Restored &&
+            requireCloud &&
+            !SubscriptionSkus.isTasksSubscription(purchase.sku)
+        ) {
+            logger.i { "Restored a subscription that does not reach the cloud tier" }
+            StripeRestoreOutcome.NeedsUpgrade
+        } else {
+            kept
+        }
+        analytics?.logStripeRestore(outcome)
+        return outcome
     }
 
     suspend fun keep(

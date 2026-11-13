@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.TasksUrls
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.logBillingFlow
 
 private const val TAG = "PlayCheckout"
 
@@ -94,6 +95,11 @@ open class PlayCheckoutViewModel(
         }
         val current = purchases.state.value.subscription
         if (current?.sku == price.sku && current.isCanceled) {
+            reporting.logBillingFlow(
+                BillingProvider.GOOGLE_PLAY,
+                AnalyticsEvents.BillingFlow.SUBSCRIPTION_CENTER,
+                sku = price.sku,
+            )
             openSubscriptionCenter(activity, price.sku)
             return
         }
@@ -111,11 +117,6 @@ open class PlayCheckoutViewModel(
             } catch (e: Exception) {
                 pending = null
                 Logger.e(e, TAG) { "Failed to launch purchase flow for ${price.sku}" }
-                reporting.logEvent(
-                    AnalyticsEvents.CHECKOUT_ERROR,
-                    AnalyticsEvents.PARAM_SKU to price.sku,
-                    AnalyticsEvents.PARAM_RESULT to (e.message ?: AnalyticsEvents.Checkout.FAILED),
-                )
                 _viewState.update { it.copy(error = e.toError(price)) }
             } finally {
                 _viewState.update { it.copy(busySku = null) }
@@ -133,14 +134,6 @@ open class PlayCheckoutViewModel(
         if (error !is Error.Unavailable || !sellable(error.price)) {
             return
         }
-        reporting.logEvent(
-            AnalyticsEvents.PRICING_SUBSCRIBE_CLICK,
-            AnalyticsEvents.PARAM_TIER to if (SubscriptionSkus.isTasksSubscription(error.price.sku)) {
-                AnalyticsEvents.TIER_CLOUD
-            } else {
-                AnalyticsEvents.TIER_NYP
-            },
-        )
         select(error.price, activity)
     }
 
@@ -173,6 +166,13 @@ open class PlayCheckoutViewModel(
                     continue
                 }
                 Logger.d(TAG) { "Loaded catalog after $attempts attempt(s)" }
+                if (catalog.isEmpty) {
+                    reporting.logBillingFlow(
+                        BillingProvider.GOOGLE_PLAY,
+                        AnalyticsEvents.BillingFlow.QUERY_SKUS_FAILED,
+                        result = AnalyticsEvents.Checkout.EMPTY_CATALOG,
+                    )
+                }
                 _viewState.update { it.copy(catalog = catalog, loadingPrices = false) }
                 return
             } catch (e: CancellationException) {
@@ -184,10 +184,10 @@ open class PlayCheckoutViewModel(
                     continue
                 }
                 Logger.e(e, TAG) { "Failed to load catalog" }
-                reporting.logEvent(
-                    AnalyticsEvents.BILLING_FLOW_RESULT,
-                    AnalyticsEvents.PARAM_RESULT to (e.message ?: "unknown").take(100),
-                    AnalyticsEvents.PARAM_STATE to STATE_QUERY_SKUS_FAILED,
+                reporting.logBillingFlow(
+                    BillingProvider.GOOGLE_PLAY,
+                    AnalyticsEvents.BillingFlow.QUERY_SKUS_FAILED,
+                    result = e.message ?: AnalyticsEvents.Checkout.FAILED,
                 )
                 _viewState.update { it.copy(loadingPrices = false) }
                 return
@@ -201,7 +201,6 @@ open class PlayCheckoutViewModel(
     }
 
     companion object {
-        private const val STATE_QUERY_SKUS_FAILED = "QUERY_SKUS_FAILED"
         const val CATALOG_ATTEMPTS = 2
         const val CATALOG_RETRY_MILLIS = 1_000L
     }

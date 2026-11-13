@@ -53,6 +53,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
+import org.tasks.analytics.Analytics
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.LogOnce
 import io.github.alexzhirkevich.qrose.options.QrBrush
 import io.github.alexzhirkevich.qrose.options.QrColors
 import io.github.alexzhirkevich.qrose.options.solid
@@ -196,15 +199,14 @@ fun RestorePurchasesScreen(
     stripe: StripeRestoreCallbacks,
     desktopLink: DesktopLinkCallbacks? = null,
     onGitHubSignIn: suspend () -> GitHubSponsorClient.VerifyResult,
-    onGooglePlaySelected: () -> Unit = {},
-    onGitHubSelected: () -> Unit = {},
-    onStripeSelected: () -> Unit = {},
-    onNotSponsor: () -> Unit = {},
-    onLinkError: () -> Unit = {},
-    onGitHubSuccess: () -> Unit = {},
-    onGitHubFailed: () -> Unit = {},
+    analytics: Analytics? = null,
     successButtonText: String? = null,
 ) {
+    fun log(event: String, selection: String) =
+        analytics?.logEvent(event, AnalyticsEvents.PARAM_SELECTION to selection)
+    val onLinkError = { log(AnalyticsEvents.RESTORE_ERROR, AnalyticsEvents.SELECTION_GOOGLE_PLAY) }
+    val onGitHubFailed = { log(AnalyticsEvents.RESTORE_ERROR, AnalyticsEvents.SELECTION_GITHUB) }
+    LogOnce { analytics?.logEvent(AnalyticsEvents.SCREEN_RESTORE_PURCHASES) }
     var selection by rememberSaveable(stateSaver = UnlockSourceSaver) {
         mutableStateOf<UnlockSource?>(null)
     }
@@ -287,6 +289,7 @@ fun RestorePurchasesScreen(
                         StoreResult.WRITE_FAILED
                     }
                     qrState = if (stored == StoreResult.STORED) {
+                        log(AnalyticsEvents.RESTORE_SUCCESS, AnalyticsEvents.SELECTION_GOOGLE_PLAY)
                         DesktopProState.Success
                     } else {
                         onLinkError()
@@ -310,11 +313,11 @@ fun RestorePurchasesScreen(
             val result = onGitHubSignIn()
             gitHubState = when (result) {
                 GitHubSponsorClient.VerifyResult.Success -> {
-                    onGitHubSuccess()
+                    log(AnalyticsEvents.RESTORE_SUCCESS, AnalyticsEvents.SELECTION_GITHUB)
                     GitHubProState.Success
                 }
                 GitHubSponsorClient.VerifyResult.NotSponsor -> {
-                    onNotSponsor()
+                    analytics?.logEvent(AnalyticsEvents.RESTORE_NOT_SPONSOR)
                     GitHubProState.NotSponsor
                 }
                 is GitHubSponsorClient.VerifyResult.NotStored -> {
@@ -380,14 +383,15 @@ fun RestorePurchasesScreen(
                             selection = source
                             when (source) {
                                 UnlockSource.GOOGLE_PLAY -> {
-                                    onGooglePlaySelected()
+                                    log(AnalyticsEvents.RESTORE_SELECTION, AnalyticsEvents.SELECTION_GOOGLE_PLAY)
                                     createLink()
                                 }
                                 UnlockSource.GITHUB -> {
-                                    onGitHubSelected()
+                                    log(AnalyticsEvents.RESTORE_SELECTION, AnalyticsEvents.SELECTION_GITHUB)
                                     startGitHubSignIn()
                                 }
-                                UnlockSource.STRIPE -> onStripeSelected()
+                                UnlockSource.STRIPE ->
+                                    log(AnalyticsEvents.RESTORE_SELECTION, AnalyticsEvents.SELECTION_STRIPE)
                             }
                         },
                     )

@@ -33,7 +33,10 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import org.tasks.TasksBuildConfig
 import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.AnalyticsEvents.BillingFlow
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.logBillingFlow
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlin.time.Duration.Companion.seconds
@@ -66,6 +69,15 @@ class PlayBillingClient(
 
     private val acknowledging = Mutex()
 
+    private class Launch(val sku: String) {
+        @Volatile
+        var returned = false
+    }
+
+    private val launch = AtomicReference<Launch?>(null)
+
+    private val reported = mutableSetOf<String>()
+
     override suspend fun products(skus: List<String>): List<PlayProductInfo> =
         executeServiceRequest {
             queryProductDetails(skus, ProductType.SUBS).map { it.toProductInfo() }
@@ -89,7 +101,7 @@ class PlayBillingClient(
             if (!subs.success || !iaps.success) {
                 reportIabResult(
                     result = "SUBS:${subs.responseCodeString} IAPs:${iaps.responseCodeString}",
-                    state = STATE_QUERY_PURCHASES_FAILED,
+                    state = BillingFlow.QUERY_PURCHASES_FAILED,
                 )
             }
             if (!subs.success) {
@@ -125,37 +137,62 @@ class PlayBillingClient(
         subscription: Boolean,
         oldPurchaseToken: String?,
     ) {
-        executeServiceRequest {
-            val productType = if (subscription) ProductType.SUBS else ProductType.INAPP
-            val productDetails = queryProductDetails(listOf(sku), productType).firstOrNull()
-                ?: throw PlayBillingUnrecoverableException("Product $sku not found")
-            val productParams = ProductDetailsParams.newBuilder()
-                .setProductDetails(productDetails)
-            if (subscription) {
-                productParams.setOfferToken(
-                    productDetails.offer?.offerToken
-                        ?: throw PlayBillingUnrecoverableException("No offer token for $sku")
-                )
-            }
-            val params = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(listOf(productParams.build()))
-            oldPurchaseToken?.let {
-                params.setSubscriptionUpdateParams(
-                    SubscriptionUpdateParams.newBuilder()
-                        .setOldPurchaseToken(it)
-                        .setSubscriptionReplacementMode(
-                            SubscriptionUpdateParams.ReplacementMode.WITH_TIME_PRORATION
-                        )
-                        .build()
-                )
-            }
-            logger.d { "launchBillingFlow: sku=$sku oldPurchaseToken=$oldPurchaseToken" }
-            val result = billingClient.launchBillingFlow(activity, params.build())
-            if (!result.success) {
-                reportIabResult(result.responseCodeString, sku, STATE_LAUNCH_FAILED)
-                throw result.asException
-            }
+        val params = try {
+            executeServiceRequest { billingFlowParams(sku, subscription, oldPurchaseToken) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            reportIabResult(e.message, sku, BillingFlow.PURCHASE_FAILED)
+            throw e
         }
+        logger.d { "launchBillingFlow: sku=$sku oldPurchaseToken=$oldPurchaseToken" }
+        val started = Launch(sku)
+        launch.set(started)
+        val result = try {
+            billingClient.launchBillingFlow(activity, params)
+        } catch (e: Exception) {
+            launch.compareAndSet(started, null)
+            reportIabResult(e.message, sku, BillingFlow.LAUNCH_FAILED)
+            throw e
+        }
+        if (!result.success) {
+            launch.compareAndSet(started, null)
+            reportIabResult(result.responseCodeString, sku, BillingFlow.LAUNCH_FAILED)
+            throw result.asException
+        }
+        reportIabResult(result.responseCodeString, sku, BillingFlow.LAUNCHED)
+        started.returned = true
+    }
+
+    private suspend fun billingFlowParams(
+        sku: String,
+        subscription: Boolean,
+        oldPurchaseToken: String?,
+    ): BillingFlowParams {
+        val productType = if (subscription) ProductType.SUBS else ProductType.INAPP
+        val productDetails = queryProductDetails(listOf(sku), productType).firstOrNull()
+            ?: throw PlayBillingUnrecoverableException("Product $sku not found")
+        val productParams = ProductDetailsParams.newBuilder()
+            .setProductDetails(productDetails)
+        if (subscription) {
+            productParams.setOfferToken(
+                productDetails.offer?.offerToken
+                    ?: throw PlayBillingUnrecoverableException("No offer token for $sku")
+            )
+        }
+        val params = BillingFlowParams.newBuilder()
+            .setProductDetailsParamsList(listOf(productParams.build()))
+        oldPurchaseToken?.let {
+            params.setSubscriptionUpdateParams(
+                SubscriptionUpdateParams.newBuilder()
+                    .setOldPurchaseToken(it)
+                    .setSubscriptionReplacementMode(
+                        SubscriptionUpdateParams.ReplacementMode.WITH_TIME_PRORATION
+                    )
+                    .build()
+            )
+        }
+        return params.build()
     }
 
     override suspend fun acknowledge(purchase: PlayPurchase) {
@@ -175,7 +212,7 @@ class PlayBillingClient(
             reportIabResult(
                 result = result.responseCodeString,
                 sku = purchase.sku,
-                state = STATE_ACKNOWLEDGE_FAILED,
+                state = BillingFlow.ACKNOWLEDGE_FAILED,
                 orderId = purchase.orderId.orEmpty(),
             )
             throw result.asException
@@ -196,6 +233,9 @@ class PlayBillingClient(
     override fun onPurchasesUpdated(result: BillingResult, purchaseList: List<Purchase>?) {
         if (result.success) {
             val updated = purchaseList.orEmpty()
+            launch.getAndUpdate { started ->
+                started?.takeIf { updated.none { started.sku in it.products } }
+            }
             scope.launch {
                 val known = updated.mapNotNull { purchases.get(it.products.first())?.purchaseToken }
                 val purchased = purchases.add(updated.map { it.toPlayPurchase() })
@@ -217,6 +257,7 @@ class PlayBillingClient(
             }
             updated
                 .filter { !it.isAcknowledged }
+                .filter { firstReport(it.purchaseToken, it.purchaseState) }
                 .forEach {
                     reportIabResult(
                         result = result.responseCodeString,
@@ -227,7 +268,14 @@ class PlayBillingClient(
                 }
         } else {
             logger.w { "onPurchasesUpdated: ${result.responseCodeString}: ${result.debugMessage}" }
-            reportIabResult(result.responseCodeString, state = STATE_PURCHASE_UPDATED_FAILED)
+            val started = launch.get()
+            if (started?.returned == true && launch.compareAndSet(started, null)) {
+                reportIabResult(
+                    result.responseCodeString,
+                    started.sku,
+                    BillingFlow.PURCHASE_UPDATED_FAILED,
+                )
+            }
             scope.launch { onPurchaseFlowFinished() }
         }
     }
@@ -306,16 +354,21 @@ class PlayBillingClient(
         return runnable()
     }
 
+    private fun firstReport(purchaseToken: String, purchaseState: Int): Boolean =
+        synchronized(reported) {
+            reported.add("$purchaseToken:$purchaseState")
+        }
+
     private fun reportIabResult(
-        result: String,
+        result: String?,
         sku: String = "",
         state: String,
         orderId: String = "",
-    ) = reporting.logEvent(
-        AnalyticsEvents.BILLING_FLOW_RESULT,
-        AnalyticsEvents.PARAM_RESULT to result,
-        AnalyticsEvents.PARAM_SKU to sku,
-        AnalyticsEvents.PARAM_STATE to state,
+    ) = reporting.logBillingFlow(
+        BillingProvider.GOOGLE_PLAY,
+        state,
+        sku = sku,
+        result = result ?: AnalyticsEvents.Checkout.FAILED,
         AnalyticsEvents.PARAM_ORDER_ID to orderId,
     )
 
@@ -331,10 +384,6 @@ class PlayBillingClient(
     }
 
     companion object {
-        private const val STATE_LAUNCH_FAILED = "LAUNCH_FAILED"
-        private const val STATE_PURCHASE_UPDATED_FAILED = "PURCHASE_UPDATED_FAILED"
-        private const val STATE_QUERY_PURCHASES_FAILED = "QUERY_PURCHASES_FAILED"
-        private const val STATE_ACKNOWLEDGE_FAILED = "ACKNOWLEDGE_FAILED"
         private val CONNECT_TIMEOUT = 30.seconds
         private const val CONNECT_TIMED_OUT = "CONNECT_TIMED_OUT"
 

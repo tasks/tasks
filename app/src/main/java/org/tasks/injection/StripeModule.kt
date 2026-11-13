@@ -120,6 +120,7 @@ class StripeModule {
         accountData = accountData,
         tasksPreferences = tasksPreferences,
         logOnboarding = { step -> firebase.logCloudOnboarding(step) },
+        analytics = firebase,
     ).also { it.claimOnSignIn(scope) }
 
     @Provides

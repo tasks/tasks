@@ -570,9 +570,10 @@ val coreModule: Module = module {
             accountData = get(),
             tasksPreferences = get(),
             logOnboarding = { step -> get<Reporting>().logCloudOnboarding(step) },
+            analytics = get<Reporting>(),
         ).also { it.claimOnSignIn(get()) }
     } binds arrayOf(StripeCheckouts::class, PurchaseClaim::class)
-    viewModel { StripeCheckoutViewModel(purchases = get(), reporting = get()) }
+    viewModel { StripeCheckoutViewModel(purchases = get(), reporting = get(), background = get()) }
     single {
         PushTokenManager(
             tokenProvider = getOrNull() ?: object : FcmTokenProvider {

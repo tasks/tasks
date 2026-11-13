@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PlatformConfiguration
-import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
@@ -43,13 +42,6 @@ class PurchaseActivity : AppCompatActivity() {
         val nameYourPrice =
             intent?.getBooleanExtra(EXTRA_NAME_YOUR_PRICE, true) != false
         val source = intent?.getStringExtra(EXTRA_SOURCE).orEmpty()
-        if (savedInstanceState == null) {
-            firebase.logEvent(
-                R.string.event_showed_purchase_dialog,
-                R.string.param_source to source,
-            )
-        }
-
         setContent {
             TasksSettingsTheme(
                 theme = theme.themeBase.index,

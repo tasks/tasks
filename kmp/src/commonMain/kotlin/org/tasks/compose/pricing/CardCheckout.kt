@@ -52,7 +52,7 @@ fun cardCheckout(
     }
     CheckoutProgressDialog(
         visible = state.checkoutUrl != null,
-        onReopen = { state.checkoutUrl?.let(openUrl) },
+        onReopen = { viewModel.reopenCheckout()?.let(openUrl) },
         onCancel = { viewModel.cancel() },
     )
     val openPortal = cardPortalLauncher(portalUrl = portalUrl, openUrl = openUrl)
@@ -65,6 +65,7 @@ fun cardCheckout(
             onRestorePurchases()
         },
         onOpenPortal = {
+            viewModel.portalOpened()
             viewModel.dismissNotice()
             openPortal()
         },

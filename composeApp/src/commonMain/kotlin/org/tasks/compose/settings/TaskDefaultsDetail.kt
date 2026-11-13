@@ -53,7 +53,7 @@ import tasks.kmp.generated.resources.task_defaults
 fun TaskDefaultsDetail(
     onNavigateBack: () -> Unit,
     onSignIn: () -> Unit = {},
-    onSubscribe: () -> Unit = {},
+    onSubscribe: (String) -> Unit = {},
     onAddAccount: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<TaskDefaultsViewModel>()

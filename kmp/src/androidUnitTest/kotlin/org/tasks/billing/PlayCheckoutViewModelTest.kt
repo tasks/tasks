@@ -111,7 +111,15 @@ class PlayCheckoutViewModelTest {
         advanceUntilIdle()
 
         assertEquals(PlayCheckoutViewModel.CATALOG_ATTEMPTS, billing.productsCalls)
-        assertTrue(reporting.events.contains(AnalyticsEvents.BILLING_FLOW_RESULT))
+        assertTrue(reporting.billingStates.contains(AnalyticsEvents.BillingFlow.QUERY_SKUS_FAILED))
+    }
+
+    @Test
+    fun anEmptyCatalogIsLogged() = runTest(dispatcher) {
+        viewModel(FakePlayBilling(products = emptyList()))
+        advanceUntilIdle()
+
+        assertTrue(reporting.billingStates.contains(AnalyticsEvents.BillingFlow.QUERY_SKUS_FAILED))
     }
 
     @Test
@@ -211,6 +219,10 @@ class PlayCheckoutViewModelTest {
         advanceUntilIdle()
 
         assertEquals(listOf("annual_30"), subscriptionCenter)
+        assertEquals(
+            listOf<Any?>(AnalyticsEvents.BillingFlow.SUBSCRIPTION_CENTER),
+            reporting.billingStates,
+        )
         assertTrue(billing.launches.isEmpty())
         assertNull(viewModel.viewState.value.busySku)
     }
@@ -230,7 +242,7 @@ class PlayCheckoutViewModelTest {
     }
 
     @Test
-    fun retryLogsTheClickAndLaunchesAgain() = runTest(dispatcher) {
+    fun retryLaunchesAgainWithoutLoggingAnotherClick() = runTest(dispatcher) {
         val billing = FakePlayBilling(
             products = CATALOG,
             launchError = PlayBillingUnavailableException("SERVICE_DISCONNECTED"),
@@ -246,7 +258,7 @@ class PlayCheckoutViewModelTest {
 
         assertNull(viewModel.viewState.value.error)
         assertEquals(listOf("annual_30" to null), billing.launches)
-        assertTrue(reporting.events.contains(AnalyticsEvents.PRICING_SUBSCRIBE_CLICK))
+        assertFalse(reporting.events.contains(AnalyticsEvents.PRICING_SUBSCRIBE_CLICK))
     }
 
     @Test
@@ -339,7 +351,7 @@ class PlayCheckoutViewModelTest {
     }
 
     @Test
-    fun aFailedLaunchIsReportedAndClearsBusy() = runTest(dispatcher) {
+    fun aFailedLaunchClearsBusyAndLeavesReportingToTheClient() = runTest(dispatcher) {
         val billing = FakePlayBilling(
             products = CATALOG,
             launchError = PlayBillingUnrecoverableException("ITEM_UNAVAILABLE"),
@@ -358,7 +370,7 @@ class PlayCheckoutViewModelTest {
             viewModel.viewState.value.error,
         )
         assertNull(viewModel.viewState.value.busySku)
-        assertTrue(reporting.events.contains(AnalyticsEvents.CHECKOUT_ERROR))
+        assertFalse(reporting.billingStates.contains(AnalyticsEvents.BillingFlow.PURCHASE_FAILED))
     }
 
     @Test
@@ -479,11 +491,17 @@ class PlayCheckoutViewModelTest {
         override val tasksPreferences: TasksPreferences,
     ) : Reporting {
         val events = mutableListOf<String>()
+        val billingStates = mutableListOf<Any?>()
 
         override val analyticsEnabled = true
 
         override fun logEvent(event: String, vararg params: Pair<String, Any>) {
             events.add(event)
+            if (event == AnalyticsEvents.BILLING_FLOW_RESULT) {
+                val map = params.toMap()
+                assertEquals("google_play", map[AnalyticsEvents.PARAM_PROVIDER])
+                billingStates.add(map[AnalyticsEvents.PARAM_STATE])
+            }
         }
 
         override fun addTask(source: String) = Unit
