@@ -1,12 +1,12 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - '[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+-beta[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+-beta[0-9]+'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag name
+        required: true
+        type: string
 
 concurrency:
   group: release
@@ -27,9 +27,18 @@ jobs:
 
       - name: Check version
         id: version
+        env:
+          TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
-          TAG=$GITHUB_REF_NAME
+          if [[ ! $TAG =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?(-beta[0-9]+)?$ ]]; then
+            echo "::error::$TAG is not a release tag"
+            exit 1
+          fi
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" > /dev/null; then
+            echo "::error::tag $TAG already exists"
+            exit 1
+          fi
           NAME=$(sed -n 's/^VERSION_NAME=//p' version.properties)
           if [ "${TAG%-beta*}" != "$NAME" ]; then
             echo "::error::tag $TAG does not match VERSION_NAME=$NAME"
@@ -188,7 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ version, bundle, appimage ]
     env:
-      TAG: ${{ github.ref_name }}
+      TAG: ${{ inputs.tag }}
     steps:
       - uses: actions/checkout@v7
 
@@ -257,7 +266,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ inputs.tag }}
           TRACK: ${{ needs.version.outputs.track }}
         run: |
           set -euo pipefail
@@ -269,7 +278,7 @@ jobs:
             else
               args+=(--notes-start-tag "$(gh release view --json tagName -q .tagName)")
             fi
-            gh release create "$TAG" "${args[@]}"
+            gh release create "$TAG" --target "$GITHUB_SHA" "${args[@]}"
           fi
           gh release upload "$TAG" --clobber android/* desktop/*
           gh release edit "$TAG" --draft=false
