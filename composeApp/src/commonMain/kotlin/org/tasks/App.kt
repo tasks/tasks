@@ -876,7 +876,10 @@ fun App(
                         LaunchedEffect(platformSignIn) {
                             val platform = platformSignIn ?: return@LaunchedEffect
                             platformSignIn = null
-                            addAccountViewModel.signIn(Platform.valueOf(platform))
+                            addAccountViewModel.signIn(
+                                platform = Platform.valueOf(platform),
+                                openUrl = openUrl,
+                            )
                         }
                         val signInState by addAccountViewModel.signInState.collectAsState()
                         AddAccountScreen(
@@ -910,7 +913,10 @@ fun App(
                                     }
                                     Platform.CALDAV -> backStack.push(CaldavSignInDestination)
                                     Platform.ETEBASE -> backStack.push(EtebaseSignInDestination)
-                                    else -> addAccountViewModel.signIn(platform)
+                                    else -> addAccountViewModel.signIn(
+                                        platform = platform,
+                                        openUrl = openUrl,
+                                    )
                                 }
                             },
                             openUrl = { platform ->

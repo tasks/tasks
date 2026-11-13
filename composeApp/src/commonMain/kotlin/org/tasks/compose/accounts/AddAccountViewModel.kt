@@ -50,7 +50,7 @@ class AddAccountViewModel(
     fun signIn(
         platform: Platform,
         provider: OAuthProvider? = null,
-        openUrl: (String) -> Unit = {},
+        openUrl: (String) -> Unit,
     ) {
         viewModelScope.launch {
             _signInState.value = SignInState.Loading

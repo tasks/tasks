@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import androidx.compose.ui.platform.LocalUriHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.compose.accounts.Platform
 import tasks.kmp.generated.resources.Res
@@ -18,6 +19,7 @@ fun MicrosoftAccountSettingsDetail(
     onNavigateBack: () -> Unit,
 ) {
     val signInHandler = koinInject<SignInHandler>()
+    val uriHandler = LocalUriHandler.current
     val scope = rememberCoroutineScope()
     AccountSettingsDetail(
         accountId = pane.accountId,
@@ -27,7 +29,7 @@ fun MicrosoftAccountSettingsDetail(
         onSignIn = {
             scope.launch {
                 try {
-                    signInHandler.signIn(Platform.MICROSOFT)
+                    signInHandler.signIn(Platform.MICROSOFT, openUrl = uriHandler::openUri)
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {

@@ -114,7 +114,11 @@ fun TasksAccountSettingsDetail(
                     }
                     scope.launch {
                         try {
-                            signInHandler.signIn(Platform.TASKS_ORG, provider)
+                            signInHandler.signIn(
+                                platform = Platform.TASKS_ORG,
+                                provider = provider,
+                                openUrl = uriHandler::openUri,
+                            )
                         } catch (e: CancellationException) {
                             throw e
                         } catch (e: PurchaseTokenInUseException) {
