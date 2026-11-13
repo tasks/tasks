@@ -1,32 +1,18 @@
-### 15.14-beta02 (2026-11-11)
-
-Android:
-  * Google Play: Unlock features by restoring a card or GitHub payment
-  * F-Droid: Subscribe to Tasks.org Cloud or donate in-app with a card
-  * Fix crash in settings screen
-
-Update translations:
-  * Armenian - Maxim Mkrtchyan
-  * Chinese (Simplified) - hamburger2048
-  * Danish - @bargib
-  * Dutch - Stephan Paternotte
-  * Esperanto - Don Zouras
-  * German - C. Rüdinger, pa po
-  * Italian - @ppasserini
-  * Turkish - @emintufan
-
-### 15.14-beta01 (2026-11-06)
+### 15.14 (2026-11-13)
 
 * Add support for user certificate stores [#2137](https://github.com/tasks/tasks/issues/2137)
 
 Android:
+  * Google Play: Unlock features by restoring a card or GitHub payment
+  * F-Droid: Subscribe to Tasks.org Cloud or donate in-app with a card
   * Add support for SilentSuite app
   * Add support for DAVsky app [#4689](https://github.com/tasks/tasks/issues/4689)
   * Fix crash on large descriptions [#3333](https://github.com/tasks/tasks/issues/3333)
   * Fix 16kb alignment [#4582](https://github.com/tasks/tasks/issues/4582)
+  * Fix crash in settings screen
 
 Desktop:
-  * Add support for Stripe payments
+  * Add support for card payments
   * Fix Windows ARM EteSync support
 
 Update translations:
@@ -37,13 +23,14 @@ Update translations:
   * Esperanto - Don Zouras
   * Estonian - Priit Jõerüüt
   * French - @FlorianLeChat
-  * German - pa po
+  * German - C. Rüdinger, pa po
   * Hebrew - @ginger-co
+  * Italian - @ppasserini
   * Japanese - Norara
   * Korean - justcontributor
   * Russian - @PONYATIN, Alexander P., George Shchennikov
   * Serbian - @vale-decem
-  * Turkish - @oersen
+  * Turkish - @emintufan, @oersen
   * Uzbek - Davlat Davlatov
 
 ### 15.13 (2026-10-13)
