@@ -1270,7 +1270,7 @@ class StripeCheckoutViewModelTest {
                 mapOf(
                     AnalyticsEvents.PARAM_SKU to "annual_30",
                     AnalyticsEvents.PARAM_PERIOD to AnalyticsEvents.PERIOD_ANNUAL,
-                    AnalyticsEvents.PARAM_RESULT to AnalyticsEvents.Checkout.RESTORED,
+                    AnalyticsEvents.PARAM_RESULT to AnalyticsEvents.Checkout.COLLECTED,
                 )
             ),
             logged(AnalyticsEvents.BillingFlow.PURCHASED),

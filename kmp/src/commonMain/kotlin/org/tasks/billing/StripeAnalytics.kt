@@ -17,6 +17,13 @@ val StripeRestoreOutcome.analyticsResult: String
             }
     }
 
+val StripeRestoreOutcome.checkoutResult: String
+    get() = if (this == StripeRestoreOutcome.Restored) {
+        AnalyticsEvents.Checkout.COLLECTED
+    } else {
+        analyticsResult
+    }
+
 private val StripeRestore.analyticsResult: String?
     get() = when (this) {
         is StripeRestore.Restored -> null

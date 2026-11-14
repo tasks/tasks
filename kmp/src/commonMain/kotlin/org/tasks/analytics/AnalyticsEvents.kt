@@ -105,6 +105,7 @@ object AnalyticsEvents {
         const val CANCELLED = "cancelled"
         const val CARD_DECLINED = "card_declined"
         const val CHANGED = "changed"
+        const val COLLECTED = "collected"
         const val EMPTY_CATALOG = "empty_catalog"
         const val ENCRYPTION_FAILED = "encryption_failed"
         const val ENDED = "ended"

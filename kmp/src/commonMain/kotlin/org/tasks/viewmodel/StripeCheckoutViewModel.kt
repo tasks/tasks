@@ -24,6 +24,7 @@ import org.tasks.analytics.analyticsName
 import org.tasks.analytics.logBillingFlow
 import org.tasks.analytics.Reporting
 import org.tasks.billing.analyticsResult
+import org.tasks.billing.checkoutResult
 import org.tasks.billing.logStripeRestore
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.StripeChange
@@ -611,7 +612,7 @@ open class StripeCheckoutViewModel(
     }
 
     private fun collected(attempt: Attempt, outcome: StripeRestoreOutcome) =
-        terminal(attempt, BillingFlow.PURCHASED, outcome.analyticsResult)
+        terminal(attempt, BillingFlow.PURCHASED, outcome.checkoutResult)
 
     private fun restored(attempt: Attempt, outcome: StripeRestoreOutcome) =
         terminal(attempt, BillingFlow.PURCHASED, outcome.analyticsResult) {
