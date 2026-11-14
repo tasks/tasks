@@ -711,4 +711,5 @@
     <string name="subscription_payment_failed">Pago malsukcesis, aktualigu vian kreditkarton</string>
     <string name="upgrade_blurb_1">Saluton! Mi nomiĝas Alex. Mi estas la sendependa programisto de Tasks.org</string>
     <string name="upgrade_blurb_2">Mi laboris milojn da horoj pri Tasks.org, kaj mi rete eldonas senpage ĉiun da la fontkodo. Por subteni mian laboron, kelkaj funkcioj postulas abonon</string>
+    <string name="subscription_active_google_play">Vi jam havas aktivan abonon de Google Play.</string>
 </resources>
