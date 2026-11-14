@@ -8,6 +8,7 @@ import io.ktor.client.request.header
 import io.ktor.client.request.prepareGet
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.readUTF8Line
 import kotlinx.coroutines.CoroutineScope
@@ -50,11 +51,16 @@ class SseClient(
                 if (watchJob?.isActive == true) return@withLock
                 watchJob = scope.launch {
                     caldavDao.watchAccounts()
-                        .map { accounts -> accounts.any { it.accountType == CaldavAccount.TYPE_TASKS } }
+                        .map { accounts ->
+                            accounts
+                                .firstOrNull { it.accountType == CaldavAccount.TYPE_TASKS }
+                                ?.let { it.uuid to it.password }
+                        }
                         .distinctUntilChanged()
-                        .collect { hasTasksAccount ->
+                        .collect { credentials ->
                             mutex.withLock {
-                                if (hasTasksAccount) {
+                                if (credentials != null) {
+                                    stopConnectionLocked()
                                     startConnectionLocked()
                                 } else {
                                     stopConnectionLocked()
@@ -96,8 +102,14 @@ class SseClient(
                 val account = caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
                     ?: break
                 try {
-                    connect(account)
-                    backoffMs = INITIAL_BACKOFF_MS
+                    when (connect(account)) {
+                        Outcome.CONNECTED -> backoffMs = INITIAL_BACKOFF_MS
+                        Outcome.FAILED -> {}
+                        Outcome.UNAUTHORIZED -> {
+                            Logger.w(TAG) { "SSE stopped until the account signs in again" }
+                            break
+                        }
+                    }
                 } catch (e: CancellationException) {
                     throw e
                 } catch (e: Exception) {
@@ -114,9 +126,9 @@ class SseClient(
         connectionJob = null
     }
 
-    private suspend fun connect(account: CaldavAccount) {
-        val password = encryption.decrypt(account.password) ?: return
-        val token = token() ?: return
+    private suspend fun connect(account: CaldavAccount): Outcome {
+        val password = encryption.decrypt(account.password) ?: return Outcome.FAILED
+        val token = token() ?: return Outcome.FAILED
         val baseUrl = environment.caldavUrl.trimEnd('/')
         val client = httpClientFactory.newClient(foreground = false) {
             install(HttpTimeout) {
@@ -125,7 +137,7 @@ class SseClient(
                 socketTimeoutMillis = READ_TIMEOUT_MS
             }
         }
-        try {
+        return try {
             Logger.d(TAG) { "SSE connecting to $baseUrl" }
             client
                 .prepareGet("$baseUrl/sse?token=$token") {
@@ -135,7 +147,11 @@ class SseClient(
                 .execute { response ->
                     if (!response.status.isSuccess()) {
                         Logger.w(TAG) { "SSE connection rejected: ${response.status.value}" }
-                        return@execute
+                        return@execute if (response.status == HttpStatusCode.Unauthorized) {
+                            Outcome.UNAUTHORIZED
+                        } else {
+                            Outcome.FAILED
+                        }
                     }
                     Logger.i(TAG) { "SSE connected" }
                     val channel = response.bodyAsChannel()
@@ -143,6 +159,7 @@ class SseClient(
                         val line = withTimeoutOrNull(READ_TIMEOUT_MS) { channel.readUTF8Line() } ?: break
                         onLine(line)
                     }
+                    Outcome.CONNECTED
                 }
         } finally {
             client.close()
@@ -156,10 +173,12 @@ class SseClient(
         }
     }
 
+    private enum class Outcome { CONNECTED, FAILED, UNAUTHORIZED }
+
     companion object {
         private const val TAG = "SseClient"
         private const val INITIAL_BACKOFF_MS = 1_000L
-        private const val MAX_BACKOFF_MS = 60_000L
+        private const val MAX_BACKOFF_MS = 300_000L
         private const val CONNECT_TIMEOUT_MS = 30_000L
         private const val READ_TIMEOUT_MS = 90_000L
     }

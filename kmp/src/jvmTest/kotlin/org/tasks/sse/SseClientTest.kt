@@ -43,6 +43,8 @@ class SseClientTest {
     private val encryption = testEncryption()
     private val requests = mutableListOf<HttpRequestData>()
     private val synced = mutableListOf<SyncSource>()
+    private val requestTimes = mutableListOf<Long>()
+    private var status = HttpStatusCode.OK
 
     private val backgroundWork = object : BackgroundWork {
         override fun updateCalendar(task: Task) {}
@@ -60,12 +62,13 @@ class SseClientTest {
             block: HttpClientConfig<*>.() -> Unit,
         ) = HttpClient(MockEngine { request ->
             requests += request
+            requestTimes += System.currentTimeMillis()
             val body = if (requests.size == 1) {
                 ByteReadChannel(": heartbeat\ndata: {\"sync\": true}\ndata: {\"other\": 1}\n")
             } else {
                 ByteChannel()
             }
-            respond(body, HttpStatusCode.OK, headersOf("Content-Type", "text/event-stream"))
+            respond(body, status, headersOf("Content-Type", "text/event-stream"))
         }) { block() }
     }
 
@@ -75,8 +78,7 @@ class SseClientTest {
         db.close()
     }
 
-    @Test
-    fun syncsOnEachSyncEventOfTheAccountsStream() = runBlocking {
+    private suspend fun insertAccount() {
         db.caldavDao().insert(
             CaldavAccount(
                 accountType = CaldavAccount.TYPE_TASKS,
@@ -87,15 +89,22 @@ class SseClientTest {
                 serverType = CaldavAccount.SERVER_TASKS,
             )
         )
-        val client = SseClient(
-            scope = scope,
-            backgroundWork = backgroundWork,
-            caldavDao = db.caldavDao(),
-            encryption = encryption,
-            environment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
-            httpClientFactory = clientFactory,
-            token = { "t0ken" },
-        )
+    }
+
+    private fun newClient() = SseClient(
+        scope = scope,
+        backgroundWork = backgroundWork,
+        caldavDao = db.caldavDao(),
+        encryption = encryption,
+        environment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
+        httpClientFactory = clientFactory,
+        token = { "t0ken" },
+    )
+
+    @Test
+    fun syncsOnEachSyncEventOfTheAccountsStream() = runBlocking {
+        insertAccount()
+        val client = newClient()
 
         client.start()
         withTimeout(5_000) { while (synced.isEmpty()) delay(10) }
@@ -113,5 +122,40 @@ class SseClientTest {
         val connections = requests.size
         delay(1_500)
         assertTrue(requests.size == connections)
+    }
+
+    @Test
+    fun backsOffWhenTheConnectionIsRejected() = runBlocking {
+        status = HttpStatusCode.InternalServerError
+        insertAccount()
+        val client = newClient()
+
+        client.start()
+        withTimeout(5_000) { while (requestTimes.size < 3) delay(10) }
+        client.stop()
+
+        assertTrue(requestTimes[1] - requestTimes[0] >= 900)
+        assertTrue(requestTimes[2] - requestTimes[1] >= 1_900)
+        assertTrue(synced.isEmpty())
+    }
+
+    @Test
+    fun waitsForANewPasswordAfterAnAuthError() = runBlocking {
+        status = HttpStatusCode.Unauthorized
+        insertAccount()
+        val client = newClient()
+
+        client.start()
+        withTimeout(5_000) { while (requests.isEmpty()) delay(10) }
+        delay(2_500)
+        assertEquals(1, requests.size)
+
+        val account = db.caldavDao().getAccountByUuid("cloud")!!
+        db.caldavDao().update(account.copy(password = encryption.encrypt("new secret")))
+        withTimeout(5_000) { while (requests.size < 2) delay(10) }
+        client.stop()
+
+        val basic = Base64.getEncoder().encodeToString("google_1:new secret".toByteArray())
+        assertEquals("Basic $basic", requests[1].headers["Authorization"])
     }
 }
