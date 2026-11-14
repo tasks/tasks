@@ -51,9 +51,9 @@ class KermitJulHandlerTest {
     fun `a dav4kmp warning lands in the app log`() {
         val cause = IllegalStateException("nope")
 
-        at.bitfire.dav4jvm.Logger
+        java.util.logging.Logger
             .getLogger("at.bitfire.dav4jvm.ktor.ResponseParser")
-            .log(at.bitfire.dav4jvm.Level.WARNING, "Unresolvable <href> in <response>: /a", cause)
+            .log(Level.WARNING, "Unresolvable <href> in <response>: /a", cause)
 
         assertEquals(
             listOf(Entry(Severity.Warn, "ResponseParser", "Unresolvable <href> in <response>: /a", cause)),
@@ -71,7 +71,7 @@ class KermitJulHandlerTest {
 
     @Test
     fun `severities map across`() {
-        val logger = at.bitfire.dav4jvm.Logger.getLogger("at.bitfire.dav4jvm.Probe")
+        val logger = java.util.logging.Logger.getLogger("at.bitfire.dav4jvm.Probe")
 
         logger.finest("v")
         logger.fine("d")
@@ -89,7 +89,7 @@ class KermitJulHandlerTest {
     fun `library chatter below info is dropped unless the app wants everything`() {
         Logger.setMinSeverity(Severity.Debug)
         installKermitJulHandler()
-        val logger = at.bitfire.dav4jvm.Logger.getLogger("at.bitfire.dav4jvm.PropertyRegistry")
+        val logger = java.util.logging.Logger.getLogger("at.bitfire.dav4jvm.PropertyRegistry")
 
         logger.fine("Registering Factory for DAV::add-member")
         logger.info("Registering DAV property factories")
