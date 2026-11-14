@@ -7,6 +7,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import org.tasks.logging.FileLogger
 import org.tasks.logging.TimberLogWriter
+import org.tasks.logging.installKermitJulHandler
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class BuildSetup @Inject constructor(
         Timber.plant(fileLogger)
         Logger.mutableConfig.minSeverity = Severity.Debug
         Logger.mutableConfig.logWriterList = listOf(TimberLogWriter())
+        installKermitJulHandler()
     }
 
     private class ErrorReportingTree : Timber.Tree() {

@@ -66,13 +66,7 @@ internal class KermitSlf4jLogger(private val loggerName: String) : LegacyAbstrac
         }
     }
 
-    private fun isLoggable(severity: Severity): Boolean {
-        val appMinSeverity = Logger.config.minSeverity
-        if (severity < appMinSeverity) {
-            return false
-        }
-        return appMinSeverity == Severity.Verbose || severity >= LIBRARY_MIN_SEVERITY
-    }
+    private fun isLoggable(severity: Severity) = isLibraryLoggable(severity)
 
     private fun Level?.toSeverity() = when (this) {
         Level.TRACE -> Severity.Verbose
@@ -81,8 +75,14 @@ internal class KermitSlf4jLogger(private val loggerName: String) : LegacyAbstrac
         Level.WARN -> Severity.Warn
         Level.ERROR, null -> Severity.Error
     }
+}
 
-    private companion object {
-        private val LIBRARY_MIN_SEVERITY = Severity.Info
+private val LIBRARY_MIN_SEVERITY = Severity.Info
+
+internal fun isLibraryLoggable(severity: Severity): Boolean {
+    val appMinSeverity = Logger.config.minSeverity
+    if (severity < appMinSeverity) {
+        return false
     }
+    return appMinSeverity == Severity.Verbose || severity >= LIBRARY_MIN_SEVERITY
 }

@@ -36,6 +36,7 @@ import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.compose.StableWindowSize
 import org.tasks.jobs.BackgroundWork
 import org.tasks.jobs.RefreshScheduler
+import org.tasks.logging.installKermitJulHandler
 import org.tasks.mcp.DesktopMcpServerController
 import org.tasks.notifications.DesktopNotifier
 import org.tasks.notifications.NotificationScheduler
@@ -151,6 +152,7 @@ fun main() {
             add(fileLogWriter)
         }
     )
+    installKermitJulHandler()
     logStartup()
 
     startKoin {

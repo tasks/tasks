@@ -13,6 +13,7 @@ import org.tasks.di.platformModule
 import org.tasks.jobs.BackgroundWork
 import org.tasks.logging.FileLogWriter
 import org.tasks.logging.SeverityFilterLogWriter
+import org.tasks.logging.installKermitJulHandler
 import org.tasks.logging.logStartup
 import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.AppPreferences
@@ -32,6 +33,7 @@ class TasksApplication : Application() {
         }
         Logger.setMinSeverity(if (TasksBuildConfig.DEBUG) Severity.Verbose else Severity.Debug)
         Logger.setLogWriters(logcat, FileLogWriter(logDir))
+        installKermitJulHandler()
         logStartup()
         org.tasks.caldav.CaldavClient.registerFactories()
         startKoin {
