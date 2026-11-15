@@ -404,4 +404,14 @@
     <string name="tos_updated_title">Hemos actualizado nuestras condiciones de uso</string>
     <string name="p_per_list_sort">per_list_sort</string>
     <string name="read_more">Leer más</string>
+    <string name="sort_options">Opciones de ordenamiento</string>
+    <string name="banner_subscription_required_body">Paga lo que desees para desbloquear la sincronización %s</string>
+    <string name="per_list_sort_title">Ordenamiento por lista</string>
+    <string name="per_list_sort_summary">Recuerda el ordenamiento y agrupamiento para cada lista de manera independiente</string>
+    <string name="permission_write_tasks">Añade, cambia y elimina tus tareas, listas, etiquetas y lugares</string>
+    <string name="subscription_required_fdroid">Se requiere una suscripción para usar Tasks.org sync. Las suscripciones se deben iniciar desde la versión de Google Play de Tasks.</string>
+    <string name="sponsorship_required_fdroid">Se requiere un patrocinio en GitHub para usar Tasks.org sync. Presiona aquí abajo para convertirte en patrocinador.</string>
+    <string name="guest_create_list_message">Actualmente tienes acceso de invitado a las listas compartidas. Para crear y sincronizar tus propias listas privadas en la nube, necesitarás una suscripción en Tasks.org. Alternativamente, puedes crear una lista local gratuita que se quedará en este dispositivo.</string>
+    <string name="exit">Salir</string>
+    <string name="write_permission_label">Modificar tareas</string>
 </resources>
