@@ -86,8 +86,11 @@ internal fun TaskRow(
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
+    chipAppearance: Int = 0,
 ) {
     val isDark = isDarkTheme()
+    val showText = chipAppearance != 2
+    val showIcon = chipAppearance != 1
     val checkColor = if (task.isCompleted) {
         MaterialTheme.colorScheme.outline
     } else {
@@ -233,6 +236,8 @@ internal fun TaskRow(
                             children = task.chipCount,
                             onClick = onToggleSubtasks,
                             enabled = !doomed,
+                            showText = showText,
+                            showIcon = showIcon,
                         )
                     }
                     if (showStartDate) {
@@ -243,13 +248,15 @@ internal fun TaskRow(
                             timeOnly = false,
                             chipColor = chipColor(0, isDark),
                             dateFormatter = dateFormatter,
+                            showText = showText,
+                            showIcon = showIcon,
                         )
                     }
                     if (showPlace) {
                         task.location?.let { location ->
                             Chip(
-                                text = location.place.displayName,
-                                icon = location.place.icon ?: "place",
+                                text = if (showText) location.place.displayName else null,
+                                icon = if (showIcon) location.place.icon ?: "place" else null,
                                 color = chipColor(location.place.color, isDark),
                                 onClick = { onFilterClick(PlaceFilter(location.place)) },
                             )
@@ -258,8 +265,8 @@ internal fun TaskRow(
                     if (showList) {
                         chipDataProvider.getCaldavList(task.caldav)?.let { list ->
                             Chip(
-                                text = list.title,
-                                icon = list.icon ?: "list",
+                                text = if (showText) list.title else null,
+                                icon = if (showIcon) list.icon ?: "list" else null,
                                 color = chipColor(list.tint, isDark),
                                 onClick = { onFilterClick(list) },
                             )
@@ -267,8 +274,8 @@ internal fun TaskRow(
                     }
                     tags.forEach { tag ->
                         Chip(
-                            text = tag.title,
-                            icon = tag.icon ?: "label",
+                            text = if (showText) tag.title else null,
+                            icon = if (showIcon) tag.icon ?: "label" else null,
                             color = chipColor(tag.tint, isDark),
                             onClick = { onFilterClick(tag) },
                         )
