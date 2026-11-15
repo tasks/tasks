@@ -499,6 +499,23 @@ ORDER BY primary_sort
     @Query("UPDATE caldav_lists SET cdl_last_sync = 0, cdl_ctag = NULL WHERE cdl_account = :account")
     abstract suspend fun resetLastSync(account: String)
 
+    @Query("""
+UPDATE caldav_tasks SET cd_etag = NULL
+WHERE cd_calendar IN (
+    SELECT cdl_uuid FROM caldav_lists
+    INNER JOIN caldav_accounts ON cdl_account = cda_uuid
+    WHERE cda_account_type IN (:accountTypes)
+)
+""")
+    abstract suspend fun clearETags(accountTypes: List<Int>)
+
+    @Query("""
+UPDATE caldav_lists SET cdl_ctag = :ctag
+WHERE cdl_ctag IS NOT NULL AND cdl_ctag != ''
+AND cdl_account IN (SELECT cda_uuid FROM caldav_accounts WHERE cda_account_type IN (:accountTypes))
+""")
+    abstract suspend fun replaceCTags(accountTypes: List<Int>, ctag: String)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertOrReplace(googleTaskList: CaldavCalendar): Long
 

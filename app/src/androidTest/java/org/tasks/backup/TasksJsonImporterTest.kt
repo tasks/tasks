@@ -2,9 +2,11 @@ package org.tasks.backup
 
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.Upgrade_15_13
+import com.todoroo.astrid.service.Upgrade_15_14_1
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.tasks.BuildConfig
 import org.tasks.data.dao.CaldavDao
@@ -20,6 +22,7 @@ import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
+import org.tasks.makers.CaldavTaskMaker.ETAG
 import org.tasks.makers.CaldavTaskMaker.OBJECT
 import org.tasks.makers.CaldavTaskMaker.REMOTE_ID
 import org.tasks.makers.CaldavTaskMaker.TASK
@@ -71,6 +74,7 @@ class TasksJsonImporterTest : InjectingTestCase() {
         uuid: String,
         url: String? = "https://caldav.tasks.org/calendars/user1/tasks/",
         name: String = "Tasks",
+        ctag: String? = null,
     ) {
         caldavDao.insert(
             CaldavCalendar(
@@ -78,6 +82,7 @@ class TasksJsonImporterTest : InjectingTestCase() {
                 uuid = uuid,
                 url = url,
                 name = name,
+                ctag = ctag,
             )
         )
     }
@@ -87,6 +92,7 @@ class TasksJsonImporterTest : InjectingTestCase() {
         calendar: String,
         remoteId: String,
         obj: String = "$remoteId.ics",
+        etag: String? = null,
     ): Task {
         val task = Task(title = title)
         taskDao.createNew(task)
@@ -96,6 +102,7 @@ class TasksJsonImporterTest : InjectingTestCase() {
                 with(CALENDAR, calendar),
                 with(REMOTE_ID, remoteId),
                 with(OBJECT, obj),
+                with(ETAG, etag),
             )
         )
         return task
@@ -285,5 +292,35 @@ class TasksJsonImporterTest : InjectingTestCase() {
 
         assertEquals(1, tagDataDao.getAll().size)
         assertEquals("important", tagDataDao.getAll()[0].name)
+    }
+
+    @Test
+    fun downloadTasksAgainAfterRestoringDamagedBackup() = runBlocking {
+        setupAccount("acc-1", accountType = TYPE_CALDAV)
+        setupCalendar("acc-1", "cal-1", ctag = "ctag")
+        setupTask("test task", "cal-1", "remote-1", etag = "etag")
+
+        val backup = export().withVersion(Upgrade_15_13.VERSION)
+        database.clearAllTables()
+
+        import(backup)
+
+        assertEquals(Upgrade_15_14_1.CTAG, caldavDao.getCalendars().single().ctag)
+        assertNull(caldavDao.getTasks(taskDao.getAll().single().id).single().etag)
+    }
+
+    @Test
+    fun keepSyncStateAfterRestoringRepairedBackup() = runBlocking {
+        setupAccount("acc-1", accountType = TYPE_CALDAV)
+        setupCalendar("acc-1", "cal-1", ctag = "ctag")
+        setupTask("test task", "cal-1", "remote-1", etag = "etag")
+
+        val backup = export().withVersion(Upgrade_15_14_1.VERSION)
+        database.clearAllTables()
+
+        import(backup)
+
+        assertEquals("ctag", caldavDao.getCalendars().single().ctag)
+        assertEquals("etag", caldavDao.getTasks(taskDao.getAll().single().id).single().etag)
     }
 }
