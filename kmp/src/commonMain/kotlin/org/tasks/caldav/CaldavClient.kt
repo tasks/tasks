@@ -2,8 +2,9 @@ package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
+import at.bitfire.dav4jvm.StringWriter
+import at.bitfire.dav4jvm.XmlSerializer
 import at.bitfire.dav4jvm.XmlUtils
-import at.bitfire.dav4jvm.XmlUtils.insertTag
 import at.bitfire.dav4jvm.ktor.DavCollection
 import at.bitfire.dav4jvm.ktor.DavResource
 import at.bitfire.dav4jvm.ktor.DavResource.Companion.MIME_XML_UTF8
@@ -250,7 +251,8 @@ open class CaldavClient(
     override suspend fun makeCollection(displayName: String, color: Int, icon: String?): String = translateExceptions {
         withContext(Dispatchers.IO) {
             val davResource = DavResource(httpClient, httpUrl!!.resolve(UUIDHelper.newUUID() + "/")!!)
-            davResource.mkCol(mkcolBody(displayName, color)) {}
+            val mkcolString = getMkcolString(displayName, color)
+            davResource.mkCol(mkcolString) {}
             if (icon?.isNotBlank() == true) {
                 davResource.proppatch(CalendarIcon.NAME, icon)
             }
@@ -279,27 +281,51 @@ open class CaldavClient(
             }
         }
 
-    private fun mkcolBody(displayName: String, color: Int): String =
-        XmlUtils.buildDocument(
-            listOf("d" to NS_WEBDAV, "c" to NS_CALDAV, "a" to NS_APPLE_ICAL),
-            Property.Name(NS_WEBDAV, "mkcol"),
-        ) {
-            insertTag(WebDAV.Set) {
-                insertTag(WebDAV.Prop) {
-                    insertTag(WebDAV.ResourceType) {
-                        insertTag(WebDAV.Collection)
-                        insertTag(CalDAV.Calendar)
-                    }
-                    insertTag(WebDAV.DisplayName) { text(displayName) }
-                    if (color != 0) {
-                        insertTag(CalDAV.CalendarColor) { text(color.toCalendarColor()) }
-                    }
-                    insertTag(CalDAV.SupportedCalendarComponentSet) {
-                        insertTag(CalDAV.Comp) { attribute(null, "name", null, "VTODO") }
-                    }
-                }
+    private fun getMkcolString(displayName: String, color: Int): String {
+        val xml = XmlUtils.newSerializer()
+        val stringWriter = StringWriter()
+        with(xml) {
+            setOutput(stringWriter)
+            startDocument("UTF-8", null)
+            setPrefix("", NS_WEBDAV)
+            setPrefix("CAL", NS_CALDAV)
+            startTag(NS_WEBDAV, "mkcol")
+            startTag(NS_WEBDAV, "set")
+            startTag(NS_WEBDAV, "prop")
+            startTag(NS_WEBDAV, "resourcetype")
+            startTag(NS_WEBDAV, "collection")
+            endTag(NS_WEBDAV, "collection")
+            startTag(NS_CALDAV, "calendar")
+            endTag(NS_CALDAV, "calendar")
+            endTag(NS_WEBDAV, "resourcetype")
+            setDisplayName(xml, displayName)
+            if (color != 0) {
+                setColor(xml, color)
             }
+            startTag(NS_CALDAV, "supported-calendar-component-set")
+            startTag(NS_CALDAV, "comp")
+            attribute(null, "name", "VTODO")
+            endTag(NS_CALDAV, "comp")
+            endTag(NS_CALDAV, "supported-calendar-component-set")
+            endTag(NS_WEBDAV, "prop")
+            endTag(NS_WEBDAV, "set")
+            endTag(NS_WEBDAV, "mkcol")
+            endDocument()
         }
+        return stringWriter.toString()
+    }
+
+    private fun setDisplayName(xml: XmlSerializer, name: String) {
+        xml.startTag(NS_WEBDAV, "displayname")
+        xml.text(name)
+        xml.endTag(NS_WEBDAV, "displayname")
+    }
+
+    private fun setColor(xml: XmlSerializer, color: Int) {
+        xml.startTag(NS_APPLE_ICAL, "calendar-color")
+        xml.text(color.toCalendarColor())
+        xml.endTag(NS_APPLE_ICAL, "calendar-color")
+    }
 
     override suspend fun share(
         account: CaldavAccount,

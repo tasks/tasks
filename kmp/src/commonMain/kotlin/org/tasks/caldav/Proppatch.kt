@@ -1,22 +1,24 @@
 package org.tasks.caldav
 
 import at.bitfire.dav4jvm.Property
+import at.bitfire.dav4jvm.StringReader
+import at.bitfire.dav4jvm.StringWriter
+import at.bitfire.dav4jvm.XmlPullParser
 import at.bitfire.dav4jvm.XmlUtils
-import at.bitfire.dav4jvm.XmlUtils.insertTag
 import at.bitfire.dav4jvm.XmlUtils.propertyName
 import at.bitfire.dav4jvm.ktor.PropStatParser
 import at.bitfire.dav4jvm.property.webdav.WebDAV
 import at.bitfire.dav4jvm.property.webdav.WebDAV.NS_WEBDAV
 import io.ktor.http.isSuccess
-import nl.adaptivity.xmlutil.EventType
 
 internal fun propstatFailureCode(body: String?): Int? {
     if (body.isNullOrBlank()) return null
     return try {
-        val parser = XmlUtils.newReader(body)
+        val parser = XmlUtils.newPullParser()
+        parser.setInput(StringReader(body))
         var event = parser.eventType
-        while (event != EventType.END_DOCUMENT) {
-            if (event == EventType.START_ELEMENT && parser.propertyName() == WebDAV.PropStat) {
+        while (event != XmlPullParser.END_DOCUMENT) {
+            if (event == XmlPullParser.START_TAG && parser.propertyName() == WebDAV.PropStat) {
                 val propStat = PropStatParser.parse(parser)
                 if (!propStat.status.isSuccess()) return propStat.status.value
             }
@@ -29,26 +31,39 @@ internal fun propstatFailureCode(body: String?): Int? {
 }
 
 internal fun proppatchBody(set: List<Pair<Property.Name, String>>, remove: List<Property.Name>): String {
-    val namespaces = listOfNotNull(
-        "d" to NS_WEBDAV,
-        (set.firstOrNull()?.first ?: remove.firstOrNull())?.let { "t" to it.namespace },
-    )
-    return XmlUtils.buildDocument(namespaces, WebDAV.PropertyUpdate) {
+    val serializer = XmlUtils.newSerializer()
+    val writer = StringWriter()
+    with(serializer) {
+        setOutput(writer)
+        startDocument("UTF-8", null)
+        setPrefix("d", NS_WEBDAV)
+        if (set.isNotEmpty() || remove.isNotEmpty()) {
+            setPrefix("t", (set.firstOrNull()?.first ?: remove.first()).namespace)
+        }
+        startTag(NS_WEBDAV, "propertyupdate")
         if (set.isNotEmpty()) {
-            insertTag(WebDAV.Set) {
-                insertTag(WebDAV.Prop) {
-                    set.forEach { (name, value) ->
-                        insertTag(name) { text(value) }
-                    }
-                }
+            startTag(NS_WEBDAV, "set")
+            startTag(NS_WEBDAV, "prop")
+            set.forEach { (name, value) ->
+                startTag(name.namespace, name.name)
+                text(value)
+                endTag(name.namespace, name.name)
             }
+            endTag(NS_WEBDAV, "prop")
+            endTag(NS_WEBDAV, "set")
         }
         if (remove.isNotEmpty()) {
-            insertTag(WebDAV.Remove) {
-                insertTag(WebDAV.Prop) {
-                    remove.forEach { insertTag(it) }
-                }
+            startTag(NS_WEBDAV, "remove")
+            startTag(NS_WEBDAV, "prop")
+            remove.forEach { name ->
+                startTag(name.namespace, name.name)
+                endTag(name.namespace, name.name)
             }
+            endTag(NS_WEBDAV, "prop")
+            endTag(NS_WEBDAV, "remove")
         }
+        endTag(NS_WEBDAV, "propertyupdate")
+        endDocument()
     }
+    return writer.toString()
 }

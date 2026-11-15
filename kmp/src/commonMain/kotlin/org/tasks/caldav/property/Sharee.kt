@@ -2,14 +2,13 @@ package org.tasks.caldav.property
 
 import at.bitfire.dav4jvm.Property
 import at.bitfire.dav4jvm.PropertyRegistry
+import at.bitfire.dav4jvm.XmlPullParser
+import at.bitfire.dav4jvm.XmlReader
 import at.bitfire.dav4jvm.XmlUtils.propertyName
 import at.bitfire.dav4jvm.property.webdav.WebDAV
-import at.bitfire.dav4jvm.readText
-import nl.adaptivity.xmlutil.EventType
-import nl.adaptivity.xmlutil.XmlReader
 import org.tasks.TasksBuildConfig
 
-class Sharee(parser: XmlReader) {
+class Sharee(parser: XmlPullParser) {
     var href: String? = null
         private set
     var access: ShareAccess? = null
@@ -23,16 +22,16 @@ class Sharee(parser: XmlReader) {
     init {
         val depth = parser.depth
         var eventType = parser.eventType
-        while (eventType != EventType.END_DOCUMENT && !(eventType == EventType.END_ELEMENT && parser.depth == depth)) {
-            if (eventType == EventType.START_ELEMENT && parser.depth == depth + 1) {
+        while (!(eventType == XmlPullParser.END_TAG && parser.depth == depth)) {
+            if (eventType == XmlPullParser.START_TAG && parser.depth == depth + 1) {
                 when (val name = parser.propertyName()) {
                     WebDAV.Href ->
-                        parser.readText()?.let { href = it }
+                        XmlReader(parser).readText()?.let { href = it }
                     ShareAccess.NAME ->
                         PropertyRegistry.create(ShareAccess.NAME, parser)
                             ?.let { access = it as ShareAccess }
                     COMMENT ->
-                        parser.readText()?.let { comment = it }
+                        XmlReader(parser).readText()?.let { comment = it }
                     INVITE_ACCEPTED, INVITE_DECLINED, INVITE_NORESPONSE, INVITE_INVALID ->
                         response = name
                     WebDAV.Prop ->

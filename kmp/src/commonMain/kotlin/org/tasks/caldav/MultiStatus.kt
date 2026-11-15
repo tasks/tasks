@@ -10,9 +10,7 @@ import kotlinx.coroutines.flow.toList
 internal suspend fun Flow<MultiStatusItem>.members(): List<Response> {
     val responses = responses().toList()
     val collection = responses.firstOrNull()?.requestedUrl?.canonical() ?: return emptyList()
-    return responses
-        .map { it.copy(href = it.href.canonical()) }
-        .filter { it.href.isMemberOf(collection) }
+    return responses.filter { it.href.canonical().isMemberOf(collection) }
 }
 
 private fun Url.isMemberOf(collection: Url): Boolean =

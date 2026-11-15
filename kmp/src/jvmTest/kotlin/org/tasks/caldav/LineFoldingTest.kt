@@ -11,7 +11,7 @@ import java.io.StringReader
  * CRLF to LF in DAV REPORT responses).
  *
  * These tests run on the JVM classpath (without ical4android) to verify that
- * kmp/src/jvmCommonMain/resources/ical4j.properties provides the necessary
+ * kmp/src/jvmMain/resources/ical4j.properties provides the necessary
  * ical4j.unfolding.relaxed=true setting.
  *
  * See: https://datatracker.ietf.org/doc/html/rfc5545#section-3.1

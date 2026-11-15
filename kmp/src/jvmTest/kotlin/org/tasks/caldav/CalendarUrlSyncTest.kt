@@ -8,6 +8,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -270,6 +271,40 @@ class CalendarUrlSyncTest : DatabaseTest() {
         )
         verify(reporting, never()).reportException(any(), any())
         assertEquals(CTAG, caldavDao.getCalendarByUuid("calendar")!!.ctag)
+    }
+
+    @Test
+    fun `multiget sends task hrefs in the form the server reported them`() = runBlocking {
+        val canonicalUrl = "${account.url}$LIST/".canonicalUrl()
+        CaldavCalendar(
+            account = account.uuid,
+            uuid = "calendar",
+            url = canonicalUrl,
+            ctag = "stale",
+        ).also { caldavDao.insert(it) }
+        enqueueCalendars("$HOME_SET$LIST/")
+        server.enqueue(multiStatus(etags("a.ics")))
+        server.enqueue(multiStatus(calendarData("a.ics" to ONE_VTODO)))
+
+        synchronizer.sync(account, hasPro = true)
+
+        server.takeRequest()
+        val calendarQuery = server.takeRequest()
+        val multiget = server.takeRequest().body.readUtf8()
+        assertEquals("$HOME_SET$LIST/", calendarQuery.path)
+        assertTrue(multiget.contains("<href>$HOME_SET$LIST/a.ics</href>"))
+        assertFalse(caldavDao.getAccountByUuid(account.uuid!!)!!.hasError)
+        assertEquals(listOf("calendar"), caldavDao.getCalendarsByAccount(account.uuid!!).map { it.uuid })
+        assertEquals(canonicalUrl, caldavDao.getCalendarByUuid("calendar")!!.url)
+        verify(iCal, times(1)).fromVtodo(
+            any<CaldavAccount>(),
+            any<CaldavCalendar>(),
+            anyOrNull<CaldavTask>(),
+            any<VTodo>(),
+            anyOrNull<String>(),
+            eq("a.ics"),
+            eq("etag-a.ics"),
+        )
     }
 
     @Test

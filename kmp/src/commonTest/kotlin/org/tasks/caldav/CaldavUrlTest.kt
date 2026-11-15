@@ -1,12 +1,13 @@
 package org.tasks.caldav
 
+import at.bitfire.dav4jvm.StringReader
 import at.bitfire.dav4jvm.XmlUtils
 import at.bitfire.dav4jvm.ktor.ResponseParser
 import at.bitfire.dav4jvm.ktor.resolve
 import io.ktor.http.Url
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
-import kotlin.test.Test
 
 class CaldavUrlTest {
     @Test
@@ -88,19 +89,23 @@ class CaldavUrlTest {
     }
 
     @Test
-    fun `matches what dav4jvm produces for a multistatus href`() {
+    fun `canonicalizes what dav4jvm produces for a multistatus href`() {
         val location = Url("https://Example.com/dav/calendars/user/foo%40example.com/")
-        val parser = XmlUtils.newReader(
-            """
-            <d:response xmlns:d="DAV:">
-                <d:href>/dav/calendars/user/foo%40example.com/abc/</d:href>
-                <d:propstat><d:prop/><d:status>HTTP/1.1 200 OK</d:status></d:propstat>
-            </d:response>
-            """.trimIndent()
-        ).apply { nextTag() }
+        val parser = XmlUtils.newPullParser().apply {
+            setInput(
+                StringReader(
+                    """
+                    <d:response xmlns:d="DAV:">
+                        <d:href>/dav/calendars/user/foo%40example.com/abc/</d:href>
+                        <d:propstat><d:prop/><d:status>HTTP/1.1 200 OK</d:status></d:propstat>
+                    </d:response>
+                    """.trimIndent()
+                )
+            )
+            nextTag()
+        }
         val href = ResponseParser(location.canonical()).parseResponse(parser)!!.response.href
 
-        assertEquals(href.toString(), location.resolve("abc/")!!.canonical().toString())
-        assertEquals(href.toString(), href.canonical().toString())
+        assertEquals(location.resolve("abc/")!!.canonical().toString(), href.canonical().toString())
     }
 }

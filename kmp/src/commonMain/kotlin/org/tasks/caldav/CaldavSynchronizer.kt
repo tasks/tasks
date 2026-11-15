@@ -187,7 +187,7 @@ class CaldavSynchronizer(
             account.serverType = serverType
             caldavDao.update(account)
         }
-        val urls = resources.map { it.href.toString() }.toHashSet()
+        val urls = resources.map { it.href.canonical().toString() }.toHashSet()
         for (calendar in caldavDao.findDeletedCalendars(account.uuid!!, ArrayList(urls))) {
             if (isDeletedRemotely(caldavClient, calendar)) {
                 taskDeleter.delete(calendar)
@@ -199,7 +199,7 @@ class CaldavSynchronizer(
             null
         }
         for (resource in resources) {
-            val url = resource.href.toString()
+            val url = resource.href.canonical().toString()
             var calendar = caldavDao.getCalendarByUrl(account.uuid!!, url)
             val remoteName = resource[DisplayName::class]!!.displayName
             val color = resource[CalendarColor::class]?.color ?: 0

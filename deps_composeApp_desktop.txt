@@ -481,10 +481,10 @@
 +|    +--- com.squareup.okio:okio:3.18.2
 +|    |    \--- com.squareup.okio:okio-jvm:3.18.2
 +|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.21 -> 2.4.21 (*)
-+|    +--- org.tasks:dav4kmp:1.0.0-beta01
-+|    |    \--- org.tasks:dav4kmp-jvm:1.0.0-beta01
++|    +--- org.tasks:dav4kmp:1.0.0-beta02
++|    |    \--- org.tasks:dav4kmp-jvm:1.0.0-beta02
 +|    |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |         +--- io.ktor:ktor-client-core:3.5.2 -> 3.6.0
++|    |         +--- io.ktor:ktor-client-core:3.6.0
 +|    |         |    \--- io.ktor:ktor-client-core-jvm:3.6.0
 +|    |         |         +--- org.slf4j:slf4j-api:2.0.19
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
@@ -559,22 +559,18 @@
 +|    |         |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
 +|    |         |              +--- org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.11.0 (*)
 +|    |         |              \--- org.jetbrains.kotlin:kotlin-stdlib:2.2.20 -> 2.4.21 (*)
-+|    |         +--- io.github.pdvrieze.xmlutil:core:1.0.2
-+|    |         |    \--- io.github.pdvrieze.xmlutil:core-jvm:1.0.2
-+|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.21 (*)
-+|    |         |         \--- org.jetbrains.kotlinx:kotlinx-serialization-core:1.11.0 (*)
-+|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.20 -> 2.4.21 (*)
-+|    |         +--- io.ktor:ktor-client-auth:3.5.2 -> 3.6.0
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
++|    |         +--- io.ktor:ktor-client-auth:3.6.0
 +|    |         |    \--- io.ktor:ktor-client-auth-jvm:3.6.0
 +|    |         |         +--- org.slf4j:slf4j-api:2.0.19
 +|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
 +|    |         |         +--- io.ktor:ktor-client-core:3.6.0 (*)
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.21 (*)
-+|    |         \--- io.ktor:ktor-client-encoding:3.5.2
-+|    |              \--- io.ktor:ktor-client-encoding-jvm:3.5.2
-+|    |                   +--- org.slf4j:slf4j-api:2.0.18 -> 2.0.19
++|    |         \--- io.ktor:ktor-client-encoding:3.6.0
++|    |              \--- io.ktor:ktor-client-encoding-jvm:3.6.0
++|    |                   +--- org.slf4j:slf4j-api:2.0.19
 +|    |                   +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|    |                   +--- io.ktor:ktor-client-core:3.5.2 -> 3.6.0 (*)
++|    |                   +--- io.ktor:ktor-client-core:3.6.0 (*)
 +|    |                   \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.21 (*)
 +|    +--- io.ktor:ktor-client-core:3.6.0 (*)
 +|    +--- org.jetbrains.compose.components:components-resources:1.12.2 (*)

@@ -126,7 +126,9 @@ kotlin {
             implementation(projects.data)
             implementation(libs.androidx.sqlite)
             api(libs.okio)
-            api(libs.dav4kmp)
+            api(libs.dav4kmp.get().toString()) {
+                exclude(group = "org.ogce", module = "xpp3")
+            }
             api(libs.ktor.client.core)
             implementation(libs.ktor.client.auth)
             implementation(libs.ktor.client.logging)
