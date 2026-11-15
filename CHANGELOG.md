@@ -1,3 +1,10 @@
+### 15.14.1-beta01 (2026-11-16)
+
+* Bug fix for Tasks.org Cloud and CalDAV sync
+* Update translations:
+  * Esperanto - Don Zouras
+  * Spanish - Lucas Quintana
+
 ### 15.14 (2026-11-13)
 
 * Add support for user certificate stores [#2137](https://github.com/tasks/tasks/issues/2137)

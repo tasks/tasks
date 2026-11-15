@@ -1,0 +1,2 @@
+* Bug fix for Tasks.org Cloud and CalDAV sync
+* Update translations:
