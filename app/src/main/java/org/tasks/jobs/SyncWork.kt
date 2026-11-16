@@ -74,7 +74,7 @@ class SyncWork @AssistedInject constructor(
         val alreadySyncing = tasksPreferences.getAndSet(TasksPreferences.syncOngoing, true) ?: false
         if (alreadySyncing) {
             Timber.d("Sync ongoing, source=$source")
-            setSyncSource(getSyncSource().upgrade(source))
+            tasksPreferences.upgradeOngoingSyncSource(source)
             refreshBroadcaster.broadcastRefresh()
             return Result.retry()
         }
@@ -96,9 +96,6 @@ class SyncWork @AssistedInject constructor(
 
     private val source: SyncSource
         get() = SyncSource.fromString(inputData.getString(EXTRA_SOURCE))
-
-    private suspend fun getSyncSource(): SyncSource =
-        SyncSource.fromString(tasksPreferences.get(TasksPreferences.syncSource, SyncSource.NONE.name))
 
     private suspend fun setSyncSource(source: SyncSource) =
         tasksPreferences.set(TasksPreferences.syncSource, source.name)

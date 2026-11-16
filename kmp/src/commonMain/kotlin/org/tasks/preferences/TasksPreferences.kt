@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
+import org.tasks.sync.SyncSource
 
 class PreferencesSnapshot(private val preferences: Preferences) {
     fun <T> get(key: Preferences.Key<T>, defaultValue: T): T = preferences[key] ?: defaultValue
@@ -52,6 +53,17 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
             applied = shouldSet(it[key])
             if (applied) {
                 it[key] = value
+            }
+        }
+        return applied
+    }
+
+    suspend fun upgradeOngoingSyncSource(source: SyncSource): Boolean {
+        var applied = false
+        dataStore.edit {
+            if (it[syncOngoing] == true) {
+                it[syncSource] = SyncSource.fromString(it[syncSource]).upgrade(source).name
+                applied = true
             }
         }
         return applied

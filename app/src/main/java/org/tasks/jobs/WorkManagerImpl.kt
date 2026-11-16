@@ -110,6 +110,9 @@ class WorkManagerImpl(
         }
         val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
         Timber.d("sync source=$source immediate=$immediate append=$append")
+        if (append && source.showIndicator) {
+            tasksPreferences.upgradeOngoingSyncSource(source)
+        }
         enqueue(workManager.beginUniqueWork(
                 TAG_SYNC,
                 if (append) APPEND_OR_REPLACE else REPLACE,
