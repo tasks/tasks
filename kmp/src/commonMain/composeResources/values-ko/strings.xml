@@ -492,7 +492,6 @@
     <string name="privacy_policy_proper">개인정보 보호정책</string>
     <string name="gplv3_license">GPLv3 라이선스</string>
     <string name="guest">게스트</string>
-    <string name="donate">후원</string>
     <string name="guests">게스트 (%1$d/%2$d)</string>
     <string name="logout_confirmation">%1$s에서 로그아웃하시겠습니까?</string>
     <string name="not_signed_in">로그인하지 않음</string>

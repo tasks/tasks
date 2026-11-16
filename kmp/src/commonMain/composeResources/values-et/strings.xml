@@ -106,7 +106,6 @@
     <string name="price_per_year_with_currency">%1$s aastas</string>
     <string name="supporter_summary">%1$s • Suur tänu!</string>
     <string name="sign_in_to_connect">Ühendamaks oma Tasks.org-i kontot palun logi sisse</string>
-    <string name="donate">Toeta meid rahaliselt</string>
     <string name="donate_nag">Rahalise toetusega saad edendada meie arendust!</string>
     <string name="manage_subscription">Muuda tellimust</string>
     <string name="button_unsubscribe">Tühista tellimus</string>

@@ -117,7 +117,6 @@
     <string name="supporter_summary">%1$s • Danke!</string>
     <string name="sign_in_to_connect">Melde dich an, um dein Tasks.org Konto zu verbinden</string>
     <string name="guest">Gast</string>
-    <string name="donate">Spenden</string>
     <string name="donate_nag">Erwäge deine Unterstützung mit einer Spende zu zeigen!</string>
     <string name="manage_subscription">Abo ändern</string>
     <string name="button_unsubscribe">Abo kündigen</string>

@@ -16,7 +16,7 @@ internal data class PaywallPreviewState(
     val mode: PricingMode = PricingMode.CLOUD_FIRST,
     val showSignIn: Boolean = true,
     val supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
-    val store: StoreBilling? = previewStore(),
+    val store: StoreBilling = previewStore(),
 )
 
 private val previewCatalog = BillingCatalog.from(
@@ -147,7 +147,6 @@ internal val paywallPreviewStates = listOf(
         store = previewStore(catalog = BillingCatalog(), loadingPrices = true),
     ),
     PaywallPreviewState("Billing unavailable", store = previewStore(catalog = BillingCatalog())),
-    PaywallPreviewState("No store", store = null),
 )
 
 internal class PaywallPreviewStates : PreviewParameterProvider<PaywallPreviewState> {

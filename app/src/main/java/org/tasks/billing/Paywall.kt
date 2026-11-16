@@ -152,8 +152,7 @@ fun Paywall(
                 portalUrl = { stripePurchases.portalUrl() },
                 browserCoversApp = true,
             )
-            BillingProvider.GOOGLE_PLAY -> storeBillingProvider?.storeBilling(suggestedPrice, finish)
-            null -> null
+            BillingProvider.GOOGLE_PLAY -> checkNotNull(storeBillingProvider).storeBilling(suggestedPrice, finish)
         },
         analytics = paywallAnalytics,
     )

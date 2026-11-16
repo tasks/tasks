@@ -203,7 +203,6 @@
     <string name="supporter_summary">%1$s • Tack!</string>
     <string name="sign_in_to_connect">Logga in för att ansluta ditt Tasks.org-konto</string>
     <string name="guest">Gäst</string>
-    <string name="donate">Donera</string>
     <string name="email_to_task">E-post till uppgift</string>
     <string name="email_to_task_address">Din e-postadress</string>
     <string name="email_to_task_calendar">Mållista</string>

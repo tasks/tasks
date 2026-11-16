@@ -100,7 +100,6 @@
     <string name="display_name">Weergavenaam</string>
     <string name="price_per_month_with_currency">%1$s/maand</string>
     <string name="price_per_year_with_currency">%1$s per jaar</string>
-    <string name="donate">Doneren</string>
     <string name="donate_nag">Overweeg om ons te steunen met een schenking!</string>
     <string name="manage_subscription">Abonnement wijzigen</string>
     <string name="button_unsubscribe">Abonnement opzeggen</string>

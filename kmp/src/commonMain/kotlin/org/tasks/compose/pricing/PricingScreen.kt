@@ -189,23 +189,23 @@ data class StoreBilling(
 }
 
 @Composable
-private fun BillingOption?.trialFeature(store: StoreBilling?): String? =
-    if (store?.knownCustomer == false && (this?.trialDays ?: 0) > 0) {
+private fun BillingOption?.trialFeature(store: StoreBilling): String? =
+    if (store.knownCustomer == false && (this?.trialDays ?: 0) > 0) {
         stringResource(Res.string.pricing_feature_trial)
     } else {
         null
     }
 
 @Composable
-private fun BillingOption?.ctaLabel(store: StoreBilling?): String = if (this == null) {
+private fun BillingOption?.ctaLabel(store: StoreBilling): String = if (this == null) {
     stringResource(Res.string.pricing_subscribe_google_play)
 } else {
     actionLabel(store)
 }
 
 @Composable
-private fun BillingOption.actionLabel(store: StoreBilling?): String = stringResource(
-    when (store?.move(this)) {
+private fun BillingOption.actionLabel(store: StoreBilling): String = stringResource(
+    when (store.move(this)) {
         PlanMove.UPGRADE -> Res.string.pricing_upgrade_to
         PlanMove.CHANGE -> Res.string.pricing_change_to
         else -> Res.string.pricing_subscribe_for
@@ -315,23 +315,21 @@ fun PricingScreen(
     onBack: () -> Unit,
     onSignIn: () -> Unit,
     onRestorePurchases: () -> Unit,
-    onCloudSubscribeClick: () -> Unit = {},
-    onNypSubscribeClick: () -> Unit = {},
     showSignIn: Boolean = true,
     supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
     subscribedSku: String? = null,
-    store: StoreBilling? = null,
+    store: StoreBilling,
     analytics: PaywallAnalytics? = null,
 ) {
     @Suppress("NAME_SHADOWING")
-    val store = store?.copy(knownSku = subscribedSku)
+    val store = store.copy(knownSku = subscribedSku)
     val signIn = {
         analytics?.signInClicked()
         onSignIn()
     }
-    val currentSku = store?.currentSku ?: subscribedSku
-    val cloudIsCurrent = isCloudSku(currentSku, store?.catalog)
-    val supporterIsCurrent = isSupporterSku(currentSku, store?.catalog)
+    val currentSku = store.currentSku ?: subscribedSku
+    val cloudIsCurrent = isCloudSku(currentSku, store.catalog)
+    val supporterIsCurrent = isSupporterSku(currentSku, store.catalog)
     val signInFromMenu = showSignIn && mode == PricingMode.CLOUD_ONLY && currentSku != null && !cloudIsCurrent
     val cloudAnnual = rememberSaveable { mutableStateOf(true) }
     val nypSelection = rememberSaveable(saver = NameYourPriceSelection.Saver) {
@@ -403,10 +401,10 @@ fun PricingScreen(
             ) {
                 DeveloperNote()
 
-                if (store?.unavailable(cloud = true, supporter = showBoth) == true) {
+                if (store.unavailable(cloud = true, supporter = showBoth)) {
                     PricingNotice(stringResource(Res.string.error_billing_unavailable))
                 }
-                if (store?.warnCoveredElsewhere(cloud = true, supporter = showBoth) == true) {
+                if (store.warnCoveredElsewhere(cloud = true, supporter = showBoth)) {
                     PricingNotice(coveredElsewhereMessage(store.coveredBy))
                 }
 
@@ -417,7 +415,6 @@ fun PricingScreen(
                         isRecommended = mode == PricingMode.CLOUD_FIRST && !supporterIsCurrent,
                         onCtaClick = {
                             analytics?.subscribeClicked(cloud = true)
-                            onCloudSubscribeClick()
                         },
                         onSignIn = signIn.takeIf { showSignIn && cloudOnly && !signInFromMenu },
                         onBillingToggle = { analytics?.billingToggled(it) },
@@ -430,7 +427,6 @@ fun PricingScreen(
                         modifier = cardModifier,
                         onCtaClick = {
                             analytics?.subscribeClicked(cloud = false)
-                            onNypSubscribeClick()
                         },
                         onSelect = { selection, price ->
                             analytics?.nameYourPriceSelected(selection, price)
@@ -490,11 +486,11 @@ private fun CloudTierCard(
     onCtaClick: () -> Unit,
     onSignIn: (() -> Unit)?,
     onBillingToggle: (Boolean) -> Unit = {},
-    store: StoreBilling? = null,
+    store: StoreBilling,
     annual: MutableState<Boolean> = remember { mutableStateOf(true) },
 ) {
     var isAnnual by annual
-    val price = if (isAnnual) store?.catalog?.cloudAnnual else store?.catalog?.cloudMonthly
+    val price = if (isAnnual) store.catalog.cloudAnnual else store.catalog.cloudMonthly
 
     TierCard(
         modifier = modifier,
@@ -504,15 +500,8 @@ private fun CloudTierCard(
             else -> null
         },
         title = stringResource(Res.string.tasks_org_account),
-        price = if (store == null) {
-            stringResource(
-                if (isAnnual) Res.string.pricing_cloud_annual_total
-                else Res.string.pricing_cloud_monthly_price
-            )
-        } else {
-            price?.formattedPrice
-        },
-        loading = store?.loadingPrices == true,
+        price = price?.formattedPrice,
+        loading = store.loadingPrices,
         priceSuffix = stringResource(
             if (isAnnual) Res.string.price_per_year_with_currency
             else Res.string.price_per_month_with_currency,
@@ -520,12 +509,7 @@ private fun CloudTierCard(
         ).trim(),
         hasBillingNote = true,
         billingNote = if (isAnnual) {
-            val perMonth = if (store == null) {
-                stringResource(Res.string.pricing_cloud_annual_price)
-            } else {
-                price?.formattedMonthlyPrice
-            }
-            perMonth?.let { stringResource(Res.string.pricing_cloud_annual_per_month, it) }
+            price?.formattedMonthlyPrice?.let { stringResource(Res.string.pricing_cloud_annual_per_month, it) }
         } else {
             stringResource(Res.string.pricing_cloud_monthly_note)
         },
@@ -536,16 +520,16 @@ private fun CloudTierCard(
             stringResource(Res.string.pricing_cloud_feature_3),
         ) + listOfNotNull(price.trialFeature(store)),
         cta = {
-            if (store?.unavailable(price) != true) {
+            if (!store.unavailable(price)) {
                 PurchaseButton(
                     label = price.ctaLabel(store).let { label ->
-                        if (store != null && price != null) price.ownedOr(store, label) else label
+                        if (price != null) price.ownedOr(store, label) else label
                     },
-                    busy = store?.loadingPrices == true || store?.isBusy(price) == true,
-                    enabled = store == null || store.selectable(price),
+                    busy = store.loadingPrices || store.isBusy(price),
+                    enabled = store.selectable(price),
                     onClick = {
                         onCtaClick()
-                        if (price != null) store?.onSelect(price)
+                        if (price != null) store.onSelect(price)
                     },
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -576,30 +560,23 @@ private fun NameYourPriceTierCard(
     onSelect: (selection: String, price: Int?) -> Unit = { _, _ -> },
     isCurrent: Boolean = false,
     features: SupporterFeatures = SupporterFeatures.APP_STORE,
-    store: StoreBilling? = null,
+    store: StoreBilling,
     selection: NameYourPriceSelection = remember { NameYourPriceSelection() },
 ) {
-    val rungs = store?.catalog?.supporterRungs.orEmpty()
+    val rungs = store.catalog.supporterRungs
     val cheapestRung = rungs.firstOrNull()
     val chosenSku = selection.sku
-    val shown = store?.let { billing ->
-        chosenSku?.let { billing.catalog.price(it) }
-            ?: billing.supporterPrice
-    }
+    val shown = chosenSku?.let { store.catalog.price(it) } ?: store.supporterPrice
 
     TierCard(
         modifier = modifier,
         badge = stringResource(Res.string.pricing_current_subscription).takeIf { isCurrent },
         title = stringResource(Res.string.supporter),
         price = when {
-            store == null -> stringResource(
-                Res.string.pricing_from,
-                stringResource(Res.string.pricing_nyp_min_price),
-            )
             shown != null -> shown.formattedPrice
             else -> cheapestRung?.formattedPrice?.let { stringResource(Res.string.pricing_from, it) }
         },
-        loading = store != null && (store.loadingPrices || chosenSku == null && store.awaitingPlan),
+        loading = store.loadingPrices || chosenSku == null && store.awaitingPlan,
         priceSuffix = stringResource(
             if (shown?.isMonthly == true) {
                 Res.string.price_per_month_with_currency
@@ -632,18 +609,18 @@ private fun NameYourPriceTierCard(
         ),
         cta = {
             when {
-                store != null && rungs.isNotEmpty() -> NameYourPricePicker(
+                rungs.isNotEmpty() -> NameYourPricePicker(
                     store = store,
                     rungs = rungs,
                     onCtaClick = onCtaClick,
                     onSelect = onSelect,
                     selection = selection,
                 )
-                store?.unavailable(cheapestRung) == true -> Unit
+                store.unavailable(cheapestRung) -> Unit
                 else -> PurchaseButton(
                     label = stringResource(Res.string.pricing_subscribe_google_play),
-                    busy = store?.loadingPrices == true,
-                    enabled = store?.busy != true,
+                    busy = store.loadingPrices,
+                    enabled = !store.busy,
                     onClick = onCtaClick,
                     modifier = Modifier.fillMaxWidth(),
                 )

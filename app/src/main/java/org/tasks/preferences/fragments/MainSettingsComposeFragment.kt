@@ -113,7 +113,6 @@ class MainSettingsComposeFragment : Fragment() {
                         is ProCardState.Upgrade -> "subscribe"
                         is ProCardState.SignIn -> "sign_in"
                         is ProCardState.TasksOrgAccount -> "tasks_org"
-                        is ProCardState.Donate -> "donate"
                     }
                     firebase.logEvent(
                         R.string.event_pro_card,
@@ -202,9 +201,6 @@ class MainSettingsComposeFragment : Fragment() {
             is ProCardState.TasksOrgAccount -> handleAccountClick(state.account)
             is ProCardState.SignIn -> {
                 startActivity(Intent(context, SignInActivity::class.java))
-            }
-            is ProCardState.Donate -> {
-                requireContext().openUri(R.string.url_donate)
             }
             is ProCardState.Upgrade -> {
                 startActivity(

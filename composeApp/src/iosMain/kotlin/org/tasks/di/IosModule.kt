@@ -26,6 +26,7 @@ import org.tasks.auth.IosSignInHandler
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.billing.BillingProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
@@ -80,6 +81,7 @@ actual fun platformModule(): Module = module {
             supportsCaldav = true,
             supportsNotifications = false,
             supportsLogExport = true,
+            billingProvider = BillingProvider.STRIPE,
             appStore = AppStore.APP_STORE,
             thirdPartySyncRequiresPro = true,
         )

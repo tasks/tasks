@@ -3,7 +3,6 @@
     <string name="tasks_org" translatable="false">Tasks.org</string>
     <string name="url_sponsor" translatable="false">https://github.com/sponsors/abaker</string>
     <string name="url_app_passwords" translatable="false">https://tasks.org/passwords</string>
-    <string name="url_donate" translatable="false">https://tasks.org/donate</string>
     <string name="url_translations" translatable="false">https://tasks.org/translations</string>
     <string name="caldav" translatable="false">CalDAV</string>
     <string name="davx5" translatable="false">DAVx⁵</string>
@@ -31,10 +30,6 @@
     <string name="etebase_url" translatable="false">https://api.etebase.com/partner/tasksorg/</string>
     <string name="url_etesync" translatable="false">https://tasks.org/etesync</string>
     <string name="url_google_play" translatable="false">https://play.google.com/store/apps/details?id=org.tasks</string>
-    <string name="pricing_cloud_annual_price" translatable="false">$2.50</string>
-    <string name="pricing_cloud_monthly_price" translatable="false">$2.99</string>
-    <string name="pricing_cloud_annual_total" translatable="false">$29.99</string>
-    <string name="pricing_nyp_min_price" translatable="false">$0.99</string>
     <string name="event_pebble" translatable="false">pebble</string>
     <string name="param_device_model" translatable="false">device_model</string>
     <string name="not_available_desktop" translatable="false">🚧 UNDER CONSTRUCTION 🚧</string>

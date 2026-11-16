@@ -224,7 +224,6 @@
     <string name="supporter_summary">%1$s • Obrigado!</string>
     <string name="sign_in_to_connect">Faça login para conectar a sua conta Tasks.org</string>
     <string name="guest">Convidado</string>
-    <string name="donate">Doar</string>
     <string name="migrate_to_cloud">Migrar para Tasks.org Cloud</string>
     <string name="this_device_only">Apenas este dispositivo</string>
     <string name="email_to_task_calendar">Lista de destino</string>

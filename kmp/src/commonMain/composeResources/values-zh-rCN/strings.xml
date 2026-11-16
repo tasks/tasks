@@ -117,7 +117,6 @@
     <string name="supporter_summary">%1$s • 谢谢！</string>
     <string name="sign_in_to_connect">登录以连接您的 Tasks.org 账号</string>
     <string name="guest">来宾</string>
-    <string name="donate">捐赠</string>
     <string name="donate_nag">考虑用捐赠显示您的支持！</string>
     <string name="manage_subscription">修改订阅</string>
     <string name="button_unsubscribe">取消订阅</string>

@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertTrue
 
 internal fun ComposeUiTest.showPaywall(
-    store: StoreBilling?,
+    store: StoreBilling,
     mode: PricingMode = PricingMode.CLOUD_ONLY,
     supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
     onRestorePurchases: () -> Unit = {},

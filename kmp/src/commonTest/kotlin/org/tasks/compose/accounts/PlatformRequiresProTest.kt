@@ -1,6 +1,7 @@
 package org.tasks.compose.accounts
 
 import org.tasks.PlatformConfiguration
+import org.tasks.billing.BillingProvider
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -8,6 +9,7 @@ import kotlin.test.assertTrue
 class PlatformRequiresProTest {
 
     private val android = PlatformConfiguration(
+        billingProvider = BillingProvider.GOOGLE_PLAY,
         isAndroid = true,
         supportsCaldav = true,
         supportsEteSync = true,

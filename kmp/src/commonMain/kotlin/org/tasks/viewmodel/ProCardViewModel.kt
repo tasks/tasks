@@ -140,9 +140,6 @@ open class ProCardViewModel(
         }
     }
 
-    private val hasBilling: Boolean
-        get() = platformConfiguration.billingProvider != null
-
     private fun deriveProCardState(
         accountList: List<CaldavAccount>,
         sub: SubscriptionProvider.SubscriptionInfo?,
@@ -169,14 +166,13 @@ open class ProCardViewModel(
                 formattedPrice = formattedPrice,
                 isMonthly = sub.isMonthly,
             )
-            hasBilling && sub != null -> ProCardState.Subscribed(
+            sub != null -> ProCardState.Subscribed(
                 isMonthly = sub.isMonthly,
                 formattedPrice = formattedPrice,
                 credit = credit,
                 terms = terms,
             )
-            hasBilling -> ProCardState.Upgrade
-            else -> ProCardState.Donate
+            else -> ProCardState.Upgrade
         }
     }
 

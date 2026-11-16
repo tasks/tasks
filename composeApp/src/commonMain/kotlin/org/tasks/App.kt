@@ -302,7 +302,6 @@ import tasks.kmp.generated.resources.resize_panes
 import tasks.kmp.generated.resources.settings
 import tasks.kmp.generated.resources.subscription_not_found
 import tasks.kmp.generated.resources.upgrade_subscription_banner
-import tasks.kmp.generated.resources.url_google_play
 import tasks.kmp.generated.resources.url_sponsor
 import tasks.kmp.generated.resources.wrong_account
 import kotlin.math.roundToInt
@@ -1260,7 +1259,6 @@ fun App(
                                 AfterPaywall.None -> {}
                             }
                         }
-                        val googlePlayUrl = stringResource(Res.string.url_google_play)
                         val suggestedPrice = subscriptionInfo
                             ?.let { SubscriptionSkus.supporterPrice(it.sku) }
                         val store = when (configuration.billingProvider) {
@@ -1274,16 +1272,13 @@ fun App(
                                 browserCoversApp = configuration.isAndroid,
                             )
                             BillingProvider.GOOGLE_PLAY ->
-                                storeBillingProvider?.storeBilling(suggestedPrice) { popPricing() }
-                            null -> null
+                                checkNotNull(storeBillingProvider).storeBilling(suggestedPrice) { popPricing() }
                         }
                         PricingScreen(
                             mode = mode,
                             onBack = { backStack.removeLastOrNull() },
                             onSignIn = { showSignInDialog = true },
                             onRestorePurchases = openRestore,
-                            onCloudSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
-                            onNypSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
                             supporterFeatures = supporterFeatures,
                             subscribedSku = subscriptionInfo?.sku,
                             showSignIn = !hasTasksAccount,
@@ -3028,9 +3023,6 @@ private fun SettingsScreen(
                                     }
                                     is ProCardState.SignIn -> {
                                         onSignInClick(AnalyticsEvents.SOURCE_SETTINGS)
-                                    }
-                                    is ProCardState.Donate -> {
-                                        onUpgradeClick(AnalyticsEvents.SOURCE_SETTINGS)
                                     }
                                 }
                             },

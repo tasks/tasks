@@ -111,17 +111,6 @@ private fun TasksOrgAccountErrorPreview() {
 
 @PreviewLightDark
 @Composable
-private fun DonatePreview() {
-    TasksTheme {
-        AccountSettingsCard(
-            state = ProCardState.Donate,
-            onClick = {}
-        )
-    }
-}
-
-@PreviewLightDark
-@Composable
 private fun ManageSubscriptionSheetPreview() {
     TasksTheme {
         ManageSubscriptionSheetContent(

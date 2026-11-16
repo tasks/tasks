@@ -201,7 +201,6 @@
     <string name="supporter_summary">%1$s • ¡Gracias!</string>
     <string name="sign_in_to_connect">Inicia sesión para vincular tu cuenta de Tasks.org</string>
     <string name="guest">Invitado</string>
-    <string name="donate">Donar</string>
     <string name="email_to_task">Correo electrónico a tarea</string>
     <string name="email_to_task_address">Tu dirección de correo electrónico</string>
     <string name="email_to_task_calendar">Lista de destinos</string>

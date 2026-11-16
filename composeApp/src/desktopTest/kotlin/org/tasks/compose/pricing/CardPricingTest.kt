@@ -72,13 +72,6 @@ class CardPricingTest {
     }
 
     @Test
-    fun theGooglePlayCtaIsLeftToBuildsWithoutACardStore() = runComposeUiTest {
-        showPaywall(store = null)
-
-        assertShowing("Subscribe on Google Play")
-    }
-
-    @Test
     fun aCatalogStillLoadingDoesNotQuoteAPriceItHasNotFetched() = runComposeUiTest {
         showPaywall(StoreBilling(loadingPrices = true, onSelect = {}))
 
@@ -110,16 +103,6 @@ class CardPricingTest {
         assertNotShowing("\$29.99")
         onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
             assertTrue("expected no shimmer once the catalog has settled", it.isEmpty())
-        }
-    }
-
-    @Test
-    fun buildsWithoutACardStoreKeepTheirIndicativePrice() = runComposeUiTest {
-        showPaywall(store = null)
-
-        assertShowing("\$29.99")
-        onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().let {
-            assertTrue("expected no shimmer where no catalog is ever fetched", it.isEmpty())
         }
     }
 
@@ -277,7 +260,7 @@ class CardPricingTest {
     fun anyEntitlementBelowCloudTucksSignInAway() {
         listOf("annual_01", "annual_29", "monthly_01", "monthly_02", "desktop_play").forEach { sku ->
             runComposeUiTest {
-                showPaywall(store = null, subscribedSku = sku)
+                showPaywall(store = StoreBilling(onSelect = {}), subscribedSku = sku)
 
                 assertNotShowing("Already a subscriber or invited guest?")
                 assertEquals(sku, 1, onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().size)
@@ -289,7 +272,7 @@ class CardPricingTest {
     fun aCloudEntitlementKeepsTheSignInFooter() {
         listOf("annual_30", "annual_50", "monthly_03", "monthly_05").forEach { sku ->
             runComposeUiTest {
-                showPaywall(store = null, subscribedSku = sku)
+                showPaywall(store = StoreBilling(onSelect = {}), subscribedSku = sku)
 
                 assertShowing("Already a subscriber or invited guest?")
                 assertTrue(sku, onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().isEmpty())

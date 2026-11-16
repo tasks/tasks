@@ -18,7 +18,7 @@ data class PlatformConfiguration(
     val supportsBackupImport: Boolean = false,
     val supportsGeofences: Boolean = false,
     val supportsCalendarEvents: Boolean = false,
-    val billingProvider: BillingProvider? = null,
+    val billingProvider: BillingProvider,
     val appStore: AppStore = AppStore.NONE,
     val isAndroid: Boolean = false,
     val isLibre: Boolean = false,

@@ -32,8 +32,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.button_unsubscribe
-import tasks.kmp.generated.resources.donate
-import tasks.kmp.generated.resources.donate_nag
 import tasks.kmp.generated.resources.guest
 import tasks.kmp.generated.resources.ic_round_icon
 import tasks.kmp.generated.resources.manage_subscription
@@ -98,7 +96,6 @@ sealed class ProCardState {
         override val formattedPrice: String? = null,
         override val isMonthly: Boolean = false,
     ) : ProCardState()
-    data object Donate : ProCardState()
 }
 
 @Composable
@@ -178,13 +175,6 @@ fun AccountSettingsCard(
                     }
                     summary = state.account.name
                     showError = state.account.hasError
-                }
-                is ProCardState.Donate -> {
-                    iconVector = TasksIcons.FAVORITE_BORDER
-                    iconTint = defaultTint
-                    title = stringResource(Res.string.donate)
-                    summary = stringResource(Res.string.donate_nag)
-                    showError = false
                 }
             }
 
