@@ -83,7 +83,7 @@ class CardPricingTest {
     }
 
     @Test
-    fun theSupporterCardOnlyShimmersWhereAPriceWillLoad() = runComposeUiTest {
+    fun theSupporterCardAddsItsOwnShimmerToTheCloudCards() = runComposeUiTest {
         showPaywall(StoreBilling(loadingPrices = true, onSelect = {}), mode = PricingMode.SUPPORTER_FIRST)
 
         assertEquals(3, onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().size)
