@@ -63,6 +63,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -209,13 +211,6 @@ private fun BillingOption?.trialFeature(store: StoreBilling): String? =
     } else {
         null
     }
-
-@Composable
-private fun BillingOption?.ctaLabel(store: StoreBilling): String = if (this == null) {
-    stringResource(Res.string.pricing_subscribe_google_play)
-} else {
-    actionLabel(store)
-}
 
 @Composable
 private fun BillingOption.actionLabel(store: StoreBilling): String = stringResource(
@@ -536,16 +531,16 @@ private fun CloudTierCard(
             stringResource(Res.string.pricing_cloud_feature_3),
         ) + listOfNotNull(price.trialFeature(store)),
         cta = {
-            if (!store.unavailable(price)) {
-                PurchaseButton(
-                    label = price.ctaLabel(store).let { label ->
-                        if (price != null) price.ownedOr(store, label) else label
-                    },
+            when {
+                store.unavailable(price) -> Unit
+                price == null -> LoadingPurchaseButton()
+                else -> PurchaseButton(
+                    label = price.ownedOr(store, price.actionLabel(store)),
                     busy = store.loadingPrices || store.isBusy(price),
                     enabled = store.selectable(price),
                     onClick = {
                         onCtaClick()
-                        if (price != null) store.onSelect(price)
+                        store.onSelect(price)
                     },
                     modifier = Modifier.fillMaxWidth(),
                 )
@@ -633,13 +628,7 @@ private fun NameYourPriceTierCard(
                     selection = selection,
                 )
                 store.unavailable(cheapestRung) -> Unit
-                else -> PurchaseButton(
-                    label = stringResource(Res.string.pricing_subscribe_google_play),
-                    busy = store.loadingPrices,
-                    enabled = !store.busy,
-                    onClick = onCtaClick,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+                else -> LoadingPurchaseButton()
             }
         },
     )
@@ -804,13 +793,25 @@ private fun PurchaseButton(
     ) {
         if (busy) {
             CircularProgressIndicator(
-                modifier = Modifier.size(18.dp),
+                modifier = Modifier
+                    .size(18.dp)
+                    .semantics { contentDescription = label },
                 strokeWidth = 2.dp,
             )
         } else {
             Text(label)
         }
     }
+}
+
+@Composable
+private fun LoadingPurchaseButton() {
+    PurchaseButton(
+        label = stringResource(Res.string.upgrade),
+        busy = true,
+        onClick = {},
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 @Composable

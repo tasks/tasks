@@ -369,7 +369,6 @@
     <string name="pricing_nyp_feature_no_donation_reminders">No more donation reminders</string>
     <string name="pricing_nyp_feature_third_party_sync">Sync with Google Tasks, Microsoft To Do, CalDAV, and EteSync</string>
     <string name="pricing_feature_trial">7-day free trial for new subscribers</string>
-    <string name="pricing_subscribe_google_play">Subscribe on Google Play</string>
     <string name="purchases_restored">Purchases restored</string>
     <string name="checkout_finish_in_browser">Finish your purchase in the browser</string>
     <string name="checkout_expired">The payment page expired. Please try again.</string>

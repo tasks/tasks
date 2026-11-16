@@ -377,7 +377,6 @@
     <string name="pricing_recommended">Empfohlen</string>
     <string name="annual">Jährlich</string>
     <string name="monthly">Monatlich</string>
-    <string name="pricing_subscribe_google_play">Auf Google Play abonnieren</string>
     <string name="pricing_nyp_feature_3">Quelloffene-Anwendung unterstützen</string>
     <string name="pricing_nyp_feature_2">Selbstgehostete Synchronisierung mit CalDAV und EteSync</string>
     <string name="pricing_nyp_feature_1">Benutzerdefinierte Designs und Symbole</string>

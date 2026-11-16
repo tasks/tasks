@@ -542,7 +542,6 @@
     <string name="pricing_nyp_feature_1">Egne temaer og ikoner</string>
     <string name="pricing_nyp_feature_2">Synkronisering med egen server via CalDAV og EteSync</string>
     <string name="pricing_nyp_feature_3">Støt open source-software</string>
-    <string name="pricing_subscribe_google_play">Abonner via Google Play</string>
     <string name="sign_in_subtitle">Har du allerede et abonnement, eller er du inviteret som gæst?</string>
     <string name="link_desktop_step_1">Åbn Tasks.orgs desktop-app</string>
     <string name="link_desktop_step_2">Klik på »%1$s«, og vælg »%2$s«</string>

@@ -619,7 +619,6 @@
     <string name="pricing_nyp_feature_1">맞춤 테마 및 아이콘</string>
     <string name="pricing_nyp_feature_2">CalDAV 및 EteSync로 셀프 호스팅 서비스에 동기화</string>
     <string name="pricing_nyp_feature_3">오픈 소스 소프트웨어 지원</string>
-    <string name="pricing_subscribe_google_play">Google Play에서 구독</string>
     <string name="checkout_finish_in_browser">브라우저에서 구매를 마쳐 주세요</string>
     <string name="sign_in_subtitle">이미 구독자이시거나 초대된 게스트이신가요?</string>
     <string name="upgrade_subscription_banner">지원해 주셔서 감사드립니다! 구독을 업그레이드하고 Tasks.org 클라우드 동기화를 이용하세요</string>
