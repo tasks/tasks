@@ -73,7 +73,7 @@
     <string name="sort_due_group">Limdato %1$s</string>
     <string name="sort_start_group">Komenci %1$s</string>
     <string name="sort_created_group">Kreite: %1$s</string>
-    <string name="sort_modified_group">Modifita: %1$s</string>
+    <string name="sort_modified_group">Modifite: %1$s</string>
     <string name="filter_high_priority">Grava</string>
     <string name="filter_medium_priority">Meza prioritato</string>
     <string name="filter_low_priority">Malalta prioritato</string>
@@ -716,4 +716,15 @@
     <string name="subscription_active_card">Vi jam havas aktivan abonon, pagite per kreditkarto.</string>
     <string name="subscription_active_elsewhere">Vi jam havas aktivan abonon de ie.</string>
     <string name="pricing_custom">Propra</string>
+    <string name="pricing_upgrade_to">Altgradigi al %1$s</string>
+    <string name="pricing_change_to">Ŝanĝi al %1$s</string>
+    <string name="pricing_current_subscription">Aktuala abono</string>
+    <string name="pricing_subscribed">Abonita</string>
+    <string name="pricing_cloud_feature_1_v2">Tuja sinkronigo inter Android, iOS, kaj labortablo</string>
+    <string name="pricing_nyp_feature_all_platforms">Malŝlosi Task.org por Android, iOS, kaj labortablo</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">Malŝlosi Tasks.org por labortablo kaj iOS</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">Ne plu estos memorigiloj pri donacado</string>
+    <string name="pricing_nyp_feature_third_party_sync">Sinkronigi per Google Tasks, Microsoft To Do, CalDAV, kaj EteSync</string>
+    <string name="pricing_feature_trial">Senpaga provperiodo por novaj abonantoj, dum 7 tagoj</string>
+    <string name="cloud_onboarding_sign_in_body">Ensalutu por krei vian konton de Tasks.org Cloud</string>
 </resources>
