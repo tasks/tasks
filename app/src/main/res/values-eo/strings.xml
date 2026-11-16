@@ -206,7 +206,7 @@
     <string name="EPr_manage_delete_completed_gcal_message">Ĉu vi vere volas forigi ĉiujn de viaj eventoj de finitaj taskoj?</string>
     <string name="pick_this_location">Elekti ĉi tiun lokon</string>
     <string name="auto_dismiss_datetime_list_summary">Aŭtomate fermi kiam elekti per taskolisto</string>
-    <string name="sort_modified_group">Modifita: %s</string>
+    <string name="sort_modified_group">Modifite: %s</string>
     <string name="auto_dismiss_datetime_edit_summary">Aŭtomate fermi kiam elekti per taskredaktilo</string>
     <string name="or_choose_a_location">Aŭ elekti lokon</string>
     <string name="auto_dismiss_datetime_summary">Fermi data/hora elektilo post elekti daton aŭ horon</string>
