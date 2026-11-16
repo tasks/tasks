@@ -16,25 +16,20 @@ class PaywallGateTest {
 
     @Test
     fun aFreeUserWhoNamesAPriceHasWhatThosePaywallsWereSelling() {
-        assertTrue(PricingMode.NYP_ONLY.satisfiedBy(nothing, supporter))
-        assertTrue(PricingMode.BOTH.satisfiedBy(nothing, supporter))
+        assertTrue(PricingMode.CLOUD_FIRST.satisfiedBy(nothing, supporter))
+        assertTrue(PricingMode.SUPPORTER_FIRST.satisfiedBy(nothing, supporter))
     }
 
     @Test
     fun aSubscriptionTheUserArrivedWithIsNotSomethingTheyJustBought() {
-        assertFalse(PricingMode.BOTH.satisfiedBy(supporter, supporter))
+        assertFalse(PricingMode.CLOUD_FIRST.satisfiedBy(supporter, supporter))
         assertFalse(PricingMode.CLOUD_ONLY.satisfiedBy(cloud, cloud))
-    }
-
-    @Test
-    fun aNameYourPricePaywallHasNothingLeftToAskOfAnyoneWhoIsPaying() {
-        assertTrue(PricingMode.NYP_ONLY.satisfiedBy(supporter, supporter))
     }
 
     @Test
     fun aSponsorWhoBuysCloudHasBoughtSomething() {
         assertTrue(PricingMode.CLOUD_ONLY.satisfiedBy(supporter, cloud))
-        assertTrue(PricingMode.BOTH.satisfiedBy(supporter, cloud))
+        assertTrue(PricingMode.CLOUD_FIRST.satisfiedBy(supporter, cloud))
     }
 
     @Test
@@ -45,8 +40,7 @@ class PaywallGateTest {
     @Test
     fun aCloudSubscriptionThatLapsesLeavesTheCloudPaywallSellingAgain() {
         assertFalse(PricingMode.CLOUD_ONLY.satisfiedBy(cloud, nothing))
-        assertFalse(PricingMode.BOTH.satisfiedBy(cloud, nothing))
-        assertFalse(PricingMode.NYP_ONLY.satisfiedBy(cloud, nothing))
+        assertFalse(PricingMode.CLOUD_FIRST.satisfiedBy(cloud, nothing))
     }
 
     @Test

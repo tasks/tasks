@@ -24,7 +24,6 @@ import org.tasks.compose.accounts.Platform
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.SupporterFeatures
-import org.tasks.compose.pricing.leadsWithSupporter
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.settings.RestorePurchasesScreen
@@ -58,7 +57,16 @@ fun Paywall(
     val hasTasksAccount by inventory.tasksAccount.collectAsStateWithLifecycle()
     val purchaseFinished by rememberUpdatedState(onPurchased)
     var finished by rememberSaveable { mutableStateOf(false) }
-    val mode = if (nameYourPrice) PricingMode.BOTH else PricingMode.CLOUD_ONLY
+    val supporterFeatures = if (configuration.billingProvider == BillingProvider.STRIPE) {
+        SupporterFeatures.ANDROID_CARD
+    } else {
+        SupporterFeatures.APP_STORE
+    }
+    val mode = if (nameYourPrice) {
+        PricingMode.forSource(source).forFeatures(supporterFeatures)
+    } else {
+        PricingMode.CLOUD_ONLY
+    }
     val paywallAnalytics = rememberPaywallAnalytics(
         analytics = firebase,
         source = source,
@@ -132,12 +140,7 @@ fun Paywall(
         onSignIn = { signInLauncher.launch(Intent(context, SignInActivity::class.java)) },
         onRestorePurchases = openRestore,
         showSignIn = !hasTasksAccount,
-        supporterFeatures = if (configuration.billingProvider == BillingProvider.STRIPE) {
-            SupporterFeatures.ANDROID_CARD
-        } else {
-            SupporterFeatures.APP_STORE
-        },
-        supporterFirst = leadsWithSupporter(source),
+        supporterFeatures = supporterFeatures,
         subscribedSku = subscription?.sku,
         store = when (configuration.billingProvider) {
             BillingProvider.STRIPE -> cardCheckout(

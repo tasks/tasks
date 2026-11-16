@@ -74,7 +74,7 @@ class CloudTierCardTest {
                 currentSku = "monthly_03",
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         onNodeWithText("CURRENT SUBSCRIPTION").assertExists()
@@ -89,7 +89,7 @@ class CloudTierCardTest {
                 currentSku = "annual_05",
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         onNodeWithText("CURRENT SUBSCRIPTION").assertExists()
@@ -105,7 +105,7 @@ class CloudTierCardTest {
                 currentSku = "annual_07",
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         onNodeWithText("CURRENT SUBSCRIPTION").assertExists()
@@ -116,7 +116,7 @@ class CloudTierCardTest {
     fun aKnownSupporterIsMarkedBeforeTheStoreAnswers() = runComposeUiTest {
         showPaywall(
             StoreBilling(loadingPrices = true, onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
             subscribedSku = "annual_05",
         )
 
@@ -128,7 +128,7 @@ class CloudTierCardTest {
     fun aKnownCloudSubscriberIsMarkedBeforeTheStoreAnswers() = runComposeUiTest {
         showPaywall(
             StoreBilling(loadingPrices = true, onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
             subscribedSku = "annual_30",
         )
 
@@ -140,7 +140,7 @@ class CloudTierCardTest {
     fun aSubscriptionTheStoreCannotSeeIsStillMarked() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
             subscribedSku = "annual_30",
         )
 
@@ -152,7 +152,7 @@ class CloudTierCardTest {
     fun withoutASubscriptionCloudIsRecommended() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         onNodeWithText("RECOMMENDED").assertExists()
@@ -164,7 +164,7 @@ class CloudTierCardTest {
     fun aCardBilledAndroidSupporterTierUnlocksTheOtherPlatforms() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -179,7 +179,7 @@ class CloudTierCardTest {
     fun fDroidUsersAreNotSteeredTowardsCloud() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -190,7 +190,7 @@ class CloudTierCardTest {
     fun fDroidLeadsWithTheSupporterTier() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -204,7 +204,7 @@ class CloudTierCardTest {
     fun anFDroidCloudSubscriberStillSeesTheirPlanMarked() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), currentSku = "annual_30", onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -215,7 +215,7 @@ class CloudTierCardTest {
     fun aDesktopSupporterTierListsWhatTheDesktopPaywallLocks() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
             supporterFeatures = SupporterFeatures.DESKTOP,
         )
 
@@ -230,7 +230,7 @@ class CloudTierCardTest {
     fun aStoreBilledSupporterTierListsInAppFeatures() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         assertShowing("Custom themes and icons")
@@ -245,7 +245,7 @@ class CloudTierCardTest {
                 currentSku = "annual_30",
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
             showSignIn = false,
             width = 1000.dp,
         )
@@ -260,8 +260,7 @@ class CloudTierCardTest {
     fun aPaywallOpenedByAFeatureLeadsWithTheSupporterTier() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
-            supporterFirst = true,
+            mode = PricingMode.SUPPORTER_FIRST,
         )
 
         assertTrue(
@@ -275,8 +274,7 @@ class CloudTierCardTest {
     fun onAWideScreenTheSupporterTierLeadsFromTheLeft() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.BOTH,
-            supporterFirst = true,
+            mode = PricingMode.SUPPORTER_FIRST,
             width = 1000.dp,
         )
 

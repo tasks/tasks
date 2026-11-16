@@ -188,7 +188,6 @@ import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.SOURCE_MANAGE_SUBSCRIPTION
 import org.tasks.compose.pricing.SupporterFeatures
-import org.tasks.compose.pricing.leadsWithSupporter
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
@@ -892,7 +891,7 @@ fun App(
                                     AnalyticsEvents.PARAM_SELECTION to platform.name,
                                 )
                                 if (platform.requiresPro(configuration) && !addAccountViewModel.hasPro) {
-                                    backStack.push(PricingDestination(mode = PricingMode.NYP_ONLY, source = platform.name))
+                                    backStack.push(PricingDestination(source = platform.name))
                                     return@AddAccountScreen
                                 }
                                 when (platform) {
@@ -1213,10 +1212,16 @@ fun App(
                         // replace the whole stack before these collectors run. This entry is still
                         // composed for that frame, and popping blind from here empties the stack -
                         // which NavDisplay treats as fatal.
+                        val supporterFeatures = when {
+                            configuration.billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
+                            configuration.isAndroid -> SupporterFeatures.ANDROID_CARD
+                            else -> SupporterFeatures.DESKTOP
+                        }
+                        val mode = destination.mode.forFeatures(supporterFeatures)
                         val paywallAnalytics = rememberPaywallAnalytics(
                             analytics = reporting,
                             source = destination.source,
-                            mode = destination.mode,
+                            mode = mode,
                             provider = configuration.billingProvider,
                         )
                         fun popPricing(): Boolean {
@@ -1234,14 +1239,14 @@ fun App(
                             }
                         }
                         val satisfied = rememberPaywallSatisfied(
-                            mode = destination.mode,
+                            mode = mode,
                             subscription = subscriptionProvider.subscription,
                         )
                         val openRestore = {
                             backStack.push(
                                 RestorePurchasesDestination(
                                     source = destination.source,
-                                    forCloud = destination.mode == PricingMode.CLOUD_ONLY,
+                                    forCloud = mode == PricingMode.CLOUD_ONLY,
                                 )
                             )
                         }
@@ -1249,12 +1254,10 @@ fun App(
                             if (!satisfied || !popPricing()) {
                                 return@LaunchedEffect
                             }
-                            if (destination.mode == PricingMode.NYP_ONLY) {
-                                when (val next = afterPaywall(destination.source)) {
-                                    is AfterPaywall.Open -> backStack.push(next.destination)
-                                    is AfterPaywall.SignIn -> platformSignIn = next.platform.name
-                                    AfterPaywall.None -> {}
-                                }
+                            when (val next = afterPaywall(destination.source)) {
+                                is AfterPaywall.Open -> backStack.push(next.destination)
+                                is AfterPaywall.SignIn -> platformSignIn = next.platform.name
+                                AfterPaywall.None -> {}
                             }
                         }
                         val googlePlayUrl = stringResource(Res.string.url_google_play)
@@ -1275,18 +1278,13 @@ fun App(
                             null -> null
                         }
                         PricingScreen(
-                            mode = destination.mode,
+                            mode = mode,
                             onBack = { backStack.removeLastOrNull() },
                             onSignIn = { showSignInDialog = true },
                             onRestorePurchases = openRestore,
                             onCloudSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
                             onNypSubscribeClick = { if (store == null) openUrl(googlePlayUrl) },
-                            supporterFeatures = when {
-                                configuration.billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
-                                configuration.isAndroid -> SupporterFeatures.ANDROID_CARD
-                                else -> SupporterFeatures.DESKTOP
-                            },
-                            supporterFirst = leadsWithSupporter(destination.source),
+                            supporterFeatures = supporterFeatures,
                             subscribedSku = subscriptionInfo?.sku,
                             showSignIn = !hasTasksAccount,
                             store = store,

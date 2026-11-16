@@ -43,7 +43,7 @@ class NameYourPricePickerTest {
                 suggestedPrice = 1,
                 onSelect = {},
             ),
-            mode = PricingMode.NYP_ONLY,
+            mode = PricingMode.SUPPORTER_FIRST,
         )
 
         assertShowing("Subscribe for \$0.99/year")
@@ -70,7 +70,7 @@ class NameYourPricePickerTest {
                 loadingPlan = true,
                 onSelect = {},
             ),
-            mode = PricingMode.NYP_ONLY,
+            mode = PricingMode.SUPPORTER_FIRST,
             subscribedSku = "annual_03",
         )
 
@@ -91,7 +91,7 @@ class NameYourPricePickerTest {
             suggestedPrice = suggestedPrice,
             onSelect = {},
         ),
-        mode = PricingMode.NYP_ONLY,
+        mode = PricingMode.SUPPORTER_FIRST,
     )
 
     @Test
@@ -148,7 +148,7 @@ class NameYourPricePickerTest {
             suggestedPrice = suggestedPrice,
             onSelect = {},
         ),
-        mode = PricingMode.BOTH,
+        mode = PricingMode.CLOUD_FIRST,
     )
 
     @Test

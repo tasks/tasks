@@ -13,10 +13,9 @@ import org.tasks.themes.TasksTheme
 
 internal data class PaywallPreviewState(
     val name: String,
-    val mode: PricingMode = PricingMode.BOTH,
+    val mode: PricingMode = PricingMode.CLOUD_FIRST,
     val showSignIn: Boolean = true,
     val supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
-    val supporterFirst: Boolean = false,
     val store: StoreBilling? = previewStore(),
 )
 
@@ -80,9 +79,13 @@ private fun previewStore(
 
 internal val paywallPreviewStates = listOf(
     PaywallPreviewState("New customer"),
-    PaywallPreviewState("F-Droid features", supporterFeatures = SupporterFeatures.ANDROID_CARD),
+    PaywallPreviewState(
+        "F-Droid features",
+        mode = PricingMode.SUPPORTER_FIRST,
+        supporterFeatures = SupporterFeatures.ANDROID_CARD,
+    ),
     PaywallPreviewState("Desktop features", supporterFeatures = SupporterFeatures.DESKTOP),
-    PaywallPreviewState("Opened from DAVx5", supporterFirst = true),
+    PaywallPreviewState("Opened from DAVx5", mode = PricingMode.SUPPORTER_FIRST),
     PaywallPreviewState("Cloud only", mode = PricingMode.CLOUD_ONLY),
     PaywallPreviewState(
         "Cloud only, supporter",
@@ -95,7 +98,6 @@ internal val paywallPreviewStates = listOf(
         store = previewStore(currentSku = SubscriptionSkus.sku(2), knownCustomer = true),
         showSignIn = false,
     ),
-    PaywallPreviewState("Supporter only", mode = PricingMode.NYP_ONLY),
     PaywallPreviewState(
         "Cloud subscriber",
         store = previewStore(currentSku = SubscriptionSkus.CLOUD_ANNUAL, knownCustomer = true),
@@ -163,7 +165,6 @@ internal fun PaywallPreviewContent(state: PaywallPreviewState) {
         onRestorePurchases = {},
         showSignIn = state.showSignIn,
         supporterFeatures = state.supporterFeatures,
-        supporterFirst = state.supporterFirst,
         store = state.store,
     )
 }

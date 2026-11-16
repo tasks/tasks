@@ -19,7 +19,6 @@ internal fun ComposeUiTest.showPaywall(
     onRestorePurchases: () -> Unit = {},
     onSignIn: () -> Unit = {},
     showSignIn: Boolean = true,
-    supporterFirst: Boolean = false,
     subscribedSku: String? = null,
     width: Dp = 480.dp,
 ) = setContent {
@@ -31,7 +30,6 @@ internal fun ComposeUiTest.showPaywall(
             onRestorePurchases = onRestorePurchases,
             supporterFeatures = supporterFeatures,
             showSignIn = showSignIn,
-            supporterFirst = supporterFirst,
             subscribedSku = subscribedSku,
             store = store,
         )

@@ -25,9 +25,8 @@ fun PricingMode.satisfiedBy(
     openedWith: PaywallEntitlement,
     now: PaywallEntitlement,
 ): Boolean = when (this) {
-    PricingMode.NYP_ONLY -> now.pro
     PricingMode.CLOUD_ONLY -> now.cloud && !openedWith.cloud
-    PricingMode.BOTH -> (now.pro && !openedWith.pro) || (now.cloud && !openedWith.cloud)
+    PricingMode.CLOUD_FIRST, PricingMode.SUPPORTER_FIRST -> (now.pro && !openedWith.pro) || (now.cloud && !openedWith.cloud)
 }
 
 @Composable

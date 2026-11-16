@@ -91,9 +91,9 @@ class CardPricingTest {
 
     @Test
     fun theSupporterCardOnlyShimmersWhereAPriceWillLoad() = runComposeUiTest {
-        showPaywall(StoreBilling(loadingPrices = true, onSelect = {}), mode = PricingMode.NYP_ONLY)
+        showPaywall(StoreBilling(loadingPrices = true, onSelect = {}), mode = PricingMode.SUPPORTER_FIRST)
 
-        assertEquals(1, onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().size)
+        assertEquals(3, onAllNodesWithTag(TestTags.PRICE_PLACEHOLDER).fetchSemanticsNodes().size)
     }
 
     @Test
@@ -205,7 +205,7 @@ class CardPricingTest {
 
     @Test
     fun anUpsellOffersRestoreInTheTopBarInsteadOfSignIn() {
-        listOf(PricingMode.BOTH, PricingMode.NYP_ONLY).forEach { mode ->
+        listOf(PricingMode.CLOUD_FIRST, PricingMode.SUPPORTER_FIRST).forEach { mode ->
             runComposeUiTest {
                 var restored = false
                 showPaywall(
@@ -311,7 +311,7 @@ class CardPricingTest {
 
     @Test
     fun anUpsellHasNoSignInMenu() {
-        listOf(PricingMode.BOTH, PricingMode.NYP_ONLY).forEach { mode ->
+        listOf(PricingMode.CLOUD_FIRST, PricingMode.SUPPORTER_FIRST).forEach { mode ->
             runComposeUiTest {
                 showPaywall(
                     store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
@@ -478,7 +478,7 @@ class CardPricingTest {
                 coveredBy = UnlockSource.STRIPE,
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         assertEquals(
@@ -510,7 +510,7 @@ class CardPricingTest {
                 catalog = BillingCatalog.from(listOf(supporter.copy(trialDays = 7))),
                 onSelect = {},
             ),
-            mode = PricingMode.NYP_ONLY,
+            mode = PricingMode.SUPPORTER_FIRST,
         )
 
         assertTrue(
@@ -527,7 +527,7 @@ class CardPricingTest {
                 catalog = BillingCatalog.from(listOf(supporter.copy(trialDays = 7))),
                 onSelect = {},
             ),
-            mode = PricingMode.NYP_ONLY,
+            mode = PricingMode.SUPPORTER_FIRST,
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -566,7 +566,7 @@ class CardPricingTest {
     fun billingTroubleIsReportedOnceAboveTheTiers() = runComposeUiTest {
         showPaywall(
             store = StoreBilling(catalog = BillingCatalog(), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         val notice = "Billing isn't available right now. Please try again later."
@@ -587,7 +587,7 @@ class CardPricingTest {
                 coveredElsewhere = true,
                 onSelect = {},
             ),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_FIRST,
         )
 
         assertEquals(

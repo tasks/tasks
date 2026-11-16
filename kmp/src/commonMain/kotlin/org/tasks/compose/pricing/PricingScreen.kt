@@ -79,15 +79,21 @@ import tasks.kmp.generated.resources.*
 
 enum class PricingMode {
     CLOUD_ONLY,
-    NYP_ONLY,
-    BOTH,
+    CLOUD_FIRST,
+    SUPPORTER_FIRST;
+
+    fun forFeatures(features: SupporterFeatures): PricingMode =
+        if (this == CLOUD_FIRST && features == SupporterFeatures.ANDROID_CARD) SUPPORTER_FIRST else this
+
+    companion object {
+        fun forSource(source: String): PricingMode =
+            if (source in UPGRADE_SOURCES) CLOUD_FIRST else SUPPORTER_FIRST
+    }
 }
 
 const val SOURCE_MANAGE_SUBSCRIPTION = "manage_subscription"
 
 private val UPGRADE_SOURCES = setOf(AnalyticsEvents.SOURCE_SETTINGS, SOURCE_MANAGE_SUBSCRIPTION)
-
-fun leadsWithSupporter(source: String): Boolean = source !in UPGRADE_SOURCES
 
 internal fun isCloudSku(sku: String?, catalog: BillingCatalog?): Boolean =
     sku != null && (SubscriptionSkus.isTasksSubscription(sku) || catalog?.price(sku)?.entitles == true)
@@ -305,7 +311,7 @@ private fun PricingNotice(text: String) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PricingScreen(
-    mode: PricingMode = PricingMode.BOTH,
+    mode: PricingMode = PricingMode.CLOUD_FIRST,
     onBack: () -> Unit,
     onSignIn: () -> Unit,
     onRestorePurchases: () -> Unit,
@@ -313,7 +319,6 @@ fun PricingScreen(
     onNypSubscribeClick: () -> Unit = {},
     showSignIn: Boolean = true,
     supporterFeatures: SupporterFeatures = SupporterFeatures.APP_STORE,
-    supporterFirst: Boolean = false,
     subscribedSku: String? = null,
     store: StoreBilling? = null,
     analytics: PaywallAnalytics? = null,
@@ -385,10 +390,8 @@ fun PricingScreen(
                 .fillMaxSize()
                 .padding(padding),
         ) {
-            val showBoth = mode == PricingMode.BOTH
+            val showBoth = mode != PricingMode.CLOUD_ONLY
             val cloudOnly = mode == PricingMode.CLOUD_ONLY
-            val showCloud = mode != PricingMode.NYP_ONLY
-            val showNyp = mode != PricingMode.CLOUD_ONLY
             val isWide = showBoth && maxWidth >= 840.dp
 
             Column(
@@ -400,10 +403,10 @@ fun PricingScreen(
             ) {
                 DeveloperNote()
 
-                if (store?.unavailable(cloud = showCloud, supporter = showNyp) == true) {
+                if (store?.unavailable(cloud = true, supporter = showBoth) == true) {
                     PricingNotice(stringResource(Res.string.error_billing_unavailable))
                 }
-                if (store?.warnCoveredElsewhere(cloud = showCloud, supporter = showNyp) == true) {
+                if (store?.warnCoveredElsewhere(cloud = true, supporter = showBoth) == true) {
                     PricingNotice(coveredElsewhereMessage(store.coveredBy))
                 }
 
@@ -411,10 +414,7 @@ fun PricingScreen(
                     CloudTierCard(
                         modifier = cardModifier,
                         isCurrent = cloudIsCurrent,
-                        isRecommended = showBoth &&
-                                !supporterFirst &&
-                                supporterFeatures != SupporterFeatures.ANDROID_CARD &&
-                                !supporterIsCurrent,
+                        isRecommended = mode == PricingMode.CLOUD_FIRST && !supporterIsCurrent,
                         onCtaClick = {
                             analytics?.subscribeClicked(cloud = true)
                             onCloudSubscribeClick()
@@ -443,10 +443,10 @@ fun PricingScreen(
                 }
 
                 val cards = listOfNotNull(
-                    cloudCard.takeIf { showCloud },
-                    nameYourPriceCard.takeIf { showNyp },
+                    cloudCard,
+                    nameYourPriceCard.takeIf { showBoth },
                 ).let {
-                    if (supporterFirst || supporterFeatures == SupporterFeatures.ANDROID_CARD) {
+                    if (mode == PricingMode.SUPPORTER_FIRST) {
                         it.reversed()
                     } else {
                         it
