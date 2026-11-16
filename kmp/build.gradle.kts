@@ -107,6 +107,7 @@ kotlin {
                 implementation(libs.mockito.kotlin)
                 implementation(libs.androidx.room3)
                 implementation(libs.androidx.sqlite)
+                implementation(libs.xpp3)
             }
         }
         jvmCommonMain.dependencies {
