@@ -178,7 +178,9 @@ class Upgrader @Inject constructor(
             CommonUpgrades.all(database).forEach { step ->
                 run(from, step.version) { step.upgrade().run() }
             }
-            preferences.setBoolean(R.string.p_just_updated, true)
+            if (isMajorOrMinorUpdate(from, to)) {
+                preferences.setBoolean(R.string.p_just_updated, true)
+            }
         } else {
             setInstallDetails(to)
         }
@@ -444,6 +446,8 @@ class Upgrader @Inject constructor(
         const val V14_5_4 = 140516
         const val V14_6_1 = 140602
         const val V14_8 = 140800
+
+        fun isMajorOrMinorUpdate(from: Int, to: Int): Boolean = from / 100 != to / 100
 
         @JvmStatic
         fun getAndroidColor(context: Context, index: Int): Int {
