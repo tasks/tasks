@@ -1033,6 +1033,9 @@ fun App(
                             onUpgradeClick = { source ->
                                 backStack.push(PricingDestination(source = source))
                             },
+                            onCloudUpgradeClick = { source ->
+                                backStack.push(PricingDestination(mode = PricingMode.CLOUD_ONLY, source = source))
+                            },
                             onMigrateToCloud = {
                                 backStack.push(
                                     PricingDestination(
@@ -1041,8 +1044,8 @@ fun App(
                                     )
                                 )
                             },
-                            onSignInClick = {
-                                cloudSignInSource = AnalyticsEvents.SOURCE_SETTINGS
+                            onSignInClick = { source ->
+                                cloudSignInSource = source
                             },
                             onSubscribedClick = { showManageSheet = true },
                         )
@@ -2881,8 +2884,9 @@ private fun SettingsScreen(
     onAddAccountClick: () -> Unit,
     onLinkDesktopClick: () -> Unit = {},
     onUpgradeClick: (String) -> Unit,
+    onCloudUpgradeClick: (String) -> Unit,
     onMigrateToCloud: () -> Unit = {},
-    onSignInClick: () -> Unit = {},
+    onSignInClick: (String) -> Unit = {},
     onSubscribedClick: () -> Unit = {},
 ) {
     val viewModel = koinViewModel<MainSettingsViewModel>()
@@ -3025,7 +3029,7 @@ private fun SettingsScreen(
                                         onSubscribedClick()
                                     }
                                     is ProCardState.SignIn -> {
-                                        onSignInClick()
+                                        onSignInClick(AnalyticsEvents.SOURCE_SETTINGS)
                                     }
                                     is ProCardState.Donate -> {
                                         onUpgradeClick(AnalyticsEvents.SOURCE_SETTINGS)
@@ -3094,7 +3098,8 @@ private fun SettingsScreen(
                             onNavigateBack = {
                                 scope.launch { navigator.navigateBack() }
                             },
-                            onPricingClick = { onUpgradeClick("works_with") },
+                            onPricingClick = { onCloudUpgradeClick("works_with") },
+                            onSignInClick = { onSignInClick("works_with") },
                             onMcpSettingsClick = {
                                 scope.launch {
                                     navigator.navigateTo(
@@ -3154,7 +3159,7 @@ private fun SettingsScreen(
                                 scope.launch { navigator.navigateBack() }
                             },
                             onPurchase = onMigrateToCloud,
-                            onSignIn = onSignInClick,
+                            onSignIn = { onSignInClick(AnalyticsEvents.SOURCE_SETTINGS) },
                         )
                     }
                     is TasksAccountSettingsPane -> {
@@ -3165,6 +3170,7 @@ private fun SettingsScreen(
                             },
                             onAddAccountClick = onAddAccountClick,
                             onModifySubscription = { onUpgradeClick("account_settings") },
+                            onSubscribe = { onCloudUpgradeClick("account_settings") },
                         )
                     }
                     is CaldavAccountSettingsPane -> {

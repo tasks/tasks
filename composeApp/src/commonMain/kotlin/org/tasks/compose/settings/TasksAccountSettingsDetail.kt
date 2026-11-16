@@ -45,7 +45,6 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.back
 import tasks.kmp.generated.resources.tasks_org
 import tasks.kmp.generated.resources.url_app_passwords
-import tasks.kmp.generated.resources.url_donate
 import tasks.kmp.generated.resources.url_sponsor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,6 +54,7 @@ fun TasksAccountSettingsDetail(
     onNavigateBack: () -> Unit,
     onAddAccountClick: () -> Unit,
     onModifySubscription: () -> Unit,
+    onSubscribe: () -> Unit,
 ) {
     val viewModel = koinViewModel<TasksAccountViewModel>()
     val signInHandler = koinInject<SignInHandler>()
@@ -78,7 +78,6 @@ fun TasksAccountSettingsDetail(
     if (!state.loaded) return
     val sponsorUrl = stringResource(Res.string.url_sponsor)
     val appPasswordsUrl = stringResource(Res.string.url_app_passwords)
-    val donateUrl = stringResource(Res.string.url_donate)
 
     Scaffold(
         topBar = {
@@ -125,9 +124,7 @@ fun TasksAccountSettingsDetail(
                         }
                     }
                 },
-                onSubscribe = {
-                    uriHandler.openUri(donateUrl)
-                },
+                onSubscribe = onSubscribe,
                 onOpenSponsor = {
                     uriHandler.openUri(sponsorUrl)
                 },

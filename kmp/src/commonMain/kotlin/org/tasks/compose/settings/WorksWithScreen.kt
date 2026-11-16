@@ -45,9 +45,11 @@ import tasks.kmp.generated.resources.works_with_submit_pull_request
 @Composable
 fun WorksWithScreen(
     configuration: PlatformConfiguration,
-    hasSubscription: Boolean,
+    hasTasksAccount: Boolean,
+    hasCloudSubscription: Boolean,
     onLinkClick: (String) -> Unit,
     onPricingClick: () -> Unit,
+    onSignInClick: () -> Unit,
     onMcpSettingsClick: () -> Unit,
     bottomInsets: @Composable () -> Unit = {},
 ) {
@@ -124,7 +126,9 @@ fun WorksWithScreen(
                             onClick = links?.let {
                                 {
                                     when {
-                                        entry.showPricingIfUnsubscribed && !hasSubscription ->
+                                        entry.showPricingIfUnsubscribed && !hasTasksAccount && hasCloudSubscription ->
+                                            onSignInClick()
+                                        entry.showPricingIfUnsubscribed && !hasTasksAccount ->
                                             onPricingClick()
                                         entry.openMcpSettingsOnDesktop && !configuration.isAndroid ->
                                             onMcpSettingsClick()

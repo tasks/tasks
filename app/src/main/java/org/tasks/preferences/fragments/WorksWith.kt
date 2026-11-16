@@ -16,6 +16,7 @@ import android.content.Intent
 import dagger.hilt.android.AndroidEntryPoint
 import org.tasks.PlatformConfiguration
 import org.tasks.R
+import org.tasks.auth.SignInActivity
 import org.tasks.billing.Inventory
 import org.tasks.billing.PurchaseActivity
 import org.tasks.billing.PurchaseActivity.Companion.EXTRA_NAME_YOUR_PRICE
@@ -45,7 +46,8 @@ class WorksWith : Fragment() {
         ) {
             WorksWithScreen(
                 configuration = configuration,
-                hasSubscription = inventory.hasPro,
+                hasTasksAccount = inventory.hasTasksAccount,
+                hasCloudSubscription = inventory.hasTasksSubscription,
                 onLinkClick = { context?.openUri(it) },
                 onMcpSettingsClick = {},
                 onPricingClick = {
@@ -54,6 +56,9 @@ class WorksWith : Fragment() {
                             .putExtra(EXTRA_NAME_YOUR_PRICE, false)
                             .putExtra(EXTRA_SOURCE, "works_with")
                     )
+                },
+                onSignInClick = {
+                    startActivity(Intent(context, SignInActivity::class.java))
                 },
                 bottomInsets = {
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))

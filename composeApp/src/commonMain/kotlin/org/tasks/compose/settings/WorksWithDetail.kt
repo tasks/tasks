@@ -27,6 +27,7 @@ import tasks.kmp.generated.resources.works_with_tasks
 fun WorksWithDetail(
     onNavigateBack: () -> Unit,
     onPricingClick: () -> Unit,
+    onSignInClick: () -> Unit,
     onMcpSettingsClick: () -> Unit,
 ) {
     val uriHandler = LocalUriHandler.current
@@ -55,9 +56,11 @@ fun WorksWithDetail(
         ) {
             WorksWithScreen(
                 configuration = configuration,
-                hasSubscription = purchaseState.hasPro,
+                hasTasksAccount = purchaseState.hasTasksAccount,
+                hasCloudSubscription = purchaseState.hasTasksSubscription,
                 onLinkClick = { uriHandler.openUri(it) },
                 onPricingClick = onPricingClick,
+                onSignInClick = onSignInClick,
                 onMcpSettingsClick = onMcpSettingsClick,
             )
         }
