@@ -14,6 +14,7 @@ import com.posthog.android.PostHogAndroidConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.extensions.isFirebaseTestLab
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
@@ -47,7 +48,7 @@ class Firebase @Inject constructor(
 
     private val posthogEnabled: Boolean by lazy {
         val apiKey = context.getString(R.string.posthog_key)
-        if (preferences.isTrackingEnabled && apiKey.isNotBlank()) {
+        if (preferences.isTrackingEnabled && apiKey.isNotBlank() && !context.isFirebaseTestLab) {
             PostHogAndroid.setup(
                 context,
                 PostHogAndroidConfig(

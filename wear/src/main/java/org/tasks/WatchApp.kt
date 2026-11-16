@@ -4,6 +4,7 @@ import android.app.Application
 import com.posthog.PostHog
 import com.posthog.android.PostHogAndroid
 import com.posthog.android.PostHogAndroidConfig
+import org.tasks.extensions.isFirebaseTestLab
 import timber.log.Timber
 
 class WatchApp : Application() {
@@ -15,7 +16,7 @@ class WatchApp : Application() {
         }
 
         val posthogKey = getString(R.string.posthog_key)
-        if (posthogKey.isNotBlank()) {
+        if (posthogKey.isNotBlank() && !isFirebaseTestLab) {
             PostHogAndroid.setup(
                 this,
                 PostHogAndroidConfig(
