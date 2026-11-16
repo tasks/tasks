@@ -14,6 +14,7 @@ import com.posthog.android.PostHogAndroidConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.tasks.BuildConfig
 import org.tasks.R
+import org.tasks.extensions.installerPackageName
 import org.tasks.extensions.isFirebaseTestLab
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.Preferences
@@ -66,6 +67,7 @@ class Firebase @Inject constructor(
                     sessionReplayConfig.screenshot = true
                 }
             )
+            PostHog.register("installer", context.installerPackageName ?: "unknown")
             true
         } else {
             false
