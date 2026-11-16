@@ -15,7 +15,7 @@ class PaywallAnalytics(
     private val analytics: Analytics,
     private val source: String,
     private val mode: PricingMode,
-    private val provider: BillingProvider?,
+    private val provider: BillingProvider,
 ) : ViewModel() {
     private var completed = false
 
@@ -65,19 +65,19 @@ class PaywallAnalytics(
 private fun purchaseDialogParams(
     source: String,
     mode: PricingMode,
-    provider: BillingProvider?,
-): Array<Pair<String, Any>> = listOfNotNull(
+    provider: BillingProvider,
+): Array<Pair<String, Any>> = arrayOf(
     AnalyticsEvents.PARAM_SOURCE to source,
     AnalyticsEvents.PARAM_TYPE to mode.name,
-    provider?.let { AnalyticsEvents.PARAM_PROVIDER to it.analyticsName },
-).toTypedArray()
+    AnalyticsEvents.PARAM_PROVIDER to provider.analyticsName,
+)
 
 @Composable
 fun rememberPaywallAnalytics(
     analytics: Analytics,
     source: String,
     mode: PricingMode,
-    provider: BillingProvider?,
+    provider: BillingProvider,
 ): PaywallAnalytics {
     val paywall = viewModel { PaywallAnalytics(analytics, source, mode, provider) }
     LogOnce { paywall.shown() }
