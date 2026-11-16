@@ -77,6 +77,13 @@ class Firebase @Inject constructor(
     override val analyticsEnabled: Boolean
         get() = posthogEnabled
 
+    fun statisticsDisabled() {
+        if (posthogEnabled) {
+            PostHog.reset()
+            PostHog.close()
+        }
+    }
+
     private val trackedPrefs by lazy { intArrayOf(
         // Look and feel
         R.string.p_theme,

@@ -68,6 +68,8 @@ class Firebase @Inject constructor(
 
     fun getTosVersion(): Int = DEFAULT_TOS_VERSION
 
+    fun statisticsDisabled() {}
+
     fun registerPrefChangeListener() {}
 
     fun unregisterPrefChangeListener() {}

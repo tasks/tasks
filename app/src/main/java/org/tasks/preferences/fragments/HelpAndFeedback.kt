@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.tasks.R
 import org.tasks.TasksUrls
+import org.tasks.analytics.Firebase
 import org.tasks.compose.settings.HelpAndFeedbackContent
 import org.tasks.extensions.Context.openUri
 import org.tasks.logging.FileLogger
@@ -39,6 +40,7 @@ class HelpAndFeedback : Fragment() {
     @Inject lateinit var diagnosticInfo: DiagnosticInfo
     @Inject lateinit var fileLogger: FileLogger
     @Inject lateinit var preferences: Preferences
+    @Inject lateinit var firebase: Firebase
 
     private val viewModel: HelpAndFeedbackHiltViewModel by viewModels()
 
@@ -93,6 +95,9 @@ class HelpAndFeedback : Fragment() {
                 },
                 onCollectStatisticsChanged = { enabled ->
                     preferences.setBoolean(R.string.p_collect_statistics, enabled)
+                    if (!enabled) {
+                        firebase.statisticsDisabled()
+                    }
                 },
                 bottomInsets = {
                     Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))

@@ -32,6 +32,15 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { it[key] = value }
     }
 
+    suspend fun setCollectStatistics(enabled: Boolean) {
+        dataStore.edit {
+            it[collectStatistics] = enabled
+            if (!enabled) {
+                it.remove(posthogAnonymousId)
+            }
+        }
+    }
+
     suspend fun removeByPrefix(prefix: String) = removeByPrefixes(listOf(prefix))
 
     suspend fun removeByPrefixes(prefixes: Collection<String>) {

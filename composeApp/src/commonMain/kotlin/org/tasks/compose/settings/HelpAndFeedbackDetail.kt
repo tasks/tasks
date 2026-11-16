@@ -62,7 +62,7 @@ fun HelpAndFeedbackDetail(
                 onSendLogs = logExporter?.let { exporter -> { scope.launch { exporter.export() } } },
                 onCollectStatisticsChanged = { enabled ->
                     scope.launch {
-                        tasksPreferences.set(TasksPreferences.collectStatistics, enabled)
+                        tasksPreferences.setCollectStatistics(enabled)
                     }
                 },
             )
