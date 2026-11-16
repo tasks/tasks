@@ -151,6 +151,7 @@ import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.modifySubscription
+import org.tasks.billing.paywallOpened
 import org.tasks.billing.restoreSources
 import org.tasks.billing.StoreBillingProvider
 import org.tasks.billing.StripePurchases
@@ -1216,6 +1217,7 @@ fun App(
                         val mode = destination.mode
                             ?: PricingMode.forSource(destination.source, supporterFeatures)
                         val next = afterPaywall(destination.source)
+                        LaunchedEffect(Unit) { tasksPreferences.paywallOpened(destination.source) }
                         val paywallAnalytics = rememberPaywallAnalytics(
                             analytics = reporting,
                             source = destination.source,

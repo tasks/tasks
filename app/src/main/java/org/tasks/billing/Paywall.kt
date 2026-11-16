@@ -31,6 +31,7 @@ import org.tasks.compose.settings.RestorePurchasesScreen
 import org.tasks.compose.settings.StripeRestoreCallbacks
 import org.tasks.extensions.Context.openUri
 import org.tasks.extensions.Context.toast
+import org.tasks.preferences.TasksPreferences
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.add_platform_account
 import tasks.kmp.generated.resources.caldav
@@ -49,6 +50,7 @@ fun Paywall(
     gitHubSponsorClient: GitHubSponsorClient?,
     firebase: Firebase,
     completion: PaywallCompletion,
+    tasksPreferences: TasksPreferences,
     onBack: () -> Unit,
     onPurchased: () -> Unit,
 ) {
@@ -58,6 +60,7 @@ fun Paywall(
     val hasTasksAccount by inventory.tasksAccount.collectAsStateWithLifecycle()
     val purchaseFinished by rememberUpdatedState(onPurchased)
     var finished by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) { tasksPreferences.paywallOpened(source) }
     val supporterFeatures = configuration.supporterFeatures
     val mode = if (nameYourPrice) {
         PricingMode.forSource(source, supporterFeatures)

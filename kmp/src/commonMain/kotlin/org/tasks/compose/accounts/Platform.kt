@@ -23,3 +23,13 @@ fun Platform.requiresPro(configuration: PlatformConfiguration): Boolean = when (
     Platform.MICROSOFT -> configuration.thirdPartySyncRequiresPro
     Platform.TASKS_ORG -> false
 }
+
+val Platform.signInFollowsPaywall: Boolean
+    get() = when (this) {
+        Platform.CALDAV,
+        Platform.ETEBASE,
+        Platform.GOOGLE_TASKS,
+        Platform.MICROSOFT -> true
+        Platform.DAVX5,
+        Platform.TASKS_ORG -> false
+    }

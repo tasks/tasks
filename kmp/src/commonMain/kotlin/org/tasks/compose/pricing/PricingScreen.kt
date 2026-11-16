@@ -79,6 +79,7 @@ import org.tasks.billing.BillingOption
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.SubscriptionSkus
 import org.tasks.billing.UnlockSource
+import org.tasks.compose.accounts.Platform
 import tasks.kmp.generated.resources.*
 
 enum class PricingMode {
@@ -102,7 +103,12 @@ enum class PricingMode {
 
 const val SOURCE_MANAGE_SUBSCRIPTION = "manage_subscription"
 
-private val UPGRADE_SOURCES = setOf(AnalyticsEvents.SOURCE_SETTINGS, SOURCE_MANAGE_SUBSCRIPTION)
+private val UPGRADE_SOURCES = setOf(
+    AnalyticsEvents.SOURCE_SETTINGS,
+    SOURCE_MANAGE_SUBSCRIPTION,
+    Platform.GOOGLE_TASKS.name,
+    Platform.MICROSOFT.name,
+)
 
 internal fun isCloudSku(sku: String?, catalog: BillingCatalog?): Boolean =
     sku != null && (SubscriptionSkus.isTasksSubscription(sku) || catalog?.price(sku)?.entitles == true)

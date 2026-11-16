@@ -136,6 +136,7 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val taskListPaneWidth = intPreferencesKey("task_list_pane_width")
         val localListBannerDismissed = booleanPreferencesKey("local_list_banner_dismissed")
         val needsCloudOnboarding = booleanPreferencesKey("needs_cloud_onboarding")
+        val deferCloudOnboarding = booleanPreferencesKey("defer_cloud_onboarding")
         val apnsToken = stringPreferencesKey("apns_token")
         val pushFallbackToken = stringPreferencesKey("push_fallback_token")
         val installId = stringPreferencesKey("install_id")

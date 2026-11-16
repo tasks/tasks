@@ -10,6 +10,7 @@ import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.mock
 import org.tasks.InMemoryDataStore
 import org.tasks.analytics.AnalyticsEvents
+import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.preferences.TasksPreferences
@@ -60,6 +61,35 @@ class PlayCloudOnboardingTest {
 
         assertFalse(needsCloudOnboarding())
         assertTrue(steps.isEmpty())
+    }
+
+    @Test
+    fun buyingCloudOnTheWayToAnotherSignInStartsNothing() = runTest {
+        tasksPreferences.paywallOpened(Platform.CALDAV.name)
+
+        onPurchased(purchase("annual_30"))
+
+        assertFalse(needsCloudOnboarding())
+        assertEquals(listOf(AnalyticsEvents.CloudOnboarding.DEFERRED), steps)
+    }
+
+    @Test
+    fun davx5SignsInOutsideTheAppSoCloudStartsNow() = runTest {
+        tasksPreferences.paywallOpened(Platform.DAVX5.name)
+
+        onPurchased(purchase("annual_30"))
+
+        assertTrue(needsCloudOnboarding())
+    }
+
+    @Test
+    fun theNextPaywallDecidesForItself() = runTest {
+        tasksPreferences.paywallOpened(Platform.CALDAV.name)
+        tasksPreferences.paywallOpened("themes")
+
+        onPurchased(purchase("annual_30"))
+
+        assertTrue(needsCloudOnboarding())
     }
 
     @Test

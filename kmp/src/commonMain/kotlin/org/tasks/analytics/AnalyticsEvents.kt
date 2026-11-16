@@ -135,6 +135,7 @@ object AnalyticsEvents {
 
     object CloudOnboarding {
         const val TRIGGERED = "triggered"
+        const val DEFERRED = "deferred"
         const val WELCOME = "welcome"
         const val SIGN_IN = "sign_in"
         const val SIGNED_IN = "signed_in"

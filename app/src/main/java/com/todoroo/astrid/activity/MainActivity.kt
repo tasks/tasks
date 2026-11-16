@@ -422,6 +422,7 @@ class MainActivity : AppCompatActivity() {
                             gitHubSponsorClient = gitHubSponsorClient,
                             firebase = firebase,
                             completion = paywallCompletion,
+                            tasksPreferences = tasksPreferences,
                             onBack = { navController.popBackStack() },
                             onPurchased = {
                                 navController.previousBackStackEntry

@@ -11,6 +11,7 @@ import org.tasks.PlatformConfiguration
 import org.tasks.analytics.Firebase
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
+import org.tasks.preferences.TasksPreferences
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class PurchaseActivity : AppCompatActivity() {
     @Inject lateinit var stripePurchases: StripePurchases
     @Inject lateinit var subscriptionProvider: SubscriptionProvider
     @Inject lateinit var completion: PaywallCompletion
+    @Inject lateinit var tasksPreferences: TasksPreferences
     @JvmField @Inject var storeBillingProvider: StoreBillingProvider? = null
     @JvmField @Inject var gitHubSponsorClient: GitHubSponsorClient? = null
 
@@ -58,6 +60,7 @@ class PurchaseActivity : AppCompatActivity() {
                     gitHubSponsorClient = gitHubSponsorClient,
                     firebase = firebase,
                     completion = completion,
+                    tasksPreferences = tasksPreferences,
                     onBack = { finish() },
                     onPurchased = {
                         setResult(RESULT_OK)

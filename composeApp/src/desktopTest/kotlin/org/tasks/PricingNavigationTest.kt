@@ -3,6 +3,7 @@ package org.tasks
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.signInFollowsPaywall
 
 class PricingNavigationTest {
     @Test
@@ -40,5 +41,16 @@ class PricingNavigationTest {
     @Test
     fun payingFromSettingsJustLeavesThePaywall() {
         assertEquals(AfterPaywall.None, afterPaywall("settings"))
+    }
+
+    @Test
+    fun cloudOnboardingWaitsExactlyWhenASignInFollows() {
+        Platform.entries.forEach {
+            assertEquals(
+                it.name,
+                it.signInFollowsPaywall,
+                afterPaywall(it.name) != AfterPaywall.None,
+            )
+        }
     }
 }

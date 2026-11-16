@@ -11,10 +11,24 @@ class PricingModeTest {
     @Test
     fun aFeatureThatOpenedThePaywallLeadsWithSupporter() {
         SupporterFeatures.entries.forEach {
-            assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource(Platform.DAVX5.name, it), it.name)
             assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource("themes", it), it.name)
             assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource("icons", it), it.name)
         }
+    }
+
+    @Test
+    fun selfHostedSyncLeadsWithSupporter() {
+        SupporterFeatures.entries.forEach {
+            assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource(Platform.CALDAV.name, it), it.name)
+            assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource(Platform.ETEBASE.name, it), it.name)
+            assertEquals(PricingMode.SUPPORTER_FIRST, PricingMode.forSource(Platform.DAVX5.name, it), it.name)
+        }
+    }
+
+    @Test
+    fun thirdPartySyncLeadsWithCloud() {
+        assertEquals(PricingMode.CLOUD_FIRST, PricingMode.forSource(Platform.GOOGLE_TASKS.name, SupporterFeatures.DESKTOP))
+        assertEquals(PricingMode.CLOUD_FIRST, PricingMode.forSource(Platform.MICROSOFT.name, SupporterFeatures.DESKTOP))
     }
 
     @Test
