@@ -62,7 +62,6 @@ object TasksIcons {
     const val EXPAND_CIRCLE_DOWN = "expand_circle_down"
     const val EXPAND_MORE = "expand_more"
     const val EXTENSION = "extension"
-    const val FAVORITE_BORDER = "favorite_border"
     const val FLAG = "flag"
     const val GAVEL = "gavel"
     const val HELP = "help"

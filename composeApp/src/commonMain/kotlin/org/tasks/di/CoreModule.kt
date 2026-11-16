@@ -605,7 +605,6 @@ val coreModule: Module = module {
             tasksPreferences = get(),
             accountDataRepository = get(),
             serverEnvironment = get(),
-            platformConfiguration = get(),
         )
     }
     viewModel {

@@ -20,9 +20,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.tasks.InMemoryDataStore
-import org.tasks.PlatformConfiguration
 import org.tasks.auth.TasksServerEnvironment
-import org.tasks.billing.BillingProvider
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.caldav.TasksAccountDataRepository
 import org.tasks.compose.settings.ProCardState
@@ -97,7 +95,6 @@ class ProCardViewModelTest {
         tasksPreferences = preferences,
         accountDataRepository = mock<TasksAccountDataRepository>(),
         serverEnvironment = TasksServerEnvironment(preferences),
-        platformConfiguration = PlatformConfiguration(billingProvider = BillingProvider.GOOGLE_PLAY),
     )
 
     companion object {

@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.tasks.PlatformConfiguration
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.billing.formatCredit
@@ -39,7 +38,6 @@ open class ProCardViewModel(
     private val tasksPreferences: TasksPreferences,
     private val accountDataRepository: TasksAccountDataRepository,
     private val serverEnvironment: TasksServerEnvironment,
-    private val platformConfiguration: PlatformConfiguration,
 ) : ViewModel() {
 
     private val accounts: StateFlow<List<CaldavAccount>?> = caldavDao.watchAccounts()
