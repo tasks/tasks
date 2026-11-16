@@ -23,7 +23,7 @@ import org.tasks.auth.SignInActivity
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.pricing.PricingScreen
-import org.tasks.compose.pricing.SupporterFeatures
+import org.tasks.compose.pricing.supporterFeatures
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.rememberPaywallSatisfied
 import org.tasks.compose.pricing.unlocksFeature
@@ -58,13 +58,9 @@ fun Paywall(
     val hasTasksAccount by inventory.tasksAccount.collectAsStateWithLifecycle()
     val purchaseFinished by rememberUpdatedState(onPurchased)
     var finished by rememberSaveable { mutableStateOf(false) }
-    val supporterFeatures = if (configuration.billingProvider == BillingProvider.STRIPE) {
-        SupporterFeatures.ANDROID_CARD
-    } else {
-        SupporterFeatures.APP_STORE
-    }
+    val supporterFeatures = configuration.supporterFeatures
     val mode = if (nameYourPrice) {
-        PricingMode.forSource(source).forFeatures(supporterFeatures)
+        PricingMode.forSource(source, supporterFeatures)
     } else {
         PricingMode.CLOUD_ONLY
     }

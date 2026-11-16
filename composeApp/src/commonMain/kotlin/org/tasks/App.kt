@@ -187,7 +187,7 @@ import org.tasks.compose.pricing.PricingMode
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.SOURCE_MANAGE_SUBSCRIPTION
-import org.tasks.compose.pricing.SupporterFeatures
+import org.tasks.compose.pricing.supporterFeatures
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
@@ -1212,12 +1212,9 @@ fun App(
                         // replace the whole stack before these collectors run. This entry is still
                         // composed for that frame, and popping blind from here empties the stack -
                         // which NavDisplay treats as fatal.
-                        val supporterFeatures = when {
-                            configuration.billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
-                            configuration.isAndroid -> SupporterFeatures.ANDROID_CARD
-                            else -> SupporterFeatures.DESKTOP
-                        }
-                        val mode = destination.mode.forFeatures(supporterFeatures)
+                        val supporterFeatures = configuration.supporterFeatures
+                        val mode = destination.mode
+                            ?: PricingMode.forSource(destination.source, supporterFeatures)
                         val next = afterPaywall(destination.source)
                         val paywallAnalytics = rememberPaywallAnalytics(
                             analytics = reporting,

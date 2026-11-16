@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.analytics.AnalyticsEvents
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
 
@@ -164,7 +165,7 @@ class CloudTierCardTest {
     fun aCardBilledAndroidSupporterTierUnlocksTheOtherPlatforms() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
+            mode = PricingMode.forSource(AnalyticsEvents.SOURCE_SETTINGS, SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -179,7 +180,7 @@ class CloudTierCardTest {
     fun fDroidUsersAreNotSteeredTowardsCloud() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
+            mode = PricingMode.forSource(AnalyticsEvents.SOURCE_SETTINGS, SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -190,7 +191,7 @@ class CloudTierCardTest {
     fun fDroidLeadsWithTheSupporterTier() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), onSelect = {}),
-            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
+            mode = PricingMode.forSource(AnalyticsEvents.SOURCE_SETTINGS, SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 
@@ -204,7 +205,7 @@ class CloudTierCardTest {
     fun anFDroidCloudSubscriberStillSeesTheirPlanMarked() = runComposeUiTest {
         showPaywall(
             StoreBilling(catalog = catalog(annual, monthly, supporter), currentSku = "annual_30", onSelect = {}),
-            mode = PricingMode.CLOUD_FIRST.forFeatures(SupporterFeatures.ANDROID_CARD),
+            mode = PricingMode.forSource(AnalyticsEvents.SOURCE_SETTINGS, SupporterFeatures.ANDROID_CARD),
             supporterFeatures = SupporterFeatures.ANDROID_CARD,
         )
 

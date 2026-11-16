@@ -71,8 +71,10 @@ import org.jetbrains.compose.resources.stringResource
 import kotlin.math.roundToInt
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.PaywallAnalytics
+import org.tasks.PlatformConfiguration
 import org.tasks.billing.BillingCatalog
 import org.tasks.billing.BillingOption
+import org.tasks.billing.BillingProvider
 import org.tasks.billing.SubscriptionSkus
 import org.tasks.billing.UnlockSource
 import tasks.kmp.generated.resources.*
@@ -83,11 +85,16 @@ enum class PricingMode {
     SUPPORTER_FIRST;
 
     fun forFeatures(features: SupporterFeatures): PricingMode =
-        if (this == CLOUD_FIRST && features == SupporterFeatures.ANDROID_CARD) SUPPORTER_FIRST else this
+        if (this == CLOUD_FIRST && features == SupporterFeatures.ANDROID_CARD) {
+            SUPPORTER_FIRST
+        } else {
+            this
+        }
 
     companion object {
-        fun forSource(source: String): PricingMode =
-            if (source in UPGRADE_SOURCES) CLOUD_FIRST else SUPPORTER_FIRST
+        fun forSource(source: String, features: SupporterFeatures): PricingMode =
+            (if (source in UPGRADE_SOURCES) CLOUD_FIRST else SUPPORTER_FIRST)
+                .forFeatures(features)
     }
 }
 
@@ -113,6 +120,13 @@ enum class SupporterFeatures {
     ANDROID_CARD,
     DESKTOP,
 }
+
+val PlatformConfiguration.supporterFeatures: SupporterFeatures
+    get() = when {
+        billingProvider != BillingProvider.STRIPE -> SupporterFeatures.APP_STORE
+        isAndroid -> SupporterFeatures.ANDROID_CARD
+        else -> SupporterFeatures.DESKTOP
+    }
 
 private val CardShape = RoundedCornerShape(12.dp)
 
@@ -323,6 +337,8 @@ fun PricingScreen(
 ) {
     @Suppress("NAME_SHADOWING")
     val store = store.copy(knownSku = subscribedSku)
+    @Suppress("NAME_SHADOWING")
+    val mode = mode.forFeatures(supporterFeatures)
     val signIn = {
         analytics?.signInClicked()
         onSignIn()

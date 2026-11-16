@@ -47,7 +47,7 @@ data object SubscriptionOnboardingDestination : NavKey
 @Serializable
 data class PricingDestination(
     val source: String,
-    val mode: PricingMode = PricingMode.forSource(source),
+    val mode: PricingMode? = null,
 ) : NavKey
 
 internal val FloatingToolbarBottomMargin = 24.dp
