@@ -1,3 +1,8 @@
+### 15.14.1-beta02 (2026-11-16)
+
+Android:
+  * Don't show app updated banner for patch releases
+
 ### 15.14.1-beta01 (2026-11-16)
 
 * Bug fix for Tasks.org Cloud and CalDAV sync
