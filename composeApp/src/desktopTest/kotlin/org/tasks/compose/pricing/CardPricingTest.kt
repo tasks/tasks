@@ -202,25 +202,26 @@ class CardPricingTest {
     }
 
     @Test
-    fun anUpsellMovesSignInToTheTopBar() {
+    fun anUpsellOffersRestoreInTheTopBarInsteadOfSignIn() {
         listOf(PricingMode.BOTH, PricingMode.NYP_ONLY).forEach { mode ->
             runComposeUiTest {
-                var signedIn = false
+                var restored = false
                 showPaywall(
                     store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
                     mode = mode,
-                    onSignIn = { signedIn = true },
+                    onRestorePurchases = { restored = true },
                 )
 
                 assertNotShowing("Already a subscriber or invited guest?")
-                assertEquals("$mode", 1, onAllNodes(hasText("Sign in")).fetchSemanticsNodes().size)
+                assertNotShowing("Sign in")
+                assertEquals("$mode", 1, onAllNodes(hasText("Restore purchases")).fetchSemanticsNodes().size)
                 assertTrue(
-                    "$mode: expected sign in at the top",
-                    onNodeWithText("Sign in").getBoundsInRoot().bottom <
+                    "$mode: expected restore at the top",
+                    onNodeWithText("Restore purchases").getBoundsInRoot().bottom <
                             onNodeWithText("Hi! My name is Alex", substring = true).getBoundsInRoot().top,
                 )
-                onNodeWithText("Sign in").performClick()
-                assertTrue("$mode: expected sign in to be asked for", signedIn)
+                onNodeWithText("Restore purchases").performClick()
+                assertTrue("$mode: expected the restore screen to be asked for", restored)
             }
         }
     }
@@ -258,7 +259,7 @@ class CardPricingTest {
     fun aSignedInUserIsNotAskedToSignIn() = runComposeUiTest {
         showPaywall(
             store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
-            mode = PricingMode.BOTH,
+            mode = PricingMode.CLOUD_ONLY,
             showSignIn = false,
         )
 
@@ -278,7 +279,7 @@ class CardPricingTest {
     }
 
     @Test
-    fun restoreIsOfferedOnceAtTheBottomOfEveryPaywall() {
+    fun restoreIsOfferedOnceOnEveryPaywall() {
         PricingMode.entries.forEach { mode ->
             runComposeUiTest {
                 showPaywall(
@@ -288,14 +289,20 @@ class CardPricingTest {
 
                 assertEquals("$mode", 1, onAllNodes(hasText("Restore purchases")).fetchSemanticsNodes().size)
                 assertNotShowing("Already a supporter?")
-                assertTrue(
-                    "$mode: expected restore below the plans",
-                    onNodeWithText("Restore purchases").fetchSemanticsNode().positionInRoot.y >
-                            onAllNodes(hasText("Subscribe for", substring = true)).fetchSemanticsNodes()
-                                .maxOf { it.positionInRoot.y + it.size.height },
-                )
             }
         }
+    }
+
+    @Test
+    fun addingACloudAccountOffersRestoreBelowThePlan() = runComposeUiTest {
+        showPaywall(StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}))
+
+        assertTrue(
+            "expected restore below the plan",
+            onNodeWithText("Restore purchases").fetchSemanticsNode().positionInRoot.y >
+                    onAllNodes(hasText("Subscribe for", substring = true)).fetchSemanticsNodes()
+                        .maxOf { it.positionInRoot.y + it.size.height },
+        )
     }
 
     @Test

@@ -6,6 +6,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -46,18 +47,18 @@ class NameYourPricePickerTest {
         )
 
         assertShowing("Subscribe for \$0.99/year")
-        val annualOnly = restoreButtonY()
+        val annualOnly = cardBottom()
 
         slideTo(1f)
 
         assertShowing("Subscribe for \$2.99/year")
-        assertEquals(annualOnly, restoreButtonY(), 0f)
+        assertEquals(annualOnly, cardBottom(), 0f)
 
         slideTo(2f)
 
         assertShowing("\$4.99/year")
         assertShowing("\$4.99/month")
-        assertEquals(annualOnly, restoreButtonY(), 0f)
+        assertEquals(annualOnly, cardBottom(), 0f)
     }
 
     @Test
@@ -218,6 +219,6 @@ class NameYourPricePickerTest {
         waitForIdle()
     }
 
-    private fun ComposeUiTest.restoreButtonY() =
-        onNodeWithText("Restore purchases").fetchSemanticsNode().positionInRoot.y
+    private fun ComposeUiTest.cardBottom() =
+        onAllNodes(hasClickAction()).fetchSemanticsNodes().maxOf { it.positionInRoot.y + it.size.height }
 }

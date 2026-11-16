@@ -347,9 +347,9 @@ fun PricingScreen(
                     }
                 },
                 actions = {
-                    if (showSignIn && mode != PricingMode.CLOUD_ONLY) {
-                        TextButton(onClick = signIn) {
-                            Text(stringResource(Res.string.sign_in))
+                    if (mode != PricingMode.CLOUD_ONLY) {
+                        TextButton(onClick = onRestorePurchases) {
+                            Text(stringResource(Res.string.restore_purchases))
                         }
                     }
                 },
@@ -448,7 +448,9 @@ fun PricingScreen(
                     }
                 }
 
-                RestoreFooter(onRestorePurchases)
+                if (cloudOnly) {
+                    RestoreFooter(onRestorePurchases)
+                }
 
                 Spacer(modifier = Modifier.height(24.dp))
             }
