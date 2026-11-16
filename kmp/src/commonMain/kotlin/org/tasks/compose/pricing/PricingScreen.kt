@@ -334,6 +334,7 @@ fun PricingScreen(
     val store = store.copy(knownSku = subscribedSku)
     @Suppress("NAME_SHADOWING")
     val mode = mode.forFeatures(supporterFeatures)
+    val cloudOnly = mode == PricingMode.CLOUD_ONLY
     val signIn = {
         analytics?.signInClicked()
         onSignIn()
@@ -341,7 +342,7 @@ fun PricingScreen(
     val currentSku = store.currentSku ?: subscribedSku
     val cloudIsCurrent = isCloudSku(currentSku, store.catalog)
     val supporterIsCurrent = isSupporterSku(currentSku, store.catalog)
-    val signInFromMenu = showSignIn && mode == PricingMode.CLOUD_ONLY && currentSku != null && !cloudIsCurrent
+    val signInFromMenu = showSignIn && cloudOnly && currentSku != null && !cloudIsCurrent
     val cloudAnnual = rememberSaveable { mutableStateOf(true) }
     val nypSelection = rememberSaveable(saver = NameYourPriceSelection.Saver) {
         NameYourPriceSelection()
@@ -364,7 +365,7 @@ fun PricingScreen(
                     }
                 },
                 actions = {
-                    if (mode != PricingMode.CLOUD_ONLY) {
+                    if (!cloudOnly) {
                         TextButton(onClick = onRestorePurchases) {
                             Text(stringResource(Res.string.restore_purchases))
                         }
@@ -399,9 +400,7 @@ fun PricingScreen(
                 .fillMaxSize()
                 .padding(padding),
         ) {
-            val showBoth = mode != PricingMode.CLOUD_ONLY
-            val cloudOnly = mode == PricingMode.CLOUD_ONLY
-            val isWide = showBoth && maxWidth >= 840.dp
+            val isWide = !cloudOnly && maxWidth >= 840.dp
 
             Column(
                 modifier = Modifier
@@ -412,10 +411,10 @@ fun PricingScreen(
             ) {
                 DeveloperNote()
 
-                if (store.unavailable(cloud = true, supporter = showBoth)) {
+                if (store.unavailable(cloud = true, supporter = !cloudOnly)) {
                     PricingNotice(stringResource(Res.string.error_billing_unavailable))
                 }
-                if (store.warnCoveredElsewhere(cloud = true, supporter = showBoth)) {
+                if (store.warnCoveredElsewhere(cloud = true, supporter = !cloudOnly)) {
                     PricingNotice(coveredElsewhereMessage(store.coveredBy))
                 }
 
@@ -451,7 +450,7 @@ fun PricingScreen(
 
                 val cards = listOfNotNull(
                     cloudCard,
-                    nameYourPriceCard.takeIf { showBoth },
+                    nameYourPriceCard.takeIf { !cloudOnly },
                 ).let {
                     if (mode == PricingMode.SUPPORTER_FIRST) {
                         it.reversed()
