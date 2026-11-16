@@ -1,6 +1,5 @@
 package org.tasks.locale.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,7 +10,6 @@ import net.dinglisch.android.tasker.TaskerPlugin;
 
 import org.tasks.LocalBroadcastManager;
 import org.tasks.R;
-import org.tasks.billing.PurchaseActivity;
 import org.tasks.databinding.ActivityTaskerCreateBinding;
 import org.tasks.extensions.Context;
 import org.tasks.locale.bundle.TaskCreationBundle;
@@ -59,10 +57,6 @@ public final class TaskerCreateTaskActivity extends AbstractFragmentPluginAppCom
       TaskCreationBundle bundle = new TaskCreationBundle(previousBundle);
       binding.title.setText(bundle.getTitle());
     }
-  }
-
-  private void showPurchaseDialog() {
-    startActivity(new Intent(this, PurchaseActivity.class));
   }
 
   @Override
