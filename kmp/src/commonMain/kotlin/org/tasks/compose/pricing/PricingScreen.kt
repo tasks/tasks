@@ -33,6 +33,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
@@ -325,6 +327,7 @@ fun PricingScreen(
     val currentSku = store?.currentSku ?: subscribedSku
     val cloudIsCurrent = isCloudSku(currentSku, store?.catalog)
     val supporterIsCurrent = isSupporterSku(currentSku, store?.catalog)
+    val signInFromMenu = showSignIn && mode == PricingMode.CLOUD_ONLY && currentSku != null && !cloudIsCurrent
     val cloudAnnual = rememberSaveable { mutableStateOf(true) }
     val nypSelection = rememberSaveable(saver = NameYourPriceSelection.Saver) {
         NameYourPriceSelection()
@@ -350,6 +353,27 @@ fun PricingScreen(
                     if (mode != PricingMode.CLOUD_ONLY) {
                         TextButton(onClick = onRestorePurchases) {
                             Text(stringResource(Res.string.restore_purchases))
+                        }
+                    }
+                    if (signInFromMenu) {
+                        var expanded by remember { mutableStateOf(false) }
+                        IconButton(onClick = { expanded = true }) {
+                            SymbolIcon(
+                                name = TasksIcons.MORE_VERT,
+                                contentDescription = stringResource(Res.string.more_options),
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text(stringResource(Res.string.sign_in)) },
+                                onClick = {
+                                    expanded = false
+                                    signIn()
+                                },
+                            )
                         }
                     }
                 },
@@ -395,7 +419,7 @@ fun PricingScreen(
                             analytics?.subscribeClicked(cloud = true)
                             onCloudSubscribeClick()
                         },
-                        onSignIn = signIn.takeIf { showSignIn && cloudOnly },
+                        onSignIn = signIn.takeIf { showSignIn && cloudOnly && !signInFromMenu },
                         onBillingToggle = { analytics?.billingToggled(it) },
                         store = store,
                         annual = cloudAnnual,

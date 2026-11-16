@@ -3,8 +3,10 @@ package org.tasks.compose.pricing
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.getBoundsInRoot
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
@@ -253,6 +255,73 @@ class CardPricingTest {
 
         assertShowing("Already a subscriber or invited guest?")
         assertEquals(1, onAllNodes(hasText("Sign in")).fetchSemanticsNodes().size)
+    }
+
+    @Test
+    fun aSupporterAddingACloudAccountSignsInFromTheMenu() = runComposeUiTest {
+        var signedIn = false
+        showPaywall(
+            store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+            subscribedSku = supporter.sku,
+            onSignIn = { signedIn = true },
+        )
+
+        assertNotShowing("Already a subscriber or invited guest?")
+        assertNotShowing("Sign in")
+        onNodeWithContentDescription("More options").performClick()
+        onNodeWithText("Sign in").performClick()
+        assertTrue("expected sign in to be asked for", signedIn)
+    }
+
+    @Test
+    fun anyEntitlementBelowCloudTucksSignInAway() {
+        listOf("annual_01", "annual_29", "monthly_01", "monthly_02", "desktop_play").forEach { sku ->
+            runComposeUiTest {
+                showPaywall(store = null, subscribedSku = sku)
+
+                assertNotShowing("Already a subscriber or invited guest?")
+                assertEquals(sku, 1, onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().size)
+            }
+        }
+    }
+
+    @Test
+    fun aCloudEntitlementKeepsTheSignInFooter() {
+        listOf("annual_30", "annual_50", "monthly_03", "monthly_05").forEach { sku ->
+            runComposeUiTest {
+                showPaywall(store = null, subscribedSku = sku)
+
+                assertShowing("Already a subscriber or invited guest?")
+                assertTrue(sku, onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().isEmpty())
+            }
+        }
+    }
+
+    @Test
+    fun aGuestSupporterIsNotAskedToSignIn() = runComposeUiTest {
+        showPaywall(
+            store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+            subscribedSku = supporter.sku,
+            showSignIn = false,
+        )
+
+        assertTrue(onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().isEmpty())
+        assertNotShowing("Sign in")
+    }
+
+    @Test
+    fun anUpsellHasNoSignInMenu() {
+        listOf(PricingMode.BOTH, PricingMode.NYP_ONLY).forEach { mode ->
+            runComposeUiTest {
+                showPaywall(
+                    store = StoreBilling(catalog = BillingCatalog.from(listOf(annual, supporter)), onSelect = {}),
+                    mode = mode,
+                    subscribedSku = supporter.sku,
+                )
+
+                assertTrue("$mode", onAllNodes(hasContentDescription("More options")).fetchSemanticsNodes().isEmpty())
+            }
+        }
     }
 
     @Test

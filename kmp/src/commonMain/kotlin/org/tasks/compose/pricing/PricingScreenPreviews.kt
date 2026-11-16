@@ -84,6 +84,17 @@ internal val paywallPreviewStates = listOf(
     PaywallPreviewState("Desktop features", supporterFeatures = SupporterFeatures.DESKTOP),
     PaywallPreviewState("Opened from DAVx5", supporterFirst = true),
     PaywallPreviewState("Cloud only", mode = PricingMode.CLOUD_ONLY),
+    PaywallPreviewState(
+        "Cloud only, supporter",
+        mode = PricingMode.CLOUD_ONLY,
+        store = previewStore(currentSku = SubscriptionSkus.sku(2), knownCustomer = true),
+    ),
+    PaywallPreviewState(
+        "Cloud only, guest",
+        mode = PricingMode.CLOUD_ONLY,
+        store = previewStore(currentSku = SubscriptionSkus.sku(2), knownCustomer = true),
+        showSignIn = false,
+    ),
     PaywallPreviewState("Supporter only", mode = PricingMode.NYP_ONLY),
     PaywallPreviewState(
         "Cloud subscriber",
