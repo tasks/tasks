@@ -90,7 +90,6 @@ import kotlinx.coroutines.withContext
 import org.tasks.LocalBroadcastManager
 import org.tasks.R
 import org.tasks.ShortcutManager
-import org.tasks.TasksApplication
 import org.tasks.TasksUrls
 import org.tasks.activities.FilterSettingsActivity
 import org.tasks.activities.PlaceSettingsActivity
@@ -171,7 +170,6 @@ import org.tasks.themes.ColorProvider
 import org.tasks.themes.TasksTheme
 import org.tasks.themes.Theme
 import org.tasks.themes.ThemeColor
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.ui.Banner
 import org.tasks.ui.TaskListEvent
 import org.tasks.ui.TaskListEventBus
@@ -621,20 +619,15 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                                 SubscriptionNagBanner(
                                     subscribe = {
                                         listViewModel.dismissBanner(tookAction = true)
-                                        if (TasksApplication.IS_GOOGLE_PLAY) {
-                                            context.startActivity(
-                                                Intent(
-                                                    context,
-                                                    PurchaseActivity::class.java
-                                                ).putExtra(
-                                                    PurchaseActivity.EXTRA_SOURCE,
-                                                    "nag"
-                                                )
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                PurchaseActivity::class.java
+                                            ).putExtra(
+                                                PurchaseActivity.EXTRA_SOURCE,
+                                                "nag"
                                             )
-                                        } else {
-                                            preferences.lastSubscribeRequest = currentTimeMillis()
-                                            context.openUri(R.string.url_donate)
-                                        }
+                                        )
                                     },
                                     dismiss = { listViewModel.dismissBanner() },
                                 )
