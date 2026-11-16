@@ -7,7 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.flow.Flow
+import org.tasks.PlatformConfiguration
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.requiresPro
 
 data class PaywallEntitlement(
     val pro: Boolean,
@@ -24,20 +27,26 @@ data class PaywallEntitlement(
 fun PricingMode.satisfiedBy(
     openedWith: PaywallEntitlement,
     now: PaywallEntitlement,
+    unlocksFeature: Boolean = false,
 ): Boolean = when (this) {
     PricingMode.CLOUD_ONLY -> now.cloud && !openedWith.cloud
-    PricingMode.CLOUD_FIRST, PricingMode.SUPPORTER_FIRST -> (now.pro && !openedWith.pro) || (now.cloud && !openedWith.cloud)
+    PricingMode.CLOUD_FIRST, PricingMode.SUPPORTER_FIRST ->
+        (now.pro && (unlocksFeature || !openedWith.pro)) || (now.cloud && !openedWith.cloud)
 }
+
+fun unlocksFeature(source: String, configuration: PlatformConfiguration): Boolean =
+    Platform.fromSource(source)?.requiresPro(configuration) == true
 
 @Composable
 fun rememberPaywallSatisfied(
     mode: PricingMode,
     subscription: Flow<SubscriptionProvider.SubscriptionInfo?>,
+    unlocksFeature: Boolean = false,
 ): Boolean {
     var openedWithPro by rememberSaveable { mutableStateOf<Boolean?>(null) }
     var openedWithCloud by rememberSaveable { mutableStateOf(false) }
     var satisfied by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(mode) {
+    LaunchedEffect(mode, unlocksFeature) {
         subscription.collect { info ->
             val now = PaywallEntitlement.of(info)
             if (openedWithPro == null) {
@@ -48,7 +57,7 @@ fun rememberPaywallSatisfied(
                 pro = openedWithPro == true,
                 cloud = openedWithCloud,
             )
-            if (mode.satisfiedBy(openedWith, now)) {
+            if (mode.satisfiedBy(openedWith, now, unlocksFeature)) {
                 satisfied = true
             }
         }

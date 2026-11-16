@@ -11,10 +11,12 @@ internal sealed interface AfterPaywall {
     data class SignIn(val platform: Platform) : AfterPaywall
 }
 
-internal fun afterPaywall(source: String): AfterPaywall = when (source) {
-    Platform.CALDAV.name -> AfterPaywall.Open(CaldavSignInDestination)
-    Platform.ETEBASE.name -> AfterPaywall.Open(EtebaseSignInDestination)
-    Platform.GOOGLE_TASKS.name -> AfterPaywall.SignIn(Platform.GOOGLE_TASKS)
-    Platform.MICROSOFT.name -> AfterPaywall.SignIn(Platform.MICROSOFT)
-    else -> AfterPaywall.None
+internal fun afterPaywall(source: String): AfterPaywall = when (Platform.fromSource(source)) {
+    Platform.CALDAV -> AfterPaywall.Open(CaldavSignInDestination)
+    Platform.ETEBASE -> AfterPaywall.Open(EtebaseSignInDestination)
+    Platform.GOOGLE_TASKS -> AfterPaywall.SignIn(Platform.GOOGLE_TASKS)
+    Platform.MICROSOFT -> AfterPaywall.SignIn(Platform.MICROSOFT)
+    Platform.DAVX5,
+    Platform.TASKS_ORG,
+    null -> AfterPaywall.None
 }

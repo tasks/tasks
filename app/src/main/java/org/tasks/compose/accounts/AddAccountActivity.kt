@@ -54,7 +54,8 @@ class AddAccountActivity : ComponentActivity() {
                     Platform.CALDAV,
                     Platform.ETEBASE -> doSignIn(platform)
                     Platform.DAVX5 -> doOpenUrl(platform)
-                    else -> {}
+                    Platform.GOOGLE_TASKS,
+                    Platform.MICROSOFT -> {}
                 }
             }
         } else {

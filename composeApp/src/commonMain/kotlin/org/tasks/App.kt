@@ -191,6 +191,7 @@ import org.tasks.compose.pricing.SupporterFeatures
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.cardPortalLauncher
 import org.tasks.compose.pricing.rememberPaywallSatisfied
+import org.tasks.compose.pricing.unlocksFeature
 import org.tasks.compose.settings.CaldavAccountSettingsDetail
 import org.tasks.compose.accounts.AddAccountViewModel.SignInState.Error as SignInError
 import org.tasks.compose.settings.conflictingAccountMessage
@@ -1217,6 +1218,7 @@ fun App(
                             else -> SupporterFeatures.DESKTOP
                         }
                         val mode = destination.mode.forFeatures(supporterFeatures)
+                        val next = afterPaywall(destination.source)
                         val paywallAnalytics = rememberPaywallAnalytics(
                             analytics = reporting,
                             source = destination.source,
@@ -1240,6 +1242,7 @@ fun App(
                         val satisfied = rememberPaywallSatisfied(
                             mode = mode,
                             subscription = subscriptionProvider.subscription,
+                            unlocksFeature = unlocksFeature(destination.source, configuration),
                         )
                         val openRestore = {
                             backStack.push(
@@ -1253,7 +1256,7 @@ fun App(
                             if (!satisfied || !popPricing()) {
                                 return@LaunchedEffect
                             }
-                            when (val next = afterPaywall(destination.source)) {
+                            when (next) {
                                 is AfterPaywall.Open -> backStack.push(next.destination)
                                 is AfterPaywall.SignIn -> platformSignIn = next.platform.name
                                 AfterPaywall.None -> {}

@@ -8,7 +8,11 @@ enum class Platform {
     MICROSOFT,
     DAVX5,
     CALDAV,
-    ETEBASE,
+    ETEBASE;
+
+    companion object {
+        fun fromSource(source: String): Platform? = entries.find { it.name == source }
+    }
 }
 
 fun Platform.requiresPro(configuration: PlatformConfiguration): Boolean = when (this) {

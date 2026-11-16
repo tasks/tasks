@@ -26,6 +26,7 @@ import org.tasks.compose.pricing.PricingScreen
 import org.tasks.compose.pricing.SupporterFeatures
 import org.tasks.compose.pricing.cardCheckout
 import org.tasks.compose.pricing.rememberPaywallSatisfied
+import org.tasks.compose.pricing.unlocksFeature
 import org.tasks.compose.settings.RestorePurchasesScreen
 import org.tasks.compose.settings.StripeRestoreCallbacks
 import org.tasks.extensions.Context.openUri
@@ -95,7 +96,11 @@ fun Paywall(
         }
     }
     val suggestedPrice = subscription?.let { SubscriptionSkus.supporterPrice(it.sku) }
-    val satisfied = rememberPaywallSatisfied(mode, subscriptionProvider.subscription)
+    val satisfied = rememberPaywallSatisfied(
+        mode = mode,
+        subscription = subscriptionProvider.subscription,
+        unlocksFeature = unlocksFeature(source, configuration),
+    )
     LaunchedEffect(satisfied, showRestore) {
         if (satisfied) {
             if (showRestore) paywallAnalytics.completed() else finish()
@@ -122,14 +127,17 @@ fun Paywall(
                 gitHubSponsorClient?.signIn() ?: GitHubSponsorClient.VerifyResult.Failed
             },
             analytics = firebase,
-            successButtonText = when (source) {
-                Platform.CALDAV.name ->
+            successButtonText = when (Platform.fromSource(source)) {
+                Platform.CALDAV ->
                     stringResource(Res.string.add_platform_account, stringResource(Res.string.caldav))
-                Platform.ETEBASE.name ->
+                Platform.ETEBASE ->
                     stringResource(Res.string.add_platform_account, stringResource(Res.string.etesync))
-                Platform.GOOGLE_TASKS.name ->
+                Platform.GOOGLE_TASKS ->
                     stringResource(Res.string.add_platform_account, stringResource(Res.string.gtasks_GPr_header))
-                else -> null
+                Platform.MICROSOFT,
+                Platform.DAVX5,
+                Platform.TASKS_ORG,
+                null -> null
             },
         )
         return

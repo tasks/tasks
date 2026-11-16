@@ -352,7 +352,9 @@ class MainActivity : AppCompatActivity() {
                                         Platform.CALDAV,
                                         Platform.ETEBASE -> doSignIn(platform)
                                         Platform.DAVX5 -> doOpenUrl(platform)
-                                        else -> {}
+                                        Platform.TASKS_ORG,
+                                        Platform.GOOGLE_TASKS,
+                                        Platform.MICROSOFT -> {}
                                     }
                                 }
                             }
