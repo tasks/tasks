@@ -20,54 +20,59 @@ class PostHogReporting(
     private val logger = Logger.withTag("PostHogReporting")
     private val exceptionThrottle = ExceptionThrottle()
 
-    private val collectStatistics: Boolean =
-        runBlocking {
-            tasksPreferences.get(TasksPreferences.collectStatistics, true)
+    private val enabled: Boolean = apiKey.isNotBlank() && runBlocking {
+        val prefs = tasksPreferences.snapshot()
+        if (!prefs.get(TasksPreferences.collectStatistics, true)) {
+            return@runBlocking false
         }
+        setup(apiKey, dataDir, anonymousId())
+        true
+    }
 
-    private val enabled: Boolean = (apiKey.isNotBlank() && collectStatistics).also { enabled ->
-        if (enabled) {
-            val anonymousId = runBlocking {
-                val stored = tasksPreferences.getOrCreate(
-                    TasksPreferences.posthogAnonymousId,
-                    UUID.randomUUID().toString(),
-                )
-                runCatching { UUID.fromString(stored) }.getOrNull()
-                    ?: UUID.randomUUID().also {
-                        tasksPreferences.set(TasksPreferences.posthogAnonymousId, it.toString())
-                    }
-            }
-            val config = PostHogConfig(
-                apiKey = apiKey,
-                host = "https://us.i.posthog.com",
-            ).apply {
-                preloadFeatureFlags = false
-                sendFeatureFlagEvent = false
-                remoteConfig = false
-                storagePrefix = File(dataDir, "posthog").absolutePath
-                getAnonymousId = { anonymousId }
-            }
-            PostHog.setup(config)
-            PostHog.register("\$lib", "posthog")
-            PostHog.register("\$lib_version", config.sdkVersion)
-            PostHog.register("\$app_name", "Tasks")
-            PostHog.register("\$app_namespace", "org.tasks")
-            PostHog.register("\$app_version", TasksBuildConfig.VERSION_NAME)
-            PostHog.register("\$app_build", TasksBuildConfig.VERSION_CODE)
-            System.getProperty("os.name")?.let {
-                PostHog.register("\$os_name", it)
-            }
-            System.getProperty("os.version")?.let {
-                PostHog.register("\$os_version", it)
-            }
-            System.getProperty("os.arch")?.let {
-                PostHog.register("arch", it)
-            }
-            with(Locale.getDefault()) {
-                PostHog.register("\$locale", "$language-$country")
-            }
-            PostHog.register("\$timezone", TimeZone.getDefault().id)
+    private suspend fun anonymousId(): UUID {
+        val fallback = UUID.randomUUID()
+        val stored = try {
+            tasksPreferences.getOrCreate(TasksPreferences.posthogAnonymousId, fallback.toString())
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to persist anonymous id" }
+            return fallback
         }
+        return runCatching { UUID.fromString(stored) }.getOrDefault(fallback)
+    }
+
+    private fun setup(apiKey: String, dataDir: File, anonymousId: UUID) {
+        val config = PostHogConfig(
+            apiKey = apiKey,
+            host = "https://us.i.posthog.com",
+        ).apply {
+            preloadFeatureFlags = false
+            sendFeatureFlagEvent = false
+            remoteConfig = false
+            storagePrefix = File(dataDir, "posthog").absolutePath
+            getAnonymousId = { anonymousId }
+        }
+        PostHog.setup(config)
+        PostHog.register("\$lib", "posthog")
+        PostHog.register("\$lib_version", config.sdkVersion)
+        PostHog.register("\$app_name", "Tasks")
+        PostHog.register("\$app_namespace", "org.tasks")
+        PostHog.register("\$app_version", TasksBuildConfig.VERSION_NAME)
+        PostHog.register("\$app_build", TasksBuildConfig.VERSION_CODE)
+        System.getProperty("os.name")?.let {
+            PostHog.register("\$os_name", it)
+        }
+        System.getProperty("os.version")?.let {
+            PostHog.register("\$os_version", it)
+        }
+        System.getProperty("os.arch")?.let {
+            PostHog.register("arch", it)
+        }
+        with(Locale.getDefault()) {
+            PostHog.register("\$locale", "$language-$country")
+        }
+        PostHog.register("\$timezone", TimeZone.getDefault().id)
     }
 
     override val analyticsEnabled: Boolean
