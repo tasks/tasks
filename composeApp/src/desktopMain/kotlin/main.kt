@@ -302,7 +302,7 @@ fun main() {
                     }
                 }
             },
-            title = "Tasks",
+            title = "Tasks.org",
             state = windowState,
             // Hidden the moment the user asks to quit. The flush above has already read what the
             // open editor was holding and there is no second one, so anything typed after it would
