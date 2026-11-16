@@ -4,6 +4,7 @@ import android.app.Application
 import com.posthog.PostHog
 import com.posthog.android.PostHogAndroid
 import com.posthog.android.PostHogAndroidConfig
+import org.tasks.extensions.installerPackageName
 import org.tasks.extensions.isFirebaseTestLab
 import timber.log.Timber
 
@@ -28,6 +29,7 @@ class WatchApp : Application() {
                 }
             )
             PostHog.register("platform", "wear")
+            PostHog.register("installer", installerPackageName ?: "unknown")
         }
     }
 
