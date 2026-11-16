@@ -115,7 +115,6 @@
     <string name="supporter_summary">%1$s • 感謝您！</string>
     <string name="sign_in_to_connect">登入以連線您的 Tasks.org 帳戶</string>
     <string name="guest">訪客</string>
-    <string name="donate_nag">考慮透過捐款來表達您的支持！</string>
     <string name="manage_subscription">變更訂閱</string>
     <string name="button_unsubscribe">取消訂閱</string>
     <string name="local_lists">本機清單</string>

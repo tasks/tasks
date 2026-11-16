@@ -96,7 +96,6 @@
     <string name="display_name">Отображаемое название</string>
     <string name="price_per_month_with_currency">%1$s/месяц</string>
     <string name="price_per_year_with_currency">%1$s/год</string>
-    <string name="donate_nag">Выразите свою поддержку с помощью пожертвования!</string>
     <string name="manage_subscription">Изменить подписку</string>
     <string name="button_unsubscribe">Отменить подписку</string>
     <string name="local_lists">Локальные списки</string>

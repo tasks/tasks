@@ -92,7 +92,6 @@
     <string name="display_name">Показувана назва</string>
     <string name="price_per_month_with_currency">%1$s/місяць</string>
     <string name="price_per_year_with_currency">%1$s/рік</string>
-    <string name="donate_nag">Розгляньте можливість підтримати нас внеском!</string>
     <string name="manage_subscription">Змінити підписку</string>
     <string name="button_unsubscribe">Скасувати підписку</string>
     <string name="local_lists">Локальні списки</string>

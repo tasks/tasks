@@ -92,7 +92,6 @@
     <string name="display_name">Εμφανιζόμενο όνομα</string>
     <string name="price_per_month_with_currency">%1$s/μήνα</string>
     <string name="price_per_year_with_currency">%1$s/χρόνο</string>
-    <string name="donate_nag">Σκεφτείτε να δείξετε την υποστήριξη σας με μια δωρεά!</string>
     <string name="manage_subscription">Τροποποίηση συνδρομής</string>
     <string name="button_unsubscribe">Ακύρωση συνδρομής</string>
     <string name="local_lists">Τοπικές λίστες</string>

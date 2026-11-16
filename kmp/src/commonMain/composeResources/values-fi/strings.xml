@@ -104,7 +104,6 @@
     <string name="upgrade_to_pro_card_description">Avaa Tasks.org-pilvisynkronointi, perhe- ja ystäväjako sekä sähköpostista tehtäväksi -toiminto</string>
     <string name="price_per_month_with_currency">%1$s/kuukausi</string>
     <string name="price_per_year_with_currency">%1$s/vuosi</string>
-    <string name="donate_nag">Harkitse tuen osoittamista lahjoituksella!</string>
     <string name="manage_subscription">Muokkaa tilausta</string>
     <string name="button_unsubscribe">Peruuta tilaus</string>
     <string name="local_lists">Paikalliset luettelot</string>

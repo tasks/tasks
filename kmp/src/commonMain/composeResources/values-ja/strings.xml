@@ -117,7 +117,6 @@
     <string name="supporter_summary">%1$s •さん、ありがとうございます！</string>
     <string name="sign_in_to_connect">サインインしてTasks.orgアカウントに接続する</string>
     <string name="guest">ゲスト</string>
-    <string name="donate_nag">寄付による支援をご検討ください！</string>
     <string name="manage_subscription">サブスクリプションの変更</string>
     <string name="button_unsubscribe">サブスクリプションのキャンセル</string>
     <string name="local_lists">ローカルリスト</string>

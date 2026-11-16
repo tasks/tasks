@@ -115,7 +115,6 @@
     <string name="supporter_summary">%1$s • Hvala!</string>
     <string name="sign_in_to_connect">Prijavi se za povezivanje na tvoj Tasks.org račun</string>
     <string name="guest">Gost</string>
-    <string name="donate_nag">Podrži projekt donacijom!</string>
     <string name="manage_subscription">Promijeni pretplatu</string>
     <string name="button_unsubscribe">Otkaži pretplatu</string>
     <string name="local_lists">Popisi na uređaju</string>

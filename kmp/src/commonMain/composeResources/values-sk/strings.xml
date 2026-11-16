@@ -91,7 +91,6 @@
     <string name="display_name">Zobrazované meno</string>
     <string name="price_per_month_with_currency">%1$s mesačne</string>
     <string name="price_per_year_with_currency">%1$s ročne</string>
-    <string name="donate_nag">Zvážte podporenie projektu dobrovoľným príspevkom!</string>
     <string name="manage_subscription">Upraviť predplatné</string>
     <string name="button_unsubscribe">Zrušiť predplatné</string>
     <string name="local_lists">Zoznamy iba na tomto zariadení</string>

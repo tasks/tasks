@@ -115,7 +115,6 @@
     <string name="filter_medium_priority">Միջին առաջնահերթություն</string>
     <string name="filter_low_priority">Ցածր առաջնահերթություն</string>
     <string name="filter_no_priority">Առանց առաջնահերթության</string>
-    <string name="donate_nag">Ցույց տվեք Ձեր օգնությունը նվիրաբերման միջոցով🥹</string>
     <string name="local_lists">Լոկալ ցուցակներ</string>
     <string name="last_backup_never">երբեք</string>
     <string name="your_subscription_expired">Ձեր բաժանորդագրության ժամկետը լրացել է։ Ծառայությունը վերսկսելու համար բաժանորդագրվեք հիմա։</string>

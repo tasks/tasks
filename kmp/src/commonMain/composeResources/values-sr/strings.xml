@@ -104,7 +104,6 @@
     <string name="price_per_year_with_currency">%1$s/годишње</string>
     <string name="supporter_summary">%1$s • Хвала!</string>
     <string name="sign_in_to_connect">Пријави се за повезивање Tasks.org налога</string>
-    <string name="donate_nag">Подржи нас донацијом!</string>
     <string name="manage_subscription">Модификуј претплате</string>
     <string name="button_unsubscribe">Откажи претплату</string>
     <string name="local_lists">Локална листа</string>

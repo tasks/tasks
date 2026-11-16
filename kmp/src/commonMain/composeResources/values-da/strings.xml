@@ -104,7 +104,6 @@
     <string name="price_per_year_with_currency">%1$s/år</string>
     <string name="supporter_summary">%1$s • Tak!</string>
     <string name="sign_in_to_connect">Log ind for at forbinde din Tasks.org-konto</string>
-    <string name="donate_nag">Overvej at vise din støtte med en donation!</string>
     <string name="manage_subscription">Administrer abonnement</string>
     <string name="button_unsubscribe">Opsig abonnement</string>
     <string name="local_lists">Lokale lister</string>

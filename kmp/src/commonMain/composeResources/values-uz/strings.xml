@@ -104,7 +104,6 @@
     <string name="filter_medium_priority">O‘rta ustuvorlik</string>
     <string name="filter_low_priority">Past ustuvorlik</string>
     <string name="filter_no_priority">Ustuvorlik belgilanmagan</string>
-    <string name="donate_nag">Xayriya orqali loyihani qo‘llab-quvvatlashni o‘ylab ko‘ring!</string>
     <string name="email_to_task">Vazifaga aylantirish uchun e-pochta</string>
     <string name="email_to_task_address">E-pochta manzilingiz</string>
     <string name="completed">Bajarildi</string>

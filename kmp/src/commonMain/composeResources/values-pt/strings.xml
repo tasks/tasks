@@ -92,7 +92,6 @@
     <string name="display_name">Mostrar nome</string>
     <string name="price_per_month_with_currency">%1$s/mês</string>
     <string name="price_per_year_with_currency">%1$s/ano</string>
-    <string name="donate_nag">Considere mostrar seu apoio com uma doação!</string>
     <string name="manage_subscription">Alterar subscrição</string>
     <string name="button_unsubscribe">Cancelar subscrição</string>
     <string name="local_lists">Listas locais</string>
