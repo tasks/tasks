@@ -4,11 +4,13 @@ import co.touchlab.kermit.Logger
 import com.posthog.PostHog
 import com.posthog.PostHogConfig
 import kotlin.coroutines.cancellation.CancellationException
+import kotlinx.coroutines.runBlocking
 import org.tasks.TasksBuildConfig
 import org.tasks.preferences.TasksPreferences
 import java.io.File
 import java.util.Locale
 import java.util.TimeZone
+import java.util.UUID
 
 class PostHogReporting(
     apiKey: String,
@@ -19,12 +21,22 @@ class PostHogReporting(
     private val exceptionThrottle = ExceptionThrottle()
 
     private val collectStatistics: Boolean =
-        kotlinx.coroutines.runBlocking {
+        runBlocking {
             tasksPreferences.get(TasksPreferences.collectStatistics, true)
         }
 
     private val enabled: Boolean = (apiKey.isNotBlank() && collectStatistics).also { enabled ->
         if (enabled) {
+            val anonymousId = runBlocking {
+                val stored = tasksPreferences.getOrCreate(
+                    TasksPreferences.posthogAnonymousId,
+                    UUID.randomUUID().toString(),
+                )
+                runCatching { UUID.fromString(stored) }.getOrNull()
+                    ?: UUID.randomUUID().also {
+                        tasksPreferences.set(TasksPreferences.posthogAnonymousId, it.toString())
+                    }
+            }
             val config = PostHogConfig(
                 apiKey = apiKey,
                 host = "https://us.i.posthog.com",
@@ -33,6 +45,7 @@ class PostHogReporting(
                 sendFeatureFlagEvent = false
                 remoteConfig = false
                 storagePrefix = File(dataDir, "posthog").absolutePath
+                getAnonymousId = { anonymousId }
             }
             PostHog.setup(config)
             PostHog.register("\$lib", "posthog")
