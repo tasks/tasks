@@ -70,11 +70,11 @@ build() {
     "${zig[@]}" c++ -target "$target" -O3 -fno-exceptions -fno-rtti -Wno-writable-strings \
         -Iinclude -Iinclude/"$md" -I. -c sqlite_bindings.cpp -o "$target/sqlite_bindings.o"
     "${zig[@]}" cc -target "$target" -shared -s -Wl,-headerpad,0x1000 -o "$target/$lib" "$target/sqlite_bindings.o" "$target/sqlite3.o"
-    file "$target/$lib" | grep -q "$type" || { file "$target/$lib" >&2; echo "expected $type" >&2; exit 1; }
+    file "$target/$lib" | grep -qE "$type" || { file "$target/$lib" >&2; echo "expected $type" >&2; exit 1; }
     mkdir -p "$out/$dir"
     cp "$target/$lib" "$out/$dir/"
     echo "$out/$dir/$lib"
 }
 
-build aarch64-windows-gnu windows windows_arm64 sqliteJni.dll "PE32+ executable (DLL).*Aarch64"
+build aarch64-windows-gnu windows windows_arm64 sqliteJni.dll "PE32\+ executable.*\(DLL\).*(Aarch64|ARM64)"
 build x86_64-macos.10.15 unix osx_x64 libsqliteJni.dylib "Mach-O 64-bit.*x86_64"
