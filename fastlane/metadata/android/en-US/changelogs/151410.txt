@@ -1,2 +1,3 @@
 * Bug fix for Tasks.org Cloud and CalDAV sync
+* Don't show app updated banner for patch releases
 * Update translations:

@@ -4,6 +4,8 @@ import android.content.Context
 import org.tasks.fcm.FcmTokenProvider
 import android.content.SharedPreferences
 import androidx.annotation.StringRes
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -68,6 +70,11 @@ class Firebase @Inject constructor(
                 }
             )
             PostHog.register("installer", context.installerPackageName ?: "unknown")
+            PostHog.register(
+                "play_services_available",
+                GoogleApiAvailability.getInstance()
+                    .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS,
+            )
             true
         } else {
             false

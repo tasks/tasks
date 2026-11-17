@@ -6,6 +6,7 @@ import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationServiceConfiguration
 import net.openid.appauth.ResponseTypeValues
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -18,6 +19,11 @@ class CodeTokenRequestTest {
         val response = response()
 
         assertEquals(response.request.nonce, response.createCodeTokenRequest().nonce)
+    }
+
+    @Test
+    fun aRequestWithoutANonceSkipsIdTokenNonceValidation() {
+        assertNull(response().createCodeTokenRequest(nonce = null).nonce)
     }
 
     @Test

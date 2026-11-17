@@ -56,6 +56,7 @@ object AnalyticsEvents {
     const val PARAM_PROVIDER = "provider"
     const val PARAM_RESULT = "result"
     const val PARAM_SELECTION = "selection"
+    const val PARAM_SERVER_TYPE = "server_type"
     const val PARAM_SKU = "sku"
     const val PARAM_SOURCE = "source"
     const val PARAM_STATE = "state"
