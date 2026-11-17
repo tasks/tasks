@@ -105,7 +105,7 @@ class SignInViewModel @Inject constructor(
         val authStateManager = authService.authStateManager
         val serverCodeVerifier = authService.serverCodeVerifier
         val request = when {
-            authService.isGitHub -> authorizationResponse.createCodeTokenRequest()
+            authService.isGitHub -> authorizationResponse.createCodeTokenRequest(nonce = null)
             serverCodeVerifier != null ->
                 authorizationResponse.createCodeTokenRequest(codeVerifier = serverCodeVerifier)
             else -> authorizationResponse.createTokenExchangeRequest()
@@ -136,6 +136,7 @@ class SignInViewModel @Inject constructor(
     companion object {
         fun AuthorizationResponse.createCodeTokenRequest(
             codeVerifier: String? = request.codeVerifier,
+            nonce: String? = request.nonce,
         ): TokenRequest {
             checkNotNull(authorizationCode) { "authorizationCode not available for exchange request" }
             return TokenRequest
@@ -143,7 +144,7 @@ class SignInViewModel @Inject constructor(
                     .setGrantType(GrantTypeValues.AUTHORIZATION_CODE)
                     .setRedirectUri(request.redirectUri)
                     .setCodeVerifier(codeVerifier)
-                    .setNonce(request.nonce)
+                    .setNonce(nonce)
                     .setAuthorizationCode(authorizationCode)
                     .setAdditionalParameters(emptyMap())
                     .build()
