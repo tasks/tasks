@@ -32,12 +32,14 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.password_required
 import tasks.kmp.generated.resources.subscription_required
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
+import org.tasks.analytics.AnalyticsEvents.PARAM_SERVER_TYPE
 import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
 import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
 import org.tasks.analytics.AnalyticsEvents.SYNC_NOT_FOUND
 import org.tasks.analytics.AnalyticsEvents.SYNC_UNKNOWN_ACCESS
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.serverTypeName
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar.Companion.fromVtodo
@@ -123,6 +125,7 @@ class CaldavSynchronizer(
                 reporting.logEvent(
                     INITIAL_SYNC_COMPLETE,
                     PARAM_TYPE to syncType,
+                    PARAM_SERVER_TYPE to account.serverTypeName,
                     PARAM_TASK_COUNT to taskCount
                 )
             }

@@ -9,10 +9,12 @@ import com.etebase.client.exceptions.ServerErrorException
 import com.etebase.client.exceptions.TemporaryServerErrorException
 import com.etebase.client.exceptions.UnauthorizedException
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
+import org.tasks.analytics.AnalyticsEvents.PARAM_SERVER_TYPE
 import org.tasks.analytics.AnalyticsEvents.PARAM_TASK_COUNT
 import org.tasks.analytics.AnalyticsEvents.PARAM_TYPE
 import org.tasks.analytics.Constants
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.etebaseServerName
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.VtodoCache
 import org.tasks.caldav.iCalendar
@@ -57,6 +59,7 @@ class EtebaseSynchronizer(
                 reporting.logEvent(
                     INITIAL_SYNC_COMPLETE,
                     PARAM_TYPE to Constants.SYNC_TYPE_ETEBASE,
+                    PARAM_SERVER_TYPE to account.etebaseServerName,
                     PARAM_TASK_COUNT to taskCount
                 )
             }

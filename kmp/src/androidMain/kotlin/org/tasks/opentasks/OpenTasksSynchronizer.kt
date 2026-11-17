@@ -4,7 +4,9 @@ import at.bitfire.ical4android.BatchOperation
 import co.touchlab.kermit.Logger
 import org.dmfs.tasks.contract.TaskContract
 import org.dmfs.tasks.contract.TaskContract.Tasks
+import org.tasks.analytics.AnalyticsEvents.PARAM_SERVER_TYPE
 import org.tasks.analytics.Reporting
+import org.tasks.analytics.serverTypeName
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.caldav.iCalendar
 import org.tasks.caldav.toIcal4android
@@ -76,6 +78,7 @@ class OpenTasksSynchronizer(
                         reporting.logEvent(
                             "sync_initial_sync_complete",
                             "type" to syncType,
+                            PARAM_SERVER_TYPE to account.serverTypeName,
                             "task_count" to taskCount
                         )
                     }
