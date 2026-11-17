@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.tasks.activities.FilterSettingsActivity.Companion.EXTRA_CRITERIA
 import org.tasks.activities.FilterSettingsActivity.Companion.TOKEN_FILTER
+import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.FilterDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.filters.key
@@ -38,6 +39,7 @@ class FilterSettingsViewModel @Inject constructor(
     private val filterDao: FilterDao,
     private val taskDao: TaskDao,
     private val tasksPreferences: TasksPreferences,
+    private val refreshBroadcaster: RefreshBroadcaster,
 ) : ViewModel() {
     data class ViewState(
         val filter: CustomFilter? = null,
@@ -162,6 +164,7 @@ class FilterSettingsViewModel @Inject constructor(
         _viewState.value.filter?.let {
             filterDao.delete(it.id)
             tasksPreferences.delete(it.key())
+            refreshBroadcaster.broadcastRefresh()
         }
         onCompleted()
     }
