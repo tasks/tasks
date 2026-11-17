@@ -724,4 +724,5 @@
     <string name="pricing_nyp_feature_third_party_sync">Sinkronigi per Google Tasks, Microsoft To Do, CalDAV, kaj EteSync</string>
     <string name="pricing_feature_trial">Senpaga provperiodo por novaj abonantoj, dum 7 tagoj</string>
     <string name="cloud_onboarding_sign_in_body">Ensalutu por krei vian konton de Tasks.org Cloud</string>
+    <string name="works_with_xandikos_description">CalDAV servilo kun Git subteno</string>
 </resources>
