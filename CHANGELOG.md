@@ -1,11 +1,11 @@
-### 15.14.1-beta02 (2026-11-16)
+### 15.14.1 (2026-11-17)
+
+* Bug fix for Tasks.org Cloud and CalDAV sync
 
 Android:
   * Don't show app updated banner for patch releases
+  * Fix GitHub sign in
 
-### 15.14.1-beta01 (2026-11-16)
-
-* Bug fix for Tasks.org Cloud and CalDAV sync
 * Update translations:
   * Esperanto - Don Zouras
   * Spanish - Lucas Quintana
