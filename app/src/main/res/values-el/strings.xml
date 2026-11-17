@@ -6,12 +6,7 @@
     <string name="backup_BAc_export">Δημιουργία backup</string>
     <string name="export_toast">Αποθηκεύση ασφαλείας %1$s στο %2$s.</string>
     <string name="import_summary_title">Επαναφορά σύνοψης</string>
-    <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.
-\n
-\n %3$s καταχωρήθηκε,
-\n %4$s υπάρχει ήδη
-\n %5$s έχει σφάλματα
-\n</string>
+    <string name="import_summary_message">Αρχείο %1$s περιέχεται %2$s.\n\n %3$s καταχωρήθηκε,\n %4$s υπάρχει ήδη\n %5$s έχει σφάλματα</string>
     <string name="import_progress_read">Ανάγνωση εργασίας %d…</string>
     <string name="read_permission_label">Άδεια εργασιών</string>
     <string name="DLG_hour_minutes">Ώρα (ώρες : λεπτά)</string>
@@ -93,7 +88,7 @@
     <string name="astrid_sort_order">Μη αυτόματη ταξινόμηση Astrid</string>
     <string name="SSD_sort_my_order">Η παραγγελία μου</string>
     <string name="action_call">Καλέστε</string>
-    <string name="TLA_no_items">Δεν υπάρχουν καθήκοντα.</string>
+    <string name="TLA_no_items">Δεν υπάρχουν εργασίες εδώ.</string>
     <string name="cancel">Ακύρωση</string>
     <string name="ok">OK</string>
     <string name="display_name">Εμφανιζόμενο όνομα</string>
@@ -393,4 +388,9 @@
     <string name="widget_due_date_below_title">Κάτω από τον τίτλο</string>
     <string name="widget_due_date_hidden">Κρυμμένο</string>
     <string name="clear_completed_tasks_confirmation">Διαγραφή ολοκληρωμένων εργασιών;</string>
+    <string name="import_failed">Αποτυχία εισαγωγής</string>
+    <string name="import_failed_message">Αδυναμία ανάγνωσης του αρχείου backup</string>
+    <string name="write_permission_label">Επεξεργαστείτε τις εργασίες</string>
+    <string name="sort_options">Επιλογές ταξινόμησης</string>
+    <string name="banner_subscription_required_body">Πληρώστε όσο θέλετε για να αποκτήσετε πρόσβαση στον συγχρονισμό του %s.</string>
 </resources>
