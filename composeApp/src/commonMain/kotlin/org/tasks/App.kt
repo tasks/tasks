@@ -3112,10 +3112,11 @@ private fun SettingsScreen(
                     is org.tasks.compose.settings.SettingsDestination.Backups -> {
                         val viewModel = koinViewModel<BackupsViewModel>()
                         val exportState = viewModel.exportState
-                        BackupsScreen(
+                        org.tasks.compose.settings.BackupsDetail(
                             exportState = exportState,
                             onExport = { viewModel.export("backups") },
                             onDismissResult = { viewModel.resetState() },
+                            onNavigateBack = { scope.launch { navigator.navigateBack() } },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination -> {
