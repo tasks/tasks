@@ -1,6 +1,8 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
@@ -25,6 +27,7 @@ class DesktopSignInHandler(
         platform: Platform,
         provider: OAuthProvider?,
         loginHint: String?,
+        onAuthorized: () -> Unit,
     ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
@@ -40,32 +43,35 @@ class DesktopSignInHandler(
         }
 
         val result = oauthFlow.signIn(oauthProvider, authHeader = authHeader, loginHint = loginHint)
+        onAuthorized()
 
         try {
-            when (platform) {
-                Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(
-                    oauthResult = result,
-                    caldavDao = caldavDao,
-                    encryption = encryption,
-                    analytics = reporting,
-                )
-                Platform.MICROSOFT -> setupMicrosoftAccount(
-                    oauthResult = result,
-                    caldavDao = caldavDao,
-                    encryption = encryption,
-                    analytics = reporting,
-                )
-                else -> setupTasksAccount(
-                    oauthResult = result,
-                    issuer = oauthProvider.issuer,
-                    caldavUrl = serverEnvironment.caldavUrl,
-                    caldavDao = caldavDao,
-                    encryption = encryption,
-                    provider = caldavClientProvider,
-                    purchaseClaim = purchaseClaim,
-                    pushTokenManager = pushTokenManager,
-                    analytics = reporting,
-                )
+            withContext(NonCancellable) {
+                when (platform) {
+                    Platform.GOOGLE_TASKS -> setupGoogleTasksAccount(
+                        oauthResult = result,
+                        caldavDao = caldavDao,
+                        encryption = encryption,
+                        analytics = reporting,
+                    )
+                    Platform.MICROSOFT -> setupMicrosoftAccount(
+                        oauthResult = result,
+                        caldavDao = caldavDao,
+                        encryption = encryption,
+                        analytics = reporting,
+                    )
+                    else -> setupTasksAccount(
+                        oauthResult = result,
+                        issuer = oauthProvider.issuer,
+                        caldavUrl = serverEnvironment.caldavUrl,
+                        caldavDao = caldavDao,
+                        encryption = encryption,
+                        provider = caldavClientProvider,
+                        purchaseClaim = purchaseClaim,
+                        pushTokenManager = pushTokenManager,
+                        analytics = reporting,
+                    )
+                }
             }
             Logger.i(TAG) { "Signed in" }
         } finally {

@@ -1,6 +1,8 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.compose.accounts.Platform
@@ -22,23 +24,27 @@ class IosSignInHandler(
         platform: Platform,
         provider: OAuthProvider?,
         loginHint: String?,
+        onAuthorized: () -> Unit,
     ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
         }
         val result = oauthFlow.signIn(oauthProvider, loginHint = loginHint)
-        setupTasksAccount(
-            oauthResult = result,
-            issuer = oauthProvider.issuer,
-            caldavUrl = serverEnvironment.caldavUrl,
-            caldavDao = caldavDao,
-            encryption = encryption,
-            provider = caldavClientFactory,
-            purchaseClaim = purchaseClaim,
-            pushTokenManager = pushTokenManager,
-            analytics = reporting,
-        )
+        onAuthorized()
+        withContext(NonCancellable) {
+            setupTasksAccount(
+                oauthResult = result,
+                issuer = oauthProvider.issuer,
+                caldavUrl = serverEnvironment.caldavUrl,
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = caldavClientFactory,
+                purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = reporting,
+            )
+        }
         Logger.i("IosSignInHandler") { "Account created successfully" }
     }
 }

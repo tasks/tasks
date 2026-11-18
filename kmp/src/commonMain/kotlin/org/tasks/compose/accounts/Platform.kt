@@ -15,6 +15,15 @@ enum class Platform {
     }
 }
 
+fun PlatformConfiguration.supports(platform: Platform): Boolean = when (platform) {
+    Platform.TASKS_ORG -> supportsTasksOrg
+    Platform.GOOGLE_TASKS -> supportsGoogleTasks
+    Platform.MICROSOFT -> supportsMicrosoft
+    Platform.DAVX5 -> supportsOpenTasks
+    Platform.CALDAV -> supportsCaldav
+    Platform.ETEBASE -> supportsEteSync
+}
+
 fun Platform.requiresPro(configuration: PlatformConfiguration): Boolean = when (this) {
     Platform.CALDAV,
     Platform.ETEBASE,

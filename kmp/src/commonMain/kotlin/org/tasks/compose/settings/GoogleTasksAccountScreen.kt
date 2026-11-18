@@ -35,7 +35,7 @@ fun GoogleTasksAccountScreen(
     error: String?,
     isUnauthorized: Boolean,
     accountName: String,
-    onSignIn: () -> Unit,
+    onSignIn: (() -> Unit)?,
     onDelete: () -> Unit,
     signInTitle: StringResource = Res.string.sign_in_with_google,
 ) {
@@ -50,7 +50,7 @@ fun GoogleTasksAccountScreen(
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
         if (error != null) {
-            if (isUnauthorized) {
+            if (isUnauthorized && onSignIn != null) {
                 Column(
                     modifier = Modifier.padding(horizontal = SettingsContentPadding),
                 ) {
@@ -72,19 +72,21 @@ fun GoogleTasksAccountScreen(
             Spacer(modifier = Modifier.height(SettingsContentPadding))
         }
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-        ) {
-            SettingsItemCard {
-                PreferenceRow(
-                    title = stringResource(Res.string.reinitialize_account),
-                    icon = TasksIcons.REFRESH,
-                    onClick = onSignIn,
-                )
+        if (onSignIn != null) {
+            Column(
+                modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            ) {
+                SettingsItemCard {
+                    PreferenceRow(
+                        title = stringResource(Res.string.reinitialize_account),
+                        icon = TasksIcons.REFRESH,
+                        onClick = onSignIn,
+                    )
+                }
             }
-        }
 
-        Spacer(modifier = Modifier.height(SettingsContentPadding))
+            Spacer(modifier = Modifier.height(SettingsContentPadding))
+        }
 
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),

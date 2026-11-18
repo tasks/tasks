@@ -1,5 +1,7 @@
 package org.tasks.auth
 
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.withContext
 import org.tasks.compose.accounts.Platform
 
 class AndroidSignInHandler(
@@ -11,6 +13,7 @@ class AndroidSignInHandler(
         platform: Platform,
         provider: OAuthProvider?,
         loginHint: String?,
+        onAuthorized: () -> Unit,
     ) {
         if (platform == Platform.MICROSOFT) {
             val microsoft = microsoftSignIn
@@ -22,6 +25,10 @@ class AndroidSignInHandler(
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             else -> throw UnsupportedOperationException("$platform not supported")
         }
-        signIn.signIn(oauthProvider, openUrl = {}, loginHint = loginHint)
+        val result = signIn.authorize(oauthProvider, openUrl = {}, loginHint = loginHint)
+        onAuthorized()
+        withContext(NonCancellable) {
+            signIn.createAccount(oauthProvider, result)
+        }
     }
 }

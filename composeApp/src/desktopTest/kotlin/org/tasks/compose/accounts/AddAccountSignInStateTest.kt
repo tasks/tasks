@@ -3,6 +3,7 @@ package org.tasks.compose.accounts
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -40,7 +41,7 @@ class AddAccountSignInStateTest {
 
         viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE)
 
-        assertEquals(AddAccountViewModel.SignInState.Idle, viewModel.signInState.value)
+        assertEquals(SignInState.Idle, viewModel.signInState.value)
     }
 
     @Test
@@ -50,9 +51,31 @@ class AddAccountSignInStateTest {
         viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.GOOGLE)
 
         assertEquals(
-            AddAccountViewModel.SignInState.Error.PaymentRequired,
+            SignInState.Error.PaymentRequired,
             viewModel.signInState.value,
         )
+    }
+
+    @Test
+    fun choosingAnotherProviderAbandonsTheSignInStillWaitingOnTheBrowser() = runTest {
+        val abandoned = mutableListOf<Boolean>()
+        var first = true
+        val viewModel = viewModel {
+            if (first) {
+                first = false
+                try {
+                    awaitCancellation()
+                } finally {
+                    abandoned += true
+                }
+            }
+        }
+
+        viewModel.signIn(Platform.MICROSOFT)
+        viewModel.signIn(Platform.GOOGLE_TASKS)
+
+        assertEquals(listOf(true), abandoned)
+        assertEquals(SignInState.Idle, viewModel.signInState.value)
     }
 
     private fun viewModel(signIn: suspend () -> Unit) = AddAccountViewModel(
@@ -70,6 +93,7 @@ class AddAccountSignInStateTest {
                 platform: Platform,
                 provider: OAuthProvider?,
                 loginHint: String?,
+                onAuthorized: () -> Unit,
             ) = signIn()
         },
     )

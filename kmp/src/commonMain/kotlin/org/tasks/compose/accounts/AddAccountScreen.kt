@@ -199,13 +199,13 @@ fun AddAccountScreen(
                     Spacer(modifier = Modifier.height(SettingsSectionGap))
                 }
 
-                val supportedAccounts = buildList {
-                    if (configuration.supportsMicrosoft) add(Platform.MICROSOFT)
-                    if (configuration.supportsGoogleTasks) add(Platform.GOOGLE_TASKS)
-                    if (configuration.supportsOpenTasks) add(Platform.DAVX5)
-                    if (configuration.supportsCaldav) add(Platform.CALDAV)
-                    if (configuration.supportsEteSync) add(Platform.ETEBASE)
-                }
+                val supportedAccounts = listOf(
+                    Platform.MICROSOFT,
+                    Platform.GOOGLE_TASKS,
+                    Platform.DAVX5,
+                    Platform.CALDAV,
+                    Platform.ETEBASE,
+                ).filter(configuration::supports)
                 val (proAccounts, freeAccounts) = supportedAccounts.partition {
                     it.requiresPro(configuration)
                 }

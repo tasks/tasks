@@ -7,5 +7,6 @@ interface SignInHandler {
         platform: Platform,
         provider: OAuthProvider? = null,
         loginHint: String? = null,
+        onAuthorized: () -> Unit = {},
     )
 }

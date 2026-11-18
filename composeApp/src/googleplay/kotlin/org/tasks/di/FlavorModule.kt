@@ -37,6 +37,7 @@ import org.tasks.billing.maybeTriggerCloudOnboarding
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.fcm.GooglePlayFcmTokenProvider
 import org.tasks.sync.SyncAdapters
+import kotlin.coroutines.cancellation.CancellationException
 import org.tasks.sync.SyncSource
 
 val flavorModule = module {
@@ -63,7 +64,9 @@ val flavorModule = module {
         MicrosoftSignIn { loginHint ->
             val activity = get<CurrentActivity>().activity
                 ?: throw IllegalStateException("Microsoft sign-in needs a foreground activity")
-            get<MsalClient>().signIn(activity, loginHint, get<Reporting>())
+            if (!get<MsalClient>().signIn(activity, loginHint, get<Reporting>())) {
+                throw CancellationException("Sign in cancelled")
+            }
         }
     }
     single<MicrosoftClientProvider> {

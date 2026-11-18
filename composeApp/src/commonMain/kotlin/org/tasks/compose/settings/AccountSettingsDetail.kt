@@ -18,7 +18,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import org.tasks.PlatformConfiguration
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Reporting
+import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.SignInErrorDialog
+import org.tasks.compose.accounts.SignInProgressDialog
+import org.tasks.compose.accounts.supports
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import tasks.kmp.generated.resources.Res
@@ -31,10 +39,16 @@ internal fun AccountSettingsDetail(
     accountId: Long,
     defaultName: StringResource,
     onNavigateBack: () -> Unit,
+    platform: Platform,
+    loginHint: (CaldavAccount) -> String?,
     signInTitle: StringResource = Res.string.sign_in_with_google,
-    onSignIn: (CaldavAccount?) -> Unit = { },
 ) {
     val viewModel = koinViewModel<GoogleTasksAccountViewModel>()
+    val signInAgainViewModel = koinViewModel<SignInAgainViewModel>(key = "sign-in-again-$accountId")
+    val signInState by signInAgainViewModel.signInState.collectAsState()
+    val reporting = koinInject<Reporting>()
+    val configuration = koinInject<PlatformConfiguration>()
+    val canSignIn = configuration.supports(platform)
     LaunchedEffect(accountId) { viewModel.setAccountId(accountId) }
     val state by viewModel.state.collectAsState()
     if (!state.loaded) return
@@ -64,9 +78,29 @@ internal fun AccountSettingsDetail(
                 error = state.error,
                 isUnauthorized = state.isUnauthorized,
                 accountName = accountName,
-                onSignIn = { onSignIn(state.account) },
+                onSignIn = if (canSignIn) {
+                    {
+                        signInAgainViewModel.signIn(
+                            platform = platform,
+                            loginHint = state.account?.let(loginHint),
+                        )
+                    }
+                } else {
+                    null
+                },
                 onDelete = { viewModel.delete(onNavigateBack) },
                 signInTitle = signInTitle,
+            )
+            SignInErrorDialog(
+                signInState = signInState,
+                onDismiss = { signInAgainViewModel.dismissError() },
+                reporting = reporting,
+                source = AnalyticsEvents.SOURCE_SIGN_IN_AGAIN,
+                onPaymentRequired = null,
+            )
+            SignInProgressDialog(
+                signInState = signInState,
+                onCancel = { signInAgainViewModel.cancel() },
             )
         }
     }

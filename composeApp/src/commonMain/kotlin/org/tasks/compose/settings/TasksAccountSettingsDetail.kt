@@ -14,17 +14,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
-import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,15 +27,15 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
-import org.tasks.auth.PaymentRequiredException
-import org.tasks.auth.SignInHandler
-import org.tasks.auth.signInError
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.compose.pricing.cardPortalLauncher
-import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.compose.accounts.Platform
+import org.tasks.compose.accounts.SignInErrorDialog
+import org.tasks.compose.accounts.SignInProgressDialog
 import org.tasks.TasksUrls
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Reporting
 import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.TasksAccountViewModel.Companion.DEFAULT_TOS_VERSION
 import tasks.kmp.generated.resources.Res
@@ -59,7 +54,8 @@ fun TasksAccountSettingsDetail(
     onSubscribe: () -> Unit,
 ) {
     val viewModel = koinViewModel<TasksAccountViewModel>()
-    val signInHandler = koinInject<SignInHandler>()
+    val signInAgainViewModel = koinViewModel<SignInAgainViewModel>(key = "sign-in-again-${pane.uuid}")
+    val reporting = koinInject<Reporting>()
     val stripePurchases = koinInject<StripePurchases>()
     val scope = rememberCoroutineScope()
     val uriHandler = LocalUriHandler.current
@@ -72,12 +68,16 @@ fun TasksAccountSettingsDetail(
 
     LaunchedEffect(pane.uuid) {
         viewModel.setAccountUuid(pane.uuid)
-        viewModel.refreshAccount()
     }
 
     val state by viewModel.state.collectAsState()
-    var conflictingAccount by remember { mutableStateOf<String?>(null) }
-    var signInFailure by remember { mutableStateOf<String?>(null) }
+    val signInState by signInAgainViewModel.signInState.collectAsState()
+    val account = state.account?.takeIf { it.uuid == pane.uuid }
+    LaunchedEffect(account?.uuid, account?.password) {
+        if (account != null) {
+            viewModel.refreshAccount()
+        }
+    }
     if (!state.loaded) return
     val sponsorUrl = stringResource(Res.string.url_sponsor)
     val appPasswordsUrl = stringResource(Res.string.url_app_passwords)
@@ -115,26 +115,11 @@ fun TasksAccountSettingsDetail(
                         state.isApple -> OAuthProvider.APPLE
                         else -> OAuthProvider.GOOGLE
                     }
-                    scope.launch {
-                        try {
-                            signInHandler.signIn(
-                                platform = Platform.TASKS_ORG,
-                                provider = provider,
-                                loginHint = state.account?.name,
-                            )
-                        } catch (e: CancellationException) {
-                            throw e
-                        } catch (e: PurchaseTokenInUseException) {
-                            conflictingAccount = e.existingAccount
-                        } catch (e: PaymentRequiredException) {
-                            onSubscribe()
-                        } catch (e: Exception) {
-                            Logger.e(e) { "Tasks.org re-authentication failed" }
-                            signInFailure = e.signInError()
-                        } finally {
-                            viewModel.refreshAccount()
-                        }
-                    }
+                    signInAgainViewModel.signIn(
+                        platform = Platform.TASKS_ORG,
+                        provider = provider,
+                        loginHint = state.account?.name,
+                    )
                 },
                 onSubscribe = onSubscribe,
                 onOpenSponsor = {
@@ -196,18 +181,17 @@ fun TasksAccountSettingsDetail(
                 },
                 onDismissTos = { viewModel.dismissTos() },
             )
-            conflictingAccount?.let { existingAccount ->
-                MessageDialog(
-                    message = conflictingAccountMessage(existingAccount),
-                    onDismiss = { conflictingAccount = null },
-                )
-            }
-            signInFailure?.let { message ->
-                MessageDialog(
-                    message = message,
-                    onDismiss = { signInFailure = null },
-                )
-            }
+            SignInErrorDialog(
+                signInState = signInState,
+                onDismiss = { signInAgainViewModel.dismissError() },
+                reporting = reporting,
+                source = AnalyticsEvents.SOURCE_SIGN_IN_AGAIN,
+                onPaymentRequired = onSubscribe,
+            )
+            SignInProgressDialog(
+                signInState = signInState,
+                onCancel = { signInAgainViewModel.cancel() },
+            )
         }
     }
 }

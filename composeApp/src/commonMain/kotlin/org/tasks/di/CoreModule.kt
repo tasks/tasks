@@ -53,6 +53,7 @@ import org.tasks.broadcast.ComposeRefreshBroadcaster
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.calendars.CalendarHelper
 import org.tasks.compose.accounts.AddAccountViewModel
+import org.tasks.compose.settings.SignInAgainViewModel
 import org.tasks.compose.chips.ChipDataProvider
 import org.tasks.data.MergedGeofence
 import org.tasks.data.SubtaskTreeRegistry
@@ -657,6 +658,7 @@ val coreModule: Module = module {
     }
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
+    viewModelOf(::SignInAgainViewModel)
     viewModel {
         DrawerViewModel(
             filterProvider = get(),
