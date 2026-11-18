@@ -65,14 +65,15 @@ class DateAndTimeViewModel(
     }
 
     private suspend fun reloadSafely() {
-        try {
-            preferences = appPreferences.datePickerPreferences()
-            loaded = true
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: Exception) {
-            Logger.e(e, tag = TAG) { "Failed to reload date and time settings" }
-        }
+        runCatching { appPreferences.datePickerPreferences() }
+            .onSuccess {
+                preferences = it
+                loaded = true
+            }
+            .onFailure { e ->
+                if (e is CancellationException || e !is Exception) throw e
+                Logger.e(e, tag = TAG) { "Failed to reload date and time settings" }
+            }
     }
 
     fun updateFullDate(enabled: Boolean) {
