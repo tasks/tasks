@@ -2,6 +2,7 @@ package org.tasks.compose.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -48,7 +49,6 @@ fun DateAndTimeDetail(
     val viewModel = koinViewModel<DateAndTimeViewModel>()
     val is24Hour = is24HourFormat()
     val snackbarHostState = remember { SnackbarHostState() }
-    val preferences = viewModel.preferences
 
     viewModel.orderError?.let { error ->
         LaunchedEffect(error) {
@@ -75,67 +75,92 @@ fun DateAndTimeDetail(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
-        if (!viewModel.loaded) return@Scaffold
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .verticalScroll(rememberScrollState()),
-        ) {
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
-            SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.always_display_full_date),
-                    checked = preferences.alwaysDisplayFullDate,
-                    onCheckedChange = { viewModel.updateFullDate(it) },
-                )
-            }
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
-            Column(
-                modifier = Modifier.padding(horizontal = SettingsContentPadding),
-                verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-            ) {
-                QuickPickSlot.entries.forEach { slot ->
-                    SettingsItemCard(
-                        position = when (slot) {
-                            QuickPickSlot.entries.first() -> CardPosition.First
-                            QuickPickSlot.entries.last() -> CardPosition.Last
-                            else -> CardPosition.Middle
-                        },
-                    ) {
-                        PreferenceRow(
-                            title = stringResource(slot.label),
-                            summary = formatTime(
-                                currentTimeMillis().withMillisOfDay(preferences.time(slot)),
-                                is24Hour,
-                            ),
-                            onClick = { viewModel.openTimePicker(slot) },
-                        )
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(SettingsContentPadding))
-        }
+        DateAndTimeContent(
+            viewModel = viewModel,
+            is24Hour = is24Hour,
+            padding = padding,
+        )
     }
 
     viewModel.timePickerSlot?.let { slot ->
         key(slot) {
-            val initial = preferences.time(slot)
-            TimePickerDialog(
-                state = rememberTimePickerState(
-                    initialHour = initial / (60 * 60_000),
-                    initialMinute = (initial / 60_000) % 60,
-                    is24Hour = is24Hour,
-                ),
-                initialDisplayMode = if (preferences.timePickerInputMode) {
-                    DisplayMode.Input
-                } else {
-                    DisplayMode.Picker
-                },
-                setDisplayMode = { viewModel.updateTimePickerInputMode(it == DisplayMode.Input) },
-                selected = { viewModel.setTime(slot, it) },
-                dismiss = { viewModel.dismissTimePicker() },
-            )
+            QuickPickTimePicker(viewModel = viewModel, slot = slot, is24Hour = is24Hour)
         }
     }
+}
+
+@Composable
+private fun DateAndTimeContent(
+    viewModel: DateAndTimeViewModel,
+    is24Hour: Boolean,
+    padding: PaddingValues,
+) {
+    if (!viewModel.loaded) return
+    val preferences = viewModel.preferences
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+            .verticalScroll(rememberScrollState()),
+    ) {
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        SettingsItemCard(modifier = Modifier.padding(horizontal = SettingsContentPadding)) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.always_display_full_date),
+                checked = preferences.alwaysDisplayFullDate,
+                onCheckedChange = { viewModel.updateFullDate(it) },
+            )
+        }
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+        Column(
+            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+        ) {
+            QuickPickSlot.entries.forEach { slot ->
+                SettingsItemCard(
+                    position = when (slot) {
+                        QuickPickSlot.entries.first() -> CardPosition.First
+                        QuickPickSlot.entries.last() -> CardPosition.Last
+                        else -> CardPosition.Middle
+                    },
+                ) {
+                    PreferenceRow(
+                        title = stringResource(slot.label),
+                        summary = formatTime(
+                            currentTimeMillis().withMillisOfDay(preferences.time(slot)),
+                            is24Hour,
+                        ),
+                        onClick = { viewModel.openTimePicker(slot) },
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun QuickPickTimePicker(
+    viewModel: DateAndTimeViewModel,
+    slot: QuickPickSlot,
+    is24Hour: Boolean,
+) {
+    val preferences = viewModel.preferences
+    val initial = preferences.time(slot)
+    TimePickerDialog(
+        state = rememberTimePickerState(
+            initialHour = initial / (60 * 60_000),
+            initialMinute = (initial / 60_000) % 60,
+            is24Hour = is24Hour,
+        ),
+        initialDisplayMode = if (preferences.timePickerInputMode) {
+            DisplayMode.Input
+        } else {
+            DisplayMode.Picker
+        },
+        setDisplayMode = { viewModel.updateTimePickerInputMode(it == DisplayMode.Input) },
+        selected = { viewModel.setTime(slot, it) },
+        dismiss = { viewModel.dismissTimePicker() },
+    )
 }
