@@ -163,21 +163,6 @@ class ServerFixtureRoundTripTest {
         assertLine(todo.serialize().unfolded(), "X-VENDOR-LINK;X-LABEL=\"a:b;c\":https://example.com/a?b=c")
     }
 
-    private fun assertRoundTrips(iCalendar: String): VTodo {
-        val parsed = parseVTodos(iCalendar).single()
-
-        val again = parseVTodos(parsed.serialize()).single()
-
-        assertEquals(parsed.copy(dtStamp = null), again.copy(dtStamp = null))
-        return parsed
-    }
-
-    private fun assertLine(lines: List<String>, line: String) = assertTrue(line in lines, "missing <$line> in $lines")
-
-    private fun utc(dateTime: LocalDateTime) = dateTime.toInstant(TimeZone.UTC).toEpochMilliseconds()
-
-    private fun String.unfolded(): List<String> = replace("\r\n ", "").replace("\n ", "").lines()
-
     companion object {
         private val NEXTCLOUD_ZONED_SUBTASK = """
             BEGIN:VCALENDAR
@@ -363,3 +348,18 @@ class ServerFixtureRoundTripTest {
         """.trimIndent()
     }
 }
+
+private fun assertRoundTrips(iCalendar: String): VTodo {
+    val parsed = parseVTodos(iCalendar).single()
+
+    val again = parseVTodos(parsed.serialize()).single()
+
+    assertEquals(parsed.copy(dtStamp = null), again.copy(dtStamp = null))
+    return parsed
+}
+
+private fun assertLine(lines: List<String>, line: String) = assertTrue(line in lines, "missing <$line> in $lines")
+
+private fun utc(dateTime: LocalDateTime) = dateTime.toInstant(TimeZone.UTC).toEpochMilliseconds()
+
+private fun String.unfolded(): List<String> = replace("\r\n ", "").replace("\n ", "").lines()
