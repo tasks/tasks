@@ -1,6 +1,8 @@
 package org.tasks.icalendar
 
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import org.tasks.repeats.ByDay
 import org.tasks.repeats.Frequency
 import org.tasks.repeats.Recur
@@ -18,8 +20,8 @@ class ServerFixtureRoundTripTest {
         val todo = assertRoundTrips(NEXTCLOUD_ZONED_SUBTASK)
 
         val berlin = TimeZone.of("Europe/Berlin")
-        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16, 8, 0, timeZone = berlin).millis, "Europe/Berlin"), todo.dtStart)
-        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16, 17, 0, timeZone = berlin).millis, "Europe/Berlin"), todo.due)
+        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16, 8, 0, timeZone = berlin).millis, berlin.id), todo.dtStart)
+        assertEquals(ICalDate.DateTime(DateTime(2026, 1, 16, 17, 0, timeZone = berlin).millis, berlin.id), todo.due)
         assertEquals(listOf(RelatedTo("1b3c6d7e-2f4a-4c5b-8d9e-0a1b2c3d4e5f")), todo.relatedTo)
         assertEquals(TodoStatus.IN_PROCESS, todo.status)
         assertEquals(40, todo.percentComplete)
@@ -41,7 +43,7 @@ class ServerFixtureRoundTripTest {
         assertEquals(
             Recur(
                 Frequency.WEEKLY,
-                until = Until.DateTime(utc(2026, 3, 30, 6, 59, 59), utc = true),
+                until = Until.DateTime(utc(LocalDateTime(2026, 3, 30, 6, 59, 59)), utc = true),
                 byDay = listOf(ByDay(Weekday.MO)),
             ),
             todo.rRule,
@@ -49,7 +51,10 @@ class ServerFixtureRoundTripTest {
         assertEquals(listOf(RelatedTo("0D4E5F6A-7B8C-4D9E-A0B1-C2D3E4F5A6B7", "PARENT")), todo.relatedTo)
         assertEquals(listOf(ICalProperty("X-APPLE-SORT-ORDER", "726245812")), todo.unknownProperties)
         assertEquals(
-            listOf(Trigger.Absolute(utc(2026, 1, 13, 3, 0, 0)), Trigger.Absolute(utc(1976, 4, 1, 0, 55, 45))),
+            listOf(
+                Trigger.Absolute(utc(LocalDateTime(2026, 1, 13, 3, 0, 0))),
+                Trigger.Absolute(utc(LocalDateTime(1976, 4, 1, 0, 55, 45))),
+            ),
             todo.alarms.map { it.trigger },
         )
         assertEquals(
@@ -136,8 +141,7 @@ class ServerFixtureRoundTripTest {
 
     private fun assertLine(lines: List<String>, line: String) = assertTrue(line in lines, "missing <$line> in $lines")
 
-    private fun utc(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) =
-        DateTime(year, month, day, hour, minute, second, timeZone = DateTime.UTC).millis
+    private fun utc(dateTime: LocalDateTime) = dateTime.toInstant(TimeZone.UTC).toEpochMilliseconds()
 
     private fun String.unfolded(): List<String> = replace("\r\n ", "").replace("\n ", "").lines()
 
