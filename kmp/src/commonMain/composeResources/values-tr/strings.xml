@@ -708,4 +708,21 @@
     <string name="subscription_payment_failed">Ödeme başarısız, kartınızı güncelleyin</string>
     <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks.org'un arkasındaki bağımsız geliştiriciyim</string>
     <string name="upgrade_blurb_2">Binlerce saatimi Tasks.org'da çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
+    <string name="works_with_xandikos_description">Git tabanlı CalDAV sunucusu</string>
+    <string name="subscription_active_google_play">Etkin Google Play aboneliğiniz var.</string>
+    <string name="subscription_active_github">Etkin GitHub sponsorluğunuz var.</string>
+    <string name="subscription_active_card">Etkin kartla ödenen aboneliğiniz var.</string>
+    <string name="subscription_active_elsewhere">Bir yerlerde etkin aboneliğiniz var.</string>
+    <string name="pricing_custom">Özel</string>
+    <string name="pricing_upgrade_to">Şuna yükselt: %1$s</string>
+    <string name="pricing_change_to">Şuna değiştir: %1$s</string>
+    <string name="pricing_current_subscription">Geçerli abonelik</string>
+    <string name="pricing_subscribed">Abone olundu</string>
+    <string name="pricing_cloud_feature_1_v2">Android, iOS ve masaüstünde anlık eşzamanlama</string>
+    <string name="pricing_nyp_feature_all_platforms">Android, iOS ve masaüstü için Tasks.org\'un kilidini aç</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">Masaüstü ve iOS için Tasks.org\'un kilidini aç</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">Daha çok bağış anımsatıcı yok</string>
+    <string name="pricing_nyp_feature_third_party_sync">Google Tasks, Microsoft To Do, CalDAV ve EteSync ile eşzamanlama</string>
+    <string name="pricing_feature_trial">Yeni aboneler için 7 günlük ücretsiz deneme</string>
+    <string name="cloud_onboarding_sign_in_body">Tasks.org Cloud hesabınızı oluşturmak için giriş yapın</string>
 </resources>
