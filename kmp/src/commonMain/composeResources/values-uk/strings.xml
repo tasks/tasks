@@ -497,4 +497,7 @@
     <string name="subscription_required">Потрібна передплата</string>
     <string name="upgrade_blurb_1">Привіт! Моє ім'я Алекс. Я - незалежний розробник Tasks.org</string>
     <string name="upgrade_blurb_2">Я витратив тисячі годин, працюючи над Tasks.org, і я публікую весь код онлайн безоплатно. Щоб підтримати мою роботу, деякі функції потребують підписки</string>
+    <string name="always_display_full_date">Показати повну дату</string>
+    <string name="date_shortcut_must_come_before">%1$s має бути до %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s має бути після %2$s</string>
 </resources>

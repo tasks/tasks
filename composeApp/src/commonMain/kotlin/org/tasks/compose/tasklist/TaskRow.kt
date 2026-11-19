@@ -82,6 +82,7 @@ internal fun TaskRow(
     chipDataProvider: ChipDataProvider,
     is24Hour: Boolean,
     dateFormatter: DateFormatter?,
+    alwaysDisplayFullDate: Boolean = false,
     onClick: () -> Unit,
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
@@ -124,7 +125,7 @@ internal fun TaskRow(
             )
         }
         Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
-            val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter) {
+            val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter, alwaysDisplayFullDate) {
                 if (!task.hasDueDate()) {
                     null
                 } else if (groupMode == SortHelper.SORT_DUE
@@ -132,7 +133,10 @@ internal fun TaskRow(
                 ) {
                     if (task.hasDueTime()) formatTime(task.dueDate, is24Hour) else null
                 } else {
-                    dateFormatter?.relativeDateTime(task.dueDate)
+                    dateFormatter?.relativeDateTime(
+                        task.dueDate,
+                        alwaysDisplayFullDate = alwaysDisplayFullDate,
+                    )
                 }
             }
             val isOverdue = !task.isCompleted && dueDateOverdue(task.dueDate)

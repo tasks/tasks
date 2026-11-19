@@ -13,6 +13,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.runBlocking
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.tasks.compose.chips.ChipDataProvider
@@ -20,6 +21,11 @@ import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavListCache
 import org.tasks.filters.EmptyFilter
+import org.tasks.kmp.org.tasks.time.DateFormatter
+import org.tasks.kmp.org.tasks.time.DateStyle
+import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_DAY
+import org.tasks.time.startOfDay
 
 @OptIn(ExperimentalTestApi::class)
 class TaskRowTest {
@@ -40,12 +46,14 @@ class TaskRowTest {
         uncompletedChildren: Int = children,
         completed: Boolean = false,
         indent: Int = 0,
+        dueDate: Long = 0,
     ) = TaskContainer(
         task = Task(
             id = 1,
             title = title,
             remoteId = "uuid-1",
             completionDate = if (completed) 1 else 0,
+            dueDate = dueDate,
         ),
         children = children,
         uncompletedChildren = uncompletedChildren,
@@ -59,7 +67,13 @@ class TaskRowTest {
     }
 
     @Composable
-    private fun Row(task: TaskContainer, doomed: Boolean, clicks: Clicks) {
+    private fun Row(
+        task: TaskContainer,
+        doomed: Boolean,
+        clicks: Clicks,
+        dateFormatter: DateFormatter? = null,
+        alwaysDisplayFullDate: Boolean = false,
+    ) {
         MaterialTheme {
             TaskRow(
                 task = task,
@@ -68,7 +82,8 @@ class TaskRowTest {
                 groupMode = 0,
                 chipDataProvider = chips,
                 is24Hour = false,
-                dateFormatter = null,
+                dateFormatter = dateFormatter,
+                alwaysDisplayFullDate = alwaysDisplayFullDate,
                 onClick = { clicks.opened++ },
                 onToggleComplete = { clicks.completed++ },
                 onToggleSubtasks = { clicks.foldedAway++ },
@@ -86,6 +101,24 @@ class TaskRowTest {
         onNodeWithText("Buy milk").performClick()
 
         assertEquals(1, clicks.opened)
+    }
+
+    @Test
+    fun aDueDateTomorrowIsShownInFullWhenTheSettingIsOn() = runComposeUiTest {
+        val formatter = runBlocking { DateFormatter.create(is24HourFormat = false) }
+        val tomorrow = currentTimeMillis().startOfDay() + ONE_DAY + 12 * 60 * 60 * 1000
+        setContent {
+            Row(
+                task(dueDate = tomorrow),
+                doomed = false,
+                clicks = Clicks(),
+                dateFormatter = formatter,
+                alwaysDisplayFullDate = true,
+            )
+        }
+
+        onNodeWithText(formatter.fullDate(tomorrow, DateStyle.MEDIUM))
+            .assertExists()
     }
 
     @Test

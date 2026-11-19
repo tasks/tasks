@@ -717,4 +717,7 @@
     <string name="pricing_feature_trial">新订阅者 7 天免费试用</string>
     <string name="cloud_onboarding_sign_in_body">登录以创建您的 Tasks.org Cloud 账户</string>
     <string name="works_with_xandikos_description">基于 Git 的 CalDAV 服务器</string>
+    <string name="always_display_full_date">显示完整日期</string>
+    <string name="date_shortcut_must_come_before">%1$s 必须在 %2$s 之前</string>
+    <string name="date_shortcut_must_come_after">%1$s 必须在 %2$s 之后</string>
 </resources>

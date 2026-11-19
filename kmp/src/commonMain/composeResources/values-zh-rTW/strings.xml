@@ -484,4 +484,7 @@
     <string name="subscription_required">需要訂閱</string>
     <string name="upgrade_blurb_1">嗨！我的名字是 Alex。我是 Tasks.org 背後的獨立開發者</string>
     <string name="upgrade_blurb_2">我花了數千小時的心血在開發 Tasks.org 上，並且將所有程式碼免費開源。為了支持我的工作，某些功能需要訂閱</string>
+    <string name="always_display_full_date">顯示完整日期</string>
+    <string name="date_shortcut_must_come_before">%1$s 必須在 %2$s 之前</string>
+    <string name="date_shortcut_must_come_after">%1$s 必須在 %2$s 之後</string>
 </resources>

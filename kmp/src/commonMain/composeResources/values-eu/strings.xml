@@ -405,4 +405,7 @@
     <string name="new_filter">Sortu iragazki berria</string>
     <string name="upgrade_blurb_1">Kaixo! Nire izana Alex da. Ni naiz Tasks.org aplikazioaren garatzaile independentea</string>
     <string name="upgrade_blurb_2">Milaka ordu eman ditut Tasks.org aplikazioan lanean, eta kode guztia argitaratzen dut doan. Nire lana babesteko ezaugarri batzuk harpidetza eskatzen dute</string>
+    <string name="always_display_full_date">Erakutsi data osoa</string>
+    <string name="date_shortcut_must_come_before">%1$s %2$s aurretik gertatu behar da</string>
+    <string name="date_shortcut_must_come_after">%1$s %2$s eta gero gertatu behar da</string>
 </resources>

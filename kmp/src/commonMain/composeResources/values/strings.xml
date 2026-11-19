@@ -726,4 +726,7 @@
     <string name="trusted_certificates_reset">Trusted certificates reset</string>
     <string name="upgrade_blurb_1">Hi! My name is Alex. I am the independent developer behind Tasks.org</string>
     <string name="upgrade_blurb_2">I have spent thousands of hours working on Tasks.org, and I publish all of the source code online for free. In order to support my work some features require a subscription</string>
+    <string name="always_display_full_date">Show full date</string>
+    <string name="date_shortcut_must_come_before">%1$s must come before %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s must come after %2$s</string>
 </resources>

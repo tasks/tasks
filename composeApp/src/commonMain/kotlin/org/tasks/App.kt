@@ -2270,6 +2270,7 @@ private fun TaskListPane(
                     viewModel.setFilter(filter)
                 },
                 is24Hour = org.tasks.time.is24HourFormat(),
+                alwaysDisplayFullDate = state.alwaysDisplayFullDate,
             )
         }
 
@@ -3082,6 +3083,13 @@ private fun SettingsScreen(
                                 scope.launch { navigator.navigateBack() }
                             },
                             onSubscribe = { onUpgradeClick(AnalyticsEvents.SOURCE_THEMES) },
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.DateAndTime -> {
+                        org.tasks.compose.settings.DateAndTimeDetail(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.NavigationDrawer -> {

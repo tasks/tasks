@@ -178,6 +178,8 @@ interface AppPreferences {
     suspend fun datePickerPreferences(): DatePickerPreferences = DatePickerPreferences()
     suspend fun setDatePickerInputMode(value: Boolean) {}
     suspend fun setTimePickerInputMode(value: Boolean) {}
+    suspend fun setQuickPickTimes(value: QuickPickTimes) {}
+    suspend fun setAlwaysDisplayFullDate(value: Boolean) {}
     suspend fun drawerSettings(): DrawerSettings
     suspend fun setFiltersEnabled(value: Boolean)
     suspend fun setTodayFilter(value: Boolean)

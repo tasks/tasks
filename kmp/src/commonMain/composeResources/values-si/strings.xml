@@ -391,4 +391,7 @@
     <string name="new_filter">නව පෙරණයක් සැකසීම</string>
     <string name="upgrade_blurb_1">හායි! මගෙ නම ඇලෙක්ස්. Tasks.org පිටුපස සිටින ස්වාධීන සංවර්ධකයා මමයි</string>
     <string name="upgrade_blurb_2">මම Tasks.org සඳහා පැය දහස් ගණනක් වැඩ කර ඇති අතර, මම සියලු ප්‍රභව කේත නොමිලේ මාර්ගගතව ප්‍රකාශයට පත් කරමි. මගේ කාර්යයට සහාය වීම සඳහා සමහර විශේෂාංග සඳහා දායකත්වයක් අවශ්‍ය වේ</string>
+    <string name="always_display_full_date">සම්පූර්ණ දිනය පෙන්වන්න</string>
+    <string name="date_shortcut_must_come_before">%2$s පෙර %1$s පැමිණිය යුතුය</string>
+    <string name="date_shortcut_must_come_after">%1$s, %2$s ට පසුව පැමිණිය යුතුය</string>
 </resources>

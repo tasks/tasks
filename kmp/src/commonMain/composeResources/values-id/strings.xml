@@ -655,4 +655,7 @@
     <string name="subscription_required">Langganan diperlukan</string>
     <string name="upgrade_blurb_1">Hi. Nama saya Alex. Saya adalah pengembang independen dibelakang aplikasi Tasks.org</string>
     <string name="upgrade_blurb_2">Saya telah menghabiskan ribuan jam bekerja pada Tasks.org, dan saya mempublikasikan semua kode sumber online secara gratis. Untuk mendukung pekerjaan saya, beberapa fitur memerlukan berlangganan</string>
+    <string name="always_display_full_date">Tampilkan tanggal penuh</string>
+    <string name="date_shortcut_must_come_before">%1$s harus datang sebelum %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s harus datang setelah %2$s</string>
 </resources>

@@ -707,4 +707,7 @@
     <string name="reset_trusted_certificates_summary">Von dir akzeptierte Zertifikate und Zertifikataussteller für Server löschen</string>
     <string name="upgrade_blurb_1">Hallo! Mein Name ist Alex. Ich bin der unabhängige Entwickler hinter Tasks.org</string>
     <string name="upgrade_blurb_2">Ich habe Tausende von Stunden mit der Arbeit an Tasks.org verbracht und veröffentliche den gesamten Quellcode kostenlos online. Um meine Arbeit zu unterstützen, erfordern einige Funktionen ein Abonnement</string>
+    <string name="always_display_full_date">Datum ganz anzeigen</string>
+    <string name="date_shortcut_must_come_before">%1$s muss vor %2$s kommen</string>
+    <string name="date_shortcut_must_come_after">%1$s muss nach %2$s kommen</string>
 </resources>

@@ -605,4 +605,7 @@
     <string name="works_with_nextcloud_description">Nextcloudタスクアプリと連携</string>
     <string name="upgrade_blurb_1">こんにちは！私は Alex です。Tasks.org のインディーディベロッパーです</string>
     <string name="upgrade_blurb_2">私は何千時間もかけて Tasks.org を開発し、すべてのソースコードをオンラインで無料公開しています。私の仕事をサポートしていただくために、いくつかの機能は有料です</string>
+    <string name="always_display_full_date">完全な日付を表示</string>
+    <string name="date_shortcut_must_come_before">%1$s は %2$s の前に来る必要があります</string>
+    <string name="date_shortcut_must_come_after">%1$s は %2$s の後に来る必要があります</string>
 </resources>

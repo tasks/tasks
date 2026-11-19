@@ -690,4 +690,7 @@
     <string name="snoozed_reminder">Одложен подсетник</string>
     <string name="upgrade_blurb_1">Здраво! Моје име је Алекс. Ја сам независни развојни инжењер у ,,Tasks.org'' апликацији</string>
     <string name="upgrade_blurb_2">Провео сам хиљаде часова радећи на апликацији ,,Tasks.org'', коју објављујем онлајн бесплатно. Како бисте подржали мој рад, неке функционалности захтевају претплату</string>
+    <string name="always_display_full_date">Прикажи пун датум</string>
+    <string name="date_shortcut_must_come_before">%1$s мора бити пре %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s мора бити након %2$s</string>
 </resources>

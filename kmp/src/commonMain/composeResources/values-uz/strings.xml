@@ -232,4 +232,7 @@
     <string name="logout_confirmation">%1$s hisobidan chiqishni xohlaysizmi?</string>
     <string name="upgrade_blurb_1">Salom! Mening ismim Alex. Men Tasks.org ilovasini mustaqil ishlab chiquvchiman</string>
     <string name="upgrade_blurb_2">Tasks.org ustida minglab soat mehnat qildim va uning barcha manba kodini internetda bepul e’lon qilaman. Mehnatimni qo‘llab-quvvatlash uchun ayrim funksiyalardan foydalanish uchun obuna kerak</string>
+    <string name="always_display_full_date">To\'liq sanani ko\'rsatish</string>
+    <string name="date_shortcut_must_come_before">%1$s, %2$s dan oldin kelishi kerak</string>
+    <string name="date_shortcut_must_come_after">%1$s, %2$s dan keyin kelishi kerak</string>
 </resources>

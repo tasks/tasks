@@ -79,6 +79,7 @@ import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DEFAULT_ALARMS_JSON
 import org.tasks.preferences.DataStoreQueryPreferences
+import org.tasks.compose.pickers.QuickPickTimes
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.DrawerSettings
 import org.tasks.preferences.InstallId
@@ -109,6 +110,7 @@ import org.tasks.viewmodel.LocalAccountViewModel
 import org.tasks.viewmodel.LocalListSettingsViewModel
 import org.tasks.viewmodel.LookAndFeelViewModel
 import org.tasks.viewmodel.MainSettingsViewModel
+import org.tasks.viewmodel.DateAndTimeViewModel
 import org.tasks.viewmodel.NavigationDrawerViewModel
 import org.tasks.viewmodel.NotificationsViewModel
 import org.tasks.viewmodel.OpenTaskAccountViewModel
@@ -344,15 +346,30 @@ val coreModule: Module = module {
                 tasksPreferences.set(TasksPreferences.quietHoursStart, value)
             override suspend fun setQuietHoursEnd(value: Int) =
                 tasksPreferences.set(TasksPreferences.quietHoursEnd, value)
-            // TODO: populate the remaining DatePickerPreferences fields
-            override suspend fun datePickerPreferences() = DatePickerPreferences(
-                datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
-                timePickerInputMode = tasksPreferences.get(TasksPreferences.timePickerInputMode, false),
-            )
+            override suspend fun datePickerPreferences(): DatePickerPreferences {
+                val defaults = DatePickerPreferences()
+                return DatePickerPreferences(
+                    shortcutMorning = tasksPreferences.get(TasksPreferences.dateShortcutMorning, defaults.shortcutMorning),
+                    shortcutAfternoon = tasksPreferences.get(TasksPreferences.dateShortcutAfternoon, defaults.shortcutAfternoon),
+                    shortcutEvening = tasksPreferences.get(TasksPreferences.dateShortcutEvening, defaults.shortcutEvening),
+                    shortcutNight = tasksPreferences.get(TasksPreferences.dateShortcutNight, defaults.shortcutNight),
+                    alwaysDisplayFullDate = tasksPreferences.get(TasksPreferences.alwaysDisplayFullDate, false),
+                    datePickerInputMode = tasksPreferences.get(TasksPreferences.datePickerInputMode, false),
+                    timePickerInputMode = tasksPreferences.get(TasksPreferences.timePickerInputMode, false),
+                )
+            }
             override suspend fun setDatePickerInputMode(value: Boolean) =
                 tasksPreferences.set(TasksPreferences.datePickerInputMode, value)
             override suspend fun setTimePickerInputMode(value: Boolean) =
                 tasksPreferences.set(TasksPreferences.timePickerInputMode, value)
+            override suspend fun setQuickPickTimes(value: QuickPickTimes) {
+                tasksPreferences.set(TasksPreferences.dateShortcutMorning, value.morning)
+                tasksPreferences.set(TasksPreferences.dateShortcutAfternoon, value.afternoon)
+                tasksPreferences.set(TasksPreferences.dateShortcutEvening, value.evening)
+                tasksPreferences.set(TasksPreferences.dateShortcutNight, value.night)
+            }
+            override suspend fun setAlwaysDisplayFullDate(value: Boolean) =
+                tasksPreferences.set(TasksPreferences.alwaysDisplayFullDate, value)
         }
     }
     factory<CalendarHelper> { object : CalendarHelper {} }
@@ -465,6 +482,12 @@ val coreModule: Module = module {
                 }
                 notifier.triggerNotifications()
             },
+        )
+    }
+    viewModel {
+        DateAndTimeViewModel(
+            appPreferences = get(),
+            persistenceScope = get(),
         )
     }
     viewModel {
