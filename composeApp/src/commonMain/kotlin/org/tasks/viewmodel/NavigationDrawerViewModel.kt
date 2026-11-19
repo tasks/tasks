@@ -1,6 +1,5 @@
 package org.tasks.viewmodel
 
-import java.io.IOException
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.io.IOException
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DrawerSettings
 
@@ -17,19 +17,19 @@ class NavigationDrawerViewModel(
     private val refreshBroadcaster: org.tasks.broadcast.RefreshBroadcaster,
     persistenceScope: kotlinx.coroutines.CoroutineScope,
 ) : ViewModel() {
-
     var settings by mutableStateOf(DrawerSettings())
         private set
 
     var loaded by mutableStateOf(false)
         private set
 
-    private val writes = PreferenceWriteQueue(
-        viewModelScope = viewModelScope,
-        persistenceScope = persistenceScope,
-        tag = TAG,
-        reload = { reloadSafely() },
-    )
+    private val writes =
+        PreferenceWriteQueue(
+            viewModelScope = viewModelScope,
+            persistenceScope = persistenceScope,
+            tag = TAG,
+            reload = { reloadSafely() },
+        )
 
     init {
         viewModelScope.launch {
@@ -44,16 +44,18 @@ class NavigationDrawerViewModel(
         } catch (e: CancellationException) {
             throw e
         } catch (e: IOException) {
-            co.touchlab.kermit.Logger.e(e, tag = TAG) { "Failed to reload navigation drawer settings" }
+            co.touchlab.kermit.Logger
+                .e(e, tag = TAG) { "Failed to reload navigation drawer settings" }
         }
     }
 
     open fun refreshState() = writes.refresh()
 
-    private fun persist(block: suspend () -> Unit) = writes.write {
-        block()
-        refreshBroadcaster.broadcastRefresh()
-    }
+    private fun persist(block: suspend () -> Unit) =
+        writes.write {
+            block()
+            refreshBroadcaster.broadcastRefresh()
+        }
 
     fun updateFiltersEnabled(enabled: Boolean) {
         settings = settings.copy(filtersEnabled = enabled)

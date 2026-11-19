@@ -61,7 +61,7 @@ class NavigationDrawerCustomizationViewModel(
             val fromItem = currentList.getOrNull(fromIndex)
             val toItem = currentList.getOrNull(toIndex)
             val shouldSwap = fromItem != null && toItem != null &&
-                fromItem::class.java == toItem::class.java &&
+                fromItem::class.simpleName == toItem::class.simpleName &&
                 !(fromItem is org.tasks.filters.CaldavFilter &&
                     toItem is org.tasks.filters.CaldavFilter &&
                     fromItem.account != toItem.account)
@@ -88,7 +88,7 @@ class NavigationDrawerCustomizationViewModel(
         items: List<FilterListItem>,
         referenceItem: FilterListItem,
     ) {
-        val itemsToUpdate = items.filter { it::class.java == referenceItem::class.java }
+        val itemsToUpdate = items.filter { it::class.simpleName == referenceItem::class.simpleName }
 
         // For CaldavFilter, filter by account
         val filteredItems = when (referenceItem) {
