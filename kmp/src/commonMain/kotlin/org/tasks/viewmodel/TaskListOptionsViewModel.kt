@@ -52,33 +52,6 @@ data class TaskListOptionsState(
     val chipAppearanceSummary: String = "",
 )
 
-private val chipPropertyNames =
-    listOf(
-        "subtaskChips",
-        "startDateChips",
-        "placeChips",
-        "listChips",
-        "tagChips",
-    )
-
-private val chipPreferenceGetters =
-    listOf(
-        AppPreferences::taskListSubtaskChips,
-        AppPreferences::taskListStartDateChips,
-        AppPreferences::taskListPlaceChips,
-        AppPreferences::taskListListChips,
-        AppPreferences::taskListTagChips,
-    )
-
-private val chipPreferenceSetters =
-    listOf(
-        AppPreferences::setTaskListSubtaskChips,
-        AppPreferences::setTaskListStartDateChips,
-        AppPreferences::setTaskListPlaceChips,
-        AppPreferences::setTaskListListChips,
-        AppPreferences::setTaskListTagChips,
-    )
-
 open class TaskListOptionsViewModel(
     private val appPreferences: AppPreferences,
 ) : ViewModel() {
@@ -160,7 +133,13 @@ open class TaskListOptionsViewModel(
         enabled: Boolean,
     ) {
         viewModelScope.launch {
-            chipPreferenceSetters[index].call(appPreferences, enabled)
+            when (index) {
+                0 -> appPreferences.setTaskListSubtaskChips(enabled)
+                1 -> appPreferences.setTaskListStartDateChips(enabled)
+                2 -> appPreferences.setTaskListPlaceChips(enabled)
+                3 -> appPreferences.setTaskListListChips(enabled)
+                4 -> appPreferences.setTaskListTagChips(enabled)
+            }
             val currentChips = state.chips
             val updatedChips =
                 when (index) {
