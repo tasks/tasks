@@ -123,7 +123,8 @@ fun Paywall(
                 onUpgrade = { showRestore = false },
             ),
             onGitHubSignIn = {
-                gitHubSponsorClient?.signIn() ?: GitHubSponsorClient.VerifyResult.Failed
+                gitHubSponsorClient?.signIn { context.openUri(it) }
+                    ?: GitHubSponsorClient.VerifyResult.Failed
             },
             analytics = firebase,
             successButtonText = when (Platform.fromSource(source)) {

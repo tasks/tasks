@@ -22,7 +22,7 @@ fun HttpClientConfig<*>.installMicrosoftGraph(
     logLevel: LogLevel = LogLevel.HEADERS,
     log: (String) -> Unit,
     bearerToken: () -> String,
-    refreshToken: (suspend (rejected: String?) -> String)? = null,
+    refreshToken: (suspend (rejected: String?) -> String?)? = null,
 ) {
     expectSuccess = true
 
@@ -40,6 +40,8 @@ fun HttpClientConfig<*>.installMicrosoftGraph(
 
     install(HttpTimeout) {
         requestTimeoutMillis = 30_000
+        connectTimeoutMillis = 30_000
+        socketTimeoutMillis = 30_000
     }
 
     install(HttpCookies) {
@@ -64,7 +66,7 @@ fun HttpClientConfig<*>.installMicrosoftGraph(
 }
 
 private class GraphTokenRefreshConfig {
-    lateinit var refresh: suspend (rejected: String?) -> String
+    lateinit var refresh: suspend (rejected: String?) -> String?
 }
 
 private val GraphTokenRefresh = createClientPlugin("GraphTokenRefresh", ::GraphTokenRefreshConfig) {
@@ -80,7 +82,7 @@ private val GraphTokenRefresh = createClientPlugin("GraphTokenRefresh", ::GraphT
                 else -> throw e
             }
             val token = refresh(rejected)
-            if (token == sent) {
+            if (token == null || token == sent) {
                 throw e
             }
             request.headers[HttpHeaders.Authorization] = "Bearer $token"

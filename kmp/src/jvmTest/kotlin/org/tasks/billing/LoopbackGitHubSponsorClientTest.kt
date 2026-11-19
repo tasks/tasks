@@ -1,18 +1,25 @@
 package org.tasks.billing
 
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.tasks.auth.LoopbackRedirect
 import java.io.IOException
+import java.lang.ref.WeakReference
 import java.net.HttpURLConnection
 import java.net.Socket
 import java.net.URI
+import java.util.concurrent.Executors
 
 class LoopbackGitHubSponsorClientTest {
 
@@ -20,10 +27,12 @@ class LoopbackGitHubSponsorClientTest {
     fun aSignInThatCannotOpenABrowserFailsAtOnce() = runBlocking {
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> error("should not reach verification") },
-            openUrl = { throw IOException("nothing on this system could open it") },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Failed, client.signIn())
+        assertEquals(
+            GitHubSponsorClient.VerifyResult.Failed,
+            client.signIn { throw IOException("nothing on this system could open it") },
+        )
     }
 
     @Test(timeout = 30_000)
@@ -34,10 +43,9 @@ class LoopbackGitHubSponsorClientTest {
                 verified = code to redirectUri
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl -> redirectBack(authUrl, code = "the-code") },
         )
 
-        val result = client.signIn()
+        val result = client.signIn { authUrl -> redirectBack(authUrl, code = "the-code") }
 
         assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
         assertEquals("the-code", verified?.first)
@@ -51,13 +59,14 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("http://127.0.0.1:" + port(authUrl!!) + "/callback", redirectUri)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { url ->
-                authUrl = url
-                redirectBack(url, code = "the-code")
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        val result = client.signIn { url ->
+            authUrl = url
+            redirectBack(url, code = "the-code")
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
     }
 
     @Test(timeout = 30_000)
@@ -65,13 +74,12 @@ class LoopbackGitHubSponsorClientTest {
         var authUrl: String? = null
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
-            openUrl = { url ->
-                authUrl = url
-                redirectBack(url, code = "the-code")
-            },
         )
 
-        client.signIn()
+        client.signIn { url ->
+            authUrl = url
+            redirectBack(url, code = "the-code")
+        }
 
         assertEquals("select_account", params(authUrl!!)["prompt"])
     }
@@ -83,35 +91,40 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl ->
-                Thread {
-                    get(URI(params(authUrl).getValue("redirect_uri") + "/../favicon.ico"))
-                    get(callback(authUrl, code = "the-code"))
-                }.start()
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        val result = client.signIn { authUrl ->
+            Thread {
+                get(URI(params(authUrl).getValue("redirect_uri") + "/../favicon.ico"))
+                get(callback(authUrl, code = "the-code"))
+            }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
     }
 
     @Test(timeout = 30_000)
     fun aRedirectCarryingTheWrongStateIsRefused() = runBlocking {
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> error("should not reach verification") },
-            openUrl = { authUrl -> redirectBack(authUrl, code = "the-code", state = "forged") },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Failed, client.signIn())
+        val result = client.signIn { authUrl ->
+            redirectBack(authUrl, code = "the-code", state = "forged")
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Failed, result)
     }
 
     @Test(timeout = 30_000)
     fun anAuthorizationThatComesBackWithAnErrorFails() = runBlocking {
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> error("should not reach verification") },
-            openUrl = { authUrl -> redirectBack(authUrl, error = "access_denied") },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Failed, client.signIn())
+        val result = client.signIn { authUrl -> redirectBack(authUrl, error = "access_denied") }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Failed, result)
     }
 
     @Test(timeout = 30_000)
@@ -122,15 +135,14 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl ->
-                val redirectUri = URI(params(authUrl).getValue("redirect_uri"))
-                idle = Socket(redirectUri.host, redirectUri.port)
-                redirectBack(authUrl, code = "the-code")
-            },
         )
 
         val started = System.currentTimeMillis()
-        val result = client.signIn()
+        val result = client.signIn { authUrl ->
+            val redirectUri = URI(params(authUrl).getValue("redirect_uri"))
+            idle = Socket(redirectUri.host, redirectUri.port)
+            redirectBack(authUrl, code = "the-code")
+        }
         val elapsed = System.currentTimeMillis() - started
         idle?.close()
 
@@ -145,13 +157,14 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl ->
-                val uri = callback(authUrl, code = "the-code")
-                Thread { send(uri, path(uri), readResponse = false) }.start()
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread { send(uri, path(uri), readResponse = false) }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
     }
 
     @Test(timeout = 30_000)
@@ -161,13 +174,14 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl ->
-                val uri = callback(authUrl, code = "the-code")
-                Thread { send(uri, uri.toString()) }.start()
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread { send(uri, uri.toString()) }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
     }
 
     @Test(timeout = 30_000)
@@ -177,13 +191,14 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { authUrl ->
-                val uri = callback(authUrl, code = "the-code")
-                Thread { send(uri, "/callback/?" + uri.rawQuery) }.start()
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Success, client.signIn())
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread { send(uri, uri.rawPath + "/?" + uri.rawQuery) }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
     }
 
     @Test(timeout = 30_000)
@@ -191,13 +206,14 @@ class LoopbackGitHubSponsorClientTest {
         val page = CompletableDeferred<String>()
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> error("should not reach verification") },
-            openUrl = { authUrl ->
-                val uri = callback(authUrl, code = "the-code", state = "forged")
-                Thread { page.complete(send(uri, path(uri))) }.start()
-            },
         )
 
-        assertEquals(GitHubSponsorClient.VerifyResult.Failed, client.signIn())
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code", state = "forged")
+            Thread { page.complete(send(uri, path(uri))) }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Failed, result)
         assertTrue(page.await().contains("Sign in failed"))
     }
 
@@ -210,11 +226,10 @@ class LoopbackGitHubSponsorClientTest {
                 verified.complete(code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { opened.complete(it) },
-            signInTimeoutMillis = 20_000,
+            redirect = LoopbackRedirect(timeoutMillis = 20_000),
         )
 
-        val caller = launch { client.signIn() }
+        val caller = launch { client.signIn { opened.complete(it) } }
         val authUrl = opened.await()
         caller.cancelAndJoin()
         redirectBack(authUrl, code = "the-code")
@@ -223,16 +238,56 @@ class LoopbackGitHubSponsorClientTest {
     }
 
     @Test(timeout = 30_000)
+    fun thePendingAttemptLetsGoOfACallerThatWentAway() = runBlocking {
+        val opened = CompletableDeferred<String>()
+        val verified = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { code, _ ->
+                verified.complete(code)
+                GitHubSponsorClient.VerifyResult.Success
+            },
+            redirect = LoopbackRedirect(timeoutMillis = 20_000),
+        )
+
+        val (caller, activity) = signInFromAnActivity(client, opened)
+        val authUrl = opened.await()
+        caller.cancelAndJoin()
+        repeat(50) {
+            if (activity.get() != null) {
+                System.gc()
+                Thread.sleep(20)
+            }
+        }
+
+        assertNull(activity.get())
+        redirectBack(authUrl, code = "the-code")
+        assertEquals("the-code", verified.await())
+    }
+
+    private fun CoroutineScope.signInFromAnActivity(
+        client: GitHubSponsorClient,
+        opened: CompletableDeferred<String>,
+    ): Pair<Job, WeakReference<Any>> {
+        val activity = Any()
+        val caller = launch {
+            client.signIn { url ->
+                activity.hashCode()
+                opened.complete(url)
+            }
+        }
+        return caller to WeakReference(activity)
+    }
+
+    @Test(timeout = 30_000)
     fun aCancelledSignInIsNotReportedAsAFailure() = runBlocking {
         val opened = CompletableDeferred<String>()
         var result: GitHubSponsorClient.VerifyResult? = null
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
-            openUrl = { opened.complete(it) },
-            signInTimeoutMillis = 2_000,
+            redirect = LoopbackRedirect(timeoutMillis = 2_000),
         )
 
-        val caller = launch { result = client.signIn() }
+        val caller = launch { result = client.signIn { opened.complete(it) } }
         opened.await()
         caller.cancelAndJoin()
 
@@ -248,21 +303,81 @@ class LoopbackGitHubSponsorClientTest {
                 assertEquals("the-code", code)
                 GitHubSponsorClient.VerifyResult.Success
             },
-            openUrl = { url ->
-                synchronized(opened) { opened.add(url) }
-                firstOpen.complete(url)
-            },
-            signInTimeoutMillis = 20_000,
+            redirect = LoopbackRedirect(timeoutMillis = 20_000),
         )
+        val openUrl: (String) -> Unit = { url ->
+            synchronized(opened) { opened.add(url) }
+            firstOpen.complete(url)
+        }
 
-        val caller = launch { client.signIn() }
+        val caller = launch { client.signIn(openUrl) }
         val authUrl = firstOpen.await()
         caller.cancelAndJoin()
-        val resumed = launch { client.signIn() }
+        val resumed = launch { client.signIn(openUrl) }
         redirectBack(authUrl, code = "the-code")
         resumed.join()
 
         assertEquals(listOf(authUrl, authUrl), synchronized(opened) { opened.toList() })
+    }
+
+    @Test(timeout = 30_000)
+    fun aMalformedEscapeDoesNotEndTheFlow() = runBlocking {
+        val client = LoopbackGitHubSponsorClient(
+            verify = { code, _ ->
+                assertEquals("the-code", code)
+                GitHubSponsorClient.VerifyResult.Success
+            },
+        )
+
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread {
+                send(uri, uri.rawPath + "?x=%zz")
+                get(uri)
+            }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
+    }
+
+    @Test(timeout = 30_000)
+    fun aRequestOffTheCallbackPathIsNotTheRedirect() = runBlocking {
+        val stray = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { code, _ ->
+                assertEquals("the-code", code)
+                GitHubSponsorClient.VerifyResult.Success
+            },
+        )
+
+        val result = client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread {
+                stray.complete(send(uri, "/favicon.ico?" + uri.rawQuery))
+                get(uri)
+            }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Success, result)
+        assertTrue(stray.await().startsWith("HTTP/1.1 404"))
+    }
+
+    @Test(timeout = 30_000)
+    fun anErrorWithoutStateShowsTheProvidersError() = runBlocking {
+        val page = CompletableDeferred<String>()
+        val client = LoopbackGitHubSponsorClient(
+            verify = { _, _ -> error("should not reach verification") },
+        )
+
+        val result = client.signIn { authUrl ->
+            val uri = URI(params(authUrl).getValue("redirect_uri"))
+            Thread {
+                page.complete(send(uri, uri.rawPath + "?error=access_denied&error_description=Nope"))
+            }.start()
+        }
+
+        assertEquals(GitHubSponsorClient.VerifyResult.Failed, result)
+        assertTrue(page.await().contains("Nope"))
     }
 
     @Test(timeout = 30_000)
@@ -279,14 +394,39 @@ class LoopbackGitHubSponsorClientTest {
         val page = CompletableDeferred<String>()
         val client = LoopbackGitHubSponsorClient(
             verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
-            openUrl = { authUrl ->
-                val uri = callback(authUrl, code = "the-code")
-                Thread { page.complete(send(uri, path(uri))) }.start()
-            },
-            closeBrowserTab = closeBrowserTab,
+            redirect = LoopbackRedirect(
+                path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+                closeBrowserTab = closeBrowserTab,
+            ),
         )
-        client.signIn()
+        client.signIn { authUrl ->
+            val uri = callback(authUrl, code = "the-code")
+            Thread { page.complete(send(uri, path(uri))) }.start()
+        }
         return page.await()
+    }
+
+    @Test(timeout = 30_000)
+    fun theListenerDoesNotHoldOntoTheCallersThread() = runBlocking {
+        val caller = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+        try {
+            val client = LoopbackGitHubSponsorClient(
+                verify = { _, _ -> GitHubSponsorClient.VerifyResult.Success },
+                redirect = LoopbackRedirect(
+                    path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+                    timeoutMillis = 2_000,
+                ),
+            )
+            val waiting = launch(caller) { client.signIn { } }
+            val ranOnTheSameThread = CompletableDeferred<Unit>()
+            launch(caller) { ranOnTheSameThread.complete(Unit) }
+
+            withTimeout(10_000) { ranOnTheSameThread.await() }
+
+            waiting.cancelAndJoin()
+        } finally {
+            caller.close()
+        }
     }
 
     private fun redirectBack(
@@ -339,7 +479,7 @@ class LoopbackGitHubSponsorClientTest {
         ""
     }
 
-    private fun path(uri: URI) = uri.rawPath + "?" + uri.rawQuery
+    private fun path(uri: URI) = uri.rawPath.ifEmpty { "/" } + "?" + uri.rawQuery
 
     private fun port(authUrl: String) = URI(params(authUrl).getValue("redirect_uri")).port
 

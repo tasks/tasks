@@ -9,9 +9,9 @@ import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.SignInHandler
-import android.content.Intent
-import android.net.Uri
 import org.tasks.billing.CompositeSubscriptionProvider
+import org.tasks.auth.LoopbackRedirect
+import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorVerifier
@@ -69,13 +69,11 @@ actual fun platformModule(): Module = module {
         val context = androidContext()
         LoopbackGitHubSponsorClient(
             verify = get<GitHubSponsorVerifier>()::verify,
-            openUrl = { url ->
-                context.startActivity(
-                    Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            },
-            onCallback = { context.bringTasksToForeground() },
+            redirect = LoopbackRedirect(
+                path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH,
+                onRedirect = { context.bringTasksToForeground() },
+                closeBrowserTab = false,
+            ),
         )
     }
     factory<SignInHandler> { AndroidSignInHandler(androidContext(), get(), get(), get(), get(), get()) }

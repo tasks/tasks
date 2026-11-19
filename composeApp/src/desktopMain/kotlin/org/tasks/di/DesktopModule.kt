@@ -23,6 +23,7 @@ import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.auth.DesktopOAuthFlow
 import org.tasks.auth.DesktopSignInHandler
+import org.tasks.auth.LoopbackRedirect
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
@@ -32,7 +33,6 @@ import org.tasks.billing.DesktopLinkClient
 import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
-import org.tasks.extensions.desktopOpenUrl
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
@@ -43,12 +43,15 @@ import org.tasks.data.TaskCreator
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
+import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DesktopOkHttpClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
+import org.tasks.http.DesktopCookieStorage
+import org.tasks.auth.OAuthTokenStore
 import org.tasks.http.toKtor
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
@@ -73,9 +76,10 @@ import org.tasks.service.TaskCleanup
 import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
-import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
+import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftSynchronizer
+import org.tasks.sync.microsoft.asMicrosoftTokenSource
 import java.io.File
 
 internal val appName: String =
@@ -220,11 +224,13 @@ actual fun platformModule(): Module = module {
     }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
     single<MicrosoftClientProvider> {
-        DesktopMicrosoftClientProvider(
-            encryption = get(),
-            caldavDao = get(),
+        val encryption = get<KeyStoreEncryption>()
+        val caldavDao = get<CaldavDao>()
+        OkHttpMicrosoftClientProvider(
             okHttpClientFactory = get(),
-            cookieDir = cookieDir,
+            caldavDao = caldavDao,
+            tokens = OAuthTokenStore(encryption, caldavDao, TasksOAuthClient()).asMicrosoftTokenSource(),
+            cookiesStorage = { DesktopCookieStorage.forKey(cookieDir, it, encryption) },
         )
     }
     factory {
@@ -389,8 +395,7 @@ actual fun platformModule(): Module = module {
     single<GitHubSponsorClient> {
         LoopbackGitHubSponsorClient(
             verify = get<GitHubSponsorVerifier>()::verify,
-            openUrl = ::desktopOpenUrl,
-            closeBrowserTab = true,
+            redirect = LoopbackRedirect(path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH),
         )
     }
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class

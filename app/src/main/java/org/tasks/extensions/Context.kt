@@ -5,7 +5,6 @@ import android.app.AlarmManager
 import android.content.ActivityNotFoundException
 import android.content.ContentResolver
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
@@ -20,7 +19,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.AnyRes
 import androidx.browser.customtabs.CustomTabsIntent
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import org.tasks.BuildConfig
 import org.tasks.R
@@ -91,14 +89,6 @@ object Context {
             .authority(packageName)
             .path(res.toString())
             .build()
-
-    fun Context.cookiePersistor(key: String? = null) =
-        SharedPrefsCookiePersistor(
-            getSharedPreferences(
-                "CookiePersistence${key?.let { "_$it" } ?: ""}",
-                MODE_PRIVATE
-            )
-        )
 
     fun Context.hasNetworkConnectivity(): Boolean {
         return try {

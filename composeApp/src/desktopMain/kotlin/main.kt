@@ -54,7 +54,7 @@ import at.bitfire.cert4android.DesktopUserDecisionRegistry
 import org.tasks.ssl.TrustCertificateDialog
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncSource
-import org.tasks.sync.microsoft.DesktopMicrosoftClientProvider
+import org.tasks.sync.microsoft.DefaultMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.di.commonModule
 import org.tasks.di.dataDir
@@ -209,7 +209,7 @@ fun main() {
             runBlocking { koin.get<DesktopMcpServerController>().shutdown() }
         }
         step(TAG, "close the Microsoft client") {
-            (koin.get<MicrosoftClientProvider>() as? DesktopMicrosoftClientProvider)?.close()
+            runBlocking { (koin.get<MicrosoftClientProvider>() as? DefaultMicrosoftClientProvider)?.close() }
         }
         step(TAG, "flush cookies") { runBlocking { EncryptedCookieStore.flushAll() } }
         step(TAG, "close reporting") { (koin.get<Reporting>() as? PostHogReporting)?.close() }

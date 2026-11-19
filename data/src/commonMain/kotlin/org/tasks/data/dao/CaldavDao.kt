@@ -19,6 +19,7 @@ import org.tasks.data.db.SuspendDbUtils.eachChunk
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_LOCAL
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
@@ -101,6 +102,15 @@ abstract class CaldavDao(private val database: Database) {
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract suspend fun getAccount(id: Long): CaldavAccount?
 
+    @Query(
+        "SELECT * FROM caldav_accounts " +
+        "WHERE cda_account_type = $TYPE_MICROSOFT AND (cda_username = :subject " +
+        "OR cda_username = :preferredUsername COLLATE NOCASE OR cda_username = :email COLLATE NOCASE) " +
+        "ORDER BY (cda_username = :subject) DESC, (cda_username = :preferredUsername COLLATE NOCASE) DESC, cda_id ASC " +
+        "LIMIT 1"
+    )
+    abstract suspend fun findMicrosoftAccount(subject: String, preferredUsername: String?, email: String?): CaldavAccount?
+
     @Query("SELECT * FROM caldav_accounts WHERE cda_id = :id")
     abstract fun watchAccount(id: Long): Flow<CaldavAccount?>
 
@@ -148,6 +158,9 @@ ORDER BY CASE cda_account_type
 
     @Query("UPDATE caldav_accounts SET cda_username = :username, cda_name = :name, cda_password = :password, cda_error = '' WHERE cda_id = :id")
     abstract suspend fun setMicrosoftReauth(id: Long, username: String?, name: String?, password: String?)
+
+    @Query("UPDATE caldav_accounts SET cda_password = :password, cda_error = '' WHERE cda_id = :id")
+    abstract suspend fun setGoogleTasksReauth(id: Long, password: String)
 
     @Query(
         "SELECT * FROM caldav_accounts " +

@@ -40,7 +40,7 @@ open class AndroidOkHttpClientFactory(
             .sslSocketFactory(sslContext.socketFactory, customCertManager)
             .hostnameVerifier(hostnameVerifier)
             .addInterceptor(UserAgentInterceptor(userAgent))
-            .cookieJar(TasksCookieJar(persistor = cookiePersistor(cookieKey)))
+            .cookieJar(LazyCookieJar { TasksCookieJar(persistor = cookiePersistor(cookieKey)) })
 
         block(builder)
 

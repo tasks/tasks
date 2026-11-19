@@ -7,5 +7,5 @@ interface GitHubSponsorClient {
         data class NotStored(val encryptionFailed: Boolean) : VerifyResult
         data object Failed : VerifyResult
     }
-    suspend fun signIn(): VerifyResult
+    suspend fun signIn(openUrl: (String) -> Unit): VerifyResult
 }

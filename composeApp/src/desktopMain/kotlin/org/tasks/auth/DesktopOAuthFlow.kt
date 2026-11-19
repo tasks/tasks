@@ -1,20 +1,11 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
-import org.tasks.extensions.htmlEscape
-import com.sun.net.httpserver.HttpServer
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.extensions.desktopOpenUrl
 import java.io.IOException
-import java.net.InetSocketAddress
-import java.net.URLDecoder
-import java.util.concurrent.atomic.AtomicReference
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 private const val TAG = "DesktopOAuthFlow"
 private const val CALLBACK_TIMEOUT_MILLIS = 10 * 60 * 1000L
@@ -46,8 +37,10 @@ class DesktopOAuthFlow(
         val codeChallenge = codeVerifier?.takeIf { provider.usesPkce }?.let(PKCE::generateChallenge)
         val nonce = PKCE.generateVerifier()
 
-        val (config, code) = listenForCallback(provider.loopbackHost) { port ->
-            val redirectUri = "http://${provider.loopbackHost}:$port"
+        val (config, code) = LoopbackRedirect(
+            host = provider.loopbackHost,
+            timeoutMillis = callbackTimeoutMillis,
+        ).awaitAuthorization(openUrl) { redirectUri ->
             val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri, codeVerifier!!)
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
@@ -64,97 +57,11 @@ class DesktopOAuthFlow(
                 provider.authParams(),
             )
             Logger.d(TAG) { "Opening browser: $authUrl" }
-            openUrl(authUrl)
-            config
+            config to authUrl
         }
 
         Logger.d(TAG) { "Got authorization code, exchanging..." }
         oauthClient.exchangeCode(config, code, codeVerifier, authHeader)
     }
 
-    private suspend fun listenForCallback(
-        loopbackHost: String,
-        onReady: (port: Int) -> OAuthConfig,
-    ): Pair<OAuthConfig, String> =
-        withTimeoutOrNull(callbackTimeoutMillis) { awaitCallback(loopbackHost, onReady) }
-            ?: throw IOException("Timed out waiting for the sign-in to finish")
-
-    private suspend fun awaitCallback(
-        loopbackHost: String,
-        onReady: (port: Int) -> OAuthConfig,
-    ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
-        val server = HttpServer.create(InetSocketAddress(loopbackHost, 0), 0)
-        val port = server.address.port
-        val config = AtomicReference<OAuthConfig?>(null)
-
-        server.createContext("/") { exchange ->
-            val query = exchange.requestURI.query ?: ""
-            val params = query.split("&")
-                .filter { it.contains("=") }
-                .associate {
-                    val (key, value) = it.split("=", limit = 2)
-                    key to URLDecoder.decode(value, "UTF-8")
-                }
-
-            val code = params["code"]
-            val error = params["error"]
-            val errorDescription = params["error_description"]
-            val returnedState = params["state"]
-
-            val responseBody = when {
-                code != null -> """
-                    <html><body>
-                    <h2>Sign in successful!</h2>
-                    <p>You can close this window and return to Tasks.</p>
-                    <script>setTimeout(function(){ window.close(); }, 2000)</script>
-                    </body></html>
-                """.trimIndent()
-                else -> """
-                    <html><body>
-                    <h2>Sign in failed</h2>
-                    <p>${(errorDescription ?: error ?: "Unknown error").htmlEscape()}</p>
-                    </body></html>
-                """.trimIndent()
-            }
-
-            exchange.responseHeaders.add("Content-Type", "text/html")
-            val responseBytes = responseBody.toByteArray()
-            exchange.sendResponseHeaders(200, responseBytes.size.toLong())
-            exchange.responseBody.use { it.write(responseBytes) }
-
-            server.stop(1)
-
-            val currentConfig = config.get()
-            if (code != null && currentConfig != null) {
-                if (returnedState != currentConfig.state) {
-                    cont.resumeWithException(
-                        Exception("OAuth state mismatch")
-                    )
-                } else {
-                    cont.resume(currentConfig to code)
-                }
-            } else {
-                cont.resumeWithException(
-                    ConditionalAccess.devicePolicyException(error, errorDescription)
-                        ?: Exception(errorDescription ?: error ?: "Authorization failed")
-                )
-            }
-        }
-
-        server.start()
-        Logger.d(TAG) { "Listening on port $port" }
-
-        cont.invokeOnCancellation {
-            server.stop(0)
-        }
-
-        try {
-            config.set(onReady(port))
-        } catch (e: Throwable) {
-            server.stop(0)
-            if (cont.isActive) {
-                cont.resumeWithException(e)
-            }
-        }
-    }
 }

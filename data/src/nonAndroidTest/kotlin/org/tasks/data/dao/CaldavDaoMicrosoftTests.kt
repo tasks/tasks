@@ -4,12 +4,16 @@ import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.runBlocking
 import org.tasks.data.db.Database
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_GOOGLE_TASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class CaldavDaoMicrosoftTests {
@@ -100,6 +104,59 @@ class CaldavDaoMicrosoftTests {
 
         assertEquals(listOf("a-1"), caldavDao.getTopLevelRemoteIds("calendar-a"))
         assertEquals(listOf("b-1"), caldavDao.getTopLevelRemoteIds("calendar-b"))
+    }
+
+    private suspend fun account(username: String, type: Int = TYPE_MICROSOFT) =
+        caldavDao.insert(CaldavAccount(accountType = type, username = username))
+
+    @Test
+    fun theSubjectWinsOverTheSignInName() = runBlocking {
+        account("alice@example.com")
+        val subject = account("1234")
+
+        assertEquals(
+            subject,
+            caldavDao.findMicrosoftAccount("1234", "alice@example.com", "alice@example.com")?.id,
+        )
+    }
+
+    @Test
+    fun thePreferredUsernameWinsOverTheEmail() = runBlocking {
+        account("alice@outlook.com")
+        val preferred = account("alice@live.com")
+
+        assertEquals(
+            preferred,
+            caldavDao.findMicrosoftAccount("1234", "alice@live.com", "alice@outlook.com")?.id,
+        )
+    }
+
+    @Test
+    fun theEmailIsUsedWithoutAPreferredUsername() = runBlocking {
+        val stored = account("alice@outlook.com")
+
+        assertEquals(stored, caldavDao.findMicrosoftAccount("1234", null, "alice@outlook.com")?.id)
+    }
+
+    @Test
+    fun aSignInNameMatchesRegardlessOfCase() = runBlocking {
+        val stored = account("Alice@Outlook.com")
+
+        assertEquals(stored, caldavDao.findMicrosoftAccount("1234", "alice@outlook.com", null)?.id)
+    }
+
+    @Test
+    fun theSubjectIsMatchedExactly() = runBlocking {
+        account("abcd")
+
+        assertNull(caldavDao.findMicrosoftAccount("ABCD", null, null))
+    }
+
+    @Test
+    fun otherAccountTypesAreIgnored() = runBlocking {
+        account("alice@example.com", type = TYPE_GOOGLE_TASKS)
+
+        assertNull(caldavDao.findMicrosoftAccount("1234", "alice@example.com", "alice@example.com"))
     }
 
     companion object {

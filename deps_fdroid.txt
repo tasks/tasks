@@ -1683,7 +1683,6 @@
 ++--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2 (*)
 ++--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 ++--- com.squareup.okhttp3:okhttp:5.5.0 (*)
-++--- com.github.franmontiel:PersistentCookieJar:1.0.1 (*)
 ++--- com.google.android.material:material:1.12.0
 +|    +--- org.jetbrains.kotlin:kotlin-bom:1.8.22
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:1.8.22 -> 2.4.21 (c)
@@ -1912,12 +1911,6 @@
 +|    +--- androidx.vectordrawable:vectordrawable-animated:1.1.0 (*)
 +|    +--- io.coil-kt:coil-base:2.7.0 (*)
 +|    \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.4.21 (*)
-++--- io.ktor:ktor-client-android:3.6.0
-+|    \--- io.ktor:ktor-client-android-jvm:3.6.0
-+|         +--- org.slf4j:slf4j-api:2.0.19
-+|         +--- io.ktor:ktor-client-core:3.6.0 (*)
-+|         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
-+|         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.21 -> 2.4.21 (*)
 ++--- io.ktor:ktor-client-logging:3.6.0 (*)
 ++--- io.ktor:ktor-client-content-negotiation:3.6.0 (*)
 ++--- io.ktor:ktor-serialization-kotlinx-json:3.6.0 (*)

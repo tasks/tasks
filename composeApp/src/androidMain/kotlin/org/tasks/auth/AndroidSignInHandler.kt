@@ -1,11 +1,9 @@
 package org.tasks.auth
 
 import android.content.Context
-import android.content.Intent
+import org.tasks.extensions.bringTasksToForeground
 import co.touchlab.kermit.Logger
-import org.tasks.extensions.htmlEscape
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.caldav.CaldavClientProvider
@@ -13,13 +11,6 @@ import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
 import org.tasks.http.HttpException
 import org.tasks.security.KeyStoreEncryption
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.InetAddress
-import java.net.ServerSocket
-import java.net.URLDecoder
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 private const val TAG = "AndroidSignInHandler"
 
@@ -60,8 +51,9 @@ class AndroidSignInHandler(
         val codeChallenge = codeVerifier?.takeIf { oauthProvider.usesPkce }?.let(PKCE::generateChallenge)
         val nonce = PKCE.generateVerifier()
 
-        val (config, code) = listenForCallback { port ->
-            val redirectUri = "http://127.0.0.1:$port"
+        val (config, code) = LoopbackRedirect(
+            host = oauthProvider.loopbackHost,
+        ).awaitAuthorization(openUrl) { redirectUri ->
             val state = if (serverCallback == null) nonce else RedirectState.encode(nonce, redirectUri, codeVerifier!!)
             val config = OAuthConfig(
                 authorizationEndpoint = authEndpoint,
@@ -78,8 +70,7 @@ class AndroidSignInHandler(
                 oauthProvider.authParams(),
             )
             Logger.d(TAG) { "Opening browser: $authUrl" }
-            openUrl(authUrl)
-            config
+            config to authUrl
         }
 
         Logger.d(TAG) { "Got authorization code, exchanging..." }
@@ -104,83 +95,8 @@ class AndroidSignInHandler(
             }
             Logger.i(TAG) { "Account created successfully" }
         } finally {
-            bringAppToForeground()
+            context.bringTasksToForeground()
         }
     }
 
-    private fun bringAppToForeground() {
-        val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
-            ?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        if (intent != null) {
-            context.startActivity(intent)
-        }
-    }
-
-    private suspend fun listenForCallback(
-        onReady: (port: Int) -> OAuthConfig,
-    ): Pair<OAuthConfig, String> = suspendCancellableCoroutine { cont ->
-        val serverSocket = ServerSocket(0, 1, InetAddress.getByName("127.0.0.1"))
-        serverSocket.soTimeout = 300_000 // 5 minute timeout
-        val port = serverSocket.localPort
-
-        cont.invokeOnCancellation {
-            serverSocket.close()
-        }
-
-        Logger.d(TAG) { "Listening on port $port" }
-        val config = onReady(port)
-
-        val socket = serverSocket.accept()
-        try {
-            val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
-            val requestLine = reader.readLine() ?: ""
-            val path = requestLine.split(" ").getOrElse(1) { "" }
-            val query = path.substringAfter("?", "")
-            val params = query.split("&")
-                .filter { it.contains("=") }
-                .associate {
-                    val (key, value) = it.split("=", limit = 2)
-                    key to URLDecoder.decode(value, "UTF-8")
-                }
-
-            val code = params["code"]
-            val error = params["error"]
-            val returnedState = params["state"]
-
-            val responseBody = if (code != null) {
-                "<html><body>" +
-                        "<h2>Sign in successful!</h2>" +
-                        "<p>You can close this window and return to Tasks.</p>" +
-                        "<script>window.close()</script>" +
-                        "</body></html>"
-            } else {
-                "<html><body>" +
-                        "<h2>Sign in failed</h2>" +
-                        "<p>${(error ?: "Unknown error").htmlEscape()}</p>" +
-                        "</body></html>"
-            }
-
-            val response = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Content-Length: ${responseBody.toByteArray().size}\r\n" +
-                    "Connection: close\r\n" +
-                    "\r\n" +
-                    responseBody
-            socket.getOutputStream().write(response.toByteArray())
-            socket.getOutputStream().flush()
-
-            if (code != null) {
-                if (returnedState != config.state) {
-                    cont.resumeWithException(Exception("OAuth state mismatch"))
-                } else {
-                    cont.resume(config to code)
-                }
-            } else {
-                cont.resumeWithException(Exception(error ?: "Authorization failed"))
-            }
-        } finally {
-            socket.close()
-            serverSocket.close()
-        }
-    }
 }

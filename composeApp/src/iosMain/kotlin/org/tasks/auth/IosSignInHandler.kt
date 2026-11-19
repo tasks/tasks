@@ -17,7 +17,11 @@ class IosSignInHandler(
     private val pushTokenManager: PushTokenManager,
     private val purchaseClaim: PurchaseClaim,
 ) : SignInHandler {
-    override suspend fun signIn(platform: Platform, provider: OAuthProvider?, openUrl: (String) -> Unit) {
+    override suspend fun signIn(
+        platform: Platform,
+        provider: OAuthProvider?,
+        openUrl: (String) -> Unit,
+    ) {
         val oauthProvider = provider ?: when (platform) {
             Platform.TASKS_ORG -> OAuthProvider.GOOGLE
             else -> throw UnsupportedOperationException("$platform not supported on iOS")
