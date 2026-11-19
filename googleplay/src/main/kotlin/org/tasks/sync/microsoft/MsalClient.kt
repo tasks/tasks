@@ -6,15 +6,20 @@ import co.touchlab.kermit.Logger
 import com.microsoft.identity.client.AcquireTokenParameters
 import com.microsoft.identity.client.AcquireTokenSilentParameters
 import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.IAccount
 import com.microsoft.identity.client.IAuthenticationResult
 import com.microsoft.identity.client.IMultipleAccountPublicClientApplication
 import com.microsoft.identity.client.Prompt
 import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.exception.MsalException
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import org.tasks.analytics.Analytics
+import org.tasks.analytics.AnalyticsEvents
+import org.tasks.analytics.Constants
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.http.UnauthorizedException
 import kotlin.coroutines.resume
@@ -23,6 +28,7 @@ import kotlin.coroutines.resumeWithException
 class MsalClient(
     private val context: Context,
     private val configResourceId: Int,
+    private val caldavDao: CaldavDao,
 ) : MicrosoftTokenSource {
     private val logger = Logger.withTag(TAG)
 
@@ -37,7 +43,7 @@ class MsalClient(
 
     override suspend fun hasCredentials(account: CaldavAccount): Boolean = withContext(Dispatchers.IO) {
         try {
-            application().accounts.any { it.username == account.username }
+            application().accounts.findFor(account.username, account.name) { it.identity() } != null
         } catch (e: Exception) {
             logger.e(e) { "Failed to read the Microsoft account list" }
             true
@@ -54,7 +60,7 @@ class MsalClient(
     private suspend fun acquireSilently(account: CaldavAccount, force: Boolean): String = withContext(Dispatchers.IO) {
         val app = application()
         val result = try {
-            val msalAccount = app.accounts.firstOrNull { it.username == account.username }
+            val msalAccount = app.accounts.findFor(account.username, account.name) { it.identity() }
                 ?: throw UnauthorizedException("No matching account found")
             app.acquireTokenSilent(
                 AcquireTokenSilentParameters.Builder()
@@ -71,15 +77,32 @@ class MsalClient(
         result.accessToken
     }
 
-    suspend fun signIn(activity: Activity, username: String? = null): String =
+    override suspend fun subjectsByUsername(): Map<String, String> = withContext(Dispatchers.IO) {
+        application().accounts.map { it.identity() }.subjectsByUsername()
+    }
+
+    suspend fun signIn(activity: Activity, loginHint: String?, analytics: Analytics): Boolean {
+        val signIn = acquireToken(activity, loginHint) ?: return false
+        withContext(NonCancellable) {
+            setupMsalMicrosoftAccount(signIn, caldavDao) {
+                analytics.logEvent(
+                    AnalyticsEvents.SYNC_ADD_ACCOUNT,
+                    AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
+                )
+            }
+        }
+        return true
+    }
+
+    private suspend fun acquireToken(activity: Activity, username: String?): MsalSignIn? =
         withContext(Dispatchers.IO) {
             val app = application()
-            suspendCancellableCoroutine { continuation ->
+            suspendCancellableCoroutine<MsalSignIn?> { continuation ->
                 val parameters = AcquireTokenParameters.Builder()
                     .startAuthorizationFromActivity(activity)
                     .withScopes(SCOPES)
                     .apply {
-                        if (username == null) {
+                        if (username.isNullOrBlank()) {
                             withPrompt(Prompt.SELECT_ACCOUNT)
                         } else {
                             withLoginHint(username)
@@ -88,16 +111,14 @@ class MsalClient(
                     }
                     .withCallback(object : AuthenticationCallback {
                         override fun onSuccess(authenticationResult: IAuthenticationResult) {
-                            val email = authenticationResult
-                                .account
-                                .claims
-                                ?.get(CLAIM_PREFERRED_USERNAME) as? String
-                            if (email == null) {
+                            val account = authenticationResult.account
+                            val username = account.claims?.get(CLAIM_PREFERRED_USERNAME) as? String
+                            if (username == null) {
                                 continuation.resumeWithException(
                                     IllegalStateException("No email in the Microsoft response")
                                 )
                             } else {
-                                continuation.resume(email)
+                                continuation.resume(MsalSignIn(username, account.identity().subject))
                             }
                         }
 
@@ -108,7 +129,7 @@ class MsalClient(
                         }
 
                         override fun onCancel() {
-                            continuation.cancel(CancellationException("Sign in cancelled"))
+                            continuation.resume(null)
                         }
                     })
                     .build()
@@ -116,9 +137,15 @@ class MsalClient(
             }
         }
 
+    private fun IAccount.identity() = MsalIdentity(
+        subject = claims?.get(CLAIM_SUBJECT) as? String,
+        username = username,
+    )
+
     companion object {
         private const val TAG = "MsalClient"
         private const val CLAIM_PREFERRED_USERNAME = "preferred_username"
+        private const val CLAIM_SUBJECT = "sub"
         val SCOPES = listOf("https://graph.microsoft.com/.default")
     }
 }

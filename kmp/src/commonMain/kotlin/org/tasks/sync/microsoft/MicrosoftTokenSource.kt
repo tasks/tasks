@@ -9,6 +9,8 @@ interface MicrosoftTokenSource {
     suspend fun refreshToken(account: CaldavAccount, rejected: String?): String?
 
     suspend fun hasCredentials(account: CaldavAccount): Boolean = !account.password.isNullOrBlank()
+
+    suspend fun subjectsByUsername(): Map<String, String> = emptyMap()
 }
 
 fun OAuthTokenStore.asMicrosoftTokenSource(): MicrosoftTokenSource = object : MicrosoftTokenSource {

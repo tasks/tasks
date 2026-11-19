@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
+import org.tasks.R
 import org.tasks.analytics.Firebase
 import org.tasks.analytics.logCloudOnboarding
 import org.tasks.auth.TasksServerEnvironment
@@ -53,6 +54,7 @@ import org.tasks.play.PlayServices
 import org.tasks.preferences.TasksPreferences
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
+import org.tasks.sync.microsoft.MsalClient
 import org.tasks.wear.WearRefresher
 import org.tasks.wear.WearRefresherImpl
 import javax.inject.Singleton
@@ -87,6 +89,13 @@ class FlavorModule {
         },
         onPurchaseFlowFinished = { workManager.updatePurchases() },
     )
+
+    @Provides
+    @Singleton
+    fun provideMsalClient(
+        @ApplicationContext context: Context,
+        caldavDao: CaldavDao,
+    ) = MsalClient(context, R.raw.microsoft_config, caldavDao)
 
     @Provides
     @Singleton

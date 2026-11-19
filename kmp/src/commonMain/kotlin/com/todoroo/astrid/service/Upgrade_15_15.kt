@@ -15,10 +15,14 @@ import kotlin.coroutines.cancellation.CancellationException
 class Upgrade_15_15(
     private val caldavDao: CaldavDao,
     private val encryption: Encryption,
+    private val msalSubjects: suspend () -> Map<String, String> = { emptyMap() },
 ) : Upgrade {
     private val logger = Logger.withTag("Upgrade_15_15")
 
-    override suspend fun run() = migrateAppAuthCredentials()
+    override suspend fun run() {
+        migrateAppAuthCredentials()
+        migrateMsalAccounts()
+    }
 
     suspend fun migrateAppAuthCredentials() {
         for (account in caldavDao.getAccounts(TYPE_MICROSOFT)) {
@@ -51,6 +55,30 @@ class Upgrade_15_15(
                 throw e
             } catch (e: Exception) {
                 logger.e(e) { "Failed to migrate credentials for account ${account.id}" }
+            }
+        }
+    }
+
+    suspend fun migrateMsalAccounts() {
+        val accounts = caldavDao.getAccounts(TYPE_MICROSOFT).filter { it.password.isNullOrBlank() }
+        if (accounts.isEmpty()) {
+            return
+        }
+        val subjects = try {
+            msalSubjects()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to read the MSAL account list" }
+            return
+        }
+        for (account in accounts) {
+            try {
+                moveOntoSubject(account, account.username?.let { subjects[it] })
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                logger.e(e) { "Failed to move account ${account.id} onto its subject" }
             }
         }
     }

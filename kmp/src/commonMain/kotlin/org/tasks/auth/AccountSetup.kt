@@ -214,7 +214,7 @@ private suspend fun Encryption.encryptOrThrow(text: String): String =
 
 private val tasksSetupLock = Mutex()
 
-private val microsoftSetupLock = Mutex()
+val microsoftSetupLock = Mutex()
 
 private val googleTasksSetupLock = Mutex()
 

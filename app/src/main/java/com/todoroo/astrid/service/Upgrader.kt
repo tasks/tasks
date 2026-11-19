@@ -45,6 +45,7 @@ import org.tasks.jobs.networkConstraints
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.sync.microsoft.MicrosoftTokenProvider
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
 import org.tasks.widget.WidgetPreferences
@@ -80,6 +81,7 @@ class Upgrader @Inject constructor(
     private val upgrade_14_13: Lazy<Upgrade_14_13>,
     private val upgrade_15_10: Lazy<Upgrade_15_10>,
     private val encryption: Lazy<KeyStoreEncryption>,
+    private val microsoftTokens: Lazy<MicrosoftTokenProvider>,
 ) {
 
     fun upgrade(from: Int, to: Int) {
@@ -177,7 +179,7 @@ class Upgrader @Inject constructor(
             run(from, Upgrade_15_10.VERSION) {
                 upgrade_15_10.get().migrateRandomReminder()
             }
-            CommonUpgrades.all(database, encryption.get()).forEach { step ->
+            CommonUpgrades.all(database, encryption.get()) { microsoftTokens.get().subjectsByUsername() }.forEach { step ->
                 run(from, step.version) { step.upgrade().run() }
             }
             if (isMajorOrMinorUpdate(from, to)) {

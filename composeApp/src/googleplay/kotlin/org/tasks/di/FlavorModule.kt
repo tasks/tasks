@@ -8,13 +8,10 @@ import org.koin.dsl.module
 import org.tasks.AppStore
 import org.tasks.CurrentActivity
 import org.tasks.R
-import org.tasks.analytics.AnalyticsEvents
-import org.tasks.analytics.Constants
 import org.tasks.auth.MicrosoftSignIn
 import org.tasks.sync.microsoft.AndroidMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.MsalClient
-import org.tasks.sync.microsoft.setupMsalMicrosoftAccount
 import org.tasks.analytics.Reporting
 import org.tasks.analytics.logCloudOnboarding
 import org.tasks.PlatformConfiguration
@@ -61,21 +58,12 @@ val flavorModule = module {
     single(createdAtStart = true) {
         CurrentActivity().also { androidApplication().registerActivityLifecycleCallbacks(it) }
     }
-    single { MsalClient(androidContext(), R.raw.microsoft_config) }
+    single { MsalClient(androidContext(), R.raw.microsoft_config, get()) }
     single<MicrosoftSignIn> {
         MicrosoftSignIn { loginHint ->
             val activity = get<CurrentActivity>().activity
                 ?: throw IllegalStateException("Microsoft sign-in needs a foreground activity")
-            setupMsalMicrosoftAccount(
-                email = get<MsalClient>().signIn(activity, loginHint),
-                caldavDao = get(),
-                onAccountAdded = {
-                    get<Reporting>().logEvent(
-                        AnalyticsEvents.SYNC_ADD_ACCOUNT,
-                        AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
-                    )
-                },
-            )
+            get<MsalClient>().signIn(activity, loginHint, get<Reporting>())
         }
     }
     single<MicrosoftClientProvider> {

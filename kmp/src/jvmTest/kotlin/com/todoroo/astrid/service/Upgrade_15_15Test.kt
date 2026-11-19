@@ -271,4 +271,60 @@ class Upgrade_15_15Test {
             verifyBlocking(dao, never()) { setPassword(any(), anyOrNull()) }
         }
     }
+
+    @Test
+    fun anMsalAccountStoredUnderItsEmailMovesOntoTheSubject() = runBlocking {
+        val dao = dao(CaldavAccount(id = 1, username = "alice@outlook.com"))
+
+        Upgrade_15_15(dao, plaintext) { mapOf("alice@outlook.com" to "the-subject") }.run()
+
+        verifyBlocking(dao) { setUsername(1, "the-subject") }
+    }
+
+    @Test
+    fun anMsalAccountMissingFromTheMsalCacheKeepsItsUsername() = runBlocking {
+        val dao = dao(CaldavAccount(id = 1, username = "alice@outlook.com"))
+
+        Upgrade_15_15(dao, plaintext) { mapOf("bob@outlook.com" to "the-subject") }.run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
+    }
+
+    @Test
+    fun anMsalAccountDoesNotTakeTheSubjectOfAnotherAccount() = runBlocking {
+        val dao = dao(
+            CaldavAccount(id = 1, username = "alice@outlook.com"),
+            CaldavAccount(id = 2, username = "the-subject"),
+        )
+
+        Upgrade_15_15(dao, plaintext) { mapOf("alice@outlook.com" to "the-subject") }.run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
+    }
+
+    @Test
+    fun anAccountWithAPasswordIsNotMatchedAgainstTheMsalCache() = runBlocking {
+        val stored = OAuthTokenData("a", "r", tokenEndpoint, clientId, 1).serialize()
+        val dao = dao(CaldavAccount(id = 1, username = "alice@outlook.com", password = stored))
+
+        Upgrade_15_15(dao, plaintext) { mapOf("alice@outlook.com" to "the-subject") }.run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
+    }
+
+    @Test
+    fun theMsalCacheIsNotReadWithoutMsalAccounts() = runBlocking {
+        val dao = dao()
+
+        Upgrade_15_15(dao, plaintext) { throw AssertionError() }.run()
+    }
+
+    @Test
+    fun anUnreadableMsalCacheLeavesAccountsAlone() = runBlocking {
+        val dao = dao(CaldavAccount(id = 1, username = "alice@outlook.com"))
+
+        Upgrade_15_15(dao, plaintext) { throw IllegalStateException() }.run()
+
+        verifyBlocking(dao, never()) { setUsername(any(), any()) }
+    }
 }
