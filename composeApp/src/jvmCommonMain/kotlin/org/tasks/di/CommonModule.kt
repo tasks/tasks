@@ -59,7 +59,7 @@ import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
-import org.tasks.googleapis.GoogleTasksCredentialsAdapter
+import org.tasks.googleapis.GoogleTasksCredentials
 import org.tasks.googleapis.GtasksInvoker
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
@@ -188,6 +188,14 @@ val commonModule = module {
     factory<EtebaseClientFactory> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { TasksOAuthClient(httpClient = runBlocking { get<OkHttpClientFactory>().newClient() }.toKtor()) }
+    single {
+        GoogleTasksCredentials(
+            encryption = get<KeyStoreEncryption>(),
+            proxyAuthProvider = get(),
+            caldavDao = get(),
+            oauthClient = get(),
+        )
+    }
     factory {
         DesktopGoogleTasksSynchronizer(
             caldavDao = get(),
@@ -203,10 +211,8 @@ val commonModule = module {
             appPreferences = get(),
             repeatTaskHelper = get(),
             taskCompleter = get(),
-            encryption = get(),
             createTask = { TaskCreator().createBlankTask() },
-            proxyAuthProvider = get(),
-            oauthClient = get(),
+            credentials = get(),
         )
     }
     single { Locale.getDefault() }
@@ -217,15 +223,7 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             invokerFactory = { account ->
-                GtasksInvoker(
-                    GoogleTasksCredentialsAdapter(
-                        account = account,
-                        encryption = get(),
-                        proxyAuthProvider = get(),
-                        caldavDao = get(),
-                        oauthClient = get(),
-                    )
-                )
+                GtasksInvoker(get<GoogleTasksCredentials>().adapter(account))
             },
             isDark = params.get(),
             account = params.get(),

@@ -201,6 +201,7 @@ class LoopbackGitHubSponsorClient(
         append(URLEncoder.encode(redirectUri, "UTF-8"))
         append("&state=")
         append(URLEncoder.encode(state, "UTF-8"))
+        append("&prompt=select_account")
     }
 
     private fun generateState(): String {

@@ -6,6 +6,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import androidx.compose.ui.platform.LocalUriHandler
 import org.tasks.auth.SignInHandler
 import org.tasks.compose.accounts.Platform
 import org.tasks.sync.SyncAdapters
@@ -19,6 +20,7 @@ fun GoogleTasksAccountSettingsDetail(
     onNavigateBack: () -> Unit,
 ) {
     val signInHandler = koinInject<SignInHandler>()
+    val uriHandler = LocalUriHandler.current
     val syncAdapters = koinInject<SyncAdapters>()
     val scope = rememberCoroutineScope()
     AccountSettingsDetail(
@@ -28,7 +30,7 @@ fun GoogleTasksAccountSettingsDetail(
         onSignIn = {
             scope.launch {
                 try {
-                    signInHandler.signIn(Platform.GOOGLE_TASKS)
+                    signInHandler.signIn(Platform.GOOGLE_TASKS, openUrl = uriHandler::openUri)
                     syncAdapters.sync(SyncSource.USER_INITIATED)
                 } catch (e: CancellationException) {
                     throw e

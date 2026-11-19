@@ -29,7 +29,6 @@ class IosOAuthFlow(
 ) : OAuthFlow {
     override suspend fun signIn(
         provider: OAuthProvider,
-        extraAuthParams: Map<String, String>,
         authHeader: String?,
     ): OAuthResult {
         if (provider == OAuthProvider.APPLE) {
@@ -53,8 +52,12 @@ class IosOAuthFlow(
             scope = provider.scope,
             state = state,
         )
-        val defaultParams = if (extraAuthParams.containsKey("prompt")) emptyMap() else mapOf("prompt" to "select_account")
-        val authUrl = oauthClient.buildAuthUrl(config, PKCE.generateChallenge(codeVerifier), state, defaultParams + extraAuthParams)
+        val authUrl = oauthClient.buildAuthUrl(
+            config,
+            PKCE.generateChallenge(codeVerifier),
+            state,
+            provider.authParams(),
+        )
 
         val callback = authenticate(authUrl, redirectUri.substringBefore(':'))
         val parameters = Url(callback).parameters

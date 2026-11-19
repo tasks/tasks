@@ -275,13 +275,7 @@ actual fun platformModule(): Module = module {
             microsoftClientProvider = get(),
             gtasksInvoker = { account ->
                 org.tasks.googleapis.GtasksInvoker(
-                    org.tasks.googleapis.GoogleTasksCredentialsAdapter(
-                        account = account,
-                        encryption = get(),
-                        proxyAuthProvider = get(),
-                        caldavDao = get(),
-                        oauthClient = get(),
-                    )
+                    get<org.tasks.googleapis.GoogleTasksCredentials>().adapter(account)
                 )
             },
         )

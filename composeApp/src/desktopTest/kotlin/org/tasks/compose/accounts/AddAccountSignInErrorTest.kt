@@ -89,7 +89,7 @@ class AddAccountSignInErrorTest {
 
     private fun kotlinx.coroutines.test.TestScope.signIn(): SignInState {
         val viewModel = AddAccountViewModel(caldavDao, purchaseState, signInHandler)
-        viewModel.signIn(Platform.TASKS_ORG)
+        viewModel.signIn(Platform.TASKS_ORG, openUrl = {})
         runCurrent()
         return viewModel.signInState.value
     }

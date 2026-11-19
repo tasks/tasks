@@ -75,7 +75,7 @@ class AndroidSignInHandler(
                 config.copy(redirectUri = serverCallback ?: redirectUri),
                 codeChallenge,
                 state,
-                oauthProvider.extraAuthParams,
+                oauthProvider.authParams(),
             )
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)

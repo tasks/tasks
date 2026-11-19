@@ -27,7 +27,6 @@ class DesktopOAuthFlow(
 ) : OAuthFlow {
     override suspend fun signIn(
         provider: OAuthProvider,
-        extraAuthParams: Map<String, String>,
         authHeader: String?,
     ): OAuthResult = withContext(Dispatchers.IO) {
         val discoveryUrl = provider.discoveryUrl
@@ -58,13 +57,11 @@ class DesktopOAuthFlow(
                 scope = provider.scope,
                 state = state,
             )
-            val defaultParams = if (!provider.promptForAccount || extraAuthParams.containsKey("prompt")) emptyMap()
-                else mapOf("prompt" to "select_account")
             val authUrl = oauthClient.buildAuthUrl(
                 config.copy(redirectUri = serverCallback ?: redirectUri),
                 codeChallenge,
                 state,
-                defaultParams + extraAuthParams,
+                provider.authParams(),
             )
             Logger.d(TAG) { "Opening browser: $authUrl" }
             openUrl(authUrl)

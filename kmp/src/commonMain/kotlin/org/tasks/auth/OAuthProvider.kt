@@ -2,6 +2,9 @@ package org.tasks.auth
 
 const val GOOGLE_TASKS_SCOPE = "https://www.googleapis.com/auth/tasks"
 
+private const val PROMPT = "prompt"
+private const val SELECT_ACCOUNT = "select_account"
+
 enum class OAuthProvider(
     val issuer: String,
     val discoveryPath: String,
@@ -61,5 +64,14 @@ enum class OAuthProvider(
             "access_type" to "offline",
             "prompt" to "consent",
         ),
-    ),
+    );
+
+    fun authParams(additionalParams: Map<String, String> = emptyMap()): Map<String, String> {
+        val params = extraAuthParams + additionalParams
+        if (!promptForAccount || PROMPT in additionalParams) {
+            return params
+        }
+        val prompt = listOfNotNull(extraAuthParams[PROMPT], SELECT_ACCOUNT).joinToString(" ")
+        return params + (PROMPT to prompt)
+    }
 }

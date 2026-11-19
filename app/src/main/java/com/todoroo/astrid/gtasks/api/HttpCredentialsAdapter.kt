@@ -74,8 +74,9 @@ class HttpCredentialsAdapter @Inject constructor(
         }
     }
 
-    override suspend fun invalidateToken() {
+    override suspend fun invalidateToken(): Boolean {
         googleAccountManager.invalidateToken(credentials?.accessToken?.tokenValue)
         credentials = null
+        return true
     }
 }

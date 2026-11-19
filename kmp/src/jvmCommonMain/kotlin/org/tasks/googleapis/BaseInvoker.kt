@@ -28,7 +28,9 @@ abstract class BaseInvoker(
             request.execute()
         } catch (e: HttpResponseException) {
             return@withContext if (e.statusCode == 401 && !retry) {
-                credentialsAdapter.invalidateToken()
+                if (!credentialsAdapter.invalidateToken()) {
+                    throw e
+                }
                 execute(request, true)
             } else if (e.statusCode == 404) {
                 throw HttpNotFoundException(e)
