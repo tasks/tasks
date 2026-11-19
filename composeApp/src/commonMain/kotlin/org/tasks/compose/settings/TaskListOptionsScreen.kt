@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.compose.components.SymbolIcon
@@ -109,9 +110,13 @@ fun TaskListOptionsScreen(onNavigateBack: () -> Unit) {
 
     if (showChipAppearanceDialog) {
         ChipAppearanceDialog(
-            entries = viewModel.chipEntries,
-            values = viewModel.chipValues,
-            selectedValue = viewModel.chipValues.getOrNull(viewModel.chipAppearanceIndex.coerceAtLeast(0)),
+            entries = viewModel.state.chipEntries,
+            values = viewModel.state.chipValues,
+            selectedValue =
+                viewModel.state.chipValues.getOrNull(
+                    viewModel.state.appearance.chipAppearanceIndex
+                        .coerceAtLeast(0),
+                ),
             onSelect = { value ->
                 viewModel.setChipAppearance(value.toIntOrNull() ?: 0)
                 showChipAppearanceDialog = false
@@ -137,138 +142,167 @@ private fun TaskListOptionsContent(
     ) {
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SliderPreferenceRow(
-                    title = stringResource(Res.string.font_size),
-                    value = viewModel.fontSize,
-                    min = 10,
-                    max = 48,
-                    onValueChange = { viewModel.updateFontSize(it.toInt()) },
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                SliderPreferenceRow(
-                    title = stringResource(Res.string.row_spacing),
-                    value = viewModel.rowSpacing,
-                    min = 0,
-                    max = 16,
-                    onValueChange = { viewModel.updateRowSpacing(it.toInt()) },
-                )
-            }
-        }
+        TextSettingsSection(viewModel = viewModel)
 
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.EPr_fullTask_title),
-                    checked = viewModel.showFullTitle,
-                    onCheckedChange = viewModel::updateShowFullTitle,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.show_description),
-                    checked = viewModel.showDescription,
-                    onCheckedChange = viewModel::updateShowDescription,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.show_full_description),
-                    checked = viewModel.showFullDescription,
-                    enabled = viewModel.showDescription,
-                    onCheckedChange = viewModel::updateShowFullDescription,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.linkify),
-                    summary = stringResource(Res.string.linkify_description),
-                    checked = viewModel.showLinks,
-                    onCheckedChange = viewModel::updateShowLinks,
-                )
-            }
-        }
+        DisplaySettingsSection(viewModel = viewModel)
 
         Spacer(modifier = Modifier.height(SettingsContentPadding))
 
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.Only) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.per_list_sort_title),
-                    summary = stringResource(Res.string.per_list_sort_summary),
-                    checked = viewModel.perListSort,
-                    onCheckedChange = viewModel::updatePerListSort,
-                )
-            }
-        }
+        PerListSortSection(viewModel = viewModel)
 
-        SectionHeader(
-            stringResource(Res.string.chips),
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        Spacer(modifier = Modifier.height(SettingsContentPadding))
+
+        ChipsSection(
+            viewModel = viewModel,
+            onShowChipAppearanceDialog = onShowChipAppearanceDialog,
         )
-        Column(
-            modifier = Modifier.padding(horizontal = SettingsContentPadding),
-            verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
-        ) {
-            SettingsItemCard(position = CardPosition.First) {
-                PreferenceRow(
-                    title = stringResource(Res.string.chip_appearance),
-                    summary = viewModel.chipAppearanceSummary,
-                    onClick = onShowChipAppearanceDialog,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.subtasks),
-                    checked = viewModel.subtaskChips,
-                    onCheckedChange = viewModel::updateSubtaskChips,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.start_date),
-                    checked = viewModel.startDateChips,
-                    onCheckedChange = viewModel::updateStartDateChips,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.places),
-                    checked = viewModel.placeChips,
-                    onCheckedChange = viewModel::updatePlaceChips,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Middle) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.lists),
-                    checked = viewModel.listChips,
-                    onCheckedChange = viewModel::updateListChips,
-                )
-            }
-            SettingsItemCard(position = CardPosition.Last) {
-                SwitchPreferenceRow(
-                    title = stringResource(Res.string.tags),
-                    checked = viewModel.tagChips,
-                    onCheckedChange = viewModel::updateTagChips,
-                )
-            }
-        }
 
         Spacer(modifier = Modifier.height(SettingsContentPadding))
         Spacer(modifier = Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun TextSettingsSection(viewModel: TaskListOptionsViewModel) {
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            SliderPreferenceRow(
+                title = stringResource(Res.string.font_size),
+                value = viewModel.state.text.fontSize,
+                min = 10,
+                max = 48,
+                onValueChange = { viewModel.updateTextSettings(viewModel.state.text.copy(fontSize = it)) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            SliderPreferenceRow(
+                title = stringResource(Res.string.row_spacing),
+                value = viewModel.state.text.rowSpacing,
+                min = 0,
+                max = 16,
+                onValueChange = { viewModel.updateTextSettings(viewModel.state.text.copy(rowSpacing = it)) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun DisplaySettingsSection(viewModel: TaskListOptionsViewModel) {
+    val display = viewModel.state.display
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.EPr_fullTask_title),
+                checked = display.showFullTitle,
+                onCheckedChange = { viewModel.updateDisplaySettings(display.copy(showFullTitle = it)) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.show_description),
+                checked = display.showDescription,
+                onCheckedChange = { viewModel.updateDisplaySettings(display.copy(showDescription = it)) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.show_full_description),
+                checked = display.showFullDescription,
+                enabled = display.showDescription,
+                onCheckedChange = { viewModel.updateDisplaySettings(display.copy(showFullDescription = it)) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.linkify),
+                summary = stringResource(Res.string.linkify_description),
+                checked = display.showLinks,
+                onCheckedChange = { viewModel.updateDisplaySettings(display.copy(showLinks = it)) },
+            )
+        }
+    }
+}
+
+@Composable
+private fun PerListSortSection(viewModel: TaskListOptionsViewModel) {
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.Only) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.per_list_sort_title),
+                summary = stringResource(Res.string.per_list_sort_summary),
+                checked = viewModel.state.appearance.perListSort,
+                onCheckedChange = viewModel::updatePerListSort,
+            )
+        }
+    }
+}
+
+@Composable
+private fun ChipsSection(
+    viewModel: TaskListOptionsViewModel,
+    onShowChipAppearanceDialog: () -> Unit,
+) {
+    SectionHeader(
+        stringResource(Res.string.chips),
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+    )
+    Column(
+        modifier = Modifier.padding(horizontal = SettingsContentPadding),
+        verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
+    ) {
+        SettingsItemCard(position = CardPosition.First) {
+            PreferenceRow(
+                title = stringResource(Res.string.chip_appearance),
+                summary = viewModel.state.chipAppearanceSummary,
+                onClick = onShowChipAppearanceDialog,
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.subtasks),
+                checked = viewModel.state.chips.subtaskChips,
+                onCheckedChange = { viewModel.updateChipSetting(0, it) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.start_date),
+                checked = viewModel.state.chips.startDateChips,
+                onCheckedChange = { viewModel.updateChipSetting(1, it) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.places),
+                checked = viewModel.state.chips.placeChips,
+                onCheckedChange = { viewModel.updateChipSetting(2, it) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Middle) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.lists),
+                checked = viewModel.state.chips.listChips,
+                onCheckedChange = { viewModel.updateChipSetting(3, it) },
+            )
+        }
+        SettingsItemCard(position = CardPosition.Last) {
+            SwitchPreferenceRow(
+                title = stringResource(Res.string.tags),
+                checked = viewModel.state.chips.tagChips,
+                onCheckedChange = { viewModel.updateChipSetting(4, it) },
+            )
+        }
     }
 }
 

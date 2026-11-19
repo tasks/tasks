@@ -16,43 +16,73 @@ import tasks.kmp.generated.resources.chip_appearance_icon_only
 import tasks.kmp.generated.resources.chip_appearance_text_and_icon
 import tasks.kmp.generated.resources.chip_appearance_text_only
 
+data class TextSettings(
+    val fontSize: Int = DEFAULT_TASK_LIST_FONT_SIZE,
+    val rowSpacing: Int = DEFAULT_TASK_LIST_ROW_SPACING,
+)
+
+data class DisplaySettings(
+    val showFullTitle: Boolean = false,
+    val showDescription: Boolean = true,
+    val showFullDescription: Boolean = false,
+    val showLinks: Boolean = false,
+)
+
+data class ChipSettings(
+    val subtaskChips: Boolean = true,
+    val startDateChips: Boolean = true,
+    val placeChips: Boolean = true,
+    val listChips: Boolean = true,
+    val tagChips: Boolean = true,
+)
+
+data class AppearanceSettings(
+    val perListSort: Boolean = false,
+    val chipAppearanceIndex: Int = 0,
+)
+
+data class TaskListOptionsState(
+    val text: TextSettings = TextSettings(),
+    val display: DisplaySettings = DisplaySettings(),
+    val chips: ChipSettings = ChipSettings(),
+    val appearance: AppearanceSettings = AppearanceSettings(),
+    val showChipAppearanceDialog: Boolean = false,
+    val chipEntries: List<String> = emptyList(),
+    val chipValues: List<String> = emptyList(),
+    val chipAppearanceSummary: String = "",
+)
+
+private val chipPropertyNames =
+    listOf(
+        "subtaskChips",
+        "startDateChips",
+        "placeChips",
+        "listChips",
+        "tagChips",
+    )
+
+private val chipPreferenceGetters =
+    listOf(
+        AppPreferences::taskListSubtaskChips,
+        AppPreferences::taskListStartDateChips,
+        AppPreferences::taskListPlaceChips,
+        AppPreferences::taskListListChips,
+        AppPreferences::taskListTagChips,
+    )
+
+private val chipPreferenceSetters =
+    listOf(
+        AppPreferences::setTaskListSubtaskChips,
+        AppPreferences::setTaskListStartDateChips,
+        AppPreferences::setTaskListPlaceChips,
+        AppPreferences::setTaskListListChips,
+        AppPreferences::setTaskListTagChips,
+    )
+
 open class TaskListOptionsViewModel(
     private val appPreferences: AppPreferences,
 ) : ViewModel() {
-    var fontSize by mutableStateOf(DEFAULT_TASK_LIST_FONT_SIZE)
-        private set
-    var rowSpacing by mutableStateOf(DEFAULT_TASK_LIST_ROW_SPACING)
-        private set
-    var showFullTitle by mutableStateOf(false)
-        private set
-    var showDescription by mutableStateOf(true)
-        private set
-    var showFullDescription by mutableStateOf(false)
-        private set
-    var showLinks by mutableStateOf(false)
-        private set
-    var perListSort by mutableStateOf(false)
-        private set
-    var chipAppearanceIndex by mutableStateOf(0)
-        private set
-    var subtaskChips by mutableStateOf(true)
-        private set
-    var startDateChips by mutableStateOf(true)
-        private set
-    var placeChips by mutableStateOf(true)
-        private set
-    var listChips by mutableStateOf(true)
-        private set
-    var tagChips by mutableStateOf(true)
-        private set
-    var showChipAppearanceDialog by mutableStateOf(false)
-        private set
-
-    var chipEntries by mutableStateOf<List<String>>(emptyList())
-        private set
-    var chipValues by mutableStateOf<List<String>>(emptyList())
-        private set
-    var chipAppearanceSummary by mutableStateOf("")
+    var state by mutableStateOf(TaskListOptionsState())
         private set
 
     init {
@@ -61,134 +91,125 @@ open class TaskListOptionsViewModel(
 
     fun refreshState() {
         viewModelScope.launch {
-            fontSize = appPreferences.taskListFontSize()
-            rowSpacing = appPreferences.taskListRowSpacing()
-            showFullTitle = appPreferences.taskListShowFullTitle()
-            showDescription = appPreferences.taskListShowDescription()
-            showFullDescription = appPreferences.taskListShowFullDescription()
-            showLinks = appPreferences.taskListShowLinks()
-            perListSort = appPreferences.taskListPerListSort()
-            subtaskChips = appPreferences.taskListSubtaskChips()
-            startDateChips = appPreferences.taskListStartDateChips()
-            placeChips = appPreferences.taskListPlaceChips()
-            listChips = appPreferences.taskListListChips()
-            tagChips = appPreferences.taskListTagChips()
-            chipAppearanceIndex = appPreferences.taskListChipAppearance()
-            refreshChipAppearance()
+            state =
+                state.copy(
+                    text =
+                        TextSettings(
+                            fontSize = appPreferences.taskListFontSize(),
+                            rowSpacing = appPreferences.taskListRowSpacing(),
+                        ),
+                    display =
+                        DisplaySettings(
+                            showFullTitle = appPreferences.taskListShowFullTitle(),
+                            showDescription = appPreferences.taskListShowDescription(),
+                            showFullDescription = appPreferences.taskListShowFullDescription(),
+                            showLinks = appPreferences.taskListShowLinks(),
+                        ),
+                    chips =
+                        ChipSettings(
+                            subtaskChips = appPreferences.taskListSubtaskChips(),
+                            startDateChips = appPreferences.taskListStartDateChips(),
+                            placeChips = appPreferences.taskListPlaceChips(),
+                            listChips = appPreferences.taskListListChips(),
+                            tagChips = appPreferences.taskListTagChips(),
+                        ),
+                    appearance =
+                        AppearanceSettings(
+                            perListSort = appPreferences.taskListPerListSort(),
+                            chipAppearanceIndex = appPreferences.taskListChipAppearance(),
+                        ),
+                )
+            refreshChipAppearanceSummary()
         }
     }
 
-    private fun refreshChipAppearance() {
-        val index = chipAppearanceIndex.coerceAtLeast(0)
-        chipAppearanceSummary = chipEntries.getOrNull(index) ?: ""
+    private fun refreshChipAppearanceSummary() {
+        val index = state.appearance.chipAppearanceIndex.coerceAtLeast(0)
+        val summary = state.chipEntries.getOrNull(index) ?: ""
+        state = state.copy(chipAppearanceSummary = summary)
     }
 
-    fun updateFontSize(value: Int) {
+    fun updateTextSettings(settings: TextSettings) {
         viewModelScope.launch {
-            appPreferences.setTaskListFontSize(value)
-            fontSize = value
+            appPreferences.setTaskListFontSize(settings.fontSize)
+            appPreferences.setTaskListRowSpacing(settings.rowSpacing)
+            state = state.copy(text = settings)
         }
     }
 
-    fun updateRowSpacing(value: Int) {
+    fun updateDisplaySettings(settings: DisplaySettings) {
         viewModelScope.launch {
-            appPreferences.setTaskListRowSpacing(value)
-            rowSpacing = value
+            appPreferences.setTaskListFullTitle(settings.showFullTitle)
+            appPreferences.setTaskListShowDescription(settings.showDescription)
+            appPreferences.setTaskListShowFullDescription(settings.showFullDescription)
+            appPreferences.setTaskListShowLinks(settings.showLinks)
+
+            val updatedDisplay =
+                if (!settings.showDescription) {
+                    settings.copy(showFullDescription = false)
+                } else {
+                    settings
+                }
+
+            state = state.copy(display = updatedDisplay)
         }
     }
 
-    fun updateShowFullTitle(enabled: Boolean) {
+    fun updateChipSetting(
+        index: Int,
+        enabled: Boolean,
+    ) {
         viewModelScope.launch {
-            appPreferences.setTaskListFullTitle(enabled)
-            showFullTitle = enabled
-        }
-    }
-
-    fun updateShowDescription(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListShowDescription(enabled)
-            showDescription = enabled
-            if (!enabled) {
-                appPreferences.setTaskListShowFullDescription(false)
-                showFullDescription = false
-            }
-        }
-    }
-
-    fun updateShowFullDescription(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListShowFullDescription(enabled)
-            showFullDescription = enabled
-        }
-    }
-
-    fun updateShowLinks(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListShowLinks(enabled)
-            showLinks = enabled
+            chipPreferenceSetters[index].call(appPreferences, enabled)
+            val currentChips = state.chips
+            val updatedChips =
+                when (index) {
+                    0 -> currentChips.copy(subtaskChips = enabled)
+                    1 -> currentChips.copy(startDateChips = enabled)
+                    2 -> currentChips.copy(placeChips = enabled)
+                    3 -> currentChips.copy(listChips = enabled)
+                    4 -> currentChips.copy(tagChips = enabled)
+                    else -> currentChips
+                }
+            state = state.copy(chips = updatedChips)
         }
     }
 
     fun updatePerListSort(enabled: Boolean) {
         viewModelScope.launch {
             appPreferences.setTaskListPerListSort(enabled)
-            perListSort = enabled
-        }
-    }
-
-    fun updateSubtaskChips(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListSubtaskChips(enabled)
-            subtaskChips = enabled
-        }
-    }
-
-    fun updateStartDateChips(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListStartDateChips(enabled)
-            startDateChips = enabled
-        }
-    }
-
-    fun updatePlaceChips(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListPlaceChips(enabled)
-            placeChips = enabled
-        }
-    }
-
-    fun updateListChips(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListListChips(enabled)
-            listChips = enabled
-        }
-    }
-
-    fun updateTagChips(enabled: Boolean) {
-        viewModelScope.launch {
-            appPreferences.setTaskListTagChips(enabled)
-            tagChips = enabled
+            state = state.copy(appearance = state.appearance.copy(perListSort = enabled))
         }
     }
 
     fun openChipAppearanceDialog() {
         viewModelScope.launch {
-            chipEntries = loadChipEntries()
-            chipValues = listOf("0", "1", "2")
-            chipAppearanceSummary = chipEntries.getOrNull(chipAppearanceIndex.coerceAtLeast(0)) ?: ""
-            showChipAppearanceDialog = true
+            val entries = loadChipEntries()
+            val values = listOf("0", "1", "2")
+            val index = state.appearance.chipAppearanceIndex.coerceAtLeast(0)
+            val summary = entries.getOrNull(index) ?: ""
+            state =
+                state.copy(
+                    chipEntries = entries,
+                    chipValues = values,
+                    chipAppearanceSummary = summary,
+                    showChipAppearanceDialog = true,
+                )
         }
     }
 
     fun dismissChipAppearanceDialog() {
-        showChipAppearanceDialog = false
+        state = state.copy(showChipAppearanceDialog = false)
     }
 
     fun setChipAppearance(value: Int) {
         viewModelScope.launch {
             appPreferences.setTaskListChipAppearance(value)
-            chipAppearanceIndex = value
-            refreshChipAppearance()
+            state =
+                state.copy(
+                    appearance = state.appearance.copy(chipAppearanceIndex = value),
+                )
+            refreshChipAppearanceSummary()
         }
     }
 
