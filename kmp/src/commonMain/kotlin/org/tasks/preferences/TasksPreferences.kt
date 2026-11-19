@@ -146,6 +146,12 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         val metadataOrderDirty = booleanPreferencesKey("metadata_order_dirty")
         val datePickerInputMode = booleanPreferencesKey("date_picker_input_mode")
         val timePickerInputMode = booleanPreferencesKey("time_picker_input_mode")
+        // Same names as the Android preferences; times are millis of day.
+        val dateShortcutMorning = intPreferencesKey("date_shortcut_morning")
+        val dateShortcutAfternoon = intPreferencesKey("date_shortcut_afternoon")
+        val dateShortcutEvening = intPreferencesKey("date_shortcut_evening")
+        val dateShortcutNight = intPreferencesKey("date_shortcut_night")
+        val alwaysDisplayFullDate = booleanPreferencesKey("always_display_full_date")
         val persistentNotifications = booleanPreferencesKey("persistent_notifications")
         val wearableNotifications = booleanPreferencesKey("wearable_notifications")
         val bundleNotifications = booleanPreferencesKey("bundle_notifications")

@@ -473,4 +473,7 @@
     <string name="new_filter">Stwórz nowy filtr</string>
     <string name="upgrade_blurb_1">Cześć! Mam na imię Alex. Jestem niezależnym deweloperem stojącym za Tasks.org</string>
     <string name="upgrade_blurb_2">Spędziłem tysiące godzin pracując nad Tasks.org i publikuję cały kod źródłowy online za darmo. Aby wesprzeć moją pracę, niektóre funkcję wymagają subskrypcji</string>
+    <string name="always_display_full_date">Pokaż pełną datę</string>
+    <string name="date_shortcut_must_come_before">%1$s musi być przed %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s musi być po %2$s</string>
 </resources>

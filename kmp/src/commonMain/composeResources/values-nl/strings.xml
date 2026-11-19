@@ -724,4 +724,7 @@
     <string name="pricing_nyp_feature_third_party_sync">Synchroniseren met Google Tasks, Microsoft To Do, CalDAV en EteSync</string>
     <string name="pricing_feature_trial">7-daagse gratis proefperiode voor nieuwe abonnees</string>
     <string name="cloud_onboarding_sign_in_body">Meld je aan om je Tasks.org Cloud-account aan te maken</string>
+    <string name="always_display_full_date">Volledige datum tonen</string>
+    <string name="date_shortcut_must_come_before">%1$s moet voor %2$s komen</string>
+    <string name="date_shortcut_must_come_after">%1$s moet na %2$s komen</string>
 </resources>

@@ -580,4 +580,7 @@
     <string name="subscription_required">נדרש מינוי</string>
     <string name="upgrade_blurb_1">היי! שמי אלכס. אני המתכנת העצמאי מאחורי Tasks.org</string>
     <string name="upgrade_blurb_2">השקעתי אלפי שעות בעבודה על Tasks.org, ואני מפרסם את כל קוד המקור באינטרנט בחינם. כדי לתמוך בעבודה שלי, חלק מהתכונות דורשות מינוי</string>
+    <string name="always_display_full_date">הצגת תאריך מלא</string>
+    <string name="date_shortcut_must_come_before">%1$s חייב לבוא לפני %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s חייב לבוא אחרי %2$s</string>
 </resources>

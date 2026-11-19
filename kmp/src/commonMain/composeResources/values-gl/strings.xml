@@ -451,4 +451,7 @@
     <string name="new_filter">Crear novo filtro</string>
     <string name="upgrade_blurb_1">Ola! Chámome Alex. Son o desenvolvedor independente detrás de Tasks.org</string>
     <string name="upgrade_blurb_2">Levo miles de horas traballando en Tasks.org e publico todo o código fonte en liña de balde. Para apoiar o meu traballo, algunhas funcións requiren unha subscrición</string>
+    <string name="always_display_full_date">Amosar data completa</string>
+    <string name="date_shortcut_must_come_before">%1$s debe vir antes de %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s debe venir depois de %2$s</string>
 </resources>

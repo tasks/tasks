@@ -468,4 +468,7 @@
     <string name="new_filter">Vytvoriť nový filter</string>
     <string name="upgrade_blurb_1">Ahoj! Volám sa Alex a som nezávislý vývojár aplikácie Tasks.org</string>
     <string name="upgrade_blurb_2">Prácou na Tasks.org som strávil tisíce hodín a bez nároku na odmenu zverejňujem všetok zdrojový kód online. Za účelom podpory mojej práce niektoré funkcie aplikácie vyžadujú predplatné</string>
+    <string name="always_display_full_date">Zobraziť celý dátum</string>
+    <string name="date_shortcut_must_come_before">%1$s musí predchádzať %2$s</string>
+    <string name="date_shortcut_must_come_after">%1$s musí nasledovať po %2$s</string>
 </resources>

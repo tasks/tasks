@@ -455,4 +455,7 @@
     <string name="new_filter">புதிய வடிப்பானை உருவாக்கவும்</string>
     <string name="upgrade_blurb_1">வணக்கம்! என் பெயர் அலெக்ஸ். Tasks.org-க்குப் பின்னால் உள்ள சுயாதீன டெவலப்பர் நான்</string>
     <string name="upgrade_blurb_2">நான் Tasks.org-இல் ஆயிரக்கணக்கான மணிநேரங்களை செலவிட்டேன், மேலும் மூலக் குறியீடு அனைத்தையும் ஆன்லைனில் இலவசமாக வெளியிடுகிறேன். எனது பணியை ஆதரிக்க சில அம்சங்களுக்கு சந்தா தேவை</string>
+    <string name="always_display_full_date">முழு தேதியை காண்பி</string>
+    <string name="date_shortcut_must_come_before">%1$s %2$s க்கு முன் வர வேண்டும்</string>
+    <string name="date_shortcut_must_come_after">%1$s %2$s க்குப் பிறகு வர வேண்டும்</string>
 </resources>

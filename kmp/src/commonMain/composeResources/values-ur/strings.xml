@@ -296,4 +296,7 @@
     <string name="mcp_copy">کاپی کریں</string>
     <string name="new_filter">نیا فلٹر بنائیں</string>
     <string name="more_options">مزید اختیارات</string>
+    <string name="always_display_full_date">پوری تاریخ دکھائیں</string>
+    <string name="date_shortcut_must_come_before">%1$s کو %2$s سے پہلے آنا چایئے</string>
+    <string name="date_shortcut_must_come_after">%1$s کو %2$sسے پہلے آنا چاہیے</string>
 </resources>

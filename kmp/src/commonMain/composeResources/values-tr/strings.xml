@@ -708,4 +708,7 @@
     <string name="subscription_payment_failed">Ödeme başarısız, kartınızı güncelleyin</string>
     <string name="upgrade_blurb_1">Hey! Ben Alex. Tasks.org'un arkasındaki bağımsız geliştiriciyim</string>
     <string name="upgrade_blurb_2">Binlerce saatimi Tasks.org'da çalışarak geçirdim, kaynak kodun tümünü çevrim içi olarak ücretsiz yayımladım. Çalışmamı desteklemek için bazı özellikler abonelik gerektirir</string>
+    <string name="always_display_full_date">Tam tarihi göster</string>
+    <string name="date_shortcut_must_come_before">%1$s, %2$s öncesinden gelmelidir</string>
+    <string name="date_shortcut_must_come_after">%1$s, %2$s ardından gelmelidir</string>
 </resources>
