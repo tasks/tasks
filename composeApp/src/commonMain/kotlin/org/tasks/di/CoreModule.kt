@@ -66,6 +66,8 @@ import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DEFAULT_ALARMS_JSON
+import org.tasks.preferences.DEFAULT_TASK_LIST_FONT_SIZE
+import org.tasks.preferences.DEFAULT_TASK_LIST_ROW_SPACING
 import org.tasks.preferences.DataStoreQueryPreferences
 import org.tasks.preferences.DatePickerPreferences
 import org.tasks.preferences.DrawerSettings
@@ -282,11 +284,13 @@ val coreModule: Module =
                 override suspend fun setAddTasksToTop(value: Boolean) = tasksPreferences.set(TasksPreferences.addTasksToTop, value)
 
                 // Task list options
-                override suspend fun taskListFontSize(): Int = tasksPreferences.get(TasksPreferences.taskListFontSize, DEFAULT_TASK_LIST_FONT_SIZE)
+                override suspend fun taskListFontSize(): Int =
+                    tasksPreferences.get(TasksPreferences.taskListFontSize, DEFAULT_TASK_LIST_FONT_SIZE)
 
                 override suspend fun setTaskListFontSize(value: Int) = tasksPreferences.set(TasksPreferences.taskListFontSize, value)
 
-                override suspend fun taskListRowSpacing(): Int = tasksPreferences.get(TasksPreferences.taskListRowSpacing, DEFAULT_TASK_LIST_ROW_SPACING)
+                override suspend fun taskListRowSpacing(): Int =
+                    tasksPreferences.get(TasksPreferences.taskListRowSpacing, DEFAULT_TASK_LIST_ROW_SPACING)
 
                 override suspend fun setTaskListRowSpacing(value: Int) = tasksPreferences.set(TasksPreferences.taskListRowSpacing, value)
 
@@ -294,13 +298,17 @@ val coreModule: Module =
 
                 override suspend fun setTaskListFullTitle(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListFullTitle, value)
 
-                override suspend fun taskListShowDescription(): Boolean = tasksPreferences.get(TasksPreferences.taskListShowDescription, true)
+                override suspend fun taskListShowDescription(): Boolean =
+                    tasksPreferences.get(TasksPreferences.taskListShowDescription, true)
 
-                override suspend fun setTaskListShowDescription(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListShowDescription, value)
+                override suspend fun setTaskListShowDescription(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListShowDescription, value)
 
-                override suspend fun taskListShowFullDescription(): Boolean = tasksPreferences.get(TasksPreferences.taskListShowFullDescription, false)
+                override suspend fun taskListShowFullDescription(): Boolean =
+                    tasksPreferences.get(TasksPreferences.taskListShowFullDescription, false)
 
-                override suspend fun setTaskListShowFullDescription(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListShowFullDescription, value)
+                override suspend fun setTaskListShowFullDescription(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListShowFullDescription, value)
 
                 override suspend fun taskListShowLinks(): Boolean = tasksPreferences.get(TasksPreferences.taskListShowLinks, false)
 
@@ -308,19 +316,23 @@ val coreModule: Module =
 
                 override suspend fun taskListPerListSort(): Boolean = tasksPreferences.get(TasksPreferences.taskListPerListSort, false)
 
-                override suspend fun setTaskListPerListSort(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListPerListSort, value)
+                override suspend fun setTaskListPerListSort(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListPerListSort, value)
 
                 override suspend fun taskListSubtaskChips(): Boolean = tasksPreferences.get(TasksPreferences.taskListSubtaskChips, true)
 
-                override suspend fun setTaskListSubtaskChips(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListSubtaskChips, value)
+                override suspend fun setTaskListSubtaskChips(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListSubtaskChips, value)
 
                 override suspend fun taskListStartDateChips(): Boolean = tasksPreferences.get(TasksPreferences.taskListStartDateChips, true)
 
-                override suspend fun setTaskListStartDateChips(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListStartDateChips, value)
+                override suspend fun setTaskListStartDateChips(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListStartDateChips, value)
 
                 override suspend fun taskListPlaceChips(): Boolean = tasksPreferences.get(TasksPreferences.taskListPlaceChips, true)
 
-                override suspend fun setTaskListPlaceChips(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListPlaceChips, value)
+                override suspend fun setTaskListPlaceChips(value: Boolean) =
+                    tasksPreferences.set(TasksPreferences.taskListPlaceChips, value)
 
                 override suspend fun taskListListChips(): Boolean = tasksPreferences.get(TasksPreferences.taskListListChips, true)
 
@@ -330,9 +342,11 @@ val coreModule: Module =
 
                 override suspend fun setTaskListTagChips(value: Boolean) = tasksPreferences.set(TasksPreferences.taskListTagChips, value)
 
-                override suspend fun taskListChipAppearance(): Int = tasksPreferences.get(TasksPreferences.taskListChipAppearance, "0").toIntOrNull() ?: 0
+                override suspend fun taskListChipAppearance(): Int =
+                    tasksPreferences.get(TasksPreferences.taskListChipAppearance, "0").toIntOrNull() ?: 0
 
-                override suspend fun setTaskListChipAppearance(value: Int) = tasksPreferences.set(TasksPreferences.taskListChipAppearance, value.toString())
+                override suspend fun setTaskListChipAppearance(value: Int) =
+                    tasksPreferences.set(TasksPreferences.taskListChipAppearance, value.toString())
 
                 override suspend fun setDefaultList(value: String?) = tasksPreferences.set(TasksPreferences.defaultList, value.orEmpty())
 
