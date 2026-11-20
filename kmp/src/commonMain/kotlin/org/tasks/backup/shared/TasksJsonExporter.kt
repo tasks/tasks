@@ -24,7 +24,7 @@ expect interface Writer {
     fun flush()
 }
 
-expect fun createWriter(javaWriter: java.io.Writer): Writer
+expect fun createWriter(filePath: String): Writer
 
 class TasksJsonExporter(
     val taskDao: TaskDao,
@@ -43,7 +43,8 @@ class TasksJsonExporter(
     var exportCount: Int = 0
         private set
 
-    suspend fun exportTasks(writer: Writer) = withContext(Dispatchers.IO) {
+    suspend fun exportTasks(filePath: String) = withContext(Dispatchers.Default) {
+        val writer = createWriter(filePath)
         val taskIds = taskDao.getAllTaskIds()
         writer.write("""{"version":${TasksBuildConfig.VERSION_CODE},"timestamp":${DateTimeUtils2.currentTimeMillis()},"data":{""")
         writer.write(""""tasks":[""")

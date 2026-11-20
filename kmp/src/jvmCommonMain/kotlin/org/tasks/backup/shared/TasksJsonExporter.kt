@@ -19,4 +19,8 @@ class JvmWriterAdapter(
     override fun flush() = writer.flush()
 }
 
-actual fun createWriter(javaWriter: java.io.Writer): Writer = JvmWriterAdapter(javaWriter)
+actual fun createWriter(filePath: String): Writer {
+    val file = java.io.File(filePath)
+    file.parentFile?.mkdirs()
+    return JvmWriterAdapter(java.io.FileWriter(file))
+}

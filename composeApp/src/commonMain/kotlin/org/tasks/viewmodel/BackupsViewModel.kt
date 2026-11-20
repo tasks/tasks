@@ -9,10 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.tasks.backup.shared.TasksJsonExporter
-import org.tasks.backup.shared.createWriter
 import org.tasks.time.DateTimeUtils2
-import java.io.File
-import java.io.FileWriter
+import kotlin.io.path.Path
+import kotlin.io.path.createDirectories
 
 sealed interface ExportState {
     data object Idle : ExportState
@@ -40,17 +39,14 @@ class BackupsViewModel(
         exportState = ExportState.Exporting
         viewModelScope.launch {
             try {
-                val dir = File(outputDir)
-                dir.mkdirs()
+                val dir = Path(outputDir)
+                dir.createDirectories()
                 val filename = "user.${newDateTimeString()}.json"
-                val file = File(dir, filename)
-                FileWriter(file).use { writer ->
-                    val adaptedWriter = createWriter(writer)
-                    exporter.exportTasks(adaptedWriter)
-                }
+                val file = dir.resolve(filename)
+                exporter.exportTasks(file.toString())
                 exportState =
                     ExportState.Done(
-                        path = file.absolutePath,
+                        path = file.toString(),
                         count = exporter.exportCount,
                     )
             } catch (e: Exception) {
