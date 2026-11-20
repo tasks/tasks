@@ -20,8 +20,11 @@ const val DEFAULT_QUIET_HOURS_START = 22 * 60 * 60 * 1000
 const val DEFAULT_QUIET_HOURS_END = 10 * 60 * 60 * 1000
 const val DEFAULT_SNOOZE_MINUTES = 15
 const val DEFAULT_LOCATION_UPDATE_INTERVAL = 15
+const val DEFAULT_TASK_LIST_FONT_SIZE = 16
+const val DEFAULT_TASK_LIST_ROW_SPACING = 16
 
-val DEFAULT_ALARMS: List<Alarm> = listOf(
+val DEFAULT_ALARMS: List<Alarm> =
+    listOf(
     Alarm.whenStarted(0),
     Alarm.whenDue(0),
     Alarm.whenOverdue(0),
@@ -159,6 +162,60 @@ interface AppPreferences {
     suspend fun adjustForQuietHours(time: Long): Long
     suspend fun locationUpdateIntervalMinutes(): Int = DEFAULT_LOCATION_UPDATE_INTERVAL
     suspend fun addTasksToTop(): Boolean = true
+
+    // Task list options
+    suspend fun taskListFontSize(): Int = DEFAULT_TASK_LIST_FONT_SIZE
+
+    suspend fun setTaskListFontSize(value: Int) {}
+
+    suspend fun taskListRowSpacing(): Int = DEFAULT_TASK_LIST_ROW_SPACING
+
+    suspend fun setTaskListRowSpacing(value: Int) {}
+
+    suspend fun taskListShowFullTitle(): Boolean = false
+
+    suspend fun setTaskListFullTitle(value: Boolean) {}
+
+    suspend fun taskListShowDescription(): Boolean = true
+
+    suspend fun setTaskListShowDescription(value: Boolean) {}
+
+    suspend fun taskListShowFullDescription(): Boolean = false
+
+    suspend fun setTaskListShowFullDescription(value: Boolean) {}
+
+    suspend fun taskListShowLinks(): Boolean = false
+
+    suspend fun setTaskListShowLinks(value: Boolean) {}
+
+    suspend fun taskListPerListSort(): Boolean = false
+
+    suspend fun setTaskListPerListSort(value: Boolean) {}
+
+    suspend fun taskListSubtaskChips(): Boolean = true
+
+    suspend fun setTaskListSubtaskChips(value: Boolean) {}
+
+    suspend fun taskListStartDateChips(): Boolean = true
+
+    suspend fun setTaskListStartDateChips(value: Boolean) {}
+
+    suspend fun taskListPlaceChips(): Boolean = true
+
+    suspend fun setTaskListPlaceChips(value: Boolean) {}
+
+    suspend fun taskListListChips(): Boolean = true
+
+    suspend fun setTaskListListChips(value: Boolean) {}
+
+    suspend fun taskListTagChips(): Boolean = true
+
+    suspend fun setTaskListTagChips(value: Boolean) {}
+
+    suspend fun taskListChipAppearance(): Int = 0
+
+    suspend fun setTaskListChipAppearance(value: Int) {}
+
     suspend fun taskDefaults(): TaskDefaultSettings
     suspend fun setAddTasksToTop(value: Boolean)
     suspend fun setDefaultList(value: String?)

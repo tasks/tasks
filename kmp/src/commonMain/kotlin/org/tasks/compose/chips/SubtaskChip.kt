@@ -15,13 +15,12 @@ fun SubtaskChip(
     onClick: () -> Unit,
     enabled: Boolean = true,
     chipColor: Color = defaultChipColor(),
+    showText: Boolean = true,
+    showIcon: Boolean = true,
 ) {
     Chip(
-        icon = if (collapsed)
-            TasksIcons.KEYBOARD_ARROW_DOWN
-        else
-            TasksIcons.KEYBOARD_ARROW_UP,
-        text = formatNumber(children),
+        icon = if (showIcon) (if (collapsed) TasksIcons.KEYBOARD_ARROW_DOWN else TasksIcons.KEYBOARD_ARROW_UP) else null,
+        text = if (showText) formatNumber(children) else null,
         color = chipColor,
         onClick = onClick,
         enabled = enabled,

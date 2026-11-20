@@ -20,6 +20,8 @@ fun StartDateChip(
     timeOnly: Boolean,
     chipColor: Color,
     dateFormatter: DateFormatter?,
+    showText: Boolean = true,
+    showIcon: Boolean = true,
 ) {
     val text by remember(sortGroup, startDate, timeOnly, compact, dateFormatter) {
         derivedStateOf {
@@ -38,9 +40,9 @@ fun StartDateChip(
             }
         }
     }
-    if (text != null) {
+    if (text != null && showText) {
         Chip(
-            icon = TasksIcons.PENDING_ACTIONS,
+            icon = if (showIcon) TasksIcons.PENDING_ACTIONS else null,
             text = text,
             color = chipColor,
         )

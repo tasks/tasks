@@ -1,8 +1,5 @@
 package org.tasks.compose.tasklist
 
-import org.tasks.themes.TasksIcons
-import org.tasks.compose.components.SymbolIcon
-import androidx.compose.runtime.getValue
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -19,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +26,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.koin.compose.koinInject
 import org.tasks.compose.chips.ChipDataProvider
+import org.tasks.compose.components.SymbolIcon
 import org.tasks.compose.rememberDateFormatter
 import org.tasks.compose.tasklist.RowState
 import org.tasks.compose.tasklist.TaskRow
@@ -38,6 +37,7 @@ import org.tasks.data.deletions
 import org.tasks.filters.Filter
 import org.tasks.filters.key
 import org.tasks.tasklist.SectionedDataSource
+import org.tasks.themes.TasksIcons
 
 @Composable
 internal fun TaskList(
@@ -52,6 +52,7 @@ internal fun TaskList(
     onToggleSubtasks: (Long, Boolean) -> Unit = { _, _ -> },
     onFilterClick: (Filter) -> Unit = {},
     is24Hour: Boolean = false,
+    chipAppearance: Int = 0,
 ) {
     val dateFormatter = rememberDateFormatter(is24Hour)
     val subtaskTrees = koinInject<SubtaskTreeRegistry>()
@@ -60,10 +61,11 @@ internal fun TaskList(
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         state = listState,
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(
-            top = topPadding,
-            bottom = 88.dp, // floating toolbar clearance
-        ),
+        contentPadding =
+            androidx.compose.foundation.layout.PaddingValues(
+                top = topPadding,
+                bottom = 88.dp, // floating toolbar clearance
+            ),
     ) {
         items(
             count = tasks.size,
@@ -95,6 +97,7 @@ internal fun TaskList(
                 onToggleComplete = { onCompleteTask(task, !task.isCompleted) },
                 onToggleSubtasks = { onToggleSubtasks(task.id, !task.isCollapsed) },
                 onFilterClick = onFilterClick,
+                chipAppearance = chipAppearance,
             )
         }
     }
@@ -114,10 +117,11 @@ private fun SectionHeader(
         animationSpec = tween(durationMillis = 250),
     )
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onToggle)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onToggle)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
@@ -130,9 +134,10 @@ private fun SectionHeader(
             name = TasksIcons.KEYBOARD_ARROW_DOWN,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier
-                .size(24.dp)
-                .graphicsLayer { rotationZ = rotation },
+            modifier =
+                Modifier
+                    .size(24.dp)
+                    .graphicsLayer { rotationZ = rotation },
         )
     }
 }

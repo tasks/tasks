@@ -210,6 +210,7 @@ import org.tasks.compose.settings.HelpAndFeedbackDetail
 import org.tasks.compose.settings.NavigationDrawerDetail
 import org.tasks.compose.settings.NotificationsDetail
 import org.tasks.compose.settings.TaskDefaultsDetail
+import org.tasks.compose.settings.TaskListOptionsScreen
 import org.tasks.compose.settings.LinkDesktopScreen
 import org.tasks.compose.settings.ListSettingsScreen
 import org.tasks.compose.settings.TagSettingsScreen
@@ -3066,6 +3067,13 @@ private fun SettingsScreen(
                             onSignIn = onAddAccountClick,
                             onSubscribe = onUpgradeClick,
                             onAddAccount = onAddAccountClick,
+                        )
+                    }
+                    is org.tasks.compose.settings.SettingsDestination.TaskList -> {
+                        TaskListOptionsScreen(
+                            onNavigateBack = {
+                                scope.launch { navigator.navigateBack() }
+                            },
                         )
                     }
                     is org.tasks.compose.settings.SettingsDestination.LookAndFeel -> {
