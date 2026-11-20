@@ -86,6 +86,7 @@ import org.tasks.compose.accounts.Platform
 import org.tasks.compose.accounts.openUrl
 import org.tasks.compose.home.HomeScreen
 import org.tasks.compose.navigateClearingBackStack
+import org.tasks.compose.popBackStackIfCurrent
 import org.tasks.viewmodel.OnboardingNavigation
 import org.tasks.viewmodel.OnboardingScreen
 import org.tasks.data.dao.AlarmDao
@@ -289,7 +290,7 @@ class MainActivity : AppCompatActivity() {
                         val microsoftVM: MicrosoftSignInViewModel = hiltViewModel()
                         LaunchedEffect(Unit) {
                             addAccountViewModel.accountAdded.collect {
-                                navController.popBackStack()
+                                navController.popBackStackIfCurrent(backStackEntry)
                             }
                         }
                         val syncLauncher =
