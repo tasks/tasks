@@ -1,5 +1,6 @@
 package org.tasks.sse
 
+import org.tasks.data.dao.tasksOrgAccount
 import co.touchlab.kermit.Logger
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.HttpTimeoutConfig
@@ -99,7 +100,7 @@ class SseClient(
         backoffMs = INITIAL_BACKOFF_MS
         connectionJob = scope.launch(Dispatchers.Default) {
             while (true) {
-                val account = caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
+                val account = caldavDao.tasksOrgAccount()
                     ?: break
                 try {
                     when (connect(account)) {

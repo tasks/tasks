@@ -85,7 +85,7 @@ actual fun platformModule(): Module = module {
             redirect = get(),
         )
     }
-    factory<SignInHandler> {
+    factory<SignInHandler>(PlatformSignInHandler) {
         AndroidSignInHandler(
             signIn = get(),
             microsoftSignIn = getOrNull(),

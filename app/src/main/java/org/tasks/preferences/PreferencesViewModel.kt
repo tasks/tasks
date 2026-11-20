@@ -1,5 +1,6 @@
 package org.tasks.preferences
 
+import org.tasks.data.dao.tasksOrgAccount
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
@@ -75,7 +76,7 @@ class PreferencesViewModel @Inject constructor(
         }
 
     suspend fun tasksAccount(): CaldavAccount? =
-        caldavDao.getAccounts(CaldavAccount.TYPE_TASKS).firstOrNull()
+        caldavDao.tasksOrgAccount()
 
     fun updateDriveBackup() = viewModelScope.launch {
         if (driveAccount.isNullOrBlank()) {

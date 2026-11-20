@@ -1,8 +1,8 @@
 package org.tasks.googleapis
 
+import org.tasks.data.dao.tasksOrgAccount
 import okhttp3.Credentials
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.KeyStoreEncryption
 
 class ProxyAuthProvider(
@@ -13,10 +13,7 @@ class ProxyAuthProvider(
     suspend fun getAuthHeader(): String? {
         jwtProvider()?.let { return "Bearer $it" }
 
-        val tasksAccount = caldavDao
-            .getAccounts(CaldavAccount.TYPE_TASKS)
-            .firstOrNull()
-            ?: return null
+        val tasksAccount = caldavDao.tasksOrgAccount() ?: return null
         val username = tasksAccount.username ?: return null
         val token = tasksAccount.password
             ?.let { encryption.decrypt(it) }

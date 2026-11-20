@@ -1,5 +1,6 @@
 package org.tasks.viewmodel
 
+import org.tasks.data.dao.tasksOrgAccount
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -116,9 +117,7 @@ open class LocalAccountViewModel(
             onPurchaseRequired()
             return false
         }
-        val tasksAccount = caldavDao
-            .getAccounts(CaldavAccount.TYPE_TASKS)
-            .firstOrNull()
+        val tasksAccount = caldavDao.tasksOrgAccount()
         if (tasksAccount == null) {
             onSignInRequired()
             return false
@@ -129,10 +128,7 @@ open class LocalAccountViewModel(
     fun confirmMigration(onComplete: () -> Unit) {
         val localAccount = account.value ?: return
         viewModelScope.launch {
-            val tasksAccount = caldavDao
-                .getAccounts(CaldavAccount.TYPE_TASKS)
-                .firstOrNull()
-                ?: return@launch
+            val tasksAccount = caldavDao.tasksOrgAccount() ?: return@launch
             backgroundWork.migrateLocalTasks(localAccount, tasksAccount)
             onComplete()
         }

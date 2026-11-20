@@ -20,6 +20,7 @@ import org.tasks.auth.OAuthProvider
 import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.SignInInterruptedException
+import org.tasks.auth.WrongAccountException
 import org.tasks.billing.PurchaseState
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.dao.CaldavDao
@@ -44,13 +45,18 @@ class AddAccountSignInErrorTest {
         override val hasTasksSubscription: Boolean get() = cloudTier
     }
 
+    private val requests = mutableListOf<Pair<Platform, OAuthProvider?>>()
+
     private val signInHandler = object : SignInHandler {
         override suspend fun signIn(
             platform: Platform,
             provider: OAuthProvider?,
             loginHint: String?,
             onAuthorized: () -> Unit,
-        ): Unit = throw failure
+        ) {
+            requests += platform to provider
+            throw failure
+        }
     }
 
     @Before
@@ -88,6 +94,42 @@ class AddAccountSignInErrorTest {
 
         assertEquals(SignInState.Error.AccountInUse("b**@e**.com"), state)
         assertEquals("purchase_token_in_use", (state as SignInState.Error).report)
+    }
+
+    @Test
+    fun signingInAsADifferentAccountNamesItAndReportsNoAddress() = runTest(dispatcher) {
+        failure = WrongAccountException("bob@example.com", OAuthProvider.GITHUB)
+
+        val state = signIn()
+
+        assertEquals(SignInState.Error.DifferentAccount("bob@example.com", OAuthProvider.GITHUB), state)
+        assertEquals("different_account", (state as SignInState.Error).report)
+    }
+
+    @Test
+    fun signingInAgainAfterADifferentAccountRepeatsTheRequest() = runTest(dispatcher) {
+        failure = WrongAccountException("bob@example.com", OAuthProvider.GITHUB)
+        val viewModel = AddAccountViewModel(caldavDao, purchaseState, signInHandler)
+        viewModel.signIn(Platform.TASKS_ORG, OAuthProvider.APPLE)
+        runCurrent()
+
+        viewModel.retry()
+        runCurrent()
+
+        assertEquals(
+            listOf(Platform.TASKS_ORG to OAuthProvider.APPLE, Platform.TASKS_ORG to OAuthProvider.APPLE),
+            requests,
+        )
+    }
+
+    @Test
+    fun signingInAgainWithoutAnErrorDoesNothing() = runTest(dispatcher) {
+        val viewModel = AddAccountViewModel(caldavDao, purchaseState, signInHandler)
+
+        viewModel.retry()
+        runCurrent()
+
+        assertEquals(emptyList<Pair<Platform, OAuthProvider?>>(), requests)
     }
 
     @Test

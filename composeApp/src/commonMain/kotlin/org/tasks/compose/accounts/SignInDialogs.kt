@@ -22,8 +22,10 @@ import org.tasks.TasksUrls
 import org.tasks.analytics.AnalyticsEvents
 import org.tasks.analytics.Reporting
 import org.tasks.compose.settings.conflictingAccountMessage
+import org.tasks.compose.settings.signedInAsOtherMessage
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cancel
+import tasks.kmp.generated.resources.sign_in
 import tasks.kmp.generated.resources.ok
 import tasks.kmp.generated.resources.subscription_not_found
 import tasks.kmp.generated.resources.upgrade
@@ -40,6 +42,7 @@ private val blocking = DialogProperties(
 fun SignInErrorDialog(
     signInState: SignInState?,
     onDismiss: () -> Unit,
+    onRetry: () -> Unit,
     reporting: Reporting,
     source: String,
     onPaymentRequired: (() -> Unit)?,
@@ -56,6 +59,7 @@ fun SignInErrorDialog(
         SignInState.Error.PaymentRequired,
         SignInState.Error.UpgradeRequired -> true
         is SignInState.Error.AccountInUse,
+        is SignInState.Error.DifferentAccount,
         is SignInState.Error.Failed -> false
     }
     BasicAlertDialog(
@@ -71,6 +75,8 @@ fun SignInErrorDialog(
                 val body = when (errorState) {
                     is SignInState.Error.AccountInUse ->
                         conflictingAccountMessage(errorState.existingAccount)
+                    is SignInState.Error.DifferentAccount ->
+                        signedInAsOtherMessage(errorState.existingAccount)
                     SignInState.Error.UpgradeRequired ->
                         stringResource(Res.string.upgrade_subscription_banner)
                     SignInState.Error.PaymentRequired -> stringResource(
@@ -107,6 +113,13 @@ fun SignInErrorDialog(
                             },
                         ) {
                             Text(stringResource(Res.string.upgrade))
+                        }
+                    } else if (errorState is SignInState.Error.DifferentAccount) {
+                        TextButton(onClick = onDismiss) {
+                            Text(stringResource(Res.string.cancel))
+                        }
+                        TextButton(onClick = onRetry) {
+                            Text(stringResource(Res.string.sign_in))
                         }
                     } else {
                         TextButton(onClick = onDismiss) {

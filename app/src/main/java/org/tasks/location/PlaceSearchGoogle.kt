@@ -1,5 +1,6 @@
 package org.tasks.location
 
+import org.tasks.data.dao.tasksOrgAccount
 import android.content.Context
 import android.os.Bundle
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -21,7 +22,6 @@ import org.tasks.R
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Place
 import org.tasks.http.HttpClientFactory
 import org.tasks.http.HttpException
@@ -78,7 +78,7 @@ class PlaceSearchGoogle @Inject constructor(
 
     private suspend fun execute(url: String): JsonObject = withContext(Dispatchers.IO) {
         Timber.d(url)
-        val account = caldavDao.getAccounts(TYPE_TASKS).firstOrNull()
+        val account = caldavDao.tasksOrgAccount()
                 ?: throw IllegalStateException(
                         context.getString(R.string.tasks_org_account_required)
                 )

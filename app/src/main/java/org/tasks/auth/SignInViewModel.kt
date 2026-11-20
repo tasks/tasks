@@ -34,6 +34,11 @@ class SignInViewModel @Inject constructor(
 
         data class WrongAccount(val maskedEmail: String) : State
 
+        data class DifferentAccount(
+            val existingAccount: String?,
+            val provider: OAuthProvider,
+        ) : State
+
         data class Finished(val outcome: Outcome) : State
     }
 
@@ -50,14 +55,22 @@ class SignInViewModel @Inject constructor(
     private val _state = MutableStateFlow<State>(State.Idle)
     val state: StateFlow<State> = _state.asStateFlow()
 
-    fun signIn(provider: OAuthProvider) {
+    fun signIn(provider: OAuthProvider, loginHint: String?) {
         if (_state.value != State.Idle) {
             return
         }
         launch {
-            val authorization = signIn.authorize(provider = provider, openUrl = {})
+            val authorization = signIn.authorize(provider = provider, openUrl = {}, loginHint = loginHint)
             createAccount(provider, authorization)
         }
+    }
+
+    fun retry(provider: OAuthProvider, loginHint: String?) {
+        if (_state.value !is State.DifferentAccount) {
+            return
+        }
+        _state.value = State.Idle
+        signIn(provider, loginHint)
     }
 
     fun purchaseStarted() {
@@ -84,6 +97,8 @@ class SignInViewModel @Inject constructor(
                 block()
             } catch (e: PurchaseTokenInUseException) {
                 State.WrongAccount(e.existingAccount)
+            } catch (e: WrongAccountException) {
+                State.DifferentAccount(e.existingAccount, e.provider)
             } catch (e: RedirectSupersededException) {
                 State.Finished(Outcome.Superseded)
             } catch (e: CancellationException) {

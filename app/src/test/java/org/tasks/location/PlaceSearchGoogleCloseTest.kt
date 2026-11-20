@@ -47,7 +47,7 @@ class PlaceSearchGoogleCloseTest {
     }
 
     private fun caldavDao() = mock<CaldavDao> {
-        onBlocking { getAccounts(TYPE_TASKS) } doReturn listOf(
+        onBlocking { getAccounts(listOf(TYPE_TASKS)) } doReturn listOf(
             CaldavAccount(username = "user", password = "encrypted")
         )
     }

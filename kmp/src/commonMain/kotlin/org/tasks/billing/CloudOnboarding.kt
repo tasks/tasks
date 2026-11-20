@@ -5,7 +5,7 @@ import org.tasks.analytics.AnalyticsEvents
 import org.tasks.compose.accounts.Platform
 import org.tasks.compose.accounts.signInFollowsPaywall
 import org.tasks.data.dao.CaldavDao
-import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.dao.tasksOrgAccount
 import org.tasks.preferences.TasksPreferences
 
 private const val TAG = "CloudOnboarding"
@@ -21,7 +21,7 @@ suspend fun maybeTriggerCloudOnboarding(
     tasksPreferences: TasksPreferences,
     logStep: (String) -> Unit,
 ) {
-    val alreadySignedIn = caldavDao.getAccounts(listOf(CaldavAccount.TYPE_TASKS)).isNotEmpty()
+    val alreadySignedIn = caldavDao.tasksOrgAccount() != null
     val deferred = tasksPreferences.get(TasksPreferences.deferCloudOnboarding, false)
     Logger.d(tag = TAG) {
         "hasTasksSubscription=$hasTasksSubscription alreadySignedIn=$alreadySignedIn deferred=$deferred"

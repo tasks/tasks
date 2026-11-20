@@ -39,8 +39,6 @@ import org.tasks.sync.SyncSource
 data class TasksAccountState(
     val account: CaldavAccount? = null,
     val loaded: Boolean = false,
-    val isGithub: Boolean = false,
-    val isApple: Boolean = false,
     val isGuest: Boolean = false,
     val hasSubscription: Boolean = false,
     val isTasksSubscription: Boolean = false,
@@ -133,8 +131,6 @@ open class TasksAccountViewModel(
         TasksAccountState(
             account = account,
             loaded = loaded,
-            isGithub = account?.username?.startsWith("github") == true,
-            isApple = account?.username?.startsWith("apple") == true,
             isGuest = response?.guest ?: false,
             hasSubscription = subscription != null || response?.hasAnySubscription == true,
             isTasksSubscription = subscription?.isTasksSubscription == true ||

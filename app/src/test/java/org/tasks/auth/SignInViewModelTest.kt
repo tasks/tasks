@@ -48,7 +48,7 @@ class SignInViewModelTest {
     fun aCreatedAccountFinishesOk() {
         val viewModel = viewModel(signIn())
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.Finished(Outcome.Created), viewModel.state.value)
     }
@@ -57,7 +57,7 @@ class SignInViewModelTest {
     fun dismissingTheBrowserFinishesAsCancelled() {
         val viewModel = viewModel(signIn(authorize = { throw CancellationException("Sign in cancelled") }))
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.Finished(Outcome.Cancelled), viewModel.state.value)
     }
@@ -66,7 +66,7 @@ class SignInViewModelTest {
     fun aSupersededSignInFinishesWithoutReportingACancellation() {
         val viewModel = viewModel(signIn(authorize = { throw RedirectSupersededException() }))
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.Finished(Outcome.Superseded), viewModel.state.value)
     }
@@ -76,8 +76,8 @@ class SignInViewModelTest {
         val signIn = signIn(authorize = { awaitCancellation() })
         val viewModel = viewModel(signIn)
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
-        viewModel.signIn(OAuthProvider.GITHUB)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
+        viewModel.signIn(OAuthProvider.GITHUB, loginHint = null)
 
         assertEquals(State.Authorizing, viewModel.state.value)
         verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull()) }
@@ -88,7 +88,7 @@ class SignInViewModelTest {
         val signIn = signIn(createAccount = { throw PaymentRequiredException() })
         val viewModel = viewModel(signIn)
 
-        viewModel.signIn(OAuthProvider.GITHUB)
+        viewModel.signIn(OAuthProvider.GITHUB, loginHint = null)
 
         assertEquals(
             State.SubscriptionRequired(OAuthProvider.GITHUB, authorization),
@@ -99,7 +99,7 @@ class SignInViewModelTest {
     @Test
     fun startingAPurchaseIsRememberedSoItIsNotStartedTwice() {
         val viewModel = viewModel(signIn(createAccount = { throw PaymentRequiredException() }))
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         viewModel.purchaseStarted()
 
@@ -116,7 +116,7 @@ class SignInViewModelTest {
             if (attempts++ == 0) throw PaymentRequiredException() else account
         })
         val viewModel = viewModel(signIn)
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
         viewModel.purchaseStarted()
 
         viewModel.retryAfterPurchase()
@@ -143,7 +143,7 @@ class SignInViewModelTest {
             signIn(createAccount = { throw PurchaseTokenInUseException("u***@example.com") })
         )
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.WrongAccount("u***@example.com"), viewModel.state.value)
     }
@@ -153,7 +153,7 @@ class SignInViewModelTest {
         val error = IOException("boom")
         val viewModel = viewModel(signIn(authorize = { throw error }))
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.Finished(Outcome.Failed("boom")), viewModel.state.value)
         verify(firebase).reportException(error)
@@ -163,10 +163,50 @@ class SignInViewModelTest {
     fun aServerRejectionIsNotReportedAndFinishesWithItsStatus() {
         val viewModel = viewModel(signIn(createAccount = { throw HttpException(403, "forbidden") }))
 
-        viewModel.signIn(OAuthProvider.GOOGLE)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
 
         assertEquals(State.Finished(Outcome.Failed("HTTP 403 - Forbidden")), viewModel.state.value)
         verify(firebase, never()).reportException(any(), any())
+    }
+
+    @Test
+    fun signingInToADifferentAccountNamesTheExistingOneWithoutReporting() {
+        val viewModel = viewModel(
+            signIn(createAccount = { throw WrongAccountException("bob@example.com", OAuthProvider.GITHUB) })
+        )
+
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
+
+        assertEquals(State.DifferentAccount("bob@example.com", OAuthProvider.GITHUB), viewModel.state.value)
+        verify(firebase, never()).reportException(any(), any())
+    }
+
+    @Test
+    fun signingInAgainAfterADifferentAccountAuthorizesWithTheGivenProviderAndHint() {
+        var created = 0
+        val signIn = signIn(createAccount = {
+            if (created++ == 0) throw WrongAccountException("bob@example.com", OAuthProvider.GITHUB)
+            account
+        })
+        val viewModel = viewModel(signIn)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
+
+        viewModel.retry(OAuthProvider.GITHUB, "bob@example.com")
+
+        verifyBlocking(signIn) { authorize(eq(OAuthProvider.GITHUB), any(), eq("bob@example.com")) }
+        assertEquals(State.Finished(Outcome.Created), viewModel.state.value)
+    }
+
+    @Test
+    fun signingInAgainWithoutADifferentAccountDoesNothing() {
+        val signIn = signIn(createAccount = { throw PurchaseTokenInUseException("b**@e**.com") })
+        val viewModel = viewModel(signIn)
+        viewModel.signIn(OAuthProvider.GOOGLE, loginHint = null)
+
+        viewModel.retry(OAuthProvider.GITHUB, "bob@example.com")
+
+        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull()) }
+        assertEquals(State.WrongAccount("b**@e**.com"), viewModel.state.value)
     }
 
     private fun signIn(

@@ -34,5 +34,7 @@ class SignInAgainViewModel(
 
     fun cancel() = attempts.cancel()
 
+    fun retry() = attempts.retry()
+
     fun dismissError() = attempts.dismissError()
 }

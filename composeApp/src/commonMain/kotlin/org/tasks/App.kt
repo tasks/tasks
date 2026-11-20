@@ -1,6 +1,7 @@
 package org.tasks
 
 import org.tasks.compose.edit.FloatingToolbarBottomMargin
+import org.tasks.data.dao.tasksOrgAccount
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
 import androidx.compose.animation.AnimatedVisibility
@@ -928,6 +929,7 @@ fun App(
                         SignInErrorDialog(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
+                            onRetry = { addAccountViewModel.retry() },
                             reporting = reporting,
                             source = AnalyticsEvents.SOURCE_ADD_ACCOUNT,
                             onPaymentRequired = {
@@ -1181,10 +1183,7 @@ fun App(
                                 },
                                 onCreateList = {
                                     scope.launch {
-                                        onboardingListAccountId = caldavDao
-                                            .getAccounts(listOf(CaldavAccount.TYPE_TASKS))
-                                            .firstOrNull()
-                                            ?.id
+                                        onboardingListAccountId = caldavDao.tasksOrgAccount()?.id
                                     }
                                 },
                                 onBack = { onboardingViewModel.dismiss() },
@@ -1326,6 +1325,7 @@ fun App(
                         SignInErrorDialog(
                             signInState = signInState,
                             onDismiss = { addAccountViewModel.dismissError() },
+                            onRetry = { addAccountViewModel.retry() },
                             reporting = reporting,
                             source = AnalyticsEvents.SOURCE_ADD_ACCOUNT,
                             onPaymentRequired = null,
@@ -1404,6 +1404,7 @@ fun App(
                 SignInErrorDialog(
                     signInState = signInState,
                     onDismiss = { addAccountViewModel.dismissError() },
+                    onRetry = { addAccountViewModel.retry() },
                     reporting = reporting,
                     source = AnalyticsEvents.SOURCE_ADD_ACCOUNT,
                     onPaymentRequired = {

@@ -574,3 +574,6 @@ AND cdl_account IN (SELECT cda_uuid FROM caldav_accounts WHERE cda_account_type 
 
 suspend fun CaldavDao.tasksAccount(): CaldavAccount? =
     getAccounts().firstOrNull { it.isTasksOrg }
+
+suspend fun CaldavDao.tasksOrgAccount(): CaldavAccount? =
+    getAccounts(listOf(CaldavAccount.TYPE_TASKS)).firstOrNull()

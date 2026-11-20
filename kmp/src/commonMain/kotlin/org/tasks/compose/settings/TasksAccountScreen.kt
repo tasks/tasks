@@ -1,5 +1,7 @@
 package org.tasks.compose.settings
 
+import org.tasks.auth.OAuthProvider
+import org.tasks.auth.tasksOrgProvider
 import org.tasks.billing.ModifySubscription
 import org.tasks.billing.modifySubscription
 import org.tasks.compose.components.SymbolIcon
@@ -178,8 +180,7 @@ fun TasksAccountScreen(
         state.account?.takeIf { !it.error.isNullOrBlank() }?.let { account ->
             ErrorBannerCard(
                 account = account,
-                isGithub = state.isGithub,
-                isApple = state.isApple,
+                provider = account.tasksOrgProvider,
                 hasSubscription = state.hasSubscription,
                 isTasksSubscription = state.isTasksSubscription,
                 onSignIn = onSignIn,
@@ -352,7 +353,9 @@ fun TasksAccountScreen(
 
         // Bottom actions card
         Spacer(modifier = Modifier.height(SettingsContentPadding))
-        val showManageRow = state.hasSubscription && !state.isGithub && !state.isGuest
+        val showManageRow = state.hasSubscription &&
+            state.account?.tasksOrgProvider != OAuthProvider.GITHUB &&
+            !state.isGuest
         Column(
             modifier = Modifier.padding(horizontal = SettingsContentPadding),
             verticalArrangement = Arrangement.spacedBy(SettingsCardGap),
@@ -572,8 +575,7 @@ fun TasksAccountScreen(
 @Composable
 private fun ErrorBannerCard(
     account: CaldavAccount,
-    isGithub: Boolean,
-    isApple: Boolean,
+    provider: OAuthProvider,
     hasSubscription: Boolean,
     isTasksSubscription: Boolean,
     onSignIn: () -> Unit,
@@ -595,7 +597,7 @@ private fun ErrorBannerCard(
             onClick = onSignIn
         }
         account.isPaymentRequired() -> {
-            if (isGithub) {
+            if (provider == OAuthProvider.GITHUB) {
                 title = null
                 summary = stringResource(Res.string.insufficient_sponsorship)
                 onClick = onOpenSponsor
@@ -611,9 +613,9 @@ private fun ErrorBannerCard(
         }
         account.isLoggedOut() -> {
             title = stringResource(
-                when {
-                    isGithub -> Res.string.sign_in_with_github
-                    isApple -> Res.string.sign_in_with_apple
+                when (provider) {
+                    OAuthProvider.GITHUB -> Res.string.sign_in_with_github
+                    OAuthProvider.APPLE -> Res.string.sign_in_with_apple
                     else -> Res.string.sign_in_with_google
                 }
             )

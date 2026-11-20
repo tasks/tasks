@@ -218,7 +218,9 @@ actual fun platformModule(): Module = module {
             serverEnvironment = get(),
         )
     }
-    factoryOf(::DesktopSignInHandler) bind SignInHandler::class
+    factoryOf(::DesktopSignInHandler) {
+        qualifier = PlatformSignInHandler
+    } bind SignInHandler::class
     single<MicrosoftClientProvider> {
         val encryption = get<KeyStoreEncryption>()
         val caldavDao = get<CaldavDao>()

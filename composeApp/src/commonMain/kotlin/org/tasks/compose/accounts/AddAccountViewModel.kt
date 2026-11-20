@@ -26,5 +26,7 @@ class AddAccountViewModel(
         }
     }
 
+    fun retry() = attempts.retry()
+
     fun dismissError() = attempts.dismissError()
 }

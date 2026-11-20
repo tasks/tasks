@@ -14,6 +14,7 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -124,6 +125,7 @@ class AccountSetupTest {
     fun aHeldPurchaseIsClaimedBeforeTheHomeSetIsAskedFor() = runBlocking {
         val caldavDao = mock<CaldavDao> {
             onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
             onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
         }
 
@@ -147,6 +149,7 @@ class AccountSetupTest {
         claim = HeldPurchaseClaim.NotClaimed
         val caldavDao = mock<CaldavDao> {
             onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
             onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
         }
 
@@ -170,6 +173,7 @@ class AccountSetupTest {
         claim = HeldPurchaseClaim.CoveringAnotherAccount("b**@e**.com")
         val caldavDao = mock<CaldavDao> {
             onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
         }
 
         val thrown = runCatching {
@@ -393,6 +397,73 @@ class AccountSetupTest {
             setPasswordAndError(1L, "encrypted(access-token)", "HTTP 451")
         }
         verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aDifferentAccountIsRejectedWhenAlreadySignedIn() = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn listOf(
+                CaldavAccount(
+                    id = 2,
+                    accountType = CaldavAccount.TYPE_TASKS,
+                    username = "github_5678",
+                    name = "bob@example.com",
+                )
+            )
+        }
+
+        val failure = runCatching {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = clientFactory,
+                purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
+            )
+        }.exceptionOrNull()
+
+        failure as WrongAccountException
+        assertEquals("bob@example.com", failure.existingAccount)
+        assertEquals(OAuthProvider.GITHUB, failure.provider)
+        verifyBlocking(caldavDao, never()) { insert(any<CaldavAccount>()) }
+        verifyBlocking(caldavDao, never()) { setPassword(any(), anyOrNull()) }
+        assertEquals(emptyList<String>(), calls)
+    }
+
+    @Test
+    fun aRejectionForAnUnnamedAccountNamesNoAccount() = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn listOf(
+                CaldavAccount(
+                    id = 2,
+                    accountType = CaldavAccount.TYPE_TASKS,
+                    username = "github_5678",
+                    name = " ",
+                )
+            )
+        }
+
+        val failure = runCatching {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = clientFactory,
+                purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
+            )
+        }.exceptionOrNull()
+
+        assertNull((failure as WrongAccountException).existingAccount)
     }
 
     @Test
@@ -669,6 +740,7 @@ class AccountSetupTest {
         var stored: CaldavAccount? = null
         val caldavDao = mock<CaldavDao> {
             onBlocking { getAccount(any<Int>(), any()) } doAnswer { stored }
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
             onBlocking { insert(any<CaldavAccount>()) } doAnswer {
                 stored = it.getArgument<CaldavAccount>(0).copy(id = 1L)
                 1L

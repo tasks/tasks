@@ -94,6 +94,7 @@ internal fun AccountSettingsDetail(
             SignInErrorDialog(
                 signInState = signInState,
                 onDismiss = { signInAgainViewModel.dismissError() },
+                onRetry = { signInAgainViewModel.retry() },
                 reporting = reporting,
                 source = AnalyticsEvents.SOURCE_SIGN_IN_AGAIN,
                 onPaymentRequired = null,

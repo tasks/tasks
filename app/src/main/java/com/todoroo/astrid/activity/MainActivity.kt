@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.activity
 
+import org.tasks.data.dao.tasksOrgAccount
 import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Color
@@ -93,7 +94,6 @@ import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.LocationDao
 import org.tasks.data.dao.TagDataDao
-import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
 import org.tasks.data.listSettingsClass
 import org.tasks.data.newLocalAccount
@@ -474,9 +474,7 @@ class MainActivity : AppCompatActivity() {
                             onCreateList = {
                                 Timber.d("CloudOnboarding: onCreateList -> new Tasks.org list")
                                 lifecycleScope.launch {
-                                    val tasksAccount = caldavDao
-                                        .getAccounts(CaldavAccount.TYPE_TASKS)
-                                        .firstOrNull()
+                                    val tasksAccount = caldavDao.tasksOrgAccount()
                                     if (tasksAccount == null) {
                                         Timber.w("CloudOnboarding: onCreateList but no tasks.org account found")
                                         return@launch

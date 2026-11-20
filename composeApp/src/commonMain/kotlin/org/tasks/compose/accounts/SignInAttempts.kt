@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
+import org.tasks.auth.OAuthProvider
 import org.tasks.auth.PaymentRequiredException
+import org.tasks.auth.WrongAccountException
 import org.tasks.auth.signInError
 import org.tasks.billing.PurchaseState
 import org.tasks.caldav.PurchaseTokenInUseException
@@ -40,6 +42,13 @@ sealed interface SignInState {
         data class AccountInUse(val existingAccount: String) : Error {
             override val report: String get() = "purchase_token_in_use"
         }
+
+        data class DifferentAccount(
+            val existingAccount: String?,
+            val provider: OAuthProvider,
+        ) : Error {
+            override val report: String get() = "different_account"
+        }
     }
 }
 
@@ -50,9 +59,11 @@ internal class SignInAttempts(
     private val _state = MutableStateFlow<SignInState>(SignInState.Idle)
     val state: StateFlow<SignInState> = _state
     private var current: Job? = null
+    private var last: (suspend (onAuthorized: () -> Unit) -> Unit)? = null
 
     fun start(signIn: suspend (onAuthorized: () -> Unit) -> Unit) {
         if (_state.value == SignInState.Finishing) return
+        last = signIn
         current?.cancel()
         _state.value = SignInState.Loading
         val attempt = scope.launch(start = CoroutineStart.LAZY) {
@@ -71,6 +82,8 @@ internal class SignInAttempts(
                 throw e
             } catch (e: PurchaseTokenInUseException) {
                 SignInState.Error.AccountInUse(e.existingAccount)
+            } catch (e: WrongAccountException) {
+                SignInState.Error.DifferentAccount(e.existingAccount, e.provider)
             } catch (e: PaymentRequiredException) {
                 if (purchaseState.hasPro && !purchaseState.hasTasksSubscription) {
                     SignInState.Error.UpgradeRequired
@@ -96,6 +109,11 @@ internal class SignInAttempts(
         if (_state.value == SignInState.Loading) {
             _state.value = SignInState.Idle
         }
+    }
+
+    fun retry() {
+        if (_state.value !is SignInState.Error) return
+        last?.let(::start)
     }
 
     fun dismissError() {

@@ -16,6 +16,7 @@ import org.tasks.caldav.CaldavDiscoveryClient
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.tasksOrgAccount
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
@@ -31,6 +32,11 @@ import tasks.kmp.generated.resources.google_tasks_permission_not_granted
 import tasks.kmp.generated.resources.microsoft_tasks_permission_not_granted
 import tasks.kmp.generated.resources.network_error
 import tasks.kmp.generated.resources.wrong_account
+
+class WrongAccountException(
+    val existingAccount: String?,
+    val provider: OAuthProvider,
+) : Exception("Signed in with a different tasks.org account")
 
 class SignInInterruptedException(cause: CancellationException) : Exception(null, cause)
 
@@ -78,6 +84,14 @@ suspend fun setupTasksAccount(
     var added = false
     val account = tasksSetupLock.withLockNonCancellable {
         val existing = caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
+        if (existing == null) {
+            caldavDao.tasksOrgAccount()?.let { other ->
+                throw WrongAccountException(
+                    existingAccount = other.name?.takeIf { it.isNotBlank() },
+                    provider = other.tasksOrgProvider,
+                )
+            }
+        }
         val claim = purchaseClaim?.claimHeldPurchase(username, tokenString)
         if (claim is HeldPurchaseClaim.CoveringAnotherAccount) {
             if (existing == null) {

@@ -108,7 +108,8 @@ class TasksAccount : Fragment() {
                 state = state,
                 onSignIn = {
                     activity?.startActivityForResult(
-                        Intent(activity, SignInActivity::class.java),
+                        Intent(activity, SignInActivity::class.java)
+                            .putExtra(SignInActivity.EXTRA_ACCOUNT, initialAccount.uuid),
                         REQUEST_TASKS_ORG,
                     )
                 },

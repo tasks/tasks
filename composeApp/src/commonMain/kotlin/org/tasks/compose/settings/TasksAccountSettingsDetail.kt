@@ -27,6 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasks.auth.OAuthProvider
+import org.tasks.auth.tasksOrgProvider
 import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.StripePurchases
 import org.tasks.compose.pricing.cardPortalLauncher
@@ -110,14 +111,9 @@ fun TasksAccountSettingsDetail(
             TasksAccountScreen(
                 state = state,
                 onSignIn = {
-                    val provider = when {
-                        state.isGithub -> OAuthProvider.GITHUB
-                        state.isApple -> OAuthProvider.APPLE
-                        else -> OAuthProvider.GOOGLE
-                    }
                     signInAgainViewModel.signIn(
                         platform = Platform.TASKS_ORG,
-                        provider = provider,
+                        provider = state.account?.tasksOrgProvider ?: OAuthProvider.GOOGLE,
                         loginHint = state.account?.name,
                     )
                 },
@@ -184,6 +180,7 @@ fun TasksAccountSettingsDetail(
             SignInErrorDialog(
                 signInState = signInState,
                 onDismiss = { signInAgainViewModel.dismissError() },
+                onRetry = { signInAgainViewModel.retry() },
                 reporting = reporting,
                 source = AnalyticsEvents.SOURCE_SIGN_IN_AGAIN,
                 onPaymentRequired = onSubscribe,

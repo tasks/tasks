@@ -5,6 +5,8 @@ import org.tasks.viewmodel.CaldavAccountSettingsViewModel
 import org.tasks.viewmodel.TasksAccountViewModel
 import org.tasks.viewmodel.GoogleTasksAccountViewModel
 import org.tasks.auth.PurchaseClaim
+import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOrgAccountSignInHandler
 import org.tasks.auth.TasksServerEnvironment
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.StripeCheckouts
@@ -43,6 +45,7 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.binds
 import org.koin.dsl.module
 import org.tasks.TaskEditDestination
@@ -651,6 +654,12 @@ val coreModule: Module = module {
     viewModelOf(::AppViewModel)
     viewModelOf(::AddAccountViewModel)
     viewModelOf(::SignInAgainViewModel)
+    factory<SignInHandler> {
+        TasksOrgAccountSignInHandler(
+            delegate = get(PlatformSignInHandler),
+            caldavDao = get(),
+        )
+    }
     viewModel {
         DrawerViewModel(
             filterProvider = get(),
@@ -851,5 +860,7 @@ internal fun PreferencesSnapshot.notificationSettings() = NotificationSettings(
 )
 
 internal fun String.orNull(): String? = takeIf { it.isNotBlank() }
+
+internal val PlatformSignInHandler = named("platformSignInHandler")
 
 expect fun platformModule(): Module
