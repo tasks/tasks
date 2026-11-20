@@ -14,10 +14,10 @@ import org.tasks.auth.AndroidSignInHandler
 import org.tasks.auth.OAuthRedirect
 import org.tasks.auth.SchemeRedirect
 import org.tasks.auth.SignInHandler
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.extensions.bringTasksToForeground
-import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
