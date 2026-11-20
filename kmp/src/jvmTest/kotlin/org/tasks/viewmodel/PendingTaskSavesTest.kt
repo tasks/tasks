@@ -14,58 +14,66 @@ import org.junit.Test
 
 class PendingTaskSavesTest {
     private val testDispatcher = StandardTestDispatcher()
-    private val pendingSaves = PendingTaskSaves(CoroutineScope(testDispatcher))
+
+    private fun newPendingSaves() = PendingTaskSaves(CoroutineScope(testDispatcher))
 
     @Test
-    fun theEnqueuedSaveRunsWithTheKeysLockAlreadyHeld() = runTest(testDispatcher) {
-        val running = CompletableDeferred<Unit>()
-        val release = CompletableDeferred<Unit>()
-        pendingSaves.enqueueLocked("key") {
-            running.complete(Unit)
-            release.await()
-        }
-        runCurrent()
-        running.await()
-        var claimed = false
+    fun theEnqueuedSaveRunsWithTheKeysLockAlreadyHeld() =
+        runTest(testDispatcher) {
+            val pendingSaves = newPendingSaves()
+            val running = CompletableDeferred<Unit>()
+            val release = CompletableDeferred<Unit>()
+            pendingSaves.enqueueLocked("key") {
+                running.complete(Unit)
+                release.await()
+            }
+            runCurrent()
+            running.await()
+            var claimed = false
 
-        val contender = async { pendingSaves.withLock("key") { claimed = true } }
-        runCurrent()
+            val contender = async { pendingSaves.withLock("key") { claimed = true } }
+            runCurrent()
 
-        assertFalse(claimed)
-        release.complete(Unit)
-        contender.await()
-        assertTrue(claimed)
-    }
-
-    @Test
-    fun aSaveIsPendingFromTheMomentItIsEnqueued() = runTest(testDispatcher) {
-        var saved = false
-
-        pendingSaves.enqueueLocked("key") { saved = true }
-
-        val waiter = async(start = CoroutineStart.UNDISPATCHED) {
-            pendingSaves.awaitPending("key")
+            assertFalse(claimed)
+            release.complete(Unit)
+            contender.await()
+            assertTrue(claimed)
         }
 
-        assertFalse(saved)
-        assertTrue(waiter.isActive)
-        advanceUntilIdle()
-        assertTrue(saved)
-        assertFalse(waiter.isActive)
-    }
+    @Test
+    fun aSaveIsPendingFromTheMomentItIsEnqueued() =
+        runTest(testDispatcher) {
+            val pendingSaves = newPendingSaves()
+            var saved = false
+
+            pendingSaves.enqueueLocked("key") { saved = true }
+
+            val waiter =
+                async(start = CoroutineStart.UNDISPATCHED) {
+                    pendingSaves.awaitPending("key")
+                }
+
+            assertFalse(saved)
+            assertTrue(waiter.isActive)
+            advanceUntilIdle()
+            assertTrue(saved)
+            assertFalse(waiter.isActive)
+        }
 
     @Test
-    fun aSaveOnAnotherKeyDoesNotHoldTheLock() = runTest(testDispatcher) {
-        val release = CompletableDeferred<Unit>()
-        pendingSaves.enqueueLocked("other") { release.await() }
-        runCurrent()
-        var claimed = false
+    fun aSaveOnAnotherKeyDoesNotHoldTheLock() =
+        runTest(testDispatcher) {
+            val pendingSaves = newPendingSaves()
+            val release = CompletableDeferred<Unit>()
+            pendingSaves.enqueueLocked("other") { release.await() }
+            runCurrent()
+            var claimed = false
 
-        val contender = async { pendingSaves.withLock("key") { claimed = true } }
-        runCurrent()
+            val contender = async { pendingSaves.withLock("key") { claimed = true } }
+            runCurrent()
 
-        assertTrue(claimed)
-        release.complete(Unit)
-        contender.await()
-    }
+            assertTrue(claimed)
+            release.complete(Unit)
+            contender.await()
+        }
 }

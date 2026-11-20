@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
@@ -26,6 +27,7 @@ import org.tasks.auth.IosSignInHandler
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
@@ -65,6 +67,7 @@ import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
+import org.tasks.viewmodel.BackupsViewModel
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
@@ -212,4 +215,21 @@ actual fun platformModule(): Module = module {
             tagMetadataEditor = get(),
         )
     }
+    single {
+        TasksJsonExporter(
+            taskDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            tagDao = get(),
+            userActivityDao = get(),
+            taskAttachmentDao = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            filterDao = get(),
+            taskListMetadataDao = get(),
+            vtodoCache = get(),
+            json = get(),
+        )
+    }
+    viewModelOf(::BackupsViewModel)
 }

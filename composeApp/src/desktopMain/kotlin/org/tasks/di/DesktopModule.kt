@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.tasks.PlatformConfiguration
@@ -26,6 +27,7 @@ import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.DesktopLinkClient
@@ -78,6 +80,7 @@ import org.tasks.sse.SseTokenProvider
 import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
 import org.tasks.sync.microsoft.asMicrosoftTokenSource
+import org.tasks.viewmodel.BackupsViewModel
 import java.io.File
 
 internal val appName: String =
@@ -342,6 +345,22 @@ actual fun platformModule(): Module = module {
     }
     factoryOf(::VtodoCache)
     single {
+        TasksJsonExporter(
+            taskDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            tagDao = get(),
+            userActivityDao = get(),
+            taskAttachmentDao = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            filterDao = get(),
+            taskListMetadataDao = get(),
+            vtodoCache = get(),
+            json = get(),
+        )
+    }
+    single {
         PurchaseEntitlement(
             dataDir = dataDir.path,
             encryption = get<KeyStoreEncryption>(),
@@ -439,4 +458,5 @@ actual fun platformModule(): Module = module {
             hold = { get<DesktopNotifier>().hold() },
         )
     }
+    viewModelOf(::BackupsViewModel)
 }

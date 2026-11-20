@@ -18,28 +18,33 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.dao.TaskListMetadataDao
 import org.tasks.data.dao.UserActivityDao
 import org.tasks.time.DateTimeUtils2
-import java.io.OutputStream
+
+expect interface Writer {
+    fun write(text: String)
+    fun flush()
+}
+
+expect fun createWriter(javaWriter: java.io.Writer): Writer
 
 class TasksJsonExporter(
-    private val taskDao: TaskDao,
-    private val alarmDao: AlarmDao,
-    private val locationDao: LocationDao,
-    private val tagDao: TagDao,
-    private val userActivityDao: UserActivityDao,
-    private val taskAttachmentDao: TaskAttachmentDao,
-    private val caldavDao: CaldavDao,
-    private val tagDataDao: TagDataDao,
-    private val filterDao: FilterDao,
-    private val taskListMetadataDao: TaskListMetadataDao,
-    private val vtodoCache: VtodoCache,
-    private val json: Json,
+    val taskDao: TaskDao,
+    val alarmDao: AlarmDao,
+    val locationDao: LocationDao,
+    val tagDao: TagDao,
+    val userActivityDao: UserActivityDao,
+    val taskAttachmentDao: TaskAttachmentDao,
+    val caldavDao: CaldavDao,
+    val tagDataDao: TagDataDao,
+    val filterDao: FilterDao,
+    val taskListMetadataDao: TaskListMetadataDao,
+    val vtodoCache: VtodoCache,
+    val json: Json,
 ) {
     var exportCount: Int = 0
         private set
 
-    suspend fun exportTasks(os: OutputStream) = withContext(Dispatchers.IO) {
+    suspend fun exportTasks(writer: Writer) = withContext(Dispatchers.IO) {
         val taskIds = taskDao.getAllTaskIds()
-        val writer = os.bufferedWriter(Charsets.UTF_8)
         writer.write("""{"version":${TasksBuildConfig.VERSION_CODE},"timestamp":${DateTimeUtils2.currentTimeMillis()},"data":{""")
         writer.write(""""tasks":[""")
         taskIds.forEachIndexed { index, id ->
@@ -68,8 +73,7 @@ class TasksJsonExporter(
         writer.write(",\"taskListMetadata\":${json.encodeToString(taskListMetadataDao.getAll())}")
         writer.write(",\"taskAttachments\":${json.encodeToString(taskAttachmentDao.getAttachments())}")
         writer.write("}}")
-        writer.close()
-        os.close()
+        writer.flush()
         exportCount = taskIds.size
     }
 }

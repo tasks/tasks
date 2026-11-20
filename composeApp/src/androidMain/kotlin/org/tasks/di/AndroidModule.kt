@@ -1,10 +1,13 @@
 package org.tasks.di
 
+import android.content.Intent
+import android.net.Uri
 import androidx.room3.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import org.tasks.analytics.Reporting
 import org.tasks.auth.AndroidSignInHandler
@@ -14,15 +17,14 @@ import org.tasks.auth.SignInHandler
 import org.tasks.billing.CompositeSubscriptionProvider
 import org.tasks.auth.LoopbackRedirect
 import org.tasks.extensions.bringTasksToForeground
+import org.tasks.backup.shared.TasksJsonExporter
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.extensions.bringTasksToForeground
 import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.LoopbackGitHubSponsorClient
-import org.tasks.billing.EntitlementSubscriptionProvider
-import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.debugProFlow
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.OpenTaskDao
@@ -42,6 +44,7 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
+import org.tasks.viewmodel.BackupsViewModel
 
 actual fun platformModule(): Module = module {
     includes(flavorModule)
@@ -162,4 +165,21 @@ actual fun platformModule(): Module = module {
         )
     }
     factoryOf(::VtodoCache)
+    single {
+        TasksJsonExporter(
+            taskDao = get(),
+            alarmDao = get(),
+            locationDao = get(),
+            tagDao = get(),
+            userActivityDao = get(),
+            taskAttachmentDao = get(),
+            caldavDao = get(),
+            tagDataDao = get(),
+            filterDao = get(),
+            taskListMetadataDao = get(),
+            vtodoCache = get(),
+            json = get(),
+        )
+    }
+    viewModelOf(::BackupsViewModel)
 }
