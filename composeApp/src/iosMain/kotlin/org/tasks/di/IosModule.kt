@@ -38,7 +38,8 @@ import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
-import org.tasks.data.TaskCreator
+import org.tasks.caldav.iCalendar
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
@@ -78,7 +79,9 @@ internal val documentsPath: String by lazy {
     url.path ?: error("no Documents directory")
 }
 
-actual fun platformModule(): Module = module {
+private val scope = CoroutineScope(SupervisorJob())
+
+private fun platformConfigModule(): Module = module {
     single {
         PlatformConfiguration(
             versionCode = TasksBuildConfig.VERSION_CODE,
@@ -90,7 +93,10 @@ actual fun platformModule(): Module = module {
             thirdPartySyncRequiresPro = true,
         )
     }
-    single<LogExporter> { IosLogExporter(fileLogWriter) }
+}
+
+private fun analyticsModule(): Module = module {
+    single<Analytics> { get<Reporting>() }
     single<Reporting>(createdAtStart = true) {
         IosReporting(
             tasksPreferences = get(),
@@ -99,7 +105,13 @@ actual fun platformModule(): Module = module {
             posthogKey = IosBuildConfig.POSTHOG_KEY,
         )
     }
-    single<Analytics> { get<Reporting>() }
+}
+
+private fun logExporterModule(): Module = module {
+    single<LogExporter> { IosLogExporter(fileLogWriter) }
+}
+
+private fun databaseModule(): Module = module {
     single<Database> {
         Room.databaseBuilder<Database>(name = "$documentsPath/${Database.NAME}")
             .setBundledDriver()
@@ -109,11 +121,26 @@ actual fun platformModule(): Module = module {
     }
     single { TasksPreferences(createDataStore { "$documentsPath/$dataStoreFileName" }) }
     factory { Upgrader(get(), CommonUpgrades.all(get(), get())) }
+}
+
+private fun fileStorageModule(): Module = module {
     factory { FileStorage(documentsPath) }
+}
+
+private fun vtodoCacheModule(): Module = module {
     factoryOf(::VtodoCache)
+}
+
+private fun encryptionModule(): Module = module {
     single<Encryption> { SecureEnclaveEncryption() }
+}
+
+private fun httpClientModule(): Module = module {
     single<KtorClientFactory> { DarwinKtorClientFactory() }
     factory<CaldavClientProvider> { CaldavClientProvider(get(), get(), get(), get(), get()) }
+}
+
+private fun pushModule(): Module = module {
     single { ApnsTokenProvider(tasksPreferences = get(), installId = get(), scope = get(), pushTokenManager = { get() }, sseClient = { get() }) }
     single {
         SseClient(
@@ -128,12 +155,18 @@ actual fun platformModule(): Module = module {
     }
     single<FcmTokenProvider> { get<ApnsTokenProvider>() }
     factory<CaldavClientFactory> { get<CaldavClientProvider>() }
+}
+
+private fun authModule(): Module = module {
     single {
         val factory = get<KtorClientFactory>()
         TasksOAuthClient { factory.newClient { oauthDefaults() } }
     }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
     factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get(), get()) }
+}
+
+private fun purchaseEntitlementModule(): Module = module {
     single {
         PurchaseEntitlement(
             dataDir = documentsPath,
@@ -145,12 +178,18 @@ actual fun platformModule(): Module = module {
             syncAdapters = { get() },
         ).also { it.initialize() }
     }
+}
+
+private fun subscriptionProviderModule(): Module = module {
     single<SubscriptionProvider> {
         EntitlementSubscriptionProvider(
             entitlement = get(),
             debugPro = get<TasksPreferences>().debugProFlow,
         )
     }
+}
+
+private fun syncModule(): Module = module {
     single {
         SyncRunner(get(), get(), { get() }) { pass ->
             val synchronizer = get<CaldavSynchronizer>()
@@ -172,16 +211,25 @@ actual fun platformModule(): Module = module {
             }
         }
     }
+}
+
+private fun notifierModule(): Module = module {
     factory<Notifier> {
         object : Notifier {
-            override suspend fun cancel(id: Long, reason: CancelReason) {}
-            override suspend fun cancel(ids: List<Long>, reason: CancelReason) {}
-            override suspend fun cancelAll(reason: CancelReason) {}
-            override fun triggerNotifications() {}
-            override suspend fun updateTimerNotification() {}
+            override suspend fun cancel(id: Long, reason: CancelReason) = Unit
+            override suspend fun cancel(ids: List<Long>, reason: CancelReason) = Unit
+            override suspend fun cancelAll(reason: CancelReason) = Unit
+            override fun triggerNotifications() = Unit
+            override suspend fun updateTimerNotification() = Unit
         }
     }
+}
+
+private fun taskCleanupModule(): Module = module {
     factory<TaskCleanup> { object : TaskCleanup {} }
+}
+
+private fun apiModule(): Module = module {
     single { get<Database>().apiDao() }
     single { ApiQueryEngine(get()) }
     single<ApiTaskFactory> {
@@ -215,6 +263,9 @@ actual fun platformModule(): Module = module {
             tagMetadataEditor = get(),
         )
     }
+}
+
+private fun exportModule(): Module = module {
     single {
         TasksJsonExporter(
             taskDao = get(),
@@ -231,5 +282,38 @@ actual fun platformModule(): Module = module {
             json = get(),
         )
     }
+}
+
+private fun viewModelModule(): Module = module {
     viewModelOf(::BackupsViewModel)
 }
+
+private fun billingProviderModule(): Module = module {
+    single<BillingProvider> { BillingProvider.STRIPE }
+    single { AppStore() }
+}
+
+actual fun platformModule(): Module =
+    module {
+        includes(
+            platformConfigModule(),
+            analyticsModule(),
+            logExporterModule(),
+            databaseModule(),
+            fileStorageModule(),
+            vtodoCacheModule(),
+            encryptionModule(),
+            httpClientModule(),
+            pushModule(),
+            authModule(),
+            purchaseEntitlementModule(),
+            subscriptionProviderModule(),
+            syncModule(),
+            notifierModule(),
+            taskCleanupModule(),
+            apiModule(),
+            exportModule(),
+            viewModelModule(),
+            billingProviderModule(),
+        )
+    }
