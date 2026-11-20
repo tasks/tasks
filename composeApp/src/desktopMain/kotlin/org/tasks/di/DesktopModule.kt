@@ -75,6 +75,7 @@ import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.DesktopCleanup
 import org.tasks.service.TaskCleanup
 import org.tasks.service.Upgrader
+import kotlinx.coroutines.runBlocking
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
 import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
@@ -177,8 +178,7 @@ private fun resolveLogDir(): File {
     return dir.also { it.mkdirs() }
 }
 
-actual fun platformModule(): Module = module {
-
+private fun platformConfigModule() = module {
     single {
         PlatformConfiguration(
             versionCode = JvmBuildConfig.VERSION_CODE,
@@ -197,6 +197,9 @@ actual fun platformModule(): Module = module {
             supportsMcpServer = true,
         )
     }
+}
+
+private fun reportingModule() = module {
     single<org.tasks.analytics.Analytics> { get<Reporting>() }
     single<Reporting> {
         PostHogReporting(
@@ -205,6 +208,9 @@ actual fun platformModule(): Module = module {
             tasksPreferences = get(),
         )
     }
+}
+
+private fun authModule() = module {
     single { DesktopUserDecisionRegistry() }
     single<CertStore> { DesktopCertStore(dataDir = dataDir, userDecisionRegistry = get()) }
     factory<OkHttpClientFactory> {
@@ -221,6 +227,9 @@ actual fun platformModule(): Module = module {
         )
     }
     factoryOf(::DesktopSignInHandler) bind SignInHandler::class
+}
+
+private fun microsoftModule() = module {
     single<MicrosoftClientProvider> {
         val encryption = get<KeyStoreEncryption>()
         val caldavDao = get<CaldavDao>()
@@ -231,6 +240,9 @@ actual fun platformModule(): Module = module {
             cookiesStorage = { DesktopCookieStorage.forKey(cookieDir, it, encryption) },
         )
     }
+}
+
+private fun googleModule() = module {
     factory {
         org.tasks.googleapis.ProxyAuthProvider(
             caldavDao = get(),
@@ -238,7 +250,9 @@ actual fun platformModule(): Module = module {
             jwtProvider = { get<PurchaseEntitlement>().getJwt() },
         )
     }
+}
 
+private fun apiModule() = module {
     single { get<Database>().apiDao() }
     single { ApiQueryEngine(get()) }
     single<ApiTaskFactory> {
@@ -286,6 +300,9 @@ actual fun platformModule(): Module = module {
         )
     }
     single { DatabaseTasksApi(engine = get(), writer = get()) }
+}
+
+private fun mcpModule() = module {
     single {
         DesktopMcpServerController(
             preferences = get(),
@@ -296,7 +313,10 @@ actual fun platformModule(): Module = module {
         )
     }
     single<McpServerController> { get<DesktopMcpServerController>() }
-    single {
+}
+
+private fun encryptionModule() = module {
+    single<KeyStoreEncryption> {
         KeyStoreEncryption(
             DesktopKeyProvider(
                 serviceName = "Tasks.org",
@@ -306,6 +326,9 @@ actual fun platformModule(): Module = module {
             )
         )
     }
+}
+
+private fun databaseModule() = module {
     single<Database> {
         val dbFile = File(dataDir, Database.NAME)
         Room.databaseBuilder<Database>(name = dbFile.absolutePath)
@@ -319,9 +342,10 @@ actual fun platformModule(): Module = module {
         TasksPreferences(createDataStore { dataStoreFile.absolutePath })
     }
     factory { Upgrader(get(), CommonUpgrades.all(get(), get<KeyStoreEncryption>())) }
-    factory {
-        FileStorage(dataDir.absolutePath)
-    }
+}
+
+private fun storageModule() = module {
+    factory { FileStorage(dataDir.absolutePath) }
     factory {
         EtebaseClientProvider(
             filesDir = dataDir.absolutePath,
@@ -330,6 +354,9 @@ actual fun platformModule(): Module = module {
             httpClientFactory = get(),
         )
     }
+}
+
+private fun openTasksModule() = module {
     factory<OpenTasksSyncer> {
         val caldavDao = get<org.tasks.data.dao.CaldavDao>()
         val refreshBroadcaster = get<org.tasks.broadcast.RefreshBroadcaster>()
@@ -343,6 +370,9 @@ actual fun platformModule(): Module = module {
             }
         }
     }
+}
+
+private fun exportModule() = module {
     factoryOf(::VtodoCache)
     single {
         TasksJsonExporter(
@@ -360,6 +390,9 @@ actual fun platformModule(): Module = module {
             json = get(),
         )
     }
+}
+
+private fun billingModule() = module {
     single {
         PurchaseEntitlement(
             dataDir = dataDir.path,
@@ -393,6 +426,9 @@ actual fun platformModule(): Module = module {
             redirect = LoopbackRedirect(path = LoopbackGitHubSponsorClient.LOOPBACK_CALLBACK_PATH),
         )
     }
+}
+
+private fun pushModule() = module {
     single { SseTokenProvider(get()) } bind FcmTokenProvider::class
     single {
         SseClient(
@@ -405,6 +441,25 @@ actual fun platformModule(): Module = module {
             token = { get<SseTokenProvider>().getToken() },
         )
     }
+}
+
+private fun notifierModule() = module {
+    factory<Notifier> {
+        object : Notifier {
+            override suspend fun cancel(id: Long, reason: org.tasks.notifications.CancelReason) = Unit
+            override suspend fun cancel(ids: List<Long>, reason: org.tasks.notifications.CancelReason) = Unit
+            override suspend fun cancelAll(reason: org.tasks.notifications.CancelReason) = Unit
+            override fun triggerNotifications() = Unit
+            override suspend fun updateTimerNotification() = Unit
+        }
+    }
+}
+
+private fun taskCleanupModule() = module {
+    factory<TaskCleanup> { DesktopCleanup(notifier = get<DesktopNotifier>()) }
+}
+
+private fun notificationsModule() = module {
     single {
         NotificationActionHandler(
             scope = get(),
@@ -458,5 +513,32 @@ actual fun platformModule(): Module = module {
             hold = { get<DesktopNotifier>().hold() },
         )
     }
+}
+
+private fun viewModelModule() = module {
     viewModelOf(::BackupsViewModel)
 }
+
+actual fun platformModule(): Module =
+    module {
+        includes(
+            platformConfigModule(),
+            reportingModule(),
+            authModule(),
+            microsoftModule(),
+            googleModule(),
+            apiModule(),
+            mcpModule(),
+            encryptionModule(),
+            databaseModule(),
+            storageModule(),
+            openTasksModule(),
+            exportModule(),
+            billingModule(),
+            pushModule(),
+            notifierModule(),
+            taskCleanupModule(),
+            notificationsModule(),
+            viewModelModule(),
+        )
+    }
