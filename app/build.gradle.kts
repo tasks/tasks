@@ -293,6 +293,9 @@ dependencies {
     googleplayImplementation(libs.play.services.location)
     googleplayImplementation(libs.play.services.maps)
     googleplayImplementation(projects.googleplay)
+    googleplayImplementation(libs.microsoft.authentication) {
+        exclude("com.microsoft.device.display", "display-mask")
+    }
     googleplayImplementation(libs.play.review)
     googleplayImplementation(libs.play.services.oss.licenses)
     googleplayImplementation(libs.horologist.datalayer.phone)
