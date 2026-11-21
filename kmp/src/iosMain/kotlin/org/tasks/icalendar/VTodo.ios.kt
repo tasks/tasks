@@ -25,6 +25,7 @@ import libical.ICAL_EXDATE_PROPERTY
 import libical.ICAL_GEO_PROPERTY
 import libical.ICAL_LASTMODIFIED_PROPERTY
 import libical.ICAL_LOCATION_PROPERTY
+import libical.ICAL_NO_VALUE
 import libical.ICAL_ORGANIZER_PROPERTY
 import libical.ICAL_PERCENTCOMPLETE_PROPERTY
 import libical.ICAL_PRIORITY_PROPERTY
@@ -64,9 +65,11 @@ import libical.icalcomponent_new_valarm
 import libical.icalcomponent_new_vcalendar
 import libical.icalcomponent_new_vtodo
 import libical.icaldurationtype
+import libical.icalparameter
 import libical.icalparameter_as_ical_string
 import libical.icalparameter_get_related
 import libical.icalparameter_get_tzid
+import libical.icalparameter_get_xvalue
 import libical.icalparameter_kind
 import libical.icalparameter_new_from_string
 import libical.icalparameter_related
@@ -96,6 +99,7 @@ import libical.icalproperty_get_summary
 import libical.icalproperty_get_trigger
 import libical.icalproperty_get_uid
 import libical.icalproperty_get_url
+import libical.icalproperty_get_value
 import libical.icalproperty_get_value_as_string
 import libical.icalproperty_get_x
 import libical.icalproperty_get_x_name
@@ -118,6 +122,7 @@ import libical.icalproperty_new_uid
 import libical.icalproperty_new_url
 import libical.icalproperty_new_version
 import libical.icalproperty_new_x
+import libical.icalproperty_set_allow_empty_properties
 import libical.icalproperty_set_tzid
 import libical.icalproperty_set_x_name
 import libical.icalproperty_string_to_kind
@@ -126,6 +131,7 @@ import libical.icaltime_from_string
 import libical.icaltime_is_null_time
 import libical.icaltime_is_utc
 import libical.icaltimetype
+import libical.icalvalue_isa
 import org.tasks.kmp.PROD_ID
 import org.tasks.repeats.Recur
 import org.tasks.repeats.serializeRecur
@@ -136,6 +142,7 @@ import tasks.kmp.generated.resources.Res
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun parseVTodos(iCalendar: String): List<VTodo> {
+    keepEmptyProperties()
     val root = icalparser_parse_string(iCalendar.repairICalendar()) ?: return emptyList()
     try {
         return root.todos().map { it.toVTodo(root) }
@@ -146,6 +153,7 @@ actual fun parseVTodos(iCalendar: String): List<VTodo> {
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun VTodo.serialize(): String {
+    keepEmptyProperties()
     val calendar = icalcomponent_new_vcalendar()!!
     try {
         calendar.add(icalproperty_new_version("2.0"))
@@ -198,6 +206,15 @@ actual fun VTodo.serialize(): String {
     }
 }
 
+// Without this, libical's parser drops empty properties, losing e.g. "X-EMPTY:".
+@OptIn(ExperimentalForeignApi::class)
+private fun keepEmptyProperties() = icalproperty_set_allow_empty_properties(true)
+
+// Empty X- properties are kept; other empty properties are still skipped as unparseable.
+@OptIn(ExperimentalForeignApi::class)
+private fun CPointer<icalproperty>.isEmptyStandardProperty(): Boolean =
+    icalproperty_isa(this) != ICAL_X_PROPERTY && icalvalue_isa(icalproperty_get_value(this)) == ICAL_NO_VALUE
+
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalcomponent>.todos(): List<CPointer<icalcomponent>> = when (icalcomponent_isa(this)) {
     icalcomponent_kind.ICAL_VTODO_COMPONENT -> listOf(this)
@@ -223,6 +240,7 @@ private fun CPointer<icalcomponent>.add(property: CPointer<icalproperty>?) {
 private fun CPointer<icalcomponent>.toVTodo(calendar: CPointer<icalcomponent>): VTodo {
     val todo = VTodo(sequence = 0)
     for (property in properties()) {
+        if (property.isEmptyStandardProperty()) continue
         when (icalproperty_isa(property)) {
             ICAL_UID_PROPERTY -> todo.uid = icalproperty_get_uid(property)?.toKString()
             ICAL_SEQUENCE_PROPERTY -> todo.sequence = icalproperty_get_sequence(property)
@@ -297,7 +315,7 @@ private fun CPointer<icalcomponent>.toVAlarm(calendar: CPointer<icalcomponent>):
     var unparseable = false
     for (property in properties()) {
         val kind = icalproperty_isa(property)
-        if (kind == ICAL_XLICERROR_PROPERTY) {
+        if (kind == ICAL_XLICERROR_PROPERTY || property.isEmptyStandardProperty()) {
             unparseable = true
             continue
         }
@@ -369,9 +387,13 @@ private fun CPointer<icalproperty>.parameters(): List<Pair<String, String>> =
     generateSequence(icalproperty_get_first_parameter(this, ICAL_ANY_PARAMETER)) {
         icalproperty_get_next_parameter(this, ICAL_ANY_PARAMETER)
     }.map { parameter ->
-        val text = icalparameter_as_ical_string(parameter)!!.toKString()
-        text.substringBefore('=') to text.substringAfter('=', "").removeSurrounding("\"")
+        icalparameter_as_ical_string(parameter)!!.toKString().substringBefore('=') to parameter.paramValue()
     }.toList()
+
+// The raw value; icalparameter_as_ical_string quotes it and encodes quotes as ^' (RFC 6868).
+@OptIn(ExperimentalForeignApi::class)
+private fun CPointer<icalparameter>.paramValue(): String = icalparameter_get_xvalue(this)?.toKString()
+    ?: icalparameter_as_ical_string(this)!!.toKString().substringAfter('=', "").removeSurrounding("\"")
 
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.triggerParameters(): List<Pair<String, String>> =
@@ -379,15 +401,13 @@ private fun CPointer<icalproperty>.triggerParameters(): List<Pair<String, String
 
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.addParameters(parameters: List<Pair<String, String>>) {
-    parameters.forEach { (name, value) ->
-        val quoted = if (value.any { it == ':' || it == ';' || it == ',' }) "\"$value\"" else value
-        icalproperty_add_parameter(this, icalparameter_new_from_string("$name=$quoted"))
-    }
+    // icalparameter_new_from_string keeps the value as is; libical quotes it when writing.
+    parameters.forEach { (name, value) -> icalproperty_add_parameter(this, icalparameter_new_from_string("$name=$value")) }
 }
 
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.parameter(kind: icalparameter_kind): String? =
-    icalproperty_get_first_parameter(this, kind)?.let { icalparameter_as_ical_string(it)!!.toKString().substringAfter('=', "").removeSurrounding("\"") }
+    icalproperty_get_first_parameter(this, kind)?.paramValue()
 
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.related(): icalparameter_related? =
@@ -404,7 +424,8 @@ private fun CPointer<icalproperty>.propertyName(): String =
 @OptIn(ExperimentalForeignApi::class)
 private fun CPointer<icalproperty>.toICalProperty(): ICalProperty =
     if (icalproperty_isa(this) == ICAL_X_PROPERTY) {
-        ICalProperty(propertyName(), icalproperty_get_x(this)?.toKString().orEmpty(), parameters())
+        // A typed value (e.g. VALUE=URI) has no x value.
+        ICalProperty(propertyName(), icalproperty_get_x(this)?.toKString() ?: valueText().orEmpty(), parameters())
     } else {
         ICalProperty(propertyName(), valueText().orEmpty(), parameters())
     }
