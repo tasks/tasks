@@ -108,6 +108,24 @@ open class TaskListViewModel(
         _state.update { it.copy(searchQuery = query?.trim()) }
     }
 
+    /**
+     * The filter the list query actually uses. An active search (non-blank
+     * [State.searchQuery]) replaces the selected filter with a search over all
+     * tasks; a blank *non-null* query deliberately means "My Tasks".
+     *
+     * Callers that don't want search semantics must pass `null`. The drawer's
+     * raw query string is `""`-initialised, so the UI wiring has to normalise
+     * it with `ifBlank { null }` before it reaches [setSearchQuery] - passing
+     * the raw blank string through permanently masks the selected filter with
+     * My Tasks and makes every list/tag/filter selection a no-op (regression
+     * introduced by the drawer search wiring, upstream PR #4803).
+     */
+    internal fun queryFilterFor(queriedState: State): Filter = when {
+        queriedState.searchQuery == null -> queriedState.filter
+        queriedState.searchQuery.isBlank() -> MyTasksFilter(title = "My Tasks")
+        else -> createSearchFilter(queriedState.searchQuery)
+    }
+
     fun invalidate() {
         _state.update { it.copy(now = currentTimeMillis()) }
     }
@@ -179,11 +197,7 @@ open class TaskListViewModel(
             .distinctUntilChanged()
             .throttleLatest(333)
             .map { queriedState ->
-                val filter = when {
-                    queriedState.searchQuery == null -> queriedState.filter
-                    queriedState.searchQuery.isBlank() -> MyTasksFilter(title = "My Tasks")
-                    else -> createSearchFilter(queriedState.searchQuery)
-                }
+                val filter = queryFilterFor(queriedState)
                 val prefs = queryPreferences(filter)
                 Triple(taskDao.fetchTasks(getQuery(prefs, filter)), prefs, queriedState)
             }

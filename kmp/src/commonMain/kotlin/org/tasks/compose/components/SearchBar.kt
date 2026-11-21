@@ -34,6 +34,7 @@ fun SearchBar(
     placeHolder: String,
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit,
+    onLeadingIconClick: () -> Unit = {},
 ) {
     var canFocus by remember { mutableStateOf(false) }
     TextField(
@@ -55,11 +56,13 @@ fun SearchBar(
             )
         },
         leadingIcon = {
-            SymbolIcon(
-                name = TasksIcons.SEARCH,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
+            IconButton(onClick = { onLeadingIconClick() }) {
+                SymbolIcon(
+                    name = TasksIcons.SEARCH,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         },
         trailingIcon = {
             IconButton(onClick = { onCloseClicked() }) {
