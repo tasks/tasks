@@ -113,6 +113,7 @@ kotlin {
             implementation(libs.nucleus.notification.linux)
             implementation(libs.nucleus.notification.macos)
             implementation(libs.nucleus.notification.windows)
+            implementation(libs.nucleus.tray)
         }
     }
 }
