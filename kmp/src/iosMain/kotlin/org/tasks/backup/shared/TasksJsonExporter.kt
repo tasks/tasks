@@ -4,9 +4,7 @@ package org.tasks.backup.shared
 
 import kotlinx.io.core.Writer as IosWriter
 import kotlinx.io.bufferedWriter
-import kotlinx.io.core.use
-import platform.posix.fopen
-import platform.posix.fclose
+import kotlinx.io.path.File
 
 actual interface Writer {
     actual fun write(text: String)
@@ -22,7 +20,8 @@ class IosWriterAdapter(
 }
 
 actual fun createWriter(filePath: String): Writer {
-    val file = fopen(filePath, "w") ?: throw java.io.IOException("Cannot open file: $filePath")
+    val file = File(filePath)
+    file.parent?.createDirectories()
     val writer = file.bufferedWriter()
     return IosWriterAdapter(writer)
 }
