@@ -11,13 +11,41 @@ void protocol_init_session(void) {
     APP_LOG(APP_LOG_LEVEL_DEBUG, "PEBBLE_W session_id=%u", (unsigned)s_session_id);
 }
 
+// Transaction ids wrap at 127 max so the phone can always echo one back
+// inside a uint8 tuple on the wire (see PebbleProtocol SMALL_INT).
 uint8_t protocol_next_transaction_id(void) {
     s_active_transaction_id = s_next_transaction_id++;
+    if (s_next_transaction_id > 127) {
+        s_next_transaction_id = 1;
+    }
     return s_active_transaction_id;
 }
 
 uint8_t protocol_get_active_transaction_id(void) {
     return s_active_transaction_id;
+}
+
+uint32_t protocol_tuple_value(Tuple *t) {
+    if (!t) return 0;
+    switch (t->type) {
+        // Integers arrive as TUPLE_UINT with the width carried in the
+        // tuple's length -- 1 byte on the wire in small-message mode,
+        // 4 bytes from older phone apps
+        case TUPLE_UINT:
+        case TUPLE_INT:
+            if (t->length == 1) return t->value->uint8;
+            if (t->length == 2) return t->value->uint16;
+            return t->value->uint32;
+        default:
+            return 0;
+    }
+}
+
+// Every request tells the phone how large a single inbound message this
+// build can receive, so response chunks can be packed to fit. Without it
+// the phone assumes the platform default (PebbleProtocol.DEFAULT_MAX_MSG_SIZE).
+static void write_capability(DictionaryIterator *out) {
+    dict_write_uint32(out, KEY_MAX_MSG_SIZE, (uint32_t)PROTOCOL_INBOX_SIZE);
 }
 
 static void send_message(void) {
@@ -41,6 +69,7 @@ bool protocol_send_get_tasks(const char *filter, int position, int limit,
     uint8_t txn = protocol_next_transaction_id();
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_GET_TASKS);
     dict_write_uint8(out, KEY_TRANSACTION_ID, txn);
+    write_capability(out);
     dict_write_uint32(out, KEY_POSITION, (uint32_t)position);
     dict_write_uint32(out, KEY_LIMIT, (uint32_t)limit);
     if (filter) {
@@ -62,6 +91,7 @@ void protocol_send_complete_task(uint32_t id_high, uint32_t id_low, bool complet
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_COMPLETE_TASK);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_TASK_ID_HIGH, id_high);
     dict_write_uint32(out, KEY_TASK_ID_LOW, id_low);
@@ -77,6 +107,7 @@ void protocol_send_toggle_group(uint32_t id_high, uint32_t id_low, bool collapse
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_TOGGLE_GROUP);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_GROUP_VALUE_HIGH, id_high);
     dict_write_uint32(out, KEY_GROUP_VALUE_LOW, id_low);
@@ -95,6 +126,7 @@ bool protocol_send_get_lists(int position, int limit) {
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_GET_LISTS);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_POSITION, (uint32_t)position);
     dict_write_uint32(out, KEY_LIMIT, (uint32_t)limit);
 
@@ -111,6 +143,7 @@ bool protocol_send_toggle_list(const char *id, bool collapsed) {
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_TOGGLE_LIST);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     if (id) {
         dict_write_cstring(out, KEY_FILTER, id);
@@ -128,6 +161,7 @@ void protocol_send_get_task(uint32_t id_high, uint32_t id_low) {
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_GET_TASK);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_TASK_ID_HIGH, id_high);
     dict_write_uint32(out, KEY_TASK_ID_LOW, id_low);
 
@@ -141,6 +175,7 @@ void protocol_send_save_task(const char *title, const char *filter) {
 
     dict_write_uint8(out, KEY_MSG_TYPE, MSG_SAVE_TASK);
     dict_write_uint8(out, KEY_TRANSACTION_ID, protocol_next_transaction_id());
+    write_capability(out);
     dict_write_uint32(out, KEY_SESSION_ID, s_session_id);
     dict_write_uint32(out, KEY_TASK_ID_HIGH, 0);
     dict_write_uint32(out, KEY_TASK_ID_LOW, 0);
@@ -154,7 +189,7 @@ void protocol_send_save_task(const char *title, const char *filter) {
 }
 
 static uint32_t safe_uint(Tuple *t) {
-    return t ? t->value->uint32 : 0;
+    return protocol_tuple_value(t);
 }
 
 int protocol_parse_items(DictionaryIterator *iter, UiItem *items, int max_items) {
@@ -168,7 +203,7 @@ int protocol_parse_items(DictionaryIterator *iter, UiItem *items, int max_items)
         UiItem *item = &items[count];
         memset(item, 0, sizeof(UiItem));
 
-        item->type = (uint8_t)type_t->value->uint32;
+        item->type = (uint8_t)protocol_tuple_value(type_t);
         item->id_high = safe_uint(dict_find(iter, base + ITEM_ID_HIGH));
         item->id_low = safe_uint(dict_find(iter, base + ITEM_ID_LOW));
 
@@ -185,10 +220,14 @@ int protocol_parse_items(DictionaryIterator *iter, UiItem *items, int max_items)
             item->indent = (uint8_t)safe_uint(dict_find(iter, base + ITEM_INDENT));
             item->num_subtasks = (uint8_t)safe_uint(dict_find(iter, base + ITEM_NUM_SUBTASKS));
 
+            // aplite never receives timestamps (small mode omits them) and
+            // carries a zero-capacity extra field, so there is nothing to copy
+#if MAX_EXTRA_LEN > 1
             Tuple *extra_t = dict_find(iter, base + ITEM_EXTRA);
             if (extra_t && extra_t->type == TUPLE_CSTRING) {
                 strncpy(item->extra, extra_t->value->cstring, MAX_EXTRA_LEN - 1);
             }
+#endif
         }
 
         count++;
@@ -207,7 +246,7 @@ int protocol_parse_list_items(DictionaryIterator *iter, ListItem *items, int max
         ListItem *item = &items[count];
         memset(item, 0, sizeof(ListItem));
 
-        item->type = (uint8_t)type_t->value->uint32;
+        item->type = (uint8_t)protocol_tuple_value(type_t);
 
         Tuple *title_t = dict_find(iter, base + ITEM_TITLE);
         if (title_t && title_t->type == TUPLE_CSTRING) {
@@ -237,13 +276,13 @@ void protocol_parse_task_detail(DictionaryIterator *iter, TaskDetail *detail) {
     }
 
     Tuple *priority_t = dict_find(iter, KEY_TASK_PRIORITY);
-    detail->priority = priority_t ? (uint8_t)priority_t->value->uint32 : PRIORITY_NONE;
+    detail->priority = priority_t ? (uint8_t)protocol_tuple_value(priority_t) : PRIORITY_NONE;
 
     Tuple *completed_t = dict_find(iter, KEY_TASK_COMPLETED);
-    detail->completed = completed_t ? completed_t->value->uint32 != 0 : false;
+    detail->completed = completed_t ? protocol_tuple_value(completed_t) != 0 : false;
 
     Tuple *repeating_t = dict_find(iter, KEY_TASK_REPEATING);
-    detail->repeating = repeating_t ? repeating_t->value->uint32 != 0 : false;
+    detail->repeating = repeating_t ? protocol_tuple_value(repeating_t) != 0 : false;
 
     Tuple *desc_t = dict_find(iter, KEY_TASK_DESCRIPTION);
     if (desc_t && desc_t->type == TUPLE_CSTRING) {

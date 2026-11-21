@@ -65,6 +65,10 @@ static bool s_updating_selection = false;
 static AppTimer *s_chunk_timer = NULL;
 static bool s_connection_error = false;
 static AppTimer *s_retry_timer = NULL;
+// A busy outbox makes every request register another 200ms retry, and the
+// chains stack up while the message in the outbox waits on the phone. One
+// chain at a time is enough.
+static bool s_retry_pending = false;
 static bool s_got_response = false;
 
 // Tracks whether current request is paging down (appending) or up (prepending)
@@ -788,7 +792,10 @@ static void request_tasks_page(int position, int limit) {
                 show_loading(false);
             }
             s_loading = false;
-            app_timer_register(200, retry_refresh_handler, NULL);
+            if (!s_retry_pending) {
+                s_retry_pending = true;
+                app_timer_register(200, retry_refresh_handler, NULL);
+            }
         }
     }
 }
@@ -896,6 +903,7 @@ static void chunk_timeout_handler(void *data) {
 }
 
 static void retry_refresh_handler(void *data) {
+    s_retry_pending = false;
     task_list_window_refresh();
 }
 
@@ -948,7 +956,10 @@ void task_list_window_refresh(void) {
             s_request_txn = protocol_get_active_transaction_id();
             s_chunk_timer = app_timer_register(5000, chunk_timeout_handler, NULL);
         } else {
-            app_timer_register(200, retry_refresh_handler, NULL);
+            if (!s_retry_pending) {
+                s_retry_pending = true;
+                app_timer_register(200, retry_refresh_handler, NULL);
+            }
         }
     } else {
         request_tasks_page(0, INITIAL_PAGE_SIZE);
@@ -957,7 +968,7 @@ void task_list_window_refresh(void) {
 
 void task_list_handle_tasks_response(DictionaryIterator *iter) {
     Tuple *txn_t = dict_find(iter, KEY_TRANSACTION_ID);
-    if (txn_t && (uint8_t)txn_t->value->uint32 != s_request_txn) {
+    if (txn_t && (uint8_t)protocol_tuple_value(txn_t) != s_request_txn) {
         return;
     }
 
@@ -968,10 +979,10 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     s_got_response = true;
 
     Tuple *chunk_count_t = dict_find(iter, KEY_CHUNK_COUNT);
-    s_expected_chunks = chunk_count_t ? (int)chunk_count_t->value->uint32 : 1;
+    s_expected_chunks = chunk_count_t ? (int)protocol_tuple_value(chunk_count_t) : 1;
 
     Tuple *chunk_index_t = dict_find(iter, KEY_CHUNK_INDEX);
-    int chunk_index = chunk_index_t ? (int)chunk_index_t->value->uint32 : 0;
+    int chunk_index = chunk_index_t ? (int)protocol_tuple_value(chunk_index_t) : 0;
 
     if (s_received_chunk_mask & (1 << chunk_index)) {
         return;
@@ -983,7 +994,7 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     if (s_refreshing) {
         Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
         if (total_t) {
-            s_pending_total = (int)total_t->value->uint32;
+            s_pending_total = (int)protocol_tuple_value(total_t);
         }
 
         int needed = chunk_offset + CHUNK_SIZE;
@@ -1001,7 +1012,7 @@ void task_list_handle_tasks_response(DictionaryIterator *iter) {
     } else {
         Tuple *total_t = dict_find(iter, KEY_TOTAL_ITEMS);
         if (total_t) {
-            s_total_items = (int)total_t->value->uint32;
+            s_total_items = (int)protocol_tuple_value(total_t);
         }
 
         if (s_paging_up) {
