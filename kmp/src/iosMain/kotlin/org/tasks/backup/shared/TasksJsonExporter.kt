@@ -3,8 +3,10 @@
 package org.tasks.backup.shared
 
 import kotlinx.io.core.Writer as IosWriter
-import kotlinx.io.bufferedWriter
-import kotlinx.io.path.File
+import platform.Foundation.NSFileHandle
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSURL
+import platform.Foundation.NSString
 
 actual interface Writer {
     actual fun write(text: String)
@@ -12,16 +14,22 @@ actual interface Writer {
 }
 
 class IosWriterAdapter(
-    private val writer: IosWriter,
+    private val fileHandle: NSFileHandle,
 ) : Writer {
-    override fun write(text: String) = writer.write(text)
+    override fun write(text: String) {
+        val data = text.encodeToByteArray().toNSData()
+        fileHandle.writeData(data)
+    }
 
-    override fun flush() = writer.flush()
+    override fun flush() {
+        fileHandle.synchronizeFile()
+    }
 }
 
 actual fun createWriter(filePath: String): Writer {
-    val file = File(filePath)
-    file.parent?.createDirectories()
-    val writer = file.bufferedWriter()
-    return IosWriterAdapter(writer)
+    val fileManager = NSFileManager.defaultManager
+    val url = NSURL.fileURLWithPath(filePath)
+    fileManager.createFileAtPath(filePath, contents = null, attributes = null)
+    val fileHandle = NSFileHandle.fileHandleForWritingToURL(url, error = null)
+    return IosWriterAdapter(fileHandle!!)
 }
