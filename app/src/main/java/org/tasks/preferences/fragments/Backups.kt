@@ -24,6 +24,7 @@ import org.tasks.extensions.Context.toast
 import org.tasks.files.FileHelper
 import org.tasks.preferences.BasePreferences
 import org.tasks.preferences.PreferencesViewModel
+import org.tasks.preferences.fragments.BackupsViewModel
 import org.tasks.themes.TasksSettingsTheme
 import org.tasks.themes.Theme
 import javax.inject.Inject
@@ -33,44 +34,48 @@ private const val FRAG_TAG_IMPORT_TASKS = "frag_tag_import_tasks"
 
 @AndroidEntryPoint
 class Backups : Fragment() {
-
     @Inject lateinit var theme: Theme
 
     private val preferencesViewModel: PreferencesViewModel by activityViewModels()
     private val viewModel: BackupsViewModel by viewModels()
 
-    private val backupDirLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            result.data?.data?.let { uri ->
-                requireContext().takePersistableUriPermission(uri)
-                viewModel.handleBackupDirResult(uri, preferencesViewModel)
-            }
-        }
-    }
-
-    private val importPickerLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            result.data?.data?.let { uri ->
-                val extension = FileHelper.getExtension(requireContext(), uri)
-                if (!"json".equals(extension, ignoreCase = true)) {
-                    context?.toast(R.string.invalid_backup_file)
-                } else {
-                    ImportTasksDialog.newImportTasksDialog(uri)
-                        .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
+    private val backupDirLauncher =
+        registerForActivityResult(StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    requireContext().takePersistableUriPermission(uri)
+                    viewModel.handleBackupDirResult(uri, preferencesViewModel)
                 }
             }
         }
-    }
 
-    private val driveLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            preferencesViewModel.updateDriveBackup()
-        } else {
-            result.data?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)
-                ?.let { context?.toast(it) }
+    private val importPickerLauncher =
+        registerForActivityResult(StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                result.data?.data?.let { uri ->
+                    val extension = FileHelper.getExtension(requireContext(), uri)
+                    if (!"json".equals(extension, ignoreCase = true)) {
+                        context?.toast(R.string.invalid_backup_file)
+                    } else {
+                        ImportTasksDialog
+                            .newImportTasksDialog(uri)
+                            .show(parentFragmentManager, FRAG_TAG_IMPORT_TASKS)
+                    }
+                }
+            }
         }
-        viewModel.refreshDriveState(preferencesViewModel)
-    }
+
+    private val driveLauncher =
+        registerForActivityResult(StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                preferencesViewModel.updateDriveBackup()
+            } else {
+                result.data
+                    ?.getStringExtra(DriveLoginActivity.EXTRA_ERROR)
+                    ?.let { context?.toast(it) }
+            }
+            viewModel.refreshDriveState(preferencesViewModel)
+        }
 
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +89,8 @@ class Backups : Fragment() {
             viewModel.refreshAndroidBackupSummary(it, preferencesViewModel)
         }
         parentFragmentManager.setFragmentResultListener(
-            ExportTasksDialog.REQUEST_KEY, this
+            ExportTasksDialog.REQUEST_KEY,
+            this,
         ) { _, _ ->
             preferencesViewModel.updateLocalBackup()
         }
@@ -93,7 +99,7 @@ class Backups : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: android.os.Bundle?
+        savedInstanceState: android.os.Bundle?,
     ) = content {
         TasksSettingsTheme(
             theme = theme.themeBase.index,
@@ -122,12 +128,13 @@ class Backups : Fragment() {
                         FileHelper.newDirectoryPickerIntent(
                             context,
                             viewModel.backupDirectory,
-                        )
+                        ),
                     )
                 },
                 onBackupNow = {
                     viewModel.logEvent("backup_now")
-                    ExportTasksDialog.newExportTasksDialog()
+                    ExportTasksDialog
+                        .newExportTasksDialog()
                         .show(parentFragmentManager, FRAG_TAG_EXPORT_TASKS)
                 },
                 onImportBackup = {
