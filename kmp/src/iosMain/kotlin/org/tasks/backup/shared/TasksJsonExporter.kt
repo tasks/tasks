@@ -1,12 +1,19 @@
 @file:Suppress("LongParameterList")
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 
 package org.tasks.backup.shared
 
-import kotlinx.io.core.Writer as IosWriter
-import platform.Foundation.NSFileHandle
-import platform.Foundation.NSFileManager
-import platform.Foundation.NSURL
-import platform.Foundation.NSString
+import kotlinx.cinterop.CPointer
+import kotlinx.cinterop.cstr
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import platform.posix.FILE
+import platform.posix.fopen
+import platform.posix.fwrite
+import platform.posix.fclose
+import platform.posix.fflush
+import platform.posix.malloc
+import platform.posix.free
 
 actual interface Writer {
     actual fun write(text: String)
@@ -14,22 +21,22 @@ actual interface Writer {
 }
 
 class IosWriterAdapter(
-    private val fileHandle: NSFileHandle,
+    private val file: CPointer<FILE>,
 ) : Writer {
     override fun write(text: String) {
-        val data = text.encodeToByteArray().toNSData()
-        fileHandle.writeData(data)
+        memScoped {
+            val cString = text.cstr()
+            fwrite(cString.ptr, 1, text.length, file)
+        }
     }
 
     override fun flush() {
-        fileHandle.synchronizeFile()
+        fflush(file)
     }
 }
 
 actual fun createWriter(filePath: String): Writer {
-    val fileManager = NSFileManager.defaultManager
-    val url = NSURL.fileURLWithPath(filePath)
-    fileManager.createFileAtPath(filePath, contents = null, attributes = null)
-    val fileHandle = NSFileHandle.fileHandleForWritingToURL(url, error = null)
-    return IosWriterAdapter(fileHandle!!)
+    val cPath = filePath.cstr()
+    val file = fopen(cPath, "w".cstr()) ?: throw java.io.IOException("Cannot open file: $filePath")
+    return IosWriterAdapter(file)
 }
