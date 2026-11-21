@@ -794,6 +794,8 @@ fun App(
 
             TaskListChrome(
                 onCloudSignIn = { cloudSignInSource = AnalyticsEvents.SOURCE_DRAWER },
+                // Same as Android: settings lists every account with its sync error.
+                onErrorClick = { backStack.push(SettingsDestination) },
                 drawerViewModel = drawerViewModel,
                 drawerState = drawerState,
                 // The effective state, not the stored preference: when the window can't hold an
@@ -914,7 +916,7 @@ fun App(
                                 }
                             },
                             openUrl = { platform ->
-                                // TODO: handle open URL for platform
+                                if (platform == Platform.DAVX5) openUrl("https://tasks.org/davx5")
                             },
                             openLegalUrl = openUrl,
                         )
@@ -1549,6 +1551,7 @@ private fun TaskListChrome(
     onDrawerItemClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onCloudSignIn: () -> Unit,
+    onErrorClick: () -> Unit,
     content: @Composable () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
@@ -1580,7 +1583,7 @@ private fun TaskListChrome(
                     onQueryChange = { drawerViewModel?.setMenuQuery(it) },
                     onClick = onDrawerItemClick,
                     onAddClick = onAddClick,
-                    onErrorClick = { /* TODO: show sync error */ },
+                    onErrorClick = onErrorClick,
                     onSignIn = onCloudSignIn,
                     // Hoisted for the same reason as the sidebar's: this sheet is disposed every
                     // time the drawer closes, and it is not inside a nav entry whose saveable
@@ -1637,7 +1640,7 @@ private fun TaskListChrome(
                         onQueryChange = { drawerViewModel?.setMenuQuery(it) },
                         onClick = onDrawerItemClick,
                         onAddClick = onAddClick,
-                        onErrorClick = { /* TODO: show sync error */ },
+                        onErrorClick = onErrorClick,
                         onSignIn = onCloudSignIn,
                         expanded = sidebarExpanded,
                         onExpandDrawer = {
