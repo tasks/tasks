@@ -2,10 +2,12 @@ package org.tasks.compose.tasklist
 
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,9 +27,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mikepenz.markdown.m3.Markdown
 import com.mikepenz.markdown.m3.markdownColor
@@ -72,10 +79,13 @@ internal fun rowState(deletions: Map<String, Boolean>, task: TaskContainer): Row
     }
 
 internal const val COMPLETE_BUTTON_TAG = "task-row-complete"
+internal const val ROW_TEST_TAG = "task_row_"
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 internal fun TaskRow(
     task: TaskContainer,
+    selected: Boolean,
     doomed: Boolean,
     filter: Filter,
     groupMode: Int,
@@ -86,6 +96,9 @@ internal fun TaskRow(
     onToggleComplete: () -> Unit,
     onToggleSubtasks: () -> Unit,
     onFilterClick: (Filter) -> Unit,
+    dragHandle: (@Composable (Modifier) -> Unit)? = null,
+    dragged: Boolean = false,
+    dragIndentOffset: Dp = 0.dp,
 ) {
     val isDark = isDarkTheme()
     val checkColor = if (task.isCompleted) {
@@ -93,37 +106,59 @@ internal fun TaskRow(
     } else {
         priorityColor(task.priority)
     }
-    Row(
+    // M3 single-selection list item: `selected` drives the secondaryContainer highlight,
+    // the shape morph and the radio-button semantics; `enabled = false` renders a doomed
+    // (deleted) row as a disabled item instead of a custom error background. A dragged row
+    // takes the elevated surface so the item clearly lifts out of the list.
+    // [dragIndentOffset] is the animated mid-drag indent shift (the native app's "about
+    // to become a subtask" cue): positive = will indent, negative = will outdent.
+    // The clamp keeps the padding non-negative if the offset ever lags a commit
+    // (a top-level row with a stale negative offset must not assert the layout).
+    val indentStart = ((INDENT_STEP_DP * task.indent).dp + dragIndentOffset).coerceAtLeast(0.dp)
+    ListItem(
+        selected = selected,
+        enabled = !doomed,
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(enabled = !doomed, onClick = onClick)
+            .testTag(ROW_TEST_TAG + task.id)
+            .padding(start = indentStart)
             .then(
-                if (doomed) {
-                    Modifier.background(MaterialTheme.colorScheme.errorContainer)
-                } else {
-                    Modifier
-                }
-            )
-            .padding(
-                start = (INDENT_STEP_DP * task.indent).dp,
-                end = 16.dp,
+                when {
+                    dragged -> Modifier.background(MaterialTheme.colorScheme.surfaceContainerHighest)
+                    else -> Modifier
+                },
             ),
+        contentPadding = PaddingValues(
+            start = 0.dp,
+            end = 16.dp,
+        ),
         verticalAlignment = Alignment.Top,
     ) {
-        IconButton(
-            onClick = onToggleComplete,
-            enabled = !doomed,
-            modifier = Modifier.size(48.dp).testTag(COMPLETE_BUTTON_TAG),
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Top,
         ) {
-            SymbolIcon(
-                name = if (task.isCompleted) TasksIcons.CHECK_CIRCLE else TasksIcons.RADIO_BUTTON_UNCHECKED,
-                filled = task.isCompleted,
-                contentDescription = null,
-                tint = checkColor,
-                modifier = Modifier.size(24.dp),
-            )
-        }
-        Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
+            if (dragHandle != null) {
+                // Leading drag handle, aligned with the checkbox: 48.dp like the complete
+                // button, so the icon centres on the same line. [Modifier] carries the
+                // reorderable draggableHandle gesture created by the list.
+                dragHandle(Modifier)
+            }
+            IconButton(
+                onClick = onToggleComplete,
+                enabled = !doomed,
+                modifier = Modifier.size(48.dp).testTag(COMPLETE_BUTTON_TAG),
+            ) {
+                SymbolIcon(
+                    name = if (task.isCompleted) TasksIcons.CHECK_CIRCLE else TasksIcons.RADIO_BUTTON_UNCHECKED,
+                    filled = task.isCompleted,
+                    contentDescription = null,
+                    tint = checkColor,
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+            Column(modifier = Modifier.weight(1f).padding(top = 12.dp, bottom = 12.dp)) {
             val dueDateText = remember(task.dueDate, groupMode, is24Hour, dateFormatter) {
                 if (!task.hasDueDate()) {
                     null
@@ -138,7 +173,9 @@ internal fun TaskRow(
             val isOverdue = !task.isCompleted && dueDateOverdue(task.dueDate)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val titleColor = when {
-                    doomed -> MaterialTheme.colorScheme.onErrorContainer
+                    // No custom error background anymore: a doomed row is a disabled item, so
+                    // match the M3 disabled content colour.
+                    doomed -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     task.isCompleted || task.task.isHidden ->
                         MaterialTheme.colorScheme.outline
                     else -> MaterialTheme.colorScheme.onSurface
@@ -277,6 +314,7 @@ internal fun TaskRow(
             }
         }
     }
+}
 }
 
 @Composable

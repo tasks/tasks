@@ -687,6 +687,7 @@ val coreModule: Module = module {
         )
     }
     single<QueryPreferences> { DataStoreQueryPreferences(get()) }
+    single { org.tasks.compose.tasklist.CaldavTaskReorderer(get(), get()) }
     viewModel {
         TaskListViewModel(
             taskDao = get(),

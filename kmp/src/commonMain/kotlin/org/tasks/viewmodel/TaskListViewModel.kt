@@ -95,13 +95,26 @@ open class TaskListViewModel(
         val tasks: TasksResults = TasksResults.Loading,
         val syncOngoing: Boolean = false,
         val collapsed: Set<Long> = setOf(SectionedDataSource.HEADER_COMPLETED),
+        val selectedTaskId: Long? = null,
     )
 
     private val _state = MutableStateFlow(State())
     val state = _state.asStateFlow()
 
     fun setFilter(filter: Filter) {
-        _state.update { it.copy(filter = filter) }
+        // The selection belongs to the list being shown; switching lists starts unselected.
+        _state.update { it.copy(filter = filter, selectedTaskId = null) }
+    }
+
+    /**
+     * Single-selection state for the task list (M3 selection list: the selection is the
+     * list's own state, not a property of navigation). Selecting is one-way linked to
+     * opening a task - opening a task anywhere selects it - but the selection persists
+     * while the list is visible, so the highlighted row survives scrolling and editor
+     * closes.
+     */
+    fun selectTask(taskId: Long) {
+        _state.update { it.copy(selectedTaskId = taskId) }
     }
 
     fun setSearchQuery(query: String?) {
