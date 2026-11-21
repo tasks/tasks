@@ -19,6 +19,8 @@ class DesktopMcpServerController(
     private val api: DatabaseTasksApi,
     private val analytics: org.tasks.analytics.Analytics,
     private val scope: CoroutineScope,
+    private val requests: org.tasks.TaskRequests,
+    private val selection: org.tasks.selection.SelectedTaskStore,
 ) : McpServerController {
 
     private val logger = Logger.withTag(TAG)
@@ -127,6 +129,8 @@ class DesktopMcpServerController(
             api = api,
             log = log,
             analytics = analytics,
+            requests = requests,
+            selection = selection,
             onStateChange = { running, error ->
                 _state.update {
                     it.copy(

@@ -290,6 +290,8 @@ actual fun platformModule(): Module = module {
             api = get(),
             analytics = get(),
             scope = get(),
+            requests = get(),
+            selection = get(),
         )
     }
     single<McpServerController> { get<DesktopMcpServerController>() }
