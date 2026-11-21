@@ -2,6 +2,8 @@ package org.tasks.tasklist
 
 import com.todoroo.astrid.core.SortHelper
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.TaskContainer
 import org.tasks.data.entity.Task
@@ -102,6 +104,47 @@ class SectionedDataSourceTest {
             listOf(ACTIVE, DONE, DONE_SUB),
             (0 until source.size).filterNot { source.isHeader(it) }.map { source.getItem(it).title },
         )
+    }
+
+    @Test
+    fun findsHeadersAndTasksByValue() {
+        val active = task(ACTIVE)
+        val done = task(DONE, completed = true)
+        val source = dataSource(active, done)
+        val completedHeader = UiItem.Header(HEADER_COMPLETED, false)
+
+        assertEquals(1, source.indexOf(UiItem.Task(active)))
+        assertEquals(2, source.indexOf(completedHeader))
+        assertEquals(-1, source.indexOf(UiItem.Task(task(DONE_SUB))))
+        assertTrue(source.contains(UiItem.Task(done)))
+        assertFalse(source.contains(UiItem.Header(HEADER_COMPLETED, true)))
+        assertTrue(source.containsAll(listOf(completedHeader, UiItem.Task(active))))
+        assertFalse(source.containsAll(listOf(completedHeader, UiItem.Task(task(DONE_SUB)))))
+    }
+
+    @Test
+    fun lastIndexOfFindsTheLastDuplicate() {
+        val active = task(ACTIVE)
+        val source = dataSource(active, task(DONE), active)
+
+        assertEquals(1, source.indexOf(UiItem.Task(active)))
+        assertEquals(3, source.lastIndexOf(UiItem.Task(active)))
+        assertEquals(-1, source.lastIndexOf(UiItem.Task(task(DONE_SUB))))
+    }
+
+    @Test
+    fun listIteratorWalksBothWays() {
+        val source = dataSource(task(ACTIVE), task(DONE, completed = true))
+        val items = (0 until source.size).map { source[it] }
+
+        assertEquals(items, source.listIterator().asSequence().toList())
+
+        val iterator = source.listIterator(2)
+        assertEquals(2, iterator.nextIndex())
+        assertEquals(items[2], iterator.next())
+        assertEquals(items[2], iterator.previous())
+        assertEquals(items[1], iterator.previous())
+        assertEquals(0, iterator.previousIndex())
     }
 
     companion object {

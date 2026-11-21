@@ -61,33 +61,22 @@ class SectionedDataSource(
         }
     }
 
-    override fun listIterator(): ListIterator<UiItem> {
-        TODO("Not yet implemented")
-    }
+    override fun listIterator(): ListIterator<UiItem> = listIterator(0)
 
-    override fun listIterator(index: Int): ListIterator<UiItem> {
-        TODO("Not yet implemented")
-    }
+    // Iterates a snapshot, like subList, so later add/removeAt calls don't affect it.
+    override fun listIterator(index: Int): ListIterator<UiItem> = toList().listIterator(index)
 
     override fun subList(fromIndex: Int, toIndex: Int): List<UiItem> {
         return iterator().asSequence().drop(fromIndex).take(toIndex - fromIndex).toList()
     }
 
-    override fun lastIndexOf(element: UiItem): Int {
-        TODO("Not yet implemented")
-    }
+    override fun lastIndexOf(element: UiItem): Int = indices.lastOrNull { get(it) == element } ?: -1
 
-    override fun indexOf(element: UiItem): Int {
-        TODO("Not yet implemented")
-    }
+    override fun indexOf(element: UiItem): Int = indices.firstOrNull { get(it) == element } ?: -1
 
-    override fun containsAll(elements: Collection<UiItem>): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun containsAll(elements: Collection<UiItem>): Boolean = elements.all { contains(it) }
 
-    override fun contains(element: UiItem): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun contains(element: UiItem): Boolean = indexOf(element) >= 0
 
     fun getSection(position: Int): AdapterSection = sections[position]!!
 
