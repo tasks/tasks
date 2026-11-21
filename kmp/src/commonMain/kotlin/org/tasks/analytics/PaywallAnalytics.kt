@@ -79,7 +79,7 @@ fun rememberPaywallAnalytics(
     mode: PricingMode,
     provider: BillingProvider,
 ): PaywallAnalytics {
-    val paywall = viewModel { PaywallAnalytics(analytics, source, mode, provider) }
+    val paywall = viewModel<PaywallAnalytics> { PaywallAnalytics(analytics, source, mode, provider) }
     LogOnce { paywall.shown() }
     return paywall
 }
