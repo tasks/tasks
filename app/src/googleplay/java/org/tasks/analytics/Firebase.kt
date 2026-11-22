@@ -295,7 +295,7 @@ class Firebase @Inject constructor(
 
     override fun setSku(sku: String?) {
         Timber.d("sku -> $sku")
-        if (analyticsEnabled) {
+        withPostHog("set sku") {
             if (sku != null) PostHog.register("sku", sku) else PostHog.unregister("sku")
         }
     }
@@ -303,13 +303,23 @@ class Firebase @Inject constructor(
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         Timber.d("$event -> $properties")
+        withPostHog("log $event") {
+            PostHog.capture(
+                event = event,
+                properties = properties
+            )
+        }
+    }
+
+    private inline fun withPostHog(action: String, block: () -> Unit) {
         if (!analyticsEnabled) {
             return
         }
-        PostHog.capture(
-            event = event,
-            properties = properties
-        )
+        try {
+            block()
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to $action")
+        }
     }
 
     fun logEvent(@StringRes event: Int, vararg p: Pair<Int, Any>) {

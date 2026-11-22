@@ -80,6 +80,8 @@ actual fun platformModule(): Module = module {
             serverEnvironment = get(),
             clientFactory = get(),
             purchaseClaim = get(),
+            pushTokenManager = get(),
+            analytics = get<Reporting>(),
             redirect = get(),
         )
     }

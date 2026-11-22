@@ -25,7 +25,6 @@ import org.tasks.auth.SignInViewModel.Outcome
 import org.tasks.auth.SignInViewModel.State
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.entity.CaldavAccount
-import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import java.io.IOException
 
@@ -33,7 +32,6 @@ import java.io.IOException
 class SignInViewModelTest {
     private val authorization = OAuthResult(accessToken = "token")
     private val account = CaldavAccount(name = "user@example.com")
-    private val pushTokenManager = mock<PushTokenManager>()
     private val firebase = mock<Firebase>()
 
     @Before
@@ -47,13 +45,12 @@ class SignInViewModelTest {
     }
 
     @Test
-    fun aCreatedAccountRegistersForPushAndFinishesOk() {
+    fun aCreatedAccountFinishesOk() {
         val viewModel = viewModel(signIn())
 
         viewModel.signIn(OAuthProvider.GOOGLE)
 
         assertEquals(State.Finished(Outcome.Created), viewModel.state.value)
-        verify(pushTokenManager).registerTokenForAccount(account)
     }
 
     @Test
@@ -181,5 +178,5 @@ class SignInViewModelTest {
     }
 
     private fun viewModel(signIn: TasksOAuthSignIn) =
-        SignInViewModel(signIn, pushTokenManager, firebase)
+        SignInViewModel(signIn, firebase)
 }

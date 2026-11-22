@@ -43,10 +43,7 @@ class IosReporting(
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         logger.d { "$event -> $properties" }
-        if (!analyticsEnabled) {
-            return
-        }
-        analytics?.capture(event, properties)
+        withAnalytics("log $event") { it.capture(event, properties) }
     }
 
     override fun addTask(source: String) =
@@ -57,10 +54,18 @@ class IosReporting(
 
     override fun setSku(sku: String?) {
         logger.d { "sku -> $sku" }
-        if (!analyticsEnabled) {
-            return
+        withAnalytics("set sku") {
+            if (sku != null) it.register("sku", sku) else it.unregister("sku")
         }
-        if (sku != null) analytics?.register("sku", sku) else analytics?.unregister("sku")
+    }
+
+    private inline fun withAnalytics(action: String, block: (AnalyticsBridge) -> Unit) {
+        val analytics = analytics ?: return
+        try {
+            block(analytics)
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to $action" }
+        }
     }
 
     override fun reportException(t: Throwable, fatal: Boolean) {

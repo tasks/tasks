@@ -13,7 +13,6 @@ import com.microsoft.identity.client.Prompt
 import com.microsoft.identity.client.PublicClientApplication
 import com.microsoft.identity.client.exception.MsalException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import org.tasks.analytics.Analytics
@@ -83,13 +82,11 @@ class MsalClient(
 
     suspend fun signIn(activity: Activity, loginHint: String?, analytics: Analytics): Boolean {
         val signIn = acquireToken(activity, loginHint) ?: return false
-        withContext(NonCancellable) {
-            setupMsalMicrosoftAccount(signIn, caldavDao) {
-                analytics.logEvent(
-                    AnalyticsEvents.SYNC_ADD_ACCOUNT,
-                    AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
-                )
-            }
+        setupMsalMicrosoftAccount(signIn, caldavDao) {
+            analytics.logEvent(
+                AnalyticsEvents.SYNC_ADD_ACCOUNT,
+                AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_MICROSOFT,
+            )
         }
         return true
     }

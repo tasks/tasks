@@ -7,6 +7,7 @@ import org.tasks.analytics.Analytics
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.fcm.PushTokenManager
 import org.tasks.security.Encryption
 
 class TasksOAuthSignIn(
@@ -14,7 +15,9 @@ class TasksOAuthSignIn(
     private val encryption: Encryption,
     private val serverEnvironment: TasksServerEnvironment,
     private val clientFactory: CaldavClientFactory,
-    private val purchaseClaim: PurchaseClaim? = null,
+    private val purchaseClaim: PurchaseClaim?,
+    private val pushTokenManager: PushTokenManager,
+    private val analytics: Analytics,
     oauthClient: TasksOAuthClient,
     redirect: OAuthRedirect,
 ) {
@@ -39,6 +42,8 @@ class TasksOAuthSignIn(
             encryption = encryption,
             provider = clientFactory,
             purchaseClaim = purchaseClaim,
+            pushTokenManager = pushTokenManager,
+            analytics = analytics,
         )
         logger.i { "Account created successfully" }
         account
@@ -46,7 +51,6 @@ class TasksOAuthSignIn(
 
     suspend fun signInToMicrosoft(
         openUrl: (String) -> Unit,
-        analytics: Analytics,
         loginHint: String? = null,
     ) {
         val result = authorize(OAuthProvider.MICROSOFT, openUrl, loginHint)

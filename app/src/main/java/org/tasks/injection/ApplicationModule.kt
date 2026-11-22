@@ -499,12 +499,16 @@ class ApplicationModule {
         redirect: SchemeRedirect,
         httpClientFactory: HttpClientFactory,
         purchaseClaim: PurchaseClaim,
+        pushTokenManager: PushTokenManager,
+        firebase: Firebase,
     ): TasksOAuthSignIn = httpClientFactory.tasksOAuthSignIn(
         caldavDao = caldavDao,
         encryption = encryption,
         serverEnvironment = environment,
         clientFactory = clientProvider,
         purchaseClaim = purchaseClaim,
+        pushTokenManager = pushTokenManager,
+        analytics = firebase,
         redirect = redirect,
     )
 

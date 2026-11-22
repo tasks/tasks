@@ -1,9 +1,10 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.AnalyticsEvents
@@ -14,6 +15,7 @@ import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import org.tasks.http.httpStatusMessage
 import org.tasks.resources.getString
@@ -43,7 +45,9 @@ suspend fun setupTasksAccount(
     caldavDao: CaldavDao,
     encryption: Encryption,
     provider: CaldavClientFactory,
-    purchaseClaim: PurchaseClaim? = null,
+    purchaseClaim: PurchaseClaim?,
+    pushTokenManager: PushTokenManager,
+    analytics: Analytics,
 ): CaldavAccount {
     val idToken = oauthResult.idToken
         ?: throw IllegalStateException("id_token required for tasks.org account setup")
@@ -63,7 +67,8 @@ suspend fun setupTasksAccount(
         Logger.i(TAG) { "The home set moved, looking for it again" }
         false
     }
-    return tasksSetupLock.withLock {
+    var added = false
+    val account = tasksSetupLock.withLockNonCancellable {
         val existing = caldavDao.getAccount(CaldavAccount.TYPE_TASKS, username)
         val claim = purchaseClaim?.claimHeldPurchase(username, tokenString)
         if (claim is HeldPurchaseClaim.CoveringAnotherAccount) {
@@ -82,12 +87,23 @@ suspend fun setupTasksAccount(
                 name = idToken.email ?: idToken.login,
                 serverType = CaldavAccount.SERVER_TASKS,
             )
-            return account.copy(id = caldavDao.insert(account))
+            added = true
+            return@withLockNonCancellable account.copy(id = caldavDao.insert(account))
         }
         signInAgain(existing, password, caldavDao) {
             existing.url?.takeIf { it.isNotBlank() && stillThere(it) } ?: homeSet()
         }
     }
+    if (account.error.isNullOrBlank()) {
+        pushTokenManager.registerTokenForAccount(account)
+    }
+    if (added) {
+        analytics.logEvent(
+            AnalyticsEvents.SYNC_ADD_ACCOUNT,
+            AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_TASKS_ORG,
+        )
+    }
+    return account
 }
 
 private suspend fun signInAgain(
@@ -102,8 +118,6 @@ private suspend fun signInAgain(
     }
     val url = try {
         verify()
-    } catch (e: CancellationException) {
-        throw e
     } catch (e: PaymentRequiredException) {
         keepToken(CaldavAccount.ERROR_PAYMENT_REQUIRED)
         throw e
@@ -226,7 +240,7 @@ private suspend fun setupOAuthAccount(
     val refreshToken = oauthResult.refreshToken
         ?: throw Exception("No refresh_token - consent may not have been granted")
     val password = encryption.encryptOrThrow(oauthResult.toOAuthTokenData(refreshToken).serialize())
-    val added = lock.withLock {
+    val added = lock.withLockNonCancellable {
         val existing = findExisting()
         if (existing != null) {
             reauthorize(existing, password)
@@ -237,16 +251,15 @@ private suspend fun setupOAuthAccount(
         }
     }
     if (added) {
-        try {
-            analytics.logEvent(
-                AnalyticsEvents.SYNC_ADD_ACCOUNT,
-                AnalyticsEvents.PARAM_TYPE to syncType,
-            )
-        } catch (e: Exception) {
-            Logger.e(TAG, e) { "Failed to report added account" }
-        }
+        analytics.logEvent(
+            AnalyticsEvents.SYNC_ADD_ACCOUNT,
+            AnalyticsEvents.PARAM_TYPE to syncType,
+        )
     }
 }
+
+private suspend fun <T> Mutex.withLockNonCancellable(block: suspend () -> T): T =
+    withLock { withContext(NonCancellable) { block() } }
 
 private suspend fun requireGrantedScope(
     grantedScopes: String?,

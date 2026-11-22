@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
-import org.tasks.analytics.Firebase
 import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.extensions.Context.toast
 import timber.log.Timber
@@ -15,7 +14,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MicrosoftSignInViewModel @Inject constructor(
     private val signIn: TasksOAuthSignIn,
-    private val firebase: Firebase,
 ) : ViewModel() {
     fun signIn(activity: Activity, username: String? = null) {
         val context = activity.applicationContext
@@ -23,7 +21,6 @@ class MicrosoftSignInViewModel @Inject constructor(
             try {
                 signIn.signInToMicrosoft(
                     openUrl = {},
-                    analytics = firebase,
                     loginHint = username,
                 )
                 Timber.d("Successfully signed in")

@@ -52,6 +52,9 @@ class TasksOAuthSignInAuthUrlTest {
         encryption = mock(),
         serverEnvironment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
         clientFactory = mock(),
+        purchaseClaim = null,
+        pushTokenManager = mock(),
+        analytics = mock(),
         oauthClient = oauthClient,
         redirect = redirect,
     )

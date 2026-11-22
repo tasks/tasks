@@ -81,13 +81,12 @@ class PostHogReporting(
     override fun logEvent(event: String, vararg params: Pair<String, Any>) {
         val properties = params.toMap()
         logger.d { "$event -> $properties" }
-        if (!analyticsEnabled) {
-            return
+        withPostHog("log $event") {
+            PostHog.capture(
+                event = event,
+                properties = properties,
+            )
         }
-        PostHog.capture(
-            event = event,
-            properties = properties,
-        )
     }
 
     override fun addTask(source: String) =
@@ -98,7 +97,7 @@ class PostHogReporting(
 
     override fun setSku(sku: String?) {
         logger.d { "sku -> $sku" }
-        if (analyticsEnabled) {
+        withPostHog("set sku") {
             if (sku != null) PostHog.register("sku", sku) else PostHog.unregister("sku")
         }
     }
@@ -108,7 +107,7 @@ class PostHogReporting(
         logger.e(t) { t.message ?: "" }
         val decision = exceptionThrottle.check(t)
         if (decision !is ExceptionThrottle.Decision.Report) return
-        if (analyticsEnabled) {
+        withPostHog("report an exception") {
             PostHog.capture(
                 event = "exception",
                 properties = mapOf(
@@ -119,6 +118,17 @@ class PostHogReporting(
                     "suppressed_count" to decision.suppressed,
                 ),
             )
+        }
+    }
+
+    private inline fun withPostHog(action: String, block: () -> Unit) {
+        if (!analyticsEnabled) {
+            return
+        }
+        try {
+            block()
+        } catch (e: Exception) {
+            logger.e(e) { "Failed to $action" }
         }
     }
 

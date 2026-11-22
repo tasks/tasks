@@ -6,7 +6,6 @@ import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.DesktopLinkService
-import org.tasks.analytics.Reporting
 import org.tasks.auth.MicrosoftSignIn
 import org.tasks.auth.OAuthTokenStore
 import org.tasks.auth.TasksOAuthSignIn
@@ -36,7 +35,7 @@ val flavorModule = module {
     single<DesktopLinkService> { object : DesktopLinkService { override suspend fun confirmLink(code: String) = false } }
     single<MicrosoftSignIn> {
         MicrosoftSignIn { loginHint ->
-            get<TasksOAuthSignIn>().signInToMicrosoft(openUrl = {}, analytics = get<Reporting>(), loginHint = loginHint)
+            get<TasksOAuthSignIn>().signInToMicrosoft(openUrl = {}, loginHint = loginHint)
         }
     }
     single<MicrosoftClientProvider> {

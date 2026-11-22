@@ -1,10 +1,13 @@
 package org.tasks.auth
 
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
@@ -17,6 +20,7 @@ import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argThat
 import org.mockito.kotlin.doAnswer
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.doSuspendableAnswer
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.isNull
 import org.mockito.kotlin.mock
@@ -32,6 +36,7 @@ import org.tasks.caldav.CaldavDiscoveryClient
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.Encryption
@@ -85,7 +90,7 @@ class AccountSetupTest {
 
     private val events = mutableListOf<Pair<String, Map<String, Any>>>()
 
-    private var analyticsFailure: Exception? = null
+    private val pushTokenManager = mock<PushTokenManager>()
 
     private val analytics = object : Analytics {
         override val tasksPreferences: TasksPreferences
@@ -93,7 +98,6 @@ class AccountSetupTest {
         override val analyticsEnabled = true
 
         override fun logEvent(event: String, vararg params: Pair<String, Any>) {
-            analyticsFailure?.let { throw it }
             events.add(event to params.toMap())
         }
 
@@ -129,6 +133,8 @@ class AccountSetupTest {
             encryption = encryption,
             provider = clientFactory,
             purchaseClaim = purchaseClaim,
+            pushTokenManager = pushTokenManager,
+            analytics = analytics,
         )
 
         assertEquals(listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"), calls)
@@ -150,6 +156,8 @@ class AccountSetupTest {
             encryption = encryption,
             provider = clientFactory,
             purchaseClaim = purchaseClaim,
+            pushTokenManager = pushTokenManager,
+            analytics = analytics,
         )
 
         assertEquals(listOf("claim google_1234 access-token", "homeSet https://caldav.example.com"), calls)
@@ -171,6 +179,8 @@ class AccountSetupTest {
                 encryption = encryption,
                 provider = clientFactory,
                 purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
             )
         }.exceptionOrNull()
 
@@ -323,6 +333,7 @@ class AccountSetupTest {
             setPasswordAndError(1L, "encrypted(access-token)", "home set not found")
         }
         verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+        verify(pushTokenManager, never()).registerTokenForAccount(any())
     }
 
     @Test
@@ -407,6 +418,9 @@ class AccountSetupTest {
                 caldavDao = returningAccount(),
                 encryption = encryption,
                 provider = blockedFactory,
+                purchaseClaim = null,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
             )
         }
         val second = try {
@@ -424,6 +438,47 @@ class AccountSetupTest {
 
         assertEquals("", withTimeout(5_000) { second.await() }.error)
         assertEquals(listOf("claim google_1234 access-token", "checkAccess $STORED_URL"), calls)
+    }
+
+    @Test
+    fun aSignInCancelledWhileWaitingItsTurnLeavesTheAccountAlone(): Unit = runBlocking {
+        val checkReached = CompletableDeferred<Unit>()
+        val releaseCheck = CompletableDeferred<Unit>()
+        val blockedFactory = object : CaldavClientFactory by clientFactory {
+            override suspend fun forUrl(url: String?, username: String?, password: String?) =
+                object : CaldavDiscoveryClient by discoveryClient(url) {
+                    override suspend fun checkAccess() {
+                        checkReached.complete(Unit)
+                        releaseCheck.await()
+                    }
+                }
+        }
+        val first = async(Dispatchers.Default) {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = returningAccount(),
+                encryption = encryption,
+                provider = blockedFactory,
+                purchaseClaim = null,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
+            )
+        }
+        val waitingDao = returningAccount()
+        try {
+            withTimeout(5_000) { checkReached.await() }
+            val waiting = launch(start = CoroutineStart.UNDISPATCHED) { signInAgain(waitingDao) }
+
+            withTimeout(5_000) { waiting.cancelAndJoin() }
+        } finally {
+            releaseCheck.complete(Unit)
+        }
+        first.await()
+
+        verifyBlocking(waitingDao, never()) { getAccount(any<Int>(), any()) }
+        assertEquals(emptyList<String>(), calls)
     }
 
     @Test
@@ -459,6 +514,8 @@ class AccountSetupTest {
         encryption = encryption,
         provider = clientFactory,
         purchaseClaim = purchaseClaim,
+        pushTokenManager = pushTokenManager,
+        analytics = analytics,
     )
 
     private fun returningAccount(url: String? = STORED_URL) = mock<CaldavDao> {
@@ -469,6 +526,112 @@ class AccountSetupTest {
             url = url,
             error = CaldavAccount.ERROR_UNAUTHORIZED,
         )
+    }
+
+    @Test
+    fun cancellingAReturningSignInMidCheckStillStoresTheTokenAndRegistersForPush() = runBlocking {
+        val caldavDao = returningAccount()
+        val probing = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val gatedFactory = object : CaldavClientFactory by clientFactory {
+            override suspend fun forUrl(url: String?, username: String?, password: String?) =
+                object : CaldavDiscoveryClient by discoveryClient(url) {
+                    override suspend fun checkAccess() {
+                        probing.complete(Unit)
+                        release.await()
+                    }
+                }
+        }
+
+        val attempt = launch(Dispatchers.Default) {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = gatedFactory,
+                purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
+            )
+        }
+        probing.await()
+        attempt.cancel()
+        release.complete(Unit)
+        attempt.join()
+
+        verifyBlocking(caldavDao) { setVerified(1L, STORED_URL, "encrypted(access-token)") }
+        verify(pushTokenManager).registerTokenForAccount(any())
+        assertEquals(emptyList<Pair<String, Map<String, Any>>>(), events)
+    }
+
+    @Test
+    fun cancellingANewSignInMidSetupStillAddsRegistersAndReportsTheAccount() = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
+            onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
+        }
+        val probing = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val gatedFactory = object : CaldavClientFactory by clientFactory {
+            override suspend fun forUrl(url: String?, username: String?, password: String?) =
+                object : CaldavDiscoveryClient by discoveryClient(url) {
+                    override suspend fun homeSet(): String {
+                        probing.complete(Unit)
+                        release.await()
+                        return HOME_SET
+                    }
+                }
+        }
+
+        val attempt = launch(Dispatchers.Default) {
+            setupTasksAccount(
+                oauthResult = oauthResult(),
+                issuer = "google",
+                caldavUrl = "https://caldav.example.com",
+                caldavDao = caldavDao,
+                encryption = encryption,
+                provider = gatedFactory,
+                purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
+            )
+        }
+        probing.await()
+        attempt.cancel()
+        release.complete(Unit)
+        attempt.join()
+
+        verifyBlocking(caldavDao) { insert(any<CaldavAccount>()) }
+        verify(pushTokenManager).registerTokenForAccount(any())
+        assertEquals(listOf(accountAdded(Constants.SYNC_TYPE_TASKS_ORG)), events)
+    }
+
+    @Test
+    fun cancellingAMicrosoftSignInMidWriteStillAddsAndReportsTheAccount(): Unit = runBlocking {
+        val writing = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { findMicrosoftAccount(any(), anyOrNull(), anyOrNull()) } doSuspendableAnswer {
+                writing.complete(Unit)
+                release.await()
+                null
+            }
+            onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
+        }
+
+        val attempt = launch(Dispatchers.Default) {
+            setupMicrosoftAccount(microsoftResult(), caldavDao, encryption, analytics)
+        }
+        writing.await()
+        attempt.cancel()
+        release.complete(Unit)
+        attempt.join()
+
+        verifyBlocking(caldavDao) { insert(any<CaldavAccount>()) }
+        assertEquals(listOf(AnalyticsEvents.SYNC_ADD_ACCOUNT), events.map { it.first })
     }
 
     @Test
@@ -501,6 +664,8 @@ class AccountSetupTest {
                     encryption = encryption,
                     provider = slowFactory,
                     purchaseClaim = purchaseClaim,
+                    pushTokenManager = pushTokenManager,
+                    analytics = analytics,
                 )
             }
         }.awaitAll()
@@ -622,6 +787,8 @@ class AccountSetupTest {
                 encryption = failingEncryption,
                 provider = clientFactory,
                 purchaseClaim = purchaseClaim,
+                pushTokenManager = pushTokenManager,
+                analytics = analytics,
             )
         }.exceptionOrNull()
 
@@ -629,17 +796,6 @@ class AccountSetupTest {
         verifyBlocking(caldavDao, never()) { getAccount(any<Int>(), any()) }
         verifyBlocking(caldavDao, never()) { setPasswordAndError(any(), any(), any()) }
         assertEquals(emptyList<String>(), calls)
-    }
-
-    @Test
-    fun aFailureToReportANewMicrosoftAccountDoesNotFailTheSignIn(): Unit = runBlocking {
-        val caldavDao = microsoftAccounts()
-
-        analyticsFailure = IllegalStateException("analytics")
-
-        setupMicrosoftAccount(microsoftResult(), caldavDao, encryption, analytics)
-
-        verifyBlocking(caldavDao) { insert(any<CaldavAccount>()) }
     }
 
     @Test

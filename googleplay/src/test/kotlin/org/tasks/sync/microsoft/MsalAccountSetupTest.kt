@@ -1,5 +1,8 @@
 package org.tasks.sync.microsoft
 
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -7,8 +10,10 @@ import kotlinx.coroutines.yield
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.argThat
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doSuspendableAnswer
@@ -18,6 +23,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verifyBlocking
+import org.tasks.auth.microsoftSetupLock
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
@@ -166,5 +172,56 @@ class MsalAccountSetupTest {
         }.joinAll()
 
         verifyBlocking(caldavDao, times(1)) { insert(any<CaldavAccount>()) }
+    }
+
+    @Test
+    fun cancellingMidWriteStillStoresAndReportsTheAccount(): Unit = runBlocking {
+        val writing = CompletableDeferred<Unit>()
+        val release = CompletableDeferred<Unit>()
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { findMicrosoftAccount(any(), anyOrNull(), anyOrNull()) } doSuspendableAnswer {
+                writing.complete(Unit)
+                release.await()
+                null
+            }
+            onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
+        }
+        var reported = false
+
+        val attempt = launch(Dispatchers.Default) {
+            setupMsalMicrosoftAccount(MsalSignIn("alice@example.com", "1234"), caldavDao) {
+                reported = true
+            }
+        }
+        writing.await()
+        attempt.cancel()
+        release.complete(Unit)
+        attempt.join()
+
+        verifyBlocking(caldavDao) { insert(any<CaldavAccount>()) }
+        assertTrue(reported)
+    }
+
+    @Test
+    fun cancellingWhileWaitingForAnotherSetupStillStoresAndReportsTheAccount(): Unit = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { insert(any<CaldavAccount>()) } doReturn 1L
+        }
+        var reported = false
+
+        microsoftSetupLock.lock()
+        val attempt = try {
+            launch(start = CoroutineStart.UNDISPATCHED) {
+                setupMsalMicrosoftAccount(MsalSignIn("alice@example.com", "1234"), caldavDao) {
+                    reported = true
+                }
+            }.also { it.cancel() }
+        } finally {
+            microsoftSetupLock.unlock()
+        }
+        attempt.join()
+
+        verifyBlocking(caldavDao) { insert(any<CaldavAccount>()) }
+        assertTrue(reported)
     }
 }

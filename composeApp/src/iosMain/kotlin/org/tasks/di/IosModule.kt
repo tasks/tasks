@@ -130,7 +130,7 @@ actual fun platformModule(): Module = module {
         TasksOAuthClient { factory.newClient { oauthDefaults() } }
     }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
-    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get(), get()) }
+    factory<SignInHandler> { IosSignInHandler(get(), get(), get(), get(), get(), get(), get(), get()) }
     single {
         PurchaseEntitlement(
             dataDir = documentsPath,

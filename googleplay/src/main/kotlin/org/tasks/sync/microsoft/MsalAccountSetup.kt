@@ -1,6 +1,8 @@
 package org.tasks.sync.microsoft
 
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import org.tasks.auth.microsoftSetupLock
 import org.tasks.data.UUIDHelper
 import org.tasks.data.dao.CaldavDao
@@ -46,30 +48,32 @@ suspend fun setupMsalMicrosoftAccount(
     caldavDao: CaldavDao,
     onAccountAdded: () -> Unit = {},
 ) {
-    val added = microsoftSetupLock.withLock {
-        val existing = caldavDao.findMicrosoftAccount(
-            subject = signIn.subject ?: signIn.username,
-            preferredUsername = signIn.username,
-            email = null,
-        )
-        if (existing != null) {
-            caldavDao.setMicrosoftReauth(
-                id = existing.id,
-                username = signIn.subject ?: existing.username,
-                name = signIn.username,
-                password = existing.password,
+    val added = withContext(NonCancellable) {
+        microsoftSetupLock.withLock {
+            val existing = caldavDao.findMicrosoftAccount(
+                subject = signIn.subject ?: signIn.username,
+                preferredUsername = signIn.username,
+                email = null,
             )
-            false
-        } else {
-            caldavDao.insert(
-                CaldavAccount(
-                    uuid = UUIDHelper.newUUID(),
+            if (existing != null) {
+                caldavDao.setMicrosoftReauth(
+                    id = existing.id,
+                    username = signIn.subject ?: existing.username,
                     name = signIn.username,
-                    username = signIn.subject ?: signIn.username,
-                    accountType = TYPE_MICROSOFT,
+                    password = existing.password,
                 )
-            )
-            true
+                false
+            } else {
+                caldavDao.insert(
+                    CaldavAccount(
+                        uuid = UUIDHelper.newUUID(),
+                        name = signIn.username,
+                        username = signIn.subject ?: signIn.username,
+                        accountType = TYPE_MICROSOFT,
+                    )
+                )
+                true
+            }
         }
     }
     if (added) {

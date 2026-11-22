@@ -11,18 +11,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.tasks.R
-import org.tasks.analytics.Constants
 import org.tasks.analytics.Firebase
 import org.tasks.caldav.PurchaseTokenInUseException
-import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signIn: TasksOAuthSignIn,
-    private val pushTokenManager: PushTokenManager,
     private val firebase: Firebase,
 ) : ViewModel() {
     sealed interface State {
@@ -75,12 +71,7 @@ class SignInViewModel @Inject constructor(
 
     private suspend fun createAccount(provider: OAuthProvider, authorization: OAuthResult): State =
         try {
-            val account = signIn.createAccount(provider, authorization)
-            pushTokenManager.registerTokenForAccount(account)
-            firebase.logEvent(
-                R.string.event_sync_add_account,
-                R.string.param_type to Constants.SYNC_TYPE_TASKS_ORG
-            )
+            signIn.createAccount(provider, authorization)
             State.Finished(Outcome.Created)
         } catch (e: PaymentRequiredException) {
             State.SubscriptionRequired(provider, authorization)

@@ -5,6 +5,7 @@ import org.tasks.analytics.Reporting
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.compose.accounts.Platform
 import org.tasks.data.dao.CaldavDao
+import org.tasks.fcm.PushTokenManager
 import org.tasks.googleapis.ProxyAuthProvider
 import org.tasks.security.KeyStoreEncryption
 
@@ -17,6 +18,7 @@ class DesktopSignInHandler(
     private val proxyAuthProvider: ProxyAuthProvider,
     private val reporting: Reporting,
     private val purchaseClaim: PurchaseClaim,
+    private val pushTokenManager: PushTokenManager,
 ) : SignInHandler {
 
     override suspend fun signIn(
@@ -61,6 +63,8 @@ class DesktopSignInHandler(
                     encryption = encryption,
                     provider = caldavClientProvider,
                     purchaseClaim = purchaseClaim,
+                    pushTokenManager = pushTokenManager,
+                    analytics = reporting,
                 )
             }
             Logger.i(TAG) { "Signed in" }
