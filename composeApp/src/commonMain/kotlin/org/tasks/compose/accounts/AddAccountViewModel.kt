@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import org.tasks.auth.OAuthProvider
 import org.tasks.auth.PaymentRequiredException
 import org.tasks.auth.SignInHandler
+import org.tasks.auth.signInError
 import org.tasks.caldav.PurchaseTokenInUseException
 import org.tasks.billing.PurchaseState
 import org.tasks.data.dao.CaldavDao
@@ -68,7 +69,7 @@ class AddAccountViewModel(
                     SignInState.Error.PaymentRequired
                 }
             } catch (e: Exception) {
-                _signInState.value = SignInState.Error.Failed(e.message ?: "Sign in failed")
+                _signInState.value = SignInState.Error.Failed(e.signInError())
             }
         }
     }

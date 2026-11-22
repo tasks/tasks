@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import org.tasks.auth.TasksOAuthSignIn
+import org.tasks.auth.signInError
 import org.tasks.extensions.Context.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class MicrosoftSignInViewModel @Inject constructor(
                 throw e
             } catch (e: Exception) {
                 Timber.e(e)
-                context.toast(e.message ?: e.javaClass.simpleName)
+                context.toast(e.signInError())
             }
         }
     }

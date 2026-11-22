@@ -1,10 +1,12 @@
 package org.tasks.auth
 
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.io.IOException
 import org.jetbrains.compose.resources.StringResource
 import org.tasks.analytics.Analytics
 import org.tasks.analytics.AnalyticsEvents
@@ -18,6 +20,8 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.fcm.PushTokenManager
 import org.tasks.http.HttpException
 import org.tasks.http.httpStatusMessage
+import org.tasks.http.isConnectionFailure
+import org.tasks.http.isReadTimeout
 import org.tasks.resources.getString
 import org.tasks.security.Encryption
 import org.tasks.ui.DisplayableException
@@ -25,6 +29,10 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.error_encryption_failed
 import tasks.kmp.generated.resources.google_tasks_permission_not_granted
 import tasks.kmp.generated.resources.microsoft_tasks_permission_not_granted
+import tasks.kmp.generated.resources.network_error
+import tasks.kmp.generated.resources.wrong_account
+
+class SignInInterruptedException(cause: CancellationException) : Exception(null, cause)
 
 fun interface PurchaseClaim {
     suspend fun claimHeldPurchase(username: String, token: String): HeldPurchaseClaim
@@ -124,6 +132,9 @@ private suspend fun signInAgain(
     } catch (e: PurchaseTokenInUseException) {
         keepToken("${CaldavAccount.ERROR_PURCHASE_TOKEN_IN_USE}${e.existingAccount}")
         throw e
+    } catch (e: CancellationException) {
+        keepToken("")
+        throw e
     } catch (e: Exception) {
         if (e.isRejection()) {
             throw e
@@ -137,10 +148,13 @@ private suspend fun signInAgain(
 
 private fun Exception.isRejection() = this is HttpException && code in REJECTIONS
 
-suspend fun Throwable.signInError(): String = when (this) {
-    is HttpException -> httpStatusMessage(code)
-    is DisplayableException -> getString(resource)
-    else -> message ?: toString()
+suspend fun Throwable.signInError(): String = when {
+    this is HttpException -> httpStatusMessage(code)
+    this is DisplayableException -> getString(resource)
+    isConnectionFailure() -> getString(Res.string.network_error)
+    isReadTimeout() -> getString(Res.string.wrong_account)
+    else -> message?.takeIf { it.isNotBlank() }
+        ?: getString(if (this is IOException) Res.string.network_error else Res.string.wrong_account)
 }
 
 private val REJECTIONS = setOf(401, 403, 404)
@@ -259,7 +273,15 @@ private suspend fun setupOAuthAccount(
 }
 
 private suspend fun <T> Mutex.withLockNonCancellable(block: suspend () -> T): T =
-    withLock { withContext(NonCancellable) { block() } }
+    withLock {
+        withContext(NonCancellable) {
+            try {
+                block()
+            } catch (e: CancellationException) {
+                throw SignInInterruptedException(e)
+            }
+        }
+    }
 
 private suspend fun requireGrantedScope(
     grantedScopes: String?,
@@ -270,14 +292,14 @@ private suspend fun requireGrantedScope(
         Logger.w(TAG) { "No scope field in token response - cannot verify granted scopes" }
     } else if (grantedScopes.split(' ').none(isRequiredScope)) {
         Logger.e(TAG) { "Tasks scope missing. Granted scopes: $grantedScopes" }
-        throw Exception(getString(message))
+        throw DisplayableException(message)
     } else {
         Logger.i(TAG) { "Granted scopes: $grantedScopes" }
     }
 }
 
 private suspend fun Encryption.encryptOrThrow(text: String): String =
-    encrypt(text) ?: throw Exception(getString(Res.string.error_encryption_failed))
+    encrypt(text) ?: throw DisplayableException(Res.string.error_encryption_failed)
 
 private val tasksSetupLock = Mutex()
 

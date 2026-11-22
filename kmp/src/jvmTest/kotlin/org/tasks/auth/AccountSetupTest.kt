@@ -1,5 +1,6 @@
 package org.tasks.auth
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -334,6 +336,34 @@ class AccountSetupTest {
         }
         verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
         verify(pushTokenManager, never()).registerTokenForAccount(any())
+    }
+
+    @Test
+    fun aReturningAccountInterruptedFromInsideTheSignInFailsButKeepsTheNewToken(): Unit = runBlocking {
+        val caldavDao = returningAccount()
+        val cancellation = CancellationException("Parent job is Cancelled")
+        probeFailure = cancellation
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertTrue(failure is SignInInterruptedException)
+        assertSame(cancellation, failure?.cause)
+        verifyBlocking(caldavDao) { setPasswordAndError(1L, "encrypted(access-token)", "") }
+        verifyBlocking(caldavDao, never()) { setVerified(any(), any(), any()) }
+    }
+
+    @Test
+    fun aNewAccountInterruptedFromInsideTheSignInFailsWithoutBeingAdded(): Unit = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccount(any<Int>(), any()) } doReturn null
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
+        }
+        probeFailure = CancellationException("Parent job is Cancelled")
+
+        val failure = runCatching { signInAgain(caldavDao) }.exceptionOrNull()
+
+        assertTrue(failure is SignInInterruptedException)
+        verifyBlocking(caldavDao, never()) { insert(any<CaldavAccount>()) }
     }
 
     @Test
