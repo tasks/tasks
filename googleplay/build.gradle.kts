@@ -46,7 +46,7 @@ dependencies {
     implementation(projects.data)
     api(libs.play.billing.ktx)
     implementation(libs.kermit)
-    implementation(libs.microsoft.authentication) {
+    api(libs.microsoft.authentication) {
         exclude("com.microsoft.device.display", "display-mask")
     }
 
