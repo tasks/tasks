@@ -35,6 +35,16 @@ jobs:
 
       - uses: ./.github/actions/setup-gradle
 
+      - name: Read Robolectric version
+        id: robolectric
+        run: echo "version=$(grep -oP 'org\.robolectric:robolectric", version = "\K[^"]+' gradle/libs.versions.toml)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Robolectric
+        uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository/org/robolectric
+          key: robolectric-${{ steps.robolectric.outputs.version }}-${{ hashFiles('**/robolectric.properties') }}
+
       - name: Install Compose test dependencies
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libx11-6
 
