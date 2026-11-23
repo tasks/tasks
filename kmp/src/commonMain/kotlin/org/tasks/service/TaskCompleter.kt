@@ -58,9 +58,13 @@ class TaskCompleter(
             .filter { it.isCompleted != completionDate > 0 }
             .filterNot { it.readOnly }
             .let { tasks ->
+                val oldStatuses = tasks.associate { it.id to it.status }
                 setComplete(tasks, completionDate)
                 if (completed && !item.isRecurring) {
-                    refreshBroadcaster.broadcastTaskCompleted(tasks.map { it.id })
+                    refreshBroadcaster.broadcastTaskCompleted(
+                        ids = tasks.map { it.id },
+                        oldStatuses = oldStatuses,
+                    )
                 }
             }
     }
@@ -70,6 +74,7 @@ class TaskCompleter(
             return
         }
         notifier.cancel(tasks.map { it.id }, CancelReason.COMPLETE)
+        val oldStatuses = tasks.associate { it.id to it.status }
         val completed = completionDate > 0
         val repeated = ArrayList<Task>()
         Logger.d(TAG) { "Completing $tasks" }
@@ -98,9 +103,14 @@ class TaskCompleter(
             }
         )
         repeated.lastOrNull()?.let { task ->
-            val oldDueDate = tasks.find { it.id == task.id }?.dueDate?.takeIf { it > 0 }
+            val original = tasks.find { it.id == task.id }
+            val oldDueDate = original?.dueDate?.takeIf { it > 0 }
                 ?: computePreviousDueDate(task)
-            refreshBroadcaster.broadcastTaskCompleted(listOf(task.id), oldDueDate)
+            refreshBroadcaster.broadcastTaskCompleted(
+                ids = listOf(task.id),
+                oldDueDate = oldDueDate,
+                oldStatuses = oldStatuses.filterKeys { it == task.id },
+            )
         }
         if (completed) {
             soundPlayer.playCompletionSound()

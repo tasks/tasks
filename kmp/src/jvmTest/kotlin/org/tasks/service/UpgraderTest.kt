@@ -8,6 +8,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.tasks.DatabaseTest
+import org.tasks.caldav.FileStorage
+import org.tasks.caldav.VtodoCache
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.kmp.createDataStore
@@ -42,6 +44,7 @@ class UpgraderTest : DatabaseTest() {
             CommonUpgrades.all(
                 db,
                 NoEncryption,
+                VtodoCache(db.caldavDao(), FileStorage(folder.root.absolutePath)),
             ),
         )
 

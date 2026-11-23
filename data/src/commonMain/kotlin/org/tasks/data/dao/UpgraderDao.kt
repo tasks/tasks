@@ -4,7 +4,11 @@ import androidx.room3.Dao
 import androidx.room3.Query
 import androidx.room3.Transaction
 import org.tasks.data.CaldavTaskContainer
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_ETEBASE
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.Task
 
 @Dao
@@ -16,6 +20,16 @@ FROM tasks AS task
 WHERE cd_deleted = 0
     """)
     suspend fun tasksWithVtodos(): List<CaldavTaskContainer>
+
+    @Query("""
+SELECT task.*, caldav_task.*
+FROM tasks AS task
+         INNER JOIN caldav_tasks AS caldav_task ON _id = cd_task
+         INNER JOIN caldav_lists ON cdl_uuid = cd_calendar
+         INNER JOIN caldav_accounts ON cda_uuid = cdl_account
+WHERE cda_account_type IN ($TYPE_CALDAV, $TYPE_TASKS, $TYPE_ETEBASE)
+    """)
+    suspend fun tasksWithCachedVtodos(): List<CaldavTaskContainer>
 
     @Query("""
 SELECT tasks._id
@@ -69,4 +83,32 @@ WHERE deleted = 0
 
     @Query("UPDATE tasks SET recurrence = :recurrence, modified = :now WHERE _id = :id")
     suspend fun setRecurrence(id: Long, recurrence: String, now: Long)
+
+    @Query("UPDATE tasks SET status = :status WHERE _id IN (:ids)")
+    suspend fun setStatus(ids: List<Long>, status: Int)
+
+    @Query("""
+UPDATE tasks SET status = :status
+WHERE _id IN (
+    SELECT cd_task FROM caldav_tasks
+    WHERE cd_calendar = :calendar AND cd_remote_id IN (:remoteIds)
+)
+    """)
+    suspend fun setStatus(calendar: String, remoteIds: List<String>, status: Int)
+
+    @Query("""
+UPDATE caldav_lists SET cdl_ctag = NULL
+WHERE cdl_account IN (SELECT cda_uuid FROM caldav_accounts WHERE cda_account_type = $TYPE_OPENTASKS)
+    """)
+    suspend fun clearOpenTasksCtags()
+
+    @Query("""
+UPDATE caldav_tasks SET cd_etag = NULL
+WHERE cd_calendar IN (
+    SELECT cdl_uuid FROM caldav_lists
+             INNER JOIN caldav_accounts ON cda_uuid = cdl_account
+    WHERE cda_account_type = $TYPE_OPENTASKS
+)
+    """)
+    suspend fun clearOpenTasksEtags()
 }

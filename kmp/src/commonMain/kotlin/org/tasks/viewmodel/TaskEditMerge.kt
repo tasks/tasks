@@ -38,6 +38,7 @@ internal fun TaskEditViewModel.State.mergedWith(dbTask: Task): TaskEditViewModel
         parent = merge(current.parent, original.parent, dbTask.parent),
         order = merge(current.order, original.order, dbTask.order),
         readOnly = merge(current.readOnly, original.readOnly, dbTask.readOnly),
+        status = merge(current.status, original.status, dbTask.status),
         modificationDate = dbTask.modificationDate,
         reminderLast = dbTask.reminderLast,
         reminderDismissed = dbTask.reminderDismissed,

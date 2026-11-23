@@ -21,4 +21,6 @@ public class AstridApiConstants {
 
   /** Extras name for old task due date */
   public static final String EXTRAS_OLD_DUE_DATE = "oldDueDate";
+
+  public static final String EXTRAS_OLD_STATUS = "oldStatus";
 }

@@ -19,6 +19,7 @@ import com.todoroo.astrid.service.Upgrade_15_10
 import com.todoroo.astrid.service.Upgrade_15_13
 import com.todoroo.astrid.service.Upgrade_15_13.Companion.canonicalized
 import com.todoroo.astrid.service.Upgrade_15_14_1
+import com.todoroo.astrid.service.Upgrade_15_15_Status
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -434,6 +435,9 @@ class TasksJsonImporter @Inject constructor(
             result.skipCount++
             return
         }
+        if (version < Upgrade_15_15_Status.VERSION) {
+            statusFromBackupVtodo(backup, calendarUuidMap)?.let { task.status = it }
+        }
         task.suppressRefresh()
         task.suppressSync()
         taskDao.createNew(task)
@@ -561,6 +565,25 @@ class TasksJsonImporter @Inject constructor(
             vtodoCache.putVtodo(caldavCalendar, caldavTask.copy(calendar = remappedCalendar), it)
         }
         result.importCount++
+    }
+
+    private suspend fun statusFromBackupVtodo(
+        backup: TaskBackup,
+        calendarUuidMap: Map<String, String>,
+    ): Int? {
+        val vtodo = backup.vtodo ?: return null
+        val caldavTask = backup.caldavTasks?.firstOrNull { !it.isDeleted() } ?: return null
+        val calendarUuid = caldavTask.calendar?.let { calendarUuidMap[it] ?: it } ?: return null
+        val account = caldavDao.getCalendar(calendarUuid)?.account ?: return null
+        if (caldavDao.getAccountByUuid(account)?.accountType !in Upgrade_15_15_Status.CACHED_VTODO_TYPES) {
+            return null
+        }
+        return try {
+            Upgrade_15_15_Status.statusFromVtodo(vtodo)
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to read status from backup vtodo")
+            null
+        }
     }
 
     private suspend fun findExistingAccount(account: CaldavAccount): CaldavAccount? =

@@ -78,7 +78,7 @@ import org.tasks.data.entity.UserActivity
         AutoMigration(from = 91, to = 92),
         AutoMigration(from = 93, to = 94, spec = AutoMigrate93to94::class),
     ],
-    version = 98
+    version = 99
 )
 @ConstructedBy(DatabaseConstructor::class)
 abstract class Database : RoomDatabase() {

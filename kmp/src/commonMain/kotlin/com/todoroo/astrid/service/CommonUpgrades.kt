@@ -1,13 +1,17 @@
 package com.todoroo.astrid.service
 
+import org.tasks.caldav.VtodoCache
 import org.tasks.data.db.Database
 import org.tasks.security.Encryption
+import org.tasks.service.Upgrade
 import org.tasks.service.UpgradeStep
 
 object CommonUpgrades {
     fun all(
         database: Database,
         encryption: Encryption,
+        vtodoCache: VtodoCache,
+        openTasksStatuses: suspend () -> Unit = {},
         msalSubjects: suspend () -> Map<String, String> = { emptyMap() },
     ): List<UpgradeStep> = listOf(
         UpgradeStep(Upgrade_15_11.VERSION) {
@@ -18,7 +22,15 @@ object CommonUpgrades {
             Upgrade_15_14_1(database.caldavDao())
         },
         UpgradeStep(Upgrade_15_15.VERSION) {
-            Upgrade_15_15(database.caldavDao(), encryption, msalSubjects)
+            Upgrade {
+                Upgrade_15_15(database.caldavDao(), encryption, msalSubjects).run()
+                Upgrade_15_15_Status(
+                    database.upgraderDao(),
+                    database.caldavDao(),
+                    vtodoCache,
+                    openTasksStatuses,
+                ).run()
+            }
         },
     )
 }

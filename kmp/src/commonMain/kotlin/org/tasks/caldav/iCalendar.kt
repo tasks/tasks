@@ -474,10 +474,16 @@ class iCalendar(
                 completedAt = task.completionDate
                 status = TodoStatus.COMPLETED
                 percentComplete = 100
-            } else if (completedAt != null) {
-                completedAt = null
-                status = null
-                percentComplete = null
+            } else {
+                if (completedAt != null || status.equals(TodoStatus.COMPLETED, ignoreCase = true)) {
+                    completedAt = null
+                    percentComplete = null
+                }
+                status = when (task.status) {
+                    org.tasks.data.entity.Task.Status.IN_PROCESS -> TodoStatus.IN_PROCESS
+                    org.tasks.data.entity.Task.Status.CANCELLED -> TodoStatus.CANCELLED
+                    else -> status?.takeUnless { it.isKnownOtherThanNeedsAction() }
+                }
             }
             rRule = if (task.isRecurring) {
                 try {

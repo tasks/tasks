@@ -72,6 +72,7 @@ import com.todoroo.andlib.utility.AndroidUtilities
 import com.todoroo.astrid.adapter.TaskAdapter
 import com.todoroo.astrid.adapter.TaskAdapterProvider
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_DUE_DATE
+import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_OLD_STATUS
 import com.todoroo.astrid.api.AstridApiConstants.EXTRAS_TASK_ID
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import com.todoroo.astrid.service.TaskCreator
@@ -1348,12 +1349,21 @@ class TaskListFragment : Fragment(), OnRefreshListener, Toolbar.OnMenuItemClickL
                 } else {
                     0
                 }
+                @Suppress("UNCHECKED_CAST")
+                val oldStatuses = intent.getSerializableExtra(EXTRAS_OLD_STATUS) as? HashMap<Long, Int>
+                    ?: emptyMap()
                 val undoCompletion = View.OnClickListener {
                     lifecycleScope.launch {
                         tasks
                             .partition { it.isRecurring }
                             .let { (recurring, notRecurring) ->
-                                recurring.forEach { repeatTaskHelper.undoRepeat(it, oldDueDate) }
+                                recurring.forEach {
+                                    repeatTaskHelper.undoRepeat(
+                                        task = it,
+                                        oldDueDate = oldDueDate,
+                                        oldStatus = oldStatuses[it.id] ?: Task.Status.NEEDS_ACTION,
+                                    )
+                                }
                                 taskCompleter.setComplete(notRecurring, 0L)
                             }
                     }

@@ -70,6 +70,7 @@ class RepeatTaskHelper(
         task.reminderLast = 0L
         task.reminderDismissed = 0L
         task.completionDate = 0L
+        task.status = Task.Status.NEEDS_ACTION
         val oldDueDate = task.dueDate
         task.setDueDateAdjustingHideUntil(
             newDueDate,
@@ -82,15 +83,21 @@ class RepeatTaskHelper(
         return true
     }
 
-    suspend fun undoRepeat(task: Task, oldDueDate: Long) {
+    suspend fun undoRepeat(task: Task, oldDueDate: Long, oldStatus: Int = Task.Status.NEEDS_ACTION) {
         val original = task.copy()
         if (task.completionDate > 0) {
             task.completionDate = 0
             taskSaver.save(task, original)
             return
         }
+        task.status = oldStatus
+        val recurrence = task.recurrence?.takeIf { it.isNotBlank() }
+        if (recurrence == null) {
+            taskSaver.save(task, original)
+            return
+        }
         try {
-            val recur = Recur.parse(task.recurrence!!)
+            val recur = Recur.parse(recurrence)
             val count = recur.count
             task.setRecurrence(if (count != null && count > 0) recur.copy(count = count + 1) else recur)
             val newDueDate = task.dueDate

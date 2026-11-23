@@ -3,6 +3,7 @@ package org.tasks.di
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.room3.Room
 import com.todoroo.astrid.service.CommonUpgrades
+import com.todoroo.astrid.service.Upgrade_15_15_OpenTasksStatus
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -138,9 +139,16 @@ actual fun platformModule(): Module = module {
         Upgrader(
             get(),
             get(),
-            CommonUpgrades.all(get(), get<KeyStoreEncryption>()) {
-                microsoftTokens?.subjectsByUsername() ?: emptyMap()
-            },
+            CommonUpgrades.all(
+                database = get(),
+                encryption = get<KeyStoreEncryption>(),
+                vtodoCache = get(),
+                openTasksStatuses = {
+                    Upgrade_15_15_OpenTasksStatus(androidContext(), get(), get(), get())
+                        .readOpenTasksStatuses()
+                },
+                msalSubjects = { microsoftTokens?.subjectsByUsername() ?: emptyMap() },
+            ),
         )
     }
     factory<OkHttpClientFactory> {

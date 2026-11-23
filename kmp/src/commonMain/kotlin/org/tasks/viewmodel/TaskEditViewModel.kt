@@ -109,6 +109,7 @@ class TaskEditViewModel(
     private val listId: Long?,
     private val tagUuid: String?,
     private val isSubtaskDraft: Boolean = false,
+    private val inheritParentStatus: Boolean = false,
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
@@ -478,6 +479,20 @@ class TaskEditViewModel(
         }
     }
 
+    private fun inheritedStatus(parentKey: String): Int {
+        if (!inheritParentStatus) return Task.Status.NEEDS_ACTION
+        val parent = if (parentKey == treeKey.value) {
+            _state.value.task
+        } else {
+            subtaskTrees.get(parentKey)?.task
+        }
+        return if (parent?.status == Task.Status.IN_PROCESS) {
+            Task.Status.IN_PROCESS
+        } else {
+            Task.Status.NEEDS_ACTION
+        }
+    }
+
     private fun State.withStagedTitle(): State {
         val staged = nodeTree()?.get(treeKey.value)?.stagedTitle ?: return this
         return if (staged == task.title) this else copy(task = task.copy(title = staged))
@@ -508,6 +523,7 @@ class TaskEditViewModel(
         val task = taskCreator.createBlankTask()
         val list = _state.value.list
         val sibling = after?.let { subtaskTrees.get(it.key) }
+        task.status = inheritedStatus(sibling?.parentKey ?: treeKey.value)
         val node = if (sibling != null) {
             subtaskTrees.addAfter(sibling = sibling, task = task, list = list)
         } else {

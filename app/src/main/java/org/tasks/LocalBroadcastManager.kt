@@ -71,10 +71,11 @@ class LocalBroadcastManager @Inject constructor(
         localBroadcastManager.sendBroadcast(Intent(REFRESH_PREFERENCES))
     }
 
-    override fun broadcastTaskCompleted(ids: List<Long>, oldDueDate: Long) {
+    override fun broadcastTaskCompleted(ids: List<Long>, oldDueDate: Long, oldStatuses: Map<Long, Int>) {
         val intent = Intent(TASK_COMPLETED)
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, ArrayList(ids))
         intent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate)
+        intent.putExtra(AstridApiConstants.EXTRAS_OLD_STATUS, HashMap(oldStatuses))
         localBroadcastManager.sendBroadcast(intent)
     }
 

@@ -12,6 +12,7 @@ import org.tasks.data.entity.Task.Priority.Companion.HIGH
 import org.tasks.data.entity.Task.Priority.Companion.LOW
 import org.tasks.data.entity.Task.Priority.Companion.MEDIUM
 import org.tasks.data.entity.Task.Priority.Companion.NONE
+import org.tasks.data.entity.Task.Status
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.icalendar.TodoStatus
@@ -25,6 +26,7 @@ fun org.tasks.data.entity.Task.applyRemote(
     remote: VTodo,
     local: VTodo?
 ): org.tasks.data.entity.Task {
+    val wasCompleted = isCompleted
     applyCompletedAt(remote, local)
     applyCreatedAt(remote, local)
     applyModified(remote, local)
@@ -36,6 +38,7 @@ fun org.tasks.data.entity.Task.applyRemote(
     applyStart(remote, local)
     applyCollapsed(remote, local)
     applyOrder(remote, local)
+    applyStatus(remote, local, wasCompleted)
     return this
 }
 
@@ -131,6 +134,32 @@ private fun org.tasks.data.entity.Task.applyStart(remote: VTodo, local: VTodo?) 
         hideUntil = remote.dtStart.toStartMillis(this)
     }
 }
+
+private fun org.tasks.data.entity.Task.applyStatus(remote: VTodo, local: VTodo?, wasCompleted: Boolean) {
+    val remoteStatus = remote.taskStatus ?: return
+    val unchanged = when {
+        local == null -> true
+        local.taskStatus == null -> wasCompleted
+        else -> local.taskStatus == status
+    }
+    if (unchanged) {
+        status = remoteStatus
+    }
+}
+
+internal fun String.isKnownOtherThanNeedsAction() =
+    equals(TodoStatus.COMPLETED, ignoreCase = true) ||
+        equals(TodoStatus.IN_PROCESS, ignoreCase = true) ||
+        equals(TodoStatus.CANCELLED, ignoreCase = true)
+
+internal val VTodo.taskStatus: Int?
+    get() = when {
+        completedAt != null -> null
+        status.equals(TodoStatus.COMPLETED, ignoreCase = true) -> null
+        status.equals(TodoStatus.IN_PROCESS, ignoreCase = true) -> Status.IN_PROCESS
+        status.equals(TodoStatus.CANCELLED, ignoreCase = true) -> Status.CANCELLED
+        else -> Status.NEEDS_ACTION
+    }
 
 private fun org.tasks.data.entity.Task.applyCollapsed(remote: VTodo, local: VTodo?) {
     if (local == null || isCollapsed == local.collapsed) {

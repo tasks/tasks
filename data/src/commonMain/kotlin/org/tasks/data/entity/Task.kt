@@ -89,6 +89,8 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     var order: Long? = null,
     @ColumnInfo(name = "read_only", defaultValue = "0")
     var readOnly: Boolean = false,
+    @ColumnInfo(name = "status", defaultValue = "0")
+    var status: Int = Status.NEEDS_ACTION,
     @Ignore
     @Transient
     private var transitoryData: @CommonRawValue HashMap<String, Any>? = null,
@@ -153,6 +155,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
                 && parent == task.parent
                 && remoteId == task.remoteId
                 && order == task.order
+                && status == task.status
     }
 
     fun googleTaskUpToDate(original: Task?): Boolean {
@@ -186,6 +189,7 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
                 && parent == original.parent
                 && isCollapsed == original.isCollapsed
                 && order == original.order
+                && status == original.status
     }
 
     fun microsoftUpToDate(original: Task?): Boolean {
@@ -258,6 +262,15 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
             const val MEDIUM = 1
             const val LOW = 2
             const val NONE = 3
+        }
+    }
+
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class Status {
+        companion object {
+            const val NEEDS_ACTION = 0
+            const val IN_PROCESS = 1
+            const val CANCELLED = 2
         }
     }
 

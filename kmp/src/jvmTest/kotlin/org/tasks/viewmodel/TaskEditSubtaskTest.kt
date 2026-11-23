@@ -154,6 +154,42 @@ class TaskEditSubtaskTest : TaskEditViewModelFixture() {
     }
 
     @Test
+    fun newSubtaskOfAnInProgressTaskIsInProgress() = runTest(testDispatcher) {
+        initializeExisting(status = Task.Status.IN_PROCESS, inheritParentStatus = true)
+
+        val subtask = addSubtask("Subtask")
+
+        assertEquals(Task.Status.IN_PROCESS, subtask.task.status)
+    }
+
+    @Test
+    fun newSubtaskDoesNotInheritStatusOutsideTheBoard() = runTest(testDispatcher) {
+        initializeExisting(status = Task.Status.IN_PROCESS)
+
+        val subtask = addSubtask("Subtask")
+
+        assertEquals(Task.Status.NEEDS_ACTION, subtask.task.status)
+    }
+
+    @Test
+    fun newSubtaskOfATodoTaskNeedsAction() = runTest(testDispatcher) {
+        initializeExisting(inheritParentStatus = true)
+
+        val subtask = addSubtask("Subtask")
+
+        assertEquals(Task.Status.NEEDS_ACTION, subtask.task.status)
+    }
+
+    @Test
+    fun newSubtaskOfACancelledTaskNeedsAction() = runTest(testDispatcher) {
+        initializeExisting(status = Task.Status.CANCELLED, inheritParentStatus = true)
+
+        val subtask = addSubtask("Subtask")
+
+        assertEquals(Task.Status.NEEDS_ACTION, subtask.task.status)
+    }
+
+    @Test
     fun addedSubtaskIsNotWrittenUntilTheTaskIsSaved() = runTest(testDispatcher) {
         initializeNew()
 

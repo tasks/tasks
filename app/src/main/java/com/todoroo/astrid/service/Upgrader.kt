@@ -22,6 +22,7 @@ import org.tasks.caldav.iCalendar.Companion.order
 import org.tasks.caldav.iCalendar.Companion.parent
 import org.tasks.data.CaldavTaskContainer
 import org.tasks.data.Location
+import org.tasks.data.OpenTaskDao
 import org.tasks.data.TaskMover
 import org.tasks.data.convertPictureUri
 import org.tasks.data.dao.CaldavDao
@@ -83,6 +84,7 @@ class Upgrader @Inject constructor(
     private val upgrade_14_11: Lazy<Upgrade_14_11>,
     private val upgrade_14_13: Lazy<Upgrade_14_13>,
     private val upgrade_15_10: Lazy<Upgrade_15_10>,
+    private val openTaskDao: Lazy<OpenTaskDao>,
     private val encryption: Lazy<KeyStoreEncryption>,
     private val microsoftTokens: Lazy<MicrosoftTokenProvider>,
 ) {
@@ -182,9 +184,16 @@ class Upgrader @Inject constructor(
             step(Upgrade_15_10.VERSION) {
                 upgrade_15_10.get().migrateRandomReminder()
             },
-        ) + CommonUpgrades.all(database, encryption.get()) {
-            microsoftTokens.get().subjectsByUsername()
-        }
+        ) + CommonUpgrades.all(
+            database = database,
+            encryption = encryption.get(),
+            vtodoCache = vtodoCache,
+            openTasksStatuses = {
+                Upgrade_15_15_OpenTasksStatus(context, openTaskDao.get(), caldavDao, upgraderDao)
+                    .readOpenTasksStatuses()
+            },
+            msalSubjects = { microsoftTokens.get().subjectsByUsername() },
+        )
 
     suspend fun upgrade(from: Int, to: Int) {
         Timber.i("Upgrading $from => $to")

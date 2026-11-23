@@ -7,8 +7,11 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.tasks.BuildConfig
+import org.tasks.caldav.VtodoCache
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
@@ -16,6 +19,7 @@ import org.tasks.data.db.Database
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_MICROSOFT
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_TASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.TagData
@@ -39,6 +43,13 @@ class TasksJsonImporterTest : InjectingTestCase() {
     @Inject lateinit var caldavDao: CaldavDao
     @Inject lateinit var tagDataDao: TagDataDao
     @Inject lateinit var database: Database
+    @Inject lateinit var vtodoCache: VtodoCache
+
+    @Before
+    @After
+    fun clearVtodoCache() {
+        runBlocking { vtodoCache.clear() }
+    }
 
     private suspend fun export(): ByteArray {
         val os = ByteArrayOutputStream()
@@ -127,6 +138,66 @@ class TasksJsonImporterTest : InjectingTestCase() {
         assertEquals("test task", tasks[0].title)
         assertEquals(1, caldavDao.getAccounts().size)
         assertEquals(1, caldavDao.getCalendars().size)
+    }
+
+    @Test
+    fun readStatusFromVtodoInPre1515Backup() = runBlocking {
+        setupAccount("acc-1")
+        setupCalendar("acc-1", "cal-1")
+        cacheVtodo(setupTask("test task", "cal-1", "remote-1"), "cal-1", "remote-1", "IN-PROCESS")
+
+        val backup = export().withVersion(Upgrade_15_14_1.VERSION)
+        database.clearAllTables()
+        import(backup)
+
+        assertEquals(Task.Status.IN_PROCESS, taskDao.getAll().single().status)
+    }
+
+    @Test
+    fun ignoreVtodoStatusInCurrentBackup() = runBlocking {
+        setupAccount("acc-1")
+        setupCalendar("acc-1", "cal-1")
+        cacheVtodo(setupTask("test task", "cal-1", "remote-1"), "cal-1", "remote-1", "IN-PROCESS")
+
+        val backup = export()
+        database.clearAllTables()
+        import(backup)
+
+        assertEquals(Task.Status.NEEDS_ACTION, taskDao.getAll().single().status)
+    }
+
+    @Test
+    fun ignoreVtodoStatusForOpenTasksInPre1515Backup() = runBlocking {
+        setupAccount("acc-1", accountType = TYPE_OPENTASKS)
+        setupCalendar("acc-1", "cal-1")
+        cacheVtodo(setupTask("test task", "cal-1", "remote-1"), "cal-1", "remote-1", "IN-PROCESS")
+
+        val backup = export().withVersion(Upgrade_15_14_1.VERSION)
+        database.clearAllTables()
+        import(backup)
+
+        assertEquals(Task.Status.NEEDS_ACTION, taskDao.getAll().single().status)
+    }
+
+    private suspend fun cacheVtodo(task: Task, calendar: String, remoteId: String, status: String) {
+        val caldavTask = caldavDao.getTasks(task.id).single()
+        vtodoCache.putVtodo(
+            caldavDao.getCalendar(calendar)!!,
+            caldavTask,
+            listOf(
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:test",
+                "BEGIN:VTODO",
+                "UID:$remoteId",
+                "DTSTAMP:20260101T000000Z",
+                "SUMMARY:${task.title}",
+                "STATUS:$status",
+                "END:VTODO",
+                "END:VCALENDAR",
+                "",
+            ).joinToString("\r\n"),
+        )
     }
 
     @Test

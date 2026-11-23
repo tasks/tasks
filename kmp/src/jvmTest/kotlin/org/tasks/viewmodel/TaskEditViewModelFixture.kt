@@ -168,12 +168,14 @@ abstract class TaskEditViewModelFixture {
         listId: Long? = null,
         tagUuid: String? = null,
         isSubtaskDraft: Boolean = false,
+        inheritParentStatus: Boolean = false,
     ) = TaskEditViewModel(
         taskId = taskId,
         remoteId = remoteId,
         listId = listId,
         tagUuid = tagUuid,
         isSubtaskDraft = isSubtaskDraft,
+        inheritParentStatus = inheritParentStatus,
         taskDao = taskDao,
         taskSaver = taskSaver,
         caldavDao = caldavDao,
@@ -222,10 +224,12 @@ abstract class TaskEditViewModelFixture {
     protected suspend fun TestScope.initializeExisting(
         id: Long = 42,
         title: String = "Existing",
+        status: Int = Task.Status.NEEDS_ACTION,
+        inheritParentStatus: Boolean = false,
     ) {
-        whenever(taskDao.fetch(id)).thenReturn(Task(id = id, title = title))
+        whenever(taskDao.fetch(id)).thenReturn(Task(id = id, title = title, status = status))
         whenever(caldavDao.getTask(id)).thenReturn(null)
-        buildViewModel(taskId = id)
+        buildViewModel(taskId = id, inheritParentStatus = inheritParentStatus)
         advanceUntilIdle()
     }
 

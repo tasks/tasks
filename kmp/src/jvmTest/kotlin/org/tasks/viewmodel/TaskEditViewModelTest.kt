@@ -64,7 +64,7 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
         "title", "priority", "dueDate", "hideUntil", "completionDate", "deletionDate", "notes",
         "estimatedSeconds", "elapsedSeconds", "timerStart", "ringFlags", "recurrence", "repeatFrom",
         "calendarURI", "isCollapsed", "parent", "order", "readOnly", "modificationDate", "reminderLast",
-        "reminderDismissed",
+        "reminderDismissed", "status",
     )
     private val notMergedFields = setOf(
         "id", "creationDate", "remoteId", "transitoryData",
@@ -1192,6 +1192,7 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
             parent = 1000L,
             order = 1100L,
             readOnly = true,
+            status = Task.Status.IN_PROCESS,
         )
 
         val unexercised = (mergedFields - "deletionDate").filter {
