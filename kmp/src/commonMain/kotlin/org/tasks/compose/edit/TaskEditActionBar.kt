@@ -39,6 +39,8 @@ import tasks.kmp.generated.resources.more_options
 
 val TaskEditActionBarHeight = 64.dp
 
+val FloatingToolbarBottomMargin = 24.dp
+
 private val BarPadding = 8.dp
 private val BarElevation = 6.dp
 private val IconTextGap = 8.dp

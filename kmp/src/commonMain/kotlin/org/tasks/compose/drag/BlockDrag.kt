@@ -28,7 +28,7 @@ import kotlin.math.roundToInt
 
 internal val IndentStep = INDENT_STEP_DP.dp
 
-internal fun Modifier.tabToIndent(
+fun Modifier.tabToIndent(
     indent: Int,
     range: () -> IntRange,
     onIndentChange: (Int) -> Unit,

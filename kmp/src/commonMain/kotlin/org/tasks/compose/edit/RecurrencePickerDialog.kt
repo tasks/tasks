@@ -20,8 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import co.touchlab.kermit.Logger
-import org.koin.compose.viewmodel.koinViewModel
-import org.koin.core.parameter.parametersOf
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.RepeatRuleSummary
 import org.tasks.compose.pickers.BasicRecurrence
@@ -122,10 +121,9 @@ private fun CustomRecurrenceDialog(
     onSelected: (String?) -> Unit,
     onDismiss: () -> Unit,
 ) {
-    val viewModel = koinViewModel<CustomRecurrenceViewModel>(
-        key = viewModelKey,
-        parameters = { parametersOf(recurrence.orEmpty(), dueDate, accountType) },
-    )
+    val viewModel = viewModel(key = viewModelKey) {
+        CustomRecurrenceViewModel(recurrence.orEmpty(), dueDate, accountType)
+    }
     val state by viewModel.state.collectAsState()
     Dialog(
         onDismissRequest = onDismiss,

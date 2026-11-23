@@ -39,7 +39,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.flow.collect
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.tasks.compose.edit.LocalTaskEditDependencies
 import org.tasks.themes.isDarkTheme
 import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.edit.AlarmsSection
@@ -47,6 +48,7 @@ import org.tasks.compose.edit.DeleteTaskDialog
 import org.tasks.compose.edit.DescriptionRow
 import org.tasks.compose.edit.DiscardChangesDialog
 import org.tasks.compose.edit.DueDateRow
+import org.tasks.compose.edit.FloatingToolbarBottomMargin
 import org.tasks.compose.edit.ListPickerDialog
 import org.tasks.compose.edit.MarkdownEditField
 import org.tasks.compose.edit.PrioritySection
@@ -67,13 +69,11 @@ import org.tasks.compose.pickers.alarmFromSelection
 import org.tasks.compose.pickers.alarmToSelection
 import org.tasks.compose.pickers.dueDateFromSelection
 import org.tasks.compose.pickers.dueDateToSelection
-import org.tasks.time.is24HourFormat
 import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.TagData
 import org.tasks.filters.CaldavFilter
 import org.tasks.filters.NavigationDrawerSubheader
 import org.tasks.reminders.ReminderControlSetViewModel
-import org.tasks.tags.TagPickerViewModel
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
 import org.tasks.themes.TasksIcons
@@ -105,6 +105,7 @@ fun TaskEditScreen(
     onClose: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
+    val dependencies = LocalTaskEditDependencies.current
     val currentOnClose by rememberUpdatedState(onClose)
     LaunchedEffect(viewModel) {
         viewModel.closeEvents.collect { currentOnClose() }
@@ -193,8 +194,8 @@ fun TaskEditScreen(
                     var showDeleteConfirmation by remember { mutableStateOf(false) }
                     var alarmToReplace by remember { mutableStateOf<Alarm?>(null) }
                     var pickerToken by remember { mutableStateOf(0) }
-                    val reminderViewModel = koinViewModel<ReminderControlSetViewModel>()
-                    val is24Hour = is24HourFormat()
+                    val reminderViewModel = viewModel { ReminderControlSetViewModel() }
+                    val is24Hour = dependencies.is24HourFormat
                     val keyboardController = LocalSoftwareKeyboardController.current
                     LaunchedEffect(list) { showListPicker = false }
                     Column(
@@ -480,9 +481,9 @@ fun TaskEditScreen(
                         )
                     }
                     if (showTagPicker) {
-                        val tagPickerViewModel = koinViewModel<TagPickerViewModel>(
-                            key = "tag-picker-$pickerToken",
-                        )
+                        val tagPickerViewModel = viewModel(key = "tag-picker-$pickerToken") {
+                            dependencies.createTagPickerViewModel()
+                        }
                         TagPickerDialog(
                             viewModel = tagPickerViewModel,
                             initialTags = state.tags,

@@ -95,7 +95,6 @@ import org.tasks.preferences.toAlarmJson
 import org.tasks.preferences.toAlarms
 import org.tasks.reminders.Random
 import org.tasks.reminders.ReminderControlSetViewModel
-import org.tasks.repeats.CustomRecurrenceViewModel
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
@@ -482,13 +481,6 @@ val coreModule: Module = module {
             refreshBroadcaster = get(),
             persistenceScope = get(),
             filterCodec = get(),
-        )
-    }
-    viewModel { params ->
-        CustomRecurrenceViewModel(
-            rrule = params.get<String>(),
-            dueDate = params.get<Long>(),
-            accountType = params.get<Int>(),
         )
     }
     viewModel { params ->

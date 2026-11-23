@@ -6,8 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import org.koin.compose.koinInject
-import org.tasks.repeats.RepeatRuleToString
+import org.tasks.compose.edit.LocalTaskEditDependencies
 
 sealed interface RepeatRuleSummary {
     data object Loading : RepeatRuleSummary
@@ -19,7 +18,7 @@ sealed interface RepeatRuleSummary {
 
 @Composable
 fun rememberRepeatRuleSummary(recurrence: String?): RepeatRuleSummary {
-    val repeatRuleToString = koinInject<RepeatRuleToString>()
+    val repeatRuleToString = LocalTaskEditDependencies.current.repeatRuleToString
     var summary by remember(recurrence, repeatRuleToString) {
         mutableStateOf(
             if (recurrence.isNullOrBlank()) {

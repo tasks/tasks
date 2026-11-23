@@ -144,6 +144,8 @@ kotlin {
             implementation(libs.confettikit)
             implementation(libs.androidx.datastore)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
+            implementation(libs.markdown.renderer.m3)
+            implementation(libs.reorderable)
             implementation(libs.kermit)
             api(libs.kotlinx.datetime)
             implementation(libs.kotlinx.immutable)

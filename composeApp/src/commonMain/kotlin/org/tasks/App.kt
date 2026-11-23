@@ -1,5 +1,6 @@
 package org.tasks
 
+import org.tasks.compose.edit.FloatingToolbarBottomMargin
 import org.tasks.themes.TasksIcons
 import org.tasks.compose.components.SymbolIcon
 import androidx.compose.animation.AnimatedVisibility
@@ -328,8 +329,20 @@ fun App(
         .collectAsState(initial = BLUE_500)
     val themeColor = ColorProvider.getColor(storedColor, isDarkTheme(baseTheme), adjust = true)
     TasksTheme(theme = baseTheme, primary = themeColor) {
+        val repeatRuleToString = koinInject<org.tasks.repeats.RepeatRuleToString>()
+        val tagDataDao = koinInject<org.tasks.data.dao.TagDataDao>()
+        val syncAdapters = koinInject<org.tasks.sync.SyncAdapters>()
+        val is24Hour = org.tasks.time.is24HourFormat()
+        val taskEditDependencies = remember(repeatRuleToString, tagDataDao, syncAdapters, is24Hour) {
+            org.tasks.compose.edit.TaskEditDependencies(
+                repeatRuleToString = repeatRuleToString,
+                createTagPickerViewModel = { org.tasks.tags.TagPickerViewModel(tagDataDao, syncAdapters) },
+                is24HourFormat = is24Hour,
+            )
+        }
         androidx.compose.runtime.CompositionLocalProvider(
             androidx.compose.ui.platform.LocalUriHandler provides uriHandler,
+            org.tasks.compose.edit.LocalTaskEditDependencies provides taskEditDependencies,
         ) {
         Surface(modifier = Modifier.fillMaxSize()) {
             val appViewModel = koinViewModel<AppViewModel>()

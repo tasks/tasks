@@ -1,6 +1,5 @@
 package org.tasks
 
-import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 import org.tasks.compose.pricing.PricingMode
@@ -49,5 +48,3 @@ data class PricingDestination(
     val source: String,
     val mode: PricingMode? = null,
 ) : NavKey
-
-internal val FloatingToolbarBottomMargin = 24.dp

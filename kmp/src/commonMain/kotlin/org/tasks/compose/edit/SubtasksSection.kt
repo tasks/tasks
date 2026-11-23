@@ -69,7 +69,7 @@ import tasks.kmp.generated.resources.undo_delete
 
 private const val DisabledAlpha = 0.38f
 
-internal const val DRAG_HANDLE_TAG = "subtask-drag-handle:"
+const val DRAG_HANDLE_TAG = "subtask-drag-handle:"
 
 private val FirstLineOffset = 12.dp
 
