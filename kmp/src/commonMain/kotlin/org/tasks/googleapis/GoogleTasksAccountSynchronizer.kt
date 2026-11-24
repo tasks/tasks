@@ -34,7 +34,8 @@ class GoogleTasksAccountSynchronizer(
     repeatTaskHelper: RepeatTaskHelper,
     taskCompleter: TaskCompleter,
     createTask: suspend () -> org.tasks.data.entity.Task,
-    private val credentials: GoogleTasksCredentialsProvider,
+    private val credentials: GoogleTasksAccountAccess,
+    private val api: suspend (CaldavAccount) -> GoogleTasksApi,
 ) {
     private val synchronizer = GoogleTaskSynchronizer(
         caldavDao = caldavDao,
@@ -70,8 +71,7 @@ class GoogleTasksAccountSynchronizer(
             Logger.d(TAG) { "$account: needs sign-in, skipping sync" }
             return
         }
-        val invoker = GtasksInvoker(credentials.adapter(account))
-        synchronizer.sync(account, invoker)
+        synchronizer.sync(account) { api(account) }
     }
 
     companion object {

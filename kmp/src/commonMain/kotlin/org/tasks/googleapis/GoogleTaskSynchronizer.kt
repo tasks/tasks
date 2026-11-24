@@ -48,10 +48,10 @@ class GoogleTaskSynchronizer(
     private val taskCompleter: TaskCompleter,
     private val createTask: suspend () -> org.tasks.data.entity.Task,
 ) {
-    suspend fun sync(account: CaldavAccount, invoker: GoogleTasksApi) {
+    suspend fun sync(account: CaldavAccount, api: suspend () -> GoogleTasksApi) {
         Logger.d(TAG) { "$account: start sync" }
         try {
-            synchronize(account, invoker)
+            synchronize(account, api())
         } catch (e: GoogleTasksException) {
             account.error = e.message
             when (e.statusCode) {

@@ -202,7 +202,8 @@ val commonModule = module {
             repeatTaskHelper = get(),
             taskCompleter = get(),
             createTask = { TaskCreator().createBlankTask() },
-            credentials = get(),
+            credentials = get<GoogleTasksCredentialsProvider>(),
+            api = { account -> GtasksInvoker(get<GoogleTasksCredentialsProvider>().adapter(account)) },
         )
     }
     factory {

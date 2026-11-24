@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import org.tasks.AppStore
 import org.tasks.PlatformConfiguration
@@ -37,6 +38,11 @@ import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.TaskCreator
+import org.tasks.googleapis.GoogleTasksAccountSynchronizer
+import org.tasks.googleapis.KtorGoogleTasksApiFactory
+import org.tasks.googleapis.OAuthTokenAccountAccess
+import org.tasks.auth.OAuthTokenStore
+import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
@@ -80,6 +86,7 @@ actual fun platformModule(): Module = module {
         PlatformConfiguration(
             versionCode = TasksBuildConfig.VERSION_CODE,
             supportsCaldav = true,
+            supportsGoogleTasks = true,
             supportsNotifications = false,
             supportsLogExport = true,
             billingProvider = BillingProvider.STRIPE,
@@ -130,6 +137,49 @@ actual fun platformModule(): Module = module {
         TasksOAuthClient { factory.newClient { oauthDefaults() } }
     }
     factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
+    single {
+        KtorGoogleTasksApiFactory(
+            httpClientFactory = get(),
+            tokenStore = OAuthTokenStore(
+                encryption = get(),
+                caldavDao = get(),
+                oauthClient = get(),
+                refreshWhenExpiryUnknown = false,
+            ),
+        )
+    }
+    factory {
+        GoogleTasksAccountSynchronizer(
+            caldavDao = get(),
+            taskDao = get(),
+            dirtyDao = get(),
+            taskSaver = get(),
+            reporting = get(),
+            googleTaskDao = get(),
+            defaultListProvider = get(),
+            refreshBroadcaster = get(),
+            taskDeleter = get(),
+            alarmDao = get(),
+            appPreferences = get(),
+            repeatTaskHelper = get(),
+            taskCompleter = get(),
+            createTask = { TaskCreator().createBlankTask() },
+            credentials = OAuthTokenAccountAccess,
+            api = { account -> get<KtorGoogleTasksApiFactory>().forAccount(account) },
+        )
+    }
+    viewModel { params ->
+        GoogleTaskListSettingsViewModel(
+            caldavDao = get(),
+            taskDeleter = get(),
+            reporting = get(),
+            purchaseState = get(),
+            invokerFactory = { account -> get<KtorGoogleTasksApiFactory>().forAccount(account) },
+            isDark = params.get(),
+            account = params.get(),
+            calendar = params.get(),
+        )
+    }
     factory<SignInHandler>(PlatformSignInHandler) {
         IosSignInHandler(get(), get(), get(), get(), get(), get(), get(), get())
     }
@@ -155,6 +205,9 @@ actual fun platformModule(): Module = module {
             val synchronizer = get<CaldavSynchronizer>()
             pass.accounts(CaldavAccount.TYPE_CALDAV, CaldavAccount.TYPE_TASKS).forEach { account ->
                 synchronizer.sync(account, hasPro = pass.hasPro)
+            }
+            pass.accounts(CaldavAccount.TYPE_GOOGLE_TASKS).forEach { account ->
+                get<GoogleTasksAccountSynchronizer>().sync(account, hasPro = pass.googleAndMicrosoftPro)
             }
         }
     }

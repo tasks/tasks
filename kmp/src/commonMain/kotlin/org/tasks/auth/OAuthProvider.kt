@@ -6,12 +6,15 @@ const val MICROSOFT_TASKS_SCOPE = "Tasks.ReadWrite"
 private const val PROMPT = "prompt"
 private const val SELECT_ACCOUNT = "select_account"
 private const val GOOGLE_DISCOVERY_PATH = "/oauth/google-configuration"
+private const val GOOGLE_IOS_CLIENT_ID = "363426363175-nar1o932el9fi4gogs0mgsq8160epu4t.apps.googleusercontent.com"
+private const val GOOGLE_OPENID_CONFIGURATION = "https://accounts.google.com/.well-known/openid-configuration"
 private const val MICROSOFT_CLIENT_ID = "9d4babd5-e7ba-4286-ba4b-17274495a901"
 
 data class RegisteredClient(
     val discoveryPath: String = "",
     val clientId: String = "",
     val redirectUri: String? = null,
+    val discoveryUrl: String? = null,
 )
 
 interface OAuthApp {
@@ -45,7 +48,7 @@ enum class OAuthProvider(
         ),
         ios = RegisteredClient(
             discoveryPath = GOOGLE_DISCOVERY_PATH,
-            clientId = "363426363175-nar1o932el9fi4gogs0mgsq8160epu4t.apps.googleusercontent.com",
+            clientId = GOOGLE_IOS_CLIENT_ID,
         ),
     ),
     MICROSOFT(
@@ -97,6 +100,11 @@ enum class OAuthProvider(
         issuer = "google_tasks",
         scope = "$GOOGLE_TASKS_SCOPE openid email",
         desktop = RegisteredClient(discoveryPath = "/oauth/google-api-configuration"),
+        ios = RegisteredClient(
+            clientId = GOOGLE_IOS_CLIENT_ID,
+            discoveryUrl = GOOGLE_OPENID_CONFIGURATION,
+        ),
+        android = RegisteredClient(discoveryPath = "/oauth/google-api-configuration"),
         extraAuthParams = mapOf(
             "access_type" to "offline",
             "prompt" to "consent",

@@ -181,7 +181,6 @@ class KtorGoogleTasksApi(
         this.method = method
         url(url)
         header(HttpHeaders.Authorization, "Bearer $token")
-        header(HttpHeaders.UserAgent, "Tasks/${TasksBuildConfig.VERSION_NAME}")
         body?.let { setBody(TextContent(it, ContentType.Application.Json)) }
     }
 

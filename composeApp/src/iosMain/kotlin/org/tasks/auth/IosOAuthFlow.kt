@@ -38,7 +38,9 @@ class IosOAuthFlow(
         val clientId = provider.ios.clientId.ifEmpty { throw Exception("${provider.issuer} sign-in is not configured for iOS") }
         val redirectUri =
             provider.ios.redirectUri ?: GoogleOAuth.redirectUri(GoogleOAuth.scheme(clientId))
-        val discoveryUrl = provider.discoveryUrl ?: "${serverEnvironment.caldavUrl}${provider.ios.discoveryPath}"
+        val discoveryUrl = provider.ios.discoveryUrl
+            ?: provider.discoveryUrl
+            ?: "${serverEnvironment.caldavUrl}${provider.ios.discoveryPath}"
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)
         val authEndpoint = discovery["authorization_endpoint"]!!.jsonPrimitive.content

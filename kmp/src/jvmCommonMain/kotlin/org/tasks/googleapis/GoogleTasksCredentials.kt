@@ -4,7 +4,6 @@ import com.google.api.client.http.HttpRequest
 import org.tasks.auth.OAuthTokenData
 import org.tasks.auth.OAuthTokenStore
 import org.tasks.auth.TasksOAuthClient
-import org.tasks.auth.isUnauthorized
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.security.Encryption
@@ -14,7 +13,7 @@ class GoogleTasksCredentials(
     proxyAuthProvider: ProxyAuthProvider,
     caldavDao: CaldavDao,
     oauthClient: TasksOAuthClient,
-) : GoogleTasksCredentialsProvider {
+) : GoogleTasksCredentialsProvider, GoogleTasksAccountAccess by OAuthTokenAccountAccess {
     private val tokenStore = OAuthTokenStore(
         encryption = encryption,
         caldavDao = caldavDao,
@@ -22,10 +21,6 @@ class GoogleTasksCredentials(
         refreshWhenExpiryUnknown = false,
         authHeader = proxyAuthProvider::getAuthHeader,
     )
-
-    override fun canAccess(account: CaldavAccount) = !account.password.isNullOrBlank()
-
-    override fun needsSignIn(account: CaldavAccount) = account.isUnauthorized()
 
     override fun adapter(account: CaldavAccount): CredentialsAdapter =
         GoogleTasksCredentialsAdapter(account, tokenStore)

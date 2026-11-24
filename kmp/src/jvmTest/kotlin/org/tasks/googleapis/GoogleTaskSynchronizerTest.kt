@@ -76,7 +76,7 @@ class GoogleTaskSynchronizerTest : DatabaseTest() {
             updated = "2026-11-24T17:45:12.345Z",
         )
 
-        synchronizer.sync(account, api)
+        synchronizer.sync(account) { api }
 
         val task = taskDao.getAll().single()
         assertEquals("Title", task.title)
@@ -92,7 +92,7 @@ class GoogleTaskSynchronizerTest : DatabaseTest() {
     fun aRemoteRejectionIsShownAndReported() = runBlocking {
         api.failure = GoogleTasksException(500, "500 Internal Server Error", null)
 
-        synchronizer.sync(account, api)
+        synchronizer.sync(account) { api }
 
         assertEquals("500 Internal Server Error", caldavDao.getAccountByUuid(account.uuid!!)!!.error)
         verify(reporting).reportException(any(), anyOrNull())
@@ -103,7 +103,7 @@ class GoogleTaskSynchronizerTest : DatabaseTest() {
         val original = java.io.IOException("original")
         api.failure = GoogleTasksException(500, "500 Internal Server Error", null, original)
 
-        synchronizer.sync(account, api)
+        synchronizer.sync(account) { api }
 
         verify(reporting).reportException(eq(original), anyOrNull())
     }
@@ -112,7 +112,7 @@ class GoogleTaskSynchronizerTest : DatabaseTest() {
     fun anUnauthorizedResponseIsShownWithoutReporting() = runBlocking {
         api.failure = GoogleTasksException(401, "401 Unauthorized", null)
 
-        synchronizer.sync(account, api)
+        synchronizer.sync(account) { api }
 
         assertEquals("401 Unauthorized", caldavDao.getAccountByUuid(account.uuid!!)!!.error)
         verify(reporting, never()).reportException(any(), anyOrNull())
@@ -123,7 +123,7 @@ class GoogleTaskSynchronizerTest : DatabaseTest() {
         api.lists += GtasksTaskList(id = "list", title = "My Tasks")
         api.listTasksFailure = HttpNotFoundException("404 Not Found")
 
-        synchronizer.sync(account, api)
+        synchronizer.sync(account) { api }
 
         assertTrue(caldavDao.getAccountByUuid(account.uuid!!)!!.error.isNullOrEmpty())
         verify(reporting).reportException(any(), anyOrNull())

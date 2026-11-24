@@ -15,6 +15,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.filters.CaldavFilter
 import org.tasks.googleapis.DefaultListProvider
 import org.tasks.googleapis.GoogleTasksAccountSynchronizer
+import org.tasks.googleapis.GtasksInvoker
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -64,6 +65,7 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
         taskCompleter = taskCompleter,
         createTask = { taskCreator.createWithValues("") },
         credentials = credentials,
+        api = { account -> GtasksInvoker(credentials.adapter(account)) },
     )
 
     suspend fun sync(account: CaldavAccount) = synchronizer.sync(account, hasPro = true)
