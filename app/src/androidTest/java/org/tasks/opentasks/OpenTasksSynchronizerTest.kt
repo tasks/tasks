@@ -10,7 +10,9 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.data.TaskMover
+import org.tasks.data.UUIDHelper
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavAccount.Companion.TYPE_CALDAV
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.makers.CaldavTaskMaker.CALENDAR
@@ -41,6 +43,57 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
             assertEquals("test_account", name)
             assertEquals(TYPE_OPENTASKS, accountType)
         }
+    }
+
+    @Test
+    fun skipAccountWhenCollectionUrlMatchesCaldavList() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "24", collectionUrl = "https://example.com/dav/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    @Test
+    fun matchCollectionUrlWithCanonicalHost() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "24", collectionUrl = "https://EXAMPLE.com/dav/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    @Test
+    fun skipAccountWhenSyncIdMatchesCaldavList() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "https://example.com/dav/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    @Test
+    fun createAccountWhenCollectionUrlDiffers() = runBlocking {
+        insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "24", collectionUrl = "https://example.com/dav/other/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertNotNull(caldavDao.getAccountByUuid("bitfire.at.davdroid:test_account"))
+    }
+
+    @Test
+    fun removeAccountWhenCollectionUrlMatchesCaldavList() = runBlocking {
+        openTaskDao.insertList(url = "24", collectionUrl = "https://example.com/dav/tasks/")
+        synchronizer.sync(hasPro = true)
+        insertCaldavList("https://example.com/dav/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertNull(caldavDao.getAccountByUuid("bitfire.at.davdroid:test_account"))
     }
 
     @Test
@@ -171,5 +224,26 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
             END:VTODO
             END:VCALENDAR
         """.trimIndent()
+    }
+
+    @Test
+    fun skipAccountWhenNewCollectionAppearsBeforeCaldavFetchesIt() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "24", collectionUrl = "https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "25", collectionUrl = "https://example.com/dav/new/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    private suspend fun insertCaldavList(url: String): CaldavAccount {
+        val account = CaldavAccount(
+            uuid = UUIDHelper.newUUID(),
+            accountType = TYPE_CALDAV,
+        )
+        caldavDao.insert(account)
+        caldavDao.insert(CaldavCalendar(account = account.uuid, uuid = UUIDHelper.newUUID(), url = url))
+        return account
     }
 }

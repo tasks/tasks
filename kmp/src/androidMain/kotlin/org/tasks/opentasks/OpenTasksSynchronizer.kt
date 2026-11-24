@@ -13,7 +13,6 @@ import org.tasks.caldav.toIcal4android
 import org.tasks.caldav.toVTodo
 import org.tasks.data.MyAndroidTask
 import org.tasks.data.OpenTaskDao
-import org.tasks.data.OpenTaskDao.Companion.filterActive
 import org.tasks.data.OpenTaskDao.Companion.toLocalCalendar
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.DirtyDao
@@ -43,7 +42,7 @@ class OpenTasksSynchronizer(
 
     override suspend fun sync(hasPro: Boolean) {
         Logger.d("OpenTasksSynchronizer") { "Starting OpenTasks sync..." }
-        val lists = openTaskDao.getListsByAccount().filterActive(caldavDao)
+        val lists = openTaskDao.getActiveListsByAccount()
         lists.keys
             .filter { caldavDao.getAccountByUuid(it) == null }
             .map {
