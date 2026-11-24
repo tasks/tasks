@@ -1,11 +1,6 @@
 package org.tasks.googleapis
 
 import co.touchlab.kermit.Logger
-import com.google.api.client.googleapis.json.GoogleJsonResponseException
-import com.google.api.client.util.DateTime
-import com.google.api.services.tasks.model.Task
-import com.google.api.services.tasks.model.TaskList
-import com.google.api.services.tasks.model.Tasks
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import kotlinx.coroutines.delay
 import org.tasks.analytics.Constants
@@ -30,10 +25,9 @@ import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import kotlinx.io.IOException
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.network_error
-import java.io.IOException
-import java.util.Collections
 import kotlin.math.max
 import org.tasks.extensions.truncate
 
@@ -54,15 +48,15 @@ class GoogleTaskSynchronizer(
     private val taskCompleter: TaskCompleter,
     private val createTask: suspend () -> org.tasks.data.entity.Task,
 ) {
-    suspend fun sync(account: CaldavAccount, invoker: GtasksInvoker) {
+    suspend fun sync(account: CaldavAccount, invoker: GoogleTasksApi) {
         Logger.d(TAG) { "$account: start sync" }
         try {
             synchronize(account, invoker)
-        } catch (e: GoogleJsonResponseException) {
+        } catch (e: GoogleTasksException) {
             account.error = e.message
             when (e.statusCode) {
                 401, 503 -> Logger.e(TAG, e) { e.message.orEmpty() }
-                else -> reporting.reportException(e)
+                else -> reporting.reportException(e.cause ?: e)
             }
         } catch (e: StaleTaskIdException) {
             account.error = e.message
@@ -92,9 +86,8 @@ class GoogleTaskSynchronizer(
         }
     }
 
-    @Throws(IOException::class)
-    private suspend fun synchronize(account: CaldavAccount, gtasksInvoker: GtasksInvoker) {
-        val gtaskLists: MutableList<TaskList> = ArrayList()
+    private suspend fun synchronize(account: CaldavAccount, gtasksInvoker: GoogleTasksApi) {
+        val gtaskLists: MutableList<GtasksTaskList> = ArrayList()
         var nextPageToken: String? = null
         do {
             val remoteLists = gtasksInvoker.allGtaskLists(nextPageToken) ?: break
@@ -156,18 +149,16 @@ class GoogleTaskSynchronizer(
         account.error = ""
     }
 
-    @Throws(IOException::class)
-    private suspend fun GtasksInvoker.updatePositions(list: String) {
+    private suspend fun GoogleTasksApi.updatePositions(list: String) {
         Logger.d(TAG) { "updatePositions(list=$list)" }
         fetchPositions(list).forEach { task ->
-            googleTaskDao.updatePosition(task.id, task.parent, task.position)
+            googleTaskDao.updatePosition(task.id!!, task.parent, task.position!!)
         }
         googleTaskDao.reposition(caldavDao, list)
     }
 
-    @Throws(IOException::class)
-    private suspend fun GtasksInvoker.fetchPositions(listId: String): List<Task> {
-        val tasks: MutableList<Task> = ArrayList()
+    private suspend fun GoogleTasksApi.fetchPositions(listId: String): List<GtasksTask> {
+        val tasks: MutableList<GtasksTask> = ArrayList()
         var nextPageToken: String? = null
         do {
             val taskList = getAllPositions(listId, nextPageToken)
@@ -179,18 +170,17 @@ class GoogleTaskSynchronizer(
         return tasks
     }
 
-    @Throws(IOException::class)
     private suspend fun pushLocalChanges(
         account: CaldavAccount,
         calendars: List<CaldavCalendar>,
-        gtasksInvoker: GtasksInvoker,
+        gtasksInvoker: GoogleTasksApi,
         pushedTo: MutableSet<String>,
     ): Long? {
         for (deleted in caldavDao.getMovedByAccount(account.uuid!!)) {
             deleted.remoteId?.let {
                 try {
                     gtasksInvoker.deleteGtask(deleted.calendar, it)
-                } catch (e: GoogleJsonResponseException) {
+                } catch (e: GoogleTasksException) {
                     when (e.statusCode) {
                         400 -> Logger.e(TAG, e) { e.message.orEmpty() }
                         else -> throw e
@@ -229,12 +219,11 @@ class GoogleTaskSynchronizer(
         return null
     }
 
-    @Throws(IOException::class)
     private suspend fun pushTask(
         task: org.tasks.data.entity.Task,
         caldavTaskId: Long,
         dirtyVersion: Long?,
-        gtasksInvoker: GtasksInvoker,
+        gtasksInvoker: GoogleTasksApi,
     ) {
         val gtasksMetadata = caldavDao.getCaldavTaskById(caldavTaskId) ?: return
         val newlyCreated = gtasksMetadata.remoteId.isNullOrEmpty()
@@ -247,7 +236,7 @@ class GoogleTaskSynchronizer(
             return
         }
         dirtyDao.withDirtyVersion(caldavTaskId, dirtyVersion) {
-            val remoteModel = Task()
+            var remoteModel = GtasksTask()
             val remoteId: String?
             val defaultRemoteList = defaultListProvider.getDefaultList()
             var listId =
@@ -259,28 +248,22 @@ class GoogleTaskSynchronizer(
             } else { // update case
                 remoteId = gtasksMetadata.remoteId
                 listId = gtasksMetadata.calendar!!
-                remoteModel.id = remoteId
+                remoteModel = remoteModel.copy(id = remoteId)
             }
 
             // Update the remote model's changed properties
-            if (task.isDeleted) {
-                remoteModel.deleted = true
-            }
-            remoteModel.title = truncate(task.title, MAX_TITLE_LENGTH)
-            remoteModel.notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH)
-            if (task.hasDueDate()) {
-                remoteModel.due =
-                    GtasksApiUtilities.unixTimeToGtasksDueDate(task.dueDate)?.toStringRfc3339()
-            }
-            if (task.isCompleted) {
-                remoteModel.completed =
-                    GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.completionDate)
-                        ?.toStringRfc3339()
-                remoteModel.status = "completed"
-            } else {
-                remoteModel.completed = null
-                remoteModel.status = "needsAction"
-            }
+            remoteModel = remoteModel.copy(
+                deleted = if (task.isDeleted) true else null,
+                title = truncate(task.title, MAX_TITLE_LENGTH),
+                notes = truncate(task.notes, MAX_DESCRIPTION_LENGTH),
+                due = if (task.hasDueDate()) GtasksDates.unixTimeToGtasksDueDate(task.dueDate) else null,
+                completed = if (task.isCompleted) {
+                    GtasksDates.unixTimeToGtasksCompletionTime(task.completionDate)
+                } else {
+                    null
+                },
+                status = if (task.isCompleted) "completed" else "needsAction",
+            )
             if (newlyCreated) {
                 val parent = task.parent
                 val localParent =
@@ -288,7 +271,7 @@ class GoogleTaskSynchronizer(
                 val previous = googleTaskDao.getPrevious(
                     listId, if (localParent.isNullOrEmpty()) 0 else parent, task.order ?: 0
                 )
-                val created: Task? = try {
+                val created: GtasksTask? = try {
                     gtasksInvoker.createGtask(listId, remoteModel, localParent, previous)
                 } catch (e: HttpNotFoundException) {
                     Logger.e(TAG, e) { "Failed to create task, retry without parent or order" }
@@ -328,10 +311,10 @@ class GoogleTaskSynchronizer(
                                         local = task,
                                     )
                                 }
-                        } catch (e: GoogleJsonResponseException) {
+                        } catch (e: GoogleTasksException) {
                             if (e.statusCode == 400) {
                                 Logger.w(TAG) { "HTTP 400: clearing parent and order" }
-                                reporting.reportException(e)
+                                reporting.reportException(e.cause ?: e)
                                 taskDao.setParent(0L, listOf(task.id))
                                 taskDao.setOrder(task.id, 0L)
                                 googleTaskDao.update(gtasksMetadata.copy(isMoved = false))
@@ -343,10 +326,10 @@ class GoogleTaskSynchronizer(
                     }
                     try {
                         gtasksInvoker.updateGtask(listId, remoteModel)
-                    } catch (e: GoogleJsonResponseException) {
-                        if (e.statusCode == 400 && e.details?.message == "Invalid task ID") {
+                    } catch (e: GoogleTasksException) {
+                        if (e.statusCode == 400 && e.errorMessage == "Invalid task ID") {
                             Logger.w(TAG) { "HTTP 400: Invalid task ID for ${remoteModel.id}, clearing to recreate on next sync" }
-                            reporting.reportException(e)
+                            reporting.reportException(e.cause ?: e)
                             googleTaskDao.update(
                                 gtasksMetadata.copy(
                                     remoteId = "",
@@ -368,17 +351,16 @@ class GoogleTaskSynchronizer(
         }
     }
 
-    @Throws(IOException::class)
     private suspend fun fetchAndApplyRemoteChanges(
-        gtasksInvoker: GtasksInvoker,
+        gtasksInvoker: GoogleTasksApi,
         list: CaldavCalendar
     ): Long? {
         val listId = list.uuid
         var lastSyncDate = list.lastSync
-        val tasks: MutableList<Task> = ArrayList()
+        val tasks: MutableList<GtasksTask> = ArrayList()
         var nextPageToken: String? = null
         do {
-            val taskList: Tasks = try {
+            val taskList: GtasksTasks = try {
                 gtasksInvoker.getAllGtasksFromListId(listId, lastSyncDate + 1000L, nextPageToken)
             } catch (e: HttpNotFoundException) {
                 reporting.reportException(e)
@@ -391,9 +373,9 @@ class GoogleTaskSynchronizer(
             }
             nextPageToken = taskList.nextPageToken
         } while (!nextPageToken.isNullOrEmpty())
-        Collections.sort(tasks, PARENTS_FIRST)
+        tasks.sortWith(PARENTS_FIRST)
         for (gtask in tasks) {
-            val remoteId = gtask.id
+            val remoteId = gtask.id!!
             val inList = googleTaskDao.getByRemoteId(remoteId, listId!!)
             val movedFrom = if (inList != null) {
                 null
@@ -414,7 +396,7 @@ class GoogleTaskSynchronizer(
                 task = taskDao.fetch(googleTask.task)
             }
             gtask.updated?.let {
-                lastSyncDate = max(lastSyncDate, DateTime(it).value)
+                lastSyncDate = max(lastSyncDate, GtasksDates.parse(it))
             }
             val isDeleted = gtask.deleted
             val isHidden = gtask.hidden
@@ -454,8 +436,8 @@ class GoogleTaskSynchronizer(
             }
             val original = task.copy()
             task.title = getTruncatedValue(task.title, gtask.title, MAX_TITLE_LENGTH)
-            task.completionDate = GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtask.completed?.let(::DateTime))
-            val dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(gtask.due?.let(::DateTime))
+            task.completionDate = GtasksDates.gtasksCompletedTimeToUnixTime(gtask.completed)
+            val dueDate = GtasksDates.gtasksDueTimeToUnixTime(gtask.due)
             mergeDates(createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY, dueDate), task)
             task.notes = getTruncatedValue(task.notes, gtask.notes, MAX_DESCRIPTION_LENGTH)
             if (recreate && task.isCompleted && !original.isCompleted) {
@@ -474,7 +456,7 @@ class GoogleTaskSynchronizer(
             }
             val isDirty = googleTask.id > 0 && dirtyDao.isDirty(googleTask.id) == true
             if (!isDirty) {
-                gtask.updated?.let { task.modificationDate = DateTime(it).value }
+                gtask.updated?.let { task.modificationDate = GtasksDates.parse(it) }
             }
             if (task.title?.isNotBlank() == true || task.notes?.isNotBlank() == true) {
                 write(
@@ -489,7 +471,7 @@ class GoogleTaskSynchronizer(
         return lastSyncDate
     }
 
-    private suspend fun setOrderAndParent(googleTask: CaldavTask, task: Task, local: org.tasks.data.entity.Task) {
+    private suspend fun setOrderAndParent(googleTask: CaldavTask, task: GtasksTask, local: org.tasks.data.entity.Task) {
         task.position?.toLongOrNull()?.let { googleTask.remoteOrder = it }
         googleTask.remoteParent = task.parent?.takeIf { it.isNotBlank() }
         local.parent = googleTask.remoteParent?.let { googleTaskDao.getTask(it, googleTask.calendar!!) } ?: 0L
@@ -525,7 +507,7 @@ class GoogleTaskSynchronizer(
         private const val DEFAULT_LIST = "@default"
         private const val MAX_TITLE_LENGTH = 1024
         private const val MAX_DESCRIPTION_LENGTH = 8192
-        private val PARENTS_FIRST = Comparator { o1: Task, o2: Task ->
+        private val PARENTS_FIRST = Comparator { o1: GtasksTask, o2: GtasksTask ->
             if (o1.parent.isNullOrEmpty()) {
                 if (o2.parent.isNullOrEmpty()) 0 else -1
             } else {

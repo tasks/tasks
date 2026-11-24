@@ -1,6 +1,5 @@
 package org.tasks.googleapis
 
-import com.google.api.services.tasks.model.TaskList
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
@@ -12,7 +11,7 @@ class GtasksListService(
     private val taskDeleter: TaskDeleter,
     private val refreshBroadcaster: RefreshBroadcaster,
 ) {
-    suspend fun updateLists(account: CaldavAccount, remoteLists: List<TaskList>) {
+    suspend fun updateLists(account: CaldavAccount, remoteLists: List<GtasksTaskList>) {
         val lists = caldavDao.getCalendarsByAccount(account.uuid!!)
         val previousLists: MutableSet<Long> = HashSet()
         for (list in lists) {

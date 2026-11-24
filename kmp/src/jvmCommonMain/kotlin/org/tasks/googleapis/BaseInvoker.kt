@@ -33,7 +33,7 @@ abstract class BaseInvoker(
                 }
                 execute(request, true)
             } else if (e.statusCode == 404) {
-                throw HttpNotFoundException(e)
+                throw HttpNotFoundException(e.message)
             } else {
                 throw e
             }

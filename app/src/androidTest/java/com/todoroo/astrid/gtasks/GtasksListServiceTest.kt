@@ -1,6 +1,5 @@
 package com.todoroo.astrid.gtasks
 
-import com.google.api.services.tasks.model.TaskList
 import com.natpryce.makeiteasy.MakeItEasy.with
 import org.tasks.service.TaskDeleter
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -14,6 +13,7 @@ import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavCalendar
 import org.tasks.googleapis.GtasksListService
+import org.tasks.googleapis.GtasksTaskList
 import org.tasks.injection.InjectingTestCase
 import org.tasks.makers.RemoteGtaskListMaker
 import org.tasks.makers.RemoteGtaskListMaker.newRemoteList
@@ -79,11 +79,11 @@ class GtasksListServiceTest : InjectingTestCase() {
 
     @Test
     fun testNewListLastSyncIsZero() = runBlocking {
-        setLists(TaskList().setId("1"))
+        setLists(GtasksTaskList(id = "1"))
         assertEquals(0L, caldavDao.getCalendarByUuid("1")!!.lastSync)
     }
 
-    private suspend fun setLists(vararg list: TaskList) {
+    private suspend fun setLists(vararg list: GtasksTaskList) {
         val account = CaldavAccount(
             username = "account",
             uuid = "account",
