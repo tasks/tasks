@@ -161,18 +161,20 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             .setIcon(IconCompat.createWithResource(this, ThemeColor.ICONS[themeIndex]))
             .build()
 
-        shortcutRequest = lifecycleScope.launch {
-            try {
-                shortcutManager.requestPinShortcut(shortcut)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: IllegalStateException) {
-                Timber.w(e, "Could not request a pinned shortcut")
-                return@launch
-            }
-            firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "shortcut_config")
-            finish()
+        shortcutRequest = lifecycleScope.launch { saveShortcut(shortcut) }
+    }
+
+    private suspend fun saveShortcut(shortcut: ShortcutInfoCompat) {
+        try {
+            shortcutManager.requestPinShortcut(shortcut)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: IllegalStateException) {
+            Timber.w(e, "Could not request a pinned shortcut")
+            return
         }
+        firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "shortcut_config")
+        finish()
     }
 
     override fun onColorPicked(index: Int) {
