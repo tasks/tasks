@@ -27,6 +27,7 @@ class TestOpenTaskDao @Inject constructor(
         account: String = DEFAULT_ACCOUNT,
         url: String = UUIDHelper.newUUID(),
         accessLevel: Int = ACCESS_LEVEL_OWNER,
+        collectionUrl: String? = null,
     ): Pair<Long, CaldavCalendar> {
         val uri = taskLists.buildUpon()
                 .appendQueryParameter(TaskContract.CALLER_IS_SYNCADAPTER, "true")
@@ -39,6 +40,7 @@ class TestOpenTaskDao @Inject constructor(
                         .withValue(TaskContract.TaskListColumns.LIST_NAME, name)
                         .withValue(TaskContract.TaskLists.SYNC_ENABLED, "1")
                         .withValue(TaskContract.TaskLists.ACCESS_LEVEL, accessLevel)
+                        .withValue(TaskContract.TaskLists.SYNC1, collectionUrl)
         )
         val calendar = CaldavCalendar(
             uuid = UUIDHelper.newUUID(),

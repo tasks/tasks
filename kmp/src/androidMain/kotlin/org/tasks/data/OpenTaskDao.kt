@@ -17,6 +17,7 @@ import org.dmfs.tasks.contract.TaskContract.TaskListColumns
 import org.dmfs.tasks.contract.TaskContract.TaskLists
 import org.dmfs.tasks.contract.TaskContract.Tasks
 import org.json.JSONObject
+import org.tasks.caldav.canonicalUrl
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavAccount.Companion.TYPE_OPENTASKS
@@ -38,13 +39,24 @@ open class OpenTaskDao(
     suspend fun shouldSync() =
         caldavDao.getAccounts(TYPE_OPENTASKS).isNotEmpty() || hasActiveLists()
 
-    suspend fun hasActiveLists() = getListsByAccount().filterActive(caldavDao).isNotEmpty()
+    suspend fun hasActiveLists() = getActiveListsByAccount().isNotEmpty()
 
-    suspend fun getListsByAccount(): Map<String, List<CaldavCalendar>> =
-            getLists().groupBy { it.account!! }
+    suspend fun getActiveListsByAccount(): Map<String, List<CaldavCalendar>> =
+        queryLists()
+            .groupBy { (calendar, _) -> calendar.account!! }
+            .filterNot { (_, lists) ->
+                caldavDao.anyExist(
+                    lists.flatMap { (calendar, collectionUrl) ->
+                        listOfNotNull(collectionUrl?.canonicalUrl(), calendar.url)
+                    }
+                )
+            }
+            .mapValues { (_, lists) -> lists.map { (calendar, _) -> calendar } }
 
-    suspend fun getLists(): List<CaldavCalendar> = withContext(Dispatchers.IO) {
-        val calendars = ArrayList<CaldavCalendar>()
+    suspend fun getLists(): List<CaldavCalendar> = queryLists().map { (calendar, _) -> calendar }
+
+    private suspend fun queryLists(): List<Pair<CaldavCalendar, String?>> = withContext(Dispatchers.IO) {
+        val calendars = ArrayList<Pair<CaldavCalendar, String?>>()
         cr.query(
                 taskLists,
                 null,
@@ -54,25 +66,24 @@ open class OpenTaskDao(
             while (it.moveToNext()) {
                 val accountType = it.getString(TaskLists.ACCOUNT_TYPE)
                 val accountName = it.getString(TaskLists.ACCOUNT_NAME)
-                calendars.add(
-                    CaldavCalendar(
-                        id = it.getLong(TaskLists._ID),
-                        account = "$accountType:$accountName",
-                        name = it.getString(TaskLists.LIST_NAME),
-                        color = it.getInt(TaskLists.LIST_COLOR),
-                        url = it.getString(CommonSyncColumns._SYNC_ID),
-                        ctag = it.getString(TaskLists.SYNC_VERSION)?.let { json ->
-                            runCatching { JSONObject(json).getString("value") }
-                                .onFailure { Logger.w("OpenTaskDao") { "Failed to parse ${TaskLists.SYNC_VERSION}: $json" } }
-                                .getOrNull()
-                        },
-                        access = when (it.getInt(TaskLists.ACCESS_LEVEL)) {
-                            TaskLists.ACCESS_LEVEL_OWNER -> CaldavCalendar.ACCESS_OWNER
-                            TaskLists.ACCESS_LEVEL_READ -> CaldavCalendar.ACCESS_READ_ONLY
-                            else -> CaldavCalendar.ACCESS_READ_WRITE
-                        },
-                    )
+                val calendar = CaldavCalendar(
+                    id = it.getLong(TaskLists._ID),
+                    account = "$accountType:$accountName",
+                    name = it.getString(TaskLists.LIST_NAME),
+                    color = it.getInt(TaskLists.LIST_COLOR),
+                    url = it.getString(CommonSyncColumns._SYNC_ID),
+                    ctag = it.getString(TaskLists.SYNC_VERSION)?.let { json ->
+                        runCatching { JSONObject(json).getString("value") }
+                            .onFailure { Logger.w("OpenTaskDao") { "Failed to parse ${TaskLists.SYNC_VERSION}: $json" } }
+                            .getOrNull()
+                    },
+                    access = when (it.getInt(TaskLists.ACCESS_LEVEL)) {
+                        TaskLists.ACCESS_LEVEL_OWNER -> CaldavCalendar.ACCESS_OWNER
+                        TaskLists.ACCESS_LEVEL_READ -> CaldavCalendar.ACCESS_READ_ONLY
+                        else -> CaldavCalendar.ACCESS_READ_WRITE
+                    },
                 )
+                calendars.add(calendar to it.getString(TaskLists.SYNC1)?.takeIf { url -> url.isNotBlank() })
             }
         }
         calendars
@@ -136,9 +147,6 @@ open class OpenTaskDao(
         private fun taskByUidArgs(listId: Long, uid: String) =
                 arrayOf(listId.toString(), uid)
         val SUPPORTED_TYPES = OpenTaskProvider.SUPPORTED_TYPES
-
-        suspend fun Map<String, List<CaldavCalendar>>.filterActive(caldavDao: CaldavDao) =
-                filterNot { (_, lists) -> caldavDao.anyExist(lists.map { it.url!! }) }
 
         private fun Cursor.getString(columnName: String): String? =
                 getString(getColumnIndexOrThrow(columnName))
