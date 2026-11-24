@@ -26,6 +26,7 @@ import org.tasks.preferences.PermissionChecker
 import org.tasks.preferences.PermissivePermissionChecker
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.service.UpgradeState
 import javax.inject.Singleton
 import androidx.datastore.preferences.core.Preferences as DataStorePreferences
 
@@ -64,6 +65,10 @@ class TestModule {
 
     @Provides
     fun getWorkManager(): WorkManager = mock(WorkManager::class.java)
+
+    @Provides
+    @Singleton
+    fun getUpgradeState(): UpgradeState = UpgradeState().apply { ready() }
 
     @Singleton
     @Provides

@@ -3,6 +3,7 @@ package com.todoroo.astrid.service
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.ColorRes
+import androidx.room3.useWriterConnection
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -12,7 +13,6 @@ import com.google.common.collect.Multimaps
 import com.todoroo.astrid.core.SortHelper
 import dagger.Lazy
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.runBlocking
 import org.tasks.R
 import org.tasks.Strings.isNullOrEmpty
 import org.tasks.caldav.VtodoCache
@@ -45,6 +45,9 @@ import org.tasks.jobs.networkConstraints
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
 import org.tasks.security.KeyStoreEncryption
+import org.tasks.service.Upgrade
+import org.tasks.service.UpgradeStep
+import org.tasks.service.runFrom
 import org.tasks.sync.microsoft.MicrosoftTokenProvider
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.widget.AppWidgetManager
@@ -84,62 +87,62 @@ class Upgrader @Inject constructor(
     private val microsoftTokens: Lazy<MicrosoftTokenProvider>,
 ) {
 
-    fun upgrade(from: Int, to: Int) {
-        if (from > 0) {
-            run(from, V4_9_5) { removeDuplicateTags() }
-            run(from, V5_3_0) { migrateFilters() }
-            run(from, V6_0_beta_1) { migrateDefaultSyncList() }
-            run(from, V6_4) { migrateUris() }
-            run(from, V6_7) { this.migrateGoogleTaskFilters() }
-            run(from, V6_8_1) { this.migrateCaldavFilters() }
-            run(from, V6_9) { applyCaldavCategories() }
-            run(from, V7_0) { applyCaldavSubtasks() }
-            run(from, V8_2) { migrateColors() }
-            run(from, V8_5) { applyCaldavGeo() }
-            run(from, V8_8) { preferences.setBoolean(R.string.p_linkify_task_edit, true) }
-            run(from, V8_10) { migrateWidgets() }
-            run(from, V9_3) { applyCaldavOrder() }
-            run(from, V9_6) {
+    private fun steps(from: Int): List<UpgradeStep> =
+        listOf(
+            step(V4_9_5) { removeDuplicateTags() },
+            step(V5_3_0) { migrateFilters() },
+            step(V6_0_beta_1) { migrateDefaultSyncList() },
+            step(V6_4) { migrateUris() },
+            step(V6_7) { this.migrateGoogleTaskFilters() },
+            step(V6_8_1) { this.migrateCaldavFilters() },
+            step(V6_9) { applyCaldavCategories() },
+            step(V7_0) { applyCaldavSubtasks() },
+            step(V8_2) { migrateColors() },
+            step(V8_5) { applyCaldavGeo() },
+            step(V8_8) { preferences.setBoolean(R.string.p_linkify_task_edit, true) },
+            step(V8_10) { migrateWidgets() },
+            step(V9_3) { applyCaldavOrder() },
+            step(V9_6) {
                 preferences.setBoolean(R.string.p_astrid_sort_enabled, true)
                 taskMover.migrateLocalTasks()
-            }
-            run(from, V9_7) { caldavDao.resetOrders() }
-            run(from, V9_7_3) {
+            },
+            step(V9_7) { caldavDao.resetOrders() },
+            step(V9_7_3) {
                 Timber.d("Updating parents")
                 caldavDao.updateParents()
-            }
-            run(from, V10_0_2) {
+            },
+            step(V10_0_2) {
                 filterDao.getFilters()
                         .filter { it.dirtyHack.trim() == "WHERE" }
                         .forEach { filterDao.delete(it) }
-            }
-            run(from, Upgrade_11_3.VERSION) {
+            },
+            step(Upgrade_11_3.VERSION) {
                 with(upgrade_11_3.get()) {
                     applyiCalendarStartDates()
                     applyOpenTaskStartDates()
                 }
-            }
-            run(from, Upgrade_11_12_3.VERSION) {
+            },
+            step(Upgrade_11_12_3.VERSION) {
                 upgrade_11_12_3.get().migrateDefaultReminderPreference()
-            }
-            run(from, V11_13) {
+            },
+            step(V11_13) {
                 preferences.setString(R.string.p_completion_ringtone, "")
-            }
-            run(from, Upgrade_12_4.VERSION) {
+            },
+            step(Upgrade_12_4.VERSION) {
                 upgrade_12_4.get().syncExistingAlarms()
-            }
-            run(from, V12_6) {
+            },
+            step(V12_6) {
                 setInstallDetails(from)
-            }
-            run(from, Upgrade_13_2.VERSION) {
+            },
+            step(Upgrade_13_2.VERSION) {
                 Timber.d("Updating parents")
                 caldavDao.updateParents()
                 upgrade_13_2.get().rebuildFilters()
-            }
-            run(from, Upgrade_13_11.VERSION) {
+            },
+            step(Upgrade_13_11.VERSION) {
                 upgrade_13_11.get().migrateIcons()
-            }
-            run(from, V14_5_4) {
+            },
+            step(V14_5_4) {
                 // save existing default widget sorting
                 for (widgetId in widgetManager.widgetIds) {
                     val widgetPreferences = WidgetPreferences(context, preferences, widgetId)
@@ -150,8 +153,8 @@ class Upgrader @Inject constructor(
                         widgetPreferences.sortMode = SortHelper.SORT_AUTO
                     }
                 }
-            }
-            run(from, V14_6_1) {
+            },
+            step(V14_6_1) {
                 if (preferences.installVersion < V14_5_4) {
                     if (preferences.getInt(R.string.p_sort_mode, -1) == -1) {
                         preferences.sortMode = SortHelper.SORT_AUTO
@@ -160,8 +163,8 @@ class Upgrader @Inject constructor(
                         preferences.groupMode = SortHelper.GROUP_NONE
                     }
                 }
-            }
-            run(from, V14_8) {
+            },
+            step(V14_8) {
                 WorkManager.getInstance(context).enqueueUniqueWork(
                     uniqueWorkName = "upload_icons",
                     existingWorkPolicy = ExistingWorkPolicy.KEEP,
@@ -169,44 +172,44 @@ class Upgrader @Inject constructor(
                         .setConstraints(networkConstraints)
                         .build()
                 )
-            }
-            run(from, Upgrade_14_11.VERSION) {
+            },
+            step(Upgrade_14_11.VERSION) {
                 upgrade_14_11.get().migrateDefaultAlarms()
-            }
-            run(from, Upgrade_14_13.VERSION) {
+            },
+            step(Upgrade_14_13.VERSION) {
                 upgrade_14_13.get().deleteAlarmsForAllDayTasks()
-            }
-            run(from, Upgrade_15_10.VERSION) {
+            },
+            step(Upgrade_15_10.VERSION) {
                 upgrade_15_10.get().migrateRandomReminder()
-            }
-            CommonUpgrades.all(database, encryption.get()) { microsoftTokens.get().subjectsByUsername() }.forEach { step ->
-                run(from, step.version) { step.upgrade().run() }
-            }
-            if (isMajorOrMinorUpdate(from, to)) {
-                preferences.setBoolean(R.string.p_just_updated, true)
-            }
-        } else {
-            setInstallDetails(to)
+            },
+        ) + CommonUpgrades.all(database, encryption.get()) {
+            microsoftTokens.get().subjectsByUsername()
         }
+
+    suspend fun upgrade(from: Int, to: Int) {
+        Timber.i("Upgrading $from => $to")
         if (preferences.deviceInstallVersion == 0) {
             preferences.deviceInstallVersion = from
         }
+        database.useWriterConnection { /* forces schema migration here */ }
+        if (from > 0) {
+            if (isMajorOrMinorUpdate(from, to)) {
+                preferences.setBoolean(R.string.p_just_updated, true)
+            }
+            steps(from).runFrom(from) { preferences.setCurrentVersion(it) }
+        } else {
+            setInstallDetails(to)
+        }
         preferences.setCurrentVersion(to)
     }
+
+    private fun step(version: Int, block: suspend () -> Unit) =
+        UpgradeStep(version) { Upgrade { block() } }
 
     private fun setInstallDetails(version: Int) {
         preferences.installVersion = version
         preferences.installDate = currentTimeMillis()
         preferences.deviceInstallVersion = version
-    }
-
-    private fun run(from: Int, version: Int, runnable: suspend () -> Unit) {
-        if (from < version) {
-            runBlocking {
-                runnable()
-            }
-            preferences.setCurrentVersion(version)
-        }
     }
 
     private fun migrateWidgets() {

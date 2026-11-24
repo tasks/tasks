@@ -11,6 +11,7 @@ import org.tasks.R
 import org.tasks.auth.MicrosoftSignIn
 import org.tasks.sync.microsoft.AndroidMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.MicrosoftTokenSource
 import org.tasks.sync.microsoft.MsalClient
 import org.tasks.analytics.Reporting
 import org.tasks.analytics.logCloudOnboarding
@@ -61,6 +62,7 @@ val flavorModule = module {
         CurrentActivity().also { androidApplication().registerActivityLifecycleCallbacks(it) }
     }
     single { MsalClient(androidContext(), R.raw.microsoft_config, get()) }
+    single<MicrosoftTokenSource> { get<MsalClient>() }
     single<MicrosoftSignIn> {
         MicrosoftSignIn { loginHint ->
             val activity = get<CurrentActivity>().activity

@@ -18,12 +18,14 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.tasks.backup.TasksJsonImporter
+import org.tasks.service.UpgradeState
 import javax.inject.Inject
 
 @HiltViewModel
 class ImportTasksViewModel @Inject constructor(
     @param:ApplicationContext private val context: Context,
     private val importer: TasksJsonImporter,
+    private val upgradeState: UpgradeState,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -46,6 +48,7 @@ class ImportTasksViewModel @Inject constructor(
         viewModelScope.launch {
             withContext(NonCancellable + Dispatchers.IO) {
                 try {
+                    upgradeState.awaitReady("ImportTasks")
                     val result = importer.importTasks(context, uri) { message ->
                         _state.value = ImportState.Importing(message)
                     }

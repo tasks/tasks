@@ -101,6 +101,7 @@ import org.tasks.reminders.ReminderControlSetViewModel
 import org.tasks.repeats.RepeatRuleToString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
+import org.tasks.service.UpgradeState
 import org.tasks.sync.SyncAdapters
 import org.tasks.tags.TagPickerViewModel
 import org.tasks.tasklist.HeaderFormatter
@@ -124,6 +125,7 @@ import org.tasks.viewmodel.TaskListViewModel
 
 val coreModule: Module = module {
     single { CoroutineScope(SupervisorJob() + Dispatchers.Default) }
+    single { UpgradeState() }
     single { PendingTaskSaves(get()) }
     single { org.tasks.TaskRequests() }
     single { Json { ignoreUnknownKeys = true } }

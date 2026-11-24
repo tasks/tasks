@@ -167,6 +167,7 @@ import org.tasks.compose.PlatformBackHandler
 import org.tasks.compose.SignInProvider
 import org.tasks.compose.SignInProviderDialog
 import org.tasks.compose.StatusBarScrim
+import org.tasks.compose.UpgradingScreen
 import org.tasks.compose.WelcomeScreenLayout
 import org.tasks.compose.accounts.AddAccountScreen
 import org.tasks.compose.accounts.AddAccountViewModel
@@ -254,6 +255,7 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.filters.TagFilter
 import org.tasks.kmp.org.tasks.themes.ColorProvider
 import org.tasks.compose.rememberDateFormatter
+import org.tasks.service.UpgradeState
 import org.tasks.tasklist.SectionedDataSource
 import org.tasks.tasklist.TasksResults
 import org.tasks.kmp.org.tasks.themes.ColorProvider.BLUE_500
@@ -330,6 +332,15 @@ fun App(
         .collectAsState(initial = BLUE_500)
     val themeColor = ColorProvider.getColor(storedColor, isDarkTheme(baseTheme), adjust = true)
     TasksTheme(theme = baseTheme, primary = themeColor) {
+        val upgradeState = koinInject<UpgradeState>()
+        val upgraded by produceState(upgradeState.isReady) {
+            upgradeState.awaitReady("App")
+            value = true
+        }
+        if (!upgraded) {
+            UpgradingScreen()
+            return@TasksTheme
+        }
         val repeatRuleToString = koinInject<org.tasks.repeats.RepeatRuleToString>()
         val tagDataDao = koinInject<org.tasks.data.dao.TagDataDao>()
         val syncAdapters = koinInject<org.tasks.sync.SyncAdapters>()

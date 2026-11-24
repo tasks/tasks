@@ -6,6 +6,8 @@
     <string name="caldav_home_set_not_found">Home set not found</string>
     <string name="subscription_required_description">Unlock all features for as little as $1 USD/year</string>
     <string name="upgrade">Upgrade</string>
+    <string name="upgrading_title">Updating Tasks.org</string>
+    <string name="upgrading_description">This may take a moment</string>
     <string name="filter_my_tasks">My Tasks</string>
     <string name="filter_notifications">Notifications</string>
     <string name="filter_snoozed">Snoozed</string>

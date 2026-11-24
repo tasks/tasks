@@ -2,6 +2,7 @@ package org.tasks.di
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.room3.Room
+import com.todoroo.astrid.service.CommonUpgrades
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -44,6 +45,8 @@ import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
 import org.tasks.service.TaskCleanup
+import org.tasks.service.Upgrader
+import org.tasks.sync.microsoft.MicrosoftTokenSource
 
 actual fun platformModule(): Module = module {
     includes(flavorModule)
@@ -129,6 +132,16 @@ actual fun platformModule(): Module = module {
     single {
         val context = androidContext()
         TasksPreferences(createDataStore(context))
+    }
+    factory {
+        val microsoftTokens = getOrNull<MicrosoftTokenSource>()
+        Upgrader(
+            get(),
+            get(),
+            CommonUpgrades.all(get(), get<KeyStoreEncryption>()) {
+                microsoftTokens?.subjectsByUsername() ?: emptyMap()
+            },
+        )
     }
     factory<OkHttpClientFactory> {
         AndroidOkHttpClientFactory(

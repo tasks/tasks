@@ -6,6 +6,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.window.ComposeUIViewController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.compose.koinInject
@@ -18,6 +20,7 @@ import org.tasks.di.platformModule
 import org.tasks.logging.setupLogging
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.recordInstallIfNeeded
+import org.tasks.service.UpgradeState
 import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncAdapters
@@ -40,9 +43,11 @@ internal fun ensureStarted() {
             modules(coreModule, platformModule())
         }
         val koin = KoinPlatform.getKoin()
+        val versionCode = koin.get<PlatformConfiguration>().versionCode
         runBlocking {
-            val versionCode = koin.get<PlatformConfiguration>().versionCode
             koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
+        }
+        koin.get<UpgradeState>().launch(koin.get()) {
             koin.get<Upgrader>().upgrade(versionCode)
         }
     }
@@ -54,8 +59,13 @@ internal fun ensureStarted() {
 
 private fun syncWhenForegrounded() {
     val koin = KoinPlatform.getKoin()
-    val syncAdapters = koin.get<SyncAdapters>()
-    val sseClient = koin.get<SseClient>()
+    koin.get<CoroutineScope>().launch(Dispatchers.Main) {
+        koin.get<UpgradeState>().awaitReady("iOS startup")
+        observeForeground(koin.get<SyncAdapters>(), koin.get<SseClient>())
+    }
+}
+
+private fun observeForeground(syncAdapters: SyncAdapters, sseClient: SseClient) {
     NSNotificationCenter.defaultCenter.addObserverForName(
         name = UIApplicationDidBecomeActiveNotification,
         `object` = null,
@@ -71,6 +81,7 @@ private fun syncWhenForegrounded() {
     ) { sseClient.stop() }
     if (UIApplication.sharedApplication.applicationState == UIApplicationState.UIApplicationStateActive) {
         sseClient.start()
+        syncAdapters.sync(SyncSource.APP_RESUME)
     }
 }
 

@@ -47,6 +47,7 @@ import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.receivers.ExternalRefreshWork
 import org.tasks.scheduling.NotificationSchedulerWork
+import org.tasks.service.UpgradeState
 import org.tasks.sync.SyncAdapters
 import org.tasks.sync.SyncSource
 import org.tasks.themes.ThemeBase
@@ -66,6 +67,7 @@ class TasksApplication : Application(), Configuration.Provider {
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var localBroadcastManager: LocalBroadcastManager
     @Inject lateinit var upgrader: Lazy<Upgrader>
+    @Inject lateinit var upgradeState: UpgradeState
     @Inject lateinit var workManager: Lazy<WorkManager>
     @Inject lateinit var locationService: Lazy<LocationService>
     @Inject lateinit var contentObserver: Lazy<OpenTaskContentObserver>
@@ -128,17 +130,14 @@ class TasksApplication : Application(), Configuration.Provider {
             }
         }
 
-        // invoke upgrade service
-        if (lastVersion != currentVersion) {
-            upgrader.get().upgrade(lastVersion, currentVersion)
-            scope.launch {
+        val upgrading = lastVersion != currentVersion
+        upgradeState.launch(scope, upgrading) {
+            tasksPreferences.resetSyncState()
+            if (upgrading) {
+                upgrader.get().upgrade(lastVersion, currentVersion)
                 preferences.setDefaults()
-                withContext(Dispatchers.Main) {
-                    firebase.registerPrefChangeListener()
-                }
+                localBroadcastManager.broadcastRefresh()
             }
-        } else {
-            firebase.registerPrefChangeListener()
         }
     }
 
@@ -176,9 +175,11 @@ class TasksApplication : Application(), Configuration.Provider {
     }
 
     private fun backgroundWork() = scope.launch {
-        tasksPreferences.set(TasksPreferences.syncOngoing, false)
-        tasksPreferences.set(TasksPreferences.syncOngoingAndroid, false)
-        tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
+        upgradeState.awaitReady("backgroundWork")
+        Timber.d("Starting background work")
+        withContext(Dispatchers.Main) {
+            firebase.registerPrefChangeListener()
+        }
         inventory.updateTasksAccount()
         NotificationSchedulerWork.enqueueWork(context)
         workManager.get().apply {
@@ -193,6 +194,7 @@ class TasksApplication : Application(), Configuration.Provider {
         CaldavClient.registerFactories()
         pushTokenManager.get().registerTokenForAllAccounts()
         pebbleService.register()
+        Timber.d("Background work started")
     }
 
     override val workManagerConfiguration: Configuration

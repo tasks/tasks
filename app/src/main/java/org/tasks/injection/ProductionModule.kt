@@ -22,6 +22,7 @@ import org.tasks.location.HiltAndroidLocationManager
 import org.tasks.location.LocationManager
 import org.tasks.preferences.Preferences
 import org.tasks.preferences.TasksPreferences
+import org.tasks.service.UpgradeState
 import javax.inject.Singleton
 
 @Module
@@ -51,6 +52,10 @@ internal class ProductionModule {
 
     @Provides
     fun getPreferences(@ApplicationContext context: Context): Preferences = Preferences(context)
+
+    @Provides
+    @Singleton
+    fun getUpgradeState(): UpgradeState = UpgradeState()
 
     @Singleton
     @Provides

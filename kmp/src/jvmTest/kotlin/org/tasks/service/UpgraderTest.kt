@@ -33,17 +33,15 @@ class UpgraderTest : DatabaseTest() {
             Upgrade { body() }
         }
 
-    private fun upgrader(vararg steps: UpgradeStep) = Upgrader(preferences, steps.toList())
+    private fun upgrader(vararg steps: UpgradeStep) = Upgrader(preferences, db, steps.toList())
 
     private fun commonUpgrader() =
         Upgrader(
             preferences,
+            db,
             CommonUpgrades.all(
                 db,
-                object : Encryption {
-                    override suspend fun encrypt(text: String) = text
-                    override suspend fun decrypt(text: String?) = text
-                },
+                NoEncryption,
             ),
         )
 
@@ -161,6 +159,11 @@ class UpgraderTest : DatabaseTest() {
 
         assertEquals("FREQ=MONTHLY", recurrence(task))
         assertEquals(TO, currentVersion())
+    }
+
+    private object NoEncryption : Encryption {
+        override suspend fun encrypt(text: String) = text
+        override suspend fun decrypt(text: String?) = text
     }
 
     companion object {

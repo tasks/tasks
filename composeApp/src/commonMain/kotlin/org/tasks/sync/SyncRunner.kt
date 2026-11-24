@@ -11,12 +11,14 @@ import kotlinx.coroutines.sync.withLock
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.service.UpgradeState
 
 private const val TAG = "SyncRunner"
 
 class SyncRunner(
     private val scope: CoroutineScope,
     private val caldavDao: CaldavDao,
+    private val upgradeState: UpgradeState,
     private val subscriptionProvider: () -> SubscriptionProvider,
     private val pass: suspend (SyncPass) -> Unit,
 ) {
@@ -51,6 +53,7 @@ class SyncRunner(
     suspend fun syncNow(source: SyncSource) = mutex.withLock { runPass(source) }
 
     private suspend fun runPass(source: SyncSource) {
+        upgradeState.awaitReady("SyncRunner($source)")
         val subscriptionProvider = subscriptionProvider()
         val accounts = caldavDao.getAccounts()
         val hasTasksOrg = accounts.any { it.isTasksOrg }

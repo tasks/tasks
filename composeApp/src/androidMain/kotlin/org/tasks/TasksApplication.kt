@@ -4,6 +4,9 @@ import android.app.Application
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.getKoin
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +22,8 @@ import org.tasks.opentasks.OpenTaskContentObserver
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
+import org.tasks.service.UpgradeState
+import org.tasks.service.Upgrader
 import org.tasks.sync.SyncAdapters
 import java.io.File
 
@@ -41,18 +46,26 @@ class TasksApplication : Application() {
             modules(commonModule, platformModule())
         }
         val koin = getKoin()
+        val versionCode = koin.get<PlatformConfiguration>().versionCode
         runBlocking {
-            koin.get<AppPreferences>()
-                .recordInstallIfNeeded(koin.get<PlatformConfiguration>().versionCode)
+            koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
         }
-        koin.getOrNull<org.tasks.fcm.PushTokenManager>()
-            ?.registerTokenForAllAccounts()
-        koin.get<BackgroundWork>().updatePurchases()
-        val observer = OpenTaskContentObserver(
-            context = this,
-            syncAdapters = koin.get<SyncAdapters>(),
-            tasksPreferences = koin.get<TasksPreferences>(),
-        )
-        OpenTaskContentObserver.registerObserver(this, observer)
+        val upgradeState = koin.get<UpgradeState>()
+        val scope = koin.get<CoroutineScope>()
+        upgradeState.launch(scope) {
+            koin.get<Upgrader>().upgrade(versionCode)
+        }
+        scope.launch(Dispatchers.Main) {
+            upgradeState.awaitReady("TasksApplication startup")
+            koin.getOrNull<org.tasks.fcm.PushTokenManager>()
+                ?.registerTokenForAllAccounts()
+            koin.get<BackgroundWork>().updatePurchases()
+            val observer = OpenTaskContentObserver(
+                context = this@TasksApplication,
+                syncAdapters = koin.get<SyncAdapters>(),
+                tasksPreferences = koin.get<TasksPreferences>(),
+            )
+            OpenTaskContentObserver.registerObserver(this@TasksApplication, observer)
+        }
     }
 }

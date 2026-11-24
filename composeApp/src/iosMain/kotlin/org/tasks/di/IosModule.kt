@@ -105,7 +105,7 @@ actual fun platformModule(): Module = module {
             .build()
     }
     single { TasksPreferences(createDataStore { "$documentsPath/$dataStoreFileName" }) }
-    factory { Upgrader(get(), CommonUpgrades.all(get(), get())) }
+    factory { Upgrader(get(), get(), CommonUpgrades.all(get(), get())) }
     factory { FileStorage(documentsPath) }
     factoryOf(::VtodoCache)
     single<Encryption> { SecureEnclaveEncryption() }
@@ -151,7 +151,7 @@ actual fun platformModule(): Module = module {
         )
     }
     single {
-        SyncRunner(get(), get(), { get() }) { pass ->
+        SyncRunner(get(), get(), get(), { get() }) { pass ->
             val synchronizer = get<CaldavSynchronizer>()
             pass.accounts(CaldavAccount.TYPE_CALDAV, CaldavAccount.TYPE_TASKS).forEach { account ->
                 synchronizer.sync(account, hasPro = pass.hasPro)

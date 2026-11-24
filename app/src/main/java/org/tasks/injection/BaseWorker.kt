@@ -22,6 +22,11 @@ abstract class BaseWorker(
         }
         return try {
             runBlocking {
+                context.upgradeState.awaitReady("${javaClass.simpleName} $id")
+                if (isStopped) {
+                    Timber.d("${javaClass.simpleName} $id stopped while waiting for upgrade")
+                    return@runBlocking Result.retry()
+                }
                 run()
             }
         } catch (e: Exception) {

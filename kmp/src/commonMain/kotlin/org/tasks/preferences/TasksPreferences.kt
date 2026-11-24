@@ -67,6 +67,14 @@ class TasksPreferences(private val dataStore: DataStore<Preferences>) {
         return applied
     }
 
+    suspend fun resetSyncState() {
+        dataStore.edit {
+            it[syncOngoing] = false
+            it[syncOngoingAndroid] = false
+            it[syncSource] = SyncSource.NONE.name
+        }
+    }
+
     suspend fun upgradeOngoingSyncSource(source: SyncSource): Boolean {
         var applied = false
         dataStore.edit {

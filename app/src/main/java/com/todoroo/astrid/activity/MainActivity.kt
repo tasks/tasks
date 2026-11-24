@@ -10,6 +10,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -37,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.core.content.IntentCompat.getParcelableExtra
+import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
@@ -79,6 +81,8 @@ import org.tasks.compose.SubscriptionOnboardingDestination
 import org.tasks.compose.DEFAULT_SIGN_IN_PROVIDERS
 import org.tasks.compose.SubscriptionOnboardingScreen
 import org.tasks.compose.TosUpdateDialog
+import org.tasks.compose.UPGRADING_SCREEN_DELAY_MS
+import org.tasks.compose.UpgradingScreen
 import org.tasks.compose.WelcomeDestination
 import org.tasks.compose.WelcomeScreen
 import org.tasks.compose.accounts.AddAccountScreenWrapper
@@ -107,6 +111,7 @@ import org.tasks.extensions.flagsToString
 import org.tasks.extensions.isFromHistory
 import org.tasks.files.FileHelper
 import org.tasks.filters.Filter
+import org.tasks.injection.upgradeState
 import org.tasks.jobs.WorkManager
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
@@ -149,12 +154,22 @@ class MainActivity : AppCompatActivity() {
     private var currentPro = false
     private var actionMode: ActionMode? = null
     private var isReady = false
+    private var upgrading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        upgrading = applicationContext.upgradeState.isUpgrading
+        super.onCreate(if (upgrading) null else savedInstanceState)
         theme.themeBase.set(this)
         val splashScreen = installSplashScreen()
-        splashScreen.setKeepOnScreenCondition { !isReady }
+        if (upgrading) {
+            showUpgrading(splashScreen)
+        } else {
+            splashScreen.setKeepOnScreenCondition { !isReady }
+            setUpContent()
+        }
+    }
+
+    private fun setUpContent() {
         currentNightMode = nightMode
         currentPro = inventory.hasPro
 
@@ -213,7 +228,12 @@ class MainActivity : AppCompatActivity() {
                     if (routing.logOnboardingComplete) {
                         viewModel.logOnboardingComplete()
                     }
-                    routing.ready?.let { isReady = it }
+                    routing.ready?.let {
+                        if (it && !isReady) {
+                            Timber.d("Releasing splash screen")
+                        }
+                        isReady = it
+                    }
                 }
 
                 LifecycleResumeEffect(Unit) {
@@ -587,7 +607,33 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         setIntent(intent)
         logIntent("onNewIntent")
+        if (upgrading) {
+            return
+        }
         handleIntent()
+    }
+
+    private fun showUpgrading(splashScreen: SplashScreen) {
+        Timber.i("Upgrade in progress")
+        val upgradeState = applicationContext.upgradeState
+        val revealAt = SystemClock.uptimeMillis() + UPGRADING_SCREEN_DELAY_MS
+        splashScreen.setKeepOnScreenCondition {
+            if (upgrading) SystemClock.uptimeMillis() < revealAt else !isReady
+        }
+        setContent {
+            TasksTheme(
+                theme = theme.themeBase.index,
+                primary = theme.themeColor.primaryColor,
+            ) {
+                UpgradingScreen(revealAfterMs = 0)
+            }
+        }
+        lifecycleScope.launch {
+            upgradeState.awaitReady("MainActivity")
+            Timber.i("Upgrade complete, showing task list")
+            upgrading = false
+            setUpContent()
+        }
     }
 
     private suspend fun getTaskToLoad(filter: Filter?): Task? = when {
@@ -638,6 +684,9 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Timber.d("onResume")
+        if (upgrading) {
+            return
+        }
         if (currentNightMode != nightMode || currentPro != inventory.hasPro) {
             restartActivity()
             return

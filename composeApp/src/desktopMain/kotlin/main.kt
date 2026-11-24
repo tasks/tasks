@@ -15,6 +15,8 @@ import androidx.compose.ui.window.rememberWindowState
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -47,6 +49,7 @@ import org.tasks.TaskRequests
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.TasksPreferences
 import org.tasks.preferences.recordInstallIfNeeded
+import org.tasks.service.UpgradeState
 import org.tasks.service.Upgrader
 import org.tasks.viewmodel.PendingTaskSaves
 import org.tasks.http.EncryptedCookieStore
@@ -68,6 +71,7 @@ import java.awt.desktop.QuitStrategy
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 import java.io.File
+import kotlin.system.exitProcess
 import java.util.Locale
 import java.io.RandomAccessFile
 import java.net.InetAddress
@@ -159,16 +163,31 @@ fun main() {
         modules(commonModule, platformModule())
     }
     val koin = KoinPlatform.getKoin()
+    val versionCode = koin.get<PlatformConfiguration>().versionCode
     runBlocking {
-        val versionCode = koin.get<PlatformConfiguration>().versionCode
         koin.get<AppPreferences>().recordInstallIfNeeded(versionCode)
-        koin.get<Upgrader>().upgrade(versionCode)
         koin.get<TasksPreferences>()
             .get(TasksPreferences.languageTag, "")
             .takeIf { it.isNotBlank() }
             ?.let { runCatching { Locale.forLanguageTag(it) }.getOrNull() }
             ?.takeIf { it.language.isNotBlank() }
             ?.let { Locale.setDefault(it) }
+    }
+    val appScope = koin.get<CoroutineScope>()
+    val upgradeState = koin.get<UpgradeState>()
+    upgradeState.launch(appScope) {
+        try {
+            koin.get<Upgrader>().upgrade(versionCode)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Throwable) {
+            Logger.e(e, tag = TAG) { "Upgrade failed" }
+            koin.get<Reporting>().reportException(e, fatal = true)
+            exitProcess(1)
+        }
+    }
+    appScope.launch(Dispatchers.IO) {
+        upgradeState.awaitReady("MCP server")
         step(TAG, "start the MCP server") {
             koin.get<DesktopMcpServerController>().initialize()
         }
@@ -327,6 +346,7 @@ fun main() {
                     AnalyticsEvents.APP_OPENED,
                     AnalyticsEvents.PARAM_FROM_BACKGROUND to false,
                 )
+                upgradeState.awaitReady("Desktop startup")
                 sseClient.start()
                 refreshScheduler.start(lifecycleScope, Dispatchers.Default)
                 if (platformConfig.supportsNotifications) {
