@@ -1,6 +1,8 @@
 package org.tasks.sync.microsoft
 
+import co.touchlab.kermit.Logger
 import org.tasks.data.createDueDate
+import org.tasks.data.createHideUntil
 import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
@@ -14,16 +16,30 @@ import org.tasks.repeats.Recur
 import org.tasks.repeats.Weekday
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import java.util.Locale
 import java.util.TimeZone
 
 object MicrosoftConverter {
 
+    private const val TAG = "MicrosoftConverter"
     private const val TYPE_TEXT = "text"
     private const val DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS0000"
     private const val DATE_TIME_UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS0000'Z'"
+
+    private val LAST_MIDNIGHT_ASSUMED_WEST_OF_UTC: LocalTime = LocalTime.of(10, 0)
+
+    private val DATE_TIME_PARSERS = listOf<(String, ZoneId) -> Instant>(
+        { value, zone -> LocalDateTime.parse(value).atZone(zone).toInstant() },
+        { value, _ -> ZonedDateTime.parse(value).toInstant() },
+        { value, zone -> LocalDate.parse(value).atStartOfDay(zone).toInstant() },
+    )
 
     fun Task.applySubtask(
         parent: Long,
@@ -52,8 +68,10 @@ object MicrosoftConverter {
             defaultPriority != Task.Priority.HIGH -> defaultPriority
             else -> Task.Priority.NONE
         }
-        completionDate = remote.completedDateTime.toLong(currentTimeMillis())
-        remote.dueDateTime.toLong(0L).let {
+        completionDate = remote.completedDateTime.toLong()
+            ?: completionDate.takeIf { it > 0 }
+            ?: currentTimeMillis()
+        remote.dueDateTime.toDueDate()?.let {
             if (it > 0 && hasDueTime()) {
                 val oldDate = DateTimeUtils.newDateTime(dueDate)
                 val newDate = DateTimeUtils.newDateTime(it).withTimeOfDay(
@@ -65,7 +83,11 @@ object MicrosoftConverter {
                         createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis)
                 )
             } else {
-                setDueDateAdjustingHideUntil(it)
+                val startDatePinnedToDueDate = dueDate > 0 && hideUntil == dueDate
+                setDueDateAdjustingHideUntil(createDueDate(Task.URGENCY_SPECIFIC_DAY, it))
+                if (startDatePinnedToDueDate) {
+                    hideUntil = createHideUntil(Task.HIDE_UNTIL_DUE, 0)
+                }
             }
         }
         creationDate = remote.createdDateTime.parseDateTime()
@@ -208,19 +230,82 @@ object MicrosoftConverter {
         )
 
     private fun String?.parseDateTime(): Long =
-        this
-            ?.let { ZonedDateTime.parse(this).toInstant().toEpochMilli() }
-            ?: currentTimeMillis()
+        this?.toInstantOrNull(ZoneOffset.UTC)?.toEpochMilli() ?: currentTimeMillis()
 
-    private fun Tasks.Task.DateTime?.toLong(default: Long): Long =
-        this
-            ?.let { task ->
-                val tz = TimeZone.getTimeZone(task.timeZone)
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.ssssss", Locale.US)
-                    .apply { timeZone = tz }
-                    .parse(task.dateTime)
-                    ?.time
-                    ?: default
+    private fun Tasks.Task.DateTime?.toLong(): Long? {
+        val remote = this ?: return 0L
+        val instant = remote.dateTime.toInstantOrNull(
+            TimeZone.getTimeZone(remote.timeZone).toZoneId()
+        )
+        if (instant == null) {
+            Logger.e(TAG) { "Failed to parse ${remote.dateTime} (${remote.timeZone})" }
+            return null
+        }
+        return instant.toEpochMilli()
+    }
+
+    private fun String.normalizeDateTime(): String = trim().replace(',', '.')
+
+    private fun String.toInstantOrNull(zone: ZoneId): Instant? {
+        val value = normalizeDateTime()
+        DATE_TIME_PARSERS.forEach { parse ->
+            try {
+                return parse(value, zone)
+            } catch (_: Exception) {
             }
-            ?: 0L
+        }
+        return null
+    }
+
+    private fun Tasks.Task.DateTime?.toDueDate(): Long? {
+        val remote = this ?: return 0L
+        val millis = (toLong() ?: return null).takeIf { it > 0 } ?: return 0L
+        val instant = Instant.ofEpochMilli(millis)
+        val remoteZone = TimeZone.getTimeZone(remote.timeZone).toZoneId()
+        val date = instant.dateIfStartOfDay(remoteZone)
+            ?: remote.dateInStatedZone()
+            ?: remote.dateTime.dateAtStatedOffset()
+            ?: instant.dateIfStartOfDay(TimeZone.getDefault().toZoneId())
+            ?: instant.inferredDate(ZoneOffset.UTC)
+        return DateTime(date.year, date.monthValue, date.dayOfMonth).millis
+    }
+
+    private fun Tasks.Task.DateTime.dateInStatedZone(): LocalDate? {
+        val zone = try {
+            ZoneId.of(timeZone)
+        } catch (_: Exception) {
+            return null
+        }
+        if (zone.normalized() == ZoneOffset.UTC) {
+            return null
+        }
+        return try {
+            LocalDateTime.parse(dateTime.normalizeDateTime()).toLocalDate()
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun String.dateAtStatedOffset(): LocalDate? =
+        try {
+            OffsetDateTime.parse(normalizeDateTime())
+                .takeIf { it.toLocalTime().toSecondOfDay() == 0 }
+                ?.toLocalDate()
+        } catch (_: Exception) {
+            null
+        }
+
+    private fun Instant.dateIfStartOfDay(zone: ZoneId): LocalDate? =
+        atZone(zone).takeIf { it.toLocalTime().toSecondOfDay() == 0 }?.toLocalDate()
+
+    private fun Instant.inferredDate(zone: ZoneId): LocalDate =
+        atZone(zone)
+            .let {
+                if (it.toLocalTime().toSecondOfDay() > LAST_MIDNIGHT_ASSUMED_WEST_OF_UTC.toSecondOfDay()) {
+                    it.plusDays(1)
+                } else {
+                    it
+                }
+            }
+            .toLocalDate()
 }
