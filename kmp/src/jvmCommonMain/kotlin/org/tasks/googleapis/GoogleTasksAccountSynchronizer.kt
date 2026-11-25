@@ -3,7 +3,6 @@ package org.tasks.googleapis
 import co.touchlab.kermit.Logger
 import com.todoroo.astrid.repeats.RepeatTaskHelper
 import org.tasks.analytics.Reporting
-import org.tasks.auth.isUnauthorized
 import org.tasks.broadcast.RefreshBroadcaster
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.AlarmDao
@@ -20,7 +19,7 @@ import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.cannot_access_account
 import tasks.kmp.generated.resources.subscription_required
 
-class DesktopGoogleTasksSynchronizer(
+class GoogleTasksAccountSynchronizer(
     private val caldavDao: CaldavDao,
     taskDao: TaskDao,
     dirtyDao: DirtyDao,
@@ -35,7 +34,7 @@ class DesktopGoogleTasksSynchronizer(
     repeatTaskHelper: RepeatTaskHelper,
     taskCompleter: TaskCompleter,
     createTask: suspend () -> org.tasks.data.entity.Task,
-    private val credentials: GoogleTasksCredentials,
+    private val credentials: GoogleTasksCredentialsProvider,
 ) {
     private val synchronizer = GoogleTaskSynchronizer(
         caldavDao = caldavDao,
@@ -58,7 +57,7 @@ class DesktopGoogleTasksSynchronizer(
     suspend fun sync(account: CaldavAccount, hasPro: Boolean) {
         val error = when {
             !hasPro -> getString(Res.string.subscription_required)
-            account.password.isNullOrBlank() -> getString(Res.string.cannot_access_account)
+            !credentials.canAccess(account) -> getString(Res.string.cannot_access_account)
             else -> null
         }
         if (error != null) {
@@ -67,7 +66,7 @@ class DesktopGoogleTasksSynchronizer(
             refreshBroadcaster.broadcastRefresh()
             return
         }
-        if (account.isUnauthorized()) {
+        if (credentials.needsSignIn(account)) {
             Logger.d(TAG) { "$account: needs sign-in, skipping sync" }
             return
         }
@@ -76,6 +75,6 @@ class DesktopGoogleTasksSynchronizer(
     }
 
     companion object {
-        private const val TAG = "DesktopGoogleTasksSynchronizer"
+        private const val TAG = "GoogleTasksAccountSynchronizer"
     }
 }

@@ -14,22 +14,16 @@ import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavAccount
 import org.tasks.filters.CaldavFilter
 import org.tasks.googleapis.DefaultListProvider
-import org.tasks.googleapis.GoogleTaskSynchronizer
-import org.tasks.googleapis.GtasksListService
-import org.tasks.googleapis.InvokerFactory
+import org.tasks.googleapis.GoogleTasksAccountSynchronizer
 import org.tasks.preferences.AppPreferences
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.preferences.Preferences
-import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
-import tasks.kmp.generated.resources.Res
-import tasks.kmp.generated.resources.cannot_access_account
 import javax.inject.Inject
 
 class AndroidGoogleTaskSynchronizer @Inject constructor(
-    private val googleAccountManager: GoogleAccountManager,
-    private val invokerFactory: InvokerFactory,
+    credentials: AccountManagerCredentials,
     private val caldavDao: CaldavDao,
     private val taskDao: TaskDao,
     private val dirtyDao: DirtyDao,
@@ -54,9 +48,8 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
             preferences.setString(R.string.p_default_list, null)
     }
 
-    private val synchronizer = GoogleTaskSynchronizer(
+    private val synchronizer = GoogleTasksAccountSynchronizer(
         caldavDao = caldavDao,
-        gtasksListService = GtasksListService(caldavDao, taskDeleter, refreshBroadcaster),
         taskDao = taskDao,
         dirtyDao = dirtyDao,
         taskSaver = taskSaver,
@@ -70,16 +63,8 @@ class AndroidGoogleTaskSynchronizer @Inject constructor(
         repeatTaskHelper = repeatTaskHelper,
         taskCompleter = taskCompleter,
         createTask = { taskCreator.createWithValues("") },
+        credentials = credentials,
     )
 
-    suspend fun sync(account: CaldavAccount) {
-        if (googleAccountManager.getAccount(account.username) == null) {
-            account.error = getString(Res.string.cannot_access_account)
-            caldavDao.update(account)
-            refreshBroadcaster.broadcastRefresh()
-            return
-        }
-        val invoker = invokerFactory.getGtasksInvoker(account.username!!)
-        synchronizer.sync(account, invoker)
-    }
+    suspend fun sync(account: CaldavAccount) = synchronizer.sync(account, hasPro = true)
 }

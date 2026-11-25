@@ -47,6 +47,7 @@ val flavorModule = module {
             billingProvider = BillingProvider.GOOGLE_PLAY,
             isAndroid = true,
             supportsCaldav = true,
+            supportsGoogleTasks = true,
             supportsEteSync = true,
             supportsOpenTasks = true,
             supportsMicrosoft = true,

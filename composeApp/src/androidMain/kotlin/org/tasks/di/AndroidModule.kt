@@ -1,5 +1,6 @@
 package org.tasks.di
 
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.room3.Room
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
@@ -24,6 +25,10 @@ import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
 import org.tasks.data.OpenTaskDao
 import org.tasks.etebase.EtebaseClientProvider
+import org.tasks.googleapis.GoogleTasksCredentialsProvider
+import org.tasks.gtasks.AccountManagerCredentials
+import org.tasks.gtasks.GoogleAccountManager
+import org.tasks.gtasks.GoogleAccountPicker
 import org.tasks.opentasks.OpenTasksSyncer
 import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.http.AndroidOkHttpClientFactory
@@ -85,10 +90,28 @@ actual fun platformModule(): Module = module {
             redirect = get(),
         )
     }
+    single {
+        val tasksPreferences = get<TasksPreferences>()
+        GoogleAccountManager(
+            context = androidContext(),
+            authErrors = object : GoogleAccountManager.AuthErrorNotifications {
+                override suspend fun alreadyNotified(account: String, scope: String) =
+                    tasksPreferences.get(notifiedKey(account, scope), false)
+
+                override suspend fun setAlreadyNotified(account: String, scope: String, notified: Boolean) =
+                    tasksPreferences.set(notifiedKey(account, scope), notified)
+            },
+        )
+    }
+    single<GoogleTasksCredentialsProvider> { AccountManagerCredentials(get()) }
+    single { GoogleAccountPicker(androidContext(), get()) }
     factory<SignInHandler>(PlatformSignInHandler) {
         AndroidSignInHandler(
             signIn = get(),
             microsoftSignIn = getOrNull(),
+            googleAccountPicker = get(),
+            caldavDao = get(),
+            analytics = get<Reporting>(),
         )
     }
     single<Database> {
@@ -157,3 +180,6 @@ actual fun platformModule(): Module = module {
     }
     factoryOf(::VtodoCache)
 }
+
+private fun notifiedKey(account: String, scope: String) =
+    booleanPreferencesKey("notified_oauth_error_${account}_$scope")

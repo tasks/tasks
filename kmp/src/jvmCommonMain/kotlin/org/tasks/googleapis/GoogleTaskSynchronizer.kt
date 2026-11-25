@@ -25,9 +25,12 @@ import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.preferences.AppPreferences
+import org.tasks.resources.getString
 import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import tasks.kmp.generated.resources.Res
+import tasks.kmp.generated.resources.network_error
 import java.io.IOException
 import java.util.Collections
 import kotlin.math.max
@@ -65,7 +68,7 @@ class GoogleTaskSynchronizer(
             reporting.reportException(e)
         } catch (e: IOException) {
             Logger.e(TAG, e) { e.message.orEmpty() }
-            account.error = e.message
+            account.error = e.message?.takeIf { it.isNotBlank() } ?: getString(Res.string.network_error)
         } catch (e: Exception) {
             account.error = e.message
             reporting.reportException(e)

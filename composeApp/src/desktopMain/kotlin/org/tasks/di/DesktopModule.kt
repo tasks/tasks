@@ -45,6 +45,8 @@ import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
 import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseClientProvider
+import org.tasks.googleapis.GoogleTasksCredentials
+import org.tasks.googleapis.GoogleTasksCredentialsProvider
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
 import org.tasks.http.DesktopOkHttpClientFactory
@@ -251,6 +253,14 @@ actual fun platformModule(): Module = module {
             appPreferences = get(),
         )
     }
+    single<GoogleTasksCredentialsProvider> {
+        GoogleTasksCredentials(
+            encryption = get<KeyStoreEncryption>(),
+            proxyAuthProvider = get(),
+            caldavDao = get(),
+            oauthClient = get(),
+        )
+    }
     single<ListManager> {
         ApiListManager(
             caldavDao = get(),
@@ -260,7 +270,7 @@ actual fun platformModule(): Module = module {
             microsoftClientProvider = get(),
             gtasksInvoker = { account ->
                 org.tasks.googleapis.GtasksInvoker(
-                    get<org.tasks.googleapis.GoogleTasksCredentials>().adapter(account)
+                    get<GoogleTasksCredentialsProvider>().adapter(account)
                 )
             },
         )

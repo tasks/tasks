@@ -30,11 +30,10 @@ import javax.inject.Inject
 class PreferencesViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val preferences: Preferences,
-    invokers: InvokerFactory,
+    private val invokers: InvokerFactory,
     private val googleAccountManager: GoogleAccountManager,
     private val caldavDao: CaldavDao,
 ) : ViewModel() {
-    private val driveInvoker = invokers.getDriveInvoker()
     val lastBackup = MutableLiveData<Long?>()
     val lastDriveBackup = MutableLiveData<Long?>()
     val lastAndroidBackup = MutableLiveData<Long>()
@@ -88,7 +87,7 @@ class PreferencesViewModel @Inject constructor(
                 ?.takeIf { it.isNotBlank() }
                 ?.let {
                     try {
-                        driveInvoker.getFilesByPrefix(it, "auto.", "user.")
+                        invokers.getDriveInvoker().getFilesByPrefix(it, "auto.", "user.")
                                 .firstOrNull()
                                 ?.let(BackupConstants::getTimestamp)
                     } catch (e: Exception) {

@@ -23,6 +23,7 @@ val flavorModule = module {
             isAndroid = true,
             isLibre = true,
             supportsCaldav = true,
+            supportsGoogleTasks = true,
             supportsEteSync = true,
             supportsOpenTasks = true,
             supportsMicrosoft = true,

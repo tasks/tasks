@@ -1,8 +1,12 @@
 package org.tasks.googleapis
 
+import com.google.api.client.http.HttpRequest
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.io.IOException
 import org.mockito.kotlin.any
 import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
@@ -23,7 +27,7 @@ import org.tasks.security.KeyStoreEncryption
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
-class DesktopGoogleTasksSynchronizerTest {
+class GoogleTasksAccountSynchronizerTest {
 
     private val encryption = KeyStoreEncryption(object : KeyProvider {
         private val key: SecretKey =
@@ -36,7 +40,7 @@ class DesktopGoogleTasksSynchronizerTest {
     private val proxyAuthProvider = mock<ProxyAuthProvider>()
     private val refreshBroadcaster = mock<RefreshBroadcaster>()
 
-    private val synchronizer = DesktopGoogleTasksSynchronizer(
+    private val synchronizer = GoogleTasksAccountSynchronizer(
         caldavDao = caldavDao,
         taskDao = mock(),
         dirtyDao = mock(),
@@ -116,6 +120,100 @@ class DesktopGoogleTasksSynchronizerTest {
 
             verifyNoMoreInteractions(oauthClient)
             verify(caldavDao, times(0)).setError(any(), anyOrNull())
+        }
+    }
+
+    private fun deviceAccountSynchronizer(reached: Exception) = GoogleTasksAccountSynchronizer(
+        caldavDao = caldavDao,
+        taskDao = mock(),
+        dirtyDao = mock(),
+        taskSaver = mock(),
+        reporting = mock(),
+        googleTaskDao = mock(),
+        defaultListProvider = mock(),
+        refreshBroadcaster = refreshBroadcaster,
+        taskDeleter = mock(),
+        alarmDao = mock(),
+        appPreferences = mock(),
+        repeatTaskHelper = mock(),
+        taskCompleter = mock(),
+        createTask = { Task() },
+        credentials = object : GoogleTasksCredentialsProvider {
+            override fun canAccess(account: CaldavAccount) = account.username == "someone@gmail.com"
+            override fun needsSignIn(account: CaldavAccount) = false
+            override fun adapter(account: CaldavAccount): CredentialsAdapter = throw reached
+        },
+    )
+
+    private val deviceAccount = CaldavAccount(
+        id = 1,
+        uuid = "someone@gmail.com",
+        username = "someone@gmail.com",
+        accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
+    )
+
+    @Test
+    fun anAccountWithoutStoredTokensSyncsWhenThePlatformCanAccessIt() {
+        runBlocking {
+            val reached = Exception("api requested")
+
+            val thrown = runCatching {
+                deviceAccountSynchronizer(reached).sync(deviceAccount, hasPro = true)
+            }.exceptionOrNull()
+
+            assertSame(reached, thrown)
+            verify(caldavDao, times(0)).setError(any(), anyOrNull())
+        }
+    }
+
+    @Test
+    fun aDeviceAccountKeepsSyncingAfterAnUnauthorizedResponse() {
+        runBlocking {
+            val reached = Exception("api requested")
+            val account = deviceAccount.copy(error = "401 Unauthorized")
+
+            val thrown = runCatching {
+                deviceAccountSynchronizer(reached).sync(account, hasPro = true)
+            }.exceptionOrNull()
+
+            assertSame(reached, thrown)
+        }
+    }
+
+    @Test
+    fun aTokenFetchNetworkFailureIsRecordedAsANetworkError() {
+        runBlocking {
+            val account = deviceAccount.copy()
+            val synchronizer = GoogleTasksAccountSynchronizer(
+                caldavDao = caldavDao,
+                taskDao = mock(),
+                dirtyDao = mock(),
+                taskSaver = mock(),
+                reporting = mock(),
+                googleTaskDao = mock(),
+                defaultListProvider = mock(),
+                refreshBroadcaster = refreshBroadcaster,
+                taskDeleter = mock(),
+                alarmDao = mock(),
+                appPreferences = mock(),
+                repeatTaskHelper = mock(),
+                taskCompleter = mock(),
+                createTask = { Task() },
+                credentials = object : GoogleTasksCredentialsProvider {
+                    override fun canAccess(account: CaldavAccount) = true
+                    override fun needsSignIn(account: CaldavAccount) = false
+                    override fun adapter(account: CaldavAccount) = object : CredentialsAdapter {
+                        override fun initialize(request: HttpRequest) = Unit
+                        override suspend fun checkToken() = throw IOException("NetworkError")
+                        override suspend fun invalidateToken() = true
+                    }
+                },
+            )
+
+            synchronizer.sync(account, hasPro = true)
+
+            verify(caldavDao).setError(1, "NetworkError")
+            assertFalse(account.isUnauthorized())
         }
     }
 }

@@ -11,6 +11,12 @@
         android:taskAffinity=":oauth"
         android:autoRemoveFromRecents="true"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+    <activity
+        android:name="org.tasks.gtasks.GoogleAccountPickerActivity"
+        android:exported="false"
+        android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|density|fontScale|locale|layoutDirection"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
   </application>
 
 </manifest>

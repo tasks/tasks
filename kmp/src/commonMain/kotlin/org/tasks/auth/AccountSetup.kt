@@ -255,6 +255,38 @@ suspend fun setupGoogleTasksAccount(
     )
 }
 
+suspend fun setupGoogleTasksAccount(
+    accountName: String,
+    caldavDao: CaldavDao,
+    analytics: Analytics,
+) {
+    val added = googleTasksSetupLock.withLockNonCancellable {
+        val existing = caldavDao.getAccounts(listOf(CaldavAccount.TYPE_GOOGLE_TASKS))
+            .find { it.username.equals(accountName, ignoreCase = true) }
+        if (existing != null) {
+            caldavDao.update(existing.copy(error = ""))
+            caldavDao.resetLastSync(existing.uuid ?: accountName)
+            false
+        } else {
+            caldavDao.insert(
+                CaldavAccount(
+                    accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
+                    uuid = accountName,
+                    name = accountName,
+                    username = accountName,
+                )
+            )
+            true
+        }
+    }
+    if (added) {
+        analytics.logEvent(
+            AnalyticsEvents.SYNC_ADD_ACCOUNT,
+            AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_GOOGLE_TASKS,
+        )
+    }
+}
+
 private suspend fun setupOAuthAccount(
     oauthResult: OAuthResult,
     lock: Mutex,

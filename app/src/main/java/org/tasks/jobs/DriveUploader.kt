@@ -14,6 +14,7 @@ import org.tasks.Strings.isNullOrEmpty
 import org.tasks.analytics.Firebase
 import org.tasks.backup.BackupConstants
 import org.tasks.googleapis.InvokerFactory
+import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.injection.BaseWorker
 import org.tasks.preferences.Preferences
 import timber.log.Timber
@@ -55,6 +56,8 @@ class DriveUploader @AssistedInject constructor(
             Result.success()
         } catch (e: FileNotFoundException) {
             fail(e)
+        } catch (e: GoogleAccountManager.TokenUnavailableException) {
+            retry(e)
         } catch (e: SocketException) {
             retry(e)
         } catch (e: SocketTimeoutException) {

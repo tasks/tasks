@@ -56,8 +56,8 @@ import org.tasks.filters.CaldavListCache
 import org.tasks.filters.FilterPreferenceCodec
 import org.tasks.filters.FilterProvider
 import org.tasks.googleapis.DefaultListProvider
-import org.tasks.googleapis.DesktopGoogleTasksSynchronizer
-import org.tasks.googleapis.GoogleTasksCredentials
+import org.tasks.googleapis.GoogleTasksAccountSynchronizer
+import org.tasks.googleapis.GoogleTasksCredentialsProvider
 import org.tasks.googleapis.GtasksInvoker
 import org.tasks.auth.oauthClient
 import org.tasks.http.KtorClientFactory
@@ -132,7 +132,7 @@ val commonModule = module {
                 etebaseSynchronizer.sync(account, hasPro = pass.hasPro)
             }
             pass.accounts(TYPE_GOOGLE_TASKS).forEach { account ->
-                get<DesktopGoogleTasksSynchronizer>()
+                get<GoogleTasksAccountSynchronizer>()
                     .sync(account, hasPro = pass.googleAndMicrosoftPro)
             }
             val microsoftAccounts = pass.accounts(TYPE_MICROSOFT)
@@ -186,16 +186,8 @@ val commonModule = module {
     factory<EtebaseClientFactory> { get<EtebaseClientProvider>() }
     factoryOf(::EtebaseSynchronizer)
     single { get<OkHttpClientFactory>().oauthClient(foreground = false) }
-    single {
-        GoogleTasksCredentials(
-            encryption = get<KeyStoreEncryption>(),
-            proxyAuthProvider = get(),
-            caldavDao = get(),
-            oauthClient = get(),
-        )
-    }
     factory {
-        DesktopGoogleTasksSynchronizer(
+        GoogleTasksAccountSynchronizer(
             caldavDao = get(),
             taskDao = get(),
             dirtyDao = get(),
@@ -240,7 +232,7 @@ val commonModule = module {
             reporting = get(),
             purchaseState = get(),
             invokerFactory = { account ->
-                GtasksInvoker(get<GoogleTasksCredentials>().adapter(account))
+                GtasksInvoker(get<GoogleTasksCredentialsProvider>().adapter(account))
             },
             isDark = params.get(),
             account = params.get(),

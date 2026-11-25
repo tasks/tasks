@@ -501,10 +501,12 @@
 
     <activity
       android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity"
+      android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|density|fontScale|locale|layoutDirection"
       android:theme="@style/TranslucentDialog"/>
 
     <activity
       android:name=".drive.DriveLoginActivity"
+      android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboard|keyboardHidden|navigation|uiMode|density|fontScale|locale|layoutDirection"
       android:theme="@style/TranslucentDialog" />
 
     <activity

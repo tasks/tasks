@@ -24,6 +24,9 @@ import org.tasks.analytics.Firebase
 import org.tasks.audio.SoundPlayer
 import org.tasks.calendars.CalendarHelper
 import org.tasks.filters.CaldavListCache
+import org.tasks.gtasks.AccountManagerCredentials
+import org.tasks.gtasks.GoogleAccountManager
+import org.tasks.gtasks.GoogleAccountPicker
 import org.tasks.service.TaskCompleter
 import org.tasks.billing.PurchaseState
 import org.tasks.viewmodel.DrawerViewModel
@@ -140,6 +143,34 @@ class ApplicationModule {
     @Provides
     @Singleton
     fun getReporting(firebase: Firebase): Reporting = firebase
+
+    @Provides
+    @Singleton
+    fun provideGoogleAccountManager(
+        @ApplicationContext context: Context,
+        preferences: Preferences,
+    ) = GoogleAccountManager(
+        context = context,
+        authErrors = object : GoogleAccountManager.AuthErrorNotifications {
+            override suspend fun alreadyNotified(account: String, scope: String) =
+                preferences.alreadyNotified(account, scope)
+
+            override suspend fun setAlreadyNotified(account: String, scope: String, notified: Boolean) =
+                preferences.setAlreadyNotified(account, scope, notified)
+        },
+    )
+
+    @Provides
+    @Singleton
+    fun provideAccountManagerCredentials(googleAccountManager: GoogleAccountManager) =
+        AccountManagerCredentials(googleAccountManager)
+
+    @Provides
+    @Singleton
+    fun provideGoogleAccountPicker(
+        @ApplicationContext context: Context,
+        googleAccountManager: GoogleAccountManager,
+    ) = GoogleAccountPicker(context, googleAccountManager)
 
     @Provides
     @Singleton

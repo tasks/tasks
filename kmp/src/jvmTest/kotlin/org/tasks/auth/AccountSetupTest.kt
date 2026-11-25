@@ -1123,6 +1123,54 @@ class AccountSetupTest {
                     ".signature"
         ),
     )
+
+    @Test
+    fun aNewDeviceGoogleAccountIsAddedAndLogged() = runBlocking {
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccounts(any<List<Int>>()) } doReturn emptyList()
+        }
+
+        setupGoogleTasksAccount("someone@gmail.com", caldavDao, analytics)
+
+        verifyBlocking(caldavDao) {
+            insert(
+                CaldavAccount(
+                    accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
+                    uuid = "someone@gmail.com",
+                    name = "someone@gmail.com",
+                    username = "someone@gmail.com",
+                )
+            )
+        }
+        assertEquals(
+            listOf(
+                AnalyticsEvents.SYNC_ADD_ACCOUNT to
+                    mapOf(AnalyticsEvents.PARAM_TYPE to Constants.SYNC_TYPE_GOOGLE_TASKS)
+            ),
+            events,
+        )
+    }
+
+    @Test
+    fun aReturningDeviceGoogleAccountClearsItsErrorAndResyncs() = runBlocking {
+        val existing = CaldavAccount(
+            id = 7,
+            accountType = CaldavAccount.TYPE_GOOGLE_TASKS,
+            uuid = "Someone@gmail.com",
+            username = "Someone@gmail.com",
+            error = "401 Unauthorized",
+        )
+        val caldavDao = mock<CaldavDao> {
+            onBlocking { getAccounts(listOf(CaldavAccount.TYPE_GOOGLE_TASKS)) } doReturn listOf(existing)
+        }
+
+        setupGoogleTasksAccount("someone@gmail.com", caldavDao, analytics)
+
+        verifyBlocking(caldavDao) { update(existing.copy(error = "")) }
+        verifyBlocking(caldavDao) { resetLastSync("Someone@gmail.com") }
+        verifyBlocking(caldavDao, never()) { insert(any<CaldavAccount>()) }
+        assertTrue(events.isEmpty())
+    }
 }
 
 private const val HOME_SET = "https://caldav.example.com/caldav/google_1234/"
