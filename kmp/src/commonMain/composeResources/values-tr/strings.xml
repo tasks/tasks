@@ -725,4 +725,7 @@
     <string name="pricing_nyp_feature_third_party_sync">Google Tasks, Microsoft To Do, CalDAV ve EteSync ile eşzamanlama</string>
     <string name="pricing_feature_trial">Yeni aboneler için 7 günlük ücretsiz deneme</string>
     <string name="cloud_onboarding_sign_in_body">Tasks.org Cloud hesabınızı oluşturmak için giriş yapın</string>
+    <string name="tasks_org_signed_in_as">Başka hesapla oturum açtınız. Tasks.org\'a yeniden bağlanmak için %1$s olarak oturum açın.</string>
+    <string name="tasks_org_signed_in_as_another_account">Başka hesapla oturum açtınız. Tasks.org\'a yeniden bağlanmadan önce kullandığınız hesap ile oturum açın.</string>
+    <string name="microsoft_tasks_permission_not_granted">Microsoft To Do izni verilmedi. Lütfen yeniden oturum açın ve onay ekranında Microsoft To Do\'ya izin verin.</string>
 </resources>
