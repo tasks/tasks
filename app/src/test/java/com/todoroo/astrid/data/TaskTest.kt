@@ -8,6 +8,7 @@ import org.junit.Before
 import org.junit.Test
 import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
+import org.tasks.TestUtilities.withTZ
 import org.tasks.data.createDueDate
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
@@ -61,6 +62,66 @@ class TaskTest {
     fun testCreateDueDateInTwoWeeks() {
         val expected = DateTime(2014, 1, 14, 12, 0, 0, 0).millis
         assertEquals(expected, createDueDate(Task.URGENCY_IN_TWO_WEEKS, -1L))
+    }
+
+    @Test
+    fun tomorrowIsTheNextDayAcrossSpringForward() {
+        withTZ("America/Chicago") {
+            freezeAt(DateTime(2023, 3, 11, 23, 30)) {
+                assertEquals(
+                    DateTime(2023, 3, 12, 12, 0).millis,
+                    createDueDate(Task.URGENCY_TOMORROW, 0)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun tomorrowIsTheNextDayAcrossFallBack() {
+        withTZ("America/Chicago") {
+            freezeAt(DateTime(2023, 11, 5, 0, 30)) {
+                assertEquals(
+                    DateTime(2023, 11, 6, 12, 0).millis,
+                    createDueDate(Task.URGENCY_TOMORROW, 0)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun dayAfterTomorrowIsTwoDaysAcrossSpringForward() {
+        withTZ("America/Chicago") {
+            freezeAt(DateTime(2023, 3, 11, 23, 30)) {
+                assertEquals(
+                    DateTime(2023, 3, 13, 12, 0).millis,
+                    createDueDate(Task.URGENCY_DAY_AFTER, 0)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun nextWeekIsSevenDaysAcrossSpringForward() {
+        withTZ("America/Chicago") {
+            freezeAt(DateTime(2023, 3, 11, 23, 30)) {
+                assertEquals(
+                    DateTime(2023, 3, 18, 12, 0).millis,
+                    createDueDate(Task.URGENCY_NEXT_WEEK, 0)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun twoWeeksIsFourteenDaysAcrossSpringForward() {
+        withTZ("America/Chicago") {
+            freezeAt(DateTime(2023, 3, 11, 23, 30)) {
+                assertEquals(
+                    DateTime(2023, 3, 25, 12, 0).millis,
+                    createDueDate(Task.URGENCY_IN_TWO_WEEKS, 0)
+                )
+            }
+        }
     }
 
     @Test
