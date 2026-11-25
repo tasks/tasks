@@ -1,6 +1,7 @@
 package org.tasks.sync.microsoft
 
 import org.tasks.data.createDueDate
+import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.TagData
 import org.tasks.data.entity.Task

@@ -19,6 +19,7 @@ import org.tasks.data.TaskSaver
 import org.tasks.data.createDueDate
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.Task
+import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.extensions.Context.is24HourFormat

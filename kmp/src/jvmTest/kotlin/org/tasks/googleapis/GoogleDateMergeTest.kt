@@ -2,6 +2,7 @@ package org.tasks.googleapis
 
 import org.junit.Assert.assertEquals
 import org.tasks.data.createDueDate
+import org.tasks.data.createHideUntil
 import org.tasks.data.entity.Task
 import org.tasks.googleapis.GoogleTaskSynchronizer.Companion.mergeDates
 import org.tasks.time.DateTime
@@ -65,4 +66,44 @@ class GoogleDateMergeTest {
         }
     }
 
+    @Test
+    fun moveStartDateWithTheDueDate() {
+        withTZ("America/Chicago") {
+            val task = Task(dueDate = allDay(2023, 3, 11)).apply {
+                hideUntil = createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            }
+
+            mergeDates(allDay(2023, 3, 12), task)
+
+            assertEquals(DateTime(2023, 3, 11, 0, 0).millis, task.hideUntil)
+        }
+    }
+
+    @Test
+    fun moveStartDateWithTheDueDateWhenLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            val task = Task(dueDate = dueTime(2025, 3, 30, 23, 30)).apply {
+                hideUntil = createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            }
+
+            mergeDates(allDay(2025, 3, 31), task)
+
+            assertEquals(DateTime(2025, 3, 30, 0, 0).millis, task.hideUntil)
+        }
+    }
+
+    @Test
+    fun clearStartDateWhenGoogleClearsTheDueDate() {
+        withTZ("America/Chicago") {
+            val task = Task(dueDate = allDay(2023, 7, 19)).apply {
+                hideUntil = createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            }
+
+            mergeDates(0, task)
+
+            assertEquals(0, task.dueDate)
+            assertEquals(0, task.hideUntil)
+        }
+    }
 }

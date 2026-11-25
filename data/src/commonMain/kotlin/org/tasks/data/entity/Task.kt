@@ -117,15 +117,6 @@ data class Task @OptIn(ExperimentalSerializationApi::class) constructor(
     /** Checks whether this due date has a due time or only a date  */
     fun hasDueTime(): Boolean = hasDueTime(dueDate)
 
-    fun setDueDateAdjustingHideUntil(newDueDate: Long) {
-        if (dueDate > 0) {
-            if (hideUntil > 0) {
-                hideUntil = if (newDueDate > 0) hideUntil + newDueDate - dueDate else 0
-            }
-        }
-        dueDate = newDueDate
-    }
-
     val isRecurring: Boolean
         get() = recurrence?.isNotBlank() == true
 

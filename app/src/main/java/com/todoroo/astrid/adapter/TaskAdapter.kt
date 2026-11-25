@@ -28,6 +28,7 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.Companion.HIDE_UNTIL_SPECIFIC_DAY
+import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.time.millisOfDay
 import kotlin.math.min
