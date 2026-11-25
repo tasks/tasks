@@ -97,7 +97,7 @@ object PermaSql {
             || value.contains(VALUE_EOD_YESTERDAY)
             || value.contains(VALUE_EOD_NEXT_MONTH)
         ) {
-            value = replaceEodValues(value, currentTimeMillis().noon())
+            value = replaceEodValues(value, Long::noon)
         }
         if (value.contains(VALUE_NOON)
             || value.contains(VALUE_NOON_DAY_AFTER)
@@ -113,15 +113,16 @@ object PermaSql {
 
     private fun replaceEodValues(
         value: String,
-        dateTime: Long = currentTimeMillis().endOfDay()
+        timeOfDay: (Long) -> Long = Long::endOfDay
     ): String {
+        val now = currentTimeMillis()
         var value = value
-        value = value.replace(VALUE_EOD_YESTERDAY, dateTime.minusDays(1).toString())
-        value = value.replace(VALUE_EOD, dateTime.toString())
-        value = value.replace(VALUE_EOD_TOMORROW, dateTime.plusDays(1).toString())
-        value = value.replace(VALUE_EOD_DAY_AFTER, dateTime.plusDays(2).toString())
-        value = value.replace(VALUE_EOD_NEXT_WEEK, dateTime.plusDays(7).toString())
-        value = value.replace(VALUE_EOD_NEXT_MONTH, dateTime.plusDays(30).toString())
+        value = value.replace(VALUE_EOD_YESTERDAY, timeOfDay(now.minusDays(1)).toString())
+        value = value.replace(VALUE_EOD, timeOfDay(now).toString())
+        value = value.replace(VALUE_EOD_TOMORROW, timeOfDay(now.plusDays(1)).toString())
+        value = value.replace(VALUE_EOD_DAY_AFTER, timeOfDay(now.plusDays(2)).toString())
+        value = value.replace(VALUE_EOD_NEXT_WEEK, timeOfDay(now.plusDays(7)).toString())
+        value = value.replace(VALUE_EOD_NEXT_MONTH, timeOfDay(now.plusDays(30)).toString())
         return value
     }
 

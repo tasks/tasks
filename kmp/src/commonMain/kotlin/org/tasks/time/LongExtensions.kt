@@ -2,6 +2,7 @@ package org.tasks.time
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
@@ -81,20 +82,19 @@ fun Long.endOfMinute(): Long =
 
 fun Long.endOfDay(): Long =
     if (this > 0) {
-        toLocalDateTime()
-            .let { LocalDateTime(it.year, it.month, it.dayOfMonth, 23, 59, 59, 0) }
-            .toEpochMilliseconds()
+        val date = toLocalDateTime().date
+        val candidate = date.atTimeOnThisDate(LocalTime(23, 59, 59))
+        val lastMillis = date.lastMillisOfDate()
+        if (lastMillis - candidate < ONE_SECOND) candidate else lastMillis
     } else {
         0
     }
 
 fun Long.withMillisOfDay(millisOfDay: Int): Long =
     if (this > 0) {
-        LocalDateTime(
-            date = toLocalDateTime().date,
-            time = LocalTime.fromMillisecondOfDay(millisOfDay)
-        )
-            .toEpochMilliseconds()
+        toLocalDateTime()
+            .date
+            .atTimeOnThisDate(LocalTime.fromMillisecondOfDay(millisOfDay))
     } else {
         0
     }
@@ -104,8 +104,7 @@ fun Long.plusDays(days: Int): Long =
         with (toLocalDateTime()) {
             date
                 .plus(days, DateTimeUnit.DAY)
-                .atTime(time)
-                .toEpochMilliseconds()
+                .atTimeOnThisDate(time)
         }
     } else {
         0
@@ -116,8 +115,7 @@ fun Long.minusDays(days: Int): Long =
         with (toLocalDateTime()) {
             date
                 .minus(days, DateTimeUnit.DAY)
-                .atTime(time)
-                .toEpochMilliseconds()
+                .atTimeOnThisDate(time)
         }
     } else {
         0
@@ -167,3 +165,17 @@ private fun Long.toLocalDateTime(): LocalDateTime =
 
 private fun LocalDateTime.toEpochMilliseconds(): Long =
     toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+
+private fun LocalDate.atTimeOnThisDate(time: LocalTime): Long {
+    val millis = atTime(time).toEpochMilliseconds()
+    if (millis.toLocalDateTime().date == this) {
+        return millis
+    }
+    val lastMillis = lastMillisOfDate()
+    return if (lastMillis.toLocalDateTime().date == this) lastMillis else millis
+}
+
+private fun LocalDate.lastMillisOfDate(): Long =
+    plus(1, DateTimeUnit.DAY)
+        .atStartOfDayIn(TimeZone.currentSystemDefault())
+        .toEpochMilliseconds() - 1

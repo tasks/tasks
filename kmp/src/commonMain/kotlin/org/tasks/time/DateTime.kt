@@ -74,32 +74,23 @@ class DateTime {
         timeZone = timeZone
     )
 
-    fun endOfDay(): DateTime = DateTime(
-        year = year,
-        month = monthOfYear,
-        day = dayOfMonth,
-        hour = 23,
-        minute = 59,
-        second = 59,
-        timeZone = timeZone
-    )
-
-    fun withMillisOfDay(millisOfDay: Int): DateTime {
-        val hours = millisOfDay / 3600000
-        val minutes = (millisOfDay % 3600000) / 60000
-        val seconds = (millisOfDay % 60000) / 1000
-        val millis = millisOfDay % 1000
-        return DateTime(
-            year = year,
-            month = monthOfYear,
-            day = dayOfMonth,
-            hour = hours,
-            minute = minutes,
-            second = seconds,
-            millisecond = millis,
-            timeZone = timeZone
+    fun endOfDay(): DateTime {
+        val candidate = atTimeOnThisDay(
+            hour = 23,
+            minute = 59,
+            second = 59,
+            millisecond = 0,
         )
+        val lastMillis = lastMillisOfDay()
+        return if (lastMillis.millis - candidate.millis < ONE_SECOND) candidate else lastMillis
     }
+
+    fun withMillisOfDay(millisOfDay: Int): DateTime = atTimeOnThisDay(
+        hour = millisOfDay / 3600000,
+        minute = (millisOfDay % 3600000) / 60000,
+        second = (millisOfDay % 60000) / 1000,
+        millisecond = millisOfDay % 1000,
+    )
 
     val offset: Long
         get() = timeZone.offsetAt(instant).totalSeconds * 1000L
@@ -144,6 +135,31 @@ class DateTime {
     fun withSecondOfMinute(secondOfMinute: Int): DateTime = with(second = secondOfMinute)
 
     fun withMillisOfSecond(millisOfSecond: Int): DateTime = with(millisecond = millisOfSecond)
+
+    private fun atTimeOnThisDay(
+        hour: Int,
+        minute: Int,
+        second: Int,
+        millisecond: Int = this.millisOfSecond,
+    ): DateTime {
+        val candidate = with(
+            hour = hour,
+            minute = minute,
+            second = second,
+            millisecond = millisecond,
+        )
+        if (candidate.isSameDayAs(this)) {
+            return candidate
+        }
+        val lastMillis = lastMillisOfDay()
+        return if (lastMillis.isSameDayAs(this)) lastMillis else candidate
+    }
+
+    private fun isSameDayAs(other: DateTime): Boolean =
+        year == other.year && monthOfYear == other.monthOfYear && dayOfMonth == other.dayOfMonth
+
+    private fun lastMillisOfDay(): DateTime =
+        DateTime(startOfDay().plusDays(1).startOfDay().millis - 1, timeZone)
 
     fun plusMonths(interval: Int): DateTime = plusDateUnits(interval, DateTimeUnit.MONTH)
 
