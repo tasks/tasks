@@ -6,9 +6,10 @@
 package com.todoroo.astrid.api
 
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.ONE_DAY
 import org.tasks.time.endOfDay
+import org.tasks.time.minusDays
 import org.tasks.time.noon
+import org.tasks.time.plusDays
 
 /**
  * PermaSql allows for creating SQL statements that can be saved and used later without dates
@@ -115,24 +116,24 @@ object PermaSql {
         dateTime: Long = currentTimeMillis().endOfDay()
     ): String {
         var value = value
-        value = value.replace(VALUE_EOD_YESTERDAY, (dateTime - ONE_DAY).toString())
+        value = value.replace(VALUE_EOD_YESTERDAY, dateTime.minusDays(1).toString())
         value = value.replace(VALUE_EOD, dateTime.toString())
-        value = value.replace(VALUE_EOD_TOMORROW, (dateTime + ONE_DAY).toString())
-        value = value.replace(VALUE_EOD_DAY_AFTER, (dateTime + 2 * ONE_DAY).toString())
-        value = value.replace(VALUE_EOD_NEXT_WEEK, (dateTime + 7 * ONE_DAY).toString())
-        value = value.replace(VALUE_EOD_NEXT_MONTH, (dateTime + 30 * ONE_DAY).toString())
+        value = value.replace(VALUE_EOD_TOMORROW, dateTime.plusDays(1).toString())
+        value = value.replace(VALUE_EOD_DAY_AFTER, dateTime.plusDays(2).toString())
+        value = value.replace(VALUE_EOD_NEXT_WEEK, dateTime.plusDays(7).toString())
+        value = value.replace(VALUE_EOD_NEXT_MONTH, dateTime.plusDays(30).toString())
         return value
     }
 
     private fun replaceNoonValues(value: String): String {
         var value = value
         val time = currentTimeMillis().noon()
-        value = value.replace(VALUE_NOON_YESTERDAY, (time - ONE_DAY).toString())
+        value = value.replace(VALUE_NOON_YESTERDAY, time.minusDays(1).toString())
         value = value.replace(VALUE_NOON, time.toString())
-        value = value.replace(VALUE_NOON_TOMORROW, (time + ONE_DAY).toString())
-        value = value.replace(VALUE_NOON_DAY_AFTER, (time + 2 * ONE_DAY).toString())
-        value = value.replace(VALUE_NOON_NEXT_WEEK, (time + 7 * ONE_DAY).toString())
-        value = value.replace(VALUE_NOON_NEXT_MONTH, (time + 30 * ONE_DAY).toString())
+        value = value.replace(VALUE_NOON_TOMORROW, time.plusDays(1).toString())
+        value = value.replace(VALUE_NOON_DAY_AFTER, time.plusDays(2).toString())
+        value = value.replace(VALUE_NOON_NEXT_WEEK, time.plusDays(7).toString())
+        value = value.replace(VALUE_NOON_NEXT_MONTH, time.plusDays(30).toString())
         return value
     }
 }

@@ -8,6 +8,7 @@ import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
 import org.tasks.time.ONE_WEEK
 import org.tasks.time.dueDateOverdue
+import org.tasks.time.plusDays
 import org.tasks.time.startOfDay
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
@@ -63,10 +64,10 @@ fun createDueDate(setting: Int, customDate: Long): Long {
     val date: Long = when (setting) {
         Task.URGENCY_NONE -> 0
         Task.URGENCY_TODAY -> currentTimeMillis()
-        Task.URGENCY_TOMORROW -> currentTimeMillis() + ONE_DAY
-        Task.URGENCY_DAY_AFTER -> currentTimeMillis() + 2 * ONE_DAY
-        Task.URGENCY_NEXT_WEEK -> currentTimeMillis() + ONE_WEEK
-        Task.URGENCY_IN_TWO_WEEKS -> currentTimeMillis() + 2 * ONE_WEEK
+        Task.URGENCY_TOMORROW -> currentTimeMillis().plusDays(1)
+        Task.URGENCY_DAY_AFTER -> currentTimeMillis().plusDays(2)
+        Task.URGENCY_NEXT_WEEK -> currentTimeMillis().plusDays(7)
+        Task.URGENCY_IN_TWO_WEEKS -> currentTimeMillis().plusDays(14)
         Task.URGENCY_SPECIFIC_DAY, Task.URGENCY_SPECIFIC_DAY_TIME -> customDate
         else -> throw IllegalArgumentException("Unknown setting $setting")
     }
