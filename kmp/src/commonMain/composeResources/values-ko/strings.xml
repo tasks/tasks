@@ -703,4 +703,24 @@
     <string name="change_plan_message">오늘부터 %1$s 구독으로 변경됩니다. 현재 구독에서 남은 차액은 계좌에 입금되거나 이번 청구에 적용됩니다.</string>
     <string name="upgrade_blurb_1">안녕하세요! Tasks.org의 1인 개발자 알렉스입니다</string>
     <string name="upgrade_blurb_2">저는 Tasks.org 개발에 엄청나게 많은 시간을 쏟고 있으며, 모든 소스코드를 웹에 무상으로 공개하고 있습니다. 저의 작업을 후원하기 위해 일부 기능은 구독이 필요합니다</string>
+    <string name="pricing_current_subscription">현재 구독</string>
+    <string name="pricing_subscribed">구독함</string>
+    <string name="pricing_cloud_feature_1_v2">Android, iOS, 데스크톱 간 즉시 동기화</string>
+    <string name="pricing_nyp_feature_all_platforms">Android, iOS, 데스크톱의 Tasks.org 기능 잠금 해제</string>
+    <string name="pricing_nyp_feature_desktop_and_ios">데스크톱, iOS의 Tasks.org 기능 잠금 해제</string>
+    <string name="pricing_feature_trial">신규 구독자를 위한 7일 무료 체험</string>
+    <string name="microsoft_tasks_permission_not_granted">Microsoft To Do 권한이 부여되지 않았습니다. 다시 로그인한 뒤 동의 화면에서 Microsoft To Do 접근 권한을 부여해 주세요.</string>
+    <string name="cloud_onboarding_sign_in_body">로그인하여 Tasks.org 클라우드 계정 생성</string>
+    <string name="pricing_nyp_feature_third_party_sync">Google 태스크, Microsoft To Do, CalDAV, EteSync와 동기화</string>
+    <string name="pricing_nyp_feature_no_donation_reminders">후원 독려 알림 비활성화</string>
+    <string name="pricing_upgrade_to">%1$s 요금제로 업그레이드</string>
+    <string name="pricing_change_to">%1$s 요금제로 변경</string>
+    <string name="pricing_custom">맞춤</string>
+    <string name="tasks_org_signed_in_as">다른 계정으로 로그인했습니다. Tasks.org에 다시 연결하려면 %1$s 계정으로 로그인하세요.</string>
+    <string name="tasks_org_signed_in_as_another_account">다른 계정으로 로그인했습니다. Tasks.org에 다시 연결하려면 이전에 사용했던 계정으로 로그인하세요.</string>
+    <string name="works_with_xandikos_description">Git 기반 CalDAV 서버</string>
+    <string name="subscription_active_google_play">이미 활성화된 Google Play 구독이 있습니다.</string>
+    <string name="subscription_active_github">이미 활성화된 GitHub 후원이 있습니다.</string>
+    <string name="subscription_active_card">이미 활성화된 카드 결제 구독이 있습니다.</string>
+    <string name="subscription_active_elsewhere">이미 어딘가에서 활성화된 구독이 있습니다.</string>
 </resources>
