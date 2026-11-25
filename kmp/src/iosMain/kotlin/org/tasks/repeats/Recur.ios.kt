@@ -68,10 +68,15 @@ actual fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime? =
                 val next = icalrecur_iterator_next(iterator)
                 if (icaltime_is_null_time(next)) return@withRecur null
                 val candidate = next.useContents {
+                    val dayStart = DateTime(year, month, day, timeZone = start.timeZone)
                     if (hasTime) {
-                        DateTime(year, month, day, start.hourOfDay, start.minuteOfHour, start.secondOfMinute, timeZone = start.timeZone)
+                        dayStart.withTimeOfDay(
+                            start.hourOfDay,
+                            start.minuteOfHour,
+                            start.secondOfMinute,
+                        )
                     } else {
-                        DateTime(year, month, day, timeZone = start.timeZone)
+                        dayStart
                     }
                 }
                 if (untilMillis != null && candidate.millis > untilMillis) return@withRecur null

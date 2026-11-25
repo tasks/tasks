@@ -136,6 +136,16 @@ class DateTime {
 
     fun withMillisOfSecond(millisOfSecond: Int): DateTime = with(millisecond = millisOfSecond)
 
+    fun withTimeOfDay(
+        hourOfDay: Int,
+        minuteOfHour: Int,
+        secondOfMinute: Int = this.secondOfMinute,
+    ): DateTime = atTimeOnThisDay(
+        hour = hourOfDay,
+        minute = minuteOfHour,
+        second = secondOfMinute,
+    )
+
     private fun atTimeOnThisDay(
         hour: Int,
         minute: Int,

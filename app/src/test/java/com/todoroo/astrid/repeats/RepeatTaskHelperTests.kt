@@ -6,6 +6,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.tasks.Freeze.Companion.freezeAt
+import org.tasks.TestUtilities.withTZ
 import org.tasks.makers.TaskMaker.COMPLETION_TIME
 import org.tasks.repeats.RecurrenceUtils.newRecur
 import org.tasks.time.DateTime
@@ -80,5 +81,42 @@ class RepeatTaskHelperTests : RepeatTests() {
         }
 
         assertEquals(newDay(2021, 2, 2), next)
+    }
+
+    @Test
+    fun dueTimeThatDoesNotExistMovesForwardAndStaysThere() {
+        withTZ("America/Chicago") {
+            // 2024-03-10 02:00 -> 03:00 does not exist in Chicago
+            val task = newFromDue("FREQ=DAILY", newDayTime(2024, 3, 9, 2, 30))
+
+            assertEquals(newDayTime(2024, 3, 10, 3, 30), calculateNextDueDate(task))
+            assertEquals(newDayTime(2024, 3, 11, 3, 30), calculateNextDueDate(task))
+        }
+    }
+
+    @Test
+    fun keepTheDueDayWhenTheNextOccurrenceLandsOnAnEveningThatDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            val task = newFromDue("FREQ=DAILY;INTERVAL=1", newDayTime(2025, 3, 28, 23, 30))
+
+            assertEquals(newDayTime(2025, 3, 29, 22, 59), calculateNextDueDate(task))
+            assertEquals(newDayTime(2025, 3, 30, 22, 59), calculateNextDueDate(task))
+        }
+    }
+
+    @Test
+    fun keepTheStartDayWhenRepeatingAfterCompletionIntoAnEveningThatDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            val task = newFromDue(
+                "FREQ=DAILY;INTERVAL=1",
+                newDayTime(2025, 3, 20, 23, 30),
+                with(COMPLETION_TIME, DateTime(2025, 3, 29, 10, 0)),
+                afterComplete = true,
+            )
+
+            assertEquals(newDayTime(2025, 3, 30, 22, 59), calculateNextDueDate(task))
+        }
     }
 }
