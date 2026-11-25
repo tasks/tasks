@@ -717,4 +717,7 @@
     <string name="pricing_feature_trial">新订阅者 7 天免费试用</string>
     <string name="cloud_onboarding_sign_in_body">登录以创建您的 Tasks.org Cloud 账户</string>
     <string name="works_with_xandikos_description">基于 Git 的 CalDAV 服务器</string>
+    <string name="tasks_org_signed_in_as">您用了不同的账户登录。以 %1$s 身份登录来重新连接 Tasks.org。</string>
+    <string name="tasks_org_signed_in_as_another_account">您用了不同的账户登录。用您之前使用的账户登录来重新连接 Tasks.org。</string>
+    <string name="microsoft_tasks_permission_not_granted">未授予 Microsoft To Do 权限。 请再次登录并在授权屏幕上授予 Mictosoft To Do 权限。</string>
 </resources>
