@@ -744,4 +744,7 @@
     <string name="pricing_feature_trial">Essai gratuit de 7 jours pour les nouveaux abonnés</string>
     <string name="cloud_onboarding_sign_in_body">Connectez-vous pour créer votre compte cloud Tasks.org</string>
     <string name="pricing_subscribed">Abonné</string>
+    <string name="tasks_org_signed_in_as">Vous vous êtes connecté(e) avec un autre compte. Connectez-vous avec %1$s pour vous reconnecter à Tasks.org.</string>
+    <string name="tasks_org_signed_in_as_another_account">Vous vous êtes connecté(e) avec un autre compte. Connectez-vous avec le compte que vous utilisiez auparavant pour vous reconnecter à Tasks.org.</string>
+    <string name="microsoft_tasks_permission_not_granted">L\'autorisation pour Microsoft To Do n\'a pas été accordée. Veuillez vous reconnecter et autoriser l\'accès à Microsoft To Do sur l\'écran de consentement.</string>
 </resources>
