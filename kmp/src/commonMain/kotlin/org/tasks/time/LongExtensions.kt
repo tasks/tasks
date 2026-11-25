@@ -8,6 +8,7 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.atTime
+import kotlinx.datetime.daysUntil
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
@@ -99,27 +100,33 @@ fun Long.withMillisOfDay(millisOfDay: Int): Long =
         0
     }
 
-fun Long.plusDays(days: Int): Long =
-    if (this > 0) {
-        with (toLocalDateTime()) {
-            date
-                .plus(days, DateTimeUnit.DAY)
-                .atTimeOnThisDate(time)
-        }
+fun Long.plusDays(days: Int): Long = when {
+    this <= 0 -> 0
+    days == 0 -> this
+    else -> with (toLocalDateTime()) {
+        date
+            .plus(days, DateTimeUnit.DAY)
+            .atTimeOnThisDate(time)
+    }
+}
+
+fun Long.daysUntil(other: Long): Int =
+    if (this > 0 && other > 0) {
+        toLocalDateTime().date.daysUntil(other.toLocalDateTime().date)
     } else {
         0
     }
 
-fun Long.minusDays(days: Int): Long =
-    if (this > 0) {
-        with (toLocalDateTime()) {
-            date
-                .minus(days, DateTimeUnit.DAY)
-                .atTimeOnThisDate(time)
-        }
+fun Long.minusDays(days: Int): Long = plusDays(-days)
+
+fun Long.shiftFollowingDueDate(oldDueDate: Long, newDueDate: Long): Long {
+    val days = oldDueDate.daysUntil(newDueDate)
+    return if (days != 0 && oldDueDate.millisOfDay == newDueDate.millisOfDay) {
+        plusDays(days)
     } else {
-        0
+        this + newDueDate - oldDueDate
     }
+}
 
 fun Long.minusMinutes(minutes: Int): Long = minus(minutes, DateTimeUnit.MINUTE)
 

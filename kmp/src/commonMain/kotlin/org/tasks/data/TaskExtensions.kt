@@ -5,10 +5,12 @@ import org.tasks.date.DateTimeUtils
 import org.tasks.date.DateTimeUtils.toDateTime
 import org.tasks.repeats.Recur
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
-import org.tasks.time.ONE_DAY
-import org.tasks.time.ONE_WEEK
+import org.tasks.time.daysUntil
 import org.tasks.time.dueDateOverdue
+import org.tasks.time.endOfDay
+import org.tasks.time.minusDays
 import org.tasks.time.plusDays
+import org.tasks.time.shiftFollowingDueDate
 import org.tasks.time.startOfDay
 
 /** Checks whether task is hidden. Requires HIDDEN_UNTIL  */
@@ -25,8 +27,8 @@ fun Task.createHideUntil(setting: Int, customDate: Long): Long {
     val date: Long = when (setting) {
         Task.HIDE_UNTIL_NONE -> return 0
         Task.HIDE_UNTIL_DUE, Task.HIDE_UNTIL_DUE_TIME -> dueDate
-        Task.HIDE_UNTIL_DAY_BEFORE -> dueDate - ONE_DAY
-        Task.HIDE_UNTIL_WEEK_BEFORE -> dueDate - ONE_WEEK
+        Task.HIDE_UNTIL_DAY_BEFORE -> dueDate.minusDays(1)
+        Task.HIDE_UNTIL_WEEK_BEFORE -> dueDate.minusDays(7)
         Task.HIDE_UNTIL_SPECIFIC_DAY, Task.HIDE_UNTIL_SPECIFIC_DAY_TIME -> customDate
         else -> throw IllegalArgumentException("Unknown setting $setting")
     }
@@ -40,6 +42,30 @@ fun Task.createHideUntil(setting: Int, customDate: Long): Long {
     } else {
         date.startOfDay()
     }
+}
+
+fun Task.setDueDateAdjustingHideUntil(newDueDate: Long, shiftWithinDay: Boolean = false) {
+    if (dueDate > 0 && hideUntil > 0) {
+        hideUntil = when {
+            newDueDate <= 0 -> 0
+            hideUntil == dueDate -> newDueDate
+            else -> {
+                val shifted = if (shiftWithinDay) {
+                    hideUntil.shiftFollowingDueDate(dueDate, newDueDate)
+                } else {
+                    hideUntil.plusDays(dueDate.daysUntil(newDueDate))
+                }
+                val startDate = if (hasStartTime()) shifted else shifted.startOfDay()
+                val latestStartDate = if (Task.hasDueTime(newDueDate)) {
+                    newDueDate
+                } else {
+                    newDueDate.endOfDay()
+                }
+                if (hideUntil < dueDate) startDate.coerceAtMost(latestStartDate) else startDate
+            }
+        }
+    }
+    dueDate = newDueDate
 }
 
 val Task.isOverdue: Boolean

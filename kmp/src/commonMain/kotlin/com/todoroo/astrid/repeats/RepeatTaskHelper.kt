@@ -14,6 +14,7 @@ import org.tasks.data.entity.Alarm
 import org.tasks.data.entity.Alarm.Companion.TYPE_SNOOZE
 import org.tasks.data.entity.Task
 import org.tasks.data.entity.Task.RepeatFrom
+import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.data.setRecurrence
 import org.tasks.date.DateTimeUtils.newDateTime
 import org.tasks.repeats.ByDay
@@ -27,6 +28,7 @@ import org.tasks.time.ONE_HOUR
 import org.tasks.time.ONE_MINUTE
 import org.tasks.time.ONE_SECOND
 import org.tasks.time.ONE_WEEK
+import org.tasks.time.shiftFollowingDueDate
 
 private const val TAG = "RepeatTaskHelper"
 
@@ -69,7 +71,10 @@ class RepeatTaskHelper(
         task.reminderDismissed = 0L
         task.completionDate = 0L
         val oldDueDate = task.dueDate
-        task.setDueDateAdjustingHideUntil(newDueDate)
+        task.setDueDateAdjustingHideUntil(
+            newDueDate,
+            shiftWithinDay = rrule.frequency in SUBDAY_FREQUENCIES,
+        )
         calendarHelper.rescheduleRepeatingTask(task)
         taskSaver.save(task, original)
         val previousDueDate = oldDueDate.takeIf { it > 0 } ?: computePreviousDueDate(task)
@@ -94,7 +99,8 @@ class RepeatTaskHelper(
                     oldDueDate
                 } else {
                     newDueDate - (computeNextDueDate(task, task.recurrence!!, false) - newDueDate)
-                }
+                },
+                shiftWithinDay = recur.frequency in SUBDAY_FREQUENCIES,
             )
             rescheduleAlarms(task.id, newDueDate, task.dueDate)
         } catch (e: IllegalArgumentException) {
@@ -111,7 +117,7 @@ class RepeatTaskHelper(
             .filter { it.type != TYPE_SNOOZE }
             .map {
                 if (it.type == Alarm.TYPE_DATE_TIME) {
-                    it.copy(time = it.time + newDueDate - oldDueDate)
+                    it.copy(time = it.time.shiftFollowingDueDate(oldDueDate, newDueDate))
                 } else {
                     it
                 }

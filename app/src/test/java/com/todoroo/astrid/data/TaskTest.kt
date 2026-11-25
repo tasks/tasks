@@ -10,12 +10,15 @@ import org.tasks.Freeze
 import org.tasks.Freeze.Companion.freezeAt
 import org.tasks.TestUtilities.withTZ
 import org.tasks.data.createDueDate
+import org.tasks.data.createHideUntil
 import org.tasks.data.entity.Task
 import org.tasks.data.isHidden
 import org.tasks.data.isOverdue
+import org.tasks.data.setDueDateAdjustingHideUntil
 import org.tasks.date.DateTimeUtils
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
+import org.tasks.time.ONE_HOUR
 import java.util.TreeSet
 
 class TaskTest {
@@ -233,6 +236,386 @@ class TaskTest {
         val task = Task()
         task.deletionDate = 1L
         assertTrue(task.isDeleted)
+    }
+
+    @Test
+    fun allDayStartDateStaysAtMidnightWhenDueDateMoves() {
+        val task = allDayTaskStartingDayBefore()
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 20, 0, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 0, 0).millis, task.hideUntil)
+        assertFalse(task.hasStartTime())
+    }
+
+    @Test
+    fun allDayStartDateStaysPutWhenMorningDueTimeIsAdded() {
+        val task = allDayTaskStartingDayBefore()
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 19, 9, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 18, 0, 0).millis, task.hideUntil)
+        assertFalse(task.hasStartTime())
+    }
+
+    @Test
+    fun allDayStartDateStaysAtMidnightWhenDueTimeIsAdded() {
+        val task = allDayTaskStartingDayBefore()
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 19, 15, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 18, 0, 0).millis, task.hideUntil)
+        assertFalse(task.hasStartTime())
+    }
+
+    @Test
+    fun allDayStartDateStaysAtMidnightWhenDueDateGetsTime() {
+        val task = allDayTaskStartingDayBefore()
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 20, 15, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 0, 0).millis, task.hideUntil)
+        assertFalse(task.hasStartTime())
+    }
+
+    @Test
+    fun allDayStartDateStaysAtMidnightWhenDueDateIsRenormalized() {
+        val task = Task(dueDate = DateTime(2023, 7, 19, 0, 0).millis)
+        task.hideUntil = DateTime(2023, 7, 18, 0, 0).millis
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 19, 0, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 18, 0, 0).millis, task.hideUntil)
+        assertFalse(task.hasStartTime())
+    }
+
+    @Test
+    fun keepStartTimeWhenDueDateMoves() {
+        val task = Task(
+            dueDate = createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 19, 0, 0).millis)
+        )
+        task.hideUntil = task.createHideUntil(
+            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+            DateTime(2023, 7, 18, 9, 0).millis
+        )
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 20, 0, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 9, 0, 1).millis, task.hideUntil)
+        assertTrue(task.hasStartTime())
+    }
+
+    @Test
+    fun keepStartTimeWhenDueTimeIsCleared() {
+        val task = Task(
+            dueDate = createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                DateTime(2023, 7, 19, 15, 0).millis
+            )
+        )
+        task.hideUntil = task.createHideUntil(
+            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+            DateTime(2023, 7, 18, 9, 0).millis
+        )
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 19, 0, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 18, 9, 0, 1).millis, task.hideUntil)
+        assertTrue(task.hasStartTime())
+    }
+
+    @Test
+    fun keepStartTimeWhenDueDateMovesAcrossDaylightSavings() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 3, 11, 9, 0).millis
+                )
+            )
+            task.hideUntil = task.createHideUntil(
+                Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+                DateTime(2023, 3, 10, 9, 0).millis
+            )
+            task.setDueDateAdjustingHideUntil(
+                createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 3, 12, 9, 0).millis
+                )
+            )
+            assertEquals(DateTime(2023, 3, 11, 9, 0, 1).millis, task.hideUntil)
+            assertTrue(task.hasStartTime())
+        }
+    }
+
+    @Test
+    fun keepAllDayStartDateWhenDueDateMovesAcrossDaylightSavings() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY,
+                    DateTime(2023, 3, 11, 0, 0).millis
+                )
+            ).apply {
+                hideUntil = createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            }
+            task.setDueDateAdjustingHideUntil(
+                createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 3, 12, 0, 0).millis)
+            )
+            assertEquals(DateTime(2023, 3, 11, 0, 0).millis, task.hideUntil)
+            assertFalse(task.hasStartTime())
+        }
+    }
+
+    @Test
+    fun dayBeforeStartDateDoesNotSkipADayAcrossDaylightSavings() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 3, 13, 0, 30).millis
+                )
+            )
+            assertEquals(
+                DateTime(2023, 3, 12, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun weekBeforeStartDateDoesNotSkipADayAcrossDaylightSavings() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 3, 13, 0, 30).millis
+                )
+            )
+            assertEquals(
+                DateTime(2023, 3, 6, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_WEEK_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun startDateFollowsDueTimeWhenHidingUntilDueTime() {
+        val task = taskHidingUntilDueTime(DateTime(2023, 7, 19, 9, 0))
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 19, 15, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 15, 0, 1).millis, task.hideUntil)
+        assertEquals(task.dueDate, task.hideUntil)
+    }
+
+    @Test
+    fun startDateFollowsDueTimeWhenHidingUntilDueTimeOnAnotherDay() {
+        val task = taskHidingUntilDueTime(DateTime(2023, 7, 19, 9, 0))
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 20, 15, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 20, 15, 0, 1).millis, task.hideUntil)
+        assertEquals(task.dueDate, task.hideUntil)
+    }
+
+    @Test
+    fun keepStartTimeWhenDueTimeChangesOnSameDay() {
+        val task = Task(
+            dueDate = createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                DateTime(2023, 7, 19, 9, 0).millis
+            )
+        )
+        task.hideUntil = task.createHideUntil(
+            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+            DateTime(2023, 7, 18, 8, 0).millis
+        )
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 19, 15, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 18, 8, 0, 1).millis, task.hideUntil)
+        assertTrue(task.hasStartTime())
+    }
+
+    @Test
+    fun startDateDoesNotPassDueDateWhenDueTimeMovesEarlier() {
+        val task = Task(
+            dueDate = createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                DateTime(2023, 7, 19, 23, 30).millis
+            )
+        )
+        task.hideUntil = task.createHideUntil(
+            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+            DateTime(2023, 7, 19, 5, 26).millis
+        )
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 7, 19, 1, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 1, 0, 1).millis, task.hideUntil)
+        assertEquals(task.dueDate, task.hideUntil)
+    }
+
+    @Test
+    fun dayBeforeStartDateStaysOnTheDayBeforeAcrossFallBack() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 11, 5, 23, 44).millis
+                )
+            )
+            assertEquals(
+                DateTime(2023, 11, 4, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun weekBeforeStartDateDoesNotSkipADayAcrossFallBack() {
+        withTZ("America/Chicago") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 11, 6, 23, 59).millis
+                )
+            )
+            assertEquals(
+                DateTime(2023, 10, 30, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_WEEK_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun startDateUsesTheFirstValidTimeWhenMidnightDoesNotExist() {
+        withTZ("America/Santiago") {
+            // 2024-09-08 00:00 -> 01:00 does not exist in Santiago
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY,
+                    DateTime(2024, 9, 9, 0, 0).millis
+                )
+            )
+            assertEquals(
+                DateTime(2024, 9, 8, 1, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun dayBeforeStartDateStaysOnTheDayBeforeWhenLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2025, 3, 30, 23, 30).millis
+                )
+            )
+            assertEquals(
+                DateTime(2025, 3, 29, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun weekBeforeStartDateStaysAWeekBeforeWhenLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2025, 4, 5, 23, 30).millis
+                )
+            )
+            assertEquals(
+                DateTime(2025, 3, 29, 0, 0).millis,
+                task.createHideUntil(Task.HIDE_UNTIL_WEEK_BEFORE, 0)
+            )
+        }
+    }
+
+    @Test
+    fun startDateStaysOnTheDayBeforeWhenLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2025, 3, 28, 23, 30).millis
+                )
+            )
+            task.hideUntil = task.createHideUntil(
+                Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+                DateTime(2025, 3, 27, 23, 30).millis
+            )
+
+            task.setDueDateAdjustingHideUntil(
+                createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2025, 3, 29, 23, 30).millis
+                )
+            )
+
+            assertEquals(DateTime(2025, 3, 30, 0, 0).millis - 1, task.hideUntil)
+            assertTrue(task.hasStartTime())
+            assertTrue(task.hideUntil < task.dueDate)
+        }
+    }
+
+    @Test
+    fun keepStartTimeWhenDueTimeIsClearedOnTheSameDay() {
+        val task = Task(
+            dueDate = createDueDate(
+                Task.URGENCY_SPECIFIC_DAY_TIME,
+                DateTime(2023, 7, 19, 15, 52).millis
+            )
+        )
+        task.hideUntil = task.createHideUntil(
+            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME,
+            DateTime(2023, 7, 19, 15, 6).millis
+        )
+        task.setDueDateAdjustingHideUntil(
+            createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 19, 0, 0).millis)
+        )
+        assertEquals(DateTime(2023, 7, 19, 15, 6, 1).millis, task.hideUntil)
+        assertTrue(task.hasStartTime())
+    }
+
+    @Test
+    fun keepStartTimeInTheRepeatedHourWhenDueTimeChangesOnTheSameDay() {
+        withTZ("America/Chicago") {
+            // 2023-11-05 01:00 -> 02:00 happens twice in Chicago
+            val startInRepeatedHour = DateTime(2023, 11, 5, 1, 0, 1).millis + ONE_HOUR
+            val task = Task(
+                dueDate = createDueDate(
+                    Task.URGENCY_SPECIFIC_DAY_TIME,
+                    DateTime(2023, 11, 5, 9, 0).millis
+                )
+            ).apply { hideUntil = startInRepeatedHour }
+
+            task.setDueDateAdjustingHideUntil(
+                createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, DateTime(2023, 11, 5, 15, 0).millis)
+            )
+
+            assertEquals(startInRepeatedHour, task.hideUntil)
+            assertTrue(task.hasStartTime())
+        }
+    }
+
+    private fun taskHidingUntilDueTime(due: DateTime) = Task(
+        dueDate = createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, due.millis)
+    ).apply {
+        hideUntil = createHideUntil(Task.HIDE_UNTIL_DUE_TIME, 0)
+    }
+
+    private fun allDayTaskStartingDayBefore() = Task(
+        dueDate = createDueDate(Task.URGENCY_SPECIFIC_DAY, DateTime(2023, 7, 19, 0, 0).millis)
+    ).apply {
+        hideUntil = createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0)
     }
 
     @Test

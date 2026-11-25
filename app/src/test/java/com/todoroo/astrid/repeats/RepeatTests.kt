@@ -18,7 +18,7 @@ import org.tasks.makers.TaskMaker
 import org.tasks.time.DateTime
 
 abstract class RepeatTests {
-    private val alarmService = mock(AlarmService::class.java)
+    protected val alarmService = mock(AlarmService::class.java)
     private val helper = RepeatTaskHelper(
             mock(GCalHelper::class.java),
             alarmService,
@@ -52,6 +52,10 @@ abstract class RepeatTests {
     protected fun calculateNextDueDate(task: Task): DateTime = runBlocking {
         helper.handleRepeat(task)
         DateTime(task.dueDate)
+    }
+
+    protected fun undoRepeat(task: Task, oldDueDate: Long) = runBlocking {
+        helper.undoRepeat(task, oldDueDate)
     }
 
     protected fun newFromDue(

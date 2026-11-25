@@ -16,6 +16,26 @@ class LongExtensionsJvmTest {
     }
 
     @Test
+    fun twentyThreeHourDayIsStillOneDay() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                1,
+                DateTime(2023, 3, 11, 9, 0).millis.daysUntil(DateTime(2023, 3, 12, 9, 0).millis)
+            )
+        }
+    }
+
+    @Test
+    fun twentyFiveHourDayIsStillOneDay() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                1,
+                DateTime(2023, 11, 4, 9, 0).millis.daysUntil(DateTime(2023, 11, 5, 9, 0).millis)
+            )
+        }
+    }
+
+    @Test
     fun plusDaysKeepsTheClockTimeAcrossSpringForward() {
         withTZ("America/Chicago") {
             assertEquals(
@@ -136,6 +156,86 @@ class LongExtensionsJvmTest {
                 DateTime(2025, 10, 29, 23, 59, 59).millis,
                 DateTime(2025, 10, 29, 12, 0).millis.endOfDay()
             )
+        }
+    }
+
+    @Test
+    fun plusZeroDaysKeepsTheInstantInsideTheRepeatedHour() {
+        withTZ("America/Chicago") {
+            // 2023-11-05 01:00 -> 02:00 happens twice in Chicago
+            val secondOneAm = DateTime(2023, 11, 5, 1, 0).millis + ONE_HOUR
+            assertEquals(secondOneAm, secondOneAm.plusDays(0))
+        }
+    }
+
+    @Test
+    fun minusZeroDaysKeepsTheInstantInsideTheRepeatedHour() {
+        withTZ("America/Chicago") {
+            val secondOneAm = DateTime(2023, 11, 5, 1, 0).millis + ONE_HOUR
+            assertEquals(secondOneAm, secondOneAm.minusDays(0))
+        }
+    }
+
+    @Test
+    fun shiftKeepsTheClockTimeWhenTheDueDateMovesWholeDays() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                DateTime(2023, 3, 11, 9, 0).millis,
+                DateTime(2023, 3, 10, 9, 0).millis.shiftFollowingDueDate(
+                    DateTime(2023, 3, 11, 9, 0).millis,
+                    DateTime(2023, 3, 12, 9, 0).millis,
+                )
+            )
+        }
+    }
+
+    @Test
+    fun shiftMovesByElapsedTimeWhenTheDueDateMovesWithinTheDay() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                DateTime(2023, 7, 19, 9, 55).millis,
+                DateTime(2023, 7, 19, 8, 55).millis.shiftFollowingDueDate(
+                    DateTime(2023, 7, 19, 9, 0).millis,
+                    DateTime(2023, 7, 19, 10, 0).millis,
+                )
+            )
+        }
+    }
+
+    @Test
+    fun shiftMovesByElapsedTimeWhenTheDueDateCrossesMidnight() {
+        withTZ("America/Chicago") {
+            assertEquals(
+                DateTime(2023, 7, 20, 0, 25).millis,
+                DateTime(2023, 7, 19, 23, 25).millis.shiftFollowingDueDate(
+                    DateTime(2023, 7, 19, 23, 30).millis,
+                    DateTime(2023, 7, 20, 0, 30).millis,
+                )
+            )
+        }
+    }
+
+    @Test
+    fun shiftAdvancesAnHourWhenTheDueDateMovesIntoTheRepeatedHour() {
+        withTZ("America/Chicago") {
+            val dueBeforeFallBack = DateTime(2023, 11, 5, 1, 30).millis
+            val dueAfterFallBack = dueBeforeFallBack + ONE_HOUR
+            val alarm = DateTime(2023, 11, 5, 1, 0).millis
+
+            assertEquals(
+                alarm + ONE_HOUR,
+                alarm.shiftFollowingDueDate(dueBeforeFallBack, dueAfterFallBack)
+            )
+        }
+    }
+
+    @Test
+    fun shiftLeavesAnAlarmInTheRepeatedHourAloneWhenTheDueDateDoesNotMove() {
+        withTZ("America/Chicago") {
+            val due = DateTime(2023, 11, 5, 1, 30).millis
+            val alarm = DateTime(2023, 11, 5, 1, 0).millis + ONE_HOUR
+
+            assertEquals(alarm, alarm.shiftFollowingDueDate(due, due))
         }
     }
 
