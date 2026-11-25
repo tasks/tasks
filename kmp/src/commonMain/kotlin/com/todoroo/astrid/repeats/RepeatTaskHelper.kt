@@ -234,10 +234,11 @@ class RepeatTaskHelper(
                 var startDate = if (task.isCompleted) newDateTime(task.completionDate) else newDateTime()
                 if (task.hasDueTime() && frequency !in SUBDAY_FREQUENCIES) {
                     val dueDate = newDateTime(task.dueDate)
-                    startDate = startDate
-                            .withHourOfDay(dueDate.hourOfDay)
-                            .withMinuteOfHour(dueDate.minuteOfHour)
-                            .withSecondOfMinute(dueDate.secondOfMinute)
+                    startDate = startDate.withTimeOfDay(
+                        dueDate.hourOfDay,
+                        dueDate.minuteOfHour,
+                        dueDate.secondOfMinute,
+                    )
                 }
                 startDate
             } else {

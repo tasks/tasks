@@ -48,8 +48,7 @@ class TaskerTaskCreator @Inject internal constructor(
                 task.dueDate = createDueDate(
                         Task.URGENCY_SPECIFIC_DAY_TIME,
                         DateTime(if (task.hasDueDate()) task.dueDate else currentTimeMillis())
-                                .withHourOfDay(dueTime.hour)
-                                .withMinuteOfHour(dueTime.minute)
+                                .withTimeOfDay(dueTime.hour, dueTime.minute)
                                 .millis)
             } catch (e: Exception) {
                 Timber.e(e)

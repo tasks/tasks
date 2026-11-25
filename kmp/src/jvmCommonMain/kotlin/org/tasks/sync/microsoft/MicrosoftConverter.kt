@@ -55,10 +55,11 @@ object MicrosoftConverter {
         remote.dueDateTime.toLong(0L).let {
             if (it > 0 && hasDueTime()) {
                 val oldDate = DateTimeUtils.newDateTime(dueDate)
-                val newDate = DateTimeUtils.newDateTime(it)
-                        .withHourOfDay(oldDate.hourOfDay)
-                        .withMinuteOfHour(oldDate.minuteOfHour)
-                        .withSecondOfMinute(oldDate.secondOfMinute)
+                val newDate = DateTimeUtils.newDateTime(it).withTimeOfDay(
+                        oldDate.hourOfDay,
+                        oldDate.minuteOfHour,
+                        oldDate.secondOfMinute,
+                )
                 setDueDateAdjustingHideUntil(
                         createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis)
                 )

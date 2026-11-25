@@ -24,7 +24,7 @@ actual fun Recur.nextOccurrence(start: DateTime, hasTime: Boolean): DateTime? {
     val next = toIcal4j().getNextDate(seed, seed) ?: return null
     return if (next is net.fortuna.ical4j.model.DateTime) {
         // time may be inaccurate due to DST, force time to be same
-        DateTime(next.time, start.timeZone).withHourOfDay(start.hourOfDay).withMinuteOfHour(start.minuteOfHour)
+        DateTime(next.time, start.timeZone).withTimeOfDay(start.hourOfDay, start.minuteOfHour)
     } else {
         val value = next.toString()
         DateTime(value.substring(0, 4).toInt(), value.substring(4, 6).toInt(), value.substring(6, 8).toInt(), timeZone = start.timeZone)

@@ -29,6 +29,40 @@ class DateTimeJvmTest {
     }
 
     @Test
+    fun withTimeOfDayKeepsATimeThatExists() {
+        withTZ("Pacific/Chatham") {
+            assertEquals(
+                DateTime(2019, 9, 29, 3, 50, 1).millis,
+                DateTime(2019, 9, 29, 12, 0).withTimeOfDay(3, 50, 1).millis
+            )
+        }
+    }
+
+    @Test
+    fun withTimeOfDayResolvesForwardWhenTheTimeDoesNotExist() {
+        withTZ("Pacific/Chatham") {
+            // 2019-09-29 02:45 -> 03:45 does not exist in Chatham
+            val resolved = DateTime(2019, 9, 29, 12, 0).withTimeOfDay(2, 50, 1)
+            assertEquals(DateTime(2019, 9, 29, 3, 50, 1).millis, resolved.millis)
+            assertEquals(
+                resolved.millis,
+                resolved.withTimeOfDay(resolved.hourOfDay, resolved.minuteOfHour, resolved.secondOfMinute).millis
+            )
+        }
+    }
+
+    @Test
+    fun withTimeOfDayStaysOnTheSameDayWhenTheLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            assertEquals(
+                DateTime(2025, 3, 30, 0, 0).millis - 1,
+                DateTime(2025, 3, 29, 12, 0).withTimeOfDay(23, 30, 1).millis
+            )
+        }
+    }
+
+    @Test
     fun withMillisOfDayStaysOnTheSameDayWhenTheLateEveningDoesNotExist() {
         withTZ("America/Nuuk") {
             // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk

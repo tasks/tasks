@@ -535,10 +535,11 @@ class GoogleTaskSynchronizer(
         fun mergeDates(remoteDueDate: Long, local: org.tasks.data.entity.Task) {
             if (remoteDueDate > 0 && local.hasDueTime()) {
                 val oldDate = newDateTime(local.dueDate)
-                val newDate = newDateTime(remoteDueDate)
-                    .withHourOfDay(oldDate.hourOfDay)
-                    .withMinuteOfHour(oldDate.minuteOfHour)
-                    .withSecondOfMinute(oldDate.secondOfMinute)
+                val newDate = newDateTime(remoteDueDate).withTimeOfDay(
+                    oldDate.hourOfDay,
+                    oldDate.minuteOfHour,
+                    oldDate.secondOfMinute,
+                )
                 local.setDueDateAdjustingHideUntil(
                     createDueDate(org.tasks.data.entity.Task.URGENCY_SPECIFIC_DAY_TIME, newDate.millis))
             } else {
