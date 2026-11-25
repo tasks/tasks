@@ -14,6 +14,8 @@ import java.time.LocalDateTime
 import java.util.Date
 
 class DateTimeJvmTest {
+    private val ELEVEN_THIRTY_PM = 23 * 3_600_000 + 30 * 60_000
+
     private val berlin = TimeZoneRegistryFactory.getInstance().createRegistry().getTimeZone("Europe/Berlin")
 
     private fun withTZ(id: String, block: () -> Unit) {
@@ -23,6 +25,69 @@ class DateTimeJvmTest {
             block()
         } finally {
             java.util.TimeZone.setDefault(default)
+        }
+    }
+
+    @Test
+    fun withMillisOfDayStaysOnTheSameDayWhenTheLateEveningDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            assertEquals(
+                DateTime(2025, 3, 30, 0, 0).millis - 1,
+                DateTime(2025, 3, 29, 12, 0).withMillisOfDay(ELEVEN_THIRTY_PM).millis
+            )
+        }
+    }
+
+    @Test
+    fun withMillisOfDayKeepsATimeThatExists() {
+        withTZ("America/Nuuk") {
+            assertEquals(
+                DateTime(2025, 3, 28, 23, 30).millis,
+                DateTime(2025, 3, 28, 12, 0).withMillisOfDay(ELEVEN_THIRTY_PM).millis
+            )
+        }
+    }
+
+    @Test
+    fun endOfDayStaysOnTheSameDayWhenTheLastSecondDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 24:00 does not exist in Nuuk
+            assertEquals(
+                DateTime(2025, 3, 30, 0, 0).millis - 1,
+                DateTime(2025, 3, 29, 12, 0).endOfDay().millis
+            )
+        }
+    }
+
+    @Test
+    fun endOfDayIsTheLastSecondOfAnOrdinaryDay() {
+        withTZ("America/Nuuk") {
+            assertEquals(
+                DateTime(2025, 3, 28, 23, 59, 59).millis,
+                DateTime(2025, 3, 28, 12, 0).endOfDay().millis
+            )
+        }
+    }
+
+    @Test
+    fun endOfDayIsTheLastInstantWhenTheClockGoesBackAtMidnight() {
+        withTZ("Africa/Cairo") {
+            // 2025-10-31 00:00 -> 2025-10-30 23:00, so 23:00-23:59 happens twice
+            assertEquals(
+                DateTime(2025, 10, 31, 0, 0).millis - 1,
+                DateTime(2025, 10, 30, 12, 0).endOfDay().millis
+            )
+        }
+    }
+
+    @Test
+    fun endOfDayIsTheLastSecondOfAnOrdinaryDayInAZoneThatEndsDstAtMidnight() {
+        withTZ("Africa/Cairo") {
+            assertEquals(
+                DateTime(2025, 10, 29, 23, 59, 59).millis,
+                DateTime(2025, 10, 29, 12, 0).endOfDay().millis
+            )
         }
     }
 

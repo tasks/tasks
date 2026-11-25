@@ -104,4 +104,105 @@ class PermaSqlTest {
             }
         }
     }
+
+    @Test
+    fun endOfDayIsTheLastInstantWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            // 2025-03-29 23:00 -> 2025-03-30 00:00, so 23:00-23:59 never happens
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    lastInstantOf(2025, 3, 29).toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayYesterdayEndsYesterdayWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 3, 28, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_YESTERDAY)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayTomorrowEndsTomorrowWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 3, 30, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_TOMORROW)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayDayAfterEndsTheDayAfterWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 3, 31, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_DAY_AFTER)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayNextWeekEndsThatDayWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 4, 5, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_NEXT_WEEK)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayNextMonthEndsThatDayWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 4, 28, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_NEXT_MONTH)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun endOfDayTomorrowEndsTomorrowWhenTodayEndsWithARepeatedHour() {
+        withTZ("Africa/Cairo") {
+            // 2025-10-31 00:00 -> 2025-10-30 23:00, so 23:00-23:59 happens twice
+            freezeAt(DateTime(2025, 10, 30, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 10, 31, 23, 59, 59).millis.toString(),
+                    PermaSql.replacePlaceholdersForQuery(PermaSql.VALUE_EOD_TOMORROW)
+                )
+            }
+        }
+    }
+
+    @Test
+    fun newTaskTomorrowIsStillNoonWhenTodaysLastHourDoesNotExist() {
+        withTZ("America/Nuuk") {
+            freezeAt(DateTime(2025, 3, 29, 12, 0)) {
+                assertEquals(
+                    DateTime(2025, 3, 30, 12, 0).millis.toString(),
+                    PermaSql.replacePlaceholdersForNewTask(PermaSql.VALUE_EOD_TOMORROW)
+                )
+            }
+        }
+    }
+
+    private fun lastInstantOf(year: Int, month: Int, day: Int) =
+        DateTime(year, month, day).plusDays(1).startOfDay().millis - 1
 }
