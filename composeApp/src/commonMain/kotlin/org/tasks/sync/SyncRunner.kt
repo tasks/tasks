@@ -11,6 +11,7 @@ import kotlinx.coroutines.sync.withLock
 import org.tasks.billing.SubscriptionProvider
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.entity.CaldavAccount
+import org.tasks.preferences.TasksPreferences
 
 private const val TAG = "SyncRunner"
 
@@ -18,6 +19,7 @@ class SyncRunner(
     private val scope: CoroutineScope,
     private val caldavDao: CaldavDao,
     private val subscriptionProvider: () -> SubscriptionProvider,
+    private val tasksPreferences: TasksPreferences,
     private val pass: suspend (SyncPass) -> Unit,
 ) {
     class SyncPass(
@@ -51,20 +53,28 @@ class SyncRunner(
     suspend fun syncNow(source: SyncSource) = mutex.withLock { runPass(source) }
 
     private suspend fun runPass(source: SyncSource) {
-        val subscriptionProvider = subscriptionProvider()
-        val accounts = caldavDao.getAccounts()
-        val hasTasksOrg = accounts.any { it.isTasksOrg }
-        if (!hasTasksOrg && !subscriptionProvider.awaitVerification()) {
-            Logger.e(TAG) { "Could not confirm subscription, syncing without pro" }
-        }
-        val hasPro = hasTasksOrg || subscriptionProvider.subscription.first() != null
-        Logger.d(TAG) { "sync source=$source accounts=${accounts.size} pro=$hasPro" }
-        pass(
-            SyncPass(
-                accounts = accounts,
-                hasPro = hasPro,
-                googleAndMicrosoftPro = hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro,
+        // Mirrors the legacy WorkManager path (SyncWork), so UIs observing
+        // TasksPreferences.syncSource (e.g. sync-ongoing indicators) work on
+        // every platform, not just Android.
+        tasksPreferences.set(TasksPreferences.syncSource, source.name)
+        try {
+            val subscriptionProvider = subscriptionProvider()
+            val accounts = caldavDao.getAccounts()
+            val hasTasksOrg = accounts.any { it.isTasksOrg }
+            if (!hasTasksOrg && !subscriptionProvider.awaitVerification()) {
+                Logger.e(TAG) { "Could not confirm subscription, syncing without pro" }
+            }
+            val hasPro = hasTasksOrg || subscriptionProvider.subscription.first() != null
+            Logger.d(TAG) { "sync source=$source accounts=${accounts.size} pro=$hasPro" }
+            pass(
+                SyncPass(
+                    accounts = accounts,
+                    hasPro = hasPro,
+                    googleAndMicrosoftPro = hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro,
+                )
             )
-        )
+        } finally {
+            tasksPreferences.set(TasksPreferences.syncSource, SyncSource.NONE.name)
+        }
     }
 }
