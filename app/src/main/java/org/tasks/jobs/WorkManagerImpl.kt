@@ -99,25 +99,33 @@ class WorkManagerImpl(
 
     @SuppressLint("EnqueueWork")
     override suspend fun sync(source: SyncSource) {
-        val immediate = source.immediate
-        val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
-                .setInputData(SyncWork.EXTRA_SOURCE to source.name)
-        if (!openTaskDao.shouldSync()) {
-            builder.setConstraints(networkConstraints)
+        throttle.run {
+            val jobs = workManager.getWorkInfosForUniqueWork(TAG_SYNC).get()
+            val running = jobs.any { it.state == WorkInfo.State.RUNNING }
+            val queued = jobs.any { it.state == WorkInfo.State.ENQUEUED || it.state == WorkInfo.State.BLOCKED }
+            if (running && source.showIndicator) {
+                tasksPreferences.upgradeOngoingSyncSource(source)
+            }
+            if (running && queued && source != SyncSource.USER_INITIATED) {
+                Timber.d("sync source=$source immediate=${source.immediate} showIndicator=${source.showIndicator} already queued, jobs=${jobs.map { it.state }}")
+                return@run
+            }
+            val immediate = source.immediate
+            val builder = OneTimeWorkRequest.Builder(SyncWork::class.java)
+                    .setInputData(SyncWork.EXTRA_SOURCE to source.name)
+            if (!openTaskDao.shouldSync()) {
+                builder.setConstraints(networkConstraints)
+            }
+            if (!immediate) {
+                builder.setInitialDelay(SYNC_CHANGE_DEBOUNCE_SECONDS, TimeUnit.SECONDS)
+            }
+            Timber.d("sync source=$source immediate=$immediate append=$running")
+            workManager
+                .beginUniqueWork(TAG_SYNC, if (running) APPEND_OR_REPLACE else REPLACE, builder.build())
+                .enqueue()
+                .result
+                .get()
         }
-        if (!immediate) {
-            builder.setInitialDelay(SYNC_CHANGE_DEBOUNCE_SECONDS, TimeUnit.SECONDS)
-        }
-        val append = getSyncJob().any { it.state == WorkInfo.State.RUNNING }
-        Timber.d("sync source=$source immediate=$immediate append=$append")
-        if (append && source.showIndicator) {
-            tasksPreferences.upgradeOngoingSyncSource(source)
-        }
-        enqueue(workManager.beginUniqueWork(
-                TAG_SYNC,
-                if (append) APPEND_OR_REPLACE else REPLACE,
-                builder.build())
-        )
     }
 
     override fun updateBackgroundSync() {

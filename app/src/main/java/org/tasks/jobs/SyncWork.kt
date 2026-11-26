@@ -97,6 +97,9 @@ class SyncWork @AssistedInject constructor(
     private val source: SyncSource
         get() = SyncSource.fromString(inputData.getString(EXTRA_SOURCE))
 
+    override val resultOnException: Result
+        get() = Result.success()
+
     private suspend fun setSyncSource(source: SyncSource) =
         tasksPreferences.set(TasksPreferences.syncSource, source.name)
 

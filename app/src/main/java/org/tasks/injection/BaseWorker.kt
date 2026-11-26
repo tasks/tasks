@@ -26,9 +26,12 @@ abstract class BaseWorker(
             }
         } catch (e: Exception) {
             firebase.reportException(e)
-            Result.failure()
+            resultOnException
         }
     }
+
+    protected open val resultOnException: Result
+        get() = Result.failure()
 
     protected abstract suspend fun run(): Result
 }
