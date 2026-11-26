@@ -29,8 +29,8 @@ class ShortcutConfigViewModel @Inject constructor(
             return
         }
         request = viewModelScope.launch {
-            val result = shortcutManager.createShortcut(shortcut, launcherRequest)
-            if (result is ShortcutResult.Created) {
+            val result = shortcutManager.createShortcut(shortcut, launcherRequest, SOURCE)
+            if (launcherRequest && result is ShortcutResult.Created) {
                 firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to SOURCE)
             }
             _results.send(result)

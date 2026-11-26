@@ -50,7 +50,7 @@ class ShortcutConfigViewModelTest {
         viewModel.save(shortcut, launcherRequest = false)
         viewModel.save(shortcut, launcherRequest = false)
 
-        verifyBlocking(shortcutManager, times(1)) { createShortcut(any(), any()) }
+        verifyBlocking(shortcutManager, times(1)) { createShortcut(any(), any(), any()) }
     }
 
     @Test
@@ -73,12 +73,12 @@ class ShortcutConfigViewModelTest {
     }
 
     @Test
-    fun anInAppRequestIsLoggedWhenCreated() {
+    fun anInAppRequestIsLeftForThePinnedCallbackToLog() {
         val viewModel = ShortcutConfigViewModel(shortcutManager { ShortcutResult.Created(null) }, firebase)
 
         viewModel.save(shortcut, launcherRequest = false)
 
-        verify(firebase).logEvent(R.string.event_create_shortcut, R.string.param_type to ShortcutConfigViewModel.SOURCE)
+        verify(firebase, never()).logEvent(any<Int>(), any())
     }
 
     @Test
@@ -91,6 +91,6 @@ class ShortcutConfigViewModelTest {
     }
 
     private fun shortcutManager(result: suspend () -> ShortcutResult) = mock<ShortcutManager> {
-        onBlocking { createShortcut(any(), any()) } doSuspendableAnswer { result() }
+        onBlocking { createShortcut(any(), any(), any()) } doSuspendableAnswer { result() }
     }
 }

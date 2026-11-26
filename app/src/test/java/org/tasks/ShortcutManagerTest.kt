@@ -1,5 +1,6 @@
 package org.tasks
 
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
@@ -22,6 +23,7 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.shadow.api.Shadow
 import org.tasks.ShortcutManager.ShortcutResult
+import org.tasks.widget.ShortcutPinnedReceiver
 
 @RunWith(RobolectricTestRunner::class)
 @Config(shadows = [ShortcutManagerTest.RecordingShortcutManager::class])
@@ -44,7 +46,7 @@ class ShortcutManagerTest {
     fun inAppRequestPinsOnAWorkerThread() = runBlocking {
         val callerThread = Thread.currentThread()
 
-        val result = ShortcutManager(context).createShortcut(shortcut, launcherRequest = false)
+        val result = ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE)
 
         assertEquals(ShortcutResult.Created(null), result)
         assertEquals("configured-list", shadow.pinnedId)
@@ -55,7 +57,7 @@ class ShortcutManagerTest {
     fun launcherRequestReturnsResultIntentWithoutPinning() = runBlocking {
         val callerThread = Thread.currentThread()
 
-        val result = ShortcutManager(context).createShortcut(shortcut, launcherRequest = true)
+        val result = ShortcutManager(context).createShortcut(shortcut, launcherRequest = true, source = SOURCE)
 
         assertNotNull((result as ShortcutResult.Created).resultIntent)
         assertEquals("configured-list", shadow.resultIntentId)
@@ -69,7 +71,7 @@ class ShortcutManagerTest {
 
         assertEquals(
             ShortcutResult.Failed,
-            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false),
+            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE),
         )
     }
 
@@ -79,7 +81,7 @@ class ShortcutManagerTest {
 
         assertEquals(
             ShortcutResult.Failed,
-            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false),
+            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE),
         )
     }
 
@@ -89,7 +91,7 @@ class ShortcutManagerTest {
 
         assertEquals(
             ShortcutResult.Failed,
-            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false),
+            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE),
         )
     }
 
@@ -98,8 +100,23 @@ class ShortcutManagerTest {
         shadow.pinError = CancellationException("cancelled")
 
         runBlocking {
-            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false)
+            ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE)
         }
+    }
+
+    @Test
+    fun inAppRequestReportsSuccessToThePinnedReceiver() = runBlocking {
+        ShortcutManager(context).createShortcut(shortcut, launcherRequest = false, source = SOURCE)
+
+        assertNotNull(shadow.pinCallback)
+        assertNotNull(
+            PendingIntent.getBroadcast(
+                context,
+                SOURCE.hashCode(),
+                Intent(context, ShortcutPinnedReceiver::class.java),
+                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_NO_CREATE,
+            )
+        )
     }
 
     @Implements(AndroidShortcutManager::class)
@@ -108,14 +125,15 @@ class ShortcutManagerTest {
         var pinError: Exception? = null
         var pinnedId: String? = null
         var pinThread: Thread? = null
+        var pinCallback: IntentSender? = null
         var resultIntentId: String? = null
         var resultIntentThread: Thread? = null
 
         @Implementation
-        @Suppress("UNUSED_PARAMETER")
         fun requestPinShortcut(shortcut: ShortcutInfo, resultIntent: IntentSender?): Boolean {
             pinError?.let { throw it }
             pinnedId = shortcut.id
+            pinCallback = resultIntent
             pinThread = Thread.currentThread()
             return pinAccepted
         }
@@ -126,5 +144,9 @@ class ShortcutManagerTest {
             resultIntentThread = Thread.currentThread()
             return Intent()
         }
+    }
+
+    companion object {
+        private const val SOURCE = "test_source"
     }
 }

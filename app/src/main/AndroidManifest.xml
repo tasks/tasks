@@ -367,6 +367,10 @@
       </intent-filter>
     </receiver>
 
+    <receiver
+        android:name=".widget.ShortcutPinnedReceiver"
+        android:exported="false" />
+
     <!-- ======================================================== Services = -->
 
     <service
