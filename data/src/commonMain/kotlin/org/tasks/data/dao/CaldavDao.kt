@@ -347,6 +347,28 @@ WHERE cd_task IN (:tasks)
     @Query("SELECT * FROM caldav_tasks WHERE cd_calendar = :calendar AND cd_remote_id = :remoteId")
     abstract suspend fun getTaskByRemoteId(calendar: String, remoteId: String): CaldavTask?
 
+    @Query("""
+        SELECT * FROM caldav_tasks
+        WHERE cd_calendar = :calendar
+          AND cd_remote_id = :remoteId
+          AND cd_remote_parent = :remoteParent
+        LIMIT 1
+    """)
+    internal abstract suspend fun getChildByRemoteIdInternal(
+        calendar: String,
+        remoteId: String,
+        remoteParent: String,
+    ): CaldavTask?
+
+    suspend fun getChildByRemoteId(
+        calendar: String,
+        remoteId: String,
+        remoteParent: String,
+    ): CaldavTask? {
+        require(remoteParent.isNotBlank()) { "remoteParent is required" }
+        return getChildByRemoteIdInternal(calendar, remoteId, remoteParent)
+    }
+
     @Query("SELECT * FROM caldav_tasks WHERE cd_task = :taskId")
     abstract suspend fun getTasks(taskId: Long): List<CaldavTask>
 

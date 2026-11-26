@@ -44,7 +44,7 @@ class CaldavDaoMicrosoftTests {
         synced: Boolean = true,
         deleted: Long = 0L,
         calendar: String = CALENDAR,
-    ) {
+    ): Long {
         val task = Task()
         taskDao.createNew(task)
         val ctId = caldavDao.insert(
@@ -59,6 +59,41 @@ class CaldavDaoMicrosoftTests {
         if (synced) {
             dirtyDao.markSynced(ctId)
         }
+        return ctId
+    }
+
+    @Test
+    fun childrenAreScopedToTheirRemoteParent() = runBlocking {
+        val first = insertCaldavTask(remoteId = ITEM, remoteParent = "occurrence-1")
+        val second = insertCaldavTask(remoteId = ITEM, remoteParent = "occurrence-2")
+
+        assertEquals(first, caldavDao.getChildByRemoteId(CALENDAR, ITEM, "occurrence-1")?.id)
+        assertEquals(second, caldavDao.getChildByRemoteId(CALENDAR, ITEM, "occurrence-2")?.id)
+    }
+
+    @Test
+    fun childrenAreScopedToTheirCalendar() = runBlocking {
+        insertCaldavTask(remoteId = ITEM, remoteParent = "occurrence-1", calendar = "other")
+
+        assertNull(caldavDao.getChildByRemoteId(CALENDAR, ITEM, "occurrence-1"))
+    }
+
+    @Test
+    fun aTopLevelTaskIsNeverAChild() = runBlocking {
+        insertCaldavTask(remoteId = "no-parent", remoteParent = null)
+        insertCaldavTask(remoteId = "blank-parent", remoteParent = "")
+
+        assertNull(caldavDao.getChildByRemoteId(CALENDAR, "no-parent", "occurrence-1"))
+        assertNull(caldavDao.getChildByRemoteId(CALENDAR, "blank-parent", "occurrence-1"))
+    }
+
+    @Test
+    fun aBlankRemoteParentIsRejected() = runBlocking {
+        insertCaldavTask(remoteId = ITEM, remoteParent = "")
+
+        val result = runCatching { caldavDao.getChildByRemoteId(CALENDAR, ITEM, "") }
+
+        assertTrue(result.exceptionOrNull() is IllegalArgumentException)
     }
 
     @Test
@@ -161,5 +196,6 @@ class CaldavDaoMicrosoftTests {
 
     companion object {
         private const val CALENDAR = "test-calendar"
+        private const val ITEM = "shared-checklist-item-id"
     }
 }
