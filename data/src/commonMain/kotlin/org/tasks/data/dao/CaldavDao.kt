@@ -538,6 +538,13 @@ AND cdl_account IN (SELECT cda_uuid FROM caldav_accounts WHERE cda_account_type 
 """)
     abstract suspend fun replaceCTags(accountTypes: List<Int>, ctag: String)
 
+    @Query("""
+UPDATE caldav_lists SET cdl_ctag = NULL
+WHERE cdl_ctag IS NOT NULL
+AND cdl_account IN (SELECT cda_uuid FROM caldav_accounts WHERE cda_account_type IN (:accountTypes))
+""")
+    abstract suspend fun clearCTags(accountTypes: List<Int>)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertOrReplace(googleTaskList: CaldavCalendar): Long
 

@@ -19,6 +19,7 @@ import com.todoroo.astrid.service.Upgrade_15_10
 import com.todoroo.astrid.service.Upgrade_15_13
 import com.todoroo.astrid.service.Upgrade_15_13.Companion.canonicalized
 import com.todoroo.astrid.service.Upgrade_15_14_1
+import com.todoroo.astrid.service.Upgrade_15_14_2
 import com.todoroo.astrid.service.Upgrader
 import com.todoroo.astrid.service.Upgrader.Companion.V12_4
 import com.todoroo.astrid.service.Upgrader.Companion.V12_8
@@ -133,6 +134,9 @@ class TasksJsonImporter @Inject constructor(
             }
             if (version in Upgrade_15_13.VERSION until Upgrade_15_14_1.VERSION) {
                 Upgrade_15_14_1(caldavDao).downloadAgain()
+            }
+            if (version < Upgrade_15_14_2.VERSION) {
+                Upgrade_15_14_2(caldavDao).downloadAgain()
             }
             Timber.d("Updating parents")
             caldavDao.updateParents(force = true)

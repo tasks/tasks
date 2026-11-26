@@ -2,13 +2,18 @@ package org.tasks.service
 
 import com.todoroo.astrid.service.CommonUpgrades
 import com.todoroo.astrid.service.Upgrade_15_11
+import com.todoroo.astrid.service.Upgrade_15_14_1
+import com.todoroo.astrid.service.Upgrade_15_14_2
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.tasks.DatabaseTest
 import org.tasks.data.createDueDate
+import org.tasks.data.entity.CaldavAccount
+import org.tasks.data.entity.CaldavCalendar
 import org.tasks.data.entity.Task
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
@@ -50,6 +55,16 @@ class UpgraderTest : DatabaseTest() {
     }
 
     private suspend fun recurrence(task: Task) = db.taskDao().fetch(task.id)!!.recurrence
+
+    private suspend fun listWithCtag(accountType: Int, uuid: String, ctag: String) {
+        val account = "account-$uuid"
+        db.caldavDao().insert(CaldavAccount(uuid = account, accountType = accountType))
+        db.caldavDao().insert(
+            CaldavCalendar(uuid = uuid, account = account, url = uuid, ctag = ctag)
+        )
+    }
+
+    private suspend fun ctag(uuid: String) = db.caldavDao().getCalendarByUuid(uuid)!!.ctag
 
     @Test
     fun runsOnlyStepsNewerThanStoredVersion() = runBlocking {
@@ -153,7 +168,50 @@ class UpgraderTest : DatabaseTest() {
         assertEquals(TO, currentVersion())
     }
 
+    @Test
+    fun commonUpgradesForceAFullMicrosoftResync() = runBlocking {
+        preferences.set(TasksPreferences.currentVersion, 151000)
+        listWithCtag(CaldavAccount.TYPE_MICROSOFT, "ms-list", DELTA_URL)
+
+        commonUpgrader().upgrade(TO)
+
+        assertNull(ctag("ms-list"))
+    }
+
+    @Test
+    fun aMicrosoftCtagIsNeverReplacedWithTheCaldavSentinel() = runBlocking {
+        preferences.set(TasksPreferences.currentVersion, 151000)
+        listWithCtag(CaldavAccount.TYPE_MICROSOFT, "ms-list", DELTA_URL)
+        listWithCtag(CaldavAccount.TYPE_CALDAV, "dav-list", "etag-1")
+
+        commonUpgrader().upgrade(TO)
+
+        assertNull(ctag("ms-list"))
+        assertEquals(Upgrade_15_14_1.CTAG, ctag("dav-list"))
+    }
+
+    @Test
+    fun freshInstallKeepsTheMicrosoftDeltaToken() = runBlocking {
+        listWithCtag(CaldavAccount.TYPE_MICROSOFT, "ms-list", DELTA_URL)
+
+        commonUpgrader().upgrade(TO)
+
+        assertEquals(DELTA_URL, ctag("ms-list"))
+    }
+
+    @Test
+    fun aResyncAlreadyAppliedIsNotRepeated() = runBlocking {
+        preferences.set(TasksPreferences.currentVersion, Upgrade_15_14_2.VERSION)
+        listWithCtag(CaldavAccount.TYPE_MICROSOFT, "ms-list", DELTA_URL)
+
+        commonUpgrader().upgrade(TO)
+
+        assertEquals(DELTA_URL, ctag("ms-list"))
+    }
+
     companion object {
         private const val TO = 160000
+        private const val DELTA_URL =
+            "https://graph.microsoft.com/v1.0/me/todo/lists/ms-list/tasks/delta?\$deltatoken=abc"
     }
 }

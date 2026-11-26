@@ -12,6 +12,9 @@ object CommonUpgrades {
         UpgradeStep(Upgrade_15_14_1.VERSION) {
             Upgrade_15_14_1(database.caldavDao())
         },
+        UpgradeStep(Upgrade_15_14_2.VERSION) {
+            Upgrade_15_14_2(database.caldavDao())
+        },
     )
 }
 
