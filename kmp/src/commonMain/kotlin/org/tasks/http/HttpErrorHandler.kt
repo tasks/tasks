@@ -7,10 +7,13 @@ import io.ktor.client.plugins.HttpClientPlugin
 import io.ktor.client.plugins.HttpSend
 import io.ktor.client.plugins.plugin
 import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.serialization.JsonConvertException
 import io.ktor.http.isSuccess
 import io.ktor.util.AttributeKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class GraphErrorResponse(
@@ -23,6 +26,14 @@ data class GraphError(
     val message: String? = null,
     val innerError: GraphInnerError? = null
 ) {
+    fun describe() = buildString {
+        append(code)
+        if (!message.isNullOrBlank()) {
+            append(": $message")
+        }
+        innerError?.requestId?.let { append(" (Request ID: $it)") }
+    }
+
     fun isTokenError() = code in listOf(
         "InvalidAuthenticationToken",
         "AuthenticationError",
@@ -42,6 +53,7 @@ class UnauthorizedException(message: String? = null, cause: Throwable? = null, g
 class NotFoundException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class ServiceUnavailableException(message: String? = null, cause: Throwable? = null, graphCode: String? = null) : NetworkException(message, cause, graphCode)
 class HttpException(val code: Int, override val message: String? = null, graphCode: String? = null, cause: Throwable? = null) : NetworkException(message, cause, graphCode)
+class GraphStreamException(message: String, cause: Throwable) : Exception(message, cause)
 class ConnectionException(message: String? = null, cause: Throwable? = null) : NetworkException(message, cause)
 
 class HttpErrorHandler {
@@ -71,15 +83,7 @@ class HttpErrorHandler {
 
                     val errorMessage = buildString {
                         append("HTTP ${originalCall.response.status.value}")
-                        errorResponse?.error?.let { error ->
-                            append(" - ${error.code}")
-                            if (!error.message.isNullOrBlank()) {
-                                append(": ${error.message}")
-                            }
-                            error.innerError?.requestId?.let { requestId ->
-                                append(" (Request ID: $requestId)")
-                            }
-                        }
+                        errorResponse?.error?.let { append(" - ${it.describe()}") }
                     }
 
                     Logger.e { errorMessage }
@@ -99,3 +103,22 @@ class HttpErrorHandler {
         }
     }
 }
+
+suspend inline fun <reified T> HttpResponse.graphBody(): T =
+    try {
+        body()
+    } catch (e: JsonConvertException) {
+        throw inStreamError(e)
+    }
+
+suspend fun HttpResponse.inStreamError(cause: JsonConvertException): Exception {
+    val text = bodyAsText()
+    val error = text.lastIndexOf("{\"error\":")
+        .takeIf { it >= 0 }
+        ?.let { runCatching { inStreamJson.decodeFromString<GraphErrorResponse>(text.substring(it)) }.getOrNull() }
+        ?.error
+        ?: return cause
+    return GraphStreamException(error.describe(), cause)
+}
+
+private val inStreamJson = Json { ignoreUnknownKeys = true }

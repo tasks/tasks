@@ -1,7 +1,6 @@
 package org.tasks.sync.microsoft
 
 import co.touchlab.kermit.Logger
-import io.ktor.client.call.body
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.Json
 import org.tasks.analytics.AnalyticsEvents.INITIAL_SYNC_COMPLETE
@@ -28,6 +27,7 @@ import org.tasks.data.entity.Task
 import org.tasks.filters.CaldavFilter
 import org.tasks.http.ConnectionException
 import org.tasks.http.HttpException
+import org.tasks.http.graphBody
 import org.tasks.http.NetworkException
 import org.tasks.http.NotFoundException
 import org.tasks.http.ServiceUnavailableException
@@ -416,7 +416,7 @@ class MicrosoftSynchronizer(
                 }
                 throw e
             }
-            val body = response.body<Tasks>()
+            val body = response.graphBody<Tasks>()
             tasks.addAll(body.value)
             nextPageToken = body.nextPage
             body.nextDelta?.let { local.ctag = it}
