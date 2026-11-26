@@ -7,6 +7,7 @@ import com.google.api.services.tasks.Tasks
 import com.google.api.services.tasks.model.Task
 import com.google.api.services.tasks.model.TaskList
 import com.google.api.services.tasks.model.TaskLists
+import org.tasks.TasksBuildConfig
 import java.io.IOException
 
 class GtasksInvoker(
@@ -62,13 +63,15 @@ class GtasksInvoker(
         parent: String?,
         previous: String?,
     ): Task? {
-        Logger.d(TAG) { "createGtask(listId=$listId, task=<redacted>, parent=$parent, previous=$previous)" }
+        Logger.d(TAG) { "createGtask(listId=$listId, task=${task.describe()}, parent=$parent, previous=$previous)" }
         return execute(service.tasks().insert(listId, task).setParent(parent).setPrevious(previous))
     }
 
     @Throws(IOException::class)
-    suspend fun updateGtask(listId: String?, task: Task) =
-        execute(service.tasks().update(listId, task.id, task))
+    suspend fun updateGtask(listId: String?, task: Task): Task? {
+        Logger.d(TAG) { "updateGtask(listId=$listId, task=${task.describe()})" }
+        return execute(service.tasks().update(listId, task.id, task))
+    }
 
     @Throws(IOException::class)
     suspend fun moveGtask(
@@ -114,6 +117,16 @@ class GtasksInvoker(
         } catch (_: HttpNotFoundException) {
         }
     }
+
+    private fun Task?.describe(): String = when {
+        this == null -> "null"
+        TasksBuildConfig.DEBUG -> runCatching { toPrettyString() }.getOrElse { safeFields() }
+        else -> safeFields()
+    }
+
+    private fun Task.safeFields(): String =
+        "Task(id=$id, parent=$parent, position=$position, status=$status, " +
+                "due=$due, completed=$completed, deleted=$deleted, hidden=$hidden)"
 
     companion object {
         private const val TAG = "GtasksInvoker"
