@@ -20,6 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.ShortcutManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.Inventory
 import org.tasks.caldav.BaseCaldavCalendarSettingsActivity
@@ -44,6 +45,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
     @Inject lateinit var tasksTheme: Theme
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var shortcutManager: ShortcutManager
     @Inject lateinit var inventory: Inventory
     @Inject lateinit var colorProvider: ColorProvider
 
@@ -162,7 +164,8 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
     }
 
     protected fun createShortcut(color: Color) {
-        filter?.let { f ->
+        val f = filter ?: return
+        lifecycleScope.launch {
             createShortcut(
                 filter = f,
                 title = baseViewModel.title,
@@ -170,6 +173,7 @@ abstract class BaseListSettingsActivity : AppCompatActivity() {
                 color = color,
                 defaultFilterProvider = defaultFilterProvider,
                 firebase = firebase,
+                shortcutManager = shortcutManager,
             )
         }
     }

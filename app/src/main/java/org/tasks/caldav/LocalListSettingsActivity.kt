@@ -18,6 +18,7 @@ import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.compose.resources.stringResource
+import org.tasks.ShortcutManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.ColorWheelDialog
@@ -40,6 +41,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var shortcutManager: ShortcutManager
 
     private val viewModel: LocalListSettingsHiltViewModel by viewModels()
 
@@ -88,7 +90,7 @@ class LocalListSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivity.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase, shortcutManager) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
                     onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onDismiss = { viewModel.state.value.calendar?.let(onSaved) }, onComplete = { _, calendar -> onSaved(calendar) }) } },
                     headerContent = {
                         AnimatedBanner(

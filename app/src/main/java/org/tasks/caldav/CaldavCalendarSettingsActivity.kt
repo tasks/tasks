@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
+import org.tasks.ShortcutManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.ColorWheelDialog
@@ -33,6 +34,7 @@ class CaldavCalendarSettingsActivity : AppCompatActivity() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var shortcutManager: ShortcutManager
 
     private val viewModel: CaldavCalendarSettingsHiltViewModel by viewModels()
 
@@ -77,7 +79,7 @@ class CaldavCalendarSettingsActivity : AppCompatActivity() {
                                 .putExtra(PurchaseActivity.EXTRA_SOURCE, source)
                         )
                     },
-                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
+                    onAddShortcut = remember { addShortcutCallback(viewModel.state::value, primaryColor, defaultFilterProvider, firebase, shortcutManager) { onSaved -> viewModel.save(onComplete = onSaved) } },
                     onAddWidget = remember { addWidgetCallback(viewModel.state::value, defaultFilterProvider, firebase) { onSaved -> viewModel.save(onComplete = onSaved) } },
                 )
 

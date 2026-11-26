@@ -20,8 +20,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.astrid.activity.TaskListFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import org.tasks.ShortcutManager
 import org.tasks.analytics.Firebase
 import org.tasks.billing.PurchaseActivity
 import org.tasks.compose.ColorWheelDialog
@@ -41,6 +44,7 @@ class TagSettingsActivity : AppCompatActivity() {
 
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
     @Inject lateinit var firebase: Firebase
+    @Inject lateinit var shortcutManager: ShortcutManager
 
     private val viewModel: TagSettingsHiltViewModel by viewModels()
 
@@ -87,16 +91,19 @@ class TagSettingsActivity : AppCompatActivity() {
                     onAddShortcut = if (canAddShortcut) {
                         {
                             viewModel.persist { tag ->
-                                createShortcut(
-                                    filter = TagFilter(tag),
-                                    title = tag.name ?: "",
-                                    icon = tag.icon,
-                                    color = (tag.color ?: 0).takeIf { it != 0 }?.let { Color(it) } ?: primaryColor,
-                                    defaultFilterProvider = defaultFilterProvider,
-                                    firebase = firebase,
-                                )
-                                setReloadResult(TagFilter(tag))
-                                finish()
+                                lifecycleScope.launch {
+                                    createShortcut(
+                                        filter = TagFilter(tag),
+                                        title = tag.name ?: "",
+                                        icon = tag.icon,
+                                        color = (tag.color ?: 0).takeIf { it != 0 }?.let { Color(it) } ?: primaryColor,
+                                        defaultFilterProvider = defaultFilterProvider,
+                                        firebase = firebase,
+                                        shortcutManager = shortcutManager,
+                                    )
+                                    setReloadResult(TagFilter(tag))
+                                    finish()
+                                }
                             }
                         }
                     } else null,

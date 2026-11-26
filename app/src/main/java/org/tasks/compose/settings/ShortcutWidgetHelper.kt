@@ -5,15 +5,20 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Intent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.lifecycle.lifecycleScope
 import com.todoroo.andlib.utility.AndroidUtilities.atLeastS
 import com.todoroo.astrid.activity.MainActivity
 import com.todoroo.astrid.activity.TaskListFragment
+import kotlinx.coroutines.launch
 import org.tasks.R
+import org.tasks.ShortcutManager
+import org.tasks.ShortcutManager.ShortcutResult
 import org.tasks.activities.BaseListSettingsActivity.Companion.createShortcutIcon
 import org.tasks.analytics.Firebase
 import org.tasks.data.UUIDHelper
@@ -47,14 +52,16 @@ private fun AppCompatActivity.finishWithList(calendar: CaldavCalendar, account: 
 private fun AppCompatActivity.addToHomeScreen(
     stateProvider: () -> ListSettingsState,
     save: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
-    add: (state: ListSettingsState, filter: CaldavFilter) -> Unit,
+    add: suspend (state: ListSettingsState, filter: CaldavFilter) -> Unit,
 ): () -> Unit = click@{
     val s = stateProvider()
     val account = s.account ?: return@click
     // Save (creating or updating as needed) then return to the list, matching the Save button.
     save { calendar ->
-        add(s, CaldavFilter(calendar = calendar, account = account))
-        finishWithList(calendar, account)
+        lifecycleScope.launch {
+            add(s, CaldavFilter(calendar = calendar, account = account))
+            finishWithList(calendar, account)
+        }
     }
 }
 
@@ -69,6 +76,7 @@ fun AppCompatActivity.addShortcutCallback(
     primaryColor: Color,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
+    shortcutManager: ShortcutManager,
     save: (onSaved: (CaldavCalendar) -> Unit) -> Unit,
 ): (() -> Unit)? {
     if (!canPinShortcut()) return null
@@ -81,6 +89,7 @@ fun AppCompatActivity.addShortcutCallback(
             color = if (s.color != 0) Color(s.color) else primaryColor,
             defaultFilterProvider = defaultFilterProvider,
             firebase = firebase,
+            shortcutManager = shortcutManager,
         )
     }
 }
@@ -103,13 +112,14 @@ fun AppCompatActivity.addWidgetCallback(
     }
 }
 
-fun AppCompatActivity.createShortcut(
+suspend fun AppCompatActivity.createShortcut(
     filter: Filter,
     title: String,
     icon: String?,
     color: Color,
     defaultFilterProvider: DefaultFilterProvider,
     firebase: Firebase,
+    shortcutManager: ShortcutManager,
 ) {
     val filterId = defaultFilterProvider.getFilterPreferenceValue(filter)
     val shortcutInfo = ShortcutInfoCompat.Builder(this, UUIDHelper.newUUID())
@@ -132,22 +142,10 @@ fun AppCompatActivity.createShortcut(
         .setIntent(TaskIntents.getTaskListByIdIntent(this, filterId))
         .build()
 
-    val pinnedShortcutCallbackIntent = ShortcutManagerCompat
-        .createShortcutResultIntent(this, shortcutInfo)
-
-    val successCallback = PendingIntent.getBroadcast(
-        this, 0,
-        pinnedShortcutCallbackIntent,
-        PendingIntent.FLAG_IMMUTABLE
-    )
-
-    ShortcutManagerCompat.requestPinShortcut(
-        this,
-        shortcutInfo,
-        successCallback.intentSender
-    )
-
-    firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "settings_activity")
+    val result = shortcutManager.createShortcut(shortcutInfo, launcherRequest = false, source = "settings_activity")
+    if (result == ShortcutResult.Failed) {
+        Toast.makeText(applicationContext, R.string.shortcut_creation_failed, Toast.LENGTH_LONG).show()
+    }
 }
 
 fun AppCompatActivity.createWidget(
