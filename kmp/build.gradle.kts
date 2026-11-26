@@ -11,6 +11,13 @@ plugins {
     alias(libs.plugins.kotlin.compose.compiler)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.redacted)
+}
+
+redacted {
+    redactedAnnotation = "org/tasks/data/Redacted"
+    enabled = gradle.startParameter.taskNames.any { it.contains("Release") } ||
+        providers.gradleProperty("release").isPresent
 }
 
 val appVersionCode: Int by extra

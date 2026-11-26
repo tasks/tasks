@@ -754,6 +754,7 @@
 +|    |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.21 (*)
 +|    |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.21 (*)
 +|    |         \--- org.jetbrains.compose.ui:ui:1.12.1 -> 1.12.2 (*)
++|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0 (*)
 +|    +--- org.mnode.ical4j:ical4j:3.2.19
 +|    |    +--- org.slf4j:slf4j-api:2.0.9 -> 2.0.19
 +|    |    +--- commons-codec:commons-codec:1.15 -> 1.17.1

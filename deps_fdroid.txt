@@ -621,6 +621,7 @@
 +|    +--- org.dmfs:lib-recur:0.11.4
 +|    |    \--- org.dmfs:rfc5545-datetime:0.2.4
 +|    +--- org.dmfs:jems:1.33
++|    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0 (*)
 +|    +--- project ':cert4android'
 +|    |    +--- androidx.activity:activity-compose:1.13.0 (*)
 +|    |    +--- androidx.appcompat:appcompat:1.8.0
