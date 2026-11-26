@@ -922,6 +922,9 @@
 +|    |    +--- org.dmfs:lib-recur:0.11.4
 +|    |    |    \--- org.dmfs:rfc5545-datetime:0.2.4
 +|    |    +--- org.dmfs:jems:1.33
++|    |    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0
++|    |    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.18.0
++|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.21 (*)
 +|    |    +--- project ':cert4android'
 +|    |    |    +--- androidx.activity:activity-compose:1.13.0 (*)
 +|    |    |    +--- androidx.appcompat:appcompat:1.8.0
@@ -1409,9 +1412,7 @@
 +|    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.1.20 -> 2.4.21 (*)
 +|    |    +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.10 -> 2.4.21 (*)
 +|    |    +--- project ':data'
-+|    |    |    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0
-+|    |    |    |    \--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations-jvm:1.18.0
-+|    |    |    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.0 -> 2.4.21 (*)
++|    |    |    +--- dev.zacsweers.redacted:redacted-compiler-plugin-annotations:1.18.0 (*)
 +|    |    |    +--- androidx.room3:room3-runtime:3.0.3
 +|    |    |    |    \--- androidx.room3:room3-runtime-android:3.0.3
 +|    |    |    |         +--- androidx.annotation:annotation:1.9.1 -> 1.10.0 (*)
