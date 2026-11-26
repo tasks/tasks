@@ -338,7 +338,11 @@ class MicrosoftSynchronizer(
                 }
                 caldavTask.remoteId = result.id
                 caldavTask.remoteParent = caldavParent
-                caldavTask.obj = "${result.id}.json"
+                val obj = checklistObjectName(caldavParent, result.id)
+                if (!isNew && caldavTask.obj != obj) {
+                    vtodoCache.delete(list, caldavTask)
+                }
+                caldavTask.obj = obj
                 vtodoCache.putVtodo(list, caldavTask, json.encodeToString(result))
             }
 
@@ -503,7 +507,7 @@ class MicrosoftSynchronizer(
                 taskDeleter.delete(removedSubtasks.map { it.task })
             }
         checklistItems.forEach { item ->
-            val existing = caldavDao.getTaskByRemoteId(list.uuid!!, item.id!!)
+            val existing = caldavDao.getChildByRemoteId(list.uuid!!, item.id!!, parentRemoteId)
             if (existing?.isDeleted() == true) {
                 // Pending local delete — skip; pushLocalChanges will
                 // remove this from the remote
@@ -513,15 +517,19 @@ class MicrosoftSynchronizer(
                 ?: createTask().apply {
                     taskDao.createNew(this)
                 }
+            val obj = checklistObjectName(parentRemoteId, item.id)
+            if (existing != null && existing.obj != obj) {
+                vtodoCache.delete(list, existing)
+            }
             val caldavTask =
                 existing
-                    ?.copy(task = task.id)
+                    ?.copy(task = task.id, obj = obj)
                     ?: CaldavTask(
                         task = task.id,
                         calendar = list.uuid,
                         remoteId = item.id,
                         remoteParent = parentRemoteId,
-                        obj = "${item.id}.json",
+                        obj = obj,
                     )
             val isNew = existing == null
             val dirty = !isNew && dirtyDao.isDirty(caldavTask.id) == true
@@ -562,6 +570,9 @@ class MicrosoftSynchronizer(
     }
 
     companion object {
+        private fun checklistObjectName(parentRemoteId: String, itemId: String?) =
+            "$parentRemoteId-$itemId.json"
+
         private const val TAG = "MicrosoftSynchronizer"
         private const val MAX_SYNC_ITERATIONS = 3
         private val DELTA_EXPIRED_CODES =
