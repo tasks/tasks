@@ -50,6 +50,14 @@ class CaldavClientTest {
     }
 
     @Test
+    fun `proppatch answered with no content`() = runBlocking {
+        server.enqueue(MockResponse().setResponseCode(204))
+        var failures = 0
+        client.updateIcon(Url(server.url("/dav/list/").toString()), "icon") { failures++ }
+        assertEquals(0, failures)
+    }
+
+    @Test
     fun `calendars reports the response headers`() = runBlocking {
         server.enqueue(multiStatus(EMPTY_HOME_SET).setHeader("DAV", "1, 3, oc-resource-sharing"))
         server.enqueue(MockResponse().setHeader("DAV", "1"))
