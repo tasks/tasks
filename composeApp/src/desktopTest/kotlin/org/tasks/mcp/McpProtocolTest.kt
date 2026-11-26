@@ -139,10 +139,13 @@ class McpProtocolTest : McpGraphTestCase() {
 
     @Test
     fun everyReadToolTakesFields() = withClient(AccessMode.ReadOnly) { client ->
+        // open_task is a read-group action: it switches what the app is showing and returns a
+        // sentence, not rows, so there is nothing for it to project.
+        val noFields = setOf("open_task")
         client.listTools().tools.forEach {
             assertTrue(
                 "${it.name} should take a fields argument",
-                it.inputSchema.properties?.containsKey("fields") == true,
+                it.name in noFields || it.inputSchema.properties?.containsKey("fields") == true,
             )
         }
     }
@@ -638,6 +641,8 @@ class McpProtocolTest : McpGraphTestCase() {
             api = api,
             log = ActivityLog(),
             onStateChange = { _, _ -> },
+            requests = koin.get<org.tasks.TaskRequests>(),
+            selection = koin.get<org.tasks.selection.SelectedTaskStore>(),
         )
         server = instance
         instance.start()
@@ -666,7 +671,8 @@ class McpProtocolTest : McpGraphTestCase() {
         const val DUE = 1_757_000_000_000L
 
         val READ_TOOLS = setOf(
-            "list_tasks", "list_task_lists",
+            "list_tasks", "get_selected_task", "open_task",
+            "list_task_lists",
             "list_tags", "list_places", "list_accounts", "list_reminders",
         )
 
