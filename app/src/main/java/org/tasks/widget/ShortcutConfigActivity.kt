@@ -1,10 +1,13 @@
 package org.tasks.widget
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.ShortcutInfoCompat
@@ -13,16 +16,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.tasks.R
-import org.tasks.ShortcutManager
+import org.tasks.ShortcutManager.ShortcutResult
 import org.tasks.Strings.isNullOrEmpty
-import org.tasks.analytics.Firebase
 import org.tasks.compose.FilterSelectionActivity.Companion.launch
 import org.tasks.compose.FilterSelectionActivity.Companion.registerForFilterPickerResult
 import org.tasks.data.UUIDHelper
@@ -36,14 +38,11 @@ import org.tasks.intents.TaskIntents
 import org.tasks.preferences.DefaultFilterProvider
 import org.tasks.themes.DrawableUtil
 import org.tasks.themes.ThemeColor
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPalettePicker.ColorPickedCallback {
     @Inject lateinit var defaultFilterProvider: DefaultFilterProvider
-    @Inject lateinit var firebase: Firebase
-    @Inject lateinit var shortcutManager: ShortcutManager
 
     private lateinit var toolbar: Toolbar
     private lateinit var shortcutList: TextInputEditText
@@ -53,7 +52,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
 
     private var selectedFilter: Filter? = null
     private var selectedTheme = 0
-    private var shortcutRequest: Job? = null
+    private val viewModel: ShortcutConfigViewModel by viewModels()
     private val listPickerResult = registerForFilterPickerResult {
         if (selectedFilter != null && selectedFilter!!.title == getShortcutName()) {
             shortcutName.text = null
@@ -100,6 +99,11 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             selectedTheme = savedInstanceState.getInt(EXTRA_THEME)
         }
         updateFilterAndTheme()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.results.collect(::onResult)
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -148,7 +152,7 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
     private fun getShortcutName(): String = shortcutName.text.toString().trim { it <= ' ' }
 
     private fun save() {
-        if (isFinishing || shortcutRequest?.isActive == true) {
+        if (isFinishing) {
             return
         }
 
@@ -161,20 +165,18 @@ class ShortcutConfigActivity : ThemedInjectingAppCompatActivity(), ColorPaletteP
             .setIcon(IconCompat.createWithResource(this, ThemeColor.ICONS[themeIndex]))
             .build()
 
-        shortcutRequest = lifecycleScope.launch { saveShortcut(shortcut) }
+        viewModel.save(shortcut, launcherRequest = intent?.action == Intent.ACTION_CREATE_SHORTCUT)
     }
 
-    private suspend fun saveShortcut(shortcut: ShortcutInfoCompat) {
-        try {
-            shortcutManager.requestPinShortcut(shortcut)
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: IllegalStateException) {
-            Timber.w(e, "Could not request a pinned shortcut")
-            return
+    private fun onResult(result: ShortcutResult) {
+        when (result) {
+            is ShortcutResult.Created -> {
+                result.resultIntent?.let { setResult(RESULT_OK, it) }
+                finish()
+            }
+            ShortcutResult.Failed ->
+                Toast.makeText(applicationContext, R.string.shortcut_creation_failed, Toast.LENGTH_LONG).show()
         }
-        firebase.logEvent(R.string.event_create_shortcut, R.string.param_type to "shortcut_config")
-        finish()
     }
 
     override fun onColorPicked(index: Int) {
