@@ -53,6 +53,11 @@
 #define KEY_SORT_MODE       30
 #define KEY_GROUP_MODE      31
 
+// Capability key: every outgoing message carries this watch build's inbox
+// size, and the phone packs its response chunks to fit a single message
+// (see PROTOCOL_INBOX_SIZE below and PebbleProtocol.kt)
+#define KEY_MAX_MSG_SIZE    32
+
 // Watch -> Phone message types
 #define MSG_GET_TASKS       1
 #define MSG_COMPLETE_TASK   2
@@ -104,13 +109,40 @@
 #define PERSIST_SHOW_COMPLETED   13
 
 // Configuration
+//
+// Items per response chunk. The phone packs chunk_index * CHUNK_SIZE items
+// into a single AppMessage, so PebbleMessageHandler must chunk to the same
+// size per platform. aplite only has 124-byte AppMessages to work with
+// (see PROTOCOL_INBOX_SIZE), so it gets one item per chunk.
+#if defined(PBL_PLATFORM_APLITE)
+#define CHUNK_SIZE          1
+#else
 #define CHUNK_SIZE          5
+#endif
 #define INITIAL_PAGE_SIZE   15
 // A refresh replaces the whole window, so ask for half of it rather than a
 // single page. Refreshing into 15 items mid-scroll drops the cursor straight
 // into placeholder rows and forces a burst of catch-up pages.
 #define REFRESH_PAGE_SIZE   (MAX_WINDOW / 2)
 #define REFRESH_LIST_SIZE   (MAX_LISTS / 2)
+
+// AppMessage buffer sizes. aplite shares one 24KB address space between the
+// app binary and the heap, so app_message_open() with the maximum inbox
+// (~2KB) can fail to allocate and leaves AppMessage completely dead -- and a
+// single message has to fit the 124 bytes the SDK guarantees anyway.
+//
+// The inbox holds two of those messages: the phone-side pump does not wait
+// for the previous chunk's ack, and with a one-message inbox a chunk
+// arriving while the app is finishing the last page's reload is dropped with
+// APP_MSG_BUSY -- the drop cascade then wedges the whole session. Heap use
+// at 248 bytes is trivial (~8KB stays free at build time).
+#if defined(PBL_PLATFORM_APLITE)
+#define PROTOCOL_INBOX_SIZE   248
+#define PROTOCOL_OUTBOX_SIZE  124
+#else
+#define PROTOCOL_INBOX_SIZE   app_message_inbox_size_maximum()
+#define PROTOCOL_OUTBOX_SIZE  256
+#endif
 
 // Sliding-window caps for the task list and the filter picker.
 //
@@ -143,8 +175,19 @@
 #define MAX_ROWS            600
 #define REBASE_MARGIN       60
 
+// Per-item buffers. aplite always runs against the phone's small-message
+// encoding (titles byte-truncated to 24, timestamps omitted), so its rows
+// can be correspondingly small: a 30-row window that ships 51+21-byte
+// buffers per item needs a 3.6KB realloc to page further down a list, which
+// fails on the ~7.7KB runtime heap ("Failed to allocate", from ocess_manager's
+// Heap Usage log) and leaves the window scrolling placeholder rows forever.
+#if defined(PBL_PLATFORM_APLITE)
+#define MAX_TITLE_LEN       25
+#define MAX_EXTRA_LEN       1
+#else
 #define MAX_TITLE_LEN       51
 #define MAX_EXTRA_LEN       21
+#endif
 #define MAX_FILTER_ID_LEN   48
 #define MAX_DESC_LEN        201
 
@@ -184,6 +227,11 @@ typedef struct {
 void protocol_init_session(void);
 uint8_t protocol_next_transaction_id(void);
 uint8_t protocol_get_active_transaction_id(void);
+
+// Reads a tuple's integer value regardless of wire width. The phone encodes
+// small-message responses with uint8 tuples to fit aplite's 124-byte
+// AppMessages, while older phone apps send uint32 -- this accepts both.
+uint32_t protocol_tuple_value(Tuple *t);
 
 // Message sending
 bool protocol_send_get_tasks(const char *filter, int position, int limit,
