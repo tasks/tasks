@@ -725,4 +725,6 @@
     <string name="pricing_feature_trial">Senpaga provperiodo por novaj abonantoj, dum 7 tagoj</string>
     <string name="cloud_onboarding_sign_in_body">Ensalutu por krei vian konton de Tasks.org Cloud</string>
     <string name="works_with_xandikos_description">CalDAV servilo kun Git subteno</string>
+    <string name="tasks_org_signed_in_as">Vi ensalutis per malsama konto. Ensalutu per %1$s por rekonekti Tasks.org.</string>
+    <string name="tasks_org_signed_in_as_another_account">Vi ensalutis per malsama konto. Ensalutu per la konto kiun vi antaŭe uzis por rekonekti al Tasks.org.</string>
 </resources>
