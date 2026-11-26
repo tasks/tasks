@@ -1481,10 +1481,29 @@
 +|    |         \--- org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.11.0 (*)
 +|    +--- androidx.datastore:datastore-preferences:1.2.1 (*)
 +|    +--- androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0 (*)
++|    +--- com.mikepenz:multiplatform-markdown-renderer-m3:0.46.0
++|    |    \--- com.mikepenz:multiplatform-markdown-renderer-m3-android:0.46.0
++|    |         +--- com.mikepenz:multiplatform-markdown-renderer:0.46.0
++|    |         |    \--- com.mikepenz:multiplatform-markdown-renderer-android:0.46.0
++|    |         |         +--- org.jetbrains:markdown:0.7.17
++|    |         |         |    \--- org.jetbrains:markdown-jvm:0.7.17
++|    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.0.0 -> 2.4.21 (*)
++|    |         |         +--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0 (*)
++|    |         |         +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
++|    |         |         |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
++|    |         |         |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.21 (*)
++|    |         |         +--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
++|    |         |         \--- org.jetbrains.compose.foundation:foundation:1.12.1 -> 1.12.2 (*)
++|    |         +--- org.jetbrains:markdown:0.7.17 (*)
++|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.4.21 (*)
++|    +--- sh.calvin.reorderable:reorderable:3.1.0
++|    |    \--- sh.calvin.reorderable:reorderable-android:3.1.0
++|    |         +--- org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0 -> 2.1.21 (*)
++|    |         +--- org.jetbrains.compose.runtime:runtime:1.7.0 -> 1.12.2 (*)
++|    |         +--- org.jetbrains.compose.animation:animation:1.7.0 -> 1.12.2 (*)
++|    |         \--- org.jetbrains.compose.foundation:foundation:1.7.0 -> 1.12.2 (*)
 +|    +--- co.touchlab:kermit:2.2.0 (*)
-+|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2
-+|    |    \--- org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.5.2
-+|    |         \--- org.jetbrains.kotlin:kotlin-stdlib:2.3.0 -> 2.4.21 (*)
++|    +--- org.jetbrains.kotlinx:kotlinx-collections-immutable:0.5.2 (*)
 +|    +--- org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0 (*)
 +|    +--- com.materialkolor:material-kolor:5.0.1
 +|    |    \--- com.materialkolor:material-kolor-android:5.0.1

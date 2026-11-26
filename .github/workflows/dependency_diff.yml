@@ -10,9 +10,13 @@ on:
       - main
     paths:
       - 'gradle/libs.versions.toml'
+      - '**/build.gradle.kts'
+      - 'settings.gradle.kts'
   pull_request:
     paths:
       - 'gradle/libs.versions.toml'
+      - '**/build.gradle.kts'
+      - 'settings.gradle.kts'
   workflow_dispatch:
 
 jobs:
