@@ -124,6 +124,7 @@ fun TaskListDrawer(
     onExpandDrawer: () -> Unit = {},
     listState: LazyListState = rememberLazyListState(),
     searchButtonInset: Dp = 16.dp,
+    onSearchRequestHandled: (() -> Unit)? = null,
 ) {
     // The query lives in the view model, not here. Where the sidebar is pinned to a rail the modal
     // sheet's copy of this drawer is composed alongside the sidebar's, and a local copy let the two
@@ -138,6 +139,14 @@ fun TaskListDrawer(
     // the field it is filtering by rather than results with nothing to explain them.
     var searchRequested by remember { mutableStateOf(false) }
     val searchExpanded = searchRequested || query.isNotBlank()
+    var searchFocusRequest by remember { mutableStateOf(0) }
+    LaunchedEffect(onSearchRequestHandled != null) {
+        if (onSearchRequestHandled != null) {
+            searchRequested = true
+            searchFocusRequest++
+            onSearchRequestHandled()
+        }
+    }
 
     // Only on a close, never on mounting already closed: the sheet is composed while shut, and a
     // copy that cleared on mount wiped the search the sidebar was showing every time a task was
@@ -233,6 +242,7 @@ fun TaskListDrawer(
             onExpandedChange = { searchRequested = it },
             query = query,
             onQueryChange = onQueryChange,
+            searchFocusRequest = searchFocusRequest,
             modifier = Modifier
                 .padding(bottom = searchButtonInset + bottomNavPadding),
         )
@@ -247,6 +257,7 @@ private fun SearchFab(
     onExpandedChange: (Boolean) -> Unit,
     query: String,
     onQueryChange: (String) -> Unit,
+    searchFocusRequest: Int,
     modifier: Modifier = Modifier,
 ) {
     val focusRequester = remember { FocusRequester() }
@@ -319,7 +330,7 @@ private fun SearchFab(
         }
     }
 
-    LaunchedEffect(expanded) {
+    LaunchedEffect(expanded, searchFocusRequest) {
         if (expanded) {
             delay(100)
             focusRequester.requestFocus()

@@ -6,6 +6,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isAltPressed
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.isMetaPressed
+import androidx.compose.ui.input.key.isShiftPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -19,6 +27,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
@@ -247,6 +256,7 @@ fun main() {
         val taskRequests = koinInject<TaskRequests>()
         val shutdownScope = rememberCoroutineScope()
         var closing by remember { mutableStateOf(false) }
+        val searchShortcuts = remember { MutableSharedFlow<Unit>(extraBufferCapacity = 1) }
         val windowState = rememberWindowState(size = DpSize(DEFAULT_WIDTH, DEFAULT_HEIGHT))
         var windowReady by remember { mutableStateOf(false) }
         // Restore saved window size and position before showing the window
@@ -327,6 +337,12 @@ fun main() {
             // open editor was holding and there is no second one, so anything typed after it would
             // be lost silently - and a save slow enough to notice would read as a hung window.
             visible = windowReady && !closing,
+            onPreviewKeyEvent = { event ->
+                event.type == KeyEventType.KeyDown && event.key == Key.K &&
+                    event.isCtrlPressed && !event.isAltPressed && !event.isMetaPressed &&
+                    !event.isShiftPressed && searchShortcuts.subscriptionCount.value > 0 &&
+                    searchShortcuts.tryEmit(Unit)
+            },
         ) {
             window.minimumSize = Dimension(MIN_WIDTH.value.toInt(), MIN_HEIGHT.value.toInt())
             val reporting = koinInject<Reporting>()
@@ -417,6 +433,7 @@ fun main() {
             var currentEnv by remember { mutableStateOf(serverEnv.currentEnvironment) }
             StableWindowSize {
                 App(
+                    searchShortcuts = searchShortcuts,
                     openUrl = { url ->
                         openInBrowser(url)
                     },

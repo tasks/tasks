@@ -119,6 +119,7 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
 import co.touchlab.kermit.Logger
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
@@ -313,6 +314,7 @@ fun App(
     environments: List<TasksServerEnvironment.Environment> = emptyList(),
     currentEnvironment: String = TasksServerEnvironment.ENV_PRODUCTION,
     onSelectEnvironment: (String) -> Unit = {},
+    searchShortcuts: Flow<Unit>? = null,
 ) {
     val uriHandler = remember(openUrl) {
         object : androidx.compose.ui.platform.UriHandler {
@@ -850,6 +852,7 @@ fun App(
                 showSidebar = showSidebar,
                 canExpandSidebar = canExpandSidebar,
                 visible = showChrome,
+                searchShortcuts = searchShortcuts,
                 onDrawerItemClick = onDrawerItemClick,
                 onAddClick = onAddClick,
             ) {
@@ -1507,6 +1510,7 @@ private fun TaskListChrome(
     /** False where the window is too narrow to hold an expanded sidebar beside the panes. */
     canExpandSidebar: Boolean,
     visible: Boolean,
+    searchShortcuts: Flow<Unit>?,
     onDrawerItemClick: (DrawerItem) -> Unit,
     onAddClick: (DrawerItem.Header) -> Unit,
     onCloudSignIn: () -> Unit,
@@ -1520,6 +1524,23 @@ private fun TaskListChrome(
     // clearing every nav entry's ViewModelStore and saved state along with it.
     val currentContent by rememberUpdatedState(content)
     val movableContent = remember { movableContentOf { currentContent() } }
+
+    val showsModalDrawer = visible && !(wideLayout && canExpandSidebar)
+    var searchPending by remember(visible, showsModalDrawer) { mutableStateOf(false) }
+    val expandSidebar by rememberUpdatedState({
+        if (!sidebarExpanded) onSetSidebarExpanded(true)
+    })
+    LaunchedEffect(visible, showsModalDrawer, searchShortcuts) {
+        if (!visible) return@LaunchedEffect
+        searchShortcuts?.collect {
+            if (showsModalDrawer) {
+                if (!materialDrawerState.isOpen) materialDrawerState.open()
+            } else {
+                expandSidebar()
+            }
+            searchPending = true
+        }
+    }
 
     // Used wherever the permanent sidebar can't carry list names: narrow windows, and wide windows
     // where the panes leave room for the rail but never for an expanded sidebar.
@@ -1548,6 +1569,9 @@ private fun TaskListChrome(
                     // state the decorator would preserve.
                     listState = modalDrawerListState,
                     searchButtonInset = SearchButtonInset,
+                    onSearchRequestHandled = if (searchPending && materialDrawerState.isOpen) {
+                        { searchPending = false }
+                    } else null,
                 )
                 val drawerScrimColor = MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.8f)
                 StatusBarScrim(
@@ -1566,7 +1590,6 @@ private fun TaskListChrome(
     // shown. That is not only the window crossing the sidebar boundary: the sheet's own sign-in row
     // pushes a screen without closing the drawer, which hides the chrome entirely, and backing out
     // of that used to land on the task list under a fully open drawer and scrim nobody asked for.
-    val showsModalDrawer = visible && !(wideLayout && canExpandSidebar)
     LaunchedEffect(showsModalDrawer) {
         if (!showsModalDrawer && materialDrawerState.isOpen) {
             materialDrawerState.close()
@@ -1612,6 +1635,9 @@ private fun TaskListChrome(
                         },
                         listState = sidebarListState,
                         searchButtonInset = SearchButtonInset,
+                        onSearchRequestHandled = if (searchPending && !showsModalDrawer && sidebarExpanded) {
+                            { searchPending = false }
+                        } else null,
                     )
                     val sidebarScrimColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f)
                     StatusBarScrim(
