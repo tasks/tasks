@@ -47,7 +47,7 @@ open class OpenTaskDao(
             .filterNot { (_, lists) ->
                 caldavDao.anyExist(
                     lists.flatMap { (calendar, collectionUrl) ->
-                        listOfNotNull(collectionUrl?.canonicalUrl(), calendar.url)
+                        listOfNotNull(collectionUrl?.canonicalUrl(), calendar.url?.canonicalUrl())
                     }
                 )
             }

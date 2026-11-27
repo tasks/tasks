@@ -3,6 +3,7 @@ package org.tasks.backup
 import com.natpryce.makeiteasy.MakeItEasy.with
 import com.todoroo.astrid.service.Upgrade_15_13
 import com.todoroo.astrid.service.Upgrade_15_14_1
+import com.todoroo.astrid.service.Upgrade_15_14_2
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -393,5 +394,39 @@ class TasksJsonImporterTest : InjectingTestCase() {
 
         assertEquals("ctag", caldavDao.getCalendars().single().ctag)
         assertEquals("etag", caldavDao.getTasks(taskDao.getAll().single().id).single().etag)
+    }
+
+    @Test
+    fun downloadMicrosoftTasksAgainAfterRestoringDamagedBackup() = runBlocking {
+        setupAccount("acc-1", accountType = TYPE_MICROSOFT)
+        setupCalendar("acc-1", "cal-1", ctag = DELTA_TOKEN)
+        setupTask("test task", "cal-1", "remote-1", etag = "etag")
+
+        val backup = export().withVersion(Upgrade_15_14_2.VERSION - 1)
+        database.clearAllTables()
+
+        import(backup)
+
+        assertNull(caldavDao.getCalendars().single().ctag)
+        assertEquals("etag", caldavDao.getTasks(taskDao.getAll().single().id).single().etag)
+    }
+
+    @Test
+    fun keepMicrosoftSyncStateAfterRestoringRepairedBackup() = runBlocking {
+        setupAccount("acc-1", accountType = TYPE_MICROSOFT)
+        setupCalendar("acc-1", "cal-1", ctag = DELTA_TOKEN)
+        setupTask("test task", "cal-1", "remote-1", etag = "etag")
+
+        val backup = export().withVersion(Upgrade_15_14_2.VERSION)
+        database.clearAllTables()
+
+        import(backup)
+
+        assertEquals(DELTA_TOKEN, caldavDao.getCalendars().single().ctag)
+    }
+
+    companion object {
+        private const val DELTA_TOKEN =
+            "https://graph.microsoft.com/v1.0/me/todo/lists/cal-1/tasks/delta?\$deltatoken=abc"
     }
 }

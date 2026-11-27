@@ -21,6 +21,9 @@ object CommonUpgrades {
         UpgradeStep(Upgrade_15_14_1.VERSION) {
             Upgrade_15_14_1(database.caldavDao())
         },
+        UpgradeStep(Upgrade_15_14_2.VERSION) {
+            Upgrade_15_14_2(database.caldavDao())
+        },
         UpgradeStep(Upgrade_15_15.VERSION) {
             Upgrade {
                 Upgrade_15_15(database.caldavDao(), encryption, msalSubjects).run()

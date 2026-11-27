@@ -1,0 +1,5 @@
+* Hide duplicated DAVx5 and CalDAV accounts
+* Fix parsing all day dates for Microsoft To Do
+* Fix importing subtasks for Microsoft To Do
+* Fix date-time calculation bugs
+* Fix hanging Tasks.org Cloud and CalDAV synchronization

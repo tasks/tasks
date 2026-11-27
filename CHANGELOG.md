@@ -1,3 +1,13 @@
+### 15.14.2-beta01 (2026-11-27)
+
+* Fix parsing all day dates for Microsoft To Do
+* Fix importing subtasks for Microsoft To Do
+* Fix date-time calculation bugs
+* Fix hanging Tasks.org Cloud and CalDAV synchronization
+
+Android:
+  * Hide duplicated DAVx5 and CalDAV accounts [#4490](https://github.com/tasks/tasks/issues/4490)
+
 ### 15.14.1 (2026-11-17)
 
 * Bug fix for Tasks.org Cloud and CalDAV sync
