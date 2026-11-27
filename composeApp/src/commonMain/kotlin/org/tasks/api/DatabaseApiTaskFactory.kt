@@ -3,6 +3,7 @@ package org.tasks.api
 import org.tasks.data.TaskCreator
 import org.tasks.data.TaskSaver
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TaskDao
 import org.tasks.data.entity.CaldavTask
 import org.tasks.data.entity.Task
@@ -13,6 +14,7 @@ import org.tasks.preferences.AppPreferences
 class DatabaseApiTaskFactory(
     private val taskDao: TaskDao,
     private val caldavDao: CaldavDao,
+    private val googleTaskDao: GoogleTaskDao,
     private val taskCreator: TaskCreator,
     private val taskSaver: TaskSaver,
     private val defaultListProvider: DefaultListProvider,
@@ -30,11 +32,19 @@ class DatabaseApiTaskFactory(
         val addToTop = appPreferences.addTasksToTop()
         taskDao.inTransaction {
             taskDao.createNew(task)
-            caldavDao.insert(
-                task = task,
-                caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
-                addToTop = addToTop,
-            )
+            if (list.isGoogleTasks) {
+                googleTaskDao.insertAndShift(
+                    task = task,
+                    caldavTask = CaldavTask(task = task.id, calendar = list.uuid, remoteId = null),
+                    top = addToTop,
+                )
+            } else {
+                caldavDao.insert(
+                    task = task,
+                    caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
+                    addToTop = addToTop,
+                )
+            }
         }
         taskSaver.save(task, null)
         return task

@@ -358,6 +358,29 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
     }
 
     @Test
+    fun saveCreatesNewGoogleTaskWithoutARemoteId() = runTest(testDispatcher) {
+        val googleCalendar = CaldavCalendar(account = "g-acct", uuid = "g-cal", name = "Google")
+        val googleAccount = CaldavAccount(uuid = "g-acct", accountType = TYPE_GOOGLE_TASKS)
+        initializeNew()
+        viewModel.setList(CaldavFilter(calendar = googleCalendar, account = googleAccount))
+        advanceUntilIdle()
+
+        viewModel.setTitle("New Task")
+        viewModel.save()
+        advanceUntilIdle()
+
+        verify(googleTaskDao).insertAndShift(
+            task = check { assertEquals("New Task", it.title) },
+            caldavTask = check {
+                assertEquals("g-cal", it.calendar)
+                assertNull(it.remoteId)
+            },
+            top = eq(true),
+        )
+        verify(caldavDao, never()).insert(any(), any(), any())
+    }
+
+    @Test
     fun newTaskGoesToTheBottomWhenTheDefaultSaysSo() = runTest(testDispatcher) {
         stubTaskDefaults(addTasksToTop = false)
         initializeNew()

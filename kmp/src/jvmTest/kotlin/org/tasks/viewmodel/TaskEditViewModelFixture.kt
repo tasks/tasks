@@ -179,6 +179,7 @@ abstract class TaskEditViewModelFixture {
         taskDao = taskDao,
         taskSaver = taskSaver,
         caldavDao = caldavDao,
+        googleTaskDao = googleTaskDao,
         taskMover = taskMover,
         tagDao = tagDao,
         tagDataDao = tagDataDao,

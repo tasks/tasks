@@ -69,6 +69,7 @@ import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
+import org.tasks.data.dao.GoogleTaskDao
 import org.tasks.data.dao.TagDao
 import org.tasks.data.dao.TagDataDao
 import org.tasks.data.dao.TaskDao
@@ -113,6 +114,7 @@ class TaskEditViewModel(
     private val taskDao: TaskDao,
     private val taskSaver: TaskSaver,
     private val caldavDao: CaldavDao,
+    private val googleTaskDao: GoogleTaskDao,
     private val taskMover: TaskMover,
     private val tagDao: TagDao,
     private val tagDataDao: TagDataDao,
@@ -1193,11 +1195,19 @@ class TaskEditViewModel(
         if (snapshot.isNew) {
             taskDao.inTransaction {
                 taskDao.createNew(task)
-                caldavDao.insert(
-                    task = task,
-                    caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
-                    addToTop = snapshot.addTasksToTop,
-                )
+                if (list.isGoogleTasks) {
+                    googleTaskDao.insertAndShift(
+                        task = task,
+                        caldavTask = CaldavTask(task = task.id, calendar = list.uuid, remoteId = null),
+                        top = snapshot.addTasksToTop,
+                    )
+                } else {
+                    caldavDao.insert(
+                        task = task,
+                        caldavTask = CaldavTask(task = task.id, calendar = list.uuid),
+                        addToTop = snapshot.addTasksToTop,
+                    )
+                }
                 applyTagsIfNeeded(snapshot, task)
             }
             applyAlarmsIfNeeded(snapshot, task)

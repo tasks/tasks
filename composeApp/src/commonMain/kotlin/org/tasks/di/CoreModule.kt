@@ -716,6 +716,7 @@ val coreModule: Module = module {
             taskDao = get(),
             taskSaver = get(),
             caldavDao = get(),
+            googleTaskDao = get(),
             taskMover = get(),
             tagDao = get(),
             tagDataDao = get(),

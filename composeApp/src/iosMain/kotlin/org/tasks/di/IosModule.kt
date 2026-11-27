@@ -187,6 +187,7 @@ actual fun platformModule(): Module = module {
         DatabaseApiTaskFactory(
             taskDao = get(),
             caldavDao = get(),
+            googleTaskDao = get(),
             taskCreator = TaskCreator(),
             taskSaver = get(),
             defaultListProvider = get(),
