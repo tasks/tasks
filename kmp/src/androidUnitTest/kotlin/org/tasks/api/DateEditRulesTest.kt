@@ -7,7 +7,6 @@ import org.mockito.kotlin.stub
 import org.tasks.api.TasksContract.Reminders
 import org.tasks.api.TasksContract.Tasks
 import org.tasks.data.entity.Alarm
-import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_DAY
 import org.tasks.time.startOfDay
 import java.time.LocalDate
@@ -129,7 +128,7 @@ class DateEditRulesTest : ApiTestCase() {
     fun aRuleOnADatelessTaskDatesItToday() {
         val id = newTask("Water plants", Tasks.RECURRENCE to "FREQ=DAILY")
 
-        assertEquals(currentTimeMillis().startOfDay(), dueOf(id).startOfDay())
+        assertEquals(LocalDate.now().noon(), dueOf(id))
         assertEquals(1, query(Tasks.PATH, "?_id=$id").int(Tasks.DUE_ALL_DAY))
     }
 

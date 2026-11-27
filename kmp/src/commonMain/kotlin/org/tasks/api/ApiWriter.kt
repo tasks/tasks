@@ -40,7 +40,6 @@ import org.tasks.service.TaskCompleter
 import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.ONE_MINUTE
-import org.tasks.time.startOfDay
 
 class ApiWriter(
     private val apiDao: ApiDao,
@@ -191,7 +190,7 @@ class ApiWriter(
                 task.encodeStart(start?.millis ?: task.hideUntil, startAllDay ?: task.isStartAllDay())
         }
         if (values.text(Tasks.RECURRENCE)?.isNotBlank() == true && !task.hasDueDate()) {
-            task.dueDate = currentTimeMillis().startOfDay()
+            task.dueDate = createDueDate(Task.URGENCY_TODAY, 0)
         }
         values.number(Tasks.PARENT_ID)?.let { task.parent = it }
     }
