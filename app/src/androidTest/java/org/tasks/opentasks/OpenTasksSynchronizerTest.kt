@@ -76,6 +76,26 @@ class OpenTasksSynchronizerTest : OpenTasksTest() {
     }
 
     @Test
+    fun matchSyncIdWithCanonicalHost() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/tasks/")
+        openTaskDao.insertList(url = "https://EXAMPLE.com/dav/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    @Test
+    fun matchSyncIdWithEscapedPrincipal() = runBlocking {
+        val caldavAccount = insertCaldavList("https://example.com/dav/foo@example.com/tasks/")
+        openTaskDao.insertList(url = "https://example.com/dav/foo%40example.com/tasks/")
+
+        synchronizer.sync(hasPro = true)
+
+        assertEquals(listOf(caldavAccount.uuid), caldavDao.getAccounts().map { it.uuid })
+    }
+
+    @Test
     fun createAccountWhenCollectionUrlDiffers() = runBlocking {
         insertCaldavList("https://example.com/dav/tasks/")
         openTaskDao.insertList(url = "24", collectionUrl = "https://example.com/dav/other/")
