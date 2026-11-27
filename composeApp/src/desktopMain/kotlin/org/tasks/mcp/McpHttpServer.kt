@@ -65,7 +65,7 @@ class McpHttpServer(
             onStateChange(true, null)
         } catch (e: Throwable) {
             engine = null
-            onStateChange(false, e.message ?: e::class.simpleName ?: "Failed to start")
+            onStateChange(false, e.describe())
             throw e
         }
     }
@@ -195,4 +195,18 @@ class McpHttpServer(
             return MessageDigest.isEqual(da, db)
         }
     }
+}
+
+internal fun Throwable.describe(): String = causes().last().let {
+    it.message ?: it::class.simpleName ?: "Failed to start"
+}
+
+private fun Throwable.causes(): List<Throwable> {
+    val chain = mutableListOf<Throwable>()
+    var current: Throwable? = this
+    while (current != null && chain.none { it === current }) {
+        chain.add(current)
+        current = current.cause
+    }
+    return chain
 }
