@@ -67,6 +67,7 @@ import org.tasks.data.subtaskKey
 import org.tasks.data.fetchTasks
 import org.tasks.data.getDefaultAlarms
 import org.tasks.data.setDefaultReminders
+import org.tasks.data.createDueDate
 import org.tasks.data.dao.AlarmDao
 import org.tasks.data.dao.CaldavDao
 import org.tasks.data.dao.GoogleTaskDao
@@ -94,7 +95,6 @@ import org.tasks.service.TaskDeleter
 import org.tasks.time.DateTime
 import org.tasks.time.DateTimeUtils2.currentTimeMillis
 import org.tasks.time.noon
-import org.tasks.time.startOfDay
 import tasks.kmp.generated.resources.Res
 import tasks.kmp.generated.resources.no_title
 
@@ -919,7 +919,7 @@ class TaskEditViewModel(
     private fun applyRecurrence(recurrence: String?) {
         _state.update { state ->
             val dueDate = if (!recurrence.isNullOrBlank() && state.task.dueDate == 0L) {
-                currentTimeMillis().startOfDay()
+                createDueDate(Task.URGENCY_TODAY, 0)
             } else {
                 state.task.dueDate
             }

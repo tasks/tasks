@@ -1928,6 +1928,18 @@ class TaskEditViewModelTest : TaskEditViewModelFixture() {
     }
 
     @Test
+    fun aRecurrenceGivesAnUndatedTaskAnAllDayDueDateAtNoonToday() = runTest(testDispatcher) {
+        initializeNew()
+
+        viewModel.setRecurrence("FREQ=DAILY")
+        advanceUntilIdle()
+
+        val dueDate = viewModel.state.value.task.dueDate
+        assertEquals(currentTimeMillis().noon(), dueDate)
+        assertFalse(Task.hasDueTime(dueDate))
+    }
+
+    @Test
     fun aRecurrenceOnADatedTaskLeavesRemindersAlone() = runTest(testDispatcher) {
         whenever(appPreferences.defaultAlarms()).thenReturn(listOf(Alarm.whenDue(0)))
         whenever(appPreferences.isDefaultDueTimeEnabled()).thenReturn(true)

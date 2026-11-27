@@ -574,7 +574,7 @@ class TaskEditViewModel @Inject constructor(
                 task = state.task.copy(
                     recurrence = recurrence,
                     dueDate = if (recurrence?.isNotBlank() == true && task.dueDate == 0L) {
-                        currentTimeMillis().startOfDay()
+                        createDueDate(Task.URGENCY_TODAY, 0)
                     } else {
                         task.dueDate
                     }
