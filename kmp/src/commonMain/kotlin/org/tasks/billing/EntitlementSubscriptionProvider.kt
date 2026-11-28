@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flowOf
 class EntitlementSubscriptionProvider(
     private val entitlement: PurchaseEntitlement,
     debugPro: Flow<Boolean> = flowOf(false),
-    override val googleAndMicrosoftRequirePro: Boolean = false,
+    override val googleTasksRequiresPro: Boolean = false,
     private val verifyBeforeSync: Boolean = false,
 ) : SubscriptionProvider {
 

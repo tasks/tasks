@@ -25,7 +25,7 @@ interface SubscriptionProvider {
 
     suspend fun checkTier(): Boolean = false
 
-    val googleAndMicrosoftRequirePro: Boolean get() = false
+    val googleTasksRequiresPro: Boolean get() = false
 }
 
 enum class ModifySubscription {

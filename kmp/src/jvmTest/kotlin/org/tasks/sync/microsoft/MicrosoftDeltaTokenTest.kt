@@ -86,7 +86,7 @@ class MicrosoftDeltaTokenTest : DatabaseTest() {
         server.enqueue(lists())
         server.enqueue(gone(code = "SyncStateNotFound"))
 
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertNull(caldavDao.getCalendarByUuid(LIST_ID)!!.ctag)
         assertFalse(caldavDao.getAccountByUuid("account")!!.hasError)

@@ -33,8 +33,8 @@ class CompositeSubscriptionProvider(
 
     override suspend fun checkTier(): Boolean = providers.any { it.checkTier() }
 
-    override val googleAndMicrosoftRequirePro: Boolean
-        get() = providers.any { it.googleAndMicrosoftRequirePro }
+    override val googleTasksRequiresPro: Boolean
+        get() = providers.any { it.googleTasksRequiresPro }
 
     private suspend fun SubscriptionProvider.priceOrNull(sku: String): String? = try {
         getFormattedPrice(sku)

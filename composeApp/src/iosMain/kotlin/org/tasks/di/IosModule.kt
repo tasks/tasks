@@ -91,7 +91,6 @@ actual fun platformModule(): Module = module {
             supportsLogExport = true,
             billingProvider = BillingProvider.STRIPE,
             appStore = AppStore.APP_STORE,
-            thirdPartySyncRequiresPro = true,
         )
     }
     single<LogExporter> { IosLogExporter(fileLogWriter) }
@@ -207,7 +206,7 @@ actual fun platformModule(): Module = module {
                 synchronizer.sync(account, hasPro = pass.hasPro)
             }
             pass.accounts(CaldavAccount.TYPE_GOOGLE_TASKS).forEach { account ->
-                get<GoogleTasksAccountSynchronizer>().sync(account, hasPro = pass.googleAndMicrosoftPro)
+                get<GoogleTasksAccountSynchronizer>().sync(account, hasPro = pass.googleTasksPro)
             }
         }
     }

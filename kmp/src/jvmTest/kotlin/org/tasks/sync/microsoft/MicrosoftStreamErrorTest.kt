@@ -74,7 +74,7 @@ class MicrosoftStreamErrorTest : DatabaseTest() {
         server.enqueue(lists())
         server.enqueue(truncatedDelta())
 
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertEquals(
             "ErrorInternalServerError: An internal server error occurred. The operation failed. (Request ID: f7e56ad5-d9ea-46d9-9df0-325e31aa983f)",

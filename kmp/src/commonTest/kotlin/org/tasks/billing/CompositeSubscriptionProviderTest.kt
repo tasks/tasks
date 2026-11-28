@@ -269,16 +269,16 @@ class CompositeSubscriptionProviderTest {
     }
 
     @Test
-    fun oneProviderGatingThirdPartySyncGatesItForAll() {
+    fun oneProviderGatingGoogleTasksGatesItForAll() {
         assertTrue(
             CompositeSubscriptionProvider(
                 listOf(provider(null, requiresPro = false), provider(null, requiresPro = true))
-            ).googleAndMicrosoftRequirePro
+            ).googleTasksRequiresPro
         )
         assertFalse(
             CompositeSubscriptionProvider(
                 listOf(provider(null, requiresPro = false), provider(null, requiresPro = false))
-            ).googleAndMicrosoftRequirePro
+            ).googleTasksRequiresPro
         )
     }
 
@@ -344,7 +344,7 @@ class CompositeSubscriptionProviderTest {
         }
 
         override suspend fun checkTier() = tier
-        override val googleAndMicrosoftRequirePro = requiresPro
+        override val googleTasksRequiresPro = requiresPro
     }
 
     companion object {

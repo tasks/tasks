@@ -184,7 +184,7 @@ actual fun platformModule(): Module = module {
             versionCode = JvmBuildConfig.VERSION_CODE,
             billingProvider = BillingProvider.STRIPE,
             supportsPlayLinkRestore = true,
-            thirdPartySyncRequiresPro = true,
+            googleTasksRequiresPro = true,
             supportsCaldav = true,
             supportsEteSync = true,
             supportsGoogleTasks = true,
@@ -370,7 +370,7 @@ actual fun platformModule(): Module = module {
         EntitlementSubscriptionProvider(
             entitlement = get(),
             debugPro = get<TasksPreferences>().debugProFlow,
-            googleAndMicrosoftRequirePro = true,
+            googleTasksRequiresPro = true,
             verifyBeforeSync = true,
         )
     }

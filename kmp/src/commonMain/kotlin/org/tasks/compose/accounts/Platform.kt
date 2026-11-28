@@ -28,8 +28,8 @@ fun Platform.requiresPro(configuration: PlatformConfiguration): Boolean = when (
     Platform.CALDAV,
     Platform.ETEBASE,
     Platform.DAVX5 -> true
-    Platform.GOOGLE_TASKS,
-    Platform.MICROSOFT -> configuration.thirdPartySyncRequiresPro
+    Platform.GOOGLE_TASKS -> configuration.googleTasksRequiresPro
+    Platform.MICROSOFT,
     Platform.TASKS_ORG -> false
 }
 

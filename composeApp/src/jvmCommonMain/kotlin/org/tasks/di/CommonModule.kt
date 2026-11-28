@@ -133,7 +133,7 @@ val commonModule = module {
             }
             pass.accounts(TYPE_GOOGLE_TASKS).forEach { account ->
                 get<GoogleTasksAccountSynchronizer>()
-                    .sync(account, hasPro = pass.googleAndMicrosoftPro)
+                    .sync(account, hasPro = pass.googleTasksPro)
             }
             val microsoftAccounts = pass.accounts(TYPE_MICROSOFT)
             if (microsoftAccounts.isNotEmpty()) {
@@ -141,8 +141,7 @@ val commonModule = module {
                 coroutineScope {
                     microsoftAccounts.forEach { account ->
                         launch {
-                            microsoftSynchronizer
-                                .sync(account, hasPro = pass.googleAndMicrosoftPro)
+                            microsoftSynchronizer.sync(account)
                         }
                     }
                 }

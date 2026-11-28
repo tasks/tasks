@@ -92,7 +92,7 @@ class MicrosoftChecklistItemTest : DatabaseTest() {
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
 
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertEquals("", caldavDao.getAccountByUuid("account")!!.error)
         val live = taskByRemoteId("live-occurrence")
@@ -118,12 +118,12 @@ class MicrosoftChecklistItemTest : DatabaseTest() {
     fun `re-syncing shared checklist item ids does not duplicate the steps`() = runBlocking {
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
         val firstPass = taskDao.getAll().size
 
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertEquals("", caldavDao.getAccountByUuid("account")!!.error)
         assertEquals(firstPass, taskDao.getAll().size)
@@ -136,7 +136,7 @@ class MicrosoftChecklistItemTest : DatabaseTest() {
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
 
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertEquals("", caldavDao.getAccountByUuid("account")!!.error)
         assertEquals("live-occurrence-$SHARED_ITEM_ID.json", stepOf("live-occurrence").obj)
@@ -150,7 +150,7 @@ class MicrosoftChecklistItemTest : DatabaseTest() {
     fun `object names from before they were scoped are repaired`() = runBlocking {
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
         listOf("live-occurrence", "completed-occurrence").forEach { parent ->
             caldavDao.update(stepOf(parent).apply { obj = LEGACY_OBJECT_NAME })
         }
@@ -158,7 +158,7 @@ class MicrosoftChecklistItemTest : DatabaseTest() {
 
         server.enqueue(lists())
         server.enqueue(twoOccurrencesSharingAChecklistItemId())
-        synchronizer.sync(account, hasPro = true)
+        synchronizer.sync(account)
 
         assertEquals("", caldavDao.getAccountByUuid("account")!!.error)
         assertEquals(tasks, taskDao.getAll().size)

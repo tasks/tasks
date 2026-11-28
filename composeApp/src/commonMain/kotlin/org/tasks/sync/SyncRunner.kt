@@ -25,7 +25,7 @@ class SyncRunner(
     class SyncPass(
         val accounts: List<CaldavAccount>,
         val hasPro: Boolean,
-        val googleAndMicrosoftPro: Boolean,
+        val googleTasksPro: Boolean,
     ) {
         fun accounts(vararg types: Int): List<CaldavAccount> = accounts.filter { it.accountType in types }
     }
@@ -66,7 +66,7 @@ class SyncRunner(
             SyncPass(
                 accounts = accounts,
                 hasPro = hasPro,
-                googleAndMicrosoftPro = hasPro || !subscriptionProvider.googleAndMicrosoftRequirePro,
+                googleTasksPro = hasPro || !subscriptionProvider.googleTasksRequiresPro,
             )
         )
     }

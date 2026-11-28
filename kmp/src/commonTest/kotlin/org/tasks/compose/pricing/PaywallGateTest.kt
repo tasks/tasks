@@ -89,18 +89,18 @@ class PaywallGateTest {
 
     @Test
     fun proPlatformPaywallsUnlockAFeatureForExistingSubscribers() {
-        val desktop = PlatformConfiguration(billingProvider = BillingProvider.STRIPE, thirdPartySyncRequiresPro = true)
-        Platform.entries.filter { it != Platform.TASKS_ORG }.forEach {
+        val desktop = PlatformConfiguration(billingProvider = BillingProvider.STRIPE, googleTasksRequiresPro = true)
+        Platform.entries.filter { it != Platform.TASKS_ORG && it != Platform.MICROSOFT }.forEach {
             assertTrue(unlocksFeature(it.name, desktop), it.name)
         }
-        listOf(Platform.TASKS_ORG.name, "settings", "themes", "icons").forEach {
+        listOf(Platform.TASKS_ORG.name, Platform.MICROSOFT.name, "settings", "themes", "icons").forEach {
             assertFalse(unlocksFeature(it, desktop), it)
         }
     }
 
     @Test
-    fun thirdPartySyncOnlyUnlocksAFeatureWhenItRequiresPro() {
-        val android = PlatformConfiguration(billingProvider = BillingProvider.GOOGLE_PLAY, thirdPartySyncRequiresPro = false)
+    fun googleTasksOnlyUnlocksAFeatureWhenItRequiresPro() {
+        val android = PlatformConfiguration(billingProvider = BillingProvider.GOOGLE_PLAY, googleTasksRequiresPro = false)
         assertTrue(unlocksFeature(Platform.DAVX5.name, android))
         assertFalse(unlocksFeature(Platform.GOOGLE_TASKS.name, android))
         assertFalse(unlocksFeature(Platform.MICROSOFT.name, android))
