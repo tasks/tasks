@@ -8,7 +8,11 @@ import org.tasks.auth.PurchaseClaim
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOrgAccountSignInHandler
 import org.tasks.auth.TasksServerEnvironment
+import org.tasks.billing.DesktopLinkClient
+import org.tasks.billing.DesktopLinkClientImpl
+import org.tasks.billing.EntitlementProvider
 import org.tasks.billing.GitHubSponsorVerifier
+import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StripeCheckouts
 import org.tasks.billing.StripeClient
 import org.tasks.billing.StripeClientImpl
@@ -541,6 +545,24 @@ val coreModule: Module = module {
     singleOf(::TasksServerEnvironment)
     single { InstallId(get()) }
     single { TasksAccountDataRepository(getOrNull(), get(), get()) }
+    single<DesktopLinkClient> {
+        val serverEnvironment = get<TasksServerEnvironment>()
+        val purchaseEntitlement = get<PurchaseEntitlement>()
+        DesktopLinkClientImpl(
+            httpClientFactory = get(),
+            caldavUrl = { serverEnvironment.caldavUrl },
+            json = get(),
+            storeEntitlement = { jwt, refreshToken, sku, formattedPrice ->
+                purchaseEntitlement.storeEntitlement(
+                    jwt = jwt,
+                    refreshToken = refreshToken,
+                    sku = sku,
+                    formattedPrice = formattedPrice,
+                    provider = EntitlementProvider.PLAY,
+                )
+            },
+        )
+    }
     single {
         GitHubSponsorVerifier(
             httpClientFactory = get(),

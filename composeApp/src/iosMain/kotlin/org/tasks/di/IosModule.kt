@@ -91,6 +91,7 @@ actual fun platformModule(): Module = module {
             supportsLogExport = true,
             billingProvider = BillingProvider.STRIPE,
             appStore = AppStore.APP_STORE,
+            supportsPlayLinkRestore = true,
         )
     }
     single<LogExporter> { IosLogExporter(fileLogWriter) }

@@ -28,8 +28,6 @@ import org.tasks.auth.OAuthFlow
 import org.tasks.auth.SignInHandler
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.PurchaseEntitlement
-import org.tasks.billing.DesktopLinkClient
-import org.tasks.billing.DesktopLinkClientImpl
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.debugProFlow
 import org.tasks.billing.GitHubSponsorApp
@@ -372,14 +370,6 @@ actual fun platformModule(): Module = module {
             debugPro = get<TasksPreferences>().debugProFlow,
             googleTasksRequiresPro = true,
             verifyBeforeSync = true,
-        )
-    }
-    single<DesktopLinkClient> {
-        DesktopLinkClientImpl(
-            httpClientFactory = get(),
-            serverEnvironment = get(),
-            purchaseEntitlement = get(),
-            json = get(),
         )
     }
     single<GitHubSponsorClient> {

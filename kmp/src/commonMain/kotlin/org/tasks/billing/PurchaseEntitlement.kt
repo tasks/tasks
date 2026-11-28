@@ -314,11 +314,11 @@ class PurchaseEntitlement(
         terms: PurchaseTerms? = null,
         covered: Boolean = true,
     ): StoreResult = checkLock.withLock {
-        if (provider == EntitlementProvider.GITHUB_SPONSOR &&
+        if ((provider == EntitlementProvider.GITHUB_SPONSOR || provider == EntitlementProvider.PLAY) &&
             _hasPro.value &&
             _provider.value == EntitlementProvider.STRIPE
         ) {
-            logger.i { "Keeping the card subscription over a GitHub sponsorship" }
+            logger.i { "Keeping the card subscription over $provider" }
             return@withLock StoreResult.STORED
         }
         val token = refreshToken

@@ -142,6 +142,56 @@ class PurchaseEntitlementTest {
     }
 
     @Test
+    fun aGooglePlaySubscriptionDoesNotReplaceACardSubscription() = runBlocking<Unit> {
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "card-refresh",
+                sku = "monthly_03",
+                provider = EntitlementProvider.STRIPE,
+            )
+
+            val result = storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "play-refresh",
+                sku = "annual_01",
+                provider = EntitlementProvider.PLAY,
+            )
+
+            assertEquals(StoreResult.STORED, result)
+            assertEquals(EntitlementProvider.STRIPE, provider.first())
+            assertEquals("monthly_03", sku.first())
+        }
+    }
+
+    @Test
+    fun aGooglePlaySubscriptionReplacesALapsedCardSubscription() = runBlocking<Unit> {
+        entitlement().apply {
+            initialize()
+            assertTrue(awaitReady())
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "card-refresh",
+                sku = "monthly_03",
+                provider = EntitlementProvider.STRIPE,
+                covered = false,
+            )
+
+            storeEntitlement(
+                jwt = jwt(exp = now() + 30 * DAY_SECONDS),
+                refreshToken = "play-refresh",
+                sku = "annual_01",
+                provider = EntitlementProvider.PLAY,
+            )
+
+            assertTrue(hasPro.first())
+            assertEquals(EntitlementProvider.PLAY, provider.first())
+        }
+    }
+
+    @Test
     fun aGitHubSponsorshipReplacesALapsedCardSubscription() = runBlocking<Unit> {
         entitlement().apply {
             initialize()
