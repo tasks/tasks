@@ -46,13 +46,16 @@ class DesktopAppleSignInTest {
     @Test
     fun bouncesThroughTheServerCallbackBindingTheCodeToAVerifier() = runBlocking {
         var authUrl: Url? = null
-        val flow = DesktopOAuthFlow(oauthClient, TasksServerEnvironment(TasksPreferences(InMemoryDataStore()))) { url ->
+        val authorizer = OAuthAuthorizer(
+            oauthClient = oauthClient,
+            serverEnvironment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
+            redirect = LoopbackRedirect(),
+        )
+
+        val result = authorizer.authorize(OAuthProvider.APPLE, openUrl = { url ->
             authUrl = Url(url)
             launch(Dispatchers.IO) { apple(Url(url)) }
-            Unit
-        }
-
-        val result = flow.signIn(OAuthProvider.APPLE)
+        })
 
         val params = authUrl!!.parameters
         assertEquals("org.tasks.web", params["client_id"])

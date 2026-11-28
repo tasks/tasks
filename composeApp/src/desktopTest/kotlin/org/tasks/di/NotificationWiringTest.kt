@@ -13,6 +13,7 @@ import org.junit.Test
 import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.tasks.auth.SignInHandler
 import org.tasks.data.db.Database
 import org.tasks.extensions.closeQuietly
 import org.tasks.jobs.BackgroundWork
@@ -92,6 +93,13 @@ class NotificationWiringTest {
 
         koin.get<BackgroundWork>()
         assertSame(koin.get<RefreshScheduler>(), koin.get<RefreshScheduler>())
+    }
+
+    @Test
+    fun resolvesSignInHandler() {
+        val koin = start()
+
+        koin.get<SignInHandler>()
     }
 
     private fun start(): Koin =

@@ -10,38 +10,43 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 import org.tasks.analytics.Reporting
-import org.tasks.auth.AndroidSignInHandler
+import org.tasks.auth.DeviceGoogleTasksSignIn
+import org.tasks.auth.MicrosoftSignIn
 import org.tasks.auth.OAuthRedirect
+import org.tasks.auth.OAuthSignInHandler
+import org.tasks.auth.PlatformSignIn
 import org.tasks.auth.SchemeRedirect
 import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOAuthSignIn
+import org.tasks.auth.tasksOAuthSignIn
 import org.tasks.billing.CompositeSubscriptionProvider
-import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.GitHubSponsorVerifier
-import org.tasks.billing.GitHubSponsorOAuthClient
 import org.tasks.billing.EntitlementSubscriptionProvider
-import org.tasks.billing.debugProFlow
+import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.GitHubSponsorOAuthClient
+import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.StoreSubscriptionProvider
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.debugProFlow
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
+import org.tasks.compose.accounts.Platform
 import org.tasks.data.OpenTaskDao
+import org.tasks.data.db.CommonMigrations
+import org.tasks.data.db.Database
+import org.tasks.data.db.setBundledDriver
 import org.tasks.etebase.EtebaseClientProvider
 import org.tasks.googleapis.GoogleTasksCredentialsProvider
 import org.tasks.gtasks.AccountManagerCredentials
 import org.tasks.gtasks.GoogleAccountManager
 import org.tasks.gtasks.GoogleAccountPicker
-import org.tasks.opentasks.OpenTasksSyncer
-import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.http.AndroidOkHttpClientFactory
 import org.tasks.http.OkHttpClientFactory
-import org.tasks.auth.tasksOAuthSignIn
-import org.tasks.data.db.CommonMigrations
-import org.tasks.data.db.Database
-import org.tasks.data.db.setBundledDriver
 import org.tasks.kmp.createDataStore
 import org.tasks.notifications.CancelReason
 import org.tasks.notifications.Notifier
+import org.tasks.opentasks.OpenTasksSyncer
+import org.tasks.opentasks.OpenTasksSynchronizer
 import org.tasks.preferences.TasksPreferences
 import org.tasks.security.AndroidKeyStoreEncryption
 import org.tasks.security.KeyStoreEncryption
@@ -110,12 +115,23 @@ actual fun platformModule(): Module = module {
     single<GoogleTasksCredentialsProvider> { AccountManagerCredentials(get()) }
     single { GoogleAccountPicker(androidContext(), get()) }
     factory<SignInHandler>(PlatformSignInHandler) {
-        AndroidSignInHandler(
-            signIn = get(),
-            microsoftSignIn = getOrNull(),
-            googleAccountPicker = get(),
-            caldavDao = get(),
-            analytics = get<Reporting>(),
+        val microsoftSignIn = getOrNull<MicrosoftSignIn>()
+        OAuthSignInHandler(
+            signIn = get<TasksOAuthSignIn>(),
+            oauthPlatforms = setOf(Platform.TASKS_ORG),
+            platformSignIns = buildMap {
+                put(
+                    Platform.GOOGLE_TASKS,
+                    DeviceGoogleTasksSignIn(
+                        googleAccountPicker = get(),
+                        caldavDao = get(),
+                        analytics = get<Reporting>(),
+                    ),
+                )
+                if (microsoftSignIn != null) {
+                    put(Platform.MICROSOFT, PlatformSignIn { loginHint, _ -> microsoftSignIn.signIn(loginHint) })
+                }
+            },
         )
     }
     single<Database> {

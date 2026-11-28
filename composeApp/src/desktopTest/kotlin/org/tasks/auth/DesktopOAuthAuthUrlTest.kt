@@ -47,13 +47,13 @@ class DesktopOAuthAuthUrlTest {
     }
 
     private suspend fun authUrl(provider: OAuthProvider, loginHint: String? = null): Url {
-        val flow = DesktopOAuthFlow(
+        val authorizer = OAuthAuthorizer(
             oauthClient = oauthClient,
             serverEnvironment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
-            openUrl = { url -> throw BrowserOpened(Url(url)) },
+            redirect = LoopbackRedirect(),
         )
         return try {
-            flow.signIn(provider, loginHint = loginHint)
+            authorizer.authorize(provider, openUrl = { url -> throw BrowserOpened(Url(url)) }, loginHint = loginHint)
             throw AssertionError("The browser was never opened")
         } catch (e: BrowserOpened) {
             e.url

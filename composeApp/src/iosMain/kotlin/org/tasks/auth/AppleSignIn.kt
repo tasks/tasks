@@ -42,8 +42,9 @@ class AppleSignIn {
                 nonce = nonceHash
             }
             val controller = ASAuthorizationController(authorizationRequests = listOf(request))
-            val delegate = Delegate { result ->
-                inFlight = null
+            lateinit var delegate: Delegate
+            delegate = Delegate { result ->
+                if (inFlight === delegate) inFlight = null
                 if (continuation.isActive) {
                     continuation.resumeWith(result)
                 }
@@ -51,7 +52,7 @@ class AppleSignIn {
             inFlight = delegate
             controller.delegate = delegate
             controller.presentationContextProvider = delegate
-            continuation.invokeOnCancellation { inFlight = null }
+            continuation.invokeOnCancellation { if (inFlight === delegate) inFlight = null }
             controller.performRequests()
         }
     }

@@ -4,28 +4,15 @@ import co.touchlab.kermit.Logger
 import kotlinx.serialization.json.jsonPrimitive
 import okio.ByteString.Companion.encodeUtf8
 
-private const val TAG = "IosOAuthFlow"
+private const val TAG = "AppleAuthorizer"
 
-class IosOAuthFlow(
+class AppleAuthorizer(
     private val oauthClient: TasksOAuthClient,
     private val serverEnvironment: TasksServerEnvironment,
-    redirect: OAuthRedirect,
     private val appleSignIn: AppleSignIn = AppleSignIn(),
-) : OAuthFlow {
-    private val authorizer = OAuthAuthorizer(oauthClient, serverEnvironment, redirect)
+) : NativeAuthorizer {
 
-    override suspend fun signIn(
-        provider: OAuthProvider,
-        authHeader: String?,
-        loginHint: String?,
-    ): OAuthResult =
-        if (provider == OAuthProvider.APPLE) {
-            signInWithApple(provider, authHeader)
-        } else {
-            authorizer.authorize(provider, openUrl = {}, loginHint = loginHint, authHeader = authHeader)
-        }
-
-    private suspend fun signInWithApple(provider: OAuthProvider, authHeader: String?): OAuthResult {
+    override suspend fun authorize(provider: OAuthProvider, authHeader: String?): OAuthResult {
         val discoveryUrl = "${serverEnvironment.caldavUrl}${provider.ios.discoveryPath}"
         Logger.d(TAG) { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)

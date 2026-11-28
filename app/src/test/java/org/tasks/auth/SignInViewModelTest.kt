@@ -80,7 +80,7 @@ class SignInViewModelTest {
         viewModel.signIn(OAuthProvider.GITHUB, loginHint = null)
 
         assertEquals(State.Authorizing, viewModel.state.value)
-        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull()) }
+        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull(), anyOrNull()) }
     }
 
     @Test
@@ -122,7 +122,7 @@ class SignInViewModelTest {
         viewModel.retryAfterPurchase()
 
         assertEquals(State.Finished(Outcome.Created), viewModel.state.value)
-        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull()) }
+        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull(), anyOrNull()) }
         verifyBlocking(signIn, times(2)) { createAccount(eq(OAuthProvider.GOOGLE), eq(authorization)) }
     }
 
@@ -193,7 +193,7 @@ class SignInViewModelTest {
 
         viewModel.retry(OAuthProvider.GITHUB, "bob@example.com")
 
-        verifyBlocking(signIn) { authorize(eq(OAuthProvider.GITHUB), any(), eq("bob@example.com")) }
+        verifyBlocking(signIn) { authorize(eq(OAuthProvider.GITHUB), any(), eq("bob@example.com"), anyOrNull()) }
         assertEquals(State.Finished(Outcome.Created), viewModel.state.value)
     }
 
@@ -205,7 +205,7 @@ class SignInViewModelTest {
 
         viewModel.retry(OAuthProvider.GITHUB, "bob@example.com")
 
-        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull()) }
+        verifyBlocking(signIn, times(1)) { authorize(any(), any(), anyOrNull(), anyOrNull()) }
         assertEquals(State.WrongAccount("b**@e**.com"), viewModel.state.value)
     }
 
@@ -213,7 +213,7 @@ class SignInViewModelTest {
         authorize: suspend () -> OAuthResult = { authorization },
         createAccount: suspend () -> CaldavAccount = { account },
     ): TasksOAuthSignIn = mock {
-        onBlocking { authorize(any(), any(), anyOrNull()) } doSuspendableAnswer { authorize() }
+        onBlocking { authorize(any(), any(), anyOrNull(), anyOrNull()) } doSuspendableAnswer { authorize() }
         onBlocking { createAccount(any(), any()) } doSuspendableAnswer { createAccount() }
     }
 

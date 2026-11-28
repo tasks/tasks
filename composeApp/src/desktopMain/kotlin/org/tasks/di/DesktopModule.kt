@@ -6,6 +6,7 @@ import at.bitfire.cert4android.DesktopCertStore
 import at.bitfire.cert4android.DesktopUserDecisionRegistry
 import com.todoroo.astrid.alarms.AlarmService
 import com.todoroo.astrid.service.CommonUpgrades
+import java.io.File
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -21,38 +22,42 @@ import org.tasks.api.ApiTaskFactory
 import org.tasks.api.ApiWriter
 import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
-import org.tasks.auth.DesktopOAuthFlow
-import org.tasks.auth.DesktopSignInHandler
 import org.tasks.auth.LoopbackRedirect
-import org.tasks.auth.OAuthFlow
+import org.tasks.auth.OAuthSignInHandler
+import org.tasks.auth.OAuthTokenStore
 import org.tasks.auth.SignInHandler
+import org.tasks.auth.TasksOAuthSignIn
+import org.tasks.auth.bringAppToForeground
+import org.tasks.auth.oauthClient
 import org.tasks.billing.BillingProvider
-import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.EntitlementSubscriptionProvider
-import org.tasks.billing.debugProFlow
 import org.tasks.billing.GitHubSponsorApp
 import org.tasks.billing.GitHubSponsorClient
-import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.GitHubSponsorOAuthClient
+import org.tasks.billing.GitHubSponsorVerifier
+import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.debugProFlow
+import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
+import org.tasks.compose.accounts.Platform as AccountPlatform
 import org.tasks.data.TaskCreator
+import org.tasks.data.dao.CaldavDao
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
-import org.tasks.data.dao.CaldavDao
 import org.tasks.etebase.EtebaseClientProvider
-import org.tasks.googleapis.GoogleTasksCredentials
-import org.tasks.googleapis.GoogleTasksCredentialsProvider
+import org.tasks.extensions.desktopOpenUrl
 import org.tasks.extensions.supportsSystemNotificationSettings
 import org.tasks.fcm.FcmTokenProvider
+import org.tasks.googleapis.GoogleTasksCredentials
+import org.tasks.googleapis.GoogleTasksCredentialsProvider
+import org.tasks.googleapis.ProxyAuthProvider
+import org.tasks.http.DesktopCookieStorage
 import org.tasks.http.DesktopOkHttpClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.http.OkHttpClientFactory
-import org.tasks.auth.oauthClient
-import org.tasks.http.DesktopCookieStorage
-import org.tasks.auth.OAuthTokenStore
 import org.tasks.kmp.JvmBuildConfig
 import org.tasks.kmp.createDataStore
 import org.tasks.kmp.dataStoreFileName
@@ -76,10 +81,9 @@ import org.tasks.service.TaskCleanup
 import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
 import org.tasks.sse.SseTokenProvider
-import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
 import org.tasks.sync.microsoft.MicrosoftClientProvider
+import org.tasks.sync.microsoft.OkHttpMicrosoftClientProvider
 import org.tasks.sync.microsoft.asMicrosoftTokenSource
-import java.io.File
 
 internal val appName: String =
     if (JvmBuildConfig.DEBUG) "Tasks.org.debug" else "Tasks.org"
@@ -212,15 +216,36 @@ actual fun platformModule(): Module = module {
             cookieDir = cookieDir,
         )
     }
-    factory<OAuthFlow> {
-        DesktopOAuthFlow(
-            oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
+    factory {
+        TasksOAuthSignIn(
+            caldavDao = get(),
+            encryption = get<KeyStoreEncryption>(),
             serverEnvironment = get(),
+            clientFactory = get<CaldavClientProvider>(),
+            purchaseClaim = get(),
+            pushTokenManager = get(),
+            analytics = get<Reporting>(),
+            oauthClient = get<OkHttpClientFactory>().oauthClient(foreground = true),
+            redirect = LoopbackRedirect(),
         )
     }
-    factoryOf(::DesktopSignInHandler) {
-        qualifier = PlatformSignInHandler
-    } bind SignInHandler::class
+    factory<SignInHandler>(PlatformSignInHandler) {
+        val proxyAuthProvider = get<ProxyAuthProvider>()
+        OAuthSignInHandler(
+            signIn = get<TasksOAuthSignIn>(),
+            oauthPlatforms = setOf(AccountPlatform.TASKS_ORG, AccountPlatform.GOOGLE_TASKS, AccountPlatform.MICROSOFT),
+            openUrl = ::desktopOpenUrl,
+            authHeader = { platform ->
+                if (platform == AccountPlatform.GOOGLE_TASKS) {
+                    proxyAuthProvider.getAuthHeader()
+                        ?: throw Exception("Sign in to tasks.org or link your desktop to use Google Tasks")
+                } else {
+                    null
+                }
+            },
+            afterAuthorized = ::bringAppToForeground,
+        )
+    }
     single<MicrosoftClientProvider> {
         val encryption = get<KeyStoreEncryption>()
         val caldavDao = get<CaldavDao>()

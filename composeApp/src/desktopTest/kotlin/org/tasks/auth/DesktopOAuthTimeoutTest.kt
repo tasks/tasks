@@ -34,14 +34,15 @@ class DesktopOAuthTimeoutTest {
     @Test
     fun givesUpWhenTheBrowserNeverComesBack() = runBlocking {
         var authUrl: Url? = null
-        val flow = DesktopOAuthFlow(
+        val authorizer = OAuthAuthorizer(
             oauthClient = oauthClient,
             serverEnvironment = TasksServerEnvironment(TasksPreferences(InMemoryDataStore())),
-            callbackTimeoutMillis = 100,
-            openUrl = { url -> authUrl = Url(url) },
+            redirect = LoopbackRedirect(timeoutMillis = 100),
         )
 
-        val failure = runCatching { flow.signIn(OAuthProvider.MICROSOFT) }.exceptionOrNull()
+        val failure = runCatching {
+            authorizer.authorize(OAuthProvider.MICROSOFT, openUrl = { url -> authUrl = Url(url) })
+        }.exceptionOrNull()
 
         assertTrue("expected an IOException, got $failure", failure is IOException)
         assertEquals("Timed out waiting for the sign-in to finish", failure?.message)

@@ -22,33 +22,32 @@ import org.tasks.api.ApiWriter
 import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.api.LocalListManager
+import org.tasks.auth.AppleAuthorizer
 import org.tasks.auth.AuthSessionRedirect
-import org.tasks.auth.IosOAuthFlow
-import org.tasks.auth.IosSignInHandler
-import org.tasks.auth.OAuthFlow
+import org.tasks.auth.OAuthProvider
 import org.tasks.auth.OAuthRedirect
+import org.tasks.auth.OAuthSignInHandler
+import org.tasks.auth.OAuthTokenStore
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.auth.TasksOAuthSignIn
 import org.tasks.auth.authenticate
+import org.tasks.auth.oauthDefaults
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
 import org.tasks.billing.GitHubSponsorClient
 import org.tasks.billing.GitHubSponsorOAuthClient
 import org.tasks.billing.GitHubSponsorVerifier
-import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.SubscriptionProvider
+import org.tasks.billing.debugProFlow
 import org.tasks.caldav.CaldavClientFactory
 import org.tasks.caldav.CaldavClientProvider
 import org.tasks.caldav.CaldavSynchronizer
 import org.tasks.caldav.FileStorage
 import org.tasks.caldav.VtodoCache
+import org.tasks.compose.accounts.Platform
 import org.tasks.data.TaskCreator
-import org.tasks.googleapis.GoogleTasksAccountSynchronizer
-import org.tasks.googleapis.KtorGoogleTasksApiFactory
-import org.tasks.googleapis.OAuthTokenAccountAccess
-import org.tasks.auth.OAuthTokenStore
-import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import org.tasks.data.db.CommonMigrations
 import org.tasks.data.db.Database
 import org.tasks.data.db.setBundledDriver
@@ -56,7 +55,9 @@ import org.tasks.data.entity.CaldavAccount
 import org.tasks.data.entity.Task
 import org.tasks.fcm.ApnsTokenProvider
 import org.tasks.fcm.FcmTokenProvider
-import org.tasks.auth.oauthDefaults
+import org.tasks.googleapis.GoogleTasksAccountSynchronizer
+import org.tasks.googleapis.KtorGoogleTasksApiFactory
+import org.tasks.googleapis.OAuthTokenAccountAccess
 import org.tasks.http.DarwinKtorClientFactory
 import org.tasks.http.KtorClientFactory
 import org.tasks.jobs.BackgroundWork
@@ -77,6 +78,7 @@ import org.tasks.service.Upgrader
 import org.tasks.sse.SseClient
 import org.tasks.sync.SyncRunner
 import org.tasks.sync.SyncSource
+import org.tasks.viewmodel.GoogleTaskListSettingsViewModel
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
@@ -142,7 +144,20 @@ actual fun platformModule(): Module = module {
         val factory = get<KtorClientFactory>()
         TasksOAuthClient { factory.newClient { oauthDefaults() } }
     }
-    factory<OAuthFlow> { IosOAuthFlow(get(), get(), get()) }
+    single {
+        TasksOAuthSignIn(
+            caldavDao = get(),
+            encryption = get(),
+            serverEnvironment = get(),
+            clientFactory = get(),
+            purchaseClaim = get(),
+            pushTokenManager = get(),
+            analytics = get<Reporting>(),
+            oauthClient = get(),
+            redirect = get(),
+            nativeAuthorizers = mapOf(OAuthProvider.APPLE to AppleAuthorizer(get(), get())),
+        )
+    }
     single {
         KtorGoogleTasksApiFactory(
             httpClientFactory = get(),
@@ -187,7 +202,10 @@ actual fun platformModule(): Module = module {
         )
     }
     factory<SignInHandler>(PlatformSignInHandler) {
-        IosSignInHandler(get(), get(), get(), get(), get(), get(), get(), get())
+        OAuthSignInHandler(
+            signIn = get<TasksOAuthSignIn>(),
+            oauthPlatforms = setOf(Platform.TASKS_ORG, Platform.GOOGLE_TASKS),
+        )
     }
     single {
         PurchaseEntitlement(
