@@ -2,11 +2,12 @@ package org.tasks.auth
 
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import kotlinx.io.IOException
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import org.tasks.TasksBuildConfig
-import java.io.IOException
 
 class OAuthAuthorizer(
     private val oauthClient: TasksOAuthClient,
@@ -22,7 +23,8 @@ class OAuthAuthorizer(
         authHeader: String? = null,
     ): OAuthResult = withContext(Dispatchers.IO) {
         val client = redirect.client(provider)
-        val discoveryUrl = provider.discoveryUrl
+        val discoveryUrl = client.discoveryUrl
+            ?: provider.discoveryUrl
             ?: "${serverEnvironment.caldavUrl}${client.discoveryPath}"
         logger.d { "Fetching discovery from $discoveryUrl" }
         val discovery = oauthClient.fetchDiscovery(discoveryUrl, authHeader)

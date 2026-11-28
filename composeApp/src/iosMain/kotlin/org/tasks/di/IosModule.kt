@@ -142,7 +142,7 @@ actual fun platformModule(): Module = module {
         val factory = get<KtorClientFactory>()
         TasksOAuthClient { factory.newClient { oauthDefaults() } }
     }
-    factory<OAuthFlow> { IosOAuthFlow(get(), get()) }
+    factory<OAuthFlow> { IosOAuthFlow(get(), get(), get()) }
     single {
         KtorGoogleTasksApiFactory(
             httpClientFactory = get(),

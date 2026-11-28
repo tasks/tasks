@@ -5,13 +5,11 @@ package org.tasks.auth
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.job
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.io.IOException
 import kotlin.concurrent.atomics.AtomicReference
 import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
 class AuthSessionRedirect(
-    private val timeoutMillis: Long = REDIRECT_TIMEOUT_MILLIS,
     private val authenticate: suspend (authUrl: String, callbackScheme: String) -> String,
 ) : OAuthRedirect {
     private class Session(val authUrl: String, val job: Job)
@@ -30,11 +28,9 @@ class AuthSessionRedirect(
             ?: throw IOException("${app.issuer} sign-in is not configured for this build")
         val url = authUrl(redirectUri)
         val current = Session(url, currentCoroutineContext().job)
-        session.store(current)
+        session.exchange(current)?.job?.cancel()
         try {
-            val callback = withTimeoutOrNull(timeoutMillis) {
-                authenticate(url, redirectUri.substringBefore(':'))
-            } ?: throw IOException("Timed out waiting for the sign-in to finish")
+            val callback = authenticate(url, redirectUri.substringBefore(':'))
             return RedirectResult(redirectUri, callback.redirectParams())
         } finally {
             session.compareAndSet(current, null)

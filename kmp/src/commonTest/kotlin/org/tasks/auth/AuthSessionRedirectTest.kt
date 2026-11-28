@@ -115,20 +115,45 @@ class AuthSessionRedirectTest {
     }
 
     @Test
-    fun aSessionThatNeverFinishesTimesOutAndIsDismissed() = runTest {
+    fun aNewSignInDismissesASessionThatNeverFinished() = runTest {
         var dismissed = false
-        val redirect = AuthSessionRedirect(timeoutMillis = 1_000) { _, _ ->
-            try {
-                awaitCancellation()
-            } finally {
-                dismissed = true
+        var sessions = 0
+        val redirect = AuthSessionRedirect { url, _ ->
+            if (++sessions == 1) {
+                try {
+                    awaitCancellation()
+                } finally {
+                    dismissed = true
+                }
             }
+            "$sponsorRedirect?code=c&state=${Url(url).parameters["state"]}"
         }
+        val first = async {
+            redirect.await(GitHubSponsorApp, {}, { "https://example.org/a?state=1" }, { "1" })
+        }
+        runCurrent()
 
-        assertFailsWith<IOException> {
-            redirect.await(GitHubSponsorApp, {}, { it }, { null })
-        }
+        val second = redirect.await(GitHubSponsorApp, {}, { "https://example.org/b?state=2" }, { "2" })
+        runCurrent()
+
+        assertEquals("c", second.authorizedCode("2"))
         assertTrue(dismissed)
+        assertTrue(first.isCancelled)
+    }
+
+    @Test
+    fun aReplacedSessionLeavesItsReplacementReopenable() = runTest {
+        val redirect = redirect { awaitCancellation() }
+        val first = launch { redirect.await(GitHubSponsorApp, {}, { "https://example.org/a" }, { null }) }
+        runCurrent()
+        val second = launch { redirect.await(GitHubSponsorApp, {}, { "https://example.org/b" }, { null }) }
+        runCurrent()
+
+        assertTrue(first.isCancelled)
+        assertTrue(second.isActive)
+        redirect.reopen({}, "https://example.org/b")
+        runCurrent()
+        assertTrue(second.isCancelled)
     }
 
     @Test
