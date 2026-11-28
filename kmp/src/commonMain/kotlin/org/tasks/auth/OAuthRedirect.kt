@@ -1,7 +1,8 @@
 package org.tasks.auth
 
-import java.io.IOException
-import java.net.URLDecoder
+import io.ktor.http.URLDecodeException
+import io.ktor.http.decodeURLQueryComponent
+import kotlinx.io.IOException
 
 private const val PARAM_CODE = "code"
 private const val PARAM_STATE = "state"
@@ -70,13 +71,15 @@ suspend fun OAuthRedirect.awaitAuthorization(
 
 internal fun String.redirectParams(): Map<String, String> =
     substringAfter("?", "")
+        .substringBefore("#")
         .split("&")
         .filter { it.contains("=") }
         .mapNotNull {
             val (key, value) = it.split("=", limit = 2)
             try {
-                key to URLDecoder.decode(value, "UTF-8")
-            } catch (e: IllegalArgumentException) {
+                key.decodeURLQueryComponent(plusIsSpace = true) to
+                        value.decodeURLQueryComponent(plusIsSpace = true)
+            } catch (e: URLDecodeException) {
                 null
             }
         }

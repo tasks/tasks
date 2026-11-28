@@ -10,6 +10,7 @@ class GoogleTasksRegisteredClientTest {
         assertEquals(
             RegisteredClient(
                 clientId = OAuthProvider.GOOGLE.ios.clientId,
+                redirectUri = OAuthProvider.GOOGLE.ios.redirectUri,
                 discoveryUrl = "https://accounts.google.com/.well-known/openid-configuration",
             ),
             OAuthProvider.GOOGLE_TASKS.ios,

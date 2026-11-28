@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalAtomicApi::class)
+
 package org.tasks.billing
 
 import co.touchlab.kermit.Logger
@@ -6,19 +8,18 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.tasks.auth.OAuthApp
+import kotlinx.io.IOException
 import org.tasks.auth.OAuthRedirect
-import org.tasks.auth.RegisteredClient
-import java.io.IOException
-import java.security.SecureRandom
-import java.util.Base64
-import java.util.concurrent.atomic.AtomicReference
+import org.tasks.auth.PKCE
+import kotlin.concurrent.atomics.AtomicReference
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
 
 class GitHubSponsorOAuthClient(
     private val verify: suspend (code: String, redirectUri: String) -> GitHubSponsorClient.VerifyResult,
@@ -29,18 +30,20 @@ class GitHubSponsorOAuthClient(
     private val lock = Mutex()
     private var attempt: Deferred<GitHubSponsorClient.VerifyResult>? = null
 
-    @Volatile
-    private var attemptUrl: String? = null
+    private val attemptUrl = AtomicReference<String?>(null)
 
-    private val callerOpenUrl = AtomicReference<((String) -> Unit)?>()
+    private val callerOpenUrl = AtomicReference<((String) -> Unit)?>(null)
 
     override suspend fun signIn(openUrl: (String) -> Unit): GitHubSponsorClient.VerifyResult {
-        callerOpenUrl.set(openUrl)
+        callerOpenUrl.store(openUrl)
         return try {
             val pending = lock.withLock {
-                attempt?.takeIf { it.isActive }?.also { reopenBrowser(openUrl) }
+                attempt
+                    ?.takeIf { it.isActive }
+                    ?.also { reopenBrowser(openUrl) }
+                    ?.takeIf { it.isActive }
                     ?: run {
-                        attemptUrl = null
+                        attemptUrl.store(null)
                         scope.async { awaitAuthorization() }.also { attempt = it }
                     }
             }
@@ -58,19 +61,23 @@ class GitHubSponsorOAuthClient(
     }
 
     private suspend fun awaitAuthorization(): GitHubSponsorClient.VerifyResult {
-        val state = generateState()
+        val state = PKCE.generateVerifier()
+        var issuedUrl: String? = null
         val result = try {
             redirect.await(
                 app = GitHubSponsorApp,
                 openUrl = { url -> callerOrAbandoned()(url) },
                 authUrl = { redirectUri ->
                     callerOrAbandoned()
-                    authorizationUrl(redirectUri, state).also { attemptUrl = it }
+                    authorizationUrl(redirectUri, state).also {
+                        issuedUrl = it
+                        attemptUrl.store(it)
+                    }
                 },
                 expectedState = { state },
             )
         } finally {
-            attemptUrl = null
+            issuedUrl?.let { attemptUrl.compareAndSet(it, null) }
         }
         val failure = result.failure(state)
         val code = result.code
@@ -82,10 +89,10 @@ class GitHubSponsorOAuthClient(
     }
 
     private fun callerOrAbandoned(): (String) -> Unit =
-        callerOpenUrl.get() ?: throw IOException("The sign-in was abandoned")
+        callerOpenUrl.load() ?: throw IOException("The sign-in was abandoned")
 
     private fun reopenBrowser(openUrl: (String) -> Unit) {
-        val url = attemptUrl ?: return
+        val url = attemptUrl.load() ?: return
         try {
             redirect.reopen(openUrl, url)
         } catch (e: Exception) {
@@ -104,27 +111,8 @@ class GitHubSponsorOAuthClient(
         append("&prompt=select_account")
     }
 
-    private fun generateState(): String {
-        val bytes = ByteArray(STATE_BYTES)
-        SecureRandom().nextBytes(bytes)
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes)
-    }
-
     companion object {
         private const val TAG = "GitHubSponsorClient"
         private const val GITHUB_AUTHORIZE_URL = "https://github.com/login/oauth/authorize"
-        private const val STATE_BYTES = 32
     }
-}
-
-object GitHubSponsorApp : OAuthApp {
-    private const val CLIENT_ID = "Ov23limM74bOgBgCBrJ5"
-    override val issuer = "GitHub sponsor"
-    const val LOOPBACK_PATH = "/callback"
-    override val desktop = RegisteredClient(clientId = CLIENT_ID)
-    override val ios = RegisteredClient(clientId = CLIENT_ID)
-    override val android = RegisteredClient(
-        clientId = CLIENT_ID,
-        redirectUri = "org.tasks.github.sponsor://oauth2redirect",
-    )
 }

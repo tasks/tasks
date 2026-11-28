@@ -22,13 +22,19 @@ import org.tasks.api.ApiWriter
 import org.tasks.api.DatabaseApiTaskFactory
 import org.tasks.api.ListManager
 import org.tasks.api.LocalListManager
+import org.tasks.auth.AuthSessionRedirect
 import org.tasks.auth.IosOAuthFlow
 import org.tasks.auth.IosSignInHandler
 import org.tasks.auth.OAuthFlow
+import org.tasks.auth.OAuthRedirect
 import org.tasks.auth.SignInHandler
 import org.tasks.auth.TasksOAuthClient
+import org.tasks.auth.authenticate
 import org.tasks.billing.BillingProvider
 import org.tasks.billing.EntitlementSubscriptionProvider
+import org.tasks.billing.GitHubSponsorClient
+import org.tasks.billing.GitHubSponsorOAuthClient
+import org.tasks.billing.GitHubSponsorVerifier
 import org.tasks.billing.debugProFlow
 import org.tasks.billing.PurchaseEntitlement
 import org.tasks.billing.SubscriptionProvider
@@ -193,6 +199,13 @@ actual fun platformModule(): Module = module {
             json = get(),
             syncAdapters = { get() },
         ).also { it.initialize() }
+    }
+    single<OAuthRedirect> { AuthSessionRedirect(authenticate = ::authenticate) }
+    single<GitHubSponsorClient> {
+        GitHubSponsorOAuthClient(
+            verify = get<GitHubSponsorVerifier>()::verify,
+            redirect = get(),
+        )
     }
     single<SubscriptionProvider> {
         EntitlementSubscriptionProvider(

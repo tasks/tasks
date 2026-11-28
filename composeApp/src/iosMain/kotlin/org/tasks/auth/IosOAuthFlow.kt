@@ -105,7 +105,7 @@ private class KeyWindowProvider : NSObject(), ASWebAuthenticationPresentationCon
 }
 
 @OptIn(ExperimentalForeignApi::class)
-private suspend fun authenticate(authUrl: String, callbackScheme: String): String = withContext(Dispatchers.Main) {
+internal suspend fun authenticate(authUrl: String, callbackScheme: String): String = withContext(Dispatchers.Main) {
     val contextProvider = KeyWindowProvider()
     suspendCancellableCoroutine { continuation ->
         val session = ASWebAuthenticationSession(
